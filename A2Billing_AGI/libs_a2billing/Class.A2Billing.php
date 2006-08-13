@@ -1879,8 +1879,7 @@ class A2Billing {
 			$datasource = 'pgsql://'.$this->config["database"]['user'].':'.$this->config["database"]['password'].'@'.$this->config["database"]['hostname'].'/'.$this->config["database"]['dbname'];
 		}else{
 			$datasource = 'mysql://'.$this->config["database"]['user'].':'.$this->config["database"]['password'].'@'.$this->config["database"]['hostname'].'/'.$this->config["database"]['dbname'];
-		}	
-		$agi->verbose($datasource);	
+		}		
 		$this->DBHandle = NewADOConnection($datasource);
 		if (!$this->DBHandle) return false;
 				
