@@ -15,6 +15,15 @@ if (! has_rights (ACX_ACCESS)){
 $HD_Form -> setDBHandler (DbConnect());
 $HD_Form -> init();
 
+$FG_LIMITE_DISPLAY=10;
+if (isset($mydisplaylimit) && (is_numeric($mydisplaylimit) || ($mydisplaylimit=='ALL'))){
+	if ($mydisplaylimit=='ALL'){
+		$FG_LIMITE_DISPLAY=5000;
+	}else{
+		$FG_LIMITE_DISPLAY=$mydisplaylimit;
+	}
+}
+
 if ($id!="" || !is_null($id)){
 	$HD_Form -> FG_EDITION_CLAUSE = str_replace("%id", "$id", $HD_Form -> FG_EDITION_CLAUSE);
 }
