@@ -16,6 +16,12 @@
                    			TODO LIST - SPECIFIC
 ********************************************************************************
 
+
+#### BUG
+********************************************************************
+In the customer interface after purchasing a DID and assigning a
+Destination for one calling card account I login to another calling card account and the DID is still in the drop down box available for purchase. Is this a bug or an installation error?
+
 #### BUG
 ********************************************************************
 
