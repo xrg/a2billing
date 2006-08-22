@@ -17,6 +17,18 @@
 ********************************************************************************
 
 
+
+#### BUG
+********************************************************************
+22 Aug 2006
+ subject: voucher list in web customer problem with Firefox 	Reply with quote
+I've the last version of A2Billing and I've Firefox.
+In the web Customer page i can't see the dialog box to insert the voucher, here:
+http://...../A2B_entity_voucher.php?form_action=list
+All OK with Internet Explorer.
+Can you test in your Firefox Browser? 
+
+
 #### BUG
 ********************************************************************
 In the customer interface after purchasing a DID and assigning a
