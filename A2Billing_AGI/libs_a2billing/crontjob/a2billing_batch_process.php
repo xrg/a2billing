@@ -19,14 +19,14 @@
 ****************************************************************************/
 	set_time_limit(0);
 	error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
-	//dl("pgsql.so"); // remove "extension= pgsql.so !	
+	//dl("pgsql.so"); // remove "extension= pgsql.so !
 	
 	include (dirname(__FILE__)."/../defines.php");
 	include (dirname(__FILE__)."/../db_php_lib/Class.Table.php");
 	include (dirname(__FILE__)."/../Class.A2Billing.php");
-
 	
-    $verbose_level=0;
+	
+	$verbose_level=0;
 	
 	$groupcard=5000;
 	
@@ -35,6 +35,12 @@
 			$string_log = "[".date("d/m/Y H:i:s")."]:$output\n";
 			error_log ($string_log, 3, BATCH_LOG_FILE);
 						
+	}
+	
+	if ($A2B->config["database"]['dbtype'] == "postgres"){
+	        $UNIX_TIMESTAMP = "date_part('epoch',";
+	}else{
+	        $UNIX_TIMESTAMP = "UNIX_TIMESTAMP(";
 	}
 	
 	write_log("[#### BATCH BEGIN ####]");
@@ -67,14 +73,12 @@
 	}
 	
 	
-	if ($A2B->config["database"]['dbtype'] == "postgres"){		
-		$UNIX_TIMESTAMP = "date_part('epoch',";
-	}else{
-		$UNIX_TIMESTAMP = "UNIX_TIMESTAMP(";
-	}
+	
+	
 	// CHECK THE SERVICES
-	$QUERY = "SELECT id, name, amount, period, rule, daynumber, stopmode, maxnumbercycle, status, numberofrun, datecreate, 
-	$UNIX_TIMESTAMP datelastrun), emailreport, totalcredit,totalcardperform FROM cc_service WHERE status=1";
+	$QUERY = 'SELECT id, name, amount, period, rule, daynumber, stopmode, maxnumbercycle, status, numberofrun, datecreate, 
+	$UNIX_TIMESTAMP datelastrun, emailreport, totalcredit,totalcardperform FROM cc_service WHERE status=1';
+
 	$result = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY);
 	
 	if ($verbose_level>=1) print_r ($result);
@@ -91,9 +95,13 @@
 	
 	$oneday = 60*60*24;
 	
-	
+// mail variable for user notification
+	$user_mail_adrr="";
+        $mail_user=false;
+	$mail_user_content="";
+
 	// BROWSE THROUGH THE SERVICES 
-	foreach ($result as $myservice){
+	foreach ($result as $myservice) {
 	
 		$totalcardperform = 0;
 		$totalcredit = 0;
@@ -103,9 +111,8 @@
 		write_log("[Service : ".$myservice[1]." ]");
 		
 		if ($verbose_level>=1) echo "------>>>   TIME STAMP $datewish < $timestamp_lastsend \n";		
-
 		// Comment if you dont wish to check time of the service running - testing
-		if ($myservice[4]!=3)  if ($datewish < $timestamp_lastsend){ 	write_log("[Service in the Date range : not to run ]");	continue; }
+		 if ($myservice[4]!=3)  if ($datewish < $timestamp_lastsend){        write_log("[Service in the Date range : not to run ]"); continue; }
 			
 		
 		
@@ -114,19 +121,74 @@
 		// BROWSE THROUGH THE CARD TO APPLY THE SERVICE 
 		for ($page = 0; $page <= $nbpagemax; $page++) {
 			
-			$sql = "SELECT id, credit, nbservice, $UNIX_TIMESTAMP lastuse), username, $UNIX_TIMESTAMP servicelastrun) FROM cc_card WHERE firstusedate IS NOT NULL AND firstusedate>0 AND runservice=1 ORDER BY id ";
+			$sql = "SELECT id, credit, nbservice, $UNIX_TIMESTAMP lastuse), username, $UNIX_TIMESTAMP servicelastrun), email FROM cc_card WHERE firstusedate IS NOT NULL AND firstusedate>0 AND runservice=1 ORDER BY id  ";
 			if ($A2B->config["database"]['dbtype'] == "postgres"){
-				$sql .= " LIMIT $groupcard OFFSET ".$page*$groupcard;			
+			        $sql .= " LIMIT $groupcard OFFSET ".$page*$groupcard;
 			}else{
-				$sql .= " LIMIT ".$page*$groupcard.", $groupcard";			
+			        $sql .= " LIMIT ".$page*$groupcard.", $groupcard";
 			}
 			if ($verbose_level>=1) echo "==> SELECT CARD QUERY : $sql\n";
 			$result_card = $instance_table -> SQLExec ($A2B -> DBHandle, $sql);
 		
 			foreach ($result_card as $mycard){
-			
 				if ($verbose_level>=1) print_r ($mycard);
 				if ($verbose_level>=1) echo "------>>>  ID = ".$mycard[0]." - CARD =".$mycard[4]." - BALANCE =".$mycard[1]." \n";	
+
+				if ($myservice[4]==4){
+					$day_remaining=0;
+					$sql = "SELECT id_did,reservationdate,month_payed,fixrate from cc_did_use INNER JOIN cc_did on (id_did=cc_did.id) WHERE releasedate IS NULL and id_cc_card ='".$mycard[0]."'";
+					if ($verbose_level>=1) echo "==> SELECT DID QUERY : $sql\n";
+					$result_did = $instance_table -> SQLExec ($A2B -> DBHandle, $sql);
+					foreach ($result_did as $mydids){
+						$timestamp_datetopay = mktime(date('H',(strtotime($mydids[1]))-(intval($myservice[5]) * $oneday)),date("i",(strtotime($mydids[1]))-(intval($myservice[5]) * $oneday)),date("s",(strtotime($mydids[1]))-(intval($myservice[5]) * $oneday)),date("m",(strtotime($mydids[1]))-(intval($myservice[5]) * $oneday))+$mydids[2],date("d",(strtotime($mydids[1]))-(intval($myservice[5]) * $oneday)),date("Y",(strtotime($mydids[1]))-(intval($myservice[5]) * $oneday)));
+						$day_remaining=time()-$timestamp_datetopay;
+
+						if ($verbose_level>=1) 	echo $day_remaining."<=".(intval($myservice[5]) * $oneday)."\n";
+						if ($day_remaining >= 0)
+						{	
+							if ($day_remaining<=(intval($myservice[5]) * $oneday)){
+								if ($mycard[1]>=$mydids[3]){
+								$QUERY = "UPDATE cc_card SET nbservice=nbservice+1, credit=credit-'".$mydids[3]."' WHERE id=".$mycard[0];	
+								$result = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY, 0);
+								if ($verbose_level>=1) echo "==> UPDATE CARD QUERY: 	$QUERY\n";
+								$QUERY = "UPDATE cc_did_use set month_payed = month_payed+1 WHERE id_did = '".$mydids[0]."' and activated = 1" ;
+								if ($verbose_level>=1) echo "==> UPDATE DID USE QUERY: 	$QUERY\n";
+								$result = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY, 0);
+								$totalcardperform ++;
+								$totalcredit += $mydids[3];
+								$mail_user_content.="BALANCE REMAINING ".$mycard[1]-$mydids[3]."\n\n";
+								$mail_user_content.="A automaticly taking away of :".$mydids[3]." has been carry out of your acount \n\n";	
+								$mail_user_content.="Monthly Fixrate for DID :".$mydids[0]."\n\n";
+								$mail_user_subject="DID notification";
+								} else {
+									$mail_user_content.="BALANCE REMAINING ".$mycard[1]."\n\n";
+									$mail_user_content.="Your credit is not enouf to pay did number :".$mydids[0]."\n\n";
+									$mail_user_content.="You have ".date ("d",$day_remaining)." days to recharge your card, or the did will be automaticly unreserved \n\n";
+									$mail_user=true;
+									$mail_user_subject="DID notification";
+								}	
+							} else {
+							$QUERY = "UPDATE cc_did set iduser = 0 where id='".$mydids[0]."'" ;
+							$result = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY, 0);
+							$QUERY1 = "UPDATE cc_did_use set releasedate = now() where id_did = '".$mydids[0]."' and activated = 1" ;
+							$result = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY, 0);
+							$QUERY = "insert into cc_did_use (activated, id_did) values ('0','".$mydids[0]."')";
+							$result = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY, 0);
+							$QUERY = "delete FROM cc_did_destination where id_cc_did =".$mydids[0];
+							$result = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY, 0);
+							$mail_user_content.="The did ".$mydids[0]." has been automaticly unreserved\n\n";
+							$mail_user=true;
+							$mail_user_subject="DID last notification";
+							}
+						}
+					
+					}
+					$user_mail_adrr=$mycard[6];
+					if ($mail_user) mail($user_mail_adrr, $mail_user_subject, $mail_content);
+					
+				}
+				else
+				{
 				// RULE 3 : Apply the period to card - card last run date >= period
 				if ($myservice[4]==3){
 							
@@ -141,8 +203,8 @@
 					}
 					if ($verbose_level>=1) echo "#### CARD : Apply the period to card - card last run date >= period :".$myservice[3]." day(s)\n";
 				}
-				
-				if (($myservice[4]==1)  || ($myservice[4]==2)){
+				if ($verbose_level>=1) echo "#### CARD : Apply the period to card - card last run date >= period :".$myservice[3]." day(s)\n";
+				if ( ($myservice[4]==1)  || ($myservice[4]==2) ){
 					
 					$timestamp_lastuse = strtotime($mycard[3]);  // 4 aug 1PM
 					$datewish = time()- (intval($myservice[5]) * $oneday) - 1800; //minus 30 min   4 aug 1:29PM
@@ -164,7 +226,9 @@
 						continue;
 					}					
 					
-				}// RULE 0 : NO RULES :D
+				
+				}
+				// RULE 0 : NO RULES :D
 				
 				// CHECK if NBSERVICE > MAXNUMBERCYCLE  && STOPMODE Max number of cycle reach
 				if ($mycard[2]>$myservice[7] && $myservice[6]==2) continue;
@@ -173,22 +237,17 @@
 				// CHECK if CREDIT <= 0 && STOPMODE Account balance below zero
 				if ( $mycard[1]<=0 && $myservice[6]==1 ) continue;
 				
-				if ($myservice[2]==0){
-					$QUERY = "UPDATE cc_card SET nbservice=nbservice+1, credit=0, servicelastrun=now() WHERE id=".$mycard[0];
-					$totalcredit += $mycard[1];
-				}else{
-					$QUERY = "UPDATE cc_card SET nbservice=nbservice+1, credit=credit-'".$myservice[2]."', servicelastrun=now() WHERE id=".$mycard[0];	
-					$totalcredit += $myservice[2];
-				}
 				
+				$QUERY = "UPDATE cc_card SET nbservice=nbservice+1, credit=credit-'".$myservice[2]."' WHERE id=".$mycard[0];	
 				$result = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY, 0);
 				if ($verbose_level>=1) echo "==> UPDATE CARD QUERY: 	$QUERY\n";
 				$totalcardperform ++;
-				
+				$totalcredit += $myservice[2];
+				}
 				//exit();
 			}
 			// Little bit of rest
-			//sleep(15);
+			sleep(15);
 		}
 	
 		write_log("[Service finish]");

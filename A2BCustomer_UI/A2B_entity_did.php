@@ -34,15 +34,44 @@ if (isset($mydisplaylimit) && (is_numeric($mydisplaylimit) || ($mydisplaylimit==
 	}
 }
 
-if (strlen($destination)>0  && is_numeric($choose_did) && is_numeric($voip_call)){
+$did_rate=explode("CUR",$choose_did_rate);
+$choose_did=$did_rate[0];
+$rate=$did_rate[1];
+	
+if ((isset($confirm_buy_did)) && ($confirm_buy_did == 1))
+{
+		if ($rate <= $_SESSION["credit"]) $confirm_buy_did = 2;
+		else $confirm_buy_did = 0;
+} else 
+{   
+		if ($confirm_buy_did != 4) $confirm_buy_did = 0;
+}
+
+if (strlen($destination)>0  && is_numeric($choose_did) && is_numeric($voip_call) && ($confirm_buy_did == 2)){
 
 		$FG_DID_TABLE  = "cc_did";
 		$FG_DID_FIELDS = "did";
 		$instance_sub_table = new Table($FG_DID_TABLE, $FG_DID_FIELDS);
-
 		$QUERY = "INSERT INTO cc_did_destination (activated, id_cc_card, id_cc_did, destination, priority, voip_call) VALUES ('0', '".$_SESSION["card_id"]."', '".$choose_did."', '".$destination."', '1', '".$voip_call."')";
 
 		$result = $instance_sub_table -> SQLExec ($HD_Form -> DBHandle, $QUERY, 0);
+		
+		$instance_table_did_use = new Table();
+		
+		$QUERY1 = "INSERT INTO cc_charge (id_cc_card, amount, chargetype,id_cc_did) VALUES ('".$_SESSION["card_id"]."', '".$rate."', '2','".$choose_did."')";
+		$result = $instance_table_did_use -> SQLExec ($HD_Form -> DBHandle, $QUERY1, 0);	
+		
+		$QUERY1 = "UPDATE cc_did set iduser = ".$_SESSION["card_id"]." where id = '".$choose_did."'" ;
+		$result = $instance_table_did_use -> SQLExec ($HD_Form -> DBHandle, $QUERY1, 0);
+
+		$QUERY1 = "UPDATE cc_card set credit = credit -".$rate." where id = '".$_SESSION["card_id"]."'" ;
+		$result = $instance_table_did_use -> SQLExec ($HD_Form -> DBHandle, $QUERY1, 0);
+
+		$QUERY1 = "UPDATE cc_did_use set releasedate = now(), month_payed=month_payed+1 where id_did = '".$choose_did."' and activated = 0" ;
+		$result = $instance_table_did_use -> SQLExec ($HD_Form -> DBHandle, $QUERY1, 0);
+
+		$QUERY1 = "insert into cc_did_use (activated, id_cc_card, id_did) values ('1','".$_SESSION["card_id"]."','".$choose_did."')";
+		$result = $instance_table_did_use -> SQLExec ($HD_Form -> DBHandle, $QUERY1, 0);
 
 		$date = date("D M j G:i:s T Y", time());
 		$message = "\n\n".gettext("The following Destinaton-DID has been added:")."\n\n";
@@ -54,7 +83,10 @@ if (strlen($destination)>0  && is_numeric($choose_did) && is_numeric($voip_call)
 
 		if (strlen($A2B->config["webcustomerui"]['error_email'])>3)
 		mail($A2B->config["webcustomerui"]['error_email'], "[$date] Destinaton-DID notification", $message, $em_headers);
-
+} else 
+{   
+	if ($confirm_buy_did != 4)
+	$confirm_buy_did = 0;
 }
 
 if (!isset ($current_page) || ($current_page == ""))
@@ -138,6 +170,10 @@ $list_country = $instance_table_country -> Get_list ($HD_Form -> DBHandle, $FG_T
 
 $nb_country = count($list_country);
 
+if (!isset ($new_did_page) || ($new_did_page == ""))
+{
+	$new_did_page=0;
+}
 
 if (!isset($assign)) $assign=1;
 
@@ -150,8 +186,8 @@ if (isset($choose_country)){
 	//	$FG_TABLE_CLAUSE = "id_cc_country=$choose_country and id_cc_didgroup='".$_SESSION["id_didgroup"]."' and activated='1' and id NOT IN (select id_cc_did from cc_did_destination)";
 
 		// FIX SQL for Mysql < 4 that doesn't support subqueries
-		$instance_table_did = new Table("cc_did LEFT JOIN cc_did_destination ON cc_did.id!=cc_did_destination.id", "DISTINCT cc_did.id, did, fixrate");
-		$FG_TABLE_CLAUSE = " id_cc_country=$choose_country and id_cc_didgroup='".$_SESSION["id_didgroup"]."' and cc_did.activated='1'";
+		$instance_table_did = new Table("(cc_did LEFT JOIN cc_did_destination ON cc_did.id!=cc_did_destination.id) INNER JOIN cc_did_use on (cc_did.id=cc_did_use.id_did)", "DISTINCT cc_did.id, did, fixrate");
+		$FG_TABLE_CLAUSE = " id_cc_country=$choose_country and id_cc_didgroup='".$_SESSION["id_didgroup"]."' and cc_did.activated='1' and cc_did_use.activated='0' and releasedate IS NULL";
 
 		$list_did = $instance_table_did -> Get_list ($HD_Form -> DBHandle, $FG_TABLE_CLAUSE, "did", "ASC", null, null, null, null);
 		$nb_did = count($list_did);
@@ -160,7 +196,7 @@ if (isset($choose_country)){
 }elseif ($assign==2){
 		// LIST USED DID TO ADD PHONENUMBER
 		$instance_table_did = new Table("cc_did LEFT JOIN cc_did_destination ON id_cc_did=cc_did.id", "cc_did.id, did, fixrate");
-		$FG_TABLE_CLAUSE = "id_cc_didgroup='".$_SESSION["id_didgroup"]."' and cc_did.activated='1' and id_cc_card='".$_SESSION["card_id"]."' GROUP BY cc_did.id, did, fixrate ";
+		$FG_TABLE_CLAUSE = "id_cc_didgroup='".$_SESSION["id_didgroup"]."' and id_cc_card='".$_SESSION["card_id"]."' GROUP BY cc_did.id, did, fixrate ";
 		$list_did = $instance_table_did -> Get_list ($HD_Form -> DBHandle, $FG_TABLE_CLAUSE, "did", "ASC", null, null, null, null);
 		$nb_did = count($list_did);
 }
@@ -202,15 +238,42 @@ function openURL(theLINK)
 }
 
 
+function NextPage(){
+	if (document.theForm.new_did_page.value < 2) 
+	document.theForm.new_did_page.value++;
+	else
+	document.theForm.new_did_page.value=0;
+}
 
+function PrevPage(){
+	if (document.theForm.new_did_page.value > 0) document.theForm.new_did_page.value--;
+}
 
-function CheckCountry(){
-	var country;
-	var index = document.theForm.choose_country.selectedIndex;
-
-	country = document.theForm.choose_country.options[index].value;
-	if (country == '') return false;
-	if (IsNumeric(country)) document.theForm.submit();
+function CheckCountry(Source){
+	var country,test=false;
+	if ((Source == 'select') || (Source == 'NextButton1')) 
+	{
+		var index = document.theForm.choose_country.selectedIndex;
+		country = document.theForm.choose_country.options[index].value;
+		if (country == '') return false;
+		if (IsNumeric(country)) test=true;
+	}
+	if ((Source == 'NextButton') || (Source == 'NextButton1')) 
+	{
+		test=true;
+		NextPage();
+	}
+	if (Source == 'PrevButton')
+	{
+		test=true;
+		PrevPage();
+	}
+	if (Source == 'Add')
+	{	
+		document.theForm.confirm_buy_did.value=4;
+		test=true;
+	}
+	if (test) document.theForm.submit();
 	return false;
 }
 
@@ -218,17 +281,23 @@ function CheckCountry(){
 //-->
 </script>
 
-	  <center><?php echo $error_msg ?>
+	  <center><?php echo $error_msg;?>
 	  <a href="A2B_entity_did.php?assign=1"><input type="radio" value="1" <?php if ($assign==1) echo 'checked'; ?>/><?php echo gettext("Buy New DID");?> </a> - <a href="A2B_entity_did.php?assign=2"><input type="radio" value="2" <?php if ($assign==2) echo 'checked'; ?>/><?php echo gettext("Add Phone Number to your DID");?></a>
 	  </center>
 
 	   <table align="center"  border="0" width="75%" bgcolor="#eeeeee">
 		<form name="theForm" action="A2B_entity_did.php">
 		<INPUT type="hidden" name="assign" value="<?php echo $assign ?>">
-		<?php if ($assign==1){ ?>
+		<INPUT type="hidden" name="new_did_page" value="<?php echo $new_did_page?>">
+		<INPUT type="hidden" name="confirm_buy_did" value="0">
+		<?php 
+		switch ($new_did_page) {
+		
+		case 0:
+		if ($assign==1){ ?>
 		<tr bgcolor="#cccccc">
           <td align="left" width="80%" colspan="2">
-				<select NAME="choose_country" size="1" class="form_enter" style="border: 2px outset rgb(204, 51, 0);" onChange="JavaScript:CheckCountry();">
+				<select NAME="choose_country" size="1" class="form_enter" style="border: 2px outset rgb(204, 51, 0);" onChange="JavaScript:CheckCountry('select');">
 					<option value=''><?php echo gettext("Select Country");?></option>
 					<?php
 				  	 foreach ($list_country as $recordset){
@@ -242,13 +311,13 @@ function CheckCountry(){
 		<?php } ?>
 		<tr bgcolor="#dddddd" valign="top">
 			<td align="left" valign="bottom" valign="top" colspan="2">
-				<select NAME="choose_did" size="3" class="form_enter" style="border: 2px outset rgb(204, 51, 0);">
+				<select NAME="choose_did_rate" size="3" class="form_enter" style="border: 2px outset rgb(204, 51, 0);">
 					<option value=''><?php echo gettext("Select Virtual Phone Number");?></option>
 
 					<?php
 				  	 foreach ($list_did as $recordset){
 					?>
-						<option class=input value='<?php echo $recordset[0]?>' ><?php echo $recordset[1]?>  (<?php echo $recordset[2].' '.BASE_CURRENCY ?> )</option>
+						<option class=input value='<?php echo $recordset[0]."CUR".$recordset[2] ?>'<?php if ($choose_did_rate == $recordset[0]."CUR".$recordset[2]) echo 'selected';?>><?php echo $recordset[1]?>  (<?php echo $recordset[2].' '.BASE_CURRENCY ?> )</option>
 					<?php 	 }
 					?>
 				</select>
@@ -413,17 +482,70 @@ function CheckCountry(){
 				<?php echo gettext("Country Code - Area Code - Number");?></font></center>
 
 <?php } ?>
-<?php echo gettext("VOIP CALL : ");?> <?php echo gettext("Yes");?><input class="form_enter" name="voip_call" value="1" type="radio"> - <?php echo gettext("NO");?> <input class="form_enter" name="voip_call" value="0" type="radio" checked>                        <span class="liens">
+<?php echo gettext("VOIP CALL : ");?> <?php echo gettext("Yes");?><input class="form_enter" name="voip_call" value="1" type="radio" <?php if ((isset($voip_call)) && ($voip_call == 1)) echo "checked" ?>> - <?php echo gettext("NO");?> <input class="form_enter" name="voip_call" value="0" type="radio" <?php if (!isset($voip_call)) { echo "checked";} else  {if ($voip_call == 0) echo "checked"; }?>>                        <span class="liens">
                                                 </span><br>
 				<?php echo gettext("Ring To destination ");?> :
 
-				<input class="form_enter" name="destination" size="40" maxlength="80" style="border: 2px inset rgb(204, 51, 0);">
+				<input class="form_enter" name="destination" size="40" maxlength="80" style="border: 2px inset rgb(204, 51, 0);" <?php if (isset($destination) && ($confirm_buy_did!=4)) {?>value="<?php echo $destination; }?>">
 				<br/><center><font color="red"><?php echo gettext("Enter the phone number you wish to call, or the SIP/IAX client to reach  (ie: 347894999 or SIP/jeremy@182.212.1.45). In order to call a VoIP number, you will need to enable voip_call");?> </font></center>
 			</td>
-			<td align="center" valign="middle">
-					<input class="form_enter" style="border: 2px outset rgb(204, 51, 0);" value=" <?php echo gettext("ASSIGN NUMBER TO DID");?> " <?php  if ($assign == 1) {?> type="button" onclick="CheckCountry();<?php } else {?> type="submit<?php }?>">
+					<td align="center" valign="middle">
+					<input class="form_enter" style="border: 2px outset rgb(204, 51, 0);" value=" <?php if ($assign == 1) {echo gettext("Next")?> " type="button" onclick="CheckCountry('NextButton1');<?php } else {echo gettext("Add phone number")?>" Type="button" onclick="CheckCountry('Add');<?php }?>">
 			</td>
-        </tr>
+            </tr>
+			<?php 
+			break; 
+			
+			case 1:
+			?>
+			<INPUT type="hidden" name="choose_did_rate" value="<?php echo $choose_did_rate ?>">
+			<INPUT type="hidden" name="destination" value="<?php echo $destination ?>">
+			<INPUT type="hidden" name="voip_call" value="<?php echo $voip_call ?>">
+			<INPUT type="hidden" name="choose_country" value="<?php echo $choose_country ?>">
+			<INPUT type="hidden" name="confirm_buy_did" value="1">
+			<tr bgcolor="#cccccc" valign="middle">
+				<td colspan="2" height="40">
+					<center><font color="black"><?php echo gettext("Confirm the purchase of the DID ");?> </font></center>
+				</td>
+			</tr>
+			<tr bgcolor="#dddddd">
+				<td colspan="2" height="40">
+					<center><font color="red"><?php echo gettext("A monthly taking away of :").$rate." ".BASE_CURRENCY."<br>".gettext(" will be carrie out from your acount");?> </font></center>
+				</td>
+			</tr>
+			<tr bgcolor="#cccccc">
+				<td align="center" valign="middle">
+					<input class="form_enter" style="border: 2px outset rgb(204, 51, 0);" value=" <?php echo gettext("Prev");?> " type="button" onclick="CheckCountry('PrevButton')">
+				</td>
+				<td align="center" valign="middle">
+					<input class="form_enter" style="border: 2px outset rgb(204, 51, 0);" value=" <?php echo gettext("Ok");?> "type="button" onclick="CheckCountry('NextButton')">
+				</td>
+            </tr>
+			<?php
+			break; 
+			
+			case 2:
+			?>
+			<tr bgcolor="#dddddd" valign="middle">
+				<td colspan="2" height="40">
+					<?php
+					if ($confirm_buy_did ==2) {?><center><font color="black"><?php echo gettext("The purchase of the DID is done ")?> </font></center>
+					<?php }else {?><center><font color="red"><?php echo "<br>".gettext("The purchase of the DID cant be done, your credit of  ").$_SESSION["credit"]." ".BASE_CURRENCY.gettext(" is lower than Fixerate of the DID  ").$rate." ".BASE_CURRENCY." </br> <hr>".gettext("Please reload your account ");?> </font></center>
+				<?php } ?></td>
+			</tr>
+			<INPUT type="hidden" name="choose_did_rate" value="">
+			<INPUT type="hidden" name="destination" value="">
+			<INPUT type="hidden" name="voip_call" value="">
+			<INPUT type="hidden" name="choose_country" value="">
+			<tr bgcolor="#cccccc">
+				<td align="center" valign="middle">
+					<input class="form_enter" style="border: 2px outset rgb(204, 51, 0);" value=" <?php echo gettext("Ok");?> "type="button" onclick="CheckCountry('NextButton')">
+				</td>
+            </tr>
+			<?php
+			break;
+			}?>
+
 		</form>
       </table>
 	  <br>
