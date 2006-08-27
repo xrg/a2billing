@@ -643,6 +643,30 @@ $CC_help_speeddial ='
 </div></div></div>
 </div>';
 
+$CC_help_list_prefix='
+<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="../Css/kicons/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
+<div id="div1000" style="display:visible;">
+<div id="kiki"><div class="w1">
+	<img src="../Css/kicons/connect_to_network.gif" class="kikipic"/>
+	<div class="w2">
+	<br/>'
+	.gettext("Prefixe list with destinations.").'<br/>
+
+<br/>
+</div></div></div>
+</div>';
+
+$CC_help_edit_prefix ='
+<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="../Css/kicons/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
+<div id="div1000" style="display:visible;">
+<div id="kiki"><div class="w1">
+	<img src="../Css/kicons/connect_to_network.gif" class="kikipic"/>
+	<div class="w2">
+<br/>'
+.gettext("Prefixe can be assigned to a Ratecard").'<br>
+<br/>
+</div></div></div>
+</div>';
 
 } //ENDIF SHOW_HELP
 ?>

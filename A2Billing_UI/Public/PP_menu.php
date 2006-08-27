@@ -127,6 +127,7 @@ function imgidclick(imgID,divID)
 				<li><a href="A2B_entity_def_ratecard.php?form_action=ask-add&atmenu=ratecard&stitle=RateCard"><?php echo gettext("Add Rate");?></a></li>
 				<li><a href="CC_ratecard_import.php?atmenu=ratecard&stitle=RateCard"><?php echo gettext("Import RateCard");?></a></li>
 				<li><a href="CC_entity_sim_ratecard.php?atmenu=ratecard&stitle=Ratecard+Simulator"><?php echo gettext("Ratecard Simulator");?></a></li>
+				<li><a href="A2B_entity_prefix.php"><?php echo gettext("Browse Prefix");?></a></li>
 			</ul></li>
 		</ul>
 		</div>
