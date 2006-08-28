@@ -905,11 +905,11 @@ foreach ($list_total_day as $data){
 		?>
 		</font></td>
 		<td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right" nowrap="nowrap"><font face="verdana" color="#000000" size="1"><?php  
-		display_2dec_percentage((($data[2]-$data[4])/$data[2])*100) 
+		if ($data[2]!=0){ display_2dec_percentage((($data[2]-$data[4])/$data[2])*100); }else{ echo "NULL";} 
 		?>
 		</font></td>
 		<td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right" nowrap="nowrap"><font face="verdana" color="#000000" size="1"><?php  
-		display_2dec_percentage((($data[2]-$data[4])/$data[4])*100) 
+		if ($data[4]!=0){ display_2dec_percentage((($data[2]-$data[4])/$data[4])*100); }else{ echo "NULL";} 
 		?>
 		</font></td>
      <?php 	 }	 	 	
@@ -937,8 +937,8 @@ foreach ($list_total_day as $data){
 		<td align="center" nowrap="nowrap"><font face="verdana" size="1" color="#ffffff"><b><?php  display_2bill($totalcost) ?></b></font></td>
 		<td align="center" nowrap="nowrap"><font face="verdana" size="1" color="#ffffff"><b><?php  display_2bill($totalbuycost) ?></b></font></td>
 		<td align="center" nowrap="nowrap"><font face="verdana" size="1" color="#ffffff"><b><?php  display_2bill($totalcost - $totalbuycost) ?></b></font></td>
-		<td align="center" nowrap="nowrap"><font face="verdana" size="1" color="#ffffff"><b><?php  display_2dec_percentage((($totalcost - $totalbuycost)/$totalcost)*100) ?></b></font></td>
-		<td align="center" nowrap="nowrap"><font face="verdana" size="1" color="#ffffff"><b><?php  display_2dec_percentage((($totalcost - $totalbuycost)/$totalbuycost)*100) ?></b></font></td>
+		<td align="center" nowrap="nowrap"><font face="verdana" size="1" color="#ffffff"><b><?php  if ($totalcost!=0){ display_2dec_percentage((($totalcost - $totalbuycost)/$totalcost)*100); }else{ echo "NULL";} ?></b></font></td>
+		<td align="center" nowrap="nowrap"><font face="verdana" size="1" color="#ffffff"><b><?php  if ($totalbuycost!=0){ display_2dec_percentage((($totalcost - $totalbuycost)/$totalbuycost)*100);  }else{ echo "NULL";} ?></b></font></td>
 	</tr>
 	<!-- FIN TOTAL -->
 
