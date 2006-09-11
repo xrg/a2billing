@@ -148,10 +148,10 @@
 		$A2B -> write_log("[TRY : callingcard_ivr_authenticate]");
 		if ($cia_res==0){
 			
-			$A2B -> write_log("[callingcard_acct_start_inuse]");
 			
 			$A2B->callingcard_auto_setcallerid($agi);
-			$A2B->callingcard_acct_start_inuse($agi,1);
+			//$A2B -> write_log("[callingcard_acct_start_inuse]");
+			//$A2B->callingcard_acct_start_inuse($agi,1);
 			
 			for ($i=0;$i< $A2B->agiconfig['number_try'] ;$i++){
 					

@@ -1754,7 +1754,10 @@ class A2Billing {
 		
 		if (($retries < 3) && $res==0) {
 			//ast_cdr_setaccount(chan, username);
-						
+			
+			$this -> write_log("[callingcard_acct_start_inuse]");
+			$this -> callingcard_acct_start_inuse($agi,1);
+			
 			if ($this->agiconfig['say_balance_after_auth']==1){		
 				if ($this->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '."[A2Billing] SAY BALANCE (".$this->agiconfig['say_balance_after_auth'].")\n");
 				$this -> fct_say_balance ($agi, $this->credit);
