@@ -220,8 +220,11 @@
 							}
 					}
 					
-					
-					$A2B->dnid = $agi->request['agi_extension'];
+					if ($agi->request['agi_extension']=='s'){
+						$A2B->dnid = $agi->request['agi_dnid'];
+					}else{
+						$A2B->dnid = $agi->request['agi_extension'];
+					}
 					
 					if ($A2B->agiconfig['sip_iax_friends']==1){
 					

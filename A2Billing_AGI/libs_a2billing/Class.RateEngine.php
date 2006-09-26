@@ -94,6 +94,7 @@ class RateEngine {
 		*/
 		
 		if (strlen($A2B->dnid)>=1) $mydnid = $A2B->dnid;
+		if (strlen($A2B->CallerID)>=1) $mycallerid = $A2B->CallerID;
 		
 		
 		if ($A2B->config["database"]['dbtype'] != "postgres"){
@@ -101,11 +102,19 @@ class RateEngine {
 			$result_sub = $A2B->instance_table -> SQLExec ($A2B -> DBHandle, $DNID_QUERY);
 			if (!is_array($result_sub) || count($result_sub)==0) $nb_dnid = 0;
 			else $nb_dnid = $result_sub[0][0];
-			$SUB_QUERY = "AND 0 = $nb_dnid";
+			$DNID_SUB_QUERY = "AND 0 = $nb_dnid";
+			
+			$CALLERID_QUERY = "SELECT count(calleridprefix) FROM cc_tariffplan RIGHT JOIN cc_tariffgroup_plan ON cc_tariffgroup_plan.idtariffgroup=$tariffgroupid WHERE calleridprefix  LIKE '$mycallerid%'";
+			$result_sub = $A2B->instance_table -> SQLExec ($A2B -> DBHandle, $CALLERID_QUERY);
+			if (!is_array($result_sub) || count($result_sub)==0) $nb_callerid = 0;
+			else $nb_callerid = $result_sub[0][0];
+			$CID_SUB_QUERY = "AND 0 = $nb_callerid";
 			
 		}else{
-			$SUB_QUERY = "AND 0 = (SELECT count(dnidprefix) FROM cc_tariffplan RIGHT JOIN cc_tariffgroup_plan ON cc_tariffgroup_plan.idtariffgroup=$tariffgroupid WHERE dnidprefix  LIKE '$mydnid%') ";
-		}	
+			$DNID_SUB_QUERY = "AND 0 = (SELECT count(dnidprefix) FROM cc_tariffplan RIGHT JOIN cc_tariffgroup_plan ON cc_tariffgroup_plan.idtariffgroup=$tariffgroupid WHERE dnidprefix=SUBSTRING('$mydnid',1,length(dnidprefix)) ) ";
+			
+			$CID_SUB_QUERY = "AND 0 = (SELECT count(calleridprefix) FROM cc_tariffplan RIGHT JOIN cc_tariffgroup_plan ON cc_tariffgroup_plan.idtariffgroup=$tariffgroupid WHERE calleridprefix=SUBSTRING('$mycallerid',1,length(calleridprefix)) ) ";
+		}
 		
 		$QUERY = "SELECT tariffgroupname, lcrtype, idtariffgroup, cc_tariffgroup_plan.idtariffplan, tariffname, destination,
 		
@@ -138,8 +147,9 @@ class RateEngine {
 		$sql_clause_days
 		AND idtariffgroup='$tariffgroupid'
 		
-		AND ( cc_tariffplan.dnidprefix LIKE '$mydnid%' OR (cc_tariffplan.dnidprefix='all' $SUB_QUERY)) 
+		AND ( dnidprefix=SUBSTRING('$mydnid',1,length(dnidprefix)) OR (dnidprefix='all' $DNID_SUB_QUERY)) 
 		
+		AND ( calleridprefix=SUBSTRING('$mycallerid',1,length(calleridprefix)) OR (calleridprefix='all' $CID_SUB_QUERY)) 
 		
 		ORDER BY LENGTH(dialprefix) DESC";
 		

@@ -288,6 +288,7 @@ CREATE TABLE cc_tariffplan (
     reftariffplan INT DEFAULT 0,
     idowner INT DEFAULT 0,
     dnidprefix CHAR(30) NOT NULL DEFAULT 'all',
+	calleridprefix CHAR(30) NOT NULL DEFAULT 'all',
     PRIMARY KEY (id),
     UNIQUE cons_cc_tariffplan_iduser_tariffname (iduser,tariffname)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;

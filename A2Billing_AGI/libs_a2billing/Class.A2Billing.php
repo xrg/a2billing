@@ -1446,8 +1446,9 @@ class A2Billing {
 				}
 						
 						
-			}
-		
+			}		
+		}else{
+			$callerID_enable=0;
 		}
 		
 		// 		  -%-%-%-%-%-%-		CHECK IF WE CAN AUTHENTICATE THROUGH THE "ACCOUNTCODE" 	-%-%-%-%-%-%-
@@ -1578,8 +1579,8 @@ class A2Billing {
 		
 			// 		  -%-%-%-%-%-%-		IF NOT PREVIOUS WE WILL ASK THE CARDNUMBER AND AUTHENTICATE ACCORDINGLY 	-%-%-%-%-%-%-				
 			for ($retries = 0; $retries < 3; $retries++) {
-				if (($retries>0) && (strlen($prompt)>0)){
-					$agi-> stream_file($prompt, '#');
+				if (($retries>0) && (strlen($prompt)>0)){					
+					$agi-> stream_file($prompt, '#');					
 					if ($this->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '.strtoupper($prompt));
 				}												
 				
@@ -1711,7 +1712,7 @@ class A2Billing {
 						$prompt = "prepaid-card-expired";			
 					}
 				}
-							
+				
 					
 				//CREATE AN INSTANCE IN CC_CALLERID
 				if ($this->agiconfig['cid_enable']==1 && $this->agiconfig['cid_auto_assign_card_to_cid']==1 && is_numeric($this->CallerID) && $this->CallerID>0 && $this -> ask_other_cardnumber!=1){

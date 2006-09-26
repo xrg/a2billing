@@ -1,3 +1,9 @@
+
+ALTER TABLE cc_tariffplan ADD COLUMN calleridprefix text NOT NULL DEFAULT 'all'::text;
+
+
+
+
 ALTER TABLE cc_charge ADD COLUMN id_cc_did bigint ;
 ALTER TABLE cc_charge ALTER COLUMN id_cc_did SET DEFAULT 0;
 

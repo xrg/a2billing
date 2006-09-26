@@ -62,6 +62,20 @@ $HD_Form -> AddEditElement (gettext("PREFIX"),
 $HD_Form -> FieldEditElement ('destination,prefixe');
 
 
+
+$HD_Form -> FG_FILTER_APPLY = true;
+$HD_Form -> FG_FILTERFIELD = 'destination';
+$HD_Form -> FG_FILTERFIELDNAME = 'destination';
+$HD_Form -> FG_FILTER_FORM_ACTION = 'list';
+
+if (isset($filterprefix)  &&  (strlen($filterprefix)>0)){
+	if (strlen($HD_Form -> FG_TABLE_CLAUSE)>0) $HD_Form -> FG_TABLE_CLAUSE.=" AND ";
+	$filterprefix = strtoupper(substr($filterprefix,0,1)).substr($filterprefix,1);
+	$HD_Form -> FG_TABLE_CLAUSE.="destination like '$filterprefix%'";
+}
+
+
+
 $HD_Form -> FG_INTRO_TEXT_EDITION= '';
 $HD_Form -> FG_INTRO_TEXT_ASK_DELETION = gettext("If you really want remove this ".$HD_Form->FG_INSTANCE_NAME.", click on the delete button.");
 $HD_Form -> FG_INTRO_TEXT_ADD = gettext("you can add easily a new ".$HD_Form->FG_INSTANCE_NAME.".<br>Fill the following fields and confirm by clicking on the button add.");

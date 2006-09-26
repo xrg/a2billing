@@ -367,7 +367,8 @@ CREATE TABLE cc_tariffplan (
     secondusedratecard integer DEFAULT 0,
     reftariffplan integer DEFAULT 0,
     idowner integer DEFAULT 0,
-    dnidprefix text NOT NULL DEFAULT 'all'::text	
+    dnidprefix text NOT NULL DEFAULT 'all'::text,
+	calleridprefix text NOT NULL DEFAULT 'all'::text
 );
 
 
