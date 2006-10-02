@@ -13,6 +13,11 @@ mysql -u root -p"root password" < UPDATE-a2billing-v1.2.3-to-v1.2.4-mysql.sql
 
 ALTER TABLE cc_tariffplan ADD COLUMN calleridprefix CHAR(30) NOT NULL DEFAULT 'all';
 
+
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (150, 'GYD', 'Guyana Dollar (GYD)', 0.00527,  'USD');
+
+
+
 ALTER TABLE cc_charge ADD COLUMN id_cc_did bigint ;
 ALTER TABLE cc_charge ALTER COLUMN id_cc_did SET DEFAULT 0;
 

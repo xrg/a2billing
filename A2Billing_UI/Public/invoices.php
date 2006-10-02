@@ -10,7 +10,7 @@ if (! has_rights (ACX_CALL_REPORT)){
 
 session_start();
 
-getpost_ifset(array('customer', 'entercustomer', 'enterprovider', 'entertrunk', 'posted', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth', 'tostatsmonth', 'fromday', 'fromstatsday_sday', 'fromstatsmonth_sday', 'today', 'tostatsday_sday', 'tostatsmonth_sday', 'dsttype', 'sourcetype', 'clidtype', 'channel', 'resulttype', 'stitle', 'atmenu', 'current_page', 'order', 'sens', 'dst', 'src', 'clid', 'fromstatsmonth_sday', 'fromstatsmonth_shour', 'tostatsmonth_sday', 'tostatsmonth_shour', 'srctype', 'src', 'choose_currency','exporttype'));
+getpost_ifset(array('customer', 'entercustomer', 'enterprovider', 'entertrunk', 'posted', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth', 'tostatsmonth', 'fromday', 'fromstatsday_sday', 'fromstatsmonth_sday', 'today', 'tostatsday_sday', 'tostatsmonth_sday', 'dsttype', 'sourcetype', 'clidtype', 'channel', 'resulttype', 'stitle', 'atmenu', 'current_page', 'order', 'sens', 'dst', 'src', 'clid', 'fromstatsmonth_sday', 'fromstatsmonth_shour', 'tostatsmonth_sday', 'tostatsmonth_shour', 'fromstatsmonth_smin', '','tostatsmonth_smin', 'src', 'choose_currency','exporttype'));
 
 
 if (($_GET[download]=="file") && $_GET[file] ) 
@@ -404,7 +404,8 @@ if (strpos($date_clause, 'AND') > 0){
 
 if (isset($entercustomer) && $entercustomer > 0)
 {
-	$date_clause .= " AND t1.id_cc_card = t2.id AND t2.username = '$entercustomer' ";
+	$tclause = (strlen($date_clause)>1)?'AND':'WHERE';
+	$date_clause .= " $tclause t1.id_cc_card = t2.id AND t2.username = '$entercustomer' ";
 	$QUERY = "SELECT substring(t1.creationdate,1,10) AS day, sum(t1.amount) AS cost, count(*) as nbcharge FROM cc_charge t1, cc_card t2 ".$date_clause." GROUP BY substring(t1.creationdate,1,10) ORDER BY day"; //extract(DAY from calldate) 
 }
 else

@@ -44,7 +44,7 @@
 <table width="100%" height="75%">
 <tr align="center" valign="middle">
 <td>
-	<form name="form" method="POST" action="index2.php" onsubmit="return test()">
+	<form name="form" method="POST" action="PP_intro.php" onsubmit="return test()">
 	<input type="hidden" name="done" value="submit_log">
 
   	<?php if (isset($_GET["error"]) && $_GET["error"]==1) { ?>
