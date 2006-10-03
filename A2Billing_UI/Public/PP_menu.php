@@ -135,7 +135,7 @@ function imgidclick(imgID,divID)
 				<li><a href="A2B_entity_voucher.php?stitle=Voucher&section=2"><?php echo gettext("List Voucher");?></a></li>
 				<li><a href="A2B_entity_voucher.php?stitle=Voucher_add&form_action=ask-add&section=2"><?php echo gettext("Create Voucher");?></a></li>
 				<li><a href="A2B_entity_voucher_multi.php?stitle=Voucher_Generate&section=2"><?php echo gettext("Generate Vouchers");?></a></li>
-				<li><a href="A2B_currencies.php&section=2"><?php echo gettext("Currency Table");?></a></li>
+				<li><a href="A2B_currencies.php?section=2"><?php echo gettext("Currency Table");?></a></li>
 				<li><a href="A2B_entity_charge.php?atmenu=charge&stitle=Charge&form_action=list&section=2"><?php echo gettext("List Charge");?></a></li>
 				<li><a href="A2B_entity_charge.php?form_action=ask-add&atmenu=charge&stitle=Charge&section=2"><?php echo gettext("Add Charge");?></a></li>
 				<li><a href="A2B_entity_ecommerce.php?atmenu=ecommerce&stitle=E-Commerce&section=2"><?php echo gettext("List E-Product");?></a></li>
@@ -271,9 +271,9 @@ function imgidclick(imgID,divID)
 			<li><ul>
 					<li><a href="call-log-customers.php?stitle=Call_Report_Customers&nodisplay=1&posted=1&section=6"><?php echo gettext("CDR Report");?></a></li>
 					<li><a href="invoices.php?stitle=Invoice&nodisplay=1&section=6"><?php echo gettext("Invoice");?></a></li>
-					<li><a href="asterisk-stat-v2/call-comp.php&section=6"><?php echo gettext("Calls Compare");?></a></li>
-					<li><a href="asterisk-stat-v2/call-last-month.php&section=6"><?php echo gettext("Monthly Traffic");?></a></li>
-					<li><a href="asterisk-stat-v2/call-daily-load.php&section=6"><?php echo gettext("Daily Load");?></a></li>
+					<li><a href="asterisk-stat-v2/call-comp.php?section=6"><?php echo gettext("Calls Compare");?></a></li>
+					<li><a href="asterisk-stat-v2/call-last-month.php?section=6"><?php echo gettext("Monthly Traffic");?></a></li>
+					<li><a href="asterisk-stat-v2/call-daily-load.php?section=6"><?php echo gettext("Daily Load");?></a></li>
 			</ul></li>
 		</ul>
 		</div>
@@ -398,7 +398,7 @@ function imgidclick(imgID,divID)
 				<li><a href="A2B_entity_user.php?atmenu=user&groupID=1&stitle=ACL+Admin+management&section=10"><?php echo gettext("Show ACL Admin");?></a></li>
 				<li><a href="A2B_entity_user.php?form_action=ask-add&atmenu=user&groupID=1&stitle=ACL+Admin+management&section=10"><?php echo gettext("Add ACL Admin");?></a></li>
 				<li><a href="A2B_entity_backup.php?form_action=ask-add&section=10"><?php echo gettext("Database Backup");?></a></li>
-				<li><a href="A2B_entity_restore.php&section=10"><?php echo gettext("Database Restore");?></a></li>
+				<li><a href="A2B_entity_restore.php?section=10"><?php echo gettext("Database Restore");?></a></li>
 			</ul></li>
 		</ul>
 		</div>
@@ -426,8 +426,8 @@ function imgidclick(imgID,divID)
 	<?php }?>
 		<ul>
 			<li><ul>
-				<li><a href="CC_musiconhold.php&section=11"><?php echo gettext("MusicOnHold");?></a></li>
-				<li><a href="CC_upload.php&section=11"><?php echo gettext("Standard File");?></a></li>
+				<li><a href="CC_musiconhold.php?section=11"><?php echo gettext("MusicOnHold");?></a></li>
+				<li><a href="CC_upload.php?section=11"><?php echo gettext("Standard File");?></a></li>
 			</ul></li>
 		</ul>
 		</div>

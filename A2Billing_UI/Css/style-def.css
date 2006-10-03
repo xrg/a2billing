@@ -58,11 +58,11 @@ body {
 
 .textfield {
 	font-family: Arial,Verdana;
-	font-size: 9px;
+	font-size: 12px;
 	color: #666666;
 	border: solid 1px;
 	border-color: #DBDBDB;
-	background-image: url('textfield.gif');
+	background-image: url('../Public/img/textfield.gif');	
 }
 
 .button {

@@ -38,7 +38,7 @@ $list = $HD_Form -> perform_action($form_action);
 include("PP_header.php");
 
 // #### HELP SECTION
-echo '<br><br>'.$CC_help_database_backup;
+echo $CC_help_database_backup;
 
 // #### TOP SECTION PAGE
 $HD_Form -> create_toppage ($form_action);

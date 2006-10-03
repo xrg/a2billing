@@ -15,15 +15,6 @@ if (! has_rights (ACX_FILE_MANAGER)){
 
 	include("PP_header.php");
 ?>
-           <br><br><br>
-	  
-<?php
-	echo $CC_help_musiconhold;
-?>
-
-	    
-	 
-	
 		
 			<table width="70%" border="0" align="center" cellpadding="0" cellspacing="5" >
 	  

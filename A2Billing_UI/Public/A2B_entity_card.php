@@ -146,7 +146,7 @@ function sendValue(selvalue){
 
 // #### HELP SECTION
 if ($form_action=='list' && !($popup_select>=1)){
-echo '<br><br>'.$CC_help_list_customer;
+echo $CC_help_list_customer;
 
 ?>
 <script language="JavaScript" src="javascript/card.js"></script>

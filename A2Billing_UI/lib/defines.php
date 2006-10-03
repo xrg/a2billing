@@ -41,8 +41,8 @@
 	define ("DIR_STORE_MOHMP3",isset($A2B->config["webui"]['dir_store_mohmp3'])?$A2B->config["webui"]['dir_store_mohmp3']:null);
 	define ("DIR_STORE_AUDIO", isset($A2B->config["webui"]['dir_store_audio'])?$A2B->config["webui"]['dir_store_audio']:null);
 	define ("MY_MAX_FILE_SIZE_AUDIO", isset($A2B->config["webui"]['my_max_file_size_audio'])?$A2B->config["webui"]['my_max_file_size_audio']:null);
-	$file_ext_allow = isset($A2B->config["webui"]['file_ext_allow'])?$A2B->config["webui"]['file_ext_allow']:null;
-	$file_ext_allow_musiconhold = isset($A2B->config["webui"]['file_ext_allow_musiconhold'])?$A2B->config["webui"]['file_ext_allow_musiconhold']:null;
+	$file_ext_allow = is_array($A2B->config["webui"]['file_ext_allow'])?$A2B->config["webui"]['file_ext_allow']:null;
+	$file_ext_allow_musiconhold = is_array($A2B->config["webui"]['file_ext_allow_musiconhold'])?$A2B->config["webui"]['file_ext_allow_musiconhold']:null;
 	define ("LINK_AUDIO_FILE", isset($A2B->config["webui"]['link_audio_file'])?$A2B->config["webui"]['link_audio_file']:null);
 	define ("MONITOR_PATH", isset($A2B->config["webui"]['monitor_path'])?$A2B->config["webui"]['monitor_path']:null);
 	define ("MONITOR_FORMATFILE", isset($A2B->config["webui"]['monitor_formatfile'])?$A2B->config["webui"]['monitor_formatfile']:null); 
@@ -98,7 +98,7 @@
 	/*
 	 *		GLOBAL POST/GET VARIABLE
 	 */		 
-	getpost_ifset(array('form_action', 'atmenu', 'action', 'stitle', 'sub_action', 'IDmanager', 'current_page', 'order', 'sens', 'mydisplaylimit', 'filterprefix'));
+	getpost_ifset(array('form_action', 'atmenu', 'action', 'stitle', 'sub_action', 'IDmanager', 'current_page', 'order', 'sens', 'mydisplaylimit', 'filterprefix', 'cssname'));
 
 	/*
 	 *		CONNECT / DISCONNECT DATABASE
@@ -182,8 +182,11 @@
 				}
 			}
 			$currencies_list = array_merge($currencies_list2,$currencies_list);		
-		}
+	}
 
-
+	if(isset($cssname) && $cssname != "")
+	{
+		$_SESSION["stylefile"] = $cssname;
+	}
 	
 ?>
