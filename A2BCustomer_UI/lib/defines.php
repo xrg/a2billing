@@ -63,9 +63,9 @@
 	define ("ACTIVATEDBYUSER", isset($A2B->config["signup"]['activatedbyuser'])?$A2B->config["signup"]['activatedbyuser']:null);
 
     //Images Path
-    define ("Images_Path","./images");
+    define ("Images_Path","./templates/default/images");
 
-	define ("Images_Path_Main","./images");
+	define ("Images_Path_Main","./templates/default/images");
 
 	// INCLUDE FILES
 	define ("FSROOT", substr(dirname(__FILE__),0,-3));

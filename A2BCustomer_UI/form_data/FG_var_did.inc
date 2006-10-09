@@ -22,7 +22,8 @@ $actived_list["0"] = array( gettext("Inactive"), "0");
 $billingtype_list = array();
 $billingtype_list["0"] = array( gettext("Fix per month + dialoutrate"), "0");
 $billingtype_list["1"] = array( gettext("Fix per month"), "1");
-$billingtype_list["2"] = array( gettext("Only dialout rate"), "2"); $billingtype_list["3"]  = array( "Free", "3");
+$billingtype_list["2"] = array( gettext("Only dialout rate"), "2"); 
+$billingtype_list["3"] = array( "Free", "3");
 
 // -- billtype: 0 = fix per month + dialoutrate, 1= fix per month, 2 = dialoutrate, 3 = free
 $billingtype_list_short = array();
@@ -50,7 +51,7 @@ $HD_Form -> FieldViewElement ('destination, id_cc_did, activated, priority ,seco
 
 $HD_Form -> FG_TABLE_NAME = "cc_did_destination t1, cc_did t2";
 $HD_Form -> FG_COL_QUERY='destination, id_cc_did, t1.activated, priority, t1.secondusedreal, id_cc_country, t1.id ';
-$HD_Form -> FG_TABLE_CLAUSE = "id_cc_card='".$_SESSION["card_id"]."' AND t1.id_cc_did=t2.id";
+$HD_Form -> FG_TABLE_CLAUSE = " id_cc_card='".$_SESSION["card_id"]."' AND t1.id_cc_did=t2.id";
 
 
 $HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO ".strtoupper($HD_Form->FG_INSTANCE_NAME)." CREATED!");
@@ -80,7 +81,7 @@ $HD_Form -> AddEditElement (gettext("DID"),
 	"sql",
 	"cc_did",
 	"did, id",
-	"iduser = '".$_SESSION["card_id"]."'", "", "%1", "" , "");
+	"id_cc_didgroup = '".$_SESSION["id_didgroup"]."'", "", "%1", "" , "");
 
 $HD_Form -> AddEditElement (gettext("PRIORITY"),
 	"priority",
@@ -123,7 +124,7 @@ $HD_Form -> FG_INTRO_TEXT_ADITION = '';
 $HD_Form -> FG_TEXT_ADITION_CONFIRMATION = gettext("Your new ".$HD_Form->FG_INSTANCE_NAME." has been inserted. <br>");
 
 
-$HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = "./images/cormfirmboton.gif";
+$HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = Images_Path."/cormfirmboton.gif";
 $HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT = 'Setup those values to create the new '.$HD_Form->FG_INSTANCE_NAME;
 
 
