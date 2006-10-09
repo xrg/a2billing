@@ -28,16 +28,6 @@ table {
 	font-size: 7px;
 }
 
-.table_decoration {
-	border-collapse: collapse;
-	border-top: black solid 0px;
-	border-left: #DBDBDB solid 1px;
-	border-right: black solid 0px;
-	border-bottom: #DBDBDB solid 1px;
-	background-color: #ffffff;
-	empty-cells:hide
-}
-
 .table_auth {
 	border: #3399ff dotted 1px;
 }
