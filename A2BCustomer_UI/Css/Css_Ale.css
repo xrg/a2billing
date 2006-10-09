@@ -98,24 +98,7 @@ h5 {
  color: #565C56;
  }
 
-ul,ol { 
- font-family: geneva, verdana, arial, "ms sans serif", sans-serif; 
- font-size: 12px; 
- line-height: 20px;
- padding-left: 20px;
- color: #565C56;
- padding-top: 5px;
- }
 
-
-li { 
- font-family: geneva, verdana, arial, "ms sans serif", sans-serif; 
- font-size: 12px; 
- line-height: 20px;
- padding-left: 0px;
- color: #565C56;
- padding-top: 5px;
- }
 
  
 input, textarea {
@@ -358,6 +341,7 @@ SPAN.errorText {
 .messageStackError, .messageStackWarning { font-family: Verdana, Arial, sans-serif; font-size: 10px; background-color: #ffb3b5; }
 .messageStackSuccess { font-family: Verdana, Arial, sans-serif; font-size: 10px; background-color: #99ff00; }
 .inputRequirement { font-family: Verdana, Arial, sans-serif; font-size: 10px; color: #ff0000; }
+
 .divleft {
 	overflow: auto;
 	position: absolute;
@@ -369,15 +353,12 @@ SPAN.errorText {
 }
 
 .divright {
-	overflow: auto;
 	position: absolute;
 	z-index: 0;
 	height: auto;
-	width: 825px;
+	width: auto;
 	left: 180px;
 	top: 35px;
+	PADDING-LEFT: 10px; 
+	PADDING-RIGHT: 10px; 
 }
-
-
-
-

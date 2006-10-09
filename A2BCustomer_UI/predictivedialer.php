@@ -1,6 +1,7 @@
 <?php
 include ("lib/defines.php");
 include ("lib/module.access.php");
+include ("lib/smarty.php");
 include ("lib/Class.RateEngine.php");	 
 include ("lib/phpagi/phpagi-asmanager.php");
 include ("frontoffice_data/CC_var_phonelist.inc");
@@ -132,8 +133,10 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 </script>
 
 <?php
-	include("PP_header.php");
-?><br>
+	$smarty->display( 'main.tpl');
+?>
+
+<br>
 	  <center>
 	  <font color=red><b><?php echo $res['Message']; ?></b></font>
 	  <?php echo $error_msg ?> <br>
@@ -386,6 +389,9 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
         </TBODY>
       </TABLE>
       <br>
-	  <?php } 
-	include("PP_footer.php");
+	  
+<?php
+	}
+
+	$smarty->display( 'footer.tpl');
 ?>

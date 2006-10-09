@@ -32,17 +32,7 @@
 }
 
 
-#kiblue .w1 {
-  border: solid #B0B0FA;
-  border-width: 0px 1px 1px 0px;
-  position: relative;
-  top: 1px;
-  left: 1px;
-  background-image: url(images/asterisklogot_blue.gif);
-  background-repeat: no-repeat;
-  background-position: 100% 100%;  
-  font-size: 9px;
-}
+
 
 #kiblue_header {
   position: relative;
@@ -52,8 +42,7 @@
   margin-bottom: 1em;
   color: #BD2A15;
   margin-right: 55px;  
-  margin-left: 55px;
-  float: left;
+  margin-left: 55px;  
 }
 
 
@@ -66,6 +55,20 @@
   color: #BD2A15;
   margin-right: 55px;  
   margin-left: 55px;
+}
+
+#kiblue .w1 {
+  border: solid #B0B0FA;
+  border-width: 0px 1px 1px 0px;
+  position: relative;
+  top: 1px;
+  left: 1px;
+  background-image: url(images/asterisklogot_blue.gif);
+  background-repeat: no-repeat;
+  background-position: 100% 100%;  
+  font-size: 9px;
+  width: 10%;
+  display: table-cell;  
 }
 
 .kikipic {
@@ -82,11 +85,6 @@ body, td, th, h3, input { /* redundant rules for bad browsers  */
 	voice-family: "\"}\"";
 	voice-family: inherit;
 	font-size: small;
-}
-
-body {
-	color: #333;
-	line-height: 140%;
 }
 
 a:link { color: #039; }

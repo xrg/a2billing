@@ -8,7 +8,7 @@
 
 <title>..:: <?php echo CCMAINTITLE; ?> ::..</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<link href="Css/menu.css" rel="stylesheet" type="text/css">
+<link href="templates/default/css/menu.css" rel="stylesheet" type="text/css">
 
 
 <script LANGUAGE="JavaScript">
@@ -45,7 +45,7 @@
 <table width="100%" height="75%">
 <tr align="center" valign="middle">
 <td>
-	<form name="form" method="POST" action="index2.php" onsubmit="return test()">
+	<form name="form" method="POST" action="userinfo.php" onsubmit="return test()">
 	<input type="hidden" name="done" value="submit_log">
 
   	<?php if (isset($_GET["error"]) && $_GET["error"]==1) { ?>

@@ -8,7 +8,7 @@ if (SHOW_HELP){
 $CC_help_webphone='
 <div id="div1000" style="display:visible;">
 <div id="kiblue_header"><div class="w4">
-	<img src="Css/kicons/stock_landline-phone.gif" class="kikipic"/>
+	<img src="templates/default/images/kicons/stock_landline-phone.gif" class="kikipic"/>
 	<div class="w2">
 <table width="90%">
 <tr>
@@ -22,7 +22,7 @@ $CC_help_webphone='
 $CC_help_balance_customer='
 <div id="div1000" style="display:visible;">
 <div id="kiblue_header"><div class="w4">
-	<img src="Css/kicons/gnome-finance.gif" width="48" height="48" class="kikipic"/>
+	<img src="templates/default/images/kicons/gnome-finance.gif" width="48" height="48" class="kikipic"/>
 	<div class="w2">
 <table width="90%">
 <tr>
@@ -40,7 +40,7 @@ $CC_help_balance_customer='
 $CC_help_simulator_rateengine='
 <div id="div1000" style="display:visible;">
 <div id="kiblue_header"><div class="w4">
-	<img src="Css/kicons/connect_to_network.gif" width="48" height="48" class="kikipic"/>
+	<img src="templates/default/images/kicons/connect_to_network.gif" width="48" height="48" class="kikipic"/>
 	<div class="w2">
 <table width="90%">
 <tr>
@@ -56,7 +56,7 @@ $CC_help_simulator_rateengine='
 $CC_help_password_change ='
 <div id="div1000" style="display:visible;">
 <div id="kiblue_header"><div class="w4">
-	<img src="Css/kicons/connect_to_network.gif" width="48" height="48" class="kikipic"/>
+	<img src="templates/default/images/kicons/connect_to_network.gif" width="48" height="48" class="kikipic"/>
 	<div class="w2">
 <table width="90%">
 <tr>
@@ -73,7 +73,7 @@ $CC_help_password_change ='
 $CC_help_ratecard ='
 <div id="div1000" style="display:visible;">
 <div id="kiblue_header"><div class="w4">
-	<img src="Css/kicons/connect_to_network.gif" width="48" height="48" class="kikipic"/>
+	<img src="templates/default/images/kicons/connect_to_network.gif" width="48" height="48" class="kikipic"/>
 	<div class="w2">
 <table width="90%"><tr><td width="100%">'.
 gettext("Here you can view your ratecards").
@@ -86,7 +86,7 @@ gettext("Here you can view your ratecards").
 $CC_help_list_voucher = '
 <div id="div1000" style="display:visible;">
 <div id="kiblue_header"><div class="w4">
-	<img src="Css/kicons/vcard.gif" width="50" height="50" class="kikipic"/>
+	<img src="templates/default/images/kicons/vcard.gif" width="50" height="50" class="kikipic"/>
 	<div class="w2">
 <table width="90%">
 <tr height="55px">
@@ -96,14 +96,14 @@ $CC_help_list_voucher = '
 </td>
 </tr>
 </table>
-</div></div></div><br><br><br>
+</div></div></div>
 ';
 
 
 $CC_help_list_did = '
 <div id="div1000" style="display:visible;">
 <div id="kiblue_header"><div class="w4">
-	<img src="Css/kicons/vcard.gif" width="50" height="50" class="kikipic"/>
+	<img src="templates/default/images/kicons/vcard.gif" width="50" height="50" class="kikipic"/>
 	<div class="w2">
 <table width="90%">
 <tr height="55px">

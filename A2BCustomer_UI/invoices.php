@@ -1,8 +1,7 @@
 <?php
 include ("lib/defines.php");
 include ("lib/module.access.php");
-
-
+include ("lib/smarty.php");
 
 
 
@@ -386,8 +385,10 @@ if (!$nodisplay){
 <?php if($exporttype!="pdf"){?>
 
 <?php
-	include("PP_header.php");
+$smarty->display( 'main.tpl');
 ?>
+
+
 <script language="JavaScript" type="text/JavaScript">
 <!--
 function MM_openBrWindow(theURL,winName,features) { //v2.0
@@ -1096,7 +1097,7 @@ if ($vat>0) echo  " (".$vat." % ".gettext("VAT").")";
 <?php  if($exporttype!="pdf"){ ?>
 
 <?php
-	include("PP_footer.php");
+$smarty->display( 'footer.tpl');
 ?>
 
 <?php  }else{

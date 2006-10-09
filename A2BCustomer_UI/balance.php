@@ -1,6 +1,7 @@
 <?php
 include ("lib/defines.php");
 include ("lib/module.access.php");
+include ("lib/smarty.php");
 
 if (! has_rights (ACX_ACCESS)){ 
 	   Header ("HTTP/1.0 401 Unauthorized");
@@ -313,11 +314,12 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 </script>
 
 <?php
-	include("PP_header.php");
+	$smarty->display( 'main.tpl');
 	
+
 	
 // #### HELP SECTION
-echo '<br><br>'.$CC_help_balance_customer;
+echo '<br>'.$CC_help_balance_customer;
 
 ?>
 
@@ -847,5 +849,5 @@ foreach ($list_total_day as $data){
 </center>
 <br><br>
 <?php
-	include("PP_footer.php");
+$smarty->display( 'footer.tpl');
 ?>

@@ -1,6 +1,8 @@
 <?php
 include ("lib/defines.php");
 include ("lib/module.access.php");
+include ("lib/smarty.php");
+
 
 if (! has_rights (ACX_ACCESS)){ 
 	   Header ("HTTP/1.0 401 Unauthorized");
@@ -37,18 +39,11 @@ $credit_cur = $customer_info[1] / $mycur;
 $credit_cur = round($credit_cur,3);
 ?>
 
-<script language="JavaScript" type="text/JavaScript">
-<!--
-function MM_openBrWindow(theURL,winName,features) { //v2.0
-  window.open(theURL,winName,features);
-}
 
-//-->
-</script>
 
 <?php
-	include("PP_header.php");
-?><br>
+	$smarty->display( 'main.tpl');
+?>
 
 
 <?php if ($A2B->config["webcustomerui"]['customerinfo']){ ?>
@@ -58,7 +53,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 <td>
 <div id="div1000" style="display:visible;">
 <div id="kiblue"><div class="w4">
-	<img src="Css/kicons/personal.gif" class="kikipic"/>
+	<img src="templates/default/images/kicons/personal.gif" class="kikipic"/>
 	<div class="w2">
 <table width="100%">
 <tr>
@@ -90,7 +85,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 <td width="55"></td>
 <td>
 <div id="kiki"><div class="w1">
-	<img src="Css/kicons/gnome-finance.gif" class="kikipic"/>
+	<img src="templates/default/images/kicons/gnome-finance.gif" class="kikipic"/>
 	<div class="w2">
 <table width="90%">
 <tr>
@@ -118,7 +113,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 <td>
 <div id="div2200" style="display:visible;">
 <div id="kiblue"><div class="w4">
-	<img src="Css/kicons/paypal.gif" class="kikipic"/>
+	<img src="templates/default/images/kicons/paypal.gif" class="kikipic"/>
 	<div class="w2">
 <table width="80%" align="center">
 	<tr>
@@ -157,7 +152,10 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 </td>
 </tr>
 </table>
-<center><span><?php echo gettext('The fee from $5 is $0.45, from $10 is $0.59, from $20 is $0.88, from $40 is $1.46. <br><b>Paypal Fee Calculator');?> <a target="_blank" href="http://www.ppcalc.com/">http://www.ppcalc.com/</a></b></span></center>
+
+
+
+<center><?php echo gettext('The fee from $5 is $0.45, from $10 is $0.59, from $20 is $0.88, from $40 is $1.46. <br><b>Paypal Fee Calculator');?> <a target="_blank" href="http://www.ppcalc.com/">http://www.ppcalc.com/</a></b></center>
 <br>
 
 <?php }else{ ?>
@@ -165,5 +163,5 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 
 <?php } ?>
 <?php
-	include("PP_footer.php");
+	$smarty->display( 'footer.tpl');
 ?>

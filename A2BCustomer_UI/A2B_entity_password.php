@@ -2,6 +2,7 @@
 include ("./lib/defines.php");
 include ("./lib/module.access.php");
 include ("./lib/Form/Class.FormHandler.inc.php");
+include ("./lib/smarty.php");
 
 
 
@@ -36,7 +37,10 @@ if($form_action=="ask-update")
 
 
 // #### HEADER SECTION
-include("PP_header.php");
+$smarty->display( 'main.tpl');
+
+
+
 
 // #### HELP SECTION
 
@@ -137,6 +141,6 @@ document.frmPass.NewPassword.focus();
 <?php
 
 // #### FOOTER SECTION
-include("PP_footer.php");
+$smarty->display('footer.tpl');
 
 ?>

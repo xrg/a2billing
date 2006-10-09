@@ -4,6 +4,7 @@ include ("lib/module.access.php");
 //include ("lib/Class.Table.php");
 include ("frontoffice_data/CC_var_phonelist.inc");
 include ("lib/regular_express.inc");
+include ("lib/smarty.php");
 
 
 getpost_ifset(array('noheader'));
@@ -65,8 +66,9 @@ if ($FG_DEBUG == 3) echo "<br>Nb_record_max : $nb_record_max";
 ?>
 
 <?php
-	include("PP_header.php");
+$smarty->display( 'main.tpl');
 ?>
+
 
 <script language="JavaScript" type="text/JavaScript">
 <!--
@@ -320,5 +322,5 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 	 
 	 <br></br>
 <?php
-	include("PP_footer.php");
+$smarty->display( 'footer.tpl');
 ?>

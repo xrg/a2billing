@@ -1,28 +1,3 @@
-<?php
-include ("lib/defines.php");
-include ("lib/module.access.php");
-include (dirname(__FILE__)."/lib/company_info.php");
-
-if (! has_rights (ACX_ACCESS)){ 
-	   Header ("HTTP/1.0 401 Unauthorized");
-	   Header ("Location: PP_error.php?c=accessdenied");	   
-	   die();	   
-}
-
-//require (LANGUAGE_DIR.FILENAME_PP_MENU);
-
-$templatemail = 0;
-$displayservice = 1;
-
-?>
-
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
-<head>
-<title>..:: :<?php echo CCMAINTITLE; ?>: ::..</title>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-<link rel="stylesheet" type="text/css" href="Css/menu.css" media="all">
-
 <script language="JavaScript">
 <!--
 var mywin
@@ -74,13 +49,7 @@ function imgidclick(imgID,divID)
 
 //-->
 </script>
-<base target="mainFrame">
-</head>
-
-<body  leftmargin="0" topmargin="0" marginwidth="0" marginheight="35">
 <div id="dummydiv"></div>
-
-
 <ul id="nav">
 	
 		
@@ -176,5 +145,3 @@ function imgidclick(imgID,divID)
 	</td>
 </tr>
 </table>
-</body>
-</html>

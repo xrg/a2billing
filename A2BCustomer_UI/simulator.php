@@ -2,6 +2,7 @@
 include ("lib/defines.php");
 include ("lib/module.access.php");
 include ("lib/Class.RateEngine.php");	
+include ("lib/smarty.php");
 
 if (! has_rights (ACX_ACCESS)){ 
 	   Header ("HTTP/1.0 401 Unauthorized");
@@ -108,7 +109,7 @@ $nb_tariffname = count($list_tariffname);
 ?>
 
 <?php
-	include("PP_header.php");
+$smarty->display( 'main.tpl');
 
 
 // #### HELP SECTION
@@ -284,5 +285,5 @@ $FG_TABLE_ALTERNATE_ROW_COLOR[1]='#EEE9E9';
         <br>
       </div>
       <?php
-	include("PP_footer.php");
+$smarty->display( 'footer.tpl');
 ?>

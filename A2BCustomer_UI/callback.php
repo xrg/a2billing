@@ -2,6 +2,8 @@
 include ("lib/defines.php");
 include ("lib/module.access.php");
 include ("lib/Class.RateEngine.php");	 
+include ("lib/smarty.php");
+
 include (dirname(__FILE__)."/lib/phpagi/phpagi-asmanager.php");
 
 
@@ -214,8 +216,11 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 </script>
 
 <?php
-	include("PP_header.php");
-?><br>
+$smarty->display( 'main.tpl');
+?>
+
+
+<br>
 	  <center>
 	  <font color=red><b><?php echo $res['Message']; ?></b></font>
 	  <?php echo $error_msg ?> <br>
@@ -243,5 +248,5 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 	  <br>
 <br></br><br></br>
 <?php
-	include("PP_footer.php");
+$smarty->display( 'footer.tpl');
 ?>

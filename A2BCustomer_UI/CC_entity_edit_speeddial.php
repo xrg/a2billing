@@ -4,6 +4,8 @@ include ("lib/module.access.php");
 //require (LANGUAGE_DIR.FILENAME_EDIT_SPEEDDIAL);
 include ("frontoffice_data/CC_var_speeddial.inc");
 include ("lib/regular_express.inc");
+include ("lib/smarty.php");
+
 
 
 if (! has_rights (ACX_ACCESS)){ 
@@ -102,8 +104,10 @@ if ( $form_action == "edit" || $form_action == "ask-delete" || $form_action == "
 ?>
 
 <?php
-	include("PP_header.php");
+$smarty->display( 'main.tpl');
 ?>
+
+
 <script language="JavaScript" type="text/JavaScript">
 <!--
 function MM_openBrWindow(theURL,winName,features) { //v2.0
@@ -1059,5 +1063,6 @@ function sendtolittle(direction){
 			  <br><br><br><br><br>
       <?php } ?>
 <?php
-	include("PP_footer.php");
+$smarty->display( 'footer.tpl');
 ?>
+

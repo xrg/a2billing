@@ -1,0 +1,15 @@
+<?php $_config_vars = array (
+  'customerinfo' => true,
+  'cdr' => true,
+  'invoice' => true,
+  'voucher' => true,
+  'paypal' => true,
+  'speeddial' => true,
+  'did' => true,
+  'ratecard' => true,
+  'simulator' => true,
+  'callback' => true,
+  'predictivedialer' => true,
+  'webphone' => true,
+  'callerid' => true,
+); ?>

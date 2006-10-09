@@ -84,7 +84,7 @@
 	/*
 	 *		GLOBAL POST/GET VARIABLE
 	 */
-	getpost_ifset(array('form_action', 'atmenu', 'action', 'stitle', 'sub_action', 'IDmanager', 'current_page', 'order', 'sens', 'mydisplaylimit', 'filterprefix','language'));
+	getpost_ifset(array('form_action', 'atmenu', 'action', 'stitle', 'sub_action', 'IDmanager', 'current_page', 'order', 'sens', 'mydisplaylimit', 'filterprefix','language', 'cssname'));
 
 	// Include general language file
         // Language session
@@ -158,4 +158,10 @@
 
 		return $currencies_list;
 	}
+
+	if(isset($cssname) && $cssname != "")
+	{
+		$_SESSION["stylefile"] = $cssname;
+	}
+
 ?>

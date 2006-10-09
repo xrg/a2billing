@@ -1,6 +1,7 @@
 <?php
 include ("lib/defines.php");
 include ("lib/module.access.php");
+include ("lib/smarty.php");
 
 if (! has_rights (ACX_ACCESS)){ 
 	   Header ("HTTP/1.0 401 Unauthorized");
@@ -39,10 +40,11 @@ if( $customer_info [2] == "t" || $customer_info [2] == "1" ) {
 
 $customer = $_SESSION["pr_login"];
 
-	include("PP_header.php");
+$smarty->display( 'main.tpl');
 	
+
 	// #### HELP SECTION
-echo '<br><br>'.$CC_help_webphone;
+echo '<br>'.$CC_help_webphone;
 
 ?><br>
 
@@ -94,7 +96,7 @@ echo '<br><br>'.$CC_help_webphone;
 		?>
         <tbody><tr bgcolor="#cccccc">
 		<td align="center" valign="bottom">
-				<img src="Css/kicons/stock_cell-phone.png" class="kikipic"/><br>
+				<img src="templates/default/images/kicons/stock_cell-phone.png" class="kikipic"/><br>
 				<b><?php echo gettext("IAX WEB-PHONE")?></b>
 					</br></br>
 			</td>
@@ -110,10 +112,9 @@ echo '<br><br>'.$CC_help_webphone;
         </tbody>
 		</FORM>
 	</table>
-	<br><br><br>
-<br></br>
-</div></div></div>
+	<br><br><br><br>
+
 
 <?php
-	include("PP_footer.php");
+$smarty->display( 'footer.tpl');
 ?>
