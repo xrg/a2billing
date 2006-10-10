@@ -58,7 +58,7 @@ function imgidclick(imgID,divID)
 	
 	<?php if ($A2B->config["webcustomerui"]['cdr']){ ?>
 	<li><a href=# target=_self></a></li>	
-	<li><a href="balance.php"><strong><?php echo gettext("CALL HISTORY");?></strong></a></li>
+	<li><a href="call-history.php"><strong><?php echo gettext("CALL HISTORY");?></strong></a></li>
 	<?php  } ?>
 	
     <?php if ($A2B->config["webcustomerui"]['voucher']){ ?>
