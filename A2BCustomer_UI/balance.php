@@ -542,7 +542,7 @@ echo '<br>'.$CC_help_balance_customer;
               <TBODY>
                 <TR> 
                   <TD><SPAN style="COLOR: #ffffff; FONT-SIZE: 11px"><B><?php echo $FG_HTML_TABLE_TITLE?></B></SPAN></TD>
-                  <TD align=right> <IMG alt="Back to Top" border=0 height=12 src="images/btn_top_12x12.gif" width=12> 
+                  <TD align=right> <IMG alt="Back to Top" border=0 height=12 src="templates/default/images/btn_top_12x12.gif" width=12> 
                   </TD>
                 </TR>
               </TBODY>
@@ -569,9 +569,9 @@ echo '<br>'.$CC_help_balance_customer;
                     <span class="liens"><?php  } ?>
                     <?php echo $FG_TABLE_COL[$i][0]?> 
                     <?php if ($order==$FG_TABLE_COL[$i][1] && $sens=="ASC"){?>
-                    &nbsp;<img src="images/icon_up_12x12.GIF" width="12" height="12" border="0"> 
+                    &nbsp;<img src="templates/default/images/icon_up_12x12.GIF" width="12" height="12" border="0"> 
                     <?php }elseif ($order==$FG_TABLE_COL[$i][1] && $sens=="DESC"){?>
-                    &nbsp;<img src="images/icon_down_12x12.GIF" width="12" height="12" border="0"> 
+                    &nbsp;<img src="templates/default/images/icon_down_12x12.GIF" width="12" height="12" border="0"> 
                     <?php }?>
                     <?php  if (strtoupper($FG_TABLE_COL[$i][4])=="SORT"){?>
                     </span></a> 
@@ -586,7 +586,7 @@ echo '<br>'.$CC_help_balance_customer;
                 <TR> 
                   <TD bgColor=#e1e1e1 colSpan=<?php echo $FG_TOTAL_TABLE_COL?> height=1><IMG
                               height=1 
-                              src="images/clear.gif" 
+                              src="templates/default/images/clear.gif" 
                               width=1></TD>
                 </TR>
 				<?php
@@ -666,12 +666,12 @@ echo '<br>'.$CC_help_balance_customer;
 				 ?>
                 <TR> 
                   <TD class=tableDivider colSpan=<?php echo $FG_TOTAL_TABLE_COL?>><IMG height=1
-                              src="images/clear.gif" 
+                              src="templates/default/images/clear.gif" 
                               width=1></TD>
                 </TR>
                 <TR> 
                   <TD class=tableDivider colSpan=<?php echo $FG_TOTAL_TABLE_COL?>><IMG height=1
-                              src="images/clear.gif" 
+                              src="templates/default/images/clear.gif" 
                               width=1></TD>
                 </TR>
               </TBODY>
@@ -684,7 +684,7 @@ echo '<br>'.$CC_help_balance_customer;
                 <TR> 
                   <TD align="right"><SPAN style="COLOR: #ffffff; FONT-SIZE: 11px"><B> 
                     <?php if ($current_page>0){?>
-                    <img src="images/fleche-g.gif" width="5" height="10"> <a href="<?php echo $PHP_SELF?>?s=1&t=0&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php  echo ($current_page-1)?><?php  if (!is_null($letter) && ($letter!="")){ echo "&letter=$letter";} 
+                    <img src="templates/default/images/fleche-g.gif" width="5" height="10"> <a href="<?php echo $PHP_SELF?>?s=1&t=0&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php  echo ($current_page-1)?><?php  if (!is_null($letter) && ($letter!="")){ echo "&letter=$letter";} 
 					echo "&customer=$customer&posted=$posted&Period=$Period&frommonth=$frommonth&fromstatsmonth=$fromstatsmonth&tomonth=$tomonth&tostatsmonth=$tostatsmonth&fromday=$fromday&fromstatsday_sday=$fromstatsday_sday&fromstatsmonth_sday=$fromstatsmonth_sday&today=$today&tostatsday_sday=$tostatsday_sday&tostatsmonth_sday=$tostatsmonth_sday&dsttype=$dsttype&sourcetype=$sourcetype&clidtype=$clidtype&channel=$channel&resulttype=$resulttype&dst=$dst&src=$src&clid=$clid&terminatecause=$terminatecause";?>"> 
                     <?php echo gettext("PREVIOUS");?> </a> -
                     <?php }?>
@@ -692,7 +692,7 @@ echo '<br>'.$CC_help_balance_customer;
                     <?php if ($current_page<$nb_record_max-1){?>
                     - <a href="<?php echo $PHP_SELF?>?s=1&t=0&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php  echo ($current_page+1)?><?php  if (!is_null($letter) && ($letter!="")){ echo "&letter=$letter";} 
 					echo "&customer=$customer&posted=$posted&Period=$Period&frommonth=$frommonth&fromstatsmonth=$fromstatsmonth&tomonth=$tomonth&tostatsmonth=$tostatsmonth&fromday=$fromday&fromstatsday_sday=$fromstatsday_sday&fromstatsmonth_sday=$fromstatsmonth_sday&today=$today&tostatsday_sday=$tostatsday_sday&tostatsmonth_sday=$tostatsmonth_sday&dsttype=$dsttype&sourcetype=$sourcetype&clidtype=$clidtype&channel=$channel&resulttype=$resulttype&dst=$dst&src=$src&clid=$clid&terminatecause=$terminatecause";?>"> 
-                    <?php echo gettext("NEXT");?> </a> <img src="images/fleche-d.gif" width="5" height="10">
+                    <?php echo gettext("NEXT");?> </a> <img src="templates/default/images/fleche-d.gif" width="5" height="10">
                     </B></SPAN> 
                     <?php }?>
                   </TD>
@@ -799,7 +799,7 @@ foreach ($list_total_day as $data){
 		<td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right" nowrap="nowrap"><font face="verdana" color="#000000" size="1"><?php echo $minutes?> </font></td>
         <td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="left" nowrap="nowrap" width="<?php echo $widthbar+60?>">
         <table cellspacing="0" cellpadding="0"><tbody><tr>
-        <td bgcolor="#e22424"><img src="images/spacer.gif" width="<?php echo $widthbar?>" height="6"></td>
+        <td bgcolor="#e22424"><img src="templates/default/images/spacer.gif" width="<?php echo $widthbar?>" height="6"></td>
         </tr></tbody></table></td>
         <td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right" nowrap="nowrap"><font face="verdana" color="#000000" size="1"><?php echo $data[3]?></font></td>
         <td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right" nowrap="nowrap"><font face="verdana" color="#000000" size="1"><?php echo $tmc?> </font></td>
@@ -837,10 +837,10 @@ foreach ($list_total_day as $data){
 <!--
 <br/>
 <table width="60%"><tr><td>
-<a href="export_pdf.php" target="_blank"><img src="images/pdf.gif" border="0"/><?php echo gettext("Export PDF file");?></a>
+<a href="export_pdf.php" target="_blank"><img src="templates/default/images/pdf.gif" border="0"/><?php echo gettext("Export PDF file");?></a>
 </td>
 <td>
-<a href="export_csv.php" target="_blank" ><img src="images/excel.gif" border="0"/><?php echo gettext("Export CSV file");?></a>
+<a href="export_csv.php" target="_blank" ><img src="templates/default/images/excel.gif" border="0"/><?php echo gettext("Export CSV file");?></a>
 </td></tr></table>-->
 
 <?php  }else{ ?>

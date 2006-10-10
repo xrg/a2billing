@@ -1,150 +1,5 @@
 div.scroll {
-	height: 200px;
-	width: 300px;
-	overflow: auto;
-	border: 1px solid #666;
-	background-color: #ddd;
-	padding: 5px;
-}
 
-div.scrollreal{
-	position:relative;
-	top:16;
-	height: 250px;	
-	overflow: auto;
-	border: 1px solid #666;
-	background-color: #ddd;
-	/* padding: 8px; */
-	margin: 12px 12px;
-
-}
-
-.heads {
-	font-family: Arial, Helvetica, sans-serif;
-	color: #FFFFFF;
-	background-color: #FFA70F;
-	font-size: 11px;
-	text-transform: uppercase;
-	font-weight: bold;
-	padding: 2px;
-}
-.head_table_management {
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 11px;
-	font-weight: bold;
-	text-transform: uppercase;
-	background-color: #BFCCD2;
-	color: #606060;
-}
-p { 
- font-family: geneva, verdana, arial, "ms sans serif", sans-serif; 
- font-size: 10px; 
- line-height: 20px;
- margin: 10px 0px;
- color: #444;
- }
-
-h1 { 
- font-family: geneva, verdana, arial, "ms sans serif", sans-serif; 
- font-weight: bold;
- font-size: 22px; 	 
- line-height: 26px;
- margin: 8px 10px;
- color: #565C56;
- }
-
-h2 { 
- font-family: geneva, verdana, arial, "ms sans serif", sans-serif; 
- font-weight: bold;
- font-size: 20px; 	 
- line-height: 24px;
- margin: 8px 10px;
- color: #565C56;
- }
-
-h3 { 
- font-family: geneva, verdana, arial, "ms sans serif", sans-serif; 
- font-weight: bold;
- font-size: 18px; 	 
- line-height: 22px;
- margin: 8px 10px;
- color: #565C56;
- }
-
-h4 { 
- font-family: geneva, verdana, arial, "ms sans serif", sans-serif; 
- font-weight: bold;
- font-size: 15px; 	 
- line-height: 20px;
- margin: 8px 10px;
- color: #565C56;
- }
- 
-h5 { 
- font-family: geneva, verdana, arial, "ms sans serif", sans-serif; 
- font-weight: bold;
- font-size: 12px; 	 
- line-height: 18px;
- margin: 8px 10px;
- color: #565C56;
- }
- 
-.version {
- font-family: geneva, verdana, arial, "ms sans serif", sans-serif; 
- font-weight: normal;
- font-size: 10px; 	 
- line-height: 5px;
- margin: 4px 10px;
- color: #565C56;
- }
-
-
-
- 
-input, textarea {
- background-color: #fff;
- font-family: verdana, arial, sans-serif;
- font-size: 12px;
- color: #565C56;
- border-style: solid;
- border-color: #333;
- border-width: 0;
- margin: 0px;
- padding: 0px; 
-} 
-
-input.button {
- background-color: #fff;
- font-family: verdana, arial, sans-serif;
- font-size: 12px;
- color: #565C56;
- border-style: solid;
- border-color: #333;
- border-width: 0;
- margin: 0px;
- padding: 0px; 
-}
- 
- 
-a:link {
-	/* COLOR: #333399; */
-	COLOR: #666666;
-	/* PADDING-BOTTOM: 4px; PADDING-LEFT: 4px; PADDING-RIGHT: 4px; PADDING-TOP: 4px; */
-	
-	font-weight: bold;
-	font : 9;
-	text-decoration: none;
-}
-
-
-a:visited {
-	COLOR: #666666;
-	font-weight: bold;	
-	font : 9;
-	text-decoration: none;
-}
-
-a:active {
  COLOR: #333399;
  font-weight: bold; 
  font : 9;
@@ -152,27 +7,13 @@ a:active {
  
  }
 
-a:hover {
+ a:hover {
  COLOR: #cc0033;
  font-weight: bold; 
  font : 9;
  text-decoration: none;
  
  }
-
- .Tableau {
-	background-color: #ECF1F9;
-	border: 1px solid #647684;
-	margin: 2px 2px;
-	padding: 0px 0px;
-	clip: rect ();
-}
-
- .Tableau_inside {
-	margin: 2px 2px;
-	padding: 2px 2px;
-	clip: rect ();
-}
 
 body {
  COLOR: #000000; 
@@ -205,15 +46,6 @@ body {
 	BACKGROUND: #7f99cc;
 	HEIGHT: 2px;
 }
-
-.tableBody {
-	BORDER-BOTTOM: #e1e1e1 0px solid; BORDER-LEFT: #e1e1e1 0px solid; BORDER-RIGHT: #e1e1e1 1px solid; BORDER-TOP: #e1e1e1 0px solid; PADDING-BOTTOM: 4px; PADDING-LEFT: 4px; PADDING-RIGHT: 4px; PADDING-TOP: 4px
-}
-.tableBodyRight {
-	PADDING-BOTTOM: 4px; PADDING-LEFT: 4px; PADDING-RIGHT: 4px; PADDING-TOP: 4px
-}
-
-
 .white_link {
 	font-size: 10px;
 	font-weight: bolder;	
@@ -222,7 +54,7 @@ body {
 
 .liens {
 	font-size: 10px;
-	font-weight: bolder;	
+	font-weight: bolder;
 	color: #cc0033;
 }
 
@@ -243,12 +75,6 @@ body {
 	color: #FF9900;
 	border: 1px solid #C1C1C1;
 }
-
-
-
-.moduleRow { }
-.moduleRowOver { background-color: #D7E9F7; cursor: pointer; cursor: hand; }
-.moduleRowSelected { background-color: #E9F4FC; }
 .infoBox {
   background: whitesmoke;
   border-color: #7b9ebd;
@@ -293,22 +119,7 @@ TD.main, P.main {
   font-size: 11px;
   line-height: 1.5;
 }
-TD.fieldKey {
-  font-family: Verdana, Arial, sans-serif;
-  font-size: 12px;
-  font-weight: bold;
-}
 
-TD.fieldValue {
-  font-family: Verdana, Arial, sans-serif;
-  font-size: 12px;
-}
-TABLE.formArea {
-  background: #f1f9fe;
-  border-color: #7b9ebd;
-  border-style: solid;
-  border-width: 1px;
-}
 TD.formAreaTitle {
   font-family: Tahoma, Verdana, Arial, sans-serif;
   font-size: 12px;
@@ -322,7 +133,6 @@ SPAN.errorText {
 .messageStackError, .messageStackWarning { font-family: Verdana, Arial, sans-serif; font-size: 10px; background-color: #ffb3b5; }
 .messageStackSuccess { font-family: Verdana, Arial, sans-serif; font-size: 10px; background-color: #99ff00; }
 .inputRequirement { font-family: Verdana, Arial, sans-serif; font-size: 10px; color: #ff0000; }
-
 .divleft {
 	overflow: auto;
 	position: absolute;
@@ -334,12 +144,16 @@ SPAN.errorText {
 }
 
 .divright {
+	overflow: auto;
 	position: absolute;
 	z-index: 0;
 	height: auto;
-	width: auto;
+	width: 825px;
 	left: 180px;
 	top: 35px;
-	PADDING-LEFT: 10px; 
-	PADDING-RIGHT: 10px; 
 }
+
+
+
+
+
