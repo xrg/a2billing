@@ -1,6 +1,23 @@
-{include file="header.tpl"}
+<HTML>
+<HEAD>
+	<link rel="shortcut icon" href="templates/default/images/favicon.ico">
+	<link rel="icon" href="templates/default/images/animated_favicon1.gif" type="image/gif">
+	
+	<title>..:: {$CCMAINTITLE} ::..</title>
+	
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		{if ($CSS_NAME!="" && $CSS_NAME!="default")}
+			   <link href="templates/default/css/{$CSS_NAME}.css" rel="stylesheet" type="text/css">
+		{else}
+			   <link href="templates/default/css/main.css" rel="stylesheet" type="text/css">
+			   <link href="templates/default/css/menu.css" rel="stylesheet" type="text/css">
+			   <link href="templates/default/css/style-def.css" rel="stylesheet" type="text/css">
+		{/if}
+			   
+			
+</HEAD>
 
-<link href="Css/menu.css" rel="stylesheet" type="text/css">
+<BODY leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
 
 {literal}
 <script LANGUAGE="JavaScript">
@@ -59,7 +76,7 @@
 	<table style="border: 1px solid #C1C1C1">
 	<tr>
 		<td class="form_enter" align="center">
-			<img src="images/icon_arrow_orange.gif" width="15" height="15">
+			<img src="templates/default/images/icon_arrow_orange.gif" width="15" height="15">
 			<font size="3" color="red" ><b> AUTHENTICATION</b></font>
 		</td>
 	</tr>
@@ -67,7 +84,7 @@
 		<td style="padding: 5px, 5px, 5px, 5px" bgcolor="#EDF3FF">
 			<table border="0" cellpadding="0" cellspacing="10">
 			<tr align="center">
-				<td rowspan="3" style="padding-left: 8px; padding-right: 8px"><img src="images/security.png"></td>
+				<td rowspan="3" style="padding-left: 8px; padding-right: 8px"><img src="templates/default/images/security.png"></td>
 				<td></td>
 				<td align="left"><font size="2" face="Arial, Helvetica, Sans-Serif"><b>User:</b></font></td>
 				<td><input class="form_enter" type="text" name="pr_login"></td>

@@ -1,7 +1,7 @@
 <HTML>
 <HEAD>
-	<link rel="shortcut icon" href="./images/favicon.ico">
-	<link rel="icon" href="./images/animated_favicon1.gif" type="image/gif">
+	<link rel="shortcut icon" href="templates/default/images/favicon.ico">
+	<link rel="icon" href="templates/default/images/animated_favicon1.gif" type="image/gif">
 	
 	<title>..:: {$CCMAINTITLE} ::..</title>
 	
