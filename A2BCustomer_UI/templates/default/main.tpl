@@ -32,7 +32,7 @@
 	   
        {if $A2Bconfig.webcustomerui.cdr==1 }
        <li><a href=# target=_self></a></li>
-       <li><a href="balance.php"><strong>{php} echo gettext("CALL HISTORY");{/php}</strong></a></li>
+       <li><a href="call-history.php"><strong>{php} echo gettext("CALL HISTORY");{/php}</strong></a></li>
        {/if}
 
 	   {if $A2Bconfig.webcustomerui.voucher==1 }

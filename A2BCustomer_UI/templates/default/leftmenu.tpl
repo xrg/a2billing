@@ -1,5 +1,5 @@
 {config_load file=leftmenu.conf}
-
+sss
 <link rel="stylesheet" type="text/css" href="Css/menu.css" media="all">
 <ul id="nav">
 	
@@ -8,7 +8,7 @@
 	
 	{if #cdr#} 
 	<li><a href=# target=_self></a></li>	
-	<li><a href="balance.php"><strong>{php} echo gettext("CALL HISTORY");{/php}</strong></a></li>
+	<li><a href="call-history.php"><strong>{php} echo gettext("CALL HISTORY");{/php}</strong></a></li>
 	{/if}
 
 	{if #voucher#}
