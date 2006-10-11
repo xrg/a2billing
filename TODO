@@ -16,6 +16,18 @@
                    			TODO LIST - SPECIFIC
 ********************************************************************************
 
+#### FEATURE
+********************************************************************
+Marcel
+
+- invoices: keep an end of the month balance and send automatically invoices at the end of the month using an email template and attaching a html invoice report; fields in the template would include name, last month balance, current month payments, current month per minute charges, DIDs and other charges, etc.
+
+- payment: send payment emails to customers when "Add Payment" is used; send an email out of a template saying something like "thank you for payment of XXX made on YYYY...."; maybe the ability to display the payment history on the customer web site to see if they paid the bill or not 
+
+"Add Payment" do not refill the account, you have to do refill manually.
+- Adding a feature there to make an auto refill
+
+
 
 #### FEATURE
 ********************************************************************
