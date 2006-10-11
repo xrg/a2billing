@@ -24,8 +24,7 @@ $rule_list = array();
 $rule_list["0"]  = array( gettext("No rule"), "0");
 $rule_list["1"]  = array( gettext("Apply service if card not used in last X days"), "1");
 $rule_list["2"]  = array( gettext("Apply service if card has been used in the last X Days"), "2");
-$rule_list["3"]  = array( gettext("Apply service if DID has been used from 1 month - X Days"), "4");
-$rule_list["4"]  = array( gettext("Apply Service every Y days"), "3");
+$rule_list["3"]  = array( gettext("Apply Service every Y days"), "3");
 
 
 $daynumber_list = array();

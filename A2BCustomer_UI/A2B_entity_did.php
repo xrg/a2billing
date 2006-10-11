@@ -38,17 +38,23 @@ if (isset($mydisplaylimit) && (is_numeric($mydisplaylimit) || ($mydisplaylimit==
 $did_rate=explode("CUR",$choose_did_rate);
 $choose_did=$did_rate[0];
 $rate=$did_rate[1];
-	
+
+$QUERY = "SELECT  credit FROM cc_card WHERE username = '".$_SESSION["pr_login"]."' AND uipass = '".$_SESSION["pr_password"]."'";
+$DBHandle_max  = DbConnect();
+$resmax = $DBHandle_max -> query($QUERY);
+
+$user_credit = $resmax -> fetchRow();
+
 if ((isset($confirm_buy_did)) && ($confirm_buy_did == 1))
 {
-		if ($rate <= $_SESSION["credit"]) $confirm_buy_did = 2;
+		if ($rate <= $user_credit) $confirm_buy_did = 2;
 		else $confirm_buy_did = 0;
 } else 
 {   
 		if ($confirm_buy_did != 4) $confirm_buy_did = 0;
 }
 
-if (strlen($destination)>0  && is_numeric($choose_did) && is_numeric($voip_call) && ($confirm_buy_did == 2)){
+if (strlen($destination)>0  && is_numeric($choose_did) && is_numeric($voip_call) && ($confirm_buy_did >= 2)){
 
 		$FG_DID_TABLE  = "cc_did";
 		$FG_DID_FIELDS = "did";
@@ -56,13 +62,13 @@ if (strlen($destination)>0  && is_numeric($choose_did) && is_numeric($voip_call)
 		$QUERY = "INSERT INTO cc_did_destination (activated, id_cc_card, id_cc_did, destination, priority, voip_call) VALUES ('0', '".$_SESSION["card_id"]."', '".$choose_did."', '".$destination."', '1', '".$voip_call."')";
 
 		$result = $instance_sub_table -> SQLExec ($HD_Form -> DBHandle, $QUERY, 0);
-		
+		if ($confirm_buy_did == 2){
 		$instance_table_did_use = new Table();
 		
 		$QUERY1 = "INSERT INTO cc_charge (id_cc_card, amount, chargetype,id_cc_did) VALUES ('".$_SESSION["card_id"]."', '".$rate."', '2','".$choose_did."')";
 		$result = $instance_table_did_use -> SQLExec ($HD_Form -> DBHandle, $QUERY1, 0);	
 		
-		$QUERY1 = "UPDATE cc_did set iduser = ".$_SESSION["card_id"]." where id = '".$choose_did."'" ;
+		$QUERY1 = "UPDATE cc_did set iduser = ".$_SESSION["card_id"].",activated=0 where id = '".$choose_did."'" ;
 		$result = $instance_table_did_use -> SQLExec ($HD_Form -> DBHandle, $QUERY1, 0);
 
 		$QUERY1 = "UPDATE cc_card set credit = credit -".$rate." where id = '".$_SESSION["card_id"]."'" ;
@@ -73,7 +79,7 @@ if (strlen($destination)>0  && is_numeric($choose_did) && is_numeric($voip_call)
 
 		$QUERY1 = "insert into cc_did_use (activated, id_cc_card, id_did) values ('1','".$_SESSION["card_id"]."','".$choose_did."')";
 		$result = $instance_table_did_use -> SQLExec ($HD_Form -> DBHandle, $QUERY1, 0);
-
+		}
 		$date = date("D M j G:i:s T Y", time());
 		$message = "\n\n".gettext("The following Destinaton-DID has been added:")."\n\n";
 		$message .= "$QUERY";
@@ -188,8 +194,8 @@ if (isset($choose_country)){
 	//	$FG_TABLE_CLAUSE = "id_cc_country=$choose_country and id_cc_didgroup='".$_SESSION["id_didgroup"]."' and activated='1' and id NOT IN (select id_cc_did from cc_did_destination)";
 
 		// FIX SQL for Mysql < 4 that doesn't support subqueries
-		$instance_table_did = new Table("(cc_did LEFT JOIN cc_did_destination ON cc_did.id!=cc_did_destination.id) INNER JOIN cc_did_use on (cc_did.id=cc_did_use.id_did)", "DISTINCT cc_did.id, did, fixrate");
-		$FG_TABLE_CLAUSE = " id_cc_country=$choose_country and id_cc_didgroup='".$_SESSION["id_didgroup"]."' and cc_did.activated='1' and cc_did_use.activated='0' and releasedate IS NULL";
+		$instance_table_did = new Table("cc_did LEFT JOIN cc_did_destination ON (cc_did.id!=cc_did_destination.id)", "DISTINCT cc_did.id, did, fixrate");
+		$FG_TABLE_CLAUSE = " id_cc_country=$choose_country and id_cc_didgroup='".$_SESSION["id_didgroup"]."' and cc_did.activated='1'";
 
 		$list_did = $instance_table_did -> Get_list ($HD_Form -> DBHandle, $FG_TABLE_CLAUSE, "did", "ASC", null, null, null, null);
 		$nb_did = count($list_did);
@@ -197,8 +203,8 @@ if (isset($choose_country)){
 
 }elseif ($assign==2){
 		// LIST USED DID TO ADD PHONENUMBER
-		$instance_table_did = new Table("cc_did LEFT JOIN cc_did_destination ON id_cc_did=cc_did.id", "cc_did.id, did, fixrate");
-		$FG_TABLE_CLAUSE = "id_cc_didgroup='".$_SESSION["id_didgroup"]."' and id_cc_card='".$_SESSION["card_id"]."' GROUP BY cc_did.id, did, fixrate ";
+		$instance_table_did = new Table("cc_did LEFT JOIN cc_did_use ON id_did=cc_did.id", "cc_did.id, did, fixrate");
+		$FG_TABLE_CLAUSE = "id_cc_didgroup='".$_SESSION["id_didgroup"]."' and id_cc_card='".$_SESSION["card_id"]."' and cc_did_use.activated=1 and releasedate IS NULL GROUP BY cc_did.id, did, fixrate ";
 		$list_did = $instance_table_did -> Get_list ($HD_Form -> DBHandle, $FG_TABLE_CLAUSE, "did", "ASC", null, null, null, null);
 		$nb_did = count($list_did);
 }

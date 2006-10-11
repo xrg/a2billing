@@ -242,6 +242,7 @@ function imgidclick(imgID,divID)
 				<li><a href="A2B_entity_did_destination.php?stitle=DID+Destination&section=5"><?php echo gettext("List Destination");?></a></li>
 				<li><a href="A2B_entity_did_destination.php?stitle=DID+Destination&form_action=ask-add&section=5"><?php echo gettext("Add Destination");?></a></li>
 				<li><a href="A2B_entity_did_billing.php?atmenu=did_billing&stitle=DID+BILLING&section=5"><?php echo gettext("DID BILLING");?></a></li>
+				<li><a href="A2B_entity_did_use.php?atmenu=did_use&stitle=DID+USE&section=5"><?php echo gettext("DID use");?></a></li>
 			</ul></li>
 		</ul>
 		</div>

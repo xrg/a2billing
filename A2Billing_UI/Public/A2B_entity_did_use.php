@@ -1,12 +1,12 @@
 <?php
-if ($wantinclude!=1){
-	include ("../lib/defines.php");
-	include ("../lib/module.access.php");
-	include ("../lib/Form/Class.FormHandler.inc.php");
-}
+include_once ("../lib/defines.php");
+include_once ("../lib/module.access.php");
+include_once ("../lib/Form/Class.FormHandler.inc.php");
 
 
-include ("./form_data/FG_var_diduse.inc");
+
+include_once ("./form_data/FG_var_diduse.inc");
+
 
 
 if (! has_rights (ACX_RATECARD)){ 
