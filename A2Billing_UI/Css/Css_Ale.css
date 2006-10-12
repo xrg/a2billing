@@ -374,11 +374,12 @@ SPAN.errorText {
 }
 
 .divright {
-	overflow: auto;
 	position: absolute;
 	z-index: 0;
 	height: auto;
-	width: 825px;
+	width: auto;
 	left: 180px;
-	top: 30px;
+	top: 35px;
+	PADDING-LEFT: 10px; 
+	PADDING-RIGHT: 10px; 
 }

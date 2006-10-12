@@ -66,7 +66,7 @@ function imgidclick(imgID,divID, imgbase, imgchange)
 <body  leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
 <p class="version" align="right"><?php echo WEBUI_VERSION.WEBUI_DATE; ?></p>
 <br>
-<DIV border=0 width="1000">
+<DIV border=0 width="100%">
 <div class="divleft">
 	<?php include("PP_menu.php");?>
 </div>
