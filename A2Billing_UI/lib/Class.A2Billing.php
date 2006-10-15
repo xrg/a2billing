@@ -153,6 +153,10 @@ class A2Billing {
 	// Flag to know that we ask for an othercardnumber when for instance we doesnt have enough credit to make a call
 	var $ask_other_cardnumber=0;
 	
+	var $ivr_voucher;
+	var $vouchernumber;
+	var $add_credit;
+	
 	/**
 	* CC_TESTING variables 
 	* for developer purpose, will replace some get_data inputs in order to test the application from shell
@@ -274,7 +278,7 @@ class A2Billing {
 		// Conf for Paypal 		
 		if(!isset($this->config["paypal"]['item_name']))	$this->config["paypal"]['item_name'] = 'Credit Purchase';
 		if(!isset($this->config["paypal"]['currency_code']))	$this->config["paypal"]['currency_code'] = 'USD';
-		if(!isset($this->config["paypal"]['purchase_amount']))	$this->config["paypal"]['purchase_amount'] = '5;10;15';
+		if(!isset($this->config["paypal"]['purchase_amount']))	$this->config["paypal"]['purchase_amount'] = '5:10:15';
 		if(!isset($this->config["paypal"]['paypal_logfile']))	$this->config["paypal"]['paypal_logfile'] = '/tmp/a2billing_paypal.log';
 	
 
@@ -402,6 +406,8 @@ class A2Billing {
 		if(!isset($this->config["agi-conf$idconfig"]['send_reminder'])) $this->config["agi-conf$idconfig"]['send_reminder'] = 0;
 		if(isset($this->config["agi-conf$idconfig"]['debugshell']) && $this->config["agi-conf$idconfig"]['debugshell'] == 1 && isset($agi)) $agi->nlinetoread = 0;
 		
+		if(!isset($this->config["agi-conf$idconfig"]['ivr_voucher'])) $this->config["agi-conf$idconfig"]['ivr_voucher'] = 0;
+		if(!isset($this->config["agi-conf$idconfig"]['ivr_voucher_prefixe'])) $this->config["agi-conf$idconfig"]['ivr_voucher_prefixe'] = 8;
 		
 		$this->agiconfig = $this->config["agi-conf$idconfig"];
 		
@@ -1006,7 +1012,7 @@ class A2Billing {
      *  @param float $credit
      *  @return nothing
 	**/
-	function fct_say_balance ($agi, $credit){
+	function fct_say_balance ($agi, $credit, $fromvoucher){
 				
 		global $currencies_list;
 		
@@ -1033,7 +1039,8 @@ class A2Billing {
 		
 		
 		// say 'you have x dollars and x cents'
-		$agi-> stream_file('prepaid-you-have', '#');
+		if ($fromvoucher!=1)$agi-> stream_file('prepaid-you-have', '#');
+		else $agi-> stream_file('account_refill', '#');
 		
 		if ($units==0 && $cents==0){					
 			$agi->say_number(0);					
@@ -1087,6 +1094,66 @@ class A2Billing {
 			$agi->say_digits($units);
 		}
 		$agi->stream_file('cents-per-minute');
+	}
+
+	/**
+	 *	Function refill_card_with_voucher
+	 *
+	 *  @param object $agi
+	 *  @param object $RateEngine     
+	 *  @param object $voucher number
+		
+     *  @return 1 if Ok ; -1 if error
+	**/	
+
+	function refill_card_with_voucher($agi, &$RateEngine, $try_num){
+		
+		global $currencies_list;
+		
+
+		$res_dtmf = $agi->get_data('voucher_enter_number', 6000, $this->agiconfig['len_voucher'], '#');
+		if ($this->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '."RES DTMF : ".$res_dtmf ["result"]);
+		$this->vouchernumber = $res_dtmf ["result"];		
+		if ($this->vouchernumber<=0){
+			return -1;
+		}
+		
+			
+		if ($this->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '."VOUCHER NUMBER : ".$this->vouchernumber);
+			
+		
+		$QUERY = "SELECT voucher, credit, activated, tag, currency, expirationdate FROM cc_voucher WHERE expirationdate >= CURRENT_TIMESTAMP AND activated='t' AND voucher='".$this->vouchernumber."'";			
+		if ($this->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '.$QUERY);										
+		$result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY);
+		if ($this->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '.$result);		
+		
+		if ($result[0][0]==$this->vouchernumber)
+		{
+			if (!isset ($currencies_list[strtoupper($result[0][4])][2]))
+			{
+				if ($this->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - System Error : No currency table complete !!!');		
+				$agi-> stream_file('unknow_used_currencie', '#');				
+			return -1;
+			}
+			else
+			{
+				$this ->add_credit = $result[0][1]*$currencies_list[strtoupper($result[0][4])][2];
+				$QUERY = "UPDATE cc_voucher SET activated='f', usedcardnumber='".$this->username."', usedate=now() WHERE voucher='".$this->vouchernumber."'";
+				$result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY, 0);
+
+				$QUERY = "UPDATE cc_card SET credit=credit+'".$this ->add_credit."' WHERE username='".$this->username."'";
+				$result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY, 0);
+
+				if ($this->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.'The Voucher'.$this->vouchernumber.'has been used, We added'.$this ->add_credit.' credit on your account!');
+				return 1;	
+			}
+		}
+		else
+		{
+			if ($this->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '."System Error : Voucher not avaible or dosn't exist");
+			$agi-> stream_file('voucher_does_not_exist');
+			return -1;
+		}
 	}
 
 	
@@ -1446,8 +1513,9 @@ class A2Billing {
 				}
 						
 						
-			}
-		
+			}		
+		}else{
+			$callerID_enable=0;
 		}
 		
 		// 		  -%-%-%-%-%-%-		CHECK IF WE CAN AUTHENTICATE THROUGH THE "ACCOUNTCODE" 	-%-%-%-%-%-%-
@@ -1578,8 +1646,8 @@ class A2Billing {
 		
 			// 		  -%-%-%-%-%-%-		IF NOT PREVIOUS WE WILL ASK THE CARDNUMBER AND AUTHENTICATE ACCORDINGLY 	-%-%-%-%-%-%-				
 			for ($retries = 0; $retries < 3; $retries++) {
-				if (($retries>0) && (strlen($prompt)>0)){
-					$agi-> stream_file($prompt, '#');
+				if (($retries>0) && (strlen($prompt)>0)){					
+					$agi-> stream_file($prompt, '#');					
 					if ($this->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '.strtoupper($prompt));
 				}												
 				
@@ -1711,7 +1779,7 @@ class A2Billing {
 						$prompt = "prepaid-card-expired";			
 					}
 				}
-							
+				
 					
 				//CREATE AN INSTANCE IN CC_CALLERID
 				if ($this->agiconfig['cid_enable']==1 && $this->agiconfig['cid_auto_assign_card_to_cid']==1 && is_numeric($this->CallerID) && $this->CallerID>0 && $this -> ask_other_cardnumber!=1){
@@ -1754,7 +1822,10 @@ class A2Billing {
 		
 		if (($retries < 3) && $res==0) {
 			//ast_cdr_setaccount(chan, username);
-						
+			
+			$this -> write_log("[callingcard_acct_start_inuse]");
+			$this -> callingcard_acct_start_inuse($agi,1);
+			
 			if ($this->agiconfig['say_balance_after_auth']==1){		
 				if ($this->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '."[A2Billing] SAY BALANCE (".$this->agiconfig['say_balance_after_auth'].")\n");
 				$this -> fct_say_balance ($agi, $this->credit);
@@ -1891,8 +1962,7 @@ class A2Billing {
 	{
 		$this -> DBHandle -> disconnect();
 	}
-	
 
 };
-
+	
 ?>
