@@ -7,6 +7,7 @@ class RateEngine {
 	
 	var $number_trunk=0;
 	var $lastcost=0;
+	var $lastbuycost=0;
 	var $answeredtime;
 	var $dialstatus;
 	var $usedratecard;
@@ -29,6 +30,7 @@ class RateEngine {
 		 $this -> dialstatus='';
 		 $this -> usedratecard='';
 		 $this -> lastcost = '';
+		 $this -> lastbuycost = '';
 	}
 
 	
@@ -92,6 +94,7 @@ class RateEngine {
 		*/
 		
 		if (strlen($A2B->dnid)>=1) $mydnid = $A2B->dnid;
+		if (strlen($A2B->CallerID)>=1) $mycallerid = $A2B->CallerID;
 		
 		
 		if ($A2B->config["database"]['dbtype'] != "postgres"){
@@ -99,11 +102,19 @@ class RateEngine {
 			$result_sub = $A2B->instance_table -> SQLExec ($A2B -> DBHandle, $DNID_QUERY);
 			if (!is_array($result_sub) || count($result_sub)==0) $nb_dnid = 0;
 			else $nb_dnid = $result_sub[0][0];
-			$SUB_QUERY = "AND 0 = $nb_dnid";
+			$DNID_SUB_QUERY = "AND 0 = $nb_dnid";
+			
+			$CALLERID_QUERY = "SELECT count(calleridprefix) FROM cc_tariffplan RIGHT JOIN cc_tariffgroup_plan ON cc_tariffgroup_plan.idtariffgroup=$tariffgroupid WHERE calleridprefix  LIKE '$mycallerid%'";
+			$result_sub = $A2B->instance_table -> SQLExec ($A2B -> DBHandle, $CALLERID_QUERY);
+			if (!is_array($result_sub) || count($result_sub)==0) $nb_callerid = 0;
+			else $nb_callerid = $result_sub[0][0];
+			$CID_SUB_QUERY = "AND 0 = $nb_callerid";
 			
 		}else{
-			$SUB_QUERY = "AND 0 = (SELECT count(dnidprefix) FROM cc_tariffplan RIGHT JOIN cc_tariffgroup_plan ON cc_tariffgroup_plan.idtariffgroup=$tariffgroupid WHERE dnidprefix  LIKE '$mydnid%') ";
-		}	
+			$DNID_SUB_QUERY = "AND 0 = (SELECT count(dnidprefix) FROM cc_tariffplan RIGHT JOIN cc_tariffgroup_plan ON cc_tariffgroup_plan.idtariffgroup=$tariffgroupid WHERE dnidprefix=SUBSTRING('$mydnid',1,length(dnidprefix)) ) ";
+			
+			$CID_SUB_QUERY = "AND 0 = (SELECT count(calleridprefix) FROM cc_tariffplan RIGHT JOIN cc_tariffgroup_plan ON cc_tariffgroup_plan.idtariffgroup=$tariffgroupid WHERE calleridprefix=SUBSTRING('$mycallerid',1,length(calleridprefix)) ) ";
+		}
 		
 		$QUERY = "SELECT tariffgroupname, lcrtype, idtariffgroup, cc_tariffgroup_plan.idtariffplan, tariffname, destination,
 		
@@ -136,8 +147,9 @@ class RateEngine {
 		$sql_clause_days
 		AND idtariffgroup='$tariffgroupid'
 		
-		AND ( cc_tariffplan.dnidprefix LIKE '$mydnid%' OR (cc_tariffplan.dnidprefix='all' $SUB_QUERY)) 
+		AND ( dnidprefix=SUBSTRING('$mydnid',1,length(dnidprefix)) OR (dnidprefix='all' $DNID_SUB_QUERY)) 
 		
+		AND ( calleridprefix=SUBSTRING('$mycallerid',1,length(calleridprefix)) OR (calleridprefix='all' $CID_SUB_QUERY)) 
 		
 		ORDER BY LENGTH(dialprefix) DESC";
 		
@@ -497,7 +509,7 @@ class RateEngine {
 		$buyratecost =0;
 		if ($buyratecallduration<$buyrateinitblock) $buyratecallduration=$buyrateinitblock;
 		if ($buyrateincrement > 0) {	
-			$mod_sec = $buyratecallduration % $buyrateincrement;  
+			$mod_sec = $buyratecallduration % $buyrateincrement;
 			if ($mod_sec>0) $buyratecallduration += ($buyrateincrement - $mod_sec);
 		}
 		
@@ -596,8 +608,9 @@ class RateEngine {
 		}
 		$cost = round($cost,4);
 		if ($this -> debug_st)  echo "FINAL COST: $cost\n\n";
-		$A2B -> write_log("[CC_RATE_ENGINE_CALCULCOST: K=$K - FINAL COST: $cost]");
+		$A2B -> write_log("[CC_RATE_ENGINE_CALCULCOST: K=$K - BUYCOST: $buyratecost - SELLING COST: $cost]");
 		$this -> lastcost = $cost;
+		$this -> lastbuycost = $buyratecost;
 	}
 
 
@@ -654,8 +667,12 @@ class RateEngine {
 		else 	$usetrunk=29;
 		$id_trunk = $this -> ratecard_obj[$K][$usetrunk];
 		
+		$buycost = 0;
 		if ($doibill==0 || $sessiontime < $A2B->agiconfig['min_duration_2bill']) $cost = 0;		
-		else $cost = $this -> lastcost;
+		else{ 
+			$cost = $this -> lastcost;
+			$buycost = abs($this -> lastbuycost);
+		}
 		//else $cost = abs($this -> lastcost);
 		
 		if ($cost<0){ 
@@ -668,9 +685,10 @@ class RateEngine {
 		
 		$dialstatus = $this -> dialstatus;
 		
+		$buyrateapply = $this -> ratecard_obj[$K][9];
 		$rateapply = $this -> ratecard_obj[$K][12];
 		
-		$A2B -> write_log("[CC_RATE_ENGINE_UPDATESYSTEM: usedratecard K=$K - (sessiontime=$sessiontime :: dialstatus=$dialstatus :: cost=$cost : signe_cc_call=$signe_cc_call: signe=$signe)]");
+		$A2B -> write_log("[CC_RATE_ENGINE_UPDATESYSTEM: usedratecard K=$K - (sessiontime=$sessiontime :: dialstatus=$dialstatus :: buycost=$buycost :: cost=$cost : signe_cc_call=$signe_cc_call: signe=$signe)]");
 		
 		// CALLTYPE -  0 = NORMAL CALL ; 1 = VOIP CALL (SIP/IAX) ; 2= DIDCALL + TRUNK ; 3 = VOIP CALL DID ; 4 = CALLBACK call		
 		if ($didcall) $calltype = 2;
@@ -680,7 +698,7 @@ class RateEngine {
 		// MYSQL SELECT now() - INTERVAL 300 SECOND;
 		// PGSQL SELECT now() - interval '300 seconds'
 		$QUERY = "INSERT INTO cc_call (uniqueid,sessionid,username,nasipaddress,starttime,sessiontime, calledstation, ".
-			" terminatecause, stoptime, calledrate, sessionbill, calledcountry, calledsub, destination, id_tariffgroup, id_tariffplan, id_ratecard, id_trunk, src, sipiax) VALUES ".
+			" terminatecause, stoptime, calledrate, sessionbill, calledcountry, calledsub, destination, id_tariffgroup, id_tariffplan, id_ratecard, id_trunk, src, sipiax, buyrate, buycost) VALUES ".
 			"('".$A2B->uniqueid."', '".$A2B->channel."',  '".$A2B->username."', '".$A2B->hostname."', ";
 			
 		if ($A2B->config["database"]['dbtype'] == "postgres"){			
@@ -690,7 +708,7 @@ class RateEngine {
 		}
 		
 		$QUERY .= ", '$sessiontime', '$calledstation', '$dialstatus', now(), '$rateapply', '$signe_cc_call".round(abs($cost),4)."', ".
-			" '', '', '$calldestination', '$id_tariffgroup', '$id_tariffplan', '$id_ratecard', '$id_trunk', '".$A2B->CallerID."', '$calltype')";
+			" '', '', '$calldestination', '$id_tariffgroup', '$id_tariffplan', '$id_ratecard', '$id_trunk', '".$A2B->CallerID."', '$calltype', '$buyrateapply', '$buycost')";
 		
 		
 		
@@ -838,7 +856,7 @@ class RateEngine {
 			
 			if (($this->dialstatus  == "CHANUNAVAIL") || ($this->dialstatus  == "CONGESTION") ) 
 			{
-					
+				$this->answeredtime=0;
 				if (is_numeric($failover_trunk) && $failover_trunk>=0)
 				{
 					
@@ -893,9 +911,10 @@ class RateEngine {
 							
 						$A2B -> write_log("[FAILOVER K=$k]:[ANSWEREDTIME=".$this->answeredtime."-DIALSTATUS=".$this->dialstatus."]");
 						
-						if (($this->dialstatus  == "CHANUNAVAIL") || ($this->dialstatus  == "CONGESTION")) 
+						if (($this->dialstatus  == "CHANUNAVAIL") || ($this->dialstatus  == "CONGESTION")){
+							$this->answeredtime=0;
 							continue;
-								
+						}	
 					}
 						
 				}else{
