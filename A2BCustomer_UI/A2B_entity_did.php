@@ -47,14 +47,15 @@ $user_credit = $resmax -> fetchRow();
 
 if ((isset($confirm_buy_did)) && ($confirm_buy_did == 1))
 {
-		if ($rate <= $user_credit) $confirm_buy_did = 2;
+		if ($rate <= $user_credit[0]) $confirm_buy_did = 2;
 		else $confirm_buy_did = 0;
 } else 
 {   
 		if ($confirm_buy_did != 4) $confirm_buy_did = 0;
 }
 
-if (strlen($destination)>0  && is_numeric($choose_did) && is_numeric($voip_call) && ($confirm_buy_did >= 2)){
+if (is_numeric($voip_call) && ($confirm_buy_did >= 2)){
+//if (strlen($destination)>0  && is_numeric($choose_did) && is_numeric($voip_call) && ($confirm_buy_did >= 2)){
 
 		$FG_DID_TABLE  = "cc_did";
 		$FG_DID_FIELDS = "did";
@@ -63,22 +64,22 @@ if (strlen($destination)>0  && is_numeric($choose_did) && is_numeric($voip_call)
 
 		$result = $instance_sub_table -> SQLExec ($HD_Form -> DBHandle, $QUERY, 0);
 		if ($confirm_buy_did == 2){
-		$instance_table_did_use = new Table();
-		
-		$QUERY1 = "INSERT INTO cc_charge (id_cc_card, amount, chargetype,id_cc_did) VALUES ('".$_SESSION["card_id"]."', '".$rate."', '2','".$choose_did."')";
-		$result = $instance_table_did_use -> SQLExec ($HD_Form -> DBHandle, $QUERY1, 0);	
-		
-		$QUERY1 = "UPDATE cc_did set iduser = ".$_SESSION["card_id"].",activated=0 where id = '".$choose_did."'" ;
-		$result = $instance_table_did_use -> SQLExec ($HD_Form -> DBHandle, $QUERY1, 0);
-
-		$QUERY1 = "UPDATE cc_card set credit = credit -".$rate." where id = '".$_SESSION["card_id"]."'" ;
-		$result = $instance_table_did_use -> SQLExec ($HD_Form -> DBHandle, $QUERY1, 0);
-
-		$QUERY1 = "UPDATE cc_did_use set releasedate = now(), month_payed=month_payed+1 where id_did = '".$choose_did."' and activated = 0" ;
-		$result = $instance_table_did_use -> SQLExec ($HD_Form -> DBHandle, $QUERY1, 0);
-
-		$QUERY1 = "insert into cc_did_use (activated, id_cc_card, id_did) values ('1','".$_SESSION["card_id"]."','".$choose_did."')";
-		$result = $instance_table_did_use -> SQLExec ($HD_Form -> DBHandle, $QUERY1, 0);
+			$instance_table_did_use = new Table();
+			
+			$QUERY1 = "INSERT INTO cc_charge (id_cc_card, amount, chargetype,id_cc_did) VALUES ('".$_SESSION["card_id"]."', '".$rate."', '2','".$choose_did."')";
+			$result = $instance_table_did_use -> SQLExec ($HD_Form -> DBHandle, $QUERY1, 0);	
+			
+			$QUERY1 = "UPDATE cc_did set iduser = ".$_SESSION["card_id"].",activated=0 where id = '".$choose_did."'" ;
+			$result = $instance_table_did_use -> SQLExec ($HD_Form -> DBHandle, $QUERY1, 0);
+	
+			$QUERY1 = "UPDATE cc_card set credit = credit -".$rate." where id = '".$_SESSION["card_id"]."'" ;
+			$result = $instance_table_did_use -> SQLExec ($HD_Form -> DBHandle, $QUERY1, 0);
+	
+			$QUERY1 = "UPDATE cc_did_use set releasedate = now(), month_payed=month_payed+1 where id_did = '".$choose_did."' and activated = 0" ;
+			$result = $instance_table_did_use -> SQLExec ($HD_Form -> DBHandle, $QUERY1, 0);
+	
+			$QUERY1 = "insert into cc_did_use (activated, id_cc_card, id_did) values ('1','".$_SESSION["card_id"]."','".$choose_did."')";
+			$result = $instance_table_did_use -> SQLExec ($HD_Form -> DBHandle, $QUERY1, 0);
 		}
 		$date = date("D M j G:i:s T Y", time());
 		$message = "\n\n".gettext("The following Destinaton-DID has been added:")."\n\n";
@@ -193,10 +194,9 @@ if (isset($choose_country)){
 	//	$instance_table_did = new Table("cc_did", "id, did, fixrate");
 	//	$FG_TABLE_CLAUSE = "id_cc_country=$choose_country and id_cc_didgroup='".$_SESSION["id_didgroup"]."' and activated='1' and id NOT IN (select id_cc_did from cc_did_destination)";
 
-		// FIX SQL for Mysql < 4 that doesn't support subqueries
+		// FIX SQL for Mysql < 4 that doesn't support subqueries		
 		$instance_table_did = new Table("cc_did LEFT JOIN cc_did_destination ON (cc_did.id!=cc_did_destination.id)", "DISTINCT cc_did.id, did, fixrate");
 		$FG_TABLE_CLAUSE = " id_cc_country=$choose_country and id_cc_didgroup='".$_SESSION["id_didgroup"]."' and cc_did.activated='1'";
-
 		$list_did = $instance_table_did -> Get_list ($HD_Form -> DBHandle, $FG_TABLE_CLAUSE, "did", "ASC", null, null, null, null);
 		$nb_did = count($list_did);
 
@@ -268,7 +268,11 @@ function CheckCountry(Source){
 	}
 	if ((Source == 'NextButton') || (Source == 'NextButton1')) 
 	{
-		test=true;
+		var index = document.theForm.choose_country.selectedIndex;
+		var indexdid = document.theForm.choose_did_rate.selectedIndex;
+		destination = document.theForm.destination.value;
+		if ((destination == '') || (indexdid <= 0)) return false;
+		else test=true;
 		NextPage();
 	}
 	if (Source == 'PrevButton')
@@ -278,8 +282,12 @@ function CheckCountry(Source){
 	}
 	if (Source == 'Add')
 	{	
-		document.theForm.confirm_buy_did.value=4;
-		test=true;
+		if (destination == '') 
+		{ 
+			return false; 
+			document.theForm.confirm_buy_did.value=4;
+		}
+		else test=true;
 	}
 	if (test) document.theForm.submit();
 	return false;
@@ -518,7 +526,7 @@ function CheckCountry(Source){
 			</tr>
 			<tr class="did_maintable_tr2">
 				<td colspan="2" height="40">
-					<center><font color="red"><?php echo gettext("A monthly taking away of :").$rate." ".BASE_CURRENCY."<br>".gettext(" will be carrie out from your acount");?> </font></center>
+					<center><font color="red"><?php echo gettext("A monthly taking away of :").number_format($rate,2,".",",")." ".BASE_CURRENCY."<br>".gettext(" will be carrie out from your acount");?> </font></center>
 				</td>
 			</tr>
 			<tr class="did_maintable_tr1">
@@ -537,12 +545,12 @@ function CheckCountry(Source){
 			<tr class="did_maintable_tr2" valign="middle">
 				<td colspan="2" height="40">
 					<?php
-					if ($confirm_buy_did ==2) {?><center><font color="black"><?php echo gettext("The purchase of the DID is done ")?> </font></center>
-					<?php }else {?><center><font color="red"><?php echo "<br>".gettext("The purchase of the DID cant be done, your credit of  ").$_SESSION["credit"]." ".BASE_CURRENCY.gettext(" is lower than Fixerate of the DID  ").$rate." ".BASE_CURRENCY." </br> <hr>".gettext("Please reload your account ");?> </font></center>
+					if ($confirm_buy_did == 2) {?><center><font color="black"><?php echo gettext("The purchase of the DID is done ")?> </font></center>
+					<?php }else {?><center><font color="red"><?php echo "<br>".gettext("The purchase of the DID cant be done, your credit of  ").number_format($user_credit[0],2,".",",")." ".BASE_CURRENCY.gettext(" is lower than Fixerate of the DID  ").number_format($rate,2,".",",")." ".BASE_CURRENCY." </br> <hr>".gettext("Please reload your account ");?> </font></center>
 				<?php } ?></td>
 			</tr>
 			<INPUT type="hidden" name="choose_did_rate" value="">
-			<INPUT type="hidden" name="destination" value="">
+			<INPUT type="hidden" name="destination" value=" ">
 			<INPUT type="hidden" name="voip_call" value="">
 			<INPUT type="hidden" name="choose_country" value="">
 			<tr class="did_maintable_tr1">
