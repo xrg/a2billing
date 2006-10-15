@@ -154,7 +154,6 @@
 			$A2B->callingcard_auto_setcallerid($agi);
 			//$A2B -> write_log("[callingcard_acct_start_inuse]");
 			//$A2B->callingcard_acct_start_inuse($agi,1);
-			
 			for ($i=0;$i< $A2B->agiconfig['number_try'] ;$i++){
 					
 					$RateEngine->Reinit();
@@ -184,6 +183,16 @@
 					
 					if ($i>0)   $A2B-> uniqueid=$A2B-> uniqueid+ 1000000000 ;
 					
+					if ($A2B->agiconfig['ivr_voucher']==1){
+						$res_dtmf = $agi->get_data('refill_card_with_voucher', 2000, 1);
+						if ($A2B->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '."RES REFILL CARD VOUCHER DTMF : ".$res_dtmf ["result"]);
+						$A2B-> ivr_voucher = $res_dtmf ["result"];
+						if ((isset($A2B-> ivr_voucher)) && ($A2B-> ivr_voucher == $A2B->agiconfig['ivr_voucher_prefixe']))
+						{	
+							$vou_res = $A2B->refill_card_with_voucher($agi, $RateEngine,$i);
+							if ($vou_res==1)$A2B->fct_say_balance ($agi, $A2B->add_credit, 1);
+						}
+					}
 					
 					if( $A2B->credit < $A2B->agiconfig['min_credit_2call'] && $A2B -> typepaid==0) {
 							
@@ -298,14 +307,14 @@
 																				
 							}
 					}
-					$A2B->agiconfig['use_dnid']=0;
+				$A2B->agiconfig['use_dnid']=0;
 			}//END FOR
 			if (!isset($inuse_removed) || $inuse_removed != 1) $A2B->callingcard_acct_start_inuse($agi,0); // REMOVE THE INUSE
 		}else{
 				$A2B -> write_log("[AUTHENTICATION FAILED (cia_res:".$cia_res.")]");
 		}
 			
-			
+	
 		/****************  SAY GOODBYE   ***************/
 		if ($A2B->agiconfig['say_goodbye']==1) $agi-> stream_file('prepaid-final', '#');
 	
