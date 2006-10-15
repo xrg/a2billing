@@ -331,16 +331,17 @@ echo '<br>'.$CC_help_balance_customer;
 	<FORM METHOD=POST ACTION="<?php echo $PHP_SELF?>?s=1&t=0&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php echo $current_page?>&terminatecause=<?php echo $terminatecause?>">
 	<INPUT TYPE="hidden" NAME="posted" value=1>
 	<INPUT TYPE="hidden" NAME="current_page" value=0>	
-		<table class="bar-status" width="75%" border="0" cellspacing="1" cellpadding="2" align="center">
+		<table class="callhistory_maintable" align="center">
 			<tbody>
 			<tr>
         		<td class="bar-search" align="left" bgcolor="#555577">
 
 					<input type="radio" name="Period" value="Month" <?php  if (($Period=="Month") || !isset($Period)){ ?>checked="checked" <?php  } ?>> 
-					<font face="verdana" size="1" color="#ffffff"><b><?php echo gettext("Selection of the month");?></b></font>
+					<font class="callhistory_td4"><?php echo gettext("Selection of the month");?></font>
 				</td>
-      			<td class="bar-search" align="left" bgcolor="#cddeff">
-					<table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#cddeff"><tr><td>
+				<td class="callhistory_td8" align="left" >
+					<table width="100%" border="0" cellspacing="0" cellpadding="0" class="callhistory_td8"><tr><td>
+
 	  				<input type="checkbox" name="frommonth" value="true" <?php  if ($frommonth){ ?>checked<?php }?>>
 					<?php echo gettext("FROM");?> : <select name="fromstatsmonth">
 					<?php 	$year_actual = date("Y");
@@ -385,12 +386,12 @@ echo '<br>'.$CC_help_balance_customer;
     		</tr>
 			
 			<tr>
-        		<td align="left" bgcolor="#000033">
+        		<td align="left" class="callhistory_td9">
 					<input type="radio" name="Period" value="Day" <?php  if ($Period=="Day"){ ?>checked="checked" <?php  } ?>> 
-					<font face="verdana" size="1" color="#ffffff"><b><?php echo gettext("Selection of the day");?></b></font>
+					<font class="callhistory_td4"><?php echo gettext("Selection of the day");?></b></font>
 				</td>
-      			<td align="left" bgcolor="#acbdee">
-					<table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#acbdee"><tr><td>
+      			<td align="left" class="callhistory_td10">
+					<table width="100%" border="0" cellspacing="0" cellpadding="0" class="callhistory_td10"><tr><td>
 	  				<input type="checkbox" name="fromday" value="true" <?php  if ($fromday){ ?>checked<?php }?>> <?php echo gettext("FROM");?> :
 					<select name="fromstatsday_sday">
 						<?php  
@@ -450,15 +451,16 @@ echo '<br>'.$CC_help_balance_customer;
 	  			</td>
     		</tr>
 			<tr>
-				<td class="bar-search" align="left" bgcolor="#555577">			
-					<font face="verdana" size="1" color="#ffffff"><b>&nbsp;&nbsp;<?php echo gettext("DESTINATION");?></b></font>
+				<td  align="left" class="callhistory_td9">			
+					<font class="callhistory_td4">&nbsp;&nbsp;<?php echo gettext("DESTINATION");?></font>
+
 				</td>				
-				<td class="bar-search" align="left" bgcolor="#cddeff">
+				<td  align="left" class="callhistory_td8">
 				<table width="100%" border="0" cellspacing="0" cellpadding="0"><tr><td>&nbsp;&nbsp;<INPUT TYPE="text" NAME="dst" value="<?php echo $dst?>"></td>
-				<td class="bar-search" align="center" bgcolor="#cddeff"><input type="radio" NAME="dsttype" value="1" <?php if((!isset($dsttype))||($dsttype==1)){?>checked<?php }?>><?php echo gettext("Exact");?></td>
-				<td class="bar-search" align="center" bgcolor="#cddeff"><input type="radio" NAME="dsttype" value="2" <?php if($dsttype==2){?>checked<?php }?>><?php echo gettext("Begins with")?></td>
-				<td class="bar-search" align="center" bgcolor="#cddeff"><input type="radio" NAME="dsttype" value="3" <?php if($dsttype==3){?>checked<?php }?>><?php echo gettext("Contains");?></td>
-				<td class="bar-search" align="center" bgcolor="#cddeff"><input type="radio" NAME="dsttype" value="4" <?php if($dsttype==4){?>checked<?php }?>><?php echo gettext("End with");?></td>
+				<td  align="center" class="callhistory_td8"><input type="radio" NAME="dsttype" value="1" <?php if((!isset($dsttype))||($dsttype==1)){?>checked<?php }?>><?php echo gettext("Exact");?></td>
+				<td  align="center" class="callhistory_td8"><input type="radio" NAME="dsttype" value="2" <?php if($dsttype==2){?>checked<?php }?>><?php echo gettext("Begins with")?></td>
+				<td  align="center" class="callhistory_td8"><input type="radio" NAME="dsttype" value="3" <?php if($dsttype==3){?>checked<?php }?>><?php echo gettext("Contains");?></td>
+				<td  align="center" class="callhistory_td8"><input type="radio" NAME="dsttype" value="4" <?php if($dsttype==4){?>checked<?php }?>><?php echo gettext("End with");?></td>
 				</tr></table></td>
 			</tr>			
 			
@@ -467,7 +469,7 @@ echo '<br>'.$CC_help_balance_customer;
 
 			
 			<tr>
-			  <td class="bar-search" align="left" bgcolor="#000033"><font face="verdana" size="1" color="#ffffff"><b>&nbsp;&nbsp;<?php echo gettext("Options"); ?></b></font></td>
+			  <td class="callhistory_td9" align="left" ><font class="callhistory_td4">&nbsp;&nbsp;<?php echo gettext("Options"); ?></font></td>
 			  <td class="bar-search" align="center" bgcolor="#acbdee"><div align="left">
 
 			  <table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -518,9 +520,9 @@ echo '<br>'.$CC_help_balance_customer;
 			
 			
 			<tr>
-        		<td class="bar-search" align="left" bgcolor="#000033"> </td>
+        		<td class="callhistory_td9" align="left" > </td>
 
-				<td class="bar-search" align="center" bgcolor="#acbdee">
+				<td class="callhistory_td10" align="center" >
 					<input class="form_enter" style="border: 2px outset rgb(204, 51, 0);" value=" <?php echo gettext("Search");?> " type="submit">
 
 	  			</td>
@@ -537,7 +539,7 @@ echo '<br>'.$CC_help_balance_customer;
 			<center><?php echo gettext("Number of Calls");?> : <?php  if (is_array($list) && count($list)>0){ echo $nb_record; }else{echo "0";}?></center>
       <table width="<?php echo $FG_HTML_TABLE_WIDTH?>" border="0" align="center" cellpadding="0" cellspacing="0">
 <TR bgcolor="#ffffff"> 
-          <TD bgColor=#7f99cc height=16 style="PADDING-LEFT: 5px; PADDING-RIGHT: 3px"> 
+          <TD class="callhistory_td11"> 
             <TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
               <TBODY>
                 <TR> 
@@ -748,7 +750,7 @@ foreach ($list_total_day as $data){
  <table border="0" cellspacing="0" cellpadding="0" width="80%"><tbody><tr><td align="left" height="30">
 		<table cellspacing="0" cellpadding="1" bgcolor="#000000" width="50%"><tbody><tr><td>
 			<table cellspacing="0" cellpadding="0" width="100%"><tbody>
-				<tr><td bgcolor="#600101" align="left"><font face="verdana" size="1" color="white"><b><?php echo gettext("Total");?></b></font></td></tr>
+				<tr><td class="callhistory_td1" align="left" ><?php echo gettext("Total");?></td></tr>
 			</tbody></table>
 		</td></tr></tbody></table>
  </td></tr></tbody></table>
@@ -759,16 +761,16 @@ foreach ($list_total_day as $data){
 <tbody><tr><td bgcolor="#000000">			
 	<table border="0" cellspacing="1" cellpadding="2" width="100%"><tbody>
 	<tr>	
-		<td align="center" bgcolor="#600101"></td>
-    	<td bgcolor="#b72222" align="center" colspan="5"><font face="verdana" size="1" color="#ffffff"><b><?php echo gettext("CALLING CARD MINUTES");?></b></font></td>
+		<td align="center" class="callhistory_td2"></td>
+    	<td class="callhistory_td3" align="center" colspan="5"><?php echo gettext("CALLING CARD MINUTES");?></td>
     </tr>
-	<tr bgcolor="#600101">
-		<td align="right" bgcolor="#b72222"><font face="verdana" size="1" color="#ffffff"><b><?php echo gettext("Date");?></b></font></td>
-        <td align="center"><font face="verdana" size="1" color="#ffffff"><b><?php echo gettext("DURATION");?></b></font></td>
-		<td align="center"><font face="verdana" size="1" color="#ffffff"><b><?php echo gettext("GRAPHIC");?></b></font></td>
-		<td align="center"><font face="verdana" size="1" color="#ffffff"><b><?php echo gettext("CALLS");?></b></font></td>
-		<td align="center"><font face="verdana" size="1" color="#ffffff"><b><?php echo gettext("<acronym title='AVERAGE CONNECTION TIME'>ACT</acronym>");?></b></font></td>
-		<td align="center"><font face="verdana" size="1" color="#ffffff"><b><?php echo gettext("TOTAL COST");?></b></font></td>
+	<tr class="callhistory_td2">
+		<td align="right" class="callhistory_td3"><?php echo gettext("Date");?></td>
+        <td align="center" class="callhistory_td4"><?php echo gettext("DURATION");?></td>
+		<td align="center" class="callhistory_td4"><?php echo gettext("GRAPHIC");?></td>
+		<td align="center" class="callhistory_td4"><?php echo gettext("CALLS");?></td>
+		<td align="center" class="callhistory_td4"><?php echo gettext("<acronym title='AVERAGE CONNECTION TIME'>ACT</acronym>");?></td>
+		<td align="center" class="callhistory_td4"><?php echo gettext("TOTAL COST");?></td>
 
 		<!-- LOOP -->
 	<?php
@@ -795,15 +797,15 @@ foreach ($list_total_day as $data){
 		//bgcolor="#336699" 
 	?>
 		</tr><tr>
-		<td align="right" class="sidenav" nowrap="nowrap"><font face="verdana" size="1" color="#ffffff"><?php echo $data[0]?></font></td>
-		<td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right" nowrap="nowrap"><font face="verdana" color="#000000" size="1"><?php echo $minutes?> </font></td>
+		<td align="right" class="sidenav" nowrap="nowrap"><font class="callhistory_td5"><?php echo $data[0]?></font></td>
+		<td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right" nowrap="nowrap" class="callhistory_td6"><?php echo $minutes?> </td>
         <td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="left" nowrap="nowrap" width="<?php echo $widthbar+60?>">
         <table cellspacing="0" cellpadding="0"><tbody><tr>
         <td bgcolor="#e22424"><img src="templates/default/images/spacer.gif" width="<?php echo $widthbar?>" height="6"></td>
         </tr></tbody></table></td>
-        <td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right" nowrap="nowrap"><font face="verdana" color="#000000" size="1"><?php echo $data[3]?></font></td>
-        <td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right" nowrap="nowrap"><font face="verdana" color="#000000" size="1"><?php echo $tmc?> </font></td>
-		<td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right" nowrap="nowrap"><font face="verdana" color="#000000" size="1"><?php  display_2bill($data[2]) ?></font></td>
+        <td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right" nowrap="nowrap" class="callhistory_td6"><?php echo $data[3]?></td>
+        <td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right" nowrap="nowrap" class="callhistory_td6" ><?php echo $tmc?> </td>
+		<td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right" nowrap="nowrap" class="callhistory_td6"><?php  display_2bill($data[2]) ?></td>
      <?php 	 }	 	 	
 	 	
 		if ((!isset($resulttype)) || ($resulttype=="min")){  
@@ -821,12 +823,12 @@ foreach ($list_total_day as $data){
 				<!-- FIN BOUCLE -->
 
 	<!-- TOTAL -->
-	<tr bgcolor="#600101">
-		<td align="right" nowrap="nowrap"><font face="verdana" size="1" color="#ffffff"><b><?php echo gettext("Total");?></b></font></td>
-		<td align="center" nowrap="nowrap" colspan="2"><font face="verdana" size="1" color="#ffffff"><b><?php echo $totalminutes?> </b></font></td>
-		<td align="center" nowrap="nowrap"><font face="verdana" size="1" color="#ffffff"><b><?php echo $totalcall?></b></font></td>
-		<td align="center" nowrap="nowrap"><font face="verdana" size="1" color="#ffffff"><b><?php echo $total_tmc?></b></font></td>
-		<td align="center" nowrap="nowrap"><font face="verdana" size="1" color="#ffffff"><b><?php  display_2bill($totalcost) ?></b></font></td>
+	<tr class="callhistory_td2">
+		<td align="right" nowrap="nowrap" class="callhistory_td4"><?php echo gettext("Total");?></td>
+		<td align="center" nowrap="nowrap" colspan="2" class="callhistory_td4"><?php echo $totalminutes?> </td>
+		<td align="center" nowrap="nowrap" class="callhistory_td4"><?php echo $totalcall?></td>
+		<td align="center" nowrap="nowrap" class="callhistory_td4"><?php echo $total_tmc?></td>
+		<td align="center" nowrap="nowrap" class="callhistory_td4"><?php  display_2bill($totalcost) ?></td>
 	</tr>
 	<!-- FIN TOTAL -->
 

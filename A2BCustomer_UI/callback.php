@@ -226,21 +226,21 @@ $smarty->display( 'main.tpl');
 	  <?php echo $error_msg ?> <br>
 	  <?php echo gettext("You can initiate the callback by entering your phonenumber and the number you wish to call!");?>
 	  </center>
-	   <table align="center"  border="0" width="75%" bgcolor="#eeeeee">
+	   <table align="center" class="callback_maintable">
 		<form name="theForm" action=<?php echo $PHP_SELF;?> method="POST" >
 		<INPUT type="hidden" name="callback" value="1">
-		<tr bgcolor="#cccccc">
+		<tr class="callback_td1">
 		<td align="left" valign="bottom">
 				<br/>
 				<?php echo gettext("Your PhoneNumber");?> :
-				<input class="form_enter" name="called" value="<?php echo $called; ?>" size="30" maxlength="40" style="border: 2px inset rgb(204, 51, 0);">
+				<input class="form_enter" name="called" value="<?php echo $called; ?>" size="30" maxlength="40" >
 				<br/><br/>
 				<?php echo gettext("The number you wish to call");?> :
-				<input class="form_enter" name="calling" value="<?php echo $calling; ?>" size="30" maxlength="40" style="border: 2px inset rgb(204, 51, 0);">
+				<input class="form_enter" name="calling" value="<?php echo $calling; ?>" size="30" maxlength="40">
 				<br/><br/>
 			</td>	
 			<td align="center" valign="middle"> 
-			<input class="form_enter" style="border: 2px outset rgb(204, 51, 0);" value="[ <?php echo gettext("Click here to Place Call");?> ]" type="submit"> 
+			<input class="form_enter"  value="[ <?php echo gettext("Click here to Place Call");?> ]" type="submit"> 
 			</td>
         </tr>
 		</form>

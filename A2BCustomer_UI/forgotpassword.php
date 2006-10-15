@@ -1,7 +1,7 @@
 <?php
 // session_name("FORGOT");
 // session_start();
-	
+
 include (dirname(__FILE__)."/lib/company_info.php");
 include ("./lib/defines.php");
 
@@ -110,10 +110,7 @@ switch($error)
 
 <title>..:: <?php echo CCMAINTITLE; ?> ::..</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<link href="Css/menu.css" rel="stylesheet" type="text/css">
-
-
-
+<link rel="stylesheet"  href="templates/default/css/main.css">
 <script LANGUAGE="JavaScript">
 <!--
 	function test()
@@ -131,17 +128,6 @@ switch($error)
 -->
 </script>
 
-<style TEXT="test/css">
-<!--
-.form_enter {
-	font-family: Arial, Helvetica, Sans-Serif;
-	font-size: 11px;
-	font-weight: bold;
-	color: #FF9900;
-	border: 1px solid #C1C1C1;
-}
--->
-</style>
 </head>
 
 <body onload="document.form.pr_email.focus()">
@@ -153,23 +139,23 @@ switch($error)
 	<input type="hidden" name="done" value="submit_log">
 
   	<?php if (isset($_GET["error"]) && $_GET["error"]==1) { ?>
-		<font face="Arial, Helvetica, Sans-serif" size="2" color="red">
-			<b>AUTHENTICATION REFUSED, please check your user/password!</b>
+		<font class="error_message">
+			AUTHENTICATION REFUSED, please check your user/password!
 		</font>
 	<?php } ?><br><br>
     <?php if($show_message== false){ ?>
-	<table style="border: 1px solid #C1C1C1">
+	<table  class="forgetpassword_maintable">
 	<tr>
-		<td class="form_enter" align="center">
+		<td align="center" class="forgetpassword_subtable">
 			<img src="templates/default/images/icon_arrow_orange.gif" width="15" height="15">
-			<font size="3" color="red" ><b> Forgot your password?</b></font>
+			 Forgot your password?
 		</td>
 	</tr>
 	<tr>
-		<td style="padding: 5px, 5px, 5px, 5px" bgcolor="#EDF3FF">
+		<td class="forgetpassword_box">
 			<table border="0" cellpadding="0" cellspacing="10">
 			<tr align="center">
-				<td rowspan="3" style="padding-left: 8px; padding-right: 8px"><img src="templates/default/images/security.png"></td>
+				<td rowspan="3" class="forgetpassword_image">&nbsp;&nbsp;</td>
 				<td></td>
 				<td align="left"><font size="2" face="Arial, Helvetica, Sans-Serif"><b>Email:</b></font></td>
 				<td><input class="form_enter" type="text" name="pr_email" size="32"></td>
@@ -193,20 +179,20 @@ switch($error)
 			
 			<br></br><br></br>
 			
-			<table width="400">
-			<tr><td colspan="2" bgcolor="#DDDDDD"></td></tr>
-			<tr><td colspan="2" bgcolor="#DDDDDD"></td></tr>
+			<table class="forgetpassword_messagetable" >
+			<tr><td colspan="2" ></td></tr>
+			<tr><td colspan="2" ></td></tr>
 			<tr>
-			<td bgcolor="#EEEEEE">
-			<img src="Css/kicons/khelpcenter.png"/></td>
-			<td bgcolor="#EEEEEE">
+			<td class="forgetpassword_messagetd">
+			<img src="templates/default/images/kicons/khelpcenter.png"/></td>
+			<td class="forgetpassword_messagetd">
 			
 			<b>
 			<?php echo $login_message;?></b>
 			
 			</td></tr>
-			<tr><td colspan="2" bgcolor="#DDDDDD"></td></tr>
-			<tr><td colspan="2" bgcolor="#DDDDDD"></td></tr>
+			<tr><td colspan="2" ></td></tr>
+			<tr><td colspan="2" ></td></tr>
 			</table>
 			
 			<br></br><br></br>
@@ -216,7 +202,9 @@ switch($error)
     <?php } ?>
 	</form>
 
-
+</td>
+</tr>
+</table>
 
 
 <br></br><br></br>

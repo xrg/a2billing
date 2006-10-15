@@ -17,14 +17,14 @@ $error["construction"] = gettext("Sorry, this page is in construction !");
 <head>
 <title>A2BILLING</title>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link rel="stylesheet" href="templates/default/css/main.css">
 </head>
 
 <body bgcolor="#F0F0E8" leftmargin="5" topmargin="5" marginwidth="0" marginheight="5">
 
 			<br></br><br></br>
-            <table width="460" border="2" align="center" cellpadding="1" cellspacing="2" bordercolor="#eeeeff" bgcolor="#FFFFFF">
-			  <tr bgcolor=#4e81c4>
-
+            <table  border="2"  class="pp_error_maintable" align="center">
+			  <tr class="pp_error_maintable_tr1">
 					<td>
 						<div align="center"><b><font color="white" size=5><?php echo gettext("Error Page");?></font></b></div>
 					</td>
@@ -34,10 +34,9 @@ $error["construction"] = gettext("Sorry, this page is in construction !");
                     <table width="100%" border="0" cellpadding="5" cellspacing="5">
                       <tr>
                         <td align="center"><br/>
-						<img src="./Css/kicons/system-config-rootpassword.png">
+						<img src="templates/default/images/kicons/system-config-rootpassword.png">
 						<br/>
-
-						 <b><font color=#3050c2 size=4><?php echo $error[$c]?></font></b><br/><br/><br/></td>
+						 <b><font class="pp_error_maintable_error"><?php echo $error[$c]?></font></b><br/><br/><br/></td>
                       </tr>
                     </table>
 				</td>

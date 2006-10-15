@@ -102,7 +102,8 @@ function openURL(theLINK)
 </script>
   <br>
 	<center><?php echo $error_msg ?> </center>
-	   <table align="center" bgcolor="#cccccc" border="0" width="65%">
+	<center>
+	   <table class="voucher_table1" align="center">
         <tbody><tr>
 		<form name="theForm" action="A2B_entity_voucher.php">
           <td align="left" width="75%">
@@ -115,7 +116,7 @@ function openURL(theLINK)
         </td>
 	 </form>
         </tr>
-      </tbody></table>
+      </tbody></table></center>
 	  <br>
 
 

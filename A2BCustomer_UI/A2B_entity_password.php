@@ -12,7 +12,7 @@ if (! has_rights (ACX_ACCESS)){
 	   die();
 }
 
-if (!$A2B->config["webcustomerui"]['password']) exit();
+//if (!$A2B->config["webcustomerui"]['password']) exit();
 
 /***********************************************************************************/
 
@@ -102,9 +102,9 @@ alert("System is failed to update your password.");
 ?>
 <br>
 <form method="post" action="<?php  echo $_SERVER["PHP_SELF"]."?form_action=ask-update"?>" name="frmPass">
-
-<table width="40%" cellpading=0 cellspacing=0 border=0 align=center bgcolor="#F6F6F6">
-<tr bgcolor="#8888cc">
+<center>
+<table class="changepassword_maintable" align=center>
+<tr class="changepassword_maintable_tr1">
     <td align=left colspan=2><b><font color="#ffffff">- Change Password -</b></td>
 </tr>
 <tr>
@@ -130,6 +130,7 @@ alert("System is failed to update your password.");
 
 
 </table>
+</center>
 <script language="JavaScript">
 
 document.frmPass.NewPassword.focus();

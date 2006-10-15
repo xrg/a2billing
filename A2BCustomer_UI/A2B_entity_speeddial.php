@@ -74,9 +74,10 @@ if ($form_action == "list")
 ?>
 	  </center>	
 	  <center><font color="red"><b><?php echo gettext("Enter the number which you wish to assign to the code here"); ?></b></font></center>
-	   <table align="center"  border="0" width="85%" bgcolor="#eeeeee">
+	  <center>
+	   <table align="center" class="speeddial_table1">
 		<form name="theForm" action="<?php  $_SERVER["PHP_SELF"]?>">
-		<tr bgcolor="#cccccc">
+		<tr class="speeddial_table1_tr1">
 		<td align="left" valign="bottom">
 		 <?php echo gettext("Speed Dial code");?> : <select NAME="choose_speeddial" class="form_enter" style="border: 2px outset rgb(204, 51, 0);">
 					<?php					 
@@ -99,6 +100,7 @@ if ($form_action == "list")
         </tr>
 	</form>
       </table>
+	  </center>
 	  <br>
 	<?
     // END END END My code for Creating two functionalities in a page
