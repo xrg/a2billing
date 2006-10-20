@@ -153,11 +153,11 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 				<br/>
 				<?php echo gettext("Your PhoneNumber / Location");?> :
 				
-				<input class="form_enter" name="called" value="<?php echo $customer_info [14]; ?>" size="30" maxlength="40" readonly="readonly" style="border: 2px inset rgb(204, 51, 0);">
+				<input class="form_input_text" name="called" value="<?php echo $customer_info [14]; ?>" size="30" maxlength="40" readonly="readonly" >
 				<br/><br/>
 			</td>	
 			<td align="center" valign="middle"> 
-			<input class="form_enter" style="border: 2px outset rgb(204, 51, 0);" value="[ <?php echo gettext("Click here to place 10 calls");?> ]" type="submit">
+			<input class="form_input_button"  value="[ <?php echo gettext("Click here to place 10 calls");?> ]" type="submit">
 			</td>
         </tr>
 		</form>
@@ -165,7 +165,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 	  <br><br><br><br>
 	  <center>
 		<form name="theForm" action=<?php echo $PHP_SELF;?> method="POST" >
-		<input class="form_enter" style="border: 2px outset rgb(204, 51, 0);" value="[ <?php echo gettext("Click here to see the last called persons and the current connect call");?> ]" type="submit">
+		<input class="form_input_button"  value="[ <?php echo gettext("Click here to see the last called persons and the current connect call");?> ]" type="submit">
 	  	</form>
 	  </center>
 	   <?php	
@@ -324,7 +324,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
             </TABLE></TD>
         </TR>
 		<TR> 
-          <TD style="border-bottom: medium dotted #667766"> &nbsp;</TD>
+          <TD style="border-bottom: medium dotted #667766">&nbsp; </TD>
         </TR>
       </table>
 	  <?php 

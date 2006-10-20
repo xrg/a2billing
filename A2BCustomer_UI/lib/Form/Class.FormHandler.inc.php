@@ -1771,13 +1771,13 @@ class FormHandler{
 	  	if (strlen($this->FG_INTRO_TEXT_ADITION)>1){
       ?>
 			
-		  <table width="650" height="50" border="0" cellpadding="2" cellspacing="2"  align="center">
+		  <table class="toppage_askedit">
 			<tbody><tr>
 			  <td height="40"> 
 				<td height="48" align="center" valign="middle" class="textnegrita"><p>
-					 <font face="Verdana,Arial,Helvetica" style="font-size: 13px;" color="#555555"><b> 
-				 <?php echo $this->FG_INTRO_TEXT_ADITION?></p></td>
-				 </b></font>
+					 <font class="toppage_askedit_text">
+				 <?php echo $this->FG_INTRO_TEXT_ADITION?> </font></p></td>
+				
 			</tr>
 		  </tbody>
 		  </table>
@@ -1798,7 +1798,7 @@ class FormHandler{
 		$processed = $this->getProcessed();
 		?>
 		
- 		 <TABLE width="85%" border=0 align="center" cellPadding=2 cellSpacing=2 style="PADDING-BOTTOM: 7px; PADDING-LEFT: 5px; PADDING-RIGHT: 5px; PADDING-TOP: 5px">
+ 		 <TABLE  cellSpacing=2  class="toppage_actionfinish">
                 <TBODY>
 		<TR>
                     <TD class="form_head"> 
@@ -1810,11 +1810,11 @@ class FormHandler{
                       </TD>                    
                   </TR>
                   <TR>
-                    <TD width="516" valign="top" class="tableBodyRight" bgcolor="#CCCCCC"> <br>
-			<div align="center"><strong><font size="3"> 
+                    <TD width="516" valign="top" class="toppage_actionfinish_td1"> <br>
+			<div align="center"><strong> 
 			<?php if ($form_action == "delete") { ?><?php echo $this->FG_INTRO_TEXT_DELETION?><?php }elseif ($form_action == "add"){ ?><?php echo $this->FG_TEXT_ADITION_CONFIRMATION?><?php  } ?>
                         
-                        </font></strong></div>
+                        </strong></div>
 			<br>
 			</TD>
                   </TR>                  
@@ -1833,16 +1833,16 @@ class FormHandler{
 		$processed = $this->getProcessed();
 		?>
 
-		<TABLE width="85%" border=0 align="center" cellPadding=2 cellSpacing=2 style="PADDING-BOTTOM: 7px; PADDING-LEFT: 5px; PADDING-RIGHT: 5px; PADDING-TOP: 5px">
+		<TABLE width="85%" class="toppage_customaction">
 		<TBODY>
 		<TR>
 			<TD class="form_head">
 			</TD>
 		 </TR>
 		  <TR>
-		    <TD width="516" valign="top" class="tableBodyRight" bgcolor="#CCCCCC"> <br>
-		    	<div align="center"><strong><font size="3"><?php echo $form_action?><?php echo gettext("Done");?>
-			</font></strong></div>
+		    <TD width="516" valign="top" class="toppage_customaction_td1"> <br>
+		    	<div align="center"><strong><?php echo $form_action?><?php echo gettext("Done");?>
+			</strong></div>
 			<br>
 			</TD>
 			</TR>
@@ -1874,16 +1874,16 @@ class FormHandler{
 	<FORM METHOD=POST ACTION="<?php echo $_SERVER['PHP_SELF']?>?s=1&t=0&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php echo $current_page?>">
 	<INPUT TYPE="hidden" NAME="posted" value=1>
 	<INPUT TYPE="hidden" NAME="current_page" value=0>
-		<table class="bar-status" width="75%" border="0" cellspacing="1" cellpadding="2" align="center">
+		<table class="form_selectform" cellspacing="1">
 			<tbody>
 			<tr>
-				<td align="left" valign="top" bgcolor="#000033">
-					<font face="verdana" size="1" color="#ffffff"><b>&nbsp;&nbsp;<?php echo gettext("R A T E C A R D");?></b></font>
+				<td align="left" valign="top" class="form_selectform_td1">
+					&nbsp;&nbsp;<?php echo gettext("R A T E C A R D");?>
 				</td>
 				<td class="bar-search" align="left" bgcolor="#acbdee">
-				<table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#acbdee"><tr>
+				<table class="form_selectform_table1"><tr>
 					<td width="50%" align="center">&nbsp;&nbsp;
-						<select NAME="tariffplan" size="1"  style="border: 2px outset rgb(204, 51, 0); width=250">
+						<select NAME="tariffplan" size="1"  class="form_input_select" width=250">
 								<option value=''><?php echo gettext("Choose a ratecard");?></option>
 
 								<?php
@@ -1894,7 +1894,7 @@ class FormHandler{
 								?>
 						</select>
 					</td>
-					<td class="bar-search" align="center" bgcolor="#cddeff" width="50%">
+					<td class="form_selectform_table1_td1">
 					<input type="image"  name="image16" align="top" border="0" src="<?php echo Images_Path_Main;?>/button-search.gif" />
 	  			</td>
 
@@ -1924,19 +1924,19 @@ class FormHandler{
 		<br><br>&nbsp;
 	  <!-- ** ** ** ** ** Part for the select form  ** ** ** ** ** -->
 	
-		<table class="bar-status" width="75%" border="0" cellspacing="1" cellpadding="2" align="center">
+		<table class="form_selectform" >
 			<FORM METHOD=POST ACTION="<?php echo $_SERVER['PHP_SELF']?>?s=1&t=0&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php echo $current_page?>">
 				<INPUT TYPE="hidden" NAME="posted" value=1>
 				<INPUT TYPE="hidden" NAME="current_page" value=0>
 			
 			<tr>
-				<td align="left" valign="top" bgcolor="#000033">
-					<font face="verdana" size="1" color="#ffffff"><b>&nbsp;&nbsp;<?php echo gettext("R A T E C A R D");?></b></font>
+				<td align="left" valign="top" class="form_selectform_td1">
+					&nbsp;&nbsp;<?php echo gettext("R A T E C A R D");?>
 				</td>
 				<td class="bar-search" align="left" bgcolor="#acbdee">
-				<table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#acbdee"><tr>
+				<table class="form_selectform_table1"><tr>
 					<td width="50%" align="center">&nbsp;&nbsp;
-						<select NAME="tariffplan" size="1"  style="border: 2px outset rgb(204, 51, 0); width=250">
+						<select NAME="tariffplan" size="1"  class="form_input_select">
 								<option value=''><?php echo gettext("Choose a ratecard");?></option>
 
 								<?php
@@ -1947,7 +1947,7 @@ class FormHandler{
 								?>
 						</select>
 					</td>
-					<td class="bar-search" align="center" bgcolor="#cddeff" width="50%">
+					<td class="form_selectform_table1_td1" >
 					<input type="image"  name="image16" align="top" border="0" src="<?php echo Images_Path;?>/button-search.gif" />
 	  			</td>
 

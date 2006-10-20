@@ -233,14 +233,14 @@ $smarty->display( 'main.tpl');
 		<td align="left" valign="bottom">
 				<br/>
 				<?php echo gettext("Your PhoneNumber");?> :
-				<input class="form_enter" name="called" value="<?php echo $called; ?>" size="30" maxlength="40" >
+				<input class="form_input_text" name="called" value="<?php echo $called; ?>" size="30" maxlength="40" >
 				<br/><br/>
 				<?php echo gettext("The number you wish to call");?> :
-				<input class="form_enter" name="calling" value="<?php echo $calling; ?>" size="30" maxlength="40">
+				<input class="form_input_text" name="calling" value="<?php echo $calling; ?>" size="30" maxlength="40">
 				<br/><br/>
 			</td>	
 			<td align="center" valign="middle"> 
-			<input class="form_enter"  value="[ <?php echo gettext("Click here to Place Call");?> ]" type="submit"> 
+			<input class="form_input_button"  value="[ <?php echo gettext("Click here to Place Call");?> ]" type="submit"> 
 			</td>
         </tr>
 		</form>

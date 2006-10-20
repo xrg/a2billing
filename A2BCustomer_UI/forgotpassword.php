@@ -158,12 +158,12 @@ switch($error)
 				<td rowspan="3" class="forgetpassword_image">&nbsp;&nbsp;</td>
 				<td></td>
 				<td align="left"><font size="2" face="Arial, Helvetica, Sans-Serif"><b>Email:</b></font></td>
-				<td><input class="form_enter" type="text" name="pr_email" size="32"></td>
+				<td><input class="form_input_text" type="text" name="pr_email" size="32"></td>
 			</tr>
 			<tr align="center">
 				<td></td>
 				<td></td>
-				<td><input type="submit" name="submit" value="SUBMIT" class="form_enter"></td>
+				<td><input type="submit" name="submit" value="SUBMIT" class="form_input_button"></td>
 			</tr>
 			</table>
 		</td>

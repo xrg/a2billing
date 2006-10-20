@@ -108,11 +108,11 @@ function openURL(theLINK)
 		<form name="theForm" action="A2B_entity_voucher.php">
           <td align="left" width="75%">
 		  	<strong> <?php echo gettext("VOUCHER");?> :</strong>
-			<input class="form_enter" name="voucher" size="50" maxlength="40" style="border: 2px inset rgb(204, 51, 0);">
+			<input class="form_input_text" name="voucher" size="50" maxlength="40" >
 			<br/>
 		</td>
 		<td align="left" valign="bottom">
-		<input class="form_enter" style="border: 2px outset rgb(204, 51, 0);" value=" <?php echo gettext("USE VOUCHER");?> " type="submit">
+		<input class="form_input_button"  value=" <?php echo gettext("USE VOUCHER");?> " type="submit">
         </td>
 	 </form>
         </tr>

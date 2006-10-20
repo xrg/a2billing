@@ -114,11 +114,11 @@
 	<tr>
 		<td>
 			<form action="{$PAGE_SELF}" method="post">
-				<select name="cssname" style="border: 2px outset rgb(204, 51, 0);">
+				<select name="cssname" class="form_input_select" >
 					<option value="default" {checkseleted}>Default</option>
 					<option value="template1" {checkseleted file="template1"}>Template 1</option>
 				</select>
-				<input type="submit" value="Change" class="form_enter" style="border: 2px outset rgb(204, 51, 0);">
+				<input type="submit" value="Change" class="form_input_button" >
 			</form>
 		</td>
 	</tr>

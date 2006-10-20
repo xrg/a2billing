@@ -26,7 +26,7 @@ $nb_site = is_array($list_site) ? count($list_site) : 0 ;
 
   <?php  if ($done=="siteadded"){ ?>
   
-   <table width="90%" height="43" border="0" cellpadding="0" cellspacing="3" background="<?php echo Images_Path;?>/background_cells.gif">
+   <table class="viewhandler_table1" cellspacing="3">
 	  <tr>
 		<td width="90%" height="40" class="textnegrita12" ><?php echo gettext("Congratulations! Your site");?> <span class="liens"><?php echo $sitename?></span> <?php echo gettext("has been registered.");?></td>
 	  
@@ -40,7 +40,7 @@ $nb_site = is_array($list_site) ? count($list_site) : 0 ;
 
   <?php  } ?>
   
-<table width="90%" height="43" border="0" cellpadding="0" cellspacing="3" background="<?php echo Images_Path;?>/background_cells.gif">
+<table class="viewhandler_table1" cellspacing="3">
   <tr>
     <td width="90%" height="40" class="textnegrita12" ><?php echo gettext("Currently you have registered");?> <?php echo $nb_site?> <?php echo gettext("sites and");?> <?php echo $this -> FG_NB_RECORD?> <?php echo gettext("documents");?>.</td>
   
@@ -61,7 +61,7 @@ $nb_site = is_array($list_site) ? count($list_site) : 0 ;
  		?>
  
 		  <br/>
-			  <table width="90%" height="43" border="0" cellpadding="0" cellspacing="3" background="<?php echo Images_Path;?>/background_cells.gif">
+	   <table class="viewhandler_table1" cellspacing="3">
 		  <tr>
 			<td height="40" valign="top" class="textnegrita12"> <?php echo gettext("These are the sites you have registered.");?></td>
 		  </tr>
@@ -77,7 +77,7 @@ $nb_site = is_array($list_site) ? count($list_site) : 0 ;
  		?>
  
 		  <br/>
-			  <table width="90%" height="43" border="0" cellpadding="0" cellspacing="3" background="<?php echo Images_Path;?>/background_cells.gif">
+		<table class="viewhandler_table1" cellspacing="3">
 		  <tr>
 			<td height="40" valign="top" class="textnegrita12"> <h1><font color="#008E9C"> <img src="<?php echo Images_Path;?>/click_icon.gif"/>
 			<?php  	echo $_SESSION["menu"]; ?></font></h1></td>
@@ -124,7 +124,7 @@ function openURLFilter(theLINK)
       <table width="<?php echo $this->FG_VIEW_TABLE_WITDH; ?>" border="0" align="center" cellpadding="0" cellspacing="0">
 	  <?php  IF ($this -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE){ ?>
 		<TR> 
-		  <TD height="20" bgcolor="#52BEDE" style="padding-left: 5px; padding-right: 3px;"><span class="text_blanconegrita">
+		  <TD class="viewhandler_table2_td1"><span>
           	  <b><?php echo $this -> CV_TEXT_TITLE_ABOVE_TABLE?></b></span>
 		  </TD>
         </TR>
@@ -134,8 +134,8 @@ function openURLFilter(theLINK)
 	   		<input type="hidden" name="popup_select" value="<?php echo $_GET['popup_select']?>">
 			<input type="hidden" name="popup_formname" value="<?php echo $_GET['popup_formname']?>">
 			<input type="hidden" name="popup_fieldname" value="<?php echo $_GET['popup_fieldname']?>">
-            <TD height="25" bgcolor="#52BEDE" style="padding-left: 5px; padding-right: 3px;"><span class="text_blanconegrita">			   		
-					<SELECT name="choose_list" size="1" class="form_enter" style="border: 2px outset rgb(204, 51, 0); width: 185px;" onchange="openURLFilter('<?php echo $_SERVER['PHP_SELF'].$this->CV_FILTER_ABOVE_TABLE_PARAM?>')">
+            <TD class="viewhandler_table2_td2"><span >
+					<SELECT name="choose_list" size="1" class="form_input_select" style="width: 185px;" onchange="openURLFilter('<?php echo $_SERVER['PHP_SELF'].$this->CV_FILTER_ABOVE_TABLE_PARAM?>')">
 					
 						<OPTION><?php echo gettext("Sort");?></OPTION>
 					
@@ -153,11 +153,11 @@ function openURLFilter(theLINK)
 		<?php  } //END IF ?>
 		
 		<tr> 
-          <td style="padding-left: 5px; padding-right: 3px;" height="16"> 
+          <td class="viewhandler_table2_td3"> 
             <table border="0" cellpadding="0" cellspacing="0" width="100%">
               <tbody>
                 <tr> 
-                  <td><span style="color: rgb(120, 120, 120); font-size: 9px;"><b> - <?php echo strtoupper($this->FG_INSTANCE_NAME) ?> LIST - </b></span></td>
+                  <td><span class="viewhandler_span1"> - <?php echo strtoupper($this->FG_INSTANCE_NAME) ?> LIST - </span></td>
                   <td align="right"> </td>
                 </tr>
               </tbody>
@@ -176,12 +176,12 @@ function openURLFilter(theLINK)
 			<input type="hidden" name="popup_fieldname" value="<?php echo $_GET['popup_fieldname']?>">
 			
 			<INPUT type="hidden" name="form_action"	value="<?php echo $this->FG_FILTER_FORM_ACTION ?>">
-            <td height="31" bgcolor="#8888CC" style="padding-left: 5px; padding-right: 3px;">
-			<span class="text_blanconegrita">		
+            <td class="viewhandler_filter_td1">
+			<span >		
 			<?php if ($this -> FG_FILTER_APPLY){ ?>
 				   		
-				<font color="white"><b><?php echo gettext("FILTER ON ");?> <?php echo strtoupper($this->FG_FILTERFIELDNAME)?> :</b></font>
-				<INPUT type="text" name="filterprefix" value="">
+				<font class="viewhandler_filter_on"><?php echo gettext("FILTER ON ");?> <?php echo strtoupper($this->FG_FILTERFIELDNAME)?> :</font>
+				<INPUT type="text" name="filterprefix" value="" class="form_input_text">
 				
 				<INPUT type="hidden" name="filterfield"	value="<?php echo $this->FG_FILTERFIELD?>">
 				<?php
@@ -197,8 +197,8 @@ function openURLFilter(theLINK)
 			
 			if ($this -> FG_FILTER_APPLY2){ ?>
 				&nbsp;&nbsp;&nbsp;&nbsp; - &nbsp;&nbsp;&nbsp;&nbsp; 
-				<font color="white"><b><?php echo gettext("FILTER ON");?><?php echo strtoupper($this->FG_FILTERFIELDNAME2)?> :</b></font>
-				<INPUT type="text" name="filterprefix2" value="">				
+				<font class="viewhandler_filter_on"><?php echo gettext("FILTER ON");?><?php echo strtoupper($this->FG_FILTERFIELDNAME2)?> :</font>
+				<INPUT type="text" name="filterprefix2" value="" class="form_input_text">				
 				<INPUT type="hidden" name="filterfield2"	value="<?php echo $this->FG_FILTERFIELD2?>">
 				<?php
 				if ($this -> FG_FILTERTYPE2 == 'INPUT'){
@@ -210,7 +210,7 @@ function openURLFilter(theLINK)
 				}
 			} 
 			?>
-				<input type="SUBMIT" value="<?php echo gettext("APPLY FILTER ");?>" style="border: 2px outset rgb(204, 51, 0);" class="form_enter"/>
+				<input type="SUBMIT" value="<?php echo gettext("APPLY FILTER ");?>" class="form_input_button"/>
 			</span>
 			</td></FORM>	
         </tr>
@@ -424,9 +424,9 @@ function openURLFilter(theLINK)
 							$REMOVE_COL = ($this->FG_OTHER_BUTTON1 || $this->FG_OTHER_BUTTON2 || $this->FG_EDITION || $this->FG_DELETION )? 0 : 1;
 							for($i=0;$i<$this->FG_NB_TABLE_COL-$REMOVE_COL;$i++){
 				 		 ?>
-                 		 <TD vAlign=top class=tableBody>&nbsp;</TD>
+                 		 <TD vAlign=top class="tableBody">&nbsp;</TD>
 				 		 <?php  } ?>
-                 		 <TD align="center" vAlign=top class=tableBodyRight>&nbsp;</TD>
+                 		 <TD align="center" vAlign=top class="tableBodyRight">&nbsp;</TD>
 					</TR>
 
 				<?php
@@ -435,7 +435,7 @@ function openURLFilter(theLINK)
 
 				 ?>
                 <TR>
-                  <TD class=tableDivider colSpan=<?php echo $this->FG_TOTAL_TABLE_COL?>><IMG height=1 src="<?php echo Images_Path_Main;?>/clear.gif" width=1></TD>
+                  <TD class="tableDivider" colSpan=<?php echo $this->FG_TOTAL_TABLE_COL?>><IMG height=1 src="<?php echo Images_Path_Main;?>/clear.gif" width=1></TD>
                 </TR>
               </TBODY>
             </TABLE>
@@ -447,7 +447,7 @@ function openURLFilter(theLINK)
 			<TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
               <TBODY>
                 <TR>
-                  <TD align="right" valign="bottom"><span class="text"><font color="#cc0000">
+                  <TD align="right" valign="bottom"><span class="viewhandler_span2">
 
 
 					<?php
@@ -463,7 +463,7 @@ function openURLFilter(theLINK)
         </TR>
 
 		<tr>
-          <td style="border-bottom: medium dotted rgb(102, 119, 102);"> </td>
+          <td ></td>
         </tr>
 		<FORM name="otherForm2" action="<?php echo $_SERVER['PHP_SELF']?>">
 		<tr><td>
@@ -479,13 +479,13 @@ function openURLFilter(theLINK)
 						<input type="hidden" name="popup_formname" value="<?php echo $_GET['popup_formname']?>">
 						<input type="hidden" name="popup_fieldname" value="<?php echo $_GET['popup_fieldname']?>">
 
-						<select name="mydisplaylimit" size="1" style="border: 2px outset rgb(204, 51, 0);">
+						<select name="mydisplaylimit" size="1" class="form_input_select">
 								<option value="10" selected>10</option>
 								<option value="50">50</option>
 								<option value="100">100</option>
 								<option value="ALL">All</option>
 						</select>
-						<input class="form_enter" style="border: 2px outset rgb(204, 51, 0);" value=" <?php echo gettext("GO");?> " type="SUBMIT">
+						<input class="form_input_button"  value=" <?php echo gettext("GO");?> " type="SUBMIT">
 
 			&nbsp; &nbsp; &nbsp;
 

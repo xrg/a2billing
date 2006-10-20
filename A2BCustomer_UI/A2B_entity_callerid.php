@@ -68,10 +68,10 @@ if ($form_action == "list")
 
 		<td align="center" valign="top">
 				<?php gettext("CALLER ID :");?>
-				<input class="form_enter" name="add_callerid" size="15" maxlength="60" style="border: 2px inset rgb(204, 51, 0);">
+				<input class="form_input_text" name="add_callerid" size="15" maxlength="60">
 			</td>
 			<td align="center" valign="middle">
-						<input class="form_enter" style="border: 2px outset rgb(204, 51, 0);" value="<?php echo gettext("ADD NEW CALLERID"); ?>"  type="submit">
+						<input class="form_input_button"  value="<?php echo gettext("ADD NEW CALLERID"); ?>"  type="submit">
 		</td>
         </tr>
 	</form>

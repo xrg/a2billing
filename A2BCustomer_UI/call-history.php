@@ -343,7 +343,7 @@ echo '<br>'.$CC_help_balance_customer;
 					<table width="100%" border="0" cellspacing="0" cellpadding="0" class="callhistory_td8"><tr><td>
 
 	  				<input type="checkbox" name="frommonth" value="true" <?php  if ($frommonth){ ?>checked<?php }?>>
-					<?php echo gettext("FROM");?> : <select name="fromstatsmonth">
+					<?php echo gettext("FROM");?> : <select name="fromstatsmonth" class="form_input_select">
 					<?php 	$year_actual = date("Y");
 						for ($i=$year_actual;$i >= $year_actual-1;$i--)
 						{
@@ -363,7 +363,7 @@ echo '<br>'.$CC_help_balance_customer;
 					</select>
 					</td><td>&nbsp;&nbsp;
 					<input type="checkbox" name="tomonth" value="true" <?php  if ($tomonth){ ?>checked<?php }?>> 
-					<?php echo gettext("TO");?> : <select name="tostatsmonth">
+					<?php echo gettext("TO");?> : <select name="tostatsmonth" class="form_input_select">
 					<?php 	$year_actual = date("Y");
 						for ($i=$year_actual;$i >= $year_actual-1;$i--)
 						{
@@ -393,7 +393,7 @@ echo '<br>'.$CC_help_balance_customer;
       			<td align="left" class="callhistory_td10">
 					<table width="100%" border="0" cellspacing="0" cellpadding="0" class="callhistory_td10"><tr><td>
 	  				<input type="checkbox" name="fromday" value="true" <?php  if ($fromday){ ?>checked<?php }?>> <?php echo gettext("FROM");?> :
-					<select name="fromstatsday_sday">
+					<select name="fromstatsday_sday" class="form_input_select">
 						<?php  
 							for ($i=1;$i<=31;$i++){
 								if ($fromstatsday_sday==sprintf("%02d",$i)){$selected="selected";}else{$selected="";}
@@ -401,7 +401,7 @@ echo '<br>'.$CC_help_balance_customer;
 							}
 						?>	
 					</select>
-				 	<select name="fromstatsmonth_sday">
+				 	<select name="fromstatsmonth_sday" class="form_input_select">
 					<?php 	$year_actual = date("Y");
 						for ($i=$year_actual;$i >= $year_actual-1;$i--)
 						{		   
@@ -421,7 +421,7 @@ echo '<br>'.$CC_help_balance_customer;
 					</select>
 					</td><td>&nbsp;&nbsp;
 					<input type="checkbox" name="today" value="true" <?php  if ($today){ ?>checked<?php }?>> <?php echo gettext("TO");?> :
-					<select name="tostatsday_sday">
+					<select name="tostatsday_sday" class="form_input_select">
 					<?php  
 						for ($i=1;$i<=31;$i++){
 							if ($tostatsday_sday==sprintf("%02d",$i)){$selected="selected";}else{$selected="";}
@@ -429,7 +429,7 @@ echo '<br>'.$CC_help_balance_customer;
 						}
 					?>						
 					</select>
-				 	<select name="tostatsmonth_sday">
+				 	<select name="tostatsmonth_sday" class="form_input_select">
 					<?php 	$year_actual = date("Y");
 						for ($i=$year_actual;$i >= $year_actual-1;$i--)
 						{		   
@@ -456,7 +456,7 @@ echo '<br>'.$CC_help_balance_customer;
 
 				</td>				
 				<td  align="left" class="callhistory_td8">
-				<table width="100%" border="0" cellspacing="0" cellpadding="0"><tr><td>&nbsp;&nbsp;<INPUT TYPE="text" NAME="dst" value="<?php echo $dst?>"></td>
+				<table width="100%" border="0" cellspacing="0" cellpadding="0"><tr><td>&nbsp;&nbsp;<INPUT TYPE="text" NAME="dst" value="<?php echo $dst?>" class="form_input_text"></td>
 				<td  align="center" class="callhistory_td8"><input type="radio" NAME="dsttype" value="1" <?php if((!isset($dsttype))||($dsttype==1)){?>checked<?php }?>><?php echo gettext("Exact");?></td>
 				<td  align="center" class="callhistory_td8"><input type="radio" NAME="dsttype" value="2" <?php if($dsttype==2){?>checked<?php }?>><?php echo gettext("Begins with")?></td>
 				<td  align="center" class="callhistory_td8"><input type="radio" NAME="dsttype" value="3" <?php if($dsttype==3){?>checked<?php }?>><?php echo gettext("Contains");?></td>
@@ -497,7 +497,7 @@ echo '<br>'.$CC_help_balance_customer;
 				<tr>
 					<td>
 						<b><?php echo gettext("Currency");?> :</b>
-						<select NAME="choose_currency" size="1" class="form_enter" style="border: 2px outset rgb(204, 51, 0);">
+						<select NAME="choose_currency" size="1" class="form_input_select" >
 							<?php
 								$currencies_list = get_currencies();
 								foreach($currencies_list as $key => $cur_value) {
@@ -523,7 +523,7 @@ echo '<br>'.$CC_help_balance_customer;
         		<td class="callhistory_td9" align="left" > </td>
 
 				<td class="callhistory_td10" align="center" >
-					<input class="form_enter" style="border: 2px outset rgb(204, 51, 0);" value=" <?php echo gettext("Search");?> " type="submit">
+					<input class="form_input_button" style="border: 2px outset rgb(204, 51, 0);" value=" <?php echo gettext("Search");?> " type="submit">
 
 	  			</td>
     		</tr>

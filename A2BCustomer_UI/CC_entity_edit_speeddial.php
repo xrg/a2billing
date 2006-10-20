@@ -186,19 +186,19 @@ function sendtolittle(direction){
 						  		if (strtoupper ($FG_TABLE_EDITION[$i][3])==strtoupper ("INPUT"))
 								{								
 						  ?>
-                        <INPUT class="form_enter" name=<?php echo $FG_TABLE_EDITION[$i][1]?>  <?php echo $FG_TABLE_EDITION[$i][4]?> value="<?php if($VALID_SQL_REG_EXP){ echo stripslashes($list[0][$i]); }else{ echo $$FG_TABLE_EDITION[$i][1]; }?>"> 
+                        <INPUT class="form_input_text" name=<?php echo $FG_TABLE_EDITION[$i][1]?>  <?php echo $FG_TABLE_EDITION[$i][4]?> value="<?php if($VALID_SQL_REG_EXP){ echo stripslashes($list[0][$i]); }else{ echo $$FG_TABLE_EDITION[$i][1]; }?>"> 
 						<?php 
 						  		}elseif (strtoupper ($FG_TABLE_EDITION[$i][3])==strtoupper ("POPUPVALUE"))
 								{								
 						  ?>
-                        <INPUT class="form_enter" name=<?php echo $FG_TABLE_EDITION[$i][1]?>  <?php echo $FG_TABLE_EDITION[$i][4]?> value="<?php if($VALID_SQL_REG_EXP){ echo stripslashes($list[0][$i]); }else{ echo $$FG_TABLE_ADITION[$i][1]; }?>"> 
+                        <INPUT class="form_input_text" name=<?php echo $FG_TABLE_EDITION[$i][1]?>  <?php echo $FG_TABLE_EDITION[$i][4]?> value="<?php if($VALID_SQL_REG_EXP){ echo stripslashes($list[0][$i]); }else{ echo $$FG_TABLE_ADITION[$i][1]; }?>"> 
 						<a href="#" onclick="window.open('<?php echo $FG_TABLE_EDITION[$i][14]?>popup_formname=myForm&popup_fieldname=<?php echo $FG_TABLE_EDITION[$i][1]?>' <?php echo $FG_TABLE_EDITION[$i][15]?>);"><img src="images/icon_arrow_orange.gif"/></a>
 						
                         <?php 
 						  		}elseif (strtoupper ($FG_TABLE_EDITION[$i][3])==strtoupper ("TEXTAREA"))
 								{
 						  ?>
-                        <textarea name=<?php echo $FG_TABLE_EDITION[$i][1]?>  <?php echo $FG_TABLE_EDITION[$i][4]?>><?php if($VALID_SQL_REG_EXP){ echo stripslashes($list[0][$i]); }else{ echo $$FG_TABLE_ADITION[$i][1]; }?></textarea> 
+                        <textarea  class="form_input_textarea" name=<?php echo $FG_TABLE_EDITION[$i][1]?>  <?php echo $FG_TABLE_EDITION[$i][4]?>><?php if($VALID_SQL_REG_EXP){ echo stripslashes($list[0][$i]); }else{ echo $$FG_TABLE_ADITION[$i][1]; }?></textarea> 
                         <?php 	
 								}elseif (strtoupper ($FG_TABLE_EDITION[$i][3])==strtoupper ("SELECT"))
 								{
@@ -228,7 +228,7 @@ function sendtolittle(direction){
 						  if ($FG_DEBUG >= 2) echo "<br><br>::>".$$FG_TABLE_ADITION[$i][1];											
 						  ?>
                         
-						<SELECT name=<?php echo $FG_TABLE_EDITION[$i][1]?> class="form_enter">
+						<SELECT name=<?php echo $FG_TABLE_EDITION[$i][1]?> class="form_input_select">
 						<?php echo $FG_TABLE_EDITION[$i][15]?>
                           <?php
 										 if (count($select_list)>0)
@@ -434,7 +434,7 @@ function sendtolittle(direction){
                                       <TD width="122" class="tableBody"><?php echo $FG_TABLE_EDITION[$i][0]?></TD>
                                       <TD width="516"><div align="center"> 
 									  
-                                          <SELECT name=<?php echo $table_split[1]?> class="form_enter">
+                                          <SELECT name=<?php echo $table_split[1]?> class="form_input_select">
                                             <?php
 										 
 										 
@@ -628,7 +628,7 @@ function sendtolittle(direction){
 									<TR> 
                                       <TD width="122" class="tableBody"><?php echo $FG_TABLE_EDITION[$i][0]?></TD>
                                       <TD width="516"><div align="center"> 				
-									      <INPUT TYPE="TEXT" name=<?php echo $table_split[1]?> class="form_enter"  size="20" maxlength="20">
+									      <INPUT TYPE="TEXT" name=<?php echo $table_split[1]?> class="form_input_text"  size="20" maxlength="20">
                                         </div></TD>
                                     </TR>
                                     <TR> 
@@ -774,7 +774,7 @@ function sendtolittle(direction){
 						}//END_FOR ?>
                     
 					<TR>                       
-                      <TD colSpan=2  style="border-bottom: medium dotted #667766"> &nbsp;</TD>
+                      <TD colSpan=2  style="border-bottom: medium dotted #667766">&nbsp; </TD>
                     </TR>
 					<TR> 
 					  <TD colspan=2>
@@ -827,7 +827,7 @@ function sendtolittle(direction){
 								if ($FG_DEBUG == 1) print($FG_TABLE_ADITION[$i][3]);
 						  		if (strtoupper ($FG_TABLE_ADITION[$i][3])==strtoupper ("INPUT")){
 						  ?>
-                        <INPUT class="form_enter" name=<?php echo $FG_TABLE_ADITION[$i][1]?>  <?php echo $FG_TABLE_ADITION[$i][4]?> value="<?php echo $$FG_TABLE_ADITION[$i][1]?>"> 
+                        <INPUT class="form_input_text" name=<?php echo $FG_TABLE_ADITION[$i][1]?>  <?php echo $FG_TABLE_ADITION[$i][4]?> value="<?php echo $$FG_TABLE_ADITION[$i][1]?>"> 
 						<?php 
 						  		}elseif (strtoupper ($FG_TABLE_EDITION[$i][3])==strtoupper ("POPUPVALUE"))
 								{								
@@ -838,7 +838,7 @@ function sendtolittle(direction){
                         <?php 
 						  		}elseif (strtoupper ($FG_TABLE_ADITION[$i][3])==strtoupper ("TEXTAREA")){
 						  ?>
-                        <textarea class="form_enter" name=<?php echo $FG_TABLE_ADITION[$i][1]?> <?php echo $FG_TABLE_ADITION[$i][4]?>><?php echo $$FG_TABLE_ADITION[$i][1]?></textarea> 
+                        <textarea class="form_input_textarea" name=<?php echo $FG_TABLE_ADITION[$i][1]?> <?php echo $FG_TABLE_ADITION[$i][4]?>><?php echo $$FG_TABLE_ADITION[$i][1]?></textarea> 
                         <?php 	
 								}elseif (strtoupper ($FG_TABLE_ADITION[$i][3])==strtoupper ("SELECT")){
 								
@@ -856,7 +856,7 @@ function sendtolittle(direction){
 												$select_list = $FG_TABLE_ADITION[$i][11];
 											}
 						  ?>                        
-						<SELECT class="form_enter" name=<?php echo $FG_TABLE_ADITION[$i][1]?> <?php echo $FG_TABLE_ADITION[$i][4]?>>
+						<SELECT class="form_input_select" name=<?php echo $FG_TABLE_ADITION[$i][1]?> <?php echo $FG_TABLE_ADITION[$i][4]?>>
 						<?php echo $FG_TABLE_ADITION[$i][15]?>
                           <?php
 										if (count($select_list)>0){
@@ -918,7 +918,7 @@ function sendtolittle(direction){
 					
 						}//END_FOR ?>
                     <TR>                       
-                      <TD colSpan=2  style="border-bottom: medium dotted #667766"> &nbsp;</TD>
+                      <TD colSpan=2  style="border-bottom: medium dotted #667766">&nbsp; </TD>
                     </TR>
                     <TR> 
 					  <TD colspan=2>
@@ -962,11 +962,11 @@ function sendtolittle(direction){
 								if ($FG_DEBUG == 1) print($FG_TABLE_EDITION[$i][3]);
 						  		if (strtoupper ($FG_TABLE_EDITION[$i][3])==strtoupper ("INPUT")){
 						  ?>
-                        <INPUT class="form_enter" disabled name=<?php echo $FG_TABLE_EDITION[$i][1]?>  <?php echo $FG_TABLE_EDITION[$i][4]?> value="<?php echo stripslashes($list[0][$i])?>"> 
+                        <INPUT class="form_input_text" disabled name=<?php echo $FG_TABLE_EDITION[$i][1]?>  <?php echo $FG_TABLE_EDITION[$i][4]?> value="<?php echo stripslashes($list[0][$i])?>"> 
                         <?php 
 						  		}elseif (strtoupper ($FG_TABLE_EDITION[$i][3])==strtoupper ("TEXTAREA")){
 						  ?>
-                        <TEXTAREA class="form_enter" disabled name=<?php echo $FG_TABLE_EDITION[$i][1]?> <?php echo $FG_TABLE_EDITION[$i][4]?>><?php echo stripslashes($list[0][$i])?></textarea> 
+                        <TEXTAREA class="form_input_textarea" disabled name=<?php echo $FG_TABLE_EDITION[$i][1]?> <?php echo $FG_TABLE_EDITION[$i][4]?>><?php echo stripslashes($list[0][$i])?></textarea> 
                         <?php 	
 								}elseif (strtoupper ($FG_TABLE_EDITION[$i][3])==strtoupper ("SELECT")){
 								
@@ -985,7 +985,7 @@ function sendtolittle(direction){
 												//$select_list_nb = count($select_list);
 											}
 						  ?>
-                        <SELECT class="form_enter" disabled name=<?php echo $FG_TABLE_EDITION[$i][1]?> class="form_enter">
+                        <SELECT class="form_input_select" disabled name=<?php echo $FG_TABLE_EDITION[$i][1]?>>
                           <?php
 										if (count($select_list)>0){
 										  	 $select_number=0;
@@ -1021,12 +1021,12 @@ function sendtolittle(direction){
                     </TR>
                     <?php   }//END_FOR ?>
 					<TR>                       
-                      <TD colSpan=2  style="border-bottom: medium dotted #667766"> &nbsp;</TD>
+                      <TD colSpan=2  style="border-bottom: medium dotted #667766">&nbsp; </TD>
                     </TR>
                     <TR> 
                       <TD class="tableBodyRight"  width="95%"><?php echo $FG_BUTTON_DELETION_BOTTOM_TEXT?>
 					  </TD>				                      
-                      <TD align="right"  width="5%"> <INPUT class="form_enter" title="<?php echo gettext("Remove this Speed Dial")?>" alt="<?php echo REMOVE_SPEEDDIAL?>" height=20 hspace=2 id=submit22 name=submit22 value="<?php echo gettext("Delete");?>" type="submit">
+                      <TD align="right"  width="5%"> <INPUT class="form_input_button" title="<?php echo gettext("Remove this Speed Dial")?>" alt="<?php echo REMOVE_SPEEDDIAL?>" height=20 hspace=2 id=submit22 name=submit22 value="<?php echo gettext("Delete");?>" type="submit">
 		      </TD>
                     </TR>                    
                     

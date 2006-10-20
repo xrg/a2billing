@@ -76,7 +76,7 @@ echo '<br>'.$CC_help_webphone;
 						if( $customer_info [1] != "t" && $customer_info [1] != "1" ) {
 							echo gettext("&nbsp;NO SIP ACCOUNT&nbsp;");
 						}else{ ?>
-						<input class="form_enter" style="border: 2px outset rgb(204, 51, 0);" value="[ <?php echo gettext("Click to start SIP WebPhone")?>]" type="submit">
+						<input class="form_input_button"  value="[ <?php echo gettext("Click to start SIP WebPhone")?>]" type="submit">
 					<?php } ?>
 			</td>
         </tr>
@@ -105,7 +105,7 @@ echo '<br>'.$CC_help_webphone;
 						if( $customer_info [2] != "t" && $customer_info [2] != "1" ) {
 							echo gettext("NO IAX ACCOUNT");
 						}else{ ?>
-						<input class="form_enter" style="border: 2px outset rgb(204, 51, 0);" value="[ <?php echo gettext("START IAX PHONE")?>]" type="submit">
+						<input class="form_input_button" value="[ <?php echo gettext("START IAX PHONE")?>]" type="submit">
 					<?php } ?>
 			</td>
         </tr>

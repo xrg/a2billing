@@ -313,7 +313,7 @@ function CheckCountry(Source){
 		if ($assign==1){ ?>
 		<tr class="did_maintable_tr1">
           <td align="left" width="80%" colspan="2">
-				<select NAME="choose_country" size="1" class="form_enter" style="border: 2px outset rgb(204, 51, 0);" onChange="JavaScript:CheckCountry('select');">
+				<select NAME="choose_country" size="1" class="form_input_select"  onChange="JavaScript:CheckCountry('select');">
 					<option value=''><?php echo gettext("Select Country");?></option>
 					<?php
 				  	 foreach ($list_country as $recordset){
@@ -327,7 +327,7 @@ function CheckCountry(Source){
 		<?php } ?>
 		<tr class="did_maintable_tr2" valign="top">
 			<td align="left" valign="bottom" valign="top" colspan="2">
-				<select NAME="choose_did_rate" size="3" class="form_enter" style="border: 2px outset rgb(204, 51, 0);">
+				<select NAME="choose_did_rate" size="3" class="form_input_select">
 					<option value=''><?php echo gettext("Select Virtual Phone Number");?></option>
 
 					<?php
@@ -343,7 +343,7 @@ function CheckCountry(Source){
 		<td align="left" valign="bottom">
 <?php if (1==2){ ?>
 				 <?php echo gettext("Ring To Number ");?> :
-				<select name="countrycode"  class="form_enter" style="border: 2px outset rgb(204, 51, 0);">
+				<select name="countrycode"  class="form_input_select">
                 <option value="1">1 - Virgin Islands British</option>
                 <option value="0">0 - Austria</option>
                 <option value="1">1 - Northern Mariana Islands</option>
@@ -491,9 +491,9 @@ function CheckCountry(Source){
 				-
 
 
-				<input class="form_enter" name="arecode" size="4" maxlength="5" style="border: 2px inset rgb(204, 51, 0);">
+				<input class="form_input_text" name="arecode" size="4" maxlength="5">
 
-				<input class="form_enter" name="phonenumber" size="10" maxlength="15" style="border: 2px inset rgb(204, 51, 0);">
+				<input class="form_input_text" name="phonenumber" size="10" maxlength="15" >
 				<br/><center><font color="red">
 				<?php echo gettext("Country Code - Area Code - Number");?></font></center>
 
@@ -502,11 +502,11 @@ function CheckCountry(Source){
                                                 </span><br>
 				<?php echo gettext("Ring To destination ");?> :
 
-				<input class="form_enter" name="destination" size="40" maxlength="80" style="border: 2px inset rgb(204, 51, 0);" <?php if (isset($destination) && ($confirm_buy_did!=4)) {?>value="<?php echo $destination; }?>">
+				<input class="form_input_text" name="destination" size="40" maxlength="80"  <?php if (isset($destination) && ($confirm_buy_did!=4)) {?>value="<?php echo $destination; }?>">
 				<br/><center><font color="red"><?php echo gettext("Enter the phone number you wish to call, or the SIP/IAX client to reach  (ie: 347894999 or SIP/jeremy@182.212.1.45). In order to call a VoIP number, you will need to enable voip_call");?> </font></center>
 			</td>
 					<td align="center" valign="middle">
-					<input class="form_enter" style="border: 2px outset rgb(204, 51, 0);" value=" <?php if ($assign == 1) {echo gettext("Next")?> " type="button" onclick="CheckCountry('NextButton1');<?php } else {echo gettext("Add phone number")?>" Type="button" onclick="CheckCountry('Add');<?php }?>">
+					<input class="form_input_button" value=" <?php if ($assign == 1) {echo gettext("Next")?> " type="button" onclick="CheckCountry('NextButton1');<?php } else {echo gettext("Add phone number")?>" Type="button" onclick="CheckCountry('Add');<?php }?>">
 			</td>
             </tr>
 			<?php 
@@ -531,10 +531,10 @@ function CheckCountry(Source){
 			</tr>
 			<tr class="did_maintable_tr1">
 				<td align="center" valign="middle">
-					<input class="form_enter" style="border: 2px outset rgb(204, 51, 0);" value=" <?php echo gettext("Prev");?> " type="button" onclick="CheckCountry('PrevButton')">
+					<input class="form_input_button"  value=" <?php echo gettext("Prev");?> " type="button" onclick="CheckCountry('PrevButton')">
 				</td>
 				<td align="center" valign="middle">
-					<input class="form_enter" style="border: 2px outset rgb(204, 51, 0);" value=" <?php echo gettext("Ok");?> "type="button" onclick="CheckCountry('NextButton')">
+					<input class="form_input_button"  value=" <?php echo gettext("Ok");?> "type="button" onclick="CheckCountry('NextButton')">
 				</td>
             </tr>
 			<?php
@@ -555,7 +555,7 @@ function CheckCountry(Source){
 			<INPUT type="hidden" name="choose_country" value="">
 			<tr class="did_maintable_tr1">
 				<td align="center" valign="middle">
-					<input class="form_enter" style="border: 2px outset rgb(204, 51, 0);" value=" <?php echo gettext("Ok");?> "type="button" onclick="CheckCountry('NextButton')">
+					<input class="form_input_button"  value=" <?php echo gettext("Ok");?> "type="button" onclick="CheckCountry('NextButton')">
 				</td>
             </tr>
 			<?php

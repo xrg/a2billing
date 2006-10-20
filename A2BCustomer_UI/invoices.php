@@ -416,7 +416,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
       			<td class="invoices_table1_td2" align="left">
 					<table width="100%" border="0" cellspacing="0" cellpadding="0" ><tr><td>
 	  				<input type="checkbox" name="frommonth" value="true" <?php  if ($frommonth){ ?>checked<?php }?>> 
-					<?php echo gettext("FROM");?> : <select name="fromstatsmonth">
+					<?php echo gettext("FROM");?> : <select name="fromstatsmonth" class="form_input_select">
 					<?php 	$year_actual = date("Y");  	
 						for ($i=$year_actual;$i >= $year_actual-1;$i--)
 						{	
@@ -436,7 +436,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 					</select>
 					</td><td>&nbsp;&nbsp;
 					<input type="checkbox" name="tomonth" value="true" <?php  if ($tomonth){ ?>checked<?php }?>> 
-					<?php echo gettext("TO");?> : <select name="tostatsmonth">
+					<?php echo gettext("TO");?> : <select name="tostatsmonth" class="form_input_select">
 					<?php 	$year_actual = date("Y");  	
 						for ($i=$year_actual;$i >= $year_actual-1;$i--)
 						{	
@@ -465,7 +465,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
       			<td align="left" class="invoices_table1_td2_1">
 					<table width="100%" border="0" cellspacing="0" cellpadding="0" ><tr><td>
 	  				<input type="checkbox" name="fromday" value="true" <?php  if ($fromday){ ?>checked<?php }?>> <?php echo gettext("FROM");?> :
-					<select name="fromstatsday_sday">
+					<select name="fromstatsday_sday" class="form_input_select">
 						<?php  
 							for ($i=1;$i<=31;$i++){
 								if ($fromstatsday_sday==sprintf("%02d",$i)){$selected="selected";}else{$selected="";}
@@ -473,7 +473,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 							}
 						?>	
 					</select>
-				 	<select name="fromstatsmonth_sday">
+				 	<select name="fromstatsmonth_sday" class="form_input_select">
 					<?php 	$year_actual = date("Y");  	
 						for ($i=$year_actual;$i >= $year_actual-1;$i--)
 						{	
@@ -491,7 +491,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 						}
 					?>
 					</select>
-					<select name="fromstatsmonth_shour">
+					<select name="fromstatsmonth_shour" class="form_input_select">
 					<?php  
 						if (strlen($fromstatsmonth_shour)==0) $fromstatsmonth_shour='0';
 						for ($i=0;$i<=23;$i++){	
@@ -499,7 +499,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 							echo '<option value="'.sprintf("%02d",$i)."\" $selected>".sprintf("%02d",$i).'</option>';
 						}
 					?>					
-					</select>:<select name="fromstatsmonth_smin">
+					</select>:<select name="fromstatsmonth_smin" class="form_input_select">
 					<?php  
 						if (strlen($fromstatsmonth_smin)==0) $fromstatsmonth_smin='0';
 						for ($i=0;$i<=59;$i++){	
@@ -510,7 +510,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 					</select>
 					</td><td>&nbsp;&nbsp;
 					<input type="checkbox" name="today" value="true" <?php  if ($today){ ?>checked<?php }?>> <?php echo gettext("TO");?> :
-					<select name="tostatsday_sday">
+					<select name="tostatsday_sday" class="form_input_select">
 					<?php  
 						for ($i=1;$i<=31;$i++){
 							if ($tostatsday_sday==sprintf("%02d",$i)){$selected="selected";}else{$selected="";}
@@ -518,7 +518,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 						}
 					?>						
 					</select>
-				 	<select name="tostatsmonth_sday">
+				 	<select name="tostatsmonth_sday" class="form_input_select">
 					<?php 	$year_actual = date("Y");  	
 						for ($i=$year_actual;$i >= $year_actual-1;$i--)
 						{	
@@ -536,7 +536,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 						}
 					?>
 					</select>
-					<select name="tostatsmonth_shour">
+					<select name="tostatsmonth_shour" class="form_input_select">
 					<?php  
 						if (strlen($tostatsmonth_shour)==0) $tostatsmonth_shour='23';
 						for ($i=0;$i<=23;$i++){	
@@ -544,7 +544,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 							echo '<option value="'.sprintf("%02d",$i)."\" $selected>".sprintf("%02d",$i).'</option>';
 						}
 					?>					
-					</select>:<select name="tostatsmonth_smin">
+					</select>:<select name="tostatsmonth_smin" class="form_input_select">
 					<?php  
 						if (strlen($tostatsmonth_smin)==0) $tostatsmonth_smin='59';
 						for ($i=0;$i<=59;$i++){	
@@ -561,7 +561,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 					<font face="verdana" size="1" color="#ffffff"><b>&nbsp;&nbsp;<?php echo gettext("DESTINATION");?></b></font>
 				</td>				
 				<td class="bar-search" align="left" bgcolor="#cddeff">
-				<table width="100%" border="0" cellspacing="0" cellpadding="0"><tr><td>&nbsp;&nbsp;<INPUT TYPE="text" NAME="dst" value="<?php echo $dst?>"></td>
+				<table width="100%" border="0" cellspacing="0" cellpadding="0"><tr><td>&nbsp;&nbsp;<INPUT TYPE="text" NAME="dst" value="<?php echo $dst?>" class="form_input_text"></td>
 				<td class="bar-search" align="center" bgcolor="#cddeff"><input type="radio" NAME="dsttype" value="1" <?php if((!isset($dsttype))||($dsttype==1)){?>checked<?php }?>> <?php echo gettext("Exact");?></td>
 				<td class="bar-search" align="center" bgcolor="#cddeff"><input type="radio" NAME="dsttype" value="2" <?php if($dsttype==2){?>checked<?php }?>><?php echo gettext("Begins with");?></td>
 				<td class="bar-search" align="center" bgcolor="#cddeff"><input type="radio" NAME="dsttype" value="3" <?php if($dsttype==3){?>checked<?php }?>><?php echo gettext("Contains");?></td>
@@ -574,7 +574,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 					<font face="verdana" size="1" color="#ffffff"><b>&nbsp;&nbsp;<?php echo gettext("SOURCE");?></b></font>
 				</td>				
 				<td class="invoices_table1_td2_1" align="left" >
-				<table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#acbdee"><tr><td>&nbsp;&nbsp;<INPUT TYPE="text" NAME="src" value="<?php echo "$src";?>"></td>
+				<table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#acbdee"><tr><td>&nbsp;&nbsp;<INPUT TYPE="text" NAME="src" value="<?php echo "$src";?>" class="form_input_text"></td>
 				<td class="bar-search" align="center" bgcolor="#acbdee"><input type="radio" NAME="srctype" value="1" <?php if((!isset($srctype))||($srctype==1)){?>checked<?php }?>><?php echo gettext("Exact");?></td>
 				<td class="bar-search" align="center" bgcolor="#acbdee"><input type="radio" NAME="srctype" value="2" <?php if($srctype==2){?>checked<?php }?>><?php echo gettext("Begins with");?></td>
 				<td class="bar-search" align="center" bgcolor="#acbdee"><input type="radio" NAME="srctype" value="3" <?php if($srctype==3){?>checked<?php }?>><?php echo gettext("Contains");?></td>
@@ -586,7 +586,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
         		<td class="invoices_table1_td1" align="left"> </td>
 
 				<td class="invoices_table1_td2" align="center" >
-					<input class="form_enter" style="border: 2px outset rgb(204, 51, 0);" value=" <?php echo gettext("Search");?> " type="submit">
+					<input class="form_input_button"  value=" <?php echo gettext("Search");?> " type="submit">
 					&nbsp;&nbsp;&nbsp;&nbsp;
 					<?php echo gettext("Result");?> : <?php echo gettext("Minutes");?><input type="radio" NAME="resulttype" value="min" <?php if((!isset($resulttype))||($resulttype=="min")){?>checked<?php }?>> - <?php echo gettext("Seconds");?> <input type="radio" NAME="resulttype" value="sec" <?php if($resulttype=="sec"){?>checked<?php }?>>
 	  			</td>
@@ -601,7 +601,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 					<?php echo gettext("or Export PDF");?> <input type="radio" NAME="exporttype" value="pdf" <?php if($exporttype=="pdf"){?>checked<?php }?>>
 					 &nbsp;&nbsp; - &nbsp;&nbsp;
 						<?php echo gettext("Currency");?> :
-					<select NAME="choose_currency" size="1" class="form_enter" style="border: 2px outset rgb(204, 51, 0);">
+					<select NAME="choose_currency" size="1" class="form_input_select">
 						<?php
 							$currencies_list = get_currencies();
 							foreach($currencies_list as $key => $cur_value) {

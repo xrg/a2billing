@@ -2,7 +2,7 @@
 
 	<FORM action=<?php echo $_SERVER['PHP_SELF']?> id=myForm method=post name=myForm>
 	
-	<table width="95%" border="0" cellpadding="2" cellspacing="2" bgcolor="#E2E2D3" align="center">
+	<table cellspacing="2" class="addform_table1">
                   <INPUT type="hidden" name="form_action" value="add">
 		  <INPUT type="hidden" name="wh" value="<?php echo $wh?>">
 	<?php
@@ -41,7 +41,7 @@
 		if ($this->FG_DEBUG == 1) print($this->FG_TABLE_ADITION[$i][3]);
   		if (strtoupper ($this->FG_TABLE_ADITION[$i][3])==strtoupper ("INPUT")){
 	?>
-                 <INPUT class="form_enter" name=<?php echo $this->FG_TABLE_ADITION[$i][1]?>  <?php echo $this->FG_TABLE_ADITION[$i][4]?> value="<?php echo $_POST[$this->FG_TABLE_ADITION[$i][1]];?>">
+                 <INPUT class="form_input_text" name=<?php echo $this->FG_TABLE_ADITION[$i][1]?>  <?php echo $this->FG_TABLE_ADITION[$i][4]?> value="<?php echo $_POST[$this->FG_TABLE_ADITION[$i][1]];?>">
 	<?php
 		}elseif (strtoupper ($this->FG_TABLE_ADITION[$i][3])==strtoupper ("POPUPVALUE")){
 	?>
@@ -76,7 +76,7 @@
 	<?php 
 		}elseif (strtoupper ($this->FG_TABLE_ADITION[$i][3])==strtoupper ("TEXTAREA")){
 	?>
-            <TEXTAREA class="form_enter" name=<?php echo $this->FG_TABLE_ADITION[$i][1]?> <?php echo $this->FG_TABLE_ADITION[$i][4]?>><?php echo $_POST[$this->FG_TABLE_ADITION[$i][1]];?></TEXTAREA> 
+            <TEXTAREA class="form_input_textarea" name=<?php echo $this->FG_TABLE_ADITION[$i][1]?> <?php echo $this->FG_TABLE_ADITION[$i][4]?>><?php echo $_POST[$this->FG_TABLE_ADITION[$i][1]];?></TEXTAREA> 
 	<?php 	
 		}elseif (strtoupper ($this->FG_TABLE_ADITION[$i][3])==strtoupper ("SELECT")){
 			if ($this->FG_DEBUG == 1) { echo "<br> TYPE DE SELECT :".$this->FG_TABLE_ADITION[$i][7];}
@@ -88,7 +88,7 @@
 				$select_list = $this->FG_TABLE_ADITION[$i][11];
 			}
 	?>
-		   <SELECT name='<?php echo $this->FG_TABLE_ADITION[$i][1]?><?php if (strpos($this->FG_TABLE_ADITION[$i][4], "multiple")) echo "[]";?>' class="form_enter" <?php echo $this->FG_TABLE_ADITION[$i][4]?>>
+		   <SELECT name='<?php echo $this->FG_TABLE_ADITION[$i][1]?><?php if (strpos($this->FG_TABLE_ADITION[$i][4], "multiple")) echo "[]";?>' class="form_input_select" <?php echo $this->FG_TABLE_ADITION[$i][4]?>>
 	<?php  
 			echo ($this->FG_TABLE_ADITION[$i][15]);
 			if (strlen($this->FG_TABLE_ADITION[$i][6])>0) {
@@ -173,9 +173,9 @@
                                        
         </TBODY>
       </TABLE>
-	  <table width="95%" height="70" cellpadding="3" cellspacing="0" bgcolor="#FFFFFF" align="center">
+	  <table cellspacing="0" class="addform_table2">
 		<tr height="2">
-                 <td colspan="2" style="border-bottom: medium dotted rgb(102, 119, 102);"> &nbsp;</td>
+                 <td colspan="2" style="border-bottom: medium dotted rgb(102, 119, 102);">&nbsp; </td>
                     </tr>
                     <tr>
                       <td width="434" class="text_azul"><span class="tableBodyRight"><?php echo $this->FG_BUTTON_ADITION_BOTTOM_TEXT?></span></td>

@@ -112,17 +112,17 @@ alert("System is failed to update your password.");
 </tr>
 <tr>
     <td align=right><b>New Password :</b></td>
-    <td align=left><input name="NewPassword" type="password" class="form_enter" ></td>
+    <td align=left><input name="NewPassword" type="password" class="form_input_text" ></td>
 </tr>
 <tr>
     <td align=right><b>Confirm Password :</b></td>
-    <td align=left><input name="CNewPassword" type="password" class="form_enter" ></td>
+    <td align=left><input name="CNewPassword" type="password" class="form_input_text" ></td>
 </tr>
 <tr>
     <td align=left colspan=2>&nbsp;</td>
 </tr>
 <tr>
-    <td align=center colspan=2 ><input type="submit" name="submitPassword" value="&nbsp;Save&nbsp;" class="form_enter" onclick="return CheckPassword();" >&nbsp;&nbsp;<input type="reset" name="resetPassword" value="&nbsp;Reset&nbsp;" class="form_enter" > </td>
+    <td align=center colspan=2 ><input type="submit" name="submitPassword" value="&nbsp;Save&nbsp;" class="form_input_button" onclick="return CheckPassword();" >&nbsp;&nbsp;<input type="reset" name="resetPassword" value="&nbsp;Reset&nbsp;" class="form_input_button" > </td>
 </tr>
 <tr>
     <td align=left colspan=2>&nbsp;</td>

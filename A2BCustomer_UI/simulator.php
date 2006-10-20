@@ -162,12 +162,12 @@ function openURL(theLINK)
             <td height="31" bgcolor="#8888CC" style="padding-left: 5px; padding-right: 3px;">
 					<br>
 					<font color="white"><b><?php echo gettext("Enter the number you wish to call :");?></b></font>
-					<INPUT type="text" name="called" value="<?php echo $called;?>">
+					<INPUT type="text" name="called" value="<?php echo $called;?>" class="form_input_text">
 					<br>
 					<?php if (false){ ?>
 					<br>
 					<font color="white"><b><?php echo gettext("YOUR BALANCE :");?></b></font>
-					<INPUT type="text" name="balance" value="<?php if (!isset($balance)) echo "10"; else echo $balance;?>">
+					<INPUT type="text" name="balance" value="<?php if (!isset($balance)) echo "10"; else echo $balance;?>" class="form_input_text">
 					<?php } ?>
 
 					<br>
