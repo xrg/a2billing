@@ -67,7 +67,12 @@ function imgidclick(imgID,divID, imgbase, imgchange)
 <p class="version" align="right"><?php echo WEBUI_VERSION.WEBUI_DATE; ?></p>
 <br>
 <DIV border=0 width="100%">
+<?php if ($popup_select>0){ ?>
+<div>
+<?php }else{  ?>
 <div class="divleft">
 	<?php include("PP_menu.php");?>
 </div>
 <div class="divright">
+
+<?php }  ?>
