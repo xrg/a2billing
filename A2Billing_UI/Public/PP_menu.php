@@ -1,6 +1,6 @@
 <?php 
-	include_once ("../lib/defines.php");
-	include_once ("../lib/module.access.php");
+	include_once (dirname(__FILE__)."/../lib/defines.php");
+	include_once (dirname(__FILE__)."/../lib/module.access.php");
 
 	$section = "";
 	if($_GET["section"]!="")
@@ -272,9 +272,9 @@ function imgidclick_plus(imgID,divID)
 			<li><ul>
 					<li><a href="call-log-customers.php?stitle=Call_Report_Customers&nodisplay=1&posted=1&section=6"><?php echo gettext("CDR Report");?></a></li>
 					<li><a href="invoices.php?stitle=Invoice&nodisplay=1&section=6"><?php echo gettext("Invoice");?></a></li>
-					<li><a href="asterisk-stat-v2/call-comp.php?section=6"><?php echo gettext("Calls Compare");?></a></li>
-					<li><a href="asterisk-stat-v2/call-last-month.php?section=6"><?php echo gettext("Monthly Traffic");?></a></li>
-					<li><a href="asterisk-stat-v2/call-daily-load.php?section=6"><?php echo gettext("Daily Load");?></a></li>
+					<li><a href="call-comp.php?section=6"><?php echo gettext("Calls Compare");?></a></li>
+					<li><a href="call-last-month.php?section=6"><?php echo gettext("Monthly Traffic");?></a></li>
+					<li><a href="call-daily-load.php?section=6"><?php echo gettext("Daily Load");?></a></li>
 					<li><a href="A2B_entity_reporting.php?stitle=Reporting&section=6"><?php echo gettext("Report");?></a></li>
 			</ul></li>
 		</ul>

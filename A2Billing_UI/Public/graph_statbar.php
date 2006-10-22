@@ -1,13 +1,13 @@
 <?php
-include_once(dirname(__FILE__) . "/../../lib/defines.php");
+include_once(dirname(__FILE__) . "/../lib/defines.php");
+include_once(dirname(__FILE__) . "/../lib/module.access.php");
 include_once(dirname(__FILE__) . "/jpgraph_lib/jpgraph.php");
-include_once(dirname(__FILE__) . "/jpgraph_lib/jpgraph_line.php");
-include_once(dirname(__FILE__) . "/../../lib/module.access.php");
+include_once(dirname(__FILE__) . "/jpgraph_lib/jpgraph_bar.php");
 
 
 if (! has_rights (ACX_CALL_REPORT)){ 
 	   Header ("HTTP/1.0 401 Unauthorized");
-	   Header ("Location: ../PP_error.php?c=accessdenied");	   
+	   Header ("Location: PP_error.php?c=accessdenied");	   
 	   die();	   
 }
 
@@ -23,7 +23,6 @@ getpost_ifset(array('min_call', 'fromstatsday_sday', 'days_compare', 'fromstatsm
 
 // The variable FG_TABLE_NAME define the table name to use
 $FG_TABLE_NAME="cc_call t1 LEFT OUTER JOIN cc_trunk t3 ON t1.id_trunk = t3.id_trunk";
-
 
 
 //$link = DbConnect();
@@ -73,9 +72,10 @@ $FG_TABLE_DEFAULT_SENS = "DESC";
 	
 // This Variable store the argument for the SQL query
 
-$FG_COL_QUERY='t1.starttime, t1.calledstation, t1.destination, t1.sessiontime, t1.username, t1.terminatecause, t1.sipiax, t1.calledrate, t1.sessionbill';
-// t1.stoptime,
-$FG_COL_QUERY_GRAPH='t1.starttime, t1.sessiontime, t1.sessionbill-t1.buycost as profit, t1.sessionbill, t1.buycost';
+
+$FG_COL_QUERY='t1.starttime, t1.sessiontime';
+$FG_COL_QUERY_GRAPH='t1.starttime, t1.sessiontime';
+
 
 // The variable LIMITE_DISPLAY define the limit of record to display by page
 $FG_LIMITE_DISPLAY=100;
@@ -120,9 +120,12 @@ if ( is_null ($order) || is_null($sens) ){
                 }else{ $sql = "$sql LIKE '%".$$fld."%'"; }
 		}
         return $sql;
-  } 
+  }  
   $SQLcmd = '';
-
+  
+  //$SQLcmd = do_field($SQLcmd, 'src', 'source');
+  $SQLcmd = do_field($SQLcmd, 'dst', 'calledstation');  
+  
   if ($_GET['before']) {
     if (strpos($SQLcmd, 'WHERE') > 0) { 	$SQLcmd = "$SQLcmd AND ";
     }else{     								$SQLcmd = "$SQLcmd WHERE "; }
@@ -132,10 +135,21 @@ if ( is_null ($order) || is_null($sens) ){
   } else {      $SQLcmd = "$SQLcmd WHERE ";    }
     $SQLcmd = "$SQLcmd starttime >'".$_GET['after']."'";
   }
-  $SQLcmd = do_field($SQLcmd, 'dst', 'calledstation');;
+
   
 
-if (isset($customer)  &&  ($customer>0)){
+$date_clause='';
+
+$min_call= intval($min_call);
+if (($min_call!=0) && ($min_call!=1)) $min_call=0;
+
+if (!isset($fromstatsday_sday)){	
+	$fromstatsday_sday = date("d");
+	$fromstatsmonth_sday = date("Y-m");	
+}
+
+
+ if (isset($customer)  &&  ($customer>0)){
 	if (strlen($SQLcmd)>0) $SQLcmd.=" AND ";
 	else $SQLcmd.=" WHERE ";
 	$SQLcmd.=" username='$customer' ";
@@ -148,39 +162,25 @@ if (isset($customer)  &&  ($customer>0)){
 }
 if ($_SESSION["is_admin"] == 1)
 {
-	if (isset($enterprovider) && $enterprovider > 0) {
-		if (strlen($SQLcmd) > 0) $SQLcmd .= " AND "; else $SQLcmd .= " WHERE ";
-		$SQLcmd .= " t3.id_provider = '$enterprovider' ";
-	}
-	if (isset($entertrunk) && $entertrunk > 0) {
-		if (strlen($SQLcmd) > 0) $SQLcmd .= " AND "; else $SQLcmd .= " WHERE ";
-		$SQLcmd .= " t3.id_trunk = '$entertrunk' ";
-	}
+        if (isset($enterprovider) && $enterprovider > 0) {
+                if (strlen($SQLcmd) > 0) $SQLcmd .= " AND "; else $SQLcmd .= " WHERE ";
+                $SQLcmd .= " t3.id_provider = '$enterprovider' ";
+        }
+        if (isset($entertrunk) && $entertrunk > 0) {
+                if (strlen($SQLcmd) > 0) $SQLcmd .= " AND "; else $SQLcmd .= " WHERE ";
+                $SQLcmd .= " t3.id_trunk = '$entertrunk' ";
+        }
 }
 
-$date_clause='';
-
-$min_call= intval($min_call);
-if (!(($min_call>=0) && ($min_call<=4))) $min_call=0;
-
-if (!isset($fromstatsday_sday)){	
-	$fromstatsday_sday = date("d");
-	$fromstatsmonth_sday = date("Y-m");	
-}
-
-if (!isset($days_compare) ){		
-	$days_compare=2;
-}
-
- 
 
 if (DB_TYPE == "postgres"){	
 	if (isset($fromstatsday_sday) && isset($fromstatsmonth_sday)) 
-	$date_clause.=" AND t1.starttime < date'$fromstatsmonth_sday-$fromstatsday_sday'+ INTERVAL '1 DAY' AND t1.starttime >= date'$fromstatsmonth_sday-$fromstatsday_sday' - INTERVAL '$days_compare DAY'";
+	$date_clause.=" AND starttime < date'$fromstatsmonth_sday-$fromstatsday_sday'+ INTERVAL '1 DAY' AND starttime >= '$fromstatsmonth_sday-$fromstatsday_sday'";
 }else{
-	if (isset($fromstatsday_sday) && isset($fromstatsmonth_sday)) $date_clause.=" AND t1.starttime < ADDDATE('$fromstatsmonth_sday-$fromstatsday_sday',INTERVAL 1 DAY) AND t1.starttime >= SUBDATE('$fromstatsmonth_sday-$fromstatsday_sday',INTERVAL $days_compare DAY)";  
+	if (isset($fromstatsday_sday) && isset($fromstatsmonth_sday)) $date_clause.=" AND starttime < ADDDATE('$fromstatsmonth_sday-$fromstatsday_sday',INTERVAL 1 DAY) AND starttime >= '$fromstatsmonth_sday-$fromstatsday_sday'";  
 }
-	
+
+//-- $date_clause=" AND calldate < date'$fromstatsmonth_sday-$fromstatsday_sday'+ INTERVAL '1 DAY' AND calldate >= '$fromstatsmonth_sday-$fromstatsday_sday 12:00:00'";
   
 if (strpos($SQLcmd, 'WHERE') > 0) { 
 	$FG_TABLE_CLAUSE = substr($SQLcmd,6).$date_clause; 
@@ -211,32 +211,19 @@ foreach ($list_total as $recordset){
 		if (is_array($table_graph_hours[$mydate_hours])){
 			$table_graph_hours[$mydate_hours][0]++;
 			$table_graph_hours[$mydate_hours][1]=$table_graph_hours[$mydate_hours][1]+$recordset[1];
-			$table_graph_hours[$mydate_hours][2]=$table_graph_hours[$mydate_hours][2]+$recordset[2];
-			$table_graph_hours[$mydate_hours][3]=$table_graph_hours[$mydate_hours][3]+$recordset[3];
-			$table_graph_hours[$mydate_hours][4]=$table_graph_hours[$mydate_hours][4]+$recordset[4];
 		}else{
 			$table_graph_hours[$mydate_hours][0]=1;
 			$table_graph_hours[$mydate_hours][1]=$recordset[1];
-			$table_graph_hours[$mydate_hours][2]=$recordset[2];
-			$table_graph_hours[$mydate_hours][3]=$recordset[3];
-			$table_graph_hours[$mydate_hours][4]=$recordset[4];
 		}
 		
 		
 		if (is_array($table_graph[$mydate])){
 			$table_graph[$mydate][0]++;
 			$table_graph[$mydate][1]=$table_graph[$mydate][1]+$recordset[1];
-			$table_graph[$mydate][2]=$table_graph[$mydate][2]+$recordset[2];
-			$table_graph[$mydate][3]=$table_graph[$mydate][3]+$recordset[3];
-			$table_graph[$mydate][4]=$table_graph[$mydate][4]+$recordset[4];
 		}else{
 			$table_graph[$mydate][0]=1;
 			$table_graph[$mydate][1]=$recordset[1];
-			$table_graph[$mydate][2]=$recordset[2];
-			$table_graph[$mydate][3]=$recordset[3];
-			$table_graph[$mydate][4]=$recordset[4];
-		}
-		
+		}		
 }
 
 //print_r($table_graph_hours);
@@ -245,19 +232,14 @@ foreach ($list_total as $recordset){
 $mmax=0;
 $totalcall==0;
 $totalminutes=0;
-$totalprofit=0;
-$totalsell=0;
-$totalbuy=0;
 foreach ($table_graph as $tkey => $data){	
 	if ($mmax < $data[1]) $mmax=$data[1];
 	$totalcall+=$data[0];
 	$totalminutes+=$data[1];
-	$totalprofit+=$data[2];
-	$totalsell+=$data[3];
-	$totalbuy+=$data[4];
 }
 
-//echo "totalcall = $totalcall - totalminutes=$totalminutes - totalprofit=$totalprofit - totalsell=$totalsell - totalbuy=$totalbuy ";
+
+
 
 /************************************************/
 
@@ -270,21 +252,16 @@ $nbday=0;  // in tableau_value and tableau_hours to select the day in which you 
 //$min_call=0; // min_call variable : 0 > get the number of call 1 > number minutes
 
 
-$table_subtitle[]="Statistic : Number of call by Hours";
+$table_subtitle[]="Statistic : Load by hours";
 $table_subtitle[]="Statistic : Minutes by Hours";
-$table_subtitle[]="Statistic : Profits by Hours";
-$table_subtitle[]="Statistic : Sells by Hours";
-$table_subtitle[]="Statistic : Buys by Hours";
 
 
+
+$table_colors[]="yellow@0.3";
+$table_colors[]="purple@0.3";
 $table_colors[]="green@0.3";
 $table_colors[]="blue@0.3";
 $table_colors[]="red@0.3";
-$table_colors[]="yellow@0.3";
-$table_colors[]="purple@0.3";
-
-
-
 
 
 
@@ -299,8 +276,6 @@ $legend[0] = substr($datax1[0],0,10); //l
 //print_r ($table_graph_hours);
 // Create the graph to compare the day
 // extract all minutes/nb call for each hours 
-//print_r($table_graph_hours);
-//exit;
 foreach ($table_graph_hours as $key => $value) {
 	
 	$jour_suivant = substr($key,8,2);
@@ -314,10 +289,11 @@ foreach ($table_graph_hours as $key => $value) {
 	
 	$heure = intval(substr($key,11,2));
 
-	if ($min_call == 1) $div = 60; else $div = 1;
+	if ($min_call == 0) $div = 1; else $div = 60;
 
 	$tableau_value[$nbday][$heure] = $value[$min_call]/$div;
 }
+
 
 
 // je remplie les cases vide par des 0
@@ -336,8 +312,7 @@ while ($tableau_value[$nbday][$i] == 0) {
   
 
 
-// print_r($tableau_value);
-
+//print_r($tableau_value);
 //print_r($tableau_hours);
 
 /*echo "<br>nb tableau_value:".count($tableau_value);
@@ -373,7 +348,9 @@ print_r($datay1);*/
 $graph = new Graph(750,450);
 $graph->SetMargin(40,40,45,90); //droit,gauche,haut,bas
 $graph->SetMarginColor('white');
-$graph->SetScale("linlin");
+//$graph->SetScale("linlin");
+$graph->SetScale("textlin");
+$graph->yaxis->scale->SetGrace(3);
 
 // Hide the frame around the graph
 $graph->SetFrame(false);
@@ -400,8 +377,9 @@ $graph->ygrid->SetFill(true,'#EFEFEF@0.5','#CDDEFF@0.5');
 //$graph->xaxis->SetTickLabels($tableau_hours[0]);
 
 // initialisaton fixe de AXE X
-$tableau_hours[0] = array("","01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23");
+$tableau_hours[0] = array("00","01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23");
 $graph->xaxis->SetTickLabels($tableau_hours[0]);  
+
 
 // Setup X-scale
 //$graph->xaxis->SetTickLabels($tableau_hours[0]);
@@ -415,30 +393,23 @@ $graph->legend->SetLineWeight(1);
 $graph->legend->SetShadow('gray@0.4',3);
 $graph->legend->SetAbsPos(15,130,'right','bottom');
 
-// Create the line plots
 
-/*$p1 = new LinePlot($datax1);
-$p1->SetColor("red");
-$p1->SetFillColor("yellow@0.5");
-$p1->SetWeight(2);
-$p1->mark->SetType(MARK_IMG_DIAMOND,5,0.6);
-$p1->SetLegend('2006');
-$graph->Add($p1);
-*/
+
 for ($indgraph=0;$indgraph<=$nbday;$indgraph++){
 	
-	$p2[$indgraph] = new LinePlot($tableau_value[$indgraph]);
-	$p2[$indgraph]->SetColor($table_colors[$indgraph]);
-	$p2[$indgraph]->SetWeight(2);
-	$p2[$indgraph]->SetLegend($legend[$indgraph]);
-	//$p2->mark->SetType(MARK_IMG_MBALL,'red');
-	$graph->Add($p2[$indgraph]);
+	$bplot[$indgraph] = new BarPlot($tableau_value[$indgraph]);
+	
+	$bplot[$indgraph]->SetColor($table_colors[$indgraph]);
+	$bplot[$indgraph]->SetWeight(2);
+	$bplot[$indgraph]->SetFillColor('orange');
+	$bplot[$indgraph]->SetShadow();
+	$bplot[$indgraph]->value->Show();
+	
+	$bplot[$indgraph]->SetLegend($legend[$indgraph]);
+
+	$graph->Add($bplot[$indgraph]);
 	
 }
-
-// Add a vertical line at the end scale position '7'
-//$l1 = new PlotLine(VERTICAL,7);
-//$graph->Add($l1);
 
 // Output the graph
 $graph->Stroke();
