@@ -92,28 +92,28 @@
 
 	</ul>
 
-	<table width="140">
+	<table width="150">
 	<tr>
 	   <td>
-			<a href="{$PAGE_SELF}?language=espanol"><img src="templates/default/images/flags/es.gif" border="0" title="Spanish" alt="Spanish"></a>
-			<a href="{$PAGE_SELF}?language=english"><img src="templates/default/images/flags/us.gif" border="0" title="English" alt="English"></a>
-			<a href="{$PAGE_SELF}?language=french"><img src="templates/default/images/flags/fr.gif" border="0" title="French" alt="French"></a>
-			<a href="{$PAGE_SELF}?language=romanian"><img src="templates/default/images/flags/ro.gif" border="0" title="Romanian"alt="Romanian"></a>
-			<a href="{$PAGE_SELF}?language=chinese"><img src="templates/default/images/flags/cn.gif" border="0" title="Chinese" alt="Chinese"></a>
-			<a href="{$PAGE_SELF}?language=polish"><img src="templates/default/images/flags/pl.gif" border="0" title="Polish" alt="Polish"></a>
-			<a href="{$PAGE_SELF}?language=italian"><img src="templates/default/images/flags/it.gif" border="0" title="Italian" alt="Italian"></a>
-			<a href="{$PAGE_SELF}?language=russian"><img src="templates/default/images/flags/ru.gif" border="0" title="russian" alt="russian"></a>
-			<a href="{$PAGE_SELF}?language=turkish"><img src="templates/default/images/flags/tr.gif" border="0" title="Turkish" alt="Turkish"></a>
-			<a href="{$PAGE_SELF}?language=portuguese"><img src="templates/default/images/flags/pt.gif" border="0" title="Portuguese" alt="Portuguese"></a>
-			<a href="{$PAGE_SELF}?language=urdu"><img src="templates/default/images/flags/pk.gif" border="0" title="Urdu" alt="Urdu"></a>
+			<a href="{$PAGE_SELF}?language=espanol"><img src="templates/{$SKIN_NAME}/images/flags/es.gif" border="0" title="Spanish" alt="Spanish"></a>
+			<a href="{$PAGE_SELF}?language=english"><img src="templates/{$SKIN_NAME}/images/flags/us.gif" border="0" title="English" alt="English"></a>
+			<a href="{$PAGE_SELF}?language=french"><img src="templates/{$SKIN_NAME}/images/flags/fr.gif" border="0" title="French" alt="French"></a>
+			<a href="{$PAGE_SELF}?language=romanian"><img src="templates/{$SKIN_NAME}/images/flags/ro.gif" border="0" title="Romanian"alt="Romanian"></a>
+			<a href="{$PAGE_SELF}?language=chinese"><img src="templates/{$SKIN_NAME}/images/flags/cn.gif" border="0" title="Chinese" alt="Chinese"></a>
+			<a href="{$PAGE_SELF}?language=polish"><img src="templates/{$SKIN_NAME}/images/flags/pl.gif" border="0" title="Polish" alt="Polish"></a>
+			<a href="{$PAGE_SELF}?language=italian"><img src="templates/{$SKIN_NAME}/images/flags/it.gif" border="0" title="Italian" alt="Italian"></a>
+			<a href="{$PAGE_SELF}?language=russian"><img src="templates/{$SKIN_NAME}/images/flags/ru.gif" border="0" title="russian" alt="russian"></a>
+			<a href="{$PAGE_SELF}?language=turkish"><img src="templates/{$SKIN_NAME}/images/flags/tr.gif" border="0" title="Turkish" alt="Turkish"></a>
+			<a href="{$PAGE_SELF}?language=portuguese"><img src="templates/{$SKIN_NAME}/images/flags/pt.gif" border="0" title="Portuguese" alt="Portuguese"></a>
+			<a href="{$PAGE_SELF}?language=urdu"><img src="templates/{$SKIN_NAME}/images/flags/pk.gif" border="0" title="Urdu" alt="Urdu"></a>
 	   </td>
 	</tr>
 	<tr>
 		<td>
 			<form action="{$PAGE_SELF}" method="post">
 				<select name="cssname" class="form_input_select" >
-					<option value="default" {checkseleted file="cssname"}>Default</option>
-					<option value="design1" {checkseleted file="cssname"}>Design 1</option>
+					<option value="default" {checkseleted file="default"}>Default</option>
+					<option value="design1" {checkseleted file="design1"}>Design 1</option>
 				</select>
 				<input type="submit" value="Change" class="form_input_button" >
 			</form>

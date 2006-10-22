@@ -96,7 +96,7 @@ echo '<br>'.$CC_help_webphone;
 		?>
         <tbody><tr bgcolor="#cccccc">
 		<td align="center" valign="bottom">
-				<img src="templates/default/images/kicons/stock_cell-phone.png" class="kikipic"/><br>
+				<img src="<?php echo KICON_PATH ?>/kicons/stock_cell-phone.png" class="kikipic"/><br>
 				<b><?php echo gettext("IAX WEB-PHONE")?></b>
 					</br></br>
 			</td>

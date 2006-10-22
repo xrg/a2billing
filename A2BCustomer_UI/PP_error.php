@@ -34,7 +34,7 @@ $error["construction"] = gettext("Sorry, this page is in construction !");
                     <table width="100%" border="0" cellpadding="5" cellspacing="5">
                       <tr>
                         <td align="center"><br/>
-						<img src="templates/default/images/kicons/system-config-rootpassword.png">
+						<img src="<?php echo Images_Path_Main ?>/kicons/system-config-rootpassword.png">
 						<br/>
 						 <b><font class="pp_error_maintable_error"><?php echo $error[$c]?></font></b><br/><br/><br/></td>
                       </tr>

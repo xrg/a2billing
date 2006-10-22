@@ -105,8 +105,8 @@ switch($error)
  ?>
 <html>
 <head>
-<link rel="shortcut icon" href="templates/default/images/favicon.ico">
-<link rel="icon" href="templates/default/images/animated_favicon1.gif" type="image/gif">
+<link rel="shortcut icon" href="<?php echo Images_Path_Main ?>/favicon.ico">
+<link rel="icon" href="<?php echo Images_Path_Main ?>/animated_favicon1.gif" type="image/gif">
 
 <title>..:: <?php echo CCMAINTITLE; ?> ::..</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -147,7 +147,7 @@ switch($error)
 	<table  class="forgetpassword_maintable">
 	<tr>
 		<td align="center" class="forgetpassword_subtable">
-			<img src="templates/default/images/icon_arrow_orange.gif" width="15" height="15">
+			<img src="<?php echo Images_Path_Main ?>/icon_arrow_orange.gif" width="15" height="15">
 			 Forgot your password?
 		</td>
 	</tr>
@@ -184,7 +184,7 @@ switch($error)
 			<tr><td colspan="2" ></td></tr>
 			<tr>
 			<td class="forgetpassword_messagetd">
-			<img src="templates/default/images/kicons/khelpcenter.png"/></td>
+			<img src="<?php echo Images_Path_Main ?>/kicons/khelpcenter.png"/></td>
 			<td class="forgetpassword_messagetd">
 			
 			<b>

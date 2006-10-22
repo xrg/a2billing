@@ -176,7 +176,7 @@ function openURL(theLINK)
 			</td>
 			<td height="31" bgcolor="#8888CC" style="padding-left: 5px; padding-right: 3px;">
 				<span class="bar-search">
-				<input type="image"  name="image16" align="top" border="0" src="templates/default/images/button-search.gif" />
+				<input type="image"  name="image16" align="top" border="0" src="<?php echo Images_Path_Main ?>/button-search.gif" />
 				</span></td>
         </tr>
 
@@ -224,7 +224,7 @@ $FG_TABLE_ALTERNATE_ROW_COLOR[1]='#EEE9E9';
         	</TR>
 			<tr>
 				<td height="15" bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[1]?>" style="padding-left: 5px; padding-right: 3px;">
-						<font color="blue"><b><a href="did.php"><img src="templates/default/images/icons/user.png" alt="a " name="image2" width="16" height="16" border="0" align="texttop" id="image2" /></a><?php echo gettext("CallTime available");?></b></font>				</td>
+						<font color="blue"><b><a href="did.php"><img src="<?php echo Images_Path_Main ?>/icons/user.png" alt="a " name="image2" width="16" height="16" border="0" align="texttop" id="image2" /></a><?php echo gettext("CallTime available");?></b></font>				</td>
 				<td height="15" bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[1]?>" style="padding-left: 5px; padding-right: 3px;">
 						<font color="blue"><i><?php echo $RateEngine->ratecard_obj[$j]['timeout']/60;?> <?php echo gettext("minutes");?> </i></font>
 				</td>
@@ -238,14 +238,14 @@ $FG_TABLE_ALTERNATE_ROW_COLOR[1]='#EEE9E9';
 						<p>			<p>			<p>
 						
 			<tr>			
-				<td height="15" bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[0]?>" style="padding-left: 5px; padding-right: 3px;"><b><a href="did.php"><img src="templates/default/images/icons/globe1.png" alt="a " name="image2" width="16" height="16" border="0" align="texttop" id="image2" /></a><a href="simulador.php"></a><?php echo $arr_ratecard[3];?></b>				</td>
+				<td height="15" bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[0]?>" style="padding-left: 5px; padding-right: 3px;"><b><a href="did.php"><img src="<?php echo Images_Path_Main ?>/icons/globe1.png" alt="a " name="image2" width="16" height="16" border="0" align="texttop" id="image2" /></a><a href="simulador.php"></a><?php echo $arr_ratecard[3];?></b>				</td>
 				<td height="15" bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[0]?>" style="padding-left: 5px; padding-right: 3px;">
 						<i><?php echo $RateEngine->ratecard_obj[$j][5];?></i>
 				</td>
 			</tr>
 			<tr>			
 				<td height="15" bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[1]?>" style="padding-left: 5px; padding-right: 3px;">
-						<b><a href="simulador.php"><img src="templates/default/images/icons/query.png" alt="a " name="image2" width="16" height="16" border="0" align="texttop" id="image2" /></a><?php echo $arr_ratecard[10];?></b>				</td>
+						<b><a href="simulador.php"><img src="<?php echo Images_Path_Main ?>/icons/query.png" alt="a " name="image2" width="16" height="16" border="0" align="texttop" id="image2" /></a><?php echo $arr_ratecard[10];?></b>				</td>
 				<td height="15" bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[1]?>" style="padding-left: 5px; padding-right: 3px;">
 						<i><?php echo "$" . $RateEngine->ratecard_obj[$j][12] ;?></i>
 				</td>
@@ -274,7 +274,7 @@ $FG_TABLE_ALTERNATE_ROW_COLOR[1]='#EEE9E9';
         <?php  if (count($RateEngine->ratecard_obj)==0) {
 		if  ($called){
 		?>
-        <span style="font-weight: bold">	<img src="templates/default/images/kicons/button_cancel.png" alt="a" width="32" height="32" /><?php echo gettext("The number, you have entered, is not correct!");?>  </span>
+        <span style="font-weight: bold">	<img src="<?php echo Images_Path_Main ?>/kicons/button_cancel.png" alt="a" width="32" height="32" /><?php echo gettext("The number, you have entered, is not correct!");?>  </span>
         <?php  } ?>
         <?php  } ?>
         

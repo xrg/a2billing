@@ -673,7 +673,7 @@ echo '<br>'.$CC_help_balance_customer;
                 </TR>
                 <TR> 
                   <TD class=tableDivider colSpan=<?php echo $FG_TOTAL_TABLE_COL?>><IMG height=1
-                              src="templates/default/images/clear.gif" 
+                              src="<?php echo Images_Path_Main ?>/clear.gif" 
                               width=1></TD>
                 </TR>
               </TBODY>
@@ -801,7 +801,7 @@ foreach ($list_total_day as $data){
 		<td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right" nowrap="nowrap" class="callhistory_td6"><?php echo $minutes?> </td>
         <td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="left" nowrap="nowrap" width="<?php echo $widthbar+60?>">
         <table cellspacing="0" cellpadding="0"><tbody><tr>
-        <td bgcolor="#e22424"><img src="templates/default/images/spacer.gif" width="<?php echo $widthbar?>" height="6"></td>
+        <td bgcolor="#e22424"><img src="<?php echo Images_Path_Main ?>/spacer.gif" width="<?php echo $widthbar?>" height="6"></td>
         </tr></tbody></table></td>
         <td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right" nowrap="nowrap" class="callhistory_td6"><?php echo $data[3]?></td>
         <td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right" nowrap="nowrap" class="callhistory_td6" ><?php echo $tmc?> </td>
@@ -839,10 +839,10 @@ foreach ($list_total_day as $data){
 <!--
 <br/>
 <table width="60%"><tr><td>
-<a href="export_pdf.php" target="_blank"><img src="templates/default/images/pdf.gif" border="0"/><?php echo gettext("Export PDF file");?></a>
+<a href="export_pdf.php" target="_blank"><img src="<?php echo Images_Path_Main ?>/pdf.gif" border="0"/><?php echo gettext("Export PDF file");?></a>
 </td>
 <td>
-<a href="export_csv.php" target="_blank" ><img src="templates/default/images/excel.gif" border="0"/><?php echo gettext("Export CSV file");?></a>
+<a href="export_csv.php" target="_blank" ><img src="<?php echo Images_Path_Main ?>/excel.gif" border="0"/><?php echo gettext("Export CSV file");?></a>
 </td></tr></table>-->
 
 <?php  }else{ ?>
