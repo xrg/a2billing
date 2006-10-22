@@ -42,7 +42,9 @@ $credit_cur = round($credit_cur,3);
 
 
 <?php
+
 	$smarty->display( 'main.tpl');
+	
 ?>
 
 
@@ -53,7 +55,7 @@ $credit_cur = round($credit_cur,3);
 <td>
 <div id="div1000" style="display:visible;">
 <div id="kiblue"><div class="w4">
-	<img src="templates/default/images/kicons/personal.gif" class="kikipic"/>
+	<img src="<?php echo KICON_PATH ?>/personal.gif" class="kikipic"/>
 	<div class="w2">
 <table width="100%">
 <tr>
@@ -85,7 +87,7 @@ $credit_cur = round($credit_cur,3);
 <td width="55"></td>
 <td>
 <div id="kiki"><div class="w1">
-	<img src="templates/default/images/kicons/gnome-finance.gif" class="kikipic"/>
+	<img src="<?php echo KICON_PATH ?>/gnome-finance.gif" class="kikipic"/>
 	<div class="w2">
 <table width="90%">
 <tr>
@@ -113,7 +115,7 @@ $credit_cur = round($credit_cur,3);
 <td>
 <div id="div2200" style="display:visible;">
 <div id="kiblue"><div class="w4">
-	<img src="templates/default/images/kicons/paypal.gif" class="kikipic"/>
+	<img src="<?php echo KICON_PATH ?>/paypal.gif" class="kikipic"/>
 	<div class="w2">
 <table width="80%" align="center">
 	<tr>

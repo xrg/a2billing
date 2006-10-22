@@ -523,7 +523,7 @@ echo '<br>'.$CC_help_balance_customer;
         		<td class="callhistory_td9" align="left" > </td>
 
 				<td class="callhistory_td10" align="center" >
-					<input class="form_input_button" style="border: 2px outset rgb(204, 51, 0);" value=" <?php echo gettext("Search");?> " type="submit">
+					<input class="form_input_button" value=" <?php echo gettext("Search");?> " type="submit">
 
 	  			</td>
     		</tr>
@@ -544,7 +544,7 @@ echo '<br>'.$CC_help_balance_customer;
               <TBODY>
                 <TR> 
                   <TD><SPAN style="COLOR: #ffffff; FONT-SIZE: 11px"><B><?php echo $FG_HTML_TABLE_TITLE?></B></SPAN></TD>
-                  <TD align=right> <IMG alt="Back to Top" border=0 height=12 src="templates/default/images/btn_top_12x12.gif" width=12> 
+                  <TD align=right> <IMG alt="Back to Top" border=0 height=12 src="<?php echo Images_Path_Main ?>/btn_top_12x12.gif" width=12> 
                   </TD>
                 </TR>
               </TBODY>
@@ -571,9 +571,9 @@ echo '<br>'.$CC_help_balance_customer;
                     <span class="liens"><?php  } ?>
                     <?php echo $FG_TABLE_COL[$i][0]?> 
                     <?php if ($order==$FG_TABLE_COL[$i][1] && $sens=="ASC"){?>
-                    &nbsp;<img src="templates/default/images/icon_up_12x12.GIF" width="12" height="12" border="0"> 
+                    &nbsp;<img src="<?php echo Images_Path_Main ?>/icon_up_12x12.GIF" width="12" height="12" border="0"> 
                     <?php }elseif ($order==$FG_TABLE_COL[$i][1] && $sens=="DESC"){?>
-                    &nbsp;<img src="templates/default/images/icon_down_12x12.GIF" width="12" height="12" border="0"> 
+                    &nbsp;<img src="<?php echo Images_Path_Main ?>/icon_down_12x12.GIF" width="12" height="12" border="0"> 
                     <?php }?>
                     <?php  if (strtoupper($FG_TABLE_COL[$i][4])=="SORT"){?>
                     </span></a> 
@@ -588,7 +588,7 @@ echo '<br>'.$CC_help_balance_customer;
                 <TR> 
                   <TD bgColor=#e1e1e1 colSpan=<?php echo $FG_TOTAL_TABLE_COL?> height=1><IMG
                               height=1 
-                              src="templates/default/images/clear.gif" 
+                              src="<?php echo Images_Path_Main ?>/clear.gif" 
                               width=1></TD>
                 </TR>
 				<?php
@@ -668,7 +668,7 @@ echo '<br>'.$CC_help_balance_customer;
 				 ?>
                 <TR> 
                   <TD class=tableDivider colSpan=<?php echo $FG_TOTAL_TABLE_COL?>><IMG height=1
-                              src="templates/default/images/clear.gif" 
+                              src="<?php echo Images_Path_Main ?>/clear.gif" 
                               width=1></TD>
                 </TR>
                 <TR> 
@@ -686,7 +686,7 @@ echo '<br>'.$CC_help_balance_customer;
                 <TR> 
                   <TD align="right"><SPAN style="COLOR: #ffffff; FONT-SIZE: 11px"><B> 
                     <?php if ($current_page>0){?>
-                    <img src="templates/default/images/fleche-g.gif" width="5" height="10"> <a href="<?php echo $PHP_SELF?>?s=1&t=0&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php  echo ($current_page-1)?><?php  if (!is_null($letter) && ($letter!="")){ echo "&letter=$letter";} 
+                    <img src="<?php echo Images_Path_Main ?>/fleche-g.gif" width="5" height="10"> <a href="<?php echo $PHP_SELF?>?s=1&t=0&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php  echo ($current_page-1)?><?php  if (!is_null($letter) && ($letter!="")){ echo "&letter=$letter";} 
 					echo "&customer=$customer&posted=$posted&Period=$Period&frommonth=$frommonth&fromstatsmonth=$fromstatsmonth&tomonth=$tomonth&tostatsmonth=$tostatsmonth&fromday=$fromday&fromstatsday_sday=$fromstatsday_sday&fromstatsmonth_sday=$fromstatsmonth_sday&today=$today&tostatsday_sday=$tostatsday_sday&tostatsmonth_sday=$tostatsmonth_sday&dsttype=$dsttype&sourcetype=$sourcetype&clidtype=$clidtype&channel=$channel&resulttype=$resulttype&dst=$dst&src=$src&clid=$clid&terminatecause=$terminatecause";?>"> 
                     <?php echo gettext("PREVIOUS");?> </a> -
                     <?php }?>
@@ -694,7 +694,7 @@ echo '<br>'.$CC_help_balance_customer;
                     <?php if ($current_page<$nb_record_max-1){?>
                     - <a href="<?php echo $PHP_SELF?>?s=1&t=0&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php  echo ($current_page+1)?><?php  if (!is_null($letter) && ($letter!="")){ echo "&letter=$letter";} 
 					echo "&customer=$customer&posted=$posted&Period=$Period&frommonth=$frommonth&fromstatsmonth=$fromstatsmonth&tomonth=$tomonth&tostatsmonth=$tostatsmonth&fromday=$fromday&fromstatsday_sday=$fromstatsday_sday&fromstatsmonth_sday=$fromstatsmonth_sday&today=$today&tostatsday_sday=$tostatsday_sday&tostatsmonth_sday=$tostatsmonth_sday&dsttype=$dsttype&sourcetype=$sourcetype&clidtype=$clidtype&channel=$channel&resulttype=$resulttype&dst=$dst&src=$src&clid=$clid&terminatecause=$terminatecause";?>"> 
-                    <?php echo gettext("NEXT");?> </a> <img src="templates/default/images/fleche-d.gif" width="5" height="10">
+                    <?php echo gettext("NEXT");?> </a> <img src="<?php echo Images_Path_Main ?>/fleche-d.gif" width="5" height="10">
                     </B></SPAN> 
                     <?php }?>
                   </TD>

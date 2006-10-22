@@ -62,15 +62,10 @@
 	
 	define ("ACTIVATEDBYUSER", isset($A2B->config["signup"]['activatedbyuser'])?$A2B->config["signup"]['activatedbyuser']:null);
 
-    //Images Path
-    define ("Images_Path","./templates/default/images");
-
-	define ("Images_Path_Main","./templates/default/images");
 
 	// INCLUDE FILES
 	define ("FSROOT", substr(dirname(__FILE__),0,-3));
 	define ("LIBDIR", FSROOT."lib/");
-	include (FSROOT."lib/help.php");
 	include (FSROOT."lib/Misc.php");
 
 	/*
@@ -86,6 +81,7 @@
 	 */
 	getpost_ifset(array('form_action', 'atmenu', 'action', 'stitle', 'sub_action', 'IDmanager', 'current_page', 'order', 'sens', 'mydisplaylimit', 'filterprefix','language', 'cssname'));
 
+	
 	// Include general language file
         // Language session
     session_start();
@@ -158,10 +154,28 @@
 
 		return $currencies_list;
 	}
-
+		
 	if(isset($cssname) && $cssname != "")
 	{
-		$_SESSION["stylefile"] = $cssname;
+		if ($_SESSION["stylefile"]!=$cssname){
+			foreach (glob("./templates_c/*.*") as $filename)
+			{
+				unlink($filename);
+			}			
+		}
+		$_SESSION["stylefile"] = $cssname;		
 	}
+	
+	if(!isset($_SESSION["stylefile"]) || $_SESSION["stylefile"]==''){
+		$_SESSION["stylefile"]='default';
+	}
+
+    //Images Path
+    define ("Images_Path","./templates/".$_SESSION["stylefile"]."/images");
+	define ("Images_Path_Main","./templates/".$_SESSION["stylefile"]."/images");
+	define ("KICON_PATH","./templates/".$_SESSION["stylefile"]."/images/kicons");
+	
+	
+	include (FSROOT."lib/help.php");	
 
 ?>

@@ -7,6 +7,6 @@ include ("lib/smarty.php");
 $smarty->assign("error", $_GET["error"]);
 
 
-$smarty->display( 'index.tpl');
+$smarty->display('index.tpl');
 
 ?>

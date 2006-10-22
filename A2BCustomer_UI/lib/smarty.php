@@ -1,7 +1,4 @@
 <?php
-	session_start();
-?>
-<?php
 error_reporting( E_ALL - E_NOTICE );
 
 include (dirname(__FILE__)."/company_info.php");
@@ -15,9 +12,13 @@ require_once SMARTY_DIR . 'Smarty.class.php';
 
 $smarty = new Smarty;
 
-$skin_name = "default";
 
+$skin_name = $_SESSION["stylefile"];
+
+
+//$smarty->template_dir = TEMPLATE_DIR . $skin_name.'/';
 $smarty->template_dir = TEMPLATE_DIR . $skin_name.'/';
+
 $smarty->compile_dir = TEMPLATE_C_DIR;
 $smarty->plugins_dir= "./plugins/";
 
@@ -28,18 +29,12 @@ $smarty->assign("CCMAINTITLE", CCMAINTITLE);
 $smarty->assign("WEBUI_VERSION", WEBUI_VERSION);
 $smarty->assign("WEBUI_DATE", WEBUI_DATE);
 
+$smarty->assign("SKIN_NAME", $skin_name);
 
 // OPTION FOR THE MENU
 $smarty->assign("A2Bconfig", $A2B->config);
 
-if($_SESSION["stylefile"]!= "")
-{
-	$smarty->assign("CSS_NAME", $_SESSION["stylefile"]);
-}
-else
-{
-	$smarty->assign("CSS_NAME", "");
-}
+
 
 $smarty->assign("PAGE_SELF", $PHP_SELF);
 

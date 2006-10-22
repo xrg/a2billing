@@ -1,23 +1,21 @@
 <HTML>
 <HEAD>
-	<link rel="shortcut icon" href="templates/default/images/favicon.ico">
-	<link rel="icon" href="templates/default/images/animated_favicon1.gif" type="image/gif">
+	<link rel="shortcut icon" href="templates/{$SKIN_NAME}/images/favicon.ico">
+	<link rel="icon" href="templates/{$SKIN_NAME}/images/animated_favicon1.gif" type="image/gif">
 	
 	<title>..:: {$CCMAINTITLE} ::..</title>
 	
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		{if ($CSS_NAME!="" && $CSS_NAME!="default")}
-			   <link href="templates/default/css/{$CSS_NAME}.css" rel="stylesheet" type="text/css">
-		{else}
-			   <link href="templates/default/css/main.css" rel="stylesheet" type="text/css">
-			   <link href="templates/default/css/menu.css" rel="stylesheet" type="text/css">
-			   <link href="templates/default/css/style-def.css" rel="stylesheet" type="text/css">
-		{/if}
+		
+			   <link href="templates/{$SKIN_NAME}/css/main.css" rel="stylesheet" type="text/css">
+			   <link href="templates/{$SKIN_NAME}/css/menu.css" rel="stylesheet" type="text/css">
+			   <link href="templates/{$SKIN_NAME}/css/style-def.css" rel="stylesheet" type="text/css">
 			   
 			
 </HEAD>
 
 <BODY leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
 <p class="version" align="right">{$WEBUI_VERSION} - {$WEBUI_DATE}</p>
 <br>
 
@@ -95,28 +93,28 @@
 
 	</ul>
 
-	<table>
+	<table width="150">
 	<tr>
 	   <td>
-			<a href="index2.php?language=espanol" target="_parent"><img src="templates/default/images/flags/es.gif" border="0" title="Spanish" alt="Spanish"></a>
-			<a href="index2.php?language=english" target="_parent"><img src="templates/default/images/flags/us.gif" border="0" title="English" alt="English"></a>
-			<a href="index2.php?language=french" target="_parent"><img src="templates/default/images/flags/fr.gif" border="0" title="French" alt="French"></a>
-			<a href="index2.php?language=romanian" target="_parent"><img src="templates/default/images/flags/ro.gif" border="0" title="Romanian"alt="Romanian"></a>
-			<a href="index2.php?language=chinese" target="_parent"><img src="templates/default/images/flags/cn.gif" border="0" title="Chinese" alt="Chinese"></a>
-			<a href="index2.php?language=polish" target="_parent"><img src="templates/default/images/flags/pl.gif" border="0" title="Polish" alt="Polish"></a>
-			<a href="index2.php?language=italian" target="_parent"><img src="templates/default/images/flags/it.gif" border="0" title="Italian" alt="Italian"></a>
-			<a href="index2.php?language=russian" target="_parent"><img src="templates/default/images/flags/ru.gif" border="0" title="russian" alt="russian"></a>
-			<a href="index2.php?language=turkish" target="_parent"><img src="templates/default/images/flags/tr.gif" border="0" title="Turkish" alt="Turkish"></a>
-			<a href="index2.php?language=portuguese" target="_parent"><img src="templates/default/images/flags/pt.gif" border="0" title="Portuguese" alt="Portuguese"></a>
-			<a href="index2.php?language=urdu" target="_parent"><img src="templates/default/images/flags/pk.gif" border="0" title="Urdu" alt="Urdu"></a>
+			<a href="{$PAGE_SELF}?language=espanol"><img src="templates/default/images/flags/es.gif" border="0" title="Spanish" alt="Spanish"></a>
+			<a href="{$PAGE_SELF}?language=english"><img src="templates/default/images/flags/us.gif" border="0" title="English" alt="English"></a>
+			<a href="{$PAGE_SELF}?language=french"><img src="templates/default/images/flags/fr.gif" border="0" title="French" alt="French"></a>
+			<a href="{$PAGE_SELF}?language=romanian"><img src="templates/default/images/flags/ro.gif" border="0" title="Romanian"alt="Romanian"></a>
+			<a href="{$PAGE_SELF}?language=chinese"><img src="templates/default/images/flags/cn.gif" border="0" title="Chinese" alt="Chinese"></a>
+			<a href="{$PAGE_SELF}?language=polish"><img src="templates/default/images/flags/pl.gif" border="0" title="Polish" alt="Polish"></a>
+			<a href="{$PAGE_SELF}?language=italian"><img src="templates/default/images/flags/it.gif" border="0" title="Italian" alt="Italian"></a>
+			<a href="{$PAGE_SELF}?language=russian"><img src="templates/default/images/flags/ru.gif" border="0" title="russian" alt="russian"></a>
+			<a href="{$PAGE_SELF}?language=turkish"><img src="templates/default/images/flags/tr.gif" border="0" title="Turkish" alt="Turkish"></a>
+			<a href="{$PAGE_SELF}?language=portuguese"><img src="templates/default/images/flags/pt.gif" border="0" title="Portuguese" alt="Portuguese"></a>
+			<a href="{$PAGE_SELF}?language=urdu"><img src="templates/default/images/flags/pk.gif" border="0" title="Urdu" alt="Urdu"></a>
 	   </td>
 	</tr>
 	<tr>
 		<td>
 			<form action="{$PAGE_SELF}" method="post">
 				<select name="cssname" class="form_input_select" >
-					<option value="default" {checkseleted}>Default</option>
-					<option value="template1" {checkseleted file="template1"}>Template 1</option>
+					<option value="default" {checkseleted file="cssname"}>Default</option>
+					<option value="design1" {checkseleted file="cssname"}>Design 1</option>
 				</select>
 				<input type="submit" value="Change" class="form_input_button" >
 			</form>
