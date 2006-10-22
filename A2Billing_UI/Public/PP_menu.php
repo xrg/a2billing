@@ -13,7 +13,7 @@
 <!--
 var mywin
 var prevdiv="dummydiv"
-function imgidclick(imgID,divID)
+function imgidclick_plus(imgID,divID)
 {
 
 	var agt=navigator.userAgent.toLowerCase();
@@ -66,7 +66,7 @@ function imgidclick(imgID,divID)
 <ul id="nav" >
 	
 	<?php   if ( has_rights (ACX_CUSTOMER) ){ 	?>
-	<li><a href="#" target="_self"  onclick="imgidclick('img1','div1');"><img id="img1" <?php 
+	<li><a href="#" target="_self"  onclick="imgidclick_plus('img1','div1');"><img id="img1" <?php 
 	if($section =="1"){
 	?>
 	src="../Images/minus.gif"
@@ -106,7 +106,7 @@ function imgidclick(imgID,divID)
 	<?php   }  ?>
 	<?php   if ( has_rights (ACX_BILLING) ){ 	?>
 
-		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick('img2','div2');"><img id="img2" <?php 
+		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick_plus('img2','div2');"><img id="img2" <?php 
 	if($section =="2"){
 	?>
 	src="../Images/minus.gif"
@@ -145,7 +145,7 @@ function imgidclick(imgID,divID)
 		</div>
 	<?php   }  ?>
 	<?php   if ( has_rights (ACX_RATECARD) ){ 	?>
-		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick('img3','div3');"><img id="img3" <?php 
+		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick_plus('img3','div3');"><img id="img3" <?php 
 	if($section =="3"){
 	?>
 	src="../Images/minus.gif"
@@ -181,7 +181,7 @@ function imgidclick(imgID,divID)
 		</div>
 	<?php   }  ?>
 	<?php   if ( has_rights (ACX_TRUNK) ){ 	?>
-		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick('img4','div4');"><img id="img4" <?php 
+		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick_plus('img4','div4');"><img id="img4" <?php 
 	if($section =="4"){
 	?>
 	src="../Images/minus.gif"
@@ -212,7 +212,7 @@ function imgidclick(imgID,divID)
 		</div>
 	<?php  } ?>
 	<?php   if ( has_rights (ACX_DID) ){ 	?>
-		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick('img41','div41');"><img id="img41" <?php 
+		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick_plus('img41','div41');"><img id="img41" <?php 
 	if($section =="5"){
 	?>
 	src="../Images/minus.gif"
@@ -248,7 +248,7 @@ function imgidclick(imgID,divID)
 		</div>
 	<?php  } ?>
 	<?php   if ( has_rights (ACX_CALL_REPORT) ){ 	?>
-		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick('img5','div5');"><img id="img5" <?php 
+		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick_plus('img5','div5');"><img id="img5" <?php 
 	if($section =="6"){
 	?>
 	src="../Images/minus.gif"
@@ -280,7 +280,7 @@ function imgidclick(imgID,divID)
 		</div>
 	<?php  } ?>
 	<?php   if ( has_rights (ACX_CRONT_SERVICE) ){ 	?>
-		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick('img9','div9');"><img id="img9" <?php 
+		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick_plus('img9','div9');"><img id="img9" <?php 
 	if($section =="7"){
 	?>
 	src="../Images/minus.gif"
@@ -311,7 +311,7 @@ function imgidclick(imgID,divID)
 
 	<?php  } ?>
 	<?php   if ( has_rights (ACX_SIGNUP) ){ 	?>
-		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick('img6','div6');"><img id="img6" <?php 
+		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick_plus('img6','div6');"><img id="img6" <?php 
 	if($section =="8"){
 	?>
 	src="../Images/minus.gif"
@@ -340,7 +340,7 @@ function imgidclick(imgID,divID)
 		</div>
 	<?php  } ?>
 	<?php   if ( has_rights (ACX_DID) ){ 	?>
-		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick('img61','div61');"><img id="img61" <?php 
+		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick_plus('img61','div61');"><img id="img61" <?php 
 	if($section =="9"){
 	?>
 	src="../Images/minus.gif"
@@ -372,7 +372,7 @@ function imgidclick(imgID,divID)
 		</div>
 	<?php  } ?>
 	<?php   if ( has_rights (ACX_ADMINISTRATOR) ){ 	?>
-		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick('img7','div7');"><img id="img7" <?php 
+		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick_plus('img7','div7');"><img id="img7" <?php 
 	if($section =="10"){
 	?>
 	src="../Images/minus.gif"
@@ -405,7 +405,7 @@ function imgidclick(imgID,divID)
 		</div>
 	<?php  } ?>	
 	<?php   if ( has_rights (ACX_FILE_MANAGER) ){ 	?>
-		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick('img8','div8');"><img id="img8" <?php 
+		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick_plus('img8','div8');"><img id="img8" <?php 
 	if($section =="11"){
 	?>
 	src="../Images/minus.gif"
