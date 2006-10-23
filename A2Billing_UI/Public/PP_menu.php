@@ -275,7 +275,7 @@ function imgidclick_plus(imgID,divID)
 					<li><a href="call-comp.php?section=6"><?php echo gettext("Calls Compare");?></a></li>
 					<li><a href="call-last-month.php?section=6"><?php echo gettext("Monthly Traffic");?></a></li>
 					<li><a href="call-daily-load.php?section=6"><?php echo gettext("Daily Load");?></a></li>
-					<li><a href="A2B_entity_reporting.php?stitle=Reporting&section=6"><?php echo gettext("Report");?></a></li>
+					<li><a href="call-count-reporting.php?stitle=Call_Reporting&nodisplay=1&posted=1&section=6"><?php echo gettext("Report");?></a></li>
 			</ul></li>
 		</ul>
 		</div>
