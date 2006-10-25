@@ -1354,7 +1354,7 @@ class A2Billing {
 		
 		// 		  -%-%-%-%-%-%-		FIRST TRY WITH THE CALLERID AUTHENTICATION 	-%-%-%-%-%-%-
 		
-		if ($callerID_enable==1 && is_numeric($this->CallerID) && $this->CallerID>0){
+		if ($callerID_enable==1 && strlen($this->CallerID)>0){
 			$this -> write_log("[CID_ENABLE - CID_CONTROL - CID:".$this->CallerID."]");
 			if ($this->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '."[CID_ENABLE - CID_CONTROL - CID:".$this->CallerID."]");
 				
