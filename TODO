@@ -16,6 +16,54 @@
                    			TODO LIST - SPECIFIC
 ********************************************************************************
 
+
+#### FEATURE
+********************************************************************
+BATCH GENERATION OF INVOICE (Phuong)
+
+need a feature that can allow admin to generate the invoice for all the postpaid or 
+prepaid account with just one click.
+
+right now, we have to go to Call Report/Invoice, and then select the respective month, 
+and then select the card one by one, and then save the html page. And doing that 
+repetitively for 100 cards is quite gruesome 
+
+so auto generate invoice (with criteria) and maybe auto mailing, that will be cool
+
+
+#### FEATURE
+********************************************************************
+REPORTING AND SUPPORT ALARMS :
+
+   * ALOC (average length of call): Too low or too high.
+   * ASR (answer seize ratio): Too low or too high.
+maybe if possible :
+   * Consecutive Incomplete Calls: Too many.
+   
+We already have ALOC under the name of ACD in the page "CDR REPORT", we just need a new column for ASR and
+rename ACD -> ALOC
+
+
+ASR = Answer Seizure Ratio
+Its calculated by taking the number of sucessfully answered calls and dividing by the total number of calls attempted (seizures). Since busy signals and other rejections by the called number count as call failures, the calculated ASR value can vary depending on user behaviour. 
+
+
+For "Consecutive Incomplete Calls", we might find a way to display this I open to your suggestion. maybe a report as follow :
+Date ; total nb fails ; max of number fail calls succesively ; rate of fails (%)
+
+
+
+For the alarm let's build a new table and a new page in CRONT SERVICE.
+We need the user to be able to define different kind of alarm, for instance if I want
+to monitor a specific trunk and not all
+We can have in the table something like :
+- period (daily ; monday-sunday ; 01 - 31)
+- typealarm (asr, aloc, callfail)
+- trunk (all or the ID of the trunk)
+- etc...
+
+
+
 #### FEATURE
 ********************************************************************
 thoughts to adding timezone to cc_card ? It's great that we've got language and currency so they can view items in their local currency. Why not have option for timezone so the CDR's are listed in their local times instead of where the switch is located?
