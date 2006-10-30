@@ -16,6 +16,17 @@
                    			TODO LIST - SPECIFIC
 ********************************************************************************
 
+#### FEATURE
+********************************************************************
+
+When the user credit are below the minimum credit to call min_credit 
+we might have an option to decide if we jump directly to the voucher IVR menu instead of just disconecting
+
+option in a2billing.conf
+jump_voucher_if_min_credit = yes or no
+
+
+
 
 #### FEATURE
 ********************************************************************
