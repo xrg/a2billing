@@ -144,11 +144,11 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 	  </center>
 	  
 	  
-	   <table align="center"  border="0" width="75%" bgcolor="#eeeeee">
+	   <table align="center"  border="0" width="75%" class="bgcolor_006" >
         
 		<form name="theForm" action=<?php echo $PHP_SELF;?> method="POST" >
 		<INPUT type="hidden" name="callback" value="1">
-		<tr bgcolor="#cccccc">
+		<tr  class="bgcolor_006">
 		<td align="left" valign="bottom">
 				<br/>
 				<?php echo gettext("Your PhoneNumber / Location");?> :
@@ -332,7 +332,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 				  ?>
 				  
 				   <br><br>
-				  <table width="50%" border="0" align="center" bgcolor="#dcdcdc">
+				  <table width="50%" border="0" align="center" class="bgcolor_006">
 					<tbody><tr>
 					  <td align="center">
 						<?php echo gettext("NO");?> <?php echo strtoupper($FG_CLASS_NAME)?> <?php echo gettext("REGISTERED");?> !<br>

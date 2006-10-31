@@ -73,11 +73,11 @@ if ($form_action == "list")
 	
 ?>
 	  </center>	
-	  <center><font color="red"><b><?php echo gettext("Enter the number which you wish to assign to the code here"); ?></b></font></center>
+	  <center><font class="error_message"><?php echo gettext("Enter the number which you wish to assign to the code here"); ?></font></center>
 	  <center>
 	   <table align="center" class="speeddial_table1">
 		<form name="theForm" action="<?php  $_SERVER["PHP_SELF"]?>">
-		<tr class="speeddial_table1_tr1">
+		<tr class="bgcolor_001">
 		<td align="left" valign="bottom">
 		 <?php echo gettext("Speed Dial code");?> : <select NAME="choose_speeddial" class="form_input_select">
 					<?php					 

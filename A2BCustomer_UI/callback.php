@@ -229,7 +229,7 @@ $smarty->display( 'main.tpl');
 	   <table align="center" class="callback_maintable">
 		<form name="theForm" action=<?php echo $PHP_SELF;?> method="POST" >
 		<INPUT type="hidden" name="callback" value="1">
-		<tr class="callback_td1">
+		<tr class="bgcolor_001">
 		<td align="left" valign="bottom">
 				<br/>
 				<?php echo gettext("Your PhoneNumber");?> :

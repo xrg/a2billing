@@ -159,7 +159,7 @@ function openURL(theLINK)
         </TR>
 		<FORM NAME="theFormFilter" action="<?php echo $PHP_SELF?>">		
 		<tr>			
-            <td height="31" bgcolor="#8888CC" style="padding-left: 5px; padding-right: 3px;">
+            <td height="31" class="bgcolor_009" style="padding-left: 5px; padding-right: 3px;">
 					<br>
 					<font color="white"><b><?php echo gettext("Enter the number you wish to call :");?></b></font>
 					<INPUT type="text" name="called" value="<?php echo $called;?>" class="form_input_text">
@@ -174,7 +174,7 @@ function openURL(theLINK)
 					<br>
 
 			</td>
-			<td height="31" bgcolor="#8888CC" style="padding-left: 5px; padding-right: 3px;">
+			<td height="31" class="bgcolor_009" style="padding-left: 5px; padding-right: 3px;">
 				<span class="bar-search">
 				<input type="image"  name="image16" align="top" border="0" src="<?php echo Images_Path_Main ?>/button-search.gif" />
 				</span></td>
@@ -207,7 +207,7 @@ $FG_TABLE_ALTERNATE_ROW_COLOR[1]='#EEE9E9';
 
 		<?php if (count($RateEngine->ratecard_obj)>1){ ?>
 		<TR>
-          <td height="15" bgcolor="#5555CC" style="padding-left: 5px; padding-right: 3px;" colspan="2">
+          <td height="15" class="bgcolor_010" style="padding-left: 5px; padding-right: 3px;" colspan="2">
 					<b><?php echo gettext("We found several destinations:");?></b></td>
         </TR>
 		<?php } ?>
@@ -218,7 +218,7 @@ $FG_TABLE_ALTERNATE_ROW_COLOR[1]='#EEE9E9';
 			</td>
         	</TR>
 			<TR>
-          	<td height="15" bgcolor="#55CC55" style="padding-left: 5px; padding-right: 3px;" colspan="2">
+          	<td height="15" class="bgcolor_011" style="padding-left: 5px; padding-right: 3px;" colspan="2">
 					<b><?php echo gettext("DESTINATION : #");?><?php echo $j+1;?></b>
 			</td>
         	</TR>

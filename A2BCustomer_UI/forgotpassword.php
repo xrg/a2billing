@@ -179,13 +179,13 @@ switch($error)
 			
 			<br></br><br></br>
 			
-			<table class="forgetpassword_messagetable" >
+			<table class="bgcolor_007"  width="400px">
 			<tr><td colspan="2" ></td></tr>
 			<tr><td colspan="2" ></td></tr>
 			<tr>
-			<td class="forgetpassword_messagetd">
+			<td class="bgcolor_006">
 			<img src="<?php echo Images_Path_Main ?>/kicons/khelpcenter.png"/></td>
-			<td class="forgetpassword_messagetd">
+			<td class="bgcolor_006">
 			
 			<b>
 			<?php echo $login_message;?></b>

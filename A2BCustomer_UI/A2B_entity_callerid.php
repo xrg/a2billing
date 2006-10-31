@@ -62,9 +62,9 @@ if ($form_action == "list")
 
 ?>
 	  </center>
-	   <table align="center"  border="0" width="55%" bgcolor="#eeeeee">
+	   <table align="center"  border="0" width="55%" class="bgcolor_006">
 		<form name="theForm" action="<?php  $_SERVER["PHP_SELF"]?>">
-		<tr bgcolor="#cccccc">
+		<tr class="bgcolor_001" >
 
 		<td align="center" valign="top">
 				<?php gettext("CALLER ID :");?>

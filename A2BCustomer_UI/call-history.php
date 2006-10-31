@@ -334,13 +334,13 @@ echo '<br>'.$CC_help_balance_customer;
 		<table class="callhistory_maintable" align="center">
 			<tbody>
 			<tr>
-        		<td class="bar-search" align="left" bgcolor="#555577">
+        		<td class="bgcolor_002" align="left" >
 
 					<input type="radio" name="Period" value="Month" <?php  if (($Period=="Month") || !isset($Period)){ ?>checked="checked" <?php  } ?>> 
 					<font class="callhistory_td4"><?php echo gettext("Selection of the month");?></font>
 				</td>
-				<td class="callhistory_td8" align="left" >
-					<table width="100%" border="0" cellspacing="0" cellpadding="0" class="callhistory_td8"><tr><td>
+				<td class="bgcolor_003" align="left" >
+					<table width="100%" border="0" cellspacing="0" cellpadding="0" class="bgcolor_003"><tr><td>
 
 	  				<input type="checkbox" name="frommonth" value="true" <?php  if ($frommonth){ ?>checked<?php }?>>
 					<?php echo gettext("FROM");?> : <select name="fromstatsmonth" class="form_input_select">
@@ -386,12 +386,12 @@ echo '<br>'.$CC_help_balance_customer;
     		</tr>
 			
 			<tr>
-        		<td align="left" class="callhistory_td9">
+        		<td align="left" class="bgcolor_004">
 					<input type="radio" name="Period" value="Day" <?php  if ($Period=="Day"){ ?>checked="checked" <?php  } ?>> 
 					<font class="callhistory_td4"><?php echo gettext("Selection of the day");?></b></font>
 				</td>
-      			<td align="left" class="callhistory_td10">
-					<table width="100%" border="0" cellspacing="0" cellpadding="0" class="callhistory_td10"><tr><td>
+      			<td align="left" class="bgcolor_005">
+					<table width="100%" border="0" cellspacing="0" cellpadding="0" class="bgcolor_005"><tr><td>
 	  				<input type="checkbox" name="fromday" value="true" <?php  if ($fromday){ ?>checked<?php }?>> <?php echo gettext("FROM");?> :
 					<select name="fromstatsday_sday" class="form_input_select">
 						<?php  
@@ -451,16 +451,16 @@ echo '<br>'.$CC_help_balance_customer;
 	  			</td>
     		</tr>
 			<tr>
-				<td  align="left" class="callhistory_td9">			
+				<td  align="left" class="bgcolor_004">			
 					<font class="callhistory_td4">&nbsp;&nbsp;<?php echo gettext("DESTINATION");?></font>
 
 				</td>				
-				<td  align="left" class="callhistory_td8">
+				<td  align="left" class="bgcolor_003">
 				<table width="100%" border="0" cellspacing="0" cellpadding="0"><tr><td>&nbsp;&nbsp;<INPUT TYPE="text" NAME="dst" value="<?php echo $dst?>" class="form_input_text"></td>
-				<td  align="center" class="callhistory_td8"><input type="radio" NAME="dsttype" value="1" <?php if((!isset($dsttype))||($dsttype==1)){?>checked<?php }?>><?php echo gettext("Exact");?></td>
-				<td  align="center" class="callhistory_td8"><input type="radio" NAME="dsttype" value="2" <?php if($dsttype==2){?>checked<?php }?>><?php echo gettext("Begins with")?></td>
-				<td  align="center" class="callhistory_td8"><input type="radio" NAME="dsttype" value="3" <?php if($dsttype==3){?>checked<?php }?>><?php echo gettext("Contains");?></td>
-				<td  align="center" class="callhistory_td8"><input type="radio" NAME="dsttype" value="4" <?php if($dsttype==4){?>checked<?php }?>><?php echo gettext("End with");?></td>
+				<td  align="center" class="bgcolor_003"><input type="radio" NAME="dsttype" value="1" <?php if((!isset($dsttype))||($dsttype==1)){?>checked<?php }?>><?php echo gettext("Exact");?></td>
+				<td  align="center" class="bgcolor_003"><input type="radio" NAME="dsttype" value="2" <?php if($dsttype==2){?>checked<?php }?>><?php echo gettext("Begins with")?></td>
+				<td  align="center" class="bgcolor_003"><input type="radio" NAME="dsttype" value="3" <?php if($dsttype==3){?>checked<?php }?>><?php echo gettext("Contains");?></td>
+				<td  align="center" class="bgcolor_003"><input type="radio" NAME="dsttype" value="4" <?php if($dsttype==4){?>checked<?php }?>><?php echo gettext("End with");?></td>
 				</tr></table></td>
 			</tr>			
 			
@@ -469,8 +469,8 @@ echo '<br>'.$CC_help_balance_customer;
 
 			
 			<tr>
-			  <td class="callhistory_td9" align="left" ><font class="callhistory_td4">&nbsp;&nbsp;<?php echo gettext("Options"); ?></font></td>
-			  <td class="bar-search" align="center" bgcolor="#acbdee"><div align="left">
+			  <td class="bgcolor_004" align="left" ><font class="callhistory_td4">&nbsp;&nbsp;<?php echo gettext("Options"); ?></font></td>
+			  <td class="bgcolor_005" align="center"><div align="left">
 
 			  <table width="100%" border="0" cellspacing="0" cellpadding="0">
 			  <tr>
@@ -520,9 +520,9 @@ echo '<br>'.$CC_help_balance_customer;
 			
 			
 			<tr>
-        		<td class="callhistory_td9" align="left" > </td>
+        		<td class="bgcolor_004" align="left" > </td>
 
-				<td class="callhistory_td10" align="center" >
+				<td class="bgcolor_005" align="center" >
 					<input class="form_input_button" value=" <?php echo gettext("Search");?> " type="submit">
 
 	  			</td>
@@ -553,7 +553,7 @@ echo '<br>'.$CC_help_balance_customer;
         <TR> 
           <TD> <TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
 <TBODY>
-                <TR bgColor=#F0F0F0> 
+                <TR class="bgcolor_008"> 
 				  <TD width="<?php echo $FG_ACTION_SIZE_COLUMN?>" align=center class="tableBodyRight" style="PADDING-BOTTOM: 2px; PADDING-LEFT: 2px; PADDING-RIGHT: 2px; PADDING-TOP: 2px"></TD>					
 				  
                   <?php 
@@ -798,14 +798,14 @@ foreach ($list_total_day as $data){
 	?>
 		</tr><tr>
 		<td align="right" class="sidenav" nowrap="nowrap"><font class="callhistory_td5"><?php echo $data[0]?></font></td>
-		<td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right" nowrap="nowrap" class="callhistory_td6"><?php echo $minutes?> </td>
+		<td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right" nowrap="nowrap" class="fontstyle_001"><?php echo $minutes?> </td>
         <td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="left" nowrap="nowrap" width="<?php echo $widthbar+60?>">
         <table cellspacing="0" cellpadding="0"><tbody><tr>
         <td bgcolor="#e22424"><img src="<?php echo Images_Path_Main ?>/spacer.gif" width="<?php echo $widthbar?>" height="6"></td>
         </tr></tbody></table></td>
-        <td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right" nowrap="nowrap" class="callhistory_td6"><?php echo $data[3]?></td>
-        <td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right" nowrap="nowrap" class="callhistory_td6" ><?php echo $tmc?> </td>
-		<td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right" nowrap="nowrap" class="callhistory_td6"><?php  display_2bill($data[2]) ?></td>
+        <td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right" nowrap="nowrap" class="fontstyle_001"><?php echo $data[3]?></td>
+        <td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right" nowrap="nowrap" class="fontstyle_001" ><?php echo $tmc?> </td>
+		<td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right" nowrap="nowrap" class="fontstyle_001"><?php  display_2bill($data[2]) ?></td>
      <?php 	 }	 	 	
 	 	
 		if ((!isset($resulttype)) || ($resulttype=="min")){  

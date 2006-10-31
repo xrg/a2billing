@@ -57,7 +57,7 @@ echo '<br>'.$CC_help_webphone;
 	  </center>
 
 	  <?php if (false){ ?>
-	<table align="center" bgcolor="#eeeeee" border="0" width="75%">
+	<table align="center" class="bgcolor_006" border="0" width="75%">
 		<FORM NAME="phonesip" METHOD="POST" ACTION="jiaxclient/sipphone.php" target="_blank">
 		<?php
 			echo "<INPUT TYPE=\"HIDDEN\" NAME=\"webphone_server\" VALUE=\"".$A2B->config['webcustomerui']['webphoneserver']."\">\n";
@@ -65,7 +65,7 @@ echo '<br>'.$CC_help_webphone;
 			echo "<INPUT TYPE=\"HIDDEN\" NAME=\"webphone_secret\" VALUE=\"".$sip_info[0]."\">\n";
 			echo "<INPUT TYPE=\"HIDDEN\" NAME=\"webphone_number\" VALUE=\"\">\n";
 		?>
-        <tbody><tr bgcolor="#cccccc">
+        <tbody><tr  class="bgcolor_006">
 		<td align="center" valign="bottom">
 				<img src="Css/kicons/stock_cell-phone.png" class="kikipic"/>
 				<br><b><?php echo gettext("SIP WEB-PHONE")?></b>
@@ -86,7 +86,7 @@ echo '<br>'.$CC_help_webphone;
 	</table>
 	<?php } ?>
 	<br>
-	<table align="center" bgcolor="#eeeeee" border="0" width="75%">
+	<table align="center" class="bgcolor_006" border="0" width="75%">
 		<FORM NAME="phoneiax" METHOD="POST" ACTION="jiaxclient/iaxphone.php" target="_blank">
 		<?php
 			echo "<INPUT TYPE=\"HIDDEN\" NAME=\"webphone_server\" VALUE=\"".$A2B->config['webcustomerui']['webphoneserver']."\">\n";
@@ -94,9 +94,9 @@ echo '<br>'.$CC_help_webphone;
 			echo "<INPUT TYPE=\"HIDDEN\" NAME=\"webphone_secret\" VALUE=\"".$iax_info[0]."\">\n";
 			echo "<INPUT TYPE=\"HIDDEN\" NAME=\"webphone_number\" VALUE=\"\">\n";
 		?>
-        <tbody><tr bgcolor="#cccccc">
+        <tbody><tr class="bgcolor_006">
 		<td align="center" valign="bottom">
-				<img src="<?php echo KICON_PATH ?>/kicons/stock_cell-phone.png" class="kikipic"/><br>
+				<img src="<?php echo KICON_PATH ?>/stock_cell-phone.png" class="kikipic"/><br>
 				<b><?php echo gettext("IAX WEB-PHONE")?></b>
 					</br></br>
 			</td>

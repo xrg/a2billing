@@ -301,7 +301,7 @@ function CheckCountry(Source){
 	  <a href="A2B_entity_did.php?assign=1"><input type="radio" value="1" <?php if ($assign==1) echo 'checked'; ?>/><?php echo gettext("Buy New DID");?> </a> - <a href="A2B_entity_did.php?assign=2"><input type="radio" value="2" <?php if ($assign==2) echo 'checked'; ?>/><?php echo gettext("Add Phone Number to your DID");?></a>
 	  </center>
 
-	   <table align="center"  border="0" class="did_maintable">
+	   <table align="center"  border="0" class="bgcolor_006" width="75%">
 		<form name="theForm" action="A2B_entity_did.php">
 		<INPUT type="hidden" name="assign" value="<?php echo $assign ?>">
 		<INPUT type="hidden" name="new_did_page" value="<?php echo $new_did_page?>">
@@ -311,7 +311,7 @@ function CheckCountry(Source){
 		
 		case 0:
 		if ($assign==1){ ?>
-		<tr class="did_maintable_tr1">
+		<tr class="bgcolor_001">
           <td align="left" width="80%" colspan="2">
 				<select NAME="choose_country" size="1" class="form_input_select"  onChange="JavaScript:CheckCountry('select');">
 					<option value=''><?php echo gettext("Select Country");?></option>
@@ -339,7 +339,7 @@ function CheckCountry(Source){
 				</select>
 				</td>
 		</tr>
-		<tr class="did_maintable_tr1">
+		<tr class="bgcolor_007">
 		<td align="left" valign="bottom">
 <?php if (1==2){ ?>
 				 <?php echo gettext("Ring To Number ");?> :
@@ -519,7 +519,7 @@ function CheckCountry(Source){
 			<INPUT type="hidden" name="voip_call" value="<?php echo $voip_call ?>">
 			<INPUT type="hidden" name="choose_country" value="<?php echo $choose_country ?>">
 			<INPUT type="hidden" name="confirm_buy_did" value="1">
-			<tr class="did_maintable_tr1" valign="middle">
+			<tr class="bgcolor_007" valign="middle">
 				<td colspan="2" height="40">
 					<center><font color="black"><?php echo gettext("Confirm the purchase of the DID ");?> </font></center>
 				</td>
@@ -529,7 +529,7 @@ function CheckCountry(Source){
 					<center><font color="red"><?php echo gettext("A monthly taking away of :").number_format($rate,2,".",",")." ".BASE_CURRENCY."<br>".gettext(" will be carrie out from your acount");?> </font></center>
 				</td>
 			</tr>
-			<tr class="did_maintable_tr1">
+			<tr class="bgcolor_007">
 				<td align="center" valign="middle">
 					<input class="form_input_button"  value=" <?php echo gettext("Prev");?> " type="button" onclick="CheckCountry('PrevButton')">
 				</td>
@@ -553,7 +553,7 @@ function CheckCountry(Source){
 			<INPUT type="hidden" name="destination" value=" ">
 			<INPUT type="hidden" name="voip_call" value="">
 			<INPUT type="hidden" name="choose_country" value="">
-			<tr class="did_maintable_tr1">
+			<tr class="bgcolor_007">
 				<td align="center" valign="middle">
 					<input class="form_input_button"  value=" <?php echo gettext("Ok");?> "type="button" onclick="CheckCountry('NextButton')">
 				</td>

@@ -7,11 +7,9 @@
 	
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		
-			   <link href="templates/{$SKIN_NAME}/css/main.css" rel="stylesheet" type="text/css">
+			 <link href="templates/{$SKIN_NAME}/css/main.css" rel="stylesheet" type="text/css">
 			   <link href="templates/{$SKIN_NAME}/css/menu.css" rel="stylesheet" type="text/css">
-			   <link href="templates/{$SKIN_NAME}/css/style-def.css" rel="stylesheet" type="text/css">
-			   
-			
+			   <link href="templates/{$SKIN_NAME}/css/style-def.css" rel="stylesheet" type="text/css">			
 </HEAD>
 
 <BODY leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">

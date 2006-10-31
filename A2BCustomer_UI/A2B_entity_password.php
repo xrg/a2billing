@@ -104,7 +104,7 @@ alert("System is failed to update your password.");
 <form method="post" action="<?php  echo $_SERVER["PHP_SELF"]."?form_action=ask-update"?>" name="frmPass">
 <center>
 <table class="changepassword_maintable" align=center>
-<tr class="changepassword_maintable_tr1">
+<tr class="bgcolor_009">
     <td align=left colspan=2><b><font color="#ffffff">- Change Password -</b></td>
 </tr>
 <tr>
