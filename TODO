@@ -16,6 +16,26 @@
                    			TODO LIST - SPECIFIC
 ********************************************************************************
 
+#### FEATURE : API SHOW RATECARD
+********************************************************************
+http://domain/a2billing/api/display_ratecard.php?security_key&ratecardid&css_url&
+nb_display_lines&filter&field_to_display=sellingrate|buyrate|etc...&column_name=sellingrate|buyrate|etc...
+&browse_style= page number or Letter (A, B, C)
+& prefix_select = 32 (only prefix start by 32)
+& url_page = http://mysite.com/rates.php
+
+The idea it s to have something very flexible so that users could get
+something like this
+http://www.voip.com/voip_international.aspx
+well more or less :D
+
+I guess we can reuse some page from the customer interface to show ratecard and
+transform this to an API and something more flexible on design
+well the idea it s to keep something flexible so that anybody can display what
+they want from the ratecard.
+
+
+
 #### FEATURE
 ********************************************************************
 

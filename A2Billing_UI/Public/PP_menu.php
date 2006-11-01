@@ -306,6 +306,8 @@ function imgidclick_plus(imgID,divID)
 				<li><a href="A2B_entity_autorefill.php?stitle=Auto+Refill&section=7"><?php echo gettext("AutoRefill Report");?></a></li>
 				<li><a href="A2B_entity_service.php?stitle=Recurring+Service&section=7"><?php echo gettext("List Recurring Service");?></a></li>
 				<li><a href="A2B_entity_service.php?stitle=Recurring+Service&form_action=ask-add&section=7"><?php echo gettext("Add Recurring Service");?></a></li>
+				<li><a href="A2B_entity_alarm.php?stitle=Alarm&section=7"><?php echo gettext("List Alarm");?></a></li>
+				<li><a href="A2B_entity_alarm.php?stitle=Alarm&form_action=ask-add&section=7"><?php echo gettext("Add Alarm");?></a></li>
 			</ul></li>
 		</ul>
 		</div>

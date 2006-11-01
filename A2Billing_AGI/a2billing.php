@@ -207,25 +207,46 @@
 								
 								$A2B->agiconfig['cid_enable']=0;
 								$A2B->agiconfig['use_dnid']=0;
-								$A2B->agiconfig['cid_auto_assign_card_to_cid']=0;								
+								$A2B->agiconfig['cid_auto_assign_card_to_cid']=0;							
 								$A2B->accountcode='';
 								$A2B->username='';
 								$A2B-> ask_other_cardnumber	= 1;
 								
 								$cia_res = $A2B -> callingcard_ivr_authenticate($agi);
 								$A2B -> write_log("[NOTENOUGHCREDIT_CARDNUMBER - TRY : callingcard_ivr_authenticate]");
-								if ($cia_res!=0) break;
+								if ($cia_res!=0 && $A2B->agiconfig['jump_voucher_if_min_credit=yes']==0) break;
+								elseif($A2B->agiconfig['jump_voucher_if_min_credit=yes']==1){
+									$A2B->callingcard_acct_start_inuse($agi,1);
+									$A2B -> write_log("[NOTENOUGHCREDIT - refill_card_withvoucher] ");
+									$vou_res = $A2B->refill_card_with_voucher($agi, $RateEngine,$i);
+									if ($vou_res==1){
+										$A2B->fct_say_balance ($agi, $A2B->add_credit, 1);
+										continue;
+									}else {
+										$A2B -> write_log("[NOTENOUGHCREDIT - refill_card_withvoucher fail] ");
+										$A2B->callingcard_acct_start_inuse($agi,0);
+										$send_reminder = 1;
+										break;
+									}
+								}else{
+									$A2B -> write_log("[NOTENOUGHCREDIT_CARDNUMBER - callingcard_	acct_start_inuse]");
+									$A2B->callingcard_acct_start_inuse($agi,1);
+									
+								}
 								
-								$A2B -> write_log("[NOTENOUGHCREDIT_CARDNUMBER - callingcard_acct_start_inuse]");
+							}else{
+								$vou_res = $A2B->refill_card_with_voucher($agi, $RateEngine,$i);
+								if ($vou_res==1){
+									$A2B->fct_say_balance ($agi, $A2B->add_credit, 1);
+									continue;
+								}else {
+									$A2B -> write_log("[NOTENOUGHCREDIT - refiil_card_withvoucher fail] ");
+									$A2B->callingcard_acct_start_inuse($agi,0);
+									$send_reminder = 1;
+									if ($A2B->agiconfig['debug']>=2) $agi->verbose('line:'.__LINE__.' - '."[SET MAIL REMINDER - NOT ENOUGH CREDIT]");
+									break;
+								}
 								
-								$A2B->callingcard_acct_start_inuse($agi,1);
-								continue;
-								
-							}else{								
-								
-								$send_reminder = 1;
-								if ($A2B->agiconfig['debug']>=2) $agi->verbose('line:'.__LINE__.' - '."[SET MAIL REMINDER - NOT ENOUGH CREDIT]");
-								break;
 							}
 					}
 					

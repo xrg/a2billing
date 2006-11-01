@@ -668,5 +668,27 @@ $CC_help_edit_prefix ='
 </div></div></div>
 </div>';
 
+$CC_help_edit_alarm='<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="../Css/kicons/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
+<div id="div1000" style="display:visible;">
+<div id="kiki"><div class="w1">
+	<img src="../Css/kicons/system-config-date.gif" class="kikipic"/>
+	<div class="w2">'
+.gettext("Utility to apply a scheduled monitor on trunks.<br>")
+.gettext("For example if you want to monitor ASR or ALOC everyday on each single trunk, it can be defined here, the different parameters below will define the rules to apply the alarm.").'
+<br/>
+</div></div></div>
+</div>
+';
+$CC_help_list_alarm='<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="../Css/kicons/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
+<div id="div1000" style="display:visible;">
+<div id="kiki"><div class="w1">
+	<img src="../Css/kicons/system-config-date.gif" class="kikipic"/>
+	<div class="w2">'
+.gettext("Alarms that monitor trunks at timed intervals.<br>").'
+<br/>
+</div></div></div>
+</div>
+';
+
 } //ENDIF SHOW_HELP
 ?>
