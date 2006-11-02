@@ -769,6 +769,10 @@ SPAN.errorText {
 	color: #ffffff;
 	font-family: Verdana;
 }
+.fontstyle_004
+{
+	font-weight: bold;	
+}
 .bgcolor_002
 {
 	background-color: #555577;	
@@ -1044,4 +1048,18 @@ SPAN.errorText {
 	margin-left: auto;
 	margin-right: auto;	
 	background-color: #E2E2D3;	
+}
+.infoBoxNotice {
+  background: #FF8E90;
+}
+.infoBoxNoticeContents {
+  background: #FFE6E6;
+  font-family: Verdana, Arial, sans-serif;
+  font-size: 10px;
+}
+.infoBox {
+  background: whitesmoke;
+  border-color: #7b9ebd;
+  border-style: solid;
+  border-width: 1px;
 }
