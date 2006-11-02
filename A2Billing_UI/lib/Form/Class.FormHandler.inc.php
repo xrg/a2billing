@@ -1775,7 +1775,7 @@ class FormHandler{
 			<tbody><tr>
 			  <td height="40"> 
 				<td height="48" align="center" valign="middle" class="textnegrita"><p>
-					 <font class="toppage_askedit_text">
+					 <font class="fontstyle_002">
 				 <?php echo $this->FG_INTRO_TEXT_ADITION?> </font></p></td>
 				
 			</tr>
@@ -1810,7 +1810,7 @@ class FormHandler{
                       </TD>                    
                   </TR>
                   <TR>
-                    <TD width="516" valign="top" class="toppage_actionfinish_td1"> <br>
+                    <TD width="516" valign="top" class="tdstyle_001"> <br>
 			<div align="center"><strong> 
 			<?php if ($form_action == "delete") { ?><?php echo $this->FG_INTRO_TEXT_DELETION?><?php }elseif ($form_action == "add"){ ?><?php echo $this->FG_TEXT_ADITION_CONFIRMATION?><?php  } ?>
                         
@@ -1840,7 +1840,7 @@ class FormHandler{
 			</TD>
 		 </TR>
 		  <TR>
-		    <TD width="516" valign="top" class="toppage_customaction_td1"> <br>
+		    <TD width="516" valign="top" class="tdstyle_001"> <br>
 		    	<div align="center"><strong><?php echo $form_action?><?php echo gettext("Done");?>
 			</strong></div>
 			<br>

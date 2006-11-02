@@ -173,7 +173,7 @@
                                        
         </TBODY>
       </TABLE>
-	  <table cellspacing="0" class="addform_table2">
+	  <table cellspacing="0" class="editform_table8">
 		<tr height="2">
                  <td colspan="2" style="border-bottom: medium dotted rgb(102, 119, 102);">&nbsp; </td>
                     </tr>

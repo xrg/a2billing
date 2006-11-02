@@ -410,7 +410,7 @@ function sendtolittle(direction){
 
 
                         <!-- Table with list instance already inserted -->
-                        <table cellspacing="0" class="editform_table5">
+                        <table cellspacing="0" class="editform_table2">
                           <TR bgcolor="#ffffff">
                             <TD height=16 style="PADDING-LEFT: 5px; PADDING-RIGHT: 3px" class="form_head">
                             	<TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
@@ -579,7 +579,7 @@ function sendtolittle(direction){
                 <TR> 
                 	<TD class="form_head"> <IMG height=1 src="<?php echo Images_Path_Main;?>/clear.gif" width=1>
                     </TD>
-                    <TD class="editform_table6_td2"> 
+                    <TD class="editform_table4_td1"> 
 						<TABLE width="97%" border=0 align="center" cellPadding=0 cellSpacing=0>
                         
  <?php 

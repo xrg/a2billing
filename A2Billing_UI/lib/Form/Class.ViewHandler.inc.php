@@ -124,7 +124,7 @@ function openURLFilter(theLINK)
       <table width="<?php echo $this->FG_VIEW_TABLE_WITDH; ?>" border="0" align="center" cellpadding="0" cellspacing="0">
 	  <?php  IF ($this -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE){ ?>
 		<TR> 
-		  <TD class="viewhandler_table2_td1"><span>
+		  <TD class="tdstyle_002"><span>
           	  <b><?php echo $this -> CV_TEXT_TITLE_ABOVE_TABLE?></b></span>
 		  </TD>
         </TR>
@@ -134,7 +134,7 @@ function openURLFilter(theLINK)
 	   		<input type="hidden" name="popup_select" value="<?php echo $_GET['popup_select']?>">
 			<input type="hidden" name="popup_formname" value="<?php echo $_GET['popup_formname']?>">
 			<input type="hidden" name="popup_fieldname" value="<?php echo $_GET['popup_fieldname']?>">
-            <TD class="viewhandler_table2_td2"><span >
+            <TD class="tdstyle_002"><span >
 					<SELECT name="choose_list" size="1" class="form_input_select" style="width: 185px;" onchange="openURLFilter('<?php echo $_SERVER['PHP_SELF'].$this->CV_FILTER_ABOVE_TABLE_PARAM?>')">
 					
 						<OPTION><?php echo gettext("Sort");?></OPTION>

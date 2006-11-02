@@ -24,7 +24,7 @@ if ($this->FG_FK_DELETE_CONFIRM && $form_action == "ask-del-confirm" && $this-> 
 	<INPUT type="hidden" name="atmenu" value="<?php echo $atmenu?>">
 	<INPUT type="hidden" name="form_action" value="delete">
 
-	<table cellspacing="2"  class="delform_table1">
+	<table cellspacing="2"  class="tablestyle_001">
     <tr>
         <td>
             <table cellspacing=0 class="delform_table2">
@@ -32,24 +32,24 @@ if ($this->FG_FK_DELETE_CONFIRM && $form_action == "ask-del-confirm" && $this-> 
                     <td align=left class="delform_table2_td1"><?php echo gettext("Message");?></td>
                 </tr>
                 <tr >
-                    <td class="delform_table2_td2">&nbsp;</td>
+                    <td class="bgcolor_006">&nbsp;</td>
                 </tr>
                 <tr height="50px">
-                    <td align=center class="delform_table2_td2">
+                    <td align=center class="bgcolor_006">
                     <?php echo gettext("You have "). $_POST["fkCount"]." dependent records.<br>" ?>
                     <?php echo $this -> FG_FK_DELETE_MESSAGE;?>
                     </td>
                 </tr>
                 <tr>
-                    <td class="delform_table2_td2">&nbsp;</td>
+                    <td class="bgcolor_006">&nbsp;</td>
                 </tr>
                 <tr>
-                    <td align=center class="delform_table2_td2">
+                    <td align=center class="bgcolor_006">
                         <INPUT title="Delete this record" alt="Delete this Record" hspace=2 id=submit22 name=submit22 src="<?php echo Images_Path_Main;?>/btn_Delete_94x20.gif" type="image">
                     </td>
                 </tr>
                 <tr height="5px">
-                    <td class="delform_table2_td2">&nbsp;</td>
+                    <td class="bgcolor_006">&nbsp;</td>
                 </tr>
 
             </table>
@@ -90,13 +90,13 @@ else
 	}
 	?>
 
-	<table cellspacing="2" class="delform_table4">
+	<table cellspacing="2" class="tablestyle_001">
 		<?php for($i=0;$i<$this->FG_NB_TABLE_EDITION;$i++){ ?>
 		<TR>
 			<TD width="25%" valign="middle" class="form_head">
 				<?php echo $this->FG_TABLE_EDITION[$i][0]?>
 			</TD>
-			<TD valign="top" class="delform_table4">
+			<TD valign="top" class="tablestyle_001">
 				<?php
 					if ($this->FG_DEBUG == 1) print($this->FG_TABLE_EDITION[$i][3]);
 					$arr_input = array("INPUT", "POPUPVALUE", "POPUPVALUETIME", "POPUPDATETIME");					
