@@ -75,7 +75,7 @@ $HD_Form -> AddEditElement (gettext("NAME"),
 	"",
 	"3",
 	gettext("Insert the alarm name"),
-	"" , "", "", "", "" , "" , "yes" , "");
+	"" , "", "", "", "" , "" , "no" , "");
 
 $HD_Form -> AddEditElement (gettext("PERIOD"),
 	"periode",
@@ -93,7 +93,7 @@ $HD_Form -> AddEditElement (gettext("TYPE"),
 	"",
 	"",
 	"",
-	"list" , "", "", "", $type_list, "%1", "", gettext("aa"));
+	"list" , "", "", "", $type_list, "%1", "");
 
 $HD_Form -> AddEditElement (gettext("MAX VALUE"),
 	"maxvalue",
@@ -102,7 +102,7 @@ $HD_Form -> AddEditElement (gettext("MAX VALUE"),
 	"",
 	"4",
 	gettext("Insert the maximu value in") ,
-	"" , "", "", "yes", "", "", "", gettext("Input the maximum value (between 0 and 1 for ASR /-/ >0 for ALOC in sec /-/ >0 for CIC)"));
+	"" , "", "", "", "", "", "no", gettext("Input the maximum value (between 0 and 1 for ASR /-/ >0 for ALOC in sec /-/ >0 for CIC)"));
 
 $HD_Form -> AddEditElement (gettext("MIN VALUE"),
 	"minvalue",
@@ -111,7 +111,7 @@ $HD_Form -> AddEditElement (gettext("MIN VALUE"),
 	"",
 	"",
 	"",
-	"" , "", "", "", "", "", "", gettext("Input the minimum value (between 0 and 1 for ASR /-/ >=0 for ALOC in sec /-/ >=0 for CIC) or leave empty"));
+	"" , "", "", "", "", "", "no", gettext("Input the minimum value (between 0 and 1 for ASR /-/ >=0 for ALOC in sec /-/ >=0 for CIC) or leave empty"));
 $HD_Form -> AddEditElement(gettext("TRUNK"),
 			   "id_trunk",
 			   '$value',	
@@ -119,7 +119,7 @@ $HD_Form -> AddEditElement(gettext("TRUNK"),
 			   "",	
 			   "",
 			   "",
-			   "" , "", "",	"", "" , "A2B_entity_trunk.php?popup_select=1&", ", 'id_trunk','width=550,height=340,top=20,left=100'", gettext("Set the trunk number or leave empty for all trunk."));
+			   "" , "", "","", "" ,"A2B_entity_trunk.php?popup_select=1&", ", 'NULL','width=550,height=340,top=20,left=100'", gettext("Set the trunk number or leave empty for all trunk."));
 
 $HD_Form -> AddEditElement ("STATUS",
 	"status",
@@ -137,7 +137,7 @@ $HD_Form -> AddEditElement (gettext("EMAIL TO SEND ALARM"),
 	"size=30 maxlength=30",
 	"1",
 	gettext("Insert the email to send the alarm"),
-	"" , "", "", "", "", "" , "yes", "");
+	"" , "", "", "", "", "" , "NO-NULL", "");
 
 
 

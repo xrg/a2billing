@@ -50,7 +50,7 @@ for($i=0;$i<$num;$i++)
 /*******************  LIST REFILL  *****************************************/
 		
 
-$QUERY = "SELECT  t3.daterun, t3.calculatedvalue from cc_alarm_report as t3 WHERE t3.cc_alarm_id='$id'";
+$QUERY = "SELECT  substring(t3.daterun,0,20) as daterun, t3.calculatedvalue from cc_alarm_report as t3 WHERE t3.cc_alarm_id='$id'";
 
 
 $QUERY.=" ORDER BY t3.id DESC";
