@@ -1,0 +1,359 @@
+<?php
+include ("../lib/defines.php");
+include ("../lib/module.access.php");
+include ("../lib/Form/Class.FormHandler.inc.php");
+include ("./form_data/FG_var_def_ratecard.inc");
+
+
+if (! has_rights (ACX_RATECARD)){ 
+	   Header ("HTTP/1.0 401 Unauthorized");
+	   Header ("Location: PP_error.php?c=accessdenied");
+	   die();	   
+}
+
+
+getpost_ifset(array('posted', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth', 'tostatsmonth', 'fromday', 'fromstatsday_sday', 'fromstatsmonth_sday', 'today', 'tostatsday_sday', 'tostatsmonth_sday', 'current_page', 'tariffplan', 'removeallrate', 'removetariffplan', 'definecredit', 'IDCust', 'mytariff_id', 'destination', 'dialprefix', 'buyrate1', 'buyrate2', 'buyrate1type', 'buyrate2type', 'rateinitial1', 'rateinitial2', 'rateinitial1type', 'rateinitial2type', 'id_trunk', "check", "type", "mode", 'batchupdate', 'upd_id_trunk', 'upd_idtariffplan', 'upd_buyrate', 'upd_buyrateinitblock', 'upd_buyrateincrement', 'upd_rateinitial', 'upd_initblock', 'upd_billingblock', 'upd_connectcharge', 'upd_disconnectcharge'));
+
+
+/***********************************************************************************/
+
+$HD_Form -> setDBHandler (DbConnect());
+$HD_Form -> init();
+
+
+/********************************* BATCH UPDATE ***********************************/
+getpost_ifset(array('upd_inuse', 'upd_activated', 'upd_language', 'upd_tariff', 'upd_credit', 'upd_credittype', 'upd_simultaccess', 'upd_currency', 'upd_typepaid', 'upd_creditlimit', 'upd_enableexpire', 'upd_expirationdate', 'upd_expiredays', 'upd_runservice', 'upd_runservice', 'batchupdate', "check", "type", "mode"));
+
+// CHECK IF REQUEST OF BATCH UPDATE
+if ($batchupdate == 1 && is_array($check)){
+
+	$HD_Form->prepare_list_subselection('list');
+	
+	// Array ( [upd_simultaccess] => on [upd_currency] => on )
+	$loop_pass=0;
+	$SQL_UPDATE = '';
+	foreach ($check as $ind_field => $ind_val){
+		//echo "<br>::> $ind_field -";
+		$myfield = substr($ind_field,4);
+		if ($loop_pass!=0) $SQL_UPDATE.=',';
+		
+		// Standard update mode
+		if (!isset($mode["$ind_field"]) || $mode["$ind_field"]==1){		
+			if (!isset($type["$ind_field"])){		
+				$SQL_UPDATE .= " $myfield='".$$ind_field."'";
+			}else{
+				$SQL_UPDATE .= " $myfield='".$type["$ind_field"]."'";
+			}
+		// Mode 2 - Equal - Add - Substract
+		}elseif($mode["$ind_field"]==2){
+			if (!isset($type["$ind_field"])){
+				$SQL_UPDATE .= " $myfield='".$$ind_field."'";
+			}else{
+				if ($type["$ind_field"] == 1){
+					$SQL_UPDATE .= " $myfield='".$$ind_field."'";					
+				}elseif ($type["$ind_field"] == 2){
+					$SQL_UPDATE .= " $myfield = $myfield +'".$$ind_field."'";
+				}else{
+					$SQL_UPDATE .= " $myfield = $myfield -'".$$ind_field."'";
+				}
+			}
+		}
+
+		$loop_pass++;
+	}
+
+	$SQL_UPDATE = "UPDATE $HD_Form->FG_TABLE_NAME SET $SQL_UPDATE";	
+	if (strlen($HD_Form->FG_TABLE_CLAUSE)>1) {
+		$SQL_UPDATE .= ' WHERE ';
+		$SQL_UPDATE .= $HD_Form->FG_TABLE_CLAUSE;
+		$SQL_UPDATE .= ' AND '.$_SESSION['def_ratecard'];
+	}else{
+		$SQL_UPDATE .= ' WHERE '.$_SESSION['def_ratecard'];
+	}
+
+	if (! $res = $HD_Form -> DBHandle -> query($SQL_UPDATE))		$update_msg = "<center><font color=\"red\"><b>Could not perform the batch update!</b></font></center>";		
+	else		$update_msg = "<center><font color=\"green\"><b>The batch update has been successfully perform !</b></font></center>";		
+
+}
+//echo "FG_TABLE_NAME=$HD_Form->FG_TABLE_NAME :: FG_TABLE_CLAUSE=$HD_Form->FG_TABLE_CLAUSE<br>";
+/********************************* END BATCH UPDATE ***********************************/
+
+
+
+if ($id!="" || !is_null($id)){	
+	$HD_Form -> FG_EDITION_CLAUSE = str_replace("%id", "$id", $HD_Form -> FG_EDITION_CLAUSE);	
+}
+
+
+if (!isset($form_action))  $form_action="list"; //ask-add
+if (!isset($action)) $action = $form_action;
+
+
+if (is_string ($tariffplan) && strlen(trim($tariffplan))>0){		
+		list($mytariff_id, $mytariffname) = split('-:-', $tariffplan);		
+		$_SESSION["mytariff_id"]= $mytariff_id;
+		$_SESSION["mytariffname"]= $mytariffname;
+		//$_SESSION["basetariffgroup"]= $basetariffgroup;		
+}else{
+		$mytariff_id = $_SESSION["mytariff_id"];
+		$mytariffname = $_SESSION["mytariffname"];
+		//$basetariffgroup = $_SESSION["basetariffgroup"];
+}
+
+
+if ( ($form_action == "list") &&  ($HD_Form->FG_FILTER_SEARCH_FORM) && ($_POST['posted_search'] == 1 )){
+	$HD_Form->FG_TABLE_CLAUSE = "idtariffplan='$mytariff_id'";
+}
+
+$list = $HD_Form -> perform_action($form_action);
+
+
+// #### HEADER SECTION
+include("PP_header.php");
+
+// #### HELP SECTION
+if (($form_action == 'ask-add') || ($form_action == 'ask-edit')) echo '<br><br>'.$CC_help_add_rate;
+else echo '<br><br>'.$CC_help_def_ratecard;
+
+// DISPLAY THE UPDATE MESSAGE
+if (isset($update_msg) && strlen($update_msg)>0) echo $update_msg; 
+
+
+
+// Weird hack to create a select form
+if ($form_action == "list" ) $HD_Form -> create_select_form();
+
+
+// #### TOP SECTION PAGE
+$HD_Form -> create_toppage ($form_action);
+
+
+// #### CREATE FORM OR LIST
+//$HD_Form -> CV_TOPVIEWER = "menu";
+if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
+
+$HD_Form -> create_form ($form_action, $list, $id=null) ;
+
+// #### CREATE SEARCH FORM
+if ($form_action == "list"){
+	$HD_Form -> create_search_form();
+}
+
+
+
+/********************************* BATCH UPDATE ***********************************/
+if ($form_action == "list"){
+	
+	$instance_table_tariffname = new Table("cc_tariffplan", "id, tariffname");
+	$FG_TABLE_CLAUSE = "";
+	$list_tariffname = $instance_table_tariffname  -> Get_list ($HD_Form->DBHandle, $FG_TABLE_CLAUSE, "tariffname", "ASC", null, null, null, null);
+	$nb_tariffname = count($list_tariffname);
+	
+
+	$instance_table_trunk = new Table("cc_trunk", "id_trunk, trunkcode, providerip");
+	$FG_TABLE_CLAUSE = "";
+	$list_trunk = $instance_table_trunk -> Get_list ($HD_Form->DBHandle, $FG_TABLE_CLAUSE, "trunkcode", "ASC", null, null, null, null);
+	$nb_trunk = count($list_trunk);
+?>
+
+<a href="#" target="_self"  onclick="imgidclick('img52000','div52000','kfind.png','viewmag.png');"><img id="img52000" src="../Css/kicons/viewmag.png" onmouseover="this.style.cursor='hand';" WIDTH="16" HEIGHT="16"></a>
+<div id="div52000" style="display:visible;">
+
+<!-- ** ** ** ** ** Part for the Update ** ** ** ** ** -->
+<br>
+<center>
+<b>&nbsp;<?php echo $HD_Form -> FG_NB_RECORD ?> <?php echo gettext("rates selected!"); ?>&nbsp;<?php echo gettext("Use the options below to batch update the selected rates.");?></b>
+	   <table align="center" border="0" width="65%"  cellspacing="1" cellpadding="2">
+        <tbody>
+		<form name="updateForm" action="<?php echo $_SERVER['PHP_SELF']?>" method="post">
+		<INPUT type="hidden" name="batchupdate" value="1">
+	
+
+		<tr>		
+          <td align="left" bgcolor="#cccccc">
+		  		<input name="check[upd_id_trunk]" type="checkbox" <?php if ($check["upd_id_trunk"]=="on") echo "checked"?>>
+		  </td>
+		  <td align="left"  bgcolor="#cccccc">
+				1) <?php echo gettext("TRUNK");?> : 
+				<select NAME="upd_id_trunk" size="1" class="form_enter" style="border: 2px outset rgb(204, 51, 0);">
+					<?php
+					 foreach ($list_trunk as $recordset){ 						 
+					?>
+						<option class=input value='<?php echo $recordset[0]?>'  <?php if ($upd_id_trunk==$recordset[0]) echo 'selected="selected"'?>><?php echo $recordset[1].' ('.$recordset[2].')'?></option>                        
+					<?php 	 }
+					?>
+				</select>
+			</td>
+		</tr>
+		<tr>		
+          <td align="left"  bgcolor="#cccccc">
+		  	<input name="check[upd_idtariffplan]" type="checkbox" <?php if ($check["upd_idtariffplan"]=="on") echo "checked"?> >
+		  </td>
+		  <td align="left"  bgcolor="#cccccc">
+		   						
+			  	2) <?php echo gettext("RATECARD");?> :
+				<select NAME="upd_idtariffplan" size="1" class="form_enter" style="border: 2px outset rgb(204, 51, 0);">
+									
+					<?php					 
+				  	 foreach ($list_tariffname as $recordset){ 						 
+					?>
+						<option class=input value='<?php echo $recordset[0]?>'  <?php if ($upd_idtariffplan==$recordset[0]) echo 'selected="selected"'?>><?php echo $recordset[1]?></option>
+					<?php 	 }
+					?>
+				</select>
+				<br/>
+			</td>
+		</tr>
+		<tr>		
+          <td align="left" bgcolor="#cccccc">
+		  		<input name="check[upd_buyrate]" type="checkbox" <?php if ($check["upd_buyrate"]=="on") echo "checked"?>>
+				<input name="mode[upd_buyrate]" type="hidden" value="2">
+		  </td>
+		  <td align="left"  bgcolor="#cccccc">	
+			  	3) <?php echo gettext("BUYRATE");?> :
+					<input class="form_enter" name="upd_buyrate" size="10" maxlength="10" style="border: 2px inset rgb(204, 51, 0);" value="<?php if (isset($upd_buyrate)) echo $upd_buyrate; else echo '0';?>">
+				<font class="version">
+				<input type="radio" NAME="type[upd_buyrate]" value="1" <?php if((!isset($type["upd_buyrate"]))|| ($type["upd_buyrate"]==1) ){?>checked<?php }?>><?php echo gettext("Equal");?>
+				<input type="radio" NAME="type[upd_buyrate]" value="2" <?php if($type["upd_buyrate"]==2){?>checked<?php }?>> <?php echo gettext("Add");?>
+				<input type="radio" NAME="type[upd_buyrate]" value="3" <?php if($type["upd_buyrate"]==3){?>checked<?php }?>> <?php echo gettext("Subtract");?>
+				</font>
+			</td>
+		</tr>
+		<tr>
+          <td align="left" bgcolor="#cccccc">
+		  		<input name="check[upd_buyrateinitblock]" type="checkbox" <?php if ($check["upd_buyrateinitblock"]=="on") echo "checked"?>>
+				<input name="mode[upd_buyrateinitblock]" type="hidden" value="2">
+		  </td>
+		  <td align="left"  bgcolor="#cccccc">
+			  	4) <?php echo gettext("BUYRATEINITBLOCK");?> :
+					<input class="form_enter" name="upd_buyrateinitblock" size="10" maxlength="10" style="border: 2px inset rgb(204, 51, 0);" value="<?php if (isset($upd_buyrateinitblock)) echo $upd_buyrateinitblock; else echo '0';?>">
+				<font class="version">
+				<input type="radio" NAME="type[upd_buyrateinitblock]" value="1" <?php if((!isset($type["upd_buyrateinitblock"]))|| ($type["upd_buyrateinitblock"]==1) ){?>checked<?php }?>> <?php echo gettext("Equal");?>
+				<input type="radio" NAME="type[upd_buyrateinitblock]" value="2" <?php if($type["upd_buyrateinitblock"]==2){?>checked<?php }?>> <?php echo gettext("Add");?>
+				<input type="radio" NAME="type[upd_buyrateinitblock]" value="3" <?php if($type["upd_buyrateinitblock"]==3){?>checked<?php }?>> <?php echo gettext("Subtract");?>
+				</font>
+			</td>
+		</tr>
+		
+		<tr>		
+          <td align="left" bgcolor="#cccccc">
+		  		<input name="check[upd_buyrateincrement]" type="checkbox" <?php if ($check["upd_buyrateincrement"]=="on") echo "checked"?>>
+				<input name="mode[upd_buyrateincrement]" type="hidden" value="2">
+		  </td>
+		  <td align="left"  bgcolor="#cccccc">	
+			  	5) <?php echo gettext("BUYRATEINCREMENT");?> :
+					<input class="form_enter" name="upd_buyrateincrement" size="10" maxlength="10" style="border: 2px inset rgb(204, 51, 0);" value="<?php if (isset($upd_buyrateincrement)) echo $upd_buyrateincrement; else echo '0';?>">
+				<font class="version">
+				<input type="radio" NAME="type[upd_buyrateincrement]" value="1" <?php if((!isset($type["upd_buyrateincrement"]))|| ($type["upd_buyrateincrement"]==1) ){?>checked<?php }?>> <?php echo gettext("Equal");?>
+				<input type="radio" NAME="type[upd_buyrateincrement]" value="2" <?php if($type["upd_buyrateincrement"]==2){?>checked<?php }?>> <?php echo gettext("Add");?>
+				<input type="radio" NAME="type[upd_buyrateincrement]" value="3" <?php if($type["upd_buyrateincrement"]==3){?>checked<?php }?>> <?php echo gettext("Subtract");?>
+				</font>
+			</td>
+		</tr>
+		<tr>
+          <td align="left" bgcolor="#cccccc">
+		  		<input name="check[upd_rateinitial]" type="checkbox" <?php if ($check["upd_rateinitial"]=="on") echo "checked"?>>
+				<input name="mode[upd_rateinitial]" type="hidden" value="2">
+		  </td>
+		  <td align="left"  bgcolor="#cccccc">	
+
+				6) <?php echo gettext("RATE INITIAL");?> :
+				 	<input class="form_enter" name="upd_rateinitial" size="10" maxlength="10" style="border: 2px inset rgb(204, 51, 0);" value="<?php if (isset($upd_rateinitial)) echo $upd_rateinitial; else echo '0';?>" >
+				<font class="version">
+				<input type="radio" NAME="type[upd_rateinitial]" value="1" <?php if((!isset($type[upd_rateinitial]))|| ($type[upd_rateinitial]==1) ){?>checked<?php }?>> <?php echo gettext("Equal");?>
+				<input type="radio" NAME="type[upd_rateinitial]" value="2" <?php if($type[upd_rateinitial]==2){?>checked<?php }?>> <?php echo gettext("Add");?>
+				<input type="radio" NAME="type[upd_rateinitial]" value="3" <?php if($type[upd_rateinitial]==3){?>checked<?php }?>> <?php echo gettext("Subtract");?>
+				</font>
+			</td>
+		</tr>
+		<tr>		
+          <td align="left" bgcolor="#cccccc">
+		  		<input name="check[upd_initblock]" type="checkbox" <?php if ($check["upd_initblock"]=="on") echo "checked"?>>
+				<input name="mode[upd_initblock]" type="hidden" value="2">
+		  </td>
+		  <td align="left"  bgcolor="#cccccc">	
+				
+				7) <?php echo gettext("MIN DURATION");?>  :
+				 	<input class="form_enter" name="upd_initblock" size="10" maxlength="10" style="border: 2px inset rgb(204, 51, 0);" value="<?php if (isset($upd_initblock)) echo $upd_initblock; else echo '0';?>" >
+				<font class="version">
+				<input type="radio" NAME="type[upd_initblock]" value="1" <?php if((!isset($type[upd_initblock]))|| ($type[upd_initblock]==1) ){?>checked<?php }?>>  <?php echo gettext("Equal");?>
+				<input type="radio" NAME="type[upd_initblock]" value="2" <?php if($type[upd_initblock]==2){?>checked<?php }?>> <?php echo gettext("Add");?>
+				<input type="radio" NAME="type[upd_initblock]" value="3" <?php if($type[upd_initblock]==3){?>checked<?php }?>> <?php echo gettext("Subtract");?>
+				</font>
+			</td>
+		</tr>
+		<tr>		
+          <td align="left" bgcolor="#cccccc">
+		  		<input name="check[upd_billingblock]" type="checkbox" <?php if ($check["upd_billingblock"]=="on") echo "checked"?>>
+				<input name="mode[upd_billingblock]" type="hidden" value="2">
+		  </td>
+		  <td align="left"  bgcolor="#cccccc">	
+				
+				8) <?php echo gettext("BILLINGBLOCK");?>  :
+				 	<input class="form_enter" name="upd_billingblock" size="10" maxlength="10" style="border: 2px inset rgb(204, 51, 0);" value="<?php if (isset($upd_billingblock)) echo $upd_billingblock; else echo '0';?>" >
+				<font class="version">
+				<input type="radio" NAME="type[upd_billingblock]" value="1" <?php if((!isset($type[upd_billingblock]))|| ($type[upd_billingblock]==1) ){?>checked<?php }?>> <?php echo gettext("Equal");?>
+				<input type="radio" NAME="type[upd_billingblock]" value="2" <?php if($type[upd_billingblock]==2){?>checked<?php }?>><?php echo gettext("Add");?>
+				<input type="radio" NAME="type[upd_billingblock]" value="3" <?php if($type[upd_billingblock]==3){?>checked<?php }?>> <?php echo gettext("Subtract");?>
+				</font>
+			</td>
+		</tr>
+		<tr>
+          <td align="left" bgcolor="#cccccc">
+		  		<input name="check[upd_connectcharge]" type="checkbox" <?php if ($check["upd_connectcharge"]=="on") echo "checked"?>>
+				<input name="mode[upd_connectcharge]" type="hidden" value="2">
+		  </td>
+		  <td align="left"  bgcolor="#cccccc">	
+
+				9) <?php echo gettext("CONNECTCHARGE");?>  :
+				 	<input class="form_enter" name="upd_connectcharge" size="10" maxlength="10" style="border: 2px inset rgb(204, 51, 0);" value="<?php if (isset($upd_connectcharge)) echo $upd_connectcharge; else echo '0';?>" >
+				<font class="version">
+				<input type="radio" NAME="type[upd_connectcharge]" value="1" <?php if((!isset($type[upd_connectcharge]))|| ($type[upd_connectcharge]==1) ){?>checked<?php }?>> <?php echo gettext("Equal");?>
+				<input type="radio" NAME="type[upd_connectcharge]" value="2" <?php if($type[upd_connectcharge]==2){?>checked<?php }?>> <?php echo gettext("Add");?>
+				<input type="radio" NAME="type[upd_connectcharge]" value="3" <?php if($type[upd_connectcharge]==3){?>checked<?php }?>> <?php echo gettext("Subtract");?>
+				</font>
+			</td>
+		</tr>
+		<tr>		
+          <td align="left" bgcolor="#cccccc">
+		  		<input name="check[upd_disconnectcharge]" type="checkbox" <?php if ($check["upd_disconnectcharge"]=="on") echo "checked"?>>
+				<input name="mode[upd_disconnectcharge]" type="hidden" value="2">
+		  </td>
+		  <td align="left"  bgcolor="#cccccc">	
+				
+				10) <?php echo gettext("DISCONNECTCHARGE");?> :
+				 	<input class="form_enter" name="upd_disconnectcharge" size="10" maxlength="10" style="border: 2px inset rgb(204, 51, 0);" value="<?php if (isset($upd_disconnectcharge)) echo $upd_disconnectcharge; else echo '0';?>" >
+				<font class="version">
+				<input type="radio" NAME="type[upd_disconnectcharge]" value="1" <?php if((!isset($type[upd_disconnectcharge]))|| ($type[upd_disconnectcharge]==1) ){?>checked<?php }?>> <?php echo gettext("Subtract");?>
+				<input type="radio" NAME="type[upd_disconnectcharge]" value="2" <?php if($type[upd_disconnectcharge]==2){?>checked<?php }?>> <?php echo gettext("Add");?>
+				<input type="radio" NAME="type[upd_disconnectcharge]" value="3" <?php if($type[upd_disconnectcharge]==3){?>checked<?php }?>> <?php echo gettext("Subtract");?>
+				</font>
+			</td>
+		</tr>
+		<tr>		
+			<td align="right" bgcolor="#cccccc">
+			</td>
+		 	<td align="right"  bgcolor="#cccccc">		
+		  
+				
+				<input class="form_enter" style="border: 2px outset rgb(204, 51, 0);" value=" <?php echo gettext("BATCH UPDATE RATECARD");?> " type="submit">
+
+
+          
+        	</td>
+		</tr>
+		 </form>
+        
+      </tbody></table>
+</center>
+<!-- ** ** ** ** ** Part for the Update ** ** ** ** ** -->
+</div>
+
+<?php
+} // END if ($form_action == "list")
+
+
+// #### FOOTER SECTION
+include("PP_footer.php");
+
+?>
