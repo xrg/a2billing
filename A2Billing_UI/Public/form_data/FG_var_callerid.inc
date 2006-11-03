@@ -11,7 +11,7 @@ $HD_Form -> FG_DEBUG = 0;
 
 $actived_list = array();
 $actived_list["t"] = array( gettext("Active"), "t");
-$actived_list["f"] = array( gettext("Disactive"), "f");
+$actived_list["f"] = array( gettext("Inactive"), "f");
 
 $yesno = array();
 $yesno["1"] = array( gettext("Yes"), "1");

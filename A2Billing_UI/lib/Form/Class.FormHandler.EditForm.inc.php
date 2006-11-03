@@ -66,7 +66,7 @@ function sendtolittle(direction){
 			<TD width="%75" valign="top" class="tableBodyRight" background="<?php echo Images_Path;?>/background_cells.gif" class="text">
 		<?php } ?>
                         <?php 
-			if ($this->FG_DEBUG == 1) print($this->FG_TABLE_EDITION[$i][3]);
+			if ($this->FG_DEBUG >= 1) print($this->FG_TABLE_EDITION[$i][3]);
 		  		if (strtoupper ($this->FG_TABLE_EDITION[$i][3])==strtoupper ("INPUT"))
 				{								
 					if (isset ($this->FG_TABLE_EDITION[$i][15]) && strlen($this->FG_TABLE_EDITION[$i][15])>1){				
@@ -113,7 +113,7 @@ function sendtolittle(direction){
 				}elseif (strtoupper ($this->FG_TABLE_EDITION[$i][3])==strtoupper ("SELECT"))
 				{
 								
-					if ($this->FG_DEBUG == 1)	echo gettext("<br> TYPE DE SELECT :").$this->FG_TABLE_EDITION[$i][7];
+					if ($this->FG_DEBUG >= 1)	echo gettext("<br> TYPE DE SELECT :").$this->FG_TABLE_EDITION[$i][7];
 					if (strtoupper ($this->FG_TABLE_EDITION[$i][7])==strtoupper ("SQL")){
 						$instance_sub_table = new Table($this->FG_TABLE_EDITION[$i][8], $this->FG_TABLE_EDITION[$i][9]);
 						$select_list = $instance_sub_table -> Get_list ($this->DBHandle, $this->FG_TABLE_EDITION[$i][10], null, null, null, null, null, null);

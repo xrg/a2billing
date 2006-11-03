@@ -19,16 +19,9 @@ $HD_Form -> FG_FK_DELETE_CONFIRM = true;
 
 // TODO Unify order of parameters
 
-$language_list = array();
-$language_list["0"] = array( "ENGLISH", "en");
-$language_list["1"] = array( "SPANISH", "es");
-$language_list["2"] = array( "FRENCH",  "fr");
 
-$language_list_r = array();
-$language_list_r["0"] = array("en", "ENGLISH");
-$language_list_r["1"] = array("es", "SPANISH");
-$language_list_r["2"] = array("fr", "FRENCH");
-
+$language_list= get_languages();
+$language_list_r= get_languages_r($language_list);
 
 $simultaccess_list = array();
 $simultaccess_list["0"] = array( gettext("INDIVIDUAL ACCESS"), "0");

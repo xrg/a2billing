@@ -967,6 +967,7 @@ class FormHandler{
      */
 	function perform_action (&$form_action){
 
+		if ($this->FG_DEBUG >=2) echo "Action: " . $form_action . "<br>";
 		switch ($form_action) {
 			case "add":
 			   $this -> perform_add($form_action);
@@ -1017,6 +1018,7 @@ class FormHandler{
 			if ( $form_action == "list" ){
 				$instance_table = new Table($this -> FG_TABLE_NAME, $this -> FG_COL_QUERY);
 
+				if ($this->FG_DEBUG >=4 ) $instance_table->debug_st = 1 ;
                 //echo "FG_TABLE_CLAUSE = ".$this -> FG_TABLE_CLAUSE."<br>";
                 //echo "FG_ORDER = ".$this->FG_ORDER."<br>";
                 //echo "FG_SENS = ".$this->FG_SENS."<br>";
@@ -1025,7 +1027,7 @@ class FormHandler{
 
 				$list = $instance_table -> Get_list ($this -> DBHandle, $this -> FG_TABLE_CLAUSE, $this->FG_ORDER, $this->FG_SENS, null, null,
 													 $this -> FG_LIMITE_DISPLAY, $this -> CV_CURRENT_PAGE * $this -> FG_LIMITE_DISPLAY, $this -> SQL_GROUP);
-				if ($this->FG_DEBUG == 3) echo "<br>Clause : ".$this -> FG_TABLE_CLAUSE;
+				if ($this->FG_DEBUG >= 3) echo "<br>Clause : ".$this -> FG_TABLE_CLAUSE;
 				$this -> FG_NB_RECORD = $instance_table -> Table_count ($this -> DBHandle, $this -> FG_TABLE_CLAUSE);
 				if ($this->FG_DEBUG >= 1) var_dump ($list);
 
@@ -1035,12 +1037,13 @@ class FormHandler{
 					$this -> FG_NB_RECORD_MAX = ceil($this -> FG_NB_RECORD / $this -> FG_LIMITE_DISPLAY);
 				}
 
-				if ($this->FG_DEBUG == 3) echo "<br>Nb_record : ".$this -> FG_NB_RECORD ;
-				if ($this->FG_DEBUG == 3) echo "<br>Nb_record_max : ".$this -> FG_NB_RECORD_MAX ;
+				if ($this->FG_DEBUG >= 3) echo "<br>Nb_record : ".$this -> FG_NB_RECORD ;
+				if ($this->FG_DEBUG >= 3) echo "<br>Nb_record_max : ".$this -> FG_NB_RECORD_MAX ;
 					
 			}else{
 			
 				$instance_table = new Table($this->FG_TABLE_NAME, $this->FG_QUERY_EDITION);
+				if ($this->FG_DEBUG >=4 ) $instance_table->debug_st = 1 ;
 				$list = $instance_table -> Get_list ($this->DBHandle, $this->FG_EDITION_CLAUSE, null, null, null, null, 1, 0);
 			}
 
@@ -1205,7 +1208,7 @@ class FormHandler{
 							$total_mult_select += $value;
 					}		
 					
-					if ($this->FG_DEBUG == 1) echo "<br>$fields_name : ".$total_mult_select;					
+					if ($this->FG_DEBUG >= 1) echo "<br>$fields_name : ".$total_mult_select;					
 					
 					if ($i>0) $param_add_fields .= ", ";
 					$param_add_fields .= $sp . "$fields_name". $sp;
@@ -1218,7 +1221,7 @@ class FormHandler{
 					// CHECK ACCORDING TO THE REGULAR EXPRESSION DEFINED	
 					if (is_numeric($regexp) && !(strtoupper(substr($this->FG_TABLE_ADITION[$i][13],0,2))=="NO" && $processed[$fields_name]=="") ){
 						$this-> FG_fit_expression[$i] = ereg( $this->FG_regular[$regexp][0] , $processed[$fields_name]);								
-						if ($this->FG_DEBUG == 1)  echo "<br>->  $fields_name => ".$this->FG_regular[$regexp][0]." , ".$processed[$fields_name];
+						if ($this->FG_DEBUG >= 1)  echo "<br>->  $fields_name => ".$this->FG_regular[$regexp][0]." , ".$processed[$fields_name];
 						if (!$this-> FG_fit_expression[$i]){
 							$this->VALID_SQL_REG_EXP = false;
 							$form_action="ask-add";
@@ -1257,7 +1260,7 @@ class FormHandler{
 							$param_add_value .= "'%TAGPREFIX%'";
 						}
 					}else{
-						if ($this->FG_DEBUG == 1) echo "<br>$fields_name : ".$processed[$fields_name];
+						if ($this->FG_DEBUG >= 1) echo "<br>$fields_name : ".$processed[$fields_name];
 						if (!is_null($processed[$fields_name]) && ($processed[$fields_name]!="") && ($this->FG_TABLE_ADITION[$i][4]!="disabled") ){
 							if ($i>0) $param_add_fields .= ", ";							
 							$param_add_fields .= str_replace('myfrom_', '', $fields_name);
@@ -1276,8 +1279,8 @@ class FormHandler{
 			$param_add_value  .= $this->FG_QUERY_ADITION_HIDDEN_VALUE;
 		}
 			
-		if ($this->FG_DEBUG == 1)  echo "<br><hr> $param_add_fields";
-		if ($this->FG_DEBUG == 1)  echo "<br><hr> $param_add_value";	
+		if ($this->FG_DEBUG >= 1)  echo "<br><hr> $param_add_fields";
+		if ($this->FG_DEBUG >= 1)  echo "<br><hr> $param_add_value";	
 		
 		$instance_table = new Table($this->FG_TABLE_NAME, $param_add_fields);
 
@@ -1310,7 +1313,7 @@ class FormHandler{
 		}
 			
 		if ( ($this->VALID_SQL_REG_EXP) && (isset($this->FG_GO_LINK_AFTER_ACTION_ADD))){				
-			if ($this->FG_DEBUG == 1)  echo "<br> GOTO ; ".$this->FG_GO_LINK_AFTER_ACTION_ADD.$id;
+			if ($this->FG_DEBUG >= 1)  echo "<br> GOTO ; ".$this->FG_GO_LINK_AFTER_ACTION_ADD.$id;
 			//echo "<br> GOTO ; ".$this->FG_GO_LINK_AFTER_ACTION_ADD.$id;
 			Header ("Location: ".$this->FG_GO_LINK_AFTER_ACTION_ADD.$id);
 		}
@@ -1464,6 +1467,7 @@ class FormHandler{
 		$this->VALID_SQL_REG_EXP = true;
 			
 		$instance_table = new Table($this->FG_TABLE_NAME, $this->FG_QUERY_EDITION);
+		if ($this->FG_DEBUG >=4 ) $instance_table->debug_st = 1 ;
 			
 			
 		if ($processed['id']!="" || !is_null($processed['id'])){
@@ -1485,7 +1489,7 @@ class FormHandler{
 							$total_mult_select += $value;
 					}
 					
-					if ($this->FG_DEBUG == 1) echo "<br>$fields_name : ".$total_mult_select;
+					if ($this->FG_DEBUG >= 1) echo "<br>$fields_name : ".$total_mult_select;
 					if ($i>0) $param_update .= ", ";				
 					$param_update .= $sp . "$fields_name".$sp ." = '".addslashes(trim($total_mult_select))."'";
 				
@@ -1493,14 +1497,14 @@ class FormHandler{
 					
 					if (is_numeric($regexp) && !(strtoupper(substr($this->FG_TABLE_ADITION[$i][13],0,2))=="NO" && $processed[$fields_name]=="") ){						
 						$this-> FG_fit_expression[$i] = ereg( $this->FG_regular[$regexp][0] , $processed[$fields_name]);								
-						if ($this->FG_DEBUG == 1)  echo "<br>->  ".$this->FG_regular[$regexp][0]." , ".$processed[$fields_name];
+						if ($this->FG_DEBUG >= 1)  echo "<br>->  ".$this->FG_regular[$regexp][0]." , ".$processed[$fields_name];
 						if (!$this-> FG_fit_expression[$i]){
 							$this->VALID_SQL_REG_EXP = false;
 							$form_action="ask-edit";
 						}
 					}
 					
-					if ($this->FG_DEBUG == 1) echo "<br>$fields_name : ".$processed[$fields_name];
+					if ($this->FG_DEBUG >= 1) echo "<br>$fields_name : ".$processed[$fields_name];
 					if ($i>0) $param_update .= ", ";
 					if (empty($processed[$fields_name]) && strtoupper(substr($this->FG_TABLE_ADITION[$i][13],3,4))=="NULL"){
 						$param_update .= $fields_name." = NULL ";
@@ -1561,14 +1565,14 @@ class FormHandler{
 		}
 			
 			
-		if ($this->FG_DEBUG == 1)  echo "<br><hr> PARAM_UPDATE: $param_update<br>".$this->FG_EDITION_CLAUSE;
+		if ($this->FG_DEBUG >= 1)  echo "<br><hr> PARAM_UPDATE: $param_update<br>".$this->FG_EDITION_CLAUSE;
 			
 		if ($this->VALID_SQL_REG_EXP) $this -> RESULT_QUERY = $instance_table -> Update_table ($this->DBHandle, $param_update, $this->FG_EDITION_CLAUSE, $func_table = null);
 
-		if ($this->FG_DEBUG == 1) echo $this -> RESULT_QUERY;
+		if ($this->FG_DEBUG >= 1) echo $this -> RESULT_QUERY;
 		
 		if ( ($this->VALID_SQL_REG_EXP) && (isset($this->FG_GO_LINK_AFTER_ACTION_EDIT))){				
-			if ($this->FG_DEBUG == 1)  echo gettext("<br> GOTO ; ").$this->FG_GO_LINK_AFTER_ACTION_EDIT.$processed['id'];
+			if ($this->FG_DEBUG >= 1)  echo gettext("<br> GOTO ; ").$this->FG_GO_LINK_AFTER_ACTION_EDIT.$processed['id'];
 			Header ("Location: ".$this->FG_GO_LINK_AFTER_ACTION_EDIT.$processed['id']);
 		}			
 			
@@ -1595,11 +1599,13 @@ class FormHandler{
             if ($processed['id']!="" || !is_null($processed['id']))
             {
                 $instance_table = new Table($this->FG_TABLE_NAME, $this->FG_QUERY_EDITION, $this -> FG_FK_TABLENAMES, $this -> FG_FK_EDITION_CLAUSE, $processed['id'], $this -> FG_FK_WARNONLY);
+                if ($this->FG_DEBUG >=4 ) $instance_table->debug_st = 1 ;
             }
         }
         else
         {
 		    $instance_table = new Table($this->FG_TABLE_NAME, $this->FG_QUERY_EDITION);
+		    if ($this->FG_DEBUG >=4 ) $instance_table->debug_st = 1 ;
         }
 
 		if ($processed['id']!="" || !is_null($processed['id'])){
@@ -1613,7 +1619,7 @@ class FormHandler{
 		$this->FG_INTRO_TEXT_DELETION = str_replace("%table", $this->FG_TABLE_NAME, $this->FG_INTRO_TEXT_DELETION);
 
 		if (isset($this->FG_GO_LINK_AFTER_ACTION_DELETE)){
-			if ($this->FG_DEBUG == 1)  echo gettext("<br> GOTO ; ").$this->FG_GO_LINK_AFTER_ACTION_DELETE.$processed['id'];
+			if ($this->FG_DEBUG >= 1)  echo gettext("<br> GOTO ; ").$this->FG_GO_LINK_AFTER_ACTION_DELETE.$processed['id'];
 			Header ("Location: ".$this->FG_GO_LINK_AFTER_ACTION_DELETE.$processed['id']);
 		}
 

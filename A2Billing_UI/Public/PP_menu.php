@@ -92,6 +92,18 @@ function imgidclick(imgID,divID)
 	</ul>
 	</div>
 	<?php   }  ?>
+	<?php   if ( has_rights (ACX_AGENTS) ){ 	?>
+
+	<li><a href="#" target="_self"><a href="#" target="_self"  onclick="imgidclick('img1a','div1a');"><img id="img1a" src="../Images/plus.gif" onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> <strong><?php echo gettext("AGENTS");?></strong></a></li>
+	<div id="div1a" style="display:none;">
+	<ul>
+		<li><ul>
+				<li><a href="A2B_entity_agent.php?atmenu=card&stitle=Customers_Card"><?php echo gettext("List Agents");?></a></li>
+				<li><a href="A2B_entity_agent.php?form_action=ask-add&atmenu=card&stitle=Card"><?php echo gettext("Create Agents");?></a></li>
+		</ul></li>
+	</ul>
+	</div>
+	<?php   }  ?>
 	<?php   if ( has_rights (ACX_BILLING) ){ 	?>
 
 		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick('img2','div2');"><img id="img2" src="../Images/plus.gif" onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> <strong><?php echo gettext("BILLING");?></strong></a></li>

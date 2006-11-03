@@ -184,6 +184,22 @@
 			$currencies_list = array_merge($currencies_list2,$currencies_list);		
 		}
 
+	function get_languages() {
+		$language_list = array();
+		$language_list["0"] = array( "ENGLISH", "en");
+		$language_list["1"] = array( "SPANISH", "es");
+		$language_list["2"] = array( "FRENCH",  "fr");
+		return $language_list;
+	}
+	
+	function get_languages_r(&$langs) {
+		if (is_array($langs)){
+			$num=count($langs);
+			for ($i=0;$i<$num;$i++)
+				$ret_list[$i]=array($langs[$i][1], $langs[$i][0]);
+		}
+		return $ret_list;
+	}
 
 	
 ?>

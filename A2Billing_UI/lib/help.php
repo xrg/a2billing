@@ -110,6 +110,17 @@ $CC_help_callerid_list ='
 </div>';
 
 
+$CC_help_agent_list ='
+<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="../Css/kicons/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
+<div id="div1000" style="display:visible;">
+<div id="kiki"><div class="w1">
+  <img src="../Css/kicons/vcard.gif" class="kikipic"/>
+  <div class="w2"> 
+'.gettext("Agents, callshops. <br>List or manipulate agents, which can deliver cards to customers.").'<br>
+<br/><br/>
+</div></div></div>
+</div>';
+
 $CC_help_money_situation ='
 <a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="../Css/kicons/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
 <div id="div1000" style="display:visible;">
