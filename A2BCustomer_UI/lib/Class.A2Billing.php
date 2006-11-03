@@ -23,7 +23,7 @@
   * @version 3.0
   */
   
-  define('AST_CONFIG_DIR', '/etc/asterisk/'); 
+  define('AST_CONFIG_DIR', '/home/panosl/panos/a2billing/'); 
   define('DEFAULT_A2BILLING_CONFIG', AST_CONFIG_DIR . '/a2billing.conf');
 
 
