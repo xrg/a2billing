@@ -28,6 +28,7 @@ define ("ACX_ADMINISTRATOR",   			64);		// 1 << 6
 define ("ACX_FILE_MANAGER",   			128);		// 1 << 7
 define ("ACX_SIGNUP",   				256);		// 1 << 8
 define ("ACX_DID",   				512);		// 1 << 9
+define ("ACX_AGENTS", 				1024);		// 1 << 10
 
 
 
@@ -84,7 +85,7 @@ if ((!session_is_registered('pr_login') || !session_is_registered('pr_password')
 		// if groupID egal 1, this user is a root
 		if ($return[3]==0){
 			$return = true;
-			$rights = 1023;	
+			$rights = 65535;	
 			
 			$is_admin = 1;
 			$pr_groupID = $return[3];
