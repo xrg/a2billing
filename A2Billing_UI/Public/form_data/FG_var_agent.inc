@@ -53,14 +53,6 @@ if (isset($form_action) && $form_action=="ask-add"){
 	$default_initbalance = "value='0'";
 }
 
-$HD_Form -> AddEditElement (gettext("USER ID"),
-			   "login",
-			   "",
-			   "INPUT",
-			   "size=20 maxlength=20",
-			   "",
-			   gettext("Insert the Agent userid"),
-			   "" , "", "",	"", "" , "", "", gettext("The username the agent will use to login."));
 
 $HD_Form -> AddEditElement (gettext("NAME"),
 			   "name",
@@ -70,6 +62,15 @@ $HD_Form -> AddEditElement (gettext("NAME"),
 			   "",
 			   gettext("Insert the Agent name"),
 			   "" , "", "",	"", "" , "", "", gettext("Human readable name for the agent"));
+
+$HD_Form -> AddEditElement (gettext("USER ID"),
+			   "login",
+			   "",
+			   "INPUT",
+			   "size=20 maxlength=20",
+			   "",
+			   gettext("Insert the Agent userid"),
+			   "" , "", "",	"", "" , "", "", gettext("The username the agent will use to login."));
 
 $HD_Form -> AddEditElement (gettext("PASSWORD"),
 			   "passwd",
@@ -120,7 +121,7 @@ $HD_Form -> AddEditElement (gettext("TARIFFGROUP"),
 
 
 
- $HD_Form -> FieldEditElement ('login, name, passwd, location, language, tariffgroup');
+ $HD_Form -> FieldEditElement ('name, login, passwd, location, language, tariffgroup');
 
 
 
