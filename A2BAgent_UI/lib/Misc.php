@@ -33,12 +33,12 @@
 			}
 		}  
 		
-		function display_money($value, $currency = BASE_CURRENCY){			
-			echo $value.' '.$currency;			
+		function display_money($value, $currency = BASE_CURRENCY){
+			echo $value.' '.$currency;
 		}
 		
 		function display_dateformat($mydate){
-			if (DB_TYPE == "mysql"){			
+			if (DB_TYPE == "mysql"){
 				if (strlen($mydate)==14){
 					// YYYY-MM-DD HH:MM:SS 20300331225242
 					echo substr($mydate,0,4).'-'.substr($mydate,4,2).'-'.substr($mydate,6,2);
@@ -46,12 +46,12 @@
 					return;
 				}
 			}	
-			echo $mydate;			
+			echo $mydate;
 		}
 		
 		function res_display_dateformat($mydate){
 			
-			if (DB_TYPE == "mysql"){			
+			if (DB_TYPE == "mysql"){
 				if (strlen($mydate)==14){
 					// YYYY-MM-DD HH:MM:SS 20300331225242
 					$res= substr($mydate,0,4).'-'.substr($mydate,4,2).'-'.substr($mydate,6,2);
@@ -60,7 +60,7 @@
 				}
 			}	
 			
-			return $mydate;			
+			return $mydate;
 		}
 		
 		

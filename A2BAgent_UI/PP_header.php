@@ -2,7 +2,7 @@
 	include (dirname(__FILE__)."/lib/company_info.php");
 	
 	define ("WEBUI_DATE", 'Release : xxx');
-	define ("WEBUI_VERSION", 'Asterisk2Billing - Version 1.3.x - ');	
+	define ("WEBUI_VERSION", 'Asterisk2Billing - Version 1.3.x + Callshop - ');	
 ?>
 <html><head>
 <link rel="shortcut icon" href="../Images/favicon.ico">
@@ -13,7 +13,7 @@
 <link href="Css/Css_Ale.css" rel="stylesheet" type="text/css">
 <link href="Css/menu.css" rel="stylesheet" type="text/css">
 <link href="Css/style-def.css" rel="stylesheet" type="text/css">
-
+<?php if (isset($USE_AJAX)) echo "<script type=\"text/javascript\" src=\"lib/ajax.js\" ></script>\n"; ?>
 <script language="JavaScript">
 <!--
 var mywin

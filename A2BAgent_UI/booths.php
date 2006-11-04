@@ -2,6 +2,10 @@
 include ("lib/defines.php");
 include ("lib/module.access.php");
 
+$USE_AJAX=1 ;
+
+include ("PP_header.php");
+
 if (! has_rights (ACX_ACCESS)){ 
 	   Header ("HTTP/1.0 401 Unauthorized");
 	   Header ("Location: PP_error.php?c=accessdenied");	   
@@ -74,7 +78,9 @@ if (! has_rights (ACX_ACCESS)){
 				if (($bstate<0) || ($bstate>5))
 					$bstate=0;
 
-				echo "<td><table class=\"tableBooth" . $bstate . '"';
+				echo "<td>";
+				echo "<form id=\"booth_" .$row[0]. "\" >";
+				echo "<table class=\"tableBooth" . $bstate . '"';
 				echo " width=100 cellPadding=2 cellSpacing=2>";
 				echo "<tbody><tr><td>"; 
 				echo $row[1] ;
@@ -107,7 +113,7 @@ if (! has_rights (ACX_ACCESS)){
 				};
 				
 				?></tr></td>
-				</tbody></table></td><?php
+				</tbody></table></form></td><?php
 				if ( $i % $ndiv == $ndiv-1 )
 					echo "</tr>\n";
 			}
@@ -119,4 +125,11 @@ if (! has_rights (ACX_ACCESS)){
 	
 ?>
 <br>
+<a href='javascript:startRequest("Test.xml.php")'> refresh</a>
 <br>
+<span id='response' >Response: </span>
+<br>
+<script type="text/javascript" >
+	startRequest("test.xml.php?xxx=y");
+</script>
+<?php include ("PP_footer.php"); ?>

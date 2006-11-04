@@ -35,7 +35,7 @@ if (! has_rights (ACX_ACCESS)){
 
 	<frameset rows="*" cols="150,*" framespacing="0" frameborder="NO" border="0">
 	  <frame src="PP_menu.php" name="leftFrame" noresize>
-	  <frame src="userinfo.php" name="mainFrame">
+	  <frame src="booths.php" name="mainFrame">
 	</frameset>
 
 
