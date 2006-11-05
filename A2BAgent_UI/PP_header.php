@@ -110,7 +110,8 @@ table.Booth td.state5 {
 
 table.Booth td.buttons a {
 	display: none;
-	color: red;
+	color: black;
+	margin-right: 3px;
 }
 </style>
 </head>
