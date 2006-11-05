@@ -21,6 +21,8 @@ if (! has_rights (ACX_ACCESS)){
 	$booth_states[4] = array(gettext("Active"),gettext("Calls made, charged"));
 	$booth_states[5] = array(gettext("Disabled"),gettext("Disabled by the agent"));
 
+	$currencies_list = get_currencies();
+
 	// Prepare the XML DOM structure
 	$dom = new DomDocument("1.0","utf-8");
 	
@@ -37,7 +39,7 @@ if (! has_rights (ACX_ACCESS)){
 	// Perform the SQL query
 	$DBHandle  = DbConnect();
 	
-	$QUERY="SELECT id, name, state, mins, credit FROM cc_booth_v WHERE owner = " . trim($_SESSION["agent_id"]) . " ORDER BY id;";
+	$QUERY="SELECT id, name, state, mins, format_currency(COALESCE(credit,0),'EUR', 'EUR') FROM cc_booth_v WHERE owner = " . trim($_SESSION["agent_id"]) . " ORDER BY id;";
 
 	$res = $DBHandle -> query($QUERY);
 
@@ -46,6 +48,11 @@ if (! has_rights (ACX_ACCESS)){
 		$dom_message->setAttribute("class","msg_errror");
 	}else {
 		$dom_message->appendChild($dom->createTextNode("OK!"));
+		$currencies_list = get_currencies();
+
+// 		if (!isset($currencies_list[strtoupper($customer_info [14])][2]) || !is_numeric($currencies_list[strtoupper($customer_info [14])][2])) $mycur = 1;
+// 		else $mycur = $currencies_list[strtoupper($customer_info [14])][2];
+
 		$num = $res -> numRows();
 		for ($i=0;$i<$num;$i++){
 			$row=$res->fetchRow();

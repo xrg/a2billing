@@ -23,20 +23,53 @@ CREATE TABLE cc_booth (
 	name text NOT NULL,
 	location text,
 	agentid bigint NOT NULL REFERENCES cc_agent(id),
-	state int NOT NULL DEFAULT 0,
 	datecreation timestamp without time zone DEFAULT now(),
 	last_activation timestamp without time zone,
+	disabled boolean NOT NULL DEFAULT 'f',
 	cur_card_id bigint REFERENCES cc_card(id),
 	def_card_id bigint REFERENCES cc_card(id)
 );
 
 
 CREATE OR REPLACE VIEW cc_booth_v AS
-	SELECT cc_booth.id AS id, cc_booth.agentid AS owner,cc_booth.state,
+	SELECT cc_booth.id AS id, cc_booth.agentid AS owner,
 		cc_booth.name, cc_booth.location,
-		cc_card.credit, 0::numeric AS mins 
-	FROM cc_booth LEFT OUTER JOIN cc_card ON cc_booth.cur_card_id = cc_card.id
+		cc_card.credit, 0::numeric AS mins,
+		def_card_id, cur_card_id,
+		(CASE WHEN def_card_id IS NULL THEN 0
+		WHEN cur_card_id IS NULL THEN 1
+		WHEN cc_booth.disabled THEN 5
+		WHEN cc_card.lastuse > cc_booth.last_activation THEN 4
+		WHEN cc_card.activated THEN 3
+		ELSE 2
+		END) AS state
+	FROM cc_booth LEFT OUTER JOIN cc_card ON cc_booth.cur_card_id = cc_card.id;
 	
-	;
+CREATE TABLE cc_currencies (
+    id serial NOT NULL,
+    currency char(3) default '' NOT NULL,
+    name character varying(30) default '' NOT NULL,
+    value numeric(12,5) default '0.00000' NOT NULL,
+    lastupdate timestamp without time zone DEFAULT now(),	
+    basecurrency char(3) default 'USD' NOT NULL,
+    csign VARCHAR(6),
+    sign_pre boolean DEFAULT 'f' NOT NULL,
+    cformat VARCHAR(20) DEFAULT 'FM99G999G999G990D00' NOT NULL
+);
+	
+CREATE OR REPLACE FUNCTION format_currency(money_sum NUMERIC, from_cur CHAR(3), to_cur CHAR(3)) RETURNS text
+	AS $$
+	SELECT CASE WHEN sign_pre THEN 
+			csign || ' ' || to_char( ($1 * from_rate) / to_rate, cformat)
+		ELSE
+			to_char( ($1 * from_rate) / to_rate, cformat) || ' ' || csign
+		END
+	FROM 	(SELECT DISTINCT ON (b.currency) a.value AS from_rate,  b.value AS to_rate, b.cformat, 
+			COALESCE(b.csign,b.currency) AS csign , b.sign_pre 
+		FROM cc_currencies AS a, cc_currencies AS b
+		WHERE a.currency = $2 AND b.currency = $3 AND a.basecurrency = b.basecurrency ) AS foo
+		;
+	$$
+	LANGUAGE SQL STABLE STRICT;
 	
 -- eof
