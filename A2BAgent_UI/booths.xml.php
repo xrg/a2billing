@@ -8,6 +8,7 @@ header('Content-type: text/xml');
 include ("lib/defines.php");
 include ("lib/module.access.php");
 
+
 if (! has_rights (ACX_ACCESS)){ 
 	   header ("HTTP/1.0 401 Unauthorized");
 	   die();
@@ -20,8 +21,6 @@ if (! has_rights (ACX_ACCESS)){
 	$booth_states[3] = array(gettext("Ready"),gettext("Waiting for calls"));
 	$booth_states[4] = array(gettext("Active"),gettext("Calls made, charged"));
 	$booth_states[5] = array(gettext("Disabled"),gettext("Disabled by the agent"));
-
-	$currencies_list = get_currencies();
 
 	// Prepare the XML DOM structure
 	$dom = new DomDocument("1.0","utf-8");
@@ -38,7 +37,29 @@ if (! has_rights (ACX_ACCESS)){
 
 	// Perform the SQL query
 	$DBHandle  = DbConnect();
+	$message = '';
 	
+	if (isset($_GET["action"])) {
+		$get_booth = -1;
+		if (isset($_GET["actb"])){
+			$get_booth=$actb;
+			switch ($_GET["action"]) {
+			case 'disable':
+				$message="Booth disabled";
+				break;
+			case 'stop':
+				$message="Booth stopped";
+				break;
+			default:
+				$message="Unknown request";
+			}
+		}else switch ($_GET["action"]){
+		default:
+			$message="Incorrect request";
+		}
+	}
+
+
 	$QUERY="SELECT id, name, state, mins, format_currency(COALESCE(credit,0),'EUR', 'EUR') FROM cc_booth_v WHERE owner = " . trim($_SESSION["agent_id"]) . " ORDER BY id;";
 
 	$res = $DBHandle -> query($QUERY);
@@ -47,12 +68,21 @@ if (! has_rights (ACX_ACCESS)){
 		$dom_message->appendChild($dom->createTextNode(gettext("Database query failed!")));
 		$dom_message->setAttribute("class","msg_errror");
 	}else {
-		$dom_message->appendChild($dom->createTextNode("OK!"));
-		$currencies_list = get_currencies();
+		$dom_message->appendChild($dom->createTextNode($message));
 
 // 		if (!isset($currencies_list[strtoupper($customer_info [14])][2]) || !is_numeric($currencies_list[strtoupper($customer_info [14])][2])) $mycur = 1;
 // 		else $mycur = $currencies_list[strtoupper($customer_info [14])][2];
 
+		$buttons = array();
+		$buttons['sta'] = false;
+		$buttons['stp'] = false;
+		$buttons['pay'] = false;
+		$buttons['en'] = false;
+		$buttons['dis'] = false;
+		$buttons['unl'] = false;
+		$buttons['ld'] = false;
+		$buttons['lr'] = false;
+		
 		$num = $res -> numRows();
 		for ($i=0;$i<$num;$i++){
 			$row=$res->fetchRow();
@@ -82,6 +112,41 @@ if (! has_rights (ACX_ACCESS)){
 			$tmp->appendChild($dom->createTextNode($row[4]));
 			$dom_booth->appendChild($tmp);
 			
+			// switch off all buttons
+			foreach(  $buttons as &$bu)
+				$bu=false;
+				
+				// select the ones that will be visible
+			switch ($row_state){
+			case 0:
+				break;
+			case 1:
+				$buttons["ld"]=true;
+				$buttons["lr"]=true;
+				//$buttons["dis"]=true;
+				break;
+			case 2:
+				$buttons["sta"]=true;
+				$buttons["lr"]=true;
+				$buttons["ld"]=true;
+				break;
+			case 3:
+				$buttons["stp"]=true;
+				break;
+			case 4:
+				$buttons["pay"]=true;
+				$buttons["stp"]=true;
+				break;
+			case 5:
+				$buttons["en"]=true;
+				break;
+			}
+			
+			foreach ($buttons as $key => $bu){
+				$tmp=$dom->createElement("button_".$key);
+				$tmp->setAttribute("display",$bu?"inline":"hidden");
+				$dom_booth->appendChild($tmp);
+			}
 		}
 	}
 // Let ONLY this line produce any output!

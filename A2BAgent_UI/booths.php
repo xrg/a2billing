@@ -66,10 +66,19 @@ function parseBoothXML(the_xml){
 	
 	var booths=xml_dom.getElementsByTagName("booth");
 	var booth_tags= new Array();
-	booth_tags[0]="name";
-	booth_tags[1]="status";
-	booth_tags[2]="credit";
-	booth_tags[3]="mins";
+	i=0;
+	booth_tags[i++]="name";
+	booth_tags[i++]="status";
+	booth_tags[i++]="credit";
+	booth_tags[i++]="mins";
+	booth_tags[i++]="button_sta";
+	booth_tags[i++]="button_stp";
+	booth_tags[i++]="button_en";
+	booth_tags[i++]="button_dis";
+	booth_tags[i++]="button_unl";
+	booth_tags[i++]="button_ld";
+	booth_tags[i++]="button_lr";
+	
 	for (var i=0 ; i < booths.length; i++){
 		var xml_booth=booths[i];
 		try {
@@ -80,6 +89,7 @@ function parseBoothXML(the_xml){
 				var xml_obj=xml_booth.getElementsByTagName(vtag).item(0);
 				if (xml_obj==undefined)
 					continue;
+				
 				var xml_child=xml_obj.firstChild;
 				dom_child=my_getHtmlElementById(dom_booth,vtag);
 				while(xml_child !=null){
@@ -96,6 +106,9 @@ function parseBoothXML(the_xml){
 				}
 				if (xml_obj.hasAttribute("class"))
 					dom_child.className= xml_obj.getAttribute("class");
+					
+				if (xml_obj.hasAttribute("display"))
+					dom_child.style.display= xml_obj.getAttribute("display");
 				
 			}
 		}catch(err){
@@ -103,6 +116,14 @@ function parseBoothXML(the_xml){
 			//alert(typeof(dom_booth))
 		}
 	}
+}
+
+function booth_action(booth,act) {
+	startRequest("booths.xml.php"+"?action="+act + "&actb=" + booth,reqStateChanged2);
+}
+
+function select_regular(booth) {
+	alert( "Select regular customer for booth " + booth );
 }
 </script>
 
@@ -167,9 +188,9 @@ function parseBoothXML(the_xml){
 				<tr><td id="status" class="state0" colspan=3> -- </td></tr>
 				<tr><td><?php echo gettext("Credit:");?></td><td div id="credit"> </td><td id="mins"></td></tr>
 				<tr><td id="buttons" class="buttons" colspan=3> 
-				<a href="javascript:booth_action(<?php echo $row[0]?>,'start');" id='button_sta'><?php echo gettext("Start"); ?></a>
-				<a href="javascript:booth_action(<?php echo $row[0]?>,'stop');" id='button_stp'><?php echo gettext("Stop"); ?></a>
-				<a href="javascript:booth_action(<?php echo $row[0]?>,'pay');" id='button_pay'><?php echo gettext("Pay"); ?></a>
+				<a href="javascript:booth_action(<?php echo $row[0]?>,'start');" id='button_sta' style='color:green;'><?php echo gettext("Start"); ?></a>
+				<a href="javascript:booth_action(<?php echo $row[0]?>,'stop');" id='button_stp' style='color:red;'><?php echo gettext("Stop"); ?></a>
+				<a href="javascript:booth_action(<?php echo $row[0]?>,'pay');" id='button_pay' style='color:blue;'><?php echo gettext("Pay"); ?></a>
 				<a href="javascript:booth_action(<?php echo $row[0]?>,'enable');" id='button_en'><?php echo gettext("Enable"); ?></a>
 				<a href="javascript:booth_action(<?php echo $row[0]?>,'disable');" id='button_dis'><?php echo gettext("Disable"); ?></a>
 				<a href="javascript:booth_action(<?php echo $row[0]?>,'unload');" id='button_unl'><?php echo gettext("Unload"); ?></a>
