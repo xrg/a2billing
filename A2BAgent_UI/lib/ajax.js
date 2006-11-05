@@ -26,7 +26,7 @@ var http_request = false; // Global: we don't want multiple requests here!
 
 /** Starts some request.
 */
-function startRequest(url){
+function startRequest(url,cb_fn){
 	if (!http_request) {
 		http_request=getXMLHttpRequest();
 		if (!http_request)
@@ -34,11 +34,10 @@ function startRequest(url){
 	}else{
 		if ((http_request.readyState>0) &&(http_request.readyState <4 ))
 			http_request.abort();
-		http_request.onreadystatechange = reqStateChanged();
+		http_request.onreadystatechange = cb_fn;
 		http_request.open('GET', url, true);
 		http_request.send(null);
 		document.getElementById("response").innerHTML="Start req";
-		return NULL;
 	}
 	
 }

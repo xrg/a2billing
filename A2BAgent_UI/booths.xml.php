@@ -1,0 +1,86 @@
+<?php 
+/** Booths xml code:
+    Copyright (C) 2006 P. Christeas <p_christeas@yahoo.com>
+    */
+// We must tell the mod_php to send the correct header..
+header('Content-type: text/xml');
+
+include ("lib/defines.php");
+include ("lib/module.access.php");
+
+if (! has_rights (ACX_ACCESS)){ 
+	   header ("HTTP/1.0 401 Unauthorized");
+	   die();
+}
+
+	$booth_states = array();
+	$booth_states[0] = array(gettext("N/A"), gettext("Not available, no cards configured."));
+	$booth_states[1] = array(gettext("Empty"), gettext("No customer attached."));
+	$booth_states[2] = array(gettext("Idle"),gettext("Customer attached, inactive"));
+	$booth_states[3] = array(gettext("Ready"),gettext("Waiting for calls"));
+	$booth_states[4] = array(gettext("Active"),gettext("Calls made, charged"));
+	$booth_states[5] = array(gettext("Disabled"),gettext("Disabled by the agent"));
+
+	// Prepare the XML DOM structure
+	$dom = new DomDocument("1.0","utf-8");
+	
+		// $_SESSION["pr_login"];
+	
+	$dom_root = $dom->createElement("root");
+	$dom->appendChild($dom_root);
+	
+	$dom_message= $dom->createElement("message");
+	$dom_root->appendChild($dom_message);
+
+// TODO: add the processing here..
+
+	// Perform the SQL query
+	$DBHandle  = DbConnect();
+	
+	$QUERY="SELECT id, name, state, mins, credit FROM cc_booth_v WHERE owner = " . trim($_SESSION["agent_id"]) . " ORDER BY id;";
+
+	$res = $DBHandle -> query($QUERY);
+
+	if (!$res){
+		$dom_message->appendChild($dom->createTextNode(gettext("Database query failed!")));
+		$dom_message->setAttribute("class","msg_errror");
+	}else {
+		$dom_message->appendChild($dom->createTextNode("OK!"));
+		$num = $res -> numRows();
+		for ($i=0;$i<$num;$i++){
+			$row=$res->fetchRow();
+			$dom_booth=$dom->createElement("booth");
+			$dom_root->appendChild($dom_booth);
+			$dom_booth->setAttribute("id","booth_".$row[0]);
+			
+			$tmp=$dom->createElement("name");
+			$tmp->appendChild($dom->createTextNode($row[1]));
+			$dom_booth->appendChild($tmp);
+			
+			
+			$tmp=$dom->createElement("status");
+			$row_state=$row[2];
+			if (($row_state<0) || ($row_state>5))
+					$row_state=0;
+			$tmp->appendChild($dom->createTextNode($booth_states[$row_state][0]));
+			//$tmp->setAttribute("alt",$booth_states[$row_state][1]);
+			$tmp->setAttribute("class","state".$row_state);
+			$dom_booth->appendChild($tmp);
+			
+			$tmp=$dom->createElement("mins");
+			$tmp->appendChild($dom->createTextNode($row[3]));
+			$dom_booth->appendChild($tmp);
+			
+			$tmp=$dom->createElement("credit");
+			$tmp->appendChild($dom->createTextNode($row[4]));
+			$dom_booth->appendChild($tmp);
+			
+		}
+	}
+// Let ONLY this line produce any output!
+echo $dom->saveXML();
+
+if ($DBHandle)
+	DbDisconnect($DBHandle);
+
+?>
