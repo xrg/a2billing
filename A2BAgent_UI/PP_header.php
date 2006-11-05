@@ -65,6 +65,54 @@ function imgidclick(imgID,divID)
 
 //-->
 </script>
+
+<style>
+table.Booth td.name {
+	font-size: 12px;
+	color: black;
+	text-align: center;
+}
+
+table.Booth td.state0 {
+	text-align: center;
+	color: white;
+	background: black;
+}
+
+table.Booth td.state1 {
+	text-align: center;
+	color: white;
+	background: yellow;
+}
+
+table.Booth td.state2 {
+	text-align: center;
+	color: white;
+	background: #0000a0;
+}
+
+table.Booth td.state3 {
+	text-align: center;
+	color: white;
+	background: blue;
+}
+table.Booth td.state4 {
+	text-align: center;
+	color: white;
+	background: green;
+}
+
+table.Booth td.state5 {
+	text-align: center;
+	color: white;
+	background: red;
+}
+
+table.Booth td.buttons a {
+	display: none;
+	color: red;
+}
+</style>
 </head>
 <body  leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
 <p class="version" align="right"><?php echo WEBUI_VERSION.WEBUI_DATE; ?></p>

@@ -281,3 +281,19 @@ body {
 	text-align: center;	
 	font-weight: bold;
 }
+
+table.Booths {
+	font-family: Arial,Verdana;
+	font-size: 7px;
+	background: #FFFFFF;
+}
+
+table.Booth {
+	background: #e0e0e0; /* oeo! */
+	color: #666666;
+
+}
+
+table.Booth td {
+	background: #C0C0C0;
+}

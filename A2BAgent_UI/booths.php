@@ -100,7 +100,7 @@ function parseBoothXML(the_xml){
 			}
 		}catch(err){
 			alert(err); //debugging..
-			alert(typeof(dom_booth))
+			//alert(typeof(dom_booth))
 		}
 	}
 }
@@ -113,7 +113,6 @@ function parseBoothXML(the_xml){
 	
 	$QUERY="SELECT id FROM cc_booth_v WHERE owner = " . trim($_SESSION["agent_id"]) . " ORDER BY id;";
 		
-	echo $QUERY . "<br>"; 
 	$res = $DBHandle -> query($QUERY);
 
 	if (!$res){
@@ -144,7 +143,6 @@ function parseBoothXML(the_xml){
 		$ndiv = $A2B->config["agentcustomerui"]['password'];
 		if (!is_int($ndiv) || ($ndiv < 1) || ($ndiv>20))
 			$ndiv=4;
-		echo "ndiv= " . $ndiv . "<br>\n";
 		
 		$num = $res -> numRows();
 		if ($num==0) {
@@ -154,7 +152,7 @@ function parseBoothXML(the_xml){
 		?>
 		<div id="message"> Welcome! </div>
 		<br>
-		<TABLE class='tableMbooths' border=0 cellPadding=2 cellSpacing=2 width="100%">
+		<TABLE class='Booths' border=0 cellPadding=2 cellSpacing=2 width="100%">
 		<TBODY>
 		<?php
 			for($i=0;$i<$num;$i++)
@@ -164,11 +162,20 @@ function parseBoothXML(the_xml){
 					echo "<tr>\n";
 
 				echo "<td id=\"booth_" . $row[0] . "\" >";
-				?><table width=100 cellPadding=2 cellSpacing=2><tbody>
-				<tr><td id="name" colspan=3>Booth X</td></tr>
-				<tr><td id="status" colspan=3> -- </td></tr>
+				?><table class="Booth" cellPadding=2 cellSpacing=2><tbody>
+				<tr><td id="name" class="name" colspan=3>Booth X</td></tr>
+				<tr><td id="status" class="state0" colspan=3> -- </td></tr>
 				<tr><td><?php echo gettext("Credit:");?></td><td div id="credit"> </td><td id="mins"></td></tr>
-				<tr><td id="buttons" colspan=3> [Start] [Stop] ... </td>
+				<tr><td id="buttons" class="buttons" colspan=3> 
+				<a href="javascript:booth_action(<?php echo $row[0]?>,'start');" id='button_sta'><?php echo gettext("Start"); ?></a>
+				<a href="javascript:booth_action(<?php echo $row[0]?>,'stop');" id='button_stp'><?php echo gettext("Stop"); ?></a>
+				<a href="javascript:booth_action(<?php echo $row[0]?>,'pay');" id='button_pay'><?php echo gettext("Pay"); ?></a>
+				<a href="javascript:booth_action(<?php echo $row[0]?>,'enable');" id='button_en'><?php echo gettext("Enable"); ?></a>
+				<a href="javascript:booth_action(<?php echo $row[0]?>,'disable');" id='button_dis'><?php echo gettext("Disable"); ?></a>
+				<a href="javascript:booth_action(<?php echo $row[0]?>,'unload');" id='button_unl'><?php echo gettext("Unload"); ?></a>
+				<a href="javascript:booth_action(<?php echo $row[0]?>,'load_def');" id='button_ld'><?php echo gettext("Load Default"); ?></a>
+				<a href="javascript:select_regular(<?php echo $row[0]?>);" id='button_lr'><?php echo gettext("Load Regular"); ?></a>
+				&nbsp;</td>
 				</tr>
 				</tbody></table></td><?php
 				if ( $i % $ndiv == $ndiv-1 )
@@ -185,6 +192,4 @@ function parseBoothXML(the_xml){
 <a href='javascript:startRequest("booths.xml.php",reqStateChanged2)'> refresh</a>
 <br>
 Response: <span id='response' ></span>
-<br>
-Result: <pre id='result_f'> </pre>
 <?php include ("PP_footer.php"); ?>
