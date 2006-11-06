@@ -5,7 +5,7 @@ class Table {
 	var $fields = "*"; // "id", "name", etc..
 	var $table  = "";
 	var $errstr = "";
-	var $debug_st 			= 0;
+	var $debug_st  = 0;
 	var $debug_stop_add 	= 0;
 	var $debug_stop_update 	= 0;
 	var $debug_stop_delete 	= 0;
@@ -64,7 +64,7 @@ class Table {
 	
 		if ($select){
 			$num = $res -> numRows();
-			if ($num==0) return 0;		
+			if ($num==0) return 0;
 		
 			for($i=0;$i<$num;$i++)
 			{
@@ -72,7 +72,7 @@ class Table {
 			}
 			
 			return ($row);
-		}	
+		}
 		return true;
 	}
 
