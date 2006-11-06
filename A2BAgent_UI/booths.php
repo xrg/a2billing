@@ -108,7 +108,7 @@ function parseBoothXML(the_xml){
 					dom_child.className= xml_obj.getAttribute("class");
 					
 				if (xml_obj.hasAttribute("display"))
-					dom_child.style.display= xml_obj.getAttribute("display");
+					dom_child.setAttribute("style","display: "+xml_obj.getAttribute("display"));
 				
 			}
 		}catch(err){
@@ -125,6 +125,8 @@ function booth_action(booth,act) {
 function select_regular(booth) {
 	alert( "Select regular customer for booth " + booth );
 }
+
+window.onload = function() { startRequest("booths.xml.php",reqStateChanged2)};
 </script>
 
 <?php
