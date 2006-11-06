@@ -17,6 +17,17 @@ CREATE TABLE cc_agent (
     credit NUMERIC(12,4) NOT NULL DEFAULT 0
     );
 
+-- one way: put the agent inside the card:
+-- ALTER TABLE cc_card ADD agentid bigint REFERENCES cc_agent(id) ON DELETE RESTRICT;
+-- CREATE INDEX cc_card_agent_idx ON cc_card(agentid);
+
+-- second way: A different table
+CREATE TABLE cc_agent_cards (
+	card_id bigint NOT NULL PRIMARY KEY REFERENCES cc_card(id) ON DELETE CASCADE,
+	agentid bigint NOT NULL REFERENCES cc_agent(id) ON DELETE RESTRICT,
+	def boolean NOT NULL DEFAULT 'f') ;
+	
+CREATE INDEX cc_agent_cards_agent ON cc_agent_cards(agentid);
 
 CREATE TABLE cc_booth (
 	id bigserial NOT NULL PRIMARY KEY,
@@ -73,18 +84,18 @@ CREATE OR REPLACE FUNCTION format_currency(money_sum NUMERIC, from_cur CHAR(3), 
 	LANGUAGE SQL STABLE STRICT;
 	
 
-CREATE OR REPLACE FUNCTION booth_start(booth bigint, agent_id bigint) RETURNS bigint
-	AS $$
-		UPDATE cc_card SET activated= 't' 
-			FROM cc_agent, cc_booth 
-			WHERE cc_booth.cur_card_id= cc_card.id AND
-				cc_booth.id = $1 AND
-				cc_booth.agentid = $2;
-		select COUNT(cc_card.id) FROM cc_card,cc_agent, cc_booth 
-			WHERE cc_booth.cur_card_id= cc_card.id AND
-				cc_booth.id = $1 AND
-				cc_booth.agentid = $2;
-	$$ LANGUAGE SQL VOLATILE STRICT;
+-- CREATE OR REPLACE FUNCTION booth_start(booth bigint, agent_id bigint) RETURNS bigint
+-- 	AS $$
+-- 		UPDATE cc_card SET activated= 't' 
+-- 			FROM cc_agent, cc_booth 
+-- 			WHERE cc_booth.cur_card_id= cc_card.id AND
+-- 				cc_booth.id = $1 AND
+-- 				cc_booth.agentid = $2;
+-- 		select COUNT(cc_card.id) FROM cc_card,cc_agent, cc_booth 
+-- 			WHERE cc_booth.cur_card_id= cc_card.id AND
+-- 				cc_booth.id = $1 AND
+-- 				cc_booth.agentid = $2;
+-- 	$$ LANGUAGE SQL VOLATILE STRICT;
 	
 CREATE RULE cc_booth_update AS ON UPDATE TO cc_booth_v DO INSTEAD NOTHING;
 
@@ -107,9 +118,12 @@ CREATE OR REPLACE RULE cc_booth_update3 AS ON UPDATE TO cc_booth_v WHERE NEW.sta
 CREATE OR REPLACE RULE cc_booth_update_d AS ON UPDATE TO cc_booth_v WHERE NEW.cur_card_id= OLD.def_card_id 
 	AND OLD.def_card_id IS NOT NULL
 	DO INSTEAD UPDATE cc_booth SET cur_card_id = def_card_id 
-			FROM cc_card 
+			FROM cc_card, cc_agent_cards
 			WHERE cc_booth.def_card_id= cc_card.id AND
 				cc_booth.id = OLD.id AND
-				cc_booth.agentid = OLD.owner;
+				cc_booth.agentid = OLD.owner AND
+				cc_agent_cards.card_id = cc_card.id AND
+				cc_agent_cards.agentid = OLD.owner AND
+				cc_agent_cards.def = 't' ;
 
 -- eof
