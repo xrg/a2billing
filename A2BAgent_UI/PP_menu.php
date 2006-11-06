@@ -87,6 +87,9 @@ function imgidclick(imgID,divID)
 	<li><a href="booths.php"><strong><?php echo gettext("BOOTHS");?></strong></a></li>
 	<li><a href=# target=_self></a></li>	
 	
+	<li><a href="A2B_entity_cards.php?form_action=list"><strong><?php echo gettext("CUSTOMERS");?></strong></a></li>
+	<li><a href=# target=_self></a></li>
+	
 	<li><a href="A2B_entity_booths.php?form_action=list"><strong><?php echo gettext("EDIT BOOTHS");?></strong></a></li>
 	<li><a href=# target=_self></a></li>	
 	
