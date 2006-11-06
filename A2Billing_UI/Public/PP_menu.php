@@ -77,17 +77,17 @@ function imgidclick(imgID,divID)
 	<div id="div1" style="display:none;">
 	<ul>
 		<li><ul>
-				<li><a href="A2B_entity_card.php?atmenu=card&stitle=Customers_Card"><?php echo gettext("List Customers");?></a></li>
-				<li><a href="A2B_entity_card.php?form_action=ask-add&atmenu=card&stitle=Card"><?php echo gettext("Create Customers");?></a></li>
-                <li><a href="CC_card_import.php?atmenu=card&stitle=Card"><?php echo gettext("Import Customers");?></a></li>
-				<li><a href="A2B_entity_card_multi.php?stitle=Card"><?php echo gettext("Generate Customers");?></a></li>
-				<li><a href="A2B_entity_friend.php?atmenu=sipfriend&stitle=SIP+Friends"><?php echo gettext("List SIP-FRIEND");?></a></li>
-				<li><a href="A2B_entity_friend.php?form_action=ask-add&atmenu=sipfriend&stitle=SIP+Friends"><?php echo gettext("Create SIP-FRIEND");?></a></li>
-				<li><a href="A2B_entity_friend.php?atmenu=iaxfriend&stitle=IAX+Friends"><?php echo gettext("List IAX-FRIEND");?></a></li>
-				<li><a href="A2B_entity_friend.php?form_action=ask-add&atmenu=iaxfriend&stitle=IAX+Friends"><?php echo gettext("Create IAX-FRIEND");?></a></li>
-				<li><a href="A2B_entity_callerid.php?atmenu=callerid&stitle=CallerID"><?php echo gettext("List CallerID");?></a></li>
-				<li><a href="A2B_entity_speeddial.php?atmenu=speeddial&stitle=Speed+Dial"><?php echo gettext("List Speed Dial");?></a></li>
-				<li><a href="A2B_entity_speeddial.php?form_action=ask-add&atmenu=speeddial&stitle=Speed+Dial"><?php echo gettext("Create Speed Dial");?></a></li>
+			<li><a href="A2B_entity_card.php?atmenu=card&stitle=Customers_Card"><?php echo gettext("List Customers");?></a></li>
+			<li><a href="A2B_entity_card.php?form_action=ask-add&atmenu=card&stitle=Card"><?php echo gettext("Create Customers");?></a></li>
+			<li><a href="CC_card_import.php?atmenu=card&stitle=Card"><?php echo gettext("Import Customers");?></a></li>
+			<li><a href="A2B_entity_card_multi.php?stitle=Card"><?php echo gettext("Generate Customers");?></a></li>
+			<li><a href="A2B_entity_friend.php?atmenu=sipfriend&stitle=SIP+Friends"><?php echo gettext("List SIP-FRIEND");?></a></li>
+			<li><a href="A2B_entity_friend.php?form_action=ask-add&atmenu=sipfriend&stitle=SIP+Friends"><?php echo gettext("Create SIP-FRIEND");?></a></li>
+			<li><a href="A2B_entity_friend.php?atmenu=iaxfriend&stitle=IAX+Friends"><?php echo gettext("List IAX-FRIEND");?></a></li>
+			<li><a href="A2B_entity_friend.php?form_action=ask-add&atmenu=iaxfriend&stitle=IAX+Friends"><?php echo gettext("Create IAX-FRIEND");?></a></li>
+			<li><a href="A2B_entity_callerid.php?atmenu=callerid&stitle=CallerID"><?php echo gettext("List CallerID");?></a></li>
+			<li><a href="A2B_entity_speeddial.php?atmenu=speeddial&stitle=Speed+Dial"><?php echo gettext("List Speed Dial");?></a></li>
+			<li><a href="A2B_entity_speeddial.php?form_action=ask-add&atmenu=speeddial&stitle=Speed+Dial"><?php echo gettext("Create Speed Dial");?></a></li>
 		</ul></li>
 	</ul>
 	</div>
@@ -100,6 +100,7 @@ function imgidclick(imgID,divID)
 		<li><ul>
 				<li><a href="A2B_entity_agent.php?atmenu=card&stitle=Customers_Card"><?php echo gettext("List Agents");?></a></li>
 				<li><a href="A2B_entity_agent.php?form_action=ask-add&atmenu=card&stitle=Card"><?php echo gettext("Create Agents");?></a></li>
+				<li><a href="A2B_entity_card_multia.php?stitle=Card"><?php echo gettext("Generate Agent Customers");?></a></li>
 		</ul></li>
 	</ul>
 	</div>
