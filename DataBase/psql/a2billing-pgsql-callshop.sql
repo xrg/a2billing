@@ -126,4 +126,16 @@ CREATE OR REPLACE RULE cc_booth_update_d AS ON UPDATE TO cc_booth_v WHERE NEW.cu
 				cc_agent_cards.agentid = OLD.owner AND
 				cc_agent_cards.def = 't' ;
 
+-- Not all the fields appear in this view:
+-- It could be adjusted to service a different user that will not have
+-- access to all the fields.
+
+CREATE VIEW cc_card_agent_v AS
+	SELECT cc_card.id,expirationdate,username, firstname, lastname, address,
+		credit, activated,
+		inuse , currency, lastuse, language, creditlimit, vat,
+		cc_agent_cards.agentid, cc_agent_cards.def
+		FROM cc_card, cc_agent_cards  WHERE cc_card.id = cc_agent_cards.card_id;
+		
+		
 -- eof

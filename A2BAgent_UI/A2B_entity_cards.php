@@ -2,7 +2,6 @@
 include ("lib/defines.php");
 include ("lib/module.access.php");
 include ("lib/Form/Class.FormHandler.inc.php");
-include ("FG_var_card.inc");
 
 
 if (! has_rights (ACX_ACCESS)){
@@ -11,18 +10,15 @@ if (! has_rights (ACX_ACCESS)){
 	   die();
 }
 
+include("PP_header.php");
 
+include ("FG_var_card.inc");
 
-/***********************************************************************************/
-
- 
-$HD_Form -> setDBHandler (DbConnect());
 $HD_Form -> init();
 
 
 $list = $HD_Form -> perform_action($form_action);
 
-include("PP_header.php");
 
 $HD_Form -> create_toppage ($form_action);
 
