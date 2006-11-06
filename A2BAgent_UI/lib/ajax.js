@@ -29,9 +29,13 @@ var http_request = false; // Global: we don't want multiple requests here!
 function startRequest(url,cb_fn){
 	if (!http_request) {
 		http_request=getXMLHttpRequest();
-		if (!http_request)
+		if (!http_request){
 			alert( "Cannot do AJAX request!");
-	}else{
+			return;
+		}
+	}
+	
+	{
 		if ((http_request.readyState>0) &&(http_request.readyState <4 ))
 			http_request.abort();
 		http_request.onreadystatechange = cb_fn;
