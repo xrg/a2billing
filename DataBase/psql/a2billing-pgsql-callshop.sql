@@ -72,4 +72,44 @@ CREATE OR REPLACE FUNCTION format_currency(money_sum NUMERIC, from_cur CHAR(3), 
 	$$
 	LANGUAGE SQL STABLE STRICT;
 	
+
+CREATE OR REPLACE FUNCTION booth_start(booth bigint, agent_id bigint) RETURNS bigint
+	AS $$
+		UPDATE cc_card SET activated= 't' 
+			FROM cc_agent, cc_booth 
+			WHERE cc_booth.cur_card_id= cc_card.id AND
+				cc_booth.id = $1 AND
+				cc_booth.agentid = $2;
+		select COUNT(cc_card.id) FROM cc_card,cc_agent, cc_booth 
+			WHERE cc_booth.cur_card_id= cc_card.id AND
+				cc_booth.id = $1 AND
+				cc_booth.agentid = $2;
+	$$ LANGUAGE SQL VOLATILE STRICT;
+	
+CREATE RULE cc_booth_update AS ON UPDATE TO cc_booth_v DO INSTEAD NOTHING;
+
+CREATE OR REPLACE RULE cc_booth_update2 AS ON UPDATE TO cc_booth_v 
+	WHERE NEW.state=2
+	DO INSTEAD UPDATE cc_card SET activated= 'f' 
+			FROM cc_agent, cc_booth 
+			WHERE cc_booth.cur_card_id= cc_card.id AND
+				cc_booth.id = OLD.id AND
+				cc_booth.agentid = OLD.owner;
+				
+CREATE OR REPLACE RULE cc_booth_update3 AS ON UPDATE TO cc_booth_v WHERE NEW.state=3 
+	DO INSTEAD UPDATE cc_card SET activated= 't' 
+			FROM cc_agent, cc_booth 
+			WHERE cc_booth.cur_card_id= cc_card.id AND
+				cc_booth.id = OLD.id AND
+				cc_booth.agentid = OLD.owner;
+
+-- TODO: use verification for card owner!
+CREATE OR REPLACE RULE cc_booth_update_d AS ON UPDATE TO cc_booth_v WHERE NEW.cur_card_id= OLD.def_card_id 
+	AND OLD.def_card_id IS NOT NULL
+	DO INSTEAD UPDATE cc_booth SET cur_card_id = def_card_id 
+			FROM cc_card 
+			WHERE cc_booth.def_card_id= cc_card.id AND
+				cc_booth.id = OLD.id AND
+				cc_booth.agentid = OLD.owner;
+
 -- eof

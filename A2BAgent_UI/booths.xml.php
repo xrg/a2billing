@@ -40,15 +40,54 @@ if (! has_rights (ACX_ACCESS)){
 	$message = '';
 	
 	if (isset($_GET["action"])) {
+		/* Here we handle all actions to the booths!
+		   NOTE that we always use the agent id *FROM THE SESSION*
+		   as a security feature, so that a foreign agent can't mess
+		   with us */
 		$get_booth = -1;
 		if (isset($_GET["actb"])){
-			$get_booth=$actb;
+			$get_booth= (integer) $_GET["actb"];
 			switch ($_GET["action"]) {
 			case 'disable':
+				
 				$message="Booth disabled";
 				break;
 			case 'stop':
-				$message="Booth stopped";
+				//$DBHandle->debug = true;
+				$res=$DBHandle->Execute("UPDATE cc_booth_v SET state = 2 WHERE owner = " .
+					$DBHandle->Quote($_SESSION['agent_id'] ) . 
+					" AND id = " . $DBHandle->Quote($get_booth) . " ;" );
+				
+				if ($res)
+					$message= gettext("Booth stopped"  );
+				else {
+					$message= gettext("Action failed:");
+					$message = $message . $DBHandle->ErrorMsg();
+				}
+				break;
+			case 'start':
+				$res=$DBHandle->Execute("UPDATE cc_booth_v SET state = 3 WHERE owner = " .
+					$DBHandle->Quote($_SESSION['agent_id'] ) . 
+					" AND id = " . $DBHandle->Quote($get_booth) . " ;" );
+				
+				if ($res)
+					$message= gettext("Booth started"  );
+				else {
+					$message= gettext("Action failed:");
+					$message = $message . $DBHandle->ErrorMsg();
+				}
+				break;
+			case 'load_def':
+				$res=$DBHandle->Execute("UPDATE cc_booth_v SET cur_card_id = def_card_id WHERE owner = " .
+					$DBHandle->Quote($_SESSION['agent_id'] ) . 
+					" AND id = " . $DBHandle->Quote($get_booth) . " ;" );
+				
+				if ($res)
+					$message= gettext("Booth started"  );
+				else {
+					$message= gettext("Action failed:");
+					$message = $message . $DBHandle->ErrorMsg();
+				}
 				break;
 			default:
 				$message="Unknown request";
