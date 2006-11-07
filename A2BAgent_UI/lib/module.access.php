@@ -13,11 +13,11 @@ $FG_DEBUG = 0;
 error_reporting(E_ALL & ~E_NOTICE);
 
 // Zone strings
-define ("MODULE_ACCESS_DOMAIN",		"CallingCard System");
-define ("MODULE_ACCESS_DENIED",		"./Access_denied.htm");
+define ("MODULE_ACCESS_DOMAIN",	"CallingCard System");
+define ("MODULE_ACCESS_DENIED",	"./Access_denied.htm");
 
 
-define ("ACX_ACCESS",					1);
+define ("ACX_ACCESS",	1);
 
 
 
