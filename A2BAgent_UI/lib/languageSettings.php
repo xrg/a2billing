@@ -6,96 +6,104 @@
         $charEncoding = "";
         switch (LANGUAGE)
         {
-            case "arabic":
-                $languageEncoding = "en_US.iso88591";
-                $slectedLanguage = "en_US";
-                $charEncoding = "iso88591";
-            break;
-            case "brazilian":
-                $languageEncoding = "en_US.iso88591";
-                $slectedLanguage = "en_US";
-                $charEncoding = "iso88591";
-        	break;
-        	case "chinese":
+	case "arabic":
+		$languageEncoding = "en_US.iso88591";
+		$slectedLanguage = "en_US";
+		$charEncoding = "iso88591";
+		break;
+	case "brazilian":
+		$languageEncoding = "en_US.iso88591";
+		$slectedLanguage = "en_US";
+		$charEncoding = "iso88591";
+		break;
+        case "chinese":
                 $languageEncoding = "zh_TW.UTF-8";
                 $slectedLanguage = "zh_TW";
                 $charEncoding = "UTF-8";
         	break;
-        	case "english":
+        case "english":
                 $languageEncoding = "en_US.iso88591";
                 $slectedLanguage = "en_US";
                 $charEncoding = "iso88591";
         	break;
-        	case "espanol":
+        case "espanol":
                 $languageEncoding = "es_ES.iso88591";
                 $slectedLanguage = "es_ES";
                 $charEncoding = "iso88591";
         	break;
-        	case "french":
+        case "french":
                 $languageEncoding = "fr_FR.iso88591";
                 $slectedLanguage = "fr_FR";
                 $charEncoding = "iso-8859-1";
-
         	break;
-        	case "german":
+        case "german":
                 $languageEncoding = "en_US.iso88591";
                 $slectedLanguage = "en_US";
                 $charEncoding = "iso88591";
         	break;
-        	case "italian":
+        case "greek":
+                $languageEncoding = "el_GR.UTF-8";
+                $slectedLanguage = "el_GR"; //.UTF-8";
+                $charEncoding = "UTF-8";
+                break;
+        case "italian":
                 $languageEncoding = "it_IT.iso8859-1";
                 $slectedLanguage = "it_IT";
                 $charEncoding = "iso88591";
         	break;
-        	case "polish":
+	case "polish":
                 $languageEncoding = "pt_PL.iso88591";
                 $slectedLanguage = "pl_PL";
                 $charEncoding = "iso88591";
         	break;
-            case "portuguese":
+	case "portuguese":
                 $languageEncoding = "pt_PT.iso88591";
                 $slectedLanguage = "pt_PT";
                 $charEncoding = "iso88591";
         	break;
-        	case "romanian":
+	case "romanian":
                 $languageEncoding = "ro_RO.iso88591";
                 $slectedLanguage = "ro_RO";
                 $charEncoding = "iso88591";
         	break;
-            case "russian":
+	case "russian":
                 $languageEncoding = "ru_RU.iso88591";
                 $slectedLanguage = "ru_RU";
                 $charEncoding = "iso88591";
         	break;
-        	case "turkish":
+	case "turkish":
                 $languageEncoding = "tr_TR.iso88599";
                 $slectedLanguage = "tr_TR";
                 $charEncoding = "iso88599";
         	break;
-        	case "urdu":
+	case "urdu":
                 $languageEncoding = "ur.UTF-8";
                 $slectedLanguage = "ur_PK";
                 $charEncoding = "UTF-8";
         	break;
-            default:
-                $languageEncoding = "en_US.iso88591";
-                $slectedLanguage = "en_US";
-                $charEncoding = "iso88591";
-            break;
+	default:
+		$languageEncoding = "en_US.iso88591";
+		$slectedLanguage = "en_US";
+		$charEncoding = "iso88591";
+		break;
         }
         /*
             Code here to set the Encoding of the Lanuages and its Envirnoment Variables
         */
-        //print($languageEncoding);
+//         print($languageEncoding);
         @setlocale(LC_TIME,$languageEncoding);
-        putenv("LANG=$slectedLanguage");
-        putenv("LANGUAGE=$slectedLanguage");
-        setlocale(LC_MESSAGES, $slectedLanguage);
+        putenv("LANG=".$slectedLanguage);
+        putenv("LANGUAGE=".$slectedLanguage);
+        setlocale(LC_MESSAGES,$slectedLanguage, $languageEncoding);
         $domain = 'messages';
-        bindtextdomain("messages", "./lib/locale");
+//       bindtextdomain($domain,"./lib/locale/");
+ 	bindtextdomain($domain, LIBDIR . "locale/");
         textdomain($domain);
-        //bind_textdomain_codeset($charEncoding);
+//     	echo "SetLocalLanguage" . LANGUAGE . "<br>";
+//         echo "bindtextdomain(messages," ."./" . "locale);<br>";
+        bind_textdomain_codeset($domain,$charEncoding);
         define('CHARSET', $charEncoding);
-    }
+        // echo "Locale: " . setlocale(LC_MESSAGES,0) ." : " . $slectedLanguage. "<br>";
+	}
 
 ?>
