@@ -62,7 +62,7 @@ body {
 	color: #666666;
 	border: solid 1px;
 	border-color: #DBDBDB;
-	background-image: url('textfield.gif');
+	/*background-image: url('textfield.gif');*/
 }
 
 .button {
