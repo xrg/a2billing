@@ -1,0 +1,919 @@
+# translation of messages.po to Greek
+# Copyright (C) 2006 P. Christeas
+# This file is distributed under the same license as the PACKAGE package.
+#
+# P. Christeas <p_christ@hol.gr>, 2006.
+msgid ""
+msgstr ""
+"Project-Id-Version: messages\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-11-07 02:00+0200\n"
+"PO-Revision-Date: 2006-11-07 03:07+0200\n"
+"Last-Translator: P. Christeas <p_christ@hol.gr>\n"
+"Language-Team: Greek <el@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+
+#: lib/Form/Class.SearchHandler.inc.php:35
+msgid "January"
+msgstr "Ιανουάριος"
+
+#: lib/Form/Class.SearchHandler.inc.php:35
+msgid "February"
+msgstr "Φεβρουάριος"
+
+#: lib/Form/Class.SearchHandler.inc.php:35
+msgid "March"
+msgstr "Μάρτιος"
+
+#: lib/Form/Class.SearchHandler.inc.php:35
+msgid "April"
+msgstr "Απρίλιος"
+
+#: lib/Form/Class.SearchHandler.inc.php:35
+msgid "May"
+msgstr "Μάιος"
+
+#: lib/Form/Class.SearchHandler.inc.php:35
+msgid "June"
+msgstr "Ιούνιος"
+
+#: lib/Form/Class.SearchHandler.inc.php:35
+msgid "July"
+msgstr "Ιούλιος"
+
+#: lib/Form/Class.SearchHandler.inc.php:35
+msgid "August"
+msgstr "Αύγουστος"
+
+#: lib/Form/Class.SearchHandler.inc.php:35
+msgid "September"
+msgstr "Σεπτέμβριος"
+
+#: lib/Form/Class.SearchHandler.inc.php:35
+msgid "October"
+msgstr "Οκτώβριος"
+
+#: lib/Form/Class.SearchHandler.inc.php:35
+msgid "November"
+msgstr "Νοέμβριος"
+
+#: lib/Form/Class.SearchHandler.inc.php:35
+msgid "December"
+msgstr "Δεκέμβριος"
+
+#: lib/Form/Class.SearchHandler.inc.php:83
+msgid "From :"
+msgstr "Από:"
+
+#: lib/Form/Class.SearchHandler.inc.php:111
+msgid "To :"
+msgstr "Έως:"
+
+#: lib/Form/Class.SearchHandler.inc.php:153
+msgid "Exact"
+msgstr "Ακριβής"
+
+#: lib/Form/Class.SearchHandler.inc.php:154
+msgid "Begins with"
+msgstr "Αρχίζει με"
+
+#: lib/Form/Class.SearchHandler.inc.php:155
+msgid "Contains"
+msgstr "Περιέχει"
+
+#: lib/Form/Class.SearchHandler.inc.php:156
+msgid "Ends with"
+msgstr "Τελειώνει σε"
+
+#: lib/Form/Class.SearchHandler.inc.php:259
+#, fuzzy
+msgid "There is"
+msgstr "είναι"
+
+#: lib/Form/Class.SearchHandler.inc.php:259
+#, fuzzy
+msgid ""
+"selected, use the option below if you are willing to make a batch updated of "
+"the selected cards."
+msgstr "επιλογή στο a από."
+
+#: lib/Form/Class.SearchHandler.inc.php:288
+msgid "RATECARD"
+msgstr ""
+
+#: lib/Form/Class.SearchHandler.inc.php:307
+msgid "BUYRATE"
+msgstr ""
+
+#: lib/Form/Class.SearchHandler.inc.php:310
+#: lib/Form/Class.SearchHandler.inc.php:325
+#: lib/Form/Class.SearchHandler.inc.php:341
+#: lib/Form/Class.SearchHandler.inc.php:357
+#: lib/Form/Class.SearchHandler.inc.php:373
+#: lib/Form/Class.SearchHandler.inc.php:389
+#: lib/Form/Class.SearchHandler.inc.php:405
+#: lib/Form/Class.SearchHandler.inc.php:421
+msgid "Equal"
+msgstr "Ίσο"
+
+#: lib/Form/Class.SearchHandler.inc.php:311
+#: lib/Form/Class.SearchHandler.inc.php:326
+#: lib/Form/Class.SearchHandler.inc.php:342
+#: lib/Form/Class.SearchHandler.inc.php:358
+#: lib/Form/Class.SearchHandler.inc.php:374
+#: lib/Form/Class.SearchHandler.inc.php:390
+#: lib/Form/Class.SearchHandler.inc.php:406
+#: lib/Form/Class.SearchHandler.inc.php:422
+#, fuzzy
+msgid "Add"
+msgstr "Προσθήκη"
+
+#: lib/Form/Class.SearchHandler.inc.php:312
+#: lib/Form/Class.SearchHandler.inc.php:327
+#: lib/Form/Class.SearchHandler.inc.php:343
+#: lib/Form/Class.SearchHandler.inc.php:359
+#: lib/Form/Class.SearchHandler.inc.php:375
+#: lib/Form/Class.SearchHandler.inc.php:391
+#: lib/Form/Class.SearchHandler.inc.php:407
+#: lib/Form/Class.SearchHandler.inc.php:423
+msgid "Substract"
+msgstr ""
+
+#: lib/Form/Class.SearchHandler.inc.php:322
+msgid "BUYRATEINITBLOCK"
+msgstr ""
+
+#: lib/Form/Class.SearchHandler.inc.php:338
+msgid "BUYRATEINCREMENT"
+msgstr ""
+
+#: lib/Form/Class.SearchHandler.inc.php:354
+msgid "RATE INITIAL"
+msgstr ""
+
+#: lib/Form/Class.SearchHandler.inc.php:370
+msgid "MIN DURATION"
+msgstr ""
+
+#: lib/Form/Class.SearchHandler.inc.php:386
+msgid "BILLINGBLOCK"
+msgstr ""
+
+#: lib/Form/Class.SearchHandler.inc.php:402
+msgid "CONNECTCHARGE"
+msgstr ""
+
+#: lib/Form/Class.SearchHandler.inc.php:418
+msgid "DISCONNECTCHARGE"
+msgstr ""
+
+#: lib/Form/Class.SearchHandler.inc.php:433
+msgid " BATCH UPDATE RATECARD "
+msgstr ""
+
+#: lib/Form/Class.FormHandler.AddForm.inc.php:126
+#: lib/Form/Class.FormHandler.EditForm.inc.php:179
+#: lib/Form/Class.FormHandler.EditForm.inc.php:373
+#: lib/Form/Class.FormHandler.EditForm.inc.php:642
+#: lib/Form/Class.FormHandler.DelForm.inc.php:145
+msgid "No data found !!!"
+msgstr "Δεν βρέθηκαν δεδομένα!!!"
+
+#: lib/Form/Class.FormHandler.AddForm.inc.php:182
+msgid "Create a new "
+msgstr "Δημιουργία νέου "
+
+#: lib/Form/Class.FormHandler.EditForm.inc.php:116
+msgid "<br> TYPE DE SELECT :"
+msgstr "<br> ΤΥΠΟΣ ΕΠΙΛΟΓΗΣ:"
+
+#: lib/Form/Class.FormHandler.EditForm.inc.php:240
+msgid "LIST "
+msgstr "ΛΙΣΤΑ"
+
+#: lib/Form/Class.FormHandler.EditForm.inc.php:293
+msgid "No"
+msgstr "Όχι"
+
+#: lib/Form/Class.FormHandler.EditForm.inc.php:327
+msgid "Add a new "
+msgstr "Προσθήκη νέου "
+
+#: lib/Form/Class.FormHandler.EditForm.inc.php:385
+#, fuzzy
+msgid "add new a "
+msgstr "νέο a "
+
+#: lib/Form/Class.FormHandler.EditForm.inc.php:418
+msgid "LIST"
+msgstr ""
+
+#: lib/Form/Class.FormHandler.EditForm.inc.php:492
+#, fuzzy
+msgid "Add a new"
+msgstr "Προσθήκη a νέο"
+
+#: lib/Form/Class.FormHandler.DelForm.inc.php:32
+msgid "Message"
+msgstr "Μήνυμα"
+
+#: lib/Form/Class.FormHandler.DelForm.inc.php:39
+#, fuzzy
+msgid "You have "
+msgstr "Εσείς "
+
+#: lib/Form/Class.FormHandler.DelForm.inc.php:186
+#, fuzzy
+msgid "Remove this "
+msgstr "Αφαίρεση "
+
+#: lib/Form/Class.FormHandler.inc.php:422
+msgid "THERE IS NO RECORD !!!"
+msgstr ""
+
+#: lib/Form/Class.FormHandler.inc.php:423
+msgid "DIRECTORY"
+msgstr "ΚΑΤΑΛΟΓΟΣ"
+
+#: lib/Form/Class.FormHandler.inc.php:424
+#, fuzzy
+msgid ""
+"You can define above some specific criterias in order to make a precised "
+"research"
+msgstr "Εσείς in στο a"
+
+#: lib/Form/Class.FormHandler.inc.php:425
+#, fuzzy
+msgid "You can browse through our"
+msgstr "Εσείς"
+
+#: lib/Form/Class.FormHandler.inc.php:425
+#, fuzzy
+msgid "and modify their different properties<br>"
+msgstr "και<br>"
+
+#: lib/Form/Class.FormHandler.inc.php:426
+#, fuzzy
+msgid "Delete this record"
+msgstr "Διαγραφή εγγραφή"
+
+#: lib/Form/Class.FormHandler.inc.php:427
+#, fuzzy
+msgid "Edit this record"
+msgstr "Επεξεργασία εγγραφή"
+
+#: lib/Form/Class.FormHandler.inc.php:428
+msgid ""
+"The document has been created correctly. Now, you can define the different "
+"tariff that you want to associate."
+msgstr ""
+
+#: lib/Form/Class.FormHandler.inc.php:429
+#, fuzzy
+msgid "You can modify, through the following form, the different properties of your"
+msgstr "Εσείς από"
+
+#: lib/Form/Class.FormHandler.inc.php:430
+msgid "If you really want remove this"
+msgstr ""
+
+#: lib/Form/Class.FormHandler.inc.php:430
+msgid "Click on the delete button."
+msgstr ""
+
+#: lib/Form/Class.FormHandler.inc.php:431
+#, fuzzy
+msgid "One"
+msgstr "Ένα"
+
+#: lib/Form/Class.FormHandler.inc.php:431
+#, fuzzy
+msgid "of the %table table has been deleted. <br> (Record with the id"
+msgstr "από πίνακας πίνακας διεγραμμένο<br> Ηχογράφηση με id"
+
+#: lib/Form/Class.FormHandler.inc.php:432
+#, fuzzy
+msgid "you can add easily a new"
+msgstr "a νέο"
+
+#: lib/Form/Class.FormHandler.inc.php:432
+#, fuzzy
+msgid "Fill the following fields and confirm by clicking on the button add."
+msgstr "Γέμισμα και ~κατά."
+
+#: lib/Form/Class.FormHandler.inc.php:433
+#, fuzzy
+msgid "Add a"
+msgstr "Προσθήκη a"
+
+#: lib/Form/Class.FormHandler.inc.php:433
+msgid "now."
+msgstr ""
+
+#: lib/Form/Class.FormHandler.inc.php:434
+#, fuzzy
+msgid "Your new"
+msgstr "νέο"
+
+#: lib/Form/Class.FormHandler.inc.php:434
+msgid "has been inserted. <br>"
+msgstr ""
+
+#: lib/Form/Class.FormHandler.inc.php:435
+#, fuzzy
+msgid "You cannot choose more than one !"
+msgstr "Εσείς!"
+
+#: lib/Form/Class.FormHandler.inc.php:455
+#: lib/Form/Class.FormHandler.inc.php:673
+#, fuzzy
+msgid "Delete this "
+msgstr "Διαγραφή "
+
+#: lib/Form/Class.FormHandler.inc.php:456
+#: lib/Form/Class.FormHandler.inc.php:667
+#, fuzzy
+msgid "Edit this "
+msgstr "Επεξεργασία "
+
+#: lib/Form/Class.FormHandler.inc.php:484
+msgid "ONESHOT"
+msgstr ""
+
+#: lib/Form/Class.FormHandler.inc.php:485
+msgid "PER MINUTE"
+msgstr ""
+
+#: lib/Form/Class.FormHandler.inc.php:487
+#: lib/Form/Class.FormHandler.inc.php:497
+msgid "IN PROCESS"
+msgstr ""
+
+#: lib/Form/Class.FormHandler.inc.php:488
+msgid "WORKING"
+msgstr ""
+
+#: lib/Form/Class.FormHandler.inc.php:489
+msgid "ISSUE"
+msgstr ""
+
+#: lib/Form/Class.FormHandler.inc.php:491
+msgid "ALRIGHT"
+msgstr ""
+
+#: lib/Form/Class.FormHandler.inc.php:492
+msgid "NOT USED"
+msgstr ""
+
+#: lib/Form/Class.FormHandler.inc.php:493
+msgid "NO ATTRIBUED"
+msgstr ""
+
+#: lib/Form/Class.FormHandler.inc.php:494
+msgid "WORK IN PROCESS"
+msgstr ""
+
+#: lib/Form/Class.FormHandler.inc.php:496
+msgid "CREATION"
+msgstr ""
+
+#: lib/Form/Class.FormHandler.inc.php:498
+msgid "IVR INTREGRATION"
+msgstr ""
+
+#: lib/Form/Class.FormHandler.inc.php:499
+#: lib/Form/Class.FormHandler.inc.php:509
+msgid "CLOSE"
+msgstr ""
+
+#: lib/Form/Class.FormHandler.inc.php:501
+msgid "URGENT"
+msgstr ""
+
+#: lib/Form/Class.FormHandler.inc.php:502
+msgid "NORMAL"
+msgstr ""
+
+#: lib/Form/Class.FormHandler.inc.php:503
+msgid "LOW"
+msgstr ""
+
+#: lib/Form/Class.FormHandler.inc.php:505
+msgid "NEW"
+msgstr ""
+
+#: lib/Form/Class.FormHandler.inc.php:506
+msgid "UPDATE"
+msgstr ""
+
+#: lib/Form/Class.FormHandler.inc.php:507
+msgid "ANSWER"
+msgstr ""
+
+#: lib/Form/Class.FormHandler.inc.php:508
+msgid "ASSIGN"
+msgstr ""
+
+#: lib/Form/Class.FormHandler.inc.php:511
+msgid "INSERTED"
+msgstr ""
+
+#: lib/Form/Class.FormHandler.inc.php:512
+msgid "ENABLE"
+msgstr ""
+
+#: lib/Form/Class.FormHandler.inc.php:513
+msgid "DISABLE"
+msgstr ""
+
+#: lib/Form/Class.FormHandler.inc.php:514
+msgid "FREE"
+msgstr ""
+
+#: lib/Form/Class.FormHandler.inc.php:516
+msgid "PHONE"
+msgstr ""
+
+#: lib/Form/Class.FormHandler.inc.php:517
+msgid "SMS"
+msgstr ""
+
+#: lib/Form/Class.FormHandler.inc.php:519
+#, fuzzy
+msgid "CODE VALID 1 TIME"
+msgstr "ΩΡΑ/ΧΡΟΝΟΣ"
+
+#: lib/Form/Class.FormHandler.inc.php:520
+msgid "CODE VALID 2 TIMES"
+msgstr ""
+
+#: lib/Form/Class.FormHandler.inc.php:521
+msgid "CODE VALID 3 TIMES"
+msgstr ""
+
+#: lib/Form/Class.FormHandler.inc.php:522
+msgid "CODE VALID 4 TIMES"
+msgstr ""
+
+#: lib/Form/Class.FormHandler.inc.php:523
+msgid "CODE VALID 5 TIMES"
+msgstr ""
+
+#: lib/Form/Class.FormHandler.inc.php:524
+msgid "CODE VALID 6 TIMES"
+msgstr ""
+
+#: lib/Form/Class.FormHandler.inc.php:525
+msgid "CODE VALID 7 TIMES"
+msgstr ""
+
+#: lib/Form/Class.FormHandler.inc.php:526
+msgid "CODE VALID 8 TIMES"
+msgstr ""
+
+#: lib/Form/Class.FormHandler.inc.php:527
+msgid "CODE VALID 9 TIMES"
+msgstr ""
+
+#: lib/Form/Class.FormHandler.inc.php:528
+msgid "CODE VALID 10 TIMES"
+msgstr ""
+
+#: lib/Form/Class.FormHandler.inc.php:531
+msgid "CODE"
+msgstr ""
+
+#: lib/Form/Class.FormHandler.inc.php:532
+#: lib/Form/Class.FormHandler.inc.php:533
+#: lib/Form/Class.FormHandler.inc.php:534
+#: lib/Form/Class.FormHandler.inc.php:535
+msgid "CODES"
+msgstr ""
+
+#: lib/Form/Class.FormHandler.inc.php:644
+#: lib/Form/Class.FormHandler.inc.php:646
+#, fuzzy
+msgid "You can browse through our "
+msgstr "Εσείς "
+
+#: lib/Form/Class.FormHandler.inc.php:644
+#: lib/Form/Class.FormHandler.inc.php:646
+#, fuzzy
+msgid " and modify their different properties<br>"
+msgstr "και<br>"
+
+#: lib/Form/Class.FormHandler.inc.php:805
+#, fuzzy
+msgid "(at least 3 characters)"
+msgstr "σε χαρακτήρες"
+
+#: lib/Form/Class.FormHandler.inc.php:809
+#, fuzzy
+msgid "(must match email structure. Example : name@domain.com)"
+msgstr "Ταιριάζω email Παράδειγμαname@domain.com"
+
+#: lib/Form/Class.FormHandler.inc.php:813
+#, fuzzy
+msgid "(at least 5 successive characters appear at the end of this string)"
+msgstr "σε χαρακτήρες σε από"
+
+#: lib/Form/Class.FormHandler.inc.php:817
+#, fuzzy
+msgid "(at least 4 characters)"
+msgstr "σε χαρακτήρες"
+
+#: lib/Form/Class.FormHandler.inc.php:821
+msgid "(number format)"
+msgstr ""
+
+#: lib/Form/Class.FormHandler.inc.php:829
+msgid "(only number with more that 8 digits)"
+msgstr ""
+
+#: lib/Form/Class.FormHandler.inc.php:833
+#, fuzzy
+msgid "(at least 8 digits using . or - or the space key)"
+msgstr "σε ή ή"
+
+#: lib/Form/Class.FormHandler.inc.php:837
+msgid "network adress format"
+msgstr ""
+
+#: lib/Form/Class.FormHandler.inc.php:841
+msgid "at least 1 character"
+msgstr ""
+
+#: lib/Form/Class.FormHandler.inc.php:849
+msgid "(AT LEAST 2 CARACTERS)"
+msgstr ""
+
+#: lib/Form/Class.FormHandler.inc.php:853
+#, fuzzy
+msgid "(NUMBER FORMAT WITH/WITHOUT DECIMAL, use '.' for decimal)"
+msgstr "NUMBER για δεκαδικό"
+
+#: lib/Form/Class.FormHandler.inc.php:869
+#, fuzzy
+msgid "You must write something."
+msgstr "Εσείς κάτι."
+
+#: lib/Form/Class.FormHandler.inc.php:873
+#, fuzzy
+msgid "8 characters alphanumeric"
+msgstr "χαρακτήρες"
+
+#: lib/Form/Class.FormHandler.inc.php:1401
+#: lib/Form/Class.FormHandler.inc.php:1443
+#, fuzzy
+msgid "Could not open buddy file"
+msgstr "όχι αρχείο"
+
+#: lib/Form/Class.FormHandler.inc.php:1418
+#: lib/Form/Class.FormHandler.inc.php:1448
+#: lib/Form/Class.FormHandler.inc.php:1460
+#, fuzzy
+msgid "Impossible to write to the file"
+msgstr "στο στο αρχείο"
+
+#: lib/Form/Class.FormHandler.inc.php:1589
+#: lib/Form/Class.FormHandler.inc.php:1636
+msgid "<br> GOTO ; "
+msgstr ""
+
+#: lib/Form/Class.FormHandler.inc.php:1630
+#, fuzzy
+msgid "error deletion"
+msgstr "σφάλμα"
+
+#: lib/Form/Class.FormHandler.inc.php:1730
+#, fuzzy
+msgid "ERROR_DUPLICATION"
+msgstr "ΣΦΑΛΜΑ"
+
+#: lib/Form/Class.FormHandler.inc.php:1815
+#, fuzzy
+msgid "Done"
+msgstr "Έγινε"
+
+#: lib/Form/Class.FormHandler.inc.php:1841
+#: lib/Form/Class.FormHandler.inc.php:1894
+msgid "THE CURRENT RATECARD"
+msgstr ""
+
+#: lib/Form/Class.FormHandler.inc.php:1852
+#: lib/Form/Class.FormHandler.inc.php:1905
+#, fuzzy
+msgid "R A T E C A R D"
+msgstr "R A T Α C A R D"
+
+#: lib/Form/Class.FormHandler.inc.php:1858
+#: lib/Form/Class.FormHandler.inc.php:1911
+#, fuzzy
+msgid "Choose a ratecard"
+msgstr "Επιλογή a"
+
+#: lib/Form/Class.ViewHandler.inc.php:31
+#, fuzzy
+msgid "Congratulations! Your site"
+msgstr "Συγχαρητήρια"
+
+#: lib/Form/Class.ViewHandler.inc.php:31
+msgid "has been registered."
+msgstr ""
+
+#: lib/Form/Class.ViewHandler.inc.php:45
+msgid "Currently you have registered"
+msgstr ""
+
+#: lib/Form/Class.ViewHandler.inc.php:45
+#, fuzzy
+msgid "sites and"
+msgstr "και"
+
+#: lib/Form/Class.ViewHandler.inc.php:45
+msgid "documents"
+msgstr ""
+
+#: lib/Form/Class.ViewHandler.inc.php:66
+msgid "These are the sites you have registered."
+msgstr ""
+
+#: lib/Form/Class.ViewHandler.inc.php:140
+msgid "Sort"
+msgstr "Ταξινόμηση"
+
+#: lib/Form/Class.ViewHandler.inc.php:183
+msgid "FILTER ON "
+msgstr "ΦΙΛΤΡΟ ΣΤΟ"
+
+#: lib/Form/Class.ViewHandler.inc.php:200
+msgid "FILTER ON"
+msgstr ""
+
+#: lib/Form/Class.ViewHandler.inc.php:213
+msgid "APPLY FILTER "
+msgstr ""
+
+#: lib/Form/Class.ViewHandler.inc.php:245
+msgid "ACTION"
+msgstr "ΕΝΕΡΓΕΙΑ"
+
+#: lib/Form/Class.ViewHandler.inc.php:471
+msgid "DISPLAY"
+msgstr "ΠΡΟΒΟΛΗ"
+
+#: lib/Form/Class.ViewHandler.inc.php:488
+msgid "GO"
+msgstr ""
+
+#: lib/Form/Class.ViewHandler.inc.php:493
+#, fuzzy
+msgid "Export CSV"
+msgstr "Εξαγωγή CSV"
+
+#: lib/Form/Class.ViewHandler.inc.php:497
+#, fuzzy
+msgid "Export XML"
+msgstr "Εξαγωγή XML"
+
+#: lib/help.php:15
+#, fuzzy
+msgid ""
+"From here, you can use the web based screen phone. You need microphone and "
+"speakers on your PC."
+msgstr "Από οθόνη Εσείς και."
+
+#: lib/help.php:31
+#, fuzzy
+msgid ""
+"All calls are listed below. Search by month, day or status. Additionally, "
+"you can check the rate and price."
+msgstr "Όλα Αναζήτηση ~κατά ημέρα ή κατάσταση Έλεγχος και."
+
+#: lib/help.php:48
+#, fuzzy
+msgid ""
+"Simulate the calling process to discover the cost per minute of a call, and "
+"the number of minutes you can call that number with your current credit."
+msgstr "Προσομείωση στο λεπτό από a και από λεπτά με."
+
+#: lib/help.php:64
+#, fuzzy
+msgid ""
+"On this page you will be able to change your password, You have to enter the "
+"New Password and Confirm it."
+msgstr "Ανοιχτό σελίδα στο Εσείς στο Νέο Κωδικός πρόσβασης και Επιβεβαίωση."
+
+#: lib/help.php:79
+msgid "Here you can view your ratecards"
+msgstr ""
+
+#: lib/help.php:94
+msgid "Here you can view your used vouchers"
+msgstr ""
+
+#: lib/help.php:111
+#, fuzzy
+msgid ""
+"Select the country below where you would like a DID, select a DID from the "
+"list and enter the destination you would like to assign it to."
+msgstr "Επιλογή χώρα όμοιο a a λίστα και όμοιο στο στο."
+
+#: lib/company_info.php:2
+#, fuzzy
+msgid ""
+"This software has been created by Areski under GPL licence. For futher "
+"information, feel free to contact me:"
+msgstr "~κατά GPL Για στο:"
+
+#: lib/company_info.php:4
+#, fuzzy
+msgid ""
+" This software is under GPL licence. For further information, please visit : "
+"<a href=\"http://www.asterisk2billing.org\" target=\"_blank"
+"\">asterisk2billing.org</a>"
+msgstr "είναι GPL Για<a href=\"http://www.asterisk2billing.org\" target=\"_blank\"> οργανισμός</a>"
+
+#: lib/company_info.php:5
+msgid "Asterisk2Billing : CallingCard platform"
+msgstr ""
+
+#: booths.php:155 PP_error.php:29
+msgid "Error Page"
+msgstr "Σελίδα Σφάλματος"
+
+#: booths.php:165
+msgid "Cannot locate booths"
+msgstr ""
+
+#: booths.php:180
+msgid "No booths!<br>Please ask the administrators to create you some."
+msgstr "Κανένας θάλαμος<br>Ζητήστε από τους διαχειριστές να σας το ρυθμίσουν."
+
+#: booths.php:199
+msgid "Credit:"
+msgstr ""
+
+#: booths.php:201
+msgid "Start"
+msgstr "Εκκίνηση"
+
+#: booths.php:202
+msgid "Stop"
+msgstr "Διακοπή"
+
+#: booths.php:203
+msgid "Pay"
+msgstr ""
+
+#: booths.php:204
+msgid "Enable"
+msgstr "Ενεργοποίηση"
+
+#: booths.php:205
+msgid "Disable"
+msgstr "Απενεργοποίηση"
+
+#: booths.php:206
+msgid "Unload"
+msgstr "Αποφόρτωση"
+
+#: booths.php:207
+msgid "Load Default"
+msgstr "Άλλος πελάτης"
+
+#: booths.php:208
+msgid "Load Regular"
+msgstr "Τακτικός Πελάτης"
+
+#: PP_error.php:7
+msgid "ERROR : ACCESS REFUSED"
+msgstr "ΣΦΑΛΜΑ, Η ΠΡΟΣΒΑΣΗ ΔΕΝ ΕΠΙΤΡΕΠΕΤΑΙ"
+
+#: PP_error.php:8
+#, fuzzy
+msgid ""
+"The CODE is not a VALID CODE or has been already used! Please check it and "
+"try again."
+msgstr "είναι όχι a ή Έλεγχος και."
+
+#: PP_error.php:9
+#, fuzzy
+msgid "Sorry a problem occur on our system, please try later!"
+msgstr "Λυπάμαι a!"
+
+#: PP_error.php:10
+msgid "There is an error on this page!"
+msgstr "Υπάρχει σφάλμα στη σελίδα!"
+
+#: PP_error.php:11
+msgid "Sorry, you don t have access to this page !"
+msgstr "Λυπούμαστε, δεν έχετε πρόσβαση στη σελίδα!"
+
+#: PP_error.php:12
+msgid "Sorry, this page is in construction !"
+msgstr "Λυπούμαστε, η σελίδα αυτή είναι υπό κατασκευή!"
+
+#: PP_menu.php:87
+msgid "BOOTHS"
+msgstr "ΘΑΛΑΜΟΙ"
+
+#: PP_menu.php:90
+msgid "CUSTOMERS"
+msgstr "ΠΕΛΑΤΕΣ"
+
+#: PP_menu.php:93
+msgid "EDIT BOOTHS"
+msgstr "ΔΙΟΡΘΩΣΗ ΘΑΛΑΜΩΝ "
+
+#: PP_menu.php:96
+msgid "PAYMENTS"
+msgstr "ΠΛΗΡΩΜΕΣ"
+
+#: PP_menu.php:99
+msgid "REPORTS"
+msgstr "ΑΝΑΦΟΡΕΣ"
+
+#: PP_menu.php:102
+msgid "INFO PAGES"
+msgstr "ΠΛΗΡΟΦΟΡΙΕΣ"
+
+#: PP_menu.php:106
+msgid "CALL HISTORY"
+msgstr "ΚΛΗΣΕΙΣ"
+
+#: PP_menu.php:110
+msgid "PASSWORD"
+msgstr "ΚΩΔΙΚΟΣ"
+
+#: PP_menu.php:114
+msgid "LOGOUT"
+msgstr "ΕΞΟΔΟΣ"
+
+#: booths.xml.php:18
+msgid "N/A"
+msgstr "Ν/Α"
+
+#: booths.xml.php:18
+msgid "Not available, no cards configured."
+msgstr "Δεν είναι διαθέσιμος, δεν ρυθμίστηκαν κάρτες."
+
+#: booths.xml.php:19
+msgid "Empty"
+msgstr "Κενός"
+
+#: booths.xml.php:19
+msgid "No customer attached."
+msgstr "Δεν έχει συνδεθεί με πελάτη."
+
+#: booths.xml.php:20
+msgid "Idle"
+msgstr "Αδρανής"
+
+#: booths.xml.php:20
+msgid "Customer attached, inactive"
+msgstr "Συνδέθηκε με πελάτη, ανενεργός"
+
+#: booths.xml.php:21
+msgid "Ready"
+msgstr "Έτοιμος"
+
+#: booths.xml.php:21
+msgid "Waiting for calls"
+msgstr "Αναμονή για κλήσεις"
+
+#: booths.xml.php:22
+msgid "Active"
+msgstr "Ενεργός"
+
+#: booths.xml.php:22
+msgid "Calls made, charged"
+msgstr ""
+
+#: booths.xml.php:23
+msgid "Disabled"
+msgstr "Απενεργοποιημένος"
+
+#: booths.xml.php:23
+msgid "Disabled by the agent"
+msgstr "Απενεργοποιημένος από τον πράκτορα"
+
+#: booths.xml.php:62
+msgid "Booth stopped"
+msgstr "Θάλαμος σταματημένος"
+
+#: booths.xml.php:64 booths.xml.php:76 booths.xml.php:88
+msgid "Action failed:"
+msgstr "Αποτυχία ενέργειας:"
+
+#: booths.xml.php:74 booths.xml.php:86
+msgid "Booth started"
+msgstr "Ο θάλαμος εκκινήθηκε"
+
+#: booths.xml.php:107
+msgid "Database query failed!"
+msgstr "Η αναζήτηση στη βάση δεδομένων απέτυχε!"
+
