@@ -1,5 +1,6 @@
 <?php
-//getpost_ifset(array('id',));
+
+getpost_ifset(array('id',"check", "type", "mode", "cardnumber"));
 
 
 
@@ -9,7 +10,7 @@ $HD_Form = new FormHandler("cc_card_agent_v","Card");
 $HD_Form -> setDBHandler (DbConnect());
 
 
-$HD_Form -> FG_DEBUG = 5;
+$HD_Form -> FG_DEBUG = 0;
 // FAQ
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "ASC";
 $HD_Form -> FG_FILTER_SEARCH_SESSION_NAME = 'entity_card_selection';
@@ -20,7 +21,7 @@ $HD_Form -> FG_FK_DELETE_CONFIRM = true;
 $HD_Form -> AddViewElement(gettext("ID"), "id", "3%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("CARD NUMBER"), "username", "11%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("LASTNAME"), "lastname", "10%", "center", "sort", "15");
-$HD_Form -> AddViewElement("<acronym title=\"BALANCE\">".gettext("BA")."</acronym>", "credit", "5%", "center", "sort", "", "", "", "", "", "", "");
+$HD_Form -> AddViewElement("<acronym title=\"". gettext("BALANCE"). "\">".gettext("BA")."</acronym>", "credit", "5%", "center", "sort", "", "", "", "", "", "", "");
 
 $FG_COL_QUERY='id, username, lastname, credit';
 
