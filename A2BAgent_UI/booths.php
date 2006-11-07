@@ -13,9 +13,14 @@ if (! has_rights (ACX_ACCESS)){
 }
 ?>
 <script type="text/javascript">
+var req_timer = false;
 function reqStateChanged2(){
 
 	var resp ="";
+	if (req_timer){
+		clearTimeout(req_timer);
+		req_timer=false;
+		}
 	switch (http_request.readyState) {
 	case 1:
 		resp="Open";
@@ -31,7 +36,8 @@ function reqStateChanged2(){
 		case 200:
 			resp="OK";
 			//document.getElementById("result_f").innerHTML=http_request.responseText;
-			parseBoothXML(http_request.responseXML);
+			if (parseBoothXML(http_request.responseXML))
+				req_timer=setTimeout("startRequest(\"booths.xml.php\",reqStateChanged2);",5*60*1000); 
 			break;
 		default:
 			resp="Code: " + http_request.status;
@@ -114,8 +120,10 @@ function parseBoothXML(the_xml){
 		}catch(err){
 			alert(err); //debugging..
 			//alert(typeof(dom_booth))
+			return false;
 		}
 	}
+	return true;
 }
 
 function booth_action(booth,act) {
@@ -173,6 +181,7 @@ window.onload = function() { startRequest("booths.xml.php",reqStateChanged2)};
 		}
 		else {
 		?>
+		<!--Lang: <?php echo setlocale(LC_MESSAGES,0); ?>-->
 		<div id="message"> Welcome! </div>
 		<br>
 		<TABLE class='Booths' border=0 cellPadding=2 cellSpacing=2 width="100%">
