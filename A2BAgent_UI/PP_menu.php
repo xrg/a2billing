@@ -20,7 +20,7 @@ $displayservice = 1;
 <html>
 <head>
 <title>..:: :<?php echo CCMAINTITLE; ?>: ::..</title>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link rel="stylesheet" type="text/css" href="Css/menu.css" media="all">
 
 <script language="JavaScript">
@@ -129,6 +129,7 @@ function imgidclick(imgID,divID)
 		<a href="index2.php?language=turkish" target="_parent"><img src="images/flags/tr.gif" border="0" title="Turkish" alt="Turkish"></a>
         <a href="index2.php?language=portuguese" target="_parent"><img src="images/flags/pt.gif" border="0" title="Portuguese" alt="Portuguese"></a>
         <a href="index2.php?language=urdu" target="_parent"><img src="images/flags/pk.gif" border="0" title="Urdu" alt="Urdu"></a>
+        <a href="index2.php?language=greek" target="_parent"><img src="images/flags/gr.gif" border="0" title="Greek" alt="Greek"></a>
 
 <!--
 		<a href="index2.php?language=brazilian" target="_parent"><img src="images/flags/br.gif" border="0"title="Brazilian" alt="Brazilian"></a>
