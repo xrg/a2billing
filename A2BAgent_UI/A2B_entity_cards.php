@@ -10,8 +10,48 @@ if (! has_rights (ACX_ACCESS)){
 	   die();
 }
 
+class FillBoothForm{
+	var $list_booths;
+	var $pref_booth=-1;
+	
+	function init(&$DBHandle){
+		global $list_booths;
+		$itb = new Table("cc_booth", "id, name");
+		//$itb->debug_st=1;
+		$FG_TABLE_CLAUSE = "agentid = ". $DBHandle->Quote($_SESSION["agent_id"]) ." AND cur_card_id IS NULL";
+		$ltb = $itb -> Get_list ($DBHandle, $FG_TABLE_CLAUSE);
+		$list_booths=$ltb;
+		
+	}
+
+	function disp($query_row, $qc){
+		global $list_booths;
+		$ress = '';
+		$opts = '';
+		if ($list_booths)
+		foreach($list_booths as $lb){
+			$opts .= '<option value="' . $lb[0] .'"';
+			if ($lb[0]==$pref_booth)
+				$opts .= ' selected';
+			$opts.= '>' . htmlspecialchars($lb[1]);
+			$opts.="</option>\n";
+		}
+		$ress = <<<EOS
+		<form class="FillBooth" action="${_SERVER['PHP_SELF']}?action=fillb&cardid=$query_row[0]" method="GET" >
+		<select name="booth">
+		$opts
+		</select>
+		<button type="submit" value="subm"> Fill! </button>
+	</form>
+EOS;
+
+		return $ress;
+	}
+};
+
 include("PP_header.php");
 
+$fb_form=new FillBoothForm();
 include ("FG_var_card.inc");
 
 $HD_Form -> init();
@@ -21,11 +61,14 @@ if ($id!="" || !is_null($id)){
 }
 
 
+
+// Fill booth action must be carried out before this, because this queries for the empty ones.
+$fb_form->init($HD_Form->DBHandle);
+
 if (!isset($form_action))  $form_action="list"; //ask-add
 if (!isset($action)) $action = $form_action;
 
 $list = $HD_Form -> perform_action($form_action);
-
 
 $HD_Form -> create_toppage ($form_action);
 

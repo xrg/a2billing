@@ -576,9 +576,13 @@ class FormHandler{
 	 * @ 4. $textalign
 	 * @ 5 .$sort
 	 * @ 6. $char_limit
-	 * @ 7. $lie_type ("lie", "list") , where lie is used for sql. ( TODO : any reason to keep lie instead of sql ?.)
+	 * @ 7. $lie_type ("lie", "list", "eval","object") , where lie is used for sql. ( TODO : any reason to keep lie instead of sql ?.)
 	 * @ 8. $lie_with (SQL query with the tag '%1' || a defined list: $tablelist["nbcode"] )
 
+	 When $lie_type="eval", the $lie_with is evaluated, there str_params($query_row) is called..
+	 When $lie_type="object", then $lie_with->disp($query_row,$query_col_num) is called! Useful for complex
+	 types (eg. form-in-field). The object could safely be the same for all rows..
+	 
 	 * OLD
 	 * @ 8. $lie_with tablename
 	 * @ 9. $lie_fieldname

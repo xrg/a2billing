@@ -6,6 +6,64 @@ if (!function_exists("stripos")) {
 		return strpos(strtolower($str),strtolower($needle));
 	}
 }
+/** Calculate arguments in a string of the form "Test %1 or %4 .." 
+	This function is carefully written, so that it could be used securely, for
+	example, when 'eval(string_param(" echo %&0",array( $dangerous_str)))' is called.
+	That is, we have some special prefixes:
+		%#x means the x-th parameter as a number, 0 if nan
+		%&x means the x-th parameter as a quoted string
+		%% will become '%', as will %X where X not [1-9a-z]
+	@param $str The input string
+	@param $parm_arr An array with the parameters, so %1 will become $parm_arr[1]
+	@param $noffset	The offset of the param. noffset=1 means %1 = $parm_arr[0],
+			noffset=-2 means %0 = $parm_arr[2]
+	@note This fn won't work for more than 10 params!
+		
+*/
+function str_params($str, $parm_arr, $noffset = 0){
+	$strlen=strlen($str);
+	$strp=0;
+	$stro=0;
+	$resstr='';
+	do{
+		$strp=strpos($str,"%",$stro);
+		if($strp===false){
+			$resstr=$resstr . substr($str,$stro);
+			break;
+		}
+		$resstr=$resstr . substr($str,$stro,$strp-$stro);
+		$strp++;
+		if ($strp>=$strlen)
+			break;
+		$sm=0;
+		if ($str[$strp] == '#'){
+			$sm=1;
+			$strp++;
+		}
+		else if ($str[$strp] =='&'){
+			$sm=2;
+			$strp++;
+		}
+		if (( $str[$strp]>='0')  && ( $str[$strp]<='9')){
+			$pv=$str{$strp} - '0';
+// 			echo "Var %$pv\n";
+			if (isset($parm_arr[$pv - $noffset]))
+				$v = $parm_arr[$pv - $noffset];
+			else	$v = '';
+			if ($sm==1)
+				$v = (integer) $v;
+			else if ($sm == 2)
+				$v = addslashes($v);
+			
+			$resstr= $resstr . $v;
+		}else
+			$resstr= $resstr . $str[$strp];
+		$stro=$strp+1;
+	}while ($stro<$strlen);
+		
+	return $resstr;
+}
+
 
 if ($this -> CV_TOPVIEWER == "sdoc"){
 
@@ -263,19 +321,18 @@ function openURLFilter(theLINK)
 						$field_list_sun = split(',',$this->FG_TABLE_COL[$i][8]);
 						$record_display = $this->FG_TABLE_COL[$i][10];
 								
-						for ($l=1;$l<=count($field_list_sun);$l++){													
+						$record_display=str_params($record_display,$select_list[0],1);
+						/*for ($l=1;$l<=count($field_list_sun);$l++){													
 							$record_display = str_replace("%$l", $select_list[0][$l-1], $record_display);
-						}						
+						}*/
 						
 					}elseif ($this->FG_TABLE_COL[$i][6]=="eval"){
 						$string_to_eval = $this->FG_TABLE_COL[$i][7]; // %4-%3
-						for ($ll=0;$ll<=15;$ll++){
-							if ($list[$ligne_number][$ll]=='') $list[$ligne_number][$ll]=0;
-							$string_to_eval = str_replace("%$ll", $list[$ligne_number][$ll], $string_to_eval);
-						}
+						$string_to_eval = str_params($string_to_eval,$list[$ligne_number]);
 						eval("\$eval_res = $string_to_eval;");
 						$record_display = $eval_res;
 						//$record_display = "\$eval_res = $string_to_eval";
+						
 						
 					}elseif ($this->FG_TABLE_COL[$i][6]=="list"){
 						$select_list = $this->FG_TABLE_COL[$i][7];
@@ -283,6 +340,8 @@ function openURLFilter(theLINK)
 					}elseif ($this->FG_TABLE_COL[$i][6]=="value"){
 						$record_display = $this->FG_TABLE_COL[$i][7];
 						$k++;
+					}elseif ($this->FG_TABLE_COL[$i][6]=="object"){
+						$record_display = $this->FG_TABLE_COL[$i][7]->disp($list[$ligne_number],$i);
 					}else{
 						$record_display = $list[$ligne_number][$i-$k];
 					}
