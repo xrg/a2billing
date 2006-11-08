@@ -175,7 +175,8 @@ function imgidclick_plus(imgID,divID)
 				<li><a href="A2B_entity_def_ratecard.php?form_action=ask-add&atmenu=ratecard&stitle=RateCard&section=3"><?php echo gettext("Add Rate");?></a></li>
 				<li><a href="CC_ratecard_import.php?atmenu=ratecard&stitle=RateCard&section=3"><?php echo gettext("Import RateCard");?></a></li>
 				<li><a href="CC_entity_sim_ratecard.php?atmenu=ratecard&stitle=Ratecard+Simulator&section=3"><?php echo gettext("Ratecard Simulator");?></a></li>
-				<li><a href="A2B_entity_prefix.php?section=3"><?php echo gettext("Browse Prefix");?></a></li>
+				<li><a href="A2B_entity_prefix.php?atmenu=prefixe&stitle=Prefix&section=3"><?php echo gettext("Browse Prefix");?></a></li>
+				<li><a href="A2B_entity_prefix.php?form_action=ask-add&atmenu=prefixe&stitle=Prefix&section=3"><?php echo gettext("Add Prefix");?></a></li>
 			</ul></li>
 		</ul>
 		</div>
