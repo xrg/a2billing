@@ -1,0 +1,1 @@
+xgettext -o lib/locale/messages.pot $(find -name '*.php') $(find -name '*.inc')
