@@ -69,7 +69,7 @@
 	case "russian":
                 $languageEncoding = "ru_RU.iso88591";
                 $slectedLanguage = "ru_RU";
-                $charEncoding = "iso88591";
+                $charEncoding = "iso8859-5";
         	break;
 	case "turkish":
                 $languageEncoding = "tr_TR.iso88599";
