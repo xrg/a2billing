@@ -19,6 +19,8 @@ class FillBoothForm{
 		$itb = new Table("cc_booth", "id, name");
 		//$itb->debug_st=1;
 		$FG_TABLE_CLAUSE = "agentid = ". $DBHandle->Quote($_SESSION["agent_id"]) ." AND cur_card_id IS NULL";
+			// A booth without default card couldn't ever become active!
+		$FG_TABLE_CLAUSE .= "AND def_card_id IS NOT NULL";
 		$ltb = $itb -> Get_list ($DBHandle, $FG_TABLE_CLAUSE);
 		$list_booths=$ltb;
 		

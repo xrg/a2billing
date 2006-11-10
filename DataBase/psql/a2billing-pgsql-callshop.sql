@@ -97,17 +97,18 @@ CREATE OR REPLACE FUNCTION format_currency(money_sum NUMERIC, from_cur CHAR(3), 
 -- 				cc_booth.agentid = $2;
 -- 	$$ LANGUAGE SQL VOLATILE STRICT;
 	
-CREATE RULE cc_booth_update AS ON UPDATE TO cc_booth_v DO INSTEAD NOTHING;
+CREATE RULE cc_booth_update_o AS ON UPDATE TO cc_booth_v DO INSTEAD NOTHING;
 
 CREATE OR REPLACE RULE cc_booth_update2 AS ON UPDATE TO cc_booth_v 
-	WHERE NEW.state=2
+	WHERE NEW.state=2 AND OLD.state <> 2
 	DO INSTEAD UPDATE cc_card SET activated= 'f' 
 			FROM cc_agent, cc_booth 
 			WHERE cc_booth.cur_card_id= cc_card.id AND
 				cc_booth.id = OLD.id AND
 				cc_booth.agentid = OLD.owner;
 				
-CREATE OR REPLACE RULE cc_booth_update3 AS ON UPDATE TO cc_booth_v WHERE NEW.state=3 
+CREATE OR REPLACE RULE cc_booth_update3 AS ON UPDATE TO cc_booth_v WHERE NEW.state=3 AND
+	OLD.state <> 3
 	DO INSTEAD UPDATE cc_card SET activated= 't' 
 			FROM cc_agent, cc_booth 
 			WHERE cc_booth.cur_card_id= cc_card.id AND
@@ -129,18 +130,31 @@ CREATE OR REPLACE RULE cc_booth_update_d AS ON UPDATE TO cc_booth_v WHERE NEW.cu
 ---- TODO: set the caller id !
 
 CREATE OR REPLACE RULE cc_booth_update_d_fill_booth AS ON UPDATE TO cc_booth_v 
-	WHERE NEW.cur_card_id <> OLD.def_card_id 
-		AND NEW.cur_card_id IS NOT NULL
+	WHERE NEW.cur_card_id IS NOT NULL
 		AND OLD.cur_card_id IS NULL
 	DO INSTEAD UPDATE cc_booth SET cur_card_id = NEW.cur_card_id 
 			FROM cc_card, cc_agent_cards
 			WHERE NEW.cur_card_id= cc_card.id AND
+				(OLD.def_card_id IS NULL OR NEW.cur_card_id <> OLD.def_card_id ) AND
 				cc_booth.id = OLD.id AND
 				cc_booth.agentid = OLD.owner AND
 				cc_agent_cards.card_id = cc_card.id AND
 				cc_agent_cards.agentid = OLD.owner AND
 				cc_agent_cards.def = 'f' ;
 
+CREATE OR REPLACE RULE cc_booth_update_d_empty_booth AS ON UPDATE TO cc_booth_v 
+	WHERE NEW.cur_card_id IS NULL
+		AND OLD.cur_card_id IS NOT NULL
+	DO INSTEAD UPDATE cc_booth SET cur_card_id = NULL ;
+	
+-- 			FROM cc_card, cc_agent_cards
+-- 			WHERE NEW.cur_card_id= cc_card.id AND
+-- 				(OLD.def_card_id IS NULL OR NEW.cur_card_id <> OLD.def_card_id ) AND
+-- 				cc_booth.id = OLD.id AND
+-- 				cc_booth.agentid = OLD.owner AND
+-- 				cc_agent_cards.card_id = cc_card.id AND
+-- 				cc_agent_cards.agentid = OLD.owner AND
+-- 				cc_agent_cards.def = 'f' ;
 
 -- Not all the fields appear in this view:
 -- It could be adjusted to service a different user that will not have

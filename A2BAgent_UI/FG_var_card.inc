@@ -28,10 +28,15 @@ $HD_Form -> AddViewElement(gettext("NOW IN"), "", "15%", "", "", "","object", &$
 $FG_COL_QUERY="id, username, firstname|| ' ' ||lastname AS name, format_currency(credit,'EUR','EUR'), def, now_id, now_name, def_id, def_name";
 
 if ($action == 'fillb') {
-	echo "Fill booth ". $booth . " with card " . $cardid ."<br>" ;
+	?> Fill booth <?= $booth ?>  with card <?= $cardid ?> <br> 
+	<?php 
 	$FG_QUERY= str_params("UPDATE cc_booth_v SET cur_card_id = %#0 WHERE id = %#1 ; ",
 		array($cardid, $booth));
 	echo $FG_QUERY;
+	if ($HD_Form->DBHandle->Execute($FG_QUERY))
+		echo "<span class='action_success'>" . _("Booth Filled"). "</span>";
+	else
+		echo "<span class='action_fail'>" . _("Cannot fill booth!") . " </span>";
 }
 
 $HD_Form -> FG_TABLE_CLAUSE = "agentid = ". $HD_Form->DBHandle->Quote($_SESSION["agent_id"]);
