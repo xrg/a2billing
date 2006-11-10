@@ -20,7 +20,7 @@ $displayservice = 1;
 <html>
 <head>
 <title>..:: :<?php echo CCMAINTITLE; ?>: ::..</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
 <link rel="stylesheet" type="text/css" href="Css/menu.css" media="all">
 
 <script language="JavaScript">
