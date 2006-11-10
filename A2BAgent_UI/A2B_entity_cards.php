@@ -28,23 +28,37 @@ class FillBoothForm{
 		global $list_booths;
 		$ress = '';
 		$opts = '';
-		if ($list_booths)
-		foreach($list_booths as $lb){
-			$opts .= '<option value="' . $lb[0] .'"';
-			if ($lb[0]==$pref_booth)
-				$opts .= ' selected';
-			$opts.= '>' . htmlspecialchars($lb[1]);
-			$opts.="</option>\n";
-		}
-		$ress = <<<EOS
-		<form class="FillBooth" action="${_SERVER['PHP_SELF']}?action=fillb&cardid=$query_row[0]" method="GET" >
+		 // name the fields (for clarity), see FG_var_card's FG_COL_QUERY
+		$f_id = $query_row[0];
+		$f_def = $query_row[4];
+		$f_now_id = $query_row[5];
+		$f_now_name = $query_row[6];
+		$f_def_id = $query_row[7];
+		$f_def_name = $query_row[8];
+		if ($f_now_id != null)
+			$ress .= "<span>" . htmlspecialchars($f_now_name) ."</span>";
+		else {
+			$ress .= _("Nowhere");
+			echo gettype($f_def). $f_def;
+			if ($list_booths)
+			foreach($list_booths as $lb){
+				$opts .= '<option value="' . $lb[0] .'"';
+				if ($lb[0]==$pref_booth)
+					$opts .= ' selected';
+				$opts.= '>' . htmlspecialchars($lb[1]);
+				$opts.="</option>\n";
+			}
+			$ress = <<<EOS
+		<form class="FillBooth" action="${_SERVER['PHP_SELF']}" method="GET" >
+		<input type="hidden" name="action" value="fillb" />
+		<input type="hidden" name="cardid" value="$f_id" />
 		<select name="booth">
 		$opts
 		</select>
-		<button type="submit" value="subm"> Fill! </button>
+		<button type="submit"> Fill! </button>
 	</form>
 EOS;
-
+		}
 		return $ress;
 	}
 };

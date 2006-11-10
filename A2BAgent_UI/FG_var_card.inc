@@ -1,6 +1,6 @@
 <?php
 
-getpost_ifset(array('id',"check", "type", "mode", "cardnumber"));
+getpost_ifset(array('id',"check", "type", "mode", "cardnumber", "action", "booth", "cardid"));
 
 $HD_Form = new FormHandler("cc_card_agent_v","Card");
 
@@ -18,14 +18,21 @@ $HD_Form -> FG_FK_DELETE_CONFIRM = true;
 
 $HD_Form -> AddViewElement(gettext("ID"), "id", "3%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("CARD NUMBER"), "username", "11%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("LASTNAME"), "lastname", "10%", "center", "sort", "15");
+$HD_Form -> AddViewElement(gettext("NAME"), "name", "10%", "left", "sort", "15");
 $HD_Form -> AddViewElement("<acronym title=\"". gettext("BALANCE"). "\">".gettext("BA")."</acronym>", "credit", "10%", "center", "sort", "", "", "", "", "", "", "");
 
 //$HD_Form -> AddViewElement(gettext("ACTION (eval)"), "", "10%", "", "", "","eval", "\"Test %&1\"");
 
-$HD_Form -> AddViewElement(gettext("ACTION"), "", "10%", "", "", "","object", &$fb_form);
+$HD_Form -> AddViewElement(gettext("NOW IN"), "", "15%", "", "", "","object", &$fb_form);
 
-$FG_COL_QUERY="id, username, lastname, format_currency(credit,'EUR','EUR')";
+$FG_COL_QUERY="id, username, firstname|| ' ' ||lastname AS name, format_currency(credit,'EUR','EUR'), def, now_id, now_name, def_id, def_name";
+
+if ($action == 'fillb') {
+	echo "Fill booth ". $booth . " with card " . $cardid ."<br>" ;
+	$FG_QUERY= str_params("UPDATE cc_booth_v SET cur_card_id = %#0 WHERE id = %#1 ; ",
+		array($cardid, $booth));
+	echo $FG_QUERY;
+}
 
 $HD_Form -> FG_TABLE_CLAUSE = "agentid = ". $HD_Form->DBHandle->Quote($_SESSION["agent_id"]);
 $HD_Form -> FieldViewElement ($FG_COL_QUERY);
@@ -41,6 +48,7 @@ $HD_Form -> FG_LIMITE_DISPLAY = 10;
 // 	$HD_Form -> FG_OTHER_BUTTON1_IMG = '';
 // 	
 // 	$HD_Form -> FG_OTHER_BUTTON1_LINK = "javascript:sendValue('|param|');";
+$HD_Form -> FG_EDITION = true;
 
 
 ?>

@@ -126,16 +126,36 @@ CREATE OR REPLACE RULE cc_booth_update_d AS ON UPDATE TO cc_booth_v WHERE NEW.cu
 				cc_agent_cards.agentid = OLD.owner AND
 				cc_agent_cards.def = 't' ;
 
+---- TODO: set the caller id !
+
+CREATE OR REPLACE RULE cc_booth_update_d_fill_booth AS ON UPDATE TO cc_booth_v 
+	WHERE NEW.cur_card_id <> OLD.def_card_id 
+		AND NEW.cur_card_id IS NOT NULL
+		AND OLD.cur_card_id IS NULL
+	DO INSTEAD UPDATE cc_booth SET cur_card_id = NEW.cur_card_id 
+			FROM cc_card, cc_agent_cards
+			WHERE NEW.cur_card_id= cc_card.id AND
+				cc_booth.id = OLD.id AND
+				cc_booth.agentid = OLD.owner AND
+				cc_agent_cards.card_id = cc_card.id AND
+				cc_agent_cards.agentid = OLD.owner AND
+				cc_agent_cards.def = 'f' ;
+
+
 -- Not all the fields appear in this view:
 -- It could be adjusted to service a different user that will not have
 -- access to all the fields.
 
-CREATE VIEW cc_card_agent_v AS
+CREATE OR REPLACE VIEW cc_card_agent_v AS
 	SELECT cc_card.id,expirationdate,username, firstname, lastname, address,
 		credit, activated,
 		inuse , currency, lastuse, language, creditlimit, vat,
-		cc_agent_cards.agentid, cc_agent_cards.def
-		FROM cc_card, cc_agent_cards  WHERE cc_card.id = cc_agent_cards.card_id;
+		cc_agent_cards.agentid, cc_agent_cards.def,
+		cc_booth.id AS now_id , booth2.id AS def_id, cc_booth.name AS now_name, booth2.name AS def_name
+		FROM (cc_card  LEFT OUTER JOIN cc_booth ON cc_booth.cur_card_id = cc_card.id) 
+			LEFT OUTER JOIN cc_booth AS booth2 ON cc_card.id = booth2.def_card_id,
+			cc_agent_cards
+		WHERE cc_card.id = cc_agent_cards.card_id;
 		
 		
 -- eof
