@@ -715,30 +715,29 @@ class FormHandler{
 	 * @.END $comment - set a comment to display below the field
      */
 
-	 /*
-	// THE VARIABLE $FG_TABLE_EDITION WOULD DEFINE THE COL THAT WE WANT SHOW IN YOUR EDITION TABLE
-	// 0. NAME OF THE COLUMN IN THE HTML PAGE,
-	// 1. NAME OF THE FIELD
-	// 2. VALUE OF THE FIELD
-	// 3. THE TYPE OF THE FIELD (INPUT/SELECT/TEXTAREA)
-	// 4. THE PROPERTY OF THIS FIELD
-	// 5. REGEXPRES TO CHECK THE VALUE
-	//    "^.{3}$": A STRING WITH EXACTLY 3 CHARACTERS.
-	//     ^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*$  : EMAIL ADRESSE
-	// 6. ERROR MESSAGE // Used IF SELECT for ask-add as option with value -1
-	// 7.  IF THE FIELD TYPE IS A SELECT,  DEFINE LIST OR SQL
-	// 8.  IF SQL,		THE TABLE NAME
-	// 9. IF SQL,		THE FIELDS  : Three MAXIMUM IN ORDER (NAME, VALUE, ...other that we need for the display) ;)
-	// 10. IF SQL,		THE CLAUSE
-	// 11. IF LIST,		THE NAME OF THE LIST
-	// 12. IF LIST,		DISPLAY : %1 : (%2) ; IF SELECT , show the content of that field
-	// 13. CHECK_EMPTYVALUE - ("no" or "yes") if "no" we we check the regularexpression only if a value has been entered - if NO-NULL, if the value is
-	// 	 					  not entered the field will not be include in the update/addition query
-	// 14. COMMENT ( that is not included in FG_TABLE_EDITION or FG_TABLE_ADITION )
-	// 15. SQL CUSTOM QUERY : customer SQL   or   function to display the edit input
-	// 16. DISPLAYINPUT_DEFAULTSELECT : IF INPUT : FUNCTION TO DISPLAY THE VALUE OF THE FIELD ; IF SELECT IT WILL DISPLAY THE OPTION PER DEFAUTL, ie:
-	//									'<OPTION  value="-1" selected>NOT DEFINED</OPTION>'
-	// 17. COMMENT ABOVE : this will insert a comment line above the edition line, useful to separate section and to provide some detailed instruction
+	 /** The variable $FG_TABLE_EDITION would define the col that we want show in your edition table
+	0. name of the column in the html page,
+	1. name of the field
+	2. value of the field
+	3. the type of the field (INPUT/SELECT/TEXTAREA)
+	4. the property of this field
+	5. regexpres to check the value
+	   "^.{3}$": a string with exactly 3 characters.
+	    ^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*$  : email adresse
+	6. error message // used if select for ask-add as option with value -1
+	7.  if the field type is a SELECT,  define list or SQL
+	8.  if SQL,		the table name
+	9. if SQL,		the fields  : three maximum in order (name, value, ...other that we need for the display) ;)
+	10. if sql,		the clause
+	11. if list,		the name of the list
+	12. if list,		display : %1 : (%2) ; if select , show the content of that field
+	13. check_emptyvalue - ("no" or "yes") if "no" we we check the regularexpression only if a value has been entered - if no-null, if the value is
+		 					  not entered the field will not be include in the update/addition query
+	14. comment ( that is not included in fg_table_edition or fg_table_adition )
+	15. sql custom query : customer sql   or   function to display the edit input
+	16. displayinput_defaultselect : if input : function to display the value of the field ; if select it will display the option per defautl, ie:
+										'<option  value="-1" selected>not defined</option>'
+	17. comment above : this will insert a comment line above the edition line, useful to separate section and to provide some detailed instruction
 	 */
 
 	function AddEditElement($displayname, $fieldname, $defaultvalue, $fieldtype, $fieldproperty, $regexpr_nb, $error_message, $type_selectfield,
