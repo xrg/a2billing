@@ -2,7 +2,7 @@
 
 getpost_ifset(array('id',"check", "type", "mode", "cardnumber"));
 
-$HD_Form = new FormHandler("cc_booth_v","Booth");
+$HD_Form = new FormHandler("cc_booth","Booth");
 
 // This has to be here, so that subsequent calls to Quote() work..
 $HD_Form -> setDBHandler (DbConnect());
@@ -28,9 +28,9 @@ $HD_Form -> AddViewElement(gettext("ID"), "id", "3%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("NAME"), "name", "11%", "left", "sort");
 $HD_Form -> AddViewElement(gettext("LOCATION"), "llocation", "10%", "left", "sort", "15");
 
-$HD_Form -> AddViewElement(gettext("STATE"), "state", "5%", "center", "sort","","list",$booth_states);
+// $HD_Form -> AddViewElement(gettext("STATE"), "state", "5%", "center", "sort","","list",$booth_states);
 
-$HD_Form -> AddViewElement(gettext("CREDIT"), "credit", "5%", "center", "sort");
+// $HD_Form -> AddViewElement(gettext("CREDIT"), "credit", "5%", "center", "sort");
 
 $HD_Form -> AddViewElement(acronym(_("CUR CARD"),_("CURRENT CARD")), "cur_card_id", "25%", "center", "sort", "15", "lie", "cc_card", "username", "id='%id'", "%&1");
 
@@ -43,7 +43,7 @@ $HD_Form -> AddViewElement(acronym(_("DEF CARD"),_("DEFAULT CARD")), "def_card_i
 
 //$HD_Form -> AddViewElement(gettext("ACTION"), "", "10%", "", "", "","object", &$fb_form);
 
-$FG_COL_QUERY="id, name, location, state, format_currency(credit,'EUR','EUR'), cur_card_id, def_card_id";
+$FG_COL_QUERY="id, name, location, cur_card_id, def_card_id";
 
 if (isset($agentid)) {
 	$HD_Form -> FG_TABLE_CLAUSE = "owner = ".
@@ -92,14 +92,35 @@ $HD_Form -> AddEditElement (gettext("LOCATION "),
 
 $HD_Form -> AddEditElement (gettext("DISABLED"),
 			   "disabled",
-			   't',
+			   'f',
 			   "RADIOBUTTON",
 			   "",
 			   "",
 			   gettext("If true, the booth will be out of service"),
 			   "" , "", "" , "Yes :t, - No:f","", "", "", "" );
 
+$HD_Form -> AddEditElement (gettext("CURRENT CARD"),
+			   "cur_card_id",
+			   "$value",	
+			   "INPUT",	
+			   "size=30 maxlength=50 disabled",	
+			   "4","",
+			    "" , "", "", "", "","", "" ,
+			   gettext("This is the card currently used. To change it, use the agent interface."));
 
-$HD_Form -> FieldEditElement ('name','location','disabled');
+$HD_Form -> AddEditElement (gettext("DEFAULT CARD"),
+			   "def_card_id",		
+			   "$value",	
+			   "POPUPVALUE",	
+			   "size=30 maxlength=50",	
+			   "4",	
+			   gettext("Insert the Id CardNumber"),
+			    "" , "", "", "", "", 				
+				"A2B_entity_customer.php?popup_select=1&"
+				, ", 'CardNumberSelection','width=550,height=330,top=20,left=100'" ,
+				gettext("Select the default card for the booth. This card will be re-used for all the non-regular customers. <br>Select any <b>empty</b> card to attach to the booth."));
+
+
+$HD_Form -> FieldEditElement ('name, location, disabled, cur_card_id, def_card_id');
 
 ?>
