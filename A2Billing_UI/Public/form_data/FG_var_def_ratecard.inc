@@ -345,7 +345,8 @@ $HD_Form -> AddEditElement(gettext("START TIME"),
 			   "size=8 maxlength=8 $comp_time",
 			   "4",
 			   gettext("Insert the start time"),
-			   "" , "", "", "", "",  "", "", gettext("Set the time and day of the week at the rate is first valid (ie Monday 00:00 is 0)") );
+			   "" , "", "", "", "",  "", "",
+			   gettext("Set the time and day of the week at the rate is first valid (ie Monday 00:00 is 0)") );
 
 
 $HD_Form -> AddEditElement(gettext("END TIME"),
@@ -355,7 +356,8 @@ $HD_Form -> AddEditElement(gettext("END TIME"),
 			   "size=8 maxlength=8 $comp_time_plus",
 			   "4",
 			   gettext("Insert the end time"),
-			   "" , "", "", "", "",  "", "", gettext("Set the time and the day of the week that the rate is no longer valid. (ie Sunday 23:59 is 10079)") );
+			   "" , "", "", "", "",  "", "",
+			   gettext("Set the time and the day of the week that the rate is no longer valid. (ie Sunday 23:59 is 10079)") );
 
 $HD_Form -> AddEditElement(gettext("TRUNK"),
 			   "id_trunk",
@@ -365,7 +367,7 @@ $HD_Form -> AddEditElement(gettext("TRUNK"),
 			   "sql",
 			   "cc_trunk",
 			   "trunkcode, id_trunk",
-			   	"", "", "%1", "", gettext("Set the trunk to use for this destination, or NOT DEFINED to use the rate card trunk."), '', '<OPTION  value="-1" selected>NOT DEFINED</OPTION>');
+			   "", "", "%1", "", gettext("Set the trunk to use for this destination, or NOT DEFINED to use the rate card trunk."), '', '<OPTION  value="-1" selected>NOT DEFINED</OPTION>');
 
 if (ADVANCED_MODE){
 

@@ -16,7 +16,7 @@ $booth_states[3] = array(gettext("Ready"),"3");
 $booth_states[4] = array(gettext("Active"),"4");
 $booth_states[5] = array(gettext("Disabled"),"5");
 
-$HD_Form -> FG_DEBUG = 1;
+$HD_Form -> FG_DEBUG = 4;
 // FAQ
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "ASC";
 $HD_Form -> FG_FILTER_SEARCH_SESSION_NAME = 'entity_booth_selection';
@@ -71,21 +71,21 @@ $HD_Form -> FG_INTRO_TEXT_EDITION= gettext("You can modify, through the followin
 
 $maxi = '';
 
-$HD_Form -> AddEditElement (gettext("NAME "),
+$HD_Form -> AddEditElement (gettext("NAME"),
 			   "name",
 			   "",
 			   "INPUT",
 			    "size=20 $maxi readonly  maxlength=40",
-			   "4",
+			   "11",
 			   gettext("Insert the name of the booth"),
-			   "" , "", "",	"", "", "",	"", "" );
+			   "" , "", "",	"", "", "","", "" );
 
 $HD_Form -> AddEditElement (gettext("LOCATION "),
 			   "location",
 			   "",
 			   "TEXTAREA",
 			    "size=20 $maxi2 maxlength=40",
-			   "4",
+			   "",
 			   gettext("Insert the text describing the location of the booth"),
 			   "" , "", "",	"", "" , "", "", "");
 
@@ -104,8 +104,8 @@ $HD_Form -> AddEditElement (gettext("CURRENT CARD"),
 			   "$value",	
 			   "INPUT",	
 			   "size=30 maxlength=50 disabled",	
-			   "4","",
-			    "" , "", "", "", "","", "" ,
+			   "","",
+			    "" , "", "", "", "","", "NO-NULL" ,
 			   gettext("This is the card currently used. To change it, use the agent interface."));
 
 $HD_Form -> AddEditElement (gettext("DEFAULT CARD"),
@@ -113,11 +113,12 @@ $HD_Form -> AddEditElement (gettext("DEFAULT CARD"),
 			   "$value",	
 			   "POPUPVALUE",	
 			   "size=30 maxlength=50",	
-			   "4",	
+			   "",	
 			   gettext("Insert the Id CardNumber"),
-			    "" , "", "", "", "", 				
+			    ", 'CardNumberSelection','width=550,height=330,top=20,left=100'",
+			    "", "", "", "", 				
 				"A2B_entity_regulars.php?popup_select=def&"
-				, ", 'CardNumberSelection','width=550,height=330,top=20,left=100'" ,
+				, "NO-NULL",
 				gettext("Select the default card for the booth. This card will be re-used for all the non-regular customers. <br>Select any <b>empty</b> card to attach to the booth."));
 
 
