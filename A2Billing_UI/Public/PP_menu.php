@@ -100,7 +100,9 @@ function imgidclick(imgID,divID)
 		<li><ul>
 				<li><a href="A2B_entity_agent.php?atmenu=card&stitle=Customers_Card"><?php echo gettext("List Agents");?></a></li>
 				<li><a href="A2B_entity_agent.php?form_action=ask-add&atmenu=card&stitle=Card"><?php echo gettext("Create Agents");?></a></li>
-				<li><a href="A2B_entity_card_multia.php?stitle=Card"><?php echo gettext("Generate Agent Customers");?></a></li>
+				<li><a href="A2B_entity_card_multia.php?stitle=Card"><?php echo gettext("Generate Regulars");?></a></li>
+				<li><a href="A2B_entity_booths.php?stitle=Booths"><?php echo gettext("Booths");?></a></li>
+				
 		</ul></li>
 	</ul>
 	</div>

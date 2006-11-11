@@ -6,6 +6,19 @@ getpost_ifset(array('id', 'login', 'name','passwd','location','language','tariff
 $language_list = get_languages();
 $language_list_r = get_languages_r($language_list);
 
+$currency_list = array();
+$currency_list_r = array();
+$indcur=0;
+
+$currencies_list = get_currencies();
+
+foreach($currencies_list as $key => $cur_value) {
+	$currency_list[$key]  = array( $cur_value[1].' ('.$cur_value[2].')', $key);
+	$currency_list_r[$key]  = array( $key, $cur_value[1]);
+	$currency_list_key[$key][0] = $key;
+}
+
+
 $HD_Form = new FormHandler("cc_agent","Agent");
 
 $HD_Form -> FG_DEBUG = 0;
@@ -27,12 +40,14 @@ $HD_Form -> AddViewElement(gettext("OPTIONS"), "options", "25%", "center", "sort
 $HD_Form -> AddViewElement(gettext("LOCATION"), "location", "25%", "left", "sort");
 $HD_Form -> AddViewElement(gettext("LANGUAGE"), "language", "25%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("TARIFFG"), "tariffgroup", "10%", "center", "sort", "15", "lie", "cc_tariffgroup", "tariffgroupname", "id='%id'", "%1");
+$HD_Form -> AddViewElement("<acronym title=\"CURRENCY\">".gettext("CUR")."</acronym>", "currency", "5%", "center", "sort", "", "list", $currency_list_key);
+$HD_Form -> AddViewElement("<acronym title=\"ACTIVATED\">".gettext("ACT")."</acronym>", "activated", "4%", "center", "sort", "", "list", $actived_list);
 
 //$HD_Form -> AddViewElement(gettext("NAME"), "id_cc_card", "25%", "center", "sort", "15", "lie", "cc_card", "username", "id='%id'", "%1");
 //$HD_Form -> AddViewElement(gettext("USER ID"), "activated", "25%", "center", "sort", "", "list", $actived_list);
 
 
-$HD_Form -> FieldViewElement ('id, name, login, options, location, language, tariffgroup');
+$HD_Form -> FieldViewElement ('id, name, login, options, location, language, tariffgroup, currency, active');
 
 
 $HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO ".strtoupper($HD_Form->FG_INSTANCE_NAME)." CREATED!");
@@ -110,6 +125,24 @@ $HD_Form -> AddEditElement (gettext("TARIFFGROUP"),
 			   "tariffgroupname, id",
 			   "", "", "%1", "", gettext("The tariff that will apply to the agent's cards"));
 
+$HD_Form -> AddEditElement (gettext("CURRENCY"),
+			   "currency",
+			   "",
+			   "SELECT",
+			   "",
+			   "",
+			   "",
+			   "list" , "", "",	"", $currency_list, "%1", "", "" );
+
+$HD_Form -> AddEditElement (gettext("ACTIVATED"),
+			   "active",
+			   't',
+			   "RADIOBUTTON",
+			   "",
+			   "",
+			   gettext("Choose if you want to activate this agent"),
+			   "" , "", "" , "Yes :t, - No:f",	"", "", "", "" );
+
 // $HD_Form -> AddEditElement (gettext("ACTIVATED"),
 // 				   "activated",
 // 				   't',
@@ -121,7 +154,7 @@ $HD_Form -> AddEditElement (gettext("TARIFFGROUP"),
 
 
 
- $HD_Form -> FieldEditElement ('name, login, passwd, location, language, tariffgroup');
+ $HD_Form -> FieldEditElement ('name, login, passwd, location, language, tariffgroup, currency, active');
 
 
 

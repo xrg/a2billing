@@ -6,7 +6,7 @@ include ("./form_data/FG_var_agent.inc");
 
 
 
-if (! has_rights (ACX_CUSTOMER)){ 
+if (! has_rights (ACX_AGENTS)){ 
 	   Header ("HTTP/1.0 401 Unauthorized");
 	   Header ("Location: PP_error.php?c=accessdenied");	   
 	   die();	   
