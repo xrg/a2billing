@@ -785,7 +785,7 @@ class FormHandler{
 			$this->FG_FILTER_SEARCH_FORM_SELECT[$cur] = array($displayname, $sql, $select_name);
 		}else{
 			$this->FG_FILTER_SEARCH_FORM_SELECT[$cur] = array($displayname, 0, $select_name, $array_content);
-		}		
+		}
 	}
 	
 	
@@ -795,7 +795,7 @@ class FormHandler{
 	 * @ $col_query	 
      */
 	 
-	function FieldEditElement ($fieldname) {         
+	function FieldEditElement ($fieldname) {
 		$this->FG_QUERY_EDITION = $fieldname;
 		$this->FG_QUERY_ADITION = $fieldname;
 	}
