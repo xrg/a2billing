@@ -116,7 +116,7 @@ $HD_Form -> AddEditElement (gettext("DEFAULT CARD"),
 			   "4",	
 			   gettext("Insert the Id CardNumber"),
 			    "" , "", "", "", "", 				
-				"A2B_entity_customer.php?popup_select=1&"
+				"A2B_entity_regulars.php?popup_select=def&"
 				, ", 'CardNumberSelection','width=550,height=330,top=20,left=100'" ,
 				gettext("Select the default card for the booth. This card will be re-used for all the non-regular customers. <br>Select any <b>empty</b> card to attach to the booth."));
 
