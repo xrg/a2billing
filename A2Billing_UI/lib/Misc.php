@@ -362,7 +362,7 @@
 		$res ="<acronym title=\"";
 		$res .= $title;
 		$res .= "\" >";
-		$res .= $expl;
+		$res .= $acr;
 		$res .= "</acronym>";
 		return $res;
 	}
