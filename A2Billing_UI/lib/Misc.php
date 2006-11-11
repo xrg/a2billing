@@ -354,4 +354,16 @@
 		return $resstr;
 	}
 
+	/** For code clarity only: it will produce the string for an &lt;acronym&gt; element
+		@param acr   The acronym, the short one
+		@param title the explanation (usually a hint)
+	*/
+	function acronym($acr, $title){
+		$res ="<acronym title=\"";
+		$res .= $title;
+		$res .= "\" >";
+		$res .= $expl;
+		$res .= "</acronym>";
+		return $res;
+	}
 ?>
