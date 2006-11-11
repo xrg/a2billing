@@ -32,13 +32,18 @@ $HD_Form -> AddViewElement(gettext("STATE"), "state", "5%", "center", "sort","",
 
 $HD_Form -> AddViewElement(gettext("CREDIT"), "credit", "5%", "center", "sort");
 
+$HD_Form -> AddViewElement(acronym(_("CUR CARD"),_("CURRENT CARD")), "cur_card_id", "25%", "center", "sort", "15", "lie", "cc_card", "username", "id='%id'", "%&1");
+
+$HD_Form -> AddViewElement(acronym(_("DEF CARD"),_("DEFAULT CARD")), "def_card_id", "25%", "center", "sort", "15", "lie", "cc_card", "username", "id='%id'", "%&1");
+
+
 // $HD_Form -> AddViewElement("<acronym title=\"". gettext("BALANCE"). "\">".gettext("BA")."</acronym>", "credit", "10%", "center", "sort", "", "", "", "", "", "", "");
 
 //$HD_Form -> AddViewElement(gettext("ACTION (eval)"), "", "10%", "", "", "","eval", "\"Test %&1\"");
 
 //$HD_Form -> AddViewElement(gettext("ACTION"), "", "10%", "", "", "","object", &$fb_form);
 
-$FG_COL_QUERY="id, name, location, state, format_currency(credit,'EUR','EUR')";
+$FG_COL_QUERY="id, name, location, state, format_currency(credit,'EUR','EUR'), cur_card_id, def_card_id";
 
 if (isset($agentid)) {
 	$HD_Form -> FG_TABLE_CLAUSE = "owner = ".
