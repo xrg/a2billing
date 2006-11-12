@@ -40,13 +40,13 @@ $HD_Form -> AddViewElement(gettext("MAX"), "maxvalue", "7%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("MIN"), "minvalue", "7%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("STATUS"), "status", "6%", "center", "sort", "", "list", $actived_list);
 $HD_Form -> AddViewElement(gettext("TRUNK"), "id_trunk", "12%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("CREATION DATE"), "creationdate", "12%", "center", "sort", "22", "", "", "", "", "", "display_dateformat");
+$HD_Form -> AddViewElement(gettext("CREATION DATE"), "datecreate", "12%", "center", "sort", "22", "", "", "", "", "", "display_dateformat");
 
 
 
 
 // added a parameter to append  FG_TABLE_ID  ( by default ) or disable 0.
-$HD_Form -> FieldViewElement ('name, periode, type, maxvalue, minvalue, status, id_trunk, creationdate');
+$HD_Form -> FieldViewElement ('name, periode, type, maxvalue, minvalue, status, id_trunk, datecreate');
 
 
 $HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO ".strtoupper($HD_Form->FG_INSTANCE_NAME)." CREATED!");  
