@@ -1209,7 +1209,7 @@ class FormHandler{
 				$fields_name = $this->FG_TABLE_ADITION[$i][1];
 				$regexp = $this->FG_TABLE_ADITION[$i][5];
 				
-				// FIND THE MULTIPLE SELECT
+				// find the multiple select
 				if ($pos_mul && is_array($processed[$fields_name])){ 
 					$total_mult_select=0;					
 					foreach ($processed[$fields_name] as $value){
@@ -1223,10 +1223,9 @@ class FormHandler{
 					if ($i>0) $param_add_value .= ", ";
 					$param_add_value .= "'".addslashes(trim($total_mult_select))."'";
 				
-				}else{
-					// NO MULTIPLE SELECT
+				}else{ // no multiple select
 					
-					// CHECK ACCORDING TO THE REGULAR EXPRESSION DEFINED	
+					// check according to the regular expression defined	
 					if (is_numeric($regexp) && !(strtoupper(substr($this->FG_TABLE_ADITION[$i][13],0,2))=="NO" && $processed[$fields_name]=="") ){
 						$this-> FG_fit_expression[$i] = ereg( $this->FG_regular[$regexp][0] , $processed[$fields_name]);								
 						if ($this->FG_DEBUG >= 1)  echo "<br>->  $fields_name => ".$this->FG_regular[$regexp][0]." , ".$processed[$fields_name];
@@ -1235,14 +1234,14 @@ class FormHandler{
 							$form_action="ask-add";
 						}
 					}elseif ($regexp == "check_select"){
-					// FOR SELECT FIELD WE HAVE THE check_select THAT WILL ENSURE WE DEFINE A VALUE FOR THE SELECTABLE FIELD
+					// for select field we have the check_select that will ensure we define a value for the selectable field
 						if ($processed[$fields_name]==-1){
 							$this-> FG_fit_expression[$i] = false;
 							$this->VALID_SQL_REG_EXP = false;
 							$form_action="ask-add";
 						}
 					}
-					// CHECK IF THIS IS A SPLITABLE FIELD :D like 12-14 or 15;16;17
+					// check if this is a splitable field :D like 12-14 or 15;16;17
 				 	if ($fields_name == $this -> FG_SPLITABLE_FIELD){
 						$splitable_value = $processed[$fields_name];
 						$arr_splitable_value = explode(",", $splitable_value);
@@ -1291,8 +1290,9 @@ class FormHandler{
 		if ($this->FG_DEBUG >= 1)  echo "<br><hr> $param_add_value";	
 		
 		$instance_table = new Table($this->FG_TABLE_NAME, $param_add_fields);
+		if ($this->FG_DEBUG >= 4) $instance_table->debug_st = 1;
 
-		// CHECK IF WE HAD FOUND A SPLITABLE FIELD THEN WE MIGHT HAVE %TAGPREFIX%
+		// check if we had found a splitable field then we might have %TAGPREFIX%
 		if (strpos($param_add_value, '%TAGPREFIX%')){
 			foreach ($arr_value_to_import as $current_value){
 				$param_add_value_replaced = str_replace("%TAGPREFIX%", $current_value, $param_add_value);				
@@ -1301,23 +1301,28 @@ class FormHandler{
 		}else{
 			if ($this->VALID_SQL_REG_EXP) $this -> RESULT_QUERY = $instance_table -> Add_table ($this->DBHandle, $param_add_value, null, null, $this->FG_TABLE_ID);
 		}
-		if (!$this -> RESULT_QUERY ){					
+		if (!$this -> RESULT_QUERY ){
+			if ($this->FG_DEBUG >= 2)
+				echo "<br><hr>Error: " . $this->DBHandle->ErrorMsg() . "<br><hr>";
+
 			$findme   = 'duplicate';
-			$pos_find = strpos($instance_sub_table -> errstr, $findme);								
+			$pos_find = strpos($instance_sub_table -> errstr, $findme);
 			if ($pos_find !== false) {
-				$alarm_db_error_duplication = true;				
+				$alarm_db_error_duplication = true;
 				exit;
-			}					
+			}
 		}else{
 			// CALL DEFINED FUNCTION AFTER THE ACTION ADDITION
 			if (strlen($this->FG_ADDITIONAL_FUNCTION_AFTER_ADD)>0)
-						$res_funct = call_user_func(array(&$this, $this->FG_ADDITIONAL_FUNCTION_AFTER_ADD)); 
+				$res_funct = call_user_func(array(&$this, $this->FG_ADDITIONAL_FUNCTION_AFTER_ADD));
 			
 			if ($this->FG_ADITION_GO_EDITION == "yes"){
 				$form_action="ask-edit";
 				$this->FG_ADITION_GO_EDITION = "yes-done";
 			}
 			$id = $this -> RESULT_QUERY;
+			if ($this->FG_DEBUG >= 2)
+				echo "Result: " . $this -> RESULT_QUERY . "<br>";
 		}
 			
 		if ( ($this->VALID_SQL_REG_EXP) && (isset($this->FG_GO_LINK_AFTER_ACTION_ADD))){				
@@ -1621,7 +1626,12 @@ class FormHandler{
 		}
 
 		$this -> RESULT_QUERY = $instance_table -> Delete_table ($this->DBHandle, $this->FG_EDITION_CLAUSE, $func_table = null);
-		if (!$this -> RESULT_QUERY)  echo gettext("error deletion");
+		if (!$this -> RESULT_QUERY) {
+			echo "<br>" . gettext("Cannot Delete");
+			if ($this->FG_DEBUG >=2 )
+				echo "<br>Error: ". $this->DBHandle->ErrorMsg() ."<br>";
+			return ;
+		}
 
 		$this->FG_INTRO_TEXT_DELETION = str_replace("%id", $processed['id'], $this->FG_INTRO_TEXT_DELETION);
 		$this->FG_INTRO_TEXT_DELETION = str_replace("%table", $this->FG_TABLE_NAME, $this->FG_INTRO_TEXT_DELETION);
