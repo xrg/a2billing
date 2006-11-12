@@ -103,6 +103,7 @@ function imgidclick(imgID,divID)
 				<li><a href="A2B_entity_regulars.php?atmenu=regular&stitle=Regular_Customers"><?= _("List Regulars");?></a></li>
 				<li><a href="A2B_entity_card_multia.php?stitle=Card"><?= gettext("Generate Regulars");?></a></li>
 				<li><a href="A2B_entity_booths.php?stitle=Booths"><?= gettext("Booths");?></a></li>
+				<li><a href="A2B_entity_booths.php?form_action=ask-add&atmenu=booth&stitle=Booth"><?= _("Create Booth");?></a></li>
 				
 		</ul></li>
 	</ul>
