@@ -157,16 +157,8 @@ $nb_agent = count($list_agent);
 	<form name="theForm" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
           <td align="left" width="75%">
 	  	<strong>1)</strong> 
-		<select name="choose_list" size="1" class="form_enter" style="border: 2px outset rgb(204, 51, 0);">
-			<option value=""><?php echo gettext("Choose the number of cards to create");?></option>
-			<option class="input" value="1"><?php echo gettext("1 Card");?></option>
-			<option class="input" value="10"><?php echo gettext("10 Cards");?></option>
-			<option class="input" value="50"><?php echo gettext("50 Cards");?></option>
-			<option class="input" value="100"><?php echo gettext("100 Cards");?></option>
-			<option class="input" value="200"><?php echo gettext("200 Cards");?></option>
-			<option class="input" value="500"><?php echo gettext("500 Cards");?></option>
-			<option class="input" value="5000"><?php echo gettext("5000 Cards");?></option>
-		</select>
+	  	<label> <?= _("Choose the number of cards to create: ");?></label>
+	  	<input name="choose_list" size="4" class="form_enter" value="1" />
 		<br/>
 				
 		  	<strong>2)</strong> 
