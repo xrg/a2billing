@@ -30,13 +30,26 @@ $FG_COL_QUERY="id, username, firstname|| ' ' ||lastname AS name, format_currency
 if ($action == 'fillb') {
 	?> Fill booth <?= $booth ?>  with card <?= $cardid ?> <br> 
 	<?php 
-	$FG_QUERY= str_params("UPDATE cc_booth_v SET cur_card_id = %#0 WHERE id = %#1 ; ",
+	$FG_QUERY= str_params("UPDATE cc_booth SET cur_card_id = %#0 WHERE id = %#1 ; ",
 		array($cardid, $booth));
 	echo $FG_QUERY;
 	if ($HD_Form->DBHandle->Execute($FG_QUERY))
 		echo "<span class='action_success'>" . _("Booth Filled"). "</span>";
 	else
 		echo "<span class='action_fail'>" . _("Cannot fill booth!") . " </span>";
+}elseif ($action == 'emptyb') {
+	?> Empty booth <?= $booth ?><br> 
+	<?php 
+	$FG_QUERY= str_params("UPDATE cc_booth SET cur_card_id = NULL WHERE id = %#0 ; ",
+		array($booth));
+	echo $FG_QUERY;
+	if ($HD_Form->DBHandle->Execute($FG_QUERY))
+		echo "<span class='action_success'>" . _("Booth Emptied"). "</span>";
+	else {
+		echo "<span class='action_fail'>" . _("Cannot empty booth!") . " </span>";
+		if ($HD_Form->FG_DEBUG>0)
+			echo $HD_Form->DBHandle->ErrorMsg();
+		}
 }
 
 $HD_Form -> FG_TABLE_CLAUSE = "agentid = ". $HD_Form->DBHandle->Quote($_SESSION["agent_id"]);

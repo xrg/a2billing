@@ -13,21 +13,32 @@ if (! has_rights (ACX_ACCESS)){
 class FillBoothForm{
 	var $list_booths;
 	var $pref_booth=-1;
+	var $txt_fill ;
+	var $txt_empty;
 	
 	function init(&$DBHandle){
 		global $list_booths;
+		global $txt_fill;
+		global $txt_empty;
 		$itb = new Table("cc_booth", "id, name");
-		//$itb->debug_st=1;
-		$FG_TABLE_CLAUSE = "agentid = ". $DBHandle->Quote($_SESSION["agent_id"]) ." AND cur_card_id IS NULL";
+		$itb->debug_st=1;
+		$FG_TABLE_CLAUSE = "agentid = ". $DBHandle->Quote($_SESSION["agent_id"]) ;
+		// ." AND cur_card_id IS NULL" No, allow all booths to be re-filled, but that
+		// could confuse the agent if the booth is charged.. 
 			// A booth without default card couldn't ever become active!
-		$FG_TABLE_CLAUSE .= "AND def_card_id IS NOT NULL";
+		$FG_TABLE_CLAUSE .= " AND def_card_id IS NOT NULL";
 		$ltb = $itb -> Get_list ($DBHandle, $FG_TABLE_CLAUSE);
 		$list_booths=$ltb;
+		
+		$txt_fill = _("Fill!");
+		$txt_empty = _("Empty!");
 		
 	}
 
 	function disp($query_row, $qc){
 		global $list_booths;
+		global $txt_fill;
+		global $txt_empty;
 		$ress = '';
 		$opts = '';
 		 // name the fields (for clarity), see FG_var_card's FG_COL_QUERY
@@ -37,27 +48,41 @@ class FillBoothForm{
 		$f_now_name = $query_row[6];
 		$f_def_id = $query_row[7];
 		$f_def_name = $query_row[8];
-		if ($f_now_id != null)
-			$ress .= "<span>" . htmlspecialchars($f_now_name) ."</span>";
-		else {
-			$ress .= _("Nowhere");
-			echo gettype($f_def). $f_def;
+		if ($f_now_id != null){
+			$f_sp_name = htmlspecialchars($f_now_name);
+			$ress .= <<<EOS
+		<form class="EmptyBooth" action="${_SERVER['PHP_SELF']}" method="GET" >
+		<label>$f_sp_name </label>
+		<input type="hidden" name="action" value="emptyb" />
+		<input type="hidden" name="booth" value="$f_now_id">
+		<button type="submit">$txt_empty</button>
+		</form>
+EOS;
+		} else {
+			$ress .= "<span>" . _("Nowhere") ;
+			if (isset($f_def_id))
+				$ress .= _(", default for ") . htmlspecialchars($f_def_name);
+			$ress.= "</span>";
+			//$ress .= "Default: " . $f_def_id . " " ;
+			//echo gettype($f_def). $f_def;
 			if ($list_booths)
-			foreach($list_booths as $lb){
-				$opts .= '<option value="' . $lb[0] .'"';
-				if ($lb[0]==$pref_booth)
-					$opts .= ' selected';
-				$opts.= '>' . htmlspecialchars($lb[1]);
-				$opts.="</option>\n";
-			}
-			$ress = <<<EOS
+				foreach($list_booths as $lb)
+				if( (!isset($f_def_id)) || ($lb[0] == $f_def_id)){
+					$opts .= '<option value="' . $lb[0] .'"';
+					if ($lb[0]==$pref_booth)
+						$opts .= ' selected';
+					$opts.= '>' . htmlspecialchars($lb[1]);
+					$opts.="</option>\n";
+				}
+				
+			$ress .= <<<EOS
 		<form class="FillBooth" action="${_SERVER['PHP_SELF']}" method="GET" >
 		<input type="hidden" name="action" value="fillb" />
 		<input type="hidden" name="cardid" value="$f_id" />
 		<select name="booth">
 		$opts
 		</select>
-		<button type="submit"> Fill! </button>
+		<button type="submit">$txt_fill</button>
 	</form>
 EOS;
 		}

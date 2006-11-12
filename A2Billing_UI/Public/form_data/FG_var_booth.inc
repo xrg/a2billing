@@ -16,7 +16,7 @@ $booth_states[3] = array(gettext("Ready"),"3");
 $booth_states[4] = array(gettext("Active"),"4");
 $booth_states[5] = array(gettext("Disabled"),"5");
 
-$HD_Form -> FG_DEBUG = 4;
+$HD_Form -> FG_DEBUG = 0;
 // FAQ
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "ASC";
 $HD_Form -> FG_FILTER_SEARCH_SESSION_NAME = 'entity_booth_selection';
@@ -123,5 +123,8 @@ $HD_Form -> AddEditElement (gettext("DEFAULT CARD"),
 
 
 $HD_Form -> FieldEditElement ('name, location, disabled, cur_card_id, def_card_id');
+
+$HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = "../Images/cormfirmboton.gif";
+$HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT = gettext("Once you have completed the form above, click on the CONTINUE button.");
 
 ?>
