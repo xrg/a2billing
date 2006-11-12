@@ -1475,7 +1475,6 @@ CREATE TABLE cc_alarm (
     numberofalarm INT NOT NULL DEFAULT 0,    
     datecreate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     datelastrun TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    creationdate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     emailreport VARCHAR(50)
     PRIMARY KEY (id)
 );

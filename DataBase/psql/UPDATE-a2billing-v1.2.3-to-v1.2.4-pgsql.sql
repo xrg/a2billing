@@ -569,7 +569,6 @@ CREATE TABLE cc_alarm (
     numberofalarm integer NOT NULL DEFAULT 0,    
     datecreate timestamp without time zone DEFAULT now(),
     datelastrun timestamp without time zone DEFAULT now(),
-    creationdate timestamp without time zone DEFAULT now(),
     emailreport text
 );
 ALTER TABLE ONLY cc_alarm
