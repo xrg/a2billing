@@ -25,6 +25,8 @@ $HD_Form -> FG_FK_DELETE_CONFIRM = true;
 
 
 $HD_Form -> AddViewElement(gettext("ID"), "id", "3%", "center", "sort");
+$HD_Form -> AddViewElement(_("AGENT"), "agentid", "15%", "left", "sort", "15", "lie", "cc_agent", "name", "id='%id'", "%&1");
+
 $HD_Form -> AddViewElement(gettext("NAME"), "name", "11%", "left", "sort");
 $HD_Form -> AddViewElement(gettext("LOCATION"), "llocation", "10%", "left", "sort", "15");
 
@@ -43,7 +45,7 @@ $HD_Form -> AddViewElement(acronym(_("DEF CARD"),_("DEFAULT CARD")), "def_card_i
 
 //$HD_Form -> AddViewElement(gettext("ACTION"), "", "10%", "", "", "","object", &$fb_form);
 
-$FG_COL_QUERY="id, name, location, cur_card_id, def_card_id";
+$FG_COL_QUERY="id, agentid, name, location, cur_card_id, def_card_id";
 
 if (isset($agentid)) {
 	$HD_Form -> FG_TABLE_CLAUSE = "owner = ".
@@ -65,17 +67,28 @@ $HD_Form -> FG_LIMITE_DISPLAY = 10;
 // 	$HD_Form -> FG_OTHER_BUTTON1_LINK = "javascript:sendValue('|param|');";
 
 $HD_Form -> FG_EDITION = true;
-
+$HD_Form -> FG_DELETION = true;
 
 $HD_Form -> FG_INTRO_TEXT_EDITION= gettext("You can modify, through the following form, the different properties of the ".$HD_Form->FG_INSTANCE_NAME);
 
 $maxi = '';
 
+if (($form_action == 'ask-add') || ($form_action == 'add'))
+	$HD_Form -> AddEditElement (gettext("AGENT"),
+			   "agentid",
+			   "",
+			   "SELECT",
+			   "", "", "",
+			   "sql",
+			   "cc_agent",
+			   "name, id",
+			   "", "", "%1", "", gettext("The agent who owns the booth"));
+
 $HD_Form -> AddEditElement (gettext("NAME"),
 			   "name",
 			   "",
 			   "INPUT",
-			    "size=20 $maxi readonly  maxlength=40",
+			    "size=20 $maxi maxlength=40",
 			   "11",
 			   gettext("Insert the name of the booth"),
 			   "" , "", "",	"", "", "","", "" );
@@ -121,10 +134,31 @@ $HD_Form -> AddEditElement (gettext("DEFAULT CARD"),
 				, "NO-NULL",
 				gettext("Select the default card for the booth. This card will be re-used for all the non-regular customers. <br>Select any <b>empty</b> card to attach to the booth."));
 
+$HD_Form -> AddEditElement (gettext("CALLERID"),
+			   "callerid",
+			   "$value",	
+			   "INPUT",	
+			   "size=30 maxlength=50",	
+			   "","",
+			    "" , "", "", "", "","", "NO-NULL" ,
+			   gettext("The callerid will be used to technically map the booth to the asterisk user."));
 
-$HD_Form -> FieldEditElement ('name, location, disabled, cur_card_id, def_card_id');
+
+if (( $form_action == 'ask-add' )||($form_action == 'add'))
+	$HD_Form -> FieldEditElement ('agentid, name, location, disabled, cur_card_id, def_card_id,callerid');
+else
+	$HD_Form -> FieldEditElement ('name, location, disabled, cur_card_id, def_card_id,callerid');
+
+
+$HD_Form -> FG_INTRO_TEXT_ADITION = '';
+$HD_Form -> FG_TEXT_ADITION_CONFIRMATION = gettext("Your new ".$HD_Form->FG_INSTANCE_NAME." has been inserted. <br>");
 
 $HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = "../Images/cormfirmboton.gif";
 $HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT = gettext("Once you have completed the form above, click on the CONTINUE button.");
+
+
+// $HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
+// $HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
+// $HD_Form -> FG_GO_LINK_AFTER_ACTION_DELETE = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
 
 ?>
