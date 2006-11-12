@@ -6,10 +6,11 @@
 CREATE OR REPLACE FUNCTION cc_booth_set_card() RETURNS trigger AS $$
 	BEGIN
 		-- Remove old card first
-	IF TG_OP = 'UPDATE' AND (NEW.def_card_id <> OLD.def_card_id ) THEN
+	IF TG_OP = 'UPDATE'  THEN
+		IF(NEW.def_card_id <> OLD.def_card_id ) THEN
 		UPDATE cc_agent_cards SET def = 'f' 
 			WHERE OLD.def_card_id IS NOT NULL AND card_id = OLD.def_card_id;
-	END IF;
+	END IF; END IF;
 	
 	PERFORM id FROM cc_booth WHERE 
 		NEW.def_card_id IS NOT NULL AND 
@@ -62,6 +63,7 @@ CREATE OR REPLACE FUNCTION cc_booth_remove_def_card() RETURNS trigger AS $$
 BEGIN
 	UPDATE cc_agent_cards SET def = 'f' 
 		WHERE OLD.def_card_id IS NOT NULL AND card_id = OLD.def_card_id;
+	RETURN OLD;
 END; $$
 LANGUAGE plpgsql;
 

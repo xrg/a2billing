@@ -15,8 +15,7 @@ CREATE TABLE cc_agent (
     tariffgroup integer REFERENCES cc_tariffgroup(id),
     options integer NOT NULL DEFAULT 0,
     credit NUMERIC(12,4) NOT NULL DEFAULT 0,
-    currency CHARACTER(3) NOT NULL DEFAULT 'EUR',
-    callerid TEXT
+    currency CHARACTER(3) NOT NULL DEFAULT 'EUR'
     );
 
 -- one way: put the agent inside the card:
@@ -40,7 +39,9 @@ CREATE TABLE cc_booth (
 	last_activation timestamp without time zone,
 	disabled boolean NOT NULL DEFAULT 'f',
 	cur_card_id bigint REFERENCES cc_card(id),
-	def_card_id bigint REFERENCES cc_card(id)
+	def_card_id bigint REFERENCES cc_card(id),
+	callerid TEXT
+
 );
 
 	
