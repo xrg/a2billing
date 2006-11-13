@@ -112,9 +112,10 @@ CREATE OR REPLACE RULE cc_booth_update3 AS ON UPDATE TO cc_booth_v WHERE NEW.sta
 -- It could be adjusted to service a different user that will not have
 -- access to all the fields.
 
+
 CREATE OR REPLACE VIEW cc_card_agent_v AS
-	SELECT cc_card.id,expirationdate,username, firstname, lastname, address,
-		credit, activated,
+	SELECT cc_card.id, expirationdate, username, useralias, firstname, lastname, address,
+		credit, activated, runservice, autorefill, initialbalance, typepaid, firstusedate,
 		inuse , currency, lastuse, language, creditlimit, vat,
 		cc_agent_cards.agentid, cc_agent_cards.def,
 		cc_booth.id AS now_id , booth2.id AS def_id, cc_booth.name AS now_name, booth2.name AS def_name
@@ -125,6 +126,15 @@ CREATE OR REPLACE VIEW cc_card_agent_v AS
 		
 		
 		
+CREATE OR REPLACE RULE cc_card_agent_v_upd AS ON UPDATE TO cc_card_agent_v 
+	DO INSTEAD UPDATE cc_card SET username = NEW.username, useralias = NEW.useralias,
+		firstname=NEW.firstname, lastname = NEW.lastname, address = NEW.address,
+		activated= NEW.activated, language = NEW.language, typepaid= NEW.typepaid,
+		runservice = NEW.runservice, autorefill = NEW.autorefill, creditlimit = NEW.creditlimit,
+		vat = NEW.vat, currency = NEW.currency 
+	WHERE cc_card.id = NEW.id AND OLD.id = NEW.id;
+	
+CREATE OR REPLACE RULE cc_card_agent_v_upd2 AS ON UPDATE TO cc_card_agent_v DO INSTEAD NOTHING;
 -- CREATE OR REPLACE FUNCTION set_booth_defcard ( booth bigint, card bigint) RETURNS boolean AS $$
 -- 	BEGIN -- do not!
 -- 	UPDATE cc_booth SET def_card_id = $2 FROM cc_agent_cards  WHERE
