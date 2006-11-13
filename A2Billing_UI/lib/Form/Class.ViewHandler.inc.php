@@ -322,11 +322,13 @@ function openURLFilter(theLINK)
 		 		 <?php  } ?>
 
 				  	<?php if($this->FG_EDITION || $this->FG_DELETION || $this -> FG_OTHER_BUTTON1 || $this -> FG_OTHER_BUTTON2){?>
-					  <TD align="center" vAlign=top class=tableBodyRight>
-						<?php if($this->FG_EDITION){?>&nbsp; <a href="<?php echo $this->FG_EDITION_LINK?><?php echo $list[$ligne_number][$this->FG_NB_TABLE_COL]?>&stitle=<?php echo $stitle?>&site_id=<?php echo $list[$ligne_number][0]?>"><img src="<?php echo Images_Path_Main;?>/icon-edit.gif" border="0" title="<?php echo $this->FG_EDIT_ALT?>" alt="<?php echo $this->FG_EDIT_ALT?>"></a><?php } ?>
-                        <?php if($this->FG_DELETION){?>&nbsp; <a href="<?php echo $this->FG_DELETION_LINK?><?php echo $list[$ligne_number][$this->FG_NB_TABLE_COL]?>&stitle=<?php echo $stitle?>"><img src="<?php echo Images_Path_Main;?>/icon-del.gif" border="0" title="<?php echo $this->FG_DELETE_ALT?>" alt="<?php echo $this->FG_DELETE_ALT?>"></a><?php } ?>
-					  	<?php if($this->FG_OTHER_BUTTON1){ ?>
-							<a href="<?php
+					  <TD align="center" vAlign=top class=tableBodyRight><?php
+					   if($this->FG_EDITION){
+						?>&nbsp; <a href="<?php echo $this->FG_EDITION_LINK?><?php echo $list[$ligne_number][$this->FG_NB_TABLE_COL]?>&stitle=<?php echo $stitle?>&site_id=<?php echo $list[$ligne_number][0]?>"><img src="<?php echo Images_Path_Main;?>/icon-edit.gif" border="0" title="<?php echo $this->FG_EDIT_ALT?>" alt="<?php echo $this->FG_EDIT_ALT?>"></a><?php } ?>
+					<?php if($this->FG_DELETION){
+						?>&nbsp; <a href="<?php echo $this->FG_DELETION_LINK?><?php echo $list[$ligne_number][$this->FG_NB_TABLE_COL]?>&stitle=<?php echo $stitle?>"><img src="<?php echo Images_Path_Main;?>/icon-del.gif" border="0" title="<?php echo $this->FG_DELETE_ALT?>" alt="<?php echo $this->FG_DELETE_ALT?>"></a><?php } ?>
+					<?php if($this->FG_OTHER_BUTTON1){ 
+					?> <a href="<?php
 								$new_FG_OTHER_BUTTON1_LINK = $this -> FG_OTHER_BUTTON1_LINK;
 								// we should depreciate |param| and only use |col|
 								if (strpos($this -> FG_OTHER_BUTTON1_LINK,"|param|")){
