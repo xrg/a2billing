@@ -1,6 +1,8 @@
 <?php
 include ("../lib/defines.php");
 include ("../lib/module.access.php");
+include ("../lib/smarty.php");
+
 
 if (! has_rights (ACX_CALL_REPORT)){
 	   Header ("HTTP/1.0 401 Unauthorized");
@@ -426,7 +428,7 @@ if (!$nodisplay){
 
 
 if($exporttype!="pdf"){
-	include("PP_header.php");
+	$smarty->display('main.tpl');
 ?>
 <script language="JavaScript" type="text/JavaScript">
 <!--
@@ -447,36 +449,36 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 			<?php  if ($_SESSION["pr_groupID"]==2 && is_numeric($_SESSION["pr_IDCust"])){ ?>
 			<?php  }else{ ?>
 			<tr>
-				<td align="left" valign="top" bgcolor="#000033">
-					<font face="verdana" size="1" color="#ffffff"><b>&nbsp;&nbsp;<?php echo gettext("CUSTOMERS");?></b></font>
+				<td align="left" valign="top" class="bgcolor_003">
+					<font class="fontstyle_003">&nbsp;&nbsp;<?php echo gettext("CUSTOMERS");?></font>
 				</td>				
-				<td class="bar-search" align="left" bgcolor="#acbdee">
-				<table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#acbdee"><tr>
+				<td class="bgcolor_005" align="left" >
+				<table width="100%" border="0" cellspacing="0" cellpadding="0" class="bgcolor_005"><tr>
 					<td>
-						<?php echo gettext("Enter the cardnumber");?>: <INPUT TYPE="text" NAME="entercustomer" value="<?php echo $entercustomer?>">
-						<a href="#" onclick="window.open('A2B_entity_card.php?popup_select=2&popup_formname=myForm&popup_fieldname=entercustomer' , 'CardNumberSelection','width=550,height=330,top=20,left=100');"><img src="../Images/icon_arrow_orange.gif"></a>
+						<?php echo gettext("Enter the cardnumber");?>: <INPUT TYPE="text" NAME="entercustomer" value="<?php echo $entercustomer?>" class="form_input_text">
+						<a href="#" onclick="window.open('A2B_entity_card.php?popup_select=2&popup_formname=myForm&popup_fieldname=entercustomer' , 'CardNumberSelection','width=550,height=330,top=20,left=100');"><img src="<?php echo Images_Path;?>/icon_arrow_orange.gif"></a>
 						<br/>&nbsp;
 					</td>
 					<td align="right">
-						<?php echo gettext("Provider");?>: <INPUT TYPE="text" NAME="enterprovider" value="<?php echo $enterprovider?>" size="4">
-						<a href="#" onclick="window.open('A2B_entity_provider.php?popup_select=2&popup_formname=myForm&popup_fieldname=enterprovider' , 'ProviderSelection','width=550,height=330,top=20,left=100');"><img src="../Images/icon_arrow_orange.gif"></a>
-						<?php echo gettext("Trunk");?>: <INPUT TYPE="text" NAME="entertrunk" value="<?php echo $entertrunk?>" size="4">
-						<a href="#" onclick="window.open('A2B_entity_trunk.php?popup_select=2&popup_formname=myForm&popup_fieldname=entertrunk' , 'TrunkSelection','width=550,height=330,top=20,left=100');"><img src="../Images/icon_arrow_orange.gif"></a>
+						<?php echo gettext("Provider");?>: <INPUT TYPE="text" NAME="enterprovider" value="<?php echo $enterprovider?>" size="4" class="form_input_text">
+						<a href="#" onclick="window.open('A2B_entity_provider.php?popup_select=2&popup_formname=myForm&popup_fieldname=enterprovider' , 'ProviderSelection','width=550,height=330,top=20,left=100');"><img src="<?php echo Images_Path ;?>/icon_arrow_orange.gif"></a>
+						<?php echo gettext("Trunk");?>: <INPUT TYPE="text" NAME="entertrunk" value="<?php echo $entertrunk?>" size="4" class="form_input_text">
+						<a href="#" onclick="window.open('A2B_entity_trunk.php?popup_select=2&popup_formname=myForm&popup_fieldname=entertrunk' , 'TrunkSelection','width=550,height=330,top=20,left=100');"><img src="<?php echo Images_Path ;?>/icon_arrow_orange.gif"></a>
 						<br/>&nbsp;
 					</td>
 				</tr></table></td>
 			</tr>			
 			<?php  }?>
 			<tr>
-        		<td class="bar-search" align="left" bgcolor="#555577">
+        		<td class="bgcolor_002" align="left">
 
 					<input type="radio" name="Period" value="Month" <?php  if (($Period=="Month") || !isset($Period)){ ?>checked="checked" <?php  } ?>>
-					<font face="verdana" size="1" color="#ffffff"><b><?php echo gettext("Selection of the month");?></b></font>
+					<font class="fontstyle_003"><?php echo gettext("Selection of the month");?></font>
 				</td>
-      			<td class="bar-search" align="left" bgcolor="#cddeff">
-					<table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#cddeff"><tr><td>
+      			<td class="bgcolor_003" align="left" >
+					<table width="100%" border="0" cellspacing="0" cellpadding="0"  class="bgcolor_003"><tr><td>
 	  				<input type="checkbox" name="<?php echo gettext("frommonth");?>" value="true" <?php  if ($frommonth){ ?>checked<?php }?>>
-					<?php echo gettext("From");?> : <select name="fromstatsmonth">
+					<?php echo gettext("From");?> : <select name="fromstatsmonth" class="form_input_select">
 					<?php 	$year_actual = date("Y");  	
 						for ($i=$year_actual;$i >= $year_actual-1;$i--)
 						{		   
@@ -496,7 +498,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 					</select>
 					</td><td>&nbsp;&nbsp;
 					<input type="checkbox" name="tomonth" value="true" <?php  if ($tomonth){ ?>checked<?php }?>> 
-				   <?php echo gettext("To");?> : <select name="tostatsmonth">
+				   <?php echo gettext("To");?> : <select name="tostatsmonth" class="form_input_select">
 					<?php 	$year_actual = date("Y");  	
 						for ($i=$year_actual;$i >= $year_actual-1;$i--)
 						{		   
@@ -519,14 +521,14 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
     		</tr>
 
 			<tr>
-        		<td align="left" bgcolor="#000033">
+        		<td align="left" class="bgcolor_004">
 					<input type="radio" name="Period" value="Day" <?php  if ($Period=="Day"){ ?>checked="checked" <?php  } ?>>
-					<font face="verdana" size="1" color="#ffffff"><b><?php echo gettext("Selection of the day");?></b></font>
+					<font class="fontstyle_003"><?php echo gettext("Selection of the day");?></font>
 				</td>
-      			<td align="left" bgcolor="#acbdee">
-					<table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#acbdee"><tr><td>
+      			<td align="left" class="bgcolor_005">
+					<table width="100%" border="0" cellspacing="0" cellpadding="0"  class="bgcolor_005"><tr><td>
 	  				<input type="checkbox" name="fromday" value="true" <?php  if ($fromday){ ?>checked<?php }?>><?php echo gettext("From");?> :
-					<select name="fromstatsday_sday">
+					<select name="fromstatsday_sday" class="form_input_select">
 						<?php  
 							for ($i=1;$i<=31;$i++){
 								if ($fromstatsday_sday==sprintf("%02d",$i)){$selected="selected";}else{$selected="";}
@@ -534,7 +536,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 							}
 						?>	
 					</select>
-				 	<select name="fromstatsmonth_sday">
+				 	<select name="fromstatsmonth_sday" class="form_input_select">
 					<?php 	$year_actual = date("Y");  	
 						for ($i=$year_actual;$i >= $year_actual-1;$i--)
 						{		   
@@ -552,7 +554,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 						}
 					?>
 					</select>
-					<select name="fromstatsmonth_shour">
+					<select name="fromstatsmonth_shour" class="form_input_select">
 					<?php  
 						if (strlen($fromstatsmonth_shour)==0) $fromstatsmonth_shour='0';
 						for ($i=0;$i<=23;$i++){	
@@ -560,7 +562,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 							echo '<option value="'.sprintf("%02d",$i)."\" $selected>".sprintf("%02d",$i).'</option>';
 						}
 					?>					
-					</select>:<select name="fromstatsmonth_smin">
+					</select>:<select name="fromstatsmonth_smin" class="form_input_select">
 					<?php  
 						if (strlen($fromstatsmonth_smin)==0) $fromstatsmonth_smin='0';
 						for ($i=0;$i<=59;$i++){	
@@ -571,7 +573,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 					</select>
 					</td><td>&nbsp;&nbsp;
 					<input type="checkbox" name="today" value="true" <?php  if ($today){ ?>checked<?php }?>> To : 
-					<select name="tostatsday_sday">
+					<select name="tostatsday_sday" class="form_input_select">
 					<?php  
 						for ($i=1;$i<=31;$i++){
 							if ($tostatsday_sday==sprintf("%02d",$i)){$selected="selected";}else{$selected="";}
@@ -579,7 +581,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 						}
 					?>						
 					</select>
-				 	<select name="tostatsmonth_sday">
+				 	<select name="tostatsmonth_sday" class="form_input_select">
 					<?php 	$year_actual = date("Y");  	
 						for ($i=$year_actual;$i >= $year_actual-1;$i--)
 						{		   
@@ -597,7 +599,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 						}
 					?>
 					</select>
-					<select name="tostatsmonth_shour">
+					<select name="tostatsmonth_shour" class="form_input_select">
 					<?php  
 						if (strlen($tostatsmonth_shour)==0) $tostatsmonth_shour='23';
 						for ($i=0;$i<=23;$i++){	
@@ -605,7 +607,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 							echo '<option value="'.sprintf("%02d",$i)."\" $selected>".sprintf("%02d",$i).'</option>';
 						}
 					?>					
-					</select>:<select name="tostatsmonth_smin">
+					</select>:<select name="tostatsmonth_smin" class="form_input_select">
 					<?php  
 						if (strlen($tostatsmonth_smin)==0) $tostatsmonth_smin='59';
 						for ($i=0;$i<=59;$i++){	
@@ -618,51 +620,51 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 	  			</td>
     		</tr>
 			<tr>
-				<td class="bar-search" align="left" bgcolor="#555577">			
-					<font face="verdana" size="1" color="#ffffff"><b>&nbsp;&nbsp;<?php echo gettext("DESTINATION");?></b></font>
+				<td class="bgcolor_002" align="left">			
+					<font class="fontstyle_003">&nbsp;&nbsp;<?php echo gettext("DESTINATION");?></font>
 				</td>
-				<td class="bar-search" align="left" bgcolor="#cddeff">
-				<table width="100%" border="0" cellspacing="0" cellpadding="0"><tr><td>&nbsp;&nbsp;<INPUT TYPE="text" NAME="dst" value="<?php echo $dst?>"></td>
-				<td class="bar-search" align="center" bgcolor="#cddeff"><input type="radio" NAME="dsttype" value="1" <?php if((!isset($dsttype))||($dsttype==1)){?>checked<?php }?>><?php echo gettext("Exact");?></td>
-				<td class="bar-search" align="center" bgcolor="#cddeff"><input type="radio" NAME="dsttype" value="2" <?php if($dsttype==2){?>checked<?php }?>><?php echo gettext("Begins with");?></td>
-				<td class="bar-search" align="center" bgcolor="#cddeff"><input type="radio" NAME="dsttype" value="3" <?php if($dsttype==3){?>checked<?php }?>><?php echo gettext("Contains");?></td>
-				<td class="bar-search" align="center" bgcolor="#cddeff"><input type="radio" NAME="dsttype" value="4" <?php if($dsttype==4){?>checked<?php }?>><?php echo gettext("Ends with");?></td>
-				<td class="bar-search" align="center" bgcolor="#cddeff"><input type="radio" NAME="dsttype" value="5" <?php if($dsttype==5){?>checked<?php }?>><?php echo gettext("Is Not");?></td>
+				<td class="bgcolor_003" align="left" >
+				<table width="100%" border="0" cellspacing="0" cellpadding="0"><tr><td>&nbsp;&nbsp;<INPUT TYPE="text" NAME="dst" value="<?php echo $dst?>" class="form_input_text"></td>
+				<td class="bgcolor_003" align="center"><input type="radio" NAME="dsttype" value="1" <?php if((!isset($dsttype))||($dsttype==1)){?>checked<?php }?>><?php echo gettext("Exact");?></td>
+				<td class="bgcolor_003" align="center"><input type="radio" NAME="dsttype" value="2" <?php if($dsttype==2){?>checked<?php }?>><?php echo gettext("Begins with");?></td>
+				<td class="bgcolor_003" align="center"><input type="radio" NAME="dsttype" value="3" <?php if($dsttype==3){?>checked<?php }?>><?php echo gettext("Contains");?></td>
+				<td class="bgcolor_003" align="center"><input type="radio" NAME="dsttype" value="4" <?php if($dsttype==4){?>checked<?php }?>><?php echo gettext("Ends with");?></td>
+				<td class="bgcolor_003" align="center"><input type="radio" NAME="dsttype" value="5" <?php if($dsttype==5){?>checked<?php }?>><?php echo gettext("Is Not");?></td>
 				</tr></table></td>
 			</tr>
 			<tr>
-				<td align="left" bgcolor="#000033">
-					<font face="verdana" size="1" color="#ffffff"><b>&nbsp;&nbsp;<?php echo gettext("SOURCE");?></b></font>
+				<td align="left"  class="bgcolor_003">
+					<font class="fontstyle_003">&nbsp;&nbsp;<?php echo gettext("SOURCE");?></b></font>
 				</td>
-				<td class="bar-search" align="left" bgcolor="#acbdee">
-				<table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#acbdee"><tr><td>&nbsp;&nbsp;<INPUT TYPE="text" NAME="src" value="<?php echo "$src";?>"></td>
-				<td class="bar-search" align="center" bgcolor="#acbdee"><input type="radio" NAME="srctype" value="1" <?php if((!isset($srctype))||($srctype==1)){?>checked<?php }?>><?php echo gettext("Exact");?></td>
-				<td class="bar-search" align="center" bgcolor="#acbdee"><input type="radio" NAME="srctype" value="2" <?php if($srctype==2){?>checked<?php }?>><?php echo gettext("Begins with");?></td>
-				<td class="bar-search" align="center" bgcolor="#acbdee"><input type="radio" NAME="srctype" value="3" <?php if($srctype==3){?>checked<?php }?>><?php echo gettext("Contains");?></td>
-				<td class="bar-search" align="center" bgcolor="#acbdee"><input type="radio" NAME="srctype" value="4" <?php if($srctype==4){?>checked<?php }?>><?php echo gettext("Ends with");?></td>
-				<td class="bar-search" align="center" bgcolor="#acbdee"><input type="radio" NAME="srctype" value="5" <?php if($srctype==5){?>checked<?php }?>><?php echo gettext("Is Not");?></td>
+				<td class="bgcolor_005" align="left" >
+				<table width="100%" border="0" cellspacing="0" cellpadding="0" ><tr><td>&nbsp;&nbsp;<INPUT TYPE="text" NAME="src" value="<?php echo "$src";?>" class="form_input_text"></td>
+				<td class="bgcolor_005" align="center" ><input type="radio" NAME="srctype" value="1" <?php if((!isset($srctype))||($srctype==1)){?>checked<?php }?>><?php echo gettext("Exact");?></td>
+				<td class="bgcolor_005" align="center" ><input type="radio" NAME="srctype" value="2" <?php if($srctype==2){?>checked<?php }?>><?php echo gettext("Begins with");?></td>
+				<td class="bgcolor_005" align="center" ><input type="radio" NAME="srctype" value="3" <?php if($srctype==3){?>checked<?php }?>><?php echo gettext("Contains");?></td>
+				<td class="bgcolor_005" align="center" ><input type="radio" NAME="srctype" value="4" <?php if($srctype==4){?>checked<?php }?>><?php echo gettext("Ends with");?></td>
+				<td class="bgcolor_005" align="center" ><input type="radio" NAME="srctype" value="5" <?php if($srctype==5){?>checked<?php }?>><?php echo gettext("Is Not");?></td>
 				</tr></table></td>
 			</tr>
 			<tr>
-        		<td class="bar-search" align="left" bgcolor="#000033"> </td>
+        		<td class="bgcolor_004" align="left" > </td>
 
-				<td class="bar-search" align="center" bgcolor="#acbdee">
-					<input type="image"  name="image16" align="top" border="0" src="../Images/button-search.gif" />
+				<td class="bgcolor_005" align="center" >
+					<input type="image"  name="image16" align="top" border="0" src="<?php echo Images_Path;?>/button-search.gif" />
 					&nbsp;&nbsp;&nbsp;&nbsp;
 					<?php echo gettext("Result");?> : <?php echo gettext("Minutes");?><input type="radio" NAME="resulttype" value="min" <?php if((!isset($resulttype))||($resulttype=="min")){?>checked<?php }?>> - Seconds <input type="radio" NAME="resulttype" value="sec" <?php if($resulttype=="sec"){?>checked<?php }?>>
 	  			</td>
     		</tr>
 			<tr>
-				<td class="bar-search" align="left" bgcolor="#555577">			
+				<td class="bgcolor_002" align="left">
 					<font face="verdana" size="1" color="#ffffff"></font>
 				</td>				
-				<td class="bar-search" align="left" bgcolor="#cddeff">
+				<td class="bgcolor_003" align="left" >
 					<center>
 						<?php echo gettext("See Invoice in HTML");?> <input type="radio" NAME="exporttype" value="html" <?php if((!isset($exporttype))||($exporttype=="html")){?>checked<?php }?>>
 						<?php echo gettext("or Export PDF");?> <input type="radio" NAME="exporttype" value="pdf" <?php if($exporttype=="pdf"){?>checked<?php }?>>
 						&nbsp;&nbsp;&nbsp;&nbsp;
 						<?php echo gettext("Currency");?> :
-					<select NAME="choose_currency" size="1" class="form_enter" style="border: 2px outset rgb(204, 51, 0);">
+					<select NAME="choose_currency" size="1" class="form_input_select" >
 						<?php
 							$currencies_list = get_currencies();
 							foreach($currencies_list as $key => $cur_value) {
@@ -692,10 +694,10 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 </table>
 
 <?php if (count($info_customer)>0 && (1==2)){ ?>
-<table width="100%"  bgcolor="#f3f3f3">
+<table  class="invoices_table2">
 	<tr>
-		<td width="75%">
-		&nbsp;
+		<td width="75%">&nbsp;
+		
 		</td>		
 		<td width="25%">
 <br/>
@@ -717,7 +719,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 <table width="100%">
 <tr>
 <?php if (SHOW_ICON_INVOICE){?><td align="left"><img src="pdf-invoices/images/desktop.gif"/> </td><?php }?>
-<td align="center"  bgcolor="#fff1d1"><font color="#000000" face="verdana" size="5"> <b><?php echo gettext("B I L L I N G &nbsp;&nbsp; S E R V I C E");?> : <?php  if (strlen($info_customer[0][2])>0) echo $info_customer[0][2]; ?> </b> </td>
+<td align="center"  class="invoices_table4_td1"><font ><?php echo gettext("B I L L I N G &nbsp;&nbsp; S E R V I C E");?> : <?php  if (strlen($info_customer[0][2])>0) echo $info_customer[0][2]; ?> </font></td>
 </tr>
 </table>
 <br><br>
@@ -736,13 +738,13 @@ foreach ($list_total_day_charge as $data){
 <!-- FIN TITLE GLOBAL MINUTES //-->
 <table border="0" cellspacing="1" cellpadding="2" width="70%" align="center">
 	<tr>	
-	<td align="center" bgcolor="#600101"></td>
-    	<td bgcolor="#b72222" align="center" colspan="4"><font color="#ffffff"><b><?php echo gettext("EXTRA CHARGE");?></b></font></td>
+	<td align="center"  class="bgcolor_019"></td>
+    	<td  class="bgcolor_020" align="center" colspan="4"><font color="#ffffff"><b><?php echo gettext("EXTRA CHARGE");?></b></font></td>
     </tr>
 	<tr>
-		<td align="right" bgcolor="#F2E8ED"><font face="verdana" size="1" color="#000000"><?php echo gettext("DATE");?></font></td>
-        <td align="right"><font face="verdana" color="#000000" size="1"><?php echo gettext("NB CHARGE");?></font></td>
-		<td align="right"><font face="verdana" color="#000000" size="1"><?php echo gettext("TOTALCOST");?></font></td>
+		<td align="right" class="bgcolor_025"><font class="fontstyle_006"><?php echo gettext("DATE");?></font></td>
+        <td align="right"><font class="fontstyle_006"><?php echo gettext("NB CHARGE");?></font></td>
+		<td align="right"><font class="fontstyle_006"><?php echo gettext("TOTALCOST");?></font></td>
 <?php  		
 		$i=0;
 		foreach ($list_total_day_charge as $data){	
@@ -750,13 +752,13 @@ foreach ($list_total_day_charge as $data){
 	?>
 	</tr>
 	<tr>
-		<td align="right" bgcolor="#D2D8ED"><font face="verdana" size="1" color="#000000"><?php echo $data[0]?></font></td>
-        <td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right"><font face="verdana" color="#000000" size="1"><?php echo $data[2]?></font></td>
-		<td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right"><font face="verdana" color="#000000" size="1"><?php  display_2bill($data[1]) ?></font></td>
+		<td align="right" class="bgcolor_026"><font class="fontstyle_006"><?php echo $data[0]?></font></td>
+        <td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right"><font class="fontstyle_006"><?php echo $data[2]?></font></td>
+		<td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right"><font class="fontstyle_006"><?php  display_2bill($data[1]) ?></font></td>
      <?php 	 }	 	 	
 	 ?>                   	
 	</tr>	
-	<tr bgcolor="#600101">
+	<tr  class="bgcolor_019">
 		<td align="right"><font color="#ffffff"><b><?php echo gettext("TOTAL");?></b></font></td>
 		<td align="center"><font color="#ffffff"><b><?php echo $totalcharge?></b></font></td>
 		<td align="center"><font color="#ffffff"><b><?php  display_2bill($totalcost) ?></b></font></td>
@@ -785,15 +787,15 @@ foreach ($list_total_destination as $data){
 		
 <table border="0" cellspacing="1" cellpadding="2" width="70%" align="center">
 	<tr>	
-		<td align="center" bgcolor="#600101"></td>
-    	<td bgcolor="#b72222" align="center" colspan="4"><font color="#ffffff"><b><?php echo gettext("CALLS PER DESTINATION");?></b></font></td>
+		<td align="center"  class="bgcolor_019"></td>
+    	<td  class="bgcolor_020" align="center" colspan="4"><font color="#ffffff"><b><?php echo gettext("CALLS PER DESTINATION");?></b></font></td>
     </tr>
 	<tr>
-		<td align="right" bgcolor="#F2E8ED"><font face="verdana" size="1" color="#000000"><?php echo gettext("DESTINATION");?></font></td>
-		<td align="right"><font face="verdana" color="#000000" size="1"><?php echo gettext("DUR");?></font></td>
-        <td align="center"><font face="verdana" color="#000000" size="1"><?php echo gettext("GRAPHIC");?> </font> </td>
-        <td align="right"><font face="verdana" color="#000000" size="1"><?php echo gettext("CALL");?></font></td>
-		<td align="right"><font face="verdana" color="#000000" size="1"><?php echo gettext("TOTALCOST");?></font></td>
+		<td align="right"  class="bgcolor_025"><font class="fontstyle_006"><?php echo gettext("DESTINATION");?></font></td>
+		<td align="right"><font class="fontstyle_006"><?php echo gettext("DUR");?></font></td>
+        <td align="center"><font class="fontstyle_006"><?php echo gettext("GRAPHIC");?> </font> </td>
+        <td align="right"><font class="fontstyle_006"><?php echo gettext("CALL");?></font></td>
+		<td align="right"><font class="fontstyle_006"><?php echo gettext("TOTALCOST");?></font></td>
 <?php  		
 		$i=0;
 		foreach ($list_total_destination as $data){	
@@ -817,14 +819,14 @@ foreach ($list_total_destination as $data){
 	?>
 	</tr>
 	<tr>
-		<td align="right" bgcolor="#D2D8ED"><font face="verdana" size="1" color="#000000"><?php echo $data[0]?></font></td>
-		<td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right"><font face="verdana" color="#000000" size="1"><?php echo $minutes?> </font></td>
+		<td align="right" class="bgcolor_026"><font class="fontstyle_006"><?php echo $data[0]?></font></td>
+		<td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right"><font class="fontstyle_006"><?php echo $minutes?> </font></td>
         <td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="left">
         	<img src="pdf-invoices/images/sidenav-selected.gif" height="6" width="<?php echo $widthbar?>">
 		</td>
-        <td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right"><font face="verdana" color="#000000" size="1"><?php echo $data[3]?></font></td>
+        <td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right"><font class="fontstyle_006"><?php echo $data[3]?></font></td>
         
-		<td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right"><font face="verdana" color="#000000" size="1"><?php  display_2bill($data[2]) ?></font></td>
+		<td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right"><font class="fontstyle_006"><?php  display_2bill($data[2]) ?></font></td>
      <?php 	 }	 	 	
 	 	
 		if ((!isset($resulttype)) || ($resulttype=="min")){
@@ -836,7 +838,7 @@ foreach ($list_total_destination as $data){
 	 
 	 ?>                   	
 	</tr>	
-	<tr bgcolor="#600101">
+	<tr class="bgcolor_019">
 		<td align="right"><font color="#ffffff"><b><?php echo gettext("TOTAL");?></b></font></td>
 		<td align="center" colspan="2"><font color="#ffffff"><b><?php echo $totalminutes?> </b></font></td>
 		<td align="center"><font color="#ffffff"><b><?php echo $totalcall?></b></font></td>
@@ -847,7 +849,7 @@ foreach ($list_total_destination as $data){
 <table width="100%">
 <tr>
 <?php if (SHOW_ICON_INVOICE){?><td align="left"><img src="pdf-invoices/images/stock_landline-phone.gif"/> </td><?php } ?>
-<td align="center"  bgcolor="#fff1d1"><font color="#000000" face="verdana" size="5"> <b><?php echo gettext("B I L L &nbsp;&nbsp;  E V O L U T I O N");?></b> </td>
+<td class="invoices_table4_td1"><font ><?php echo gettext("B I L L &nbsp;&nbsp;  E V O L U T I O N");?> </td>
 </tr>
 </table>
 <br><br>
@@ -871,15 +873,15 @@ foreach ($list_total_day as $data){
 <!-- FIN TITLE GLOBAL MINUTES //-->
 <table border="0" cellspacing="1" cellpadding="2" width="70%" align="center">
 	<tr>	
-		<td align="center" bgcolor="#600101"></td>
-    	<td bgcolor="#b72222" align="center" colspan="4"><font color="#ffffff"><b></b></font></td>
+		<td align="center" class="bgcolor_019"></td>
+    	<td class="bgcolor_020" align="center" colspan="4"><font color="#ffffff"><b></b></font></td>
     </tr>
 	<tr>
-		<td align="right" bgcolor="#F2E8ED"><font face="verdana" size="1" color="#000000"><?php echo gettext("DATE");?></font></td>
-		<td align="right"><font face="verdana" color="#000000" size="1"><?php echo gettext("DUR");?> </font></td>
-        <td align="center"><font face="verdana" color="#000000" size="1"><?php echo gettext("GRAPHIC");?> </font> </td>
-        <td align="right"><font face="verdana" color="#000000" size="1"><?php echo gettext("CALL");?></font></td>
-		<td align="right"><font face="verdana" color="#000000" size="1"><?php echo gettext("TOTALCOST");?></font></td>
+		<td align="right" class="bgcolor_025"><font class="fontstyle_006"><?php echo gettext("DATE");?></font></td>
+		<td align="right"><font class="fontstyle_006"><?php echo gettext("DUR");?> </font></td>
+        <td align="center"><font class="fontstyle_006"><?php echo gettext("GRAPHIC");?> </font> </td>
+        <td align="right"><font class="fontstyle_006"><?php echo gettext("CALL");?></font></td>
+		<td align="right"><font class="fontstyle_006"><?php echo gettext("TOTALCOST");?></font></td>
 	 
 <?php  		
 		$i=0;
@@ -904,13 +906,13 @@ foreach ($list_total_day as $data){
 	?>
 	</tr>
 	<tr>
-		<td align="right" bgcolor="#D2D8ED"><font face="verdana" size="1" color="#000000"><?php echo $data[0]?></font></td>
-		<td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right"><font face="verdana" color="#000000" size="1"><?php echo $minutes?> </font></td>
+		<td align="right"  class="bgcolor_026"><font class="fontstyle_006"><?php echo $data[0]?></font></td>
+		<td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right"><font class="fontstyle_006"><?php echo $minutes?> </font></td>
         <td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="left">
         	<img src="pdf-invoices/images/sidenav-selected.gif" height="6" width="<?php echo $widthbar?>">
 		</td>
-        <td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right"><font face="verdana" color="#000000" size="1"><?php echo $data[3]?></font></td>
-		<td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right"><font face="verdana" color="#000000" size="1"><?php  display_2bill($data[2]) ?></font></td>
+        <td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right"><font class="fontstyle_006"><?php echo $data[3]?></font></td>
+		<td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right"><font class="fontstyle_006"><?php  display_2bill($data[2]) ?></font></td>
      <?php 	 }	 	 	
 		if ((!isset($resulttype)) || ($resulttype=="min")){
 			$total_tmc = sprintf("%02d",intval(($totalminutes/$totalcall)/60)).":".sprintf("%02d",intval(($totalminutes/$totalcall)%60));				
@@ -921,7 +923,7 @@ foreach ($list_total_day as $data){
 	 
 	 ?>                   	
 	</tr>	
-	<tr bgcolor="#600101">
+	<tr class="bgcolor_019">
 		<td align="right"><font color="#ffffff"><b><?php echo gettext("TOTAL");?></b></font></td>
 		<td align="center" colspan="2"><font color="#ffffff"><b><?php echo $totalminutes?> </b></font></td>
 		<td align="center"><font color="#ffffff"><b><?php echo $totalcall?></b></font></td>
@@ -937,14 +939,14 @@ foreach ($list_total_day as $data){
 <table width="100%">
 <tr>
 <?php if (SHOW_ICON_INVOICE){?> <td align="left"><img src="pdf-invoices/images/kfind.gif"/> </td> <?php } ?>
-<td align="center"  bgcolor="#fff1d1"><font color="#000000" face="verdana" size="5"> <b><?php echo gettext("C A L L S &nbsp;&nbsp;  D E T A I L");?></b> </td>
+<td  class="invoices_table4_td1"><?php echo gettext("C A L L S &nbsp;&nbsp;  D E T A I L");?> </td>
 </tr>
 </table>
 <br><br>
 <!-- ** ** ** ** ** Part to display the CDR ** ** ** ** ** -->
 		<center><?php echo gettext("Number of call");?> : <?php  if (is_array($list) && count($list)>0){ echo $nb_record; }else{echo "0";}?></center>
 		<TABLE border=0 cellPadding=0 cellSpacing=0 width="<?php echo $FG_HTML_TABLE_WIDTH?>" align="center">
-                <TR bgColor=#F0F0F0> 
+                <TR class="bgcolor_008"> 
 		  <TD width="7%" class="tableBodyRight" style="PADDING-BOTTOM: 2px; PADDING-LEFT: 2px; PADDING-RIGHT: 2px; PADDING-TOP: 2px">nb</TD>					
                   <?php 
 				  	if (is_array($list) && count($list)>0){
@@ -1054,7 +1056,7 @@ foreach ($list_total_day as $data){
 <?php  if($exporttype!="pdf"){ ?>
 
 <?php
-	include("PP_footer.php");
+	$smarty->display('footer.tpl');
 ?>
 
 <?php  }else{

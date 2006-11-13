@@ -3,6 +3,7 @@
 include ("../lib/defines.php");
 include ("../lib/module.access.php");
 //include ("../lib/Class.Table.php");
+include ("../lib/smarty.php");
 
 set_time_limit(0);
 
@@ -248,14 +249,12 @@ $Temps = $Temps2 - $Temps1;
 
 
 
-
+// #### HEADER SECTION
+$smarty->display('main.tpl');
 
 ?>
 
-<html>
-<head>
-<title>CallingCard : Importation RateCard</title>
-<link rel="stylesheet" href="Css/Bo_StyleCss.css" type="text/css">
+
 <style type="text/css">
 <!--
 div.myscroll {
@@ -293,9 +292,7 @@ function sendtoupload(form){
 //-->
 </script>
 
-<?php
-	include("PP_header.php");
-?>
+
 
       <br>
       <br>
@@ -364,14 +361,14 @@ function sendtoupload(form){
                       <input type="hidden" name="task" value="upload">
 					  <input type="hidden" name="status" value="ok">
                       <input name="the_file" type="file" size="50" onFocus=this.select() class="saisie1">
-                      <input type="button" style="border: 2px outset rgb(204, 51, 0);"   value="Continue to Import the CARD's" onFocus=this.select() class="form_enter" name="submit1" onClick="sendtoupload(this.form);">
+                      <input type="button" value="Continue to Import the CARD's" onFocus=this.select() class="form_input_text" name="submit1" onClick="sendtoupload(this.form);">
                       <br>
                       &nbsp; </p>
                   </td>
                 </tr>
 
                 <tr>
-                  <td bgcolor="#E6E6E6" class="souligner" colspan="2"><b>
+                  <td  class="bgcolor_014" colspan="2"><b>
                     <?php echo $translate[P34_9]?>
                     </b></td>
                 </tr>
@@ -388,7 +385,7 @@ function sendtoupload(form){
 				  	<TD style="border-bottom: medium dotted #ED2525" align="center">&nbsp;</TD>
 				</TR>
                 <tr>
-				  <td colspan="2" bgcolor="#EDEDED" style="padding-left: 5px; padding-right: 3px;" align=center>
+				  <td colspan="2" class="bgcolor_015" style="padding-left: 5px; padding-right: 3px;" align=center>
                     <div align="center"><span class="textcomment">
 
 					  <br>
@@ -417,5 +414,6 @@ function sendtoupload(form){
 			<?php }?>
 			<br>
 <?php
-	include("PP_footer.php");
+	// #### Footer SECTION
+$smarty->display('footer.tpl');
 ?>

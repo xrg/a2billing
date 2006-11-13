@@ -120,7 +120,7 @@ if( $list[0][8] != "t" && isset($result) && $result != null){
 <tr><td colspan="2" bgcolor="#DDDDDD"></td></tr>
 <tr>
 <td bgcolor="#EEEEEE">
-<img src="../Css/kicons/khelpcenter.png"/></td>
+<img src="<?php echo KICON_PATH;?>/khelpcenter.png"/></td>
 <td bgcolor="#EEEEEE">
 
 <b>

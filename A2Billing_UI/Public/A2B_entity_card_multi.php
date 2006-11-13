@@ -3,7 +3,7 @@ include ("../lib/defines.php");
 include ("../lib/module.access.php");
 include ("../lib/Form/Class.FormHandler.inc.php");
 include ("./form_data/FG_var_card.inc");
-
+include ("../lib/smarty.php");
 
 
 if (! has_rights (ACX_CUSTOMER)){ 
@@ -214,7 +214,7 @@ $list = $HD_Form -> perform_action($form_action);
 
 
 // #### HEADER SECTION
-include("PP_header.php");
+$smarty->display('main.tpl');
 
 // #### HELP SECTION
 echo '<br><br>'.$CC_help_generate_customer;
@@ -230,12 +230,12 @@ $nb_tariff = count($list_tariff);
 ?>
 
 	  
-   <table align="center" bgcolor="#cccccc" border="0" width="65%">
+   <table align="center"  class="bgcolor_001" border="0" width="65%">
         <tbody><tr>
 	<form name="theForm" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
           <td align="left" width="75%">
 	  	<strong>1)</strong> 
-		<select name="choose_list" size="1" class="form_enter" style="border: 2px outset rgb(204, 51, 0);">
+		<select name="choose_list" size="1" class="form_input_select">
 			<option value=""><?php echo gettext("Choose the number of cards to create");?></option>
 			<option class="input" value="1"><?php echo gettext("1 Card");?></option>
 			<option class="input" value="10"><?php echo gettext("10 Cards");?></option>
@@ -248,7 +248,7 @@ $nb_tariff = count($list_tariff);
 		<br/>
 				
 		  	<strong>2)</strong> 
-				<select NAME="choose_tariff" size="1" class="form_enter" style="border: 2px outset rgb(204, 51, 0);">
+				<select NAME="choose_tariff" size="1" class="form_input_select" >
 					<option value=''><?php echo gettext("Choose a Tariff");?></option>
 				
 				<?php					 
@@ -261,13 +261,13 @@ $nb_tariff = count($list_tariff);
 				<br/>
 				
 			  	<strong>3)</strong> 
-				<?php echo gettext("Initial amount of credit");?> : 	<input class="form_enter" name="addcredit" size="10" maxlength="10" style="border: 2px inset rgb(204, 51, 0);">
+				<?php echo gettext("Initial amount of credit");?> : 	<input class="form_input_text" name="addcredit" size="10" maxlength="10" >
 				<?php echo strtoupper(BASE_CURRENCY) ?>
 				<br/>
 				
 				<strong>4)</strong> 
 				<?php echo gettext("Simultaneous access");?> : 
-				<select NAME="choose_simultaccess" size="1" class="form_enter" style="border: 2px outset rgb(204, 51, 0);">
+				<select NAME="choose_simultaccess" size="1" class="form_input_select" >
 					<option value='0' selected><?php echo gettext("INDIVIDUAL ACCESS");?></option>
 					<option value='1'><?php echo gettext("SIMULTANEOUS ACCESS");?></option>
 				   </select>
@@ -275,7 +275,7 @@ $nb_tariff = count($list_tariff);
 				
 				<strong>5)</strong> 
 				<?php echo gettext("Currency");?> :
-				<select NAME="choose_currency" size="1" class="form_enter" style="border: 2px outset rgb(204, 51, 0);">
+				<select NAME="choose_currency" size="1" class="form_input_select" >
 				<?php 
 					foreach($currencies_list as $key => $cur_value) {											
 				?>
@@ -285,16 +285,16 @@ $nb_tariff = count($list_tariff);
 				<br/>
 				<strong>6)</strong>
 				<?php echo gettext("Card type");?> :
-				<select NAME="choose_typepaid" size="1" class="form_enter" style="border: 2px inset rgb(204, 51, 0);">
+				<select NAME="choose_typepaid" size="1" class="form_input_select" >
 					<option value='0' selected><?php echo gettext("PREPAID CARD");?></option>
 					<option value='1'><?php echo gettext("POSTPAY CARD");?></option>
 				   </select>
 				<br/>
 				<strong>7)</strong>
-				<?php echo gettext("Credit Limit of postpay");?> : <input class="form_enter" name="creditlimit" size="10" maxlength="16" style="border: 2px inset rgb(204, 51, 0);">
+				<?php echo gettext("Credit Limit of postpay");?> : <input class="form_input_text" name="creditlimit" size="10" maxlength="16" >
 				<br/>
 				<strong>8)</strong>
-			   <?php echo gettext("Enable expire");?>&nbsp;: <select name="enableexpire" class="form_enter" style="border: 2px inset rgb(204, 51, 0);">
+			   <?php echo gettext("Enable expire");?>&nbsp;: <select name="enableexpire" class="form_input_select" >
 								<option value="0" selected="selected">
 						                           <?php echo gettext("NO EXPIRATION");?>                            </option><option value="1">
 						                             <?php echo gettext("EXPIRE DATE");?>                          </option><option value="2">
@@ -309,10 +309,10 @@ $nb_tariff = count($list_tariff);
 					$comp_date_plus = "value='".$begin_date_plus.$end_date."'";
 				?>
 				<strong>9)</strong>
-				<?php echo gettext("Expiry Date");?>&nbsp;: <input class="form_enter" style="border: 2px inset rgb(204, 51, 0);" name="expirationdate" size="40" maxlength="40" <?php echo $comp_date_plus; ?>><?php echo gettext("(Format YYYY-MM-DD HH:MM:SS)");?>
+				<?php echo gettext("Expiry Date");?>&nbsp;: <input class="form_input_text"  name="expirationdate" size="40" maxlength="40" <?php echo $comp_date_plus; ?>><?php echo gettext("(Format YYYY-MM-DD HH:MM:SS)");?>
 				<br/>
 				<strong>10)</strong>
-			   <?php echo gettext("Expiry days");?>&nbsp;: <input class="form_enter" style="border: 2px inset rgb(204, 51, 0);" name="expiredays" size="10" maxlength="6" value="0">
+			   <?php echo gettext("Expiry days");?>&nbsp;: <input class="form_input_text"  name="expiredays" size="10" maxlength="6" value="0">
 				<br/>
 				<strong>11)</strong>
 				<?php echo gettext("Run service");?>&nbsp; : 
@@ -323,7 +323,7 @@ $nb_tariff = count($list_tariff);
 				<br/>
 		</td>	
 		<td align="left" valign="bottom"> 
-				<input class="form_enter" style="border: 2px outset rgb(204, 51, 0);" value=" GENERATE CARDS " type="submit"> 
+				<input class="form_input_button"  value=" GENERATE CARDS " type="submit"> 
         </td>
 	 </form>
         </tr>
@@ -333,11 +333,11 @@ $nb_tariff = count($list_tariff);
 	  
 	  <?php  if (($_SESSION["is_admin"]==1) && (2==3)){ ?>
 	  
-	   <table width="<?php echo $FG_HTML_TABLE_WIDTH?>" border="0" align="center" bgcolor="#CCCCCC">
+	   <table width="<?php echo $FG_HTML_TABLE_WIDTH?>" border="0" align="center" class="bgcolor_001">
         <tr>
           <td align="left">
 		   <form NAME="theForm">
-			  	<select NAME="choose_list" size="1" class="form_enter" style="border: 2px outset rgb(204, 51, 0);">
+			  	<select NAME="choose_list" size="1" class="form_input_select" >
 					<option value=''><?php echo gettext("Choose a Reseller");?></option>
 					<?php					 
 				  	 foreach ($list_reseller as $recordset){ 						 
@@ -346,7 +346,7 @@ $nb_tariff = count($list_tariff);
 					<?php 	 }
 					?>
 				</select>
-				<input class="form_enter" style="border: 2px outset rgb(204, 51, 0);" 
+				<input class="form_input_button"  
 				TYPE="button" VALUE=" DISPLAY CUSTOMERS OF THIS RESELLER" onClick="openURL('./PP_entity_anacust.php?IDmanager=')"> 
 		   </form>
         </td>
@@ -377,5 +377,5 @@ if (!is_null ($HD_Form->FG_ORDER) && ($HD_Form->FG_ORDER!='') && !is_null ($HD_F
 
 
 // #### FOOTER SECTION
-include("PP_footer.php");
+$smarty->display('footer.tpl');
 ?>

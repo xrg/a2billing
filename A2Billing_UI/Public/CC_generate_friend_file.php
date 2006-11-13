@@ -3,6 +3,7 @@ include ("../lib/defines.php");
 include ("../lib/module.access.php");
 include ("../lib/regular_express.inc");
 include ("../lib/phpagi/phpagi-asmanager.php");
+include ("../lib/smarty.php");
 
 $FG_DEBUG =0;
 
@@ -107,7 +108,7 @@ restrictcid, rtptimeout, rtpholdtimeout, musiconhold, regseconds, ipaddr, cancal
 
 
 <?php
-	include("PP_header.php");
+	$smarty->display('main.tpl');
 ?>
 <script language="JavaScript" type="text/JavaScript">
 <!--
@@ -148,10 +149,10 @@ function openURLFilter(theLINK)
 	  <table width="<?php echo $FG_HTML_TABLE_WIDTH?>" border="0" align="center" cellpadding="0" cellspacing="0" >
 	  
 		<TR> 
-          <TD style="border-bottom: medium dotted #252525"> &nbsp;</TD>
+          <TD style="border-bottom: medium dotted #252525">&nbsp; </TD>
         </TR>
 		<tr><FORM NAME="sipfriend">
-            <td height="31" bgcolor="#CCCCCC" style="padding-left: 5px; padding-right: 3px;" align=center>
+            <td height="31" class="bgcolor_001" style="padding-left: 5px; padding-right: 3px;" align=center>
 			<br><br>
 			<b>
 			<?php 	
@@ -168,7 +169,7 @@ function openURLFilter(theLINK)
 			
 			
 			<br><br><br>
-			<a href="<?php  echo $PHP_SELF."?atmenu=$atmenu&action=reload";?>"><img src="../Images/icon_refresh.gif" /> 
+			<a href="<?php  echo $PHP_SELF."?atmenu=$atmenu&action=reload";?>"><img src="<?php echo Images_Path;?>/icon_refresh.gif" /> 
 				<?php echo gettext("Click here to reload Asterisk Server"); ?>
 			</a>
 			
@@ -193,5 +194,5 @@ function openURLFilter(theLINK)
 	 
 	 
 <?php
-	include("PP_footer.php");
+	$smarty->display('footer.tpl');
 ?>

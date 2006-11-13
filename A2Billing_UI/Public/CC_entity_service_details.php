@@ -1,7 +1,7 @@
 <?php 
 include ("../lib/defines.php");
 include ("../lib/module.access.php");
-
+include ("../lib/smarty.php");
 
 if (! has_rights (ACX_CRONT_SERVICE)){ 
 	   Header ("HTTP/1.0 401 Unauthorized");
@@ -76,7 +76,7 @@ for($i=0;$i<$num;$i++)
 ?>
 
 <?php
-	include("PP_header.php");
+	$smarty->display('main.tpl');
 ?>
 <script language="JavaScript" type="text/JavaScript">
 <!--
@@ -108,7 +108,7 @@ function openURL(theLINK)
 </center>
 	  <table width="100%">
 	  <TR> 
-          <TD style="border-bottom: medium dotted #667766"> &nbsp;</TD>
+          <TD style="border-bottom: medium dotted #667766">&nbsp; </TD>
         </TR>
       </table>
 	  
@@ -141,9 +141,9 @@ function openURL(theLINK)
                     <span class="white_link"><?php  } ?>
                     <?php echo $FG_TABLE_COL[$i][0]?> 
                     <?php if ($order==$FG_TABLE_COL[$i][1] && $sens=="ASC"){?>
-                    &nbsp;<img src="../Images/icon_up_12x12.GIF" width="12" height="12" border="0"> 
+                    &nbsp;<img src="<?php echo Images_Path;?>/icon_up_12x12.GIF" width="12" height="12" border="0"> 
                     <?php }elseif ($order==$FG_TABLE_COL[$i][1] && $sens=="DESC"){?>
-                    &nbsp;<img src="../Images/icon_down_12x12.GIF" width="12" height="12" border="0"> 
+                    &nbsp;<img src="<?php echo Images_Path;?>/icon_down_12x12.GIF" width="12" height="12" border="0"> 
                     <?php }?>
                     <?php  if (strtoupper($FG_TABLE_COL[$i][4])=="SORT"){?>
                     </span>
@@ -254,7 +254,7 @@ function openURL(theLINK)
 	  		}else{
 	  ?>
 	  	  <br/></br>
-		  <table width="100%" border="0" align="center" bgcolor="#DCDCDC">
+		  <table width="100%" border="0" align="center" class="bgcolor_006">
 			<tr>
 			  <td align="center">
 				NOTHING FOUND !<br/> 
@@ -272,5 +272,5 @@ function openURL(theLINK)
 	 
 	 
 <?php
-	include("PP_footer.php");
+	$smarty->display('footer.tpl');
 ?>

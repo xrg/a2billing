@@ -3,7 +3,7 @@ include ("../lib/defines.php");
 include ("../lib/module.access.php");
 include ("../lib/Form/Class.FormHandler.inc.php");
 include ("./form_data/FG_var_def_ratecard.inc");
-
+include ("../lib/smarty.php");
 
 if (! has_rights (ACX_RATECARD)){ 
 	   Header ("HTTP/1.0 401 Unauthorized");
@@ -109,7 +109,7 @@ $list = $HD_Form -> perform_action($form_action);
 
 
 // #### HEADER SECTION
-include("PP_header.php");
+$smarty->display('main.tpl');
 
 // #### HELP SECTION
 if (($form_action == 'ask-add') || ($form_action == 'ask-edit')) echo '<br><br>'.$CC_help_add_rate;
@@ -156,7 +156,7 @@ if ($form_action == "list"){
 	$nb_trunk = count($list_trunk);
 ?>
 
-<a href="#" target="_self"  onclick="imgidclick('img52000','div52000','kfind.png','viewmag.png');"><img id="img52000" src="../Css/kicons/viewmag.png" onmouseover="this.style.cursor='hand';" WIDTH="16" HEIGHT="16"></a>
+<a href="#" target="_self"  onclick="imgidclick('img52000','div52000','kfind.png','viewmag.png');"><img id="img52000" src="<?php echo KICON_PATH; ?>/viewmag.png" onmouseover="this.style.cursor='hand';" WIDTH="16" HEIGHT="16"></a>
 <div id="div52000" style="display:visible;">
 
 <!-- ** ** ** ** ** Part for the Update ** ** ** ** ** -->
@@ -170,12 +170,12 @@ if ($form_action == "list"){
 	
 
 		<tr>		
-          <td align="left" bgcolor="#cccccc">
+          <td align="left" class="bgcolor_001">
 		  		<input name="check[upd_id_trunk]" type="checkbox" <?php if ($check["upd_id_trunk"]=="on") echo "checked"?>>
 		  </td>
-		  <td align="left"  bgcolor="#cccccc">
+		  <td align="left"  class="bgcolor_001">
 				1) <?php echo gettext("TRUNK");?> : 
-				<select NAME="upd_id_trunk" size="1" class="form_enter" style="border: 2px outset rgb(204, 51, 0);">
+				<select NAME="upd_id_trunk" size="1" class="form_enter" >
 					<?php
 					 foreach ($list_trunk as $recordset){ 						 
 					?>
@@ -186,13 +186,13 @@ if ($form_action == "list"){
 			</td>
 		</tr>
 		<tr>		
-          <td align="left"  bgcolor="#cccccc">
+          <td align="left"  class="bgcolor_001">
 		  	<input name="check[upd_idtariffplan]" type="checkbox" <?php if ($check["upd_idtariffplan"]=="on") echo "checked"?> >
 		  </td>
-		  <td align="left"  bgcolor="#cccccc">
+		  <td align="left"  class="bgcolor_001">
 		   						
 			  	2) <?php echo gettext("RATECARD");?> :
-				<select NAME="upd_idtariffplan" size="1" class="form_enter" style="border: 2px outset rgb(204, 51, 0);">
+				<select NAME="upd_idtariffplan" size="1" class="form_enter" >
 									
 					<?php					 
 				  	 foreach ($list_tariffname as $recordset){ 						 
@@ -205,13 +205,13 @@ if ($form_action == "list"){
 			</td>
 		</tr>
 		<tr>		
-          <td align="left" bgcolor="#cccccc">
+          <td align="left" class="bgcolor_001">
 		  		<input name="check[upd_buyrate]" type="checkbox" <?php if ($check["upd_buyrate"]=="on") echo "checked"?>>
 				<input name="mode[upd_buyrate]" type="hidden" value="2">
 		  </td>
-		  <td align="left"  bgcolor="#cccccc">	
+		  <td align="left"  class="bgcolor_001">	
 			  	3) <?php echo gettext("BUYRATE");?> :
-					<input class="form_enter" name="upd_buyrate" size="10" maxlength="10" style="border: 2px inset rgb(204, 51, 0);" value="<?php if (isset($upd_buyrate)) echo $upd_buyrate; else echo '0';?>">
+					<input class="form_input_text" name="upd_buyrate" size="10" maxlength="10"  value="<?php if (isset($upd_buyrate)) echo $upd_buyrate; else echo '0';?>">
 				<font class="version">
 				<input type="radio" NAME="type[upd_buyrate]" value="1" <?php if((!isset($type["upd_buyrate"]))|| ($type["upd_buyrate"]==1) ){?>checked<?php }?>><?php echo gettext("Equal");?>
 				<input type="radio" NAME="type[upd_buyrate]" value="2" <?php if($type["upd_buyrate"]==2){?>checked<?php }?>> <?php echo gettext("Add");?>
@@ -220,13 +220,13 @@ if ($form_action == "list"){
 			</td>
 		</tr>
 		<tr>
-          <td align="left" bgcolor="#cccccc">
+          <td align="left" class="bgcolor_001">
 		  		<input name="check[upd_buyrateinitblock]" type="checkbox" <?php if ($check["upd_buyrateinitblock"]=="on") echo "checked"?>>
 				<input name="mode[upd_buyrateinitblock]" type="hidden" value="2">
 		  </td>
-		  <td align="left"  bgcolor="#cccccc">
+		  <td align="left"  class="bgcolor_001">
 			  	4) <?php echo gettext("BUYRATEINITBLOCK");?> :
-					<input class="form_enter" name="upd_buyrateinitblock" size="10" maxlength="10" style="border: 2px inset rgb(204, 51, 0);" value="<?php if (isset($upd_buyrateinitblock)) echo $upd_buyrateinitblock; else echo '0';?>">
+					<input class="form_input_text" name="upd_buyrateinitblock" size="10" maxlength="10" value="<?php if (isset($upd_buyrateinitblock)) echo $upd_buyrateinitblock; else echo '0';?>">
 				<font class="version">
 				<input type="radio" NAME="type[upd_buyrateinitblock]" value="1" <?php if((!isset($type["upd_buyrateinitblock"]))|| ($type["upd_buyrateinitblock"]==1) ){?>checked<?php }?>> <?php echo gettext("Equal");?>
 				<input type="radio" NAME="type[upd_buyrateinitblock]" value="2" <?php if($type["upd_buyrateinitblock"]==2){?>checked<?php }?>> <?php echo gettext("Add");?>
@@ -236,13 +236,13 @@ if ($form_action == "list"){
 		</tr>
 		
 		<tr>		
-          <td align="left" bgcolor="#cccccc">
+          <td align="left" class="bgcolor_001">
 		  		<input name="check[upd_buyrateincrement]" type="checkbox" <?php if ($check["upd_buyrateincrement"]=="on") echo "checked"?>>
 				<input name="mode[upd_buyrateincrement]" type="hidden" value="2">
 		  </td>
-		  <td align="left"  bgcolor="#cccccc">	
+		  <td align="left"  class="bgcolor_001">	
 			  	5) <?php echo gettext("BUYRATEINCREMENT");?> :
-					<input class="form_enter" name="upd_buyrateincrement" size="10" maxlength="10" style="border: 2px inset rgb(204, 51, 0);" value="<?php if (isset($upd_buyrateincrement)) echo $upd_buyrateincrement; else echo '0';?>">
+					<input class="form_input_text" name="upd_buyrateincrement" size="10" maxlength="10"  value="<?php if (isset($upd_buyrateincrement)) echo $upd_buyrateincrement; else echo '0';?>">
 				<font class="version">
 				<input type="radio" NAME="type[upd_buyrateincrement]" value="1" <?php if((!isset($type["upd_buyrateincrement"]))|| ($type["upd_buyrateincrement"]==1) ){?>checked<?php }?>> <?php echo gettext("Equal");?>
 				<input type="radio" NAME="type[upd_buyrateincrement]" value="2" <?php if($type["upd_buyrateincrement"]==2){?>checked<?php }?>> <?php echo gettext("Add");?>
@@ -251,14 +251,14 @@ if ($form_action == "list"){
 			</td>
 		</tr>
 		<tr>
-          <td align="left" bgcolor="#cccccc">
+          <td align="left" class="bgcolor_001">
 		  		<input name="check[upd_rateinitial]" type="checkbox" <?php if ($check["upd_rateinitial"]=="on") echo "checked"?>>
 				<input name="mode[upd_rateinitial]" type="hidden" value="2">
 		  </td>
-		  <td align="left"  bgcolor="#cccccc">	
+		  <td align="left"  class="bgcolor_001">	
 
 				6) <?php echo gettext("RATE INITIAL");?> :
-				 	<input class="form_enter" name="upd_rateinitial" size="10" maxlength="10" style="border: 2px inset rgb(204, 51, 0);" value="<?php if (isset($upd_rateinitial)) echo $upd_rateinitial; else echo '0';?>" >
+				 	<input class="form_input_text" name="upd_rateinitial" size="10" maxlength="10" value="<?php if (isset($upd_rateinitial)) echo $upd_rateinitial; else echo '0';?>" >
 				<font class="version">
 				<input type="radio" NAME="type[upd_rateinitial]" value="1" <?php if((!isset($type[upd_rateinitial]))|| ($type[upd_rateinitial]==1) ){?>checked<?php }?>> <?php echo gettext("Equal");?>
 				<input type="radio" NAME="type[upd_rateinitial]" value="2" <?php if($type[upd_rateinitial]==2){?>checked<?php }?>> <?php echo gettext("Add");?>
@@ -267,14 +267,14 @@ if ($form_action == "list"){
 			</td>
 		</tr>
 		<tr>		
-          <td align="left" bgcolor="#cccccc">
+          <td align="left" class="bgcolor_001">
 		  		<input name="check[upd_initblock]" type="checkbox" <?php if ($check["upd_initblock"]=="on") echo "checked"?>>
 				<input name="mode[upd_initblock]" type="hidden" value="2">
 		  </td>
-		  <td align="left"  bgcolor="#cccccc">	
+		  <td align="left"  class="bgcolor_001">	
 				
 				7) <?php echo gettext("MIN DURATION");?>  :
-				 	<input class="form_enter" name="upd_initblock" size="10" maxlength="10" style="border: 2px inset rgb(204, 51, 0);" value="<?php if (isset($upd_initblock)) echo $upd_initblock; else echo '0';?>" >
+				 	<input class="form_input_text" name="upd_initblock" size="10" maxlength="10"  value="<?php if (isset($upd_initblock)) echo $upd_initblock; else echo '0';?>" >
 				<font class="version">
 				<input type="radio" NAME="type[upd_initblock]" value="1" <?php if((!isset($type[upd_initblock]))|| ($type[upd_initblock]==1) ){?>checked<?php }?>>  <?php echo gettext("Equal");?>
 				<input type="radio" NAME="type[upd_initblock]" value="2" <?php if($type[upd_initblock]==2){?>checked<?php }?>> <?php echo gettext("Add");?>
@@ -283,14 +283,14 @@ if ($form_action == "list"){
 			</td>
 		</tr>
 		<tr>		
-          <td align="left" bgcolor="#cccccc">
+          <td align="left" class="bgcolor_001">
 		  		<input name="check[upd_billingblock]" type="checkbox" <?php if ($check["upd_billingblock"]=="on") echo "checked"?>>
 				<input name="mode[upd_billingblock]" type="hidden" value="2">
 		  </td>
-		  <td align="left"  bgcolor="#cccccc">	
+		  <td align="left"  class="bgcolor_001">	
 				
 				8) <?php echo gettext("BILLINGBLOCK");?>  :
-				 	<input class="form_enter" name="upd_billingblock" size="10" maxlength="10" style="border: 2px inset rgb(204, 51, 0);" value="<?php if (isset($upd_billingblock)) echo $upd_billingblock; else echo '0';?>" >
+				 	<input class="form_input_text" name="upd_billingblock" size="10" maxlength="10" value="<?php if (isset($upd_billingblock)) echo $upd_billingblock; else echo '0';?>" >
 				<font class="version">
 				<input type="radio" NAME="type[upd_billingblock]" value="1" <?php if((!isset($type[upd_billingblock]))|| ($type[upd_billingblock]==1) ){?>checked<?php }?>> <?php echo gettext("Equal");?>
 				<input type="radio" NAME="type[upd_billingblock]" value="2" <?php if($type[upd_billingblock]==2){?>checked<?php }?>><?php echo gettext("Add");?>
@@ -299,14 +299,14 @@ if ($form_action == "list"){
 			</td>
 		</tr>
 		<tr>
-          <td align="left" bgcolor="#cccccc">
+          <td align="left" class="bgcolor_001">
 		  		<input name="check[upd_connectcharge]" type="checkbox" <?php if ($check["upd_connectcharge"]=="on") echo "checked"?>>
 				<input name="mode[upd_connectcharge]" type="hidden" value="2">
 		  </td>
-		  <td align="left"  bgcolor="#cccccc">	
+		  <td align="left"  class="bgcolor_001">	
 
 				9) <?php echo gettext("CONNECTCHARGE");?>  :
-				 	<input class="form_enter" name="upd_connectcharge" size="10" maxlength="10" style="border: 2px inset rgb(204, 51, 0);" value="<?php if (isset($upd_connectcharge)) echo $upd_connectcharge; else echo '0';?>" >
+				 	<input class="form_input_text" name="upd_connectcharge" size="10" maxlength="10"  value="<?php if (isset($upd_connectcharge)) echo $upd_connectcharge; else echo '0';?>" >
 				<font class="version">
 				<input type="radio" NAME="type[upd_connectcharge]" value="1" <?php if((!isset($type[upd_connectcharge]))|| ($type[upd_connectcharge]==1) ){?>checked<?php }?>> <?php echo gettext("Equal");?>
 				<input type="radio" NAME="type[upd_connectcharge]" value="2" <?php if($type[upd_connectcharge]==2){?>checked<?php }?>> <?php echo gettext("Add");?>
@@ -315,14 +315,14 @@ if ($form_action == "list"){
 			</td>
 		</tr>
 		<tr>		
-          <td align="left" bgcolor="#cccccc">
+          <td align="left" class="bgcolor_001">
 		  		<input name="check[upd_disconnectcharge]" type="checkbox" <?php if ($check["upd_disconnectcharge"]=="on") echo "checked"?>>
 				<input name="mode[upd_disconnectcharge]" type="hidden" value="2">
 		  </td>
-		  <td align="left"  bgcolor="#cccccc">	
+		  <td align="left"  class="bgcolor_001">	
 				
 				10) <?php echo gettext("DISCONNECTCHARGE");?> :
-				 	<input class="form_enter" name="upd_disconnectcharge" size="10" maxlength="10" style="border: 2px inset rgb(204, 51, 0);" value="<?php if (isset($upd_disconnectcharge)) echo $upd_disconnectcharge; else echo '0';?>" >
+				 	<input class="form_input_text" name="upd_disconnectcharge" size="10" maxlength="10"  value="<?php if (isset($upd_disconnectcharge)) echo $upd_disconnectcharge; else echo '0';?>" >
 				<font class="version">
 				<input type="radio" NAME="type[upd_disconnectcharge]" value="1" <?php if((!isset($type[upd_disconnectcharge]))|| ($type[upd_disconnectcharge]==1) ){?>checked<?php }?>> <?php echo gettext("Subtract");?>
 				<input type="radio" NAME="type[upd_disconnectcharge]" value="2" <?php if($type[upd_disconnectcharge]==2){?>checked<?php }?>> <?php echo gettext("Add");?>
@@ -331,12 +331,12 @@ if ($form_action == "list"){
 			</td>
 		</tr>
 		<tr>		
-			<td align="right" bgcolor="#cccccc">
+			<td align="right" class="bgcolor_001">
 			</td>
-		 	<td align="right"  bgcolor="#cccccc">		
+		 	<td align="right"  class="bgcolor_001">		
 		  
 				
-				<input class="form_enter" style="border: 2px outset rgb(204, 51, 0);" value=" <?php echo gettext("BATCH UPDATE RATECARD");?> " type="submit">
+				<input class="form_input_button"  value=" <?php echo gettext("BATCH UPDATE RATECARD");?> " type="submit">
 
 
           
@@ -354,6 +354,6 @@ if ($form_action == "list"){
 
 
 // #### FOOTER SECTION
-include("PP_footer.php");
+$smarty->display('footer.tpl');
 
 ?>

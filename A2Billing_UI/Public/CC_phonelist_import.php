@@ -1,6 +1,7 @@
 <?php
 include ("../lib/defines.php");
 include ("../lib/module.access.php");
+include ("../lib/smarty.php");
 
 set_time_limit(0);
 
@@ -35,7 +36,7 @@ $nb_campaign = count($list_campaign);
 
 ?>
 <?php
-	include("PP_header.php");
+	$smarty->display('main.tpl');
 ?>
 <script type="text/javascript">
 <!--
@@ -223,7 +224,7 @@ function moveSourceDown()
 				<tr> 
                   <td colspan="2" align=center>
 				  <?php echo gettext("Choose the campaign to import");?> :
-				  <select NAME="campaign" size="1"  style="border: 2px outset rgb(204, 51, 0); width=250">
+				  <select NAME="campaign" size="1"  style="width=250" class="form_input_select">
 								<option value=''><?php echo gettext("Choose a campaign");?></option>
 							
 								<?php					 
@@ -238,7 +239,7 @@ function moveSourceDown()
 				  				  
 			   <?php echo gettext("The fields below are mandatory");?>!<br>
 
-<select  name="bydefault" multiple="multiple" size="2" width="40">
+<select  name="bydefault" multiple="multiple" size="2" width="40" class="form_input_select">
 	<option value="bb1"><?php echo gettext("Phone Number");?></option>
 </select>
 <br/><br/>
@@ -272,7 +273,7 @@ function moveSourceDown()
                       <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo $my_max_file_size?>">
                       <input type="hidden" name="task" value="upload">
                       <input name="the_file" type="file" size="50" onFocus=this.select() class="saisie1">
-                      <input type="button" style="border: 2px outset rgb(204, 51, 0);"  value="<?php echo gettext("Import Phonelist");?>" onFocus=this.select() class="form_enter" name="submit1" onClick="sendtoupload(this.form);">
+                      <input type="button" value="<?php echo gettext("Import Phonelist");?>" onFocus=this.select() class="form_input_button" name="submit1" onClick="sendtoupload(this.form);">
 					  
                       <br>
                       &nbsp; </p>
@@ -280,7 +281,7 @@ function moveSourceDown()
                 </tr>
                 
                 <tr> 
-                  <td bgcolor="#E6E6E6" class="souligner" colspan="2"><b> 
+                  <td  class="bgcolor_014" colspan="2"><b> 
                     <?php echo $translate[P34_9]?>
                     </b></td>
                 </tr>
@@ -290,5 +291,5 @@ function moveSourceDown()
 </center>
 
 <?php
-	include("PP_footer.php");
+	$smarty->display('footer.tpl');
 ?>

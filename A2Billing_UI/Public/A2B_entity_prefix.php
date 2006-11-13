@@ -3,7 +3,7 @@ include ("../lib/defines.php");
 include ("../lib/module.access.php");
 include ("../lib/Form/Class.FormHandler.inc.php");
 include ("./form_data/FG_var_prefix.inc");
-
+include ("../lib/smarty.php");
 
 if (! has_rights (ACX_RATECARD)){
 	   Header ("HTTP/1.0 401 Unauthorized");
@@ -31,6 +31,10 @@ if (!isset($action)) $action = $form_action;
 
 $list = $HD_Form -> perform_action($form_action);
 
+
+// #### HEADER SECTION
+$smarty->display('main.tpl');
+
 	if ($popup_select){
 ?>
 <SCRIPT LANGUAGE="javascript">
@@ -44,8 +48,6 @@ function sendValue(selvalue){
 <?php
 	}
 
-// #### HEADER SECTION
-include("PP_header.php");
 
 // #### HELP SECTION
 if (!($popup_select==1) && ($form_action=='list')) echo '<br><br>'.$CC_help_list_prefix;
@@ -63,7 +65,7 @@ if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
 $HD_Form -> create_form ($form_action, $list, $id=null) ;
 
 // #### FOOTER SECTION
-if (!($popup_select==1)) include("PP_footer.php");
+if (!($popup_select==1)) $smarty->display('footer.tpl');
 
 
 

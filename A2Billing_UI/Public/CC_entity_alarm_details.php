@@ -72,7 +72,7 @@ for($i=0;$i<$num;$i++)
 ?>
 
 <?php
-	include("PP_header.php");
+	$smarty->display('main.tpl');
 
 ?>
 <script language="JavaScript" type="text/JavaScript">
@@ -268,5 +268,5 @@ function openURL(theLINK)
 	 
 	 
 <?php
-	include("PP_footer.php");
+	$smarty->display('footer.tpl');
 ?>

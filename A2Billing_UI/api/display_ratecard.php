@@ -4,7 +4,9 @@ include ("../lib/module.access.php");
 //this ligne is an exemple of wath you must add into the main page to desplay the ratecard
 //include ("http://localhost/A2Billing_UI/api/display_ratecard.php?key=0951aa29a67836b860b0865bc495225c&a2b_url=192.168.61.128/A2Billing_UI/&page_url=localhost/index.php&field_to_display=t1.destination,t5.countryprefix,t1.dialprefix,t1.rateinitial&column_name=Destination,Country,Prefix,Rate/Min&field_type=,,money&".$_SERVER['QUERY_STRING']);
 
- 	// The wrapper variables for security
+// http://localhost/~areski/svn/a2billing/trunk/A2Billing_UI/api/display_ratecard.php?key=0951aa29a67836b860b0865bc495225c&a2b_url=localhost/~areski/svn/a2billing/trunk/A2Billing_UI/&ratecardid=1
+
+	// The wrapper variables for security
  	$security_key = API_SECURITY_KEY;
 	
 	// The name of the log file
@@ -13,7 +15,7 @@ include ("../lib/module.access.php");
 	// recipient email to send the alarm
 	$email_alarm = EMAIL_ADMIN;	
 	
-	$FG_DEBUG = 0;
+	$FG_DEBUG = 3;
 
 
 getpost_ifset(array('key', 'ratecardid', 'a2b_url', 'nb_display_lines', 'filter' ,'field_to_display', 'column_name', 'field_type', 'browse_letter', 'prefix_select', 'page_url', 'posted', 'stitle', 'current_page', 'order', 'sens', 'choose_currency', 'choose_country', 'letter', 'search', 'currency_select'));
@@ -35,14 +37,14 @@ getpost_ifset(array('key', 'ratecardid', 'a2b_url', 'nb_display_lines', 'filter'
 */
 
   $ip_remote = getenv('REMOTE_ADDR'); 
-  $mail_content = "[" . date("Y/m/d G:i:s", mktime()) . "] "."Request asked from:$ip_remote with key:$key \n";
+  // $mail_content = "[" . date("Y/m/d G:i:s", mktime()) . "] "."Request asked from:$ip_remote with key:$key \n";
  // CHECK KEY
- if ($FG_DEBUG > 0) echo "<br> md5(".md5($security_key).") !== $key";
+ // if ($FG_DEBUG > 0) echo "<br> md5(".md5($security_key).") !== $key";
 if (md5($security_key) !== $key  || strlen($security_key)==0)
  {
-	  mail($email_alarm, "ALARM : RATE CARD API - CODE_ERROR 2", $mail_content);
+	  // mail($email_alarm, "ALARM : RATE CARD API - CODE_ERROR 2", $mail_content);
 	  if ($FG_DEBUG > 0) echo ("[" . date("Y/m/d G:i:s", mktime()) . "] "."[$productid] - CODE_ERROR 2"."\n");
-	  error_log ("[" . date("Y/m/d G:i:s", mktime()) . "].CODE_ERROR 2"."\n", 3, $logfile);
+	  // error_log ("[" . date("Y/m/d G:i:s", mktime()) . "].CODE_ERROR 2"."\n", 3, $logfile);
 	  echo("400 Bad Request");
 	  exit();  
  } 

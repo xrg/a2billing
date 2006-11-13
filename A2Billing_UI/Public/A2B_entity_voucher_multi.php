@@ -3,6 +3,7 @@ include ("../lib/defines.php");
 include ("../lib/module.access.php");
 include ("../lib/Form/Class.FormHandler.inc.php");
 include ("./form_data/FG_var_voucher.inc");
+include ("../lib/smarty.php");
 
 	
 
@@ -74,14 +75,13 @@ $list = $HD_Form -> perform_action($form_action);
 
 
 // #### HEADER SECTION
-include("PP_header.php");
-
+$smarty->display('main.tpl');
 // #### HELP SECTION
 echo '<br><br>'.$CC_help_generate_voucher;
 
 ?>
   	  	  
-	   <table align="center" bgcolor="#cccccc" border="0" width="65%">
+	   <table align="center" class="bgcolor_001" border="0" width="65%">
         <tbody><tr>
 		<form name="theForm" action="<?php echo $_SERVER['PHP_SELF'] ?>">
           <td align="left" width="75%">
@@ -89,7 +89,7 @@ echo '<br><br>'.$CC_help_generate_voucher;
 		   
 		   		
 			  	<strong>1)</strong> 
-				<select name="choose_list" size="1" class="form_enter" style="border: 2px outset rgb(204, 51, 0);">
+				<select name="choose_list" size="1" class="form_input_select">
 						<option value=""><?php echo gettext("Choose the number of vouchers to create");?></option>
 						<option class="input" value="1"><?php echo gettext("1 Voucher");?></option>
 						<option class="input" value="10"><?php echo gettext("10 Vouchers");?></option>
@@ -101,12 +101,12 @@ echo '<br><br>'.$CC_help_generate_voucher;
 					<br/>
 
 			  	<strong>2)</strong>
-				<?php echo gettext("Amount of credit");?> : 	<input class="form_enter" name="addcredit" size="10" maxlength="10" style="border: 2px inset rgb(204, 51, 0);">
+				<?php echo gettext("Amount of credit");?> : 	<input class="form_input_text" name="addcredit" size="10" maxlength="10" >
 				<br/>
 
 				
 				<strong>3)</strong> 
-				<select NAME="choose_currency" size="1" class="form_enter" style="border: 2px outset rgb(204, 51, 0);">
+				<select NAME="choose_currency" size="1" class="form_input_select">
 					<?php 
 					foreach($currencies_list as $key => $cur_value) {											
 				?>
@@ -124,14 +124,14 @@ echo '<br><br>'.$CC_help_generate_voucher;
 					$comp_date_plus = "value='".$begin_date_plus.$end_date."'";
 				?>
 				<strong>4)</strong>
-				<?php echo gettext("Expiration date");?> : <input class="form_enter" style="border: 2px inset rgb(204, 51, 0);" name="expirationdate" size="40" maxlength="40" <?php echo $comp_date_plus; ?>> <?php echo gettext("(respect the format YYYY-MM-DD HH:MM:SS)");?>
+				<?php echo gettext("Expiration date");?> : <input class="form_input_text"  name="expirationdate" size="40" maxlength="40" <?php echo $comp_date_plus; ?>> <?php echo gettext("(respect the format YYYY-MM-DD HH:MM:SS)");?>
 				<br/>
 							
 		</td>	
 		<td align="left" valign="bottom"> 
 		
 				
-				<input class="form_enter" style="border: 2px outset rgb(204, 51, 0);" value=" GENERATE VOUCHER " type="submit"> 
+				<input class="form_input_button" value=" GENERATE VOUCHER " type="submit"> 
 
 
           
@@ -166,8 +166,7 @@ if (!is_null ($HD_Form->FG_ORDER) && ($HD_Form->FG_ORDER!='') && !is_null ($HD_F
 
 
 // #### FOOTER SECTION
-include("PP_footer.php");
-
+$smarty->display('footer.tpl');
 
 
 ?>

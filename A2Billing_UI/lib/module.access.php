@@ -150,5 +150,17 @@ function has_rights ($condition) {
 }
 
 
+$ACXCUSTOMER 	= has_rights (ACX_CUSTOMER);
+$ACXBILLING 	= has_rights (ACX_BILLING);
+$ACXRATECARD 	= has_rights (ACX_RATECARD);
+$ACXTRUNK		= has_rights (ACX_TRUNK); 
+$ACXDID			= has_rights (ACX_DID);
+$ACXCALLREPORT	= has_rights (ACX_CALL_REPORT);
+$ACXCRONTSERVICE= has_rights (ACX_CRONT_SERVICE);
+$ACXSIGNUP 		= has_rights (ACX_SIGNUP);
+$ACXADMINISTRATOR = has_rights (ACX_ADMINISTRATOR);
+$ACXFILEMANAGER = has_rights (ACX_FILE_MANAGER);	
+
 
 ?>
+

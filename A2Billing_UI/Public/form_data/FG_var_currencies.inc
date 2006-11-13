@@ -10,11 +10,11 @@ $HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_TABLE_DEFAULT_ORDER = " currency";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "ASC";
 
-$HD_Form -> AddViewElement("", "", "15%", "center", "sort", "", "value", '<img src="../Css/kicons/favorites_16.png"> <img src="../Css/kicons/favorites_16.png"> <img src="../Css/kicons/favorites_24.png"><img src="../Css/kicons/favorites_16.png"> ');
+$HD_Form -> AddViewElement("", "", "15%", "center", "sort", "", "value", '<img src="'.KICON_PATH.'/favorites_16.png"> <img src="'.KICON_PATH.'/favorites_16.png"> <img src="'.KICON_PATH.'/favorites_24.png"><img src="'.KICON_PATH.'/favorites_16.png"> ');
 $HD_Form -> AddViewElement(gettext("CURRENCY"), "currency", "15%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("DETAIL"), "name", "20%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("VALUE"), "value", "15%", "center", "sort");
-$HD_Form -> AddViewElement("", "", "15%", "center", "sort", "", "value", '<img src="../Css/kicons/favorites_16.png"> <img src="../Css/kicons/favorites_16.png"> <img src="../Css/kicons/favorites_24.png"><img src="../Css/kicons/favorites_16.png"> ');
+$HD_Form -> AddViewElement("", "", "15%", "center", "sort", "", "value", '<img src="'.KICON_PATH.'/favorites_16.png"> <img src="'.KICON_PATH.'/favorites_16.png"> <img src="'.KICON_PATH.'/favorites_24.png"><img src="'.KICON_PATH.'/favorites_16.png"> ');
 
 $HD_Form -> FieldViewElement ('currency,name,value');
 
@@ -56,7 +56,7 @@ $HD_Form -> FG_INTRO_TEXT_ADITION = gettext("Add a ".$HD_Form->FG_INSTANCE_NAME.
 $HD_Form -> FG_TEXT_ADITION_CONFIRMATION = gettext("Your new ".$HD_Form->FG_INSTANCE_NAME." has been inserted. <br>");
 
 
-$HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = "../Images/cormfirmboton.gif";
+$HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = Images_Path . "/cormfirmboton.gif";
 $HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT = gettext("Once you have completed the form above, click on the CONTINUE button.");
 
 

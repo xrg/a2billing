@@ -3,6 +3,7 @@ include ("../lib/defines.php");
 include ("../lib/module.access.php");
 include ("../lib/Form/Class.FormHandler.inc.php");
 include ("./form_data/FG_var_speeddial.inc");
+include ("../lib/smarty.php");
 
 
 if (! has_rights (ACX_RATECARD)){ 
@@ -35,8 +36,7 @@ $list = $HD_Form -> perform_action($form_action);
 
 
 // #### HEADER SECTION
-include("PP_header.php");
-
+$smarty->display('main.tpl');
 // #### HELP SECTION
 echo '<br><br>'.$CC_help_speeddial;
 
@@ -53,8 +53,7 @@ if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
 $HD_Form -> create_form ($form_action, $list, $id=null) ;
 
 // #### FOOTER SECTION
-include("PP_footer.php");
-
+$smarty->display('footer.tpl');
 
 
 

@@ -3,6 +3,8 @@ if ($wantinclude!=1){
 	include ("../lib/defines.php");
 	include ("../lib/module.access.php");
 	include ("../lib/Form/Class.FormHandler.inc.php");
+	include ("../lib/smarty.php");
+	
 }
 
 
@@ -46,7 +48,7 @@ $list = $HD_Form_c -> perform_action($form_action);
 
 if ($wantinclude!=1){
 	// #### HEADER SECTION
-	include("PP_header.php");
+	$smarty->display('main.tpl');
 
 	// #### HELP SECTION
 	if ($form_action=='list') echo '<br><br>'.$CC_help_list_charge;
@@ -66,7 +68,7 @@ $HD_Form_c -> create_form ($form_action, $list, $id=null) ;
 
 if ($wantinclude!=1){
 	// #### FOOTER SECTION
-	include("PP_footer.php");
+	$smarty->display('footer.tpl');
 }	
 
 ?>

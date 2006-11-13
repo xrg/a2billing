@@ -1,6 +1,7 @@
 <?php
 include ("../lib/defines.php");
 include ("../lib/module.access.php");
+include ("../lib/smarty.php");
 
 $FG_DEBUG =0;
 
@@ -13,36 +14,30 @@ if (! has_rights (ACX_FILE_MANAGER)){
 	   die();	   
 }
 
-	include("PP_header.php");
+	$smarty->display('main.tpl');
 ?>
 		
 			<table width="70%" border="0" align="center" cellpadding="0" cellspacing="5" >
 	  
 				<TR> 
-				  <TD style="border-bottom: medium dotted #EEEEEE" colspan=2> &nbsp;</TD>
+				  <TD style="border-bottom: medium dotted #EEEEEE" colspan=2>&nbsp; </TD>
 				</TR>
 				<?php  for ($i=1;$i<=NUM_MUSICONHOLD_CLASS;$i++){ ?>
 				<tr>
-					<td bgcolor="#EEEEEE" height="31" align="center">
-						<img src="../Css/kicons/stock-panel-multimedia.png"/>
+					<td class="bgcolor_006" height="31" align="center">
+						<img src="<?php echo KICON_PATH; ?>/stock-panel-multimedia.png"/>
 					</td>
-					<td bgcolor="#EEEEEE" height="31" align="center">
+					<td class="bgcolor_006" height="31" align="center">
 						<a href="CC_upload.php?acc=<?php echo $i?>"><?php echo gettext("CUSTOM THE MUSICONHOLD CLASS");?> : <b>ACC_<?php echo $i?></b></a>
 					</td>
 				</tr>
 				<?php  } ?>
 				
 			   </table>
-	   
-	   
-	   
-	  
-	  
-	 
 	  
 	  <br>
 	 
 	 
 <?php
-	include("PP_footer.php");
+	$smarty->display('footer.tpl');
 ?>

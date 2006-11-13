@@ -3,7 +3,7 @@ include ("../lib/defines.php");
 include ("../lib/module.access.php");
 include ("../lib/Form/Class.FormHandler.inc.php");
 include ("./form_data/FG_var_moneysituation.inc");
-
+include ("../lib/smarty.php");
 
 if (! has_rights (ACX_RATECARD)){ 
 	   Header ("HTTP/1.0 401 Unauthorized");
@@ -35,7 +35,7 @@ $list = $HD_Form -> perform_action($form_action);
 
 
 // #### HEADER SECTION
-include("PP_header.php");
+$smarty->display('main.tpl');
 
 // #### HELP SECTION
 echo '<br><br>'.$CC_help_money_situation;
@@ -65,10 +65,10 @@ $list3 = $instance_table -> Get_list ($HD_Form -> DBHandle, "t1.card_id=t2.id", 
 $list4 = $list2[0][0] - $list3[0][0];
 ?>
 <br/>
-<table border="1" cellpadding="4" cellspacing="2" width="90%" align="center" bgcolor="#EaEaEa">		
+<table border="1" cellpadding="4" cellspacing="2" width="90%" align="center" class="bgcolor_017" >		
 	<tr>
 		<td>		
-			<table border="2" cellpadding="3" cellspacing="5" width="450" align="right" bgcolor="#FaFaFa">		
+			<table border="2" cellpadding="3" cellspacing="5" width="450" align="right" class="bgcolor_018">		
 				<tr class="form_head">                   					
 					<td width="20%" align="center" class="tableBodyRight" style="padding: 2px;"><strong><?php echo gettext("TOTAL CREDIT");?></strong></td>
 					<td width="20%" align="center" class="tableBodyRight" style="padding: 2px;"><strong><?php echo gettext("TOTAL REFILL");?></strong></td>
@@ -88,6 +88,6 @@ $list4 = $list2[0][0] - $list3[0][0];
 	<br></br>
 <?php
 // #### FOOTER SECTION
-include("PP_footer.php");
+$smarty->display('footer.tpl');
 
 ?>

@@ -2,6 +2,7 @@
 // Common includes
 include ("../lib/defines.php");
 include ("../lib/module.access.php");
+include ("../lib/smarty.php");
 //include ("../lib/Class.Table.php");
 
 set_time_limit(0);
@@ -272,10 +273,9 @@ $Temps = $Temps2 - $Temps1;
 
 ?>
 
-<html>
-<head>
-<title>CallingCard : Importation RateCard</title>
-<link rel="stylesheet" href="Css/Bo_StyleCss.css" type="text/css">
+<?php
+		$smarty->display('main.tpl');
+?>
 <style type="text/css">
 <!--
 div.myscroll {
@@ -312,11 +312,6 @@ function sendtoupload(form){
 
 //-->
 </script>
-
-<?php
-	include("PP_header.php");
-?>
-
       <br>
       <br>
 	  <?php
@@ -345,12 +340,12 @@ function sendtoupload(form){
 				  </td>
                 </tr>
 				<tr bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[1]?>"  onMouseOver="bgColor='#C4FFD7'" onMouseOut="bgColor='<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[1]?>'">
-				 <td class="tableBody" align="left" valign="top"><font color="red"><b><?php echo strtoupper($fixfield[0])?></b></font></td>
-				 <td class="tableBody" align="center" valign="top"><font color="red"><b><?php echo $didgroupval[1]?> (<?php echo $didgroupval[0]?>)</b></font></td>
+				 <td class="tableBody" align="left" valign="top"><font class="fontstyle_005" ><?php echo strtoupper($fixfield[0])?></font></td>
+				 <td class="tableBody" align="center" valign="top"><font class="fontstyle_005" ><?php echo $didgroupval[1]?> (<?php echo $didgroupval[0]?>)</font></td>
 				</tr>
                 <tr bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[2]?>"  onMouseOver="bgColor='#C4FFD7'" onMouseOut="bgColor='<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[2]?>'">
-				 <td class="tableBody" align="left" valign="top"><font color="red"><b><?php echo strtoupper($fixfield[1])?></b></font></td>
-				 <td class="tableBody" align="center" valign="top"><font color="red"><b><?php echo $countryIDval[1]?> (<?php echo $countryIDval[0]?>)</b></font></td>
+				 <td class="tableBody" align="left" valign="top"><font class="fontstyle_005" ><?php echo strtoupper($fixfield[1])?></b></font></td>
+				 <td class="tableBody" align="center" valign="top"><font class="fontstyle_005" ><?php echo $countryIDval[1]?> (<?php echo $countryIDval[0]?>)</font></td>
 				</tr>
 				<?php  for ($i=0;$i<count($field);$i++){ ?>
                	<tr bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[($i+1)%2]?>"  onMouseOver="bgColor='#C4FFD7'" onMouseOut="bgColor='<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[($i+1)%2]?>'">
@@ -394,14 +389,14 @@ function sendtoupload(form){
                       <input type="hidden" name="task" value="upload">
 					  <input type="hidden" name="status" value="ok">
                       <input name="the_file" type="file" size="50" onFocus=this.select() class="saisie1">
-                      <input type="button" style="border: 2px outset rgb(204, 51, 0);"   value="Continue to Import the DID's" onFocus=this.select() class="form_enter" name="submit1" onClick="sendtoupload(this.form);">
+                      <input type="button"    value="Continue to Import the DID's" onFocus=this.select() class="form_input_button" name="submit1" onClick="sendtoupload(this.form);">
                       <br>
                       &nbsp; </p>
                   </td>
                 </tr>
 
                 <tr>
-                  <td bgcolor="#E6E6E6" class="souligner" colspan="2"><b>
+                  <td class="bgcolor_014" colspan="2"><b>
                     <?php echo $translate[P34_9]?>
                     </b></td>
                 </tr>
@@ -418,7 +413,7 @@ function sendtoupload(form){
 				  	<TD style="border-bottom: medium dotted #ED2525" align="center">&nbsp;</TD>
 				</TR>
                 <tr> 
-				  <td colspan="2" bgcolor="#EDEDED" style="padding-left: 5px; padding-right: 3px;" align=center>
+				  <td colspan="2" style="padding-left: 5px; padding-right: 3px;" align=center class="bgcolor_015">
                     <div align="center"><span class="textcomment"> 
                        
 					  <br>
@@ -432,7 +427,7 @@ function sendtoupload(form){
 					  <center>
 					  	 <b><i>Line that has not been inserted!</i></b>
 						 <div class="myscroll">
-							  <span style="color: red;">
+							  <span class="fontstyle_005">
 							  <?php echo $buffer_error?> 
 							  </span>  
 						 </div>
@@ -447,5 +442,6 @@ function sendtoupload(form){
 			<?php }?>
 			<br>
 <?php
-	include("PP_footer.php");
+	$smarty->display('footer.tpl');
+
 ?>

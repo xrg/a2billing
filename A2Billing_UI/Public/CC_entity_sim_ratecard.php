@@ -3,7 +3,7 @@ include ("../lib/defines.php");
 include ("../lib/module.access.php");
 //include ("./frontoffice_data/CC_var_def_ratecard.inc");
 include ("../lib/Class.RateEngine.php");	
-
+include ("../lib/smarty.php");
 
 if (! has_rights (ACX_RATECARD)){ 
 	   Header ("HTTP/1.0 401 Unauthorized");
@@ -107,7 +107,7 @@ $nb_tariffname = count($list_tariffname);
 ?>
 
 <?php
-	include("PP_header.php");
+	$smarty->display('main.tpl');
 ?>
 
 <script language="JavaScript" type="text/JavaScript">
@@ -153,13 +153,13 @@ function openURL(theLINK)
 		<table class="bar-status" width="75%" border="0" cellspacing="1" cellpadding="2" align="center">
 			<tbody>
 			<tr>
-				<td align="left" valign="top" bgcolor="#000033">					
-					<font face="verdana" size="1" color="#ffffff"><b>&nbsp;&nbsp;<?php echo gettext("R A T E C A R D");?></b></font>
+				<td align="left" valign="top" class="bgcolor_004">					
+					<font class="fontstyle_003">&nbsp;&nbsp;<?php echo gettext("R A T E C A R D");?></font>
 				</td>				
-				<td class="bar-search" align="left" bgcolor="#acbdee">
-				<table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#acbdee"><tr>
+				<td class="bgcolor_005" align="left" >
+				<table width="100%" border="0" cellspacing="0" cellpadding="0" class="bgcolor_005"><tr>
 					<td width="50%" align="center">&nbsp;&nbsp;
-						<select NAME="tariffplan" size="1"  style="border: 2px outset rgb(204, 51, 0); width=250">
+						<select NAME="tariffplan" size="1"  style="width=250" class="form_input_select">
 								<option value=''><?php echo gettext("Choose a ratecard");?></option>
 							
 								<?php					 
@@ -170,8 +170,8 @@ function openURL(theLINK)
 								?>
 						</select>						
 					</td>
-					<td class="bar-search" align="center" bgcolor="#cddeff" width="50%">
-					<input type="image"  name="image16" align="top" border="0" src="../Images/button-search.gif" />
+					<td class="bgcolor_003" align="center"  width="50%">
+					<input type="image"  name="image16" align="top" border="0" src="<?php echo Images_Path;?>/button-search.gif" />
 	  			</td>
 				
 				</tr></table></td>
@@ -190,26 +190,26 @@ function openURL(theLINK)
         </TR>
 		<FORM NAME="theFormFilter" action="<?php echo $PHP_SELF?>">		
 		<tr>			
-            <td height="31" bgcolor="#8888CC" style="padding-left: 5px; padding-right: 3px;">
+            <td height="31" style="padding-left: 5px; padding-right: 3px;" class="bgcolor_009">
 					<br><font color="white"><b><?php echo gettext("NUMBER YOU WISH TO CALL");?> :</b></font>
-					<INPUT type="text" name="called" value="<?php echo $called;?>">
+					<INPUT type="text" name="called" value="<?php echo $called;?>" class="form_input_text">
 					<br>
 					<?php if (false){ ?>
 					<br>
 					<font color="white"><b><?php echo gettext("YOUR BALANCE");?> :</b></font>
-					<INPUT type="text" name="balance" value="<?php if (!isset($balance)) echo "10"; else echo $balance;?>"> 
+					<INPUT type="text" class="form_input_text" name="balance" value="<?php if (!isset($balance)) echo "10"; else echo $balance;?>"> 
 					<?php } ?>
 					
 					<br>
-					 <input class="form_enter" name="id_cc_card" size="30" maxlength="50" value="<?php echo $id_cc_card;?>"> 
-						<a href="#" onclick="window.open('A2B_entity_card.php?popup_select=1&popup_formname=theFormFilter&popup_fieldname=id_cc_card' , 'CardNumberSelection','width=550,height=330,top=20,left=100');"><img src="../Images/icon_arrow_orange.gif"></a>
+					 <input class="form_input_text" name="id_cc_card" size="30" maxlength="50" value="<?php echo $id_cc_card;?>"> 
+						<a href="#" onclick="window.open('A2B_entity_card.php?popup_select=1&popup_formname=theFormFilter&popup_fieldname=id_cc_card' , 'CardNumberSelection','width=550,height=330,top=20,left=100');"><img src="<?php echo Images_Path;?>/icon_arrow_orange.gif"></a>
 						
                        <?php echo gettext("Select the card number ID to use");?>.
 					<br>
 					
 			</td>
-			<td height="31" bgcolor="#8888CC" style="padding-left: 5px; padding-right: 3px;">
-				<input type="SUBMIT" value="<?php echo gettext("SIMULATE");?>" style="border: 2px outset rgb(204, 51, 0);" class="form_enter"/>
+			<td height="31" class="bgcolor_009" style="padding-left: 5px; padding-right: 3px;">
+				<input type="SUBMIT" value="<?php echo gettext("SIMULATE");?>"  class="form_input_button"/>
 			</td>
         </tr>
 		
@@ -238,7 +238,7 @@ $FG_TABLE_ALTERNATE_ROW_COLOR[1]='#FF7575';
 		
 		<?php if (count($RateEngine->ratecard_obj)>1){ ?>
 		<TR> 
-          <td height="15" bgcolor="#5555CC" style="padding-left: 5px; padding-right: 3px;" colspan="2">
+          <td height="15"  class="bgcolor_010" style="padding-left: 5px; padding-right: 3px;" colspan="2">
 					<b><?php echo gettext("MORE THAN ONE ROUTE FOUND ON THE RATECARD");?></b>
 			</td>
         </TR>		
@@ -250,7 +250,7 @@ $FG_TABLE_ALTERNATE_ROW_COLOR[1]='#FF7575';
 			</td>
         	</TR>
 			<TR> 
-          	<td height="15" bgcolor="#55CC55" style="padding-left: 5px; padding-right: 3px;" colspan="2">
+          	<td height="15" class="bgcolor_011" style="padding-left: 5px; padding-right: 3px;" colspan="2">
 					<b><?php echo gettext("PREFIX-RATECARD");?> : #<?php echo $j+1;?></b>
 			</td>
         	</TR>
@@ -285,5 +285,5 @@ $FG_TABLE_ALTERNATE_ROW_COLOR[1]='#FF7575';
 	  
 <br><br><br><br>
 <?php
-	include("PP_footer.php");
+	$smarty->display('footer.tpl');
 ?>

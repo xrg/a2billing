@@ -39,7 +39,7 @@ include (dirname(__FILE__)."/../lib/company_info.php");
 	
     
 
-<table width="100%" background="../Images/agua_bg.jpg" bgcolor="#F0F0E8" cellpadding="0" cellspacing="0" style="border-bottom: medium dotted white">
+<table width="100%" background="<?php echo Images_Path;?>/agua_bg.jpg" bgcolor="#F0F0E8" cellpadding="0" cellspacing="0" style="border-bottom: medium dotted white">
 <tr>
 	<td><img src="../Css/kicons/gnome-globe.png"  align=right border=0/></td>
 <td width="100%" height=60 >

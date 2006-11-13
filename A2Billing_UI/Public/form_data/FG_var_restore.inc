@@ -79,7 +79,7 @@ $HD_Form -> FG_INTRO_TEXT_ADD = gettext("you can add easily a new ".$HD_Form->FG
 
 
 $HD_Form -> FG_OTHER_BUTTON1_LINK = $_SERVER['PHP_SELF']."?form_action=restore&atmenu=$HD_Form->FG_INSTANCE_NAME&id=";
-$HD_Form -> FG_OTHER_BUTTON1_IMG = "../Images/icon-restore.gif";
+$HD_Form -> FG_OTHER_BUTTON1_IMG = Images_Path . "/icon-restore.gif";
 
 $HD_Form -> FG_OTHER_BUTTON2_LINK = $_SERVER['PHP_SELF']."?form_action=download&atmenu=$HD_Form->FG_INSTANCE_NAME&id=";
 $HD_Form -> FG_OTHER_BUTTON2_IMG = "img/dl.gif";
@@ -88,7 +88,7 @@ $HD_Form -> FG_INTRO_TEXT_ADITION = gettext("Add a $HD_Form->FG_INSTANCE_NAME no
 $HD_Form -> FG_TEXT_ADITION_CONFIRMATION = gettext("Your new ".$HD_Form->FG_INSTANCE_NAME." has been inserted. <br>");
 
 
-$HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = "../Images/cormfirmboton.gif";
+$HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = Images_Path . "/cormfirmboton.gif";
 $HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT = gettext("Once you have completed the form above, click on the CONTINUE button.");
 
 

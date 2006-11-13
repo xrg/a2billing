@@ -1880,7 +1880,7 @@ class FormHandler{
 				<td align="left" valign="top" class="form_selectform_td1">
 					&nbsp;&nbsp;<?php echo gettext("R A T E C A R D");?>
 				</td>
-				<td class="bar-search" align="left" bgcolor="#acbdee">
+				<td class="bgcolor_005" align="left">
 				<table class="form_selectform_table1"><tr>
 					<td width="50%" align="center">&nbsp;&nbsp;
 						<select NAME="tariffplan" size="1"  class="form_input_select" width=250">

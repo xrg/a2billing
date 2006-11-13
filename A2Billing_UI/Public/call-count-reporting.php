@@ -1,7 +1,7 @@
 <?php
 include ("../lib/defines.php");
 include ("../lib/module.access.php");
-
+include ("../lib/smarty.php");
 
 if (! has_rights (ACX_CALL_REPORT)){ 
 	   Header ("HTTP/1.0 401 Unauthorized");
@@ -235,7 +235,7 @@ if (!$nodisplay){
 
 ?>
 <?php
-	include("PP_header.php");
+	$smarty->display('main.tpl');
 ?>
 <script language="JavaScript" type="text/JavaScript">
 <!--
@@ -256,15 +256,15 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 		<table class="bar-status" width="85%" border="0" cellspacing="1" cellpadding="2" align="center">
 			<tbody>
 			<tr>
-        		<td class="bar-search" align="left" bgcolor="#555577">
+        		<td class="bgcolor_002" align="left">
 
 					<input type="radio" name="Period" value="Month" <?php  if (($Period=="Month") || !isset($Period)){ ?>checked="checked" <?php  } ?>> 
-					<font face="verdana" size="1" color="#ffffff"><b><?php echo gettext("Selection of the month");?></b></font>
+					<font class=""><?php echo gettext("Selection of the month");?></b></font>
 				</td>
-      			<td class="bar-search" align="left" bgcolor="#cddeff">
-					<table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#cddeff"><tr><td>
+      			<td class="bgcolor_003" align="left">
+					<table width="100%" border="0" cellspacing="0" cellpadding="0" class="bgcolor_003"><tr><td>
 	  				<input type="checkbox" name="frommonth" value="true" <?php  if ($frommonth){ ?>checked<?php }?>>
-					<?php echo gettext("From");?> : <select name="fromstatsmonth">
+					<?php echo gettext("From");?> : <select name="fromstatsmonth" class="form_input_select">
 					<?php
 						$monthname = array( gettext("January"), gettext("February"),gettext("March"), gettext("April"), gettext("May"), gettext("June"), gettext("July"), gettext("August"), gettext("September"), gettext("October"), gettext("November"), gettext("December"));
 						$year_actual = date("Y");  	
@@ -286,7 +286,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 					</select>
 					</td><td>&nbsp;&nbsp;
 					<input type="checkbox" name="tomonth" value="true" <?php  if ($tomonth){ ?>checked<?php }?>> 
-					To : <select name="tostatsmonth">
+					To : <select name="tostatsmonth" class="form_input_select">
 					<?php 	$year_actual = date("Y");  	
 						for ($i=$year_actual;$i >= $year_actual-1;$i--)
 						{		   
@@ -309,14 +309,14 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
     		</tr>
 			
 			<tr>
-        		<td align="left" bgcolor="#000033">
+        		<td align="left" class="bgcolor_004">
 					<input type="radio" name="Period" value="Day" <?php  if ($Period=="Day"){ ?>checked="checked" <?php  } ?>> 
-					<font face="verdana" size="1" color="#ffffff"><b><?php echo gettext("Selection of the day");?></b></font>
+					<font class="fontstyle_003"><?php echo gettext("Selection of the day");?></font>
 				</td>
-      			<td align="left" bgcolor="#acbdee">
-					<table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#acbdee"><tr><td>
+      			<td align="left" class="bgcolor_005">
+					<table width="100%" border="0" cellspacing="0" cellpadding="0" class="bgcolor_005"><tr><td>
 	  				<input type="checkbox" name="fromday" value="true" <?php  if ($fromday){ ?>checked<?php }?>> <?php echo gettext("From");?> :
-					<select name="fromstatsday_sday">
+					<select name="fromstatsday_sday" class="form_input_select">
 						<?php  
 						for ($i=1;$i<=31;$i++){
 							if ($fromstatsday_sday==sprintf("%02d",$i)) $selected="selected";
@@ -325,7 +325,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 						}
 						?>	
 					</select>
-				 	<select name="fromstatsmonth_sday">
+				 	<select name="fromstatsmonth_sday" class="form_input_select">
 					<?php 	$year_actual = date("Y");  	
 						for ($i=$year_actual;$i >= $year_actual-1;$i--)
 						{		   
@@ -345,7 +345,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 					</select>
 					</td><td>&nbsp;&nbsp;
 					<input type="checkbox" name="today" value="true" <?php  if ($today){ ?>checked<?php }?>> <?php echo gettext("To");?>  :
-					<select name="tostatsday_sday">
+					<select name="tostatsday_sday" class="form_input_select">
 					<?php  
 						for ($i=1;$i<=31;$i++){
 							if ($tostatsday_sday==sprintf("%02d",$i)){$selected="selected";}else{$selected="";}
@@ -353,7 +353,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 						}
 					?>						
 					</select>
-				 	<select name="tostatsmonth_sday">
+				 	<select name="tostatsmonth_sday" class="form_input_select">
 					<?php 	$year_actual = date("Y");  	
 						for ($i=$year_actual;$i >= $year_actual-1;$i--)
 						{		   
@@ -375,18 +375,18 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 	  			</td>
     		</tr>
 		<tr>
-			<TD class="bar-search" align="left" bgcolor="#000033">
-				<font face="verdana" size="1" color="#ffffff"><b>&nbsp;&nbsp;<?php echo gettext("Top");?></font>	
+			<TD class="bgcolor_004" align="left">
+				<font class="fontstyle_003">&nbsp;&nbsp;<?php echo gettext("Top");?></font>	
 			</TD>
-			<td class="bar-search" align="left" bgcolor="#cddeff">
+			<td class="bgcolor_003" align="left" >
 				<table width="100%" border="0" cellspacing="0" cellpadding="0">
-				<tr>	<TD class="bar-search" align="center" bgcolor="#cddeff">
-						<input type="text" name="inputtopvar" value="<?php echo $inputtopvar;?>">
+				<tr>	<TD class="bgcolor_003" align="center" >
+						<input type="text" name="inputtopvar" value="<?php echo $inputtopvar;?>" class="form_input_text">
 					</td>
-					<td class="bar-search" align="center" bgcolor="#cddeff">
+					<td class="bgcolor_003" align="center" >
 						<input type="radio" name="topsearch" value="topuser"<?php if ($topsearch=="topuser"){ ?> checked="checked" <?php  } ?>><?php echo gettext("Users making the more calls");?>
 					</td>
-					<td class="bar-search" align="center" bgcolor="#cddeff">
+					<td class="bgcolor_003" align="center" >
 						<input type="radio" name="topsearch" value="topdestination"<?php if ($topsearch=="topdestination"){ ?> checked="checked" <?php  } ?>><?php echo gettext("More calls destination");?>
 					</td>
 				</tr></table>
@@ -396,8 +396,8 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 
 			
 			<tr>
-			  <td class="bar-search" align="left" bgcolor="#000033"><font face="verdana" size="1" color="#ffffff"><b>&nbsp;&nbsp;<?php echo gettext("Options");?></b></font></td>
-			  <td class="bar-search" align="center" bgcolor="#acbdee"><div align="left">
+			  <td class="bgcolor_004" align="left" ><font class="fontstyle_003">&nbsp;&nbsp;<?php echo gettext("Options");?></font></td>
+			  <td class="bgcolor_005" align="center" ><div align="left">
 			  
 			  <table width="100%" border="0" cellspacing="0" cellpadding="0">
 			  <tr>
@@ -429,7 +429,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 				<tr>
 					<td>
 						<b><?php echo gettext("CURRENCY");?> :</b>
-						<select NAME="choose_currency" size="1" class="form_enter" style="border: 2px outset rgb(204, 51, 0);">
+						<select NAME="choose_currency" size="1" class="form_input_select">
 							<?php
 								$currencies_list = get_currencies();
 								foreach($currencies_list as $key => $cur_value) {
@@ -451,10 +451,10 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 			
 			
 			<tr>
-        		<td class="bar-search" align="left" bgcolor="#000033"> </td>
+        		<td class="bgcolor_004" align="left" > </td>
 
-				<td class="bar-search" align="center" bgcolor="#acbdee">
-					<input type="image"  name="image16" align="top" border="0" src="../Images/button-search.gif" />
+				<td class="bgcolor_005" align="center" >
+					<input type="image"  name="image16" align="top" border="0" src="<?php echo Images_Path;?>/button-search.gif" />
 					
 	  			</td>
     		</tr>
@@ -470,12 +470,12 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 			<center><?php echo gettext("Number of call");?> : <?php  if (is_array($list) && count($list)>0){ echo $nb_record; }else{echo "0";}?></center>
       <table width="<?php echo $FG_HTML_TABLE_WIDTH?>" border="0" align="center" cellpadding="0" cellspacing="0">
 <TR bgcolor="#ffffff"> 
-          <TD bgColor=#7f99cc height=16 style="PADDING-LEFT: 5px; PADDING-RIGHT: 3px"> 
+          <TD  class="bgcolor_021" height="16px" style="PADDING-LEFT: 5px; PADDING-RIGHT: 3px"> 
             <TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
               <TBODY>
                 <TR> 
-                  <TD><SPAN style="COLOR: #ffffff; FONT-SIZE: 11px"><tr><?php echo $FG_HTML_TABLE_TITLE?></B></SPAN></TD>
-                  <TD align=right> <IMG alt="Back to Top" border=0 height=12 src="../Images/btn_top_12x12.gif" width=12> 
+                  <TD><SPAN  class="fontstyle_003"><tr><?php echo $FG_HTML_TABLE_TITLE?></B></SPAN></TD>
+                  <TD align=right> <IMG alt="Back to Top" border=0 height=12 src="<?php echo Images_Path;?>/btn_top_12x12.gif" width=12> 
                   </TD>
                 </TR>
               </TBODY>
@@ -484,7 +484,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
         <TR> 
           <TD> <TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
 <TBODY>
-                <TR bgColor=#F0F0F0> 
+                <TR class="bgcolor_008"> 
 				  <TD width="<?php echo $FG_ACTION_SIZE_COLUMN?>" align=center class="tableBodyRight" style="PADDING-BOTTOM: 2px; PADDING-LEFT: 2px; PADDING-RIGHT: 2px; PADDING-TOP: 2px"></TD>					
 				  
                   <?php 
@@ -502,9 +502,9 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     <span class="liens"><?php  } ?>
                     <?php echo $FG_TABLE_COL[$i][0]?> 
                     <?php if ($order==$FG_TABLE_COL[$i][1] && $sens=="ASC"){?>
-                    &nbsp;<img src="../Images/icon_up_12x12.GIF" width="12" height="12" border="0"> 
+                    &nbsp;<img src="<?php echo Images_Path;?>/icon_up_12x12.GIF" width="12" height="12" border="0"> 
                     <?php }elseif ($order==$FG_TABLE_COL[$i][1] && $sens=="DESC"){?>
-                    &nbsp;<img src="../Images/icon_down_12x12.GIF" width="12" height="12" border="0"> 
+                    &nbsp;<img src="<?php echo Images_Path;?>/icon_down_12x12.GIF" width="12" height="12" border="0"> 
                     <?php }?>
                     <?php  if (strtoupper($FG_TABLE_COL[$i][4])=="SORT"){?>
                     </span></a> 
@@ -517,9 +517,9 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 				   <?php } ?>		
                 </TR>
                 <TR> 
-                  <TD bgColor=#e1e1e1 colSpan=<?php echo $FG_TOTAL_TABLE_COL?> height=1><IMG 
+                  <TD  class="tableDivider" colSpan=<?php echo $FG_TOTAL_TABLE_COL?>><IMG 
                               height=1 
-                              src="../Images/clear.gif" 
+                              src="<?php echo Images_Path;?>/clear.gif" 
                               width=1></TD>
                 </TR>
 				<?php
@@ -570,13 +570,13 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 				  }//end_if
 				 ?>
                 <TR> 
-                  <TD class=tableDivider colSpan=<?php echo $FG_TOTAL_TABLE_COL?>><IMG height=1 
-                              src="../Images/clear.gif" 
+                  <TD class="tableDivider" colSpan=<?php echo $FG_TOTAL_TABLE_COL?>><IMG height=1 
+                              src="<?php echo Images_Path;?>/clear.gif" 
                               width=1></TD>
                 </TR>
                 <TR> 
-                  <TD class=tableDivider colSpan=<?php echo $FG_TOTAL_TABLE_COL?>><IMG height=1 
-                              src="../Images/clear.gif" 
+                  <TD class="tableDivider" colSpan=<?php echo $FG_TOTAL_TABLE_COL?>><IMG height=1 
+                              src="<?php echo Images_Path;?>/clear.gif" 
                               width=1></TD>
                 </TR>
               </TBODY>
@@ -589,7 +589,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 <TR> 
                   <TD align="right"><SPAN style="COLOR: #ffffff; FONT-SIZE: 11px"><td> 
                     <?php if ($current_page>0){?>
-                    <img src="../Images/fleche-g.gif" width="5" height="10"> <a href="<?php echo $PHP_SELF?>?s=1&t=0&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php  echo ($current_page-1)?><?php  if (!is_null($letter) && ($letter!="")){ echo "&letter=$letter";} 
+                    <img src="<?php echo Images_Path;?>/fleche-g.gif" width="5" height="10"> <a href="<?php echo $PHP_SELF?>?s=1&t=0&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php  echo ($current_page-1)?><?php  if (!is_null($letter) && ($letter!="")){ echo "&letter=$letter";} 
 					echo "&topsearch=$topsearch&inputtopvar=$inputtopvar&posted=$posted&Period=$Period&frommonth=$frommonth&fromstatsmonth=$fromstatsmonth&tomonth=$tomonth&tostatsmonth=$tostatsmonth&fromday=$fromday&fromstatsday_sday=$fromstatsday_sday&fromstatsmonth_sday=$fromstatsmonth_sday&today=$today&tostatsday_sday=$tostatsday_sday&tostatsmonth_sday=$tostatsmonth_sday&resulttype=$resulttype&terminatecause=$terminatecause&grouped=$grouped";?>">
                     <?php echo gettext("Previous");?> </a> -
                     <?php }?>
@@ -597,10 +597,10 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     <?php if ($current_page<$nb_record_max-1){?>
                     - <a href="<?php echo $PHP_SELF?>?s=1&t=0&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php  echo ($current_page+1)?><?php  if (!is_null($letter) && ($letter!="")){ echo "&letter=$letter";}
 					echo "&posted=$posted&Period=$Period&frommonth=$frommonth&fromstatsmonth=$fromstatsmonth&tomonth=$tomonth&tostatsmonth=$tostatsmonth&fromday=$fromday&fromstatsday_sday=$fromstatsday_sday&fromstatsmonth_sday=$fromstatsmonth_sday&today=$today&tostatsday_sday=$tostatsday_sday&tostatsmonth_sday=$tostatsmonth_sday&clidtype=$clidtype&resulttype=$resulttype&clid=$clid&terminatecause=$terminatecause&topsearch=$topsearch&inputtopvar=$inputtopvar&grouped=$grouped";?>">
-                    <?php echo gettext("Next");?></a> <img src="../Images/fleche-d.gif" width="5" height="10">
-                    </B></SPAN> 
+                    <?php echo gettext("Next");?></a> <img src="<?php echo Images_Path;?>/fleche-d.gif" width="5" height="10">
+                    </B></TD></SPAN> 
                     <?php }?>
-                  </TD>
+                  
               </TBODY>
             </TABLE></TD>
         </TR>
@@ -638,7 +638,7 @@ if (is_array($list) && count($list)>0){
 <center>
  <table border="0" cellspacing="1" cellpadding="0" width="80%" bgcolor="Black"><tbody>
 	<tr bgcolor="Black">
-		<td align="left" colspan="5"><font face="verdana" size="1" color="white"><b><?php echo gettext("TOTAL");?></b></font>
+		<td align="left" colspan="5"><font  class="fontstyle_003"><?php echo gettext("TOTAL");?></font>
 		</td>
 	</tr>
 	<?php if ($grouped){?>
@@ -647,34 +647,34 @@ if (is_array($list) && count($list)>0){
 		</TD>
 		<td align="center" colspan="4">	
 			<TABLE border="0" cellspacing="1" cellpadding="0" width="100%" bgcolor="Black">
-			<tr bgcolor="#600101">
-			<TD align="center" class="sidenav" nowrap="nowrap" width="75%"><b><font face="verdana" size="1" color="#ffffff"><?php echo gettext ("DAYS");?></b></font><//TABLE>
+			<tr  class="bgcolor_019">
+			<TD align="center" class="sidenav" nowrap="nowrap" width="75%"><font class="fontstyle_006"><?php echo gettext ("DAYS");?></font><//TABLE>
 			</TD>
-			<TD align="center" class="sidenav" nowrap="nowrap"><b><font face="verdana" size="1" color="#ffffff"><?php echo gettext("DURATION");?></b></font></TD>
+			<TD align="center" class="sidenav" nowrap="nowrap"><font face="verdana" size="1" color="#ffffff"><?php echo gettext("DURATION");?>></font></TD>
 			</TD>
 			</tr>
-			<tr bgcolor="Gray">
-			<TD align="center" class="sidenav" nowrap="nowrap"><b><font face="verdana" size="1" color="#ffffff"><?php echo $maxtotalday?></b></font></TD>
+			<tr class="bgcolor_021">
+			<TD align="center" class="sidenav" nowrap="nowrap"><font class="fontstyle_003"><?php echo $maxtotalday?></b></font></TD>
 			</TD>
-			<TD align="center" class="sidenav" nowrap="nowrap"><b><font face="verdana" size="1" color="#ffffff"><?php echo $maxtotalminute?></b></font></TD>
+			<TD align="center" class="sidenav" nowrap="nowrap"><font class="fontstyle_003"><?php echo $maxtotalminute?></b></font></TD>
 			</TD>
 			</tr>
 			</TABLE>
 		</td>
 	</tr><?php }?>
-	<tr bgcolor="#600101">
-		<td align="center"><font face="verdana" size="1" color="#ffffff"><b><?php echo gettext("DURATION");?></b></font></td>
-		<td align="center"><font face="verdana" size="1" color="#ffffff"><b><?php echo gettext("CALLS");?></b></font></td>
-		<td align="center"><font face="verdana" size="1" color="#ffffff"><b><?php echo gettext("AVERAGE CONNECTION TIME");?></b></font></td>
-		<td align="center"><font face="verdana" size="1" color="#ffffff"><b><?php echo gettext("SELL");?></b></font></td>
-		<td align="center"><font face="verdana" size="1" color="#ffffff"><b><?php echo gettext("BUY");?></b></font></td>
+	<tr class="bgcolor_019">
+		<td align="center"><font class="fontstyle_003"><?php echo gettext("DURATION");?></font></td>
+		<td align="center"><font class="fontstyle_003"><?php echo gettext("CALLS");?></font></td>
+		<td align="center"><font class="fontstyle_003"><?php echo gettext("AVERAGE CONNECTION TIME");?></font></td>
+		<td align="center"><font class="fontstyle_003"><?php echo gettext("SELL");?></font></td>
+		<td align="center"><font class="fontstyle_003"><?php echo gettext("BUY");?></font></td>
 		<!-- LOOP -->
-	<tr bgcolor="Gray">
-		<td align="center" class="sidenav" nowrap="nowrap"><b><font face="verdana" size="1" color="#ffffff"><?php echo $totalminutes?></b></font></td>
-		<td align="center" class="sidenav" nowrap="nowrap"><b><font face="verdana"  size="1" color="#ffffff"><?php echo $totalcall?> </b></font></td>
-	        <td align="center" class="sidenav" nowrap="nowrap"><b><font face="verdana"  size="1" color="#ffffff"><?php echo $total_tmc?></b></font></td>
-        	<td align="center" class="sidenav" nowrap="nowrap"><b><font face="verdana"  size="1" color="#ffffff"><?php display_2bill($totalcost)?> </b></font></td>
-		<td align="center" class="sidenav" nowrap="nowrap"><b><font face="verdana"  size="1" color="#ffffff"><?php display_2bill($totalbuycost) ?></b></font></td>
+	<tr class="bgcolor_023">
+		<td align="center" class="sidenav" nowrap="nowrap"><font class="fontstyle_003"><?php echo $totalminutes?> </font></td>
+		<td align="center" class="sidenav" nowrap="nowrap"><font class="fontstyle_003"><?php echo $totalcall?> </font></td>
+	        <td align="center" class="sidenav" nowrap="nowrap"><font class="fontstyle_003"><?php echo $total_tmc?></font></td>
+        	<td align="center" class="sidenav" nowrap="nowrap"><font class="fontstyle_003"><?php display_2bill($totalcost)?> </font></td>
+		<td align="center" class="sidenav" nowrap="nowrap"><font class="fontstyle_003"><?php display_2bill($totalbuycost) ?></font></td>
 	</tr>
 </tbody></table>
 
@@ -684,5 +684,5 @@ if (is_array($list) && count($list)>0){
 </center>
 
 <?php
-	include("PP_footer.php");
+	$smarty->display('footer.tpl');
 ?>

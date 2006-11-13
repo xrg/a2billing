@@ -23,10 +23,10 @@ $error["construction"] = gettext("Sorry, this page is in construction !");
 
 			<br></br><br></br>
             <table width="460" border="2" align="center" cellpadding="1" cellspacing="2" bordercolor="#eeeeff" bgcolor="#FFFFFF">
-			  <tr bgcolor=#4e81c4> 
+			  <tr  class="pp_error_maintable_tr1"> 
 			  		
 					<td> 					
-						<div align="center"><b><font color="white" size=5><?php echo gettext("Error Page");?></font></b></div>
+						<div align="center"><b><font><?php echo gettext("Error Page");?></font></b></div>
 					</td>
 			  </tr>				 
               <tr> 
@@ -34,10 +34,10 @@ $error["construction"] = gettext("Sorry, this page is in construction !");
                     <table width="100%" border="0" cellpadding="5" cellspacing="5">		  
                       <tr> 
                         <td align="center"><br/>
-						<img src="../Css/kicons/messagebox_critical.png"> <img src="../Css/kicons/messagebox_critical.png"> <img src="../Css/kicons/system-config-rootpassword.png"> <img src="../Css/kicons/messagebox_critical.png"> <img src="../Css/kicons/messagebox_critical.png">
+						<img src="<?php echo KICON_PATH; ?>/messagebox_critical.png"> <img src="<?php echo KICON_PATH; ?>/messagebox_critical.png"> <img src="<?php echo KICON_PATH; ?>/system-config-rootpassword.png"> <img src="<?php echo KICON_PATH; ?>/messagebox_critical.png"> <img src="<?php echo KICON_PATH; ?>/messagebox_critical.png">
 						<br/><br/>
 						
-						 <b><font color=#3050c2 size=4><?php echo $error[$c]?></font></b><br/>
+						 <b><font  class="pp_error_maintable_error"><?php echo $error[$c]?></font></b><br/>
 						 
 						 <br/>
 						 <br/></td>

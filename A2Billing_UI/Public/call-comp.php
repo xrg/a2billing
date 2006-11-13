@@ -1,6 +1,7 @@
 <?php
 include_once(dirname(__FILE__) . "/../lib/defines.php");
 include_once(dirname(__FILE__) . "/../lib/module.access.php");
+include ("../lib/smarty.php");
 
 
 if (! has_rights (ACX_CALL_REPORT)){ 
@@ -272,7 +273,7 @@ $nb_customer = count($list_customer);
 ?>
 
 <?php
-	include("PP_header.php");
+$smarty->display('main.tpl');
 ?>
 
 <script language="JavaScript" type="text/JavaScript">
@@ -293,32 +294,32 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 		<table class="bar-status" width="75%" border="0" cellspacing="1" cellpadding="2" align="center">
 			<tbody>
 			<tr>
-				<td align="left" valign="top" bgcolor="#555577">					
-					<font face="verdana" size="1" color="#ffffff"><b>&nbsp;&nbsp;<?php echo gettext("CUSTOMERS");?></b></font>
+				<td align="left" valign="top"  class="bgcolor_002">					
+					<font  class="fontstyle_003">&nbsp;&nbsp;<?php echo gettext("CUSTOMERS");?></font>
 				</td>
-				<td class="bar-search" align="left" bgcolor="#cddeff">
-				<table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#cddeff"><tr>
+				<td align="left" class="bgcolor_003">
+				<table width="100%" border="0" cellspacing="0" cellpadding="0"  class="bgcolor_003"><tr>
 					<td>
-						<?php echo gettext("Enter the cardnumber");?>: <INPUT TYPE="text" NAME="entercustomer" value="<?php echo $entercustomer?>"
-						<a href="#" onclick="window.open('../A2B_entity_card.php?popup_select=2&popup_formname=myForm&popup_fieldname=entercustomer' , 'CardNumberSelection','width=550,height=330,top=20,left=100');"><img src="../Images/icon_arrow_orange.gif"></a>
+						<?php echo gettext("Enter the cardnumber");?>: <INPUT TYPE="text" NAME="entercustomer" value="<?php echo $entercustomer?>" class="form_input_text">
+						<a href="#" onclick="window.open('../A2B_entity_card.php?popup_select=2&popup_formname=myForm&popup_fieldname=entercustomer' , 'CardNumberSelection','width=550,height=330,top=20,left=100');"><img src="<?php echo Images_Path;?>/icon_arrow_orange.gif"></a>
 						<br/>&nbsp;
 					</td>
 					<td align="right">
-						<?php echo gettext("Provider");?>: <INPUT TYPE="text" NAME="enterprovider" value="<?php echo $enterprovider?>" size="4">
-						<a href="#" onclick="window.open('../A2B_entity_provider.php?popup_select=2&popup_formname=myForm&popup_fieldname=enterprovider' , 'ProviderSelection','width=550,height=330,top=20,left=100');"><img src="../Images/icon_arrow_orange.gif"></a>
-						<?php echo gettext("Trunk");?>: <INPUT TYPE="text" NAME="entertrunk" value="<?php echo $entertrunk?>" size="4">
-						<a href="#" onclick="window.open('../A2B_entity_trunk.php?popup_select=2&popup_formname=myForm&popup_fieldname=entertrunk' , 'TrunkSelection','width=550,height=330,top=20,left=100');"><img src="../Images/icon_arrow_orange.gif"></a>
+						<?php echo gettext("Provider");?>: <INPUT TYPE="text" NAME="enterprovider" value="<?php echo $enterprovider?>" size="4" class="form_input_text">
+						<a href="#" onclick="window.open('../A2B_entity_provider.php?popup_select=2&popup_formname=myForm&popup_fieldname=enterprovider' , 'ProviderSelection','width=550,height=330,top=20,left=100');"><img src="<?php echo Images_Path;?>/icon_arrow_orange.gif"></a>
+						<?php echo gettext("Trunk");?>: <INPUT TYPE="text" NAME="entertrunk" value="<?php echo $entertrunk?>" size="4" class="input_form_text">
+						<a href="#" onclick="window.open('../A2B_entity_trunk.php?popup_select=2&popup_formname=myForm&popup_fieldname=entertrunk' , 'TrunkSelection','width=550,height=330,top=20,left=100');"><img src="<?php echo Images_Path;?>/icon_arrow_orange.gif"></a>
 						<br/>&nbsp;
 					</td>
 				</tr></table></td>
 			</tr>
 			<tr>
-        		<td align="left" bgcolor="#000033">					
-					<font face="verdana" size="1" color="#ffffff"><b><?php echo gettext("Select the day");?></b></font>
+        		<td align="left" class="bgcolor_004">					
+					<font class="fontstyle_003"><?php echo gettext("Select the day");?></font>
 				</td>
-      			<td align="left" bgcolor="#acbdee">
-					<table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#acbdee"><tr><td>
-	  				<b><?php echo gettext("From");?> : </b><select name="fromstatsday_sday">
+      			<td align="left" class="bgcolor_005">
+					<table width="100%" border="0" cellspacing="0" cellpadding="0" class="bgcolor_005"><tr><td>
+	  				<b><?php echo gettext("From");?> : </b><select name="fromstatsday_sday" class="form_input_select">
 					<?php  
 						for ($i=1;$i<=31;$i++){
 							if ($fromstatsday_sday==sprintf("%02d",$i)){$selected="selected";}else{$selected="";}
@@ -326,7 +327,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 						}
 					?>					
 					</select>
-				 	<select name="fromstatsmonth_sday">
+				 	<select name="fromstatsmonth_sday" class="form_input_select">
 					<?php 	
 						$monthname = array( gettext("January"), gettext("February"),gettext("March"), gettext("April"), gettext("May"), gettext("June"), gettext("July"), gettext("August"), gettext("September"), gettext("October"), gettext("November"), gettext("December"));
 						$year_actual = date("Y");  	
@@ -348,7 +349,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 					</select>
 					</td><td>&nbsp;&nbsp;
 					<b><?php echo gettext("Number of days to compare");?> :</b>
-				 	<select name="days_compare">
+				 	<select name="days_compare" class="form_input_select">
 					<option value="4" <?php if ($days_compare=="4"){ echo "selected";}?>>- 4 <?php echo gettext("days");?></option>
 					<option value="3" <?php if ($days_compare=="3"){ echo "selected";}?>>- 3 <?php echo gettext("days");?></option>
 					<option value="2" <?php if (($days_compare=="2")|| !isset($days_compare)){ echo "selected";}?>>- 2 <?php echo gettext("days");?></option>
@@ -359,37 +360,37 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
     		</tr>	
 			
 			<tr>
-				<td class="bar-search" align="left" bgcolor="#555577">			
-					<font face="verdana" size="1" color="#ffffff"><b>&nbsp;&nbsp;<?php echo gettext("DESTINATION");?></b></font>
+				<td class="bgcolor_002" align="left">			
+					<font  class="fontstyle_003">&nbsp;&nbsp;<?php echo gettext("DESTINATION");?></font>
 				</td>				
-				<td class="bar-search" align="left" bgcolor="#cddeff">
+				<td class="bgcolor_003" align="left" >
 				<table width="100%" border="0" cellspacing="0" cellpadding="0"><tr><td>&nbsp;&nbsp;<INPUT TYPE="text" NAME="dst" value="<?php echo $dst?>"></td>
-				<td class="bar-search" align="center" bgcolor="#cddeff"><input type="radio" NAME="dsttype" value="1" <?php if((!isset($dsttype))||($dsttype==1)){?>checked<?php }?>><?php echo gettext("Exact");?></td>
-				<td class="bar-search" align="center" bgcolor="#cddeff"><input type="radio" NAME="dsttype" value="2" <?php if($dsttype==2){?>checked<?php }?>><?php echo gettext("Begins with");?></td>
-				<td class="bar-search" align="center" bgcolor="#cddeff"><input type="radio" NAME="dsttype" value="3" <?php if($dsttype==3){?>checked<?php }?>><?php echo gettext("Contains");?></td>
-				<td class="bar-search" align="center" bgcolor="#cddeff"><input type="radio" NAME="dsttype" value="4" <?php if($dsttype==4){?>checked<?php }?>><?php echo gettext("Ends with");?></td>
+				<td class="bgcolor_003" align="center" ><input type="radio" NAME="dsttype" value="1" <?php if((!isset($dsttype))||($dsttype==1)){?>checked<?php }?>><?php echo gettext("Exact");?></td>
+				<td class="bgcolor_003" align="center" ><input type="radio" NAME="dsttype" value="2" <?php if($dsttype==2){?>checked<?php }?>><?php echo gettext("Begins with");?></td>
+				<td class="bgcolor_003" align="center"><input type="radio" NAME="dsttype" value="3" <?php if($dsttype==3){?>checked<?php }?>><?php echo gettext("Contains");?></td>
+				<td class="bgcolor_003" align="center" ><input type="radio" NAME="dsttype" value="4" <?php if($dsttype==4){?>checked<?php }?>><?php echo gettext("Ends with");?></td>
 				</tr></table></td>
 			</tr>			
 			<tr>
-				<td align="left" bgcolor="#000033">					
-					<font face="verdana" size="1" color="#ffffff"><b>&nbsp;&nbsp;<?php echo gettext("SOURCE");?></b></font>
+				<td align="left" class="bgcolor_004">					
+					<font class="fontstyle_003">&nbsp;&nbsp;<?php echo gettext("SOURCE");?></font>
 				</td>				
-				<td class="bar-search" align="left" bgcolor="#acbdee">
-				<table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#acbdee"><tr><td>&nbsp;&nbsp;<INPUT TYPE="text" NAME="src" value="<?php echo "$src";?>"></td>
-				<td class="bar-search" align="center" bgcolor="#acbdee"><input type="radio" NAME="srctype" value="1" <?php if((!isset($srctype))||($srctype==1)){?>checked<?php }?>><?php echo gettext("Exact");?></td>
-				<td class="bar-search" align="center" bgcolor="#acbdee"><input type="radio" NAME="srctype" value="2" <?php if($srctype==2){?>checked<?php }?>><?php echo gettext("Begins with");?></td>
-				<td class="bar-search" align="center" bgcolor="#acbdee"><input type="radio" NAME="srctype" value="3" <?php if($srctype==3){?>checked<?php }?>><?php echo gettext("Contains");?></td>
-				<td class="bar-search" align="center" bgcolor="#acbdee"><input type="radio" NAME="srctype" value="4" <?php if($srctype==4){?>checked<?php }?>><?php echo gettext("Ends with");?></td>
+				<td class="bgcolor_005" align="left">
+				<table width="100%" border="0" cellspacing="0" cellpadding="0" class="bgcolor_005"><tr><td>&nbsp;&nbsp;<INPUT TYPE="text" NAME="src" value="<?php echo "$src";?>"></td>
+				<td class="bgcolor_005" align="center" ><input type="radio" NAME="srctype" value="1" <?php if((!isset($srctype))||($srctype==1)){?>checked<?php }?>><?php echo gettext("Exact");?></td>
+				<td class="bgcolor_005" align="center"><input type="radio" NAME="srctype" value="2" <?php if($srctype==2){?>checked<?php }?>><?php echo gettext("Begins with");?></td>
+				<td class="bgcolor_005" align="center" ><input type="radio" NAME="srctype" value="3" <?php if($srctype==3){?>checked<?php }?>><?php echo gettext("Contains");?></td>
+				<td class="bgcolor_005" align="center"><input type="radio" NAME="srctype" value="4" <?php if($srctype==4){?>checked<?php }?>><?php echo gettext("Ends with");?></td>
 				</tr></table></td>
 			</tr>
 
 			<tr>
-        		<td class="bar-search" align="left" bgcolor="#000033"> </td>
+        		<td class="bgcolor_004" align="left"> </td>
 
-				<td class="bar-search" align="center" bgcolor="#cddeff">
-					<table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#acbdee"><tr><td>				
+				<td class="bgcolor_005" align="center" >
+					<table width="100%" border="0" cellspacing="0" cellpadding="0" class="bgcolor_005"><tr><td>				
 						<b><?php echo gettext("Graph");?> :</b>
-							<select name="min_call">					
+							<select name="min_call" class="form_input_select">					
 							<option value=1 <?php  if ($min_call==1){ echo "selected";}?>><?php echo gettext("Minutes by hours");?></option>
 							<option value=0 <?php  if (($min_call==0) || !isset($min_call)){ echo "selected";}?>><?php echo gettext("Number of calls by hours");?></option>
 							<option value=2 <?php  if ($min_call==2){ echo "selected";}?>><?php echo gettext("Profits by hours");?></option>
@@ -398,7 +399,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 							</select>
 						</td>
 						<td align="right">							
-							<input type="image"  name="image16" align="top" border="0" src="../Images/button-search.gif" />
+							<input type="image"  name="image16" align="top" border="0" src="<?php echo Images_Path;?>/button-search.gif" />
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					</td></tr></table>
 	  			</td>
@@ -479,7 +480,7 @@ foreach ($table_graph as $tkey => $data){
  <table border="0" cellspacing="0" cellpadding="0" width="80%"><tbody><tr><td align="left" height="30">
 		<table cellspacing="0" cellpadding="1" bgcolor="#000000" width="50%"><tbody><tr><td>
 			<table cellspacing="0" cellpadding="0" width="100%"><tbody>
-				<tr><td bgcolor="#600101" align="left"><font face="verdana" size="1" color="white"><b><?php echo gettext("TOTAL");?></b></font></td></tr>
+				<tr><td class="bgcolor_019" align="left"><font  class="fontstyle_003"><?php echo gettext("TOTAL");?></font></td></tr>
 			</tbody></table>
 		</td></tr></tbody></table>
  </td></tr></tbody></table>
@@ -490,18 +491,18 @@ foreach ($table_graph as $tkey => $data){
 <tbody><tr><td bgcolor="#000000">			
 	<table border="0" cellspacing="1" cellpadding="2" width="100%"><tbody>
 	<tr>	
-		<td align="center" bgcolor="#600101"></td>
-    	<td bgcolor="#b72222" align="center" colspan="7"><font face="verdana" size="1" color="#ffffff"><b><?php echo gettext("ASTERISK MINUTES");?></b></font></td>
+		<td align="center" class="bgcolor_019"></td>
+    	<td  class="bgcolor_020" align="center" colspan="7"><font class="fontstyle_003"><?php echo gettext("ASTERISK MINUTES");?></font></td>
     </tr>
-	<tr bgcolor="#600101">
-		<td align="right" bgcolor="#b72222"><font face="verdana" size="1" color="#ffffff"><b><?php echo gettext("DATE");?></b></font></td>
-        <td align="center"><font face="verdana" size="1" color="#ffffff"><b><?php echo gettext("DURATION");?></b></font></td>
-		<td align="center"><font face="verdana" size="1" color="#ffffff"><b><?php echo gettext("GRAPHIC");?></b></font></td>
-		<td align="center"><font face="verdana" size="1" color="#ffffff"><b><?php echo gettext("CALLS");?></b></font></td>
-		<td align="center"><font face="verdana" size="1" color="#ffffff"><b> <acronym title="Average Connection Time"><?php echo gettext("ACT");?></acronym> </b></font></td>
-		<td align="center"><font face="verdana" size="1" color="#ffffff"><b><?php echo gettext("TOTAL SELL");?></b></font></td>
-		<td align="center"><font face="verdana" size="1" color="#ffffff"><b><?php echo gettext("TOTAL BUY");?></b></font></td>
-		<td align="center"><font face="verdana" size="1" color="#ffffff"><b><?php echo gettext("TOTAL PROFIT");?></b></font></td>
+	<tr class="bgcolor_019">
+		<td align="right" class="bgcolor_020"><font class="fontstyle_003"><?php echo gettext("DATE");?></font></td>
+        <td align="center"><font class="fontstyle_003"><?php echo gettext("DURATION");?></font></td>
+		<td align="center"><font class="fontstyle_003"><?php echo gettext("GRAPHIC");?></font></td>
+		<td align="center"><font class="fontstyle_003"><?php echo gettext("CALLS");?></font></td>
+		<td align="center"><font class="fontstyle_003"> <acronym title="Average Connection Time"><?php echo gettext("ACT");?></acronym> </font></td>
+		<td align="center"><font class="fontstyle_003"><?php echo gettext("TOTAL SELL");?></font></td>
+		<td align="center"><font class="fontstyle_003"><?php echo gettext("TOTAL BUY");?></font></td>
+		<td align="center"><font class="fontstyle_003"><?php echo gettext("TOTAL PROFIT");?></font></td>
                 			
 		<!-- LOOP -->
 	<?php  		
@@ -555,14 +556,14 @@ foreach ($table_graph as $tkey => $data){
 				<!-- FIN BOUCLE -->
 
 	<!-- TOTAL -->
-	<tr bgcolor="#600101">
-		<td align="right" nowrap="nowrap"><font face="verdana" size="1" color="#ffffff"><b><?php echo gettext("TOTAL");?></b></font></td>
-		<td align="center" nowrap="nowrap" colspan="2"><font face="verdana" size="1" color="#ffffff"><b><?php echo $total_minutes_60?> </b></font></td>
-		<td align="center" nowrap="nowrap"><font face="verdana" size="1" color="#ffffff"><b><?php echo $totalcall?></b></font></td>
-		<td align="center" nowrap="nowrap"><font face="verdana" size="1" color="#ffffff"><b><?php echo $total_tmc_60?></b></font></td>
-		<td align="center" nowrap="nowrap"><font face="verdana" size="1" color="#ffffff"><b><?php  display_2bill($totalsell) ?></b></font></td>
-		<td align="center" nowrap="nowrap"><font face="verdana" size="1" color="#ffffff"><b><?php  display_2bill($totalbuy) ?></b></font></td>
-		<td align="center" nowrap="nowrap"><font face="verdana" size="1" color="#ffffff"><b><?php  display_2bill($totalprofit) ?></b></font></td>		
+	<tr class="bgcolor_019">
+		<td align="right" nowrap="nowrap"><font class="fontstyle_003"><?php echo gettext("TOTAL");?></font></td>
+		<td align="center" nowrap="nowrap" colspan="2"><font class="fontstyle_003"><?php echo $total_minutes_60?> </font></td>
+		<td align="center" nowrap="nowrap"><font class="fontstyle_003"><?php echo $totalcall?></font></td>
+		<td align="center" nowrap="nowrap"><font class="fontstyle_003"><?php echo $total_tmc_60?></font></td>
+		<td align="center" nowrap="nowrap"><font class="fontstyle_003"><?php  display_2bill($totalsell) ?></font></td>
+		<td align="center" nowrap="nowrap"><font class="fontstyle_003"><?php  display_2bill($totalbuy) ?></font></td>
+		<td align="center" nowrap="nowrap"><font class="fontstyle_003"><?php  display_2bill($totalprofit) ?></font></td>		
 	</tr>
 	<!-- FIN TOTAL -->
 
@@ -581,5 +582,5 @@ foreach ($table_graph as $tkey => $data){
 
 <br><br>
 <?php
-        include("PP_footer.php");
+       $smarty->display('footer.tpl');
 ?>

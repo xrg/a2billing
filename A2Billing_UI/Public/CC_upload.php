@@ -1,7 +1,7 @@
 <?php
 include ("../lib/defines.php");
 include ("../lib/module.access.php");
-
+include ("../lib/smarty.php");
 
 
 if (! has_rights (ACX_FILE_MANAGER)){ 
@@ -177,8 +177,7 @@ $file_ext_allow = arr_rid_blank($file_ext_allow);
   }
 
 
-
-	include("PP_header.php");
+	$smarty->display('main.tpl');
 ?>
  
 <br><br>
@@ -264,7 +263,7 @@ $file_ext_allow = arr_rid_blank($file_ext_allow);
         }
       ?>
 <br><br><table width="560" cellspacing="0" cellpadding="0" border="0" class="table_decoration" style="padding-left:6px">
-  <tr bgcolor="#DBDBDB">
+  <tr  class="bgcolor_014">
     <td align="left" width="46%"><?php echo gettext("FILE NAME");?></td>
 
     <td align="center" width="12%"><?php echo gettext("FILE TYPE");?></td>
@@ -310,5 +309,5 @@ $file_ext_allow = arr_rid_blank($file_ext_allow);
 </table></center>
 <br><br>
 <?php
-        include("PP_footer.php");
+        $smarty->display('footer.tpl');
 ?>

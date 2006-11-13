@@ -21,8 +21,8 @@ if ($printable != 'yes') {
 <table width="100%"  bgcolor="#f3f3f3">
 
 	<tr>
-		<td width="75%">
-		&nbsp;
+		<td width="75%">&nbsp;
+		
 		</td>		
 		<td width="25%">
 <br/>
@@ -983,7 +983,7 @@ Street valground 45, 2-5 <br><br>
                   <td class="tableDivider" colspan="10"></td>
                 </tr>
                 <tr> 
-                  <td class="tableDivider" colspan="10"><img src="../images/clear.gif" height="1" width="1"></td>
+                  <td class="tableDivider" colspan="10"><img src="<?php echo Images_Path;?>/clear.gif" height="1" width="1"></td>
                 </tr>
               </tbody>
             </table>

@@ -3,6 +3,7 @@ include ("../lib/defines.php");
 include ("../lib/module.access.php");
 include ("../lib/Form/Class.FormHandler.inc.php");
 include ("./form_data/FG_var_voucher.inc");
+include ("../lib/smarty.php");
 
 
 if (! has_rights (ACX_BILLING)){ 
@@ -35,7 +36,7 @@ $list = $HD_Form -> perform_action($form_action);
 
 
 // #### HEADER SECTION
-include("PP_header.php");
+$smarty->display('main.tpl');
 
 // #### HELP SECTION
 if ($form_action=='list') echo '<br><br>'.$CC_help_list_voucher;
@@ -62,7 +63,7 @@ if (!is_null ($HD_Form->FG_ORDER) && ($HD_Form->FG_ORDER!='') && !is_null ($HD_F
 
 
 // #### FOOTER SECTION
-include("PP_footer.php");
+$smarty->display('footer.tpl');
 
 
 

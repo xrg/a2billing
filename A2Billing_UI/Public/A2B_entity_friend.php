@@ -3,7 +3,7 @@ include ("../lib/defines.php");
 include ("../lib/module.access.php");
 include ("../lib/Form/Class.FormHandler.inc.php");
 include ("./form_data/FG_var_friend.inc");
-
+include ("../lib/smarty.php");
 
 if (! has_rights (ACX_RATECARD)){ 
 	   Header ("HTTP/1.0 401 Unauthorized");
@@ -99,7 +99,7 @@ $list = $HD_Form -> perform_action($form_action);
 
 
 // #### HEADER SECTION
-include("PP_header.php");
+$smarty->display('main.tpl');
 
 // #### HELP SECTION
 if ($form_action=='list'){ 
@@ -109,14 +109,14 @@ if ($form_action=='list'){
 		  <table width="<?php echo $HD_Form -> FG_HTML_TABLE_WIDTH?>" border="0" align="center" cellpadding="0" cellspacing="0" >	  
 			<TR><TD style="border-bottom: medium dotted #ED2525" align="center"> Changes detected on SIP/IAX Friends</TD></TR>
 			<TR><FORM NAME="sipfriend">
-				<td height="31" bgcolor="#ED2525" style="padding-left: 5px; padding-right: 3px;" align="center">			
+				<td height="31" style="padding-left: 5px; padding-right: 3px;" align="center" class="bgcolor_013">			
 				<font color=white><b>
 				<?php  if ( isset($_SESSION["is_sip_changed"]) && $_SESSION["is_sip_changed"] ){ ?>
-				SIP : <input class="form_enter" style="border: 2px outset rgb(204, 51, 0);" TYPE="button" VALUE=" GENERATE ADDITIONAL_A2BILLING_SIP.CONF " 
+				SIP : <input class="form_input_button"  TYPE="button" VALUE=" GENERATE ADDITIONAL_A2BILLING_SIP.CONF " 
 				onClick="self.location.href='./CC_generate_friend_file.php?atmenu=sipfriend';">
 				<?php } 
 				if ( isset($_SESSION["is_iax_changed"]) && $_SESSION["is_iax_changed"] ){ ?>
-				IAX : <input class="form_enter" style="border: 2px outset rgb(204, 51, 0);" TYPE="button" VALUE=" GENERATE ADDITIONAL_A2BILLING_IAX.CONF " 
+				IAX : <input class="form_input_button"  TYPE="button" VALUE=" GENERATE ADDITIONAL_A2BILLING_IAX.CONF " 
 				onClick="self.location.href='./CC_generate_friend_file.php?atmenu=iaxfriend';">
 				<?php } ?>	
 				</b></font></td></FORM>
@@ -139,7 +139,7 @@ if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
 $HD_Form -> create_form ($form_action, $list, $id=null) ;
 
 // #### FOOTER SECTION
-include("PP_footer.php");
+$smarty->display('footer.tpl');
 
 
 

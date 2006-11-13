@@ -2,7 +2,7 @@
 include_once ("../lib/defines.php");
 include_once ("../lib/module.access.php");
 include_once ("../lib/Form/Class.FormHandler.inc.php");
-
+include ("../lib/smarty.php");
 
 
 include_once ("./form_data/FG_var_diduse.inc");
@@ -38,7 +38,7 @@ if (!isset($action)) $action = $form_action;
 
 $list = $HD_Form -> perform_action($form_action);
 
-include("PP_header.php");
+$smarty->display('main.tpl');
 
 echo '<br><br>'.$CC_help_did_use;
 
@@ -52,7 +52,7 @@ if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
 
 $HD_Form -> create_form ($form_action, $list, $id=null) ;
 
-	include("PP_footer.php");
+$smarty->display('footer.tpl');
 
 
 ?>

@@ -418,7 +418,7 @@ $nb_customer = count($list_customer);
 
 ?>
 <?php
-	include("PP_header.php");
+	$smarty->display('main.tpl');
 ?>
 <script language="JavaScript" type="text/JavaScript">
 <!--
@@ -1027,5 +1027,5 @@ foreach ($list_total_day as $data){
 </center>
 
 <?php
-	include("PP_footer.php");
+	$smarty->display('footer.tpl');
 ?>

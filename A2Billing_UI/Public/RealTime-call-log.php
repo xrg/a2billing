@@ -370,7 +370,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 					<tbody>
 					<tr>                   									   
 					   <td  align="center"style="padding: 5px;" >
-					   		<a href="<?php  echo $_SERVER['PHP_SELF'] ."?stitle=RealTime_Log"; ?>"> <img src="../Images/refresh.gif" border=0></a>
+					   		<a href="<?php  echo $_SERVER['PHP_SELF'] ."?stitle=RealTime_Log"; ?>"> <img src="<?php echo Images_Path;?>/refresh.gif" border=0></a>
 						</td>
 					</tr>
 				</table>
@@ -389,7 +389,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
         <TR> 
           <TD> <TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
 <TBODY>
-                <TR bgColor=#F0F0F0> 
+                <TR  class="bgcolor_008"> 
 				  <TD width="<?php echo $FG_ACTION_SIZE_COLUMN?>" align=center class="tableBodyRight" style="PADDING-BOTTOM: 2px; PADDING-LEFT: 2px; PADDING-RIGHT: 2px; PADDING-TOP: 2px"> <span class="liens">idx</span></TD>					
 				  
                   <?php 
@@ -427,9 +427,9 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 
                 </TR>
                 <TR> 
-                  <TD bgColor=#e1e1e1 colSpan=<?php echo $FG_TOTAL_TABLE_COL?> height=1><IMG 
+                  <TD  class="tableDivider" colSpan=<?php echo $FG_TOTAL_TABLE_COL?> ><IMG 
                               height=1 
-                              src="../images/clear.gif" 
+                              src="<?php echo Images_Path;?>/clear.gif" 
                               width=1></TD>
                 </TR>
 				<?php
@@ -532,12 +532,12 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 				 ?>
                 <TR> 
                   <TD class=tableDivider colSpan=<?php echo $FG_TOTAL_TABLE_COL?>><IMG height=1 
-                              src="../images/clear.gif" 
+                              src="<?php echo Images_Path;?>/clear.gif" 
                               width=1></TD>
                 </TR>
                 <TR> 
                   <TD class=tableDivider colSpan=<?php echo $FG_TOTAL_TABLE_COL?>><IMG height=1 
-                              src="../images/clear.gif" 
+                              src="<?php echo Images_Path;?>/clear.gif" 
                               width=1></TD>
                 </TR>
               </TBODY>
@@ -602,7 +602,7 @@ foreach ($list_total_day as $data){
  <table border="0" cellspacing="0" cellpadding="0" width="80%"><tbody><tr><td align="left" height="30">
 		<table cellspacing="0" cellpadding="1" bgcolor="#000000" width="50%"><tbody><tr><td>
 			<table cellspacing="0" cellpadding="0" width="100%"><tbody>
-				<tr><td bgcolor="#600101" align="left"><font face="verdana" size="1" color="white"><b>TOTAL</b></font></td></tr>
+				<tr><td  class="bgcolor_019" align="left"><font  class="fontstyle_003">TOTAL</font></td></tr>
 			</tbody></table>
 		</td></tr></tbody></table>
  </td></tr></tbody></table>
@@ -613,15 +613,15 @@ foreach ($list_total_day as $data){
 <tbody><tr><td bgcolor="#000000">			
 	<table border="0" cellspacing="1" cellpadding="2" width="100%"><tbody>
 	<tr>	
-		<td align="center" bgcolor="#600101"></td>
-    	<td bgcolor="#b72222" align="center" colspan="4"><font face="verdana" size="1" color="#ffffff"><b>ASTERISK MINUTES</b></font></td>
+		<td align="center" class="bgcolor_019" ></td>
+    	<td  class="bgcolor_020" align="center" colspan="4"><font class="fontstyle_003">ASTERISK MINUTES</font></td>
     </tr>
-	<tr bgcolor="#600101">
-		<td align="right" bgcolor="#b72222"><font face="verdana" size="1" color="#ffffff"><b>DATE</b></font></td>
-        <td align="center"><font face="verdana" size="1" color="#ffffff"><b>DURATION</b></font></td>
-		<td align="center"><font face="verdana" size="1" color="#ffffff"><b>GRAPHIC</b></font></td>
-		<td align="center"><font face="verdana" size="1" color="#ffffff"><b>CALLS</b></font></td>
-		<td align="center"><font face="verdana" size="1" color="#ffffff"><b>TMC</b></font></td>
+	<tr class="bgcolor_019">
+		<td align="right"  class="bgcolor_020"><font class="fontstyle_003">DATE</font></td>
+        <td align="center"><font class="fontstyle_003">DURATION</font></td>
+		<td align="center"><font class="fontstyle_003">GRAPHIC</font></td>
+		<td align="center"><font class="fontstyle_003">CALLS</font></td>
+		<td align="center"><font class="fontstyle_003">TMC</font></td>
                 			
 		<!-- LOOP -->
 	<?php  		
@@ -648,11 +648,11 @@ foreach ($list_total_day as $data){
 		//bgcolor="#336699" 
 	?>
 		</tr><tr>
-		<td align="right" class="sidenav" nowrap="nowrap"><font face="verdana" size="1" color="#ffffff"><?php echo $data[0]?></font></td>
+		<td align="right" class="sidenav" nowrap="nowrap"><font  class="fontstyle_006"><?php echo $data[0]?></font></td>
 		<td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right" nowrap="nowrap"><font face="verdana" color="#000000" size="1"><?php echo $minutes?> </font></td>
         <td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="left" nowrap="nowrap" width="<?php echo $widthbar+60?>">
         <table cellspacing="0" cellpadding="0"><tbody><tr>
-        <td bgcolor="#e22424"><img src="../images/spacer.gif" width="<?php echo $widthbar?>" height="6"></td>
+        <td bgcolor="#e22424"><img src="<?php echo Images_Path; ?>/spacer.gif" width="<?php echo $widthbar?>" height="6"></td>
         </tr></tbody></table></td>
         <td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right" nowrap="nowrap"><font face="verdana" color="#000000" size="1"><?php echo $data[2]?></font></td>
         <td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right" nowrap="nowrap"><font face="verdana" color="#000000" size="1"><?php echo $tmc?> </font></td>
@@ -673,11 +673,11 @@ foreach ($list_total_day as $data){
 				<!-- FIN BOUCLE -->
 
 	<!-- TOTAL -->
-	<tr bgcolor="#600101">
-		<td align="right" nowrap="nowrap"><font face="verdana" size="1" color="#ffffff"><b>TOTAL</b></font></td>
-		<td align="center" nowrap="nowrap" colspan="2"><font face="verdana" size="1" color="#ffffff"><b><?php echo $totalminutes?> </b></font></td>
-		<td align="center" nowrap="nowrap"><font face="verdana" size="1" color="#ffffff"><b><?php echo $totalcall?></b></font></td>
-		<td align="center" nowrap="nowrap"><font face="verdana" size="1" color="#ffffff"><b><?php echo $total_tmc?></b></font></td>                        
+	<tr  class="bgcolor_019">
+		<td align="right" nowrap="nowrap"><font class="fontstyle_003">TOTAL</font></td>
+		<td align="center" nowrap="nowrap" colspan="2"><font class="fontstyle_003"><?php echo $totalminutes?> </font></td>
+		<td align="center" nowrap="nowrap"><font class="fontstyle_003"><?php echo $totalcall?></font></td>
+		<td align="center" nowrap="nowrap"><font class="fontstyle_003"><?php echo $total_tmc?></font></td>                        
 	</tr>
 	<!-- FIN TOTAL -->
 

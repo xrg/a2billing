@@ -3,7 +3,7 @@ include ("../lib/defines.php");
 include ("../lib/module.access.php");
 include ("../lib/Form/Class.FormHandler.inc.php");
 include ("./form_data/FG_var_card.inc");
-
+include ("../lib/smarty.php");
 
 if (! has_rights (ACX_CUSTOMER)){ 
 	   Header ("HTTP/1.0 401 Unauthorized");
@@ -128,7 +128,7 @@ $list = $HD_Form -> perform_action($form_action);
 
 
 // #### HEADER SECTION
-include("PP_header.php");
+$smarty->display('main.tpl');
 
 	if ($popup_select){
 ?>
@@ -151,28 +151,28 @@ echo $CC_help_list_customer;
 ?>
 <script language="JavaScript" src="javascript/card.js"></script>
 
-<center><a href="#" target="_self"  onclick="imgidclick('img54000','div54000','kfind.png','viewmag.png');"><img id="img54000" src="../Css/kicons/kfind.png" onmouseover="this.style.cursor='hand';" HEIGHT="16"> <font color="#AA4444"><?php echo gettext("REFILL");?> </font></a></center>
+<center><a href="#" target="_self"  onclick="imgidclick('img54000','div54000','kfind.png','viewmag.png');"><img id="img54000" src="<?php echo KICON_PATH; ?>/kfind.png" onmouseover="this.style.cursor='hand';" HEIGHT="16"> <font class="fontstyle_002"><?php echo gettext("REFILL");?> </font></a></center>
 	<div id="div54000" style="display:none;">
 	   <table width="95%" border="0" align="center">
         <tr><form NAME="theForm">
-		   <td align="left" width='5%'><img src="../Css/kicons/pipe.png">
+		   <td align="left" width='5%'><img src="<?php echo KICON_PATH; ?>/pipe.png">
 		   </td>
-          <td align="left" width='35%' bgcolor="#CCCCCC">
-           	<table bgcolor="#ABABAB" width='100%'>
+          <td align="left" width='35%'  bgcolor="bgcolor_001">
+           	<table  class="bgcolor_012" width='100%'>
 			<tr><td align="center">
-			   <?php echo gettext("CARD ID");?>	 :<input class="form_enter" name="choose_list" onfocus="clear_textbox2();" size="18" maxlength="16" value="enter ID Card">
-				<a href="#" onclick="window.open('A2B_entity_card.php?nodisplay=1&popup_select=1&popup_formname=theForm&popup_fieldname=choose_list' , 'CardNumberSelection','width=550,height=330,top=20,left=100');"><img src="../Images/icon_arrow_orange.gif"></a>
+			   <?php echo gettext("CARD ID");?>	 :<input class="form_input_text" name="choose_list" onfocus="clear_textbox2();" size="18" maxlength="16" value="enter ID Card">
+				<a href="#" onclick="window.open('A2B_entity_card.php?nodisplay=1&popup_select=1&popup_formname=theForm&popup_fieldname=choose_list' , 'CardNumberSelection','width=550,height=330,top=20,left=100');"><img src="<?php echo Images_Path;?>/icon_arrow_orange.gif"></a>
 					   <?php echo gettext("or");?>
 			</td></tr>
 			<tr><td align="center">
-				&nbsp; <?php echo gettext("CARDNUMBER");?>&nbsp;:<input class="form_enter" name="cardnumber" onfocus="clear_textbox();" size="18" maxlength="16" value="enter cardnumber">
+				&nbsp; <?php echo gettext("CARDNUMBER");?>&nbsp;:<input class="form_input_text" name="cardnumber" onfocus="clear_textbox();" size="18" maxlength="16" value="enter cardnumber">
 			</td></tr>
 			</table>
 		</td>
-		<td bgcolor="#CCCCCC">	-				
-				<select NAME="opt" size="1" class="form_enter" style="border: 2px outset rgb(204, 51, 0);"><option value='0'><?php echo gettext("REFILL");?> </option></select>
+		<td  class="bgcolor_001">	-				
+				<select NAME="opt" size="1" class="form_input_select"><option value='0'><?php echo gettext("REFILL");?> </option></select>
 				<input class="form_enter" name="addcredit" size="18" maxlength="6" value="">
-				<input class="form_enter" style="border: 2px outset rgb(204, 51, 0);"
+				<input class="form_input_button" 
 				TYPE="button" VALUE="<?php echo gettext("ADD CREDIT TO THE SELECTED CARD");?>" onClick="openURL('<?php echo $_SERVER['PHP_SELF']?>?form_action=addcredit&stitle=Card_Refilled&current_page=<?php echo $current_page?>&order=<?php echo $order?>&sens=<?php echo $sens?>&id=')">
         </td></form>
         </tr>
@@ -185,14 +185,14 @@ echo $CC_help_list_customer;
 	  <table width="<?php echo $HD_Form -> FG_HTML_TABLE_WIDTH?>" border="0" align="center" cellpadding="0" cellspacing="0" >	  
 		<TR><TD style="border-bottom: medium dotted #ED2525" align="center"> <?php echo gettext("Changes detected on SIP/IAX Friends");?></TD></TR>
 		<TR><FORM NAME="sipfriend">
-            <td height="31" bgcolor="#ED2525" style="padding-left: 5px; padding-right: 3px;" align="center">			
+            <td height="31" class="bgcolor_013" style="padding-left: 5px; padding-right: 3px;" align="center">			
 			<font color=white><b>
 			<?php  if ( isset($_SESSION["is_sip_changed"]) && $_SESSION["is_sip_changed"] ){ ?>
-			SIP : <input class="form_enter" style="border: 2px outset rgb(204, 51, 0);" TYPE="button" VALUE="<?php echo gettext("GENERATE ADDITIONAL_A2BILLING_SIP.CONF");?>"
+			SIP : <input class="form_input_button"  TYPE="button" VALUE="<?php echo gettext("GENERATE ADDITIONAL_A2BILLING_SIP.CONF");?>"
 			onClick="self.location.href='./CC_generate_friend_file.php?atmenu=sipfriend';">
 			<?php }
 			if ( isset($_SESSION["is_iax_changed"]) && $_SESSION["is_iax_changed"] ){ ?>
-			IAX : <input class="form_enter" style="border: 2px outset rgb(204, 51, 0);" TYPE="button" VALUE="<?php echo gettext("GENERATE ADDITIONAL_A2BILLING_IAX.CONF");?>"
+			IAX : <input class="form_input_button"  TYPE="button" VALUE="<?php echo gettext("GENERATE ADDITIONAL_A2BILLING_IAX.CONF");?>"
 			onClick="self.location.href='./CC_generate_friend_file.php?atmenu=iaxfriend';">
 			<?php } ?>	
 			</b></font></td></FORM>
@@ -247,7 +247,7 @@ if ($form_action == "list" && (!($popup_select>=1))	){
 	$nb_tariff = count($list_tariff);
 ?>
 <!-- ** ** ** ** ** Part for the Update ** ** ** ** ** -->
-<a href="#" target="_self"  onclick="imgidclick('img52000','div52000','kfind.png','viewmag.png');"><img id="img52000" src="../Css/kicons/viewmag.png" onmouseover="this.style.cursor='hand';" WIDTH="16" HEIGHT="16"></a>
+<a href="#" target="_self"  onclick="imgidclick('img52000','div52000','kfind.png','viewmag.png');"><img id="img52000" src="<?php echo KICON_PATH; ?>/viewmag.png" onmouseover="this.style.cursor='hand';" WIDTH="16" HEIGHT="16"></a>
 <div id="div52000" style="display:visible;">
 
 
@@ -259,12 +259,12 @@ if ($form_action == "list" && (!($popup_select>=1))	){
 		<form name="updateForm" action="<?php echo $_SERVER['PHP_SELF']?>" method="post">
 		<INPUT type="hidden" name="batchupdate" value="1">
 		<tr>		
-          <td align="left" bgcolor="#cccccc">
+          <td align="left" class="bgcolor_001" >
 		  		<input name="check[upd_inuse]" type="checkbox" <?php if ($check["upd_inuse"]=="on") echo "checked"?>>
 		  </td>
-		  <td align="left"  bgcolor="#cccccc">
+		  <td align="left"  class="bgcolor_001">
 				1)&nbsp;<?php echo gettext("INUSE"); ?>&nbsp;: 
-				<select NAME="upd_inuse" size="1" class="form_enter" style="border: 2px outset rgb(204, 51, 0);">
+				<select NAME="upd_inuse" size="1" class="form_input_select">
 				<?php 
 					foreach($inuse_list as $key => $cur_value) {											
 				?>
@@ -274,10 +274,10 @@ if ($form_action == "list" && (!($popup_select>=1))	){
 			</td>
 		</tr>
 		<tr>		
-          <td align="left" bgcolor="#cccccc">
+          <td align="left" class="bgcolor_001">
 		  	<input name="check[upd_activated]" type="checkbox" <?php if ($check["upd_activated"]=="on") echo "checked"?>>
 		  </td>
-		  <td align="left"  bgcolor="#cccccc">	
+		  <td align="left"  class="bgcolor_001">	
 				 2)&nbsp;<?php echo gettext("ACTIVATE");?>&nbsp;:
 				<font class="version">
 				<input type="radio" NAME="type[upd_activated]" value="t" <?php if((!isset($type[upd_activated]))|| ($type[upd_activated]=='t') ){?>checked<?php }?>> <?php echo gettext("Yes");?>
@@ -286,12 +286,12 @@ if ($form_action == "list" && (!($popup_select>=1))	){
 			</td>
 		</tr>
 		<tr>		
-          <td align="left" bgcolor="#cccccc">
+          <td align="left" class="bgcolor_001">
 		  		<input name="check[upd_language]" type="checkbox" <?php if ($check["upd_language"]=="on") echo "checked"?>>
 		  </td>
-		  <td align="left"  bgcolor="#cccccc">
+		  <td align="left"  class="bgcolor_001">
 				3)&nbsp;<?php echo gettext("LANGUAGE");?>&nbsp;: 
-				<select NAME="upd_language" size="1" class="form_enter" style="border: 2px outset rgb(204, 51, 0);">
+				<select NAME="upd_language" size="1" class="form_input_select">
 				<?php 
 					foreach($language_list as $key => $cur_value) {											
 				?>
@@ -301,13 +301,13 @@ if ($form_action == "list" && (!($popup_select>=1))	){
 			</td>
 		</tr>
 		<tr>		
-          <td align="left"  bgcolor="#cccccc">
+          <td align="left"  class="bgcolor_001">
 		  	<input name="check[upd_tariff]" type="checkbox" <?php if ($check["upd_tariff"]=="on") echo "checked"?> >
 		  </td>
-		  <td align="left"  bgcolor="#cccccc">
+		  <td align="left" class="bgcolor_001">
 		   						
 			  	4)&nbsp;<?php echo gettext("TARIFF");?>&nbsp;:
-				<select NAME="upd_tariff" size="1" class="form_enter" style="border: 2px outset rgb(204, 51, 0);">
+				<select NAME="upd_tariff" size="1" class="form_input_select">
 									
 					<?php					 
 				  	 foreach ($list_tariff as $recordset){ 						 
@@ -320,13 +320,13 @@ if ($form_action == "list" && (!($popup_select>=1))	){
 			</td>
 		</tr>
 		<tr>		
-          <td align="left" bgcolor="#cccccc">
+          <td align="left" class="bgcolor_001">
 		  		<input name="check[upd_credit]" type="checkbox" <?php if ($check["upd_credit"]=="on") echo "checked"?>>
 				<input name="mode[upd_credit]" type="hidden" value="2">
 		  </td>
-		  <td align="left"  bgcolor="#cccccc">	
+		  <td align="left"  class="bgcolor_001">	
 			  	5)&nbsp;<?php echo gettext("CREDIT");?>&nbsp;:
-					<input class="form_enter" name="upd_credit" size="10" maxlength="10" style="border: 2px inset rgb(204, 51, 0);" value="<?php if (isset($upd_credit)) echo $upd_credit; else echo '0';?>">
+					<input class="form_input_text" name="upd_credit" size="10" maxlength="10"  value="<?php if (isset($upd_credit)) echo $upd_credit; else echo '0';?>">
 				<font class="version">
 				<input type="radio" NAME="type[upd_credit]" value="1" <?php if((!isset($type["upd_credit"]))|| ($type["upd_credit"]==1) ){?>checked<?php }?>><?php echo gettext("Equals");?>
 				<input type="radio" NAME="type[upd_credit]" value="2" <?php if($type["upd_credit"]==2){?>checked<?php }?>> <?php echo gettext("Add");?>
@@ -335,24 +335,24 @@ if ($form_action == "list" && (!($popup_select>=1))	){
 			</td>
 		</tr>
 		<tr>		
-          <td align="left" bgcolor="#cccccc">
+          <td align="left" class="bgcolor_001">
 		  		<input name="check[upd_simultaccess]" type="checkbox" <?php if ($check["upd_simultaccess"]=="on") echo "checked"?>>
 		  </td>
-		  <td align="left"  bgcolor="#cccccc">	
+		  <td align="left" class="bgcolor_001">	
 				6)&nbsp;<?php echo gettext("ACCESS");?>&nbsp;: 
-				<select NAME="upd_simultaccess" size="1" class="form_enter" style="border: 2px outset rgb(204, 51, 0);">
+				<select NAME="upd_simultaccess" size="1" class="form_input_select">
 					<option value='0'  <?php if ($upd_simultaccess==0) echo 'selected="selected"'?>><?php echo gettext("INDIVIDUAL ACCESS");?></option>
 					<option value='1'  <?php if ($upd_simultaccess==1) echo 'selected="selected"'?>><?php echo gettext("SIMULTANEOUS ACCESS");?></option>
 				   </select>
 			</td>
 		</tr>
 		<tr>		
-          <td align="left" bgcolor="#cccccc">
+          <td align="left" class="bgcolor_001">
 		  		<input name="check[upd_currency]" type="checkbox" <?php if ($check["upd_currency"]=="on") echo "checked"?>>
 		  </td>
-		  <td align="left"  bgcolor="#cccccc">
+		  <td align="left"  class="bgcolor_001">
 				7)&nbsp;<?php echo gettext("CURRENCY");?>&nbsp;:
-				<select NAME="upd_currency" size="1" class="form_enter" style="border: 2px outset rgb(204, 51, 0);">
+				<select NAME="upd_currency" size="1" class="form_input_select">
 				<?php 
 					foreach($currencies_list as $key => $cur_value) {											
 				?>
@@ -362,26 +362,26 @@ if ($form_action == "list" && (!($popup_select>=1))	){
 			</td>
 		</tr>
 		<tr>		
-          <td align="left" bgcolor="#cccccc">
+          <td align="left"  class="bgcolor_001">
 		  		<input name="check[upd_typepaid]" type="checkbox" <?php if ($check["upd_typepaid"]=="on") echo "checked"?>>
 		  </td>
-		  <td align="left"  bgcolor="#cccccc">	
+		  <td align="left" class="bgcolor_001">	
 				8)&nbsp;<?php echo gettext("CARD TYPE");?>&nbsp;:
-				<select NAME="upd_typepaid" size="1" class="form_enter" style="border: 2px inset rgb(204, 51, 0);">
+				<select NAME="upd_typepaid" size="1" class="form_input_select" >
 					<option value='0'  <?php if ($upd_typepaid==0) echo 'selected="selected"'?>><?php echo gettext("PREPAID CARD");?></option>
 					<option value='1'  <?php if ($upd_typepaid==1) echo 'selected="selected"'?>><?php echo gettext("POSTPAY CARD");?></option>
 				   </select>
 			</td>
 		</tr>
 		<tr>		
-          <td align="left" bgcolor="#cccccc">
+          <td align="left" class="bgcolor_001">
 		  		<input name="check[upd_creditlimit]" type="checkbox" <?php if ($check["upd_creditlimit"]=="on") echo "checked"?>>
 				<input name="mode[upd_creditlimit]" type="hidden" value="2">
 		  </td>
-		  <td align="left"  bgcolor="#cccccc">
+		  <td align="left"  class="bgcolor_001">
 
 				9)&nbsp;<?php echo gettext("LIMIT CREDIT OF POSTPAY");?>&nbsp;:
-				 	<input class="form_enter" name="upd_creditlimit" size="10" maxlength="10" style="border: 2px inset rgb(204, 51, 0);" value="<?php if (isset($upd_creditlimit)) echo $upd_creditlimit; else echo '0';?>" >
+				 	<input class="form_input_text" name="upd_creditlimit" size="10" maxlength="10"  value="<?php if (isset($upd_creditlimit)) echo $upd_creditlimit; else echo '0';?>" >
 				<font class="version">
 				<input type="radio" NAME="type[upd_creditlimit]" value="1" <?php if((!isset($type[upd_creditlimit]))|| ($type[upd_creditlimit]==1) ){?>checked<?php }?>> <?php echo gettext("Equals");?>
 				<input type="radio" NAME="type[upd_creditlimit]" value="2" <?php if($type[upd_creditlimit]==2){?>checked<?php }?>><?php echo gettext("Add");?>
@@ -390,12 +390,12 @@ if ($form_action == "list" && (!($popup_select>=1))	){
 			</td>
 		</tr>
 		<tr>
-          <td align="left" bgcolor="#cccccc">
+          <td align="left" class="bgcolor_001">
 		  		<input name="check[upd_enableexpire]" type="checkbox" <?php if ($check["upd_enableexpire"]=="on") echo "checked"?>>
 		  </td>
-		  <td align="left"  bgcolor="#cccccc">
+		  <td align="left"  class="bgcolor_001">
 				10)&nbsp;<?php echo gettext("ENABLE EXPIRE");?>&nbsp;: 
-				<select name="upd_enableexpire" class="form_enter" style="border: 2px inset rgb(204, 51, 0);">
+				<select name="upd_enableexpire" class="form_input_select" >
 								<option value="0"  <?php if ($upd_enableexpire==0) echo 'selected="selected"'?>> <?php echo gettext("NO EXPIRY");?>    </option>
 								<option value="1"  <?php if ($upd_enableexpire==1) echo 'selected="selected"'?>> <?php echo gettext("EXPIRE DATE");?>	    </option>
 								<option value="2"  <?php if ($upd_enableexpire==2) echo 'selected="selected"'?>> <?php echo gettext("EXPIRE DAYS SINCE FIRST USE");?>	   </option>
@@ -404,10 +404,10 @@ if ($form_action == "list" && (!($popup_select>=1))	){
 			</td>
 		</tr>
 		<tr>		
-          <td align="left" bgcolor="#cccccc">
+          <td align="left" class="bgcolor_001">
 		  		<input name="check[upd_expirationdate]" type="checkbox" <?php if ($check["upd_expirationdate"]=="on") echo "checked"?>>
 		  </td>
-		  <td align="left"  bgcolor="#cccccc">
+		  <td align="left"  class="bgcolor_001">
 				<?php 
 					$begin_date = date("Y");
 					$begin_date_plus = date("Y")+10;	
@@ -416,16 +416,16 @@ if ($form_action == "list" && (!($popup_select>=1))	){
 					$comp_date_plus = "value='".$begin_date_plus.$end_date."'";
 				?>
 				11)&nbsp;<?php echo gettext("EXPIRY DATE");?>&nbsp;:
-				 <input class="form_enter" style="border: 2px inset rgb(204, 51, 0);" name="upd_expirationdate" size="20" maxlength="30" <?php echo $comp_date_plus; ?>> <font class="version"><?php echo gettext("(Format YYYY-MM-DD HH:MM:SS)");?></font>
+				 <input class="form_input_text"  name="upd_expirationdate" size="20" maxlength="30" <?php echo $comp_date_plus; ?>> <font class="version"><?php echo gettext("(Format YYYY-MM-DD HH:MM:SS)");?></font>
 		  </td>
 		</tr>
 		<tr>		
-          <td align="left" bgcolor="#cccccc">
+          <td align="left" class="bgcolor_001">
 		  		<input name="check[upd_expiredays]" type="checkbox" <?php if ($check["upd_expiredays"]=="on") echo "checked"?>>
 		  </td>
-		  <td align="left"  bgcolor="#cccccc">
+		  <td align="left"  class="bgcolor_001">
 				12)&nbsp;<?php echo gettext("EXPIRATION DAYS");?>&nbsp;: 
-				<input class="form_enter" style="border: 2px inset rgb(204, 51, 0);" name="upd_expiredays" size="10" maxlength="6" value="<?php if (isset($upd_expiredays)) echo $upd_expiredays; else echo '0';?>">
+				<input class="form_input_text"  name="upd_expiredays" size="10" maxlength="6" value="<?php if (isset($upd_expiredays)) echo $upd_expiredays; else echo '0';?>">
 				<br/>
 				
 							
@@ -435,10 +435,10 @@ if ($form_action == "list" && (!($popup_select>=1))	){
 		
 		
 		<tr>		
-          <td align="left" bgcolor="#cccccc">
+          <td align="left" class="bgcolor_001">
 		  	<input name="check[upd_runservice]" type="checkbox" <?php if ($check["upd_runservice"]=="on") echo "checked"?>>
 		  </td>
-		  <td align="left"  bgcolor="#cccccc">
+		  <td align="left"  class="bgcolor_001">
 				 13)&nbsp;<?php echo gettext("RUN SERVICE");?>&nbsp;: 	
 				<font class="version">
 				<input type="radio" NAME="type[upd_runservice]" value="1" <?php if((!isset($type[upd_runservice]))|| ($type[upd_runservice]=='1') ){?>checked<?php }?>>
@@ -448,12 +448,12 @@ if ($form_action == "list" && (!($popup_select>=1))	){
 		</tr>
 
 		<tr>		
-			<td align="right" bgcolor="#cccccc">
+			<td align="right" class="bgcolor_001">
 			</td>
-		 	<td align="right"  bgcolor="#cccccc">		
+		 	<td align="right"  class="bgcolor_001">		
 		  
 				
-				<input class="form_enter" style="border: 2px outset rgb(204, 51, 0);" value=" <?php echo gettext("BATCH UPDATE CARD");?>  " type="submit">
+				<input class="form_input_button"  value=" <?php echo gettext("BATCH UPDATE CARD");?>  " type="submit">
 
 
           
@@ -471,5 +471,5 @@ if ($form_action == "list" && (!($popup_select>=1))	){
 
 
 // #### FOOTER SECTION
-if (!($popup_select>=1)) include("PP_footer.php");
+if (!($popup_select>=1)) $smarty->display('footer.tpl');
 ?>

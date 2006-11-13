@@ -6,7 +6,8 @@ include (dirname(__FILE__)."/company_info.php");
 define( 'FULL_PATH', dirname(__FILE__) . '/' );
 define( 'SMARTY_DIR', FULL_PATH . '/Smarty/' );
 define( 'TEMPLATE_DIR',  './templates/' );
-define( 'TEMPLATE_C_DIR', './templates_c/' );
+define( 'TEMPLATE_C_DIR', '../templates_c/' );
+
 
 require_once SMARTY_DIR . 'Smarty.class.php';
 
@@ -31,10 +32,29 @@ $smarty->assign("WEBUI_DATE", WEBUI_DATE);
 
 $smarty->assign("SKIN_NAME", $skin_name);
 
+// for menu
+
+$smarty->assign("ACXCUSTOMER", $ACXCUSTOMER);
+$smarty->assign("ACXBILLING", $ACXBILLING);
+$smarty->assign("ACXRATECARD", $ACXRATECARD);
+$smarty->assign("ACXTRUNK", $ACXTRUNK);
+$smarty->assign("ACXDID", $ACXDID);
+$smarty->assign("ACXCALLREPORT", $ACXCALLREPORT);
+$smarty->assign("ACXCRONTSERVICE", $ACXCRONTSERVICE);
+$smarty->assign("ACXSIGNUP", $ACXSIGNUP);
+$smarty->assign("ACXADMINISTRATOR", $ACXADMINISTRATOR);
+$smarty->assign("ACXFILEMANAGER", $ACXFILEMANAGER);
+
+$section = "";
+if($_GET["section"]!="")
+{
+	$section = $_GET["section"];		
+}
+$smarty->assign("section", $section);
+
+
 // OPTION FOR THE MENU
 $smarty->assign("A2Bconfig", $A2B->config);
-
-
 
 $smarty->assign("PAGE_SELF", $PHP_SELF);
 

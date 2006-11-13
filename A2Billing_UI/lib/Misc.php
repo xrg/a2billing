@@ -110,7 +110,7 @@
 		   $myfile = $value.".".MONITOR_FORMATFILE;
 		   $myfile = base64_encode($myfile);
 		   echo "<a target=_blank href=\"call-log-customers.php?download=file&file=".$myfile."\">";
-		   echo '<img src="./images/stock-mic.png" height="18" /></a>';
+		   echo '<img src="'.Images_Path.'/stock-mic.png" height="18" /></a>';
 		   
 		}
 

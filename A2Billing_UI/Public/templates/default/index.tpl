@@ -53,7 +53,7 @@
 <table width="100%" height="75%">
 <tr align="center" valign="middle">
 <td>
-	<form name="form" method="POST" action="userinfo.php" onsubmit="return test()">
+	<form name="form" method="POST" action="PP_intro.php" onsubmit="return test()">
 	<input type="hidden" name="done" value="submit_log">
 
 	{if ($error == 1)}
@@ -98,11 +98,7 @@
 				<td></td>
 				<td></td>
 				<td><input type="submit" name="submit" value="LOGIN" class="form_input_button"></td>
-			</tr>
-
-            <tr align="center">
-                <td colspan=3>Forgot your password? Click <a href="forgotpassword.php">here</a>.</td>
-            </tr>
+			</tr>           
 
 			</table>
 		</td>

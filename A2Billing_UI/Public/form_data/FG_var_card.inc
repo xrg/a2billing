@@ -169,8 +169,8 @@ if (($popup_select>=1)){
 	$HD_Form -> FG_OTHER_BUTTON2 = true;
 	$HD_Form -> FG_OTHER_BUTTON1_LINK="A2B_entity_friend.php?atmenu=sipfriend&form_action=add_sip&stitle=Customers_Card&cardnumber=|col1|&useralias=|col2|";
 	$HD_Form -> FG_OTHER_BUTTON2_LINK="A2B_entity_friend.php?atmenu=iaxfriend&form_action=add_iax&stitle=Customers_Card&cardnumber=|col1|&useralias=|col2|";
-	$HD_Form -> FG_OTHER_BUTTON1_IMG ="../Images/icon-sip.gif";
-	$HD_Form -> FG_OTHER_BUTTON2_IMG ="../Images/icon-iax.gif";
+	$HD_Form -> FG_OTHER_BUTTON1_IMG = Images_Path . "/icon-sip.gif";
+	$HD_Form -> FG_OTHER_BUTTON2_IMG = Images_Path . "/icon-iax.gif";
 	
 	$HD_Form -> FG_OTHER_BUTTON1_ALT=gettext("SIP buddy ");
 	$HD_Form -> FG_OTHER_BUTTON2_ALT=gettext("IAX buddy");
@@ -614,7 +614,7 @@ $HD_Form -> FG_INTRO_TEXT_ADITION = '';
 $HD_Form -> FG_TEXT_ADITION_CONFIRMATION = gettext("Your new ".$HD_Form->FG_INSTANCE_NAME." has been inserted. <br>");
 
 
-$HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = "../Images/cormfirmboton.gif";
+$HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = Images_Path . "/cormfirmboton.gif";
 $HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT = gettext("Once you have completed the form above, click on the CONTINUE button.");
 
 

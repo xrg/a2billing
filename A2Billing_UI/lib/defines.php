@@ -76,14 +76,10 @@
 	define ("MYSQL", isset($A2B->config["backup"]['mysql'])?$A2B->config["backup"]['mysql']:null);
 	define ("PSQL", isset($A2B->config["backup"]['psql'])?$A2B->config["backup"]['psql']:null);
 
-    //Images Path
-    define ("Images_Path","./images");
-    define ("Images_Path_Main","../Images");
-	
+   
 	// INCLUDE FILES
 	define ("FSROOT", substr(dirname(__FILE__),0,-3));
-	define ("LIBDIR", FSROOT."lib/");
-	include (FSROOT."lib/help.php");
+	define ("LIBDIR", FSROOT."lib/");	
 	include (FSROOT."lib/Misc.php");
 	
 	
@@ -183,10 +179,35 @@
 			}
 			$currencies_list = array_merge($currencies_list2,$currencies_list);		
 	}
-
+	getpost_ifset(array('cssname'));
+		
 	if(isset($cssname) && $cssname != "")
 	{
 		$_SESSION["stylefile"] = $cssname;
 	}
 	
+	
+	if(isset($cssname) && $cssname != "")
+	{
+		if ($_SESSION["stylefile"]!=$cssname){
+			foreach (glob("./templates_c/*.*") as $filename)
+			{
+				unlink($filename);
+			}			
+		}
+		$_SESSION["stylefile"] = $cssname;		
+	}
+	
+	if(!isset($_SESSION["stylefile"]) || $_SESSION["stylefile"]==''){
+		$_SESSION["stylefile"]='default';
+	}
+
+    //Images Path
+    define ("Images_Path","./templates/".$_SESSION["stylefile"]."/images");
+	define ("Images_Path_Main","./templates/".$_SESSION["stylefile"]."/images");
+	define ("KICON_PATH","./templates/".$_SESSION["stylefile"]."/images/kicons");
+	
+	define ("WEBUI_DATE", 'Release : 13 August 2006');
+	define ("WEBUI_VERSION", 'Asterisk2Billing - Version 1.2.3 (BrainCoral) - ');
+	include (FSROOT."lib/help.php");
 ?>

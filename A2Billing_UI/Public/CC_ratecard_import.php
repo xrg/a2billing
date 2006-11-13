@@ -3,6 +3,7 @@
 include ("../lib/defines.php");
 include ("../lib/module.access.php");
 //include ("../lib/Class.Table.php");
+include ("../lib/smarty.php");
 
 set_time_limit(0);
 
@@ -47,7 +48,8 @@ $nb_trunk = count($list_trunk);
 
 ?>
 <?php
-	include("PP_header.php");
+$smarty->display('main.tpl');
+
 ?>
 <script type="text/javascript">
 <!--
@@ -235,7 +237,7 @@ function moveSourceDown()
 				<tr> 
                   <td colspan="2" align=center> 
 				  <?php echo gettext("Choose the ratecard to import");?> :
-				  <select NAME="tariffplan" size="1"  style="border: 2px outset rgb(204, 51, 0); width=250">
+				  <select NAME="tariffplan" size="1"  style="width=250" class="form_input_select">
 								<option value=''><?php echo gettext("Choose a ratecard");?></option>
 							
 								<?php					 
@@ -247,7 +249,7 @@ function moveSourceDown()
 						</select>	
 						<br><br>
 				   <?php echo gettext("Choose the trunk to use");?> :
-				  <select NAME="trunk" size="1"  style="border: 2px outset rgb(204, 51, 0); width=250">															
+				  <select NAME="trunk" size="1"  style="width=250" class="form_input_select">
 								<?php					 
 								 foreach ($list_trunk as $recordset){
 								?>
@@ -260,7 +262,7 @@ function moveSourceDown()
 				  				  
 				<?php echo gettext("These fields are mandatory");?><br>
 
-<select  name="bydefault" multiple="multiple" size="4" width="40">
+<select  name="bydefault" multiple="multiple" size="4" width="40" class="form_input_select">
 	<option value="bb1"><?php echo gettext("dialprefix");?></option>
 	<option value="bb2"><?php echo gettext("destination");?></option>
 	<option value="bb3"><?php echo gettext("rate initial");?></option>
@@ -273,7 +275,7 @@ function moveSourceDown()
 <table>
     <tbody><tr>
         <td>
-            <select name="unselected_search_sources" multiple="multiple" size="9" width="50" onchange="deselectHeaders()">
+            <select name="unselected_search_sources" multiple="multiple" size="9" width="50" onchange="deselectHeaders()" class="form_input_select">
 				<option value=""><?php echo gettext("Unselected Fields...");?></option>
 				<option value="buyrate"><?php echo gettext("buyrate");?></option>
 				<option value="buyrateinitblock"><?php echo gettext("buyrateinitblock");?></option>
@@ -310,20 +312,20 @@ function moveSourceDown()
         </td>
 
         <td>
-            <a href="" onclick="addSource(); return false;"><img src="../Images/forward.png" alt="add source" title="add source" border="0"></a>
+            <a href="" onclick="addSource(); return false;"><img src="<?php echo Images_Path;?>/forward.png" alt="add source" title="add source" border="0"></a>
             <br>
-            <a href="" onclick="removeSource(); return false;"><img src="../Images/back.png" alt="remove source" title="remove source" border="0"></a>
+            <a href="" onclick="removeSource(); return false;"><img src="<?php echo Images_Path;?>/back.png" alt="remove source" title="remove source" border="0"></a>
         </td>
         <td>
-            <select name="selected_search_sources" multiple="multiple" size="9" width="50" onchange="deselectHeaders();">
+            <select name="selected_search_sources" multiple="multiple" size="9" width="50" onchange="deselectHeaders();" class="form_input_select">
 				<option value=""><?php echo gettext("Selected Fields...");?></option>
 			</select>
         </td>
 
         <td>
-            <a href="" onclick="moveSourceUp(); return false;"><img src="../Images/up_black.png" alt="move up" title="move up" border="0"></a>
+            <a href="" onclick="moveSourceUp(); return false;"><img src="<?php echo Images_Path;?>/up_black.png" alt="move up" title="move up" border="0"></a>
             <br>
-            <a href="" onclick="moveSourceDown(); return false;"><img src="../Images/down_black.png" alt="move down" title="move down" border="0"></a>
+            <a href="" onclick="moveSourceDown(); return false;"><img src="<?php echo Images_Path;?>/down_black.png" alt="move down" title="move down" border="0"></a>
         </td>
     </tr>
 </tbody></table>
@@ -366,7 +368,7 @@ function moveSourceDown()
                       <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo $my_max_file_size?>">
                       <input type="hidden" name="task" value="upload">
                       <input name="the_file" type="file" size="50" onFocus=this.select() class="saisie1">
-                      <input type="button" style="border: 2px outset rgb(204, 51, 0);"  value="Import RateCard" onFocus=this.select() class="form_enter" name="submit1" onClick="sendtoupload(this.form);">
+                      <input type="button" value="Import RateCard" onFocus=this.select() class="form_input_button" name="submit1" onClick="sendtoupload(this.form);">
 					   </p>     
                   </td>
                 </tr>
@@ -377,5 +379,5 @@ function moveSourceDown()
 </center>
 
 <?php
-	include("PP_footer.php");
+	$smarty->display('footer.tpl');
 ?>

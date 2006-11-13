@@ -157,8 +157,10 @@ body {
 	FONT-SIZE: 10px;
 
 }
-.tableDivider {
-	BACKGROUND: #e1e1e1; HEIGHT: 1px
+.tableDivider 
+{
+	background-color: #e1e1e1;
+	HEIGHT: 1px
 }
 .white_link {
 	font-size: 10px;
@@ -248,9 +250,6 @@ SPAN.errorText {
 	font-weight: bold;
 	color: #FFFFFF;
 }
-.callhistory_td2{
-	background-color: #600101;
-}
 .callhistory_td3{
 	background-color: #b72222;
 	font-family: Verdana;
@@ -274,6 +273,11 @@ SPAN.errorText {
 	font-size: 10px;
 	color: #000000;
 }
+.fontstyle_002
+{
+	color: #AA4444;
+}
+
 .callhistory_maintable{	
 	width: 77%;
 	border: 0px none;
@@ -328,7 +332,7 @@ SPAN.errorText {
 	background-image: url(../images/security.png);
 	width: 64px;
 	height:64px;
-	background-repeat: no-repeat;	
+	background-repeat: no-repeat;
 }
 .bgcolor_007{
 	background-color: #DDDDDD;
@@ -387,6 +391,65 @@ SPAN.errorText {
 .bgcolor_011
 {
 	background-color: #55CC55;
+}
+.bgcolor_012
+{
+	background-color: #ABABAB;
+}
+.bgcolor_013
+{
+	background-color: #ED2525;
+}
+.bgcolor_014
+{
+	background-color: #E6E6E6;
+}
+.bgcolor_015
+{
+	background-color: #EDEDED;
+}
+.bgcolor_016
+{
+	background-color: #ffffff;
+}
+.bgcolor_017
+{
+	background-color: #EaEaEa;
+}
+.bgcolor_018
+{
+	background-color: #FaFaFa;
+}
+.bgcolor_019{
+	background-color: #600101;
+}
+.bgcolor_020
+{
+	background-color: #b72222;
+}
+.bgcolor_021
+{
+	background-color: #7f99cc;
+}
+.bgcolor_022
+{
+	background-color: #c0c0c0;
+}
+.bgcolor_023
+{
+	background-color: #808080;
+}
+.bgcolor_024
+{
+	background-color: #edf3ff;
+}
+.bgcolor_025
+{
+	background-color: #F2E8ED;
+}
+.bgcolor_026
+{
+	background-color: #D2D8ED;
 }
 .voucher_table1
 {
@@ -722,7 +785,10 @@ SPAN.errorText {
 	font-size: 11px;
 	font-weight: bold;
 	color: #FF9900;
-	border: 1px solid #C1C1C1;	
+	border-right: #FF7777 1px dashed;
+	border-top: #FF7777 1px dashed;
+	border-left: #FF7777 1px dashed;
+	border-bottom: #FF7777 1px dashed;
 }
 .form_input_text
 {
@@ -773,6 +839,18 @@ SPAN.errorText {
 {
 	font-weight: bold;	
 }
+.fontstyle_005
+{
+	color: Red;
+	font-weight: bold;	
+}
+.fontstyle_006
+{	
+	font-size: 11px;
+	color: #ffffff;
+	font-family: Verdana;
+}
+
 .bgcolor_002
 {
 	background-color: #555577;	
