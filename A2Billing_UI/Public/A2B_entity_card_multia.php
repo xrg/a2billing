@@ -46,7 +46,7 @@ country, zipcode, phone, userpass) values ('2465773443', '331', 'a', 't', 'LASTN
 	$language = 'en';
 	$tariff = 0;
 
-	$instance_tmp_agent = new Table("cc_agent", "id, name,'EUR',language,tariffgroup");
+	$instance_tmp_agent = new Table("cc_agent", "id, name,currency,language,tariffgroup");
 	if ($HD_Form->FG_DEBUG>=4) $instance_tmp_agent->debug_st=1;
 	$FG_TABLE_CLAUSE = "id = ". $HD_Form->DBHandle->Quote($choose_agent);
 	$list_tmp_agent = $instance_tmp_agent -> Get_list ($HD_Form ->DBHandle, $FG_TABLE_CLAUSE);
