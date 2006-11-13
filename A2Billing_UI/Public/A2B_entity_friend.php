@@ -7,8 +7,8 @@ include ("./form_data/FG_var_friend.inc");
 
 if (! has_rights (ACX_RATECARD)){ 
 	   Header ("HTTP/1.0 401 Unauthorized");
-	   Header ("Location: PP_error.php?c=accessdenied");	   
-	   die();	   
+	   Header ("Location: PP_error.php?c=accessdenied");
+	   die();
 }
 
 
@@ -28,21 +28,23 @@ if ( (isset ($cardnumber) && (is_numeric($cardnumber)  != "")) && ( $form_action
 	
 	$HD_Form -> FG_GO_LINK_AFTER_ACTION = "A2B_entity_card.php?atmenu=card&stitle=Customers_Card&id=";
 
-	if ( $form_action == "add_sip" ) { 
+	if ( $form_action == "add_sip" ) {
 		$friend_param_update=" sip_buddy='1' ";
 		$_SESSION["is_sip_changed"]=1;
-	}	
+	}
 	else {
 		$friend_param_update=" iax_buddy='1' ";
 		$_SESSION["is_iax_changed"]=1;
-	}	
+	}
 	
 	$instance_table_friend = new Table('cc_card');
 	$instance_table_friend -> Update_table ($HD_Form -> DBHandle, $friend_param_update, "username='$cardnumber'", $func_table = null);
 	
 	
-	if ( $form_action == "add_sip" )	$TABLE_BUDDY = 'cc_sip_buddies';
-	else 	$TABLE_BUDDY = 'cc_iax_buddies';
+	if ( $form_action == "add_sip" )
+		$TABLE_BUDDY = 'cc_sip_buddies';
+	else
+		$TABLE_BUDDY = 'cc_iax_buddies';
 	
 	$instance_table_friend = new Table($TABLE_BUDDY,'*');	
 	$list_friend = $instance_table_friend -> Get_list ($HD_Form -> DBHandle, "name='$cardnumber'", null, null, null, null);
@@ -112,11 +114,11 @@ if ($form_action=='list'){
 				<td height="31" bgcolor="#ED2525" style="padding-left: 5px; padding-right: 3px;" align="center">			
 				<font color=white><b>
 				<?php  if ( isset($_SESSION["is_sip_changed"]) && $_SESSION["is_sip_changed"] ){ ?>
-				SIP : <input class="form_enter" style="border: 2px outset rgb(204, 51, 0);" TYPE="button" VALUE=" GENERATE ADDITIONAL_A2BILLING_SIP.CONF " 
+				SIP : <input class="form_enter" style="border: 2px outset rgb(204, 51, 0);" TYPE="button" VALUE=" GENERATE additional_a2billing_sip.conf " 
 				onClick="self.location.href='./CC_generate_friend_file.php?atmenu=sipfriend';">
 				<?php } 
 				if ( isset($_SESSION["is_iax_changed"]) && $_SESSION["is_iax_changed"] ){ ?>
-				IAX : <input class="form_enter" style="border: 2px outset rgb(204, 51, 0);" TYPE="button" VALUE=" GENERATE ADDITIONAL_A2BILLING_IAX.CONF " 
+				IAX : <input class="form_enter" style="border: 2px outset rgb(204, 51, 0);" TYPE="button" VALUE=" GENERATE additional_a2billing_iax.conf " 
 				onClick="self.location.href='./CC_generate_friend_file.php?atmenu=iaxfriend';">
 				<?php } ?>	
 				</b></font></td></FORM>
@@ -140,8 +142,5 @@ $HD_Form -> create_form ($form_action, $list, $id=null) ;
 
 // #### FOOTER SECTION
 include("PP_footer.php");
-
-
-
 
 ?>
