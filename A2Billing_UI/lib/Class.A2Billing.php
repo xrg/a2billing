@@ -24,7 +24,7 @@
   */
   
   define('AST_CONFIG_DIR', '/etc/asterisk/'); 
-  define('DEFAULT_A2BILLING_CONFIG', AST_CONFIG_DIR . '/a2billing.conf');
+  define('DEFAULT_A2BILLING_CONFIG', AST_CONFIG_DIR . 'a2billing.conf');
 
 
 class A2Billing {
@@ -222,7 +222,8 @@ class A2Billing {
 			$this->config = parse_ini_file($config, true);
 		elseif(file_exists(DEFAULT_A2BILLING_CONFIG)){
 			$this->config = parse_ini_file(DEFAULT_A2BILLING_CONFIG, true);		
-		}
+		} /*else
+			error_log("Cannot locate config: ". DEFAULT_A2BILLING_CONFIG);*/
 	  
 	  
 		// If optconfig is specified, stuff vals and vars into 'a2billing' config array.
