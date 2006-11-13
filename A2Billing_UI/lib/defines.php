@@ -7,7 +7,7 @@
 	$A2B = new A2Billing();
 	
 	// SELECT THE FILES TO LOAD THE CONFIGURATION
-	$A2B -> load_conf($agi, AST_CONFIG_DIR."a2billing.conf", 1);	
+	$A2B -> load_conf($agi, null , 1);	
 	
 	
 	// DEFINE FOR THE DATABASE CONNECTION
