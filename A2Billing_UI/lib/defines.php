@@ -207,7 +207,7 @@
 	define ("Images_Path_Main","./templates/".$_SESSION["stylefile"]."/images");
 	define ("KICON_PATH","./templates/".$_SESSION["stylefile"]."/images/kicons");
 	
-	define ("WEBUI_DATE", 'Release : 13 August 2006');
-	define ("WEBUI_VERSION", 'Asterisk2Billing - Version 1.2.3 (BrainCoral) - ');
+	define ("WEBUI_DATE", 'Release : Somewhere in November 2006');
+	define ("WEBUI_VERSION", 'Asterisk2Billing - Version 1.2.4 (Yellowjacket) ');
 	include (FSROOT."lib/help.php");
 ?>
