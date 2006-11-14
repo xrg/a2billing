@@ -6,8 +6,8 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-06-28 20:11+0500\n"
+"Report-Msgid-Bugs-To: areski@gmail.com\n"
+"POT-Creation-Date: 2006-11-13 11:38+0500\n"
 "PO-Revision-Date: 2006-06-12 14:37+0500\n"
 "Last-Translator: ARESKI <areski@gmail.com>\n"
 "Language-Team: ARESKI <areski@gmail.com>\n"
@@ -16,1905 +16,1318 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "1.0: 2.0\n"
 
-#: A2B_entity_callerid.php:64
+#: A2B_entity_callerid.php:70
 #, fuzzy
 msgid "CALLER ID :"
 msgstr "НОМЕР"
 
-#: A2B_entity_callerid.php:68
+#: A2B_entity_callerid.php:74
 #, fuzzy
 msgid "ADD NEW CALLERID"
 msgstr "ДОБАВИТЬ НОВЫЙ НОМЕР"
 
-#: A2B_entity_speeddial.php:72
+#: A2B_entity_did.php:85
+msgid "The following Destinaton-DID has been added:"
+msgstr ""
+
+#: A2B_entity_did.php:301
+msgid "Buy New DID"
+msgstr "Купить DID"
+
+#: A2B_entity_did.php:301
+msgid "Add Phone Number to your DID"
+msgstr "Добавить номер телефона к DID"
+
+#: A2B_entity_did.php:317
+msgid "Select Country"
+msgstr "Выбирите Страну"
+
+#: A2B_entity_did.php:331
+#, fuzzy
+msgid "Select Virtual Phone Number"
+msgstr "Выбирите Виртуальный Номер Телефона"
+
+#: A2B_entity_did.php:345
+msgid "Ring To Number "
+msgstr ""
+
+#: A2B_entity_did.php:498
+msgid "Country Code - Area Code - Number"
+msgstr "Код Страны - Код Области - Номер"
+
+#: A2B_entity_did.php:501
+msgid "VOIP CALL : "
+msgstr "VOIP ЗВОНОК : "
+
+#: A2B_entity_did.php:501
+msgid "Yes"
+msgstr "Да"
+
+#: A2B_entity_did.php:501 predictivedialer.php:338
+msgid "NO"
+msgstr "НЕТ"
+
+#: A2B_entity_did.php:503
+msgid "Ring To destination "
+msgstr "Позвонить "
+
+#: A2B_entity_did.php:506
+#, fuzzy
+msgid "Enter the phone number you wish to call, or the SIP/IAX client to reach  (ie: 347894999 or SIP/jeremy@182.212.1.45). In order to call a VoIP number, you will need to enable voip_call"
+msgstr "Введите здесь номер по которому хотите позвонить или SIP/IAX/H323 пользователя (напримет: 347894999 or SIP/jeremy@182.212.1.45). Чтобы позвонить SIP/IAX/H323 пользователю, нужно включить the voip_call  (voip_call = Yes)"
+
+#: A2B_entity_did.php:509
+msgid "Next"
+msgstr "Дальше"
+
+#: A2B_entity_did.php:509
+#, fuzzy
+msgid "Add phone number"
+msgstr "Your PhoneNumber / Location"
+
+#: A2B_entity_did.php:524
+msgid "Confirm the purchase of the DID "
+msgstr ""
+
+#: A2B_entity_did.php:529
+msgid "A monthly taking away of :"
+msgstr ""
+
+#: A2B_entity_did.php:529
+#, fuzzy
+msgid " will be carrie out from your acount"
+msgstr "на ваш счет!"
+
+#: A2B_entity_did.php:534
+#, fuzzy
+msgid "Prev"
+msgstr "Назад"
+
+#: A2B_entity_did.php:537 A2B_entity_did.php:558
+msgid "Ok"
+msgstr ""
+
+#: A2B_entity_did.php:548
+msgid "The purchase of the DID is done "
+msgstr ""
+
+#: A2B_entity_did.php:549
+msgid "The purchase of the DID cant be done, your credit of  "
+msgstr ""
+
+#: A2B_entity_did.php:549
+msgid " is lower than Fixerate of the DID  "
+msgstr ""
+
+#: A2B_entity_did.php:549
+#, fuzzy
+msgid "Please reload your account "
+msgstr "на ваш счет!"
+
+#: A2B_entity_password.php:108
+msgid "Change Password"
+msgstr ""
+
+#: A2B_entity_password.php:114
+msgid "New Password"
+msgstr ""
+
+#: A2B_entity_password.php:118
+msgid "Confirm Password"
+msgstr ""
+
+#: A2B_entity_password.php:125
+#, fuzzy
+msgid "Reset"
+msgstr "Результат"
+
+#: A2B_entity_speeddial.php:76
 msgid "Enter the number which you wish to assign to the code here"
 msgstr "Введите здесь номер для быстрого набора"
 
-#: A2B_entity_speeddial.php:77
+#: A2B_entity_speeddial.php:82
 #, fuzzy
 msgid "Speed Dial code"
 msgstr "Код быстрого набора"
 
-#: A2B_entity_speeddial.php:87 balance.php:88 invoices.php:85
+#: A2B_entity_speeddial.php:92 call-history.php:89 invoices.php:90
 msgid "Destination"
 msgstr "Номер телефона"
 
-#: A2B_entity_speeddial.php:89
+#: A2B_entity_speeddial.php:94
 msgid "Name"
 msgstr "Имя"
 
-#: A2B_entity_speeddial.php:93
+#: A2B_entity_speeddial.php:98
 msgid "ASSIGN NUMBER TO SPEEDDIAL"
 msgstr "ДОБАВИТЬ"
 
-#: balance.php:81 invoices.php:82
-msgid "Calldate"
-msgstr "Дата"
+#: A2B_entity_voucher.php:40
+msgid "System Error : No currency table complete !!!"
+msgstr ""
 
-#: balance.php:87
-msgid "CardNumber"
-msgstr "Номер Карты"
+#: A2B_entity_voucher.php:51
+msgid "The Voucher"
+msgstr "Ваучер"
 
-#: balance.php:90 invoices.php:86
-msgid "Duration"
-msgstr "Длительность"
+#: A2B_entity_voucher.php:51
+msgid "has been used, We added"
+msgstr "принят, добавленно"
 
-#: balance.php:92 invoices.php:89
-msgid "Cardused"
-msgstr "Карта"
+#: A2B_entity_voucher.php:51
+msgid "credit on your account!"
+msgstr "на ваш счет!"
 
-#: balance.php:93
-msgid "terminate cause"
-msgstr "причина завершения"
+#: A2B_entity_voucher.php:56
+msgid "This Voucher doesn't exist !"
+msgstr "Такой Ваучер не существует !"
 
-#: balance.php:94
-msgid "Calltype"
-msgstr "Тип звонка"
+#: A2B_entity_voucher.php:110 main.tpl:36
+msgid "VOUCHER"
+msgstr "ВАУЧЕР"
 
-#: balance.php:102
-msgid "InitalRate"
-msgstr "Стоимисть минуты"
+#: A2B_entity_voucher.php:115
+msgid "USE VOUCHER"
+msgstr "ИСПОЛЬЗОВАТЬ ВАУЧЕР"
 
-#: balance.php:103 invoices.php:99
-msgid "Cost"
-msgstr "Стоимость звонка"
-
-#: balance.php:132
-msgid "Call Logs"
-msgstr "Статистика звонков"
-
-#: balance.php:341 invoices.php:414
-msgid "Selection of the month"
-msgstr "По месяцам"
-
-#: balance.php:346 balance.php:395 invoices.php:419 invoices.php:467
-msgid "FROM"
-msgstr "С"
-
-#: balance.php:350 balance.php:370 balance.php:408 balance.php:436
-#: invoices.php:423 invoices.php:443 invoices.php:480 invoices.php:525
-msgid "JANUARY"
-msgstr "ЯНВАРЬ"
-
-#: balance.php:350 balance.php:370 balance.php:408 balance.php:436
-#: invoices.php:423 invoices.php:443 invoices.php:480 invoices.php:525
-msgid "FEBRUARY"
-msgstr "ФЕВРАЛЬ"
-
-#: balance.php:350 balance.php:370 balance.php:408 balance.php:436
-#: invoices.php:423 invoices.php:443 invoices.php:480 invoices.php:525
-msgid "MARCH"
-msgstr "МАРТ"
-
-#: balance.php:350 balance.php:370 balance.php:408 balance.php:436
-#: invoices.php:423 invoices.php:443 invoices.php:480 invoices.php:525
-msgid "APRIL"
-msgstr "АПРЕЛЬ"
-
-#: balance.php:350 balance.php:370 balance.php:408 balance.php:436
-#: invoices.php:423 invoices.php:443 invoices.php:480 invoices.php:525
-msgid "MAY"
-msgstr "МАЙ"
-
-#: balance.php:350 balance.php:370 balance.php:408 balance.php:436
-#: invoices.php:423 invoices.php:443 invoices.php:480 invoices.php:525
-msgid "JUNE"
-msgstr "ИЮНЬ"
-
-#: balance.php:350 balance.php:370 balance.php:408 balance.php:436
-#: invoices.php:423 invoices.php:443 invoices.php:480 invoices.php:525
-msgid "JULY"
-msgstr "ИЮЛЬ"
-
-#: balance.php:350 balance.php:370 balance.php:408 balance.php:436
-#: invoices.php:423 invoices.php:443 invoices.php:480 invoices.php:525
-msgid "AUGUST"
-msgstr "АВГУСТ"
-
-#: balance.php:350 balance.php:370 balance.php:408 balance.php:436
-#: invoices.php:423 invoices.php:443 invoices.php:480 invoices.php:525
-msgid "SEPTEMBER"
-msgstr "СЕНТЯБРЬ"
-
-#: balance.php:350 balance.php:370 balance.php:408 balance.php:436
-#: invoices.php:423 invoices.php:443 invoices.php:480 invoices.php:525
-msgid "OCTOBER"
-msgstr "ОКТЯБРЬ"
-
-#: balance.php:350 balance.php:370 balance.php:408 balance.php:436
-#: invoices.php:423 invoices.php:443 invoices.php:480 invoices.php:525
-msgid "NOVEMBER"
-msgstr "НОЯБРЬ"
-
-#: balance.php:350 balance.php:370 balance.php:408 balance.php:436
-#: invoices.php:423 invoices.php:443 invoices.php:480 invoices.php:525
-msgid "DECEMBER"
-msgstr "ДЕКАБРЬ"
-
-#: balance.php:366 balance.php:423 invoices.php:439 invoices.php:512
-msgid "TO"
-msgstr "ПО"
-
-#: balance.php:391 invoices.php:463
-msgid "Selection of the day"
-msgstr "По дням"
-
-#: balance.php:455 CC_var_def_ratecard.inc:30 CC_var_def_ratecard.inc:148
-#: CC_var_did_destination.inc:40 CC_var_did_destination.inc:155 did.php:78
-#: invoices.php:561 invoices.php:774
-msgid "DESTINATION"
-msgstr "НАПРАВЛЕНИЕ"
-
-#: balance.php:459 invoices.php:565 invoices.php:578
-msgid "Exact"
-msgstr "Точно"
-
-#: balance.php:460 invoices.php:566 invoices.php:579
-msgid "Begins with"
-msgstr "Начинаестя с"
-
-#: balance.php:461 invoices.php:567 invoices.php:580
-msgid "Contains"
-msgstr "Содержит"
-
-#: balance.php:462
-msgid "End with"
-msgstr "Заканчивается на"
-
-#: balance.php:471
-msgid "Options"
-msgstr "Опции"
-
-#: balance.php:477
-msgid "Show: "
-msgstr "Показать"
-
-#: balance.php:478
-msgid "Answered Calls"
-msgstr "Отвеченные Вызовы"
-
-#: balance.php:479 Class.FormHandler.inc.php:473
-msgid "ANSWER"
-msgstr "Ответ"
-
-#: balance.php:480
-msgid "All Calls"
-msgstr "Все Вызовы"
-
-#: balance.php:482
-#, fuzzy
-msgid "TODAS"
-msgstr "Итого"
-
-#: balance.php:487 invoices.php:591
-msgid "Result"
-msgstr "Результат"
-
-#: balance.php:488 invoices.php:591
-msgid "Minutes"
-msgstr "Минуты"
-
-#: balance.php:488
-msgid "min"
-msgstr "мин"
-
-#: balance.php:488 invoices.php:591
-msgid "Seconds"
-msgstr "Секунды"
-
-#: balance.php:488
-msgid "sec"
-msgstr "сек"
-
-#: balance.php:498 invoices.php:603
-msgid "Currency"
-msgstr "Валюта"
-
-#: balance.php:525 invoices.php:589 ratecard.php:194
-msgid "Search"
-msgstr "Поиск"
-
-#: balance.php:538
-msgid "Number of Calls"
-msgstr "Колличество Звонков"
-
-#: balance.php:665 CC_entity_edit_did_destination.php:373
-#: CC_entity_edit_did_destination.php:592
-#: CC_entity_edit_did_destination.php:910
-#: CC_entity_edit_did_destination.php:1032
-#: CC_entity_edit_did_destination.php:1197 CC_entity_edit_speeddial.php:262
-#: CC_entity_edit_speeddial.php:472 CC_entity_edit_speeddial.php:764
-#: CC_entity_edit_speeddial.php:1010 Class.FormHandler.AddForm.inc.php:119
-#: Class.FormHandler.DelForm.inc.php:63 Class.FormHandler.EditForm.inc.php:183
-#: Class.FormHandler.EditForm.inc.php:377
-#: Class.FormHandler.EditForm.inc.php:644 invoices.php:1047
-msgid "No data found !!!"
-msgstr "Ничего не найдено !!!"
-
-#: balance.php:690 did.php:438
-msgid "PREVIOUS"
-msgstr "НАЗАД"
-
-#: balance.php:696 did.php:443 predictivedialer.php:316
-msgid "NEXT"
-msgstr "ДАЛЬШЕ"
-
-#: balance.php:712
-msgid "Total Cost"
-msgstr "ИТОГО"
-
-#: balance.php:752 balance.php:826
-msgid "Total"
-msgstr "ИТОГО"
-
-#: balance.php:764
-msgid "CALLING CARD MINUTES"
-msgstr "Колличество времени"
-
-#: balance.php:767
-msgid "Date"
-msgstr "Дата"
-
-#: balance.php:768
-msgid "DURATION"
-msgstr "ДЛИТЕЛЬНОСТЬ"
-
-#: balance.php:769 invoices.php:776 invoices.php:879
-msgid "GRAPHIC"
-msgstr "ГРАФИК"
-
-#: balance.php:770
-msgid "CALLS"
-msgstr "ЗВОНКИ"
-
-#: balance.php:771
-msgid "<acronym title='AVERAGE CONNECTION TIME'>ACT</acronym>"
-msgstr "<acronym title='СРЕДНЕЕ ВРЕМЯ СОЕДИНЕНИЙ'>ACT</acronym>"
-
-#: balance.php:772 invoices.php:778 invoices.php:881
-msgid "TOTAL COST"
-msgstr "ИТОГО"
-
-#: balance.php:841
-msgid "Export PDF file"
-msgstr "Экспорт в PDF"
-
-#: balance.php:844
-msgid "Export CSV file"
-msgstr "Экспорт в CSV"
-
-#: balance.php:848
-msgid "No calls in your selection"
-msgstr "Нет подходящих звонков"
-
-#: callback.php:185 predictivedialer.php:76
+#: callback.php:187 predictivedialer.php:77
 msgid "Cannot connect to the asterisk manager!<br>Please check the manager configuration..."
 msgstr "Не могу подключиться к asterisk manager'у!<br>Пожалуйста проверьте настройки manager'а..."
 
-#: callback.php:190
+#: callback.php:192
 msgid "<font face='Arial, Helvetica, sans-serif' size='2' color='red'><b>Error : You don t have enough credit to call you back !!!</b></font><br>"
 msgstr "<font face='Arial, Helvetica, sans-serif' size='2' color='red'><b>Error : На Вашем счету недостаточно средств для обратного звонка !!!</b></font><br>"
 
-#: callback.php:193
+#: callback.php:195
 msgid "<font face='Arial, Helvetica, sans-serif' size='2' color='red'><b>Error : There is no route to call back your phonenumber !!!</b></font><br>"
 msgstr "<font face='Arial, Helvetica, sans-serif' size='2' color='red'><b>Error : Не задан маршрут !!!</b></font><br>"
 
-#: callback.php:200 predictivedialer.php:84
+#: callback.php:202 predictivedialer.php:85
 msgid "<font face='Arial, Helvetica, sans-serif' size='2' color='red'><b>Error : You have to specify your phonenumber and the number you wish to call !!!</b></font><br>"
 msgstr "<font face='Arial, Helvetica, sans-serif' size='2' color='red'><b>Error : Вы должны указат свой номер телефона и номер по которому хотите позвонить !!!</b></font><br>"
 
-#: callback.php:222
+#: callback.php:227
 msgid "You can initiate the callback by entering your phonenumber and the number you wish to call!"
 msgstr "Вы можете сделать обратный звонок указав свой номер телефона и номер по которому хотите позвонить"
 
-#: callback.php:230
+#: callback.php:235
 #, fuzzy
 msgid "Your PhoneNumber"
 msgstr "Ваш номер телефона / Нахождение"
 
-#: callback.php:233
+#: callback.php:238
 msgid "The number you wish to call"
 msgstr "Кому звонить"
 
-#: callback.php:238
+#: callback.php:243
 #, fuzzy
 msgid "Click here to Place Call"
 msgstr "Нажмите чтобы сделать 10 звонков"
 
-#: CC_entity_edit_did_destination.php:202 Class.FormHandler.inc.php:1516
+#: call-history.php:82 invoices.php:87
+msgid "Calldate"
+msgstr "Дата"
+
+#: call-history.php:88
+msgid "CardNumber"
+msgstr "Номер Карты"
+
+#: call-history.php:91 invoices.php:91
+msgid "Duration"
+msgstr "Длительность"
+
+#: call-history.php:93 invoices.php:94
+msgid "Cardused"
+msgstr "Карта"
+
+#: call-history.php:94
+msgid "terminate cause"
+msgstr "причина завершения"
+
+#: call-history.php:95
+msgid "Calltype"
+msgstr "Тип звонка"
+
+#: call-history.php:103
+msgid "InitalRate"
+msgstr "Стоимисть минуты"
+
+#: call-history.php:104 invoices.php:104
+msgid "Cost"
+msgstr "Стоимость звонка"
+
+#: call-history.php:133
+msgid "Call Logs"
+msgstr "Статистика звонков"
+
+#: call-history.php:340 invoices.php:420
+msgid "Selection of the month"
+msgstr "По месяцам"
+
+#: call-history.php:346 call-history.php:395 invoices.php:425 invoices.php:473
+msgid "FROM"
+msgstr "С"
+
+#: call-history.php:350 call-history.php:370 call-history.php:408
+#: call-history.php:436 invoices.php:429 invoices.php:449 invoices.php:486
+#: invoices.php:531
+msgid "JANUARY"
+msgstr "ЯНВАРЬ"
+
+#: call-history.php:350 call-history.php:370 call-history.php:408
+#: call-history.php:436 invoices.php:429 invoices.php:449 invoices.php:486
+#: invoices.php:531
+msgid "FEBRUARY"
+msgstr "ФЕВРАЛЬ"
+
+#: call-history.php:350 call-history.php:370 call-history.php:408
+#: call-history.php:436 invoices.php:429 invoices.php:449 invoices.php:486
+#: invoices.php:531
+msgid "MARCH"
+msgstr "МАРТ"
+
+#: call-history.php:350 call-history.php:370 call-history.php:408
+#: call-history.php:436 invoices.php:429 invoices.php:449 invoices.php:486
+#: invoices.php:531
+msgid "APRIL"
+msgstr "АПРЕЛЬ"
+
+#: call-history.php:350 call-history.php:370 call-history.php:408
+#: call-history.php:436 invoices.php:429 invoices.php:449 invoices.php:486
+#: invoices.php:531
+msgid "MAY"
+msgstr "МАЙ"
+
+#: call-history.php:350 call-history.php:370 call-history.php:408
+#: call-history.php:436 invoices.php:429 invoices.php:449 invoices.php:486
+#: invoices.php:531
+msgid "JUNE"
+msgstr "ИЮНЬ"
+
+#: call-history.php:350 call-history.php:370 call-history.php:408
+#: call-history.php:436 invoices.php:429 invoices.php:449 invoices.php:486
+#: invoices.php:531
+msgid "JULY"
+msgstr "ИЮЛЬ"
+
+#: call-history.php:350 call-history.php:370 call-history.php:408
+#: call-history.php:436 invoices.php:429 invoices.php:449 invoices.php:486
+#: invoices.php:531
+msgid "AUGUST"
+msgstr "АВГУСТ"
+
+#: call-history.php:350 call-history.php:370 call-history.php:408
+#: call-history.php:436 invoices.php:429 invoices.php:449 invoices.php:486
+#: invoices.php:531
+msgid "SEPTEMBER"
+msgstr "СЕНТЯБРЬ"
+
+#: call-history.php:350 call-history.php:370 call-history.php:408
+#: call-history.php:436 invoices.php:429 invoices.php:449 invoices.php:486
+#: invoices.php:531
+msgid "OCTOBER"
+msgstr "ОКТЯБРЬ"
+
+#: call-history.php:350 call-history.php:370 call-history.php:408
+#: call-history.php:436 invoices.php:429 invoices.php:449 invoices.php:486
+#: invoices.php:531
+msgid "NOVEMBER"
+msgstr "НОЯБРЬ"
+
+#: call-history.php:350 call-history.php:370 call-history.php:408
+#: call-history.php:436 invoices.php:429 invoices.php:449 invoices.php:486
+#: invoices.php:531
+msgid "DECEMBER"
+msgstr "ДЕКАБРЬ"
+
+#: call-history.php:366 call-history.php:423 invoices.php:445 invoices.php:518
+msgid "TO"
+msgstr "ПО"
+
+#: call-history.php:391 invoices.php:469
+msgid "Selection of the day"
+msgstr "По дням"
+
+#: call-history.php:455 invoices.php:567 invoices.php:779
+msgid "DESTINATION"
+msgstr "НАПРАВЛЕНИЕ"
+
+#: call-history.php:460 Class.SearchHandler.inc.php:154 invoices.php:571
+#: invoices.php:584
+msgid "Exact"
+msgstr "Точно"
+
+#: call-history.php:461 Class.SearchHandler.inc.php:155 invoices.php:572
+#: invoices.php:585
+msgid "Begins with"
+msgstr "Начинаестя с"
+
+#: call-history.php:462 Class.SearchHandler.inc.php:156 invoices.php:573
+#: invoices.php:586
+msgid "Contains"
+msgstr "Содержит"
+
+#: call-history.php:463
+msgid "End with"
+msgstr "Заканчивается на"
+
+#: call-history.php:472
+msgid "Options"
+msgstr "Опции"
+
+#: call-history.php:478
+msgid "Show: "
+msgstr "Показать"
+
+#: call-history.php:479
+msgid "Answered Calls"
+msgstr "Отвеченные Вызовы"
+
+#: call-history.php:481
+msgid "All Calls"
+msgstr "Все Вызовы"
+
+#: call-history.php:488 invoices.php:597
+msgid "Result"
+msgstr "Результат"
+
+#: call-history.php:489 invoices.php:597
+msgid "Minutes"
+msgstr "Минуты"
+
+#: call-history.php:489 invoices.php:597
+msgid "Seconds"
+msgstr "Секунды"
+
+#: call-history.php:499 invoices.php:609
+msgid "Currency"
+msgstr "Валюта"
+
+#: call-history.php:526 invoices.php:595
+msgid "Search"
+msgstr "Поиск"
+
+#: call-history.php:539
+msgid "Number of Calls"
+msgstr "Колличество Звонков"
+
+#: call-history.php:666 CC_entity_edit_did_destination.php:376
+#: CC_entity_edit_did_destination.php:595
+#: CC_entity_edit_did_destination.php:913
+#: CC_entity_edit_did_destination.php:1035
+#: CC_entity_edit_did_destination.php:1200 CC_entity_edit_speeddial.php:266
+#: CC_entity_edit_speeddial.php:476 CC_entity_edit_speeddial.php:768
+#: CC_entity_edit_speeddial.php:1014 Class.FormHandler.AddForm.inc.php:126
+#: Class.FormHandler.DelForm.inc.php:145
+#: Class.FormHandler.EditForm.inc.php:179
+#: Class.FormHandler.EditForm.inc.php:373
+#: Class.FormHandler.EditForm.inc.php:642 invoices.php:1052
+msgid "No data found !!!"
+msgstr "Ничего не найдено !!!"
+
+#: call-history.php:691
+msgid "PREVIOUS"
+msgstr "НАЗАД"
+
+#: call-history.php:697 predictivedialer.php:319
+msgid "NEXT"
+msgstr "ДАЛЬШЕ"
+
+#: call-history.php:713
+msgid "Total Cost"
+msgstr "ИТОГО"
+
+#: call-history.php:753 call-history.php:827
+msgid "Total"
+msgstr "ИТОГО"
+
+#: call-history.php:765
+msgid "CALLING CARD MINUTES"
+msgstr "Колличество времени"
+
+#: call-history.php:768
+msgid "Date"
+msgstr "Дата"
+
+#: call-history.php:769
+msgid "DURATION"
+msgstr "ДЛИТЕЛЬНОСТЬ"
+
+#: call-history.php:770 invoices.php:781 invoices.php:884
+msgid "GRAPHIC"
+msgstr "ГРАФИК"
+
+#: call-history.php:771
+msgid "CALLS"
+msgstr "ЗВОНКИ"
+
+#: call-history.php:772
+msgid "<acronym title='AVERAGE CONNECTION TIME'>ACT</acronym>"
+msgstr "<acronym title='СРЕДНЕЕ ВРЕМЯ СОЕДИНЕНИЙ'>ACT</acronym>"
+
+#: call-history.php:773 invoices.php:783 invoices.php:886
+msgid "TOTAL COST"
+msgstr "ИТОГО"
+
+#: call-history.php:842
+msgid "Export PDF file"
+msgstr "Экспорт в PDF"
+
+#: call-history.php:845
+msgid "Export CSV file"
+msgstr "Экспорт в CSV"
+
+#: call-history.php:849
+msgid "No calls in your selection"
+msgstr "Нет подходящих звонков"
+
+#: CC_entity_edit_did_destination.php:202 Class.FormHandler.inc.php:1658
 msgid "error deletion"
 msgstr "ошибка удаления"
 
-#: CC_entity_edit_did_destination.php:531
-#: CC_entity_edit_did_destination.php:739
+#: CC_entity_edit_did_destination.php:534
+#: CC_entity_edit_did_destination.php:742
+#: Class.FormHandler.EditForm.inc.php:327
 msgid "Add a new "
 msgstr "Добавить"
 
-#: CC_entity_edit_did_destination.php:1212 did.php:403
+#: CC_entity_edit_did_destination.php:1215
 msgid "Remove this DID DESTINATION"
 msgstr "Удалить это DID НАПРАВЛЕНИЕ"
 
-#: CC_entity_edit_did_destination.php:1212 CC_entity_edit_speeddial.php:1025
+#: CC_entity_edit_did_destination.php:1215 CC_entity_edit_speeddial.php:1029
 msgid "Delete"
 msgstr "Удалить"
 
-#: CC_entity_edit_did_destination.php:1237
+#: CC_entity_edit_did_destination.php:1240
 #, fuzzy
 msgid "Deletion"
 msgstr "Удаление"
 
-#: CC_entity_edit_did_destination.php:1239
+#: CC_entity_edit_did_destination.php:1242
 msgid "New"
 msgstr "Создать новое"
 
-#: CC_entity_edit_did_destination.php:1239
+#: CC_entity_edit_did_destination.php:1242
 #, fuzzy
 msgid "Inserted"
 msgstr "Довавить новое"
 
-#: CC_entity_edit_speeddial.php:1025
+#: CC_entity_edit_speeddial.php:1029
 msgid "Remove this Speed Dial"
 msgstr "Удалить этот Быстрый Набор"
 
-#: CC_var_base.inc:98
-msgid "Information about edition"
-msgstr "Информация"
-
-#: CC_var_base.inc:118 CC_var_def_ratecard.inc:87
-#: CC_var_did_destination.inc:116 CC_var_phonelist.inc:110
-#: Class.FormHandler.inc.php:609 Class.FormHandler.inc.php:611
-msgid "You can browse through our "
-msgstr "Вы можете просмотреть"
-
-#: CC_var_base.inc:118 CC_var_def_ratecard.inc:87
-#: CC_var_did_destination.inc:116 CC_var_phonelist.inc:110
-#: Class.FormHandler.inc.php:609 Class.FormHandler.inc.php:611
-msgid " and modify their different properties<br>"
-msgstr "и редактировать"
-
-#: CC_var_base.inc:122 CC_var_def_ratecard.inc:91 CC_var_phonelist.inc:114
-#: Class.FormHandler.inc.php:638
-#, fuzzy
-msgid "Delete this "
-msgstr "Удалить"
-
-#: CC_var_base.inc:123 CC_var_def_ratecard.inc:92 CC_var_phonelist.inc:115
-#: Class.FormHandler.inc.php:632
-msgid "Edit this "
-msgstr "Редактировать"
-
-#: CC_var_base.inc:152 CC_var_phonelist.inc:38 CC_var_phonelist.inc:173
-#: FG_var_speeddial.inc:28 FG_var_speeddial.inc:70
-msgid "NAME"
-msgstr "ИМЯ"
-
-#: CC_var_base.inc:158
-#, fuzzy
-msgid "Insert the user Name"
-msgstr "Добавьте Имя"
-
-#: CC_var_base.inc:162
-#, fuzzy
-msgid "FIRSTNAME"
-msgstr "ИМЯ"
-
-#: CC_var_base.inc:168
-#, fuzzy
-msgid "Insert the firstname"
-msgstr "Добавьте Имя"
-
-#: CC_var_base.inc:172 userinfo.php:68
-msgid "EMAIL"
-msgstr "EMAIL"
-
-#: CC_var_base.inc:178
-msgid "Insert the email address of the webmaster"
-msgstr "Добавьте email webmaster'а"
-
-#: CC_var_base.inc:183
-#, fuzzy
-msgid "COMPANY"
-msgstr "КОМПАНИЯ"
-
-#: CC_var_base.inc:189
-#, fuzzy
-msgid "Insert the name of your company"
-msgstr "Добавьте название компании"
-
-#: CC_var_base.inc:194 userinfo.php:74
-msgid "ADDRESS"
-msgstr "АДРЕС"
-
-#: CC_var_base.inc:200
-#, fuzzy
-msgid "Insert the Addresse"
-msgstr "Добавить новый Адрес"
-
-#: CC_var_base.inc:206 userinfo.php:76
-msgid "CITY"
-msgstr "ГОРОД"
-
-#: CC_var_base.inc:212
-#, fuzzy
-msgid "Insert the City"
-msgstr "Добавить новый Город"
-
-#: CC_var_base.inc:219
-#, fuzzy
-msgid "ZIPCODE"
-msgstr "ZIP КОД"
-
-#: CC_var_base.inc:225
-#, fuzzy
-msgid "Insert the zipcode"
-msgstr "Добавить новый zip код"
-
-#: CC_var_base.inc:236
-#, fuzzy
-msgid "Insert the webmaster Phonenumber"
-msgstr "Добавить новый"
-
-#: CC_var_base.inc:240 userinfo.php:70
-msgid "FAX"
-msgstr "FAX"
-
-#: CC_var_base.inc:246
-#, fuzzy
-msgid "Insert the webmaster Fax number"
-msgstr "Добавить новый"
-
-#: CC_var_base.inc:250 userinfo.php:78
-msgid "COUNTRY"
-msgstr "СТРАНА"
-
-#: CC_var_base.inc:263
-msgid "NEWSLETTERS"
-msgstr "Рассылка новостей"
-
-#: CC_var_base.inc:269
-msgid "Choose if the user will receive the newsletters"
-msgstr "Выберете будет ли позвователь получать новости"
-
-#: CC_var_base.inc:272
-msgid "I acknowledge to receive informations."
-msgstr "Я согласен получать новости"
-
-#: CC_var_base.inc:296
-msgid "Webmaster's lounge"
-msgstr ""
-
-#: CC_var_base.inc:296
-msgid "Here are the personal data that you entered when you subscribed to Phone2Enter. <br>You can modify them, except your first name and your last name. <p><br>Check the correctness of your postal address, so that you will receive the cheques used to pay your commissions."
-msgstr "Ваша персональная информация которую вы предоставили когда подписывались на Phone2Enter. <br> Вы можете изменять все, кроме Вашего имени и фамилии. <p><br>Праверьте правильность Вашего почтового адреса, чтобы вы могли получать счета."
-
-#: CC_var_base.inc:306 CC_var_def_ratecard.inc:557 CC_var_phonelist.inc:293
-#: FG_var_callerid.inc:104 FG_var_speeddial.inc:113
-msgid "If you really want remove this "
-msgstr ""
-
-#: CC_var_base.inc:306 CC_var_def_ratecard.inc:557 CC_var_phonelist.inc:293
-#: FG_var_callerid.inc:104 FG_var_speeddial.inc:113
-#, fuzzy
-msgid ", click on the delete button."
-msgstr "Click on Add button"
-
-#: CC_var_base.inc:308 CC_var_def_ratecard.inc:559 CC_var_phonelist.inc:295
-msgid "One "
-msgstr ""
-
-#: CC_var_base.inc:308 CC_var_def_ratecard.inc:559 CC_var_phonelist.inc:295
-#, c-format
-msgid " of the %table table has been deleted. <br> (Record with the id :"
-msgstr ""
-
-#: CC_var_base.inc:315 CC_var_def_ratecard.inc:566 CC_var_phonelist.inc:302
-#: FG_var_callerid.inc:105 FG_var_speeddial.inc:114
-msgid "you can add easily a new "
-msgstr ""
-
-#: CC_var_base.inc:315
-msgid ".<br>Fill the following fields and confirm by clicking on the add button."
-msgstr ""
-
-#: CC_var_base.inc:366
-#, fuzzy
-msgid "You can insert easily new "
-msgstr "You wish to insert a new"
-
-#: CC_var_base.inc:366
-msgid ", <br>fill the following form and click on the add button<br>"
-msgstr ""
-
-#: CC_var_base.inc:371
-msgid "Once you have completed the form above, you'll be able to choose the BILLING PACK that best fits your content and your customers. Click on the *CONTINUE* when ready."
-msgstr ""
-
-#: CC_var_base.inc:375 CC_var_def_ratecard.inc:613 CC_var_phonelist.inc:361
-#: FG_var_callerid.inc:113 FG_var_speeddial.inc:121
-msgid "Your new "
-msgstr ""
-
-#: CC_var_base.inc:375
-msgid " has been inserted. <br>Thanks to trust to these system !"
-msgstr ""
-
-#: CC_var_def_ratecard.inc:31
-msgid "PREFIX"
-msgstr "ПРЕФИКС"
-
-#: CC_var_def_ratecard.inc:32
-msgid "SR"
-msgstr ""
-
-#: CC_var_def_ratecard.inc:82
-msgid " - RATE List - "
-msgstr ""
-
-#: CC_var_def_ratecard.inc:124 PP_menu.php:118
-msgid "RATECARD"
-msgstr "RATECARD"
-
-#: CC_var_def_ratecard.inc:138
-#, fuzzy
-msgid "DIALPREFIX"
-msgstr "FILTER ON PREFIX"
-
-#: CC_var_def_ratecard.inc:144
-#, fuzzy
-msgid "Insert the tariff name "
-msgstr "Insert a new"
-
-#: CC_var_def_ratecard.inc:146
-msgid "Define the destination prefix. ie, 44 for UK proper. You can use 'defaultprefix' to setup a rate by default for the destination for which you dont want to provide a specific rate.<br>IF YOU ADD A RATE AND NOT AN EDIT => You can also define several in the same time and range, as below:<br>32484-32487 -> this would insert 32484, 32485, 32486, 32487<br>32476,32477,32478 separate by comma"
-msgstr ""
-
-#: CC_var_def_ratecard.inc:154
-msgid "Insert the destination (country + area)"
-msgstr ""
-
-#: CC_var_def_ratecard.inc:158
-msgid "BUYING RATE"
-msgstr ""
-
-#: CC_var_def_ratecard.inc:164
-#, fuzzy
-msgid "Insert the buy rate"
-msgstr "Insert a new"
-
-#: CC_var_def_ratecard.inc:169
-msgid "BUYRATE INIT BLOCK"
-msgstr ""
-
-#: CC_var_def_ratecard.inc:175
-msgid "Insert the buyrate init block"
-msgstr ""
-
-#: CC_var_def_ratecard.inc:177
-msgid "define the minimum time that your provider buy for  (ie 30 secs)"
-msgstr ""
-
-#: CC_var_def_ratecard.inc:179
-msgid "BUYRATE BILLING BLOCK"
-msgstr ""
-
-#: CC_var_def_ratecard.inc:185 CC_var_def_ratecard.inc:218
-#, fuzzy
-msgid "Insert the billing block"
-msgstr "Insert a new"
-
-#: CC_var_def_ratecard.inc:187
-msgid "Define the billing increment (billing block) to the provider apply."
-msgstr ""
-
-#: CC_var_def_ratecard.inc:190
-msgid "RATEINITIAL"
-msgstr ""
-
-#: CC_var_def_ratecard.inc:196
-#, fuzzy
-msgid "Insert the initial rate"
-msgstr "Insert a new"
-
-#: CC_var_def_ratecard.inc:201
-#, fuzzy
-msgid "MIN DURATION"
-msgstr "DURATION"
-
-#: CC_var_def_ratecard.inc:207
-#, fuzzy
-msgid "Insert the init block"
-msgstr "Insert a new"
-
-#: CC_var_def_ratecard.inc:209
-msgid "This allow you to define the minimum time to bill the caller (ie 30 secs)"
-msgstr ""
-
-#: CC_var_def_ratecard.inc:212
-msgid "BILLING BLOCK"
-msgstr ""
-
-#: CC_var_def_ratecard.inc:220
-msgid "Define the duration of each billing block to apply globaly (if not cycle are defined)."
-msgstr ""
-
-#: CC_var_def_ratecard.inc:224
-#, fuzzy
-msgid "CONNECT CHARGE"
-msgstr "EXTRA CHARGE"
-
-#: CC_var_def_ratecard.inc:230
-#, fuzzy
-msgid "Insert the connect charge"
-msgstr "Insert a new"
-
-#: CC_var_def_ratecard.inc:232
-msgid "define the connection price for the caller"
-msgstr ""
-
-#: CC_var_def_ratecard.inc:235
-#, fuzzy
-msgid "DISCONNECT CHARGE"
-msgstr "EXTRA CHARGE"
-
-#: CC_var_def_ratecard.inc:241
-#, fuzzy
-msgid "Insert the disconnect charge"
-msgstr "Insert a new"
-
-#: CC_var_def_ratecard.inc:243
-msgid "define the disconnection price for the caller"
-msgstr ""
-
-#: CC_var_def_ratecard.inc:250
-msgid "STEPCHARGE A"
-msgstr ""
-
-#: CC_var_def_ratecard.inc:256
-#, fuzzy
-msgid "Insert the stepcharge A"
-msgstr "Insert a new"
-
-#: CC_var_def_ratecard.inc:258
-msgid "When entering in the cycle 'A', define the amount to charge for the entrance."
-msgstr ""
-
-#: CC_var_def_ratecard.inc:261
-#, fuzzy
-msgid "CHARGE A"
-msgstr "EXTRA CHARGE"
-
-#: CC_var_def_ratecard.inc:267
-#, fuzzy
-msgid "Insert the charge A"
-msgstr "Insert a new"
-
-#: CC_var_def_ratecard.inc:269
-msgid "When entering in the cycle 'A', define the rate to apply."
-msgstr ""
-
-#: CC_var_def_ratecard.inc:272
-msgid "TIMECHARGE A"
-msgstr ""
-
-#: CC_var_def_ratecard.inc:278
-#, fuzzy
-msgid "Insert the time charge A"
-msgstr "Insert a new"
-
-#: CC_var_def_ratecard.inc:280
-msgid "Define the duration of the cycle 'A'."
-msgstr ""
-
-#: CC_var_def_ratecard.inc:283
-msgid "BILLING BLOCK A"
-msgstr ""
-
-#: CC_var_def_ratecard.inc:289
-msgid "Insert the billing block A"
-msgstr ""
-
-#: CC_var_def_ratecard.inc:291
-msgid "Define the duration of each billing block to apply the rate 'CHARGE A'."
-msgstr ""
-
-#: CC_var_def_ratecard.inc:297
-msgid "STEPCHARGE B"
-msgstr ""
-
-#: CC_var_def_ratecard.inc:303
-#, fuzzy
-msgid "Insert the stepcharge B"
-msgstr "Insert a new"
-
-#: CC_var_def_ratecard.inc:305
-msgid "When entering in the cycle 'B', define the amount to charge for the entrance."
-msgstr ""
-
-#: CC_var_def_ratecard.inc:308
-#, fuzzy
-msgid "CHARGE B"
-msgstr "EXTRA CHARGE"
-
-#: CC_var_def_ratecard.inc:314
-#, fuzzy
-msgid "Insert the charge B"
-msgstr "Insert a new"
-
-#: CC_var_def_ratecard.inc:316
-msgid "When entering in the cycle 'B', define the rate to apply."
-msgstr ""
-
-#: CC_var_def_ratecard.inc:319
-msgid "TIMECHARGE B"
-msgstr ""
-
-#: CC_var_def_ratecard.inc:325
-#, fuzzy
-msgid "Insert the time charge B"
-msgstr "Insert a new"
-
-#: CC_var_def_ratecard.inc:327
-msgid "Define the duration of the cycle 'B'."
-msgstr ""
-
-#: CC_var_def_ratecard.inc:330
-msgid "BILLING BLOCK B"
-msgstr ""
-
-#: CC_var_def_ratecard.inc:336
-msgid "Insert the billing block B"
-msgstr ""
-
-#: CC_var_def_ratecard.inc:338
-msgid "Define the duration of each billing block to apply the rate 'CHARGE B'."
-msgstr ""
-
-#: CC_var_def_ratecard.inc:344
-msgid "STEPCHARGE C"
-msgstr ""
-
-#: CC_var_def_ratecard.inc:350
-#, fuzzy
-msgid "Insert the stepcharge C"
-msgstr "Insert a new"
-
-#: CC_var_def_ratecard.inc:352
-msgid "When entering in the cycle 'C', define the amount to charge for the entrance."
-msgstr ""
-
-#: CC_var_def_ratecard.inc:355
-#, fuzzy
-msgid "CHARGE C"
-msgstr "EXTRA CHARGE"
-
-#: CC_var_def_ratecard.inc:361
-#, fuzzy
-msgid "Insert the charge C"
-msgstr "Insert a new"
-
-#: CC_var_def_ratecard.inc:363
-msgid "When entering in the cycle 'C', define the rate to apply."
-msgstr ""
-
-#: CC_var_def_ratecard.inc:366
-msgid "TIMECHARGE C"
-msgstr ""
-
-#: CC_var_def_ratecard.inc:372
-#, fuzzy
-msgid "Insert the time charge C"
-msgstr "Insert a new"
-
-#: CC_var_def_ratecard.inc:374
-msgid "Define the duration of the cycle 'C'."
-msgstr ""
-
-#: CC_var_def_ratecard.inc:377
-msgid "BILLING BLOCK C"
-msgstr ""
-
-#: CC_var_def_ratecard.inc:383
-msgid "Insert the billing block C"
-msgstr ""
-
-#: CC_var_def_ratecard.inc:385
-msgid "Define the duration of each billing block to apply the rate 'CHARGE C'."
-msgstr ""
-
-#: CC_var_def_ratecard.inc:398
-#, fuzzy
-msgid "START DATE"
-msgstr "STATE"
-
-#: CC_var_def_ratecard.inc:404
-#, fuzzy
-msgid "Insert the starting date"
-msgstr "Insert a new"
-
-#: CC_var_def_ratecard.inc:406 CC_var_phonelist.inc:202
-msgid "please respect the format YYYY-MM-DD HH:MM:SS. For instance, '2004-12-31 00:00:00'"
-msgstr ""
-
-#: CC_var_def_ratecard.inc:409
-#, fuzzy
-msgid "STOP DATE"
-msgstr "STATE"
-
-#: CC_var_def_ratecard.inc:415
-#, fuzzy
-msgid "Insert the stop date"
-msgstr "Insert a new"
-
-#: CC_var_def_ratecard.inc:417
-msgid "please respect the format YYYY-MM-DD HH:MM:SS. For instance, '2004-12-31 00:00:00'<br>leave it empty if there is not limit"
-msgstr ""
-
-#: CC_var_def_ratecard.inc:421
-#, fuzzy
-msgid "MONDAY"
-msgstr "MAY"
-
-#: CC_var_def_ratecard.inc:427 CC_var_def_ratecard.inc:437
-#: CC_var_def_ratecard.inc:447 CC_var_def_ratecard.inc:457
-#: CC_var_def_ratecard.inc:468 CC_var_def_ratecard.inc:478
-#: CC_var_def_ratecard.inc:488
-msgid "Choose if you want to activate this day"
-msgstr ""
-
-#: CC_var_def_ratecard.inc:431
-msgid "TUESDAY"
-msgstr ""
-
-#: CC_var_def_ratecard.inc:441
-msgid "wednesday"
-msgstr ""
-
-#: CC_var_def_ratecard.inc:451
-msgid "THURSDAY"
-msgstr ""
-
-#: CC_var_def_ratecard.inc:462
-msgid "FRIDAY"
-msgstr ""
-
-#: CC_var_def_ratecard.inc:472
-msgid "SATURDAY"
-msgstr ""
-
-#: CC_var_def_ratecard.inc:482
-msgid "SUNDAY"
-msgstr ""
-
-#: CC_var_def_ratecard.inc:494
-msgid "TRUNK"
-msgstr ""
-
-#: CC_var_def_ratecard.inc:549
-msgid "You can modify the rate and the trunk through the following form."
-msgstr ""
-
-#: CC_var_def_ratecard.inc:566 CC_var_phonelist.inc:302
-#: FG_var_callerid.inc:105 FG_var_speeddial.inc:114
-msgid ".<br>Fill the following fields and confirm by clicking on the button add."
-msgstr ""
-
-#: CC_var_def_ratecard.inc:602 Class.FormHandler.inc.php:396
-msgid "The document has been created correctly. Now, you can define the different tariff that you want to associate."
-msgstr ""
-
-#: CC_var_def_ratecard.inc:611
-msgid "Define a NEW "
-msgstr ""
-
-#: CC_var_def_ratecard.inc:611
-msgid " into your ratecard."
-msgstr ""
-
-#: CC_var_def_ratecard.inc:613 CC_var_phonelist.inc:361
-#: FG_var_callerid.inc:113 FG_var_speeddial.inc:121
-msgid " has been inserted. <br>"
-msgstr ""
-
-#: CC_var_def_ratecard.inc:619 CC_var_def_ratecard.inc:623
-msgid "Made your change to edit the current rate"
-msgstr ""
-
-#: CC_var_did_destination.inc:18
-#, fuzzy
-msgid "DID DESTINATION"
-msgstr "DESTINATION"
-
-#: CC_var_did_destination.inc:25 did.php:69 FG_var_callerid.inc:13
-msgid "Active"
-msgstr ""
-
-#: CC_var_did_destination.inc:25 did.php:69
-msgid "Inactive"
-msgstr ""
-
-#: CC_var_did_destination.inc:26
-msgid "Fix per month + dialoutrate"
-msgstr ""
-
-#: CC_var_did_destination.inc:26
-msgid "Fix per month"
-msgstr ""
-
-#: CC_var_did_destination.inc:27
-msgid "Only dialout rate"
-msgstr ""
-
-#: CC_var_did_destination.inc:27
-msgid "Free"
-msgstr ""
-
-#: CC_var_did_destination.inc:41
-#, fuzzy
-msgid "CREATIONDATE"
-msgstr "DURATION"
-
-#: CC_var_did_destination.inc:42 CC_var_did_destination.inc:169 did.php:79
-#: PP_menu.php:107
-msgid "DID"
-msgstr "DID"
-
-#: CC_var_did_destination.inc:43
-#, fuzzy
-msgid "CARDNUMBER"
-msgstr "CARD NUMBER"
-
-#: CC_var_did_destination.inc:44
-#, fuzzy
-msgid "ACTIV"
-msgstr "ACTION"
-
-#: CC_var_did_destination.inc:45
-msgid "VOIP"
-msgstr ""
-
-#: CC_var_did_destination.inc:46
-#, fuzzy
-msgid "PRIOR"
-msgstr "PRIORITY"
-
-#: CC_var_did_destination.inc:47 did.php:82
-msgid "USED MINUTE"
-msgstr "USED MINUTE"
-
-#: CC_var_did_destination.inc:111
-#, fuzzy
-msgid "- DID Destination List -"
-msgstr "Destination"
-
-#: CC_var_did_destination.inc:120
-#, fuzzy
-msgid "Delete this  DID Destination"
-msgstr "Delete"
-
-#: CC_var_did_destination.inc:121
-msgid "Edit this  DID Destination"
-msgstr ""
-
-#: CC_var_did_destination.inc:161
-#, fuzzy
-msgid "Insert the DID"
-msgstr "Insert a new"
-
-#: CC_var_did_destination.inc:163 did.php:314
-msgid "Enter here the phonenumber you want to call or the SIP/IAX/H323 peer to reach (ie: 347894999 or SIP/jeremy@182.212.1.45). To call SIP/IAX/H323 peer, you need to enable the voip_call bellow (voip_call = Yes)"
-msgstr "Введите здесь номер по которому хотите позвонить или SIP/IAX/H323 пользователя (напримет: 347894999 or SIP/jeremy@182.212.1.45). Чтобы позвонить SIP/IAX/H323 пользователю, нужно включить the voip_call  (voip_call = Yes)"
-
-#: CC_var_did_destination.inc:183 did.php:81
-msgid "PRIORITY"
-msgstr "ПРИОРИТЕТ"
-
-#: CC_var_did_destination.inc:194
-#, fuzzy
-msgid "VOIP_CALL"
-msgstr "VOIP CALL : "
-
-#: CC_var_did_destination.inc:200
-msgid "Choose if you want to not use the trunk and let the asterisk call directly the destination (ie, Destination : SIP/jeremy@182.212.1.45)"
-msgstr ""
-
-#: CC_var_did_destination.inc:201
-msgid "YES"
-msgstr ""
-
-#: CC_var_did_destination.inc:201 did.php:309 predictivedialer.php:335
-#: ratecard.php:399
-msgid "NO"
-msgstr "НЕТ"
-
-#: CC_var_did_destination.inc:251
-msgid "You can modify, through the following form, the different properties of your DID DESTINATION<br>"
-msgstr ""
-
-#: CC_var_did_destination.inc:259
-msgid "If you really want remove this DID DESTINATION, click on the delete button."
-msgstr ""
-
-#: CC_var_did_destination.inc:261
-msgid "One DID DESTINATION has been deleted. <br>"
-msgstr ""
-
-#: CC_var_did_destination.inc:268
-msgid "you can add easily a new DID DESTINATION.<br>Fill the following fields and confirm by clicking on the button add."
-msgstr ""
-
-#: CC_var_did_destination.inc:312 CC_var_phonelist.inc:346
-msgid "The destination has been created correctly."
-msgstr ""
-
-#: CC_var_did_destination.inc:325
-msgid "Add a NEW \"DID\""
-msgstr ""
-
-#: CC_var_did_destination.inc:327
-msgid "Your new DID DESTINATION has been inserted. <br>"
-msgstr ""
-
-#: CC_var_did_destination.inc:330
-msgid "ERROR_DUPLICATION !"
-msgstr ""
-
-#: CC_var_did_destination.inc:338
-msgid "Setup those values to create the new destination"
-msgstr ""
-
-#: CC_var_did_destination.inc:344
-msgid "Made your change to edit the current destination"
-msgstr ""
-
-#: CC_var_phonelist.inc:37
-#, fuzzy
-msgid "PHONENUMBER"
-msgstr "NOVEMBER"
-
-#: CC_var_phonelist.inc:39
-#, fuzzy
-msgid "LAST ATTEMPT"
-msgstr "LAST NAME"
-
-#: CC_var_phonelist.inc:40
-msgid "CONNECTED TO"
-msgstr ""
-
-#: CC_var_phonelist.inc:41
-msgid "NUM TRIALS"
-msgstr ""
-
-#: CC_var_phonelist.inc:42
-#, fuzzy
-msgid "CALLED MINUTE"
-msgstr "USED MINUTE"
-
-#: CC_var_phonelist.inc:105
-#, fuzzy
-msgid "- PHONELIST List -"
-msgstr "PHONELIST"
-
-#: CC_var_phonelist.inc:149
-#, fuzzy
-msgid "Phone Number"
-msgstr "Your PhoneNumber / Location"
-
-#: CC_var_phonelist.inc:155
-#, fuzzy
-msgid "Insert the phonenumber"
-msgstr "Добавить новый номер"
-
-#: CC_var_phonelist.inc:157
-#, fuzzy
-msgid "Enter here the phonenumber you want to call"
-msgstr "Enter the number which you wish to assign to the code here"
-
-#: CC_var_phonelist.inc:160
-msgid "CAMPAIGN"
-msgstr ""
-
-#: CC_var_phonelist.inc:179
-#, fuzzy
-msgid "Insert the name "
-msgstr "Добавить имя"
-
-#: CC_var_phonelist.inc:194
-#, fuzzy
-msgid "LAST ATTEMPT DATE"
-msgstr "LAST NAME"
-
-#: CC_var_phonelist.inc:200
-#, fuzzy
-msgid "Insert the last attempt date"
-msgstr "Insert a new"
-
-#: CC_var_phonelist.inc:207 Class.FormHandler.inc.php:478
-#, fuzzy
-msgid "ENABLE"
-msgstr "NAME"
-
-#: CC_var_phonelist.inc:213
-msgid "Choose if this phonenumber would be enable or not"
-msgstr ""
-
-#: CC_var_phonelist.inc:219
-msgid "ADDITIONALINFO"
-msgstr ""
-
-#: CC_var_phonelist.inc:225
-msgid "Insert additional information"
-msgstr ""
-
-#: CC_var_phonelist.inc:232
-#, fuzzy
-msgid "INUSE"
-msgstr "REGISTERED"
-
-#: CC_var_phonelist.inc:238
-msgid "Choose the status of this phonenumber"
-msgstr ""
-
-#: CC_var_phonelist.inc:285 FG_var_callerid.inc:103 FG_var_speeddial.inc:112
-msgid "You can modify, through the following form, the different properties of your "
-msgstr ""
-
-#: CC_var_phonelist.inc:359
-msgid "Add a NEW "
-msgstr ""
-
-#: CC_var_phonelist.inc:372
-msgid "Setup those values to create the new "
-msgstr ""
-
-#: CC_var_phonelist.inc:378
-msgid "Made your change to edit the current "
-msgstr ""
-
-#: Class.FormHandler.AddForm.inc.php:175
+#: Class.FormHandler.AddForm.inc.php:182
 msgid "Create a new "
 msgstr "Создать"
 
-#: Class.FormHandler.DelForm.inc.php:80
+#: Class.FormHandler.DelForm.inc.php:32
+msgid "Message"
+msgstr ""
+
+#: Class.FormHandler.DelForm.inc.php:39
+msgid "You have "
+msgstr ""
+
+#: Class.FormHandler.DelForm.inc.php:186
 msgid "Remove this "
 msgstr "Удалить "
 
-#: Class.FormHandler.EditForm.inc.php:244
+#: Class.FormHandler.EditForm.inc.php:116
+msgid "<br> TYPE DE SELECT :"
+msgstr ""
+
+#: Class.FormHandler.EditForm.inc.php:240
 msgid "LIST "
 msgstr "СПИСОК"
 
-#: Class.FormHandler.EditForm.inc.php:297 FG_var_callerid.inc:18
+#: Class.FormHandler.EditForm.inc.php:293
 msgid "No"
 msgstr ""
 
-#: Class.FormHandler.EditForm.inc.php:331
-#: Class.FormHandler.EditForm.inc.php:494
-msgid "Add a new"
-msgstr ""
-
-#: Class.FormHandler.EditForm.inc.php:389
+#: Class.FormHandler.EditForm.inc.php:385
 msgid "add new a "
 msgstr ""
 
-#: Class.FormHandler.inc.php:390
+#: Class.FormHandler.EditForm.inc.php:418
+#, fuzzy
+msgid "LIST"
+msgstr "СПИСОК"
+
+#: Class.FormHandler.EditForm.inc.php:492
+msgid "Add a new"
+msgstr ""
+
+#: Class.FormHandler.inc.php:424
 #, fuzzy
 msgid "THERE IS NO RECORD !!!"
 msgstr "THERE IS NO"
 
-#: Class.FormHandler.inc.php:391
+#: Class.FormHandler.inc.php:425
 #, fuzzy
 msgid "DIRECTORY"
 msgstr "DIDCOUNTRY"
 
-#: Class.FormHandler.inc.php:392
+#: Class.FormHandler.inc.php:426
 msgid "You can define above some specific criterias in order to make a precised research"
 msgstr ""
 
-#: Class.FormHandler.inc.php:393
+#: Class.FormHandler.inc.php:427
 msgid "You can browse through our"
 msgstr ""
 
-#: Class.FormHandler.inc.php:393
+#: Class.FormHandler.inc.php:427
 msgid "and modify their different properties<br>"
 msgstr ""
 
-#: Class.FormHandler.inc.php:394
+#: Class.FormHandler.inc.php:428
 msgid "Delete this record"
 msgstr ""
 
-#: Class.FormHandler.inc.php:395
+#: Class.FormHandler.inc.php:429
 msgid "Edit this record"
 msgstr ""
 
-#: Class.FormHandler.inc.php:397
+#: Class.FormHandler.inc.php:430
+msgid "The document has been created correctly. Now, you can define the different tariff that you want to associate."
+msgstr ""
+
+#: Class.FormHandler.inc.php:431
 msgid "You can modify, through the following form, the different properties of your"
 msgstr ""
 
-#: Class.FormHandler.inc.php:398
+#: Class.FormHandler.inc.php:432
 msgid "If you really want remove this"
 msgstr ""
 
-#: Class.FormHandler.inc.php:398
+#: Class.FormHandler.inc.php:432
 #, fuzzy
 msgid "Click on the delete button."
 msgstr "Click on Add button"
 
-#: Class.FormHandler.inc.php:399
+#: Class.FormHandler.inc.php:433
 msgid "One"
 msgstr ""
 
-#: Class.FormHandler.inc.php:399
+#: Class.FormHandler.inc.php:433
 msgid "of the %table table has been deleted. <br> (Record with the id"
 msgstr ""
 
-#: Class.FormHandler.inc.php:400
+#: Class.FormHandler.inc.php:434
 msgid "you can add easily a new"
 msgstr ""
 
-#: Class.FormHandler.inc.php:400
+#: Class.FormHandler.inc.php:434
 msgid "Fill the following fields and confirm by clicking on the button add."
 msgstr ""
 
-#: Class.FormHandler.inc.php:401
+#: Class.FormHandler.inc.php:435
 msgid "Add a"
 msgstr ""
 
-#: Class.FormHandler.inc.php:401
+#: Class.FormHandler.inc.php:435
 msgid "now."
 msgstr ""
 
-#: Class.FormHandler.inc.php:402
+#: Class.FormHandler.inc.php:436
 msgid "Your new"
 msgstr ""
 
-#: Class.FormHandler.inc.php:402
+#: Class.FormHandler.inc.php:436
 msgid "has been inserted. <br>"
 msgstr ""
 
-#: Class.FormHandler.inc.php:403
+#: Class.FormHandler.inc.php:437
 msgid "You cannot choose more than one !"
 msgstr ""
 
-#: Class.FormHandler.inc.php:450
+#: Class.FormHandler.inc.php:457 Class.FormHandler.inc.php:675
+#, fuzzy
+msgid "Delete this "
+msgstr "Удалить"
+
+#: Class.FormHandler.inc.php:458 Class.FormHandler.inc.php:669
+msgid "Edit this "
+msgstr "Редактировать"
+
+#: Class.FormHandler.inc.php:486
 #, fuzzy
 msgid "ONESHOT"
 msgstr "PHONELIST"
 
-#: Class.FormHandler.inc.php:451
+#: Class.FormHandler.inc.php:487
 #, fuzzy
 msgid "PER MINUTE"
 msgstr "USED MINUTE"
 
-#: Class.FormHandler.inc.php:453 Class.FormHandler.inc.php:463
+#: Class.FormHandler.inc.php:489 Class.FormHandler.inc.php:499
 #, fuzzy
 msgid "IN PROCESS"
 msgstr "INVOICES"
 
-#: Class.FormHandler.inc.php:454
+#: Class.FormHandler.inc.php:490
 msgid "WORKING"
 msgstr ""
 
-#: Class.FormHandler.inc.php:455
+#: Class.FormHandler.inc.php:491
 msgid "ISSUE"
 msgstr ""
 
-#: Class.FormHandler.inc.php:457
+#: Class.FormHandler.inc.php:493
 msgid "ALRIGHT"
 msgstr ""
 
-#: Class.FormHandler.inc.php:458
+#: Class.FormHandler.inc.php:494
 msgid "NOT USED"
 msgstr ""
 
-#: Class.FormHandler.inc.php:459
+#: Class.FormHandler.inc.php:495
 msgid "NO ATTRIBUED"
 msgstr ""
 
-#: Class.FormHandler.inc.php:460
+#: Class.FormHandler.inc.php:496
 msgid "WORK IN PROCESS"
 msgstr ""
 
-#: Class.FormHandler.inc.php:462
+#: Class.FormHandler.inc.php:498
 #, fuzzy
 msgid "CREATION"
 msgstr "DURATION"
 
-#: Class.FormHandler.inc.php:464
+#: Class.FormHandler.inc.php:500
 msgid "IVR INTREGRATION"
 msgstr ""
 
-#: Class.FormHandler.inc.php:465 Class.FormHandler.inc.php:475
+#: Class.FormHandler.inc.php:501 Class.FormHandler.inc.php:511
 #, fuzzy
 msgid "CLOSE"
 msgstr "CALLS"
 
-#: Class.FormHandler.inc.php:467
+#: Class.FormHandler.inc.php:503
 msgid "URGENT"
 msgstr ""
 
-#: Class.FormHandler.inc.php:468
+#: Class.FormHandler.inc.php:504
 msgid "NORMAL"
 msgstr ""
 
-#: Class.FormHandler.inc.php:469
+#: Class.FormHandler.inc.php:505
 msgid "LOW"
 msgstr ""
 
-#: Class.FormHandler.inc.php:471
+#: Class.FormHandler.inc.php:507
 msgid "NEW"
 msgstr ""
 
-#: Class.FormHandler.inc.php:472
+#: Class.FormHandler.inc.php:508
 #, fuzzy
 msgid "UPDATE"
 msgstr "DATE"
 
-#: Class.FormHandler.inc.php:474
+#: Class.FormHandler.inc.php:509
+msgid "ANSWER"
+msgstr "Ответ"
+
+#: Class.FormHandler.inc.php:510
 msgid "ASSIGN"
 msgstr ""
 
-#: Class.FormHandler.inc.php:477
+#: Class.FormHandler.inc.php:513
 #, fuzzy
 msgid "INSERTED"
 msgstr "REGISTERED"
 
-#: Class.FormHandler.inc.php:479
+#: Class.FormHandler.inc.php:514
+#, fuzzy
+msgid "ENABLE"
+msgstr "NAME"
+
+#: Class.FormHandler.inc.php:515
 msgid "DISABLE"
 msgstr ""
 
-#: Class.FormHandler.inc.php:480
+#: Class.FormHandler.inc.php:516
 msgid "FREE"
 msgstr ""
 
-#: Class.FormHandler.inc.php:482 FG_var_speeddial.inc:27
-#: FG_var_speeddial.inc:80 userinfo.php:69
+#: Class.FormHandler.inc.php:518 userinfo.php:66
 msgid "PHONE"
 msgstr "ТЕЛЕФОН"
 
-#: Class.FormHandler.inc.php:483
+#: Class.FormHandler.inc.php:519
 msgid "SMS"
 msgstr ""
 
-#: Class.FormHandler.inc.php:485
+#: Class.FormHandler.inc.php:521
 msgid "CODE VALID 1 TIME"
 msgstr ""
 
-#: Class.FormHandler.inc.php:486
+#: Class.FormHandler.inc.php:522
 msgid "CODE VALID 2 TIMES"
 msgstr ""
 
-#: Class.FormHandler.inc.php:487
+#: Class.FormHandler.inc.php:523
 msgid "CODE VALID 3 TIMES"
 msgstr ""
 
-#: Class.FormHandler.inc.php:488
+#: Class.FormHandler.inc.php:524
 msgid "CODE VALID 4 TIMES"
 msgstr ""
 
-#: Class.FormHandler.inc.php:489
+#: Class.FormHandler.inc.php:525
 msgid "CODE VALID 5 TIMES"
 msgstr ""
 
-#: Class.FormHandler.inc.php:490
+#: Class.FormHandler.inc.php:526
 msgid "CODE VALID 6 TIMES"
 msgstr ""
 
-#: Class.FormHandler.inc.php:491
+#: Class.FormHandler.inc.php:527
 msgid "CODE VALID 7 TIMES"
 msgstr ""
 
-#: Class.FormHandler.inc.php:492
+#: Class.FormHandler.inc.php:528
 msgid "CODE VALID 8 TIMES"
 msgstr ""
 
-#: Class.FormHandler.inc.php:493
+#: Class.FormHandler.inc.php:529
 msgid "CODE VALID 9 TIMES"
 msgstr ""
 
-#: Class.FormHandler.inc.php:494
+#: Class.FormHandler.inc.php:530
 msgid "CODE VALID 10 TIMES"
 msgstr ""
 
-#: Class.FormHandler.inc.php:497
+#: Class.FormHandler.inc.php:533
 #, fuzzy
 msgid "CODE"
 msgstr "ZIP CODE"
 
-#: Class.FormHandler.inc.php:498 Class.FormHandler.inc.php:499
-#: Class.FormHandler.inc.php:500 Class.FormHandler.inc.php:501
+#: Class.FormHandler.inc.php:534 Class.FormHandler.inc.php:535
+#: Class.FormHandler.inc.php:536 Class.FormHandler.inc.php:537
 #, fuzzy
 msgid "CODES"
 msgstr "ZIP CODE"
 
-#: Class.FormHandler.inc.php:770
+#: Class.FormHandler.inc.php:646 Class.FormHandler.inc.php:648
+msgid "You can browse through our "
+msgstr "Вы можете просмотреть"
+
+#: Class.FormHandler.inc.php:646 Class.FormHandler.inc.php:648
+msgid " and modify their different properties<br>"
+msgstr "и редактировать"
+
+#: Class.FormHandler.inc.php:806
 msgid "(at least 3 characters)"
 msgstr ""
 
-#: Class.FormHandler.inc.php:774
+#: Class.FormHandler.inc.php:810
 msgid "(must match email structure. Example : name@domain.com)"
 msgstr ""
 
-#: Class.FormHandler.inc.php:778
+#: Class.FormHandler.inc.php:814
 msgid "(at least 5 successive characters appear at the end of this string)"
 msgstr ""
 
-#: Class.FormHandler.inc.php:782
+#: Class.FormHandler.inc.php:818
 msgid "(at least 4 characters)"
 msgstr ""
 
-#: Class.FormHandler.inc.php:786
+#: Class.FormHandler.inc.php:822
 msgid "(number format)"
 msgstr ""
 
-#: Class.FormHandler.inc.php:794
+#: Class.FormHandler.inc.php:830
 msgid "(only number with more that 8 digits)"
 msgstr ""
 
-#: Class.FormHandler.inc.php:798
+#: Class.FormHandler.inc.php:834
 msgid "(at least 8 digits using . or - or the space key)"
 msgstr ""
 
-#: Class.FormHandler.inc.php:802
+#: Class.FormHandler.inc.php:838
 msgid "network adress format"
 msgstr ""
 
-#: Class.FormHandler.inc.php:806
+#: Class.FormHandler.inc.php:842
 msgid "at least 1 character"
 msgstr ""
 
-#: Class.FormHandler.inc.php:814
+#: Class.FormHandler.inc.php:850
 msgid "(AT LEAST 2 CARACTERS)"
 msgstr ""
 
-#: Class.FormHandler.inc.php:818
+#: Class.FormHandler.inc.php:854
 msgid "(NUMBER FORMAT WITH/WITHOUT DECIMAL, use '.' for decimal)"
 msgstr ""
 
-#: Class.FormHandler.inc.php:834
+#: Class.FormHandler.inc.php:870
 msgid "You must write something."
 msgstr ""
 
-#: Class.FormHandler.inc.php:838
+#: Class.FormHandler.inc.php:874
 msgid "8 characters alphanumeric"
 msgstr ""
 
-#: Class.FormHandler.inc.php:1321 Class.FormHandler.inc.php:1351
-#: Class.FormHandler.inc.php:1363
-msgid "Impossible to write to the file"
+#: Class.FormHandler.inc.php:1336
+msgid "This did is in use by customer id:"
 msgstr ""
 
-#: Class.FormHandler.inc.php:1346
+#: Class.FormHandler.inc.php:1336
+msgid ", If you really want remove this "
+msgstr ""
+
+#: Class.FormHandler.inc.php:1336
+#, fuzzy
+msgid ", click on the delete button."
+msgstr "Click on Add button"
+
+#: Class.FormHandler.inc.php:1430 Class.FormHandler.inc.php:1472
 msgid "Could not open buddy file"
 msgstr ""
 
-#: Class.FormHandler.inc.php:1522
+#: Class.FormHandler.inc.php:1447 Class.FormHandler.inc.php:1477
+#: Class.FormHandler.inc.php:1489
+msgid "Impossible to write to the file"
+msgstr ""
+
+#: Class.FormHandler.inc.php:1617 Class.FormHandler.inc.php:1664
 msgid "<br> GOTO ; "
 msgstr ""
 
-#: Class.FormHandler.inc.php:1701 ratecard.php:166
+#: Class.FormHandler.inc.php:1759
+msgid "ERROR_DUPLICATION"
+msgstr ""
+
+#: Class.FormHandler.inc.php:1844
+msgid "Done"
+msgstr ""
+
+#: Class.FormHandler.inc.php:1870 Class.FormHandler.inc.php:1923
 msgid "THE CURRENT RATECARD"
 msgstr "ТЕКУЩИЙ ТАРИФНЫЙ ПЛАН"
 
-#: Class.SearchHandler.inc.php:34
+#: Class.FormHandler.inc.php:1881 Class.FormHandler.inc.php:1934
+msgid "R A T E C A R D"
+msgstr "Т А Р И Ф Н Ы Й  П Л А Н"
+
+#: Class.FormHandler.inc.php:1887 Class.FormHandler.inc.php:1940
+msgid "Choose a ratecard"
+msgstr "Выбирите тарифный план"
+
+#: Class.SearchHandler.inc.php:36
 msgid "January"
 msgstr "Январь"
 
-#: Class.SearchHandler.inc.php:34
+#: Class.SearchHandler.inc.php:36
 msgid "February"
 msgstr "Февраль"
 
-#: Class.SearchHandler.inc.php:34
+#: Class.SearchHandler.inc.php:36
 #, fuzzy
 msgid "March"
 msgstr "Март"
 
-#: Class.SearchHandler.inc.php:34
+#: Class.SearchHandler.inc.php:36
 msgid "April"
 msgstr "Апрель"
 
-#: Class.SearchHandler.inc.php:34
+#: Class.SearchHandler.inc.php:36
 msgid "May"
 msgstr "Май"
 
-#: Class.SearchHandler.inc.php:34
+#: Class.SearchHandler.inc.php:36
 msgid "June"
 msgstr "Июнь"
 
-#: Class.SearchHandler.inc.php:34
+#: Class.SearchHandler.inc.php:36
 msgid "July"
 msgstr "Июль"
 
-#: Class.SearchHandler.inc.php:34
+#: Class.SearchHandler.inc.php:36
 msgid "August"
 msgstr "Август"
 
-#: Class.SearchHandler.inc.php:34
+#: Class.SearchHandler.inc.php:36
 msgid "September"
 msgstr "Сентябрь"
 
-#: Class.SearchHandler.inc.php:34
+#: Class.SearchHandler.inc.php:36
 msgid "October"
 msgstr "Октябрь"
 
-#: Class.SearchHandler.inc.php:34
+#: Class.SearchHandler.inc.php:36
 msgid "November"
 msgstr "Ноябрь"
 
-#: Class.SearchHandler.inc.php:34
+#: Class.SearchHandler.inc.php:36
 msgid "December"
 msgstr "Декабрь"
 
-#: Class.ViewHandler.inc.php:25
+#: Class.SearchHandler.inc.php:84
+msgid "From :"
+msgstr ""
+
+#: Class.SearchHandler.inc.php:112
+msgid "To :"
+msgstr ""
+
+#: Class.SearchHandler.inc.php:157 invoices.php:574 invoices.php:587
+msgid "Ends with"
+msgstr "Заканчивается на"
+
+#: Class.SearchHandler.inc.php:260
+msgid "There is"
+msgstr ""
+
+#: Class.SearchHandler.inc.php:260
+msgid "selected, use the option below if you are willing to make a batch updated of the selected cards."
+msgstr ""
+
+#: Class.SearchHandler.inc.php:289 main.tpl:56
+msgid "RATECARD"
+msgstr "RATECARD"
+
+#: Class.SearchHandler.inc.php:308
+#, fuzzy
+msgid "BUYRATE"
+msgstr "DATE"
+
+#: Class.SearchHandler.inc.php:311 Class.SearchHandler.inc.php:326
+#: Class.SearchHandler.inc.php:342 Class.SearchHandler.inc.php:358
+#: Class.SearchHandler.inc.php:374 Class.SearchHandler.inc.php:390
+#: Class.SearchHandler.inc.php:406 Class.SearchHandler.inc.php:422
+msgid "Equal"
+msgstr ""
+
+#: Class.SearchHandler.inc.php:312 Class.SearchHandler.inc.php:327
+#: Class.SearchHandler.inc.php:343 Class.SearchHandler.inc.php:359
+#: Class.SearchHandler.inc.php:375 Class.SearchHandler.inc.php:391
+#: Class.SearchHandler.inc.php:407 Class.SearchHandler.inc.php:423
+msgid "Add"
+msgstr ""
+
+#: Class.SearchHandler.inc.php:313 Class.SearchHandler.inc.php:328
+#: Class.SearchHandler.inc.php:344 Class.SearchHandler.inc.php:360
+#: Class.SearchHandler.inc.php:376 Class.SearchHandler.inc.php:392
+#: Class.SearchHandler.inc.php:408 Class.SearchHandler.inc.php:424
+msgid "Substract"
+msgstr ""
+
+#: Class.SearchHandler.inc.php:323
+msgid "BUYRATEINITBLOCK"
+msgstr ""
+
+#: Class.SearchHandler.inc.php:339
+msgid "BUYRATEINCREMENT"
+msgstr ""
+
+#: Class.SearchHandler.inc.php:355
+msgid "RATE INITIAL"
+msgstr ""
+
+#: Class.SearchHandler.inc.php:371
+#, fuzzy
+msgid "MIN DURATION"
+msgstr "DURATION"
+
+#: Class.SearchHandler.inc.php:387
+msgid "BILLINGBLOCK"
+msgstr ""
+
+#: Class.SearchHandler.inc.php:403
+#, fuzzy
+msgid "CONNECTCHARGE"
+msgstr "EXTRA CHARGE"
+
+#: Class.SearchHandler.inc.php:419
+#, fuzzy
+msgid "DISCONNECTCHARGE"
+msgstr "EXTRA CHARGE"
+
+#: Class.SearchHandler.inc.php:434
+#, fuzzy
+msgid " BATCH UPDATE RATECARD "
+msgstr "ТЕКУЩИЙ ТАРИФНЫЙ ПЛАН"
+
+#: Class.ViewHandler.inc.php:31
 msgid "Congratulations! Your site"
 msgstr ""
 
-#: Class.ViewHandler.inc.php:25
+#: Class.ViewHandler.inc.php:31
 #, fuzzy
 msgid "has been registered."
 msgstr "зарегистрирован"
 
-#: Class.ViewHandler.inc.php:39
+#: Class.ViewHandler.inc.php:45
 msgid "Currently you have registered"
 msgstr ""
 
-#: Class.ViewHandler.inc.php:39
+#: Class.ViewHandler.inc.php:45
 msgid "sites and"
 msgstr ""
 
-#: Class.ViewHandler.inc.php:39
+#: Class.ViewHandler.inc.php:45
 msgid "documents"
 msgstr ""
 
-#: Class.ViewHandler.inc.php:60
+#: Class.ViewHandler.inc.php:66
 msgid "These are the sites you have registered."
 msgstr ""
 
-#: Class.ViewHandler.inc.php:134
+#: Class.ViewHandler.inc.php:140
 #, fuzzy
 msgid "Sort"
 msgstr "Source"
 
-#: Class.ViewHandler.inc.php:177
+#: Class.ViewHandler.inc.php:183
 #, fuzzy
 msgid "FILTER ON "
 msgstr "FILTER ON PREFIX"
 
-#: Class.ViewHandler.inc.php:194
+#: Class.ViewHandler.inc.php:200
 #, fuzzy
 msgid "FILTER ON"
 msgstr "FILTER ON PREFIX"
 
-#: Class.ViewHandler.inc.php:207
+#: Class.ViewHandler.inc.php:213
 #, fuzzy
 msgid "APPLY FILTER "
 msgstr "APPLY FILTER"
 
-#: Class.ViewHandler.inc.php:239 did.php:360 voucher.php:233
+#: Class.ViewHandler.inc.php:245
 msgid "ACTION"
 msgstr "ДЕЙСТВИЕ"
 
-#: Class.ViewHandler.inc.php:429 did.php:461 ratecard.php:365 voucher.php:332
+#: Class.ViewHandler.inc.php:471
 msgid "DISPLAY"
 msgstr "ПОКАЗАТЬ"
 
-#: Class.ViewHandler.inc.php:446 did.php:475 ratecard.php:379 voucher.php:346
+#: Class.ViewHandler.inc.php:488
 msgid "GO"
 msgstr "ВПЕРЕД"
 
-#: Class.ViewHandler.inc.php:451
+#: Class.ViewHandler.inc.php:493
 #, fuzzy
 msgid "Export CSV"
 msgstr "Экспортировать в CSV"
 
-#: Class.ViewHandler.inc.php:455
+#: Class.ViewHandler.inc.php:497
 #, fuzzy
 msgid "Export XML"
 msgstr "or Export PDF"
 
 #: company_info.php:2
-msgid "This software has been created by Areski under GPL licence. For futher informations, feel free to contact me:"
+msgid "This software has been created by Areski under GPL licence. For futher information, feel free to contact me:"
 msgstr ""
 
 #: company_info.php:4
-msgid " This software is under GPL licence. For further informations, please visit : <a href=\"http://www.asterisk2billing.org\" target=\"_blank\">asterisk2billing.org</a>"
+msgid " This software is under GPL licence. For further information, please visit : <a href=\"http://www.asterisk2billing.org\" target=\"_blank\">asterisk2billing.org</a>"
 msgstr ""
 
 #: company_info.php:5
 msgid "Asterisk2Billing : CallingCard platform"
 msgstr ""
 
-#: did.php:44
-msgid "The following Destinaton-DID has been added:"
+#: forgotpassword.php:22
+msgid "Please wait 1 minutes before making any other request for the forgot password!"
 msgstr ""
 
-#: did.php:80 FG_var_callerid.inc:23 FG_var_callerid.inc:64
-msgid "ACTIVATED"
-msgstr "АКТИВИРОВАН"
+#: forgotpassword.php:90
+msgid "Your login information email has been sent to you."
+msgstr ""
 
-#: did.php:83
-msgid "DIDCOUNTRY"
-msgstr "DIDCOUNTRY"
+#: forgotpassword.php:93
+msgid "No such login exists."
+msgstr ""
 
-#: did.php:257
-msgid "Select below the country where to find a DID and then select a DID and enter the destination you would like to assign to it."
+#: forgotpassword.php:96
+msgid "Invalid Action."
+msgstr ""
+
+#: forgotpassword.php:99
+msgid "Pleaes provide your email address to get your login information."
+msgstr ""
+
+#: help.php:15
+msgid "From here, you can use the web based screen phone. You need microphone and speakers on your PC."
+msgstr ""
+
+#: help.php:31
+msgid "All calls are listed below. Search by month, day or status. Additionally, you can check the rate and price."
+msgstr ""
+
+#: help.php:48
+msgid "Simulate the calling process to discover the cost per minute of a call, and the number of minutes you can call that number with your current credit."
+msgstr ""
+
+#: help.php:64
+msgid "On this page you will be able to change your password, You have to enter the New Password and Confirm it."
+msgstr ""
+
+#: help.php:79
+msgid "Here you can view your ratecards"
+msgstr ""
+
+#: help.php:94
+msgid "Here you can view your used vouchers"
+msgstr ""
+
+#: help.php:111
+#, fuzzy
+msgid "Select the country below where you would like a DID, select a DID from the list and enter the destination you would like to assign it to."
 msgstr "Select below the country where to find a DID and then select a DID and enter the destination you would like to assign to it."
 
-#: did.php:258
-msgid "Buy New DID"
-msgstr "Купить DID"
-
-#: did.php:258
-msgid "Add Phone Number to your DID"
-msgstr "Добавить номер телефона к DID"
-
-#: did.php:268
-msgid "Select Country"
-msgstr "Выбирите Страну"
-
-#: did.php:282
-#, fuzzy
-msgid "Select Virtual Phone Number"
-msgstr "Выбирите Виртуальный Номер Телефона"
-
-#: did.php:296
-msgid "Ring To Number "
-msgstr ""
-
-#: did.php:306
-msgid "Country Code - Area Code - Number"
-msgstr "Код Страны - Код Области - Номер"
-
-#: did.php:309
-msgid "VOIP CALL : "
-msgstr "VOIP ЗВОНОК : "
-
-#: did.php:309 FG_var_callerid.inc:17
-msgid "Yes"
-msgstr "Да"
-
-#: did.php:311
-msgid "Ring To destination "
-msgstr "Позвонить "
-
-#: did.php:317
-msgid "ASSIGN NUMBER TO DID"
-msgstr "УСТАНОВИТЬ НОМЕР DID"
-
-#: did.php:337
-msgid "Several Phonenumber can be assign to the same DID and the priority will define which phone will be ring in a first place."
-msgstr "Каждому DID можно назначить несколько номеров а приоритет будет опредилять какой номер будет звонить первым."
-
-#: did.php:402
-msgid "EDIT"
-msgstr "РЕДАКТИРОВАТЬ"
-
-#: did.php:402
-msgid "Edit this DID DESTINATION"
-msgstr "Редактировать DID НАПРАВЛЕНИЕ"
-
-#: did.php:403
-msgid "DELETE"
-msgstr "УДАЛИТЬ"
-
-#: did.php:473 ratecard.php:377 voucher.php:344
-msgid "ALL"
-msgstr "DISPLAY"
-
-#: did.php:500
-msgid "NO DID HAS BEEN USED!"
-msgstr "DID не искользовался!"
-
-#: FG_var_callerid.inc:14
-#, fuzzy
-msgid "Disactive"
-msgstr "Date"
-
-#: FG_var_callerid.inc:21 FG_var_callerid.inc:54
-#, fuzzy
-msgid "CALLERID"
-msgstr "CALL"
-
-#: FG_var_callerid.inc:29 FG_var_speeddial.inc:37
-#, fuzzy
-msgid "THERE IS NO "
-msgstr "THERE IS NO"
-
-#: FG_var_callerid.inc:29 FG_var_speeddial.inc:37
-msgid " CREATED!"
-msgstr "СОЗДАН!"
-
-#: FG_var_callerid.inc:60
-msgid "Insert the CallerID"
-msgstr ""
-
-#: FG_var_callerid.inc:70
-msgid "Choose if you want to activate this card"
-msgstr ""
-
-#: FG_var_callerid.inc:112
-msgid "You can add your home phone number below to allow you to call in and use your Calling Card Services with out having to enter your Calling Card every time you call in. You can also add your Soft Phone number (The number you used to log into this Website) and be able to make calls with out having to enter your Calling Card information."
-msgstr ""
-
-#: FG_var_callerid.inc:117
-msgid "Made your change to edit this callerid."
-msgstr ""
-
-#: FG_var_speeddial.inc:26 FG_var_speeddial.inc:60
-#, fuzzy
-msgid "SPEEDDIAL"
-msgstr "БЫСТРЫЙ НАБОР"
-
-#: FG_var_speeddial.inc:76
-#, fuzzy
-msgid "Insert the name"
-msgstr "Добавить имя"
-
-#: FG_var_speeddial.inc:77
-msgid "Enter here the name/label that will identify this speed dial"
-msgstr ""
-
-#: FG_var_speeddial.inc:86
-#, fuzzy
-msgid "Insert the phone"
-msgstr "Insert a new"
-
-#: FG_var_speeddial.inc:87
-msgid "Enter here the phonenumber you want to call for this speed dial"
-msgstr ""
-
-#: FG_var_speeddial.inc:125
-msgid "Once you have completed the form above, click on the CONTINUE button."
-msgstr ""
-
-#: help.php:12
-msgid ""
-"maybe it\\'s time to provide help... maybe it\\'s time to provide help... maybe it\\'s time to provide help...\n"
-"\tmaybe it\\'s time to provide help...<br/><br/>\n"
-"\tmaybe it\\'s time to provide help... maybe it\\'s time to provide help... maybe it\\'s time to provide help...\n"
-"\tmaybe it\\'s time to provide help..."
-msgstr ""
-
-#: help.php:25
-msgid ""
-"Customers are identified through the cardnumber, below the list of the Cardnumbers already created on your system.<br/>\n"
-"Each row correspond to a customer and some informations are already display about the customer,\n"
-"such as tariffgroup used, the amount of credit, etc..\n"
-"The button SIP & IAX allow you to create an appropriated peer for this customers,\n"
-"this is what we call SIP & IAX Friends! Those lasts would be allow to call directly you asterisk server\n"
-"and be authenticate with their cardnumber implicitly defined!"
-msgstr ""
-
-#: help.php:44
-msgid "From here you can list all your calls, you can search it by month, day, destination or status! also you can check the rate and price!"
-msgstr ""
-
-#: help.php:59
-msgid ""
-"On this page you will be able to simulate the calling process, if you wish to know the cost per minute for a specific destination or the country/city in which\n"
-"belongs a number.  As well, you might be able to know the number of minutes available for a destination."
-msgstr ""
-
-#: invoices.php:83
+#: invoices.php:88
 msgid "Source"
 msgstr "Source"
 
-#: invoices.php:84
+#: invoices.php:89
 msgid "Callednumber"
 msgstr "Куда"
 
-#: invoices.php:568 invoices.php:581
-msgid "Ends with"
-msgstr "Заканчивается на"
-
-#: invoices.php:569 invoices.php:582
+#: invoices.php:575 invoices.php:588
 msgid "Is not"
 msgstr "Не содержит"
 
-#: invoices.php:574
+#: invoices.php:580
 msgid "SOURCE"
 msgstr "Источник"
 
-#: invoices.php:600
+#: invoices.php:606
 msgid "See Invoice in HTML"
 msgstr "Показать счет в HTML"
 
-#: invoices.php:601
+#: invoices.php:607
 msgid "or Export PDF"
 msgstr "или Экспортировать в PDF"
 
-#: invoices.php:654
+#: invoices.php:660
 msgid "Phone :"
 msgstr "Телефон"
 
-#: invoices.php:655
+#: invoices.php:661
 msgid "Fax  :"
 msgstr "Факс"
 
-#: invoices.php:670
+#: invoices.php:676
 msgid "B I L L I N G &nbsp;&nbsp;S E R V I C E"
 msgstr "Б И Л Л И Н Г &nbsp;&nbsp;С Е Р В И С"
 
-#: invoices.php:696
+#: invoices.php:702
 msgid "EXTRA CHARGE"
 msgstr "НАДБАВКА"
 
-#: invoices.php:700 invoices.php:877
+#: invoices.php:706 invoices.php:882
 msgid "DATE"
 msgstr "ДАТА"
 
-#: invoices.php:701
+#: invoices.php:707
 #, fuzzy
 msgid "NB CHARGE"
 msgstr "НАДБАВКА"
 
-#: invoices.php:702
+#: invoices.php:708
 #, fuzzy
 msgid "TOTALCOST"
 msgstr "ИТОГО"
 
-#: invoices.php:771
+#: invoices.php:743 invoices.php:842 invoices.php:944
+msgid "VAT"
+msgstr ""
+
+#: invoices.php:776
 msgid "CALLS PER DESTINATION"
 msgstr "ЗВОНКИ ПО НАПРАВЛЕНИЯМ"
 
-#: invoices.php:775 invoices.php:878
+#: invoices.php:780 invoices.php:883
 msgid "DUR"
 msgstr "ДЛИТ"
 
-#: invoices.php:777 invoices.php:880
+#: invoices.php:782 invoices.php:885
 msgid "CALL"
 msgstr "ЗВОНОК"
 
-#: invoices.php:823 invoices.php:831 invoices.php:926
+#: invoices.php:828 invoices.php:836 invoices.php:931
 msgid "TOTAL"
 msgstr "ИТОГО"
 
-#: invoices.php:849
+#: invoices.php:854
 msgid "B I L L&nbsp;&nbsp;E V O L U T I O N"
 msgstr "B I L L&nbsp;&nbsp;E V O L U T I O N"
 
-#: invoices.php:954
+#: invoices.php:959
 msgid "C A L L S &nbsp;&nbsp;  D E T A I L"
 msgstr "C A L L S &nbsp;&nbsp;  D E T A I L"
 
-#: invoices.php:963
+#: invoices.php:968
 msgid "Number of call"
 msgstr "Колличество звонков"
 
-#: invoices.php:966
+#: invoices.php:971
 msgid "nb"
 msgstr "nb"
 
-#: invoices.php:1063
+#: invoices.php:1068
 #, fuzzy
 msgid "TOTAL BUYCOSTS"
 msgstr "ИТОГО"
 
-#: invoices.php:1064
+#: invoices.php:1069
 msgid "DIFFERENCE"
 msgstr ""
 
-#: invoices.php:1092
+#: invoices.php:1097
 msgid "No calls in your Selection"
 msgstr "Нет звонков соответствующих Вашему запросу"
+
+#: main.tpl:27
+msgid "ACCOUNT INFO"
+msgstr "ИНФОРМАЦИЯ О СЧЕТЕ"
+
+#: main.tpl:31
+msgid "CALL HISTORY"
+msgstr "ИСТОРИЯ ЗВОНКОВ"
+
+#: main.tpl:41
+msgid "INVOICES"
+msgstr "СЧЕТА"
+
+#: main.tpl:46
+msgid "DID"
+msgstr "DID"
+
+#: main.tpl:51
+msgid "SPEED DIAL"
+msgstr "БЫСТРЫЙ НАБОР"
+
+#: main.tpl:61
+msgid "SIMULATOR"
+msgstr "СИМУЛЯТОР"
+
+#: main.tpl:66
+msgid "CALLBACK"
+msgstr "ОБРАТНЫЙ ЗВОНОК"
+
+#: main.tpl:71
+msgid "PRED-DIALER"
+msgstr "PRED-DIALER"
+
+#: main.tpl:76
+msgid "WEB-PHONE"
+msgstr "WEB-PHONE"
+
+#: main.tpl:81
+msgid "ADD CALLER ID"
+msgstr "ДОБАВИТЬ CALLER ID"
+
+#: main.tpl:86
+msgid "PASSWORD"
+msgstr ""
+
+#: main.tpl:90
+msgid "LOGOUT"
+msgstr "Выход"
 
 #: PP_error.php:7
 msgid "ERROR : ACCESS REFUSED"
@@ -1940,125 +1353,57 @@ msgstr "У Вас нет доступа на эту страницу!"
 msgid "Sorry, this page is in construction !"
 msgstr "Страница на реконструкции !"
 
-#: PP_error.php:29
+#: PP_error.php:29 PP_error.tpl:17
 msgid "Error Page"
 msgstr ""
 
-#: PP_menu.php:87
-msgid "ACCOUNT INFO"
-msgstr "ИНФОРМАЦИЯ О СЧЕТЕ"
-
-#: PP_menu.php:92
-msgid "CALL HISTORY"
-msgstr "ИСТОРИЯ ЗВОНКОВ"
-
-#: PP_menu.php:97 voucher.php:87 voucher.php:187
-msgid "VOUCHER"
-msgstr "ВАУЧЕР"
-
-#: PP_menu.php:102
-msgid "INVOICES"
-msgstr "СЧЕТА"
-
-#: PP_menu.php:112
-msgid "SPEED DIAL"
-msgstr "БЫСТРЫЙ НАБОР"
-
-#: PP_menu.php:123
-msgid "SIMULATOR"
-msgstr "СИМУЛЯТОР"
-
-#: PP_menu.php:128
-msgid "CALLBACK"
-msgstr "ОБРАТНЫЙ ЗВОНОК"
-
-#: PP_menu.php:133
-msgid "PRED-DIALER"
-msgstr "PRED-DIALER"
-
-#: PP_menu.php:138
-msgid "WEB-PHONE"
-msgstr "WEB-PHONE"
-
-#: PP_menu.php:143
-msgid "ADD CALLER ID"
-msgstr "ДОБАВИТЬ CALLER ID"
-
-#: PP_menu.php:147
-msgid "LOGOUT"
-msgstr "Выход"
-
-#: predictivedialer.php:66
+#: predictivedialer.php:67
 msgid "<font face='Arial, Helvetica, sans-serif' size='2' color='red'><b>Error : The system cannot call you back, please inform the administrator  !!!</b></font><br>"
 msgstr "<font face='Arial, Helvetica, sans-serif' size='2' color='red'><b>Error : Система не может перезвонить, пожалуйста, свяжитесь с администратором  !!!</b></font><br>"
 
-#: predictivedialer.php:140
+#: predictivedialer.php:143
 msgid "You can initiate the predictive dialer by clicking on the Place call button!"
 msgstr "You can initiate the predictive dialer by clicking on the Place call button!"
 
-#: predictivedialer.php:151
+#: predictivedialer.php:154
 msgid "Your PhoneNumber / Location"
 msgstr "Ваш Номер Телефона / Местоположение"
 
-#: predictivedialer.php:157
+#: predictivedialer.php:160
 msgid "Click here to place 10 calls"
 msgstr "Нажмите чтобы сделать 10 звонков"
 
-#: predictivedialer.php:165
+#: predictivedialer.php:168
 msgid "Click here to see the last called persons and the current connect call"
 msgstr "Нажмите чтобы увидить последние вызовы и текущий вызов"
 
-#: predictivedialer.php:311 ratecard.php:344
+#: predictivedialer.php:314
 msgid "Previous"
 msgstr "Назад"
 
-#: predictivedialer.php:335
+#: predictivedialer.php:338
 msgid "REGISTERED"
 msgstr "ЗАРЕГИСТРИРОВАН"
 
-#: predictivedialer.php:357
+#: predictivedialer.php:360
 msgid "INSERT a new"
 msgstr "Добавить"
 
-#: predictivedialer.php:357 predictivedialer.php:368 predictivedialer.php:374
+#: predictivedialer.php:360 predictivedialer.php:371 predictivedialer.php:377
 msgid "PHONELIST"
 msgstr "Список Номеров"
 
-#: predictivedialer.php:368
+#: predictivedialer.php:371
 msgid "You wish to insert a new"
 msgstr "Хотите добавить новый"
 
-#: predictivedialer.php:368
+#: predictivedialer.php:371
 msgid "Click on Add button"
 msgstr "Нажмите кнопку Добавить"
 
-#: predictivedialer.php:374
+#: predictivedialer.php:377
 msgid "Insert a new"
 msgstr "Добавить"
-
-#: ratecard.php:177
-msgid "R A T E C A R D"
-msgstr "Т А Р И Ф Н Ы Й  П Л А Н"
-
-#: ratecard.php:183
-msgid "Choose a ratecard"
-msgstr "Выбирите тарифный план"
-
-#: ratecard.php:215
-msgid "FILTER ON PREFIX"
-msgstr "ФИЛЬТРОВАТЬ ПО ПРЕФИКСУ"
-
-#: ratecard.php:217
-msgid "APPLY FILTER"
-msgstr "ПРИМЕНИТЬ ФИЛЬТР"
-
-#: ratecard.php:349
-msgid "Next"
-msgstr "Дальше"
-
-#: ratecard.php:399
-msgid "REGISTERD"
-msgstr "ЗАРЕГИСТРИРОВАН"
 
 #: simulator.php:56
 msgid "Error card !!!"
@@ -2103,35 +1448,55 @@ msgstr "Минут"
 msgid "The number, you have entered, is not correct!"
 msgstr "Введен неправильный номер"
 
-#: userinfo.php:66
+#: userinfo.php:63
 msgid "LAST NAME"
 msgstr "ФАМИЛИЯ"
 
-#: userinfo.php:67
+#: userinfo.php:64
 msgid "FIRST NAME"
 msgstr "ИМЯ"
 
-#: userinfo.php:75
+#: userinfo.php:65
+msgid "EMAIL"
+msgstr "EMAIL"
+
+#: userinfo.php:67
+msgid "FAX"
+msgstr "FAX"
+
+#: userinfo.php:71
+msgid "ADDRESS"
+msgstr "АДРЕС"
+
+#: userinfo.php:72
 msgid "ZIP CODE"
 msgstr "ZIP КОД"
 
-#: userinfo.php:77
+#: userinfo.php:73
+msgid "CITY"
+msgstr "ГОРОД"
+
+#: userinfo.php:74
 msgid "STATE"
 msgstr "ШТАТ"
 
-#: userinfo.php:98
+#: userinfo.php:75
+msgid "COUNTRY"
+msgstr "СТРАНА"
+
+#: userinfo.php:95
 msgid "CARD NUMBER"
 msgstr "НОМЕР КАРТЫ"
 
-#: userinfo.php:102
+#: userinfo.php:99
 msgid "BALANCE REMAINING"
 msgstr "БАЛАНС"
 
-#: userinfo.php:133
+#: userinfo.php:130
 msgid "Click below to buy<br>credit for"
 msgstr "Нажмите для покупки <br>кредитов на"
 
-#: userinfo.php:147
+#: userinfo.php:144
 msgid "Make payments with PayPal - it's fast, free and secure!"
 msgstr "Делайте оплату с PayPal - быстро, дешево и безопасно"
 
@@ -2139,74 +1504,366 @@ msgstr "Делайте оплату с PayPal - быстро, дешево и безопасно"
 msgid "The fee from $5 is $0.45, from $10 is $0.59, from $20 is $0.88, from $40 is $1.46. <br><b>Paypal Fee Calculator"
 msgstr "Процент с $5 - $0.45, с $10 - $0.59, с $20 - $0.88, с $40 is $1.46. <br><b>Процентный калькулятор PayPal"
 
-#: voucher.php:50
-msgid "System Error : No currency table complet !!!"
-msgstr ""
-
-#: voucher.php:59
-msgid "The Voucher"
-msgstr "Ваучер"
-
-#: voucher.php:59
-msgid "has been used, We added"
-msgstr "принят, добавленно"
-
-#: voucher.php:59
-msgid "credit on your account!"
-msgstr "на ваш счет!"
-
-#: voucher.php:63
-msgid "This Voucher doesn't exist !"
-msgstr "Такой Ваучер не существует !"
-
-#: voucher.php:88
-msgid "CREDIT"
-msgstr "КРЕДИТ"
-
-#: voucher.php:158
-msgid "<br>Nb_record : "
-msgstr ""
-
-#: voucher.php:159
-msgid "<br>Nb_record_max : "
-msgstr ""
-
-#: voucher.php:192
-msgid "USE VOUCHER"
-msgstr "ИСПОЛЬЗОВАТЬ ВАУЧЕР"
-
-#: voucher.php:374
-msgid "NO VOUCHER HAS BEEN USED!"
-msgstr "Ваучеры не использовались!"
-
-#: webphone.php:54
-msgid "From here you can (if allowed by admin) use your account from the web (WEBPHONE). <br> This requires that your computer have a microphone and headphones/speakers."
-msgstr "Здесь Вы можете (если разрешено администратором) звонить через WEB телефон. <br> Для этого нужен микрофон или наушники/микрофон."
-
-#: webphone.php:62
+#: webphone.php:56
 msgid "Account/Phone"
 msgstr "Аккаунт/Телефон"
 
-#: webphone.php:77
+#: webphone.php:71
 msgid "SIP WEB-PHONE"
 msgstr "SIP WEB-PHONE"
 
-#: webphone.php:83
+#: webphone.php:77
 msgid "&nbsp;NO SIP ACCOUNT&nbsp;"
 msgstr "&nbsp;У ВАС НЕТ SIP АККАУНТА&nbsp;"
 
-#: webphone.php:85
+#: webphone.php:79
 msgid "Click to start SIP WebPhone"
 msgstr "Нажмите для запуска SIP WebPhone"
 
-#: webphone.php:106
+#: webphone.php:100
 msgid "IAX WEB-PHONE"
 msgstr "IAX WEB-PHONE"
 
-#: webphone.php:112
+#: webphone.php:106
 msgid "NO IAX ACCOUNT"
 msgstr "У ВАС НЕТ IAX АККАУНТА"
 
-#: webphone.php:114
+#: webphone.php:108
 msgid "START IAX PHONE"
 msgstr "ЗАПУСТИТЬ IAX ТЕЛЕФОН"
+
+#, fuzzy
+msgid "TODAS"
+msgstr "Итого"
+
+msgid "min"
+msgstr "мин"
+
+msgid "sec"
+msgstr "сек"
+
+msgid "Information about edition"
+msgstr "Информация"
+
+msgid "NAME"
+msgstr "ИМЯ"
+
+#, fuzzy
+msgid "Insert the user Name"
+msgstr "Добавьте Имя"
+
+#, fuzzy
+msgid "FIRSTNAME"
+msgstr "ИМЯ"
+
+#, fuzzy
+msgid "Insert the firstname"
+msgstr "Добавьте Имя"
+
+msgid "Insert the email address of the webmaster"
+msgstr "Добавьте email webmaster'а"
+
+#, fuzzy
+msgid "COMPANY"
+msgstr "КОМПАНИЯ"
+
+#, fuzzy
+msgid "Insert the name of your company"
+msgstr "Добавьте название компании"
+
+#, fuzzy
+msgid "Insert the Addresse"
+msgstr "Добавить новый Адрес"
+
+#, fuzzy
+msgid "Insert the City"
+msgstr "Добавить новый Город"
+
+#, fuzzy
+msgid "ZIPCODE"
+msgstr "ZIP КОД"
+
+#, fuzzy
+msgid "Insert the zipcode"
+msgstr "Добавить новый zip код"
+
+#, fuzzy
+msgid "Insert the webmaster Phonenumber"
+msgstr "Добавить новый"
+
+#, fuzzy
+msgid "Insert the webmaster Fax number"
+msgstr "Добавить новый"
+
+msgid "NEWSLETTERS"
+msgstr "Рассылка новостей"
+
+msgid "Choose if the user will receive the newsletters"
+msgstr "Выберете будет ли позвователь получать новости"
+
+msgid "I acknowledge to receive informations."
+msgstr "Я согласен получать новости"
+
+msgid "Here are the personal data that you entered when you subscribed to Phone2Enter. <br>You can modify them, except your first name and your last name. <p><br>Check the correctness of your postal address, so that you will receive the cheques used to pay your commissions."
+msgstr "Ваша персональная информация которую вы предоставили когда подписывались на Phone2Enter. <br> Вы можете изменять все, кроме Вашего имени и фамилии. <p><br>Праверьте правильность Вашего почтового адреса, чтобы вы могли получать счета."
+
+#, fuzzy
+msgid "You can insert easily new "
+msgstr "You wish to insert a new"
+
+msgid "PREFIX"
+msgstr "ПРЕФИКС"
+
+#, fuzzy
+msgid "DIALPREFIX"
+msgstr "FILTER ON PREFIX"
+
+#, fuzzy
+msgid "Insert the tariff name "
+msgstr "Insert a new"
+
+#, fuzzy
+msgid "Insert the buy rate"
+msgstr "Insert a new"
+
+#, fuzzy
+msgid "Insert the billing block"
+msgstr "Insert a new"
+
+#, fuzzy
+msgid "Insert the initial rate"
+msgstr "Insert a new"
+
+#, fuzzy
+msgid "Insert the init block"
+msgstr "Insert a new"
+
+#, fuzzy
+msgid "Insert the connect charge"
+msgstr "Insert a new"
+
+#, fuzzy
+msgid "Insert the disconnect charge"
+msgstr "Insert a new"
+
+#, fuzzy
+msgid "Insert the stepcharge A"
+msgstr "Insert a new"
+
+#, fuzzy
+msgid "CHARGE A"
+msgstr "EXTRA CHARGE"
+
+#, fuzzy
+msgid "Insert the charge A"
+msgstr "Insert a new"
+
+#, fuzzy
+msgid "Insert the time charge A"
+msgstr "Insert a new"
+
+#, fuzzy
+msgid "Insert the stepcharge B"
+msgstr "Insert a new"
+
+#, fuzzy
+msgid "CHARGE B"
+msgstr "EXTRA CHARGE"
+
+#, fuzzy
+msgid "Insert the charge B"
+msgstr "Insert a new"
+
+#, fuzzy
+msgid "Insert the time charge B"
+msgstr "Insert a new"
+
+#, fuzzy
+msgid "Insert the stepcharge C"
+msgstr "Insert a new"
+
+#, fuzzy
+msgid "CHARGE C"
+msgstr "EXTRA CHARGE"
+
+#, fuzzy
+msgid "Insert the charge C"
+msgstr "Insert a new"
+
+#, fuzzy
+msgid "Insert the time charge C"
+msgstr "Insert a new"
+
+#, fuzzy
+msgid "START DATE"
+msgstr "STATE"
+
+#, fuzzy
+msgid "Insert the starting date"
+msgstr "Insert a new"
+
+#, fuzzy
+msgid "STOP DATE"
+msgstr "STATE"
+
+#, fuzzy
+msgid "Insert the stop date"
+msgstr "Insert a new"
+
+#, fuzzy
+msgid "MONDAY"
+msgstr "MAY"
+
+#, fuzzy
+msgid "DID DESTINATION"
+msgstr "DESTINATION"
+
+#, fuzzy
+msgid "CREATIONDATE"
+msgstr "DURATION"
+
+#, fuzzy
+msgid "CARDNUMBER"
+msgstr "CARD NUMBER"
+
+#, fuzzy
+msgid "ACTIV"
+msgstr "ACTION"
+
+#, fuzzy
+msgid "PRIOR"
+msgstr "PRIORITY"
+
+msgid "USED MINUTE"
+msgstr "USED MINUTE"
+
+#, fuzzy
+msgid "- DID Destination List -"
+msgstr "Destination"
+
+#, fuzzy
+msgid "Delete this  DID Destination"
+msgstr "Delete"
+
+#, fuzzy
+msgid "Insert the DID"
+msgstr "Insert a new"
+
+msgid "PRIORITY"
+msgstr "ПРИОРИТЕТ"
+
+#, fuzzy
+msgid "VOIP_CALL"
+msgstr "VOIP CALL : "
+
+#, fuzzy
+msgid "PHONENUMBER"
+msgstr "NOVEMBER"
+
+#, fuzzy
+msgid "LAST ATTEMPT"
+msgstr "LAST NAME"
+
+#, fuzzy
+msgid "CALLED MINUTE"
+msgstr "USED MINUTE"
+
+#, fuzzy
+msgid "- PHONELIST List -"
+msgstr "PHONELIST"
+
+#, fuzzy
+msgid "Insert the phonenumber"
+msgstr "Добавить новый номер"
+
+#, fuzzy
+msgid "Enter here the phonenumber you want to call"
+msgstr "Enter the number which you wish to assign to the code here"
+
+#, fuzzy
+msgid "Insert the name "
+msgstr "Добавить имя"
+
+#, fuzzy
+msgid "LAST ATTEMPT DATE"
+msgstr "LAST NAME"
+
+#, fuzzy
+msgid "Insert the last attempt date"
+msgstr "Insert a new"
+
+#, fuzzy
+msgid "INUSE"
+msgstr "REGISTERED"
+
+msgid "ACTIVATED"
+msgstr "АКТИВИРОВАН"
+
+msgid "DIDCOUNTRY"
+msgstr "DIDCOUNTRY"
+
+msgid "ASSIGN NUMBER TO DID"
+msgstr "УСТАНОВИТЬ НОМЕР DID"
+
+msgid "Several Phonenumber can be assign to the same DID and the priority will define which phone will be ring in a first place."
+msgstr "Каждому DID можно назначить несколько номеров а приоритет будет опредилять какой номер будет звонить первым."
+
+msgid "EDIT"
+msgstr "РЕДАКТИРОВАТЬ"
+
+msgid "Edit this DID DESTINATION"
+msgstr "Редактировать DID НАПРАВЛЕНИЕ"
+
+msgid "DELETE"
+msgstr "УДАЛИТЬ"
+
+msgid "ALL"
+msgstr "DISPLAY"
+
+msgid "NO DID HAS BEEN USED!"
+msgstr "DID не искользовался!"
+
+#, fuzzy
+msgid "Disactive"
+msgstr "Date"
+
+#, fuzzy
+msgid "CALLERID"
+msgstr "CALL"
+
+#, fuzzy
+msgid "THERE IS NO "
+msgstr "THERE IS NO"
+
+msgid " CREATED!"
+msgstr "СОЗДАН!"
+
+#, fuzzy
+msgid "SPEEDDIAL"
+msgstr "БЫСТРЫЙ НАБОР"
+
+#, fuzzy
+msgid "Insert the name"
+msgstr "Добавить имя"
+
+#, fuzzy
+msgid "Insert the phone"
+msgstr "Insert a new"
+
+msgid "FILTER ON PREFIX"
+msgstr "ФИЛЬТРОВАТЬ ПО ПРЕФИКСУ"
+
+msgid "APPLY FILTER"
+msgstr "ПРИМЕНИТЬ ФИЛЬТР"
+
+msgid "REGISTERD"
+msgstr "ЗАРЕГИСТРИРОВАН"
+
+msgid "CREDIT"
+msgstr "КРЕДИТ"
+
+msgid "NO VOUCHER HAS BEEN USED!"
+msgstr "Ваучеры не использовались!"
+
+msgid "From here you can (if allowed by admin) use your account from the web (WEBPHONE). <br> This requires that your computer have a microphone and headphones/speakers."
+msgstr "Здесь Вы можете (если разрешено администратором) звонить через WEB телефон. <br> Для этого нужен микрофон или наушники/микрофон."
