@@ -4,7 +4,7 @@ include ("../lib/module.access.php");
 //this ligne is an exemple of wath you must add into the main page to desplay the ratecard
 //include ("http://localhost/A2Billing_UI/api/display_ratecard.php?key=0951aa29a67836b860b0865bc495225c&a2b_url=192.168.61.128/A2Billing_UI/&page_url=localhost/index.php&field_to_display=t1.destination,t5.countryprefix,t1.dialprefix,t1.rateinitial&column_name=Destination,Country,Prefix,Rate/Min&field_type=,,money&".$_SERVER['QUERY_STRING']);
 
-// http://localhost/~areski/svn/a2billing/trunk/A2Billing_UI/api/display_ratecard.php?key=0951aa29a67836b860b0865bc495225c&a2b_url=localhost/~areski/svn/a2billing/trunk/A2Billing_UI/&ratecardid=1
+// http://localhost/~areski/svn/a2billing/trunk/A2Billing_UI/api/display_ratecard.php?key=0951aa29a67836b860b0865bc495225c&a2b_url=localhost/~areski/svn/a2billing/trunk/A2Billing_UI/&ratecardid=1&page_url=localhost/~areski/svn/a2billing/trunk/A2Billing_UI/api/display_ratecard.php
 
 	// The wrapper variables for security
  	$security_key = API_SECURITY_KEY;
@@ -252,7 +252,7 @@ if ($nb_record<=$FG_LIMITE_DISPLAY){
 		<?php } ?>
 		<tr class="bar-search" align="left" bgcolor="#000033">
 			<td colspan="2" align="center">
-			<input type="image"  name="image16" align="top" border="0" src="<?php echo "http://".$a2b_url; ?>/Images/button-search.gif" />
+			<input type="image"  name="image16" align="top" border="0" src="<?php echo "http://".$a2b_url; ?>/Public/templates/default/images/button-search.gif" />			
     			</td>
 		</tr>
 		</tbody>
