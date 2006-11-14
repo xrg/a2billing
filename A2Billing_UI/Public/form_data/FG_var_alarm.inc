@@ -40,13 +40,13 @@ $HD_Form -> AddViewElement(gettext("MAX"), "maxvalue", "7%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("MIN"), "minvalue", "7%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("STATUS"), "status", "6%", "center", "sort", "", "list", $actived_list);
 $HD_Form -> AddViewElement(gettext("TRUNK"), "id_trunk", "12%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("CREATION DATE"), "datecreate", "12%", "center", "sort", "22", "", "", "", "", "", "display_dateformat");
+$HD_Form -> AddViewElement(gettext("CREATION DATE"), "creationdate", "12%", "center", "sort", "22", "", "", "", "", "", "display_dateformat");
 
 
 
 
 // added a parameter to append  FG_TABLE_ID  ( by default ) or disable 0.
-$HD_Form -> FieldViewElement ('name, periode, type, maxvalue, minvalue, status, id_trunk, datecreate');
+$HD_Form -> FieldViewElement ('name, periode, type, maxvalue, minvalue, status, id_trunk, creationdate');
 
 
 $HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO ".strtoupper($HD_Form->FG_INSTANCE_NAME)." CREATED!");  
@@ -64,7 +64,7 @@ $HD_Form -> FG_OTHER_BUTTON1 = true;
 
 $HD_Form -> FG_OTHER_BUTTON1_LINK = "javascript:;\" onClick=\"MM_openBrWindow('CC_entity_alarm_details.php?popup_select=2&displayfooter=0&displayheader=0&id=|param|','','scrollbars=yes,resizable=yes,width=600,height=350')\"";
 
-$HD_Form -> FG_OTHER_BUTTON1_IMG = "../Images/icon-viewdetails.gif";
+$HD_Form -> FG_OTHER_BUTTON1_IMG = Images_Path . "/icon-viewdetails.gif";
 
 
 
@@ -75,7 +75,7 @@ $HD_Form -> AddEditElement (gettext("NAME"),
 	"",
 	"3",
 	gettext("Insert the alarm name"),
-	"" , "", "", "", "" , "" , "no" , "");
+	"" , "", "", "", "" , "" , "yes" , "");
 
 $HD_Form -> AddEditElement (gettext("PERIOD"),
 	"periode",
@@ -93,7 +93,7 @@ $HD_Form -> AddEditElement (gettext("TYPE"),
 	"",
 	"",
 	"",
-	"list" , "", "", "", $type_list, "%1", "");
+	"list" , "", "", "", $type_list, "%1", "", gettext("aa"));
 
 $HD_Form -> AddEditElement (gettext("MAX VALUE"),
 	"maxvalue",
@@ -102,7 +102,7 @@ $HD_Form -> AddEditElement (gettext("MAX VALUE"),
 	"",
 	"4",
 	gettext("Insert the maximu value in") ,
-	"" , "", "", "", "", "", "no", gettext("Input the maximum value (between 0 and 1 for ASR /-/ >0 for ALOC in sec /-/ >0 for CIC)"));
+	"" , "", "", "yes", "", "", "", gettext("Input the maximum value (between 0 and 1 for ASR /-/ >0 for ALOC in sec /-/ >0 for CIC)"));
 
 $HD_Form -> AddEditElement (gettext("MIN VALUE"),
 	"minvalue",
@@ -111,7 +111,7 @@ $HD_Form -> AddEditElement (gettext("MIN VALUE"),
 	"",
 	"",
 	"",
-	"" , "", "", "", "", "", "no", gettext("Input the minimum value (between 0 and 1 for ASR /-/ >=0 for ALOC in sec /-/ >=0 for CIC) or leave empty"));
+	"" , "", "", "", "", "", "", gettext("Input the minimum value (between 0 and 1 for ASR /-/ >=0 for ALOC in sec /-/ >=0 for CIC) or leave empty"));
 $HD_Form -> AddEditElement(gettext("TRUNK"),
 			   "id_trunk",
 			   '$value',	
@@ -119,7 +119,7 @@ $HD_Form -> AddEditElement(gettext("TRUNK"),
 			   "",	
 			   "",
 			   "",
-			   "" , "", "","", "" ,"A2B_entity_trunk.php?popup_select=1&", ", 'NULL','width=550,height=340,top=20,left=100'", gettext("Set the trunk number or leave empty for all trunk."));
+			   "" , "", "",	"", "" , "A2B_entity_trunk.php?popup_select=1&", ", 'id_trunk','width=550,height=340,top=20,left=100'", gettext("Set the trunk number or leave empty for all trunk."));
 
 $HD_Form -> AddEditElement ("STATUS",
 	"status",
@@ -137,7 +137,7 @@ $HD_Form -> AddEditElement (gettext("EMAIL TO SEND ALARM"),
 	"size=30 maxlength=30",
 	"1",
 	gettext("Insert the email to send the alarm"),
-	"" , "", "", "", "", "" , "NO-NULL", "");
+	"" , "", "", "", "", "" , "yes", "");
 
 
 
@@ -164,7 +164,7 @@ $HD_Form -> FG_INTRO_TEXT_ADITION = gettext("Add an alarm below");
 $HD_Form -> FG_TEXT_ADITION_CONFIRMATION = gettext("Your new ".$HD_Form->FG_INSTANCE_NAME." has been inserted. <br>");
 
 
-$HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = "../Images/cormfirmboton.gif";
+$HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = Images_Path . "/cormfirmboton.gif";
 $HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT = gettext("Click 'Confirm Data' to continue");
 
 

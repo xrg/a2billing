@@ -1,7 +1,7 @@
 <?php 
 include ("../lib/defines.php");
 include ("../lib/module.access.php");
-
+include ("../lib/smarty.php");
 
 if (! has_rights (ACX_CRONT_SERVICE)){ 
 	   Header ("HTTP/1.0 401 Unauthorized");
@@ -50,7 +50,7 @@ for($i=0;$i<$num;$i++)
 /*******************  LIST REFILL  *****************************************/
 		
 
-$QUERY = "SELECT  substring(t3.daterun,0,20) as daterun, t3.calculatedvalue from cc_alarm_report as t3 WHERE t3.cc_alarm_id='$id'";
+$QUERY = "SELECT  t3.daterun, t3.calculatedvalue from cc_alarm_report as t3 WHERE t3.cc_alarm_id='$id'";
 
 
 $QUERY.=" ORDER BY t3.id DESC";
@@ -74,6 +74,7 @@ for($i=0;$i<$num;$i++)
 <?php
 	$smarty->display('main.tpl');
 
+
 ?>
 <script language="JavaScript" type="text/JavaScript">
 <!--
@@ -93,7 +94,7 @@ function openURL(theLINK)
 
 //-->
 </script>
-	<br/>
+	
 
 <center><b>ALARM NAME :<?php echo $list_alarm [0][1] ;?></b>
 <br>
@@ -104,7 +105,7 @@ function openURL(theLINK)
 </center>
 	  <table width="100%">
 	  <TR> 
-          <TD style="border-bottom: medium dotted #667766"> &nbsp;</TD>
+          <TD style="border-bottom: medium dotted #667766">&nbsp; </TD>
         </TR>
       </table>
 	  
@@ -137,9 +138,9 @@ function openURL(theLINK)
                     <span class="white_link"><?php  } ?>
                     <?php echo $FG_TABLE_COL[$i][0]?> 
                     <?php if ($order==$FG_TABLE_COL[$i][1] && $sens=="ASC"){?>
-                    &nbsp;<img src="../Images/icon_up_12x12.GIF" width="12" height="12" border="0"> 
+                    &nbsp;<img src="<?php echo Images_Path;?>/icon_up_12x12.GIF" width="12" height="12" border="0"> 
                     <?php }elseif ($order==$FG_TABLE_COL[$i][1] && $sens=="DESC"){?>
-                    &nbsp;<img src="../Images/icon_down_12x12.GIF" width="12" height="12" border="0"> 
+                    &nbsp;<img src="<?php echo Images_Path;?>/icon_down_12x12.GIF" width="12" height="12" border="0"> 
                     <?php }?>
                     <?php  if (strtoupper($FG_TABLE_COL[$i][4])=="SORT"){?>
                     </span>
@@ -250,7 +251,7 @@ function openURL(theLINK)
 	  		}else{
 	  ?>
 	  	  <br/></br>
-		  <table width="100%" border="0" align="center" bgcolor="#DCDCDC">
+		  <table width="100%" border="0" align="center" class="bgcolor_006">
 			<tr>
 			  <td align="center">
 				NOTHING FOUND !<br/> 
