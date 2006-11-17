@@ -17,7 +17,6 @@ getpost_ifset(array('customer', 'posted', 'Period', 'frommonth', 'fromstatsmonth
 
 $customer = $_SESSION["pr_login"];
 $vat = $_SESSION["vat"];
-
 //require (LANGUAGE_DIR.FILENAME_INVOICES);
 
 if (($_GET[download]=="file") && $_GET[file] ) 
@@ -371,7 +370,8 @@ if (strpos($date_clause, 'AND') > 0){
 }
 
 
-$QUERY = "SELECT substring(t1.creationdate,1,10) AS day, sum(t1.amount) AS cost, count(*) as nbcharge FROM cc_charge t1 ".$date_clause." GROUP BY substring(t1.creationdate,1,10) ORDER BY day"; //extract(DAY from calldate)
+$QUERY = "SELECT substring(t1.creationdate,1,10) AS day, sum(t1.amount) AS cost, count(*) as nbcharge FROM cc_charge t1 ".$date_clause.
+		 " AND id_cc_card='".$_SESSION["card_id"]."' GROUP BY substring(t1.creationdate,1,10) ORDER BY day"; //extract(DAY from calldate)
 
 if (!$nodisplay){
 		$res = $DBHandle -> query($QUERY);
