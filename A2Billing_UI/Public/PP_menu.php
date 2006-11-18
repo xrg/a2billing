@@ -104,6 +104,7 @@ function imgidclick(imgID,divID)
 				<li><a href="A2B_entity_card_multia.php?stitle=Card"><?= gettext("Generate Regulars");?></a></li>
 				<li><a href="A2B_entity_booths.php?stitle=Booths"><?= gettext("Booths");?></a></li>
 				<li><a href="A2B_entity_booths.php?form_action=ask-add&atmenu=booth&stitle=Booth"><?= _("Create Booth");?></a></li>
+				<li><a href="CC_entity_sim_callshop.php?atmenu=ratecard&stitle=Callshop+Simulator"><?= gettext("Callshop Simulator");?></a></li>
 				
 		</ul></li>
 	</ul>
