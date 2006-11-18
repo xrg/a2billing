@@ -88,9 +88,9 @@
 	
 	//$A2B -> accountcode = '2222222222';
 	
-	if (!$A2B -> DbConnect()){						
+	if (!$A2B -> DbConnect()){
 		$agi-> stream_file('prepaid-final', '#');
-		exit;					
+		exit;
 	}
 	
 	$instance_table = new Table();
@@ -119,7 +119,7 @@
 	
 	$RateEngine = new RateEngine();
 	
-	if ($A2B -> CC_TESTING) { 
+	if ($A2B -> CC_TESTING) {
 		$RateEngine->debug_st=1;
 		$accountcode = '2222222222';
 	}
@@ -132,7 +132,8 @@
 		
 		
 		/*************************   PLAY INTRO MESSAGE   ************************/
-		if (strlen($A2B->agiconfig['intro_prompt'])>0) 		$agi-> stream_file($A2B->agiconfig['intro_prompt'], '#');		
+		if (strlen($A2B->agiconfig['intro_prompt'])>0)
+			$agi-> stream_file($A2B->agiconfig['intro_prompt'], '#');
 		
 		if ($A2B->agiconfig['answer_call']==1){
 			if ($A2B->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '.'[ANSWER CALL]');
