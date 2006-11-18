@@ -190,15 +190,14 @@ class A2Billing {
 	function write_log($output, $tobuffer = 1){
 						
 		//$tobuffer = 0;
-			
 		if ($this->agiconfig['logger_enable'] == 1){
 				
 			$string_log = "[".date("d/m/Y H:i:s")."]:[CallerID:".$this->CallerID."]:[CN:".$this->cardnumber."]:$output\n";
 			if ($this->CC_TESTING) echo $string_log;
 				
-			$this -> BUFFER .= $string_log;				
-			if (!$tobuffer || $this->CC_TESTING){													
-				error_log ($this -> BUFFER, 3, $this->agiconfig['log_file']);					
+			$this -> BUFFER .= $string_log;
+			if (!$tobuffer || $this->CC_TESTING){
+				error_log ($this -> BUFFER, 3, $this->agiconfig['log_file']);
 				$this-> BUFFER = '';
 			}
 		}
@@ -447,11 +446,11 @@ class A2Billing {
 			if ($this->agiconfig['debug']>=1)   $agi->verbose('line:'.__LINE__."RES Menu Language DTMF : ".$res_dtmf ["result"]);																											
 			$this -> languageselected = $res_dtmf ["result"];
 			
-			if 		($this->languageselected=="2")		
+			if  ($this->languageselected=="2")
 				$language = 'es';
-			elseif 	($this->languageselected=="3")		
+			elseif ($this->languageselected=="3")
 				$language = 'fr';
-			else									
+			else
 				$language = 'en';
 			
 			$agi -> set_variable('LANGUAGE()', $language);
@@ -1275,16 +1274,18 @@ class A2Billing {
 		$callerID_enable = $this->agiconfig['cid_enable'];
 		
 		
-		// 		  -%-%-%-%-%-%-		FIRST TRY WITH THE CALLERID AUTHENTICATION 	-%-%-%-%-%-%-
+		//first try with the callerid authentication
 		
-		if ($callerID_enable==1 && is_numeric($this->CallerID) && $this->CallerID>0){
+		//$this->write_log("CID: ". $this->CallerID . "enable=" .$callerID_enable );
+		if ($callerID_enable==1 && (strlen($this->CallerID)>0)){
+			//&& is_numeric($this->CallerID) && $this->CallerID>0){
 			$this -> write_log("[CID_ENABLE - CID_CONTROL - CID:".$this->CallerID."]");
 			if ($this->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '."[CID_ENABLE - CID_CONTROL - CID:".$this->CallerID."]");
 				
 			$QUERY =  "SELECT cc_callerid.cid, cc_callerid.id_cc_card, cc_callerid.activated, cc_card.credit, ".
 				  " cc_card.tariff, cc_card.activated, cc_card.inuse, cc_card.simultaccess,  ".
 				  " cc_card.typepaid, cc_card.creditlimit, cc_card.language, cc_card.username, removeinterprefix, cc_card.redial, ";
-			if ($this->config["database"]['dbtype'] == "postgres"){	  
+			if ($this->config["database"]['dbtype'] == "postgres"){
 				  $QUERY .=  " enableexpire, date_part('epoch',expirationdate), expiredays, nbused, date_part('epoch',firstusedate), date_part('epoch',cc_card.creationdate), ";
 			}else{
 				  $QUERY .=  " enableexpire, UNIX_TIMESTAMP(expirationdate), expiredays, nbused, UNIX_TIMESTAMP(firstusedate), UNIX_TIMESTAMP(cc_card.creationdate), ";
@@ -1294,7 +1295,7 @@ class A2Billing {
 			" FROM cc_callerid ".
 			" LEFT JOIN cc_card ON cc_callerid.id_cc_card=cc_card.id ".
 			" LEFT JOIN cc_tariffgroup ON cc_card.tariff=cc_tariffgroup.id ".
-			" WHERE cc_callerid.cid='".$this->CallerID."'";
+			" WHERE cc_callerid.cid=".$this->DBHandle->Quote($this->CallerID);
 			if ($this->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '.$QUERY);
 												
 			$result = $this->instance_table -> SQLExec ($this->DBHandle, $QUERY);
@@ -1399,17 +1400,22 @@ class A2Billing {
 				$this->id_card  = $result[0][26];
 				$this->useralias = $result[0][27];
 				
-				if ($this->typepaid==1) $this->credit = $this->credit+$creditlimit;
+				if ($this->typepaid==1)
+					$this->credit = $this->credit+$creditlimit;
 				
 				// CHECK IF CALLERID ACTIVATED
-				if( $result[0][2] != "t" && $result[0][2] != "1" ) 	$prompt = "prepaid-auth-fail";
+				if( $result[0][2] != "t" && $result[0][2] != "1" )
+					$prompt = "prepaid-auth-fail";
 						
 				// CHECK credit > min_credit_2call / you have zero balance
-				if( $this->credit < $this->agiconfig['min_credit_2call'] ) $prompt = "prepaid-zero-balance";
+				if( $this->credit < $this->agiconfig['min_credit_2call'] )
+					$prompt = "prepaid-zero-balance";
 				// CHECK activated=t / CARD NOT ACTIVE, CONTACT CUSTOMER SUPPORT
-				if( $this->active != "t" && $this->active != "1" ) 	$prompt = "prepaid-auth-fail";	// not expired but inactive.. probably not yet sold.. find better prompt
+				if( $this->active != "t" && $this->active != "1" )
+					$prompt = "prepaid-auth-fail";	// not expired but inactive.. probably not yet sold.. find better prompt
 				// CHECK IF THE CARD IS USED
-				if (($isused>0) && ($simultaccess!=1))	$prompt="prepaid-card-in-use";
+				if (($isused>0) && ($simultaccess!=1))
+					$prompt="prepaid-card-in-use";
 				// CHECK FOR EXPIRATION  -  enableexpire ( 0 : none, 1 : expire date, 2 : expire days since first use, 3 : expire days since creation)
 				if ($this->enableexpire>0){
 					if ($this->enableexpire==1  && $this->expirationdate!='00000000000000' && strlen($this->expirationdate)>5){
@@ -1879,11 +1885,12 @@ class A2Billing {
 			$datasource = 'pgsql://'.$this->config["database"]['user'].':'.$this->config["database"]['password'].'@'.$this->config["database"]['hostname'].'/'.$this->config["database"]['dbname'];
 		}else{
 			$datasource = 'mysql://'.$this->config["database"]['user'].':'.$this->config["database"]['password'].'@'.$this->config["database"]['hostname'].'/'.$this->config["database"]['dbname'];
-		}	
-		$agi->verbose($datasource);	
+		}
+		echo "VERBOSE \"$datasource\" \n";
 		$this->DBHandle = NewADOConnection($datasource);
-		if (!$this->DBHandle) return false;
-				
+		if (!$this->DBHandle)
+			return false;
+	
 		return true;
 	}
 	
