@@ -112,7 +112,7 @@ $HD_Form -> AddEditElement (gettext("LANGUAGE"),
 			   "",
 			   "",
 			   "",
-			   "list" , "", "",	"", $language_list, "%1", "", "" );
+			   "list" , "", "","", $language_list, "%1", "", "" );
 
 
 $HD_Form -> AddEditElement (gettext("TARIFFGROUP"),
