@@ -605,7 +605,7 @@ class RateEngine {
 
 
     /* 
-		SORT_ASC : Tri en ordre ascendant
+	SORT_ASC : Tri en ordre ascendant
       	SORT_DESC : Tri en ordre descendant
 	*/
 	function array_csort() 
@@ -633,8 +633,8 @@ class RateEngine {
 	
 	
 	/*
-		RATE ENGINE - UPDATE SYSTEM (DURATIONCALL)
-		* CALCUL THE DURATION ALLOWED FOR THE CALLER TO THIS NUMBER
+		rate engine - update system (durationcall)
+		* calcul the duration allowed for the caller to this number
 	*/
 	function rate_engine_updatesystem (&$A2B, &$agi, $calledstation, $doibill = 1, $didcall=0, $callback=0){
 		
@@ -642,7 +642,7 @@ class RateEngine {
 		
 		
 		
-		$sessiontime = $this -> answeredtime;		
+		$sessiontime = $this -> answeredtime;
 		if ($sessiontime >0) $this->rate_engine_calculcost($A2B, $sessiontime);
 		else $sessiontime=0;
 		
