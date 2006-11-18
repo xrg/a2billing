@@ -9,10 +9,10 @@ if ($wantinclude!=1){
 include ("./form_data/FG_var_charge.inc");
 
 
-if (! has_rights (ACX_RATECARD)){ 
+if (! has_rights (ACX_RATECARD)){
 	   Header ("HTTP/1.0 401 Unauthorized");
-	   Header ("Location: PP_error.php?c=accessdenied");	   
-	   die();	   
+	   Header ("Location: PP_error.php?c=accessdenied");
+	   die();
 }
 
 
@@ -30,7 +30,7 @@ if ($wantinclude==1){
 	$HD_Form_c -> FG_EDITION_LINK = "A2B_entity_charge.php?form_action=ask-edit&id=";
 	$HD_Form_c -> FG_DELETION_LINK  = "A2B_entity_charge.php?form_action=ask-delete&id=";
 }
-		
+
 
 if ($id!="" || !is_null($id)){	
 	$HD_Form_c -> FG_EDITION_CLAUSE = str_replace("%id", "$id", $HD_Form_c -> FG_EDITION_CLAUSE);	

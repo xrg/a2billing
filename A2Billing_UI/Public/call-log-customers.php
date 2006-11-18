@@ -5,8 +5,8 @@ include ("../lib/module.access.php");
 
 if (! has_rights (ACX_CALL_REPORT)){ 
 	   Header ("HTTP/1.0 401 Unauthorized");
-	   Header ("Location: PP_error.php?c=accessdenied");	   
-	   die();	   
+	   Header ("Location: PP_error.php?c=accessdenied");
+	   die();
 }
 
 getpost_ifset(array('customer', 'entercustomer', 'enterprovider', 'entertrunk', 'posted', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth', 'tostatsmonth', 'fromday', 'fromstatsday_sday', 'fromstatsmonth_sday', 'today', 'tostatsday_sday', 'tostatsmonth_sday', 'dsttype', 'srctype', 'clidtype', 'channel', 'resulttype', 'stitle', 'atmenu', 'current_page', 'order', 'sens', 'dst', 'src', 'clid', 'choose_currency', 'terminatecause'));
@@ -21,10 +21,10 @@ if (($_GET[download]=="file") && $_GET[file] )
 	$dl_name=$value_de;
 
 	if (!file_exists($dl_full))
-	{ 
+	{
 		echo gettext("ERROR: Cannot download file ".$dl_full.", it does not exist.<br>");
 		exit();
-	} 
+	}
 	
 	header("Content-Type: application/octet-stream");
 	header("Content-Disposition: attachment; filename=$dl_name");
@@ -69,11 +69,17 @@ $FG_TABLE_INTERN_COLOR = "#EDF3FF"; //#FFEAFF (Rose)
 $FG_TABLE_ALTERNATE_ROW_COLOR[] = "#FFFFFF";
 $FG_TABLE_ALTERNATE_ROW_COLOR[] = "#F2F8FF";
 
-$yesno = array(); 	$yesno["1"]  = array( "Yes", "1");	 $yesno["0"]  = array( "No", "0");
+$yesno = array();
+$yesno["1"]  = array( "Yes", "1");
+$yesno["0"]  = array( "No", "0");
 
 // 0 = NORMAL CALL ; 1 = VOIP CALL (SIP/IAX) ; 2= DIDCALL + TRUNK ; 3 = VOIP CALL DID ; 4 = CALLBACK call
-$list_calltype = array(); 	$list_calltype["0"]  = array( "STANDARD", "0");	 $list_calltype["1"]  = array( "SIP/IAX", "1");
-$list_calltype["2"]  = array( "DIDCALL", "2"); $list_calltype["3"]  = array( "DID_VOIP", "3"); $list_calltype["4"]  = array( "CALLBACK", "4");
+$list_calltype = array();
+$list_calltype["0"]  = array( "STANDARD", "0");
+$list_calltype["1"]  = array( "SIP/IAX", "1");
+$list_calltype["2"]  = array( "DIDCALL", "2");
+$list_calltype["3"]  = array( "DID_VOIP", "3");
+$list_calltype["4"]  = array( "CALLBACK", "4");
 $list_calltype["5"]  = array( "PREDICT", "5");
 
 //$link = DbConnect();
@@ -181,14 +187,14 @@ if ($posted==1){
                 }else{
                         $sql = "$sql WHERE ";
                 }
-				$sql = "$sql t1.$dbfld";
-				if (isset ($$fldtype)){                
+			$sql = "$sql t1.$dbfld";
+			if (isset ($$fldtype)){
                         switch ($$fldtype) {
-							case 1:	$sql = "$sql='".$$fld."'";  break;
-							case 2: $sql = "$sql LIKE '".$$fld."%'";  break;
-							case 3: $sql = "$sql LIKE '%".$$fld."%'";  break;
-							case 4: $sql = "$sql LIKE '%".$$fld."'";
-						}
+				case 1:	$sql = "$sql='".$$fld."'";  break;
+				case 2: $sql = "$sql LIKE '".$$fld."%'";  break;
+				case 3: $sql = "$sql LIKE '%".$$fld."%'";  break;
+				case 4: $sql = "$sql LIKE '%".$$fld."'";
+			}
                 }else{ $sql = "$sql LIKE '%".$$fld."%'"; }
 		}
         return $sql;
@@ -344,7 +350,7 @@ if (!$nodisplay){
 $instance_table_customer = new Table("cc_card", "id,  username, lastname");
 
 $FG_TABLE_CLAUSE = "";
-if ($_SESSION["is_admin"]==0){ 	
+if ($_SESSION["is_admin"]==0){
 	$FG_TABLE_CLAUSE =" IDmanager='".$_SESSION["pr_reseller_ID"]."'";	
 }
 

@@ -1772,7 +1772,7 @@ class A2Billing {
 	}
 	
 	
-	function callingcard_ivr_authenticate_light (&$error_msg){
+	function callingcard_ivr_authenticate_light (&$error_msg, $debug = false){
 		$res=0;
 			
 								
@@ -1784,9 +1784,12 @@ class A2Billing {
 		
 		$QUERY .=  "LEFT JOIN cc_tariffgroup ON tariff=cc_tariffgroup.id WHERE username='".$this->cardnumber."'";
 			
+		if ($debug)
+			echo "<br> QUERY: ". $QUERY ."<br>";
 		$result = $this->instance_table -> SQLExec ($this->DBHandle, $QUERY);
 			
 		if( !is_array($result)) {
+			if ($debug) echo $this->DBHandle->ErrorMsg() . "<br>";
 			$error_msg = '<font face="Arial, Helvetica, sans-serif" size="2" color="red"><b>Error : Authentication Failed !!!</b></font><br>';
 			return 0;
 		}
@@ -1819,24 +1822,26 @@ class A2Billing {
 						
 		// CHECK IF ENOUGH CREDIT TO CALL		
 		if( $this->credit <= $this->agiconfig['min_credit_2call'] && $this -> typepaid==0){
-			$error_msg = '<font face="Arial, Helvetica, sans-serif" size="2" color="red"><b>Error : Not enough credit to call !!!</b></font><br>';
+			$error_msg = '<font face="Arial, Helvetica, sans-serif" size="2" color="red"><b>' . gettext("Error : Not enough credit to call !!!") .'</b></font><br>';
+			if($debug) $error_msg .= "credit = $this->credit &lt; min_credit_2call = " .$this->agiconfig['min_credit_2call'];
 			return 0;
 		}
 		// CHECK POSTPAY
 		if( $this->typepaid==1 && $this->credit <= -$creditlimit && $creditlimit!=0){
-			$error_msg = '<font face="Arial, Helvetica, sans-serif" size="2" color="red"><b>Error : Not enough credit to call !!!</b></font><br>';
+			$error_msg = '<font face="Arial, Helvetica, sans-serif" size="2" color="red"><b>' .gettext("Error : Not enough credit to call !!!") .'</b></font><br>';
+			if($debug) $error_msg .= 'credit &lt; creditlimit';
 			return 0;
 		}
 			
 		// CHECK activated=t / CARD NOT ACTIVE, CONTACT CUSTOMER SUPPORT
 		if( $this->active != "t" && $this->active != "1" ){
-			$error_msg = '<font face="Arial, Helvetica, sans-serif" size="2" color="red"><b>Error : Card is not active!!!</b></font><br>';
+			$error_msg = '<font face="Arial, Helvetica, sans-serif" size="2" color="red"><b>' . gettext("Error : Card is not active!!!") .'</b></font><br>';
 			return 0;
 		}
 			
 		// CHECK IF THE CARD IS USED
 		if (($isused>0) && ($simultaccess!=1)){
-			$error_msg = '<font face="Arial, Helvetica, sans-serif" size="2" color="red"><b>Error : Card is actually in use!!!</b></font><br>';
+			$error_msg = '<font face="Arial, Helvetica, sans-serif" size="2" color="red"><b>' .gettext('Error : Card is actually in use!!!'). '</b></font><br>';
 			return 0;
 		}
 			
@@ -1845,7 +1850,7 @@ class A2Billing {
 			if ($this->enableexpire==1  && $this->expirationdate!='00000000000000' && strlen($this->expirationdate)>5){
 				// expire date						
 				if (intval($this->expirationdate-time())<0){ // CARD EXPIRED :(				
-					$error_msg = '<font face="Arial, Helvetica, sans-serif" size="2" color="red"><b>Error : Card have expired!!!</b></font><br>';
+					$error_msg = '<font face="Arial, Helvetica, sans-serif" size="2" color="red"><b>' . gettext('Error : Card is expired!!!') . '</b></font><br>';
 					return 0;	
 				}
 					
@@ -1853,7 +1858,7 @@ class A2Billing {
 				// expire days since first use			
 				$date_will_expire = $this->firstusedate+(60*60*24*$this->expiredays);
 				if (intval($date_will_expire-time())<0){ // CARD EXPIRED :(				
-				$error_msg = '<font face="Arial, Helvetica, sans-serif" size="2" color="red"><b>Error : Card have expired!!!</b></font><br>';
+				$error_msg = '<font face="Arial, Helvetica, sans-serif" size="2" color="red"><b>' .gettext('Error : Card have expired!!!'). '</b></font><br>';
 				return 0;	
 			}
 		
@@ -1861,12 +1866,12 @@ class A2Billing {
 				// expire days since creation
 				$date_will_expire = $this->creationdate+(60*60*24*$this->expiredays); 
 				if (intval($date_will_expire-time())<0){ // CARD EXPIRED :(				
-					$error_msg = '<font face="Arial, Helvetica, sans-serif" size="2" color="red"><b>Error : Card have expired!!!</b></font><br>';
+					$error_msg = '<font face="Arial, Helvetica, sans-serif" size="2" color="red"><b>' . gettext('Error : Card have expired!!!') . '</b></font><br>';
 					return 0;	
 				}		
 			}
 		}
-								
+
 		return 1;
 	}
 
