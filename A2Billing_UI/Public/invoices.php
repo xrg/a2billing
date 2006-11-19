@@ -4,8 +4,8 @@ include ("../lib/module.access.php");
 
 if (! has_rights (ACX_CALL_REPORT)){
 	   Header ("HTTP/1.0 401 Unauthorized");
-	   Header ("Location: PP_error.php?c=accessdenied");	   
-	   die();	   
+	   Header ("Location: PP_error.php?c=accessdenied");
+	   die();
 }
 
 session_start();
@@ -45,7 +45,7 @@ if (!isset ($current_page) || ($current_page == "")){
 
 
 // this variable specifie the debug type (0 => nothing, 1 => sql result, 2 => boucle checking, 3 other value checking)
-$FG_DEBUG = 0;
+$FG_DEBUG = 1;
 
 // The variable FG_TABLE_NAME define the table name to use
 $FG_TABLE_NAME="cc_call t1 LEFT OUTER JOIN cc_trunk t3 ON t1.id_trunk = t3.id_trunk";
@@ -148,7 +148,7 @@ $FG_HTML_TABLE_TITLE=" - Call Logs - ";
 //This variable define the width of the HTML table
 $FG_HTML_TABLE_WIDTH="70%";
 
-	if ($FG_DEBUG == 3) echo "<br>Table : $FG_TABLE_NAME  	- 	Col_query : $FG_COL_QUERY";
+	if ($FG_DEBUG >= 3) echo "<br>Table : $FG_TABLE_NAME  	- 	Col_query : $FG_COL_QUERY";
 	$instance_table = new Table($FG_TABLE_NAME, $FG_COL_QUERY);
 	$instance_table_graph = new Table($FG_TABLE_NAME, $FG_COL_QUERY_GRAPH);
 
@@ -278,16 +278,21 @@ $_SESSION["pr_sql_export"]="SELECT $FG_COL_QUERY FROM $FG_TABLE_NAME WHERE $FG_T
 $QUERY = "SELECT substring(t1.starttime,1,10) AS day, sum(t1.sessiontime) AS calltime, sum(t1.sessionbill) AS cost, count(*) as nbcall FROM $FG_TABLE_NAME WHERE ".$FG_TABLE_CLAUSE." GROUP BY substring(t1.starttime,1,10) ORDER BY day"; //extract(DAY from calldate) 
 
 if (!$nodisplay){
-		$res = $DBHandle -> query($QUERY);
+	$res = $DBHandle -> query($QUERY);
+	if ($res) {
 		$num = $res -> numRows();
 		for($i=0;$i<$num;$i++)
 		{				
-			$list_total_day [] =$res -> fetchRow();				 
+			$list_total_day [] =$res -> fetchRow();
 		}
+	}else{
+		if ($FG_DEBUG > 0 )
+		echo "Query:" . htmlspecialchars($QUERY) . "<br>Error: " . $DBHandle->ErrorMsg() . "<br>";
+	}
 
 if ($FG_DEBUG == 3) echo "<br>Clause : $FG_TABLE_CLAUSE";
 $nb_record = $instance_table -> Table_count ($DBHandle, $FG_TABLE_CLAUSE);
-if ($FG_DEBUG >= 1) var_dump ($list);
+if ($FG_DEBUG > 1) var_dump ($list);
 
 }//end IF nodisplay
 
@@ -298,16 +303,20 @@ sum(t1.sessionbill) AS cost, count(*) as nbcall FROM $FG_TABLE_NAME WHERE ".$FG_
 
 if (!$nodisplay){
 		$res = $DBHandle -> query($QUERY);
+	if ($res){
 		$num = $res -> numRows();
 		for($i=0;$i<$num;$i++)
 		{				
-			$list_total_destination [] =$res -> fetchRow();				 
+			$list_total_destination [] =$res -> fetchRow();
 		}
+	}else 
+		if ($FG_DEBUG > 0 )
+		echo "Query: " . htmlspecialchars($QUERY) . "<br>Error: " . $DBHandle->ErrorMsg() . "<br>";
 
 
 
 if ($FG_DEBUG == 3) echo "<br>Clause : $FG_TABLE_CLAUSE";
-if ($FG_DEBUG >= 1) var_dump ($list_total_destination);
+if ($FG_DEBUG > 1) var_dump ($list_total_destination);
 }//end IF nodisplay
 
 if ($nb_record<=$FG_LIMITE_DISPLAY){ 
@@ -412,14 +421,21 @@ else
 
 
 if (!$nodisplay){
-		$res = $DBHandle -> query($QUERY);
+	$res = $DBHandle -> query($QUERY);
+	if ($res) {
 		$num = $res -> numRows();
 		for($i=0;$i<$num;$i++)
 		{				
 			$list_total_day_charge [] =$res-> fetchRow();				 
 		}
+		if ($FG_DEBUG > 1) var_dump ($list_total_day_charge);
+	}else {
+		if ($FG_DEBUG>=1){
+		echo "Query: " . htmlspecialchars($QUERY) . "<br>";
+		echo "Error: " . $DBHandle->ErrorMsg() . "<br>";
+		}
+	}
 
-		if ($FG_DEBUG >= 1) var_dump ($list_total_day_charge);
 
 }//end IF nodisplay
 
