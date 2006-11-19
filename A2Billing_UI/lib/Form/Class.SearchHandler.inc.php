@@ -75,7 +75,7 @@
     		</tr>
 
 			<tr>
-        		<td align="left" class="bgcolor_003">
+        		<td align="left" class="bgcolor_002">
 					<input type="radio" name="Period" value="Day" <?php  if ($processed['Period']=="Day"){ ?>checked="checked" <?php  } ?>>
 					<font class="fontstyle_003"><?php echo $this-> FG_FILTER_SEARCH_2_TIME_TEXT?></font>
 				</td>
@@ -168,7 +168,7 @@
 			foreach ($this->FG_FILTER_SEARCH_FORM_2C as $two_compare){
 			?>
 			<tr>
-				<td class="searchhandler_compare_td1" align="left">
+				<td class="bgcolor_002" align="left">
 					<font class="fontstyle_003">&nbsp;&nbsp;<?php echo $two_compare[0]?></font>
 				</td>
 				<td class="bgcolor_003" align="left">
@@ -198,7 +198,7 @@
 
 
 			<tr>
-				<td class="searchhandler_compare_td1" align="left" >
+				<td class="bgcolor_002" align="left" >
 					<font class="fontstyle_003">&nbsp;&nbsp;<?php echo $this->FG_FILTER_SEARCH_FORM_SELECT_TEXT?></font>
 				</td>
 				<td class="bgcolor_003" align="left" >
@@ -227,7 +227,7 @@
 			</tr>
 
 			<tr>
-        		<td class="bgcolor_004" align="left"> </td>
+        		<td class="bgcolor_002" align="left"> </td>
 
 				<td class="bgcolor_005" align="center">
 					<input type="image"  name="image16" align="top" border="0" src="<?php echo Images_Path_Main;?>/button-search.gif" />

@@ -36,13 +36,12 @@ $FG_DEBUG = 0;
 $DBHandle  = DbConnect();
 
 if ($called  && $id_cc_card){
-
-			
+		
 		$calling=ereg_replace("^\+","011",$called);	
-		$calling=ereg_replace("[^0-9]","",$called);	
-		$calling=ereg_replace("^01100","011",$called);	
-		$calling=ereg_replace("^00","011",$called);	
-		$calling=ereg_replace("^0111","1",$called);
+		$calling=ereg_replace("[^0-9]","",$calling);	
+		$calling=ereg_replace("^01100","011",$calling);	
+		$calling=ereg_replace("^00","011",$calling);	
+		$calling=ereg_replace("^0111","1",$calling);
 		
 		if ( strlen($calling)>2 && is_numeric($calling)){
 				
@@ -75,17 +74,18 @@ if ($called  && $id_cc_card){
 					$A2B ->agiconfig['accountcode'] = $A2B -> cardnumber ;
 					$A2B ->agiconfig['use_dnid']=1;
 					$A2B ->agiconfig['say_timetocall']=0;
-					$A2B ->dnid = $A2B ->destination = $called;
+					$A2B ->dnid = $A2B ->destination = $calling;
+					if ($A2B->removeinterprefix) $A2B->destination = $A2B -> apply_rules ($A2B->destination);
 
-
-					$resfindrate = $RateEngine->rate_engine_findrates($A2B, $called, $row[0][1]);
+					$resfindrate = $RateEngine->rate_engine_findrates($A2B, $A2B->destination, $row[0][1]);
 					if ($FG_DEBUG == 1) echo "resfindrate=$resfindrate";
-
+					
 					// IF FIND RATE
-					if ($resfindrate!=0){
+					if ($resfindrate!=0){	
 						$res_all_calcultimeout = $RateEngine->rate_engine_all_calcultimeout($A2B, $A2B->credit);
 						if ($FG_DEBUG == 1) print_r($RateEngine->ratecard_obj);
 					}
+					
 
 				}
 

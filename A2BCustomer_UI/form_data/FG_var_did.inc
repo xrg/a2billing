@@ -2,7 +2,6 @@
 
 getpost_ifset(array('id', 'billingtype', 'did', 'startingdate', 'expirationdate', 'id_cc_didgroup', 'id_cc_country', 'activated', 'fixrate', 'id_trunk','choose_country','choose_did','assign','countrycode','arecode','phonenumber','voip_call','destination','choose_did_rate','new_did_page','confirm_buy_did'));
 
-$plang='en';
 
 $HD_Form = new FormHandler("cc_did_destination","did");
 
@@ -49,10 +48,14 @@ $HD_Form -> AddViewElement(gettext("COUNTRY"), "id_cc_country", "12%", "center",
 // added a parameter to append  FG_TABLE_ID  ( by default ) or disable 0.
 $HD_Form -> FieldViewElement ('destination, id_cc_did, activated, priority ,secondusedreal id_cc_country');
 
-$HD_Form -> FG_TABLE_NAME = "cc_did_destination t1, cc_did t2";
-$HD_Form -> FG_COL_QUERY='destination, id_cc_did, t1.activated, priority, t1.secondusedreal, id_cc_country, t1.id ';
-$HD_Form -> FG_TABLE_CLAUSE = " id_cc_card='".$_SESSION["card_id"]."' AND t1.id_cc_did=t2.id";
 
+if (isset($form_action) && ($form_action=='ask-edit' || $form_action=='edit')){
+	$HD_Form -> FG_TABLE_NAME = "cc_did_destination";		
+}else{
+	$HD_Form -> FG_TABLE_NAME = "cc_did_destination t1, cc_did t2";
+	$HD_Form -> FG_TABLE_CLAUSE = " id_cc_card='".$_SESSION["card_id"]."' AND t1.id_cc_did=t2.id";
+}
+$HD_Form -> FG_COL_QUERY = 'destination, id_cc_did, t1.activated, priority, t1.secondusedreal, id_cc_country, t1.id ';
 
 $HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO ".strtoupper($HD_Form->FG_INSTANCE_NAME)." CREATED!");
 $HD_Form -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;

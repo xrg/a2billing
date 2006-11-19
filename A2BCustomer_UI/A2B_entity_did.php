@@ -105,7 +105,11 @@ if (!isset ($current_page) || ($current_page == ""))
 //////////////////////////////////////////////////////////////////////////////
 
 if ($id!="" || !is_null($id)){
-	$HD_Form -> FG_EDITION_CLAUSE = $HD_Form -> FG_TABLE_CLAUSE." AND t1.id = ".$id;
+	if (isset($form_action) && ($form_action=='ask-edit' || $form_action=='edit')){
+		$HD_Form -> FG_EDITION_CLAUSE = " id = ".$id;
+	}else{
+		$HD_Form -> FG_EDITION_CLAUSE = $HD_Form -> FG_TABLE_CLAUSE." AND t1.id = ".$id;
+	}
 }
 
 
@@ -526,7 +530,7 @@ function CheckCountry(Source){
 			</tr>
 			<tr class="did_maintable_tr2">
 				<td colspan="2" height="40">
-					<center><font color="red"><?php echo gettext("A monthly taking away of :").number_format($rate,2,".",",")." ".BASE_CURRENCY."<br>".gettext(" will be carrie out from your acount");?> </font></center>
+					<center><font color="red"><?php echo gettext("A monthly fee of ").number_format($rate,2,".",",")." ".BASE_CURRENCY."<br>".gettext(" will be carrie out from your acount");?> </font></center>
 				</td>
 			</tr>
 			<tr class="bgcolor_007">

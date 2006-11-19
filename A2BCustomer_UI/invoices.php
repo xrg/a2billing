@@ -371,7 +371,7 @@ if (strpos($date_clause, 'AND') > 0){
 
 
 $QUERY = "SELECT substring(t1.creationdate,1,10) AS day, sum(t1.amount) AS cost, count(*) as nbcharge FROM cc_charge t1 ".$date_clause.
-		 " AND id_cc_card='".$_SESSION["card_id"]."' GROUP BY substring(t1.creationdate,1,10) ORDER BY day"; //extract(DAY from calldate)
+		 " WHERE id_cc_card='".$_SESSION["card_id"]."' GROUP BY substring(t1.creationdate,1,10) ORDER BY day"; //extract(DAY from calldate)
 
 if (!$nodisplay){
 		$res = $DBHandle -> query($QUERY);
@@ -636,7 +636,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 
 <table width="14%" align="center">
 <tr>
-<td height="93"> <img src="<?php echo Images_Path_Main ?>/companylogo.gif"/> </td>
+<td height="93"> <img src="http://localhost/~areski/svn/a2billing/trunk/A2BCustomer_UI/templates/default/images/companylogo.gif"/> </td>
 </tr>
 </table>
 

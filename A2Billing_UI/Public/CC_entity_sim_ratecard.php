@@ -36,13 +36,13 @@ if ($FG_DEBUG == 1)  echo "sim_mytariffname:$sim_mytariffname<br>";
 
 if ($called  && $id_cc_card){
 
-			
+		
 		$calling=ereg_replace("^\+","011",$called);	
 		$calling=ereg_replace("[^0-9]","",$calling);	
 		$calling=ereg_replace("^01100","011",$calling);	
 		$calling=ereg_replace("^00","011",$calling);	
 		$calling=ereg_replace("^0111","1",$calling);
-				
+		
 		if ( strlen($calling)>2 && is_numeric($calling)){
 				
 				$A2B -> DBHandle = DbConnect();
@@ -51,7 +51,7 @@ if ($called  && $id_cc_card){
 				
 				$resmax = $DBHandle -> query("SELECT username, tariff FROM cc_card where id='$id_cc_card'");
 				$num = $resmax -> numRows();
-				if ($num==0){ echo "Error card !!!"; exit();}			
+				if ($num==0){ echo gettext("Error card !!!"); exit();}			
 				
 				for($i=0;$i<$num;$i++)
 					{
@@ -74,9 +74,9 @@ if ($called  && $id_cc_card){
 					$A2B ->agiconfig['use_dnid']=1;
 					$A2B ->agiconfig['say_timetocall']=0;						
 					$A2B ->dnid = $A2B ->destination = $calling;
-
+					
 					if ($A2B->removeinterprefix) $A2B->destination = $A2B -> apply_rules ($A2B->destination);			
-
+					
 					$resfindrate = $RateEngine->rate_engine_findrates($A2B, $A2B->destination, $row[0][1]);
 					if ($FG_DEBUG == 1) echo "resfindrate=$resfindrate";
 					

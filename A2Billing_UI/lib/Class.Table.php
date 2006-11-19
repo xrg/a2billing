@@ -10,7 +10,10 @@ class Table {
 	var $debug_stop_update 	= 0;
 	var $debug_stop_delete 	= 0;
 	var $sp                 = "`"; //bound_caract
-
+	var $start_message_debug = '<table width="70%" align="right"><tr><td>QUERY:';
+	var $end_message_debug = '</td></tr></table>';
+		
+		
     var $FK_TABLES ;
     var $FK_EDITION_CLAUSE ;
     // FALSE if you want to delete the dependent Records, TRUE if you want to update
@@ -53,7 +56,7 @@ class Table {
 	
 	function SQLExec ($DBHandle, $QUERY, $select = 1) {
 
-		if ($this -> debug_st) echo "<br>QUERY:".$QUERY;		
+		if ($this -> debug_st) echo $this->start_message_debug.$QUERY.$this->end_message_debug;
 		
 		$res = $DBHandle -> query($QUERY);
 
@@ -112,7 +115,7 @@ class Table {
 		}
 
 		$QUERY = $sql.$sql_clause.$sql_group.$sql_orderby.$sql_limit;
-		if ($this -> debug_st) echo "<br>QUERY:".$QUERY;
+		if ($this -> debug_st) echo $this->start_message_debug.$QUERY.$this->end_message_debug;
 
 		$res = $DBHandle -> query($QUERY);
 
@@ -152,7 +155,7 @@ class Table {
         }
 
 		$QUERY = $sql.$sql_clause;
-		if ($this -> debug_st) echo "<br>".$QUERY;
+		if ($this -> debug_st) echo $this->start_message_debug.$QUERY.$this->end_message_debug;
 		$res = $DBHandle -> query($QUERY);
 
 		if (!$res){
@@ -180,8 +183,8 @@ class Table {
 
 
 		$QUERY = "INSERT INTO $sp".$this -> table."$sp (".$this -> fields.") values (".trim ($value).")";
-		if ($this -> debug_st) echo "<br>".$QUERY;
-		if ($this -> debug_stop_add){ echo "<br>".$QUERY; exit(); }
+		if ($this -> debug_st) echo $this->start_message_debug.$QUERY.$this->end_message_debug;
+		if ($this -> debug_stop_add){ echo $this->start_message_debug.$QUERY.$this->end_message_debug; exit(); }
 		
 		$res = $DBHandle -> query($QUERY);
 
@@ -232,8 +235,8 @@ class Table {
 
 
 		$QUERY = "UPDATE $sp".$this -> table."$sp SET ".trim ($param_update)." WHERE ".trim ($clause);
-		if ($this -> debug_st) echo "<br>".$QUERY;
-		if ($this -> debug_stop_update){ echo "<br>".$QUERY; exit(); }
+		if ($this -> debug_st) echo $this->start_message_debug.$QUERY.$this->end_message_debug;
+		if ($this -> debug_stop_update){ echo $this->start_message_debug.$QUERY.$this->end_message_debug; exit(); }
 
 		$res = $DBHandle -> query($QUERY);
 		
@@ -273,8 +276,8 @@ class Table {
         }
 
 		$QUERY = "DELETE FROM $sp".$this -> table."$sp WHERE (".trim ($clause).")";
-		if ($this -> debug_st) echo "<br>".$QUERY;
-		if ($this -> debug_stop_delete){ echo "<br>".$QUERY; exit(); }
+		if ($this -> debug_st) echo $this->start_message_debug.$QUERY.$this->end_message_debug;
+		if ($this -> debug_stop_delete){ echo $this->start_message_debug.$QUERY.$this->end_message_debug; exit(); }
 
 		$res = $DBHandle -> query($QUERY);
 
@@ -324,7 +327,7 @@ class Table {
          */
 		//$QUERY = $sql.$sql_clause.$sql_group.$sql_orderby.$sql_limit;
         $QUERY = $sql.$sql_clause;
-		if ($this -> debug_st) echo "<br>QUERY:".$QUERY;
+		if ($this -> debug_st) echo $this->start_message_debug.$QUERY.$this->end_message_debug;
 
         //$QUERY1 = "DELETE FROM $sp".$this -> table."$sp WHERE ( ID IN ( ".$QUERY." ))";
 
