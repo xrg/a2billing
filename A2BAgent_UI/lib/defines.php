@@ -62,6 +62,11 @@
 	
 	define ("ACTIVATEDBYUSER", isset($A2B->config["signup"]['activatedbyuser'])?$A2B->config["signup"]['activatedbyuser']:null);
 
+
+	define ("AGENT_REFILLS", isset($A2B->config["agent"]['refills'])?$A2B->config["agent"]['refills']:'5.00|10.00|20.00');
+	// max_refill is a chech against forged http requests
+	define ("AGENT_MAX_REFILL", isset($A2B->config["agent"]['max_refill'])?$A2B->config["agent"]['max_refill']:50.0);
+
     //Images Path
     define ("Images_Path","./images");
 

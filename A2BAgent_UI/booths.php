@@ -6,11 +6,14 @@ $USE_AJAX=1 ;
 
 include ("PP_header.php");
 
-if (! has_rights (ACX_ACCESS)){ 
+if (! has_rights (ACX_ACCESS)){
 	   Header ("HTTP/1.0 401 Unauthorized");
 	   Header ("Location: PP_error.php?c=accessdenied");
 	   die();
 }
+
+$refills = explode("|",AGENT_REFILLS);
+
 ?>
 <script type="text/javascript">
 var req_timer = false;
@@ -134,6 +137,11 @@ function select_regular(booth) {
 	alert( "Select regular customer for booth " + booth );
 }
 
+
+function refill(booth,sum) {
+	startRequest("booths.xml.php"+"?action=refill&actb=" + booth + "&sum=" + sum,reqStateChanged2);
+}
+
 window.onload = function() { startRequest("booths.xml.php",reqStateChanged2)};
 </script>
 
@@ -152,7 +160,7 @@ window.onload = function() { startRequest("booths.xml.php",reqStateChanged2)};
             <table width="460" border="2" align="center" cellpadding="1" cellspacing="2" bordercolor="#eeeeff" bgcolor="#FFFFFF">
 		<tr bgcolor=#4e81c4>
 			<td>
-			<div align="center"><b><font color="white" size=5><?php echo gettext("Error Page");?></font></b></div>
+			<div align="center"><b><font color="white" size=5><?=gettext("Error Page");?></font></b></div>
 			</td>
 		</tr>
 		<tr>
@@ -162,7 +170,7 @@ window.onload = function() { startRequest("booths.xml.php",reqStateChanged2)};
                         <td align="center"><br/>
 				<img src="./Css/kicons/system-config-rootpassword.png">
 				<br/>
-				<b><font color=#3050c2 size=4><?php echo gettext("Cannot locate booths") ?></font></b><br/><br/><br/></td>
+				<b><font color=#3050c2 size=4><?=gettext("Cannot locate booths") ?></font></b><br/><br/><br/></td>
                       </tr>
                     </table>
 		</td>
@@ -181,7 +189,7 @@ window.onload = function() { startRequest("booths.xml.php",reqStateChanged2)};
 		}
 		else {
 		?>
-		<!--Lang: <?php echo setlocale(LC_MESSAGES,0); ?>-->
+		<!--Lang: <?=setlocale(LC_MESSAGES,0); ?>-->
 		<div id="message"> Welcome! </div>
 		<br>
 		<TABLE class='Booths' border=0 cellPadding=2 cellSpacing=2 width="100%">
@@ -197,17 +205,22 @@ window.onload = function() { startRequest("booths.xml.php",reqStateChanged2)};
 				?><table class="Booth" cellPadding=2 cellSpacing=2><tbody>
 				<tr><td id="name" class="name" colspan=3>Booth X</td></tr>
 				<tr><td id="status" class="state0" colspan=3> -- </td></tr>
-				<tr><td><?php echo gettext("Credit:");?></td><td div id="credit"> </td><td id="mins"></td></tr>
-				<tr><td id="buttons" class="buttons" colspan=3> 
-				<a href="javascript:booth_action(<?php echo $row[0]?>,'start');" id='button_sta' style='color:green;'><?php echo gettext("Start"); ?></a>
-				<a href="javascript:booth_action(<?php echo $row[0]?>,'stop');" id='button_stp' style='color:red;'><?php echo gettext("Stop"); ?></a>
-				<a href="javascript:booth_action(<?php echo $row[0]?>,'pay');" id='button_pay' style='color:blue;'><?php echo gettext("Pay"); ?></a>
-				<a href="javascript:booth_action(<?php echo $row[0]?>,'enable');" id='button_en'><?php echo gettext("Enable"); ?></a>
-				<a href="javascript:booth_action(<?php echo $row[0]?>,'disable');" id='button_dis'><?php echo gettext("Disable"); ?></a>
-				<a href="javascript:booth_action(<?php echo $row[0]?>,'unload');" id='button_unl'><?php echo gettext("Unload"); ?></a>
-				<a href="javascript:booth_action(<?php echo $row[0]?>,'load_def');" id='button_ld'><?php echo gettext("Load Default"); ?></a>
-				<a href="javascript:select_regular(<?php echo $row[0]?>);" id='button_lr'><?php echo gettext("Load Regular"); ?></a>
+				<tr><td><?=gettext("Credit:");?></td><td div id="credit"> </td><td id="mins"></td></tr>
+				<tr><td id="buttons" class="buttons" colspan=2> 
+				<a href="javascript:booth_action(<?=$row[0]?>,'start');" id='button_sta' style='color:green;'><?=gettext("Start"); ?></a>
+				<a href="javascript:booth_action(<?=$row[0]?>,'stop');" id='button_stp' style='color:red;'><?=gettext("Stop"); ?></a>
+				<a href="javascript:booth_action(<?=$row[0]?>,'pay');" id='button_pay' style='color:blue;'><?=gettext("Pay"); ?></a>
+				<a href="javascript:booth_action(<?=$row[0]?>,'enable');" id='button_en'><?=gettext("Enable"); ?></a>
+				<a href="javascript:booth_action(<?=$row[0]?>,'disable');" id='button_dis'><?=gettext("Disable"); ?></a>
+				<a href="javascript:booth_action(<?=$row[0]?>,'unload');" id='button_unl'><?=gettext("Unload"); ?></a>
+				<a href="javascript:booth_action(<?=$row[0]?>,'load_def');" id='button_ld'><?=gettext("Load Default"); ?></a>
+				<a href="javascript:select_regular(<?=$row[0]?>);" id='button_lr'><?=gettext("Load Regular"); ?></a>
 				&nbsp;</td>
+				<td  id="td_refill" class="refill">
+				<?php foreach($refills as $rf) { ?>
+				<a href="javascript:refill(<?=$row[0] .', ' . $rf ?>);"><?=gettext("Add") .' '. $rf; ?></a>
+				<?php } ?>
+				</td>
 				</tr>
 				</tbody></table></td><?php
 				if ( $i % $ndiv == $ndiv-1 )

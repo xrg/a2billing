@@ -75,6 +75,7 @@ if (! has_rights (ACX_ACCESS)){
 				else {
 					$message= gettext("Action failed:");
 					$message = $message . $DBHandle->ErrorMsg();
+					$message_class="msg_error";
 				}
 				break;
 			case 'load_def':
@@ -87,10 +88,36 @@ if (! has_rights (ACX_ACCESS)){
 				else {
 					$message= gettext("Action failed:");
 					$message = $message . $DBHandle->ErrorMsg();
+					$message_class="msg_error";
+				}
+				break;
+			case 'refill':
+				$rf = (float) $_GET['sum'];
+				if ($rf <= 0.0 || $rf > AGENT_MAX_REFILL){
+					$message= gettext("Invalid sum for refill");
+					$message_class="msg_error";
+				}else {
+					$get_booth= (integer) $_GET["actb"];
+					$query="INSERT INTO cc_agentrefill(agentid, boothid, credit)" .
+					"VALUES( " . $DBHandle->Quote($_SESSION['agent_id'] ) . ", ".
+					 $DBHandle->Quote($get_booth) . ', '.
+					 $DBHandle->Quote($rf) . ') ;' ;
+					$res=$DBHandle->Execute( $query );
+					 if ($res){
+					 	$message = gettext("Credit added to booth");
+					 	$message_class="msg_success";
+					 } else{
+						$message= gettext("Refill failed: ");
+						$message = $message . $DBHandle->ErrorMsg();
+						//$message = $message . " <br>QUERY=" . $query;
+						$message_class="msg_error";
+					}
+					
 				}
 				break;
 			default:
 				$message="Unknown request";
+				$message_class="msg_error";
 			}
 		}else switch ($_GET["action"]){
 		default:
@@ -108,6 +135,7 @@ if (! has_rights (ACX_ACCESS)){
 		$dom_message->setAttribute("class","msg_errror");
 	}else {
 		$dom_message->appendChild($dom->createTextNode($message));
+		if (isset($message_class)) $dom_message->setAttribute("class",$message_class);
 
 // 		if (!isset($currencies_list[strtoupper($customer_info [14])][2]) || !is_numeric($currencies_list[strtoupper($customer_info [14])][2])) $mycur = 1;
 // 		else $mycur = $currencies_list[strtoupper($customer_info [14])][2];
@@ -155,6 +183,7 @@ if (! has_rights (ACX_ACCESS)){
 			foreach(  $buttons as &$bu)
 				$bu=false;
 				
+			$td_refill=false;
 				// select the ones that will be visible
 			switch ($row_state){
 			case 0:
@@ -168,9 +197,11 @@ if (! has_rights (ACX_ACCESS)){
 				$buttons["sta"]=true;
 				$buttons["lr"]=true;
 				$buttons["ld"]=true;
+				$td_refill=true;
 				break;
 			case 3:
 				$buttons["stp"]=true;
+				$td_refill=true;
 				break;
 			case 4:
 				$buttons["pay"]=true;
@@ -186,6 +217,9 @@ if (! has_rights (ACX_ACCESS)){
 				$tmp->setAttribute("display",$bu?"inline":"hidden");
 				$dom_booth->appendChild($tmp);
 			}
+			$tmp=$dom->createElement("td_refill");
+			$tmp->setAttribute("display",$td_refill?"inline":"hidden");
+			$dom_booth->appendChild($tmp);
 		}
 	}
 // Let ONLY this line produce any output!

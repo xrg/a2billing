@@ -1807,15 +1807,15 @@ function write_stat($output){
  *   Write data into the Error file
  */
 function write_error($output){		
-		global $error_file;				
-		$string_log = "[".date("d/m/Y H:i:s")."]:$output";		
-		error_log ($string_log."\n", 3, $error_file);		
+		global $error_file;
+		$string_log = "[".date("d/m/Y H:i:s")."]:$output";
+		error_log ($string_log."\n", 3, $error_file);
 }
 
 /*
  *   Detect the Hangup and call the callback function
  */
-function hangup_check($agi){		
+function hangup_check($agi){
 		if ($agi->response['code']==false){		
 			//my_callback();
 		}
@@ -1823,7 +1823,7 @@ function hangup_check($agi){
 
 function iferrorexec($result,$callback)
 {
-        /*if ($agi->response['code']==false){             
+        /*if ($agi->response['code']==false){
                 $callback();
         } */		
 		if ($result['result']=='-1'){  //$result['code']=='500' && 

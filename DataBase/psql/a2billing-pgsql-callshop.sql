@@ -15,6 +15,7 @@ CREATE TABLE cc_agent (
     tariffgroup integer REFERENCES cc_tariffgroup(id),
     options integer NOT NULL DEFAULT 0,
     credit NUMERIC(12,4) NOT NULL DEFAULT 0,
+    climit NUMERIC(12,4) NOT NULL DEFAULT 0,
     currency CHARACTER(3) NOT NULL DEFAULT 'EUR'
     );
 
@@ -57,6 +58,17 @@ CREATE TABLE cc_currencies (
     cformat VARCHAR(20) DEFAULT 'FM99G999G999G990D00' NOT NULL
 );
 	
+-- This table will hold the transactions for the agent<->card
+-- refills
+
+CREATE TABLE cc_agentrefill (
+    id serial NOT NULL,
+    date timestamp(0) without time zone DEFAULT now() NOT NULL,
+    credit numeric(12,4) NOT NULL,
+    card_id bigint NOT NULL REFERENCES cc_card(id),
+    agentid bigint NOT NULL REFERENCES cc_agent(id),
+    boothid bigint REFERENCES cc_booth(id)
+);
 
 -- CREATE OR REPLACE FUNCTION booth_start(booth bigint, agent_id bigint) RETURNS bigint
 -- 	AS $$
