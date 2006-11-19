@@ -307,6 +307,35 @@ function imgidclick_plus(imgID,divID)
 		</div>
 
 	{/if}
+	
+	
+	{if ($ACXCRONTSERVICE  > 0)}
+		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick_plus('img10','div10');"><img id="img10" 
+	{if ($section =="12")}
+	
+	src="templates/{$SKIN_NAME}/images/minus.gif"
+	{else}
+	src="templates/{$SKIN_NAME}/images/plus.gif"
+	
+	{/if} onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("CALLBACK");{/php}</strong></a></li>
+		<div id="div10" 
+	{if ($section =="12")}
+	
+	style=""
+	{else}
+	style="display:none;"
+	>
+	{/if}
+		<ul>
+			<li><ul>
+				<li><a href="A2B_entity_callback.php?section=12">{php} echo gettext("Show Callbacks");{/php}</a></li>
+				<li><a href="A2B_entity_callback.php?form_action=ask-add&section=12">{php} echo gettext("Add new Callback");{/php}</a></li>
+			</ul></li>
+		</ul>
+		</div>
+
+	{/if}
+	
 	{if ($ACXSIGNUP  > 0)}
 		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick_plus('img6','div6');"><img id="img6" 
 	{if ($section =="8")}
@@ -386,6 +415,7 @@ function imgidclick_plus(imgID,divID)
 				<li><a href="A2B_entity_user.php?form_action=ask-add&atmenu=user&groupID=1&stitle=ACL+Admin+management&section=10">{php} echo gettext("Add ACL Admin");{/php}</a></li>
 				<li><a href="A2B_entity_backup.php?form_action=ask-add&section=10">{php} echo gettext("Database Backup");{/php}</a></li>
 				<li><a href="A2B_entity_restore.php?section=10">{php} echo gettext("Database Restore");{/php}</a></li>
+				<li><a href="A2B_logfile.php?section=10">{php} echo gettext("Watch Log files");{/php}</a></li>
 			</ul></li>
 		</ul>
 		</div>

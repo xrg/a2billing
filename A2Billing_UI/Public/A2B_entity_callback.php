@@ -1,10 +1,16 @@
 <?php
 include ("../lib/defines.php");
+include ("../lib/module.access.php");
 include ("../lib/Form/Class.FormHandler.inc.php");
 include ("./form_data/FG_var_callback.inc");
+include ("../lib/smarty.php");
 
 
-
+if (! has_rights (ACX_RATECARD)){ 
+	   Header ("HTTP/1.0 401 Unauthorized");
+	   Header ("Location: PP_error.php?c=accessdenied");	   
+	   die();	   
+}
 
 /***********************************************************************************/
 
@@ -28,22 +34,12 @@ $list = $HD_Form -> perform_action($form_action);
 
 
 // #### HEADER SECTION
-include("PP_header.php");
+$smarty->display('main.tpl');
 
 // #### HELP SECTION
-//echo '<br><br>'.$CC_help_callerid_list;
+echo $CC_help_callback;
 ?>
 <br>
-<a href="#" target="_self" onclick="imgidclick('img1000','div1000','help.png','viewmag.png');"><img style="" id="img1000" src="../Css/kicons/viewmag.png" onmouseover="this.style.cursor='hand';" height="16" width="16"></a>
-<div id="div1000" style="">
-<div id="kiki"><div class="w1">
-	<img src="../Css/kicons/cache.png" class="kikipic">
-	<div class="w2">
-Callback will offer you an easy way to connect any phone to our Asterisk platform.
-We handle a spool with all the callbacks that need to be running and you might be able to view here all the pending and performed callback with their current status. Different parameters determine the callback, the way to reach the user, the time when we need to call him, the result of the last attempts, etc...
-<br>
-</div></div></div>
-</div>
 
 <script language="JavaScript" src="./javascript/calendar2.js"></script>
 <?
@@ -58,8 +54,7 @@ if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
 $HD_Form -> create_form ($form_action, $list, $id=null) ;
 
 // #### FOOTER SECTION
-include("PP_footer.php");
-
+$smarty->display('footer.tpl');
 
 
 
