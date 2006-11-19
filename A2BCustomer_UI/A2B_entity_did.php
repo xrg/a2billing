@@ -5,7 +5,6 @@ include ("./lib/Form/Class.FormHandler.inc.php");
 include ("./form_data/FG_var_did.inc");
 include ("./lib/smarty.php");
 
-
 if (! has_rights (ACX_ACCESS)){
 	   Header ("HTTP/1.0 401 Unauthorized");
 	   Header ("Location: PP_error.php?c=accessdenied");
@@ -55,12 +54,11 @@ if ((isset($confirm_buy_did)) && ($confirm_buy_did == 1))
 }
 
 if (is_numeric($voip_call) && ($confirm_buy_did >= 2)){
-//if (strlen($destination)>0  && is_numeric($choose_did) && is_numeric($voip_call) && ($confirm_buy_did >= 2)){
-
+//if (strlen($destination)>0  && is_numeric($choose_did) && is_numeric($voip_call) && ($confirm_buy_did >= 2)){		
 		$FG_DID_TABLE  = "cc_did";
 		$FG_DID_FIELDS = "did";
 		$instance_sub_table = new Table($FG_DID_TABLE, $FG_DID_FIELDS);
-		$QUERY = "INSERT INTO cc_did_destination (activated, id_cc_card, id_cc_did, destination, priority, voip_call) VALUES ('0', '".$_SESSION["card_id"]."', '".$choose_did."', '".$destination."', '1', '".$voip_call."')";
+		$QUERY = "INSERT INTO cc_did_destination (activated, id_cc_card, id_cc_did, destination, priority, voip_call) VALUES ('1', '".$_SESSION["card_id"]."', '".$choose_did."', '".$destination."', '1', '".$voip_call."')";
 
 		$result = $instance_sub_table -> SQLExec ($HD_Form -> DBHandle, $QUERY, 0);
 		if ($confirm_buy_did == 2){
@@ -286,10 +284,11 @@ function CheckCountry(Source){
 	}
 	if (Source == 'Add')
 	{	
+		destination = document.theForm.destination.value;
+		document.theForm.confirm_buy_did.value=4;
 		if (destination == '') 
 		{ 
-			return false; 
-			document.theForm.confirm_buy_did.value=4;
+			return false; 			
 		}
 		else test=true;
 	}

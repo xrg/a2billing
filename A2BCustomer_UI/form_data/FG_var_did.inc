@@ -86,6 +86,15 @@ $HD_Form -> AddEditElement (gettext("DID"),
 	"did, id",
 	"id_cc_didgroup = '".$_SESSION["id_didgroup"]."'", "", "%1", "" , "");
 
+$HD_Form -> AddEditElement (gettext("ACTIVATED"),
+	"activated",
+	'1',
+	"RADIOBUTTON",
+	"",
+	"",
+	gettext("Choose if you want to activate this card"),
+	"" , "", "", "Yes :1, - No:0",   "", "" , "", "");
+	
 $HD_Form -> AddEditElement (gettext("PRIORITY"),
 	"priority",
 	"",
@@ -106,7 +115,7 @@ $HD_Form -> AddEditElement (gettext("VOIP_CALL"),
 	"" , "",  "", "Yes :1, - No:0",  "", "" , "" , "");
 
 
-$HD_Form -> FieldEditElement ('destination, id_cc_did, priority, voip_call');
+$HD_Form -> FieldEditElement ('destination, id_cc_did, activated, priority, voip_call');
 
 
 if (DB_TYPE == "postgres"){
