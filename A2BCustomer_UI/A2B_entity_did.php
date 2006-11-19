@@ -193,10 +193,10 @@ if (isset($choose_country)){
 		/*************************************************************/
 
 		// LIST FREE DID TO ADD PHONENUMBER
-	//	$instance_table_did = new Table("cc_did", "id, did, fixrate");
-	//	$FG_TABLE_CLAUSE = "id_cc_country=$choose_country and id_cc_didgroup='".$_SESSION["id_didgroup"]."' and activated='1' and id NOT IN (select id_cc_did from cc_did_destination)";
+		//	$instance_table_did = new Table("cc_did", "id, did, fixrate");
+		//	$FG_TABLE_CLAUSE = "id_cc_country=$choose_country and id_cc_didgroup='".$_SESSION["id_didgroup"]."' and activated='1' and id NOT IN (select id_cc_did from cc_did_destination)";
 
-		// FIX SQL for Mysql < 4 that doesn't support subqueries		
+		// FIX SQL for Mysql < 4 that doesn't support subqueries
 		$instance_table_did = new Table("cc_did LEFT JOIN cc_did_destination ON (cc_did.id!=cc_did_destination.id)", "DISTINCT cc_did.id, did, fixrate");
 		$FG_TABLE_CLAUSE = " id_cc_country=$choose_country and id_cc_didgroup='".$_SESSION["id_didgroup"]."' and cc_did.activated='1'";
 		$list_did = $instance_table_did -> Get_list ($HD_Form -> DBHandle, $FG_TABLE_CLAUSE, "did", "ASC", null, null, null, null);

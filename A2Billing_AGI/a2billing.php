@@ -173,7 +173,7 @@
 					
 					//if ($stat_channel["status"]!= "6" && $stat_channel["status"]!= "1"){	
 					if ($stat_channel["result"]!= $status_channel && ($A2B -> CC_TESTING!=1)){
-						$A2B->callingcard_acct_start_inuse($agi,0); 
+						if ($A2B->set_inuse==1) $A2B->callingcard_acct_start_inuse($agi,0);
 						$A2B -> write_log("[STOP - EXIT]", 0);
 						exit();
 					}
@@ -191,8 +191,7 @@
 							
 							if (($A2B->agiconfig['notenoughcredit_cardnumber']==1) && (($i+1)< $A2B->agiconfig['number_try'])){
 							
-								$A2B->callingcard_acct_start_inuse($agi,0); // REMOVE THE INUSE
-								$inuse_removed = 1; // FLAG TO KNOW THAT THE CARD ARENT IN USE
+								if ($A2B->set_inuse==1) $A2B->callingcard_acct_start_inuse($agi,0);
 								
 								$A2B->agiconfig['cid_enable']=0;
 								$A2B->agiconfig['use_dnid']=0;
@@ -307,7 +306,7 @@
 					}
 				$A2B->agiconfig['use_dnid']=0;
 			}//END FOR
-			if (!isset($inuse_removed) || $inuse_removed != 1) $A2B->callingcard_acct_start_inuse($agi,0); // REMOVE THE INUSE
+			if ($A2B->set_inuse==1) $A2B->callingcard_acct_start_inuse($agi,0);
 		}else{
 				$A2B -> write_log("[AUTHENTICATION FAILED (cia_res:".$cia_res.")]");
 		}
@@ -357,8 +356,7 @@
 						if (is_array($result)){
 							
 							$A2B->call_did($agi, $RateEngine, $result);
-						
-						
+							if ($A2B->set_inuse==1) $A2B->callingcard_acct_start_inuse($agi,0);
 						}
 					}
 					
@@ -918,7 +916,7 @@
 					}
 							
 				}//END FOR
-			if (!isset($inuse_removed) || $inuse_removed != 1) $A2B->callingcard_acct_start_inuse($agi,0); // REMOVE THE INUSE
+			if ($A2B->set_inuse==1) $A2B->callingcard_acct_start_inuse($agi,0);
 			
 		}else{
 				$A2B -> write_log("[AUTHENTICATION FAILED (cia_res:".$cia_res.")]");
@@ -1069,7 +1067,7 @@
 					$update_result = $A2B -> instance_table -> SQLExec ($A2B->DBHandle, $QUERY, 0);
 							
 				}//END FOR
-			if (!isset($inuse_removed) || $inuse_removed != 1) $A2B->callingcard_acct_start_inuse($agi,0); // REMOVE THE INUSE
+			if ($A2B->set_inuse==1) $A2B->callingcard_acct_start_inuse($agi,0);
 		}else{
 				$A2B -> write_log("[AUTHENTICATION FAILED (cia_res:".$cia_res.")]");
 		}
