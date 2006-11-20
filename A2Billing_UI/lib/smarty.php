@@ -31,7 +31,12 @@ $smarty->assign("WEBUI_VERSION", WEBUI_VERSION);
 $smarty->assign("WEBUI_DATE", WEBUI_DATE);
 
 $smarty->assign("SKIN_NAME", $skin_name);
-
+// if it is a pop window
+if ($popup_select != 1)
+{
+	$popup_select=0;
+}
+$smarty->assign("popupwindow", $popup_select);
 // for menu
 
 $smarty->assign("ACXCUSTOMER", $ACXCUSTOMER);

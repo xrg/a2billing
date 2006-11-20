@@ -20,7 +20,7 @@
 <br>
 
 <DIV border=0 width="1000">
-
+{if ($popupwindow == 0)}
 <div class="divleft">
 {literal}
 <script  language="javascript">
@@ -496,4 +496,9 @@ function imgidclick(imgID,divID, imgbase, imgchange)
 
 
 </div>
+
 <div class="divright">
+
+{else}
+<div>
+{/if}

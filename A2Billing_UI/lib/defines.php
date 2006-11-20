@@ -94,7 +94,7 @@
 	/*
 	 *		GLOBAL POST/GET VARIABLE
 	 */		 
-	getpost_ifset(array('form_action', 'atmenu', 'action', 'stitle', 'sub_action', 'IDmanager', 'current_page', 'order', 'sens', 'mydisplaylimit', 'filterprefix', 'cssname'));
+	getpost_ifset(array('form_action', 'atmenu', 'action', 'stitle', 'sub_action', 'IDmanager', 'current_page', 'order', 'sens', 'mydisplaylimit', 'filterprefix', 'cssname', 'popup_select'));
 
 	/*
 	 *		CONNECT / DISCONNECT DATABASE
