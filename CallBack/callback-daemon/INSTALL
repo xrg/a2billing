@@ -82,17 +82,14 @@ Below you will find the schema of the postgresql database :
 CREATE TABLE cc_callback_spool (
     id 					bigserial NOT NULL,
 	uniqueid			text,
-    entry_time 			timestamp without time zone DEFAULT now(),
-	
+    entry_time 			timestamp without time zone DEFAULT now(),	
     status 				text,
-	server_ip 			text,
-	
+	server_ip 			text,	
 	num_attempt 		int,
 	last_attempt_time	timestamp without time zone,
 	manager_result		text,
 	agi_result			text,
-	callback_time 		timestamp without time zone,
-	
+	callback_time 		timestamp without time zone,	
     channel 			text,
 	exten 				text,
 	context 			text,
