@@ -1,0 +1,122 @@
+
+-----===========------===========------===========------===========------===========-----
+							Callback-daemon Install Instructions
+-----===========------===========------===========------===========------===========-----
+					
+					
+
+REQUERIMENTS
+
+ Callback-daemon
+   o Perl >= 5.6.1
+   
+   Perl module DBD::Pg
+	(yum install perl-DBD-Pg)
+
+INSTALL
+
+ Callback-daemon:
+   Edit callback-daemon and change configurations if needed;
+   install --owner=root --group=root --mode=700 callback-daemon /usr/local/bin/
+   
+   If you are using any Linux Red Hat system based (SYSV):
+      install --owner=root --group=root --mode=700 callback-daemon.rc /etc/rc.d/init.d/callback-daemon
+      chkconfig --add callback-daemon && chkconfig callback-daemon on
+   else:
+      You have to adapt a2billing-callback-daemon.rc script for your system.
+
+
+
+
+-----===========------===========------===========------===========------===========-----
+							Callback-daemon INFO
+-----===========------===========------===========------===========------===========-----
+
+
+You might be able to view here all the pending and performed callback with their current status. 
+Different parameters determine the callback or the way to reach the user, the time when the callback 
+will be performed, the result of the last attempts, etc...
+
+
+The web interface have 2 options :
+o Show Callbacks
+o Add new Callback
+
+you can add a new call back you will need to fell the fields 
+UNIQUEID : kind of uniqueID to track the transaction
+STATUS : Pending
+CHANNEL : SIP/XXXXXX@167.1.2.10  replace XXXXXX by your phone number
+EXTEN : 1000 (whatever number but at least 4 digits)
+CONTEXT : mycontext (this is the asterisk context for the application you want to reach)
+PRIORITY : 1
+
+
+
+We have a new daemon running as a service on your box "service callback-daemon"
+log file can be found : /var/log/asterisk/daemon-callback.log
+
+
+
+-----===========------===========------===========------===========------===========-----
+							Http-API/Web Service INFO
+-----===========------===========------===========------===========------===========-----
+
+webservice with a parameter for call_time:
+WEB SERVICE DESCRIPTION :
+http://domain/path/soap/soap-callback-server.php?wsdl
+...
+<message name="Service_CallbackRequest">
+<part name="security_key" type="xsd:string"/>
+<part name="keyword" type="xsd:string"/>
+<part name="product_code" type="xsd:string"/>
+<part name="phone_number" type="xsd:string"/>
+<part name="callerid" type="xsd:string"/>
+</message>
+...
+
+
+
+
+Below you will find the schema of the postgresql database :
+
+CREATE TABLE cc_callback_spool (
+    id 					bigserial NOT NULL,
+	uniqueid			text,
+    entry_time 			timestamp without time zone DEFAULT now(),
+	
+    status 				text,
+	server_ip 			text,
+	
+	num_attempt 		int,
+	last_attempt_time	timestamp without time zone,
+	manager_result		text,
+	agi_result			text,
+	callback_time 		timestamp without time zone,
+	
+    channel 			text,
+	exten 				text,
+	context 			text,
+	priority 			text,
+	application 		text,
+	data 				text,
+	timeout 			text,
+	callerid 			text,
+	variable 			text,
+	account 			text,
+	async 				text,
+	actionid 			text
+) WITH OIDS;
+
+ALTER TABLE ONLY cc_callback_spool
+    ADD CONSTRAINT cc_callback_spool_uniqueid_key UNIQUE (uniqueid);
+
+
+CREATE TABLE cc_server_manager (
+	id 					bigserial NOT NULL,
+	server_ip 			text,
+	manager_host		text,
+	manager_username 	text,
+	manager_secret		text
+) WITH OIDS;
+
+INSERT INTO cc_server_manager (server_ip, manager_host, manager_username, manager_secret) VALUES ('default', 'localhost', 'myasterisk', 'mycode');
