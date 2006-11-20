@@ -71,7 +71,48 @@ function imgidclick_plus(imgID,divID)
 	}
 }
 
+function imgidclick(imgID,divID, imgbase, imgchange)
+{
+	
+	var agt=navigator.userAgent.toLowerCase();
+    // *** BROWSER VERSION ***
+    // Note: On IE5, these return 4, so use is_ie5up to detect IE5.
+    var is_major = parseInt(navigator.appVersion);
+    var is_minor = parseFloat(navigator.appVersion);
 
+    // Note: Opera and WebTV spoof Navigator.  We do strict client detection.
+    // If you want to allow spoofing, take out the tests for opera and webtv.
+    var is_nav  = ((agt.indexOf('mozilla')!=-1) && (agt.indexOf('spoofer')==-1)
+                && (agt.indexOf('compatible') == -1) && (agt.indexOf('opera')==-1)
+                && (agt.indexOf('webtv')==-1) && (agt.indexOf('hotjava')==-1));
+	var is_ie     = ((agt.indexOf("msie") != -1) && (agt.indexOf("opera") == -1));
+	
+	
+	if (is_ie){			
+		if 	(document.all(divID).style.display == "none" )		
+		{		
+			document.all(divID).style.display="";			
+			document.all(imgID).src="templates/{/literal}{$SKIN_NAME}{literal}/images/kicons/"+imgchange;
+		}
+		else
+		{			
+			document.all(divID).style.display="None";
+			document.all(imgID).src="templates/{/literal}{$SKIN_NAME}{literal}/images/kicons/"+imgchange;
+		}
+		window.event.cancelBubble=true;
+	}else{
+		if 	(document.getElementById(divID).style.display == "none" )
+		{			
+			document.getElementById(divID).style.display="";
+			document.getElementById(imgID).src="templates/{/literal}{$SKIN_NAME}{literal}/images/kicons/"+imgchange;
+		}
+		else
+		{			
+			document.getElementById(divID).style.display="None";
+			document.getElementById(imgID).src="templates/{/literal}{$SKIN_NAME}{literal}/images/kicons/"+imgchange;
+		}
+	}
+}
 //-->
 </script>
 {/literal}
@@ -95,10 +136,9 @@ function imgidclick_plus(imgID,divID)
 	<div id="div1"  
 	{if ($section =="1")}
 	
-	style=""
+	style="">
 	{else}
-	style="display:none;"
-	>
+	style="display:none;">
 	{/if}
 	<ul>
 		<li><ul>
@@ -131,10 +171,9 @@ function imgidclick_plus(imgID,divID)
 	<div id="div2" 
 	{if ($section =="2")}
 	
-	style=""
+	style="">
 	{else}
-	style="display:none;"
-	>
+	style="display:none;">	
 	{/if}
 		<ul>
 			<li><ul>
@@ -166,12 +205,10 @@ function imgidclick_plus(imgID,divID)
 	  onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> &nbsp;<strong>{php} echo gettext("RATECARD");{/php}</strong></a></li>
 		<div id="div3" 
 	{if ($section =="3")}
-
-	style=""
-{else}
-	style="display:none;"
-	>
-{/if}
+		style="">
+	{else}
+		style="display:none;">
+	{/if}
 		<ul>
 			<li><ul>
 				<li><a href="A2B_entity_tariffgroup.php?form_action=ask-add&atmenu=tariffgroup&stitle=Tariff+Group&section=3">{php} echo gettext("Create TariffGroup");{/php}</a></li>
@@ -198,12 +235,10 @@ function imgidclick_plus(imgID,divID)
 	
 	{/if} onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> &nbsp;<strong>{php} echo gettext("TRUNK");{/php}</strong></a></li>
 		<div id="div4"  
-	{if ($section == "4")}
-	
-	style=""
+	{if ($section =="4")}
+		style="">
 	{else}
-	style="display:none;"
-	>
+		style="display:none;">
 	{/if}
 		<ul>
 			<li><ul>
@@ -226,12 +261,10 @@ function imgidclick_plus(imgID,divID)
 	{/if}
 	 onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> &nbsp;<strong>{php} echo gettext("DID");{/php}</strong></a></li>
 		<div id="div41"  
-	{if ($section == "5")}
-	
-	style=""
+	{if ($section =="5")}
+		style="">
 	{else}
-	style="display:none;"
-	>
+		style="display:none;">
 	{/if}
 		<ul>
 			<li><ul>
@@ -258,12 +291,10 @@ function imgidclick_plus(imgID,divID)
 	
 	{/if} onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp;<strong>{php} echo gettext("CALL REPORT");{/php}</strong></a></li>
 		<div id="div5" 
-	{if ($section == "6")}
-	
-	style=""
+	{if ($section =="6")}
+		style="">
 	{else}
-	style="display:none;"
-	>
+		style="display:none;">
 	{/if}
 		<ul>
 			<li><ul>
@@ -289,11 +320,9 @@ function imgidclick_plus(imgID,divID)
 	{/if} onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("CRONT SERVICE");{/php}</strong></a></li>
 		<div id="div9" 
 	{if ($section =="7")}
-	
-	style=""
+		style="">
 	{else}
-	style="display:none;"
-	>
+		style="display:none;">
 	{/if}
 		<ul>
 			<li><ul>
@@ -318,13 +347,11 @@ function imgidclick_plus(imgID,divID)
 	src="templates/{$SKIN_NAME}/images/plus.gif"
 	
 	{/if} onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("CALLBACK");{/php}</strong></a></li>
-		<div id="div10" 
+	<div id="div10" 
 	{if ($section =="12")}
-	
-	style=""
+		style="">
 	{else}
-	style="display:none;"
-	>
+		style="display:none;">
 	{/if}
 		<ul>
 			<li><ul>
@@ -348,11 +375,9 @@ function imgidclick_plus(imgID,divID)
 	onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("SIGNUP");{/php}</strong></a></li>
 	<div id="div6"  
 	{if ($section =="8")}
-	
-	style=""
+		style="">
 	{else}
-	style="display:none;"
-	>
+		style="display:none;">
 	{/if}
 		<ul>
 			<li><ul>
@@ -373,11 +398,9 @@ function imgidclick_plus(imgID,divID)
 	{/if} onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> &nbsp;<strong>{php} echo gettext("PREDICT-DIALER");{/php}</strong></a></li>
 		<div id="div61"  
 	{if ($section =="9")}
-	
-	style=""
+		style="">
 	{else}
-	style="display:none;"
-	>
+		style="display:none;">
 	{/if}
 		<ul>
 			<li><ul>
@@ -401,11 +424,9 @@ function imgidclick_plus(imgID,divID)
 	{/if} onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("ADMINISTRATOR");{/php}</strong></a></li>
 		<div id="div7" 
 	{if ($section =="10")}
-	
-	style=""
+		style="">
 	{else}
-	style="display:none;"
-	>
+		style="display:none;">
 	{/if}
 		<ul>
 			<li><ul>
@@ -431,12 +452,10 @@ function imgidclick_plus(imgID,divID)
 	
 	{/if} onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("FILE MANAGER");{/php}</strong></a></li>
 		<div id="div8" 
-	{if ($section == "11")}
-	
-	style=""
+	{if ($section =="11")}
+		style="">
 	{else}
-	style="display:none;"
-	>
+		style="display:none;">
 	{/if}
 		<ul>
 			<li><ul>
@@ -468,7 +487,6 @@ function imgidclick_plus(imgID,divID)
 			<form action="{$PAGE_SELF}" method="post">
 				<select name="cssname" class="form_input_select" >
 					<option value="default" {checkseleted file="default"}>Default</option>
-					<option value="design1" {checkseleted file="design1"}>Design 1</option>
 				</select>
 				<input type="submit" value="Change" class="form_input_button" >
 			</form>

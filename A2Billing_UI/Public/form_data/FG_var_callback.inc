@@ -136,7 +136,7 @@ $HD_Form -> AddEditElement (gettext("AGI RESULT"),
 $HD_Form -> AddEditElement (gettext("CALLBACK DATE"),
 			   "callback_time",
 			   '$value',
-			   "POPUPDATE",
+			   "INPUT",
 			   "size=20 maxlength=20  $comp_date",
 			   "10",
 			   "Insert the callback time",
@@ -256,7 +256,6 @@ $HD_Form -> AddEditElement (gettext("actionid"),
 
 
 
-
 $HD_Form -> FieldEditElement ('uniqueid, status, server_ip, num_attempt, manager_result, agi_result, callback_time, channel, exten, context, priority, application, data, timeout, callerid, variable, account, async, actionid');
 
 
@@ -279,24 +278,17 @@ if (isset($filterprefix)  &&  (strlen($filterprefix)>0)){
 }
 
 
-
-
 $HD_Form -> FG_INTRO_TEXT_EDITION= gettext("You can modify, through the following form, the different properties of your ".$HD_Form->FG_INSTANCE_NAME);
 $HD_Form -> FG_INTRO_TEXT_ASK_DELETION = gettext("If you really want remove this $HD_Form->FG_INSTANCE_NAME, click on the delete button.");
 $HD_Form -> FG_INTRO_TEXT_ADD = "you can add easily a new $HD_Form->FG_INSTANCE_NAME.<br>Fill the following fields and confirm by clicking on the button add.";
-
-$HD_Form -> FG_OTHER_BUTTON1_LINK="A2B_entity_card?form_action=ask-edit&stitle=Customers_Card&id=";
-$HD_Form -> FG_OTHER_BUTTON1_IMG ="../Images/icon-card.png";
-
 
 
 $HD_Form -> FG_INTRO_TEXT_ADITION = gettext("Add a $HD_Form->FG_INSTANCE_NAME now.");
 $HD_Form -> FG_TEXT_ADITION_CONFIRMATION = "Your new $HD_Form->FG_INSTANCE_NAME has been inserted. <br>";
 
 
-$HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = "../Images/cormfirmboton.gif";
+$HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = Images_Path . "/cormfirmboton.gif";
 $HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT = gettext("Made your change to edit this callerid.");
-
 
 
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
