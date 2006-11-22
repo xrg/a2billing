@@ -108,6 +108,12 @@ table.Booth td.state5 {
 	background: red;
 }
 
+table.Booth td.state6 {
+	text-align: center;
+	color: white;
+	background: blue;
+}
+
 table.Booth td.buttons a {
 	display: none;
 	color: black;
