@@ -87,6 +87,8 @@ function parseBoothXML(the_xml){
 	booth_tags[i++]="button_unl";
 	booth_tags[i++]="button_ld";
 	booth_tags[i++]="button_lr";
+	booth_tags[i++]="button_pay";
+	booth_tags[i++]="refill";
 	
 	for (var i=0 ; i < booths.length; i++){
 		var xml_booth=booths[i];
@@ -195,13 +197,14 @@ window.onload = function() { startRequest("booths.xml.php",reqStateChanged2)};
 		<TABLE class='Booths' border=0 cellPadding=2 cellSpacing=2 width="100%">
 		<TBODY>
 		<?php
+			$colwidth= 95/$ndiv;
 			for($i=0;$i<$num;$i++)
 			{
 				$row = $res -> fetchRow();
 				if ( $i % $ndiv == 0)
 					echo "<tr>\n";
 
-				echo "<td id=\"booth_" . $row[0] . "\" >";
+				echo "<td width='" . $colwidth . "' id=\"booth_" . $row[0] . "\" >";
 				?><table class="Booth" cellPadding=2 cellSpacing=2><tbody>
 				<tr><td id="name" class="name" colspan=3>Booth X</td></tr>
 				<tr><td id="status" class="state0" colspan=3> -- </td></tr>
@@ -216,7 +219,7 @@ window.onload = function() { startRequest("booths.xml.php",reqStateChanged2)};
 				<a href="javascript:booth_action(<?=$row[0]?>,'load_def');" id='button_ld'><?=gettext("Load Default"); ?></a>
 				<a href="javascript:select_regular(<?=$row[0]?>);" id='button_lr'><?=gettext("Load Regular"); ?></a>
 				&nbsp;</td>
-				<td  id="td_refill" class="refill">
+				<td class="refill" id="refill" >
 				<?php foreach($refills as $rf) { ?>
 				<a href="javascript:refill(<?=$row[0] .', ' . $rf ?>);"><?=gettext("Add") .' '. $rf; ?></a>
 				<?php } ?>

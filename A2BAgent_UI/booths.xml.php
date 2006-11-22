@@ -14,6 +14,16 @@ if (! has_rights (ACX_ACCESS)){
 	   die();
 }
 
+function fmt_minutes($sessiontime){
+	$ret='';
+	if ($sessiontime>=3600){
+		$ret=sprintf('%dh ',intval($sessiontime/3600));
+		$sessiontime%=3600;
+	}
+	//$ret .= sprintf("%2d",intval($sessiontime/60)).":".sprintf("%02d",intval($sessiontime%60));
+	$ret .= sprintf("%2d:%02ds",intval($sessiontime/60),intval($sessiontime%60));
+	return $ret;
+}
 	$booth_states = array();
 	$booth_states[0] = array(gettext("N/A"), gettext("Not available, no cards configured."));
 	$booth_states[1] = array(gettext("Empty"), gettext("No customer attached."));
@@ -21,7 +31,8 @@ if (! has_rights (ACX_ACCESS)){
 	$booth_states[3] = array(gettext("Ready"),gettext("Waiting for calls"));
 	$booth_states[4] = array(gettext("Active"),gettext("Calls made, charged"));
 	$booth_states[5] = array(gettext("Disabled"),gettext("Disabled by the agent"));
-
+	$booth_states[6] = array(gettext("Stopped"),gettext("Calls made, charged, stopped"));
+	
 	// Prepare the XML DOM structure
 	$dom = new DomDocument("1.0","utf-8");
 	
@@ -79,7 +90,7 @@ if (! has_rights (ACX_ACCESS)){
 				}
 				break;
 			case 'load_def':
-				$res=$DBHandle->Execute("UPDATE cc_booth_v SET cur_card_id = def_card_id WHERE owner = " .
+				$res=$DBHandle->Execute("UPDATE cc_booth SET cur_card_id = def_card_id WHERE agentid = " .
 					$DBHandle->Quote($_SESSION['agent_id'] ) . 
 					" AND id = " . $DBHandle->Quote($get_booth) . " ;" );
 				
@@ -126,12 +137,21 @@ if (! has_rights (ACX_ACCESS)){
 	}
 
 
-	$QUERY="SELECT id, name, state, mins, format_currency(COALESCE(credit,0),'EUR', 'EUR') FROM cc_booth_v WHERE owner = " . trim($_SESSION["agent_id"]) . " ORDER BY id;";
+	$base_currency=strtoupper(BASE_CURRENCY);
+	if ($base_currency == NULL)
+		$base_currency = 'USD';
+	$QUERY="SELECT id, name, state, secs, format_currency(COALESCE(credit,0),'$base_currency',currency), in_now ";
+	$QUERY.=" FROM cc_booth_v WHERE owner = " . trim($_SESSION["agent_id"]) . " ORDER BY id;";
 
 	$res = $DBHandle -> query($QUERY);
 
+// 	$dom_message->appendChild($dom->createTextNode($QUERY));
+// 	$dom_message->setAttribute("class","msg_errror");
+
 	if (!$res){
-		$dom_message->appendChild($dom->createTextNode(gettext("Database query failed!")));
+		$message=gettext("Database query failed!");
+		$message .= '<br>' . htmlspecialchars($QUERY);
+		$dom_message->appendChild($dom->createTextNode($message));
 		$dom_message->setAttribute("class","msg_errror");
 	}else {
 		$dom_message->appendChild($dom->createTextNode($message));
@@ -158,13 +178,15 @@ if (! has_rights (ACX_ACCESS)){
 			$dom_booth->setAttribute("id","booth_".$row[0]);
 			
 			$tmp=$dom->createElement("name");
-			$tmp->appendChild($dom->createTextNode($row[1]));
+			$name=$row[1];
+			if (isset($row[5])) $name .= ' (' . $row[5] . ')';
+			$tmp->appendChild($dom->createTextNode($name));
 			$dom_booth->appendChild($tmp);
 			
 			
 			$tmp=$dom->createElement("status");
 			$row_state=$row[2];
-			if (($row_state<0) || ($row_state>5))
+			if (($row_state<0) || ($row_state>6))
 					$row_state=0;
 			$tmp->appendChild($dom->createTextNode($booth_states[$row_state][0]));
 			//$tmp->setAttribute("alt",$booth_states[$row_state][1]);
@@ -172,7 +194,7 @@ if (! has_rights (ACX_ACCESS)){
 			$dom_booth->appendChild($tmp);
 			
 			$tmp=$dom->createElement("mins");
-			$tmp->appendChild($dom->createTextNode($row[3]));
+			$tmp->appendChild($dom->createTextNode(fmt_minutes($row[3])));
 			$dom_booth->appendChild($tmp);
 			
 			$tmp=$dom->createElement("credit");
@@ -210,6 +232,10 @@ if (! has_rights (ACX_ACCESS)){
 			case 5:
 				$buttons["en"]=true;
 				break;
+			case 6:
+				$buttons["pay"]=true;
+				$buttons["sta"]=true;
+				$td_refill=true;
 			}
 			
 			foreach ($buttons as $key => $bu){
@@ -217,8 +243,8 @@ if (! has_rights (ACX_ACCESS)){
 				$tmp->setAttribute("display",$bu?"inline":"hidden");
 				$dom_booth->appendChild($tmp);
 			}
-			$tmp=$dom->createElement("td_refill");
-			$tmp->setAttribute("display",$td_refill?"inline":"hidden");
+			$tmp=$dom->createElement("refill");
+			$tmp->setAttribute("display",$td_refill?"inline":"none");
 			$dom_booth->appendChild($tmp);
 		}
 	}

@@ -5,19 +5,25 @@
 -- This file contains elements without data. It is safe to call
 -- it on a db loaded with data.
 
+DROP VIEW cc_booth_v;
 CREATE OR REPLACE VIEW cc_booth_v AS
 	SELECT cc_booth.id AS id, cc_booth.agentid AS owner,
 		cc_booth.name, cc_booth.location,
-		cc_card.credit, 0::numeric AS mins,
-		def_card_id, cur_card_id,
+		cc_card.credit, cc_card.currency,
+		def_card_id, cur_card_id, cc_booth.last_activation,
+		cc_card.username AS in_now,
 		(CASE WHEN def_card_id IS NULL THEN 0
 		WHEN cur_card_id IS NULL THEN 1
 		WHEN cc_booth.disabled THEN 5
-		WHEN cc_card.lastuse > cc_booth.last_activation THEN 4
+		WHEN cc_card.lastuse > cc_booth.last_activation AND cc_card.activated THEN 4
+		WHEN cc_card.lastuse > cc_booth.last_activation THEN 6
 		WHEN cc_card.activated THEN 3
 		ELSE 2
-		END) AS state
-	FROM cc_booth LEFT OUTER JOIN cc_card ON cc_booth.cur_card_id = cc_card.id;
+		END) AS state,
+		(SELECT COALESCE(SUM(sessiontime),0) FROM cc_call 
+			WHERE username = cc_card.username
+			AND starttime >= cc_booth.last_activation) AS secs
+	FROM (cc_booth LEFT OUTER JOIN cc_card ON cc_booth.cur_card_id = cc_card.id);
 	
 	
 CREATE OR REPLACE FUNCTION format_currency(money_sum NUMERIC, from_cur CHAR(3), to_cur CHAR(3)) RETURNS text
