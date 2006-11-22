@@ -97,6 +97,7 @@ CREATE TABLE cc_did (
     id_cc_didgroup bigint NOT NULL,
     id_cc_country integer NOT NULL,    
     activated integer DEFAULT 1 NOT NULL,
+    reserved integer DEFAULT 0,
     iduser integer DEFAULT 0 NOT NULL,
     did text NOT NULL,
     creationdate timestamp without time zone DEFAULT now(),	

@@ -10,6 +10,8 @@ INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (150,
 ALTER TABLE cc_charge ADD COLUMN id_cc_did bigint ;
 ALTER TABLE cc_charge ALTER COLUMN id_cc_did SET DEFAULT 0;
 
+ALTER TABLE cc_did ADD COLUMN reserved integer DEFAULT 0;
+
 create table cc_did_use (
 id serial not null ,
 id_cc_card bigint,

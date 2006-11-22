@@ -115,6 +115,21 @@ $CC_help_list_did = '
 </table>
 </div></div></div><br>
 ';
+
+
+$CC_help_release_did ='
+<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
+<div id="div1000" style="display:visible;">
+<div id="kiki"><div class="w1">
+	<img src="'.KICON_PATH.'/connect_to_network.gif" class="kikipic"/>
+	<div class="w2">
+	<br/>'
+	.gettext("WARNING !  <br> after confirmation, the release of the did will be done immediately and you will not be monthly charged any more.").'<br/>
+
+<br/>
+</div></div></div>
+</div>';
+
 } //ENDIF SHOW_HELP
 
 ?>

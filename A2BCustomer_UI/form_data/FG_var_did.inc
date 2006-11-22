@@ -1,6 +1,6 @@
 <?php
 
-getpost_ifset(array('id', 'billingtype', 'did', 'startingdate', 'expirationdate', 'id_cc_didgroup', 'id_cc_country', 'activated', 'fixrate', 'id_trunk','choose_country','choose_did','assign','countrycode','arecode','phonenumber','voip_call','destination','choose_did_rate','new_did_page','confirm_buy_did'));
+getpost_ifset(array('id', 'billingtype', 'did', 'startingdate', 'expirationdate', 'id_cc_didgroup', 'id_cc_country', 'activated', 'fixrate', 'id_trunk', 'choose_country', 'choose_did', 'assign', 'countrycode', 'arecode', 'phonenumber', 'voip_call', 'destination', 'choose_did_rate', 'new_did_page', 'confirm_buy_did', 'action_release'));
 
 
 $HD_Form = new FormHandler("cc_did_destination","did");
@@ -10,7 +10,8 @@ $HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_TABLE_DEFAULT_ORDER = "did";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
 
-
+	$HD_Form -> FG_EDITION = true;
+	$HD_Form -> FG_DELETION = true;
 
 
 // TODO Integrate a generic LIST to Framework

@@ -43,6 +43,7 @@ CREATE TABLE cc_did (
     id_cc_didgroup BIGINT NOT NULL,
     id_cc_country INT NOT NULL,    
     activated INT DEFAULT '1' NOT NULL,
+    reserved INT DEFAULT '0',
     iduser INT DEFAULT '0' NOT NULL,
     did CHAR(50) NOT NULL,
     creationdate  TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,

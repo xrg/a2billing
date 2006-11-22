@@ -22,8 +22,18 @@ if (!$A2B->config["webcustomerui"]['did'])
 $HD_Form -> setDBHandler (DbConnect());
 $HD_Form -> init();
 
-////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////
+if (!isset($form_action))  $form_action="list"; //ask-add
+if (!isset($action)) $action = $form_action;
+
+// #### TOP SECTION PAGE
+$HD_Form -> create_toppage ($form_action);
+
+
+// #### HEADER SECTION
+$smarty->display( 'main.tpl');
+
+
+
 
 $FG_LIMITE_DISPLAY=10;
 if (isset($mydisplaylimit) && (is_numeric($mydisplaylimit) || ($mydisplaylimit=='ALL'))){
@@ -33,50 +43,111 @@ if (isset($mydisplaylimit) && (is_numeric($mydisplaylimit) || ($mydisplaylimit==
 		$FG_LIMITE_DISPLAY=$mydisplaylimit;
 	}
 }
-
-$did_rate=explode("CUR",$choose_did_rate);
-$choose_did=$did_rate[0];
-$rate=$did_rate[1];
+if (isset($choose_did_rate) && strlen($choose_did_rate)!=0){
+	$did_rate=explode("CUR",$choose_did_rate);
+	$choose_did=$did_rate[0];
+	$rate=$did_rate[1];
+}
 
 $QUERY = "SELECT  credit FROM cc_card WHERE username = '".$_SESSION["pr_login"]."' AND uipass = '".$_SESSION["pr_password"]."'";
 $DBHandle_max  = DbConnect();
 $resmax = $DBHandle_max -> query($QUERY);
-
 $user_credit = $resmax -> fetchRow();
 
-if ((isset($confirm_buy_did)) && ($confirm_buy_did == 1))
-{
-		if ($rate <= $user_credit[0]) $confirm_buy_did = 2;
-		else $confirm_buy_did = 0;
-} else 
-{   
-		if ($confirm_buy_did != 4) $confirm_buy_did = 0;
+/*************************************************************/
+/*           releese the choosen did                        */
+
+if ($action_release=="confirm_release"){
+
+	$message = "\n\n".gettext("The following Destinaton-DID has been relesed:")."\n\n";
+	$instance_table = new Table();
+	$QUERY = "UPDATE cc_did set iduser = 0 ,reserved=0 where id=$choose_did" ;
+	$result = $instance_table -> SQLExec ($HD_Form -> DBHandle, $QUERY, 0);
+	$message .= "QUERY on cc_did : $QUERY \n\n";
+
+	$QUERY = "UPDATE cc_did_use set releasedate = now() where id_did =$choose_did and activated = 1" ;
+	$result = $instance_table -> SQLExec ($HD_Form -> DBHandle, $QUERY, 0);
+	$message .= "QUERY on cc_did_use : $QUERY \n\n";
+
+	$QUERY = "insert into cc_did_use (activated, id_did) values ('0','".$choose_did."')";
+	$result = $instance_table -> SQLExec ($HD_Form -> DBHandle, $QUERY, 0);
+	$message .= "INSERT new free entrie in cc_did use : $QUERY \n\n";
+
+	$QUERY = "delete FROM cc_did_destination where id_cc_did =".$choose_did;
+	$result = $instance_table -> SQLExec ($HD_Form -> DBHandle, $QUERY, 0);
+	$message .= "DELETE all DID destination: $QUERY \n\n";
+
+	$date = date("D M j G:i:s T Y", time());
+		// email header
+	$em_headers  = "From: A2BILLING ALERT <a2billing_alert@localhost>\n";
+	$em_headers .= "X-Priority: 3\n";
+	if (strlen($A2B->config["webcustomerui"]['error_email'])>3)
+	mail($A2B->config["webcustomerui"]['error_email'], "[$date] Release-DID notification", $message, $em_headers);
+
 }
 
-if (is_numeric($voip_call) && ($confirm_buy_did >= 2)){
-//if (strlen($destination)>0  && is_numeric($choose_did) && is_numeric($voip_call) && ($confirm_buy_did >= 2)){		
-		$FG_DID_TABLE  = "cc_did";
-		$FG_DID_FIELDS = "did";
-		$instance_sub_table = new Table($FG_DID_TABLE, $FG_DID_FIELDS);
+/***********************************************************/
+
+if ($action_release=="ask_release") { 
+	echo '<br><br>'.$CC_help_release_did;
+	?>
+	<FORM action="A2B_entity_did.php" name="form1">
+		<INPUT type="hidden" name="choose_did" value="<?php echo $choose_did?>">
+		<INPUT type="hidden" name="action_release" value="confirm_release"><br><br>
+		<br><br>
+		<TABLE cellspacing="0" class="delform_table5">
+			<tr>
+				<td width="434" class="text_azul"><?php echo gettext("If you really want release this DID , Click on the 	release button.")?>
+				</td>
+			</tr>
+			<tr height="2">
+				<td style="border-bottom: medium dotted rgb(255, 119, 102);">&nbsp; </td>
+			</tr>
+			<tr>
+		    		<td width="190" align="right" class="text"><INPUT title="<?php echo gettext("Release the DID ");?> " alt="<?php echo gettext("Release the DID "); ?>" hspace=2 name=submit src="<?php echo Images_Path;?>/btn_release_did_94x20.gif" type="image"></td>
+			</tr>
+		</TABLE>
+	</FORM>
+<?php 
+} 
+
+if (!isset($action_release) || $action_release=="confirm_release" || $action_release==""){ 
+	// #### HELP SECTION
+	if ($form_action=='list')
+	{
+		echo '<br><br>'.$CC_help_list_did;
+	}	
+
+	if ((isset($confirm_buy_did)) && ($confirm_buy_did == 1))
+	{
+		if ($rate <= $user_credit[0]) $confirm_buy_did = 2;
+		else $confirm_buy_did = 0;
+	} else 
+	{   
+		if ($confirm_buy_did != 4) $confirm_buy_did = 0;
+	}
+
+	if (is_numeric($voip_call) && ($confirm_buy_did >= 2)){
+	//if (strlen($destination)>0  && is_numeric($choose_did) && is_numeric($voip_call) && ($confirm_buy_did >= 2)){		
+		
+		$instance_table_did_use = new Table();
 		$QUERY = "INSERT INTO cc_did_destination (activated, id_cc_card, id_cc_did, destination, priority, voip_call) VALUES ('1', '".$_SESSION["card_id"]."', '".$choose_did."', '".$destination."', '1', '".$voip_call."')";
 
-		$result = $instance_sub_table -> SQLExec ($HD_Form -> DBHandle, $QUERY, 0);
-		if ($confirm_buy_did == 2){
-			$instance_table_did_use = new Table();
-			
+		$result = $instance_table_did_use -> SQLExec ($HD_Form -> DBHandle, $QUERY, 0);
+		if ($confirm_buy_did == 2){			
 			$QUERY1 = "INSERT INTO cc_charge (id_cc_card, amount, chargetype,id_cc_did) VALUES ('".$_SESSION["card_id"]."', '".$rate."', '2','".$choose_did."')";
 			$result = $instance_table_did_use -> SQLExec ($HD_Form -> DBHandle, $QUERY1, 0);	
 			
-			$QUERY1 = "UPDATE cc_did set iduser = ".$_SESSION["card_id"].",activated=0 where id = '".$choose_did."'" ;
+			$QUERY1 = "UPDATE cc_did set iduser = ".$_SESSION["card_id"].",reserved=1 where id = '".$choose_did."'" ;
 			$result = $instance_table_did_use -> SQLExec ($HD_Form -> DBHandle, $QUERY1, 0);
 	
 			$QUERY1 = "UPDATE cc_card set credit = credit -".$rate." where id = '".$_SESSION["card_id"]."'" ;
 			$result = $instance_table_did_use -> SQLExec ($HD_Form -> DBHandle, $QUERY1, 0);
 	
-			$QUERY1 = "UPDATE cc_did_use set releasedate = now(), month_payed=month_payed+1 where id_did = '".$choose_did."' and activated = 0" ;
+			$QUERY1 = "UPDATE cc_did_use set releasedate = now() where id_did = '".$choose_did."' and activated = 0" ;
 			$result = $instance_table_did_use -> SQLExec ($HD_Form -> DBHandle, $QUERY1, 0);
 	
-			$QUERY1 = "insert into cc_did_use (activated, id_cc_card, id_did) values ('1','".$_SESSION["card_id"]."','".$choose_did."')";
+			$QUERY1 = "insert into cc_did_use (activated, id_cc_card, id_did, month_payed) values ('1','".$_SESSION["card_id"]."','".$choose_did."', 1)";
 			$result = $instance_table_did_use -> SQLExec ($HD_Form -> DBHandle, $QUERY1, 0);
 		}
 		$date = date("D M j G:i:s T Y", time());
@@ -89,56 +160,34 @@ if (is_numeric($voip_call) && ($confirm_buy_did >= 2)){
 
 		if (strlen($A2B->config["webcustomerui"]['error_email'])>3)
 		mail($A2B->config["webcustomerui"]['error_email'], "[$date] Destinaton-DID notification", $message, $em_headers);
-} else 
-{   
-	if ($confirm_buy_did != 4)
-	$confirm_buy_did = 0;
-}
-
-if (!isset ($current_page) || ($current_page == ""))
-{
-	$current_page=0;
-}
-///////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////
-
-if ($id!="" || !is_null($id)){
-	if (isset($form_action) && ($form_action=='ask-edit' || $form_action=='edit')){
-		$HD_Form -> FG_EDITION_CLAUSE = " id = ".$id;
-	}else{
-		$HD_Form -> FG_EDITION_CLAUSE = $HD_Form -> FG_TABLE_CLAUSE." AND t1.id = ".$id;
+	} else {
+		if ($confirm_buy_did != 4) $confirm_buy_did = 0;
 	}
-}
+	if (!isset ($current_page) || ($current_page == "")) $current_page=0;
+
+///////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////
 
 
-if (!isset($form_action))  $form_action="list"; //ask-add
-if (!isset($action)) $action = $form_action;
-
-// TODO integrate in Framework
-if ($form_action == "delete")
-{
-    $HD_Form -> FG_TABLE_NAME = "cc_did_destination";
-    $HD_Form -> FG_EDITION_CLAUSE = "id_cc_card='".$_SESSION["card_id"]."' AND id = ".$id;
-}
-$list = $HD_Form -> perform_action($form_action);
-
-
-
-// #### HEADER SECTION
-$smarty->display( 'main.tpl');
-
-
-// #### HELP SECTION
-if ($form_action=='list')
-{
-    echo '<br><br>'.$CC_help_list_did;
-}
+	if ($id!="" || !is_null($id)){
+		if (isset($form_action) && ($form_action=='ask-edit' || $form_action=='edit')){
+			$HD_Form -> FG_EDITION_CLAUSE = " id = ".$id;
+		}else{
+			$HD_Form -> FG_EDITION_CLAUSE = $HD_Form -> FG_TABLE_CLAUSE." AND t1.id = ".$id;
+		}
+	}
 
 
 
+	// TODO integrate in Framework
+	if ($form_action == "delete")
+	{
+		$HD_Form -> FG_TABLE_NAME = "cc_did_destination";
+		$HD_Form -> FG_EDITION_CLAUSE = "id_cc_card='".$_SESSION["card_id"]."' AND id = ".$id;
+	}
+	$list = $HD_Form -> perform_action($form_action);
 
-// #### TOP SECTION PAGE
-$HD_Form -> create_toppage ($form_action);
+
 
 ///////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////
@@ -169,13 +218,12 @@ if ($FG_DEBUG == 3) echo "<br>Nb_record : $nb_record";
 if ($FG_DEBUG == 3) echo "<br>Nb_record_max : $nb_record_max";
 
 
-/*************************************************************/
 
-
+/*****************************************************************/
 
 $instance_table_country = new Table("cc_country, cc_did", "cc_country.id, countryname");
 
-$FG_TABLE_CLAUSE = "id_cc_country=cc_country.id group by cc_country.id, countryname ";
+$FG_TABLE_CLAUSE = "id_cc_country=cc_country.id and cc_did.reserved=0 group by cc_country.id, countryname ";
 
 $list_country = $instance_table_country -> Get_list ($HD_Form -> DBHandle, $FG_TABLE_CLAUSE, "countryname", "ASC", null, null, null, null);
 
@@ -197,19 +245,20 @@ if (isset($choose_country)){
 		//	$FG_TABLE_CLAUSE = "id_cc_country=$choose_country and id_cc_didgroup='".$_SESSION["id_didgroup"]."' and activated='1' and id NOT IN (select id_cc_did from cc_did_destination)";
 
 		// FIX SQL for Mysql < 4 that doesn't support subqueries
-		$instance_table_did = new Table("cc_did LEFT JOIN cc_did_destination ON (cc_did.id!=cc_did_destination.id)", "DISTINCT cc_did.id, did, fixrate");
-		$FG_TABLE_CLAUSE = " id_cc_country=$choose_country and id_cc_didgroup='".$_SESSION["id_didgroup"]."' and cc_did.activated='1'";
+		$instance_table_did = new Table("cc_did", "DISTINCT cc_did.id, did, fixrate");
+		$FG_TABLE_CLAUSE = "id_cc_country=$choose_country and id_cc_didgroup='".$_SESSION["id_didgroup"]."' and reserved=0";
 		$list_did = $instance_table_did -> Get_list ($HD_Form -> DBHandle, $FG_TABLE_CLAUSE, "did", "ASC", null, null, null, null);
 		$nb_did = count($list_did);
 
 
-}elseif ($assign==2){
+}elseif ($assign>=2){
 		// LIST USED DID TO ADD PHONENUMBER
 		$instance_table_did = new Table("cc_did LEFT JOIN cc_did_use ON id_did=cc_did.id", "cc_did.id, did, fixrate");
 		$FG_TABLE_CLAUSE = "id_cc_didgroup='".$_SESSION["id_didgroup"]."' and id_cc_card='".$_SESSION["card_id"]."' and cc_did_use.activated=1 and releasedate IS NULL GROUP BY cc_did.id, did, fixrate ";
 		$list_did = $instance_table_did -> Get_list ($HD_Form -> DBHandle, $FG_TABLE_CLAUSE, "did", "ASC", null, null, null, null);
 		$nb_did = count($list_did);
 }
+
 
 
 ///////////////////////////////////////////////////////////////////////////
@@ -292,6 +341,17 @@ function CheckCountry(Source){
 		}
 		else test=true;
 	}
+	if (Source == 'did_release')
+	{	
+		document.theForm.action_release.value = 'ask_release';
+		document.theForm.assign.value=1;
+		did = document.theForm.choose_did_rate.value;
+		if (did == '') 
+		{ 
+			return false; 			
+		}
+		else test=true;
+	}
 	if (test) document.theForm.submit();
 	return false;
 }
@@ -299,9 +359,8 @@ function CheckCountry(Source){
 
 //-->
 </script>
-
 	  <center><?php echo $error_msg;?>
-	  <a href="A2B_entity_did.php?assign=1"><input type="radio" value="1" <?php if ($assign==1) echo 'checked'; ?>/><?php echo gettext("Buy New DID");?> </a> - <a href="A2B_entity_did.php?assign=2"><input type="radio" value="2" <?php if ($assign==2) echo 'checked'; ?>/><?php echo gettext("Add Phone Number to your DID");?></a>
+	  <a href="A2B_entity_did.php?assign=1"><input type="radio" value="1" <?php if ($assign==1) echo 'checked'; ?>/><?php echo gettext("Buy New DID");?> </a> - <a href="A2B_entity_did.php?assign=2"><input type="radio" value="2" <?php if ($assign==2) echo 'checked'; ?>/><?php echo gettext("Add Phone Number to your DID");?></a> - <a href="A2B_entity_did.php?assign=3"><input type="radio" value="3" <?php if ($assign==3) echo 'checked'; ?>/><?php echo gettext("Release DID");?></a>
 	  </center>
 
 	   <table align="center"  border="0" class="bgcolor_006" width="75%">
@@ -309,6 +368,7 @@ function CheckCountry(Source){
 		<INPUT type="hidden" name="assign" value="<?php echo $assign ?>">
 		<INPUT type="hidden" name="new_did_page" value="<?php echo $new_did_page?>">
 		<INPUT type="hidden" name="confirm_buy_did" value="0">
+		<INPUT type="hidden" name="action_release">
 		<?php 
 		switch ($new_did_page) {
 		
@@ -340,10 +400,10 @@ function CheckCountry(Source){
 					<?php 	 }
 					?>
 				</select>
-				</td>
+			</td>
 		</tr>
 		<tr class="bgcolor_007">
-		<td align="left" valign="bottom">
+		<?php if ($assign<=2){ ?> <td align="left" valign="bottom"> <?php }?>
 <?php if (1==2){ ?>
 				 <?php echo gettext("Ring To Number ");?> :
 				<select name="countrycode"  class="form_input_select">
@@ -493,7 +553,6 @@ function CheckCountry(Source){
 
 				-
 
-
 				<input class="form_input_text" name="arecode" size="4" maxlength="5">
 
 				<input class="form_input_text" name="phonenumber" size="10" maxlength="15" >
@@ -501,20 +560,33 @@ function CheckCountry(Source){
 				<?php echo gettext("Country Code - Area Code - Number");?></font></center>
 
 <?php } ?>
-<?php echo gettext("VOIP CALL : ");?> <?php echo gettext("Yes");?><input class="form_enter" name="voip_call" value="1" type="radio" <?php if ((isset($voip_call)) && ($voip_call == 1)) echo "checked" ?>> - <?php echo gettext("NO");?> <input class="form_enter" name="voip_call" value="0" type="radio" <?php if (!isset($voip_call)) { echo "checked";} else  {if ($voip_call == 0) echo "checked"; }?>>                        <span class="liens">
+<?php if ($assign<=2){
+echo gettext("VOIP CALL : ");?> <?php echo gettext("Yes");?><input class="form_enter" name="voip_call" value="1" type="radio" <?php if ((isset($voip_call)) && ($voip_call == 1)) echo "checked" ?>> - <?php echo gettext("NO");?> <input class="form_enter" name="voip_call" value="0" type="radio" <?php if (!isset($voip_call)) { echo "checked";} else  {if ($voip_call == 0) echo "checked"; }?>>                        <span class="liens">
                                                 </span><br>
 				<?php echo gettext("Ring To destination ");?> :
 
 				<input class="form_input_text" name="destination" size="40" maxlength="80"  <?php if (isset($destination) && ($confirm_buy_did!=4)) {?>value="<?php echo $destination; }?>">
 				<br/><center><font color="red"><?php echo gettext("Enter the phone number you wish to call, or the SIP/IAX client to reach  (ie: 347894999 or SIP/jeremy@182.212.1.45). In order to call a VoIP number, you will need to enable voip_call");?> </font></center>
 			</td>
-					<td align="center" valign="middle">
-					<input class="form_input_button" value=" <?php if ($assign == 1) {echo gettext("Next")?> " type="button" onclick="CheckCountry('NextButton1');<?php } else {echo gettext("Add phone number")?>" Type="button" onclick="CheckCountry('Add');<?php }?>">
-			</td>
+<?php }else{ ?>
+		<td align="left" valign="middle">
+			<center><font color="red"><?php echo "<br>".gettext("If you release the did you will not be monthly charged any more.")."<br><br>";?></font></center>
+		</td>
+<?php }
+					echo '<td align="center" valign="middle">';
+					echo '<input class="form_input_button" value="' ;
+					switch ($assign) {
+						case 1:echo gettext("Next").'" type="button" onclick="CheckCountry(\'NextButton1\')">';
+						break; 
+						case 2:echo gettext("Add phone number").'" Type="button" onclick="CheckCountry(\'Add\')">';
+						break;
+						case 3: echo gettext("Ok").'" Type="button" onclick="CheckCountry(\'did_release\')">';
+						break;
+					}?>
+				</td>
             </tr>
 			<?php 
 			break; 
-			
 			case 1:
 			?>
 			<INPUT type="hidden" name="choose_did_rate" value="<?php echo $choose_did_rate ?>">
@@ -563,19 +635,19 @@ function CheckCountry(Source){
             </tr>
 			<?php
 			break;
-			}?>
+			} ?>
 
 		</form>
       </table>
 	  <br>
 
-<?php
+<?php 
 // #### CREATE FORM OR LIST
 //$HD_Form -> CV_TOPVIEWER = "menu";
 if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
 
 $HD_Form -> create_form ($form_action, $list, $id=null) ;
-
+} 
 // #### FOOTER SECTION
 $smarty->display( 'footer.tpl');
 ?>

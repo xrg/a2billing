@@ -58,7 +58,7 @@
 	
 	// CHECK THE CARD WITH DID'S
 	$QUERY = 'select id_did,reservationdate,month_payed,fixrate,cc_card.id,credit,email from (cc_did_use INNER JOIN cc_card on cc_card.id=id_cc_card) INNER JOIN cc_did on (id_did=cc_did.id) where releasedate IS NULL and cc_did_use.activated=1';
-"SELECT id_did,reservationdate,month_payed,fixrate from cc_did_use INNER JOIN cc_did on (id_did=cc_did.id) WHERE releasedate IS NULL and id_cc_card ='".$mycard[0]."'";
+
 	if ($verbose_level>=1) echo "==> SELECT CARD WIHT DID'S QUERY : $QUERY\n";
 	$result = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY);
 	
@@ -123,9 +123,9 @@
 					}	
 				}
 			} else {
-					$QUERY = "UPDATE cc_did set iduser = 0 where id='".$mydids[0]."'" ;
+					$QUERY = "UPDATE cc_did set iduser = 0,reserved=0 where id='".$mydids[0]."'" ;
 					$result = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY, 0);
-					$QUERY1 = "UPDATE cc_did_use set releasedate = now() where id_did = '".$mydids[0]."' and activated = 1" ;
+					$QUERY = "UPDATE cc_did_use set releasedate = now() where id_did = '".$mydids[0]."' and activated = 1" ;
 					$result = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY, 0);
 					$QUERY = "insert into cc_did_use (activated, id_did) values ('0','".$mydids[0]."')";
 					$result = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY, 0);
@@ -133,7 +133,7 @@
 					$result = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY, 0);
 					$mail_user_content.="The did ".$mydids[0]." has been automaticly unreserved\n\n";
 					$mail_user=true;
-					$mail_user_subject="DID last notification";
+					$mail_user_subject="DID Unreserved";
 				}
 			$user_mail_adrr=$mydids[6];
 			if ($mail_user) mail($user_mail_adrr, $mail_user_subject, $mail_content);

@@ -1,7 +1,7 @@
 <?php
 /*
 this ligne is an exemple of wath you must add into the main page to desplay the ratecard
-include ("http://localhost/A2Billing_UI/api/display_ratecard.php?key=0951aa29a67836b860b0865bc495225c&page_url=localhost/index.php&field_to_display=t1.destination,t5.countryprefix,t1.dialprefix,t1.rateinitial&column_name=Destination,Country,Prefix,Rate/Min&field_type=,,money&".$_SERVER['QUERY_STRING']);
+include ("http://localhost/A2Billing_UI/api/display_ratecard.php?key=0951aa29a67836b860b0865bc495225c&page_url=localhost/index.php&field_to_display=t1.destination,t3.countryprefix,t1.dialprefix,t1.rateinitial&column_name=Destination,Country,Prefix,Rate/Min&field_type=,,money&".$_SERVER['QUERY_STRING']);
 
 
 to change display set css_url in the include ligne
@@ -24,9 +24,7 @@ include ("../lib/module.access.php");
 	
 	$FG_DEBUG = 0;
 
-
-getpost_ifset(array('key', 'ratecardid', 'css_url', 'nb_display_lines', 'filter' ,'field_to_display', 'column_name', 'field_type', 'browse_letter', 'prefix_select', 'page_url', 'resulttitle', 'posted', 'stitle', 'current_page', 'order', 'sens', 'choose_currency', 'choose_country', 'letter', 'search', 'currency_select'));
-
+getpost_ifset(array('key', 'tariffgroupid', 'ratecardid', 'css_url', 'nb_display_lines', 'filter' ,'field_to_display', 'column_name', 'field_type', 'browse_letter', 'prefix_select', 'page_url', 'resulttitle', 'posted', 'stitle', 'current_page', 'order', 'sens', 'choose_currency', 'choose_country', 'letter', 'searchpre', 'currency_select', 'merge_form'));
 /**variable to set rate display option
 
 	?key 
@@ -41,6 +39,7 @@ getpost_ifset(array('key', 'ratecardid', 'css_url', 'nb_display_lines', 'filter'
 	&prefix_select i.e 32 (only prefix start by 32)
 	&currency_select "cirency code i.e USD"
 	&page_url i.e http://mysite.com/rates.php
+	&merge_form (0 or 1) 1 for merge form search and 1 seaparated search form by default 0
 */
   $ip_remote = getenv('REMOTE_ADDR'); 
   $mail_content = "[" . date("Y/m/d G:i:s", mktime()) . "] "."Request asked from:$ip_remote with key:$key \n";
@@ -59,17 +58,23 @@ if (md5($security_key) !== $key  || strlen($security_key)==0)
 //set  default values if not isset vars
 
 if (!isset($nb_display_lines) || strlen($nb_display_lines)==0) $nb_display_lines=1;
+if (!isset($field_to_display) || strlen($field_to_display)==0) $field_to_display="t1.destination,t1.dialprefix,t1.rateinitial";
 if (!isset($resulttitle) || strlen($resulttitle)==0) $resulttitle="Rate list";
 if (!isset($filter) || strlen($filter)==0) $filter="countryname,prefix";
 //if (!isset($field_to_display) || strlen ($field_to_display)==0) $field_to_display="t1.destination,t1.dialprefix,t1.rateinitial";
-if (!isset($field_type) || strlen ($field_to_type)==0) $field_type=",,,money";
+if (!isset($field_type) || strlen ($field_type)==0) $field_type=",,money";
 //if (!isset($column_name) || strlen($column_name)==0) $column_name="Destination,Prefix,Rate/Min";
 if (!isset($browse_letter) || strlen($browse_letter)==0) $browse_letter="yes";
 if (!isset($prefix_select) || strlen($prefix_select)==0) $prefix_select="";
 if (!isset($currency_select) || strlen($currency_select)==0) $currency_select=true;else $choose_currency=$currency_select;
 if (!isset($css_url) || strlen($css_url)==0) $css_url=substr("http://".$_SERVER['SERVER_ADDR'].$_SERVER['PHP_SELF'],0,strlen("http://".$_SERVER['SERVER_ADDR'].$_SERVER['PHP_SELF'])-20)."api_ratecard.css";
+if (!isset($merge_form) || strlen($merge_form)==0) $merge_form=0;
 
 
+function add_clause(&$sqlclause,$addclause){
+	if (strlen($sqlclause)==0) $sqlclause=$addclause;
+	else $sqlclause.=" AND ".$addclause;
+}
 //end set default
 trim($field_to_display);
 trim($field_type);
@@ -82,30 +87,38 @@ if (!isset ($current_page) || ($current_page == "")){
 	$current_page=0; 
 }
 
-if (!isset ($FG_TABLE_CLAUSE) || strlen($FG_TABLE_CLAUSE)==0){
-	$FG_TABLE_CLAUSE="t3.id = t2.idtariffplan AND  t2.idtariffplan=t1.idtariffplan AND t4.prefixe=t1.dialprefix AND t4.id_cc_country=t5.id";
-}
-
 $FILTER_COUNTRY=false;
 $FILTER_PREFIX=false;
 $DISPLAY_LETTER=false;
+
+if (DB_TYPE == "postgres"){		
+	 	$REG_EXP = "~*";
+}else{
+		$REG_EXP = "REGEXP";
+}
 
 for ($i=0;$i<count($fltr);$i++){
 	switch ($fltr[$i]){
 		case "countryname":
 			$FILTER_COUNTRY=true;
-			if (isset ($choose_country) && strlen($choose_country) != 0) $FG_TABLE_CLAUSE.=" AND t5.id='$choose_country'";
+			if (isset ($choose_country) && strlen($choose_country) != 0) add_clause($FG_TABLE_CLAUSE,"t1.destination $REG_EXP '$choose_country'");
 		break;
 		case "prefix":
 			$FILTER_PREFIX=true;
-			if (isset ($search) && strlen($search) != 0) $FG_TABLE_CLAUSE.=" AND t4.prefixe LIKE '$search%'";
+			if (isset ($searchpre) && strlen($searchpre) != 0) add_clause($FG_TABLE_CLAUSE,"t1.dialprefix $REG_EXP '^$searchpre'");
 		break;
 	}
 }
 if (isset($browse_letter) && strtoupper($browse_letter)=="YES") $DISPLAY_LETTER=true;
-if (isset($letter) && strlen($letter)!=0) $FG_TABLE_CLAUSE.=" AND t5.countryname LIKE '".strtolower ($letter)."%'";
+if (isset($letter) && strlen($letter)!=0) add_clause($FG_TABLE_CLAUSE,"t1.destination LIKE '".strtolower ($letter)."%'");
 
-if (isset($ratecardid) && strlen($ratecardid)!=0) $FG_TABLE_CLAUSE.=" AND t1.id = '$ratecardid'";
+if (isset($ratecardid) && strlen($ratecardid)!=0) add_clause($FG_TABLE_CLAUSE,"t1.id = '$ratecardid'");
+if (isset($tariffgroupid) && strlen($tariffgroupid)!=0){
+	$FG_TABLE_NAME="cc_ratecard t1, cc_tariffplan t4, cc_tariffgroup t5, cc_tariffgroup_plan t6";
+	add_clause($FG_TABLE_CLAUSE,"t4.id = t6.idtariffplan AND t6.idtariffplan=t1.idtariffplan AND t6.idtariffgroup = '$tariffgroupid'");
+}else{
+	$FG_TABLE_NAME="cc_ratecard t1";
+}
 if ($FILTER_COUNTRY || $DISPLAY_LETTER) {
 	$nb_display_lines=5000;
 	$current_page=0;
@@ -115,7 +128,7 @@ if ($FILTER_COUNTRY || $DISPLAY_LETTER) {
 $FG_DEBUG = 0;
 
 // The variable FG_TABLE_NAME define the table name to use
-$FG_TABLE_NAME="cc_ratecard t1, cc_tariffgroup_plan t2, cc_tariffplan t3, cc_prefix t4, cc_country t5";
+
 
 //$link = DbConnect();
 $DBHandle  = DbConnect();
@@ -171,12 +184,13 @@ if ( is_null ($order) || is_null($sens) ){
 $instance_table = new Table($FG_TABLE_NAME, $FG_COL_QUERY);
 $list = $instance_table -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, $order, $sens, null, null, $FG_LIMITE_DISPLAY, $current_page*$FG_LIMITE_DISPLAY);
 
-$country_table = new Table("cc_country","id,countryname");
+$country_table = new Table("cc_country","countryname");
 $country_list = $country_table -> Get_list ($DBHandle);
 
-$QUERY="SELECT $FG_COL_QUERY from $FG_TABLE_NAME where $FG_TABLE_CLAUSE";
+$QUERY="SELECT $FG_COL_QUERY from $FG_TABLE_NAME WHERE $FG_TABLE_CLAUSE";
 $list_c=$instance_table->SQLExec($DBHandle,$QUERY,1);
 $nb_record = count($list_c);
+
 if ($nb_record<=$FG_LIMITE_DISPLAY){ 
 	$nb_record_max=1;
 }else{ 
@@ -187,6 +201,27 @@ if ($nb_record<=$FG_LIMITE_DISPLAY){
 	}	
 }
 ?>
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function Search(Source){
+	
+	if (Source == 'btn01') 
+	{	
+		if (document.myForm.merge_form.value == 0){
+			document.myForm.searchpre.value="";
+		}
+	}
+	if (Source == 'btn02') 
+	{	
+		if (document.myForm.merge_form.value == 0){
+			var index = document.myForm.choose_country.selectedIndex;
+			document.myForm.choose_country.options[index].value="";
+		}
+	}
+	document.myForm.submit();
+}
+//-->
+</script>
 
 <html><head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -198,8 +233,9 @@ if ($nb_record<=$FG_LIMITE_DISPLAY){
 
 <div>
 <!-- ** ** ** ** ** Part for the research ** ** ** ** ** -->
-	<FORM METHOD=GET name="myForm" ACTION="<?php echo "http://$page_url?order=$order&sens=$sens&current_page=$current_page&css_url=$css_url&page_url=$page_url"?>">
+	<FORM METHOD=GET name="myForm" ACTION="<?php echo "$page_url?order=$order&sens=$sens&current_page=$current_page&css_url=$css_url&page_url=$page_url"?>">
 	<INPUT TYPE="hidden" NAME="posted" value=1>
+	<INPUT TYPE="hidden" NAME="merge_form" value=<?php echo $merge_form;?>>
 	<INPUT TYPE="hidden" NAME="current_page" value=0>
 	<div class="title"  align="left">
 		<H1><?php echo gettext("Rate search");?></H1>
@@ -211,22 +247,26 @@ if ($nb_record<=$FG_LIMITE_DISPLAY){
 			<option value="" <?php if (!isset($choose_country)) {?>selected<?php } ?>><?php echo gettext("Select a country");?></option>
 			<?php
 				foreach($country_list as $country) {?>
-					<option value='<?php echo $country[0] ?>' <?php if ($choose_country==$country[0]) {?>selected<?php } ?>><?php echo $country[1] ?><br>
+					<option value='<?php echo $country[0] ?>' <?php if ($choose_country==$country[0]) {?>selected<?php } ?>><?php echo $country[0] ?><br>
 					</option>
-				<?php 	} ?></select>
+				<?php 	} ?></select><input name="btn01" type="button"  align="top" value="Search" class="button" onclick="JavaScript:Search('btn01');">
 		</div>
 		<?php } if ($DISPLAY_LETTER){?>
 		<div class="searchelement"  align="left">
 			<?php echo gettext("select the first letter of the country you are looking for");?><br>
 			<?php for ($i=65;$i<=90;$i++) {
  				$x = chr($i);
- 				echo "<a href=\"http://$page_url?letter=$x&stitle=$stitle&current_page=$current_page&order=$order&sens=$sens&posted=$posted&choose_currency=$choose_currency&search=$search&choose_country=$choose_country&css_url=$css_url&page_url=$page_url\">$x</a>";
+				if ($merge_form){
+ 					echo "<a	href=\"$page_url?letter=$x&stitle=$stitle&current_page=$current_page&order=$order&sens=$sens&posted=$posted&choose_currency=$choose_currency&searchpre=$searchpre&choose_country=$choose_country&css_url=$css_url&page_url=$page_url\">$x</a>";
+				}else{
+					echo "<a href=\"$page_url?letter=$x&stitle=$stitle&current_page=$current_page&order=$order&sens=$sens&posted=$posted&choose_currency=$choose_currency&css_url=$css_url&page_url=$page_url\">$x</a>";
+				}
 			}?></font>
 		</div>
 		<?php } if ($FILTER_PREFIX){ ?>
 		<div class="searchelement"  align="left">
 			<?php echo gettext("Enter dial code"); ?><br>
-			<INPUT TYPE="text" NAME="search" class="textfield" value="<?php echo $search ?>"></INPUT>
+			<INPUT TYPE="text" NAME="searchpre" class="textfield" value="<?php echo $searchpre ?>"></INPUT><input name="btn02" type="button"  align="top" value="Search" class="button" onclick="JavaScript:Search('btn02');">
 		</div>
 		<?php } if ($currency_select){ ?>
 		<div class="searchelement"  align="left">
@@ -242,7 +282,6 @@ if ($nb_record<=$FG_LIMITE_DISPLAY){
 		</div>
 		<?php } ?>
 		<div class="searchelement"  align="left">
-			<input type="submit"  align="top" value="Search" class="button">
 		</div>
 	</div>
 	</FORM>
@@ -266,7 +305,7 @@ if ($nb_record<=$FG_LIMITE_DISPLAY){
 						<TH width="<?php echo $FG_TABLE_COL[$i][2]?>" class="table_title"> 
 						<center><strong> 
 						<?php  if (strtoupper($FG_TABLE_COL[$i][4])=="SORT"){?>
-						<a href="<?php  echo "http://$page_url?stitle=$stitle&current_page=$current_page&order=".$FG_TABLE_COL[$i][1]."&sens=";if ($sens=="ASC"){echo"DESC";}else{echo"ASC";} echo "&posted=$posted&letter=$letter&choose_currency=$choose_currency&search=$search&choose_country=$choose_country&letter=$letter&css_url=$css_url&page_url=$page_url";?>"> 
+						<a href="<?php  echo "http://$page_url?stitle=$stitle&current_page=$current_page&order=".$FG_TABLE_COL[$i][1]."&sens=";if ($sens=="ASC"){echo"DESC";}else{echo"ASC";} echo "&posted=$posted&choose_currency=$choose_currency&searchpre=$searchpre&choose_country=$choose_country&letter=$letter&css_url=$css_url&page_url=$page_url";?>"> 
 						<?php  } ?>
 						<?php echo $FG_TABLE_COL[$i][0]?> 
 						<?php  if (strtoupper($FG_TABLE_COL[$i][4])=="SORT"){?>
@@ -308,7 +347,7 @@ if ($nb_record<=$FG_LIMITE_DISPLAY){
 	<TR>
 	<TD> 
 		<?php
-		$c_url="http://$page_url?stitle=$stitle&order=$order&sens=$sens&current_page=%s&posted=$posted&letter=$letter&choose_currency=$choose_currency&search=$search&choose_country=$choose_country&css_url=$css_url&page_url=$page_url";
+		$c_url="http://$page_url?stitle=$stitle&order=$order&sens=$sens&current_page=%s&posted=$posted&letter=$letter&choose_currency=$choose_currency&searchpre=$searchpre&choose_country=$choose_country&css_url=$css_url&page_url=$page_url";
 		printPages($current_page+1, $nb_record_max, $c_url); 
 		?>
 	</TD>
