@@ -212,7 +212,7 @@ window.onload = function() { startRequest("booths.xml.php",reqStateChanged2)};
 				<tr><td id="buttons" class="buttons" colspan=2> 
 				<a href="javascript:booth_action(<?=$row[0]?>,'start');" id='button_sta' style='color:green;'><?=gettext("Start"); ?></a>
 				<a href="javascript:booth_action(<?=$row[0]?>,'stop');" id='button_stp' style='color:red;'><?=gettext("Stop"); ?></a>
-				<a href="javascript:booth_action(<?=$row[0]?>,'pay');" id='button_pay' style='color:blue;'><?=gettext("Pay"); ?></a>
+				<a href="invoices_cust.php?booth=<?=$row[0]?>&nobq=1" id='button_pay' style='color:blue;'><?=gettext("Pay"); ?></a>
 				<a href="javascript:booth_action(<?=$row[0]?>,'enable');" id='button_en'><?=gettext("Enable"); ?></a>
 				<a href="javascript:booth_action(<?=$row[0]?>,'disable');" id='button_dis'><?=gettext("Disable"); ?></a>
 				<a href="javascript:booth_action(<?=$row[0]?>,'unload');" id='button_unl'><?=gettext("Unload"); ?></a>

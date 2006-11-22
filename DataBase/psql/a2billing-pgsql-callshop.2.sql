@@ -42,6 +42,21 @@ CREATE OR REPLACE FUNCTION format_currency(money_sum NUMERIC, from_cur CHAR(3), 
 	LANGUAGE SQL STABLE STRICT;
 	
 
+CREATE OR REPLACE FUNCTION format_currency(money_sum DOUBLE PRECISION, from_cur CHAR(3), to_cur CHAR(3)) RETURNS text
+	AS $$
+	SELECT CASE WHEN sign_pre THEN 
+			csign || ' ' || to_char( ($1 * from_rate) / to_rate, cformat)
+		ELSE
+			to_char( ($1 * from_rate) / to_rate, cformat) || ' ' || csign
+		END
+	FROM 	(SELECT DISTINCT ON (b.currency) a.value AS from_rate,  b.value AS to_rate, b.cformat, 
+			COALESCE(b.csign,b.currency) AS csign , b.sign_pre 
+		FROM cc_currencies AS a, cc_currencies AS b
+		WHERE a.currency = $2 AND b.currency = $3 AND a.basecurrency = b.basecurrency ) AS foo
+		;
+	$$
+	LANGUAGE SQL STABLE STRICT;
+
 -- CREATE OR REPLACE FUNCTION booth_start(booth bigint, agent_id bigint) RETURNS bigint
 -- 	AS $$
 -- 		UPDATE cc_card SET activated= 't' 

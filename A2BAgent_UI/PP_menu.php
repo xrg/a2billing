@@ -93,10 +93,10 @@ function imgidclick(imgID,divID)
 	<li><a href="A2B_entity_booths.php?form_action=list"><strong><?php echo gettext("EDIT BOOTHS");?></strong></a></li>
 	<li><a href=# target=_self></a></li>	
 	
-	<li><a href="booths.php"><strong><?php echo gettext("PAYMENTS");?></strong></a></li>
+	<li><a href="invoices_cust.php"><strong><?php echo gettext("PAYMENTS");?></strong></a></li>
 	<li><a href=# target=_self></a></li>	
 	
-	<li><a href="booths.php"><strong><?php echo gettext("REPORTS");?></strong></a></li>
+	<li><a href="invoices.php"><strong><?php echo gettext("REPORTS");?></strong></a></li>
 	<li><a href=# target=_self></a></li>	
 
 	<li><a href="booths.php"><strong><?php echo gettext("INFO PAGES");?></strong></a></li>
