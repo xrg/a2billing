@@ -143,7 +143,7 @@ $FG_TABLE_DEFAULT_SENS = "DESC";
 // This Variable store the argument for the SQL query
 
 $FG_COL_QUERY='t1.starttime, t1.src, t1.calledstation, t1.destination, t1.sessiontime  ';
-$FG_COL_QUERY.=", format_currency(t1.sessionbill,'". strtoupper(BASE_CURRENCY) . ", '$choose_currency')";
+$FG_COL_QUERY.=", format_currency(t1.sessionbill,'". strtoupper(BASE_CURRENCY) . "', '$choose_currency')";
 
 $FG_COL_QUERY_GRAPH='t1.callstart, t1.duration';
 
@@ -372,16 +372,11 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 ?>
 
 
-		<center><?=  gettext("Number of call");?> : <?php  if (is_array($list) && count($list)>0){ echo $nb_record; }else{echo "0";}?></center>
 		<TABLE border=0 cellPadding=0 cellSpacing=0 width="<?=  $FG_HTML_TABLE_WIDTH?>" align="center">
                 <TR bgColor=#F0F0F0>
 		  <TD width="7%" class="tableBodyRight" style="PADDING-BOTTOM: 2px; PADDING-LEFT: 2px; PADDING-RIGHT: 2px; PADDING-TOP: 2px"><?=  gettext("nb");?></TD>
-                  <?php 
-				  	if (is_array($list) && count($list)>0){
-					
-				  	for($i=0;$i<$FG_NB_TABLE_COL;$i++){ 
-					?>				
-				  
+	<?php if (is_array($list) && count($list)>0){ 
+		for($i=0;$i<$FG_NB_TABLE_COL;$i++){ ?>
                   <TD width="<?=  $FG_TABLE_COL[$i][2]?>" align=middle class="tableBody" style="PADDING-BOTTOM: 2px; PADDING-LEFT: 2px; PADDING-RIGHT: 2px; PADDING-TOP: 2px">
                     <center>
                     <?=  $FG_TABLE_COL[$i][0]?>
@@ -397,27 +392,9 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 				
                		 <TR bgcolor="<?=  $FG_TABLE_ALTERNATE_ROW_COLOR[$ligne_number%2]?>">
 						<TD align="<?=  $FG_TABLE_COL[$i][3]?>" class=tableBody><?php  echo $ligne_number+$current_page*$FG_LIMITE_DISPLAY; ?></TD>
-				  		<?php for($i=0;$i<$FG_NB_TABLE_COL;$i++){ 
-							if ($FG_TABLE_COL[$i][6]=="lie"){
-								$instance_sub_table = new Table($FG_TABLE_COL[$i][7], $FG_TABLE_COL[$i][8]);
-								$sub_clause = str_replace("%id", $recordset[$i], $FG_TABLE_COL[$i][9]);																																	
-								$select_list = $instance_sub_table -> Get_list ($DBHandle, $sub_clause, null, null, null, null, null, null);
-									
-									
-								$field_list_sun = split(',',$FG_TABLE_COL[$i][8]);
-								$record_display = $FG_TABLE_COL[$i][10];
-									
-								for ($l=1;$l<=count($field_list_sun);$l++){										
-									$record_display = str_replace("%$l", $select_list[0][$l-1], $record_display);	
-								}
-								
-							}elseif ($FG_TABLE_COL[$i][6]=="list"){
-									$select_list = $FG_TABLE_COL[$i][7];
-									$record_display = $select_list[$recordset[$i]][0];
-							
-							}else{
+				  		<?php for($i=0;$i<$FG_NB_TABLE_COL;$i++){
 									$record_display = $recordset[$i];
-							}
+							
 							
 							
 							if ( is_numeric($FG_TABLE_COL[$i][5]) && (strlen($record_display) > $FG_TABLE_COL[$i][5])  ){
@@ -519,8 +496,8 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
  
 <?php  		
 		$i=0;
-		foreach ($list_total_day_charge as $data){	
-		$i=($i+1)%2;		
+		foreach ($list_total_day_charge as $data){
+		$i=($i+1)%2;
 		 
 		
 	?>
