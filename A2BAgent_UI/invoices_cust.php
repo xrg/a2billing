@@ -55,7 +55,7 @@ if (!isset ($current_page) || ($current_page == "")){
 $FG_DEBUG = 3;
 
 // The variable FG_TABLE_NAME define the table name to use
-$FG_TABLE_NAME="cc_call t1";
+$FG_TABLE_NAME="cc_session_invoice";
 
 // THIS VARIABLE DEFINE THE COLOR OF THE HEAD TABLE
 $FG_TABLE_HEAD_COLOR = "#D1D9E7";
@@ -77,13 +77,14 @@ $nodisplay = true;
 $card_username = '';
 
 if (isset($card) && ($card > 0)){ // find by card
-	$QUERY= 'SELECT cc_card_username FROM cc_agent_cards,cc_card ' .
-		'WHERE cc_agent_cards.card_id = cc_card.id AND cc_agent_cards.agentid =' . $DBHandle->Quote($_SESSION['agent_id']). ';';
+	$QUERY= 'SELECT cc_shopsessions.id FROM cc_agent_cards,cc_card, cc_shopsessions ' .
+		'WHERE cc_agent_cards.card_id = cc_card.id AND cc_agent_cards.agentid =' . $DBHandle->Quote($_SESSION['agent_id']).
+		' AND cc_shopsessions.card = cc_card.id  AND cc_shopsessions.endtime IS NULL ;';
 	
 	$res = $DBHandle -> query($QUERY);
 	if ($res){
 		$nodisplay=false;
-		$card_username=$res[0][0];
+		$session_sid=$res[0][0];
 	}
 	else if ($FG_DEBUG >0){
 		echo "Query: " . htmlspecialchars($QUERY) . "<br>";
@@ -92,8 +93,9 @@ if (isset($card) && ($card > 0)){ // find by card
 
 }else{ //no card, booth mode
 	// Find the available/selected booths first..
-	$QUERY= 'SELECT cc_booth.id, cc_booth.name, cc_card.username FROM cc_booth,cc_card ' .
-		'WHERE cc_booth.cur_card_id = cc_card.id AND cc_booth.agentid =' . $DBHandle->Quote($_SESSION['agent_id']). ';';
+	$QUERY= 'SELECT cc_booth.id, cc_booth.name, cc_shopsessions.id FROM cc_booth,cc_shopsessions ' .
+		'WHERE cc_booth.id = cc_shopsessions.booth AND cc_booth.agentid =' . $DBHandle->Quote($_SESSION['agent_id']).
+		' AND cc_shopsessions.endtime IS NULL ;';
 	
 	$res = $DBHandle -> query($QUERY);
 	if ($res) 
@@ -109,7 +111,7 @@ if (isset($card) && ($card > 0)){ // find by card
 		foreach($booth_list as $boo)
 		if ($boo[0] == $booth){
 			$nodisplay=false;
-			$card_username=$boo[2];
+			$session_sid=$boo[2];
 			break;
 		}
 
@@ -128,24 +130,27 @@ Calldate Clid Src Dst Dcontext Channel Dstchannel Lastapp Lastdata Duration Bill
 *******/
 
 $FG_TABLE_COL[]=array (gettext("Calldate"), "starttime", "18%", "center", "SORT", "19", "", "", "", "", "", "display_dateformat");
-$FG_TABLE_COL[]=array (gettext("Source"), "src", "10%", "center", "SORT", "30");
-$FG_TABLE_COL[]=array (gettext("Callednumber"), "calledstation", "18%", "right", "SORT", "30", "", "", "", "", "", "");
-$FG_TABLE_COL[]=array (gettext("Destination"), "destination", "18%", "center", "SORT", "30", "", "", "", "", "", "remove_prefix");
-$FG_TABLE_COL[]=array (gettext("Duration"), "sessiontime", "8%", "center", "SORT", "30", "", "", "", "", "", "display_minute");
-
-$FG_TABLE_COL[]=array (gettext("Cost"), "sessionbill", "9%", "center", "SORT", "30", "", "", "", "", "", "");
+$FG_TABLE_COL[]=array (gettext("Description"), "descr", "10%", "center", "SORT", "30");
+$FG_TABLE_COL[]=array (gettext("F2"), "f2", "18%", "right", "SORT", "30", "", "", "", "", "", "");
+$FG_TABLE_COL[]=array (gettext("Called Number"), "cnum", "18%", "center", "SORT", "30", "", "", "", "", "", "remove_prefix");
+$FG_TABLE_COL[]=array (gettext("Duration"), "duration", "8%", "center", "SORT", "30", "", "", "", "", "", "display_minute");
+$FG_TABLE_COL[]=array (gettext("Credit"), "pos_charge", "8%", "center", "SORT", "30", "", "", "", "", "", "");
+$FG_TABLE_COL[]=array (gettext("Charge"), "neg_charge", "8%", "center", "SORT", "30", "", "", "", "", "", "");
 
 
 // ??? cardID
-$FG_TABLE_DEFAULT_ORDER = "t1.starttime";
-$FG_TABLE_DEFAULT_SENS = "DESC";
+$FG_TABLE_DEFAULT_ORDER = "starttime";
+$FG_TABLE_DEFAULT_SENS = "ASC";
 	
 // This Variable store the argument for the SQL query
 
-$FG_COL_QUERY='t1.starttime, t1.src, t1.calledstation, t1.destination, t1.sessiontime  ';
-$FG_COL_QUERY.=", format_currency(t1.sessionbill,'". strtoupper(BASE_CURRENCY) . "', '$choose_currency')";
+if (! isset($choose_currency) || ( $choose_currency == ''))
+	$choose_currency = strtoupper(BASE_CURRENCY);
+$FG_COL_QUERY='starttime, descr, f2, cnum, duration ';
+$FG_COL_QUERY.=", format_currency(pos_charge,'". strtoupper(BASE_CURRENCY) . "', '$choose_currency')";
+$FG_COL_QUERY.=", format_currency(neg_charge,'". strtoupper(BASE_CURRENCY) . "', '$choose_currency')";
 
-$FG_COL_QUERY_GRAPH='t1.callstart, t1.duration';
+//$FG_COL_QUERY_GRAPH='t1.callstart, t1.duration';
 
 // The variable LIMITE_DISPLAY define the limit of record to display by page
 $FG_LIMITE_DISPLAY=500;
@@ -153,7 +158,7 @@ $FG_LIMITE_DISPLAY=500;
 // Number of column in the html table
 $FG_NB_TABLE_COL=count($FG_TABLE_COL);
 
-$FG_TABLE_CLAUSE= 'username = '. $DBHandle->Quote($card_username);
+$FG_TABLE_CLAUSE= 'sid = '. $DBHandle->Quote($session_sid);
 
 //This variable will store the total number of column
 $FG_TOTAL_TABLE_COL = $FG_NB_TABLE_COL;
