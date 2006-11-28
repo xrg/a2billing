@@ -220,7 +220,7 @@ ALTER TABLE ONLY cc_voucher
 CREATE TABLE cc_service (
     id bigserial NOT NULL,	
     name text NOT NULL,
-    amount double precision NOT NULL,
+    amount numeric(12,4) NOT NULL,
     period integer NOT NULL DEFAULT 1,
     rule integer NOT NULL DEFAULT 0,
     daynumber integer NOT NULL DEFAULT 0,
@@ -231,7 +231,7 @@ CREATE TABLE cc_service (
     datecreate timestamp(0) without time zone DEFAULT now(),
     datelastrun timestamp(0) without time zone DEFAULT now(),
     emailreport text,
-    totalcredit double precision NOT NULL DEFAULT 0,
+    totalcredit numeric(12,4) NOT NULL DEFAULT 0,
     totalcardperform integer NOT NULL DEFAULT 0
 );
 ALTER TABLE ONLY cc_service
@@ -243,7 +243,7 @@ CREATE TABLE cc_service_report (
     cc_service_id bigserial NOT NULL,
     daterun timestamp(0) without time zone DEFAULT now(),
     totalcardperform integer,
-    totalcredit double precision
+    totalcredit numeric(12,4)
 );
 ALTER TABLE ONLY cc_service_report
 ADD CONSTRAINT cc_service_report_pkey PRIMARY KEY (id);
@@ -305,8 +305,8 @@ CREATE TABLE cc_call (
     calledprovider text,
     calledcountry text,
     calledsub text,
-    calledrate double precision,
-    sessionbill double precision,
+    calledrate numeric(12,4),
+    sessionbill numeric(12,4),
     destination text,
     id_tariffgroup integer,
     id_tariffplan integer,
@@ -1257,7 +1257,7 @@ CREATE TABLE cc_autorefill_report (
 	id bigserial NOT NULL,
 	daterun timestamp(0) without time zone DEFAULT now(),
 	totalcardperform integer,
-	totalcredit double precision
+	totalcredit numeric(12,4)
 );
 ALTER TABLE ONLY cc_autorefill_report
 ADD CONSTRAINT cc_autorefill_report_pkey PRIMARY KEY (id);
