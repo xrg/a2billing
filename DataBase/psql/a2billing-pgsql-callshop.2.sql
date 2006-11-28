@@ -10,20 +10,22 @@ CREATE OR REPLACE VIEW cc_booth_v AS
 	SELECT cc_booth.id AS id, cc_booth.agentid AS owner,
 		cc_booth.name, cc_booth.location,
 		cc_card.credit, cc_card.currency,
-		def_card_id, cur_card_id, cc_booth.last_activation,
+		def_card_id, cur_card_id, cc_shopsessions.starttime,
 		cc_card.username AS in_now,
 		(CASE WHEN def_card_id IS NULL THEN 0
 		WHEN cur_card_id IS NULL THEN 1
 		WHEN cc_booth.disabled THEN 5
-		WHEN cc_card.lastuse > cc_booth.last_activation AND cc_card.activated THEN 4
-		WHEN cc_card.lastuse > cc_booth.last_activation THEN 6
+		WHEN cc_card.lastuse > cc_shopsessions.starttime AND cc_card.activated THEN 4
+		WHEN cc_card.lastuse > cc_shopsessions.starttime THEN 6
 		WHEN cc_card.activated THEN 3
 		ELSE 2
 		END) AS state,
 		(SELECT COALESCE(SUM(sessiontime),0) FROM cc_call 
 			WHERE username = cc_card.username
-			AND starttime >= cc_booth.last_activation) AS secs
-	FROM (cc_booth LEFT OUTER JOIN cc_card ON cc_booth.cur_card_id = cc_card.id);
+			AND starttime >= cc_shopsessions.starttime) AS secs
+	FROM (cc_booth LEFT OUTER JOIN cc_card ON cc_booth.cur_card_id = cc_card.id)
+		LEFT OUTER JOIN cc_shopsessions ON cc_shopsessions.booth=cc_booth.id AND
+		cc_shopsessions.endtime IS NULL;
 	
 	
 CREATE OR REPLACE FUNCTION format_currency(money_sum NUMERIC, from_cur CHAR(3), to_cur CHAR(3)) RETURNS text
@@ -296,5 +298,54 @@ CREATE TRIGGER cc_booth_check_agent BEFORE UPDATE ON cc_booth
 
 CREATE TRIGGER cc_booth_upd_callerid_t AFTER INSERT OR UPDATE OR DELETE ON cc_booth
 	FOR EACH ROW EXECUTE PROCEDURE cc_booth_upd_callerid();
+
+
+-------------------------
+--     Refill
+-------------------------
+
+CREATE OR REPLACE FUNCTION cc_agent_refill_it() RETURNS trigger AS $$
+  BEGIN
+  	IF NEW.agentid IS NULL THEN
+  		RAISE EXCEPTION 'agentid cannot be NULL';
+  	END IF;
+  	
+  	IF NEW.boothid IS NOT NULL THEN
+  		SELECT INTO NEW.card_id cur_card_id FROM cc_booth WHERE 
+  			id = NEW.boothid AND
+  			cur_card_id IS NOT NULL;
+  		IF NOT FOUND THEN
+  			RAISE EXCEPTION 'No such booth with loaded card ';
+  		END IF;
+	END IF;
+  	
+  	IF NEW.card_id IS NULL THEN
+  		RAISE EXCEPTION 'card_id cannot be NULL';
+  	END IF;
+  	PERFORM card_id FROM cc_agent_cards WHERE
+  		card_id = NEW.card_id AND agentid = NEW.agentid;
+  	IF NOT FOUND THEN
+  		RAISE EXCEPTION 'No such card for this agent';
+  	END IF;
+  	
+  	PERFORM id FROM cc_agent
+  		WHERE id = NEW.agentid AND credit + climit >= NEW.credit ;
+  	IF NOT FOUND THEN
+  		RAISE EXCEPTION 'Agent does not have enough credit';
+  	END IF;
+  	
+  	UPDATE cc_agent SET credit = credit - NEW.credit WHERE id = NEW.agentid;
+  	IF NOT FOUND THEN
+  		RAISE EXCEPTION 'Failed to update agents credit';
+  	END IF;
+  	UPDATE cc_card SET credit = credit + NEW.credit WHERE id = NEW.card_id;
+  	RETURN NEW;
+  END;
+  $$ LANGUAGE plpgsql;
+  
+DROP TRIGGER cc_agent_refill_it ON cc_agentrefill;
+
+CREATE TRIGGER cc_agent_refill_it BEFORE INSERT ON cc_agentrefill
+	FOR EACH ROW EXECUTE PROCEDURE cc_agent_refill_it();
 
 -- eof

@@ -62,7 +62,7 @@ CREATE TABLE cc_currencies (
 -- refills
 
 CREATE TABLE cc_agentrefill (
-    id serial NOT NULL,
+    id bigserial NOT NULL,
     date timestamp(0) without time zone DEFAULT now() NOT NULL,
     credit numeric(12,4) NOT NULL,
     card_id bigint NOT NULL REFERENCES cc_card(id),
