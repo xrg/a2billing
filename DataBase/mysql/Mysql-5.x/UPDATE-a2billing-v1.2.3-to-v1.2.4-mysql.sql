@@ -11,6 +11,9 @@ ALTER TABLE cc_charge ALTER COLUMN id_cc_did SET DEFAULT 0;
 
 ALTER TABLE cc_did ADD COLUMN reserved INT DEFAULT 0;
 
+ALTER TABLE cc_iax_buddies ADD COLUMN id_cc_card INT DEFAULT 0 NOT NULL;
+ALTER TABLE cc_sip_buddies ADD COLUMN id_cc_card INT DEFAULT 0 NOT NULL;
+
 CREATE TABLE cc_did_use (
     id BIGINT NOT NULL AUTO_INCREMENT,
     id_cc_card BIGINT,

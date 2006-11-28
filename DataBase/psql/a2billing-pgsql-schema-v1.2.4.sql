@@ -480,6 +480,7 @@ CREATE TABLE cc_trunk (
 
 CREATE TABLE cc_sip_buddies (
     id serial NOT NULL,
+    id_cc_card integer DEFAULT 0 NOT NULL,
     name character varying(80) DEFAULT ''::character varying NOT NULL,
     "type" character varying(6) DEFAULT 'friend'::character varying NOT NULL,
     username character varying(80) DEFAULT ''::character varying NOT NULL,	
@@ -524,6 +525,7 @@ CREATE TABLE cc_sip_buddies (
 
 CREATE TABLE cc_iax_buddies (
     id serial NOT NULL,
+    id_cc_card integer DEFAULT 0 NOT NULL,
     name character varying(80) DEFAULT ''::character varying NOT NULL,
     "type" character varying(6) DEFAULT 'friend'::character varying NOT NULL,
     username character varying(80) DEFAULT ''::character varying NOT NULL,	

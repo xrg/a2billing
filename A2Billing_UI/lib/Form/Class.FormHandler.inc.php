@@ -1328,9 +1328,9 @@ class FormHandler{
 	*/
 	function is_did_in_use(){
 		$processed = $this->getProcessed();
-		$did=$processed['id'];
+		$did_id=$processed['id'];
 		$instance_did_use_table = new Table();
-		$QUERY_DID="select id_cc_card from cc_did_use where id_did ='".$did."' and releasedate IS NULL and activated = 1";
+		$QUERY_DID="select id_cc_card from cc_did_use where id_did ='".$did_id."' and releasedate IS NULL and activated = 1";
 		$row= $instance_did_use_table -> SQLexec ($this->DBHandle,$QUERY_DID, 1);
 		if ((isset($row[0][0])) && (strlen($row[0][0]) > 0))
 			$this -> FG_INTRO_TEXT_ASK_DELETION = gettext ("This did is in use by customer id:".$row[0][0].", If you really want remove this ". $this -> FG_INSTANCE_NAME .", click on the delete button.");
@@ -1339,15 +1339,15 @@ class FormHandler{
 	
 	function did_use_delete(){
 		$processed = $this->getProcessed();
-		$did=$processed['id'];
+		$did_id=$processed['id'];
 		$FG_TABLE_DID_USE_NAME = "cc_did_use";
-		$FG_TABLE_DID_USE_CLAUSE= "id_did = '".$did."' and releasedate IS NULL";
+		$FG_TABLE_DID_USE_CLAUSE= "id_did = '".$did_id."' and releasedate IS NULL";
 		$FG_TABLE_DID_USE_PARAM= "releasedate = now()";
 		$instance_did_use_table = new Table($FG_TABLE_DID_USE_NAME);
 		$result_query= $instance_did_use_table -> Update_table ($this->DBHandle, $FG_TABLE_DID_USE_PARAM, $FG_TABLE_DID_USE_CLAUSE, null);
 		$FG_TABLE_DID_USE_NAME = "cc_did_destination";
 		$instance_did_use_table = new Table($FG_TABLE_DID_USE_NAME);
-		$FG_TABLE_DID_USE_CLAUSE= "id_cc_did = '".$did."'";
+		$FG_TABLE_DID_USE_CLAUSE= "id_cc_did = '".$did_id."'";
 		$result_query= $instance_did_use_table -> Delete_table ($this->DBHandle, $FG_TABLE_DID_USE_CLAUSE, null);
 	}
 	
@@ -1358,9 +1358,8 @@ class FormHandler{
 		$FG_TABLE_DID_USE_NAME = "cc_did_use";
 		$FG_QUERY_ADITION_DID_USE_FIELDS = 'id_did';
 		$instance_did_use_table = new Table($FG_TABLE_DID_USE_NAME, $FG_QUERY_ADITION_DID_USE_FIELDS);
-		$QUERY_DID="select id from cc_did where did ='".$did."'";
-		$row= $instance_did_use_table -> SQLexec ($this->DBHandle,$QUERY_DID, 1);
-		$result_query= $instance_did_use_table -> Add_table ($this->DBHandle, $row[0][0], null, null, null);
+		$id=$this -> RESULT_QUERY;
+		$result_query= $instance_did_use_table -> Add_table ($this->DBHandle, $id, null, null, null);
 	}
 	 
 	/*
@@ -1391,7 +1390,7 @@ class FormHandler{
 
 		global $A2B;
 		$processed = $this->getProcessed();
-
+		$id=$this -> RESULT_QUERY;
 		$sip_buddy = $processed['sip_buddy'];
 		$iax_buddy = $processed['iax_buddy'];
 		$username = $processed['username'];
@@ -1401,7 +1400,7 @@ class FormHandler{
 		$FG_TABLE_SIP_NAME="cc_sip_buddies";
 		$FG_TABLE_IAX_NAME="cc_iax_buddies";
 
-		$FG_QUERY_ADITION_SIP_IAX_FIELDS = "name, accountcode, regexten, amaflags, callerid, context, dtmfmode, host, type, username, allow, secret";
+		$FG_QUERY_ADITION_SIP_IAX_FIELDS = "name, accountcode, regexten, amaflags, callerid, context, dtmfmode, host, type, username, allow, secret, id_cc_card";
 
 		$FG_QUERY_ADITION_SIP_IAX='name, type, username, accountcode, regexten, callerid, amaflags, secret, md5secret, nat, dtmfmode, qualify, canreinvite,disallow, allow, host, callgroup, context, defaultip, fromuser, fromdomain, insecure, language, mailbox, permit, deny, mask, pickupgroup, port,restrictcid, rtptimeout, rtpholdtimeout, musiconhold, regseconds, ipaddr, cancallforward';
 
@@ -1409,9 +1408,9 @@ class FormHandler{
 			$list_names = explode(",",$FG_QUERY_ADITION_SIP_IAX);
 			$amaflag = $A2B->config["signup"]['amaflag'];
 			$context = $A2B->config["signup"]['context'];
-            $FG_QUERY_ADITION_SIP_IAX_VALUE = "'$username', '$username', '$username', '$amaflag', '$useralias', '$context', 'RFC2833','dynamic', 'friend', '$username', 'g729,ulaw,alaw,gsm','".$uipass."'";
+            $FG_QUERY_ADITION_SIP_IAX_VALUE = "'$username', '$username', '$username', '$amaflag', '$useralias', '$context', 'RFC2833','dynamic', 'friend', '$username', 'g729,ulaw,alaw,gsm','".$uipass."','$id'";
 			if(strlen($this->FG_QUERY_ADITION_SIP_IAX_VALUE)==0){
-            		$this->FG_QUERY_ADITION_SIP_IAX_VALUE = "'$username', '$username', '$username', '$amaflag', '$useralias', '$context', 'RFC2833','dynamic', 'friend', '$username', 'g729,ulaw,alaw,gsm','".$uipass."'";
+            		$this->FG_QUERY_ADITION_SIP_IAX_VALUE = "'$username', '$username', '$username', '$amaflag', '$useralias', '$context', 'RFC2833','dynamic', 'friend', '$username', 'g729,ulaw,alaw,gsm','".$uipass."','$id'";
 			}
 		}	
 

@@ -430,6 +430,7 @@ CREATE TABLE cc_trunk (
 
 CREATE TABLE cc_sip_buddies (
     id INT NOT NULL AUTO_INCREMENT,
+    id_cc_card INT DEFAULT 0 NOT NULL,
     name CHAR(80) DEFAULT '' NOT NULL,
     accountcode CHAR(20),
     regexten CHAR(20),
@@ -475,6 +476,7 @@ CREATE TABLE cc_sip_buddies (
 
 CREATE TABLE cc_iax_buddies (
     id INT NOT NULL AUTO_INCREMENT,
+    id_cc_card INT DEFAULT 0 NOT NULL,
     name CHAR(80) DEFAULT '' NOT NULL,
     accountcode CHAR(20),
     regexten CHAR(20),

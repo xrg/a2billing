@@ -20,9 +20,9 @@ $HD_Form -> setDBHandler (DbConnect());
 $HD_Form -> init();
 
 /********************************* ADD SIP / IAX FRIEND ***********************************/
-getpost_ifset(array("cardnumber", "useralias"));
+getpost_ifset(array("id_cc_card", "cardnumber", "useralias"));
 
-if ( (isset ($cardnumber) && (is_numeric($cardnumber)  != "")) && ( $form_action == "add_sip" || $form_action == "add_iax") ){
+if ( (isset ($id_cc_card) && (is_numeric($id_cc_card)  != "")) && ( $form_action == "add_sip" || $form_action == "add_iax") ){
 
 	$_SESSION["is_sip_iax_change"]=1;
 	
@@ -38,14 +38,14 @@ if ( (isset ($cardnumber) && (is_numeric($cardnumber)  != "")) && ( $form_action
 	}	
 	
 	$instance_table_friend = new Table('cc_card');
-	$instance_table_friend -> Update_table ($HD_Form -> DBHandle, $friend_param_update, "username='$cardnumber'", $func_table = null);
+	$instance_table_friend -> Update_table ($HD_Form -> DBHandle, $friend_param_update, "id='$id_cc_card'", $func_table = null);
 	
 	
 	if ( $form_action == "add_sip" )	$TABLE_BUDDY = 'cc_sip_buddies';
 	else 	$TABLE_BUDDY = 'cc_iax_buddies';
 	
 	$instance_table_friend = new Table($TABLE_BUDDY,'*');	
-	$list_friend = $instance_table_friend -> Get_list ($HD_Form -> DBHandle, "name='$cardnumber'", null, null, null, null);
+	$list_friend = $instance_table_friend -> Get_list ($HD_Form -> DBHandle, "id_cc_card='$id_cc_card'", null, null, null, null);
 	
 	if (is_array($list_friend) && count($list_friend)>0){ Header ("Location: ".$HD_Form->FG_GO_LINK_AFTER_ACTION); exit();}
 
@@ -57,6 +57,7 @@ if ( (isset ($cardnumber) && (is_numeric($cardnumber)  != "")) && ( $form_action
 	$_POST['nat']='yes';
 	$_POST['amaflags']='billing';
 	$_POST['regexten']=$cardnumber;
+	$_POST['id_cc_card']=$id_cc_card;
 	$_POST['callerid']=$useralias;
 	$_POST['qualify']='yes';
 	$_POST['host']='dynamic';   
