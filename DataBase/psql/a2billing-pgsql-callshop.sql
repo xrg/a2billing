@@ -70,6 +70,17 @@ CREATE TABLE cc_agentrefill (
     boothid bigint REFERENCES cc_booth(id)
 );
 
+
+CREATE TABLE cc_shopsessions (
+	id bigserial PRIMARY KEY,
+	booth bigint NOT NULL REFERENCES cc_booth(id),
+	card bigint NOT NULL REFERENCES cc_card(id),
+	starttime timestamp NOT NULL DEFAULT now(),
+	endtime  timestamp,
+	state text NOT NULL -- REFERENCES cc_texts(id)
+);
+
+
 -- CREATE OR REPLACE FUNCTION booth_start(booth bigint, agent_id bigint) RETURNS bigint
 -- 	AS $$
 -- 		UPDATE cc_card SET activated= 't' 
