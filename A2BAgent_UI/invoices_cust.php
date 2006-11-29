@@ -52,7 +52,7 @@ if (!isset ($current_page) || ($current_page == "")){
 
 
 // this variable specifie the debug type (0 => nothing, 1 => sql result, 2 => boucle checking, 3 other value checking)
-$FG_DEBUG = 3;
+$FG_DEBUG = 0;
 
 // The variable FG_TABLE_NAME define the table name to use
 $FG_TABLE_NAME="cc_session_invoice";
@@ -95,7 +95,7 @@ if (isset($card) && ($card > 0)){ // find by card
 	// Find the available/selected booths first..
 	$QUERY= 'SELECT cc_booth.id, cc_booth.name, cc_shopsessions.id FROM cc_booth,cc_shopsessions ' .
 		'WHERE cc_booth.id = cc_shopsessions.booth AND cc_booth.agentid =' . $DBHandle->Quote($_SESSION['agent_id']).
-		' AND cc_shopsessions.endtime IS NULL ;';
+		' AND cc_shopsessions.endtime IS NULL ORDER BY cc_shopsessions.id DESC ;';
 	
 	$res = $DBHandle -> query($QUERY);
 	if ($res) 
@@ -131,12 +131,15 @@ Calldate Clid Src Dst Dcontext Channel Dstchannel Lastapp Lastdata Duration Bill
 
 $FG_TABLE_COL[]=array (gettext("Calldate"), "starttime", "18%", "center", "SORT", "19", "", "", "", "", "", "display_dateformat");
 $FG_TABLE_COL[]=array (gettext("Description"), "descr", "10%", "center", "SORT", "30");
-$FG_TABLE_COL[]=array (gettext("F2"), "f2", "18%", "right", "SORT", "30", "", "", "", "", "", "");
-$FG_TABLE_COL[]=array (gettext("Called Number"), "cnum", "18%", "center", "SORT", "30", "", "", "", "", "", "remove_prefix");
+$FG_TABLE_COL[]=array ("", "f2", "18%", "left", "SORT", "30", "", "", "", "", "", "");
+$FG_TABLE_COL[]=array (gettext("Called Number"), "cnum", "18%", "left", "SORT", "30", "", "", "", "", "", "remove_prefix");
 $FG_TABLE_COL[]=array (gettext("Duration"), "duration", "8%", "center", "SORT", "30", "", "", "", "", "", "display_minute");
 $FG_TABLE_COL[]=array (gettext("Credit"), "pos_charge", "8%", "center", "SORT", "30", "", "", "", "", "", "");
 $FG_TABLE_COL[]=array (gettext("Charge"), "neg_charge", "8%", "center", "SORT", "30", "", "", "", "", "", "");
 
+if (false) { // fool gettext into considering these strings: !
+	echo gettext("Payment") . gettext("Call") . gettext("Session start") . gettext("credit");
+}
 
 // ??? cardID
 $FG_TABLE_DEFAULT_ORDER = "starttime";
@@ -145,12 +148,18 @@ $FG_TABLE_DEFAULT_SENS = "ASC";
 // This Variable store the argument for the SQL query
 
 if (! isset($choose_currency) || ( $choose_currency == ''))
-	$choose_currency = strtoupper(BASE_CURRENCY);
+	$choose_currency = $_SESSION["currency"];
 $FG_COL_QUERY='starttime, descr, f2, cnum, duration ';
 $FG_COL_QUERY.=", format_currency(pos_charge,'". strtoupper(BASE_CURRENCY) . "', '$choose_currency')";
 $FG_COL_QUERY.=", format_currency(neg_charge,'". strtoupper(BASE_CURRENCY) . "', '$choose_currency')";
 
 //$FG_COL_QUERY_GRAPH='t1.callstart, t1.duration';
+$FG_SUM_QUERY="SUM(duration),format_currency(SUM(pos_charge),'". strtoupper(BASE_CURRENCY) . "', '$choose_currency'), ";
+$FG_SUM_QUERY.="format_currency(SUM(neg_charge),'". strtoupper(BASE_CURRENCY) . "', '$choose_currency'), ";
+$FG_SUM_QUERY.="format_currency((SUM(pos_charge) - SUM(neg_charge)),'". strtoupper(BASE_CURRENCY) . "', '$choose_currency'), ";
+$FG_SUM_QUERY.="(SUM(pos_charge) - SUM(neg_charge)), "; // and once the numeric value BEWARE: NOT in chosen currency!
+$FG_SUM_QUERY.="format_currency((SUM(neg_charge) - SUM(pos_charge)),'". strtoupper(BASE_CURRENCY) . "', '$choose_currency') ";
+
 
 // The variable LIMITE_DISPLAY define the limit of record to display by page
 $FG_LIMITE_DISPLAY=500;
@@ -168,11 +177,11 @@ if ($FG_DELETION || $FG_EDITION) $FG_TOTAL_TABLE_COL++;
 $FG_HTML_TABLE_TITLE=" - Call Logs - ";
 
 //This variable define the width of the HTML table
-$FG_HTML_TABLE_WIDTH="70%";
+$FG_HTML_TABLE_WIDTH="90%";
 
 	if ($FG_DEBUG >= 3) echo "<br>Table : $FG_TABLE_NAME  	- 	Col_query : $FG_COL_QUERY";
 	$instance_table = new Table($FG_TABLE_NAME, $FG_COL_QUERY);
-	$instance_table_graph = new Table($FG_TABLE_NAME, $FG_COL_QUERY_GRAPH);
+	$instance_table_sum = new Table($FG_TABLE_NAME, $FG_SUM_QUERY);
 
 
 if ( is_null ($order) || is_null($sens) ){
@@ -183,6 +192,7 @@ if ( is_null ($order) || is_null($sens) ){
 
 if (!$nodisplay){
 	$list = $instance_table -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, $order, $sens, null, null, $FG_LIMITE_DISPLAY, $current_page*$FG_LIMITE_DISPLAY);
+	$list_sum = $instance_table_sum -> Get_list ($DBHandle, $FG_TABLE_CLAUSE);
 }
 
 $_SESSION["pr_sql_export"]="SELECT $FG_COL_QUERY FROM $FG_TABLE_NAME WHERE $FG_TABLE_CLAUSE";
@@ -191,26 +201,10 @@ $_SESSION["pr_sql_export"]="SELECT $FG_COL_QUERY FROM $FG_TABLE_NAME WHERE $FG_T
 //$QUERY = "SELECT substring(calldate,1,10) AS day, sum(duration) AS calltime, count(*) as nbcall FROM cdr WHERE ".$FG_TABLE_CLAUSE." GROUP BY substring(calldate,1,10)"; //extract(DAY from calldate)
 
 
-$QUERY = "SELECT substring(t1.starttime,1,10) AS day, sum(t1.sessiontime) AS calltime, format_currency(sum(t1.sessionbill),'" . strtoupper(BASE_CURRENCY) ."', '$choose_currency') AS cost, count(*) as nbcall FROM $FG_TABLE_NAME WHERE ".$FG_TABLE_CLAUSE." GROUP BY substring(t1.starttime,1,10) ORDER BY day"; //extract(DAY from calldate)
-if ($FG_DEBUG >=1 ) echo "<br>Query: " . htmlspecialchars($QUERY) ."<br>";
-
-if (!$nodisplay){
-		$res = $DBHandle -> query($QUERY);
-		if ($res)
-			$num = $res -> numRows();
-		else $num = 0;
-		for($i=0;$i<$num;$i++)
-		{
-			$list_total_day [] =$res -> fetchRow();
-		}
-
-
-
 if ($FG_DEBUG >= 3) echo "<br>Clause : $FG_TABLE_CLAUSE";
 $nb_record = $instance_table -> Table_count ($DBHandle, $FG_TABLE_CLAUSE);
 if ($FG_DEBUG >= 4) var_dump ($list);
 
-}//end IF nodisplay
 
 
 // GROUP BY DESTINATION FOR THE INVOICE
@@ -235,6 +229,24 @@ if ($FG_DEBUG >= 4) var_dump ($list_total_destination);
 
 }//end IF nodisplay
 
+$QUERY = "SELECT descr, " .
+ "format_currency(SUM(pos_charge), '" .strtoupper(BASE_CURRENCY) . "','$choose_currency'), " .
+ "format_currency(SUM(neg_charge), '" .strtoupper(BASE_CURRENCY) . "','$choose_currency') " ;
+$QUERY .= "FROM cc_session_invoice WHERE " . $FG_TABLE_CLAUSE;
+$QUERY .=" GROUP BY descr"; //extract(DAY from calldate)
+
+if (!$nodisplay){
+		$res = $DBHandle -> query($QUERY);
+		if ($res) $num = $res -> numRows();
+		else $num = 0;
+		for($i=0;$i<$num;$i++)
+		{
+			$list_type_charge [] =$res -> fetchRow();
+		}
+
+		if ($FG_DEBUG >= 3) var_dump ($list_type_charge);
+
+}//end IF nodisplay
 
 
 
@@ -379,13 +391,13 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 
 		<TABLE border=0 cellPadding=0 cellSpacing=0 width="<?=  $FG_HTML_TABLE_WIDTH?>" align="center">
                 <TR bgColor=#F0F0F0>
-		  <TD width="7%" class="tableBodyRight" style="PADDING-BOTTOM: 2px; PADDING-LEFT: 2px; PADDING-RIGHT: 2px; PADDING-TOP: 2px"><?=  gettext("nb");?></TD>
+		  <TD width="5%" class="tableBodyRight" style="PADDING-BOTTOM: 2px; PADDING-LEFT: 2px; PADDING-RIGHT: 2px; PADDING-TOP: 2px"><?=  gettext("nb");?></TD>
 	<?php if (is_array($list) && count($list)>0){ 
 		for($i=0;$i<$FG_NB_TABLE_COL;$i++){ ?>
                   <TD width="<?=  $FG_TABLE_COL[$i][2]?>" align=middle class="tableBody" style="PADDING-BOTTOM: 2px; PADDING-LEFT: 2px; PADDING-RIGHT: 2px; PADDING-TOP: 2px">
                     <center>
                     <?=  $FG_TABLE_COL[$i][0]?>
-                   
+ 
                   </center></TD>
 				   <?php } ?>
                 </TR>
@@ -403,8 +415,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 							
 							
 							if ( is_numeric($FG_TABLE_COL[$i][5]) && (strlen($record_display) > $FG_TABLE_COL[$i][5])  ){
-								$record_display = substr($record_display, 0, $FG_TABLE_COL[$i][5]-3)."";  
-															
+								$record_display = substr($record_display, 0, $FG_TABLE_COL[$i][5]-3)."";
 							}
 							
 				 		 ?>
@@ -413,14 +424,15 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 						 	call_user_func($FG_TABLE_COL[$i][11], $record_display);
 						 }else{
 						 	echo stripslashes($record_display);
-						 }						 
+						 }
 						 ?></TD>
 				 		 <?php  } ?>
                   
 					</TR>
 				<?php
 					 }//foreach ($list as $recordset)
-					 if ($ligne_number < $FG_LIMITE_DISPLAY)  $ligne_number_end=$ligne_number +2;
+					 if ($ligne_number < $FG_LIMITE_DISPLAY)
+					 	$ligne_number_end=$ligne_number +2;
 					 while ($ligne_number < $ligne_number_end){
 					 	$ligne_number++;
 				?>
@@ -429,12 +441,19 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 				 		 ?>
                  		 <TD>&nbsp;</TD>
 				 		 <?php  } ?>
-                 		 <TD align="center">&nbsp;</TD>				
-					</TR>
-									
-				<?php					 
-					 } //END_WHILE
-					 
+                 		 <TD align="center">&nbsp;</TD>
+				</TR>
+				<?php
+					 } //END_WHILE ?>
+				<tr class="sum_row"><td colspan=5 align=right><?= _("Partial sum:")?> &nbsp; &nbsp;</td>
+				<?php $sum_line = $list_sum[0]; ?>
+				<td class=tableBody><?php display_minute($sum_line[0]);?></td>
+				<td class=tableBody><?= $sum_line[1]; ?></td><td class=tableBody><?= $sum_line[2]; ?></td>
+				</tr>
+				<tr class="sum_row"><td colspan=5 align=right><?= _("Sum:")?>  &nbsp; &nbsp; </td>
+				<td >&nbsp;</td>
+				<td colspan=2 class=tableBody><?= $sum_line[3]; ?></td></tr>
+				<?php
 				  }else{
 				  		echo gettext("No data found !!!");
 				  }//end_if
@@ -450,7 +469,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 			<div style="padding-right: 15px;">
 			<table cellpadding="1" bgcolor="#000000" cellspacing="1" width="<?php if ($_SESSION["is_admin"]==1){ ?>450<?php }else{?>200<?php }?>" align="right">
 				<tbody>
-                <tr class="form_head">                   									   
+                <tr class="form_head">
 				   <td width="33%" align="center" class="tableBodyRight" bgcolor="#600101" style="padding: 5px;"><strong>TOTAL COSTS</strong></td>
 				   <?php if ($_SESSION["is_admin"]==1){ ?><td width="33%" align="center" class="tableBodyRight" bgcolor="#600101" style="padding: 5px;"><strong><?=  gettext("TOTAL BUYCOSTS");?></strong></td><?php }?>
 				   <?php if ($_SESSION["is_admin"]==1){ ?><td width="33%" align="center" class="tableBodyRight" bgcolor="#600101" style="padding: 5px;"><strong><?=  gettext("DIFFERENCE");?></strong></td><?php }?>
@@ -491,17 +510,17 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 <table border="0" cellspacing="1" cellpadding="2" width="70%" align="center">
 	<tr>	
 		<td align="center" bgcolor="#600101"></td>
-    	<td bgcolor="#b72222" align="center" colspan="4"><font color="#ffffff"><b><?=  gettext("EXTRA CHARGE");?></b></font></td>
+    	<td bgcolor="#b72222" align="center" colspan="4"><font color="#ffffff"><b><?=  gettext("CREDITS/CHARGES");?></b></font></td>
     </tr>
 	<tr>
 
-		<td align="center" bgcolor="#F2E8ED"><font face="verdana" size="1" color="#000000"><b><?=  gettext("DATE");?></b></font></td>
-        <td align="center"><font face="verdana" color="#000000" size="1"><b><?=  gettext("NB CHARGE");?></b></font></td>
-		<td align="center"><font face="verdana" color="#000000" size="1"><b><?=  gettext("TOTALCOST");?></b></font></td>
+		<td align="center" bgcolor="#F2E8ED"><font face="verdana" size="1" color="#000000"><b><?=  gettext("TYPE");?></b></font></td>
+        <td align="center"><font face="verdana" color="#000000" size="1"><b><?=  gettext("CREDIT");?></b></font></td>
+		<td align="center"><font face="verdana" color="#000000" size="1"><b><?=  gettext("CHARGE");?></b></font></td>
  
 <?php  		
 		$i=0;
-		foreach ($list_total_day_charge as $data){
+		foreach ($list_type_charge as $data){
 		$i=($i+1)%2;
 		 
 		
@@ -510,31 +529,21 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 	<tr>
 		<td align="center" bgcolor="#D2D8ED"><font face="verdana" size="1" color="#000000"><?=  $data[0]?></font></td>
 
-        <td bgcolor="<?=  $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="center"><font face="verdana" color="#000000" size="1"><?=  $data[2]?></font></td>
+        <td bgcolor="<?=  $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="center"><font face="verdana" color="#000000" size="1"><?=  $data[1]?></font></td>
         
-		<td bgcolor="<?=  $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="center"><font face="verdana" color="#000000" size="1"><?= $data[1] ?></font></td>
-     <?php 	 }	 	
+		<td bgcolor="<?=  $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="center"><font face="verdana" color="#000000" size="1"><?= $data[2] ?></font></td>
+     <?php 	 }
 
 
-	 ?>                   	
+	 ?>
 	</tr>	
-	<tr bgcolor="#600101" >
-		<td align="center" width="40%"></td>		
-		<td align="center"><font color="#ffffff"><b><?=  $totalcharge?></b></font></td>
-		<td align="center"><font color="#ffffff"><b><?= $totalcost ?></b></font></td>
-	</tr>
-	
+		
 	<tr>		
 		<td align="center" bgcolor="#BA5151" colspan="3"><font color="#ffffff">
-		<b>TOTAL = 
+		<b><?= _("TOTAL");?> = 
 
-<?php  
-$prvat = ($vat / 100) * $totalcost;
-
-/*-*/
-display_2bill($totalcost + $prvat);
-if ($vat>0) echo  " (".$vat." % ".gettext("VAT").")";
-
+<?php echo $list_sum[0][3];
+if ($vat>0) echo  " (" .gettext("includes VAT"). "$vat %)";
  ?>
  </b></font></td>
 	</tr>
@@ -581,7 +590,7 @@ foreach ($list_total_day as $data){
         <td align="right"><font face="verdana" color="#000000" size="1"><?=  gettext("CALL");?></font></td>
 		<td align="right"><font face="verdana" color="#000000" size="1"><?=  gettext("TOTAL COST");?></font></td>
 	 
-<?php  		
+<?php 
 		$i=0;
 		foreach ($list_total_day as $data){	
 		$i=($i+1)%2;		
@@ -645,8 +654,17 @@ if ($vat>0) echo  " (".$vat." % ".gettext("VAT").")";
 </table>
 <?php  } ?>
 
-<?php  if($exporttype!="pdf"){ ?>
-
+<?php  if($exporttype!="pdf"){ 
+if ($list_sum[0][4] >0.0){ ?>
+	<br><hr width="350"><br>
+	<p class='pay-back-btn'> <a href='pay.php?sid=<?= $session_sid . '&choose_currency=' .$choose_currency; ?>'> <?=_("Pay back:") . '&nbsp' . $list_sum[0][3] ; ?></a>
+	<br><hr width="350"><br>
+<?php }else if ($list_sum[0][4] <0.0){ ?>
+	<br><hr width="350"><br>
+	<p class='pay-btn'> <a href='pay.php?sid=<?= $session_sid .'&choose_currency=' .$choose_currency; ?>'> <?=_("Pay:") . '&nbsp' . $list_sum[0][5] ; ?></a>
+	<br><hr width="350"><br>
+<?php } ?>
+<br>
 <?php
 	include("PP_footer.php");
 ?>

@@ -119,6 +119,27 @@ table.Booth td.buttons a {
 	color: black;
 	margin-right: 3px;
 }
+
+p.pay-btn {
+	text-align: right ;
+}
+
+p.pay-back-btn {
+	text-align: right ;
+}
+p.pay-back-btn a {
+	font-size: 20pt;
+	color: #008000;
+}
+p.pay-btn a {
+	font-size: 20pt;
+	color: #800000;
+}
+
+p.pay-title {
+	font-size: 20pt;
+	color: black;
+}
 </style>
 </head>
 <body  leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">

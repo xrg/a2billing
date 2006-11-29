@@ -59,12 +59,17 @@ CREATE TABLE cc_currencies (
 );
 	
 -- This table will hold the transactions for the agent<->card
--- refills
+-- refills. boothid is optional.
+-- 'carried' is important: if set to true, then the transaction
+-- will NOT cause cc_agent.credit/cc.card.credit to be updated.
+-- That is useful when inserting dummy refills to carry the credit
+-- between sessions. 
 
 CREATE TABLE cc_agentrefill (
     id bigserial NOT NULL,
-    date timestamp(0) without time zone DEFAULT now() NOT NULL,
+    date timestamp without time zone DEFAULT now() NOT NULL,
     credit numeric(12,4) NOT NULL,
+    carried boolean NOT NULL DEFAULT false,
     card_id bigint NOT NULL REFERENCES cc_card(id),
     agentid bigint NOT NULL REFERENCES cc_agent(id),
     boothid bigint REFERENCES cc_booth(id)

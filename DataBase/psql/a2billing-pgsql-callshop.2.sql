@@ -334,11 +334,13 @@ CREATE OR REPLACE FUNCTION cc_agent_refill_it() RETURNS trigger AS $$
   		RAISE EXCEPTION 'Agent does not have enough credit';
   	END IF;
   	
-  	UPDATE cc_agent SET credit = credit - NEW.credit WHERE id = NEW.agentid;
-  	IF NOT FOUND THEN
-  		RAISE EXCEPTION 'Failed to update agents credit';
-  	END IF;
-  	UPDATE cc_card SET credit = credit + NEW.credit WHERE id = NEW.card_id;
+  	IF NEW.carried = FALSE THEN
+		UPDATE cc_agent SET credit = credit - NEW.credit WHERE id = NEW.agentid;
+		IF NOT FOUND THEN
+			RAISE EXCEPTION 'Failed to update agents credit';
+		END IF;
+		UPDATE cc_card SET credit = credit + NEW.credit WHERE id = NEW.card_id;
+	END IF;
   	RETURN NEW;
   END;
   $$ LANGUAGE plpgsql;
@@ -352,7 +354,7 @@ CREATE TRIGGER cc_agent_refill_it BEFORE INSERT ON cc_agentrefill
 -- One view for all: have all the session transactions in one table.
 
 DROP view cc_session_invoice;
-CREATE VIEW cc_session_invoice AS
+CREATE OR REPLACE VIEW cc_session_invoice AS
 		-- Calls
 	SELECT cc_call.starttime, 'Call' AS descr, cc_shopsessions.id AS sid,
 		cc_shopsessions.booth AS boothid,
@@ -378,7 +380,7 @@ CREATE VIEW cc_session_invoice AS
 		NULL as duration
 		FROM cc_shopsessions, cc_agentrefill
 		WHERE cc_shopsessions.card = cc_agentrefill.card_id AND
-			cc_shopsessions.booth = cc_agentrefill.boothid AND
+			( cc_agentrefill.boothid IS NULL OR cc_shopsessions.booth = cc_agentrefill.boothid) AND
 			cc_agentrefill.credit > 0.0 AND
 			cc_shopsessions.starttime <= cc_agentrefill.date AND
 			(cc_shopsessions.endtime IS NULL OR cc_shopsessions.endtime >= cc_agentrefill.date)
@@ -389,9 +391,19 @@ CREATE VIEW cc_session_invoice AS
 		NULL as duration
 		FROM cc_shopsessions, cc_agentrefill
 		WHERE cc_shopsessions.card = cc_agentrefill.card_id AND
-			cc_shopsessions.booth = cc_agentrefill.boothid AND
+			( cc_agentrefill.boothid IS NULL OR cc_shopsessions.booth = cc_agentrefill.boothid) AND
 			cc_agentrefill.credit < 0.0 AND
 			cc_shopsessions.starttime <= cc_agentrefill.date AND
 			(cc_shopsessions.endtime IS NULL OR cc_shopsessions.endtime >= cc_agentrefill.date);
 
+
+CREATE OR REPLACE FUNCTION conv_currency(money_sum NUMERIC, from_cur CHAR(3), to_cur CHAR(3)) RETURNS NUMERIC
+	AS $$
+	SELECT  (($1 * from_rate) / to_rate)
+	FROM 	(SELECT DISTINCT ON (b.currency) a.value AS from_rate,  b.value AS to_rate
+		FROM cc_currencies AS a, cc_currencies AS b
+		WHERE a.currency = $2 AND b.currency = $3 AND a.basecurrency = b.basecurrency ) AS foo
+		;
+	$$
+	LANGUAGE SQL STABLE STRICT;
 -- eof

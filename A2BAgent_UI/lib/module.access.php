@@ -30,8 +30,8 @@ if (isset($_GET["logout"]) && $_GET["logout"]=="true") {
 	   session_destroy();
 	   $cus_rights=0;
 	   Header ("HTTP/1.0 401 Unauthorized");
-	   Header ("Location: index.php");	   
-	   die();	   
+	   Header ("Location: index.php");
+	   die();
 	}
 	
 function access_sanitize_data($data){
@@ -96,6 +96,7 @@ if ((!session_is_registered('pr_login') || !session_is_registered('pr_password')
 			$_SESSION["cus_rights"]=$cus_rights;
 			$_SESSION["agent_id"]=$return[3];
 			$_SESSION["tariff"]=$return[4];
+			$_SESSION["currency"]=$return[5];
 		}
 
 	}else{
@@ -115,7 +116,7 @@ function login ($user, $pass) {
 	$pass = trim($pass);
 	if (strlen($user)==0 || strlen($user)>=20 || strlen($pass)==0 || strlen($pass)>=20) return false;
 
-	$QUERY = "SELECT login, credit, active, id, tariffgroup FROM cc_agent WHERE login = '".$user."' AND passwd = '".$pass."'";
+	$QUERY = "SELECT login, credit, active, id, tariffgroup, currency FROM cc_agent WHERE login = '".$user."' AND passwd = '".$pass."'";
 
 	$res = $DBHandle -> query($QUERY);
 
