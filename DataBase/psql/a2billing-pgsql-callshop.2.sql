@@ -234,7 +234,7 @@ CREATE OR REPLACE FUNCTION cc_booth_set_card() RETURNS trigger AS $$
 					VALUES (NEW.id, NEW.cur_card_id, 'Open');
 				SELECT credit INTO money FROM cc_card WHERE id = NEW.cur_card_id;
 				IF money <> 0 THEN
-					PERFORM pay_session(currval('cc_shopsessions_id_seq'),NEW.agentid,false,true);
+					PERFORM carry_session(currval('cc_shopsessions_id_seq'),NEW.agentid);
 				END IF;
 			END IF;
 		ELSE
@@ -407,7 +407,9 @@ CREATE OR REPLACE VIEW cc_session_invoice AS
 		FROM cc_shopsessions WHERE endtime IS NOT NULL
 		-- Refills
 	UNION SELECT cc_agentrefill.date AS starttime, 'Credit' AS descr, cc_shopsessions.id AS sid,
-		booth AS boothid, NULL AS f2, NULL as cnum,
+		booth AS boothid,
+		(CASE WHEN carried THEN 'Carried from past credit'
+			ELSE 'Money received' END) AS f2, NULL as cnum,
 		cc_agentrefill.credit AS pos_charge, NULL as neg_charge,
 		NULL as duration
 		FROM cc_shopsessions, cc_agentrefill
@@ -418,7 +420,9 @@ CREATE OR REPLACE VIEW cc_session_invoice AS
 			(cc_shopsessions.endtime IS NULL OR cc_shopsessions.endtime >= cc_agentrefill.date)
 		-- Payments
 	UNION SELECT cc_agentrefill.date AS starttime, 'Payment' AS descr, cc_shopsessions.id AS sid,
-		booth AS boothid, NULL AS f2, NULL as cnum,
+		booth AS boothid, 
+		(CASE WHEN carried THEN 'Carried forward'
+			ELSE 'Money paid back' END) AS f2, NULL as cnum,
 		NULL AS pos_charge, (0- cc_agentrefill.credit) AS neg_charge,
 		NULL as duration
 		FROM cc_shopsessions, cc_agentrefill
@@ -438,4 +442,90 @@ CREATE OR REPLACE FUNCTION conv_currency(money_sum NUMERIC, from_cur CHAR(3), to
 		;
 	$$
 	LANGUAGE SQL STABLE STRICT;
+	
+
+
+CREATE OR REPLACE FUNCTION pay_session( sid bigint, agentid_p bigint, do_close boolean, do_carry boolean) RETURNS NUMERIC
+	AS $$
+	DECLARE
+		ssum NUMERIC;
+		cid bigint;
+		bid bigint;
+		ptype integer;
+	BEGIN
+		SELECT cc_card.credit, cc_card.id, cc_shopsessions.booth INTO ssum, cid, bid FROM cc_card, cc_shopsessions, cc_agent_cards
+			WHERE cc_card.id = cc_shopsessions.card AND
+				cc_agent_cards.card_id = cc_card.id AND cc_agent_cards.agentid = agentid_p AND
+				cc_shopsessions.id = sid ;
+		IF NOT FOUND THEN
+			RAISE EXCEPTION 'No such session for agent';
+		END IF;
+		IF carried THEN
+			ptype := 2;
+		ELSE	ptype := 1; 
+		END IF;
+		INSERT INTO cc_agentrefill(card_id, agentid, credit, carried, pay_type)
+			VALUES(cid, agentid_p,0-ssum, do_carry, ptype);
+		IF do_close THEN
+			UPDATE cc_shopsessions SET endtime = now() , state = 'Closed' WHERE
+				card = cid AND id = sid;
+			UPDATE cc_card SET activated = 'f' WHERE id = cid;
+			UPDATE cc_booth SET cur_card_id = NULL WHERE id = bid;
+		END IF;
+	RETURN ssum;
+	END; $$
+	LANGUAGE plpgsql STRICT;
+
+-- Modified version of the pay_session() to use when crediting the new session with the sum
+-- carried from a previous use of the card
+CREATE OR REPLACE FUNCTION carry_session( sid bigint, agentid_p bigint) RETURNS NUMERIC
+	AS $$
+	DECLARE
+		ssum NUMERIC;
+		cid bigint;
+		bid bigint;
+	BEGIN
+		SELECT cc_card.credit, cc_card.id, cc_shopsessions.booth INTO ssum, cid, bid FROM cc_card, cc_shopsessions, cc_agent_cards
+			WHERE cc_card.id = cc_shopsessions.card AND
+				cc_agent_cards.card_id = cc_card.id AND cc_agent_cards.agentid = agentid_p AND
+				cc_shopsessions.id = sid ;
+		IF NOT FOUND THEN
+			RAISE EXCEPTION 'No such session for agent';
+		END IF;
+		INSERT INTO cc_agentrefill(card_id, agentid, credit, carried, pay_type)
+			VALUES(cid, agentid_p,ssum, true, 3);
+	RETURN ssum;
+	END; $$
+	LANGUAGE plpgsql STRICT;
+
+CREATE OR REPLACE VIEW cc_closed_sessions AS
+	SELECT cc_shopsessions.id AS sid, cc_shopsessions.card, (SUM(cc_session_invoice.pos_charge) - SUM(cc_session_invoice.neg_charge)) AS ssum
+		FROM cc_shopsessions, cc_session_invoice WHERE
+		cc_shopsessions.endtime IS NOT NULL AND
+		cc_shopsessions.id = cc_session_invoice.sid 
+		GROUP by cc_shopsessions.id,cc_shopsessions.card;
+
+CREATE OR REPLACE VIEW cc_session_problems AS
+	SELECT cc_closed_sessions.sid, cc_closed_sessions.card, cc_agent_cards.agentid, cc_agent_cards.def, 'Imbalance'::text AS Problem
+		FROM  cc_closed_sessions, cc_agent_cards WHERE
+			cc_agent_cards.card_id = cc_closed_sessions.card
+			AND cc_closed_sessions.ssum <> 0 
+	UNION SELECT cc_shopsessions.id, cc_shopsessions.card, cc_agent_cards.agentid, cc_agent_cards.def, 'Hanging open'::text AS Problem
+		FROM cc_shopsessions,cc_agent_cards, cc_booth
+		WHERE cc_shopsessions.card = cc_agent_cards.card_id
+			AND cc_booth.id = cc_shopsessions.booth
+			AND cc_shopsessions.endtime IS NULL
+			AND (cc_booth.cur_card_id IS NULL OR cc_booth.cur_card_id <> cc_shopsessions.card)
+	UNION SELECT cc_shopsessions.id, cc_shopsessions.card, cc_agent_cards.agentid, cc_agent_cards.def, 'Overlap with '  || ss2.id::text AS Problem
+		FROM cc_shopsessions, cc_shopsessions AS ss2, cc_agent_cards
+		WHERE cc_shopsessions.card = cc_agent_cards.card_id
+			AND cc_shopsessions.booth = ss2.booth
+			AND cc_shopsessions.id <> ss2.id
+			AND ss2.starttime >= cc_shopsessions.starttime
+			AND cc_shopsessions.endtime > ss2.starttime
+	UNION SELECT cc_shopsessions.id, cc_shopsessions.card, cc_agent_cards.agentid, cc_agent_cards.def, 'End before start'::text AS Problem
+		FROM cc_shopsessions, cc_agent_cards
+		WHERE cc_shopsessions.card = cc_agent_cards.card_id
+		AND starttime > endtime;
+
 -- eof

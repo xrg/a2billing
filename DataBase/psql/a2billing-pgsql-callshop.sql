@@ -70,6 +70,7 @@ CREATE TABLE cc_agentrefill (
     date timestamp without time zone DEFAULT now() NOT NULL,
     credit numeric(12,4) NOT NULL,
     carried boolean NOT NULL DEFAULT false,
+    pay_type integer,
     card_id bigint NOT NULL REFERENCES cc_card(id),
     agentid bigint NOT NULL REFERENCES cc_agent(id),
     boothid bigint REFERENCES cc_booth(id)
