@@ -169,6 +169,7 @@ function fmt_minutes($sessiontime){
 		$buttons['unl'] = false;
 		$buttons['ld'] = false;
 		$buttons['lr'] = false;
+		$buttons['ln'] = false;
 		
 		$num = $res -> numRows();
 		for ($i=0;$i<$num;$i++){
@@ -213,12 +214,13 @@ function fmt_minutes($sessiontime){
 			case 1:
 				$buttons["ld"]=true;
 				$buttons["lr"]=true;
+				//$buttons["ln"]=true;
 				//$buttons["dis"]=true;
 				break;
 			case 2:
 				$buttons["sta"]=true;
-				$buttons["lr"]=true;
-				$buttons["ld"]=true;
+				//$buttons["lr"]=true;
+				//$buttons["ld"]=true;
 				$td_refill=true;
 				break;
 			case 3:
