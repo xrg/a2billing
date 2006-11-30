@@ -139,7 +139,7 @@ if ($FG_DELETION || $FG_EDITION) $FG_TOTAL_TABLE_COL++;
 $FG_HTML_TABLE_TITLE=" - Call Logs - ";
 
 //This variable define the width of the HTML table
-$FG_HTML_TABLE_WIDTH="70%";
+$FG_HTML_TABLE_WIDTH="90%";
 
 	if ($FG_DEBUG >= 3) echo "<br>Table : $FG_TABLE_NAME  	- 	Col_query : $FG_COL_QUERY";
 	$instance_table = new Table($FG_TABLE_NAME, $FG_COL_QUERY);
