@@ -657,11 +657,11 @@ if ($vat>0) echo  " (".$vat." % ".gettext("VAT").")";
 <?php  if($exporttype!="pdf"){ 
 if ($list_sum[0][4] >0.0){ ?>
 	<br><hr width="350"><br>
-	<p class='pay-back-btn'> <a href='pay.php?sid=<?= $session_sid . '&choose_currency=' .$choose_currency; ?>'> <?=_("Pay back:") . '&nbsp' . $list_sum[0][3] ; ?></a>
+	<p class='pay-back-btn'> <a href='pay.php?sid=<?= $session_sid . '&choose_currency=' .$choose_currency; ?>&pback=1'> <?=_("Pay back:") . '&nbsp' . $list_sum[0][3] ; ?></a>
 	<br><hr width="350"><br>
 <?php }else if ($list_sum[0][4] <0.0){ ?>
 	<br><hr width="350"><br>
-	<p class='pay-btn'> <a href='pay.php?sid=<?= $session_sid .'&choose_currency=' .$choose_currency; ?>'> <?=_("Pay:") . '&nbsp' . $list_sum[0][5] ; ?></a>
+	<p class='pay-btn'> <a href='pay.php?sid=<?= $session_sid .'&choose_currency=' .$choose_currency; ?>&pback=0'> <?=_("Pay:") . '&nbsp' . $list_sum[0][5] ; ?></a>
 	<br><hr width="350"><br>
 <?php } ?>
 <br>

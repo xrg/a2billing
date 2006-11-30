@@ -15,8 +15,8 @@ CREATE OR REPLACE VIEW cc_booth_v AS
 		(CASE WHEN def_card_id IS NULL THEN 0
 		WHEN cur_card_id IS NULL THEN 1
 		WHEN cc_booth.disabled THEN 5
-		WHEN cc_card.lastuse > cc_shopsessions.starttime AND cc_card.activated THEN 4
-		WHEN cc_card.lastuse > cc_shopsessions.starttime THEN 6
+		WHEN cc_card.credit > 0 AND cc_card.activated THEN 4
+		WHEN cc_card.credit > 0 THEN 6
 		WHEN cc_card.activated THEN 3
 		ELSE 2
 		END) AS state,
@@ -183,6 +183,9 @@ CREATE OR REPLACE RULE cc_card_agent_v_upd2 AS ON UPDATE TO cc_card_agent_v DO I
 
 
 CREATE OR REPLACE FUNCTION cc_booth_set_card() RETURNS trigger AS $$
+	DECLARE
+		bint bigint;
+		money numeric;
 	BEGIN
 		-- Remove old card first
 	IF TG_OP = 'UPDATE'  THEN
@@ -221,6 +224,32 @@ CREATE OR REPLACE FUNCTION cc_booth_set_card() RETURNS trigger AS $$
 				agentid = NEW.agentid;
 			IF NOT FOUND THEN
 				RAISE EXCEPTION 'Card id % does not belong to agent %.', NEW.cur_card_id, NEW.agentid;
+			END IF;
+			PERFORM id FROM cc_shopsessions WHERE
+				booth = NEW.id AND card = NEW.cur_card_id AND
+				endtime IS NULL;
+			IF NOT FOUND THEN
+				RAISE LOG 'New session for booth %', NEW.id;
+				INSERT INTO cc_shopsessions (booth,card,state)
+					VALUES (NEW.id, NEW.cur_card_id, 'Open');
+				SELECT credit INTO money FROM cc_card WHERE id = NEW.cur_card_id;
+				IF money <> 0 THEN
+					PERFORM pay_session(currval('cc_shopsessions_id_seq'),NEW.agentid,false,true);
+				END IF;
+			END IF;
+		ELSE
+			SELECT id INTO bint FROM cc_shopsessions
+				WHERE card = OLD.cur_card_id AND endtime IS NULL
+				AND booth = NEW.id;
+			IF FOUND THEN -- Must clear the session.
+				SELECT credit INTO money FROM cc_card
+					WHERE id = OLD.cur_card_id;
+				IF OLD.cur_card_id = NEW.def_card_id AND
+					money <> 0 THEN
+					RAISE EXCEPTION 'Cannot clear session % because it contains non-empty, default card %', bint, OLD.cur_card_id;
+				END IF;
+				-- If session has money, close it with 0
+				PERFORM pay_session(bint,NEW.agentid,true,true);
 			END IF;
 		END IF;
 
@@ -353,7 +382,7 @@ CREATE TRIGGER cc_agent_refill_it BEFORE INSERT ON cc_agentrefill
 
 -- One view for all: have all the session transactions in one table.
 
-DROP view cc_session_invoice;
+-- DROP view cc_session_invoice;
 CREATE OR REPLACE VIEW cc_session_invoice AS
 		-- Calls
 	SELECT cc_call.starttime, 'Call' AS descr, cc_shopsessions.id AS sid,
@@ -364,10 +393,13 @@ CREATE OR REPLACE VIEW cc_session_invoice AS
 		(sessiontime) AS duration
 		FROM cc_call,cc_card, cc_shopsessions 
 		WHERE cc_call.username = cc_card.username AND cc_shopsessions.card = cc_card.id
+			AND cc_call.starttime >= cc_shopsessions.starttime AND (cc_shopsessions.endtime IS NULL OR cc_call.starttime <= cc_shopsessions.endtime)
 		-- Session start
+		-- Note: at the start, we indicate charge/credit of 0 so that SUMs always
+		-- have a non-null element
 	UNION SELECT starttime, 'Session start' AS descr,  id AS sid,
 		booth AS boothid, NULL AS f2, NULL as cnum,
-		NULL AS pos_charge, NULL AS neg_charge, NULL AS duration
+		0 AS pos_charge, 0 AS neg_charge, NULL AS duration
 		FROM cc_shopsessions
 	UNION SELECT endtime, 'Session end' AS descr,  id AS sid,
 		booth AS boothid, NULL AS f2, NULL as cnum,

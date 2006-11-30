@@ -109,10 +109,10 @@ function fmt_minutes($sessiontime){
 					$message_class="msg_error";
 				}else {
 					$get_booth= (integer) $_GET["actb"];
-					$query="INSERT INTO cc_agentrefill(agentid, boothid, credit)" .
-					"VALUES( " . $DBHandle->Quote($_SESSION['agent_id'] ) . ", ".
-					 $DBHandle->Quote($get_booth) . ', '.
-					 $DBHandle->Quote($rf) . ') ;' ;
+					$query= str_dbparams($DBHandle, "INSERT INTO cc_agentrefill(agentid, boothid, credit)" .
+						"VALUES( %1, %2, conv_currency(%3, %4, %5)); ", 
+						array($_SESSION['agent_id'] ,$get_booth, $rf, $_SESSION['currency'], strtoupper(BASE_CURRENCY))); ;
+					
 					$res=$DBHandle->Execute( $query );
 					 if ($res){
 					 	$message = gettext("Credit added to booth");
@@ -120,7 +120,7 @@ function fmt_minutes($sessiontime){
 					 } else{
 						$message= gettext("Refill failed: ");
 						$message = $message . $DBHandle->ErrorMsg();
-						//$message = $message . " <br>QUERY=" . $query;
+						$message = $message . " <br>QUERY=" . $query;
 						$message_class="msg_error";
 					}
 					
