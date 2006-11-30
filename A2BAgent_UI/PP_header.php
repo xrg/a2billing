@@ -140,6 +140,20 @@ p.pay-title {
 	font-size: 20pt;
 	color: black;
 }
+
+p.pay-bb {
+	font-size: 16pt;
+	text-align: center;
+}
+p.pay-bb a{
+	color: blue;
+}
+p.pay-message {
+	font-size: 18pt;
+	text-align: center;
+	border: solid green 2px;
+}
+
 </style>
 </head>
 <body  leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
