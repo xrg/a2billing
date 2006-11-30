@@ -23,7 +23,7 @@ $HD_Form -> AddViewElement("<acronym title=\"". gettext("BALANCE"). "\">".gettex
 
 //$HD_Form -> AddViewElement(gettext("ACTION (eval)"), "", "10%", "", "", "","eval", "\"Test %&1\"");
 
-$HD_Form -> AddViewElement(gettext("NOW IN"), "", "15%", "", "", "","object", &$fb_form);
+$HD_Form -> AddViewElement(gettext("NOW IN"), "", "15%", "", "", "","object", $fb_form);
 
 $FG_COL_QUERY="id, username, firstname|| ' ' ||lastname AS name, format_currency(credit,'EUR','EUR'), def, now_id, now_name, def_id, def_name";
 
