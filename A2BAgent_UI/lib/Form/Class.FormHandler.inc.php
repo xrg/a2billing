@@ -1012,7 +1012,7 @@ class FormHandler{
 				}
 			}
 
-			if ( is_null ($this->FG_ORDER) || is_null($this->FG_SENS) ){
+			if ( is_null ($this->FG_ORDER) || is_null($this->FG_SENS) || ($this->FG_ORDER == '') || ($this->FG_SENS == '') ){
 				$this->FG_ORDER = $this -> FG_TABLE_DEFAULT_ORDER;
 				$this->FG_SENS  = $this -> FG_TABLE_DEFAULT_SENS;
 			}
@@ -1032,7 +1032,7 @@ class FormHandler{
 			if ( $form_action == "list" ){
 				$instance_table = new Table($this -> FG_TABLE_NAME, $this -> FG_COL_QUERY);
 
-				if ($this->FG_DEBUG >=4 ) $instance_table->debug_st = 1 ;
+				if ($this->FG_DEBUG >=2 ) $instance_table->debug_st = 1 ;
                 //echo "FG_TABLE_CLAUSE = ".$this -> FG_TABLE_CLAUSE."<br>";
                 //echo "FG_ORDER = ".$this->FG_ORDER."<br>";
                 //echo "FG_SENS = ".$this->FG_SENS."<br>";
@@ -1057,12 +1057,12 @@ class FormHandler{
 			}else{
 			
 				$instance_table = new Table($this->FG_TABLE_NAME, $this->FG_QUERY_EDITION);
-				if ($this->FG_DEBUG >=4 ) $instance_table->debug_st = 1 ;
+				if ($this->FG_DEBUG >=2 ) $instance_table->debug_st = 1 ;
 				$list = $instance_table -> Get_list ($this->DBHandle, $this->FG_EDITION_CLAUSE, null, null, null, null, 1, 0);
 			}
 
 			
-			if ($this->FG_DEBUG >= 2) { echo "<br>"; print_r ($list);}			
+			if ($this->FG_DEBUG >= 3) { echo "<br>"; print_r ($list);}			
 		}
 
 		return $list;
@@ -1210,6 +1210,9 @@ class FormHandler{
 
 			$pos = strpos($this->FG_TABLE_ADITION[$i][14], ":"); // SQL CUSTOM QUERY
 			$pos_mul = strpos($this->FG_TABLE_ADITION[$i][4], "multiple");
+			if ((!isset($this->FG_TABLE_ADITION[$i][1])) || ($this->FG_TABLE_ADITION[$i][1] == ''))
+				continue;
+			
 			if (!$pos){
 
 				$fields_name = $this->FG_TABLE_ADITION[$i][1];
@@ -1297,6 +1300,7 @@ class FormHandler{
 		if ($this->FG_DEBUG >= 1)  echo "<br><hr> $param_add_value";	
 		
 		$instance_table = new Table($this->FG_TABLE_NAME, $param_add_fields);
+		if (FG_DEBUG >=2) $instance_table->debug_st=1;
 
 		// CHECK IF WE HAD FOUND A SPLITABLE FIELD THEN WE MIGHT HAVE %TAGPREFIX%
 		if (strpos($param_add_value, '%TAGPREFIX%')){
@@ -1479,6 +1483,7 @@ class FormHandler{
 		$processed = $this->getProcessed();  //$processed['firstname']
 
 		$this->VALID_SQL_REG_EXP = true;
+		$param_update = '';
 			
 		$instance_table = new Table($this->FG_TABLE_NAME, $this->FG_QUERY_EDITION);
 		if ($this->FG_DEBUG >=4 ) $instance_table->debug_st = 1 ;
@@ -1491,10 +1496,12 @@ class FormHandler{
 			
 		for($i=0;$i<$this->FG_NB_TABLE_EDITION;$i++){ 
 			
-			$pos = strpos($this->FG_TABLE_EDITION[$i][14], ":"); // SQL CUSTOM QUERY		
+			$pos = strpos($this->FG_TABLE_EDITION[$i][14], ":"); // SQL CUSTOM QUERY
 			$pos_mul = strpos($this->FG_TABLE_EDITION[$i][4], "multiple");
+			if ((!isset($this->FG_TABLE_EDITION[$i][1])) || ($this->FG_TABLE_EDITION[$i][1] == ''))
+				continue;
 			if (!$pos){
-				$fields_name = $this->FG_TABLE_EDITION[$i][1];								
+				$fields_name = $this->FG_TABLE_EDITION[$i][1];
 				$regexp = $this->FG_TABLE_EDITION[$i][5];
 
 				if ($pos_mul && is_array($processed[$fields_name])){
@@ -1504,7 +1511,7 @@ class FormHandler{
 					}
 					
 					if ($this->FG_DEBUG >= 1) echo "<br>$fields_name : ".$total_mult_select;
-					if ($i>0) $param_update .= ", ";				
+					if ($param_update != '') $param_update .= ", ";				
 					$param_update .= $sp . "$fields_name".$sp ." = '".addslashes(trim($total_mult_select))."'";
 				
 				}else{
@@ -1519,7 +1526,7 @@ class FormHandler{
 					}
 					
 					if ($this->FG_DEBUG >= 1) echo "<br>$fields_name : ".$processed[$fields_name];
-					if ($i>0) $param_update .= ", ";
+					if ($param_update != '') $param_update .= ", ";
 					if (empty($processed[$fields_name]) && strtoupper(substr($this->FG_TABLE_ADITION[$i][13],3,4))=="NULL"){
 						$param_update .= $fields_name." = NULL ";
 					}else{
@@ -1579,11 +1586,17 @@ class FormHandler{
 		}
 			
 			
-		if ($this->FG_DEBUG >= 1)  echo "<br><hr> PARAM_UPDATE: $param_update<br>".$this->FG_EDITION_CLAUSE;
+		if ($this->FG_DEBUG >= 1)  echo "<br><hr> PARAM_UPDATE: $param_update<br>".$this->FG_EDITION_CLAUSE . "<br>";
 			
-		if ($this->VALID_SQL_REG_EXP) $this -> RESULT_QUERY = $instance_table -> Update_table ($this->DBHandle, $param_update, $this->FG_EDITION_CLAUSE, $func_table = null);
+		if ($this->VALID_SQL_REG_EXP)
+			$this -> RESULT_QUERY = $instance_table -> Update_table ($this->DBHandle, $param_update, $this->FG_EDITION_CLAUSE, $func_table = null);
+		else if ($FG_DEBUG >0 ) echo "Invalid SQL regexp <br>";
 
-		if ($this->FG_DEBUG >= 1) echo $this -> RESULT_QUERY;
+		if ($this->FG_DEBUG >= 1) {
+			echo "Result:" . $this->RESULT_QUERY;
+			if (!$this -> RESULT_QUERY)
+				echo ", error:" .$this->DBHandle->ErrorMsg() ."<br>\n";
+		}
 		
 		if ( ($this->VALID_SQL_REG_EXP) && (isset($this->FG_GO_LINK_AFTER_ACTION_EDIT))){				
 			if ($this->FG_DEBUG >= 1)  echo gettext("<br> GOTO ; ").$this->FG_GO_LINK_AFTER_ACTION_EDIT.$processed['id'];

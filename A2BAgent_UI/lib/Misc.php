@@ -105,10 +105,10 @@
 
 
 
-$lang['strfirst']='&lt;&lt; First';
-$lang['strprev']='&lt; Prev';
-$lang['strnext']='Next &gt;';
-$lang['strlast']='Last &gt;&gt;';
+$lang['strfirst']=gettext('&lt;&lt; First');
+$lang['strprev']=gettext('&lt; Prev');
+$lang['strnext']=gettext('Next &gt;');
+$lang['strlast']=gettext('Last &gt;&gt;');
 
         /**
 		 * Do multi-page navigation.  Displays the prev, next and page options.
@@ -298,4 +298,9 @@ $lang['strlast']='Last &gt;&gt;';
 		return $resstr;
 	}
 
+	function get_config($group, $field, $default_v = null) {
+		if (isset($A2B->config[$group][$field]))
+			return $A2B->config[$group][$field];
+		else	return $default_v ;
+	}
 ?>

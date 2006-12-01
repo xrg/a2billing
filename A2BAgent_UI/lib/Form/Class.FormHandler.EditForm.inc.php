@@ -48,7 +48,7 @@ function sendtolittle(direction){
 		
 		
 		if (strlen($this->FG_TABLE_EDITION[$i][16])>1){
-			echo '<TR><TD width="%25" valign="top" bgcolor="#FEFEEE" colspan="2" class="tableBodyRight" ><i>';				
+			echo '<TR><TD width="%25" valign="top" bgcolor="#FEFEEE" colspan="2" class="tableBodyRight" ><i>';
 			echo $this->FG_TABLE_EDITION[$i][16];
 			echo '</i></TD></TR>';
 		}
@@ -66,7 +66,7 @@ function sendtolittle(direction){
 			<TD width="%75" valign="top" class="tableBodyRight" background="<?php echo Images_Path;?>/background_cells.gif" class="text">
 		<?php } ?>
                         <?php 
-			if ($this->FG_DEBUG == 1) print($this->FG_TABLE_EDITION[$i][3]);
+			if ($this->FG_DEBUG >= 1) print($this->FG_TABLE_EDITION[$i][3]);
 		  		if (strtoupper ($this->FG_TABLE_EDITION[$i][3])==strtoupper ("INPUT"))
 				{								
 					if (isset ($this->FG_TABLE_EDITION[$i][15]) && strlen($this->FG_TABLE_EDITION[$i][15])>1){				
@@ -113,9 +113,10 @@ function sendtolittle(direction){
 				}elseif (strtoupper ($this->FG_TABLE_EDITION[$i][3])==strtoupper ("SELECT"))
 				{
 								
-					if ($this->FG_DEBUG == 1)	echo gettext("<br> TYPE DE SELECT :").$this->FG_TABLE_EDITION[$i][7];
+					if ($this->FG_DEBUG >= 1)	echo gettext("<br> TYPE OF SELECT :").$this->FG_TABLE_EDITION[$i][7];
 					if (strtoupper ($this->FG_TABLE_EDITION[$i][7])==strtoupper ("SQL")){
 						$instance_sub_table = new Table($this->FG_TABLE_EDITION[$i][8], $this->FG_TABLE_EDITION[$i][9]);
+						if (FG_DEBUG >=2) $instance_sub_table->debug_st=1;
 						$select_list = $instance_sub_table -> Get_list ($this->DBHandle, $this->FG_TABLE_EDITION[$i][10], null, null, null, null, null, null);
 						if ($this->FG_DEBUG >= 2) { echo "<br>"; print_r($select_list);}
 											
@@ -253,6 +254,7 @@ function sendtolittle(direction){
 	
 	
 								$instance_sub_table = new Table($table_split[2], $table_split[3]);
+								if (FG_DEBUG >=2) $instance_sub_table->debug_st=1;
 								$split_select_list = $instance_sub_table -> Get_list ($this->DBHandle, $SPLIT_CLAUSE, null, null, null, null, null, null);			
 				
 								if (!is_array($split_select_list)){	
@@ -266,8 +268,9 @@ function sendtolittle(direction){
 	for($j=0;$j<$num;$j++)
 	  {
 			if (is_numeric($table_split[7])){
-																	
+					
 					$instance_sub_sub_table = new Table($table_split[8], $table_split[9]);
+					if (FG_DEBUG >=2) $instance_sub_sub_table->debug_st=1;
 					
 					$SUB_TABLE_SPLIT_CLAUSE = str_replace("%1", $split_select_list[$j][$table_split[7]], $table_split[11] );
 					$sub_table_split_select_list = $instance_sub_sub_table -> Get_list ($this->DBHandle, $SUB_TABLE_SPLIT_CLAUSE, null, null, null, null, null, null);
@@ -350,6 +353,7 @@ function sendtolittle(direction){
 							 if ($table_split[6]!="" && !is_null($table_split[6])){
 							 	if (is_numeric($table_split[7])){
 									$instance_sub_sub_table = new Table($table_split[8], $table_split[9]);
+									if (FG_DEBUG >=2) $instance_sub_sub_table->debug_st=1;
 									$SUB_TABLE_SPLIT_CLAUSE = str_replace("%1", $select_recordset[$table_split[7]], $table_split[11] );
 									$sub_table_split_select_list = $instance_sub_sub_table -> Get_list ($this->DBHandle, $SUB_TABLE_SPLIT_CLAUSE, null, null, null, null, null, null);
 									$select_recordset[$table_split[7]] = $sub_table_split_select_list[0][0];
@@ -430,6 +434,7 @@ function sendtolittle(direction){
 			$SPLIT_CLAUSE = str_replace("%id", "$id", $table_split[4]);
 
 			$instance_sub_table = new Table($table_split[2], $table_split[3]);
+			if (FG_DEBUG >=2) $instance_sub_table->debug_st=1;
 			$split_select_list = $instance_sub_table -> Get_list ($this->DBHandle, $SPLIT_CLAUSE, null, null, null, null, null, null);
 	if (!is_array($split_select_list)){
 		$num=0;
@@ -551,6 +556,7 @@ function sendtolittle(direction){
 
 
 	$instance_sub_table = new Table($table_split[2], $table_split[3]);
+	if (FG_DEBUG >=2) $instance_sub_table->debug_st=1;
 	$split_select_list = $instance_sub_table -> Get_list ($this->DBHandle, $SPLIT_CLAUSE, null, null, null, null, null, null);			
 	if (!is_array($split_select_list)){	
 		$num=0;
