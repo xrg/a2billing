@@ -209,7 +209,7 @@ window.onload = function() { startRequest("booths.xml.php",reqStateChanged2)};
 				?><table class="Booth" cellPadding=2 cellSpacing=2><tbody>
 				<tr><td id="name" class="name" colspan=3>Booth X</td></tr>
 				<tr><td id="status" class="state0" colspan=3> -- </td></tr>
-				<tr><td><?=gettext("Credit:");?></td><td div id="credit"> </td><td id="mins"></td></tr>
+				<tr><td><?=gettext("Credit:");?></td><td id="credit"> </td><td id="mins"></td></tr>
 				<tr><td id="buttons" class="buttons" colspan=2> 
 				<a href="javascript:booth_action(<?=$row[0]?>,'start');" id='button_sta' style='color:green;'><?=gettext("Start"); ?></a>
 				<a href="javascript:booth_action(<?=$row[0]?>,'stop');" id='button_stp' style='color:red;'><?=gettext("Stop"); ?></a>
