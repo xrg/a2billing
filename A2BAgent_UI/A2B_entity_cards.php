@@ -21,7 +21,7 @@ class FillBoothForm{
 		global $txt_fill;
 		global $txt_empty;
 		$itb = new Table("cc_booth", "id, name");
-		$itb->debug_st=1;
+		//$itb->debug_st=1;
 		$FG_TABLE_CLAUSE = "agentid = ". $DBHandle->Quote($_SESSION["agent_id"]) ;
 		// ." AND cur_card_id IS NULL" No, allow all booths to be re-filled, but that
 		// could confuse the agent if the booth is charged.. 
@@ -44,10 +44,10 @@ class FillBoothForm{
 		 // name the fields (for clarity), see FG_var_card's FG_COL_QUERY
 		$f_id = $query_row[0];
 		$f_def = $query_row[4];
-		$f_now_id = $query_row[5];
-		$f_now_name = $query_row[6];
-		$f_def_id = $query_row[7];
-		$f_def_name = $query_row[8];
+		$f_now_id = $query_row[6];
+		$f_now_name = $query_row[7];
+		$f_def_id = $query_row[8];
+		$f_def_name = $query_row[9];
 		if ($f_now_id != null){
 			$f_sp_name = htmlspecialchars($f_now_name);
 			$ress .= <<<EOS
@@ -98,7 +98,7 @@ include ("FG_var_card.inc");
 $HD_Form -> init();
 
 if ($id!="" || !is_null($id)){	
-	$HD_Form -> FG_EDITION_CLAUSE = str_replace("%id", "$id", $HD_Form -> FG_EDITION_CLAUSE);	
+	$HD_Form -> FG_EDITION_CLAUSE = str_replace("%id", "$id", $HD_Form -> FG_EDITION_CLAUSE);
 }
 
 
