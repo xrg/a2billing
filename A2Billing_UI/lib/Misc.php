@@ -249,6 +249,7 @@
 			   global $lang;
 		
 			   $window = 8;
+			  	echo "Old !!" ;
 		
 			   if ($page < 0 || $page > $pages) return;
 			   if ($pages < 0) return;
