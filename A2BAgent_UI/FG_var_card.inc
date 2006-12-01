@@ -1,12 +1,14 @@
 <?php
 
-getpost_ifset(array('id',"check", "type", "mode", "cardnumber", "action", "booth", "cardid"));
+getpost_ifset(array('id',"check", "type", "mode", "cardnumber", "action", "booth", "cardid", "order", "sens"));
 
 $HD_Form = new FormHandler("cc_card_agent_v","Card");
 
 // This has to be here, so that subsequent calls to Quote() work..
 $HD_Form -> setDBHandler (DbConnect());
 
+$language_list= get_languages();
+// $language_list_r= get_languages_r($language_list); *-*
 
 $HD_Form -> FG_DEBUG = 0;
 // FAQ
@@ -25,30 +27,32 @@ $HD_Form -> AddViewElement("<acronym title=\"". gettext("BALANCE"). "\">".gettex
 
 $HD_Form -> AddViewElement(gettext("NOW IN"), "", "15%", "", "", "","object", $fb_form);
 
-$FG_COL_QUERY="id, username, firstname|| ' ' ||lastname AS name, format_currency(credit,'EUR','EUR'), def, now_id, now_name, def_id, def_name";
+$FG_COL_QUERY="id, username, firstname|| ' ' ||lastname AS name, format_currency(credit,'EUR','EUR'), def, id, now_id, now_name, def_id, def_name";
 
 if ($action == 'fillb') {
-	?> Fill booth <?= $booth ?>  with card <?= $cardid ?> <br> 
-	<?php 
+	echo _("Fill booth") . $booth  . _(" with card ") . $cardid ."<br>\n" ;
+
 	$FG_QUERY= str_params("UPDATE cc_booth SET cur_card_id = %#0 WHERE id = %#1 ; ",
 		array($cardid, $booth));
-	echo $FG_QUERY;
+	//echo $FG_QUERY;
 	if ($HD_Form->DBHandle->Execute($FG_QUERY))
 		echo "<span class='action_success'>" . _("Booth Filled"). "</span>";
-	else
+	else{
 		echo "<span class='action_fail'>" . _("Cannot fill booth!") . " </span>";
+		if ($HD_Form->FG_DEBUG>0)
+			echo "<br>".$HD_Form->DBHandle->ErrorMsg() . "<br>";
+	}
 }elseif ($action == 'emptyb') {
-	?> Empty booth <?= $booth ?><br> 
-	<?php 
+	echo _("Empty booth "). $booth ."<br>" ;
 	$FG_QUERY= str_params("UPDATE cc_booth SET cur_card_id = NULL WHERE id = %#0 ; ",
 		array($booth));
-	echo $FG_QUERY;
+	//echo $FG_QUERY;
 	if ($HD_Form->DBHandle->Execute($FG_QUERY))
 		echo "<span class='action_success'>" . _("Booth Emptied"). "</span>";
 	else {
-		echo "<span class='action_fail'>" . _("Cannot empty booth!") . " </span>";
+		echo "<span class='action_fail'>" . _("Cannot empty booth! (Does it have zero balance?)") . " </span>";
 		if ($HD_Form->FG_DEBUG>0)
-			echo $HD_Form->DBHandle->ErrorMsg();
+			echo "<br>".$HD_Form->DBHandle->ErrorMsg() . "<br>";
 		}
 }
 
@@ -68,5 +72,132 @@ $HD_Form -> FG_LIMITE_DISPLAY = 10;
 // 	$HD_Form -> FG_OTHER_BUTTON1_LINK = "javascript:sendValue('|param|');";
 $HD_Form -> FG_EDITION = true;
 
+
+if (false && (isset($form_action) && $form_action=="ask-add")){
+	$array_card_generated  = gen_card_with_alias();
+
+	$maxi = "value='".$array_card_generated[0]."'";
+	$maxi2 = "value='".$array_card_generated[1]."'";
+	$pass = MDP_NUMERIC(10);
+	$maxi3 = "value='".$pass."'";
+	$default_initbalance = "value='0'";
+}
+
+
+$HD_Form -> AddEditElement (gettext("CARD NUMBER "),
+			   "",
+			   "",
+			   "INPUT",
+			    "size=20 $maxi readonly  maxlength=40",
+			   "",
+			   gettext("Insert the username"),
+			   "" , "", "",	"", "", "",	"", "" );
+
+$HD_Form -> AddEditElement (gettext("BALANCE"),
+			   "",
+			   "",
+			   "INPUT",
+			   "size=30 readonly maxlength=30",
+			   "",
+			   gettext("Insert the number of credit"),
+			   "" , "", "",	"", "", "",	"", "" );
+
+$HD_Form -> AddEditElement (gettext("LANGUAGE"),
+			   "language",
+			   "",
+			   "SELECT",
+			   "",
+			   "",
+			   "",
+			   "list" , "", "",	"", $language_list, "%1", "", "" );
+
+$HD_Form -> AddEditElement (gettext("LASTNAME"),
+			   "lastname",
+			   '$value',
+			   "INPUT",
+			   "size=30 maxlength=30",
+			   "11",
+			   gettext("Insert the lastname of the customers"),
+			   "" , "", "",	"", "", "" , "NO", "");
+
+$HD_Form -> AddEditElement (gettext("FIRSTNAME"),
+			   "firstname",
+			   '$value',
+			   "INPUT",
+			   "size=30 maxlength=30",
+			   "11",
+			   gettext("Insert the firstname of the customers"),
+			   "" , "", "",	"", "", "" , "NO", "");
+
+$field_elements='username, credit, language, lastname, firstname';
+
+$edit_details=get_config('agent','edit_customer_address',false);
+
+if ($edit_details) {
+$HD_Form -> AddEditElement (gettext("EMAIL"),
+			   "email",
+			   '$value',
+			   "INPUT",
+			   "size=30 maxlength=30",
+			   "1",
+			   gettext("Insert the email"),
+			   "" , "", "",	"", "", "" , "NO", "");
+
+
+$HD_Form -> AddEditElement (gettext("ADDRESS"),
+			   "address",
+			   '$value',
+			   "INPUT",
+			   "size=30 maxlength=30",
+			   "0",
+			   gettext("Insert the address of the customers"),
+			   "" , "", "",	"", "", "" , "NO", "");
+
+
+$HD_Form -> AddEditElement (gettext("CITY"),
+			   "city",
+			   '$value',
+			   "INPUT",
+			   "size=30 maxlength=30",
+			   "0",
+			   gettext("Insert the city"),
+			   "" , "", "",	"", "", "" , "NO", "");
+
+
+$HD_Form -> AddEditElement (gettext("STATE/PROVINCE"),
+			   "state",
+			   '$value',	
+			   "INPUT",	
+			   "size=30 maxlength=30",	
+			   "11",	
+			   gettext("Insert the state"),
+			   "" , "", "",	"", "", "" , "NO", "");
+
+
+$HD_Form -> AddEditElement (gettext("COUNTRY"),
+			   "country",			
+			   '$value',	
+			   "INPUT",
+			   "size=30 maxlength=30",	
+			   "0",	
+			   gettext("Insert the country"),
+			   "" , "", "",	"", "", "" , "NO", "");
+
+
+$HD_Form -> AddEditElement (gettext("ZIP/POSTAL CODE"),
+			   "zipcode",			
+			   '$value',	
+			   "INPUT",	
+			   "size=30 maxlength=30",	
+			   "0",
+			   gettext("Insert the zipcode"),
+			   "" , "", "",	"", "", "" , "NO", "");
+	$field_elements .=', email, address, city, state, country, zipcode';
+}
+
+$HD_Form -> FieldEditElement ($field_elements);
+
+$HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = "images/cormfirmboton.gif";
+$HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT = gettext("Once you have completed the form above, click on the CONTINUE button.");
 
 ?>
