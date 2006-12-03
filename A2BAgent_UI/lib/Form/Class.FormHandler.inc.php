@@ -517,15 +517,8 @@ class FormHandler{
 		$this -> tablelist['media_list']["SMS"]  = array( gettext("SMS"), "2");
 
 		$this -> tablelist['validity_list']["1"]  = array( gettext("CODE VALID 1 TIME"), "1");
-		$this -> tablelist['validity_list']["2"]  = array( gettext("CODE VALID 2 TIMES"), "2");
-		$this -> tablelist['validity_list']["3"]  = array( gettext("CODE VALID 3 TIMES"), "3");
-		$this -> tablelist['validity_list']["4"]  = array( gettext("CODE VALID 4 TIMES"), "4");
-		$this -> tablelist['validity_list']["5"]  = array( gettext("CODE VALID 5 TIMES"), "5");
-		$this -> tablelist['validity_list']["6"]  = array( gettext("CODE VALID 6 TIMES"), "6");
-		$this -> tablelist['validity_list']["7"]  = array( gettext("CODE VALID 7 TIMES"), "7");
-		$this -> tablelist['validity_list']["8"]  = array( gettext("CODE VALID 8 TIMES"), "8");
-		$this -> tablelist['validity_list']["9"]  = array( gettext("CODE VALID 9 TIMES"), "9");
-		$this -> tablelist['validity_list']["10"]  = array( gettext("CODE VALID 10 TIMES"), "10");
+		for ($o = 2 ; $o <= 10 ; $o++)
+		$this -> tablelist['validity_list'][(string) $o]  = array( str_params(gettext("CODE VALID %1 TIMES"), $o, 1), (string) $o);
 		
 		
 		$this -> tablelist['nbcode_list']["1"]  = array( "1 ".gettext("CODE"), "1");
