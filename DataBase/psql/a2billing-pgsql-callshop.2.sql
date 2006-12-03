@@ -13,8 +13,8 @@ CREATE OR REPLACE VIEW cc_booth_v AS
 		def_card_id, cur_card_id, cc_shopsessions.starttime,
 		cc_card.username AS in_now,
 		(CASE WHEN def_card_id IS NULL THEN 0
-		WHEN cur_card_id IS NULL THEN 1
 		WHEN cc_booth.disabled THEN 5
+		WHEN cur_card_id IS NULL THEN 1
 		WHEN cc_card.credit > 0 AND cc_card.activated THEN 4
 		WHEN cc_card.credit > 0 THEN 6
 		WHEN cc_card.activated THEN 3
@@ -238,18 +238,20 @@ CREATE OR REPLACE FUNCTION cc_booth_set_card() RETURNS trigger AS $$
 				END IF;
 			END IF;
 		ELSE
-			SELECT id INTO bint FROM cc_shopsessions
-				WHERE card = OLD.cur_card_id AND endtime IS NULL
-				AND booth = NEW.id;
-			IF FOUND THEN -- Must clear the session.
-				SELECT credit INTO money FROM cc_card
-					WHERE id = OLD.cur_card_id;
-				IF OLD.cur_card_id = NEW.def_card_id AND
-					money <> 0 THEN
-					RAISE EXCEPTION 'Cannot clear session % because it contains non-empty, default card %', bint, OLD.cur_card_id;
+			IF TG_OP = 'UPDATE' THEN
+				SELECT id INTO bint FROM cc_shopsessions
+					WHERE card = OLD.cur_card_id AND endtime IS NULL
+					AND booth = NEW.id;
+				IF FOUND THEN -- Must clear the session.
+					SELECT credit INTO money FROM cc_card
+						WHERE id = OLD.cur_card_id;
+					IF OLD.cur_card_id = NEW.def_card_id AND
+						money <> 0 THEN
+						RAISE EXCEPTION 'Cannot clear session % because it contains non-empty, default card %', bint, OLD.cur_card_id;
+					END IF;
+					-- If session has money, close it with 0
+					PERFORM pay_session(bint,NEW.agentid,true,true);
 				END IF;
-				-- If session has money, close it with 0
-				PERFORM pay_session(bint,NEW.agentid,true,true);
 			END IF;
 		END IF;
 
@@ -460,9 +462,9 @@ CREATE OR REPLACE FUNCTION pay_session( sid bigint, agentid_p bigint, do_close b
 		IF NOT FOUND THEN
 			RAISE EXCEPTION 'No such session for agent';
 		END IF;
-		IF carried THEN
+		IF do_carry THEN
 			ptype := 2;
-		ELSE	ptype := 1; 
+		ELSE	ptype := 1;
 		END IF;
 		INSERT INTO cc_agentrefill(card_id, agentid, credit, carried, pay_type)
 			VALUES(cid, agentid_p,0-ssum, do_carry, ptype);
@@ -474,7 +476,7 @@ CREATE OR REPLACE FUNCTION pay_session( sid bigint, agentid_p bigint, do_close b
 		END IF;
 	RETURN ssum;
 	END; $$
-	LANGUAGE plpgsql STRICT;
+LANGUAGE plpgsql STRICT;
 
 -- Modified version of the pay_session() to use when crediting the new session with the sum
 -- carried from a previous use of the card
