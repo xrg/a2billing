@@ -26,13 +26,13 @@ function reqStateChanged2(){
 		}
 	switch (http_request.readyState) {
 	case 1:
-		resp="Open";
+		resp="<?= _("Open"); ?>";
 		break;
 	case 2:
-		resp="Waiting for response";
+		resp="<?= _("Waiting for response");?>";
 		break;
 	case 3:
-		resp="Receiving";
+		resp="<?= _("Receiving")?>";
 		break;
 	case 4:
 		switch(http_request.status) { // HTTP response codes..
@@ -136,8 +136,13 @@ function booth_action(booth,act) {
 	startRequest("booths.xml.php"+"?action="+act + "&actb=" + booth,reqStateChanged2);
 }
 
+function booth_action2(booth,act,str2) {
+	startRequest("booths.xml.php"+"?action="+act + "&actb=" + booth + str2,reqStateChanged2);
+}
+
 function select_regular(booth) {
-	alert( "Select regular customer for booth " + booth );
+	//alert( "Select regular customer for booth " + booth );
+	window.open( "A2B_entity_cards.php?popup_select=freg&booth=" + booth);
 }
 
 
@@ -163,7 +168,7 @@ window.onload = function() { startRequest("booths.xml.php",reqStateChanged2)};
             <table width="460" border="2" align="center" cellpadding="1" cellspacing="2" bordercolor="#eeeeff" bgcolor="#FFFFFF">
 		<tr bgcolor=#4e81c4>
 			<td>
-			<div align="center"><b><font color="white" size=5><?=gettext("Error Page");?></font></b></div>
+			<div align="center"><b><font color="white" size=5><?= gettext("Error Page");?></font></b></div>
 			</td>
 		</tr>
 		<tr>
@@ -173,7 +178,7 @@ window.onload = function() { startRequest("booths.xml.php",reqStateChanged2)};
                         <td align="center"><br/>
 				<img src="./Css/kicons/system-config-rootpassword.png">
 				<br/>
-				<b><font color=#3050c2 size=4><?=gettext("Cannot locate booths") ?></font></b><br/><br/><br/></td>
+				<b><font color=#3050c2 size=4><?= gettext("Cannot locate booths") ?></font></b><br/><br/><br/></td>
                       </tr>
                     </table>
 		</td>
@@ -193,7 +198,7 @@ window.onload = function() { startRequest("booths.xml.php",reqStateChanged2)};
 		else {
 		?>
 		<!--Lang: <?=setlocale(LC_MESSAGES,0); ?>-->
-		<div id="message"> Welcome! </div>
+		<div id="message"><?= _("Welcome!"); ?> </div>
 		<br>
 		<TABLE class='Booths' border=0 cellPadding=2 cellSpacing=2 width="100%">
 		<TBODY>
@@ -205,7 +210,7 @@ window.onload = function() { startRequest("booths.xml.php",reqStateChanged2)};
 				if ( $i % $ndiv == 0)
 					echo "<tr>\n";
 
-				echo "<td width='" . $colwidth . "' id=\"booth_" . $row[0] . "\" >";
+				echo "<td width='" . $colwidth . "%' id=\"booth_" . $row[0] . "\" >";
 				?><table class="Booth" cellPadding=2 cellSpacing=2><tbody>
 				<tr><td id="name" class="name" colspan=3>Booth X</td></tr>
 				<tr><td id="status" class="state0" colspan=3> -- </td></tr>
@@ -241,5 +246,5 @@ window.onload = function() { startRequest("booths.xml.php",reqStateChanged2)};
 <br>
 <a href='javascript:startRequest("booths.xml.php",reqStateChanged2)'> refresh</a>
 <br>
-Response: <span id='response' ></span>
+<?= _("Response:")?> <span id='response' ></span>
 <?php include ("PP_footer.php"); ?>

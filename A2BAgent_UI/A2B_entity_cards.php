@@ -10,6 +10,21 @@ if (! has_rights (ACX_ACCESS)){
 	   die();
 }
 
+getpost_ifset(array("popup_select"));
+
+	if ($popup_select){
+?>
+<SCRIPT LANGUAGE="javascript">
+<!-- Begin
+function doFill(booth,selvalue){
+	window.opener.booth_action2(booth, 'load_reg', selvalue);
+	window.close();
+}
+// End -->
+</script>
+<?php
+	}
+
 class FillBoothForm{
 	var $list_booths;
 	var $pref_booth=-1;
@@ -39,6 +54,9 @@ class FillBoothForm{
 		global $list_booths;
 		global $txt_fill;
 		global $txt_empty;
+		$txt_nowhere = _("Nowhere");
+		$txt_default = _(", default for ");
+		
 		$ress = '';
 		$opts = '';
 		 // name the fields (for clarity), see FG_var_card's FG_COL_QUERY
@@ -59,9 +77,9 @@ class FillBoothForm{
 		</form>
 EOS;
 		} else {
-			$ress .= "<span>" . _("Nowhere") ;
+			$ress .= "<span>" . $txt_nowhere ;
 			if (isset($f_def_id))
-				$ress .= _(", default for ") . htmlspecialchars($f_def_name);
+				$ress .= $txt_default . htmlspecialchars($f_def_name);
 			$ress.= "</span>";
 			//$ress .= "Default: " . $f_def_id . " " ;
 			//echo gettype($f_def). $f_def;
@@ -92,6 +110,8 @@ EOS;
 
 include("PP_header.php");
 
+if (!isset($popup_select)) $popup_select = '';
+
 $fb_form=new FillBoothForm();
 include ("FG_var_card.inc");
 
@@ -121,5 +141,5 @@ if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
 $HD_Form -> create_form ($form_action, $list, $id=null) ;
 
 // #### FOOTER SECTION
-if (!($popup_select>=1)) include("PP_footer.php");
+if ($popup_select=='') include("PP_footer.php");
 ?>
