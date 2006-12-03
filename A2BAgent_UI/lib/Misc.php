@@ -303,4 +303,17 @@ $lang['strlast']=gettext('Last &gt;&gt;');
 			return $A2B->config[$group][$field];
 		else	return $default_v ;
 	}
+	
+	// Couldn't this be done in css?
+	function str_dblspace($str){
+		$ret ='';
+		$o=strlen($str);
+		for ($i=0;$i<$o;$i++){
+			if ($str[$i] == ' ')
+				$ret .="&nbsp;&nbsp; ";
+			else
+				$ret .= $str[$i] . ' ';
+		}
+		return $ret;
+	}
 ?>
