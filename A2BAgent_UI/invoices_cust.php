@@ -378,7 +378,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 <table width="100%">
 <tr>
 <?php if (SHOW_ICON_INVOICE){?> <td align="left"><img src="pdf-invoices/images/kfind.gif"/> </td> <?php } ?>
-<td align="center"  bgcolor="#fff1d1"><font color="#000000" face="verdana" size="5"> <b><?=  gettext("C A L L S &nbsp;&nbsp;  D E T A I L");?></b> </td>
+<td align="center"  bgcolor="#fff1d1"><font color="#000000" face="verdana" size="5"> <b><?=  str_dblspace(gettext("CALLS DETAIL"));?></b> </td>
 </tr>
 </table>
 
@@ -504,7 +504,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 <table width="100%">
 <tr>
 <?php if (SHOW_ICON_INVOICE){?><td align="left"><img src="pdf-invoices/images/desktop.gif"/> </td><?php }?>
-<td align="center"  bgcolor="#fff1d1"><font color="#000000" face="verdana" size="5"> <b><?=  gettext("B I L L I N G &nbsp;&nbsp;S E R V I C E");?> : <?php  if (strlen($info_customer[0][2])>0) echo $info_customer[0][2]; ?> </b> </td>
+<td align="center"  bgcolor="#fff1d1"><font color="#000000" face="verdana" size="5"> <b><?=  str_dblspace(gettext("BILLING SERVICE"));?> : <?php  if (strlen($info_customer[0][2])>0) echo $info_customer[0][2]; ?> </b> </td>
 </tr>
 </table>
 <table border="0" cellspacing="1" cellpadding="2" width="70%" align="center">
@@ -557,7 +557,7 @@ if (is_array($list_total_day) && count($list_total_day)>0){ ?>
 <table width="100%">
 <tr>
 <?php if (SHOW_ICON_INVOICE){?><td align="left"><img src="pdf-invoices/images/stock_landline-phone.gif"/> </td><?php } ?>
-<td align="center"  bgcolor="#fff1d1"><font color="#000000" face="verdana" size="5"> <b><?=  gettext("B I L L&nbsp;&nbsp;E V O L U T I O N");?></b> </td>
+<td align="center"  bgcolor="#fff1d1"><font color="#000000" face="verdana" size="5"> <b><?=  str_dblspace(gettext("BILL EVOLUTION"));?></b> </td>
 </tr>
 </table>
 
