@@ -17,6 +17,7 @@ $refills = explode("|",AGENT_REFILLS);
 ?>
 <script type="text/javascript">
 var req_timer = false;
+var call_obj = false;
 function reqStateChanged2(){
 
 	var resp ="";
@@ -35,6 +36,10 @@ function reqStateChanged2(){
 		resp="<?= _("Receiving")?>";
 		break;
 	case 4:
+		if (call_obj){
+			call_obj.window.close();
+			call_obj=false;
+		}
 		switch(http_request.status) { // HTTP response codes..
 		case 200:
 			resp="OK";
@@ -136,7 +141,8 @@ function booth_action(booth,act) {
 	startRequest("booths.xml.php"+"?action="+act + "&actb=" + booth,reqStateChanged2);
 }
 
-function booth_action2(booth,act,str2) {
+function booth_action2(booth,act,str2,co) {
+	call_obj=co;
 	startRequest("booths.xml.php"+"?action="+act + "&actb=" + booth + str2,reqStateChanged2);
 }
 

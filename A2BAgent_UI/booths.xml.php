@@ -44,8 +44,6 @@ function fmt_minutes($sessiontime){
 	$dom_message= $dom->createElement("message");
 	$dom_root->appendChild($dom_message);
 
-// TODO: add the processing here..
-
 	// Perform the SQL query
 	$DBHandle  = DbConnect();
 	$message = '';
@@ -99,6 +97,20 @@ function fmt_minutes($sessiontime){
 				else {
 					$message= gettext("Action failed:");
 					$message = $message . $DBHandle->ErrorMsg();
+					$message_class="msg_error";
+				}
+				break;
+			case 'load_reg':
+				$query = str_dbparams($DBHandle,"UPDATE cc_booth SET cur_card_id = %1 WHERE agentid = %2 AND id = %3;",
+					array((integer) $_GET['card'],$_SESSION['agent_id'],$get_booth));
+				$res=$DBHandle->Execute($query);
+				
+				if ($res)
+					$message= gettext("Booth started"  );
+				else {
+					$message= gettext("Action failed:");
+					$message .= $DBHandle->ErrorMsg();
+					$message .= "<br>Query: " . $query;
 					$message_class="msg_error";
 				}
 				break;

@@ -10,7 +10,7 @@ $HD_Form -> setDBHandler (DbConnect());
 $language_list= get_languages();
 // $language_list_r= get_languages_r($language_list); *-*
 
-$HD_Form -> FG_DEBUG = 0;
+$HD_Form -> FG_DEBUG = 2;
 // FAQ
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "ASC";
 $HD_Form -> FG_FILTER_SEARCH_SESSION_NAME = 'entity_card_selection';
@@ -57,7 +57,10 @@ if ($action == 'fillb') {
 		}
 }
 
-$HD_Form -> FG_TABLE_CLAUSE = "agentid = ". $HD_Form->DBHandle->Quote($_SESSION["agent_id"]);
+$HD_Form -> FG_TABLE_CLAUSE = str_dbparams($HD_Form->DBHandle,"agentid = %1 AND (firstusedate IS NOT NULL OR firstname IS NOT NULL)",
+	array($_SESSION["agent_id"]));
+if ($popup_select == 'freg')
+	$HD_Form -> FG_TABLE_CLAUSE .= " AND now_id IS NULL AND def = false";
 $HD_Form -> FieldViewElement ($FG_COL_QUERY);
 
 $HD_Form -> CV_NO_FIELDS  = gettext("NO CARDS HAVE BEEN CREATED!");
@@ -79,18 +82,33 @@ if ($popup_select == 'freg'){
 	$HD_Form -> FG_OTHER_BUTTON1_ALT = '<font color="red">&lt;'. _("select") .'&gt;</font>';
 	$HD_Form -> FG_OTHER_BUTTON1_IMG = '';
 	$HD_Form -> FG_OTHER_BUTTON1_LINK = "javascript:doFill($booth,'|col0|');";
-}
-//else $HD_Form -> FG_EDITION = true;
+}else 
+	$HD_Form -> FG_EDITION = true;
 
+$HD_Form-> FG_QUERY_EDITION_HIDDEN_FIELDS = 'popup_select,booth';
+$HD_Form-> FG_QUERY_EDITION_HIDDEN_VALUE = "$popup_select, $booth";
+$HD_Form-> FG_QUERY_EDITION_HIDDEN_IGNORE = true;
 
-if (false && (isset($form_action) && $form_action=="ask-add")){
-	$array_card_generated  = gen_card_with_alias();
-
-	$maxi = "value='".$array_card_generated[0]."'";
-	$maxi2 = "value='".$array_card_generated[1]."'";
-	$pass = MDP_NUMERIC(10);
-	$maxi3 = "value='".$pass."'";
-	$default_initbalance = "value='0'";
+if (isset($form_action) && $form_action=="ask-add"){
+	/* An agent could never add a customer. This is a trick. Instead,
+	   we edit an existing, never used, regular and make him appear */
+	  $form_action='ask-edit';
+	
+	$query = str_dbparams($HD_Form->DBHandle,"SELECT id FROM cc_card_agent_v WHERE firstusedate IS NULL AND (firstname IS NULL OR lastname IS NULL) AND agentid = %1 LIMIT 1;", array($_SESSION["agent_id"]));
+	
+	$res = $HD_Form->DBHandle->Query($query);
+	
+	if ($res){
+		$row= $res->fetchRow();
+		$id = $row[0];
+		$_GET['id'] = $id;
+		echo "Found regular: id = " . $id . "<br>";
+		echo "action: $action <br>";
+	} else {
+		echo "Query: " . htmlspecialchars($query) . " failed.<br>";
+		echo "Error: " . $HD_Form->DBHandle->ErrorMsg() . "<br>";
+		$form_action='do-nothing';
+	}
 }
 
 
@@ -210,4 +228,7 @@ $HD_Form -> FieldEditElement ($field_elements);
 $HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = "images/cormfirmboton.gif";
 $HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT = gettext("Once you have completed the form above, click on the CONTINUE button.");
 
+$HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?form_action=list&popup_select=$popup_select&booth=$booth&id=";
+
+echo "Link after edit: " . $HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT . "<br>";
 ?>

@@ -10,15 +10,14 @@ if (! has_rights (ACX_ACCESS)){
 	   die();
 }
 
-getpost_ifset(array("popup_select"));
+getpost_ifset(array("popup_select","form_action","action"));
 
 	if ($popup_select){
 ?>
 <SCRIPT LANGUAGE="javascript">
 <!-- Begin
 function doFill(booth,selvalue){
-	window.opener.booth_action2(booth, 'load_reg', selvalue);
-	window.close();
+	window.opener.booth_action2(booth, 'load_reg', "&card=" +selvalue, this);
 }
 // End -->
 </script>
@@ -133,6 +132,12 @@ $list = $HD_Form -> perform_action($form_action);
 
 $HD_Form -> create_toppage ($form_action);
 
+if ($action=='list') {
+?>
+<p class='create-btn'><a href='A2B_entity_cards.php?form_action=ask-add&popup_select=<?= $popup_select?>&booth=<?= $booth?>'><?= _("Create new regular customer");?></a>
+</p>
+<?php 
+}
 
 // #### CREATE FORM OR LIST
 //$HD_Form -> CV_TOPVIEWER = "menu";

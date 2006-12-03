@@ -38,9 +38,9 @@ function sendtolittle(direction){
 		
 		for ($cur_hidden=0;$cur_hidden<count($split_hidden_fields);$cur_hidden++){
 			echo "<INPUT type=\"hidden\" name=\"".trim($split_hidden_fields[$cur_hidden])."\" value=\"".trim($split_hidden_fields_value[$cur_hidden])."\">\n";
-		}		
+		}
 	}
-?>			  
+?> 
             <TBODY>
 <?php 
 	for($i=0;$i<$this->FG_NB_TABLE_EDITION;$i++){ 
@@ -118,14 +118,14 @@ function sendtolittle(direction){
 						$instance_sub_table = new Table($this->FG_TABLE_EDITION[$i][8], $this->FG_TABLE_EDITION[$i][9]);
 						if (FG_DEBUG >=2) $instance_sub_table->debug_st=1;
 						$select_list = $instance_sub_table -> Get_list ($this->DBHandle, $this->FG_TABLE_EDITION[$i][10], null, null, null, null, null, null);
-						if ($this->FG_DEBUG >= 2) { echo "<br>"; print_r($select_list);}
+						if ($this->FG_DEBUG >= 3) { echo "<br>"; print_r($select_list);}
 											
 					}elseif (strtoupper ($this->FG_TABLE_EDITION[$i][7])==strtoupper ("LIST"))
 					{
 						$select_list = $this->FG_TABLE_EDITION[$i][11];
-						if ($this->FG_DEBUG >= 2) { echo "<br>"; print_r($select_list);}
+						if ($this->FG_DEBUG >= 3) { echo "<br>"; print_r($select_list);}
 										 }
-						 if ($this->FG_DEBUG >= 2) print_r ($list);			 
+						 if ($this->FG_DEBUG >= 3) print_r ($list);			 
 						 if ($this->FG_DEBUG >= 2) echo "<br>#$i<br>::>".$this->VALID_SQL_REG_EXP;
 						 if ($this->FG_DEBUG >= 2) echo "<br><br>::>".$list[0][$i];
 						 if ($this->FG_DEBUG >= 2) echo "<br><br>::>".$$this->FG_TABLE_ADITION[$i][1];											

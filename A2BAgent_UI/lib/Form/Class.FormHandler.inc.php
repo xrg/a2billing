@@ -283,6 +283,7 @@ class FormHandler{
 	var $FG_QUERY_EDITION_HIDDEN_VALUE  = '';
 	var $FG_QUERY_ADITION_HIDDEN_FIELDS = '';
 	var $FG_QUERY_ADITION_HIDDEN_VALUE  = '';
+	var $FG_QUERY_EDITION_HIDDEN_IGNORE = false;
 	var $FG_QUERY_SQL_HIDDEN = '';
 
      /**
@@ -1036,7 +1037,7 @@ class FormHandler{
 													 $this -> FG_LIMITE_DISPLAY, $this -> CV_CURRENT_PAGE * $this -> FG_LIMITE_DISPLAY, $this -> SQL_GROUP);
 				if ($this->FG_DEBUG >= 3) echo "<br>Clause : ".$this -> FG_TABLE_CLAUSE;
 				$this -> FG_NB_RECORD = $instance_table -> Table_count ($this -> DBHandle, $this -> FG_TABLE_CLAUSE);
-				if ($this->FG_DEBUG >= 1) var_dump ($list);
+				if ($this->FG_DEBUG >= 3) var_dump ($list);
 
 				if ($this -> FG_NB_RECORD <=$this -> FG_LIMITE_DISPLAY){
 					$this -> FG_NB_RECORD_MAX = 1;
@@ -1567,7 +1568,7 @@ class FormHandler{
 		}
 			
 			
-		if (!is_null($this->FG_QUERY_EDITION_HIDDEN_FIELDS) && $this->FG_QUERY_EDITION_HIDDEN_FIELDS!=""){
+		if ( !$this->FG_QUERY_EDITION_HIDDEN_IGNORE && !is_null($this->FG_QUERY_EDITION_HIDDEN_FIELDS) && $this->FG_QUERY_EDITION_HIDDEN_FIELDS!=""){
 			
 			$table_split_field = split(",",$this->FG_QUERY_EDITION_HIDDEN_FIELDS);
 			$table_split_value = split(",",$this->FG_QUERY_EDITION_HIDDEN_VALUE);
@@ -1588,10 +1589,11 @@ class FormHandler{
 		if ($this->FG_DEBUG >= 1) {
 			echo "Result:" . $this->RESULT_QUERY;
 			if (!$this -> RESULT_QUERY)
-				echo ", error:" .$this->DBHandle->ErrorMsg() ."<br>\n";
+				echo ", error:" .$this->DBHandle->ErrorMsg();
+			echo "<br>\n";
 		}
 		
-		if ( ($this->VALID_SQL_REG_EXP) && (isset($this->FG_GO_LINK_AFTER_ACTION_EDIT))){				
+		if ( ($this->VALID_SQL_REG_EXP) && (isset($this->FG_GO_LINK_AFTER_ACTION_EDIT)) && $this->RESULT_QUERY){
 			if ($this->FG_DEBUG >= 1)  echo gettext("<br> GOTO ; ").$this->FG_GO_LINK_AFTER_ACTION_EDIT.$processed['id'];
 			Header ("Location: ".$this->FG_GO_LINK_AFTER_ACTION_EDIT.$processed['id']);
 		}			

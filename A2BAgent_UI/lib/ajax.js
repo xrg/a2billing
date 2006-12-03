@@ -41,7 +41,7 @@ function startRequest(url,cb_fn){
 		http_request.onreadystatechange = cb_fn;
 		http_request.open('GET', url, true);
 		http_request.send(null);
-		document.getElementById("response").innerHTML="Start req";
+		document.getElementById("response").innerHTML="Start req" + url;
 	}
 	
 }
