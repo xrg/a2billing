@@ -96,14 +96,14 @@ function imgidclick(imgID,divID)
 	<li><a href="invoices_cust.php"><strong><?php echo gettext("PAYMENTS");?></strong></a></li>
 	<li><a href=# target=_self></a></li>	
 	
-	<li><a href="invoices.php"><strong><?php echo gettext("REPORTS");?></strong></a></li>
+	<li><a href="reports_choice.php"><strong><?php echo gettext("REPORTS");?></strong></a></li>
 	<li><a href=# target=_self></a></li>	
 
-	<li><a href="booths.php"><strong><?php echo gettext("INFO PAGES");?></strong></a></li>
+	<li><a href="info-pages.php"><strong><?php echo gettext("INFO PAGES");?></strong></a></li>
 	<li><a href=# target=_self></a></li>	
 	
 	<li><a href=# target=_self></a></li>	
-	<li><a href="balance.php"><strong><?php echo gettext("CALL HISTORY");?></strong></a></li>
+	<li><a href="invoices.php"><strong><?php echo gettext("CALL HISTORY");?></strong></a></li>
 	
 	<?php if ($A2B->config["agentcustomerui"]['password']){ ?>
 	<li><a href=# target=_self></a></li>
