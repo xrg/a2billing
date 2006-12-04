@@ -70,6 +70,9 @@ if (!isset($currency_select) || strlen($currency_select)==0) $currency_select=tr
 if (!isset($css_url) || strlen($css_url)==0) $css_url=substr("http://".$_SERVER['SERVER_ADDR'].$_SERVER['PHP_SELF'],0,strlen("http://".$_SERVER['SERVER_ADDR'].$_SERVER['PHP_SELF'])-20)."api_ratecard.css";
 if (!isset($merge_form) || strlen($merge_form)==0) $merge_form=0;
 
+if (!isset($page_url) || strlen($page_url)==0){ echo "Error : need to define page_url !!!"; exit; }
+if ( (substr($page_url,0,7)!='http://') && (substr($page_url,0,8)!='https://') ){ echo "Error : page_url need to start by http:// or https:// "; exit; }
+
 
 function add_clause(&$sqlclause,$addclause){
 	if (strlen($sqlclause)==0) $sqlclause=$addclause;
@@ -232,6 +235,8 @@ function Search(Source){
 </head>
 
 <div>
+<?php echo "$page_url?order=$order&sens=$sens&current_page=$current_page&css_url=$css_url&page_url=$page_url"?>
+
 <!-- ** ** ** ** ** Part for the research ** ** ** ** ** -->
 	<FORM METHOD=GET name="myForm" ACTION="<?php echo "$page_url?order=$order&sens=$sens&current_page=$current_page&css_url=$css_url&page_url=$page_url"?>">
 	<INPUT TYPE="hidden" NAME="posted" value=1>
