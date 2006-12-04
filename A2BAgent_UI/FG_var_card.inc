@@ -10,7 +10,7 @@ $HD_Form -> setDBHandler (DbConnect());
 $language_list= get_languages();
 // $language_list_r= get_languages_r($language_list); *-*
 
-$HD_Form -> FG_DEBUG = 2;
+$HD_Form -> FG_DEBUG = 0;
 // FAQ
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "ASC";
 $HD_Form -> FG_FILTER_SEARCH_SESSION_NAME = 'entity_card_selection';
