@@ -530,4 +530,10 @@ CREATE OR REPLACE VIEW cc_session_problems AS
 		WHERE cc_shopsessions.card = cc_agent_cards.card_id
 		AND starttime > endtime;
 
+
+CREATE OR REPLACE FUNCTION divide_time(div1 INTERVAL, div2 INTERVAL) RETURNS FLOAT AS $$
+	SELECT ( EXTRACT(EPOCH FROM $1) / EXTRACT(EPOCH FROM $2)) ;
+	$$ LANGUAGE SQL IMMUTABLE STRICT;
+
+
 -- eof
