@@ -7,6 +7,7 @@ Author: Belaid Arezqui <areski at gmail dot com>
 Date: 10 March 2006
 [Tested with $PHP 4.3.10 ; $PostgreSQL 7.4.6 ;  mysql-3.23 ; mysql-4.1.x]
 [Tested with $PHP-5.0.4  ; $PostgreSQL-8.0.4]
+[Testing with $PHP-5.2.0 ; PostgreSQL-8.1.5 ; Asterisk-1.4 (xrg) ]
 
  * Requires : php-pcntl, wget , php as console interpret ( php4-cli or something like ) and php-/mysql/pgsql
 
