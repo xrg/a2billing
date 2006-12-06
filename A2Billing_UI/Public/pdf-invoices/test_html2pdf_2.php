@@ -1,7 +1,7 @@
 <?php
 error_reporting(E_ALL);
 
-if ($printable != 'yes') {
+if ($_GET["printable"] != 'yes') {
    require('html2pdf/html2fpdf.php');
 
    ob_start();
@@ -11,8 +11,16 @@ if ($printable != 'yes') {
 
 
 <!-- FIN TITLE GLOBAL MINUTES //-->
-				
-		
+
+
+<table width="100%">
+<tr>
+<td width="5%" align="left"><img src="images/ast-invoice.gif"/> </td>
+<td align="left" width="50%">&nbsp; </td> 
+<td align="right"> test</td>
+</tr>
+</table>
+
 <table align="center" border="0" cellpadding="2" cellspacing="1" width="60%">
 
 	<tr bgcolor="#600101">
@@ -47,7 +55,7 @@ if ($printable != 'yes') {
 
 <?php
 
-if ($printable != 'yes') {
+if ($_GET["printable"] != 'yes') {
 
 	$html = ob_get_contents();
 	// delete output-Buffer

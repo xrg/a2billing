@@ -1,5 +1,5 @@
 <?php
-error_reporting(E_ALL);
+//error_reporting(E_ALL);
 
 if ($printable != 'yes') {
    require('html2pdf/html2fpdf.php');
@@ -11,9 +11,9 @@ if ($printable != 'yes') {
 
 <table width="100%">
 <tr>
-<td width="5%" align="left"><img src="images/ast-invoice.gif"/> </td>
+<td width="5%" align="left"><img src="images/security.png"/> </td>
 <td align="left" width="50%">&nbsp; </td> 
-<td align="right"> <img src="images/asterisk.gif"/> </td>
+<td align="right">  </td>
 </tr>
 </table>
 
@@ -44,7 +44,7 @@ Street valground 45, 2-5 <br><br>
 
 <table width="100%">
 <tr>
-<td align="left"><img src="images/desktop.gif"/> </td>
+<td align="left"> -- </td>
 <td align="center"  bgcolor="#fff1d1"><font color="#000000" face="verdana" size="5"> <b>B I L L I N G &nbsp;&nbsp; S E R V I C E</b> </td> 
 </tr>
 </table>
@@ -147,7 +147,7 @@ Street valground 45, 2-5 <br><br>
 
 <table width="100%">
 <tr>
-<td align="left"><img src="images/stock_landline-phone.gif"/> </td>
+<td align="left"> -- </td>
 <td align="center"  bgcolor="#fff1d1"><font color="#000000" face="verdana" size="5"> <b>B I L L &nbsp;&nbsp;  E V O L U T I O N</b> </td> 
 </tr>
 </table>
@@ -161,7 +161,7 @@ Street valground 45, 2-5 <br><br>
 <b>Consumitions + 18 % <br>(since last month)</b>
 </td>
 <td align="right">
-<img width="300" src="images/graph_statbar.gif"/>
+---
 </td>
 </tr>
 </table>
@@ -195,7 +195,7 @@ Street valground 45, 2-5 <br><br>
 		<td align="center" bgcolor="#f2f8ff" nowrap="nowrap"><font color="#000000" face="verdana" size="1">21317:17 </font></td>
                 
         <td bgcolor="#f2f8ff" >
-			<img src="images/sidenav-selected.gif" height="6" width="200">
+			---
         </td>
         <td align="right" bgcolor="#f2f8ff" nowrap="nowrap"><font color="#000000" face="verdana" size="1">4057</font></td>
         <td align="right" bgcolor="#f2f8ff" nowrap="nowrap"><font color="#000000" face="verdana" size="1">05:15 </font></td>
@@ -209,7 +209,7 @@ Street valground 45, 2-5 <br><br>
 		<td align="center" bgcolor="#f2f8ff" nowrap="nowrap"><font color="#000000" face="verdana" size="1">213:17 </font></td>
                 
         <td bgcolor="#f2f8ff" >
-			<img src="images/sidenav-selected.gif" height="6" width="30">
+			===
         </td>
         <td align="right" bgcolor="#f2f8ff" nowrap="nowrap"><font color="#000000" face="verdana" size="1">405</font></td>
         <td align="right" bgcolor="#f2f8ff" nowrap="nowrap"><font color="#000000" face="verdana" size="1">04:35 </font></td>
@@ -247,7 +247,7 @@ Street valground 45, 2-5 <br><br>
 
 <table width="100%">
 <tr>
-<td align="left"><img src="images/kfind.gif"/> </td>
+<td align="left"> ---- </td>
 <td align="center"  bgcolor="#fff1d1"><font color="#000000" face="verdana" size="5"> <b>C A L L S &nbsp;&nbsp;  D E T A I L</b> </td> 
 </tr>
 </table>
@@ -983,7 +983,7 @@ Street valground 45, 2-5 <br><br>
                   <td class="tableDivider" colspan="10"></td>
                 </tr>
                 <tr> 
-                  <td class="tableDivider" colspan="10"><img src="<?php echo Images_Path;?>/clear.gif" height="1" width="1"></td>
+                  <td class="tableDivider" colspan="10"> -- </td>
                 </tr>
               </tbody>
             </table>
