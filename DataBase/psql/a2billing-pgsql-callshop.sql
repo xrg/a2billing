@@ -87,6 +87,15 @@ CREATE TABLE cc_shopsessions (
 );
 
 
+CREATE TABLE cc_agentpay (
+    id bigserial NOT NULL,
+    date timestamp without time zone DEFAULT now() NOT NULL,
+    credit numeric(12,4) NOT NULL,
+    pay_type integer,
+    agentid bigint NOT NULL REFERENCES cc_agent(id),
+    descr text 
+);
+
 -- CREATE OR REPLACE FUNCTION booth_start(booth bigint, agent_id bigint) RETURNS bigint
 -- 	AS $$
 -- 		UPDATE cc_card SET activated= 't' 
@@ -100,4 +109,11 @@ CREATE TABLE cc_shopsessions (
 -- 				cc_booth.agentid = $2;
 -- 	$$ LANGUAGE SQL VOLATILE STRICT;
 	
+-- Charges could now come from the agents. If so, a a2b admin should better
+-- confirm those.
+	
+ALTER TABLE cc_charge ADD agentid bigint references cc_agent(id);
+ALTER TABLE cc_charge ADD from_agent boolean NOT NULL DEFAULT FALSE;
+ALTER TABLE cc_charge ADD checked bigint REFERENCES cc_ui_authen(userid);
+
 -- eof
