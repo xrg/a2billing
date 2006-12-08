@@ -307,13 +307,8 @@ $lang['strlast']=gettext('Last &gt;&gt;');
 	// Couldn't this be done in css?
 	function str_dblspace($str){
 		$ret ='';
-		$o=strlen($str);
-		for ($i=0;$i<$o;$i++){
-			if ($str[$i] == ' ')
-				$ret .="&nbsp;&nbsp; ";
-			else
-				$ret .= $str[$i] . ' ';
-		}
-		return $ret;
+		$ret= "<span style=\"letter-spacing: 4px;\">" . $str .
+			"</span>";
+		return $ret; 
 	}
 ?>
