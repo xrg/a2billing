@@ -2,7 +2,6 @@
 include ("../lib/defines.php");
 include ("../lib/module.access.php");
 include ("../lib/Form/Class.FormHandler.inc.php");
-include ("./form_data/FG_var_backup.inc");
 
 
 if (! has_rights (ACX_RATECARD)){ 
@@ -11,6 +10,7 @@ if (! has_rights (ACX_RATECARD)){
 	   die();	   
 }
 
+include ("./form_data/FG_var_backup.inc");
 
 
 /***********************************************************************************/

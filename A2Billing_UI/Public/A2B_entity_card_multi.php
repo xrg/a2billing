@@ -2,15 +2,14 @@
 include ("../lib/defines.php");
 include ("../lib/module.access.php");
 include ("../lib/Form/Class.FormHandler.inc.php");
-include ("./form_data/FG_var_card.inc");
-
-
 
 if (! has_rights (ACX_CUSTOMER)){ 
 	   Header ("HTTP/1.0 401 Unauthorized");
 	   Header ("Location: PP_error.php?c=accessdenied");	   
 	   die();	   
 }
+
+include ("./form_data/FG_var_card.inc");
 
 
 $HD_Form -> FG_FILTER_SEARCH_FORM = false;
