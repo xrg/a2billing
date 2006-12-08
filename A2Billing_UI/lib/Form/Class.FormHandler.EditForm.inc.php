@@ -38,9 +38,9 @@ function sendtolittle(direction){
 		
 		for ($cur_hidden=0;$cur_hidden<count($split_hidden_fields);$cur_hidden++){
 			echo "<INPUT type=\"hidden\" name=\"".trim($split_hidden_fields[$cur_hidden])."\" value=\"".trim($split_hidden_fields_value[$cur_hidden])."\">\n";
-		}		
+		}
 	}
-?>			  
+?> 
             <TBODY>
 <?php 
 	for($i=0;$i<$this->FG_NB_TABLE_EDITION;$i++){ 
@@ -48,7 +48,7 @@ function sendtolittle(direction){
 		
 		
 		if (strlen($this->FG_TABLE_EDITION[$i][16])>1){
-			echo '<TR><TD width="%25" valign="top" bgcolor="#FEFEEE" colspan="2" class="tableBodyRight" ><i>';				
+			echo '<TR><TD width="%25" valign="top" bgcolor="#FEFEEE" colspan="2" class="tableBodyRight" ><i>';
 			echo $this->FG_TABLE_EDITION[$i][16];
 			echo '</i></TD></TR>';
 		}
@@ -59,19 +59,19 @@ function sendtolittle(direction){
                     <TR> 
 		
 		<?php if (!$this-> FG_fit_expression[$i]  &&  isset($this-> FG_fit_expression[$i]) ){ ?>
-			<TD width="%25" valign="middle" class="form_head_red"> 		<?= $this->FG_TABLE_EDITION[$i][0]?> 		</TD>
+			<TD width="%25" valign="middle" class="form_head_red"> 		<?= $this->FG_TABLE_EDITION[$i][0]?> 		</TD>  
 		  	<TD width="%75" valign="top" class="tableBodyRight" background="<?= Images_Path;?>/background_cells_red.gif" class="text">
         <?php }else{ ?>
-			<TD width="%25" valign="middle" class="form_head"> 		<?= $this->FG_TABLE_EDITION[$i][0]?> 		</TD>
+			<TD width="%25" valign="middle" class="form_head"> 		<?= $this->FG_TABLE_EDITION[$i][0]?> 		</TD>  
 			<TD width="%75" valign="top" class="tableBodyRight" background="<?= Images_Path;?>/background_cells.gif" class="text">
 		<?php } ?>
                         <?php 
 			if ($this->FG_DEBUG >= 1) print($this->FG_TABLE_EDITION[$i][3]);
-			if (strtoupper ($this->FG_TABLE_EDITION[$i][3])==strtoupper ("INPUT"))
-			{
-				if (isset ($this->FG_TABLE_EDITION[$i][15]) && strlen($this->FG_TABLE_EDITION[$i][15])>1){
-					$list[0][$i] = call_user_func($this->FG_TABLE_EDITION[$i][15], $list[0][$i]);
-				}
+		  		if (strtoupper ($this->FG_TABLE_EDITION[$i][3])==strtoupper ("INPUT"))
+				{								
+					if (isset ($this->FG_TABLE_EDITION[$i][15]) && strlen($this->FG_TABLE_EDITION[$i][15])>1){				
+						$list[0][$i] = call_user_func($this->FG_TABLE_EDITION[$i][15], $list[0][$i]);
+					}			
 			  ?>
                         <INPUT class="form_enter" name=<?= $this->FG_TABLE_EDITION[$i][1]?>  <?= $this->FG_TABLE_EDITION[$i][4]?> value="<?php if($this->VALID_SQL_REG_EXP){ echo stripslashes($list[0][$i]); }else{ echo $_POST[$this->FG_TABLE_ADITION[$i][1]];  }?>"> 
                         <?php 
@@ -81,7 +81,7 @@ function sendtolittle(direction){
 					if($this->VALID_SQL_REG_EXP){ 
 						echo stripslashes($list[0][$i]);
 					}else{ echo $this->FG_TABLE_ADITION[$i][2]; }?>">
-                                	<a href="#" onclick="window.open('<?= $this->FG_TABLE_EDITION[$i][12]?>popup_formname=myForm&popup_fieldname=<?= $this->FG_TABLE_EDITION[$i][1]?>' <?= $this->FG_TABLE_EDITION[$i][7]?>);"><img src="<?= Images_Path_Main;?>/icon_arrow_orange.gif"/></a>
+                                	<a href="#" onclick="window.open('<?= $this->FG_TABLE_EDITION[$i][12]?>popup_formname=myForm&popup_fieldname=<?= $this->FG_TABLE_EDITION[$i][1]?>' <?= $this->FG_TABLE_EDITION[$i][13]?>);"><img src="<?= Images_Path_Main;?>/icon_arrow_orange.gif"/></a>
 			 <?php
 				}elseif (strtoupper ($this -> FG_TABLE_EDITION[$i][3])==strtoupper ("POPUPVALUETIME"))
 				{
@@ -113,22 +113,22 @@ function sendtolittle(direction){
 				}elseif (strtoupper ($this->FG_TABLE_EDITION[$i][3])==strtoupper ("SELECT"))
 				{
 								
-					if ($this->FG_DEBUG >= 1)
-						echo gettext("<br> TYPE OF SELECT :").$this->FG_TABLE_EDITION[$i][7];
+					if ($this->FG_DEBUG >= 1)	echo gettext("<br> TYPE OF SELECT :").$this->FG_TABLE_EDITION[$i][7];
 					if (strtoupper ($this->FG_TABLE_EDITION[$i][7])==strtoupper ("SQL")){
 						$instance_sub_table = new Table($this->FG_TABLE_EDITION[$i][8], $this->FG_TABLE_EDITION[$i][9]);
+						if (FG_DEBUG >=2) $instance_sub_table->debug_st=1;
 						$select_list = $instance_sub_table -> Get_list ($this->DBHandle, $this->FG_TABLE_EDITION[$i][10], null, null, null, null, null, null);
-						if ($this->FG_DEBUG >= 2) { echo "<br>"; print_r($select_list);}
+						if ($this->FG_DEBUG >= 3) { echo "<br>"; print_r($select_list);}
 											
 					}elseif (strtoupper ($this->FG_TABLE_EDITION[$i][7])==strtoupper ("LIST"))
 					{
 						$select_list = $this->FG_TABLE_EDITION[$i][11];
-						if ($this->FG_DEBUG >= 2) { echo "<br>"; print_r($select_list);}
+						if ($this->FG_DEBUG >= 3) { echo "<br>"; print_r($select_list);}
 										 }
-						 if ($this->FG_DEBUG >= 2) print_r ($list);			 
+						 if ($this->FG_DEBUG >= 3) print_r ($list);			 
 						 if ($this->FG_DEBUG >= 2) echo "<br>#$i<br>::>".$this->VALID_SQL_REG_EXP;
 						 if ($this->FG_DEBUG >= 2) echo "<br><br>::>".$list[0][$i];
-						 if ($this->FG_DEBUG >= 2) echo "<br><br>::>".$$this->FG_TABLE_ADITION[$i][1];											
+						 if ($this->FG_DEBUG >= 2) echo "<br><br>::>".$$this->FG_TABLE_ADITION[$i][1];
 			  			?>
 						<SELECT name='<?= $this->FG_TABLE_EDITION[$i][1]?><?php if (strpos($this->FG_TABLE_EDITION[$i][4], "multiple")) echo "[]";?>' class="form_enter" <?= $this->FG_TABLE_EDITION[$i][4]?>  class="form_enter">
                         <?php
@@ -140,7 +140,7 @@ function sendtolittle(direction){
 							foreach ($select_list as $select_recordset){ 
 								$select_number++;
 								?>
-								<option  value=<?= $select_recordset[1]; ?> <?php 
+								<OPTION  value=<?= $select_recordset[1]?> <?php 
 									
 									if($this->VALID_SQL_REG_EXP){ 
 										if (strpos($this->FG_TABLE_EDITION[$i][4], "multiple")){										
@@ -158,7 +158,7 @@ function sendtolittle(direction){
 									}
 									  
 									// CLOSE THE <OPTION
-									?> > <?php
+									echo '> ';
 									if ($this->FG_TABLE_EDITION[$i][12] != ""){
 										$value_display = $this->FG_TABLE_EDITION[$i][12];
 										$nb_recor_k = count($select_recordset);
@@ -171,9 +171,9 @@ function sendtolittle(direction){
 									}
 									
 									// DISPLAY THE VALUE
-									echo $value_display;
+									echo $value_display;									
 									?>
-								</option>
+								</OPTION>
                           		<?php 
 			  				}// END_FOREACH
 						}else{
@@ -188,27 +188,18 @@ function sendtolittle(direction){
 							$radio_composant = split(":",$radio_instance);
 							echo $radio_composant[0];
 							echo ' <input class="form_enter" type="radio" name="'.$this->FG_TABLE_EDITION[$i][1].'" value="'.$radio_composant[1].'" ';
-							if($this->VALID_SQL_REG_EXP){
+							if($this->VALID_SQL_REG_EXP){ 
 								$know_is_checked = stripslashes($list[0][$i]); 
-							}else{
-								$know_is_checked = $_POST[$this->FG_TABLE_EDITION[$i][1]];
+							}else{ 
+								$know_is_checked = $_POST[$this->FG_TABLE_EDITION[$i][1]];  
 							}
-							
+													
 							if ($know_is_checked==$radio_composant[1]){
 								echo "checked";
 							}
 							echo ">";
-							if ($this->FG_DEBUG>=2) {
-								if($this->VALID_SQL_REG_EXP){
-									echo "list[0][$i] -> ". $list[0][$i] ; 
-								}else{
-									echo "_POST[" .$this->FG_TABLE_EDITION[$i][1] . "] ->" . $_POST[$this->FG_TABLE_EDITION[$i][1]];
-								}
-								echo "Checked: " . $know_is_checked . " = " . $radio_composant[1] . "<br>";
-								
-							}
-						
-						}
+													
+						}								
 						//  Yes <input type="radio" name="digitalized" value="t" checked>
 						//  No<input type="radio" name="digitalized" value="f">
 						
@@ -263,6 +254,7 @@ function sendtolittle(direction){
 	
 	
 								$instance_sub_table = new Table($table_split[2], $table_split[3]);
+								if (FG_DEBUG >=2) $instance_sub_table->debug_st=1;
 								$split_select_list = $instance_sub_table -> Get_list ($this->DBHandle, $SPLIT_CLAUSE, null, null, null, null, null, null);			
 				
 								if (!is_array($split_select_list)){	
@@ -276,8 +268,9 @@ function sendtolittle(direction){
 	for($j=0;$j<$num;$j++)
 	  {
 			if (is_numeric($table_split[7])){
-																	
+					
 					$instance_sub_sub_table = new Table($table_split[8], $table_split[9]);
+					if (FG_DEBUG >=2) $instance_sub_sub_table->debug_st=1;
 					
 					$SUB_TABLE_SPLIT_CLAUSE = str_replace("%1", $split_select_list[$j][$table_split[7]], $table_split[11] );
 					$sub_table_split_select_list = $instance_sub_sub_table -> Get_list ($this->DBHandle, $SUB_TABLE_SPLIT_CLAUSE, null, null, null, null, null, null);
@@ -360,6 +353,7 @@ function sendtolittle(direction){
 							 if ($table_split[6]!="" && !is_null($table_split[6])){
 							 	if (is_numeric($table_split[7])){
 									$instance_sub_sub_table = new Table($table_split[8], $table_split[9]);
+									if (FG_DEBUG >=2) $instance_sub_sub_table->debug_st=1;
 									$SUB_TABLE_SPLIT_CLAUSE = str_replace("%1", $select_recordset[$table_split[7]], $table_split[11] );
 									$sub_table_split_select_list = $instance_sub_sub_table -> Get_list ($this->DBHandle, $SUB_TABLE_SPLIT_CLAUSE, null, null, null, null, null, null);
 									$select_recordset[$table_split[7]] = $sub_table_split_select_list[0][0];
@@ -440,6 +434,7 @@ function sendtolittle(direction){
 			$SPLIT_CLAUSE = str_replace("%id", "$id", $table_split[4]);
 
 			$instance_sub_table = new Table($table_split[2], $table_split[3]);
+			if (FG_DEBUG >=2) $instance_sub_table->debug_st=1;
 			$split_select_list = $instance_sub_table -> Get_list ($this->DBHandle, $SPLIT_CLAUSE, null, null, null, null, null, null);
 	if (!is_array($split_select_list)){
 		$num=0;
@@ -561,6 +556,7 @@ function sendtolittle(direction){
 
 
 	$instance_sub_table = new Table($table_split[2], $table_split[3]);
+	if (FG_DEBUG >=2) $instance_sub_table->debug_st=1;
 	$split_select_list = $instance_sub_table -> Get_list ($this->DBHandle, $SPLIT_CLAUSE, null, null, null, null, null, null);			
 	if (!is_array($split_select_list)){	
 		$num=0;

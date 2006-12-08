@@ -705,30 +705,30 @@ class FormHandler{
 	 * @.END $comment - set a comment to display below the field
      */
 
-	 /*
-	// THE VARIABLE $FG_TABLE_EDITION WOULD DEFINE THE COL THAT WE WANT SHOW IN YOUR EDITION TABLE
-	// 0. NAME OF THE COLUMN IN THE HTML PAGE,
-	// 1. NAME OF THE FIELD
-	// 2. VALUE OF THE FIELD
-	// 3. THE TYPE OF THE FIELD (INPUT/SELECT/TEXTAREA)
-	// 4. THE PROPERTY OF THIS FIELD
-	// 5. REGEXPRES TO CHECK THE VALUE
-	//    "^.{3}$": A STRING WITH EXACTLY 3 CHARACTERS.
-	//     ^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*$  : EMAIL ADRESSE
-	// 6. ERROR MESSAGE // Used IF SELECT for ask-add as option with value -1
-	// 7.  IF THE FIELD TYPE IS A SELECT,  DEFINE LIST OR SQL
-	// 8.  IF SQL,		THE TABLE NAME
-	// 9. IF SQL,		THE FIELDS  : Three MAXIMUM IN ORDER (NAME, VALUE, ...other that we need for the display) ;)
-	// 10. IF SQL,		THE CLAUSE
-	// 11. IF LIST,		THE NAME OF THE LIST
-	// 12. IF LIST,		DISPLAY : %1 : (%2) ; IF SELECT , show the content of that field
-	// 13. CHECK_EMPTYVALUE - ("no" or "yes") if "no" we we check the regularexpression only if a value has been entered - if NO-NULL, if the value is
-	// 	 					  not entered the field will not be include in the update/addition query
-	// 14. COMMENT ( that is not included in FG_TABLE_EDITION or FG_TABLE_ADITION )
-	// 15. SQL CUSTOM QUERY : customer SQL   or   function to display the edit input
-	// 16. DISPLAYINPUT_DEFAULTSELECT : IF INPUT : FUNCTION TO DISPLAY THE VALUE OF THE FIELD ; IF SELECT IT WILL DISPLAY THE OPTION PER DEFAUTL, ie:
-	//									'<OPTION  value="-1" selected>NOT DEFINED</OPTION>'
-	// 17. COMMENT ABOVE : this will insert a comment line above the edition line, useful to separate section and to provide some detailed instruction
+	 /** The variable $FG_TABLE_EDITION would define the col that we want show in your edition table
+	0. name of the column in the html page,
+	1. name of the field
+	2. value of the field
+	3. the type of the field (INPUT/SELECT/TEXTAREA)
+	4. the property of this field
+	5. regexpres to check the value
+	   "^.{3}$": a string with exactly 3 characters.
+	    ^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*$  : email adresse
+	6. error message // used if select for ask-add as option with value -1
+	7.  if the field type is a SELECT,  define list or SQL
+	    if the field is POPUP, any additional options to the window.open() fn.
+	8.  if SQL,		the table name
+	9. if SQL,		the fields  : three maximum in order (name, value, ...other that we need for the display) ;)
+	10. if sql,		the clause
+	11. if list,		the name of the list
+	12. if list,		display : %1 : (%2) ; if select , show the content of that field
+	13. check_emptyvalue - ("no" or "yes") if "no" we we check the regularexpression only if a value has been entered - if no-null, if the value is
+		 					  not entered the field will not be include in the update/addition query
+	14. comment ( that is not included in fg_table_edition or fg_table_adition )
+	15. sql custom query : customer sql   or   function to display the edit input
+	16. displayinput_defaultselect : if input : function to display the value of the field ; if select it will display the option per defautl, ie:
+										'<option  value="-1" selected>not defined</option>'
+	17. comment above : this will insert a comment line above the edition line, useful to separate section and to provide some detailed instruction
 	 */
 
 	function AddEditElement($displayname, $fieldname, $defaultvalue, $fieldtype, $fieldproperty, $regexpr_nb, $error_message, $type_selectfield,
@@ -901,18 +901,6 @@ class FormHandler{
     // FUNCTION FOR THE FORM
     // ----------------------------------------------
 	
-	
-	// S
-	// E
-	// C
-	// U
-	// R
-	// I
-	// T
-	// Y
-	
-	// !!!!!!!!!!!!!!!!!!!!!!!!
-
 	function do_field_duration($sql,$fld, $fldsql){
   		$fldtype = $fld.'type';
 
@@ -923,15 +911,17 @@ class FormHandler{
                         $sql = "$sql WHERE ";
                 }
 				$sql = "$sql $fldsql";
+			$fld_escaped=$this->DBHandle->Quote($_POST[$fld]);
 				if (isset ($_POST[$fldtype])){
                         switch ($_POST[$fldtype]) {
-							case 1:	$sql = "$sql ='".$_POST[$fld]."'";  break;
-							case 2: $sql = "$sql <= '".$_POST[$fld]."'";  break;
-							case 3: $sql = "$sql < '".$_POST[$fld]."'";  break;							
-							case 4: $sql = "$sql > '".$_POST[$fld]."'";  break;
-							case 5: $sql = "$sql >= '".$_POST[$fld]."'";  break;
+				case 1:	$sql = "$sql ='".$fld_escaped."'";  break;
+				case 2: $sql = "$sql <= '".$fld_escaped."'";  break;
+				case 3: $sql = "$sql < '".$fld_escaped."'";  break;							
+				case 4: $sql = "$sql > '".$fld_escaped."'";  break;
+				case 5: $sql = "$sql >= '".$fld_escaped."'";  break;
 						}
-                }else{ $sql = "$sql = '".$_POST[$fld]."'"; }
+                	}else
+                		$sql = "$sql = '".$fld_escaped."'";
 		}
 		return $sql;
   }
@@ -1306,6 +1296,9 @@ class FormHandler{
 			if ($this->VALID_SQL_REG_EXP) $this -> RESULT_QUERY = $instance_table -> Add_table ($this->DBHandle, $param_add_value, null, null, $this->FG_TABLE_ID);
 		}
 		if (!$this -> RESULT_QUERY ){					
+			if ($this->FG_DEBUG >= 2)
+				echo "<br><hr>Error: " . $this->DBHandle->ErrorMsg() . "<br><hr>";
+
 			$findme   = 'duplicate';
 			$pos_find = strpos($instance_sub_table -> errstr, $findme);								
 			if ($pos_find !== false) {
@@ -1322,6 +1315,8 @@ class FormHandler{
 				$this->FG_ADITION_GO_EDITION = "yes-done";
 			}
 			$id = $this -> RESULT_QUERY;
+			if ($this->FG_DEBUG >= 2)
+				echo "Result: " . $this -> RESULT_QUERY . "<br>";
 		}
 			
 		if ( ($this->VALID_SQL_REG_EXP) && (isset($this->FG_GO_LINK_AFTER_ACTION_ADD))){				
@@ -1547,6 +1542,8 @@ class FormHandler{
 					for($j=0;$j<$snum;$j++){
 						$this -> RESULT_QUERY = $instance_sub_table -> Add_table ($this-> DBHandle, "'".addslashes(trim($checkbox_data_tab[$j]))."', '".addslashes(trim($processed['id']))."'", null, null);
 						if (!$this -> RESULT_QUERY){
+							if ($this->FG_DEBUG >= 2)
+								echo "<br><b>Error:".$this-> DBHandle->ErrorMsg(). "</b><br>\n";
 							//echo "<br><b>OOOOOOOOOO".$instance_sub_table -> errstr."</b><br>";
 							$findme   = 'duplicate';
 							$pos_find = strpos($instance_sub_table -> errstr, $findme);	

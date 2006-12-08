@@ -94,8 +94,10 @@ $nb_site = is_array($list_site) ? count($list_site) : 0 ;
  
  	$stitle = $_GET['stitle'];
 	$current_page = $_GET['current_page'];
-	$this->FG_ORDER = $_GET['order']; // really need ?!
-	$this->FG_SENS = $_GET['sens']; // really need  ?
+	if (isset($_GET['order']) && ($_GET['order'] != ''))
+		$this->FG_ORDER = $_GET['order']; // really need ?!
+	if (isset($_GET['sens']) && ($_GET['sens'] != ''))
+		$this->FG_SENS = $_GET['sens']; // really need  ?
 	
 	
 	
@@ -263,13 +265,13 @@ function openURLFilter(theLINK)
 							 $instance_sub_table->debug_st=1;
 							 //echo "i=" . $i . ", k=". $k ."<br>";
 							 }
-						$sub_clause = str_replace("%id", $list[$ligne_number][$i-$k], $this->FG_TABLE_COL[$i][9]);
+						$sub_clause = str_replace("%id", $list[$ligne_number][$i-$k], $this->FG_TABLE_COL[$i][9]);																																	
 						$select_list = $instance_sub_table -> Get_list ($this->DBHandle, $sub_clause, null, null, null, null, null, null);
 						$field_list_sun = split(',',$this->FG_TABLE_COL[$i][8]);
 						$record_display = $this->FG_TABLE_COL[$i][10];
 								
 						$record_display=str_params($record_display,$select_list[0],1);
-						/*for ($l=1;$l<=count($field_list_sun);$l++){	
+						/*for ($l=1;$l<=count($field_list_sun);$l++){													
 							$record_display = str_replace("%$l", $select_list[0][$l-1], $record_display);
 						}*/
 						
@@ -459,7 +461,7 @@ function openURLFilter(theLINK)
 
 
 					<?php
-					$c_url = $_SERVER['PHP_SELF'].'?stitle='.$stitle.'&atmenu='.$atmenu.'&current_page=%s'."&filterprefix=".$_GET['filterprefix']."&order=".$_GET['order']."&sens=".$_GET['sens']."&mydisplaylimit=".$_GET['mydisplaylimit'].$this-> CV_FOLLOWPARAMETERS;
+					$c_url = $_SERVER['PHP_SELF'].'?stitle='.$stitle.'&atmenu='.$atmenu.'&current_page=%s'."&filterprefix=".$_GET['filterprefix']."&order=".$this->FG_ORDER."&sens=".$this->FG_SENS."&mydisplaylimit=".$_GET['mydisplaylimit'].$this-> CV_FOLLOWPARAMETERS;
 					if (!is_null($letter) && ($letter!=""))   $c_url .= "&letter=".$_GET['letter'];
 
 					$this -> printPages($this -> CV_CURRENT_PAGE+1, $this -> FG_NB_RECORD_MAX, $c_url) ;
