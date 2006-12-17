@@ -8,6 +8,12 @@ if ($printable != 'yes') {
 }
 
 ?>
+<h1>TEST h1</h1>
+<h3>test h3</h3>
+<FONT STYLE="font-size:35pt">my font 1</font><br>
+<font size="2">my font 2</font><br>
+<font size="3">my font 3</font><br>
+<font size="4">my font 4</font><br>
 
 <table width="100%">
 <tr>
