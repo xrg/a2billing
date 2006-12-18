@@ -17,6 +17,10 @@ include("PP_header.php");
 	<a href="phone-stats.php"><?= _("Phone statistics") ?></a><br>
 </p>
 
+
+	<a href="A2B_entity_charge.php"><?= _("Customer charges") ?></a><br>
+	<a href="A2B_entity_agentpay.php"><?= _("Agent payments") ?></a><br>
+
 <?php
 	include("PP_footer.php");
 ?>
