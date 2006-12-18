@@ -82,7 +82,12 @@ if ($popup_select == 'freg'){
 	$HD_Form -> FG_OTHER_BUTTON1_ALT = '<font color="red">&lt;'. _("select") .'&gt;</font>';
 	$HD_Form -> FG_OTHER_BUTTON1_IMG = '';
 	$HD_Form -> FG_OTHER_BUTTON1_LINK = "javascript:doFill($booth,'|col0|');";
-}else 
+}elseif ($popup_select == 'charge'){
+	$HD_Form -> FG_OTHER_BUTTON1 = true;
+	$HD_Form -> FG_OTHER_BUTTON1_ALT = '<font color="red">&lt;'. _("select") .'&gt;</font>';
+	$HD_Form -> FG_OTHER_BUTTON1_IMG = '';
+	$HD_Form -> FG_OTHER_BUTTON1_LINK = "javascript:sendValue('|col0|');";
+}else
 	$HD_Form -> FG_EDITION = true;
 
 $HD_Form-> FG_QUERY_EDITION_HIDDEN_FIELDS = 'popup_select,booth';
@@ -230,5 +235,4 @@ $HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM
 
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?form_action=list&popup_select=$popup_select&booth=$booth&id=";
 
-echo "Link after edit: " . $HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT . "<br>";
 ?>
