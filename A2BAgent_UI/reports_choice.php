@@ -10,16 +10,16 @@ if (! has_rights (ACX_ACCESS)){
 
 include("PP_header.php");
 ?>
-<p class='repchoice'>
-	<a href="invoices.php" ><?= _("All calls") ?></a><br>
-	<a href="A2B_entity_ratecard.php" ><?= _("Current rates") ?></a><br>
-	<a href="agent-money.php"><?= _("Agent payments") ?></a><br>
-	<a href="phone-stats.php"><?= _("Phone statistics") ?></a><br>
-</p>
 
-
-	<a href="A2B_entity_charge.php"><?= _("Customer charges") ?></a><br>
-	<a href="A2B_entity_agentpay.php"><?= _("Agent payments") ?></a><br>
+<table cellpadding="0" cellspacing="1" border="0" width="30%" align="center">
+	<tr>
+	<td class="repchoice"><?= _("Please choose report type:")?></td>
+	</tr>
+	<tr class="repch"><td><a href="invoices.php" ><?= _("All calls") ?></a></td></tr>
+	<tr class="repch"><td><a href="A2B_entity_ratecard.php" ><?= _("Current rates") ?></a></td></tr>
+	<tr class="repch"><td><a href="agent-money.php"><?= _("Agent payments") ?></a></td></tr>
+	<tr class="repch"><td><a href="phone-stats.php"><?= _("Phone statistics") ?></a></td></tr>
+</table>
 
 <?php
 	include("PP_footer.php");
