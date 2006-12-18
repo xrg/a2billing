@@ -93,8 +93,9 @@ if (isset($card) && ($card > 0)){ // find by card
 
 }else{ //no card, booth mode
 	// Find the available/selected booths first..
-	$QUERY= 'SELECT cc_booth.id, cc_booth.name, cc_shopsessions.id FROM cc_booth,cc_shopsessions ' .
+	$QUERY= 'SELECT cc_booth.id, cc_booth.name, cc_shopsessions.id, cc_card.username FROM cc_booth,cc_shopsessions, cc_card ' .
 		'WHERE cc_booth.id = cc_shopsessions.booth AND cc_booth.agentid =' . $DBHandle->Quote($_SESSION['agent_id']).
+		' AND cc_card.id = cc_shopsessions.card ' .
 		' AND cc_shopsessions.endtime IS NULL ORDER BY cc_shopsessions.id DESC ;';
 	
 	$res = $DBHandle -> query($QUERY);
@@ -130,16 +131,12 @@ Calldate Clid Src Dst Dcontext Channel Dstchannel Lastapp Lastdata Duration Bill
 *******/
 
 $FG_TABLE_COL[]=array (gettext("Calldate"), "starttime", "18%", "center", "SORT", "19", "", "", "", "", "", "display_dateformat");
-$FG_TABLE_COL[]=array (gettext("Description"), "descr", "10%", "center", "SORT", "30");
-$FG_TABLE_COL[]=array ("", "f2", "18%", "left", "SORT", "30", "", "", "", "", "", "");
+$FG_TABLE_COL[]=array (gettext("Description"), "descr", "10%", "center", "SORT", "");
+$FG_TABLE_COL[]=array ("", "f2", "18%", "left", "SORT", "", "", "", "", "", "", "");
 $FG_TABLE_COL[]=array (gettext("Called Number"), "cnum", "18%", "left", "SORT", "30", "", "", "", "", "", "remove_prefix");
 $FG_TABLE_COL[]=array (gettext("Duration"), "duration", "8%", "center", "SORT", "30", "", "", "", "", "", "display_minute");
 $FG_TABLE_COL[]=array (gettext("Credit"), "pos_charge", "8%", "center", "SORT", "30", "", "", "", "", "", "");
 $FG_TABLE_COL[]=array (gettext("Charge"), "neg_charge", "8%", "center", "SORT", "30", "", "", "", "", "", "");
-
-if (false) { // fool gettext into considering these strings: !
-	echo gettext("Payment") . gettext("Call") . gettext("Session start") . gettext("credit");
-}
 
 // ??? cardID
 $FG_TABLE_DEFAULT_ORDER = "starttime";
@@ -149,16 +146,18 @@ $FG_TABLE_DEFAULT_SENS = "ASC";
 
 if (! isset($choose_currency) || ( $choose_currency == ''))
 	$choose_currency = $_SESSION["currency"];
-$FG_COL_QUERY='starttime, descr, f2, cnum, duration ';
-$FG_COL_QUERY.=", format_currency(pos_charge,'". strtoupper(BASE_CURRENCY) . "', '$choose_currency')";
-$FG_COL_QUERY.=", format_currency(neg_charge,'". strtoupper(BASE_CURRENCY) . "', '$choose_currency')";
 
+$FG_COL_QUERY=str_dbparams($DBHandle, 'starttime, gettext(descr,%3), gettext(f2,%3), cnum, duration, ' .
+	'format_currency(pos_charge,%1, %2), format_currency(neg_charge,%1, %2)',
+	array(strtoupper(BASE_CURRENCY),$choose_currency,getenv('LANG')));
 //$FG_COL_QUERY_GRAPH='t1.callstart, t1.duration';
-$FG_SUM_QUERY="SUM(duration),format_currency(SUM(pos_charge),'". strtoupper(BASE_CURRENCY) . "', '$choose_currency'), ";
-$FG_SUM_QUERY.="format_currency(SUM(neg_charge),'". strtoupper(BASE_CURRENCY) . "', '$choose_currency'), ";
-$FG_SUM_QUERY.="format_currency((SUM(pos_charge) - SUM(neg_charge)),'". strtoupper(BASE_CURRENCY) . "', '$choose_currency'), ";
-$FG_SUM_QUERY.="(SUM(pos_charge) - SUM(neg_charge)), "; // and once the numeric value BEWARE: NOT in chosen currency!
-$FG_SUM_QUERY.="format_currency((SUM(neg_charge) - SUM(pos_charge)),'". strtoupper(BASE_CURRENCY) . "', '$choose_currency') ";
+
+$FG_SUM_QUERY=str_dbparams($DBHandle, "SUM(duration),format_currency(SUM(pos_charge),%1, %2), ".
+	"format_currency(SUM(neg_charge),%1, %2), ".
+	"format_currency((SUM(pos_charge) - SUM(neg_charge)),%1, %2), ".
+	"(SUM(pos_charge) - SUM(neg_charge)), ". /* and once the numeric value BEWARE: NOT in chosen currency! */
+	"format_currency((SUM(neg_charge) - SUM(pos_charge)),%1, %2) ",
+	array(strtoupper(BASE_CURRENCY),$choose_currency));
 
 
 // The variable LIMITE_DISPLAY define the limit of record to display by page
@@ -229,11 +228,14 @@ if ($FG_DEBUG >= 4) var_dump ($list_total_destination);
 
 }//end IF nodisplay
 
-$QUERY = "SELECT descr, " .
- "format_currency(SUM(pos_charge), '" .strtoupper(BASE_CURRENCY) . "','$choose_currency'), " .
- "format_currency(SUM(neg_charge), '" .strtoupper(BASE_CURRENCY) . "','$choose_currency') " ;
-$QUERY .= "FROM cc_session_invoice WHERE " . $FG_TABLE_CLAUSE;
-$QUERY .=" GROUP BY descr"; //extract(DAY from calldate)
+$QUERY = str_dbparams($DBHandle,"SELECT gettext(descr,%3), " .
+	"format_currency(SUM(pos_charge), %1, %2), " .
+	"format_currency(SUM(neg_charge), %1, %2) " .
+	"FROM cc_session_invoice WHERE " . $FG_TABLE_CLAUSE .
+	" GROUP BY descr",
+	array(strtoupper(BASE_CURRENCY),$choose_currency,getenv('LANG')));
+
+//extract(DAY from calldate)
 
 if (!$nodisplay){
 		$res = $DBHandle -> query($QUERY);
@@ -332,7 +334,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 		<?php foreach($booth_list as $bb) {
 			if ($bb[0] == $booth) $b_sel='selected';
 				else $b_sel=''; ?>
-			<option value='<?= $bb[0] ?>' <?= $b_sel ?> > <?= $bb[1] ?> ( <?= $bb[2] ?>) </option>
+			<option value='<?= $bb[0] ?>' <?= $b_sel ?> > <?= $bb[1] ?> ( <?= $bb[3] ?>) </option>
 		<?php } ?>
 		</select>
 		</td>
@@ -420,7 +422,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 							
 				 		 ?>
                  		 <TD align="<?=  $FG_TABLE_COL[$i][3]?>" class=tableBody><?php
-						 if (isset ($FG_TABLE_COL[$i][11]) && strlen($FG_TABLE_COL[$i][11])>1){
+                 		 		if (isset ($FG_TABLE_COL[$i][11]) && strlen($FG_TABLE_COL[$i][11])>1){
 						 	call_user_func($FG_TABLE_COL[$i][11], $record_display);
 						 }else{
 						 	echo stripslashes($record_display);
