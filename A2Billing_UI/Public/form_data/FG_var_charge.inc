@@ -21,12 +21,7 @@ $HD_Form_c -> FG_TABLE_CLAUSE = " cc_card.id=id_cc_card ";
 $HD_Form_c -> FG_TABLE_ID="cc_charge.id";
 
 
-$chargetype_list = array();
-$chargetype_list["1"] = array( gettext("Connection charge for DID setup"), "1");
-$chargetype_list["2"] = array( gettext("Monthly Charge for DID use"), "2");
-$chargetype_list["3"] = array( gettext("Just wanted to charge you for extra"), "3");
-$chargetype_list["4"] = array( gettext("Cactus renting charges"), "4");
-
+$chargetype_list = get_chargetypes();
 // -- chargetype : 1 - connection charge for DID setup, 2 - Montly charge for DID use, 3 - just wanted to charge you for extra, 4 - cactus renting charges, etc...
 
 
