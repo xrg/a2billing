@@ -10,7 +10,7 @@ if (! has_rights (ACX_ACCESS)){
 	   die();
 }
 
-getpost_ifset(array("popup_select","form_action","action"));
+getpost_ifset(array("popup_select","form_action","action","popup_formname","popup_fieldname"));
 
 	if ($popup_select){
 ?>
@@ -18,6 +18,11 @@ getpost_ifset(array("popup_select","form_action","action"));
 <!-- Begin
 function doFill(booth,selvalue){
 	window.opener.booth_action2(booth, 'load_reg', "&card=" +selvalue, this);
+}
+
+function sendValue(selvalue){
+	window.opener.document.<?= $popup_formname ?>.<?= $popup_fieldname ?>.value = selvalue;
+	window.close();
 }
 // End -->
 </script>
@@ -132,7 +137,7 @@ $list = $HD_Form -> perform_action($form_action);
 
 $HD_Form -> create_toppage ($form_action);
 
-if ($action=='list') {
+if (($action=='list') && ($popup_select != 'charge')) {
 ?>
 <p class='create-btn'><a href='A2B_entity_cards.php?form_action=ask-add&popup_select=<?= $popup_select?>&booth=<?= $booth?>'><?= _("Create new regular customer");?></a>
 </p>
