@@ -1,15 +1,15 @@
 <?php
 	include (dirname(__FILE__)."/Class.A2Billing.php");
-	include (dirname(__FILE__)."/Class.Table.php");
-//	require_once('DB.php'); // PEAR
+	//require_once('DB.php'); // PEAR
 	require_once('adodb/adodb.inc.php'); // AdoDB
+	include (dirname(__FILE__)."/Class.Table.php");
 
 	$A2B = new A2Billing();
 	
 	// SELECT THE FILES TO LOAD THE CONFIGURATION
 	$A2B -> load_conf($agi, AST_CONFIG_DIR."a2billing.conf", 1);
 	
-
+	
 	// DEFINE FOR THE DATABASE CONNECTION
 	define ("HOST", isset($A2B->config["database"]['hostname'])?$A2B->config["database"]['hostname']:null);
 	define ("PORT", isset($A2B->config["database"]['port'])?$A2B->config["database"]['port']:null);
@@ -42,11 +42,13 @@
 	define ("SHOW_ICON_INVOICE", isset($A2B->config["webui"]['show_icon_invoice'])?$A2B->config["webui"]['show_icon_invoice']:null);
 	define ("SHOW_TOP_FRAME", isset($A2B->config["webui"]['show_top_frame'])?$A2B->config["webui"]['show_top_frame']:null);
 	define ("ADVANCED_MODE", isset($A2B->config["webui"]['advanced_mode'])?$A2B->config["webui"]['advanced_mode']:null);
-		
+	
+	
 	define ("BASE_CURRENCY", isset($A2B->config["webui"]['base_currency'])?$A2B->config["webui"]['base_currency']:null);
 	define ("CURRENCY_CHOOSE", isset($A2B->config["webui"]['currency_choose'])?$A2B->config["webui"]['currency_choose']:null);
 	
-		// PAYPAL	
+	
+	// PAYPAL	
 	define ("PAYPAL_EMAIL", isset($A2B->config["paypal"]['paypal_email'])?$A2B->config["paypal"]['paypal_email']:null);
 	define ("PAYPAL_FROM_EMAIL",isset( $A2B->config["paypal"]['from_email'])?$A2B->config["paypal"]['from_email']:null);
 	define ("PAYPAL_FROM_NAME", isset($A2B->config["paypal"]['from_name'])?$A2B->config["paypal"]['from_name']:null);
@@ -57,7 +59,7 @@
 	define ("PAYPAL_NOTIFY_URL", isset($A2B->config["paypal"]['notify_url'])?$A2B->config["paypal"]['notify_url']:null);
 	define ("PAYPAL_PURCHASE_AMOUNT", isset($A2B->config["paypal"]['purchase_amount'])?$A2B->config["paypal"]['purchase_amount']:null);
 	define ("PAYPAL_LOGFILE", isset($A2B->config["paypal"]['paypal_logfile'])?$A2B->config["paypal"]['paypal_logfile']:null);
-	
+
 	
 	
 	define ("ACTIVATEDBYUSER", isset($A2B->config["signup"]['activatedbyuser'])?$A2B->config["signup"]['activatedbyuser']:null);
@@ -71,29 +73,30 @@
     define ("Images_Path","./images");
 
 	define ("Images_Path_Main","./images");
-
+	
 	// INCLUDE FILES
 	define ("FSROOT", substr(dirname(__FILE__),0,-3));
 	define ("LIBDIR", FSROOT."lib/");
 	include (FSROOT."lib/help.php");
 	include (FSROOT."lib/Misc.php");
-
+	
+	
 	/*
 	 *		GLOBAL USED VARIABLE
 	 */
 	$PHP_SELF = $_SERVER["PHP_SELF"];
+	
 
-
-	$CURRENT_DATETIME = date("Y-m-d H:i:s");
-
+	$CURRENT_DATETIME = date("Y-m-d H:i:s");		
+		
 	/*
 	 *		GLOBAL POST/GET VARIABLE
-	 */
+	 */		 
 	getpost_ifset(array('form_action', 'atmenu', 'action', 'stitle', 'sub_action', 'IDmanager', 'current_page', 'order', 'sens', 'mydisplaylimit', 'filterprefix','language'));
 
 	// Include general language file
         // Language session
-    session_start();
+     session_start();
     if(ini_get('register_globals'))
     {
         foreach($_REQUEST as $key => $value)
@@ -101,6 +104,7 @@
             $$key = $value;
         }
     }
+
     if (!isset($_SESSION["language"]))
     {
         $_SESSION["language"]='english';
@@ -116,7 +120,7 @@
     require("languageSettings.php");
 
     SetLocalLanguage();
-
+	 
 	/*
 	 *		CONNECT / DISCONNECT DATABASE
 	 */
@@ -128,47 +132,71 @@
 		}else{
 			$datasource = 'mysql://'.USER.':'.PASS.'@'.HOST.'/'.DBNAME;
 		}
-
+		
 		$DBHandle = NewADOConnection($datasource);
 
 		if (!$DBHandle) die("Connection failed");
 
 		return $DBHandle;
 	}
-
-
+	
+	
 	function DbDisconnect($DBHandle)
 	{
 		$DBHandle ->disconnect();
 	}
 
+
 	function get_currencies()
 	{
 		$handle = DbConnect();
 		$instance_table = new Table();
-
 		$QUERY =  "SELECT id,currency,name,value from cc_currencies order by id";
 		$result = $instance_table -> SQLExec ($handle, $QUERY);
-
 		/*
 			$currencies_list['ADF'][1]="Andorran Franc";
 			$currencies_list['ADF'][2]="0.1339";
 			[ADF] => Array ( [1] => Andorran Franc (ADF), [2] => 0.1339 )
 		*/
+
 		if (is_array($result)){
 			$num_cur = count($result);
-				for ($i=0;$i<$num_cur;$i++)
-					$currencies_list[$result[$i][1]] = array (1 => $result[$i][2], 2 => $result[$i][3]);
-		}
-
+			for ($i=0;$i<$num_cur;$i++)
+				$currencies_list[$result[$i][1]] = array (1 => $result[$i][2], 2 => $result[$i][3]);
+		}	
+		
 		return $currencies_list;
 	}
 	function get_languages() {
 	// *-*
 		$language_list = array();
-		$language_list["0"] = array( "English", "en");
-		$language_list["1"] = array( "Spanish", "es");
-		$language_list["2"] = array( "French",  "fr");
+		$language_list["0"] = array( _("English"), "en");
+		$language_list["1"] = array( _("Spanish"), "es");
+		$language_list["2"] = array( _("French"),  "fr");
 		return $language_list;
 	}
+	
+	function get_languages_r(&$langs) {
+		if (is_array($langs)){
+			$num=count($langs);
+			for ($i=0;$i<$num;$i++)
+				$ret_list[$i]=array($langs[$i][1], $langs[$i][0]);
+		}
+		return $ret_list;
+	}
+
+	function get_chargetypes(){
+		$ctl = array();
+		$ctl["1"] = array( gettext("Connection charge for DID setup"), "1");
+		$ctl["2"] = array( gettext("Monthly Charge for DID use"), "2");
+		$ctl["3"] = array( gettext("Just wanted to charge you for extra"), "3");
+		$ctl["4"] = array( gettext("Cactus renting charges"), "4");
+		
+		$ctl['5'] = array( _("Normal payment"),'5');
+		$ctl['6'] = array( _("Equipment charge"),'6');
+		
+		return $ctl;
+	}
+
+	
 ?>

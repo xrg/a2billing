@@ -7,7 +7,7 @@
 	$A2B = new A2Billing();
 	
 	// SELECT THE FILES TO LOAD THE CONFIGURATION
-	$A2B -> load_conf($agi, null , 1);	
+	$A2B -> load_conf($agi, AST_CONFIG_DIR."a2billing.conf", 1);
 	
 	
 	// DEFINE FOR THE DATABASE CONNECTION
@@ -174,7 +174,7 @@
 	
 	
 	function sort_currencies_list(&$currencies_list){
-			$first_array = array (strtoupper(BASE_CURRENCY), 'USD', 'EUR','GBP','AUD','HKD', 'JPY', 'NZD', 'SGD', 'TWD', 'PLN', 'SEK', 'DKK', 'CHF', 'COP', 'MXN', 'CLP');		
+			$first_array = array (strtoupper(BASE_CURRENCY), 'USD', 'EUR','GBP','AUD','HKD', 'JPY', 'NZD', 'SGD', 'TWD', 'PLN', 'SEK', 'DKK', 'CHF', 'COP', 'MXN', 'CLP');
 			foreach ($first_array as $element_first_array){
 				if (isset($currencies_list[$element_first_array])){	
 					$currencies_list2[$element_first_array]=$currencies_list[$element_first_array];
@@ -185,10 +185,11 @@
 		}
 
 	function get_languages() {
+	// *-*
 		$language_list = array();
-		$language_list["0"] = array( "ENGLISH", "en");
-		$language_list["1"] = array( "SPANISH", "es");
-		$language_list["2"] = array( "FRENCH",  "fr");
+		$language_list["0"] = array( _("English"), "en");
+		$language_list["1"] = array( _("Spanish"), "es");
+		$language_list["2"] = array( _("French"),  "fr");
 		return $language_list;
 	}
 	
@@ -199,6 +200,16 @@
 				$ret_list[$i]=array($langs[$i][1], $langs[$i][0]);
 		}
 		return $ret_list;
+	}
+
+	function get_chargetypes(){
+		$ctl = array();
+		$ctl["1"] = array( gettext("Connection charge for DID setup"), "1");
+		$ctl["2"] = array( gettext("Monthly Charge for DID use"), "2");
+		$ctl["3"] = array( gettext("Just wanted to charge you for extra"), "3");
+		$ctl["4"] = array( gettext("Cactus renting charges"), "4");
+		
+		return $ctl;
 	}
 
 	
