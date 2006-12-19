@@ -52,7 +52,7 @@ if (!isset ($current_page) || ($current_page == "")){
 
 
 // this variable specifie the debug type (0 => nothing, 1 => sql result, 2 => boucle checking, 3 other value checking)
-$FG_DEBUG = 0;
+$FG_DEBUG = 2;
 
 // The variable FG_TABLE_NAME define the table name to use
 $FG_TABLE_NAME="cc_session_invoice";
@@ -77,12 +77,14 @@ $nodisplay = true;
 $card_username = '';
 
 if (isset($card) && ($card > 0)){ // find by card
-	$QUERY= 'SELECT cc_shopsessions.id FROM cc_agent_cards,cc_card, cc_shopsessions ' .
-		'WHERE cc_agent_cards.card_id = cc_card.id AND cc_agent_cards.agentid =' . $DBHandle->Quote($_SESSION['agent_id']).
-		' AND cc_shopsessions.card = cc_card.id  AND cc_shopsessions.endtime IS NULL ;';
-	
+	$QUERY= str_dbparams($DBHandle,"SELECT cc_shopsessions.id FROM cc_agent_cards, cc_shopsessions " .
+		" WHERE cc_shopsessions.card = cc_agent_cards.card_id AND cc_agent_cards.agentid = %1 AND cc_shopsessions.card = %2 " .
+		" ORDER BY starttime DESC LIMIT 1;", array($_SESSION['agent_id'],$card));
 	$res = $DBHandle -> query($QUERY);
+	
 	if ($res){
+	if ($FG_DEBUG>=2)
+		echo "Query: " . htmlspecialchars($QUERY) . "<br>";
 		$nodisplay=false;
 		$row=$res->FetchRow();
 		$session_sid=$row[0];
@@ -219,7 +221,7 @@ if (!$nodisplay){
 		else $num = 0;
 		for($i=0;$i<$num;$i++)
 		{				
-			$list_total_destination [] =$res -> fetchRow();				 
+			$list_total_destination [] =$res -> fetchRow();
 		}
 
 
