@@ -17,8 +17,15 @@ include("PP_header.php");
 	</tr>
 	<tr class="repch"><td><a href="invoices.php" ><?= _("All calls") ?></a></td></tr>
 	<tr class="repch"><td><a href="A2B_entity_ratecard.php" ><?= _("Current rates") ?></a></td></tr>
-	<tr class="repch"><td><a href="agent-money.php"><?= _("Agent payments") ?></a></td></tr>
+	<tr class="repch"><td><a href="agent-money.php"><?= _("Agent money situation") ?></a></td></tr>
 	<tr class="repch"><td><a href="phone-stats.php"><?= _("Phone statistics") ?></a></td></tr>
+	
+	<tr>
+	<td class="repchoice"> &nbsp;</td>
+	</tr>
+	<tr class="repch"><td><a href="A2B_entity_charge.php"><?= _("Customer charges") ?></a></td></tr>
+	<tr class="repch"><td><a href="A2B_entity_agentpay.php"><?= _("Agent payments") ?></a></td></tr>
+
 </table>
 
 <?php
