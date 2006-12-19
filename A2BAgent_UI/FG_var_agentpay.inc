@@ -24,11 +24,12 @@ $chargetype_list = get_chargetypes();
 
 $HD_Form_c -> AddViewElement(gettext("DATE"), "date", "10%", "center", "sort", "16", "", "", "", "", "", "display_dateformat");
 $HD_Form_c -> AddViewElement(gettext("AMOUNT"), "credit", "10%", "center", "sort");
-$HD_Form_c -> AddViewElement(gettext("CHARGETYPE"), "pay_type", "20%", "center", "sort", "30", "list", $chargetype_list);
-$HD_Form_c -> AddViewElement(gettext("DESCRIPTION"), "descr", "30%", "center", "SORT", "30");
+$HD_Form_c -> AddViewElement(gettext("CHARGETYPE"), "pay_type", "20%", "center", "sort", "", "list", $chargetype_list);
+$HD_Form_c -> AddViewElement(gettext("DESCRIPTION"), "descr", "30%", "center", "SORT", "");
 
 // added a parameter to append  FG_TABLE_ID  ( by default ) or disable 0.
-$HD_Form_c -> FieldViewElement ('date, credit, pay_type, descr');
+$HD_Form_c -> FieldViewElement (str_dbparams($HD_Form_c->DBHandle,'date, format_currency(credit,%1,%2), pay_type, descr',
+	array(strtoupper(BASE_CURRENCY),$_SESSION['currency'])));
 
 
 $HD_Form_c -> CV_NO_FIELDS  = gettext("THERE IS NO ".strtoupper($HD_Form_c->FG_INSTANCE_NAME)." CREATED!");

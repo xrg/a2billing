@@ -28,7 +28,9 @@ $HD_Form -> AddViewElement("<acronym title=\"". gettext("BALANCE"). "\">".gettex
 if ($popup_select == '')
 	$HD_Form -> AddViewElement(gettext("NOW IN"), "", "15%", "", "", "","object", $fb_form);
 
-$FG_COL_QUERY="id, username, firstname|| ' ' ||lastname AS name, format_currency(credit,'EUR','EUR'), def, id, now_id, now_name, def_id, def_name";
+$FG_COL_QUERY=str_dbparams($HD_Form->DBHandle, "id, username, firstname|| ' ' ||lastname AS name, ".
+	"format_currency(credit,%1,%2), def, id, now_id, now_name, def_id, def_name",
+	array(strtoupper(BASE_CURRENCY),$_SESSION['currency']));
 
 if ($action == 'fillb') {
 	echo _("Fill booth") . $booth  . _(" with card ") . $cardid ."<br>\n" ;
@@ -87,9 +89,19 @@ if ($popup_select == 'freg'){
 	$HD_Form -> FG_OTHER_BUTTON1_ALT = '<font color="red">&lt;'. _("select") .'&gt;</font>';
 	$HD_Form -> FG_OTHER_BUTTON1_IMG = '';
 	$HD_Form -> FG_OTHER_BUTTON1_LINK = "javascript:sendValue('|col0|');";
-}else
-	$HD_Form -> FG_EDITION = true;
+}else{
+	$HD_Form -> FG_OTHER_BUTTON1 = true;
+	$HD_Form -> FG_OTHER_BUTTON1_ALT = '&lt;'. _("Charges") .'&gt;';
+	$HD_Form -> FG_OTHER_BUTTON1_IMG = '';
+	$HD_Form -> FG_OTHER_BUTTON1_LINK = "A2B_entity_charge.php?id_cc_card=|col0|";
 
+	$HD_Form -> FG_OTHER_BUTTON2 = true;
+	$HD_Form -> FG_OTHER_BUTTON2_ALT = '&lt;'. _("Pay") .'&gt;';
+	$HD_Form -> FG_OTHER_BUTTON2_IMG = '';
+	$HD_Form -> FG_OTHER_BUTTON2_LINK = "invoices_cust.php?card=|col0|";
+
+	$HD_Form -> FG_EDITION = true;
+}
 $HD_Form-> FG_QUERY_EDITION_HIDDEN_FIELDS = 'popup_select,booth';
 $HD_Form-> FG_QUERY_EDITION_HIDDEN_VALUE = "$popup_select, $booth";
 $HD_Form-> FG_QUERY_EDITION_HIDDEN_IGNORE = true;
