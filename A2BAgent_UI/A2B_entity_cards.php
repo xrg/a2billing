@@ -12,14 +12,22 @@ if (! has_rights (ACX_ACCESS)){
 
 getpost_ifset(array("popup_select","form_action","action","popup_formname","popup_fieldname"));
 
-	if ($popup_select){
+include("PP_header.php");
+
+if (!isset($popup_select)) $popup_select = '';
+
+	if ($popup_select == 'freg'){
 ?>
-<SCRIPT LANGUAGE="javascript">
+<script LANGUAGE="javascript">
 <!-- Begin
 function doFill(booth,selvalue){
 	window.opener.booth_action2(booth, 'load_reg', "&card=" +selvalue, this);
 }
-
+// End -->
+</script>
+<?php }else if ($popup_select != '') { ?>
+<script LANGUAGE="javascript">
+<!-- Begin
 function sendValue(selvalue){
 	window.opener.document.<?= $popup_formname ?>.<?= $popup_fieldname ?>.value = selvalue;
 	window.close();
@@ -111,10 +119,6 @@ EOS;
 		return $ress;
 	}
 };
-
-include("PP_header.php");
-
-if (!isset($popup_select)) $popup_select = '';
 
 $fb_form=new FillBoothForm();
 include ("FG_var_card.inc");
