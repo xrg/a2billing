@@ -22,8 +22,8 @@ $chargetype_list = get_chargetypes();
 $HD_Form_c -> AddViewElement(_("AGENT"), 'agentid', "15%", "left", "sort", "15", "lie", "cc_agent", "name", "id='%id'", "%&1");
 $HD_Form_c -> AddViewElement(gettext("DATE"), "date", "10%", "center", "sort", "16", "", "", "", "", "", "display_dateformat");
 $HD_Form_c -> AddViewElement(gettext("AMOUNT"), "credit", "10%", "center", "sort");
-$HD_Form_c -> AddViewElement(gettext("CHARGETYPE"), "pay_type", "20%", "center", "sort", "30", "list", $chargetype_list);
-$HD_Form_c -> AddViewElement(gettext("DESCRIPTION"), "descr", "20%", "center", "SORT", "30");
+$HD_Form_c -> AddViewElement(gettext("CHARGETYPE"), "pay_type", "20%", "center", "sort", "", "list", $chargetype_list);
+$HD_Form_c -> AddViewElement(gettext("DESCRIPTION"), "descr", "20%", "center", "SORT", "");
 
 // added a parameter to append  FG_TABLE_ID  ( by default ) or disable 0.
 $HD_Form_c -> FieldViewElement ('agentid, date, credit, pay_type, descr');

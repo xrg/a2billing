@@ -35,7 +35,7 @@ $HD_Form_c -> AddViewElement(gettext("DESCRIPTION"), "description", "20%", "cent
 $HD_Form_c -> FieldViewElement ('username, cc_charge.creationdate, amount, chargetype, description');
 
 
-$HD_Form_c -> CV_NO_FIELDS  = gettext("THERE IS NO ".strtoupper($HD_Form_c->FG_INSTANCE_NAME)." CREATED!");  
+$HD_Form_c -> CV_NO_FIELDS  = gettext("THERE IS NO CHARGE CREATED!");
 $HD_Form_c -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;
 $HD_Form_c -> CV_TEXT_TITLE_ABOVE_TABLE = '';
 $HD_Form_c -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;

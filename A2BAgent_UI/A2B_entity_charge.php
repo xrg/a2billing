@@ -25,7 +25,7 @@ if ($wantinclude==1){
 
 
 if ($id!="" || !is_null($id)){	
-	$HD_Form_c -> FG_EDITION_CLAUSE = str_replace("%id", "$id", $HD_Form_c -> FG_EDITION_CLAUSE);	
+	$HD_Form_c -> FG_EDITION_CLAUSE = str_replace("%id", "$id", $HD_Form_c -> FG_EDITION_CLAUSE);
 }
 
 
@@ -50,7 +50,7 @@ if ($wantinclude!=1){
 $HD_Form_c -> create_toppage ($form_action);
 
 if ($form_action == 'list'){ ?>
-<p class='create-btn'><a href='A2B_entity_charge.php?form_action=ask-add&popup_select=<?= $popup_select?>&booth=<?= $booth?>'><?= _("Charge a customer");?></a>
+<p class='create-btn'><a href='A2B_entity_charge.php?form_action=ask-add&popup_select=<?= $popup_select?>&booth=<?= $booth?>&id_cc_card=<?=$id_cc_card?>'><?= _("Charge a customer");?></a>
 </p>
 <?php }
 
