@@ -84,7 +84,8 @@ if (isset($card) && ($card > 0)){ // find by card
 	$res = $DBHandle -> query($QUERY);
 	if ($res){
 		$nodisplay=false;
-		$session_sid=$res[0][0];
+		$row=$res->FetchRow();
+		$session_sid=$row[0];
 	}
 	else if ($FG_DEBUG >0){
 		echo "Query: " . htmlspecialchars($QUERY) . "<br>";
