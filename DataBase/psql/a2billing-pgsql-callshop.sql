@@ -116,4 +116,12 @@ ALTER TABLE cc_charge ADD agentid bigint references cc_agent(id);
 ALTER TABLE cc_charge ADD from_agent boolean NOT NULL DEFAULT FALSE;
 ALTER TABLE cc_charge ADD checked bigint REFERENCES cc_ui_authen(userid);
 
+CREATE TABLE cc_texts (
+	id integer NOT NULL,
+	lang VARCHAR(10) NOT NULL DEFAULT 'C',
+	txt text NOT NULL,
+	src int NOT NULL DEFAULT 1,
+	CONSTRAINT cc_texts_pkey PRIMARY KEY (id,lang) );
+
+
 -- eof

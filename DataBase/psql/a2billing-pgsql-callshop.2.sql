@@ -432,8 +432,15 @@ CREATE OR REPLACE VIEW cc_session_invoice AS
 			( cc_agentrefill.boothid IS NULL OR cc_shopsessions.booth = cc_agentrefill.boothid) AND
 			cc_agentrefill.credit < 0.0 AND
 			cc_shopsessions.starttime <= cc_agentrefill.date AND
-			(cc_shopsessions.endtime IS NULL OR cc_shopsessions.endtime >= cc_agentrefill.date);
-
+			(cc_shopsessions.endtime IS NULL OR cc_shopsessions.endtime >= cc_agentrefill.date)
+	UNION SELECT cc_charge.creationdate AS starttime, 'Extra charge' AS descr, cc_shopsessions.id AS sid,
+		booth AS boothid,cc_charge.description AS f2, NULL as cnum,
+		NULL AS pos_charge, cc_charge.amount as neg_charge,
+		NULL as duration
+		FROM cc_shopsessions, cc_charge
+		WHERE cc_shopsessions.card = cc_charge.id_cc_card AND
+			cc_shopsessions.starttime <= cc_charge.creationdate AND
+			(cc_shopsessions.endtime IS NULL OR cc_shopsessions.endtime >= cc_charge.creationdate);
 
 CREATE OR REPLACE FUNCTION conv_currency(money_sum NUMERIC, from_cur CHAR(3), to_cur CHAR(3)) RETURNS NUMERIC
 	AS $$
@@ -549,5 +556,115 @@ CREATE OR REPLACE VIEW cc_tariffrates_v AS SELECT cc_tariffgroup.id AS tg_id, cc
 	WHERE cc_tariffgroup.id = cc_tariffgroup_plan.idtariffgroup AND
 		cc_tariffplan.id = cc_tariffgroup_plan.idtariffplan AND
 		cc_ratecard.idtariffplan = cc_tariffplan.id;
+
+
+-- Gettext
+-- Convert some text from 'C' to another language..
+
+CREATE OR REPLACE FUNCTION gettext( ptxt TEXT, plang VARCHAR(10)) RETURNS TEXT AS $$
+DECLARE
+	res TEXT;
+BEGIN
+	IF (plang = 'C' ) OR (plang = 'en') THEN
+		RETURN ptxt;
+	END IF;
+	SELECT cc_texts.txt INTO res FROM cc_texts 
+		WHERE cc_texts.lang = plang AND cc_texts.id IN 
+			(SELECT id FROM cc_texts WHERE cc_texts.lang = 'C' AND cc_texts.txt = ptxt);
+	IF FOUND THEN
+		RETURN res;
+	ELSE
+		RETURN ptxt;
+	END IF;
+END; $$ LANGUAGE plpgsql STRICT STABLE;
+
+CREATE OR REPLACE FUNCTION gettexti( pid INTEGER, plang VARCHAR(10)) RETURNS TEXT AS $$
+DECLARE
+	res TEXT;
+BEGIN
+	SELECT cc_texts.txt INTO res FROM cc_texts 
+		WHERE cc_texts.lang = plang AND cc_texts.id  = pid;
+	IF FOUND THEN
+		RETURN res;
+	END IF;
+	SELECT cc_texts.txt INTO res FROM cc_texts
+		WHERE cc_texts.lang = 'C' AND cc_texts.id = pid;
+	RETURN res;
+END; $$ LANGUAGE plpgsql STRICT STABLE;
+
+-- The opposite of gettext! Insert some new text into the database and get its id..
+-- The text MUST be in English = 'C' and this function should always return a valid
+-- id as long as ptxt IS NOT NULL..
+CREATE OR REPLACE FUNCTION gettext_ri(ptxt TEXT) returns integer AS $$
+	DECLARE res integer;
+BEGIN
+	SELECT id INTO res FROM cc_texts WHERE lang = 'C' AND txt = ptxt;
+	IF FOUND THEN RETURN res; END IF;
+	
+	SELECT INTO res MAX(id) FROM cc_texts;
+	IF res IS NULL THEN res := 0; END IF;
+	res := res + 1;
+	
+	INSERT INTO cc_texts(id,txt,lang,src) VALUES(res,ptxt,'C',2);
+	RETURN res;
+END; $$ LANGUAGE plpgsql STRICT VOLATILE;
+
+-- Optimized version of gettext_r.
+-- Note: this function may be faster, but will raise an exception for non-existent
+-- strings..
+
+CREATE OR REPLACE FUNCTION gettext_r(ptxt TEXT) returns integer AS $$
+	DECLARE res integer;
+BEGIN
+	SELECT id INTO res FROM cc_texts WHERE lang = 'C' AND txt = ptxt;
+	IF NOT FOUND THEN 
+		RAISE EXCEPTION 'Text ''%'' not found in database!',ptxt;
+	END IF;
+	
+	RETURN res; 
+END; $$ LANGUAGE plpgsql STRICT STABLE;
+
+--------------------
+
+CREATE OR REPLACE FUNCTION cc_agentpay_it() RETURNS trigger AS $$
+BEGIN
+	UPDATE cc_agent SET credit = credit + NEW.credit WHERE id = NEW.agentid;
+	IF NOT FOUND THEN
+		RAISE EXCEPTION 'Failed to update agent''s credit';
+	END IF;
+	RETURN NEW;
+END ; $$ LANGUAGE plpgsql STRICT;
+
+CREATE OR REPLACE FUNCTION cc_agentpay_itu() RETURNS trigger AS $$
+BEGIN
+	IF NEW.agentid <> OLD.agentid THEN
+		RAISE EXCEPTION 'Change of agents for payments is forbidden!';
+	END IF;
+	UPDATE cc_agent SET credit = credit + NEW.credit - OLD.credit WHERE id = NEW.agentid;
+	IF NOT FOUND THEN
+		RAISE EXCEPTION 'Failed to update agent''s credit';
+	END IF;
+	RETURN NEW;
+END ; $$ LANGUAGE plpgsql STRICT;
+
+CREATE OR REPLACE FUNCTION cc_agentpay_itd() RETURNS trigger AS $$
+BEGIN
+	UPDATE cc_agent SET credit = credit - OLD.credit WHERE id = OLD.agentid;
+	IF NOT FOUND THEN
+		RAISE EXCEPTION 'Failed to update agent''s credit';
+	END IF;
+	RETURN OLD;
+END ; $$ LANGUAGE plpgsql STRICT;
+
+DROP TRIGGER cc_agent_pay_it ON cc_agentpay;
+DROP TRIGGER cc_agent_pay_itd ON cc_agentpay;
+DROP TRIGGER cc_agent_pay_itu ON cc_agentpay;
+
+CREATE TRIGGER cc_agent_pay_it BEFORE INSERT ON cc_agentpay
+	FOR EACH ROW EXECUTE PROCEDURE cc_agentpay_it();
+CREATE TRIGGER cc_agent_pay_itu BEFORE UPDATE ON cc_agentpay
+	FOR EACH ROW EXECUTE PROCEDURE cc_agentpay_itu();
+CREATE TRIGGER cc_agent_pay_itd BEFORE DELETE ON cc_agentpay
+	FOR EACH ROW EXECUTE PROCEDURE cc_agentpay_itd();
 
 -- eof
