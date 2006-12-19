@@ -667,4 +667,58 @@ CREATE TRIGGER cc_agent_pay_itu BEFORE UPDATE ON cc_agentpay
 CREATE TRIGGER cc_agent_pay_itd BEFORE DELETE ON cc_agentpay
 	FOR EACH ROW EXECUTE PROCEDURE cc_agentpay_itd();
 
+-- Charges
+CREATE OR REPLACE FUNCTION cc_charge_it() RETURNS trigger AS $$
+BEGIN
+	IF NEW.agentid IS NOT NULL THEN
+		PERFORM card_id FROM cc_agent_cards WHERE card_id= NEW.id_cc_card
+			AND agentid= NEW.agentid;
+		IF NOT FOUND THEN 
+			RAISE EXCEPTION 'Card does not belong to agent';
+		END IF;
+	END IF;
+	
+	UPDATE cc_card SET credit = credit - NEW.amount WHERE id = NEW.id_cc_card;
+	IF NOT FOUND THEN
+		RAISE EXCEPTION 'Failed to update card''s credit';
+	END IF;
+	RETURN NEW;
+END ; $$ LANGUAGE plpgsql STRICT;
+
+CREATE OR REPLACE FUNCTION cc_charge_itu() RETURNS trigger AS $$
+BEGIN
+	IF NEW.agentid <> OLD.agentid THEN
+		RAISE EXCEPTION 'Change of agents for charges is forbidden!';
+	END IF;
+	IF NEW.id_cc_card <> OLD.id_cc_card THEN
+		RAISE EXCEPTION 'Change of cards for charges is forbidden!';
+	END IF;
+	
+	UPDATE cc_card SET credit = credit + OLD.amount - NEW.amount WHERE id = NEW.id_cc_card;
+	IF NOT FOUND THEN
+		RAISE EXCEPTION 'Failed to update card''s credit';
+	END IF;
+	RETURN NEW;
+END ; $$ LANGUAGE plpgsql STRICT;
+
+CREATE OR REPLACE FUNCTION cc_charge_itd() RETURNS trigger AS $$
+BEGIN
+	UPDATE cc_card SET credit = credit + OLD.amount WHERE id = OLD.id_cc_card;
+	IF NOT FOUND THEN
+		RAISE EXCEPTION 'Failed to update card''s credit';
+	END IF;
+	RETURN OLD;
+END ; $$ LANGUAGE plpgsql STRICT;
+
+DROP TRIGGER cc_charge_it ON cc_charge;
+DROP TRIGGER cc_charge_itd ON cc_charge;
+DROP TRIGGER cc_charge_itu ON cc_charge;
+
+CREATE TRIGGER cc_charge_it BEFORE INSERT ON cc_charge
+	FOR EACH ROW EXECUTE PROCEDURE cc_charge_it();
+CREATE TRIGGER cc_charge_itu BEFORE UPDATE ON cc_charge
+	FOR EACH ROW EXECUTE PROCEDURE cc_charge_itu();
+CREATE TRIGGER cc_charge_itd BEFORE DELETE ON cc_charge
+	FOR EACH ROW EXECUTE PROCEDURE cc_charge_itd();
+
 -- eof

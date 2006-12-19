@@ -21,61 +21,18 @@
 		GROUP BY cc_shopsessions.id,cc_shopsessions.starttime, cc_shopsessions.endtime;*/
 -- One view for all: have all the session transactions in one table.
 
-		
+
+CREATE OR REPLACE VIEW cc_agent_money_v AS
+	SELECT agentid, date, pay_type, descr, NULL::bigint AS card_id, NULL::NUMERIC AS pos_credit, credit AS neg_credit, credit 
+		FROM cc_agentpay WHERE credit >=0
+UNION SELECT agentid, date, pay_type, descr, NULL::bigint AS card_id, 0-credit AS pos_credit, NULL  AS neg_credit, credit 
+		FROM cc_agentpay WHERE credit <0
+UNION	SELECT agentid, date, pay_type, 'Money from customer' as descr, card_id, credit AS pos_credit, NULL AS neg_credit, 0-credit
+		FROM cc_agentrefill WHERE credit >=0 AND carried = false
+UNION	SELECT agentid, date, pay_type, 'Pay back custommer' as descr, card_id, NULL AS pos_credit, 0-credit AS neg_credit, 0-credit
+		FROM cc_agentrefill WHERE credit <0 AND carried = false;
 
 
-CREATE OR REPLACE FUNCTION cc_charge_it() RETURNS trigger AS $$
-BEGIN
-	IF NEW.agentid IS NOT NULL THEN
-		PERFORM card_id FROM cc_agent_cards WHERE card_id= NEW.id_cc_card
-			AND agentid= NEW.agentid;
-		IF NOT FOUND THEN 
-			RAISE EXCEPTION 'Card does not belong to agent';
-		END IF;
-	END IF;
-	
-	UPDATE cc_card SET credit = credit - NEW.amount WHERE id = NEW.id_cc_card;
-	IF NOT FOUND THEN
-		RAISE EXCEPTION 'Failed to update card''s credit';
-	END IF;
-	RETURN NEW;
-END ; $$ LANGUAGE plpgsql STRICT;
-
-CREATE OR REPLACE FUNCTION cc_charge_itu() RETURNS trigger AS $$
-BEGIN
-	IF NEW.agentid <> OLD.agentid THEN
-		RAISE EXCEPTION 'Change of agents for charges is forbidden!';
-	END IF;
-	IF NEW.id_cc_card <> OLD.id_cc_card THEN
-		RAISE EXCEPTION 'Change of cards for charges is forbidden!';
-	END IF;
-	
-	UPDATE cc_card SET credit = credit + OLD.amount - NEW.amount WHERE id = NEW.id_cc_card;
-	IF NOT FOUND THEN
-		RAISE EXCEPTION 'Failed to update card''s credit';
-	END IF;
-	RETURN NEW;
-END ; $$ LANGUAGE plpgsql STRICT;
-
-CREATE OR REPLACE FUNCTION cc_charge_itd() RETURNS trigger AS $$
-BEGIN
-	UPDATE cc_card SET credit = credit + OLD.amount WHERE id = OLD.id_cc_card;
-	IF NOT FOUND THEN
-		RAISE EXCEPTION 'Failed to update card''s credit';
-	END IF;
-	RETURN OLD;
-END ; $$ LANGUAGE plpgsql STRICT;
-
-DROP TRIGGER cc_charge_it ON cc_charge;
-DROP TRIGGER cc_charge_itd ON cc_charge;
-DROP TRIGGER cc_charge_itu ON cc_charge;
-
-CREATE TRIGGER cc_charge_it BEFORE INSERT ON cc_charge
-	FOR EACH ROW EXECUTE PROCEDURE cc_charge_it();
-CREATE TRIGGER cc_charge_itu BEFORE UPDATE ON cc_charge
-	FOR EACH ROW EXECUTE PROCEDURE cc_charge_itu();
-CREATE TRIGGER cc_charge_itd BEFORE DELETE ON cc_charge
-	FOR EACH ROW EXECUTE PROCEDURE cc_charge_itd();
 	
 	
 
