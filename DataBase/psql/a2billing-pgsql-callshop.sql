@@ -124,4 +124,17 @@ CREATE TABLE cc_texts (
 	CONSTRAINT cc_texts_pkey PRIMARY KEY (id,lang) );
 
 
+INSERT INTO cc_templatemail VALUES ('forgetagentpw', 'info@call-labs.com', 'Call-Labs', 'Login Information', 'Your login information is as below:
+
+Your account is $login
+
+Your password is $password
+
+http://call-labs.com/A2BAgent_UI/
+
+
+Kind regards,
+Call Labs
+', '');
+
 -- eof
