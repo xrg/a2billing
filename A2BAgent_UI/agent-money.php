@@ -149,7 +149,7 @@ $FG_TABLE_DEFAULT_SENS = "ASC";
 if (! isset($choose_currency) || ( $choose_currency == ''))
 	$choose_currency = $_SESSION["currency"];
 
-$FG_COL_QUERY=str_dbparams($DBHandle, 'date, pay_type,gettext(descr,%3), ' .
+$FG_COL_QUERY=str_dbparams($DBHandle, 'fmt_date(date), pay_type,gettext(descr,%3), ' .
 	'format_currency(pos_credit,%1, %2), format_currency(neg_credit,%1, %2)',
 	array(strtoupper(BASE_CURRENCY),$choose_currency,getenv('LANG')));
 //$FG_COL_QUERY_GRAPH='t1.callstart, t1.duration';

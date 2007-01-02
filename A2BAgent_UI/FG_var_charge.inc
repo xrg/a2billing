@@ -40,10 +40,10 @@ $HD_Form_c -> AddViewElement(gettext("CHARGETYPE"), "chargetype", "20%", "center
 $HD_Form_c -> AddViewElement(gettext("DESCRIPTION"), "description", "30%", "center", "", "");
 
 // added a parameter to append  FG_TABLE_ID  ( by default ) or disable 0.
-$HD_Form_c -> FieldViewElement ('username, cc_charge.creationdate, amount, chargetype, description');
+$HD_Form_c -> FieldViewElement ('username, fmt_date(cc_charge.creationdate), amount, chargetype, description');
 
 
-$HD_Form_c -> CV_NO_FIELDS  = gettext("THERE IS NO CHARGE CREATED!");  
+$HD_Form_c -> CV_NO_FIELDS  = gettext("THERE IS NO CHARGE CREATED!");
 $HD_Form_c -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;
 $HD_Form_c -> CV_TEXT_TITLE_ABOVE_TABLE = '';
 $HD_Form_c -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;

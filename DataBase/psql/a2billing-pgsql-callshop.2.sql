@@ -542,7 +542,13 @@ CREATE OR REPLACE FUNCTION divide_time(div1 INTERVAL, div2 INTERVAL) RETURNS FLO
 	SELECT ( EXTRACT(EPOCH FROM $1) / EXTRACT(EPOCH FROM $2)) ;
 	$$ LANGUAGE SQL IMMUTABLE STRICT;
 
+----- Compatibility note:
+--- We could use 'TMDay' to show the localized day eg. This however will require Postgres >= 8.2.0
 
+CREATE OR REPLACE FUNCTION fmt_date( date TIMESTAMP) RETURNS TEXT AS $$
+	SELECT to_char($1, 'DD/MM/YYYY HH24:MM');
+	$$ LANGUAGE SQL IMMUTABLE STRICT;
+	
 CREATE OR REPLACE VIEW cc_tariffrates_v AS SELECT cc_tariffgroup.id AS tg_id, cc_tariffgroup.tariffgroupname AS tg_name, 
 	cc_tariffplan.id AS tp_id, cc_tariffplan.tariffname AS tp_name,
 	cc_tariffplan.startingdate AS tp_start, cc_tariffplan.expirationdate AS tp_end,
