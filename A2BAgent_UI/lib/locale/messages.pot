@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-12-18 18:25+0200\n"
+"POT-Creation-Date: 2007-01-05 18:57+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -176,7 +176,7 @@ msgstr ""
 #: lib/Form/Class.FormHandler.EditForm.inc.php:377
 #: lib/Form/Class.FormHandler.EditForm.inc.php:648
 #: lib/Form/Class.FormHandler.DelForm.inc.php:145 invoices.php:1062
-#: invoices_cust.php:459
+#: invoices_cust.php:463 agent-money.php:581
 msgid "No data found !!!"
 msgstr ""
 
@@ -752,7 +752,7 @@ msgstr ""
 msgid "Stop"
 msgstr ""
 
-#: booths.php:227
+#: booths.php:227 FG_var_card.inc:99
 msgid "Pay"
 msgstr ""
 
@@ -834,15 +834,11 @@ msgstr ""
 msgid "INFO PAGES"
 msgstr ""
 
-#: PP_menu.php:106
-msgid "CALL HISTORY"
-msgstr ""
-
-#: PP_menu.php:110
+#: PP_menu.php:108
 msgid "PASSWORD"
 msgstr ""
 
-#: PP_menu.php:114
+#: PP_menu.php:112
 msgid "LOGOUT"
 msgstr ""
 
@@ -930,23 +926,23 @@ msgstr ""
 msgid "Database query failed!"
 msgstr ""
 
-#: A2B_entity_cards.php:52
+#: A2B_entity_cards.php:60
 msgid "Fill!"
 msgstr ""
 
-#: A2B_entity_cards.php:53
+#: A2B_entity_cards.php:61
 msgid "Empty!"
 msgstr ""
 
-#: A2B_entity_cards.php:61
+#: A2B_entity_cards.php:69
 msgid "Nowhere"
 msgstr ""
 
-#: A2B_entity_cards.php:62
+#: A2B_entity_cards.php:70
 msgid ", default for "
 msgstr ""
 
-#: A2B_entity_cards.php:142
+#: A2B_entity_cards.php:146
 msgid "Create new regular customer"
 msgstr ""
 
@@ -966,7 +962,7 @@ msgstr ""
 msgid "Destination"
 msgstr ""
 
-#: invoices.php:90 invoices_cust.php:137
+#: invoices.php:90 invoices_cust.php:140
 msgid "Duration"
 msgstr ""
 
@@ -978,67 +974,91 @@ msgstr ""
 msgid "Cost"
 msgstr ""
 
-#: invoices.php:427
+#: invoices.php:427 agent-money.php:321
 msgid "Selection of the month"
 msgstr ""
 
-#: invoices.php:432 invoices.php:480
+#: invoices.php:432 invoices.php:480 agent-money.php:326 agent-money.php:374
 msgid "FROM"
 msgstr ""
 
 #: invoices.php:436 invoices.php:456 invoices.php:493 invoices.php:538
+#: agent-money.php:330 agent-money.php:350 agent-money.php:387
+#: agent-money.php:432
 msgid "JANUARY"
 msgstr ""
 
 #: invoices.php:436 invoices.php:456 invoices.php:493 invoices.php:538
+#: agent-money.php:330 agent-money.php:350 agent-money.php:387
+#: agent-money.php:432
 msgid "FEBRUARY"
 msgstr ""
 
 #: invoices.php:436 invoices.php:456 invoices.php:493 invoices.php:538
+#: agent-money.php:330 agent-money.php:350 agent-money.php:387
+#: agent-money.php:432
 msgid "MARCH"
 msgstr ""
 
 #: invoices.php:436 invoices.php:456 invoices.php:493 invoices.php:538
+#: agent-money.php:330 agent-money.php:350 agent-money.php:387
+#: agent-money.php:432
 msgid "APRIL"
 msgstr ""
 
 #: invoices.php:436 invoices.php:456 invoices.php:493 invoices.php:538
+#: agent-money.php:330 agent-money.php:350 agent-money.php:387
+#: agent-money.php:432
 msgid "MAY"
 msgstr ""
 
 #: invoices.php:436 invoices.php:456 invoices.php:493 invoices.php:538
+#: agent-money.php:330 agent-money.php:350 agent-money.php:387
+#: agent-money.php:432
 msgid "JUNE"
 msgstr ""
 
 #: invoices.php:436 invoices.php:456 invoices.php:493 invoices.php:538
+#: agent-money.php:330 agent-money.php:350 agent-money.php:387
+#: agent-money.php:432
 msgid "JULY"
 msgstr ""
 
 #: invoices.php:436 invoices.php:456 invoices.php:493 invoices.php:538
+#: agent-money.php:330 agent-money.php:350 agent-money.php:387
+#: agent-money.php:432
 msgid "AUGUST"
 msgstr ""
 
 #: invoices.php:436 invoices.php:456 invoices.php:493 invoices.php:538
+#: agent-money.php:330 agent-money.php:350 agent-money.php:387
+#: agent-money.php:432
 msgid "SEPTEMBER"
 msgstr ""
 
 #: invoices.php:436 invoices.php:456 invoices.php:493 invoices.php:538
+#: agent-money.php:330 agent-money.php:350 agent-money.php:387
+#: agent-money.php:432
 msgid "OCTOBER"
 msgstr ""
 
 #: invoices.php:436 invoices.php:456 invoices.php:493 invoices.php:538
+#: agent-money.php:330 agent-money.php:350 agent-money.php:387
+#: agent-money.php:432
 msgid "NOVEMBER"
 msgstr ""
 
 #: invoices.php:436 invoices.php:456 invoices.php:493 invoices.php:538
+#: agent-money.php:330 agent-money.php:350 agent-money.php:387
+#: agent-money.php:432
 msgid "DECEMBER"
 msgstr ""
 
-#: invoices.php:452 invoices.php:525
+#: invoices.php:452 invoices.php:525 agent-money.php:346 agent-money.php:419
 msgid "TO"
 msgstr ""
 
-#: invoices.php:476
+#: invoices.php:476 agent-money.php:370
 msgid "Selection of the day"
 msgstr ""
 
@@ -1055,31 +1075,31 @@ msgstr ""
 msgid "SOURCE"
 msgstr ""
 
-#: invoices.php:602 invoices_cust.php:369
+#: invoices.php:602 invoices_cust.php:373 agent-money.php:495
 msgid "Search"
 msgstr ""
 
-#: invoices.php:604 invoices_cust.php:346
+#: invoices.php:604 invoices_cust.php:350 agent-money.php:472
 msgid "Result"
 msgstr ""
 
-#: invoices.php:604 invoices_cust.php:346
+#: invoices.php:604 invoices_cust.php:350 agent-money.php:472
 msgid "Minutes"
 msgstr ""
 
-#: invoices.php:604 invoices_cust.php:346
+#: invoices.php:604 invoices_cust.php:350 agent-money.php:472
 msgid "Seconds"
 msgstr ""
 
-#: invoices.php:613 invoices_cust.php:365
+#: invoices.php:613 invoices_cust.php:369 agent-money.php:491
 msgid "See Invoice in HTML"
 msgstr ""
 
-#: invoices.php:614 invoices_cust.php:366
+#: invoices.php:614 invoices_cust.php:370 agent-money.php:492
 msgid "or Export PDF"
 msgstr ""
 
-#: invoices.php:616 invoices_cust.php:349
+#: invoices.php:616 invoices_cust.php:353 agent-money.php:475
 msgid "Currency"
 msgstr ""
 
@@ -1091,7 +1111,7 @@ msgstr ""
 msgid "Fax  :"
 msgstr ""
 
-#: invoices.php:685 invoices_cust.php:508
+#: invoices.php:685 invoices_cust.php:512 agent-money.php:607
 msgid "BILLING SERVICE"
 msgstr ""
 
@@ -1099,8 +1119,8 @@ msgstr ""
 msgid "EXTRA CHARGE"
 msgstr ""
 
-#: invoices.php:715 invoices.php:892 invoices_cust.php:588
-#: FG_var_agentpay.inc:25 FG_var_charge.inc:33
+#: invoices.php:715 invoices.php:892 invoices_cust.php:592 agent-money.php:686
+#: FG_var_agentpay.inc:25 FG_var_charge.inc:37
 msgid "DATE"
 msgstr ""
 
@@ -1112,7 +1132,8 @@ msgstr ""
 msgid "TOTALCOST"
 msgstr ""
 
-#: invoices.php:753 invoices.php:852 invoices.php:954 invoices_cust.php:650
+#: invoices.php:753 invoices.php:852 invoices.php:954 invoices_cust.php:654
+#: agent-money.php:748
 msgid "VAT"
 msgstr ""
 
@@ -1120,32 +1141,32 @@ msgstr ""
 msgid "CALLS PER DESTINATION"
 msgstr ""
 
-#: invoices.php:790 invoices.php:893 invoices_cust.php:589
+#: invoices.php:790 invoices.php:893 invoices_cust.php:593 agent-money.php:687
 msgid "DUR"
 msgstr ""
 
-#: invoices.php:791 invoices.php:894 invoices_cust.php:590
+#: invoices.php:791 invoices.php:894 invoices_cust.php:594 agent-money.php:688
 msgid "GRAPHIC"
 msgstr ""
 
-#: invoices.php:792 invoices.php:895 invoices_cust.php:591
+#: invoices.php:792 invoices.php:895 invoices_cust.php:595 agent-money.php:689
 msgid "CALL"
 msgstr ""
 
-#: invoices.php:793 invoices.php:896 invoices_cust.php:592
+#: invoices.php:793 invoices.php:896 invoices_cust.php:596 agent-money.php:690
 msgid "TOTAL COST"
 msgstr ""
 
-#: invoices.php:838 invoices.php:846 invoices.php:941 invoices_cust.php:544
-#: invoices_cust.php:637
+#: invoices.php:838 invoices.php:846 invoices.php:941 invoices_cust.php:548
+#: invoices_cust.php:641 agent-money.php:642 agent-money.php:735
 msgid "TOTAL"
 msgstr ""
 
-#: invoices.php:864 invoices_cust.php:561
+#: invoices.php:864 invoices_cust.php:565 agent-money.php:659
 msgid "BILL EVOLUTION"
 msgstr ""
 
-#: invoices.php:969 invoices_cust.php:382
+#: invoices.php:969 invoices_cust.php:386
 msgid "CALLS DETAIL"
 msgstr ""
 
@@ -1153,104 +1174,88 @@ msgstr ""
 msgid "Number of call"
 msgstr ""
 
-#: invoices.php:981 invoices_cust.php:395
+#: invoices.php:981 invoices_cust.php:399 agent-money.php:521
 msgid "nb"
 msgstr ""
 
-#: invoices.php:1078 invoices_cust.php:475
+#: invoices.php:1078 invoices_cust.php:479
 msgid "TOTAL BUYCOSTS"
 msgstr ""
 
-#: invoices.php:1079 invoices_cust.php:476
+#: invoices.php:1079 invoices_cust.php:480
 msgid "DIFFERENCE"
 msgstr ""
 
-#: invoices.php:1107 invoices_cust.php:496
+#: invoices.php:1107 invoices_cust.php:500 agent-money.php:595
 msgid "No calls in your Selection"
 msgstr ""
 
-#: invoices_cust.php:133
+#: invoices_cust.php:136 agent-money.php:136
 msgid "Calldate"
 msgstr ""
 
-#: invoices_cust.php:134
+#: invoices_cust.php:137 agent-money.php:138
 msgid "Description"
 msgstr ""
 
-#: invoices_cust.php:136
+#: invoices_cust.php:139
 msgid "Called Number"
 msgstr ""
 
-#: invoices_cust.php:138
+#: invoices_cust.php:141 agent-money.php:140
 msgid "Credit"
 msgstr ""
 
-#: invoices_cust.php:139
+#: invoices_cust.php:142 agent-money.php:141
 msgid "Charge"
 msgstr ""
 
-#: invoices_cust.php:142 pay.php:23
-msgid "Payment"
-msgstr ""
-
-#: invoices_cust.php:142
-msgid "Call"
-msgstr ""
-
-#: invoices_cust.php:142
-msgid "Session start"
-msgstr ""
-
-#: invoices_cust.php:142
-msgid "credit"
-msgstr ""
-
-#: invoices_cust.php:328 invoices_cust.php:362
-msgid "Mode"
-msgstr ""
-
-#: invoices_cust.php:331
+#: invoices_cust.php:335
 msgid "Select booth:"
 msgstr ""
 
-#: invoices_cust.php:343
+#: invoices_cust.php:347 agent-money.php:469
 msgid "View"
 msgstr ""
 
-#: invoices_cust.php:449
+#: invoices_cust.php:453 agent-money.php:575
 msgid "Partial sum:"
 msgstr ""
 
-#: invoices_cust.php:454
+#: invoices_cust.php:458
 msgid "Sum:"
 msgstr ""
 
-#: invoices_cust.php:514
+#: invoices_cust.php:518 agent-money.php:613
 msgid "CREDITS/CHARGES"
 msgstr ""
 
-#: invoices_cust.php:518
+#: invoices_cust.php:522 agent-money.php:617
 msgid "TYPE"
 msgstr ""
 
-#: invoices_cust.php:519 FG_var_booth.inc:34
+#: invoices_cust.php:523 agent-money.php:618 FG_var_booth.inc:34
 msgid "CREDIT"
 msgstr ""
 
-#: invoices_cust.php:520
+#: invoices_cust.php:524 agent-money.php:619
 msgid "CHARGE"
 msgstr ""
 
-#: invoices_cust.php:547
+#: invoices_cust.php:551 agent-money.php:645
 msgid "includes VAT"
 msgstr ""
 
-#: invoices_cust.php:661
+#: invoices_cust.php:665 agent-money.php:759
 msgid "Pay back:"
 msgstr ""
 
-#: invoices_cust.php:665
+#: invoices_cust.php:669 agent-money.php:763
 msgid "Pay:"
+msgstr ""
+
+#: pay.php:23
+msgid "Payment"
 msgstr ""
 
 #: pay.php:24
@@ -1273,28 +1278,86 @@ msgstr ""
 msgid "Back to booths"
 msgstr ""
 
-#: reports_choice.php:14
+#: reports_choice.php:16
+msgid "Please choose report type:"
+msgstr ""
+
+#: reports_choice.php:18
 msgid "All calls"
 msgstr ""
 
-#: reports_choice.php:15
-msgid "Current rates"
+#: reports_choice.php:19
+msgid "Agent money situation"
 msgstr ""
 
-#: reports_choice.php:16 reports_choice.php:22
-msgid "Agent payments"
-msgstr ""
-
-#: reports_choice.php:17
+#: reports_choice.php:20
 msgid "Phone statistics"
 msgstr ""
 
-#: reports_choice.php:21
+#: reports_choice.php:25
 msgid "Customer charges"
+msgstr ""
+
+#: reports_choice.php:26
+msgid "Agent payments"
 msgstr ""
 
 #: A2B_entity_charge.php:53
 msgid "Charge a customer"
+msgstr ""
+
+#: agent-money.php:137
+msgid "Type"
+msgstr ""
+
+#: agent-money.php:177
+msgid " - Transactions - "
+msgstr ""
+
+#: agent-money.php:488
+msgid "Mode"
+msgstr ""
+
+#: agent-money.php:508
+msgid "TRANSACTIONS DETAIL"
+msgstr ""
+
+#: info_choice.php:16
+msgid "Please choose information page:"
+msgstr ""
+
+#: info_choice.php:18
+msgid "Current rates"
+msgstr ""
+
+#: info_choice.php:19
+msgid "Usage instructions"
+msgstr ""
+
+#: info_choice.php:20
+msgid "Contact information"
+msgstr ""
+
+#: forgotpassword.php:24
+msgid ""
+"Please wait 1 minutes before making any other request for the forgot "
+"password!"
+msgstr ""
+
+#: forgotpassword.php:98
+msgid "Your login information email has been sent to you."
+msgstr ""
+
+#: forgotpassword.php:101
+msgid "No such login exists."
+msgstr ""
+
+#: forgotpassword.php:104
+msgid "Invalid Action."
+msgstr ""
+
+#: forgotpassword.php:107
+msgid "Pleaes provide your email address to get your login information."
 msgstr ""
 
 #: FG_var_card.inc:21 FG_var_booth.inc:28
@@ -1309,7 +1372,7 @@ msgstr ""
 msgid "NAME"
 msgstr ""
 
-#: FG_var_card.inc:24 FG_var_card.inc:129
+#: FG_var_card.inc:24 FG_var_card.inc:141
 msgid "BALANCE"
 msgstr ""
 
@@ -1321,127 +1384,131 @@ msgstr ""
 msgid "NOW IN"
 msgstr ""
 
-#: FG_var_card.inc:34
+#: FG_var_card.inc:36
 msgid "Fill booth"
 msgstr ""
 
-#: FG_var_card.inc:34
+#: FG_var_card.inc:36
 msgid " with card "
 msgstr ""
 
-#: FG_var_card.inc:40
+#: FG_var_card.inc:42
 msgid "Booth Filled"
 msgstr ""
 
-#: FG_var_card.inc:42
+#: FG_var_card.inc:44
 msgid "Cannot fill booth!"
 msgstr ""
 
-#: FG_var_card.inc:47
+#: FG_var_card.inc:49
 msgid "Empty booth "
 msgstr ""
 
-#: FG_var_card.inc:52
+#: FG_var_card.inc:54
 msgid "Booth Emptied"
 msgstr ""
 
-#: FG_var_card.inc:54
+#: FG_var_card.inc:56
 msgid "Cannot empty booth! (Does it have zero balance?)"
 msgstr ""
 
-#: FG_var_card.inc:66
+#: FG_var_card.inc:68
 msgid "NO CARDS HAVE BEEN CREATED!"
 msgstr ""
 
-#: FG_var_card.inc:68
+#: FG_var_card.inc:70
 msgid "Customers"
 msgstr ""
 
-#: FG_var_card.inc:82 FG_var_card.inc:87
+#: FG_var_card.inc:84 FG_var_card.inc:89
 msgid "select"
 msgstr ""
 
-#: FG_var_card.inc:120
+#: FG_var_card.inc:94
+msgid "Charges"
+msgstr ""
+
+#: FG_var_card.inc:132
 msgid "CARD NUMBER "
 msgstr ""
 
-#: FG_var_card.inc:126
+#: FG_var_card.inc:138
 msgid "Insert the username"
 msgstr ""
 
-#: FG_var_card.inc:135
+#: FG_var_card.inc:147
 msgid "Insert the number of credit"
 msgstr ""
 
-#: FG_var_card.inc:138
+#: FG_var_card.inc:150
 msgid "LANGUAGE"
 msgstr ""
 
-#: FG_var_card.inc:147
+#: FG_var_card.inc:159
 msgid "LASTNAME"
 msgstr ""
 
-#: FG_var_card.inc:153
+#: FG_var_card.inc:165
 msgid "Insert the lastname of the customers"
 msgstr ""
 
-#: FG_var_card.inc:156
+#: FG_var_card.inc:168
 msgid "FIRSTNAME"
 msgstr ""
 
-#: FG_var_card.inc:162
+#: FG_var_card.inc:174
 msgid "Insert the firstname of the customers"
 msgstr ""
 
-#: FG_var_card.inc:170
+#: FG_var_card.inc:182
 msgid "EMAIL"
 msgstr ""
 
-#: FG_var_card.inc:176
+#: FG_var_card.inc:188
 msgid "Insert the email"
 msgstr ""
 
-#: FG_var_card.inc:180
+#: FG_var_card.inc:192
 msgid "ADDRESS"
 msgstr ""
 
-#: FG_var_card.inc:186
+#: FG_var_card.inc:198
 msgid "Insert the address of the customers"
 msgstr ""
 
-#: FG_var_card.inc:190
+#: FG_var_card.inc:202
 msgid "CITY"
 msgstr ""
 
-#: FG_var_card.inc:196
+#: FG_var_card.inc:208
 msgid "Insert the city"
 msgstr ""
 
-#: FG_var_card.inc:200
+#: FG_var_card.inc:212
 msgid "STATE/PROVINCE"
 msgstr ""
 
-#: FG_var_card.inc:206
+#: FG_var_card.inc:218
 msgid "Insert the state"
 msgstr ""
 
-#: FG_var_card.inc:210
+#: FG_var_card.inc:222
 msgid "COUNTRY"
 msgstr ""
 
-#: FG_var_card.inc:216
+#: FG_var_card.inc:228
 msgid "Insert the country"
 msgstr ""
 
-#: FG_var_card.inc:220
+#: FG_var_card.inc:232
 msgid "ZIP/POSTAL CODE"
 msgstr ""
 
-#: FG_var_card.inc:226
+#: FG_var_card.inc:238
 msgid "Insert the zipcode"
 msgstr ""
 
-#: FG_var_card.inc:234
+#: FG_var_card.inc:246
 msgid "Once you have completed the form above, click on the CONTINUE button."
 msgstr ""
 
@@ -1538,76 +1605,72 @@ msgstr ""
 msgid "Define the selling cost for customers..."
 msgstr ""
 
-#: FG_var_agentpay.inc:26 FG_var_charge.inc:34 FG_var_charge.inc:89
+#: FG_var_agentpay.inc:26 FG_var_charge.inc:38 FG_var_charge.inc:74
 msgid "AMOUNT"
 msgstr ""
 
-#: FG_var_agentpay.inc:27 FG_var_charge.inc:35 FG_var_charge.inc:98
+#: FG_var_agentpay.inc:27 FG_var_charge.inc:39 FG_var_charge.inc:83
 msgid "CHARGETYPE"
 msgstr ""
 
-#: FG_var_agentpay.inc:28 FG_var_charge.inc:36 FG_var_charge.inc:107
+#: FG_var_agentpay.inc:28 FG_var_charge.inc:40 FG_var_charge.inc:92
 msgid "DESCRIPTION"
 msgstr ""
 
-#: FG_var_agentpay.inc:34
-msgid "THERE IS NO "
+#: FG_var_agentpay.inc:35
+msgid "THERE ARE NO AGENT PAYMENTS YET!"
 msgstr ""
 
-#: FG_var_agentpay.inc:34
-msgid " CREATED!"
-msgstr ""
-
-#: FG_var_charge.inc:32
+#: FG_var_charge.inc:36
 msgid "CARDNUMBER"
 msgstr ""
 
-#: FG_var_charge.inc:42
+#: FG_var_charge.inc:46
 msgid "THERE IS NO CHARGE CREATED!"
 msgstr ""
 
-#: FG_var_charge.inc:76
+#: FG_var_charge.inc:61
 msgid "ID CARD"
 msgstr ""
 
-#: FG_var_charge.inc:82
+#: FG_var_charge.inc:67
 msgid "Insert the Id CardNumber"
 msgstr ""
 
-#: FG_var_charge.inc:87
+#: FG_var_charge.inc:72
 msgid "Set the Card Number ID"
 msgstr ""
 
-#: FG_var_charge.inc:95
+#: FG_var_charge.inc:80
 msgid "Insert the amount"
 msgstr ""
 
-#: FG_var_charge.inc:96
+#: FG_var_charge.inc:81
 msgid "Amount, in "
 msgstr ""
 
-#: FG_var_charge.inc:113
+#: FG_var_charge.inc:98
 msgid "Insert the description"
 msgstr ""
 
-#: FG_var_charge.inc:137
+#: FG_var_charge.inc:122
 msgid "Modify the properties of the charge"
 msgstr ""
 
-#: FG_var_charge.inc:138
+#: FG_var_charge.inc:123
 msgid "If you really want remove this charge, click on the delete button."
 msgstr ""
 
-#: FG_var_charge.inc:139
+#: FG_var_charge.inc:124
 msgid ""
 "you can add easily a new charge.<br>Fill the following fields and confirm by "
 "clicking on the button add."
 msgstr ""
 
-#: FG_var_charge.inc:143
+#: FG_var_charge.inc:128
 msgid "Your new charge has been inserted. <br>"
 msgstr ""
 
-#: FG_var_charge.inc:147
+#: FG_var_charge.inc:132
 msgid "Click 'Confirm Data' to continue"
 msgstr ""

@@ -36,6 +36,16 @@ They have an account with us.</li>
 balance will be settled before they leave. Hopefully, they will come again!</li>
 </ul>
 
+<h2>Web interface</h2>
+<h3>Login/logout</h3>
+Of course, you need to login to gain access to the web interface. Keep your password
+secure, as it is the one that ensures your money transactions are made by you!
+<br>
+<b>Note:</b> The login session may expire if you haven't performed any action for some time.
+This is intentional and protects the safety of your login.
+<b>Hint:</b> The booths page is refreshed automatically and thus causes the login session
+never to expire. If you want to leave the screen for long time, you should better leave
+it at the booths page.
 <?php
 } //end if & copy
 

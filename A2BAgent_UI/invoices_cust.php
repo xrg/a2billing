@@ -329,7 +329,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 	<table class="bar-status" width="95%" border="0" cellspacing="1" cellpadding="2" align="center">
 	<tbody>
 	<tr class='dark'>
-	<td class="bar-search-2" align="left" bgcolor="#000033"><?= _("Mode") ?> </td>
+	<td class="bar-search-2" align="left" bgcolor="#000033">&nbsp;&nbsp; </td>
 
 		<td class="bar-search" align="center" bgcolor="#acbdee" colspan=2>
 		<?= _("Select booth:") ?> 
@@ -363,7 +363,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 		</td>
 	</tr>
 	<tr>
-		<td class="bar-search-2" align="left" bgcolor="#000033"><?= _("Mode") ?> </td>
+		<td class="bar-search-2" align="left" bgcolor="#000033">&nbsp;&nbsp; </td>
 
 		<td class="bar-search" align="center" bgcolor="#acbdee">
 			<?php echo gettext("See Invoice in HTML");?><input type="radio" NAME="exporttype" value="html" <?php if((!isset($exporttype))||($exporttype=="html")){?>checked<?php }?>>

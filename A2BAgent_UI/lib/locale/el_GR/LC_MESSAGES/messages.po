@@ -2,14 +2,14 @@
 # Copyright (C) 2006 P. Christeas
 # This file is distributed under the same license as the PACKAGE package.
 #
-# P. Christeas <p_christ@hol.gr>, 2006.
+# P. Christeas <p_christ@hol.gr>, 2006, 2007.
 # P. Christeas <p_christeas@yahoo.com>, 2006.
 msgid ""
 msgstr ""
 "Project-Id-Version: messages\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-12-18 18:25+0200\n"
-"PO-Revision-Date: 2006-12-18 18:36+0200\n"
+"POT-Creation-Date: 2007-01-05 18:57+0200\n"
+"PO-Revision-Date: 2007-01-05 19:00+0200\n"
 "Last-Translator: P. Christeas <p_christ@hol.gr>\n"
 "Language-Team: Greek <el@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -178,7 +178,7 @@ msgstr "ΜΑΖΙΚΗ ΑΛΛΑΓΗ ΤΙΜΟΚΑΤΑΛΟΓΟΥ "
 #: lib/Form/Class.FormHandler.EditForm.inc.php:377
 #: lib/Form/Class.FormHandler.EditForm.inc.php:648
 #: lib/Form/Class.FormHandler.DelForm.inc.php:145 invoices.php:1062
-#: invoices_cust.php:459
+#: invoices_cust.php:463 agent-money.php:581
 msgid "No data found !!!"
 msgstr "Δεν βρέθηκαν δεδομένα!!!"
 
@@ -446,8 +446,9 @@ msgstr "ΚΩΔΙΚΟΙ"
 
 #: lib/Form/Class.FormHandler.inc.php:638
 #: lib/Form/Class.FormHandler.inc.php:640
+#, fuzzy
 msgid "You can browse through our "
-msgstr ""
+msgstr "Εσείς "
 
 #: lib/Form/Class.FormHandler.inc.php:638
 #: lib/Form/Class.FormHandler.inc.php:640
@@ -617,35 +618,39 @@ msgstr "Εξαγωγή XML"
 
 #: lib/defines.php:173
 msgid "English"
-msgstr ""
+msgstr "Αγγλικά"
 
 #: lib/defines.php:174
 msgid "Spanish"
-msgstr ""
+msgstr "Ισπανικά"
 
 #: lib/defines.php:175
 msgid "French"
-msgstr ""
+msgstr "Γαλλικά"
 
 #: lib/defines.php:190
+#, fuzzy
 msgid "Connection charge for DID setup"
-msgstr ""
+msgstr "Σύνδεση για"
 
 #: lib/defines.php:191
+#, fuzzy
 msgid "Monthly Charge for DID use"
-msgstr ""
+msgstr "Μηνιαία Χρέωση για"
 
 #: lib/defines.php:192
+#, fuzzy
 msgid "Just wanted to charge you for extra"
-msgstr ""
+msgstr "στο για"
 
 #: lib/defines.php:193
 msgid "Cactus renting charges"
 msgstr ""
 
 #: lib/defines.php:195
+#, fuzzy
 msgid "Normal payment"
-msgstr ""
+msgstr "Κανονικό"
 
 #: lib/defines.php:196
 msgid "Equipment charge"
@@ -773,7 +778,7 @@ msgstr "Εκκίνηση"
 msgid "Stop"
 msgstr "Διακοπή"
 
-#: booths.php:227
+#: booths.php:227 FG_var_card.inc:99
 msgid "Pay"
 msgstr "Πληρωμή"
 
@@ -857,15 +862,11 @@ msgstr "ΑΝΑΦΟΡΕΣ"
 msgid "INFO PAGES"
 msgstr "ΠΛΗΡΟΦΟΡΙΕΣ"
 
-#: PP_menu.php:106
-msgid "CALL HISTORY"
-msgstr "ΚΛΗΣΕΙΣ"
-
-#: PP_menu.php:110
+#: PP_menu.php:108
 msgid "PASSWORD"
 msgstr "ΚΩΔΙΚΟΣ"
 
-#: PP_menu.php:114
+#: PP_menu.php:112
 msgid "LOGOUT"
 msgstr "ΕΞΟΔΟΣ"
 
@@ -953,23 +954,23 @@ msgstr "Αποτυχία πίστωσης:"
 msgid "Database query failed!"
 msgstr "Η αναζήτηση στη βάση δεδομένων απέτυχε!"
 
-#: A2B_entity_cards.php:52
+#: A2B_entity_cards.php:60
 msgid "Fill!"
 msgstr "Ανάλαβε!"
 
-#: A2B_entity_cards.php:53
+#: A2B_entity_cards.php:61
 msgid "Empty!"
 msgstr "Άδειασε!"
 
-#: A2B_entity_cards.php:61
+#: A2B_entity_cards.php:69
 msgid "Nowhere"
 msgstr "Πουθενά"
 
-#: A2B_entity_cards.php:62
+#: A2B_entity_cards.php:70
 msgid ", default for "
 msgstr ", κοινός του "
 
-#: A2B_entity_cards.php:142
+#: A2B_entity_cards.php:146
 msgid "Create new regular customer"
 msgstr "Εγγραφή νέου τακτικού πελάτη:"
 
@@ -989,7 +990,7 @@ msgstr "Κληθείς Αριθμός"
 msgid "Destination"
 msgstr "Προορισμός"
 
-#: invoices.php:90 invoices_cust.php:137
+#: invoices.php:90 invoices_cust.php:140
 msgid "Duration"
 msgstr "Διάρκεια"
 
@@ -1001,67 +1002,91 @@ msgstr "Κάρτα"
 msgid "Cost"
 msgstr "Κόστος"
 
-#: invoices.php:427
+#: invoices.php:427 agent-money.php:321
 msgid "Selection of the month"
 msgstr "Επιλογή του μήνα"
 
-#: invoices.php:432 invoices.php:480
+#: invoices.php:432 invoices.php:480 agent-money.php:326 agent-money.php:374
 msgid "FROM"
 msgstr "ΑΠΟ"
 
 #: invoices.php:436 invoices.php:456 invoices.php:493 invoices.php:538
+#: agent-money.php:330 agent-money.php:350 agent-money.php:387
+#: agent-money.php:432
 msgid "JANUARY"
 msgstr "ΙΑΝΟΥΑΡΙΟΣ"
 
 #: invoices.php:436 invoices.php:456 invoices.php:493 invoices.php:538
+#: agent-money.php:330 agent-money.php:350 agent-money.php:387
+#: agent-money.php:432
 msgid "FEBRUARY"
 msgstr "ΦΕΒΡΟΥΑΡΙΟΣ"
 
 #: invoices.php:436 invoices.php:456 invoices.php:493 invoices.php:538
+#: agent-money.php:330 agent-money.php:350 agent-money.php:387
+#: agent-money.php:432
 msgid "MARCH"
 msgstr "ΜΑΡΤΙΟΣ"
 
 #: invoices.php:436 invoices.php:456 invoices.php:493 invoices.php:538
+#: agent-money.php:330 agent-money.php:350 agent-money.php:387
+#: agent-money.php:432
 msgid "APRIL"
 msgstr "ΑΠΡΙΛΙΟΣ"
 
 #: invoices.php:436 invoices.php:456 invoices.php:493 invoices.php:538
+#: agent-money.php:330 agent-money.php:350 agent-money.php:387
+#: agent-money.php:432
 msgid "MAY"
 msgstr "ΜΑΪΟΣ"
 
 #: invoices.php:436 invoices.php:456 invoices.php:493 invoices.php:538
+#: agent-money.php:330 agent-money.php:350 agent-money.php:387
+#: agent-money.php:432
 msgid "JUNE"
 msgstr "ΙΟΥΝΙΟΣ"
 
 #: invoices.php:436 invoices.php:456 invoices.php:493 invoices.php:538
+#: agent-money.php:330 agent-money.php:350 agent-money.php:387
+#: agent-money.php:432
 msgid "JULY"
 msgstr "ΙΟΥΛΙΟΣ"
 
 #: invoices.php:436 invoices.php:456 invoices.php:493 invoices.php:538
+#: agent-money.php:330 agent-money.php:350 agent-money.php:387
+#: agent-money.php:432
 msgid "AUGUST"
 msgstr "ΑΥΓΟΥΣΤΟΣ"
 
 #: invoices.php:436 invoices.php:456 invoices.php:493 invoices.php:538
+#: agent-money.php:330 agent-money.php:350 agent-money.php:387
+#: agent-money.php:432
 msgid "SEPTEMBER"
 msgstr "ΣΕΠΤΕΜΒΡΙΟΣ"
 
 #: invoices.php:436 invoices.php:456 invoices.php:493 invoices.php:538
+#: agent-money.php:330 agent-money.php:350 agent-money.php:387
+#: agent-money.php:432
 msgid "OCTOBER"
 msgstr "ΟΚΤΩΒΡΙΟΣ"
 
 #: invoices.php:436 invoices.php:456 invoices.php:493 invoices.php:538
+#: agent-money.php:330 agent-money.php:350 agent-money.php:387
+#: agent-money.php:432
 msgid "NOVEMBER"
 msgstr "ΝΟΕΜΒΡΙΟΣ"
 
 #: invoices.php:436 invoices.php:456 invoices.php:493 invoices.php:538
+#: agent-money.php:330 agent-money.php:350 agent-money.php:387
+#: agent-money.php:432
 msgid "DECEMBER"
 msgstr "ΔΕΚΕΜΒΡΙΟΣ"
 
-#: invoices.php:452 invoices.php:525
+#: invoices.php:452 invoices.php:525 agent-money.php:346 agent-money.php:419
 msgid "TO"
 msgstr "ΕΩΣ"
 
-#: invoices.php:476
+#: invoices.php:476 agent-money.php:370
 msgid "Selection of the day"
 msgstr "Επιλογή της ημέρας"
 
@@ -1078,31 +1103,31 @@ msgstr "Δεν είναι "
 msgid "SOURCE"
 msgstr "ΠΗΓΗ"
 
-#: invoices.php:602 invoices_cust.php:369
+#: invoices.php:602 invoices_cust.php:373 agent-money.php:495
 msgid "Search"
 msgstr "Αναζήτηση"
 
-#: invoices.php:604 invoices_cust.php:346
+#: invoices.php:604 invoices_cust.php:350 agent-money.php:472
 msgid "Result"
 msgstr "Αποτέλεσμα"
 
-#: invoices.php:604 invoices_cust.php:346
+#: invoices.php:604 invoices_cust.php:350 agent-money.php:472
 msgid "Minutes"
 msgstr "Λεπτά"
 
-#: invoices.php:604 invoices_cust.php:346
+#: invoices.php:604 invoices_cust.php:350 agent-money.php:472
 msgid "Seconds"
 msgstr "Δευτερόλεπτα"
 
-#: invoices.php:613 invoices_cust.php:365
+#: invoices.php:613 invoices_cust.php:369 agent-money.php:491
 msgid "See Invoice in HTML"
 msgstr "Προβολή Λογαριασμού ως HTML"
 
-#: invoices.php:614 invoices_cust.php:366
+#: invoices.php:614 invoices_cust.php:370 agent-money.php:492
 msgid "or Export PDF"
 msgstr "ή εξαγωγή σε CSV"
 
-#: invoices.php:616 invoices_cust.php:349
+#: invoices.php:616 invoices_cust.php:353 agent-money.php:475
 msgid "Currency"
 msgstr "Νόμισμα"
 
@@ -1114,7 +1139,7 @@ msgstr "Τηλέφωνο:"
 msgid "Fax  :"
 msgstr "Φαξ  :"
 
-#: invoices.php:685 invoices_cust.php:508
+#: invoices.php:685 invoices_cust.php:512 agent-money.php:607
 msgid "BILLING SERVICE"
 msgstr "ΛΟΓΑΡΙΑΣΜΟΣ"
 
@@ -1122,8 +1147,8 @@ msgstr "ΛΟΓΑΡΙΑΣΜΟΣ"
 msgid "EXTRA CHARGE"
 msgstr "ΕΞΤΡΑ ΧΡΕΩΣΗ"
 
-#: invoices.php:715 invoices.php:892 invoices_cust.php:588
-#: FG_var_agentpay.inc:25 FG_var_charge.inc:33
+#: invoices.php:715 invoices.php:892 invoices_cust.php:592 agent-money.php:686
+#: FG_var_agentpay.inc:25 FG_var_charge.inc:37
 msgid "DATE"
 msgstr "ΗΜ/ΝΙΑ"
 
@@ -1135,7 +1160,8 @@ msgstr "ΑΡ ΧΡΕΩΣΗΣ"
 msgid "TOTALCOST"
 msgstr "ΣΥΝΟΛΟ ΧΡΕΩΣΗΣ"
 
-#: invoices.php:753 invoices.php:852 invoices.php:954 invoices_cust.php:650
+#: invoices.php:753 invoices.php:852 invoices.php:954 invoices_cust.php:654
+#: agent-money.php:748
 msgid "VAT"
 msgstr "ΦΠΑ"
 
@@ -1143,32 +1169,32 @@ msgstr "ΦΠΑ"
 msgid "CALLS PER DESTINATION"
 msgstr "ΚΛΗΣΕΙΣ ΑΝΑ ΠΡΟΟΡΙΣΜΟ"
 
-#: invoices.php:790 invoices.php:893 invoices_cust.php:589
+#: invoices.php:790 invoices.php:893 invoices_cust.php:593 agent-money.php:687
 msgid "DUR"
 msgstr "ΔΙΑΡ"
 
-#: invoices.php:791 invoices.php:894 invoices_cust.php:590
+#: invoices.php:791 invoices.php:894 invoices_cust.php:594 agent-money.php:688
 msgid "GRAPHIC"
 msgstr "ΓΡΑΦΗΜΑ"
 
-#: invoices.php:792 invoices.php:895 invoices_cust.php:591
+#: invoices.php:792 invoices.php:895 invoices_cust.php:595 agent-money.php:689
 msgid "CALL"
 msgstr "ΚΛΗΣΗ"
 
-#: invoices.php:793 invoices.php:896 invoices_cust.php:592
+#: invoices.php:793 invoices.php:896 invoices_cust.php:596 agent-money.php:690
 msgid "TOTAL COST"
 msgstr "ΣΥΝΟΛΟ"
 
-#: invoices.php:838 invoices.php:846 invoices.php:941 invoices_cust.php:544
-#: invoices_cust.php:637
+#: invoices.php:838 invoices.php:846 invoices.php:941 invoices_cust.php:548
+#: invoices_cust.php:641 agent-money.php:642 agent-money.php:735
 msgid "TOTAL"
 msgstr "ΣΥΝΟΛΟ"
 
-#: invoices.php:864 invoices_cust.php:561
+#: invoices.php:864 invoices_cust.php:565 agent-money.php:659
 msgid "BILL EVOLUTION"
 msgstr "ΕΞΕΛΙΞΗ ΧΡΕΩΣΕΩΝ"
 
-#: invoices.php:969 invoices_cust.php:382
+#: invoices.php:969 invoices_cust.php:386
 msgid "CALLS DETAIL"
 msgstr "ΛΕΠΤΟΜΕΡΕΙΕΣ ΚΛΗΣΕΩΝ"
 
@@ -1176,105 +1202,89 @@ msgstr "ΛΕΠΤΟΜΕΡΕΙΕΣ ΚΛΗΣΕΩΝ"
 msgid "Number of call"
 msgstr "Αριθμός κλήσεων"
 
-#: invoices.php:981 invoices_cust.php:395
+#: invoices.php:981 invoices_cust.php:399 agent-money.php:521
 msgid "nb"
 msgstr "αρ."
 
-#: invoices.php:1078 invoices_cust.php:475
+#: invoices.php:1078 invoices_cust.php:479
 msgid "TOTAL BUYCOSTS"
 msgstr "ΣΥΝΟΛΟ ΚΟΣΤΟΥΣ ΑΓΟΡΑΣ"
 
-#: invoices.php:1079 invoices_cust.php:476
+#: invoices.php:1079 invoices_cust.php:480
 msgid "DIFFERENCE"
 msgstr "ΔΙΑΦΟΡΑ"
 
-#: invoices.php:1107 invoices_cust.php:496
+#: invoices.php:1107 invoices_cust.php:500 agent-money.php:595
 msgid "No calls in your Selection"
 msgstr "Καμία κλήση με την επιλογή σας"
 
-#: invoices_cust.php:133
+#: invoices_cust.php:136 agent-money.php:136
 msgid "Calldate"
 msgstr "Ημ/νία κλήσης"
 
-#: invoices_cust.php:134
+#: invoices_cust.php:137 agent-money.php:138
 msgid "Description"
 msgstr "Περιγραφή"
 
-#: invoices_cust.php:136
+#: invoices_cust.php:139
 msgid "Called Number"
 msgstr "Κληθείς Αριθμός"
 
-#: invoices_cust.php:138
+#: invoices_cust.php:141 agent-money.php:140
 msgid "Credit"
 msgstr "Πίστωση"
 
-#: invoices_cust.php:139
+#: invoices_cust.php:142 agent-money.php:141
 msgid "Charge"
 msgstr "Χρέωση"
 
-#: invoices_cust.php:142 pay.php:23
-msgid "Payment"
-msgstr "Πληρωμή"
-
-#: invoices_cust.php:142
-msgid "Call"
-msgstr "Κλήση"
-
-#: invoices_cust.php:142
-msgid "Session start"
-msgstr "Αρχή συναλλαγής"
-
-#: invoices_cust.php:142
-msgid "credit"
-msgstr "πίστωση"
-
-#: invoices_cust.php:328 invoices_cust.php:362
-msgid "Mode"
-msgstr "Κατάσταση"
-
-#: invoices_cust.php:331
+#: invoices_cust.php:335
 msgid "Select booth:"
 msgstr "Επιλογή τηλεφώνου:"
 
-#: invoices_cust.php:343
+#: invoices_cust.php:347 agent-money.php:469
 msgid "View"
 msgstr "Προβολή"
 
-#: invoices_cust.php:449
+#: invoices_cust.php:453 agent-money.php:575
 msgid "Partial sum:"
 msgstr "Μερικό άθροισμα:"
 
-#: invoices_cust.php:454
+#: invoices_cust.php:458
 msgid "Sum:"
 msgstr "Σύνολο:"
 
-#: invoices_cust.php:514
+#: invoices_cust.php:518 agent-money.php:613
 msgid "CREDITS/CHARGES"
 msgstr "ΠΙΣΤΩΣΕΙΣ/ΧΡΕΩΣΕΙΣ"
 
-#: invoices_cust.php:518
+#: invoices_cust.php:522 agent-money.php:617
 msgid "TYPE"
 msgstr "ΤΥΠΟΣ"
 
-#: invoices_cust.php:519 FG_var_booth.inc:34
+#: invoices_cust.php:523 agent-money.php:618 FG_var_booth.inc:34
 msgid "CREDIT"
 msgstr "ΠΙΣΤΩΣΗ"
 
-#: invoices_cust.php:520
+#: invoices_cust.php:524 agent-money.php:619
 msgid "CHARGE"
 msgstr "ΧΡΕΩΣΗ"
 
-#: invoices_cust.php:547
+#: invoices_cust.php:551 agent-money.php:645
 msgid "includes VAT"
 msgstr "περιλαμβάνει ΦΠΑ"
 
-#: invoices_cust.php:661
+#: invoices_cust.php:665 agent-money.php:759
 msgid "Pay back:"
 msgstr "Επιστροφή:"
 
-#: invoices_cust.php:665
+#: invoices_cust.php:669 agent-money.php:763
 msgid "Pay:"
 msgstr "Πληρωμή:"
+
+#: pay.php:23
+msgid "Payment"
+msgstr "Πληρωμή"
 
 #: pay.php:24
 msgid "Pay back"
@@ -1296,29 +1306,89 @@ msgstr "Δεν μπορεί να εξοφληθεί η συναλλαγή!"
 msgid "Back to booths"
 msgstr "Πίσω στα τηλέφωνα"
 
-#: reports_choice.php:14
+#: reports_choice.php:16
+msgid "Please choose report type:"
+msgstr "Επιλέξτε τύπο αναφοράς:"
+
+#: reports_choice.php:18
 msgid "All calls"
 msgstr "Όλες οι κλήσεις"
 
-#: reports_choice.php:15
-msgid "Current rates"
-msgstr "Τρέχων τιμοκατάλογος"
+#: reports_choice.php:19
+msgid "Agent money situation"
+msgstr "Οικονομική κατάσταση μαγαζιού"
 
-#: reports_choice.php:16 reports_choice.php:22
-msgid "Agent payments"
-msgstr "Πληρωμές του μαγαζιού"
-
-#: reports_choice.php:17
+#: reports_choice.php:20
 msgid "Phone statistics"
 msgstr "Στατιστικά συσκευών"
 
-#: reports_choice.php:21
+#: reports_choice.php:25
 msgid "Customer charges"
 msgstr "Χρεώσεις σε πελάτες"
+
+#: reports_choice.php:26
+msgid "Agent payments"
+msgstr "Πληρωμές του μαγαζιού"
 
 #: A2B_entity_charge.php:53
 msgid "Charge a customer"
 msgstr "Νέα χρέωση σε πελάτη"
+
+#: agent-money.php:137
+msgid "Type"
+msgstr "Τύπος"
+
+#: agent-money.php:177
+msgid " - Transactions - "
+msgstr "- Συναλλαγές -"
+
+#: agent-money.php:488
+msgid "Mode"
+msgstr "Κατάσταση"
+
+#: agent-money.php:508
+msgid "TRANSACTIONS DETAIL"
+msgstr ""
+
+#: info_choice.php:16
+msgid "Please choose information page:"
+msgstr "Επιλέξτε σελίδα με πληροφορίες:"
+
+#: info_choice.php:18
+msgid "Current rates"
+msgstr "Τρέχων τιμοκατάλογος"
+
+#: info_choice.php:19
+msgid "Usage instructions"
+msgstr "Οδηγίες χρήσεως"
+
+#: info_choice.php:20
+msgid "Contact information"
+msgstr "Επικοινωνία με εμάς"
+
+#: forgotpassword.php:24
+msgid ""
+"Please wait 1 minutes before making any other request for the forgot "
+"password!"
+msgstr "Παρακαλώ περιμένετε 1 λεπτό πρίν ξανακάνετε αίτηση ανάκτησης κωδικού!"
+
+#: forgotpassword.php:98
+msgid "Your login information email has been sent to you."
+msgstr "Σας έχει αποσταλεί e-mail με τον κωδικό σας."
+
+#: forgotpassword.php:101
+msgid "No such login exists."
+msgstr "Δεν υπάρχει τέτοιος χρήστης."
+
+#: forgotpassword.php:104
+msgid "Invalid Action."
+msgstr "Άκυρη Ενέργεια."
+
+#: forgotpassword.php:107
+msgid "Pleaes provide your email address to get your login information."
+msgstr ""
+"Παρακαλώ δώστε το email σας (αυτό που έχετε δηλώσει σε εμάς) για να λάβετε "
+"σε αυτό τον κωδικό σας."
 
 #: FG_var_card.inc:21 FG_var_booth.inc:28
 msgid "ID"
@@ -1332,7 +1402,7 @@ msgstr "ΑΡΙΘΜΟΣ ΚΑΡΤΑΣ"
 msgid "NAME"
 msgstr "ΕΠΩΝΥΜΟ"
 
-#: FG_var_card.inc:24 FG_var_card.inc:129
+#: FG_var_card.inc:24 FG_var_card.inc:141
 msgid "BALANCE"
 msgstr "ΠΟΣΟΝ"
 
@@ -1344,127 +1414,131 @@ msgstr "ΠΟ"
 msgid "NOW IN"
 msgstr "ΤΩΡΑ ΣΤΟ"
 
-#: FG_var_card.inc:34
+#: FG_var_card.inc:36
 msgid "Fill booth"
 msgstr "Γέμισμα"
 
-#: FG_var_card.inc:34
+#: FG_var_card.inc:36
 msgid " with card "
 msgstr "με την κάρτα"
 
-#: FG_var_card.inc:40
+#: FG_var_card.inc:42
 msgid "Booth Filled"
 msgstr "Το τηλέφωνο γέμισε"
 
-#: FG_var_card.inc:42
+#: FG_var_card.inc:44
 msgid "Cannot fill booth!"
 msgstr "Δεν μπορεί να γεμίσει το τηλέφωνο!"
 
-#: FG_var_card.inc:47
+#: FG_var_card.inc:49
 msgid "Empty booth "
 msgstr "Άδειασμα τηλεφώνου"
 
-#: FG_var_card.inc:52
+#: FG_var_card.inc:54
 msgid "Booth Emptied"
 msgstr "Το τηλέφωνο άδειασε"
 
-#: FG_var_card.inc:54
+#: FG_var_card.inc:56
 msgid "Cannot empty booth! (Does it have zero balance?)"
 msgstr "Δεν μπορεί να αδειάσει το τηλέφωνο! (έχει πληρώσει; )"
 
-#: FG_var_card.inc:66
+#: FG_var_card.inc:68
 msgid "NO CARDS HAVE BEEN CREATED!"
 msgstr "ΔΕΝ ΒΡΕΘΗΚΑΝ ΚΑΡΤΕΣ!"
 
-#: FG_var_card.inc:68
+#: FG_var_card.inc:70
 msgid "Customers"
 msgstr "Πελάτες"
 
-#: FG_var_card.inc:82 FG_var_card.inc:87
+#: FG_var_card.inc:84 FG_var_card.inc:89
 msgid "select"
 msgstr "επιλογή"
 
-#: FG_var_card.inc:120
+#: FG_var_card.inc:94
+msgid "Charges"
+msgstr "Χρεώσεις"
+
+#: FG_var_card.inc:132
 msgid "CARD NUMBER "
 msgstr "ΑΡΙΘΜΟΣ ΚΑΡΤΑΣ"
 
-#: FG_var_card.inc:126
+#: FG_var_card.inc:138
 msgid "Insert the username"
 msgstr "Εισάγετε το όνομα χρήστη"
 
-#: FG_var_card.inc:135
+#: FG_var_card.inc:147
 msgid "Insert the number of credit"
 msgstr "Εισάγετε το ποσόν πίστωσης"
 
-#: FG_var_card.inc:138
+#: FG_var_card.inc:150
 msgid "LANGUAGE"
 msgstr "ΓΛΩΣΣΑ"
 
-#: FG_var_card.inc:147
+#: FG_var_card.inc:159
 msgid "LASTNAME"
 msgstr "ΕΠΩΝΥΜΟ"
 
-#: FG_var_card.inc:153
+#: FG_var_card.inc:165
 msgid "Insert the lastname of the customers"
 msgstr "Εισάγετε εδώ το επώνυμο του πελάτη"
 
-#: FG_var_card.inc:156
+#: FG_var_card.inc:168
 msgid "FIRSTNAME"
 msgstr "ΟΝΟΜΑ"
 
-#: FG_var_card.inc:162
+#: FG_var_card.inc:174
 msgid "Insert the firstname of the customers"
 msgstr "Εισάγετε το μικρό όνομα του πελάτη"
 
-#: FG_var_card.inc:170
+#: FG_var_card.inc:182
 msgid "EMAIL"
 msgstr "ΗΛ.ΔΙΕΥΘΥΝΣΗ"
 
-#: FG_var_card.inc:176
+#: FG_var_card.inc:188
 msgid "Insert the email"
 msgstr "Εισάγετε το email"
 
-#: FG_var_card.inc:180
+#: FG_var_card.inc:192
 msgid "ADDRESS"
 msgstr "ΔΙΕΥΘΥΝΣΗ"
 
-#: FG_var_card.inc:186
+#: FG_var_card.inc:198
 msgid "Insert the address of the customers"
 msgstr "Εισάγετε την διεύθυνση του πελάτη"
 
-#: FG_var_card.inc:190
+#: FG_var_card.inc:202
 msgid "CITY"
 msgstr "ΠΟΛΗ"
 
-#: FG_var_card.inc:196
+#: FG_var_card.inc:208
 msgid "Insert the city"
 msgstr "Εισάγετε την πόλη"
 
-#: FG_var_card.inc:200
+#: FG_var_card.inc:212
 msgid "STATE/PROVINCE"
 msgstr "ΝΟΜΟΣ/ΕΠΑΡΧΙΑ"
 
-#: FG_var_card.inc:206
+#: FG_var_card.inc:218
 msgid "Insert the state"
 msgstr "Εισάγετε τον νομό"
 
-#: FG_var_card.inc:210
+#: FG_var_card.inc:222
 msgid "COUNTRY"
 msgstr "ΧΩΡΑ"
 
-#: FG_var_card.inc:216
+#: FG_var_card.inc:228
 msgid "Insert the country"
 msgstr "Εισάγετε τη χώρα"
 
-#: FG_var_card.inc:220
+#: FG_var_card.inc:232
 msgid "ZIP/POSTAL CODE"
 msgstr "ΤΑΧ ΚΩΔΙΚΑΣ"
 
-#: FG_var_card.inc:226
+#: FG_var_card.inc:238
 msgid "Insert the zipcode"
 msgstr "Εισάγετε τον ταχ. κώδικα"
 
-#: FG_var_card.inc:234
+#: FG_var_card.inc:246
 msgid "Once you have completed the form above, click on the CONTINUE button."
 msgstr "Όταν συμπληρώσετε τη φόρμα, πατήστε στο πλήκτρο ΣΥΝΕΧΕΙΑ"
 
@@ -1518,29 +1592,33 @@ msgstr "Δώστε το πρόθεμα κλήσεις, όπως '44' για Αγ
 
 #: FG_var_ratecard.inc:63
 msgid "Define the destination prefix. ie, 44 for UK proper."
-msgstr ""
+msgstr "Δώστε εδώ το πρόθεμα κλήσης, π.χ. 44 για Ην. Βασίλειο."
 
 #: FG_var_ratecard.inc:63
+#, fuzzy
 msgid ""
 "You can use 'defaultprefix' to setup a rate by default for the destination "
 "for which you dont want to provide a specific rate.<br>"
-msgstr ""
+msgstr "Εσείς στο a ~κατά προκαθορισμένο για για στο a<br>"
 
 #: FG_var_ratecard.inc:63
+#, fuzzy
 msgid ""
 "IF YOU ADD A RATE AND NOT AN EDIT => You can also define several in the same "
 "time and range, as below: "
-msgstr ""
+msgstr "A ΚΑΙ Εσείς in διάρκεια και "
 
 #: FG_var_ratecard.inc:63
+#, fuzzy
 msgid ""
 "<br>32484-32487 -> this would insert 32484, 32485, 32486, 32487 "
 "<br>32476,32477,32478 separate by comma"
-msgstr ""
+msgstr "<br><br> ~κατά"
 
 #: FG_var_ratecard.inc:71
+#, fuzzy
 msgid "Come on... Insert the destination name"
-msgstr ""
+msgstr "Εισαγωγή όνομα"
 
 #: FG_var_ratecard.inc:75
 msgid "SELLING RATE"
@@ -1552,93 +1630,85 @@ msgid "Insert the initial rate"
 msgstr "Εισάγετε τον νομό"
 
 #: FG_var_ratecard.inc:82
+#, fuzzy
 msgid ""
 "Cost per minute for which you want to charge your customer. For example "
 "'0.02'"
-msgstr ""
+msgstr "Κόστος λεπτό για στο Για παράδειγμα"
 
 #: FG_var_ratecard.inc:82
 msgid "Define the selling cost for customers..."
-msgstr ""
+msgstr "Ορισμός της τιμής πώλησης για πελάτες..."
 
-#: FG_var_agentpay.inc:26 FG_var_charge.inc:34 FG_var_charge.inc:89
+#: FG_var_agentpay.inc:26 FG_var_charge.inc:38 FG_var_charge.inc:74
 msgid "AMOUNT"
 msgstr "ΠΟΣΟΝ"
 
-#: FG_var_agentpay.inc:27 FG_var_charge.inc:35 FG_var_charge.inc:98
+#: FG_var_agentpay.inc:27 FG_var_charge.inc:39 FG_var_charge.inc:83
 msgid "CHARGETYPE"
 msgstr "ΤΥΠΟΣ ΧΡΕΩΣΗΣ"
 
-#: FG_var_agentpay.inc:28 FG_var_charge.inc:36 FG_var_charge.inc:107
+#: FG_var_agentpay.inc:28 FG_var_charge.inc:40 FG_var_charge.inc:92
 msgid "DESCRIPTION"
 msgstr "ΠΕΡΙΓΡΑΦΗ"
 
-#: FG_var_agentpay.inc:34
-#, fuzzy
-msgid "THERE IS NO "
-msgstr "ΔΕΝ ΥΠΑΡΧΕΙ ΕΓΓΡΑΦΗ!"
+#: FG_var_agentpay.inc:35
+msgid "THERE ARE NO AGENT PAYMENTS YET!"
+msgstr "ΔΕΝ ΥΠΑΡΧΟΥΝ ΠΛΗΡΩΜΕΣ ΑΚΟΜΑ!"
 
-#: FG_var_agentpay.inc:34
-msgid " CREATED!"
-msgstr ""
-
-#: FG_var_charge.inc:32
-#, fuzzy
+#: FG_var_charge.inc:36
 msgid "CARDNUMBER"
 msgstr "ΑΡΙΘΜΟΣ ΚΑΡΤΑΣ"
 
-#: FG_var_charge.inc:42
-#, fuzzy
+#: FG_var_charge.inc:46
 msgid "THERE IS NO CHARGE CREATED!"
-msgstr "ΔΕΝ ΥΠΑΡΧΟΥΝ ΤΙΜΕΣ!"
+msgstr "ΔΕΝ ΥΠΑΡΧΟΥΝ ΧΡΕΩΣΕΙΣ ΠΕΛΑΤΗ!"
 
-#: FG_var_charge.inc:76
+#: FG_var_charge.inc:61
 msgid "ID CARD"
 msgstr "ΑΡ. ΚΑΡΤΑΣ"
 
-#: FG_var_charge.inc:82
-#, fuzzy
+#: FG_var_charge.inc:67
 msgid "Insert the Id CardNumber"
-msgstr "Εισάγετε το όνομα χρήστη"
+msgstr "Εισάγετε τον αρ. κάρτας πελάτη"
 
-#: FG_var_charge.inc:87
+#: FG_var_charge.inc:72
 msgid "Set the Card Number ID"
 msgstr "Δώστε εδώ τον αριθμό κάρτας πελάτη"
 
-#: FG_var_charge.inc:95
+#: FG_var_charge.inc:80
 msgid "Insert the amount"
 msgstr "Εισάγετε το ποσόν"
 
-#: FG_var_charge.inc:96
+#: FG_var_charge.inc:81
 msgid "Amount, in "
 msgstr "Ποσόν, σε "
 
-#: FG_var_charge.inc:113
-#, fuzzy
+#: FG_var_charge.inc:98
 msgid "Insert the description"
-msgstr "Εισάγετε την πόλη"
+msgstr "Εισάγετε την περιγραφή"
 
-#: FG_var_charge.inc:137
+#: FG_var_charge.inc:122
 msgid "Modify the properties of the charge"
-msgstr ""
+msgstr "Τροποποίηση των λεπτομερειών της συναλλαγής."
 
-#: FG_var_charge.inc:138
+#: FG_var_charge.inc:123
 msgid "If you really want remove this charge, click on the delete button."
-msgstr "Αν θέλετε πραγματικά να διαγράψετε τη χρέωση, πατήστε το κουμπί της Διαγραφής "
+msgstr ""
+"Αν θέλετε πραγματικά να διαγράψετε τη χρέωση, πατήστε το κουμπί της "
+"Διαγραφής "
 
-#: FG_var_charge.inc:139
-#, fuzzy
+#: FG_var_charge.inc:124
 msgid ""
 "you can add easily a new charge.<br>Fill the following fields and confirm by "
 "clicking on the button add."
-msgstr "Συμπληρώστε τα παρακάτω πεδία και επιβεβαιώστε με το πλήκτρο της προσθήκης."
+msgstr "Για να εισάγετε μία νέα χρέωση του πελάτη, συμπληρώστε τα παρακάτω πεδία και επιβεβαιώστε με το πλήκτρο της προσθήκης."
 
-#: FG_var_charge.inc:143
-#, fuzzy
+#: FG_var_charge.inc:128
 msgid "Your new charge has been inserted. <br>"
-msgstr "έχει εισαχθεί.<br>"
+msgstr "Η χρέωση έχει εισαχθεί στο σύστημα.<br>"
 
-#: FG_var_charge.inc:147
+#: FG_var_charge.inc:132
 msgid "Click 'Confirm Data' to continue"
 msgstr "Πατήστε εδώ για να συνεχίσετε"
 
