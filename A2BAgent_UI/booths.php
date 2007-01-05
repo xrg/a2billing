@@ -250,7 +250,7 @@ window.onload = function() { startRequest("booths.xml.php",reqStateChanged2)};
 	
 ?>
 <br>
-<a href='javascript:startRequest("booths.xml.php",reqStateChanged2)'> refresh</a>
+<a href='javascript:startRequest("booths.xml.php",reqStateChanged2)'><?= _("Refresh")?></a>
 <br>
 <?= _("Response:")?> <span id='response' ></span>
 <?php include ("PP_footer.php"); ?>
