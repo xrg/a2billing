@@ -233,17 +233,23 @@ if ($FG_DEBUG >= 4) var_dump ($list);
 // 
 // }//end IF nodisplay
 
-$QUERY = str_dbparams($DBHandle,"SELECT gettext(descr,%3), " .
+// Using MIN(descr) as we don't expect to have multiple descriptions
+// for pay types.
+
+$QUERY = str_dbparams($DBHandle,"SELECT gettext(MIN(descr),%3), " .
 	"format_currency(SUM(pos_credit), %1, %2), " .
 	"format_currency(SUM(neg_credit), %1, %2), pay_type " .
 	"FROM cc_agent_money_v WHERE " . $FG_TABLE_CLAUSE .
-	" GROUP BY pay_type",
+	" GROUP BY pay_type,descr",
 	array(strtoupper(BASE_CURRENCY),$choose_currency,getenv('LANG')));
 
 //extract(DAY from calldate)
 
 if (!$nodisplay){
 		$res = $DBHandle -> query($QUERY);
+		IF (!$res) {
+			echo "Query failed: " . $QUERY ."<br>" . $DBHandle->ErrorMsg();
+		}
 		if ($res) $num = $res -> numRows();
 		else $num = 0;
 		for($i=0;$i<$num;$i++)
@@ -308,20 +314,156 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 	<INPUT TYPE="hidden" name="current_page" value=0>	
 	<table class="bar-status" width="95%" border="0" cellspacing="1" cellpadding="2" align="center">
 	<tbody>
-	<tr class='dark'>
-	<td class="bar-search-2" align="left" bgcolor="#000033"><?= _("Mode") ?> </td>
+	<!--
+	<tr><td class="bar-search" align="left" bgcolor="#555577">
 
-		<td class="bar-search" align="center" bgcolor="#acbdee" colspan=2>
-		<?= _("Select booth:") ?> 
-		<select name="booth" size="1" class="form_enter_b" >
-		<?php foreach($booth_list as $bb) {
-			if ($bb[0] == $booth) $b_sel='selected';
-				else $b_sel=''; ?>
-			<option value='<?= $bb[0] ?>' <?= $b_sel ?> > <?= $bb[1] ?> ( <?= $bb[3] ?>) </option>
-		<?php } ?>
-		</select>
+		<input type="radio" name="Period" value="Month" <?php  if (($Period=="Month") || !isset($Period)){ ?>checked="checked" <?php  } ?>> 
+		<font face="verdana" size="1" color="#ffffff"><b><?= gettext("Selection of the month");?></b></font>
+	</td>
+	<td class="bar-search" colspan=2 align="left" bgcolor="#cddeff">
+			<table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#cddeff"><tr><td>
+			<input type="checkbox" name="frommonth" value="true" <?php  if ($frommonth){ ?>checked<?php }?>> 
+			<?= gettext("FROM");?> : <select name="fromstatsmonth">
+			<?php 	$year_actual = date("Y");  	
+				for ($i=$year_actual;$i >= $year_actual-1;$i--)
+				{	
+					$monthname = array( gettext("JANUARY"), gettext("FEBRUARY"), gettext("MARCH"), gettext("APRIL"), gettext("MAY"), gettext("JUNE"), gettext("JULY"), gettext("AUGUST"), gettext("SEPTEMBER"), gettext("OCTOBER"), gettext("NOVEMBER"), gettext("DECEMBER"));
+					if ($year_actual==$i){
+						$monthnumber = date("n")-1; // Month number without lead 0.
+					}else{
+						$monthnumber=11;
+					}		   
+					for ($j=$monthnumber;$j>=0;$j--){	
+						$month_formated = sprintf("%02d",$j+1);
+						if ($fromstatsmonth=="$i-$month_formated"){$selected="selected";}else{$selected="";}
+						echo "<OPTION value=\"$i-$month_formated\" $selected> $monthname[$j]-$i </option>";
+					}
+				}
+			?>		
+			</select>
+			</td><td>&nbsp;&nbsp;
+			<input type="checkbox" name="tomonth" value="true" <?php  if ($tomonth){ ?>checked<?php }?>> 
+			<?= gettext("TO");?> : <select name="tostatsmonth">
+			<?php 	$year_actual = date("Y");  	
+				for ($i=$year_actual;$i >= $year_actual-1;$i--)
+				{	
+					$monthname = array( gettext("JANUARY"), gettext("FEBRUARY"), gettext("MARCH"), gettext("APRIL"), gettext("MAY"), gettext("JUNE"), gettext("JULY"), gettext("AUGUST"), gettext("SEPTEMBER"), gettext("OCTOBER"), gettext("NOVEMBER"), gettext("DECEMBER"));
+					if ($year_actual==$i){
+						$monthnumber = date("n")-1; // Month number without lead 0.
+					}else{
+						$monthnumber=11;
+					}		   
+					for ($j=$monthnumber;$j>=0;$j--){	
+						$month_formated = sprintf("%02d",$j+1);
+						if ($tostatsmonth=="$i-$month_formated"){$selected="selected";}else{$selected="";}
+						echo "<OPTION value=\"$i-$month_formated\" $selected> $monthname[$j]-$i </option>";						   }
+				}
+			?>
+			</select>
+			</td></tr></table>
 		</td>
 	</tr>
+			
+		<tr>
+		<td align="left" bgcolor="#000033">
+				<input type="radio" name="Period" value="Day" <?php  if ($Period=="Day"){ ?>checked="checked" <?php  } ?>> 
+				<font face="verdana" size="1" color="#ffffff"><b><?= gettext("Selection of the day");?></b></font>
+			</td>
+		<td align="left" colspan=2 bgcolor="#acbdee">
+				<table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#acbdee"><tr><td>
+				<input type="checkbox" name="fromday" value="true" <?php  if ($fromday){ ?>checked<?php }?>> <?= gettext("FROM");?> :
+				<select name="fromstatsday_sday">
+					<?php  
+						for ($i=1;$i<=31;$i++){
+							if ($fromstatsday_sday==sprintf("%02d",$i)){$selected="selected";}else{$selected="";}
+							echo '<option value="'.sprintf("%02d",$i)."\"$selected>".sprintf("%02d",$i).'</option>';
+						}
+					?>	
+				</select>
+				<select name="fromstatsmonth_sday">
+				<?php 	$year_actual = date("Y");  	
+					for ($i=$year_actual;$i >= $year_actual-1;$i--)
+					{	
+						$monthname = array( gettext("JANUARY"), gettext("FEBRUARY"), gettext("MARCH"), gettext("APRIL"), gettext("MAY"), gettext("JUNE"), gettext("JULY"), gettext("AUGUST"), gettext("SEPTEMBER"), gettext("OCTOBER"), gettext("NOVEMBER"), gettext("DECEMBER"));
+						if ($year_actual==$i){
+							$monthnumber = date("n")-1; // Month number without lead 0.
+						}else{
+							$monthnumber=11;
+						}		   
+						for ($j=$monthnumber;$j>=0;$j--){	
+							$month_formated = sprintf("%02d",$j+1);
+							if ($fromstatsmonth_sday=="$i-$month_formated"){$selected="selected";}else{$selected="";}
+							echo "<OPTION value=\"$i-$month_formated\" $selected> $monthname[$j]-$i </option>";
+							}
+					}
+				?>
+				</select>
+				<select name="fromstatsmonth_shour">
+				<?php  
+					if (strlen($fromstatsmonth_shour)==0) $fromstatsmonth_shour='0';
+					for ($i=0;$i<=23;$i++){	
+						if ($fromstatsmonth_shour==sprintf("%02d",$i)){$selected="selected";}else{$selected="";}						
+						echo '<option value="'.sprintf("%02d",$i)."\" $selected>".sprintf("%02d",$i).'</option>';
+					}
+				?>					
+				</select>:<select name="fromstatsmonth_smin">
+				<?php  
+					if (strlen($fromstatsmonth_smin)==0) $fromstatsmonth_smin='0';
+					for ($i=0;$i<=59;$i++){	
+						if ($fromstatsmonth_smin==sprintf("%02d",$i)){$selected="selected";}else{$selected="";}						
+						echo '<option value="'.sprintf("%02d",$i)."\" $selected>".sprintf("%02d",$i).'</option>';
+					}
+				?>					
+				</select>
+				</td><td>&nbsp;&nbsp;
+				<input type="checkbox" name="today" value="true" <?php  if ($today){ ?>checked<?php }?>> <?= gettext("TO");?> :
+				<select name="tostatsday_sday">
+				<?php  
+					for ($i=1;$i<=31;$i++){
+						if ($tostatsday_sday==sprintf("%02d",$i)){$selected="selected";}else{$selected="";}
+						echo '<option value="'.sprintf("%02d",$i)."\"$selected>".sprintf("%02d",$i).'</option>';
+					}
+				?>						
+				</select>
+				<select name="tostatsmonth_sday">
+				<?php 	$year_actual = date("Y");  	
+					for ($i=$year_actual;$i >= $year_actual-1;$i--)
+					{	
+						$monthname = array( gettext("JANUARY"), gettext("FEBRUARY"), gettext("MARCH"), gettext("APRIL"), gettext("MAY"), gettext("JUNE"), gettext("JULY"), gettext("AUGUST"), gettext("SEPTEMBER"), gettext("OCTOBER"), gettext("NOVEMBER"), gettext("DECEMBER"));
+						if ($year_actual==$i){
+							$monthnumber = date("n")-1; // Month number without lead 0.
+						}else{
+							$monthnumber=11;
+						}		   
+						for ($j=$monthnumber;$j>=0;$j--){
+							$month_formated = sprintf("%02d",$j+1);
+							if ($tostatsmonth_sday=="$i-$month_formated"){$selected="selected";}else{$selected="";}
+							echo "<OPTION value=\"$i-$month_formated\" $selected> $monthname[$j]-$i </option>";
+							}
+					}
+				?>
+				</select>
+				<select name="tostatsmonth_shour">
+				<?php  
+					if (strlen($tostatsmonth_shour)==0) $tostatsmonth_shour='23';
+					for ($i=0;$i<=23;$i++){	
+						if ($tostatsmonth_shour==sprintf("%02d",$i)){$selected="selected";}else{$selected="";}						
+						echo '<option value="'.sprintf("%02d",$i)."\" $selected>".sprintf("%02d",$i).'</option>';
+					}
+				?>					
+				</select>:<select name="tostatsmonth_smin">
+				<?php  
+					if (strlen($tostatsmonth_smin)==0) $tostatsmonth_smin='59';
+					for ($i=0;$i<=59;$i++){	
+						if ($tostatsmonth_smin==sprintf("%02d",$i)){$selected="selected";}else{$selected="";}						
+						echo '<option value="'.sprintf("%02d",$i)."\" $selected>".sprintf("%02d",$i).'</option>';
+					}
+				?>					
+				</select>
+				</td></tr></table>
+			</td>
+		</tr> -->
+
 	<tr>
 		<td class="bar-search" align="left" bgcolor="#555577" width='30px'>
 		<?= _("View") ?>
@@ -363,7 +505,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 <table width="100%">
 <tr>
 <?php if (SHOW_ICON_INVOICE){?> <td align="left"><img src="pdf-invoices/images/kfind.gif"/> </td> <?php } ?>
-<td align="center"  bgcolor="#fff1d1"><font color="#000000" face="verdana" size="5"> <b><?=  str_dblspace(gettext("CALLS DETAIL"));?></b> </td>
+<td align="center"  bgcolor="#fff1d1"><font color="#000000" face="verdana" size="5"> <b><?=  str_dblspace(gettext("TRANSACTIONS DETAIL"));?></b> </td>
 </tr>
 </table>
 
@@ -480,7 +622,6 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 		$i=0;
 		foreach ($list_type_charge as $data){
 		$i=($i+1)%2;
-		 
 		
 	?>
 	</tr>
