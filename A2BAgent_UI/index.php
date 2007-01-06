@@ -2,10 +2,11 @@
 
 
 if (isset($_GET['language'])){
-	//echo "Language:" . $_GET['language'];
+	// Taken from defines.php
+	define ("LIBDIR", dirname(__FILE__)."/lib/");
 	define ("LANGUAGE",$_GET['language']);
 	require_once("lib/languageSettings.php");
-	SetLocalLanguage();
+	SetLocalLanguage();	
 }
 
 ?>
