@@ -137,8 +137,8 @@ $FG_TABLE_COL[]=array (gettext("Calldate"), "date", "18%", "center", "SORT", "",
 $FG_TABLE_COL[]=array (gettext("Type"), "pay_type", "10%", "left", "SORT", "");
 $FG_TABLE_COL[]=array (gettext("Description"), "descr", "40%", "left", "SORT", "");
 //$FG_TABLE_COL[]=array (gettext("Card"), "card_id", "8%", "center", "SORT", "30", "", "", "", "", "", "display_minute");
-$FG_TABLE_COL[]=array (gettext("Credit"), "pos_credit", "8%", "center", "SORT", "30", "", "", "", "", "", "");
-$FG_TABLE_COL[]=array (gettext("Charge"), "neg_credit", "8%", "center", "SORT", "30", "", "", "", "", "", "");
+$FG_TABLE_COL[]=array (gettext("In"), "pos_credit", "8%", "center", "SORT", "30", "", "", "", "", "", "");
+$FG_TABLE_COL[]=array (gettext("Out"), "neg_credit", "8%", "center", "SORT", "30", "", "", "", "", "", "");
 
 // ??? cardID
 $FG_TABLE_DEFAULT_ORDER = "date";
@@ -574,8 +574,10 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 					 } //END_WHILE ?>
 				<tr class="sum_row"><td colspan=4 align=right><?= _("Partial sum:")?> &nbsp; &nbsp;</td>
 				<?php $sum_line = $list_sum[0]; ?>
-				<td class=tableBody><?= $sum_line[0]; ?></td><td class=tableBody><?= $sum_line[1]; ?></td>
-				<td colspan=2 class=tableBody><?= $sum_line[2]; ?></td></tr>
+				<td class=tableBody><?= $sum_line[0]; ?></td><td class=tableBody><?= $sum_line[1]; ?></td></tr>
+				<tr><td colspan=4>&nbsp;</td>
+				<td colspan=2 class=tableBody align=right><?= $sum_line[2]; ?></td></tr>
+				
 				<?php
 				  }else{
 				  		echo gettext("No data found !!!");
@@ -610,13 +612,13 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 <table border="0" cellspacing="1" cellpadding="2" width="70%" align="center">
 	<tr>	
 		<td align="center" bgcolor="#600101"></td>
-    	<td bgcolor="#b72222" align="center" colspan="4"><font color="#ffffff"><b><?=  gettext("CREDITS/CHARGES");?></b></font></td>
+    	<td bgcolor="#b72222" align="center" colspan="4"><font color="#ffffff"><b><?=  gettext("IN/OUT");?></b></font></td>
     </tr>
 	<tr>
 
 		<td align="center" bgcolor="#F2E8ED"><font face="verdana" size="1" color="#000000"><b><?=  gettext("TYPE");?></b></font></td>
-        <td align="center"><font face="verdana" color="#000000" size="1"><b><?=  gettext("CREDIT");?></b></font></td>
-		<td align="center"><font face="verdana" color="#000000" size="1"><b><?=  gettext("CHARGE");?></b></font></td>
+        <td align="center"><font face="verdana" color="#000000" size="1"><b><?=  gettext("IN");?></b></font></td>
+		<td align="center"><font face="verdana" color="#000000" size="1"><b><?=  gettext("OUT");?></b></font></td>
  
 <?php  		
 		$i=0;
