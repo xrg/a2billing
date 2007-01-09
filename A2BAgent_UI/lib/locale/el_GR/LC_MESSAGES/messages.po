@@ -1,17 +1,17 @@
-# translation of messages.po to Greek
+# translation of messages.po to Ellhnika
 # Copyright (C) 2006 P. Christeas
 # This file is distributed under the same license as the PACKAGE package.
 #
 # P. Christeas <p_christ@hol.gr>, 2006, 2007.
-# P. Christeas <p_christeas@yahoo.com>, 2006.
+# P. Christeas <p_christeas@yahoo.com>, 2006, 2007.
 msgid ""
 msgstr ""
 "Project-Id-Version: messages\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-05 18:57+0200\n"
-"PO-Revision-Date: 2007-01-05 19:00+0200\n"
-"Last-Translator: P. Christeas <p_christ@hol.gr>\n"
-"Language-Team: Greek <el@li.org>\n"
+"POT-Creation-Date: 2007-01-06 09:18+0200\n"
+"PO-Revision-Date: 2007-01-06 09:26GMT\n"
+"Last-Translator: P. Christeas <p_christeas@yahoo.com>\n"
+"Language-Team: Ellhnika <el@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -517,9 +517,8 @@ msgstr "όχι αρχείο"
 #: lib/Form/Class.FormHandler.inc.php:1411
 #: lib/Form/Class.FormHandler.inc.php:1441
 #: lib/Form/Class.FormHandler.inc.php:1453
-#, fuzzy
 msgid "Impossible to write to the file"
-msgstr "στο στο αρχείο"
+msgstr "Αδύνατη η εγγραφή στο αρχείο"
 
 #: lib/Form/Class.FormHandler.inc.php:1594
 #: lib/Form/Class.FormHandler.inc.php:1641
@@ -578,7 +577,7 @@ msgstr "έγγραφα"
 
 #: lib/Form/Class.ViewHandler.inc.php:67
 msgid "These are the sites you have registered."
-msgstr ""
+msgstr "Αυτές είναι οι τοποθεσίες που έχετε καταχωρήσει."
 
 #: lib/Form/Class.ViewHandler.inc.php:143
 msgid "Sort"
@@ -648,13 +647,12 @@ msgid "Cactus renting charges"
 msgstr ""
 
 #: lib/defines.php:195
-#, fuzzy
 msgid "Normal payment"
-msgstr "Κανονικό"
+msgstr "Κανονική πληρωμή"
 
 #: lib/defines.php:196
 msgid "Equipment charge"
-msgstr ""
+msgstr "Χρέωση εξοπλισμού"
 
 #: lib/help.php:15
 #, fuzzy
@@ -702,8 +700,8 @@ msgstr "Επιλογή χώρα όμοιο a a λίστα και όμοιο στ
 
 #: lib/company_info.php:2
 msgid ""
-"This software has been created by Areski under GPL licence. For futher "
-"information, feel free to contact me:"
+"This software has been created by Areski and minMAX telecoms under GPL "
+"licence. For futher information, contact:"
 msgstr ""
 "Το παρόν λογισμικό γράφτηκε από τον Areski με άδεια GPL. Για περισσότερες "
 "πληροφορίες, επικοινωνήστε μαζί μου."
@@ -719,8 +717,8 @@ msgstr ""
 "org</a>"
 
 #: lib/company_info.php:5
-msgid "Asterisk2Billing : CallingCard platform"
-msgstr "Asterisk2Billing: Πλατφόρμα για τηλεφωνικές κάρτες"
+msgid "minMAX public phones"
+msgstr ""
 
 #: lib/Misc.php:108
 msgid "&lt;&lt; First"
@@ -806,9 +804,45 @@ msgstr "Μέλος"
 msgid "New"
 msgstr "Νέο"
 
+#: booths.php:253
+msgid "Refresh"
+msgstr "Ανανέωση"
+
 #: booths.php:255
 msgid "Response:"
 msgstr "Απόκριση: "
+
+#: index.php:64
+msgid "AUTHENTICATION REFUSED, please check your user/password!"
+msgstr "ΔΕΝ ΕΠΙΤΡΕΠΕΤΑΙ Η ΠΡΟΣΒΑΣΗ, παρακαλώ ελέγξτε το όνομα/κωδικό σας!"
+
+#: index.php:68
+msgid "INACTIVE ACCOUNT, Please activate your account!"
+msgstr "ΑΝΕΝΕΡΓΟΣ ΛΟΓΑΡΙΑΣΜΟΣ, Παρακαλώ ζητήστε την ενεργοποίησή του!"
+
+#: index.php:72
+msgid "BLOCKED ACCOUNT, Please contact your administrator!"
+msgstr "ΚΛΕΙΔΩΜΕΝΟΣ ΛΟΓΑΡΙΑΣΜΟΣ, Παρακαλώ επικοινωνήστε μαζί μας!"
+
+#: index.php:81
+msgid "AUTHENTICATION"
+msgstr "ΠΙΣΤΟΠΟΙΗΣΗ"
+
+#: index.php:90
+msgid "User:"
+msgstr "Χρήστης:"
+
+#: index.php:95
+msgid "Password:"
+msgstr "Κωδικός:"
+
+#: index.php:105
+msgid "Forgot your password? Click "
+msgstr "Ξεχάσατε τον κωδικό; πατήστε "
+
+#: index.php:105
+msgid "here"
+msgstr "εδώ"
 
 #: PP_error.php:7
 msgid "ERROR : ACCESS REFUSED"
@@ -839,34 +873,38 @@ msgid "Sorry, this page is in construction !"
 msgstr "Λυπούμαστε, η σελίδα αυτή είναι υπό κατασκευή!"
 
 #: PP_menu.php:87
+msgid "Choose language:"
+msgstr "Επιλέξτε γλώσσα:"
+
+#: PP_menu.php:115
 msgid "BOOTHS"
 msgstr "ΘΑΛΑΜΟΙ"
 
-#: PP_menu.php:90
+#: PP_menu.php:116
 msgid "CUSTOMERS"
 msgstr "ΠΕΛΑΤΕΣ"
 
-#: PP_menu.php:93
+#: PP_menu.php:117
 msgid "EDIT BOOTHS"
 msgstr "ΔΙΟΡΘΩΣΗ ΘΑΛΑΜΩΝ "
 
-#: PP_menu.php:96
+#: PP_menu.php:118
 msgid "PAYMENTS"
 msgstr "ΠΛΗΡΩΜΕΣ"
 
-#: PP_menu.php:99
+#: PP_menu.php:119
 msgid "REPORTS"
 msgstr "ΑΝΑΦΟΡΕΣ"
 
-#: PP_menu.php:102
+#: PP_menu.php:120
 msgid "INFO PAGES"
 msgstr "ΠΛΗΡΟΦΟΡΙΕΣ"
 
-#: PP_menu.php:108
+#: PP_menu.php:123
 msgid "PASSWORD"
 msgstr "ΚΩΔΙΚΟΣ"
 
-#: PP_menu.php:112
+#: PP_menu.php:125
 msgid "LOGOUT"
 msgstr "ΕΞΟΔΟΣ"
 
@@ -1274,11 +1312,11 @@ msgstr "ΧΡΕΩΣΗ"
 msgid "includes VAT"
 msgstr "περιλαμβάνει ΦΠΑ"
 
-#: invoices_cust.php:665 agent-money.php:759
+#: invoices_cust.php:666 agent-money.php:759
 msgid "Pay back:"
 msgstr "Επιστροφή:"
 
-#: invoices_cust.php:669 agent-money.php:763
+#: invoices_cust.php:673 agent-money.php:763
 msgid "Pay:"
 msgstr "Πληρωμή:"
 
@@ -1348,6 +1386,16 @@ msgstr "Κατάσταση"
 
 #: agent-money.php:508
 msgid "TRANSACTIONS DETAIL"
+msgstr "ΛΕΠΤΟΜΕΡΕΙΕΣ ΣΥΝΑΛΛΑΓΩΝ"
+
+#: contact.php:15
+msgid "You can also visit our website, at: "
+msgstr "Μπορείτε επίσης να επισκεφτείτε τη σελίδα μας στο: "
+
+#: contact.php:20
+msgid ""
+"Or call us at <b>5509</b> from any minMAX phone or <b>(+30) 210000000</b> "
+"from any other phone. "
 msgstr ""
 
 #: info_choice.php:16
@@ -1702,7 +1750,9 @@ msgstr ""
 msgid ""
 "you can add easily a new charge.<br>Fill the following fields and confirm by "
 "clicking on the button add."
-msgstr "Για να εισάγετε μία νέα χρέωση του πελάτη, συμπληρώστε τα παρακάτω πεδία και επιβεβαιώστε με το πλήκτρο της προσθήκης."
+msgstr ""
+"Για να εισάγετε μία νέα χρέωση του πελάτη, συμπληρώστε τα παρακάτω πεδία και "
+"επιβεβαιώστε με το πλήκτρο της προσθήκης."
 
 #: FG_var_charge.inc:128
 msgid "Your new charge has been inserted. <br>"
@@ -1711,4 +1761,7 @@ msgstr "Η χρέωση έχει εισαχθεί στο σύστημα.<br>"
 #: FG_var_charge.inc:132
 msgid "Click 'Confirm Data' to continue"
 msgstr "Πατήστε εδώ για να συνεχίσετε"
+
+#~ msgid "Asterisk2Billing : CallingCard platform"
+#~ msgstr "Asterisk2Billing: Πλατφόρμα για τηλεφωνικές κάρτες"
 

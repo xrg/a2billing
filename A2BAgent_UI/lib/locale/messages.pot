@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-05 18:57+0200\n"
+"POT-Creation-Date: 2007-01-06 09:18+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -681,8 +681,8 @@ msgstr ""
 
 #: lib/company_info.php:2
 msgid ""
-"This software has been created by Areski under GPL licence. For futher "
-"information, feel free to contact me:"
+"This software has been created by Areski and minMAX telecoms under GPL "
+"licence. For futher information, contact:"
 msgstr ""
 
 #: lib/company_info.php:4
@@ -693,7 +693,7 @@ msgid ""
 msgstr ""
 
 #: lib/company_info.php:5
-msgid "Asterisk2Billing : CallingCard platform"
+msgid "minMAX public phones"
 msgstr ""
 
 #: lib/Misc.php:108
@@ -780,8 +780,44 @@ msgstr ""
 msgid "New"
 msgstr ""
 
+#: booths.php:253
+msgid "Refresh"
+msgstr ""
+
 #: booths.php:255
 msgid "Response:"
+msgstr ""
+
+#: index.php:64
+msgid "AUTHENTICATION REFUSED, please check your user/password!"
+msgstr ""
+
+#: index.php:68
+msgid "INACTIVE ACCOUNT, Please activate your account!"
+msgstr ""
+
+#: index.php:72
+msgid "BLOCKED ACCOUNT, Please contact your administrator!"
+msgstr ""
+
+#: index.php:81
+msgid "AUTHENTICATION"
+msgstr ""
+
+#: index.php:90
+msgid "User:"
+msgstr ""
+
+#: index.php:95
+msgid "Password:"
+msgstr ""
+
+#: index.php:105
+msgid "Forgot your password? Click "
+msgstr ""
+
+#: index.php:105
+msgid "here"
 msgstr ""
 
 #: PP_error.php:7
@@ -811,34 +847,38 @@ msgid "Sorry, this page is in construction !"
 msgstr ""
 
 #: PP_menu.php:87
+msgid "Choose language:"
+msgstr ""
+
+#: PP_menu.php:115
 msgid "BOOTHS"
 msgstr ""
 
-#: PP_menu.php:90
+#: PP_menu.php:116
 msgid "CUSTOMERS"
 msgstr ""
 
-#: PP_menu.php:93
+#: PP_menu.php:117
 msgid "EDIT BOOTHS"
 msgstr ""
 
-#: PP_menu.php:96
+#: PP_menu.php:118
 msgid "PAYMENTS"
 msgstr ""
 
-#: PP_menu.php:99
+#: PP_menu.php:119
 msgid "REPORTS"
 msgstr ""
 
-#: PP_menu.php:102
+#: PP_menu.php:120
 msgid "INFO PAGES"
 msgstr ""
 
-#: PP_menu.php:108
+#: PP_menu.php:123
 msgid "PASSWORD"
 msgstr ""
 
-#: PP_menu.php:112
+#: PP_menu.php:125
 msgid "LOGOUT"
 msgstr ""
 
@@ -1246,11 +1286,11 @@ msgstr ""
 msgid "includes VAT"
 msgstr ""
 
-#: invoices_cust.php:665 agent-money.php:759
+#: invoices_cust.php:666 agent-money.php:759
 msgid "Pay back:"
 msgstr ""
 
-#: invoices_cust.php:669 agent-money.php:763
+#: invoices_cust.php:673 agent-money.php:763
 msgid "Pay:"
 msgstr ""
 
@@ -1320,6 +1360,16 @@ msgstr ""
 
 #: agent-money.php:508
 msgid "TRANSACTIONS DETAIL"
+msgstr ""
+
+#: contact.php:15
+msgid "You can also visit our website, at: "
+msgstr ""
+
+#: contact.php:20
+msgid ""
+"Or call us at <b>5509</b> from any minMAX phone or <b>(+30) 210000000</b> "
+"from any other phone. "
 msgstr ""
 
 #: info_choice.php:16

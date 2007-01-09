@@ -1,5 +1,14 @@
-<?php include (dirname(__FILE__)."/lib/company_info.php"); ?>
+<?php include (dirname(__FILE__)."/lib/company_info.php");
 
+
+if (isset($_GET['language'])){
+	//echo "Language:" . $_GET['language'];
+	define ("LANGUAGE",$_GET['language']);
+	require_once("lib/languageSettings.php");
+	SetLocalLanguage();
+}
+
+?>
 <html>
 
 <head>
@@ -50,15 +59,15 @@
 
   	<?php if (isset($_GET["error"]) && $_GET["error"]==1) { ?>
 		<font face="Arial, Helvetica, Sans-serif" size="2" color="red">
-			<b>AUTHENTICATION REFUSED, please check your user/password!</b>
+			<b><?= _("AUTHENTICATION REFUSED, please check your user/password!"); ?></b>
 		</font>
     <?php }elseif (isset($_GET["error"]) && $_GET["error"]==2){ ?>
         <font face="Arial, Helvetica, Sans-serif" size="2" color="red">
-			<b>INACTIVE ACCOUNT, Please activate your account!</b>
+			<b><?= _("INACTIVE ACCOUNT, Please activate your account!"); ?></b>
 		</font>
     <?php }elseif (isset($_GET["error"]) && $_GET["error"]==3){ ?>
         <font face="Arial, Helvetica, Sans-serif" size="2" color="red">
-			<b>BLOCKED ACCOUNT, Please contact your administrator!</b>
+			<b><?= _("BLOCKED ACCOUNT, Please contact your administrator!"); ?></b>
 		</font>
     <?php } ?>
     <br><br>
@@ -67,7 +76,7 @@
 	<tr>
 		<td class="form_enter" align="center">
 			<img src="images/icon_arrow_orange.gif" width="15" height="15">
-			<font size="3" color="red" ><b> AUTHENTICATION</b></font>
+			<font size="3" color="red" ><b><? _("AUTHENTICATION"); ?></b></font>
 		</td>
 	</tr>
 	<tr>
@@ -76,12 +85,12 @@
 			<tr align="center">
 				<td rowspan="3" style="padding-left: 8px; padding-right: 8px"><img src="images/security.png"></td>
 				<td></td>
-				<td align="left"><font size="2" face="Arial, Helvetica, Sans-Serif"><b>User:</b></font></td>
+				<td align="left"><font size="2" face="Arial, Helvetica, Sans-Serif"><b><?= _("User:");?></b></font></td>
 				<td><input class="form_enter" type="text" name="pr_login"></td>
 			</tr>
 			<tr align="center">
 				<td></td>
-				<td align="left"><font face="Arial, Helvetica, Sans-Serif" size="2"><b>Password:</b></font></td>
+				<td align="left"><font face="Arial, Helvetica, Sans-Serif" size="2"><b><?= _("Password:") ?></b></font></td>
 				<td><input class="form_enter" type="password" name="pr_password"></td>
 			</tr>
 			<tr align="center">
@@ -91,13 +100,25 @@
 			</tr>
 
             <tr align="center">
-                <td colspan=3>Forgot your password? Click <a href="forgotpassword.php">here</a>.</td>
+                <td colspan=3><?= _("Forgot your password? Click "); ?><a href="forgotpassword.php"><?= _("here") ?></a>.</td>
             </tr>
 
 			</table>
 		</td>
 	</tr>
       	</table>
+	<a href="index.php?language=espanol" target="_parent"><img src="images/flags/es.gif" border="0" title="Spanish" alt="Spanish"></a>
+	<a href="index.php?language=english" target="_parent"><img src="images/flags/us.gif" border="0" title="English" alt="English"></a>
+	<a href="index.php?language=french" target="_parent"><img src="images/flags/fr.gif" border="0" title="French" alt="French"></a>
+	<a href="index.php?language=romanian" target="_parent"><img src="images/flags/ro.gif" border="0" title="Romanian" alt="Romanian"></a>
+	<a href="index.php?language=chinese" target="_parent"><img src="images/flags/cn.gif" border="0" title="Chinese" alt="Chinese"></a>
+	<a href="index.php?language=polish" target="_parent"><img src="images/flags/pl.gif" border="0" title="Polish" alt="Polish"></a>
+	<a href="index.php?language=italian" target="_parent"><img src="images/flags/it.gif" border="0" title="Italian" alt="Italian"></a>
+	<a href="index.php?language=russian" target="_parent"><img src="images/flags/ru.gif" border="0" title="russian" alt="russian"></a>
+	<a href="index.php?language=turkish" target="_parent"><img src="images/flags/tr.gif" border="0" title="Turkish" alt="Turkish"></a>
+	<a href="index.php?language=portuguese" target="_parent"><img src="images/flags/pt.gif" border="0" title="Portuguese" alt="Portuguese"></a>
+	<a href="index.php?language=urdu" target="_parent"><img src="images/flags/pk.gif" border="0" title="Urdu" alt="Urdu"></a>
+	<a href="index.php?language=greek" target="_parent"><img src="images/flags/gr.gif" border="0" title="Greek" alt="Greek"></a>
 	</form>
 </td>
 </tr>
