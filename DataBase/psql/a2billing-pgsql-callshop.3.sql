@@ -29,11 +29,36 @@ UNION SELECT agentid, date, pay_type, descr, NULL::bigint AS card_id, 0-credit A
 		FROM cc_agentpay WHERE credit <0
 UNION	SELECT agentid, date, pay_type, 'Money from customer' as descr, card_id, credit AS pos_credit, NULL AS neg_credit, 0-credit
 		FROM cc_agentrefill WHERE credit >=0 AND carried = false
-UNION	SELECT agentid, date, pay_type, 'Pay back custommer' as descr, card_id, NULL AS pos_credit, 0-credit AS neg_credit, 0-credit
+UNION	SELECT agentid, date, pay_type, 'Pay back customer' as descr, card_id, NULL AS pos_credit, 0-credit AS neg_credit, 0-credit
 		FROM cc_agentrefill WHERE credit <0 AND carried = false;
 
 
 	
-	
+CREATE OR REPLACE VIEW cc_agentcard_debt_v AS
+	SELECT agentid, SUM(credit) as credit, 'Positive' AS typ  
+		FROM cc_card,cc_agent_cards WHERE cc_agent_cards.card_id = cc_card.id
+		AND cc_card.credit >0 GROUP BY cc_agent_cards.agentid
+UNION
+	SELECT agentid, SUM(credit) as credit, 'Negative' AS typ  
+		FROM cc_card,cc_agent_cards WHERE cc_agent_cards.card_id = cc_card.id
+		AND cc_card.credit <0 GROUP BY cc_agent_cards.agentid
+UNION
+	SELECT agentid, SUM(creditlimit) as credit, 'Limit' AS typ
+		FROM cc_card,cc_agent_cards WHERE cc_agent_cards.card_id = cc_card.id
+		GROUP BY cc_agent_cards.agentid;
+		
+/** cc_paytypes Define rules (texts) for pay/charge types to be used in combos etc.
+	id is the text, as seen in cc_texts. This is better than using text, since
+		pay_type would be used many times in reports and it has to be both
+		matched and translated. Hence an integer field.
+	side is an arbitrary enum like:
+		1 customer to agent
+		2 agent to company
+*/
 
+CREATE TABLE cc_paytypes (
+	id integer REFERENCES cc_texts(id),
+	side smallint NOT NULL,
+	charge boolean default true
+);
 --eof
