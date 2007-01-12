@@ -5,8 +5,8 @@
 	define ("WEBUI_VERSION", 'Asterisk2Billing - Version 1.3.x + Callshop - ');	
 ?>
 <html><head>
-<link rel="shortcut icon" href="../Images/favicon.ico">
-<link rel="icon" href="../Images/animated_favicon1.gif" type="image/gif">
+<link rel="shortcut icon" href="./images/favicon.ico">
+<link rel="icon" href="./images/animated_favicon1.gif" type="image/gif">
 
 <title>..:: <?php echo CCMAINTITLE; ?> ::..</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">

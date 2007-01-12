@@ -144,7 +144,7 @@ input.button {
  
 input.menu {
 	background-color: #676D67;
-	background-image: url(/img/input.gif) no-repeat;
+	/*background-image: url(./img/input.gif) no-repeat;*/
 	font-family: verdana, arial, sans-serif;
 	font-size: 11px;
 	border-style: ridge;
@@ -283,7 +283,7 @@ body {
 }
 
 .botton_terms {
-	background-image: url(../Images/background_botton.gif);
+	background-image: url(../images/background_botton.gif);
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 11px;
 	color: #FFFFFF;
