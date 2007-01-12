@@ -157,15 +157,15 @@ require("languageSettings.php");
 	}
 
 	
-	function get_languages_r(&$langs) {
-	//FIXME!
-		if (is_array($langs)){
-			$num=count($langs);
-			for ($i=0;$i<$num;$i++)
-				$ret_list[$i]=array($langs[$i][1], $langs[$i][0]);
-		}
-		return $ret_list;
-	}
+// 	function get_languages_r(&$langs) {
+// 	//FIXME!
+// 		if (is_array($langs)){
+// 			$num=count($langs);
+// 			for ($i=0;$i<$num;$i++)
+// 				$ret_list[$i]=array($langs[$i][1], $langs[$i][0]);
+// 		}
+// 		return $ret_list;
+// 	}
 
 	function get_chargetypes(){
 		$ctl = array();

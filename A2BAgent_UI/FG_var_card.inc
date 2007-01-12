@@ -7,8 +7,7 @@ $HD_Form = new FormHandler("cc_card_agent_v","Card");
 // This has to be here, so that subsequent calls to Quote() work..
 $HD_Form -> setDBHandler (DbConnect());
 
-$language_list= get_languages();
-// $language_list_r= get_languages_r($language_list); *-*
+$lang_list= get_sel_languages();
 
 $HD_Form -> FG_DEBUG = 0;
 // FAQ
@@ -154,7 +153,7 @@ $HD_Form -> AddEditElement (gettext("LANGUAGE"),
 			   "",
 			   "",
 			   "",
-			   "list" , "", "",	"", $language_list, "%1", "", "" );
+			   "list" , "", "","", $lang_list, "%1", "", "" );
 
 $HD_Form -> AddEditElement (gettext("LASTNAME"),
 			   "lastname",

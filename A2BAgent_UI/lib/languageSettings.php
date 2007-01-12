@@ -38,10 +38,15 @@
 	load_Lang( _("Urdu"),"pk","urdu","ur_PK","UTF-8",false,"pk.gif");
 
 
-/*function get_languages() {
+function get_sel_languages() {
 	global $language_list;
-	return $language_list;
-}*/
+	$ret = array();
+	foreach($language_list as $lang)
+		if ($lang['sela'])
+		$ret[] = array($lang['name'],$lang['abbrev']);
+	return $ret;
+}
+
 function SetLocalLanguage($set_lang) {
 	$slectedLanguage = "en_US";
 	$languageEncoding = "en_US.iso88591";
