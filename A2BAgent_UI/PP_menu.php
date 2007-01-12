@@ -116,25 +116,11 @@ function imgidclick(imgID,divID)
 <table>
 <tr>
 	<td>
-		<a href="index2.php?language=espanol" target="_parent"><img src="images/flags/es.gif" border="0" title="Spanish" alt="Spanish"></a>
-		<a href="index2.php?language=english" target="_parent"><img src="images/flags/us.gif" border="0" title="English" alt="English"></a>
-		<a href="index2.php?language=french" target="_parent"><img src="images/flags/fr.gif" border="0" title="French" alt="French"></a>
-		<a href="index2.php?language=romanian" target="_parent"><img src="images/flags/ro.gif" border="0" title="Romanian" alt="Romanian"></a>
-		<a href="index2.php?language=chinese" target="_parent"><img src="images/flags/cn.gif" border="0" title="Chinese" alt="Chinese"></a>
-		<a href="index2.php?language=polish" target="_parent"><img src="images/flags/pl.gif" border="0" title="Polish" alt="Polish"></a>
-		<a href="index2.php?language=italian" target="_parent"><img src="images/flags/it.gif" border="0" title="Italian" alt="Italian"></a>
-		<a href="index2.php?language=russian" target="_parent"><img src="images/flags/ru.gif" border="0" title="russian" alt="russian"></a>
-		<a href="index2.php?language=turkish" target="_parent"><img src="images/flags/tr.gif" border="0" title="Turkish" alt="Turkish"></a>
-		<a href="index2.php?language=portuguese" target="_parent"><img src="images/flags/pt.gif" border="0" title="Portuguese" alt="Portuguese"></a>
-		<a href="index2.php?language=urdu" target="_parent"><img src="images/flags/pk.gif" border="0" title="Urdu" alt="Urdu"></a>
-		<a href="index2.php?language=greek" target="_parent"><img src="images/flags/gr.gif" border="0" title="Greek" alt="Greek"></a>
-
-<!--
-		<a href="index2.php?language=brazilian" target="_parent"><img src="images/flags/br.gif" border="0"title="Brazilian" alt="Brazilian"></a>
-		<a href="index2.php?language=portuguese" target="_parent"><img src="images/pt.gif" border="0"></a>
-		<a href="index2.php?language=chinese" target="_parent"><img src="images/pt.gif" border="0"></a>
-		<a href="index2.php?language=polish" target="_parent"><img src="images/pl.gif" border="0"></a>
--->
+<?php
+foreach($language_list as $lang)
+	if ($lang['flag']!=null)
+	echo "		<a href=\"index2.php?language=" .$lang['cname'] . "\" target=\"_parent\"><img src=\"images/flags/" . $lang['flag'] . "\" border=\"0\" title=\"" . $lang['name'] ."\" alt=\"" .$lang['name']."\"></a>\n";
+?>
 	</td>
 </tr>
 </table>

@@ -87,12 +87,12 @@
 	$PHP_SELF = $_SERVER["PHP_SELF"];
 	
 
-	$CURRENT_DATETIME = date("Y-m-d H:i:s");		
+	$CURRENT_DATETIME = date("Y-m-d H:i:s");
 		
 	/*
 	 *		GLOBAL POST/GET VARIABLE
 	 */		 
-	getpost_ifset(array('form_action', 'atmenu', 'action', 'stitle', 'sub_action', 'IDmanager', 'current_page', 'order', 'sens', 'mydisplaylimit', 'filterprefix','language'));
+	getpost_ifset(array('form_action', 'atmenu', 'action', 'stitle', 'sub_action', 'IDmanager', 'current_page', 'order', 'sens', 'mydisplaylimit', 'filterprefix'));
 
 	// Include general language file
         // Language session
@@ -105,24 +105,12 @@
         }
     }
 
-    if (!isset($_SESSION["language"]))
-    {
-        $_SESSION["language"]='english';
-    }
-    else if (isset($language))
-    {
-      $_SESSION["language"] = $language;
-    }
+require("languageSettings.php");
+	// Actual setting of language has moved to module.access, since it is related
+	// to the login account.
 
-    define ("LANGUAGE",$_SESSION["language"]);
-	//include (FSROOT."lib/languages/".LANGUAGE.".php");
-	//define ("LANGUAGE_DIR",FSROOT."lib/languages/".LANGUAGE."/");
-    require("languageSettings.php");
-
-    SetLocalLanguage();
-	 
 	/*
-	 *		CONNECT / DISCONNECT DATABASE
+	 *	CONNECT / DISCONNECT DATABASE
 	 */
 
 	function DbConnect($db= NULL)
@@ -167,16 +155,10 @@
 		
 		return $currencies_list;
 	}
-	function get_languages() {
-	// *-*
-		$language_list = array();
-		$language_list["0"] = array( _("English"), "en");
-		$language_list["1"] = array( _("Spanish"), "es");
-		$language_list["2"] = array( _("French"),  "fr");
-		return $language_list;
-	}
+
 	
 	function get_languages_r(&$langs) {
+	//FIXME!
 		if (is_array($langs)){
 			$num=count($langs);
 			for ($i=0;$i<$num;$i++)
@@ -198,5 +180,4 @@
 		return $ctl;
 	}
 
-	
 ?>

@@ -97,6 +97,7 @@ if ((!session_is_registered('pr_login') || !session_is_registered('pr_password')
 			$_SESSION["agent_id"]=$return[3];
 			$_SESSION["tariff"]=$return[4];
 			$_SESSION["currency"]=$return[5];
+			$_SESSION['lang_db']=$return[6];
 		}
 
 	}else{
@@ -116,7 +117,7 @@ function login ($user, $pass) {
 	$pass = trim($pass);
 	if (strlen($user)==0 || strlen($user)>=20 || strlen($pass)==0 || strlen($pass)>=20) return false;
 
-	$QUERY = "SELECT login, credit, active, id, tariffgroup, currency FROM cc_agent WHERE login = '".$user."' AND passwd = '".$pass."'";
+	$QUERY = "SELECT login, credit, active, id, tariffgroup, currency, language FROM cc_agent WHERE login = '".$user."' AND passwd = '".$pass."'";
 
 	$res = $DBHandle -> query($QUERY);
 
@@ -135,6 +136,40 @@ function login ($user, $pass) {
 	return ($row[0]);
 }
 
+    if (isset($_GET['language']))
+    {
+      $_SESSION["language"] = $_GET['language'];
+    }
+    elseif (!isset($_SESSION["language"]))
+    { // we have to find a lang to use..
+    	if(isset($_SESSION["lang_db"])){
+    		foreach($language_list as $lang)
+    		if ($lang['abbrev'] == $_SESSION["lang_db"])
+    			$_SESSION["language"] = $lang['cname'];
+    		echo "Selected: ". $_SESSION["language"] . "<br>\n";
+    	}else
+        	$_SESSION["language"]='english';
+    }
+
+    define ("LANGUAGE",$_SESSION["language"]);
+	//include (FSROOT."lib/languages/".LANGUAGE.".php");
+	//define ("LANGUAGE_DIR",FSROOT."lib/languages/".LANGUAGE."/");
+
+    $lang_abbr=SetLocalLanguage($_SESSION["language"]);
+    
+    if (isset($_SESSION['agent_id']) && ($_SESSION['cus_rights'] != 0) && isset($_SESSION["lang_db"]) && ($_SESSION["lang_db"]) != $lang_abbr) {
+    	$DBconn_tmp=DbConnect();
+    	$QUERY="UPDATE cc_agent SET language = ". $DBconn_tmp->Quote($lang_abbr) .
+    		", locale = " . $DBconn_tmp->Quote(getenv("LANG")) .
+    		" WHERE id = " . $DBconn_tmp->Quote($_SESSION['agent_id']) . ';' ;
+    	$res = $DBconn_tmp -> query($QUERY);
+    	$_SESSION["lang_db"]=$lang_abbr ;
+    	//echo $QUERY;
+    	if (!$res) {
+    		echo "Set language failed:" . $DBconn_tmp->ErrorMsg();
+    	}
+    	DbDisconnect($DBconn_tmp);
+    }
 
 
 
