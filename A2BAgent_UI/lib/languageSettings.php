@@ -25,7 +25,7 @@
 	load_Lang(_("English"), "en", "english","en_US","iso88591",true,"us.gif");
 	load_Lang( _("Arabic"), "ar","arabic","en_US","iso88591",false,null);
 	load_Lang( _("Chinese"), "zh", "chinese", "zh_TW","UTF-8",false,"cn.gif");
-	load_Lang( _("French"),  "fr", "french","fr_FR","iso88591","fr.gif");
+	load_Lang( _("French"), "fr", "french","fr_FR","iso88591",true,"fr.gif");
 	load_Lang( _("German"),"de","german","de","iso88591",false,null);
 	load_Lang( _("Greek"),"gr","greek","el_GR","UTF-8",true,"gr.gif");
 	load_Lang( _("Italian"),"it","italian","it_IT","iso88591",false,"it.gif");
@@ -33,7 +33,7 @@
 	load_Lang( _("Portuguese"),"pt","portuguese","pt_PT","iso88591",false,"pt.gif");
 	load_Lang( _("Romanian"),"ro","romanian","ro_RO","iso88591",true,"ro.gif");
 	load_Lang( _("Russian"),"ru","russian","ru_RU","iso8859-5",false,"ru.gif");
-	load_Lang( _("Spanish"), "es", "espanol","es_ES",true,"es.gif");
+	load_Lang( _("Spanish"), "es", "espanol","es_ES","iso88591",true,"es.gif");
 	load_Lang( _("Turkish"),"tr","turkish","tr_TR","iso8859-9",false,"tr.gif");
 	load_Lang( _("Urdu"),"pk","urdu","ur_PK","UTF-8",false,"pk.gif");
 
