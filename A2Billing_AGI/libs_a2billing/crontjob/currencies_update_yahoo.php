@@ -48,19 +48,20 @@ $url = "http://finance.yahoo.com/d/quotes.csv?s=";
 		}
 
 		// Create the script to get the currencies
-		
-		$f = fopen("/tmp/update.sh","w");
-		$data = "#!/bin/sh\nwget '".$url."' -O /tmp/currencies.cvs";
-		fwrite($f,$data);
-		fclose($f);
-		chmod("/tmp/update.sh",0755);
+		$outarr= array();
+		$outres= -1;
+		$tmpfname=tempnam("/tmp","currencies-");
+		$CMD='wget ' . escapeshellarg($url) . ' -O ' . $tmpfname;
 
 		// exec the script
-		exec('/tmp/update.sh');
-		sleep(5);
+		exec($CMD,$outarr,$outres);
+		if ($outres!=0) {
+			echo "Get currencies failed with code" . $outres . "\n";
+			exit(1);
+		}
 
 		// get the file with the currencies to update the database
-		$currencies = file("/tmp/currencies.cvs");
+		$currencies = file($tmpfname);
 		
 		// update database
 		foreach ($currencies as $id => $currency){
@@ -75,7 +76,9 @@ $url = "http://finance.yahoo.com/d/quotes.csv?s=";
 				$QUERY .= ",basecurrency='".BASE_CURRENCY."'";
 			$QUERY .= " , lastupdate = CURRENT_TIMESTAMP WHERE id =".$id;
 			
+			//echo $QUERY . "\n";
 			$result = $A2B -> instance_table -> SQLExec ($A2B->DBHandle, $QUERY, 0);
-		}	
+		}
+		unlink($tmpfname);
 	}
 ?>
