@@ -727,4 +727,25 @@ CREATE TRIGGER cc_charge_itu BEFORE UPDATE ON cc_charge
 CREATE TRIGGER cc_charge_itd BEFORE DELETE ON cc_charge
 	FOR EACH ROW EXECUTE PROCEDURE cc_charge_itd();
 
+CREATE OR REPLACE VIEW cc_agent_daycalls_v AS
+SELECT count(*) as num, sum(sessionbill) AS charges , sum(stoptime-starttime) as totaltime,
+	date_trunc('day',starttime) AS day,
+	cc_agent_cards.agentid AS agentid
+	FROM cc_call, cc_card, cc_agent_cards
+	WHERE cc_call.username = cc_card.username AND cc_card.id = cc_agent_cards.card_id
+	GROUP BY agentid,day ORDER BY day;
+	
+CREATE OR REPLACE FUNCTION cc_calc_daysleft(agentid bigint, curtime timestamp with time zone, backi interval,
+	out credit NUMERIC(12,4),out climit NUMERIC(12,4),out avg_time interval,
+	out avg_charges NUMERIC(12,4), OUT days_left NUMERIC ) AS $$
+SELECT credit, climit, AVG(totaltime) as avg_time,
+	AVG(charges) AS avg_charges, 
+	trunc((cc_agent.credit +cc_agent.climit) / AVG(charges)) 
+	FROM cc_agent_daycalls_v, cc_agent 
+	WHERE cc_agent_daycalls_v.agentid = cc_agent.id
+		AND cc_agent.id = $1 AND cc_agent_daycalls_v.day <= $2 AND
+		cc_agent_daycalls_v.day >= date_trunc('day',$2 - $3)
+	GROUP BY agentid, credit, climit  ;
+$$ LANGUAGE SQL STABLE STRICT;
+
 -- eof
