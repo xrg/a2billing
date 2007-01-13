@@ -46,6 +46,13 @@ This is intentional and protects the safety of your login.
 <b>Hint:</b> The booths page is refreshed automatically and thus causes the login session
 never to expire. If you want to leave the screen for long time, you should better leave
 it at the booths page.
+
+<h3>Reading the booths *-* </h3>
+The credit for the booths is NOT updated during the calls. That is, the web interface will only
+show the initial credit (when the call started) and then only subtract the charges after
+the call has ended.
+<p> Note: You cannot credit the customer and extend an on-going call. The call will always
+end at the time it was supposed to.
 <?php
 } //end if & copy
 
