@@ -33,7 +33,7 @@ if (isset($sid)) {
 	else	$sql_cmd = "SELECT format_currency(pay_session( %1, %2, true, %3), %4, %5);";
 	$QUERY = str_dbparams($DBHandle, $sql_cmd ,
 		array($sid ,$_SESSION['agent_id'],$carry, strtoupper(BASE_CURRENCY), $_SESSION['currency'])) ;
-	echo htmlspecialchars($QUERY);
+	//echo htmlspecialchars($QUERY);
 	$res = $DBHandle->query($QUERY);
 } else $res = false;
 
