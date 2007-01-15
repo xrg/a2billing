@@ -105,7 +105,7 @@ function imgidclick(imgID,divID)
 	
 	<?php if ($A2B->config["agentcustomerui"]['password']){ ?>
 	<li><a href=# target=_self></a></li>
-	<li><a href="A2B_entity_password.php?atmenu=password&form_action=ask-edit&stitle=Password"><strong><?php echo gettext("PASSWORD");?></strong></a></li>
+	<li><a href="A2B_entity_password.php?atmenu=password&form_action=ask-edit&stitle=Password"><strong><?= gettext("PASSWORD"); ?></strong></a></li>
 	<?php  } ?>
 
 	<li><a href=# target=_self></a></li>

@@ -40,3 +40,5 @@ if (! has_rights (ACX_ACCESS)){
 
 
 </html>
+<?php  //eof
+?>

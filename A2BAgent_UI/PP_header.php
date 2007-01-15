@@ -3,8 +3,7 @@
 	
 	define ("WEBUI_DATE", 'Release : xxx');
 	define ("WEBUI_VERSION", 'Asterisk2Billing - Version 1.3.x + Callshop - ');	
-?>
-<html><head>
+?><html><head>
 <link rel="shortcut icon" href="./images/favicon.ico">
 <link rel="icon" href="./images/animated_favicon1.gif" type="image/gif">
 
