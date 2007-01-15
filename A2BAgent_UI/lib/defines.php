@@ -179,5 +179,11 @@ require("languageSettings.php");
 		
 		return $ctl;
 	}
-
+	
+	function getmonthnames(){
+	return array( gettext("JANUARY"), gettext("FEBRUARY"), gettext("MARCH"),
+		gettext("APRIL"), gettext("MAY"), gettext("JUNE"),
+		gettext("JULY"), gettext("AUGUST"), gettext("SEPTEMBER"),
+		gettext("OCTOBER"), gettext("NOVEMBER"), gettext("DECEMBER"));
+	}
 ?>

@@ -9,7 +9,9 @@ if (! has_rights (ACX_ACCESS)){
 }
 
 
-getpost_ifset(array('card','booth','nobq', 'posted',  'stitle', 'atmenu', 'current_page', 'order', 'sens', 'dst', 'src', 'srctype', 'src', 'choose_currency','exporttype'));
+getpost_ifset(array('card','booth','nobq', 'posted',  'stitle', 'atmenu', 'current_page', 'order', 'sens', 'dst', 'src', 'srctype', 'src',  'choose_currency','exporttype','Period', 'frommonth', 'fromstatsmonth', 'tomonth', 'tostatsmonth', 'fromday', 'fromstatsday_sday', 'fromstatsmonth_sday', 'today', 'tostatsday_sday', 'tostatsmonth_sday','fromstatsmonth_sday', 'fromstatsmonth_shour', 'tostatsmonth_sday', 'tostatsmonth_shour','fromstatsmonth_smin','tostatsmonth_smin'));
+
+
 
 //$customer = $_SESSION["pr_login"];
 $vat = $_SESSION["vat"];
@@ -162,12 +164,22 @@ $FG_SUM_QUERY=str_dbparams($DBHandle, "format_currency(SUM(pos_credit),%1, %2), 
 
 
 // The variable LIMITE_DISPLAY define the limit of record to display by page
-$FG_LIMITE_DISPLAY=500;
+$FG_LIMITE_DISPLAY=100;
 
 // Number of column in the html table
 $FG_NB_TABLE_COL=count($FG_TABLE_COL);
 
 $FG_TABLE_CLAUSE= 'agentid = '. $DBHandle->Quote($_SESSION['agent_id']);
+$FG_TABLE_CLAUSE_NODATE = $FG_TABLE_CLAUSE;
+// ------ Date clause
+
+$date_clause=fmt_dateclause($DBHandle,"date");
+$date_clause_c=fmt_dateclause_c($DBHandle,"date");
+
+//echo "Date clause: " . $date_clause . " / " . $date_clause_c . "<br><br>\n";
+if ($date_clause != "") $FG_TABLE_CLAUSE .= " AND " . $date_clause;
+// --------- End date clause
+
 
 //This variable will store the total number of column
 $FG_TOTAL_TABLE_COL = $FG_NB_TABLE_COL;
@@ -182,9 +194,11 @@ $FG_HTML_TABLE_WIDTH="90%";
 	if ($FG_DEBUG >= 3) echo "<br>Table : $FG_TABLE_NAME  	- 	Col_query : $FG_COL_QUERY";
 	$instance_table = new Table($FG_TABLE_NAME, $FG_COL_QUERY);
 	$instance_table_sum = new Table($FG_TABLE_NAME, $FG_SUM_QUERY);
+	$instance_table_carry = new Table($FG_TABLE_NAME, $FG_SUM_QUERY);
 	if ($FG_DEBUG >= 2) {
 		$instance_table->debug_st=1;
 		$instance_table_sum->debug_st=1;
+		$instance_table_carry->debug_st=1;
 	}
 
 
@@ -196,7 +210,10 @@ if ( is_null ($order) || is_null($sens) ){
 
 if (!$nodisplay){
 	$list = $instance_table -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, $order, $sens, null, null, $FG_LIMITE_DISPLAY, $current_page*$FG_LIMITE_DISPLAY);
-	$list_sum = $instance_table_sum -> Get_list ($DBHandle, $FG_TABLE_CLAUSE);
+	$list_sum = $instance_table_sum -> Get_list ($DBHandle, $FG_TABLE_CLAUSE_NODATE);
+if ($date_clause_c != '') 
+	$list_carry = $instance_table_carry -> Get_list ($DBHandle, $FG_TABLE_CLAUSE_NODATE . " AND ". $date_clause_c);
+	//print_r($list_carry);
 }
 
 $_SESSION["pr_sql_export"]="SELECT $FG_COL_QUERY FROM $FG_TABLE_NAME WHERE $FG_TABLE_CLAUSE";
@@ -314,10 +331,14 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 	<INPUT TYPE="hidden" name="current_page" value=0>	
 	<table class="bar-status" width="95%" border="0" cellspacing="1" cellpadding="2" align="center">
 	<tbody>
-	<!--
 	<tr><td class="bar-search" align="left" bgcolor="#555577">
 
-		<input type="radio" name="Period" value="Month" <?php  if (($Period=="Month") || !isset($Period)){ ?>checked="checked" <?php  } ?>> 
+		<input type="radio" name="Period" value="none" <?php  if (($Period=="none") || !isset($Period)){ ?>checked="checked" <?php  } ?>> 
+		<font face="verdana" size="1" color="#ffffff"><b><?= gettext("All transactions");?></b></font>
+	</td><td class="bar-search" bgcolor="#cddeff">&nbsp;</td></tr>
+	<tr><td class="bar-search" align="left" bgcolor="#555577">
+
+		<input type="radio" name="Period" value="Month" <?php  if ($Period=="Month"){ ?>checked="checked" <?php  } ?>> 
 		<font face="verdana" size="1" color="#ffffff"><b><?= gettext("Selection of the month");?></b></font>
 	</td>
 	<td class="bar-search" colspan=2 align="left" bgcolor="#cddeff">
@@ -327,7 +348,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 			<?php 	$year_actual = date("Y");  	
 				for ($i=$year_actual;$i >= $year_actual-1;$i--)
 				{	
-					$monthname = array( gettext("JANUARY"), gettext("FEBRUARY"), gettext("MARCH"), gettext("APRIL"), gettext("MAY"), gettext("JUNE"), gettext("JULY"), gettext("AUGUST"), gettext("SEPTEMBER"), gettext("OCTOBER"), gettext("NOVEMBER"), gettext("DECEMBER"));
+					$monthname = getmonthnames();
 					if ($year_actual==$i){
 						$monthnumber = date("n")-1; // Month number without lead 0.
 					}else{
@@ -347,7 +368,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 			<?php 	$year_actual = date("Y");  	
 				for ($i=$year_actual;$i >= $year_actual-1;$i--)
 				{	
-					$monthname = array( gettext("JANUARY"), gettext("FEBRUARY"), gettext("MARCH"), gettext("APRIL"), gettext("MAY"), gettext("JUNE"), gettext("JULY"), gettext("AUGUST"), gettext("SEPTEMBER"), gettext("OCTOBER"), gettext("NOVEMBER"), gettext("DECEMBER"));
+					$monthname = getmonthnames();
 					if ($year_actual==$i){
 						$monthnumber = date("n")-1; // Month number without lead 0.
 					}else{
@@ -384,7 +405,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 				<?php 	$year_actual = date("Y");  	
 					for ($i=$year_actual;$i >= $year_actual-1;$i--)
 					{	
-						$monthname = array( gettext("JANUARY"), gettext("FEBRUARY"), gettext("MARCH"), gettext("APRIL"), gettext("MAY"), gettext("JUNE"), gettext("JULY"), gettext("AUGUST"), gettext("SEPTEMBER"), gettext("OCTOBER"), gettext("NOVEMBER"), gettext("DECEMBER"));
+						$monthname = getmonthnames();
 						if ($year_actual==$i){
 							$monthnumber = date("n")-1; // Month number without lead 0.
 						}else{
@@ -429,7 +450,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 				<?php 	$year_actual = date("Y");  	
 					for ($i=$year_actual;$i >= $year_actual-1;$i--)
 					{	
-						$monthname = array( gettext("JANUARY"), gettext("FEBRUARY"), gettext("MARCH"), gettext("APRIL"), gettext("MAY"), gettext("JUNE"), gettext("JULY"), gettext("AUGUST"), gettext("SEPTEMBER"), gettext("OCTOBER"), gettext("NOVEMBER"), gettext("DECEMBER"));
+						$monthname = getmonthnames();
 						if ($year_actual==$i){
 							$monthnumber = date("n")-1; // Month number without lead 0.
 						}else{
@@ -447,7 +468,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 				<?php  
 					if (strlen($tostatsmonth_shour)==0) $tostatsmonth_shour='23';
 					for ($i=0;$i<=23;$i++){	
-						if ($tostatsmonth_shour==sprintf("%02d",$i)){$selected="selected";}else{$selected="";}						
+						if ($tostatsmonth_shour==sprintf("%02d",$i)){$selected="selected";}else{$selected="";}
 						echo '<option value="'.sprintf("%02d",$i)."\" $selected>".sprintf("%02d",$i).'</option>';
 					}
 				?>					
@@ -462,7 +483,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 				</select>
 				</td></tr></table>
 			</td>
-		</tr> -->
+		</tr>
 
 	<tr>
 		<td class="bar-search" align="left" bgcolor="#555577" width='30px'>
@@ -529,9 +550,17 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 				   <?php } ?>
                 </TR>
 				<?php
-				  	 $ligne_number=0;
-				  	 foreach ($list as $recordset){ 
-						 $ligne_number++;
+
+			$ligne_number=0;
+			foreach($list_carry as $recordset) {
+				?><tr class="sum_row"><td>&nbsp;</td><td colspan=2>&nbsp;</td><td align=left><?= _("Carry from previous period")?></td>
+				<td class=tableBody><?= $recordset[0]; ?></td><td class=tableBody><?= $recordset[1]; ?></td></tr>
+				<!--<tr><td colspan=4>&nbsp;</td>
+				<td colspan=2 class=tableBody align=right><?= $recordset[2]; ?></td></tr> -->
+			<?php }
+			
+			foreach ($list as $recordset){ 
+				$ligne_number++;
 				?>
 				
                		 <TR bgcolor="<?=  $FG_TABLE_ALTERNATE_ROW_COLOR[$ligne_number%2]?>">
@@ -603,154 +632,100 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 <?php if (! $nodisplay) { ?>
 <br><hr width="350"><br><br>
 
+<style>
+table.total {
+	/*background-color: ; */
+	width: 70%;
+	border: none;
+}
+
+table.total td.hdr1 {
+	text-align: center;
+	background-color: #600101;
+	font-weight: bold;
+	color: white;
+}
+
+table.total td.hdr2 {
+	text-align: center;
+	background-color: #b72222;
+	color: white;
+	font-weight: bold;
+}
+table.total td.hdr3 {
+	text-align: center;
+	background-color: #F2E8ED;
+	color: black;
+	font-family: Arial,Verdana;
+	font-weight: bold;
+	font-size: 1;
+}
+
+table.total td.col1 {
+	text-align: center;
+	background-color: #D2D8ED;
+	color: black;
+	font-family: Arial,Verdana;
+	font-weight: normal;
+	font-size: 1;
+}
+
+table.total td.row0 {
+	text-align: center;
+	background-color: <?= $FG_TABLE_ALTERNATE_ROW_COLOR[0] ?>;
+	color: black;
+	font-family: Arial,Verdana;
+	font-weight: normal;
+	font-size: 1;
+}
+table.total td.row1 {
+	text-align: center;
+	background-color: <?= $FG_TABLE_ALTERNATE_ROW_COLOR[1] ?>;
+	color: black;
+	font-family: Arial,Verdana;
+	font-weight: normal;
+	font-size: 1;
+}
+
+table.total td.total {
+	text-align: center;
+	background-color: #BA5151;
+	color: white;
+	font-family: Arial,Verdana;
+	font-weight: bold;
+}
+
+</style>
 <table width="100%">
 <tr>
 <?php if (SHOW_ICON_INVOICE){?><td align="left"><img src="pdf-invoices/images/desktop.gif"/> </td><?php }?>
-<td align="center"  bgcolor="#fff1d1"><font color="#000000" face="verdana" size="5"> <b><?=  str_dblspace(gettext("BILLING SERVICE"));?> : <?php  if (strlen($info_customer[0][2])>0) echo $info_customer[0][2]; ?> </b> </td>
+<td align="center"  bgcolor="#fff1d1"><font color="#000000" face="verdana" size="5"> <b><?=  str_dblspace(gettext("MONEY SITUATION:"));?> </b> </td>
 </tr>
 </table>
-<table border="0" cellspacing="1" cellpadding="2" width="70%" align="center">
-	<tr>	
-		<td align="center" bgcolor="#600101"></td>
-    	<td bgcolor="#b72222" align="center" colspan="4"><font color="#ffffff"><b><?=  gettext("IN/OUT");?></b></font></td>
+<table class="total" cellspacing="1" cellpadding="2" align="center">
+	<tr><td class="hdr1" colspan="3"><?= _("TRANSACTIONS") ?></td></tr>
+	<tr><td class="hdr1"></td><td class="hdr2" colspan="2"><?= _("IN/OUT") ?></td>
     </tr>
-	<tr>
-
-		<td align="center" bgcolor="#F2E8ED"><font face="verdana" size="1" color="#000000"><b><?=  gettext("TYPE");?></b></font></td>
-        <td align="center"><font face="verdana" color="#000000" size="1"><b><?=  gettext("IN");?></b></font></td>
-		<td align="center"><font face="verdana" color="#000000" size="1"><b><?=  gettext("OUT");?></b></font></td>
- 
-<?php  		
-		$i=0;
-		foreach ($list_type_charge as $data){
-		$i=($i+1)%2;
-		
-	?>
+	<tr><td class="hdr3"><?= _("TYPE");?></td>
+        <td class="hdr3"><?= _("IN");?></td>
+	<td class="hdr3"><?= _("OUT");?></td>
+<?php
+	$i=0;
+	foreach ($list_type_charge as $data){
+	$i=($i+1)%2;	
+?>
 	</tr>
-	<tr>
-		<td align="center" bgcolor="#D2D8ED"><font face="verdana" size="1" color="#000000"><?=  $data[0]?></font></td>
-
-        <td bgcolor="<?=  $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="center"><font face="verdana" color="#000000" size="1"><?=  $data[1]?></font></td>
-        
-		<td bgcolor="<?=  $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="center"><font face="verdana" color="#000000" size="1"><?= $data[2] ?></font></td>
+	<tr><td class="col1"><?= $data[0]?></td><td class="row<?= $i?>"><?= $data[1]?></td>
+		<td class="row<?= $i?>"><?= $data[2] ?></td>
      <?php 	 }
-
-
-	 ?>
-	</tr>	
-		
+?></tr>
+	<tr><td class="hdr1" colspan="3"><?= _("SITUATION") ?></td></tr>
+	<tr><td class="hdr3"><?= _("DESCRIPTION") ?></td> <td class="hdr3" colspan="2"><?= _("SUM") ?></td></tr>
 	<tr>		
-		<td align="center" bgcolor="#BA5151" colspan="3"><font color="#ffffff">
-		<b><?= _("TOTAL");?> = 
-
+		<td class="total" colspan="3"><?= _("TOTAL");?> =
 <?php echo $list_sum[0][3];
 if ($vat>0) echo  " (" .gettext("includes VAT"). "$vat %)";
- ?>
- </b></font></td>
-	</tr>
-</table>
-<?php  } ?>
-
-<?php 
-if (is_array($list_total_day) && count($list_total_day)>0){ ?>
-<br><hr width="350"><br><br>
-
-<table width="100%">
-<tr>
-<?php if (SHOW_ICON_INVOICE){?><td align="left"><img src="pdf-invoices/images/stock_landline-phone.gif"/> </td><?php } ?>
-<td align="center"  bgcolor="#fff1d1"><font color="#000000" face="verdana" size="5"> <b><?=  str_dblspace(gettext("BILL EVOLUTION"));?></b> </td>
-</tr>
-</table>
-
-<br><br>
-
-<?php
-
-$mmax=0;
-$totalcall=0;
-$totalminutes=0;
-$totalcost=0;
-foreach ($list_total_day as $data){	
-	if ($mmax < $data[1]) $mmax=$data[1];
-	$totalcall+=$data[3];
-	$totalminutes+=$data[1];
-	$totalcost+=$data[2];
-}
-?>
-<!-- FIN TITLE GLOBAL MINUTES //-->
-		
-<table border="0" cellspacing="1" cellpadding="2" width="70%" align="center">
-	<tr>	
-	<td align="center" bgcolor="#600101"></td>
-    	<td bgcolor="#b72222" align="center" colspan="4"><font color="#ffffff"><b></b></font></td>
-    </tr>
-	<tr>
-		<td align="right" bgcolor="#F2E8ED"><font face="verdana" size="1" color="#000000"><?=  gettext("DATE");?></font></td>
-		<td align="right"><font face="verdana" color="#000000" size="1"><?=  gettext("DUR");?> </font></td>
-        <td align="center"><font face="verdana" color="#000000" size="1"><?=  gettext("GRAPHIC");?> </font> </td>
-        <td align="right"><font face="verdana" color="#000000" size="1"><?=  gettext("CALL");?></font></td>
-		<td align="right"><font face="verdana" color="#000000" size="1"><?=  gettext("TOTAL COST");?></font></td>
-	 
-<?php 
-		$i=0;
-		foreach ($list_total_day as $data){	
-		$i=($i+1)%2;		
-		$tmc = $data[1]/$data[3];
-		
-		if ((!isset($resulttype)) || ($resulttype=="min")){  
-			$tmc = sprintf("%02d",intval($tmc/60)).":".sprintf("%02d",intval($tmc%60));		
-		}else{
-		
-			$tmc =intval($tmc);
-		}
-		
-		if ((!isset($resulttype)) || ($resulttype=="min")){  
-				$minutes = sprintf("%02d",intval($data[1]/60)).":".sprintf("%02d",intval($data[1]%60));
-		}else{
-				$minutes = $data[1];
-		}
-		if ($mmax>0) 	$widthbar= intval(($data[1]/$mmax)*200); 
-		
-	?>
-	</tr>
-	<tr>
-		<td align="right" bgcolor="#D2D8ED"><font face="verdana" size="1" color="#000000"><?=  $data[0]?></font></td>
-		<td bgcolor="<?=  $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right"><font face="verdana" color="#000000" size="1"><?=  $minutes?> </font></td>
-        <td bgcolor="<?= $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="left">
-        	<img src="pdf-invoices/images/sidenav-selected.gif" height="6" width="<?= $widthbar?>">
-		</td>
-        <td bgcolor="<?=  $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right"><font face="verdana" color="#000000" size="1"><?=  $data[3]?></font></td>
-        
-		<td bgcolor="<?=  $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right"><font face="verdana" color="#000000" size="1"><?= $data[2] ?></font></td>
-     <?php 	 }	 	 	
-	 	
-		if ((!isset($resulttype)) || ($resulttype=="min")){  
-			$total_tmc = sprintf("%02d",intval(($totalminutes/$totalcall)/60)).":".sprintf("%02d",intval(($totalminutes/$totalcall)%60));				
-			$totalminutes = sprintf("%02d",intval($totalminutes/60)).":".sprintf("%02d",intval($totalminutes%60));
-		}else{
-			$total_tmc = intval($totalminutes/$totalcall);			
-		}
-	 
-	 ?>
-	</tr>	
-	<tr bgcolor="#600101">
-		<td align="right"><font color="#ffffff"><b><?=  gettext("TOTAL");?></b></font></td>
-		<td align="center" colspan="2"><font color="#ffffff"><b><?=  $totalminutes?> </b></font></td>
-		<td align="center"><font color="#ffffff"><b><?=  $totalcall?></b></font></td>
-		<td align="center"><font color="#ffffff"><b><?= $totalcost ?></b></font></td>
-	</tr>
-	<tr>		
-		<td align="center" bgcolor="#BA5151" colspan="5"><font color="#ffffff">
-		<b>TOTAL = 
-
-<?php  
-$prvat = ($vat / 100) * $totalcost;
-
-display_2bill($totalcost + $prvat);
-if ($vat>0) echo  " (".$vat." % ".gettext("VAT").")";
-
- ?>
- </b></font></td>
+ ?></td>
 	</tr>
 </table>
 <?php  } ?>
