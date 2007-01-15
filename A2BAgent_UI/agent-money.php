@@ -54,7 +54,7 @@ if (!isset ($current_page) || ($current_page == "")){
 
 
 // this variable specifie the debug type (0 => nothing, 1 => sql result, 2 => boucle checking, 3 other value checking)
-$FG_DEBUG = 1;
+$FG_DEBUG = 0;
 
 // The variable FG_TABLE_NAME define the table name to use
 $FG_TABLE_NAME="cc_agent_money_v";
@@ -243,7 +243,46 @@ if (!$nodisplay){
 	}else
 		if ($FG_DEBUG) echo "Days-left query failed." . $DBHandle->ErrorMsg() . "<br>";
 	
-	print_r($res_sums);
+	$query=str_dbparams($DBHandle, "SELECT format_currency(SUM(credit),%1, %2) FROM cc_card, cc_agent_cards WHERE cc_agent_cards.card_id= cc_card.id AND cc_agent_cards.agentid = %3 AND credit < 0;",
+		array(strtoupper(BASE_CURRENCY),$choose_currency,$_SESSION['agent_id']));
+	$res= $DBHandle->Query($query);
+	if($res){
+		$list_tmp=$res->FetchRow();
+		$res_sums['total_cdebit']=$list_tmp[0];
+	}else
+		if ($FG_DEBUG) echo "Total cdebit query failed." . $DBHandle->ErrorMsg() . "<br>";
+	
+	$query=str_dbparams($DBHandle, "SELECT format_currency(SUM(credit),%1, %2) FROM cc_card, cc_agent_cards WHERE cc_agent_cards.card_id= cc_card.id AND cc_agent_cards.agentid = %3 AND credit > 0;",
+		array(strtoupper(BASE_CURRENCY),$choose_currency,$_SESSION['agent_id']));
+	$res= $DBHandle->Query($query);
+	if($res){
+		$list_tmp=$res->FetchRow();
+		$res_sums['total_ccredit']=$list_tmp[0];
+	}else
+		if ($FG_DEBUG) echo "Total ccredit query failed." . $DBHandle->ErrorMsg() . "<br>";
+
+	$query=str_dbparams($DBHandle, "SELECT format_currency(SUM(creditlimit),%1, %2) FROM cc_card, cc_agent_cards WHERE cc_agent_cards.card_id= cc_card.id AND cc_agent_cards.agentid = %3 AND creditlimit > 0;",
+	array(strtoupper(BASE_CURRENCY),$choose_currency,$_SESSION['agent_id']));
+	$res= $DBHandle->Query($query);
+	if($res){
+		$list_tmp=$res->FetchRow();
+		$res_sums['total_cclimit']=$list_tmp[0];
+	}else
+		if ($FG_DEBUG) echo "Total cclimit query failed." . $DBHandle->ErrorMsg() . "<br>";
+
+	$dc2= fmt_dateclause($DBHandle,"cc_call.starttime");
+	if ($dc2 != '' )
+		$dc2=" AND " . $dc2;
+	$query=str_dbparams($DBHandle, "SELECT format_currency(SUM(sessionbill),%1, %2) FROM cc_call, cc_card, cc_agent_cards WHERE cc_call.username = cc_card.username AND cc_agent_cards.card_id= cc_card.id AND cc_agent_cards.agentid = %3". $dc2 . ";",
+	array(strtoupper(BASE_CURRENCY),$choose_currency,$_SESSION['agent_id']));
+	$res= $DBHandle->Query($query);
+	if($res){
+		$list_tmp=$res->FetchRow();
+		$res_sums['total_calls']=$list_tmp[0];
+	}else
+		if ($FG_DEBUG) echo "Total calls query failed." . $DBHandle->ErrorMsg() . "<br>";
+
+	if ($FG_DEBUG>=2) print_r($res_sums);
 }
 
 $_SESSION["pr_sql_export"]="SELECT $FG_COL_QUERY FROM $FG_TABLE_NAME WHERE $FG_TABLE_CLAUSE";
@@ -750,7 +789,26 @@ table.total td.total {
 ?></tr>
 	<tr><td class="hdr1" colspan="3"><?= _("SITUATION") ?></td></tr>
 	<tr><td class="hdr3"><?= _("DESCRIPTION") ?></td> <td class="hdr3" colspan="2"><?= _("SUM") ?></td></tr>
-	<tr>		
+<?php if (isset($res_sums['all_carry'])){
+?>	<tr><td class="col1"><?= _("Total sum carried from previous period"); ?></td>
+		<td class="row0" colspan=2><?= $res_sums['all_carry'] ?></td><tr><?php } ?>
+<?php /* if (isset($res_sums['per_agentcharge'])){
+?>	<tr><td class="col1"><?= _("Sum of charges during the period"); ?></td>
+		<td class="row0"><?= $res_sums['per_agentcharge'] ?></td><tr><?php } ?>
+	<tr><td class="col1"><?= _("Sum paid to us"); ?></td>
+		<td class="row0"><?= $res_sums['per_agentpay'] ?></td><tr>
+	<tr><td>&nbsp;</td></tr><?php */ ?>
+	<tr><td class="col1"><?= _("Total sum credited to customers"); ?></td>
+		<td class="row0" colspan=2><?= $res_sums['total_ccredit'] ?></td><tr>
+<?php if (isset($res_sums['total_cdebit'])){
+?>	<tr><td class="col1"><?= _("Total sum debited from customers"); ?></td>
+		<td class="row1" colspan=2><?= $res_sums['total_cdebit'] ?></td><tr><?php } ?>
+<?php if (isset($res_sums['total_cclimit'])){
+?>	<tr><td class="col1"><?= _("Total potential debit from customers"); ?></td>
+		<td class="row0" colspan=2><?= $res_sums['total_cclimit'] ?></td><tr><?php } ?>
+	<tr><td class="col1"><?= _("Total calls made by customers"); ?></td>
+		<td class="row1" colspan=2><?= $res_sums['total_calls'] ?></td><tr>
+	<tr>
 		<td class="total" colspan="3"><?= _("TOTAL");?> =
 <?php echo $res_sums['all_sums'];
 if ($vat>0) echo  " (" .gettext("includes VAT"). "$vat %)";
