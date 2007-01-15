@@ -54,7 +54,7 @@ if (!isset ($current_page) || ($current_page == "")){
 
 
 // this variable specifie the debug type (0 => nothing, 1 => sql result, 2 => boucle checking, 3 other value checking)
-$FG_DEBUG = 0;
+$FG_DEBUG = 1;
 
 // The variable FG_TABLE_NAME define the table name to use
 $FG_TABLE_NAME="cc_agent_money_v";
@@ -129,6 +129,8 @@ if (isset($card) && ($card > 0)){ // find by card
 // First Name of the column in the html page, second name of the field
 $FG_TABLE_COL = array();
 
+// Put all the sums information in one array, so that it can be laid in tables
+$res_sums = array();
 
 
 /*******
@@ -162,9 +164,12 @@ $FG_SUM_QUERY=str_dbparams($DBHandle, "format_currency(SUM(pos_credit),%1, %2), 
 	"SUM(credit) ", /* and once the numeric value BEWARE: NOT in chosen currency! */
 	array(strtoupper(BASE_CURRENCY),$choose_currency));
 
+$FG_DL_QUERY=str_dbparams($DBHandle, "SELECT format_currency(climit,%1, %2), days_left  FROM cc_calc_daysleft(%3,now(),interval '1 month');",
+	array(strtoupper(BASE_CURRENCY),$choose_currency,$_SESSION['agent_id']));
+
 
 // The variable LIMITE_DISPLAY define the limit of record to display by page
-$FG_LIMITE_DISPLAY=100;
+$FG_LIMITE_DISPLAY=500;
 
 // Number of column in the html table
 $FG_NB_TABLE_COL=count($FG_TABLE_COL);
@@ -210,10 +215,35 @@ if ( is_null ($order) || is_null($sens) ){
 
 if (!$nodisplay){
 	$list = $instance_table -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, $order, $sens, null, null, $FG_LIMITE_DISPLAY, $current_page*$FG_LIMITE_DISPLAY);
-	$list_sum = $instance_table_sum -> Get_list ($DBHandle, $FG_TABLE_CLAUSE_NODATE);
-if ($date_clause_c != '') 
-	$list_carry = $instance_table_carry -> Get_list ($DBHandle, $FG_TABLE_CLAUSE_NODATE . " AND ". $date_clause_c);
-	//print_r($list_carry);
+	$list_tmp = $instance_table_sum -> Get_list ($DBHandle, $FG_TABLE_CLAUSE_NODATE);
+	if($list_tmp){
+		$res_sums['pos_sums']=$list_tmp[0][0];
+		$res_sums['neg_sums']=$list_tmp[0][1];
+		$res_sums['all_sums']=$list_tmp[0][2];
+		$res_sums['raw_credit']=$list_tmp[0][3];
+	}else
+		if ($FG_DEBUG) echo "Sums query failed." . $DBHandle->ErrorMsg() . "<br>";
+	
+	if ($date_clause_c != ''){
+		$list_tmp = $instance_table_carry -> Get_list ($DBHandle, $FG_TABLE_CLAUSE_NODATE . " AND ". $date_clause_c);
+		if($list_tmp){
+			$res_sums['pos_carry']=$list_tmp[0][0];
+			$res_sums['neg_carry']=$list_tmp[0][1];
+			$res_sums['all_carry']=$list_tmp[0][2];
+			$res_sums['raw_carry']=$list_tmp[0][3];
+		}else
+			if ($FG_DEBUG) echo "Carry query failed." . $DBHandle->ErrorMsg() . "<br>";
+		
+	}
+	$res= $DBHandle->Query($FG_DL_QUERY);
+	if($res){
+		$list_tmp=$res->FetchRow();
+		$res_sums['climit']=$list_tmp[0];
+		$res_sums['days_left']=$list_tmp[1];
+	}else
+		if ($FG_DEBUG) echo "Days-left query failed." . $DBHandle->ErrorMsg() . "<br>";
+	
+	print_r($res_sums);
 }
 
 $_SESSION["pr_sql_export"]="SELECT $FG_COL_QUERY FROM $FG_TABLE_NAME WHERE $FG_TABLE_CLAUSE";
@@ -552,11 +582,11 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 				<?php
 
 			$ligne_number=0;
-			foreach($list_carry as $recordset) {
+			if (isset($res_sums['pos_carry'])) {
 				?><tr class="sum_row"><td>&nbsp;</td><td colspan=2>&nbsp;</td><td align=left><?= _("Carry from previous period")?></td>
-				<td class=tableBody><?= $recordset[0]; ?></td><td class=tableBody><?= $recordset[1]; ?></td></tr>
+				<td class=tableBody><?= $res_sums['pos_carry']; ?></td><td class=tableBody><?= $res_sums['neg_carry']; ?></td></tr>
 				<!--<tr><td colspan=4>&nbsp;</td>
-				<td colspan=2 class=tableBody align=right><?= $recordset[2]; ?></td></tr> -->
+				<td colspan=2 class=tableBody align=right><?= $res_sums['all_carry']; ?></td></tr> -->
 			<?php }
 			
 			foreach ($list as $recordset){ 
@@ -602,10 +632,9 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 				<?php
 					 } //END_WHILE ?>
 				<tr class="sum_row"><td colspan=4 align=right><?= _("Partial sum:")?> &nbsp; &nbsp;</td>
-				<?php $sum_line = $list_sum[0]; ?>
-				<td class=tableBody><?= $sum_line[0]; ?></td><td class=tableBody><?= $sum_line[1]; ?></td></tr>
+				<td class=tableBody><?= $res_sums['pos_sums']; ?></td><td class=tableBody><?= $res_sums['neg_sums']; ?></td></tr>
 				<tr><td colspan=4>&nbsp;</td>
-				<td colspan=2 class=tableBody align=right><?= $sum_line[2]; ?></td></tr>
+				<td colspan=2 class=tableBody align=right><?= $res_sums['all_sums']; ?></td></tr>
 				
 				<?php
 				  }else{
@@ -723,8 +752,13 @@ table.total td.total {
 	<tr><td class="hdr3"><?= _("DESCRIPTION") ?></td> <td class="hdr3" colspan="2"><?= _("SUM") ?></td></tr>
 	<tr>		
 		<td class="total" colspan="3"><?= _("TOTAL");?> =
-<?php echo $list_sum[0][3];
+<?php echo $res_sums['all_sums'];
 if ($vat>0) echo  " (" .gettext("includes VAT"). "$vat %)";
+if (isset($res_sums['climit'])) 
+	echo "<br>". _("CREDIT LIMIT:"). '&nbsp;' . $res_sums ['climit'];
+if (isset($res_sums['days_left'])) 
+	echo "<br>". _("EST. DAYS LEFT:"). '&nbsp;' . $res_sums ['days_left'];
+
  ?></td>
 	</tr>
 </table>
