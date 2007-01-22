@@ -25,18 +25,18 @@ $HD_Form -> FG_FK_DELETE_CONFIRM = true;
 
 
 $HD_Form -> AddViewElement(gettext("ID"), "id", "3%", "center", "sort");
-$HD_Form -> AddViewElement(_("AGENT"), "agentid", "15%", "left", "sort", "15", "lie", "cc_agent", "name", "id='%id'", "%&1");
+$HD_Form -> AddViewElement(_("AGENT"), "agentid", "20%", "left", "sort", "", "lie", "cc_agent", "name", "id='%id'", "%&1");
 
 $HD_Form -> AddViewElement(gettext("NAME"), "name", "11%", "left", "sort");
-$HD_Form -> AddViewElement(gettext("LOCATION"), "llocation", "10%", "left", "sort", "15");
+$HD_Form -> AddViewElement(gettext("LOCATION"), "llocation", "20%", "left", "sort", "");
 
 // $HD_Form -> AddViewElement(gettext("STATE"), "state", "5%", "center", "sort","","list",$booth_states);
 
 // $HD_Form -> AddViewElement(gettext("CREDIT"), "credit", "5%", "center", "sort");
 
-$HD_Form -> AddViewElement(acronym(_("CUR CARD"),_("CURRENT CARD")), "cur_card_id", "25%", "center", "sort", "15", "lie", "cc_card", "username", "id='%id'", "%&1");
+$HD_Form -> AddViewElement(acronym(_("CUR CARD"),_("CURRENT CARD")), "cur_card_id", "15%", "center", "sort", "", "lie", "cc_card", "username", "id='%id'", "%&1");
 
-$HD_Form -> AddViewElement(acronym(_("DEF CARD"),_("DEFAULT CARD")), "def_card_id", "25%", "center", "sort", "15", "lie", "cc_card", "username", "id='%id'", "%&1");
+$HD_Form -> AddViewElement(acronym(_("DEF CARD"),_("DEFAULT CARD")), "def_card_id", "15%", "center", "sort", "", "lie", "cc_card", "username", "id='%id'", "%&1");
 
 
 // $HD_Form -> AddViewElement("<acronym title=\"". gettext("BALANCE"). "\">".gettext("BA")."</acronym>", "credit", "10%", "center", "sort", "", "", "", "", "", "", "");
@@ -58,7 +58,7 @@ $HD_Form -> CV_NO_FIELDS  = gettext("NO BOOTHS HAVE BEEN CREATED!");
 $HD_Form -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = true; //false;
 $HD_Form -> CV_TEXT_TITLE_ABOVE_TABLE = _("Customers");
 $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false; //--
-$HD_Form -> FG_LIMITE_DISPLAY = 10;
+$HD_Form -> FG_LIMITE_DISPLAY = 20;
 
 // 	$HD_Form -> FG_OTHER_BUTTON1 = true;
 // 	$HD_Form -> FG_OTHER_BUTTON1_ALT = '<font color="red">&lt;select&gt;</font>';
@@ -130,9 +130,9 @@ $HD_Form -> AddEditElement (gettext("DEFAULT CARD"),
 			   gettext("Insert the Id CardNumber"),
 			    ", 'CardNumberSelection','width=550,height=330,top=20,left=100'",
 			    "", "", "", "", 				
-				"A2B_entity_regulars.php?popup_select=def&"
-				, "NO-NULL",
-				gettext("Select the default card for the booth. This card will be re-used for all the non-regular customers. <br>Select any <b>empty</b> card to attach to the booth."));
+			   "A2B_entity_regulars.php?popup_select=def&",
+			   "NO-NULL",
+			    gettext("Select the default card for the booth. This card will be re-used for all the non-regular customers. <br>Select any <b>empty</b> card to attach to the booth."));
 
 $HD_Form -> AddEditElement (gettext("CALLERID"),
 			   "callerid",
