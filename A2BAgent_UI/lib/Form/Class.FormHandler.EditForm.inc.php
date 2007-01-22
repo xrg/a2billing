@@ -81,7 +81,7 @@ function sendtolittle(direction){
 					if($this->VALID_SQL_REG_EXP){ 
 						echo stripslashes($list[0][$i]);
 					}else{ echo $this->FG_TABLE_ADITION[$i][2]; }?>">
-                                	<a href="#" onclick="window.open('<?= $this->FG_TABLE_EDITION[$i][12]?>popup_formname=myForm&popup_fieldname=<?= $this->FG_TABLE_EDITION[$i][1]?>' <?= $this->FG_TABLE_EDITION[$i][13]?>);"><img src="<?= Images_Path_Main;?>/icon_arrow_orange.gif"/></a>
+                                	<a href="#" onclick="window.open('<?= $this->FG_TABLE_EDITION[$i][12]?>popup_formname=myForm&popup_fieldname=<?= $this->FG_TABLE_EDITION[$i][1]?>' <?= $this->FG_TABLE_EDITION[$i][7]?>);"><img src="<?= Images_Path_Main;?>/icon_arrow_orange.gif"/></a>
 			 <?php
 				}elseif (strtoupper ($this -> FG_TABLE_EDITION[$i][3])==strtoupper ("POPUPVALUETIME"))
 				{
