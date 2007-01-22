@@ -153,7 +153,7 @@ function AdjustHTML($html,$usepre=true)
   }
   // remove redundant <br>'s before </div>, avoiding huge leaps between text blocks
   // such things appear on computer-generated HTML code  
-	$regexp = '/(<br[ \/]?[\/]?>)+?<\/div>/si'; //<?php //fix PSPAD highlight bug
+	$regexp = '/(<br[ \/]?[\/]?>)+?<\/div>/si'; //<?//fix PSPAD highlight bug
 	$html = preg_replace($regexp,'</div>',$html);
 	return $html;
 }

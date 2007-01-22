@@ -1,4 +1,4 @@
-<?php 
+<?
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // GIF Util - (C) 2003 Yamasoft (S/C)
 // http://www.yamasoft.com
@@ -19,6 +19,7 @@ function gif_loadFile($lpszFileName, $iIndex = 0)
 	$gif = new CGIF();
 
 	if(!$gif->loadFile($lpszFileName, $iIndex)) {
+		trigger_error("Cannot load file",E_USER_WARNING);
 		return false;
 	}
 
@@ -73,7 +74,7 @@ function gif_outputAsPng($gif, $lpszFileName, $bgColor = -1)
 
 function gif_outputAsJpeg($gif, $lpszFileName, $bgColor = -1)
 {
-	if(gif_outputAsBmp($gif, "$lpszFileName.bmp", $bgColor)) {
+	if(gif_outputAsBmp($gif, "$lpszFileName.bmp", $gbColor)) {
 		exec("cjpeg $lpszFileName.bmp >$lpszFileName 2>/dev/null");
 		@unLink("$lpszFileName.bmp");
 
@@ -352,6 +353,7 @@ class CGIFCOLORTABLE
 		for($i = 0; $i < $num; $i++) {
 			$rgb = substr($lpData, $i * 3, 3);
 			if(strlen($rgb) < 3) {
+				trigger_error("GIF corruption.",E_USER_WARNING);
 				return false;
 			}
 
@@ -411,7 +413,7 @@ class CGIFCOLORTABLE
 			$b2 = ($this->m_arColors[$i] & 0x00FF0000) >> 16;
 			$d  = abs($r2 - $r1) + abs($g2 - $g1) + abs($b2 - $b1);
 
-			if(($idx == -1) || (isset($dif) && ($d < $dif))) {
+			if(($idx == -1) || ($d < $dif)) {
 				$idx = $i;
 				$dif = $d;
 			}
@@ -461,12 +463,14 @@ class CGIFFILEHEADER
 
 		$this->m_lpVer = substr($lpData, 0, 6);
 		if(($this->m_lpVer <> "GIF87a") && ($this->m_lpVer <> "GIF89a")) {
+			trigger_error("Incorrect GIF header",E_USER_WARNING);
 			return false;
 		}
 
 		$this->m_nWidth  = $this->w2i(substr($lpData, 6, 2));
 		$this->m_nHeight = $this->w2i(substr($lpData, 8, 2));
 		if(!$this->m_nWidth || !$this->m_nHeight) {
+			trigger_error("Zero-sized GIF",E_USER_WARNING);
 			return false;
 		}
 
@@ -482,6 +486,7 @@ class CGIFFILEHEADER
 		if($this->m_bGlobalClr) {
 			$this->m_colorTable = new CGIFCOLORTABLE();
 			if(!$this->m_colorTable->load(substr($lpData, $hdrLen), $this->m_nTableSize)) {
+				trigger_error("Cannot load GIF",E_USER_WARNING);
 				return false;
 			}
 			$hdrLen += 3 * $this->m_nTableSize;
@@ -540,6 +545,7 @@ class CGIFIMAGEHEADER
 		$this->m_nHeight = $this->w2i(substr($lpData, 6, 2));
 
 		if(!$this->m_nWidth || !$this->m_nHeight) {
+			trigger_error("Zero dimension in GIF header",E_USER_NOTICE);
 			return false;
 		}
 
@@ -553,6 +559,7 @@ class CGIFIMAGEHEADER
 		if($this->m_bLocalClr) {
 			$this->m_colorTable = new CGIFCOLORTABLE();
 			if(!$this->m_colorTable->load(substr($lpData, $hdrLen), $this->m_nTableSize)) {
+				trigger_error("Cannot load GIF color table",E_USER_NOTICE);
 				return false;
 			}
 			$hdrLen += 3 * $this->m_nTableSize;
@@ -605,13 +612,15 @@ class CGIFIMAGE
 		$datLen = 0;
 
 		while(true) {
-			$b = ord($data{0});
+			$b = ord($data[0]);
 			$data = substr($data, 1);
 			$datLen++;
 
 			switch($b) {
 			case 0x21: // Extension
-				if(!$this->skipExt($data, $len = 0)) {
+				$len=0;
+				if(!$this->skipExt($data, $len)) {
+					trigger_error("GIF parse error",E_USER_NOTICE);
 					return false;
 				}
 				$datLen += $len;
@@ -619,14 +628,18 @@ class CGIFIMAGE
 
 			case 0x2C: // Image
 				// LOAD HEADER & COLOR TABLE
-				if(!$this->m_gih->load($data, $len = 0)) {
+				$len =0;
+				if(!$this->m_gih->load($data, $len )) {
+					trigger_error("GIF parse error",E_USER_NOTICE);
 					return false;
 				}
 				$data = substr($data, $len);
 				$datLen += $len;
 
 				// ALLOC BUFFER
-				if(!($this->m_data = $this->m_lzw->deCompress($data, $len = 0))) {
+				$len=0;
+				if(!($this->m_data = $this->m_lzw->deCompress($data, $len))) {
+					trigger_error("GIF parse error",E_USER_NOTICE);
 					return false;
 				}
 				$data = substr($data, $len);
@@ -637,11 +650,13 @@ class CGIFIMAGE
 				}
 				return true;
 
-			case 0x3B: // EOF
 			default:
+				trigger_error("GIF parse error: ". dechex($b). " " . substr($data,0,5) ,E_USER_NOTICE);
+			case 0x3B: // EOF
 				return false;
 			}
 		}
+		trigger_error("GIF parse error",E_USER_NOTICE);
 		return false;
 	}
 
@@ -769,7 +784,7 @@ class CGIF
 			return false;
 		}
 		// READ FILE
-		if(!($fh = @fOpen($lpszFileName, "rb"))) {
+		if(!($fh = fopen($lpszFileName, "rb"))) {
 			return false;
 		}
 		//EDITEI - in order to read remote files (HTTP(s) and FTP protocols)
@@ -787,13 +802,17 @@ class CGIF
 		fClose($fh);
 
 		// GET FILE HEADER
-		if(!$this->m_gfh->load($this->m_lpData, $len = 0)) {
+		$len=0;
+		if(!$this->m_gfh->load($this->m_lpData, $len)) {
+			trigger_error("GIF header load failed",E_USER_WARNING);
 			return false;
 		}
 		$this->m_lpData = substr($this->m_lpData, $len);
 
 		do {
-			if(!$this->m_img->load($this->m_lpData, $imgLen = 0)) {
+			$imgLen=0;
+			if(!$this->m_img->load($this->m_lpData, $imgLen)) {
+				trigger_error("GIF image load failed",E_USER_WARNING);
 				return false;
 			}
 			$this->m_lpData = substr($this->m_lpData, $imgLen);
@@ -811,11 +830,12 @@ class CGIF
 		if(!($fh = @fOpen($lpszFileName, "rb"))) {
 			return false;
 		}
-		$data = @fRead($fh, @fileSize($lpszFileName));
-		@fClose($fh);
+		$data = @fread($fh, @fileSize($lpszFileName));
+		@fclose($fh);
 
 		$gfh = new CGIFFILEHEADER();
-		if(!$gfh->load($data, $len = 0)) {
+		$len=0;
+		if(!$gfh->load($data, $len)) {
 			return false;
 		}
 

@@ -1079,7 +1079,6 @@ foreach ($list_total_day as $data){
 	// delete output-Buffer
 	ob_end_clean();
 	
-	echo "Before new HTML2FPDF()<br>\n";
 	$pdf = new HTML2FPDF();
 	$pdf->imgpath="../../";
 	$pdf -> DisplayPreferences('HideWindowUI');
