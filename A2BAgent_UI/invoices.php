@@ -262,7 +262,7 @@ $_SESSION["pr_sql_export"]="SELECT $FG_COL_QUERY FROM $FG_TABLE_NAME WHERE $FG_T
 
 
 $QUERY = "SELECT substring(t1.starttime,1,10) AS day, sum(t1.sessiontime) AS calltime, sum(t1.sessionbill) AS cost, count(*) as nbcall FROM $FG_TABLE_NAME WHERE ".$FG_TABLE_CLAUSE." GROUP BY substring(t1.starttime,1,10) ORDER BY day"; //extract(DAY from calldate)
-//echo "$QUERY";
+//echo "Query: $QUERY <br><br>";
 
 if (!$nodisplay){
 		$res = $DBHandle -> query($QUERY);
@@ -373,12 +373,12 @@ if ($Period=="Month"){
 		if ($today && isset($tostatsday_sday) && isset($tostatsmonth_sday) && isset($tostatsmonth_shour) && isset($tostatsmonth_smin)) $date_clause.=" AND  $UNIX_TIMESTAMP(t1.creationdate) <= $UNIX_TIMESTAMP('$tostatsmonth_sday-".sprintf("%02d",intval($tostatsday_sday))." $tostatsmonth_shour:$tostatsmonth_smin')";
 }
 
-if (strpos($date_clause, 'AND') > 0){
-	$date_clause = ' WHERE '.substr($date_clause,5); 
-}
+// if (strpos($date_clause, 'AND') > 0){
+// 	$date_clause = ' WHERE '.substr($date_clause,5); 
+// }
 
 
-$QUERY = "SELECT substring(t1.creationdate,1,10) AS day, sum(t1.amount) AS cost, count(*) as nbcharge FROM cc_charge t1 ".$date_clause." GROUP BY substring(t1.creationdate,1,10) ORDER BY day"; //extract(DAY from calldate)
+$QUERY = "SELECT substring(t1.creationdate,1,10) AS day, sum(t1.amount) AS cost, count(*) as nbcharge FROM cc_charge t1, cc_agent_cards WHERE id_cc_card = cc_agent_cards.card_id AND cc_agent_cards.agentid = ". $_SESSION['agent_id'] ."  ".$date_clause." GROUP BY substring(t1.creationdate,1,10) ORDER BY day"; //extract(DAY from calldate)
 
 if (!$nodisplay){
 		$res = $DBHandle -> query($QUERY);
