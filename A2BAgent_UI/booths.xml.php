@@ -130,9 +130,10 @@ function fmt_minutes($sessiontime){
 					 	$message = gettext("Credit added to booth");
 					 	$message_class="msg_success";
 					 } else{
-						$message= gettext("Refill failed: ");
-						$message = $message . $DBHandle->ErrorMsg();
-						$message = $message . " <br>QUERY=" . $query;
+						$message= gettext("Refill failed: do you have enough credit?");
+						
+						/*$message = $message . $DBHandle->ErrorMsg();
+						$message = $message . " <br>QUERY=" . $query;*/
 						$message_class="msg_error";
 					}
 					

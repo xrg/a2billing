@@ -233,8 +233,9 @@ window.onload = function() { startRequest("booths.xml.php",reqStateChanged2)};
 				<!-- <a href="javascript:select_regular(<?=$row[0]?>);" id='button_ln'><?=gettext("New"); ?></a> -->
 				&nbsp;</td>
 				<td class="refill" id="refill" >
+				<?= gettext("Add:"); ?>
 				<?php foreach($refills as $rf) { ?>
-				<a href="javascript:refill(<?=$row[0] .', ' . $rf ?>);"><?=gettext("Add") .' '. $rf; ?></a>
+				&nbsp;<a href="javascript:refill(<?=$row[0] .', ' . $rf ?>);"><?= ' '. $rf; ?></a>
 				<?php } ?>
 				</td>
 				</tr>
