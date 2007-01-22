@@ -1,4 +1,9 @@
 <?php
+ if (isset($_GET['printable']))
+ 	$printable=$_GET['printable'];
+ else
+ 	$printable='';
+ 
 error_reporting(E_ALL);
 
 if ($printable != 'yes') {
@@ -1004,6 +1009,7 @@ if ($printable != 'yes') {
 	
 	$pdf -> DisplayPreferences('HideWindowUI');
 	
+	$pdf ->ShowNOIMG_GIF();
 	$pdf -> AddPage();
 	$pdf -> WriteHTML($html);
 	

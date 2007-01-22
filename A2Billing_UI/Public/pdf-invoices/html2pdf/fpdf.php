@@ -2256,7 +2256,7 @@ function _parsegif($file) //EDITEI - GIF support is now included
 		return array( 'w'=>$w, 'h'=>$h, 'cs'=>$colspace, 'bpc'=>8, 'f'=>'FlateDecode', 'pal'=>$pal, 'trns'=>$trns, 'data'=>$data);
 	} else {
 		return array( 'w'=>$w, 'h'=>$h, 'cs'=>$colspace, 'bpc'=>8, 'pal'=>$pal, 'trns'=>$trns, 'data'=>$data);
-	} 
+	}
 }
 
 function _freadint($f)
