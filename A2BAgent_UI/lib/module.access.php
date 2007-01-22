@@ -146,7 +146,7 @@ function login ($user, $pass) {
     		foreach($language_list as $lang)
     		if ($lang['abbrev'] == $_SESSION["lang_db"])
     			$_SESSION["language"] = $lang['cname'];
-    		echo "Selected: ". $_SESSION["language"] . "<br>\n";
+    		//echo "Selected: ". $_SESSION["language"] . "<br>\n";
     	}else
         	$_SESSION["language"]='english';
     }
@@ -168,7 +168,7 @@ function login ($user, $pass) {
     	if (!$res) {
     		echo "Set language failed:" . $DBconn_tmp->ErrorMsg();
     	}
-    	DbDisconnect($DBconn_tmp);
+    	//DbDisconnect($DBconn_tmp);
     }
 
 
