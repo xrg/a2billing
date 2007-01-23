@@ -6,7 +6,6 @@ getpost_ifset(array('id', 'idtariffplan', 'dialprefix', 'destination', 'buyrate'
 'billingblockb', 'stepchargec', 'chargec', 'timechargec', 'billingblockc', 'startdate', 'stopdate',
 'starttime', 'endtime', 'id_trunk', 'musiconhold','tariffplan','posted'));
 
-$plang='en';
 
 $HD_Form = new FormHandler("cc_ratecard","Rates");
 
@@ -38,12 +37,12 @@ for ($i=1;$i<=NUM_MUSICONHOLD_CLASS;$i++){
 }
 
 
-$HD_Form -> AddViewElement(gettext("DESTINATION"), "destination", "15%", "center", "sort", "");
-$HD_Form -> AddViewElement("<acronym title=\"DIALING PREFIX\">".gettext("PREFIX")."</acronym>", "dialprefix", "5%", "center", "sort", "");
+$HD_Form -> AddViewElement(gettext("DESTINATION"), "destination", "17%", "center", "sort", "");
+$HD_Form -> AddViewElement("<acronym title=\"DIALING PREFIX\">".gettext("PREFIX")."</acronym>", "dialprefix", "10%", "center", "sort", "");
 $HD_Form -> AddViewElement("<acronym title=\"BUYING RATE\">".gettext("BR")."</acronym>", "buyrate", "4%", "center", "sort");
 $HD_Form -> AddViewElement("<acronym title=\"SELLING RATE\">".gettext("SR")."</acronym>", "rateinitial", "4%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("START-DATE"), "startdate", "13%", "center", "sort", "19", "", "", "", "", "", "display_dateformat");
-$HD_Form -> AddViewElement(gettext("STOP-DATE"), "stopdate", "13%", "center", "sort", "19", "", "", "", "", "", "display_dateformat");
+$HD_Form -> AddViewElement(gettext("START-DATE"), "startdate", "15%", "center", "sort", "19", "", "", "", "", "", "display_dateformat");
+$HD_Form -> AddViewElement(gettext("STOP-DATE"), "stopdate", "15%", "center", "sort", "19", "", "", "", "", "", "display_dateformat");
 $HD_Form -> AddViewElement("<acronym title=\"INITBLOCK\">".gettext("INITB")."</acronym>", "initblock", "4%", "center", "sort");
 $HD_Form -> AddViewElement("<acronym title=\"CONNECT CHARGE\">".gettext("CC")."</acronym>", "connectcharge", "4%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("TRUNK"), "id_trunk", "12%", "center", "sort", "15", "lie", "cc_trunk", "trunkcode", "id_trunk='%id'", "%1");

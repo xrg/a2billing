@@ -1504,6 +1504,7 @@ class FormHandler{
      */
 	function perform_edit (&$form_action){
 		include_once (FSROOT."lib/Class.Table.php");
+		
 		$processed = $this->getProcessed();  //$processed['firstname']
 
 		$this->VALID_SQL_REG_EXP = true;
