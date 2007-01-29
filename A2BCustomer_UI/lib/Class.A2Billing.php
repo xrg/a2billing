@@ -116,6 +116,7 @@ class A2Billing {
 	var $destination;
 	var $sip_iax_buddy;	
 	var $credit;
+	var $free_minute_used;
 	var $tariff;
 	var $active;
 	var $hostname='';
@@ -466,7 +467,14 @@ class A2Billing {
 			else									
 				$language = 'en';
 			
-			$agi -> set_variable('LANGUAGE()', $language);
+			if($this->agiconfig['asterisk_version'] == "1_1")
+			{
+				$agi -> set_variable('LANGUAGE()', $language);								
+			}
+			else
+			{
+				$agi->ChangeLanguage($language);
+			}
 			$this -> write_log("[SET LANGUAGE() $language]");
 			
 		}elseif (strlen($this->agiconfig['force_language'])==2){
@@ -474,7 +482,14 @@ class A2Billing {
 			if ($this->agiconfig['debug']>=1)   $agi->verbose('line:'.__LINE__."FORCE LANGUAGE : ".$this->agiconfig['force_language']);	
 			$this->languageselected = 1;
 			$language = strtolower($this->agiconfig['force_language']);
-			$agi -> set_variable('LANGUAGE()', $language);
+			if($this->agiconfig['asterisk_version'] == "1_1")
+			{
+				$agi -> set_variable('LANGUAGE()', $language);								
+			}
+			else
+			{
+				$agi->ChangeLanguage($language);
+			}
 			$this -> write_log("[SET LANGUAGE() $language]");
 			
 		}
@@ -1382,7 +1397,7 @@ class A2Billing {
 				  $QUERY .=  " enableexpire, UNIX_TIMESTAMP(expirationdate), expiredays, nbused, UNIX_TIMESTAMP(firstusedate), UNIX_TIMESTAMP(cc_card.creationdate), ";
 			}
 
-			$QUERY .=  " cc_card.currency, cc_card.lastname, cc_card.firstname, cc_card.email, cc_card.uipass, cc_card.id_campaign, cc_card.id, useralias  ".
+			$QUERY .=  " cc_card.currency, cc_card.lastname, cc_card.firstname, cc_card.email, cc_card.uipass, cc_card.id_campaign, cc_card.id, useralias, cc_card.free_minute_used ".
 			" FROM cc_callerid ".
 			" LEFT JOIN cc_card ON cc_callerid.id_cc_card=cc_card.id ".
 			" LEFT JOIN cc_tariffgroup ON cc_card.tariff=cc_tariffgroup.id ".
@@ -1465,6 +1480,7 @@ class A2Billing {
 				// We found a card for this callerID 
 				
 				$this->credit = $result[0][3];
+				$this->free_minute_used = $result[0][28];
 				$this->tariff = $result[0][4];
 				$this->active = $result[0][5];
 				$isused = $result[0][6];
@@ -1569,7 +1585,7 @@ class A2Billing {
 					if ($this->config["database"]['dbtype'] == "postgres")					
 						$QUERY .=  "creditlimit, language, removeinterprefix, redial, enableexpire, date_part('epoch',expirationdate), expiredays, nbused, date_part('epoch',firstusedate), date_part('epoch',cc_card.creationdate), cc_card.currency, cc_card.lastname, cc_card.firstname, cc_card.email, cc_card.uipass, cc_card.id_campaign, cc_card.id, useralias FROM cc_card ";
 					else
-						$QUERY .=  "creditlimit, language, removeinterprefix, redial, enableexpire, UNIX_TIMESTAMP(expirationdate), expiredays, nbused, UNIX_TIMESTAMP(firstusedate), UNIX_TIMESTAMP(cc_card.creationdate), cc_card.currency, cc_card.lastname, cc_card.firstname, cc_card.email, cc_card.uipass, cc_card.id_campaign, cc_card.id, useralias FROM cc_card ";
+						$QUERY .=  "creditlimit, language, removeinterprefix, redial, enableexpire, UNIX_TIMESTAMP(expirationdate), expiredays, nbused, UNIX_TIMESTAMP(firstusedate), UNIX_TIMESTAMP(cc_card.creationdate), cc_card.currency, cc_card.lastname, cc_card.firstname, cc_card.email, cc_card.uipass, cc_card.id_campaign, cc_card.id, useralias, cc_card.free_minute_used FROM cc_card ";
 						 
 						$QUERY .=  "LEFT JOIN cc_tariffgroup ON tariff=cc_tariffgroup.id WHERE username='".$this->cardnumber."'";
 					if ($this->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '.$QUERY); 
@@ -1608,6 +1624,7 @@ class A2Billing {
 					}
 					
 					$this->credit = $result[0][0];
+					$this->free_minute_used = $result[0][24];
 					$this->tariff = $result[0][1];
 					$this->active = $result[0][2];
 					$isused = $result[0][3];
@@ -1637,14 +1654,21 @@ class A2Billing {
 							
 				if (strlen($language)==2 && !($this->languageselected>=1)){								
 					// SetLanguage is deprecated, please use Set(LANGUAGE()=language) instead.
-					$agi -> set_variable('LANGUAGE()', $language);
+					if($this->agiconfig['force_language'] == "1_1")
+					{
+						$agi -> set_variable('LANGUAGE()', $language);								
+					}
+					else
+					{
+						$agi->ChangeLanguage($language);
+					}
 					$this -> write_log("[SET LANGUAGE() $language]");
 				}
-						
+				
 				$this -> write_log("[credit=".$this->credit." :: tariff=".$this->tariff." :: active=".$this->active." :: isused=$isused :: simultaccess=$simultaccess :: typepaid=".$this->typepaid." :: creditlimit=$creditlimit :: language=$language]");
-							
-														
-							
+				
+				
+				
 				$prompt = '';
 				// CHECK credit > min_credit_2call / you have zero balance
 				if( $this->credit < $this->agiconfig['min_credit_2call'] ) $prompt = "prepaid-zero-balance";
@@ -1719,7 +1743,7 @@ class A2Billing {
 				if ($this->config["database"]['dbtype'] == "postgres"){
 					$QUERY .=  "creditlimit, language, removeinterprefix, redial, enableexpire, date_part('epoch',expirationdate), expiredays, nbused, date_part('epoch',firstusedate), date_part('epoch',cc_card.creationdate), cc_card.currency, cc_card.lastname, cc_card.firstname, cc_card.email, cc_card.uipass, cc_card.id, cc_card.id_campaign, cc_card.id, useralias FROM cc_card "."LEFT JOIN cc_tariffgroup ON tariff=cc_tariffgroup.id WHERE username='".$this->cardnumber."'";
 				}else{
-					$QUERY .=  "creditlimit, language, removeinterprefix, redial, enableexpire, UNIX_TIMESTAMP(expirationdate), expiredays, nbused, UNIX_TIMESTAMP(firstusedate), UNIX_TIMESTAMP(cc_card.creationdate), cc_card.currency, cc_card.lastname, cc_card.firstname, cc_card.email, cc_card.uipass, cc_card.id, cc_card.id_campaign, cc_card.id, useralias FROM cc_card "."LEFT JOIN cc_tariffgroup ON tariff=cc_tariffgroup.id WHERE username='".$this->cardnumber."'";
+					$QUERY .=  "creditlimit, language, removeinterprefix, redial, enableexpire, UNIX_TIMESTAMP(expirationdate), expiredays, nbused, UNIX_TIMESTAMP(firstusedate), UNIX_TIMESTAMP(cc_card.creationdate), cc_card.currency, cc_card.lastname, cc_card.firstname, cc_card.email, cc_card.uipass, cc_card.id, cc_card.id_campaign, cc_card.id, useralias, cc_card.free_minte_used FROM cc_card "."LEFT JOIN cc_tariffgroup ON tariff=cc_tariffgroup.id WHERE username='".$this->cardnumber."'";
 				}
 				
 				if ($this->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '.$QUERY);
@@ -1758,6 +1782,7 @@ class A2Billing {
 			   
 				
 				$this->credit = $result[0][0];
+				$this->free_minute_used = $result[0][25];
 				$this->tariff = $result[0][1];
 				$this->active = $result[0][2];
 				$isused = $result[0][3];
@@ -1786,7 +1811,14 @@ class A2Billing {
 				if ($this->typepaid==1) $this->credit = $this->credit+$creditlimit;
 				
 				if (strlen($language)==2  && !($this->languageselected>=1)){					
-					$agi -> set_variable('LANGUAGE()', $language);
+					if($this->agiconfig['asterisk_version'] == "1_1")
+					{
+						$agi -> set_variable('LANGUAGE()', $language);								
+					}
+					else
+					{
+						$agi->ChangeLanguage($language);
+					}
 					$this -> write_log("[SET LANGUAGE() $language]");
 				}
 				$prompt = '';
@@ -1887,7 +1919,7 @@ class A2Billing {
 		if ($this->config["database"]['dbtype'] == "postgres")
 			$QUERY .=  "creditlimit, language, removeinterprefix, redial, enableexpire, date_part('epoch',expirationdate), expiredays, nbused, date_part('epoch',firstusedate), date_part('epoch',cc_card.creationdate), cc_card.currency, cc_card.lastname, cc_card.firstname, cc_card.email, cc_card.uipass, cc_card.id_campaign FROM cc_card ";
 		else
-			$QUERY .=  "creditlimit, language, removeinterprefix, redial, enableexpire, UNIX_TIMESTAMP(expirationdate), expiredays, nbused, UNIX_TIMESTAMP(firstusedate), UNIX_TIMESTAMP(cc_card.creationdate), cc_card.currency, cc_card.lastname, cc_card.firstname, cc_card.email, cc_card.uipass, cc_card.id_campaign FROM cc_card ";
+			$QUERY .=  "creditlimit, language, removeinterprefix, redial, enableexpire, UNIX_TIMESTAMP(expirationdate), expiredays, nbused, UNIX_TIMESTAMP(firstusedate), UNIX_TIMESTAMP(cc_card.creationdate), cc_card.currency, cc_card.lastname, cc_card.firstname, cc_card.email, cc_card.uipass, cc_card.id_campaign, cc_card.free_minute_used FROM cc_card ";
 		
 		$QUERY .=  "LEFT JOIN cc_tariffgroup ON tariff=cc_tariffgroup.id WHERE username='".$this->cardnumber."'";
 			
@@ -1899,6 +1931,7 @@ class A2Billing {
 		}
 								   
 		$this->credit = $result[0][0];
+		$this->free_minute_used = $result[0][22];
 		$this->tariff = $result[0][1];
 		$this->active = $result[0][2];
 		$isused = $result[0][3];
