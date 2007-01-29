@@ -1225,3 +1225,56 @@ SPAN.errorText {
 	margin-right: auto;	
 	background-color: #FFFFFF;	
 }
+
+.invoice_main_table
+{
+       border-right: lightgrey 1px solid;
+       padding-right: 2px;
+       border-top: lightgrey 1px solid;
+       padding-left: 2px;
+       padding-bottom: 0px;
+       margin-left: auto;
+       border-left: lightgrey 1px solid;
+       width: 95%;
+       margin-right: auto;
+       padding-top: 0px;
+       border-bottom: lightgrey 1px solid;
+}
+.invoice_heading
+{
+       font-weight: normal;
+       font-size: 20px;
+       text-transform: capitalize;
+       color: red;
+       font-family: Arial, Verdana;
+       height: 30px;
+       background-color: #ffffcc;
+       text-align: left;
+       text-decoration: none;
+}
+.invoice_subheading
+{
+       font-weight: bold;
+       font-size: 11px;
+       text-transform: capitalize;
+       color: navy;
+       font-family: Arial, Verdana;
+       background-color: lightgrey;
+       text-align: left;
+       border-color:
+}
+.invoice_td
+{
+       font-size: 12px;
+       color: navy;
+       border-bottom: 1px solid;
+       font-family: Arial, Verdana;
+}
+.invoice_td_rightborder
+{
+       font-size: 12px;
+       color: navy;
+       border-bottom: 1px solid;
+       border-right: 1px solid;
+       font-family: Arial, Verdana;
+ }

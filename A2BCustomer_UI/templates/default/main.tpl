@@ -18,12 +18,11 @@
 <br>
 
 <DIV border=0 width="1000">
-
+{if ($EXPORT == 0)}
 <div class="divleft">
 
 	<ul id="nav">
-
-
+	
        <li><a href="userinfo.php"><strong>{php} echo gettext("ACCOUNT INFO");{/php}</strong></a></li>
 	   
        {if $A2Bconfig.webcustomerui.cdr==1 }
@@ -39,6 +38,18 @@
 	   {if $A2Bconfig.webcustomerui.invoice==1 }
        <li><a href=# target=_self></a></li>
        <li><a href="invoices.php"><strong>{php} echo gettext("INVOICES");{/php}</strong></a></li>
+	   <li><a href=# target=_self></a></li>
+       <li><a href="A2B_entity_billed_summary.php"><strong>{php} echo gettext("Billed Summary");{/php}</strong></a></li>
+	   <li><a href=# target=_self></a></li>
+       <li><a href="A2B_entity_billed_details.php"><strong>{php} echo gettext("Billed Details");{/php}</strong></a></li>
+	   <li><a href=# target=_self></a></li>
+       <li><a href="A2B_entity_unbilled_summary.php"><strong>{php} echo gettext("UnBilled Summary");{/php}</strong></a></li>
+	   <li><a href=# target=_self></a></li>
+       <li><a href="A2B_entity_unbilled_details.php"><strong>{php} echo gettext("UnBilled Details");{/php}</strong></a></li>
+	   <li><a href=# target=_self></a></li>
+       <li><a href="A2B_entity_call_details.php"><strong>{php} echo gettext("Call Details");{/php}</strong></a></li>
+	   
+	   
        {/if}
 
 	   {if $A2Bconfig.webcustomerui.did==1 }
@@ -123,3 +134,4 @@
 
 </div>
 <div class="divright">
+{/if}

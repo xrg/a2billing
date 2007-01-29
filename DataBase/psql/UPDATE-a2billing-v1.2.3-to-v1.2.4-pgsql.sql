@@ -632,3 +632,34 @@ CREATE TABLE cc_server_manager (
 ) WITH OIDS;
 
 INSERT INTO cc_server_manager (server_ip, manager_host, manager_username, manager_secret) VALUES ('default', 'localhost', 'myasterisk', 'mycode');
+
+
+    
+CREATE TABLE cc_invoices (
+    id bigserial NOT NULL,
+    cardid bigint NOT NULL,
+	orderref text,
+    invoicecreated_date timestamp without time zone DEFAULT now(),
+    cover_startdate timestamp without time zone,
+	cover_enddate timestamp without time zone,
+    amount numeric(15,5) DEFAULT 0,
+	tax numeric(15,5) DEFAULT 0,
+	total numeric(15,5) DEFAULT 0,
+	invoicetype integer,
+	filename text
+) WITH OIDS;
+
+ALTER TABLE ONLY cc_invoices
+    ADD CONSTRAINT cc_invoices_pkey PRIMARY KEY (id);
+CREATE INDEX ind_cc_invoices ON cc_invoices USING btree (cover_startdate);
+
+
+CREATE TABLE cc_invoice_history (
+    id bigserial NOT NULL,
+    invoiceid integer NOT NULL,	
+    invoicesent_date timestamp without time zone DEFAULT now(),
+	invoicestatus integer
+) WITH OIDS;
+ALTER TABLE ONLY cc_invoice_history
+    ADD CONSTRAINT cc_invoice_history_pkey PRIMARY KEY (id);
+CREATE INDEX ind_cc_invoice_history ON cc_invoice_history USING btree (invoicesent_date);

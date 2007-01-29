@@ -79,7 +79,7 @@
 	/*
 	 *		GLOBAL POST/GET VARIABLE
 	 */
-	getpost_ifset(array('form_action', 'atmenu', 'action', 'stitle', 'sub_action', 'IDmanager', 'current_page', 'order', 'sens', 'mydisplaylimit', 'filterprefix','language', 'cssname'));
+	getpost_ifset(array('form_action', 'atmenu', 'action', 'stitle', 'sub_action', 'IDmanager', 'current_page', 'order', 'sens', 'mydisplaylimit', 'filterprefix','language', 'cssname', 'exporttype'));
 
 	
 	// Include general language file

@@ -1461,10 +1461,6 @@ INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Zimbabwe','26
 
 
 
-
-
-
-
 CREATE TABLE cc_alarm (
     id BIGINT NOT NULL AUTO_INCREMENT,
     name text NOT NULL,
@@ -1475,23 +1471,21 @@ CREATE TABLE cc_alarm (
     id_trunk INT,
     status INT NOT NULL DEFAULT 0,
     numberofrun INT NOT NULL DEFAULT 0,
-    numberofalarm INT NOT NULL DEFAULT 0,    
-    datecreate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    datelastrun TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    emailreport VARCHAR(50)
+    numberofalarm INT NOT NULL DEFAULT 0,   
+	datecreate    TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,	
+	datelastrun    TIMESTAMP,
+    emailreport VARCHAR(50),
     PRIMARY KEY (id)
-);
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
+
 
  CREATE TABLE cc_alarm_report (
     id BIGINT NOT NULL AUTO_INCREMENT,
     cc_alarm_id BIGINT NOT NULL,
     calculatedvalue float NOT NULL,
-    daterun TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+    daterun TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (id)
-);
-
-
-
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
 
 
@@ -1520,7 +1514,8 @@ CREATE TABLE cc_callback_spool (
 	actionid VARCHAR(60),
     PRIMARY KEY (id),
 	UNIQUE cc_callback_spool_uniqueid_key (uniqueid)
-);
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
+
 
 CREATE TABLE cc_server_manager (
     id BIGINT NOT NULL AUTO_INCREMENT,
@@ -1529,6 +1524,33 @@ CREATE TABLE cc_server_manager (
 	manager_username VARCHAR(50),
 	manager_secret VARCHAR(50),
 	PRIMARY KEY (id)
-);
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
 INSERT INTO cc_server_manager (server_ip, manager_host, manager_username, manager_secret) VALUES ('default', 'localhost', 'myasterisk', 'mycode');
+
+
+CREATE TABLE cc_invoices (
+    id INT NOT NULL AUTO_INCREMENT,    
+    cardid bigint NOT NULL,
+	orderref VARCHAR(50),
+    invoicecreated_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	cover_startdate TIMESTAMP,
+    cover_enddate TIMESTAMP,	
+    amount decimal(15,5) default 0,
+	tax decimal(15,5) default 0,
+	total decimal(15,5) default 0,
+	invoicetype int,
+	filename VARCHAR(250),
+    PRIMARY KEY (id)
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
+CREATE INDEX ind_cc_invoices ON cc_invoices (cover_startdate);
+
+
+CREATE TABLE cc_invoice_history (
+    id INT NOT NULL AUTO_INCREMENT,    
+    invoiceid int NOT NULL,	
+    invoicesent_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	invoicestatus INT,    
+    PRIMARY KEY (id)
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
+CREATE INDEX ind_cc_invoice_history ON cc_invoice_history (invoicesent_date);

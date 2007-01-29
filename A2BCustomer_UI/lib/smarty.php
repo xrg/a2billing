@@ -28,7 +28,14 @@ $smarty->assign("COPYRIGHT", COPYRIGHT);
 $smarty->assign("CCMAINTITLE", CCMAINTITLE);
 $smarty->assign("WEBUI_VERSION", WEBUI_VERSION);
 $smarty->assign("WEBUI_DATE", WEBUI_DATE);
-
+if($exporttype != "")
+{
+	$smarty->assign("EXPORT", 1);
+}
+else
+{
+	$smarty->assign("EXPORT", 0);
+}
 $smarty->assign("SKIN_NAME", $skin_name);
 
 // OPTION FOR THE MENU
