@@ -770,6 +770,10 @@
       return $this->exec("AGI $command", $args);
     }
 
+    function ChangeLanguage($lang)
+    {
+	return $this->exec("AGI SET VARIABLE LANGUAGE()",$lang);
+    }
    /**
     * Set Language.
     *
