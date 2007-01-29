@@ -223,6 +223,8 @@ function imgidclick(imgID,divID, imgbase, imgchange)
 				<li><a href="CC_entity_sim_ratecard.php?atmenu=ratecard&stitle=Ratecard+Simulator&section=3">{php} echo gettext("Ratecard Simulator");{/php}</a></li>
 				<li><a href="A2B_entity_prefix.php?atmenu=prefixe&stitle=Prefix&section=3">{php} echo gettext("Browse Prefix");{/php}</a></li>
 				<li><a href="A2B_entity_prefix.php?form_action=ask-add&atmenu=prefixe&stitle=Prefix&section=3">{php} echo gettext("Add Prefix");{/php}</a></li>
+				<li><a href="A2B_entity_package.php?atmenu=prefixe&stitle=Prefix&section=3">{php} echo gettext("List Package");{/php}</a></li>
+				<li><a href="A2B_entity_package.php?form_action=ask-add&atmenu=prefixe&stitle=Prefix&section=3">{php} echo gettext("Add Package");{/php}</a></li>
 			</ul></li>
 		</ul>
 		</div>

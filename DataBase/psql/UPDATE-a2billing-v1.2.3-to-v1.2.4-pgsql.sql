@@ -663,3 +663,16 @@ CREATE TABLE cc_invoice_history (
 ALTER TABLE ONLY cc_invoice_history
     ADD CONSTRAINT cc_invoice_history_pkey PRIMARY KEY (id);
 CREATE INDEX ind_cc_invoice_history ON cc_invoice_history USING btree (invoicesent_date);
+
+
+
+CREATE TABLE cc_package(
+	id serial not null,
+	name text not null,
+	package_type int not null default 0,
+	free_minute float not null default 0,
+	creationdate timestamp without time zone DEFAULT now()
+);
+ALTER TABLE cc_ratecard ADD column id_cc_package bigint not null default 0;
+ALTER TABLE cc_tariffgroup ADD column id_cc_package bigint not null default 0;
+ALTER TABLE cc_card ADD column free_min_used numeric(12,4) not null default 0;

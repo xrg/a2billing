@@ -1,6 +1,6 @@
 <?php
 
-getpost_ifset(array('id', 'tariffgroupname', 'lcrtype', 'removeinterprefix', 'idtariffplan'));
+getpost_ifset(array('id', 'tariffgroupname', 'lcrtype', 'removeinterprefix', 'idtariffplan', 'id_cc_package'));
 
 $plang='en';
 
@@ -44,10 +44,11 @@ $HD_Form -> AddViewElement(gettext("ID"), "id", "5%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("TARIFFGROUPNAME"), "tariffgroupname", "20%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("CREATIONDATE"), "creationdate", "20%", "center", "sort", "16", "", "", "", "", "", "display_dateformat");
 $HD_Form -> AddViewElement(gettext("LC TYPE"), "lcrtype", "15%", "center", "sort", "", "list", $lcrtype_list_short);
+$HD_Form -> AddViewElement(gettext("PACKAGE"), "id_cc_package", "11%", "center", "sort", "15", "lie", "cc_package", "name", "id='%id'", "%1");
 $HD_Form -> AddViewElement(gettext("INTER PREFIX"), "removeinterprefix", "15%", "center", "sort", "", "list", $inter_prefix_list_short);
 
 
-$HD_Form -> FieldViewElement ('id, tariffgroupname, creationdate, lcrtype, removeinterprefix');
+$HD_Form -> FieldViewElement ('id, tariffgroupname, creationdate, lcrtype,id_cc_package, removeinterprefix');
 
 
 $HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO ".strtoupper($HD_Form->FG_INSTANCE_NAME)." CREATED!");  
@@ -77,6 +78,16 @@ $HD_Form -> AddEditElement (gettext("LC TYPE"),
 	"",	
 	"",
 	"list" , "", "", "", $lcrtype_list, "%1", "", "");
+
+$HD_Form -> AddEditElement (gettext("PACKAGE"),
+			   "id_cc_package",	
+			   '$value',	
+			   "SELECT",	
+			   "", "", "",	
+			   "sql",		
+			   "cc_package",	
+			   "name, id",		
+			   "", "", "%1", "", "");
 
 $HD_Form -> AddEditElement (gettext("REMOVE INTER PREFIX"),
 	"removeinterprefix",		
@@ -109,7 +120,7 @@ if ($numrow>0){
 																											
 
 
-$HD_Form -> FieldEditElement ('tariffgroupname, lcrtype, removeinterprefix');
+$HD_Form -> FieldEditElement ('tariffgroupname, lcrtype, id_cc_package, removeinterprefix');
 
 
 if (DB_TYPE == "postgres"){

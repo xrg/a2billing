@@ -23,7 +23,7 @@ CREATE TABLE cc_did_use (
     activated INT DEFAULT 0,
     month_payed INT DEFAULT 0,
     PRIMARY KEY (id)
-);
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
 	
 CREATE TABLE cc_prefix (
@@ -32,7 +32,7 @@ CREATE TABLE cc_prefix (
 	prefixe VARCHAR(50) NOT NULL,
 	destination VARCHAR(100) NOT NULL,
 	PRIMARY KEY (id)
-);
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 	
 INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Afghanistan','93','1');
 INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Albania','355','2');
@@ -571,7 +571,7 @@ CREATE TABLE cc_alarm (
 	datelastrun    TIMESTAMP,
     emailreport VARCHAR(50),
     PRIMARY KEY (id)
-);
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
  CREATE TABLE cc_alarm_report (
     id BIGINT NOT NULL AUTO_INCREMENT,
@@ -579,7 +579,7 @@ CREATE TABLE cc_alarm (
     calculatedvalue float NOT NULL,
     daterun TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
     PRIMARY KEY (id)
-);
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
 
 
@@ -609,7 +609,7 @@ CREATE TABLE cc_callback_spool (
 	actionid VARCHAR(60),
     PRIMARY KEY (id),
 	UNIQUE cc_callback_spool_uniqueid_key (uniqueid)
-);
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
 CREATE TABLE cc_server_manager (
     id BIGINT NOT NULL AUTO_INCREMENT,
@@ -618,7 +618,7 @@ CREATE TABLE cc_server_manager (
 	manager_username VARCHAR(50),
 	manager_secret VARCHAR(50),
 	PRIMARY KEY (id)
-);
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
 INSERT INTO cc_server_manager (server_ip, manager_host, manager_username, manager_secret) VALUES ('default', 'localhost', 'myasterisk', 'mycode');
 
@@ -675,3 +675,21 @@ CREATE TABLE cc_invoice_history (
     PRIMARY KEY (id)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 CREATE INDEX ind_cc_invoice_history ON cc_invoice_history (invoicesent_date);
+
+
+
+
+
+
+CREATE TABLE cc_package(
+	id INT NOT NULL AUTO_INCREMENT,    
+	name VARCHAR(70) NOT NULL,
+	package_type INT NOT NULL DEFAULT 0,
+	free_minute decimal(15,5) NOT NULL DEFAULT 0,
+	creationdate TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
+
+
+ALTER TABLE cc_ratecard ADD column id_cc_package BIGINT NOT NULL DEFAULT 0
+ALTER TABLE cc_tariffgroup ADD column id_cc_package BIGINT NOT NULL DEFAULT 0
+ALTER TABLE cc_card ADD column free_min_used DECIMAL(15,5) NOT NULL DEFAULT 0

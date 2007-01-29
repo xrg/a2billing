@@ -342,7 +342,8 @@ CREATE TABLE cc_tariffgroup (
     tariffgroupname text NOT NULL,
     lcrtype integer DEFAULT 0 NOT NULL,
     creationdate timestamp without time zone DEFAULT now(),
-    removeinterprefix integer DEFAULT 0 NOT NULL
+    removeinterprefix integer DEFAULT 0 NOT NULL,
+	id_cc_package bigint not null default 0
 );
 
 
@@ -422,8 +423,8 @@ CREATE TABLE cc_card (
 	invoiceday integer DEFAULT 1,
 	autorefill integer DEFAULT 0,
 	loginkey text,
-    activatedbyuser boolean DEFAULT false NOT NULL
-
+    activatedbyuser boolean DEFAULT false NOT NULL,	
+	free_min_used numeric(12,4) not null default 0
 );
 
 
@@ -457,7 +458,8 @@ CREATE TABLE cc_ratecard (
     starttime integer NOT NULL DEFAULT 0,
     endtime integer NOT NULL DEFAULT 10079,
     id_trunk integer DEFAULT -1,	
-    musiconhold character varying(100)
+    musiconhold character varying(100),
+	id_cc_package bigint not null default 0
 );
 
 
@@ -1682,3 +1684,14 @@ CREATE TABLE cc_invoice_history (
 ALTER TABLE ONLY cc_invoice_history
     ADD CONSTRAINT cc_invoice_history_pkey PRIMARY KEY (id);
 CREATE INDEX ind_cc_invoice_history ON cc_invoice_history USING btree (invoicesent_date);
+
+
+
+
+CREATE TABLE cc_package(
+	id serial not null,
+	name text not null,
+	package_type int not null default 0,
+	free_minute float not null default 0,
+	creationdate timestamp without time zone DEFAULT now()
+);

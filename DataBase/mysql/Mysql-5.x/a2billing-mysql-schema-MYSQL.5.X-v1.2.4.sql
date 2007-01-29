@@ -264,6 +264,7 @@ CREATE TABLE cc_tariffgroup (
     lcrtype INT DEFAULT 0 NOT NULL,
     creationdate  TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
     removeinterprefix INT DEFAULT 0 NOT NULL,
+	id_cc_package BIGINT NOT NULL DEFAULT 0,
     PRIMARY KEY (id)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
@@ -345,6 +346,7 @@ CREATE TABLE cc_card (
 	autorefill INT DEFAULT 0,
     loginkey CHAR(40),
     activatedbyuser char(1) DEFAULT 't' NOT NULL,
+	free_min_used DECIMAL(15,5) NOT NULL DEFAULT 0,
     PRIMARY KEY (id),
     UNIQUE cons_cc_card_username (username),
     UNIQUE cons_cc_card_useralias (useralias)
@@ -382,6 +384,7 @@ CREATE TABLE cc_ratecard (
     endtime smallint(5) unsigned default '10079',
     id_trunk INT DEFAULT -1,
     musiconhold CHAR(100) NOT NULL,
+	id_cc_package bigint not null default 0,
     PRIMARY KEY (id)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 CREATE INDEX ind_cc_ratecard_dialprefix ON cc_ratecard (dialprefix);
@@ -1554,3 +1557,20 @@ CREATE TABLE cc_invoice_history (
     PRIMARY KEY (id)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 CREATE INDEX ind_cc_invoice_history ON cc_invoice_history (invoicesent_date);
+
+
+
+
+CREATE TABLE cc_package(
+	id INT NOT NULL AUTO_INCREMENT,    
+	name VARCHAR(70) NOT NULL,
+	package_type INT NOT NULL DEFAULT 0,
+	free_minute decimal(15,5) NOT NULL DEFAULT 0,
+	creationdate TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (id)
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
+
+
+ALTER TABLE cc_ratecard ADD column id_cc_package BIGINT NOT NULL DEFAULT 0
+ALTER TABLE cc_tariffgroup ADD column id_cc_package BIGINT NOT NULL DEFAULT 0
+ALTER TABLE cc_card ADD column free_min_used DECIMAL(15,5) NOT NULL DEFAULT 0
