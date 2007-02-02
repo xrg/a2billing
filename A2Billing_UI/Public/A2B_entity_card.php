@@ -200,7 +200,7 @@ echo $CC_help_list_customer;
 	   </table>
 <?php  } // endif is_sip_iax_change
 
-}elseif (!($popup_select>=1)) echo '<br><br>'.$CC_help_create_customer;
+}elseif (!($popup_select>=1)) echo $CC_help_create_customer;
 
 
 if (isset($update_msg) && strlen($update_msg)>0) echo $update_msg; 

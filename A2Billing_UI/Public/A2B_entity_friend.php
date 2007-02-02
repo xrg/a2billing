@@ -104,7 +104,7 @@ $smarty->display('main.tpl');
 
 // #### HELP SECTION
 if ($form_action=='list'){ 
-	echo '<br><br>'.$CC_help_sipfriend_list;
+	echo $CC_help_sipfriend_list;
 	
 	if ( isset($_SESSION["is_sip_iax_change"]) && $_SESSION["is_sip_iax_change"]){ ?>
 		  <table width="<?php echo $HD_Form -> FG_HTML_TABLE_WIDTH?>" border="0" align="center" cellpadding="0" cellspacing="0" >	  
@@ -125,7 +125,7 @@ if ($form_action=='list'){
 		   </table>
 	<?php  } // endif is_sip_iax_change
 
-}else echo '<br><br>'.$CC_help_sipfriend_edit;
+}else echo $CC_help_sipfriend_edit;
 
 
 

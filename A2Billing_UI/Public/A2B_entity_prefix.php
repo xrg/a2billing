@@ -50,8 +50,8 @@ function sendValue(selvalue){
 
 
 // #### HELP SECTION
-if (!($popup_select==1) && ($form_action=='list')) echo '<br><br>'.$CC_help_list_prefix;
-	elseif (!($popup_select==1)) echo '<br><br>'.$CC_help_edit_prefix;
+if (!($popup_select==1) && ($form_action=='list')) echo $CC_help_list_prefix;
+	elseif (!($popup_select==1)) echo $CC_help_edit_prefix;
 
 
 // #### TOP SECTION PAGE

@@ -96,7 +96,7 @@ function openURL(theLINK)
 
 //-->
 </script>
-	  <br/>
+	
 	  
 <center><b>SERVICE NAME :	<?php echo $list_service [0][1] ?></b>
 <br>

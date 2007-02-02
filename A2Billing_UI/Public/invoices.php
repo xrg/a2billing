@@ -438,7 +438,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 
 //-->
 </script>
-<br/><br/>
+
 <!-- ** ** ** ** ** Part for the research ** ** ** ** ** -->
 	<center>
 	<FORM name="myForm"  METHOD=POST ACTION="<?php echo $PHP_SELF?>?s=1&t=0&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php echo $current_page?>">

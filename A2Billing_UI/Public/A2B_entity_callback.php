@@ -39,7 +39,7 @@ $smarty->display('main.tpl');
 // #### HELP SECTION
 echo $CC_help_callback;
 ?>
-<br>
+
 
 <script language="JavaScript" src="./javascript/calendar2.js"></script>
 <?

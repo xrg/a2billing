@@ -43,8 +43,8 @@ $list = $HD_Form -> perform_action($form_action);
 $smarty->display('main.tpl');
 
 // #### HELP SECTION
-if ($form_action == 'ask-add') echo '<br><br>'.$CC_help_admin_edit;
-else echo '<br><br>'.$CC_help_admin_list;
+if ($form_action == 'ask-add') echo $CC_help_admin_edit;
+else echo $CC_help_admin_list;
 
 
 

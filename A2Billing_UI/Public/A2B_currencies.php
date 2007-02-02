@@ -39,7 +39,7 @@ $list = $HD_Form -> perform_action($form_action);
 $smarty->display('main.tpl');
 
 // #### HELP SECTION
-echo '<br><br>'.$CC_help_currency;
+echo $CC_help_currency;
 
 
 

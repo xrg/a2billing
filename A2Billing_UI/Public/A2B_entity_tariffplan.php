@@ -38,8 +38,8 @@ $list = $HD_Form -> perform_action($form_action);
 // #### HEADER SECTION
 $smarty->display('main.tpl');
 // #### HELP SECTION
-if (($form_action == 'ask-add') || ($form_action == 'ask-edit')) echo '<br><br>'.$CC_help_edit_ratecard;
-else echo '<br><br>'.$CC_help_list_ratecard;
+if (($form_action == 'ask-add') || ($form_action == 'ask-edit')) echo $CC_help_edit_ratecard;
+else echo $CC_help_list_ratecard;
 
 
 

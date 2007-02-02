@@ -51,8 +51,8 @@ if ($wantinclude!=1){
 	$smarty->display('main.tpl');
 
 	// #### HELP SECTION
-	if ($form_action=='list') echo '<br><br>'.$CC_help_list_charge;
-	else echo '<br><br>'.$CC_help_edit_charge;
+	if ($form_action=='list') echo $CC_help_list_charge;
+	else echo $CC_help_edit_charge;
 }
 
 

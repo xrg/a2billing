@@ -44,7 +44,7 @@ $HD_Form -> create_toppage ($form_action);
 
 switch ($actionbtn){
 	case "release_did":
-	echo '<br><br>'.$CC_help_release_did;
+	echo $CC_help_release_did;
 	?>
 	<FORM action=<?php echo $_SERVER['PHP_SELF']?> id=form1 method=post name=form1>
 		<INPUT type="hidden" name="did" value="<?php echo $did?>">
@@ -85,7 +85,7 @@ switch ($actionbtn){
 
 if (!isset($actionbtn) || $actionbtn=="ask_release"){
 
-echo '<br><br>'.$CC_help_list_did_use;
+echo $CC_help_list_did_use;
 if (!isset($inuse) || $inuse=="")$inuse=1;
 /*<!-- ** ** ** ** ** Part for the research ** ** ** ** ** -->*/?>
 	<center>

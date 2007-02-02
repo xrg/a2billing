@@ -38,7 +38,7 @@ $list = $HD_Form -> perform_action($form_action);
 // #### HEADER SECTION
 $smarty->display('main.tpl');
 // #### HELP SECTION
-echo '<br><br>'.$CC_help_speeddial;
+echo $CC_help_speeddial;
 
 
 

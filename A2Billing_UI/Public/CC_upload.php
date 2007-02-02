@@ -180,7 +180,6 @@ $file_ext_allow = arr_rid_blank($file_ext_allow);
 	$smarty->display('main.tpl');
 ?>
  
-<br><br>
 
 
 <center>

@@ -38,7 +38,7 @@ $list = $HD_Form -> perform_action($form_action);
 $smarty->display('main.tpl');
 
 // #### HELP SECTION
-echo '<br><br>'.$CC_help_list_did_billing;
+echo $CC_help_list_did_billing;
 
 
 

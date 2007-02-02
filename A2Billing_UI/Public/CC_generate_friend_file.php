@@ -137,7 +137,7 @@ function openURLFilter(theLINK)
 //-->
 </script>
 
-           <br><br><br>
+           
 	  
 <?php
 	echo $CC_help_sipfriend_reload;
