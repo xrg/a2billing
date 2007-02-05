@@ -94,13 +94,26 @@ vers ces destinations et payer pr le reste
 Il faudrait rajouter ds A2Billing cette relation... Pr le unlimited on peut déjà créer des routes a 0 cost.
 maintenant il faut assigner la relation de X free mintes sur YZ destinations
 
-Peut être on peut rajouter :
-une table cc_package définir le type package & min free.
-Un champ ds tariffgroup pr la relation avec cc_package
+
+- 300 minutes free sur 20 destinations + unlimited on Uk par exemple
+c'est un peu plus simpe car la relation unlimited est deja definit ds le rate-engine d'a2billing sous forme de route cost=0
+
+on aurait besoin de rajouter :
+une table cc_package définir le type package & min free. 
+CREATE TABLE cc_package (
+    id bigserial NOT NULL,
+    creationdate timestamp without time zone DEFAULT now(),
+    label text NOT NULL,
+    packagetype int NOT NULL,    
+	....
+);
+
+Un champ dans cc_tariffplan qui définit la relation avec cc_package 
 et un champ ds cc_ratecard pr définir si le rate va profiter de l offre du package (part of X min free)
 
 Maintenant il faut aussi penser que l offre reste mensuel et il faudra garder le nombre de free-minutes 
 utilisé par mois et par user/card, ils doivent pouvoir reprofiter de l'offre chaque mois (depuis la date de création)...
+Table cc_card_package (id_card, id_package, time_used(secondes) )
 
 Difficulté billing : 
 lors de l'arrivé a la limite, on aura ds la majorité des cas une partie de l appel qui sera billé et une partie qui sera gratuite.
