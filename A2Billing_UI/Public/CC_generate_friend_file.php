@@ -13,8 +13,8 @@ getpost_ifset(array('action', 'atmenu' ));
 
 if (! has_rights (ACX_CUSTOMER)){ 
 	   Header ("HTTP/1.0 401 Unauthorized");
-	   Header ("Location: PP_error.php?c=accessdenied");	   
-	   die();	   
+	   Header ("Location: PP_error.php?c=accessdenied");
+	   die();
 }
 
 
@@ -44,7 +44,6 @@ if ( $action == "reload" ){
 	if ( $atmenu == "sipfriend" ){
 		$TABLE_BUDDY = 'cc_sip_buddies';
 		$buddyfile = BUDDY_SIP_FILE;
-		
 		$_SESSION["is_sip_changed"]=0;
 		if ($_SESSION["is_iax_changed"]==0){
 			$_SESSION["is_sip_iax_change"]=0;			
@@ -74,12 +73,18 @@ restrictcid, rtptimeout, rtpholdtimeout, musiconhold, regseconds, ipaddr, cancal
 		
 	error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
 	$fd=fopen($buddyfile,"w");
-	if (!$fd){   
-		$error_msg= "</br><center><b><font color=red>Could not open buddy file '$buddyfile'</font></b></center>";		
+	if (!$fd){
+		$error_msg= "</br><center><b><font color=red>Could not open buddy file '$buddyfile'</font></b></center>";
+		if ( $atmenu == "sipfriend" )
+			$_SESSION["is_sip_changed"]=1;
+		else
+			$_SESSION["is_iax_changed"]=1;
+		$_SESSION["is_sip_iax_change"]=1;
+
 	}else{
 		foreach ($list_friend as $data){
 			$line="\n\n[".$data[1]."]\n";
-			if (fwrite($fd, $line) === FALSE) {  
+			if (fwrite($fd, $line) === FALSE) {
 				echo "Impossible to write to the file ($$buddyfile)";
 				exit;
 			}

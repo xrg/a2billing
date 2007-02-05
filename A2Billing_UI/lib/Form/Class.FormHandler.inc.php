@@ -1504,9 +1504,9 @@ class FormHandler{
 				
 				}else{
 					
-					if (is_numeric($regexp) && !(strtoupper(substr($this->FG_TABLE_ADITION[$i][13],0,2))=="NO" && $processed[$fields_name]=="") ){						
-						$this-> FG_fit_expression[$i] = ereg( $this->FG_regular[$regexp][0] , $processed[$fields_name]);								
-						if ($this->FG_DEBUG == 1)  echo "<br>->  ".$this->FG_regular[$regexp][0]." , ".$processed[$fields_name];
+					if (is_numeric($regexp) && !(strtoupper(substr($this->FG_TABLE_ADITION[$i][13],0,2))=="NO" && $processed[$fields_name]=="") ){
+						$this-> FG_fit_expression[$i] = ereg( $this->FG_regular[$regexp][0] , $processed[$fields_name]);
+						if ($this->FG_DEBUG >= 1)  echo "<br>->  ".$this->FG_regular[$regexp][0]." , ".$processed[$fields_name];
 						if (!$this-> FG_fit_expression[$i]){
 							$this->VALID_SQL_REG_EXP = false;
 							$form_action="ask-edit";
@@ -1541,10 +1541,12 @@ class FormHandler{
 					for($j=0;$j<$snum;$j++){
 						$this -> RESULT_QUERY = $instance_sub_table -> Add_table ($this-> DBHandle, "'".addslashes(trim($checkbox_data_tab[$j]))."', '".addslashes(trim($processed['id']))."'", null, null);
 						if (!$this -> RESULT_QUERY){
+							if ($this->FG_DEBUG >= 2)
+								echo "<br><b>Error:".$this-> DBHandle->ErrorMsg(). "</b><br>\n";
 							//echo "<br><b>OOOOOOOOOO".$instance_sub_table -> errstr."</b><br>";
 							$findme   = 'duplicate';
 							$pos_find = strpos($instance_sub_table -> errstr, $findme);	
-												
+							
 							// Note our use of ===.  Simply == would not work as expected
 							// because the position of 'a' was the 0th (first) character.
 							if ($pos_find === false) {
@@ -1552,8 +1554,8 @@ class FormHandler{
 							}else{
 								//echo $FG_TEXT_ERROR_DUPLICATION;
 								$alarm_db_error_duplication = true;
-							}								
-						}						
+							}
+						}
 					}			
 							
 				}	
@@ -1578,7 +1580,9 @@ class FormHandler{
 			
 		if ($this->VALID_SQL_REG_EXP) $this -> RESULT_QUERY = $instance_table -> Update_table ($this->DBHandle, $param_update, $this->FG_EDITION_CLAUSE, $func_table = null);
 
-		if ($this->FG_DEBUG == 1) echo $this -> RESULT_QUERY;
+		if ($this->FG_DEBUG >= 1) echo $this -> RESULT_QUERY;
+		if (($this->FG_DEBUG >= 2) && (! $this -> RESULT_QUERY))
+			echo "<br><b>Error:".$this-> DBHandle->ErrorMsg(). "</b><br>\n";
 		
 		if ( ($this->VALID_SQL_REG_EXP) && (isset($this->FG_GO_LINK_AFTER_ACTION_EDIT))){				
 			if ($this->FG_DEBUG == 1)  echo gettext("<br> GOTO ; ").$this->FG_GO_LINK_AFTER_ACTION_EDIT.$processed['id'];
