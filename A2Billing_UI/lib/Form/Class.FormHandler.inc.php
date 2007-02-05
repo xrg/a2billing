@@ -906,56 +906,60 @@ class FormHandler{
 	// ----------------------------------------------
     // FUNCTION FOR THE FORM
     // ----------------------------------------------
-	
+
 	function do_field_duration($sql,$fld, $fldsql){
   		$fldtype = $fld.'type';
 
 		if (isset($_POST[$fld]) && ($_POST[$fld]!='')){
-                if (strpos($sql,'WHERE') > 0){
-                        $sql = "$sql AND ";
-                }else{
-                        $sql = "$sql WHERE ";
-                }
-				$sql = "$sql $fldsql";
-				if (isset ($_POST[$fldtype])){                
-                        switch ($_POST[$fldtype]) {
-							case 1:	$sql = "$sql ='".$_POST[$fld]."'";  break;
-							case 2: $sql = "$sql <= '".$_POST[$fld]."'";  break;
-							case 3: $sql = "$sql < '".$_POST[$fld]."'";  break;							
-							case 4: $sql = "$sql > '".$_POST[$fld]."'";  break;
-							case 5: $sql = "$sql >= '".$_POST[$fld]."'";  break;
-						}
-                }else{ $sql = "$sql = '".$_POST[$fld]."'"; }
+			if (strpos($sql,'WHERE') > 0){
+				$sql = "$sql AND ";
+			}else{
+				$sql = "$sql WHERE ";
+			}
+			$sql = "$sql $fldsql";
+			$fld_escaped=$this->DBHandle->Quote($_POST[$fld]);
+			if (isset ($_POST[$fldtype])){
+                        	switch ($_POST[$fldtype]) {
+				case 1:	$sql = "$sql ='".$fld_escaped."'";  break;
+				case 2: $sql = "$sql <= '".$fld_escaped."'";  break;
+				case 3: $sql = "$sql < '".$fld_escaped."'";  break;							
+				case 4: $sql = "$sql > '".$fld_escaped."'";  break;
+				case 5: $sql = "$sql >= '".$fld_escaped."'";  break;
+				}
+                	}else
+                		$sql = "$sql = '".$fld_escaped."'";
 		}
 		return $sql;
-  }
+ 	}
 
   function do_field($sql,$fld, $simple=0){
   		$fldtype = $fld.'type';
 
         if (isset($_POST[$fld]) && ($_POST[$fld]!='')){
-				if (strpos($sql,'WHERE') > 0){
+		if (strpos($sql,'WHERE') > 0){
                         $sql = "$sql AND ";
                 }else{
                         $sql = "$sql WHERE ";
                 }
-				$sql = "$sql $fld";
-				if ($simple==0){
-					if (isset ($_POST[$fldtype])){      
-							switch ($_POST[$fldtype]) {
-								case 1:	$sql = "$sql='".$_POST[$fld]."'";  break;
-								case 2: $sql = "$sql LIKE '".$_POST[$fld]."%'";  break;
-								case 3: $sql = "$sql LIKE '%".$_POST[$fld]."%'";  break;
-								case 4: $sql = "$sql LIKE '%".$_POST[$fld]."'";
-							}
-					}else{ 
-						$sql = "$sql LIKE '%".$_POST[$fld]."%'"; 
-					}
-				}else{
-					$sql = "$sql ='".$_POST[$fld]."'";
+		$sql = "$sql $fld";
+		$fld_escaped=$this->DBHandle->Quote($_POST[$fld]);
+		if ($simple==0){
+			if (isset ($_POST[$fldtype])){
+				
+				switch ($_POST[$fldtype]) {
+				case 1:	$sql = "$sql='".$fld_escaped."'";  break;
+				case 2: $sql = "$sql LIKE '".$fld_escaped."%'";  break;
+				case 3: $sql = "$sql LIKE '%".$fld_escaped."%'";  break;
+				case 4: $sql = "$sql LIKE '%".$fld_escaped."'";
 				}
+			}else{ 
+				$sql = "$sql LIKE '%".$fld_escaped."%'"; 
+			}
+		}else{
+			$sql = "$sql ='".$fld_escaped."'";
 		}
-		return $sql;
+	}
+	return $sql;
   }
 
 
