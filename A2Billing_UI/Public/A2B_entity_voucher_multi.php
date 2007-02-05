@@ -2,15 +2,14 @@
 include ("../lib/defines.php");
 include ("../lib/module.access.php");
 include ("../lib/Form/Class.FormHandler.inc.php");
-include ("./form_data/FG_var_voucher.inc");
 
-	
 
 if (! has_rights (ACX_BILLING)){ 
 	   Header ("HTTP/1.0 401 Unauthorized");
 	   Header ("Location: PP_error.php?c=accessdenied");	   
 	   die();	   
 }
+include ("./form_data/FG_var_voucher.inc");
 
 
 getpost_ifset(array('choose_list', 'addcredit', 'gen_id', 'cardnum', 'choose_currency', 'expirationdate', 'addcredit'));

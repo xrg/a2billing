@@ -5,16 +5,14 @@ if ($wantinclude!=1){
 	include ("../lib/Form/Class.FormHandler.inc.php");
 }
 
-
-include ("./form_data/FG_var_charge.inc");
-
-
 if (! has_rights (ACX_RATECARD)){
 	   Header ("HTTP/1.0 401 Unauthorized");
 	   Header ("Location: PP_error.php?c=accessdenied");
 	   die();
 }
 
+
+include ("./form_data/FG_var_charge.inc");
 
 
 /***********************************************************************************/
