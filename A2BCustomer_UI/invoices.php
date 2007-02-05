@@ -633,7 +633,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 
 <table width="14%" align="center">
 <tr>
-<td height="93"> <img src="http://localhost/~areski/svn/a2billing/trunk/A2BCustomer_UI/templates/default/images/companylogo.gif"/> </td>
+<td height="93"> <img src="templates/default/images/companylogo.gif"/> </td>
 </tr>
 </table>
 

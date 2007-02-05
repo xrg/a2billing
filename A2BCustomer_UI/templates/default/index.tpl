@@ -1,7 +1,7 @@
 <HTML>
 <HEAD>
-	<link rel="shortcut icon" href="<?php echo Images_Path_Main ?>/favicon.ico">
-	<link rel="icon" href="<?php echo Images_Path_Main ?>/animated_favicon1.gif" type="image/gif">
+	<link rel="shortcut icon" href="templates/{$SKIN_NAME}/images/favicon.ico">
+	<link rel="icon" href="templates/{$SKIN_NAME}/images/animated_favicon1.gif" type="image/gif">
 	
 	<title>..:: {$CCMAINTITLE} ::..</title>
 	
