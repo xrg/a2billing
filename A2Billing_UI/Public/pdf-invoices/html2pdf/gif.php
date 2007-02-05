@@ -618,7 +618,8 @@ class CGIFIMAGE
 
 			switch($b) {
 			case 0x21: // Extension
-				if(!$this->skipExt($data, $len = 0)) {
+				$len=0;
+				if(!$this->skipExt($data, $len)) {
 					trigger_error("GIF parse error",E_USER_NOTICE);
 					return false;
 				}
@@ -627,7 +628,8 @@ class CGIFIMAGE
 
 			case 0x2C: // Image
 				// LOAD HEADER & COLOR TABLE
-				if(!$this->m_gih->load($data, $len = 0)) {
+				$len =0;
+				if(!$this->m_gih->load($data, $len )) {
 					trigger_error("GIF parse error",E_USER_NOTICE);
 					return false;
 				}
@@ -635,7 +637,8 @@ class CGIFIMAGE
 				$datLen += $len;
 
 				// ALLOC BUFFER
-				if(!($this->m_data = $this->m_lzw->deCompress($data, $len = 0))) {
+				$len=0;
+				if(!($this->m_data = $this->m_lzw->deCompress($data, $len))) {
 					trigger_error("GIF parse error",E_USER_NOTICE);
 					return false;
 				}
@@ -799,15 +802,16 @@ class CGIF
 		fClose($fh);
 
 		// GET FILE HEADER
-		if(!$this->m_gfh->load($this->m_lpData, $len = 0)) {
+		$len=0;
+		if(!$this->m_gfh->load($this->m_lpData, $len)) {
 			trigger_error("GIF header load failed",E_USER_WARNING);
 			return false;
 		}
-		echo "Length after header: " . $len."<br>";
 		$this->m_lpData = substr($this->m_lpData, $len);
 
 		do {
-			if(!$this->m_img->load($this->m_lpData, $imgLen = 0)) {
+			$imgLen=0;
+			if(!$this->m_img->load($this->m_lpData, $imgLen)) {
 				trigger_error("GIF image load failed",E_USER_WARNING);
 				return false;
 			}
@@ -830,7 +834,8 @@ class CGIF
 		@fclose($fh);
 
 		$gfh = new CGIFFILEHEADER();
-		if(!$gfh->load($data, $len = 0)) {
+		$len=0;
+		if(!$gfh->load($data, $len)) {
 			return false;
 		}
 
