@@ -81,13 +81,71 @@ let user define a range of cardnumber (ie: 45000-46000)
 
 #### FEATURE : PACKAGES SYSTEM - FREE MINUTES
 ********************************************************************
-See Description mails
+Situation :
+nous voulons supporter des free minutes packages sur a2billing en fonction des destinations.
+Par exemple : http://www.blueface.ie/
+Il y a different type de packages :
+- Unlimited UK/Ireland ou ils pourront appeler autant k il le désire
+vers ces destinations et payer pr le reste
+- 300 minutes free sur 20 destinations + unlimited on Uk par exemple
+- 300 minutes free sur 20 destinations
+- pay as you go, normal
+
+Il faudrait rajouter ds A2Billing cette relation... Pr le unlimited on peut déjà créer des routes a 0 cost.
+maintenant il faut assigner la relation de X free mintes sur YZ destinations
+
+Peut être on peut rajouter :
+une table cc_package définir le type package & min free.
+Un champ ds tariffgroup pr la relation avec cc_package
+et un champ ds cc_ratecard pr définir si le rate va profiter de l offre du package (part of X min free)
+
+Maintenant il faut aussi penser que l offre reste mensuel et il faudra garder le nombre de free-minutes 
+utilisé par mois et par user/card, ils doivent pouvoir reprofiter de l'offre chaque mois (depuis la date de création)...
+
+Difficulté billing : 
+lors de l'arrivé a la limite, on aura ds la majorité des cas une partie de l appel qui sera billé et une partie qui sera gratuite.
 %% AS
 
 
 #### FEATURE : ROTATION CALLERID IN OUTBOUND CALLS
 ********************************************************************
-See Description mails
+Situation: if I want to put a Asterisk box in Romania with a Quad Digium board to terminate Romanian traffic.
+But the Romanian PTT will deny all calls if they don't have a Romanian CID. we need a way you can make some 
+thing so that every time I send a call to Romania it takes a good Romanian number out 
+of a list of 500 or 1000 CID's.
+
+Besoin : quelques modifications à faire sur l'AGI et sur la partie Admin.
+On aura besoin de déterminer cela par destination et donc un nouveau champ ds
+cc_ratecard -> outbound_cid_group
+
+
+et 2 nouvelles table avec
+cc_outbound_cid_group
+(id, label, datecreated, blabla...)
+cc_outbound_cid_list
+(id, outbound_cid_group, cid, datecreated, blabla...)
+
+cc_outbound_cid_group va contenir les groupes qui seront associés aux
+destinations (cc_ratecard).
+
+Dans AGI : s'il trouve un cc_outbound_cid_group définit, il prendra au
+hazard/sequentiellement un CID#
+dans la liste et le définira avant le outbound call.
+
+Bien évidement, une procédure stocké PL/SQL serait l'idéal ici mais on
+va pas faire cela pr l'instant car je(nous) veux que la prochaine release 1.3 reste compatible avec
+mysql 3.x 4.x c est la dernière promis 
+
+
+Donc côté admin, il y un peu de boulot également, bon les trucs
+traditionnels en utilisant le framework.
+OUTBOUND CID
+- Create Group
+- List Group
+- Add OUTBOUND CID
+- List OUTBOUND CID
+- Import OUTBOUND CID
+
 %% AS
 
 
