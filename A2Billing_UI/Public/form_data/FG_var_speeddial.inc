@@ -76,9 +76,10 @@ $HD_Form -> AddEditElement (gettext("ID CARD"),
 			   "size=30 maxlength=50",	
 			   "4",	
 			   gettext("Insert the Id CardNumber"),
-			    "" , "", "", "", "", 				
+			   ", 'CardNumberSelection','width=550,height=330,top=20,left=100'" ,
+			   "", "", "", "",
 				"A2B_entity_card.php?popup_select=1&"
-				, ", 'CardNumberSelection','width=550,height=330,top=20,left=100'" ,
+				, "" ,
 				gettext("Define the card number ID to use."));
 
 $HD_Form -> FieldEditElement ('speeddial, name, phone, id_cc_card');

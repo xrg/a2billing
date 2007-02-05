@@ -726,6 +726,7 @@ class FormHandler{
 	    ^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*$  : email adresse
 	6. error message // used if select for ask-add as option with value -1
 	7.  if the field type is a SELECT,  define list or SQL
+	    if the field is POPUP, any additional options to the window.open() fn.
 	8.  if SQL,		the table name
 	9. if SQL,		the fields  : three maximum in order (name, value, ...other that we need for the display) ;)
 	10. if sql,		the clause

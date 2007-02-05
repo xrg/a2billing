@@ -42,10 +42,10 @@ $HD_Form -> AddEditElement (gettext("ID CARD"),
 			   "size=30 maxlength=50",	
 			   "4",	
 			   gettext("Insert the Id CardNumber"),
-			    "" , "", "", "", "", 				
-				"A2B_entity_card.php?popup_select=1&"
-				, ", 'CardNumberSelection','width=550,height=330,top=20,left=100'" ,
-				gettext("Select the Card Number ID"));
+			   ", 'CardNumberSelection','width=550,height=330,top=20,left=100'",
+			   "", "", "", "", 				
+			   "A2B_entity_card.php?popup_select=1&", "" ,
+			gettext("Select the Card Number ID"));
 			   
 if ($form_action=="ask-add"){	
 	$begin_date = date("Y");
