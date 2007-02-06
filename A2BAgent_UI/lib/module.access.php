@@ -19,12 +19,9 @@ define ("MODULE_ACCESS_DENIED",	"./Access_denied.htm");
 
 define ("ACX_ACCESS",	1);
 
-
-
 header("Expires: Sat, Jan 01 2000 01:01:01 GMT");
 session_name("UICSESSION");
 session_start();
-
 
 if (isset($_GET["logout"]) && $_GET["logout"]=="true") { 
 	   session_destroy();
@@ -46,8 +43,19 @@ function access_sanitize_data($data){
 	return $data;
 }
 
-if ((!session_is_registered('pr_login') || !session_is_registered('pr_password') || !session_is_registered('cus_rights') || (isset($_POST["done"]) && $_POST["done"]=="submit_log") )){
+if ((!session_is_registered('pr_login') ||  !session_is_registered('pr_password') 
+	|| !session_is_registered('cus_rights') 
+	|| (isset($_POST["done"]) && $_POST["done"]=="submit_log"))){
 
+	if (!isset($_SERVER['HTTPS'])){
+		header ("HTTP/1.0 401 Unauthorized");
+		trigger_error("Unauthorized! no ssl!",E_USER_ERROR);
+		die();
+	}
+
+	if (! isset($unsafe_base))
+		$unsafe_base=".";
+		
 	if ($FG_DEBUG == 1) echo "<br>0. HERE WE ARE";
 
 	if ($_POST["done"]=="submit_log"){
@@ -63,24 +71,20 @@ if ((!session_is_registered('pr_login') || !session_is_registered('pr_password')
 		if ($FG_DEBUG == 1) echo "==>".$return[1];
 
 		if (!is_array($return))
-        {
+        	{
 			sleep(2);
 			header ("HTTP/1.0 401 Unauthorized");
-            if(is_int($return))
-            {
-                if($return == -1)
-                {
-			        Header ("Location: index.php?error=3");
-                }
-                else
-                {
-                    Header ("Location: index.php?error=2");
-                }
-            }
-            else
-            {
-                Header ("Location: index.php?error=1");
-            }
+			if(is_int($return))
+			{
+				if($return == -1)
+					Header ("Location: $unsafe_base/index.php?error=3");
+				else
+					Header ("Location: $unsafe_base/index.php?error=2");
+        		}
+			else
+			{
+				Header ("Location: $unsafe_base/index.php?error=1");
+			}
 			die();
 		}
 
@@ -104,7 +108,6 @@ if ((!session_is_registered('pr_login') || !session_is_registered('pr_password')
 		$_SESSION["cus_rights"]=0;
 
 	}
-
 
 }
 
@@ -136,8 +139,8 @@ function login ($user, $pass) {
 	return ($row[0]);
 }
 
-    if (isset($_GET['language']))
-    {
+    if (isset($_GET['language'])){
+    	if ($FG_DEBUG >0) echo "<!-- lang explicitly set to ".$_GET['language'] ."-->\n";
       $_SESSION["language"] = $_GET['language'];
     }
     elseif (!isset($_SESSION["language"]))
@@ -146,7 +149,7 @@ function login ($user, $pass) {
     		foreach($language_list as $lang)
     		if ($lang['abbrev'] == $_SESSION["lang_db"])
     			$_SESSION["language"] = $lang['cname'];
-    		//echo "Selected: ". $_SESSION["language"] . "<br>\n";
+    		if ($FG_DEBUG >0) trigger_error("Lang Selected by db: ". $_SESSION["language"], E_USER_NOTICE);
     	}else
         	$_SESSION["language"]='english';
     }
@@ -156,6 +159,7 @@ function login ($user, $pass) {
 	//define ("LANGUAGE_DIR",FSROOT."lib/languages/".LANGUAGE."/");
 
     $lang_abbr=SetLocalLanguage($_SESSION["language"]);
+    if ($FG_DEBUG >0) trigger_error("lang abbr: $lang_abbr",E_USER_NOTICE);
     
     if (isset($_SESSION['agent_id']) && ($_SESSION['cus_rights'] != 0) && isset($_SESSION["lang_db"]) && ($_SESSION["lang_db"]) != $lang_abbr) {
     	$DBconn_tmp=DbConnect();
@@ -166,7 +170,7 @@ function login ($user, $pass) {
     	$_SESSION["lang_db"]=$lang_abbr ;
     	//echo $QUERY;
     	if (!$res) {
-    		echo "Set language failed:" . $DBconn_tmp->ErrorMsg();
+    		trigger_error("Set language to db failed:" . $DBconn_tmp->ErrorMsg(),E_USER_WARNING);
     	}
     	//DbDisconnect($DBconn_tmp);
     }

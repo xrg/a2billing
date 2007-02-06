@@ -56,7 +56,12 @@ if (isset($_GET['language'])){
 <table width="100%" height="75%">
 <tr align="center" valign="middle">
 <td>
-	<form name="form" method="POST" action="index2.php" onsubmit="return test()">
+<?php
+	$server= $_SERVER['SERVER_NAME'];
+	$self_uri=$_SERVER['PHP_SELF'];
+	$safe_url="https://".$server . dirname($self_uri)."/login.php";
+?>
+	<form name="form" method="POST" action="<?= $safe_url ?>" onsubmit="return test()">
 	<input type="hidden" name="done" value="submit_log">
 
   	<?php if (isset($_GET["error"]) && $_GET["error"]==1) { ?>
