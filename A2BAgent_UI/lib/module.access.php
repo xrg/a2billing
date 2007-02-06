@@ -49,7 +49,9 @@ if ((!session_is_registered('pr_login') ||  !session_is_registered('pr_password'
 
 	if (!isset($_SERVER['HTTPS'])){
 		header ("HTTP/1.0 401 Unauthorized");
+		header ("Location: index.php?error=1");
 		trigger_error("Unauthorized! no ssl!",E_USER_ERROR);
+		
 		die();
 	}
 
