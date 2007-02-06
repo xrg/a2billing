@@ -1017,6 +1017,7 @@ class FormHandler{
 				$instance_table = new Table($this -> FG_TABLE_NAME, $this -> FG_COL_QUERY);
 
 				if ($this->FG_DEBUG >=2 ) $instance_table->debug_st = 1 ;
+
                 //echo "FG_TABLE_CLAUSE = ".$this -> FG_TABLE_CLAUSE."<br>";
                 //echo "FG_ORDER = ".$this->FG_ORDER."<br>";
                 //echo "FG_SENS = ".$this->FG_SENS."<br>";
