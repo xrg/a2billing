@@ -85,8 +85,8 @@ Calldate Clid Src Dst Dcontext Channel Dstchannel Lastapp Lastdata Duration Bill
 
 $FG_TABLE_COL[]=array (gettext("Call date"), "starttime", "18%", "center", "SORT", "19", "", "", "", "", "", "display_dateformat");
 $FG_TABLE_COL[]=array (gettext("Source"), "src", "10%", "center", "SORT", "30");
-$FG_TABLE_COL[]=array (gettext("Called number"), "calledstation", "18%", "right", "SORT", "30", "", "", "", "", "", "");
-$FG_TABLE_COL[]=array (gettext("Destination"), "destination", "18%", "center", "SORT", "30", "", "", "", "", "", "remove_prefix");
+$FG_TABLE_COL[]=array (gettext("Called number"), "calledstation", "18%", "center", "SORT", "30", "", "", "", "", "", "remove_prefix2");
+$FG_TABLE_COL[]=array (gettext("Destination"), "destination", "18%", "center", "SORT", "30", "", "", "", "", "", "");
 $FG_TABLE_COL[]=array (gettext("Duration"), "sessiontime", "8%", "center", "SORT", "30", "", "", "", "", "", "display_minute");
 
 if (!(isset($customer)  &&  ($customer>0)) && !(isset($entercustomer)  &&  ($entercustomer>0))){

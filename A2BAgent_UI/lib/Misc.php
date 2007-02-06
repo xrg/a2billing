@@ -87,6 +87,7 @@
 		
 		function remove_prefix($phonenumber){
 				
+				//FIXME: why is that hard-coded here?
 				if (substr($phonenumber,0,3) == "011"){
 							echo substr($phonenumber,3);
 							return 1;
@@ -94,6 +95,19 @@
 				echo $phonenumber;
 		}
 		
+		function remove_prefix2($phonenumber){
+				
+				$len=strlen($phonenumber);
+				if($len<4)
+					echo $phonenumber;
+				elseif($len<6){
+					echo substr($phonenumber,0,3) . '*';
+					if ($len==5) echo '*';
+				}else {
+					echo substr($phonenumber,0,$len-3) . '***';
+				}
+		}
+
 		function linkonmonitorfile($value){
 					  
 		   $myfile = $value.".".MONITOR_FORMATFILE;

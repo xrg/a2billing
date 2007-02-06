@@ -136,7 +136,7 @@ Calldate Clid Src Dst Dcontext Channel Dstchannel Lastapp Lastdata Duration Bill
 $FG_TABLE_COL[]=array (gettext("Calldate"), "starttime", "18%", "center", "SORT", "19", "", "", "", "", "", "display_dateformat");
 $FG_TABLE_COL[]=array (gettext("Description"), "descr", "10%", "center", "SORT", "");
 $FG_TABLE_COL[]=array ("", "f2", "18%", "left", "SORT", "", "", "", "", "", "", "");
-$FG_TABLE_COL[]=array (gettext("Called Number"), "cnum", "18%", "left", "SORT", "30", "", "", "", "", "", "remove_prefix");
+$FG_TABLE_COL[]=array (gettext("Called Number"), "cnum", "18%", "left", "SORT", "30", "", "", "", "", "", "remove_prefix2");
 $FG_TABLE_COL[]=array (gettext("Duration"), "duration", "8%", "center", "SORT", "30", "", "", "", "", "", "display_minute");
 $FG_TABLE_COL[]=array (gettext("Credit"), "pos_charge", "8%", "center", "SORT", "30", "", "", "", "", "", "");
 $FG_TABLE_COL[]=array (gettext("Charge"), "neg_charge", "8%", "center", "SORT", "30", "", "", "", "", "", "");
