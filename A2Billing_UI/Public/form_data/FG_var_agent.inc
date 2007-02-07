@@ -1,7 +1,7 @@
 <?php
 
 
-getpost_ifset(array('id', 'login', 'name','passwd','location','language','tariffgroup'));
+getpost_ifset(array('id', 'login', 'name','passwd','location','language','tariffgroup','climit'));
 
 $language_list = get_languages();
 $language_list_r = get_languages_r($language_list);
@@ -33,12 +33,14 @@ $yesno["1"] = array( gettext("Yes"), "1");
 $yesno["0"] = array( gettext("No"), "0");
 
 
-$HD_Form -> AddViewElement(gettext("ID"), "id", "25%", "center", "sort");
+$HD_Form -> AddViewElement(gettext("ID"), "id", "5%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("NAME"), "name", "25%", "left", "sort");
-$HD_Form -> AddViewElement(gettext("USER ID"), "login", "25%", "left", "sort");
-$HD_Form -> AddViewElement(gettext("OPTIONS"), "options", "25%", "center", "sort");
+$HD_Form -> AddViewElement(gettext("USER ID"), "login", "15%", "left", "sort");
+$HD_Form -> AddViewElement(gettext("OPTIONS"), "options", "7%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("LOCATION"), "location", "25%", "left", "sort");
-$HD_Form -> AddViewElement(gettext("LANGUAGE"), "language", "25%", "center", "sort");
+$HD_Form -> AddViewElement(gettext("LANGUAGE"), "language", "15%", "center", "sort");
+$HD_Form -> AddViewElement(gettext("CREDIT"), "credit", "10%", "center", "sort");
+$HD_Form -> AddViewElement(gettext("CLIMIT"), "climit", "10%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("TARIFFG"), "tariffgroup", "10%", "center", "sort", "15", "lie", "cc_tariffgroup", "tariffgroupname", "id='%id'", "%1");
 $HD_Form -> AddViewElement("<acronym title=\"CURRENCY\">".gettext("CUR")."</acronym>", "currency", "5%", "center", "sort", "", "list", $currency_list_key);
 $HD_Form -> AddViewElement("<acronym title=\"ACTIVATED\">".gettext("ACT")."</acronym>", "activated", "4%", "center", "sort", "", "list", $actived_list);
@@ -47,7 +49,7 @@ $HD_Form -> AddViewElement("<acronym title=\"ACTIVATED\">".gettext("ACT")."</acr
 //$HD_Form -> AddViewElement(gettext("USER ID"), "activated", "25%", "center", "sort", "", "list", $actived_list);
 
 
-$HD_Form -> FieldViewElement ('id, name, login, options, location, language, tariffgroup, currency, active');
+$HD_Form -> FieldViewElement ('id, name, login, options, location, language, credit, climit, tariffgroup, currency, active');
 
 
 $HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO ".strtoupper($HD_Form->FG_INSTANCE_NAME)." CREATED!");
@@ -114,6 +116,14 @@ $HD_Form -> AddEditElement (gettext("LANGUAGE"),
 			   "",
 			   "list" , "", "","", $language_list, "%1", "", "" );
 
+$HD_Form -> AddEditElement (gettext("CREDIT LIMIT"),
+			   "climit",
+			   "",
+			   "INPUT",
+			   "size=20 maxlength=20",
+			   "",
+			   gettext("Adjust the credit limit for the agent here"),
+			   "" , "", "",	"", "" , "", "", gettext("Credit limit may take any number you choose. Changing it is not a transaction, but may allow or restrict the agent's operation."));
 
 $HD_Form -> AddEditElement (gettext("TARIFFGROUP"),
 			   "tariffgroup",
@@ -154,7 +164,7 @@ $HD_Form -> AddEditElement (gettext("ACTIVATED"),
 
 
 
- $HD_Form -> FieldEditElement ('name, login, passwd, location, language, tariffgroup, currency, active');
+ $HD_Form -> FieldEditElement ('name, login, passwd, location, language, climit, tariffgroup, currency, active');
 
 
 
