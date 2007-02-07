@@ -453,16 +453,16 @@ class A2Billing {
 			else
 				$language = 'en';
 			
-			$agi -> set_variable('LANGUAGE()', $language);
-			$this -> write_log("[SET LANGUAGE() $language]");
+			$agi -> set_variable('CHANNEL(language)', $language);
+			$this -> write_log("[SET CHANNEL(language) $language]");
 			
 		}elseif (strlen($this->agiconfig['force_language'])==2){
 		
 			if ($this->agiconfig['debug']>=1)   $agi->verbose('line:'.__LINE__."FORCE LANGUAGE : ".$this->agiconfig['force_language']);	
 			$this->languageselected = 1;
 			$language = strtolower($this->agiconfig['force_language']);
-			$agi -> set_variable('LANGUAGE()', $language);
-			$this -> write_log("[SET LANGUAGE() $language]");
+			$agi -> set_variable('CHANNEL(language)', $language);
+			$this -> write_log("[SET CHANNEL(language) $language]");
 			
 		}
 	}
@@ -1536,9 +1536,9 @@ class A2Billing {
 				}
 							
 				if (strlen($language)==2 && !($this->languageselected>=1)){								
-					// SetLanguage is deprecated, please use Set(LANGUAGE()=language) instead.
-					$agi -> set_variable('LANGUAGE()', $language);
-					$this -> write_log("[SET LANGUAGE() $language]");
+					// SetLanguage is deprecated, please use Set(CHANNEL(language)=language) instead.
+					$agi -> set_variable('CHANNEL(language)', $language);
+					$this -> write_log("[SET CHANNEL(language) $language]");
 				}
 						
 				$this -> write_log("[credit=".$this->credit." :: tariff=".$this->tariff." :: active=".$this->active." :: isused=$isused :: simultaccess=$simultaccess :: typepaid=".$this->typepaid." :: creditlimit=$creditlimit :: language=$language]");
@@ -1687,8 +1687,8 @@ class A2Billing {
 				if ($this->typepaid==1) $this->credit = $this->credit+$creditlimit;
 				
 				if (strlen($language)==2  && !($this->languageselected>=1)){					
-					$agi -> set_variable('LANGUAGE()', $language);
-					$this -> write_log("[SET LANGUAGE() $language]");
+					$agi -> set_variable('CHANNEL(language)', $language);
+					$this -> write_log("[SET CHANNEL(language) $language]");
 				}
 				$prompt = '';
 				// CHECK credit > min_credit_2call / you have zero balance
