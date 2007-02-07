@@ -46,18 +46,9 @@ CREATE TABLE cc_booth (
 
 );
 
-	
-CREATE TABLE cc_currencies (
-    id serial NOT NULL,
-    currency char(3) default '' NOT NULL,
-    name character varying(30) default '' NOT NULL,
-    value numeric(12,5) default '0.00000' NOT NULL,
-    lastupdate timestamp without time zone DEFAULT now(),	
-    basecurrency char(3) default 'USD' NOT NULL,
-    csign VARCHAR(6),
-    sign_pre boolean DEFAULT 'f' NOT NULL,
-    cformat VARCHAR(20) DEFAULT 'FM99G999G999G990D00' NOT NULL
-);
+ALTER TABLE cc_currencies ADD csign VARCHAR(6);
+ALTER TABLE cc_currencies ADD sign_pre boolean DEFAULT 'f' NOT NULL;
+ALTER TABLE cc_currencies ADD cformat VARCHAR(20) DEFAULT 'FM99G999G999G990D00' NOT NULL;
 	
 -- This table will hold the transactions for the agent<->card
 -- refills. boothid is optional.
