@@ -1886,7 +1886,7 @@ class A2Billing {
 		}else{
 			$datasource = 'mysql://'.$this->config["database"]['user'].':'.$this->config["database"]['password'].'@'.$this->config["database"]['hostname'].'/'.$this->config["database"]['dbname'];
 		}
-		echo "VERBOSE \"$datasource\" \n";
+		//echo "VERBOSE \"$datasource\" \n";
 		$this->DBHandle = NewADOConnection($datasource);
 		if (!$this->DBHandle)
 			return false;
