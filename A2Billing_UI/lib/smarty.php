@@ -50,10 +50,15 @@ $smarty->assign("ACXSIGNUP", $ACXSIGNUP);
 $smarty->assign("ACXADMINISTRATOR", $ACXADMINISTRATOR);
 $smarty->assign("ACXFILEMANAGER", $ACXFILEMANAGER);
 
-$section = "";
+
 if($_GET["section"]!="")
 {
-	$section = $_GET["section"];		
+	$section = $_GET["section"];
+	$_SESSION["menu_section"] = $section;
+}
+else
+{
+	$section = $_SESSION["menu_section"];
 }
 $smarty->assign("section", $section);
 

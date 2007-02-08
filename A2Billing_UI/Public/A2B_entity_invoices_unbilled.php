@@ -243,7 +243,14 @@ if (strlen($FG_TABLE_CLAUSE)>0)
 {
 	$FG_TABLE_CLAUSE.=" AND ";
 }
-$FG_TABLE_CLAUSE.="t1.starttime >(Select CASE  WHEN max(cover_enddate) IS NULL THEN '0000-00-00 00:00:00' ELSE max(cover_enddate) END from cc_invoices)";
+if (DB_TYPE == "postgres")
+{
+	$FG_TABLE_CLAUSE.="t1.starttime >(Select CASE  WHEN max(cover_enddate) IS NULL THEN '0001-01-01 01:00:00' ELSE max(cover_enddate) END from cc_invoices)";
+}
+else
+{
+	$FG_TABLE_CLAUSE.="t1.starttime >(Select CASE  WHEN max(cover_enddate) IS NULL THEN '0000-00-00 00:00:00' ELSE max(cover_enddate) END from cc_invoices)";	
+}
 
 
 if (!$nodisplay){
@@ -254,13 +261,20 @@ $_SESSION["pr_sql_export"]="SELECT $FG_COL_QUERY FROM $FG_TABLE_NAME WHERE $FG_T
 /************************/
 //$QUERY = "SELECT substring(calldate,1,10) AS day, sum(duration) AS calltime, count(*) as nbcall FROM cdr WHERE ".$FG_TABLE_CLAUSE." GROUP BY substring(calldate,1,10)"; //extract(DAY from calldate)
 
-
-$QUERY = "SELECT substring(t1.starttime,1,10) AS day, sum(t1.sessiontime) AS calltime, sum(t1.sessionbill) AS cost, count(*) as nbcall FROM $FG_TABLE_NAME WHERE ".$FG_TABLE_CLAUSE."  AND t1.sipiax not in (2,3)  GROUP BY substring(t1.starttime,1,10) ORDER BY day"; //extract(DAY from calldate)
-//echo "$QUERY";
+if (DB_TYPE == "postgres")
+{
+	$QUERY = "SELECT substring(t1.starttime,1,10) AS day, sum(t1.sessiontime) AS calltime, sum(t1.sessionbill) AS cost, count(*) as nbcall FROM $FG_TABLE_NAME WHERE ".$FG_TABLE_CLAUSE."  AND t1.sipiax not in (2,3)  GROUP BY substring(t1.starttime,1,10) ORDER BY day"; //extract(DAY from calldate)
+}
+else
+{
+	$QUERY = "SELECT substring(t1.starttime,1,10) AS day, sum(t1.sessiontime) AS calltime, sum(t1.sessionbill) AS cost, count(*) as nbcall FROM $FG_TABLE_NAME WHERE ".$FG_TABLE_CLAUSE."  AND t1.sipiax not in (2,3)  GROUP BY substring(t1.starttime,1,10) ORDER BY day"; //extract(DAY from calldate)
+}
+	
 
 if (!$nodisplay){		
 		$res = $DBHandle -> query($QUERY);
 		$num = $res -> numRows();
+		
 		for($i=0;$i<$num;$i++)
 		{				
 			$list_total_day [] =$res -> fetchRow();				 
@@ -282,10 +296,21 @@ if ($FG_DEBUG >= 1) var_dump ($list);
 
 
 // 1. Billing Type:: All DID Calls that have DID Type 0 and 2
-
+if (DB_TYPE == "postgres")
+{		
 $QUERY = "SELECT t1.id_did, t2.fixrate, t2.billingtype, sum(t1.sessiontime) AS calltime, 
  sum(t1.sessionbill) AS cost, count(*) as nbcall FROM cc_call t1, cc_did t2 WHERE ".$FG_TABLE_CLAUSE." 
- AND t1.sipiax in (2,3) AND t1.id_did = t2.id GROUP BY t1.id_did ORDER BY t2.billingtype";
+ AND t1.sipiax in (2,3) AND t1.id_did = t2.id GROUP BY t1.id_did, t2.fixrate, t2.billingtype  ORDER BY t2.billingtype";
+}
+else
+{
+	$QUERY = "SELECT t1.id_did, t2.fixrate, t2.billingtype, sum(t1.sessiontime) AS calltime, 
+	 sum(t1.sessionbill) AS cost, count(*) as nbcall FROM cc_call t1, cc_did t2 WHERE ".$FG_TABLE_CLAUSE." 
+	 AND t1.sipiax in (2,3) AND t1.id_did = t2.id GROUP BY t1.id_did ORDER BY t2.billingtype";
+
+} 
+ 
+
  
 if (!$nodisplay)
 {
@@ -309,6 +334,7 @@ if (!$nodisplay)
 
 $QUERY = "SELECT destination, sum(t1.sessiontime) AS calltime, 
 sum(t1.sessionbill) AS cost, count(*) as nbcall FROM $FG_TABLE_NAME WHERE ".$FG_TABLE_CLAUSE." AND t1.sipiax not in (2,3) GROUP BY destination";
+
 
 if (!$nodisplay){
 		$res = $DBHandle -> query($QUERY);
@@ -393,10 +419,16 @@ if ($Period=="Month"){
 		if ($today && isset($tostatsday_sday) && isset($tostatsmonth_sday) && isset($tostatsmonth_shour) && isset($tostatsmonth_smin)) $date_clause.=" AND  $UNIX_TIMESTAMP(t1.creationdate) <= $UNIX_TIMESTAMP('$tostatsmonth_sday-".sprintf("%02d",intval($tostatsday_sday))." $tostatsmonth_shour:$tostatsmonth_smin')";
 }
 
-
+if (DB_TYPE == "postgres")
+{
 $QUERY = "SELECT substring(t1.creationdate,1,10) AS day, sum(t1.amount) AS cost, count(*) as nbcharge FROM cc_charge t1 ".
-		 " WHERE id_cc_card='".$_SESSION["card_id"]."' $date_clause GROUP BY substring(t1.creationdate,1,10) ORDER BY day"; //extract(DAY from calldate)
-
+		 " WHERE id_cc_card=$cardid $date_clause GROUP BY substring(t1.creationdate,1,10) ORDER BY day"; //extract(DAY from calldate)
+}
+else
+{
+	$QUERY = "SELECT substring(t1.creationdate,1,10) AS day, sum(t1.amount) AS cost, count(*) as nbcharge FROM cc_charge t1 ".
+		 " WHERE id_cc_card=$cardid $date_clause GROUP BY substring(t1.creationdate,1,10) ORDER BY day"; //extract(DAY from calldate)
+}
 
 if (!$nodisplay){
 		$res = $DBHandle -> query($QUERY);
@@ -837,10 +869,31 @@ if (is_array($list_total_did) && count($list_total_did)>0)
                   </table>
         </table></td>
       </tr>
-	  <?php }?>
+	  <?php } ?>
     </table>
 	
-<?php }?>
+<?php }
+else
+{
+?><table  cellspacing="0" class="invoice_main_table">
+     
+      <tr>
+        <td class="invoice_heading">Bill Details</td>
+      </tr>	  
+	 <tr>
+	 <td>&nbsp;</td>
+	 </tr> 
+	  <tr>
+	 <td align="center">No calls have been made yet!</td>
+	 </tr> 
+	  <tr>
+	 <td>&nbsp;</td>
+	 </tr> 
+	 </table>
+<?php
+
+}
+?>
 
 
 

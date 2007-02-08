@@ -3,7 +3,7 @@
 	//require_once('DB.php'); // PEAR
 	require_once('adodb/adodb.inc.php'); // AdoDB
 	include (dirname(__FILE__)."/Class.Table.php");
-
+	
 	$A2B = new A2Billing();
 	
 	// SELECT THE FILES TO LOAD THE CONFIGURATION
@@ -201,7 +201,7 @@
 	if(!isset($_SESSION["stylefile"]) || $_SESSION["stylefile"]==''){
 		$_SESSION["stylefile"]='default';
 	}
-
+	
     //Images Path
     define ("Images_Path","./templates/".$_SESSION["stylefile"]."/images");
 	define ("Images_Path_Main","./templates/".$_SESSION["stylefile"]."/images");
