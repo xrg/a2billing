@@ -82,24 +82,23 @@ let user define a range of cardnumber (ie: 45000-46000)
 #### FEATURE : PACKAGES SYSTEM - FREE MINUTES
 ********************************************************************
 Situation :
-nous voulons supporter des free minutes packages sur a2billing en fonction des destinations.
-Par exemple : http://www.blueface.ie/
-Il y a different type de packages :
-- Unlimited UK/Ireland ou ils pourront appeler autant k il le désire
-vers ces destinations et payer pr le reste
-- 300 minutes free sur 20 destinations + unlimited on Uk par exemple
-- 300 minutes free sur 20 destinations
-- pay as you go, normal
+We need to support a new relation call "FREE MINUTE" under kind of package according to the destination.
+We have an example : http://www.blueface.ie/
+There is several kind of packages :
+- Unlimited UK/Ireland where they can call as much as they want to this destination and pay for the rest.
+- 300 minutes free over 20 destinations + unlimited on Uk for instance
+- 300 minutes free over 20 destinations
+- pay as you go, standard
 
-Il faudrait rajouter ds A2Billing cette relation... Pr le unlimited on peut déjà créer des routes a 0 cost.
-maintenant il faut assigner la relation de X free mintes sur YZ destinations
+We have to add in A2Billing this relation... For the unlimited calls we already have the routes at 0 cost.
+now we might need to assign the X free minutes relation over YZ destinations.
 
 
-- 300 minutes free sur 20 destinations + unlimited on Uk par exemple
-c'est un peu plus simpe car la relation unlimited est deja definit ds le rate-engine d'a2billing sous forme de route cost=0
+- 300 minutes free over 20 destinations + unlimited on Uk for instance
+the relation unlimited is already defined in the rate-engine through the route with cost=0
 
-on aurait besoin de rajouter :
-une table cc_package définir le type package & min free. 
+we need to add new table :
+table cc_package to define the type package & min free. 
 CREATE TABLE cc_package (
     id bigserial NOT NULL,
     creationdate timestamp without time zone DEFAULT now(),
@@ -108,58 +107,52 @@ CREATE TABLE cc_package (
 	....
 );
 
-Un champ dans cc_tariffplan qui définit la relation avec cc_package 
-et un champ ds cc_ratecard pr définir si le rate va profiter de l offre du package (part of X min free)
+I guess a field in cc_tariffplan which will define the relation with cc_package 
+and a field in cc_ratecard to define if the rate will take advantage of the package offer (part of X min free)
 
-Maintenant il faut aussi penser que l offre reste mensuel et il faudra garder le nombre de free-minutes 
-utilisé par mois et par user/card, ils doivent pouvoir reprofiter de l'offre chaque mois (depuis la date de création)...
+We have also to think that the offer will be per month (per week, etc..) so we will need to keep the number of free-minutes used by month 
+and by user/card, Customer have to have the offer for each time period (since the creation date).
 Table cc_card_package (id_card, id_package, time_used(secondes) )
 
-Difficulté billing : 
-lors de l'arrivé a la limite, on aura ds la majorité des cas une partie de l appel qui sera billé et une partie qui sera gratuite.
+Other Billing difficulty : 
+When we reach the limite, we will have part of the call inside the offer (so not billed) and the rest of the minutes should be billed...
+
 %% AS
 
 
 #### FEATURE : ROTATION CALLERID IN OUTBOUND CALLS
 ********************************************************************
-Situation: if I want to put a Asterisk box in Romania with a Quad Digium board to terminate Romanian traffic.
+Situation: if I want to put a Asterisk box in Romania with a Digium board to terminate Romanian traffic.
 But the Romanian PTT will deny all calls if they don't have a Romanian CID. we need a way you can make some 
-thing so that every time I send a call to Romania it takes a good Romanian number out 
-of a list of 500 or 1000 CID's.
+thing so that every time I send a call to Romania it takes a good Romanian number out of a list of 500 or 1000 CID's.
 
-Besoin : quelques modifications à faire sur l'AGI et sur la partie Admin.
-On aura besoin de déterminer cela par destination et donc un nouveau champ ds
+NEED : Little modification to do in the AGI and on the Admin UI.
+We will have to define the group of CallerID according to the destination and so we need a new field in
 cc_ratecard -> outbound_cid_group
 
 
-et 2 nouvelles table avec
+and 2 new tables :
 cc_outbound_cid_group
 (id, label, datecreated, blabla...)
 cc_outbound_cid_list
 (id, outbound_cid_group, cid, datecreated, blabla...)
 
-cc_outbound_cid_group va contenir les groupes qui seront associés aux
-destinations (cc_ratecard).
+cc_outbound_cid_group is the group info that will be associate to the destination : destination (cc_ratecard)
 
-Dans AGI : s'il trouve un cc_outbound_cid_group définit, il prendra au
-hazard/sequentiellement un CID#
-dans la liste et le définira avant le outbound call.
-
-Bien évidement, une procédure stocké PL/SQL serait l'idéal ici mais on
-va pas faire cela pr l'instant car je(nous) veux que la prochaine release 1.3 reste compatible avec
-mysql 3.x 4.x c est la dernière promis 
+In the AGI : if the system found cc_outbound_cid_group defined when running the outbound call, it will take randomly
+a CID number in this group and it will be defined before the outbound call.
 
 
-Donc côté admin, il y un peu de boulot également, bon les trucs
-traditionnels en utilisant le framework.
+In the admin site, there is a bit of work also, but basically it will use the standard function from the framework.
 OUTBOUND CID
 - Create Group
 - List Group
 - Add OUTBOUND CID
 - List OUTBOUND CID
+
+later :
 - Import OUTBOUND CID
 
-%% AS
 
 
 
