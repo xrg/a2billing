@@ -343,7 +343,7 @@ CREATE TABLE cc_tariffgroup (
     lcrtype integer DEFAULT 0 NOT NULL,
     creationdate timestamp without time zone DEFAULT now(),
     removeinterprefix integer DEFAULT 0 NOT NULL,
-	id_cc_package bigint not null default 0
+	id_cc_package_offer bigint not null default 0
 );
 
 
@@ -423,8 +423,7 @@ CREATE TABLE cc_card (
 	invoiceday integer DEFAULT 1,
 	autorefill integer DEFAULT 0,
 	loginkey text,
-    activatedbyuser boolean DEFAULT false NOT NULL,	
-	free_min_used numeric(12,4) not null default 0
+    activatedbyuser boolean DEFAULT false NOT NULL
 );
 
 
@@ -459,7 +458,7 @@ CREATE TABLE cc_ratecard (
     endtime integer NOT NULL DEFAULT 10079,
     id_trunk integer DEFAULT -1,	
     musiconhold character varying(100),
-	id_cc_package bigint not null default 0
+	freeminute_package_offer int not null default 0
 );
 
 
@@ -1688,10 +1687,28 @@ CREATE INDEX ind_cc_invoice_history ON cc_invoice_history USING btree (invoicese
 
 
 
-CREATE TABLE cc_package(
-	id serial not null,
-	name text not null,
-	package_type int not null default 0,
-	free_minute float not null default 0,
-	creationdate timestamp without time zone DEFAULT now()
+
+CREATE TABLE cc_package_offer (
+    id bigserial NOT NULL,
+    creationdate timestamp without time zone DEFAULT now(),
+    label text NOT NULL,
+    packagetype int NOT NULL,
+	billingtype int NOT NULL,
+	startday int NOT NULL,
+	freeminutes int NOT NULL
 );
+-- packagetype : Free minute + Unlimited ; Free minute ; Unlimited ; Normal
+-- billingtype : Monthly ; Weekly 
+-- startday : according to billingtype ; if monthly value 1-31 ; if Weekly value 1-7 (Monday to Sunday) 
+
+
+CREATE TABLE cc_card_package_offer (
+    id 					bigserial NOT NULL,
+	id_card 			bigint NOT NULL
+	id_package_offer 	bigint NOT NULL,
+    date_consumption 	timestamp without time zone DEFAULT now(),
+	used_secondes 		bigint NOT NULL
+);
+CREATE INDEX ind_cc_card_package_offer_id_card ON cc_card_package_offer USING btree (id_card);
+CREATE INDEX ind_cc_card_package_offer_id_package_offer ON cc_card_package_offer USING btree (id_package_offer);
+CREATE INDEX ind_cc_card_package_offer_date_consumption ON cc_card_package_offer USING btree (date_consumption);

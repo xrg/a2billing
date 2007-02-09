@@ -264,7 +264,7 @@ CREATE TABLE cc_tariffgroup (
     lcrtype INT DEFAULT 0 NOT NULL,
     creationdate  TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
     removeinterprefix INT DEFAULT 0 NOT NULL,
-	id_cc_package BIGINT NOT NULL DEFAULT 0,
+	id_cc_package_offer BIGINT NOT NULL DEFAULT 0,
     PRIMARY KEY (id)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
@@ -346,7 +346,6 @@ CREATE TABLE cc_card (
 	autorefill INT DEFAULT 0,
     loginkey CHAR(40),
     activatedbyuser char(1) DEFAULT 't' NOT NULL,
-	free_min_used DECIMAL(15,5) NOT NULL DEFAULT 0,
     PRIMARY KEY (id),
     UNIQUE cons_cc_card_username (username),
     UNIQUE cons_cc_card_useralias (useralias)
@@ -384,7 +383,7 @@ CREATE TABLE cc_ratecard (
     endtime smallint(5) unsigned default '10079',
     id_trunk INT DEFAULT -1,
     musiconhold CHAR(100) NOT NULL,
-	id_cc_package BIGINT NOT NULL DEFAULT 0,
+	freeminute_package_offer INT NOT NULL DEFAULT 0,
     PRIMARY KEY (id)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 CREATE INDEX ind_cc_ratecard_dialprefix ON cc_ratecard (dialprefix);
@@ -1564,11 +1563,27 @@ CREATE INDEX ind_cc_invoice_history ON cc_invoice_history (invoicesent_date);
 
 
 
-CREATE TABLE cc_package(
-	id INT NOT NULL AUTO_INCREMENT,    
-	name VARCHAR(70) NOT NULL,
-	package_type INT NOT NULL DEFAULT 0,
-	free_minute decimal(15,5) NOT NULL DEFAULT 0,
-	creationdate TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY (id)
+CREATE TABLE cc_package_offer (
+    id 					BIGINT NOT NULL AUTO_INCREMENT,
+    creationdate 		TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    label 				VARCHAR(70) NOT NULL,
+    packagetype 		INT NOT NULL,
+	billingtype 		INT NOT NULL,
+	startday 			INT NOT NULL,
+	freeminutes 		INT NOT NULL
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
+-- packagetype : Free minute + Unlimited ; Free minute ; Unlimited ; Normal
+-- billingtype : Monthly ; Weekly 
+-- startday : according to billingtype ; if monthly value 1-31 ; if Weekly value 1-7 (Monday to Sunday) 
+
+
+CREATE TABLE cc_card_package_offer (
+    id 					BIGINT NOT NULL AUTO_INCREMENT,
+	id_card 			BIGINT NOT NULL
+	id_package_offer 	BIGINT NOT NULL,
+    date_consumption 	TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	used_secondes 		BIGINT NOT NULL
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
+CREATE INDEX ind_cc_card_package_offer_id_card 			ON cc_card_package_offer USING btree (id_card);
+CREATE INDEX ind_cc_card_package_offer_id_package_offer ON cc_card_package_offer USING btree (id_package_offer);
+CREATE INDEX ind_cc_card_package_offer_date_consumption ON cc_card_package_offer USING btree (date_consumption);

@@ -680,16 +680,31 @@ CREATE INDEX ind_cc_invoice_history ON cc_invoice_history (invoicesent_date);
 
 
 
-
-CREATE TABLE cc_package(
-	id INT NOT NULL AUTO_INCREMENT,    
-	name VARCHAR(70) NOT NULL,
-	package_type INT NOT NULL DEFAULT 0,
-	free_minute decimal(15,5) NOT NULL DEFAULT 0,
-	creationdate TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+CREATE TABLE cc_package_offer (
+    id 					BIGINT NOT NULL AUTO_INCREMENT,
+    creationdate 		TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    label 				VARCHAR(70) NOT NULL,
+    packagetype 		INT NOT NULL,
+	billingtype 		INT NOT NULL,
+	startday 			INT NOT NULL,
+	freeminutes 		INT NOT NULL
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
+-- packagetype : Free minute + Unlimited ; Free minute ; Unlimited ; Normal
+-- billingtype : Monthly ; Weekly 
+-- startday : according to billingtype ; if monthly value 1-31 ; if Weekly value 1-7 (Monday to Sunday) 
 
 
-ALTER TABLE cc_ratecard ADD column id_cc_package BIGINT NOT NULL DEFAULT 0
-ALTER TABLE cc_tariffgroup ADD column id_cc_package BIGINT NOT NULL DEFAULT 0
-ALTER TABLE cc_card ADD column free_min_used DECIMAL(15,5) NOT NULL DEFAULT 0
+CREATE TABLE cc_card_package_offer (
+    id 					BIGINT NOT NULL AUTO_INCREMENT,
+	id_card 			BIGINT NOT NULL
+	id_package_offer 	BIGINT NOT NULL,
+    date_consumption 	TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	used_secondes 		BIGINT NOT NULL
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
+CREATE INDEX ind_cc_card_package_offer_id_card 			ON cc_card_package_offer USING btree (id_card);
+CREATE INDEX ind_cc_card_package_offer_id_package_offer ON cc_card_package_offer USING btree (id_package_offer);
+CREATE INDEX ind_cc_card_package_offer_date_consumption ON cc_card_package_offer USING btree (date_consumption);
+
+
+ALTER TABLE cc_tariffgroup 	ADD COLUMN id_cc_package_offer 		BIGINT NOT NULL DEFAULT 0;
+ALTER TABLE cc_ratecard 	ADD COLUMN freeminute_package_offer INT NOT NULL DEFAULT 0;

@@ -99,20 +99,38 @@ the relation unlimited is already defined in the rate-engine through the route w
 
 we need to add new table :
 table cc_package to define the type package & min free. 
-CREATE TABLE cc_package (
+CREATE TABLE cc_package_offer (
     id bigserial NOT NULL,
     creationdate timestamp without time zone DEFAULT now(),
     label text NOT NULL,
-    packagetype int NOT NULL,    
-	....
+    packagetype int NOT NULL,
+	billingtype int NOT NULL,
+	startday int NOT NULL,
+	freeminutes int NOT NULL
 );
-
-I guess a field in cc_tariffplan which will define the relation with cc_package 
+-- packagetype : Free minute + Unlimited ; Free minute ; Unlimited ; Normal
+-- billingtype : Monthly ; Weekly 
+-- startday : according to billingtype ; if monthly value 1-31 ; if Weekly value 1-7 (Monday to Sunday) 
+I guess a field in cc_tariffgroup which will define the relation with cc_package_offer 
 and a field in cc_ratecard to define if the rate will take advantage of the package offer (part of X min free)
 
-We have also to think that the offer will be per month (per week, etc..) so we will need to keep the number of free-minutes used by month 
+We have also to think that the offer will be per month (per week, etc..) so we will need to keep the number of free-minutes used by month (period)
 and by user/card, Customer have to have the offer for each time period (since the creation date).
-Table cc_card_package (id_card, id_package, time_used(secondes) )
+Table cc_card_package (id_card, id_package_offer, time_used(secondes) )
+CREATE TABLE cc_card_package_offer (
+    id 					bigserial NOT NULL,
+	id_card 			bigint NOT NULL
+	id_package_offer 	bigint NOT NULL,
+    date_consumption 	timestamp without time zone DEFAULT now(),
+	used_secondes 		bigint NOT NULL
+);
+CREATE INDEX ind_cc_card_package_offer_id_card ON cc_card_package_offer USING btree (id_card);
+CREATE INDEX ind_cc_card_package_offer_id_package_offer ON cc_card_package_offer USING btree (id_package_offer);
+CREATE INDEX ind_cc_card_package_offer_date_consumption ON cc_card_package_offer USING btree (date_consumption);
+
+ALTER TABLE cc_tariffgroup 	ADD COLUMN id_cc_package_offer BIGINT NOT NULL DEFAULT 0;
+ALTER TABLE cc_ratecard 	ADD COLUMN freeminute_package_offer INT NOT NULL DEFAULT 0;
+
 
 Other Billing difficulty : 
 When we reach the limite, we will have part of the call inside the offer (so not billed) and the rest of the minutes should be billed...
@@ -931,6 +949,7 @@ etc...
 - CALLSHOP
 
 - RESELLERS MODULE
+http://www.voipswitch.com/reselleapplication.htm
 
 - C MODULE (NON_AGI BASED) OR AEL
 

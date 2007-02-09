@@ -666,13 +666,31 @@ CREATE INDEX ind_cc_invoice_history ON cc_invoice_history USING btree (invoicese
 
 
 
-CREATE TABLE cc_package(
-	id serial not null,
-	name text not null,
-	package_type int not null default 0,
-	free_minute float not null default 0,
-	creationdate timestamp without time zone DEFAULT now()
+
+CREATE TABLE cc_package_offer (
+    id bigserial NOT NULL,
+    creationdate timestamp without time zone DEFAULT now(),
+    label text NOT NULL,
+    packagetype int NOT NULL,
+	billingtype int NOT NULL,
+	startday int NOT NULL,
+	freeminutes int NOT NULL
 );
-ALTER TABLE cc_ratecard ADD column id_cc_package bigint not null default 0;
-ALTER TABLE cc_tariffgroup ADD column id_cc_package bigint not null default 0;
-ALTER TABLE cc_card ADD column free_min_used numeric(12,4) not null default 0;
+-- packagetype : Free minute + Unlimited ; Free minute ; Unlimited ; Normal
+-- billingtype : Monthly ; Weekly 
+-- startday : according to billingtype ; if monthly value 1-31 ; if Weekly value 1-7 (Monday to Sunday) 
+
+
+CREATE TABLE cc_card_package_offer (
+    id 					bigserial NOT NULL,
+	id_card 			bigint NOT NULL
+	id_package_offer 	bigint NOT NULL,
+    date_consumption 	timestamp without time zone DEFAULT now(),
+	used_secondes 		bigint NOT NULL
+);
+CREATE INDEX ind_cc_card_package_offer_id_card ON cc_card_package_offer USING btree (id_card);
+CREATE INDEX ind_cc_card_package_offer_id_package_offer ON cc_card_package_offer USING btree (id_package_offer);
+CREATE INDEX ind_cc_card_package_offer_date_consumption ON cc_card_package_offer USING btree (date_consumption);
+
+ALTER TABLE cc_tariffgroup 	ADD COLUMN id_cc_package_offer BIGINT NOT NULL DEFAULT 0;
+ALTER TABLE cc_ratecard 	ADD COLUMN freeminute_package_offer INT NOT NULL DEFAULT 0;
