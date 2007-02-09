@@ -54,7 +54,7 @@ if ( (isset ($cardnumber) && (is_numeric($cardnumber)  != "")) && ( $form_action
 	$form_action = "add";
 		
 	$_POST['accountcode'] = $_POST['username']= $_POST['name']= $_POST['cardnumber'] = $cardnumber;
-	$_POST['allow']='g729,ulaw,alaw,gsm';
+	$_POST['allow']='g729,ulaw,alaw,gsm'; // *-*
 	$_POST['context']='a2billing';
 	$_POST['nat']='yes';
 	$_POST['amaflags']='billing';
@@ -115,11 +115,11 @@ if ($form_action=='list'){
 				<font color=white><b>
 				<?php  if ( isset($_SESSION["is_sip_changed"]) && $_SESSION["is_sip_changed"] ){ ?>
 				SIP : <input class="form_enter" style="border: 2px outset rgb(204, 51, 0);" TYPE="button" VALUE=" GENERATE additional_a2billing_sip.conf " 
-				onClick="self.location.href='./CC_generate_friend_file.php?atmenu=sipfriend';">
+				onClick="self.location.href='./CC_generate_friend_file.php?atmenu=sipfriend&action=gen';">
 				<?php } 
 				if ( isset($_SESSION["is_iax_changed"]) && $_SESSION["is_iax_changed"] ){ ?>
 				IAX : <input class="form_enter" style="border: 2px outset rgb(204, 51, 0);" TYPE="button" VALUE=" GENERATE additional_a2billing_iax.conf " 
-				onClick="self.location.href='./CC_generate_friend_file.php?atmenu=iaxfriend';">
+				onClick="self.location.href='./CC_generate_friend_file.php?atmenu=iaxfriend&action=gen';">
 				<?php } ?>	
 				</b></font></td></FORM>
 			</TR>
@@ -140,6 +140,47 @@ if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
 
 $HD_Form -> create_form ($form_action, $list, $id=null) ;
 
+$atm_both=$atm_sip = $atm_iax = '';
+if (isset($_SESSION["is_sip_changed"]) && $_SESSION["is_sip_changed"] &&
+	isset($_SESSION["is_iax_changed"]) && $_SESSION["is_iax_changed"] ) {
+	$atm_both='checked';
+}
+else if (isset($_SESSION["is_sip_changed"]) && $_SESSION["is_sip_changed"]){
+	$atm_sip='checked';
+}else if (isset($_SESSION["is_iax_changed"]) && $_SESSION["is_iax_changed"] ) {
+	$atm_iax='checked';
+}
+?>
+<br><br>
+<form name="mangen" method="get" action="CC_generate_friend_file.php">
+<table width="<?= $HD_Form->FG_HTML_TABLE_WIDTH?>" border="0" align="center" cellpadding="0" cellspacing="0" >
+<tr><td>
+	<input type="radio" name="action" value="gen" checked><?= _("Generate") ?></input>
+	<input type="radio" name="action" value="reload"><?= _("Reload") ?></input>
+	</td>
+	<td>
+	<input type="radio" name="atmenu" value="sipfriend" <?= $atm_sip ?> >SIP</input>
+	<input type="radio" name="atmenu" value="iaxfriend" <?= $atm_iax ?> >IAX</input>
+	<input type="radio" name="atmenu" value="both" <?= $atm_both ?> ><?= _("Both") ?></input>
+	</td>
+	<td> <input type="submit" value="<?= _("GO!") ?>" /></td>
+</tr>	
+<!--
+	<td height="31" bgcolor="#ED2525" style="padding-left: 5px; padding-right: 3px;" align="center">			
+	<font color=white><b>
+	<?php  if ( isset($_SESSION["is_sip_changed"]) && $_SESSION["is_sip_changed"] ){ ?>
+	SIP : <input class="form_enter" style="border: 2px outset rgb(204, 51, 0);" TYPE="button" VALUE=" GENERATE additional_a2billing_sip.conf " 
+	onClick="self.location.href='./CC_generate_friend_file.php?atmenu=sipfriend&action=gen';">
+	<?php } 
+	if ( isset($_SESSION["is_iax_changed"]) && $_SESSION["is_iax_changed"] ){ ?>
+	IAX : <input class="form_enter" style="border: 2px outset rgb(204, 51, 0);" TYPE="button" VALUE=" GENERATE additional_a2billing_iax.conf " 
+	onClick="self.location.href='./CC_generate_friend_file.php?atmenu=iaxfriend&action=gen';">
+	<?php } ?>	
+	</b></font></td></FORM>
+</TR>
+-->
+</table>
+<?php
 // #### FOOTER SECTION
 include("PP_footer.php");
 
