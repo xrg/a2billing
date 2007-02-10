@@ -1552,7 +1552,7 @@ CREATE TABLE cc_invoice_history (
     id INT NOT NULL AUTO_INCREMENT,    
     invoiceid int NOT NULL,	
     invoicesent_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	invoicestatus INT,    
+    invoicestatus INT,    
     PRIMARY KEY (id)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 CREATE INDEX ind_cc_invoice_history ON cc_invoice_history (invoicesent_date);
@@ -1562,13 +1562,14 @@ CREATE INDEX ind_cc_invoice_history ON cc_invoice_history (invoicesent_date);
 
 
 CREATE TABLE cc_package_offer (
-    id 					BIGINT NOT NULL AUTO_INCREMENT,
-    creationdate 		TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    label 				VARCHAR(70) NOT NULL,
-    packagetype 		INT NOT NULL,
-	billingtype 		INT NOT NULL,
-	startday 			INT NOT NULL,
-	freeminutes 		INT NOT NULL
+    id 	BIGINT NOT NULL AUTO_INCREMENT,
+    creationdate TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    label VARCHAR(70) NOT NULL,
+    packagetype INT NOT NULL,
+    billingtype INT NOT NULL,
+    startday INT NOT NULL,
+    freeminutes INT NOT NULL,
+    PRIMARY KEY (id)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 -- packagetype : Free minute + Unlimited ; Free minute ; Unlimited ; Normal
 -- billingtype : Monthly ; Weekly 
@@ -1576,11 +1577,12 @@ CREATE TABLE cc_package_offer (
 
 
 CREATE TABLE cc_card_package_offer (
-    id 					BIGINT NOT NULL AUTO_INCREMENT,
-	id_card 			BIGINT NOT NULL
-	id_package_offer 	BIGINT NOT NULL,
-    date_consumption 	TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	used_secondes 		BIGINT NOT NULL
+    id 	BIGINT NOT NULL AUTO_INCREMENT,
+    id_card BIGINT NOT NULL,
+    id_package_offer BIGINT NOT NULL,
+    date_consumption TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    used_secondes BIGINT NOT NULL,
+    PRIMARY KEY (id)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 CREATE INDEX ind_cc_card_package_offer_id_card 			ON cc_card_package_offer USING btree (id_card);
 CREATE INDEX ind_cc_card_package_offer_id_package_offer ON cc_card_package_offer USING btree (id_package_offer);

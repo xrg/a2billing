@@ -672,10 +672,12 @@ CREATE TABLE cc_package_offer (
     creationdate timestamp without time zone DEFAULT now(),
     label text NOT NULL,
     packagetype int NOT NULL,
-	billingtype int NOT NULL,
-	startday int NOT NULL,
-	freeminutes int NOT NULL
+    billingtype int NOT NULL,
+    startday int NOT NULL,
+    freeminutes int NOT NULL
 );
+ALTER TABLE ONLY cc_package_offer
+    ADD CONSTRAINT cc_package_offer_pkey PRIMARY KEY (id);
 -- packagetype : Free minute + Unlimited ; Free minute ; Unlimited ; Normal
 -- billingtype : Monthly ; Weekly 
 -- startday : according to billingtype ; if monthly value 1-31 ; if Weekly value 1-7 (Monday to Sunday) 
@@ -683,11 +685,13 @@ CREATE TABLE cc_package_offer (
 
 CREATE TABLE cc_card_package_offer (
     id 					bigserial NOT NULL,
-	id_card 			bigint NOT NULL
-	id_package_offer 	bigint NOT NULL,
+    id_card 			bigint NOT NULL,
+    id_package_offer 	bigint NOT NULL,
     date_consumption 	timestamp without time zone DEFAULT now(),
-	used_secondes 		bigint NOT NULL
+    used_secondes 		bigint NOT NULL
 );
+ALTER TABLE ONLY cc_card_package_offer
+    ADD CONSTRAINT cc_card_package_offer_pkey PRIMARY KEY (id);
 CREATE INDEX ind_cc_card_package_offer_id_card ON cc_card_package_offer USING btree (id_card);
 CREATE INDEX ind_cc_card_package_offer_id_package_offer ON cc_card_package_offer USING btree (id_package_offer);
 CREATE INDEX ind_cc_card_package_offer_date_consumption ON cc_card_package_offer USING btree (date_consumption);
