@@ -157,6 +157,7 @@ else if (isset($_SESSION["is_sip_changed"]) && $_SESSION["is_sip_changed"]){
 <tr><td>
 	<input type="radio" name="action" value="gen" checked><?= _("Generate") ?></input>
 	<input type="radio" name="action" value="reload"><?= _("Reload") ?></input>
+	<input type="radio" name="action" value="gen-agents"><?= _("Generate Agent files") ?></input>
 	</td>
 	<td>
 	<input type="radio" name="atmenu" value="sipfriend" <?= $atm_sip ?> >SIP</input>

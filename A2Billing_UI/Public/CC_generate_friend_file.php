@@ -19,7 +19,8 @@ if (! has_rights (ACX_CUSTOMER)){
 
 error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
 
-function gen_userdata($dbh,$filename,$tablename,$qry_clause, &$html_message) {
+function gen_userdata($dbh,$filename,$tablename,$qry_clause, &$html_message, $hdr_lines = NULL) {
+	global $FG_DEBUG;
 
 	$FG_QUERY_EDITION='name, type, username, accountcode, regexten, callerid, amaflags, secret, md5secret, nat, dtmfmode, qualify, canreinvite, 
 disallow, allow, host, callgroup, context, defaultip, fromuser, fromdomain, insecure, language, mailbox, permit, deny, mask, pickupgroup, port, 
@@ -28,7 +29,7 @@ restrictcid, rtptimeout, rtpholdtimeout, musiconhold, regseconds, ipaddr, cancal
 	$list_names = explode(",",$FG_QUERY_EDITION);
 
 	$instance_table_friend = new Table($tablename,'id, '.$FG_QUERY_EDITION);
-	if ($FG_DEBUG) $instance_table_friend->debug_st=1;
+	if ($FG_DEBUG>1) $instance_table_friend->debug_st=1;
 	$list_friend = $instance_table_friend -> Get_list ($dbh, $qry_clause, null, null, null, null);
 	
 	if (!is_array($list_friend) || count($list_friend)==0) {
@@ -39,14 +40,23 @@ restrictcid, rtptimeout, rtpholdtimeout, musiconhold, regseconds, ipaddr, cancal
 		
 	$fd=fopen($filename,"w");
 	if (!$fd){
-		$html_message .=str_params(_("<p style='color: red'>Could not open buddy file %1</p>"),array($filename));
+		$html_message .=str_params( _("<p style='color: red'>Could not open buddy file %1</p>"),
+			array($filename),1);
 		return false;
 
 	}else{
+		if (isset($hdr_lines)){
+			$line=$hdr_lines."\n";
+			if (fwrite($fd, $line) === FALSE) {
+				$html_message .=str_params(_("<p style='color: red'>Impossible to write to file %1</p>"),array($filename),1);
+				return false;
+			}
+		}
+		
 		foreach ($list_friend as $data){
 			$line="\n\n[".$data[1]."]\n";
 			if (fwrite($fd, $line) === FALSE) {
-				$html_message .=str_params(_("<p style='color: red'>Impossible to write to file %1</p>"),array($filename));
+				$html_message .=str_params(_("<p style='color: red'>Impossible to write to file %1</p>"),array($filename),1);
 				return false;
 			}
 		
@@ -60,7 +70,7 @@ restrictcid, rtptimeout, rtpholdtimeout, musiconhold, regseconds, ipaddr, cancal
 					}else    $line = (trim($list_names[$i]).'='.$data[$i+1]."\n");
 					if (fwrite($fd, $line) === FALSE){
 						$html_message .=str_params(_("<p style='color: red'>Impossible to write to file %1</p>"),
-							array($filename));
+							array($filename),1);
 						break;
 					}
 				}
@@ -69,12 +79,63 @@ restrictcid, rtptimeout, rtpholdtimeout, musiconhold, regseconds, ipaddr, cancal
 		fclose($fd);
 	}
 	$html_message .=str_params(_("<p style='color: green'>File %1 generated.</p>"),
-		array($filename));
+		array($filename),1);
 
 	return true;
 }
 
+function gen_all_agents($dbh,$do_sip, $do_iax,&$err_msg){
+	global $FG_DEBUG;
+	$ita = new Table('cc_agent','id, login,name');
+	if ($FG_DEBUG > 1) $ita->debug_st=1;
+	$list_agent = $ita -> Get_list ($dbh, 'active = true', null, null, null, null);
+	
+	if (!is_array($list_agent) || count($list_agent)==0) {
+		$err_msg .=str_params(_("<p style='color: red'>No active agents found!<br>%1</p>"),array($dbh->ErrorMsg()),1);
+		return false;
+	}
+	
+	// These are put by default on a non-existing directory!
+	// This is intentional, since those files contain SIP/IAX passwords.
+	// they shouldn't be carelessly left in a world-readable dir.
+	if (isset($A2B->config['webui']['buddy_sip_agent']))
+		$buddy_sip=$A2B->config['webui']['buddy_sip_agent'];
+	else
+		$buddy_sip="/tmp/a2billing/additional_sip.%1.conf";
+		
+	if (isset($A2B->config['webui']['buddy_iax_agent']))
+		$buddy_iax=$A2B->config['webui']['buddy_iax_agent'];
+	else
+		$buddy_iax="/tmp/a2billing/additional_iax.%1.conf";
+	$succ=0;
+	foreach ($list_agent as $ag){
+		$hdr_lines="; Configuration for ". $ag[2] ."\n";
+		if ($do_sip){
+			$fname=str_params($buddy_sip,$ag);
+			$qclause=str_dbparams($dbh,"name IN (SELECT callerid FROM cc_booth WHERE agentid = %1)",
+				array($ag[0]));
+			if (gen_userdata($dbh,$fname,'cc_sip_buddies',$qclause,$err_msg,$hdr_lines))
+				$succ++;
+		}
+		if ($do_iax){
+			$fname=str_params($buddy_iax,$ag);
+			$qclause=str_dbparams($dbh,"name IN (SELECT callerid FROM cc_booth WHERE agentid = %1)",
+				array($ag[0]));
+			if (gen_userdata($dbh,$fname,'cc_iax_buddies',$qclause,$err_msg,$hdr_lines))
+				$succ++;
+		}
+	}
+	$co = 0;
+	if ($do_sip) $co += count($list_agent);
+	if ($do_iax) $co += count($list_agent);
+	
+	$err_msg .=str_params(_("<p style='color: blue'>Agent config files: %#1 of %#2 files created.</p>"),
+		array($succ, $co),1);
+	return true;
+}
+
 function reload_userdata($host, $uname, $password, $issip, &$err_msg){
+	global $FG_DEBUG;
 	$as = new AGI_AsteriskManager();
 	// && CONNECTING  connect($server=NULL, $username=NULL, $secret=NULL)
 	$res = $as->connect($host, $uname, $password);
@@ -128,6 +189,18 @@ case 'gen':
 	if (($_SESSION["is_iax_changed"]==0) &&( $_SESSION["is_iax_changed"]=0)){
 		$_SESSION["is_sip_iax_changed"]=0;
 	}
+	break;
+case 'gen-agents':
+
+	$do_sip=false;
+	$do_iax=false;
+	if (( $atmenu == "sipfriend" ) || ( $atmenu == "both" ))
+		$do_sip=true;
+	if (( $atmenu == "iaxfriend" ) || ( $atmenu == "both" ))
+		$do_iax=true;
+		
+		
+	gen_all_agents($DBHandle,$do_sip,$do_iax,$error_msg);
 	break;
 	
 default:
