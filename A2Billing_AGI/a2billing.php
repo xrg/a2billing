@@ -244,7 +244,7 @@
 								
 							}else{
 			
-								$prompt_enter_dest = $agi->agiconfig['file_conf_enter_destination'];
+								$prompt_enter_dest = $A2B->agiconfig['file_conf_enter_destination'];
 								$res_dtmf = $agi->get_data($prompt_enter_dest, 4000, 20);
 								if ($A2B->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '."RES sip_iax_pstndirect_call DTMF : ".$res_dtmf ["result"]);																											
 								$A2B-> destination = $res_dtmf ["result"];
