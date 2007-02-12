@@ -1358,17 +1358,20 @@ class A2Billing {
 				}else{
 					
 					$this -> write_log("[CID_CONTROL - STOP - NO CALLERID]");
-							
+	
 					// $callerID_enable=1; -> we are checking later if the callerID/accountcode has been define if not ask for pincode
-					if ($this->agiconfig['cid_askpincode_ifnot_callerid']==1) { $this->accountcode=''; $callerID_enable=0;}
-								
-					// REMOVE THE COMMAND BELOW IF YOU WANT TO STOP THE APP IF NO CALLERID IS AUTHENTICATE
-					/*$prompt="prepaid-auth-fail";
-					if ($this->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '.strtoupper($prompt));
-					$agi->agi_exec("STREAM FILE $prompt #");
-					$agi-> stream_file($prompt, '#');
-					return -2;*/
-							
+					if ($this->agiconfig['cid_askpincode_ifnot_callerid']==1) {
+						$this->accountcode='';
+						$callerID_enable=0;
+					}else {
+						// caller id not found, fail authentication!
+						$prompt="prepaid-auth-fail";
+						if ($this->agiconfig['debug']>=1) 
+							$agi->verbose('line:'.__LINE__.' - '.strtoupper($prompt));
+						//$agi->agi_exec("STREAM FILE $prompt #");
+						$agi-> stream_file($prompt, '#');
+						return -2;
+					}
 				}
 			}else{
 				// We found a card for this callerID 
@@ -1406,7 +1409,7 @@ class A2Billing {
 				// CHECK IF CALLERID ACTIVATED
 				if( $result[0][2] != "t" && $result[0][2] != "1" )
 					$prompt = "prepaid-auth-fail";
-						
+				
 				// CHECK credit > min_credit_2call / you have zero balance
 				if( $this->credit < $this->agiconfig['min_credit_2call'] )
 					$prompt = "prepaid-zero-balance";
@@ -1441,7 +1444,7 @@ class A2Billing {
 					$agi-> stream_file($prompt, '#'); // Added because was missing the prompt 
 					if ($this->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' prompt:'.strtoupper($prompt));
 					$this -> write_log("[ERROR CHECK CARD : $prompt (cardnumber:".$this->cardnumber.")]");
-										
+					
 					if ($prompt == "prepaid-zero-balance" && $this->agiconfig['notenoughcredit_cardnumber']==1) { 
 						$this->accountcode=''; $callerID_enable=0;
 						$this->agiconfig['cid_auto_assign_card_to_cid']=0;
@@ -1450,18 +1453,16 @@ class A2Billing {
 						return -2;
 					}
 				}
-						
-						
 			}
 		
 		}
 		
-		// 		  -%-%-%-%-%-%-		CHECK IF WE CAN AUTHENTICATE THROUGH THE "ACCOUNTCODE" 	-%-%-%-%-%-%-
+		// check if we can authenticate through the "accountcode"
 		
 		$prompt_entercardnum= "prepaid-enter-pin-number";			
 		if (strlen ($this->accountcode)>=1) {
 			$this->username = $this -> cardnumber = $this->accountcode;
-			for ($i=0;$i<=0;$i++){									 
+			for ($i=0;$i<=0;$i++){
 					
 				if ($callerID_enable!=1 || !is_numeric($this->CallerID) || $this->CallerID<=0){
 					
@@ -1587,7 +1588,7 @@ class A2Billing {
 				if (($retries>0) && (strlen($prompt)>0)){
 					$agi-> stream_file($prompt, '#');
 					if ($this->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '.strtoupper($prompt));
-				}												
+				}
 				
 				if ($res < 0) {
 					$res = -1;
@@ -1599,23 +1600,23 @@ class A2Billing {
 				$res_dtmf = $agi->get_data($prompt_entercardnum, 6000, $this->agiconfig['len_cardnumber']);
 				if ($this->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '."RES DTMF : ".$res_dtmf ["result"]);
 				$this->cardnumber = $res_dtmf ["result"];
-							
+				
 				if ($this->CC_TESTING) $this->cardnumber="2222222222";
 				if ($this->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '."CARDNUMBER ::> ".$this->cardnumber);
-							
+				
 				if ( !isset($this->cardnumber) || strlen($this->cardnumber) == 0) {
 					$prompt = "prepaid-no-card-entered";
 					if ($this->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '.strtoupper($prompt));
 					continue;
 				}
-							
+				
 				if ( strlen($this->cardnumber) != $this->agiconfig['len_cardnumber']) {
 					$prompt = "prepaid-invalid-digits";
 					if ($this->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '.strtoupper($prompt));
 					continue;
 				}
 				$this->username = $this->cardnumber;
-								
+				
 				$QUERY =  "SELECT credit, tariff, activated, inuse, simultaccess, typepaid, ";
 				if ($this->config["database"]['dbtype'] == "postgres"){
 					$QUERY .=  "creditlimit, language, removeinterprefix, redial, enableexpire, date_part('epoch',expirationdate), expiredays, nbused, date_part('epoch',firstusedate), date_part('epoch',cc_card.creationdate), cc_card.currency, cc_card.lastname, cc_card.firstname, cc_card.email, cc_card.uipass, cc_card.id, cc_card.id_campaign, cc_card.id, useralias FROM cc_card "."LEFT JOIN cc_tariffgroup ON tariff=cc_tariffgroup.id WHERE username='".$this->cardnumber."'";
