@@ -86,6 +86,7 @@ restrictcid, rtptimeout, rtpholdtimeout, musiconhold, regseconds, ipaddr, cancal
 
 function gen_all_agents($dbh,$do_sip, $do_iax,&$err_msg){
 	global $FG_DEBUG;
+	global $A2B;
 	$ita = new Table('cc_agent','id, login,name');
 	if ($FG_DEBUG > 1) $ita->debug_st=1;
 	$list_agent = $ita -> Get_list ($dbh, 'active = true', null, null, null, null);
