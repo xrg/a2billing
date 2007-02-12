@@ -739,6 +739,15 @@ We handle a spool with all the callbacks that need to be running and you might b
 </div>
 ';
 
-
+$CC_help_offer_package='<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
+<div id="div1000" style="display:visible;">
+<div id="kiki"><div class="w1">
+	<img src="'.KICON_PATH.'/kthememgr.gif" class="kikipic"/>
+	<div class="w2">'
+.gettext("PACKAGES SYSTEM - FREE MINUTES, etc...").'
+<br/><br/><br/>
+</div></div></div>
+</div>
+';
 } //ENDIF SHOW_HELP
 ?>

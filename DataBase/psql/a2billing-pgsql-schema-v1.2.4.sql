@@ -137,22 +137,27 @@ ALTER TABLE ONLY cc_did_destination
 
 
 
-
+-- chargetype : 0 - subscription fee ; 1 - connection charge for DID setup, 2 - Montly charge for DID use, 3 - just wanted to charge you for extra, 4 - cactus renting charges, etc...
 CREATE TABLE cc_charge (
-    id bigserial NOT NULL,
-    id_cc_card bigint NOT NULL,
-    iduser integer DEFAULT 0 NOT NULL,
-    creationdate timestamp without time zone DEFAULT now(),	
-    amount numeric(12,4) NOT NULL,
-    chargetype integer DEFAULT 0,    
-    id_cc_did bigint DEFAULT 0,
-    description text
+    id 						BIGSERIAL NOT NULL,
+    id_cc_card 				BIGINT NOT NULL,
+    iduser 					INTEGER DEFAULT 0 NOT NULL,
+    creationdate 			TIMESTAMP WITHOUT TIME ZONE DEFAULT now(),	
+    amount 					NUMERIC(12,4) NOT NULL,
+	currency 				CHARACTER VARYING(3) DEFAULT 'USD'::CHARACTER VARYING,
+    chargetype 				INTEGER DEFAULT 0,    
+    id_cc_did 				BIGINT DEFAULT 0,
+	id_cc_subscription_fee 	BIGINT DEFAULT 0,
+    description 			TEXT
 );
 
 ALTER TABLE ONLY cc_charge
     ADD CONSTRAINT cc_charge_pkey PRIMARY KEY (id);
 
--- chargetype : 1 - connection charge for DID setup, 2 - Montly charge for DID use, 3 - just wanted to charge you for extra, 4 - cactus renting charges, etc...
+
+CREATE INDEX ind_cc_charge_id_cc_card				ON cc_charge USING btree (id_cc_card);
+CREATE INDEX ind_cc_charge_id_cc_subscription_fee 	ON cc_charge USING btree (id_cc_subscription_fee);
+CREATE INDEX ind_cc_charge_creationdate 			ON cc_charge USING btree (creationdate);
 
 
 
@@ -1714,7 +1719,6 @@ CREATE INDEX ind_cc_card_package_offer_date_consumption ON cc_card_package_offer
 
 CREATE TABLE cc_subscription_fee (
     id 				BIGSERIAL NOT NULL,
-    creationdate 	TIMESTAMP WITHOUT TIME ZONE DEFAULT now(),
     label 			TEXT NOT NULL,	
 	fee 			NUMERIC(12,4) NOT NULL,
 	status 			INTEGER NOT NULL DEFAULT 0,
@@ -1734,8 +1738,7 @@ CREATE TABLE cc_subscription_fee_card (
     id_cc_card 				BIGINT NOT NULL,
 	id_cc_subscription_fee 	BIGINT NOT NULL,
     datefee 				TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT now(),
-    fee 					NUMERIC(12,4) NOT NULL,
-    totalcredit 			DOUBLE PRECISION
+    fee 					NUMERIC(12,4) NOT NULL
 );
 ALTER TABLE ONLY cc_subscription_fee_card
 ADD CONSTRAINT cc_subscription_fee_card_pkey PRIMARY KEY (id);
