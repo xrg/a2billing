@@ -37,7 +37,7 @@ if (($_GET[download]=="file") && $_GET[file] )
 	header("Expires: 0");
 	header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
 	header("Content-transfer-encoding: binary");
-			
+
 	@readfile($dl_full);
 	
 	exit();
@@ -338,7 +338,7 @@ function printme(){
 </tr>
 </table>
 
-<?php if (!isset($card) && ($nobq !=1)){ ?>
+<?php if (!isset($card) && ($nobq !=1) && ($exporttype!="pdf")){ ?>
 	<center>
 	<FORM method=POST action="<?php echo $PHP_SELF?>?s=1&t=0&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php echo $current_page?>">
 	<INPUT TYPE="hidden" name="posted" value=1>
@@ -384,7 +384,9 @@ function printme(){
 
 		<td class="bar-search" align="center" bgcolor="#acbdee">
 			<?php echo gettext("See Invoice in HTML");?><input type="radio" NAME="exporttype" value="html" <?php if((!isset($exporttype))||($exporttype=="html")){?>checked<?php }?>>
+			<!-- PDF is totally borken for non-latin pages!
 			<?php echo gettext("or Export PDF");?> <input type="radio" NAME="exporttype" value="pdf" <?php if($exporttype=="pdf"){?>checked<?php }?>>
+			-->
 		</td>
 		<td class="bar-search-2" align="right" bgcolor="#acbdee">
 			<input class="form_enter_b" value=" <?= _("Search");?> " type="submit">
