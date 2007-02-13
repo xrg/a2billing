@@ -1587,3 +1587,31 @@ CREATE TABLE cc_card_package_offer (
 CREATE INDEX ind_cc_card_package_offer_id_card 			ON cc_card_package_offer (id_cc_card);
 CREATE INDEX ind_cc_card_package_offer_id_package_offer ON cc_card_package_offer (id_cc_package_offer);
 CREATE INDEX ind_cc_card_package_offer_date_consumption ON cc_card_package_offer (date_consumption);
+
+CREATE TABLE cc_subscription_fee (
+    id BIGINT NOT NULL AUTO_INCREMENT,
+    label TEXT NOT NULL,
+    fee float DEFAULT 0 NOT NULL,
+    status INT DEFAULT '0' NOT NULL,
+    numberofrun INT DEFAULT '0' NOT NULL,
+    datecreate TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    datelastrun TIMESTAMP,
+    emailreport TEXT,
+    totalcredit float NOT NULL DEFAULT 0,
+    totalcardperform INT DEFAULT '0' NOT NULL,
+    PRIMARY KEY (id)
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
+
+-- INSTEAD USE CC_CHARGE
+CREATE TABLE cc_subscription_fee_card (
+    id BIGINT NOT NULL AUTO_INCREMENT,
+    id_cc_card BIGINT NOT NULL,
+    id_cc_subscription_fee BIGINT NOT NULL,
+    datefee TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    fee float DEFAULT 0 NOT NULL,
+    PRIMARY KEY (id)
+);
+
+CREATE INDEX ind_cc_subscription_fee_card_id_cc_card  ON cc_subscription_fee_card (id_cc_card);
+CREATE INDEX ind_cc_subscription_fee_card_id_cc_subscription_fee ON cc_subscription_fee_card (id_cc_subscription_fee);
+CREATE INDEX ind_cc_subscription_fee_card_datefee ON cc_subscription_fee_card (datefee);
