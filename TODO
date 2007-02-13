@@ -133,7 +133,7 @@ CREATE TABLE cc_card_package_offer (
     date_consumption 	timestamp without time zone DEFAULT now(),
 	used_secondes 		bigint NOT NULL
 );
-CREATE INDEX ind_cc_card_package_offer_id_card ON cc_card_package_offer USING btree (id_card);
+CREATE INDEX ind_cc_card_package_offer_id_card ON cc_card_package_offer USING btree (id_cc_card);
 CREATE INDEX ind_cc_card_package_offer_id_package_offer ON cc_card_package_offer USING btree (id_package_offer);
 CREATE INDEX ind_cc_card_package_offer_date_consumption ON cc_card_package_offer USING btree (date_consumption);
 

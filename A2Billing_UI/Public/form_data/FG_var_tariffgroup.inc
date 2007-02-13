@@ -79,15 +79,16 @@ $HD_Form -> AddEditElement (gettext("LC TYPE"),
 	"",
 	"list" , "", "", "", $lcrtype_list, "%1", "", "");
 
-$HD_Form -> AddEditElement (gettext("PACKAGE"),
-			   "id_cc_package_offer",	
-			   '$value',	
-			   "SELECT",	
-			   "", "", "",	
-			   "sql",		
-			   "cc_package_offer",	
-			   "label, id",		
-			   "", "", "%1", "", "");
+
+$HD_Form -> AddEditElement(gettext("PACKAGE"),
+			   "id_cc_package_offer",
+			   '$value',
+			   "SELECT",
+			   "", "", "",
+			   "sql",
+			   "cc_package_offer",
+			   "label, id",
+			   	"", "", "%1", "", gettext("Set the Package offer if you wish to use one in this tariffgroup"), '', '<OPTION  value="-1" selected>NO PACKAGE OFFER</OPTION>');
 
 $HD_Form -> AddEditElement (gettext("REMOVE INTER PREFIX"),
 	"removeinterprefix",		

@@ -1732,7 +1732,7 @@ CREATE TABLE cc_subscription_fee (
 ALTER TABLE ONLY cc_subscription_fee
 ADD CONSTRAINT cc_subscription_fee_pkey PRIMARY KEY (id);
 
-
+-- INSTEAD USE CC_CHARGE
 CREATE TABLE cc_subscription_fee_card (
     id 						BIGSERIAL NOT NULL,
     id_cc_card 				BIGINT NOT NULL,
@@ -1743,6 +1743,6 @@ CREATE TABLE cc_subscription_fee_card (
 ALTER TABLE ONLY cc_subscription_fee_card
 ADD CONSTRAINT cc_subscription_fee_card_pkey PRIMARY KEY (id);
 
-CREATE INDEX ind_cc_subscription_fee_card_id_card ON cc_subscription_fee_card USING btree (id_card);
-CREATE INDEX ind_cc_subscription_fee_card_id_cc_subscription_fee ON cc_card_package_offer USING btree (id_cc_subscription_fee);
-CREATE INDEX ind_cc_subscription_fee_card_datefee ON cc_card_package_offer USING btree (datefee);
+CREATE INDEX ind_cc_subscription_fee_card_id_cc_card 				ON cc_subscription_fee_card USING btree (id_cc_card);
+CREATE INDEX ind_cc_subscription_fee_card_id_cc_subscription_fee 	ON cc_subscription_fee_card USING btree (id_cc_subscription_fee);
+CREATE INDEX ind_cc_subscription_fee_card_datefee 					ON cc_subscription_fee_card USING btree (datefee);
