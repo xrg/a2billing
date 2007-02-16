@@ -13,7 +13,7 @@ if(!class_exists('FPDF'))
 {
 define('FPDF_VERSION','1.52');
 
-class FPDF
+class FPDFcd 
 {
 //Private properties
 var $page;               //current page number
