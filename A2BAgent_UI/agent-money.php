@@ -57,7 +57,7 @@ if (!isset ($current_page) || ($current_page == "")){
 $FG_DEBUG = 0;
 
 // The variable FG_TABLE_NAME define the table name to use
-$FG_TABLE_NAME="cc_agent_money_v";
+$FG_TABLE_NAME="cc_agent_money_vi";
 
 // THIS VARIABLE DEFINE THE COLOR OF THE HEAD TABLE
 $FG_TABLE_HEAD_COLOR = "#D1D9E7";
@@ -137,7 +137,7 @@ $res_sums = array();
 Calldate Clid Src Dst Dcontext Channel Dstchannel Lastapp Lastdata Duration Billsec Disposition Amaflags Accountcode Uniqueid Serverid
 *******/
 
-$FG_TABLE_COL[]=array (gettext("Calldate"), "date", "18%", "center", "SORT", "", "", "", "", "", "", "display_dateformat");
+$FG_TABLE_COL[]=array (gettext("Calldate"), "date", "15%", "center", "SORT", "", "", "", "", "", "", "display_dateformat");
 $FG_TABLE_COL[]=array (gettext("Type"), "pay_type", "10%", "left", "SORT", "");
 $FG_TABLE_COL[]=array (gettext("Description"), "descr", "40%", "left", "SORT", "");
 //$FG_TABLE_COL[]=array (gettext("Card"), "card_id", "8%", "center", "SORT", "30", "", "", "", "", "", "display_minute");
@@ -153,9 +153,9 @@ $FG_TABLE_DEFAULT_SENS = "ASC";
 if (! isset($choose_currency) || ( $choose_currency == ''))
 	$choose_currency = $_SESSION["currency"];
 
-$FG_COL_QUERY=str_dbparams($DBHandle, 'fmt_date(date), pay_type,gettext(descr,%3), ' .
+$FG_COL_QUERY=str_dbparams($DBHandle, 'fmt_date(date), pay_type,descr, ' .
 	'format_currency(pos_credit,%1, %2), format_currency(neg_credit,%1, %2)',
-	array(strtoupper(BASE_CURRENCY),$choose_currency,getenv('LANG')));
+	array(strtoupper(BASE_CURRENCY),$choose_currency));
 //$FG_COL_QUERY_GRAPH='t1.callstart, t1.duration';
 
 $FG_SUM_QUERY=str_dbparams($DBHandle, "format_currency(SUM(pos_credit),%1, %2), ".
@@ -322,12 +322,12 @@ if ($FG_DEBUG >= 4) var_dump ($list);
 // Using MIN(descr) as we don't expect to have multiple descriptions
 // for pay types.
 
-$QUERY = str_dbparams($DBHandle,"SELECT gettext(MIN(descr),%3), " .
+$QUERY = str_dbparams($DBHandle,"SELECT MIN(descr), " .
 	"format_currency(SUM(pos_credit), %1, %2), " .
 	"format_currency(SUM(neg_credit), %1, %2), pay_type " .
-	"FROM cc_agent_money_v WHERE " . $FG_TABLE_CLAUSE .
+	"FROM cc_agent_money_vi WHERE " . $FG_TABLE_CLAUSE .
 	" GROUP BY pay_type,descr",
-	array(strtoupper(BASE_CURRENCY),$choose_currency,getenv('LANG')));
+	array(strtoupper(BASE_CURRENCY),$choose_currency));
 
 //extract(DAY from calldate)
 
@@ -579,7 +579,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 
 		<td class="bar-search" align="center" bgcolor="#acbdee">
 			<?php echo gettext("See Invoice in HTML");?><input type="radio" NAME="exporttype" value="html" <?php if((!isset($exporttype))||($exporttype=="html")){?>checked<?php }?>>
-			<?php echo gettext("or Export PDF");?> <input type="radio" NAME="exporttype" value="pdf" <?php if($exporttype=="pdf"){?>checked<?php }?>>
+			<!-- <?php echo gettext("or Export PDF");?> <input type="radio" NAME="exporttype" value="pdf" <?php if($exporttype=="pdf"){?>checked<?php }?>> -->
 		</td>
 		<td class="bar-search-2" align="right" bgcolor="#acbdee">
 			<input class="form_enter_b" value=" <?= _("Search");?> " type="submit">
@@ -652,7 +652,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 						 }
 						 ?></TD>
 				 		 <?php  } ?>
-                  
+
 					</TR>
 				<?php
 					 }//foreach ($list as $recordset)
@@ -680,7 +680,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 				  		echo gettext("No data found !!!");
 				  }//end_if
 				 ?>
-                             
+
             </TABLE>
 			
 			
