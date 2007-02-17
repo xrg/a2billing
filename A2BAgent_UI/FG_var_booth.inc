@@ -17,7 +17,7 @@ $booth_states[4] = array(gettext("Active"),"4");
 $booth_states[5] = array(gettext("Disabled"),"5");
 $booth_states[6] = array(gettext("Stopped"),"5");
 
-$HD_Form -> FG_DEBUG = 1;
+$HD_Form -> FG_DEBUG = 0;
 // FAQ
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "ASC";
 $HD_Form -> FG_FILTER_SEARCH_SESSION_NAME = 'entity_booth_selection';
@@ -27,7 +27,7 @@ $HD_Form -> FG_FK_DELETE_CONFIRM = true;
 
 $HD_Form -> AddViewElement(gettext("ID"), "id", "3%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("NAME"), "name", "11%", "left", "sort");
-$HD_Form -> AddViewElement(gettext("LOCATION"), "llocation", "10%", "left", "sort", "15");
+$HD_Form -> AddViewElement(gettext("LOCATION"), "location", "10%", "left", "sort", "15");
 
 $HD_Form -> AddViewElement(gettext("STATE"), "state", "5%", "center", "sort","","list",$booth_states);
 
