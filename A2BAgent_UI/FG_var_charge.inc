@@ -36,8 +36,8 @@ $chargetype_list = get_chargetypes();
 $HD_Form_c -> AddViewElement(gettext("CARDNUMBER"), "username", "12%", "center", "sort");
 $HD_Form_c -> AddViewElement(gettext("DATE"), "cc_charge.creationdate", "15%", "center", "sort", "", "", "", "", "", "", "display_dateformat");
 $HD_Form_c -> AddViewElement(gettext("AMOUNT"), "amount", "10%", "center", "sort");
-$HD_Form_c -> AddViewElement(gettext("CHARGETYPE"), "chargetype", "20%", "center", "sort", "30", "list", $chargetype_list);
-$HD_Form_c -> AddViewElement(gettext("DESCRIPTION"), "description", "30%", "center", "", "");
+$HD_Form_c -> AddViewElement(gettext("CHARGETYPE"), "chargetype", "20%", "center", "sort", "", "list", $chargetype_list);
+$HD_Form_c -> AddViewElement(gettext("DESCRIPTION"), "description", "30%", "left", "", "");
 
 // added a parameter to append  FG_TABLE_ID  ( by default ) or disable 0.
 $HD_Form_c -> FieldViewElement ('username, fmt_date(cc_charge.creationdate), amount, chargetype, description');
