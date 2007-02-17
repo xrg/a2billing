@@ -32,6 +32,19 @@ UNION	SELECT agentid, date, pay_type, 'Money from customer' as descr, card_id, c
 UNION	SELECT agentid, date, pay_type, 'Pay back customer' as descr, card_id, NULL AS pos_credit, 0-credit AS neg_credit, 0-credit
 		FROM cc_agentrefill WHERE credit <0 AND carried = false;
 
+CREATE OR REPLACE VIEW cc_agent_money_vi AS
+	SELECT agentid, date, pay_type, descr, NULL::bigint AS card_id, NULL::NUMERIC AS pos_credit, credit AS neg_credit, credit 
+		FROM cc_agentpay WHERE credit >=0
+UNION SELECT agentid, date, pay_type, descr, NULL::bigint AS card_id, 0-credit AS pos_credit, NULL  AS neg_credit, credit 
+		FROM cc_agentpay WHERE credit <0
+UNION SELECT agentid, date, pay_type, gettext('Money from customer',cc_agent.locale) as descr, card_id, cc_agentrefill.credit AS pos_credit, 
+			NULL AS neg_credit, 0-cc_agentrefill.credit
+		FROM cc_agentrefill, cc_agent 
+		WHERE cc_agentrefill.credit >=0 AND carried = false AND cc_agent.id = agentid
+UNION SELECT agentid, date, pay_type, gettext('Pay back customer',cc_agent.locale) as descr, card_id, NULL AS pos_credit, 
+			0-cc_agentrefill.credit AS neg_credit, 0-cc_agentrefill.credit
+		FROM cc_agentrefill, cc_agent 
+		WHERE cc_agentrefill.credit <0 AND carried = false AND cc_agent.id = agentid;
 
 	
 CREATE OR REPLACE VIEW cc_agentcard_debt_v AS
