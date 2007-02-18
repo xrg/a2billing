@@ -39,6 +39,8 @@ if ($form_action == 'list')
 {
     echo '<br><br>'.$CC_help_ratecard;
 }
+// The second clause below should effectively protect against injecting a 3rd party ratecard
+// into the url (and thus reading 'hidden' rates)
 
 $HD_Form -> FG_TABLE_CLAUSE = "cc_tariffplan.id = cc_tariffgroup_plan.idtariffplan AND cc_tariffgroup_plan.idtariffgroup = '".$_SESSION["tariff"]."'";
 
