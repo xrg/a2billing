@@ -153,6 +153,18 @@ p.pay-message {
 	border: solid green 2px;
 }
 
+p.pfriend {
+	width: 90%;
+	text-align: right;
+}
+
+p.pfriend a {
+	border: thin solid blue;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:14px;
+	margin-top: 10px;
+}
+
 </style>
 </head>
 <body  leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">

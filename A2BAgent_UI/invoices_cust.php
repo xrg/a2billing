@@ -697,12 +697,14 @@ if ($vat>0) echo  " (".$vat." % ".gettext("VAT").")";
 	//noop
 	include("PP_print_footer.php");
 }else { ?>
-	<div align="right">
-	<p class="pfriend"><a href="<?php echo $_SERVER['PHP_SELF'].'?';
+	<div align="center" width="<?= $FG_HTML_TABLE_WIDTH?>">
+	<p class="pfriend"><a href="#" onclick="javascript:window.open('<?php echo $_SERVER['PHP_SELF'].'?';
 	if (isset($card)) echo 'card='.$card .'&' ;
 	else if (isset($booth)) echo 'booth='. $booth . '&';
 	echo 'nobq=1&posted=t&choose_currency='. $choose_currency .'&exporttype=print';
-	?>">*-*img <?= _("Printable version") ?></a>
+	?>');"><img src="images/printable.png"> <?= _("Printable version") ?>
+	<img src="images/icon_arrow_orange.gif">
+	</a>
 	</p></div>
 	<?php
 if ($list_sum[0][4] >0.0){ ?>
