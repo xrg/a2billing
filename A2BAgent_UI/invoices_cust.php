@@ -294,10 +294,25 @@ if ((isset($customer)  &&  ($customer>0)) || (isset($entercustomer)  &&  ($enter
 }
 
 ?>
-<?php if($exporttype!="pdf"){?>
+<?php if($exporttype=="pdf"){
+   require('pdf-invoices/html2pdf/html2fpdf.php');
+   ob_start();
+
+}elseif ($exporttype=="print"){
+	include("PP_print_header.php");
+
+?>
+<script language="JavaScript" type="text/JavaScript">
+<!--
+
+window.onload= function(){ window.print(); };
+//-->
+</script>
 
 <?php
+} else {
 	include("PP_header.php");
+
 ?>
 <script language="JavaScript" type="text/JavaScript">
 <!--
@@ -305,14 +320,16 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
   window.open(theURL,winName,features);
 }
 
+function printme(){
+	window.print();
+	/* // launch a print charge window
+	window.open.. */
+}
+
 //-->
 </script>
 
 <?php
-}else{
-   require('pdf-invoices/html2pdf/html2fpdf.php');
-   ob_start();
-
 } ?>
 
 <table width="20%" align="center">
@@ -382,7 +399,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 
 <table width="100%">
 <tr>
-<?php if (SHOW_ICON_INVOICE){?> <td align="left"><img src="pdf-invoices/images/kfind.gif"/> </td> <?php } ?>
+<?php if (SHOW_ICON_INVOICE&& ($exporttype !='print')){?> <td align="left"><img src="pdf-invoices/images/kfind.gif"/> </td> <?php } ?>
 <td align="center"  bgcolor="#fff1d1"><font color="#000000" face="verdana" size="5"> <b><?=  str_dblspace(gettext("CALLS DETAIL"));?></b> </td>
 </tr>
 </table>
@@ -503,12 +520,12 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 
 <!-- FIN TITLE GLOBAL MINUTES //-->
 		
-<?php if (! $nodisplay) { ?>
+<?php if ((! $nodisplay) && ($exporttype !='print')) { ?>
 <br><hr width="350"><br><br>
 
 <table width="100%">
 <tr>
-<?php if (SHOW_ICON_INVOICE){?><td align="left"><img src="pdf-invoices/images/desktop.gif"/> </td><?php }?>
+<?php if (SHOW_ICON_INVOICE && ($exporttype !='print')){?><td align="left"><img src="pdf-invoices/images/desktop.gif"/> </td><?php }?>
 <td align="center"  bgcolor="#fff1d1"><font color="#000000" face="verdana" size="5"> <b><?=  str_dblspace(gettext("BILLING SERVICE"));?> : <?php  if (strlen($info_customer[0][2])>0) echo $info_customer[0][2]; ?> </b> </td>
 </tr>
 </table>
@@ -561,7 +578,7 @@ if (is_array($list_total_day) && count($list_total_day)>0){ ?>
 
 <table width="100%">
 <tr>
-<?php if (SHOW_ICON_INVOICE){?><td align="left"><img src="pdf-invoices/images/stock_landline-phone.gif"/> </td><?php } ?>
+<?php if (SHOW_ICON_INVOICE && ($exporttype !='print')){?><td align="left"><img src="pdf-invoices/images/stock_landline-phone.gif"/> </td><?php } ?>
 <td align="center"  bgcolor="#fff1d1"><font color="#000000" face="verdana" size="5"> <b><?=  str_dblspace(gettext("BILL EVOLUTION"));?></b> </td>
 </tr>
 </table>
@@ -659,22 +676,7 @@ if ($vat>0) echo  " (".$vat." % ".gettext("VAT").")";
 </table>
 <?php  } ?>
 
-<?php  if($exporttype!="pdf"){ 
-if ($list_sum[0][4] >0.0){ ?>
-	<br><hr width="350"><br>
-	<p class='pay-back-btn'> <a href='pay.php?sid=<?= $session_sid . '&choose_currency=' .$choose_currency; ?>&pback=1'> <?=_("Pay back:") . '&nbsp' . $list_sum[0][3] ; ?></a>
-	<br><hr width="350"><br>
-<?php }else if ($list_sum[0][4] <0.0){ ?>
-	<br><hr width="350"><br>
-	<p class='pay-btn'> <a href='pay.php?sid=<?= $session_sid .'&choose_currency=' .$choose_currency; ?>&pback=0'> <?=_("Pay:") . '&nbsp' . $list_sum[0][5] ; ?></a>
-	<br><hr width="350"><br>
-<?php } ?>
-<br>
-<?php
-	include("PP_footer.php");
-?>
-
-<?php  }else{
+<?php  if($exporttype=="pdf"){
 // EXPORT TO PDF
 
 	$html = ob_get_contents();
@@ -691,7 +693,31 @@ if ($list_sum[0][4] >0.0){ ?>
 	$html = ob_get_contents();
 	
 	$pdf->Output('CC_invoice_'.date("d/m/Y-H:i").'.pdf', 'I');
+}else if ($exporttype=="print"){
+	//noop
+	include("PP_print_footer.php");
+}else { ?>
+	<div align="right">
+	<p class="pfriend"><a href="<?php echo $_SERVER['PHP_SELF'].'?';
+	if (isset($card)) echo 'card='.$card .'&' ;
+	else if (isset($booth)) echo 'booth='. $booth . '&';
+	echo 'nobq=1&posted=t&choose_currency='. $choose_currency .'&exporttype=print';
+	?>">*-*img <?= _("Printable version") ?></a>
+	</p></div>
+	<?php
+if ($list_sum[0][4] >0.0){ ?>
+	<br><hr width="350"><br>
+	<p class='pay-back-btn'> <a href='pay.php?sid=<?= $session_sid . '&choose_currency=' .$choose_currency; ?>&pback=1'> <?=_("Pay back:") . '&nbsp' . $list_sum[0][3] ; ?></a>
+	<br><hr width="350"><br>
+<?php }else if ($list_sum[0][4] <0.0){ ?>
+	<br><hr width="350"><br>
+	<p class='pay-btn'> <a href='pay.php?sid=<?= $session_sid .'&choose_currency=' .$choose_currency; ?>&pback=0'> <?=_("Pay:") . '&nbsp' . $list_sum[0][5] ; ?></a>
+	<br><hr width="350"><br>
+<?php } ?>
+<br>
+<?php
+	include("PP_footer.php");
+?>
 
-
-
-} ?>
+<?php  }
+?>
