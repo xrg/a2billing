@@ -14,7 +14,7 @@
   define('MODULE_PAYMENT_PAYPAL_TEXT_DESCRIPTION', 'PayPal');
 
 //  define('MODULE_PAYMENT_PAYPAL_CURRENCY', 'USD');
-//  define('MODULE_PAYMENT_PAYPAL_ID', 'asif@palmchip.com');
+//  define('MODULE_PAYMENT_PAYPAL_ID', 'info@areski.net');
   define('STORE_NAME', 'A2billing.com');
 
 ?>
