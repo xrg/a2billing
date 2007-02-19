@@ -1766,24 +1766,25 @@ CREATE INDEX ind_cc_subscription_fee_card_datefee 					ON cc_subscription_fee_ca
 
 
 CREATE TABLE cc_outbound_cid_group (
-    id 					INTEGER NOT NULL AUTO_INCREMENT,
+    id 					BIGSERIAL NOT NULL,
     creationdate 		timestamp(0) without time zone DEFAULT now(),
     group_name 			TEXT NOT NULL    
     
 );
-
 ALTER TABLE ONLY cc_outbound_cid_group
 ADD CONSTRAINT cc_outbound_cid_group_pkey PRIMARY KEY (id);
 
+
 CREATE TABLE cc_outbound_cid_list (
-    id 					INTEGER NOT NULL AUTO_INCREMENT,
-	outbound_cid_group	INTEGER NOT NULL,
-	cid					TEXT NULL,    
+    id 					BIGSERIAL NOT NULL,
+	outbound_cid_group	BIGINT NOT NULL,
+	cid					TEXT NOT NULL,    
     activated CHAR(1)	DEFAULT 't' NOT NULL,
     creationdate 		timestamp(0) without time zone DEFAULT now()   
 );
 ALTER TABLE ONLY cc_outbound_cid_list
 ADD CONSTRAINT cc_outbound_cid_list_pkey PRIMARY KEY (id);
+
 
 
 

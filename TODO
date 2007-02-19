@@ -18,6 +18,15 @@
 
 !!! Ask Malik send me DB changes for invoicing
 
+######## TO CHECK ON CID ROUTING
+********************************************************************
+
+something I see in the DB change u made
+activated CHAR(1)       DEFAULT 't' NOT NULL,
+
+I will prefer we use always the following type
+activated INTEGER NOT NULL DEFAULT 0,
+
 
 
 ######## NOTE FROM CHRISTEAS : BACKUP DB
