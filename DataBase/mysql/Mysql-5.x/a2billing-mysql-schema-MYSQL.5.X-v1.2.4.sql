@@ -591,6 +591,21 @@ Call Labs
 ', '');
 
 
+INSERT INTO cc_templatemail VALUES ('payment', 'info@call-labs.com', 'Call-Labs', 'PAYMENT CONFIRMATION', 'Thank you for shopping at Call-Labs.
+
+Shopping details is as below.
+
+Item Name = <b>$itemName</b>
+Item ID = <b>$itemID</b>
+Amount = <b>$itemAmount</b>
+Payment Method = <b>$paymentMethod</b>
+Status = <b>$paymentStatus</b>
+
+
+Kind regards,
+Call Labs
+', '');
+
 
 INSERT INTO cc_trunk VALUES (1, 'default', '011', 'IAX2', 'kiki@switch-2.kiki.net', '', 0, 0, 0, '2005-03-14 01:01:36',0 ,0, NULL);
 
@@ -1644,3 +1659,92 @@ CREATE TABLE cc_outbound_cid_list (
     creationdate 		TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,    
     PRIMARY KEY (id)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
+
+
+
+
+
+
+
+-- Payment Methods Table
+CREATE TABLE cc_payment_methods (
+    id INT NOT NULL AUTO_INCREMENT,
+    payment_method CHAR(100) NOT NULL,
+    payment_filename CHAR(200) NOT NULL,
+    active CHAR(1) DEFAULT 'f' NOT NULL,
+    PRIMARY KEY (id)
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
+
+Insert into cc_payment_methods (payment_method,payment_filename,active) values('paypal','paypal.php','t');
+Insert into cc_payment_methods (payment_method,payment_filename,active) values('Authorize.Net','authorizenet.php','t');
+Insert into cc_payment_methods (payment_method,payment_filename,active) values('MoneyBookers','moneybookers.php','t');
+
+
+CREATE TABLE cc_payments (
+  id int NOT NULL auto_increment,
+  customers_id varchar(60) NOT NULL,
+  customers_name varchar(200) NOT NULL,
+  customers_email_address varchar(96) NOT NULL,
+  item_name varchar(127),
+  item_id varchar(127),
+  item_quantity int NOT NULL DEFAULT 0,
+  payment_method varchar(32) NOT NULL,
+  cc_type varchar(20),
+  cc_owner varchar(64),
+  cc_number varchar(32),
+  cc_expires varchar(4),
+  orders_status int(5) NOT NULL,
+  orders_amount decimal(14,6),
+  last_modified datetime,
+  date_purchased datetime,
+  orders_date_finished datetime,
+  currency char(3),
+  currency_value decimal(14,6),
+  PRIMARY KEY (id)
+);
+-- Payment Status Lookup Table
+CREATE TABLE cc_payments_status (
+  id int NOT NULL auto_increment,
+  status_id int NOT NULL,
+  status_name varchar(200) NOT NULL,
+  PRIMARY KEY (id)
+);
+
+Insert into cc_payments_status (status_id,status_name) values (-2, 'Failed');
+Insert into cc_payments_status (status_id,status_name) values (-1, 'Denied');
+Insert into cc_payments_status (status_id,status_name) values (0, 'Pending');
+Insert into cc_payments_status (status_id,status_name) values (1, 'In-Progress');
+Insert into cc_payments_status (status_id,status_name) values (2, 'Completed');
+Insert into cc_payments_status (status_id,status_name) values (3, 'Processed');
+Insert into cc_payments_status (status_id,status_name) values (4, 'Refunded');
+Insert into cc_payments_status (status_id,status_name) values (5, 'Unknown');
+
+
+CREATE TABLE cc_configuration (
+  configuration_id int NOT NULL auto_increment,
+  configuration_title varchar(64) NOT NULL,
+  configuration_key varchar(64) NOT NULL,
+  configuration_value varchar(255) NOT NULL,
+  configuration_description varchar(255) NOT NULL,
+  configuration_type int NOT NULL DEFAULT 0,
+  use_function varchar(255) NULL,
+  set_function varchar(255) NULL,
+  PRIMARY KEY (configuration_id)
+);
+
+insert into cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description) values ('Login Username', 'MODULE_PAYMENT_AUTHORIZENET_LOGIN', 'testing', 'The login username used for the Authorize.net service');
+insert into cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description) values ('Transaction Key', 'MODULE_PAYMENT_AUTHORIZENET_TXNKEY', 'Test', 'Transaction Key used for encrypting TP data');
+insert into cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) values ('Transaction Mode', 'MODULE_PAYMENT_AUTHORIZENET_TESTMODE', 'Test', 'Transaction mode used for processing orders', 'tep_cfg_select_option(array(\'Test\', \'Production\'), ');
+insert into cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) values ('Transaction Method', 'MODULE_PAYMENT_AUTHORIZENET_METHOD', 'Credit Card', 'Transaction method used for processing orders', 'tep_cfg_select_option(array(\'Credit Card\', \'eCheck\'), ');
+insert into cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) values ('Customer Notifications', 'MODULE_PAYMENT_AUTHORIZENET_EMAIL_CUSTOMER', 'False', 'Should Authorize.Net e-mail a receipt to the customer?', 'tep_cfg_select_option(array(\'True\', \'False\'), ');
+insert into cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) values ('Enable Authorize.net Module', 'MODULE_PAYMENT_AUTHORIZENET_STATUS', 'True', 'Do you want to accept Authorize.net payments?', 'tep_cfg_select_option(array(\'True\', \'False\'), ');
+
+insert into cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) values ('Enable PayPal Module', 'MODULE_PAYMENT_PAYPAL_STATUS', 'True', 'Do you want to accept PayPal payments?','tep_cfg_select_option(array(\'True\', \'False\'), ');
+insert into cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description) values ('E-Mail Address', 'MODULE_PAYMENT_PAYPAL_ID', 'you@yourbusiness.com', 'The e-mail address to use for the PayPal service');
+insert into cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) values ('Transaction Currency', 'MODULE_PAYMENT_PAYPAL_CURRENCY', 'Selected Currency', 'The currency to use for credit card transactions', 'tep_cfg_select_option(array(\'Selected Currency\',\'USD\',\'CAD\',\'EUR\',\'GBP\',\'JPY\'), ');
+
+insert into cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description) values ('E-Mail Address', 'MODULE_PAYMENT_MONEYBOOKERS_ID', 'you@yourbusiness.com', 'The eMail address to use for the moneybookers service');
+insert into cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description) values ('Referral ID', 'MODULE_PAYMENT_MONEYBOOKERS_REFID', '989999', 'Your personal Referral ID from moneybookers.com');
+insert into cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) values ('Transaction Currency', 'MODULE_PAYMENT_MONEYBOOKERS_CURRENCY', 'Selected Currency', 'The default currency for the payment transactions', 'tep_cfg_select_option(array(\'Selected Currency\',\'EUR\', \'USD\', \'GBP\', \'HKD\', \'SGD\', \'JPY\', \'CAD\', \'AUD\', \'CHF\', \'DKK\', \'SEK\', \'NOK\', \'ILS\', \'MYR\', \'NZD\', \'TWD\', \'THB\', \'CZK\', \'HUF\', \'SKK\', \'ISK\', \'INR\'), ');
+insert into cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) values ('Transaction Language', 'MODULE_PAYMENT_MONEYBOOKERS_LANGUAGE', 'Selected Language', 'The default language for the payment transactions', 'tep_cfg_select_option(array(\'Selected Language\',\'EN\', \'DE\', \'ES\', \'FR\'), ');
+insert into cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) values ('Enable moneybookers Module', 'MODULE_PAYMENT_MONEYBOOKERS_STATUS', 'True', 'Do you want to accept moneybookers payments?','tep_cfg_select_option(array(\'True\', \'False\'), ');

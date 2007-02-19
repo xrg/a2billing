@@ -108,14 +108,21 @@ $credit_cur = round($credit_cur,3);
 </table>
 
 
-<?php if ($A2B->config["webcustomerui"]['paypal']){ ?>
+<?php if ($A2B->config["epayment_method"]['enable']){ ?>
 
 <table width="100%">
 <tr>
+<td valign=top align=center>
+<img src="Css/kicons/paypal_logo.gif" /> &nbsp;&nbsp;
+<img  src="http://www.moneybookers.com/images/banners/88_en_mb.gif" width=88 height=31 border=0>&nbsp;&nbsp;
+<img src="Css/kicons/authorize.gif" />
+</td>
+</tr>
+<tr>
 <td>
 <div id="div2200" style="display:visible;">
-<div id="kiblue"><div class="w4">
-	<img src="<?php echo KICON_PATH ?>/paypal.gif" class="kikipic"/>
+<div id="kiblue">
+<div class="w4">
 	<div class="w2">
 <table width="80%" align="center">
 	<tr>
@@ -128,7 +135,7 @@ $credit_cur = round($credit_cur,3);
 
 		<td align="center"> <br>
 			<font size="1"><?php echo gettext("Click below to buy<br>credit for");?> <font color="red"><b><?php echo $value.' '.PAYPAL_CURRENCY_CODE ?></font></b></font>
-			<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+			<form action="checkout_payment.php" method="post">
 				<input type="hidden" name="notify_url" value="<?php echo PAYPAL_NOTIFY_URL ?>">
 				<input type="hidden" name="rm" value="2">
 				<input type="hidden" name="cmd" value="_xclick">
@@ -140,8 +147,8 @@ $credit_cur = round($credit_cur,3);
 				<input type="hidden" name="currency_code" value="<?php echo PAYPAL_CURRENCY_CODE ?>">
 				<input type="hidden" name="bn" value="PP-BuyNowBF">
 				<input type="hidden" name="no_shipping" value="1">
-				<input type="image" src="https://www.paypal.com/en_US/i/btn/x-click-but23.gif" border="0" name="submit" 
-				alt='<?php  gettext("Make payments with PayPal - it's fast, free and secure!");?>'>
+				<input type="image" src="https://www.paypal.com/en_US/i/btn/x-click-but23.gif" border="0" name="submit"
+				alt='<?php  gettext("Make payments - it's fast, free and secure!");?>'>
 			</form>
 		</td>
 		<?php } ?>
@@ -154,11 +161,10 @@ $credit_cur = round($credit_cur,3);
 </td>
 </tr>
 </table>
-
-
-
-<center><?php echo gettext('The fee from $5 is $0.45, from $10 is $0.59, from $20 is $0.88, from $40 is $1.46. <br><b>Paypal Fee Calculator');?> <a target="_blank" href="http://www.ppcalc.com/">http://www.ppcalc.com/</a></b></center>
+<center><span><?php echo gettext('The fee from $5 is $0.45, from $10 is $0.59, from $20 is $0.88, from $40 is $1.46. <br><b>Paypal Fee Calculator');?> <a target="_blank" href="http://www.ppcalc.com/">http://www.ppcalc.com/</a></b></span></center>
 <br>
+
+
 
 <?php }else{ ?>
 <br></br><br></br>
