@@ -15,7 +15,7 @@ $HD_Form_c -> FG_TABLE_CLAUSE = " cc_agentpay.id = id ";
 $HD_Form_c -> FG_TABLE_ID="cc_agentpay.id";
 
 
-$chargetype_list = get_chargetypes();
+$chargetype_list = get_chargetypes("2|3");
 
 // -- chargetype : 1 - connection charge for DID setup, 2 - Montly charge for DID use, 3 - just wanted to charge you for extra, 4 - cactus renting charges, etc...
 

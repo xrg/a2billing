@@ -116,17 +116,25 @@ CREATE TABLE cc_texts (
 	CONSTRAINT cc_texts_pkey PRIMARY KEY (id,lang) );
 
 
-INSERT INTO cc_templatemail VALUES ('forgetagentpw', 'info@call-labs.com', 'Call-Labs', 'Login Information', 'Your login information is as below:
+/** cc_paytypes Define rules (texts) for pay/charge types to be used in combos etc.
+	id is the text, as seen in cc_texts. This is better than using text, since
+		pay_type would be used many times in reports and it has to be both
+		matched and translated. Hence an integer field.
+	side is an arbitrary enum like:
+		1 customer to agent
+		2 agent to company
+		3 charges from agent to customer
+		4 bonuses from agent to customer
+*/
 
-Your account is $login
+CREATE TABLE cc_paytypes (
+	id integer NOT NULL,
+	side smallint NOT NULL,
+	charge NUMERIC(12,4)
+);
 
-Your password is $password
-
-http://call-labs.com/A2BAgent_UI/
-
-
-Kind regards,
-Call Labs
-', '');
+/* Hint: use sth like the following to introduce a new charge
+ INSERT INTO cc_paytypes (id, side, charge) values (gettext_ri('Cactus renting charges'), 3, 0.0);
+ */
 
 -- eof

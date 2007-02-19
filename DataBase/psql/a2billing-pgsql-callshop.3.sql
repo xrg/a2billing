@@ -60,18 +60,5 @@ UNION
 		FROM cc_card,cc_agent_cards WHERE cc_agent_cards.card_id = cc_card.id
 		GROUP BY cc_agent_cards.agentid;
 		
-/** cc_paytypes Define rules (texts) for pay/charge types to be used in combos etc.
-	id is the text, as seen in cc_texts. This is better than using text, since
-		pay_type would be used many times in reports and it has to be both
-		matched and translated. Hence an integer field.
-	side is an arbitrary enum like:
-		1 customer to agent
-		2 agent to company
-*/
-
-CREATE TABLE cc_paytypes (
-	id integer REFERENCES cc_texts(id),
-	side smallint NOT NULL,
-	charge boolean default true
-);
+ 
 --eof

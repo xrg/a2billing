@@ -167,17 +167,29 @@ require("languageSettings.php");
 // 		return $ret_list;
 // 	}
 
-	function get_chargetypes(){
-		$ctl = array();
-		$ctl["1"] = array( gettext("Connection charge for DID setup"), "1");
-		$ctl["2"] = array( gettext("Monthly Charge for DID use"), "2");
-		$ctl["3"] = array( gettext("Just wanted to charge you for extra"), "3");
-		$ctl["4"] = array( gettext("Cactus renting charges"), "4");
+/** @param $typ a string describing the charge type. It can be in the form "3|4|5" so
+	that multiple sides can be selected.
+*/
+	function get_chargetypes($typ = '3')
+	{
+		$handle = DbConnect();
+		$it = new Table();
+		$sides= explode('|',$typ);
+		foreach ($sides as $s)
+			$sides_c[] = "side = " . trim($s);
+		$sides_clause = implode (" OR ", $sides_c);
+		$QUERY =  "SELECT id, gettexti(id,'". getenv('LANG')."'), charge FROM cc_paytypes WHERE $sides_clause ORDER BY id";
+		$it->debug_st =1;
+		$result = $it -> SQLExec ($handle, $QUERY);
 		
-		$ctl['5'] = array( _("Normal payment"),'5');
-		$ctl['6'] = array( _("Equipment charge"),'6');
+		if (is_array($result)){
+			$num = count($result);
+			for ($i=0;$i<$num;$i++)
+				$charges_list[$result[$i][0]] = array (1 => $result[$i][0], 
+					0 => $result[$i][1], 2 => $result[$i][2]);
+		}
 		
-		return $ctl;
+		return $charges_list;
 	}
 	
 	function getmonthnames(){
