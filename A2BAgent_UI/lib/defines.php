@@ -179,7 +179,7 @@ require("languageSettings.php");
 			$sides_c[] = "side = " . trim($s);
 		$sides_clause = implode (" OR ", $sides_c);
 		$QUERY =  "SELECT id, gettexti(id,'". getenv('LANG')."'), charge FROM cc_paytypes WHERE $sides_clause ORDER BY id";
-		$it->debug_st =1;
+		// $it->debug_st =1;
 		$result = $it -> SQLExec ($handle, $QUERY);
 		
 		if (is_array($result)){
