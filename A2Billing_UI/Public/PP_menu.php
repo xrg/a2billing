@@ -244,6 +244,7 @@ function imgidclick(imgID,divID)
 				<li><a href="A2B_entity_user.php?form_action=ask-add&atmenu=user&groupID=1&stitle=ACL+Admin+management"><?= gettext("Add ACL Admin");?></a></li>
 				<li><a href="A2B_entity_backup.php?form_action=ask-add"><?= gettext("Database Backup");?></a></li>
 				<li><a href="A2B_entity_restore.php"><?= gettext("Database Restore");?></a></li>
+				<li><a href="A2B_entity_texts.php"><?= _("Localized texts");?></a></li>
 			</ul></li>
 		</ul>
 		</div>

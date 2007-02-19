@@ -61,4 +61,11 @@ UNION
 		GROUP BY cc_agent_cards.agentid;
 		
  
+CREATE OR REPLACE FUNCTION gettext_add_missing(lang VARCHAR(10)) RETURNS void AS  $$
+	INSERT INTO cc_texts (id, txt, src, lang) SELECT id, txt, 0 AS src, $1 AS lang FROM cc_texts 
+		WHERE lang = 'C' AND  id NOT IN (SELECT id FROM cc_texts WHERE lang = $1 );
+$$ LANGUAGE SQL STRICT;
+
+/*CREATE OR REPLACE VIEW cc_texts_v AS
+	SELECT id, txt AS txt_C FROM cc_texts AS t1 RIGHT OUTER JOIN cc_texts AS t2 ON t1.id = t2.id;*/
 --eof
