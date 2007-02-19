@@ -125,12 +125,15 @@ CREATE TABLE cc_texts (
 		2 agent to company
 		3 charges from agent to customer
 		4 bonuses from agent to customer
+	preset is a text field so that the php code can automatically select and
+		apply one of those charges. eg. 'print-cust-invoice'
 */
 
 CREATE TABLE cc_paytypes (
 	id integer NOT NULL,
 	side smallint NOT NULL,
-	charge NUMERIC(12,4)
+	charge NUMERIC(12,4),
+	preset VARCHAR(30) UNIQUE
 );
 
 /* Hint: use sth like the following to introduce a new charge
