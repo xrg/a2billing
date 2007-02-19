@@ -739,3 +739,26 @@ ADD CONSTRAINT cc_subscription_fee_card_pkey PRIMARY KEY (id);
 CREATE INDEX ind_cc_charge_id_cc_card ON cc_subscription_fee_card USING btree (id_cc_card);
 CREATE INDEX ind_cc_subscription_fee_card_id_cc_subscription_fee ON cc_card_package_offer USING btree (id_cc_subscription_fee);
 CREATE INDEX ind_cc_subscription_fee_card_datefee ON cc_card_package_offer USING btree (datefee);
+
+
+CREATE TABLE cc_outbound_cid_group (
+    id 					BIGSERIAL NOT NULL,
+    creationdate 		timestamp(0) without time zone DEFAULT now(),
+    group_name 			TEXT NOT NULL    
+    
+);
+ALTER TABLE ONLY cc_outbound_cid_group
+ADD CONSTRAINT cc_outbound_cid_group_pkey PRIMARY KEY (id);
+
+
+CREATE TABLE cc_outbound_cid_list (
+    id 					BIGSERIAL NOT NULL,
+	outbound_cid_group	BIGINT NOT NULL,
+	cid					TEXT NOT NULL,    
+    activated CHAR(1)	DEFAULT 't' NOT NULL,
+    creationdate 		timestamp(0) without time zone DEFAULT now()   
+);
+ALTER TABLE ONLY cc_outbound_cid_list
+ADD CONSTRAINT cc_outbound_cid_list_pkey PRIMARY KEY (id);
+
+ALTER TABLE cc_ratecard ADD COLUMN id_outbound_cidgroup INTEGER NOT NULL DEFAULT -1;

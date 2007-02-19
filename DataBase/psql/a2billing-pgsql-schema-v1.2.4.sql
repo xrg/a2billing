@@ -463,7 +463,8 @@ CREATE TABLE cc_ratecard (
     endtime integer NOT NULL DEFAULT 10079,
     id_trunk integer DEFAULT -1,	
     musiconhold character varying(100),
-    freeminute_package_offer int not null default 0
+    freeminute_package_offer int not null default 0,
+    id_outbound_cidgroup INTEGER NOT NULL DEFAULT -1
 );
 
 
@@ -1746,3 +1747,24 @@ ADD CONSTRAINT cc_subscription_fee_card_pkey PRIMARY KEY (id);
 CREATE INDEX ind_cc_subscription_fee_card_id_cc_card 				ON cc_subscription_fee_card USING btree (id_cc_card);
 CREATE INDEX ind_cc_subscription_fee_card_id_cc_subscription_fee 	ON cc_subscription_fee_card USING btree (id_cc_subscription_fee);
 CREATE INDEX ind_cc_subscription_fee_card_datefee 					ON cc_subscription_fee_card USING btree (datefee);
+
+
+CREATE TABLE cc_outbound_cid_group (
+    id 					INTEGER NOT NULL AUTO_INCREMENT,
+    creationdate 		timestamp(0) without time zone DEFAULT now(),
+    group_name 			TEXT NOT NULL    
+    
+);
+
+ALTER TABLE ONLY cc_outbound_cid_group
+ADD CONSTRAINT cc_outbound_cid_group_pkey PRIMARY KEY (id);
+
+CREATE TABLE cc_outbound_cid_list (
+    id 					INTEGER NOT NULL AUTO_INCREMENT,
+	outbound_cid_group	INTEGER NOT NULL,
+	cid					TEXT NULL,    
+    activated CHAR(1)	DEFAULT 't' NOT NULL,
+    creationdate 		timestamp(0) without time zone DEFAULT now()   
+);
+ALTER TABLE ONLY cc_outbound_cid_list
+ADD CONSTRAINT cc_outbound_cid_list_pkey PRIMARY KEY (id);

@@ -229,7 +229,34 @@ function imgidclick(imgID,divID, imgbase, imgchange)
 			</ul></li>
 		</ul>
 		</div>
+		
+		
+		
+		
+		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick_plus('img3_5','div3_5');"><img id="img3_5" 
+	{if ($section =="3_5")}	
+	src="templates/{$SKIN_NAME}/images/minus.gif"
+	{else}
+	src="templates/{$SKIN_NAME}/images/plus.gif"	
 	{/if}
+	  onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> &nbsp;<strong>{php} echo gettext("OUTBOUND CID");{/php}</strong></a></li>
+		<div id="div3_5" 
+	{if ($section =="3_5")}
+		style="">
+	{else}
+		style="display:none;">
+	{/if}
+		<ul>
+			<li><ul>
+				<li><a href="A2B_entity_outbound_cidgroup.php?form_action=ask-add&atmenu=cidgroup&stitle=CIDGroup&section=3_5">{php} echo gettext("Create CIDGroup");{/php}</a></li>
+				<li><a href="A2B_entity_outbound_cidgroup.php?atmenu=cidgroup&stitle=CIDGroup&section=3_5">{php} echo gettext("List CIDGroup");{/php}</a></li>
+				<li><a href="A2B_entity_outbound_cid.php?form_action=ask-add&atmenu=cidgroup&stitle=CIDGroup&section=3_5">{php} echo gettext("Add CID");{/php}</a></li>
+				<li><a href="A2B_entity_outbound_cid.php?atmenu=cid&stitle=CID&section=3_5">{php} echo gettext("List CID's");{/php}</a></li>
+			</ul></li>
+		</ul>
+		</div>
+	{/if}
+	
 	{if ($ACXTRUNK > 0)}
 		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick_plus('img4','div4');"><img id="img4"  
 	{if ($section =="4")}

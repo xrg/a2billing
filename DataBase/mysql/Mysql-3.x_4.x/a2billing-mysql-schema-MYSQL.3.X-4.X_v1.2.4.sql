@@ -384,6 +384,7 @@ CREATE TABLE cc_ratecard (
     id_trunk INT DEFAULT -1,
     musiconhold CHAR(100) NOT NULL,
 	freeminute_package_offer INT NOT NULL DEFAULT 0,
+	id_outbound_cidgroup INT NOT NULL DEFAULT -1,
     PRIMARY KEY (id)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 CREATE INDEX ind_cc_ratecard_dialprefix ON cc_ratecard (dialprefix);
@@ -1620,3 +1621,33 @@ CREATE TABLE cc_subscription_fee_card (
 CREATE INDEX ind_cc_subscription_fee_card_id_cc_card  ON cc_subscription_fee_card (id_cc_card);
 CREATE INDEX ind_cc_subscription_fee_card_id_cc_subscription_fee ON cc_subscription_fee_card (id_cc_subscription_fee);
 CREATE INDEX ind_cc_subscription_fee_card_datefee ON cc_subscription_fee_card (datefee);
+
+
+
+-- Table Name: cc_outbound_cid_group
+-- For outbound CID Group
+-- group_name: Name of the Group Created.
+
+CREATE TABLE cc_outbound_cid_group (
+    id 					INT NOT NULL AUTO_INCREMENT,
+    creationdate 		TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    group_name 				VARCHAR(70) NOT NULL,    
+    PRIMARY KEY (id)
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
+
+
+-- Table Name: cc_outbound_cid_list
+-- For outbound CIDs 
+-- outbound_cid_group: Foreign Key of the CID Group
+-- cid: Caller ID
+-- activated Field for Activated or Disabled t=activated.
+
+CREATE TABLE cc_outbound_cid_list (
+    id 					INT NOT NULL AUTO_INCREMENT,
+	outbound_cid_group	INT NOT NULL,
+	cid					CHAR(100) NULL,    
+    activated CHAR(1)	DEFAULT 't' NOT NULL,
+    creationdate 		TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,    
+    PRIMARY KEY (id)
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
+

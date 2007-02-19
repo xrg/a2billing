@@ -416,6 +416,58 @@ $CC_help_edit_service ='
 </div></div></div>
 </div>';
 
+$CC_help_list_cidgroup ='
+<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
+<div id="div1000" style="display:visible;">
+<div id="kiki"><div class="w1">
+	<img src="'.KICON_PATH.'/connect_to_network.gif" class="kikipic"/>
+	<div class="w2">
+	<br/>
+	'.gettext("CID Group list. CID can be chosen by customers through the customer interface.").'<br/>
+
+<br/>
+</div></div></div>
+</div>';
+
+$CC_help_list_cid ='
+<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
+<div id="div1000" style="display:visible;">
+<div id="kiki"><div class="w1">
+	<img src="'.KICON_PATH.'/connect_to_network.gif" class="kikipic"/>
+	<div class="w2">
+	<br/>
+	'.gettext("Outbound CID list. CID can be added by customers through the customer interface.").'<br/>
+
+<br/>
+</div></div></div>
+</div>';
+
+
+$CC_help_edit_cidgroup ='
+<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
+<div id="div1000" style="display:visible;">
+<div id="kiki"><div class="w1">
+	<img src="'.KICON_PATH.'/connect_to_network.gif" class="kikipic"/>
+	<div class="w2">
+<br/>'
+.gettext("CID group offers customers a group of CID numbers which can be selected for a ratecard for outgoing calls").'<br>
+<br/>
+</div></div></div>
+</div>';
+
+$CC_help_edit_cid ='
+<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
+<div id="div1000" style="display:visible;">
+<div id="kiki"><div class="w1">
+	<img src="'.KICON_PATH.'/connect_to_network.gif" class="kikipic"/>
+	<div class="w2">
+<br/>'
+.gettext("Outbound CID offers customers a number which will be selected randomly for a ratecard for outgoing calls").'<br>
+<br/>
+</div></div></div>
+</div>';
+
+
 
 $CC_help_currency ='
 <a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>

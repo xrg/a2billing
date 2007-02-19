@@ -95,7 +95,7 @@ $HD_Form -> AddEditElement (gettext("NAME"),
 			   "$value",	
 			   "INPUT",	
 			    "size=40 $maxi maxlength=40",	 
-			   "3",	
+			   "9",	
 			   gettext("Insert the name"),
 			   "" , "", "",	"", "", "",	"", "" );
 			   
