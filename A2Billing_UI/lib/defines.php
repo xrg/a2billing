@@ -125,7 +125,7 @@
     }
     define ("LANGUAGE",$_SESSION["language"]);
     require("languageSettings.php");
-    SetLocalLanguage();
+    SetLocalLanguage($_SESSION["language"]);
 	 
 	function DbConnect($db= NULL)
 	{
