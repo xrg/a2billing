@@ -433,14 +433,15 @@ CREATE OR REPLACE VIEW cc_session_invoice AS
 			cc_agentrefill.credit < 0.0 AND
 			cc_shopsessions.starttime <= cc_agentrefill.date AND
 			(cc_shopsessions.endtime IS NULL OR cc_shopsessions.endtime >= cc_agentrefill.date)
-	UNION SELECT cc_charge.creationdate AS starttime, 'Extra charge' AS descr, cc_shopsessions.id AS sid,
+	UNION SELECT cc_charge.creationdate AS starttime, cc_texts.txt AS descr, cc_shopsessions.id AS sid,
 		booth AS boothid,cc_charge.description AS f2, NULL as cnum,
 		NULL AS pos_charge, cc_charge.amount as neg_charge,
 		NULL as duration
-		FROM cc_shopsessions, cc_charge
+		FROM cc_shopsessions, cc_charge, cc_texts
 		WHERE cc_shopsessions.card = cc_charge.id_cc_card AND
 			cc_shopsessions.starttime <= cc_charge.creationdate AND
-			(cc_shopsessions.endtime IS NULL OR cc_shopsessions.endtime >= cc_charge.creationdate);
+			(cc_shopsessions.endtime IS NULL OR cc_shopsessions.endtime >= cc_charge.creationdate) AND
+			cc_texts.id= cc_charge.chargetype AND cc_texts.lang = 'C';
 
 CREATE OR REPLACE FUNCTION conv_currency(money_sum NUMERIC, from_cur CHAR(3), to_cur CHAR(3)) RETURNS NUMERIC
 	AS $$
