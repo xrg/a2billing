@@ -52,11 +52,11 @@ $HD_Form -> AddViewElement("<acronym title=\"INITBLOCK\">".gettext("INITB")."</a
 $HD_Form -> AddViewElement("<acronym title=\"CONNECT CHARGE\">".gettext("CC")."</acronym>", "connectcharge", "4%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("TRUNK"), "id_trunk", "12%", "center", "sort", "15", "lie", "cc_trunk", "trunkcode", "id_trunk='%id'", "%1");
 $HD_Form -> AddViewElement(gettext("<acronym title=\"FREEMINUTE\">".gettext("FM")."</acronym>"), "freeminute_package_offer", "3%", "center", "sort", "", "list", $yesno);
-$HD_Form -> AddViewElement(gettext("CIDGroup"), "id_outbound_cidgroup", "12%", "center", "sort", "15", "lie", "cc_outbound_cid_group", "group_name", "id='%id'", "%1");
+//$HD_Form -> AddViewElement(gettext("CIDGroup"), "id_outbound_cidgroup", "12%", "center", "sort", "15", "lie", "cc_outbound_cid_group", "group_name", "id='%id'", "%1");
 
 
 
-$HD_Form -> FieldViewElement ('destination, dialprefix, buyrate, rateinitial, startdate, stopdate, initblock, connectcharge, id_trunk, freeminute_package_offer, id_outbound_cidgroup');
+$HD_Form -> FieldViewElement ('destination, dialprefix, buyrate, rateinitial, startdate, stopdate, initblock, connectcharge, id_trunk, freeminute_package_offer');
 
 
 $HD_Form -> CV_NO_FIELDS  = gettext("NO ".strtoupper($HD_Form->FG_INSTANCE_NAME)." HAVE BEEN CREATED."); 

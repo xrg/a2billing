@@ -18,6 +18,19 @@
 
 !!! Ask Malik send me DB changes for invoicing
 
+######## CID GROUP DELETE
+********************************************************************
+when u delete agrouip of CID
+it will remove allthe CID inside that group
+
+
+######## DID RANGE 
+********************************************************************
+Add the same feature that is used on CID to add a new callerID
+support range and coma
+
+
+
 ######## TO CHECK ON CID ROUTING
 ********************************************************************
 

@@ -768,10 +768,7 @@ ALTER TABLE cc_ratecard ADD COLUMN id_outbound_cidgroup INTEGER NOT NULL DEFAULT
 
 
 
-
-
-
-INSERT INTO cc_templatemail VALUES ('payment', 'billing@kikisys.com', 'test', 'PAYMENT CONFIRMATION', 'Thank you for shopping at A2Billing.
+INSERT INTO cc_templatemail VALUES ('payment', 'info@call-labs.com', 'Call-Labs', 'PAYMENT CONFIRMATION', 'Thank you for shopping at Call-Labs.
 
 Shopping details is as below.
 
@@ -783,7 +780,7 @@ Status = <b>$paymentStatus</b>
 
 
 Kind regards,
-The Team
+Call Labs
 ', '');
 
 
