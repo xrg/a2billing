@@ -97,6 +97,7 @@ class RateEngine {
 		if (strlen($A2B->dnid)>=1) $mydnid = $A2B->dnid;
 		if (strlen($A2B->CallerID)>=1) $mycallerid = $A2B->CallerID;
 		
+		if ($this->webui) $A2B -> write_log("[CC_asterisk_rate-engine: CALLERID]\n".$A2B->CallerID."\n",0);
 		
 		if ($A2B->config["database"]['dbtype'] != "postgres"){
 			$DNID_QUERY = "SELECT count(dnidprefix) FROM cc_tariffplan RIGHT JOIN cc_tariffgroup_plan ON cc_tariffgroup_plan.idtariffgroup=$tariffgroupid WHERE dnidprefix  LIKE '$mydnid%'";
@@ -110,6 +111,7 @@ class RateEngine {
 			if (!is_array($result_sub) || count($result_sub)==0) $nb_callerid = 0;
 			else $nb_callerid = $result_sub[0][0];
 			$CID_SUB_QUERY = "AND 0 = $nb_callerid";
+			if ($this->webui) $A2B -> write_log("[CC_asterisk_rate-engine: CALLERID_QUERY]\n".print_r($result_sub)."\n",0);
 			
 		}else{
 			$DNID_SUB_QUERY = "AND 0 = (SELECT count(dnidprefix) FROM cc_tariffplan RIGHT JOIN cc_tariffgroup_plan ON cc_tariffgroup_plan.idtariffgroup=$tariffgroupid WHERE dnidprefix=SUBSTRING('$mydnid',1,length(dnidprefix)) ) ";

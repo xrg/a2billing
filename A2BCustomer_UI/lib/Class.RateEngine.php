@@ -97,6 +97,7 @@ class RateEngine {
 		if (strlen($A2B->dnid)>=1) $mydnid = $A2B->dnid;
 		if (strlen($A2B->CallerID)>=1) $mycallerid = $A2B->CallerID;
 		
+		if ($this->webui) $A2B -> write_log("[CC_asterisk_rate-engine: CALLERID]\n".$A2B->CallerID."\n",0);
 		
 		if ($A2B->config["database"]['dbtype'] != "postgres"){
 			$DNID_QUERY = "SELECT count(dnidprefix) FROM cc_tariffplan RIGHT JOIN cc_tariffgroup_plan ON cc_tariffgroup_plan.idtariffgroup=$tariffgroupid WHERE dnidprefix  LIKE '$mydnid%'";
@@ -110,6 +111,7 @@ class RateEngine {
 			if (!is_array($result_sub) || count($result_sub)==0) $nb_callerid = 0;
 			else $nb_callerid = $result_sub[0][0];
 			$CID_SUB_QUERY = "AND 0 = $nb_callerid";
+			if ($this->webui) $A2B -> write_log("[CC_asterisk_rate-engine: CALLERID_QUERY]\n".print_r($result_sub)."\n",0);
 			
 		}else{
 			$DNID_SUB_QUERY = "AND 0 = (SELECT count(dnidprefix) FROM cc_tariffplan RIGHT JOIN cc_tariffgroup_plan ON cc_tariffgroup_plan.idtariffgroup=$tariffgroupid WHERE dnidprefix=SUBSTRING('$mydnid',1,length(dnidprefix)) ) ";
@@ -130,7 +132,8 @@ class RateEngine {
 		tp_trunk.failover_trunk AS tp_failover_trunk,
 		rt_trunk.failover_trunk AS rt_failover_trunk,
 		tp_trunk.addparameter AS tp_addparameter_trunk,
-		rt_trunk.addparameter AS rt_addparameter_trunk
+		rt_trunk.addparameter AS rt_addparameter_trunk,
+		id_outbound_cidgroup
 		
 		
 		FROM cc_tariffgroup 
@@ -776,6 +779,7 @@ class RateEngine {
 			$musiconhold	= $this -> ratecard_obj[$k][39];
 			$failover_trunk	= $this -> ratecard_obj[$k][40+$usetrunk_failover];
 			$addparameter	= $this -> ratecard_obj[$k][42+$usetrunk_failover];
+			$cidgroupid		= $this -> ratecard_obj[$k][44];
 
 			if (strncmp($destination, $removeprefix, strlen($removeprefix)) == 0) 
 				$destination= substr($destination, strlen($removeprefix));
@@ -829,7 +833,28 @@ class RateEngine {
 			// exten => 1879,1,Dial(SIP/34650XXXXX@255.XX.7.XX,20,tr)
 			// Dial(IAX2/guest@misery.digium.com/s@default) 
 			//$myres = $agi->agi_exec("EXEC DIAL SIP/3465078XXXXX@254.20.7.28|30|HL(" . ($timeout * 60 * 1000) . ":60000:30000)");
-			
+
+			if ($A2B->config["database"]['dbtype'] != "postgres"){
+				$QUERY = "SELECT cid FROM cc_outbound_cid_list WHERE outbound_cid_group = $cidgroupid ORDER BY RANDOM() LIMIT 1";
+			}
+			else
+			{
+				$QUERY = "SELECT cid FROM cc_outbound_cid_list WHERE outbound_cid_group = $cidgroupid ORDER BY RAND() LIMIT 1";	
+			}
+		
+
+			$A2B->instance_table = new Table();
+			$cidresult = $A2B->instance_table -> SQLExec ($A2B -> DBHandle, $QUERY);
+			$outcid = 0;
+			if (is_array($cidresult) && count($cidresult)>0){
+				$outcid = $cidresult[0][0];
+				$A2B -> CallerID = $outcid;
+				$agi -> set_callerid($outcid);
+				if ($A2B->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '."[EXEC SetCallerID : $outcid]");
+
+			}
+			if ($A2B->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '."app_callingcard: CIDGROUPID='$cidgroupid' OUTBOUND CID SELECTED IS '$outcid'.");
+
 			$myres = $agi->exec("Dial $dialstr");	
     			//exec('Dial', trim("$type/$identifier|$timeout|$options|$url", '|'));
 
