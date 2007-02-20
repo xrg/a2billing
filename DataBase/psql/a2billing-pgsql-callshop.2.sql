@@ -630,6 +630,12 @@ BEGIN
 	RETURN res; 
 END; $$ LANGUAGE plpgsql STRICT STABLE;
 
+
+CREATE OR REPLACE FUNCTION gettext_add_missing(lang VARCHAR(10)) RETURNS void AS  $$
+	INSERT INTO cc_texts (id, txt, src, lang) SELECT id, txt, 0 AS src, $1 AS lang FROM cc_texts 
+		WHERE lang = 'C' AND  id NOT IN (SELECT id FROM cc_texts WHERE lang = $1 );
+$$ LANGUAGE SQL STRICT;
+
 --------------------
 
 CREATE OR REPLACE FUNCTION cc_agentpay_it() RETURNS trigger AS $$
@@ -747,6 +753,30 @@ SELECT credit, climit, AVG(totaltime) as avg_time,
 		cc_agent_daycalls_v.day >= date_trunc('day',$2 - $3)
 	GROUP BY agentid, credit, climit  ;
 $$ LANGUAGE SQL STABLE STRICT;
+
+CREATE OR REPLACE VIEW cc_agent_money_v AS
+	SELECT agentid, date, pay_type, descr, NULL::bigint AS card_id, NULL::NUMERIC AS pos_credit, credit AS neg_credit, credit 
+		FROM cc_agentpay WHERE credit >=0
+UNION SELECT agentid, date, pay_type, descr, NULL::bigint AS card_id, 0-credit AS pos_credit, NULL  AS neg_credit, credit 
+		FROM cc_agentpay WHERE credit <0
+UNION	SELECT agentid, date, pay_type, 'Money from customer' as descr, card_id, credit AS pos_credit, NULL AS neg_credit, 0-credit
+		FROM cc_agentrefill WHERE credit >=0 AND carried = false
+UNION	SELECT agentid, date, pay_type, 'Pay back customer' as descr, card_id, NULL AS pos_credit, 0-credit AS neg_credit, 0-credit
+		FROM cc_agentrefill WHERE credit <0 AND carried = false;
+
+CREATE OR REPLACE VIEW cc_agent_money_vi AS
+	SELECT agentid, date, pay_type, descr, NULL::bigint AS card_id, NULL::NUMERIC AS pos_credit, credit AS neg_credit, credit 
+		FROM cc_agentpay WHERE credit >=0
+UNION SELECT agentid, date, pay_type, descr, NULL::bigint AS card_id, 0-credit AS pos_credit, NULL  AS neg_credit, credit 
+		FROM cc_agentpay WHERE credit <0
+UNION SELECT agentid, date, pay_type, gettext('Money from customer',cc_agent.locale) as descr, card_id, cc_agentrefill.credit AS pos_credit, 
+			NULL AS neg_credit, 0-cc_agentrefill.credit
+		FROM cc_agentrefill, cc_agent 
+		WHERE cc_agentrefill.credit >=0 AND carried = false AND cc_agent.id = agentid
+UNION SELECT agentid, date, pay_type, gettext('Pay back customer',cc_agent.locale) as descr, card_id, NULL AS pos_credit, 
+			0-cc_agentrefill.credit AS neg_credit, 0-cc_agentrefill.credit
+		FROM cc_agentrefill, cc_agent 
+		WHERE cc_agentrefill.credit <0 AND carried = false AND cc_agent.id = agentid;
 
 CREATE OR REPLACE FUNCTION agent_charge_std(charge VARCHAR(30),ssession BIGINT, descr TEXT) RETURNS void AS $$
 BEGIN

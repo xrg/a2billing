@@ -20,32 +20,6 @@
 			AND cc_call.starttime >= cc_shopsessions.starttime AND (cc_shopsessions.endtime IS NULL OR cc_call.starttime <= cc_shopsessions.endtime)
 		GROUP BY cc_shopsessions.id,cc_shopsessions.starttime, cc_shopsessions.endtime;*/
 -- One view for all: have all the session transactions in one table.
-
-
-CREATE OR REPLACE VIEW cc_agent_money_v AS
-	SELECT agentid, date, pay_type, descr, NULL::bigint AS card_id, NULL::NUMERIC AS pos_credit, credit AS neg_credit, credit 
-		FROM cc_agentpay WHERE credit >=0
-UNION SELECT agentid, date, pay_type, descr, NULL::bigint AS card_id, 0-credit AS pos_credit, NULL  AS neg_credit, credit 
-		FROM cc_agentpay WHERE credit <0
-UNION	SELECT agentid, date, pay_type, 'Money from customer' as descr, card_id, credit AS pos_credit, NULL AS neg_credit, 0-credit
-		FROM cc_agentrefill WHERE credit >=0 AND carried = false
-UNION	SELECT agentid, date, pay_type, 'Pay back customer' as descr, card_id, NULL AS pos_credit, 0-credit AS neg_credit, 0-credit
-		FROM cc_agentrefill WHERE credit <0 AND carried = false;
-
-CREATE OR REPLACE VIEW cc_agent_money_vi AS
-	SELECT agentid, date, pay_type, descr, NULL::bigint AS card_id, NULL::NUMERIC AS pos_credit, credit AS neg_credit, credit 
-		FROM cc_agentpay WHERE credit >=0
-UNION SELECT agentid, date, pay_type, descr, NULL::bigint AS card_id, 0-credit AS pos_credit, NULL  AS neg_credit, credit 
-		FROM cc_agentpay WHERE credit <0
-UNION SELECT agentid, date, pay_type, gettext('Money from customer',cc_agent.locale) as descr, card_id, cc_agentrefill.credit AS pos_credit, 
-			NULL AS neg_credit, 0-cc_agentrefill.credit
-		FROM cc_agentrefill, cc_agent 
-		WHERE cc_agentrefill.credit >=0 AND carried = false AND cc_agent.id = agentid
-UNION SELECT agentid, date, pay_type, gettext('Pay back customer',cc_agent.locale) as descr, card_id, NULL AS pos_credit, 
-			0-cc_agentrefill.credit AS neg_credit, 0-cc_agentrefill.credit
-		FROM cc_agentrefill, cc_agent 
-		WHERE cc_agentrefill.credit <0 AND carried = false AND cc_agent.id = agentid;
-
 	
 CREATE OR REPLACE VIEW cc_agentcard_debt_v AS
 	SELECT agentid, SUM(credit) as credit, 'Positive' AS typ  
@@ -61,11 +35,6 @@ UNION
 		GROUP BY cc_agent_cards.agentid;
 		
  
-CREATE OR REPLACE FUNCTION gettext_add_missing(lang VARCHAR(10)) RETURNS void AS  $$
-	INSERT INTO cc_texts (id, txt, src, lang) SELECT id, txt, 0 AS src, $1 AS lang FROM cc_texts 
-		WHERE lang = 'C' AND  id NOT IN (SELECT id FROM cc_texts WHERE lang = $1 );
-$$ LANGUAGE SQL STRICT;
-
 /*CREATE OR REPLACE VIEW cc_texts_v AS
 	SELECT id, txt AS txt_C FROM cc_texts AS t1 RIGHT OUTER JOIN cc_texts AS t2 ON t1.id = t2.id;*/
 --eof
