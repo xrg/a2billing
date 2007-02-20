@@ -748,4 +748,17 @@ SELECT credit, climit, AVG(totaltime) as avg_time,
 	GROUP BY agentid, credit, climit  ;
 $$ LANGUAGE SQL STABLE STRICT;
 
+CREATE OR REPLACE FUNCTION agent_charge_std(charge VARCHAR(30),ssession BIGINT, descr TEXT) RETURNS void AS $$
+BEGIN
+	INSERT INTO cc_charge(id_cc_card, amount, chargetype, description, agentid, from_agent)
+	SELECT cc_shopsessions.card, cc_paytypes.charge , cc_paytypes.id, $3, cc_agent_cards.agentid, true
+		FROM cc_shopsessions, cc_paytypes, cc_agent_cards
+		WHERE cc_shopsessions.id = $2 AND cc_paytypes.preset = $1 AND cc_agent_cards.card_id = cc_shopsessions.card
+		LIMIT 1;
+	IF NOT FOUND THEN
+		RAISE EXCEPTION 'Cannot find session/type to charge';
+	END IF;
+END;
+$$ LANGUAGE plpgsql STRICT VOLATILE;
+
 -- eof

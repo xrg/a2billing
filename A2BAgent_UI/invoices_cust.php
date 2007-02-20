@@ -9,7 +9,7 @@ if (! has_rights (ACX_ACCESS)){
 }
 
 
-getpost_ifset(array('card','booth','nobq', 'posted',  'stitle', 'atmenu', 'current_page', 'order', 'sens', 'dst', 'src', 'srctype', 'src', 'choose_currency','exporttype'));
+getpost_ifset(array('card','booth','nobq', 'posted',  'stitle', 'atmenu', 'current_page', 'order', 'sens', 'dst', 'src', 'srctype', 'src', 'choose_currency','exporttype','session_sid', 'charge_print'));
 
 //$customer = $_SESSION["pr_login"];
 $vat = $_SESSION["vat"];
@@ -52,7 +52,7 @@ if (!isset ($current_page) || ($current_page == "")){
 
 
 // this variable specifie the debug type (0 => nothing, 1 => sql result, 2 => boucle checking, 3 other value checking)
-$FG_DEBUG = 2;
+$FG_DEBUG = 0;
 
 // The variable FG_TABLE_NAME define the table name to use
 $FG_TABLE_NAME="cc_session_invoice";
@@ -76,15 +76,35 @@ $DBHandle  = DbConnect();
 $nodisplay = true;
 $card_username = '';
 
-if (isset($card) && ($card > 0)){ // find by card
+if (isset($session_sid)){ //find by sid
+	$QUERY= str_dbparams($DBHandle,"SELECT cc_shopsessions.id FROM cc_agent_cards, cc_shopsessions " .
+		" WHERE cc_shopsessions.card = cc_agent_cards.card_id AND cc_agent_cards.agentid = %1 AND cc_shopsessions.id = %2 " .
+		"  LIMIT 1;", array($_SESSION['agent_id'],$session_sid));
+	$res = $DBHandle -> query($QUERY);
+	
+	if ($res){
+		if ($FG_DEBUG>=2)
+			echo "Query: " . htmlspecialchars($QUERY) . "<br>";
+		$nodisplay=false;
+		$row=$res->FetchRow();
+		$session_sid=$row[0];
+	}
+	else {
+		if ($FG_DEBUG >0){
+			echo "Query: " . htmlspecialchars($QUERY) . "<br>";
+			echo "Error: " . htmlspecialchars($DBHandle->ErrorMsg()) ."<br>";
+		}
+		$session_sid = null;
+	}
+}elseif (isset($card) && ($card > 0)){ // find by card
 	$QUERY= str_dbparams($DBHandle,"SELECT cc_shopsessions.id FROM cc_agent_cards, cc_shopsessions " .
 		" WHERE cc_shopsessions.card = cc_agent_cards.card_id AND cc_agent_cards.agentid = %1 AND cc_shopsessions.card = %2 " .
 		" ORDER BY starttime DESC LIMIT 1;", array($_SESSION['agent_id'],$card));
 	$res = $DBHandle -> query($QUERY);
 	
 	if ($res){
-	if ($FG_DEBUG>=2)
-		echo "Query: " . htmlspecialchars($QUERY) . "<br>";
+		if ($FG_DEBUG>=2)
+			echo "Query: " . htmlspecialchars($QUERY) . "<br>";
 		$nodisplay=false;
 		$row=$res->FetchRow();
 		$session_sid=$row[0];
@@ -121,7 +141,7 @@ if (isset($card) && ($card > 0)){ // find by card
 
 }
 
-
+if ($charge_print == 1) $nodisplay=true; //we won't need the queries etc.
 
 // The variable Var_col would define the col that we want show in your table
 // First Name of the column in the html page, second name of the field
@@ -311,7 +331,27 @@ window.onload= function(){ window.print(); };
 
 <?php
 } else {
-	include("PP_header.php");
+	if ($charge_print == 1) {
+		$sid_url=$_SERVER['PHP_SELF'].'?session_sid='.$session_sid .
+			'&nobq=1&posted=t&choose_currency='. $choose_currency;
+		$QUERY= str_dbparams($DBHandle,"SELECT agent_charge_std('print-cust-invoice', %1, 'Standard printing')", array($session_sid));
+		
+		if ($session_sid!=null)
+			$res = $DBHandle -> query($QUERY);
+		else
+			$res=false;
+		
+		if ($res){
+			Header("Location: $sid_url&charge_print=2");
+			die();
+		}
+		else if ($FG_DEBUG >0){
+			echo "Query: " . htmlspecialchars($QUERY) . "<br>";
+			echo "Error: " . htmlspecialchars($DBHandle->ErrorMsg()) ."<br>";
+		}
+	}
+
+include("PP_header.php");
 
 ?>
 <script language="JavaScript" type="text/JavaScript">
@@ -698,12 +738,27 @@ if ($vat>0) echo  " (".$vat." % ".gettext("VAT").")";
 }else if ($exporttype=="print"){
 	//noop
 	include("PP_print_footer.php");
-}else { ?>
+}else { 
+	$cf_msg= _("Do you want to charge the customer for one printing?");
+	$sid_url=$_SERVER['PHP_SELF'].'?session_sid='.$session_sid .
+		'&nobq=1&posted=t&choose_currency='. $choose_currency;
+?>
+<script LANGUAGE="javascript">
+// <!--  Begin
+function charge_print() {
+	if (window.confirm("<?= $cf_msg ?>")){
+		window.location= "<?= $sid_url.'&charge_print=1' ?>";
+	}
+	else
+		window.status="<?= _("Print charge cancelled.") ?>";
+}
+
+// End -->
+</script>
 	<div align="center" width="<?= $FG_HTML_TABLE_WIDTH?>">
-	<p class="pfriend"><a href="#" onclick="javascript:window.open('<?php echo $_SERVER['PHP_SELF'].'?';
-	if (isset($card)) echo 'card='.$card .'&' ;
-	else if (isset($booth)) echo 'booth='. $booth . '&';
-	echo 'nobq=1&posted=t&choose_currency='. $choose_currency .'&exporttype=print';
+	<p class="pfriend"><a href="javascript:charge_print();"><img src="images/icons/document.png"> <?= _("Charge printing") ?></a>
+	&nbsp;
+	<a href="#" onclick="javascript:window.open('<?= $sid_url .'&exporttype=print';
 	?>');"><img src="images/printable.png"> <?= _("Printable version") ?>
 	<img src="images/icon_arrow_orange.gif">
 	</a>
