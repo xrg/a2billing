@@ -709,13 +709,45 @@ if ($vat>0) echo  " (".$vat." % ".gettext("VAT").")";
 	</a>
 	</p></div>
 	<?php
-if ($list_sum[0][4] >0.0){ ?>
+if ($list_sum[0][4] >0.0){ 
+	$cf_msg=str_params( _("Click OK if you have paid back %1 to the customer."),
+			array($list_sum[0][3]),1);
+?>
 	<br><hr width="350"><br>
-	<p class='pay-back-btn'> <a href='pay.php?sid=<?= $session_sid . '&choose_currency=' .$choose_currency; ?>&pback=1'> <?=_("Pay back:") . '&nbsp' . $list_sum[0][3] ; ?></a>
+<script LANGUAGE="javascript">
+// <!--  Begin
+function do_pay() {
+	if (window.confirm("<?= $cf_msg ?>")){
+		window.location="pay.php?sid=<?= $session_sid . '&choose_currency=' .$choose_currency; ?>&pback=1";
+		}
+	else
+		window.status="<?= _("Pay back cancelled.") ?>";
+}
+
+// End -->
+</script>
+
+	<p class='pay-back-btn'> <a href='javascript:do_pay();'> <?=_("Pay back:") . '&nbsp' . $list_sum[0][3] ; ?></a>
 	<br><hr width="350"><br>
-<?php }else if ($list_sum[0][4] <0.0){ ?>
+<?php 
+}else if ($list_sum[0][4] <0.0){ 
+	$cf_msg=str_params( _("Click OK if you have received %1 from the customer as payment."),
+			array($list_sum[0][5]),1);
+?>
 	<br><hr width="350"><br>
-	<p class='pay-btn'> <a href='pay.php?sid=<?= $session_sid .'&choose_currency=' .$choose_currency; ?>&pback=0'> <?=_("Pay:") . '&nbsp' . $list_sum[0][5] ; ?></a>
+<script LANGUAGE="javascript">
+// <!--  Begin
+function do_pay() {
+	if (window.confirm("<?= $cf_msg ?>")){
+		window.location="pay.php?sid=<?= $session_sid . '&choose_currency=' .$choose_currency; ?>&pback=0";
+		}
+	else
+		window.status="<?= _("Payment cancelled.") ?>";
+}
+
+// End -->
+</script>
+	<p class='pay-btn'> <a href='javascript:do_pay();'> <?=_("Pay:") . '&nbsp' . $list_sum[0][5] ; ?></a>
 	<br><hr width="350"><br>
 <?php } ?>
 <br>
