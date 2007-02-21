@@ -1,6 +1,5 @@
 <?php
 	include (dirname(__FILE__)."/Class.A2Billing.php");
-	//require_once('DB.php'); // PEAR
 	require_once('adodb/adodb.inc.php'); // AdoDB
 	include (dirname(__FILE__)."/Class.Table.php");
 	

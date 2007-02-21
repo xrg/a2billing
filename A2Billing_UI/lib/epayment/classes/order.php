@@ -35,7 +35,7 @@
 
         $DBHandle_max  = DbConnect();
         $resmax = $DBHandle_max -> query($QUERY);
-        $numrow = $resmax -> numRows();
+        $numrow = $resmax -> RecordCount( );
         if ($numrow == 0) exit();
         $customer_info =$resmax -> fetchRow();
         if( $customer_info [13] != "t" && $customer_info [13] != "1" )

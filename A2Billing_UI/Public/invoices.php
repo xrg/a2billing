@@ -281,7 +281,7 @@ $QUERY = "SELECT substring(t1.starttime,1,10) AS day, sum(t1.sessiontime) AS cal
 
 if (!$nodisplay){
 		$res = $DBHandle -> query($QUERY);
-		$num = $res -> numRows();
+		$num = $res -> RecordCount();
 		for($i=0;$i<$num;$i++)
 		{				
 			$list_total_day [] =$res -> fetchRow();				 
@@ -300,7 +300,7 @@ sum(t1.sessionbill) AS cost, count(*) as nbcall FROM $FG_TABLE_NAME WHERE ".$FG_
 
 if (!$nodisplay){
 		$res = $DBHandle -> query($QUERY);
-		$num = $res -> numRows();
+		$num = $res -> RecordCount();
 		for($i=0;$i<$num;$i++)
 		{				
 			$list_total_destination [] =$res -> fetchRow();				 
@@ -416,7 +416,7 @@ else
 
 if (!$nodisplay){
 		$res = $DBHandle -> query($QUERY);
-		$num = $res -> numRows();
+		$num = $res -> RecordCount();
 		for($i=0;$i<$num;$i++)
 		{				
 			$list_total_day_charge [] =$res-> fetchRow();				 

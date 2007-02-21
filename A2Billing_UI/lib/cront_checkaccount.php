@@ -10,7 +10,7 @@
 
 	$QUERY = "SELECT mailtype, fromemail, fromname, subject, messagetext, messagehtml FROM cc_templatemail WHERE mailtype='reminder' ";
 		$res = $DBHandle -> query($QUERY);
-		$num = $res -> numRows();
+		$num = $res -> RecordCount( );
 		if (!$num) exit();
 		
 		for($i=0;$i<$num;$i++)
@@ -26,7 +26,7 @@
 	$QUERY = "SELECT username, lastname, firstname, email, uipass, credit FROM cc_card WHERE activated='TRUE' AND credit<500 ";
 	
 		$res = $DBHandle -> query($QUERY);
-		$num = $res -> numRows();
+		$num = $res -> RecordCount( );
 		if (!$num) exit();
 		
 		for($i=0;$i<$num;$i++)

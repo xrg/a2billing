@@ -191,7 +191,7 @@ if (!$nodisplay){
 	$list = $instance_table -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, $order, $sens, null, null, $FG_LIMITE_DISPLAY, $current_page*$FG_LIMITE_DISPLAY,$SQL_GROUP);
 	$res = $DBHandle -> query($QUERY_TOTAL);
 	if ($res){
-		$num=$res->numRows();
+		$num=$res->RecordCount( );
 		for($i=0;$i<$num;$i++)
 		{				
 			$list_total[]=$res -> fetchRow();

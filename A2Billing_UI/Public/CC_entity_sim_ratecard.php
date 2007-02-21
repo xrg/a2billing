@@ -50,7 +50,7 @@ if ($called  && $id_cc_card){
 				$A2B -> set_instance_table ($instance_table);
 				
 				$resmax = $DBHandle -> query("SELECT username, tariff FROM cc_card where id='$id_cc_card'");
-				$num = $resmax -> numRows();
+				$num = $resmax -> RecordCount( );
 				if ($num==0){ echo gettext("Error card !!!"); exit();}			
 				
 				for($i=0;$i<$num;$i++)

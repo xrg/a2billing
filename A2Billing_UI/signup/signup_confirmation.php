@@ -42,7 +42,7 @@ session_start();
 
 	$res = $DBHandle -> query($QUERY);
 
-	$num = $res -> numRows();
+	$num = $res -> RecordCount();
 	if (!$num)
     {
         echo "<br>Error : No email Template Found";
@@ -64,7 +64,7 @@ session_start();
 
 	$res = $DBHandle -> query($QUERY);
 
-	$num = $res -> numRows();
+	$num = $res -> RecordCount();
 	if (!$num)
     {
         echo "<br>Error : No User Found";

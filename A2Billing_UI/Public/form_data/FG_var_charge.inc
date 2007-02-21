@@ -56,7 +56,7 @@ if ($form_action=='ask-add'){
 	$DBHandle_max  = DbConnect();
 	if ($username){
 		$resmax = $DBHandle_max -> query("SELECT id FROM cc_card where username='$username'");
-		$numrow = $resmas -> numRows();
+		$numrow = $resmas -> RecordCount( );
 		if ($numrow!=0){
 			$db_row [] = $resmax -> fetchRow();
 			$val_default = "value='".$db_row[0][0]."'";
@@ -65,7 +65,7 @@ if ($form_action=='ask-add'){
 
 	if ($id_did){
 		$resmax = $DBHandle_max -> query("SELECT fixrate FROM cc_did where id='$id_did'");
-		$numrow = $resmax -> numRows();
+		$numrow = $resmax -> RecordCount( );
 		if ($numrow!=0){
 			$db_row2 [] = $resmax -> fetchRow();
 			$val_default_fixrate = "value='".$db_row2[0][0]."'";

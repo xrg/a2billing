@@ -27,13 +27,13 @@ class Table {
 		$this -> table = $table;
 		$this -> fields = $liste_fields;
 
-        if ((count($fk_Tables) == count($fk_Fields)) && (count($fk_Fields) > 0))
-        {
-            $this -> FK_TABLES = $fk_Tables;
-            $this -> FK_EDITION_CLAUSE = $fk_Fields;
-            $this -> FK_DELETE_OR_UPDATE = $fk_del_upd;
-            $this -> FK_ID_VALUE = $id_Value;
-        }
+		if ((count($fk_Tables) == count($fk_Fields)) && (count($fk_Fields) > 0))
+		{
+			$this -> FK_TABLES = $fk_Tables;
+			$this -> FK_EDITION_CLAUSE = $fk_Fields;
+			$this -> FK_DELETE_OR_UPDATE = $fk_del_upd;
+			$this -> FK_ID_VALUE = $id_Value;
+		}
 	}
 
 
@@ -66,7 +66,7 @@ class Table {
 		}
 	
 		if ($select){
-			$num = $res -> numRows();
+			$num = $res -> RecordCount();
 			if ($num==0) return 0;		
 		
 			for($i=0;$i<$num;$i++)
@@ -124,7 +124,7 @@ class Table {
 			return (false);
 		}
 
-		$num = $res -> numRows();
+		$num = $res -> RecordCount();
 		if ($num==0) return 0;
 
 		for($i=0;$i<$num;$i++)
@@ -337,7 +337,7 @@ class Table {
 			return (false);
 		}
 
-		/*$num = $res -> numRows();
+		/*$num = $res -> RecordCount();
 		if ($num==0) return 0;
 
 		for($i=0;$i<$num;$i++)

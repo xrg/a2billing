@@ -307,7 +307,7 @@ if (!$nodisplay){
 		$res = $DBHandle -> query($QUERY);
 		$QUERY="SELECT * FROM ASR_CIC_TEMP order by day";
 		$res = $DBHandle -> query($QUERY);
-		$num = $res -> numRows();
+		$num = $res -> RecordCount();
 		$pos=0;
 		for($i=0;$i<$num;$i++)
 		{	
@@ -355,7 +355,7 @@ $QUERY = "SELECT substring(t1.starttime,1,10) AS day, sum(t1.sessiontime) AS cal
 
 if (!$nodisplay){
 		$res = $DBHandle -> query($QUERY);
-		$num = $res -> numRows();
+		$num = $res -> RecordCount();
 		for($i=0;$i<$num;$i++)
 		{				
 			$list_total_day [] =$res -> fetchRow();

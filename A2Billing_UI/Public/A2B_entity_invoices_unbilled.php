@@ -22,7 +22,7 @@ $DBHandle = DbConnect();
 $QUERY = "Select username from cc_card t1 where t1.id = $cardid";
 $res_user = $DBHandle -> query($QUERY);
 
-$num = $res_user -> numRows();
+$num = $res_user -> RecordCount( );
 if($num > 0)
 {
 	$userRecord = $res_user -> fetchRow();				 
@@ -273,7 +273,7 @@ else
 
 if (!$nodisplay){		
 		$res = $DBHandle -> query($QUERY);
-		$num = $res -> numRows();
+		$num = $res -> RecordCount( );
 		
 		for($i=0;$i<$num;$i++)
 		{				
@@ -315,7 +315,7 @@ else
 if (!$nodisplay)
 {
 	$res = $DBHandle -> query($QUERY);	
-	$num = $res -> numRows();
+	$num = $res -> RecordCount( );
 	for($i=0;$i<$num;$i++)
 	{				
 		$list_total_did [] =$res -> fetchRow();
@@ -338,7 +338,7 @@ sum(t1.sessionbill) AS cost, count(*) as nbcall FROM $FG_TABLE_NAME WHERE ".$FG_
 
 if (!$nodisplay){
 		$res = $DBHandle -> query($QUERY);
-		$num = $res -> numRows();
+		$num = $res -> RecordCount( );
 		for($i=0;$i<$num;$i++)
 		{				
 			$list_total_destination [] =$res -> fetchRow();				 
@@ -432,7 +432,7 @@ else
 
 if (!$nodisplay){
 		$res = $DBHandle -> query($QUERY);
-		$num = $res -> numRows();
+		$num = $res -> RecordCount( );
 		for($i=0;$i<$num;$i++)
 		{				
 			$list_total_day_charge [] =$res -> fetchRow();				 

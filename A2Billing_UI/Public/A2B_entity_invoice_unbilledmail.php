@@ -21,7 +21,7 @@ $DBHandle = DbConnect();
 $QUERY = "Select username from cc_card t1 where t1.id = $cardid";
 $res_user = $DBHandle -> query($QUERY);
 
-$num = $res_user -> numRows();
+$num = $res_user -> RecordCount( );
 if($num > 0)
 {
 	$userRecord = $res_user -> fetchRow();				 
@@ -263,7 +263,7 @@ else
 
 if (!$nodisplay){		
 		$res = $DBHandle -> query($QUERY);
-		$num = $res -> numRows();
+		$num = $res -> RecordCount( );
 		for($i=0;$i<$num;$i++)
 		{				
 			$list_total_day [] =$res -> fetchRow();				 
@@ -296,7 +296,7 @@ else
 } 
 if (!$nodisplay){
 		$res = $DBHandle -> query($QUERY);
-		$num = $res -> numRows();
+		$num = $res -> RecordCount( );
 		for($i=0;$i<$num;$i++)
 		{				
 			$list_total_destination [] =$res -> fetchRow();				 
@@ -326,7 +326,7 @@ $QUERY = "SELECT t1.id_did, t2.fixrate, t2.billingtype, sum(t1.sessiontime) AS c
 if (!$nodisplay)
 {
 	$res = $DBHandle -> query($QUERY);	
-	$num = $res -> numRows();
+	$num = $res -> RecordCount( );
 	for($i=0;$i<$num;$i++)
 	{				
 		$list_total_did [] =$res -> fetchRow();
@@ -415,7 +415,7 @@ else
 
 if (!$nodisplay){
 		$res = $DBHandle -> query($QUERY);
-		$num = $res -> numRows();
+		$num = $res -> RecordCount( );
 		for($i=0;$i<$num;$i++)
 		{				
 			$list_total_day_charge [] =$res -> fetchRow();				 

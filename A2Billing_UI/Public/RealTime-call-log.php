@@ -169,7 +169,7 @@ $QUERY = "SELECT substring(t1.callstart,1,10) AS day, sum(t1.duration) AS callti
 
 
 		$res = $DBHandle -> query($QUERY);
-		$num = $res -> numRows();
+		$num = $res -> RecordCount( );
 		for($i=0;$i<$num;$i++)
 		{				
 			$list_total_day [] =$res -> fetchRow();				 
@@ -220,7 +220,7 @@ $total_cost = $instance_table_cost -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, nul
 		
 		//echo $QUERY ;
 		$res = $DBHandle -> query($QUERY);
-		$num = $res -> numRows();		
+		$num = $res -> RecordCount( );		
 		
 		for($i=0;$i<$num;$i++)
 		{		
@@ -242,7 +242,7 @@ $total_cost = $instance_table_cost -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, nul
 		$QUERY.=" GROUP BY t1.IDCust";
 		
 		$res = $DBHandle -> query($QUERY);
-		$num = $res -> numRows();		
+		$num = $res -> RecordCount( );		
 		
 		for($i=0;$i<$num;$i++)
 		{		
@@ -279,7 +279,7 @@ $total_cost = $instance_table_cost -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, nul
 		$QUERY.=" GROUP BY t1.IDCust";
 		
 		$res = $DBHandle -> query($QUERY);
-		$num = $res -> numRows();		
+		$num = $res -> RecordCount( );		
 		
 		for($i=0;$i<$num;$i++)
 		{		
@@ -307,7 +307,7 @@ $total_cost = $instance_table_cost -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, nul
 		$QUERY.=" GROUP BY t1.IDCust";
 		
 		$res = $DBHandle -> query($QUERY);
-		$num = $res -> numRows();		
+		$num = $res -> RecordCount( );		
 		
 		for($i=0;$i<$num;$i++)
 		{		

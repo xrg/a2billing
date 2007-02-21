@@ -17,7 +17,7 @@ if($id == "")
 $QUERY = "Select username from cc_card t1, cc_invoices t2 where t1.id = t2.cardid and t2.id=$id";
 $res_user = $DBHandle -> query($QUERY);
 
-$num = $res_user -> numRows();
+$num = $res_user -> RecordCount();
 if($num > 0)
 {
 	$userRecord = $res_user -> fetchRow();				 
@@ -228,7 +228,7 @@ $QUERY = "SELECT substring(t1.starttime,1,10) AS day, sum(t1.sessiontime) AS cal
 
 if (!$nodisplay){
 		$res = $DBHandle -> query($QUERY);
-		$num = $res -> numRows();
+		$num = $res -> RecordCount();
 		for($i=0;$i<$num;$i++)
 		{				
 			$list_total_day [] =$res -> fetchRow();				 
@@ -252,7 +252,7 @@ sum(t1.sessionbill) AS cost, count(*) as nbcall FROM $FG_TABLE_NAME WHERE ".$FG_
 if (!$nodisplay){
 
 		$res = $DBHandle -> query($QUERY);
-		$num = $res -> numRows();
+		$num = $res -> RecordCount();
 		for($i=0;$i<$num;$i++)
 		{				
 			$list_total_destination [] =$res -> fetchRow();				 
@@ -291,7 +291,7 @@ $QUERY = "SELECT t1.id_did, t2.fixrate, t2.billingtype, sum(t1.sessiontime) AS c
 if (!$nodisplay)
 {
 	$res = $DBHandle -> query($QUERY);	
-	$num = $res -> numRows();
+	$num = $res -> RecordCount();
 	for($i=0; $i<$num; $i++)
 	{				
 		$list_total_did [] =$res -> fetchRow();
@@ -380,7 +380,7 @@ else
 }
 if (!$nodisplay){
 		$res = $DBHandle -> query($QUERY);
-		$num = $res -> numRows();
+		$num = $res -> RecordCount();
 		for($i=0;$i<$num;$i++)
 		{				
 			$list_total_day_charge [] =$res -> fetchRow();				 
@@ -393,7 +393,7 @@ if (!$nodisplay){
 $QUERY = "Select t1.invoicecreated_date from cc_invoices t1, cc_card t2 where t2.id = t1.cardid and t2.username = '$customer' order by t1.invoicecreated_date DESC";
 
 $res = $DBHandle -> query($QUERY);
-$total_invoices = $res -> numRows();
+$total_invoices = $res -> RecordCount();
 if ($total_invoices > 0)
 {
 	$billperiod_list = $res;

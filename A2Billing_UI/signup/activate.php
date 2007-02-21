@@ -52,7 +52,7 @@ if( $list[0][8] != "t" && isset($result) && $result != null){
 
     $QUERY = "SELECT mailtype, fromemail, fromname, subject, messagetext, messagehtml FROM cc_templatemail WHERE mailtype='signupconfirmed' ";
 	$res = $HD_Form -> DBHandle -> query($QUERY);
-	$num = $res -> numRows();
+	$num = $res -> RecordCount();
 	if (!$num)
     {
         echo "<br>Error : No email Template Found <br>";        

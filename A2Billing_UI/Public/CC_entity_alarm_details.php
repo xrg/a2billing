@@ -39,7 +39,7 @@ $DBHandle  = DbConnect();
 
 $QUERY = "SELECT id, name, type, numberofrun, substring(datelastrun,0,20), numberofalarm from cc_alarm WHERE id='$id'";
 $res = $DBHandle -> query($QUERY);
-$num = $res -> numRows();		
+$num = $res -> RecordCount( );		
 for($i=0;$i<$num;$i++)
 {		
 	$list_alarm [] =$res -> fetchRow();			
@@ -61,7 +61,7 @@ if (DB_TYPE == "postgres"){
 }
 if ($FG_DEBUG > 0)   echo $QUERY ;
 $res = $DBHandle -> query($QUERY);
-$num = $res -> numRows();		
+$num = $res -> RecordCount( );		
 
 for($i=0;$i<$num;$i++)
 {		
