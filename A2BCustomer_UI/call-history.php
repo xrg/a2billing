@@ -79,19 +79,19 @@ $FG_TABLE_COL = array();
 Calldate Clid Src Dst Dcontext Channel Dstchannel Lastapp Lastdata Duration Billsec Disposition Amaflags Accountcode Uniqueid Serverid
 *******/
 
-$FG_TABLE_COL[]=array (gettext("Calldate"), "starttime", "15%", "center", "SORT", "19", "", "", "", "", "", "display_dateformat");
+$FG_TABLE_COL[]=array (gettext("Calldate"), "starttime", "14%", "center", "SORT", "19", "", "", "", "", "", "display_dateformat");
 //$FG_TABLE_COL[]=array ("Callend", "stoptime", "15%", "center", "SORT", "19");
 
 
-//$FG_TABLE_COL[]=array ("Source", "source", "20%", "center", "SORT", "30");
+$FG_TABLE_COL[]=array ("Source", "source", "12%", "center", "SORT", "30");
 
-$FG_TABLE_COL[]=array (gettext("CardNumber"), "calledstation", "15%", "center", "SORT", "30", "", "", "", "", "", "remove_prefix");
-$FG_TABLE_COL[]=array (gettext("Destination"), "destination", "15%", "center", "SORT", "30", "", "", "", "", "", "remove_prefix");
+$FG_TABLE_COL[]=array (gettext("CardNumber"), "calledstation", "12%", "center", "SORT", "30", "", "", "", "", "", "remove_prefix");
+$FG_TABLE_COL[]=array (gettext("Destination"), "destination", "12%", "center", "SORT", "30", "", "", "", "", "", "remove_prefix");
 
 $FG_TABLE_COL[]=array (gettext("Duration"), "sessiontime", "7%", "center", "SORT", "30", "", "", "", "", "", "display_minute");
 
 $FG_TABLE_COL[]=array (gettext("Cardused"), "username", "11%", "center", "SORT", "30");
-$FG_TABLE_COL[]=array (gettext("terminate cause"), "terminatecause", "10%", "center", "SORT", "30");
+$FG_TABLE_COL[]=array (gettext("Terminate Cause"), "terminatecause", "9%", "center", "SORT", "30");
 $FG_TABLE_COL[]=array (gettext("Calltype"), "sipiax", "6%", "center", "SORT",  "", "list", $list_calltype);
 
 //if ($_SESSION["is_admin"]==1) $FG_TABLE_COL[]=array ("Con_charg", "connectcharge", "12%", "center", "SORT", "30");
@@ -100,7 +100,7 @@ $FG_TABLE_COL[]=array (gettext("Calltype"), "sipiax", "6%", "center", "SORT",  "
 
 
 //if ($_SESSION["is_admin"]==1) $FG_TABLE_COL[]=array ("Buycosts", "buycosts", "12%", "center", "SORT", "30");
-$FG_TABLE_COL[]=array (gettext("InitalRate"), "calledrate", "10%", "center", "SORT", "30", "", "", "", "", "", "display_2dec");
+$FG_TABLE_COL[]=array (gettext("InitalRate"), "calledrate", "7%", "center", "SORT", "30", "", "", "", "", "", "display_2dec");
 $FG_TABLE_COL[]=array (gettext("Cost"), "sessionbill", "10%", "center", "SORT", "30", "", "", "", "", "", "display_2bill");
 
 
@@ -110,8 +110,7 @@ $FG_TABLE_DEFAULT_ORDER = "t1.starttime";
 $FG_TABLE_DEFAULT_SENS = "DESC";
 	
 // This Variable store the argument for the SQL query
-
-$FG_COL_QUERY='t1.starttime, t1.calledstation, t1.destination, t1.sessiontime, t1.username, t1.terminatecause, t1.sipiax, t1.calledrate, t1.sessionbill';
+$FG_COL_QUERY='t1.starttime, t1.src, t1.calledstation, t1.destination, t1.sessiontime, t1.username, t1.terminatecause, t1.sipiax, t1.calledrate, t1.sessionbill';
 // t1.stoptime,
 
 $FG_COL_QUERY_GRAPH='t1.callstart, t1.duration';
@@ -133,7 +132,7 @@ if ($FG_DELETION || $FG_EDITION) $FG_TOTAL_TABLE_COL++;
 $FG_HTML_TABLE_TITLE=" - ".gettext("Call Logs")." - ";
 
 //This variable define the width of the HTML table
-$FG_HTML_TABLE_WIDTH="82%";
+$FG_HTML_TABLE_WIDTH="92%";
 
 	if ($FG_DEBUG == 3) echo "<br>Table : $FG_TABLE_NAME  	- 	Col_query : $FG_COL_QUERY";
 	$instance_table = new Table($FG_TABLE_NAME, $FG_COL_QUERY);

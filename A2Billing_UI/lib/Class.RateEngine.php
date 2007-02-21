@@ -834,7 +834,7 @@ class RateEngine {
 			// Dial(IAX2/guest@misery.digium.com/s@default) 
 			//$myres = $agi->agi_exec("EXEC DIAL SIP/3465078XXXXX@254.20.7.28|30|HL(" . ($timeout * 60 * 1000) . ":60000:30000)");
 
-			if ($A2B->config["database"]['dbtype'] != "postgres"){
+			if ($A2B->config["database"]['dbtype'] == "postgres"){
 				$QUERY = "SELECT cid FROM cc_outbound_cid_list WHERE outbound_cid_group = $cidgroupid ORDER BY RANDOM() LIMIT 1";
 			}
 			else
