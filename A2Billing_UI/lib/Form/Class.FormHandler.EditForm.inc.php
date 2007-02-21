@@ -301,7 +301,7 @@ function sendtolittle(direction){
                                 </TBODY>
                               </TABLE></td>
                           </tr>
-                          <TR class="bgcolor_016"> 
+                          <TR class="editform_table3_tr1"> 
                             <TD class="editform_table3_td2"> 
                               <TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">                                
                                   <TR> 
@@ -470,7 +470,7 @@ function sendtolittle(direction){
                                   </TR>
                               </TABLE></td>
                           </tr>
-                          <TR class="bgcolor_016"> 
+                          <TR class="editform_table3_tr1"> 
                             <TD class="editform_table3_td2"> 
                             	<TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
                                 	<TR><TD height="4" align="right"></TD></TR>
