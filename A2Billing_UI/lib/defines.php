@@ -64,6 +64,7 @@
 	define ("PAYPAL_CURRENCY_CODE", isset($A2B->config["paypal"]['currency_code'])?$A2B->config["paypal"]['currency_code']:null);
 	define ("PAYPAL_NOTIFY_URL", isset($A2B->config["paypal"]['notify_url'])?$A2B->config["paypal"]['notify_url']:null);
 	define ("PAYPAL_PURCHASE_AMOUNT", isset($A2B->config["paypal"]['purchase_amount'])?$A2B->config["paypal"]['purchase_amount']:null);
+	define ("PAYPAL_FEES", isset($A2B->config["paypal"]['paypal_fees'])?$A2B->config["paypal"]['paypal_fees']:null); 
 	define ("PAYPAL_LOGFILE", isset($A2B->config["paypal"]['paypal_logfile'])?$A2B->config["paypal"]['paypal_logfile']:null);
 
 	// BACKUP

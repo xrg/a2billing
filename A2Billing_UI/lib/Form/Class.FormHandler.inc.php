@@ -2006,13 +2006,17 @@ class FormHandler{
 
 			if (isset($_POST['stitle']))  $stitle = $_POST['stitle'];
 			else $stitle = $_GET['stitle'];
-
+			
+			if (isset($_POST['ratesort'])) $ratesort = $_POST['ratesort'];
+			else $ratesort = $_GET['ratesort'];
+			
 			if (isset($_POST['sub_action'])) $sub_action = $_POST['sub_action'];
 			else $sub_action = $_GET['sub_action'];	
 		}else{
 			$id = $_GET['id'];
 			$atmenu = $_GET['atmenu'];
 			$stitle = $_GET['stitle'];
+			$ratesort = $_GET['ratesort'];
 			$sub_action = $_GET['sub_action'];
 		}
 	

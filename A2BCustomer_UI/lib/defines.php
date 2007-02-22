@@ -27,14 +27,18 @@
     define('TEXT_CCVAL_ERROR_INVALID_NUMBER', 'The credit card number entered is invalid.<br>Please check the number and try again.');
     define('TEXT_CCVAL_ERROR_UNKNOWN_CARD', 'The first four digits of the number entered are: %s<br>If that number is correct, we do not accept that type of credit card.<br>If it is wrong, please try again.');
 
-    // javascript messages
-    define('JS_ERROR', 'Errors have occured during the process of your form.\n\nPlease make the following corrections:\n\n');
+    define('REVIEW_TEXT_MIN_LENGTH', '10');
+	define('CC_OWNER_MIN_LENGTH', '2');
+	define('CC_NUMBER_MIN_LENGTH', '15');
+	
+	// javascript messages
+	define('JS_ERROR', 'Errors have occured during the process of your form.\n\nPlease make the following corrections:\n\n');
     define('JS_REVIEW_TEXT', '* The \'Review Text\' must have at least ' . REVIEW_TEXT_MIN_LENGTH . ' characters.\n');
     define('JS_REVIEW_RATING', '* You must rate the product for your review.\n');
     define('JS_ERROR_NO_PAYMENT_MODULE_SELECTED', '* Please select a payment method for your order.\n');
     define('JS_ERROR_SUBMITTED', 'This form has already been submitted. Please press Ok and wait for this process to be completed.');
     define('ERROR_NO_PAYMENT_MODULE_SELECTED', 'Please select a payment method for your order.');
-    //CC
+    //CC	
     define('MODULE_PAYMENT_CC_TEXT_TITLE', 'Credit Card');
     define('MODULE_PAYMENT_CC_TEXT_DESCRIPTION', 'Credit Card Test Info:<br><br>CC#: 4111111111111111<br>Expiry: Any');
     define('MODULE_PAYMENT_CC_TEXT_CREDIT_CARD_TYPE', 'Credit Card Type:');

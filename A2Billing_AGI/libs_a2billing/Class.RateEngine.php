@@ -111,6 +111,7 @@ class RateEngine {
 			if (!is_array($result_sub) || count($result_sub)==0) $nb_callerid = 0;
 			else $nb_callerid = $result_sub[0][0];
 			$CID_SUB_QUERY = "AND 0 = $nb_callerid";
+			if ($this->webui) $A2B -> write_log("[CC_asterisk_rate-engine: CALLERID_QUERY]\n".$CALLERID_QUERY."\n",0);
 			if ($this->webui) $A2B -> write_log("[CC_asterisk_rate-engine: CALLERID_QUERY]\n".print_r($result_sub)."\n",0);
 			
 		}else{
@@ -123,7 +124,7 @@ class RateEngine {
 		
 		cc_ratecard.id,	dialprefix, destination, buyrate, buyrateinitblock, buyrateincrement, rateinitial, initblock, billingblock, 
 		connectcharge, disconnectcharge, stepchargea, chargea, timechargea, billingblocka, stepchargeb, chargeb, 
-		timechargeb, billingblockb, stepchargec, chargec, timechargec, billingblockc,	
+		timechargeb, billingblockb, stepchargec, chargec, timechargec, billingblockc,
 		cc_tariffplan.id_trunk AS tp_id_trunk, tp_trunk.trunkprefix AS tp_trunk, tp_trunk.providertech AS tp_providertech, 
 		tp_trunk.providerip AS tp_providerip, tp_trunk.removeprefix AS tp_removeprefix,
 		cc_ratecard.id_trunk AS rc_id_trunk, rt_trunk.trunkprefix AS rc_trunkprefix, rt_trunk.providertech AS rc_providertech, 

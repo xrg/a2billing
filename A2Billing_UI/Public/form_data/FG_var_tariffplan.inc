@@ -43,7 +43,7 @@ $HD_Form -> AddEditElement (gettext("TARIFFNAME"),
 			   "tariffname",		
 			   '$value',	
 			   "INPUT",	
-			   "size=30 maxlength=20",	
+			   "size=40 maxlength=30",
 			   "3",	
 			   gettext("Insert the tariff name "),
 			   "" , "", "",	"", "", "", "",	"");

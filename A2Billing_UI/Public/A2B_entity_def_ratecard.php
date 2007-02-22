@@ -22,7 +22,7 @@ $HD_Form -> init();
 
 
 /********************************* BATCH UPDATE ***********************************/
-getpost_ifset(array('upd_inuse', 'upd_activated', 'upd_language', 'upd_tariff', 'upd_credit', 'upd_credittype', 'upd_simultaccess', 'upd_currency', 'upd_typepaid', 'upd_creditlimit', 'upd_enableexpire', 'upd_expirationdate', 'upd_expiredays', 'upd_runservice', 'upd_runservice', 'batchupdate', "check", "type", "mode"));
+getpost_ifset(array('upd_inuse', 'upd_activated', 'upd_language', 'upd_tariff', 'upd_credit', 'upd_credittype', 'upd_simultaccess', 'upd_currency', 'upd_typepaid', 'upd_creditlimit', 'upd_enableexpire', 'upd_expirationdate', 'upd_expiredays', 'upd_runservice', 'upd_runservice', 'batchupdate', "check", "type", "mode", "filterprefix"));
 
 // CHECK IF REQUEST OF BATCH UPDATE
 if ($batchupdate == 1 && is_array($check)){
@@ -167,7 +167,13 @@ if ($form_action == "list"){
         <tbody>
 		<form name="updateForm" action="<?php echo $_SERVER['PHP_SELF']?>" method="post">
 		<INPUT type="hidden" name="batchupdate" value="1">
-	
+		<INPUT type="hidden" name="atmenu" value="<?php echo $_GET['atmenu']?>">
+		<INPUT type="hidden" name="popup_select" value="<?php echo $_GET['popup_select']?>">
+		<INPUT type="hidden" name="popup_formname" value="<?php echo $_GET['popup_formname']?>">
+		<INPUT type="hidden" name="popup_fieldname" value="<?php echo $_GET['popup_fieldname']?>">
+		<INPUT type="hidden" name="form_action" value="<?php echo $_GET['form_action']?>">
+		<INPUT type="hidden" name="filterprefix" value="<?php echo $_GET['filterprefix']?>">
+		<INPUT type="hidden" name="filterfield" value="<?php echo $_GET['filterfield']?>">
 
 		<tr>		
           <td align="left" class="bgcolor_001">

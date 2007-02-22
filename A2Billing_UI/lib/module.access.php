@@ -129,7 +129,9 @@ if ((!session_is_registered('pr_login') || !session_is_registered('pr_password')
 function login ($user, $pass) { 
 	global $DBHandle;
 	
-	if (strlen($user)>20 || strlen($pass)>20) return false;
+	$user = trim($user);
+	$pass = trim($pass);
+	if (strlen($user)==0 || strlen($user)>=50 || strlen($pass)==0 || strlen($pass)>=50) return false;
 	$QUERY = "SELECT userid, perms, confaddcust, groupid FROM cc_ui_authen WHERE login = '".$user."' AND password = '".$pass."'";
 
 	$res = $DBHandle -> query($QUERY);
@@ -163,4 +165,3 @@ $ACXFILEMANAGER = has_rights (ACX_FILE_MANAGER);
 
 
 ?>
-

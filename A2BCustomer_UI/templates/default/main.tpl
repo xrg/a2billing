@@ -64,7 +64,7 @@
 
 	   {if $A2Bconfig.webcustomerui.ratecard==1 }
        <li><a href=# target=_self></a></li>
-       <li><a href="A2B_entity_ratecard.php?form_action=list"><strong>{php} echo gettext("RATECARD");{/php}</strong></a></li>
+	   <li><a href="A2B_entity_ratecard.php?form_action=list"><strong>{php} echo gettext("RATECARD");{/php}</strong></a></li>
        {/if}
 
 	   {if $A2Bconfig.webcustomerui.simulator==1 }

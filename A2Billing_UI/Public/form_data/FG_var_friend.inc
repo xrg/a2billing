@@ -5,8 +5,6 @@ getpost_ifset(array('id_cc_card', 'cardnumber', 'id', 'name', 'amaflags', 'callg
 'restrictcid', 'rtptimeout', 'rtpholdtimeout', 'secret', 'type', 'username', 'disallow', 'allow', 'musiconhold', 'regseconds', 'ipaddr', 'cancallforward', 'regexten','friend_id'));
 
 
-$plang='en';
-
 if ($atmenu=='sipfriend'){
 	$HD_Form = new FormHandler("cc_sip_buddies","Sip Friend");
 }else{
@@ -14,10 +12,7 @@ if ($atmenu=='sipfriend'){
 }
 
 
-
-
 $HD_Form -> FG_DEBUG = 0;
-// FAQ
 
 $typepaid_list = array();
 $typepaid_list["0"] = array( gettext("PREPAID CARD"), "0");
@@ -250,7 +245,7 @@ $HD_Form -> AddEditElement (gettext("DISALLOW"),
 
 
 if ($form_action=="ask-add" ||  $form_action == "add_sip" || $form_action == "add_iax")
-	$ALLOW_default= "value='g729,ulaw,alaw,gsm'";
+	$ALLOW_default= "value='ulaw,alaw,gsm,g729'"
 	
 $HD_Form -> AddEditElement (gettext("ALLOW"),
                            "allow",
@@ -259,7 +254,7 @@ $HD_Form -> AddEditElement (gettext("ALLOW"),
                            "size=50 maxlength=40 $ALLOW_default",
                            "",
                            gettext("Insert the allow"),
-                           "" , "", "", "", "", "",	"", gettext("Set allow codecs separated by a comma, e.g. gsm,alaw,ulaw ( default : g729,ulaw,alaw,gsm)"));
+                           "" , "", "", "", "", "",	"", gettext("Set allow codecs separated by a comma, e.g. gsm,alaw,ulaw ( default : ulaw,alaw,gsm,g729)"));
 
 
 if ($form_action=="ask-add" ||  $form_action == "add_sip" || $form_action == "add_iax") 

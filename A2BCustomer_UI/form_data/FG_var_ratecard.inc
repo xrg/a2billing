@@ -2,7 +2,6 @@
 
 getpost_ifset(array('destination', 'dialprefix', 'rateinitial','posted','tariffplan'));
 
-$plang='en';
 
 //$HD_Form = new FormHandler("cc_ratecard","Ratecard");
 $HD_Form = new FormHandler("cc_ratecard, cc_tariffgroup_plan, cc_tariffplan","Ratecard");
@@ -21,12 +20,13 @@ if (isset($posted) && strlen(trim($tariffplan)) > 0){
 	$HD_Form->FG_TOP_FILTER_NAME = str_replace ("-:-","",$idtariff[1]);
 	//echo "Debug hey ->".$HD_Form->FG_TOP_FILTER_NAME."<br>";
 	$HD_Form->FG_TOP_FILTER_VALUE = $idtariff[0];
+	$_SESSION["mytariff_id"] = $idtariff[0];
 	//$HD_Form -> FG_TABLE_CLAUSE = " idtariffplan='$HD_Form->FG_TOP_FILTER_VALUE' ";
     $HD_Form -> FG_TABLE_CLAUSE .= "cc_tariffplan.id = cc_tariffgroup_plan.idtariffplan AND cc_tariffgroup_plan.idtariffgroup = '".$_SESSION["tariff"]."' AND  cc_tariffgroup_plan.idtariffplan=cc_ratecard.idtariffplan   AND cc_ratecard.idtariffplan='".$HD_Form->FG_TOP_FILTER_VALUE."' AND cc_tariffgroup_plan.idtariffgroup = '".$_SESSION["tariff"]."'";
-	$_SESSION['def_ratecard'] = $HD_Form -> FG_TABLE_CLAUSE;
+	$_SESSION['def_ratecard'] = $HD_Form -> FG_TABLE_CLAUSE;	
 }else{
-$HD_Form -> FG_TOP_FILTER_NAME = 0;
-$HD_Form -> FG_TABLE_CLAUSE = "cc_tariffplan.id = cc_tariffgroup_plan.idtariffplan AND cc_tariffgroup_plan.idtariffgroup = '".$_SESSION["tariff"]."' AND cc_tariffgroup_plan.idtariffplan=cc_ratecard.idtariffplan AND cc_ratecard.idtariffplan='".$_SESSION["mytariff_id"]."' AND cc_tariffgroup_plan.idtariffgroup = '".$_SESSION["tariff"]."'";
+	$HD_Form -> FG_TOP_FILTER_NAME = 0;
+	$HD_Form -> FG_TABLE_CLAUSE = "cc_tariffplan.id = cc_tariffgroup_plan.idtariffplan AND cc_tariffgroup_plan.idtariffgroup = '".$_SESSION["tariff"]."' AND cc_tariffgroup_plan.idtariffplan=cc_ratecard.idtariffplan AND cc_ratecard.idtariffplan='".$_SESSION["mytariff_id"]."' AND cc_tariffgroup_plan.idtariffgroup = '".$_SESSION["tariff"]."'";
 }
 
 
@@ -77,7 +77,6 @@ $HD_Form -> AddEditElement(gettext("SELLING RATE"),
 
 
 $HD_Form -> FG_SPLITABLE_FIELD = 'dialprefix';
-
 
 
 ?>

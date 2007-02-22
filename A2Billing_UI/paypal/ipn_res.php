@@ -110,8 +110,18 @@ switch( $paypal_ipn->get_payment_status() )
 				
 				if ($id>0){
 					$mycur = $currencies_list[strtoupper($mc_currency)][2];
-					$addcredit = ($mc_gross-$mc_fee) / $mycur;		
-				
+					//$addcredit = ($mc_gross-$mc_fee) / $mycur;		
+					
+					if (PAYPAL_FEES == 1)
+					{
+						$paypal_ipn->error_out("PAYPAL_FEES == 1", $em_headers);
+						$addcredit = ($mc_gross) / $mycur;
+					}
+					else
+					{
+						$paypal_ipn->error_out("PAYPAL_FEES == 0", $em_headers);
+						$addcredit = ($mc_gross-$mc_fee) / $mycur;
+               		}
 					
 					$instance_table = new Table("cc_card", "username, id");
 					$param_update .= " credit = credit+'".$addcredit."'";
