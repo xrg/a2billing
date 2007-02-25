@@ -18,6 +18,39 @@
 
 !!! Ask Malik send me DB changes for invoicing
 
+
+######## Misc BUGS
+********************************************************************
+A2BCustomer_UI/invoices.php?section=4
+- click on search, left menu dissapear
+
+A2BCustomer_UI/A2B_entity_call_details.php?section=4
+- Javascript popup debug : "I am in a function"
+- click on search, left menu dissapear
+
+A2BCustomer_UI/A2B_entity_unbilled_summary.php?section=4
+- Fatal error: Call to a member function numRows() on a non-object in /home/areski/public_html/svn/a2billing/trunk/A2BCustomer_UI/A2B_entity_unbilled_summary.php on line 240
+
+A2BCustomer_UI/A2B_entity_billed_summary.php?section=4
+- Fatal error: Call to a member function numRows() on a non-object in /home/areski/public_html/svn/a2billing/trunk/A2BCustomer_UI/A2B_entity_billed_summary.php on line 268
+
+A2B_entity_card_multi.php?stitle=Card&section=1
+- Dont work at all, neither for range creation or standard generation cards
+
+
+
+######## CREDIT RESERVE - SIMULTANEOUS ACCESS
+********************************************************************
+
+Wouldn't this mean on simultaneous access, callers could go negative in balance if subsequent calls were made while balance still exists?
+http://forum.a2billing.net/viewtopic.php?t=1759&highlight=
+
+
+Does the same account allow for simultaneous calls?
+Yes. Here's how it works: Say you have a balance of ten (10) dollars. When your first call comes in, two hours worth of credit is temporarily frozen. So, if you are calling a destination that costs 2 cents a minute, that means $2.40 (2 cents/min x 120 minutes) has been frozen in your account. This leaves $7.60 available for another simultaneous call. When that second call comes in, more of your balance is frozen. You can keep making simultaneous calls so long as your effective balance is above zero. When calls are completed, the balance that was frozen is released and once again available for use. If you have a low balance, there's no sense in letting many simultaneous calls go through, only to have them all disconnect at the same time when your balance hits zero (what most carriers do).
+
+
+
 ######## CID GROUP DELETE
 ********************************************************************
 when u delete agrouip of CID
@@ -214,7 +247,7 @@ CREATE INDEX ind_cc_subscription_fee_card_datefee ON cc_card_package_offer USING
 PACKAGE OFFER
 	* List package Offer
 	* Add package Offer
-	* list detail card
+	* Report Package - details by card
 
 SERVICE
 	* List subscription service
@@ -222,7 +255,29 @@ SERVICE
 	
 
 
+CREATE TABLE cc_card_package_offer (
+    id 					bigserial NOT NULL,
+	id_cc_card 			bigint NOT NULL.
+	id_cc_package_offer bigint NOT NULL,
+    date_consumption 	timestamp without time zone DEFAULT now(),
+	used_secondes 		bigint NOT NULL
+);
 
+list CDR : call-log-customers.php?stitle=Call_Report_Customers&nodisplay=1&posted=1&section=6
+select - Packages
+select - card 
+Select - time period
+
+[TABLE Cards]
+cardnumber - used_seconds
+cardnumber - used_seconds
+cardnumber - used_seconds
+...		   - ...
+
+[TABLE by date]
+Date - amount of cards	- used_seconds
+Date - amount of cards	- used_seconds
+...	 -	...				- ...
 
 
 

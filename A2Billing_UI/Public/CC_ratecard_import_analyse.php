@@ -416,7 +416,7 @@ function sendtoupload(form){
                       <input type="hidden" name="task" value="upload">
 					  <input type="hidden" name="status" value="ok">
                       <input name="the_file" type="file" size="50" onFocus=this.select() class="saisie1">
-                      <input type="button"  value="Continue to Import the RateCard" onFocus=this.select() class="form_input_select" name="submit1" onClick="sendtoupload(this.form);">
+                      <input type="submit"  value="Continue to Import the RateCard" onFocus=this.select() class="form_input_select" name="submit1" onClick="sendtoupload(this.form);">
                       <br>
                       &nbsp; </p>
                   </td>

@@ -177,10 +177,9 @@ function imgidclick(imgID,divID, imgbase, imgchange)
 	{/if}
 		<ul>
 			<li><ul>
-				<li><a href="A2B_entity_paypal.php?atmenu=paypal&stitle=Paypal+Transaction&form_action=list&section=2">{php} echo gettext("OLD - PayPal Transaction");{/php}</a></li>
-				<li><a href="A2B_entity_payment_configuration.php?atmenu=payment"><?php echo gettext("View Payment Methods");?></a></li>
-                <li><a href="A2B_entity_transactions.php?atmenu=payment&stitle=Solde"><?php echo gettext("View Transactions");?></a></li>
-				
+				<li><a href="A2B_entity_paypal.php?atmenu=paypal&stitle=PaypalTransaction&form_action=list&section=2">{php} echo gettext("OLD-PayPal Transaction");{/php}</a></li>
+				<li><a href="A2B_entity_payment_configuration.php?atmenu=payment">{php} echo gettext("View Payment Methods");{/php}</a></li>
+                <li><a href="A2B_entity_transactions.php?atmenu=payment&stitle=Solde">{php} echo gettext("View Transactions");{/php}</a></li>				
 				<li><a href="A2B_entity_moneysituation.php?atmenu=moneysituation&stitle=Money_Situation&section=2">{php} echo gettext("View money situation");{/php}</a></li>
 				<li><a href="A2B_entity_payment.php?atmenu=payment&stitle=Solde&section=2">{php} echo gettext("View Payment");{/php}</a></li>
 				<li><a href="A2B_entity_payment.php?stitle=Payment_add&form_action=ask-add&section=2">{php} echo gettext("Add new Payment");{/php}</a></li>

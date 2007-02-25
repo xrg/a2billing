@@ -36,6 +36,16 @@ else
 {
 	$smarty->assign("EXPORT", 0);
 }
+if($_GET["section"]!="")
+{
+	$section = $_GET["section"];
+	$_SESSION["menu_section"] = $section;
+}
+else
+{
+	$section = $_SESSION["menu_section"];
+}
+$smarty->assign("section", $section);
 $smarty->assign("SKIN_NAME", $skin_name);
 
 // OPTION FOR THE MENU

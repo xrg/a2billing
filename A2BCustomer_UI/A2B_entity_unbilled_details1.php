@@ -688,26 +688,28 @@ $totalcost_did = $totalcost;
               <td width="19%"  align="right"><font color="#003399"><b>Amount (US $)</b></font> </td>
             </tr>
 			<?php  		
-				$i=0;				
-				foreach ($list_total_did as $data){	
-				$fcost = 0;
-				$ccost = 0;
-				$i=($i+1)%2;		
-				$tmc = $data[3]/$data[5];
-				
-				if ((!isset($resulttype)) || ($resulttype=="min")){  
-					$tmc = sprintf("%02d",intval($tmc/60)).":".sprintf("%02d",intval($tmc%60));		
-				}else{
-				
-					$tmc =intval($tmc);
-				}
-				
-				if ((!isset($resulttype)) || ($resulttype=="min")){  
-						$minutes = sprintf("%02d",intval($data[3]/60)).":".sprintf("%02d",intval($data[3]%60));
-				}else{
-						$minutes = $data[3];
-				}
-				if ($mmax>0) 	$widthbar= intval(($data[3]/$mmax)*200); 
+				$i=0;
+				if (is_array($list_total_did) && count($list_total_did)>0)
+				{				
+					foreach ($list_total_did as $data){	
+					$fcost = 0;
+					$ccost = 0;
+					$i=($i+1)%2;		
+					$tmc = $data[3]/$data[5];
+					
+					if ((!isset($resulttype)) || ($resulttype=="min")){  
+						$tmc = sprintf("%02d",intval($tmc/60)).":".sprintf("%02d",intval($tmc%60));		
+					}else{
+					
+						$tmc =intval($tmc);
+					}
+					
+					if ((!isset($resulttype)) || ($resulttype=="min")){  
+							$minutes = sprintf("%02d",intval($data[3]/60)).":".sprintf("%02d",intval($data[3]%60));
+					}else{
+							$minutes = $data[3];
+					}
+					if ($mmax>0) 	$widthbar= intval(($data[3]/$mmax)*200); 
 			
 			?>
 			 <tr class="invoice_rows">
@@ -765,7 +767,19 @@ $totalcost_did = $totalcost;
 			  <td width="14%" ><font color="#003399"><?php echo $totalcall_did?></font> </td>
 			  <td width="17%" >&nbsp;</td>
               <td width="19%" align="right" ><font color="#003399"><?php  display_2bill($totalcost_did) ?></font> </td>
-            </tr>            
+            </tr>     
+			<?php
+			
+			}else
+			{								
+			 ?>   
+			  <tr >
+              <td width="100%" class="invoice_td" colspan="6">&nbsp; No DID Calls Available</td>             
+			  
+            </tr>          
+			 <?php			 
+			 }
+			 ?>       
             <tr >
               <td width="20%">&nbsp;</td>
               <td width="14%">&nbsp;</td>
