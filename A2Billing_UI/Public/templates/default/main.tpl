@@ -225,14 +225,32 @@ function imgidclick(imgID,divID, imgbase, imgchange)
 				<li><a href="CC_entity_sim_ratecard.php?atmenu=ratecard&stitle=Ratecard+Simulator&section=3">{php} echo gettext("Ratecard Simulator");{/php}</a></li>
 				<li><a href="A2B_entity_prefix.php?atmenu=prefixe&stitle=Prefix&section=3">{php} echo gettext("Browse Prefix");{/php}</a></li>
 				<li><a href="A2B_entity_prefix.php?form_action=ask-add&atmenu=prefixe&stitle=Prefix&section=3">{php} echo gettext("Add Prefix");{/php}</a></li>
-				<li><a href="A2B_entity_package.php?atmenu=prefixe&stitle=Prefix&section=3">{php} echo gettext("List Offer Package");{/php}</a></li>
-				<li><a href="A2B_entity_package.php?form_action=ask-add&atmenu=prefixe&stitle=Prefix&section=3">{php} echo gettext("Add Offer Package");{/php}</a></li>
-				<li><a href="A2B_entity_package.php?form_action=ask-add&atmenu=prefixe&stitle=Prefix&section=3">{php} echo gettext("List Card Package");{/php}</a></li>
 			</ul></li>
 		</ul>
 		</div>
 		
 		
+		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick_plus('img3_3','div3_3');"><img id="img3_3" 
+	{if ($section =="3_3")}	
+	src="templates/{$SKIN_NAME}/images/minus.gif"
+	{else}
+	src="templates/{$SKIN_NAME}/images/plus.gif"	
+	{/if}
+	  onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> &nbsp;<strong>{php} echo gettext("PACKAGE OFFER");{/php}</strong></a></li>
+		<div id="div3_3" 
+	{if ($section =="3_3")}
+		style="">
+	{else}
+		style="display:none;">
+	{/if}
+		<ul>
+			<li><ul>				
+				<li><a href="A2B_entity_package.php?atmenu=prefixe&stitle=Prefix&section=3_3">{php} echo gettext("List Offer Package");{/php}</a></li>
+				<li><a href="A2B_entity_package.php?form_action=ask-add&atmenu=prefixe&stitle=Prefix&section=3_3">{php} echo gettext("Add Offer Package");{/php}</a></li>
+				<li><a href="A2B_detail_package.php?section=3_3">{php} echo gettext("Details Package");{/php}</a></li>
+			</ul></li>
+		</ul>
+		</div>
 		
 		
 		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick_plus('img3_5','div3_5');"><img id="img3_5" 
@@ -365,6 +383,8 @@ function imgidclick(imgID,divID, imgbase, imgchange)
 				<li><a href="A2B_entity_service.php?stitle=Recurring+Service&form_action=ask-add&section=7">{php} echo gettext("Add Recurring Service");{/php}</a></li>
 				<li><a href="A2B_entity_alarm.php?stitle=Alarm&section=7"> {php} echo gettext("List Alarm");{/php}</a></li>
 				<li><a href="A2B_entity_alarm.php?stitle=Alarm&form_action=ask-add&section=7">{php} echo gettext("Add Alarm");{/php}</a></li>
+				<li><a href="A2B_entity_subscription.php?stitle=Subscription&section=7">{php} echo gettext("List Subscription");{/php}</a></li>
+				<li><a href="A2B_entity_subscription.php?stitle=Subscription&form_action=ask-add&section=7">{php} echo gettext("Add Subscription");{/php}</a></li>
 			</ul></li>
 		</ul>
 		</div>

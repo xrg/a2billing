@@ -801,5 +801,17 @@ $CC_help_offer_package='<a href="#" target="_self"  onclick="imgidclick(\'img100
 </div></div></div>
 </div>
 ';
+
+$CC_help_list_subscription='<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
+<div id="div1000" style="display:visible;">
+<div id="kiki"><div class="w1">
+	<img src="'.KICON_PATH.'/config-date.gif" class="kikipic"/>
+	<div class="w2">'
+.gettext("SUBSCRITION FEE - You can bill in a monthly, weekly or anytime period the user for being subscribed on your service. The fee amount is defined here and the period through the cront configuration.").'
+<br/><br/><br/>
+</div></div></div>
+</div>
+';
+
 } //ENDIF SHOW_HELP
 ?>

@@ -32,7 +32,7 @@ $smarty->assign("WEBUI_DATE", WEBUI_DATE);
 
 $smarty->assign("SKIN_NAME", $skin_name);
 // if it is a pop window
-if ($popup_select != 1)
+if (!is_numeric($popup_select))
 {
 	$popup_select=0;
 }

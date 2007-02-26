@@ -19,6 +19,11 @@
 !!! Ask Malik send me DB changes for invoicing
 
 
+######## CURRENCY MANAGEMENT IN CRONT SERVICE AND SUBSCRIPTION FEE
+********************************************************************
+Currency management in cront service and subscription fee
+
+
 ######## Misc BUGS
 ********************************************************************
 A2BCustomer_UI/invoices.php?section=4
@@ -26,7 +31,7 @@ A2BCustomer_UI/invoices.php?section=4
 
 A2BCustomer_UI/A2B_entity_call_details.php?section=4
 - Javascript popup debug : "I am in a function"
-- click on search, left menu dissapear
+- click on search, left menu disappear
 
 A2BCustomer_UI/A2B_entity_unbilled_summary.php?section=4
 - Fatal error: Call to a member function numRows() on a non-object in /home/areski/public_html/svn/a2billing/trunk/A2BCustomer_UI/A2B_entity_unbilled_summary.php on line 240
@@ -37,7 +42,8 @@ A2BCustomer_UI/A2B_entity_billed_summary.php?section=4
 A2B_entity_card_multi.php?stitle=Card&section=1
 - Dont work at all, neither for range creation or standard generation cards
 
-
+A2Billing_UI/Public/call-log-customers.php
+- Left menu appear !!!
 
 ######## CREDIT RESERVE - SIMULTANEOUS ACCESS
 ********************************************************************
@@ -247,47 +253,28 @@ CREATE INDEX ind_cc_subscription_fee_card_datefee ON cc_card_package_offer USING
 PACKAGE OFFER
 	* List package Offer
 	* Add package Offer
-	* Report Package - details by card
+	* details by card
 
 SERVICE
 	* List subscription service
 	* Add subscription service
-	
 
-
-CREATE TABLE cc_card_package_offer (
-    id 					bigserial NOT NULL,
-	id_cc_card 			bigint NOT NULL.
-	id_cc_package_offer bigint NOT NULL,
-    date_consumption 	timestamp without time zone DEFAULT now(),
-	used_secondes 		bigint NOT NULL
-);
-
-list CDR : call-log-customers.php?stitle=Call_Report_Customers&nodisplay=1&posted=1&section=6
-select - Packages
-select - card 
-Select - time period
-
-[TABLE Cards]
-cardnumber - used_seconds
-cardnumber - used_seconds
-cardnumber - used_seconds
-...		   - ...
-
-[TABLE by date]
-Date - amount of cards	- used_seconds
-Date - amount of cards	- used_seconds
-...	 -	...				- ...
 
 
 
 ?? ADD CC_SUBSCRIPTION_FEE & CC_CHARGE CHANGES IN MYSQL SCHEMAS
 
+MISSING : 
+- AGI
+- CRONT
+- ADD SELECT subscription fee on card 
 
 %% AS
 
 
-
+#### MIGRATE NEW FRAMEWORK : call-log-customers.php
+********************************************************************
+call-log-customers.php : use old way to display cdr table 
 
 
 #### FEATURE : ROTATION CALLERID IN OUTBOUND CALLS
