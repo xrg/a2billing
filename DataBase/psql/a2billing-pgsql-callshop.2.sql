@@ -15,8 +15,8 @@ CREATE OR REPLACE VIEW cc_booth_v AS
 		(CASE WHEN def_card_id IS NULL THEN 0
 		WHEN cc_booth.disabled THEN 5
 		WHEN cur_card_id IS NULL THEN 1
-		WHEN cc_card.credit > 0 AND cc_card.activated THEN 4
-		WHEN cc_card.credit > 0 THEN 6
+		WHEN cc_card.credit <> 0.0 AND cc_card.activated THEN 4
+		WHEN cc_card.credit <> 0.0 THEN 6
 		WHEN cc_card.activated THEN 3
 		ELSE 2
 		END) AS state,

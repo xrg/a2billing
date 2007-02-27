@@ -50,8 +50,13 @@ if ($res){
 		else	echo _("Paid back ") . $sum ; ?>
 	</p>
 <?php } else { // no result from find sid
-	echo $DBHandle->ErrorMsg() . "<br>";
-	echo gettext("Cannot pay session!");
+	?><p class="pay-message-fail">
+		<?= _("Cannot pay session!"); ?>
+	</p>
+	<!--
+	<p style="font-size: 5pt;"><?= $DBHandle->ErrorMsg(); ?> </p>
+	-->
+	<?php
 }
 ?>
 <br> <br>

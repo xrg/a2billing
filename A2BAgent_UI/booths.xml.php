@@ -163,7 +163,7 @@ function fmt_minutes($sessiontime){
 
 	if (!$res){
 		$message=gettext("Database query failed!");
-		$message .= '<br>' . htmlspecialchars($QUERY);
+		//$message .= '<br>' . htmlspecialchars($QUERY);
 		$dom_message->appendChild($dom->createTextNode($message));
 		$dom_message->setAttribute("class","msg_errror");
 	}else {
