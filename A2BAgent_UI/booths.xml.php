@@ -121,8 +121,9 @@ function fmt_minutes($sessiontime){
 					$message_class="msg_error";
 				}else {
 					$get_booth= (integer) $_GET["actb"];
-					$query= str_dbparams($DBHandle, "INSERT INTO cc_agentrefill(agentid, boothid, credit)" .
-						"VALUES( %1, %2, conv_currency(%3, %4, %5)); ", 
+					$query= str_dbparams($DBHandle, "INSERT INTO cc_agentrefill(agentid, boothid, credit, pay_type)" .
+						"VALUES( %1, %2, conv_currency(%3, %4, %5), " .
+						"(SELECT id FROM cc_paytypes WHERE preset = 'prepay'));",
 						array($_SESSION['agent_id'] ,$get_booth, $rf, $_SESSION['currency'], strtoupper(BASE_CURRENCY))); ;
 					
 					$res=$DBHandle->Execute( $query );

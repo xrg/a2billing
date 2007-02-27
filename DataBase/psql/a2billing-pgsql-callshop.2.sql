@@ -408,31 +408,33 @@ CREATE OR REPLACE VIEW cc_session_invoice AS
 		NULL AS pos_charge, NULL AS neg_charge, NULL AS duration
 		FROM cc_shopsessions WHERE endtime IS NOT NULL
 		-- Refills
-	UNION SELECT cc_agentrefill.date AS starttime, 'Credit' AS descr, cc_shopsessions.id AS sid,
+	UNION SELECT cc_agentrefill.date AS starttime, cc_texts.txt AS descr, cc_shopsessions.id AS sid,
 		booth AS boothid,
 		(CASE WHEN carried THEN 'Carried from past credit'
 			ELSE 'Money received' END) AS f2, NULL as cnum,
 		cc_agentrefill.credit AS pos_charge, NULL as neg_charge,
 		NULL as duration
-		FROM cc_shopsessions, cc_agentrefill
+		FROM cc_shopsessions, cc_agentrefill, cc_texts
 		WHERE cc_shopsessions.card = cc_agentrefill.card_id AND
 			( cc_agentrefill.boothid IS NULL OR cc_shopsessions.booth = cc_agentrefill.boothid) AND
 			cc_agentrefill.credit > 0.0 AND
 			cc_shopsessions.starttime <= cc_agentrefill.date AND
 			(cc_shopsessions.endtime IS NULL OR cc_shopsessions.endtime >= cc_agentrefill.date)
+			AND cc_texts.id = cc_agentrefill.pay_type AND cc_texts.lang = 'C'
 		-- Payments
-	UNION SELECT cc_agentrefill.date AS starttime, 'Payment' AS descr, cc_shopsessions.id AS sid,
+	UNION SELECT cc_agentrefill.date AS starttime, cc_texts.txt AS descr, cc_shopsessions.id AS sid,
 		booth AS boothid, 
 		(CASE WHEN carried THEN 'Carried forward'
 			ELSE 'Money paid back' END) AS f2, NULL as cnum,
 		NULL AS pos_charge, (0- cc_agentrefill.credit) AS neg_charge,
 		NULL as duration
-		FROM cc_shopsessions, cc_agentrefill
+		FROM cc_shopsessions, cc_agentrefill, cc_texts
 		WHERE cc_shopsessions.card = cc_agentrefill.card_id AND
 			( cc_agentrefill.boothid IS NULL OR cc_shopsessions.booth = cc_agentrefill.boothid) AND
 			cc_agentrefill.credit < 0.0 AND
 			cc_shopsessions.starttime <= cc_agentrefill.date AND
 			(cc_shopsessions.endtime IS NULL OR cc_shopsessions.endtime >= cc_agentrefill.date)
+			AND cc_texts.id = cc_agentrefill.pay_type AND cc_texts.lang = 'C'
 	UNION SELECT cc_charge.creationdate AS starttime, cc_texts.txt AS descr, cc_shopsessions.id AS sid,
 		booth AS boothid,cc_charge.description AS f2, NULL as cnum,
 		NULL AS pos_charge, cc_charge.amount as neg_charge,
@@ -471,8 +473,9 @@ CREATE OR REPLACE FUNCTION pay_session( sid bigint, agentid_p bigint, do_close b
 			RAISE EXCEPTION 'No such session for agent';
 		END IF;
 		IF do_carry THEN
-			ptype := 2;
-		ELSE	ptype := 1;
+			SELECT id INTO ptype FROM cc_paytypes WHERE preset = 'carry';
+		ELSE	
+			SELECT id INTO ptype FROM cc_paytypes WHERE preset = 'settle';
 		END IF;
 		INSERT INTO cc_agentrefill(card_id, agentid, credit, carried, pay_type)
 			VALUES(cid, agentid_p,0-ssum, do_carry, ptype);
@@ -766,15 +769,17 @@ UNION	SELECT agentid, date, pay_type, 'Pay back customer' as descr, card_id, NUL
 		FROM cc_agentrefill WHERE credit <0 AND carried = false;
 
 CREATE OR REPLACE VIEW cc_agent_money_vi AS
-	SELECT agentid, date, pay_type, descr, NULL::bigint AS card_id, NULL::NUMERIC AS pos_credit, credit AS neg_credit, credit 
-		FROM cc_agentpay WHERE credit >=0
-UNION SELECT agentid, date, pay_type, descr, NULL::bigint AS card_id, 0-credit AS pos_credit, NULL  AS neg_credit, credit 
-		FROM cc_agentpay WHERE credit <0
-UNION SELECT agentid, date, pay_type, gettext('Money from customer',cc_agent.locale) as descr, card_id, cc_agentrefill.credit AS pos_credit, 
+	SELECT agentid, date, pay_type, gettexti(pay_type, cc_agent.locale) AS pay_type_txt,
+		descr, NULL::bigint AS card_id, NULL::NUMERIC AS pos_credit, cc_agentpay.credit AS neg_credit, 
+		cc_agentpay.credit
+		FROM cc_agentpay, cc_agent WHERE cc_agentpay.credit >=0 AND cc_agentpay.agentid = cc_agent.id
+UNION SELECT agentid, date, pay_type, gettexti(pay_type, cc_agent.locale) AS pay_type_txt, descr, NULL::bigint AS card_id, 0-cc_agentpay.credit AS pos_credit, NULL  AS neg_credit, cc_agentpay.credit 
+		FROM cc_agentpay, cc_agent WHERE cc_agentpay.credit <0 AND cc_agentpay.agentid = cc_agent.id
+UNION SELECT agentid, date, pay_type, gettexti(pay_type, cc_agent.locale) AS pay_type_txt, gettext('Money from customer',cc_agent.locale) as descr, card_id, cc_agentrefill.credit AS pos_credit, 
 			NULL AS neg_credit, 0-cc_agentrefill.credit
 		FROM cc_agentrefill, cc_agent 
 		WHERE cc_agentrefill.credit >=0 AND carried = false AND cc_agent.id = agentid
-UNION SELECT agentid, date, pay_type, gettext('Pay back customer',cc_agent.locale) as descr, card_id, NULL AS pos_credit, 
+UNION SELECT agentid, date, pay_type, gettexti(pay_type, cc_agent.locale) AS pay_type_txt, gettext('Pay back customer',cc_agent.locale) as descr, card_id, NULL AS pos_credit, 
 			0-cc_agentrefill.credit AS neg_credit, 0-cc_agentrefill.credit
 		FROM cc_agentrefill, cc_agent 
 		WHERE cc_agentrefill.credit <0 AND carried = false AND cc_agent.id = agentid;
