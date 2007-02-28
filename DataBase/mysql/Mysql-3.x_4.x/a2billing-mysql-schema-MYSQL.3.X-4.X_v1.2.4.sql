@@ -346,6 +346,7 @@ CREATE TABLE cc_card (
 	autorefill INT DEFAULT 0,
     loginkey CHAR(40),
     activatedbyuser char(1) DEFAULT 't' NOT NULL,
+	id_subscription_fee INT DEFAULT 0,
     PRIMARY KEY (id),
     UNIQUE cons_cc_card_username (username),
     UNIQUE cons_cc_card_useralias (useralias)

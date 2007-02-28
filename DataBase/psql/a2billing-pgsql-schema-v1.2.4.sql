@@ -428,9 +428,9 @@ CREATE TABLE cc_card (
     invoiceday integer DEFAULT 1,
     autorefill integer DEFAULT 0,
     loginkey text,
-    activatedbyuser boolean DEFAULT false NOT NULL
+    activatedbyuser boolean DEFAULT false NOT NULL,
+	id_subscription_fee INTEGER DEFAULT 0
 );
-
 
 CREATE TABLE cc_ratecard (
     id serial NOT NULL,

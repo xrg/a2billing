@@ -42,8 +42,7 @@ A2BCustomer_UI/A2B_entity_billed_summary.php?section=4
 A2B_entity_card_multi.php?stitle=Card&section=1
 - Dont work at all, neither for range creation or standard generation cards
 
-A2Billing_UI/Public/call-log-customers.php
-- Left menu appear !!!
+
 
 ######## CREDIT RESERVE - SIMULTANEOUS ACCESS
 ********************************************************************
@@ -267,7 +266,13 @@ SERVICE
 MISSING : 
 - AGI
 - CRONT
+	- BROWSE ALL THE CUSTOMER THAT HAVE A SUBSCRIPTION FEE ENABLE
+		SELECT * FROM cc_card LEFT JOIN cc_subscription_fee ON cc_card.id_subscription_fee=cc_subscription_fee.id WHERE cc_subscription_fee.status=1
+	- 
+	
 - ADD SELECT subscription fee on card 
+ALTER TABLE cc_card ADD COLUMN id_subscription_fee INTEGER;
+
 
 %% AS
 
