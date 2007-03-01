@@ -209,6 +209,7 @@ CREATE TABLE cc_subscription_fee (
     id 				BIGSERIAL NOT NULL,
     label 			TEXT NOT NULL,	
 	fee 			NUMERIC(12,4) NOT NULL,
+	currency 		CHARACTER VARYING(3) DEFAULT 'USD'::character varying,
 	status 			INTEGER NOT NULL DEFAULT 0,
     numberofrun 	INTEGER NOT NULL DEFAULT 0,
     datecreate 		timestamp(0) without time zone DEFAULT now(),
@@ -268,7 +269,11 @@ MISSING :
 - CRONT
 	- BROWSE ALL THE CUSTOMER THAT HAVE A SUBSCRIPTION FEE ENABLE
 		SELECT * FROM cc_card LEFT JOIN cc_subscription_fee ON cc_card.id_subscription_fee=cc_subscription_fee.id WHERE cc_subscription_fee.status=1
-	- 
+	- Support multi currency
+	- Add a charge for this user
+		INSERT INTO cc_charge (id_cc_card, amount, chargetype, description) values ('1', '120', '3', 'description here...')
+	- Decrement his balance
+	
 	
 - ADD SELECT subscription fee on card 
 ALTER TABLE cc_card ADD COLUMN id_subscription_fee INTEGER;

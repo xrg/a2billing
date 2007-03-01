@@ -1609,6 +1609,7 @@ CREATE TABLE cc_subscription_fee (
     id BIGINT NOT NULL AUTO_INCREMENT,
     label TEXT NOT NULL,
     fee float DEFAULT 0 NOT NULL,
+	currency CHAR(3) DEFAULT 'USD',
     status INT DEFAULT '0' NOT NULL,
     numberofrun INT DEFAULT '0' NOT NULL,
     datecreate TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,

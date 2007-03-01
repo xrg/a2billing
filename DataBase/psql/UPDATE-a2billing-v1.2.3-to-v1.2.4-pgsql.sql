@@ -703,6 +703,7 @@ CREATE TABLE cc_subscription_fee (
     id 				BIGSERIAL NOT NULL,
     label 			TEXT NOT NULL,	
 	fee 			NUMERIC(12,4) NOT NULL,
+	currency 		CHARACTER VARYING(3) DEFAULT 'USD'::character varying,
 	status 			INTEGER NOT NULL DEFAULT 0,
     numberofrun 	INTEGER NOT NULL DEFAULT 0,
     datecreate 		timestamp(0) without time zone DEFAULT now(),

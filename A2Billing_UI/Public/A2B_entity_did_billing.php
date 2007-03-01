@@ -54,10 +54,9 @@ $HD_Form -> create_form ($form_action, $list, $id=null) ;
 
 
 // Include other file ( TODO , find a better way to include files )
-
-$wantinclude=1;
-$order='id';
-include ("A2B_entity_charge.php");
+$wantinclude = 1;
+$order = 'id';
+include_once ("A2B_entity_charge.php");
 
 // #### FOOTER SECTION
 $smarty->display('footer.tpl');

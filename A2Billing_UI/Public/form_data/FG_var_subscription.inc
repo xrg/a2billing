@@ -17,9 +17,22 @@ $daynumber_list = array();
 for ($k=1;$k<=20;$k++)
         $daynumber_list["$k"]  = array( "$k", "$k");
 
-	
+
+$currency_list = array();
+$currency_list_r = array();
+$indcur=0;
+$currencies_list = get_currencies();
+
+foreach($currencies_list as $key => $cur_value) {
+	$currency_list[$key]  = array( $cur_value[1].' ('.$cur_value[2].')', $key);
+	$currency_list_r[$key]  = array( $key, $cur_value[1]);
+	$currency_list_key[$key][0] = $key;
+}
+
+
 $HD_Form -> AddViewElement(gettext("LABEL"), "label", "15%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("FEE"), "fee", "7%", "center", "sort");
+$HD_Form -> AddViewElement("<acronym title=\"CURRENCY\">".gettext("CUR")."</acronym>", "currency", "5%", "center", "sort", "", "list", $currency_list_key);
 $HD_Form -> AddViewElement(gettext("STATUS"), "status", "7%", "center", "sort", "", "list", $actived_list);
 $HD_Form -> AddViewElement(gettext("NBRUN"), "numberofrun", "6%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("DATELASTRUN"), "datelastrun", "12%", "center", "sort", "16");
@@ -28,7 +41,7 @@ $HD_Form -> AddViewElement(gettext("TOTALCREDIT"), "totalcredit", "10%", "center
 
 
 // added a parameter to append  FG_TABLE_ID  ( by default ) or disable 0.
-$HD_Form -> FieldViewElement ('label, fee, status, numberofrun, datelastrun, totalcardperform, totalcredit');
+$HD_Form -> FieldViewElement ('label, fee, currency, status, numberofrun, datelastrun, totalcardperform, totalcredit');
 
 
 $HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO ".strtoupper($HD_Form->FG_INSTANCE_NAME)." CREATED!");  
@@ -66,7 +79,16 @@ $HD_Form -> AddEditElement (gettext("FEE"),
 	"12",
 	gettext("Insert the fee amount."),
 	"" , "", "", "", "" , "", "", gettext("Set the fee amount that the user have to pay per month."));
-	
+
+$HD_Form -> AddEditElement (gettext("CURRENCY"),
+   "currency",
+   "",
+   "SELECT",
+   "",
+   "",
+   "",
+   "list" , "", "",	"", $currency_list, "%1", "", "" );
+
 $HD_Form -> AddEditElement ("STATUS",
 	"status",
 	'$value',
@@ -87,7 +109,7 @@ $HD_Form -> AddEditElement (gettext("EMAIL TO SEND REPORT"),
 
 
 
-$HD_Form -> FieldEditElement ('label, fee, status, emailreport');
+$HD_Form -> FieldEditElement ('label, fee, currency, status, emailreport');
 
 
 if (DB_TYPE == "postgres"){

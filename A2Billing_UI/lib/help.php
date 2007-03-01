@@ -2,7 +2,6 @@
 
 if (SHOW_HELP){
 
-
 $CC_help_list_customer='
 <a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
 <div id="div1000" style="display:visible;">
@@ -15,10 +14,6 @@ $CC_help_list_customer='
 </div></div></div>
 </div>';
 
-
-
-
-
 $CC_help_refill_customer='
 <a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
 <div id="div1000" style="display:visible;">
@@ -29,8 +24,6 @@ $CC_help_refill_customer='
 <br/><br/>
 </div></div></div>
 </div>';
-
-
 
 $CC_help_create_customer='
 <a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
@@ -43,7 +36,6 @@ $CC_help_create_customer='
 </div></div></div>
 </div>';
 
-
 $CC_help_generate_customer='
 <a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
 <div id="div1000" style="display:visible;">
@@ -54,10 +46,6 @@ $CC_help_generate_customer='
 <br/><br/>
 </div></div></div>
 </div>';
-
-
-
-
 
 $CC_help_sipfriend_list ='
 <a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
@@ -70,7 +58,6 @@ $CC_help_sipfriend_list ='
 <br/>
 </div></div></div>
 </div>';
-
 
 $CC_help_sipfriend_reload ='
 <a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
@@ -97,7 +84,6 @@ $CC_help_sipfriend_edit ='
 </div></div></div>
 </div>';
 
-
 $CC_help_callerid_list ='
 <a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
 <div id="div1000" style="display:visible;">
@@ -108,7 +94,6 @@ $CC_help_callerid_list ='
 <br/><br/>
 </div></div></div>
 </div>';
-
 
 $CC_help_money_situation ='
 <a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
@@ -121,7 +106,6 @@ $CC_help_money_situation ='
 <br/>
 </div></div></div>
 </div>';
-
 
 $CC_help_view_payment ='
 <a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
@@ -152,7 +136,6 @@ $CC_help_view_paypal ='
 </center>
 ';
 
-
 $CC_help_add_payment ='
 <a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
 <div id="div1000" style="display:visible;">
@@ -165,8 +148,6 @@ $CC_help_add_payment ='
 </div></div></div>
 </div>';
 
-
-
 $CC_help_list_tariffgroup ='
 <a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
 <div id="div1000" style="display:visible;">
@@ -177,7 +158,6 @@ $CC_help_list_tariffgroup ='
 <br/>
 </div></div></div>
 </div>';
-
 
 $CC_help_add_tariffgroup ='
 <a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
@@ -204,7 +184,6 @@ $CC_help_list_ratecard ='
 </div></div></div>
 </div>';
 
-
 $CC_help_edit_ratecard ='
 <a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
 <div id="div1000" style="display:visible;">
@@ -217,7 +196,6 @@ $CC_help_edit_ratecard ='
 <br/>
 </div></div></div>
 </div>';
-
 
 $CC_help_def_ratecard ='
 <a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
@@ -240,7 +218,6 @@ $CC_help_sim_ratecard ='
 </div></div></div>
 </div>';
 
-
 $CC_help_add_rate ='
 <a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
 <div id="div1000" style="display:visible;">
@@ -251,7 +228,6 @@ $CC_help_add_rate ='
 <br><br>
 </div></div></div>
 </div>';
-
 
 $CC_help_import_ratecard ='
 <a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
@@ -265,7 +241,6 @@ $CC_help_import_ratecard ='
 	<br>
 </div></div></div>
 </div>';
-
 
 $CC_help_import_ratecard_analyse ='
 <a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
@@ -293,8 +268,6 @@ $CC_help_import_ratecard_confirm ='
 </div></div></div>
 </div>';
 
-
-
 $CC_help_trunk_list ='
 <a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
 <div id="div1000" style="display:visible;">
@@ -320,10 +293,6 @@ $CC_help_trunk_edit ='
 </div></div></div>
 </div>';
 
-
-
-
-
 $CC_help_admin_list ='
 <a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
 <div id="div1000" style="display:visible;">
@@ -347,10 +316,6 @@ $CC_help_admin_edit ='
 </div></div></div>
 </div>';
 
-
-
-
-
 $CC_help_list_voucher='
 <a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
 <div id="div1000" style="display:visible;">
@@ -362,8 +327,6 @@ $CC_help_list_voucher='
 <br/><br/>
 </div></div></div>
 </div>';
-
-
 
 $CC_help_create_voucher='
 <a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
@@ -377,7 +340,6 @@ $CC_help_create_voucher='
 </div></div></div>
 </div>';
 
-
 $CC_help_generate_voucher='
 <a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
 <div id="div1000" style="display:visible;">
@@ -388,9 +350,6 @@ $CC_help_generate_voucher='
 <br/><br/>
 </div></div></div>
 </div>';
-
-
-
 
 $CC_help_list_service ='
 <a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
@@ -424,7 +383,6 @@ $CC_help_list_cidgroup ='
 	<div class="w2">
 	<br/>
 	'.gettext("CID Group list. CID can be chosen by customers through the customer interface.").'<br/>
-
 <br/>
 </div></div></div>
 </div>';
@@ -437,7 +395,6 @@ $CC_help_list_cid ='
 	<div class="w2">
 	<br/>
 	'.gettext("Outbound CID list. CID can be added by customers through the customer interface.").'<br/>
-
 <br/>
 </div></div></div>
 </div>';
@@ -467,8 +424,6 @@ $CC_help_edit_cid ='
 </div></div></div>
 </div>';
 
-
-
 $CC_help_currency ='
 <a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
 <div id="div1000" style="display:visible;">
@@ -483,11 +438,6 @@ $CC_help_currency ='
 </div></div></div>
 </div>';
 
-
-
-
-
-
 $CC_help_list_didgroup ='
 <a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
 <div id="div1000" style="display:visible;">
@@ -496,7 +446,6 @@ $CC_help_list_didgroup ='
 	<div class="w2">
 	<br/>
 	'.gettext("DID (or DDI) Group list. DID can be chosen by customers through the customer interface.").'<br/>
-
 <br/>
 </div></div></div>
 </div>';
@@ -512,9 +461,6 @@ $CC_help_edit_didgroup ='
 <br/>
 </div></div></div>
 </div>';
-
-
-
 
 $CC_help_list_did ='
 <a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
@@ -549,7 +495,6 @@ $CC_help_list_did_use ='
 	<div class="w2">
 	<br/>'
 	.gettext("DID currently in use list with user card id and number <br> You can use the search option to dshow the use history of a given did or all dids.").'<br/>
-
 <br/>
 </div></div></div>
 </div>';
@@ -562,20 +507,6 @@ $CC_help_release_did ='
 	<div class="w2">
 	<br/>'
 	.gettext("Releasing DID put it in free stat and the user will not be monthly charged any more..").'<br/>
-
-<br/>
-</div></div></div>
-</div>';
-
-$CC_help_list_charge ='
-<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
-<div id="div1000" style="display:visible;">
-<div id="kiki"><div class="w1">
-	<img src="'.KICON_PATH.'/wi0124-48.gif" class="kikipic"/>
-	<div class="w2">
-	<br/>'
-	.gettext("Extra charges").'<br/>
-
 <br/>
 </div></div></div>
 </div>';
@@ -586,13 +517,11 @@ $CC_help_edit_charge ='
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/wi0124-48.gif" class="kikipic"/>
 	<div class="w2">'
-
 .gettext("Extra Charges are to allow the billing of one-off or re-occurring monthly charges. These may be used as setup or service charges, etc...")
 .gettext("Charges will appear to the user with the description you attach. Each charge that you create for a user will decrement his account.").'
 <br/>
 </div></div></div>
 </div>';
-
 
 $CC_help_list_did_billing ='
 <a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
@@ -600,14 +529,11 @@ $CC_help_list_did_billing ='
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/connect_to_network.gif" class="kikipic"/>
 	<div class="w2">'
-
 	.gettext("DID list and billing list. ")
     .gettext("You will see which cards have used your DIDs in past months and the traffic (amount of seconds).").'
-	
 <br/><br/>
 </div></div></div>
 </div>';
-
 
 $CC_help_list_signup ='
 <a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
@@ -615,14 +541,13 @@ $CC_help_list_signup ='
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/kate.gif" class="kikipic"/>
 	<div class="w2">
-	'.gettext("The SIGNUP module allow new customers to register automatically and use the system immediately.")
+		'.gettext("The SIGNUP module allow new customers to register automatically and use the system immediately.")
     	.gettext(' Click here <a target="_blank" href="../signup/"><b>Signup Pages</b></a> to access the signup page.')
     	.gettext(" A mail is automatically sent when a new signup is completed. Configure the mail template below.<br>")
     	.gettext("A Reminder email can be sent (see a2billing.conf) to customers having low credit.").'
 <br/>
 </div></div></div>
 </div>';
-
 
 $CC_help_campaign ='
 <a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
@@ -637,14 +562,12 @@ $CC_help_campaign ='
 </div></div></div>
 </div>';
 
-
 $CC_help_phonelist ='
 <a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
 <div id="div1000" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/yast_PhoneTTOffhook.gif" class="kikipic"/>
-	<div class="w2">
-	<br/>'
+	<div class="w2"><br/>'
 	.gettext("Phonelist are all the phone numbers attached to a campaign. You can add, remove and edit the phone numbers.").'
 	<br/><br/>
 </div></div></div>
@@ -655,8 +578,7 @@ $CC_help_provider ='
 <div id="div1000" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/yast_remote.gif" class="kikipic"/>
-	<div class="w2">
-	<br/>'
+	<div class="w2"><br/>'
 	.gettext("This section will allow you to create and edit VOIP Providers for reporting purposes. ")
     .gettext("A provider is the company/person that provides you with termination.").'
 <br/><br/>
@@ -684,12 +606,12 @@ $CC_help_database_backup='
 <div id="kiki"><div class="w1">
 <img src="'.KICON_PATH.'/yast_HD.gif" class="kikipic"/>
         <div class="w2">'
-		        .gettext("This section will allow you to backup an existing database context. ")
-                .gettext("Backup proccess will export whole database , so you can restore later... <br/>")
-                .gettext("The process of backup can take some time, during that time some calls will not be accepted.").'
-				<br/>
-				</div></div></div>
-				</div>';
+		.gettext("This section will allow you to backup an existing database context. ")
+		.gettext("Backup proccess will export whole database , so you can restore later... <br/>")
+		.gettext("The process of backup can take some time, during that time some calls will not be accepted.").'
+		<br/>
+</div></div></div>
+</div>';
 				
 $CC_help_ecommerce ='
 <a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
@@ -700,11 +622,9 @@ $CC_help_ecommerce ='
 	<br/>'
 	.gettext("This section will allow you to define the E-Commerce Production Setting.")
 	.gettext("<br>This will be use by E-Commerce API to find out how the new card have to be created.").'
-	
 <br/><br/>
 </div></div></div>
 </div>';
-
 
 $CC_help_speeddial ='
 <a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
@@ -714,7 +634,6 @@ $CC_help_speeddial ='
 	<div class="w2">'
 	.gettext("This section allows you to define the Speed dials for the customer. <br>")
 	.gettext("A Speed Dial will be entered on the IVR in order to make a shortcut to their preferred dialed phone number.").'
-	
 <br/><br/>
 </div></div></div>
 </div>';
@@ -727,7 +646,6 @@ $CC_help_list_prefix='
 	<div class="w2">
 	<br/>'
 	.gettext("Prefixe list with destinations.").'<br/>
-
 <br/>
 </div></div></div>
 </div>';
@@ -755,6 +673,7 @@ $CC_help_edit_alarm='<a href="#" target="_self"  onclick="imgidclick(\'img1000\'
 </div></div></div>
 </div>
 ';
+
 $CC_help_list_alarm='<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
 <div id="div1000" style="display:visible;">
 <div id="kiki"><div class="w1">
@@ -766,7 +685,6 @@ $CC_help_list_alarm='<a href="#" target="_self"  onclick="imgidclick(\'img1000\'
 </div>
 ';
 
-
 $CC_help_logfile='<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
 <div id="div1000" style="display:visible;">
 <div id="kiki"><div class="w1">
@@ -777,7 +695,6 @@ $CC_help_logfile='<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'
 </div></div></div>
 </div>
 ';
-
 
 $CC_help_callback='<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
 <div id="div1000" style="display:visible;">

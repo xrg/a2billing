@@ -1,14 +1,9 @@
 <?php
-if ($wantinclude!=1){
-	include ("../lib/defines.php");
-	include ("../lib/module.access.php");
-	include ("../lib/Form/Class.FormHandler.inc.php");
-	include ("../lib/smarty.php");
-	
-}
-
-
-include ("./form_data/FG_var_charge.inc");
+include_once ("../lib/defines.php");
+include_once ("../lib/module.access.php");
+include_once ("../lib/Form/Class.FormHandler.inc.php");
+include_once ("../lib/smarty.php");
+include_once ("./form_data/FG_var_charge.inc");
 
 
 if (! has_rights (ACX_RATECARD)){ 
@@ -51,8 +46,7 @@ if ($wantinclude!=1){
 	$smarty->display('main.tpl');
 
 	// #### HELP SECTION
-	if ($form_action=='list') echo $CC_help_list_charge;
-	else echo $CC_help_edit_charge;
+	echo $CC_help_edit_charge;
 }
 
 
