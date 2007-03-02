@@ -116,7 +116,9 @@ class Table {
 
 		$QUERY = $sql.$sql_clause.$sql_group.$sql_orderby.$sql_limit;
 		if ($this -> debug_st) echo $this->start_message_debug.$QUERY.$this->end_message_debug;
-
+		
+		//echo "<br>".$QUERY."<br>";
+		
 		$res = $DBHandle -> query($QUERY);
 
 		if (!$res){

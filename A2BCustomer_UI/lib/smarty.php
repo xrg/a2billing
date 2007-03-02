@@ -28,7 +28,8 @@ $smarty->assign("COPYRIGHT", COPYRIGHT);
 $smarty->assign("CCMAINTITLE", CCMAINTITLE);
 $smarty->assign("WEBUI_VERSION", WEBUI_VERSION);
 $smarty->assign("WEBUI_DATE", WEBUI_DATE);
-if($exporttype != "")
+
+if($exporttype != "" && $exporttype != "html")
 {
 	$smarty->assign("EXPORT", 1);
 }
@@ -36,16 +37,18 @@ else
 {
 	$smarty->assign("EXPORT", 0);
 }
+
 if($_GET["section"]!="")
-{
+{	
 	$section = $_GET["section"];
 	$_SESSION["menu_section"] = $section;
 }
 else
-{
+{	
 	$section = $_SESSION["menu_section"];
 }
 $smarty->assign("section", $section);
+
 $smarty->assign("SKIN_NAME", $skin_name);
 
 // OPTION FOR THE MENU

@@ -20,33 +20,19 @@ $HD_Form -> FG_OTHER_BUTTON1 = false;
 $HD_Form -> FG_OTHER_BUTTON2 = false;
 $HD_Form -> FG_FILTER_APPLY = false;
 
-getpost_ifset(array('choose_list', 'creditlimit', 'cardnum', 'addcredit', 'choose_tariff', 'gen_id', 'cardnum', 'choose_simultaccess', 'choose_currency', 'choose_typepaid', 'creditlimit', 'enableexpire', 'expirationdate', 'expiredays', 'runservice', 'sip', 'iax', 'endrange', 'startrange', 'rangecheck'));
+getpost_ifset(array('choose_list', 'creditlimit', 'cardnum', 'addcredit', 'choose_tariff', 'gen_id', 'cardnum', 'choose_simultaccess', 'choose_currency', 'choose_typepaid', 'creditlimit', 'enableexpire', 'expirationdate', 'expiredays', 'runservice', 'sip', 'iax'));
 
 
 /***********************************************************************************/
 
 $HD_Form -> setDBHandler (DbConnect());
+
+
 // GENERATE CARDS
 
 
-if($rangecheck == "range")
-{
-	$sql = "select * from cc_card where username ";
-}
+$nbcard = $choose_list;
 
-
-if ($rangecheck == "range")
-{
-	$nbcard = $endrange - $startrange;	
-	$num_cardnumber = $startrange;
-}
-else
-{
-	$nbcard = $choose_list;
-}
-$nbcard = 400;
-//echo $nbcard;
-$nbcard = 0;
 if ($nbcard>0){
 /*
 '2465773443', '331', 'a', 't', 'LASTNAME', 'FIRSTNAME', 'email@kiki.net', 'adresse', 'city', 'state', 'countr', '1000', '65000000', '2465773443'
@@ -85,21 +71,14 @@ country, zipcode, phone, userpass) values ('2465773443', '331', 'a', 't', 'LASTN
 		$instance_sub_table = new Table($FG_ADITION_SECOND_ADD_TABLE, $FG_ADITION_SECOND_ADD_FIELDS);
 				
 		$gen_id = time();
-		$_SESSION["IDfilter"]=$gen_id;		
+		$_SESSION["IDfilter"]=$gen_id;
+		
 		
 		$creditlimit = is_numeric($creditlimit) ? $creditlimit : 0;
 		//echo "::> $choose_simultaccess, $choose_currency, $choose_typepaid, $creditlimit";
-		for ($k=0;$k<$nbcard;$k++){		
+		for ($k=0;$k<$nbcard;$k++){
 			 $arr_card_alias = gen_card_with_alias();
-			 if ($rangecheck=="list")
-			 {
-			  $cardnum = $arr_card_alias[0];
-			 }
-			 else
-			 {
-			 	$cardnum = $num_cardnumber;
-				$num_cardnumber = $num_cardnumber + 1;
-			 }			 
+			 $cardnum = $arr_card_alias[0];
 			 $useralias = $arr_card_alias[1];
 			if (!is_numeric($addcredit)) $addcredit=0;
 			$passui_secret = MDP_NUMERIC(10);
@@ -238,7 +217,7 @@ $list = $HD_Form -> perform_action($form_action);
 $smarty->display('main.tpl');
 
 // #### HELP SECTION
-echo $CC_help_generate_customer;
+echo '<br><br>'.$CC_help_generate_customer;
 
 
 
@@ -251,11 +230,11 @@ $nb_tariff = count($list_tariff);
 ?>
 
 	  
-   <table align="center"  class="bgcolor_001" border="0" width="70%">
+   <table align="center"  class="bgcolor_001" border="0" width="65%">
         <tbody><tr>
 	<form name="theForm" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
-          <td align="left" width="80%">
-	  	<strong>1)</strong> <input type="radio" name="rangecheck" id="rangecheck" value="list" checked>
+          <td align="left" width="75%">
+	  	<strong>1)</strong> 
 		<select name="choose_list" size="1" class="form_input_select">
 			<option value=""><?php echo gettext("Choose the number of cards to create");?></option>
 			<option class="input" value="1"><?php echo gettext("1 Card");?></option>
@@ -266,10 +245,6 @@ $nb_tariff = count($list_tariff);
 			<option class="input" value="500"><?php echo gettext("500 Cards");?></option>
 			<option class="input" value="5000"><?php echo gettext("5000 Cards");?></option>
 		</select>
-		<br/>
-		&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" value="range" name="rangecheck" id="rangecheck"> <?php echo gettext("Or Include Range");?>
-		<br/>
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;From: <input type="text" name="startrange"  id="startrange"  style="width:80;" class="form_input_text" align="right"> &nbsp;To:<input  name="endrange" id="endrange" type="text" class="form_input_text" style="width:80;" align="right">
 		<br/>
 				
 		  	<strong>2)</strong> 
@@ -345,9 +320,9 @@ $nb_tariff = count($list_tariff);
 				<br/>
 				<strong>12)</strong>
 			   <?php echo gettext("Create SIP/IAX Friends");?>&nbsp;: SIP <input type="checkbox" name="sip" value="1" checked> IAX : <input type="checkbox" name="iax" value="1" checked>
-				<br/>				
+				<br/>
 		</td>	
-		<td width="20%" align="left" valign="bottom"> 
+		<td align="left" valign="bottom"> 
 				<input class="form_input_button"  value=" GENERATE CARDS " type="submit"> 
         </td>
 	 </form>

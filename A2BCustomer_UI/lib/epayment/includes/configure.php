@@ -11,15 +11,15 @@
 // Define the webserver and path parameters
 // * DIR_FS_* = Filesystem directories (local/physical)
 // * DIR_WS_* = Webserver directories (virtual/URL)
-  define('HTTP_SERVER', 'http://202.154.239.73'); // eg, http://localhost - should not be empty for productive servers
-  define('HTTPS_SERVER', 'https://202.154.239.73'); // eg, https://localhost - should not be empty for productive servers
+  define('HTTP_SERVER', 'http://192.168.1.124'); // eg, http://localhost - should not be empty for productive servers
+  define('HTTPS_SERVER', 'https://192.168.1.124'); // eg, https://localhost - should not be empty for productive servers
   define('ENABLE_SSL', true); // secure webserver for checkout procedure?
-  define('HTTP_COOKIE_DOMAIN', '202.154.239.73');
-  define('HTTPS_COOKIE_DOMAIN', '202.154.239.73');
-  define('HTTP_COOKIE_PATH', '/AB/trunk/A2BCustomer_UI/');
-  define('HTTPS_COOKIE_PATH', '/AB/trunk/A2BCustomer_UI/');
-  define('DIR_WS_HTTP_CATALOG', '/AB/trunk/A2BCustomer_UI/');
-  define('DIR_WS_HTTPS_CATALOG', '/AB/trunk/A2BCustomer_UI/');
+  define('HTTP_COOKIE_DOMAIN', '192.168.1.124');
+  define('HTTPS_COOKIE_DOMAIN', '192.168.1.124');
+  define('HTTP_COOKIE_PATH', '/AB21FEB/trunk/A2BCustomer_UI/');
+  define('HTTPS_COOKIE_PATH', '/AB21FEB/trunk/A2BCustomer_UI/');
+  define('DIR_WS_HTTP_CATALOG', '/AB21FEB/trunk/A2BCustomer_UI/');
+  define('DIR_WS_HTTPS_CATALOG', '/AB21FEB/trunk/A2BCustomer_UI/');
   define('DIR_WS_IMAGES', 'images/');
   define('DIR_WS_ICONS', DIR_WS_IMAGES . 'icons/');
   define('DIR_WS_INCLUDES', 'includes/');

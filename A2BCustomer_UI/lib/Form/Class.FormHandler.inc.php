@@ -449,14 +449,14 @@ class FormHandler{
      * @public     	 
      */	
 	function init () {         
-		global $_SERVER;		
+		global $_SERVER;				
 		if($_GET["section"]!="")
-		{
+		{			
 			$section = $_GET["section"];
 			$_SESSION["menu_section"] = $section;
 		}
 		else
-		{
+		{			
 			$section = $_SESSION["menu_section"];
 		}
 		$this -> FG_EDITION_LINK	= $_SERVER['PHP_SELF']."?form_action=ask-edit&id=";

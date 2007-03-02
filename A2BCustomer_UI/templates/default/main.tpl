@@ -10,6 +10,100 @@
 			 <link href="templates/{$SKIN_NAME}/css/main.css" rel="stylesheet" type="text/css">
 			   <link href="templates/{$SKIN_NAME}/css/menu.css" rel="stylesheet" type="text/css">
 			   <link href="templates/{$SKIN_NAME}/css/style-def.css" rel="stylesheet" type="text/css">			
+			   {literal}
+<script  language="javascript">
+<!--
+var mywin
+var prevdiv="dummydiv"
+function imgidclick_plus(imgID,divID)
+{
+
+	var agt=navigator.userAgent.toLowerCase();
+    // *** BROWSER VERSION ***
+    // Note: On IE5, these return 4, so use is_ie5up to detect IE5.
+    var is_major = parseInt(navigator.appVersion);
+    var is_minor = parseFloat(navigator.appVersion);
+
+    // Note: Opera and WebTV spoof Navigator.  We do strict client detection.
+    // If you want to allow spoofing, take out the tests for opera and webtv.
+    var is_nav  = ((agt.indexOf('mozilla')!=-1) && (agt.indexOf('spoofer')==-1)
+                && (agt.indexOf('compatible') == -1) && (agt.indexOf('opera')==-1)
+                && (agt.indexOf('webtv')==-1) && (agt.indexOf('hotjava')==-1));
+	var is_ie     = ((agt.indexOf("msie") != -1) && (agt.indexOf("opera") == -1));
+	
+	
+	if (is_ie){			
+		if 	(document.all(divID).style.display == "none" )		
+		{		
+			document.all(divID).style.display="";			
+			document.all(imgID).src="templates/{/literal}{$SKIN_NAME}{literal}/images/minus.gif";			
+		}
+		else
+		{			
+			document.all(divID).style.display="None";			
+			document.all(imgID).src="templates/{/literal}{$SKIN_NAME}{literal}/images/plus.gif";			
+		}
+		// Only for I.E
+		window.event.cancelBubble=true;
+	}else{
+		if 	(document.getElementById(divID).style.display == "none" )
+		{
+			document.getElementById(divID).style.display="";			
+			document.getElementById(imgID).src="templates/{/literal}{$SKIN_NAME}{literal}/images/minus.gif";
+		}
+		else
+		{			
+			document.getElementById(divID).style.display="None";
+			document.getElementById(imgID).src="templates/{/literal}{$SKIN_NAME}{literal}/images/plus.gif";			
+		}
+	}
+}
+
+function imgidclick(imgID,divID, imgbase, imgchange)
+{
+	
+	var agt=navigator.userAgent.toLowerCase();
+    // *** BROWSER VERSION ***
+    // Note: On IE5, these return 4, so use is_ie5up to detect IE5.
+    var is_major = parseInt(navigator.appVersion);
+    var is_minor = parseFloat(navigator.appVersion);
+
+    // Note: Opera and WebTV spoof Navigator.  We do strict client detection.
+    // If you want to allow spoofing, take out the tests for opera and webtv.
+    var is_nav  = ((agt.indexOf('mozilla')!=-1) && (agt.indexOf('spoofer')==-1)
+                && (agt.indexOf('compatible') == -1) && (agt.indexOf('opera')==-1)
+                && (agt.indexOf('webtv')==-1) && (agt.indexOf('hotjava')==-1));
+	var is_ie     = ((agt.indexOf("msie") != -1) && (agt.indexOf("opera") == -1));
+	
+	
+	if (is_ie){			
+		if 	(document.all(divID).style.display == "none" )		
+		{		
+			document.all(divID).style.display="";			
+			document.all(imgID).src="templates/{/literal}{$SKIN_NAME}{literal}/images/kicons/"+imgchange;
+		}
+		else
+		{			
+			document.all(divID).style.display="None";
+			document.all(imgID).src="templates/{/literal}{$SKIN_NAME}{literal}/images/kicons/"+imgchange;
+		}
+		window.event.cancelBubble=true;
+	}else{
+		if 	(document.getElementById(divID).style.display == "none" )
+		{			
+			document.getElementById(divID).style.display="";
+			document.getElementById(imgID).src="templates/{/literal}{$SKIN_NAME}{literal}/images/kicons/"+imgchange;
+		}
+		else
+		{			
+			document.getElementById(divID).style.display="None";
+			document.getElementById(imgID).src="templates/{/literal}{$SKIN_NAME}{literal}/images/kicons/"+imgchange;
+		}
+	}
+}
+//-->
+</script>
+{/literal}
 </HEAD>
 
 <BODY leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">

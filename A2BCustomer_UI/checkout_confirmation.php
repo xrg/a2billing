@@ -12,7 +12,7 @@ include ("./lib/epayment/includes/html_output.php");
 include ("./lib/epayment/includes/configure.php");
 include ("./lib/epayment/includes/sessions.php");
 include ("./lib/epayment/includes/loadconfiguration.php");
-
+include ("./lib/smarty.php");
 
 //include ("./form_data/FG_var_callerid.inc");
 
@@ -30,17 +30,20 @@ $HD_Form -> init();
 $_SESSION["p_module"] = $payment;
 $_SESSION["p_amount"] = $amount;
 
-include("PP_header.php");
+
+
+
 $HD_Form -> create_toppage ($form_action);
 
 $payment_modules = new payment($payment);
 $order = new order($amount);
 
 
-
 if (is_array($payment_modules->modules)) {
     $payment_modules->pre_confirmation_check();
   }
+// #### HEADER SECTION
+$smarty->display( 'main.tpl');
 ?>
 
 <?php
@@ -81,8 +84,12 @@ if (is_array($payment_modules->modules)) {
    <td  align=left class="main"> <b>Please click button to confirm your order.</b>
    </td>
           <td align=right halign=center >
-            <input type="image" src="./images/button_confirm_order.gif" alt="Confirm Order" border="0" title="Confirm Order">
+            <input type="image" src="<?php echo Images_Path;?>/button_confirm_order.gif" alt="Confirm Order" border="0" title="Confirm Order">
              &nbsp;</td>
           </tr>
  </table>
 </form>
+<?php 
+// #### FOOTER SECTION
+$smarty->display( 'footer.tpl');
+?>

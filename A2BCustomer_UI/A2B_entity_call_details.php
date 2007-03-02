@@ -388,11 +388,9 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 
 function formsubmit()
 {
-alert('I am in function');
 	if(document.calldataform.exporttype[1].checked == true)
 	{
-		document.calldataform.action="A2B_entity_call_details1.php?s=1&t=0&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php echo $current_page?>";
-		
+		document.calldataform.action="A2B_entity_call_details1.php?s=1&t=0&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php echo $current_page?>";		
 	}
 	if(document.calldataform.exporttype[0].checked == true)
 	{

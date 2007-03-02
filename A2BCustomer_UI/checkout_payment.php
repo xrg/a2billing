@@ -11,6 +11,7 @@ include ("./lib/epayment/includes/general.php");
 include ("./lib/epayment/includes/html_output.php");
 include ("./lib/epayment/includes/sessions.php");
 include ("./lib/epayment/includes/loadconfiguration.php");
+include ("./lib/smarty.php");
 //include ("./form_data/FG_var_callerid.inc");
 
 if (! has_rights (ACX_ACCESS)){
@@ -25,7 +26,9 @@ getpost_ifset(array('amount','item_name','item_number','currency_code'));
 $HD_Form -> setDBHandler (DbConnect());
 $HD_Form -> init();
 
-include("PP_header.php");
+// #### HEADER SECTION
+$smarty->display( 'main.tpl');
+
 $HD_Form -> create_toppage ($form_action);
 
 $payment_modules = new payment;
@@ -91,16 +94,16 @@ function rowOutEffect(object) {
           <tr class="infoBoxNoticeContents">
             <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
-                <td><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
+                <td><?php echo tep_draw_separator('clear.gif', '10', '1'); ?></td>
                 <td class="main" width="100%" valign="top"><?php echo tep_output_string_protected($error['error']); ?></td>
-                <td><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
+                <td><?php echo tep_draw_separator('clear.gif', '10', '1'); ?></td>
               </tr>
             </table></td>
           </tr>
         </table></td>
       </tr>
       <tr>
-        <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
+        <td><?php echo tep_draw_separator('clear.gif', '100%', '10'); ?></td>
       </tr>
       </table>
 <?php
@@ -123,7 +126,7 @@ function rowOutEffect(object) {
               <tr height=10>
                 <td class="infoBoxHeading">&nbsp;</td>
                 <td class="infoBoxHeading"  width="50%" valign="top"><?php echo "Payment Method"; ?></td>
-                <td class="infoBoxHeading" width="50%" valign="top" align="right"><b><?php echo "Please Select"; ?></b><br><img src="./images/arrow_east_south.gif"></td>
+                <td class="infoBoxHeading" width="50%" valign="top" align="right"><b><?php echo "Please Select"; ?></b><br></td>
                 <td class="infoBoxHeading">&nbsp;</td>
               </tr>
 <?php
@@ -215,11 +218,13 @@ function rowOutEffect(object) {
 
           </td>
           <td align=right halign=center >
-            <input type="image" src="./images/button_continue.gif" alt="Continue" border="0" title="Continue">
+            <input type="image" src="<?php echo Images_Path;?>/button_continue.gif" alt="Continue" border="0" title="Continue">
              &nbsp;</td>
           </tr>
          </table>
          <?php } ?>
      </form>
-
-
+<?php 
+// #### FOOTER SECTION
+$smarty->display( 'footer.tpl');
+?>

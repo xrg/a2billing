@@ -20,8 +20,7 @@
 
 
     // For ePayment Modules
-    define('PULL_DOWN_DEFAULT', 'Please Select');
-    define('DIR_WS_IMAGES', 'images/');
+    define('PULL_DOWN_DEFAULT', 'Please Select');    
     define('TYPE_BELOW', 'Type Below');
     define('TEXT_CCVAL_ERROR_INVALID_DATE', 'The expiry date entered for the credit card is invalid.<br>Please check the date and try again.');
     define('TEXT_CCVAL_ERROR_INVALID_NUMBER', 'The credit card number entered is invalid.<br>Please check the number and try again.');
@@ -217,7 +216,7 @@
     define ("Images_Path","./templates/".$_SESSION["stylefile"]."/images");
 	define ("Images_Path_Main","./templates/".$_SESSION["stylefile"]."/images");
 	define ("KICON_PATH","./templates/".$_SESSION["stylefile"]."/images/kicons");
-	
+	define('DIR_WS_IMAGES', Images_Path.'/');
 	
 	define ("WEBUI_DATE", 'Release : Somewhere in November 2006');
 	define ("WEBUI_VERSION", 'Asterisk2Billing - Version 1.2.4 (Yellowjacket) ');
