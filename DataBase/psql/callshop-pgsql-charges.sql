@@ -1,4 +1,10 @@
 -- Charges
+
+/* Policy: The agent IS ALLOWED to exceed his/her credit (-limit) with charges. Since
+   we want the agent to be able to charge lost equipment or return money to customers.
+   However, the charges are well-logged (I hope) and the admin user will review them
+   and waive the charges, where those are not appropriate.
+*/
 CREATE OR REPLACE FUNCTION cc_charge_it() RETURNS trigger AS $$
 BEGIN
 	IF NEW.agentid IS NOT NULL THEN
@@ -9,6 +15,13 @@ BEGIN
 		END IF;
 	END IF;
 	
+	IF NEW.amount < 0.0 AND NEW.from_agent = true THEN
+		UPDATE cc_agent SET climit = climit + NEW.amount WHERE
+			cc_agent.id = NEW.agentid;
+		IF NOT FOUND THEN
+			RAISE EXCEPTION 'Cannot update agent''s climit';
+		END IF;
+	END IF;
 	UPDATE cc_card SET credit = credit - NEW.amount WHERE id = NEW.id_cc_card;
 	IF NOT FOUND THEN
 		RAISE EXCEPTION 'Failed to update card''s credit';
@@ -25,6 +38,23 @@ BEGIN
 		RAISE EXCEPTION 'Change of cards for charges is forbidden!';
 	END IF;
 	
+	/* Note: two updates follow. We don't want to cross 0.0 boundaries!
+	   Therefore, they couldn't be merged into one update. */
+	IF OLD.amount < 0.0 AND OLD.from_agent = true THEN
+		UPDATE cc_agent SET climit = climit - OLD.amount WHERE
+			id = OLD.agentid;
+		IF NOT FOUND THEN
+			RAISE EXCEPTION 'Cannot update agent''s climit';
+		END IF;
+	END IF;
+	IF NEW.amount < 0.0 AND NEW.from_agent = true THEN
+		UPDATE cc_agent SET climit = climit + NEW.amount WHERE
+			id = NEW.agentid;
+		IF NOT FOUND THEN
+			RAISE EXCEPTION 'Cannot update agent''s climit';
+		END IF;
+	END IF;
+
 	UPDATE cc_card SET credit = credit + OLD.amount - NEW.amount WHERE id = NEW.id_cc_card;
 	IF NOT FOUND THEN
 		RAISE EXCEPTION 'Failed to update card''s credit';
@@ -37,6 +67,13 @@ BEGIN
 	UPDATE cc_card SET credit = credit + OLD.amount WHERE id = OLD.id_cc_card;
 	IF NOT FOUND THEN
 		RAISE EXCEPTION 'Failed to update card''s credit';
+	END IF;
+	IF OLD.amount < 0.0 AND OLD.from_agent = true THEN
+		UPDATE cc_agent SET climit = climit - OLD.amount WHERE
+			id = OLD.agentid;
+		IF NOT FOUND THEN
+			RAISE EXCEPTION 'Cannot update agent''s climit';
+		END IF;
 	END IF;
 	INSERT INTO cc_charge_bk (id_cc_card, iduser, creationdate, amount, chargetype,
 		description, agentid, from_agent, checked) 
@@ -70,4 +107,30 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql STRICT VOLATILE;
 
+/** Create a transparent view for agent-submitted charges. 
+    This way, additional functionality will be restricted */
+CREATE OR REPLACE VIEW cc_charge_av AS
+	SELECT *,oid FROM cc_charge;
+	
+CREATE OR REPLACE RULE cc_charge_uo AS ON UPDATE TO cc_charge_av DO INSTEAD NOTHING;
+CREATE OR REPLACE RULE cc_charge_do AS ON DELETE TO cc_charge_av DO INSTEAD NOTHING;
+CREATE OR REPLACE RULE cc_charge_io AS ON INSERT TO cc_charge_av DO INSTEAD NOTHING;
+
+CREATE OR REPLACE RULE cc_charge_da AS ON DELETE TO cc_charge_av 
+	WHERE agentid IS NOT NULL AND checked IS NULL AND from_agent = true
+	DO INSTEAD DELETE FROM cc_charge WHERE cc_charge.id = OLD.id ;
+
+CREATE OR REPLACE RULE cc_charge_ua AS ON UPDATE TO cc_charge_av 
+	WHERE OLD.agentid IS NOT NULL AND OLD.checked IS NULL AND OLD.from_agent = true
+		AND NEW.from_agent = true AND NEW.checked IS NULL
+	DO INSTEAD UPDATE cc_charge SET amount = NEW.amount, chargetype = NEW.chargetype,
+		description = NEW.description
+		WHERE cc_charge.id = OLD.id ;
+
+CREATE OR REPLACE RULE cc_charge_ia AS ON INSERT TO cc_charge_av 
+	WHERE agentid IS NOT NULL AND checked IS NULL AND from_agent = true
+	DO INSTEAD INSERT INTO cc_charge (id_cc_card, iduser, creationdate, amount, chargetype,
+		description, agentid, from_agent, checked) 
+		VALUES (NEW.id_cc_card, COALESCE(NEW.iduser,0), COALESCE(NEW.creationdate,now()), NEW.amount, NEW.chargetype, 
+		NEW.description, NEW.agentid, NEW.from_agent, NEW.checked);
 --eof

@@ -4,11 +4,11 @@ getpost_ifset(array('id', 'amount', 'id_cc_card', 'chargetype', 'description', '
 
 
 if (($form_action=='ask-edit') || ($form_action=='ask-add') || ($form_action=='add') || ($form_action=='edit') || ($form_action=='ask-delete') || ($form_action=='delete')){
-	if ($wantinclude==1) $HD_Form_c = new FormHandler("cc_charge","charge","A2B_entity_charge.php");
-	else $HD_Form_c = new FormHandler("cc_charge","charge");
+	if ($wantinclude==1) $HD_Form_c = new FormHandler("cc_charge_av","charge","A2B_entity_charge.php");
+	else $HD_Form_c = new FormHandler("cc_charge_av","charge");
 }else {
-	if ($wantinclude==1) $HD_Form_c = new FormHandler("cc_charge, cc_card", "charge", "A2B_entity_charge.php");
-	else $HD_Form_c = new FormHandler("cc_charge, cc_card", "charge");
+	if ($wantinclude==1) $HD_Form_c = new FormHandler("cc_charge_av, cc_card", "charge", "A2B_entity_charge.php");
+	else $HD_Form_c = new FormHandler("cc_charge_av, cc_card", "charge");
 }
 
 $HD_Form_c -> setDBHandler (DbConnect());
@@ -25,7 +25,7 @@ if (isset($id_cc_card))
 	$HD_Form_c -> FG_TABLE_CLAUSE .= str_dbparams($HD_Form_c->DBHandle,
 		" AND cc_card.id= %1",array($id_cc_card));
 	
-$HD_Form_c -> FG_TABLE_ID="cc_charge.id";
+$HD_Form_c -> FG_TABLE_ID="cc_charge_av.id";
 
 
 $chargetype_list = get_chargetypes();
@@ -34,13 +34,13 @@ $chargetype_list = get_chargetypes();
 
 
 $HD_Form_c -> AddViewElement(gettext("CARDNUMBER"), "username", "12%", "center", "sort");
-$HD_Form_c -> AddViewElement(gettext("DATE"), "cc_charge.creationdate", "15%", "center", "sort", "", "", "", "", "", "", "display_dateformat");
+$HD_Form_c -> AddViewElement(gettext("DATE"), "cc_charge_av.creationdate", "15%", "center", "sort", "", "", "", "", "", "", "display_dateformat");
 $HD_Form_c -> AddViewElement(gettext("AMOUNT"), "amount", "10%", "center", "sort");
 $HD_Form_c -> AddViewElement(gettext("CHARGETYPE"), "chargetype", "20%", "center", "sort", "", "list", $chargetype_list);
 $HD_Form_c -> AddViewElement(gettext("DESCRIPTION"), "description", "30%", "left", "", "");
 
 // added a parameter to append  FG_TABLE_ID  ( by default ) or disable 0.
-$HD_Form_c -> FieldViewElement ('username, fmt_date(cc_charge.creationdate), amount, chargetype, description');
+$HD_Form_c -> FieldViewElement ('username, fmt_date(cc_charge_av.creationdate), amount, chargetype, description');
 
 
 $HD_Form_c -> CV_NO_FIELDS  = gettext("THERE IS NO CHARGE CREATED!");
@@ -100,7 +100,7 @@ $HD_Form_c -> AddEditElement (gettext("DESCRIPTION"),
 
 
 $HD_Form_c-> FG_QUERY_ADITION_HIDDEN_FIELDS = 'agentid,from_agent';
-$HD_Form_c-> FG_QUERY_ADITION_HIDDEN_VALUE = str_dbparams($HD_Form_c->DBHandle, "%1,true", array($_SESSION['agent_id']));;
+$HD_Form_c-> FG_QUERY_ADITION_HIDDEN_VALUE = str_dbparams($HD_Form_c->DBHandle, "%1,true", array($_SESSION['agent_id']));
 
 $HD_Form_c -> FieldEditElement ('id_cc_card, amount, chargetype, description');
 
@@ -130,8 +130,6 @@ $HD_Form_c -> FG_TEXT_ADITION_CONFIRMATION = gettext("Your new charge has been i
 
 $HD_Form_c -> FG_BUTTON_EDITION_SRC = $HD_Form_c -> FG_BUTTON_ADITION_SRC  = "./images/cormfirmboton.gif";
 $HD_Form_c -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form_c -> FG_BUTTON_ADITION_BOTTOM_TEXT = gettext("Click 'Confirm Data' to continue");
-
-
 
 $HD_Form_c -> FG_GO_LINK_AFTER_ACTION_ADD = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
 $HD_Form_c -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
