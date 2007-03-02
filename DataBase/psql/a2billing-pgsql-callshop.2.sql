@@ -414,13 +414,13 @@ CREATE OR REPLACE VIEW cc_session_invoice AS
 			ELSE 'Money received' END) AS f2, NULL as cnum,
 		cc_agentrefill.credit AS pos_charge, NULL as neg_charge,
 		NULL as duration
-		FROM cc_shopsessions, cc_agentrefill, cc_texts
+		FROM cc_shopsessions, cc_agentrefill 
+			LEFT JOIN cc_texts ON cc_texts.id = cc_agentrefill.pay_type AND cc_texts.lang = 'C'
 		WHERE cc_shopsessions.card = cc_agentrefill.card_id AND
 			( cc_agentrefill.boothid IS NULL OR cc_shopsessions.booth = cc_agentrefill.boothid) AND
 			cc_agentrefill.credit > 0.0 AND
 			cc_shopsessions.starttime <= cc_agentrefill.date AND
 			(cc_shopsessions.endtime IS NULL OR cc_shopsessions.endtime >= cc_agentrefill.date)
-			AND cc_texts.id = cc_agentrefill.pay_type AND cc_texts.lang = 'C'
 		-- Payments
 	UNION SELECT cc_agentrefill.date AS starttime, cc_texts.txt AS descr, cc_shopsessions.id AS sid,
 		booth AS boothid, 
@@ -428,22 +428,22 @@ CREATE OR REPLACE VIEW cc_session_invoice AS
 			ELSE 'Money paid back' END) AS f2, NULL as cnum,
 		NULL AS pos_charge, (0- cc_agentrefill.credit) AS neg_charge,
 		NULL as duration
-		FROM cc_shopsessions, cc_agentrefill, cc_texts
+		FROM cc_shopsessions, cc_agentrefill
+			LEFT JOIN cc_texts ON cc_texts.id = cc_agentrefill.pay_type AND cc_texts.lang = 'C'
 		WHERE cc_shopsessions.card = cc_agentrefill.card_id AND
 			( cc_agentrefill.boothid IS NULL OR cc_shopsessions.booth = cc_agentrefill.boothid) AND
 			cc_agentrefill.credit < 0.0 AND
 			cc_shopsessions.starttime <= cc_agentrefill.date AND
 			(cc_shopsessions.endtime IS NULL OR cc_shopsessions.endtime >= cc_agentrefill.date)
-			AND cc_texts.id = cc_agentrefill.pay_type AND cc_texts.lang = 'C'
 	UNION SELECT cc_charge.creationdate AS starttime, cc_texts.txt AS descr, cc_shopsessions.id AS sid,
 		booth AS boothid,cc_charge.description AS f2, NULL as cnum,
 		NULL AS pos_charge, cc_charge.amount as neg_charge,
 		NULL as duration
-		FROM cc_shopsessions, cc_charge, cc_texts
+		FROM cc_shopsessions, cc_charge
+			LEFT JOIN cc_texts ON cc_texts.id = cc_charge.chargetype AND cc_texts.lang = 'C'
 		WHERE cc_shopsessions.card = cc_charge.id_cc_card AND
 			cc_shopsessions.starttime <= cc_charge.creationdate AND
-			(cc_shopsessions.endtime IS NULL OR cc_shopsessions.endtime >= cc_charge.creationdate) AND
-			cc_texts.id= cc_charge.chargetype AND cc_texts.lang = 'C';
+			(cc_shopsessions.endtime IS NULL OR cc_shopsessions.endtime >= cc_charge.creationdate);
 
 CREATE OR REPLACE FUNCTION conv_currency(money_sum NUMERIC, from_cur CHAR(3), to_cur CHAR(3)) RETURNS NUMERIC
 	AS $$
