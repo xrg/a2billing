@@ -61,6 +61,28 @@
 		exit;						
 	}
 	
+	$currencies_list = get_currencies($DBHandle);
+	function convert_currency ($currencies_list, $amount, $from_cur, $to_cur){
+		if (!is_numeric($amount) || ($amount == 0)){
+			return 0;
+		}
+		if ($from_cur == $to_cur){
+			return $amount;
+		}
+		if (strtoupper($this->agiconfig['base_currency']) != strtoupper($from_cur)){
+		
+		}
+		
+		// EUR -> 1.19175
+		
+		$mycur = $currencies_list[strtoupper($to_cur)][2];
+		$amount_cur = $amount / $mycur;
+		
+		return $amount_cur;
+		
+	}
+	
+	
 	$instance_table = new Table();
 	
 	// SELECT * FROM cc_card LEFT JOIN cc_subscription_fee ON cc_card.id_subscription_fee=cc_subscription_fee.id WHERE cc_subscription_fee.status=1
@@ -74,17 +96,21 @@
 	if ($verbose_level>=1) echo "===> NB_CARD : $nb_card - NBPAGEMAX:$nbpagemax\n";
 	
 	if (!($nb_card>0)){
-			if ($verbose_level>=1) echo "[No card to run the Subscription Fee service]\n";
-			write_log("[No card to run the Subscription Feeservice]");
-			exit();
+		if ($verbose_level>=1) echo "[No card to run the Subscription Fee service]\n";
+		write_log("[No card to run the Subscription Feeservice]");
+		exit();
 	}
 	
-	exit;
 	
 	
-	// CHECK THE SERVICES
-	$QUERY = 'SELECT id, name, amount, period, rule, daynumber, stopmode, maxnumbercycle, status, numberofrun, datecreate, 
-	$UNIX_TIMESTAMP datelastrun, emailreport, totalcredit,totalcardperform FROM cc_service WHERE status=1';
+	
+	exit;	
+
+	//SELECT cc_card.id, username, credit, cc_card.currency, cc_subscription_fee.id, cc_subscription_fee.label, cc_subscription_fee.fee, cc_subscription_fee.currency, emailreport FROM cc_card LEFT JOIN cc_subscription_fee ON cc_card.id_subscription_fee=cc_subscription_fee.id WHERE cc_subscription_fee.status=1
+	
+	
+	// CHECK THE SUBSCRIPTION SERVICES
+	$QUERY = 'SELECT id, label, fee, currency, emailreport FROM cc_subscription_fee WHERE status=1';
 
 	$result = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY);
 	
@@ -95,99 +121,41 @@
 			write_log("[ No Recurring service to run]");
 			exit();
     }
-	// 0 id, 1 name, 2 amount, 3 period, 4 rule, 5 daynumber, 6 stopmode,  7 maxnumbercycle, 8 status, 9 numberofrun, 
-	// 10 datecreate, 11 datelastrun, 12 emailreport, 13 totalcredit, 14 totalcardperform 
 	
 	write_log("[Number of card found : $nb_card]");
 	
 	$oneday = 60*60*24;
 	
-// mail variable for user notification
+	// mail variable for user notification
 	
 	// BROWSE THROUGH THE SERVICES 
 	foreach ($result as $myservice) {
 	
 		$totalcardperform = 0;
 		$totalcredit = 0;
-		$timestamp_lastsend = strtotime($myservice[11]);  // 4 aug 1PM
-		$datewish = time()- (intval($myservice[3]) * $oneday) - 1800; //minus 30 min   4 aug 1:29PM
 		
-		write_log("[Service : ".$myservice[1]." ]");
+		$myservice_id = $myservice[0];
 		
-		if ($verbose_level>=1) echo "------>>>   TIME STAMP $datewish < $timestamp_lastsend \n";		
-		// Comment if you dont wish to check time of the service running - testing
-		 if ($myservice[4]!=3)  if ($datewish < $timestamp_lastsend){        write_log("[Service in the Date range : not to run ]"); continue; }
-			
-		
-		
-	
-		write_log("[Service analyze cards on which to apply service ]");
-		// BROWSE THROUGH THE CARD TO APPLY THE SERVICE 
+		write_log("[Subscription Fee Service analyze cards on which to apply service ]");
+		// BROWSE THROUGH THE CARD TO APPLY THE SUBSCRIPTION FEE SERVICE 
 		for ($page = 0; $page <= $nbpagemax; $page++) {
 			
-			$sql = "SELECT id, credit, nbservice, $UNIX_TIMESTAMP lastuse), username, $UNIX_TIMESTAMP servicelastrun), email FROM cc_card WHERE firstusedate IS NOT NULL AND firstusedate>0 AND runservice=1 ORDER BY id  ";
+			$sql = "SELECT id, credit, nbservice, username, email FROM cc_card WHERE id_subscription_fee='$myservice_id' ORDER BY id  ";
 			if ($A2B->config["database"]['dbtype'] == "postgres"){
-			        $sql .= " LIMIT $groupcard OFFSET ".$page*$groupcard;
+				$sql .= " LIMIT $groupcard OFFSET ".$page*$groupcard;
 			}else{
-			        $sql .= " LIMIT ".$page*$groupcard.", $groupcard";
+				$sql .= " LIMIT ".$page*$groupcard.", $groupcard";
 			}
 			if ($verbose_level>=1) echo "==> SELECT CARD QUERY : $sql\n";
 			$result_card = $instance_table -> SQLExec ($A2B -> DBHandle, $sql);
 		
 			foreach ($result_card as $mycard){
 				if ($verbose_level>=1) print_r ($mycard);
-				if ($verbose_level>=1) echo "------>>>  ID = ".$mycard[0]." - CARD =".$mycard[4]." - BALANCE =".$mycard[1]." \n";	
-
-				// RULE 3 : Apply the period to card - card last run date >= period
-				if ($myservice[4]==3){
-							
-					$timestamp_servicelastrun = $mycard[5];	 // 4 aug 1PM		
-					
-					//$datewish = time()- (intval($myservice[5]) * $oneday) - 1800; //minus 30 min   4 aug 1:29PM
-					// DATEWISH - already - $datewish = time()- (intval($myservice[3]) * $oneday) - 1800;
-					// echo "timestamp_servicelastrun=$timestamp_servicelastrun - mycard_5=$mycard[5] - datewish:$datewish\n";
-					if ( ($datewish < $timestamp_servicelastrun) ) {
-						if ($verbose_level>=1) echo "#### CARD : NOT - Apply the period to card - card last run date >= period :".$myservice[3]." day(s)\n";
-						continue;
-					}
-					if ($verbose_level>=1) echo "#### CARD : Apply the period to card - card last run date >= period :".$myservice[3]." day(s)\n";
-				}
-				if ($verbose_level>=1) echo "#### CARD : Apply the period to card - card last run date >= period :".$myservice[3]." day(s)\n";
-				if ( ($myservice[4]==1)  || ($myservice[4]==2) ){
-					
-					$timestamp_lastuse = strtotime($mycard[3]);  // 4 aug 1PM
-					$datewish = time()- (intval($myservice[5]) * $oneday) - 1800; //minus 30 min   4 aug 1:29PM
-					
-					$temp = $datewish < $timestamp_lastuse;					
-					if ($verbose_level>=1) echo "------>>>   TIME STAMP $datewish < $timestamp_lastuse = $temp \n";		
-			
-					// RULE 1 : "User didnt use card since %nextfield% day(s)"
-					if ($verbose_level>=1) echo "RULE 1 : User didnt use card since %nextfield% day(s)\n";
-					if ( ($myservice[4]==1) && ($datewish < $timestamp_lastuse) && ($myservice[5]>0) ) {
-						if ($verbose_level>=1) echo "#### CARD : card used since ".$myservice[5]." day(s)\n";
-						continue;
-					}
-										
-					// RULE 2 : "User use the card in the last %nextfield% day(s)"
-					if ($verbose_level>=1) echo "RULE 2 : User use the card in the last %nextfield% day(s)\n";
-					if ( ($myservice[4]==2) && ($datewish > $timestamp_lastuse) && ($myservice[5]>0) ) {
-						if ($verbose_level>=1) echo "#### CARD : User didnt use the card in the last ".$myservice[5]." day(s)\n";
-						continue;
-					}					
-					
-				
-				}
-				// RULE 0 : NO RULES :D
-				
-				// CHECK if NBSERVICE > MAXNUMBERCYCLE  && STOPMODE Max number of cycle reach
-				if ($mycard[2]>$myservice[7] && $myservice[6]==2) continue;
+				if ($verbose_level>=1) echo "------>>>  ID = ".$mycard[0]." - CARD =".$mycard[3]." - BALANCE =".$mycard[1]." \n";	
 				
 				
-				// CHECK if CREDIT <= 0 && STOPMODE Account balance below zero
-				if ( $mycard[1]<=0 && $myservice[6]==1 ) continue;
 				
-				
-				$QUERY = "UPDATE cc_card SET nbservice=nbservice+1, credit=credit-'".$myservice[2]."' WHERE id=".$mycard[0];	
+				$QUERY = "UPDATE cc_card SET credit=credit-'".$myservice[2]."' WHERE id=".$mycard[0];	
 				$result = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY, 0);
 				if ($verbose_level>=1) echo "==> UPDATE CARD QUERY: 	$QUERY\n";
 				$totalcardperform ++;
@@ -228,4 +196,29 @@
 	if ($verbose_level>=1) echo "#### END RECURRING SERVICES \n";
 	write_log("[#### BATCH PROCESS END ####]");
 	
+	
+	
+	
+	
+	function get_currencies($DBHandle)
+	{
+		$instance_table = new Table();
+		$QUERY =  "SELECT id,currency,name,value from cc_currencies order by id";
+		$result = $instance_table -> SQLExec ($DBHandle, $QUERY);
+		/*
+			$currencies_list['ADF'][1]="Andorran Franc";
+			$currencies_list['ADF'][2]="0.1339";
+			[ADF] => Array ( [1] => Andorran Franc (ADF), [2] => 0.1339 )
+		*/
+
+		if (is_array($result)){
+			$num_cur = count($result);
+			for ($i=0;$i<$num_cur;$i++)
+				$currencies_list[$result[$i][1]] = array (1 => $result[$i][2], 2 => $result[$i][3]);
+		}	
+		
+		if ((isset($currencies_list)) && (is_array($currencies_list)))	sort_currencies_list($currencies_list);		
+		
+		return $currencies_list;
+	}
 ?>
