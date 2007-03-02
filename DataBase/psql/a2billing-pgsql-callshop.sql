@@ -140,4 +140,21 @@ CREATE TABLE cc_paytypes (
  INSERT INTO cc_paytypes (id, side, charge) values (gettext_ri('Cactus renting charges'), 3, 0.0);
  */
 
+/** Deleted charges.
+	Since charges constitute an important money transaction, removed ones
+	should be logged, i.e. inserted here
+*/
+CREATE TABLE cc_charge_bk (
+    id_cc_card bigint NOT NULL,
+    iduser integer DEFAULT 0 NOT NULL,
+    creationdate timestamp without time zone,
+    deletiondate timestamp WITHOUT time zone DEFAULT now(),
+    amount numeric(12,4) NOT NULL,
+    chargetype integer DEFAULT 0,
+    description text,
+    agentid bigint REFERENCES cc_agent(id),
+    from_agent boolean NOT NULL DEFAULT FALSE,
+    checked bigint REFERENCES cc_ui_authen(userid)
+);
+
 -- eof

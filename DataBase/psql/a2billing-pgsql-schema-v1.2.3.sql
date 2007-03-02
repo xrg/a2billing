@@ -141,9 +141,9 @@ CREATE TABLE cc_charge (
     id bigserial NOT NULL,
     id_cc_card bigint NOT NULL,
     iduser integer DEFAULT 0 NOT NULL,
-    creationdate timestamp without time zone DEFAULT now(),	
+    creationdate timestamp without time zone DEFAULT now(),
     amount numeric(12,4) NOT NULL,
-    chargetype integer DEFAULT 0,    
+    chargetype integer DEFAULT 0,
     description text
 );
 
