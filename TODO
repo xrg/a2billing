@@ -1,22 +1,18 @@
 
-
--------________=======-------________=======-------________=======-------_______
-	 & & & & & 					 in process				& & & & &
-=======-------________=======-------________=======-------________=======-------
-
-1#
-	E-Payment method from OsCommerce
-	Analyze and do migration
-
-==-------________=======-------________=======-------________=======-------_____
-
-
-
 ********************************************************************************
                    			TODO LIST - SPECIFIC
 ********************************************************************************
 
-!!! Ask Malik send me DB changes for invoicing
+
+
+#### a2billing.conf new section with all the log files
+********************************************************************
+handle this in different part of the application (API, AGI, Cront)
+
+
+#### MIGRATE NEW VERSION OF ADODB
+********************************************************************
+started by Angel
 
 
 ######## CURRENCY MANAGEMENT IN CRONT SERVICE AND SUBSCRIPTION FEE

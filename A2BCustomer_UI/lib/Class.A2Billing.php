@@ -346,7 +346,7 @@ class A2Billing {
 
 		  
 		// conf for the recurring process
-		if(!isset($this->config["recprocess"]['batch_log_file'])) 	$this->config["batch_log_file"]['buddyfilepath'] = '/etc/asterisk/';
+		if(!isset($this->config["recprocess"]['batch_log_file'])) 	$this->config["recprocess"]['batch_log_file'] = '/tmp/batch-a2billing.log';
 		 
 		// conf for the AGI
 		if(!isset($this->config["agi-conf$idconfig"]['debug'])) 	$this->config["agi-conf$idconfig"]['debug'] = false;
