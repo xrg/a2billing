@@ -48,15 +48,17 @@ if ($called  && $id_cc_card){
 				$A2B -> DBHandle = DbConnect();
 				$instance_table = new Table();
 				$A2B -> set_instance_table ($instance_table);
-				
-				$resmax = $DBHandle -> query("SELECT username, tariff FROM cc_card where id='$id_cc_card'");
-				$num = $resmax -> RecordCount( );
+				$num = 0;
+				$resmax = $DBHandle -> Execute("SELECT username, tariff FROM cc_card where id='$id_cc_card'");
+				if ($resmax)
+					$num = $resmax -> RecordCount( );
+
 				if ($num==0){ echo gettext("Error card !!!"); exit();}			
 				
 				for($i=0;$i<$num;$i++)
-					{
-						$row [] =$resmax -> fetchRow();	
-					}
+				{
+					$row [] =$resmax -> fetchRow();	
+				}
 				
 				$A2B -> cardnumber = $row[0][0] ;
 				$A2B -> credit = $balance;

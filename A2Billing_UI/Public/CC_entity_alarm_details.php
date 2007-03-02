@@ -38,14 +38,14 @@ $DBHandle  = DbConnect();
 /*******************   ALARM INFO  *****************************************/
 
 $QUERY = "SELECT id, name, type, numberofrun, substring(datelastrun,0,20), numberofalarm from cc_alarm WHERE id='$id'";
-$res = $DBHandle -> query($QUERY);
-$num = $res -> RecordCount( );		
-for($i=0;$i<$num;$i++)
-{		
-	$list_alarm [] =$res -> fetchRow();			
-	
+$res = $DBHandle -> Execute($QUERY);
+if ($res)
+	$num = $res -> RecordCount( );		
+	for($i=0;$i<$num;$i++)
+	{		
+		$list_alarm [] =$res -> fetchRow();			
+	}
 }
-
 	   
 /*******************  LIST REFILL  *****************************************/
 		
@@ -60,14 +60,15 @@ if (DB_TYPE == "postgres"){
 	$QUERY .= " LIMIT 0, 25";
 }
 if ($FG_DEBUG > 0)   echo $QUERY ;
-$res = $DBHandle -> query($QUERY);
-$num = $res -> RecordCount( );		
+$res = $DBHandle -> Execute($QUERY);
+if ($res){
+	$num = $res -> RecordCount( );		
 
-for($i=0;$i<$num;$i++)
-{		
-	$list [] =$res -> fetchRow();			
+	for($i=0;$i<$num;$i++)
+	{		
+		$list [] =$res -> fetchRow();			
+	}
 }
-
 
 ?>
 

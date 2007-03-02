@@ -304,10 +304,12 @@ $total_fail_succ=0;
 $total_max_succ=0;
 $update=array();
 if (!$nodisplay){
-		$res = $DBHandle -> query($QUERY);
+		$num = 0;
+		$res = $DBHandle -> Execute($QUERY);
 		$QUERY="SELECT * FROM ASR_CIC_TEMP order by day";
-		$res = $DBHandle -> query($QUERY);
-		$num = $res -> RecordCount();
+		$res = $DBHandle -> Execute($QUERY);
+		if ($res)
+			$num = $res -> RecordCount();
 		$pos=0;
 		for($i=0;$i<$num;$i++)
 		{	
@@ -354,11 +356,13 @@ if (!$nodisplay){
 $QUERY = "SELECT substring(t1.starttime,1,10) AS day, sum(t1.sessiontime) AS calltime, sum(t1.sessionbill) AS cost, count(*) as nbcall, sum(t1.buycost) AS buy FROM $FG_TABLE_NAME WHERE ".$FG_TABLE_CLAUSE." GROUP BY substring(t1.starttime,1,10) ORDER BY day"; //extract(DAY from calldate) 
 
 if (!$nodisplay){
-		$res = $DBHandle -> query($QUERY);
-		$num = $res -> RecordCount();
-		for($i=0;$i<$num;$i++)
-		{				
-			$list_total_day [] =$res -> fetchRow();
+		$res = $DBHandle -> Execute($QUERY);
+		if ($res){
+			$num = $res -> RecordCount();
+			for($i=0;$i<$num;$i++)
+			{				
+				$list_total_day [] =$res -> fetchRow();
+			}
 		}
 
 

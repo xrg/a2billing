@@ -41,14 +41,15 @@ $DBHandle  = DbConnect();
 /*******************   SERVICE INFO  *****************************************/
 
 $QUERY = "SELECT id, label, numberofrun, datelastrun, totalcredit, totalcardperform from cc_subscription_fee WHERE id='$id'";
-$res = $DBHandle -> query($QUERY);
-$num = $res -> RecordCount( );		
+$res = $DBHandle -> Execute($QUERY);
+if ($res){
+	$num = $res -> RecordCount( );		
 
-for($i=0;$i<$num;$i++)
-{		
-	$list_service [] =$res -> fetchRow();			
+	for($i=0;$i<$num;$i++)
+	{		
+		$list_service [] =$res -> fetchRow();			
+	}
 }
-
 
 /*******************  LIST REFILL  *****************************************/
 
@@ -62,14 +63,15 @@ if (DB_TYPE == "postgres"){
 }
 if ($FG_DEBUG > 0)   echo $QUERY ;
 
-$res = $DBHandle -> query($QUERY);
-$num = $res -> RecordCount( );		
+$res = $DBHandle -> Execute($QUERY);
+if ($res){
+	$num = $res -> RecordCount( );		
 
-for($i=0;$i<$num;$i++)
-{		
-	$list [] =$res -> fetchRow();			
+	for($i=0;$i<$num;$i++)
+	{		
+		$list [] =$res -> fetchRow();			
+	}
 }
-
 
 ?>
 

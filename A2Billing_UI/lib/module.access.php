@@ -134,7 +134,7 @@ function login ($user, $pass) {
 	if (strlen($user)==0 || strlen($user)>=50 || strlen($pass)==0 || strlen($pass)>=50) return false;
 	$QUERY = "SELECT userid, perms, confaddcust, groupid FROM cc_ui_authen WHERE login = '".$user."' AND password = '".$pass."'";
 
-	$res = $DBHandle -> query($QUERY);
+	$res = $DBHandle -> Execute($QUERY);
 
 	if (!$res) {
 		$errstr = $DBHandle->ErrorMsg();

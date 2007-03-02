@@ -280,11 +280,13 @@ $_SESSION["pr_sql_export"]="SELECT $FG_COL_QUERY FROM $FG_TABLE_NAME WHERE $FG_T
 $QUERY = "SELECT substring(t1.starttime,1,10) AS day, sum(t1.sessiontime) AS calltime, sum(t1.sessionbill) AS cost, count(*) as nbcall FROM $FG_TABLE_NAME WHERE ".$FG_TABLE_CLAUSE." GROUP BY substring(t1.starttime,1,10) ORDER BY day"; //extract(DAY from calldate) 
 
 if (!$nodisplay){
-		$res = $DBHandle -> query($QUERY);
-		$num = $res -> RecordCount();
-		for($i=0;$i<$num;$i++)
-		{				
-			$list_total_day [] =$res -> fetchRow();				 
+		$res = $DBHandle -> Execute($QUERY);
+		if ($res){
+			$num = $res -> RecordCount();
+			for($i=0;$i<$num;$i++)
+			{				
+				$list_total_day [] =$res -> fetchRow();				 
+			}
 		}
 
 if ($FG_DEBUG == 3) echo "<br>Clause : $FG_TABLE_CLAUSE";
@@ -299,13 +301,14 @@ $QUERY = "SELECT destination, sum(t1.sessiontime) AS calltime,
 sum(t1.sessionbill) AS cost, count(*) as nbcall FROM $FG_TABLE_NAME WHERE ".$FG_TABLE_CLAUSE." GROUP BY destination"; 
 
 if (!$nodisplay){
-		$res = $DBHandle -> query($QUERY);
-		$num = $res -> RecordCount();
-		for($i=0;$i<$num;$i++)
-		{				
-			$list_total_destination [] =$res -> fetchRow();				 
+		$res = $DBHandle -> Execute($QUERY);
+		if ($res){
+			$num = $res -> RecordCount();
+			for($i=0;$i<$num;$i++)
+			{				
+				$list_total_destination [] =$res -> fetchRow();				 
+			}
 		}
-
 
 
 if ($FG_DEBUG == 3) echo "<br>Clause : $FG_TABLE_CLAUSE";
@@ -415,11 +418,13 @@ else
 
 
 if (!$nodisplay){
-		$res = $DBHandle -> query($QUERY);
-		$num = $res -> RecordCount();
-		for($i=0;$i<$num;$i++)
-		{				
-			$list_total_day_charge [] =$res-> fetchRow();				 
+		$res = $DBHandle -> Execute($QUERY);
+		if ($res){
+			$num = $res -> RecordCount();
+			for($i=0;$i<$num;$i++)
+			{				
+				$list_total_day_charge [] =$res-> fetchRow();				 
+			}
 		}
 
 		if ($FG_DEBUG >= 1) var_dump ($list_total_day_charge);

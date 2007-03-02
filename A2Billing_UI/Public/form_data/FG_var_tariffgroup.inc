@@ -102,8 +102,11 @@ $HD_Form -> AddEditElement (gettext("REMOVE INTER PREFIX"),
 
 	
 $DBHandle_max  = DbConnect();
-$resmax = $DBHandle_max -> query("SELECT * FROM cc_tariffplan");
-$numrow = $resmax -> RecordCount( );
+$numrow = 0;
+$resmax = $DBHandle_max -> Execute("SELECT * FROM cc_tariffplan");
+if ( $resmax )
+	$numrow = $resmax -> RecordCount( );
+
 if ($numrow>0){ 
 	$HD_Form -> AddEditElement (gettext("RATECARD"),
 		"tariffplan",	

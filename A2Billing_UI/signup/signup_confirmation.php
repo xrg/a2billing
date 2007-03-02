@@ -40,9 +40,11 @@ session_start();
         //echo "<br>User is Already Activated";		
     }
 
-	$res = $DBHandle -> query($QUERY);
+	$res = $DBHandle -> Execute($QUERY);
+	$num = 0;	
+	if ($res)
+		$num = $res -> RecordCount();
 
-	$num = $res -> RecordCount();
 	if (!$num)
     {
         echo "<br>Error : No email Template Found";
@@ -62,9 +64,11 @@ session_start();
 
     $QUERY = "SELECT username, lastname, firstname, email, uipass, credit, useralias, loginkey FROM cc_card WHERE username='".$_SESSION["cardnumber_signup"]."' ";
 
-	$res = $DBHandle -> query($QUERY);
+	$res = $DBHandle -> Execute($QUERY);
+	$num = 0;	
+	if ($res)
+		$num = $res -> RecordCount();
 
-	$num = $res -> RecordCount();
 	if (!$num)
     {
         echo "<br>Error : No User Found";
