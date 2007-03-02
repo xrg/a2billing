@@ -420,6 +420,8 @@ class FormHandler{
 
         //initializing variables with gettext
 
+	// FIXME: the texts should be parametrized and only contain one translateable string.
+	
         $this -> CV_NO_FIELDS = gettext("THERE IS NO RECORD !!!");
         $this -> CV_TEXT_TITLE_ABOVE_TABLE = gettext("DIRECTORY");
         $this -> FG_FILTER_SEARCH_TOP_TEXT = gettext("You can define above some specific criterias in order to make a precised research");
