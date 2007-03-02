@@ -124,7 +124,7 @@
 					 }// END_FOREACH
 				 }else{
 			  		echo gettext("No data found !!!");
-				 }//END_IF				
+				 }//END_IF
 	?>
         </SELECT>
 	<?php   
@@ -159,7 +159,7 @@
 			if (!$this-> FG_fit_expression[$i]  &&  isset($this-> FG_fit_expression[$i]) ){
 				echo "<br>".$this->FG_TABLE_ADITION[$i][6]." ".$this->FG_regular[$this->FG_TABLE_ADITION[$i][5]][1];	
 			}
-							   
+
 	 ?>
                         </span> 
 	<?php  

@@ -1209,7 +1209,7 @@ class FormHandler{
 							$total_mult_select += $value;
 					}		
 					
-					if ($this->FG_DEBUG >= 1) echo "<br>$fields_name : ".$total_mult_select;					
+					if ($this->FG_DEBUG >= 1) echo "<br>$fields_name : ".$total_mult_select;
 					
 					if ($i>0) $param_add_fields .= ", ";
 					$param_add_fields .= $sp . "$fields_name". $sp;
@@ -1284,27 +1284,27 @@ class FormHandler{
 		if ($this->FG_DEBUG >= 1)  echo "<br><hr> $param_add_value";	
 		
 		$instance_table = new Table($this->FG_TABLE_NAME, $param_add_fields);
-		if (FG_DEBUG >=2) $instance_table->debug_st=1;
+		if ($this->FG_DEBUG >=2) $instance_table->debug_st=1;
 
 		// CHECK IF WE HAD FOUND A SPLITABLE FIELD THEN WE MIGHT HAVE %TAGPREFIX%
 		if (strpos($param_add_value, '%TAGPREFIX%')){
 			foreach ($arr_value_to_import as $current_value){
-				$param_add_value_replaced = str_replace("%TAGPREFIX%", $current_value, $param_add_value);				
+				$param_add_value_replaced = str_replace("%TAGPREFIX%", $current_value, $param_add_value);
 				if ($this->VALID_SQL_REG_EXP) $this -> RESULT_QUERY = $instance_table -> Add_table ($this->DBHandle, $param_add_value_replaced, null, null, $this->FG_TABLE_ID);
 			}
 		}else{
 			if ($this->VALID_SQL_REG_EXP) $this -> RESULT_QUERY = $instance_table -> Add_table ($this->DBHandle, $param_add_value, null, null, $this->FG_TABLE_ID);
 		}
-		if (!$this -> RESULT_QUERY ){					
+		if (!$this -> RESULT_QUERY ){
 			if ($this->FG_DEBUG >= 2)
 				echo "<br><hr>Error: " . $this->DBHandle->ErrorMsg() . "<br><hr>";
 
 			$findme   = 'duplicate';
-			$pos_find = strpos($instance_sub_table -> errstr, $findme);								
+			$pos_find = strpos($instance_sub_table -> errstr, $findme);
 			if ($pos_find !== false) {
-				$alarm_db_error_duplication = true;				
+				$alarm_db_error_duplication = true;
 				exit;
-			}					
+			}
 		}else{
 			// CALL DEFINED FUNCTION AFTER THE ACTION ADDITION
 			if (strlen($this->FG_ADDITIONAL_FUNCTION_AFTER_ADD)>0)
@@ -1317,13 +1317,14 @@ class FormHandler{
 			$id = $this -> RESULT_QUERY;
 			if ($this->FG_DEBUG >= 2)
 				echo "Result: " . $this -> RESULT_QUERY . "<br>";
+		
+			if ( ($this->VALID_SQL_REG_EXP) && (isset($this->FG_GO_LINK_AFTER_ACTION_ADD))){
+				if ($this->FG_DEBUG >= 1)  echo "<br> GOTO ; ".$this->FG_GO_LINK_AFTER_ACTION_ADD.$id;
+				//echo "<br> GOTO ; ".$this->FG_GO_LINK_AFTER_ACTION_ADD.$id;
+				Header ("Location: ".$this->FG_GO_LINK_AFTER_ACTION_ADD.$id);\
+			}
 		}
-			
-		if ( ($this->VALID_SQL_REG_EXP) && (isset($this->FG_GO_LINK_AFTER_ACTION_ADD))){				
-			if ($this->FG_DEBUG >= 1)  echo "<br> GOTO ; ".$this->FG_GO_LINK_AFTER_ACTION_ADD.$id;
-			//echo "<br> GOTO ; ".$this->FG_GO_LINK_AFTER_ACTION_ADD.$id;
-			Header ("Location: ".$this->FG_GO_LINK_AFTER_ACTION_ADD.$id);
-		}
+	
 	}
 
 	/**

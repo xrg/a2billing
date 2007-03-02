@@ -198,12 +198,16 @@ class Table {
 				$oid = $DBHandle -> Insert_ID();
 				if ($oid <= 0 || $oid=='') return (true);					
 
-				$sql = 'SELECT "'.$id_name.'" FROM "'.$this -> table.'" WHERE oid=\''.$oid.'\'';
+				$sql = 'SELECT '.$id_name.' FROM "'.$this -> table.'" WHERE oid=\''.$oid.'\'';
 				
 				
 				$res = $DBHandle -> query($sql);
 
-				if (!$res) return (false);
+				if (!$res) {
+					if ($this -> debug_st) 
+					echo "<br>Cannot locate new item from oid:" . htmlspecialchars($sql) ."<br>";
+					 return (false);
+				}
 				
 				$row [] =$res -> fetchRow();
 				
