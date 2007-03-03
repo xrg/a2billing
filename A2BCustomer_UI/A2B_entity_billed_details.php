@@ -241,11 +241,13 @@ $QUERY = "SELECT substring(t1.starttime,1,10) AS day, sum(t1.sessiontime) AS cal
 
 
 if (!$nodisplay){
-		$res = $DBHandle -> query($QUERY);
-		$num = $res -> numRows();
-		for($i=0;$i<$num;$i++)
-		{				
-			$list_total_day [] =$res -> fetchRow();				 
+		$res = $DBHandle -> Execute($QUERY);
+		if ($res){
+			$num = $res -> RecordCount();
+			for($i=0;$i<$num;$i++)
+			{				
+				$list_total_day [] =$res -> fetchRow();				 
+			}
 		}
 
 
@@ -265,11 +267,13 @@ sum(t1.sessionbill) AS cost, count(*) as nbcall FROM $FG_TABLE_NAME WHERE ".$FG_
 
 if (!$nodisplay){
 
-		$res = $DBHandle -> query($QUERY);
-		$num = $res -> numRows();
-		for($i=0;$i<$num;$i++)
-		{				
-			$list_total_destination [] =$res -> fetchRow();				 
+		$res = $DBHandle -> Execute($QUERY);
+		if ($res)
+			$num = $res -> RecordCount();
+			for($i=0;$i<$num;$i++)
+			{				
+				$list_total_destination [] =$res -> fetchRow();				 
+			}
 		}
 
 
@@ -297,11 +301,13 @@ $QUERY = "SELECT t1.id_did, t2.fixrate, t2.billingtype, sum(t1.sessiontime) AS c
 $list_total_did = NULL;
 if (!$nodisplay)
 {
-	$res = $DBHandle -> query($QUERY);	
-	$num = $res -> numRows();
-	for($i=0; $i<$num; $i++)
-	{				
-		$list_total_did [] =$res -> fetchRow();
+	$res = $DBHandle -> Execute($QUERY);	
+	if ($res)	
+		$num = $res -> RecordCount();
+		for($i=0; $i<$num; $i++)
+		{				
+			$list_total_did [] =$res -> fetchRow();
+		}
 	}
 	if ($FG_DEBUG >= 1) var_dump ($list_total_did);
 }//end IF nodisplay
@@ -372,11 +378,13 @@ $QUERY = "SELECT substring(t1.creationdate,1,10) AS day, sum(t1.amount) AS cost,
 
 
 if (!$nodisplay){
-		$res = $DBHandle -> query($QUERY);
-		$num = $res -> numRows();
-		for($i=0;$i<$num;$i++)
-		{				
-			$list_total_day_charge [] =$res -> fetchRow();				 
+		$res = $DBHandle -> Execute($QUERY);
+		if ($res){
+			$num = $res -> RecordCount();
+			for($i=0;$i<$num;$i++)
+			{				
+				$list_total_day_charge [] =$res -> fetchRow();				 
+			}
 		}
 
 		if ($FG_DEBUG >= 1) var_dump ($list_total_day_charge);
@@ -385,11 +393,13 @@ if (!$nodisplay){
 
 $QUERY = "Select t1.invoicecreated_date from cc_invoices t1, cc_card t2 where t2.id = t1.cardid and t2.username = '$customer' order by t1.invoicecreated_date";
 
-$res = $DBHandle -> query($QUERY);
-$total_invoices = $res -> numRows();
-if ($total_invoices > 0)
-{
-	$billperiod_list = $res;
+$res = $DBHandle -> Execute($QUERY);
+if ($res){	
+	$total_invoices = $res -> RecordCount();
+	if ($total_invoices > 0)
+	{
+		$billperiod_list = $res;
+	}
 }
 
 

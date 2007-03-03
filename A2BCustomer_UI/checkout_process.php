@@ -56,8 +56,11 @@ if(isset($payment))
 $QUERY = "SELECT  username, credit, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, lastuse, activated, currency FROM cc_card WHERE username = '".$_SESSION["pr_login"]."'";
 
 $DBHandle_max  = DbConnect();
-$resmax = $DBHandle_max -> query($QUERY);
-$numrow = $resmax -> numRows();
+$numrow = 0;
+$resmax = $DBHandle_max -> Execute($QUERY);
+if ($resmax)
+	$numrow = $resmax -> RecordCount();
+
 if ($numrow == 0)
 {
     exit("No Such Customer exists.");
@@ -114,10 +117,10 @@ $Query = "Insert into cc_payments ( customers_id,
                                      '".$currencyObject->get_value($currCurrency)."'
                                     )";
 
-$result = $DBHandle_max -> query($Query);
+$result = $DBHandle_max -> Execute($Query);
 
 $QUERY = "SELECT mailtype, fromemail, fromname, subject, messagetext, messagehtml FROM cc_templatemail WHERE mailtype='payment' ";
-$res = $DBHandle_max -> query($QUERY);
+$res = $DBHandle_max -> Execute($QUERY);
 
 //************************UPDATE THE CREDIT IN THE CARD***********************
 $id = 0;
@@ -159,7 +162,10 @@ if ($id > 0 ){
 
 
 //*************************END UPDATE CREDIT************************************
-$num = $res -> numRows();
+$num = 0;
+if ($res)
+	$num = $res -> RecordCount();
+
 if (!$num)
 {
     echo "<br>Error : No email Template Found";

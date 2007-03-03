@@ -211,7 +211,7 @@ class A2Billing {
 		}
 	}
 	
-	/* set the DB handler */ 
+	/* set the DB handler NOT USED !!*/ 
 	function set_dbhandler ($DBHandle){
 		$this->DBHandle	= $DBHandle;
 	}
@@ -346,7 +346,7 @@ class A2Billing {
 
 		  
 		// conf for the recurring process
-		if(!isset($this->config["recprocess"]['batch_log_file'])) 	$this->config["recprocess"]['batch_log_file'] = '/tmp/batch-a2billing.log';
+		if(!isset($this->config["recprocess"]['batch_log_file'])) 	$this->config["batch_log_file"]['buddyfilepath'] = '/etc/asterisk/';
 		 
 		// conf for the AGI
 		if(!isset($this->config["agi-conf$idconfig"]['debug'])) 	$this->config["agi-conf$idconfig"]['debug'] = false;
@@ -1420,9 +1420,13 @@ class A2Billing {
 						}
 						$card_gen = MDP();
 						//echo "SELECT username FROM card where username='$card_gen'<br>";
-						$resmax = $this->DBHandle -> query("SELECT username FROM $FG_TABLE_NAME where username='$card_gen'");
-						$numrow = $resmax -> numRows();
+						$numrow = 0;
+						$resmax = $this->DBHandle -> Execute("SELECT username FROM $FG_TABLE_NAME where username='$card_gen'");
+						if ($resmax)
+							$numrow = $resmax -> RecordCount();
+
 						if ($numrow!=0) continue;
+						
 						break;		
 					}
 					
@@ -2009,7 +2013,6 @@ class A2Billing {
 
 	function DbConnect()
 	{
-		//require_once('DB.php'); // PEAR
 		require_once('adodb/adodb.inc.php'); // AdoDB
 		
 		if ($this->config["database"]['dbtype'] == "postgres"){

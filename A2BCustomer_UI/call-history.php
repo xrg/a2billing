@@ -19,8 +19,11 @@ $QUERY = "SELECT  username, credit, lastname, firstname, address, city, state, c
 
 
 $DBHandle_max  = DbConnect();
-$resmax = $DBHandle_max -> query($QUERY);
-$numrow = $resmax -> numRows();
+$numrow = 0;
+$resmax = $DBHandle_max -> Execute($QUERY);
+if ($resmax)
+	$numrow = $resmax -> RecordCount();
+
 if ($numrow == 0) exit();
 $customer_info =$resmax -> fetchRow();
 
@@ -255,14 +258,14 @@ $_SESSION["pr_sql_export"]="SELECT $FG_COL_QUERY FROM $FG_TABLE_NAME WHERE $FG_T
 $QUERY = "SELECT substring(t1.starttime,1,10) AS day, sum(t1.sessiontime) AS calltime, sum(t1.sessionbill) AS cost, count(*) as nbcall FROM $FG_TABLE_NAME WHERE ".$FG_TABLE_CLAUSE." GROUP BY substring(t1.starttime,1,10) ORDER BY day"; //extract(DAY from calldate)
 
 if (!$nodisplay){
-		$res = $DBHandle -> query($QUERY);
-		$num = $res -> numRows();
-		for($i=0;$i<$num;$i++)
-		{				
-			$list_total_day [] =$res -> fetchRow();
-		}
-
-
+		$res = $DBHandle -> Execute($QUERY);
+		if ($res){
+			$num = $res -> RecordCount();
+			for($i=0;$i<$num;$i++)
+			{				
+				$list_total_day [] =$res -> fetchRow();
+			}
+		}		
 
 if ($FG_DEBUG == 3) echo "<br>Clause : $FG_TABLE_CLAUSE";
 $nb_record = $instance_table -> Table_count ($DBHandle, $FG_TABLE_CLAUSE);

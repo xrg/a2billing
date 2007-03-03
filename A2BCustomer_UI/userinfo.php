@@ -16,8 +16,11 @@ if (! has_rights (ACX_ACCESS)){
 $QUERY = "SELECT  username, credit, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, lastuse, activated, currency FROM cc_card WHERE username = '".$_SESSION["pr_login"]."' AND uipass = '".$_SESSION["pr_password"]."'";
 
 $DBHandle_max  = DbConnect();
-$resmax = $DBHandle_max -> query($QUERY);
-$numrow = $resmax -> numRows();
+$numrow = 0;	
+$resmax = $DBHandle_max -> Execute($QUERY);
+if ($resmax)
+	$numrow = $resmax -> RecordCount();
+
 if ($numrow == 0) exit();
 
 

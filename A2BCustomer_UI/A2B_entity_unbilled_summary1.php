@@ -236,11 +236,13 @@ $QUERY = "SELECT substring(t1.starttime,1,10) AS day, sum(t1.sessiontime) AS cal
 //echo "$QUERY";
 
 if (!$nodisplay){
-		$res = $DBHandle -> query($QUERY);
-		$num = $res -> numRows();
-		for($i=0;$i<$num;$i++)
-		{				
-			$list_total_day [] =$res -> fetchRow();				 
+		$res = $DBHandle -> Execute($QUERY);
+		if ($res){
+			$num = $res -> RecordCount();
+			for($i=0;$i<$num;$i++)
+			{				
+				$list_total_day [] =$res -> fetchRow();				 
+			}
 		}
 
 if ($FG_DEBUG == 3) echo "<br>Clause : $FG_TABLE_CLAUSE";
@@ -256,15 +258,15 @@ if ($FG_DEBUG >= 1) var_dump ($list);
 $QUERY = "SELECT destination, sum(t1.sessiontime) AS calltime, 
 sum(t1.sessionbill) AS cost, count(*) as nbcall FROM $FG_TABLE_NAME WHERE ".$FG_TABLE_CLAUSE." AND t1.sipiax not in (2,3) GROUP BY destination";
 if (!$nodisplay){				
-		$res = $DBHandle -> query($QUERY);
-		
-		$num = $res -> numRows();
-		for($i=0;$i<$num;$i++)
-		{				
-			$list_total_destination [] =$res -> fetchRow();				 
+		$res = $DBHandle -> Execute($QUERY);
+		if ($res){
+			$num = $res -> RecordCount();
+			for($i=0;$i<$num;$i++)
+			{				
+				$list_total_destination [] =$res -> fetchRow();				 
+			}
 		}
-
-
+		
 if ($FG_DEBUG == 3) echo "<br>Clause : $FG_TABLE_CLAUSE";
 if ($FG_DEBUG >= 1) var_dump ($list_total_destination);
 
@@ -287,12 +289,13 @@ $QUERY = "SELECT t1.id_did, t2.fixrate, t2.billingtype, sum(t1.sessiontime) AS c
  
 if (!$nodisplay)
 {
-	$res = $DBHandle -> query($QUERY);
-	
-	$num = $res -> numRows();
-	for($i=0;$i<$num;$i++)
-	{				
-		$list_total_diddial [] =$res -> fetchRow();
+	$res = $DBHandle -> Execute($QUERY);
+	if ($res){	
+		$num = $res -> RecordCount();
+		for($i=0;$i<$num;$i++)
+		{				
+			$list_total_diddial [] =$res -> fetchRow();
+		}
 	}
 	if ($FG_DEBUG >= 1) var_dump ($list_total_diddial);
 }//end IF nodisplay
@@ -307,14 +310,15 @@ $QUERY = "SELECT t1.id_did, t2.fixrate, t2.billingtype, sum(t1.sessiontime) AS c
 if (!$nodisplay)
 {
 	$res = null;
-	//echo "<br>".$QUERY;
-	$res = $DBHandle -> query($QUERY);
-	$num = $res -> numRows();
-	for($i=0;$i<$num;$i++)
-	{				
-		$list_total_didfixed [] =$res -> fetchRow();
+	$res = $DBHandle -> Execute($QUERY);
+	if ($res){
+		$num = $res -> RecordCount();
+		for($i=0;$i<$num;$i++)
+		{				
+			$list_total_didfixed [] =$res -> fetchRow();
+		}
 	}
-		
+	
 	if ($FG_DEBUG >= 1) var_dump ($list_total_didfixed);
 }//end IF nodisplay
 
@@ -392,11 +396,13 @@ $QUERY = "SELECT substring(t1.creationdate,1,10) AS day, sum(t1.amount) AS cost,
 
 
 if (!$nodisplay){
-		$res = $DBHandle -> query($QUERY);
-		$num = $res -> numRows();
-		for($i=0;$i<$num;$i++)
-		{				
-			$list_total_day_charge [] =$res -> fetchRow();				 
+		$res = $DBHandle -> Execute($QUERY);
+		if ($res){
+			$num = $res -> RecordCount();
+			for($i=0;$i<$num;$i++)
+			{				
+				$list_total_day_charge [] =$res -> fetchRow();				 
+			}
 		}
 
 		if ($FG_DEBUG >= 1) var_dump ($list_total_day_charge);

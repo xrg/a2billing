@@ -51,8 +51,9 @@ if (isset($choose_did_rate) && strlen($choose_did_rate)!=0){
 
 $QUERY = "SELECT  credit FROM cc_card WHERE username = '".$_SESSION["pr_login"]."' AND uipass = '".$_SESSION["pr_password"]."'";
 $DBHandle_max  = DbConnect();
-$resmax = $DBHandle_max -> query($QUERY);
-$user_credit = $resmax -> fetchRow();
+$resmax = $DBHandle_max -> Execute($QUERY);
+if ($resmax)
+	$user_credit = $resmax -> fetchRow();
 
 /*************************************************************/
 /*           releese the choosen did                        */

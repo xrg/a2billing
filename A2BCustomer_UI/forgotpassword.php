@@ -26,8 +26,11 @@ if(isset($pr_email) && isset($action))
         $show_message = true;
         $DBHandle  = DbConnect();
         $QUERY = "SELECT mailtype, fromemail, fromname, subject, messagetext, messagehtml FROM cc_templatemail WHERE mailtype='forgetpassword' ";
-        $res = $DBHandle -> query($QUERY);
-        $num = $res -> numRows();
+	$num = 0;
+        $res = $DBHandle -> Execute($QUERY);
+	if ($res)
+	        $num = $res -> RecordCount();
+
         if (!$num) exit();
         for($i=0;$i<$num;$i++)
         {
@@ -41,9 +44,11 @@ if(isset($pr_email) && isset($action))
         }
         $QUERY = "SELECT username, lastname, firstname, email, uipass, useralias FROM cc_card WHERE email='".$pr_email."' ";
 
-        $res = $DBHandle -> query($QUERY);
+        $res = $DBHandle -> Execute($QUERY);
+	$num = 0;
+	if ($res)
+	        $num = $res -> RecordCount();
 
-        $num = $res -> numRows();
         if (!$num)
         {
             $error = 1;
