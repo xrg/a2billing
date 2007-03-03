@@ -1420,8 +1420,11 @@ class A2Billing {
 						}
 						$card_gen = MDP();
 						//echo "SELECT username FROM card where username='$card_gen'<br>";
-						$resmax = $this->DBHandle -> query("SELECT username FROM $FG_TABLE_NAME where username='$card_gen'");
-						$numrow = $resmax -> numRows();
+						$numrow = 0;
+						$resmax = $this->DBHandle -> Execute("SELECT username FROM $FG_TABLE_NAME where username='$card_gen'");
+						if ($resmax)
+							$numrow = $resmax -> RecordCount();
+
 						if ($numrow!=0) continue;
 						break;		
 					}
