@@ -1632,8 +1632,10 @@ CREATE TABLE cc_subscription_fee_card (
     id_cc_card BIGINT NOT NULL,
     id_cc_subscription_fee BIGINT NOT NULL,
     datefee TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    fee float DEFAULT 0 NOT NULL,
-    PRIMARY KEY (id) 
+    fee float DEFAULT 0 NOT NULL,	
+	fee_converted float DEFAULT 0 NOT NULL,
+	currency CHAR(3) DEFAULT 'USD',
+    PRIMARY KEY (id)
 );
 
 CREATE INDEX ind_cc_subscription_fee_card_id_cc_card  ON cc_subscription_fee_card (id_cc_card);

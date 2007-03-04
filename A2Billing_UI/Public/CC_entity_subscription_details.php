@@ -53,7 +53,7 @@ if ($res){
 
 /*******************  LIST REFILL  *****************************************/
 
-$QUERY = "SELECT  substring(t3.datefee,1,10) AS day, sum(t3.fee) as totalcredit, count(*) as numberofrun FROM cc_subscription_fee_card as t3 WHERE t3.id_cc_subscription_fee='$id' GROUP BY substring(t3.datefee,1,10) ORDER BY day";
+$QUERY = "SELECT  substring(t3.datefee,1,10) AS day, count(*) as numberofrun, sum(t3.fee) as totalcredit FROM cc_subscription_fee_card as t3 WHERE t3.id_cc_subscription_fee='$id' GROUP BY substring(t3.datefee,1,10) ORDER BY day";
 
 
 if (DB_TYPE == "postgres"){
