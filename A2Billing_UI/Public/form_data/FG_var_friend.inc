@@ -245,7 +245,7 @@ $HD_Form -> AddEditElement (gettext("DISALLOW"),
 
 
 if ($form_action=="ask-add" ||  $form_action == "add_sip" || $form_action == "add_iax")
-	$ALLOW_default= "value='ulaw,alaw,gsm,g729'"
+	$ALLOW_default= "value='ulaw,alaw,gsm,g729'";
 	
 $HD_Form -> AddEditElement (gettext("ALLOW"),
                            "allow",

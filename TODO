@@ -54,8 +54,7 @@ Yes. Here's how it works: Say you have a balance of ten (10) dollars. When your 
 
 ######## CID GROUP DELETE
 ********************************************************************
-when u delete agrouip of CID
-it will remove allthe CID inside that group
+when u delete a group of CID, it may remove all the CID inside that group
 
 
 ######## DID RANGE 
@@ -329,6 +328,10 @@ See Description mails - EXCEL
 %% MA
 
 
+#### WRITE DOCUMENTATION: API SHOW RATECARD -> 
+********************************************************************
+WRITE FULL DOCUMENTATION FOR :
+trunk/A2Billing_UI/api/display_ratecard.php
 
 
 #### FEATURE : API SHOW RATECARD

@@ -39,7 +39,7 @@ $DBHandle  = DbConnect();
 
 $QUERY = "SELECT id, name, type, numberofrun, substring(datelastrun,0,20), numberofalarm from cc_alarm WHERE id='$id'";
 $res = $DBHandle -> Execute($QUERY);
-if ($res)
+if ($res){
 	$num = $res -> RecordCount( );		
 	for($i=0;$i<$num;$i++)
 	{		

@@ -268,7 +268,7 @@ sum(t1.sessionbill) AS cost, count(*) as nbcall FROM $FG_TABLE_NAME WHERE ".$FG_
 if (!$nodisplay){
 
 		$res = $DBHandle -> Execute($QUERY);
-		if ($res)
+		if ($res){
 			$num = $res -> RecordCount();
 			for($i=0;$i<$num;$i++)
 			{				
@@ -302,7 +302,7 @@ $list_total_did = NULL;
 if (!$nodisplay)
 {
 	$res = $DBHandle -> Execute($QUERY);	
-	if ($res)	
+	if ($res){	
 		$num = $res -> RecordCount();
 		for($i=0; $i<$num; $i++)
 		{				
