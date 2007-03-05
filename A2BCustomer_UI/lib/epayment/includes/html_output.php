@@ -130,14 +130,6 @@
   }
 
 ////
-// Output a function button in the selected language
-  function tep_image_button($image, $alt = '', $parameters = '') {
-    global $language;
-
-    return tep_image(DIR_WS_LANGUAGES . $language . '/images/buttons/' . $image, $alt, '', '', $parameters);
-  }
-
-////
 // Output a separator either through whitespace, or with an image
   function tep_draw_separator($image = 'pixel_black.gif', $width = '100%', $height = '1') {
     return tep_image(DIR_WS_IMAGES . $image, '', $width, $height);

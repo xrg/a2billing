@@ -229,12 +229,18 @@ if (isset($customer)  &&  ($customer>0)){
 	}
 }
 
-//echo $FG_TABLE_CLAUSE;
-//exit;
+$FG_TABLE_CLAUSE_NORMAL = $FG_TABLE_CLAUSE ." AND t1.sipiax not in (2,3)";
 
 if (!$nodisplay){
-	$list = $instance_table -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, $order, $sens, null, null, $FG_LIMITE_DISPLAY, $current_page*$FG_LIMITE_DISPLAY);
+	$list = $instance_table -> Get_list ($DBHandle, $FG_TABLE_CLAUSE_NORMAL, $order, $sens, null, null, $FG_LIMITE_DISPLAY, $current_page*$FG_LIMITE_DISPLAY);
 }
+
+$FG_TABLE_CLAUSE_DID = $FG_TABLE_CLAUSE ." AND t1.sipiax in (2,3)";
+
+if (!$nodisplay){
+	$list_did = $instance_table -> Get_list ($DBHandle, $FG_TABLE_CLAUSE_DID, $order, $sens, null, null, $FG_LIMITE_DISPLAY, $current_page*$FG_LIMITE_DISPLAY);
+}
+
 
 $_SESSION["pr_sql_export"]="SELECT $FG_COL_QUERY FROM $FG_TABLE_NAME WHERE $FG_TABLE_CLAUSE";
 
@@ -258,7 +264,8 @@ if (!$nodisplay){
 
 
 if ($FG_DEBUG == 3) echo "<br>Clause : $FG_TABLE_CLAUSE";
-$nb_record = $instance_table -> Table_count ($DBHandle, $FG_TABLE_CLAUSE);
+$nb_record = $instance_table -> Table_count ($DBHandle, $FG_TABLE_CLAUSE_NORMAL);
+$nb_record_did = $instance_table -> Table_count ($DBHandle, $FG_TABLE_CLAUSE_DID);
 if ($FG_DEBUG >= 1) var_dump ($list);
 
 }//end IF nodisplay
@@ -761,13 +768,13 @@ function formsubmit()
 	  
 	  <table width="100%" align="left" cellpadding="0" cellspacing="0">
    				<tr>
-				<td colspan="100" align="center"><font><b>DID Calls :: No of Calls:&nbsp;<?php  if (is_array($list) && count($list)>0){ echo $nb_record; }else{echo "0";}?></center></b></font> </td>
+				<td colspan="100" align="center"><font><b>DID Calls :: No of Calls:&nbsp;<?php  if (is_array($list_did) && count($list_did)>0){ echo $nb_record_did; }else{echo "0";}?></center></b></font> </td>
 				</tr>
 
 			<tr class="invoice_subheading">
               <td class="invoice_td" width="5%">nb </td>
 			   <?php 
-				  	if (is_array($list) && count($list)>0)
+				  	if (is_array($list_did) && count($list_did)>0)
 					{
 					
 				  		for($i=0;$i<$FG_NB_TABLE_COL;$i++)
@@ -789,7 +796,7 @@ function formsubmit()
 			
 			<?php
 				  	 $ligne_number=0;					 
-				  	 foreach ($list as $recordset)
+				  	 foreach ($list_did as $recordset)
 					 { 
 						 $ligne_number++;
 			?>

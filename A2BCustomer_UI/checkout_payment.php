@@ -127,6 +127,7 @@ function rowOutEffect(object) {
                 <td class="infoBoxHeading">&nbsp;</td>
                 <td class="infoBoxHeading"  width="50%" valign="top"><?php echo "Payment Method"; ?></td>
                 <td class="infoBoxHeading" width="50%" valign="top" align="right"><b><?php echo "Please Select"; ?></b><br></td>
+
                 <td class="infoBoxHeading">&nbsp;</td>
               </tr>
 <?php
@@ -224,7 +225,9 @@ function rowOutEffect(object) {
          </table>
          <?php } ?>
      </form>
+
 <?php 
 // #### FOOTER SECTION
 $smarty->display( 'footer.tpl');
 ?>
+

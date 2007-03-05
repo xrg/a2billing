@@ -211,6 +211,16 @@
 	if(!isset($_SESSION["stylefile"]) || $_SESSION["stylefile"]==''){
 		$_SESSION["stylefile"]='default';
 	}
+	// EPayment Module Settings
+	define ("HTTP_SERVER", isset($A2B->config["epayment_method"]['HTTP_SERVER'])?$A2B->config["epayment_method"]['HTTP_SERVER']:null);
+	define ("HTTPS_SERVER", isset($A2B->config["epayment_method"]['HTTPS_SERVER'])?$A2B->config["epayment_method"]['HTTPS_SERVER']:null);
+	define ("HTTP_COOKIE_DOMAIN", isset($A2B->config["epayment_method"]['HTTP_COOKIE_DOMAIN'])?$A2B->config["epayment_method"]['HTTP_COOKIE_DOMAIN']:null);
+	define ("HTTPS_COOKIE_DOMAIN", isset($A2B->config["epayment_method"]['HTTPS_COOKIE_DOMAIN'])?$A2B->config["epayment_method"]['HTTPS_COOKIE_DOMAIN']:null);
+	define ("HTTP_COOKIE_PATH", isset($A2B->config["epayment_method"]['HTTP_COOKIE_PATH'])?$A2B->config["epayment_method"]['HTTP_COOKIE_PATH']:null);
+	define ("HTTPS_COOKIE_PATH", isset($A2B->config["epayment_method"]['HTTPS_COOKIE_PATH'])?$A2B->config["epayment_method"]['HTTPS_COOKIE_PATH']:null);
+	define ("DIR_WS_HTTP_CATALOG", isset($A2B->config["epayment_method"]['DIR_WS_HTTP_CATALOG'])?$A2B->config["epayment_method"]['DIR_WS_HTTP_CATALOG']:null);
+	define ("DIR_WS_HTTPS_CATALOG", isset($A2B->config["epayment_method"]['DIR_WS_HTTPS_CATALOG'])?$A2B->config["epayment_method"]['DIR_WS_HTTPS_CATALOG']:null);
+	define ("ENABLE_SSL", isset($A2B->config["epayment_method"]['ENABLE_SSL'])?$A2B->config["epayment_method"]['ENABLE_SSL']:null);
 
     //Images Path
     define ("Images_Path","./templates/".$_SESSION["stylefile"]."/images");
