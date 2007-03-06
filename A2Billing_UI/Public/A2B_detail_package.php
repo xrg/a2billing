@@ -337,7 +337,6 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 				<td class="bgcolor_005" align="left">
 				<table width="100%" border="0" cellspacing="0" cellpadding="0" class="bgcolor_005"><tr>
 					<td>
-						<?php echo "enter_packageid=$enter_packageid"; ?>
 						<select NAME="enter_packageid" size="1" class="form_input_select">
 							<option class="input" value="">Select a package </option>
 							<?php					 

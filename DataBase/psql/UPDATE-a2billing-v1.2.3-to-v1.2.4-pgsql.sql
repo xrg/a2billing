@@ -675,7 +675,7 @@ CREATE TABLE cc_package_offer (
     packagetype int NOT NULL,
 	billingtype int NOT NULL,
 	startday int NOT NULL,
-	freeminutes int NOT NULL
+	freetimetocall int NOT NULL
 );
 -- packagetype : Free minute + Unlimited ; Free minute ; Unlimited ; Normal
 -- billingtype : Monthly ; Weekly 
@@ -694,7 +694,7 @@ CREATE INDEX ind_cc_card_package_offer_id_package_offer ON cc_card_package_offer
 CREATE INDEX ind_cc_card_package_offer_date_consumption ON cc_card_package_offer USING btree (date_consumption);
 
 ALTER TABLE cc_tariffgroup 	ADD COLUMN id_cc_package_offer BIGINT NOT NULL DEFAULT 0;
-ALTER TABLE cc_ratecard 	ADD COLUMN freeminute_package_offer INT NOT NULL DEFAULT 0;
+ALTER TABLE cc_ratecard 	ADD COLUMN freetimetocall_package_offer INT NOT NULL DEFAULT 0;
 
 
 

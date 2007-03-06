@@ -152,14 +152,14 @@
 					
 					$temp = $datewish < $timestamp_lastuse;					
 					if ($verbose_level>=1) echo "------>>>   TIME STAMP $datewish < $timestamp_lastuse = $temp \n";		
-			
+					
 					// RULE 1 : "User didnt use card since %nextfield% day(s)"
 					if ($verbose_level>=1) echo "RULE 1 : User didnt use card since %nextfield% day(s)\n";
 					if ( ($myservice[4]==1) && ($datewish < $timestamp_lastuse) && ($myservice[5]>0) ) {
 						if ($verbose_level>=1) echo "#### CARD : card used since ".$myservice[5]." day(s)\n";
 						continue;
 					}
-										
+					
 					// RULE 2 : "User use the card in the last %nextfield% day(s)"
 					if ($verbose_level>=1) echo "RULE 2 : User use the card in the last %nextfield% day(s)\n";
 					if ( ($myservice[4]==2) && ($datewish > $timestamp_lastuse) && ($myservice[5]>0) ) {
@@ -167,7 +167,6 @@
 						continue;
 					}					
 					
-				
 				}
 				// RULE 0 : NO RULES :D
 				

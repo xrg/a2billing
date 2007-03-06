@@ -463,7 +463,7 @@ CREATE TABLE cc_ratecard (
     endtime integer NOT NULL DEFAULT 10079,
     id_trunk integer DEFAULT -1,	
     musiconhold character varying(100),
-    freeminute_package_offer int not null default 0,
+    freetimetocall_package_offer int not null default 0,
     id_outbound_cidgroup INTEGER NOT NULL DEFAULT -1
 );
 
@@ -1714,7 +1714,7 @@ CREATE TABLE cc_package_offer (
     packagetype int NOT NULL,
 	billingtype int NOT NULL,
 	startday int NOT NULL,
-	freeminutes int NOT NULL
+	freetimetocall int NOT NULL
 );
 -- packagetype : Free minute + Unlimited ; Free minute ; Unlimited ; Normal
 -- billingtype : Monthly ; Weekly 

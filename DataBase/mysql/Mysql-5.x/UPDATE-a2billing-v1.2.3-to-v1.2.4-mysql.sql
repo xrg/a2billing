@@ -662,7 +662,7 @@ CREATE TABLE cc_package_offer (
     packagetype 		INT NOT NULL,
 	billingtype 		INT NOT NULL,
 	startday 			INT NOT NULL,
-	freeminutes 		INT NOT NULL,
+	freetimetocall 		INT NOT NULL,
     PRIMARY KEY (id)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 -- packagetype : Free minute + Unlimited ; Free minute ; Unlimited ; Normal
@@ -684,7 +684,7 @@ CREATE INDEX ind_cc_card_package_offer_date_consumption ON cc_card_package_offer
 
 
 ALTER TABLE cc_tariffgroup 	ADD COLUMN id_cc_package_offer 		BIGINT NOT NULL DEFAULT 0;
-ALTER TABLE cc_ratecard 	ADD COLUMN freeminute_package_offer INT NOT NULL DEFAULT 0;
+ALTER TABLE cc_ratecard 	ADD COLUMN freetimetocall_package_offer INT NOT NULL DEFAULT 0;
 
 CREATE TABLE cc_subscription_fee (
     id BIGINT NOT NULL AUTO_INCREMENT,

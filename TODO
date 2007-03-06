@@ -224,6 +224,43 @@ SERVICE
 
 MISSING : 
 - AGI
+	http://trac.a2billing.net/cgi-bin/trac.cgi/changeset/789
+	
+	IF PACKAGE IN THE TARIFFGROUP
+		0#	add freeminute_package_offer in select ratecard
+		
+		1# 	Get info from the package
+			- billingtype ; startday ; freeminute
+		2# 
+			According to billingtype (monthly 0 ; weekly 1)
+			if (monthly){
+				if (startday > last day of the month) startday = last day of the month;
+				if (startday <= 0 ) startday = 1;
+				dateclause >= year-month-startday
+			}else{// weekly
+				startday = startday % 7 (modulo)
+				if (currentdayofweek < startday) currentdayofweek++7
+				diffday = currentdayofweek - startday (current lundi 1 - mercredi 3 = 5) 
+				dateclause >= 				
+				# mysql -> SELECT DATE_SUB('2003-07-13 00:00:00', INTERVAL 14 DAY);
+				# mysql -> SELECT DATE_SUB(NOW(), INTERVAL 14 DAY);
+				# psql  -> SELECT (date('2003-07-13 00:00:00') - interval '14 day');
+				# psql  -> SELECT (now() - interval '14 day');				
+			}
+			SELECT  sum(used_secondes) AS used_secondes 
+			FROM cc_card_package_offer
+			WHERE (date_consumption) >= ('2007-02-01') AND id_cc_card = '%%%%%%%%%%%' AND id_cc_package_offer = '%%%%%%%%%%%'
+			AND DATE_CLAUSE
+			
+			init free_minute_used
+			
+			### MAKE CALL ### 
+			CHECK IF THE RATE HAVE "freeminute_package_offer" = Yes
+			if (Yes){
+				TIMEOFCALL = TIMEOFCALL - freeminute
+				Before calculated the cost
+			}
+	
 - CRONT
 	- BROWSE ALL THE CUSTOMER THAT HAVE A SUBSCRIPTION FEE ENABLE
 		SELECT * FROM cc_card LEFT JOIN cc_subscription_fee ON cc_card.id_subscription_fee=cc_subscription_fee.id WHERE cc_subscription_fee.status=1
