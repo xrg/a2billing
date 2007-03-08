@@ -74,7 +74,10 @@
 	$A2B -> load_conf($agi, NULL, 0, $idconfig);
 	
 	$A2B -> CC_TESTING = isset($A2B->agiconfig['debugshell']) && $A2B->agiconfig['debugshell'];	
+	//$A2B -> CC_TESTING = true;
 	
+	define ("DB_TYPE", isset($A2B->config["database"]['dbtype'])?$A2B->config["database"]['dbtype']:null); 	
+		
 	// TEST DID
 	// if ($A2B -> CC_TESTING) $mode = 'did';
 	
@@ -998,7 +1001,7 @@
 					// DEFINE HERE THE NUMBER OF DAY THAT A PHONENUMBER FROM THE LIST WILL LAST BEFORE BE CALL AGAIN
 					$days_compare = $A2B -> config["callback"]['nb_day_wait_before_retry'];					
 			
-					if ($A2B->config["database"]['dbtype'] == "postgres"){	
+					if ($A2B->config["database"]['dbtype'] == "postgres"){
 						$UNIX_TIMESTAMP = ""; $sql_limit = " LIMIT 5 OFFSET 0";	
 						$date_clause = " last_attempt < date'$today_date'- INTERVAL '$days_compare DAY' ";
 						// last_attempt < date'2005-12-24'- INTERVAL '1 DAY' 
