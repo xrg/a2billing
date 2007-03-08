@@ -672,10 +672,10 @@ CREATE TABLE cc_package_offer (
     id bigserial NOT NULL,
     creationdate timestamp without time zone DEFAULT now(),
     label text NOT NULL,
-    packagetype int NOT NULL,
-	billingtype int NOT NULL,
-	startday int NOT NULL,
-	freetimetocall int NOT NULL
+    packagetype INTEGER NOT NULL,
+	billingtype INTEGER NOT NULL,
+	startday INTEGER NOT NULL,
+	freetimetocall INTEGER NOT NULL
 );
 -- packagetype : Free minute + Unlimited ; Free minute ; Unlimited ; Normal
 -- billingtype : Monthly ; Weekly 
@@ -693,9 +693,9 @@ CREATE INDEX ind_cc_card_package_offer_id_card ON cc_card_package_offer USING bt
 CREATE INDEX ind_cc_card_package_offer_id_package_offer ON cc_card_package_offer USING btree (id_cc_package_offer);
 CREATE INDEX ind_cc_card_package_offer_date_consumption ON cc_card_package_offer USING btree (date_consumption);
 
-ALTER TABLE cc_tariffgroup 	ADD COLUMN id_cc_package_offer BIGINT NOT NULL DEFAULT 0;
-ALTER TABLE cc_ratecard 	ADD COLUMN freetimetocall_package_offer INT NOT NULL DEFAULT 0;
-
+ALTER TABLE cc_tariffgroup 	ADD COLUMN id_cc_package_offer 				BIGINT NOT NULL DEFAULT 0;
+ALTER TABLE cc_ratecard 	ADD COLUMN freetimetocall_package_offer 	INTEGER NOT NULL DEFAULT 0;
+ALTER TABLE cc_call 		ADD COLUMN id_card_package_offer 			INTEGER DEFAULT 0;
 
 
 

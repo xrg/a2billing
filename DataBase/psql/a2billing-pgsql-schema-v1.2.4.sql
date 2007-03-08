@@ -323,7 +323,8 @@ CREATE TABLE cc_call (
     src text,
     id_did integer,
     buyrate numeric(15,5) DEFAULT 0,
-    buycost numeric(15,5) DEFAULT 0
+    buycost numeric(15,5) DEFAULT 0,
+	id_card_package_offer integer DEFAULT 0
 );
 
 
@@ -463,7 +464,7 @@ CREATE TABLE cc_ratecard (
     endtime integer NOT NULL DEFAULT 10079,
     id_trunk integer DEFAULT -1,	
     musiconhold character varying(100),
-    freetimetocall_package_offer int not null default 0,
+    freetimetocall_package_offer INTEGER NOT NULL DEFAULT 0,
     id_outbound_cidgroup INTEGER NOT NULL DEFAULT -1
 );
 
@@ -1711,10 +1712,10 @@ CREATE TABLE cc_package_offer (
     id bigserial NOT NULL,
     creationdate timestamp without time zone DEFAULT now(),
     label text NOT NULL,
-    packagetype int NOT NULL,
-	billingtype int NOT NULL,
-	startday int NOT NULL,
-	freetimetocall int NOT NULL
+    packagetype integer NOT NULL,
+	billingtype integer NOT NULL,
+	startday integer NOT NULL,
+	freetimetocall integer NOT NULL
 );
 -- packagetype : Free minute + Unlimited ; Free minute ; Unlimited ; Normal
 -- billingtype : Monthly ; Weekly 

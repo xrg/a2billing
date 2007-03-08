@@ -236,9 +236,10 @@ CREATE TABLE cc_call (
     id_trunk int(11) default NULL,
     sipiax int(11) default '0',
     src char(40) default NULL,
-    id_did int(11) default NULL,
-    buyrate decimal(15,5) default 0,
-    buycost decimal(15,5) default 0,
+    id_did 						int(11) default NULL,
+    buyrate 					decimal(15,5) default 0,
+    buycost 					decimal(15,5) default 0,
+	id_card_package_offer 		int(11) default 0,
     PRIMARY KEY  (id)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
