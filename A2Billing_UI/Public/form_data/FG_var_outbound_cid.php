@@ -58,7 +58,7 @@ $HD_Form -> AddEditElement (gettext("CID"),
    "cols=50 rows=4",
 	"",  //CID Regular Expression
 	gettext("Insert the CID"),
-	"" , "", "", "", "" , "", "" ,"Define the CallerID's. If you ADD a new CID, NOT an EDIT, you can define a range of CallerID. <br>80412340210-80412340210 would add all CID's between the range, whereas CIDs separated by a comma e.g. 80412340210,80412340212,80412340214 would only add the individual CID listed.");
+	"" , "", "", "", "" , "", "" ,"Define the CallerID's. If you ADD a new CID, NOT an EDIT, you can define a range of CallerID. <br>80412340210-80412340218 would add all CID's between the range, whereas CIDs separated by a comma e.g. 80412340210,80412340212,80412340214 would only add the individual CID listed.");
 
 
 $HD_Form -> AddEditElement (gettext("CIDGROUP"),

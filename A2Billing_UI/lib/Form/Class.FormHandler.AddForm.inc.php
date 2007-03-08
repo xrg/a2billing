@@ -41,7 +41,7 @@
 		if ($this->FG_DEBUG == 1) print($this->FG_TABLE_ADITION[$i][3]);
   		if (strtoupper ($this->FG_TABLE_ADITION[$i][3])==strtoupper ("INPUT")){
 	?>
-                 <INPUT class="form_enter" name=<?php echo $this->FG_TABLE_ADITION[$i][1]?>  <?php echo $this->FG_TABLE_ADITION[$i][4]?> value="<?php echo $_POST[$this->FG_TABLE_ADITION[$i][1]];?>">
+                 <INPUT class="form_input_text" name=<?php echo $this->FG_TABLE_ADITION[$i][1]?>  <?php echo $this->FG_TABLE_ADITION[$i][4]?> value="<?php echo $_POST[$this->FG_TABLE_ADITION[$i][1]];?>">
 	<?php
 		}elseif (strtoupper ($this->FG_TABLE_ADITION[$i][3])==strtoupper ("POPUPVALUE")){
 	?>

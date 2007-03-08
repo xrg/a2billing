@@ -316,28 +316,27 @@ function sendtolittle(direction){
                     <TR>
 					  <!-- *******************   Select to ADD new instances  ****************************** -->					  					  
                       <TD class="form_head">&nbsp;</TD>
-					  <TD align="center" valign="top" class="editform_table3_td3">
-                      <br>
-                        <TABLE class="editform_table4" cellSpacing=0>
-<TBODY>
+                      <TD align="center" valign="top" background="<?php echo Images_Path;?>/background_cells.gif" class="text"><br>
+                        <TABLE width="300" height=50 border=0 align="center" cellPadding=0 cellSpacing=0>
                             <TR> 
-                              	<TD bgColor=#7f99cc colSpan=3 height=16 style="PADDING-LEFT: 5px; PADDING-RIGHT: 5px" class="form_head">
-									<TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">                                
+                            	<TD bgColor=#7f99cc colSpan=3 height=16 style="PADDING-LEFT: 5px; PADDING-RIGHT: 5px" class="form_head">
+									<TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
 										<TR> 
-										  <TD class="form_head"><?php echo gettext("Add a new ");?><?php echo $this->FG_TABLE_EDITION[$i][0]?></TD>
+											<TD class="form_head"><?php echo gettext("Add a new");?> <?php echo $this->FG_TABLE_EDITION[$i][0]?></TD>
 										</TR>
 									</TABLE>
 								</TD>
                             </TR>
-                            <TR>
-                              <TD class="form_head"> <IMG height=1 src="<?php echo Images_Path_Main;?>/clear.gif" width=1>
-                              </TD>
-                              <TD class="editform_table4_td1">
-
+							
+                            <TR> 
+								<TD class="form_head"> <IMG height=1 src="<?php echo Images_Path_Main;?>/clear.gif" width=1>
+								</TD>
+								<TD class="editform_table4_td1"> 
+                                
 								<TABLE width="97%" border=0 align="center" cellPadding=0 cellSpacing=0>
-                                    <TR>
-                                      <TD width="40%" class="tableBody"><?php echo $this->FG_TABLE_EDITION[$i][0]?></TD>
-                                      <TD width="60%"><div align="center">
+									<TR> 
+										<TD width="122" class="tableBody"><?php echo $this->FG_TABLE_EDITION[$i][0]?></TD>
+										<TD width="516"><div align="center"> 	
                                           <SELECT name=<?php echo $table_split[1]?> class="form_input_select">
                                             <?php
 					 $split_select_list = $instance_sub_table -> Get_list ($this->DBHandle, null, null, null, null, null, null, null);

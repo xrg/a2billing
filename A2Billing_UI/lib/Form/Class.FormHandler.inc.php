@@ -360,6 +360,9 @@ class FormHandler{
     // if it is set to true and confirm flag is true confirm box will be showed.
     var $FG_FK_DELETE_ALLOWED = false;
 
+	// if it is set to true and Allowed flag is true all dependent records will be deleted.
+	var $FG_FK_DELETE_OR_UPDATE = false;
+	
     // Foreign Key Tables
     var $FG_FK_TABLENAMES = array();
 
@@ -1657,11 +1660,18 @@ class FormHandler{
         {
 		    $instance_table = new Table($this->FG_TABLE_NAME, $this->FG_QUERY_EDITION);
         }
-
+		if($this->FG_FK_DELETE_OR_UPDATE)
+		{
+			$instance_table->FK_DELETE_OR_UPDATE = false;
+		}
+		else
+		{
+			$instance_table->FK_DELETE_OR_UPDATE = true;
+		}				
 		if ($processed['id']!="" || !is_null($processed['id'])){
 			$this->FG_EDITION_CLAUSE = str_replace("%id", $processed['id'], $this->FG_EDITION_CLAUSE);
 		}
-
+		
 		$this -> RESULT_QUERY = $instance_table -> Delete_table ($this->DBHandle, $this->FG_EDITION_CLAUSE, $func_table = null);
 		if (!$this -> RESULT_QUERY)  echo gettext("error deletion");
 

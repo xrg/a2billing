@@ -27,7 +27,7 @@ $DBHandle_max  = DbConnect();
 $resmax = $DBHandle_max -> Execute($QUERY);
 $numrow = 0;
 if ($resmax)	
-	$numrow = $resmax -> RercordCount();
+	$numrow = $resmax -> RecordCount();
 
 if ($numrow == 0) exit();
 $customer_info =$resmax -> fetchRow();

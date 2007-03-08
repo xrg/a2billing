@@ -264,20 +264,19 @@ class Table {
         for($i = 0; $i < $countFK; $i++)
         {	
             if ($this -> FK_DELETE_OR_UPDATE == true)
-            {
+            {			
                 $QUERY = "UPDATE $sp".$this -> FK_TABLES[$i]."$sp SET ".trim ($this -> FK_EDITION_CLAUSE[$i])." = -1 WHERE (".trim ($this -> FK_EDITION_CLAUSE[$i])." = ".$this -> FK_ID_VALUE." )";
             }
             else
             {
                 $QUERY = "DELETE FROM $sp".$this -> FK_TABLES[$i]."$sp WHERE (".trim ($this -> FK_EDITION_CLAUSE[$i])." = ".$this -> FK_ID_VALUE." )";
-            }
+            }			
             $res = $DBHandle -> Execute($QUERY);
         }
 
 		$QUERY = "DELETE FROM $sp".$this -> table."$sp WHERE (".trim ($clause).")";
 		if ($this -> debug_st) echo $this->start_message_debug.$QUERY.$this->end_message_debug;
 		if ($this -> debug_stop_delete){ echo $this->start_message_debug.$QUERY.$this->end_message_debug; exit(); }
-
 		$res = $DBHandle -> Execute($QUERY);
 
 		if (!$res){

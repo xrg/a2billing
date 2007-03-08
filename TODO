@@ -3,6 +3,17 @@
                    			TODO LIST - SPECIFIC
 ********************************************************************************
 
+#### GENERAL CHANGE IN CUSTOMER SIDE
+********************************************************************
+- to clean the code of those page invoices
+- to remove the all the page used for pdf export like : A2B_entity_unbilled_summary1.php
+  we should be able to deal with A2B_entity_unbilled_summary.php only and add a parameter mode for the pdf export.
+
+
+#### CONSOLIDATE THE GETTEXT FILES
+********************************************************************
+  CONSOLIDATE THE GETTEXT FILES
+
 
 #### UPDATE THE FORMAT OF THE SCRIPT : REARRANGE
 ********************************************************************
