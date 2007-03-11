@@ -1,13 +1,13 @@
 <?php
 
-
 getpost_ifset(array('id', 'uniqueid', 'entry_time', 'status', 'server_ip', 'num_attempt', 'last_attempt_time', 'manager_result', 'agi_result', 'callback_time', 'channel', 'exten', 'context', 'priority', 'application', 'data', 'timeout', 'callerid', 'variable', 'account', 'async', 'actionid'));
 
 
-$HD_Form = new FormHandler("callback_spool","Callback");
+$HD_Form = new FormHandler("cc_callback_spool","Callback");
 
 $HD_Form -> FG_DEBUG = 0;
-// FAQ
+$HD_Form -> FG_TABLE_DEFAULT_ORDER = "id";
+$HD_Form -> FG_TABLE_DEFAULT_SENS  = "DESC";
 
 $actived_list = array();
 $actived_list["t"] = array( "Active", "t");
@@ -19,14 +19,6 @@ $status_list = array();
 $status_list["PENDING"] = array( "PENDING", "PENDING");
 $status_list["SENT"] = array( "SENT", "SENT");
 $status_list["ERROR"] = array( "ERROR", "ERROR");
-
-/*
-$status_list["NEW"] = array( "NEW", "NEW");
-$status_list["QUEUE"] = array( "QUEUE", "QUEUE");
-$status_list["SENT"] = array( "SENT", "SENT");
-$status_list["UPDATED"] = array( "UPDATED", "UPDATED");
-$status_list["DEAD"] = array( "DEAD", "DEAD");
-*/
 
 
 $yesno = array();
@@ -46,11 +38,11 @@ $HD_Form -> AddViewElement("CALLBACK_TIME", "callback_time", "10%", "center", "s
 $HD_Form -> AddViewElement("LAST_ATTEMPT", "last_attempt_time", "10%", "center", "sort", "19", "", "", "", "", "", "display_dateformat");
 $HD_Form -> AddViewElement("CHANNEL", "channel", "5%", "center", "sort");
 $HD_Form -> AddViewElement("CONTEXT", "context", "5%", "center", "sort");
+$HD_Form -> AddViewElement("SERVER", "id_server", "5%", "center", "sort", "15", "lie", "server_manager", "server_ip", "id='%id'", "%1");
 
 
 
-
-$HD_Form -> FieldViewElement ('id, uniqueid, entry_time, status, server_ip, num_attempt, manager_result, agi_result, callback_time, last_attempt_time, channel, context');
+$HD_Form -> FieldViewElement ('id, uniqueid, entry_time, status, server_ip, num_attempt, manager_result, agi_result, callback_time, last_attempt_time, channel, context, id_server');
 
 
 $HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO ".strtoupper($HD_Form->FG_INSTANCE_NAME)." CREATED!"); 
@@ -273,22 +265,23 @@ $HD_Form -> FG_FILTERFIELDNAME = 'uniqueid';
 
 
 if (isset($filterprefix)  &&  (strlen($filterprefix)>0)){
-        if (strlen($HD_Form -> FG_TABLE_CLAUSE)>0) $HD_Form -> FG_TABLE_CLAUSE.=" AND ";
-        $HD_Form -> FG_TABLE_CLAUSE.=" uniqueid like '$filterprefix%'";
+	if (strlen($HD_Form -> FG_TABLE_CLAUSE)>0) $HD_Form -> FG_TABLE_CLAUSE.=" AND ";
+	$HD_Form -> FG_TABLE_CLAUSE.=" uniqueid like '$filterprefix%'";
 }
 
 
-$HD_Form -> FG_INTRO_TEXT_EDITION= gettext("You can modify, through the following form, the different properties of your ".$HD_Form->FG_INSTANCE_NAME);
-$HD_Form -> FG_INTRO_TEXT_ASK_DELETION = gettext("If you really want remove this $HD_Form->FG_INSTANCE_NAME, click on the delete button.");
-$HD_Form -> FG_INTRO_TEXT_ADD = "you can add easily a new $HD_Form->FG_INSTANCE_NAME.<br>Fill the following fields and confirm by clicking on the button add.";
+
+$HD_Form -> FG_INTRO_TEXT_EDITION= gettext("Modify the properties of the ".$HD_Form->FG_INSTANCE_NAME.".");
+$HD_Form -> FG_INTRO_TEXT_ASK_DELETION = gettext("If you really want remove this ".$HD_Form->FG_INSTANCE_NAME.", click on the delete button.");
+$HD_Form -> FG_INTRO_TEXT_ADD = gettext("you can add easily a new ".$HD_Form->FG_INSTANCE_NAME.".<br>Fill the following fields and confirm by clicking on the button add.");
 
 
-$HD_Form -> FG_INTRO_TEXT_ADITION = gettext("Add a $HD_Form->FG_INSTANCE_NAME now.");
-$HD_Form -> FG_TEXT_ADITION_CONFIRMATION = "Your new $HD_Form->FG_INSTANCE_NAME has been inserted. <br>";
+$HD_Form -> FG_INTRO_TEXT_ADITION = '';
+$HD_Form -> FG_TEXT_ADITION_CONFIRMATION = gettext("Your new $HD_Form->FG_INSTANCE_NAME has been inserted. <br>");
 
 
 $HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = Images_Path . "/cormfirmboton.gif";
-$HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT = gettext("Made your change to edit this callerid.");
+$HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT = "Setup those values to create the new ".$HD_Form->FG_INSTANCE_NAME;
 
 
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";

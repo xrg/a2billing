@@ -3,6 +3,13 @@
                    			TODO LIST - SPECIFIC
 ********************************************************************************
 
+
+#### CALLBACK SQL
+********************************************************************
+- Add callback.sql
+- Remove 2 tables : cc_callback_spool & cc_server_manager
+
+
 #### GENERAL CHANGE IN CUSTOMER SIDE
 ********************************************************************
 - to clean the code of those page invoices
