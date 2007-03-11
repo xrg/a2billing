@@ -411,6 +411,10 @@ function imgidclick(imgID,divID, imgbase, imgchange)
 			<li><ul>
 				<li><a href="A2B_entity_callback.php?section=12">{php} echo gettext("Show Callbacks");{/php}</a></li>
 				<li><a href="A2B_entity_callback.php?form_action=ask-add&section=12">{php} echo gettext("Add new Callback");{/php}</a></li>
+				<li><a href="A2B_entity_server_group.php">{php} echo gettext("Show Server Group");{/php}</a></li>
+				<li><a href="A2B_entity_server_group.php?form_action=ask-add">{php} echo gettext("Add Server Group");{/php}</a></li>
+				<li><a href="A2B_entity_server.php">{php} echo gettext("Show Server");{/php}</a></li>
+				<li><a href="A2B_entity_server.php?form_action=ask-add">{php} echo gettext("Add Server");{/php}</a></li>
 			</ul></li>
 		</ul>
 		</div>

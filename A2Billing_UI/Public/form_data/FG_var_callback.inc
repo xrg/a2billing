@@ -56,6 +56,15 @@ $HD_Form -> FG_EDITION = true;
 $HD_Form -> FG_DELETION = true;
 
 
+$HD_Form -> AddEditElement (gettext("SERVER GROUP"),
+				"id_server_group",
+				'$value',
+				"SELECT",
+				"", "", "",
+				"sql",
+				"cc_server_group",
+				"name, id",
+				"", "", "%1","", "");
 
 $HD_Form -> AddEditElement ("UNIQUEID",	
 			   "uniqueid",		
@@ -248,7 +257,7 @@ $HD_Form -> AddEditElement (gettext("actionid"),
 
 
 
-$HD_Form -> FieldEditElement ('uniqueid, status, server_ip, num_attempt, manager_result, agi_result, callback_time, channel, exten, context, priority, application, data, timeout, callerid, variable, account, async, actionid');
+$HD_Form -> FieldEditElement ('id_server_group, uniqueid, status, server_ip, num_attempt, manager_result, agi_result, callback_time, channel, exten, context, priority, application, data, timeout, callerid, variable, account, async, actionid');
 
 
 if (DB_TYPE != "postgres"){
