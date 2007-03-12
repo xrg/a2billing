@@ -5,7 +5,8 @@ use DBI;
 use POSIX qw(setsid);
 use vars qw($dbh);
 
-use lib '/root/a2billing/callback-daemon/lib';
+# use lib '/root/a2billing/callback-daemon/lib';
+use lib '/home/areski/public_html/1COMMERCETEL/callback/daemon/callback-daemon/lib';
 # use lib './lib', '../lib';
 use Asterisk::Manager;
 
@@ -24,7 +25,7 @@ my $pgoptions = "";
 my $pgtty = "";
 my $login = "postgres";
 my $pwd = "";
-my $dbtype = "pgsql"; // value : mysql or pgsql
+my $dbtype = "pgsql"; # value : mysql or pgsql
 
 ######################### LOG FILE ########################
 my $log_file = "/var/log/asterisk/a2billing-daemon-callback.log";
@@ -58,7 +59,7 @@ if (($path_daemon eq "") or ($daemon eq ""))
 my $astman = new Asterisk::Manager;
 
 
-&daemonize($path_daemon);
+# &daemonize($path_daemon);
 
 open(LOGFILE, ">>".$log_file) || warn "Could not open >> $log_file.\n";
 $timestamp = &longfmt();
@@ -115,10 +116,9 @@ sub func_callback_processing{
 	open(LOGFILE, ">>".$log_file)
 		|| warn "Could not open >> $log_file.\n";
 	
-	
 	if ($dbtype eq "mysql")
 	{
-		$dbh = DBI->connect("dbi:mysql:$db:$host", "$db_user", "$db_password");
+		$dbh ||= DBI->connect("dbi:mysql:$dbname:$dbhost", "$login", "$pwd");		
 	}else{
 		$dbh ||= DBI->connect("dbi:Pg:dbname=$dbname;host=$dbhost;port=$dbport", "$login", "$pwd");
 		#$dbh ||= DBI->connect("dbi:Pg:dbname=$dbname;host=$dbhost;port=$dbport", "$login");

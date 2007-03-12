@@ -15,19 +15,27 @@ REQUERIMENTS
 
 INSTALL
 
+ cd /root
+ mkdir a2billing
+ # copy the callback-daemon directory in /root/a2billing
+ cp -rf callback-daemon /root/a2billing/
+
  Callback-daemon:
    Edit callback-daemon and change configurations if needed;
-   install --owner=root --group=root --mode=700 callback-daemon /usr/local/bin/
+   install --owner=root --group=root --mode=700 a2billing-callback-daemon /usr/local/bin/
    
    If you are using any Linux Red Hat system based (SYSV):
-      install --owner=root --group=root --mode=700 callback-daemon.rc /etc/rc.d/init.d/callback-daemon
-      chkconfig --add callback-daemon && chkconfig callback-daemon on
+      install --owner=root --group=root --mode=700 a2billing-callback-daemon.rc /etc/rc.d/init.d/a2billing-callback-daemon
+      chkconfig --add a2billing-callback-daemon && chkconfig a2billing-callback-daemon on
    else:
       You have to adapt a2billing-callback-daemon.rc script for your system.
 
 
-
-
+	if you change the place for install 
+	dont forget to change into the perl script ->  use lib '/root/a2billing/callback-daemon/lib';
+	and in the rc file -> A2BDAEMON='/root/a2billing/callback-daemon/a2billing-callback-daemon'
+	
+	when the daemon is started you should see [START] into the log file (/var/log/asterisk/a2billing-daemon-callback.log)
 
 -----===========------===========------===========------===========------===========-----
 							Callback-daemon INFO

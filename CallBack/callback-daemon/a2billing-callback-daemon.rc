@@ -12,7 +12,7 @@ INITD=/etc/rc.d/init.d
 . $INITD/functions
 
 
-NAME='callback-daemon'
+NAME='a2billing-callback-daemon'
 A2BDAEMON='/root/a2billing/callback-daemon/a2billing-callback-daemon'
 # Clean
 

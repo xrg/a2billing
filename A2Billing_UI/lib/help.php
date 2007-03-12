@@ -730,5 +730,27 @@ $CC_help_list_subscription='<a href="#" target="_self"  onclick="imgidclick(\'im
 </div>
 ';
 
+$CC_help_server='<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
+<div id="div1000" style="display:visible;">
+<div id="kiki"><div class="w1">
+	<img src="'.KICON_PATH.'/network_local.gif" class="kikipic"/>
+	<div class="w2">'
+.gettext("Server are used by the callback system through the asterisk manager in order to initiate the callback and outbound a call to your customers. You can add/modify the callback server here that are going to be use here. The AGI and callback mode need to be install on those machine.").'
+<br/>
+</div></div></div>
+</div>
+';
+
+$CC_help_server_group='<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
+<div id="div1000" style="display:visible;">
+<div id="kiki"><div class="w1">
+	<img src="'.KICON_PATH.'/yast_multihead.gif" class="kikipic"/>
+	<div class="w2">'
+.gettext("Group of server define the set of servers that are going to be used by the callback system. A callback is bound to a group of server, those server will be used to dispatch the callback requests.").'
+<br/><br/>
+</div></div></div>
+</div>
+';
+
 } //ENDIF SHOW_HELP
 ?>
