@@ -30,10 +30,10 @@ UPDATE cc_card SET autorefill = '0';
 
 -- Auto Refill Report Table	
 CREATE TABLE cc_autorefill_report (
-	id BIGINT NOT NULL AUTO_INCREMENT,    
-	daterun TIMESTAMP DEFAULT 'now()' NOT NULL,
-	totalcardperform INT,
-	totalcredit decimal(15,5),
+	id 							BIGINT NOT NULL AUTO_INCREMENT,    
+	daterun 					TIMESTAMP DEFAULT 'now()' NOT NULL,
+	totalcardperform 			INT,
+	totalcredit 				DECIMAL(15,5),
 	PRIMARY KEY (id)
 );
 

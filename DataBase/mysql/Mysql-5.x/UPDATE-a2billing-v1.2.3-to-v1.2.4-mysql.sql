@@ -6,7 +6,7 @@ INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (150,
 
 
 
-ALTER TABLE cc_charge ADD COLUMN id_cc_did bigint ;
+ALTER TABLE cc_charge ADD COLUMN id_cc_did BIGINT ;
 ALTER TABLE cc_charge ALTER COLUMN id_cc_did SET DEFAULT 0;
 
 ALTER TABLE cc_did ADD COLUMN reserved INT DEFAULT 0;
@@ -15,22 +15,22 @@ ALTER TABLE cc_iax_buddies ADD COLUMN id_cc_card INT DEFAULT 0 NOT NULL;
 ALTER TABLE cc_sip_buddies ADD COLUMN id_cc_card INT DEFAULT 0 NOT NULL;
 
 CREATE TABLE cc_did_use (
-    id BIGINT NOT NULL AUTO_INCREMENT,
-    id_cc_card BIGINT,
-    id_did BIGINT NOT NULL,
-    reservationdate TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    releasedate TIMESTAMP,
-    activated INT DEFAULT 0,
-    month_payed INT DEFAULT 0,
+    id 								BIGINT NOT NULL AUTO_INCREMENT,
+    id_cc_card 						BIGINT,
+    id_did 							BIGINT NOT NULL,
+    reservationdate 				TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    releasedate 					TIMESTAMP,
+    activated 						INT DEFAULT 0,
+    month_payed 					INT DEFAULT 0,
     PRIMARY KEY (id)
 );
 
 	
 CREATE TABLE cc_prefix (
-	id BIGINT NOT NULL AUTO_INCREMENT,
-	id_cc_country BIGINT,
-	prefixe VARCHAR(50) NOT NULL,
-	destination VARCHAR(100) NOT NULL,
+	id 								BIGINT NOT NULL AUTO_INCREMENT,
+	id_cc_country 					BIGINT,
+	prefixe 						VARCHAR(50) NOT NULL,
+	destination 					VARCHAR(100) NOT NULL,
 	PRIMARY KEY (id)
 );
 	
@@ -557,28 +557,28 @@ UPDATE cc_country SET countryprefix = '670' WHERE id = '243';
 
 
 CREATE TABLE cc_alarm (
-    id BIGINT NOT NULL AUTO_INCREMENT,
-    name text NOT NULL,
-    periode INT NOT NULL DEFAULT 1,
-    type INT NOT NULL DEFAULT 1,
-    maxvalue float NOT NULL,
-    minvalue float NOT NULL DEFAULT -1,
-    id_trunk INT,
-    status INT NOT NULL DEFAULT 0,
-    numberofrun INT NOT NULL DEFAULT 0,
-    numberofalarm INT NOT NULL DEFAULT 0,   
-	datecreate    TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,	
-	datelastrun    TIMESTAMP,
-    emailreport VARCHAR(50),
+    id 									BIGINT NOT NULL AUTO_INCREMENT,
+    name text 							NOT NULL,
+    periode 							INT NOT NULL DEFAULT 1,
+    type 								INT NOT NULL DEFAULT 1,
+    maxvalue 							FLOAT NOT NULL,
+    minvalue 							FLOAT NOT NULL DEFAULT -1,
+    id_trunk 							INT,
+    status 								INT NOT NULL DEFAULT 0,
+    numberofrun 						INT NOT NULL DEFAULT 0,
+    numberofalarm 						INT NOT NULL DEFAULT 0,   
+	datecreate    						TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,	
+	datelastrun    						TIMESTAMP,
+    emailreport 						VARCHAR(50),
     PRIMARY KEY (id)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
 
  CREATE TABLE cc_alarm_report (
-    id BIGINT NOT NULL AUTO_INCREMENT,
-    cc_alarm_id BIGINT NOT NULL,
-    calculatedvalue float NOT NULL,
-    daterun TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    id 									BIGINT NOT NULL AUTO_INCREMENT,
+    cc_alarm_id 						BIGINT NOT NULL,
+    calculatedvalue 					float NOT NULL,
+    daterun 							TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (id)
 );
 
@@ -587,67 +587,67 @@ CREATE TABLE cc_alarm (
 
 
 CREATE TABLE cc_callback_spool (
-    id BIGINT NOT NULL AUTO_INCREMENT,
-	uniqueid VARCHAR(40),
-	entry_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	status VARCHAR(80),
-	server_ip VARCHAR(40),
-	num_attempt INT NOT NULL DEFAULT 0,
-	last_attempt_time TIMESTAMP,
-	manager_result VARCHAR(60),
-	agi_result VARCHAR(60),
-	callback_time TIMESTAMP,
-	channel VARCHAR(60),
-	exten VARCHAR(60),
-	context VARCHAR(60),
-	priority VARCHAR(60),
-	application VARCHAR(60),
-	data VARCHAR(60),
-	timeout VARCHAR(60),
-	callerid VARCHAR(60),
-	variable VARCHAR(60),
-	account VARCHAR(60),
-	async VARCHAR(60),
-	actionid VARCHAR(60),
+    id 									BIGINT NOT NULL AUTO_INCREMENT,
+	uniqueid 							VARCHAR(40),
+	entry_time 							TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	status 								VARCHAR(80),
+	server_ip 							VARCHAR(40),
+	num_attempt 						INT NOT NULL DEFAULT 0,
+	last_attempt_time 					TIMESTAMP,
+	manager_result 						VARCHAR(60),
+	agi_result 							VARCHAR(60),
+	callback_time 						TIMESTAMP,
+	channel 							VARCHAR(60),
+	exten 								VARCHAR(60),
+	context 							VARCHAR(60),
+	priority 							VARCHAR(60),
+	application 						VARCHAR(60),
+	data 								VARCHAR(60),
+	timeout 							VARCHAR(60),
+	callerid 							VARCHAR(60),
+	variable 							VARCHAR(60),
+	account 							VARCHAR(60),
+	async 								VARCHAR(60),
+	actionid 							VARCHAR(60),
     PRIMARY KEY (id),
 	UNIQUE cc_callback_spool_uniqueid_key (uniqueid)
 );
 
 CREATE TABLE cc_server_manager (
-    id BIGINT NOT NULL AUTO_INCREMENT,
-	server_ip VARCHAR(40),
-	manager_host VARCHAR(50),
-	manager_username VARCHAR(50),
-	manager_secret VARCHAR(50),
+    id 									BIGINT NOT NULL AUTO_INCREMENT,
+	server_ip 							VARCHAR(40),
+	manager_host 						VARCHAR(50),
+	manager_username 					VARCHAR(50),
+	manager_secret 						VARCHAR(50),
 	PRIMARY KEY (id)
 );
 
-INSERT INTO cc_server_manager (server_ip, manager_host, manager_username, manager_secret) VALUES ('default', 'localhost', 'myasterisk', 'mycode');
+INSERT INTO cc_server_manager (server_ip, manager_host, manager_username, manager_secret) VALUES ('DEFAULT ', 'localhost', 'myasterisk', 'mycode');
 
 
 
 CREATE TABLE cc_invoices (
-    id INT NOT NULL AUTO_INCREMENT,    
-    cardid bigint NOT NULL,
-	orderref VARCHAR(50),
-    invoicecreated_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	cover_startdate TIMESTAMP,
-    cover_enddate TIMESTAMP,	
-    amount decimal(15,5) default 0,
-	tax decimal(15,5) default 0,
-	total decimal(15,5) default 0,
-	invoicetype int,
-	filename VARCHAR(250),
+    id 								INT NOT NULL AUTO_INCREMENT,    
+    cardid 							BIGINT NOT NULL,
+	orderref 						VARCHAR(50),
+    invoicecreated_date 			TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	cover_startdate 				TIMESTAMP,
+    cover_enddate 					TIMESTAMP,	
+    amount 							DECIMAL(15,5) DEFAULT 0,
+	tax 							DECIMAL(15,5) DEFAULT 0,
+	total 							DECIMAL(15,5) DEFAULT 0,
+	invoicetype 					INT ,
+	filename 						VARCHAR(250),
     PRIMARY KEY (id)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 CREATE INDEX ind_cc_invoices ON cc_invoices (cover_startdate);
 
 
 CREATE TABLE cc_invoice_history (
-    id INT NOT NULL AUTO_INCREMENT,    
-    invoiceid int NOT NULL,	
-    invoicesent_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    invoicestatus INT,
+    id 								INT NOT NULL AUTO_INCREMENT,    
+    invoiceid 						INT NOT NULL,	
+    invoicesent_date 				TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    invoicestatus 					INT,
     PRIMARY KEY (id)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 CREATE INDEX ind_cc_invoice_history ON cc_invoice_history (invoicesent_date);
@@ -689,29 +689,29 @@ ALTER TABLE cc_call 		ADD COLUMN id_card_package_offer 		INT DEFAULT 0;
 
 
 CREATE TABLE cc_subscription_fee (
-    id BIGINT NOT NULL AUTO_INCREMENT,
-    label TEXT NOT NULL,
-    fee float DEFAULT 0 NOT NULL,
-	currency CHAR(3) DEFAULT 'USD',
-    status INT DEFAULT '0' NOT NULL,
-    numberofrun INT DEFAULT '0' NOT NULL,
-    datecreate TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    datelastrun TIMESTAMP,
-    emailreport TEXT,
-    totalcredit float NOT NULL DEFAULT 0,
-    totalcardperform INT DEFAULT '0' NOT NULL,
+    id 									BIGINT NOT NULL AUTO_INCREMENT,
+    label 								TEXT NOT NULL,
+    fee 								FLOAT DEFAULT 0 NOT NULL,	
+	currency 							CHAR(3) DEFAULT 'USD',
+    status 								INT DEFAULT '0' NOT NULL,
+    numberofrun 						INT DEFAULT '0' NOT NULL,
+    datecreate 							TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    datelastrun 						TIMESTAMP,
+    emailreport 						TEXT,
+    totalcredit 						FLOAT NOT NULL DEFAULT 0,
+    totalcardperform 					INT DEFAULT '0' NOT NULL,
     PRIMARY KEY (id)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
 -- INSTEAD USE CC_CHARGE
 CREATE TABLE cc_subscription_fee_card (
-    id BIGINT NOT NULL AUTO_INCREMENT,
-    id_cc_card BIGINT NOT NULL,
-    id_cc_subscription_fee BIGINT NOT NULL,
-    datefee TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    fee float DEFAULT 0 NOT NULL,	
-	fee_converted float DEFAULT 0 NOT NULL,
-	currency CHAR(3) DEFAULT 'USD',
+    id 									BIGINT NOT NULL AUTO_INCREMENT,
+    id_cc_card 							BIGINT NOT NULL,
+    id_cc_subscription_fee 				BIGINT NOT NULL,
+    datefee 							TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    fee float							DEFAULT 0 NOT NULL,	
+	fee_converted 						float DEFAULT 0 NOT NULL,
+	currency 							CHAR(3) DEFAULT 'USD',
     PRIMARY KEY (id)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
@@ -728,7 +728,7 @@ CREATE INDEX ind_cc_subscription_fee_card_datefee ON cc_subscription_fee_card (d
 CREATE TABLE cc_outbound_cid_group (
     id 					INT NOT NULL AUTO_INCREMENT,
     creationdate 		TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    group_name 				VARCHAR(70) NOT NULL,    
+    group_name			VARCHAR(70) NOT NULL,    
     PRIMARY KEY (id)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
@@ -773,87 +773,87 @@ Call Labs
 
 -- Payment Methods Table
 CREATE TABLE cc_payment_methods (
-    id INT NOT NULL AUTO_INCREMENT,
-    payment_method CHAR(100) NOT NULL,
-    payment_filename CHAR(200) NOT NULL,
-    active CHAR(1) DEFAULT 'f' NOT NULL,
+    id 									INT NOT NULL AUTO_INCREMENT,
+    payment_method 						CHAR(100) NOT NULL,
+    payment_filename 					CHAR(200) NOT NULL,
+    active 								CHAR(1) DEFAULT 'f' NOT NULL,
     PRIMARY KEY (id)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
-Insert into cc_payment_methods (payment_method,payment_filename,active) values('paypal','paypal.php','t');
-Insert into cc_payment_methods (payment_method,payment_filename,active) values('Authorize.Net','authorizenet.php','t');
-Insert into cc_payment_methods (payment_method,payment_filename,active) values('MoneyBookers','moneybookers.php','t');
+Insert INTO cc_payment_methods (payment_method,payment_filename,active) VALUES ('paypal','paypal.php','t');
+Insert INTO cc_payment_methods (payment_method,payment_filename,active) VALUES ('Authorize.Net','authorizenet.php','t');
+Insert INTO cc_payment_methods (payment_method,payment_filename,active) VALUES ('MoneyBookers','moneybookers.php','t');
 
 
 CREATE TABLE cc_payments (
-  id int NOT NULL auto_increment,
-  customers_id varchar(60) NOT NULL,
-  customers_name varchar(200) NOT NULL,
-  customers_email_address varchar(96) NOT NULL,
-  item_name varchar(127),
-  item_id varchar(127),
-  item_quantity int NOT NULL DEFAULT 0,
-  payment_method varchar(32) NOT NULL,
-  cc_type varchar(20),
-  cc_owner varchar(64),
-  cc_number varchar(32),
-  cc_expires varchar(4),
-  orders_status int(5) NOT NULL,
-  orders_amount decimal(14,6),
-  last_modified datetime,
-  date_purchased datetime,
-  orders_date_finished datetime,
-  currency char(3),
-  currency_value decimal(14,6),
+  id 									INT NOT NULL AUTO_INCREMENT,
+  customers_id 							VARCHAR(60) NOT NULL,
+  customers_name 						VARCHAR(200) NOT NULL,
+  customers_email_address 				VARCHAR(96) NOT NULL,
+  item_name 							VARCHAR(127),
+  item_id 								VARCHAR(127),
+  item_quantity 						INT NOT NULL DEFAULT 0,
+  payment_method 						VARCHAR(32) NOT NULL,
+  cc_type 								VARCHAR(20),
+  cc_owner 								VARCHAR(64),
+  cc_number 							VARCHAR(32),
+  cc_expires 							VARCHAR(4),
+  orders_status 						INT (5) NOT NULL,
+  orders_amount 						DECIMAL(14,6),
+  last_modified 						DATETIME,
+  date_purchased 						DATETIME,
+  orders_date_finished 					DATETIME,
+  currency 								CHAR(3),
+  currency_value 						DECIMAL(14,6),
   PRIMARY KEY (id)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
 -- Payment Status Lookup Table
 CREATE TABLE cc_payments_status (
-  id int NOT NULL auto_increment,
-  status_id int NOT NULL,
-  status_name varchar(200) NOT NULL,
+  id 									INT NOT NULL AUTO_INCREMENT,
+  status_id 							INT NOT NULL,
+  status_name 							VARCHAR(200) NOT NULL,
   PRIMARY KEY (id)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
-Insert into cc_payments_status (status_id,status_name) values (-2, 'Failed');
-Insert into cc_payments_status (status_id,status_name) values (-1, 'Denied');
-Insert into cc_payments_status (status_id,status_name) values (0, 'Pending');
-Insert into cc_payments_status (status_id,status_name) values (1, 'In-Progress');
-Insert into cc_payments_status (status_id,status_name) values (2, 'Completed');
-Insert into cc_payments_status (status_id,status_name) values (3, 'Processed');
-Insert into cc_payments_status (status_id,status_name) values (4, 'Refunded');
-Insert into cc_payments_status (status_id,status_name) values (5, 'Unknown');
+Insert INTO cc_payments_status (status_id,status_name) VALUES (-2, 'Failed');
+Insert INTO cc_payments_status (status_id,status_name) VALUES (-1, 'Denied');
+Insert INTO cc_payments_status (status_id,status_name) VALUES (0, 'Pending');
+Insert INTO cc_payments_status (status_id,status_name) VALUES (1, 'In-Progress');
+Insert INTO cc_payments_status (status_id,status_name) VALUES (2, 'Completed');
+Insert INTO cc_payments_status (status_id,status_name) VALUES (3, 'Processed');
+Insert INTO cc_payments_status (status_id,status_name) VALUES (4, 'Refunded');
+Insert INTO cc_payments_status (status_id,status_name) VALUES (5, 'Unknown');
 
 
 CREATE TABLE cc_configuration (
-  configuration_id int NOT NULL auto_increment,
-  configuration_title varchar(64) NOT NULL,
-  configuration_key varchar(64) NOT NULL,
-  configuration_value varchar(255) NOT NULL,
-  configuration_description varchar(255) NOT NULL,
-  configuration_type int NOT NULL DEFAULT 0,
-  use_function varchar(255) NULL,
-  set_function varchar(255) NULL,
+  configuration_id 							INT NOT NULL AUTO_INCREMENT,
+  configuration_title 						VARCHAR(64) NOT NULL,
+  configuration_key 						VARCHAR(64) NOT NULL,
+  configuration_value 						VARCHAR(255) NOT NULL,
+  configuration_description 				VARCHAR(255) NOT NULL,
+  configuration_type 						INT NOT NULL DEFAULT 0,
+  use_function 								VARCHAR(255) NULL,
+  set_function 								VARCHAR(255) NULL,
   PRIMARY KEY (configuration_id)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
-insert into cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description) values ('Login Username', 'MODULE_PAYMENT_AUTHORIZENET_LOGIN', 'testing', 'The login username used for the Authorize.net service');
-insert into cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description) values ('Transaction Key', 'MODULE_PAYMENT_AUTHORIZENET_TXNKEY', 'Test', 'Transaction Key used for encrypting TP data');
-insert into cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) values ('Transaction Mode', 'MODULE_PAYMENT_AUTHORIZENET_TESTMODE', 'Test', 'Transaction mode used for processing orders', 'tep_cfg_select_option(array(\'Test\', \'Production\'), ');
-insert into cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) values ('Transaction Method', 'MODULE_PAYMENT_AUTHORIZENET_METHOD', 'Credit Card', 'Transaction method used for processing orders', 'tep_cfg_select_option(array(\'Credit Card\', \'eCheck\'), ');
-insert into cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) values ('Customer Notifications', 'MODULE_PAYMENT_AUTHORIZENET_EMAIL_CUSTOMER', 'False', 'Should Authorize.Net e-mail a receipt to the customer?', 'tep_cfg_select_option(array(\'True\', \'False\'), ');
-insert into cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) values ('Enable Authorize.net Module', 'MODULE_PAYMENT_AUTHORIZENET_STATUS', 'True', 'Do you want to accept Authorize.net payments?', 'tep_cfg_select_option(array(\'True\', \'False\'), ');
+INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description) VALUES ('Login Username', 'MODULE_PAYMENT_AUTHORIZENET_LOGIN', 'testing', 'The login username used for the Authorize.net service');
+INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description) VALUES ('Transaction Key', 'MODULE_PAYMENT_AUTHORIZENET_TXNKEY', 'Test', 'Transaction Key used for encrypting TP data');
+INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) VALUES ('Transaction Mode', 'MODULE_PAYMENT_AUTHORIZENET_TESTMODE', 'Test', 'Transaction mode used for processing orders', 'tep_cfg_select_option(array(\'Test\', \'Production\'), ');
+INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) VALUES ('Transaction Method', 'MODULE_PAYMENT_AUTHORIZENET_METHOD', 'Credit Card', 'Transaction method used for processing orders', 'tep_cfg_select_option(array(\'Credit Card\', \'eCheck\'), ');
+INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) VALUES ('Customer Notifications', 'MODULE_PAYMENT_AUTHORIZENET_EMAIL_CUSTOMER', 'False', 'Should Authorize.Net e-mail a receipt to the customer?', 'tep_cfg_select_option(array(\'True\', \'False\'), ');
+INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) VALUES ('Enable Authorize.net Module', 'MODULE_PAYMENT_AUTHORIZENET_STATUS', 'True', 'Do you want to accept Authorize.net payments?', 'tep_cfg_select_option(array(\'True\', \'False\'), ');
 
-insert into cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) values ('Enable PayPal Module', 'MODULE_PAYMENT_PAYPAL_STATUS', 'True', 'Do you want to accept PayPal payments?','tep_cfg_select_option(array(\'True\', \'False\'), ');
-insert into cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description) values ('E-Mail Address', 'MODULE_PAYMENT_PAYPAL_ID', 'you@yourbusiness.com', 'The e-mail address to use for the PayPal service');
-insert into cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) values ('Transaction Currency', 'MODULE_PAYMENT_PAYPAL_CURRENCY', 'Selected Currency', 'The currency to use for credit card transactions', 'tep_cfg_select_option(array(\'Selected Currency\',\'USD\',\'CAD\',\'EUR\',\'GBP\',\'JPY\'), ');
+INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) VALUES ('Enable PayPal Module', 'MODULE_PAYMENT_PAYPAL_STATUS', 'True', 'Do you want to accept PayPal payments?','tep_cfg_select_option(array(\'True\', \'False\'), ');
+INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description) VALUES ('E-Mail Address', 'MODULE_PAYMENT_PAYPAL_ID', 'you@yourbusiness.com', 'The e-mail address to use for the PayPal service');
+INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) VALUES ('Transaction Currency', 'MODULE_PAYMENT_PAYPAL_CURRENCY', 'Selected Currency', 'The currency to use for credit card transactions', 'tep_cfg_select_option(array(\'Selected Currency\',\'USD\',\'CAD\',\'EUR\',\'GBP\',\'JPY\'), ');
 
-insert into cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description) values ('E-Mail Address', 'MODULE_PAYMENT_MONEYBOOKERS_ID', 'you@yourbusiness.com', 'The eMail address to use for the moneybookers service');
-insert into cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description) values ('Referral ID', 'MODULE_PAYMENT_MONEYBOOKERS_REFID', '989999', 'Your personal Referral ID from moneybookers.com');
-insert into cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) values ('Transaction Currency', 'MODULE_PAYMENT_MONEYBOOKERS_CURRENCY', 'Selected Currency', 'The default currency for the payment transactions', 'tep_cfg_select_option(array(\'Selected Currency\',\'EUR\', \'USD\', \'GBP\', \'HKD\', \'SGD\', \'JPY\', \'CAD\', \'AUD\', \'CHF\', \'DKK\', \'SEK\', \'NOK\', \'ILS\', \'MYR\', \'NZD\', \'TWD\', \'THB\', \'CZK\', \'HUF\', \'SKK\', \'ISK\', \'INR\'), ');
-insert into cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) values ('Transaction Language', 'MODULE_PAYMENT_MONEYBOOKERS_LANGUAGE', 'Selected Language', 'The default language for the payment transactions', 'tep_cfg_select_option(array(\'Selected Language\',\'EN\', \'DE\', \'ES\', \'FR\'), ');
-insert into cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) values ('Enable moneybookers Module', 'MODULE_PAYMENT_MONEYBOOKERS_STATUS', 'True', 'Do you want to accept moneybookers payments?','tep_cfg_select_option(array(\'True\', \'False\'), ');
+INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description) VALUES ('E-Mail Address', 'MODULE_PAYMENT_MONEYBOOKERS_ID', 'you@yourbusiness.com', 'The eMail address to use for the moneybookers service');
+INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description) VALUES ('Referral ID', 'MODULE_PAYMENT_MONEYBOOKERS_REFID', '989999', 'Your personal Referral ID from moneybookers.com');
+INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) VALUES ('Transaction Currency', 'MODULE_PAYMENT_MONEYBOOKERS_CURRENCY', 'Selected Currency', 'The default currency for the payment transactions', 'tep_cfg_select_option(array(\'Selected Currency\',\'EUR\', \'USD\', \'GBP\', \'HKD\', \'SGD\', \'JPY\', \'CAD\', \'AUD\', \'CHF\', \'DKK\', \'SEK\', \'NOK\', \'ILS\', \'MYR\', \'NZD\', \'TWD\', \'THB\', \'CZK\', \'HUF\', \'SKK\', \'ISK\', \'INR\'), ');
+INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) VALUES ('Transaction Language', 'MODULE_PAYMENT_MONEYBOOKERS_LANGUAGE', 'Selected Language', 'The default language for the payment transactions', 'tep_cfg_select_option(array(\'Selected Language\',\'EN\', \'DE\', \'ES\', \'FR\'), ');
+INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) VALUES ('Enable moneybookers Module', 'MODULE_PAYMENT_MONEYBOOKERS_STATUS', 'True', 'Do you want to accept moneybookers payments?','tep_cfg_select_option(array(\'True\', \'False\'), ');
 
 
 ALTER TABLE cc_card ADD COLUMN id_subscription_fee INT DEFAULT 0;

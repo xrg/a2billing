@@ -13,7 +13,7 @@ mysql -u root -p"root password" < UPDATE-a2billing-v1.2.2-to-v1.2.3-mysql.sql
 
  
 -- inital balance : it would be used by the cron in order to refill automatically each month
-ALTER TABLE cc_card ADD COLUMN initialbalance decimal(15,5);
+ALTER TABLE cc_card ADD COLUMN initialbalance DECIMAL(15,5);
 ALTER TABLE cc_card ALTER COLUMN initialbalance SET DEFAULT 0;
 UPDATE cc_card SET initialbalance = '0';
 
@@ -30,20 +30,20 @@ UPDATE cc_card SET autorefill = '0';
 
 -- Auto Refill Report Table	
 CREATE TABLE cc_autorefill_report (
-	id BIGINT NOT NULL AUTO_INCREMENT,    
-	daterun TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
-	totalcardperform INT,
-	totalcredit decimal(15,5),
+	id 								BIGINT NOT NULL AUTO_INCREMENT,    
+	daterun 						TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	totalcardperform 				INT,
+	totalcredit 					DECIMAL(15,5),
 	PRIMARY KEY (id)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
 
 
 -- Add Buying cost into the reporting
-ALTER TABLE cc_call ADD COLUMN buyrate decimal(15,5);
+ALTER TABLE cc_call ADD COLUMN buyrate DECIMAL(15,5);
 ALTER TABLE cc_call ALTER COLUMN buyrate SET DEFAULT 0;
 
-ALTER TABLE cc_call ADD COLUMN buycost decimal(15,5);
+ALTER TABLE cc_call ADD COLUMN buycost DECIMAL(15,5);
 ALTER TABLE cc_call ALTER COLUMN buycost SET DEFAULT 0;
 
 
