@@ -590,28 +590,30 @@ ALTER TABLE ONLY cc_alarm_report
 
 
 CREATE TABLE cc_callback_spool (
-    id 							BIGSERIAL NOT NULL,
-	uniqueid 					TEXT ,
-    entry_time 					TIMESTAMP without time zone DEFAULT now(),	
-    status 						TEXT ,
-	server_ip 					TEXT ,	
-	num_attempt 				int,
-	last_attempt_time			TIMESTAMP without time zone,
-	manager_result 				TEXT ,
-	agi_result 					TEXT ,
-	callback_time 				TIMESTAMP without time zone,	
-    channel 					TEXT ,
-	exten						TEXT ,
-	context 					TEXT ,
-	priority 					TEXT ,
-	application 				TEXT ,
-	data 						TEXT ,
-	timeout 					TEXT ,
-	callerid 					TEXT ,
-	variable 					TEXT ,
-	account 					TEXT ,
-	async 						TEXT ,
-	actionid 					TEXT
+    id 								BIGSERIAL NOT NULL,
+    uniqueid 						TEXT ,
+    entry_time 						TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),	
+    status 							TEXT ,
+    server_ip 						TEXT ,	
+    num_attempt 					int,
+    last_attempt_time 				TIMESTAMP WITHOUT TIME ZONE,
+    manager_result 					TEXT ,
+    agi_result 						TEXT ,
+    callback_time 					TIMESTAMP WITHOUT TIME ZONE,	
+    channel 						TEXT ,
+    exten 							TEXT ,
+    context 						TEXT ,
+    priority 						TEXT ,
+    application 					TEXT ,
+    data 							TEXT ,
+    timeout 						TEXT ,
+    callerid 						TEXT ,
+    variable 						TEXT ,
+    account 						TEXT ,
+    async 							TEXT ,
+    actionid 						TEXT ,
+	id_server						INTEGER,
+	id_server_group					INTEGER
 ) WITH OIDS;
 
 ALTER TABLE ONLY cc_callback_spool
@@ -619,14 +621,23 @@ ALTER TABLE ONLY cc_callback_spool
 
 
 CREATE TABLE cc_server_manager (
-	id 					BIGSERIAL NOT NULL,
-	server_ip 					TEXT ,
-	manager_host 				TEXT ,
-	manager_username 			TEXT ,
-	manager_secret 				TEXT
+    id 								BIGSERIAL NOT NULL,
+	id_group						INTEGER DEFAULT 1,
+    server_ip 						TEXT ,
+    manager_host 					TEXT ,
+    manager_username 				TEXT ,
+    manager_secret 					TEXT ,
+	lasttime_used		 			TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW()
 ) WITH OIDS;
-
 INSERT INTO cc_server_manager (server_ip, manager_host, manager_username, manager_secret) VALUES ('default', 'localhost', 'myasterisk', 'mycode');
+
+
+CREATE TABLE cc_server_group (
+	id								BIGSERIAL NOT NULL,
+	name							TEXT ,
+	description						TEXT
+) WITH OIDS;
+INSERT INTO cc_server_group (name, description) VALUES ('default', 'default group of server');
 
 
     

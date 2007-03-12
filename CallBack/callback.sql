@@ -35,9 +35,9 @@ ALTER TABLE ONLY cc_callback_spool
 
 
 CREATE TABLE cc_server_group (
- id                      bigserial NOT NULL,
- name					 text,
- description			 text
+ id                      BIGSERIAL NOT NULL ,
+ name					 TEXT ,
+ description			 TEXT
 ) WITH OIDS;
 INSERT INTO cc_server_group (name, description) VALUES ('default', 'default group of server');
 

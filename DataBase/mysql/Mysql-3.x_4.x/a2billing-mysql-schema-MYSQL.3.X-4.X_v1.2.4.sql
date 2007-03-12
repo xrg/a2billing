@@ -1511,43 +1511,58 @@ CREATE TABLE cc_alarm_report (
     PRIMARY KEY (id)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
+
+
 CREATE TABLE cc_callback_spool (
     id 								BIGINT NOT NULL AUTO_INCREMENT,
-	uniqueid 						VARCHAR(40),
-	entry_time 						TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	status 							VARCHAR(80),
-	server_ip 						VARCHAR(40),
-	num_attempt 					INT NOT NULL DEFAULT 0,
-	last_attempt_time 				TIMESTAMP,
-	manager_result 					VARCHAR(60),
-	agi_result 						VARCHAR(60),
-	callback_time 					TIMESTAMP,
-	channel 						VARCHAR(60),
-	exten 							VARCHAR(60),
-	context 						VARCHAR(60),
-	priority 						VARCHAR(60),
-	application 					VARCHAR(60),
-	data 							VARCHAR(60),
-	timeout 						VARCHAR(60),
-	callerid 						VARCHAR(60),
-	variable 						VARCHAR(60),
-	account 						VARCHAR(60),
-	async 							VARCHAR(60),
-	actionid 						VARCHAR(60),
+    uniqueid 						VARCHAR(40),
+    entry_time 						TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    status 							VARCHAR(80),
+    server_ip 						VARCHAR(40),
+    num_attempt 					INT NOT NULL DEFAULT 0,
+    last_attempt_time 				TIMESTAMP,
+    manager_result 					VARCHAR(60),
+    agi_result 						VARCHAR(60),
+    callback_time 					TIMESTAMP,
+    channel 						VARCHAR(60),
+    exten 							VARCHAR(60),
+    context 						VARCHAR(60),
+    priority 						VARCHAR(60),
+    application 					VARCHAR(60),
+    data 							VARCHAR(60),
+    timeout 						VARCHAR(60),
+    callerid 						VARCHAR(60),
+    variable 						VARCHAR(60),
+    account 						VARCHAR(60),
+    async 							VARCHAR(60),
+    actionid 						VARCHAR(60),
+	id_server						INT,
+	id_server_group					INT,
     PRIMARY KEY (id),
-	UNIQUE cc_callback_spool_uniqueid_key (uniqueid)
+    UNIQUE cc_callback_spool_uniqueid_key (uniqueid)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
 CREATE TABLE cc_server_manager (
     id 								BIGINT NOT NULL AUTO_INCREMENT,
-	server_ip 						VARCHAR(40),
-	manager_host 					VARCHAR(50),
-	manager_username 				VARCHAR(50),
-	manager_secret 					VARCHAR(50),
-	PRIMARY KEY (id)
+	id_group						INT DEFAULT 1,
+    server_ip 						VARCHAR(40),
+    manager_host 					VARCHAR(50),
+    manager_username 				VARCHAR(50),
+    manager_secret 					VARCHAR(50),
+	lasttime_used		 			TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (id)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
 INSERT INTO cc_server_manager (server_ip, manager_host, manager_username, manager_secret) VALUES ('default', 'localhost', 'myasterisk', 'mycode');
+
+
+CREATE TABLE cc_server_group (
+	id 								BIGINT NOT NULL AUTO_INCREMENT,
+	name 							VARCHAR(60),
+	description						MEDIUMTEXT
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
+INSERT INTO cc_server_group (name, description) VALUES ('default', 'default group of server');
+
 
 
 CREATE TABLE cc_invoices (

@@ -1647,7 +1647,9 @@ CREATE TABLE cc_callback_spool (
     variable 						TEXT ,
     account 						TEXT ,
     async 							TEXT ,
-    actionid 						TEXT 	
+    actionid 						TEXT ,
+	id_server						INTEGER,
+	id_server_group					INTEGER
 ) WITH OIDS;
 
 ALTER TABLE ONLY cc_callback_spool
@@ -1656,13 +1658,24 @@ ALTER TABLE ONLY cc_callback_spool
 
 CREATE TABLE cc_server_manager (
     id 								BIGSERIAL NOT NULL,
+	id_group						INTEGER DEFAULT 1,
     server_ip 						TEXT ,
     manager_host 					TEXT ,
     manager_username 				TEXT ,
-    manager_secret 					TEXT 
+    manager_secret 					TEXT ,
+	lasttime_used		 			TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW()
 ) WITH OIDS;
-
 INSERT INTO cc_server_manager (server_ip, manager_host, manager_username, manager_secret) VALUES ('default', 'localhost', 'myasterisk', 'mycode');
+
+
+CREATE TABLE cc_server_group (
+	id								BIGSERIAL NOT NULL,
+	name							TEXT ,
+	description						TEXT
+) WITH OIDS;
+INSERT INTO cc_server_group (name, description) VALUES ('default', 'default group of server');
+
+
 
 CREATE TABLE cc_invoices (
     id 								BIGSERIAL NOT NULL,
@@ -1872,4 +1885,3 @@ insert into cc_configuration (configuration_title, configuration_key, configurat
 insert into cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) values ('Transaction Currency', 'MODULE_PAYMENT_MONEYBOOKERS_CURRENCY', 'Selected Currency', 'The default currency for the payment transactions', 'tep_cfg_select_option(array(\'Selected Currency\',\'EUR\', \'USD\', \'GBP\', \'HKD\', \'SGD\', \'JPY\', \'CAD\', \'AUD\', \'CHF\', \'DKK\', \'SEK\', \'NOK\', \'ILS\', \'MYR\', \'NZD\', \'TWD\', \'THB\', \'CZK\', \'HUF\', \'SKK\', \'ISK\', \'INR\'), ');
 insert into cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) values ('Transaction Language', 'MODULE_PAYMENT_MONEYBOOKERS_LANGUAGE', 'Selected Language', 'The default language for the payment transactions', 'tep_cfg_select_option(array(\'Selected Language\',\'EN\', \'DE\', \'ES\', \'FR\'), ');
 insert into cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) values ('Enable moneybookers Module', 'MODULE_PAYMENT_MONEYBOOKERS_STATUS', 'True', 'Do you want to accept moneybookers payments?','tep_cfg_select_option(array(\'True\', \'False\'), ');
-

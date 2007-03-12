@@ -607,49 +607,33 @@ CREATE TABLE cc_callback_spool (
     account 						VARCHAR(60),
     async 							VARCHAR(60),
     actionid 						VARCHAR(60),
+	id_server						INT,
+	id_server_group					INT,
     PRIMARY KEY (id),
     UNIQUE cc_callback_spool_uniqueid_key (uniqueid)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
 CREATE TABLE cc_server_manager (
     id 								BIGINT NOT NULL AUTO_INCREMENT,
+	id_group						INT DEFAULT 1,
     server_ip 						VARCHAR(40),
     manager_host 					VARCHAR(50),
     manager_username 				VARCHAR(50),
     manager_secret 					VARCHAR(50),
+	lasttime_used		 			TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (id)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
 INSERT INTO cc_server_manager (server_ip, manager_host, manager_username, manager_secret) VALUES ('default', 'localhost', 'myasterisk', 'mycode');
 
 
-CREATE TABLE cc_invoices (
-    id 								INT NOT NULL AUTO_INCREMENT,    
-    cardid 							BIGINT NOT NULL,
-    orderref 						VARCHAR(50),
-    invoicecreated_date 			TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    cover_startdate 				TIMESTAMP,
-    cover_enddate 					TIMESTAMP,	
-    amount 							DECIMAL(15,5) DEFAULT 0,
-    tax 							DECIMAL(15,5) DEFAULT 0,
-    total 							DECIMAL(15,5) DEFAULT 0,
-    invoicetype 					INT,
-    filename 						VARCHAR(250),
-    PRIMARY KEY (id)
+CREATE TABLE cc_server_group (
+	id 								BIGINT NOT NULL AUTO_INCREMENT,
+	name 							VARCHAR(60),
+	description						MEDIUMTEXT
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
-CREATE INDEX ind_cc_invoices ON cc_invoices (cover_startdate);
+INSERT INTO cc_server_group (name, description) VALUES ('default', 'default group of server');
 
-CREATE TABLE cc_invoice_history (
-    id 								INT NOT NULL AUTO_INCREMENT,    
-    invoiceid 						int NOT NULL,	
-    invoicesent_date 				TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    invoicestatus 					INT,    
-    PRIMARY KEY (id)
-)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
-CREATE INDEX ind_cc_invoice_history ON cc_invoice_history (invoicesent_date);
-
-
-INSERT INTO cc_server_manager (server_ip, manager_host, manager_username, manager_secret) VALUES ('default', 'localhost', 'myasterisk', 'mycode');
 
 CREATE TABLE cc_invoices (
     id 								INT NOT NULL AUTO_INCREMENT,    
