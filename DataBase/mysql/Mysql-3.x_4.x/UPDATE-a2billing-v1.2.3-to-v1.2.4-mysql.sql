@@ -630,9 +630,11 @@ INSERT INTO cc_server_manager (server_ip, manager_host, manager_username, manage
 CREATE TABLE cc_server_group (
 	id 								BIGINT NOT NULL AUTO_INCREMENT,
 	name 							VARCHAR(60),
-	description						MEDIUMTEXT
+	description						MEDIUMTEXT,
+    PRIMARY KEY (id)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 INSERT INTO cc_server_group (name, description) VALUES ('default', 'default group of server');
+
 
 
 CREATE TABLE cc_invoices (
