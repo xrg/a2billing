@@ -121,22 +121,26 @@ if ($callback){
 								$addparameter = str_replace("%dialingnumber%", $prefix.$destination, $addparameter);
 								$dialstr .= $addparameter;
 							}
-				
-							/*
-							if (strlen($callback_time)>1){
-							$QUERY = " INSERT INTO cc_callback_spool (uniqueid, status, server_ip, num_attempt, channel, exten, context, priority, variable, callback_time, id_server_group ) VALUES ('$uniqueid', '$status', '$server_ip', '$num_attempt', '$channel', '$exten', '$context', '$priority', '$variable', '$callback_time', '$id_server_group')";
-							}else{
-								$QUERY = " INSERT INTO cc_callback_spool (uniqueid, status, server_ip, num_attempt, channel, exten, context, priority, variable, id_server_group ) ".
-									 " VALUES ('$uniqueid', '$status', '$server_ip', '$num_attempt', '$channel', '$exten', '$context', '$priority', '$variable', '$id_server_group')";
-							}
-							$res = $DBHandle -> query($QUERY);
 							
+							$channel= $dialstr;
+							$exten = $calling;
+							$context = $A2B -> config["callback"]['context_callback'];
+							$id_server_group = $A2B -> config["callback"]['id_server_group'];
+							$priority=1;
+							$timeout = $A2B -> config["callback"]['timeout']*1000;
+							$application='';
+							$callerid = $A2B -> config["callback"]['callerid'];
+							$account=$_SESSION["pr_login"];
+
+							$variable = "CALLED=$called|CALLING=$calling";
+							$QUERY = " INSERT INTO cc_callback_spool (uniqueid, status, server_ip, num_attempt, channel, exten, context, priority, variable, id_server_group ) VALUES ('$uniqueid', '$status', '$server_ip', '$num_attempt', '$channel', '$exten', '$context', '$priority', '$variable', '$id_server_group')";
+							$res = $A2B -> DBHandle -> query($QUERY);
+							echo $QUERY;
 							if (!$res){
-								write_log(basename(__FILE__).' line:'.__LINE__."[" . date("Y/m/d G:i:s", mktime()) . "] "." ERROR INSERT INTO DB");
-								sleep(2);
-								return array($transaction_id, '500 -- error processing query or fetching data', ' ERROR - INSERT CALLBACK INTO DB');
+								$error_msg= gettext("Cannot insert the callback request in the spool!");
 							}
-							*/
+							
+							/*
 							$as = new AGI_AsteriskManager();
 							
 							// && CONNECTING  connect($server=NULL, $username=NULL, $secret=NULL)
@@ -203,8 +207,8 @@ if ($callback){
 							}else{
 									$error_msg= gettext("Cannot connect to the asterisk manager!<br>Please check the manager configuration...");
 							}
-						
-												
+							*/
+							
 						}else{
 							$error_msg = gettext("<font face='Arial, Helvetica, sans-serif' size='2' color='red'><b>Error : You don t have enough credit to call you back !!!</b></font><br>");
 						}
