@@ -122,7 +122,21 @@ if ($callback){
 								$dialstr .= $addparameter;
 							}
 				
+							/*
+							if (strlen($callback_time)>1){
+							$QUERY = " INSERT INTO cc_callback_spool (uniqueid, status, server_ip, num_attempt, channel, exten, context, priority, variable, callback_time, id_server_group ) VALUES ('$uniqueid', '$status', '$server_ip', '$num_attempt', '$channel', '$exten', '$context', '$priority', '$variable', '$callback_time', '$id_server_group')";
+							}else{
+								$QUERY = " INSERT INTO cc_callback_spool (uniqueid, status, server_ip, num_attempt, channel, exten, context, priority, variable, id_server_group ) ".
+									 " VALUES ('$uniqueid', '$status', '$server_ip', '$num_attempt', '$channel', '$exten', '$context', '$priority', '$variable', '$id_server_group')";
+							}
+							$res = $DBHandle -> query($QUERY);
 							
+							if (!$res){
+								write_log(basename(__FILE__).' line:'.__LINE__."[" . date("Y/m/d G:i:s", mktime()) . "] "." ERROR INSERT INTO DB");
+								sleep(2);
+								return array($transaction_id, '500 -- error processing query or fetching data', ' ERROR - INSERT CALLBACK INTO DB');
+							}
+							*/
 							$as = new AGI_AsteriskManager();
 							
 							// && CONNECTING  connect($server=NULL, $username=NULL, $secret=NULL)

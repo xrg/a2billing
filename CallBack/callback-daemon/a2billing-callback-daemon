@@ -133,7 +133,7 @@ sub func_callback_processing{
 	
 	$SQL = "SELECT id, uniqueid, entry_time, status, server_ip, num_attempt, last_attempt_time, manager_result, agi_result, callback_time, channel, exten, context, priority, application, data, timeout, callerid, variable, account, async, actionid, id_server_group FROM cc_callback_spool WHERE status='PENDING'
 	AND entry_time > (CURRENT_TIMESTAMP - INTERVAL '24 HOUR') AND (callback_time IS NULL OR callback_time <= CURRENT_TIMESTAMP)";
-	
+	print STDOUT " SQL =".$SQL." \n";
 	# print LOGFILE $SQL;
 	
 	$sth = $dbh->prepare($SQL);
@@ -263,6 +263,7 @@ sub get_server{
 		$SQL = "SELECT id, server_ip, manager_host, manager_username, manager_secret, lasttime_used FROM cc_server_manager ORDER BY lasttime_used ASC LIMIT 1 OFFSET 0";
 	}
 	print LOGFILE " SQL =".$SQL." \n";
+	print STDOUT " SQL =".$SQL." \n";
 	
 	$sth = $dbh->prepare($SQL);
     $sth->execute();

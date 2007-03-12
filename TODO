@@ -4,6 +4,12 @@
 ********************************************************************************
 
 
+#### CALLBACK API_SPOOL_CALLBACK
+********************************************************************
+// USE RATE_ENGINE_FINDRATES - RATE_ENGINE_ALL_CALCULTIMEOUT - TARIFFGROUP BY DEFAULT TO FIND OUT THE CORRECT CHANNEL
+$channel = 'SIP/'.$phone_number.'@toreplace';
+
+
 #### RIGHT MANAGEMENT
 ********************************************************************
 Add new list of rights for the new option
