@@ -4,6 +4,12 @@
 ********************************************************************************
 
 
+#### RIGHT MANAGEMENT
+********************************************************************
+when u use this : "Add DID" and we assign a DID to a card
+a check should be proceed, if the DID don't belong to the user's DID group then it should warn the user/admin
+
+
 #### CALLBACK API_SPOOL_CALLBACK
 ********************************************************************
 // USE RATE_ENGINE_FINDRATES - RATE_ENGINE_ALL_CALCULTIMEOUT - TARIFFGROUP BY DEFAULT TO FIND OUT THE CORRECT CHANNEL
@@ -13,12 +19,6 @@ $channel = 'SIP/'.$phone_number.'@toreplace';
 #### RIGHT MANAGEMENT
 ********************************************************************
 Add new list of rights for the new option
-
-
-#### CALLBACK SQL
-********************************************************************
-- Add callback.sql
-- Remove 2 tables : cc_callback_spool & cc_server_manager
 
 
 #### GENERAL CHANGE IN CUSTOMER SIDE
