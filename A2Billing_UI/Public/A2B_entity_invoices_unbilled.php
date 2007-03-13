@@ -656,7 +656,9 @@ if (is_array($list_total_did) && count($list_total_did)>0)
   			  <td width="17%" class="invoice_td">Call Cost </td>
               <td width="25%" class="invoice_td" align="right">Amount (US $) </td>
             </tr>
-			<?php  		
+			<?php  
+			if (is_array($list_total_did) && count($list_total_did)>0)
+			{		
 				$i=0;				
 				foreach ($list_total_did as $data){	
 				$fcost = 0;
@@ -734,7 +736,18 @@ if (is_array($list_total_did) && count($list_total_did)>0)
 			  <td width="17%" class="invoice_td"><?php echo $totalcall_did?> </td>
 			  <td width="10%" class="invoice_td">&nbsp;</td>
               <td width="25%" align="right" class="invoice_td"><?php  display_2bill($totalcost_did) ?> </td>
-            </tr>            
+            </tr>    
+			<?php }else
+			{
+			
+			?>        
+			<tr >
+              <td width="18%" colspan="6">No DID Calls are made yet.</td>             
+			  
+            </tr>
+			<?php
+			}
+			?>
             <tr >
               <td width="18%">&nbsp;</td>
               <td width="15%">&nbsp;</td>

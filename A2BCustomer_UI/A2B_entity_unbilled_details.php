@@ -368,8 +368,10 @@ if($exporttype == "pdf")
 $currencies_list = get_currencies();
 //For DID DIAL & Fixed + Dial
 $totalcost = 0;
+$totalcallmade = 0;
 if (is_array($list_total_did) && count($list_total_did)>0)
 {
+	$totalcallmade = $totalcallmade  + count($list_total_did);
 	$mmax = 0;
 	$totalcall_did = 0;
 	$totalminutes_did = 0;
@@ -408,6 +410,7 @@ if (is_array($list_total_did) && count($list_total_did)>0)
 	$totalcost_did = $totalcost;
 
 	if (is_array($list_total_destination) && count($list_total_destination)>0){
+	$totalcallmade = $totalcallmade + count($list_total_destination);
 	$mmax=0;
 	$totalcall=0;
 	$totalminutes=0;	
@@ -419,8 +422,8 @@ if (is_array($list_total_did) && count($list_total_did)>0)
 	
 	}	
 	}
-$totalcallmade = 0;
-$totalcallmade = count($list_total_destination) + count($list_total_did);
+
+
 
 if ($totalcallmade > 0)
 {

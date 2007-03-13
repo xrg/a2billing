@@ -676,6 +676,8 @@ $totalcost_did = $totalcost;
               <td width="19%"  align="right"><font color="#003399"><b>Amount (US $)</b></font> </td>
             </tr>
 			<?php  		
+			if (is_array($list_total_did) && count($list_total_did)>0)
+			{	
 				$i=0;				
 				foreach ($list_total_did as $data){	
 				$fcost = 0;
@@ -753,7 +755,18 @@ $totalcost_did = $totalcost;
 			  <td width="14%" ><font color="#003399"><?php echo $totalcall_did?></font> </td>
 			  <td width="17%" >&nbsp;</td>
               <td width="19%" align="right" ><font color="#003399"><?php  display_2bill($totalcost_did) ?></font> </td>
-            </tr>            
+            </tr>    
+			<?php }else
+			{
+			
+			?>        
+			<tr >
+              <td width="18%" colspan="6">No DID Calls are made yet.</td>             
+			  
+            </tr>
+			<?php
+			}
+			?>        
             <tr >
               <td width="20%">&nbsp;</td>
               <td width="14%">&nbsp;</td>
