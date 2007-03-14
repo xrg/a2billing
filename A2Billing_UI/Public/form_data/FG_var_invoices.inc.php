@@ -9,31 +9,16 @@ $HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_LIMITE_DISPLAY = 10;
 
 
-// Weird Hack to allow TO PAY
-$QUERY="SELECT id from cc_card";
-$QUERY_REFILL="SELECT t1.id, sum(t3.credit) from cc_card as t1, cc_logrefill as t3 WHERE t1.id=t3.card_id GROUP BY t1.id";
-$QUERY_PAYMENT="SELECT t1.id, SUM(t2.payment) from cc_card as t1, cc_logpayment as t2 WHERE t1.id=t2.card_id GROUP BY t1.id";
-
-$instance = new Table();
-$DBhandle = DbConnect();
-$to_pay = $instance -> SQLExec($DBhandle,$QUERY);
-
-
-//QUERY_CREDIT=SELECT t1.id, SUM(t1.credit) from cc_card as t1 GROUP BY t1.id
-
-$HD_Form -> AddViewElement(gettext("CardNumber"), "username", "7%", "center", "sort", "15");
+$HD_Form -> AddViewElement(gettext("CARDNUMBER"), "username", "7%", "center", "sort", "15");
 $HD_Form -> AddViewElement(gettext("<acronym title=\"CARDALIAS\">ALIAS</acronym>"), "useralias", "12%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("LASTNAME"), "lastname", "10%", "center", "sort", "15");
 $HD_Form -> AddViewElement(gettext("CREDIT"), "credit", "7%", "center", "sort", "15");
 
-if($invoicetype == "billed")
-{
+if($invoicetype == "billed"){
 	$HD_Form -> AddViewElement(gettext("REFILL"), "refill", "10%", "center", "sort", "15", "lie", "cc_logrefill as t3", "SUM(t3.credit),t3.card_id", "t3.card_id='%id' GROUP BY t3.card_id", "%1");
 	$HD_Form -> AddViewElement(gettext("PAYMENT"), "payment", "7%", "center", "sort", "15", "lie", "cc_logpayment as t2", "SUM(t2.payment),t2.card_id", "t2.card_id='%id' GROUP BY t2.card_id", "%1");
 	$HD_Form -> AddViewElement(gettext("TO PAY"), "to pay", "7%", "center", "sort", "", "eval",'(%5-%4)'); //abs
-}
-else
-{
+} else {
 	$HD_Form -> AddViewElement(gettext("REFILL"), "refill", "10%", "center", "sort", "15", "lie", "cc_logrefill as t3", "CASE WHEN SUM(t3.credit) is NULL THEN 0 ELSE SUM(t3.credit) END", "t3.card_id='%id' AND t3.date >= (Select max(cover_enddate) from cc_invoices where cardid='%id')", "%1");
 	$HD_Form -> AddViewElement(gettext("PAYMENT"), "payment", "10%", "center", "sort", "15", "lie", "cc_logpayment as t2", "CASE WHEN SUM(t2.payment) is NULL THEN 0 ELSE SUM(t2.payment) END", "t2.card_id='%id' AND t2.date >= (Select max(cover_enddate) from cc_invoices where cardid='%id')", "%1");
 	$HD_Form -> AddViewElement(gettext("TO PAY"), "to pay", "7%", "center", "sort", "", "eval",'(%5-%4)'); //abs

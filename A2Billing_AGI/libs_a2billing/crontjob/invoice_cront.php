@@ -14,7 +14,7 @@ $currencies_list = get_currencies();
 
 //Flag to show the debuging information
 $debug = 1;
-		
+
 // Checking for Execution time from Config File;
 if(isset($A2B->config["invoice_system"]['invoiceday']))
 {
@@ -46,12 +46,12 @@ else
  	foreach($resmax as $Customer)
  	{		
 		$FG_TABLE_CLAUSE = "t1.username='$Customer[6]' AND t1.starttime >(Select CASE WHEN max(cover_enddate) is NULL THEN '0000-00-00 00:00:00' ELSE max(cover_enddate) END from cc_invoices)";
-																		  		
+		
 		$Query_Destinations = "SELECT destination, sum(t1.sessiontime) AS calltime, 
-		sum(t1.sessionbill) AS cost, count(*) as nbcall FROM cc_call t1 WHERE ".$FG_TABLE_CLAUSE." GROUP BY destination";		
+		sum(t1.sessionbill) AS cost, count(*) AS nbcall FROM cc_call t1 WHERE ".$FG_TABLE_CLAUSE." GROUP BY destination";		
 		
 		$res = $DBHandler -> query($Query_Destinations);		
-		$num = $res -> numRows();		
+		$num = $res -> numRows();
 		if($debug == 1)
 		{
 			echo "<br><br>No of Destinatios for '$Customer[6]' Found: ".$num;
@@ -149,7 +149,7 @@ else
 		// Here we have to check for the Last Invoice date to set the Cover Start date. 
 		// if a user dont have a Last invocie then we have to Set the Cover Start date to it Creation Date.
 		
-		$Query_billdate = "Select CASE WHEN max(cover_enddate) is NULL THEN '0000-00-00 00:00:00' END from cc_invoices where cardid='$Customer[0]'";
+		$Query_billdate = "SELECT CASE WHEN max(cover_enddate) is NULL THEN '0000-00-00 00:00:00' END FROM cc_invoices WHERE cardid='$Customer[0]'";
 		$resdate = $DBHandler -> query($Query_billdate);
 		$numdate = $resdate -> numRows();		
 		$invoice = $resdate -> fetchRow();
@@ -160,7 +160,6 @@ else
 		if ($numdate > 0 && $invoice[0]!= "0000-00-00 00:00:00")
 		{
 			// Customer Last Invoice Date
-			
 			$cover_startdate = $invoice[0];
 		}
 		else
