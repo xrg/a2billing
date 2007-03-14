@@ -1,0 +1,52 @@
+
+****************************************************************************************************
+									CALLBACK
+****************************************************************************************************
+
+
+CALLBACK
+
+	The Document Explains you following topics
+	1. Introduction
+	2. Basic description of the Callback
+	3. CallBack Solution
+		3.1 Web Callback
+		3.2 ANI Callback
+		3.3 DID Callback
+		3.4 API Callback.
+
+
+
+1. INTRODUCTION
+	
+	Astersik2Billing provides an extensive functionality to handle the Callback.
+	It supply solutions for Web Callback, ANI Callback, DID Callback, API Callback.
+
+
+
+2. BASIC DESCRIPTION OF THE CALLBACK
+
+	Description of the Callback in 10 steps :
+	
+		1. The client makes a phone call to one of our access numbers. His Caller ID information 
+		must be available from his phone carrier (not blocked).
+		
+		2. The server sees the incoming call and processes it with the appropriate context (ex. cid-callback)
+		
+		3. The custom_calling_card context will call the AGI provided with A2Billing (a2billing.php) and uses it in cid-callback mode. 
+		
+		4. The AGI will check the detected Caller ID and check if it’s an existing client. 
+		If that is the case, it will schedule a callback for that client and it will hang up the line.
+		
+		5. A few seconds later, the server calls the client and use an another context that will let A2Billing know that this is the 
+		2nd phase of a callback process.
+		
+		6. A2Billing will use the number called to lookup various account specific information (account balance, currency settings, and so on).
+		
+		7. As soon as the client picks up the line, A2Billing will play his remaining balance, and invite him to dial a number
+		
+		8. The client dials a number
+		
+		9. A2Billing will tell the maximum time for the call and so on.
+		
+		10. ...
