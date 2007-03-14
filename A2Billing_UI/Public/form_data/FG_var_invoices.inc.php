@@ -1,15 +1,12 @@
 <?php
 
-
 getpost_ifset(array('invoicetype'));
 
-$plang='en';
 
 $HD_Form = new FormHandler("cc_card","Card");
 
 $HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_LIMITE_DISPLAY = 10;
-// FAQ
 
 
 // Weird Hack to allow TO PAY
