@@ -871,3 +871,6 @@ INSERT INTO cc_configuration (configuration_title, configuration_key, configurat
 
 
 ALTER TABLE cc_card ADD COLUMN id_subscription_fee INT DEFAULT 0;
+
+UPDATE cc_ui_authen SET perms = '16383' WHERE userid = '1';
+UPDATE cc_ui_authen SET perms = '16383' WHERE userid = '2';

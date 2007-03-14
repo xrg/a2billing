@@ -5,7 +5,7 @@ include ("../lib/Form/Class.FormHandler.inc.php");
 include ("./form_data/FG_var_outbound_cid.php");
 include ("../lib/smarty.php");
 
-if (! has_rights (ACX_RATECARD)){
+if (! has_rights (ACX_OUTBOUNDCID)){
 	   Header ("HTTP/1.0 401 Unauthorized");
 	   Header ("Location: PP_error.php?c=accessdenied");
 	   die();

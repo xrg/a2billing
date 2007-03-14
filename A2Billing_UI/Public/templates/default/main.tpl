@@ -228,8 +228,8 @@ function imgidclick(imgID,divID, imgbase, imgchange)
 			</ul></li>
 		</ul>
 		</div>
-		
-		
+	{/if}	
+	{if ($ACXPACKAGEOFFER > 0)}	
 		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick_plus('img3_3','div3_3');"><img id="img3_3" 
 	{if ($section =="3_3")}	
 	src="templates/{$SKIN_NAME}/images/minus.gif"
@@ -251,7 +251,8 @@ function imgidclick(imgID,divID, imgbase, imgchange)
 			</ul></li>
 		</ul>
 		</div>
-		
+	{/if}	
+	{if ($ACXOUTBOUNDCID > 0)}	
 		
 		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick_plus('img3_5','div3_5');"><img id="img3_5" 
 	{if ($section =="3_5")}	
@@ -392,7 +393,7 @@ function imgidclick(imgID,divID, imgbase, imgchange)
 	{/if}
 	
 	
-	{if ($ACXCRONTSERVICE  > 0)}
+	{if ($ACXCALLBACK  > 0)}
 		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick_plus('img10','div10');"><img id="img10" 
 	{if ($section =="12")}
 	
@@ -445,7 +446,7 @@ function imgidclick(imgID,divID, imgbase, imgchange)
 		</ul>
 		</div>
 	{/if}
-	{if ($ACXDID  > 0)}
+	{if ($ACXPREDICTIVEDIALER  > 0)}
 		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick_plus('img61','div61');"><img id="img61" 
 	{if ($section =="9")}
 	

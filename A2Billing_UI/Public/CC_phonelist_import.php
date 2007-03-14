@@ -6,7 +6,7 @@ include ("../lib/smarty.php");
 set_time_limit(0);
 
 
-if (! has_rights (ACX_DID)){ 
+if (! has_rights (ACX_PREDICTIVE_DIALER)){ 
 	   Header ("HTTP/1.0 401 Unauthorized");
 	   Header ("Location: PP_error.php?c=accessdenied");	   
 	   die();	   

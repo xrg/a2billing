@@ -49,6 +49,11 @@ $smarty->assign("ACXCRONTSERVICE", $ACXCRONTSERVICE);
 $smarty->assign("ACXSIGNUP", $ACXSIGNUP);
 $smarty->assign("ACXADMINISTRATOR", $ACXADMINISTRATOR);
 $smarty->assign("ACXFILEMANAGER", $ACXFILEMANAGER);
+$smarty->assign("ACXCALLBACK", $ACXCALLBACK);
+$smarty->assign("ACXOUTBOUNDCID", $ACXOUTBOUNDCID);
+$smarty->assign("ACXPACKAGEOFFER", $ACXPACKAGEOFFER);
+$smarty->assign("ACXPREDICTIVEDIALER", $ACXPREDICTIVEDIALER);
+
 
 
 if($_GET["section"]!="")

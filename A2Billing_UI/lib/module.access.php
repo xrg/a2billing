@@ -17,7 +17,6 @@ define ("MODULE_ACCESS_DOMAIN",		"CallingCard System");
 define ("MODULE_ACCESS_DENIED",		"./Access_denied.htm");
 
 
-
 define ("ACX_CUSTOMER",					1);
 define ("ACX_BILLING",					2);			// 1 << 1
 define ("ACX_RATECARD",					4);			// 1 << 2
@@ -27,8 +26,11 @@ define ("ACX_CRONT_SERVICE",   			32);		// 1 << 5
 define ("ACX_ADMINISTRATOR",   			64);		// 1 << 6
 define ("ACX_FILE_MANAGER",   			128);		// 1 << 7
 define ("ACX_SIGNUP",   				256);		// 1 << 8
-define ("ACX_DID",   				512);		// 1 << 9
-
+define ("ACX_DID",   					512);		// 1 << 9
+define ("ACX_CALLBACK",					1024);		// 1 << 10
+define ("ACX_OUTBOUNDCID",				2048);		// 1 << 11
+define ("ACX_PACKAGEOFFER",				4096);		// 1 << 12
+define ("ACX_PREDICTIVE_DIALER",		8192);		// 1 << 13
 
 
 
@@ -84,7 +86,7 @@ if ((!session_is_registered('pr_login') || !session_is_registered('pr_password')
 		// if groupID egal 1, this user is a root
 		if ($return[3]==0){
 			$return = true;
-			$rights = 1023;	
+			$rights = 16383;	
 			
 			$is_admin = 1;
 			$pr_groupID = $return[3];
@@ -142,7 +144,7 @@ function login ($user, $pass) {
 	}
 
 	$row [] =$res -> fetchRow();
-
+	
 	return ($row[0]);
 }
 
@@ -161,7 +163,12 @@ $ACXCALLREPORT	= has_rights (ACX_CALL_REPORT);
 $ACXCRONTSERVICE= has_rights (ACX_CRONT_SERVICE);
 $ACXSIGNUP 		= has_rights (ACX_SIGNUP);
 $ACXADMINISTRATOR = has_rights (ACX_ADMINISTRATOR);
-$ACXFILEMANAGER = has_rights (ACX_FILE_MANAGER);	
+$ACXFILEMANAGER = has_rights (ACX_FILE_MANAGER);
+$ACXCALLBACK	= has_rights (ACX_CALLBACK);
+$ACXOUTBOUNDCID = has_rights (ACX_OUTBOUNDCID);
+$ACXPACKAGEOFFER = has_rights (ACX_PACKAGEOFFER);
+$ACXPREDICTIVEDIALER = has_rights (ACX_PREDICTIVE_DIALER);
 
+ 
 
 ?>
