@@ -3,7 +3,7 @@
 /***************************************************************************
  *            a2billing_subscription_fee.php
  *
- *  Fri Oct 27 14:17:10 2007 (in the train from Jemappes to Bruxelles)
+ *  Fri Feb 27 14:17:10 2007 (in the train from Jemappes to Bruxelles)
  *  Copyright  2007  User : Areski
  *  ADD THIS SCRIPT IN A CRONTAB JOB
  *
