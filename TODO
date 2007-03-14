@@ -3,6 +3,10 @@
                    			TODO LIST - SPECIFIC
 ********************************************************************************
 
+######## CURRENCY MANAGEMENT IN CRONT SERVICE 
+********************************************************************
+Currency management in cront service
+
 
 #### RIGHT MANAGEMENT
 ********************************************************************
@@ -15,22 +19,6 @@ a check should be proceed, if the DID don't belong to the user's DID group then 
 // USE RATE_ENGINE_FINDRATES - RATE_ENGINE_ALL_CALCULTIMEOUT - TARIFFGROUP BY DEFAULT TO FIND OUT THE CORRECT CHANNEL
 $channel = 'SIP/'.$phone_number.'@toreplace';
 
-
-#### UPDATE ACL : RIGHT MANAGEMENT
-********************************************************************
-A2Billing_UI/Public/A2B_entity_user.php?form_action=ask-add&atmenu=user&groupID=1&stitle=ACL+Admin+management&section=10
-
-Add new list of rights for the new options in the menu
-for instance add a new option for callback.
-Edit all the page of the callback and modify the access restriction to 
-fit with the new right.
-
-MODIFY ACX_RATECARD with the new right
-if (! has_rights (ACX_RATECARD)){ 
-	   Header ("HTTP/1.0 401 Unauthorized");
-	   Header ("Location: PP_error.php?c=accessdenied");	   
-	   die();	   
-}
 
 
 #### GENERAL CHANGE IN CUSTOMER SIDE
@@ -45,44 +33,11 @@ if (! has_rights (ACX_RATECARD)){
   CONSOLIDATE THE GETTEXT FILES
 
 
-#### UPDATE THE FORMAT OF THE SCRIPT : REARRANGE
-********************************************************************
-DataBase/mysql/Mysql-3.x_4.x/a2billing-mysql-schema-MYSQL.3.X-4.X_v1.2.4.sql
-DataBase/mysql/Mysql-5.x/a2billing-mysql-schema-MYSQL.5.X-v1.2.4.sql
-DataBase/psql/a2billing-pgsql-schema-v1.2.4.sql
-
-This :
-
-	CREATE TABLE cc_service_report (
-		id bigserial NOT NULL,
-		cc_service_id bigserial NOT NULL,
-		daterun timestamp(0) without time zone DEFAULT now(),
-		totalcardperform integer,
-		totalcredit double precision
-	);
-	ALTER TABLE ONLY cc_service_report
-	ADD CONSTRAINT cc_service_report_pkey PRIMARY KEY (id);
-	
-will become :
-
-	CREATE TABLE cc_service_report (
-		id 					BIGSERIAL NOT NULL,
-		cc_service_id 		BIGSERIAL NOT NULL,
-		daterun 			TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NOW(),
-		totalcardperform 	INTEGER,
-		totalcredit 		DOUBLE PRECISION
-	);
-	ALTER TABLE ONLY cc_service_report
-	ADD CONSTRAINT cc_service_report_pkey PRIMARY KEY (id);
-	
 
 #### a2billing.conf new section with all the log files
 ********************************************************************
 handle this in different part of the application (API, AGI, Cront)
 
-######## CURRENCY MANAGEMENT IN CRONT SERVICE 
-********************************************************************
-Currency management in cront service
 
 
 #### FEATURE : NEW DID MANAGEMENT
@@ -103,10 +58,6 @@ Yes. Here's how it works: Say you have a balance of ten (10) dollars. When your 
 
 
 
-######## CID GROUP DELETE
-********************************************************************
-when u delete a group of CID, it may remove all the CID inside that group
-
 
 ######## DID RANGE 
 ********************************************************************
@@ -115,16 +66,24 @@ support range and coma
 
 
 
-######## TO CHECK ON CID ROUTING
+######## ACTIVATED TO CHECK ON CID ROUTING
 ********************************************************************
+CREATE TABLE cc_outbound_cid_list (
+    id 					BIGSERIAL NOT NULL,
+	outbound_cid_group	NOT NULL,
+	cid					TEXT NOT NULL,    
+    activated 			CHAR(1)	DEFAULT 't' NOT NULL,
+    creationdate 		TIMESTAMP(0) without time zone DEFAULT now()   
+);
+ALTER TABLE ONLY cc_outbound_cid_list
+ADD CONSTRAINT cc_outbound_cid_list_pkey PRIMARY KEY (id);
 
-something I see in the DB change u made
-activated CHAR(1)       DEFAULT 't' NOT NULL,
-
-I will prefer we use always the following type
+We have 	activated 		CHAR(1) DEFAULT 't' NOT NULL,
+We should always use the following type
 activated INTEGER NOT NULL DEFAULT 0,
+(0 false ; 1 True)
 
-
+Update webinterface and AGI accordingly 
 
 ######## NOTE FROM CHRISTEAS : BACKUP DB
 ********************************************************************

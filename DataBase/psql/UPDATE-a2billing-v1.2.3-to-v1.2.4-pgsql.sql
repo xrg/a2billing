@@ -761,7 +761,7 @@ CREATE TABLE cc_outbound_cid_list (
     id 					BIGSERIAL NOT NULL,
 	outbound_cid_group	NOT NULL,
 	cid					TEXT NOT NULL,    
-    activated CHAR(1)	DEFAULT 't' NOT NULL,
+    activated 			CHAR(1)	DEFAULT 't' NOT NULL,
     creationdate 		TIMESTAMP(0) without time zone DEFAULT now()   
 );
 ALTER TABLE ONLY cc_outbound_cid_list
@@ -887,4 +887,3 @@ ALTER TABLE cc_card ADD COLUMN id_subscription_fee INTEGER DEFAULT 0;
 
 UPDATE cc_ui_authen SET perms = '16383' WHERE userid = '1';
 UPDATE cc_ui_authen SET perms = '16383' WHERE userid = '2';
-

@@ -5,6 +5,58 @@
 ********************************************************************
 
 
+######## CID GROUP DELETE
+********************************************************************
+when u delete a group of CID, it may remove all the CID inside that group
+
+
+#### UPDATE ACL : RIGHT MANAGEMENT
+********************************************************************
+A2Billing_UI/Public/A2B_entity_user.php?form_action=ask-add&atmenu=user&groupID=1&stitle=ACL+Admin+management&section=10
+
+Add new list of rights for the new options in the menu
+for instance add a new option for callback.
+Edit all the page of the callback and modify the access restriction to 
+fit with the new right.
+
+MODIFY ACX_RATECARD with the new right
+if (! has_rights (ACX_RATECARD)){ 
+	   Header ("HTTP/1.0 401 Unauthorized");
+	   Header ("Location: PP_error.php?c=accessdenied");	   
+	   die();	   
+}
+
+#### UPDATE THE FORMAT OF THE SCRIPT : REARRANGE
+********************************************************************
+DataBase/mysql/Mysql-3.x_4.x/a2billing-mysql-schema-MYSQL.3.X-4.X_v1.2.4.sql
+DataBase/mysql/Mysql-5.x/a2billing-mysql-schema-MYSQL.5.X-v1.2.4.sql
+DataBase/psql/a2billing-pgsql-schema-v1.2.4.sql
+
+This :
+
+	CREATE TABLE cc_service_report (
+		id bigserial NOT NULL,
+		cc_service_id bigserial NOT NULL,
+		daterun timestamp(0) without time zone DEFAULT now(),
+		totalcardperform integer,
+		totalcredit double precision
+	);
+	ALTER TABLE ONLY cc_service_report
+	ADD CONSTRAINT cc_service_report_pkey PRIMARY KEY (id);
+	
+will become :
+
+	CREATE TABLE cc_service_report (
+		id 					BIGSERIAL NOT NULL,
+		cc_service_id 		BIGSERIAL NOT NULL,
+		daterun 			TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NOW(),
+		totalcardperform 	INTEGER,
+		totalcredit 		DOUBLE PRECISION
+	);
+	ALTER TABLE ONLY cc_service_report
+	ADD CONSTRAINT cc_service_report_pkey PRIMARY KEY (id);
+	
+
 ######## CURRENCY MANAGEMENT IN CRONT SUBSCRIPTION FEE
 ********************************************************************
 Currency management in cront subscription fee
