@@ -3,6 +3,23 @@
                    			TODO LIST - SPECIFIC
 ********************************************************************************
 
+#### FEATURE : NEW DID MANAGEMENT
+********************************************************************
+Reservation and release
+* To check
+
+#### DOCUMENTATION : SMARTY & NEW DID MANAGEMENT
+********************************************************************
+- How smarty works and how to customize the design of a2billing with smarty and css
+- Doc/DID_Billing.info to conitnue : make a detailed explanation of how to configure and use 
+  the DID billing explain a real case when we need to sell DIDs through A2Billing
+
+
+#### DOCUMENTATION : SMARTY
+********************************************************************
+- How smarty works and how to customize the design of a2billing with smarty and css
+
+
 ######## CURRENCY MANAGEMENT IN CRONT SERVICE 
 ********************************************************************
 Currency management in cront service
@@ -40,12 +57,6 @@ handle this in different part of the application (API, AGI, Cront)
 
 
 
-#### FEATURE : NEW DID MANAGEMENT
-********************************************************************
-Reservation and release
-* To check and document
-
-
 ######## CREDIT RESERVE - SIMULTANEOUS ACCESS
 ********************************************************************
 
@@ -65,25 +76,6 @@ Add the same feature that is used on CID to add a new callerID
 support range and coma
 
 
-
-######## ACTIVATED TO CHECK ON CID ROUTING
-********************************************************************
-CREATE TABLE cc_outbound_cid_list (
-    id 					BIGSERIAL NOT NULL,
-	outbound_cid_group	NOT NULL,
-	cid					TEXT NOT NULL,    
-    activated 			CHAR(1)	DEFAULT 't' NOT NULL,
-    creationdate 		TIMESTAMP(0) without time zone DEFAULT now()   
-);
-ALTER TABLE ONLY cc_outbound_cid_list
-ADD CONSTRAINT cc_outbound_cid_list_pkey PRIMARY KEY (id);
-
-We have 	activated 		CHAR(1) DEFAULT 't' NOT NULL,
-We should always use the following type
-activated INTEGER NOT NULL DEFAULT 0,
-(0 false ; 1 True)
-
-Update webinterface and AGI accordingly 
 
 ######## NOTE FROM CHRISTEAS : BACKUP DB
 ********************************************************************

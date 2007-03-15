@@ -5,6 +5,26 @@
 ********************************************************************
 
 
+######## ACTIVATED TO CHECK ON CID ROUTING
+********************************************************************
+CREATE TABLE cc_outbound_cid_list (
+    id 					BIGSERIAL NOT NULL,
+	outbound_cid_group	NOT NULL,
+	cid					TEXT NOT NULL,    
+    activated 			CHAR(1)	DEFAULT 't' NOT NULL,
+    creationdate 		TIMESTAMP(0) without time zone DEFAULT now()   
+);
+ALTER TABLE ONLY cc_outbound_cid_list
+ADD CONSTRAINT cc_outbound_cid_list_pkey PRIMARY KEY (id);
+
+We have 	activated 		CHAR(1) DEFAULT 't' NOT NULL,
+We should always use the following type
+activated INTEGER NOT NULL DEFAULT 0,
+(0 false ; 1 True)
+
+Update webinterface and AGI accordingly 
+
+
 ######## CID GROUP DELETE
 ********************************************************************
 when u delete a group of CID, it may remove all the CID inside that group
