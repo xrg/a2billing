@@ -1783,7 +1783,7 @@ CREATE TABLE cc_outbound_cid_list (
     id 					BIGSERIAL NOT NULL,
 	outbound_cid_group	BIGINT NOT NULL,
 	cid					TEXT NOT NULL,    
-    activated CHAR(1)	DEFAULT 't' NOT NULL,
+    activated 			INTEGER NOT NULL DEFAULT 0,
     creationdate 		TIMESTAMP(0) without time zone DEFAULT NOW()   
 );
 ALTER TABLE ONLY cc_outbound_cid_list

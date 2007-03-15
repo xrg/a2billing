@@ -754,7 +754,7 @@ CREATE TABLE cc_outbound_cid_list (
     id 					INT NOT NULL AUTO_INCREMENT,
 	outbound_cid_group	INT NOT NULL,
 	cid					CHAR(100) NULL,    
-    activated CHAR(1)	DEFAULT 't' NOT NULL,
+    activated 			INT NOT NULL DEFAULT 0,
     creationdate 		TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,    
     PRIMARY KEY (id)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;

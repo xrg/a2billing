@@ -952,11 +952,11 @@ class RateEngine {
 			//$myres = $agi->agi_exec("EXEC DIAL SIP/3465078XXXXX@254.20.7.28|30|HL(" . ($timeout * 60 * 1000) . ":60000:30000)");
 
 			if ($A2B->config["database"]['dbtype'] == "postgres"){
-				$QUERY = "SELECT cid FROM cc_outbound_cid_list WHERE outbound_cid_group = $cidgroupid ORDER BY RANDOM() LIMIT 1";
+				$QUERY = "SELECT cid FROM cc_outbound_cid_list WHERE activated = 1 AND outbound_cid_group = $cidgroupid ORDER BY RANDOM() LIMIT 1";
 			}
 			else
 			{
-				$QUERY = "SELECT cid FROM cc_outbound_cid_list WHERE outbound_cid_group = $cidgroupid ORDER BY RAND() LIMIT 1";	
+				$QUERY = "SELECT cid FROM cc_outbound_cid_list WHERE activated = 1 AND outbound_cid_group = $cidgroupid ORDER BY RAND() LIMIT 1";	
 			}
 		
 
