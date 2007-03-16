@@ -3,6 +3,19 @@
                    			TODO LIST - SPECIFIC
 ********************************************************************************
 
+#### FORMAT
+********************************************************************
+-> A2Billing_UI/Public/A2B_entity_payment_settings.php?method=authorizenet&id=1
+the button Update and Cancel should have a format button similar at the "Change"
+button in the left corner.
+
+
+#### CHECK DESIGN ERROR WITH IE (INTERNET EXPLORER)
+********************************************************************
+- licence at the bottom is broken
+- anything else we find, etc...
+
+
 #### FEATURE : NEW DID MANAGEMENT
 ********************************************************************
 Reservation and release

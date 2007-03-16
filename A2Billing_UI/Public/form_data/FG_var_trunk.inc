@@ -1,12 +1,11 @@
 <?php
 
-
 getpost_ifset(array('id', 'trunkcode', 'trunkprefix', 'removeprefix', 'providertech', 'providerip', 'addparameter','failover_trunk', 'id_provider', 'popup_select'));
+
 
 $HD_Form = new FormHandler("cc_trunk","trunk");
 
 $HD_Form -> FG_DEBUG = 0;
-// FAQ
 $HD_Form -> FG_TABLE_ID = " id_trunk";
 $HD_Form -> FG_TABLE_DEFAULT_ORDER = " id_trunk";
 $HD_Form -> FG_EDITION_CLAUSE = " id_trunk='%id' ";

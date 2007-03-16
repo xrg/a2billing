@@ -6,7 +6,7 @@ include ("./form_data/FG_var_payment_configuration.inc");
 include ("../lib/smarty.php");
 
 
-if (! has_rights (ACX_RATECARD)){
+if (! has_rights (ACX_BILLING)){
 	   Header ("HTTP/1.0 401 Unauthorized");
 	   Header ("Location: PP_error.php?c=accessdenied");
 	   die();
@@ -37,8 +37,7 @@ $list = $HD_Form -> perform_action($form_action);
 $smarty->display('main.tpl');
 
 // #### HELP SECTION
-if ($form_action=='list') echo '<br><br>'.$CC_help_list_payment_methods;
-else echo '<br><br>'.$CC_help_edit_did;
+echo '<br><br>'.$CC_help_list_payment_methods;
 
 
 // #### TOP SECTION PAGE
