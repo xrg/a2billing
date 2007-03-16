@@ -182,7 +182,7 @@ body {
 	width: auto;
 }
 .form_enter {
-	background-color: #F5F6F5;
+	background-color: #F9FBF9;
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 11px;
 	font-weight: bold;
@@ -312,7 +312,7 @@ SPAN.errorText {
 	font-weight: bold;
 	color: #FF0000;
 	border: 1px solid #C1C1C1;
-	background-color: #F5F6F5;
+	background-color: #F9FBF9;
 	height:30px;
 }
 .forgetpassword_box{
@@ -698,7 +698,7 @@ SPAN.errorText {
 	color: White;
 }
 .form_input_button {
-	background-color: #F5F6F5;
+	background-color: #F9FBF9;
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 11px;
 	font-weight: bold;
@@ -709,7 +709,7 @@ SPAN.errorText {
 	border-bottom: #FF5500 2px ridge;
 }
 .form_input_select {
-	background-color: #F5F6F5;
+	background-color: #F9FBF9;
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 11px;
 	font-weight: bold;
@@ -717,7 +717,7 @@ SPAN.errorText {
 }
 .form_input_textarea
 {
-	background-color: #F5F6F5;
+	background-color: #F9FBF9;
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 11px;
 	font-weight: bold;
@@ -730,7 +730,7 @@ SPAN.errorText {
 	font-size: 11px;	
 	color: #BC2222;	
 	font-family: Arial, Helvetica, sans-serif;
-	background-color: #F5F6F5;
+	background-color: #F9FBF9;
 	border-right: #FF7777 1px dashed;
 	border-top: #FF7777 1px dashed;
 	border-left: #FF7777 1px dashed;
