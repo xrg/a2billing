@@ -9,8 +9,8 @@ set_time_limit(0);
 
 if (! has_rights (ACX_RATECARD)){ 
 	   Header ("HTTP/1.0 401 Unauthorized");
-	   Header ("Location: PP_error.php?c=accessdenied");	   
-	   die();	   
+	   Header ("Location: PP_error.php?c=accessdenied");
+	   die();
 }
 
 $FG_DEBUG = 0;
@@ -336,7 +336,7 @@ function moveSourceDown()
                 <tr> 
                   <td colspan="2"> 
                     <div align="center"><span class="textcomment"> 
-                      
+
 
 					  <?php echo gettext("Use the example below  to format the CSV file. Fields are separated by  ; or :");?></br>
 					  <?php echo gettext(". and , are used for decimal format.");?>
@@ -356,7 +356,7 @@ function moveSourceDown()
 						</center>
 					  
                   </td>
-                </tr>                
+                </tr>
                 <tr> 
                   <td colspan="2"> 
                     <p align="center"><span class="textcomment"> 
@@ -367,11 +367,11 @@ function moveSourceDown()
                       <input type="hidden" name="task" value="upload">
                       <input name="the_file" type="file" size="50" onFocus=this.select() class="saisie1">
                       <input type="button" style="border: 2px outset rgb(204, 51, 0);"  value="Import RateCard" onFocus=this.select() class="form_enter" name="submit1" onClick="sendtoupload(this.form);">
-					   </p>     
+					   </p>
                   </td>
                 </tr>
-               
-               
+
+
               </form>
             </table>
 </center>

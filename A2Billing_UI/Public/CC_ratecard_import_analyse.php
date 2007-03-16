@@ -8,8 +8,8 @@ set_time_limit(0);
 
 if (! has_rights (ACX_RATECARD)){ 
 	   Header ("HTTP/1.0 401 Unauthorized");
-	   Header ("Location: PP_error.php?c=accessdenied");	   
-	   die();	   
+	   Header ("Location: PP_error.php?c=accessdenied");
+	   die();
 }
 
 getpost_ifset(array('tariffplan','trunk', 'search_sources', 'task', 'status'));
@@ -188,7 +188,7 @@ if ($task=='upload'){
 			 //if ($nb_imported==1000) break;
              $ligneoriginal = fgets($fp,4096);  /* On se déplace d'une ligne */   
 			 $ligneoriginal = trim ($ligneoriginal);
-			 $ligneoriginal = strtolower($ligneoriginal);
+			 //$ligneoriginal = strtolower($ligneoriginal);
 				
 			 
 			 for ($i = 0; $i < strlen($chaine1); $i++)   
@@ -275,7 +275,7 @@ if ($task=='upload'){
 				
 			}
 			
-			             
+			
 		} // END WHILE EOF
 		
 		
@@ -355,7 +355,7 @@ function sendtoupload(form){
 	  ?>
 
 
-          
+
 		<?php  if ($status!="ok"){?> 
 		
 		<center>As a preview for the import, we have made a quick analyze of the first line of your csv file.<br/>
@@ -363,7 +363,7 @@ function sendtoupload(form){
 		
 		<table align=center border="0" cellpadding="2" cellspacing="2" width="300">
 			<tbody>
-                <tr class="form_head">                  					
+                <tr class="form_head">
                   <td class="tableBody" style="padding: 2px;" align="center" width="50%"> 
                     <strong> <span class="white_link">FIELD </span> </strong>
 				  </td>
@@ -394,7 +394,7 @@ function sendtoupload(form){
 				
 			</tbody>
 		</table>
-						                  		 
+	
 
 			
 			
