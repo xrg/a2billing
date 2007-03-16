@@ -1,5 +1,5 @@
 <?php
-error_reporting( E_ALL - E_NOTICE );
+error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
 
 include (dirname(__FILE__)."/company_info.php");
 
@@ -50,6 +50,14 @@ else
 $smarty->assign("section", $section);
 
 $smarty->assign("SKIN_NAME", $skin_name);
+// if it is a pop window
+if (!is_numeric($popup_select))
+{
+	$popup_select=0;
+}
+// for menu
+$smarty->assign("popupwindow", $popup_select);
+
 
 // OPTION FOR THE MENU
 $smarty->assign("A2Bconfig", $A2B->config);

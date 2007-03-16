@@ -206,6 +206,7 @@ function imgidclick(imgID,divID, imgbase, imgchange)
 //-->
 </script>
 {/literal}
+{if ($popupwindow == 0)}
 {if ($EXPORT == 0)}
 <div class="divleft">
 
@@ -338,4 +339,5 @@ function imgidclick(imgID,divID, imgbase, imgchange)
 
 </div>
 <div class="divright">
+{/if}
 {/if}
