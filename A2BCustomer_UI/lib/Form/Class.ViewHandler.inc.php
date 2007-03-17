@@ -92,6 +92,7 @@ $nb_site = is_array($list_site) ? count($list_site) : 0 ;
  // ******************** END IF $topviewer *******************************
  
  	$stitle = $_GET['stitle'];
+	$ratesort = $_GET['ratesort'];
 	$current_page = $_GET['current_page'];
 	$this->FG_ORDER = $_GET['order']; // really need ?!
 	$this->FG_SENS = $_GET['sens']; // really need  ?
@@ -358,7 +359,8 @@ function openURLFilter(theLINK)
 								if (substr($new_FG_OTHER_BUTTON1_LINK,-1)=='=') echo $list[$ligne_number][$this->FG_NB_TABLE_COL];
 
 								if (strlen($this -> FG_OTHER_BUTTON1_IMG)==0){
-									echo '">'.$this->FG_OTHER_BUTTON1_ALT;
+									echo '"> '.'<span class="cssbutton">'.$this->FG_OTHER_BUTTON1_ALT.'</span>';
+									// onclick="location.href='http://www.google.com'"
 								}else{
 									?>"><img src="<?php echo $this -> FG_OTHER_BUTTON1_IMG?>" border="0" title="<?php echo $this->FG_OTHER_BUTTON1_ALT?>" alt="<?php echo $this->FG_OTHER_BUTTON1_ALT?>"><?
 
@@ -403,7 +405,9 @@ function openURLFilter(theLINK)
 								if (substr($new_FG_OTHER_BUTTON2_LINK,-1)=='=') echo $list[$ligne_number][$this->FG_NB_TABLE_COL];
 
 								if (strlen($this -> FG_OTHER_BUTTON2_IMG)==0){
-									echo '">'.$this->FG_OTHER_BUTTON2_ALT;
+									//echo '">'.$this->FG_OTHER_BUTTON2_ALT;
+									// echo '"> '.'<input class="form_input_button"  value=" '.$this->FG_OTHER_BUTTON2_ALT.' " type="button">';
+									echo '"> '.'<span class="cssbutton">'.$this->FG_OTHER_BUTTON2_ALT.'</span>';
 								}else{
 									?>"><img src="<?php echo $this -> FG_OTHER_BUTTON2_IMG?>" border="0" title="<?php echo $this->FG_OTHER_BUTTON2_ALT?>" alt="<?php echo $this->FG_OTHER_BUTTON2_ALT?>"><?
 
@@ -451,7 +455,7 @@ function openURLFilter(theLINK)
 
 
 					<?php
-					$c_url = $_SERVER['PHP_SELF'].'?stitle='.$stitle.'&atmenu='.$atmenu.'&current_page=%s'."&filterprefix=".$_GET['filterprefix']."&order=".$_GET['order']."&sens=".$_GET['sens']."&mydisplaylimit=".$_GET['mydisplaylimit'].$this-> CV_FOLLOWPARAMETERS;
+					$c_url = $_SERVER['PHP_SELF'].'?stitle='.$stitle.'&atmenu='.$atmenu.'&current_page=%s'."&filterprefix=".$_GET['filterprefix']."&order=".$_GET['order']."&sens=".$_GET['sens']."&mydisplaylimit=".$_GET['mydisplaylimit']."&ratesort=".$ratesort.$this-> CV_FOLLOWPARAMETERS;
 					if (!is_null($letter) && ($letter!=""))   $c_url .= "&letter=".$_GET['letter'];
 
 					$this -> printPages($this -> CV_CURRENT_PAGE+1, $this -> FG_NB_RECORD_MAX, $c_url) ;

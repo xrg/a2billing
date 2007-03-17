@@ -157,8 +157,10 @@ body {
 	FONT-SIZE: 10px;
 
 }
-.tableDivider {
-	BACKGROUND: #e1e1e1; HEIGHT: 1px
+.tableDivider 
+{
+	background-color: #e1e1e1;
+	HEIGHT: 1px
 }
 .white_link {
 	font-size: 10px;
@@ -179,6 +181,15 @@ body {
 	text-transform: uppercase;
 	color: #FFFFFF;
 	background-color: #666666;
+	width: auto;
+}
+.form_head_red {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: bold;
+	text-transform: uppercase;
+	color: #FFFFFF;
+	background-color: #c33333;
 	width: auto;
 }
 .form_enter {
@@ -220,7 +231,7 @@ SPAN.errorText {
 	position: absolute;
 	z-index: 0;
 	height: auto;
-	width: 155px;
+	width: 165px;
 	left: 2px;
 	top: 35px;
 }
@@ -248,9 +259,6 @@ SPAN.errorText {
 	font-weight: bold;
 	color: #FFFFFF;
 }
-.callhistory_td2{
-	background-color: #600101;
-}
 .callhistory_td3{
 	background-color: #b72222;
 	font-family: Verdana;
@@ -274,6 +282,11 @@ SPAN.errorText {
 	font-size: 10px;
 	color: #000000;
 }
+.fontstyle_002
+{
+	color: #AA4444;
+}
+
 .callhistory_maintable{	
 	width: 77%;
 	border: 0px none;
@@ -328,7 +341,7 @@ SPAN.errorText {
 	background-image: url(../images/security.png);
 	width: 64px;
 	height:64px;
-	background-repeat: no-repeat;	
+	background-repeat: no-repeat;
 }
 .bgcolor_007{
 	background-color: #DDDDDD;
@@ -387,6 +400,65 @@ SPAN.errorText {
 .bgcolor_011
 {
 	background-color: #55CC55;
+}
+.bgcolor_012
+{
+	background-color: #ABABAB;
+}
+.bgcolor_013
+{
+	background-color: #ED2525;
+}
+.bgcolor_014
+{
+	background-color: #E6E6E6;
+}
+.bgcolor_015
+{
+	background-color: #EDEDED;
+}
+.bgcolor_016
+{
+	background-color: #ffffff;
+}
+.bgcolor_017
+{
+	background-color: #EaEaEa;
+}
+.bgcolor_018
+{
+	background-color: #FaFaFa;
+}
+.bgcolor_019{
+	background-color: #600101;
+}
+.bgcolor_020
+{
+	background-color: #b72222;
+}
+.bgcolor_021
+{
+	background-color: #7f99cc;
+}
+.bgcolor_022
+{
+	background-color: #c0c0c0;
+}
+.bgcolor_023
+{
+	background-color: #808080;
+}
+.bgcolor_024
+{
+	background-color: #edf3ff;
+}
+.bgcolor_025
+{
+	background-color: #F2E8ED;
+}
+.bgcolor_026
+{
+	background-color: #D2D8ED;
 }
 .voucher_table1
 {
@@ -722,7 +794,10 @@ SPAN.errorText {
 	font-size: 11px;
 	font-weight: bold;
 	color: #BC2222;
-	border: 1px solid #C1C1C1;	
+	border-right: #FF7777 1px dashed;
+	border-top: #FF7777 1px dashed;
+	border-left: #FF7777 1px dashed;
+	border-bottom: #FF7777 1px dashed;
 }
 .form_input_text
 {
@@ -773,6 +848,18 @@ SPAN.errorText {
 {
 	font-weight: bold;	
 }
+.fontstyle_005
+{
+	color: Red;
+	font-weight: bold;	
+}
+.fontstyle_006
+{	
+	font-size: 11px;
+	color: #333333;
+	font-family: Verdana;
+}
+
 .bgcolor_002
 {
 	background-color: #555577;	
@@ -864,11 +951,11 @@ SPAN.errorText {
 }
 .editform_table3_td3
 {
-	PADDING-BOTTOM: 4px;
-	PADDING-LEFT: 4px;
-	PADDING-RIGHT: 4px;
-	PADDING-TOP: 4px;
-	FONT-SIZE: 10px;
+	padding-bottom: 4px;
+	padding-left: 4px;
+	padding-right: 4px;
+	padding-top: 4px;
+	font-size: 10px;
 	background-image: url(./<?php echo Images_Path_Main ?>/background_cells.gif);	
 }
 .editform_table4
@@ -1098,7 +1185,6 @@ SPAN.errorText {
 	font-family: Arial, Verdana;	
 	background-color: lightgrey;
 	text-align: left;
-	border-color:
 }
 .invoice_td
 {
@@ -1114,4 +1200,33 @@ SPAN.errorText {
 	border-bottom: 1px solid;
 	border-right: 1px solid;
 	font-family: Arial, Verdana;
+}
+
+
+.cssbutton_old {
+	background: #fff;
+	padding: 1px;
+	font-family: Arial, Verdana;
+	//font-size: x-small;
+	//font-variant : small-caps;
+	border : 1px solid #BC2222;
+}
+.button_inside {
+	color: #BC2222;
+	background: #F3EDD9;
+	padding: 0px 3px 0px 3px;
+	text-align: center;
+}
+
+.cssbutton {
+	background-color: #F9FBF9;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 9px;
+	color: #BC2222;
+	border-right: #FF5500 2px ridge;
+	border-top: #FF5500 2px ridge;
+	border-left: #FF5500 2px ridge;	
+	border-bottom: #FF5500 2px ridge;
+	padding: 0px 3px 0px 3px;
+	text-align: center;
 }

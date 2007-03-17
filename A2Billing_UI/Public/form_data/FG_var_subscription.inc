@@ -53,7 +53,7 @@ $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;
 $HD_Form -> FG_EDITION = true;
 $HD_Form -> FG_DELETION = true;
 // View Details
-$HD_Form -> FG_OTHER_BUTTON1 = true;
+// $HD_Form -> FG_OTHER_BUTTON1 = true;
 // |param| will be replace by id .
 // you don't need that, if you don't supply any |param| string id will be append after FG_OTHER_BUTTON1_LINK.
 
