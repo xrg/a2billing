@@ -155,10 +155,10 @@ echo $CC_help_list_customer;
 	<div id="div54000" style="display:none;">
 	   <table width="95%" border="0" align="center">
         <tr><form NAME="theForm">
-		   <td align="left" width='5%'><img src="<?php echo KICON_PATH; ?>/pipe.png">
+		   <td align="left" width="5%"><img src="<?php echo KICON_PATH; ?>/pipe.png">
 		   </td>
-          <td align="left" width='35%'  bgcolor="bgcolor_001">
-           	<table  class="bgcolor_012" width='100%'>
+          <td align="left" width="35%" class="bgcolor_001">
+           	<table>
 			<tr><td align="center">
 			   <?php echo gettext("CARD ID");?>	 :<input class="form_input_text" name="choose_list" onfocus="clear_textbox2();" size="18" maxlength="16" value="enter ID Card">
 				<a href="#" onclick="window.open('A2B_entity_card.php?nodisplay=1&popup_select=1&popup_formname=theForm&popup_fieldname=choose_list' , 'CardNumberSelection','width=550,height=330,top=20,left=100');"><img src="<?php echo Images_Path;?>/icon_arrow_orange.gif"></a>
@@ -169,7 +169,7 @@ echo $CC_help_list_customer;
 			</td></tr>
 			</table>
 		</td>
-		<td  class="bgcolor_001">	-				
+		<td  class="bgcolor_001">		
 				<select NAME="opt" size="1" class="form_input_select"><option value='0'><?php echo gettext("REFILL");?> </option></select>
 				<input class="form_enter" name="addcredit" size="18" maxlength="6" value="">
 				<input class="form_input_button" 

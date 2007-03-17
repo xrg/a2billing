@@ -3,6 +3,22 @@
                    			TODO LIST - SPECIFIC
 ********************************************************************************
 
+
+#### BUG : DID BILLING
+********************************************************************
+bug DID billing
+we create a DID with no monthly cost for instance free or just dialout cost!!
+When the use take the DID from the customer interface, it still have to pay for it
+we dont check the billingtype of DID
+
+#### BUG : DID  (not urgent)
+********************************************************************
+I Create a Card when I dont have  any DID Group
+and I Simply Go and Create DID Group
+and Create a Destination and Bind it with a Card
+Go to the Client Side You will see the Destination in the Card
+but when you will go to edit the Destination you will see the DIDGroup List is Not Loaded
+
 #### FORMAT
 ********************************************************************
 -> A2Billing_UI/Public/A2B_entity_payment_settings.php?method=authorizenet&id=1

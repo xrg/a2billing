@@ -105,7 +105,7 @@
 						$result = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY, 0);
 						if ($verbose_level>=1) echo "==> UPDATE CARD QUERY: 	$QUERY\n";
 						
-						$QUERY = "UPDATE cc_did_use set month_payed = month_payed+1 WHERE id_did = '".$mydids[0]."' and activated = 1 and releasedate IS NULL" ;
+						$QUERY = "UPDATE cc_did_use set month_payed = month_payed+1 WHERE id_did = '".$mydids[0]."' AND activated = 1 AND releasedate IS NULL" ;
 						if ($verbose_level>=1) echo "==> UPDATE DID USE QUERY: 	$QUERY\n";
 						$result = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY, 0);
 						
@@ -127,7 +127,7 @@
 					}	
 				}
 			} else {
-					$QUERY = "UPDATE cc_did set iduser = 0,reserved=0 where id='".$mydids[0]."'" ;
+					$QUERY = "UPDATE cc_did set iduser = 0, reserved = 0 WHERE id='".$mydids[0]."'" ;
 					$result = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY, 0);
 					$QUERY = "UPDATE cc_did_use set releasedate = now() where id_did = '".$mydids[0]."' and activated = 1" ;
 					$result = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY, 0);
