@@ -12,7 +12,6 @@ if (! has_rights (ACX_ACCESS)){
 
 if (!$A2B->config["webcustomerui"]['simulator']) exit;
 
-
 $QUERY = "SELECT  username, credit, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, lastuse, activated, id,tariff FROM cc_card WHERE username = '".$_SESSION["pr_login"]."' AND uipass = '".$_SESSION["pr_password"]."'";
 
 //echo $QUERY."<br>";

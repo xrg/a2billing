@@ -22,7 +22,7 @@ $billingtype_list["1"] = array( gettext("Weekly"), "1");
 $HD_Form -> AddViewElement(gettext("LABEL"), "label", "18%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("CREATIONDATE"), "creationdate", "15%", "center", "sort", "19", "", "", "", "", "", "display_dateformat");
 $HD_Form -> AddViewElement(gettext("PACKAGETYPE"), "packagetype", "15%", "center", "sort","","list",$packagetype_list);
-$HD_Form -> AddViewElement(gettext("BILLINGTYPE"), "billingtype", "15%", "center", "sort","","list",$packagetype_list);
+$HD_Form -> AddViewElement(gettext("BILLINGTYPE"), "billingtype", "15%", "center", "sort","","list",$billingtype_list);
 $HD_Form -> AddViewElement(gettext("STARTDAY"), "startday", "7%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("FREE CALL"), "freetimetocall", "7%", "center", "sort", "30", "", "", "", "", "", "display_minute");
 

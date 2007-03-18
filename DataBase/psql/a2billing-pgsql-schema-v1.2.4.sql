@@ -430,7 +430,8 @@ CREATE TABLE cc_card (
     autorefill 							INTEGER DEFAULT 0,
     loginkey 							TEXT ,
     activatedbyuser 					BOOLEAN DEFAULT false NOT NULL,
-	id_subscription_fee 				INTEGER DEFAULT 0
+	id_subscription_fee 				INTEGER DEFAULT 0,
+	mac_addr							VARCHAR(17) DEFAULT '00-00-00-00-00-00' NOT NULL
 );
 
 CREATE TABLE cc_ratecard (

@@ -883,7 +883,7 @@ INSERT INTO cc_configuration (configuration_title, configuration_key, configurat
 
 
 
-ALTER TABLE cc_card ADD COLUMN id_subscription_fee INTEGER DEFAULT 0;
+ALTER TABLE cc_card ADD COLUMN id_subscription_fee INTEGER DEFAULT 0, ADD COLUMN mac_addr VARCHAR(17) DEFAULT '00-00-00-00-00-00' NOT NULL;
 
 UPDATE cc_ui_authen SET perms = '16383' WHERE userid = '1';
 UPDATE cc_ui_authen SET perms = '16383' WHERE userid = '2';
