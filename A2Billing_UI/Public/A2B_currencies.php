@@ -41,8 +41,10 @@ if ($updatecurrency == 1){
 			if ($i+1 == $num_cur) $url .= BASE_CURRENCY.$result[$i][1]."=X&f=l1";
 			else $url .= BASE_CURRENCY.$result[$i][1]."=X+";
 			
-			// Check what is the index of BASE_CURRENCY to save it 
-			if (BASE_CURRENCY == $result[$i][1]) $index_base_currency = $result[$i][0];
+			// Check what is the index of BASE_CURRENCY to save it
+			if (strcasecmp(BASE_CURRENCY, $result[$i][1]) == 0) {
+				$index_base_currency = $result[$i][0];
+			}
 		}
 		
 		// Create the script to get the currencies

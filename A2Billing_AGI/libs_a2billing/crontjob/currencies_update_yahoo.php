@@ -43,13 +43,15 @@ if (is_array($result)){
 	$num_cur = count($result);
 	$A2B -> write_log("[CURRENCIES TO UPDATE = $num_cur]", 0);
 	for ($i=0;$i<$num_cur;$i++){
-	
+		
 		// Finish and add termination ? 
 		if ($i+1 == $num_cur) $url .= BASE_CURRENCY.$result[$i][1]."=X&f=l1";
 		else $url .= BASE_CURRENCY.$result[$i][1]."=X+";
-
+		
 		// Check what is the index of BASE_CURRENCY to save it 
-		if (BASE_CURRENCY == $result[$i][1]) $index_base_currency = $result[$i][0];
+		if (strcasecmp(BASE_CURRENCY, $result[$i][1]) == 0) {
+			$index_base_currency = $result[$i][0];
+		}
 	}
 	
 	// Create the script to get the currencies
