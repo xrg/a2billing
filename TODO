@@ -3,6 +3,24 @@
                    			TODO LIST - SPECIFIC
 ********************************************************************************
 
+
+#### REPORT IMPROVE PRESENTATION
+********************************************************************
+commit :
+http://trac.a2billing.net/cgi-bin/trac.cgi/changeset/895
+this patch make a couples of fixes & changes on the CDR Report (such as text size, position, names, colors...)
+
+We need to make those same changes over the other report page :
+# Invoices
+# Calls Compare
+# Monthly Traffic
+# Daily Load
+# Report
+
+and also on the customer interface.
+
+
+
 #### IE ISSUES
 ********************************************************************
 A user can face following issues in the client side Website.

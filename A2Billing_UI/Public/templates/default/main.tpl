@@ -370,7 +370,7 @@ function imgidclick(imgID,divID, imgbase, imgchange)
 	{else}
 	src="templates/{$SKIN_NAME}/images/plus.gif"
 	
-	{/if} onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("CRONT SERVICE");{/php}</strong></a></li>
+	{/if} onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("RECURRING SERVICE");{/php}</strong></a></li>
 		<div id="div9" 
 	{if ($section =="7")}
 		style="">

@@ -667,7 +667,7 @@ $CC_help_edit_alarm='<a href="#" target="_self"  onclick="imgidclick(\'img1000\'
 	<img src="'.KICON_PATH.'/system-config-date.gif" class="kikipic"/>
 	<div class="w2">'
 .gettext("Utility to apply a scheduled monitor on trunks.<br>")
-.gettext("For example if you want to monitor ASR or ALOC everyday on each single trunk, it can be defined here, the different parameters below will define the rules to apply the alarm.").'
+.gettext("For example if you want to monitor ASR (answer seize ratio) or ALOC (average length of call) everyday on each single trunk, it can be defined here, the different parameters below will define the rules to apply the alarm.").'
 <br/>
 </div></div></div>
 </div>

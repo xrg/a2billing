@@ -184,10 +184,12 @@ they want from the ratecard.
 ********************************************************************
 REPORTING AND SUPPORT ALARMS :
 
-   * ALOC (average length of call): Too low or too high.
-   * ASR (answer seize ratio): Too low or too high.
-maybe if possible :
-   * Consecutive Incomplete Calls: Too many.
+	
+	* ALOC (average length of call): Too low or too high.
+	* ASR (answer seize ratio): Too low or too high.
+	
+	maybe if possible :
+	* CIC (Consecutive Incomplete Calls): Too many.
    
 We already have ALOC under the name of ACD in the page "CDR REPORT", we just need a new column for ASR and
 rename ACD -> ALOC
