@@ -840,7 +840,7 @@ SPAN.errorText {
 .fontstyle_003
 {
 	font-weight: bold;
-	font-size: 11px;
+	font-size: 10px;
 	color: #ffffff;
 	font-family: Verdana;
 }
@@ -859,9 +859,15 @@ SPAN.errorText {
 	color: #333333;
 	font-family: Verdana;
 }
-
+.fontstyle_searchoptions
+{	
+	font-size: 11px;
+	color: #444444;
+	font-family: Verdana;
+}
 .bgcolor_002
 {
+	font-size: 9px;
 	background-color: #555577;	
 }
 .searchhandler_table4

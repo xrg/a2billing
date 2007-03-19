@@ -14,7 +14,6 @@ A user can face following issues in the client side Website.
 5) Layout of the Footer is not ok.
 6) Change password page layout: Page has much white space under the header.
 7) Add Caller ID Page is containing different text fonts.
-8) Predictive Dialer Page layout id disturbed abd having BIG fonts.
 
 
 #### MISC
@@ -23,9 +22,6 @@ A user can face following issues in the client side Website.
 - 1.Call Report – CDR Report – for appearances sake, can you make the font and size 
 the same for Show: Answered Calls etc in the options section. As per the rest of this form ? 
 
-#### MISSING FILES
-********************************************************************
-Public/templates/default/images/terminated.gif ; details.gif ; email03.gif
 
 #### BUG : DID BILLING
 ********************************************************************
@@ -42,11 +38,6 @@ and Create a Destination and Bind it with a Card
 Go to the Client Side You will see the Destination in the Card
 but when you will go to edit the Destination you will see the DIDGroup List is Not Loaded
 
-#### FORMAT
-********************************************************************
--> A2Billing_UI/Public/A2B_entity_payment_settings.php?method=authorizenet&id=1
-the button Update and Cancel should have a format button similar at the "Change"
-button in the left corner.
 
 
 #### CHECK DESIGN ERROR WITH IE (INTERNET EXPLORER)
