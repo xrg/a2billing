@@ -328,8 +328,8 @@ function imgidclick(imgID,divID, imgbase, imgchange)
                 <li><a href="A2B_entity_did_import.php?stitle=DID&section=5">{php} echo gettext("Import DID");{/php}</a></li>
 				<li><a href="A2B_entity_did_destination.php?stitle=DID+Destination&section=5">{php} echo gettext("List Destination");{/php}</a></li>
 				<li><a href="A2B_entity_did_destination.php?stitle=DID+Destination&form_action=ask-add&section=5">{php} echo gettext("Add Destination");{/php}</a></li>
-				<li><a href="A2B_entity_did_billing.php?atmenu=did_billing&stitle=DID+BILLING&section=5">{php} echo gettext("DID BILLING");{/php}</a></li>
-				<li><a href="A2B_entity_did_use.php?atmenu=did_use&stitle=DID+USE&section=5">{php} echo gettext("DID use");{/php}</a></li>
+				<li><a href="A2B_entity_did_billing.php?atmenu=did_billing&stitle=DID+BILLING&section=5">{php} echo gettext("DID Billing");{/php}</a></li>
+				<li><a href="A2B_entity_did_use.php?atmenu=did_use&stitle=DID+USE&section=5">{php} echo gettext("DID Usage");{/php}</a></li>
 			</ul></li>
 		</ul>
 		</div>

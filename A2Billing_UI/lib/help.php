@@ -644,7 +644,7 @@ $CC_help_list_prefix='
 	<img src="'.KICON_PATH.'/connect_to_network.gif" class="kikipic"/>
 	<div class="w2">
 	<br/>'
-	.gettext("Prefixe list with destinations.").'<br/>
+	.gettext("Prefix list with destinations.").'<br/>
 <br/>
 </div></div></div>
 </div>';

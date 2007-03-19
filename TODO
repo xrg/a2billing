@@ -3,6 +3,12 @@
                    			TODO LIST - SPECIFIC
 ********************************************************************************
 
+#### MISC
+********************************************************************
+- Selection of the month -> replace by -> Month select ...
+- 1.Call Report – CDR Report – for appearances sake, can you make the font and size 
+the same for Show: Answered Calls etc in the options section. As per the rest of this form ? 
+
 #### MISSING FILES
 ********************************************************************
 Public/templates/default/images/terminated.gif ; details.gif ; email03.gif
