@@ -115,7 +115,7 @@ include ("../lib/defines.php");
 			$QUERY = " INSERT INTO cc_callback_spool (uniqueid, status, server_ip, num_attempt, channel, exten, context, priority, variable, id_server_group ) ".
 				 " VALUES ('$uniqueid', '$status', '$server_ip', '$num_attempt', '$channel', '$exten', '$context', '$priority', '$variable', '$id_server_group')";
 		}
-		$res = $DBHandle -> query($QUERY);
+		$res = $DBHandle -> Execute($QUERY);
 		
 		if (!$res){
 			write_log(basename(__FILE__).' line:'.__LINE__."[" . date("Y/m/d G:i:s", mktime()) . "] "." ERROR INSERT INTO DB");

@@ -138,7 +138,7 @@ if ($callback){
 							$num_attempt = 0;
 							$variable = "CALLED=$called|CALLING=$calling";
 							$QUERY = " INSERT INTO cc_callback_spool (uniqueid, status, server_ip, num_attempt, channel, exten, context, priority, variable, id_server_group, callback_time, account ) VALUES ('$uniqueid', '$status', '$server_ip', '$num_attempt', '$channel', '$exten', '$context', '$priority', '$variable', '$id_server_group',  now(), '$account')";
-							$res = $A2B -> DBHandle -> query($QUERY);
+							$res = $A2B -> DBHandle -> Execute($QUERY);
 							
 							if (!$res){
 								$error_msg= gettext("Cannot insert the callback request in the spool!");
