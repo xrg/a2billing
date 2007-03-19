@@ -20,7 +20,7 @@ $HD_Form -> init();
 
 
 /********************************* BATCH UPDATE ***********************************/
-getpost_ifset(array('popup_select', 'popup_formname', 'popup_fieldname', 'upd_inuse', 'upd_activated', 'upd_language', 'upd_tariff', 'upd_credit', 'upd_credittype', 'upd_simultaccess', 'upd_currency', 'upd_typepaid', 'upd_creditlimit', 'upd_enableexpire', 'upd_expirationdate', 'upd_expiredays', 'upd_runservice', 'upd_runservice', 'batchupdate', "check", "type", "mode", "addcredit", "cardnumber"));
+getpost_ifset(array('popup_select', 'popup_formname', 'popup_fieldname', 'upd_inuse', 'upd_activated', 'upd_language', 'upd_tariff', 'upd_credit', 'upd_credittype', 'upd_simultaccess', 'upd_currency', 'upd_typepaid', 'upd_creditlimit', 'upd_enableexpire', 'upd_expirationdate', 'upd_expiredays', 'upd_runservice', 'upd_runservice', 'batchupdate', 'check', 'type', 'mode', 'addcredit', 'cardnumber'));
 
 // CHECK IF REQUEST OF BATCH UPDATE
 if ($batchupdate == 1 && is_array($check)){
@@ -66,8 +66,11 @@ if ($batchupdate == 1 && is_array($check)){
 		$SQL_UPDATE .= $HD_Form->FG_TABLE_CLAUSE;
 	}
 		
-	if (! $res = $HD_Form -> DBHandle -> Execute($SQL_UPDATE))		$update_msg = "<center><font color=\"red\"><b>Could not perform the batch update!</b></font></center>";		
-	else		$update_msg = "<center><font color=\"green\"><b>The batch update has been successfully perform !</b></font></center>";		
+	if (! $res = $HD_Form -> DBHandle -> Execute($SQL_UPDATE)){
+		$update_msg = '<center><font color="red"><b>'.gettext('Could not perform the batch update!').'</b></font></center>';
+	} else {
+		$update_msg = '<center><font color="green"><b>'.gettext('The batch update has been successfully perform!').'</b></font></center>';
+	}
 	
 }
 /********************************* END BATCH UPDATE ***********************************/
