@@ -1,4 +1,5 @@
 <?php
+exit;
 include ("../lib/defines.php");
 include ("../lib/module.access.php");
 include ("../lib/smarty.php");

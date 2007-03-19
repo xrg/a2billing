@@ -446,32 +446,7 @@ function imgidclick(imgID,divID, imgbase, imgchange)
 		</ul>
 		</div>
 	{/if}
-	{if ($ACXPREDICTIVEDIALER  > 0)}
-		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick_plus('img61','div61');"><img id="img61" 
-	{if ($section =="9")}
 	
-	src="templates/{$SKIN_NAME}/images/minus.gif"
-	{else}
-	src="templates/{$SKIN_NAME}/images/plus.gif"
-	
-	{/if} onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> &nbsp;<strong>{php} echo gettext("PREDICT-DIALER");{/php}</strong></a></li>
-		<div id="div61"  
-	{if ($section =="9")}
-		style="">
-	{else}
-		style="display:none;">
-	{/if}
-		<ul>
-			<li><ul>
-				<li><a href="A2B_entity_campaign.php?atmenu=campaign&stitle=Campaign&section=9">{php} echo gettext("List Campaign");{/php}</a></li>
-				<li><a href="A2B_entity_campaign.php?form_action=ask-add&atmenu=campaign&stitle=Campaign&section=9">{php} echo gettext("Create Campaign");{/php}</a></li>
-				<li><a href="A2B_entity_phonelist.php?atmenu=phonelist&stitle=Phonelist&section=9">{php} echo gettext("Show Phonelist");{/php}</a></li>
-				<li><a href="A2B_entity_phonelist.php?atmenu=phonelist&stitle=Phonelist&form_action=ask-add&section=9">{php} echo gettext("Add PhoneNumber");{/php}</a></li>
-				<li><a href="CC_phonelist_import.php?atmenu=phonelist&stitle=Phonelist+Import&section=9">{php} echo gettext("Import Phonelist");{/php}</a></li>
-			</ul></li>
-		</ul>
-		</div>
-	{/if}
 	{if ($ACXADMINISTRATOR  > 0)}
 		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick_plus('img7','div7');"><img id="img7" 
 	{if ($section =="10")}

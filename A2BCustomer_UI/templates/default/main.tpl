@@ -282,11 +282,6 @@ function imgidclick(imgID,divID, imgbase, imgchange)
        <li><a href="callback.php?section=9"><strong>{php} echo gettext("CALLBACK");{/php}</strong></a></li>
        {/if}
 
-	   {if $A2Bconfig.webcustomerui.predictivedialer==1 }
-       <li><a href="#" target="_self"></a></a></li>
-       <li><a href="predictivedialer.php?section=10"><strong>{php} echo gettext("PRED-DIALER");{/php}</strong></a></li>
-       {/if}
-
 	   {if $A2Bconfig.webcustomerui.webphone==1 }
        <li><a href="#" target="_self"></a></a></li>
        <li><a href="webphone.php?section=11"><strong>{php} echo gettext("WEB-PHONE");{/php}</strong></a></li>

@@ -17,7 +17,6 @@ $HD_Form = new FormHandler("cc_ui_authen",$FG_INSTANCE_NAME);
 
 
 $HD_Form -> FG_DEBUG = 0;
-// FAQ
 $HD_Form -> FG_TABLE_ID = " userid";
 $HD_Form -> FG_TABLE_DEFAULT_ORDER = " datecreation";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "ASC";
@@ -45,13 +44,13 @@ $right_list["10"] = array( gettext("DID"), "512");
 $right_list["11"] = array( gettext("CALL BACK"), "1024");
 $right_list["12"] = array( gettext("OUTBOUND CID"), "2048");
 $right_list["13"] = array( gettext("PACKAGE OFFER"), "4096");
-$right_list["14"] = array( gettext("PREDICTIVE DIALER"), "8192");
+//$right_list["14"] = array( gettext("PREDICTIVE DIALER"), "8192");
 
 $len_right_list = count($right_list);
 
 
 $HD_Form -> AddViewElement(gettext("USERID"), "UserID", "14%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("DATE CREATION"), "datecreation", "24%", "center", "sort", "30", "", "", "", "", "", "display_dateformat");
+$HD_Form -> AddViewElement(gettext("DATE CREATION"), "datecreation", "24%", "center", "sort", "19", "", "", "", "", "", "display_dateformat");
 $HD_Form -> AddViewElement(gettext("LOGIN"), "login", "24%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("PASSWORD"), "password", "24%", "center", "sort");
 

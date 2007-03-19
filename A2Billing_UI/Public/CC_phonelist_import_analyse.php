@@ -1,4 +1,5 @@
 <?php
+exit;
 // Common includes
 include ("../lib/defines.php");
 include ("../lib/module.access.php");
