@@ -525,7 +525,7 @@ function imgidclick(imgID,divID, imgbase, imgchange)
 		</div>
 	{/if}
 
-	<li><a href=# target=_self></a></li>
+	<li><a href="#" target="_self"></a></a></li>
 
 	<ul>
 		<li><ul>

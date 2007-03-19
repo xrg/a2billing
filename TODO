@@ -3,6 +3,20 @@
                    			TODO LIST - SPECIFIC
 ********************************************************************************
 
+#### IE ISSUES
+********************************************************************
+A user can face following issues in the client side Website.
+
+1) Login Page: Click Here Text is very Small.
+2) Main Problem at the Pages is Menu. Left Side Menu is Half Displayed. and + Expand functionality is not working for DID.
+3) Userinfo.php: Text Font is very bad. Huge font are displayed. 2) Page layout is disturbed.
+4) Layout is disturbed on all pages
+5) Layout of the Footer is not ok.
+6) Change password page layout: Page has much white space under the header.
+7) Add Caller ID Page is containing different text fonts.
+8) Predictive Dialer Page layout id disturbed abd having BIG fonts.
+
+
 #### MISC
 ********************************************************************
 - Selection of the month -> replace by -> Month select ...
