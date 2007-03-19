@@ -433,8 +433,7 @@ $CC_help_currency ='
 .gettext("Currency data are automaticaly updated from Yahoo Financial.")
 .gettext("<br>For more information please visite the website http://finance.yahoo.com.")
 .gettext("<br>The table below is based over your currency base :").' <b>'.BASE_CURRENCY.'</b>'
-.gettext("<br>Sorry for all these stars, you will have to deal with it :P ").'
-<br>
+.'<br>
 </div></div></div>
 </div>';
 
