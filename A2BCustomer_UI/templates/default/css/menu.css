@@ -52,7 +52,7 @@
   background-repeat: repeat-x;
   background-position: 100% 100%;
   margin-bottom: 1em;
-  color: #BD2A15;
+  color: #BD2A15;  
   margin-right: 55px;  
   margin-left: 55px;
 }
@@ -66,7 +66,7 @@
   left: 1px;
   background-image: url(../images/asterisklogot_blue.gif);
   background-repeat: no-repeat;
-  background-position: right;
+  background-position: right;  
   font-size: 9px;
   width: 100%;
   display: table-cell;  
@@ -80,7 +80,7 @@
 }
 
 
-body, td, th, h3, input { /* redundant rules for bad browsers  */
+td, th, h3, input { /* redundant rules for bad browsers  */
 	font-family: verdana, sans-serif;
 	font-size: x-small;
 	voice-family: "\"}\"";
@@ -179,11 +179,6 @@ body {
 	background: #fff url("../images/bg5.jpg") repeat-x;
 	background-attachment: fixed;
 }
-
-
-
-
-
 
 /* Sidebar */
 

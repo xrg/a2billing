@@ -10,7 +10,7 @@ div.scroll {
 div.scrollreal{
 	position:relative;
 	top:16;
-	height: 250px;	
+	height: 250px;
 	overflow: auto;
 	border: 1px solid #666;
 	background-color: #ddd;
@@ -103,32 +103,29 @@ input.button {
  padding: 0px; 
 } 
 a:link {
-	/* COLOR: #333399; */
-	COLOR: #666666;
-	/* PADDING-BOTTOM: 4px; PADDING-LEFT: 4px; PADDING-RIGHT: 4px; PADDING-TOP: 4px; */
-	
+	COLOR: #666666;	
 	font-weight: bold;
-	font : 9;
+	font : 12;
 	text-decoration: none;
 }
 a:visited {
 	COLOR: #666666;
 	font-weight: bold;	
-	font : 9;
+	font : 12;
 	text-decoration: none;
 }
 
 a:active {
  COLOR: #333399;
  font-weight: bold; 
- font : 9;
+ font : 12;
  text-decoration: none; 
  }
  
 a:hover {
  COLOR: #cc0033;
  font-weight: bold; 
- font : 9;
+ font : 12;
  text-decoration: none;
  
  }
@@ -136,7 +133,7 @@ a:hover {
 body {
  COLOR: #000000; 
  FONT-FAMILY: Verdana,Arial,Tahoma,Helvetica,sans-serif; 
- FONT-SIZE: 11px; 
+  
  MARGIN: 0px;
  scrollbar-face-color: #F8F8F8;
  scrollbar-highlight-color: #A5A5A5;
@@ -359,7 +356,7 @@ SPAN.errorText {
 
 .error_message{
 	font-family: Arial, Helvetica, sans-serif;
-	font-size: 9px;
+	font-size: 10px;
 	font-weight: bold;
 	color: #FF0000;
 }
@@ -476,9 +473,11 @@ SPAN.errorText {
 	padding-left: 0px;
 	padding-bottom: 0px;
 	margin: 0px;
-	width: 90%;
+	width: 93%;
 	padding-top: 0px;
 	background-color: #eeeeee;	
+	margin-left: auto;
+	margin-right: auto;
 }
 .invoices_table1
 {
@@ -1235,4 +1234,38 @@ SPAN.errorText {
 	border-bottom: #FF5500 2px ridge;
 	padding: 0px 3px 0px 3px;
 	text-align: center;
+}
+.fontstyle_007
+{
+	font-size: 13px;
+	color: #555555;
+	font-family: Verdana, Arial, Helvetica;
+}
+.fontstyle_008
+{
+	font-weight: bold;
+	font-size: 13px;
+	color: #ffffff;
+	font-family: Verdana, Arial, Helvetica;
+	text-decoration: none;
+}
+.tablebackgroundblue
+{
+  background-image: url(../images/blueshade.png);
+  background-repeat: repeat-x;  
+  background-position:bottom;  
+  margin-bottom: 1em;
+  color: #BD2A15;
+  margin-right: 55px;  
+  margin-left: 55px;
+}
+.tablebackgroundcamel
+{	
+	background-image: url(../images/orangeshadet.gif);
+	background-repeat: repeat-x;
+	background-position:bottom;	
+	margin-bottom: 1em;
+	color: #BD2A15;
+	border-right: 1px solid #FAB000;
+	border-bottom: 1px solid #FAB000;
 }

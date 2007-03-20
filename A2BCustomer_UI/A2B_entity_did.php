@@ -390,7 +390,7 @@ function CheckCountry(Source){
 		</tr>
 		<?php } ?>
 		<tr class="did_maintable_tr2" valign="top">
-			<td align="left" valign="bottom" valign="top" colspan="2">
+			<td align="left" valign="top" colspan="2">
 				<select NAME="choose_did_rate" size="3" class="form_input_select">
 					<option value=''><?php echo gettext("Select Virtual Phone Number");?></option>
 

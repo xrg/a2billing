@@ -198,11 +198,13 @@ body {
 	content: url("../images/key-point_tl.gif");
 }
 #nav {
-	background: #E0E9E9 url("../images/menu_back.gif") right repeat-y;
+	background: #E0E9E9 url("../images/menu_back.gif");
+	background-repeat:repeat-y;
+	background-position:right;
 }
 #nav:after {
 	display: block;
-	padding-top: 0;
+	padding-top: 0px;
 	line-height: 0.1;
 	font-size: 1px;
 	content:  url("../images/key-point_bl.gif");

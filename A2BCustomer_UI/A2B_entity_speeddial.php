@@ -79,7 +79,7 @@ if ($form_action == "list")
 		<form name="theForm" action="<?php  $_SERVER["PHP_SELF"]?>">
 		<tr class="bgcolor_001">
 		<td align="left" valign="bottom">
-		 <?php echo gettext("Speed Dial code");?> : <select NAME="choose_speeddial" class="form_input_select">
+		<font class="fontstyle_002"> <?php echo gettext("Speed Dial code");?> : </font><select NAME="choose_speeddial" class="form_input_select">
 					<?php					 
 				  	 foreach ($speeddial_list as $recordset){ 						 
 					?>
@@ -89,9 +89,9 @@ if ($form_action == "list")
 				</select>
 		</td>
 		<td align="left" valign="top">
-				<?php echo gettext("Destination");?> :
+				<font class="fontstyle_002"><?php echo gettext("Destination");?> :</font>
 				<input class="form_input_text" name="destination" size="15" maxlength="60" >
-				- <?php echo gettext("Name");?> :
+				- <font class="fontstyle_002"><?php echo gettext("Name");?> :</font>
 				<input class="form_input_text" name="name" size="15" maxlength="40" >
 			</td>	
 			<td align="center" valign="middle"> 

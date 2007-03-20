@@ -19,7 +19,7 @@
 <p class="version" align="right">{$WEBUI_VERSION} - {$WEBUI_DATE}</p>
 <br>
 
-<DIV border=0 width="1000">
+<DIV border="0" width="1000px">
 {if ($popupwindow == 0)}
 <div class="divleft">
 {literal}

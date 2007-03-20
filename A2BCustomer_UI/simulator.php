@@ -164,7 +164,7 @@ function openURL(theLINK)
 		<tr>			
             <td height="31" class="bgcolor_009" style="padding-left: 5px; padding-right: 3px;">
 					<br>
-					<font color="white"><b><?php echo gettext("Enter the number you wish to call :");?></b></font>
+					<font class="fontstyle_008"><?php echo gettext("Enter the number you wish to call :");?></font>
 					<INPUT type="text" name="called" value="<?php echo $called;?>" class="form_input_text">
 					<br>
 					<?php if (false){ ?>

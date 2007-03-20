@@ -101,7 +101,7 @@
 			</tr>
 
             <tr align="center">
-                <td colspan=3>Forgot your password? Click <a href="forgotpassword.php">here</a>.</td>
+                <td colspan=3><font class="fontstyle_007">Forgot your password? Click <a href="forgotpassword.php">here</a></font>.</td>
             </tr>
 
 			</table>
