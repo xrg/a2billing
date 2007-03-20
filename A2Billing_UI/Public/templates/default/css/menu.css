@@ -80,7 +80,7 @@
 }
 
 
-body, td, th, h3, input { /* redundant rules for bad browsers  */
+td, th, h3, input { /* redundant rules for bad browsers  */
 	font-family: verdana, sans-serif;
 	font-size: x-small;
 	voice-family: "\"}\"";
@@ -180,11 +180,6 @@ body {
 	background-attachment: fixed;
 }
 
-
-
-
-
-
 /* Sidebar */
 
 #nav:before {
@@ -198,13 +193,11 @@ body {
 	content: url("../images/key-point_tl.gif");
 }
 #nav {
-	background: #E0E9E9 url("../images/menu_back.gif");
-	background-repeat:repeat-y;
-	background-position:right;
+	background: #E0E9E9 url("../images/menu_back.gif") right repeat-y;
 }
 #nav:after {
 	display: block;
-	padding-top: 0px;
+	padding-top: 0;
 	line-height: 0.1;
 	font-size: 1px;
 	content:  url("../images/key-point_bl.gif");
