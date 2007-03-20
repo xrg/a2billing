@@ -348,7 +348,7 @@ CREATE TABLE cc_card (
     loginkey 						CHAR(40),
     activatedbyuser 				CHAR(1) DEFAULT 't' NOT NULL,
 	id_subscription_fee 			INT DEFAULT 0,
-	mac_addr						CHAR(17), DEFAULT '00-00-00-00-00-00' NOT NULL,
+	mac_addr						CHAR(17) DEFAULT '00-00-00-00-00-00' NOT NULL,
     PRIMARY KEY (id),
     UNIQUE cons_cc_card_username (username),
     UNIQUE cons_cc_card_useralias (useralias)
