@@ -5,7 +5,7 @@ include (dirname(__FILE__)."/company_info.php");
 
 define( 'FULL_PATH', dirname(__FILE__) . '/' );
 define( 'SMARTY_DIR', FULL_PATH . '/Smarty/' );
-define( 'TEMPLATE_DIR',  './templates/' );
+define( 'TEMPLATE_DIR',  '../Public/templates/' );
 define( 'TEMPLATE_C_DIR', '../templates_c/' );
 
 

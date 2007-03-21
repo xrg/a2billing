@@ -6,7 +6,7 @@ include ("../lib/defines.php");
 include ("../lib/module.access.php");
 include ("../lib/Form/Class.FormHandler.inc.php");
 include ("./form_data/FG_var_index.inc");
-
+include ("../lib/smarty.php");
 
 
 if ($_GET["dotest"]){
@@ -44,7 +44,7 @@ $list = $HD_Form -> perform_action($form_action);
 
 
 // #### HEADER SECTION
-include("PP_header.php");
+$smarty->display('signup_header.tpl');
 
 
 
@@ -68,4 +68,5 @@ if($form_action == "add")
 
 // #### FOOTER SECTION
 // include("PP_footer.php");
+$smarty->display('signup_footer.tpl');
 ?>

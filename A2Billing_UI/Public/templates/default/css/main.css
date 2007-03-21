@@ -1269,3 +1269,16 @@ SPAN.errorText {
 	border-right: 1px solid #FAB000;
 	border-bottom: 1px solid #FAB000;
 }
+.signup_main
+{
+	position: absolute;
+	z-index: 0;
+	height: auto;
+	width: 650px;
+	left: 180px;
+	top: 35px;
+	PADDING-LEFT: 10px; 
+	PADDING-RIGHT: 10px; 
+	margin-left:auto;
+	margin-right:auto;
+}

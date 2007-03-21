@@ -4,6 +4,16 @@
 ********************************************************************************
 
 
+#### IVR VOUCHER
+********************************************************************
+No need to press 8 go directly to the option if user's credit is below the
+minimum credit to call
+new parameter
+redirect_voucher_if_mincredit = yes or no
+and it will be base on the minimum credit to make a call
+
+maybe a voucher mode as callback instead
+
 
 #### SIGNUP MODULE
 ********************************************************************
@@ -45,6 +55,7 @@ A user can face following issues in the client side Website.
 - Selection of the month -> replace by -> Month select ...
 - 1.Call Report – CDR Report – for appearances sake, can you make the font and size 
 the same for Show: Answered Calls etc in the options section. As per the rest of this form ? 
+- see more bug from Joe's report 
 
 
 #### BUG : DID BILLING

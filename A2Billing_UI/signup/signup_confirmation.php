@@ -4,6 +4,7 @@ session_start();
 
 
 	include ("../lib/defines.php");
+	include ("../lib/smarty.php");
 	if (!$A2B->config["signup"]['enable_signup'])
     {
         exit;
@@ -116,7 +117,7 @@ session_start();
 
 
 <?php
-	include("PP_header.php");
+	$smarty->display('signup_header.tpl');
 ?>
 <script language="JavaScript" type="text/JavaScript">
 <!--
@@ -168,5 +169,5 @@ function sendtolittle(direction){
 <br>
   <br><br><br><br><br>
 <?php
-	include("PP_footer.php");
+	$smarty->display('signup_footer.tpl');
 ?>

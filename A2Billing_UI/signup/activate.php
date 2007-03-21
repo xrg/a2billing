@@ -18,12 +18,13 @@ else
 include ("../lib/defines.php");
 include ("../lib/module.access.php");
 include ("../lib/Form/Class.FormHandler.inc.php");
+include ("../lib/smarty.php");
 /***********************************************************************************/
 $HD_Form = new FormHandler("cc_card","User");
 $HD_Form -> setDBHandler (DbConnect());
 $HD_Form -> init();
 // #### HEADER SECTION
-include("PP_header.php");
+$smarty->display('signup_header.tpl');
 // #### TOP SECTION PAGE
 
 $key = null;
@@ -162,5 +163,5 @@ if( $list[0][8] != "t" && isset($result) && $result != null){
 
 
 // #### FOOTER SECTION
-include("PP_footer.php");
+$smarty->display('signup_footer.tpl');
 ?>

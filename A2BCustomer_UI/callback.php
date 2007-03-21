@@ -247,8 +247,9 @@ $smarty->display( 'main.tpl');
 
 <br>
 	  <center>
-	  <?php echo $error_msg ?> <br>
+	 <font class="fontstyle_007"> <?php echo $error_msg ?> <br>
 	  <?php echo gettext("You can initiate the callback by entering your phonenumber and the number you wish to call!");?>
+	  </font>
 	  </center>
 	   <table align="center" class="callback_maintable">
 		<form name="theForm" action=<?php echo $PHP_SELF;?> method="POST" >
@@ -256,10 +257,10 @@ $smarty->display( 'main.tpl');
 		<tr class="bgcolor_001">
 		<td align="left" valign="bottom">
 				<br/>
-				<?php echo gettext("Your PhoneNumber");?> :
+				<font class="fontstyle_007"><?php echo gettext("Your PhoneNumber");?> :</font>
 				<input class="form_input_text" name="called" value="<?php echo $called; ?>" size="30" maxlength="40" >
 				<br/><br/>
-				<?php echo gettext("The number you wish to call");?> :
+				<font class="fontstyle_007"><?php echo gettext("The number you wish to call");?> :</font>
 				<input class="form_input_text" name="calling" value="<?php echo $calling; ?>" size="30" maxlength="40">
 				<br/><br/>
 			</td>	
