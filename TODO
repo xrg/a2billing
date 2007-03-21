@@ -4,19 +4,19 @@
 ********************************************************************************
 
 
-#### SIGN-UP LINK ON CUSTOMER UI
-********************************************************************
- 
-put a link on the Customer sign in page. 
-"To sign up click here" where "here" links to  A2Billing_UI/signup
-
-use of the new parameter in a2billing.conf
-
-[webcustomerui]
-
-; url of the signup page to show up on the sign in page (if empty no link will show up)
-signup_page_url = http://localhost/~areski/svn/a2billing/trunk/A2Billing_UI/signup/
-
+	#### SIGN-UP LINK ON CUSTOMER UI
+	********************************************************************
+	 
+	put a link on the Customer sign in page. 
+	"To sign up click here" where "here" links to  A2Billing_UI/signup
+	
+	use of the new parameter in a2billing.conf
+	
+	[webcustomerui]
+	
+	; url of the signup page to show up on the sign in page (if empty no link will show up)
+	signup_page_url = http://localhost/~areski/svn/a2billing/trunk/A2Billing_UI/signup/
+	
 
 
 #### IVR VOUCHER
