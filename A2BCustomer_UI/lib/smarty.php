@@ -28,6 +28,7 @@ $smarty->assign("COPYRIGHT", COPYRIGHT);
 $smarty->assign("CCMAINTITLE", CCMAINTITLE);
 $smarty->assign("WEBUI_VERSION", WEBUI_VERSION);
 $smarty->assign("WEBUI_DATE", WEBUI_DATE);
+$smarty->assign("SIGNUPLINK", SIGNUP_LINK);
 
 if($exporttype != "" && $exporttype != "html")
 {

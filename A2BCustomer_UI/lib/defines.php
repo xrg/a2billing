@@ -101,7 +101,7 @@
 	define ("PAYPAL_LOGFILE", isset($A2B->config["paypal"]['paypal_logfile'])?$A2B->config["paypal"]['paypal_logfile']:null);
 	
 	
-	
+	define ("SIGNUP_LINK", isset($A2B->config["webcustomerui"]['signup_page_url'])?$A2B->config["webcustomerui"]['signup_page_url']:null);	
 	define ("ACTIVATEDBYUSER", isset($A2B->config["signup"]['activatedbyuser'])?$A2B->config["signup"]['activatedbyuser']:null);
 
 

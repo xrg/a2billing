@@ -103,7 +103,9 @@
             <tr align="center">
                 <td colspan=3><font class="fontstyle_007">Forgot your password? Click <a href="forgotpassword.php">here</a></font>.</td>
             </tr>
-
+			<tr align="left">
+                <td colspan=3><font class="fontstyle_007">To sign up click <a href="{$SIGNUPLINK}">here</a></font>.</td>
+            </tr>
 			</table>
 		</td>
 	</tr>
