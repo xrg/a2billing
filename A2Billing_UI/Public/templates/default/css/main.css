@@ -1235,6 +1235,19 @@ SPAN.errorText {
 	padding: 0px 3px 0px 3px;
 	text-align: center;
 }
+
+.cssbutton_big {	
+	background-image: url(http://localhost/~areski/svn/a2billing/trunk/A2Billing_UI/Public/templates/default/images/back_button.gif);
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 19px;
+	letter-spacing: 1px;
+	border-right: #FFFFFF 2px ridge;
+	border-top: #FFFFFF 2px ridge;
+	border-left: #CCCCCC 2px ridge;	
+	border-bottom: #CCCCCC 2px ridge;	
+	padding: 0px 3px 0px 3px;
+	text-align: center;
+}
 .fontstyle_007
 {
 	font-size: 13px;
