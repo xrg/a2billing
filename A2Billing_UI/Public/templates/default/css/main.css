@@ -729,7 +729,7 @@ SPAN.errorText {
 	padding-right: 0px;
 	border-top: 0px;
 	padding-left: 0px;
-	background-image: url(./<?php echo Images_Path_Main ?>/background_cells.gif);
+	background-image: url(../images/background_cells.gif);
 	padding-bottom: 0px;
 	border-left: 0px;
 	width: 90%;
@@ -903,7 +903,7 @@ SPAN.errorText {
 	padding-right: 4px;
 	padding-left: 4px;
 	font-size: 10px;
-	background-image: url(./<?php echo Images_Path_Main ?>/background_cells.gif);
+	background-image: url(../images/background_cells.gif);
 	padding-bottom: 4px;
 	padding-top: 4px;
 }
@@ -961,7 +961,7 @@ SPAN.errorText {
 	padding-right: 4px;
 	padding-top: 4px;
 	font-size: 10px;
-	background-image: url(./<?php echo Images_Path_Main ?>/background_cells.gif);	
+	background-image: url(../images/background_cells.gif);	
 }
 .editform_table4
 {
@@ -996,7 +996,7 @@ SPAN.errorText {
 .editform_table5_td2
 {
 	width: 400px;
-	background-image: url(./<?php echo Images_Path_Main ?>/background_cells.gif);	
+	background-image: url(../images/background_cells.gif);	
 }
 .editform_table6
 {
@@ -1080,7 +1080,7 @@ SPAN.errorText {
 	border-bottom: 0px;	
 	margin-left: auto;
 	margin-right: auto;	
-	background-image: url(./<?php echo Images_Path_Main ?>/background_cells.gif);	
+	background-image: url(../images/background_cells.gif);	
 }
 .delform_table3_td1
 {
@@ -1236,11 +1236,10 @@ SPAN.errorText {
 	text-align: center;
 }
 
-.cssbutton_big {	
-	background-image: url(http://localhost/~areski/svn/a2billing/trunk/A2Billing_UI/Public/templates/default/images/back_button.gif);
+a.cssbutton_big {	
+	background-image: url(../images/back_button.gif);
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 19px;
-	letter-spacing: 1px;
 	border-right: #FFFFFF 2px ridge;
 	border-top: #FFFFFF 2px ridge;
 	border-left: #CCCCCC 2px ridge;	
@@ -1248,6 +1247,10 @@ SPAN.errorText {
 	padding: 0px 3px 0px 3px;
 	text-align: center;
 }
+a.cssbutton_big:hover {	
+	background-image: url(../images/back_button_over.gif);
+}
+
 .fontstyle_007
 {
 	font-size: 13px;
