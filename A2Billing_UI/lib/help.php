@@ -6,7 +6,7 @@ $CC_help_list_customer='
 <a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
 <div id="div1000" style="display:visible;">
 <div id="kiki"><div class="w1">
-	<img src="'.KICON_PATH.'/vcard.gif" class="kikipic"/>
+	<img src="'.KICON_PATH.'/vcard.gif" class="kikipic" />
 	<div class="w2">
 '.gettext("Customers are listed below by card number. Each row corresponds to one customer, along with information such as their tariff group, credit remaining, etc.</br>")
 .gettext("The SIP and IAX buttons create SIP and IAX entries to allow direct VoIP connections to the Asterisk server without further authentication.").'
