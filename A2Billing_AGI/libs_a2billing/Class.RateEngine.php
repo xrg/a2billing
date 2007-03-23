@@ -113,7 +113,7 @@ class RateEngine {
 			else $nb_callerid = $result_sub[0][0];
 			$CID_SUB_QUERY = "AND 0 = $nb_callerid";
 			if ($this->webui) $A2B -> write_log("[CC_asterisk_rate-engine: CALLERID_QUERY]\n".$CALLERID_QUERY."\n",0);
-			if ($this->webui) $A2B -> write_log("[CC_asterisk_rate-engine: CALLERID_QUERY]\n".print_r($result_sub)."\n",0);
+			if ($this->webui) $A2B -> write_log("[CC_asterisk_rate-engine: CALLERID_QUERY]\n".print_r($result_sub, 1)."\n",0);
 			
 		}else{
 			$DNID_SUB_QUERY = "AND 0 = (SELECT count(dnidprefix) FROM cc_tariffplan RIGHT JOIN cc_tariffgroup_plan ON cc_tariffgroup_plan.idtariffgroup=$tariffgroupid WHERE dnidprefix=SUBSTRING('$mydnid',1,length(dnidprefix)) ) ";
