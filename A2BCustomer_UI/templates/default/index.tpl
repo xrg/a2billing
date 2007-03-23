@@ -84,7 +84,7 @@
 		<td style="padding: 5px, 5px, 5px, 5px" bgcolor="#EDF3FF">
 			<table border="0" cellpadding="0" cellspacing="10">
 			<tr align="center">
-				<td rowspan="3" style="padding-left: 8px; padding-right: 8px"><img src="templates/{$SKIN_NAME}/images/security.png"></td>
+				<td rowspan="3" style="padding-left: 8px; padding-right: 8px"><img src="templates/{$SKIN_NAME}/images/password.png"></td>
 				<td></td>
 				<td align="left"><font size="2" face="Arial, Helvetica, Sans-Serif"><b>User:</b></font></td>
 				<td><input class="form_input_text" type="text" name="pr_login"></td>
