@@ -173,22 +173,21 @@
                                        
         </TBODY>
       </TABLE>
-	  <table cellspacing="0" class="editform_table8">
-		<tr height="2">
-                 <td colspan="2" style="border-bottom: medium dotted rgb(102, 119, 102);">&nbsp; </td>
-                    </tr>
-                    <tr>
-                      <td width="200" class="text_azul"><span class="tableBodyRight"><?php echo $this->FG_BUTTON_ADITION_BOTTOM_TEXT?></span></td>
-					  
-                      <td width="200" align="right" class="text">
-					  
-					  	<a href="#" onClick="sendto('edit');" class="cssbutton_big"><IMG src="<?php echo Images_Path_Main;?>/icon_arrow_orange.gif">
-						<?php echo gettext("CONFIRM DATA"); ?> </a>
-					  	<!-- 
-						<INPUT title="<?php echo gettext("Create a new ");?><?php echo $this->FG_INSTANCE_NAME?>" alt="<?php echo gettext("Create a new ");?> <?php echo $this->FG_INSTANCE_NAME?>" border=0 hspace=0 id=submit4 name=submit2 src="<?php echo $this->FG_BUTTON_ADITION_SRC?>" type=image>
-						--!>
-					</td>
-
-                    </tr>
-                  </table>
-	  </FORM>
+	  <TABLE cellspacing="0" class="editform_table8">
+		<tr>
+		 <td colspan="2" class="editform_dotted_line">&nbsp; </td>
+		</tr>
+		<tr>
+			<td width="50%" class="text_azul"><span class="tableBodyRight"><?php echo $this->FG_BUTTON_ADITION_BOTTOM_TEXT?></span></td>
+			<td width="50%" align="right" class="text">
+			
+				<a href="#" onClick="sendto('edit');" class="cssbutton_big"><IMG src="<?php echo Images_Path_Main;?>/icon_arrow_orange.gif">
+				<?php echo gettext("CONFIRM DATA"); ?> </a>
+				
+				<!-- 
+				<INPUT title="<?php echo gettext("Create a new ");?><?php echo $this->FG_INSTANCE_NAME?>" alt="<?php echo gettext("Create a new ");?> <?php echo $this->FG_INSTANCE_NAME?>" border=0 hspace=0 id=submit4 name=submit2 src="<?php echo $this->FG_BUTTON_ADITION_SRC?>" type=image>
+				-->
+			</td>
+		</tr>
+	  </TABLE>
+	</FORM>

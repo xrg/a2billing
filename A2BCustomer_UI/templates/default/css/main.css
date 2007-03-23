@@ -186,7 +186,7 @@ body {
 	font-weight: bold;
 	text-transform: uppercase;
 	color: #FFFFFF;
-	background-color: #c33333;
+	background-color: #992222;
 	width: auto;
 }
 .form_enter {
@@ -1043,7 +1043,7 @@ SPAN.errorText {
 .editform_dotted_line
 {
 	border-top-style: none;
-	border-bottom: mediam dotted #667766;
+	border-bottom: medium dotted #667766;
 	border-right-style: none;
 	border-left-style: none;
 }
@@ -1236,7 +1236,7 @@ SPAN.errorText {
 	text-align: center;
 }
 
-a.cssbutton_big {	
+.cssbutton_big {	
 	background-image: url(../images/back_button.gif);
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 19px;
@@ -1247,7 +1247,7 @@ a.cssbutton_big {
 	padding: 0px 3px 0px 3px;
 	text-align: center;
 }
-a.cssbutton_big:hover {	
+.cssbutton_big:hover {	
 	background-image: url(../images/back_button_over.gif);
 }
 

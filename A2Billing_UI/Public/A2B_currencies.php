@@ -76,7 +76,7 @@ if ($updatecurrency == 1){
 			$result = $A2B -> instance_table -> SQLExec ($A2B->DBHandle, $QUERY, 0);
 		}
 	}
-	$update_msg = '<center><font color="green"><b>'.gettext('The currency\'s update has been successfully perform!').'</b></font></center>';
+	$update_msg = '<center><font color="green"><b>'.gettext('Success! All currencies are now updated.').'</b></font></center>';
 }
 /***********************************************************************************/
 

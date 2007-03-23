@@ -3,6 +3,25 @@
                    			TODO LIST - SPECIFIC
 ********************************************************************************
 
+  a2billing.php|1: line:1626 - Array
+    -- AGI Script Executing Application: (AGI) Options: (SET)
+    -- Launched AGI Script /var/lib/asterisk/agi-bin/SET
+  ==  SET: Failed to execute '/var/lib/asterisk/agi-bin/SET': No such file or directory
+    -- AGI Script SET completed, returning 0
+
+number to try
+0034934243109
+
+
+	
+
+#### EXEC_SETLANGUAGE
+********************************************************************
+    function exec_setlanguage($language='en')
+    {
+      return $this->exec('SetLanguage', $language);
+    }
+	
 
 #### SIGN-UP LINK ON CUSTOMER UI
 ********************************************************************
