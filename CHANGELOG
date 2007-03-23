@@ -5,6 +5,16 @@
 ********************************************************************
 
 
+#### NEW MODE VOUCHER
+********************************************************************
+add a mode voucher to just let the refill
+
+check also for :
+; When the user credit are below the minimum credit to call min_credit
+; jump directly to the voucher IVR menu  (values: YES - NO)
+jump_voucher_if_min_credit = NO
+
+
 #### SIGNUP MODULE
 ********************************************************************
 the design is broken probably due to smarty template

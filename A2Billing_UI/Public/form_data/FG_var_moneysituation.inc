@@ -1,7 +1,5 @@
 <?php
 
-$plang='en';
-
 $HD_Form = new FormHandler("cc_card","Card");
 
 $HD_Form -> FG_DEBUG = 0;
@@ -50,8 +48,8 @@ $HD_Form -> FG_OTHER_BUTTON1_IMG = Images_Path . "/icon-viewdetails.gif";
 
 	$HD_Form -> FG_OTHER_BUTTON1 = true;
 	$HD_Form -> FG_OTHER_BUTTON2 = true;
-	$HD_Form -> FG_OTHER_BUTTON2_LINK="javascript:;\" onClick=\"MM_openBrWindow('A2B_entity_moneysituation_details.php?type=payment&form_action=list&atmenu=card&displayheader=0&id=|param|','','scrollbars=yes,resizable=yes,width=500,height=270')\"";
-	$HD_Form -> FG_OTHER_BUTTON1_LINK="javascript:;\" onClick=\"MM_openBrWindow('A2B_entity_moneysituation_details.php?type=refill&form_action=list&atmenu=card&displayheader=0&id=|param|','','scrollbars=yes,resizable=yes,width=500,height=270')\"";
+	$HD_Form -> FG_OTHER_BUTTON2_LINK="javascript:;\" onClick=\"MM_openBrWindow('A2B_entity_moneysituation_details.php?type=payment&form_action=list&atmenu=card&displayheader=0&popup_select=1&id=|param|','','scrollbars=yes,resizable=yes,width=500,height=270')\"";
+	$HD_Form -> FG_OTHER_BUTTON1_LINK="javascript:;\" onClick=\"MM_openBrWindow('A2B_entity_moneysituation_details.php?type=refill&form_action=list&atmenu=card&displayheader=0&popup_select=1&id=|param|','','scrollbars=yes,resizable=yes,width=500,height=270')\"";
 	$HD_Form -> FG_OTHER_BUTTON2_ALT = '<font color="red">PAYMENT</font>';
 	$HD_Form -> FG_OTHER_BUTTON1_ALT = '<font color="red">REFILL</font>';
 	

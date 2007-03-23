@@ -63,6 +63,7 @@
 	elseif ($argc > 2 && strlen($argv[2]) > 0 && $argv[2] == 'cid-callback')	$mode = 'cid-callback';	
 	elseif ($argc > 2 && strlen($argv[2]) > 0 && $argv[2] == 'all-callback')	$mode = 'all-callback';
 	elseif ($argc > 2 && strlen($argv[2]) > 0 && $argv[2] == 'predictivedialer')	$mode = 'predictivedialer';
+	elseif ($argc > 2 && strlen($argv[2]) > 0 && $argv[2] == 'voucher')	$mode = 'voucher';
 	else $mode = 'standard';
 	$agi->verbose('line:'.__LINE__.' - '."MODE : $mode \n");
 	
@@ -149,9 +150,10 @@
 		/* WE START ;) */	
 		$cia_res = $A2B -> callingcard_ivr_authenticate($agi);
 		$A2B -> write_log("[TRY : callingcard_ivr_authenticate]");
+		// GOOD AUTHENTICATION AND WE HAVE CREDIT TO GO AHEAD
 		if ($cia_res==0){
 			
-			
+			// RE-SET THE CALLERID
 			$A2B->callingcard_auto_setcallerid($agi);
 			//$A2B -> write_log("[callingcard_acct_start_inuse]");
 			//$A2B->callingcard_acct_start_inuse($agi,1);
@@ -160,28 +162,21 @@
 					$RateEngine->Reinit();
 					$A2B-> Reinit();
 					
-					
-					
-					
+					// RETRIEVE THE CHANNEL STATUS AND LOG : STATUS - CREIT - MIN_CREDIT_2CALL 
 					$stat_channel = $agi->channel_status($A2B-> channel);
 					$A2B -> write_log('[CHANNEL STATUS : '.$stat_channel["result"].' = '.$stat_channel["data"].']');
 					if ($A2B->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '.'[CHANNEL STATUS : '.$stat_channel["result"].' = '.$stat_channel["data"].']');
-					
-					
 					$A2B -> write_log("[CREDIT STATUS : ".$A2B-> credit."]");
-					if ($A2B->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '."[CREDIT STATUS : ".$A2B-> credit."]");
-					if ($A2B->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '."[CREDIT MIN_CREDIT_2CALL : ".$A2B->agiconfig['min_credit_2call']."]");
-					
-					
-					
+					if ($A2B->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '."[CREDIT : ".$A2B-> credit."][CREDIT MIN_CREDIT_2CALL : ".$A2B->agiconfig['min_credit_2call']."]");
+					// CHECK IF THE CHANNEL IS UP
 					//if ($stat_channel["status"]!= "6" && $stat_channel["status"]!= "1"){	
 					if ($stat_channel["result"]!= $status_channel && ($A2B -> CC_TESTING!=1)){
 						if ($A2B->set_inuse==1) $A2B->callingcard_acct_start_inuse($agi,0);
 						$A2B -> write_log("[STOP - EXIT]", 0);
 						exit();
 					}
-				
 					
+					// CREATE A DIFFERENT UNIQUEID FOR EACH TRY
 					if ($i>0)   $A2B-> uniqueid=$A2B-> uniqueid+ 1000000000 ;
 					
 					if( $A2B->credit < $A2B->agiconfig['min_credit_2call'] && $A2B -> typepaid==0) {
@@ -193,12 +188,12 @@
 							
 							
 							if (($A2B->agiconfig['notenoughcredit_cardnumber']==1) && (($i+1)< $A2B->agiconfig['number_try'])){
-							
+								
 								if ($A2B->set_inuse==1) $A2B->callingcard_acct_start_inuse($agi,0);
 								
 								$A2B->agiconfig['cid_enable']=0;
 								$A2B->agiconfig['use_dnid']=0;
-								$A2B->agiconfig['cid_auto_assign_card_to_cid']=0;								
+								$A2B->agiconfig['cid_auto_assign_card_to_cid']=0;
 								$A2B->accountcode='';
 								$A2B->username='';
 								$A2B-> ask_other_cardnumber	= 1;
@@ -212,7 +207,7 @@
 								$A2B->callingcard_acct_start_inuse($agi,1);
 								continue;
 								
-							}else{								
+							}else{
 								
 								$send_reminder = 1;
 								if ($A2B->agiconfig['debug']>=2) $agi->verbose('line:'.__LINE__.' - '."[SET MAIL REMINDER - NOT ENOUGH CREDIT]");
@@ -232,7 +227,7 @@
 						$A2B-> ivr_voucher = $res_dtmf ["result"];
 						if ((isset($A2B-> ivr_voucher)) && ($A2B-> ivr_voucher == $A2B->agiconfig['ivr_voucher_prefixe']))
 						{	
-							$vou_res = $A2B->refill_card_with_voucher($agi, $RateEngine,$i);
+							$vou_res = $A2B->refill_card_with_voucher($agi, $i);
 							//if ($vou_res==1)$A2B->fct_say_balance ($agi, $A2B->add_credit, 1);
 						}
 					}
@@ -249,7 +244,7 @@
 			
 								$prompt_enter_dest = $A2B->agiconfig['file_conf_enter_destination'];
 								$res_dtmf = $agi->get_data($prompt_enter_dest, 4000, 20);
-								if ($A2B->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '."RES sip_iax_pstndirect_call DTMF : ".$res_dtmf ["result"]);																											
+								if ($A2B->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '."RES sip_iax_pstndirect_call DTMF : ".$res_dtmf ["result"]);
 								$A2B-> destination = $res_dtmf ["result"];
 							}
 							
@@ -270,10 +265,10 @@
 							//$res_dtmf = $agi->agi_exec("GET DATA prepaid-sipiax-press9 2000 1");
 							$res_dtmf = $agi->get_data('prepaid-sipiax-press9', 2000, 1);
 							if ($A2B->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '."RES SIP_IAX_FRIEND DTMF : ".$res_dtmf ["result"]);
-																			
+							
 							$A2B-> sip_iax_buddy = $res_dtmf ["result"];
 						}
-					}		
+					}
 					
 					
 					if ( isset($A2B-> sip_iax_buddy) && ($A2B-> sip_iax_buddy == $A2B->agiconfig['sip_iax_pstn_direct_call_prefix'])) {
@@ -288,7 +283,7 @@
 										
 									// PERFORM THE CALL	
 									$result_callperf = $RateEngine->rate_engine_performcall ($agi, $A2B-> destination, $A2B);
-
+									
 									if (!$result_callperf) {
 										$prompt="prepaid-dest-unreachable";
 										//$agi->agi_exec("STREAM FILE $prompt #");
@@ -310,17 +305,18 @@
 				$A2B->agiconfig['use_dnid']=0;
 			}//END FOR
 			if ($A2B->set_inuse==1) $A2B->callingcard_acct_start_inuse($agi,0);
-		}else{
-				$A2B -> write_log("[AUTHENTICATION FAILED (cia_res:".$cia_res.")]");
-		}
 			
-	
+		}else{
+			$A2B -> write_log("[AUTHENTICATION FAILED (cia_res:".$cia_res.")]");
+		}
+		
+		
 		/****************  SAY GOODBYE   ***************/
 		if ($A2B->agiconfig['say_goodbye']==1) $agi-> stream_file('prepaid-final', '#');
 	
 	}elseif ($mode == 'did'){
-	
-	
+					
+					
 					if ($A2B->agiconfig['answer_call']==1){
 						if ($A2B->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '.'[ANSWER CALL]');
 						$agi->answer();
@@ -363,6 +359,13 @@
 						}
 					}
 					
+	// MOVE VOUCHER TO LET CUSTOMER ONLY REFILL
+	}elseif ($mode == 'voucher'){
+		$vou_res = $A2B->refill_card_with_voucher($agi, $i);
+		
+		/****************  SAY GOODBYE   ***************/
+		if ($A2B->agiconfig['say_goodbye']==1) $agi-> stream_file('prepaid-final', '#');
+		
 	}elseif ($mode == 'cid-callback'){
 	
 		$agi->verbose('line:'.__LINE__.' - '.'[MODE : CALLERID-CALLBACK - '.$A2B->CallerID.']');
@@ -1071,11 +1074,11 @@
 							
 				}//END FOR
 			if ($A2B->set_inuse==1) $A2B->callingcard_acct_start_inuse($agi,0);
+			
 		}else{
-				$A2B -> write_log("[AUTHENTICATION FAILED (cia_res:".$cia_res.")]");
+			$A2B -> write_log("[AUTHENTICATION FAILED (cia_res:".$cia_res.")]");
 		}
-
-
+	
 	}
 
 
