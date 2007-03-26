@@ -14,7 +14,9 @@
 	# (/tmp/crontab.9543 installed on Fri Oct 28 04:44:10 2005)
 	# (Cron version -- $Id: crontab.c,v 2.13 1994/01/17 03:20:37 vixie Exp $)
 	0 0 * * * php /var/lib/asterisk/agi-bin/libs_a2billing/crontjob/a2billing_alarm.php
+	
 ****************************************************************************/
+
 	set_time_limit(0);
 	error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
 	//dl("pgsql.so"); // remove "extension= pgsql.so !
@@ -72,7 +74,8 @@
 	foreach ($result as $myalarm) {
 		$SQL_CLAUSE="";
 		$timestamp_lastsend = strtotime($myalarm[10]);
-
+		if ($verbose_level>=3) echo "timestamp_lastsend = $timestamp_lastsend";
+		
 		//  1 "Daily", 2 "Weekly", 3 "Monday to Sunday", 4 "Monthly"
 		$run_alarm=false;
 		switch ($myalarm[2]) {
@@ -92,7 +95,7 @@
 				}
 				if ($verbose_level>=1) echo "\n\n TODAY :".date("w",time())." LAST RUN DAY :".date("w",$timestamp_lastsend);
 			break;
-		//Mondy to Sundy
+		//Monday to Sunday
 			case 3:
 				if ((date("w",time()) != 1) && (date("w",time())!=date("w",$timestamp_lastsend))){
 					$run_alarm=true;
@@ -116,7 +119,8 @@
 			if (isset($myalarm[6]) && $myalarm[6] != "") $SQL_CLAUSE.=" and id_trunk = '".$myalarm[6]."'";
 			write_log("[Alarm : ".$myalarm[1]." ]");
 
-			$QUERY="SELECT case when terminatecause = 'ANSWER' then 1 else 0 end as success,case when terminatecause ='ANSWER' then 0 else 1 end as fail,sessiontime FROM cc_call $SQL_CLAUSE";
+			$QUERY =	"SELECT CASE WHEN terminatecause = 'ANSWER' THEN 1 ELSE 0 END AS success,".
+						"CASE WHEN terminatecause ='ANSWER' THEN 0 ELSE 1 END AS fail,sessiontime FROM cc_call $SQL_CLAUSE";
 			if ($verbose_level>=1) echo "\n\n".$QUERY;
 			$totalsuccess=0;
 			$totalfail=0;
@@ -148,7 +152,7 @@
 			$ASR = $totalsuccess/$totalsuccess+$totalfail;
 			$ALOC =$totaltime/$totalsuccess+$totalfail;
 			$send_alarm=false;
-		//$type_list   ["0" ALOC, "1" ASR, "2" CIC]
+			//$type_list   ["0" ALOC, "1" ASR, "2" CIC]
 			switch ($myalarm[3]) {
 				case 1:
 					if ( $ALOC >= $myalarm[4] || $ALOC <= $myalarm[5]){

@@ -136,8 +136,8 @@ $HD_Form -> CV_FOLLOWPARAMETERS= "&popup_select=".$_GET['popup_select']."&popup_
 // Search form
 if (!($popup_select>=1))	 $HD_Form -> FG_FILTER_SEARCH_FORM = true;
 $HD_Form -> FG_FILTER_SEARCH_TOP_TEXT = gettext('Define specific criteria to search for cards created.');
-$HD_Form -> FG_FILTER_SEARCH_1_TIME_TEXT = gettext("Selection by month <br>of the creationdate");
-$HD_Form -> FG_FILTER_SEARCH_2_TIME_TEXT = gettext("Selection by day <br>of the creationdate");
+$HD_Form -> FG_FILTER_SEARCH_1_TIME_TEXT = gettext("Creation date / Month");
+$HD_Form -> FG_FILTER_SEARCH_2_TIME_TEXT = gettext("Creation date / Day");
 $HD_Form -> FG_FILTER_SEARCH_2_TIME_FIELD = "creationdate";
 $HD_Form -> AddSearchElement_C1(gettext("CARDNUMBER"), 'username','usernametype');
 $HD_Form -> AddSearchElement_C1(gettext("LASTNAME"),'lastname','lastnametype');

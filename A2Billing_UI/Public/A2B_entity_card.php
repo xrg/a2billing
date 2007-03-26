@@ -156,7 +156,7 @@ echo $CC_help_list_customer;
 
 <center><a href="#" target="_self"  onclick="imgidclick('img54000','div54000','kfind.png','viewmag.png');"><img id="img54000" src="<?php echo KICON_PATH; ?>/kfind.png" onmouseover="this.style.cursor='hand';" HEIGHT="16"> <font class="fontstyle_002"><?php echo gettext("REFILL");?> </font></a></center>
 	<div id="div54000" style="display:none;">
-	   <table width="95%" border="0" align="center">
+	   <table width="90%" border="0" align="center">
         <tr><form NAME="theForm">
 		   <td align="left" width="5%"><img src="<?php echo KICON_PATH; ?>/pipe.png">
 		   </td>
@@ -172,8 +172,7 @@ echo $CC_help_list_customer;
 			</td></tr>
 			</table>
 		</td>
-		<td  class="bgcolor_001">		
-				<select NAME="opt" size="1" class="form_input_select"><option value='0'><?php echo gettext("REFILL");?> </option></select>
+		<td  class="bgcolor_001" align="center">				
 				<input class="form_enter" name="addcredit" size="18" maxlength="6" value="">
 				<input class="form_input_button" 
 				TYPE="button" VALUE="<?php echo gettext("ADD CREDIT TO THE SELECTED CARD");?>" onClick="openURL('<?php echo $_SERVER['PHP_SELF']?>?form_action=addcredit&stitle=Card_Refilled&current_page=<?php echo $current_page?>&order=<?php echo $order?>&sens=<?php echo $sens?>&id=')">
