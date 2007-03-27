@@ -16,15 +16,14 @@
 */
 class captcha
 {
-	var $width = 360;
-	var $height = 96;
+	var $width = 200;
+	var $height = 50;
 	var $captcha_gd_noise = 1;
 
 	function execute($code, $seed)
 	{
 		global $config;
-		$stats = gd_info();
-
+		$stats = gd_info();		
 		$bundled = (substr($stats['GD Version'], 0, 7) === 'bundled') ? true : false;
 
 		preg_match('/[\\d.]+/', $stats['GD Version'], $version);
@@ -139,8 +138,8 @@ class captcha
 		if (!sizeof($fonts))
 		{
 			global $phpbb_root_path;
-	
-			$dr = @opendir('./fonts');
+			
+			$dr = @opendir(FSROOT.'lib/captcha/fonts');
 
 			if (!$dr)
 			{
@@ -151,7 +150,7 @@ class captcha
 			{
 				if (strtolower(pathinfo($entry, PATHINFO_EXTENSION)) == 'ttf')
 				{
-					$fonts[] = './fonts/' . $entry;
+					$fonts[] = FSROOT.'lib/captcha/fonts/' . $entry;
 				}
 			}
 			closedir($dr);

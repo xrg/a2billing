@@ -4,7 +4,7 @@ getpost_ifset(array('id', 'username', 'useralias', 'uipass', 'credit', 'language
                     'activated', 'simultaccess', 'currency', 'typepaid', 'creditlimit',
                     'lastname', 'firstname', 'email', 'address', 'city', 'state', 'country',
                     'zipcode', 'phone', 'fax', 'inuse', 'cid', 'runservice', 'firstusedate',
-                    'expirationdate', 'enableexpire', 'expiredays'));
+                    'expirationdate', 'enableexpire', 'expiredays','captchacode'));
 
 
 $HD_Form = new FormHandler("cc_card","User");
@@ -13,6 +13,7 @@ $HD_Form -> FG_DEBUG = 0;
 // FAQ
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "ASC";
 $HD_Form -> FG_FILTER_SEARCH_SESSION_NAME = 'entity_card_selection';
+$HD_FORM -> FG_CAPTCHA_IMAGE = true;
 
 // TODO Unify order of parameters
 
@@ -86,7 +87,7 @@ $maxi3='';
 if (isset($form_action) && $form_action=="add")
 {
 	$array_card_generated  = gen_card_with_alias();
-    $maxi = $array_card_generated[0];
+    $maxi = $array_card_generated[0];	
     $maxi2 = $array_card_generated[1];
 	$pass = MDP_NUMERIC(10);
     $loginkey = MDP_STRING(20);
@@ -219,12 +220,21 @@ $HD_Form -> AddEditElement (gettext("FAXNUMBER"),
 			   "",
 			   gettext("Insert your fax number"),
 			   "" , "", "",	"", "", "" , "", "");
+			   
+$HD_Form -> AddEditElement (gettext("VERIFICATION"),
+			   "captchacode",
+			   '$value',
+			   "CAPTCHAIMAGE",
+			   "size=10 maxlength=4",
+			   "19",
+			   gettext("Insert code from above picture"),
+			   "" , "", "",	"", "", "" , "", "");
 
 
 $HD_Form -> FieldEditElement ('username, useralias, uipass, credit, language, tariff, id_didgroup, id_campaign,'.
 'callback, activated, simultaccess, currency, runservice, typepaid, creditlimit,	firstusedate, enableexpire,'.
 'expirationdate, expiredays, vat, lastname, firstname, email, address, city, state, country, zipcode, phone,'.
-'fax, sip_buddy, iax_buddy, inuse');
+'fax, captchacode, sip_buddy, iax_buddy, inuse');
 
 
 if(!isset($myusername)) $myusername='';
@@ -300,7 +310,7 @@ $HD_Form -> FG_ADDITIONAL_FUNCTION_AFTER_ADD = 'create_sipiax_friends_reload';
 
 
 //$HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
-$HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = "signup_confirmation.php?id=";
+//$HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = "signup_confirmation.php?id=";
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_DELETE = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
 

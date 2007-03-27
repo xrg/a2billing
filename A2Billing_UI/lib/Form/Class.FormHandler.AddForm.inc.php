@@ -51,6 +51,24 @@
 				echo stripslashes($list[0][$i]);
 			}else{ echo $_POST[$this->FG_TABLE_ADITION[$i][1]]; }?>">
 		<a href="#" onclick="window.open('<?php echo $this->FG_TABLE_ADITION[$i][12]?>popup_formname=myForm&popup_fieldname=<?php echo $this->FG_TABLE_ADITION[$i][1]?>' <?php echo $this->FG_TABLE_ADITION[$i][13]?>);"><img src="<?php echo Images_Path_Main;?>/icon_arrow_orange.gif"/></a>
+<!--CAPTCHA IMAGE CODE START HERE-->
+	<?php
+		}elseif (strtoupper ($this->FG_TABLE_ADITION[$i][3])==strtoupper("CAPTCHAIMAGE"))
+		{
+	?>
+		<table cellpadding="2" cellspacing="0" border="0" width="100%">
+			<tr>			
+				<td> <img src="../lib/captcha.php" ></td>
+			</tr>			
+			<tr>
+			<td><INPUT class="form_input_text" name=<?php echo $this->FG_TABLE_ADITION[$i][1]?>  <?php echo $this->FG_TABLE_ADITION[$i][4]?> value="<?php echo $_POST[$this->FG_TABLE_ADITION[$i][1]];?>"> Enter code from above picture here.
+			</td>
+			</tr>
+			</table>
+		
+		
+<!--CAPTCHA IMAGE CODE END HERE-->		
+			
 	<?php
 		}elseif (strtoupper ($this->FG_TABLE_ADITION[$i][3])==strtoupper ("POPUPVALUETIME"))
 		{
@@ -159,7 +177,6 @@
 			if (!$this-> FG_fit_expression[$i]  &&  isset($this-> FG_fit_expression[$i]) ){
 				echo "<br>".$this->FG_TABLE_ADITION[$i][6]." ".$this->FG_regular[$this->FG_TABLE_ADITION[$i][5]][1];	
 			}
-							   
 	 ?>
                         </span> 
 	<?php  
@@ -169,8 +186,9 @@
 					
 	<?php   	}
 					
-		}//END_FOR ?>
-                                       
+		}//END_FOR 		
+		?>
+	
         </TBODY>
       </TABLE>
 	  <TABLE cellspacing="0" class="editform_table8">

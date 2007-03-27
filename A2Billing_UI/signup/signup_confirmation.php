@@ -72,7 +72,7 @@ session_start();
 
 	if (!$num)
     {
-        echo "<br>Error : No User Found";
+        echo "<br>Error : No such user found in database";
         exit();
     }
 

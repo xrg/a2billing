@@ -61,8 +61,9 @@ $HD_Form -> create_form ($form_action, $list, $id=null);
 
 if($form_action == "add")
 {
+
     unset($_SESSION["cardnumber_signup"]);
-    $_SESSION["cardnumber_signup"] = $maxi;
+    $_SESSION["cardnumber_signup"] = $maxi;	
     Header ("Location: signup_confirmation.php");
 }
 
