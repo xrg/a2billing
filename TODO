@@ -2,6 +2,18 @@
 ********************************************************************************
                    			TODO LIST - SPECIFIC
 ********************************************************************************
+          AuthName "Subversion Repository"
+          AuthUserFile /etc/httpd/dav_svn.passwd
+          Require valid-user
+          AuthzSVNAccessFile /etc/httpd/passwd/svnauthz.conf
+
+
+#### CAPTCHA 
+********************************************************************
+Try to add some captcha into the Sign-Up Form
+
+http://www.nogajski.de/horst/php/captcha/index.php?download=yes&id=1234
+
 
 #### MANAGE MULTI LENGHT CARD NUMBER
 ********************************************************************
@@ -433,13 +445,6 @@ ADD REPORTING PAGE TO VIEW :
 20 might be a parameters
 we need to see the total time and sell made by this clause group
 etc...
-
-
-
-#### Feature
-********************************************************************
-Try to add some captcha into the sensible Form
-http://www.nogajski.de/horst/php/captcha/index.php?download=yes&id=1234
 
 
 #### NOTE

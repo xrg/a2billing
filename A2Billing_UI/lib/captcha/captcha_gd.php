@@ -16,7 +16,7 @@
 */
 class captcha
 {
-	var $width = 200;
+	var $width = 240;
 	var $height = 50;
 	var $captcha_gd_noise = 1;
 
