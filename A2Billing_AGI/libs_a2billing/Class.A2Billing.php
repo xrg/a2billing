@@ -865,7 +865,7 @@ class A2Billing {
 					$QUERY .= " CURRENT_TIMESTAMP - INTERVAL $answeredtime SECOND ";
 				}						
 				$QUERY .= ", '$answeredtime', '".$this->destination."', '$dialstatus', now(), '0', '0', ".
-					" '".$this->countrycode."', '".$this->subcode."', '".$this->tech." CALL', '0', '0', '0', '0', $this->CallerID, '1' )";
+					" '".$this->countrycode."', '".$this->subcode."', '".$this->tech." CALL', '0', '0', '0', '0', '$this->CallerID', '1' )";
 				if ($this->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '.$QUERY);
 				$this -> write_log("[CC_asterisk_stop 1.1: SQL: $QUERY]");
 				$result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY, 0);

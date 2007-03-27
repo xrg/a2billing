@@ -444,7 +444,7 @@ class A2Billing {
 		
 		if(!isset($this->config["agi-conf$idconfig"]['ivr_voucher'])) $this->config["agi-conf$idconfig"]['ivr_voucher'] = 0;
 		if(!isset($this->config["agi-conf$idconfig"]['ivr_voucher_prefixe'])) $this->config["agi-conf$idconfig"]['ivr_voucher_prefixe'] = 8;
-		if(!isset($this->config["agi-conf$idconfig"]['jump_voucher_if_min_credit'])) $this->config["agi-conf$idconfig"]['jump_voucher_if_min_credit'] = 1;
+		if(!isset($this->config["agi-conf$idconfig"]['jump_voucher_if_min_credit'])) $this->config["agi-conf$idconfig"]['jump_voucher_if_min_credit'] = 0;
 		
 		$this->agiconfig = $this->config["agi-conf$idconfig"];
 		
@@ -865,7 +865,7 @@ class A2Billing {
 					$QUERY .= " CURRENT_TIMESTAMP - INTERVAL $answeredtime SECOND ";
 				}						
 				$QUERY .= ", '$answeredtime', '".$this->destination."', '$dialstatus', now(), '0', '0', ".
-					" '".$this->countrycode."', '".$this->subcode."', '".$this->tech." CALL', '0', '0', '0', '0', $this->CallerID, '1' )";
+					" '".$this->countrycode."', '".$this->subcode."', '".$this->tech." CALL', '0', '0', '0', '0', '$this->CallerID', '1' )";
 				if ($this->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '.$QUERY);
 				$this -> write_log("[CC_asterisk_stop 1.1: SQL: $QUERY]");
 				$result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY, 0);
@@ -1161,7 +1161,7 @@ class A2Billing {
      *  @return 1 if Ok ; -1 if error
 	**/	
 
-	function refill_card_with_voucher($agi, $try_num){
+	function refill_card_with_voucher ($agi, $try_num){
 		
 		global $currencies_list;
 		
@@ -1195,19 +1195,22 @@ class A2Billing {
 			{
 				if ($this->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - System Error : No currency table complete !!!');		
 				$agi-> stream_file('unknow_used_currencie', '#');				
-			return -1;
+				return -1;
 			}
 			else
 			{	
-				$this ->add_credit = $result[0][1]*$currencies_list[strtoupper($result[0][4])][2];
+				// DISABLE THE VOUCHER 
+				$this -> add_credit = $result[0][1] * $currencies_list[strtoupper($result[0][4])][2];
 				$QUERY = "UPDATE cc_voucher SET activated='f', usedcardnumber='".$this->accountcode."', usedate=now() WHERE voucher='".$this->vouchernumber."'";
 				if ($this->agiconfig['debug']>=1) $agi->verbose("QUERY UPDATE VOUCHER: $QUERY");
 				$result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY, 0);
 				$this -> write_log("[VOUCHER UPDATE : $QUERY]");
-
+				
+				// UPDATE THE CARD AND THE CREDIT PROPERTY OF THE CLASS
 				$QUERY = "UPDATE cc_card SET credit=credit+'".$this ->add_credit."' WHERE username='".$this->accountcode."'";
 				$result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY, 0);
-				$this->credit +=$this->add_credit; 
+				$this -> credit += $this -> add_credit; 
+				
 				if ($this->agiconfig['debug']>=1) $agi->verbose("QUERY UPDATE CARD: $QUERY");
 				if ($this->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - The Voucher '.$this->vouchernumber.' has been used, We added '.$this ->add_credit/$mycur.' '.strtoupper($this->currency).' of credit on your account!');
 				$this->fct_say_balance ($agi, $this->add_credit, 1);
@@ -1401,7 +1404,7 @@ class A2Billing {
 		}
 	}
 	
-		
+	
 	function callingcard_ivr_authenticate($agi){
 			
 		$prompt='';
@@ -1569,25 +1572,25 @@ class A2Billing {
 							$prompt = "prepaid-card-expired";			
 					}
 				}
-						
+				
 				if (strlen($prompt)>0){ 
 					$agi-> stream_file($prompt, '#'); // Added because was missing the prompt 
 					if ($this->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' prompt:'.strtoupper($prompt));
-
+					
 					$this -> write_log("[ERROR CHECK CARD : $prompt (cardnumber:".$this->cardnumber.")]");
 					$this -> write_log("[NOTENOUGHCREDIT - refiil_card_withvoucher] ");
 					if ($this->agiconfig['debug']>=1) $agi->verbose("NOTENOUGHCREDIT - Refill with vouchert");
-
+					
 					if ($this->agiconfig['jump_voucher_if_min_credit']==1 && $prompt == "prepaid-zero-balance"){
-
-						$this -> write_log("[NOTENOUGHCREDIT - refiil_card_withvoucher] ");
-						$vou_res = $this->refill_card_with_voucher($agi,2);
+					
+						$this -> write_log("[NOTENOUGHCREDIT - refill_card_withvoucher] ");
+						$vou_res = $this -> refill_card_with_voucher($agi,2);
 						if ($vou_res==1){
 							return 0;
 						}else {
 							$this -> write_log("[NOTENOUGHCREDIT - refiil_card_withvoucher fail] ");
 						}
-					}		
+					}
 					if ($prompt == "prepaid-zero-balance" && $this->agiconfig['notenoughcredit_cardnumber']==1) { 
 						$this->accountcode=''; $callerID_enable=0;
 						$this->agiconfig['cid_auto_assign_card_to_cid']=0;
@@ -1596,10 +1599,11 @@ class A2Billing {
 						return -2;
 					}
 				}
-						
-						
-			}		
+				
+			} // elseif We -> found a card for this callerID
+			
 		}else{
+			// NO CALLERID AUTHENTICATION
 			$callerID_enable=0;
 		}
 		
