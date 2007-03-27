@@ -17,7 +17,7 @@
 class captcha
 {
 	var $width = 240;
-	var $height = 50;
+	var $height = 60;
 	var $captcha_gd_noise = 1;
 
 	function execute($code, $seed)

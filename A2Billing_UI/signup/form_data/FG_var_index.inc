@@ -225,7 +225,7 @@ $HD_Form -> AddEditElement (gettext("VERIFICATION"),
 			   "captchacode",
 			   '$value',
 			   "CAPTCHAIMAGE",
-			   "size=10 maxlength=4",
+			   "size=10 maxlength=6",
 			   "19",
 			   gettext("Insert code from above picture"),
 			   "" , "", "",	"", "", "" , "", "");

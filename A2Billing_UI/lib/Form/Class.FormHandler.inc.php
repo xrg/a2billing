@@ -888,7 +888,7 @@ class FormHandler{
 		                        "Phone Number format");
 		// 19 - CAPTCHAIMAGE - Alpahnumeric
 		$this -> FG_regular[]  = array("^(".$_SESSION["captcha_code"].")$", 
-						gettext("(at least 4 Alphanumeric characters)"));
+						gettext("(at least 6 Alphanumeric characters)"));
 		// check_select
 		// TO check if a select have a value different -1
 	}

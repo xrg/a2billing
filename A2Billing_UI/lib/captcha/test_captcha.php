@@ -1,5 +1,5 @@
 <?php
-
+exit();
 $code = "1234567890";
 $seed = 1231413213;
 $captcha_gd = false;
