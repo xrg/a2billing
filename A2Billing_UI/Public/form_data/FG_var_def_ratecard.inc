@@ -10,23 +10,21 @@ getpost_ifset(array('id', 'idtariffplan', 'dialprefix', 'destination', 'buyrate'
 $HD_Form = new FormHandler("cc_ratecard","Rates");
 
 $HD_Form -> FG_DEBUG = 0;
-// FAQ
 $HD_Form -> FG_TABLE_DEFAULT_ORDER = " destination";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "ASC";
 
 $HD_Form->FG_FILTER_SEARCH_SESSION_NAME = 'entity_ratecard_selection';
-
+//echo "<b>def_ratecard = ".$_SESSION['def_ratecard']."</b><br><br>";
 if (isset($posted)){
 	$idtariff = explode('-:-',$tariffplan);
 	$HD_Form->FG_TOP_FILTER_NAME = str_replace ("-:-","",$idtariff[1]);
 	//echo "Debug hey ->".$HD_Form->FG_TOP_FILTER_NAME."<br>";
 	$HD_Form->FG_TOP_FILTER_VALUE = $idtariff[0];
-	$HD_Form -> FG_TABLE_CLAUSE = " idtariffplan='$HD_Form->FG_TOP_FILTER_VALUE' ";
+	$HD_Form -> FG_TABLE_CLAUSE = " idtariffplan2='$HD_Form->FG_TOP_FILTER_VALUE' ";
 	$_SESSION['def_ratecard']=$HD_Form -> FG_TABLE_CLAUSE;
 }else{
 	$HD_Form -> FG_TOP_FILTER_NAME = 0;
-	$HD_Form -> FG_TABLE_CLAUSE = " idtariffplan=''";		
-	$HD_Form -> FG_TABLE_CLAUSE = $_SESSION['def_ratecard'];	
+	$HD_Form -> FG_TABLE_CLAUSE = $_SESSION['def_ratecard'];
 }
 
 
@@ -69,6 +67,7 @@ $HD_Form -> FG_FILTER_SEARCH_FORM = true;
 $HD_Form -> FG_FILTER_SEARCH_TOP_TEXT = gettext("Define the criteria to search");
 $HD_Form -> FG_FILTER_SEARCH_1_TIME_TEXT = gettext("Selection by month <br>of the startdate");
 $HD_Form -> FG_FILTER_SEARCH_2_TIME_TEXT = gettext("Selection by day <br>of the startdate");
+$HD_Form -> FG_FILTER_SEARCH_2_TIME_FIELD = 'startdate';
 $HD_Form -> AddSearchElement_C1(gettext("DESTINATION"), 'destination','destinationtype');
 $HD_Form -> AddSearchElement_C1(gettext("PREFIX"),'dialprefix','dialprefixtype');
 $HD_Form -> AddSearchElement_C2(gettext("BUYRATE"),'buyrate1','buyrate1type','buyrate2','buyrate2type','buyrate');
