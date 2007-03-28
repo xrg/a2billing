@@ -1254,15 +1254,18 @@ class FormHandler{
 							if (count($arr_value_explode)>1){
 								if (is_numeric($arr_value_explode[0]) && is_numeric($arr_value_explode[1]) && $arr_value_explode[0] < $arr_value_explode[1] ){
 									for ($kk=$arr_value_explode[0];$kk<=$arr_value_explode[1];$kk++){
-											$arr_value_to_import[] = $kk;
+										$arr_value_to_import[] = $kk;
 									}
+								}elseif (is_numeric($arr_value_explode[0])){
+									$arr_value_to_import[] = $arr_value_explode[0];
+								}elseif (is_numeric($arr_value_explode[1])){
+									$arr_value_to_import[] = $arr_value_explode[1];
 								}
-								
 							}else{
 								$arr_value_to_import[] = $arr_value_explode[0];
 							}
-						}						
-								
+						}
+						
 						if (!is_null($processed[$fields_name]) && ($processed[$fields_name]!="") && ($this->FG_TABLE_ADITION[$i][4]!="disabled") ){
 							if ($i>0) $param_add_fields .= ", ";							
 							$param_add_fields .= str_replace('myfrom_', '', $fields_name);

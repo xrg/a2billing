@@ -7,6 +7,36 @@
  ****************************************************************************/
 
 /*
+ * function splitable_data
+ */
+function splitable_data ($splitable_value){
+	
+	$arr_splitable_value = explode(",", $splitable_value);
+	foreach ($arr_splitable_value as $arr_value){
+		$arr_value = trim ($arr_value);
+		$arr_value_explode = explode("-", $arr_value,2);
+		if (count($arr_value_explode)>1){
+			if (is_numeric($arr_value_explode[0]) && is_numeric($arr_value_explode[1]) && $arr_value_explode[0] < $arr_value_explode[1] ){
+				for ($kk=$arr_value_explode[0];$kk<=$arr_value_explode[1];$kk++){
+					$arr_value_to_import[] = $kk;
+				}
+			}elseif (is_numeric($arr_value_explode[0])){
+				$arr_value_to_import[] = $arr_value_explode[0];
+			}elseif (is_numeric($arr_value_explode[1])){
+				$arr_value_to_import[] = $arr_value_explode[1];
+			}
+			
+		}else{
+			$arr_value_to_import[] = $arr_value_explode[0];
+		}
+	}
+	
+	$arr_value_to_import = array_unique($arr_value_to_import);
+	sort($arr_value_to_import);
+	return $arr_value_to_import;
+}
+
+/*
  * function sanitize_data
  */
 function sanitize_data($data){
@@ -211,11 +241,11 @@ function gen_card($table = "cc_card", $len = LEN_CARDNUMBER, $field="username"){
 }
 
 
-function gen_card_with_alias($table = "cc_card", $api=0){
+function gen_card_with_alias($table = "cc_card", $api=0, $length_cardnumber=LEN_CARDNUMBER){	
 
 	$DBHandle_max  = DbConnect();
-	for ($k=0;$k<=200;$k++){
-		$card_gen = MDP(LEN_CARDNUMBER);
+	for ($k=0;$k<=200;$k++){			
+		$card_gen = MDP($length_cardnumber);
 		$alias_gen = MDP(LEN_ALIASNUMBER);
 		if ($k==200){ 
 			if ($api){
@@ -242,8 +272,6 @@ function gen_card_with_alias($table = "cc_card", $api=0){
 		return $arr_val;
 	}	
 }
-
-
 		
 //Get productID and all parameter and retrieve info for card creation into cc_ecommerce_product
 function get_productinfo($DBHandle, $instance_table, $productid, $email_alarm, $mail_content, $logfile){

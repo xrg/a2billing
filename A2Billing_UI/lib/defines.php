@@ -26,8 +26,7 @@
 
 	
 	// WEB DEFINE FROM THE A2BILLING.CONF FILE
-	define ("EMAIL_ADMIN", isset($A2B->config["webui"]['email_admin'])?$A2B->config["webui"]['email_admin']:null);
-	define ("LEN_CARDNUMBER", isset($A2B->config["webui"]['len_cardnumber'])?$A2B->config["webui"]['len_cardnumber']:null);
+	define ("EMAIL_ADMIN", isset($A2B->config["webui"]['email_admin'])?$A2B->config["webui"]['email_admin']:null);	
 	define ("LEN_ALIASNUMBER", isset($A2B->config["webui"]['len_aliasnumber'])?$A2B->config["webui"]['len_aliasnumber']:null);
 	define ("LEN_VOUCHER", isset($A2B->config["webui"]['len_voucher'])?$A2B->config["webui"]['len_voucher']:null);
 	define ("NUM_MUSICONHOLD_CLASS", isset($A2B->config["webui"]['num_musiconhold_class'])?$A2B->config["webui"]['num_musiconhold_class']:null);
@@ -218,5 +217,20 @@
 	
 	define ("WEBUI_DATE", 'Release : Somewhere in March 2007');
 	define ("WEBUI_VERSION", 'Asterisk2Billing - Version 1.3 - Beta (Yellowjacket)');
+	
+	//Card Number Length Code
+	$card_length_range = isset($A2B->config["global"]['interval_len_cardnumber'])?$A2B->config["global"]['interval_len_cardnumber']:null;
+	$cardnumber_range = splitable_data ($card_length_range);
+	if(is_array($cardnumber_range) && ($cardnumber_range[0] >= 4))
+	{
+		define ("CARDNUMBER_LENGTH_MIN", $cardnumber_range[0]);
+		define ("CARDNUMBER_LENGTH_MAX", $cardnumber_range[count($cardnumber_range)-1]);
+		define ("LEN_CARDNUMBER", CARDNUMBER_LENGTH_MIN);
+	}
+	else
+	{
+		echo gettext("Invalid card number lenght defined in configuration.");
+		exit;
+	}
 	include (FSROOT."lib/help.php");
 ?>

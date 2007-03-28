@@ -178,9 +178,8 @@ $CC_help_list_ratecard ='
 <div id="div1000" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/kspread_ksp.gif" class="kikipic"/>
-	<div class="w2"><br/> '.gettext("List ratecards that have been created").'
+	<div class="w2"><br/> '.gettext("List ratecards that have been created!<br>Ensure that the rate card is added into the tariff group under 'List Ratecard'").'
 <br/><br/>
-<br/>
 </div></div></div>
 </div>';
 

@@ -4,7 +4,7 @@ getpost_ifset(array('id', 'username', 'useralias', 'uipass', 'credit', 'language
 'id_didgroup', 'id_campaign', 'callback', 'activated','simultaccess', 'currency','typepaid', 'creditlimit',
 'lastname', 'firstname', 'email', 'address','city', 'state', 'country', 'zipcode', 'phone', 'fax', 'inuse',
 'cid', 'runservice', 'firstusedate','expirationdate', 'enableexpire', 'expiredays', 'sip_buddy',
-'iax_buddy','popup_select', 'vat', 'autorefill', 'initialbalance', 'id_subscription_fee', 'mac_addr'));
+'iax_buddy','popup_select', 'vat', 'autorefill', 'initialbalance', 'id_subscription_fee', 'mac_addr', 'cardnumberlenght_list'));
 
 
 $HD_Form = new FormHandler("cc_card","Card");
@@ -185,7 +185,7 @@ $maxi='';
 $maxi2='';
 $maxi3='';
 if (isset($form_action) && $form_action=="ask-add"){
-	$array_card_generated  = gen_card_with_alias();
+	$array_card_generated  = gen_card_with_alias("cc_card", 0, $cardnumberlenght_list);
 
 	$maxi = "value='".$array_card_generated[0]."'";
 	$maxi2 = "value='".$array_card_generated[1]."'";
@@ -198,7 +198,7 @@ $HD_Form -> AddEditElement (gettext("CARD NUMBER "),
 			   "username",
 			   "",
 			   "INPUT",
-			    "size=20 $maxi readonly  maxlength=40",
+			    "size=30 $maxi readonly  maxlength=40",
 			   "4",
 			   gettext("Insert the username"),
 			   "" , "", "",	"", "", "",	"", "" );
