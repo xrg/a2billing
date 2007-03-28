@@ -1405,28 +1405,33 @@ class FormHandler{
 
 		global $A2B;
 		$processed = $this->getProcessed();
-		$id=$this -> RESULT_QUERY;
+		$id = $this -> RESULT_QUERY; // DEFINED BEFORE FG_ADDITIONAL_FUNCTION_AFTER_ADD		
 		$sip_buddy = $processed['sip_buddy'];
 		$iax_buddy = $processed['iax_buddy'];
 		$username = $processed['username'];
 		$uipass = $processed['uipass'];
 		$useralias = $processed['useralias'];
-
+		
 		$FG_TABLE_SIP_NAME="cc_sip_buddies";
 		$FG_TABLE_IAX_NAME="cc_iax_buddies";
-
-		$FG_QUERY_ADITION_SIP_IAX_FIELDS = "name, accountcode, regexten, amaflags, callerid, context, dtmfmode, host, type, username, allow, secret, id_cc_card";
-
+		
+		$FG_QUERY_ADITION_SIP_IAX_FIELDS = "name, accountcode, regexten, amaflags, callerid, context, dtmfmode, host, type, username, allow, secret, id_cc_card, nat,  qualify";
+		
 		$FG_QUERY_ADITION_SIP_IAX='name, type, username, accountcode, regexten, callerid, amaflags, secret, md5secret, nat, dtmfmode, qualify, canreinvite,disallow, allow, host, callgroup, context, defaultip, fromuser, fromdomain, insecure, language, mailbox, permit, deny, mask, pickupgroup, port,restrictcid, rtptimeout, rtpholdtimeout, musiconhold, regseconds, ipaddr, cancallforward';
 
 		if (($sip_buddy == 1) || ($iax_buddy == 1)){
 			$list_names = explode(",",$FG_QUERY_ADITION_SIP_IAX);
-			$amaflag = $A2B->config["signup"]['amaflag'];
-			$context = $A2B->config["signup"]['context'];
-            $FG_QUERY_ADITION_SIP_IAX_VALUE = "'$username', '$username', '$username', '$amaflag', '$useralias', '$context', 'RFC2833','dynamic', 'friend', '$username', 'g729,ulaw,alaw,gsm','".$uipass."','$id'";
-			if(strlen($this->FG_QUERY_ADITION_SIP_IAX_VALUE)==0){
-            		$this->FG_QUERY_ADITION_SIP_IAX_VALUE = "'$username', '$username', '$username', '$amaflag', '$useralias', '$context', 'RFC2833','dynamic', 'friend', '$username', 'g729,ulaw,alaw,gsm','".$uipass."','$id'";
-			}
+			
+			$type = FRIEND_TYPE;
+			$allow = FRIEND_ALLOW;
+			$context = FRIEND_CONTEXT;
+			$nat = FRIEND_NAT;
+			$amaflags = FRIEND_AMAFLAGS;
+			$qualify = FRIEND_QUALIFY;
+			$host = FRIEND_HOST;   
+			$dtmfmode = FRIEND_DTMFMODE;
+			
+            $this->FG_QUERY_ADITION_SIP_IAX_VALUE = "'$username', '$username', '$username', '$amaflags', '$useralias', '$context', '$dtmfmode','$host', '$type', '$username', '$allow', '".$uipass."', '$id', '$nat', '$qualify'";			
 		}	
 
 		// Save info in table and in sip file

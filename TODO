@@ -2,10 +2,6 @@
 ********************************************************************************
                    			TODO LIST - SPECIFIC
 ********************************************************************************
-          AuthName "Subversion Repository"
-          AuthUserFile /etc/httpd/dav_svn.passwd
-          Require valid-user
-          AuthzSVNAccessFile /etc/httpd/passwd/svnauthz.conf
 
 
 #### CAPTCHA 
@@ -13,6 +9,8 @@
 Try to add some captcha into the Sign-Up Form
 
 http://www.nogajski.de/horst/php/captcha/index.php?download=yes&id=1234
+
+** Add parameter in a2billing.conf to enable captcha
 
 
 #### MANAGE MULTI LENGHT CARD NUMBER

@@ -172,7 +172,7 @@ if ($forceid>0){
 	$instance_sub_table = new Table($FG_ADITION_SECOND_ADD_TABLE, $FG_ADITION_SECOND_ADD_FIELDS);
 		$FG_ADITION_SECOND_ADD_VALUE  = "'$cardnum', '$useralias', '".$ec_prod[6]."', '".$ec_prod[7]."', '".$ec_prod[8]."', 't', '$lastname', '$firstname', '$email', '$address', '$city', '$state', '$country', '$zipcode', '$phone', '$cardnum', ".$ec_prod[10].", '".$ec_prod[11]."', '".$ec_prod[12]."', '".$ec_prod[13]."', '".$ec_prod[14]."', ".$ec_prod[15].", 0, '$uipass', ".$ec_prod[16].", ".$ec_prod[17]."";
 }
-$result_query = $instance_sub_table -> Add_table ($DBHandle, $FG_ADITION_SECOND_ADD_VALUE, null, null);			
+$result_query = $instance_sub_table -> Add_table ($DBHandle, $FG_ADITION_SECOND_ADD_VALUE, null, null, 'id');
 
 
 if (!$result_query){
@@ -187,8 +187,15 @@ if (!$result_query){
 	
 if ($FG_DEBUG > 0) echo "NEW ACCOUNT CREATED - <b>result_query=$result_query</b> <br> $FG_ADITION_SECOND_ADD_VALUE";
 
-$amaflag = $A2B->config["signup"]['amaflag'];
-$context = $A2B->config["signup"]['context'];
+$id_cc_card = $result_query;
+$type = FRIEND_TYPE;
+$allow = FRIEND_ALLOW;
+$context = FRIEND_CONTEXT;
+$nat = FRIEND_NAT;
+$amaflags = FRIEND_AMAFLAGS;
+$qualify = FRIEND_QUALIFY;
+$host = FRIEND_HOST;   
+$dtmfmode = FRIEND_DTMFMODE;
 
 
 
@@ -197,8 +204,9 @@ $FG_QUERY_ADITION_SIP_IAX='name, type, username, accountcode, regexten, callerid
 
 $uipass = MDP_STRING();
 // For IAX and SIP
-$param_add_fields = "name, accountcode, regexten, amaflags, callerid, context, dtmfmode, host,  type, username, allow, secret";
-$param_add_value = "'$cardnum', '$cardnum', '$cardnum', '$amaflag', '$cardnum', '$context', 'RFC2833','dynamic', 'friend', '$cardnum', 'g729,ulaw,alaw,gsm', '$uipass'";
+$param_add_fields = "name, accountcode, regexten, amaflags, callerid, context, dtmfmode, host,  type, username, allow, secret, id_cc_card, nat,  qualify";
+$param_add_value = "'$cardnum', '$cardnum', '$cardnum', '$amaflags', '$cardnum', '$context', '$dtmfmode','$host', '$type', '$cardnum', '$allow', '".$uipass."', '$id_cc_card', '$nat', '$qualify'";
+
 $list_names = explode(",",$FG_QUERY_ADITION_SIP_IAX);
 $FG_TABLE_SIP_NAME="cc_sip_buddies";
 $FG_TABLE_IAX_NAME="cc_iax_buddies";

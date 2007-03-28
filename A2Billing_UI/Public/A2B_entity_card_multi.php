@@ -49,8 +49,8 @@ country, zipcode, phone, userpass) values ('2465773443', '331', 'a', 't', 'LASTN
 				
 		$FG_TABLE_SIP_NAME="cc_sip_buddies";
 		$FG_TABLE_IAX_NAME="cc_iax_buddies";
-		$FG_QUERY_ADITION_SIP_IAX_FIELDS = "name, accountcode, regexten, amaflags, callerid, context, dtmfmode, host, type, username, allow, secret";
-		
+		//$FG_QUERY_ADITION_SIP_IAX_FIELDS = "name, accountcode, regexten, amaflags, callerid, context, dtmfmode, host, type, username, allow, secret";
+		$FG_QUERY_ADITION_SIP_IAX_FIELDS = "name, accountcode, regexten, amaflags, callerid, context, dtmfmode, host, type, username, allow, secret, id_cc_card, nat,  qualify";
 		if (isset($sip)){
 			$FG_ADITION_SECOND_ADD_FIELDS .= ", sip_buddy"; 
 			$instance_sip_table = new Table($FG_TABLE_SIP_NAME, $FG_QUERY_ADITION_SIP_IAX_FIELDS);
@@ -63,8 +63,14 @@ country, zipcode, phone, userpass) values ('2465773443', '331', 'a', 't', 'LASTN
 		
 		if ( (isset($sip)) ||  (isset($iax)) ){
 			$list_names = explode(",",$FG_QUERY_ADITION_SIP_IAX);
-			$amaflag = $A2B->config["signup"]['amaflag'];
-			$context = $A2B->config["signup"]['context'];
+			$type = FRIEND_TYPE;
+			$allow = FRIEND_ALLOW;
+			$context = FRIEND_CONTEXT;
+			$nat = FRIEND_NAT;
+			$amaflags = FRIEND_AMAFLAGS;
+			$qualify = FRIEND_QUALIFY;
+			$host = FRIEND_HOST;   
+			$dtmfmode = FRIEND_DTMFMODE;
 		}	
 		
 		
@@ -84,22 +90,25 @@ country, zipcode, phone, userpass) values ('2465773443', '331', 'a', 't', 'LASTN
 			$passui_secret = MDP_NUMERIC(10);
 			$FG_ADITION_SECOND_ADD_VALUE  = "'$cardnum', '$useralias', '$addcredit', '$choose_tariff', 't', '$gen_id', '', '', '', '', '', '', '', '', '$cardnum', $choose_simultaccess, '$choose_currency', $choose_typepaid, $creditlimit, $enableexpire, '$expirationdate', $expiredays, '$passui_secret', '$runservice'";
 			
+			
 			if (DB_TYPE != "postgres") $FG_ADITION_SECOND_ADD_VALUE .= ",now() ";
 					
 					
 			if (isset($sip)) $FG_ADITION_SECOND_ADD_VALUE .= ", 1";
 			if (isset($iax)) $FG_ADITION_SECOND_ADD_VALUE .= ", 1";
 
-			$result_query = $instance_sub_table -> Add_table ($HD_Form ->DBHandle, $FG_ADITION_SECOND_ADD_VALUE, null, null, null);
-
+			$id_cc_card = $instance_sub_table -> Add_table ($HD_Form -> DBHandle, $FG_ADITION_SECOND_ADD_VALUE, null, null, $HD_Form -> FG_TABLE_ID);
+			
 			// Insert data for sip_buddy
 			if (isset($sip)){
-				$FG_QUERY_ADITION_SIP_IAX_VALUE = "'$cardnum', '$cardnum', '$cardnum', '$amaflag', '$cardnum', '$context', 'RFC2833','dynamic', 'friend', '$cardnum', 'g729,ulaw,alaw,gsm','".$passui_secret."'";
+				//$FG_QUERY_ADITION_SIP_IAX_VALUE = "'$cardnum', '$cardnum', '$cardnum', '$amaflag', '$cardnum', '$context', 'RFC2833','dynamic', 'friend', '$cardnum', 'g729,ulaw,alaw,gsm','".$passui_secret."'";
+				$FG_QUERY_ADITION_SIP_IAX_VALUE = "'$cardnum', '$cardnum', '$cardnum', '$amaflags', '$cardnum', '$context', '$dtmfmode','$host', '$type', '$cardnum', '$allow', '".$passui_secret."', '$id_cc_card', '$nat', '$qualify'";
 				$result_query1 = $instance_sip_table -> Add_table ($HD_Form ->DBHandle, $FG_QUERY_ADITION_SIP_IAX_VALUE, null, null, null);
 			}
 			// Insert data for iax_buddy
 			if (isset($iax)){
-				$FG_QUERY_ADITION_SIP_IAX_VALUE = "'$cardnum', '$cardnum', '$cardnum', '$amaflag', '$cardnum', '$context', 'RFC2833','dynamic', 'friend', '$cardnum', 'g729,ulaw,alaw,gsm','".$passui_secret."'";
+				//$FG_QUERY_ADITION_SIP_IAX_VALUE = "'$cardnum', '$cardnum', '$cardnum', '$amaflag', '$cardnum', '$context', 'RFC2833','dynamic', 'friend', '$cardnum', 'g729,ulaw,alaw,gsm','".$passui_secret."'";
+				$FG_QUERY_ADITION_SIP_IAX_VALUE = "'$cardnum', '$cardnum', '$cardnum', '$amaflags', '$cardnum', '$context', '$dtmfmode','$host', '$type', '$cardnum', '$allow', '".$passui_secret."', '$id_cc_card', '$nat', '$qualify'";
 				$result_query2 = $instance_iax_table -> Add_table ($HD_Form ->DBHandle, $FG_QUERY_ADITION_SIP_IAX_VALUE, null, null, null);
 			}
 		}
