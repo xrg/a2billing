@@ -720,7 +720,7 @@ ADD CONSTRAINT cc_subscription_fee_pkey PRIMARY KEY (id);
 
 
 ALTER TABLE cc_charge 	ADD COLUMN currency 				CHARACTER VARYING(3) DEFAULT 'USD'::CHARACTER VARYING;
-ALTER TABLE cc_charge 	ADD COLUMN id_cc_subscription_fee 	 DEFAULT 0;
+ALTER TABLE cc_charge 	ADD COLUMN id_cc_subscription_fee 	BIGINT DEFAULT 0;
 
 
 CREATE INDEX ind_cc_charge_id_cc_card				ON cc_charge USING btree (id_cc_card);

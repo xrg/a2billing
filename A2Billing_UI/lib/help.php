@@ -90,10 +90,11 @@ $CC_help_callerid_list ='
 <div id="kiki"><div class="w1">
   <img src="'.KICON_PATH.'/vcard.gif" class="kikipic"/>
   <div class="w2"> 
-'.gettext("CallerID, Set the Caller ID (CLI) that is delivered to the called party.</br>Set the callerID via the List Customer's screen").'<br>
+'.gettext("Set the caller ID so that the customer calling in is authenticated on the basis of the callerID rather than with account number").'<br>
 <br/><br/>
 </div></div></div>
 </div>';
+
 
 $CC_help_money_situation ='
 <a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
@@ -113,8 +114,7 @@ $CC_help_view_payment ='
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/gnome-finance.gif" class="kikipic"/>
 	<div class="w2"><br>
-'.gettext("Payment history - The section below shows all payments that have been received.").'
-<br/>
+'.gettext("Payment history - The section below allows you to add payments against a customer. Note that this does not change the balance on the card. Click refill under customer list to top-up a card.").'
 <br/>
 </div></div></div>
 </div>';

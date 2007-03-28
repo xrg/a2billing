@@ -4,6 +4,15 @@
 ********************************************************************************
 
 
+#### STYLE
+********************************************************************
+LIST CUSTOMER -> Define specific criteria to search for cards created.
+Search engine style should be the same as we have over CDR Report
+
+http://trac.a2billing.net/cgi-bin/trac.cgi/changeset/895
+this patch make a couples of fixes & changes on the CDR Report (such as text size, position, names, colors...)
+
+
 #### CAPTCHA 
 ********************************************************************
 Try to add some captcha into the Sign-Up Form

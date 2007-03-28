@@ -10,7 +10,6 @@ getpost_ifset(array('id', 'username', 'useralias', 'uipass', 'credit', 'language
 $HD_Form = new FormHandler("cc_card","Card");
 
 $HD_Form -> FG_DEBUG = 0;
-// FAQ
 $HD_Form -> FG_TABLE_ID="id";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "ASC";
 $HD_Form -> FG_FILTER_SEARCH_SESSION_NAME = 'entity_card_selection';
@@ -136,9 +135,9 @@ $HD_Form -> CV_FOLLOWPARAMETERS= "&popup_select=".$_GET['popup_select']."&popup_
 // Search form
 if (!($popup_select>=1))	 $HD_Form -> FG_FILTER_SEARCH_FORM = true;
 $HD_Form -> FG_FILTER_SEARCH_TOP_TEXT = gettext('Define specific criteria to search for cards created.');
-$HD_Form -> FG_FILTER_SEARCH_1_TIME_TEXT = gettext("Creation date / Month");
-$HD_Form -> FG_FILTER_SEARCH_2_TIME_TEXT = gettext("Creation date / Day");
-$HD_Form -> FG_FILTER_SEARCH_2_TIME_FIELD = "creationdate";
+$HD_Form -> FG_FILTER_SEARCH_1_TIME_TEXT = gettext('Creation date / Month');
+$HD_Form -> FG_FILTER_SEARCH_2_TIME_TEXT = gettext('Creation date / Day');
+$HD_Form -> FG_FILTER_SEARCH_2_TIME_FIELD = 'creationdate';
 $HD_Form -> AddSearchElement_C1(gettext("CARDNUMBER"), 'username','usernametype');
 $HD_Form -> AddSearchElement_C1(gettext("LASTNAME"),'lastname','lastnametype');
 $HD_Form -> AddSearchElement_C1(gettext("CARDALIAS"),'useralias','useraliastype');
@@ -148,10 +147,10 @@ $HD_Form -> AddSearchElement_C2(gettext("CREDIT"),'credit1','credit1type','credi
 $HD_Form -> AddSearchElement_C2(gettext("INUSE"),'inuse1','inuse1type','inuse2','inuse2type','inuse');
 
 $HD_Form -> FG_FILTER_SEARCH_FORM_SELECT_TEXT = '';
-$HD_Form -> AddSearchElement_Select(gettext("select language"), null, null, null, null, null, "language", 0, $language_list_r);
-$HD_Form -> AddSearchElement_Select(gettext("select tariff"), "cc_tariffgroup", "id, tariffgroupname, id", "", "tariffgroupname", "ASC", "tariff");
-$HD_Form -> AddSearchElement_Select(gettext("select access"), null, null, null, null, null, "simultaccess", 0, $simultaccess_list_r);
-$HD_Form -> AddSearchElement_Select(gettext("select currency"), null, null, null, null, null, "currency", 0, $currency_list_r);
+$HD_Form -> AddSearchElement_Select(gettext("SELECT LANGUAGE"), null, null, null, null, null, "language", 0, $language_list_r);
+$HD_Form -> AddSearchElement_Select(gettext("SELECT TARIFF"), "cc_tariffgroup", "id, tariffgroupname, id", "", "tariffgroupname", "ASC", "tariff");
+$HD_Form -> AddSearchElement_Select(gettext("SELECT ACCESS"), null, null, null, null, null, "simultaccess", 0, $simultaccess_list_r);
+$HD_Form -> AddSearchElement_Select(gettext("SELECT CURRENCY"), null, null, null, null, null, "currency", 0, $currency_list_r);
 
 
 if (($popup_select>=1)){

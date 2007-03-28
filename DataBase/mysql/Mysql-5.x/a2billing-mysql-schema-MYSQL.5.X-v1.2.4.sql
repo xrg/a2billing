@@ -84,12 +84,17 @@ CREATE TABLE cc_charge (
     iduser 								INT DEFAULT '0' NOT NULL,
     creationdate 						TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     amount 								FLOAT DEFAULT 0 NOT NULL,
+	currency 							CHAR(3) DEFAULT 'USD',
     chargetype 							INT DEFAULT 0,    
     description 						MEDIUMTEXT,
     id_cc_did 							BIGINT DEFAULT 0,
+	id_cc_subscription_fee				BIGINT DEFAULT 0,
     PRIMARY KEY (id)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
+CREATE INDEX ind_cc_charge_id_cc_card				ON cc_charge (id_cc_card);
+CREATE INDEX ind_cc_charge_id_cc_subscription_fee 	ON cc_charge (id_cc_subscription_fee);
+CREATE INDEX ind_cc_charge_creationdate 			ON cc_charge (creationdate);
 
 
 
@@ -103,14 +108,14 @@ CREATE TABLE cc_paypal (
     payer_email 					VARCHAR(75) DEFAULT NULL,
     payer_status 					VARCHAR(50) DEFAULT NULL,
     payment_type 					VARCHAR(50) DEFAULT NULL,
-    memo 							tinytext,
+    memo 							TINYTEXT,
     item_name 						VARCHAR(127) DEFAULT NULL,
     item_number 					VARCHAR(127) DEFAULT NULL,
     quantity 						INT (11) NOT NULL DEFAULT '0',
     mc_gross 						DECIMAL(9,2) DEFAULT NULL,
     mc_fee 							DECIMAL(9,2) DEFAULT NULL,
     tax 							DECIMAL(9,2) DEFAULT NULL,
-    mc_currency 					char(3) DEFAULT NULL,
+    mc_currency 					CHAR(3) DEFAULT NULL,
     address_name 					VARCHAR(255) NOT NULL DEFAULT '',
     address_street 					VARCHAR(255) NOT NULL DEFAULT '',
     address_city 					VARCHAR(255) NOT NULL DEFAULT '',
