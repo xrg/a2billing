@@ -399,22 +399,26 @@
 						//echo ("RES_ALL_CALCULTIMEOUT ::> $res_all_calcultimeout");
 						//print_r($RateEngine-> ratecard_obj);
 					
-						if ($res_all_calcultimeout){							
+						if ($res_all_calcultimeout){
 						
 							// MAKE THE CALL
-							if ($RateEngine -> ratecard_obj[0][34]!='-1'){	$usetrunk=34; $usetrunk_failover=1;}
-							else { 										$usetrunk=29; $usetrunk_failover=0;}
+							if ($RateEngine -> ratecard_obj[0][34]!='-1'){
+								$usetrunk=34; $usetrunk_failover=1;
+							}else {
+								$usetrunk=29; $usetrunk_failover=0;
+							}
 							
-							$prefix			= $RateEngine -> ratecard_obj[0][$usetrunk+1];
-							$tech 			= $RateEngine -> ratecard_obj[0][$usetrunk+2];
-							$ipaddress 		= $RateEngine -> ratecard_obj[0][$usetrunk+3];
+							$prefix		= $RateEngine -> ratecard_obj[0][$usetrunk+1];
+							$tech 		= $RateEngine -> ratecard_obj[0][$usetrunk+2];
+							$ipaddress 	= $RateEngine -> ratecard_obj[0][$usetrunk+3];
 							$removeprefix 	= $RateEngine -> ratecard_obj[0][$usetrunk+4];
-							$timeout		= $RateEngine -> ratecard_obj[0]['timeout'];	
+							$timeout	= $RateEngine -> ratecard_obj[0]['timeout'];	
 							$failover_trunk	= $RateEngine -> ratecard_obj[0][40+$usetrunk_failover];
 							$addparameter	= $RateEngine -> ratecard_obj[0][42+$usetrunk_failover];
 			
 							$destination = $A2B ->destination;
-							if (strncmp($destination, $removeprefix, strlen($removeprefix)) == 0) $destination= substr($destination, strlen($removeprefix));
+							if (strncmp($destination, $removeprefix, strlen($removeprefix)) == 0)
+								$destination= substr($destination, strlen($removeprefix));
 							
 							
 							
@@ -530,9 +534,9 @@
 								
 								
 								
-								// && DISCONNECTING	
+								// && DISCONNECTING
 								$as->disconnect();
-										
+							
 							
 							}else{
 									$error_msg= "Cannot connect to the asterisk manager!\nPlease check the manager configuration...";
@@ -540,7 +544,6 @@
 								
 							}
 						
-												
 						}else{
 							$error_msg = 'Error : You don t have enough credit to call you back !!!';
 							$A2B -> write_log("[CALLBACK-CALLERID : CALLED=".$A2B ->destination." | $error_msg]");
@@ -549,7 +552,7 @@
 						$error_msg = 'Error : There is no route to call back your phonenumber !!!';
 						$A2B -> write_log("[CALLBACK-CALLERID : CALLED=".$A2B ->destination." | $error_msg]");
 				
-					}	
+					}
 			
 			
 			
@@ -597,17 +600,20 @@
 						//echo ("RES_ALL_CALCULTIMEOUT ::> $res_all_calcultimeout");
 						//print_r($RateEngine-> ratecard_obj);
 					
-						if ($res_all_calcultimeout){							
+						if ($res_all_calcultimeout){
 						
 							// MAKE THE CALL
-							if ($RateEngine -> ratecard_obj[0][34]!='-1'){	$usetrunk=34; $usetrunk_failover=1;}
-							else { 										$usetrunk=29; $usetrunk_failover=0;}
+							if ($RateEngine -> ratecard_obj[0][34]!='-1'){
+								$usetrunk=34; $usetrunk_failover=1;
+							} else {
+								$usetrunk=29; $usetrunk_failover=0;
+							}
 							
-							$prefix			= $RateEngine -> ratecard_obj[0][$usetrunk+1];
-							$tech 			= $RateEngine -> ratecard_obj[0][$usetrunk+2];
-							$ipaddress 		= $RateEngine -> ratecard_obj[0][$usetrunk+3];
+							$prefix		= $RateEngine -> ratecard_obj[0][$usetrunk+1];
+							$tech 		= $RateEngine -> ratecard_obj[0][$usetrunk+2];
+							$ipaddress 	= $RateEngine -> ratecard_obj[0][$usetrunk+3];
 							$removeprefix 	= $RateEngine -> ratecard_obj[0][$usetrunk+4];
-							$timeout		= $RateEngine -> ratecard_obj[0]['timeout'];	
+							$timeout	= $RateEngine -> ratecard_obj[0]['timeout'];	
 							$failover_trunk	= $RateEngine -> ratecard_obj[0][40+$usetrunk_failover];
 							$addparameter	= $RateEngine -> ratecard_obj[0][42+$usetrunk_failover];
 			
@@ -622,7 +628,7 @@
 							$ipaddress = str_replace("%dialingnumber%", $prefix.$destination, $ipaddress);
 							
 							
-							if ($pos_dialingnumber !== false){					   
+							if ($pos_dialingnumber !== false){
 								   $dialstr = "$tech/$ipaddress".$dialparams;
 							}else{
 								if ($A2B->agiconfig['switchdialcommand'] == 1){
@@ -645,7 +651,7 @@
 							
 							$res = $as->connect($A2B->config["webui"]['manager_host'],$A2B->config["webui"]['manager_username'],$A2B->config["webui"]['manager_secret']);
 
-							if	($res){
+							if ($res){
 								
 								$channel= $dialstr;
 								$exten = $A2B -> config["callback"]['extension'];
@@ -731,7 +737,6 @@
 								
 								// && DISCONNECTING	
 								$as->disconnect();
-										
 							
 							}else{
 									$error_msg= "Cannot connect to the asterisk manager!\nPlease check the manager configuration...";
@@ -739,7 +744,7 @@
 								
 							}
 						
-												
+						
 						}else{
 							$error_msg = 'Error : You don t have enough credit to call you back !!!';
 							$A2B -> write_log("[CALLBACK-CALLERID : CALLED=".$A2B ->destination." | $error_msg]");
