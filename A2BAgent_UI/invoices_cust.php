@@ -46,8 +46,8 @@ if (($_GET[download]=="file") && $_GET[file] )
 
 
 
-if (!isset ($current_page) || ($current_page == "")){	
-		$current_page=0; 
+if (!isset ($current_page) || ($current_page == "")){
+	$current_page=0; 
 	}
 
 
@@ -321,6 +321,23 @@ if ((isset($customer)  &&  ($customer>0)) || (isset($entercustomer)  &&  ($enter
 }elseif ($exporttype=="print"){
 	include("PP_print_header.php");
 
+	$BQUERY = str_dbparams($DBHandle,"SELECT banner FROM cc_agent WHERE id = %1;" ,
+		array($_SESSION['agent_id']));
+	$res = $DBHandle -> query($BQUERY);
+	
+	if ($res){
+		if ($FG_DEBUG>=2)
+			echo "Query: " . htmlspecialchars($BQUERY) . "<br>";
+		$banner_row=$res->FetchRow();
+		$banner=$banner_row[0];
+	}
+	else {
+		if ($FG_DEBUG >0){
+			echo "Banner query: " . htmlspecialchars($BQUERY) . "<br>";
+			echo "Error: " . htmlspecialchars($DBHandle->ErrorMsg()) ."<br>";
+		}
+	}
+	
 ?>
 <script language="JavaScript" type="text/JavaScript">
 <!--
@@ -377,6 +394,8 @@ function printme(){
 <td> <img src="pdf-invoices/images/companylogo.gif"/> </td>
 </tr>
 </table>
+<?php if (isset($banner)) echo "<p class=\"banner\">" .$banner . "</p>\n"; 
+?>
 
 <?php if (!isset($card) && ($nobq !=1) && ($exporttype!="pdf")){ ?>
 	<center>

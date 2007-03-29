@@ -18,7 +18,8 @@ CREATE TABLE cc_agent (
     climit NUMERIC(12,4) NOT NULL DEFAULT 0,
     currency CHARACTER(3) NOT NULL DEFAULT 'EUR',
     locale VARCHAR(10) DEFAULT 'C',
-    commission NUMERIC(4,4)
+    commission NUMERIC(4,4),
+    banner TEXT
     );
 
 -- one way: put the agent inside the card:

@@ -153,6 +153,36 @@ $HD_Form -> AddEditElement (gettext("ACTIVATED"),
 			   gettext("Choose if you want to activate this agent"),
 			   "" , "", "" , "Yes :t, - No:f",	"", "", "", "" );
 
+$HD_Form -> AddEditElement (gettext("EMAIL"),
+			   "email",
+			   "",
+			   "INPUT",
+			   "size=30 maxlength=40",
+			   "",
+			   gettext("Insert the Agent email"),
+			   "" , "", "",	"", "" , "", "", gettext("The agent's email"));
+
+$HD_Form -> AddEditElement (gettext("COMMISSION"),
+			   "commission",
+			   "",
+			   "INPUT",
+			   "size=20 maxlength=20",
+			   "",
+			   gettext("The agents commission"),
+			   "" , "", "",	"", "" , "", "", gettext("Comission. Enter 0.10 for 10% commission."));
+
+
+//NOTE: we have an issue here: 'sanitize' may destroy html syntax, like the '=' char.
+
+$HD_Form -> AddEditElement (gettext("BANNER"),
+			   "banner",
+			   "",
+			   "TEXTAREA",
+			   "rows=5 cols=60",
+			   "",
+			   gettext("Insert the Agent banner"),
+			   "" , "", "",	"", "" , "", "", gettext("Text (HTML) which will be printed under the company logo at the invoices."));
+
 // $HD_Form -> AddEditElement (gettext("ACTIVATED"),
 // 				   "activated",
 // 				   't',
@@ -164,7 +194,7 @@ $HD_Form -> AddEditElement (gettext("ACTIVATED"),
 
 
 
- $HD_Form -> FieldEditElement ('name, login, passwd, location, language, climit, tariffgroup, currency, active');
+ $HD_Form -> FieldEditElement ('name, login, passwd, location, language, climit, tariffgroup, currency, active, email, commission, banner');
 
 
 
