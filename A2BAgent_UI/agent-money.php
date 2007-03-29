@@ -273,12 +273,14 @@ if (!$nodisplay){
 	$dc2= fmt_dateclause($DBHandle,"cc_call.starttime");
 	if ($dc2 != '' )
 		$dc2=" AND " . $dc2;
-	$query=str_dbparams($DBHandle, "SELECT format_currency(SUM(sessionbill),%1, %2) FROM cc_call, cc_card, cc_agent_cards WHERE cc_call.username = cc_card.username AND cc_agent_cards.card_id= cc_card.id AND cc_agent_cards.agentid = %3". $dc2 . ";",
+	$query=str_dbparams($DBHandle, "SELECT format_currency(calls,%1, %2), format_currency( (calls * commission) ,%1, %2), format_currency( (calls * (1.0 - commission)) ,%1, %2)  FROM ( SELECT SUM(sessionbill) AS calls FROM cc_call, cc_card, cc_agent_cards WHERE cc_call.username = cc_card.username AND cc_agent_cards.card_id= cc_card.id AND cc_agent_cards.agentid = %3 ". $dc2 . ") AS sb, cc_agent WHERE cc_agent.id = %3;",
 	array(strtoupper(BASE_CURRENCY),$choose_currency,$_SESSION['agent_id']));
 	$res= $DBHandle->Query($query);
 	if($res){
 		$list_tmp=$res->FetchRow();
 		$res_sums['total_calls']=$list_tmp[0];
+		$res_sums['total_calls_com']=$list_tmp[1];
+		$res_sums['total_calls_wh']=$list_tmp[2];
 	}else
 		if ($FG_DEBUG) echo "Total calls query failed." . $DBHandle->ErrorMsg() . "<br>";
 
@@ -726,7 +728,7 @@ table.total td.hdr3 {
 	color: black;
 	font-family: Arial,Verdana;
 	font-weight: bold;
-	font-size: 1;
+	font-size: 9pt;
 }
 
 table.total td.col1 {
@@ -735,7 +737,7 @@ table.total td.col1 {
 	color: black;
 	font-family: Arial,Verdana;
 	font-weight: normal;
-	font-size: 1;
+	font-size: 9pt;
 }
 
 table.total td.row0 {
@@ -744,7 +746,7 @@ table.total td.row0 {
 	color: black;
 	font-family: Arial,Verdana;
 	font-weight: normal;
-	font-size: 1;
+	font-size: 9pt;
 }
 table.total td.row1 {
 	text-align: center;
@@ -752,7 +754,7 @@ table.total td.row1 {
 	color: black;
 	font-family: Arial,Verdana;
 	font-weight: normal;
-	font-size: 1;
+	font-size: 9pt;
 }
 
 table.total td.total {
@@ -808,6 +810,10 @@ table.total td.total {
 		<td class="row0" colspan=2><?= $res_sums['total_cclimit'] ?></td><tr><?php } ?>
 	<tr><td class="col1"><?= _("Total calls made by customers"); ?></td>
 		<td class="row1" colspan=2><?= $res_sums['total_calls'] ?></td><tr>
+	<tr><td class="col1"><?= _("Wholesale price of calls"); ?></td>
+		<td class="row1" colspan=2><?= $res_sums['total_calls_wh'] ?></td><tr>
+	<tr><td class="col1"><?= _("Estimated profit from calls"); ?></td>
+		<td class="row1" colspan=2><?= $res_sums['total_calls_com'] ?></td><tr>
 	<tr>
 		<td class="total" colspan="3"><?= _("TOTAL");?> =
 <?php echo $res_sums['all_sums'];
