@@ -215,8 +215,11 @@
 	define ("Images_Path_Main","../Public/templates/".$_SESSION["stylefile"]."/images");
 	define ("KICON_PATH","../Public/templates/".$_SESSION["stylefile"]."/images/kicons");
 	
-	define ("WEBUI_DATE", 'Release : Somewhere in March 2007');
+	define ("WEBUI_DATE", 'Release : Somewhere in March 2007');	 
 	define ("WEBUI_VERSION", 'Asterisk2Billing - Version 1.3 - Beta (Yellowjacket)');
+	
+	//Enable Disable Captcha
+	define ("CAPTCHA_ENABLE", isset($A2B->config["signup"]['enable_captcha'])?$A2B->config["signup"]['enable_captcha']:0);
 	
 	//Card Number Length Code
 	$card_length_range = isset($A2B->config["global"]['interval_len_cardnumber'])?$A2B->config["global"]['interval_len_cardnumber']:null;
@@ -232,5 +235,6 @@
 		echo gettext("Invalid card number lenght defined in configuration.");
 		exit;
 	}
+
 	include (FSROOT."lib/help.php");
 ?>

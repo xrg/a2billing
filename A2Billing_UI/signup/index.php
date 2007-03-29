@@ -30,7 +30,6 @@ if (!$A2B->config["signup"]['enable_signup']) exit;
 $HD_Form -> setDBHandler (DbConnect());
 $HD_Form -> init();
 
-
 if ($id!="" || !is_null($id)){
 	$HD_Form -> FG_EDITION_CLAUSE = str_replace("%id", "$id", $HD_Form -> FG_EDITION_CLAUSE);
 }

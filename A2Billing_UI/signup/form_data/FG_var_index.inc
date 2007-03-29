@@ -13,7 +13,7 @@ $HD_Form -> FG_DEBUG = 0;
 // FAQ
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "ASC";
 $HD_Form -> FG_FILTER_SEARCH_SESSION_NAME = 'entity_card_selection';
-$HD_FORM -> FG_CAPTCHA_IMAGE = true;
+
 
 // TODO Unify order of parameters
 
@@ -228,7 +228,7 @@ $HD_Form -> AddEditElement (gettext("VERIFICATION"),
 			   "size=10 maxlength=6",
 			   "19",
 			   gettext("Insert code from above picture"),
-			   "" , "", "",	"", "", "" , "", "");
+			   "" , "", "",	"", "", "" , "", "", null, null, null,CAPTCHA_ENABLE);
 
 
 $HD_Form -> FieldEditElement ('username, useralias, uipass, credit, language, tariff, id_didgroup, id_campaign,'.
