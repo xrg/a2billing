@@ -13,8 +13,7 @@ $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
 $period_list = array();
 $period_list["1"]  = array( "Daily", "1");
 $period_list["2"]  = array( "Weekly", "2");
-$period_list["3"]  = array( "Monday to Sunday", "3");
-$period_list["4"]  = array( "Monthly", "4");
+$period_list["4"]  = array( "Monthly", "3");
 
 
 

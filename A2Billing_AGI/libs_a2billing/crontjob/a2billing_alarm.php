@@ -68,7 +68,7 @@
 	
 	
 	$oneday = 60*60*24;
-	
+	$groupcalls = 5000;
 	
 	// BROWSE THROUGH THE ALARMS 
 	foreach ($result as $myalarm) {
@@ -76,7 +76,7 @@
 		$timestamp_lastsend = strtotime($myalarm[10]);
 		if ($verbose_level>=3) echo "timestamp_lastsend = $timestamp_lastsend";
 		
-		//  1 "Daily", 2 "Weekly", 3 "Monday to Sunday", 4 "Monthly"
+		//  1 "Daily", 2 "Weekly", 3 "Monthly"
 		$run_alarm=false;
 		switch ($myalarm[2]) {
 		// Daily
@@ -94,18 +94,9 @@
 					$SQL_CLAUSE="WHERE starttime BETWEEN '".date("Y-m-j",(time()-($oneday*7)))." 00:00:00' AND '".date("Y-m-j",time()-$oneday)." 23:59:59'";
 				}
 				if ($verbose_level>=1) echo "\n\n TODAY :".date("w",time())." LAST RUN DAY :".date("w",$timestamp_lastsend);
-			break;
-		//Monday to Sunday
-			case 3:
-				if ((date("w",time()) != 1) && (date("w",time())!=date("w",$timestamp_lastsend))){
-					$run_alarm=true;
-					$SQL_CLAUSE="WHERE starttime BETWEEN '".date("Y-m-j",time()-$oneday)." 00:00:00' AND '".date("Y-m-j",time()-$oneday)."
-					23:59:59'";
-				}
-				if ($verbose_level>=1) echo "\n\n TODAY :".date("w",time())." LAST RUN DAY :".date("w",$timestamp_lastsend);
-			break;
+			break;		
 		//Monthly
-			case 4:
+			case 3:
 				if ((date("j",time()) == 1) && (date("m",time())!=date("m",$timestamp_lastsend))){
 					$run_alarm=true;
 					$SQL_CLAUSE="WHERE starttime BETWEEN '".date("Y-m-j",(time()-($oneday*date("t",time()-$oneday))))." 00:00:00' AND '".date("Y-m-j",(time()-$oneday))." 23:59:59'";
@@ -119,39 +110,70 @@
 			if (isset($myalarm[6]) && $myalarm[6] != "") $SQL_CLAUSE.=" and id_trunk = '".$myalarm[6]."'";
 			write_log("[Alarm : ".$myalarm[1]." ]");
 
-			$QUERY =	"SELECT CASE WHEN terminatecause = 'ANSWER' THEN 1 ELSE 0 END AS success,".
-						"CASE WHEN terminatecause ='ANSWER' THEN 0 ELSE 1 END AS fail,sessiontime FROM cc_call $SQL_CLAUSE";
-			if ($verbose_level>=1) echo "\n\n".$QUERY;
+			$QUERY =	"SELECT COUNT(*) FROM cc_call $SQL_CLAUSE";
+			$calls = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY,1);			
+			$nb_card = $calls[0][0];
+			$nbpagemax=(intval($nb_card/$groupcalls));
+			if ($verbose_level>=1) echo "===> NB_CARD : $nb_card - NBPAGEMAX:$nbpagemax\n";
+			
+			if (!($nb_card>0)){
+				if ($verbose_level>=1) echo "[No call to run the Alarm Service]\n";
+					write_log("[No call to run the Alarm service]");
+					exit();
+			}
+			
 			$totalsuccess=0;
 			$totalfail=0;
 			$totaltime=0;
 			$max_fail=0;
 			$max=0;
 			$update=array();
-			$res = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY,1);
-			for($i=0;$i<count($res);$i++)
-			{				
-				$totalsuccess+=$res[$i][0];
-				$totalfail+=$res[$i][1];
-				$totaltime+=$res[$i][2];
-				echo "$totalsuccess ==> ".$res[$i][0]."/$totalfail => ".$res[$i][1]."/$totaltime =>".$res[$i][2];
-				if ($i>0)
-				{	
-					if ($res[$i][1] == $res[$i-1][1] && $i<count($res)-1 && $res[$i][2]==1) {
-					$max++;
-					}else {
-						if ($i==count($res)-1)	$max++;
-						if ($max > $max_fail) {
-							$max_fail=$max;
-							$max=0;
-							$max_fail=0;
-						}
+			for ($page = 0; $page <= $nbpagemax; $page++) 
+			{
+				
+				$QUERY =	"SELECT CASE WHEN terminatecause = 'ANSWER' THEN 1 ELSE 0 END AS success,".
+							"CASE WHEN terminatecause ='ANSWER' THEN 0 ELSE 1 END AS fail,sessiontime FROM cc_call $SQL_CLAUSE";
+				
+				if ($A2B->config["database"]['dbtype'] == "postgres")
+				{
+					$QUERY .= " LIMIT $groupcard OFFSET ".$page*$groupcard;
+				}
+				else
+				{
+					$QUERY .= " LIMIT ".$page*$groupcard.", $groupcard";
+				}			
+										
+				if ($verbose_level>=1) echo "\n\n".$QUERY;
+				
+				$res = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY,1);
+				for($i=0;$i<count($res);$i++)
+				{				
+					$totalsuccess+=$res[$i][0];
+					$totalfail+=$res[$i][1];
+					$totaltime+=$res[$i][2];
+				
+					if($res[$i][1] == 1)
+					$max++;	
+					if($res[$i][1] == 0)
+					{
+						if($max > $max_fail)
+						$max_fail = $max;
+						$max = 0;
 					}
-				}elseif($res[$i][2]==1) $max++;
+							
+				}
+				if($i == count($res))
+				{
+					$max_fail = $max;
+				}			
 			}
-			$ASR = $totalsuccess/$totalsuccess+$totalfail;
-			$ALOC =$totaltime/$totalsuccess+$totalfail;
-			$send_alarm=false;
+			if ($max_fail == 1)
+				$max_fail = 0;
+			$ASR = $totalsuccess / $totalsuccess + $totalfail;
+			$ALOC =$totaltime / $totalsuccess + $totalfail;
+			
+			$send_alarm = false;		
+			
 			//$type_list   ["0" ALOC, "1" ASR, "2" CIC]
 			switch ($myalarm[3]) {
 				case 1:
@@ -174,7 +196,7 @@
 
 				case 3:
 					if ($max_fail >= $myalarm[4]){
-						$content="\n\n The Max Failed calls succevelly registred : ".$max_fail." calls is too hight than the max: ".$myalarm[4]." defined in the alarm";
+						$content="\n\n The Max Failed calls successfully registred : ".$max_fail." calls is too hight than the max: ".$myalarm[4]." defined in the alarm";
 						$value=$max_fail;
 						$send_alarm=true;
 					}

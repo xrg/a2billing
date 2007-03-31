@@ -3,7 +3,6 @@ include ("../lib/defines.php");
 include ("../lib/module.access.php");
 include ("../lib/Form/Class.FormHandler.inc.php");
 include ("../lib/smarty.php");
-include ("./form_data/FG_var_payment_settings.inc");
 include ("../lib/epayment/classes/payment.php");
 include ("../lib/epayment/classes/objectinfo.php");
 include ("../lib/epayment/classes/table_block.php");
@@ -113,13 +112,6 @@ $smarty->display('main.tpl');
 echo '<br><br>'.$CC_help_payment_config;
 
 ?>
-
-
-
-<br><br>
-
-
-
 
 <table border=0 cellspacing=0 cellpadding=0 align=center width=60%>
 <tr class="form_head">

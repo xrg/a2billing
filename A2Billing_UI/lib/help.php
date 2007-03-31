@@ -676,12 +676,13 @@ $CC_help_list_alarm='<a href="#" target="_self"  onclick="imgidclick(\'img1000\'
 <div id="div1000" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/system-config-date.gif" class="kikipic"/>
-	<div class="w2">'
-.gettext("Alarms that monitor trunks at timed intervals.<br>").'
-<br/>
+	<div class="w2"><br>'
+.gettext("Alarms that monitors trunks at timed intervals.").'
+<br/><br>
 </div></div></div>
 </div>
 ';
+
 
 $CC_help_logfile='<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
 <div id="div1000" style="display:visible;">

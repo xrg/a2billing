@@ -4,7 +4,7 @@
  *            a2billing_invoice_cront.php
  *
  *  14 March 2007
- *  Purpose: To insert secords in the Invoice Tables for Each User.
+ *  Purpose: To insert seconds in the Invoice Tables for Each User.
  *  Copyright  2007  User : Areski
  *  ADD THIS SCRIPT IN A CRONTAB JOB
  *
@@ -63,7 +63,7 @@ $QUERY = 'SELECT count(*) FROM cc_card';
 
 $result = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY);
 $nb_card = $result[0][0];
-$nbpagemax=(intval($nb_card/$groupcard));
+$nbpagemax = (intval($nb_card/$groupcard));
 
 if ($verbose_level>=1) echo "===> NB_CARD : $nb_card - NBPAGEMAX:$nbpagemax\n";
 
@@ -73,12 +73,15 @@ if (!($nb_card>0)){
 	exit();
 }
 
+if ($verbose_level>=1) echo ("[Invoice Billing Service analyze cards on which to apply service]");
 write_log("[Invoice Billing Service analyze cards on which to apply service]");
 
 for ($page = 0; $page <= $nbpagemax; $page++) 
 {
-
-	$Query_Customers = "Select * from cc_card ";
+	if ($verbose_level >= 1)  echo "$page <= $nbpagemax \n";	
+	//$Query_Customers = "Select * from cc_card ";
+	$Query_Customers = "SELECT id, creationdate, firstusedate, expirationdate, enableexpire, expiredays, username FROM cc_card ";
+	
 	if ($A2B->config["database"]['dbtype'] == "postgres")
 	{
 		$Query_Customers .= " LIMIT $groupcard OFFSET ".$page*$groupcard;
@@ -94,45 +97,78 @@ for ($page = 0; $page <= $nbpagemax; $page++)
 	} else {
 		$execution_DateTime = 1;
 	}
-	if($verbose_level == 1)	echo "<br>Execution Date Time: ".$execution_DateTime;
+	if($verbose_level >= 1)	echo "\n<br>Execution Date Time: ".$execution_DateTime;
 	
 	$resmax = $instance_table -> SQLExec ($A2B -> DBHandle, $Query_Customers);
 	
-	$numrow = count($resmax);
-
-	if($verbose_level == 1) echo "<br>Total Customers Found: ".$numrow;
-
+	if (is_array($resmax)){
+		$numrow = count($resmax);
+		if($verbose_level >= 1) print_r($resmax[0]);
+	}else{
+		$numrow = 0;
+	}
+	if($verbose_level >= 1) echo "\n<br>Total Customers Found: ".$numrow;
+	
 	if ($numrow == 0) {
-		if ($verbose_level>=1) echo "[No card to run the Invoice Billing Service]\n";
+		if ($verbose_level>=1) echo "\n[No card to run the Invoice Billing Service]\n";
 		write_log("[No card to run the Invoice Billing service]");
 		exit();
 		
 	}else{
-	
-	 	foreach($resmax as $Customer){
 		
-			$FG_TABLE_CLAUSE = " t1.username='$Customer[6]' AND t1.starttime > (SELECT CASE WHEN max(cover_enddate) is NULL THEN '0000-00-00 00:00:00' ELSE max(cover_enddate) END FROM cc_invoices WHERE cardid='$Customer[0]')";
+	 	foreach($resmax as $Customer){
 			
-			$Query_Destinations = "SELECT destination, sum(t1.sessiontime) AS calltime, 
-			sum(t1.sessionbill) AS cost, count(*) AS nbcall FROM cc_call t1 WHERE (t1.sipiax<>2 AND t1.sipiax<>3) AND ".$FG_TABLE_CLAUSE." GROUP BY destination";		
+			// Here we have to check for the Last Invoice date to set the Cover Start date. 
+			// if a user dont have a Last invocie then we have to Set the Cover Start date to it Creation Date.
+			
+			$query_billdate = "SELECT CASE WHEN max(cover_enddate) is NULL THEN '0000-00-00 00:00:00' ELSE max(cover_enddate) END FROM cc_invoices WHERE cardid='$Customer[0]'";
+			echo "\nQUERY_BILLDATE = $query_billdate";
+			
+			$resdate = $instance_table -> SQLExec ($A2B -> DBHandle, $query_billdate);
+			print_r($resdate);
+			if (is_array($resdate) && count($resdate)>0 && $result[0][0] != "0000-00-00 00:00:00"){
+				// Customer Last Invoice Date
+				$cover_startdate = $resdate[0][0];
+			} else {
+				// Customer Creation Date			
+				$cover_startdate = $Customer[1];
+			}
+			if($verbose_level >= 1)	echo "\n<br>Cover Start Date for '$Customer[6]': ".$cover_startdate;
+			
+			
+			
+			
+			$FG_TABLE_CLAUSE = " t1.username='$Customer[6]' AND t1.starttime > ($cover_startdate)";
+			
+			//$Query_Destinations = "SELECT destination, sum(t1.sessiontime) AS calltime, sum(t1.sessionbill) AS cost, count(*) AS nbcall FROM cc_call t1 WHERE (t1.sipiax<>2 AND t1.sipiax<>3) AND ".$FG_TABLE_CLAUSE." GROUP BY destination";		
+			$Query_Destinations = "SELECT destination, sum(t1.sessiontime) AS calltime, sum(t1.sessionbill) AS cost, count(*) AS nbcall FROM cc_call t1 WHERE ".
+								  $FG_TABLE_CLAUSE." GROUP BY destination";		
+								  
 			$list_total_destination = NULL;
-			$list_total_destination = $instance_table -> SQLExec ($A2B -> DBHandle, $Query_Destinations);		
-			$num = count($list_total_destination);
-			if($verbose_level == 1){
-				echo "<br><br>No of Destinatios for '$Customer[6]' Found: ".$num;
+			$list_total_destination = $instance_table -> SQLExec ($A2B -> DBHandle, $Query_Destinations);
+			if (is_array($list_total_destination)){
+				$num = count($list_total_destination);
+			}else{
+				$num = 0;
+			}
+			
+			if($verbose_level >= 1){
+				echo "\nQuery_Destinations = $Query_Destinations";
+				echo "\n<br><br>Number of Destinatios for '$Customer[6]' Found: ".$num;
 			}			
 			
 			//*************************************DID SECTION*************************************************
-			
+			// SIPIAX :>> 0 = NORMAL CALL ; 1 = VOIP CALL (SIP/IAX) ; 2= DIDCALL + TRUNK ; 3 = VOIP CALL DID ; 4 = CALLBACK call
+			/*
 			$QUERYDID = "SELECT t1.id_did, t2.fixrate, t2.billingtype, sum(t1.sessiontime) AS calltime, 
 				sum(t1.sessionbill) AS cost, count(*) AS nbcall FROM cc_call t1, cc_did t2 WHERE (t1.sipiax=2 OR t1.sipiax=3) AND ".$FG_TABLE_CLAUSE." 
 				AND t1.sipiax in (2,3) AND t1.id_did = t2.id GROUP BY t1.id_did";
-		 		 	
+		 	
 			$list_total_did = NULL;
 			$list_total_did = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERYDID);
 			$num  = 0;				
 			$num = count($list_total_did);
-						
+			*/
 			//*************************************END DID SECTION*********************************************
 			$totalcost = 0;
 			$totaltax = 0;
@@ -152,13 +188,13 @@ for ($page = 0; $page <= $nbpagemax; $page++)
 					$totalcost+=$data[2];
 				}
 			}
-			//echo "<br> Total Cost Befor DID = ".$totalcost;
+			//echo "\n<br> Total Cost Before DID = ".$totalcost;
 			//For DID Calls
-			if (is_array($list_total_did) && count($list_total_did)>0){
+			/*if (is_array($list_total_did) && count($list_total_did)>0){
 				$mmax = 0;
 				$totalcall = 0;
 				$totalminutes = 0;
-				//echo "<br>Total Cost at Dial = ".$totalcost;
+				//echo "\n<br>Total Cost at Dial = ".$totalcost;
 				foreach ($list_total_did as $data)
 				{	
 					if ($mmax < $data[3])
@@ -170,56 +206,38 @@ for ($page = 0; $page <= $nbpagemax; $page++)
 					if ($data[2] == 0)
 					{			
 						$totalcost += ($data[4] + $data[1]);					
-						if($verbose_level == 1)	echo "<br>DID =".$data[0]."; Fixed Cost=".$data[1]."; Total Call Cost=".$data[4]."; Total = ".$totalcost;
+						if($verbose_level >= 1)	echo "\n<br>DID =".$data[0]."; Fixed Cost=".$data[1]."; Total Call Cost=".$data[4]."; Total = ".$totalcost;
 					}
 					if ($data[2] == 2)
 					{				
 						$totalcost += $data[4];
-						if($verbose_level == 1)	echo "<br>DID =".$data[0]."; Fixed Cost=0; Total Call Cost=".$data[4]."; Total = ".$totalcost;
+						if($verbose_level >= 1)	echo "\n<br>DID =".$data[0]."; Fixed Cost=0; Total Call Cost=".$data[4]."; Total = ".$totalcost;
 					}
 					if ($data[2] == 1)
 					{			
 						$totalcost += ($data[1]);
-						if($verbose_level == 1)	echo "<br>DID =".$data[0]."; Fixed Cost=".$data[1]."; Total = ".$totalcost;
+						if($verbose_level >= 1)	echo "\n<br>DID =".$data[0]."; Fixed Cost=".$data[1]."; Total = ".$totalcost;
 					}
 					if ($data[2] == 3)
 					{
 						$totalcost += 0;
-						if($verbose_level == 1)	echo "<br>DID =".$data[0]."; TYPE = FREE; Total = ".$totalcost;
+						if($verbose_level >= 1)	echo "\n<br>DID =".$data[0]."; TYPE = FREE; Total = ".$totalcost;
 					}
 				}	
-			}			
+			}*/
 			
-			if($verbose_level == 1)
+			if($verbose_level >= 1)
 			{	
-				echo "<br>Total Cost for '$Customer[0]': ".$totalcost;
+				echo "\n<br>Total Cost for '$Customer[0]': ".$totalcost;
 			}
-			// Here we have to check for the Last Invoice date to set the Cover Start date. 
-			// if a user dont have a Last invocie then we have to Set the Cover Start date to it Creation Date.
-			
-			$Query_billdate = "SELECT CASE WHEN max(cover_enddate) is NULL THEN '0000-00-00 00:00:00' END FROM cc_invoices WHERE cardid='$Customer[0]'";
-			
-			$resdate = $instance_table -> SQLExec ($A2B -> DBHandle, $Query_billdate);
-			$numdate = count($resdate);
-			$invoice = $result[0][0];
-					
-			
-			if($verbose_level == 1)	echo "<br> Count Max End Date for Customer: " .$numdate;
-			
-			if ($numdate > 0 && $invoice!= "0000-00-00 00:00:00"){
-				// Customer Last Invoice Date
-				$cover_startdate = $invoice;
-			} else {
-				// Customer Creation Date			
-				$cover_startdate = $Customer[1];
-			}
-			if($verbose_level == 1)	echo "<br>Cover Start Date for '$Customer[6]': ".$cover_startdate;
 			
 			// Here we have to Create a Insert Statement to insert Records into the Invoices Table.
-			$Query_Invoices = "INSERT INTO cc_invoices (id, cardid, orderref, invoicecreated_date, cover_startdate,
-							cover_enddate, amount, tax, total, invoicetype, filename) VALUES (NULL, '$Customer[0]', NULL, CURRENT_TIMESTAMP, '$cover_startdate', CURRENT_TIMESTAMP, $totalcost, $totaltax, $totalcost + $totaltax, NULL, NULL)";		
+			$Query_Invoices = "INSERT INTO cc_invoices (cardid, orderref, invoicecreated_date, cover_startdate, cover_enddate, amount, tax, total, invoicetype,".
+				"filename) VALUES ('$Customer[0]', NULL, NOW(), '$cover_startdate', NOW(), $totalcost, $totaltax, $totalcost + $totaltax, NULL, NULL)";		
 			$instance_table -> SQLExec ($A2B -> DBHandle, $Query_Invoices);			
-	 	}
+			
+			exit;
+	 	}// END foreach($resmax as $Customer)
 	}
 }
 
@@ -233,7 +251,7 @@ for ($page = 0; $page <= $nbpagemax; $page++)
 function get_currencies($DBHandle)
 {
 	$instance_table = new Table();
-	$QUERY =  "SELECT id,currency,name,value from cc_currencies order by id";
+	$QUERY =  "SELECT id,currency,name,value FROM cc_currencies ORDER BY id";
 	$result = $instance_table -> SQLExec ($DBHandle, $QUERY);
 	/*
 		$currencies_list['ADF'][1]="Andorran Franc";
@@ -249,8 +267,7 @@ function get_currencies($DBHandle)
 	
 	return $currencies_list;
 }
-	
-	
+
 function convert_currency ($currencies_list, $amount, $from_cur, $to_cur){
 	
 	if (!is_numeric($amount) || ($amount == 0)){
@@ -270,7 +287,5 @@ function convert_currency ($currencies_list, $amount, $from_cur, $to_cur){
 	
 	return $amount;
 }
-
-?>
 
 ?>

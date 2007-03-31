@@ -101,7 +101,7 @@ function openURL(theLINK)
 <br>
 <?php echo "NUMBER OF RUN :".$list_alarm [0][3];?>
 <?php echo " -  NUMBER OF SENT ALARM :".$list_alarm [0][5] ;?>
-<?php echo "<br> DATELASTRUN :";display_dateformat($list_alarm [0][4]); ?>
+<?php echo "<br> DATE LAST RUN :";display_dateformat($list_alarm [0][4]); ?>
 
 </center>
 	  <table width="100%">
