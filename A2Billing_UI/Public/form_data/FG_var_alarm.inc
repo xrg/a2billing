@@ -13,7 +13,7 @@ $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
 $period_list = array();
 $period_list["1"]  = array( "Daily", "1");
 $period_list["2"]  = array( "Weekly", "2");
-$period_list["4"]  = array( "Monthly", "3");
+$period_list["3"]  = array( "Monthly", "3");
 
 
 
@@ -109,7 +109,7 @@ $HD_Form -> AddEditElement (gettext("MIN VALUE"),
 	"",
 	"",
 	"",
-	"" , "", "", "", "", "", "", gettext("Input the minimum value (between 0 and 1 for ASR ; >= 0 for ALOC in sec ; >= 0 for CIC) or leave it empty"));
+	"" , "", "", "", "", "", "", gettext("Input the minimum value (between 0 and 1 for ASR ; >= 0 for ALOC in sec ; not used by CIC) or leave it empty"));
 $HD_Form -> AddEditElement(gettext("TRUNK"),
 			   "id_trunk",
 			   '$value',	

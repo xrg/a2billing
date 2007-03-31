@@ -98,15 +98,15 @@
 		
 		$sql = "SELECT id, username, credit, initialbalance, initialbalance-credit as refillof FROM cc_card WHERE autorefill=1 AND initialbalance>0 AND credit<initialbalance ORDER BY id ";
 		if ($A2B->config["database"]['dbtype'] == "postgres"){
-			$sql .= " LIMIT $groupcard OFFSET ".$page*$groupcard;			
+			$sql .= " LIMIT $groupcard OFFSET ".$page*$groupcard;
 		}else{
-			$sql .= " LIMIT ".$page*$groupcard.", $groupcard";			
+			$sql .= " LIMIT ".$page*$groupcard.", $groupcard";
 		}
 		if ($verbose_level>=1) echo "==> SELECT CARD QUERY : $sql\n";
 		$result_card = $instance_table -> SQLExec ($A2B -> DBHandle, $sql);
-	
-		foreach ($result_card as $mycard){
 		
+		foreach ($result_card as $mycard){
+			
 			if ($verbose_level>=1) print_r ($mycard);
 			if ($verbose_level>=1) echo "------>>>  ID = ".$mycard[0]." - CARD =".$mycard[1]." - BALANCE =".$mycard[2]." - REFILLOF =".$mycard[4]." \n";	
 			
