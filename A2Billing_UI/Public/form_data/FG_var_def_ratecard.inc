@@ -20,7 +20,7 @@ if (isset($posted)){
 	$HD_Form->FG_TOP_FILTER_NAME = str_replace ("-:-","",$idtariff[1]);
 	//echo "Debug hey ->".$HD_Form->FG_TOP_FILTER_NAME."<br>";
 	$HD_Form->FG_TOP_FILTER_VALUE = $idtariff[0];
-	$HD_Form -> FG_TABLE_CLAUSE = " idtariffplan2='$HD_Form->FG_TOP_FILTER_VALUE' ";
+	$HD_Form -> FG_TABLE_CLAUSE = " idtariffplan='$HD_Form->FG_TOP_FILTER_VALUE' ";
 	$_SESSION['def_ratecard']=$HD_Form -> FG_TABLE_CLAUSE;
 }else{
 	$HD_Form -> FG_TOP_FILTER_NAME = 0;

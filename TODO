@@ -20,12 +20,12 @@ ADD option to define if we want to import the price in cents or in units
 TEST with 200 000 cards
 
 
-#### Payment option
+#### PAYMENT OPTION
 ********************************************************************
 put some help on the top
 
 
-#### SAVE Payment option
+#### SAVE PAYMENT OPTION
 ********************************************************************
 when go on edit paypal/moneybooker and click on Update
 I dont get any confirmation that the option has been saved
@@ -162,7 +162,8 @@ $channel = 'SIP/'.$phone_number.'@toreplace';
 
 #### CONSOLIDATE THE GETTEXT FILES
 ********************************************************************
-  CONSOLIDATE THE GETTEXT FILES
+Consolidate the gettext files for customer and admin interface
+regenerate all PO & MO files
 
 
 
