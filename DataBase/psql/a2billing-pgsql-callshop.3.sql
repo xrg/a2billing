@@ -37,4 +37,30 @@ UNION
  
 /*CREATE OR REPLACE VIEW cc_texts_v AS
 	SELECT id, txt AS txt_C FROM cc_texts AS t1 RIGHT OUTER JOIN cc_texts AS t2 ON t1.id = t2.id;*/
+
+CREATE OR REPLACE VIEW cc_session_calls AS
+SELECT cc_shopsessions.id AS sid,
+	SUM(cc_call.stoptime - cc_call.starttime) AS duration, SUM(cc_call.sessionbill) AS bill,
+	SUM(cc_call.buycost) AS buy_cost
+	FROM cc_shopsessions, cc_call, cc_card
+		WHERE cc_call.username = cc_card.username AND cc_shopsessions.card = cc_card.id
+			AND cc_call.starttime >= cc_shopsessions.starttime AND (cc_shopsessions.endtime IS NULL OR cc_call.starttime <= cc_shopsessions.endtime)
+		GROUP BY cc_shopsessions.id;
+
+CREATE OR REPLACE VIEW cc_session_usage_v AS
+SELECT  cc_shopsessions.id, cc_shopsessions.booth, cc_shopsessions.card,
+	date_trunc('sec', cc_shopsessions.starttime) AS session_start, 
+	date_trunc('sec',(cc_shopsessions.endtime - cc_shopsessions.starttime)) AS session_time, 
+	calls.*,
+	(divide_time(COALESCE(calls.duration,interval '0 min'), (cc_shopsessions.endtime - cc_shopsessions.starttime)) * 100) AS usage_pc
+	FROM cc_shopsessions LEFT OUTER JOIN cc_session_calls AS calls ON cc_shopsessions.id = calls.sid
+	 ;
+
+SELECT booth, date_trunc('day',session_start) as dday,COUNT(id) AS sessions, COUNT(sid) AS sessions_act, SUM(session_time), AVG(session_time) AS session_time,
+	SUM(duration) AS duration, SUM(bill) AS bill, AVG(usage_pc) AS usage
+	FROM cc_session_usage_v
+	GROUP BY booth, dday;
+	
+--	 (bill/EXTRACT(EPOCH FROM session_time))*3600
+-- for percent: to_char('990D0000%')
 --eof
