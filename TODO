@@ -4,6 +4,42 @@
 ********************************************************************************
 
 
+#### Add VoiceMail
+********************************************************************
+see VOICEMAIL document
+
+
+#### SIGNUP SELECT TARIFFGROUP
+********************************************************************
+; ID Tariffgroup to use, check the ID in the tariffgroup list - WebUI
+tariff = 1
+
+need to be changed to
+
+; ID Tariffgroup to sign the customers
+; or define a list of ID to let himselect select the tariffgroup
+; check the ID in the tariffgroup list - WebUI
+tariff = 1, 2, 3
+
+So in case of multiple tariff, a new Dropdown menu will appear on the signup form.
+with the list of tariff group defined here 
+(name of the tariff group will appear, not the number 1, 2, 3)
+
+Security, ensure at the sign-up time that the value send by the form is include in
+it to avoid the possibility from the customer to signup under an other tariffgroup
+
+
+
+#### OnLine Payment 
+********************************************************************
+Checkout Google
+
+
+#### BUG CAPTCHA
+********************************************************************
+please have a look also at the captcha
+if u use caps letters, it wont work, all the pics are shows with caps
+
 #### BAD ERROR MESSAGE
 ********************************************************************
 when u import a csv file and the size is biger the 500 k for example u get the error  file not found
@@ -42,40 +78,6 @@ I dont get any confirmation that the option has been saved
 #### ADD GETTEXT IN ALL CRONT MESSAGE
 ********************************************************************
 ADD GETTEXT IN ALL CRONT MESSAGE
-
-
-#### FEATURE
-********************************************************************
-REPORTING AND SUPPORT ALARMS :
-
-	
-	* ALOC (average length of call): Too low or too high.
-	* ASR (answer seize ratio): Too low or too high.
-	
-	maybe if possible :
-	* CIC (Consecutive Incomplete Calls): Too many.
-   
-We already have ALOC under the name of ACD in the page "CDR REPORT", we just need a new column for ASR and
-rename ACD -> ALOC
-
-
-ASR = Answer Seizure Ratio
-Its calculated by taking the number of sucessfully answered calls and dividing by the total number of calls attempted (seizures). Since busy signals and other rejections by the called number count as call failures, the calculated ASR value can vary depending on user behaviour. 
-
-
-For "Consecutive Incomplete Calls", we might find a way to display this I open to your suggestion. maybe a report as follow :
-Date ; total nb fails ; max of number fail calls succesively ; rate of fails (%)
-
-
-
-For the alarm let's build a new table and a new page in CRONT SERVICE.
-We need the user to be able to define different kind of alarm, for instance if I want
-to monitor a specific trunk and not all
-We can have in the table something like :
-- period (daily ; monday-sunday ; 01 - 31)
-- typealarm (asr, aloc, callfail)
-- trunk (all or the ID of the trunk)
-- etc...
 
 
 

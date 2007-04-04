@@ -4,7 +4,7 @@
 ALTER TABLE cc_sip_buddies ADD COLUMN fullcontact character varying(80);
  
 ALTER TABLE cc_sip_buddies ADD COLUMN setvar character varying(80);
-ALTER TABLE cc_sip_buddies ALTER COLUMN setvar SET DEFAULT ''::character varying NOT NULL;
+ALTER TABLE cc_sip_buddies ALTER COLUMN setvar SET DEFAULT ''::character varying;
 
 
 -- Forget that one previously :-/

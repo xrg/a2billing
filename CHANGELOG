@@ -5,6 +5,42 @@
 ********************************************************************
 
 
+
+#### FEATURE
+********************************************************************
+REPORTING AND SUPPORT ALARMS :
+
+	
+	* ALOC (average length of call): Too low or too high.
+	* ASR (answer seize ratio): Too low or too high.
+	
+	maybe if possible :
+	* CIC (Consecutive Incomplete Calls): Too many.
+   
+We already have ALOC under the name of ACD in the page "CDR REPORT", we just need a new column for ASR and
+rename ACD -> ALOC
+
+
+ASR = Answer Seizure Ratio
+Its calculated by taking the number of sucessfully answered calls and dividing by the total number of calls attempted (seizures). Since busy signals and other rejections by the called number count as call failures, the calculated ASR value can vary depending on user behaviour. 
+
+
+For "Consecutive Incomplete Calls", we might find a way to display this I open to your suggestion. maybe a report as follow :
+Date ; total nb fails ; max of number fail calls succesively ; rate of fails (%)
+
+
+
+For the alarm let's build a new table and a new page in CRONT SERVICE.
+We need the user to be able to define different kind of alarm, for instance if I want
+to monitor a specific trunk and not all
+We can have in the table something like :
+- period (daily ; monday-sunday ; 01 - 31)
+- typealarm (asr, aloc, callfail)
+- trunk (all or the ID of the trunk)
+- etc...
+
+
+
 #### FEATURE : PACKAGES SYSTEM - FREE MINUTES
 ********************************************************************
 Situation :
@@ -183,6 +219,7 @@ MISSING :
 	
 - ADD SELECT subscription fee on card 
 ALTER TABLE cc_card ADD COLUMN id_subscription_fee INTEGER;
+
 
 #### DOCUMENTATION : SMARTY & NEW DID MANAGEMENT
 ********************************************************************
