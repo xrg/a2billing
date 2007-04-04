@@ -890,7 +890,7 @@ class FormHandler{
 		$this -> FG_regular[]  = array(    "^(\+|[0-9]{1})[0-9]+$"   ,
 		                        "Phone Number format");
 		// 19 - CAPTCHAIMAGE - Alpahnumeric
-		$this -> FG_regular[]  = array("^(".$_SESSION["captcha_code"].")$", 
+		$this -> FG_regular[]  = array("^(".strtoupper($_SESSION["captcha_code"]).")|(".strtolower($_SESSION["captcha_code"]).")$",
 						gettext("(at least 6 Alphanumeric characters)"));
 		// check_select
 		// TO check if a select have a value different -1
@@ -1278,12 +1278,12 @@ class FormHandler{
 					}else{
 						if ($this->FG_DEBUG == 1) echo "<br>$fields_name : ".$processed[$fields_name];
 						if (!is_null($processed[$fields_name]) && ($processed[$fields_name]!="") && ($this->FG_TABLE_ADITION[$i][4]!="disabled") ){
-							if (strtoupper ($this->FG_TABLE_ADITION[$i][3])!=strtoupper("CAPTCHAIMAGE"))
+							if (strtoupper ($this->FG_TABLE_ADITION[$i][3]) != strtoupper("CAPTCHAIMAGE"))
 							{
-							if ($i>0) $param_add_fields .= ", ";							
-							$param_add_fields .= str_replace('myfrom_', '', $fields_name);
-							if ($i>0) $param_add_value .= ", ";
-							$param_add_value .= "'".addslashes(trim($processed[$fields_name]))."'";
+								if ($i>0) $param_add_fields .= ", ";							
+									$param_add_fields .= str_replace('myfrom_', '', $fields_name);
+								if ($i>0) $param_add_value .= ", ";
+									$param_add_value .= "'".addslashes(trim($processed[$fields_name]))."'";
 							}
 						}
 					}
