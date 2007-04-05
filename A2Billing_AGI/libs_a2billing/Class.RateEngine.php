@@ -1,5 +1,22 @@
 <?php
-
+/***************************************************************************
+ *
+ * Class.RateEngine.php : RateEngine Functions for A2Billing
+ * Written for PHP 4.x & PHP 5.X versions.
+ *
+ * A2Billing -- Asterisk billing solution.
+ * Copyright (C) 2004, 2007 Belaid Arezqui <areski _atl_ gmail com>
+ *
+ * See http://www.asterisk2billing.org for more information about
+ * the A2Billing project. 
+ * Please submit bug reports, patches, etc to <areski _atl_ gmail com>
+ *
+ * This software is released under the terms of the GNU Lesser General Public License v2.1
+ * A copy of which is available from http://www.gnu.org/copyleft/lesser.html
+ *
+ ****************************************************************************/
+ 
+ 
 class RateEngine {
 	var $debug_st = 0;
 	
@@ -770,7 +787,7 @@ class RateEngine {
 				$QUERY_FIELS = 'id_cc_card,id_cc_package_offer,used_secondes';
 				$QUERY_VALUES = "'".$A2B -> id_card."', '$id_cc_package_offer', '$freetimetocall_used'";
 				$id_card_package_offer = $A2B -> instance_table -> Add_table ($A2B -> DBHandle, $QUERY_VALUES, $QUERY_FIELS, 'cc_card_package_offer', 'id');
-				if ($A2B -> agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '.":[ID_CARD_PACKAGE_OFFER CREATED : $id_card_package_offer]:[$QUERY_VALUES]");
+				if ($A2B -> agiconfig['debug']>=1) $agi->verbose('file:'.basename(__FILE__).' - line:'.__LINE__.' - '.":[ID_CARD_PACKAGE_OFFER CREATED : $id_card_package_offer]:[$QUERY_VALUES]");
 				$A2B -> write_log(":[ID_CARD_PACKAGE_OFFER CREATED : $id_card_package_offer]");
 			}
 			
@@ -828,7 +845,7 @@ class RateEngine {
 			" '', '', '$calldestination', '$id_tariffgroup', '$id_tariffplan', '$id_ratecard', '".$this -> usedtrunk."', '".$A2B->CallerID."', '$calltype', '$buyrateapply', '$buycost', '$id_card_package_offer')";
 		
 		
-		if ($A2B->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '.$QUERY);
+		if ($A2B->agiconfig['debug']>=1) $agi->verbose('file:'.basename(__FILE__).' - line:'.__LINE__.' - '.$QUERY);
 		$A2B -> write_log("[CC_asterisk_stop 1.1: SQL: $QUERY]");
 		$result = $A2B->instance_table -> SQLExec ($A2B -> DBHandle, $QUERY, 0);
 		
@@ -850,17 +867,17 @@ class RateEngine {
 				$A2B->username."'";
 			}
 			
-			if ($A2B->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '.$QUERY);
+			if ($A2B->agiconfig['debug']>=1) $agi->verbose('file:'.basename(__FILE__).' - line:'.__LINE__.' - '.$QUERY);
 			$A2B -> write_log("[CC_asterisk_stop 1.2: SQL: $QUERY]");
 			$result = $A2B->instance_table -> SQLExec ($A2B -> DBHandle, $QUERY, 0);
 				
 				
 			$QUERY = "UPDATE cc_trunk SET secondusedreal = secondusedreal + $sessiontime WHERE id_trunk='".$this -> usedtrunk."'";
-			if ($A2B->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '.$QUERY);
+			if ($A2B->agiconfig['debug']>=1) $agi->verbose('file:'.basename(__FILE__).' - line:'.__LINE__.' - '.$QUERY);
 			$result = $A2B->instance_table -> SQLExec ($A2B -> DBHandle, $QUERY, 0);
 			
 			$QUERY = "UPDATE cc_tariffplan SET secondusedreal = secondusedreal + $sessiontime WHERE id='$id_tariffplan'";
-			if ($A2B->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '.$QUERY);
+			if ($A2B->agiconfig['debug']>=1) $agi->verbose('file:'.basename(__FILE__).' - line:'.__LINE__.' - '.$QUERY);
 			$result = $A2B->instance_table -> SQLExec ($A2B -> DBHandle, $QUERY, 0);
 		}
 	}
@@ -943,7 +960,7 @@ class RateEngine {
 				$dialstr .= $addparameter;
 			}
 				
-			if ($A2B->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '."app_callingcard: Dialing '$dialstr' with timeout of '$timeout'.\n");
+			if ($A2B->agiconfig['debug']>=1) $agi->verbose('file:'.basename(__FILE__).' - line:'.__LINE__.' - '."app_callingcard: Dialing '$dialstr' with timeout of '$timeout'.\n");
 
 			//# Channel: technology/number@ip_of_gw_to PSTN
 			//# Channel: SIP/3465078XXXXX@11.150.54.xxx   /     SIP/phone1@192.168.1.6
@@ -967,10 +984,10 @@ class RateEngine {
 				$outcid = $cidresult[0][0];
 				$A2B -> CallerID = $outcid;
 				$agi -> set_callerid($outcid);
-				if ($A2B->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '."[EXEC SetCallerID : $outcid]");
+				if ($A2B->agiconfig['debug']>=1) $agi->verbose('file:'.basename(__FILE__).' - line:'.__LINE__.' - '."[EXEC SetCallerID : $outcid]");
 
 			}
-			if ($A2B->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '."app_callingcard: CIDGROUPID='$cidgroupid' OUTBOUND CID SELECTED IS '$outcid'.");
+			if ($A2B->agiconfig['debug']>=1) $agi->verbose('file:'.basename(__FILE__).' - line:'.__LINE__.' - '."app_callingcard: CIDGROUPID='$cidgroupid' OUTBOUND CID SELECTED IS '$outcid'.");
 
 			$myres = $agi->exec("Dial $dialstr");	
     			//exec('Dial', trim("$type/$identifier|$timeout|$options|$url", '|'));
@@ -1041,7 +1058,7 @@ class RateEngine {
 					}	
 					
 					
-					if ($A2B->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '."FAILOVER app_callingcard: Dialing '$dialstr' with timeout of '$timeout'.\n");
+					if ($A2B->agiconfig['debug']>=1) $agi->verbose('file:'.basename(__FILE__).' - line:'.__LINE__.' - '."FAILOVER app_callingcard: Dialing '$dialstr' with timeout of '$timeout'.\n");
 					
 					$myres = $agi->exec("DIAL $dialstr");
 					$A2B -> write_log("DIAL FAILOVER $dialstr");
@@ -1075,7 +1092,7 @@ class RateEngine {
 				$this->answeredtime=0;
 			} elseif ($this->dialstatus == "ANSWER") {
 				if ($A2B->agiconfig['debug']>=1) 
-					$agi->verbose('line:'.__LINE__.' - '."-> dialstatus : ".$this->dialstatus.", answered time is ".$this->answeredtime." \n");					
+					$agi->verbose('file:'.basename(__FILE__).' - line:'.__LINE__.' - '."-> dialstatus : ".$this->dialstatus.", answered time is ".$this->answeredtime." \n");					
 			}
 				
 								

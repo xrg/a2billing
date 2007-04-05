@@ -185,6 +185,7 @@ $maxi='';
 $maxi2='';
 $maxi3='';
 if (isset($form_action) && $form_action=="ask-add"){
+	if (!is_numeric($cardnumberlenght_list)) 	$cardnumberlenght_list = LEN_CARDNUMBER;
 	$array_card_generated  = gen_card_with_alias("cc_card", 0, $cardnumberlenght_list);
 
 	$maxi = "value='".$array_card_generated[0]."'";

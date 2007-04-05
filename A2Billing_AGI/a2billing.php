@@ -1,23 +1,19 @@
 #!/usr/bin/php -q
 <?php   
 /***************************************************************************
- *            a2billing.php
  *
- *  Fri Nov 18 21:03:00 2005
- *  Copyright  2005  - Belaid Arezqui
- *  Email : areski [alt] gmail [_dot] com
+ * a2billing.php : PHP A2Billing Core
+ * Written for PHP 4.x & PHP 5.X versions.
  *
- *  This program is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
+ * A2Billing -- Asterisk billing solution.
+ * Copyright (C) 2004, 2007 Belaid Arezqui <areski _atl_ gmail com>
  *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
+ * See http://www.asterisk2billing.org for more information about
+ * the A2Billing project. 
+ * Please submit bug reports, patches, etc to <areski _atl_ gmail com>
  *
- *  The GNU GPL license can be found at :http://www.gnu.org/copyleft/gpl.html
+ * This software is released under the terms of the GNU Lesser General Public License v2.1
+ * A copy of which is available from http://www.gnu.org/copyleft/lesser.html
  *
  ****************************************************************************/
 
@@ -55,7 +51,7 @@
 		$idconfig = $argv[1];
 	else
 		$idconfig = 1;
-	$agi->verbose('line:'.__LINE__.' - '."IDCONFIG : $idconfig \n");
+	$agi->verbose('file:'.basename(__FILE__).' - line:'.__LINE__.' - '."IDCONFIG : $idconfig \n");
 	
 	
 	if ($argc > 2 && strlen($argv[2]) > 0 && $argv[2] == 'did')			$mode = 'did';
@@ -65,7 +61,7 @@
 	elseif ($argc > 2 && strlen($argv[2]) > 0 && $argv[2] == 'predictivedialer')	$mode = 'predictivedialer';
 	elseif ($argc > 2 && strlen($argv[2]) > 0 && $argv[2] == 'voucher')	$mode = 'voucher';
 	else $mode = 'standard';
-	$agi->verbose('line:'.__LINE__.' - '."MODE : $mode \n");
+	$agi->verbose('file:'.basename(__FILE__).' - line:'.__LINE__.' - '."MODE : $mode \n");
 	
 	// get the area code for the cid-callback & all-callback
 	if ($argc > 3 && strlen($argv[3]) > 0) $caller_areacode = $argv[3];
@@ -139,11 +135,11 @@
 		if (strlen($A2B->agiconfig['intro_prompt'])>0) 		$agi-> stream_file($A2B->agiconfig['intro_prompt'], '#');		
 		
 		if ($A2B->agiconfig['answer_call']==1){
-			if ($A2B->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '.'[ANSWER CALL]');
+			if ($A2B->agiconfig['debug']>=1) $agi->verbose('file:'.basename(__FILE__).' - line:'.__LINE__.' - '.'[ANSWER CALL]');
 			$agi->answer();
 			$status_channel=6;
 		}else{
-			if ($A2B->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '.'[NO ANSWER CALL]');
+			if ($A2B->agiconfig['debug']>=1) $agi->verbose('file:'.basename(__FILE__).' - line:'.__LINE__.' - '.'[NO ANSWER CALL]');
 			$status_channel=4;
 		}
 		
@@ -165,9 +161,9 @@
 					// RETRIEVE THE CHANNEL STATUS AND LOG : STATUS - CREIT - MIN_CREDIT_2CALL 
 					$stat_channel = $agi->channel_status($A2B-> channel);
 					$A2B -> write_log('[CHANNEL STATUS : '.$stat_channel["result"].' = '.$stat_channel["data"].']');
-					if ($A2B->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '.'[CHANNEL STATUS : '.$stat_channel["result"].' = '.$stat_channel["data"].']');
+					if ($A2B->agiconfig['debug']>=1) $agi->verbose('file:'.basename(__FILE__).' - line:'.__LINE__.' - '.'[CHANNEL STATUS : '.$stat_channel["result"].' = '.$stat_channel["data"].']');
 					$A2B -> write_log("[CREDIT STATUS : ".$A2B-> credit."]");
-					if ($A2B->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '."[CREDIT : ".$A2B-> credit."][CREDIT MIN_CREDIT_2CALL : ".$A2B->agiconfig['min_credit_2call']."]");
+					if ($A2B->agiconfig['debug']>=1) $agi->verbose('file:'.basename(__FILE__).' - line:'.__LINE__.' - '."[CREDIT : ".$A2B-> credit."][CREDIT MIN_CREDIT_2CALL : ".$A2B->agiconfig['min_credit_2call']."]");
 					// CHECK IF THE CHANNEL IS UP
 					//if ($stat_channel["status"]!= "6" && $stat_channel["status"]!= "1"){	
 					if ($stat_channel["result"]!= $status_channel && ($A2B -> CC_TESTING!=1)){
@@ -184,7 +180,7 @@
 							// SAY TO THE CALLER THAT IT DEOSNT HAVE ENOUGH CREDIT TO MAKE A CALL							
 							$prompt = "prepaid-no-enough-credit-stop";
 							$agi-> stream_file($prompt, '#');
-							if ($A2B->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '."[STOP STREAM FILE $prompt]");
+							if ($A2B->agiconfig['debug']>=1) $agi->verbose('file:'.basename(__FILE__).' - line:'.__LINE__.' - '."[STOP STREAM FILE $prompt]");
 							
 							
 							if (($A2B->agiconfig['notenoughcredit_cardnumber']==1) && (($i+1)< $A2B->agiconfig['number_try'])){
@@ -210,7 +206,7 @@
 							}else{
 								
 								$send_reminder = 1;
-								if ($A2B->agiconfig['debug']>=2) $agi->verbose('line:'.__LINE__.' - '."[SET MAIL REMINDER - NOT ENOUGH CREDIT]");
+								if ($A2B->agiconfig['debug']>=2) $agi->verbose('file:'.basename(__FILE__).' - line:'.__LINE__.' - '."[SET MAIL REMINDER - NOT ENOUGH CREDIT]");
 								break;
 							}
 					}
@@ -223,7 +219,7 @@
 					
 					if ($A2B->agiconfig['ivr_voucher']==1){
 						$res_dtmf = $agi->get_data('refill_card_with_voucher', 2000, 1);
-						if ($A2B->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '."RES REFILL CARD VOUCHER DTMF : ".$res_dtmf ["result"]);
+						if ($A2B->agiconfig['debug']>=1) $agi->verbose('file:'.basename(__FILE__).' - line:'.__LINE__.' - '."RES REFILL CARD VOUCHER DTMF : ".$res_dtmf ["result"]);
 						$A2B-> ivr_voucher = $res_dtmf ["result"];
 						if ((isset($A2B-> ivr_voucher)) && ($A2B-> ivr_voucher == $A2B->agiconfig['ivr_voucher_prefixe']))
 						{	
@@ -244,7 +240,7 @@
 			
 								$prompt_enter_dest = $A2B->agiconfig['file_conf_enter_destination'];
 								$res_dtmf = $agi->get_data($prompt_enter_dest, 4000, 20);
-								if ($A2B->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '."RES sip_iax_pstndirect_call DTMF : ".$res_dtmf ["result"]);
+								if ($A2B->agiconfig['debug']>=1) $agi->verbose('file:'.basename(__FILE__).' - line:'.__LINE__.' - '."RES sip_iax_pstndirect_call DTMF : ".$res_dtmf ["result"]);
 								$A2B-> destination = $res_dtmf ["result"];
 							}
 							
@@ -252,19 +248,19 @@
 								$A2B-> dnid = $A2B-> destination;
 								$A2B-> sip_iax_buddy = $A2B->agiconfig['sip_iax_pstn_direct_call_prefix'];
 								$A2B-> agiconfig['use_dnid'] = 1;
-								if ($A2B->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '."SIP 1. IAX - dnid : ".$A2B->dnid." - ".strlen($A2B->agiconfig['sip_iax_pstn_direct_call_prefix']));
+								if ($A2B->agiconfig['debug']>=1) $agi->verbose('file:'.basename(__FILE__).' - line:'.__LINE__.' - '."SIP 1. IAX - dnid : ".$A2B->dnid." - ".strlen($A2B->agiconfig['sip_iax_pstn_direct_call_prefix']));
 								$A2B->dnid = substr($A2B->dnid,strlen($A2B->agiconfig['sip_iax_pstn_direct_call_prefix']));
-								if ($A2B->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '."SIP 2. IAX - dnid : ".$A2B->dnid);
+								if ($A2B->agiconfig['debug']>=1) $agi->verbose('file:'.basename(__FILE__).' - line:'.__LINE__.' - '."SIP 2. IAX - dnid : ".$A2B->dnid);
 							}elseif (strlen($A2B->destination)>0){
 								$A2B->dnid = $A2B->destination;
 								$A2B->agiconfig['use_dnid'] = 1;
-								if ($A2B->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '."TRUNK - dnid : ".$A2B->dnid." (".$A2B->agiconfig['use_dnid'].")");
+								if ($A2B->agiconfig['debug']>=1) $agi->verbose('file:'.basename(__FILE__).' - line:'.__LINE__.' - '."TRUNK - dnid : ".$A2B->dnid." (".$A2B->agiconfig['use_dnid'].")");
 							}
 						}else{
 					
 							//$res_dtmf = $agi->agi_exec("GET DATA prepaid-sipiax-press9 2000 1");
 							$res_dtmf = $agi->get_data('prepaid-sipiax-press9', 2000, 1);
-							if ($A2B->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '."RES SIP_IAX_FRIEND DTMF : ".$res_dtmf ["result"]);
+							if ($A2B->agiconfig['debug']>=1) $agi->verbose('file:'.basename(__FILE__).' - line:'.__LINE__.' - '."RES SIP_IAX_FRIEND DTMF : ".$res_dtmf ["result"]);
 							
 							$A2B-> sip_iax_buddy = $res_dtmf ["result"];
 						}
@@ -273,7 +269,7 @@
 					
 					if ( isset($A2B-> sip_iax_buddy) && ($A2B-> sip_iax_buddy == $A2B->agiconfig['sip_iax_pstn_direct_call_prefix'])) {
 							
-							if ($A2B->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '.'CALL SIP_IAX_BUDDY');
+							if ($A2B->agiconfig['debug']>=1) $agi->verbose('file:'.basename(__FILE__).' - line:'.__LINE__.' - '.'CALL SIP_IAX_BUDDY');
 							$A2B -> write_log("[CALL SIP_IAX_BUDDY]");
 							$cia_res = $A2B-> call_sip_iax_buddy($agi, $RateEngine,$i);
 							
@@ -318,10 +314,10 @@
 					
 					
 					if ($A2B->agiconfig['answer_call']==1){
-						if ($A2B->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '.'[ANSWER CALL]');
+						if ($A2B->agiconfig['debug']>=1) $agi->verbose('file:'.basename(__FILE__).' - line:'.__LINE__.' - '.'[ANSWER CALL]');
 						$agi->answer();
 					}else{
-						if ($A2B->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '.'[NO ANSWER CALL]');
+						if ($A2B->agiconfig['debug']>=1) $agi->verbose('file:'.basename(__FILE__).' - line:'.__LINE__.' - '.'[NO ANSWER CALL]');
 					}
 					// TODO
 					// CRONT TO CHARGE MONTLY
@@ -337,7 +333,7 @@
 					if (strlen($mydnid) > 0){
 						
 						$A2B -> write_log("[DID CALL - [CallerID=".$A2B->CallerID."]:[DID=".$mydnid."]");
-						if ($A2B->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '."[DID CALL - [CallerID=".$A2B->CallerID."]:[DID=".$mydnid."]");
+						if ($A2B->agiconfig['debug']>=1) $agi->verbose('file:'.basename(__FILE__).' - line:'.__LINE__.' - '."[DID CALL - [CallerID=".$A2B->CallerID."]:[DID=".$mydnid."]");
 						
 						
 						
@@ -347,10 +343,10 @@
 							" AND cc_did.startingdate<= CURRENT_TIMESTAMP AND (cc_did.expirationdate > CURRENT_TIMESTAMP OR cc_did.expirationdate IS NULL OR LENGTH(cc_did.expirationdate)<5) ".
 							" ORDER BY priority ASC";
 						
-						if ($A2B->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '.$QUERY);
+						if ($A2B->agiconfig['debug']>=1) $agi->verbose('file:'.basename(__FILE__).' - line:'.__LINE__.' - '.$QUERY);
 														
 						$result = $A2B -> instance_table -> SQLExec ($A2B->DBHandle, $QUERY);
-						if ($A2B->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '.$result);
+						if ($A2B->agiconfig['debug']>=1) $agi->verbose('file:'.basename(__FILE__).' - line:'.__LINE__.' - '.$result);
 						
 						if (is_array($result)){
 							
@@ -368,7 +364,7 @@
 		
 	}elseif ($mode == 'cid-callback'){
 	
-		$agi->verbose('line:'.__LINE__.' - '.'[MODE : CALLERID-CALLBACK - '.$A2B->CallerID.']');
+		$agi->verbose('file:'.basename(__FILE__).' - line:'.__LINE__.' - '.'[MODE : CALLERID-CALLBACK - '.$A2B->CallerID.']');
 				
 		
 		// END
@@ -400,11 +396,11 @@
 					}else{
 						$A2B ->dnid = $A2B ->destination = $caller_areacode.$A2B->CallerID;
 					}
-					$agi->verbose('line:'.__LINE__.' - '.'[destination: - '.$A2B->destination.']');
+					$agi->verbose('file:'.basename(__FILE__).' - line:'.__LINE__.' - '.'[destination: - '.$A2B->destination.']');
 							
 					$resfindrate = $RateEngine->rate_engine_findrates($A2B, $A2B ->destination, $A2B ->tariff);
 					//echo "resfindrate=$resfindrate";
-					$agi->verbose('line:'.__LINE__.' - '.'[resfindrate: - '.$resfindrate.']');
+					$agi->verbose('file:'.basename(__FILE__).' - line:'.__LINE__.' - '.'[resfindrate: - '.$resfindrate.']');
 					
 					
 					// IF FIND RATE
@@ -459,7 +455,7 @@
 							
 							$as = new AGI_AsteriskManager();
 							
-							$agi->verbose('line:'.__LINE__.' - '.'[manager_host: - '.$A2B->config["webui"]['manager_host'].']');
+							$agi->verbose('file:'.basename(__FILE__).' - line:'.__LINE__.' - '.'[manager_host: - '.$A2B->config["webui"]['manager_host'].']');
 							
 							$res = $as->connect($A2B->config["webui"]['manager_host'],$A2B->config["webui"]['manager_username'],$A2B->config["webui"]['manager_secret']);
 
@@ -578,7 +574,7 @@
 	
 	}elseif ($mode == 'all-callback'){
 	
-		$agi->verbose('line:'.__LINE__.' - '.'[MODE : ALL-CALLBACK - '.$A2B->CallerID.']');
+		$agi->verbose('file:'.basename(__FILE__).' - line:'.__LINE__.' - '.'[MODE : ALL-CALLBACK - '.$A2B->CallerID.']');
 		
 		
 		// END
@@ -779,16 +775,16 @@
 	// MODE CALLBACK
 	}elseif ($mode == 'callback'){
 		
-		$agi->verbose('line:'.__LINE__.' - '.'[MODE : CALLBACK]');
+		$agi->verbose('file:'.basename(__FILE__).' - line:'.__LINE__.' - '.'[MODE : CALLBACK]');
 
 		
 		
 		if ($A2B->agiconfig['answer_call']==1){
-			if ($A2B->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '.'[ANSWER CALL]');
+			if ($A2B->agiconfig['debug']>=1) $agi->verbose('file:'.basename(__FILE__).' - line:'.__LINE__.' - '.'[ANSWER CALL]');
 			$agi->answer();
 			$status_channel=6; 
 		}else{
-			if ($A2B->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '.'[NO ANSWER CALL]');
+			if ($A2B->agiconfig['debug']>=1) $agi->verbose('file:'.basename(__FILE__).' - line:'.__LINE__.' - '.'[NO ANSWER CALL]');
 			$status_channel=4;
 		}
 		
@@ -823,7 +819,7 @@
 		}
 		
 		$A2B -> write_log("[GET VARIABLE : CALLED=$called_party | CALLING=$calling_party | MODE=$callback_mode | TARIFF=$callback_tariff]");
-		if ($A2B->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '."[GET VARIABLE : CALLED=$called_party | CALLING=$calling_party | MODE=$callback_mode | TARIFF=$callback_tariff]");
+		if ($A2B->agiconfig['debug']>=1) $agi->verbose('file:'.basename(__FILE__).' - line:'.__LINE__.' - '."[GET VARIABLE : CALLED=$called_party | CALLING=$calling_party | MODE=$callback_mode | TARIFF=$callback_tariff]");
 		
 		
 			
@@ -848,13 +844,12 @@
 					
 					$stat_channel = $agi->channel_status($A2B-> channel);
 					$A2B -> write_log('[CHANNEL STATUS : '.$stat_channel["result"].' = '.$stat_channel["data"].']');
-					if ($A2B->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '.'[CHANNEL STATUS : '.$stat_channel["result"].' = '.$stat_channel["data"].']');
+					if ($A2B->agiconfig['debug']>=1) $agi->verbose('file:'.basename(__FILE__).' - line:'.__LINE__.' - '.'[CHANNEL STATUS : '.$stat_channel["result"].' = '.$stat_channel["data"].']');
 					
 					
 					$A2B -> write_log("[CREDIT STATUS : ".$A2B-> credit."]");
-					if ($A2B->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '."[CREDIT STATUS : ".$A2B-> credit."]");
-					if ($A2B->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '."[CREDIT MIN_CREDIT_2CALL : ".$A2B->agiconfig['min_credit_2call']."]");
-					
+					if ($A2B->agiconfig['debug']>=1) $agi->verbose('file:'.basename(__FILE__).' - line:'.__LINE__.' - '."[CREDIT STATUS : ".$A2B-> credit."]");
+					if ($A2B->agiconfig['debug']>=1) $agi->verbose('file:'.basename(__FILE__).' - line:'.__LINE__.' - '."[CREDIT MIN_CREDIT_2CALL : ".$A2B->agiconfig['min_credit_2call']."]");
 					
 					
 					//if ($stat_channel["status"]!= "6" && $stat_channel["status"]!= "1"){	
@@ -866,13 +861,12 @@
 					}
 					
 					
-					
 					if( $A2B->credit < $A2B->agiconfig['min_credit_2call'] && $A2B -> typepaid==0) {
 							
 							// SAY TO THE CALLER THAT IT DEOSNT HAVE ENOUGH CREDIT TO MAKE A CALL							
 							$prompt = "prepaid-no-enough-credit-stop";
 							$agi-> stream_file($prompt, '#');
-							if ($A2B->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '."[STOP STREAM FILE $prompt]");
+							if ($A2B->agiconfig['debug']>=1) $agi->verbose('file:'.basename(__FILE__).' - line:'.__LINE__.' - '."[STOP STREAM FILE $prompt]");
 							
 					}
 					
@@ -931,7 +925,7 @@
 
 	}elseif ($mode == 'predictivedialer'){
 		
-		$agi->verbose('line:'.__LINE__.' - '.'[MODE : PREDICTIVEDIALER]');
+		$agi->verbose('file:'.basename(__FILE__).' - line:'.__LINE__.' - '.'[MODE : PREDICTIVEDIALER]');
 
 		$A2B->agiconfig['number_try'] = 10;
 		$A2B->agiconfig['use_dnid'] =1;
@@ -948,7 +942,7 @@
 		
 		if ($A2B->id_campaign<=0){
 			$A2B -> write_log("[NOT CAMPAIGN ASSOCIATE AT THIS CARD]"); 
-			$agi->verbose('line:'.__LINE__.' - '."[NOT CAMPAIGN ASSOCIATE AT THIS CARD]"); 
+			$agi->verbose('file:'.basename(__FILE__).' - line:'.__LINE__.' - '."[NOT CAMPAIGN ASSOCIATE AT THIS CARD]"); 
 			$cia_res=-3;		
 		}
 		
@@ -970,12 +964,12 @@
 					
 					$stat_channel = $agi->channel_status($A2B-> channel);
 					$A2B -> write_log('[CHANNEL STATUS : '.$stat_channel["result"].' = '.$stat_channel["data"].']');
-					if ($A2B->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '.'[CHANNEL STATUS : '.$stat_channel["result"].' = '.$stat_channel["data"].']');
+					if ($A2B->agiconfig['debug']>=1) $agi->verbose('file:'.basename(__FILE__).' - line:'.__LINE__.' - '.'[CHANNEL STATUS : '.$stat_channel["result"].' = '.$stat_channel["data"].']');
 					
 					
 					$A2B -> write_log("[CREDIT STATUS : ".$A2B-> credit."]");
-					if ($A2B->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '."[CREDIT STATUS : ".$A2B-> credit."]");
-					if ($A2B->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '."[CREDIT MIN_CREDIT_2CALL : ".$A2B->agiconfig['min_credit_2call']."]");
+					if ($A2B->agiconfig['debug']>=1) $agi->verbose('file:'.basename(__FILE__).' - line:'.__LINE__.' - '."[CREDIT STATUS : ".$A2B-> credit."]");
+					if ($A2B->agiconfig['debug']>=1) $agi->verbose('file:'.basename(__FILE__).' - line:'.__LINE__.' - '."[CREDIT MIN_CREDIT_2CALL : ".$A2B->agiconfig['min_credit_2call']."]");
 					
 					
 					
@@ -993,7 +987,7 @@
 							// SAY TO THE CALLER THAT IT DEOSNT HAVE ENOUGH CREDIT TO MAKE A CALL							
 							$prompt = "prepaid-no-enough-credit-stop";
 							$agi-> stream_file($prompt, '#');
-							if ($A2B->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '."[STOP STREAM FILE $prompt]");
+							if ($A2B->agiconfig['debug']>=1) $agi->verbose('file:'.basename(__FILE__).' - line:'.__LINE__.' - '."[STOP STREAM FILE $prompt]");
 							
 					}*/
 					
@@ -1024,14 +1018,14 @@
 							" AND ( $date_clause OR num_trials_done=0) ORDER BY last_attempt DESC $sql_limit";
 							
 						
-					if ($A2B->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '.$QUERY);
+					if ($A2B->agiconfig['debug']>=1) $agi->verbose('file:'.basename(__FILE__).' - line:'.__LINE__.' - '.$QUERY);
 													
 					$result = $A2B -> instance_table -> SQLExec ($A2B->DBHandle, $QUERY);
-					// if ($A2B->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '.$result);
+					// if ($A2B->agiconfig['debug']>=1) $agi->verbose('file:'.basename(__FILE__).' - line:'.__LINE__.' - '.$result);
 					
 					if (!is_array($result)){
 						$A2B->callingcard_acct_start_inuse($agi,0); 
-						$agi->verbose('line:'.__LINE__.' - '."[PREDICTIVEDIALER]:[NO MORE NUMBER TO CALL]");
+						$agi->verbose('file:'.basename(__FILE__).' - line:'.__LINE__.' - '."[PREDICTIVEDIALER]:[NO MORE NUMBER TO CALL]");
 						$A2B -> write_log("[STOP - EXIT]", 0);
 						exit();
 					}else{					
@@ -1042,7 +1036,7 @@
 					}
 					
 					$A2B->dnid = $A2B-> destination = $result[0][1];
-					if ($A2B->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '."[PREDICTIVEDIALER]:[NUMBER TO DIAL -> ".$A2B-> destination."]");
+					if ($A2B->agiconfig['debug']>=1) $agi->verbose('file:'.basename(__FILE__).' - line:'.__LINE__.' - '."[PREDICTIVEDIALER]:[NUMBER TO DIAL -> ".$A2B-> destination."]");
 					
 					
 					//cause $i is the try_num and in callingcard_ivr_authorize if the try_num is upper than 1 we prompt for destination 
@@ -1109,7 +1103,7 @@
 				}
 				
 				
-				if ($A2B->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '."[MAKE BILLING FOR THE 1ST LEG - TARIFF:".$A2B -> tariff.";CALLED=$called_party]");
+				if ($A2B->agiconfig['debug']>=1) $agi->verbose('file:'.basename(__FILE__).' - line:'.__LINE__.' - '."[MAKE BILLING FOR THE 1ST LEG - TARIFF:".$A2B -> tariff.";CALLED=$called_party]");
 				$A2B->agiconfig['use_dnid'] =1;
 				$A2B ->dnid = $A2B ->destination = $called_party;
 				
@@ -1131,11 +1125,11 @@
 							$RateEngine->rate_engine_updatesystem($A2B, $agi, $A2B-> destination, 1, 0, 1);
 						}else{										
 							$A2B -> write_log("[ERROR - BILLING FOR THE 1ST LEG - rate_engine_all_calcultimeout: CALLED=$called_party]");
-							if ($A2B->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '."[ERROR - BILLING FOR THE 1ST LEG - rate_engine_all_calcultimeout: CALLED=$called_party]");
+							if ($A2B->agiconfig['debug']>=1) $agi->verbose('file:'.basename(__FILE__).' - line:'.__LINE__.' - '."[ERROR - BILLING FOR THE 1ST LEG - rate_engine_all_calcultimeout: CALLED=$called_party]");
 						}
 				}else{
 					$A2B -> write_log("[ERROR - BILLING FOR THE 1ST LEG - rate_engine_findrates: CALLED=$called_party - RateEngine->usedratecard=".$RateEngine->usedratecard."]");
-					if ($A2B->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '."[ERROR - BILLING FOR THE 1ST LEG - rate_engine_findrates: CALLED=$called_party - RateEngine->usedratecard=".$RateEngine->usedratecard."]");
+					if ($A2B->agiconfig['debug']>=1) $agi->verbose('file:'.basename(__FILE__).' - line:'.__LINE__.' - '."[ERROR - BILLING FOR THE 1ST LEG - rate_engine_findrates: CALLED=$called_party - RateEngine->usedratecard=".$RateEngine->usedratecard."]");
 				}
 	
 	}
@@ -1197,8 +1191,8 @@
 	
 	
 	$A2B -> write_log("[exit]",0);
-	exit;		
-                                   
-								   
+	exit;
+	
+	
 /************** THIS IS THE END :D ****************/
 ?>

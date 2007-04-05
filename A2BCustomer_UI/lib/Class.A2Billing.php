@@ -356,6 +356,17 @@ class A2Billing {
 		// conf for the recurring process
 		if(!isset($this->config["recprocess"]['batch_log_file'])) 	$this->config["recprocess"]['batch_log_file'] = '/tmp/batch-a2billing.log';
 		
+		// conf for the peer_friend
+		if(!isset($this->config["peer_friend"]['type'])) 		$this->config["peer_friend"]['type'] = 'friend';
+		if(!isset($this->config["peer_friend"]['allow'])) 		$this->config["peer_friend"]['allow'] = 'ulaw, alaw, gsm, g729';
+		if(!isset($this->config["peer_friend"]['context'])) 	$this->config["peer_friend"]['context'] = 'a2billing';
+		if(!isset($this->config["peer_friend"]['nat'])) 		$this->config["peer_friend"]['nat'] = 'yes';
+		if(!isset($this->config["peer_friend"]['amaflags'])) 	$this->config["peer_friend"]['amaflags'] = 'billing';
+		if(!isset($this->config["peer_friend"]['qualify'])) 	$this->config["peer_friend"]['qualify'] = 'yes';
+		if(!isset($this->config["peer_friend"]['host'])) 		$this->config["peer_friend"]['host'] = 'dynamic';
+		if(!isset($this->config["peer_friend"]['dtmfmode'])) 	$this->config["peer_friend"]['dtmfmode'] = 'RFC2833';
+		
+		
 		// conf for the log-files
 		/*
 		if(!isset($this->config["log-files"]['cront_alarm'])) $this->config["log-files"]['cront_alarm'] = '/tmp/cront_a2b_alarm.log';
