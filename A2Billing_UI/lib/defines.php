@@ -35,7 +35,6 @@
 	define ("MANAGER_SECRET", isset($A2B->config["webui"]['manager_secret'])?$A2B->config["webui"]['manager_secret']:null);
 	define ("SHOW_HELP", isset($A2B->config["webui"]['show_help'])?$A2B->config["webui"]['show_help']:null);	
 	define ("MY_MAX_FILE_SIZE_IMPORT", isset($A2B->config["webui"]['my_max_file_size_import'])?$A2B->config["webui"]['my_max_file_size_import']:null);
-	define ("MY_MAX_FILE_SIZE", isset($A2B->config["webui"]['my_max_file_size'])?$A2B->config["webui"]['my_max_file_size']:null);
 	define ("DIR_STORE_MOHMP3",isset($A2B->config["webui"]['dir_store_mohmp3'])?$A2B->config["webui"]['dir_store_mohmp3']:null);
 	define ("DIR_STORE_AUDIO", isset($A2B->config["webui"]['dir_store_audio'])?$A2B->config["webui"]['dir_store_audio']:null);
 	define ("MY_MAX_FILE_SIZE_AUDIO", isset($A2B->config["webui"]['my_max_file_size_audio'])?$A2B->config["webui"]['my_max_file_size_audio']:null);

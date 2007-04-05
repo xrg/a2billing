@@ -312,6 +312,17 @@ function moveSourceDown()
 				
 				</td></tr>
 				
+				<tr>
+				<td colspan="2" align="center">
+				<?php echo gettext("Currency import as")?>&nbsp;: <input type="radio" name="currencytype" checked value="unit" > <?php echo gettext("Unit")?>&nbsp;&nbsp;
+				<input type="radio" name="currencytype" value="cent"> <?php echo gettext("Cents")?>&nbsp;
+				</td>
+				</tr>
+				<tr>
+				<td colspan="2" align="center">
+				&nbsp;
+				</td>
+				</tr>
                 <tr> 
                   <td colspan="2"> 
                     <div align="center"><span class="textcomment"> 

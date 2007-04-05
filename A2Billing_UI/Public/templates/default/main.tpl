@@ -513,7 +513,7 @@ function imgidclick(imgID,divID, imgbase, imgchange)
 <table>
 <tr>
 	<td>
-		<a href="index2.php?language=english" target="_parent"><img src="templates/{$SKIN_NAME}/images/flags/gb.gif" border="0" title="English" alt="English"></a>
+		<a href="PP_intro.php?language=english" target="_parent"><img src="templates/{$SKIN_NAME}/images/flags/gb.gif" border="0" title="English" alt="English"></a>
 	</td>
 </tr>
 <tr>

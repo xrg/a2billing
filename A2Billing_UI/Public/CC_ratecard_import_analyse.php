@@ -13,7 +13,8 @@ if (! has_rights (ACX_RATECARD)){
 	   die();	   
 }
 
-getpost_ifset(array('tariffplan','trunk', 'search_sources', 'task', 'status'));
+getpost_ifset(array('tariffplan','trunk', 'search_sources', 'task', 'status','currencytype'));
+
 
 //print_r ($_POST);
 //print_r ($HTTP_POST_FILES);
@@ -92,61 +93,11 @@ $FG_TABLE_ALTERNATE_ROW_COLOR[] = "#F2F8FF";
 
 
 $Temps1 = time();
-//echo $Temps1;
-
-
-
-//----------------------------------------------
-//			Fonction pour l'upload file
-//----------------------------------------------
-
-	$registered_types = array(
-                                        "application/x-gzip-compressed"         => ".tar.gz, .tgz",
-                                        "application/x-zip-compressed"          => ".zip",
-                                        "application/x-tar"                     => ".tar",
-                                        "text/plain"                            => ".html, .php, .txt, .inc (etc)",
-                                        "image/bmp"                             => ".bmp, .ico",
-                                        "image/gif"                             => ".gif",
-                                        "image/pjpeg"                           => ".jpg, .jpeg",
-                                        "image/jpeg"                            => ".jpg, .jpeg",
-                                        "image/png"                             => ".png",
-                                        "application/x-shockwave-flash"         => ".swf",
-                                        "application/msword"                    => ".doc",
-                                        "application/vnd.ms-excel"              => ".xls",
-                                        "application/octet-stream"              => ".exe, .fla (etc)"
-                                        ); # these are only a few examples, you can find many more!
-
-	$allowed_types = array("text/plain");
 
 
 if ($FG_DEBUG == 1) echo "::::>> ".$the_file;
 
-function validate_upload($the_file, $the_file_type) {
 
-	global $allowed_types;
-
-	$start_error = "\n<b>ERROR:</b>\n<ul>";
-
-        if ($the_file == "none") { 
-                $error .= "\n<li>You did not upload anything!</li>";
-        } else {
-			//echo $the_file_type."<br>";
-                if (!in_array($the_file_type,$allowed_types)) {
-                        $error .= "\n<li>"."file type is not allowed"."\n<ul>";
-                        while ($type = current($allowed_types)) {
-                                $error .= "\n<li>" . $registered_types[$type] . " (" . $type . ")</li>";
-                                next($allowed_types);
-                        }
-                        $error .= "\n</ul>";
-                }
-                if ($error) {
-                        $error = $start_error . $error . "\n</ul>";
-                        return $error;
-                } else {
-                        return false;
-                }
-        }
-} # END validate_upload
 
 //INUTILE
 $my_max_file_size = (int) MY_MAX_FILE_SIZE_IMPORT;
@@ -168,13 +119,18 @@ if ($task=='upload'){
 	if ($FG_DEBUG == 1) echo "<br> FILE  ::> ".$the_file_name;
 	if ($FG_DEBUG == 1) echo "<br> THE_FILE:$the_file <br>THE_FILE_TYPE:$the_file_type";
 
-
-	validate_upload($the_file,$the_file_type);				
 	
-        
+	$errortext = validate_upload($the_file,$the_file_type);
+	if ($errortext != "" || $errortext  != false)	
+	{
+		echo $errortext;
+		exit;
+	}
+	
+	    
 	 $fp = fopen($the_file,  "r");  
 	 if (!$fp){  /* THE FILE DOESN'T EXIST */ 
-		 echo  'THE FILE DOESN T EXIST'; 
+		 echo  'Error: Failed to open the file.'; 
 		 exit(); 
 	 } 
 		 
@@ -187,7 +143,7 @@ if ($task=='upload'){
 	while (!feof($fp)){ 
      		
 			 //if ($nb_imported==1000) break;
-             $ligneoriginal = fgets($fp,4096);  /* On se déplace d'une ligne */   
+             $ligneoriginal = fgets($fp,4096);  /* On se dplace d'une ligne */   
 			 $ligneoriginal = trim ($ligneoriginal);
 			 $ligneoriginal = strtolower($ligneoriginal);
 				
@@ -210,6 +166,11 @@ if ($task=='upload'){
 			 
 				 $FG_ADITION_SECOND_ADD_TABLE  = 'cc_ratecard';		
 				 $FG_ADITION_SECOND_ADD_FIELDS = 'idtariffplan, id_trunk, dialprefix, destination, rateinitial'; //$fieldtoimport_sql
+				 if($currencytype == "cent")
+				 {
+				 	$val[2] = $val[2] / 100;
+				 }
+				 
 				 $FG_ADITION_SECOND_ADD_VALUE  = "'".$tariffplanval[0]."', '".$trunkval[0]."', '".$val[0]."', '".$val[1]."', '".$val[2]."'"; //, '".$val[5]."', '".$val[6]."', '".$val[7]."', '".$val[8]."', '".$val[9]."', '".$val[10]."', '".$val[11]."', '".$val[12]."', '".$val[13]."', '".$val[14]."', '".$val[15]."', '".$val[16]."', '".$val[17]."', '".$val[18]."', '".$val[19]."', '".$val[20]."', '".$val[21]."'";
 				 
 				 
@@ -225,6 +186,14 @@ if ($task=='upload'){
 						if ($fieldtoimport[$k]=="startdate" && ($val[$k+3]=='0' || $val[$k+3]=='')) continue;
 						if ($fieldtoimport[$k]=="stopdate" && ($val[$k+3]=='0' || $val[$k+3]=='')) continue;
 						
+						if ($fieldtoimport[$k]=="buyrate" || $fieldtoimport[$k]=="connectcharge" || $fieldtoimport[$k]=="disconnectcharge" )
+						{
+							if($currencytype == "cent")
+							 {
+							 	$val[$k+3] = $val[$k+3] / 100;
+							 }
+							
+						} 
 						$FG_ADITION_SECOND_ADD_FIELDS .= ', '.$fieldtoimport[$k];
 						
 						if (is_numeric($val[$k+3])) {
@@ -399,6 +368,7 @@ function sendtoupload(form){
               <form name="myform" enctype="multipart/form-data" action="CC_ratecard_import_analyse.php" method="post" >
                 <INPUT type="hidden" name="tariffplan" value="<?php echo $tariffplan?>">
 				<INPUT type="hidden" name="trunk" value="<?php echo $trunk?>">
+				<INPUT type="hidden" name="currencytype" value="<?php echo $currencytype?>">
 				<INPUT type="hidden" name="search_sources" value="<?php echo $search_sources?>">
 				
                 <tr> 
@@ -416,7 +386,7 @@ function sendtoupload(form){
                       <input type="hidden" name="task" value="upload">
 					  <input type="hidden" name="status" value="ok">
                       <input name="the_file" type="file" size="50" onFocus=this.select() class="saisie1">
-                      <input type="submit"  value="Continue to Import the RateCard" onFocus=this.select() class="form_input_select" name="submit1" onClick="sendtoupload(this.form);">
+                      <input type="submit"  value="Continue to Import the RateCard" onFocus=this.select() class="form_input_button" name="submit1" onClick="sendtoupload(this.form);">
                       <br>
                       &nbsp; </p>
                   </td>

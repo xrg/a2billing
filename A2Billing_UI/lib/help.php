@@ -762,5 +762,25 @@ $CC_help_transaction='<a href="#" target="_self"  onclick="imgidclick(\'img1000\
 </div>
 ';
 
+$CC_help_payment_config ='<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
+<div id="div1000" style="display:visible;">
+<div id="kiki"><div class="w1">
+	<img src="'.KICON_PATH.'/kspread.gif" class="kikipic"/>
+	<div class="w2"><br>'
+.gettext("You can configure your epayment method here. It helps you to enable or disable the payment method. You can define the currency settings.").'
+<br/><br/>
+</div></div></div>
+</div>
+';
+$CC_help_list_payment_methods = '<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
+<div id="div1000" style="display:visible;">
+<div id="kiki"><div class="w1">
+	<img src="'.KICON_PATH.'/kspread.gif" class="kikipic"/>
+	<div class="w2"><br>'
+.gettext("Epayment methods help you to collect payments from your customers.").'
+<br/><br/><br>
+</div></div></div>
+</div>
+'; 
 } //ENDIF SHOW_HELP
 ?>

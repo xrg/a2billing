@@ -63,61 +63,9 @@ $FG_TABLE_ALTERNATE_ROW_COLOR[] = "#F2F8FF";
 
 
 $Temps1 = time();
-//echo $Temps1;
-
-
-
-//----------------------------------------------
-//			Fonction pour l'upload file
-//----------------------------------------------
-
-	$registered_types = array(
-                                        "application/x-gzip-compressed"         => ".tar.gz, .tgz",
-                                        "application/x-zip-compressed"          => ".zip",
-                                        "application/x-tar"                     => ".tar",
-                                        "text/plain"                            => ".html, .php, .txt, .inc (etc)",
-                                        "image/bmp"                             => ".bmp, .ico",
-                                        "image/gif"                             => ".gif",
-                                        "image/pjpeg"                           => ".jpg, .jpeg",
-                                        "image/jpeg"                            => ".jpg, .jpeg",
-                                        "image/png"                             => ".png",
-                                        "application/x-shockwave-flash"         => ".swf",
-                                        "application/msword"                    => ".doc",
-                                        "application/vnd.ms-excel"              => ".xls",
-                                        "application/octet-stream"              => ".exe, .fla (etc)"
-                                        ); # these are only a few examples, you can find many more!
-
-	$allowed_types = array("text/plain");
 
 
 if ($FG_DEBUG == 1) echo "::::>> ".$the_file;
-
-function validate_upload($the_file, $the_file_type) {
-
-	global $allowed_types;
-
-	$start_error = "\n<b>ERROR:</b>\n<ul>";
-
-        if ($the_file == "none") {
-                $error .= "\n<li>You did not upload anything!</li>";
-        } else {
-			//echo $the_file_type."<br>";
-                if (!in_array($the_file_type,$allowed_types)) {
-                        $error .= "\n<li>"."file type is not allowed"."\n<ul>";
-                        while ($type = current($allowed_types)) {
-                                $error .= "\n<li>" . $registered_types[$type] . " (" . $type . ")</li>";
-                                next($allowed_types);
-                        }
-                        $error .= "\n</ul>";
-                }
-                if ($error) {
-                        $error = $start_error . $error . "\n</ul>";
-                        return $error;
-                } else {
-                        return false;
-                }
-        }
-} # END validate_upload
 
 //INUTILE
 $my_max_file_size = (int) MY_MAX_FILE_SIZE_IMPORT;
@@ -140,12 +88,17 @@ if ($task=='upload'){
 	if ($FG_DEBUG == 1) echo "<br> THE_FILE:$the_file <br>THE_FILE_TYPE:$the_file_type";
 
 
-	validate_upload($the_file,$the_file_type);				
+	$errortext = validate_upload($the_file,$the_file_type);
+	if ($errortext != "" || $errortext  != false)	
+	{
+		echo $errortext;
+		exit;
+	}				
 	
         
 	 $fp = fopen($the_file,  "r");  
 	 if (!$fp){  /* THE FILE DOESN'T EXIST */ 
-		 echo  'THE FILE DOESNOT EXIST';
+		 echo  gettext('THE FILE DOESNOT EXIST');
 		 exit();
 	 }
 
@@ -373,8 +326,8 @@ function sendtoupload(form){
                 <tr> 
                   <td colspan="2"> 
                     <div align="center"><span class="textcomment"> 
-                       Please check if the datas above are correct. <br><b>If Yes</b>, you can continue the import.
-					  Otherwise you must fix your csv file!
+                       <?php echo gettext("Please check if the datas above are correct");?>. <br><b><?php echo gettext("If Yes");?></b>, <?php echo gettext("you can continue the import. Otherwise you must fix your csv file!");?>
+					  
                       </span></div>
                   </td>
                 </tr>
@@ -413,15 +366,15 @@ function sendtoupload(form){
                     <div align="center"><span class="textcomment"> 
                        
 					  <br>
-					  The import of the new DID's have been realized with success!<br>
-					  <?php echo $nb_imported?> new DID's have been imported into your Database.
+					  <?php echo gettext("The import of the new DID's have been realized with success!");?><br>
+					  <?php echo $nb_imported?> <?php echo gettext("new DID's have been imported into your Database.");?>
                       </span></div>
 					  <br><br>
 					  
 
 					  <?php  if (!empty($buffer_error)){ ?>
 					  <center>
-					  	 <b><i>Line that has not been inserted!</i></b>
+					  	 <b><i><?php echo gettext("Line that has not been inserted!");?></i></b>
 						 <div class="myscroll">
 							  <span class="fontstyle_005">
 							  <?php echo $buffer_error?> 

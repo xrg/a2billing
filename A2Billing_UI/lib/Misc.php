@@ -367,6 +367,70 @@ function printPages($page, $pages, $url, $max_width = 20) {
 		}
 	}
 }
+/**
+* Validate the Uploaded Files.  Return the error string if any.
+* @param $the_file the file to validate
+* @param $the_file_type the file type
+*/
+function validate_upload($the_file, $the_file_type) {
+
+	$registered_types = array(
+                                        "application/x-gzip-compressed"         => ".tar.gz, .tgz",
+                                        "application/x-zip-compressed"          => ".zip",
+                                        "application/x-tar"                     => ".tar",
+                                        "text/plain"                            => ".html, .php, .txt, .inc (etc)",
+                                        "image/bmp"                             => ".bmp, .ico",
+                                        "image/gif"                             => ".gif",
+                                        "image/pjpeg"                           => ".jpg, .jpeg",
+                                        "image/jpeg"                            => ".jpg, .jpeg",
+                                        "image/png"                             => ".png",
+                                        "application/x-shockwave-flash"         => ".swf",
+                                        "application/msword"                    => ".doc",
+                                        "application/vnd.ms-excel"              => ".xls",
+                                        "application/octet-stream"              => ".exe, .fla (etc)"
+                                        ); # these are only a few examples, you can find many more!
+
+	$allowed_types = array("text/plain");
 
 
+	$start_error = "\n<b>ERROR:</b>\n<ul>";
+	$error = "";
+	if ($the_file=="")
+	{		
+		$error .= "\n<li>".gettext("File size is greater than allowed limit.")."\n<ul>";
+	}else
+	{
+
+        if ($the_file == "none") { 
+                $error .= "\n<li>".gettext("You did not upload anything!")."</li>";
+        }
+        elseif ($_FILES['the_file']['size'] == 0)
+        {
+        	$error .= "\n<li>".gettext("Failed to upload the file, The file you uploaded may not exist on disk.")."!</li>";
+        } 
+        else        
+        {
+ 			if (!in_array($the_file_type,$allowed_types))
+ 			{
+ 				$error .= "\n<li>".gettext("file type is not allowed")."\n<ul>";
+                while ($type = current($allowed_types))
+                {
+                    $error .= "\n<li>" . $registered_types[$type] . " (" . $type . ")</li>";
+                	next($allowed_types);
+                }
+                $error .= "\n</ul>";
+            }                
+        }
+	}
+	if ($error)
+	{
+		$error = $start_error . $error . "\n</ul>";
+        return $error;
+    }
+    else 
+    {
+    	return false;
+    }
+
+} # END validate_upload
 ?>

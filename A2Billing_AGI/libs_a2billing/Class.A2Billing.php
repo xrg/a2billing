@@ -352,8 +352,7 @@ class A2Billing {
 		if(!isset($this->config["webui"]['dir_store_mohmp3']))		$this->config["webui"]['dir_store_mohmp3'] = '/var/lib/asterisk/mohmp3';
 		if(!isset($this->config["webui"]['num_musiconhold_class']))	$this->config["webui"]['num_musiconhold_class'] = 10;
 		if(!isset($this->config["webui"]['show_help']))			$this->config["webui"]['show_help'] = 1;
-		if(!isset($this->config["webui"]['my_max_file_size_import']))	$this->config["webui"]['my_max_file_size_import'] = 512000;
-		if(!isset($this->config["webui"]['my_max_file_size']))		$this->config["webui"]['my_max_file_size'] = 512000;
+		if(!isset($this->config["webui"]['my_max_file_size_import']))	$this->config["webui"]['my_max_file_size_import'] = 1024000;
 		if(!isset($this->config["webui"]['dir_store_audio']))		$this->config["webui"]['dir_store_audio'] = '/var/lib/asterisk/sounds/a2billing';
 		if(!isset($this->config["webui"]['my_max_file_size_audio']))	$this->config["webui"]['my_max_file_size_audio'] = 3072000;
 

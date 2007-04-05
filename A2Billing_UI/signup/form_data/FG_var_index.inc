@@ -27,6 +27,33 @@ $language_list_r["0"] = array("en", "ENGLISH");
 $language_list_r["1"] = array("es", "SPANISH");
 $language_list_r["2"] = array("fr", "FRENCH");
 
+$callPlan_idlist = "1,2"; 
+
+$call_table = new Table("cc_tariffgroup", "tariffgroupname,id");
+$HD_Form -> setDBHandler (DbConnect());
+$callPlan_list = $call_table-> Get_list($HD_Form -> DBHandle,"id in ($callPlan_idlist)");
+
+if (!is_array($callPlan_list) && count($callPlan_list) <= 0)
+{
+	exit(gettext("No Call Plan id are defined"));
+} 
+$flag_callplan = 0;
+if ($tariff!="" || $tariff != null)
+{
+	$callPlan_count = count($callPlan_list);	
+	for ($i=0; $i< $callPlan_count; $i++ )
+	{	
+		if($callPlan_list[$i][1] == $tariff)
+		{
+			$flag_callplan = 1;
+		}		
+	}
+	if($flag_callplan == 0)
+	{
+		exit("Invalid Call Plan Id");	
+	}	 
+}
+
 
 $currency_list = array();
 $currency_list_r = array();
@@ -112,6 +139,14 @@ $HD_Form -> AddEditElement ("CURRENCY",
 			   "",
 			   "list" , "", "",	"", $currency_list, "%1", "", "" );
 
+$HD_Form -> AddEditElement (gettext("CALL PLAN"),
+			   "tariff",
+			   "",
+			   "SELECT",
+			   "",
+			   "",
+			   "",
+			   "list" , "", "",	"", $callPlan_list, "%1", "", "" );			   
 
 $comp_zero = $comp_date_plus='';
 if (isset($form_action) && $form_action=="ask-add"){
@@ -272,8 +307,8 @@ $activatedbyuser = $A2B->config["signup"]['activatedbyuser'] ? 't' : 'f';
 
 $HD_Form ->FG_QUERY_ADITION_SIP_IAX_VALUE = "'$maxi', '$maxi', '$maxi', '$amaflag', '$maxi2', '$context', 'RFC2833','dynamic', 'friend', '$maxi', 'g729,ulaw,alaw,gsm','$pass'";
 
-$HD_Form ->FG_QUERY_ADITION_HIDDEN_FIELDS = "iax_buddy, sip_buddy, expiredays, expirationdate, typepaid, enableexpire, runservice, simultaccess, activated, tariff, credit, username, useralias, uipass,  userpass, loginkey, activatedbyuser";
-$HD_Form ->FG_QUERY_ADITION_HIDDEN_VALUE  = "'$iax_account','$sip_account','$myexpiredays','$myexpirationdate','$mytypepaid','$myenableexpire', '$myrunservice','$mysimultaccess','$myactivated','$mytariff','$mycredit','$maxi','$maxi2','$pass',"."'$myusername',"."'$loginkey',"."'$activatedbyuser'";
+$HD_Form ->FG_QUERY_ADITION_HIDDEN_FIELDS = "iax_buddy, sip_buddy, expiredays, expirationdate, typepaid, enableexpire, runservice, simultaccess, activated, credit, username, useralias, uipass,  userpass, loginkey, activatedbyuser";
+$HD_Form ->FG_QUERY_ADITION_HIDDEN_VALUE  = "'$iax_account','$sip_account','$myexpiredays','$myexpirationdate','$mytypepaid','$myenableexpire', '$myrunservice','$mysimultaccess','$myactivated','$mycredit','$maxi','$maxi2','$pass',"."'$myusername',"."'$loginkey',"."'$activatedbyuser'";
 
 if (DB_TYPE != "postgres"){
 	$FG_QUERY_ADITION_HIDDEN_FIELDS .= ", creationdate ";
