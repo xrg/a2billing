@@ -5,6 +5,11 @@
 ********************************************************************
 
 
+#### BAD ERROR MESSAGE
+********************************************************************
+when u import a csv file and the size is bigger the 500 k for example u get the error  file not found
+the error message its not defined correctly
+
 
 #### FEATURE
 ********************************************************************

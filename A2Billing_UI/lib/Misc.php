@@ -387,10 +387,11 @@ function validate_upload($the_file, $the_file_type) {
                                         "application/x-shockwave-flash"         => ".swf",
                                         "application/msword"                    => ".doc",
                                         "application/vnd.ms-excel"              => ".xls",
-                                        "application/octet-stream"              => ".exe, .fla (etc)"
+                                        "application/octet-stream"              => ".exe, .fla (etc)",
+										"text/x-comma-separated-values"			=> ".csv"
                                         ); # these are only a few examples, you can find many more!
 
-	$allowed_types = array("text/plain");
+	$allowed_types = array("text/plain", "text/x-comma-separated-values");
 
 
 	$start_error = "\n<b>ERROR:</b>\n<ul>";
@@ -400,7 +401,6 @@ function validate_upload($the_file, $the_file_type) {
 		$error .= "\n<li>".gettext("File size is greater than allowed limit.")."\n<ul>";
 	}else
 	{
-
         if ($the_file == "none") { 
                 $error .= "\n<li>".gettext("You did not upload anything!")."</li>";
         }

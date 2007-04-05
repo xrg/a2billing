@@ -45,20 +45,12 @@ Checkout Google
 please have a look also at the captcha
 if u use caps letters, it wont work, all the pics are shows with caps
 
-#### BAD ERROR MESSAGE
-********************************************************************
-when u import a csv file and the size is biger the 500 k for example u get the error  file not found
-the erros mesage its not defined corectly
 
 
 #### IMPORT RATECARD
 ********************************************************************
 ADD option to define if we want to import the price in cents or in units
 
-
-#### RECURRING SERVICE
-********************************************************************
-TEST with 200 000 cards
 
 
 #### PAYMENT OPTION
@@ -79,11 +71,6 @@ I dont get any confirmation that the option has been saved
 * add cc_charge
 * invoice_history
 * Customer -> Call Details : add criteria - Answered call
-
-#### ADD GETTEXT IN ALL CRONT MESSAGE
-********************************************************************
-ADD GETTEXT IN ALL CRONT MESSAGE
-
 
 
 
