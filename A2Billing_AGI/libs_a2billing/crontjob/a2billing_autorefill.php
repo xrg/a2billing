@@ -35,7 +35,7 @@
 	include (dirname(__FILE__)."/../Class.A2Billing.php");
 
 	
-    $verbose_level=0;
+    $verbose_level=5;
 	
 	$groupcard=5000;
 	

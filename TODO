@@ -4,6 +4,15 @@
 ********************************************************************************
 
 
+#### ENSURE WE HAVE ALL IN GETTEXT FILES
+********************************************************************
+create a fake langagues with a test flag
+and replace all the strin value in the PO 
+by #### 
+so we can find out easily the missing text
+
+
+
 #### Add VoiceMail
 ********************************************************************
 see VOICEMAIL document
@@ -44,24 +53,6 @@ Checkout Google
 ********************************************************************
 please have a look also at the captcha
 if u use caps letters, it wont work, all the pics are shows with caps
-
-
-
-#### IMPORT RATECARD
-********************************************************************
-ADD option to define if we want to import the price in cents or in units
-
-
-
-#### PAYMENT OPTION
-********************************************************************
-put some help on the top
-
-
-#### SAVE PAYMENT OPTION
-********************************************************************
-when go on edit paypal/moneybooker and click on Update
-I dont get any confirmation that the option has been saved
 
 
 #### UPDATE a2billing_invoice_cront

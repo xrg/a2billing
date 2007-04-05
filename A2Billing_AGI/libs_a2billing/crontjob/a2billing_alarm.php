@@ -25,7 +25,7 @@ include (dirname(__FILE__)."/../defines.php");
 include (dirname(__FILE__)."/../db_php_lib/Class.Table.php");
 include (dirname(__FILE__)."/../Class.A2Billing.php");
 
-$verbose_level=0;
+$verbose_level=5;
 
 $groupcard=5000;
 
@@ -84,9 +84,18 @@ foreach ($result as $myalarm) {
 		$myalarm[10] = "";
 		// WE WILL THEN COMPARE TO AN EMPTY STRING ""
 	}
+	
 	switch ($myalarm[2]) {
-		// Daily
+		// Hourly
 		case 1:	
+			if (date("G",time())!=date("G",$timestamp_lastsend) || $myalarm[10] == ""){
+				$run_alarm=true;
+				$SQL_CLAUSE="WHERE starttime BETWEEN '".date("Y-m-j H:i:s",$timestamp_lastsend)."' AND '".date("Y-m-j H:i:s",time())."'";
+			}
+			if ($verbose_level>=1) echo "\n\n TODAY :".date("G",time())." LAST RUN DAY :".date("G",$timestamp_lastsend);
+		break;
+		// Daily
+		case 2:	
 			if (date("j",time())!=date("j",$timestamp_lastsend) || $myalarm[10] == ""){
 				$run_alarm=true;
 				$SQL_CLAUSE="WHERE starttime BETWEEN '".date("Y-m-j",time())." 00:00:00' AND '".date("Y-m-j",time())." 23:59:59'";
@@ -94,7 +103,7 @@ foreach ($result as $myalarm) {
 			if ($verbose_level>=1) echo "\n\n TODAY :".date("j",time())." LAST RUN DAY :".date("j",$timestamp_lastsend);
 		break;
 		//Weekly -> will run only monday and check if the week is not the same
-		case 2:
+		case 3:
 			if (((date("w",time()) == 1) && (date("W",time())!=date("W",$timestamp_lastsend))) || $myalarm[10] == ""){
 				$run_alarm=true;
 				$SQL_CLAUSE="WHERE starttime BETWEEN '".date("Y-m-j",(time()-($oneday*7)))." 00:00:00' AND '".date("Y-m-j",time())." 23:59:59'";
@@ -103,7 +112,7 @@ foreach ($result as $myalarm) {
 										" LAST RUN DAY :".date("w",$timestamp_lastsend)." LAST RUN WEEK :".date("W",$timestamp_lastsend);
 		break;
 		//Monthly
-		case 3:
+		case 4:
 			if (((date("j",time()) == 1) && (date("m",time())!=date("m",$timestamp_lastsend))) || $myalarm[10] == ""){
 				$run_alarm=true;
 				$SQL_CLAUSE="WHERE starttime BETWEEN '".date("Y-m-j",(time()-($oneday*date("t",time()-$oneday))))." 00:00:00' AND '".date("Y-m-j",(time()-$oneday))." 23:59:59'";
@@ -117,7 +126,7 @@ foreach ($result as $myalarm) {
 		if (isset($myalarm[6]) && $myalarm[6] != "") $SQL_CLAUSE.=" AND id_trunk = '".$myalarm[6]."'";
 		write_log("[Alarm : ".$myalarm[1]." ]");
 
-		$QUERY =	"SELECT COUNT(*) FROM cc_call $SQL_CLAUSE";
+		$QUERY =	"SELECT COUNT(*) FROM cc_call $SQL_CLAUSE";		
 		if ($verbose_level>=1) echo "\n===> QUERY = $QUERY\n";
 		$calls = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY,1);			
 		$nb_card = $calls[0][0];
@@ -190,11 +199,10 @@ foreach ($result as $myalarm) {
 					$send_alarm=true;
 				}
 				$content="\n\n The ALOC $ALOC seconde is too low or too hight than the max: ".$myalarm[4]." min:".$myalarm[5]." defined in the alarm";
-			break;
-			
+			break;			
 			case 2:
-				if ( $ASR >= $myalarm[4] || $ASR <= $myalarm[5]){
-					$value=$ASR;
+				if ($ASR >= $myalarm[4] || $ASR <= $myalarm[5]){
+					$value = $ASR;
 					$send_alarm=true;
 				}
 				$content="\n\n The ASR $ASR is too low or too hight than the max: ".$myalarm[4]." min:".$myalarm[5]." defined in the alarm";				

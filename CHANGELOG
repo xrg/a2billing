@@ -5,6 +5,21 @@
 ********************************************************************
 
 
+#### SAVE PAYMENT OPTION
+********************************************************************
+when go on edit paypal/moneybooker and click on Update
+I dont get any confirmation that the option has been saved
+
+
+#### PAYMENT OPTION
+********************************************************************
+put some help on the top
+
+#### IMPORT RATECARD
+********************************************************************
+ADD option to define if we want to import the price in cents or in units
+
+
 #### BAD ERROR MESSAGE
 ********************************************************************
 when u import a csv file and the size is bigger the 500 k for example u get the error  file not found

@@ -171,8 +171,7 @@ if ($task=='upload'){
 			if (substr($ligne,0,1)!='#' && substr($ligne,0,2)!='"#' && $val[2]!='' && strlen($val[2])>0){
 				
 				$FG_ADITION_SECOND_ADD_TABLE  = 'cc_ratecard';		
-				$FG_ADITION_SECOND_ADD_FIELDS = 'idtariffplan, id_trunk, dialprefix, destination, rateinitial'; //$fieldtoimport_sql
-				echo "currencytype = $currencytype";
+				$FG_ADITION_SECOND_ADD_FIELDS = 'idtariffplan, id_trunk, dialprefix, destination, rateinitial'; //$fieldtoimport_sql				
 				if($currencytype == "cent")
 				{
 				$val[2] = $val[2] / 100;
