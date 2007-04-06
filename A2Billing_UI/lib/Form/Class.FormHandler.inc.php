@@ -164,7 +164,7 @@ class FormHandler{
 	var $FG_FILTER_SEARCH_FORM_2C = array();
 	var $FG_FILTER_SEARCH_FORM_SELECT = array();
 	var $FG_FILTER_SEARCH_FORM_SELECT_TEXT = '';
-	var $FG_FILTER_SEARCH_TOP_TEXT = 'You can define above some specific criterias in order to make a precised research';
+	var $FG_FILTER_SEARCH_TOP_TEXT = "";	
 	var $FG_FILTER_SEARCH_SESSION_NAME = '';
 	
 	
@@ -474,7 +474,7 @@ class FormHandler{
 		$this -> FG_INTRO_TEXT_ADD = str_replace('#FG_INSTANCE_NAME#', $this -> FG_INSTANCE_NAME, $this -> FG_INTRO_TEXT_ADD);
 		$this -> FG_INTRO_TEXT_ADITION 	= str_replace('#FG_INSTANCE_NAME#', $this -> FG_INSTANCE_NAME, $this -> FG_INTRO_TEXT_ADITION);
 		$this -> FG_TEXT_ADITION_CONFIRMATIONi = str_replace('#FG_INSTANCE_NAME#', $this -> FG_INSTANCE_NAME, $this -> FG_TEXT_ADITION_CONFIRMATION);
-
+		$this -> FG_FILTER_SEARCH_TOP_TEXT = gettext("You can define above some specific criterias in order to make a precised research");
 
 		//$this -> FG_TABLE_ALTERNATE_ROW_COLOR[] = "#E2E2D3";
 		//$this -> FG_TABLE_ALTERNATE_ROW_COLOR[] = "#F0F0E8";

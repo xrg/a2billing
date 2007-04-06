@@ -11,9 +11,9 @@ $HD_Form -> FG_DEBUG = 0;
 
 
 $language_list = array();
-$language_list["0"] = array( "ENGLISH", "en");
-$language_list["1"] = array( "SPANISH", "es");
-$language_list["2"] = array( "FRENCH",  "fr");
+$language_list["0"] = array( gettext("ENGLISH"), "en");
+$language_list["1"] = array( gettext("SPANISH"), "es");
+$language_list["2"] = array( gettext("FRENCH"),  "fr");
 
 $simultaccess_list = array();
 $simultaccess_list["0"] = array( gettext("INDIVIDUAL ACCESS"), "0");
@@ -51,8 +51,8 @@ $actived_list["t"] = array( gettext("Active"), "t");
 $actived_list["f"] = array( gettext("Inactive"), "f");
 
 $yesno = array();
-$yesno["1"] = array( "Yes", "1");
-$yesno["0"] = array( "No", "0");
+$yesno["1"] = array( gettext("Yes"), "1");
+$yesno["0"] = array( gettext("No"), "0");
 
 
 $HD_Form -> AddViewElement(gettext("ID"), "id", "4%", "center", "sort");
@@ -70,7 +70,7 @@ $HD_Form -> AddViewElement(gettext("IAX"), "iax_friend", "3%", "center", "sort",
 $HD_Form -> FieldViewElement ('id, product_name, creationdate, credit, tariff, language, currency, sip_friend, iax_friend');
 
 
-$HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO ".strtoupper($HD_Form->FG_INSTANCE_NAME)." CREATED!");
+$HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO")." ".strtoupper($HD_Form->FG_INSTANCE_NAME)." ".gettext("CREATED!");
 $HD_Form -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;
 $HD_Form -> CV_TEXT_TITLE_ABOVE_TABLE = '';
 $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;
@@ -144,7 +144,7 @@ $HD_Form -> AddEditElement (gettext("DIDGROUP"),
 				   "sql",		
 				   "cc_didgroup",	
 				   "didgroupname, id",		
-				   "", "", "%1", gettext("<OPTION  value='-1'>NOT DEFINED</OPTION>"), "", "");
+				   "", "", "%1", "<OPTION  value='-1'>".gettext("NOT DEFINED")."</OPTION>", "", "");
 
 
 
@@ -293,16 +293,16 @@ if (DB_TYPE == "postgres"){
 
 
 
-$HD_Form -> FG_INTRO_TEXT_EDITION= gettext("You can modify, through the following form, the different properties of your ".$HD_Form->FG_INSTANCE_NAME);
-$HD_Form -> FG_INTRO_TEXT_ASK_DELETION = gettext("If you really want remove this ".$HD_Form->FG_INSTANCE_NAME.", click on the delete button.");
-$HD_Form -> FG_INTRO_TEXT_ADD = gettext("you can add easily a new ".$HD_Form->FG_INSTANCE_NAME.".<br>Fill the following fields and confirm by clicking on the button add.");
+$HD_Form -> FG_INTRO_TEXT_EDITION= gettext("You can modify, through the following form, the different properties of your")." ".$HD_Form->FG_INSTANCE_NAME;
+$HD_Form -> FG_INTRO_TEXT_ASK_DELETION = gettext("If you really want remove this")." ".$HD_Form->FG_INSTANCE_NAME.", ".gettext("click on the delete button.");
+$HD_Form -> FG_INTRO_TEXT_ADD = gettext("you can add easily a new")." ".$HD_Form->FG_INSTANCE_NAME.".<br>".gettext("Fill the following fields and confirm by clicking on the button add.");
 
 
 
 
 
 $HD_Form -> FG_INTRO_TEXT_ADITION = '';
-$HD_Form -> FG_TEXT_ADITION_CONFIRMATION = gettext("Your new ".$HD_Form->FG_INSTANCE_NAME." has been inserted. <br>");
+$HD_Form -> FG_TEXT_ADITION_CONFIRMATION = gettext("Your new")." ".$HD_Form->FG_INSTANCE_NAME." ".gettext("has been inserted.")."<br>";
 
 
 $HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = Images_Path . "/cormfirmboton.gif";

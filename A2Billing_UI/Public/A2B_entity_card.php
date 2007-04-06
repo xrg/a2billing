@@ -225,7 +225,7 @@ if (!$popup_select && $form_action == "ask-add"){
 		<td class="viewhandler_filter_td1">
 		<span>		
 			
-			<font class="viewhandler_filter_on">Change the Card Number Length :</font>
+			<font class="viewhandler_filter_on"><?php echo gettext("Change the Card Number Length")?> :</font>
 			<select name="cardnumberlenght_list" size="1" class="form_input_select" onChange="submitform()">
 			<?php 
 			//for($i=CARDNUMBER_LENGTH_MIN;$i<=CARDNUMBER_LENGTH_MAX;$i++) {

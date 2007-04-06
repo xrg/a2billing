@@ -24,14 +24,14 @@ $HD_Form -> FG_FK_DELETE_MESSAGE = gettext("You are going as well to remove all 
 // TODO Unify order of parameters
 
 $language_list = array();
-$language_list["0"] = array( "ENGLISH", "en");
-$language_list["1"] = array( "SPANISH", "es");
-$language_list["2"] = array( "FRENCH",  "fr");
+$language_list["0"] = array( gettext("ENGLISH"), "en");
+$language_list["1"] = array( gettext("SPANISH"), "es");
+$language_list["2"] = array( gettext("FRENCH"),  "fr");
 
 $language_list_r = array();
-$language_list_r["0"] = array("en", "ENGLISH");
-$language_list_r["1"] = array("es", "SPANISH");
-$language_list_r["2"] = array("fr", "FRENCH");
+$language_list_r["0"] = array("en", gettext("ENGLISH"));
+$language_list_r["1"] = array("es", gettext("SPANISH"));
+$language_list_r["2"] = array("fr", gettext("FRENCH"));
 
 
 $simultaccess_list = array();
@@ -177,7 +177,7 @@ if (($popup_select>=1)){
 	$HD_Form -> FG_OTHER_BUTTON1_IMG = Images_Path . "/icon-sip.gif";
 	$HD_Form -> FG_OTHER_BUTTON2_IMG = Images_Path . "/icon-iax.gif";
 	
-	$HD_Form -> FG_OTHER_BUTTON1_ALT=gettext("SIP buddy ");
+	$HD_Form -> FG_OTHER_BUTTON1_ALT=gettext("SIP buddy");
 	$HD_Form -> FG_OTHER_BUTTON2_ALT=gettext("IAX buddy");
 }
 
@@ -195,7 +195,7 @@ if (isset($form_action) && $form_action=="ask-add"){
 	$default_initbalance = "value='0'";
 }
 
-$HD_Form -> AddEditElement (gettext("CARD NUMBER "),
+$HD_Form -> AddEditElement (gettext("CARD NUMBER"),
 			   "username",
 			   "",
 			   "INPUT",
@@ -204,7 +204,7 @@ $HD_Form -> AddEditElement (gettext("CARD NUMBER "),
 			   gettext("Insert the username"),
 			   "" , "", "",	"", "", "",	"", "" );
 
-$HD_Form -> AddEditElement (gettext("CARD ALIAS "),
+$HD_Form -> AddEditElement (gettext("CARD ALIAS"),
 			   "useralias",
 			   "",
 			   "INPUT",
@@ -422,7 +422,7 @@ $HD_Form -> AddEditElement (gettext("EXPIRY DATE"),
 			   "INPUT",
 			   "size=40 maxlength=40  $comp_date_plus",
 			   "10",
-			   "Insert the expiration date",
+			   gettext("Insert the expiration date"),
 			   "" , "", "",	"", "", "", "NO-NULL", gettext("please respect the format YYYY-MM-DD HH:MM:SS. For instance, '2004-12-31 00:00:00'"), "", "res_display_dateformat");
 
 
@@ -629,16 +629,16 @@ if (isset($filterprefix)  &&  (strlen($filterprefix)>0)){
 
 
 
-$HD_Form -> FG_INTRO_TEXT_EDITION= gettext("You can modify, through the following form, the different properties of your ".$HD_Form->FG_INSTANCE_NAME);
-$HD_Form -> FG_INTRO_TEXT_ASK_DELETION = gettext("If you really want remove this ".$HD_Form->FG_INSTANCE_NAME.", click on the delete button.");
-$HD_Form -> FG_INTRO_TEXT_ADD = gettext("you can add easily a new ".$HD_Form->FG_INSTANCE_NAME.".<br>Fill the following fields and confirm by clicking on the button add.");
+$HD_Form -> FG_INTRO_TEXT_EDITION= gettext("You can modify, through the following form, the different properties of your")." ".$HD_Form->FG_INSTANCE_NAME;
+$HD_Form -> FG_INTRO_TEXT_ASK_DELETION = gettext("If you really want remove this")." ".$HD_Form->FG_INSTANCE_NAME.", ".gettext("click on the delete button.");
+$HD_Form -> FG_INTRO_TEXT_ADD = gettext("you can add easily a new")." ".$HD_Form->FG_INSTANCE_NAME.".<br>".gettext("Fill the following fields and confirm by clicking on the button add.");
 
 
 
 
 
 $HD_Form -> FG_INTRO_TEXT_ADITION = '';
-$HD_Form -> FG_TEXT_ADITION_CONFIRMATION = gettext("Your new ".$HD_Form->FG_INSTANCE_NAME." has been inserted. <br>");
+$HD_Form -> FG_TEXT_ADITION_CONFIRMATION = gettext("Your new")." ".$HD_Form->FG_INSTANCE_NAME." ".gettext("has been inserted.")."<br>";
 
 
 $HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = Images_Path . "/cormfirmboton.gif";

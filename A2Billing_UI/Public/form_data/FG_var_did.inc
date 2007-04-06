@@ -20,7 +20,8 @@ $actived_list["0"] = array( gettext("Inactive"), "0");
 $billingtype_list = array();
 $billingtype_list["0"] = array( gettext("Fix per month + dialoutrate"), "0");
 $billingtype_list["1"] = array( gettext("Fix per month"), "1");
-$billingtype_list["2"] = array( gettext("Only dialout rate"), "2"); $billingtype_list["3"]  = array( "Free", "3");
+$billingtype_list["2"] = array( gettext("Only dialout rate"), "2"); 
+$billingtype_list["3"]  = array( gettext("Free"), "3");
 
 // -- billtype: 0 = fix per month + dialoutrate, 1= fix per month, 2 = dialoutrate, 3 = free
 $billingtype_list_short = array();
@@ -94,7 +95,7 @@ $HD_Form -> AddEditElement (gettext("START DATE"),
 	"INPUT",
 	"size=40 maxlength=40  $comp_date",
 	"10",
-	("Insert the starting date"),
+	gettext("Insert the starting date"),
 	"" , "", "", "", "", "", "res_display_dateformat", gettext("Format YYYY-MM-DD HH:MM:SS. For instance, '2004-12-31 00:00:00'") );
 
 $HD_Form -> AddEditElement (gettext("EXPIRY DATE"),
@@ -161,12 +162,12 @@ if (DB_TYPE == "postgres"){
 
 
 $HD_Form -> FG_INTRO_TEXT_EDITION= '';
-$HD_Form -> FG_INTRO_TEXT_ASK_DELETION = gettext("If you really want remove this ".$HD_Form->FG_INSTANCE_NAME.", click on the delete button.");
-$HD_Form -> FG_INTRO_TEXT_ADD = gettext("you can add easily a new ".$HD_Form->FG_INSTANCE_NAME.".<br>Fill the following fields and confirm by clicking on the button add.");
+$HD_Form -> FG_INTRO_TEXT_ASK_DELETION = gettext("If you really want remove this")." ".$HD_Form->FG_INSTANCE_NAME.", ".gettext("click on the delete button.");
+$HD_Form -> FG_INTRO_TEXT_ADD = gettext("you can add easily a new")." ".$HD_Form->FG_INSTANCE_NAME.".<br>".gettext("Fill the following fields and confirm by clicking on the button add.");
 
 
 $HD_Form -> FG_INTRO_TEXT_ADITION = '';
-$HD_Form -> FG_TEXT_ADITION_CONFIRMATION = gettext("Your new ".$HD_Form->FG_INSTANCE_NAME." has been inserted. <br>");
+$HD_Form -> FG_TEXT_ADITION_CONFIRMATION = gettext("Your new")." ".$HD_Form->FG_INSTANCE_NAME." ".gettext("has been inserted. <br>");
 
 
 $HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = Images_Path . "/cormfirmboton.gif";
