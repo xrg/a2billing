@@ -3,6 +3,15 @@
                    			TODO LIST - SPECIFIC
 ********************************************************************************
 
+#### move a2billing.conf in DB
+********************************************************************
+move a2billing.conf in DB
+
+
+#### bug CallerID
+********************************************************************
+CID not working  when  ANSWER_CALL=NO
+iv changed back to ANSER_CALL=YES , AND WORKS
 
 
 #### CallerID Name
