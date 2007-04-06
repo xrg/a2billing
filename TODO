@@ -4,6 +4,12 @@
 ********************************************************************************
 
 
+
+#### CallerID Name
+********************************************************************
+Support callerID name for authentication
+
+
 #### ENSURE WE HAVE ALL IN GETTEXT FILES
 ********************************************************************
 create a fake langagues with a test flag
@@ -15,7 +21,22 @@ so we can find out easily the missing text
 
 #### Add VoiceMail
 ********************************************************************
-see VOICEMAIL document
+
+http://www.ecualug.org/?q=2006/12/12/comos/configurar_a2billing_en_menos_de_10_minutos
+http://forum.asterisk2billing.org/viewtopic.php?t=93&highlight=voicemail
+
+
+You need to create the appropiated line for each extension at the voicemail.conf file. Add the following lines to your a2billing context to give your clients the voicemail feature:
+
+Code:
+
+[vmmain]
+exten => *97,1,Answer
+exten => *97,n,Wait(1)
+exten => *97,n,VoiceMailMain(${CALLERID(num)}@default)
+exten => *97,n,Hangup 
+
+
 
 
 #### SIGNUP SELECT TARIFFGROUP
