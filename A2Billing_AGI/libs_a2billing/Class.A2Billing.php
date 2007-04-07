@@ -604,7 +604,7 @@ class A2Billing {
 			$this -> set_inuse = 0;
 		}
 		
-		$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[Start: $QUERY]");
+		$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[CARD STATUS UPDATE : $QUERY]");
 		if (!$this -> CC_TESTING) $result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY, 0);
 		
 		return 0;
@@ -1383,26 +1383,27 @@ class A2Billing {
 	}
 	
 	function callingcard_auto_setcallerid($agi){
-	// AUTO SetCallerID 
+		// AUTO SetCallerID
+		$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[AUTO SetCallerID]");
 		if ($this->agiconfig['auto_setcallerid']==1){
 			if ( strlen($this->agiconfig['force_callerid']) >=1 ){
 				$agi -> set_callerid($this->agiconfig['force_callerid']);
-				$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[EXEC SetCallerID : ".$this->agiconfig['force_callerid']."]");
+				$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[EXEC SetCallerID : ".$this->agiconfig['force_callerid']."]");
 			}elseif ( strlen($this->CallerID) >=1 ){
-				$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[REQUESTED SetCallerID : ".$this->CallerID."]");
+				$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[REQUESTED SetCallerID : ".$this->CallerID."]");
 				
       			// IF REQUIRED, VERIFY THAT THE CALLERID IS LEGAL
-      			$cid_san=$this->CallerID;
+      			$cid_sanitized = $this->CallerID;
 				/*if ($this->agiconfig['cid_sanitize']=='DID' || $this->agiconfig['cid_sanitize']=='CID' || $this->agiconfig['cid_sanitize']=='BOTH') {
-					$cid_san = $this -> callingcard_cid_sanitize($agi);
+					$cid_sanitized = $this -> callingcard_cid_sanitize($agi);
 					$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[TRY : callingcard_cid_sanitize]");
-					if ($this->agiconfig['debug']>=1) $agi->verbose('CALLERID SANITIZED: "'.$cid_san.'"');
+					if ($this->agiconfig['debug']>=1) $agi->verbose('CALLERID SANITIZED: "'.$cid_sanitized.'"');
 				}*/
-				if (strlen($cid_san)>0){
-					$agi->set_callerid($cid_san);
-					$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[EXEC SetCallerID : ".$cid_san."]");
+				if (strlen($cid_sanitized)>0){
+					$agi->set_callerid($cid_sanitized);
+					$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[EXEC SetCallerID : ".$cid_sanitized."]");
 				}else{
-					$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[CANNOT SetCallerID : cid_san is empty]");
+					$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[CANNOT SetCallerID : cid_san is empty]");
 				}
 			}
 		}
@@ -1628,7 +1629,7 @@ class A2Billing {
 					$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, $QUERY);
 					
 					$result = $this->instance_table -> SQLExec ($this->DBHandle, $QUERY);
-					$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, $result);
+					//$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, print_r($result,true));
 					
 					if( !is_array($result)) {
 						$prompt="prepaid-auth-fail";
@@ -1689,16 +1690,17 @@ class A2Billing {
 				}
 							
 				if (strlen($language)==2 && !($this->languageselected>=1)){								
-					// SetLanguage is deprecated, please use Set(LANGUAGE()=language) instead.
-					if($this->agiconfig['force_language'] == "1_1")
+					
+					if($this->agiconfig['asterisk_version'] == "1_2")
 					{
-						$agi -> set_variable('LANGUAGE()', $language);								
+						$lg_var_set = 'LANGUAGE()';
 					}
-					else
+					else 
 					{
-						$agi->ChangeLanguage($language);
+						$lg_var_set = 'CHANNEL(language)';
 					}
-					$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[SET LANGUAGE() $language]");
+					$agi -> set_variable($lg_var_set, $language);
+					$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[SET $lg_var_set $language]");
 				}
 				
 				$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[credit=".$this->credit." :: tariff=".$this->tariff." :: active=".$this->active." :: isused=$isused :: simultaccess=$simultaccess :: typepaid=".$this->typepaid." :: creditlimit=$creditlimit :: language=$language]");
@@ -1840,16 +1842,21 @@ class A2Billing {
 				
 				if ($this->typepaid==1) $this->credit = $this->credit+$creditlimit;
 				
-				if (strlen($language)==2  && !($this->languageselected>=1)){					
-					if($this->agiconfig['asterisk_version'] == "1_1")
+				if (strlen($language)==2  && !($this->languageselected>=1))
+				{
+					// http://www.voip-info.org/wiki/index.php?page=Asterisk+cmd+SetLanguage
+					// Set(CHANNEL(language)=<lang>) 1_4 & Set(LANGUAGE()=language) 1_2
+					
+					if($this->agiconfig['asterisk_version'] == "1_2")
 					{
-						$agi -> set_variable('LANGUAGE()', $language);								
+						$lg_var_set = 'LANGUAGE()';
 					}
-					else
+					else 
 					{
-						$agi->ChangeLanguage($language);
+						$lg_var_set = 'CHANNEL(language)';
 					}
-					$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[SET LANGUAGE() $language]");
+					$agi -> set_variable($lg_var_set, $language);
+					$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[SET $lg_var_set $language]");
 				}
 				$prompt = '';
 				// CHECK credit > min_credit_2call / you have zero balance
@@ -1879,7 +1886,6 @@ class A2Billing {
 					}
 				}
 				
-					
 				//CREATE AN INSTANCE IN CC_CALLERID
 				if ($this->agiconfig['cid_enable']==1 && $this->agiconfig['cid_auto_assign_card_to_cid']==1 && is_numeric($this->CallerID) && $this->CallerID>0 && $this -> ask_other_cardnumber!=1){
 					$QUERY_FIELS = 'cid, id_cc_card';
@@ -1900,8 +1906,7 @@ class A2Billing {
 				//UPDATE THE CARD ASSIGN TO THIS CC_CALLERID								
 				if ($this->agiconfig['notenoughcredit_assign_newcardnumber_cid']==1 && strlen($this->CallerID)>1 && $this -> ask_other_cardnumber==1){
 					$this -> ask_other_cardnumber=0;																				
-					$QUERY = "UPDATE cc_callerid SET id_cc_card='$the_card_id' WHERE cid='".$this->CallerID."'";								
-					$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, $QUERY);
+					$QUERY = "UPDATE cc_callerid SET id_cc_card='$the_card_id' WHERE cid='".$this->CallerID."'";
 					$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[Start update cc_callerid : $QUERY]");
 					$result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY, 0);
 				}		
@@ -1919,11 +1924,10 @@ class A2Billing {
 		if (($retries < 3) && $res==0) {
 			//ast_cdr_setaccount(chan, username);
 			
-			$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[callingcard_acct_start_inuse]");
 			$this -> callingcard_acct_start_inuse($agi,1);			
 			
-			if ($this->agiconfig['say_balance_after_auth']==1){		
-				$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[A2Billing] SAY BALANCE (".$this->agiconfig['say_balance_after_auth'].")\n");
+			if ($this->agiconfig['say_balance_after_auth']==1){
+				$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[A2Billing] SAY BALANCE : $this->credit \n");
 				$this -> fct_say_balance ($agi, $this->credit);
 			}
 				
