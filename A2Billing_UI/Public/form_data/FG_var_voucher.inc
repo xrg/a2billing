@@ -79,14 +79,14 @@ $HD_Form -> AddEditElement (gettext("VOUCHER"),
 			   "" , "", "",	"", "" , "", "", "");
 			   
 
-$HD_Form -> AddEditElement (gettext("CREDIT"),
+$HD_Form -> AddEditElement (gettext("AMOUNT"),
 			   "credit",
 			   '$value',	
 			   "INPUT",	
 			   "size=30 maxlength=30",	
 			   "12",
 			   gettext("Insert the number of credit"),
-			   "" , "", "",	"", "" , "", "", "1.50 credit = 1.50 ".BASE_CURRENCY);
+			   "" , "", "",	"", "", "",	"", "" );
 
 
 $HD_Form -> AddEditElement (gettext("TAG"),

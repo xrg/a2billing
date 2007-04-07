@@ -1092,9 +1092,12 @@ class A2Billing {
 		global $currencies_list;
 		
 		
-		if (isset($this->agiconfig['agi_force_currency']) && strlen($this->agiconfig['agi_force_currency'])==3) $this->currency=$this->agiconfig['agi_force_currency'];
+		if (isset($this->agiconfig['agi_force_currency']) && strlen($this->agiconfig['agi_force_currency'])==3)
+		{ 
+			$this->currency = $this->agiconfig['agi_force_currency'];
+		}
 		
-		
+		$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[CURRENCY : $this->currency]");
 		if (!isset($currencies_list[strtoupper($this->currency)][2]) || !is_numeric($currencies_list[strtoupper($this->currency)][2])) $mycur = 1;
 		else $mycur = $currencies_list[strtoupper($this->currency)][2];
 		$credit_cur = $credit / $mycur;
@@ -1151,8 +1154,11 @@ class A2Billing {
 
 		global $currencies_list;
 
-		if (isset($this->agiconfig['agi_force_currency']) && strlen($this->agiconfig['agi_force_currency'])==3) $this->currency=$this->agiconfig['agi_force_currency'];
-
+		if (isset($this->agiconfig['agi_force_currency']) && strlen($this->agiconfig['agi_force_currency'])==3)
+		{ 
+			$this->currency = $this->agiconfig['agi_force_currency'];
+		}
+		
 		if (!isset($currencies_list[strtoupper($this->currency)][2]) || !is_numeric($currencies_list[strtoupper($this->currency)][2])) $mycur = 1;
 		else $mycur = $currencies_list[strtoupper($this->currency)][2];
 		$rate_cur = $rate / $mycur;
@@ -1186,8 +1192,10 @@ class A2Billing {
 		global $currencies_list;
 		
 		$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[VOUCHER REFILL CARD LOG BEGIN]");
-		if (isset($this->agiconfig['agi_force_currency']) && strlen($this->agiconfig['agi_force_currency'])==3) $this->currency=$this->agiconfig['agi_force_currency'];
-
+		if (isset($this->agiconfig['agi_force_currency']) && strlen($this->agiconfig['agi_force_currency'])==3){ 
+			$this->currency=$this->agiconfig['agi_force_currency'];
+		}
+		
 		if (!isset($currencies_list[strtoupper($this->currency)][2]) || !is_numeric($currencies_list[strtoupper($this->currency)][2])) $mycur = 1;
 		else $mycur = $currencies_list[strtoupper($this->currency)][2];
 		

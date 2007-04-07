@@ -231,7 +231,7 @@ $HD_Form -> AddEditElement (gettext("BALANCE"),
 			   "size=30 maxlength=30",
 			   "12",
 			   gettext("Insert the number of credit"),
-			   "" , "", "",	"", "", "",	"", "" );
+			   "" , "", "",	"", "", "",	"", gettext("currency : ").strtoupper(BASE_CURRENCY) );
 
 
 $HD_Form -> AddEditElement (gettext("LANGUAGE"),
@@ -332,9 +332,7 @@ $HD_Form -> AddEditElement (gettext("CURRENCY"),
 			   "",
 			   "SELECT",
 			   "",
-			   "",
-			   "",
-			   "list" , "", "",	"", $currency_list, "%1", "", "" );
+			   "", "", "list" , "", "",	"", $currency_list, "%1", "", gettext("Currency used at the customer end.") );
 
 
 $HD_Form -> AddEditElement (gettext("RUN SERVICE"),
