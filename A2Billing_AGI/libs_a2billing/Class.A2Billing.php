@@ -162,6 +162,7 @@ class A2Billing {
 	var $vouchernumber;
 	var $add_credit;
 	
+	var $cardnumber_range;
 	
 	// Define if we have changed the status of the card
 	var $set_inuse = 0;
@@ -265,8 +266,22 @@ class A2Billing {
 		// add default values to config for uninitialized values
         
 		
+		//Card Number Length Code
+		$card_length_range = isset($this->config["global"]['interval_len_cardnumber'])?$this->config["global"]['interval_len_cardnumber']:null;
+		$this -> cardnumber_range = $this -> splitable_data ($card_length_range);
 		
-		  
+		if(is_array($this -> cardnumber_range) && ($this -> cardnumber_range[0] >= 4))
+		{
+			define ("CARDNUMBER_LENGTH_MIN", $this -> cardnumber_range[0]);
+			define ("CARDNUMBER_LENGTH_MAX", $this -> cardnumber_range[count($this -> cardnumber_range)-1]);
+			define ("LEN_CARDNUMBER", CARDNUMBER_LENGTH_MIN);
+		}
+		else
+		{
+			echo gettext("Invalid card number lenght defined in configuration.");
+			exit;
+		}
+		
 		// conf for the database connection
 		if(!isset($this->config["database"]['hostname']))	$this->config["database"]['hostname'] = 'localhost';
 		if(!isset($this->config["database"]['port']))		$this->config["database"]['port'] = '5432';
@@ -446,7 +461,7 @@ class A2Billing {
 		if(!isset($this->config["agi-conf$idconfig"]['notenoughcredit_assign_newcardnumber_cid'])) $this->config["agi-conf$idconfig"]['notenoughcredit_assign_newcardnumber_cid'] = 0;
 		if(!isset($this->config["agi-conf$idconfig"]['maxtime_tocall_negatif_free_route'])) $this->config["agi-conf$idconfig"]['maxtime_tocall_negatif_free_route'] = 1800;
 		if(!isset($this->config["agi-conf$idconfig"]['callerid_authentication_over_cardnumber'])) $this->config["agi-conf$idconfig"]['callerid_authentication_over_cardnumber'] = 0;
-		
+		if(!isset($this->config["agi-conf$idconfig"]['cid_auto_create_card_len'])) $this->config["agi-conf$idconfig"]['cid_auto_create_card_len'] = 10;
 		
 		if(!isset($this->config["agi-conf$idconfig"]['sip_iax_friends'])) $this->config["agi-conf$idconfig"]['sip_iax_friends'] = 0;
 		if(!isset($this->config["agi-conf$idconfig"]['sip_iax_pstn_direct_call'])) $this->config["agi-conf$idconfig"]['sip_iax_pstn_direct_call'] = 0;
@@ -1241,7 +1256,7 @@ class A2Billing {
 	 */	 
 	function MDP()
 	{
-		$chrs = $this->agiconfig['len_cardnumber'];  
+		$chrs = $this->agiconfig['cid_auto_create_card_len'];  
 		$pwd = "";
 		 mt_srand ((double) microtime() * 1000000);
 		 while (strlen($pwd)<$chrs)
@@ -1944,8 +1959,7 @@ class A2Billing {
 	
 	function callingcard_ivr_authenticate_light (&$error_msg){
 		$res=0;
-			
-								
+		
 		$QUERY =  "SELECT credit, tariff, activated, inuse, simultaccess, typepaid, ";
 		if ($this->config["database"]['dbtype'] == "postgres")
 			$QUERY .=  "creditlimit, language, removeinterprefix, redial, enableexpire, date_part('epoch',expirationdate), expiredays, nbused, date_part('epoch',firstusedate), date_part('epoch',cc_card.creationdate), cc_card.currency, cc_card.lastname, cc_card.firstname, cc_card.email, cc_card.uipass, cc_card.id_campaign FROM cc_card ";
@@ -2062,6 +2076,38 @@ class A2Billing {
 	{
 		$this -> DBHandle -> disconnect();
 	}
+	
+	
+	/*
+	 * function splitable_data
+	 */
+	function splitable_data ($splitable_value){
+		
+		$arr_splitable_value = explode(",", $splitable_value);
+		foreach ($arr_splitable_value as $arr_value){
+			$arr_value = trim ($arr_value);
+			$arr_value_explode = explode("-", $arr_value,2);
+			if (count($arr_value_explode)>1){
+				if (is_numeric($arr_value_explode[0]) && is_numeric($arr_value_explode[1]) && $arr_value_explode[0] < $arr_value_explode[1] ){
+					for ($kk=$arr_value_explode[0];$kk<=$arr_value_explode[1];$kk++){
+						$arr_value_to_import[] = $kk;
+					}
+				}elseif (is_numeric($arr_value_explode[0])){
+					$arr_value_to_import[] = $arr_value_explode[0];
+				}elseif (is_numeric($arr_value_explode[1])){
+					$arr_value_to_import[] = $arr_value_explode[1];
+				}
+				
+			}else{
+				$arr_value_to_import[] = $arr_value_explode[0];
+			}
+		}
+		
+		$arr_value_to_import = array_unique($arr_value_to_import);
+		sort($arr_value_to_import);
+		return $arr_value_to_import;
+	}
+
 
 };
 	

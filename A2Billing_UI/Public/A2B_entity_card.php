@@ -229,7 +229,8 @@ if (!$popup_select && $form_action == "ask-add"){
 			<select name="cardnumberlenght_list" size="1" class="form_input_select" onChange="submitform()">
 			<?php 
 			//for($i=CARDNUMBER_LENGTH_MIN;$i<=CARDNUMBER_LENGTH_MAX;$i++) {
-			foreach ($cardnumber_range as $value){
+			
+			foreach ($A2B -> cardnumber_range as $value){
 			?>
 				<option value='<?php echo $value ?>' 
 				<?php if ($value == $cardnumberlenght_list) echo "selected";

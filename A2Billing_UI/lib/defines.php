@@ -220,20 +220,7 @@
 	//Enable Disable Captcha
 	define ("CAPTCHA_ENABLE", isset($A2B->config["signup"]['enable_captcha'])?$A2B->config["signup"]['enable_captcha']:0);
 	
-	//Card Number Length Code
-	$card_length_range = isset($A2B->config["global"]['interval_len_cardnumber'])?$A2B->config["global"]['interval_len_cardnumber']:null;
-	$cardnumber_range = splitable_data ($card_length_range);
-	if(is_array($cardnumber_range) && ($cardnumber_range[0] >= 4))
-	{
-		define ("CARDNUMBER_LENGTH_MIN", $cardnumber_range[0]);
-		define ("CARDNUMBER_LENGTH_MAX", $cardnumber_range[count($cardnumber_range)-1]);
-		define ("LEN_CARDNUMBER", CARDNUMBER_LENGTH_MIN);
-	}
-	else
-	{
-		echo gettext("Invalid card number lenght defined in configuration.");
-		exit;
-	}
+	
 
 	include (FSROOT."lib/help.php");
 ?>
