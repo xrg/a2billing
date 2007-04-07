@@ -281,6 +281,8 @@ class A2Billing {
 			echo gettext("Invalid card number lenght defined in configuration.");
 			exit;
 		}
+		if(!isset($this->config["global"]['len_aliasnumber']))	$this->config["global"]['len_aliasnumber'] = 15;
+		if(!isset($this->config["global"]['len_voucher']))		$this->config["global"]['len_voucher'] = 15;
 		
 		// conf for the database connection
 		if(!isset($this->config["database"]['hostname']))	$this->config["database"]['hostname'] = 'localhost';
@@ -360,10 +362,6 @@ class A2Billing {
 		if(!isset($this->config["webui"]['api_logfile']))		$this->config["webui"]['api_logfile'] = '/tmp/api_ecommerce_request.log';
 		if(isset($this->config["webui"]['api_ip_auth']))		$this->config["webui"]['api_ip_auth'] = explode(";", $this->config["webui"]['api_ip_auth']);
 		
-		
-		if(!isset($this->config["webui"]['len_cardnumber']))		$this->config["webui"]['len_cardnumber'] = 10;
-		if(!isset($this->config["webui"]['len_aliasnumber']))		$this->config["webui"]['len_aliasnumber'] = 15;
-		if(!isset($this->config["webui"]['len_voucher']))		$this->config["webui"]['len_voucher'] = 15;
 		if(!isset($this->config["webui"]['dir_store_mohmp3']))		$this->config["webui"]['dir_store_mohmp3'] = '/var/lib/asterisk/mohmp3';
 		if(!isset($this->config["webui"]['num_musiconhold_class']))	$this->config["webui"]['num_musiconhold_class'] = 10;
 		if(!isset($this->config["webui"]['show_help']))			$this->config["webui"]['show_help'] = 1;
@@ -426,17 +424,11 @@ class A2Billing {
 		if(!isset($this->config["agi-conf$idconfig"]['logger_enable'])) $this->config["agi-conf$idconfig"]['logger_enable'] = 1;
 		if(!isset($this->config["agi-conf$idconfig"]['log_file'])) $this->config["agi-conf$idconfig"]['log_file'] = '/tmp/a2billing.log';
 		
-
 		if(!isset($this->config["agi-conf$idconfig"]['answer_call'])) $this->config["agi-conf$idconfig"]['answer_call'] = 1;
-		
 		if(!isset($this->config["agi-conf$idconfig"]['auto_setcallerid'])) $this->config["agi-conf$idconfig"]['auto_setcallerid'] = 1;
-					
 		if(!isset($this->config["agi-conf$idconfig"]['say_goodbye'])) $this->config["agi-conf$idconfig"]['say_goodbye'] = 0;
 		if(!isset($this->config["agi-conf$idconfig"]['play_menulanguage'])) $this->config["agi-conf$idconfig"]['play_menulanguage'] = 0;
 		if(!isset($this->config["agi-conf$idconfig"]['force_language'])) $this->config["agi-conf$idconfig"]['force_language'] = 'EN';
-		if(!isset($this->config["agi-conf$idconfig"]['len_cardnumber'])) $this->config["agi-conf$idconfig"]['len_cardnumber'] = 10;
-		if(!isset($this->config["agi-conf$idconfig"]['len_aliasnumber']))	$this->config["agi-conf$idconfig"]['len_aliasnumber'] = 15;
-		if(!isset($this->config["agi-conf$idconfig"]['len_voucher'])) $this->config["agi-conf$idconfig"]['len_voucher'] = 15;
 		if(!isset($this->config["agi-conf$idconfig"]['min_credit_2call'])) $this->config["agi-conf$idconfig"]['min_credit_2call'] = 0;
 		if(!isset($this->config["agi-conf$idconfig"]['min_duration_2bill'])) $this->config["agi-conf$idconfig"]['min_duration_2bill'] = 0;
 		
@@ -789,15 +781,15 @@ class A2Billing {
 	**/
 	function call_sip_iax_buddy($agi, &$RateEngine, $try_num){
 		$res=0;
-		if ( ($this->agiconfig['use_dnid']==1) && (!in_array ($this->dnid, $this->agiconfig['no_auth_dnid'])) && 
-			(strlen($this->dnid)>2 ))
+		if ( ($this->agiconfig['use_dnid']==1) && (!in_array ($this->dnid, $this->agiconfig['no_auth_dnid'])) && (strlen($this->dnid)>2 ))
 		{								
-			$this->destination = $this->dnid;			
-		
-		}else{			
-			$res_dtmf = $agi->get_data('prepaid-sipiax-enternumber', 6000, $this->agiconfig['len_aliasnumber'], '#');			
+			$this->destination = $this->dnid;
+		}
+		else
+		{
+			$res_dtmf = $agi->get_data('prepaid-sipiax-enternumber', 6000, $this->config["global"]['len_aliasnumber'], '#');			
 			$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "RES DTMF : ".$res_dtmf ["result"]);
-			$this->destination = $res_dtmf ["result"];		
+			$this->destination = $res_dtmf ["result"];
 			
 			if ($this->destination<=0){
 				return -1;
@@ -1199,7 +1191,7 @@ class A2Billing {
 		if (!isset($currencies_list[strtoupper($this->currency)][2]) || !is_numeric($currencies_list[strtoupper($this->currency)][2])) $mycur = 1;
 		else $mycur = $currencies_list[strtoupper($this->currency)][2];
 		
-		$res_dtmf = $agi->get_data('voucher_enter_number', 6000, $this->agiconfig['len_voucher'], '#');
+		$res_dtmf = $agi->get_data('voucher_enter_number', 6000, $this->config["global"]['len_voucher'], '#');
 		$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "RES DTMF : ".$res_dtmf ["result"]);
 		$this->vouchernumber = $res_dtmf ["result"];		
 		if ($this->vouchernumber<=0){
@@ -1463,7 +1455,7 @@ class A2Billing {
 					
 					for ($k=0;$k<=20;$k++){
 						if ($k==20){
-							$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, "ERROR : Impossible to generate a cardnumber not yet used!<br>Perhaps check the LEN_CARDNUMBER (value:".LEN_CARDNUMBER.")");
+							$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, "ERROR : Impossible to generate a cardnumber not yet used!");
 							$prompt="prepaid-auth-fail";
 							$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, strtoupper($prompt));
 							$agi-> stream_file($prompt, '#');
@@ -1770,8 +1762,8 @@ class A2Billing {
 				}
 				
 				$res = 0;
-				$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "Requesting DTMF ::> Len-".$this->agiconfig['len_cardnumber']);
-				$res_dtmf = $agi->get_data($prompt_entercardnum, 6000, $this->agiconfig['len_cardnumber']);
+				$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "Requesting DTMF, CARDNUMBER_LENGTH_MAX ".CARDNUMBER_LENGTH_MAX);
+				$res_dtmf = $agi->get_data($prompt_entercardnum, 6000, CARDNUMBER_LENGTH_MAX);
 				$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "RES DTMF : ".$res_dtmf ["result"]);
 				$this->cardnumber = $res_dtmf ["result"];
 				
@@ -1784,7 +1776,7 @@ class A2Billing {
 					continue;
 				}
 				
-				if ( strlen($this->cardnumber) != $this->agiconfig['len_cardnumber']) {
+				if ( strlen($this->cardnumber) > CARDNUMBER_LENGTH_MAX || strlen($this->cardnumber) < CARDNUMBER_LENGTH_MIN) {
 					$prompt = "prepaid-invalid-digits";
 					$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, strtoupper($prompt));
 					continue;
