@@ -103,12 +103,10 @@ if ($groupID!="0"){
 		"size=\"$len_right_list\" multiple=\"multiple\"",
 		"",
 		"",
-		"list" ,
-		"",
-		"description, id",
-		"",
-		$right_list, "%1" , "", "");
+		"list", "", "description, id", "", $right_list, "%1" , "", 
+		gettext("To select several rights in the above ListBox, hold the CTRL key down while clicking the items") );
 }
+	
 
 $HD_Form -> AddEditElement (gettext("NAME"),
 	"name",
