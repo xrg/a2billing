@@ -317,8 +317,9 @@ if ($status=="ok"){
 	
 <?php  if ($status!="ok"){?> 
 	
-<center>As a preview for the import, we have made a quick analyze of the first line of your csv file.<br/>
-Please check out if everything look correct!</center>
+<center>
+The first line of your import is previewed below, please check to ensure that every is correct.
+</center>
 	
 <table align=center border="0" cellpadding="2" cellspacing="2" width="300">
 	<tbody>
@@ -406,8 +407,7 @@ Please check out if everything look correct!</center>
 		  <td colspan="2" class="bgcolor_015" style="padding-left: 5px; padding-right: 3px;" align=center>
 			<div align="center"><span class="textcomment"> 
 			  <br>
-			  The import of the new TariffPlan have been realized with success!<br>
-			  <?php echo $nb_imported?> new tariff-rates have been imported into your Database.
+			  Success, <?php echo $nb_imported?>  new rates have been imported.<br>
 			  </span></div>
 			  <br><br>
 			  

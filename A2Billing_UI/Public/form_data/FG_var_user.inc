@@ -12,7 +12,7 @@ if ($groupID=="0"){
 }else{
 	$FG_INSTANCE_NAME="Reseller";
 }
-				
+
 $HD_Form = new FormHandler("cc_ui_authen",$FG_INSTANCE_NAME);
 
 
@@ -101,8 +101,7 @@ if ($groupID!="0"){
 		'$value',
 		"SELECT",
 		"size=\"$len_right_list\" multiple=\"multiple\"",
-		"",
-		"",
+		"", "",
 		"list", "", "description, id", "", $right_list, "%1" , "", 
 		gettext("To select several rights in the above ListBox, hold the CTRL key down while clicking the items") );
 }

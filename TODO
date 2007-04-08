@@ -3,6 +3,19 @@
                    			TODO LIST - SPECIFIC
 ********************************************************************************
 
+
+#### missing text put text in Gettext
+********************************************************************
+CC_phonelist_import_analyse.php
+CC_ratecard_import_analyse.php
+CC_card_import_analyse.php
+
+also some more are missing on those files (check the javascript):
+CC_card_import.php
+CC_phonelist_import.php
+CC_ratecard_import.php
+
+
 #### move a2billing.conf in DB
 ********************************************************************
 move a2billing.conf in DB

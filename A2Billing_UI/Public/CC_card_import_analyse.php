@@ -2,7 +2,6 @@
 // Common includes
 include ("../lib/defines.php");
 include ("../lib/module.access.php");
-//include ("../lib/Class.Table.php");
 include ("../lib/smarty.php");
 
 set_time_limit(0);
@@ -261,8 +260,9 @@ function sendtoupload(form){
 
 		<?php  if ($status!="ok"){?>
 
-		<center>As a preview for the import, we have made a quick analyze of the first line of your csv file.<br/>
-		Please check out if everything look correct!</center>
+		<center>
+		The first line of your import is previewed below, please check to ensure that every is correct.
+		</center>
 
 		<table align=center border="0" cellpadding="2" cellspacing="2" width="300">
 			<tbody>
@@ -342,8 +342,8 @@ function sendtoupload(form){
                     <div align="center"><span class="textcomment">
 
 					  <br>
-					  The import of the new CARD's have been realized with success!<br>
-					  <?php echo $nb_imported?> new CARDs have been imported into your Database.
+					  Success, <?php echo $nb_imported?>  new cards have been imported.
+					  <br>
                       </span></div>
 					  <br><br>
 
