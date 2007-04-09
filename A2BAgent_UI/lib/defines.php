@@ -116,7 +116,10 @@ require("languageSettings.php");
 	function DbConnect($db= NULL)
 	{
 		if (DB_TYPE == "postgres"){
-			$datasource = 'pgsql://'.USER.':'.PASS.'@'.HOST.'/'.DBNAME;
+			if (HOST == '')
+				$datasource = 'pgsql://dbname='.DBNAME.' user='.USER ;
+			else
+				$datasource = 'pgsql://'.USER.':'.PASS.'@'.HOST.'/'.DBNAME;
 		}else{
 			$datasource = 'mysql://'.USER.':'.PASS.'@'.HOST.'/'.DBNAME;
 		}
