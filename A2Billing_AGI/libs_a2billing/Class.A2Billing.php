@@ -234,10 +234,10 @@ class A2Billing {
 		
 		  
 		// conf for the database connection
-		if(!isset($this->config["database"]['hostname']))	$this->config["database"]['hostname'] = 'localhost';
+		//if(!isset($this->config["database"]['hostname']))	$this->config["database"]['hostname'] = 'localhost';
 		if(!isset($this->config["database"]['port']))		$this->config["database"]['port'] = '5432';
 		if(!isset($this->config["database"]['user']))		$this->config["database"]['user'] = 'postgres';
-		if(!isset($this->config["database"]['password']))	$this->config["database"]['password'] = '';
+		//if(!isset($this->config["database"]['password']))	$this->config["database"]['password'] = '';
 		if(!isset($this->config["database"]['dbname']))		$this->config["database"]['dbname'] = 'a2billing';
 		if(!isset($this->config["database"]['dbtype']))		$this->config["database"]['dbtype'] = 'postgres';
 		
@@ -1883,7 +1883,11 @@ class A2Billing {
 		require_once('adodb/adodb.inc.php'); // AdoDB
 		
 		if ($this->config["database"]['dbtype'] == "postgres"){
-			$datasource = 'pgsql://'.$this->config["database"]['user'].':'.$this->config["database"]['password'].'@'.$this->config["database"]['hostname'].'/'.$this->config["database"]['dbname'];
+			if (isset($this->config["database"]['hostname']) && (strlen($this->config["database"]['hostname'])>0))
+				$datasource = 'pgsql://'.$this->config["database"]['user'].':'.$this->config["database"]['password'].'@'.
+					$this->config["database"]['hostname'].'/'.$this->config["database"]['dbname'];
+			else
+				$datasource = 'pgsql://dbname='.$this->config["database"]['dbname'] .' user=' . $this->config["database"]['user'];			
 		}else{
 			$datasource = 'mysql://'.$this->config["database"]['user'].':'.$this->config["database"]['password'].'@'.$this->config["database"]['hostname'].'/'.$this->config["database"]['dbname'];
 		}

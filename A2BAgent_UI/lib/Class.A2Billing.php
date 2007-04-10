@@ -235,10 +235,10 @@ class A2Billing {
 		
 		  
 		// conf for the database connection
-		if(!isset($this->config["database"]['hostname']))	$this->config["database"]['hostname'] = 'localhost';
+		//if(!isset($this->config["database"]['hostname']))	$this->config["database"]['hostname'] = 'localhost';
 		if(!isset($this->config["database"]['port']))		$this->config["database"]['port'] = '5432';
 		if(!isset($this->config["database"]['user']))		$this->config["database"]['user'] = 'postgres';
-		if(!isset($this->config["database"]['password']))	$this->config["database"]['password'] = '';
+		//if(!isset($this->config["database"]['password']))	$this->config["database"]['password'] = '';
 		if(!isset($this->config["database"]['dbname']))		$this->config["database"]['dbname'] = 'a2billing';
 		if(!isset($this->config["database"]['dbtype']))		$this->config["database"]['dbtype'] = 'postgres';
 		

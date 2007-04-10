@@ -130,7 +130,10 @@
 	function DbConnect($db= NULL)
 	{
 		if (DB_TYPE == "postgres"){
-			$datasource = 'pgsql://'.USER.':'.PASS.'@'.HOST.'/'.DBNAME;
+			if (HOST!=null)
+				$datasource = 'pgsql://'.USER.':'.PASS.'@'.HOST.'/'.DBNAME;
+			else
+				$datasource = 'pgsql://dbname='.DBNAME.' user='.USER ;
 		}else{
 			$datasource = 'mysql://'.USER.':'.PASS.'@'.HOST.'/'.DBNAME;
 		}
