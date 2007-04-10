@@ -425,7 +425,7 @@ function formsubmit()
         		<td class="bgcolor_004" align="left">
 
 					<input type="radio" name="Period" value="Month" <?php  if (($Period=="Month") || !isset($Period)){ ?>checked="checked" <?php  } ?>> 
-					<font face="verdana" size="1" color="#ffffff"><b><?php echo gettext("SELECT MONTH");?></b></font>
+					<font face="verdana" size="1" color="#ffffff"><b><?php echo gettext("SELECT BY MONTH");?></b></font>
 				</td>
       			<td class="bgcolor_005" align="left">
 					<table width="100%" border="0" cellspacing="0" cellpadding="0" >
@@ -475,7 +475,7 @@ function formsubmit()
 			<tr>
         		<td align="left" class="bgcolor_002">
 					<input type="radio" name="Period" value="Day" <?php  if ($Period=="Day"){ ?>checked="checked" <?php  } ?>> 
-					<font face="verdana" size="1" color="#ffffff"><b><?php echo gettext("SELECT DAY");?></b></font>
+					<font face="verdana" size="1" color="#ffffff"><b><?php echo gettext("SELECT BY DAY");?></b></font>
 				</td>
       			<td align="left" class="bgcolor_003">
 					<table width="100%" border="0" cellspacing="0" cellpadding="0" >
@@ -666,7 +666,7 @@ function formsubmit()
 <table  cellspacing="0" class="invoice_main_table">
      
       <tr>
-        <td class="invoice_heading" width="100%">Calls Details</td>
+        <td class="invoice_heading" width="100%"><?php echo gettext("Call Details");?></td>
       </tr>
       <tr>
         <td valign="top"><table width="60%" align="left" cellpadding="0" cellspacing="0">

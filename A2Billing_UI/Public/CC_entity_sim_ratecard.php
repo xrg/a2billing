@@ -1,7 +1,6 @@
 <?php
 include ("../lib/defines.php");
 include ("../lib/module.access.php");
-//include ("./frontoffice_data/CC_var_def_ratecard.inc");
 include ("../lib/Class.RateEngine.php");	
 include ("../lib/smarty.php");
 
@@ -44,51 +43,50 @@ if ($called  && $id_cc_card){
 		$calling=ereg_replace("^0111","1",$calling);
 		
 		if ( strlen($calling)>2 && is_numeric($calling)){
+			
+			$A2B -> DBHandle = DbConnect();
+			$instance_table = new Table();
+			$A2B -> set_instance_table ($instance_table);
+			$num = 0;
+			$resmax = $DBHandle -> Execute("SELECT username, tariff, credit FROM cc_card where id='$id_cc_card'");
+			if ($resmax)
+				$num = $resmax -> RecordCount( );
+			
+			if ($num==0){ echo gettext("Error card !!!"); exit();}			
+			
+			for($i=0;$i<$num;$i++)
+			{
+				$row [] =$resmax -> fetchRow();	
+			}
+			
+			$A2B -> cardnumber = $row[0][0];
+			$A2B -> credit = $balance = $row[0][2];
+			if ($FG_DEBUG == 1) echo "cardnumber = ".$row[0][0] ."<br>";
+			
+			if ($A2B -> callingcard_ivr_authenticate_light ($error_msg)){
+				if ($FG_DEBUG == 1) $RateEngine -> debug_st = 1;
 				
-				$A2B -> DBHandle = DbConnect();
-				$instance_table = new Table();
-				$A2B -> set_instance_table ($instance_table);
-				$num = 0;
-				$resmax = $DBHandle -> Execute("SELECT username, tariff FROM cc_card where id='$id_cc_card'");
-				if ($resmax)
-					$num = $resmax -> RecordCount( );
-
-				if ($num==0){ echo gettext("Error card !!!"); exit();}			
+				$RateEngine = new RateEngine();
+				$RateEngine -> webui = 0;
+				// LOOKUP RATE : FIND A RATE FOR THIS DESTINATION
 				
-				for($i=0;$i<$num;$i++)
-				{
-					$row [] =$resmax -> fetchRow();	
+				$A2B ->agiconfig['accountcode'] = $A2B -> cardnumber ;
+				$A2B ->agiconfig['use_dnid']=1;
+				$A2B ->agiconfig['say_timetocall']=0;						
+				$A2B ->dnid = $A2B ->destination = $calling;
+				
+				if ($A2B->removeinterprefix) $A2B->destination = $A2B -> apply_rules ($A2B->destination);			
+				
+				$resfindrate = $RateEngine->rate_engine_findrates($A2B, $A2B->destination, $row[0][1]);
+				if ($FG_DEBUG == 1) echo "resfindrate=$resfindrate";
+				
+				// IF FIND RATE
+				if ($resfindrate!=0){	
+					$res_all_calcultimeout = $RateEngine->rate_engine_all_calcultimeout($A2B, $A2B->credit);
+					if ($FG_DEBUG == 1) print_r($RateEngine->ratecard_obj);
 				}
-				
-				$A2B -> cardnumber = $row[0][0] ;
-				$A2B -> credit = $balance;
-				if ($FG_DEBUG == 1) echo "cardnumber = ".$row[0][0] ."<br>";
-				
-				if ($A2B -> callingcard_ivr_authenticate_light ($error_msg)){
-					if ($FG_DEBUG == 1) $RateEngine -> debug_st = 1;
-		
-					$RateEngine = new RateEngine();
-					$RateEngine -> webui = 0;
-					// LOOKUP RATE : FIND A RATE FOR THIS DESTINATION
-					
-					
-					$A2B ->agiconfig['accountcode'] = $A2B -> cardnumber ;
-					$A2B ->agiconfig['use_dnid']=1;
-					$A2B ->agiconfig['say_timetocall']=0;						
-					$A2B ->dnid = $A2B ->destination = $calling;
-					
-					if ($A2B->removeinterprefix) $A2B->destination = $A2B -> apply_rules ($A2B->destination);			
-					
-					$resfindrate = $RateEngine->rate_engine_findrates($A2B, $A2B->destination, $row[0][1]);
-					if ($FG_DEBUG == 1) echo "resfindrate=$resfindrate";
-					
-					// IF FIND RATE
-					if ($resfindrate!=0){	
-						$res_all_calcultimeout = $RateEngine->rate_engine_all_calcultimeout($A2B, $A2B->credit);
-						if ($FG_DEBUG == 1) print_r($RateEngine->ratecard_obj);
-					}
-					
-				}
+			}
+			
 		}
 }
 
@@ -141,7 +139,6 @@ function openURL(theLINK)
 <?php
 	echo $CC_help_sim_ratecard;
 ?>
-<br>
 
 <?php  if (false){ ?>
 	  <center>
@@ -183,10 +180,9 @@ function openURL(theLINK)
 </center>
 <?php  } ?>
 
-
+	<center> <?php echo "$error_msg"; ?> </center>
 	  <br>
 	  <table width="<?php echo $FG_HTML_TABLE_WIDTH?>" border="0" align="center" cellpadding="0" cellspacing="0">
-
 		<TR>
           <TD style="border-bottom: medium dotted #8888CC" colspan="2"> <B><?php echo gettext("RATECARD SIMULATOR");?></B></TD>
         </TR>
@@ -228,14 +224,14 @@ if ($FG_DEBUG == 1) print_r($RateEngine->ratecard_obj);
 
 $arr_ratecard=array('tariffgroupname', 'lcrtype', 'idtariffgroup', 'cc_tariffgroup_plan.idtariffplan', 'tariffname', 'destination', 'cc_ratecard.id' , 'dialprefix', 'destination', 'buyrate', 'buyrateinitblock', 'buyrateincrement', 'rateinitial', 'initblock', 'billingblock', 'connectcharge', 'disconnectcharge', 'stepchargea', 'chargea', 'timechargea', 'billingblocka', 'stepchargeb', 'chargeb', 'timechargeb', 'billingblockb', 'stepchargec', 'chargec', 'timechargec', 'billingblockc', 'tp_id_trunk', 'tp_trunk', 'providertech', 'tp_providerip', 'tp_removeprefix');
 
-$FG_TABLE_ALTERNATE_ROW_COLOR[0]='#FF6767';
-$FG_TABLE_ALTERNATE_ROW_COLOR[1]='#FF7575';
+$FG_TABLE_ALTERNATE_ROW_COLOR[0]='#CDC9C9';
+$FG_TABLE_ALTERNATE_ROW_COLOR[1]='#EEE9E9';
 ?>
  <br>
 	  <table width="65%" border="0" align="center" cellpadding="0" cellspacing="0">
 		
 		<TR> 
-          <TD style="border-bottom: medium dotted #FF4444" colspan="2"> <B><font color="red" size="3"> <?php echo gettext("CONGRATS : SIMULATOR FOUND A RATE THAT MATCH");?></font></B></TD>
+          <TD style="border-bottom: medium dotted #FF4444" colspan="2"> <B><font color="red" size="3"> <?php echo gettext("Simulator found a rate for your destination");?></font></B></TD>
         </TR>
 		
 		<?php if (count($RateEngine->ratecard_obj)>1){ ?>
@@ -262,7 +258,8 @@ $FG_TABLE_ALTERNATE_ROW_COLOR[1]='#FF7575';
 						
 				</td>
 				<td height="15" bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[1]?>" style="padding-left: 5px; padding-right: 3px;">
-						<font color="blue"><i><?php echo $RateEngine->ratecard_obj[$j]['timeout'];?><?php echo gettext("seconds");?> </i></font>
+						<font color="blue"><i><?php echo display_minute($RateEngine->ratecard_obj[$j]['timeout']);?> <?php echo gettext("Minutes");?> </i></font>
+						
 				</td>
 			</tr>
 			<?php for($i=0;$i<count($arr_ratecard);$i++){ ?>
@@ -283,9 +280,10 @@ $FG_TABLE_ALTERNATE_ROW_COLOR[1]='#FF7575';
           <TD style="border-bottom: medium dotted #8888CC"  colspan="2"><br></TD>
         </TR>
 	  </table>
-<?php  } ?>
-	  
+<?php  }else{ ?>
 <br><br><br><br>
+<?php  } ?>
+
 <?php
 	$smarty->display('footer.tpl');
 ?>

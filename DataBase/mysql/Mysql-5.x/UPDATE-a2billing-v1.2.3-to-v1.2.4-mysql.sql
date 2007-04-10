@@ -771,7 +771,7 @@ CREATE TABLE cc_outbound_cid_list (
     PRIMARY KEY (id)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
---id_outbound_cidgroup: Outbound Calls CID Group Name
+-- id_outbound_cidgroup: Outbound Calls CID Group Name
 ALTER TABLE cc_ratecard ADD COLUMN id_outbound_cidgroup INT NOT NULL DEFAULT -1;
 
 

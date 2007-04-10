@@ -3,6 +3,16 @@
                    			TODO LIST - SPECIFIC
 ********************************************************************************
 
+#### BUGS
+********************************************************************
+1. The notify user (send_reminder) when min_credit_2call is reached doesn't seem to work. I have made the changes in a2billing.conf but still no email is sent to user, how do i get this working?
+
+2. Is it possible to have the reminder sent at a differnt value than the min_credit_2call? 
+
+
+Reason for this is, I would like a reminder to be sent when a user has £x credit left in their account but the user should still be able to use the account with the current balance. At the moment the only way to achieve this is to set the min_credit_2call=0 (this way the user gets to use every penny in their account) but by this time i think the reminder that is being sent when credit=0 is too late.
+
+
 
 #### missing text put text in Gettext
 ********************************************************************
@@ -251,6 +261,12 @@ long story
 let user define a range of cardnumber (ie: 45000-46000)
 + option to check if there is a cards already between this range (interval limit 10000)
 
+
+#### FEATURE : SIGN-UP for tracking...
+********************************************************************
+working out the source of a signup so that comission can be paid. 
+a link to the signup be created that enters the source of the link against 
+the customer, e.g. an agent name or website address?
 
 
 #### FEATURE : NEW INVOICING SYSTEM

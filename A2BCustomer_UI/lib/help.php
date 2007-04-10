@@ -91,7 +91,7 @@ $CC_help_list_voucher = '
 <table width="90%">
 <tr height="55px">
 <td width="100%">
-'.gettext("Here you can view your used vouchers").'
+'.gettext("Enter your voucher number to top up your card.").'
 <br>&nbsp;
 </td>
 </tr>

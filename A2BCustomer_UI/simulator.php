@@ -205,7 +205,7 @@ $FG_TABLE_ALTERNATE_ROW_COLOR[1]='#EEE9E9';
 	  <table width="65%" border="0" align="center" cellpadding="0" cellspacing="0">
 		
 		<TR> 
-          <TD style="border-bottom: medium dotted #FF4444" colspan="2"> <B><font color="red" size="3"><?php echo gettext("Congrats, the simulator found a destination for this number!");?></font></B></TD>
+          <TD style="border-bottom: medium dotted #FF4444" colspan="2"> <B><font color="red" size="3"><?php echo gettext("Simulator found a rate for your destination");?></font></B></TD>
         </TR>
 
 		<?php if (count($RateEngine->ratecard_obj)>1){ ?>
@@ -229,7 +229,7 @@ $FG_TABLE_ALTERNATE_ROW_COLOR[1]='#EEE9E9';
 				<td height="15" bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[1]?>" style="padding-left: 5px; padding-right: 3px;">
 						<font color="blue"><b><a href="did.php"><img src="<?php echo Images_Path_Main ?>/icons/user.png" alt="a " name="image2" width="16" height="16" border="0" align="texttop" id="image2" /></a><?php echo gettext("CallTime available");?></b></font>				</td>
 				<td height="15" bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[1]?>" style="padding-left: 5px; padding-right: 3px;">
-						<font color="blue"><i><?php echo $RateEngine->ratecard_obj[$j]['timeout']/60;?> <?php echo gettext("minutes");?> </i></font>
+						<font color="blue"><i><?php echo display_minute($RateEngine->ratecard_obj[$j]['timeout']);?> <?php echo gettext("Minutes");?> </i></font>
 				</td>
 			
 			</tr>

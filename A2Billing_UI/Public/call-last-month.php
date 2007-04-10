@@ -297,7 +297,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 						<a href="#" onclick="window.open('../A2B_entity_card.php?popup_select=2&popup_formname=myForm&popup_fieldname=entercustomer' , 'CardNumberSelection','width=550,height=330,top=20,left=100');"><img src="<?php echo Images_Path;?>/icon_arrow_orange.gif"></a>
 						
 					</td>
-					<td align="right" class="class="fontstyle_searchoptions"">
+					<td align="right" class="fontstyle_searchoptions"">
 						<?php echo gettext("Provider");?>: <INPUT TYPE="text" NAME="enterprovider" value="<?php echo $enterprovider?>" size="4" class="form_input_text">
 						<a href="#" onclick="window.open('../A2B_entity_provider.php?popup_select=2&popup_formname=myForm&popup_fieldname=enterprovider' , 'ProviderSelection','width=550,height=330,top=20,left=100');"><img src="<?php echo Images_Path;?>/icon_arrow_orange.gif"></a>
 						<?php echo gettext("Trunk");?>: <INPUT TYPE="text" NAME="entertrunk" value="<?php echo $entertrunk?>" size="4" class="form_input_text">
@@ -335,7 +335,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 					?>										
 					</select>
 					</td><td class="fontstyle_searchoptions">&nbsp;&nbsp;
-					<?php echo gettext("Laps of month to compare");?> :
+					<?php echo gettext("Number of months to compare");?> :
 				 	<select name="months_compare" class="form_input_select">
 					<option value="6" <?php if ($months_compare=="6"){ echo "selected";}?>>- 6 <?php echo gettext("months");?></option>
 					<option value="5" <?php if ($months_compare=="5"){ echo "selected";}?>>- 5 <?php echo gettext("months");?></option>
@@ -455,7 +455,7 @@ foreach ($table_graph as $tkey => $data){
         <td align="center"><font class="fontstyle_003"><?php echo gettext("DURATION");?></font></td>
 		<td align="center"><font class="fontstyle_003"><?php echo gettext("GRAPHIC");?></font></td>
 		<td align="center"><font class="fontstyle_003"><?php echo gettext("CALLS");?></font></td>
-		<td align="center"><font class="fontstyle_003"> <acronym title="Average Connection Time"><?php echo gettext("ACT");?></acronym></font></td>
+		<td align="center"><font class="fontstyle_003"> <acronym title="<?php echo gettext("AVERAGE LENGTH OF CALL");?>"><?php echo gettext("ALOC");?></acronym></font></td>
                 			
 		<!-- LOOP -->
 	<?php  		

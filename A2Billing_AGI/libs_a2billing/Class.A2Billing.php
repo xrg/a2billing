@@ -1971,7 +1971,7 @@ class A2Billing {
 		$result = $this->instance_table -> SQLExec ($this->DBHandle, $QUERY);
 			
 		if( !is_array($result)) {
-			$error_msg = '<font face="Arial, Helvetica, sans-serif" size="2" color="red"><b>Error : Authentication Failed !!!</b></font><br>';
+			$error_msg = '<font face="Arial, Helvetica, sans-serif" size="2" color="red"><b>'.gettext("Error : Authentication Failed !!!").'</b></font><br>';
 			return 0;
 		}
 		
@@ -1997,39 +1997,38 @@ class A2Billing {
 		$this->cardholder_email = $result[0][19];
 		$this->cardholder_uipass = $result[0][20];
 		$this->id_campaign  = $result[0][21];
-									
+		
 		if ($this->typepaid==1) $this->credit = $this->credit+$creditlimit;
-			
-						
+		
 		// CHECK IF ENOUGH CREDIT TO CALL		
 		if( $this->credit <= $this->agiconfig['min_credit_2call'] && $this -> typepaid==0){
-			$error_msg = '<font face="Arial, Helvetica, sans-serif" size="2" color="red"><b>Error : Not enough credit to call !!!</b></font><br>';
+			$error_msg = '<font face="Arial, Helvetica, sans-serif" size="2" color="red"><b>'.gettext("Error : Not enough credit to call !!!").'</b></font><br>';
 			return 0;
 		}
 		// CHECK POSTPAY
 		if( $this->typepaid==1 && $this->credit <= -$creditlimit && $creditlimit!=0){
-			$error_msg = '<font face="Arial, Helvetica, sans-serif" size="2" color="red"><b>Error : Not enough credit to call !!!</b></font><br>';
+			$error_msg = '<font face="Arial, Helvetica, sans-serif" size="2" color="red"><b>'.gettext("Error : Not enough credit to call !!!").'</b></font><br>';
 			return 0;
 		}
-			
+		
 		// CHECK activated=t / CARD NOT ACTIVE, CONTACT CUSTOMER SUPPORT
 		if( $this->active != "t" && $this->active != "1" ){
-			$error_msg = '<font face="Arial, Helvetica, sans-serif" size="2" color="red"><b>Error : Card is not active!!!</b></font><br>';
+			$error_msg = '<font face="Arial, Helvetica, sans-serif" size="2" color="red"><b>'.gettext("Error : Card is not active!!!").'</b></font><br>';
 			return 0;
 		}
-			
+		
 		// CHECK IF THE CARD IS USED
 		if (($isused>0) && ($simultaccess!=1)){
-			$error_msg = '<font face="Arial, Helvetica, sans-serif" size="2" color="red"><b>Error : Card is actually in use!!!</b></font><br>';
+			$error_msg = '<font face="Arial, Helvetica, sans-serif" size="2" color="red"><b>'.gettext("Error : Card is actually in use!!!").'</b></font><br>';
 			return 0;
 		}
-			
+		
 		// CHECK FOR EXPIRATION  -  enableexpire ( 0 : none, 1 : expire date, 2 : expire days since first use, 3 : expire days since creation)
 		if ($this->enableexpire>0){
 			if ($this->enableexpire==1  && $this->expirationdate!='00000000000000' && strlen($this->expirationdate)>5){
 				// expire date						
 				if (intval($this->expirationdate-time())<0){ // CARD EXPIRED :(				
-					$error_msg = '<font face="Arial, Helvetica, sans-serif" size="2" color="red"><b>Error : Card have expired!!!</b></font><br>';
+					$error_msg = '<font face="Arial, Helvetica, sans-serif" size="2" color="red"><b>'.gettext("Error : Card have expired!!!").'</b></font><br>';
 					return 0;	
 				}
 					
@@ -2037,7 +2036,7 @@ class A2Billing {
 				// expire days since first use			
 				$date_will_expire = $this->firstusedate+(60*60*24*$this->expiredays);
 				if (intval($date_will_expire-time())<0){ // CARD EXPIRED :(				
-				$error_msg = '<font face="Arial, Helvetica, sans-serif" size="2" color="red"><b>Error : Card have expired!!!</b></font><br>';
+				$error_msg = '<font face="Arial, Helvetica, sans-serif" size="2" color="red"><b>'.gettext("Error : Card have expired!!!").'</b></font><br>';
 				return 0;	
 			}
 		
@@ -2045,12 +2044,12 @@ class A2Billing {
 				// expire days since creation
 				$date_will_expire = $this->creationdate+(60*60*24*$this->expiredays); 
 				if (intval($date_will_expire-time())<0){ // CARD EXPIRED :(				
-					$error_msg = '<font face="Arial, Helvetica, sans-serif" size="2" color="red"><b>Error : Card have expired!!!</b></font><br>';
+					$error_msg = '<font face="Arial, Helvetica, sans-serif" size="2" color="red"><b>'.gettext("Error : Card have expired!!!").'</b></font><br>';
 					return 0;	
 				}		
 			}
 		}
-								
+		
 		return 1;
 	}
 

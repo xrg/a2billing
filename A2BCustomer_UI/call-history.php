@@ -339,7 +339,7 @@ echo '<br>'.$CC_help_balance_customer;
         		<td class="bgcolor_004" align="left" >
 
 					<input type="radio" name="Period" value="Month" <?php  if (($Period=="Month") || !isset($Period)){ ?>checked="checked" <?php  } ?>> 
-					<font class="callhistory_td4"><?php echo gettext("SELECT MONTH");?></font>
+					<font class="callhistory_td4"><?php echo gettext("SELECT BY MONTH");?></font>
 				</td>
 				<td class="bgcolor_005" align="left" >
 					<table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -391,7 +391,7 @@ echo '<br>'.$CC_help_balance_customer;
 			<tr>
         		<td align="left" class="bgcolor_002">
 					<input type="radio" name="Period" value="Day" <?php  if ($Period=="Day"){ ?>checked="checked" <?php  } ?>> 
-					<font class="callhistory_td4"><?php echo gettext("SELECT DAY");?></b></font>
+					<font class="callhistory_td4"><?php echo gettext("SELECT BY DAY");?></b></font>
 				</td>
       			<td align="left" class="bgcolor_003">
 					<table width="100%" border="0" cellspacing="0" cellpadding="0" >
@@ -461,10 +461,10 @@ echo '<br>'.$CC_help_balance_customer;
 				<td  align="left" class="bgcolor_005">
 				<table width="100%" border="0" cellspacing="0" cellpadding="0">
 				<tr><td class="fontstyle_searchoptions">&nbsp;&nbsp;<INPUT TYPE="text" NAME="dst" value="<?php echo $dst?>" class="form_input_text"></td>
-				<td  align="center" ><input type="radio" NAME="dsttype" value="1" <?php if((!isset($dsttype))||($dsttype==1)){?>checked<?php }?>><?php echo gettext("Exact");?></td>
-				<td  align="center" ><input type="radio" NAME="dsttype" value="2" <?php if($dsttype==2){?>checked<?php }?>><?php echo gettext("Begins with")?></td>
-				<td  align="center" ><input type="radio" NAME="dsttype" value="3" <?php if($dsttype==3){?>checked<?php }?>><?php echo gettext("Contains");?></td>
-				<td  align="center" ><input type="radio" NAME="dsttype" value="4" <?php if($dsttype==4){?>checked<?php }?>><?php echo gettext("End with");?></td>
+				<td  align="center" class="fontstyle_searchoptions"><input type="radio" NAME="dsttype" value="1" <?php if((!isset($dsttype))||($dsttype==1)){?>checked<?php }?>><?php echo gettext("Exact");?></td>
+				<td  align="center" class="fontstyle_searchoptions"><input type="radio" NAME="dsttype" value="2" <?php if($dsttype==2){?>checked<?php }?>><?php echo gettext("Begins with")?></td>
+				<td  align="center" class="fontstyle_searchoptions"><input type="radio" NAME="dsttype" value="3" <?php if($dsttype==3){?>checked<?php }?>><?php echo gettext("Contains");?></td>
+				<td  align="center" class="fontstyle_searchoptions"><input type="radio" NAME="dsttype" value="4" <?php if($dsttype==4){?>checked<?php }?>><?php echo gettext("End with");?></td>
 				</tr></table></td>
 			</tr>			
 			<!-- Select Option : to show just the Answered Calls or all calls, Result type, currencies... -->
