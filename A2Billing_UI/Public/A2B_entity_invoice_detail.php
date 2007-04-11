@@ -15,21 +15,21 @@ getpost_ifset(array('customer', 'posted', 'Period', 'exporttype', 'choose_billpe
 
 $DBHandle  = DbConnect();
 
-if($id == "")
+if($id == "" || !is_numeric($id))
 {
-	exit("Invalid ID");
+	exit(gettext("Invalid ID"));
 }
 
 $num = 0;
 $QUERY = "Select username from cc_card t1, cc_invoices t2 where t1.id = t2.cardid and t2.id=$id";
 $res_user = $DBHandle -> Execute($QUERY);
-if ($res_user)
+if ($res_user){
 	$num = $res_user -> RecordCount( );
-
+}
 if($num > 0)
 {
-	$userRecord = $res_user -> fetchRow();				 
-	$customer = $userRecord[0];	
+	$userRecord = $res_user -> fetchRow();
+	$customer = $userRecord[0];
 }
 else
 {
@@ -690,7 +690,7 @@ if (is_array($list_total_did) && count($list_total_did)>0)
 			  <td width="10%" class="invoice_td"><?php 
 			  if($data[2] == 3 || $data[2] == 1)
 			  {
-			  	echo "None";
+			  	echo gettext("None");
 				$ccost = 0;
 			  }
 			  else
@@ -767,35 +767,19 @@ if (is_array($list_total_did) && count($list_total_did)>0)
         <td><table cellspacing="0" cellpadding="0">
             <tr>
               <td width="15%"><?php echo gettext("Status") ?>&nbsp; :&nbsp; </td>
-              <td width="10%"><?php if($info_customer[0][12] == 't') {?>
-			  <img width="18" height="7" src="<?php echo Images_Path;?>/connected.gif">
+              <td width="10%">
+			  <?php if($info_customer[0][12] == 't') {?>
+			  	<img width="18" height="7" src="<?php echo Images_Path;?>/connected.gif">
+				<?php echo gettext("Connected") ?> 
 			  <?php }
 			  else
 			  {
 			  ?>
-			  <img width="18" height="7" src="<?php echo Images_Path;?>/terminated.gif">
+			  	<img width="18" height="7" src="<?php echo Images_Path;?>/terminated.gif">
+				<?php echo gettext("DisConnected") ?>
 			  <?php }?></td>
               <td width="75%">&nbsp; </td>
             </tr>
-        </table></td>
-      </tr>
-      <tr>
-        <td><table width="100%" cellpadding="0" cellspacing="0">
-            <tr>
-              <td valign="top"><table width="400" height="22" align="left" cellpadding="0" cellspacing="0">
-                  <tr>
-                    <td width="4%">&nbsp; </td>
-                    <td width="4%"><img width="18" height="7" src="<?php echo Images_Path;?>/connected.gif"></td>
-                    <td width="20%"><?php echo gettext("Connected") ?> </td>
-                    <td width="4%"><img width="22" height="7" src="<?php echo Images_Path;?>/terminated.gif"></td>
-                    <td width="20%"><?php echo gettext("DisConnected") ?> </td> 
-                  </tr>
-                </table>
-                  <table cellpadding="0">
-                    <tr>
-                      <td>&nbsp;</td>
-                    </tr>
-                  </table>
         </table></td>
       </tr>
     </table>
@@ -808,13 +792,13 @@ if (is_array($list_total_did) && count($list_total_did)>0)
 	<table  cellspacing="0" class="invoice_main_table">
      
       <tr>
-        <td class="invoice_heading">Bill Details</td>
+        <td class="invoice_heading"><?php echo gettext("Invoice Details") ?></td>
       </tr>	  
 	 <tr>
 	 <td>&nbsp;</td>
 	 </tr> 
 	  <tr>
-	 <td align="center">No invoice is billed to you yet!</td>
+	 <td align="center"><?php echo gettext("No invoice has been created for you !") ?></td>
 	 </tr> 
 	  <tr>
 	 <td>&nbsp;</td>
@@ -829,13 +813,13 @@ else
 	<table  cellspacing="0" class="invoice_main_table">
      
       <tr>
-        <td class="invoice_heading">Bill Details</td>
+        <td class="invoice_heading"><?php echo gettext("Invoice Details") ?></td>
       </tr>	  
 	 <tr>
 	 <td>&nbsp;</td>
 	 </tr> 
 	  <tr>
-	 <td align="center">No invoice is billed to you yet!</td>
+	 <td align="center"><?php echo gettext("No invoice has been created for you !") ?></td>
 	 </tr> 
 	  <tr>
 	 <td>&nbsp;</td>

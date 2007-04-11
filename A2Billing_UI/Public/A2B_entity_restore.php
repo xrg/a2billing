@@ -90,7 +90,7 @@ if ($form_action == "upload"){
 			exit;
 		}	
 	} else {
-		$error_upload="Error uploading file";
+		$error_upload=gettext("Error uploading file");
 	}
 }
 																	
@@ -132,7 +132,7 @@ function CheckForm() {
 <form  name="Dupload" enctype="multipart/form-data" action="A2B_entity_restore.php" method="POST">
 	<TR valign="middle">
 		<TD align="center">
-			Upload a database backup&nbsp;<input type="file" name="databasebackup" value="">
+			<?php echo gettext("Upload a database backup")?>&nbsp;<input type="file" name="databasebackup" value="">
 		<img src="<?php echo Images_Path;?>/clear.gif">
 		<input type="hidden" name="MAX_FILE_SIZE" value="8000">
 		<input type="hidden" name="form_action" value="upload">

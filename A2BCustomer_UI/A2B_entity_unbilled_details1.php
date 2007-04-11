@@ -452,14 +452,14 @@ $totalcost_did = $totalcost;
 </tr>
 </table>
 <br>
-<center><h4><font color="#FF0000">Unbilled Details for Card Number&nbsp;<?php echo $info_customer[0][1] ?> </font></h4></center>
+<center><h4><font color="#FF0000"><?php echo gettext("Unbilled Details for Card Number")?>&nbsp;<?php echo $info_customer[0][1] ?> </font></h4></center>
 <br>
 <br>
 	
 	<table cellspacing="0" cellpadding="2" align="center" width="80%" >
      
       <tr>
-        <td colspan="2" bgcolor="#FFFFCC"><font size="5" color="#FF0000">Unbilled Details</font></td>
+        <td colspan="2" bgcolor="#FFFFCC"><font size="5" color="#FF0000"><?php echo gettext("Unbilled Details")?></font></td>
       </tr>
       <tr>
         <td valign="top" colspan="2"></td>
@@ -469,15 +469,15 @@ $totalcost_did = $totalcost;
 	  <td >&nbsp; </td>
 	</tr>
 	<tr>
-	  <td width="35%" ><font color="#003399">Name :</font> </td>
+	  <td width="35%" ><font color="#003399"><?php echo gettext("Name")?>&nbsp; :</font> </td>
 	  <td  ><font color="#003399"><?php echo $info_customer[0][3] ." ".$info_customer[0][2] ?></font></td>
 	</tr>
 	<tr>
-	  <td width="35%" ><font color="#003399">Card Number :</font></td>
+	  <td width="35%" ><font color="#003399"><?php echo gettext("Card Number")?>&nbsp; :</font></td>
 	  <td  ><font color="#003399"><?php echo $info_customer[0][1] ?></font> </td>
 	</tr>           
 	<tr>
-	  <td width="35%" ><font color="#003399">As of Date :</font></td>
+	  <td width="35%" ><font color="#003399"><?php echo gettext("As of Date")?>&nbsp; :</font></td>
 	  <td  ><font color="#003399"><?php echo date('m-d-Y');?> </font></td>
 	</tr>
 	</table>
@@ -493,15 +493,15 @@ $totalcost_did = $totalcost;
 	  <?php }?>
 	 
    				<tr>
-				<td colspan="4" align="center"><font> <b>By Destination</b></font> </td>
+				<td colspan="4" align="center"><font> <b><?php echo gettext("By Destination")?></b></font> </td>
 				</tr>
 
 			<tr bgcolor="#CCCCCC">
-              <td  width="29%"><font color="#003399"><b>Destination </b></font></td>
-              <td width="38%" ><font color="#003399"><b>Duration</b></font> </td>
+              <td  width="29%"><font color="#003399"><b><?php echo gettext("Destination")?> </b></font></td>
+              <td width="38%" ><font color="#003399"><b><?php echo gettext("Duration")?></b></font> </td>
 			 
-			  <td width="12%" align="center" ><font color="#003399"><b>Calls </b></font></td>
-              <td   align="right"><font color="#003399"><b>Amount (US $) </b></font></td>
+			  <td width="12%" align="center" ><font color="#003399"><b><?php echo gettext("Calls")?> </b></font></td>
+              <td   align="right"><font color="#003399"><b><?php echo gettext("Amount (US $)")?> </b></font></td>
             </tr>
 			<?php  		
 				$i=0;
@@ -580,14 +580,14 @@ $totalcost_did = $totalcost;
 				?>
 				
 				<tr>
-				<td colspan="4" align="center"><b>By Date</b> </td>
+				<td colspan="4" align="center"><b><?php echo gettext("By Date")?></b> </td>
 				</tr>
 			  <tr bgcolor="#CCCCCC">
-              <td  width="29%"><font color="#003399"><b>Date</b> </font></td>
-              <td width="38%" ><font color="#003399"><b>Duration</b> </font></td>
+              <td  width="29%"><font color="#003399"><b><?php echo gettext("Date")?></b> </font></td>
+              <td width="38%" ><font color="#003399"><b><?php echo gettext("Duration")?></b> </font></td>
 			  
-			  <td width="12%" align="center" ><font color="#003399"><b>Calls</b> </font></td>
-              <td width="21%"  align="right"><font color="#003399"><b>Cost (US $)</b> </font></td>
+			  <td width="12%" align="center" ><font color="#003399"><b><?php echo gettext("Calls")?></b> </font></td>
+              <td width="21%"  align="right"><font color="#003399"><b><?php echo gettext("Cost (US $)")?></b> </font></td>
             </tr>
 			<?php  		
 				$i=0;
@@ -663,15 +663,15 @@ $totalcost_did = $totalcost;
 		
 		<table width="100%" align="left" cellpadding="0" cellspacing="0">
    				<tr>
-				<td colspan="6" align="center"><font><b>DID Billing</b></font> </td>
+				<td colspan="6" align="center"><font><b><?php echo gettext("DID Billing")?></b></font> </td>
 				</tr>
 			<tr  bgcolor="#CCCCCC">
-              <td  width="20%"> <font color="#003399"><b>DID </b></font></td>
-              <td width="14%" ><font color="#003399"><b>Duration </b></font></td>
-			  <td width="16%" ><font color="#003399"><b>Fixed</b></font> </td>
-			  <td width="14%" ><font color="#003399"><b>Calls </b></font></td>
-  			  <td width="17%" ><font color="#003399"><b>Call Cost </b></font></td>
-              <td width="19%"  align="right"><font color="#003399"><b>Amount (US $)</b></font> </td>
+              <td  width="20%"> <font color="#003399"><b><?php echo gettext("DID")?> </b></font></td>
+              <td width="14%" ><font color="#003399"><b><?php echo gettext("Duration")?> </b></font></td>
+			  <td width="16%" ><font color="#003399"><b><?php echo gettext("Fixed")?></b></font> </td>
+			  <td width="14%" ><font color="#003399"><b><?php echo gettext("Calls")?> </b></font></td>
+  			  <td width="17%" ><font color="#003399"><b><?php echo gettext("Call Cost")?> </b></font></td>
+              <td width="19%"  align="right"><font color="#003399"><b><?php echo gettext("Amount (US $)")?></b></font> </td>
             </tr>
 			<?php  		
 				$i=0;
@@ -704,7 +704,7 @@ $totalcost_did = $totalcost;
   			  <td width="16%" ><font color="#003399"><?php 
 			  if($data[2] == 2 || $data[2] == 3)
 			  {
-			  	echo "None";
+			  	echo gettext("None");
 				$fcost = 0;
 				
 			  }
@@ -718,7 +718,7 @@ $totalcost_did = $totalcost;
 			  <td width="17%" ><font color="#003399"><?php 
 			  if($data[2] == 3 || $data[2] == 1)
 			  {
-			  	echo "None";
+			  	echo gettext("None");
 				$ccost = 0;
 			  }
 			  else
@@ -760,7 +760,7 @@ $totalcost_did = $totalcost;
 			{								
 			 ?>   
 			  <tr >
-              <td width="100%" class="invoice_td" colspan="6">&nbsp; No DID Calls Available</td>             
+              <td width="100%" class="invoice_td" colspan="6">&nbsp; <?php echo gettext("No DID Calls Available")?></td>             
 			  
             </tr>          
 			 <?php			 
@@ -797,7 +797,7 @@ $totalcost_did = $totalcost;
 			<td colspan="3">&nbsp;</td>
 			</tr>           			
 			<tr>
-              <td  align="left">Status :&nbsp;<?php if($info_customer[0][12] == 't') {?>
+              <td  align="left"><?php echo gettext("Status")?>&nbsp; :&nbsp;<?php if($info_customer[0][12] == 't') {?>
 			  <img src="<?php echo Images_Path;?>/connected.jpg">
 			  <?php }
 			  else
@@ -807,8 +807,8 @@ $totalcost_did = $totalcost;
 			  <?php }?> </td>              
             </tr>      
       <tr>	  
-	  <td  align="left">&nbsp; <img src="<?php echo Images_Path;?>/connected.jpg"> &nbsp; Connected
-	  &nbsp;&nbsp;&nbsp;<img src="<?php echo Images_Path;?>/terminated.jpg">&nbsp; Disconnected
+	  <td  align="left">&nbsp; <img src="<?php echo Images_Path;?>/connected.jpg"> &nbsp;<?php echo gettext("Connected")?> 
+	  &nbsp;&nbsp;&nbsp;<img src="<?php echo Images_Path;?>/terminated.jpg">&nbsp; <?php echo gettext("Disconnected")?>
 	  
 	  </td>
 </table>

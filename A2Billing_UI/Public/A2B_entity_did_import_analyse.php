@@ -21,12 +21,12 @@ getpost_ifset(array('didgroup', 'search_sources', 'task', 'status','countryID'))
 
 $didgroupval= split('-:-', $didgroup);
 if (!is_numeric($didgroupval[0])){
-	echo "No DIDGroup defined !";
+	echo gettext("No DIDGroup defined !");
 	exit();
 }
 $countryIDval= split('-:-', $countryID);
 if (!is_numeric($countryIDval[0])){
-	echo "No Country defined !";
+	echo gettext("No Country defined !");
 	exit();
 }
 
@@ -253,7 +253,7 @@ function sendtoupload(form){
 		
 	
 	if (form.the_file.value.length < 2){
-		alert ('Please, you must first select a file !');
+		alert ('<?php echo gettext("Please, you must first select a file !")?>');
 		form.the_file.focus ();
 		return (false);
 	}
@@ -275,17 +275,17 @@ function sendtoupload(form){
           
 		<?php  if ($status!="ok"){?> 
 		
-		<center>As a preview for the import, we have made a quick analyze of the first line of your csv file.<br/>
-		Please check out if everything look correct!</center>
+		<center><?php echo gettext("As a preview for the import, we have made a quick analyze of the first line of your csv file.<br/>
+		Please check out if everything look correct!")?></center>
 		
 		<table align=center border="0" cellpadding="2" cellspacing="2" width="300">
 			<tbody>
                 <tr class="form_head">                  					
                   <td class="tableBody" style="padding: 2px;" align="center" width="50%"> 
-                    <strong> <span class="white_link">FIELD </span> </strong>
+                    <strong> <span class="white_link"><?php echo gettext("FIELD")?> </span> </strong>
 				  </td>
 				  <td class="tableBody" style="padding: 2px;" align="center" width="50%"> 
-                    <strong> <span class="white_link">VALUE </span> </strong>
+                    <strong> <span class="white_link"><?php echo gettext("VALUE")?> </span> </strong>
 				  </td>
                 </tr>
 				<tr bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[1]?>"  onMouseOver="bgColor='#C4FFD7'" onMouseOut="bgColor='<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[1]?>'">

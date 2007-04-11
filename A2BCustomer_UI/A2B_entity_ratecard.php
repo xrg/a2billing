@@ -69,7 +69,7 @@ $HD_Form -> create_toppage ($form_action);
     <table width="75%" border=0 cellspacing=1 cellpadding=3 bgcolor="#000033" align="center">
         <tr>
        <td bgcolor="#000033" width="100%" valign="top" align="center" class="bb2">
-	   		  <a href="A2B_entity_ratecard.php?form_action=list&ratesort=">NONE</a>
+	   		  <a href="A2B_entity_ratecard.php?form_action=list&ratesort="><?php echo gettext("NONE")?></a>
               <a href="A2B_entity_ratecard.php?form_action=list&ratesort=A">A</a>
               <a href="A2B_entity_ratecard.php?form_action=list&ratesort=B">B</a>         
               <a href="A2B_entity_ratecard.php?form_action=list&ratesort=C">C</a>         

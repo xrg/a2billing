@@ -128,7 +128,7 @@ country, zipcode, phone, userpass) values ('2465773443', '331', 'a', 't', 'LASTN
 			if (is_array($list_friend)){
 				$fd=fopen($buddyfile,"w");
 				if (!$fd){
-					$error_msg= "</br><center><b><font color=red>Could not open buddy file '$buddyfile'</font></b></center>";
+					$error_msg= "</br><center><b><font color=red>".gettext("Could not open buddy file")." ". $buddyfile."</font></b></center>";
 				}else{
 					foreach ($list_friend as $data){
 						$line="\n\n[".$data[1]."]\n";
@@ -146,7 +146,7 @@ country, zipcode, phone, userpass) values ('2465773443', '331', 'a', 't', 'LASTN
 									} else    $line = (trim($list_names[$i]).'='.$data[$i+1]."\n");
 	
 									if (fwrite($fd, $line) === FALSE){
-										echo "Impossible to write to the file ($buddyfile)";
+										echo gettext("Impossible to write to the file")." ($buddyfile)";
 										break;
 									}
 								}
@@ -169,7 +169,7 @@ country, zipcode, phone, userpass) values ('2465773443', '331', 'a', 't', 'LASTN
 			if (is_array($list_friend)){
 				$fd=fopen($buddyfile,"w");
 				if (!$fd){
-					$error_msg= "</br><center><b><font color=red>Could not open buddy file '$buddyfile'</font></b></center>";
+					$error_msg= "</br><center><b><font color=red>".gettext("Could not open buddy file"). $buddyfile."</font></b></center>";
 				}else{
 					foreach ($list_friend as $data){
 						$line="\n\n[".$data[1]."]\n";
@@ -187,7 +187,7 @@ country, zipcode, phone, userpass) values ('2465773443', '331', 'a', 't', 'LASTN
 									} else    $line = (trim($list_names[$i]).'='.$data[$i+1]."\n");
 	
 									if (fwrite($fd, $line) === FALSE){
-										echo "Impossible to write to the file ($buddyfile)";
+										echo gettext("Impossible to write to the file")." ($buddyfile)";
 										break;
 									}
 								}
@@ -346,7 +346,7 @@ $nb_tariff = count($list_tariff);
 				<?php echo gettext("Yes");?> <input name="runservice" value="1" type="radio"> - <?php echo gettext("No");?> <input name="runservice" value="0" checked="checked"  type="radio">
 				<br/>
 				<strong>13)</strong>
-			   <?php echo gettext("Create SIP/IAX Friends");?>&nbsp;: SIP <input type="checkbox" name="sip" value="1" checked> IAX : <input type="checkbox" name="iax" value="1" checked>
+			   <?php echo gettext("Create SIP/IAX Friends");?>&nbsp;: <?php echo gettext("SIP")?> <input type="checkbox" name="sip" value="1" checked> <?php echo gettext("IAX")?> : <input type="checkbox" name="iax" value="1" checked>
 				<br/>
 		</td>	
 		<td align="left" valign="bottom"> 

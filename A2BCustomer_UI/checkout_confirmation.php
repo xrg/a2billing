@@ -61,15 +61,15 @@ $smarty->display( 'main.tpl');
  <br>
 <table width=80% align=center class="infoBox">
 <tr height="15">
-    <td colspan=2 class="infoBoxHeading">&nbsp;Please confirm your order;</td>
+    <td colspan=2 class="infoBoxHeading">&nbsp;<?php echo gettext("Please confirm your order")?>;</td>
 </tr>
 <tr>
     <td width=50%>&nbsp;</td>
     <td width=50%>&nbsp;</td>
 </tr>
 <tr>
-    <td align=right>Total Amount: &nbsp;</td>
-    <td align=left><?php echo $amount?> USD</td>
+    <td align=right><?php echo gettext("Total Amount")?>: &nbsp;</td>
+    <td align=left><?php echo $amount?> <?php echo gettext("USD")?></td>
 </tr>
 <tr>
     <td>&nbsp;</td>
@@ -79,7 +79,7 @@ $smarty->display( 'main.tpl');
 <br>
 <table class="infoBox" width="80%" cellspacing="0" cellpadding="2" align=center>
    <tr height="25">
-   <td  align=left class="main"> <b>Please click button to confirm your order.</b>
+   <td  align=left class="main"> <b><?php echo gettext("Please click button to confirm your order")?>.</b>
    </td>
           <td align=right halign=center >
             <input type="image" src="<?php echo Images_Path;?>/button_confirm_order.gif" alt="Confirm Order" border="0" title="Confirm Order">

@@ -404,7 +404,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 </table>
 <br>
 <center>
-  <h4><font color="#FF0000">Call Details for Card Number&nbsp;<?php echo $info_customer[0][1] ?> </font></h4>
+  <h4><font color="#FF0000"><?php echo gettext("Call Details for Card Number")?>&nbsp;<?php echo $info_customer[0][1] ?> </font></h4>
 </center>
 <br>
 <br>
@@ -412,22 +412,22 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 <table  cellspacing="0"  cellpadding="2" width="80%" align="center">
      
       <tr>
-        <td  colspan="2"  width="100%" bgcolor="#FFFFCC"><font size="5" color="#FF0000">Calls Details</font></td>
+        <td  colspan="2"  width="100%" bgcolor="#FFFFCC"><font size="5" color="#FF0000"><?php echo gettext("Calls Details")?></font></td>
       </tr>
 	  <tr>
               <td width="35%">&nbsp; </td>
               <td width="65%">&nbsp; </td>
             </tr>
             <tr>
-              <td width="35%" ><font color="#003399">Name : </font></td>
+              <td width="35%" ><font color="#003399"><?php echo gettext("Name")?>&nbsp; : </font></td>
               <td width="65%" ><font color="#003399"><?php echo $info_customer[0][3] ." ".$info_customer[0][2] ?></font></td>
             </tr>
             <tr>
-              <td width="35%" ><font color="#003399">Card Number :</font></td>
+              <td width="35%" ><font color="#003399"><?php echo gettext("Card Number")?>&nbsp; :</font></td>
               <td width="65%" ><font color="#003399"><?php echo $info_customer[0][1] ?></font> </td>
             </tr>           
             <tr>
-              <td width="35%" ><font color="#003399">As of Date :</font></td>
+              <td width="35%" ><font color="#003399"><?php echo gettext("As of Date")?>&nbsp; :</font></td>
               <td width="65%" ><font color="#003399"><?php echo date('m-d-Y');?> </font></td>
             </tr>
             <tr>
@@ -437,10 +437,10 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 			
 		<table  cellspacing="0"  cellpadding="2" width="80%" align="center">
    		  <tr>
-					<td colspan="100" align="center"><font><b>No of Calls:&nbsp;<?php  if (is_array($list) && count($list)>0){ echo $nb_record; }else{echo "0";}?></center></b></font> </td>
+					<td colspan="100" align="center"><font><b><?php echo gettext("No of Calls")?>:&nbsp;<?php  if (is_array($list) && count($list)>0){ echo $nb_record; }else{echo "0";}?></center></b></font> </td>
 			  </tr>
       		<tr bgcolor="#CCCCCC">
-              <td  width="5%"><font color="#003399"><b>Sr#</b></font> </td>
+              <td  width="5%"><font color="#003399"><b><?php echo gettext("Sr")?>#</b></font> </td>
 			   <?php 
 				  	if (is_array($list) && count($list)>0)
 					{
@@ -530,10 +530,10 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
     </table>
 <table  cellspacing="0"  cellpadding="2" width="80%" align="center">
    		  <tr>
-					<td colspan="100" align="center"><font><b>No of DID Calls:&nbsp;<?php  if (is_array($list_did) && count($list_did)>0){ echo $nb_record_did; }else{echo "0";}?></center></b></font> </td>
+					<td colspan="100" align="center"><font><b><?php echo gettext("No of DID Calls")?>:&nbsp;<?php  if (is_array($list_did) && count($list_did)>0){ echo $nb_record_did; }else{echo "0";}?></center></b></font> </td>
 			  </tr>
       		<tr bgcolor="#CCCCCC">
-              <td  width="5%"><font color="#003399"><b>Sr#</b></font> </td>
+              <td  width="5%"><font color="#003399"><b><?php echo gettext("Sr")?>#</b></font> </td>
 			   <?php 
 				  	if (is_array($list_did) && count($list_did)>0)
 					{

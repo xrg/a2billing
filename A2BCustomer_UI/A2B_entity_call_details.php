@@ -675,15 +675,15 @@ function formsubmit()
               <td width="65%">&nbsp; </td>
             </tr>
             <tr>
-              <td width="35%" class="invoice_td">Name : </td>
+              <td width="35%" class="invoice_td"><?php echo gettext("Name")?>&nbsp; : </td>
               <td width="65%" class="invoice_td"><?php echo $info_customer[0][3] ." ".$info_customer[0][2] ?></td>
             </tr>
             <tr>
-              <td width="35%" class="invoice_td">Card Number :</td>
+              <td width="35%" class="invoice_td"><?php echo gettext("Card Number")?>&nbsp; :</td>
               <td width="65%" class="invoice_td"><?php echo $info_customer[0][1] ?> </td>
             </tr>
             <tr>
-              <td width="35%" class="invoice_td">As of Date :</td>
+              <td width="35%" class="invoice_td"><?php echo gettext("As of Date")?>&nbsp; :</td>
               <td width="65%" class="invoice_td"><?php echo date('m-d-Y');?> </td>
             </tr>
             <tr>
@@ -694,7 +694,7 @@ function formsubmit()
       <tr>
         <td valign="top"><table width="100%" align="left" cellpadding="0" cellspacing="0">
    				<tr>
-				<td colspan="100" align="center"><font><b>No of Calls:&nbsp;<?php  if (is_array($list) && count($list)>0){ echo $nb_record; }else{echo "0";}?></center></b></font> </td>
+				<td colspan="100" align="center"><font><b><?php echo gettext("No of Calls")?>:&nbsp;<?php  if (is_array($list) && count($list)>0){ echo $nb_record; }else{echo "0";}?></center></b></font> </td>
 				</tr>
 
 			<tr class="invoice_subheading">
@@ -794,7 +794,7 @@ function formsubmit()
 	  
 	  <table width="100%" align="left" cellpadding="0" cellspacing="0">
    				<tr>
-				<td colspan="100" align="center"><font><b>DID Calls :: No of Calls:&nbsp;<?php  if (is_array($list_did) && count($list_did)>0){ echo $nb_record_did; }else{echo "0";}?></center></b></font> </td>
+				<td colspan="100" align="center"><font><b><?php echo gettext("DID Calls")?>&nbsp; ::&nbsp; <?php echo gettext("No of Calls")?>:&nbsp;<?php  if (is_array($list_did) && count($list_did)>0){ echo $nb_record_did; }else{echo "0";}?></center></b></font> </td>
 				</tr>
 
 			<tr class="invoice_subheading">

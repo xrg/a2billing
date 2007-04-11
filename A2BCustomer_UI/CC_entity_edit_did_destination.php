@@ -646,7 +646,7 @@ function sendtolittle(direction){
                               <TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
                                 <TBODY>
                                   <TR> 
-                                    <TD class="form_head"><?php echo $FG_TABLE_EDITION[$i][0]?> LIST </TD>                                    
+                                    <TD class="form_head"><?php echo $FG_TABLE_EDITION[$i][0]?>&nbsp;<?php echo gettext("LIST")?>  </TD>                                    
                                   </TR>
                                 </TBODY>
                               </TABLE></TD>
@@ -705,7 +705,7 @@ function sendtolittle(direction){
 			?>
                                   <TR bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$j%2]?>"  onMouseOver="bgColor='#C4FFD7'" onMouseOut="bgColor='<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$j%2]?>'"> 
                                     <TD colspan="2" align="<?php echo $FG_TABLE_COL[$i][3]?>" vAlign=top class=tableBody> 
-                                      <div align="center" class="liens">No <?php echo $FG_TABLE_EDITION[$i][0]?></div></TD>
+                                      <div align="center" class="liens"><?php echo gettext("No")?> <?php echo $FG_TABLE_EDITION[$i][0]?></div></TD>
                                   </TR>
                                   <?php 
 	}
@@ -739,7 +739,7 @@ function sendtolittle(direction){
                                 <TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
                                   <TBODY>
                                     <TR> 
-                                      <TD class="form_head"><?php gettext("Add a new ");?> <?php echo $FG_TABLE_EDITION[$i][0]?></TD>
+                                      <TD class="form_head"><?php gettext("Add a new");?>&nbsp; <?php echo $FG_TABLE_EDITION[$i][0]?></TD>
                                     </TR>
                                   </TBODY>
                                 </TABLE></TD>
@@ -841,7 +841,7 @@ function sendtolittle(direction){
                                 <TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
                                   <TBODY>
                                     <TR> 
-                                      <TD class="form_head"> LIST <?php echo $FG_TABLE_EDITION[$i][0]?></TD>                                      
+                                      <TD class="form_head"><?php echo gettext("LIST")?> &nbsp; <?php echo $FG_TABLE_EDITION[$i][0]?></TD>                                      
                                     </TR>
                                   </TBODY>
                                 </TABLE></TD>
@@ -1116,8 +1116,7 @@ function sendtolittle(direction){
               <TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
                 <TBODY>
                   <TR> 
-                    <TD><SPAN style="COLOR: #ffffff; FONT-SIZE: 11px"><B> Deletion 
-                      confirmation </B></SPAN></TD>
+                    <TD><SPAN style="COLOR: #ffffff; FONT-SIZE: 11px"><B> <?php echo gettext("Deletion confirmation")?> </B></SPAN></TD>
                     <TD align=right> <IMG alt="Back to Top" border=0 height=12 src="../Images/btn_top_12x12.gif" width=12> 
                     </TD>
                   </TR>

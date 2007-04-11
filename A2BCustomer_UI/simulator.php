@@ -158,18 +158,18 @@ function openURL(theLINK)
 	  <table width="<?php echo $FG_HTML_TABLE_WIDTH?>" border="0" align="center" cellpadding="0" cellspacing="0">
 		
 		<TR> 
-          <TD style="border-bottom: medium dotted #8888CC" colspan="2"> <B><?php gettext("Call - Simulator");?></B></TD>
+          <TD style="border-bottom: medium dotted #8888CC" colspan="2"> <B><?php echo gettext("Call")." - ".gettext("Simulator");?></B></TD>
         </TR>
 		<FORM NAME="theFormFilter" action="<?php echo $PHP_SELF?>">		
 		<tr>			
             <td height="31" class="bgcolor_009" style="padding-left: 5px; padding-right: 3px;">
 					<br>
-					<font class="fontstyle_008"><?php echo gettext("Enter the number you wish to call :");?></font>
+					<font class="fontstyle_008"><?php echo gettext("Enter the number you wish to call");?>&nbsp;:</font>
 					<INPUT type="text" name="called" value="<?php echo $called;?>" class="form_input_text">
 					<br>
 					<?php if (false){ ?>
 					<br>
-					<font color="white"><b><?php echo gettext("YOUR BALANCE :");?></b></font>
+					<font color="white"><b><?php echo gettext("YOUR BALANCE");?>&nbsp;:</b></font>
 					<INPUT type="text" name="balance" value="<?php if (!isset($balance)) echo "10"; else echo $balance;?>" class="form_input_text">
 					<?php } ?>
 
@@ -222,7 +222,7 @@ $FG_TABLE_ALTERNATE_ROW_COLOR[1]='#EEE9E9';
         	</TR>
 			<TR>
           	<td height="15" class="bgcolor_011" style="padding-left: 5px; padding-right: 3px;" colspan="2">
-					<b><?php echo gettext("DESTINATION : #");?><?php echo $j+1;?></b>
+					<b><?php echo gettext("DESTINATION");?>&nbsp;:#<?php echo $j+1;?></b>
 			</td>
         	</TR>
 			<tr>

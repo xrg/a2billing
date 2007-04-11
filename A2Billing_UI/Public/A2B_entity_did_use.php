@@ -104,9 +104,9 @@ if (!isset($inuse) || $inuse=="")$inuse=1;
 			<td class="bgcolor_004" align="left" ><font class="fontstyle_003">&nbsp;&nbsp;<?php echo gettext("Options");?></font>
 			</td>
 			<td class="bgcolor_005" align="center"><div align="left">
-			<b>Show: Dids in use
+			<b><?php echo gettext("Show")?>:<?php echo gettext("Dids in use")?> 
 				<input name="inuse" type=radio value=1 <?php if($inuse){?>checked<?php } ?>> 
-				All Dids <input name="inuse" type="radio" value=0 <?php if (!$inuse){?>checked<?php } ?>>
+				<?php echo gettext("All Dids")?> <input name="inuse" type="radio" value=0 <?php if (!$inuse){?>checked<?php } ?>>
 
 					
 			</td>

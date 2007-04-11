@@ -412,9 +412,9 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 						<?php echo gettext("SHOW");?> :  						
 				   </td>
 				   <td width="80%"  class="fontstyle_searchoptions">				   		
-				  Answered Calls
+				  <?php echo gettext("Answered Calls")?>
 				  <input name="terminatecause" type="radio" value="ANSWER" <?php if((!isset($terminatecause))||($terminatecause=="ANSWER")){?>checked<?php }?> /> 
-				  All Calls	
+				  <?php echo gettext("All Calls")?>	
 				   <input name="terminatecause" type="radio" value="ALL" <?php if($terminatecause=="ALL"){?>checked<?php }?>/>
 					</td>
 				</tr>
@@ -423,9 +423,9 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 						<?php echo gettext("GROUP BY DAY");?> : 
 				   </td>
 				   <td  class="fontstyle_searchoptions">
-				   Yes
+				   <?php echo gettext("Yes")?>
 				  <input name="grouped" type="radio" value="1" <?php if($grouped){?>checked<?php }?> /> 
-				  NO
+				  <?php echo gettext("NO")?>
 				  <input name="grouped" type="radio" value="0" <?php if((!isset($grouped))||(!$grouped)){?>checked<?php }?>/>
 					</td>
 				</tr>

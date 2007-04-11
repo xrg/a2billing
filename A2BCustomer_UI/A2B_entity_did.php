@@ -98,7 +98,7 @@ if ($action_release=="ask_release") {
 		<br><br>
 		<TABLE cellspacing="0" class="delform_table5">
 			<tr>
-				<td width="434" class="text_azul"><?php echo gettext("If you really want release this DID , Click on the 	release button.")?>
+				<td width="434" class="text_azul"><?php echo gettext("If you really want release this DID , Click on the release button.")?>
 				</td>
 			</tr>
 			<tr height="2">

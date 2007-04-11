@@ -67,7 +67,7 @@ if ($callback){
 
 								$res = $as->Originate($channel, $exten, $context, $priority, $application, $data, $timeout, $callerid, $variable, $account, $async, $actionid);
 								if($res["Response"]=='Error'){
-										$error_msg = gettext("<font face='Arial, Helvetica, sans-serif' size='2' color='red'><b>Error : The system cannot call you back, please inform the administrator  !!!</b></font><br>");;
+										$error_msg = "<font face='Arial, Helvetica, sans-serif' size='2' color='red'><b>".gettext("Error : The system cannot call you back, please inform the administrator")."  !!!</b></font><br>";
 								}
 								
 								
@@ -77,7 +77,7 @@ if ($callback){
 										
 							
 							}else{
-									$error_msg= gettext("Cannot connect to the asterisk manager!<br>Please check the manager configuration...");
+									$error_msg= gettext("Cannot connect to the asterisk manager!")."<br>".gettext("Please check the manager configuration...");
 								
 							}
 						
@@ -85,7 +85,7 @@ if ($callback){
 					
 				
 		}else{
-			$error_msg = gettext("<font face='Arial, Helvetica, sans-serif' size='2' color='red'><b>Error : You have to specify your phonenumber and the number you wish to call !!!</b></font><br>");
+			$error_msg = "<font face='Arial, Helvetica, sans-serif' size='2' color='red'><b>".gettext("Error : You have to specify your phonenumber and the number you wish to call")." !!!</b></font><br>";
 		
 		}
 }

@@ -417,7 +417,7 @@ function sendtolittle(direction){
                                 <TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
                                   <TBODY>
                                     <TR> 
-                                      <TD class="form_head"> Add a new <?php echo $FG_TABLE_EDITION[$i][0]?></TD>                                      
+                                      <TD class="form_head"> <?php echo gettext("Add a new")?>&nbsp; <?php echo $FG_TABLE_EDITION[$i][0]?></TD>                                      
                                     </TR>
                                   </TBODY>
                                 </TABLE></TD>
@@ -529,7 +529,7 @@ function sendtolittle(direction){
                               <TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
                                 <TBODY>
                                   <TR> 
-                                    <TD class="form_head"><?php echo $FG_TABLE_EDITION[$i][0]?> LIST </TD>                                    
+                                    <TD class="form_head"><?php echo $FG_TABLE_EDITION[$i][0]?>&nbsp; <?php echo gettext("LIST")?> </TD>                                    
                                   </TR>
                                 </TBODY>
                               </TABLE></TD>
@@ -607,7 +607,7 @@ function sendtolittle(direction){
                                 <TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
                                   <TBODY>
                                     <TR> 
-                                      <TD class="form_head"> Add a new <?php echo $FG_TABLE_EDITION[$i][0]?></TD>                                      
+                                      <TD class="form_head"><?php echo gettext("Add a new")?>  <?php echo $FG_TABLE_EDITION[$i][0]?></TD>                                      
                                     </TR>
                                   </TBODY>
                                 </TABLE></TD>
@@ -622,7 +622,7 @@ function sendtolittle(direction){
                                       <TD width="122" class="tableBody"></TD>
                                       <TD width="516"><div align="center"> 				
 									      <input type="checkbox" name="voipstation" value="true">
-                                         Voip Station
+                                        <?php echo gettext("Voip Station")?> 
                                         </div></TD>
                                     </TR>
 									<TR> 
@@ -698,7 +698,7 @@ function sendtolittle(direction){
                                 <TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
                                   <TBODY>
                                     <TR> 
-                                      <TD class="form_head"> LIST <?php echo $FG_TABLE_EDITION[$i][0]?></TD>                                      
+                                      <TD class="form_head"><?php echo gettext("LIST")?>  <?php echo $FG_TABLE_EDITION[$i][0]?></TD>                                      
                                     </TR>
                                   </TBODY>
                                 </TABLE></TD>
@@ -1043,9 +1043,9 @@ function sendtolittle(direction){
 				<TR> 
                     <TD class="form_head"> 
 							  <?php if ($form_action == "delete") { ?>
-							  <?php echo $FG_INSTANCE_NAME?> Deletetion 
+							  <?php echo $FG_INSTANCE_NAME?> <?php echo gettext("Deletetion")?> 
 							  <?php }elseif ($form_action == "add"){ ?>
-							  New <?php echo $FG_INSTANCE_NAME?> Inserted
+							 <?php echo gettext("New")?>  <?php echo $FG_INSTANCE_NAME?><?php echo gettext("Inserted")?> 
 							  <?php  } ?>
                       </TD>                    
                   </TR>

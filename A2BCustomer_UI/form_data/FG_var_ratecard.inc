@@ -62,7 +62,7 @@ $HD_Form -> AddEditElement(gettext("DESTINATION"),
 			   "size=30 maxlength=40",
 			   "11",
 			   gettext("Come on... Insert the destination name"),
-			   "" , "", "",	"", "", "", "", "Name for this call destination, for example : UK, Belgium Landline, Spain Mobile Telefonica, ..." );
+			   "" , "", "",	"", "", "", "", gettext("Name for this call destination, for example : UK, Belgium Landline, Spain Mobile Telefonica, ..."));
 
 
 $HD_Form -> AddEditElement(gettext("SELLING RATE"),

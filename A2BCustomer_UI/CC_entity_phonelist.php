@@ -240,12 +240,12 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                   <TD align="right"><span class="liens"><B> 
                     <?php if ($current_page>0){?>
                     <img src="images/fleche-g.gif" width="5" height="10"> <a href="<?php echo $PHP_SELF?>?stitle=<?php echo $stitle?>&atmenu=<?php echo $atmenu?>&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php  echo ($current_page-1)?><?php  if (!is_null($letter) && ($letter!="")){ echo "&letter=$letter";} ?>"> 
-                    Previous </a> - 
+                    <?php echo gettext("Previous")?> </a> - 
                     <?php }?>
                     <?php echo ($current_page+1);?> / <?php  echo $nb_record_max;?> 
                     <?php if ($current_page<$nb_record_max-1){?>
                     - <a href="<?php echo $PHP_SELF?>?stitle=<?php echo $stitle?>&atmenu=<?php echo $atmenu?>&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php  echo ($current_page+1)?><?php  if (!is_null($letter) && ($letter!="")){ echo "&letter=$letter";} ?>"> 
-                    Next </a> <img src="images/fleche-d.gif" width="5" height="10"> 
+                    <?php echo gettext("Next")?> </a> <img src="images/fleche-d.gif" width="5" height="10"> 
                     </B></SPAN> 
                     <?php }?>
                   </TD>
@@ -264,7 +264,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 				  <table width="50%" border="0" align="center" bgcolor="#dcdcdc">
 					<tbody><tr>
 					  <td align="center">
-						NO <?php echo strtoupper($FG_CLASS_NAME)?> REGISTERED !<br> 
+						<?php echo gettext("NO")?> &nbsp;<?php echo strtoupper($FG_CLASS_NAME)?> <?php echo gettext("REGISTERED")?>&nbsp; !<br> 
 					</td>
 					</tr>
 		
@@ -286,7 +286,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
         <TBODY>
           <TR> 
             <TD bgColor=#7f99cc colSpan=3 height=16 style="PADDING-LEFT: 5px; PADDING-RIGHT: 5px"> 
-              <SPAN style="COLOR: #ffffff; FONT-SIZE: 11px"><B>Insert a new <?php echo $FG_INSTANCE_NAME?></B></SPAN></TD>
+              <SPAN style="COLOR: #ffffff; FONT-SIZE: 11px"><B><?php echo gettext("Insert a new")?> <?php echo $FG_INSTANCE_NAME?></B></SPAN></TD>
           </TR>
           <TR> 
             <TD bgColor=#7f99cc> <IMG height=1 src="images/clear.gif" width=1> 
@@ -296,13 +296,12 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 				<FORM action=/alphar.asp id=frmSearch method=post name=frmSearch onsubmit="javascript:return validateSearch(this);">
                   <TBODY>
                     <TR align="center"> 
-                      <TD colspan="2" class="tableBodyRight"><font size="2"><strong>If 
-                        you wish to insert a new <?php echo $FG_INSTANCE_NAME?>, click on the Add button</strong></font><br>
+                      <TD colspan="2" class="tableBodyRight"><font size="2"><strong><?php echo gettext("If you wish to insert a new")?>&nbsp; <?php echo $FG_INSTANCE_NAME?><?php echo ", ".gettext("click on the Add button")?></strong></font><br>
                       </TD>
                     </TR>
                     <TR> 
                       <TD width="424"> <A href="#" onclick="MM_openBrWindow('P2E_help.php?id=5','Help','width=450,height=350')"> 
-                        <IMG border=0 height=6 hspace=3 src="images/icon_arrow_4x6.gif" vspace=1 width=4>Information about the insertion</A></TD>
+                        <IMG border=0 height=6 hspace=3 src="images/icon_arrow_4x6.gif" vspace=1 width=4><?php echo gettext("Information about the insertion")?></A></TD>
                       <TD width="161" align="right"><a href="<?php echo $FG_INSERT_LINK?>&stitle=<?php echo $stitle?>"><img src="images/btn_Add_94x20.gif" alt="Insertion new <?php echo $FG_INSTANCE_NAME?>" width="94" height="20" border="0"></a> 
                       </TD>
                     </TR>

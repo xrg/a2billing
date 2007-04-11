@@ -107,7 +107,7 @@ if ($form_action=='list'){
 	
 	if ( isset($_SESSION["is_sip_iax_change"]) && $_SESSION["is_sip_iax_change"]){ ?>
 		  <table width="<?php echo $HD_Form -> FG_HTML_TABLE_WIDTH?>" border="0" align="center" cellpadding="0" cellspacing="0" >	  
-			<TR><TD style="border-bottom: medium dotted #ED2525" align="center"> Changes detected on SIP/IAX Friends</TD></TR>
+			<TR><TD style="border-bottom: medium dotted #ED2525" align="center"> <?php echo gettext("Changes detected on SIP/IAX Friends")?></TD></TR>
 			<TR><FORM NAME="sipfriend">
 				<td height="31" style="padding-left: 5px; padding-right: 3px;" align="center" class="bgcolor_013">			
 				<font color=white><b>

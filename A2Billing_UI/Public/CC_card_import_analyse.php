@@ -233,7 +233,7 @@ function sendtoupload(form){
 
 
 	if (form.the_file.value.length < 2){
-		alert ('Please, you must first select a file !');
+		alert ('<?php echo gettext("Please, you must first select a file !")?>');
 		form.the_file.focus ();
 		return (false);
 	}
@@ -261,17 +261,17 @@ function sendtoupload(form){
 		<?php  if ($status!="ok"){?>
 
 		<center>
-		The first line of your import is previewed below, please check to ensure that every is correct.
+		<?php echo gettext("The first line of your import is previewed below, please check to ensure that every is correct.")?>
 		</center>
 
 		<table align=center border="0" cellpadding="2" cellspacing="2" width="300">
 			<tbody>
                 <tr class="form_head">
                   <td class="tableBody" style="padding: 2px;" align="center" width="50%">
-                    <strong> <span class="white_link">FIELD </span> </strong>
+                    <strong> <span class="white_link"><?php echo gettext("FIELD")?> </span> </strong>
 				  </td>
 				  <td class="tableBody" style="padding: 2px;" align="center" width="50%">
-                    <strong> <span class="white_link">VALUE </span> </strong>
+                    <strong> <span class="white_link"><?php echo gettext("VALUE")?> </span> </strong>
 				  </td>
                 </tr>
 				<?php  for ($i=0;$i<count($field);$i++){ ?>
@@ -302,8 +302,7 @@ function sendtoupload(form){
                 <tr>
                   <td colspan="2">
                     <div align="center"><span class="textcomment">
-                       Please check if the datas above are correct. <br><b>If Yes</b>, you can continue the import.
-					  Otherwise you must fix your csv file!
+                       <?php echo gettext("Please check if the datas above are correct")?>. <br><b><?php echo gettext("If Yes")?></b>,&nbsp;<?php echo gettext("you can continue the import. Otherwise you must fix your csv file!")?> 
                       </span></div>
                   </td>
                 </tr>
@@ -314,7 +313,7 @@ function sendtoupload(form){
                       <input type="hidden" name="task" value="upload">
 					  <input type="hidden" name="status" value="ok">
                       <input name="the_file" type="file" size="50" onFocus=this.select() class="saisie1">
-                      <input type="button" value="Continue to Import the CARD's" onFocus=this.select() class="form_input_text" name="submit1" onClick="sendtoupload(this.form);">
+                      <input type="button" value="<?php echo gettext("Continue to Import the CARD's")?>" onFocus=this.select() class="form_input_text" name="submit1" onClick="sendtoupload(this.form);">
                       <br>
                       &nbsp; </p>
                   </td>
@@ -342,7 +341,7 @@ function sendtoupload(form){
                     <div align="center"><span class="textcomment">
 
 					  <br>
-					  Success, <?php echo $nb_imported?>  new cards have been imported.
+					  <?php echo gettext("Success")?>, <?php echo $nb_imported?>&nbsp; <?php echo gettext("new cards have been imported.")?> 
 					  <br>
                       </span></div>
 					  <br><br>
@@ -350,7 +349,7 @@ function sendtoupload(form){
 
 					  <?php  if (!empty($buffer_error)){ ?>
 					  <center>
-					  	 <b><i>Line that has not been inserted!</i></b>
+					  	 <b><i><?php echo gettext("Line that has not been inserted!")?></i></b>
 						 <div class="myscroll">
 							  <span style="color: red;">
 							  <?php echo $buffer_error?>

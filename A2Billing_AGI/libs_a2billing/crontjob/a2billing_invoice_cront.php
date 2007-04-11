@@ -226,15 +226,17 @@ for ($page = 0; $page <= $nbpagemax; $page++)
 				}	
 			}*/
 			
-			if($verbose_level >= 1)
-			{	
-				echo "\n<br>Total Cost for '$Customer[0]': ".$totalcost;
-			}
-			
 			// Here we have to Create a Insert Statement to insert Records into the Invoices Table.
 			$Query_Invoices = "INSERT INTO cc_invoices (cardid, orderref, invoicecreated_date, cover_startdate, cover_enddate, amount, tax, total, invoicetype,".
-				"filename) VALUES ('$Customer[0]', NULL, NOW(), '$cover_startdate', NOW(), $totalcost, $totaltax, $totalcost + $totaltax, NULL, NULL)";		
+				"filename) VALUES ('$Customer[0]', NULL, NOW(), '$cover_startdate', NOW(), $totalcost, $totaltax, $totalcost + $totaltax, NULL, NULL)";
 			$instance_table -> SQLExec ($A2B -> DBHandle, $Query_Invoices);			
+			
+			
+			if($verbose_level >= 1)
+			{	
+				echo "\nTotal Cost for '$Customer[0]': ".$totalcost;
+				echo "\n Query_Invoices=$Query_Invoices \n";
+			}
 			
 			exit;
 	 	}// END foreach($resmax as $Customer)

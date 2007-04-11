@@ -116,13 +116,13 @@ $file_ext_allow = arr_rid_blank($file_ext_allow);
 			$exp=explode("~~",$test);
 			if (count($exp)==(count($file_ext_allow)+1))
 			{
-				$_SESSION['message'] .= "<br><img src=\"$dir_img/error.gif\" width=\"15\" height=\"15\">&nbsp;<b><font size=\"2\">ERROR: your file type is not allowed (".getlast($fileupload_name).")</font>, or you didn't specify a file to upload.</b><br>";				
+				$_SESSION['message'] .= "<br><img src=\"$dir_img/error.gif\" width=\"15\" height=\"15\">&nbsp;<b><font size=\"2\">".gettext("ERROR: your file type is not allowed")." (".getlast($fileupload_name).")</font>, ".gettext("or you didn't specify a file to upload").".</b><br>";				
 			}
 			else
 			{		  		
 				if ($_FILES['file']['size'][0] > $file_size_ind)
 				{
-					$_SESSION['message'] .= "<br><img src=\"$dir_img/error.gif\" width=\"15\" height=\"15\">&nbsp;<b><font size=\"2\">ERROR: please get the file size less than ".$file_size_ind." BYTES  (".round(($file_size_ind/1024),2)." KB)</font></b><br>";
+					$_SESSION['message'] .= "<br><img src=\"$dir_img/error.gif\" width=\"15\" height=\"15\">&nbsp;<b><font size=\"2\">".gettext("ERROR: please get the file size less than")." ".$file_size_ind." BYTES  (".round(($file_size_ind/1024),2)." KB)</font></b><br>";
 				}else{
 					$file_to_upload = $upload_dir."/".$_FILES['file']['name'][0];					
 					move_uploaded_file($_FILES['file']['tmp_name'][0],$file_to_upload);
@@ -273,7 +273,7 @@ $file_ext_allow = arr_rid_blank($file_ext_allow);
   <?php
         //Handle for the directory
         if (!$handle = @opendir($upload_dir)){
-          echo "<span style=\"font-size: 11px;\"><strong style=\"color: red;\">Error!!</strong> Cannot open directory: <strong>" . $upload_dir . "</strong>. Check if this directory exists and/or the CHMod rights are properly set...</span>";
+          echo "<span style=\"font-size: 11px;\"><strong style=\"color: red;\">".gettext("Error")."!!</strong> ".gettext("Cannot open directory").": <strong>" . $upload_dir . "</strong>. ".gettext("Check if this directory exists and/or the CHMod rights are properly set")."...</span>";
         }
 
         //Walk the directory for the files

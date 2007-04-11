@@ -470,7 +470,7 @@ if (is_array($list_total_didfixed) && count($list_total_didfixed) > 0)
 </tr>
 </table>
 <br>
-<center><h4><font color="#FF0000">Unbilled Invoice Summary for Card Number&nbsp;<?php echo $info_customer[0][1] ?> </font></h4></center>
+<center><h4><font color="#FF0000"><?php echo gettext("Unbilled Invoice Summary for Card Number")?>&nbsp;<?php echo $info_customer[0][1] ?> </font></h4></center>
 <br>
 <br>
 
@@ -478,22 +478,22 @@ if (is_array($list_total_didfixed) && count($list_total_didfixed) > 0)
 <table align="center" width="80%" >
      
       <tr>
-        <td colspan="3" bgcolor="#FFFFCC"><font size="5" color="#FF0000">Unbilled Summary</font></td>
+        <td colspan="3" bgcolor="#FFFFCC"><font size="5" color="#FF0000"><?php echo gettext("Unbilled Summary")?></font></td>
       </tr>
 	  <tr>
 	  <td colspan="3">&nbsp;</td>
 	  </tr>
 		<tr>
-		  <td width="33%"><font color="#003399" size="2">Name :</font> </td>
+		  <td width="33%"><font color="#003399" size="2"><?php echo gettext("Name")?> &nbsp;:</font> </td>
 		  <td ><font color="#003399" size="2"><?php echo $info_customer[0][3] ." ".$info_customer[0][2] ?></font></td>
 		</tr>
 		<tr>
-		  <td width="33%" ><font color="#003399" size="2">Card Number :</font></td>
+		  <td width="33%" ><font color="#003399" size="2"><?php echo gettext("Card Number")?>&nbsp; :</font></td>
 		  <td  ><font color="#003399" size="2"><?php echo $info_customer[0][1] ?> </font></td>
 		</tr>
 		
 		<tr>
-		  <td width="33%" ><font color="#003399" size="2">As of Date :</font></td>
+		  <td width="33%" ><font color="#003399" size="2"><?php echo gettext("As of Date")?>&nbsp; :</font></td>
 		  <td ><font color="#003399" size="2"><?php echo date('m-d-Y');?> </font></td>
 		</tr>            
 		</table>
@@ -507,17 +507,17 @@ if (is_array($list_total_didfixed) && count($list_total_didfixed) > 0)
 	  </tr>
 	  <?php }?>
             <tr bgcolor="#CCCCCC">
-              <td  width="36%"><font color="#003399"><b>Description</b> </font></td>
+              <td  width="36%"><font color="#003399"><b><?php echo gettext("Description")?></b> </font></td>
               <td width="22%" >&nbsp; </td>
-              <td  align="right"><font color="#003399"><b>Amount (US $)</b> </font> </td>
+              <td  align="right"><font color="#003399"><b><?php echo gettext("Amount (US $)")?></b> </font> </td>
             </tr>
             <tr >
-              <td width="36%" ><font color="#003399">Previous Balance</font></td>
+              <td width="36%" ><font color="#003399"><?php echo gettext("Previous Balance")?></font></td>
               <td width="22%" >&nbsp; </td>
               <td  align="right" ><font color="#003399">0.00 </font></td>
             </tr>
             <tr >
-              <td width="36%" ><font color="#003399"> <h7>Current Period Charges</h7></font></td>
+              <td width="36%" ><font color="#003399"> <h7><?php echo gettext("Current Period Charges")?></h7></font></td>
               <td width="22%" >&nbsp; </td>
               <td  align="right" ><font color="#003399"><?php  
 															$prvat = ($vat / 100) * $totalcost;															
@@ -528,7 +528,7 @@ if (is_array($list_total_didfixed) && count($list_total_didfixed) > 0)
 			  </td>
             </tr>
 			<tr  bgcolor="#CCCCCC">
-              <td  width="36%" ><font color="#003399" >Total Payable Bill</font></td>
+              <td  width="36%" ><font color="#003399" ><?php echo gettext("Total Payable Bill")?></font></td>
               <td width="22%" >&nbsp;</td>
               <td   align="right" ><font color="#003399" ><?php  
 															$prvat = ($vat / 100) * $totalcost;															
@@ -546,7 +546,7 @@ if (is_array($list_total_didfixed) && count($list_total_didfixed) > 0)
 			<td colspan="3">&nbsp;</td>
 			</tr>           			
 			<tr>
-              <td  align="left">Status :&nbsp;<?php if($info_customer[0][12] == 't') {?>
+              <td  align="left"><?php echo gettext("Status")?>&nbsp; :&nbsp;<?php if($info_customer[0][12] == 't') {?>
 			  <img src="<?php echo Images_Path;?>/connected.jpg">
 			  <?php }
 			  else
@@ -556,8 +556,8 @@ if (is_array($list_total_didfixed) && count($list_total_didfixed) > 0)
 			  <?php }?> </td>              
             </tr>      
       <tr>	  
-	  <td  align="left">&nbsp; <img src="<?php echo Images_Path;?>/connected.jpg"> &nbsp; Connected
-	  &nbsp;&nbsp;&nbsp;<img src="<?php echo Images_Path;?>/terminated.jpg">&nbsp; Disconnected
+	  <td  align="left">&nbsp; <img src="<?php echo Images_Path;?>/connected.jpg"> &nbsp; <?php echo gettext("Connected")?>
+	  &nbsp;&nbsp;&nbsp;<img src="<?php echo Images_Path;?>/terminated.jpg">&nbsp; <?php echo gettext("Disconnected")?>
 	  
 	  
 	  </td>

@@ -769,7 +769,7 @@ foreach ($list_total_day as $data){
         <td align="center" class="callhistory_td4"><?php echo gettext("DURATION");?></td>
 		<td align="center" class="callhistory_td4"><?php echo gettext("GRAPHIC");?></td>
 		<td align="center" class="callhistory_td4"><?php echo gettext("CALLS");?></td>
-		<td align="center" class="callhistory_td4"><?php echo gettext("<acronym title='AVERAGE CONNECTION TIME'>ACT</acronym>");?></td>
+		<td align="center" class="callhistory_td4"><?php echo "<acronym title='AVERAGE CONNECTION TIME'>".gettext("ACT")."</acronym>";?></td>
 		<td align="center" class="callhistory_td4"><?php echo gettext("TOTAL COST");?></td>
 
 		<!-- LOOP -->

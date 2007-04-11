@@ -122,7 +122,7 @@ switch($error)
 	{
 		if(document.form.pr_email.value=="")
 		{
-			alert("You must enter an email address!");
+			alert("<?php echo gettext("You must enter an email address!")?>");
 			return false;
 		}
 		else
@@ -145,7 +145,7 @@ switch($error)
 
   	<?php if (isset($_GET["error"]) && $_GET["error"]==1) { ?>
 		<font class="error_message">
-			AUTHENTICATION REFUSED, please check your user/password!
+			<?php echo gettext("AUTHENTICATION REFUSED, please check your user/password!")?>
 		</font>
 	<?php } ?><br><br>
     <?php if($show_message== false){ ?>
@@ -153,7 +153,7 @@ switch($error)
 	<tr>
 		<td align="center" class="forgetpassword_subtable">
 			<img src="<?php echo Images_Path_Main ?>/icon_arrow_orange.gif" width="15" height="15">
-			 Forgot your password?
+			 <?php echo gettext("Forgot your password?")?>
 		</td>
 	</tr>
 	<tr>
@@ -162,13 +162,13 @@ switch($error)
 			<tr align="center">
 				<td rowspan="3" class="forgetpassword_image">&nbsp;&nbsp;</td>
 				<td></td>
-				<td align="left"><font size="2" face="Arial, Helvetica, Sans-Serif"><b>Email:</b></font></td>
+				<td align="left"><font size="2" face="Arial, Helvetica, Sans-Serif"><b><?php echo gettext("Email")?>:</b></font></td>
 				<td><input class="form_input_text" type="text" name="pr_email" size="32"></td>
 			</tr>
 			<tr align="center">
 				<td></td>
 				<td></td>
-				<td><input type="submit" name="submit" value="SUBMIT" class="form_input_button"></td>
+				<td><input type="submit" name="submit" value="<?php echo gettext("SUBMIT")?>" class="form_input_button"></td>
 			</tr>
 			</table>
 		</td>

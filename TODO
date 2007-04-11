@@ -5,6 +5,17 @@
 
 #### BUGS
 ********************************************************************
+On the page invoice :
+# A2Billing_UI/Public/A2B_entity_invoice_list.php?section=2&cardid=1
+
+We have the followed link once we have created some invoice : 
+[] A2B_entity_invoice_billedmail.php?section=2&id=1&cardid=1&action=sendinvoice&exporttype=pdf
+
+why do we have "exporttype=pdf"
+
+
+#### BUGS
+********************************************************************
 1. The notify user (send_reminder) when min_credit_2call is reached doesn't seem to work. I have made the changes in a2billing.conf but still no email is sent to user, how do i get this working?
 
 2. Is it possible to have the reminder sent at a differnt value than the min_credit_2call? 

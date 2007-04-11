@@ -58,7 +58,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 function sendtoupload(form){
 	
 	if (form.the_file.value.length < 2){
-		alert ('Please, you must first select a file !');
+		alert ('<?php echo gettext("Please, you must first select a file !")?>');
 		form.the_file.focus ();
 		return (false);
 	}
