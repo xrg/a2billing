@@ -3,6 +3,15 @@
                    			TODO LIST - SPECIFIC
 ********************************************************************************
 
+#### TO FIX
+********************************************************************
+to check the patch I made here :
+http://trac.a2billing.net/cgi-bin/trac.cgi/changeset/955
+
+and try to reproduce this all all the invoices pages
+this compress and make the code cleaner.
+
+
 #### BUGS
 ********************************************************************
 On the page invoice :
