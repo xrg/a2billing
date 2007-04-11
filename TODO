@@ -11,6 +11,15 @@ http://trac.a2billing.net/cgi-bin/trac.cgi/changeset/955
 and try to reproduce this all all the invoices pages
 this compress and make the code cleaner.
 
+do this work for all the files :
+A2B_entity_invoice_billedmail.php
+A2B_entity_invoice_detail.php
+A2B_entity_invoice_list.php
+A2B_entity_invoices.php
+A2B_entity_invoices_unbilled.php
+A2B_entity_invoice_unbilledmail.php
+
+
 
 #### BUGS
 ********************************************************************

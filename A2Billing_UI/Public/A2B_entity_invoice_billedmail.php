@@ -32,7 +32,8 @@ if($num > 0)
 }
 else
 {
-	exit("No User found");
+	echo gettext("No User found");
+	exit;
 }
 
 $vat = $_SESSION["vat"];
@@ -50,28 +51,11 @@ $FG_DEBUG = 0;
 // The variable FG_TABLE_NAME define the table name to use
 $FG_TABLE_NAME="cc_call t1";
 
-// THIS VARIABLE DEFINE THE COLOR OF THE HEAD TABLE
-$FG_TABLE_HEAD_COLOR = "#D1D9E7";
-
-$FG_TABLE_EXTERN_COLOR = "#7F99CC"; //#CC0033 (Rouge)
-$FG_TABLE_INTERN_COLOR = "#EDF3FF"; //#FFEAFF (Rose)
-
-// THIS VARIABLE DEFINE THE COLOR OF THE HEAD TABLE
-$FG_TABLE_ALTERNATE_ROW_COLOR[] = "#FFFFFF";
-$FG_TABLE_ALTERNATE_ROW_COLOR[] = "#F2F8FF";
-
 $yesno = array(); 	$yesno["1"]  = array( "Yes", "1");	 $yesno["0"]  = array( "No", "0");
 
 $DBHandle  = DbConnect();
 
-// The variable Var_col would define the col that we want show in your table
-// First Name of the column in the html page, second name of the field
 $FG_TABLE_COL = array();
-
-
-/*******
-Calldate Clid Src Dst Dcontext Channel Dstchannel Lastapp Lastdata Duration Billsec Disposition Amaflags Accountcode Uniqueid Serverid
-*******/
 
 $FG_TABLE_COL[]=array (gettext("Calldate"), "starttime", "18%", "center", "SORT", "19", "", "", "", "", "", "display_dateformat");
 $FG_TABLE_COL[]=array (gettext("Source"), "src", "10%", "center", "SORT", "30");
@@ -83,31 +67,18 @@ if (!(isset($customer)  &&  ($customer>0)) && !(isset($entercustomer)  &&  ($ent
 	$FG_TABLE_COL[]=array (gettext("Cardused"), "username", "11%", "center", "SORT", "30");
 }
 
-//if ($_SESSION["is_admin"]==1) $FG_TABLE_COL[]=array ("Con_charg", "connectcharge", "12%", "center", "SORT", "30");
-//if ($_SESSION["is_admin"]==1) $FG_TABLE_COL[]=array ("Dis_charg", "disconnectcharge", "12%", "center", "SORT", "30");
-//if ($_SESSION["is_admin"]==1) $FG_TABLE_COL[]=array ("Sec/mn", "secpermin", "12%", "center", "SORT", "30");
-
-
-//if ($_SESSION["is_admin"]==1) $FG_TABLE_COL[]=array ("Buycosts", "buycosts", "12%", "center", "SORT", "30");
-//-- $FG_TABLE_COL[]=array ("InitialRate", "calledrate", "10%", "center", "SORT", "30", "", "", "", "", "", "display_2dec");
 $FG_TABLE_COL[]=array (gettext("Cost"), "sessionbill", "9%", "center", "SORT", "30", "", "", "", "", "", "display_2bill");
 
-//-- if (LINK_AUDIO_FILE == 'YES') 
-//-- 	$FG_TABLE_COL[]=array ("", "uniqueid", "1%", "center", "", "30", "", "", "", "", "", "linkonmonitorfile");
 
-// ??? cardID
 $FG_TABLE_DEFAULT_ORDER = "t1.starttime";
 $FG_TABLE_DEFAULT_SENS = "DESC";
 	
 // This Variable store the argument for the SQL query
-
 $FG_COL_QUERY='t1.starttime, t1.src, t1.calledstation, t1.destination, t1.sessiontime  ';
 if (!(isset($customer)  &&  ($customer>0)) && !(isset($entercustomer)  &&  ($entercustomer>0))){
 	$FG_COL_QUERY.=', t1.username';
 }
 $FG_COL_QUERY.=', t1.sessionbill';
-if (LINK_AUDIO_FILE == 'YES') 
-	$FG_COL_QUERY .= ', t1.uniqueid';
 
 $FG_COL_QUERY_GRAPH='t1.callstart, t1.duration';
 
@@ -124,16 +95,9 @@ $FG_EDITION=true;
 $FG_TOTAL_TABLE_COL = $FG_NB_TABLE_COL;
 if ($FG_DELETION || $FG_EDITION) $FG_TOTAL_TABLE_COL++;
 
-//This variable define the Title of the HTML table
-$FG_HTML_TABLE_TITLE=" - Call Logs - ";
-
-//This variable define the width of the HTML table
-$FG_HTML_TABLE_WIDTH="70%";
-
-	if ($FG_DEBUG == 3) echo "<br>Table : $FG_TABLE_NAME  	- 	Col_query : $FG_COL_QUERY";
-	$instance_table = new Table($FG_TABLE_NAME, $FG_COL_QUERY);
-	$instance_table_graph = new Table($FG_TABLE_NAME, $FG_COL_QUERY_GRAPH);
-
+if ($FG_DEBUG == 3) echo "<br>Table : $FG_TABLE_NAME  	- 	Col_query : $FG_COL_QUERY";
+$instance_table = new Table($FG_TABLE_NAME, $FG_COL_QUERY);
+$instance_table_graph = new Table($FG_TABLE_NAME, $FG_COL_QUERY_GRAPH);
 
 if ( is_null ($order) || is_null($sens) ){
 	$order = $FG_TABLE_DEFAULT_ORDER;
@@ -141,56 +105,49 @@ if ( is_null ($order) || is_null($sens) ){
 }
 
 if ($posted==1){
-  
-  function do_field($sql,$fld,$dbfld){
-  		$fldtype = $fld.'type';
+	function do_field($sql,$fld,$dbfld){
+		$fldtype = $fld.'type';
 		global $$fld;
 		global $$fldtype;		
-        if ($$fld){
-                if (strpos($sql,'WHERE') > 0){
-                        $sql = "$sql AND ";
-                }else{
-                        $sql = "$sql WHERE ";
-                }
+		if ($$fld){
+				if (strpos($sql,'WHERE') > 0){
+						$sql = "$sql AND ";
+				}else{
+						$sql = "$sql WHERE ";
+				}
 				$sql = "$sql t1.$dbfld";
 				if (isset ($$fldtype)){                
-                        switch ($$fldtype) {							
+						switch ($$fldtype) {							
 							case 1:	$sql = "$sql='".$$fld."'";  break;
 							case 2: $sql = "$sql LIKE '".$$fld."%'";  break;
 							case 3: $sql = "$sql LIKE '%".$$fld."%'";  break;
 							case 4: $sql = "$sql LIKE '%".$$fld."'";  break;
 							case 5:	$sql = "$sql <> '".$$fld."'";  
 						}
-                }else{ $sql = "$sql LIKE '%".$$fld."%'"; }
+				}else{ $sql = "$sql LIKE '%".$$fld."%'"; }
 		}
-        return $sql;
-  }  
-  $SQLcmd = '';
-  
-  $SQLcmd = do_field($SQLcmd, 'src', 'src');
-  $SQLcmd = do_field($SQLcmd, 'dst', 'calledstation');
-	
-  
+		return $sql;
+	}  
+	$SQLcmd = '';
+	$SQLcmd = do_field($SQLcmd, 'src', 'src');
+	$SQLcmd = do_field($SQLcmd, 'dst', 'calledstation');
 }
 
 
 $date_clause='';
 // Period (Month-Day)
 if (DB_TYPE == "postgres"){		
-	 	$UNIX_TIMESTAMP = "";
+	$UNIX_TIMESTAMP = "";
 }else{
-		$UNIX_TIMESTAMP = "UNIX_TIMESTAMP";
+	$UNIX_TIMESTAMP = "UNIX_TIMESTAMP";
 }
 
 
 $lastdayofmonth = date("t", strtotime($tostatsmonth.'-01'));
 
 if ($Period=="Month"){
-		
-		
-		if ($frommonth && isset($fromstatsmonth)) $date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) >= $UNIX_TIMESTAMP('$fromstatsmonth-01')";
-		if ($tomonth && isset($tostatsmonth)) $date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) <= $UNIX_TIMESTAMP('".$tostatsmonth."-$lastdayofmonth 23:59:59')"; 
-		
+	if ($frommonth && isset($fromstatsmonth)) $date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) >= $UNIX_TIMESTAMP('$fromstatsmonth-01')";
+	if ($tomonth && isset($tostatsmonth)) $date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) <= $UNIX_TIMESTAMP('".$tostatsmonth."-$lastdayofmonth 23:59:59')"; 
 }else{
 		if ($fromday && isset($fromstatsday_sday) && isset($fromstatsmonth_sday) && isset($fromstatsmonth_shour) && isset($fromstatsmonth_smin) ) $date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) >= $UNIX_TIMESTAMP('$fromstatsmonth_sday-$fromstatsday_sday $fromstatsmonth_shour:$fromstatsmonth_smin')";
 		if ($today && isset($tostatsday_sday) && isset($tostatsmonth_sday) && isset($tostatsmonth_shour) && isset($tostatsmonth_smin)) $date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) <= $UNIX_TIMESTAMP('$tostatsmonth_sday-".sprintf("%02d",intval($tostatsday_sday))." $tostatsmonth_shour:$tostatsmonth_smin')";
