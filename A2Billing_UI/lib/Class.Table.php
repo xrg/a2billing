@@ -5,7 +5,7 @@ class Table {
 	var $fields = "*"; // "id", "name", etc..
 	var $table  = "";
 	var $errstr = "";
-	var $debug_st 			= 0;
+	var $debug_st 			= 1;
 	var $debug_stop_add 	= 0;
 	var $debug_stop_update 	= 0;
 	var $debug_stop_delete 	= 0;

@@ -117,15 +117,10 @@ $FG_EDITION=true;
 $FG_TOTAL_TABLE_COL = $FG_NB_TABLE_COL;
 if ($FG_DELETION || $FG_EDITION) $FG_TOTAL_TABLE_COL++;
 
-//This variable define the Title of the HTML table
-$FG_HTML_TABLE_TITLE=" - Call Logs - ";
 
-//This variable define the width of the HTML table
-$FG_HTML_TABLE_WIDTH="70%";
-
-	if ($FG_DEBUG == 3) echo "<br>Table : $FG_TABLE_NAME  	- 	Col_query : $FG_COL_QUERY";
-	$instance_table = new Table($FG_TABLE_NAME, $FG_COL_QUERY);
-	$instance_table_graph = new Table($FG_TABLE_NAME, $FG_COL_QUERY_GRAPH);
+if ($FG_DEBUG == 3) echo "<br>Table : $FG_TABLE_NAME  	- 	Col_query : $FG_COL_QUERY";
+$instance_table = new Table($FG_TABLE_NAME, $FG_COL_QUERY);
+$instance_table_graph = new Table($FG_TABLE_NAME, $FG_COL_QUERY_GRAPH);
 
 
 if ( is_null ($order) || is_null($sens) ){
@@ -134,59 +129,53 @@ if ( is_null ($order) || is_null($sens) ){
 }
 
 if ($posted==1){
-  
-  function do_field($sql,$fld,$dbfld){
-  		$fldtype = $fld.'type';
+	function do_field($sql,$fld,$dbfld){
+		$fldtype = $fld.'type';
 		global $$fld;
 		global $$fldtype;		
-        if ($$fld){
-                if (strpos($sql,'WHERE') > 0){
-                        $sql = "$sql AND ";
-                }else{
-                        $sql = "$sql WHERE ";
-                }
-				$sql = "$sql t1.$dbfld";
-				if (isset ($$fldtype)){                
-                        switch ($$fldtype) {							
-							case 1:	$sql = "$sql='".$$fld."'";  break;
-							case 2: $sql = "$sql LIKE '".$$fld."%'";  break;
-							case 3: $sql = "$sql LIKE '%".$$fld."%'";  break;
-							case 4: $sql = "$sql LIKE '%".$$fld."'";  break;
-							case 5:	$sql = "$sql <> '".$$fld."'";  
-						}
-                }else{ $sql = "$sql LIKE '%".$$fld."%'"; }
+		if ($$fld){
+			if (strpos($sql,'WHERE') > 0){
+					$sql = "$sql AND ";
+			}else{
+					$sql = "$sql WHERE ";
+			}
+			$sql = "$sql t1.$dbfld";
+			if (isset ($$fldtype)){                
+				switch ($$fldtype) {							
+					case 1:	$sql = "$sql='".$$fld."'";  break;
+					case 2: $sql = "$sql LIKE '".$$fld."%'";  break;
+					case 3: $sql = "$sql LIKE '%".$$fld."%'";  break;
+					case 4: $sql = "$sql LIKE '%".$$fld."'";  break;
+					case 5:	$sql = "$sql <> '".$$fld."'";  
+				}
+			}else{ 
+				$sql = "$sql LIKE '%".$$fld."%'"; 
+			}
 		}
-        return $sql;
-  }  
-  $SQLcmd = '';
-  
-  $SQLcmd = do_field($SQLcmd, 'src', 'src');
-  $SQLcmd = do_field($SQLcmd, 'dst', 'calledstation');
-	
-  
+		return $sql;
+	}  
+	$SQLcmd = '';
+	$SQLcmd = do_field($SQLcmd, 'src', 'src');
+	$SQLcmd = do_field($SQLcmd, 'dst', 'calledstation');
 }
 
 
 $date_clause='';
-// Period (Month-Day)
 if (DB_TYPE == "postgres"){		
-	 	$UNIX_TIMESTAMP = "";
+	$UNIX_TIMESTAMP = "";
 }else{
-		$UNIX_TIMESTAMP = "UNIX_TIMESTAMP";
+	$UNIX_TIMESTAMP = "UNIX_TIMESTAMP";
 }
 
 
 $lastdayofmonth = date("t", strtotime($tostatsmonth.'-01'));
 
 if ($Period=="Month"){
-		
-		
-		if ($frommonth && isset($fromstatsmonth)) $date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) >= $UNIX_TIMESTAMP('$fromstatsmonth-01')";
-		if ($tomonth && isset($tostatsmonth)) $date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) <= $UNIX_TIMESTAMP('".$tostatsmonth."-$lastdayofmonth 23:59:59')"; 
-		
+	if ($frommonth && isset($fromstatsmonth)) $date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) >= $UNIX_TIMESTAMP('$fromstatsmonth-01')";
+	if ($tomonth && isset($tostatsmonth)) $date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) <= $UNIX_TIMESTAMP('".$tostatsmonth."-$lastdayofmonth 23:59:59')"; 	
 }else{
-		if ($fromday && isset($fromstatsday_sday) && isset($fromstatsmonth_sday) && isset($fromstatsmonth_shour) && isset($fromstatsmonth_smin) ) $date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) >= $UNIX_TIMESTAMP('$fromstatsmonth_sday-$fromstatsday_sday $fromstatsmonth_shour:$fromstatsmonth_smin')";
-		if ($today && isset($tostatsday_sday) && isset($tostatsmonth_sday) && isset($tostatsmonth_shour) && isset($tostatsmonth_smin)) $date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) <= $UNIX_TIMESTAMP('$tostatsmonth_sday-".sprintf("%02d",intval($tostatsday_sday))." $tostatsmonth_shour:$tostatsmonth_smin')";
+	if ($fromday && isset($fromstatsday_sday) && isset($fromstatsmonth_sday) && isset($fromstatsmonth_shour) && isset($fromstatsmonth_smin) ) $date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) >= $UNIX_TIMESTAMP('$fromstatsmonth_sday-$fromstatsday_sday $fromstatsmonth_shour:$fromstatsmonth_smin')";
+	if ($today && isset($tostatsday_sday) && isset($tostatsmonth_sday) && isset($tostatsmonth_shour) && isset($tostatsmonth_smin)) $date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) <= $UNIX_TIMESTAMP('$tostatsmonth_sday-".sprintf("%02d",intval($tostatsday_sday))." $tostatsmonth_shour:$tostatsmonth_smin')";
 }
 
 
@@ -246,21 +235,7 @@ $QUERY = "SELECT destination, sum(t1.sessiontime) AS calltime,
 sum(t1.sessionbill) AS cost, count(*) as nbcall FROM $FG_TABLE_NAME WHERE ".$FG_TABLE_CLAUSE." AND t1.sipiax not in (2,3) GROUP BY destination";
 
 if (!$nodisplay){
-
-		$res = $DBHandle -> Execute($QUERY);
-		if ($res){
-			$num = $res -> RecordCount( );
-			for($i=0;$i<$num;$i++)
-			{				
-				$list_total_destination [] =$res -> fetchRow();				 
-			}
-		}
-
-
-if ($FG_DEBUG == 3) echo "<br>Clause : $FG_TABLE_CLAUSE";
-if ($FG_DEBUG >= 1) var_dump ($list_total_destination);
-
-
+	$list_total_destination = $instance_table -> SQLExec ($DBHandle, $QUERY);
 }//end IF nodisplay
 
 
@@ -288,15 +263,7 @@ $QUERY = "SELECT t1.id_did, t2.fixrate, t2.billingtype, sum(t1.sessiontime) AS c
 $list_total_did = NULL;
 if (!$nodisplay)
 {
-	$res = $DBHandle -> Execute($QUERY);	
-	if ($res){
-		$num = $res -> RecordCount( );
-		for($i=0; $i<$num; $i++)
-		{				
-			$list_total_did [] =$res -> fetchRow();
-		}
-	}
-	if ($FG_DEBUG >= 1) var_dump ($list_total_did);
+	$list_total_did = $instance_table -> SQLExec ($DBHandle, $QUERY);
 }//end IF nodisplay
 
 /************************************************ END DID Billing Section *********************************************/
@@ -347,15 +314,8 @@ if ($Period=="Month"){
 
 
 $QUERY = "Select t1.invoicecreated_date from cc_invoices t1, cc_card t2 where t2.id = t1.cardid and t2.username = '$customer' order by t1.invoicecreated_date";
-
-$res = $DBHandle -> Execute($QUERY);
-if ($res){
-	$total_invoices = $res -> RecordCount( );
-	if ($total_invoices > 0)
-	{
-		$billperiod_list = $res;
-	}
-}
+$billperiod_list = $instance_table -> SQLExec ($DBHandle, $QUERY);
+$total_invoices = count($billperiod_list);
 
 
 ?>
@@ -767,7 +727,7 @@ if (is_array($list_total_did) && count($list_total_did)>0)
         <td><table cellspacing="0" cellpadding="0">
             <tr>
               <td width="15%"><?php echo gettext("Status") ?>&nbsp; :&nbsp; </td>
-              <td width="10%">
+              <td width="85%">
 			  <?php if($info_customer[0][12] == 't') {?>
 			  	<img width="18" height="7" src="<?php echo Images_Path;?>/connected.gif">
 				<?php echo gettext("Connected") ?> 
@@ -778,7 +738,6 @@ if (is_array($list_total_did) && count($list_total_did)>0)
 			  	<img width="18" height="7" src="<?php echo Images_Path;?>/terminated.gif">
 				<?php echo gettext("DisConnected") ?>
 			  <?php }?></td>
-              <td width="75%">&nbsp; </td>
             </tr>
         </table></td>
       </tr>
