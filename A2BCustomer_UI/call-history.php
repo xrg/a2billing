@@ -94,9 +94,8 @@ $FG_TABLE_COL[]=array (gettext("Destination"), "destination", "12%", "center", "
 $FG_TABLE_COL[]=array (gettext("Duration"), "sessiontime", "7%", "center", "SORT", "30", "", "", "", "", "", "display_minute");
 
 $FG_TABLE_COL[]=array (gettext("Cardused"), "username", "11%", "center", "SORT", "30");
-$FG_TABLE_COL[]=array (gettext("Terminate Cause"), "terminatecause", "9%", "center", "SORT", "30");
+$FG_TABLE_COL[]=array ('<acronym title="'.gettext("Terminate Cause").'">'.gettext("TC").'</acronym>', "terminatecause", "9%", "center", "SORT", "30");
 $FG_TABLE_COL[]=array (gettext("Calltype"), "sipiax", "6%", "center", "SORT",  "", "list", $list_calltype);
-
 //if ($_SESSION["is_admin"]==1) $FG_TABLE_COL[]=array ("Con_charg", "connectcharge", "12%", "center", "SORT", "30");
 //if ($_SESSION["is_admin"]==1) $FG_TABLE_COL[]=array ("Dis_charg", "disconnectcharge", "12%", "center", "SORT", "30");
 //if ($_SESSION["is_admin"]==1) $FG_TABLE_COL[]=array ("Sec/mn", "secpermin", "12%", "center", "SORT", "30");
@@ -135,7 +134,7 @@ if ($FG_DELETION || $FG_EDITION) $FG_TOTAL_TABLE_COL++;
 $FG_HTML_TABLE_TITLE=" - ".gettext("Call Logs")." - ";
 
 //This variable define the width of the HTML table
-$FG_HTML_TABLE_WIDTH="92%";
+$FG_HTML_TABLE_WIDTH="98%";
 
 	if ($FG_DEBUG == 3) echo "<br>Table : $FG_TABLE_NAME  	- 	Col_query : $FG_COL_QUERY";
 	$instance_table = new Table($FG_TABLE_NAME, $FG_COL_QUERY);
@@ -331,20 +330,18 @@ echo '<br>'.$CC_help_balance_customer;
 <!-- ** ** ** ** ** Part for the research ** ** ** ** ** -->
 	<center>
 	<FORM METHOD=POST ACTION="<?php echo $PHP_SELF?>?s=1&t=0&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php echo $current_page?>&terminatecause=<?php echo $terminatecause?>">
-	<INPUT TYPE="hidden" NAME="posted" value=1>
-	<INPUT TYPE="hidden" NAME="current_page" value=0>	
+		<INPUT TYPE="hidden" NAME="posted" value=1>
+		<INPUT TYPE="hidden" NAME="current_page" value=0>
 		<table class="callhistory_maintable" align="center">
-			<tbody>
 			<tr>
         		<td class="bgcolor_004" align="left" >
-
+					
 					<input type="radio" name="Period" value="Month" <?php  if (($Period=="Month") || !isset($Period)){ ?>checked="checked" <?php  } ?>> 
-					<font class="callhistory_td4"><?php echo gettext("SELECT BY MONTH");?></font>
+					<font class="fontstyle_003"><?php echo gettext("SELECT BY MONTH");?></b></font>
 				</td>
 				<td class="bgcolor_005" align="left" >
 					<table width="100%" border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="fontstyle_searchoptions">
-
 	  				<input type="checkbox" name="frommonth" value="true" <?php  if ($frommonth){ ?>checked<?php }?>>
 					<?php echo gettext("FROM");?> : <select name="fromstatsmonth" class="form_input_select">
 					<?php 	$year_actual = date("Y");
@@ -362,25 +359,26 @@ echo '<br>'.$CC_help_balance_customer;
 									echo "<OPTION value=\"$i-$month_formated\" $selected> $monthname[$j]-$i </option>";				
 							   }
 						}
-					?>		
+					?>
 					</select>
 					</td><td class="fontstyle_searchoptions">&nbsp;&nbsp;
 					<input type="checkbox" name="tomonth" value="true" <?php  if ($tomonth){ ?>checked<?php }?>> 
 					<?php echo gettext("TO");?> : <select name="tostatsmonth" class="form_input_select">
-					<?php 	$year_actual = date("Y");
+					<?php 
+						$year_actual = date("Y");
 						for ($i=$year_actual;$i >= $year_actual-1;$i--)
 						{
-						   $monthname = array( gettext("JANUARY"), gettext("FEBRUARY"), gettext("MARCH"), gettext("APRIL"), gettext("MAY"), gettext("JUNE"), gettext("JULY"), gettext("AUGUST"), gettext("SEPTEMBER"), gettext("OCTOBER"), gettext("NOVEMBER"), gettext("DECEMBER"));
-							   if ($year_actual==$i){
-									$monthnumber = date("n")-1; // Month number without lead 0.
-							   }else{
-									$monthnumber=11;
-							   }		   
-							   for ($j=$monthnumber;$j>=0;$j--){	
-										$month_formated = sprintf("%02d",$j+1);
-							   			if ($tostatsmonth=="$i-$month_formated"){$selected="selected";}else{$selected="";}
-										echo "<OPTION value=\"$i-$month_formated\" $selected> $monthname[$j]-$i </option>";				
-							   }
+							$monthname = array( gettext("JANUARY"), gettext("FEBRUARY"), gettext("MARCH"), gettext("APRIL"), gettext("MAY"), gettext("JUNE"), gettext("JULY"), gettext("AUGUST"), gettext("SEPTEMBER"), gettext("OCTOBER"), gettext("NOVEMBER"), gettext("DECEMBER"));
+							if ($year_actual==$i){
+								$monthnumber = date("n")-1; // Month number without lead 0.
+							}else{
+								$monthnumber=11;
+							}
+							for ($j=$monthnumber;$j>=0;$j--){	
+								$month_formated = sprintf("%02d",$j+1);
+							   	if ($tostatsmonth=="$i-$month_formated"){$selected="selected";}else{$selected="";}
+								echo "<OPTION value=\"$i-$month_formated\" $selected> $monthname[$j]-$i </option>";				
+							}
 						}
 					?>
 					</select>
@@ -391,7 +389,7 @@ echo '<br>'.$CC_help_balance_customer;
 			<tr>
         		<td align="left" class="bgcolor_002">
 					<input type="radio" name="Period" value="Day" <?php  if ($Period=="Day"){ ?>checked="checked" <?php  } ?>> 
-					<font class="callhistory_td4"><?php echo gettext("SELECT BY DAY");?></b></font>
+					<font class="fontstyle_003"><?php echo gettext("SELECT BY DAY");?></b></font>
 				</td>
       			<td align="left" class="bgcolor_003">
 					<table width="100%" border="0" cellspacing="0" cellpadding="0" >
@@ -409,17 +407,17 @@ echo '<br>'.$CC_help_balance_customer;
 					<?php 	$year_actual = date("Y");
 						for ($i=$year_actual;$i >= $year_actual-1;$i--)
 						{		   
-							   $monthname = array( gettext("JANUARY"), gettext("FEBRUARY"), gettext("MARCH"), gettext("APRIL"), gettext("MAY"), gettext("JUNE"), gettext("JULY"), gettext("AUGUST"), gettext("SEPTEMBER"), gettext("OCTOBER"), gettext("NOVEMBER"), gettext("DECEMBER"));
-							   if ($year_actual==$i){
-									$monthnumber = date("n")-1; // Month number without lead 0.
-							   }else{
-									$monthnumber=11;
-							   }		   
-							   for ($j=$monthnumber;$j>=0;$j--){	
-										$month_formated = sprintf("%02d",$j+1);
-							   			if ($fromstatsmonth_sday=="$i-$month_formated"){$selected="selected";}else{$selected="";}
-										echo "<OPTION value=\"$i-$month_formated\" $selected> $monthname[$j]-$i </option>";				
-							   }
+							$monthname = array( gettext("JANUARY"), gettext("FEBRUARY"), gettext("MARCH"), gettext("APRIL"), gettext("MAY"), gettext("JUNE"), gettext("JULY"), gettext("AUGUST"), gettext("SEPTEMBER"), gettext("OCTOBER"), gettext("NOVEMBER"), gettext("DECEMBER"));
+							if ($year_actual==$i){
+								$monthnumber = date("n")-1; // Month number without lead 0.
+							}else{
+								$monthnumber=11;
+							}		   
+							for ($j=$monthnumber;$j>=0;$j--){	
+								$month_formated = sprintf("%02d",$j+1);
+							   	if ($fromstatsmonth_sday=="$i-$month_formated"){$selected="selected";}else{$selected="";}
+								echo "<OPTION value=\"$i-$month_formated\" $selected> $monthname[$j]-$i </option>";				
+							}
 						}
 					?>
 					</select>
@@ -456,7 +454,7 @@ echo '<br>'.$CC_help_balance_customer;
     		</tr>
 			<tr>
 				<td  align="left" class="bgcolor_004">
-					<font class="callhistory_td4">&nbsp;&nbsp;<?php echo gettext("DESTINATION");?></font>
+					<font class="fontstyle_003">&nbsp;&nbsp;<?php echo gettext("DESTINATION");?></font>
 				</td>
 				<td  align="left" class="bgcolor_005">
 				<table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -469,9 +467,8 @@ echo '<br>'.$CC_help_balance_customer;
 			</tr>			
 			<!-- Select Option : to show just the Answered Calls or all calls, Result type, currencies... -->
 			<tr>
-			  <td class="bgcolor_002" align="left" ><font class="callhistory_td4">&nbsp;&nbsp;<?php echo gettext("OPTIONS"); ?></font></td>
+			  <td class="bgcolor_002" align="left" ><font class="fontstyle_003">&nbsp;&nbsp;<?php echo gettext("OPTIONS"); ?></font></td>
 			  <td class="bgcolor_003" align="center">
-			  
 			  <table width="100%" border="0" cellspacing="0" cellpadding="0">
 				<tr>
 					<td width="20%"  class="fontstyle_searchoptions">
@@ -510,35 +507,25 @@ echo '<br>'.$CC_help_balance_customer;
 					</td>
 				</tr>				
 				</table>
-			
-
 			  </td>
 			  </tr>
-
 			<!-- Select Option : to show just the Answered Calls or all calls, Result type, currencies... -->
-			
-			
 			
 			<tr>
         		<td class="bgcolor_004" align="left" > </td>
-
 				<td class="bgcolor_005" align="center" >
 					<input class="form_input_button" value=" <?php echo gettext("Search");?> " type="submit">
-
 	  			</td>
     		</tr>
-		</tbody></table>
+	</table>
 	</FORM>
 </center>
 
 
-<br><br>
-
 <!-- ** ** ** ** ** Part to display the CDR ** ** ** ** ** -->
-
-			<center><?php echo gettext("Number of Calls");?> : <?php  if (is_array($list) && count($list)>0){ echo $nb_record; }else{echo "0";}?></center>
-      <table width="<?php echo $FG_HTML_TABLE_WIDTH?>" border="0" align="center" cellpadding="0" cellspacing="0">
-<TR bgcolor="#ffffff"> 
+<center><?php echo gettext("Number of Calls");?> : <?php  if (is_array($list) && count($list)>0){ echo $nb_record; }else{echo "0";}?></center>
+     <table width="<?php echo $FG_HTML_TABLE_WIDTH?>" border="0" align="center" cellpadding="0" cellspacing="0">
+		<TR bgcolor="#ffffff"> 
           <TD class="callhistory_td11"> 
             <TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
               <TBODY>
@@ -725,7 +712,7 @@ echo '<br>'.$CC_help_balance_customer;
 <?php  } ?>
 
 <!-- ** ** ** ** ** Part to display the GRAPHIC ** ** ** ** ** -->
-<br><br>
+<br>
 
 <?php 
 
@@ -744,19 +731,18 @@ foreach ($list_total_day as $data){
 ?>
 
 
-
 <!-- TITLE GLOBAL -->
 <center>
  <table border="0" cellspacing="0" cellpadding="0" width="80%"><tbody><tr><td align="left" height="30">
 		<table cellspacing="0" cellpadding="1" bgcolor="#000000" width="50%"><tbody><tr><td>
 			<table cellspacing="0" cellpadding="0" width="100%"><tbody>
-				<tr><td class="callhistory_td1" align="left" ><?php echo gettext("Total");?></td></tr>
+				<tr><td class="callhistory_td1" align="left" ><?php echo gettext("SUMMARY");?></td></tr>
 			</tbody></table>
 		</td></tr></tbody></table>
  </td></tr></tbody></table>
-		  
+
 <!-- FIN TITLE GLOBAL MINUTES //-->
-				
+
 <table border="0" cellspacing="0" cellpadding="0"  width="80%">
 <tbody><tr><td bgcolor="#000000">			
 	<table border="0" cellspacing="1" cellpadding="2" width="100%"><tbody>
@@ -764,18 +750,17 @@ foreach ($list_total_day as $data){
 		<td align="center" class="callhistory_td2"></td>
     	<td class="callhistory_td3" align="center" colspan="5"><?php echo gettext("CALLING CARD MINUTES");?></td>
     </tr>
-	<tr class="callhistory_td2">
-		<td align="right" class="callhistory_td3"><?php echo gettext("Date");?></td>
-        <td align="center" class="callhistory_td4"><?php echo gettext("DURATION");?></td>
-		<td align="center" class="callhistory_td4"><?php echo gettext("GRAPHIC");?></td>
-		<td align="center" class="callhistory_td4"><?php echo gettext("CALLS");?></td>
-		<td align="center" class="callhistory_td4"><?php echo "<acronym title='AVERAGE CONNECTION TIME'>".gettext("ACT")."</acronym>";?></td>
-		<td align="center" class="callhistory_td4"><?php echo gettext("TOTAL COST");?></td>
+	<tr>
+		<td align="center" class="callhistory_td3"><?php echo gettext("DATE");?></td>
+        <td align="center" class="callhistory_td2"><?php echo gettext("DURATION");?></td>
+		<td align="center" class="callhistory_td2"><?php echo gettext("GRAPHIC");?></td>
+		<td align="center" class="callhistory_td2"><?php echo gettext("CALLS");?></td>
+		<td align="center" class="callhistory_td2"><acronym title="<?php echo gettext("AVERAGE LENGTH OF CALL");?>"><?php echo gettext("ALOC");?></acronym></font></td>
+		<td align="center" class="callhistory_td2"><?php echo gettext("TOTAL COST");?></td>
 
 		<!-- LOOP -->
 	<?php
 		$i=0;
-		// #ffffff #cccccc
 		foreach ($list_total_day as $data){	
 		$i=($i+1)%2;		
 		$tmc = $data[1]/$data[3];
@@ -783,18 +768,16 @@ foreach ($list_total_day as $data){
 		if ((!isset($resulttype)) || ($resulttype=="min")){  
 			$tmc = sprintf("%02d",intval($tmc/60)).":".sprintf("%02d",intval($tmc%60));		
 		}else{
-		
 			$tmc =intval($tmc);
 		}
 		
 		if ((!isset($resulttype)) || ($resulttype=="min")){  
-				$minutes = sprintf("%02d",intval($data[1]/60)).":".sprintf("%02d",intval($data[1]%60));
+			$minutes = sprintf("%02d",intval($data[1]/60)).":".sprintf("%02d",intval($data[1]%60));
 		}else{
-				$minutes = $data[1];
+			$minutes = $data[1];
 		}
 		if ($mmax>0) 	$widthbar= intval(($data[1]/$mmax)*200); 
 		
-		//bgcolor="#336699" 
 	?>
 		</tr><tr>
 		<td align="right" class="sidenav" nowrap="nowrap"><font class="callhistory_td5"><?php echo $data[0]?></font></td>
@@ -819,12 +802,11 @@ foreach ($list_total_day as $data){
 	</tr>
 	<!-- FIN DETAIL -->		
 	
-				
-				<!-- FIN BOUCLE -->
+	<!-- FIN BOUCLE -->
 
 	<!-- TOTAL -->
 	<tr class="callhistory_td2">
-		<td align="right" nowrap="nowrap" class="callhistory_td4"><?php echo gettext("Total");?></td>
+		<td align="right" nowrap="nowrap" class="callhistory_td4"><?php echo gettext("TOTAL");?></td>
 		<td align="center" nowrap="nowrap" colspan="2" class="callhistory_td4"><?php echo $totalminutes?> </td>
 		<td align="center" nowrap="nowrap" class="callhistory_td4"><?php echo $totalcall?></td>
 		<td align="center" nowrap="nowrap" class="callhistory_td4"><?php echo $total_tmc?></td>
@@ -836,20 +818,12 @@ foreach ($list_total_day as $data){
 	  <!-- Fin Tableau Global //-->
 
 </td></tr></tbody></table>
-<!--
-<br/>
-<table width="60%"><tr><td>
-<a href="export_pdf.php" target="_blank"><img src="<?php echo Images_Path_Main ?>/pdf.gif" border="0"/><?php echo gettext("Export PDF file");?></a>
-</td>
-<td>
-<a href="export_csv.php" target="_blank" ><img src="<?php echo Images_Path_Main ?>/excel.gif" border="0"/><?php echo gettext("Export CSV file");?></a>
-</td></tr></table>-->
 
 <?php  }else{ ?>
 	<center><h3><?php echo gettext("No calls in your selection");?>.</h3></center>
 <?php  } ?>
 </center>
-<br><br>
+
 <?php
 $smarty->display( 'footer.tpl');
 ?>

@@ -1,9 +1,6 @@
 <?php
 
-
 if (SHOW_HELP){
-
-
 
 $CC_help_webphone='
 <div id="div1000" style="display:visible;">
@@ -33,7 +30,6 @@ $CC_help_balance_customer='
 </td>
 </tr>
 </table>
-
 </div></div></div>&nbsp;';
 
 
