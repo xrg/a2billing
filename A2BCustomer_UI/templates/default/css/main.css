@@ -271,7 +271,7 @@ SPAN.errorText {
 	color: #FFFFFF;
 }
 .callhistory_td4{
-	background-color: #b72222;
+	background-color: #b72222
 	font-family: Verdana;
 	font-size: 10px;
 	font-weight: bold;
@@ -840,7 +840,7 @@ SPAN.errorText {
 	padding-bottom: 2px;
 	margin-left: auto;
 	border-left: 0px;
-	width: 85%;
+	width: 90%;
 	margin-right: auto;
 	padding-top: 2px;
 	border-bottom: 0px;
@@ -1306,4 +1306,24 @@ SPAN.errorText {
 	PADDING-RIGHT: 10px; 
 	margin-left:auto;
 	margin-right:auto;
+}
+.cardnumber_lenght_table
+{
+	border: 1px solid Navy;
+	background-color:#E4E4E4;
+}
+.epayment_conf_table
+{
+	border-right: 0px;
+	padding-right: 2px;
+	border-top: 0px;
+	padding-left: 2px;
+	padding-bottom: 2px;
+	border-left: 0px;
+	width: 60%;	
+	padding-top: 2px;
+	border-bottom: 0px;	
+	margin-left: auto;
+	margin-right: auto;	
+	background-color: #E2E2D3;	
 }

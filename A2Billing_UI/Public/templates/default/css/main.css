@@ -256,6 +256,13 @@ SPAN.errorText {
 	font-weight: bold;
 	color: #FFFFFF;
 }
+.callhistory_td2 {
+	background-color: #600101;
+	font-family: Verdana;
+	font-size: 10px;
+	font-weight: bold;
+	color: #FFFFFF;
+}
 .callhistory_td3{
 	background-color: #b72222;
 	font-family: Verdana;
@@ -264,6 +271,7 @@ SPAN.errorText {
 	color: #FFFFFF;
 }
 .callhistory_td4{
+	background-color: #b72222
 	font-family: Verdana;
 	font-size: 10px;
 	font-weight: bold;
@@ -272,6 +280,7 @@ SPAN.errorText {
 .callhistory_td5{	
 	font-family: Verdana;
 	font-size: 10px;
+	font-weight: bold;
 	color: #FFFFFF;
 }
 .fontstyle_001{	
