@@ -174,6 +174,23 @@
 		return $currencies_list;
 	}
 	
+	function convert_currency ($currencies_list, $amount, $from_cur, $to_cur){
+		if (!is_numeric($amount) || ($amount == 0)){
+			return 0;
+		}
+		if ($from_cur == $to_cur){
+			return $amount;
+		}
+		// EUR -> 1.19175 : MAD -> 0.10897		
+		// FROM -> 2 - TO -> 0.5 =>>>> multiply 4
+		$mycur_tobase = $currencies_list[strtoupper($from_cur)][2];		
+		$mycur = $currencies_list[strtoupper($to_cur)][2];
+		if ($mycur == 0) return 0;
+		$amount = $amount * ($mycur_tobase / $mycur);		
+		// echo "\n \n AMOUNT CONVERTED IN NEW CURRENCY $to_cur -> VALUE =".$amount;
+		return $amount;
+	}
+	
 	
 	function sort_currencies_list(&$currencies_list){
 			$first_array = array (strtoupper(BASE_CURRENCY), 'USD', 'EUR','GBP','AUD','HKD', 'JPY', 'NZD', 'SGD', 'TWD', 'PLN', 'SEK', 'DKK', 'CHF', 'COP', 'MXN', 'CLP');		
@@ -222,4 +239,6 @@
 	
 
 	include (FSROOT."lib/help.php");
+	
+	
 ?>

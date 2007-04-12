@@ -3,6 +3,18 @@
                    			TODO LIST - SPECIFIC
 ********************************************************************************
 
+
+
+
+#### ADD CHARGES & CC_SUBSCRIPTION_FEE_CARD IN INVOICE
+********************************************************************
+Check the web interface you will see what is it for.
+(A2Billing_UI/Public/A2B_entity_charge.php)
+(A2Billing_UI/Public/A2B_entity_subscription.php)
+
+those are extra charge that may appear on customer invoice
+
+
 #### TO FIX
 ********************************************************************
 to check the patch I made here :
@@ -30,6 +42,7 @@ We have the followed link once we have created some invoice :
 [] A2B_entity_invoice_billedmail.php?section=2&id=1&cardid=1&action=sendinvoice&exporttype=pdf
 
 why do we have "exporttype=pdf"
+
 
 
 #### BUGS
