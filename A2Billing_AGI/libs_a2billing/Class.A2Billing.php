@@ -689,7 +689,10 @@ class A2Billing {
 			if (is_numeric($this->destination)) $agi-> stream_file($prompt, '#');
 			return -1;
 		}
-	
+		
+		// STRIP * FROM DESTINATION NUMBER
+		$this->destination = str_replace('*', '', $this->destination);
+		
 		// LOOKUP RATE : FIND A RATE FOR THIS DESTINATION
 		$resfindrate = $RateEngine->rate_engine_findrates($this, $this->destination,$this->tariff);
 		if ($resfindrate==0){

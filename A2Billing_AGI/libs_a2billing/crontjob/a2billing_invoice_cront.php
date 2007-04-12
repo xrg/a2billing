@@ -143,7 +143,7 @@ for ($page = 0; $page <= $nbpagemax; $page++)
 			//$Query_Destinations = "SELECT destination, sum(t1.sessiontime) AS calltime, sum(t1.sessionbill) AS cost, count(*) AS nbcall FROM cc_call t1 WHERE (t1.sipiax<>2 AND t1.sipiax<>3) AND ".$FG_TABLE_CLAUSE." GROUP BY destination";		
 			$Query_Destinations = "SELECT destination, sum(t1.sessiontime) AS calltime, sum(t1.sessionbill) AS cost, count(*) AS nbcall FROM cc_call t1 WHERE ".
 								  $FG_TABLE_CLAUSE." GROUP BY destination";		
-								  
+			
 			$list_total_destination = NULL;
 			$list_total_destination = $instance_table -> SQLExec ($A2B -> DBHandle, $Query_Destinations);
 			if (is_array($list_total_destination)){
@@ -190,7 +190,7 @@ for ($page = 0; $page <= $nbpagemax; $page++)
 			}
 			//echo "\n<br> Total Cost Before DID = ".$totalcost;
 			//For DID Calls
-			/*if (is_array($list_total_did) && count($list_total_did)>0){
+			/* if (is_array($list_total_did) && count($list_total_did)>0){
 				$mmax = 0;
 				$totalcall = 0;
 				$totalminutes = 0;
