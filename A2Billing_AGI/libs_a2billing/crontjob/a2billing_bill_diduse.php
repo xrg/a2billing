@@ -128,18 +128,18 @@ foreach ($result as $mydids){
 				}	
 			}
 		} else {
-				$QUERY = "UPDATE cc_did set iduser = 0, reserved = 0 WHERE id='".$mydids[0]."'" ;
-				$result = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY, 0);
-				$QUERY = "UPDATE cc_did_use set releasedate = now() where id_did = '".$mydids[0]."' and activated = 1" ;
-				$result = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY, 0);
-				$QUERY = "INSERT INTO cc_did_use (activated, id_did) values ('0','".$mydids[0]."')";
-				$result = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY, 0);
-				$QUERY = "DELETE FROM cc_did_destination where id_cc_did =".$mydids[0];
-				$result = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY, 0);
-				$mail_user_content.="The did ".$mydids[0]." has been automaticly unreserved\n\n";
-				$mail_user=true;
-				$mail_user_subject="DID Unreserved";
-			}
+			$QUERY = "UPDATE cc_did set iduser = 0, reserved = 0 WHERE id='".$mydids[0]."'" ;
+			$result = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY, 0);
+			$QUERY = "UPDATE cc_did_use set releasedate = now() where id_did = '".$mydids[0]."' and activated = 1" ;
+			$result = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY, 0);
+			$QUERY = "INSERT INTO cc_did_use (activated, id_did) values ('0','".$mydids[0]."')";
+			$result = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY, 0);
+			$QUERY = "DELETE FROM cc_did_destination where id_cc_did =".$mydids[0];
+			$result = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY, 0);
+			$mail_user_content.="The did ".$mydids[0]." has been automaticly unreserved\n\n";
+			$mail_user=true;
+			$mail_user_subject="DID Unreserved";
+		}
 		$user_mail_adrr=$mydids[6];
 		if ($mail_user) mail($user_mail_adrr, $mail_user_subject, $mail_content);
 	}
