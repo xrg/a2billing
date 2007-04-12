@@ -1750,23 +1750,23 @@ CREATE TABLE cc_subscription_fee (
 ALTER TABLE ONLY cc_subscription_fee
 ADD CONSTRAINT cc_subscription_fee_pkey PRIMARY KEY (id);
 
--- INSTEAD USE CC_CHARGE
-CREATE TABLE cc_subscription_fee_card (
-    id 						BIGSERIAL NOT NULL,
-    id_cc_card 				BIGINT NOT NULL,
-	id_cc_subscription_fee 	BIGINT NOT NULL,
-    datefee 				TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NOW(),
-    fee 					NUMERIC(12,4) NOT NULL,
-	fee_converted			NUMERIC(12,4) NOT NULL,
-	currency 				CHARACTER VARYING(3) DEFAULT 'USD'::CHARACTER VARYING
-);
-ALTER TABLE ONLY cc_subscription_fee_card
-ADD CONSTRAINT cc_subscription_fee_card_pkey PRIMARY KEY (id);
-
-
-CREATE INDEX ind_cc_subscription_fee_card_id_cc_card 				ON cc_subscription_fee_card USING btree (id_cc_card);
-CREATE INDEX ind_cc_subscription_fee_card_id_cc_subscription_fee 	ON cc_subscription_fee_card USING btree (id_cc_subscription_fee);
-CREATE INDEX ind_cc_subscription_fee_card_datefee 					ON cc_subscription_fee_card USING btree (datefee);
+-- ## 	INSTEAD USE CC_CHARGE  ##
+-- CREATE TABLE cc_subscription_fee_card (
+--     id 						BIGSERIAL NOT NULL,
+--     id_cc_card 				 NOT NULL,
+-- 	id_cc_subscription_fee 	 NOT NULL,
+--     datefee 				TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT now(),
+--     fee 					NUMERIC(12,4) NOT NULL,
+-- 	fee_converted			NUMERIC(12,4) NOT NULL,
+-- 	currency 				CHARACTER VARYING(3) DEFAULT 'USD'::CHARACTER VARYING
+-- );
+-- ALTER TABLE ONLY cc_subscription_fee_card
+-- ADD CONSTRAINT cc_subscription_fee_card_pkey PRIMARY KEY (id)
+-- 
+-- 
+-- CREATE INDEX ind_cc_charge_id_cc_card 								ON cc_subscription_fee_card USING btree (id_cc_card);
+-- CREATE INDEX ind_cc_subscription_fee_card_id_cc_subscription_fee 	ON cc_subscription_fee_card USING btree (id_cc_subscription_fee);
+-- CREATE INDEX ind_cc_subscription_fee_card_datefee 					ON cc_subscription_fee_card USING btree (datefee);
 
 
 CREATE TABLE cc_outbound_cid_group (

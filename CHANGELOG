@@ -159,8 +159,8 @@ CREATE INDEX ind_cc_charge_creationdate 			ON cc_charge USING btree (creationdat
 --	ADD CONSTRAINT cc_subscription_fee_card_pkey PRIMARY KEY (id);
 
 --	CREATE INDEX ind_cc_subscription_fee_card_id_card ON cc_subscription_fee_card USING btree (id_card);
---	CREATE INDEX ind_cc_subscription_fee_card_id_cc_subscription_fee ON cc_card_package_offer USING btree (id_cc_subscription_fee);
---	CREATE INDEX ind_cc_subscription_fee_card_datefee ON cc_card_package_offer USING btree (datefee);
+--	CREATE INDEX ind_cc_subscription_fee_card_id_cc_subscription_fee ON cc_subscription_fee_card USING btree (id_cc_subscription_fee);
+--	CREATE INDEX ind_cc_subscription_fee_card_datefee ON cc_subscription_fee_card USING btree (datefee);
 
 
 
