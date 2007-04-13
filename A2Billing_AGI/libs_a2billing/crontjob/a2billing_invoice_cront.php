@@ -52,7 +52,7 @@ $A2B -> load_conf($agi, NULL, 0, $idconfig);
 if (!$A2B -> DbConnect()){				
 	echo "[Cannot connect to the database]\n";
 	write_log("[Cannot connect to the database]");
-	exit;						
+	exit;
 }
 
 $instance_table = new Table();
@@ -78,7 +78,7 @@ write_log("[Invoice Billing Service analyze cards on which to apply service]");
 
 for ($page = 0; $page <= $nbpagemax; $page++) 
 {
-	if ($verbose_level >= 1)  echo "$page <= $nbpagemax \n";	
+	if ($verbose_level >= 1)  echo "$page <= $nbpagemax \n";
 	//$Query_Customers = "Select * from cc_card ";
 	$Query_Customers = "SELECT id, creationdate, firstusedate, expirationdate, enableexpire, expiredays, username FROM cc_card ";
 	
@@ -97,7 +97,7 @@ for ($page = 0; $page <= $nbpagemax; $page++)
 	} else {
 		$execution_DateTime = 1;
 	}
-	if($verbose_level >= 1)	echo "\n<br>Execution Date Time: ".$execution_DateTime;
+	if($verbose_level >= 1)	echo "\n Execution Date Time: ".$execution_DateTime;
 	
 	$resmax = $instance_table -> SQLExec ($A2B -> DBHandle, $Query_Customers);
 	
@@ -107,7 +107,7 @@ for ($page = 0; $page <= $nbpagemax; $page++)
 	}else{
 		$numrow = 0;
 	}
-	if($verbose_level >= 1) echo "\n<br>Total Customers Found: ".$numrow;
+	if($verbose_level >= 1) echo "\n Total Customers Found: ".$numrow;
 	
 	if ($numrow == 0) {
 		if ($verbose_level>=1) echo "\n[No card to run the Invoice Billing Service]\n";
@@ -133,18 +133,14 @@ for ($page = 0; $page <= $nbpagemax; $page++)
 				// Customer Creation Date			
 				$cover_startdate = $Customer[1];
 			}
-			if($verbose_level >= 1)	echo "\n<br>Cover Start Date for '$Customer[6]': ".$cover_startdate;
+			if($verbose_level >= 1)	echo "\n Cover Start Date for '$Customer[6]': ".$cover_startdate;
 			
 			
-			
-			
-			$FG_TABLE_CLAUSE = " t1.username='$Customer[6]' AND t1.starttime > ($cover_startdate)";
+			$FG_TABLE_CLAUSE = " t1.username='$Customer[6]' AND t1.starttime > '$cover_startdate'";
 			
 			//$Query_Destinations = "SELECT destination, sum(t1.sessiontime) AS calltime, sum(t1.sessionbill) AS cost, count(*) AS nbcall FROM cc_call t1 WHERE (t1.sipiax<>2 AND t1.sipiax<>3) AND ".$FG_TABLE_CLAUSE." GROUP BY destination";		
 			$Query_Destinations = "SELECT destination, sum(t1.sessiontime) AS calltime, sum(t1.sessionbill) AS cost, count(*) AS nbcall FROM cc_call t1 WHERE ".
-								  $FG_TABLE_CLAUSE." GROUP BY destination";		
-			
-			$list_total_destination = NULL;
+								  $FG_TABLE_CLAUSE." GROUP BY destination";
 			$list_total_destination = $instance_table -> SQLExec ($A2B -> DBHandle, $Query_Destinations);
 			if (is_array($list_total_destination)){
 				$num = count($list_total_destination);
@@ -153,9 +149,9 @@ for ($page = 0; $page <= $nbpagemax; $page++)
 			}
 			
 			if($verbose_level >= 1){
-				echo "\nQuery_Destinations = $Query_Destinations";
-				echo "\n<br><br>Number of Destinatios for '$Customer[6]' Found: ".$num;
-			}			
+				echo "\n Query_Destinations = $Query_Destinations";
+				echo "\n Number of Destinatios for '$Customer[6]' Found: ".$num;
+			}
 			
 			//*************************************DID SECTION*************************************************
 			// SIPIAX :>> 0 = NORMAL CALL ; 1 = VOIP CALL (SIP/IAX) ; 2= DIDCALL + TRUNK ; 3 = VOIP CALL DID ; 4 = CALLBACK call
@@ -163,13 +159,33 @@ for ($page = 0; $page <= $nbpagemax; $page++)
 			$QUERYDID = "SELECT t1.id_did, t2.fixrate, t2.billingtype, sum(t1.sessiontime) AS calltime, 
 				sum(t1.sessionbill) AS cost, count(*) AS nbcall FROM cc_call t1, cc_did t2 WHERE (t1.sipiax=2 OR t1.sipiax=3) AND ".$FG_TABLE_CLAUSE." 
 				AND t1.sipiax in (2,3) AND t1.id_did = t2.id GROUP BY t1.id_did";
-		 	
-			$list_total_did = NULL;
 			$list_total_did = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERYDID);
 			$num  = 0;				
 			$num = count($list_total_did);
-			*/
 			//*************************************END DID SECTION*********************************************
+			*/
+			
+			//*************************************CHARGE SECTION*************************************************
+			// chargetype : 1 - connection charge for DID setup, 2 - Montly charge for DID use, 3 - Subscription fee, 4 - Extra Charge, etc...
+			/*
+				id, id_cc_card, iduser, creationdate, amount, chargetype, description, id_cc_did, currency, id_cc_subscription_fee 
+			*/
+			$FG_TABLE_CLAUSE = " id_cc_card='$Customer[0]' AND creationdate > '$cover_startdate'";
+			$QUERY_CHARGE = "SELECT id, id_cc_card, iduser, creationdate, amount, chargetype, description, id_cc_did, currency, id_cc_subscription_fee FROM cc_charge".
+							" WHERE $FG_TABLE_CLAUSE";
+			$list_total_charge = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY_CHARGE, 1);
+			$num  = 0;				
+			$num = count($list_total_charge);
+			if($verbose_level >= 1){
+				echo "\n QUERY_CHARGE = $QUERY_CHARGE";
+				echo "\n Number of Charge for '$Customer[6]' Found: ".$num;
+			}	
+			
+			print_r($list_total_charge);
+			echo "----------\n\n";
+			exit;
+			//*************************************END CHARGE SECTION*********************************************
+			
 			$totalcost = 0;
 			$totaltax = 0;
 			//Get the calls destination wise and calculate total cost.
@@ -188,15 +204,15 @@ for ($page = 0; $page <= $nbpagemax; $page++)
 					$totalcost+=$data[2];
 				}
 			}
-			//echo "\n<br> Total Cost Before DID = ".$totalcost;
+			//echo "\n Total Cost Before DID = ".$totalcost;
 			//For DID Calls
 			/* if (is_array($list_total_did) && count($list_total_did)>0){
 				$mmax = 0;
 				$totalcall = 0;
 				$totalminutes = 0;
-				//echo "\n<br>Total Cost at Dial = ".$totalcost;
+				//echo "\n Total Cost at Dial = ".$totalcost;
 				foreach ($list_total_did as $data)
-				{	
+				{
 					if ($mmax < $data[3])
 					{
 						$mmax = $data[3];
@@ -204,32 +220,32 @@ for ($page = 0; $page <= $nbpagemax; $page++)
 					$totalcall += $data[5];
 					$totalminutes += $data[3];		
 					if ($data[2] == 0)
-					{			
+					{
 						$totalcost += ($data[4] + $data[1]);					
-						if($verbose_level >= 1)	echo "\n<br>DID =".$data[0]."; Fixed Cost=".$data[1]."; Total Call Cost=".$data[4]."; Total = ".$totalcost;
+						if($verbose_level >= 1)	echo "\n DID =".$data[0]."; Fixed Cost=".$data[1]."; Total Call Cost=".$data[4]."; Total = ".$totalcost;
 					}
 					if ($data[2] == 2)
-					{				
+					{
 						$totalcost += $data[4];
-						if($verbose_level >= 1)	echo "\n<br>DID =".$data[0]."; Fixed Cost=0; Total Call Cost=".$data[4]."; Total = ".$totalcost;
+						if($verbose_level >= 1)	echo "\n DID =".$data[0]."; Fixed Cost=0; Total Call Cost=".$data[4]."; Total = ".$totalcost;
 					}
 					if ($data[2] == 1)
 					{			
 						$totalcost += ($data[1]);
-						if($verbose_level >= 1)	echo "\n<br>DID =".$data[0]."; Fixed Cost=".$data[1]."; Total = ".$totalcost;
+						if($verbose_level >= 1)	echo "\n DID =".$data[0]."; Fixed Cost=".$data[1]."; Total = ".$totalcost;
 					}
 					if ($data[2] == 3)
 					{
 						$totalcost += 0;
-						if($verbose_level >= 1)	echo "\n<br>DID =".$data[0]."; TYPE = FREE; Total = ".$totalcost;
+						if($verbose_level >= 1)	echo "\n DID =".$data[0]."; TYPE = FREE; Total = ".$totalcost;
 					}
-				}	
+				}
 			}*/
 			
 			// Here we have to Create a Insert Statement to insert Records into the Invoices Table.
 			$Query_Invoices = "INSERT INTO cc_invoices (cardid, orderref, invoicecreated_date, cover_startdate, cover_enddate, amount, tax, total, invoicetype,".
 				"filename) VALUES ('$Customer[0]', NULL, NOW(), '$cover_startdate', NOW(), $totalcost, $totaltax, $totalcost + $totaltax, NULL, NULL)";
-			$instance_table -> SQLExec ($A2B -> DBHandle, $Query_Invoices);			
+			$instance_table -> SQLExec ($A2B -> DBHandle, $Query_Invoices);
 			
 			
 			if($verbose_level >= 1)
