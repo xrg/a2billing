@@ -268,6 +268,39 @@ if (!$nodisplay)
 
 /************************************************ END DID Billing Section *********************************************/
 
+/*************************************************CHARGES SECTION START ************************************************/
+
+// Charge Types
+
+// Connection charge for DID setup = 1
+// Monthly Charge for DID use = 2
+// Subscription fee = 3
+// Extra charge =  4
+
+$QUERY = "SELECT t1.id_cc_card, t1.iduser, t1.creationdate, t1.amount, t1.chargetype, t1.id_cc_did, t1.currency, t1.description" .
+" FROM cc_charge t1, cc_card t2 WHERE t1.chargetype in (1,2,3,4)" .
+" AND t2.username = '$customer' AND t1.id_cc_card = t2.id AND " .
+" t1.creationdate >(Select cover_startdate  from cc_invoices where id ='$id') " .
+" AND t1.creationdate <(Select cover_enddate  from cc_invoices where id ='$id')";
+
+
+if (!$nodisplay)
+{
+	$res = $DBHandle -> Execute($QUERY);
+	if ($res){
+		$num = $res -> RecordCount();
+		for($i=0;$i<$num;$i++)
+		{
+			$list_total_charges [] =$res -> fetchRow();
+		}
+	}
+	
+	if ($FG_DEBUG >= 1) var_dump ($list_total_charges);
+}//end IF nodisplay
+
+
+/*************************************************CHARGES SECTION END ************************************************/
+
 if ($nb_record<=$FG_LIMITE_DISPLAY){
 	$nb_record_max=1;
 }else{ 
@@ -714,6 +747,91 @@ if (is_array($list_total_did) && count($list_total_did)>0)
 		<!------------------------DID Billing ENDS Here ----------------------------->
 	  </td>
 	  </tr>
+	  <!------------------------Extra Charges Start Here ----------------------------->
+	  <?php  		
+		$i=0;				
+		$extracharge_total = 0;
+		if (is_array($list_total_charges) && count($list_total_charges)>0)
+		{
+					
+	  ?>		
+	  <tr>
+	  <td>
+	  
+	  <table width="100%" align="left" cellpadding="0" cellspacing="0">
+   				<tr>
+				<td colspan="4" align="center"><font></font> <b><?php echo gettext("Extra Charges")?></b></td>
+				</tr>
+			<tr class="invoice_subheading">
+              <td class="invoice_td" width="18%"><?php echo gettext("Date")?> </td>
+              <td width="15%" class="invoice_td"><?php echo gettext("Type")?> </td>			  
+			  <td width="12%" class="invoice_td"><?php echo gettext("Description")?> </td>  			  
+              <td width="25%" class="invoice_td" align="right"><?php echo gettext("Amount (US $)")?> </td>
+            </tr>
+			<?php  		
+			
+			foreach ($list_total_charges as $data)
+			{	
+			 	$extracharge_total = $extracharge_total + convert_currency($currencies_list,$data[3], $data[6], BASE_CURRENCY) ;
+		
+			?>
+			 <tr class="invoice_rows">
+              <td width="18%" class="invoice_td"><?php echo $data[2]?></td>
+              <td width="15%" class="invoice_td"><?php 
+			  if($data[4] == 1) //connection setup charges
+				{
+					echo gettext("Setup Charges");
+				}
+				if($data[4] == 2) //DID Montly charges
+				{
+					echo gettext("DID Montly Use");
+				}
+				if($data[4] == 3) //Subscription fee charges
+				{
+					echo gettext("Subscription Fee");
+				}
+				if($data[4] == 4) //Extra Misc charges
+				{
+					echo gettext("Extra Charges");
+				}
+			  ?> </td>
+  			  <td width="10%" class="invoice_td"><?php  echo $data[7]; ?></td>			  
+              <td width="25%" align="right" class="invoice_td"><?php echo convert_currency($currencies_list,$data[3], $data[6],BASE_CURRENCY)." ".BASE_CURRENCY ?></td>
+            </tr>
+			 <?php
+			  }
+			  //for loop end here
+			   ?>
+			 <tr >
+              <td width="18%" class="invoice_td">&nbsp;</td>
+              <td width="15%" class="invoice_td">&nbsp;</td>
+              <td width="13%" class="invoice_td">&nbsp; </td>			  			 
+			  <td width="25%" class="invoice_td">&nbsp; </td>
+			  
+            </tr>
+            <tr class="invoice_subheading">
+              <td width="18%" class="invoice_td"><?php echo gettext("TOTAL");?> </td>
+              <td class="invoice_td" >&nbsp;</td>			  
+			  <td width="17%" class="invoice_td">&nbsp; </td>
+              <td width="25%" align="right" class="invoice_td"><?php echo display_2bill($extracharge_total) ?> </td>
+            </tr>
+			
+            <tr >
+              <td width="18%">&nbsp;</td>
+              <td width="15%">&nbsp;</td>
+              <td width="13%">&nbsp; </td>			  
+			  <td width="25%">&nbsp; </td>			  
+            </tr>		
+		</table>	  
+	  </td>
+	  </tr>
+	  <?php
+	   }
+	   //if check end here
+	   $totalcost = $totalcost + $extracharge_total;
+	   ?>
+	  <!------------------------Extra Charges End Here ----------------------------->
+	  
 	  <tr>
 	 <td>&nbsp;</td>
 	 </tr>

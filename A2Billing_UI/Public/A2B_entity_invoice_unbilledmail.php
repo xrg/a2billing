@@ -30,7 +30,7 @@ if($num > 0)
 }
 else
 {
-	exit("No User found");
+	exit(gettext("No User found"));
 }
 
 $vat = $_SESSION["vat"];
@@ -209,9 +209,6 @@ else
 {
 	$FG_TABLE_CLAUSE.="t1.starttime >(Select CASE  WHEN max(cover_enddate) IS NULL THEN '0000-00-00 00:00:00' ELSE max(cover_enddate) END from cc_invoices)";
 }
-
-
-
 if (!$nodisplay){
 	$list = $instance_table -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, $order, $sens, null, null, $FG_LIMITE_DISPLAY, $current_page*$FG_LIMITE_DISPLAY);
 }
@@ -241,9 +238,6 @@ if (!$nodisplay){
 				$list_total_day [] =$res -> fetchRow();				 
 			}
 		}
-
-
-
 if ($FG_DEBUG == 3) echo "<br>Clause : $FG_TABLE_CLAUSE";
 $nb_record = $instance_table -> Table_count ($DBHandle, $FG_TABLE_CLAUSE);
 if ($FG_DEBUG >= 1) var_dump ($list);
@@ -254,19 +248,10 @@ if ($FG_DEBUG >= 1) var_dump ($list);
 // GROUP BY DESTINATION FOR THE INVOICE
 
 
-if (DB_TYPE == "postgres")
-{
-	$QUERY = "SELECT t1.id_did, t2.fixrate, t2.billingtype, sum(t1.sessiontime) AS calltime, 
-	 sum(t1.sessionbill) AS cost, count(*) as nbcall FROM cc_call t1, cc_did t2 WHERE ".$FG_TABLE_CLAUSE." 
-	 AND t1.sipiax in (2,3) AND t1.id_did = t2.id GROUP BY t1.id_did, t2.fixrate, t2.billingtype  ORDER BY t2.billingtype";
-}
-else
-{
-	$QUERY = "SELECT t1.id_did, t2.fixrate, t2.billingtype, sum(t1.sessiontime) AS calltime, 
-	 sum(t1.sessionbill) AS cost, count(*) as nbcall FROM cc_call t1, cc_did t2 WHERE ".$FG_TABLE_CLAUSE." 
-	 AND t1.sipiax in (2,3) AND t1.id_did = t2.id GROUP BY t1.id_did ORDER BY t2.billingtype";
+$QUERY = "SELECT destination, sum(t1.sessiontime) AS calltime, 
+sum(t1.sessionbill) AS cost, count(*) as nbcall FROM $FG_TABLE_NAME WHERE ".$FG_TABLE_CLAUSE." AND t1.sipiax <> 2 AND t1.sipiax <> 3 GROUP BY destination";
 
-} 
+
 if (!$nodisplay){
 		$res = $DBHandle -> Execute($QUERY);
 		if ($res){
@@ -312,7 +297,44 @@ if (!$nodisplay)
 }//end IF nodisplay
 
 /************************************************ END DID Billing Section *********************************************/
+/*************************************************CHARGES SECTION START ************************************************/
 
+// Charge Types
+
+// Connection charge for DID setup = 1
+// Monthly Charge for DID use = 2
+// Subscription fee = 3
+// Extra charge =  4
+if (DB_TYPE == "postgres")
+{
+	$QUERY = "SELECT t1.id_cc_card, t1.iduser, t1.creationdate, t1.amount, t1.chargetype, t1.id_cc_did, t1.currency, t1.description" .
+	" FROM cc_charge t1, cc_card t2 WHERE t1.chargetype in (1,2,3,4)" .
+	" AND t2.username = '$customer' AND t1.id_cc_card = t2.id AND t1.creationdate >= (Select CASE WHEN max(cover_enddate) is NULL " .
+	" THEN '0001-01-01 01:00:00' ELSE max(cover_enddate) END from cc_invoices) Order by t1.creationdate";
+}
+else
+{
+	$QUERY = "SELECT t1.id_cc_card, t1.iduser, t1.creationdate, t1.amount, t1.chargetype, t1.id_cc_did, t1.currency, t1.description" .
+	" FROM cc_charge t1, cc_card t2 WHERE t1.chargetype in (1,2,3,4)" .
+	" AND t2.username = '$customer' AND t1.id_cc_card = t2.id AND t1.creationdate >= (Select CASE WHEN max(cover_enddate) is NULL " .
+	" THEN '0000-00-00 00:00:00' ELSE max(cover_enddate) END from cc_invoices) Order by t1.creationdate";
+}
+//echo "<br>".$QUERY."<br>";
+
+if (!$nodisplay)
+{
+	$res = $DBHandle -> Execute($QUERY);
+	if ($res){
+		$num = $res -> RecordCount();
+		for($i=0;$i<$num;$i++)
+		{
+			$list_total_charges [] =$res -> fetchRow();
+		}
+	}
+	
+	if ($FG_DEBUG >= 1) var_dump ($list_total_charges);
+}//end IF nodisplay
+/*************************************************CHARGES SECTION END ************************************************/
 
 if ($nb_record<=$FG_LIMITE_DISPLAY){
 	$nb_record_max=1;
@@ -323,8 +345,6 @@ if ($nb_record<=$FG_LIMITE_DISPLAY){
 		$nb_record_max=(intval($nb_record/$FG_LIMITE_DISPLAY)+1);
 	}	
 }
-
-
 if ($FG_DEBUG == 3) echo "<br>Nb_record : $nb_record";
 if ($FG_DEBUG == 3) echo "<br>Nb_record_max : $nb_record_max";
 
@@ -336,12 +356,7 @@ if (!$nodisplay){
 	$total_cost = $instance_table_cost -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, null, null, null, null, null, null);
 }
 */
-
-
-
 /*************************************************************/
-
-
 
 if ((isset($customer)  &&  ($customer>0)) || (isset($entercustomer)  &&  ($entercustomer>0))){
 
@@ -352,21 +367,12 @@ if ((isset($customer)  &&  ($customer>0)) || (isset($entercustomer)  &&  ($enter
 		$FG_TABLE_CLAUSE =" username='$entercustomer' ";
 	}
 
-
-
 	$instance_table_customer = new Table("cc_card", "id,  username, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, activated");
-	
-	
-	
 	$info_customer = $instance_table_customer -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, "id", "ASC", null, null, null, null);
 	
 	// if (count($info_customer)>0){
 }
-
-
-
 /************************************************************/
-
 
 $date_clause='';
 
@@ -407,28 +413,23 @@ if (is_array($list_total_did) && count($list_total_did)>0)
 			$mmax = $data[3];
 		}
 		$totalcall_did += $data[5];
-		$totalminutes_did += $data[3];		
+		$totalminutes_did += $data[3];
 		if ($data[2] == 0)
-		{			
-			$totalcost += ($data[4] + $data[1]);
+		{
+			$totalcost += $data[4];
 			//echo "<br>DID =".$data[0]."; Fixed Cost=".$data[1]."; Total Call Cost=".$data[4]."; Total = ".$totalcost;
 		}
 		if ($data[2] == 2)
-		{				
+		{
 			$totalcost += $data[4];
 			//echo "<br>DID =".$data[0]."; Fixed Cost=0; Total Call Cost=".$data[4]."; Total = ".$totalcost;
-		}
-		if ($data[2] == 1)
-		{			
-			$totalcost += ($data[1]);
-			//echo "<br>DID =".$data[0]."; Fixed Cost=".$data[1]."; Total = ".$totalcost;
 		}
 		if ($data[2] == 3)
 		{
 			$totalcost += 0;
 			//echo "<br>DID =".$data[0]."; TYPE = FREE; Total = ".$totalcost;
 		}
-	}	
+	}
 }
 $totalcost_did = $totalcost;
 
@@ -782,6 +783,94 @@ $totalcost_did = $totalcost;
 		<!------------------------DID Billing ENDS Here ----------------------------->
 	  </td>
 	  </tr>
+	   <tr>
+		<td>
+				
+<!-------------------------EXTRA CHARGE START HERE ---------------------------------->
+	
+	 <?php  		
+		$i=0;				
+		$extracharge_total = 0;
+		if (is_array($list_total_charges) && count($list_total_charges)>0)
+		{
+					
+	  ?>	
+		
+		<table width="100%" align="left" cellpadding="0" cellspacing="0">
+   				<tr>
+				<td colspan="4" align="center"><font><b><?php echo gettext("Extra Charges")?></b></font> </td>
+				</tr>
+			<tr  bgcolor="#CCCCCC">
+              <td  width="20%"> <font color="#003399"><b><?php echo gettext("Date")?> </b></font></td>
+              <td width="19%" ><font color="#003399"><b><?php echo gettext("Type")?> </b></font></td>
+			  <td width="43%" ><font color="#003399"><b><?php echo gettext("Description")?></b></font> </td>			
+              <td width="18%"  align="right"><font color="#003399"><b><?php echo gettext("Amount (US $)")?></b></font> </td>
+            </tr>
+			<?php  		
+			
+			foreach ($list_total_charges as $data)
+			{	
+			 	$extracharge_total = $extracharge_total + convert_currency($currencies_list,$data[3], $data[6], BASE_CURRENCY) ;
+		
+			?>
+			 <tr class="invoice_rows">
+              <td width="20%" ><font color="#003399"><?php echo $data[2]?></font></td>
+              <td width="19%" ><font color="#003399">
+			  <?php 
+			  if($data[4] == 1) //connection setup charges
+				{
+					echo gettext("Setup Charges");
+				}
+				if($data[4] == 2) //DID Montly charges
+				{
+					echo gettext("DID Montly Use");
+				}
+				if($data[4] == 3) //Subscription fee charges
+				{
+					echo gettext("Subscription Fee");
+				}
+				if($data[4] == 4) //Extra Misc charges
+				{
+					echo gettext("Extra Charges");
+				}
+			  ?>
+			  </font> </td>
+  			  <td width="43%" ><font color="#003399"><?php  echo $data[7];?></font></td>			 
+              <td width="18%" align="right" ><font color="#003399"><?php echo convert_currency($currencies_list,$data[3], $data[6],BASE_CURRENCY)." ".BASE_CURRENCY ?></font></td>
+            </tr>
+			 <?php
+			  }
+			  //for loop end here
+			   ?>
+			 <tr >
+              <td width="20%" >&nbsp;</td>
+              <td width="19%" >&nbsp;</td>
+              <td width="43%" >&nbsp; </td>			 
+			  <td width="18%" >&nbsp; </td>
+			  
+            </tr>
+            <tr bgcolor="#CCCCCC" >
+              <td width="20%" ><font color="#003399"><?php echo gettext("TOTAL");?> </font></td>
+              <td ><font color="#003399">&nbsp;</font></td>			  
+			  <td width="43%" ><font color="#003399">&nbsp;</font> </td>			  
+              <td width="18%" align="right" ><font color="#003399"><?php echo display_2bill($extracharge_total) ?></font> </td>
+            </tr>    			        
+            <tr >
+              <td width="20%">&nbsp;</td>
+              <td width="19%">&nbsp;</td>
+              <td width="43%">&nbsp; </td>			  
+			  <td width="18%">&nbsp; </td>			  
+            </tr>		
+		</table>		
+		<?php
+	   }
+	   //if check end here
+	   $totalcost = $totalcost + $extracharge_total;
+	   ?><!-----------------------------EXTRA CHARGE END HERE ------------------------------->		
+		
+		</td>
+		</tr>
+	  
 	 <tr>
 	 <td><img src="<?php echo Images_Path;?>/spacer.jpg" align="middle" height="30px"></td>
 	 </tr>
@@ -816,8 +905,6 @@ $totalcost_did = $totalcost;
 	
 <?php }?>
 
-
-
 <?php  if($exporttype!="pdf"){ ?>
 
 <?php
@@ -837,8 +924,7 @@ $totalcost_did = $totalcost;
 	
 	$pdf -> AddPage();
 	$pdf -> WriteHTML($html);	
-	$stream = $pdf->Output('UnBilledDetails_'.date("d/m/Y-H:i").'.pdf', 'S');
-	
+	$stream = $pdf->Output('UnBilledDetails_'.date("d/m/Y-H:i").'.pdf', 'S');	
 
 $email_from = "admin@a2billing.org"; 
 $email_subject = "A2Billing Invoice";

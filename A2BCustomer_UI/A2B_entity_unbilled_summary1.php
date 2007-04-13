@@ -263,11 +263,11 @@ if ($FG_DEBUG >= 1) var_dump ($list_total_destination);
 // Free = 3
 
 
-// 1. Billing Type:: All DID Calls that have DID Type 0 and 2
+// Billing Type:: All DID Calls 
 
 $QUERY = "SELECT t1.id_did, t2.fixrate, t2.billingtype, sum(t1.sessiontime) AS calltime, 
  sum(t1.sessionbill) AS cost, count(*) as nbcall FROM cc_call t1, cc_did t2 WHERE ".$FG_TABLE_CLAUSE." 
- AND t1.sipiax in (2,3) AND t1.id_did = t2.id AND t2.billingtype in (0,2) GROUP BY t1.id_did";
+ AND t1.sipiax in (2,3) AND t1.id_did = t2.id GROUP BY t1.id_did";
  
 if (!$nodisplay)
 {
@@ -276,37 +276,46 @@ if (!$nodisplay)
 		$num = $res -> RecordCount();
 		for($i=0;$i<$num;$i++)
 		{				
-			$list_total_diddial [] =$res -> fetchRow();
+			$list_total_did [] =$res -> fetchRow();
 		}
 	}
-	if ($FG_DEBUG >= 1) var_dump ($list_total_diddial);
+	
+	if ($FG_DEBUG >= 1) var_dump ($list_total_did);
 }//end IF nodisplay
 
-//%%%%%%%%%%%%%%%%
-// 2. Billing Type:: All DID Calls that have DID Type 1 and 3
+/************************************************ END DID Billing Section *********************************************/
 
-$QUERY = "SELECT t1.id_did, t2.fixrate, t2.billingtype, sum(t1.sessiontime) AS calltime, 
- sum(t1.sessionbill) AS cost, count(*) as nbcall FROM cc_call t1, cc_did t2 WHERE ".$FG_TABLE_CLAUSE." 
- AND t1.sipiax in (2,3) AND t1.id_did = t2.id AND t2.billingtype in (1,3) GROUP BY t1.id_did";
-  
+/*************************************************CHARGES SECTION START ************************************************/
+
+// Charge Types
+
+// Connection charge for DID setup = 1
+// Monthly Charge for DID use = 2
+// Subscription fee = 3
+// Extra charge =  4
+
+$QUERY = "SELECT t1.id_cc_card, t1.iduser, t1.creationdate, t1.amount, t1.chargetype, t1.id_cc_did, t1.currency" .
+" FROM cc_charge t1, cc_card t2 WHERE t1.chargetype in (1,2,3,4)" .
+" AND t2.username = '$customer' AND t1.id_cc_card = t2.id AND t1.creationdate >= (Select CASE WHEN max(cover_enddate) is NULL " .
+" THEN '0000-00-00 00:00:00' ELSE max(cover_enddate) END from cc_invoices) Order by t1.creationdate";
+//echo "<br>".$QUERY."<br>";
+
 if (!$nodisplay)
 {
-	$res = null;
 	$res = $DBHandle -> Execute($QUERY);
 	if ($res){
 		$num = $res -> RecordCount();
 		for($i=0;$i<$num;$i++)
-		{				
-			$list_total_didfixed [] =$res -> fetchRow();
+		{
+			$list_total_charges [] =$res -> fetchRow();
 		}
 	}
 	
-	if ($FG_DEBUG >= 1) var_dump ($list_total_didfixed);
+	if ($FG_DEBUG >= 1) var_dump ($list_total_charges);
 }//end IF nodisplay
 
 
-/************************************************ END DID Billing Section *********************************************/
-
+/*************************************************CHARGES SECTION END ************************************************/
 
 if ($nb_record<=$FG_LIMITE_DISPLAY){
 	$nb_record_max=1;
@@ -406,14 +415,15 @@ if (is_array($list_total_destination) && count($list_total_destination)>0)
 		$totalcost+=$data[2];
 	}
 }
-//For DID DIAL & Fixed + Dial
-if (is_array($list_total_diddial) && count($list_total_diddial)>0)
+//For DID Calls
+if (is_array($list_total_did) && count($list_total_did)>0)
 {
+	$totalcallmade =  $totalcallmade + count($list_total_did);
 	$mmax = 0;
 	$totalcall = 0;
 	$totalminutes = 0;
 	//echo "<br>Total Cost at Dial = ".$totalcost;
-	foreach ($list_total_diddial as $data)
+	foreach ($list_total_did as $data)
 	{	
 		if ($mmax < $data[3])
 		{
@@ -423,44 +433,34 @@ if (is_array($list_total_diddial) && count($list_total_diddial)>0)
 		$totalminutes += $data[3];		
 		if ($data[2] == 0)
 		{			
-			$totalcost += ($data[4] + $data[1]);
+			$totalcost += $data[4];
 			//echo "<br>DID =".$data[0]."; Fixed Cost=".$data[1]."; Total Call Cost=".$data[4]."; Total = ".$totalcost;
 		}
-		else
+		if ($data[2] == 2)
 		{				
 			$totalcost += $data[4];
 			//echo "<br>DID =".$data[0]."; Fixed Cost=0; Total Call Cost=".$data[4]."; Total = ".$totalcost;
-		}
-	}	
-}
-
-//For DID Fixed and Free
-if (is_array($list_total_didfixed) && count($list_total_didfixed) > 0)
-{
-	$mmax = 0;
-	$totalcall = 0;
-	$totalminutes = 0;	
-	//echo "<br>Total Cost at Fixed = ".$totalcost;
-	foreach ($list_total_didfixed as $data)
-	{	
-		if ($mmax < $data[3])
-		{	
-			$mmax=$data[3];
-		}
-		$totalcall+=$data[5];
-		$totalminutes+=$data[3];
-		if ($data[2] == 1)
-		{			
-			$totalcost += ($data[1]);
-			//echo "<br>DID =".$data[0]."; Fixed Cost=".$data[1]."; Total = ".$totalcost;
-		}
-		else
+		}		
+		if ($data[2] == 3)
 		{
 			$totalcost += 0;
 			//echo "<br>DID =".$data[0]."; TYPE = FREE; Total = ".$totalcost;
 		}
-	}
+	}	
 }
+
+//For Extra Charges
+$extracharge_total = 0;
+if (is_array($list_total_charges) && count($list_total_charges)>0)
+{	
+	foreach ($list_total_charges as $data)
+	{		
+		
+		$extracharge_total = $extracharge_total + convert_currency($currencies_list,$data[3], $data[6], BASE_CURRENCY) ;
+	}	
+}
+$totalcost = $totalcost + $extracharge_total;
+
 ?>
 <table cellpadding="0"  align="center">
 <tr>

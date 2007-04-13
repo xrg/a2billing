@@ -4,6 +4,12 @@
 ********************************************************************************
 
 
+#### INVOICE
+********************************************************************
+The DID section is still in the invoice, the extra charge will take care of this
+The VAT is not in the invoice
+
+
 #### FROM ANEST
 ********************************************************************
 sorry for flame, i just think what will be best idea to add to a2b some little more functionality as: customer-name and password for "web only". analogie of web-mail. its simple as can be. and very useful. i ask about this long time ago but my idea was not accepted here. in register link user will choose by self his future username and password. it let's him just remember it easily. next think - user will have to change his (web)password but not login-name (this released already). next - after log in, user can see in profile his PIN for incoming PHONE calls to that box. (actualy it's needed only once per one phone what from will calling. becouse system will remember it.) Also in Profile user can see any data for SIP registrations his device like sip-login an sip-password (locked to change) Simple idea, yeh? and very UNDESTANDABLE for most customers. customer can login without long-and-hard-to-remember-numbers-for-login-and-passwords and "make me so confuse with that numbers for"!!! its will be BIG plus for that billing. imho.

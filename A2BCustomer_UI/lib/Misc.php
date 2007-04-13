@@ -340,5 +340,4 @@ function printPages($page, $pages, $url, $max_width = 20) {
 	}
 }
 
-
 ?>

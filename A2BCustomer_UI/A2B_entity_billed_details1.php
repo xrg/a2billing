@@ -411,18 +411,13 @@ if (is_array($list_total_did) && count($list_total_did)>0)
 		$totalminutes_did += $data[3];		
 		if ($data[2] == 0)
 		{			
-			$totalcost += ($data[4] + $data[1]);
+			$totalcost += $data[4] ;
 			//echo "<br>DID =".$data[0]."; Fixed Cost=".$data[1]."; Total Call Cost=".$data[4]."; Total = ".$totalcost;
 		}
 		if ($data[2] == 2)
 		{				
 			$totalcost += $data[4];
 			//echo "<br>DID =".$data[0]."; Fixed Cost=0; Total Call Cost=".$data[4]."; Total = ".$totalcost;
-		}
-		if ($data[2] == 1)
-		{			
-			$totalcost += ($data[1]);
-			//echo "<br>DID =".$data[0]."; Fixed Cost=".$data[1]."; Total = ".$totalcost;
 		}
 		if ($data[2] == 3)
 		{
@@ -788,8 +783,98 @@ if (is_array($list_total_did) && count($list_total_did)>0)
 			  <td width="19%">&nbsp; </td>			  
             </tr>		
 		</table>		
+<!-----------------------------DID BILLING END HERE ------------------------------->				
+								
 		</td>
 		</tr>
+		<tr>
+		<td>
+				
+<!-------------------------EXTRA CHARGE START HERE ---------------------------------->
+	
+	 <?php  		
+		$i=0;				
+		$extracharge_total = 0;
+		if (is_array($list_total_charges) && count($list_total_charges)>0)
+		{
+					
+	  ?>	
+		
+		<table width="100%" align="left" cellpadding="0" cellspacing="0">
+   				<tr>
+				<td colspan="4" align="center"><font><b><?php echo gettext("Extra Charges")?></b></font> </td>
+				</tr>
+			<tr  bgcolor="#CCCCCC">
+              <td  width="18%"> <font color="#003399"><b><?php echo gettext("Date")?> </b></font></td>
+              <td width="21%" ><font color="#003399"><b><?php echo gettext("Type")?> </b></font></td>
+			  <td width="43%" ><font color="#003399"><b><?php echo gettext("Description")?></b></font> </td>			
+              <td width="18%"  align="right"><font color="#003399"><b><?php echo gettext("Amount (US $)")?></b></font> </td>
+            </tr>
+			<?php  		
+			
+			foreach ($list_total_charges as $data)
+			{	
+			 	$extracharge_total = $extracharge_total + convert_currency($currencies_list,$data[3], $data[6], BASE_CURRENCY) ;
+		
+			?>
+			 <tr class="invoice_rows">
+              <td width="18%" ><font color="#003399"><?php echo $data[2]?></font></td>
+              <td width="21%" ><font color="#003399">
+			  <?php 
+			  if($data[4] == 1) //connection setup charges
+				{
+					echo gettext("Setup Charges");
+				}
+				if($data[4] == 2) //DID Montly charges
+				{
+					echo gettext("DID Montly Use");
+				}
+				if($data[4] == 3) //Subscription fee charges
+				{
+					echo gettext("Subscription Fee");
+				}
+				if($data[4] == 4) //Extra Misc charges
+				{
+					echo gettext("Extra Charges");
+				}
+			  ?>
+			  </font> </td>
+  			  <td width="43%" ><font color="#003399"><?php  echo $data[7];?></font></td>			 
+              <td width="18%" align="right" ><font color="#003399"><?php echo convert_currency($currencies_list,$data[3], $data[6],BASE_CURRENCY)." ".BASE_CURRENCY ?></font></td>
+            </tr>
+			 <?php
+			  }
+			  //for loop end here
+			   ?>
+			 <tr >
+              <td width="18%" >&nbsp;</td>
+              <td width="21%" >&nbsp;</td>
+              <td width="43%" >&nbsp; </td>			 
+			  <td width="18%" >&nbsp; </td>
+			  
+            </tr>
+            <tr bgcolor="#CCCCCC" >
+              <td width="18%" ><font color="#003399"><?php echo gettext("TOTAL");?> </font></td>
+              <td ><font color="#003399">&nbsp;</font></td>			  
+			  <td width="43%" ><font color="#003399">&nbsp;</font> </td>			  
+              <td width="18%" align="right" ><font color="#003399"><?php echo display_2bill($extracharge_total) ?></font> </td>
+            </tr>    			        
+            <tr >
+              <td width="18%">&nbsp;</td>
+              <td width="21%">&nbsp;</td>
+              <td width="43%">&nbsp; </td>			  
+			  <td width="18%">&nbsp; </td>			  
+            </tr>		
+		</table>		
+		<?php
+	   }
+	   //if check end here
+	   $totalcost = $totalcost + $extracharge_total;
+	   ?><!-----------------------------EXTRA CHARGE END HERE ------------------------------->		
+		
+		</td>
+		</tr>
+		
 		<tr>
 	 <td><img src="<?php echo Images_Path;?>/spacer.jpg" align="middle"></td>
 	 </tr>
@@ -800,8 +885,6 @@ if (is_array($list_total_did) && count($list_total_did)>0)
 	 <td><img src="<?php echo Images_Path;?>/spacer.jpg" align="middle"></td>
 	 </tr>
 		</table>
-	
-	<!-----------------------------DID Billing END HERE ------------------------------->		
 			
      <table cellspacing="0" cellpadding="2" width="80%" align="center">
 <tr>

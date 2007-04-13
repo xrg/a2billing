@@ -194,7 +194,13 @@
 
 		return $currencies_list;
 	}
-	
+	/**
+	* Do Currency Conversion. 
+	* @param $currencies_list the List of currencies.
+	* @param $amount the amount to be converted.
+	* @param $from_cur Source Currency
+	* @param $to_cur Destination Currecny
+	*/
 	function convert_currency ($currencies_list, $amount, $from_cur, $to_cur){
 		if (!is_numeric($amount) || ($amount == 0)){
 			return 0;

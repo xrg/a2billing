@@ -250,14 +250,46 @@ if (!$nodisplay)
 
 /************************************************ END DID Billing Section *********************************************/
 
+/*************************************************CHARGES SECTION START ************************************************/
+
+// Charge Types
+
+// Connection charge for DID setup = 1
+// Monthly Charge for DID use = 2
+// Subscription fee = 3
+// Extra charge =  4
+
+$QUERY = "SELECT t1.id_cc_card, t1.iduser, t1.creationdate, t1.amount, t1.chargetype, t1.id_cc_did, t1.currency" .
+" FROM cc_charge t1, cc_card t2 WHERE t1.chargetype in (1,2,3,4)" .
+" AND t2.username = '$customer' AND t1.id_cc_card = t2.id AND t1.creationdate >= (Select CASE WHEN max(cover_enddate) is NULL " .
+" THEN '0000-00-00 00:00:00' ELSE max(cover_enddate) END from cc_invoices) Order by t1.creationdate";
+//echo "<br>".$QUERY."<br>";
+
+if (!$nodisplay)
+{
+	$res = $DBHandle -> Execute($QUERY);
+	if ($res){
+		$num = $res -> RecordCount();
+		for($i=0;$i<$num;$i++)
+		{
+			$list_total_charges [] =$res -> fetchRow();
+		}
+	}
+	
+	if ($FG_DEBUG >= 1) var_dump ($list_total_charges);
+}//end IF nodisplay
+
+
+/*************************************************CHARGES SECTION END ************************************************/
+
 $QUERY = "SELECT destination, sum(t1.sessiontime) AS calltime, 
 sum(t1.sessionbill) AS cost, count(*) as nbcall FROM $FG_TABLE_NAME WHERE ".$FG_TABLE_CLAUSE." AND t1.sipiax not in (2,3) GROUP BY destination";
-if (!$nodisplay){			
+if (!$nodisplay){
 		$res = $DBHandle -> Execute($QUERY);
 		if ($res){
 			$num = $res -> RecordCount();
 			for($i=0;$i<$num;$i++)
-			{				
+			{
 				$list_total_destination [] =$res -> fetchRow();				 
 			}
 		}
@@ -292,11 +324,7 @@ if (!$nodisplay){
 }
 */
 
-
-
 /*************************************************************/
-
-
 
 if ((isset($customer)  &&  ($customer>0)) || (isset($entercustomer)  &&  ($entercustomer>0))){
 
@@ -306,22 +334,13 @@ if ((isset($customer)  &&  ($customer>0)) || (isset($entercustomer)  &&  ($enter
 	}elseif (isset($entercustomer)  &&  ($entercustomer>0)){
 		$FG_TABLE_CLAUSE =" username='$entercustomer' ";
 	}
-
-
-
 	$instance_table_customer = new Table("cc_card", "id,  username, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, activated");
-	
-	
-	
 	$info_customer = $instance_table_customer -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, "id", "ASC", null, null, null, null);
 	
 	// if (count($info_customer)>0){
 }
 
-
-
 /************************************************************/
-
 
 $date_clause='';
 
@@ -385,19 +404,14 @@ if (is_array($list_total_did) && count($list_total_did)>0)
 		$totalminutes += $data[3];		
 		if ($data[2] == 0)
 		{			
-			$totalcost += ($data[4] + $data[1]);
+			$totalcost += $data[4];
 			//echo "<br>DID =".$data[0]."; Fixed Cost=".$data[1]."; Total Call Cost=".$data[4]."; Total = ".$totalcost;
 		}
 		if ($data[2] == 2)
 		{				
 			$totalcost += $data[4];
 			//echo "<br>DID =".$data[0]."; Fixed Cost=0; Total Call Cost=".$data[4]."; Total = ".$totalcost;
-		}
-		if ($data[2] == 1)
-		{			
-			$totalcost += ($data[1]);
-			//echo "<br>DID =".$data[0]."; Fixed Cost=".$data[1]."; Total = ".$totalcost;
-		}
+		}		
 		if ($data[2] == 3)
 		{
 			$totalcost += 0;
@@ -406,7 +420,17 @@ if (is_array($list_total_did) && count($list_total_did)>0)
 	}	
 }
 
-
+//For Extra Charges
+$extracharge_total = 0;
+if (is_array($list_total_charges) && count($list_total_charges)>0)
+{	
+	foreach ($list_total_charges as $data)
+	{		
+		
+		$extracharge_total = $extracharge_total + convert_currency($currencies_list,$data[3], $data[6], BASE_CURRENCY) ;
+	}	
+}
+$totalcost = $totalcost + $extracharge_total;
 
 if ($totalcallmade > 0)
 {

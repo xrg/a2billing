@@ -262,6 +262,48 @@ if (!$nodisplay)
 
 /************************************************ END DID Billing Section *********************************************/
 
+/*************************************************CHARGES SECTION START ************************************************/
+
+// Charge Types
+
+// Connection charge for DID setup = 1
+// Monthly Charge for DID use = 2
+// Subscription fee = 3
+// Extra charge =  4
+if($choose_billperiod == "")
+{	
+	$QUERY = "SELECT t1.id_cc_card, t1.iduser, t1.creationdate, t1.amount, t1.chargetype, t1.id_cc_did, t1.currency" .
+	" FROM cc_charge t1, cc_card t2 WHERE t1.chargetype in (1,2,3,4)" .
+	" AND t2.username = '$customer' AND t1.id_cc_card = t2.id AND " .
+	" t1.creationdate >(Select max(cover_startdate)  from cc_invoices) " .
+	" AND t1.creationdate <(Select max(cover_enddate) from cc_invoices)";
+}
+else
+{
+	$QUERY = "SELECT t1.id_cc_card, t1.iduser, t1.creationdate, t1.amount, t1.chargetype, t1.id_cc_did, t1.currency" .
+	" FROM cc_charge t1, cc_card t2 WHERE t1.chargetype in (1,2,3,4)" .
+	" AND t2.username = '$customer' AND t1.id_cc_card = t2.id AND " .
+	" t1.creationdate >(Select cover_startdate  from cc_invoices where invoicecreated_date ='$choose_billperiod') " .
+	" AND t1.creationdate <(Select cover_enddate from cc_invoices where invoicecreated_date ='$choose_billperiod')";
+}
+//echo "<br>".$QUERY."<br>";
+
+if (!$nodisplay)
+{
+	$res = $DBHandle -> Execute($QUERY);
+	if ($res){
+		$num = $res -> RecordCount();
+		for($i=0;$i<$num;$i++)
+		{
+			$list_total_charges [] =$res -> fetchRow();
+		}
+	}
+	
+	if ($FG_DEBUG >= 1) var_dump ($list_total_charges);
+}//end IF nodisplay
+
+
+/*************************************************CHARGES SECTION END ************************************************/
 
 
 if ($nb_record<=$FG_LIMITE_DISPLAY){
@@ -411,7 +453,17 @@ if (is_array($list_total_did) && count($list_total_did)>0)
 		}
 	}	
 }
-
+//For Extra Charges
+$extracharge_total = 0;
+if (is_array($list_total_charges) && count($list_total_charges)>0)
+{	
+	foreach ($list_total_charges as $data)
+	{		
+		
+		$extracharge_total = $extracharge_total + convert_currency($currencies_list,$data[3], $data[6], BASE_CURRENCY) ;
+	}	
+}
+$totalcost = $totalcost + $extracharge_total;
 ?>
 <?php if ($total_invoices > 0)
 		{
