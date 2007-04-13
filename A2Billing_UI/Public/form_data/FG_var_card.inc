@@ -84,6 +84,9 @@ $yesno = array();
 $yesno["1"] = array( gettext("Yes"), "1");
 $yesno["0"] = array( gettext("No"), "0");
 
+$invoiceday_list = array();
+for ($k=0;$k<=28;$k++)
+	$invoiceday_list["$k"]  = array( "$k", "$k");
 
 
 
@@ -435,6 +438,16 @@ $HD_Form -> AddEditElement (gettext("EXPIRY DAYS"),
 			   "" , "", "",	"", "", "", "", gettext("The number of days after which the card will expire."));
 
 
+$HD_Form -> AddEditElement (gettext("INVOICE DAY"),
+			   "invoiceday",
+			   '$value',	
+			   "SELECT",
+			   "",	
+			   "",	
+			   "", 
+			   "list" , "", "",	"", $invoiceday_list, "%1", "", gettext("Define the day of the month when the system will generate the customer invoice.") );
+
+
 $HD_Form -> AddEditElement (gettext("VAT"),
 			   "vat",
 			   "",
@@ -574,11 +587,11 @@ $HD_Form -> AddEditElement (gettext("MAC ADDRESS"),
 
 
 $HD_Form -> AddEditElement (gettext("IN USE"),
-			   "inuse",			
+			   "inuse",
 			   '$value',	
 			   "SELECT",
-			   "",	
-			   "",	
+			   "",
+			   "",
 			   "", 
 			   "list" , "", "",	"", $inuse_list, "%1", "", gettext("Define the number of use of this cardnumber. If a non-standard stop of the application occurs it maybe that the card is in 'in-use' > 0  status. Get it back to '0' if you know there is a issue on this card.") );
 
@@ -600,7 +613,7 @@ $HD_Form -> AddEditElement (gettext("CALLERID"),
 
 $HD_Form -> FieldEditElement ('username, useralias, uipass, credit, language, tariff, id_subscription_fee, id_didgroup, id_campaign,'.
 'callback, activated, activatedbyuser, simultaccess, currency, runservice, autorefill, initialbalance, typepaid, creditlimit,	firstusedate, enableexpire,'.
-'expirationdate, expiredays, vat, lastname, firstname, email, address, city, state, country, zipcode, phone,'.
+'expirationdate, expiredays, invoiceday, vat, lastname, firstname, email, address, city, state, country, zipcode, phone,'.
 'fax, sip_buddy, iax_buddy, mac_addr, inuse');
 
 
