@@ -283,6 +283,7 @@ class A2Billing {
 		}
 		if(!isset($this->config['global']['len_aliasnumber']))	$this->config['global']['len_aliasnumber'] = 15;
 		if(!isset($this->config['global']['len_voucher']))		$this->config['global']['len_voucher'] = 15;
+		if(!isset($this->config['global']['base_currency'])) 	$this->config['global']['base_currency'] = 'usd';
 		
 		// conf for the database connection
 		if(!isset($this->config['database']['hostname']))	$this->config['database']['hostname'] = 'localhost';
@@ -376,7 +377,6 @@ class A2Billing {
 		else $this->config['webui']['file_ext_allow_musiconhold'] = explode(",", "mp3");
 
 		if(!isset($this->config['webui']['show_top_frame'])) 		$this->config['webui']['show_top_frame'] = 1;
-		if(!isset($this->config['webui']['base_currency'])) 		$this->config['webui']['base_currency'] = 'usd';
 		if(!isset($this->config['webui']['currency_choose'])) 		$this->config['webui']['currency_choose'] = 'all';
 		if(!isset($this->config['webui']['card_export_field_list']))	$this->config['webui']['card_export_field_list'] = 'creationdate, username, credit, lastname, firstname';
 		if(!isset($this->config['webui']['voucher_export_field_list']))	$this->config['webui']['voucher_export_field_list'] = 'id, voucher, credit, tag, activated, usedcardnumber, usedate, currency';
@@ -462,8 +462,7 @@ class A2Billing {
 		if(!isset($this->config["agi-conf$idconfig"]['switchdialcommand'])) $this->config["agi-conf$idconfig"]['switchdialcommand'] = 0;
 		if(!isset($this->config["agi-conf$idconfig"]['failover_recursive_limit'])) $this->config["agi-conf$idconfig"]['failover_recursive_limit'] = 1;
 		if(!isset($this->config["agi-conf$idconfig"]['record_call'])) $this->config["agi-conf$idconfig"]['record_call'] = 0;
-		if(!isset($this->config["agi-conf$idconfig"]['monitor_formatfile'])) $this->config["agi-conf$idconfig"]['monitor_formatfile'] = 'gsm';
-		if(!isset($this->config["agi-conf$idconfig"]['base_currency'])) 	$this->config["agi-conf$idconfig"]['base_currency'] = 'usd';
+		if(!isset($this->config["agi-conf$idconfig"]['monitor_formatfile'])) $this->config["agi-conf$idconfig"]['monitor_formatfile'] = 'gsm';		
 		if(!isset($this->config["agi-conf$idconfig"]['currency_association']))	$this->config["agi-conf$idconfig"]['currency_association'] = 'all:credit';
 		$this->config["agi-conf$idconfig"]['currency_association'] = explode(",",$this->config["agi-conf$idconfig"]['currency_association']);
 		

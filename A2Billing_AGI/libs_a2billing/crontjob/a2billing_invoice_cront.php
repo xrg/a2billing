@@ -135,9 +135,14 @@ for ($page = 0; $page <= $nbpagemax; $page++)
 			}
 			if($verbose_level >= 1)	echo "\n Cover Start Date for '$Customer[6]': ".$cover_startdate;
 			
-			
 			$FG_TABLE_CLAUSE = " t1.username='$Customer[6]' AND t1.starttime > '$cover_startdate'";
 			
+			
+			// init totalcost
+			$totalcost = 0;
+			$totaltax = 0;
+			
+			//************************************* CALLS SECTION *************************************************
 			//$Query_Destinations = "SELECT destination, sum(t1.sessiontime) AS calltime, sum(t1.sessionbill) AS cost, count(*) AS nbcall FROM cc_call t1 WHERE (t1.sipiax<>2 AND t1.sipiax<>3) AND ".$FG_TABLE_CLAUSE." GROUP BY destination";		
 			$Query_Destinations = "SELECT destination, sum(t1.sessiontime) AS calltime, sum(t1.sessionbill) AS cost, count(*) AS nbcall FROM cc_call t1 WHERE ".
 								  $FG_TABLE_CLAUSE." GROUP BY destination";
@@ -153,7 +158,21 @@ for ($page = 0; $page <= $nbpagemax; $page++)
 				echo "\n Number of Destinatios for '$Customer[6]' Found: ".$num;
 			}
 			
-			//*************************************DID SECTION*************************************************
+			//Get the calls destination wise and calculate total cost			
+			if (is_array($list_total_destination) && count($list_total_destination) > 0){
+				$totalcall = 0;
+				$totalminutes = 0;
+				
+				foreach ($list_total_destination as $data){
+					$totalcall+=$data[3];
+					$totalminutes+=$data[1];
+					$totalcost+=$data[2];
+				}
+			}
+			if($verbose_level >= 1){
+				echo "\n AFTER DESTINATION : totalcall = $totalcall - totalminutes = $totalminutes - totalcost = $totalcost ";
+			}
+			//************************************* DID SECTION *************************************************
 			// SIPIAX :>> 0 = NORMAL CALL ; 1 = VOIP CALL (SIP/IAX) ; 2= DIDCALL + TRUNK ; 3 = VOIP CALL DID ; 4 = CALLBACK call
 			/*
 			$QUERYDID = "SELECT t1.id_did, t2.fixrate, t2.billingtype, sum(t1.sessiontime) AS calltime, 
@@ -162,61 +181,15 @@ for ($page = 0; $page <= $nbpagemax; $page++)
 			$list_total_did = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERYDID);
 			$num  = 0;				
 			$num = count($list_total_did);
-			//*************************************END DID SECTION*********************************************
-			*/
 			
-			//*************************************CHARGE SECTION*************************************************
-			// chargetype : 1 - connection charge for DID setup, 2 - Montly charge for DID use, 3 - Subscription fee, 4 - Extra Charge, etc...
-			/*
-				id, id_cc_card, iduser, creationdate, amount, chargetype, description, id_cc_did, currency, id_cc_subscription_fee 
-			*/
-			$FG_TABLE_CLAUSE = " id_cc_card='$Customer[0]' AND creationdate > '$cover_startdate'";
-			$QUERY_CHARGE = "SELECT id, id_cc_card, iduser, creationdate, amount, chargetype, description, id_cc_did, currency, id_cc_subscription_fee FROM cc_charge".
-							" WHERE $FG_TABLE_CLAUSE";
-			$list_total_charge = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY_CHARGE, 1);
-			$num  = 0;				
-			$num = count($list_total_charge);
-			if($verbose_level >= 1){
-				echo "\n QUERY_CHARGE = $QUERY_CHARGE";
-				echo "\n Number of Charge for '$Customer[6]' Found: ".$num;
-			}	
-			
-			print_r($list_total_charge);
-			echo "----------\n\n";
-			exit;
-			//*************************************END CHARGE SECTION*********************************************
-			
-			$totalcost = 0;
-			$totaltax = 0;
-			//Get the calls destination wise and calculate total cost.
-			
-			if (is_array($list_total_destination) && count($list_total_destination) > 0){			
-				$mmax = 0;
-				$totalcall = 0;
-				$totalminutes = 0;
-				
-				foreach ($list_total_destination as $data){	
-					if ($mmax < $data[1]){	
-						$mmax=$data[1];
-					}
-					$totalcall+=$data[3];
-					$totalminutes+=$data[1];
-					$totalcost+=$data[2];
-				}
-			}
-			//echo "\n Total Cost Before DID = ".$totalcost;
-			//For DID Calls
-			/* if (is_array($list_total_did) && count($list_total_did)>0){
-				$mmax = 0;
+			// echo "\n Total Cost Before DID = ".$totalcost;
+			// For DID Calls
+			if (is_array($list_total_did) && count($list_total_did)>0){
 				$totalcall = 0;
 				$totalminutes = 0;
 				//echo "\n Total Cost at Dial = ".$totalcost;
 				foreach ($list_total_did as $data)
 				{
-					if ($mmax < $data[3])
-					{
-						$mmax = $data[3];
-					}
 					$totalcall += $data[5];
 					$totalminutes += $data[3];		
 					if ($data[2] == 0)
@@ -241,6 +214,44 @@ for ($page = 0; $page <= $nbpagemax; $page++)
 					}
 				}
 			}*/
+			
+			//************************************* CHARGE SECTION *************************************************
+			// chargetype : 1 - connection charge for DID setup, 2 - Montly charge for DID use, 3 - Subscription fee, 4 - Extra Charge, etc...
+			$FG_TABLE_CLAUSE = " id_cc_card='$Customer[0]' AND creationdate > '$cover_startdate'";
+			$QUERY_CHARGE = "SELECT id, id_cc_card, iduser, creationdate, amount, chargetype, description, id_cc_did, currency, id_cc_subscription_fee FROM cc_charge".
+							" WHERE $FG_TABLE_CLAUSE";
+			$list_total_charge = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY_CHARGE, 1);
+			$num  = 0;				
+			$num = count($list_total_charge);
+			if($verbose_level >= 1){
+				echo "\n QUERY_CHARGE = $QUERY_CHARGE";
+				echo "\n Number of Charge for '$Customer[6]' Found: ".$num;
+			}
+			
+			//Get the calls destination wise and calculate total cost			
+			if (is_array($list_total_charge) && count($list_total_charge) > 0){
+				$totalcharge = 0;
+				
+				foreach ($list_total_charge as $data){
+					$charge_amount = $data[4];
+					$charge_currency = $data[8];
+					if($verbose_level >= 1){
+						echo "\n charge_amount = $charge_amount - charge_currency = $charge_currency - charge_converted";
+					}
+					$totalcharge+=1;
+					$totalcost+=$data[4];
+				}
+			}
+			if($verbose_level >= 1){
+				echo "\n AFTER DESTINATION : totalcharge = $totalcharge - totalcost = $totalcost";
+			}
+			
+			echo "----------\n\n";
+			exit;
+			
+			//************************************* INSERT INVOICE *************************************************
+			//????
+			//$totaltax
 			
 			// Here we have to Create a Insert Statement to insert Records into the Invoices Table.
 			$Query_Invoices = "INSERT INTO cc_invoices (cardid, orderref, invoicecreated_date, cover_startdate, cover_enddate, amount, tax, total, invoicetype,".
