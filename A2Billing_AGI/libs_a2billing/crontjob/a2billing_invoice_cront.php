@@ -80,7 +80,7 @@ for ($page = 0; $page <= $nbpagemax; $page++)
 {
 	if ($verbose_level >= 1)  echo "$page <= $nbpagemax \n";
 	//$Query_Customers = "Select * from cc_card ";
-	$Query_Customers = "SELECT id, creationdate, firstusedate, expirationdate, enableexpire, expiredays, username FROM cc_card ";
+	$Query_Customers = "SELECT id, creationdate, firstusedate, expirationdate, enableexpire, expiredays, username, vat, invoiceday FROM cc_card "."WHERE username='80329' ";
 	
 	if ($A2B->config["database"]['dbtype'] == "postgres")
 	{
@@ -90,15 +90,7 @@ for ($page = 0; $page <= $nbpagemax; $page++)
 	{
 		$Query_Customers .= " LIMIT ".$page*$groupcard.", $groupcard";
 	}
-	
-	// Checking for Execution time from Config File;
-	if(isset($A2B->config["invoice_system"]['invoiceday'])){
-		$execution_DateTime = $A2B->config["invoice_system"]['invoiceday'];
-	} else {
-		$execution_DateTime = 1;
-	}
-	if($verbose_level >= 1)	echo "\n Execution Date Time: ".$execution_DateTime;
-	
+		
 	$resmax = $instance_table -> SQLExec ($A2B -> DBHandle, $Query_Customers);
 	
 	if (is_array($resmax)){
@@ -235,28 +227,29 @@ for ($page = 0; $page <= $nbpagemax; $page++)
 				foreach ($list_total_charge as $data){
 					$charge_amount = $data[4];
 					$charge_currency = $data[8];
+					$base_currency = $A2B->config['global']['base_currency'];
+					$charge_converted = convert_currency ($currencies_list, $charge_amount, strtoupper($charge_currency), strtoupper($base_currency));
 					if($verbose_level >= 1){
-						echo "\n charge_amount = $charge_amount - charge_currency = $charge_currency - charge_converted";
+						echo "\n charge_amount = $charge_amount - charge_currency = $charge_currency ".
+							 " - charge_converted=$charge_converted - base_currency=$base_currency";
 					}
 					$totalcharge+=1;
-					$totalcost+=$data[4];
+					$totalcost+=$charge_converted;
 				}
 			}
 			if($verbose_level >= 1){
 				echo "\n AFTER DESTINATION : totalcharge = $totalcharge - totalcost = $totalcost";
 			}
 			
-			echo "----------\n\n";
-			exit;
-			
-			//************************************* INSERT INVOICE *************************************************
-			//????
-			//$totaltax
+			//************************************* INSERT INVOICE *************************************************			
+			if ($Customer[7] > 0 && $totalcost > 0){
+				$totaltax = ($totalcost / 100) * $Customer[7];
+			}
 			
 			// Here we have to Create a Insert Statement to insert Records into the Invoices Table.
 			$Query_Invoices = "INSERT INTO cc_invoices (cardid, orderref, invoicecreated_date, cover_startdate, cover_enddate, amount, tax, total, invoicetype,".
 				"filename) VALUES ('$Customer[0]', NULL, NOW(), '$cover_startdate', NOW(), $totalcost, $totaltax, $totalcost + $totaltax, NULL, NULL)";
-			$instance_table -> SQLExec ($A2B -> DBHandle, $Query_Invoices);
+			//$instance_table -> SQLExec ($A2B -> DBHandle, $Query_Invoices);
 			
 			
 			if($verbose_level >= 1)
