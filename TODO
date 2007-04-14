@@ -3,6 +3,17 @@
                    			TODO LIST - SPECIFIC
 ********************************************************************************
 
+
+#### a2billing.conf new section with all the log files
+********************************************************************
+handle this in different part of the application (API, AGI, Cront)
+
+
+#### MISC
+********************************************************************
+* Customer -> Call Details : add criteria - Answered call
+
+
 #### FORMAT
 ********************************************************************
 Rates -> Browse Rates
@@ -14,9 +25,9 @@ The DID section is still in the invoice, the extra charge will take care of this
 The VAT is not in the invoice
 
 
-#### FROM ANEST
+#### FEATURES
 ********************************************************************
-sorry for flame, i just think what will be best idea to add to a2b some little more functionality as: customer-name and password for "web only". analogie of web-mail. its simple as can be. and very useful. i ask about this long time ago but my idea was not accepted here. in register link user will choose by self his future username and password. it let's him just remember it easily. next think - user will have to change his (web)password but not login-name (this released already). next - after log in, user can see in profile his PIN for incoming PHONE calls to that box. (actualy it's needed only once per one phone what from will calling. becouse system will remember it.) Also in Profile user can see any data for SIP registrations his device like sip-login an sip-password (locked to change) Simple idea, yeh? and very UNDESTANDABLE for most customers. customer can login without long-and-hard-to-remember-numbers-for-login-and-passwords and "make me so confuse with that numbers for"!!! its will be BIG plus for that billing. imho.
+User info Profile user can see any data for SIP registrations his device like sip-login an sip-password (locked to change) 
 
 
 #### ADD CHARGES & CC_SUBSCRIPTION_FEE_CARD IN INVOICE
@@ -69,16 +80,6 @@ Reason for this is, I would like a reminder to be sent when a user has £x credi
 
 
 
-#### missing text put text in Gettext
-********************************************************************
-CC_phonelist_import_analyse.php
-CC_ratecard_import_analyse.php
-CC_card_import_analyse.php
-
-also some more are missing on those files (check the javascript):
-CC_card_import.php
-CC_phonelist_import.php
-CC_ratecard_import.php
 
 
 #### move a2billing.conf in DB
@@ -86,23 +87,9 @@ CC_ratecard_import.php
 move a2billing.conf in DB
 
 
-#### bug CallerID
-********************************************************************
-CID not working  when  ANSWER_CALL=NO
-iv changed back to ANSER_CALL=YES , AND WORKS
-
-
 #### CallerID Name
 ********************************************************************
 Support callerID name for authentication
-
-
-#### ENSURE WE HAVE ALL IN GETTEXT FILES
-********************************************************************
-create a fake langagues with a test flag
-and replace all the strin value in the PO 
-by #### 
-so we can find out easily the missing text
 
 
 
@@ -147,61 +134,20 @@ it to avoid the possibility from the customer to signup under an other tariffgro
 
 
 
-#### HOURLY ALARM
-********************************************************************
-add in the alarm system an hourly check
-
 
 #### OnLine Payment 
 ********************************************************************
 Checkout Google
 
 
-#### BUG CAPTCHA
-********************************************************************
-please have a look also at the captcha
-if u use caps letters, it wont work, all the pics are shows with caps
-
-
-#### UPDATE a2billing_invoice_cront
-********************************************************************
-
-* use the conf parameter : invoice_system -> invoiceday
-* add cc_charge
-* invoice_history
-* Customer -> Call Details : add criteria - Answered call
 
 
 
-#### MANAGE MULTI LENGHT CARD NUMBER
-********************************************************************
-New parameter :
-[global]
-; len_cardnumber is removed
-; interval for the length of the cardnumber (number of digits), 
-; ie: 10-15 (cardnumber authorised 10, 11, 12, 13, 14, 15) ; 10,12,14 (cardnumber authorised 10, 12, 14)
-interval_len_cardnumber = 10-15
 
 
-We will support more than 1 lenght for the cardnumber.
-Admin Web interface :
-- Create customer : 
-	Add a drop-down button in the top page (below the help) to select the lenght for the card creation
-	-> if the drop-down is selected the page will refresh with the new value for the card lenght
-	by default we will use the minimum value of interval_len_cardnumber
-	
-- Generate Customer :
-	Add a point 13) as a drop-down button, select the card lenght but no refresh needed here
-
-- AGI
 
 
-#### EXEC_SETLANGUAGE
-********************************************************************
-function exec_setlanguage($language='en')
-{
-  return $this->exec('SetLanguage', $language);
-}
+
 
 
 #### BUG : DID BILLING
@@ -245,10 +191,8 @@ a check should be proceed, if the DID don't belong to the user's DID group then 
 $channel = 'SIP/'.$phone_number.'@toreplace';
 
 
-
 #### GENERAL CHANGE IN CUSTOMER SIDE
 ********************************************************************
-- to clean the code of those page invoices
 - to remove the all the page used for pdf export like : A2B_entity_unbilled_summary1.php
   we should be able to deal with A2B_entity_unbilled_summary.php only and add a parameter mode for the pdf export.
 
@@ -257,13 +201,6 @@ $channel = 'SIP/'.$phone_number.'@toreplace';
 ********************************************************************
 Consolidate the gettext files for customer and admin interface
 regenerate all PO & MO files
-
-
-
-#### a2billing.conf new section with all the log files
-********************************************************************
-handle this in different part of the application (API, AGI, Cront)
-
 
 
 ######## CREDIT RESERVE - SIMULTANEOUS ACCESS
@@ -300,20 +237,23 @@ Add new tables for reseller and callshop
 
 #### FEATURE : NEW CALLBACK SYSTEM
 ********************************************************************
-long story
+rebuild of the callback system, we are using a spool system in DB and a perl Daemon to initiate the callback.
+it brings flexibility and a way to track the callback request, their status, etc...
+So we have a spool system, all request are stored and handled by a perl daemon that will take care of dispatching 
+them through several asterisk server.
+There is also an API also for this to generate the callback.
+/api/api_spool_callback.php
+this could be use by any third application/platform to generate callback request.
 
 
-#### FEATURE : OPTIMIZE AGI TO USE PL/SQL functions for all important functions (couples of weeks)
+#### FEATURE : OPTIMIZE AGI TO USE PL/SQL functions for all important functions
 ******************************************************************************
+... not for now
 
-
-#### FEATURE : LINK SIP/IAX FRIENDS TO THE CARD - iax/sip_friend_id
-********************************************************************
-???
 
 #### FEATURE : ADD RANGE CARDNUMBER IN CARDGENERATOR
 ********************************************************************
-let user define a range of cardnumber (ie: 45000-46000)
+let's the user define a range of cardnumber (ie: 45000-46000)
 + option to check if there is a cards already between this range (interval limit 10000)
 
 
@@ -324,44 +264,14 @@ a link to the signup be created that enters the source of the link against
 the customer, e.g. an agent name or website address?
 
 
-#### FEATURE : NEW INVOICING SYSTEM
-********************************************************************
-See Description mails - EXCEL
-%% MA
-
-
-#### WRITE DOCUMENTATION: API SHOW RATECARD -> 
-********************************************************************
-WRITE FULL DOCUMENTATION FOR :
-trunk/A2Billing_UI/api/display_ratecard.php
-
-#### WRITE DOCUMENTATION: ALARM SYSTEM
-********************************************************************
-See Changelog
-
-
-#### FEATURE : jump_voucher_if_min_credit
-********************************************************************
-When the user credit are below the minimum credit to call min_credit 
-we might have an option to decide if we jump directly to the voucher IVR menu instead of just disconecting
-
-option in a2billing.conf
-jump_voucher_if_min_credit = yes or no
-
-
-
-
 #### FEATURE
 ********************************************************************
-BATCH GENERATION OF INVOICE (Phuong)
-
+BATCH GENERATION OF INVOICE
 need a feature that can allow admin to generate the invoice for all the postpaid or 
 prepaid account with just one click.
-
 right now, we have to go to Call Report/Invoice, and then select the respective month, 
 and then select the card one by one, and then save the html page. And doing that 
 repetitively for 100 cards is quite gruesome 
-
 so auto generate invoice (with criteria) and maybe auto mailing, that will be cool
 
 

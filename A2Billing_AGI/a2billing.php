@@ -172,7 +172,7 @@ if ($mode == 'standard'){
 				
 				// CHECK IF THE CHANNEL IS UP
 				//if ($stat_channel["status"]!= "6" && $stat_channel["status"]!= "1"){	
-				if ($stat_channel["result"]!= $status_channel && ($A2B -> CC_TESTING!=1)){
+				if (($A2B->agiconfig['answer_call']==1) && ($stat_channel["result"]!=$status_channel) && ($A2B -> CC_TESTING!=1)){
 					if ($A2B->set_inuse==1) $A2B->callingcard_acct_start_inuse($agi,0);
 					$A2B -> write_log("[STOP - EXIT]", 0);
 					exit();
