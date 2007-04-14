@@ -483,7 +483,7 @@ $HD_Form -> AddEditElement (gettext("CANCALLFORWARD"),
 			   "size=7 maxlength=3 $CANCALLFORWARD_default",	
 			   "",	
 			   gettext("Insert the cancallforward"),
-			   "" , "", "",	"", "", "",	"", gettext("cancallforward = yes | no ( defaul : yes )"));
+			   "" , "", "",	"", "", "",	"", gettext("cancallforward = yes | no ( default : yes )"));
 
 
 

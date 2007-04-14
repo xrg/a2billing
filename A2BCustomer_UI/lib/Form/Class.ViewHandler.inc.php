@@ -220,7 +220,7 @@ function openURLFilter(theLINK)
         <TR> 
           <TD> 
 
-			<TABLE border=0 cellPadding=2 cellSpacing=2 width="100%">
+			<TABLE border="0" cellPadding="2" cellSpacing="2" width="100%">
 			   <TBODY>			   
                 <TR class="form_head"> 
 	<?php 
@@ -243,7 +243,7 @@ function openURLFilter(theLINK)
                     </strong></TD>
 		   <?php } 		
 			 if ($this->FG_DELETION || $this->FG_EDITION || $this -> FG_OTHER_BUTTON1 || $this -> FG_OTHER_BUTTON2){ ?>
-  				 <td width="<?php echo $this->FG_ACTION_SIZE_COLUMN?>" align="center" class="tableBody" ><?php echo gettext("ACTION");?></td>
+  				 <td width="<?php echo $this->FG_ACTION_SIZE_COLUMN?>" align="center" class="tableBody" ><strong> <?php echo gettext("ACTION");?></strong> </td>
 		   <?php } ?>		
                 </TR>
 		<?php			
