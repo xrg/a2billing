@@ -468,11 +468,8 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 					</td></tr></table>
 	  			</td>
     		</tr>
-			
-			
 			<tr>
         		<td class="bgcolor_004" align="left" > </td>
-
 				<td class="bgcolor_005" align="center" >
 					<input type="image"  name="image16" align="top" border="0" src="<?php echo Images_Path;?>/button-search.gif" />
 					
@@ -487,7 +484,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 
 <!-- ** ** ** ** ** Part to display the CDR ** ** ** ** ** -->
 
-			<center><?php echo gettext("Number of call with Free minutes packages");?> : <?php  if (is_array($list) && count($list)>0){ echo $nb_record; }else{echo "0";}?></center>
+			<center><?php echo gettext("Calls with free minutes");?> : <?php  if (is_array($list) && count($list)>0){ echo $nb_record; }else{echo "0";}?></center>
       <table width="<?php echo $FG_HTML_TABLE_WIDTH?>" border="0" align="center" cellpadding="0" cellspacing="0">
 <TR bgcolor="#ffffff"> 
           <TD  class="bgcolor_021" height=16 style="PADDING-LEFT: 5px; PADDING-RIGHT: 3px"> 

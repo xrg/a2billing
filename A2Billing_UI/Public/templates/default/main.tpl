@@ -2,16 +2,11 @@
 <HEAD>
 	<link rel="shortcut icon" href="templates/{$SKIN_NAME}/images/favicon.ico">
 	<link rel="icon" href="templates/{$SKIN_NAME}/images/animated_favicon1.gif" type="image/gif">
-	
 	<title>..:: {$CCMAINTITLE} ::..</title>
-	
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		
-			   <link href="templates/{$SKIN_NAME}/css/main.css" rel="stylesheet" type="text/css">
-			   <link href="templates/{$SKIN_NAME}/css/menu.css" rel="stylesheet" type="text/css">
-			   <link href="templates/{$SKIN_NAME}/css/style-def.css" rel="stylesheet" type="text/css">
-			   
-			
+	<link href="templates/{$SKIN_NAME}/css/main.css" rel="stylesheet" type="text/css">
+	<link href="templates/{$SKIN_NAME}/css/menu.css" rel="stylesheet" type="text/css">
+	<link href="templates/{$SKIN_NAME}/css/style-def.css" rel="stylesheet" type="text/css">
 </HEAD>
 
 <BODY leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
@@ -188,7 +183,7 @@ function imgidclick(imgID,divID, imgbase, imgchange)
 				<li><a href="A2B_entity_voucher.php?stitle=Voucher&section=2">{php} echo gettext("List Voucher");{/php}</a></li>
 				<li><a href="A2B_entity_voucher.php?stitle=Voucher_add&form_action=ask-add&section=2">{php} echo gettext("Create Voucher");{/php}</a></li>
 				<li><a href="A2B_entity_voucher_multi.php?stitle=Voucher_Generate&section=2">{php} echo gettext("Generate Vouchers");{/php}</a></li>
-				<li><a href="A2B_currencies.php?section=2">{php} echo gettext("Currency Table");{/php}</a></li>
+				<li><a href="A2B_currencies.php?section=2">{php} echo gettext("Currency List");{/php}</a></li>
 				<li><a href="A2B_entity_charge.php?atmenu=charge&stitle=Charge&form_action=list&section=2">{php} echo gettext("List Charge");{/php}</a></li>
 				<li><a href="A2B_entity_charge.php?form_action=ask-add&atmenu=charge&stitle=Charge&section=2">{php} echo gettext("Add Charge");{/php}</a></li>
 				<li><a href="A2B_entity_ecommerce.php?atmenu=ecommerce&stitle=E-Commerce&section=2">{php} echo gettext("List E-Product");{/php}</a></li>
