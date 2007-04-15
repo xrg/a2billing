@@ -4,6 +4,15 @@
 ********************************************************************************
 
 
+#### INVOICE
+********************************************************************
+check the nodisplay
+
+
+#### CDR REPORT - POPUP CARD
+********************************************************************
+handle this in different part of the application (API, AGI, Cront)
+
 #### a2billing.conf new section with all the log files
 ********************************************************************
 handle this in different part of the application (API, AGI, Cront)
