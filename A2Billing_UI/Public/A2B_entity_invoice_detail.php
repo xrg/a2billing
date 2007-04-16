@@ -250,7 +250,7 @@ if (!$nodisplay){
 
 $QUERY = "SELECT t1.amount, t1.creationdate, t1.description, t3.countryname, t2.did ".
 " FROM cc_charge t1 LEFT JOIN (cc_did t2, cc_country t3 ) ON ( t1.id_cc_did = t2.id AND t2.id_cc_country = t3.id ) ".
-" WHERE t1.chargetype = 2 AND t1.id_cc_card = ".$customerID.
+" WHERE (t1.chargetype = 2 OR t1.chargetype = 1) AND t1.id_cc_card = ".$customerID.
 " AND t1.creationdate > (Select cover_startdate  from cc_invoices where id ='$id') AND t1.creationdate <(Select cover_enddate from cc_invoices where id ='$id')";
 
 echo $QUERY;
@@ -272,7 +272,7 @@ if (!$nodisplay)
 // Extra charge =  4
 
 $QUERY = "SELECT t1.id_cc_card, t1.iduser, t1.creationdate, t1.amount, t1.chargetype, t1.id_cc_did, t1.currency, t1.description" .
-" FROM cc_charge t1, cc_card t2 WHERE t1.chargetype <> 2 " .
+" FROM cc_charge t1, cc_card t2 WHERE (t1.chargetype <> 2 AND t1.chargetype <> 1)" .
 " AND t2.username = '$customer' AND t1.id_cc_card = t2.id AND " .
 " t1.creationdate >(Select cover_startdate  from cc_invoices where id ='$id') " .
 " AND t1.creationdate <(Select cover_enddate  from cc_invoices where id ='$id')";
@@ -329,7 +329,7 @@ if ((isset($customer)  &&  ($customer>0)) || (isset($entercustomer)  &&  ($enter
 $QUERY = "Select t1.invoicecreated_date from cc_invoices t1, cc_card t2 where t2.id = t1.cardid and t2.username = '$customer' order by t1.invoicecreated_date";
 $billperiod_list = $instance_table -> SQLExec ($DBHandle, $QUERY);
 $total_invoices = count($billperiod_list);
-
+echo "<br>total_invoices = $total_invoices";
 
 ?>
 <?php
@@ -347,12 +347,13 @@ if (is_array($list_total_destination) && count($list_total_destination)>0){
 		$totalcall+=$data[3];
 		$totalminutes+=$data[1];
 		$totalcost+=$data[2];
-	
-}
-
+	}
+echo "<br>total_invoices = $total_invoices";
 ?>
 		<?php if ($total_invoices > 0)
 		{
+		echo "<br>total_invoices = $total_invoices";
+		exit;
 		?>
 	<table  cellspacing="0" class="invoice_main_table">
      
@@ -801,18 +802,14 @@ if (is_array($list_total_destination) && count($list_total_destination)>0){
 	 </table>
 	<?php } ?>
 	
-<?php }
-else
-{
-?>
+<?php } else { ?>
 	<table  cellspacing="0" class="invoice_main_table">
-     
       <tr>
         <td class="invoice_heading"><?php echo gettext("Invoice Details") ?></td>
       </tr>	  
 	 <tr>
 	 <td>&nbsp;</td>
-	 </tr> 
+	 </tr>
 	  <tr>
 	 <td align="center"><?php echo gettext("No invoice has been created for you !") ?></td>
 	 </tr> 
