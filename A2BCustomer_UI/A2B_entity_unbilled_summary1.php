@@ -79,13 +79,6 @@ if (!(isset($customer)  &&  ($customer>0)) && !(isset($entercustomer)  &&  ($ent
 	$FG_TABLE_COL[]=array (gettext("Cardused"), "username", "11%", "center", "SORT", "30");
 }
 
-//if ($_SESSION["is_admin"]==1) $FG_TABLE_COL[]=array ("Con_charg", "connectcharge", "12%", "center", "SORT", "30");
-//if ($_SESSION["is_admin"]==1) $FG_TABLE_COL[]=array ("Dis_charg", "disconnectcharge", "12%", "center", "SORT", "30");
-//if ($_SESSION["is_admin"]==1) $FG_TABLE_COL[]=array ("Sec/mn", "secpermin", "12%", "center", "SORT", "30");
-
-
-//if ($_SESSION["is_admin"]==1) $FG_TABLE_COL[]=array ("Buycosts", "buycosts", "12%", "center", "SORT", "30");
-//-- $FG_TABLE_COL[]=array ("InitialRate", "calledrate", "10%", "center", "SORT", "30", "", "", "", "", "", "display_2dec");
 $FG_TABLE_COL[]=array (gettext("Cost"), "sessionbill", "9%", "center", "SORT", "30", "", "", "", "", "", "display_2bill");
 
 //-- if (LINK_AUDIO_FILE == 'YES') 
@@ -238,7 +231,7 @@ if ($FG_DEBUG >= 1) var_dump ($list);
 
 
 $QUERY = "SELECT destination, sum(t1.sessiontime) AS calltime, 
-sum(t1.sessionbill) AS cost, count(*) as nbcall FROM $FG_TABLE_NAME WHERE ".$FG_TABLE_CLAUSE." AND t1.sipiax not in (2,3) GROUP BY destination";
+sum(t1.sessionbill) AS cost, count(*) as nbcall FROM $FG_TABLE_NAME WHERE ".$FG_TABLE_CLAUSE."  GROUP BY destination";
 if (!$nodisplay){				
 		$res = $DBHandle -> Execute($QUERY);
 		if ($res){
@@ -265,9 +258,20 @@ if ($FG_DEBUG >= 1) var_dump ($list_total_destination);
 
 // Billing Type:: All DID Calls 
 
-$QUERY = "SELECT t1.id_did, t2.fixrate, t2.billingtype, sum(t1.sessiontime) AS calltime, 
- sum(t1.sessionbill) AS cost, count(*) as nbcall FROM cc_call t1, cc_did t2 WHERE ".$FG_TABLE_CLAUSE." 
- AND t1.sipiax in (2,3) AND t1.id_did = t2.id GROUP BY t1.id_did";
+if (DB_TYPE == "postgres")
+{
+	$QUERY = "SELECT t1.amount, t1.creationdate, t1.description, t3.countryname, t2.did ".
+	" FROM cc_charge t1 LEFT JOIN (cc_did t2, cc_country t3 ) ON ( t1.id_cc_did = t2.id AND t2.id_cc_country = t3.id ) ".
+	" WHERE t1.chargetype = 2 AND t1.id_cc_card = ".$_SESSION["card_id"].
+	" AND t1.creationdate >(Select CASE  WHEN max(cover_enddate) IS NULL THEN '0001-01-01 01:00:00' ELSE max(cover_enddate) END from cc_invoices)";
+}
+else
+{
+	$QUERY = "SELECT t1.amount, t1.creationdate, t1.description, t3.countryname, t2.did ".
+	" FROM cc_charge t1 LEFT JOIN (cc_did t2, cc_country t3 ) ON ( t1.id_cc_did = t2.id AND t2.id_cc_country = t3.id ) ".
+	" WHERE t1.chargetype = 2 AND t1.id_cc_card = ".$_SESSION["card_id"].
+	" AND t1.creationdate >(Select CASE  WHEN max(cover_enddate) IS NULL THEN '0000-00-00 00:00:00' ELSE max(cover_enddate) END from cc_invoices)";
+}
  
 if (!$nodisplay)
 {
@@ -295,7 +299,7 @@ if (!$nodisplay)
 // Extra charge =  4
 
 $QUERY = "SELECT t1.id_cc_card, t1.iduser, t1.creationdate, t1.amount, t1.chargetype, t1.id_cc_did, t1.currency" .
-" FROM cc_charge t1, cc_card t2 WHERE t1.chargetype in (1,2,3,4)" .
+" FROM cc_charge t1, cc_card t2 WHERE t1.chargetype <> 2" .
 " AND t2.username = '$customer' AND t1.id_cc_card = t2.id AND t1.creationdate >= (Select CASE WHEN max(cover_enddate) is NULL " .
 " THEN '0000-00-00 00:00:00' ELSE max(cover_enddate) END from cc_invoices) Order by t1.creationdate";
 //echo "<br>".$QUERY."<br>";
@@ -425,27 +429,7 @@ if (is_array($list_total_did) && count($list_total_did)>0)
 	//echo "<br>Total Cost at Dial = ".$totalcost;
 	foreach ($list_total_did as $data)
 	{	
-		if ($mmax < $data[3])
-		{
-			$mmax = $data[3];
-		}
-		$totalcall += $data[5];
-		$totalminutes += $data[3];		
-		if ($data[2] == 0)
-		{			
-			$totalcost += $data[4];
-			//echo "<br>DID =".$data[0]."; Fixed Cost=".$data[1]."; Total Call Cost=".$data[4]."; Total = ".$totalcost;
-		}
-		if ($data[2] == 2)
-		{				
-			$totalcost += $data[4];
-			//echo "<br>DID =".$data[0]."; Fixed Cost=0; Total Call Cost=".$data[4]."; Total = ".$totalcost;
-		}		
-		if ($data[2] == 3)
-		{
-			$totalcost += 0;
-			//echo "<br>DID =".$data[0]."; TYPE = FREE; Total = ".$totalcost;
-		}
+		$totalcost += $data[0];
 	}	
 }
 
@@ -473,7 +457,6 @@ $totalcost = $totalcost + $extracharge_total;
 <center><h4><font color="#FF0000"><?php echo gettext("Unbilled Invoice Summary for Card Number")?>&nbsp;<?php echo $info_customer[0][1] ?> </font></h4></center>
 <br>
 <br>
-
 
 <table align="center" width="80%" >
      
@@ -520,21 +503,26 @@ $totalcost = $totalcost + $extracharge_total;
               <td width="36%" ><font color="#003399"> <h7><?php echo gettext("Current Period Charges")?></h7></font></td>
               <td width="22%" >&nbsp; </td>
               <td  align="right" ><font color="#003399"><?php  
-															$prvat = ($vat / 100) * $totalcost;															
 															
-															display_2bill($totalcost + $prvat);
+															display_2bill($totalcost);
 															//if ($vat>0) echo  " (".$vat." % ".gettext("VAT").")";															
 															 ?></font>
 			  </td>
             </tr>
-			<tr  bgcolor="#CCCCCC">
-              <td  width="36%" ><font color="#003399" ><?php echo gettext("Total Payable Bill")?></font></td>
+			<tr  >
+              <td  width="36%" ><font color="#003399" ><?php echo gettext("VAT")?></font></td>
               <td width="22%" >&nbsp;</td>
               <td   align="right" ><font color="#003399" ><?php  
 															$prvat = ($vat / 100) * $totalcost;															
+															display_2bill($prvat);
+															 ?></font>
+			  </td>
+            </tr> 
+			<tr  bgcolor="#CCCCCC">
+              <td  width="36%" ><font color="#003399" ><?php echo gettext("Total Payable Bill")?></font></td>
+              <td width="22%" >&nbsp;</td>
+              <td   align="right" ><font color="#003399" ><?php  							
 															display_2bill($totalcost + $prvat);
-															//if ($vat>0) echo  " (".$vat." % ".gettext("VAT").")";
-															
 															 ?></font>
 			  </td>
             </tr> 

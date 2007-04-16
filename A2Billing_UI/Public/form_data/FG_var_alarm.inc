@@ -120,7 +120,7 @@ $HD_Form -> AddEditElement(gettext("TRUNK"),
 			   "",	
 			   "",
 			   "",
-			   "" , "", "",	"", "" , "A2B_entity_trunk.php?popup_select=1&", ", 'id_trunk','width=550,height=340,top=20,left=100'", gettext("Set if you want to apply the alarm on a specific trunk or leave empty for all trunk."));
+			   "" , "", "",	"", "" , "A2B_entity_trunk.php?popup_select=1&", ", 'id_trunk','width=550,height=340,top=20,left=100,scrollbars=1'", gettext("Set if you want to apply the alarm on a specific trunk or leave empty for all trunk."));
 
 $HD_Form -> AddEditElement (gettext("STATUS"),
 	"status",

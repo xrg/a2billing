@@ -294,15 +294,13 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 				<table width="100%" border="0" cellspacing="0" cellpadding="0"><tr>
 					<td class="fontstyle_searchoptions">
 						<?php echo gettext("Enter the cardnumber");?>: <INPUT TYPE="text" NAME="entercustomer" value="<?php echo $entercustomer?>" class="form_input_text">
-						<a href="#" onclick="window.open('../A2B_entity_card.php?popup_select=2&popup_formname=myForm&popup_fieldname=entercustomer' , 'CardNumberSelection','width=550,height=330,top=20,left=100');"><img src="<?php echo Images_Path;?>/icon_arrow_orange.gif"></a>
-						
+						<a href="#" onclick="window.open('A2B_entity_card.php?popup_select=2&popup_formname=myForm&popup_fieldname=entercustomer' , 'CardNumberSelection','width=550,height=330,top=20,left=100,scrollbars=1');"><img src="<?php echo Images_Path;?>/icon_arrow_orange.gif"></a>
 					</td>
 					<td align="right" class="fontstyle_searchoptions">
 						<?php echo gettext("Provider");?>: <INPUT TYPE="text" NAME="enterprovider" value="<?php echo $enterprovider?>" size="4" class="form_input_text">
-						<a href="#" onclick="window.open('../A2B_entity_provider.php?popup_select=2&popup_formname=myForm&popup_fieldname=enterprovider' , 'ProviderSelection','width=550,height=330,top=20,left=100');"><img src="<?php echo Images_Path;?>/icon_arrow_orange.gif"></a>
+						<a href="#" onclick="window.open('A2B_entity_provider.php?popup_select=2&popup_formname=myForm&popup_fieldname=enterprovider' , 'ProviderSelection','width=550,height=330,top=20,left=100,scrollbars=1');"><img src="<?php echo Images_Path;?>/icon_arrow_orange.gif"></a>
 						<?php echo gettext("Trunk");?>: <INPUT TYPE="text" NAME="entertrunk" value="<?php echo $entertrunk?>" size="4" class="form_input_text">
-						<a href="#" onclick="window.open('../A2B_entity_trunk.php?popup_select=2&popup_formname=myForm&popup_fieldname=entertrunk' , 'TrunkSelection','width=550,height=330,top=20,left=100');"><img src="<?php echo Images_Path;?>/icon_arrow_orange.gif"></a>
-						
+						<a href="#" onclick="window.open('A2B_entity_trunk.php?popup_select=2&popup_formname=myForm&popup_fieldname=entertrunk' , 'TrunkSelection','width=550,height=330,top=20,left=100,scrollbars=1');"><img src="<?php echo Images_Path;?>/icon_arrow_orange.gif"></a>
 					</td>
 				</tr></table></td>
 			</tr>
@@ -377,9 +375,6 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 </center>
 
 
-
-
-
 <!-- ** ** ** ** ** Part to display the GRAPHIC ** ** ** ** ** -->
 <br><br>
 
@@ -400,8 +395,6 @@ foreach ($list_total as $recordset){
 			$table_graph_hours[$mydate_hours][0]=1;
 			$table_graph_hours[$mydate_hours][1]=$recordset[1];
 		}
-		
-		
 		if (is_array($table_graph[$mydate])){
 			$table_graph[$mydate][0]++;
 			$table_graph[$mydate][1]=$table_graph[$mydate][1]+$recordset[1];
@@ -409,7 +402,6 @@ foreach ($list_total as $recordset){
 			$table_graph[$mydate][0]=1;
 			$table_graph[$mydate][1]=$recordset[1];
 		}
-		
 }
 
 $mmax=0;
@@ -448,24 +440,19 @@ foreach ($table_graph as $tkey => $data){
         <td align="center"><font class="fontstyle_003"><?php echo gettext("DURATION");?></font></td>
 		<td align="center"><font class="fontstyle_003"><?php echo gettext("GRAPHIC");?></font></td>
 		<td align="center"><font class="fontstyle_003"><?php echo gettext("CALLS");?></font></td>
-		<td align="center"><font class="fontstyle_003"> <acronym title="<?php echo gettext("Average Connection Time");?>"><?php echo gettext("ACT");?></acronym> </font></td>
-                			
+		<td align="center"><font class="fontstyle_003"><acronym title="<?php echo gettext("Average Connection Time");?>"><?php echo gettext("ACT");?></acronym> </font></td>
+
 		<!-- LOOP -->
 	<?php  		
 		$i=0;
-		
 		if ($FG_DEBUG == 3) print_r($table_graph);
-		
 		foreach ($table_graph as $tkey => $data){	
-		$i=($i+1)%2;		
-		$tmc = $data[1]/$data[0];
-		
-		$tmc_60 = sprintf("%02d",intval($tmc/60)).":".sprintf("%02d",intval($tmc%60));		
-		
-		$minutes_60 = sprintf("%02d",intval($data[1]/60)).":".sprintf("%02d",intval($data[1]%60));
-		if ((!$mmax) || (!$data[1])) $widthbar = 0;
-		else $widthbar= intval(($data[1]/$mmax)*200); 
-		
+			$i=($i+1)%2;		
+			$tmc = $data[1]/$data[0];
+			$tmc_60 = sprintf("%02d",intval($tmc/60)).":".sprintf("%02d",intval($tmc%60));
+			$minutes_60 = sprintf("%02d",intval($data[1]/60)).":".sprintf("%02d",intval($data[1]%60));
+			if ((!$mmax) || (!$data[1])) $widthbar = 0;
+			else $widthbar= intval(($data[1]/$mmax)*200);
 	?>
 		</tr><tr>
 		<td align="right" class="sidenav" nowrap="nowrap"><font class="fontstyle_006"><?php echo $tkey?></font></td>
@@ -484,8 +471,7 @@ foreach ($table_graph as $tkey => $data){
 	</tr>
 	<!-- FIN DETAIL -->		
 	
-				
-				<!-- FIN BOUCLE -->
+	<!-- FIN BOUCLE -->
 
 	<!-- TOTAL -->
 	<tr class="bgcolor_019">
@@ -496,8 +482,8 @@ foreach ($table_graph as $tkey => $data){
 	</tr>
 	<!-- FIN TOTAL -->
 
-	  </tbody></table>
-	  <!-- Fin Tableau Global //-->
+	</tbody></table>
+	<!-- Fin Tableau Global //-->
 
 </td></tr></tbody></table>
 	<br>
@@ -515,7 +501,7 @@ foreach ($table_graph as $tkey => $data){
 			<tbody>		
 			<tr>
 			<td align="left"  class="bgcolor_004">
-					<font class="fontstyle_003">&nbsp;&nbsp;<?php echo gettext("HOUR INTERVAL");?> :</font>
+				<font class="fontstyle_003">&nbsp;&nbsp;<?php echo gettext("HOUR INTERVAL");?> :</font>
 				</td>				
 				<td class="bgcolor_005" align="center">
 				<table width="100%" border="0" cellspacing="0" cellpadding="0"><tr><td>&nbsp;&nbsp;
@@ -544,13 +530,10 @@ foreach ($table_graph as $tkey => $data){
 				</td>				
 				</tr></table></td>
 			</tr>
-
 			<tr>
         		<td class="bgcolor_004" align="left"> </td>
-
 				<td class="bgcolor_003" align="center">
-					<input type="image"  name="image16" align="top" border="0" src="<?php echo Images_Path;?>/button-search.gif" />				
-
+					<input type="image"  name="image16" align="top" border="0" src="<?php echo Images_Path;?>/button-search.gif" />
 	  			</td>
     		</tr>
 		</tbody></table>

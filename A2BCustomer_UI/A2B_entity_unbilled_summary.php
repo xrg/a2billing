@@ -147,10 +147,8 @@ if ($posted==1){
   
   $SQLcmd = do_field($SQLcmd, 'src', 'src');
   $SQLcmd = do_field($SQLcmd, 'dst', 'calledstation');
-	
   
 }
-
 
 $date_clause='';
 // Period (Month-Day)
@@ -193,34 +191,7 @@ if (!$nodisplay){
 }
 $_SESSION["pr_sql_export"]="SELECT $FG_COL_QUERY FROM $FG_TABLE_NAME WHERE $FG_TABLE_CLAUSE";
 
-/************************/
-//$QUERY = "SELECT substring(calldate,1,10) AS day, sum(duration) AS calltime, count(*) as nbcall FROM cdr WHERE ".$FG_TABLE_CLAUSE." GROUP BY substring(calldate,1,10)"; //extract(DAY from calldate)
-
-
-$QUERY = "SELECT substring(t1.starttime,1,10) AS day, sum(t1.sessiontime) AS calltime, sum(t1.sessionbill) AS cost, count(*) as nbcall FROM $FG_TABLE_NAME WHERE ".$FG_TABLE_CLAUSE." GROUP BY substring(t1.starttime,1,10) ORDER BY day"; //extract(DAY from calldate)
-//echo "$QUERY";
-
-if (!$nodisplay){
-		$res = $DBHandle -> Execute($QUERY);
-		if ($res){
-			$num = $res -> RecordCount();
-			for($i=0;$i<$num;$i++)
-			{				
-				$list_total_day [] =$res -> fetchRow();				 
-			}
-		}
-
-if ($FG_DEBUG == 3) echo "<br>Clause : $FG_TABLE_CLAUSE";
-$nb_record = $instance_table -> Table_count ($DBHandle, $FG_TABLE_CLAUSE);
-if ($FG_DEBUG >= 1) var_dump ($list);
-
-}//end IF nodisplay
-
-
 // GROUP BY DESTINATION FOR THE INVOICE
-
-
-
 /************************************************ DID Billing Section *********************************************/
 // Fixed + Dial = 0
 // Fixed = 1
@@ -229,10 +200,21 @@ if ($FG_DEBUG >= 1) var_dump ($list);
 
 
 // Billing Type:: All DID Calls 
-
-$QUERY = "SELECT t1.id_did, t2.fixrate, t2.billingtype, sum(t1.sessiontime) AS calltime, 
- sum(t1.sessionbill) AS cost, count(*) as nbcall FROM cc_call t1, cc_did t2 WHERE ".$FG_TABLE_CLAUSE." 
- AND t1.sipiax in (2,3) AND t1.id_did = t2.id GROUP BY t1.id_did";
+if (DB_TYPE == "postgres")
+{
+	$QUERY = "SELECT t1.amount, t1.creationdate, t1.description, t3.countryname, t2.did ".
+	" FROM cc_charge t1 LEFT JOIN (cc_did t2, cc_country t3 ) ON ( t1.id_cc_did = t2.id AND t2.id_cc_country = t3.id ) ".
+	" WHERE t1.chargetype = 2 AND t1.id_cc_card = ".$_SESSION["card_id"].
+	" AND t1.creationdate >(Select CASE  WHEN max(cover_enddate) IS NULL THEN '0001-01-01 01:00:00' ELSE max(cover_enddate) END from cc_invoices)";
+}
+else
+{
+	$QUERY = "SELECT t1.amount, t1.creationdate, t1.description, t3.countryname, t2.did ".
+	" FROM cc_charge t1 LEFT JOIN (cc_did t2, cc_country t3 ) ON ( t1.id_cc_did = t2.id AND t2.id_cc_country = t3.id ) ".
+	" WHERE t1.chargetype = 2 AND t1.id_cc_card = ".$_SESSION["card_id"].
+	" AND t1.creationdate >(Select CASE  WHEN max(cover_enddate) IS NULL THEN '0000-00-00 00:00:00' ELSE max(cover_enddate) END from cc_invoices)";
+}
+ 
  
 if (!$nodisplay)
 {
@@ -259,11 +241,20 @@ if (!$nodisplay)
 // Subscription fee = 3
 // Extra charge =  4
 
-$QUERY = "SELECT t1.id_cc_card, t1.iduser, t1.creationdate, t1.amount, t1.chargetype, t1.id_cc_did, t1.currency" .
-" FROM cc_charge t1, cc_card t2 WHERE t1.chargetype in (1,2,3,4)" .
-" AND t2.username = '$customer' AND t1.id_cc_card = t2.id AND t1.creationdate >= (Select CASE WHEN max(cover_enddate) is NULL " .
-" THEN '0000-00-00 00:00:00' ELSE max(cover_enddate) END from cc_invoices) Order by t1.creationdate";
-//echo "<br>".$QUERY."<br>";
+if (DB_TYPE == "postgres")
+{
+	$QUERY = "SELECT t1.id_cc_card, t1.iduser, t1.creationdate, t1.amount, t1.chargetype, t1.id_cc_did, t1.currency, t1.description" .
+	" FROM cc_charge t1, cc_card t2 WHERE t1.chargetype <> 2 " .
+	" AND t2.username = '$customer' AND t1.id_cc_card = t2.id AND t1.creationdate >= (Select CASE WHEN max(cover_enddate) is NULL " .
+	" THEN '0001-01-01 01:00:00' ELSE max(cover_enddate) END from cc_invoices) Order by t1.creationdate";
+}
+else
+{
+	$QUERY = "SELECT t1.id_cc_card, t1.iduser, t1.creationdate, t1.amount, t1.chargetype, t1.id_cc_did, t1.currency, t1.description" .
+	" FROM cc_charge t1, cc_card t2 WHERE t1.chargetype <> 2 " .
+	" AND t2.username = '$customer' AND t1.id_cc_card = t2.id AND t1.creationdate >= (Select CASE WHEN max(cover_enddate) is NULL " .
+	" THEN '0000-00-00 00:00:00' ELSE max(cover_enddate) END from cc_invoices) Order by t1.creationdate";
+}
 
 if (!$nodisplay)
 {
@@ -283,7 +274,7 @@ if (!$nodisplay)
 /*************************************************CHARGES SECTION END ************************************************/
 
 $QUERY = "SELECT destination, sum(t1.sessiontime) AS calltime, 
-sum(t1.sessionbill) AS cost, count(*) as nbcall FROM $FG_TABLE_NAME WHERE ".$FG_TABLE_CLAUSE." AND t1.sipiax not in (2,3) GROUP BY destination";
+sum(t1.sessionbill) AS cost, count(*) as nbcall FROM $FG_TABLE_NAME WHERE ".$FG_TABLE_CLAUSE."  GROUP BY destination";
 if (!$nodisplay){
 		$res = $DBHandle -> Execute($QUERY);
 		if ($res){
@@ -342,19 +333,8 @@ if ((isset($customer)  &&  ($customer>0)) || (isset($entercustomer)  &&  ($enter
 
 /************************************************************/
 
-$date_clause='';
-
-if ($Period=="Month"){		
-		if ($frommonth && isset($fromstatsmonth)) $date_clause.=" AND $UNIX_TIMESTAMP(t1.creationdate) >= $UNIX_TIMESTAMP('$fromstatsmonth-01')";
-		if ($tomonth && isset($tostatsmonth)) $date_clause.=" AND  $UNIX_TIMESTAMP(t1.creationdate) <= $UNIX_TIMESTAMP('".$tostatsmonth."-$lastdayofmonth 23:59:59')"; 
-}else{
-		if ($fromday && isset($fromstatsday_sday) && isset($fromstatsmonth_sday) && isset($fromstatsmonth_shour) && isset($fromstatsmonth_smin) ) $date_clause.=" AND  $UNIX_TIMESTAMP(t1.creationdate) >= $UNIX_TIMESTAMP('$fromstatsmonth_sday-$fromstatsday_sday $fromstatsmonth_shour:$fromstatsmonth_smin')";
-		if ($today && isset($tostatsday_sday) && isset($tostatsmonth_sday) && isset($tostatsmonth_shour) && isset($tostatsmonth_smin)) $date_clause.=" AND  $UNIX_TIMESTAMP(t1.creationdate) <= $UNIX_TIMESTAMP('$tostatsmonth_sday-".sprintf("%02d",intval($tostatsday_sday))." $tostatsmonth_shour:$tostatsmonth_smin')";
-}
-
 
 ?>
-
 
 <?php
 $smarty->display( 'main.tpl');	
@@ -396,27 +376,7 @@ if (is_array($list_total_did) && count($list_total_did)>0)
 	//echo "<br>Total Cost at Dial = ".$totalcost;
 	foreach ($list_total_did as $data)
 	{	
-		if ($mmax < $data[3])
-		{
-			$mmax = $data[3];
-		}
-		$totalcall += $data[5];
-		$totalminutes += $data[3];		
-		if ($data[2] == 0)
-		{			
-			$totalcost += $data[4];
-			//echo "<br>DID =".$data[0]."; Fixed Cost=".$data[1]."; Total Call Cost=".$data[4]."; Total = ".$totalcost;
-		}
-		if ($data[2] == 2)
-		{				
-			$totalcost += $data[4];
-			//echo "<br>DID =".$data[0]."; Fixed Cost=0; Total Call Cost=".$data[4]."; Total = ".$totalcost;
-		}		
-		if ($data[2] == 3)
-		{
-			$totalcost += 0;
-			//echo "<br>DID =".$data[0]."; TYPE = FREE; Total = ".$totalcost;
-		}
+		$totalcost += $data[0];
 	}	
 }
 
@@ -431,9 +391,6 @@ if (is_array($list_total_charges) && count($list_total_charges)>0)
 	}	
 }
 $totalcost = $totalcost + $extracharge_total;
-
-if ($totalcallmade > 0)
-{
 
 ?>
 
@@ -485,12 +442,17 @@ if ($totalcallmade > 0)
             <tr class="invoice_rows">
               <td width="40%" class="invoice_td"><?php echo gettext("Current Period Charges")?> </td>
               <td width="30%" class="invoice_td">&nbsp; </td>
+              <td width="30%" align="right" class="invoice_td"><?php  															
+															display_2bill($totalcost );
+															 ?>
+															 </td>
+            </tr>
+			 <tr class="invoice_rows">
+              <td width="40%" class="invoice_td"><?php echo gettext("VAT")?> </td>
+              <td width="30%" class="invoice_td">&nbsp; </td>
               <td width="30%" align="right" class="invoice_td"><?php  
 															$prvat = ($vat / 100) * $totalcost;															
-															
-															display_2bill($totalcost + $prvat);
-															//if ($vat>0) echo  " (".$vat." % ".gettext("VAT").")";
-															
+															display_2bill($prvat);
 															 ?>
 															 </td>
             </tr>
@@ -498,11 +460,7 @@ if ($totalcallmade > 0)
               <td  width="40%" class="invoice_td"><?php echo gettext("Total Payable Bill")?></td>
               <td width="30%" class="invoice_td">&nbsp;</td>
               <td width="30%"  align="right" class="invoice_td"><?php  
-															$prvat = ($vat / 100) * $totalcost;															
-															
 															display_2bill($totalcost + $prvat);
-															//if ($vat>0) echo  " (".$vat." % ".gettext("VAT").")";
-															
 															 ?>
 															 </td>
             </tr>
@@ -552,28 +510,8 @@ if ($totalcallmade > 0)
         </table></td>
       </tr><?php }?>
     </table>
-	
+
 <?php
-}
-else
-{
-?>
-<table  cellspacing="0" class="invoice_main_table">
-     
-      <tr>
-        <td class="invoice_heading"><?php echo gettext("Unbilled Summary")?></td>
-      </tr>	  
-	 <tr>
-	 <td>&nbsp;</td>
-	 </tr> 
-	  <tr>
-	 <td align="center"><?php echo gettext("No calls are made yet")?>!</td>
-	 </tr> 
-	  <tr>
-	 <td>&nbsp;</td>
-	 </tr> 
-	 </table>
-<?php
-}
+
 $smarty->display( 'footer.tpl');
 ?>

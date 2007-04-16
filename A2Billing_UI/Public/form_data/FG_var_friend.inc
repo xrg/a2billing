@@ -81,7 +81,7 @@ $HD_Form -> AddEditElement (gettext("ID CARD"),
 	gettext("Insert the Id CardNumber"),
 	"" , "", "", "", "",
 	"A2B_entity_card.php?popup_select=1&"
-	, ", 'CardNumberSelection','width=550,height=350,top=20,left=100'" ,
+	, ", 'CardNumberSelection','width=590,height=350,top=20,left=100,scrollbars=1'" ,
 	gettext("Insert the card ID."));
 
 

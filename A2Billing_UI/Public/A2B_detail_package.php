@@ -325,7 +325,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 				<table width="100%" border="0" cellspacing="0" cellpadding="0" class="bgcolor_005"><tr>
 					<td>
 						<?php echo gettext("Enter the card ID");?>: <INPUT TYPE="text" NAME="enter_cardid" value="<?php echo $enter_cardid?>" class="form_input_text">
-						<a href="#" onclick="window.open('A2B_entity_card.php?popup_select=1&popup_formname=myForm&popup_fieldname=enter_cardid' , 'CardNumberSelection','width=550,height=330,top=20,left=100');"><img src="<?php echo Images_Path;?>/icon_arrow_orange.gif"></a>
+						<a href="#" onclick="window.open('A2B_entity_card.php?popup_select=1&popup_formname=myForm&popup_fieldname=enter_cardid' , 'CardNumberSelection','width=550,height=330,top=20,left=100,scrollbars=1');"><img src="<?php echo Images_Path;?>/icon_arrow_orange.gif"></a>
 					</td>					
 				</tr></table></td>
 			</tr>			

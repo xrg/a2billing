@@ -164,7 +164,7 @@ echo $CC_help_list_customer;
            	<table>
 			<tr><td align="center">
 			   <?php echo gettext("CARD ID");?>	 :<input class="form_input_text" name="choose_list" onfocus="clear_textbox2();" size="18" maxlength="16" value="enter ID Card">
-				<a href="#" onclick="window.open('A2B_entity_card.php?nodisplay=1&popup_select=1&popup_formname=theForm&popup_fieldname=choose_list' , 'CardNumberSelection','width=550,height=330,top=20,left=100');"><img src="<?php echo Images_Path;?>/icon_arrow_orange.gif"></a>
+				<a href="#" onclick="window.open('A2B_entity_card.php?nodisplay=1&popup_select=1&popup_formname=theForm&popup_fieldname=choose_list' , 'CardNumberSelection','width=550,height=330,top=20,left=100,scrollbars=1');"><img src="<?php echo Images_Path;?>/icon_arrow_orange.gif"></a>
 					   <?php echo gettext("or");?>
 			</td></tr>
 			<tr><td align="center">

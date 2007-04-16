@@ -95,7 +95,7 @@ $HD_Form -> AddEditElement (gettext("PHONE"),
 			   "4",
 			   "Insert the Id CardNumber",
 			   "" , "", "",	"", "", "CC_entity_card.php?popup_select=1&"
-			   , ", 'CardNumberSelection','width=550,height=350,top=20,left=100'", "Define here the id cardnumber to use" );
+			   , ", 'CardNumberSelection','width=550,height=350,top=20,left=100,scrollbars=1'", "Define here the id cardnumber to use" );
     */
 
 //$HD_Form -> FieldEditElement ('speeddial, name, phone, id_cc_card');
