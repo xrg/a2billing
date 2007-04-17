@@ -231,7 +231,7 @@ class A2Billing {
 			if ($this->CC_TESTING) echo $string_log;
 			
 			$this -> BUFFER .= $string_log;				
-			if (!$tobuffer || $this->CC_TESTING){													
+			if (!$tobuffer || $this->CC_TESTING){
 				error_log ($this -> BUFFER, 3, $this->log_file);
 				$this-> BUFFER = '';
 			}
