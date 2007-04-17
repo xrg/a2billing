@@ -29,11 +29,6 @@ if ($exporttype=="pdf")
 	header("Expires: 0");
 	header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
 	header("Content-transfer-encoding: binary");
-			
-	//@readfile($dl_full);
-	
-	//exit();
-
 }
 
 
@@ -289,14 +284,14 @@ if($choose_billperiod == "")
 {
 	$QUERY = "SELECT t1.amount, t1.creationdate, t1.description, t3.countryname, t2.did ".
 	" FROM cc_charge t1 LEFT JOIN (cc_did t2, cc_country t3 ) ON ( t1.id_cc_did = t2.id AND t2.id_cc_country = t3.id ) ".
-	" WHERE t1.chargetype = 2 AND t1.id_cc_card = ".$_SESSION["card_id"].
+	" WHERE (t1.chargetype = 1 OR t1.chargetype = 2) AND t1.id_cc_card = ".$_SESSION["card_id"].
 	" AND t1.creationdate > (Select max(cover_startdate)  from cc_invoices) AND t1.creationdate <(Select max(cover_enddate) from cc_invoices) ";
 }
 else
 {
 	$QUERY = "SELECT t1.amount, t1.creationdate, t1.description, t3.countryname, t2.did ".
 	" FROM cc_charge t1 LEFT JOIN (cc_did t2, cc_country t3 ) ON ( t1.id_cc_did = t2.id AND t2.id_cc_country = t3.id ) ".
-	" WHERE t1.chargetype = 2 AND t1.id_cc_card = ".$_SESSION["card_id"].
+	" WHERE (t1.chargetype = 1 OR t1.chargetype = 2) AND t1.id_cc_card = ".$_SESSION["card_id"].
 	" AND t1.creationdate > (Select cover_startdate  from cc_invoices where invoicecreated_date = '$choose_billperiod') AND t1.creationdate < (Select cover_enddate from cc_invoices where invoicecreated_date = '$choose_billperiod')";
 }
  
@@ -325,7 +320,7 @@ if (!$nodisplay)
 if($choose_billperiod == "")
 {	
 	$QUERY = "SELECT t1.id_cc_card, t1.iduser, t1.creationdate, t1.amount, t1.chargetype, t1.id_cc_did, t1.currency, t1.description" .
-	" FROM cc_charge t1, cc_card t2 WHERE t1.chargetype <> 2 AND " .
+	" FROM cc_charge t1, cc_card t2 WHERE (t1.chargetype <> 1 AND t1.chargetype <> 2) AND " .
 	" t2.username = '$customer' AND t1.id_cc_card = t2.id AND " .
 	" t1.creationdate >(Select max(cover_startdate)  from cc_invoices) " .
 	" AND t1.creationdate <(Select max(cover_enddate) from cc_invoices)";
@@ -333,7 +328,7 @@ if($choose_billperiod == "")
 else
 {
 	$QUERY = "SELECT t1.id_cc_card, t1.iduser, t1.creationdate, t1.amount, t1.chargetype, t1.id_cc_did, t1.currency" .
-	" FROM cc_charge t1, cc_card t2 WHERE t1.chargetype <> 2 AND " .
+	" FROM cc_charge t1, cc_card t2 WHERE (t1.chargetype <> 1 AND t1.chargetype <> 2) AND " .
 	" t2.username = '$customer' AND t1.id_cc_card = t2.id AND " .
 	" t1.creationdate >(Select cover_startdate  from cc_invoices where invoicecreated_date ='$choose_billperiod') " .
 	" AND t1.creationdate <(Select cover_enddate from cc_invoices where invoicecreated_date ='$choose_billperiod')";
@@ -656,10 +651,15 @@ if (is_array($list_total_destination) && count($list_total_destination)>0){
 				?>
 			</table>
 			<!-- -------------------------------END HERE ---------------------------------->
-	<!-------------------------DID Billing Starts Here ---------------------------------->
+	
 	
 	
 		<table width="80%" cellpadding="0" cellspacing="0" border="0" align="center">
+		<!-------------------------DID Billing Starts Here ---------------------------------->
+		<?php 
+		if (is_array($list_total_did) && count($list_total_did)>0)
+				{	
+		?>
 		<tr>
 		<td>
 		<table width="100%" align="left" cellpadding="0" cellspacing="0">
@@ -675,9 +675,7 @@ if (is_array($list_total_destination) && count($list_total_destination)>0){
             </tr>
 			<?php  		
 				$i=0;
-				$totaldidcost = 0;
-				if (is_array($list_total_did) && count($list_total_did)>0)
-				{				
+				$totaldidcost = 0;							
 					foreach ($list_total_did as $data)
 					{	
 						$totaldidcost = $totaldidcost + $data[0];					
@@ -725,33 +723,22 @@ if (is_array($list_total_destination) && count($list_total_destination)>0){
 			  <td width="14%" ><font color="#003399">&nbsp;</font> </td>
 			  <td width="14%" ><font color="#003399">&nbsp;</font> </td>			  
               <td width="19%" align="right" ><font color="#003399"><?php  display_2bill($totaldidcost) ?></font> </td>
-            </tr>     
-			<?php
-			
-			}else
-			{								
-			 ?>   
-			  <tr >
-              <td width="100%" class="invoice_td" colspan="6">&nbsp; <?php echo gettext("None!!!")?></td>             
-			  
-            </tr>          
-			 <?php			 
-			 }
-			 ?>       
-            <tr >
+            </tr>
+            <tr>
               <td width="20%">&nbsp;</td>
               <td width="14%">&nbsp;</td>
               <td width="16%">&nbsp; </td>
 			  <td width="14%">&nbsp; </td>			 
 			  <td width="19%">&nbsp; </td>
-			  
             </tr>
-		
-		</table>		
-<!-----------------------------DID BILLING END HERE ------------------------------->				
-								
+		</table>										
 		</td>
 		</tr>
+		 <?php			 
+			 }
+			 ?>       
+		<!-----------------------------DID BILLING END HERE ------------------------------->				
+
 		<tr>
 		<td>
 				

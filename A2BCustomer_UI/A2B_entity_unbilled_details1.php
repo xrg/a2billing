@@ -210,7 +210,14 @@ if (strlen($FG_TABLE_CLAUSE)>0)
 {
 	$FG_TABLE_CLAUSE.=" AND ";
 }
-$FG_TABLE_CLAUSE.="t1.starttime >(Select CASE  WHEN max(cover_enddate) IS NULL THEN '0000-00-00 00:00:00' ELSE max(cover_enddate) END from cc_invoices)";
+if (DB_TYPE == "postgres")
+{
+	$FG_TABLE_CLAUSE.="t1.starttime >(Select CASE  WHEN max(cover_enddate) IS NULL THEN '0001-01-01 01:00:00' ELSE max(cover_enddate) END from cc_invoices)";
+}
+else
+{
+	$FG_TABLE_CLAUSE.="t1.starttime >(Select CASE  WHEN max(cover_enddate) IS NULL THEN '0000-00-00 00:00:00' ELSE max(cover_enddate) END from cc_invoices)";
+}
 
 
 if (!$nodisplay){
@@ -279,14 +286,14 @@ if (DB_TYPE == "postgres")
 {
 	$QUERY = "SELECT t1.amount, t1.creationdate, t1.description, t3.countryname, t2.did ".
 	" FROM cc_charge t1 LEFT JOIN (cc_did t2, cc_country t3 ) ON ( t1.id_cc_did = t2.id AND t2.id_cc_country = t3.id ) ".
-	" WHERE t1.chargetype = 2 AND t1.id_cc_card = ".$_SESSION["card_id"].
+	" WHERE (t1.chargetype = 1 OR t1.chargetype = 2) AND t1.id_cc_card = ".$_SESSION["card_id"].
 	" AND t1.creationdate >(Select CASE  WHEN max(cover_enddate) IS NULL THEN '0001-01-01 01:00:00' ELSE max(cover_enddate) END from cc_invoices)";
 }
 else
 {
 	$QUERY = "SELECT t1.amount, t1.creationdate, t1.description, t3.countryname, t2.did ".
 	" FROM cc_charge t1 LEFT JOIN (cc_did t2, cc_country t3 ) ON ( t1.id_cc_did = t2.id AND t2.id_cc_country = t3.id ) ".
-	" WHERE t1.chargetype = 2 AND t1.id_cc_card = ".$_SESSION["card_id"].
+	" WHERE (t1.chargetype = 1 OR t1.chargetype = 2) AND t1.id_cc_card = ".$_SESSION["card_id"].
 	" AND t1.creationdate >(Select CASE  WHEN max(cover_enddate) IS NULL THEN '0000-00-00 00:00:00' ELSE max(cover_enddate) END from cc_invoices)";
 }
 
@@ -315,10 +322,20 @@ if (!$nodisplay)
 // Subscription fee = 3
 // Extra charge =  4
 
-$QUERY = "SELECT t1.id_cc_card, t1.iduser, t1.creationdate, t1.amount, t1.chargetype, t1.id_cc_did, t1.currency, t1.description" .
-" FROM cc_charge t1, cc_card t2 WHERE t1.chargetype <> 2 " .
-" AND t2.username = '$customer' AND t1.id_cc_card = t2.id AND t1.creationdate >= (Select CASE WHEN max(cover_enddate) is NULL " .
-" THEN '0000-00-00 00:00:00' ELSE max(cover_enddate) END from cc_invoices) Order by t1.creationdate";
+if (DB_TYPE == "postgres")
+{
+	$QUERY = "SELECT t1.id_cc_card, t1.iduser, t1.creationdate, t1.amount, t1.chargetype, t1.id_cc_did, t1.currency, t1.description" .
+	" FROM cc_charge t1, cc_card t2 WHERE (t1.chargetype <> 1 AND t1.chargetype <> 2) " .
+	" AND t2.username = '$customer' AND t1.id_cc_card = t2.id AND t1.creationdate >= (Select CASE WHEN max(cover_enddate) is NULL " .
+	" THEN '0001-01-01 01:00:00' ELSE max(cover_enddate) END from cc_invoices) Order by t1.creationdate";
+}
+else
+{
+	$QUERY = "SELECT t1.id_cc_card, t1.iduser, t1.creationdate, t1.amount, t1.chargetype, t1.id_cc_did, t1.currency, t1.description" .
+	" FROM cc_charge t1, cc_card t2 WHERE (t1.chargetype <> 1 AND t1.chargetype <> 2) " .
+	" AND t2.username = '$customer' AND t1.id_cc_card = t2.id AND t1.creationdate >= (Select CASE WHEN max(cover_enddate) is NULL " .
+	" THEN '0000-00-00 00:00:00' ELSE max(cover_enddate) END from cc_invoices) Order by t1.creationdate";
+}
 //echo "<br>".$QUERY."<br>";
 
 if (!$nodisplay)
@@ -653,10 +670,13 @@ if (is_array($list_total_destination) && count($list_total_destination)>0){
      
     </table>
 	 <table align="center" width="80%">
+	 <!------------------------ DID Billing Here Starts ----------------------->
+	 <?php			 
+			if (is_array($list_total_did) && count($list_total_did)>0)
+				{	 
+	   ?>    
 		   <tr>
-	  <td>
-	  <!------------------------ DID Billing Here Starts ----------------------->
-		
+	  <td>		
 		<table width="100%" align="left" cellpadding="0" cellspacing="0">
    				<tr>
 				<td colspan="5" align="center"><font><b><?php echo gettext("DID Billing")?></b></font> </td>
@@ -670,9 +690,7 @@ if (is_array($list_total_destination) && count($list_total_destination)>0){
             </tr>
 			<?php  		
 				$i=0;
-				$totaldidcost = 0;
-				if (is_array($list_total_did) && count($list_total_did)>0)
-				{				
+				$totaldidcost = 0;							
 					foreach ($list_total_did as $data)
 					{	
 						$totaldidcost = $totaldidcost + $data[0];					
@@ -720,19 +738,7 @@ if (is_array($list_total_destination) && count($list_total_destination)>0){
 			  <td width="14%" ><font color="#003399">&nbsp;</font> </td>
 			  <td width="14%" ><font color="#003399">&nbsp;</font> </td>			  
               <td width="19%" align="right" ><font color="#003399"><?php  display_2bill($totaldidcost) ?></font> </td>
-            </tr>     
-			<?php
-			
-			}else
-			{								
-			 ?>   
-			  <tr >
-              <td width="100%" class="invoice_td" colspan="6">&nbsp; <?php echo gettext("None!!!")?></td>             
-			  
-            </tr>          
-			 <?php			 
-			 }
-			 ?>       
+            </tr>     			
             <tr >
               <td width="20%">&nbsp;</td>
               <td width="14%">&nbsp;</td>
@@ -742,12 +748,14 @@ if (is_array($list_total_destination) && count($list_total_destination)>0){
 			  
             </tr>
 		
-		</table>
+		</table>	
 		
-		<!------------------------DID Billing ENDS Here ----------------------------->
 	  </td>
 	  </tr>
-	  
+	  <?php			 
+			 }
+			 ?>    
+	  <!------------------------DID Billing ENDS Here ----------------------------->
 	  <tr>
 		<td>
 				

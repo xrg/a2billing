@@ -257,14 +257,14 @@ if($choose_billperiod == "")
 {
 	$QUERY = "SELECT t1.amount, t1.creationdate, t1.description, t3.countryname, t2.did ".
 	" FROM cc_charge t1 LEFT JOIN (cc_did t2, cc_country t3 ) ON ( t1.id_cc_did = t2.id AND t2.id_cc_country = t3.id ) ".
-	" WHERE t1.chargetype = 2 AND t1.id_cc_card = ".$_SESSION["card_id"].
+	" WHERE (t1.chargetype = 1 OR t1.chargetype = 2) AND t1.id_cc_card = ".$_SESSION["card_id"].
 	" AND t1.creationdate > (Select max(cover_startdate)  from cc_invoices) AND t1.creationdate <(Select max(cover_enddate) from cc_invoices) ";
 }
 else
 {
 	$QUERY = "SELECT t1.amount, t1.creationdate, t1.description, t3.countryname, t2.did ".
 	" FROM cc_charge t1 LEFT JOIN (cc_did t2, cc_country t3 ) ON ( t1.id_cc_did = t2.id AND t2.id_cc_country = t3.id ) ".
-	" WHERE t1.chargetype = 2 AND t1.id_cc_card = ".$_SESSION["card_id"].
+	" WHERE (t1.chargetype = 1 OR t1.chargetype = 2) AND t1.id_cc_card = ".$_SESSION["card_id"].
 	" AND t1.creationdate > (Select cover_startdate  from cc_invoices where invoicecreated_date = '$choose_billperiod') AND t1.creationdate < (Select cover_enddate from cc_invoices where invoicecreated_date = '$choose_billperiod')";
 }
 
@@ -294,7 +294,7 @@ if (!$nodisplay)
 if($choose_billperiod == "")
 {	
 	$QUERY = "SELECT t1.id_cc_card, t1.iduser, t1.creationdate, t1.amount, t1.chargetype, t1.id_cc_did, t1.currency, t1.description" .
-	" FROM cc_charge t1, cc_card t2 WHERE t1.chargetype <> 2 AND" .
+	" FROM cc_charge t1, cc_card t2 WHERE (t1.chargetype <> 1 AND t1.chargetype <> 2) AND" .
 	" t2.username = '$customer' AND t1.id_cc_card = t2.id AND " .
 	" t1.creationdate >(Select max(cover_startdate)  from cc_invoices) " .
 	" AND t1.creationdate <(Select max(cover_enddate) from cc_invoices)";
@@ -302,7 +302,7 @@ if($choose_billperiod == "")
 else
 {
 	$QUERY = "SELECT t1.id_cc_card, t1.iduser, t1.creationdate, t1.amount, t1.chargetype, t1.id_cc_did, t1.currency" .
-	" FROM cc_charge t1, cc_card t2 WHERE t1.chargetype <> 2 AND" .
+	" FROM cc_charge t1, cc_card t2 WHERE (t1.chargetype <> 1 AND t1.chargetype <> 2) AND" .
 	" t2.username = '$customer' AND t1.id_cc_card = t2.id AND " .
 	" t1.creationdate >(Select cover_startdate  from cc_invoices where invoicecreated_date ='$choose_billperiod') " .
 	" AND t1.creationdate <(Select cover_enddate from cc_invoices where invoicecreated_date ='$choose_billperiod')";
@@ -608,9 +608,14 @@ if ($total_invoices > 0)
 			<!-- END HERE ******************************************-->
         </table></td>
       </tr>
+	   <!------------------------ DID Billing Here Starts ----------------------->
+	  <?php 
+	  if (is_array($list_total_did) && count($list_total_did)>0)
+				{
+	  ?>
 	  <tr>
 	  <td>
-	  <!------------------------ DID Billing Here Starts ----------------------->
+	 
 		
 		<table width="100%" align="left" cellpadding="0" cellspacing="0">
    				<tr>
@@ -626,8 +631,7 @@ if ($total_invoices > 0)
 			<?php  		
 				$i=0;				
 				$totaldidcost = 0;
-				if (is_array($list_total_did) && count($list_total_did)>0)
-				{
+				
 					foreach ($list_total_did as $data)
 					{	
 						$totaldidcost = $totaldidcost + $data[0];
@@ -677,32 +681,20 @@ if ($total_invoices > 0)
 			  <td width="10%" class="invoice_td">&nbsp;</td>
               <td width="25%" align="right" class="invoice_td"><?php  display_2bill($totaldidcost) ?> </td>
             </tr> 
-			<?php
-			
-			}else
-			{								
-			 ?>   
-			  <tr >
-              <td width="100%" class="invoice_td" colspan="5">&nbsp; <?php echo gettext("None!!!")?></td>             
-			  
-            </tr>          
-			 <?php			 
-			 }
-			 ?>
-            <tr >
+			<tr>
               <td width="18%">&nbsp;</td>
               <td width="15%">&nbsp;</td>
               <td width="13%">&nbsp; </td>
 			  <td width="12%">&nbsp; </td>			  
 			  <td width="25%">&nbsp; </td>
-			  
             </tr>
-		
 		</table>
-		
-		<!------------------------DID Billing ENDS Here ----------------------------->
 	  </td>
 	  </tr>
+	   <?php			 
+			 }
+			 ?>
+	  <!------------------------DID Billing ENDS Here ----------------------------->
 	  <!------------------------Extra Charges Start Here ----------------------------->
 	  <?php  		
 		$i=0;				

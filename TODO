@@ -3,10 +3,11 @@
                    			TODO LIST - SPECIFIC
 ********************************************************************************
 
-#### ADD SCROLLBAR ON ALL POPUP
+
+#### VOUCHER
 ********************************************************************
-scrollbars=1 in the window.open
-Check Rev 977
+if u whant t refil you card with a vouche please dial...
+and its not understandable
 
 
 #### INVOICE
@@ -14,24 +15,33 @@ Check Rev 977
 check the nodisplay
 
 
-#### CDR REPORT - POPUP CARD
-********************************************************************
-handle this in different part of the application (API, AGI, Cront)
-
-#### a2billing.conf new section with all the log files
-********************************************************************
-handle this in different part of the application (API, AGI, Cront)
-
-
 #### MISC
 ********************************************************************
 * Customer -> Call Details : add criteria - Answered call
-
 
 #### FORMAT
 ********************************************************************
 Rates -> Browse Rates
 Reduce the size of the fonts in the batch up section e.g. 1.) Trunk – looks ok in firefox, but everything falls off the end in IE7 
+
+
+#### a2billing.conf new section with all the log files
+********************************************************************
+handle this in different part of the application (API, AGI, Cront)
+[log-files]
+; To disable application logging, remove/comment the log file name aside service
+
+; cront - recurring process 
+cront_alarm = /tmp/cront_a2b_alarm.log
+cront_autorefill = /tmp/cront_a2b_autorefill.log
+cront_batch_process = /tmp/cront_a2b_batch_process.log
+cront_bill_diduse = /tmp/cront_a2b_bill_diduse.log
+cront_subscription_fee = /tmp/cront_a2b_subscription_fee.log
+cront_currencies_update = /tmp/cront_a2b_currencies_update.log
+cront_invoice = /tmp/cront_a2b_invoice.log
+
+....
+...
 
 #### INVOICE
 ********************************************************************

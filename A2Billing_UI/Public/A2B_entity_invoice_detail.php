@@ -248,12 +248,12 @@ if (!$nodisplay){
 
 // 1. Billing Type:: All DID Calls that have DID Type 0 and 2
 
+
 $QUERY = "SELECT t1.amount, t1.creationdate, t1.description, t3.countryname, t2.did ".
 " FROM cc_charge t1 LEFT JOIN (cc_did t2, cc_country t3 ) ON ( t1.id_cc_did = t2.id AND t2.id_cc_country = t3.id ) ".
 " WHERE (t1.chargetype = 2 OR t1.chargetype = 1) AND t1.id_cc_card = ".$customerID.
 " AND t1.creationdate > (Select cover_startdate  from cc_invoices where id ='$id') AND t1.creationdate <(Select cover_enddate from cc_invoices where id ='$id')";
 
-echo $QUERY;
 $list_total_did = NULL;
 if (!$nodisplay)
 {
@@ -329,7 +329,7 @@ if ((isset($customer)  &&  ($customer>0)) || (isset($entercustomer)  &&  ($enter
 $QUERY = "Select t1.invoicecreated_date from cc_invoices t1, cc_card t2 where t2.id = t1.cardid and t2.username = '$customer' order by t1.invoicecreated_date";
 $billperiod_list = $instance_table -> SQLExec ($DBHandle, $QUERY);
 $total_invoices = count($billperiod_list);
-echo "<br>total_invoices = $total_invoices";
+//echo "<br>total_invoices = $total_invoices";
 
 ?>
 <?php
@@ -347,13 +347,12 @@ if (is_array($list_total_destination) && count($list_total_destination)>0){
 		$totalcall+=$data[3];
 		$totalminutes+=$data[1];
 		$totalcost+=$data[2];
-	}
-echo "<br>total_invoices = $total_invoices";
+}
+}
 ?>
 		<?php if ($total_invoices > 0)
 		{
-		echo "<br>total_invoices = $total_invoices";
-		exit;
+		
 		?>
 	<table  cellspacing="0" class="invoice_main_table">
      
@@ -412,6 +411,7 @@ echo "<br>total_invoices = $total_invoices";
             </tr>
 			<?php  		
 				$i=0;
+				if (is_array($list_total_destination) && count($list_total_destination)>0){
 				foreach ($list_total_destination as $data){	
 				$i=($i+1)%2;		
 				$tmc = $data[1]/$data[3];
@@ -461,7 +461,16 @@ echo "<br>total_invoices = $total_invoices";
               <td width="39%" class="invoice_td"colspan="2"><?php echo $totalminutes?></td>			  
 			  <td width="11%" class="invoice_td"><?php echo $totalcall?> </td>
               <td width="21%" align="right" class="invoice_td"><?php  display_2bill($totalcost -$totalcost_did) ?> </td>
-            </tr>            
+            </tr>   
+            <?php }else{?>
+            <tr >
+              <td width="29%"><?php echo gettext("None!!!")?></td>
+              <td width="19%">&nbsp;</td>
+              <td width="20%">&nbsp; </td>
+			  <td width="11%">&nbsp; </td>
+			  <td width="21%">&nbsp; </td>			  
+            </tr>	
+            <?php }?>         
             <tr >
               <td width="29%">&nbsp;</td>
               <td width="19%">&nbsp;</td>
@@ -471,8 +480,7 @@ echo "<br>total_invoices = $total_invoices";
 			  
             </tr>			
 			<!-- Start Here ****************************************-->
-			<?php 
-				if (is_array($list_total_day) && count($list_total_day)>0){
+			<?php		
 				
 				$mmax=0;
 				$totalcall=0;
@@ -497,6 +505,7 @@ echo "<br>total_invoices = $total_invoices";
             </tr>
 			<?php  		
 				$i=0;
+				if (is_array($list_total_day) && count($list_total_day)>0){
 				foreach ($list_total_day as $data){	
 				$i=($i+1)%2;		
 				$tmc = $data[1]/$data[3];
@@ -546,7 +555,21 @@ echo "<br>total_invoices = $total_invoices";
               <td width="39%" class="invoice_td"colspan="2"><?php echo $totalminutes?></td>			  
 			  <td width="11%" class="invoice_td"><?php echo $totalcall?> </td>
               <td width="21%" align="right" class="invoice_td"><?php  display_2bill($totalcost_day) ?> </td>
-            </tr>            
+            </tr>
+            <?php
+			 	}else{
+			?>
+			<tr >
+              <td width="29%"><?php echo gettext("None!!!")?></td>
+              <td width="19%">&nbsp;</td>
+              <td width="20%">&nbsp; </td>
+			  <td width="11%">&nbsp; </td>
+			  <td width="21%">&nbsp; </td>
+			  
+            </tr>
+			<?php
+			 	}
+				?>
             <tr >
               <td width="29%">&nbsp;</td>
               <td width="19%">&nbsp;</td>
@@ -556,13 +579,14 @@ echo "<br>total_invoices = $total_invoices";
 			  
             </tr>
 				
-				<?php
-			 	}
-				?>
-			
+				
 			<!-- END HERE ******************************************-->
         </table></td>
       </tr>
+      <?php
+      if (is_array($list_total_did) && count($list_total_did)>0)
+	  { 
+      ?>
 	  <tr>
 	  <td>
 	  <!------------------------ DID Billing Here Starts ----------------------->
@@ -581,8 +605,7 @@ echo "<br>total_invoices = $total_invoices";
 			<?php  		
 				$i=0;				
 				$totaldidcost = 0;
-				if (is_array($list_total_did) && count($list_total_did)>0)
-				{
+				
 					foreach ($list_total_did as $data)
 					{	
 						$totaldidcost = $totaldidcost + $data[0];
@@ -632,18 +655,7 @@ echo "<br>total_invoices = $total_invoices";
 			  <td width="10%" class="invoice_td">&nbsp;</td>
               <td width="25%" align="right" class="invoice_td"><?php  display_2bill($totaldidcost) ?> </td>
             </tr> 
-			<?php
 			
-			}else
-			{								
-			 ?>   
-			  <tr >
-              <td width="100%" class="invoice_td" colspan="5">&nbsp; <?php echo gettext("None!!!")?></td>             
-			  
-            </tr>          
-			 <?php			 
-			 }
-			 ?>
             <tr >
               <td width="18%">&nbsp;</td>
               <td width="15%">&nbsp;</td>
@@ -658,6 +670,9 @@ echo "<br>total_invoices = $total_invoices";
 		<!------------------------DID Billing ENDS Here ----------------------------->
 	  </td>
 	  </tr>
+	  <?php			 
+			 }
+			 ?>
 	  <!------------------------Extra Charges Start Here ----------------------------->
 	  <?php  		
 		$i=0;				
@@ -801,25 +816,6 @@ echo "<br>total_invoices = $total_invoices";
 	 </tr> 
 	 </table>
 	<?php } ?>
-	
-<?php } else { ?>
-	<table  cellspacing="0" class="invoice_main_table">
-      <tr>
-        <td class="invoice_heading"><?php echo gettext("Invoice Details") ?></td>
-      </tr>	  
-	 <tr>
-	 <td>&nbsp;</td>
-	 </tr>
-	  <tr>
-	 <td align="center"><?php echo gettext("No invoice has been created for you !") ?></td>
-	 </tr> 
-	  <tr>
-	 <td>&nbsp;</td>
-	 </tr> 
-	 </table>
-
 <?php
-
-}
 $smarty->display( 'footer.tpl');
 ?>

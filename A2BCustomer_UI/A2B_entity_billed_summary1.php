@@ -224,7 +224,7 @@ if ($FG_DEBUG >= 1) var_dump ($list_total_destination);
 
 $QUERY = "SELECT t1.amount, t1.creationdate, t1.description, t3.countryname, t2.did ".
 " FROM cc_charge t1 LEFT JOIN (cc_did t2, cc_country t3 ) ON ( t1.id_cc_did = t2.id AND t2.id_cc_country = t3.id ) ".
-" WHERE t1.chargetype = 2 AND t1.id_cc_card = ".$_SESSION["card_id"].
+" WHERE (t1.chargetype = 1 OR t1.chargetype = 2) AND t1.id_cc_card = ".$_SESSION["card_id"].
 " AND t1.creationdate > (Select max(cover_startdate)  from cc_invoices) AND t1.creationdate <(Select max(cover_enddate) from cc_invoices) ";
 
  
@@ -256,7 +256,7 @@ if (!$nodisplay)
 if($choose_billperiod == "")
 {	
 	$QUERY = "SELECT t1.id_cc_card, t1.iduser, t1.creationdate, t1.amount, t1.chargetype, t1.id_cc_did, t1.currency" .
-	" FROM cc_charge t1, cc_card t2 WHERE t1.chargetype <> 2" .
+	" FROM cc_charge t1, cc_card t2 WHERE (t1.chargetype <> 1 AND t1.chargetype <> 2) " .
 	" AND t2.username = '$customer' AND t1.id_cc_card = t2.id AND " .
 	" t1.creationdate >(Select max(cover_startdate)  from cc_invoices) " .
 	" AND t1.creationdate <(Select max(cover_enddate) from cc_invoices)";
@@ -264,7 +264,7 @@ if($choose_billperiod == "")
 else
 {
 	$QUERY = "SELECT t1.id_cc_card, t1.iduser, t1.creationdate, t1.amount, t1.chargetype, t1.id_cc_did, t1.currency" .
-	" FROM cc_charge t1, cc_card t2 WHERE t1.chargetype <> 2" .
+	" FROM cc_charge t1, cc_card t2 WHERE (t1.chargetype <> 1 AND t1.chargetype <> 2) " .
 	" AND t2.username = '$customer' AND t1.id_cc_card = t2.id AND " .
 	" t1.creationdate >(Select cover_startdate  from cc_invoices where invoicecreated_date ='$choose_billperiod') " .
 	" AND t1.creationdate <(Select cover_enddate from cc_invoices where invoicecreated_date ='$choose_billperiod')";

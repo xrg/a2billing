@@ -240,7 +240,7 @@ if ($FG_DEBUG >= 1) var_dump ($list_total_destination);
 
 $QUERY = "SELECT t1.amount, t1.creationdate, t1.description, t3.countryname, t2.did ".
 " FROM cc_charge t1 LEFT JOIN (cc_did t2, cc_country t3 ) ON ( t1.id_cc_did = t2.id AND t2.id_cc_country = t3.id ) ".
-" WHERE t1.chargetype = 2 AND t1.id_cc_card = ".$customerID.
+" WHERE (t1.chargetype = 1 OR t1.chargetype = 2) AND t1.id_cc_card = ".$customerID.
 " AND t1.creationdate > (Select cover_startdate  from cc_invoices where id ='$id') AND t1.creationdate <(Select cover_enddate from cc_invoices where id ='$id')";
 
 if (!$nodisplay)
@@ -268,7 +268,7 @@ if (!$nodisplay)
 // Extra charge =  4
 
 $QUERY = "SELECT t1.id_cc_card, t1.iduser, t1.creationdate, t1.amount, t1.chargetype, t1.id_cc_did, t1.currency, t1.description" .
-" FROM cc_charge t1, cc_card t2 WHERE t1.chargetype <> 2 " .
+" FROM cc_charge t1, cc_card t2 WHERE (t1.chargetype <> 1 AND t1.chargetype <> 2) " .
 " AND t2.username = '$customer' AND t1.id_cc_card = t2.id AND " .
 " t1.creationdate >(Select cover_startdate  from cc_invoices where id ='$id') " .
 " AND t1.creationdate <(Select cover_enddate  from cc_invoices where id ='$id')";
@@ -359,7 +359,7 @@ if (is_array($list_total_destination) && count($list_total_destination)>0){
 		$totalcost+=$data[2];
 	
 	}
-
+}
 ?>
 		<?php if ($total_invoices > 0)
 		{
@@ -434,6 +434,7 @@ if (is_array($list_total_destination) && count($list_total_destination)>0){
             </tr>
 			<?php  		
 				$i=0;
+				if (is_array($list_total_destination) && count($list_total_destination)>0){
 				foreach ($list_total_destination as $data){	
 				$i=($i+1)%2;		
 				$tmc = $data[1]/$data[3];
@@ -482,7 +483,19 @@ if (is_array($list_total_destination) && count($list_total_destination)>0){
               <td width="27%" class="invoice_td" ><font color="#003399"><?php echo $totalminutes?></font></td>			  
 			  <td width="17%" class="invoice_td"><font color="#003399"><?php echo $totalcall?></font> </td>
               <td width="27%" align="right" class="invoice_td"><font color="#003399"><?php  display_2bill($totalcost -$totalcost_did) ?> </font></td>
-            </tr>            
+            </tr>
+            <?php 
+            }else{            	
+            ?>
+            <tr >
+              <td width="29%"><?php echo gettext("None!!!")?></td>
+              <td width="27%">&nbsp;</td>
+			  <td width="17%">&nbsp; </td>
+			  <td width="27%">&nbsp; </td>			  
+            </tr>	
+           <?php
+           }
+           ?>            
             <tr >
               <td width="29%">&nbsp;</td>
               <td width="27%">&nbsp;</td>
@@ -493,8 +506,7 @@ if (is_array($list_total_destination) && count($list_total_destination)>0){
 			</table>	    
 		    <table width="80%" align="center" cellpadding="0" cellspacing="0">
 			<!-- Start Here ****************************************-->
-			<?php 
-				if (is_array($list_total_day) && count($list_total_day)>0){
+			<?php			
 				
 				$mmax=0;
 				$totalcall=0;
@@ -519,6 +531,7 @@ if (is_array($list_total_destination) && count($list_total_destination)>0){
             </tr>
 			<?php  		
 				$i=0;
+				if (is_array($list_total_day) && count($list_total_day)>0){
 				foreach ($list_total_day as $data){	
 				$i=($i+1)%2;		
 				$tmc = $data[1]/$data[3];
@@ -566,7 +579,20 @@ if (is_array($list_total_destination) && count($list_total_destination)>0){
               <td width="27%" class="invoice_td"><font color="#003399"><?php echo $totalminutes?></font></td>			  
 			  <td width="17%" class="invoice_td"><font color="#003399"><?php echo $totalcall?> </font></td>
               <td width="27%" align="right" class="invoice_td"><font color="#003399"><?php  display_2bill($totalcost_date) ?> </font></td>
-            </tr>            
+            </tr>
+            <?php
+			 	}else{
+				?>
+				<tr >
+              <td width="29%"><?php echo gettext("None!!!")?></td>
+              <td width="27%">&nbsp;</td>
+			  <td width="17%">&nbsp; </td>
+			  <td width="27%">&nbsp; </td>
+			  
+            </tr>
+				<?php
+			 	}
+				?>            
             <tr >
               <td width="29%">&nbsp;</td>
               <td width="27%">&nbsp;</td>
@@ -575,15 +601,18 @@ if (is_array($list_total_destination) && count($list_total_destination)>0){
 			  
             </tr>
 				
-				<?php
-			 	}
-				?>
+				
 			</table>
 			<!-- -------------------------------END HERE ---------------------------------->
-	<!-------------------------DID Billing Starts Here ---------------------------------->
+	
 	
 	
 		<table width="80%" cellpadding="0" cellspacing="0" border="0" align="center">
+		<!-------------------------DID Billing Starts Here ---------------------------------->
+		<?php 
+		if (is_array($list_total_did) && count($list_total_did)>0)
+				{	
+		?>
 		<tr>
 		<td>
 		<table width="100%" align="left" cellpadding="0" cellspacing="0">
@@ -600,8 +629,7 @@ if (is_array($list_total_destination) && count($list_total_destination)>0){
 			<?php  		
 				$i=0;
 				$totaldidcost = 0;
-				if (is_array($list_total_did) && count($list_total_did)>0)
-				{				
+							
 					foreach ($list_total_did as $data)
 					{	
 						$totaldidcost = $totaldidcost + $data[0];					
@@ -649,19 +677,7 @@ if (is_array($list_total_destination) && count($list_total_destination)>0){
 			  <td width="14%" ><font color="#003399">&nbsp;</font> </td>
 			  <td width="14%" ><font color="#003399">&nbsp;</font> </td>			  
               <td width="19%" align="right" ><font color="#003399"><?php  display_2bill($totaldidcost) ?></font> </td>
-            </tr>     
-			<?php
-			
-			}else
-			{								
-			 ?>   
-			  <tr >
-              <td width="100%" class="invoice_td" colspan="6">&nbsp; <?php echo gettext("None!!!")?></td>             
-			  
-            </tr>          
-			 <?php			 
-			 }
-			 ?>       
+            </tr>  
             <tr >
               <td width="20%">&nbsp;</td>
               <td width="14%">&nbsp;</td>
@@ -672,8 +688,12 @@ if (is_array($list_total_destination) && count($list_total_destination)>0){
             </tr>
 		
 		</table>		
-		</td>
+		</td>		
 		</tr>
+		<?php			 
+			 }
+			 ?>
+			 <!-------------------------DID END HERE ----------------------------------> 
 		  <tr>
 		<td>
 				
@@ -825,32 +845,6 @@ if (is_array($list_total_destination) && count($list_total_destination)>0){
 	 </tr> 
 	 </table>
 	<?php } ?>
-	
-<?php }
-else
-{
-?>
-	<table  cellspacing="0" class="invoice_main_table">
-     
-      <tr>
-        <td class="invoice_heading"><?php echo gettext("Bill Details")?></td>
-      </tr>	  
-	 <tr>
-	 <td>&nbsp;</td>
-	 </tr> 
-	  <tr>
-	 <td align="center"><?php echo gettext("No invoice is billed to you yet!")?></td>
-	 </tr> 
-	  <tr>
-	 <td>&nbsp;</td>
-	 </tr> 
-	 </table>
-
-<?php
-
-}
-?>
-
 
 <?php  if($exporttype!="pdf"){ ?>
 
