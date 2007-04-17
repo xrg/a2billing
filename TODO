@@ -3,7 +3,9 @@
                    			TODO LIST - SPECIFIC
 ********************************************************************************
 
-
+#### Misc : spacer
+********************************************************************
+we have : pixel.gif ; spacer.gif ; spacer.jpg
 
 #### Misc : INVOICE
 ********************************************************************
@@ -15,21 +17,18 @@
 	if the description is long, for instance put in the description "Extra Charges are to allow the billing of one-off or re-occurring monthly charges. These may be used as setup or service charges, etc...Charges will appear to the user with the description you attach. Each charge that you create for a user will decrement his account."
 
 	it doesnt looks pretty, the description column is very small
+	
+	problem on :
+	A2B_entity_invoice_billedmail.php
+	A2B_entity_invoice_detail.php
+	...
 
 3# 
 	if you click on payment button when u have few payement
 	then u click on the "sort button" or to display [10] [50] [100] it fails or show up the menu!!!
+
 	
 4#
-	On the page invoice :
-	# A2Billing_UI/Public/A2B_entity_invoice_list.php?section=2&cardid=1
-	
-	We have the followed link once we have created some invoice : 
-	[] A2B_entity_invoice_billedmail.php?section=2&id=1&cardid=1&action=sendinvoice&exporttype=pdf
-	
-	why do we have "exporttype=pdf"
-	
-5#
 	images on 
 	<img src="<?php echo Images_Path;?>/asterisk01.jpg" align="middle">
 	
@@ -38,6 +37,33 @@
 	invoice_image = asterisk01.jpg
 	
 	we will handle this that way
+	
+5#
+	A2B_entity_invoice_billedmail.php?section=2&id=8&cardid=12&action=sendinvoice&exporttype=html
+	some images dont exist
+	Public/templates/default/images/spacer.jpg
+	
+6#
+	A2B_entity_invoice_billedmail.php
+	this need to use mailtemplate
+	$email_from = "admin@a2billing.org"; 
+	$email_subject = "A2Billing Invoice";
+	$email_message = "Dear Customer<br><br>\n\n Attached is the Invoice.\n\n <br><br>Sincerely<br>\n\nAdministrator A2Billing";
+	
+	
+7#
+	Refactoring this HUGE mess.
+	We have tons of pages to show up almost the same report
+	Find a centralized way to make it clean and compress
+
+
+8#
+	A2B_entity_invoice_billedmail.php
+	we still have the understandable stuff at the end :
+	Status : 
+    Connected      Disconnected
+	
+	do the same as : A2B_entity_invoice_detail.php
 
 #### VOUCHER
 ********************************************************************
