@@ -612,37 +612,19 @@ if (is_array($list_total_destination) && count($list_total_destination)>0){
 			
 			?>
 			 <tr class="invoice_rows">
-			 <td width="12%" class="invoice_td"><?php echo $data[1]?> </td>
-              <td width="18%" class="invoice_td"><?php 
-			  if ($data[4] == "")
-			  {
-			  	echo "&nbsp;";
-			  }
-			  else
-			  {
-			  echo $data[4];
-			  }
-			  ?></td>
-              <td width="15%" class="invoice_td"><?php 
-			  if ($data[3] == "")
-			  {
-			  	echo "&nbsp;";
-			  }
-			  else
-			  {
-			  echo $data[3];
-			  }
-			  ?> </td>
-  			  <td width="10%" class="invoice_td"><?php echo $data[2]?></td>			  			  
-              <td width="25%" align="right" class="invoice_td"><?php  display_2bill($data[0])?></td>
+			  <td width="12%" class="invoice_td">&nbsp;<?php echo $data[1];?> </td>
+              <td width="18%" class="invoice_td">&nbsp;<?php echo $data[4];?> </td>
+              <td width="15%" class="invoice_td">&nbsp;<?php echo $data[3];?> </td>
+  			  <td width="10%" class="invoice_td">&nbsp;<?php echo $data[2];?></td>			  			  
+              <td width="25%" class="invoice_td" align="right">&nbsp;<?php display_2bill($data[0])?></td>
             </tr>
 			 <?php
 				}
 				$totalcost = $totalcost  + $totaldidcost;
 			 ?>   
 			 <tr >
-              <td width="18%" class="invoice_td">&nbsp;</td>
-              <td width="15%" class="invoice_td">&nbsp;</td>
+              <td width="18%" class="invoice_td">&nbsp; </td>
+              <td width="15%" class="invoice_td">&nbsp; </td>
               <td width="13%" class="invoice_td">&nbsp; </td>
 			  <td width="12%" class="invoice_td">&nbsp; </td>			  
 			  <td width="25%" class="invoice_td">&nbsp; </td>
