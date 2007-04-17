@@ -4,6 +4,41 @@
 ********************************************************************************
 
 
+
+#### Misc : INVOICE
+********************************************************************
+1# 
+	http://trac.a2billing.net/cgi-bin/trac.cgi/changeset/981
+	we need to have all this way
+
+2#
+	if the description is long, for instance put in the description "Extra Charges are to allow the billing of one-off or re-occurring monthly charges. These may be used as setup or service charges, etc...Charges will appear to the user with the description you attach. Each charge that you create for a user will decrement his account."
+
+	it doesnt looks pretty, the description column is very small
+
+3# 
+	if you click on payment button when u have few payement
+	then u click on the "sort button" or to display [10] [50] [100] it fails or show up the menu!!!
+	
+4#
+	On the page invoice :
+	# A2Billing_UI/Public/A2B_entity_invoice_list.php?section=2&cardid=1
+	
+	We have the followed link once we have created some invoice : 
+	[] A2B_entity_invoice_billedmail.php?section=2&id=1&cardid=1&action=sendinvoice&exporttype=pdf
+	
+	why do we have "exporttype=pdf"
+	
+5#
+	images on 
+	<img src="<?php echo Images_Path;?>/asterisk01.jpg" align="middle">
+	
+	I added a new parameter on a2billing.conf,
+	; filename of the image that will be display at the top of the invoice (if not defined no image will appear ; path to place the image templates/default/images/)
+	invoice_image = asterisk01.jpg
+	
+	we will handle this that way
+
 #### VOUCHER
 ********************************************************************
 if u whant t refil you card with a vouche please dial...
@@ -78,18 +113,6 @@ A2B_entity_invoice_list.php
 A2B_entity_invoices.php
 A2B_entity_invoices_unbilled.php
 A2B_entity_invoice_unbilledmail.php
-
-
-
-#### BUGS
-********************************************************************
-On the page invoice :
-# A2Billing_UI/Public/A2B_entity_invoice_list.php?section=2&cardid=1
-
-We have the followed link once we have created some invoice : 
-[] A2B_entity_invoice_billedmail.php?section=2&id=1&cardid=1&action=sendinvoice&exporttype=pdf
-
-why do we have "exporttype=pdf"
 
 
 
