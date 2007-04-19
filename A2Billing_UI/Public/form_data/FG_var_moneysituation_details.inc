@@ -1,6 +1,6 @@
 <?php
 
-getpost_ifset(array('id', 'displayheader', 'type','popup_select'));
+getpost_ifset(array('id', 'displayheader', 'type','popup_select','popup_formname','popup_fieldname'));
 
 
 // type : refill or payment

@@ -490,7 +490,7 @@ if (is_array($list_total_destination) && count($list_total_destination)>0)
               <td width="19%" class="invoice_td"><?php echo gettext("Duration")?> </td>
 			  <td width="20%" class="invoice_td"><?php echo gettext("Graphic")?> </td>
 			  <td width="11%" class="invoice_td"><?php echo gettext("Calls")?> </td>
-              <td width="21%" class="invoice_td" align="right"><?php echo gettext("Amount (US $)")?> </td>
+              <td width="21%" class="invoice_td" align="right"><?php echo gettext("Amount")." (".BASE_CURRENCY.")"; ?> </td>
             </tr>
 			<?php  		
 				$i=0;
@@ -579,7 +579,7 @@ if (is_array($list_total_destination) && count($list_total_destination)>0)
               <td width="19%" class="invoice_td"><?php echo gettext("Duration")?> </td>
 			  <td width="20%" class="invoice_td"><?php echo gettext("Graphic")?> </td>
 			  <td width="11%" class="invoice_td"><?php echo gettext("Calls")?> </td>
-              <td width="21%" class="invoice_td" align="right"><?php echo gettext("Cost (US $)")?> </td>
+              <td width="21%" class="invoice_td" align="right"><?php echo gettext("Amount")." (".BASE_CURRENCY.")"; ?> </td>
             </tr>
 			<?php  		
 				$i=0;
@@ -671,7 +671,7 @@ if (is_array($list_total_destination) && count($list_total_destination)>0)
               <td class="invoice_td" width="15%"><?php echo gettext("DID")?> </td>
               <td width="16%" class="invoice_td"><?php echo gettext("Country")?> </td>
 			  <td width="37%" class="invoice_td"><?php echo gettext("Description")?> </td>			  			  
-              <td width="16%" class="invoice_td" align="right"><?php echo gettext("Amount (US $)")?> </td>
+              <td width="16%" class="invoice_td" align="right"><?php echo gettext("Amount")." (".BASE_CURRENCY.")"; ?> </td>
             </tr>
 			<?php  		
 				$i=0;				
@@ -746,7 +746,7 @@ if (is_array($list_total_destination) && count($list_total_destination)>0)
               <td class="invoice_td" width="18%"><?php echo gettext("Date")?> </td>
               <td width="15%" class="invoice_td"><?php echo gettext("Type")?> </td>			  
 			  <td width="12%" class="invoice_td"><?php echo gettext("Description")?> </td>  			  
-              <td width="25%" class="invoice_td" align="right"><?php echo gettext("Amount (US $)")?> </td>
+              <td width="25%" class="invoice_td" align="right"><?php echo gettext("Amount")." (".BASE_CURRENCY.")"; ?> </td>
             </tr>
 			<?php  		
 			
@@ -836,8 +836,8 @@ if (is_array($list_total_destination) && count($list_total_destination)>0)
       <tr>
         <td><table cellspacing="0" cellpadding="0">
             <tr>
-              <td width="15%"><?php echo gettext("Status")?>&nbsp; :&nbsp; </td>
-             <td width="10%"><?php if($info_customer[0][12] == 't') {?>
+              <td width="15%"><?php echo gettext("Status");?> :&nbsp; </td>
+             <td width="20%"><?php if($info_customer[0][12] == 't') {?>
 			  <img width="18" height="7" src="<?php echo Images_Path;?>/connected.gif">
 			  <?php }
 			  else
@@ -845,28 +845,13 @@ if (is_array($list_total_destination) && count($list_total_destination)>0)
 			  ?>
 			  <img width="18" height="7" src="<?php echo Images_Path;?>/terminated.gif">
 			  <?php }?></td>
-              <td width="75%">&nbsp; </td>
+              <td width="65%"><img width="18" height="7" src="<?php echo Images_Path;?>/connected.gif">&nbsp;<?php echo gettext("Connected");?>&nbsp;&nbsp;&nbsp;
+			  <img width="22" height="7" src="<?php echo Images_Path;?>/terminated.gif">&nbsp; <?php echo gettext("DisConnected");?></td>
             </tr>
         </table></td>
       </tr>
       <tr>
-        <td><table width="100%" cellpadding="0" cellspacing="0">
-            <tr>
-              <td valign="top"><table width="400" height="22" align="left" cellpadding="0" cellspacing="0">
-                  <tr>
-                    <td width="4%">&nbsp; </td>
-                    <td width="4%"><img width="18" height="7" src="<?php echo Images_Path;?>/connected.gif"></td>
-                    <td width="20%"><?php echo gettext("Connected")?> </td>
-                    <td width="4%"><img width="22" height="7" src="<?php echo Images_Path;?>/terminated.gif"></td>
-                    <td width="20%"><?php echo gettext("DisConnected")?> </td>                       
-                  </tr>
-                </table>
-                  <table cellpadding="0">
-                    <tr>
-                      <td>&nbsp;</td>
-                    </tr>
-                  </table>
-        </table></td>
+        <td>&nbsp;</td>
       </tr>
 	  <?php }?>
     </table>

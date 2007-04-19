@@ -461,7 +461,7 @@ if (is_array($list_total_destination) && count($list_total_destination)>0){
               <td width="38%" ><font color="#003399"><b><?php echo gettext("Duration")?></b></font> </td>
 			 
 			  <td width="12%" align="center" ><font color="#003399"><b><?php echo gettext("Calls")?> </b></font></td>
-              <td   align="right"><font color="#003399"><b><?php echo gettext("Amount (US $)")?> </b></font></td>
+              <td   align="right"><font color="#003399"><b><?php echo gettext("Amount")." (".BASE_CURRENCY.")"; ?> </b></font></td>
             </tr>
 			<?php  		
 				$i=0;
@@ -558,7 +558,7 @@ if (is_array($list_total_destination) && count($list_total_destination)>0){
               <td width="38%" ><font color="#003399"><b><?php echo gettext("Duration")?></b> </font></td>
 			  
 			  <td width="12%" align="center" ><font color="#003399"><b><?php echo gettext("Calls")?></b> </font></td>
-              <td width="21%"  align="right"><font color="#003399"><b><?php echo gettext("Cost (US $)")?></b> </font></td>
+              <td width="21%"  align="right"><font color="#003399"><b><?php echo gettext("Amount")." (".BASE_CURRENCY.")"; ?></b> </font></td>
             </tr>
 			<?php  		
 				$i=0;
@@ -652,7 +652,7 @@ if (is_array($list_total_destination) && count($list_total_destination)>0){
               <td width="14%" ><font color="#003399"><b><?php echo gettext("DID")?> </b></font></td>
 			  <td width="15%" ><font color="#003399"><b><?php echo gettext("Country")?></b></font> </td>
 			  <td width="40%" ><font color="#003399"><b><?php echo gettext("Description")?> </b></font></td>  			  
-              <td width="12%"  align="right"><font color="#003399"><b><?php echo gettext("Amount (US $)")?></b></font> </td>
+              <td width="12%"  align="right"><font color="#003399"><b><?php echo gettext("Amount")." (".BASE_CURRENCY.")"; ?></b></font> </td>
             </tr>
 			<?php  		
 				$i=0;
@@ -725,7 +725,7 @@ if (is_array($list_total_destination) && count($list_total_destination)>0){
               <td  width="20%"> <font color="#003399"><b><?php echo gettext("Date")?> </b></font></td>
               <td width="19%" ><font color="#003399"><b><?php echo gettext("Type")?> </b></font></td>
 			  <td width="43%" ><font color="#003399"><b><?php echo gettext("Description")?></b></font> </td>			
-              <td width="18%"  align="right"><font color="#003399"><b><?php echo gettext("Amount (US $)")?></b></font> </td>
+              <td width="18%"  align="right"><font color="#003399"><b><?php echo gettext("Amount")." (".BASE_CURRENCY.")"; ?></b></font> </td>
             </tr>
 			<?php  		
 			

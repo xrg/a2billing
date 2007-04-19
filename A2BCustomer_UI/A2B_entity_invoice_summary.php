@@ -394,7 +394,7 @@ $totalcost = $totalcost + $extracharge_total;
             <tr class="invoice_subheading">
               <td class="invoice_td" width="40%"><?php echo gettext("Description")?> </td>
               <td width="30%" class="invoice_td">&nbsp; </td>
-              <td width="30%" class="invoice_td" align="right"><?php echo gettext("Amount (US $)")?> </td>
+              <td width="30%" class="invoice_td" align="right"><?php echo gettext("Amount")." (".BASE_CURRENCY.")"; ?> </td>
             </tr>
             <tr class="invoice_rows">
               <td width="40%" class="invoice_td"><?php echo gettext("Previous Balance")?></td>
@@ -437,39 +437,22 @@ $totalcost = $totalcost + $extracharge_total;
       <tr>
         <td><table cellspacing="0" cellpadding="0">
             <tr>
-              <td width="15%"><?php echo gettext("Status")?>&nbsp; :&nbsp; </td>
-              <td width="10%">
-			  <?php if($info_customer[0][12] == 't') {?>
+              <td width="15%"><?php echo gettext("Status");?> :&nbsp; </td>
+             <td width="20%"><?php if($info_customer[0][12] == 't') {?>
 			  <img width="18" height="7" src="<?php echo Images_Path;?>/connected.gif">
 			  <?php }
 			  else
 			  {
 			  ?>
 			  <img width="18" height="7" src="<?php echo Images_Path;?>/terminated.gif">
-			  <?php }?>
-			  </td>
-              <td width="75%">&nbsp; </td>
+			  <?php }?></td>
+              <td width="65%"><img width="18" height="7" src="<?php echo Images_Path;?>/connected.gif">&nbsp;<?php echo gettext("Connected");?>&nbsp;&nbsp;&nbsp;
+			  <img width="22" height="7" src="<?php echo Images_Path;?>/terminated.gif">&nbsp; <?php echo gettext("DisConnected");?></td>
             </tr>
         </table></td>
       </tr>
       <tr>
-        <td><table width="100%" cellpadding="0" cellspacing="0">
-            <tr>
-              <td valign="top"><table width="400" height="22" align="left" cellpadding="0" cellspacing="0">
-                  <tr>
-                    <td width="4%">&nbsp; </td>
-                    <td width="4%"><img width="18" height="7" src="<?php echo Images_Path;?>/connected.gif"></td>
-                    <td width="20%"><?php echo gettext("Connected")?> </td>
-                    <td width="4%"><img width="22" height="7" src="<?php echo Images_Path;?>/terminated.gif"></td>
-                    <td width="20%"><?php echo gettext("DisConnected")?> </td>                    
-                  </tr>
-                </table>
-                  <table cellpadding="0">
-                    <tr>
-                      <td>&nbsp;</td>
-                    </tr>
-                  </table>
-        </table></td>
+        <td>&nbsp;</td>
       </tr><?php }?>
     </table>
 

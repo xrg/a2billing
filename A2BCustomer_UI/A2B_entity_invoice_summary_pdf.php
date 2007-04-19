@@ -421,7 +421,7 @@ $totalcost = $totalcost + $extracharge_total;
 	          <tr bgcolor="#CCCCCC">
               <td  width="36%"><font color="#003399"><b><?php echo gettext("Description")?></b> </font></td>
               <td width="22%" >&nbsp; </td>
-              <td  align="right"><font color="#003399"><b><?php echo gettext("Amount (US $)")?></b> </font> </td>
+              <td  align="right"><font color="#003399"><b><?php echo gettext("Amount")." (".BASE_CURRENCY.")"; ?></b> </font> </td>
             </tr>
             <tr >
               <td width="36%" ><font color="#003399"><?php echo gettext("Previous Balance")?></font></td>
