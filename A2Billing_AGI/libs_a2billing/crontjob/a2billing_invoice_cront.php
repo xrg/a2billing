@@ -28,11 +28,9 @@ error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
 
 include (dirname(__FILE__)."/../db_php_lib/Class.Table.php");
 include (dirname(__FILE__)."/../Class.A2Billing.php");
+include (dirname(__FILE__)."/../Misc.php");
 
-function write_log($output, $tobuffer = 1){
-	$string_log = "[".date("d/m/Y H:i:s")."]:$output\n";
-	error_log ($string_log, 3, BATCH_LOG_FILE);
-}
+
 
 //Flag to show the debuging information
 $verbose_level=1;
@@ -42,9 +40,11 @@ $groupcard = 5000;
 $A2B = new A2Billing();
 $A2B -> load_conf($agi, NULL, 0, $idconfig);
 
+write_log(LOGFILE_CRONT_INVOICE, basename(__FILE__).' line:'.__LINE__."[#### CRONT INVOICE BEGIN ####]");
+
 if (!$A2B -> DbConnect()){				
 	echo "[Cannot connect to the database]\n";
-	write_log("[Cannot connect to the database]");
+	write_log(LOGFILE_CRONT_INVOICE, basename(__FILE__).' line:'.__LINE__."[Cannot connect to the database]");
 	exit;
 }
 
@@ -62,12 +62,12 @@ if ($verbose_level>=1) echo "===> NB_CARD : $nb_card - NBPAGEMAX:$nbpagemax\n";
 
 if (!($nb_card>0)){
 	if ($verbose_level>=1) echo "[No card to run the Invoice Billing Service]\n";
-	write_log("[No card to run the Invoice Billing service]");
+	write_log(LOGFILE_CRONT_INVOICE, basename(__FILE__).' line:'.__LINE__."[No card to run the Invoice Billing service]");
 	exit();
 }
 
 if ($verbose_level>=1) echo ("[Invoice Billing Service analyze cards on which to apply service]");
-write_log("[Invoice Billing Service analyze cards on which to apply service]");
+write_log(LOGFILE_CRONT_INVOICE, basename(__FILE__).' line:'.__LINE__."[Invoice Billing Service analyze cards on which to apply service]");
 
 for ($page = 0; $page <= $nbpagemax; $page++) 
 {
@@ -95,7 +95,7 @@ for ($page = 0; $page <= $nbpagemax; $page++)
 	
 	if ($numrow == 0) {
 		if ($verbose_level>=1) echo "\n[No card to run the Invoice Billing Service]\n";
-		write_log("[No card to run the Invoice Billing service]");
+		write_log(LOGFILE_CRONT_INVOICE, basename(__FILE__).' line:'.__LINE__."[No card to run the Invoice Billing service]");
 		exit();
 		
 	}else{
@@ -165,49 +165,7 @@ for ($page = 0; $page <= $nbpagemax; $page++)
 			if($verbose_level >= 1){
 				echo "\n AFTER DESTINATION : totalcall = $totalcall - totalminutes = $totalminutes - totalcost = $totalcost ";
 			}
-			//************************************* DID SECTION *************************************************
-			// SIPIAX :>> 0 = NORMAL CALL ; 1 = VOIP CALL (SIP/IAX) ; 2= DIDCALL + TRUNK ; 3 = VOIP CALL DID ; 4 = CALLBACK call
-			/*
-			$QUERYDID = "SELECT t1.id_did, t2.fixrate, t2.billingtype, sum(t1.sessiontime) AS calltime, 
-				sum(t1.sessionbill) AS cost, count(*) AS nbcall FROM cc_call t1, cc_did t2 WHERE (t1.sipiax=2 OR t1.sipiax=3) AND ".$FG_TABLE_CLAUSE." 
-				AND t1.sipiax in (2,3) AND t1.id_did = t2.id GROUP BY t1.id_did";
-			$list_total_did = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERYDID);
-			$num  = 0;				
-			$num = count($list_total_did);
-			
-			// echo "\n Total Cost Before DID = ".$totalcost;
-			// For DID Calls
-			if (is_array($list_total_did) && count($list_total_did)>0){
-				$totalcall = 0;
-				$totalminutes = 0;
-				//echo "\n Total Cost at Dial = ".$totalcost;
-				foreach ($list_total_did as $data)
-				{
-					$totalcall += $data[5];
-					$totalminutes += $data[3];		
-					if ($data[2] == 0)
-					{
-						$totalcost += ($data[4] + $data[1]);					
-						if($verbose_level >= 1)	echo "\n DID =".$data[0]."; Fixed Cost=".$data[1]."; Total Call Cost=".$data[4]."; Total = ".$totalcost;
-					}
-					if ($data[2] == 2)
-					{
-						$totalcost += $data[4];
-						if($verbose_level >= 1)	echo "\n DID =".$data[0]."; Fixed Cost=0; Total Call Cost=".$data[4]."; Total = ".$totalcost;
-					}
-					if ($data[2] == 1)
-					{			
-						$totalcost += ($data[1]);
-						if($verbose_level >= 1)	echo "\n DID =".$data[0]."; Fixed Cost=".$data[1]."; Total = ".$totalcost;
-					}
-					if ($data[2] == 3)
-					{
-						$totalcost += 0;
-						if($verbose_level >= 1)	echo "\n DID =".$data[0]."; TYPE = FREE; Total = ".$totalcost;
-					}
-				}
-			}*/
-			
+						
 			//************************************* CHARGE SECTION *************************************************
 			// chargetype : 1 - connection charge for DID setup, 2 - Montly charge for DID use, 3 - Subscription fee, 4 - Extra Charge, etc...
 			$FG_TABLE_CLAUSE = " id_cc_card='$Customer[0]' AND creationdate > '$cover_startdate'";

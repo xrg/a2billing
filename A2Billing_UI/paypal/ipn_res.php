@@ -16,7 +16,6 @@ $mc_gross = "50"; $mc_fee = "5"; $mc_currency = 'eur';
 
 // paypal email
 $paypal_email = PAYPAL_EMAIL;
-
 // email address where script should send notifications
 $error_email = PAYPAL_ERROR_EMAIL;
 
@@ -27,8 +26,6 @@ $em_headers .= "Return-Path: ".PAYPAL_FROM_EMAIL."\n";
 $em_headers .= "Organization: ".PAYPAL_COMPANY_NAME."\n";
 $em_headers .= "X-Priority: 3\n";
 
-
-// -----------------
 
 
 require("ipn_cls.php");
@@ -56,7 +53,7 @@ switch( $paypal_ipn->get_payment_status() )
 	case 'Pending':
 		
 		$pending_reason=$paypal_ipn->paypal_post_vars['pending_reason'];
-					
+		
 		if ($pending_reason!="intl") {
 			$paypal_ipn->error_out("Pending Payment - $pending_reason", $em_headers);
 			break;
