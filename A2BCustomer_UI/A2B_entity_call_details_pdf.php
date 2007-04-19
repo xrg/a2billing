@@ -19,32 +19,17 @@ $customer = $_SESSION["pr_login"];
 $vat = $_SESSION["vat"];
 //require (LANGUAGE_DIR.FILENAME_INVOICES);
 
-if (($_GET[download]=="file") && $_GET[file] ) 
-{
-	
-	$value_de=base64_decode($_GET[file]);
-	$dl_full = MONITOR_PATH."/".$value_de;
-	$dl_name=$value_de;
-
-	if (!file_exists($dl_full))
-	{ 
-		echo gettext("ERROR: Cannot download file $dl_full , it does not exist").'<br>';
-		exit();
-	} 
-	
+if ($exporttype=="pdf") 
+{	
 	header("Content-Type: application/octet-stream");
-	header("Content-Disposition: attachment; filename=$dl_name");
-	header("Content-Length: ".filesize($dl_full));
+	header("Content-Disposition: attachment; filename=CallDetails_".date("d/m/Y-H:i").'.pdf');
+	//header("Content-Length: ".filesize($dl_full));
 	header("Accept-Ranges: bytes");
 	header("Pragma: no-cache");
 	header("Expires: 0");
 	header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
-	header("Content-transfer-encoding: binary");
-			
-	@readfile($dl_full);
+	header("Content-transfer-encoding: binary");	
 	
-	exit();
-
 }
 
 
@@ -67,8 +52,8 @@ $FG_TABLE_EXTERN_COLOR = "#7F99CC"; //#CC0033 (Rouge)
 $FG_TABLE_INTERN_COLOR = "#EDF3FF"; //#FFEAFF (Rose)
 
 // THIS VARIABLE DEFINE THE COLOR OF THE HEAD TABLE
-$FG_TABLE_ALTERNATE_ROW_COLOR[] = "#FFFFFF";
 $FG_TABLE_ALTERNATE_ROW_COLOR[] = "#F2F8FF";
+$FG_TABLE_ALTERNATE_ROW_COLOR[] = "#FFFFFF";
 
 $yesno = array(); 	$yesno["1"]  = array( "Yes", "1");	 $yesno["0"]  = array( "No", "0");
 
@@ -241,9 +226,7 @@ if (!$nodisplay){
 	$list_did = $instance_table -> Get_list ($DBHandle, $FG_TABLE_CLAUSE_DID, $order, $sens, null, null, $FG_LIMITE_DISPLAY, $current_page*$FG_LIMITE_DISPLAY);
 }
 
-
 $_SESSION["pr_sql_export"]="SELECT $FG_COL_QUERY FROM $FG_TABLE_NAME WHERE $FG_TABLE_CLAUSE";
-
 
 /************************/
 //$QUERY = "SELECT substring(calldate,1,10) AS day, sum(duration) AS calltime, count(*) as nbcall FROM cdr WHERE ".$FG_TABLE_CLAUSE." GROUP BY substring(calldate,1,10)"; //extract(DAY from calldate)
@@ -261,7 +244,6 @@ if (!$nodisplay){
 				$list_total_day [] =$res -> fetchRow();				 
 			}
 		}
-
 
 if ($FG_DEBUG == 3) echo "<br>Clause : $FG_TABLE_CLAUSE";
 $nb_record = $instance_table -> Table_count ($DBHandle, $FG_TABLE_CLAUSE_NORMAL);
@@ -375,6 +357,7 @@ if (!$nodisplay){
 				$list_total_day_charge [] =$res -> fetchRow();				 
 			}
 		}
+
 		if ($FG_DEBUG >= 1) var_dump ($list_total_day_charge);
 
 }//end IF nodisplay
@@ -385,7 +368,12 @@ if (!$nodisplay){
 
 
 <?php
-$smarty->display( 'main.tpl');
+//$smarty->display( 'main.tpl');
+if($exporttype == "pdf")
+{
+	require('pdf-invoices/html2pdf/html2fpdf.php');
+   	ob_start();
+}
 $currencies_list = get_currencies();
 ?>
 
@@ -396,266 +384,9 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
   window.open(theURL,winName,features);
 }
 
-function formsubmit()
-{
-	if(document.calldataform.exporttype[1].checked == true)
-	{
-		document.calldataform.action="A2B_entity_call_details_pdf.php?s=1&t=0&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php echo $current_page?>";		
-	}
-	if(document.calldataform.exporttype[0].checked == true)
-	{
-		document.calldataform.action="<?php echo $PHP_SELF?>?s=1&t=0&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php echo $current_page?>";
-	}
-	document.calldataform.submit();
-}
-
 //-->
 </script>
 
-<br/><br/>
-<!-- ** ** ** ** ** Part for the research ** ** ** ** ** -->
-	
-	<FORM name="calldataform" id="calldataform"  METHOD=POST>
-	<INPUT TYPE="hidden" NAME="posted" value=1>
-	<INPUT TYPE="hidden" NAME="current_page" value=0>	
-		<table class="invoices_table1" align="center">
-			<tbody>
-			
-			<tr>
-        		<td class="bgcolor_004" align="left">
-
-					<input type="radio" name="Period" value="Month" <?php  if (($Period=="Month") || !isset($Period)){ ?>checked="checked" <?php  } ?>> 
-					<font face="verdana" size="1" color="#ffffff"><b><?php echo gettext("SELECT BY MONTH");?></b></font>
-				</td>
-      			<td class="bgcolor_005" align="left">
-					<table width="100%" border="0" cellspacing="0" cellpadding="0" >
-					<tr><td class="fontstyle_searchoptions">
-	  				<input type="checkbox" name="frommonth" value="true" <?php  if ($frommonth){ ?>checked<?php }?>> 
-					<?php echo gettext("FROM");?> : <select name="fromstatsmonth" class="form_input_select">
-					<?php 	$year_actual = date("Y");  	
-						for ($i=$year_actual;$i >= $year_actual-1;$i--)
-						{	
-							$monthname = array( gettext("JANUARY"), gettext("FEBRUARY"), gettext("MARCH"), gettext("APRIL"), gettext("MAY"), gettext("JUNE"), gettext("JULY"), gettext("AUGUST"), gettext("SEPTEMBER"), gettext("OCTOBER"), gettext("NOVEMBER"), gettext("DECEMBER"));
-							if ($year_actual==$i){
-								$monthnumber = date("n")-1; // Month number without lead 0.
-							}else{
-								$monthnumber=11;
-							}		   
-							for ($j=$monthnumber;$j>=0;$j--){	
-								$month_formated = sprintf("%02d",$j+1);
-								if ($fromstatsmonth=="$i-$month_formated"){$selected="selected";}else{$selected="";}
-								echo "<OPTION value=\"$i-$month_formated\" $selected> $monthname[$j]-$i </option>";
-							}
-						}
-					?>		
-					</select>
-					</td><td class="fontstyle_searchoptions">&nbsp;&nbsp;
-					<input type="checkbox" name="tomonth" value="true" <?php  if ($tomonth){ ?>checked<?php }?>> 
-					<?php echo gettext("TO");?> : <select name="tostatsmonth" class="form_input_select">
-					<?php 	$year_actual = date("Y");  	
-						for ($i=$year_actual;$i >= $year_actual-1;$i--)
-						{	
-							$monthname = array( gettext("JANUARY"), gettext("FEBRUARY"), gettext("MARCH"), gettext("APRIL"), gettext("MAY"), gettext("JUNE"), gettext("JULY"), gettext("AUGUST"), gettext("SEPTEMBER"), gettext("OCTOBER"), gettext("NOVEMBER"), gettext("DECEMBER"));
-							if ($year_actual==$i){
-								$monthnumber = date("n")-1; // Month number without lead 0.
-							}else{
-								$monthnumber=11;
-							}		   
-							for ($j=$monthnumber;$j>=0;$j--){	
-								$month_formated = sprintf("%02d",$j+1);
-								if ($tostatsmonth=="$i-$month_formated"){$selected="selected";}else{$selected="";}
-								echo "<OPTION value=\"$i-$month_formated\" $selected> $monthname[$j]-$i </option>";						   }
-						}
-					?>
-					</select>
-					</td></tr></table>
-	  			</td>
-    		</tr>
-			
-			<tr>
-        		<td align="left" class="bgcolor_002">
-					<input type="radio" name="Period" value="Day" <?php  if ($Period=="Day"){ ?>checked="checked" <?php  } ?>> 
-					<font face="verdana" size="1" color="#ffffff"><b><?php echo gettext("SELECT BY DAY");?></b></font>
-				</td>
-      			<td align="left" class="bgcolor_003">
-					<table width="100%" border="0" cellspacing="0" cellpadding="0" >
-					<tr><td class="fontstyle_searchoptions">
-	  				<input type="checkbox" name="fromday" value="true" <?php  if ($fromday){ ?>checked<?php }?>> <?php echo gettext("FROM");?> :
-					<select name="fromstatsday_sday" class="form_input_select">
-						<?php  
-							for ($i=1;$i<=31;$i++){
-								if ($fromstatsday_sday==sprintf("%02d",$i)){$selected="selected";}else{$selected="";}
-								echo '<option value="'.sprintf("%02d",$i)."\"$selected>".sprintf("%02d",$i).'</option>';
-							}
-						?>	
-					</select>
-				 	<select name="fromstatsmonth_sday" class="form_input_select">
-					<?php 	$year_actual = date("Y");  	
-						for ($i=$year_actual;$i >= $year_actual-1;$i--)
-						{	
-							$monthname = array( gettext("JANUARY"), gettext("FEBRUARY"), gettext("MARCH"), gettext("APRIL"), gettext("MAY"), gettext("JUNE"), gettext("JULY"), gettext("AUGUST"), gettext("SEPTEMBER"), gettext("OCTOBER"), gettext("NOVEMBER"), gettext("DECEMBER"));
-							if ($year_actual==$i){
-								$monthnumber = date("n")-1; // Month number without lead 0.
-							}else{
-								$monthnumber=11;
-							}		   
-							for ($j=$monthnumber;$j>=0;$j--){	
-								$month_formated = sprintf("%02d",$j+1);
-								if ($fromstatsmonth_sday=="$i-$month_formated"){$selected="selected";}else{$selected="";}
-								echo "<OPTION value=\"$i-$month_formated\" $selected> $monthname[$j]-$i </option>";
-							   }
-						}
-					?>
-					</select>
-					<select name="fromstatsmonth_shour" class="form_input_select">
-					<?php  
-						if (strlen($fromstatsmonth_shour)==0) $fromstatsmonth_shour='0';
-						for ($i=0;$i<=23;$i++){	
-							if ($fromstatsmonth_shour==sprintf("%02d",$i)){$selected="selected";}else{$selected="";}						
-							echo '<option value="'.sprintf("%02d",$i)."\" $selected>".sprintf("%02d",$i).'</option>';
-						}
-					?>					
-					</select>:<select name="fromstatsmonth_smin" class="form_input_select">
-					<?php  
-						if (strlen($fromstatsmonth_smin)==0) $fromstatsmonth_smin='0';
-						for ($i=0;$i<=59;$i++){	
-							if ($fromstatsmonth_smin==sprintf("%02d",$i)){$selected="selected";}else{$selected="";}						
-							echo '<option value="'.sprintf("%02d",$i)."\" $selected>".sprintf("%02d",$i).'</option>';
-						}
-					?>					
-					</select>
-					</td><td class="fontstyle_searchoptions">&nbsp;&nbsp;
-					<input type="checkbox" name="today" value="true" <?php  if ($today){ ?>checked<?php }?>> <?php echo gettext("TO");?> :
-					<select name="tostatsday_sday" class="form_input_select">
-					<?php  
-						for ($i=1;$i<=31;$i++){
-							if ($tostatsday_sday==sprintf("%02d",$i)){$selected="selected";}else{$selected="";}
-							echo '<option value="'.sprintf("%02d",$i)."\"$selected>".sprintf("%02d",$i).'</option>';
-						}
-					?>						
-					</select>
-				 	<select name="tostatsmonth_sday" class="form_input_select">
-					<?php 	$year_actual = date("Y");  	
-						for ($i=$year_actual;$i >= $year_actual-1;$i--)
-						{	
-							$monthname = array( gettext("JANUARY"), gettext("FEBRUARY"), gettext("MARCH"), gettext("APRIL"), gettext("MAY"), gettext("JUNE"), gettext("JULY"), gettext("AUGUST"), gettext("SEPTEMBER"), gettext("OCTOBER"), gettext("NOVEMBER"), gettext("DECEMBER"));
-							if ($year_actual==$i){
-								$monthnumber = date("n")-1; // Month number without lead 0.
-							}else{
-								$monthnumber=11;
-							}		   
-							for ($j=$monthnumber;$j>=0;$j--){
-								$month_formated = sprintf("%02d",$j+1);
-								if ($tostatsmonth_sday=="$i-$month_formated"){$selected="selected";}else{$selected="";}
-								echo "<OPTION value=\"$i-$month_formated\" $selected> $monthname[$j]-$i </option>";
-							   }
-						}
-					?>
-					</select>
-					<select name="tostatsmonth_shour" class="form_input_select">
-					<?php  
-						if (strlen($tostatsmonth_shour)==0) $tostatsmonth_shour='23';
-						for ($i=0;$i<=23;$i++){	
-							if ($tostatsmonth_shour==sprintf("%02d",$i)){$selected="selected";}else{$selected="";}						
-							echo '<option value="'.sprintf("%02d",$i)."\" $selected>".sprintf("%02d",$i).'</option>';
-						}
-					?>					
-					</select>:<select name="tostatsmonth_smin" class="form_input_select">
-					<?php  
-						if (strlen($tostatsmonth_smin)==0) $tostatsmonth_smin='59';
-						for ($i=0;$i<=59;$i++){	
-							if ($tostatsmonth_smin==sprintf("%02d",$i)){$selected="selected";}else{$selected="";}						
-							echo '<option value="'.sprintf("%02d",$i)."\" $selected>".sprintf("%02d",$i).'</option>';
-						}
-					?>					
-					</select>
-					</td></tr></table>
-	  			</td>
-    		</tr>
-			<tr>
-				<td class="bgcolor_004" align="left" >			
-					<font face="verdana" size="1" color="#ffffff"><b>&nbsp;&nbsp;<?php echo gettext("DESTINATION");?></b></font>
-				</td>				
-				<td class="bgcolor_005" align="left" >
-				<table width="100%" border="0" cellspacing="0" cellpadding="0">
-				<tr><td class="fontstyle_searchoptions">&nbsp;&nbsp;<INPUT TYPE="text" NAME="dst" value="<?php echo $dst?>" class="form_input_text"></td>
-				<td class="fontstyle_searchoptions" align="center" ><input type="radio" NAME="dsttype" value="1" <?php if((!isset($dsttype))||($dsttype==1)){?>checked<?php }?>> <?php echo gettext("Exact");?></td>
-				<td class="fontstyle_searchoptions" align="center" ><input type="radio" NAME="dsttype" value="2" <?php if($dsttype==2){?>checked<?php }?>><?php echo gettext("Begins with");?></td>
-				<td class="fontstyle_searchoptions" align="center" ><input type="radio" NAME="dsttype" value="3" <?php if($dsttype==3){?>checked<?php }?>><?php echo gettext("Contains");?></td>
-				<td class="fontstyle_searchoptions" align="center" ><input type="radio" NAME="dsttype" value="4" <?php if($dsttype==4){?>checked<?php }?>><?php echo gettext("Ends with");?></td>
-				<td class="fontstyle_searchoptions" align="center" ><input type="radio" NAME="dsttype" value="5" <?php if($sourcetype==5){?>checked<?php }?>><?php echo gettext("Is not");?></td>
-				</tr></table></td>
-			</tr>			
-			<tr>
-				<td align="left" class="bgcolor_002">					
-					<font face="verdana" size="1" color="#ffffff"><b>&nbsp;&nbsp;<?php echo gettext("SOURCE");?></b></font>
-				</td>				
-				<td class="bgcolor_003" align="left" >
-				<table width="100%" border="0" cellspacing="0" cellpadding="0">
-				<tr><td class="fontstyle_searchoptions">&nbsp;&nbsp;<INPUT TYPE="text" NAME="src" value="<?php echo "$src";?>" class="form_input_text"></td>
-				<td class="fontstyle_searchoptions" align="center"><input type="radio" NAME="srctype" value="1" <?php if((!isset($srctype))||($srctype==1)){?>checked<?php }?>><?php echo gettext("Exact");?></td>
-				<td class="fontstyle_searchoptions" align="center" ><input type="radio" NAME="srctype" value="2" <?php if($srctype==2){?>checked<?php }?>><?php echo gettext("Begins with");?></td>
-				<td class="fontstyle_searchoptions" align="center" ><input type="radio" NAME="srctype" value="3" <?php if($srctype==3){?>checked<?php }?>><?php echo gettext("Contains");?></td>
-				<td class="fontstyle_searchoptions" align="center" ><input type="radio" NAME="srctype" value="4" <?php if($srctype==4){?>checked<?php }?>><?php echo gettext("Ends with");?></td>
-				<td class="fontstyle_searchoptions" align="center" ><input type="radio" NAME="srctype" value="5" <?php if($srctype==5){?>checked<?php }?>><?php echo gettext("Is not");?></td>
-				</tr></table></td>
-			</tr>
-			<tr>
-        		<td class="bgcolor_004" align="left"><font face="verdana" size="1" color="#ffffff"><b>&nbsp;&nbsp;<?php echo gettext("OPTIONS");?></b></font> </td>
-
-				<td class="bgcolor_005" align="center" >
-				
-				<table width="100%" border="0" cellspacing="0" cellpadding="0">
-				<tr>
-					<td width="20%"  class="fontstyle_searchoptions">
-						<?php echo gettext("RESULT");?> :  						
-				   </td>
-				   <td width="80%"  class="fontstyle_searchoptions">				   		
-				 <?php echo gettext("Minutes");?><input type="radio" NAME="resulttype" value="min" <?php if((!isset($resulttype))||($resulttype=="min")){?>checked<?php }?>> - <?php echo gettext("Seconds");?> <input type="radio" NAME="resulttype" value="sec" <?php if($resulttype=="sec"){?>checked<?php }?>>
-					</td>
-				</tr>
-				<tr class="bgcolor_005">
-					<td  class="fontstyle_searchoptions">
-						<?php echo gettext("EXPORT FORMAT");?> : 
-				   </td>
-				   <td  class="fontstyle_searchoptions">
-					<?php echo gettext("See Invoice in HTML");?><input type="radio" NAME="exporttype" value="html" <?php if((!isset($exporttype))||($exporttype=="html")){?>checked<?php }?>>
-					<?php echo gettext("or Export PDF");?> <input type="radio" NAME="exporttype" value="pdf" <?php if($exporttype=="pdf"){?>checked<?php }?>>
-					</td>
-				</tr>
-				<tr>
-					<td  class="fontstyle_searchoptions">
-						<?php echo gettext("CURRENCY");?> :
-					</td>
-					<td  class="fontstyle_searchoptions">
-					<select NAME="choose_currency" size="1" class="form_input_select">
-						<?php
-							$currencies_list = get_currencies();
-							foreach($currencies_list as $key => $cur_value) {
-						?>
-							<option value='<?php echo $key ?>' <?php if (($choose_currency==$key) || (!isset($choose_currency) && $key==strtoupper(BASE_CURRENCY))){?>selected<?php } ?>><?php echo $cur_value[1].' ('.$cur_value[2].')' ?>
-							</option>
-						<?php 	} ?>
-					</select>
-					</td>
-				</tr>				
-				</table>
-				
-	  			</td>
-    		</tr>
-			<tr>
-				<td class="bgcolor_002" align="left">&nbsp;			
-					
-				</td>				
-				<td class="bgcolor_003" align="left" >
-				<center>
-					<input class="form_input_button"  value=" <?php echo gettext("Search");?> " type="button"  onClick="formsubmit();">				
-				</center>
-				</td>
-			</tr>			
-		
-		</tbody></table>
-	
    
 <br><br>
 
@@ -663,42 +394,53 @@ function formsubmit()
 <!-- %%%%%%%%%%%%%%%%%Call Details Filter ENDS Here-->
 <!-- ################# Call Details            -->
 
-<table  cellspacing="0" class="invoice_main_table">
+
+<table cellpadding="0"  align="center">
+<tr>
+<td align="center">
+<img src="<?php echo Images_Path;?>/asterisk01.jpg" align="middle">
+</td>
+</tr>
+</table>
+<br>
+<center>
+  <h4><font color="#FF0000"><?php echo gettext("Call Details for Card Number")?>&nbsp;<?php echo $info_customer[0][1] ?> </font></h4>
+</center>
+<br>
+<br>
+
+<table  cellspacing="0"  cellpadding="2" width="80%" align="center">
      
       <tr>
-        <td class="invoice_heading" width="100%"><?php echo gettext("Call Details");?></td>
+        <td  colspan="2"  width="100%" bgcolor="#FFFFCC"><font size="5" color="#FF0000"><?php echo gettext("Calls Details")?></font></td>
       </tr>
-      <tr>
-        <td valign="top"><table width="60%" align="left" cellpadding="0" cellspacing="0">
-            <tr>
+	  <tr>
               <td width="35%">&nbsp; </td>
               <td width="65%">&nbsp; </td>
             </tr>
             <tr>
-              <td width="35%" class="invoice_td"><?php echo gettext("Name")?>&nbsp; : </td>
-              <td width="65%" class="invoice_td"><?php echo $info_customer[0][3] ." ".$info_customer[0][2] ?></td>
+              <td width="35%" ><font color="#003399"><?php echo gettext("Name")?>&nbsp; : </font></td>
+              <td width="65%" ><font color="#003399"><?php echo $info_customer[0][3] ." ".$info_customer[0][2] ?></font></td>
             </tr>
             <tr>
-              <td width="35%" class="invoice_td"><?php echo gettext("Card Number")?>&nbsp; :</td>
-              <td width="65%" class="invoice_td"><?php echo $info_customer[0][1] ?> </td>
-            </tr>
+              <td width="35%" ><font color="#003399"><?php echo gettext("Card Number")?>&nbsp; :</font></td>
+              <td width="65%" ><font color="#003399"><?php echo $info_customer[0][1] ?></font> </td>
+            </tr>           
             <tr>
-              <td width="35%" class="invoice_td"><?php echo gettext("As of Date")?>&nbsp; :</td>
-              <td width="65%" class="invoice_td"><?php echo date('m-d-Y');?> </td>
+              <td width="35%" ><font color="#003399"><?php echo gettext("As of Date")?>&nbsp; :</font></td>
+              <td width="65%" ><font color="#003399"><?php echo date('m-d-Y');?> </font></td>
             </tr>
             <tr>
               <td colspan="2">&nbsp; </td>
-            </tr>
-        </table></td>
-      </tr>	  
-      <tr>
-        <td valign="top"><table width="100%" align="left" cellpadding="0" cellspacing="0">
-   				<tr>
-				<td colspan="100" align="center"><font><b><?php echo gettext("No of Calls")?>:&nbsp;<?php  if (is_array($list) && count($list)>0){ echo $nb_record; }else{echo "0";}?></center></b></font> </td>
-				</tr>
-
-			<tr class="invoice_subheading">
-              <td class="invoice_td" width="5%">nb </td>
+       </tr>
+	</table>
+			
+		<table  cellspacing="0"  cellpadding="2" width="80%" align="center">
+   		  <tr>
+					<td colspan="100" align="center"><font><b><?php echo gettext("No of Calls")?>:&nbsp;<?php  if (is_array($list) && count($list)>0){ echo $nb_record; }else{echo "0";}?></center></b></font> </td>
+			  </tr>
+      		<tr bgcolor="#CCCCCC">
+              <td  width="5%"><font color="#003399"><b><?php echo gettext("Sr")?>#</b></font> </td>
 			   <?php 
 				  	if (is_array($list) && count($list)>0)
 					{
@@ -707,9 +449,9 @@ function formsubmit()
 						{ 
 				?>				
 				  
-						  <TD width="<?php echo $FG_TABLE_COL[$i][2]?>" align=middle class="invoice_td" >
+						  <TD width="<?php echo $FG_TABLE_COL[$i][2]?>" align=middle  >
 							<center>
-							<?php echo $FG_TABLE_COL[$i][0]?>
+							<font color="#003399"><b><?php echo $FG_TABLE_COL[$i][0]?></b></font>
 						   
 					 		</center></TD>
 				   <?php } ?>		
@@ -728,7 +470,7 @@ function formsubmit()
 			?>
 			
             <tr class="invoice_rows">
-             <TD align="<?php echo $FG_TABLE_COL[$i][3]?>" class="invoice_td_rightborder" ><?php  echo $ligne_number+$current_page*$FG_LIMITE_DISPLAY; ?></TD>
+             <TD align="<?php echo $FG_TABLE_COL[$i][3]?>" bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$ligne_number%2]?>" ><font color="#003399"><?php  echo $ligne_number+$current_page*$FG_LIMITE_DISPLAY; ?></font></TD>
 				  		<?php for($i=0;$i<$FG_NB_TABLE_COL;$i++){ 
 							if ($FG_TABLE_COL[$i][6]=="lie"){
 								$instance_sub_table = new Table($FG_TABLE_COL[$i][7], $FG_TABLE_COL[$i][8]);
@@ -758,13 +500,13 @@ function formsubmit()
 							}
 							
 				 		 ?>
-                 		 <TD align="<?php echo $FG_TABLE_COL[$i][3]?>" class="invoice_td_rightborder"><?php
+                 		 <TD align="<?php echo $FG_TABLE_COL[$i][3]?>" bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$ligne_number%2]?>"><font color="#003399"><?php
 						 if (isset ($FG_TABLE_COL[$i][11]) && strlen($FG_TABLE_COL[$i][11])>1){
 						 	call_user_func($FG_TABLE_COL[$i][11], $record_display);
 						 }else{
 						 	echo stripslashes($record_display);
 						 }						 
-						 ?></TD>
+						 ?></font></TD>
 				 		 <?php  } 
 						 
 						 
@@ -773,7 +515,6 @@ function formsubmit()
 					 while ($ligne_number < $ligne_number_end){
 					 	$ligne_number++;
 				?>
-					
 									
 				<?php					 
 					 } //END_WHILE
@@ -782,23 +523,17 @@ function formsubmit()
 				  		echo gettext("No data found !!!");
 				  }//end_if
 				 ?>      					
-              
+            </tr>  
             <tr >
               <td width="100%" colspan="100">&nbsp;</td>			  
-            </tr>						
-        </table></td>
-      </tr>      
-	  <tr>
-	  <td valign="top">
-	  <!-----------------------------------------------DID CALLS RECORDS---------------------------------------------->
-	  
-	  <table width="100%" align="left" cellpadding="0" cellspacing="0">
-   				<tr>
-				<td colspan="100" align="center"><font><b><?php echo gettext("DID Calls")?>&nbsp; ::&nbsp; <?php echo gettext("No of Calls")?>:&nbsp;<?php  if (is_array($list_did) && count($list_did)>0){ echo $nb_record_did; }else{echo "0";}?></center></b></font> </td>
-				</tr>
-
-			<tr class="invoice_subheading">
-              <td class="invoice_td" width="5%">nb </td>
+            </tr>					
+    </table>
+<table  cellspacing="0"  cellpadding="2" width="80%" align="center">
+   		  <tr>
+					<td colspan="100" align="center"><font><b><?php echo gettext("No of DID Calls")?>:&nbsp;<?php  if (is_array($list_did) && count($list_did)>0){ echo $nb_record_did; }else{echo "0";}?></center></b></font> </td>
+			  </tr>
+      		<tr bgcolor="#CCCCCC">
+              <td  width="5%"><font color="#003399"><b><?php echo gettext("Sr")?>#</b></font> </td>
 			   <?php 
 				  	if (is_array($list_did) && count($list_did)>0)
 					{
@@ -807,9 +542,9 @@ function formsubmit()
 						{ 
 				?>				
 				  
-						  <TD width="<?php echo $FG_TABLE_COL[$i][2]?>" align=middle class="invoice_td" >
+						  <TD width="<?php echo $FG_TABLE_COL[$i][2]?>" align=middle  >
 							<center>
-							<?php echo $FG_TABLE_COL[$i][0]?>
+							<font color="#003399"><b><?php echo $FG_TABLE_COL[$i][0]?></b></font>
 						   
 					 		</center></TD>
 				   <?php } ?>		
@@ -828,7 +563,7 @@ function formsubmit()
 			?>
 			
             <tr class="invoice_rows">
-             <TD align="<?php echo $FG_TABLE_COL[$i][3]?>" class="invoice_td_rightborder" ><?php  echo $ligne_number+$current_page*$FG_LIMITE_DISPLAY; ?></TD>
+             <TD align="<?php echo $FG_TABLE_COL[$i][3]?>" bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$ligne_number%2]?>" ><font color="#003399"><?php  echo $ligne_number+$current_page*$FG_LIMITE_DISPLAY; ?></font></TD>
 				  		<?php for($i=0;$i<$FG_NB_TABLE_COL;$i++){ 
 							if ($FG_TABLE_COL[$i][6]=="lie"){
 								$instance_sub_table = new Table($FG_TABLE_COL[$i][7], $FG_TABLE_COL[$i][8]);
@@ -858,13 +593,13 @@ function formsubmit()
 							}
 							
 				 		 ?>
-                 		 <TD align="<?php echo $FG_TABLE_COL[$i][3]?>" class="invoice_td_rightborder"><?php
+                 		 <TD align="<?php echo $FG_TABLE_COL[$i][3]?>" bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$ligne_number%2]?>"><font color="#003399"><?php
 						 if (isset ($FG_TABLE_COL[$i][11]) && strlen($FG_TABLE_COL[$i][11])>1){
 						 	call_user_func($FG_TABLE_COL[$i][11], $record_display);
 						 }else{
 						 	echo stripslashes($record_display);
 						 }						 
-						 ?></TD>
+						 ?></font></TD>
 				 		 <?php  } 
 						 
 						 
@@ -873,7 +608,6 @@ function formsubmit()
 					 while ($ligne_number < $ligne_number_end){
 					 	$ligne_number++;
 				?>
-					
 									
 				<?php					 
 					 } //END_WHILE
@@ -882,17 +616,11 @@ function formsubmit()
 				  		echo gettext("No data found !!!");
 				  }//end_if
 				 ?>      					
-              
+            </tr>  
             <tr >
               <td width="100%" colspan="100">&nbsp;</td>			  
-            </tr>						
-        </table>
-		
-		<!-------------------------------END DID BILLING ------------------------------->
-	  </td>
-	  </tr>
+            </tr>					
     </table>
-
 
 <!--################### Call Details Ends --> 
 
@@ -900,7 +628,7 @@ function formsubmit()
 <?php  if($exporttype!="pdf"){ ?>
 
 <?php
-$smarty->display( 'footer.tpl');
+//$smarty->display( 'footer.tpl');
 ?>
 
 <?php  }else{
@@ -919,7 +647,7 @@ $smarty->display( 'footer.tpl');
 	
 	$html = ob_get_contents();
 	
-	$pdf->Output('CC_invoice_'.date("d/m/Y-H:i").'.pdf', 'I');
+	$pdf->Output('CallDetails_'.date("d/m/Y-H:i").'.pdf', 'I');
 
 
 

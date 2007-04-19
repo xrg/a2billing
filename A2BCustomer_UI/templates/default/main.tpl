@@ -243,13 +243,13 @@ function imgidclick(imgID,divID, imgbase, imgchange)
 		<li><ul>					   
 		   <li><a href="invoices.php?section=4"><strong>{php} echo gettext("Invoices");{/php}</strong></a></li>
 		   
-		   <li><a href="A2B_entity_billed_summary.php?section=4"><strong>{php} echo gettext("Billed Summary");{/php}</strong></a></li>
+		   <li><a href="A2B_entity_invoice_summary.php?section=4&invoice_type=2"><strong>{php} echo gettext("Billed Summary");{/php}</strong></a></li>
 		   
-		   <li><a href="A2B_entity_billed_details.php?section=4"><strong>{php} echo gettext("Billed Details");{/php}</strong></a></li>
+		   <li><a href="A2B_entity_invoice_detail.php?section=4&invoice_type=2"><strong>{php} echo gettext("Billed Details");{/php}</strong></a></li>
 		   
-		   <li><a href="A2B_entity_unbilled_summary.php?section=4"><strong>{php} echo gettext("UnBilled Summary");{/php}</strong></a></li>
+		   <li><a href="A2B_entity_invoice_summary.php?section=4&invoice_type=1"><strong>{php} echo gettext("UnBilled Summary");{/php}</strong></a></li>
 		   
-		   <li><a href="A2B_entity_unbilled_details.php?section=4"><strong>{php} echo gettext("UnBilled Details");{/php}</strong></a></li>
+		   <li><a href="A2B_entity_invoice_detail.php?section=4&invoice_type=1"><strong>{php} echo gettext("UnBilled Details");{/php}</strong></a></li>
 		   
 		   <li><a href="A2B_entity_call_details.php?section=4"><strong>{php} echo gettext("Call Details");{/php}</strong></a></li>
 		</ul></li>

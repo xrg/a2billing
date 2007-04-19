@@ -483,7 +483,8 @@ CREATE TABLE cc_trunk (
     secondusedratecard 					INTEGER DEFAULT 0,
     creationdate 						TIMESTAMP(0) without time zone DEFAULT NOW(),
     failover_trunk 						INTEGER,
-    addparameter 						TEXT 
+    addparameter 						TEXT,
+    id_provider							INTEGER
 );
 
 
@@ -691,6 +692,13 @@ Kind regards,
 Call Labs
 ', '');
 
+INSERT INTO cc_templatemail VALUES ('invoice', 'info@call-labs.com', 'Call-Labs', 'A2BILLING INVOICE', 'Dear Customer.
+
+Attached is the invoice.
+
+Kind regards,
+Call Labs
+', '');
 
 INSERT INTO cc_trunk VALUES (1, 'DEFAULT', '011', 'IAX2', 'kiki@switch-2.kiki.net', '', 0, 0, 0, '2005-03-14 01:01:36', 0, '', NULL);
 
@@ -1038,10 +1046,6 @@ ALTER TABLE ONLY cc_provider
     ADD CONSTRAINT cc_provider_pkey PRIMARY KEY (id);
 ALTER TABLE ONLY cc_provider
     ADD CONSTRAINT cons_cc_provider_name_key UNIQUE (provider_name);
-
-
-ALTER TABLE cc_trunk ADD COLUMN id_provider INTEGER;
-
 
 
 

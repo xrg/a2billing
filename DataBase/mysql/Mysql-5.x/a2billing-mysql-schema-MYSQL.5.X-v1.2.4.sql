@@ -614,6 +614,13 @@ Kind regards,
 Call Labs
 ', '');
 
+INSERT INTO cc_templatemail VALUES ('invoice', 'info@call-labs.com', 'Call-Labs', 'A2BILLING INVOICE', 'Dear Customer.
+
+Attached is the invoice.
+
+Kind regards,
+Call Labs
+', '');
 
 INSERT INTO cc_trunk VALUES (1, 'DEFAULT', '011', 'IAX2', 'kiki@switch-2.kiki.net', '', 0, 0, 0, '2005-03-14 01:01:36', 0, '', NULL);
 

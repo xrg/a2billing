@@ -197,14 +197,54 @@
 			}
 			$currencies_list = array_merge($currencies_list2,$currencies_list);		
 	}
+	
+	function send_email_attachment($emailfrom, $emailto, $emailsubject, $emailmessage,$attachmentfilename, $emailfilestream )
+	{
+		$email_from = $emailfrom; 
+		$email_subject = $emailsubject;
+		$email_message = $emailmessage; 
+		
+		$email_to = $emailto;
+		$headers = "From: ".$email_from;
+		
+		$semi_rand = md5(time()); 
+		$mime_boundary = "==Multipart_Boundary_x{$semi_rand}x"; 
+		   
+		$headers .= "\nMIME-Version: 1.0\n" . 
+					"Content-Type: multipart/mixed;\n" . 
+					" boundary=\"{$mime_boundary}\""; 
+		
+		$email_message .= "This is a multi-part message in MIME format.\n\n" . 
+						"--{$mime_boundary}\n" . 
+						"Content-Type:text/html; charset=\"iso-8859-1\"\n" . 
+						"Content-Transfer-Encoding: 7bit\n\n" . 
+		$email_message . "\n\n"; 
+		
+		$fileatt = "";           
+		$fileatt_type = "application/octet-stream"; 
+		$fileatt_name = $attachmentfilename;  
+		$stream = chunk_split(base64_encode($emailfilestream)); 
+		$email_message .= "--{$mime_boundary}\n" . 
+						  "Content-Type: {$fileatt_type};\n" . 
+						  " name=\"{$fileatt_name}\"\n" .                 
+						  "Content-Transfer-Encoding: base64\n\n" . 
+						 $stream . "\n\n" . 
+						  "--{$mime_boundary}\n"; 
+		unset($stream);
+		unset($file);
+		unset($fileatt);
+		unset($fileatt_type);
+		unset($fileatt_name);
+		$ok = @mail($email_to, $email_subject, $email_message, $headers);
+		return $ok;
+	}
 	getpost_ifset(array('cssname'));
 		
 	if(isset($cssname) && $cssname != "")
 	{
 		$_SESSION["stylefile"] = $cssname;
 	}
-	
-	
+		
 	if(isset($cssname) && $cssname != "")
 	{
 		if ($_SESSION["stylefile"]!=$cssname){

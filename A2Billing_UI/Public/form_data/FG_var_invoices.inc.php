@@ -48,16 +48,16 @@ $HD_Form -> FG_OTHER_BUTTON1_IMG = Images_Path . "/icon-viewdetails.gif";
 	if($invoicetype == "billed")
 	{
 		$HD_Form -> FG_OTHER_BUTTON1_ALT = gettext('Invoices');
-		$HD_Form -> FG_OTHER_BUTTON1_LINK="A2B_entity_invoice_list.php?section=2&cardid=|param|";
+		$HD_Form -> FG_OTHER_BUTTON1_LINK="A2B_entity_invoices_billed.php?section=2&cardid=|param|";
 		$HD_Form -> FG_OTHER_BUTTON1_IMG = '';
 		$HD_Form -> FG_OTHER_BUTTON2_IMG = '';
 	}
 	else
 	{
 		$HD_Form -> FG_OTHER_BUTTON1_ALT = gettext('Detail');
-		$HD_Form -> FG_OTHER_BUTTON1_LINK="A2B_entity_invoices_unbilled.php?section=2&cardid=|param|";
+		$HD_Form -> FG_OTHER_BUTTON1_LINK="A2B_entity_invoice_detail.php?section=2&cardid=|param|";
 		$HD_Form -> FG_OTHER_BUTTON2_ALT = gettext('Email');
-		$HD_Form -> FG_OTHER_BUTTON2_LINK="A2B_entity_invoice_unbilledmail.php?section=2&cardid=|param|&action=sendinvoice&exporttype=pdf";		
+		$HD_Form -> FG_OTHER_BUTTON2_LINK="A2B_entity_invoice_detail_pdf.php?section=2&cardid=|param|&action=sendinvoice&exporttype=pdf";		
 		//$HD_Form -> FG_OTHER_BUTTON1_IMG = Images_Path.'/details.gif';
 		//$HD_Form -> FG_OTHER_BUTTON2_IMG = Images_Path.'/email03.gif';
 	}	
