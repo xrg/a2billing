@@ -16,13 +16,10 @@ else
 if($_SESSION["p_module"] == "")
 {
     print_r($_REQUEST);
-    exit("No payment module was recorded");
+    exit ("No payment module was recorded");
 }
 
-?>
 
-
-<?php
 include ("./lib/defines.php");
 include ("./lib/module.access.php");
 include ("./lib/Form/Class.FormHandler.inc.php");
@@ -31,6 +28,7 @@ include ("./lib/epayment/classes/order.php");
 include ("./lib/epayment/classes/currencies.php");
 include ("./lib/epayment/includes/general.php");
 include ("./lib/epayment/includes/html_output.php");
+include ("./lib/epayment/includes/configure.php")
 include ("./lib/epayment/includes/loadconfiguration.php");
 include("PP_header.php");
 
@@ -167,7 +165,7 @@ if ($res)
 
 if (!$num)
 {
-    echo "<br>Error : No email Template Found";
+	echo gettext("Error : No email Template Found");
     
 }else{
 	
