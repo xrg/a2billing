@@ -1,14 +1,4 @@
 <?php
-/*
-  $Id: authorizenet.php,v 1.48 2003/04/10 21:42:30 project3000 Exp $
-
-  osCommerce, Open Source E-Commerce Solutions
-  http://www.oscommerce.com
-
-  Copyright (c) 2003 osCommerce
-
-  Released under the GNU General Public License
-*/
 
   include("./lib/epayment/includes/methods/authorizenet.php");
 
@@ -26,8 +16,7 @@
       $this->enabled = ((MODULE_PAYMENT_AUTHORIZENET_STATUS == 'True') ? true : false);
       $this->sort_order = 0;
 
-      //$this->form_action_url = 'https://secure.authorize.net/gateway/transact.dll';
-      $this->form_action_url = "https://test.authorize.net/gateway/transact.dll";
+      $this->form_action_url = AUTHORIZE_PAYMENT_URL;
     }
 
 // Authorize.net utility functions
@@ -183,7 +172,8 @@ function InsertFP ($loginid, $txnkey, $amount, $sequence, $currency = "") {
 
       if ( ($result == false) || ($result < 1) ) {
         $payment_error_return = 'payment_error=' . $this->code . '&error=' . urlencode($error) . '&authorizenet_cc_owner=' . urlencode($_POST['authorizenet_cc_owner']) . '&authorizenet_cc_expires_month=' . $_POST['authorizenet_cc_expires_month'] . '&authorizenet_cc_expires_year=' . $_POST['authorizenet_cc_expires_year'];
-
+		$payment_error_return .= '&amount=' . $_POST['amount'].'&item_name=' . $_POST['item_name'].'&item_number=' . $_POST['item_number'];
+		
         tep_redirect(tep_href_link("checkout_payment.php", $payment_error_return, 'SSL', true, false));
       }
 

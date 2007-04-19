@@ -1,14 +1,5 @@
 <?php
-/*
-  $Id: paypal.php,v 1.39 2003/01/29 19:57:15 hpdl Exp $
 
-  osCommerce, Open Source E-Commerce Solutions
-  http://www.oscommerce.com
-
-  Copyright (c) 2003 osCommerce
-
-  Released under the GNU General Public License
-*/
 
   include("./lib/epayment/includes/methods/paypal.php");
   class paypal {
@@ -25,8 +16,8 @@
       $this->enabled = ((MODULE_PAYMENT_PAYPAL_STATUS == 'True') ? true : false);
 
       //$this->form_action_url = 'https://secure.paypal.com/cgi-bin/webscr';
-      $this->form_action_url = 'https://www.sandbox.paypal.com/cgi-bin/webscr';
-
+      //$this->form_action_url = 'https://www.sandbox.paypal.com/cgi-bin/webscr';
+	  $this->form_action_url = PAYPAL_PAYMENT_URL;
     }
 
 // class methods
