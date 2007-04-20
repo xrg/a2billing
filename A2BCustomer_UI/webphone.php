@@ -42,16 +42,10 @@ if( $customer_info [2] == "t" || $customer_info [2] == "1" ) {
 		$iax_info =$iaxresmax -> fetchRow();
 	}
 }
-
-
-
 $customer = $_SESSION["pr_login"];
-
 $smarty->display( 'main.tpl');
-	
-
 	// #### HELP SECTION
-echo '<br>'.$CC_help_webphone;
+echo $CC_help_webphone;
 
 ?><br>
 

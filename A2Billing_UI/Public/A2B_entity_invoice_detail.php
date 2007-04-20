@@ -216,22 +216,10 @@ $_SESSION["pr_sql_export"]="SELECT $FG_COL_QUERY FROM $FG_TABLE_NAME WHERE $FG_T
 
 $QUERY = "SELECT substring(t1.starttime,1,10) AS day, sum(t1.sessiontime) AS calltime, sum(t1.sessionbill) AS cost, count(*) as nbcall FROM $FG_TABLE_NAME WHERE ".$FG_TABLE_CLAUSE."  GROUP BY substring(t1.starttime,1,10) ORDER BY day"; //extract(DAY from calldate)
 
-if (!$nodisplay){		
-		$res = $DBHandle -> Execute($QUERY);
-		if ($res){
-			$num = $res -> RecordCount( );
-		 	
-			for($i=0;$i<$num;$i++)
-			{				
-				$list_total_day [] =$res -> fetchRow();				 
-			}
-		}
-
-
-if ($FG_DEBUG == 3) echo "<br>Clause : $FG_TABLE_CLAUSE";
-$nb_record = $instance_table -> Table_count ($DBHandle, $FG_TABLE_CLAUSE);
-if ($FG_DEBUG >= 1) var_dump ($list);
-
+if (!$nodisplay)
+{
+	$list_total_day = $instance_table->SQLExec ($DBHandle, $QUERY);	
+	$nb_record = $instance_table -> Table_count ($DBHandle, $FG_TABLE_CLAUSE);
 }//end IF nodisplay
 
 /************************************************ DID Billing Section *********************************************/
@@ -259,15 +247,7 @@ else
  
 if (!$nodisplay)
 {
-	$res = $DBHandle -> Execute($QUERY);	
-	if ($res){	
-		$num = $res -> RecordCount( );
-		for($i=0;$i<$num;$i++)
-		{					
-			$list_total_did [] =$res -> fetchRow();
-		}
-	}
-	if ($FG_DEBUG >= 1) var_dump ($list_total_did);
+	$list_total_did = $instance_table->SQLExec ($DBHandle, $QUERY);	
 }//end IF nodisplay
 
 /************************************************ END DID Billing Section *********************************************/
@@ -299,16 +279,7 @@ else
 
 if (!$nodisplay)
 {
-	$res = $DBHandle -> Execute($QUERY);
-	if ($res){
-		$num = $res -> RecordCount();
-		for($i=0;$i<$num;$i++)
-		{
-			$list_total_charges [] =$res -> fetchRow();
-		}
-	}
-	
-	if ($FG_DEBUG >= 1) var_dump ($list_total_charges);
+	$list_total_charges = $instance_table->SQLExec ($DBHandle, $QUERY);	
 }//end IF nodisplay
 
 
@@ -317,22 +288,9 @@ if (!$nodisplay)
 
 $QUERY = "SELECT destination, sum(t1.sessiontime) AS calltime, 
 sum(t1.sessionbill) AS cost, count(*) as nbcall FROM $FG_TABLE_NAME WHERE ".$FG_TABLE_CLAUSE."  GROUP BY destination";
-
-
-if (!$nodisplay){
-		$res = $DBHandle -> Execute($QUERY);
-		if ($res){
-			$num = $res -> RecordCount( );
-			for($i=0;$i<$num;$i++)
-			{				
-				$list_total_destination [] =$res -> fetchRow();				 
-			}
-		}
-
-if ($FG_DEBUG == 3) echo "<br>Clause : $FG_TABLE_CLAUSE";
-if ($FG_DEBUG >= 1) var_dump ($list_total_destination);
-
-
+if (!$nodisplay)
+{
+	$list_total_destination = $instance_table->SQLExec ($DBHandle, $QUERY);	
 }//end IF nodisplay
 
 
@@ -346,10 +304,8 @@ if ($nb_record<=$FG_LIMITE_DISPLAY){
 	}	
 }
 
-
 if ($FG_DEBUG == 3) echo "<br>Nb_record : $nb_record";
 if ($FG_DEBUG == 3) echo "<br>Nb_record_max : $nb_record_max";
-
 
 if ((isset($customer)  &&  ($customer>0)) || (isset($entercustomer)  &&  ($entercustomer>0))){
 

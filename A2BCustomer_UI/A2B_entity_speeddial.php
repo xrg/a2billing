@@ -37,40 +37,22 @@ if (strlen($destination)>0  && is_numeric($choose_speeddial)){
 }
 /***********************************************************************************/
 
-
 if ($id!="" || !is_null($id)){
 	$HD_Form -> FG_EDITION_CLAUSE = str_replace("%id", "$id", $HD_Form -> FG_EDITION_CLAUSE);
 }
 
-
 if (!isset($form_action))  $form_action="list"; //ask-add
 if (!isset($action)) $action = $form_action;
-
-
-
-
 $list = $HD_Form -> perform_action($form_action);
-
-
-
 // #### HEADER SECTION
 $smarty->display('main.tpl');
-
-
 // #### HELP SECTION
-echo '<br>';
-
 if ($form_action == "list")
 {
     // My code for Creating two functionalities in a page
     $HD_Form -> create_toppage ("ask-add");
     if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
-    
-	
-	
-
-	if (isset($update_msg) && strlen($update_msg)>0) echo $update_msg; 
-	
+ 	if (isset($update_msg) && strlen($update_msg)>0) echo $update_msg; 	
 ?>
 	  </center>	
 	  <center><font class="error_message"><?php echo gettext("Enter the number which you wish to assign to the code here"); ?></font></center>

@@ -15,41 +15,45 @@ $CC_help_list_customer='
 </div></div>';
 
 $CC_help_refill_customer='
-<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
-<div id="div1000" style="display:visible;">
+<div class="toggle_show2hide">
+<a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/pipe.gif" class="kikipic"/>
 	<div class="w2">
 '.gettext("Top up cards on this screen by selecting or typing in the card number directly, and enter the amount of credit to apply, then click ADD to confirm.").'
 <br/><br/>
 </div></div></div>
-</div>';
+</div></div>';
 
 $CC_help_create_customer='
-<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
-<div id="div1000" style="display:visible;">
+<div class="toggle_show2hide">
+<a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/vcard.gif" class="kikipic"/>
 	<div class="w2"><br>
 '.gettext("Create and edit the properties of each customer. Click <b>CONFIRM DATA</b> at the bottom of the page to save changes.").'
 <br/><br/>
 </div></div></div>
-</div>';
+</div></div>';
 
 $CC_help_generate_customer='
-<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
-<div id="div1000" style="display:visible;">
+<div class="toggle_show2hide">
+<a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/vcard.gif" class="kikipic"/>
 	<div class="w2">
 '.gettext("Bulk create cards and customers in a single step. <br> Set the properties of the batch such as initial credit, card type and currency, then click on the GENERATE CARDS button to create the batch.").'
 <br/><br/>
 </div></div></div>
-</div>';
+</div></div>';
 
 $CC_help_sipfriend_list ='
-<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
-<div id="div1000" style="display:visible;">
+<div class="toggle_show2hide">
+<a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/network_local.gif" class="kikipic"/>
 	<div class="w2">
@@ -57,22 +61,24 @@ $CC_help_sipfriend_list ='
 .gettext("The customer must then enter the URL/IP address of the asterisk server into the SIP/IAX client, and use the Card Number and Secret as the username and password.").'
 <br/>
 </div></div></div>
-</div>';
+</div></div>';
 
 $CC_help_sipfriend_reload ='
-<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
-<div id="div1000" style="display:visible;">
+<div class="toggle_show2hide">
+<a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/network_local.gif" class="kikipic"/>
 	<div class="w2">
 '.gettext("Click reload to commit changes to Asterisk").'<br>
 <br/><br/>
 </div></div></div>
-</div>';
+</div></div>';
 
 $CC_help_sipfriend_edit ='
-<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
-<div id="div1000" style="display:visible;">
+<div class="toggle_show2hide">
+<a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/network_local.gif" class="kikipic"/>
 	<div class="w2">
@@ -82,23 +88,25 @@ $CC_help_sipfriend_edit ='
 <a href="http://voip-info.org/wiki-Asterisk+config+iax.conf" target="_blank">iax.conf</a>
 <br/><br/>
 </div></div></div>
-</div>';
+</div></div>';
 
 $CC_help_callerid_list ='
-<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
-<div id="div1000" style="display:visible;">
+<div class="toggle_show2hide">
+<a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
 <div id="kiki"><div class="w1">
   <img src="'.KICON_PATH.'/vcard.gif" class="kikipic"/>
   <div class="w2"> 
 '.gettext("Set the caller ID so that the customer calling in is authenticated on the basis of the callerID rather than with account number").'<br>
 <br/><br/>
 </div></div></div>
-</div>';
+</div></div>';
 
 
 $CC_help_money_situation ='
-<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
-<div id="div1000" style="display:visible;">
+<div class="toggle_show2hide">
+<a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/gnome-finance.gif" class="kikipic"/>
 	<div class="w2">
@@ -106,22 +114,24 @@ $CC_help_money_situation ='
 
 <br/>
 </div></div></div>
-</div>';
+</div></div>';
 
 $CC_help_view_payment ='
-<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
-<div id="div1000" style="display:visible;">
+<div class="toggle_show2hide">
+<a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/gnome-finance.gif" class="kikipic"/>
 	<div class="w2"><br>
 '.gettext("Payment history - The section below allows you to add payments against a customer. Note that this does not change the balance on the card. Click refill under customer list to top-up a card.").'
 <br/>
 </div></div></div>
-</div>';
+</div></div>';
 
 $CC_help_view_paypal ='
-<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
-<div id="div1000" style="display:visible;">
+<div class="toggle_show2hide">
+<a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/paypal.gif" class="kikipic"/>
 	<div class="w2"><br>
@@ -130,15 +140,12 @@ $CC_help_view_paypal ='
 <br/><br/>
 <br/>
 </div></div></div>
-</div>
-<center>
-<!-- Begin PayPal Logo --><A HREF="https://www.paypal.com/es/mrb/pal=PGSJEXAEXKTBU" target="_blank"><IMG  SRC="http://images.paypal.com/en_US/i/bnr/paypal_mrb_banner.gif" BORDER="0" ALT="Sign up for PayPal and start accepting credit card payments instantly."></A><!-- End PayPal Logo -->
-</center>
-';
+</div></div>';
 
 $CC_help_add_payment ='
-<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
-<div id="div1000" style="display:visible;">
+<div class="toggle_show2hide">
+<a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/gnome-finance.gif" class="kikipic"/>
 	<div class="w2"><br/>
@@ -146,22 +153,24 @@ $CC_help_add_payment ='
 <br/>
 <br/>
 </div></div></div>
-</div>';
+</div></div>';
 
 $CC_help_list_tariffgroup ='
-<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
-<div id="div1000" style="display:visible;">
+<div class="toggle_show2hide">
+<a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/network.gif" class="kikipic"/>
 	<div class="w2"><br/>'.gettext("List of tariffgroups, a tariffgroup is a collection of rate cards, click edit to add ratecards to the tariffgroup").'
 <br/><br/>
 <br/>
 </div></div></div>
-</div>';
+</div></div>';
 
 $CC_help_add_tariffgroup ='
-<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
-<div id="div1000" style="display:visible;">
+<div class="toggle_show2hide">
+<a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/network.gif" class="kikipic"/>
 	<div class="w2"> 
@@ -171,21 +180,23 @@ $CC_help_add_tariffgroup ='
 .gettext("LCD : Least Cost Dialing - Find the trunk with the cheapest retail rate (selling rate)").'
 <br/>
 </div></div></div>
-</div>';
+</div></div>';
 
 $CC_help_list_ratecard ='
-<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
-<div id="div1000" style="display:visible;">
+<div class="toggle_show2hide">
+<a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/kspread_ksp.gif" class="kikipic"/>
 	<div class="w2"><br/> '.gettext("List ratecards that have been created!<br>Ensure that the rate card is added into the tariff group under 'List Ratecard'").'
 <br/><br/>
 </div></div></div>
-</div>';
+</div></div>';
 
 $CC_help_edit_ratecard ='
-<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
-<div id="div1000" style="display:visible;">
+<div class="toggle_show2hide">
+<a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/kspread_ksp.gif" class="kikipic"/>
 	<div class="w2"> '.gettext("Set the properties and attributes of the ratecard").'<br/>'
@@ -194,43 +205,47 @@ $CC_help_edit_ratecard ='
 	.gettext('A ratecard has a "start date", an "expiry date" and a you can define a default trunk, but if no trunk is defined, the ratecard default trunk will be used.').'
 <br/>
 </div></div></div>
-</div>';
+</div></div>';
 
 $CC_help_def_ratecard ='
-<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
-<div id="div1000" style="display:visible;">
+<div class="toggle_show2hide">
+<a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/kspread_ksp.gif" class="kikipic"/>
 	<div class="w2"> </br>'.gettext("Please select a ratecard and click on search to browse the different rates/dialing prefix of the selected ratecard.").'<br/>
 
 <br/>
 </div></div></div>
-</div>';
+</div></div>';
 
 $CC_help_sim_ratecard ='
-<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
-<div id="div1000" style="display:visible;">
+<div class="toggle_show2hide">
+<a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/kspread_ksp.gif" class="kikipic"/>
 	<div class="w2"><br>'.gettext('Please select a calling card, enter the number you wish to call and press the "SIMULATE" button.').'<br/>
 <br/>
 </div></div></div>
-</div>';
+</div></div>';
 
 $CC_help_add_rate ='
-<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
-<div id="div1000" style="display:visible;">
+<div class="toggle_show2hide">
+<a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/kspread_ksp.gif" class="kikipic"/>
 	<div class="w2"><br>'
     .gettext("Please fill in the fields below to set up the rate for each destination.").'
 <br><br>
 </div></div></div>
-</div>';
+</div></div>';
 
 $CC_help_import_ratecard ='
-<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
-<div id="div1000" style="display:visible;">
+<div class="toggle_show2hide">
+<a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/spreadsheet.gif" class="kikipic"/>
 	<div class="w2">'
@@ -239,11 +254,12 @@ $CC_help_import_ratecard ='
 	<br>
 	<br>
 </div></div></div>
-</div>';
+</div></div>';
 
 $CC_help_import_ratecard_analyse ='
-<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
-<div id="div1000" style="display:visible;">
+<div class="toggle_show2hide">
+<a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/spreadsheet.gif" class="kikipic"/>
 	<div class="w2">'
@@ -253,11 +269,12 @@ $CC_help_import_ratecard_analyse ='
     .gettext('please select the same file and click on "Continue to Import the Ratecard" button...').'
 	<br><br>
 </div></div></div>
-</div>';
+</div></div>';
 
 $CC_help_import_ratecard_confirm ='
-<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
-<div id="div1000" style="display:visible;">
+<div class="toggle_show2hide">
+<a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/spreadsheet.gif" class="kikipic"/>
 	<div class="w2">.'
@@ -265,11 +282,12 @@ $CC_help_import_ratecard_confirm ='
 	.gettext('Import results, how many new rates have been imported, and the line numbers of the CSV files that generated errors.').'
 	<br><br>
 </div></div></div>
-</div>';
+</div></div>';
 
 $CC_help_trunk_list ='
-<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
-<div id="div1000" style="display:visible;">
+<div class="toggle_show2hide">
+<a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/hwbrowser.gif" class="kikipic"/>
 	<div class="w2">
@@ -277,11 +295,12 @@ $CC_help_trunk_list ='
 
 <br/><br/>
 </div></div></div>
-</div>';
+</div></div>';
 
 $CC_help_trunk_edit ='
-<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
-<div id="div1000" style="display:visible;">
+<div class="toggle_show2hide">
+<a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/hwbrowser.gif" class="kikipic"/>
 	<div class="w2">
@@ -290,11 +309,12 @@ $CC_help_trunk_edit ='
 .gettext("The trunk is used to dial out from your asterisk box which can be a zaptel interface or a voip provider.").'
 <br/>
 </div></div></div>
-</div>';
+</div></div>';
 
 $CC_help_admin_list ='
-<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
-<div id="div1000" style="display:visible;">
+<div class="toggle_show2hide">
+<a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/kdmconfig.gif" class="kikipic"/>
 	<div class="w2">
@@ -302,22 +322,24 @@ $CC_help_admin_list ='
 	.gettext("Administrator list who have access to the calling card administrative interface.").'
 <br/><br/>
 </div></div></div>
-</div>';
+</div></div>';
 
 $CC_help_admin_edit ='
-<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
-<div id="div1000" style="display:visible;">
+<div class="toggle_show2hide">
+<a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/kdmconfig.gif" class="kikipic"/>
 	<div class="w2"><br>'
 .gettext("Add administrator.").'
 <br/><br/>
 </div></div></div>
-</div>';
+</div></div>';
 
 $CC_help_list_voucher='
-<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
-<div id="div1000" style="display:visible;">
+<div class="toggle_show2hide">
+<a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/vcard.gif" class="kikipic"/>
 	<div class="w2"><br>'
@@ -325,11 +347,12 @@ $CC_help_list_voucher='
 .gettext("Each row corresponds to a voucher and shows it's status, value and currency..").'
 <br/><br/>
 </div></div></div>
-</div>';
+</div></div>';
 
 $CC_help_create_voucher='
-<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
-<div id="div1000" style="display:visible;">
+<div class="toggle_show2hide">
+<a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/vcard.gif" class="kikipic"/>
 	<div class="w2">
@@ -337,22 +360,24 @@ $CC_help_create_voucher='
 .gettext("Create a single voucher, defining such properties as credit, tag, currency etc, click confirm when finished. <br/> The customer applies voucher credit to their card via the customer interface or via an IVR menu.").'
 <br/><br/>
 </div></div></div>
-</div>';
+</div></div>';
 
 $CC_help_generate_voucher='
-<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
-<div id="div1000" style="display:visible;">
+<div class="toggle_show2hide">
+<a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/vcard.gif" class="kikipic"/>
 	<div class="w2">'
 .gettext("Bulk generate a batch of vouchers, defining such properties as credit and currency etc, click Generate Vouchers when finished.<br/>The customer applies voucher credit to their card via the customer interface. ").'
 <br/><br/>
 </div></div></div>
-</div>';
+</div></div>';
 
 $CC_help_list_service ='
-<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
-<div id="div1000" style="display:visible;">
+<div class="toggle_show2hide">
+<a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/system-config-date.gif" class="kikipic"/>
 	<div class="w2">
@@ -360,11 +385,12 @@ $CC_help_list_service ='
 	.gettext("Re-occuring services that decrement a card at timed intervals.").'
 <br/><br/>
 </div></div></div>
-</div>';
+</div></div>';
 
 $CC_help_edit_service ='
-<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
-<div id="div1000" style="display:visible;">
+<div class="toggle_show2hide">
+<a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/system-config-date.gif" class="kikipic"/>
 	<div class="w2">'
@@ -372,11 +398,12 @@ $CC_help_edit_service ='
 .gettext("For example if you want to remove 10 cents everyday on each single card, it can be defined here, alternatively, if you now want to remove 1 credit every week but only 7 times on each card, the different rules/parameters below will define this.").'
 <br/>
 </div></div></div>
-</div>';
+</div></div>';
 
 $CC_help_list_cidgroup ='
-<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
-<div id="div1000" style="display:visible;">
+<div class="toggle_show2hide">
+<a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/connect_to_network.gif" class="kikipic"/>
 	<div class="w2">
@@ -384,11 +411,12 @@ $CC_help_list_cidgroup ='
 	'.gettext("CID Group list. CID can be chosen by customers through the customer interface.").'<br/>
 <br/>
 </div></div></div>
-</div>';
+</div></div>';
 
 $CC_help_list_cid ='
-<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
-<div id="div1000" style="display:visible;">
+<div class="toggle_show2hide">
+<a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/connect_to_network.gif" class="kikipic"/>
 	<div class="w2">
@@ -396,12 +424,13 @@ $CC_help_list_cid ='
 	'.gettext("Outbound CID list. CID can be added by customers through the customer interface.").'<br/>
 <br/>
 </div></div></div>
-</div>';
+</div></div>';
 
 
 $CC_help_edit_cidgroup ='
-<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
-<div id="div1000" style="display:visible;">
+<div class="toggle_show2hide">
+<a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/connect_to_network.gif" class="kikipic"/>
 	<div class="w2">
@@ -409,11 +438,12 @@ $CC_help_edit_cidgroup ='
 .gettext("CID group offers customers a group of CID numbers which can be selected for a ratecard for outgoing calls").'<br>
 <br/>
 </div></div></div>
-</div>';
+</div></div>';
 
 $CC_help_edit_cid ='
-<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
-<div id="div1000" style="display:visible;">
+<div class="toggle_show2hide">
+<a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/connect_to_network.gif" class="kikipic"/>
 	<div class="w2">
@@ -421,11 +451,12 @@ $CC_help_edit_cid ='
 .gettext("Outbound CID offers customers a number which will be selected randomly for a ratecard for outgoing calls").'<br>
 <br/>
 </div></div></div>
-</div>';
+</div></div>';
 
 $CC_help_currency ='
-<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
-<div id="div1000" style="display:visible;">
+<div class="toggle_show2hide">
+<a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/favorites.gif" class="kikipic"/>
 	<div class="w2">'
@@ -434,11 +465,12 @@ $CC_help_currency ='
 .gettext("<br>The list below is based over your currency base :").' <b>'.BASE_CURRENCY.'</b>'
 .'<br>
 </div></div></div>
-</div>';
+</div></div>';
 
 $CC_help_list_didgroup ='
-<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
-<div id="div1000" style="display:visible;">
+<div class="toggle_show2hide">
+<a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/connect_to_network.gif" class="kikipic"/>
 	<div class="w2">
@@ -446,11 +478,12 @@ $CC_help_list_didgroup ='
 	'.gettext("DID (or DDI) Group list. DID can be chosen by customers through the customer interface.").'<br/>
 <br/>
 </div></div></div>
-</div>';
+</div></div>';
 
 $CC_help_edit_didgroup ='
-<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
-<div id="div1000" style="display:visible;">
+<div class="toggle_show2hide">
+<a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/connect_to_network.gif" class="kikipic"/>
 	<div class="w2">
@@ -458,11 +491,12 @@ $CC_help_edit_didgroup ='
 .gettext("DID group offers customers a group of DID numbers which can be selected by the customer").'<br>
 <br/>
 </div></div></div>
-</div>';
+</div></div>';
 
 $CC_help_list_did ='
-<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
-<div id="div1000" style="display:visible;">
+<div class="toggle_show2hide">
+<a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/connect_to_network.gif" class="kikipic"/>
 	<div class="w2">
@@ -471,33 +505,36 @@ $CC_help_list_did ='
 
 <br/>
 </div></div></div>
-</div>';
+</div></div>';
 
 $CC_help_edit_did ='
-<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
-<div id="div1000" style="display:visible;">
+<div class="toggle_show2hide">
+<a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/connect_to_network.gif" class="kikipic"/>
 	<div class="w2">
 <br/>'
 .gettext("DID can be assigned to a card to re-route calls to a SIP/IAX client or a PSTN number. The Priority sets the order in which the calls are to be routed to allow for failover or follow-me.").'<br>
 </div></div></div>
-</div>';
+</div></div>';
 
 $CC_help_list_did_use ='
-<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
-<div id="div1000" style="display:visible;">
+<div class="toggle_show2hide">
+<a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/connect_to_network.gif" class="kikipic"/>
 	<div class="w2">
 	<br/>'
 	.gettext("List the DIDs currently in use with the card id and their destination number <br/> You can use the search option to show the usage of a given DID or all DIDs").'<br/>
 </div></div></div>
-</div>';
+</div></div>';
 
 $CC_help_release_did ='
-<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
-<div id="div1000" style="display:visible;">
+<div class="toggle_show2hide">
+<a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/connect_to_network.gif" class="kikipic"/>
 	<div class="w2">
@@ -505,11 +542,12 @@ $CC_help_release_did ='
 	.gettext("Releasing DID put it in free stat and the user will not be monthly charged any more..").'<br/>
 <br/>
 </div></div></div>
-</div>';
+</div></div>';
 
 $CC_help_edit_charge ='
-<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
-<div id="div1000" style="display:visible;">
+<div class="toggle_show2hide">
+<a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/wi0124-48.gif" class="kikipic"/>
 	<div class="w2">'
@@ -517,11 +555,12 @@ $CC_help_edit_charge ='
 .gettext("Charges will appear to the user with the description you attach. Each charge that you create for a user will decrement his account.").'
 <br/>
 </div></div></div>
-</div>';
+</div></div>';
 
 $CC_help_list_did_billing ='
-<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
-<div id="div1000" style="display:visible;">
+<div class="toggle_show2hide">
+<a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/connect_to_network.gif" class="kikipic"/>
 	<div class="w2">'
@@ -529,11 +568,12 @@ $CC_help_list_did_billing ='
     .gettext("You will see which cards have used your DIDs in past months and the traffic (amount of seconds).").'
 <br/><br/>
 </div></div></div>
-</div>';
+</div></div>';
 
 $CC_help_list_signup ='
-<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
-<div id="div1000" style="display:visible;">
+<div class="toggle_show2hide">
+<a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/kate.gif" class="kikipic"/>
 	<div class="w2">
@@ -543,11 +583,12 @@ $CC_help_list_signup ='
     	.gettext("A Reminder email can be sent (see a2billing.conf) to customers having low credit.").'
 <br/>
 </div></div></div>
-</div>';
+</div></div>';
 
 $CC_help_campaign ='
-<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
-<div id="div1000" style="display:visible;">
+<div class="toggle_show2hide">
+<a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/yast_remote.gif" class="kikipic"/>
 	<div class="w2">'
@@ -556,22 +597,24 @@ $CC_help_campaign ='
     .gettext("Predictive dialer will browse all the phone numbers from the campaign and perform outgoing calls.").'
 <br/><br/>
 </div></div></div>
-</div>';
+</div></div>';
 
 $CC_help_phonelist ='
-<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
-<div id="div1000" style="display:visible;">
+<div class="toggle_show2hide">
+<a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/yast_PhoneTTOffhook.gif" class="kikipic"/>
 	<div class="w2"><br/>'
 	.gettext("Phonelist are all the phone numbers attached to a campaign. You can add, remove and edit the phone numbers.").'
 	<br/><br/>
 </div></div></div>
-</div>';
+</div></div>';
 
 $CC_help_provider ='
-<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
-<div id="div1000" style="display:visible;">
+<div class="toggle_show2hide">
+<a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/yast_remote.gif" class="kikipic"/>
 	<div class="w2"><br/>'
@@ -579,11 +622,12 @@ $CC_help_provider ='
     .gettext("A provider is the company/person that provides you with termination.").'
 <br/><br/>
 </div></div></div>
-</div>';
+</div></div>';
 
 $CC_help_database_restore ='
-<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
-<div id="div1000" style="display:visible;">
+<div class="toggle_show2hide">
+<a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
 <div id="kiki"><div class="w1">
 <img src="'.KICON_PATH.'/yast_HD.gif" class="kikipic"/>
         <div class="w2">'
@@ -594,11 +638,12 @@ $CC_help_database_restore ='
         .gettext("The process of restore can take some time , during that time no calls will be accepted.").'
 <br/>
 </div></div></div>
-</div>';
+</div></div>';
 
 $CC_help_database_backup='
-<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
-<div id="div1000" style="display:visible;">
+<div class="toggle_show2hide">
+<a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
 <div id="kiki"><div class="w1">
 <img src="'.KICON_PATH.'/yast_HD.gif" class="kikipic"/>
         <div class="w2">'
@@ -607,11 +652,12 @@ $CC_help_database_backup='
 		.gettext("The process of backup can take some time, during that time some calls will not be accepted.").'
 		<br/>
 </div></div></div>
-</div>';
+</div></div>';
 				
 $CC_help_ecommerce ='
-<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
-<div id="div1000" style="display:visible;">
+<div class="toggle_show2hide">
+<a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/yast_multihead.gif" class="kikipic"/>
 	<div class="w2">
@@ -620,11 +666,12 @@ $CC_help_ecommerce ='
 	.gettext("<br>This will be use by E-Commerce API to find out how the new card have to be created.").'
 <br/><br/>
 </div></div></div>
-</div>';
+</div></div>';
 
 $CC_help_speeddial ='
-<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
-<div id="div1000" style="display:visible;">
+<div class="toggle_show2hide">
+<a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/stock_init.gif" class="kikipic"/>
 	<div class="w2">'
@@ -632,11 +679,12 @@ $CC_help_speeddial ='
 	.gettext("A Speed Dial will be entered on the IVR in order to make a shortcut to their preferred dialed phone number.").'
 <br/><br/>
 </div></div></div>
-</div>';
+</div></div>';
 
 $CC_help_list_prefix='
-<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
-<div id="div1000" style="display:visible;">
+<div class="toggle_show2hide">
+<a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/connect_to_network.gif" class="kikipic"/>
 	<div class="w2">
@@ -644,11 +692,12 @@ $CC_help_list_prefix='
 	.gettext("Prefix list with destinations.").'<br/>
 <br/>
 </div></div></div>
-</div>';
+</div></div>';
 
 $CC_help_edit_prefix ='
-<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
-<div id="div1000" style="display:visible;">
+<div class="toggle_show2hide">
+<a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/connect_to_network.gif" class="kikipic"/>
 	<div class="w2">
@@ -656,10 +705,11 @@ $CC_help_edit_prefix ='
 .gettext("Prefixe can be assigned to a Ratecard").'<br>
 <br/>
 </div></div></div>
-</div>';
+</div></div>';
 
-$CC_help_edit_alarm='<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
-<div id="div1000" style="display:visible;">
+$CC_help_edit_alarm='<div class="toggle_show2hide">
+<a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/system-config-date.gif" class="kikipic"/>
 	<div class="w2">'
@@ -667,34 +717,37 @@ $CC_help_edit_alarm='<a href="#" target="_self"  onclick="imgidclick(\'img1000\'
 .gettext("For example if you want to monitor ASR (answer seize ratio) or ALOC (average length of call) everyday on each single trunk, it can be defined here, the different parameters below will define the rules to apply the alarm.").'
 <br/>
 </div></div></div>
-</div>
+</div></div>
 ';
 
-$CC_help_list_alarm='<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
-<div id="div1000" style="display:visible;">
+$CC_help_list_alarm='<div class="toggle_show2hide">
+<a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/system-config-date.gif" class="kikipic"/>
 	<div class="w2"><br>'
 .gettext("Alarms that monitors trunks at timed intervals.").'
 <br/><br>
 </div></div></div>
-</div>
+</div></div>
 ';
 
 
-$CC_help_logfile='<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
-<div id="div1000" style="display:visible;">
+$CC_help_logfile='<div class="toggle_show2hide">
+<a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/cache.gif" class="kikipic"/>
 	<div class="w2">'
 .gettext("Browse for log file.<br> Use to locate the log file on a remote Web server.<br>It can generate combined reports for all logs. This tool can be use for extraction and presentation of information from various logfiles.").'
 <br/>
 </div></div></div>
-</div>
+</div></div>
 ';
 
-$CC_help_callback='<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
-<div id="div1000" style="display:visible;">
+$CC_help_callback='<div class="toggle_show2hide">
+<a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/cache.gif" class="kikipic"/>
 	<div class="w2">'
@@ -702,83 +755,90 @@ $CC_help_callback='<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\
 We handle a spool with all the callbacks that need to be running and you might be able to view here all the pending and performed callback with their current status. Different parameters determine the callback, the way to reach the user, the time when we need to call him, the result of the last attempts, etc...").'
 <br/>
 </div></div></div>
-</div>
+</div></div>
 ';
 
-$CC_help_offer_package='<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
-<div id="div1000" style="display:visible;">
+$CC_help_offer_package='<div class="toggle_show2hide">
+<a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/kthememgr.gif" class="kikipic"/>
 	<div class="w2">'
 .gettext("PACKAGES SYSTEM - FREE MINUTES, etc...").'
 <br/><br/><br/>
 </div></div></div>
-</div>
+</div></div>
 ';
 
-$CC_help_list_subscription='<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
-<div id="div1000" style="display:visible;">
+$CC_help_list_subscription='<div class="toggle_show2hide">
+<a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/config-date.gif" class="kikipic"/>
 	<div class="w2">'
 .gettext("SUBSCRITION FEE - You can bill in a monthly, weekly or anytime period the user for being subscribed on your service. The fee amount is defined here and the period through the cront configuration.").'
 <br/><br/><br/>
 </div></div></div>
-</div>
+</div></div>
 ';
 
-$CC_help_server='<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
-<div id="div1000" style="display:visible;">
+$CC_help_server='<div class="toggle_show2hide">
+<a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/network_local.gif" class="kikipic"/>
 	<div class="w2">'
 .gettext("Server are used by the callback system through the asterisk manager in order to initiate the callback and outbound a call to your customers. You can add/modify the callback server here that are going to be use here. The AGI and callback mode need to be install on those machine.").'
 <br/>
 </div></div></div>
-</div>
+</div></div>
 ';
 
-$CC_help_server_group='<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
-<div id="div1000" style="display:visible;">
+$CC_help_server_group='<div class="toggle_show2hide">
+<a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/yast_multihead.gif" class="kikipic"/>
 	<div class="w2">'
 .gettext("Group of server define the set of servers that are going to be used by the callback system. A callback is bound to a group of server, those server will be used to dispatch the callback requests.").'
 <br/><br/>
 </div></div></div>
-</div>
+</div></div>
 ';
 
-$CC_help_transaction='<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
-<div id="div1000" style="display:visible;">
+$CC_help_transaction='<div class="toggle_show2hide">
+<a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/kspread.gif" class="kikipic"/>
 	<div class="w2">'
 .gettext("You can view all the transactions proceed through the different epayment system configured (Paypal, MoneyBookers, etc...). ").'
 <br/><br/>
 </div></div></div>
-</div>
+</div></div>
 ';
 
-$CC_help_payment_config ='<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
-<div id="div1000" style="display:visible;">
+$CC_help_payment_config ='<div class="toggle_show2hide">
+<a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/kspread.gif" class="kikipic"/>
 	<div class="w2"><br>'
 .gettext("You can configure your epayment method here. It helps you to enable or disable the payment method. You can define the currency settings.").'
 <br/><br/>
 </div></div></div>
-</div>
+</div></div>
 ';
-$CC_help_list_payment_methods = '<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
-<div id="div1000" style="display:visible;">
+$CC_help_list_payment_methods = '<div class="toggle_show2hide">
+<a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
+<div class="tohide" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/kspread.gif" class="kikipic"/>
 	<div class="w2"><br>'
 .gettext("Epayment methods help you to collect payments from your customers.").'
 <br/><br/><br>
 </div></div></div>
-</div>
+</div></div>
 '; 
 } //ENDIF SHOW_HELP
 ?>

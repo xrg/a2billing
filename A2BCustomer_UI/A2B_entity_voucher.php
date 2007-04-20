@@ -78,7 +78,7 @@ $smarty->display( 'main.tpl');
 // #### HELP SECTION
 if ($form_action=='list')
 {
-    echo '<br>'.$CC_help_list_voucher;
+    echo $CC_help_list_voucher;
 }
 
 // #### TOP SECTION PAGE

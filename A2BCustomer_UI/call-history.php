@@ -289,19 +289,7 @@ if ($FG_DEBUG == 3) echo "<br>Nb_record : $nb_record";
 if ($FG_DEBUG == 3) echo "<br>Nb_record_max : $nb_record_max";
 
 
-/*******************   TOTAL COSTS  *****************************************
-
-$instance_table_cost = new Table($FG_TABLE_NAME, "sum(t1.costs), sum(t1.buycosts)");		
-if (!$nodisplay){	
-	$total_cost = $instance_table_cost -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, null, null, null, null, null, null);
-}
-*/
-
-
 /*************************************************************/
-
-
-
 
 ?>
 
@@ -320,7 +308,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 
 	
 // #### HELP SECTION
-echo '<br>'.$CC_help_balance_customer;
+echo $CC_help_balance_customer;
 
 ?>
 

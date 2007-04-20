@@ -53,7 +53,7 @@ $smarty->display('main.tpl');
 // #### HELP SECTION
 if ($form_action == 'list')
 {
-    echo '<br><br>'.$CC_help_ratecard.'';
+    echo $CC_help_ratecard.'';
 }
 
 $HD_Form -> FG_TABLE_CLAUSE = "cc_tariffplan.id = cc_tariffgroup_plan.idtariffplan AND cc_tariffgroup_plan.idtariffgroup = '".$_SESSION["tariff"]."'";

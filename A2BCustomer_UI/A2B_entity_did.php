@@ -90,7 +90,7 @@ if ($action_release=="confirm_release"){
 /***********************************************************/
 
 if ($action_release=="ask_release") { 
-	echo '<br><br>'.$CC_help_release_did;
+	echo $CC_help_release_did;
 	?>
 	<FORM action="A2B_entity_did.php" name="form1">
 		<INPUT type="hidden" name="choose_did" value="<?php echo $choose_did?>">
@@ -116,7 +116,7 @@ if (!isset($action_release) || $action_release=="confirm_release" || $action_rel
 	// #### HELP SECTION
 	if ($form_action=='list')
 	{
-		echo '<br><br>'.$CC_help_list_did;
+		echo $CC_help_list_did;
 	}	
 
 	if ((isset($confirm_buy_did)) && ($confirm_buy_did == 1))

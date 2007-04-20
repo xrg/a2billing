@@ -80,7 +80,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 </script>
 
 
-          <br><br>
+        
 <?php
 	echo $CC_help_phonelist;
 ?>
@@ -253,7 +253,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
             </TABLE></TD>
         </TR>
 		<TR> 
-          <TD style="border-bottom: medium dotted #667766"> &nbsp;</TD>
+          <TD style="border-bottom: medium dotted #667766">&nbsp; </TD>
         </TR>
       </table>
 	  <?php 

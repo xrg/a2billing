@@ -104,19 +104,12 @@ $FG_TABLE_CLAUSE = "";
 $list_tariffname = $instance_table_tariffname  -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, "tariffname", "ASC", null, null, null, null);
 
 $nb_tariffname = count($list_tariffname);
-
-
 /*************************************************************/
-
-
 ?>
-
 <?php
 $smarty->display( 'main.tpl');
-
-
 // #### HELP SECTION
-echo '<br><br>'.$CC_help_simulator_rateengine;
+echo $CC_help_simulator_rateengine;
 
 ?>
 
@@ -139,15 +132,8 @@ function openURL(theLINK)
 	// redirect browser to the grabbed value (hopefully a URL)	  
 	self.location.href = theLINK + goURL + "&definecredit="+definecredit ; //+ "&opt="+opt;
 }
-
-
-
 //-->
 </script>
-
-
-
-
 <center>
 	<?php echo $error_msg; ?>
 </center>
