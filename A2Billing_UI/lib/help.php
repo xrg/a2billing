@@ -8,7 +8,7 @@ $CC_help_list_customer='
 <div class="tohide" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/vcard.gif" class="kikipic" />
-	<div class="w2">'.gettext("Customers are listed below by card number. Each row corresponds to one customer, along with information such as their tariff group, credit remaining, etc.</br>")
+	<div class="w2">'.gettext("Customers are listed below by card number. Each row corresponds to one customer, along with information such as their call plan, credit remaining, etc.</br>")
 .gettext("The SIP and IAX buttons create SIP and IAX entries to allow direct VoIP connections to the Asterisk server without further authentication.").'
 	<br/>
 </div></div></div>
@@ -161,7 +161,7 @@ $CC_help_list_tariffgroup ='
 <div class="tohide" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/network.gif" class="kikipic"/>
-	<div class="w2"><br/>'.gettext("List of tariffgroups, a tariffgroup is a collection of rate cards, click edit to add ratecards to the tariffgroup").'
+	<div class="w2"><br/>'.gettext("List of Call Plans, a Call Plan is a collection of rate cards, click edit to add ratecards to the Call Plan").'
 <br/><br/>
 <br/>
 </div></div></div>
@@ -174,8 +174,8 @@ $CC_help_add_tariffgroup ='
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/network.gif" class="kikipic"/>
 	<div class="w2"> 
-'.gettext("A tariffgroup is a collection of ratecards.")
-.gettext("The calling card system will choose the most appropriate rate according to the tariffgroup settings (LCR or LCD).<br/>")
+'.gettext("A Call Plan is a collection of ratecards.")
+.gettext("The calling card system will choose the most appropriate rate according to the Call Plan settings (LCR or LCD).<br/>")
 .gettext("LCR : Least Cost Routing - Find the trunk with the cheapest carrier cost. (buying rate)<br>")
 .gettext("LCD : Least Cost Dialing - Find the trunk with the cheapest retail rate (selling rate)").'
 <br/>
@@ -188,7 +188,7 @@ $CC_help_list_ratecard ='
 <div class="tohide" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/kspread_ksp.gif" class="kikipic"/>
-	<div class="w2"><br/> '.gettext("List ratecards that have been created!<br>Ensure that the rate card is added into the tariff group under 'List Ratecard'").'
+	<div class="w2"><br/> '.gettext("List ratecards that have been created!<br>Ensure that the rate card is added into the call plan under 'List Ratecard'").'
 <br/><br/>
 </div></div></div>
 </div></div>';
@@ -570,14 +570,14 @@ $CC_help_list_did_billing ='
 </div></div></div>
 </div></div>';
 
-$CC_help_list_signup ='
+$CC_help_list_misc ='
 <div class="toggle_show2hide">
 <a href="#" target="_self"><img class="toggle_show2hide" src="'.KICON_PATH.'/toggle_hide2show_on.png" onmouseover="this.style.cursor=\'hand\';" HEIGHT="16"> </a>
 <div class="tohide" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/kate.gif" class="kikipic"/>
 	<div class="w2">
-		'.gettext("The SIGNUP module allow new customers to register automatically and use the system immediately.")
+		'.gettext("The MISC module allow new customers to register automatically and use the system immediately.")
     	.gettext(' Click here <a target="_blank" href="../signup/"><b>Signup Pages</b></a> to access the signup page.')
     	.gettext(" A mail is automatically sent when a new signup is completed. Configure the mail template below.<br>")
     	.gettext("A Reminder email can be sent (see a2billing.conf) to customers having low credit.").'

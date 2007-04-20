@@ -242,7 +242,8 @@
 	define ("DIR_WS_HTTP_CATALOG", isset($A2B->config["epayment_method"]['dir_ws_http_catalog'])?$A2B->config["epayment_method"]['dir_ws_http_catalog']:null);
 	define ("DIR_WS_HTTPS_CATALOG", isset($A2B->config["epayment_method"]['dir_ws_https_catalog'])?$A2B->config["epayment_method"]['dir_ws_https_catalog']:null);
 	define ("ENABLE_SSL", isset($A2B->config["epayment_method"]['enable_ssl'])?$A2B->config["epayment_method"]['enable_ssl']:null);
-
+	
+	define ("LOGFILE_EPAYMENT",isset($A2B->config['log-files']['epayment'])?$A2B->config['log-files']['epayment']:null);
     //Images Path
     define ("Images_Path","./templates/".$_SESSION["stylefile"]."/images");
 	define ("Images_Path_Main","./templates/".$_SESSION["stylefile"]."/images");

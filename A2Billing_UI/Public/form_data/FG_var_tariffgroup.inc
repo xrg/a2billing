@@ -2,7 +2,7 @@
 
 getpost_ifset(array('id', 'tariffgroupname', 'lcrtype', 'removeinterprefix', 'idtariffplan', 'id_cc_package_offer'));
 
-$HD_Form = new FormHandler("cc_tariffgroup","TariffGroup");
+$HD_Form = new FormHandler("cc_tariffgroup","Call Plan");
 
 $HD_Form -> FG_DEBUG = 0;
 // FAQ
@@ -18,7 +18,7 @@ $HD_Form -> FG_FK_WARNONLY = true;
 $HD_Form -> FG_FK_TABLENAMES = array("cc_card");
 $HD_Form -> FG_FK_EDITION_CLAUSE = array(" tariff ");
 
-$HD_Form -> FG_FK_DELETE_MESSAGE = gettext("You have some cards using this Tariff Group! Please comfirm that you really want to remove this Tariff Group ? ");
+$HD_Form -> FG_FK_DELETE_MESSAGE = gettext("You have some cards using this Call Plan! Please comfirm that you really want to remove this Call Plan ? ");
 
 // LCD :the cheapest Provider for a given destination number
 $lcrtype_list = array();
@@ -34,12 +34,8 @@ $inter_prefix_list_short = array();
 $inter_prefix_list_short["0"] = array( gettext("Keep prefix"), "0");
 $inter_prefix_list_short["1"] = array( gettext("Remove prefix"), "1");
 
-
-
-
-
 $HD_Form -> AddViewElement(gettext("ID"), "id", "5%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("TARIFFGROUPNAME"), "tariffgroupname", "20%", "center", "sort");
+$HD_Form -> AddViewElement(gettext("CALLPLANNAME"), "tariffgroupname", "20%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("CREATIONDATE"), "creationdate", "20%", "center", "sort", "19", "", "", "", "", "", "display_dateformat");
 $HD_Form -> AddViewElement(gettext("LC TYPE"), "lcrtype", "15%", "center", "sort", "", "list", $lcrtype_list_short);
 $HD_Form -> AddViewElement(gettext("PACKAGE"), "id_cc_package_offer", "11%", "center", "sort", "15", "lie", "cc_package_offer", "label", "id='%id'", "%1");
@@ -59,13 +55,13 @@ $HD_Form -> FG_EDITION = true;
 $HD_Form -> FG_DELETION = true;
 
 
-$HD_Form -> AddEditElement (gettext("TARIFFGROUPNAME"),
+$HD_Form -> AddEditElement (gettext("NAME"),
 	"tariffgroupname",		
 	'$value',	
 	"INPUT",	
 	"size=30 maxlength=20",	
 	"9",	
-	gettext("Insert the tariff name "),
+	gettext("Insert the Call Plan name "),
 	"" , "", "", "", "", "", "", "" );
 
 $HD_Form -> AddEditElement (gettext("LC TYPE"),
@@ -86,7 +82,7 @@ $HD_Form -> AddEditElement(gettext("PACKAGE"),
 			   "sql",
 			   "cc_package_offer",
 			   "label, id",
-			   	"", "", "%1", "", gettext("Set the Package offer if you wish to use one with this tariffgroup"), '', '<OPTION  value="-1" selected>NO PACKAGE OFFER</OPTION>');
+			   	"", "", "%1", "", gettext("Set the Package offer if you wish to use one with this Call Plan"), '', '<OPTION  value="-1" selected>NO PACKAGE OFFER</OPTION>');
 
 $HD_Form -> AddEditElement (gettext("REMOVE INTER PREFIX"),
 	"removeinterprefix",		

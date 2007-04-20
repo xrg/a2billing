@@ -120,6 +120,31 @@ function imgidclick(imgID,divID, imgbase, imgchange)
 
 
 <ul id="nav" >	
+
+	<div class="toggle_menu">
+	<li>
+	<a href="#" target="_self"><img class="toggle_hide2show" id="img1"  
+	{if ($section == "1")}
+	src="templates/{$SKIN_NAME}/images/minus.gif"
+	{else}
+	src="templates/{$SKIN_NAME}/images/plus.gif"
+	{/if}
+ onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("TEST");{/php}</strong></a></li>
+	<div class="tohide"  
+	{if ($section =="1")}
+	style="">
+	{else}
+	style="display:none;">
+	{/if}
+	<ul>
+		<li><ul>
+				<li><a href="A2B_entity_card.php?atmenu=card&stitle=Customers_Card&section=1">{php} echo gettext("TEST");{/php}</a></li>
+		</ul></li>
+	</ul>
+	</div>
+	</div>
+	
+
 	{if ($ACXCUSTOMER > 0) }
 	<li>
 	<a href="#" target="_self"  onclick="imgidclick_plus('img1','div1');"><img id="img1"  
@@ -215,8 +240,8 @@ function imgidclick(imgID,divID, imgbase, imgchange)
 	{/if}
 		<ul>
 			<li><ul>
-				<li><a href="A2B_entity_tariffgroup.php?form_action=ask-add&atmenu=tariffgroup&stitle=Tariff+Group&section=3">{php} echo gettext("Create TariffGroup");{/php}</a></li>
-				<li><a href="A2B_entity_tariffgroup.php?atmenu=tariffgroup&stitle=TariffGroup&section=3">{php} echo gettext("List TariffGroup");{/php}</a></li>
+				<li><a href="A2B_entity_tariffgroup.php?form_action=ask-add&atmenu=tariffgroup&stitle=Tariff+Group&section=3">{php} echo gettext("Create Call Plan");{/php}</a></li>
+				<li><a href="A2B_entity_tariffgroup.php?atmenu=tariffgroup&stitle=TariffGroup&section=3">{php} echo gettext("List Call Plan");{/php}</a></li>
 				<li><a href="A2B_entity_tariffplan.php?atmenu=tariffplan&stitle=Tariffplan&section=3">{php} echo gettext("List RateCard");{/php}</a></li>
 				<li><a href="A2B_entity_tariffplan.php?form_action=ask-add&atmenu=tariffplan&stitle=RateCard&section=3">{php} echo gettext("Create new RateCard");{/php}</a></li>
 				<li><a href="A2B_entity_def_ratecard.php?atmenu=ratecard&stitle=RateCard&section=3">{php} echo gettext("Browse Rates");{/php}</a></li>
@@ -422,7 +447,7 @@ function imgidclick(imgID,divID, imgbase, imgchange)
 
 	{/if}
 	
-	{if ($ACXSIGNUP  > 0)}
+	{if ($ACXMISC  > 0)}
 		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick_plus('img6','div6');"><img id="img6" 
 	{if ($section =="8")}
 	
@@ -431,7 +456,7 @@ function imgidclick(imgID,divID, imgbase, imgchange)
 	src="templates/{$SKIN_NAME}/images/plus.gif"
 	
 	{/if}
-	onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("SIGNUP");{/php}</strong></a></li>
+	onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("MISC");{/php}</strong></a></li>
 	<div id="div6"  
 	{if ($section =="8")}
 		style="">

@@ -47,7 +47,7 @@ include ("../lib/defines.php");
 		$priority = 1;
 		//$timeout	callerid
 		
-		// USE RATE_ENGINE_FINDRATES - RATE_ENGINE_ALL_CALCULTIMEOUT - TARIFFGROUP BY DEFAULT TO FIND OUT THE CORRECT CHANNEL
+		// USE RATE_ENGINE_FINDRATES - RATE_ENGINE_ALL_CALCULTIMEOUT - CALL PLAN BY DEFAULT TO FIND OUT THE CORRECT CHANNEL
 		$channel = 'SIP/'.$phone_number.'@toreplace';
 		$variable = "mode=callback|phonenumber=$phone_number|callerid=$callerid|transaction_id=$transaction_id|id_server_group=$id_server_group";
 		

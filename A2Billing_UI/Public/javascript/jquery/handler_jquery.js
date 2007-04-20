@@ -4,6 +4,27 @@ $(document).ready(
 	function()
 	{
 		
+		$("div.toggle_menu a").toggle(function(){
+			$(this).find("img").each(function(i) {
+				newimage = $(this).attr('src');
+				alert(newimage.substr(0,newimage.length-9) + 'minus.gif');
+				$(this).attr('src', newimage.substr(0,newimage.length-8) + 'minus.gif');
+			});
+			div_toggle = $(this).parent().parent().find("div.tohide");
+			//alert(div_toggle.html());
+			div_toggle.animate({ height: 'show', opacity: 'show' }, 'slow');
+			
+		},function(){			
+			$(this).find("img").each(function(i) {
+				newimage = $(this).attr('src');
+				$(this).attr('src', newimage.substr(0,newimage.length-7) + 'plus.gif');
+			});
+			div_toggle = $(this).parent().parent().find("div.tohide");
+			alert(div_toggle.html());
+			div_toggle.animate({ height: 'hide', opacity: 'hide' }, 'slow');
+		});
+		
+		
 		$("div.toggle_hide2show a").toggle(function(){
 			$(this).find("img").each(function(i) {
 				newimage = $(this).attr('src');

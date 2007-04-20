@@ -3,98 +3,21 @@
                    			TODO LIST - SPECIFIC
 ********************************************************************************
 
-#### NAMING
-********************************************************************
-REPLACE SIGNUP IN THE LEFT MENU -> MISC
-replace also SIGNUP  in ACL
 
-TARIFFGROUP -> CALL PLAN
-	TARIFFGROUPNAME -> NAME
-	Change in edit card, signup & AGI
-	
+#### JQUERY SLIDE
+********************************************************************
+menu
+
 
 #### Misc : spacer
 ********************************************************************
 we have : pixel.gif ; spacer.gif ; spacer.jpg
 
-#### Misc : INVOICE
-********************************************************************
-1# 
-	http://trac.a2billing.net/cgi-bin/trac.cgi/changeset/981
-	we need to have all this way
-
-2#
-	if the description is long, for instance put in the description "Extra Charges are to allow the billing of one-off or re-occurring monthly charges. These may be used as setup or service charges, etc...Charges will appear to the user with the description you attach. Each charge that you create for a user will decrement his account."
-
-	it doesnt looks pretty, the description column is very small
-	
-	problem on :
-	A2B_entity_invoice_billedmail.php
-	A2B_entity_invoice_detail.php
-	...
-
-3# 
-	if you click on payment button when u have few payement
-	then u click on the "sort button" or to display [10] [50] [100] it fails or show up the menu!!!
-
-	
-4#
-	images on 
-	<img src="<?php echo Images_Path;?>/asterisk01.jpg" align="middle">
-	
-	I added a new parameter on a2billing.conf,
-	; filename of the image that will be display at the top of the invoice (if not defined no image will appear ; path to place the image templates/default/images/)
-	invoice_image = asterisk01.jpg
-	
-	we will handle this that way
-	
-5#
-	A2B_entity_invoice_billedmail.php?section=2&id=8&cardid=12&action=sendinvoice&exporttype=html
-	some images dont exist
-	Public/templates/default/images/spacer.jpg
-	
-6#
-	A2B_entity_invoice_billedmail.php
-	this need to use mailtemplate
-	$email_from = "admin@a2billing.org"; 
-	$email_subject = "A2Billing Invoice";
-	$email_message = "Dear Customer<br><br>\n\n Attached is the Invoice.\n\n <br><br>Sincerely<br>\n\nAdministrator A2Billing";
-	
-	
-7#
-	Refactoring this HUGE mess.
-	We have tons of pages to show up almost the same report
-	Find a centralized way to make it clean and compress
-
-
-8#
-	A2B_entity_invoice_billedmail.php
-	we still have the understandable stuff at the end :
-	Status : 
-    Connected      Disconnected
-	
-	do the same as : A2B_entity_invoice_detail.php
 
 #### VOUCHER
 ********************************************************************
 if you want to refill you card with a voucher please dial...
 and its not understandable
-
-
-#### INVOICE
-********************************************************************
-check the nodisplay
-
-
-
-#### a2billing.conf new section with all the log files
-********************************************************************
-handle this in different part of the application (API, AGI, Cront)
-[log-files]
-; To disable application logging, remove/comment the log file name aside service
-
-; epayment log file, to log all the transaction & error
-epayment = /tmp/a2billing_epayment.log
 
 
 
@@ -107,7 +30,6 @@ The VAT is not in the invoice
 #### FEATURES
 ********************************************************************
 User info Profile user can see any data for SIP registrations his device like sip-login an sip-password (locked to change) 
-
 
 
 

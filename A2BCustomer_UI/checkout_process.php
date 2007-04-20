@@ -3,20 +3,22 @@ $sess_id = $_REQUEST["sess_id"];
 
 if ($sess_id =="")
 {
-    exit("No session id provided in return URL to Payment Moudle");
+	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__." ERROR NO SESSION ID PROVIDED IN RETURN URL TO PAYMENT MODULE");
+    exit(gettext("No session id provided in return URL to Payment Moudle"));
 }
 else
 {
     session_id($sess_id);
     session_start();
+	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__." SESSION ID ".$sess_id);
    // echo "<br>New=".session_id();
 }
 
 
 if($_SESSION["p_module"] == "")
 {
-    print_r($_REQUEST);
-    exit ("No payment module was recorded");
+	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__." ERROR NO PAYMENT MODULE WAS RECORDED");    
+    exit (gettext("No payment module was recorded"));
 }
 
 
@@ -60,7 +62,7 @@ if ($resmax)
 
 if ($numrow == 0)
 {
-    exit("No Such Customer exists.");
+    exit(gettext("No Such Customer exists."));
 }
 $customer_info =$resmax -> fetchRow();
 
@@ -165,6 +167,7 @@ if ($res)
 
 if (!$num)
 {
+	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__." ERROR NO EMAIL TEMPLATE FOUND");    
 	echo gettext("Error : No email Template Found");
     
 }else{

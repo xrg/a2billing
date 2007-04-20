@@ -25,7 +25,7 @@ define ("ACX_CALL_REPORT",   			16);		// 1 << 4
 define ("ACX_CRONT_SERVICE",   			32);		// 1 << 5
 define ("ACX_ADMINISTRATOR",   			64);		// 1 << 6
 define ("ACX_FILE_MANAGER",   			128);		// 1 << 7
-define ("ACX_SIGNUP",   				256);		// 1 << 8
+define ("ACX_MISC",   				256);		// 1 << 8
 define ("ACX_DID",   					512);		// 1 << 9
 define ("ACX_CALLBACK",					1024);		// 1 << 10
 define ("ACX_OUTBOUNDCID",				2048);		// 1 << 11
@@ -161,7 +161,7 @@ $ACXTRUNK		= has_rights (ACX_TRUNK);
 $ACXDID			= has_rights (ACX_DID);
 $ACXCALLREPORT	= has_rights (ACX_CALL_REPORT);
 $ACXCRONTSERVICE= has_rights (ACX_CRONT_SERVICE);
-$ACXSIGNUP 		= has_rights (ACX_SIGNUP);
+$ACXMISC 		= has_rights (ACX_MISC);
 $ACXADMINISTRATOR = has_rights (ACX_ADMINISTRATOR);
 $ACXFILEMANAGER = has_rights (ACX_FILE_MANAGER);
 $ACXCALLBACK	= has_rights (ACX_CALLBACK);
