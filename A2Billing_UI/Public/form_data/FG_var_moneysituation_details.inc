@@ -5,7 +5,7 @@ getpost_ifset(array('id', 'displayheader', 'type','popup_select','popup_formname
 
 // type : refill or payment
 $HD_Form -> FG_DEBUG = 0;
-
+echo "type=$type";
 if ($type=='payment'){
 	$HD_Form = new FormHandler("cc_logpayment as t2","Payment");
 	$HD_Form -> FG_TABLE_CLAUSE = "t2.card_id = $id";

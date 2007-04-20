@@ -6,11 +6,10 @@ include ("./form_data/FG_var_card.inc");
 include ("../lib/smarty.php");
 
 if (! has_rights (ACX_CUSTOMER)){ 
-	   Header ("HTTP/1.0 401 Unauthorized");
-	   Header ("Location: PP_error.php?c=accessdenied");	   
-	   die();	   
+	Header ("HTTP/1.0 401 Unauthorized");
+	Header ("Location: PP_error.php?c=accessdenied");	   
+	die();	   
 }
-
 
 
 /***********************************************************************************/
@@ -81,38 +80,34 @@ if (($form_action == "addcredit") && ($addcredit>0 || $addcredit<0) && ($id>0 ||
 	$instance_table = new Table("cc_card", "username, id");
 	
 	if ($cardnumber>0){
-			/* CHECK IF THE CARDNUMBER IS ON THE DATABASE */			
-			$FG_TABLE_CLAUSE_card = "username='".$cardnumber."'";
-			$list_tariff_card = $instance_table -> Get_list ($HD_Form -> DBHandle, $FG_TABLE_CLAUSE_card, null, null, null, null, null, null);			
-			if ($cardnumber == $list_tariff_card[0][0]) $id = $list_tariff_card[0][1];
+		/* CHECK IF THE CARDNUMBER IS ON THE DATABASE */			
+		$FG_TABLE_CLAUSE_card = "username='".$cardnumber."'";
+		$list_tariff_card = $instance_table -> Get_list ($HD_Form -> DBHandle, $FG_TABLE_CLAUSE_card, null, null, null, null, null, null);			
+		if ($cardnumber == $list_tariff_card[0][0]) $id = $list_tariff_card[0][1];
 	}
 
 	if ($id>0){
-			 
-			$param_update .= "credit = credit + '".$addcredit."'";
-			if ($HD_Form->FG_DEBUG == 1)  echo "<br><hr> $param_update";	
-			
-			$FG_EDITION_CLAUSE = " id='$id'";
 		
-			if ($HD_Form->FG_DEBUG == 1)  echo "<br>-----<br>$param_update<br>$FG_EDITION_CLAUSE";			
-			$instance_table -> Update_table ($HD_Form -> DBHandle, $param_update, $FG_EDITION_CLAUSE, $func_table = null);
+		$param_update .= "credit = credit + '".$addcredit."'";
+		if ($HD_Form->FG_DEBUG == 1)  echo "<br><hr> $param_update";	
 		
+		$FG_EDITION_CLAUSE = " id='$id'";
 		
-				$field_insert = "date, credit, card_id";
-				$value_insert = "now(), '$addcredit', '$id'";
+		if ($HD_Form->FG_DEBUG == 1)  echo "<br>-----<br>$param_update<br>$FG_EDITION_CLAUSE";			
+		$instance_table -> Update_table ($HD_Form -> DBHandle, $param_update, $FG_EDITION_CLAUSE, $func_table = null);
 		
-			$instance_sub_table = new Table("cc_logrefill", $field_insert);
-			
-			$result_query = $instance_sub_table -> Add_table ($HD_Form -> DBHandle, $value_insert, null, null);	
-			
-			if (!$result_query ){		
-					$update_msg ="<b>".$instance_sub_table -> errstr."</b>";	
-			}
+		$field_insert = "date, credit, card_id";
+		$value_insert = "now(), '$addcredit', '$id'";
+		$instance_sub_table = new Table("cc_logrefill", $field_insert);
+		$result_query = $instance_sub_table -> Add_table ($HD_Form -> DBHandle, $value_insert, null, null);	
+		
+		if (!$result_query ){		
+			$update_msg ="<b>".$instance_sub_table -> errstr."</b>";	
+		}
 	}
 }
 
 if ($form_action == "addcredit")	$form_action='list';
-
 
 
 if ($id!="" || !is_null($id)){	
@@ -122,18 +117,15 @@ if ($id!="" || !is_null($id)){
 
 if (!isset($form_action))  $form_action="list"; //ask-add
 if (!isset($action)) $action = $form_action;
-	
-
 
 
 $list = $HD_Form -> perform_action($form_action);
 
 
-
 // #### HEADER SECTION
 $smarty->display('main.tpl');
 
-	if ($popup_select){
+if ($popup_select){
 ?>
 <SCRIPT LANGUAGE="javascript">
 <!-- Begin
@@ -144,7 +136,7 @@ function sendValue(selvalue){
 // End -->
 </script>
 <?php
-	}
+}
 
 
 // #### HELP SECTION
@@ -154,9 +146,12 @@ echo $CC_help_list_customer;
 ?>
 <script language="JavaScript" src="javascript/card.js"></script>
 
-<div id="toggle_hide2show">
-<center><a href="#" target="_self"><img id="toggle_hide2show" src="<?php echo KICON_PATH; ?>/toggle_hide2show.png" onmouseover="this.style.cursor='hand';" HEIGHT="16"> <font class="fontstyle_002"><?php echo gettext("REFILL");?> </font></a></center>
-	<div id="tohide" style="display:none;">
+
+
+
+<div class="toggle_hide2show">
+<center><a href="#" target="_self"><img class="toggle_hide2show" src="<?php echo KICON_PATH; ?>/toggle_hide2show.png" onmouseover="this.style.cursor='hand';" HEIGHT="16"> <font class="fontstyle_002"><?php echo gettext("REFILL");?> </font></a></center>
+	<div class="tohide" style="display:none;">
 	   <table width="90%" border="0" align="center">
         <tr><form NAME="theForm">
 		   <td align="left" width="5%"><img src="<?php echo KICON_PATH; ?>/pipe.png">
@@ -182,7 +177,7 @@ echo $CC_help_list_customer;
       </table>
 	</div>
 </div>
-	
+
 <?php  if ( isset($_SESSION["is_sip_iax_change"]) && $_SESSION["is_sip_iax_change"]){ ?>
 	  <table width="<?php echo $HD_Form -> FG_HTML_TABLE_WIDTH?>" border="0" align="center" cellpadding="0" cellspacing="0" >	  
 		<TR><TD style="border-bottom: medium dotted #ED2525" align="center"> <?php echo gettext("Changes detected on SIP/IAX Friends");?></TD></TR>

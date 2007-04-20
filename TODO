@@ -6,6 +6,7 @@
 #### NAMING
 ********************************************************************
 REPLACE SIGNUP IN THE LEFT MENU -> MISC
+replace also SIGNUP  in ACL
 
 TARIFFGROUP -> CALL PLAN
 	TARIFFGROUPNAME -> NAME
@@ -85,15 +86,6 @@ and its not understandable
 check the nodisplay
 
 
-#### MISC
-********************************************************************
-* Customer -> Call Details : add criteria - Answered call
-
-#### FORMAT
-********************************************************************
-Rates -> Browse Rates
-Reduce the size of the fonts in the batch up section e.g. 1.) Trunk – looks ok in firefox, but everything falls off the end in IE7 
-
 
 #### a2billing.conf new section with all the log files
 ********************************************************************
@@ -116,31 +108,6 @@ The VAT is not in the invoice
 ********************************************************************
 User info Profile user can see any data for SIP registrations his device like sip-login an sip-password (locked to change) 
 
-
-#### ADD CHARGES & CC_SUBSCRIPTION_FEE_CARD IN INVOICE
-********************************************************************
-Check the web interface you will see what is it for.
-(A2Billing_UI/Public/A2B_entity_charge.php)
-(A2Billing_UI/Public/A2B_entity_subscription.php)
-
-those are extra charge that may appear on customer invoice
-
-
-#### TO FIX
-********************************************************************
-to check the patch I made here :
-http://trac.a2billing.net/cgi-bin/trac.cgi/changeset/955
-
-and try to reproduce this all all the invoices pages
-this compress and make the code cleaner.
-
-do this work for all the files :
-A2B_entity_invoice_billedmail.php
-A2B_entity_invoice_detail.php
-A2B_entity_invoice_list.php
-A2B_entity_invoices.php
-A2B_entity_invoices_unbilled.php
-A2B_entity_invoice_unbilledmail.php
 
 
 
