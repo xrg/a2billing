@@ -154,8 +154,9 @@ echo $CC_help_list_customer;
 ?>
 <script language="JavaScript" src="javascript/card.js"></script>
 
-<center><a href="#" target="_self"  onclick="imgidclick('img54000','div54000','kfind.png','viewmag.png');"><img id="img54000" src="<?php echo KICON_PATH; ?>/kfind.png" onmouseover="this.style.cursor='hand';" HEIGHT="16"> <font class="fontstyle_002"><?php echo gettext("REFILL");?> </font></a></center>
-	<div id="div54000" style="display:none;">
+<div id="toggle_hide2show">
+<center><a href="#" target="_self"><img id="toggle_hide2show" src="<?php echo KICON_PATH; ?>/toggle_hide2show.png" onmouseover="this.style.cursor='hand';" HEIGHT="16"> <font class="fontstyle_002"><?php echo gettext("REFILL");?> </font></a></center>
+	<div id="tohide" style="display:none;">
 	   <table width="90%" border="0" align="center">
         <tr><form NAME="theForm">
 		   <td align="left" width="5%"><img src="<?php echo KICON_PATH; ?>/pipe.png">
@@ -179,9 +180,8 @@ echo $CC_help_list_customer;
         </td></form>
         </tr>
       </table>
-	  
 	</div>
-	
+</div>
 	
 <?php  if ( isset($_SESSION["is_sip_iax_change"]) && $_SESSION["is_sip_iax_change"]){ ?>
 	  <table width="<?php echo $HD_Form -> FG_HTML_TABLE_WIDTH?>" border="0" align="center" cellpadding="0" cellspacing="0" >	  
