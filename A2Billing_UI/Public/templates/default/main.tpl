@@ -22,143 +22,26 @@
 <DIV border="0" width="1000px">
 {if ($popupwindow == 0)}
 <div class="divleft">
-{literal}
-<script  language="javascript">
-<!--
-var mywin
-var prevdiv="dummydiv"
-function imgidclick_plus(imgID,divID)
-{
-
-	var agt=navigator.userAgent.toLowerCase();
-    // *** BROWSER VERSION ***
-    // Note: On IE5, these return 4, so use is_ie5up to detect IE5.
-    var is_major = parseInt(navigator.appVersion);
-    var is_minor = parseFloat(navigator.appVersion);
-
-    // Note: Opera and WebTV spoof Navigator.  We do strict client detection.
-    // If you want to allow spoofing, take out the tests for opera and webtv.
-    var is_nav  = ((agt.indexOf('mozilla')!=-1) && (agt.indexOf('spoofer')==-1)
-                && (agt.indexOf('compatible') == -1) && (agt.indexOf('opera')==-1)
-                && (agt.indexOf('webtv')==-1) && (agt.indexOf('hotjava')==-1));
-	var is_ie     = ((agt.indexOf("msie") != -1) && (agt.indexOf("opera") == -1));
-	
-	
-	if (is_ie){			
-		if 	(document.all(divID).style.display == "none" )		
-		{		
-			document.all(divID).style.display="";			
-			document.all(imgID).src="templates/{/literal}{$SKIN_NAME}{literal}/images/minus.gif";			
-		}
-		else
-		{			
-			document.all(divID).style.display="None";			
-			document.all(imgID).src="templates/{/literal}{$SKIN_NAME}{literal}/images/plus.gif";			
-		}
-		// Only for I.E
-		window.event.cancelBubble=true;
-	}else{
-		if 	(document.getElementById(divID).style.display == "none" )
-		{
-			document.getElementById(divID).style.display="";			
-			document.getElementById(imgID).src="templates/{/literal}{$SKIN_NAME}{literal}/images/minus.gif";
-		}
-		else
-		{			
-			document.getElementById(divID).style.display="None";
-			document.getElementById(imgID).src="templates/{/literal}{$SKIN_NAME}{literal}/images/plus.gif";			
-		}
-	}
-}
-
-function imgidclick(imgID,divID, imgbase, imgchange)
-{
-	
-	var agt=navigator.userAgent.toLowerCase();
-    // *** BROWSER VERSION ***
-    // Note: On IE5, these return 4, so use is_ie5up to detect IE5.
-    var is_major = parseInt(navigator.appVersion);
-    var is_minor = parseFloat(navigator.appVersion);
-
-    // Note: Opera and WebTV spoof Navigator.  We do strict client detection.
-    // If you want to allow spoofing, take out the tests for opera and webtv.
-    var is_nav  = ((agt.indexOf('mozilla')!=-1) && (agt.indexOf('spoofer')==-1)
-                && (agt.indexOf('compatible') == -1) && (agt.indexOf('opera')==-1)
-                && (agt.indexOf('webtv')==-1) && (agt.indexOf('hotjava')==-1));
-	var is_ie     = ((agt.indexOf("msie") != -1) && (agt.indexOf("opera") == -1));
-	
-	
-	if (is_ie){			
-		if 	(document.all(divID).style.display == "none" )		
-		{		
-			document.all(divID).style.display="";			
-			document.all(imgID).src="templates/{/literal}{$SKIN_NAME}{literal}/images/kicons/"+imgchange;
-		}
-		else
-		{			
-			document.all(divID).style.display="None";
-			document.all(imgID).src="templates/{/literal}{$SKIN_NAME}{literal}/images/kicons/"+imgchange;
-		}
-		window.event.cancelBubble=true;
-	}else{
-		if 	(document.getElementById(divID).style.display == "none" )
-		{			
-			document.getElementById(divID).style.display="";
-			document.getElementById(imgID).src="templates/{/literal}{$SKIN_NAME}{literal}/images/kicons/"+imgchange;
-		}
-		else
-		{			
-			document.getElementById(divID).style.display="None";
-			document.getElementById(imgID).src="templates/{/literal}{$SKIN_NAME}{literal}/images/kicons/"+imgchange;
-		}
-	}
-}
-//-->
-</script>
-{/literal}
-	<div id="dummydiv"></div>
 
 
-<ul id="nav" >	
 
-	<div class="toggle_menu">
-	<li>
-	<a href="#" target="_self"><img class="toggle_hide2show" id="img1"  
-	{if ($section == "1")}
-	src="templates/{$SKIN_NAME}/images/minus.gif"
-	{else}
-	src="templates/{$SKIN_NAME}/images/plus.gif"
-	{/if}
- onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("TEST");{/php}</strong></a></li>
-	<div class="tohide"  
-	{if ($section =="1")}
-	style="">
-	{else}
-	style="display:none;">
-	{/if}
-	<ul>
-		<li><ul>
-				<li><a href="A2B_entity_card.php?atmenu=card&stitle=Customers_Card&section=1">{php} echo gettext("TEST");{/php}</a></li>
-		</ul></li>
-	</ul>
-	</div>
-	</div>
-	
+<ul id="nav">
 
 	{if ($ACXCUSTOMER > 0) }
+	<div class="toggle_menu">
 	<li>
-	<a href="#" target="_self"  onclick="imgidclick_plus('img1','div1');"><img id="img1"  
+	<a href="#" class="toggle_menu" target="_self"><img id="img1"  
 	{if ($section == "1")}
 	
 	src="templates/{$SKIN_NAME}/images/minus.gif"
-	 
+	
 	{else}
 	
 	src="templates/{$SKIN_NAME}/images/plus.gif"
 	
 	{/if}
  onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("CUSTOMERS");{/php}</strong></a></li>
-	<div id="div1"  
+	<div class="tohide" 
 	{if ($section =="1")}
 	
 	style="">
@@ -181,10 +64,12 @@ function imgidclick(imgID,divID, imgbase, imgchange)
 		</ul></li>
 	</ul>
 	</div>
+	</div>
 	{/if}
+		
 	{if ($ACXBILLING > 0)}
-
-		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick_plus('img2','div2');"><img id="img2" 
+	<div class="toggle_menu">
+	<li><a href="#" class="toggle_menu" target="_self"><img id="img2" 
 	{if ($section =="2")}
 	
 	src="templates/{$SKIN_NAME}/images/minus.gif"
@@ -193,7 +78,7 @@ function imgidclick(imgID,divID, imgbase, imgchange)
 	
 	{/if}
 	 onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("BILLING");{/php}</strong></a></li>
-	<div id="div2" 
+	<div class="tohide"
 	{if ($section =="2")}
 	
 	style="">
@@ -220,10 +105,13 @@ function imgidclick(imgID,divID, imgbase, imgchange)
 				<li><a href="A2B_entity_ecommerce.php?form_action=ask-add&atmenu=ecommerce&stitle=E-Commerce&section=2">{php} echo gettext("Add E-Product");{/php}</a></li>
 			</ul></li>
 		</ul>
-		</div>
+	</div>
+	</div>
 	{/if}
+	
 	{if ($ACXRATECARD > 0)}
-		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick_plus('img3','div3');"><img id="img3" 
+	<div class="toggle_menu">
+	<li><a href="#" class="toggle_menu" target="_self"><img id="img3" 
 	{if ($section =="3")}
 	
 	src="templates/{$SKIN_NAME}/images/minus.gif"
@@ -232,7 +120,7 @@ function imgidclick(imgID,divID, imgbase, imgchange)
 	
 	{/if}
 	  onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> &nbsp;<strong>{php} echo gettext("RATECARD");{/php}</strong></a></li>
-		<div id="div3" 
+		<div class="tohide"
 	{if ($section =="3")}
 		style="">
 	{else}
@@ -252,17 +140,20 @@ function imgidclick(imgID,divID, imgbase, imgchange)
 				<li><a href="A2B_entity_prefix.php?form_action=ask-add&atmenu=prefixe&stitle=Prefix&section=3">{php} echo gettext("Add Prefix");{/php}</a></li>
 			</ul></li>
 		</ul>
-		</div>
-	{/if}	
+	</div>
+	</div>
+	{/if}
+	
 	{if ($ACXPACKAGEOFFER > 0)}	
-		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick_plus('img3_3','div3_3');"><img id="img3_3" 
+	<div class="toggle_menu">
+	<li><a href="#" class="toggle_menu" target="_self"><img id="img3_3" 
 	{if ($section =="3_3")}	
 	src="templates/{$SKIN_NAME}/images/minus.gif"
 	{else}
 	src="templates/{$SKIN_NAME}/images/plus.gif"	
 	{/if}
 	  onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> &nbsp;<strong>{php} echo gettext("PACKAGE OFFER");{/php}</strong></a></li>
-		<div id="div3_3" 
+		<div class="tohide"
 	{if ($section =="3_3")}
 		style="">
 	{else}
@@ -275,18 +166,20 @@ function imgidclick(imgID,divID, imgbase, imgchange)
 				<li><a href="A2B_detail_package.php?section=3_3">{php} echo gettext("Details Package");{/php}</a></li>
 			</ul></li>
 		</ul>
-		</div>
-	{/if}	
+	</div>
+	</div>
+	{/if}
+	
 	{if ($ACXOUTBOUNDCID > 0)}	
-		
-		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick_plus('img3_5','div3_5');"><img id="img3_5" 
+	<div class="toggle_menu">	
+	<li><a href="#" class="toggle_menu" target="_self"><img id="img3_5" 
 	{if ($section =="3_5")}	
 	src="templates/{$SKIN_NAME}/images/minus.gif"
 	{else}
 	src="templates/{$SKIN_NAME}/images/plus.gif"	
 	{/if}
 	  onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> &nbsp;<strong>{php} echo gettext("OUTBOUND CID");{/php}</strong></a></li>
-		<div id="div3_5" 
+		<div class="tohide"
 	{if ($section =="3_5")}
 		style="">
 	{else}
@@ -300,11 +193,13 @@ function imgidclick(imgID,divID, imgbase, imgchange)
 				<li><a href="A2B_entity_outbound_cid.php?atmenu=cid&stitle=CID&section=3_5">{php} echo gettext("List CID's");{/php}</a></li>
 			</ul></li>
 		</ul>
-		</div>
+	</div>
+	</div>
 	{/if}
 	
 	{if ($ACXTRUNK > 0)}
-		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick_plus('img4','div4');"><img id="img4"  
+	<div class="toggle_menu">
+	<li><a href="#" class="toggle_menu" target="_self"><img id="img4"  
 	{if ($section =="4")}
 	
 	src="templates/{$SKIN_NAME}/images/minus.gif"
@@ -312,7 +207,7 @@ function imgidclick(imgID,divID, imgbase, imgchange)
 	src="templates/{$SKIN_NAME}/images/plus.gif"
 	
 	{/if} onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> &nbsp;<strong>{php} echo gettext("TRUNK");{/php}</strong></a></li>
-		<div id="div4"  
+		<div class="tohide"
 	{if ($section =="4")}
 		style="">
 	{else}
@@ -326,10 +221,13 @@ function imgidclick(imgID,divID, imgbase, imgchange)
 				<li><a href="A2B_entity_provider.php?stitle=Provider&form_action=ask-add&section=4">{php} echo gettext("Create Provider");{/php}</a></li>
 			</ul></li>
 		</ul>
-		</div>
+	</div>
+	</div>
 	{/if}
+	
 	{if ($ACXDID > 0)}
-		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick_plus('img41','div41');"><img id="img41"  
+	<div class="toggle_menu">
+	<li><a href="#" class="toggle_menu" target="_self"><img id="img41"  
 	{if ($section == "5")}
 	
 	src="templates/{$SKIN_NAME}/images/minus.gif"
@@ -338,7 +236,7 @@ function imgidclick(imgID,divID, imgbase, imgchange)
 	
 	{/if}
 	 onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> &nbsp;<strong>{php} echo gettext("DID");{/php}</strong></a></li>
-		<div id="div41"  
+		<div class="tohide"
 	{if ($section =="5")}
 		style="">
 	{else}
@@ -357,10 +255,13 @@ function imgidclick(imgID,divID, imgbase, imgchange)
 				<li><a href="A2B_entity_did_use.php?atmenu=did_use&stitle=DID+USE&section=5">{php} echo gettext("DID Usage");{/php}</a></li>
 			</ul></li>
 		</ul>
-		</div>
+	</div>
+	</div>
 	{/if}
+	
 	{if ($ACXCALLREPORT > 0)}
-		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick_plus('img5','div5');"><img id="img5" 
+	<div class="toggle_menu">
+	<li><a href="#" class="toggle_menu" target="_self"><img id="img5" 
 	{if ($section == "6")}
 	
 	src="templates/{$SKIN_NAME}/images/minus.gif"
@@ -368,7 +269,7 @@ function imgidclick(imgID,divID, imgbase, imgchange)
 	src="templates/{$SKIN_NAME}/images/plus.gif"
 	
 	{/if} onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> &nbsp;<strong>{php} echo gettext("CALL REPORT");{/php}</strong></a></li>
-		<div id="div5" 
+		<div class="tohide"
 	{if ($section =="6")}
 		style="">
 	{else}
@@ -384,11 +285,13 @@ function imgidclick(imgID,divID, imgbase, imgchange)
 					<li><a href="call-count-reporting.php?stitle=Call_Reporting&nodisplay=1&posted=1&section=6">{php} echo gettext("Report");{/php}</a></li>
 			</ul></li>
 		</ul>
-		</div>
+	</div>
+	</div>
 	{/if}
 	
 	{if ($ACXCRONTSERVICE  > 0)}
-		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick_plus('img9','div9');"><img id="img9" 
+	<div class="toggle_menu">
+	<li><a href="#" class="toggle_menu" target="_self"><img id="img9" 
 	{if ($section =="7")}
 	
 	src="templates/{$SKIN_NAME}/images/minus.gif"
@@ -396,7 +299,7 @@ function imgidclick(imgID,divID, imgbase, imgchange)
 	src="templates/{$SKIN_NAME}/images/plus.gif"
 	
 	{/if} onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("RECURRING SERVICE");{/php}</strong></a></li>
-		<div id="div9" 
+		<div class="tohide"
 	{if ($section =="7")}
 		style="">
 	{else}
@@ -413,13 +316,14 @@ function imgidclick(imgID,divID, imgbase, imgchange)
 				<li><a href="A2B_entity_subscription.php?stitle=Subscription&form_action=ask-add&section=7">{php} echo gettext("Add Subscription");{/php}</a></li>
 			</ul></li>
 		</ul>
-		</div>
-
+	</div>
+	</div>
 	{/if}
 	
 	
 	{if ($ACXCALLBACK  > 0)}
-		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick_plus('img10','div10');"><img id="img10" 
+	<div class="toggle_menu">
+	<li><a href="#" class="toggle_menu" target="_self"><img id="img10" 
 	{if ($section =="12")}
 	
 	src="templates/{$SKIN_NAME}/images/minus.gif"
@@ -427,7 +331,7 @@ function imgidclick(imgID,divID, imgbase, imgchange)
 	src="templates/{$SKIN_NAME}/images/plus.gif"
 	
 	{/if} onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("CALLBACK");{/php}</strong></a></li>
-	<div id="div10" 
+	<div class="tohide"
 	{if ($section =="12")}
 		style="">
 	{else}
@@ -443,12 +347,13 @@ function imgidclick(imgID,divID, imgbase, imgchange)
 				<li><a href="A2B_entity_server.php?form_action=ask-add&section=12">{php} echo gettext("Add Server");{/php}</a></li>
 			</ul></li>
 		</ul>
-		</div>
-
+	</div>
+	</div>
 	{/if}
 	
 	{if ($ACXMISC  > 0)}
-		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick_plus('img6','div6');"><img id="img6" 
+	<div class="toggle_menu">
+	<li><a href="#" class="toggle_menu" target="_self"><img id="img6" 
 	{if ($section =="8")}
 	
 	src="templates/{$SKIN_NAME}/images/minus.gif"
@@ -457,7 +362,7 @@ function imgidclick(imgID,divID, imgbase, imgchange)
 	
 	{/if}
 	onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("MISC");{/php}</strong></a></li>
-	<div id="div6"  
+	<div class="tohide"
 	{if ($section =="8")}
 		style="">
 	{else}
@@ -469,11 +374,13 @@ function imgidclick(imgID,divID, imgbase, imgchange)
 				<li><a href="A2B_entity_mailtemplate.php?form_action=ask-add&atmenu=mailtemplate&stitle=Mail+Tempalte&section=8">{php} echo gettext("Create mail template");{/php}</a></li>
 			</ul></li>
 		</ul>
-		</div>
+	</div>
+	</div>
 	{/if}
 	
 	{if ($ACXADMINISTRATOR  > 0)}
-		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick_plus('img7','div7');"><img id="img7" 
+	<div class="toggle_menu">
+	<li><a href="#" class="toggle_menu" target="_self"><img id="img7" 
 	{if ($section =="10")}
 	
 	src="templates/{$SKIN_NAME}/images/minus.gif"
@@ -481,7 +388,7 @@ function imgidclick(imgID,divID, imgbase, imgchange)
 	src="templates/{$SKIN_NAME}/images/plus.gif"
 	
 	{/if} onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("ADMINISTRATOR");{/php}</strong></a></li>
-		<div id="div7" 
+		<div class="tohide"
 	{if ($section =="10")}
 		style="">
 	{else}
@@ -498,11 +405,13 @@ function imgidclick(imgID,divID, imgbase, imgchange)
 				<li><a href="A2B_logfile.php?section=10">{php} echo gettext("Watch Log files");{/php}</a></li>
 			</ul></li>
 		</ul>
-		</div>
+	</div>
+	</div>
 	{/if}
 	
 	{if ($ACXFILEMANAGER  > 0)}
-		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick_plus('img8','div8');"><img id="img8" 
+	<div class="toggle_menu">
+	<li><a href="#" class="toggle_menu" target="_self"><img id="img8" 
 	{if ($section == "11")}
 	
 	src="templates/{$SKIN_NAME}/images/minus.gif"
@@ -510,7 +419,7 @@ function imgidclick(imgID,divID, imgbase, imgchange)
 	src="templates/{$SKIN_NAME}/images/plus.gif"
 	
 	{/if} onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("FILE MANAGER");{/php}</strong></a></li>
-		<div id="div8" 
+		<div class="tohide"
 	{if ($section =="11")}
 		style="">
 	{else}
@@ -522,11 +431,11 @@ function imgidclick(imgID,divID, imgbase, imgchange)
 				<li><a href="CC_upload.php?section=11">{php} echo gettext("Standard File");{/php}</a></li>
 			</ul></li>
 		</ul>
-		</div>
+	</div>
+	</div>
 	{/if}
 
 	<li><a href="#" target="_self"></a></a></li>
-
 	<ul>
 		<li><ul>
 		<li><a href="logout.php?logout=true" target="_top"><font color="#DD0000"><b>&nbsp;&nbsp;{php} echo gettext("LOGOUT");{/php}</b></font></a></li>
