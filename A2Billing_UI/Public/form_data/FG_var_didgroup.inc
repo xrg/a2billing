@@ -22,7 +22,7 @@ $HD_Form -> FG_FK_DELETE_MESSAGE = gettext("You have some cards using this DID G
 
 
 $HD_Form -> AddViewElement(gettext("ID"), "id", "5%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("DIDGROUP NAME"), "didgroupname", "20%", "center", "sort");
+$HD_Form -> AddViewElement(gettext("NAME"), "didgroupname", "20%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("CREATION DATE"), "creationdate", "20%", "center", "sort", "30", "", "", "", "", "display_dateformat");
 
 // added a parameter to append  FG_TABLE_ID  ( by default ) or disable 0.
@@ -39,7 +39,7 @@ $HD_Form -> FG_EDITION = true;
 $HD_Form -> FG_DELETION = true;
 
 
-$HD_Form -> AddEditElement (gettext("DIDGROUPNAME"),
+$HD_Form -> AddEditElement (gettext("NAME"),
 	"didgroupname",
 	'$value',
 	"INPUT",

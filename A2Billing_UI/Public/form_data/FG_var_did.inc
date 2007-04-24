@@ -39,7 +39,7 @@ $HD_Form -> AddViewElement(gettext("DIDGROUP"), "id_cc_didgroup", "12%", "center
 $HD_Form -> AddViewElement(gettext("COUNTRY"), "id_cc_country", "12%", "center", "sort", "15", "lie", "cc_country", "countryname", "id='%id'", "%1");
 $HD_Form -> AddViewElement(gettext("<acronym title=\"ACTIVATED\">".gettext("ACT")."</acronym>"), "activated", "5%", "center", "sort", "", "list", $actived_list);
 $HD_Form -> AddViewElement(gettext("<acronym title=\"MINUTES USED\">".gettext("MU")."</acronym>"), "secondusedreal", "4%", "center", "SORT", "30", "", "", "", "", "", "display_minute");
-$HD_Form -> AddViewElement(gettext("FIXRATE"), "fixrate", "8%", "center", "SORT", "30");
+$HD_Form -> AddViewElement(gettext("<acronym title=\"MONTHLY RATE\">".gettext("MR")."</acronym>"), "fixrate", "8%", "center", "SORT", "30");
 
 // added a parameter to append  FG_TABLE_ID  ( by default ) or disable 0.
 $HD_Form -> FieldViewElement ('did, billingtype, startingdate, expirationdate, id_cc_didgroup, id_cc_country, activated, secondusedreal, fixrate');
@@ -137,13 +137,13 @@ $HD_Form -> AddEditElement (gettext("ACTIVATED"),
 	gettext("Choose if you want to activate this card"),
 	"" , "", "", "Yes :1, - No:0", "", "", "" , "" );
 
-$HD_Form -> AddEditElement (gettext("FIXMONTHLYRATE"),
+$HD_Form -> AddEditElement (gettext("MONTHLY RATE"),
 	"fixrate",
 	'$value',
 	"INPUT",
 	"size=20  maxlength=20",
 	"12",
-	gettext("Insert the fixrate"),
+	gettext("Insert the monthly rate"),
 	"" , "", "", "", "" , "", "", "");
 
 

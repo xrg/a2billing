@@ -24,7 +24,6 @@ function openURL(theLINK)
 	// get the value of CARD ID
 	cardid = document.theForm.choose_list.value;
 	
-	
 	// get value of CARDNUMBER and concatenate if any of the values is numeric
 	cardnumber = document.theForm.cardnumber.value;
 
@@ -38,17 +37,14 @@ function openURL(theLINK)
 	addcredit = 0;
 	// get calue of credits
 	addcredit = document.theForm.addcredit.value;
-
+		
 	if ( (addcredit == 0) || (!IsNumeric(addcredit)) ){
 		alert ('Please , Fill credit box with a numeric value'); 
 		return;
 	}	
 	
-	// get value of dropbox 0 = REFILL
-	opt = document.theForm.opt.value;
-
 	// redirect browser to the grabbed value (hopefully a URL)
-	self.location.href = theLINK + goURL + "&addcredit="+addcredit + "&opt="+opt;
+	self.location.href = theLINK + goURL + "&addcredit="+addcredit;
 	
 }
 

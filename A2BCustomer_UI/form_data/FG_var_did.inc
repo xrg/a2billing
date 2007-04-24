@@ -6,12 +6,11 @@ getpost_ifset(array('id', 'billingtype', 'did', 'startingdate', 'expirationdate'
 $HD_Form = new FormHandler("cc_did_destination","did");
 
 $HD_Form -> FG_DEBUG = 0;
-// FAQ
 $HD_Form -> FG_TABLE_DEFAULT_ORDER = "did";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
 
-	$HD_Form -> FG_EDITION = true;
-	$HD_Form -> FG_DELETION = true;
+$HD_Form -> FG_EDITION = true;
+$HD_Form -> FG_DELETION = true;
 
 
 // TODO Integrate a generic LIST to Framework
@@ -62,7 +61,6 @@ $HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO")." ".strtoupper($HD_Form->FG_I
 $HD_Form -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;
 $HD_Form -> CV_TEXT_TITLE_ABOVE_TABLE = '';
 $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;
-
 
 $HD_Form -> FG_EDITION = true;
 $HD_Form -> FG_DELETION = true;
