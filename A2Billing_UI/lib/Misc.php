@@ -7,6 +7,74 @@
  ****************************************************************************/
 
 
+
+/* 
+ * get_currencies 
+ */
+function get_currencies()
+{
+	$handle = DbConnect();
+	$instance_table = new Table();
+	$QUERY =  "SELECT id,currency,name,value from cc_currencies order by id";
+	$result = $instance_table -> SQLExec ($handle, $QUERY);
+	/*
+		$currencies_list['ADF'][1]="Andorran Franc";
+		$currencies_list['ADF'][2]="0.1339";
+		[ADF] => Array ( [1] => Andorran Franc (ADF), [2] => 0.1339 )
+	*/
+
+	if (is_array($result)){
+		$num_cur = count($result);
+		for ($i=0;$i<$num_cur;$i++){
+			$currencies_list[$result[$i][1]] = array (1 => $result[$i][2], 2 => $result[$i][3]);
+		}
+	}
+	
+	if ((isset($currencies_list)) && (is_array($currencies_list)))	sort_currencies_list($currencies_list);		
+	
+	return $currencies_list;
+}
+
+/**
+* Do Currency Conversion. 
+* @param $currencies_list the List of currencies.
+* @param $amount the amount to be converted.
+* @param $from_cur Source Currency
+* @param $to_cur Destination Currecny
+*/
+function convert_currency ($currencies_list, $amount, $from_cur, $to_cur){
+	if (!is_numeric($amount) || ($amount == 0)){
+		return 0;
+	}
+	if ($from_cur == $to_cur){
+		return $amount;
+	}
+	// EUR -> 1.19175 : MAD -> 0.10897		
+	// FROM -> 2 - TO -> 0.5 =>>>> multiply 4
+	$mycur_tobase = $currencies_list[strtoupper($from_cur)][2];		
+	$mycur = $currencies_list[strtoupper($to_cur)][2];
+	if ($mycur == 0) return 0;
+	$amount = $amount * ($mycur_tobase / $mycur);
+	// echo "\n \n AMOUNT CONVERTED IN NEW CURRENCY $to_cur -> VALUE =".$amount;
+	return $amount;
+}
+
+
+/* 
+ * sort_currencies_list
+ */
+function sort_currencies_list(&$currencies_list){
+	$first_array = array (strtoupper(BASE_CURRENCY), 'USD', 'EUR','GBP','AUD','HKD', 'JPY', 'NZD', 'SGD', 'TWD', 'PLN', 'SEK', 'DKK', 'CHF', 'COP', 'MXN', 'CLP');		
+	foreach ($first_array as $element_first_array){
+		if (isset($currencies_list[$element_first_array])){	
+			$currencies_list2[$element_first_array]=$currencies_list[$element_first_array];
+			unset($currencies_list[$element_first_array]);
+		}
+	}
+	$currencies_list = array_merge($currencies_list2,$currencies_list);		
+}
+
+
 /* 
  * Write log into file 
  */

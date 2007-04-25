@@ -25,9 +25,10 @@ function get_currencies()
 
 	if (is_array($result)){
 		$num_cur = count($result);
-		for ($i=0;$i<$num_cur;$i++)
+		for ($i=0;$i<$num_cur;$i++){
 			$currencies_list[$result[$i][1]] = array (1 => $result[$i][2], 2 => $result[$i][3]);
-	}	
+		}
+	}
 	
 	if ((isset($currencies_list)) && (is_array($currencies_list)))	sort_currencies_list($currencies_list);		
 	
@@ -53,7 +54,7 @@ function convert_currency ($currencies_list, $amount, $from_cur, $to_cur){
 	$mycur_tobase = $currencies_list[strtoupper($from_cur)][2];		
 	$mycur = $currencies_list[strtoupper($to_cur)][2];
 	if ($mycur == 0) return 0;
-	$amount = $amount * ($mycur_tobase / $mycur);		
+	$amount = $amount * ($mycur_tobase / $mycur);
 	// echo "\n \n AMOUNT CONVERTED IN NEW CURRENCY $to_cur -> VALUE =".$amount;
 	return $amount;
 }
@@ -63,14 +64,14 @@ function convert_currency ($currencies_list, $amount, $from_cur, $to_cur){
  * sort_currencies_list
  */
 function sort_currencies_list(&$currencies_list){
-		$first_array = array (strtoupper(BASE_CURRENCY), 'USD', 'EUR','GBP','AUD','HKD', 'JPY', 'NZD', 'SGD', 'TWD', 'PLN', 'SEK', 'DKK', 'CHF', 'COP', 'MXN', 'CLP');		
-		foreach ($first_array as $element_first_array){
-			if (isset($currencies_list[$element_first_array])){	
-				$currencies_list2[$element_first_array]=$currencies_list[$element_first_array];
-				unset($currencies_list[$element_first_array]);
-			}
+	$first_array = array (strtoupper(BASE_CURRENCY), 'USD', 'EUR','GBP','AUD','HKD', 'JPY', 'NZD', 'SGD', 'TWD', 'PLN', 'SEK', 'DKK', 'CHF', 'COP', 'MXN', 'CLP');		
+	foreach ($first_array as $element_first_array){
+		if (isset($currencies_list[$element_first_array])){	
+			$currencies_list2[$element_first_array]=$currencies_list[$element_first_array];
+			unset($currencies_list[$element_first_array]);
 		}
-		$currencies_list = array_merge($currencies_list2,$currencies_list);		
+	}
+	$currencies_list = array_merge($currencies_list2,$currencies_list);		
 }
 
 

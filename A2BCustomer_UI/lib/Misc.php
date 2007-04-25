@@ -6,8 +6,77 @@
  *  Email : areski _atl_ gmail
  ****************************************************************************/
 
-/*
- * function write_log
+
+
+/* 
+ * get_currencies 
+ */
+function get_currencies()
+{
+	$handle = DbConnect();
+	$instance_table = new Table();
+	$QUERY =  "SELECT id,currency,name,value from cc_currencies order by id";
+	$result = $instance_table -> SQLExec ($handle, $QUERY);
+	/*
+		$currencies_list['ADF'][1]="Andorran Franc";
+		$currencies_list['ADF'][2]="0.1339";
+		[ADF] => Array ( [1] => Andorran Franc (ADF), [2] => 0.1339 )
+	*/
+
+	if (is_array($result)){
+		$num_cur = count($result);
+		for ($i=0;$i<$num_cur;$i++){
+			$currencies_list[$result[$i][1]] = array (1 => $result[$i][2], 2 => $result[$i][3]);
+		}
+	}
+	
+	if ((isset($currencies_list)) && (is_array($currencies_list)))	sort_currencies_list($currencies_list);		
+	
+	return $currencies_list;
+}
+
+/**
+* Do Currency Conversion. 
+* @param $currencies_list the List of currencies.
+* @param $amount the amount to be converted.
+* @param $from_cur Source Currency
+* @param $to_cur Destination Currecny
+*/
+function convert_currency ($currencies_list, $amount, $from_cur, $to_cur){
+	if (!is_numeric($amount) || ($amount == 0)){
+		return 0;
+	}
+	if ($from_cur == $to_cur){
+		return $amount;
+	}
+	// EUR -> 1.19175 : MAD -> 0.10897		
+	// FROM -> 2 - TO -> 0.5 =>>>> multiply 4
+	$mycur_tobase = $currencies_list[strtoupper($from_cur)][2];		
+	$mycur = $currencies_list[strtoupper($to_cur)][2];
+	if ($mycur == 0) return 0;
+	$amount = $amount * ($mycur_tobase / $mycur);
+	// echo "\n \n AMOUNT CONVERTED IN NEW CURRENCY $to_cur -> VALUE =".$amount;
+	return $amount;
+}
+
+
+/* 
+ * sort_currencies_list
+ */
+function sort_currencies_list(&$currencies_list){
+	$first_array = array (strtoupper(BASE_CURRENCY), 'USD', 'EUR','GBP','AUD','HKD', 'JPY', 'NZD', 'SGD', 'TWD', 'PLN', 'SEK', 'DKK', 'CHF', 'COP', 'MXN', 'CLP');		
+	foreach ($first_array as $element_first_array){
+		if (isset($currencies_list[$element_first_array])){	
+			$currencies_list2[$element_first_array]=$currencies_list[$element_first_array];
+			unset($currencies_list[$element_first_array]);
+		}
+	}
+	$currencies_list = array_merge($currencies_list2,$currencies_list);		
+}
+
+
+/* 
+ * Write log into file 
  */
 function write_log($logfile, $output){
 	if (strlen($logfile) > 1){
@@ -15,6 +84,7 @@ function write_log($logfile, $output){
 		error_log ($string_log."\n", 3, $logfile);
 	}
 }
+
 
 /*
  * function sanitize_data
@@ -132,7 +202,7 @@ function display_2dec_percentage($var){
 		}
 }
 
-function display_2bill($var, $currency = BASE_CURRENCY){
+function display_2bill($var, $currency = BASE_CURRENCY){	
 		global $currencies_list, $choose_currency;
 		if (isset($choose_currency) && strlen($choose_currency)==3) $currency=$choose_currency;
 		if ( (!isset($currencies_list)) || (!is_array($currencies_list)) ) $currencies_list = get_currencies();
@@ -221,11 +291,11 @@ function gen_card($table = "cc_card", $len = LEN_CARDNUMBER, $field="username"){
 }
 
 
-function gen_card_with_alias($table = "cc_card", $api=0){
+function gen_card_with_alias($table = "cc_card", $api=0, $length_cardnumber=LEN_CARDNUMBER){	
 
 	$DBHandle_max  = DbConnect();
-	for ($k=0;$k<=200;$k++){
-		$card_gen = MDP(LEN_CARDNUMBER);
+	for ($k=0;$k<=200;$k++){			
+		$card_gen = MDP($length_cardnumber);
 		$alias_gen = MDP(LEN_ALIASNUMBER);
 		if ($k==200){ 
 			if ($api){
@@ -252,8 +322,6 @@ function gen_card_with_alias($table = "cc_card", $api=0){
 		return $arr_val;
 	}	
 }
-
-
 		
 //Get productID and all parameter and retrieve info for card creation into cc_ecommerce_product
 function get_productinfo($DBHandle, $instance_table, $productid, $email_alarm, $mail_content, $logfile){
@@ -349,5 +417,70 @@ function printPages($page, $pages, $url, $max_width = 20) {
 		}
 	}
 }
+/**
+* Validate the Uploaded Files.  Return the error string if any.
+* @param $the_file the file to validate
+* @param $the_file_type the file type
+*/
+function validate_upload($the_file, $the_file_type) {
 
+	$registered_types = array(
+                                        "application/x-gzip-compressed"         => ".tar.gz, .tgz",
+                                        "application/x-zip-compressed"          => ".zip",
+                                        "application/x-tar"                     => ".tar",
+                                        "text/plain"                            => ".html, .php, .txt, .inc (etc)",
+                                        "image/bmp"                             => ".bmp, .ico",
+                                        "image/gif"                             => ".gif",
+                                        "image/pjpeg"                           => ".jpg, .jpeg",
+                                        "image/jpeg"                            => ".jpg, .jpeg",
+                                        "image/png"                             => ".png",
+                                        "application/x-shockwave-flash"         => ".swf",
+                                        "application/msword"                    => ".doc",
+                                        "application/vnd.ms-excel"              => ".xls",
+                                        "application/octet-stream"              => ".exe, .fla (etc)",
+										"text/x-comma-separated-values"			=> ".csv"
+                                        ); # these are only a few examples, you can find many more!
+
+	$allowed_types = array("text/plain", "text/x-comma-separated-values");
+
+
+	$start_error = "\n<b>ERROR:</b>\n<ul>";
+	$error = "";
+	if ($the_file=="")
+	{		
+		$error .= "\n<li>".gettext("File size is greater than allowed limit.")."\n<ul>";
+	}else
+	{
+        if ($the_file == "none") { 
+                $error .= "\n<li>".gettext("You did not upload anything!")."</li>";
+        }
+        elseif ($_FILES['the_file']['size'] == 0)
+        {
+        	$error .= "\n<li>".gettext("Failed to upload the file, The file you uploaded may not exist on disk.")."!</li>";
+        } 
+        else        
+        {
+ 			if (!in_array($the_file_type,$allowed_types))
+ 			{
+ 				$error .= "\n<li>".gettext("file type is not allowed")."\n<ul>";
+                while ($type = current($allowed_types))
+                {
+                    $error .= "\n<li>" . $registered_types[$type] . " (" . $type . ")</li>";
+                	next($allowed_types);
+                }
+                $error .= "\n</ul>";
+            }                
+        }
+	}
+	if ($error)
+	{
+		$error = $start_error . $error . "\n</ul>";
+        return $error;
+    }
+    else 
+    {
+    	return false;
+    }
+
+} # END validate_upload
 ?>
