@@ -5,6 +5,11 @@
 ********************************************************************
 
 
+#### JQUERY SLIDE
+********************************************************************
+Menu with Jquery
+
+
 #### NAMING
 ********************************************************************
 REPLACE SIGNUP IN THE LEFT MENU -> MISC
@@ -14,10 +19,10 @@ TARIFFGROUP -> CALL PLAN
 	TARIFFGROUPNAME -> NAME
 	Change in edit card, signup & AGI
 
+
 #### JQUERY SLIDE
 ********************************************************************
 help.php
-
 
 
 #### Misc : INVOICE

@@ -281,9 +281,10 @@ class A2Billing {
 			echo gettext("Invalid card number lenght defined in configuration.");
 			exit;
 		}
-		if(!isset($this->config['global']['len_aliasnumber']))	$this->config['global']['len_aliasnumber'] = 15;
-		if(!isset($this->config['global']['len_voucher']))		$this->config['global']['len_voucher'] = 15;
-		if(!isset($this->config['global']['base_currency'])) 	$this->config['global']['base_currency'] = 'usd';
+		if(!isset($this->config['global']['len_aliasnumber']))		$this->config['global']['len_aliasnumber'] = 15;
+		if(!isset($this->config['global']['len_voucher']))			$this->config['global']['len_voucher'] = 15;
+		if(!isset($this->config['global']['base_currency'])) 		$this->config['global']['base_currency'] = 'usd';
+		if(!isset($this->config['global']['didbilling_daytopay'])) 	$this->config['global']['didbilling_daytopay'] = 5;
 		
 		// conf for the database connection
 		if(!isset($this->config['database']['hostname']))	$this->config['database']['hostname'] = 'localhost';

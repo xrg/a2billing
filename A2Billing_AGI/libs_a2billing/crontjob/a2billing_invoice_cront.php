@@ -20,6 +20,7 @@
 	day of month	 1-31
 	month	 1-12 (or names, see below)
 	day of week	 0-7 (0 or 7 is Sun, or use names)
+	
 ****************************************************************************/
 
 set_time_limit(0);

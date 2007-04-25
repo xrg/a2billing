@@ -16,7 +16,19 @@
 	0 6 1 * * php /var/lib/asterisk/agi-bin/libs_a2billing/crontjob/a2billing_invoice_cront.php
 	
 	
+## 	A2BILLING_BILL_DIDUSE.PHP
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	Purpose : this script will browse all the DID that are reserve and check if the customer need to pay for it
+ 	bill them or warn them per email to know if they want to pay in order to keep their DIDs 
 	
+	crontab -e
+	0 2 * * * php /var/lib/asterisk/agi-bin/libs_a2billing/crontjob/a2billing_bill_diduse.php
+	
+	
+	
+	
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	
 	field	 allowed values

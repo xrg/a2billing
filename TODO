@@ -3,13 +3,25 @@
                    			TODO LIST - SPECIFIC
 ********************************************************************************
 
+#### DID CRONT 
+********************************************************************
+1#  add currency
+	a2billing_bill_diduse.php
+
+2# 
+	$mail_user_content.="BALANCE REMAINING ".$mydids[5]-$mydids[3]."\n\n";
+	$mail_user_content.="A automaticly taking away of :".$mydids[3]." has been carry out of your acount \n\n";	
+	$mail_user_content.="Monthly Fixrate for DID :".$mydids[0]."\n\n";
+	$mail_user=true;
+	$mail_user_subject="DID notification";
+	
+	use mail template 
+	(maybe after the release :D not urgent)
+
 #### BUG
 ********************************************************************
 http://forum.asterisk2billing.org/viewtopic.php?t=1927
 
-#### JQUERY SLIDE
-********************************************************************
-menu
 
 
 #### Misc : spacer
