@@ -113,4 +113,5 @@ if (is_array($result)){
 	}
 	write_log(LOGFILE_CRONT_CURRENCY_UPDATE, basename(__FILE__).' line:'.__LINE__."[CURRENCIES UPDATED !!!]", 0);
 }
+
 ?>
