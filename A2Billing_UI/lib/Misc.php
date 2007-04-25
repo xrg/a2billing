@@ -11,9 +11,11 @@
 /* 
  * get_currencies 
  */
-function get_currencies()
+function get_currencies($handle = null)
 {
-	$handle = DbConnect();
+	if (empty($handle)){
+		$handle = DbConnect();
+	}
 	$instance_table = new Table();
 	$QUERY =  "SELECT id,currency,name,value from cc_currencies order by id";
 	$result = $instance_table -> SQLExec ($handle, $QUERY);

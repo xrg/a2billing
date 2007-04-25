@@ -30,7 +30,7 @@ include (dirname(__FILE__)."/../db_php_lib/Class.Table.php");
 include (dirname(__FILE__)."/../Class.A2Billing.php");
 include (dirname(__FILE__)."/../Misc.php");
 
-$verbose_level=0;
+$verbose_level=3;
 
 $groupcard=5000;
 
