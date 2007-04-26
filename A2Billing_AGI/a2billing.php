@@ -440,13 +440,10 @@ if ($mode == 'standard'){
 						$dialstr .= $addparameter;
 					}
 					
-					
-					$as = new AGI_AsteriskManager();
-					
 					$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, '[manager_host: - '.$A2B->config["webui"]['manager_host'].']');
-					
+					$as = new AGI_AsteriskManager();					
 					$res = $as->connect($A2B->config["webui"]['manager_host'],$A2B->config["webui"]['manager_username'],$A2B->config["webui"]['manager_secret']);
-
+					
 					if	($res){
 						
 						$channel= $dialstr;
@@ -457,9 +454,9 @@ if ($mode == 'standard'){
 						$application='';
 						$callerid=$A2B->CallerID;
 						$account=$A2B->accountcode;
-
+						
 						$variable = "CALLED=".$A2B ->destination."|MODE=CID";
-														
+						
 						sleep($A2B -> config["callback"]['sec_wait_before_callback']);
 						$res = $as->Originate($channel, $exten, $context, $priority, $application, $data, $timeout, $callerid, $variable, $account, $async, $actionid);
 						//$res=array();
@@ -509,14 +506,12 @@ if ($mode == 'standard'){
 									
 									$channel= $dialstr;
 									$res = $as->Originate($channel, $exten, $context, $priority, $application, $data, $timeout, $callerid, $variable, $account, $async, $actionid);
-									
 								}
-								
 							}
 						}						
 						// && DISCONNECTING	
 						$as->disconnect();
-					
+						
 					}else{
 						$error_msg= "Cannot connect to the asterisk manager!\nPlease check the manager configuration...";
 						$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[CALLBACK-CALLERID : CALLED=".$A2B ->destination." | $error_msg]");
@@ -555,152 +550,149 @@ if ($mode == 'standard'){
 		/* WE START ;) */	
 		//$cia_res = $A2B -> callingcard_ivr_authenticate($agi);			
 		if ($cia_res==0){
-							
+			
 		
-				$RateEngine = new RateEngine();
-				// $RateEngine -> webui = 0;
-				// LOOKUP RATE : FIND A RATE FOR THIS DESTINATION
-				
-				
-				$A2B ->agiconfig['use_dnid']=1;
-				$A2B ->agiconfig['say_timetocall']=0;						
-				$A2B ->dnid = $A2B ->destination = $caller_areacode.$A2B->CallerID;
-						
-				$resfindrate = $RateEngine->rate_engine_findrates($A2B, $A2B ->destination, $A2B ->tariff);
-				
-				// IF FIND RATE
-				if ($resfindrate!=0){				
-					//$RateEngine -> debug_st	=1;
-					$res_all_calcultimeout = $RateEngine->rate_engine_all_calcultimeout($A2B, $A2B->credit);
-					//echo ("RES_ALL_CALCULTIMEOUT ::> $res_all_calcultimeout");
-					//print_r($RateEngine-> ratecard_obj);
-				
-					if ($res_all_calcultimeout){							
+			$RateEngine = new RateEngine();
+			// $RateEngine -> webui = 0;
+			// LOOKUP RATE : FIND A RATE FOR THIS DESTINATION
+			
+			
+			$A2B ->agiconfig['use_dnid']=1;
+			$A2B ->agiconfig['say_timetocall']=0;						
+			$A2B ->dnid = $A2B ->destination = $caller_areacode.$A2B->CallerID;
 					
-						// MAKE THE CALL
-						if ($RateEngine -> ratecard_obj[0][34]!='-1'){	$usetrunk=34; $usetrunk_failover=1;}
-						else { 										$usetrunk=29; $usetrunk_failover=0;}
-						
-						$prefix			= $RateEngine -> ratecard_obj[0][$usetrunk+1];
-						$tech 			= $RateEngine -> ratecard_obj[0][$usetrunk+2];
-						$ipaddress 		= $RateEngine -> ratecard_obj[0][$usetrunk+3];
-						$removeprefix 	= $RateEngine -> ratecard_obj[0][$usetrunk+4];
-						$timeout		= $RateEngine -> ratecard_obj[0]['timeout'];	
-						$failover_trunk	= $RateEngine -> ratecard_obj[0][40+$usetrunk_failover];
-						$addparameter	= $RateEngine -> ratecard_obj[0][42+$usetrunk_failover];
-		
-						$destination = $A2B ->destination;
-						if (strncmp($destination, $removeprefix, strlen($removeprefix)) == 0) $destination= substr($destination, strlen($removeprefix));
-						
-						
-						
-						$pos_dialingnumber = strpos($ipaddress, '%dialingnumber%' );
-						
-						$ipaddress = str_replace("%cardnumber%", $A2B->cardnumber, $ipaddress);
-						$ipaddress = str_replace("%dialingnumber%", $prefix.$destination, $ipaddress);
-						
-						
-						if ($pos_dialingnumber !== false){					   
-							   $dialstr = "$tech/$ipaddress".$dialparams;
+			$resfindrate = $RateEngine->rate_engine_findrates($A2B, $A2B ->destination, $A2B ->tariff);
+			
+			// IF FIND RATE
+			if ($resfindrate!=0){				
+				//$RateEngine -> debug_st	=1;
+				$res_all_calcultimeout = $RateEngine->rate_engine_all_calcultimeout($A2B, $A2B->credit);
+				//echo ("RES_ALL_CALCULTIMEOUT ::> $res_all_calcultimeout");
+				//print_r($RateEngine-> ratecard_obj);
+			
+				if ($res_all_calcultimeout){							
+					
+					// MAKE THE CALL
+					if ($RateEngine -> ratecard_obj[0][34]!='-1'){	$usetrunk=34; $usetrunk_failover=1;}
+					else { 										$usetrunk=29; $usetrunk_failover=0;}
+					
+					$prefix			= $RateEngine -> ratecard_obj[0][$usetrunk+1];
+					$tech 			= $RateEngine -> ratecard_obj[0][$usetrunk+2];
+					$ipaddress 		= $RateEngine -> ratecard_obj[0][$usetrunk+3];
+					$removeprefix 	= $RateEngine -> ratecard_obj[0][$usetrunk+4];
+					$timeout		= $RateEngine -> ratecard_obj[0]['timeout'];	
+					$failover_trunk	= $RateEngine -> ratecard_obj[0][40+$usetrunk_failover];
+					$addparameter	= $RateEngine -> ratecard_obj[0][42+$usetrunk_failover];
+					
+					$destination = $A2B ->destination;
+					if (strncmp($destination, $removeprefix, strlen($removeprefix)) == 0) $destination= substr($destination, strlen($removeprefix));
+					
+					
+					$pos_dialingnumber = strpos($ipaddress, '%dialingnumber%' );
+					
+					$ipaddress = str_replace("%cardnumber%", $A2B->cardnumber, $ipaddress);
+					$ipaddress = str_replace("%dialingnumber%", $prefix.$destination, $ipaddress);
+					
+					
+					if ($pos_dialingnumber !== false){					   
+						   $dialstr = "$tech/$ipaddress".$dialparams;
+					}else{
+						if ($A2B->agiconfig['switchdialcommand'] == 1){
+							$dialstr = "$tech/$prefix$destination@$ipaddress".$dialparams;
 						}else{
-							if ($A2B->agiconfig['switchdialcommand'] == 1){
-								$dialstr = "$tech/$prefix$destination@$ipaddress".$dialparams;
-							}else{
-								$dialstr = "$tech/$ipaddress/$prefix$destination".$dialparams;
-							}
-						}	
-						
-						//ADDITIONAL PARAMETER 			%dialingnumber%,	%cardnumber%	
-						if (strlen($addparameter)>0){
-							$addparameter = str_replace("%cardnumber%", $A2B->cardnumber, $addparameter);
-							$addparameter = str_replace("%dialingnumber%", $prefix.$destination, $addparameter);
-							$dialstr .= $addparameter;
+							$dialstr = "$tech/$ipaddress/$prefix$destination".$dialparams;
 						}
-						
-						$as = new AGI_AsteriskManager();
-						$res = $as->connect($A2B->config["webui"]['manager_host'],$A2B->config["webui"]['manager_username'],$A2B->config["webui"]['manager_secret']);
+					}	
+					
+					//ADDITIONAL PARAMETER 			%dialingnumber%,	%cardnumber%	
+					if (strlen($addparameter)>0){
+						$addparameter = str_replace("%cardnumber%", $A2B->cardnumber, $addparameter);
+						$addparameter = str_replace("%dialingnumber%", $prefix.$destination, $addparameter);
+						$dialstr .= $addparameter;
+					}
+					
+					$as = new AGI_AsteriskManager();
+					$res = $as->connect($A2B->config["webui"]['manager_host'],$A2B->config["webui"]['manager_username'],$A2B->config["webui"]['manager_secret']);
 
-						if	($res){
-							$channel= $dialstr;
-							$exten = $A2B -> config["callback"]['extension'];
-							if ($argc > 4 && strlen($argv[4]) > 0) $exten = $argv[4];
-							$context = $A2B -> config["callback"]['context_callback'];
-							$priority=1;
-							$timeout = $A2B -> config["callback"]['timeout']*1000;
-							$application='';
-							$callerid=$A2B->destination;
-							$account=$A2B->accountcode;
+					if	($res){
+						$channel= $dialstr;
+						$exten = $A2B -> config["callback"]['extension'];
+						if ($argc > 4 && strlen($argv[4]) > 0) $exten = $argv[4];
+						$context = $A2B -> config["callback"]['context_callback'];
+						$priority=1;
+						$timeout = $A2B -> config["callback"]['timeout']*1000;
+						$application='';
+						$callerid=$A2B->destination;
+						$account=$A2B->accountcode;
+						
+						$variable = "CALLED=".$A2B ->destination."|MODE=ALL|TARIFF=".$A2B ->tariff;
+						
+						sleep($A2B -> config["callback"]['sec_wait_before_callback']);
+						$res = $as->Originate($channel, $exten, $context, $priority, $application, $data, $timeout, $callerid, $variable, $account, $async, $actionid);
+						//$res=array();
+						//$res["Response"]='Error';
+						//print_r($resy);
+						
+						if($res["Response"]=='Error'){
 							
-							$variable = "CALLED=".$A2B ->destination."|MODE=ALL|TARIFF=".$A2B ->tariff;
-							
-							// sleep($A2B -> config["callback"]['sec_wait_before_callback']);
-							$res = $as->Originate($channel, $exten, $context, $priority, $application, $data, $timeout, $callerid, $variable, $account, $async, $actionid);
-							//$res=array();
-							//$res["Response"]='Error';
-							//print_r($resy);
-							
-							if($res["Response"]=='Error'){
+							if (is_numeric($failover_trunk) && $failover_trunk>=0){
+								//echo "failover_trunk=$failover_trunk";
+								$QUERY = "SELECT trunkprefix, providertech, providerip, removeprefix FROM cc_trunk WHERE id_trunk='$failover_trunk'";
+								$A2B->instance_table = new Table();
+								$result = $A2B->instance_table -> SQLExec ($A2B -> DBHandle, $QUERY);
 								
-								if (is_numeric($failover_trunk) && $failover_trunk>=0){
-									//echo "failover_trunk=$failover_trunk";
-									$QUERY = "SELECT trunkprefix, providertech, providerip, removeprefix FROM cc_trunk WHERE id_trunk='$failover_trunk'";
-									$A2B->instance_table = new Table();
-									$result = $A2B->instance_table -> SQLExec ($A2B -> DBHandle, $QUERY);
+								//echo "QUERY=$QUERY";
+								//print_r($result);
+								
+								if (is_array($result) && count($result)>0){
 									
-									//echo "QUERY=$QUERY";
-									//print_r($result);
+									//DO SELECT WITH THE FAILOVER_TRUNKID
+									$prefix			= $result[0][0];
+									$tech 			= $result[0][1];
+									$ipaddress 		= $result[0][2];
+									$removeprefix 	= $result[0][3];
 									
-									if (is_array($result) && count($result)>0){
-											
-										//DO SELECT WITH THE FAILOVER_TRUNKID
-										$prefix			= $result[0][0];
-										$tech 			= $result[0][1];
-										$ipaddress 		= $result[0][2];
-										$removeprefix 	= $result[0][3];
-										
-										$pos_dialingnumber = strpos($ipaddress, '%dialingnumber%' );
-										$ipaddress = str_replace("%cardnumber%", $A2B->cardnumber, $ipaddress);
-										$ipaddress = str_replace("%dialingnumber%", $prefix.$destination, $ipaddress);
-										
-										if (strncmp($destination, $removeprefix, strlen($removeprefix)) == 0) $destination= substr($destination, strlen($removeprefix));
-										$dialparams = str_replace("%timeout%", $timeout *1000, $A2B->agiconfig['dialcommand_param']);
-										
-										$A2B->agiconfig['switchdialcommand']=1;
-										$dialparams='';
-										
-										if ($pos_dialingnumber !== false){					   
-											$dialstr = "$tech/$ipaddress".$dialparams;
+									$pos_dialingnumber = strpos($ipaddress, '%dialingnumber%' );
+									$ipaddress = str_replace("%cardnumber%", $A2B->cardnumber, $ipaddress);
+									$ipaddress = str_replace("%dialingnumber%", $prefix.$destination, $ipaddress);
+									
+									if (strncmp($destination, $removeprefix, strlen($removeprefix)) == 0) $destination= substr($destination, strlen($removeprefix));
+									$dialparams = str_replace("%timeout%", $timeout *1000, $A2B->agiconfig['dialcommand_param']);
+									
+									$A2B->agiconfig['switchdialcommand']=1;
+									$dialparams='';
+									
+									if ($pos_dialingnumber !== false){					   
+										$dialstr = "$tech/$ipaddress".$dialparams;
+									}else{
+										if ($A2B->agiconfig['switchdialcommand'] == 1){
+											$dialstr = "$tech/$prefix$destination@$ipaddress".$dialparams;
 										}else{
-											if ($A2B->agiconfig['switchdialcommand'] == 1){
-												$dialstr = "$tech/$prefix$destination@$ipaddress".$dialparams;
-											}else{
-												$dialstr = "$tech/$ipaddress/$prefix$destination".$dialparams;
-											}
+											$dialstr = "$tech/$ipaddress/$prefix$destination".$dialparams;
 										}
-										$channel= $dialstr;
-										$res = $as->Originate($channel, $exten, $context, $priority, $application, $data, $timeout, $callerid, $variable, $account, $async, $actionid);
 									}
+									$channel= $dialstr;
+									$res = $as->Originate($channel, $exten, $context, $priority, $application, $data, $timeout, $callerid, $variable, $account, $async, $actionid);
 								}
 							}
-							
-							// && DISCONNECTING	
-							$as->disconnect();
-							
-						}else{
-							$error_msg= "Cannot connect to the asterisk manager!\nPlease check the manager configuration...";
-							$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[CALLBACK-CALLERID : CALLED=".$A2B ->destination." | $error_msg]");
 						}
+						
+						// && DISCONNECTING	
+						$as->disconnect();
+						
 					}else{
-						$error_msg = 'Error : You don t have enough credit to call you back !!!';
+						$error_msg= "Cannot connect to the asterisk manager!\nPlease check the manager configuration...";
 						$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[CALLBACK-CALLERID : CALLED=".$A2B ->destination." | $error_msg]");
 					}
 				}else{
-					$error_msg = 'Error : There is no route to call back your phonenumber !!!';
+					$error_msg = 'Error : You don t have enough credit to call you back !!!';
 					$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[CALLBACK-CALLERID : CALLED=".$A2B ->destination." | $error_msg]");
-				}	
-		
-		
-		
+				}
+			}else{
+				$error_msg = 'Error : There is no route to call back your phonenumber !!!';
+				$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[CALLBACK-CALLERID : CALLED=".$A2B ->destination." | $error_msg]");
+			}
+			
 		}else{
 			$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[CALLBACK-CALLERID : CALLED=".$A2B ->destination." | Authentication failed]");
 		}

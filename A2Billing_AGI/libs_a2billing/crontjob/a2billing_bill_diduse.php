@@ -28,19 +28,20 @@ include (dirname(__FILE__)."/../db_php_lib/Class.Table.php");
 include (dirname(__FILE__)."/../Class.A2Billing.php");
 include (dirname(__FILE__)."/../Misc.php");
 
-$verbose_level=1;
+$verbose_level=0;
 
 $groupcard=5000;
 
 
 if ($A2B->config["database"]['dbtype'] == "postgres"){
-		$UNIX_TIMESTAMP = "date_part('epoch',";
+	$UNIX_TIMESTAMP = "date_part('epoch',";
 }else{
-		$UNIX_TIMESTAMP = "UNIX_TIMESTAMP(";
+	$UNIX_TIMESTAMP = "UNIX_TIMESTAMP(";
 }
 
 $A2B = new A2Billing();
 $A2B -> load_conf($agi, NULL, 0, $idconfig);
+
 
 write_log(LOGFILE_CRONT_BILL_DIDUSE, basename(__FILE__).' line:'.__LINE__."[#### BATCH DIDUSE BEGIN ####]");
 
@@ -53,8 +54,7 @@ if (!$A2B -> DbConnect()){
 $instance_table = new Table();
 
 // CHECK THE CARD WITH DID'S
-// ?? add currency here
-$QUERY = "SELECT id_did, reservationdate, month_payed, fixrate, cc_card.id, credit, email, did, currency FROM (cc_did_use INNER JOIN cc_card on cc_card.id=id_cc_card) INNER JOIN cc_did ON (id_did=cc_did.id) WHERE ( releasedate IS NULL OR releasedate = '0000-00-00 00:00:00') AND cc_did_use.activated=1";
+$QUERY = "SELECT id_did, reservationdate, month_payed, fixrate, cc_card.id, credit, email, did FROM (cc_did_use INNER JOIN cc_card on cc_card.id=id_cc_card) INNER JOIN cc_did ON (id_did=cc_did.id) WHERE ( releasedate IS NULL OR releasedate = '0000-00-00 00:00:00') AND cc_did_use.activated=1";
 
 if ($verbose_level>=1) echo "==> SELECT CARD WIHT DID'S QUERY : $QUERY\n";
 $result = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY);
@@ -70,7 +70,6 @@ if( !is_array($result)) {
 $oneday = 60*60*24;
 // count day that user have to recharge his account
 $daytopay = $A2B->config['global']['didbilling_daytopay'];
-$daytopay = 31;
 if ($verbose_level>=1) echo "daytopay=$daytopay \n";
 
 // BROWSE THROUGH THE CARD TO APPLY THE DID USAGE
@@ -103,7 +102,6 @@ foreach ($result as $mydids){
 			if ($mydids[5] >= $mydids[3])
 			{
 				// USER HAVE ENOUGH CREDIT TO PAY FOR THE DID 
-				// ADD CURRENCY HERE
 				$QUERY = "UPDATE cc_card SET credit=credit-'".$mydids[3]."' WHERE id=".$mydids[4];	
 				$result = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY, 0);
 				if ($verbose_level>=1) echo "==> UPDATE CARD QUERY: 	$QUERY\n";
@@ -113,7 +111,7 @@ foreach ($result as $mydids){
 				if ($verbose_level>=1) echo "==> UPDATE DID USE QUERY: 	$QUERY\n";
 				$result = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY, 0);
 				
-				$QUERY = "INSERT INTO cc_charge (id_cc_card, amount, chargetype, id_cc_did) VALUES ('".$mydids[4]."', '".$mydids[3]."', '2','".$mydids[0]."')";
+				$QUERY = "INSERT INTO cc_charge (id_cc_card, amount, chargetype, id_cc_did, currency) VALUES ('".$mydids[4]."', '".$mydids[3]."', '2','".$mydids[0]."', '".strtoupper($A2B->config['global']['base_currency'])."')";
 				if ($verbose_level>=1) echo "==> INSERT CHARGE QUERY: 	$QUERY\n";
 				$result = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY, 0);
 				

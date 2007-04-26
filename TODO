@@ -8,12 +8,8 @@
 SHIFT LEFT : DEFINES.PHP
 
 
-#### DID CRONT 
+#### DID CRONT : MAIL
 ********************************************************************
-1#  add currency
-	a2billing_bill_diduse.php
-
-2# 
 	$mail_user_content.="BALANCE REMAINING ".$mydids[5]-$mydids[3]."\n\n";
 	$mail_user_content.="A automaticly taking away of :".$mydids[3]." has been carry out of your acount \n\n";	
 	$mail_user_content.="Monthly Fixrate for DID :".$mydids[0]."\n\n";

@@ -24,13 +24,12 @@
 
 set_time_limit(0);
 error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
-//dl("pgsql.so"); // remove "extension= pgsql.so !
 
 include (dirname(__FILE__)."/../db_php_lib/Class.Table.php");
 include (dirname(__FILE__)."/../Class.A2Billing.php");
 include (dirname(__FILE__)."/../Misc.php");
 
-$verbose_level=3;
+$verbose_level=0;
 
 $groupcard=5000;
 
@@ -159,7 +158,7 @@ foreach ($result as $myservice) {
 			//exit();
 		}
 		// Little bit of rest
-		//sleep(15);
+		sleep(15);
 	}
 	
 	write_log(LOGFILE_CRONT_SUBSCRIPTIONFEE, basename(__FILE__).' line:'.__LINE__."[Service finish]");

@@ -144,8 +144,7 @@ $HD_Form -> AddEditElement (gettext("MONTHLY RATE"),
 	"size=20  maxlength=20",
 	"12",
 	gettext("Insert the monthly rate"),
-	"" , "", "", "", "" , "", "", "");
-
+	"" , "", "", "", "", "", "", gettext("currency : ").strtoupper(BASE_CURRENCY) );
 
 
 $HD_Form -> FieldEditElement ('did, billingtype, startingdate, expirationdate, id_cc_didgroup, id_cc_country, activated, fixrate');

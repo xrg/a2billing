@@ -34,7 +34,7 @@ include (dirname(__FILE__)."/../Misc.php");
 
 
 //Flag to show the debuging information
-$verbose_level=1;
+$verbose_level=0;
 
 $groupcard = 5000;
 
