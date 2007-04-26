@@ -94,6 +94,8 @@
 				<li><a href="A2B_entity_payment.php?atmenu=payment&stitle=Solde&section=2">{php} echo gettext("View Payment");{/php}</a></li>
 				<li><a href="A2B_entity_payment.php?stitle=Payment_add&form_action=ask-add&section=2">{php} echo gettext("Add new Payment");{/php}</a></li>
 				<li><a href="A2B_entity_invoices.php?atmenu=payment&stitle=Solde&section=2&invoicetype=billed">{php} echo gettext("View Billed Invoices");{/php}</a></li>
+				<li><a href="A2B_entity_view_invoice.php?atmenu=payment&stitle=Solde&section=2">{php} echo gettext("View Invoices");{/php}</a></li>
+				<li><a href="A2B_entity_create_invoice.php?atmenu=payment&stitle=Solde&section=2">{php} echo gettext("Create Invoices");{/php}</a></li>
 				<li><a href="A2B_entity_invoices.php?atmenu=payment&stitle=Solde&section=2&invoicetype=unbilled">{php} echo gettext("View UnBilled Invoices");{/php}</a></li>
 				<li><a href="A2B_entity_voucher.php?stitle=Voucher&section=2">{php} echo gettext("List Voucher");{/php}</a></li>
 				<li><a href="A2B_entity_voucher.php?stitle=Voucher_add&form_action=ask-add&section=2">{php} echo gettext("Create Voucher");{/php}</a></li>
@@ -279,6 +281,7 @@
 			<li><ul>
 					<li><a href="call-log-customers.php?stitle=Call_Report_Customers&nodisplay=1&posted=1&section=6">{php} echo gettext("CDR Report");{/php}</a></li>
 					<li><a href="invoices.php?stitle=Invoice&nodisplay=1&section=6">{php} echo gettext("Invoice");{/php}</a></li>
+					<li><a href="invoices_customer.php?stitle=Invoice&nodisplay=1&section=6">{php} echo gettext("Invoice_Customer");{/php}</a></li>
 					<li><a href="call-comp.php?section=6">{php} echo gettext("Calls Compare");{/php}</a></li>
 					<li><a href="call-last-month.php?section=6">{php} echo gettext("Monthly Traffic");{/php}</a></li>
 					<li><a href="call-daily-load.php?section=6">{php} echo gettext("Daily Load");{/php}</a></li>
@@ -351,9 +354,11 @@
 	</div>
 	{/if}
 	
+
 	{if ($ACXMISC  > 0)}
 	<div class="toggle_menu">
 	<li><a href="#" class="toggle_menu" target="_self"><img id="img6" 
+
 	{if ($section =="8")}
 	
 	src="templates/{$SKIN_NAME}/images/minus.gif"
@@ -361,8 +366,10 @@
 	src="templates/{$SKIN_NAME}/images/plus.gif"
 	
 	{/if}
+
 	onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("MISC");{/php}</strong></a></li>
 	<div class="tohide"
+
 	{if ($section =="8")}
 		style="">
 	{else}

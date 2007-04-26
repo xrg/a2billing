@@ -186,7 +186,7 @@ if($invoice_type == 1)
 }
 else
 {
-	$FG_TABLE_CLAUSE.="t1.starttime >(Select max(cover_startdate)  from cc_invoices) AND t1.stoptime <(Select max(cover_enddate) from cc_invoices) ";
+	$FG_TABLE_CLAUSE.="t1.starttime >(Select max(cover_startdate)  from cc_invoices  WHERE cardid = ".$_SESSION["card_id"].") "." AND t1.stoptime <(Select max(cover_enddate) from cc_invoices WHERE cardid = ".$_SESSION["card_id"].")";
 }
 
 if (!$nodisplay){

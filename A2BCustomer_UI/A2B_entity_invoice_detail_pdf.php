@@ -134,11 +134,8 @@ if ($posted==1){
   $SQLcmd = '';
   
   $SQLcmd = do_field($SQLcmd, 'src', 'src');
-  $SQLcmd = do_field($SQLcmd, 'dst', 'calledstation');
-	
-  
+  $SQLcmd = do_field($SQLcmd, 'dst', 'calledstation');  
 }
-
 
 $date_clause='';
 // Period (Month-Day)
@@ -150,17 +147,6 @@ if (DB_TYPE == "postgres"){
 
 
 $lastdayofmonth = date("t", strtotime($tostatsmonth.'-01'));
-
-if ($Period=="Month"){
-		
-		
-		if ($frommonth && isset($fromstatsmonth)) $date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) >= $UNIX_TIMESTAMP('$fromstatsmonth-01')";
-		if ($tomonth && isset($tostatsmonth)) $date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) <= $UNIX_TIMESTAMP('".$tostatsmonth."-$lastdayofmonth 23:59:59')"; 
-		
-}else{
-		if ($fromday && isset($fromstatsday_sday) && isset($fromstatsmonth_sday) && isset($fromstatsmonth_shour) && isset($fromstatsmonth_smin) ) $date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) >= $UNIX_TIMESTAMP('$fromstatsmonth_sday-$fromstatsday_sday $fromstatsmonth_shour:$fromstatsmonth_smin')";
-		if ($today && isset($tostatsday_sday) && isset($tostatsmonth_sday) && isset($tostatsmonth_shour) && isset($tostatsmonth_smin)) $date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) <= $UNIX_TIMESTAMP('$tostatsmonth_sday-".sprintf("%02d",intval($tostatsday_sday))." $tostatsmonth_shour:$tostatsmonth_smin')";
-}
   
 if (strpos($SQLcmd, 'WHERE') > 0) { 
 	$FG_TABLE_CLAUSE = substr($SQLcmd,6).$date_clause; 
@@ -185,13 +171,13 @@ if (strlen($FG_TABLE_CLAUSE)>0)
 }
 if ($invoice_type == 1)
 {
-	$FG_TABLE_CLAUSE.="t1.starttime >(Select CASE  WHEN max(cover_enddate) IS NULL THEN '0001-01-01 01:00:00' ELSE max(cover_enddate) END from cc_invoices)";
+	$FG_TABLE_CLAUSE.="t1.starttime >(Select CASE  WHEN max(cover_enddate) IS NULL THEN '0001-01-01 01:00:00' ELSE max(cover_enddate) END from cc_invoices WHERE cardid = ".$_SESSION["card_id"].")";
 }
 else
 {
 	if($choose_billperiod == "")
 	{
-		$FG_TABLE_CLAUSE.="t1.starttime >(Select max(cover_startdate)  from cc_invoices) AND t1.stoptime <(Select max(cover_enddate) from cc_invoices) ";
+		$FG_TABLE_CLAUSE.="t1.starttime >(Select max(cover_startdate)  from cc_invoices  WHERE cardid = ".$_SESSION["card_id"].") "." AND t1.stoptime <(Select max(cover_enddate) from cc_invoices  WHERE cardid = ".$_SESSION["card_id"].")";
 	}
 	else
 	{
@@ -199,15 +185,7 @@ else
 	}
 }
 
-
-if (!$nodisplay){
-	$list = $instance_table -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, $order, $sens, null, null, $FG_LIMITE_DISPLAY, $current_page*$FG_LIMITE_DISPLAY);
-}
 $_SESSION["pr_sql_export"]="SELECT $FG_COL_QUERY FROM $FG_TABLE_NAME WHERE $FG_TABLE_CLAUSE";
-
-/************************/
-//$QUERY = "SELECT substring(calldate,1,10) AS day, sum(duration) AS calltime, count(*) as nbcall FROM cdr WHERE ".$FG_TABLE_CLAUSE." GROUP BY substring(calldate,1,10)"; //extract(DAY from calldate)
-
 
 $QUERY = "SELECT substring(t1.starttime,1,10) AS day, sum(t1.sessiontime) AS calltime, sum(t1.sessionbill) AS cost, count(*) as nbcall FROM $FG_TABLE_NAME WHERE ".$FG_TABLE_CLAUSE."   GROUP BY substring(t1.starttime,1,10) ORDER BY day"; //extract(DAY from calldate)
 //echo "$QUERY";

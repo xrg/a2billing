@@ -158,11 +158,11 @@ if (strlen($FG_TABLE_CLAUSE)>0)
 
 if($invoice_type == 1)
 {
-	$FG_TABLE_CLAUSE.="t1.starttime >(Select CASE WHEN max(cover_enddate) is NULL THEN '0001-01-01 01:00:00' ELSE max(cover_enddate) END from cc_invoices)";
+	$FG_TABLE_CLAUSE.="t1.starttime >(Select CASE WHEN max(cover_enddate) is NULL THEN '0001-01-01 01:00:00' ELSE max(cover_enddate) END from cc_invoices  WHERE cardid = ".$_SESSION["card_id"].")";
 }
 else
 {
-	$FG_TABLE_CLAUSE.="t1.starttime >(Select max(cover_startdate)  from cc_invoices) AND t1.stoptime <(Select max(cover_enddate) from cc_invoices) ";
+	$FG_TABLE_CLAUSE.="t1.starttime >(Select max(cover_startdate)  from cc_invoices WHERE cardid = ".$_SESSION["card_id"].") "." AND t1.stoptime <(Select max(cover_enddate) from cc_invoices WHERE cardid = ".$_SESSION["card_id"].")";
 }
 
 if (!$nodisplay){

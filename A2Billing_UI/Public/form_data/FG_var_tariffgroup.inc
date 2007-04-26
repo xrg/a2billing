@@ -54,6 +54,7 @@ $HD_Form -> FG_EDITION = true;
 $HD_Form -> FG_DELETION = true;
 
 
+
 $HD_Form -> AddEditElement (gettext("NAME"),
 	"tariffgroupname",		
 	'$value',	

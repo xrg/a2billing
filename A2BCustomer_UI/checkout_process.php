@@ -33,7 +33,7 @@ include ("./lib/epayment/includes/general.php");
 include ("./lib/epayment/includes/html_output.php");
 include ("./lib/epayment/includes/configure.php");
 include ("./lib/epayment/includes/loadconfiguration.php");
-include("PP_header.php");
+//include("PP_header.php");
 
 
 $payment_modules = new payment($_SESSION["p_module"]);

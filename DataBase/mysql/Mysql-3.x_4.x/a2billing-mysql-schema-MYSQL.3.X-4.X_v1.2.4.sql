@@ -1591,6 +1591,7 @@ CREATE TABLE cc_invoices (
 	total 							DECIMAL(15,5) DEFAULT 0,
 	invoicetype 					INT ,
 	filename 						VARCHAR(250),
+	payment_date		 			TIMESTAMP,
     PRIMARY KEY (id)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 CREATE INDEX ind_cc_invoices ON cc_invoices (cover_startdate);

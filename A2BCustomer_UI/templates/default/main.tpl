@@ -259,6 +259,9 @@ function imgidclick(imgID,divID, imgbase, imgchange)
 		</ul></li>
 		</ul>
 		</div>
+		
+		<li><a href="#" target="_self"></a></a></li>
+       <li><a href="invoices_customer.php?section=4"><strong>{php} echo gettext("INVOICE CUSTOMER");{/php}</strong></a></li>
 		{/if}
 
 	   {if $A2Bconfig.webcustomerui.did==1 }
