@@ -14,9 +14,9 @@ include ("./lib/smarty.php");
 //include ("./form_data/FG_var_callerid.inc");
 
 if (! has_rights (ACX_ACCESS)){
-	  // Header ("HTTP/1.0 401 Unauthorized");
-	  //// Header ("Location: PP_error.php?c=accessdenied");
-	  // die();
+	Header ("HTTP/1.0 401 Unauthorized");
+	Header ("Location: PP_error.php?c=accessdenied");
+	die();
 }
 $HD_Form = new FormHandler("cc_payment_methods","payment_method");
 
@@ -38,32 +38,32 @@ $order = new order($amount);
 var selected;
 
 function selectRowEffect(object, buttonSelect) {
-  if (!selected) {
-    if (document.getElementById) {
-      selected = document.getElementById('defaultSelected');
-    } else {
-      selected = document.all['defaultSelected'];
-    }
-  }
+	if (!selected) {
+		if (document.getElementById) {
+			selected = document.getElementById('defaultSelected');
+		} else {
+			selected = document.all['defaultSelected'];
+		}
+	}
 
-  if (selected) selected.className = 'moduleRow';
-  object.className = 'moduleRowSelected';
-  selected = object;
+	if (selected) selected.className = 'moduleRow';
+	object.className = 'moduleRowSelected';
+	selected = object;
 
-// one button is not an array
-  if (document.checkout_payment.payment[0]) {
-    document.checkout_payment.payment[buttonSelect].checked=true;
-  } else {
-    document.checkout_payment.payment.checked=true;
-  }
+	// one button is not an array
+	if (document.checkout_payment.payment[0]) {
+		document.checkout_payment.payment[buttonSelect].checked=true;
+	} else {
+		document.checkout_payment.payment.checked=true;
+	}
 }
 
 function rowOverEffect(object) {
-  if (object.className == 'moduleRow') object.className = 'moduleRowOver';
+	if (object.className == 'moduleRow') object.className = 'moduleRowOver';
 }
 
 function rowOutEffect(object) {
-  if (object.className == 'moduleRowOver') object.className = 'moduleRow';
+	if (object.className == 'moduleRowOver') object.className = 'moduleRow';
 }
 //--></script>
 
@@ -79,9 +79,9 @@ function rowOutEffect(object) {
 
     <table width="80%" cellspacing="0" cellpadding="2" align=center>
     <?php
-  if (isset($_GET['payment_error']) && is_object(${$_GET['payment_error']}) && ($error = ${$_GET['payment_error']}->get_error())) {
-  	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__." ERROR ".$error['title']." ".$error['error']);
-?>
+	if (isset($_GET['payment_error']) && is_object(${$_GET['payment_error']}) && ($error = ${$_GET['payment_error']}->get_error())) {
+  		write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__." ERROR ".$error['title']." ".$error['error']);
+	?>
       <tr>
         <td ><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
@@ -230,4 +230,3 @@ function rowOutEffect(object) {
 // #### FOOTER SECTION
 $smarty->display( 'footer.tpl');
 ?>
-

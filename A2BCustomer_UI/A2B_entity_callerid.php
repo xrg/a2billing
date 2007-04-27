@@ -6,11 +6,10 @@ include ("./form_data/FG_var_callerid.inc");
 include ("lib/smarty.php");
 
 
-
 if (! has_rights (ACX_ACCESS)){
-	   Header ("HTTP/1.0 401 Unauthorized");
-	   Header ("Location: PP_error.php?c=accessdenied");
-	   die();
+	Header ("HTTP/1.0 401 Unauthorized");
+	Header ("Location: PP_error.php?c=accessdenied");
+	die();
 }
 
 
@@ -25,10 +24,9 @@ $HD_Form -> init();
 
 /************************************  ADD SPEED DIAL  ***********************************************/
 if (strlen($add_callerid)>0  && is_numeric($add_callerid)){
-
-		$instance_sub_table = new Table('cc_callerid');
-		$QUERY = "INSERT INTO cc_callerid (id_cc_card, cid) VALUES ('".$_SESSION["card_id"]."', '".$add_callerid."')";
-		$result = $instance_sub_table -> SQLExec ($HD_Form -> DBHandle, $QUERY, 0);
+	$instance_sub_table = new Table('cc_callerid');
+	$QUERY = "INSERT INTO cc_callerid (id_cc_card, cid) VALUES ('".$_SESSION["card_id"]."', '".$add_callerid."')";
+	$result = $instance_sub_table -> SQLExec ($HD_Form -> DBHandle, $QUERY, 0);
 }
 /***********************************************************************************/
 

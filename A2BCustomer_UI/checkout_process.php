@@ -1,12 +1,13 @@
 <?php
 include ("./lib/defines.php");
 
+
 $sess_id = $_REQUEST["sess_id"];
 
 if ($sess_id =="")
 {
 	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__." ERROR NO SESSION ID PROVIDED IN RETURN URL TO PAYMENT MODULE");
-    exit(gettext("No session id provided in return URL to Payment Moudle"));
+    exit(gettext("No session id provided in return URL to Payment Module"));
 }
 else
 {
