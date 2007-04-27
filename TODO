@@ -3,6 +3,14 @@
                    			TODO LIST - SPECIFIC
 ********************************************************************************
 
+
+#### FEATURE IN VIEW FRAMEWORK TO SHOW A BUTTON ACCORDING TO THE VALUE OF ONE OF THE FIELD
+********************************************************************
+what will happend when a invoice is paid
+we should not show the pay invoice button then 
+is there anything in framework that support like this?
+
+
 #### BUG MAIL INVOICE
 ********************************************************************
 Therefore I suspect a bug in the emailing function of the customer sign-up screen.

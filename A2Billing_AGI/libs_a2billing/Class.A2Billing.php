@@ -1206,7 +1206,7 @@ class A2Billing {
 		
 		$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[VOUCHER REFILL CARD LOG BEGIN]");
 		if (isset($this->agiconfig['agi_force_currency']) && strlen($this->agiconfig['agi_force_currency'])==3){ 
-			$this->currency = $this->agiconfig['agi_force_currency'];
+			$this -> currency = $this->agiconfig['agi_force_currency'];
 		}
 		
 		if (!isset($currencies_list[strtoupper($this->currency)][2]) || !is_numeric($currencies_list[strtoupper($this->currency)][2])){ 
@@ -1214,8 +1214,7 @@ class A2Billing {
 		} else { 
 			$mycur = $currencies_list[strtoupper($this->currency)][2];
 		}
-		
-		$timetowait = ($this->config['global']['len_voucher']<6) ? 8000 : 20000;
+		$timetowait = ($this->config['global']['len_voucher'] < 6) ? 8000 : 20000;
 		$res_dtmf = $agi->get_data('voucher_enter_number', $timetowait, $this->config['global']['len_voucher'], '#');
 		$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "VOUCHERNUMBER RES DTMF : ".$res_dtmf ["result"]);
 		$this -> vouchernumber = $res_dtmf ["result"];
@@ -1225,7 +1224,7 @@ class A2Billing {
 		
 		$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "VOUCHER NUMBER : ".$this->vouchernumber);
 		
-		$QUERY = "SELECT voucher, credit, activated, tag, currency, expirationdate FROM cc_voucher WHERE expirationdate >= CURRENT_TIMESTAMP AND activated='t' AND voucher='".$this->vouchernumber."'";
+		$QUERY = "SELECT voucher, credit, activated, tag, currency, expirationdate FROM cc_voucher WHERE expirationdate >= CURRENT_TIMESTAMP AND activated='t' AND voucher='".$this -> vouchernumber."'";
 		
 		$result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY);
 		$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[VOUCHER SELECT: $QUERY]\n".print_r($result,true));	
@@ -1265,6 +1264,7 @@ class A2Billing {
 			return -1;
 		}
 		$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[VOUCHER REFILL CARD LOG END]");
+		return 1;
 	}
 
 	
@@ -1621,7 +1621,7 @@ class A2Billing {
 						if ($vou_res==1){
 							return 0;
 						}else {
-							$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[NOTENOUGHCREDIT - refiil_card_withvoucher fail] ");
+							$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[NOTENOUGHCREDIT - refill_card_withvoucher fail] ");
 						}
 					}
 					if ($prompt == "prepaid-zero-balance" && $this->agiconfig['notenoughcredit_cardnumber']==1) { 

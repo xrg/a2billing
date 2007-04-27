@@ -134,12 +134,6 @@ if ($A2B -> CC_TESTING) {
 	
 if ($mode == 'standard'){
 
-	$A2B -> play_menulanguage ($agi);
-	
-	
-	/*************************   PLAY INTRO MESSAGE   ************************/
-	if (strlen($A2B->agiconfig['intro_prompt'])>0) 		$agi-> stream_file($A2B->agiconfig['intro_prompt'], '#');		
-	
 	if ($A2B->agiconfig['answer_call']==1){
 		$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, '[ANSWER CALL]');
 		$agi->answer();
@@ -148,6 +142,12 @@ if ($mode == 'standard'){
 		$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, '[NO ANSWER CALL]');
 		$status_channel=4;
 	}
+	
+	$A2B -> play_menulanguage ($agi);
+	
+	/*************************   PLAY INTRO MESSAGE   ************************/
+	if (strlen($A2B->agiconfig['intro_prompt'])>0) 		$agi-> stream_file($A2B->agiconfig['intro_prompt'], '#');		
+	
 	
 	/* WE START ;) */	
 	$cia_res = $A2B -> callingcard_ivr_authenticate($agi);
@@ -347,10 +347,41 @@ if ($mode == 'standard'){
 	
 // MOVE VOUCHER TO LET CUSTOMER ONLY REFILL
 }elseif ($mode == 'voucher'){
-	$vou_res = $A2B -> refill_card_with_voucher($agi, $i);
+
+	if ($A2B->agiconfig['answer_call']==1){
+		$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, '[ANSWER CALL]');
+		$agi->answer();
+		$status_channel=6;
+	}else{
+		$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, '[NO ANSWER CALL]');
+		$status_channel=4;
+	}
 	
-	/****************  SAY GOODBYE   ***************/
+	$A2B -> play_menulanguage ($agi);
+	/*************************   PLAY INTRO MESSAGE   ************************/
+	if (strlen($A2B->agiconfig['intro_prompt'])>0) 		$agi-> stream_file($A2B->agiconfig['intro_prompt'], '#');		
+	
+	
+	$cia_res = $A2B -> callingcard_ivr_authenticate($agi);
+	$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[TRY : callingcard_ivr_authenticate]");
+
+	for ($k=0;$k<3;$k++){
+		$vou_res = $A2B -> refill_card_with_voucher($agi, null);
+		$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "VOUCHER RESULT = $vou_res");
+		if ($vou_res==1){
+			break;
+		} else {
+			$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[NOTENOUGHCREDIT - refill_card_withvoucher fail] ");
+		}
+	}
+	
+	// SAY GOODBYE
 	if ($A2B->agiconfig['say_goodbye']==1) $agi-> stream_file('prepaid-final', '#');
+	
+	$agi->hangup();
+	if ($A2B->set_inuse==1) $A2B->callingcard_acct_start_inuse($agi,0);
+	$A2B -> write_log("[STOP - EXIT]", 0);
+	exit();	
 	
 // MODE CID-CALLBACK
 }elseif ($mode == 'cid-callback'){
