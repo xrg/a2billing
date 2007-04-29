@@ -14,16 +14,17 @@ $typemail_list["reminder"]  		= array( gettext("Reminder"), "reminder");
 $typemail_list["signup"]    		= array( gettext("Signup"), "signup");
 $typemail_list["forgetpassword"]  	= array( gettext("Forget password"), "forgetpassword");
 $typemail_list["signupconfirmed"]  	= array( gettext("Signup confirmed"), "signupconfirmed");
-$typemail_list["payment"]  	= array( gettext("Payment Confirmation"), "payment");
-$typemail_list["template1"] = array( gettext("template1"), "template1");
-$typemail_list["template2"] = array( gettext("template2"), "template2");
-$typemail_list["template3"] = array( gettext("template3"), "template3");
-$typemail_list["template4"] = array( gettext("template4"), "template4");
-$typemail_list["template5"] = array( gettext("template5"), "template5");
-$typemail_list["template6"] = array( gettext("template6"), "template6");
-$typemail_list["template7"] = array( gettext("template7"), "template7");
-$typemail_list["template8"] = array( gettext("template8"), "template8");
-$typemail_list["template9"] = array( gettext("template9"), "template9");
+$typemail_list["payment"]  			= array( gettext("Payment Confirmation"), "payment");
+$typemail_list["invoice"]  			= array( gettext("Invoice"), "invoice");
+$typemail_list["template1"] 		= array( gettext("template1"), "template1");
+$typemail_list["template2"] 		= array( gettext("template2"), "template2");
+$typemail_list["template3"] 		= array( gettext("template3"), "template3");
+$typemail_list["template4"] 		= array( gettext("template4"), "template4");
+$typemail_list["template5"] 		= array( gettext("template5"), "template5");
+$typemail_list["template6"] 		= array( gettext("template6"), "template6");
+$typemail_list["template7"] 		= array( gettext("template7"), "template7");
+$typemail_list["template8"] 		= array( gettext("template8"), "template8");
+$typemail_list["template9"] 		= array( gettext("template9"), "template9");
 
 
 $HD_Form -> AddViewElement(gettext("MAILTYPE"), "mailtype", "14%", "center", "sort", "", "list", $typemail_list);

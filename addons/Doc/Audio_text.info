@@ -98,16 +98,13 @@ prepaid-enter-number-u-calling-1-or-011.wav		Entrez le numéro que vous souhaite
 												les appels domestiques et par 011 pour les appels international, 
 												suivit ensuite de la touche dièse...
 				
-"prepaid-dest-unreachable";						Le numero que vous avez composé n'est pas disponible... 
-
+prepaid-dest-unreachable						Le numero que vous avez composé n'est pas disponible... 
 
 prepaid-you-have								vous avez
-prepaid-minute				-					minute
-prepaid-minutes				-					minutes
-prepaid-second				-					seconde
-prepaid-seconds				-					secondes
-
-
+prepaid-minute									minute
+prepaid-minutes									minutes
+prepaid-second									seconde
+prepaid-seconds									secondes
 prepaid-final									Au revoir
 
 
@@ -139,10 +136,9 @@ prepaid-no-enough-credit-stop                                  Lo sentimos, no t
 
 "prepaid-you-have",                                            tiene
 
-prepaid-dollar                                          -      dólar
-
-prepaid-dollars                                 -              dólares
-? prepaid-euro                                          -      euro
+prepaid-dollar													dólar
+prepaid-dollars													dólares
+prepaid-euro                                          			euro
 ? prepaid-euros                                 -              euros
 prepaid-cents                                           -      céntimos
 vm-and                                                         y
