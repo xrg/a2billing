@@ -6,25 +6,25 @@ prepaid-menulang 								press 1 for English, pulsa 2 para el español, Pressez 
 ################################################################################
 
 prepaid-welcome 								welcome to  the calling card system...
-"prepaid-enter-card-num";   					please, enter your 10 digits card number skipping any ponctuations, follow by the pound key
-"prepaid-enter-pin-number.wav"   				please, enter your complete PIN number
+prepaid-enter-card-num   						please, enter your 10 digits card number skipping any ponctuations, follow by the pound key
+prepaid-enter-pin-number		   				please, enter your complete PIN number
 
-"prepaid-no-card-entered"						no card number has been entered...
- "prepaid-invalid-digits";						invalid digits...
-"prepaid-auth-fail";							sorry, your authentication failed...
-"prepaid-zero-balance";							sorry, you have zero credit ...
-"prepaid-card-expired";							sorry, your card is expired...
-prepaid-no-enough-credit						sorry, you dont have enough credit to call this number..
-prepaid-no-enough-credit-stop					sorry, you dont have enough credit..
-"prepaid-card-in-use";							this card number is already used !
+prepaid-no-card-entered							no card number has been entered
+prepaid-invalid-digits							invalid digits
+prepaid-auth-fail								sorry, your authentication failed
+prepaid-zero-balance							sorry, you have zero credit
+prepaid-card-expired							sorry, your card is expired
+prepaid-no-enough-credit						sorry, you dont have enough credit to call this number
+prepaid-no-enough-credit-stop					sorry, you dont have enough credit
+prepaid-card-in-use								this card number is already used!
 
-"prepaid-you-have",								you have
-prepaid-dollar						-			dollar
-prepaid-dollars					-				dollars
-? prepaid-euro						-			euro
-? prepaid-euro					-				euros
-prepaid-cents						-			cents
-vm-and									-		and
+prepaid-you-have								you have
+prepaid-dollar									dollar
+prepaid-dollars									dollars
+prepaid-euro									euro
+prepaid-euros									euros
+prepaid-cents									cents
+vm-and											and
 
 
 prepaid-sipiax-press9							If you want to call a SIP or IAX Friend, please press 9 now...
@@ -34,13 +34,13 @@ prepaid-sipiax-enternumber						Please enter the number of the IAX, SIP Friend
 
 prepaid-sipiax-num-nomatch						Sorry, there is none SIP or IAX friend that match with this number!
 
-"prepaid-isbusy"								the number is currently busy...
-"prepaid-noanswer"								the number is not answering...
+prepaid-isbusy									the number is currently busy
+prepaid-noanswer								the number is not answering
 
-"prepaid-enter-dest"							Please, enter the number you wish to call and then press the pound key...
-???? EUROPE
-				Please, enter the number you are calling starting with 00 and the prefix of the country you wish to call
-				and then press the pound key...
+prepaid-enter-dest								Please, enter the number you wish to call and then press the pound key...
+? EUROPE
+												Please, enter the number you are calling starting with 00 and the prefix of the country you wish to call
+												and then press the pound key...
 prepaid-enter-number-u-calling-1-or-011.wav				
 				Please, enter the number you are calling starting for 1 for domestic or 011 for international calls
 				and then press the pound key...
@@ -77,19 +77,18 @@ prepaid-no-enough-credit-stop					désolé, vous n'avez pas assez de crédit...
 "prepaid-card-in-use";							Cette carte est déjà en cours d'utilisation
 
 "prepaid-you-have",								vous avez
-prepaid-dollar						-			dollar
-prepaid-dollars					-				dollars
-? prepaid-euro						-			euro
-? prepaid-euros					-				euros
-prepaid-cents						-			centimes
-vm-and									-		et
+prepaid-dollar									dollar
+prepaid-dollars									dollars
+? prepaid-euro									euro
+? prepaid-euros									euros
+prepaid-cents									centimes
+vm-and											et
 
 
-"prepaid-isbusy"								Ce numéro est occupé...
-"prepaid-noanswer"								Ce numéro ne répond pas...
+prepaid-isbusy									Ce numéro est occupé...
+prepaid-noanswer								Ce numéro ne répond pas...
 
-
-"prepaid-enter-dest"							Entrez le numéro que vous souhaitez appeler et appuyez ensuite 
+prepaid-enter-dest								Entrez le numéro que vous souhaitez appeler et appuyez ensuite 
 												sur la touche dièse...
 prepaid-enter-dest-europe										Entrez le numéro que vous souhaitez appeler précédé par 00 
 												et du prefix pays et finalisé avec la touche dièse...
