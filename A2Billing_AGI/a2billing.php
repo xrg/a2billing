@@ -221,7 +221,7 @@ if ($mode == 'standard'){
 				}
 				
 				if ($A2B->agiconfig['ivr_voucher']==1){
-					$res_dtmf = $agi->get_data('refill_card_with_voucher', 2000, 1);
+					$res_dtmf = $agi->get_data('prepaid-refill_card_with_voucher', 5000, 1);
 					$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "RES REFILL CARD VOUCHER DTMF : ".$res_dtmf ["result"]);
 					$A2B-> ivr_voucher = $res_dtmf ["result"];
 					if ((isset($A2B-> ivr_voucher)) && ($A2B-> ivr_voucher == $A2B->agiconfig['ivr_voucher_prefixe']))

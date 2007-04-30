@@ -1,4 +1,5 @@
 
+
 ---------------------------  MAIN --------------------------
 prepaid-menulang 								press 1 for English, pulsa 2 para el español, Pressez 3 pour Français
 
@@ -19,10 +20,6 @@ prepaid-no-enough-credit-stop					sorry, you dont have enough credit
 prepaid-card-in-use								this card number is already used!
 
 prepaid-you-have								you have
-prepaid-dollar									dollar
-prepaid-dollars									dollars
-prepaid-euro									euro
-prepaid-euros									euros
 prepaid-cents									cents
 vm-and											and
 
@@ -41,59 +38,62 @@ prepaid-enter-dest								Please, enter the number you wish to call and then pre
 ? EUROPE
 												Please, enter the number you are calling starting with 00 and the prefix of the country you wish to call
 												and then press the pound key...
-prepaid-enter-number-u-calling-1-or-011.wav				
-				Please, enter the number you are calling starting for 1 for domestic or 011 for international calls
-				and then press the pound key...
-"prepaid-dest-unreachable";						The number, you have dial, is currently unavailable... 
+prepaid-enter-number-u-calling-1-or-011.			
+												Please, enter the number you are calling starting for 1 for domestic or 011 for international calls
+												and then press the pound key...
+prepaid-dest-unreachable						The number, you have dial, is currently unavailable... 
 
 
 prepaid-you-have								you have
-prepaid-minute				-					minute
-prepaid-minutes				-					minutes
-prepaid-second				-					second
-prepaid-seconds				-					seconds
-
+prepaid-minute									minute
+prepaid-minutes									minutes
+prepaid-second									second
+prepaid-seconds									seconds
 
 prepaid-final									goodbye
 
 
+prepaid-dollar									dollar
+prepaid-dollars									dollars
+prepaid-euro									euro
+prepaid-euros									euros
+
+; Voucher
+prepaid-account_refill							your account has been refill of 
+prepaid-refill_card_with_voucher				if you want to refill your card with a voucher, please type 8 now
+prepaid-unknow_used_currencie					sorry unknow used currency
+prepaid-voucher_does_not_exist					the voucher does not exist
+prepaid-voucher_enter_number					please enter the voucher number and press the pound key
 
 
 ---------------------------  FRENCH --------------------------
 
-
-
 prepaid-welcome 								Bienvenue dans notre système de carte pré-payé....
-"prepaid-enter-card-num";   					Entrez le numéro de votre carte, suivit de la touche dièse
-"prepaid-enter-pin-number.wav"   				Entrez votre numero d'identification...
+prepaid-enter-card-num		   					Entrez le numéro de votre carte, suivit de la touche dièse
+prepaid-enter-pin-number		   				Entrez votre numero d'identification...
 
-"prepaid-no-card-entered"						Aucun numéro de carte n'a été introduit...
- "prepaid-invalid-digits";						numéros incorrects...
-"prepaid-auth-fail";							désolé, votre authentification a échoué... 
-"prepaid-zero-balance";							désolé, votre crédit est nul...
-"prepaid-card-expired";							désolé, votre carte a expiré...
+prepaid-no-card-entered							Aucun numéro de carte n'a été introduit...
+prepaid-invalid-digits							numéros incorrects...
+prepaid-auth-fail								désolé, votre authentification a échoué... 
+prepaid-zero-balance							désolé, votre crédit est nul...
+prepaid-card-expired							désolé, votre carte a expiré...
 prepaid-no-enough-credit						désolé, vous n'avez pas assez de crédit pour appeller ce numéro.
 prepaid-no-enough-credit-stop					désolé, vous n'avez pas assez de crédit...
-"prepaid-card-in-use";							Cette carte est déjà en cours d'utilisation
+prepaid-card-in-use								Cette carte est déjà en cours d'utilisation
 
-"prepaid-you-have",								vous avez
-prepaid-dollar									dollar
-prepaid-dollars									dollars
-? prepaid-euro									euro
-? prepaid-euros									euros
+prepaid-you-have								vous avez
 prepaid-cents									centimes
 vm-and											et
 
 
-prepaid-isbusy									Ce numéro est occupé...
-prepaid-noanswer								Ce numéro ne répond pas...
+prepaid-isbusy									Ce numéro est occupé.
+prepaid-noanswer								Ce numéro ne répond pas.
 
-prepaid-enter-dest								Entrez le numéro que vous souhaitez appeler et appuyez ensuite 
-												sur la touche dièse...
-prepaid-enter-dest-europe										Entrez le numéro que vous souhaitez appeler précédé par 00 
-												et du prefix pays et finalisé avec la touche dièse...
+prepaid-enter-dest								Composez le numéro que vous souhaitez appeler suivit de la touche dièse.
+prepaid-enter-dest-europe						Composez le numéro que vous souhaitez appeler précédé par 00 
+												et le prefix pays. Finalisez avec la touche dièse.
 				
-prepaid-enter-number-u-calling-1-or-011.wav		Entrez le numéro que vous souhaitez appeler précédé par 1 pour 
+prepaid-enter-number-u-calling-1-or-011			Entrez le numéro que vous souhaitez appeler précédé par 1 pour 
 												les appels domestiques et par 011 pour les appels international, 
 												suivit ensuite de la touche dièse...
 				
@@ -107,79 +107,88 @@ prepaid-seconds									secondes
 prepaid-final									Au revoir
 
 
+dollar											dollar
+dollars											dollars
+euro											euro
+euros											euros
+
+; Voucher
+prepaid-account_refill							Votre compte a été rechargé de 
+prepaid-refill_card_with_voucher				si vous désirez recharger votre carte avec un voucher, pressez la touche 8
+prepaid-unknow_used_currencie					Désolé, la device utilisé n'est pas reconnu
+prepaid-voucher_does_not_exist					Ce voucher n'existe pas
+prepaid-voucher_enter_number					Composez le numéro du voucher suivit de la touche dièse
 
 
 ---------------------------  SPANISH  --------------------------
 
-prepaid-welcome                                                Bienvenido al sistema de tarjeta de llamada
+prepaid-welcome                                 Bienvenido al sistema de tarjeta de llamada
 
-"prepaid-enter-card-num";                                      Introduzca los diez números de su tarjeta seguido de almohadilla
+prepaid-enter-card-num                          Introduzca los diez números de su tarjeta seguido de almohadilla
 
-"prepaid-enter-pin-number.wav"                                 Introduzca su código PIN
+prepaid-enter-pin-number						Introduzca su código PIN
 
-"prepaid-no-card-entered"                                      No se ha introducido ningún número de tarjeta
+prepaid-no-card-entered                       	No se ha introducido ningún número de tarjeta
 
-"prepaid-invalid-digits";                                      Números incorrectos
+prepaid-invalid-digits							Números incorrectos
 
-"prepaid-auth-fail";                                           No se ha podido verificar su número de tarjeta
+prepaid-auth-fail								No se ha podido verificar su número de tarjeta
 
-"prepaid-zero-balance";                                        Lo sentimos, no tiene crédito en su tarjeta
+prepaid-zero-balance							Lo sentimos, no tiene crédito en su tarjeta
 
-"prepaid-card-expired";                                        Lo sentimos, su tarjeta ha caducado
+prepaid-card-expired							Lo sentimos, su tarjeta ha caducado
 
-prepaid-no-enough-credit                                       Lo sentimos, no tiene suficientes créditos para esta llamada
+prepaid-no-enough-credit                        Lo sentimos, no tiene suficientes créditos para esta llamada
 
-prepaid-no-enough-credit-stop                                  Lo sentimos, no tiene suficientes créditos
+prepaid-no-enough-credit-stop                   Lo sentimos, no tiene suficientes créditos
 
-"prepaid-card-in-use";                                         ¡Su tarjeta está siendo utilizada en este momento!
+prepaid-card-in-use		                       	¡Su tarjeta está siendo utilizada en este momento!
 
-"prepaid-you-have",                                            tiene
+prepaid-you-have								tiene
 
-prepaid-dollar													dólar
-prepaid-dollars													dólares
-prepaid-euro                                          			euro
-? prepaid-euros                                 -              euros
-prepaid-cents                                           -      céntimos
-vm-and                                                         y
+prepaid-cents                                   céntimos
+vm-and                                          y
 
 
-prepaid-sipiax-press9                                          Si quiere llamar a un  SIP Friend o I A X Friend, marque 9
+prepaid-sipiax-press9                           Si quiere llamar a un  SIP Friend o I A X Friend, marque 9
 
-prepaid-sipiax-enternumber                                     Introduzca el número del  SIP Friend o I A X Friend que quiere llamar
-y marque almohadilla
+prepaid-sipiax-enternumber                      Introduzca el número del  SIP Friend o I A X Friend que quiere llamar y marque almohadilla
 
-prepaid-sipiax-num-nomatch                                     Lo sentimos, no hay ningún  SIP Friend o I A X Friend con ese número
+prepaid-sipiax-num-nomatch						Lo sentimos, no hay ningún  SIP Friend o I A X Friend con ese número
 
-"prepaid-isbusy"                                               El número marcado está comunicando...
+prepaid-isbusy									El número marcado está comunicando
 
-"prepaid-noanswer"                                             El número marcado no contesta
+prepaid-noanswer								El número marcado no contesta
 
-"prepaid-enter-dest"                                           Introduzca el número que desea llamar seguido de almohadilla
+prepaid-enter-dest								Introduzca el número que desea llamar seguido de almohadilla
 
-prepaid-enter-dest-europe										Marque 00, el prefijo del país y el número que desea llamar seguido de
-almohadilla.
+prepaid-enter-dest-europe						Marque 00, el prefijo del país y el número que desea llamar seguido de almohadilla
 
-prepaid-enter-number-u-calling-1-or-011.wav						Marque el número que quiere llamar comenzando por 1 si la llamada es
-doméstica, o comenzando por 011 para llamadas internacionales,
-seguido de almohadilla
+prepaid-enter-number-u-calling-1-or-011			Marque el número que quiere llamar comenzando por 1 si la llamada es doméstica, 
+												o comenzando por 011 para llamadas internacionales seguido de almohadilla
+												
+prepaid-dest-unreachable                        El número marcado no está disponible
 
-"prepaid-dest-unreachable";                                     El número marcado no está disponible...
+prepaid-you-have                                tiene
+prepaid-minute                          		minuto
+prepaid-minutes                         		minutos
+prepaid-second                          		segundo
+prepaid-seconds                         		segundos
 
+prepaid-final                                   Adiós
 
-prepaid-you-have                                                tiene
-prepaid-minute                          -                       minuto
-prepaid-minutes                         -                       minutos
-prepaid-second                          -                       segundo
-prepaid-seconds                         -                       segundos
-
-
-prepaid-final                                                   Adiós
-
-
+dollar											dólar
+dollars											dólares
+euro                                          	euro
+euros                                 			euros
 
 
-
-
+; Voucher
+prepaid-account_refill							your account has been refill of 
+prepaid-refill_card_with_voucher				if you want to refill your card with a voucher, please type 8 now
+prepaid-unknow_used_currencie					sorry unknow used currency
+prepaid-voucher_does_not_exist					the voucher does not exist
+prepaid-voucher_enter_number					please enter the voucher number and press the pound key
 
 
 
