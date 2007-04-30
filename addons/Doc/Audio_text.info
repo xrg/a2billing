@@ -192,7 +192,13 @@ prepaid-voucher_enter_number					please enter the voucher number and press the p
 
 
 
-
+---------------------------  Recorded by Allison ------------------------
+English :
+	prepaid-enter-pin-number.wav
+	prepaid-invalid-digits.wav
+	prepaid-no-card-entered.wav
+	prepaid-you-have.wav
+	
 
 
 ---------------------------  CURRENCY LIST  ------------------------
