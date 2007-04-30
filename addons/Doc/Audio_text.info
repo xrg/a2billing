@@ -117,7 +117,7 @@ prepaid-account_refill							Votre compte a été rechargé de
 prepaid-refill_card_with_voucher				si vous désirez recharger votre carte avec un voucher, pressez la touche 8
 prepaid-unknow_used_currencie					Désolé, la device utilisé n'est pas reconnu
 prepaid-voucher_does_not_exist					Ce voucher n'existe pas
-prepaid-voucher_enter_number					Composez le numéro du voucher suivit de la touche dièse
+prepaid-voucher_enter_number					Veuillez composer le numéro du voucher suivit de la touche dièse
 
 
 ---------------------------  SPANISH  --------------------------
