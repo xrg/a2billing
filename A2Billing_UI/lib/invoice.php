@@ -221,11 +221,6 @@ function EmailInvoice($id, $invoice_type = 1)
 		$nb_record = $instance_table -> Table_count ($DBHandle, $FG_TABLE_CLAUSE);	
 	}//end IF nodisplay
 	
-	$QUERY = "Select cover_startdate,cover_enddate  from cc_invoices where id ='$id'";
-	if (!$nodisplay){
-		$invoice_dates = $instance_table->SQLExec ($DBHandle, $QUERY);			
-	}//end IF nodisplay
-	
 	
 	// GROUP BY DESTINATION FOR THE INVOICE
 	$QUERY = "SELECT destination, sum(t1.sessiontime) AS calltime, 
@@ -246,14 +241,14 @@ function EmailInvoice($id, $invoice_type = 1)
 	// 1. Billing Type:: All DID Calls that have DID Type 0 and 2
 	if ($invoice_type == 1)
 	{
-		$QUERY = "SELECT t1.amount, t1.creationdate, t1.description, t3.countryname, t2.did ".
+		$QUERY = "SELECT t1.amount, t1.creationdate, t1.description, t3.countryname, t2.did, t1.currency ".
 		" FROM cc_charge t1 LEFT JOIN (cc_did t2, cc_country t3 ) ON ( t1.id_cc_did = t2.id AND t2.id_cc_country = t3.id ) ".
 		" WHERE (t1.chargetype = 1 OR t1.chargetype = 2) AND t1.id_cc_card = ".$cardid.
 		" AND t1.creationdate >(Select CASE  WHEN max(cover_enddate) IS NULL THEN '0001-01-01 01:00:00' ELSE max(cover_enddate) END from cc_invoices)";
 	}
 	else
 	{
-		$QUERY = "SELECT t1.amount, t1.creationdate, t1.description, t3.countryname, t2.did ".
+		$QUERY = "SELECT t1.amount, t1.creationdate, t1.description, t3.countryname, t2.did, t1.currency ".
 		" FROM cc_charge t1 LEFT JOIN (cc_did t2, cc_country t3 ) ON ( t1.id_cc_did = t2.id AND t2.id_cc_country = t3.id ) ".
 		" WHERE (t1.chargetype = 2 OR t1.chargetype = 1) AND t1.id_cc_card = ".$customerID.
 		" AND t1.creationdate > (Select cover_startdate  from cc_invoices where id ='$id') AND t1.creationdate <(Select cover_enddate from cc_invoices where id ='$id')";
@@ -319,10 +314,26 @@ function EmailInvoice($id, $invoice_type = 1)
 			$FG_TABLE_CLAUSE =" username='$entercustomer' ";
 		}
 	
-		$instance_table_customer = new Table("cc_card", "id,  username, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, activated");
+		$instance_table_customer = new Table("cc_card", "id,  username, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, activated, creationdate");
 		$info_customer = $instance_table_customer -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, "id", "ASC", null, null, null, null);
 	
 	}
+	
+	if($invoice_type == 1)
+	{
+		$QUERY = "Select CASE WHEN max(cover_enddate) is NULL THEN '0001-01-01 01:00:00' ELSE max(cover_enddate) END from cc_invoices WHERE cardid = ".$cardid;
+	}
+	else
+	{
+		$QUERY = "Select cover_enddate,cover_startdate  from cc_invoices where id ='$id'";
+	}
+	if (!$nodisplay){
+		$invoice_dates = $instance_table->SQLExec ($DBHandle, $QUERY);			
+		if ($invoice_dates[0][0] == '0001-01-01 01:00:00')
+		{
+			$invoice_dates[0][0] = $info_customer[0][13];
+		}
+	}//end IF nodisplay
 	?>
 	<?php
 
@@ -378,30 +389,30 @@ function EmailInvoice($id, $invoice_type = 1)
 		<tr>
 		  <td width="35%" ><font color="#003399"><?php echo gettext("Card Number")?>&nbsp; :</font></td>
 		  <td  ><font color="#003399"><?php echo $info_customer[0][1] ?></font> </td>
-		</tr>           
+		</tr>
+		<?php if ($invoice_type == 1){ ?>
 		<tr>
 		  <td width="35%" ><font color="#003399"><?php echo gettext("From Date")?>&nbsp; :</font></td>
-		  <td  ><font color="#003399"><?php echo display_dateonly($invoice_dates[0][0]);?> </font></td>
+		  <td><font color="#003399"><?php echo display_dateonly($invoice_dates[0][0]);?> </font></td>
+		</tr>  		
+		  <?php }else{ ?>
+		<tr>
+		 <td width="35%" ><font color="#003399"><?php echo gettext("From Date")?>&nbsp; :</font></td>
+		 <td  ><font color="#003399"><?php echo display_dateonly($invoice_dates[0][1]);?> </font></td>
 		</tr>
 		<tr>
 		  <td width="35%" ><font color="#003399"><?php echo gettext("To Date")?>&nbsp; :</font></td>
-		  <td  ><font color="#003399"><?php echo display_dateonly($invoice_dates[0][1]);?> </font></td>
-		</tr>
-		</table>
-		  
-		  
+		  <td><font color="#003399"><?php echo display_dateonly($invoice_dates[0][0]);?> </font></td>
+		</tr>  
+		  <?php } ?>
+		  </table>
 		  <table align="center" width="80%">
-		   <?php if($exporttype != "pdf"){?>
-		  <tr>
-		  <td align="right" colspan="4">&nbsp;	  
-		  </td>
-		  </tr>
-		  <?php }?>
-		 
-					<tr>
+		  	<?php 
+			if (is_array($list_total_destination) && count($list_total_destination)>0){
+			?>
+				<tr>
 					<td colspan="4" align="center"><font> <b><?php echo gettext("By Destination")?></b></font> </td>
-					</tr>
-	
+				</tr>
 				<tr bgcolor="#CCCCCC">
 				  <td  width="29%"><font color="#003399"><b><?php echo gettext("Destination")?> </b></font></td>
 				  <td width="38%" ><font color="#003399"><b><?php echo gettext("Duration")?></b></font> </td>
@@ -411,7 +422,7 @@ function EmailInvoice($id, $invoice_type = 1)
 				</tr>
 				<?php  		
 					$i=0;
-					if (is_array($list_total_destination) && count($list_total_destination)>0){
+					
 					foreach ($list_total_destination as $data){	
 					$i=($i+1)%2;		
 					$tmc = $data[1]/$data[3];
@@ -457,19 +468,7 @@ function EmailInvoice($id, $invoice_type = 1)
 				  <td width="38%" ><font color="#003399"><?php echo $totalminutes?></font></td>			  
 				  <td width="12%"  align="right"><font color="#003399"><?php echo $totalcall?> </font></td>
 				  <td  align="right" ><font color="#003399"><?php  display_2bill($totalcost - $totalcost_did) ?></font> </td>
-				</tr> 
-				<?php }else{
-				?>         
-				<tr >
-				  <td width="29%"><?php echo gettext("None!!!")?></td>
-				  <td width="38%">&nbsp;</td>
-				  
-				  <td width="12%">&nbsp; </td>
-				  <td >&nbsp; </td>
-				  
-				</tr>
-				<?php }?>
-				  
+				</tr> 			  
 				<tr >
 				  <td width="29%">&nbsp;</td>
 				  <td width="38%">&nbsp;</td>
@@ -478,7 +477,9 @@ function EmailInvoice($id, $invoice_type = 1)
 				  <td >&nbsp; </td>
 				  
 				</tr>			
+				<?php }?>
 				</table>
+				
 				<table align="center" width="80%">
 				<!-- Start Here ****************************************-->
 				<?php 
@@ -486,6 +487,8 @@ function EmailInvoice($id, $invoice_type = 1)
 					$totalcall=0;
 					$totalminutes=0;
 					$totalcost_day=0;
+					if (is_array($list_total_day) && count($list_total_day)>0)
+					{
 					foreach ($list_total_day as $data){	
 						if ($mmax < $data[1]) $mmax=$data[1];
 						$totalcall+=$data[3];
@@ -506,7 +509,7 @@ function EmailInvoice($id, $invoice_type = 1)
 				</tr>
 				<?php  		
 					$i=0;
-					if (is_array($list_total_day) && count($list_total_day)>0){
+					
 					foreach ($list_total_day as $data){	
 					$i=($i+1)%2;		
 					$tmc = $data[1]/$data[3];
@@ -557,17 +560,6 @@ function EmailInvoice($id, $invoice_type = 1)
 				  <td width="12%" align="right" ><font color="#003399"><?php echo $totalcall?></font> </td>
 				  <td width="21%" align="right" ><font color="#003399"><?php  display_2bill($totalcost_day) ?> </font></td>
 				</tr>        
-				<?php }else{
-				?>         
-				<tr >
-				  <td width="29%"><?php echo gettext("None!!!")?></td>
-				  <td width="38%">&nbsp;</td>
-				 
-				  <td width="12%">&nbsp; </td>
-				  <td width="21%">&nbsp; </td>
-				  
-				</tr>	
-				<?php }?>    
 				<tr >
 				  <td width="29%">&nbsp;</td>
 				  <td width="38%">&nbsp;</td>
@@ -576,7 +568,7 @@ function EmailInvoice($id, $invoice_type = 1)
 				  <td width="21%">&nbsp; </td>
 				  
 				</tr>				
-					
+					<?php }?>    
 				
 				<!-- END HERE ******************************************-->
 		 
@@ -607,7 +599,7 @@ function EmailInvoice($id, $invoice_type = 1)
 									
 						foreach ($list_total_did as $data)
 						{	
-							$totaldidcost = $totaldidcost + $data[0];					
+							$totaldidcost = $totaldidcost + convert_currency($currencies_list, $data[0], $data[5], BASE_CURRENCY);					
 				
 				?>
 				 <tr class="invoice_rows">
@@ -615,7 +607,7 @@ function EmailInvoice($id, $invoice_type = 1)
 				  <td width="13%" ><font color="#003399">&nbsp;<?php  echo $data[4]; ?></font> </td>
 				  <td width="14%" ><font color="#003399">&nbsp;<?php  echo $data[3]; ?> </font></td>
 				  <td width="41%" ><font color="#003399"><?php echo $data[2]?></font> </td>			  
-				  <td width="12%" align="right" ><font color="#003399"><?php  display_2bill($data[0]) ?></font></td>
+				  <td width="12%" align="right" ><font color="#003399"><?php  convert_currency($currencies_list, $data[0], $data[5], BASE_CURRENCY)." ".BASE_CURRENCY ?></font></td>
 				</tr>
 				 <?php  }	 	
 					$totalcost = $totalcost  + $totaldidcost; 
@@ -633,15 +625,13 @@ function EmailInvoice($id, $invoice_type = 1)
 				  <td width="14%" ><font color="#003399">&nbsp;</font> </td>
 				  <td width="41%" ><font color="#003399">&nbsp;</font> </td>			  
 				  <td width="12%" align="right" ><font color="#003399"><?php  display_2bill($totaldidcost) ?></font> </td>
-				</tr>     
-					   
-				<tr >
+				</tr>  
+				<tr>
 				  <td width="20%">&nbsp;</td>
 				  <td width="13%">&nbsp;</td>
 				  <td width="14%">&nbsp; </td>
 				  <td width="41%">&nbsp; </td>			 
 				  <td width="12%">&nbsp; </td>
-				  
 				</tr>
 			
 			</table>
@@ -744,7 +734,12 @@ function EmailInvoice($id, $invoice_type = 1)
 		 <td><img src="<?php echo Images_Path;?>/spacer.jpg" align="middle" height="30px"></td>
 		 </tr>
 		 <tr bgcolor="#CCCCCC" >
-		 <td  align="right" width="100%"><font color="#003399"><b><?php echo gettext("Grand Total")?> = <?php 
+		 <td  align="right" width="100%"><font color="#003399"><b><?php echo gettext("Total")?> = <?php 
+		
+		 display_2bill($totalcost);?>&nbsp;</b></font></td>
+		 </tr>
+		 <tr bgcolor="#CCCCCC" >
+		 <td  align="right" width="100%"><font color="#003399"><b><?php echo gettext("VAT")?> = <?php 
 		 $prvat = ($vat / 100) * $totalcost;
 		 display_2bill($prvat);?>&nbsp;</b></font></td>
 		 </tr>

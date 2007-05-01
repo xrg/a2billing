@@ -10,7 +10,7 @@ if (! has_rights (ACX_BILLING)){
 	die();	   
 }
 
-getpost_ifset(array('customer', 'posted', 'Period', 'cardid','exporttype','choose_billperiod','id','invoice_type'));
+getpost_ifset(array('customer', 'posted', 'Period', 'cardid','exporttype','choose_billperiod','id','invoice_type','payment_status'));
 
 if ($invoice_type == "")
 {
@@ -63,6 +63,12 @@ if($num > 0)
 else
 {
 	exit(gettext("No User found"));
+}
+
+if($payment_status != "")
+{
+	$QUERY = "UPDATE cc_invoices SET payment_status ='$payment_status' WHERE id='$id'"; 
+	$DBHandle -> Execute($QUERY);
 }
 
 // this variable specifie the debug type (0 => nothing, 1 => sql result, 2 => boucle checking, 3 other value checking)
@@ -165,20 +171,6 @@ if (DB_TYPE == "postgres"){
 }
 
 
-$lastdayofmonth = date("t", strtotime($tostatsmonth.'-01'));
-
-if ($Period=="Month"){
-		
-		
-		if ($frommonth && isset($fromstatsmonth)) $date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) >= $UNIX_TIMESTAMP('$fromstatsmonth-01')";
-		if ($tomonth && isset($tostatsmonth)) $date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) <= $UNIX_TIMESTAMP('".$tostatsmonth."-$lastdayofmonth 23:59:59')"; 
-		
-}else{
-		if ($fromday && isset($fromstatsday_sday) && isset($fromstatsmonth_sday) && isset($fromstatsmonth_shour) && isset($fromstatsmonth_smin) ) $date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) >= $UNIX_TIMESTAMP('$fromstatsmonth_sday-$fromstatsday_sday $fromstatsmonth_shour:$fromstatsmonth_smin')";
-		if ($today && isset($tostatsday_sday) && isset($tostatsmonth_sday) && isset($tostatsmonth_shour) && isset($tostatsmonth_smin)) $date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) <= $UNIX_TIMESTAMP('$tostatsmonth_sday-".sprintf("%02d",intval($tostatsday_sday))." $tostatsmonth_shour:$tostatsmonth_smin')";
-}
-
-  
 if (strpos($SQLcmd, 'WHERE') > 0) { 
 	$FG_TABLE_CLAUSE = substr($SQLcmd,6).$date_clause; 
 }elseif (strpos($date_clause, 'AND') > 0){
@@ -232,14 +224,14 @@ if (!$nodisplay)
 // 1. Billing Type:: All DID Calls that have DID Type 0 and 2
 if ($invoice_type == 1)
 {
-	$QUERY = "SELECT t1.amount, t1.creationdate, t1.description, t3.countryname, t2.did ".
+	$QUERY = "SELECT t1.amount, t1.creationdate, t1.description, t3.countryname, t2.did, t1.currency ".
 	" FROM cc_charge t1 LEFT JOIN (cc_did t2, cc_country t3 ) ON ( t1.id_cc_did = t2.id AND t2.id_cc_country = t3.id ) ".
 	" WHERE (t1.chargetype = 1 OR t1.chargetype = 2) AND t1.id_cc_card = ".$cardid.
 	" AND t1.creationdate >(Select CASE  WHEN max(cover_enddate) IS NULL THEN '0001-01-01 01:00:00' ELSE max(cover_enddate) END from cc_invoices)";
 }
 else
 {
-	$QUERY = "SELECT t1.amount, t1.creationdate, t1.description, t3.countryname, t2.did ".
+	$QUERY = "SELECT t1.amount, t1.creationdate, t1.description, t3.countryname, t2.did, t1.currency ".
 	" FROM cc_charge t1 LEFT JOIN (cc_did t2, cc_country t3 ) ON ( t1.id_cc_did = t2.id AND t2.id_cc_country = t3.id ) ".
 	" WHERE (t1.chargetype = 2 OR t1.chargetype = 1) AND t1.id_cc_card = ".$customerID.
 	" AND t1.creationdate > (Select cover_startdate  from cc_invoices where id ='$id') AND t1.creationdate <(Select cover_enddate from cc_invoices where id ='$id')";
@@ -316,11 +308,30 @@ if ((isset($customer)  &&  ($customer>0)) || (isset($entercustomer)  &&  ($enter
 		$FG_TABLE_CLAUSE =" username='$entercustomer' ";
 	}
 
-	$instance_table_customer = new Table("cc_card", "id,  username, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, activated");
+	$instance_table_customer = new Table("cc_card", "id,  username, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, activated, creationdate");
 	$info_customer = $instance_table_customer -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, "id", "ASC", null, null, null, null);
 	
-	// if (count($info_customer)>0){
+	if($invoice_type == 1)
+	{
+		$QUERY = "Select CASE WHEN max(cover_enddate) is NULL THEN '0001-01-01 01:00:00' ELSE max(cover_enddate) END from cc_invoices WHERE cardid = ".$cardid;
+	}
+	else
+	{
+		$QUERY = "Select cover_enddate, cover_startdate, payment_status  from cc_invoices where id ='$id'";
+	}
+	if (!$nodisplay){
+		$invoice_data = $instance_table->SQLExec ($DBHandle, $QUERY);			
+		if ($invoice_data[0][0] == '0001-01-01 01:00:00')
+		{
+			$invoice_data[0][0] = $info_customer[0][13];
+		}
+	}//end IF nodisplay
 }
+$payment_status_list = array();
+$payment_status_list["0"] = array( gettext("UNPAID"), "0");
+$payment_status_list["1"] = array( gettext("SENT-UNPAID"), "1");
+$payment_status_list["2"] = array( gettext("SENT-PAID"),  "2");
+$payment_status_list["3"] = array( gettext("PAID"),  "3");
 ?>
 
 <?php
@@ -363,10 +374,39 @@ if (is_array($list_total_destination) && count($list_total_destination)>0){
               <td width="35%" class="invoice_td"><?php echo gettext("Card Number");?>&nbsp;:</td>
               <td width="65%" class="invoice_td"><?php echo $info_customer[0][1] ?> </td>
             </tr>           
+			<?php 
+			if ($invoice_type == 1){
+			?>
             <tr>
               <td width="35%" class="invoice_td"><?php echo gettext("As of Date");?>&nbsp;:</td>
-              <td width="65%" class="invoice_td"><?php echo date('m-d-Y');?> </td>
+              <td width="65%" class="invoice_td"><?php echo display_dateonly($invoice_data[0][0]);?> </td>
             </tr>
+			<?php }else{ ?>
+			<tr>
+              <td width="35%" class="invoice_td"><?php echo gettext("From Date");?>&nbsp;:</td>
+              <td width="65%" class="invoice_td"><?php echo display_dateonly($invoice_data[0][1]);?> </td>
+            </tr>
+			<tr>
+              <td width="35%" class="invoice_td"><?php echo gettext("To Date");?>&nbsp;:</td>
+              <td width="65%" class="invoice_td"><?php echo display_dateonly($invoice_data[0][0]);?> </td>
+            </tr>
+			<tr>
+              <td width="35%" class="invoice_td"><?php echo gettext("Status");?>&nbsp;:</td>
+              <td width="65%" class="invoice_td" valign="middle"> <form  method="post" action="A2B_entity_invoice_detail.php?id=<?php echo $id;?>&invoice_type=<?php echo $invoice_type;?>">
+			  
+			  <select NAME="payment_status" size="1" class="form_input_select">
+						<?php							
+							foreach($payment_status_list as $data) {
+						?>
+							<option value='<?php echo $data[1] ?>' <?php if ($invoice_data[0][2]==$data[1]){?>selected<?php } ?>><?php echo $data[0]; ?>
+							</option>
+						<?php 	} ?>
+					</select>&nbsp;<input type="submit" class="form_input_button" name="submit" value="Update">
+					</form>
+					</td>
+            </tr>
+			
+			<?php } ?>
             <tr>
               <td >&nbsp;</td>
               <td >&nbsp;</td>
@@ -376,8 +416,14 @@ if (is_array($list_total_destination) && count($list_total_destination)>0){
       </tr>	   
       <tr>
         <td valign="top"><table width="100%" align="left" cellpadding="0" cellspacing="0">
-   				<tr>
+
+   				<?php 
+				if (is_array($list_total_destination) && count($list_total_destination)>0)
+				{ 
+				?>
+				<tr>
 				<td colspan="5" align="center"> <b><?php echo gettext("Calls by Destination");?></b></font> </td>
+
 				</tr>
 
 			<tr class="invoice_subheading">
@@ -389,8 +435,7 @@ if (is_array($list_total_destination) && count($list_total_destination)>0){
             </tr>
 			<?php  		
 				$i=0;
-				if (is_array($list_total_destination) && count($list_total_destination)>0)
-				{
+				
 				foreach ($list_total_destination as $data){	
 				$i=($i+1)%2;		
 				$tmc = $data[1]/$data[3];
@@ -439,27 +484,16 @@ if (is_array($list_total_destination) && count($list_total_destination)>0){
               <td width="39%" class="invoice_td"colspan="2"><?php echo $totalminutes?></td>			  
 			  <td width="11%" class="invoice_td"><?php echo $totalcall?> </td>
               <td width="21%" align="right" class="invoice_td"><?php  display_2bill($totalcost - $totalcost_did) ?> </td>
-            </tr>
-            <?php
-				}else{ 
-            ?>   
-            <tr >
-              <td width="29%"><?php echo gettext("None!!!");?></td>
-              <td width="19%">&nbsp;</td>
-              <td width="20%">&nbsp; </td>
-			  <td width="11%">&nbsp; </td>
-			  <td width="21%">&nbsp; </td>
-			  
-            </tr>
-            <?php } ?>         
-            <tr >
+            </tr>  
+            <tr>
               <td width="29%">&nbsp;</td>
               <td width="19%">&nbsp;</td>
               <td width="20%">&nbsp; </td>
 			  <td width="11%">&nbsp; </td>
 			  <td width="21%">&nbsp; </td>
 			  
-            </tr>			
+            </tr>		
+			<?php } ?>  
 			<!-- Start Here ****************************************-->
 			<?php			
 				
@@ -467,6 +501,8 @@ if (is_array($list_total_destination) && count($list_total_destination)>0){
 				$totalcall=0;
 				$totalminutes=0;
 				$totalcost_day=0;
+				if (is_array($list_total_day) && count($list_total_day)>0)
+				{
 				foreach ($list_total_day as $data){	
 					if ($mmax < $data[1]) $mmax=$data[1];
 					$totalcall+=$data[3];
@@ -486,8 +522,7 @@ if (is_array($list_total_destination) && count($list_total_destination)>0){
             </tr>
 			<?php  		
 				$i=0;
-				if (is_array($list_total_day) && count($list_total_day)>0)
-				{
+				
 				foreach ($list_total_day as $data){	
 				$i=($i+1)%2;		
 				$tmc = $data[1]/$data[3];
@@ -537,27 +572,15 @@ if (is_array($list_total_destination) && count($list_total_destination)>0){
               <td width="39%" class="invoice_td"colspan="2"><?php echo $totalminutes?></td>			  
 			  <td width="11%" class="invoice_td"><?php echo $totalcall?> </td>
               <td width="21%" align="right" class="invoice_td"><?php  display_2bill($totalcost_day) ?> </td>
-            </tr>
-            <?php }else{
-            ?>     
-             <tr >
-              <td width="29%"><?php echo gettext("None!!!")?></td>
-              <td width="19%">&nbsp;</td>
-              <td width="20%">&nbsp; </td>
-			  <td width="11%">&nbsp; </td>
-			  <td width="21%">&nbsp; </td>
-			  
-            </tr>
-            <?php }?>  
+            </tr>           
             <tr >
               <td width="29%">&nbsp;</td>
               <td width="19%">&nbsp;</td>
               <td width="20%">&nbsp; </td>
 			  <td width="11%">&nbsp; </td>
-			  <td width="21%">&nbsp; </td>
-			  
+			  <td width="21%">&nbsp; </td>			  
             </tr>
-				
+				 <?php }?> 
 				
 			
 			<!-- END HERE ******************************************-->
@@ -587,9 +610,9 @@ if (is_array($list_total_destination) && count($list_total_destination)>0){
 				$i=0;				
 				$totaldidcost = 0;
 				
-					foreach ($list_total_did as $data)
-					{	
-						$totaldidcost = $totaldidcost + $data[0];
+				foreach ($list_total_did as $data)
+				{	
+					$totaldidcost = $totaldidcost + convert_currency($currencies_list, $data[0], $data[5], BASE_CURRENCY);
 			
 			?>
 			 <tr class="invoice_rows">
@@ -597,7 +620,7 @@ if (is_array($list_total_destination) && count($list_total_destination)>0){
               <td width="12%" class="invoice_td">&nbsp;<?php echo $data[4]; ?></td>
               <td width="14%" class="invoice_td">&nbsp;<?php echo $data[3]; ?> </td>
   			  <td width="40%" class="invoice_td"><?php echo $data[2]?></td>			  			  
-              <td width="17%" align="right" class="invoice_td"><?php  display_2bill($data[0])?></td>
+              <td width="17%" align="right" class="invoice_td"><?php  echo convert_currency($currencies_list, $data[0], $data[5], BASE_CURRENCY)." ".BASE_CURRENCY?></td>
             </tr>
 			 <?php
 				}

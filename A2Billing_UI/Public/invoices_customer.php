@@ -317,9 +317,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 	<INPUT TYPE="hidden" NAME="posted" value=1>
 	<INPUT TYPE="hidden" NAME="current_page" value=0>	
 		<table  width="95%" border="0" cellspacing="1" cellpadding="2" align="center">
-			<tbody>
-			<?php  if ($_SESSION["pr_groupID"]==2 && is_numeric($_SESSION["pr_IDCust"])){ ?>
-			<?php  }else{ ?>
+			<tbody>			
 			<tr>
 				<td align="left" valign="top" class="bgcolor_004">
 					<font class="fontstyle_003">&nbsp;&nbsp;<?php echo gettext("CUSTOMERS");?></font>
@@ -332,7 +330,49 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 					</td>
 			    </tr></table></td>
 			</tr>			
-			<?php  }?>
+			<tr>
+        		<td class="bgcolor_004" align="left"><font face="verdana" size="1" color="#ffffff"><b>&nbsp;&nbsp;<?php echo gettext("OPTIONS");?></b></font> </td>
+
+				<td class="bgcolor_005" align="center" >
+
+				<table width="100%" border="0" cellspacing="0" cellpadding="0">
+				<tr>
+					<td width="20%"  class="fontstyle_searchoptions">
+						<?php echo gettext("RESULT");?> :  						
+				   </td>
+				   <td width="80%"  class="fontstyle_searchoptions">				   		
+					 <?php echo gettext("Minutes");?><input type="radio" NAME="resulttype" value="min" <?php if((!isset($resulttype))||($resulttype=="min")){?>checked<?php }?>> - <?php echo gettext("Seconds");?> <input type="radio" NAME="resulttype" value="sec" <?php if($resulttype=="sec"){?>checked<?php }?>>
+				  </td>
+				</tr>
+				<tr class="bgcolor_005">
+					<td  class="fontstyle_searchoptions">
+						<?php echo gettext("EXPORT FORMAT");?> : 
+				   </td>
+				   <td  class="fontstyle_searchoptions">
+				   <?php echo gettext("See Invoice in HTML");?><input type="radio" NAME="exporttype" value="html" <?php if((!isset($exporttype))||($exporttype=="html")){?>checked<?php }?>>
+					<?php echo gettext("or Export PDF");?> <input type="radio" NAME="exporttype" value="pdf" <?php if($exporttype=="pdf"){?>checked<?php }?>>
+				  </td>
+				</tr>
+				<tr>
+					<td  class="fontstyle_searchoptions">
+						<?php echo gettext("CURRENCY");?> :
+					</td>
+					<td  class="fontstyle_searchoptions">
+						
+					<select NAME="choose_currency" size="1" class="form_input_select">
+						<?php
+							$currencies_list = get_currencies();
+							foreach($currencies_list as $key => $cur_value) {
+						?>
+							<option value='<?php echo $key ?>' <?php if (($choose_currency==$key) || (!isset($choose_currency) && $key==strtoupper(BASE_CURRENCY))){?>selected<?php } ?>><?php echo $cur_value[1].' ('.$cur_value[2].')' ?>
+							</option>
+						<?php 	} ?>
+					</select>
+					</td>
+				</tr>
+				</table>
+	  			</td>
+    		</tr>
 			<tr>
 				<td class="bgcolor_004" align="left">
 					
@@ -354,9 +394,11 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 
 } ?>
 
+
+<?php  if($exporttype!="pdf"){ ?>
 <table width="20%" align="center">
 <tr>
-<td> <img src="pdf-invoices/images/companylogo.gif"/> </td>
+<td> <img src="<?php echo Images_Path;?>/companylogo.gif"/> </td>
 </tr>
 </table>
 
@@ -395,7 +437,7 @@ if ((is_array($list_total_day_charge) && count($list_total_day_charge)>0 ) || (i
             </tr>
             
         </table></td>
-      </tr>	   
+  </tr>	   
 	  <tr>
 		  <td valign="top">
 		  	<?php 
@@ -715,7 +757,7 @@ if ((is_array($list_total_day_charge) && count($list_total_day_charge)>0 ) || (i
 				  		echo gettext("No data found !!!");				  
 				  }//end_if
 				 ?>
-            </TABLE>
+        </TABLE>
 	  </td>
 	  </tr>
 	  <?php } ?>
@@ -730,7 +772,27 @@ if ((is_array($list_total_day_charge) && count($list_total_day_charge)>0 ) || (i
 	 <tr class="invoice_subheading">
 	 <td  align="right" class="invoice_td"><?php echo gettext("Grand Total");?> = <?php echo display_2bill($total_invoice_cost + $prvat);?>&nbsp;</td>
 	 </tr>
-	  
+	 <tr >
+	 <td>&nbsp;</td>
+	 </tr>
+	 <tr >
+	 <td  align="left" ><b><?php echo gettext("Status");?></b> :&nbsp; 
+	 <?php if($info_customer[0][12] == 't') {?>
+			  <img width="18" height="7" src="<?php echo Images_Path;?>/connected.gif">
+	 <?php }
+			else
+			{
+	 ?>
+			  <img width="18" height="7" src="<?php echo Images_Path;?>/terminated.gif">
+	<?php 
+			}
+	?>
+	 
+	 &nbsp;</td>
+	 </tr>
+	  <tr >
+	 <td>&nbsp;</td>
+	 </tr>
 </table>
 
 <br><br>
@@ -748,9 +810,361 @@ else
 </center>
 <?php 	
 }
+
+}else{ 
 ?>
 
+<?php if (INVOICE_IMAGE != ""){ ?>
+<table cellpadding="0"  align="center">
+<tr>
+<td align="center">
+<img src="<?php echo Images_Path;?>/asterisk01.jpg" align="middle">
+</td>
+</tr>
+</table>
+<?php } ?>
 
+<table cellspacing="0" cellpadding="2" align="center" width="80%" >
+     
+      <tr>
+        <td colspan="2" bgcolor="#FFFFCC"><font size="5" color="#FF0000"><?php echo gettext("Invoice Details"); ?></font></td>
+      </tr>
+      <tr>
+        <td valign="top" colspan="2"></td>
+      </tr>	 
+	<tr>
+	  <td width="35%">&nbsp; </td>
+	  <td >&nbsp; </td>
+	</tr>
+	<tr>
+	  <td width="35%" ><font color="#003399"><?php echo gettext("Name")?>&nbsp; :</font> </td>
+	  <td  ><font color="#003399"><?php echo $info_customer[0][3] ." ".$info_customer[0][2] ?></font></td>
+	</tr>
+	<tr>
+	  <td width="35%" ><font color="#003399"><?php echo gettext("Card Number")?>&nbsp; :</font></td>
+	  <td  ><font color="#003399"><?php echo $info_customer[0][1] ?></font> </td>
+	</tr>           
+	<tr>
+	  <td width="35%" ><font color="#003399"><?php echo gettext("From Date")?>&nbsp; :</font></td>
+	  <td  ><font color="#003399"><?php echo display_dateonly($invoice_dates[0][0]);?> </font></td>
+	</tr>
+</table>
+	<?php 	
+			if (is_array($list_total_day_charge) && count($list_total_day_charge)>0){				
+				$totalcharge=0;
+				$totalcost=0;
+				$total_extra_charges = 0;
+				foreach ($list_total_day_charge as $data){	
+					if ($mmax < $data[1]) $mmax=$data[1];
+					$totalcharge+=$data[2];
+					$totalcost+=$data[1];
+					$total_extra_charges += convert_currency($currencies_list,$data[1], $data[3], $selected_currency);
+				}
+				
+				?>
+	<table align="center" width="80%"> 
+	<tr>
+		<td colspan="4" align="center"><font> <b><?php echo gettext("Extra Charges")?></b></font> </td>
+	</tr>
+
+			<tr bgcolor="#CCCCCC">
+              <td  width="37%"><font color="#003399"><b><?php echo gettext("DATE")?> </b></font></td>
+              <td width="41%" ><font color="#003399"><b><?php echo gettext("NB CHARGE")?></b></font> </td>			  
+              <td   align="right"><font color="#003399"><b><?php echo gettext("AMOUNT")?> </b></font></td>
+            </tr>
+			<?php  		
+						$i=0;
+						foreach ($list_total_day_charge as $data){	
+						$i=($i+1)%2;		
+					?>
+            <tr class="invoice_rows">
+              <td width="37%" ><font color="#003399"><?php echo $data[0]?></font></td>
+              <td width="41%" ><font color="#003399"><?php echo $data[2]?> </font></td>			 
+              <td  align="right" ><font color="#003399"><?php echo convert_currency($currencies_list, $data[1], $data[3], $selected_currency)." ".$selected_currency ?></font></td>
+            </tr>
+			  <?php } ?> 
+			 <tr >
+              <td width="37%" >&nbsp;</td>
+              <td width="41%" >&nbsp;</td>              
+			  <td width="22%" >&nbsp; </td>		  
+            </tr>
+            <tr bgcolor="#CCCCCC">
+              <td width="37%" ><font color="#003399"><?php echo gettext("TOTAL");?> </font></td>
+              <td width="41%" ><font color="#003399"><?php echo $totalcharge; ?></font></td>  
+              <td align="right" ><font color="#003399"><?php  display_2bill($total_extra_charges); ?></font> </td>
+            </tr>			
+			
+            <tr >
+              <td width="37%">&nbsp;</td>
+              <td width="41%">&nbsp;</td>              
+			  <td width="22%">&nbsp; </td>			  
+            </tr>			
+</table>
+			<?php } ?>
+			
+			<!-- this is start of destination-->
+			  <?php 			
+				$mmax=0;
+				$totalcall=0;
+				$totalminutes=0;
+				$totalcost=0;
+				if (is_array($list_total_destination) && count($list_total_destination)>0){
+				foreach ($list_total_destination as $data){	
+					if ($mmax < $data[1]) $mmax=$data[1];
+					$totalcall+=$data[3];
+					$totalminutes+=$data[1];
+					$totalcost+=$data[2];
+				}
+				
+				?>
+			<table align="center" width="80%"> 
+	<tr>
+		<td colspan="4" align="center"><font> <b><?php echo gettext("CALLS PER DESTINATION");?></b></font> </td>
+	</tr>
+
+			<tr bgcolor="#CCCCCC">
+              <td  width="26%"><font color="#003399"><b><?php echo gettext("DESTINATION")?> </b></font></td>
+              <td width="28%" ><font color="#003399"><b><?php echo gettext("DURATION")?></b></font> </td>			  
+              <td   align="left"><font color="#003399"><b><?php echo gettext("CALL")?> </b></font></td>
+			  <td   align="right"><font color="#003399"><b><?php echo gettext("TOTALCOST")?> </b></font></td>
+            </tr>
+				<?php  		
+				$i=0;
+				foreach ($list_total_destination as $data){	
+				$i=($i+1)%2;		
+				$tmc = $data[1]/$data[3];
+				
+				if ((!isset($resulttype)) || ($resulttype=="min")){
+					$tmc = sprintf("%02d",intval($tmc/60)).":".sprintf("%02d",intval($tmc%60));		
+				}else{
+				
+					$tmc =intval($tmc);
+				}
+				
+				if ((!isset($resulttype)) || ($resulttype=="min")){
+						$minutes = sprintf("%02d",intval($data[1]/60)).":".sprintf("%02d",intval($data[1]%60));
+				}else{
+						$minutes = $data[1];
+				}
+				if ($mmax>0) 	$widthbar= intval(($data[1]/$mmax)*200); 
+				
+			?>
+            <tr class="invoice_rows">
+              <td width="26%" ><font color="#003399"><?php echo $data[0]?></font></td>
+              <td width="28%" ><font color="#003399"><?php echo $minutes ?> </font></td>
+			   <td width="30%" ><font color="#003399"><?php echo $data[3]?> </font></td>			 
+              <td  align="right" ><font color="#003399"><?php  display_2bill($data[2]) ?></font></td>
+            </tr>
+			  <?php 	 }	 	 	
+				
+				if ((!isset($resulttype)) || ($resulttype=="min")){
+					$total_tmc = sprintf("%02d",intval(($totalminutes/$totalcall)/60)).":".sprintf("%02d",intval(($totalminutes/$totalcall)%60));				
+					$totalminutes = sprintf("%02d",intval($totalminutes/60)).":".sprintf("%02d",intval($totalminutes%60));
+				}else{
+					$total_tmc = intval($totalminutes/$totalcall);			
+				}
+			 
+			 ?> 
+			 <tr >
+              <td width="26%" >&nbsp;</td>
+              <td width="28%" >&nbsp;</td>              
+			  <td width="30%" >&nbsp; </td>
+			  <td width="16%" >&nbsp; </td>		  
+            </tr>
+            <tr bgcolor="#CCCCCC">
+              <td width="26%" ><font color="#003399"><?php echo gettext("TOTAL");?> </font></td>
+              <td width="28%" ><font color="#003399"><?php echo $totalminutes; ?></font></td> 
+			  <td width="30%" ><font color="#003399"><?php echo $totalcall; ?></font></td>  
+              <td align="right" ><font color="#003399"><?php  display_2bill($totalcost); ?></font> </td>
+            </tr>			
+			
+            <tr >
+              <td width="26%">&nbsp;</td>
+              <td width="28%">&nbsp;</td>              
+			  <td width="30%">&nbsp; </td>			
+			   <td width="16%">&nbsp; </td>			  
+            </tr>			
+			</table>
+			<?php } ?>
+			<!-- THIS IS END of destination-->
+			<!-- This is start of per day-->
+			  <?php 
+	   $total_invoice_cost = $totalcost + $total_extra_charges;
+			if (is_array($list_total_day) && count($list_total_day)>0){
+			
+			$mmax=0;
+			$totalcall=0;
+			$totalminutes=0;
+			$totalcost=0;
+			foreach ($list_total_day as $data){	
+				if ($mmax < $data[1]) $mmax=$data[1];
+				$totalcall+=$data[3];
+				$totalminutes+=$data[1];
+				$totalcost+=$data[2];
+			}
+			
+			?>
+			<table align="center" width="80%"> 
+	<tr>
+		<td colspan="4" align="center"><font> <b><?php echo gettext("CALLS PER DAY");?></b></font> </td>
+	</tr>
+
+			<tr bgcolor="#CCCCCC">
+              <td  width="26%"><font color="#003399"><b><?php echo gettext("DESTINATION")?> </b></font></td>
+              <td width="28%" ><font color="#003399"><b><?php echo gettext("DURATION")?></b></font> </td>			  
+              <td   align="left"><font color="#003399"><b><?php echo gettext("CALL")?> </b></font></td>
+			  <td   align="right"><font color="#003399"><b><?php echo gettext("TOTALCOST")?> </b></font></td>
+            </tr>
+				<?php  		
+					$i=0;
+					foreach ($list_total_day as $data){	
+					$i=($i+1)%2;		
+					$tmc = $data[1]/$data[3];
+					
+					if ((!isset($resulttype)) || ($resulttype=="min")){
+						$tmc = sprintf("%02d",intval($tmc/60)).":".sprintf("%02d",intval($tmc%60));		
+					}else{
+					
+						$tmc =intval($tmc);
+					}
+					
+					if ((!isset($resulttype)) || ($resulttype=="min")){
+							$minutes = sprintf("%02d",intval($data[1]/60)).":".sprintf("%02d",intval($data[1]%60));
+					}else{
+							$minutes = $data[1];
+					}
+					if ($mmax>0) 	$widthbar= intval(($data[1]/$mmax)*200); 
+					
+				?>
+            <tr class="invoice_rows">
+              <td width="26%" ><font color="#003399"><?php echo $data[0]?></font></td>
+              <td width="28%" ><font color="#003399"><?php echo $minutes ?> </font></td>
+			   <td width="30%" ><font color="#003399"><?php echo $data[3]?> </font></td>			 
+              <td  align="right" ><font color="#003399"><?php  display_2bill($data[2]) ?></font></td>
+            </tr>
+			 <?php 	 }	 	 	
+					if ((!isset($resulttype)) || ($resulttype=="min")){
+						$total_tmc = sprintf("%02d",intval(($totalminutes/$totalcall)/60)).":".sprintf("%02d",intval(($totalminutes/$totalcall)%60));				
+						$totalminutes = sprintf("%02d",intval($totalminutes/60)).":".sprintf("%02d",intval($totalminutes%60));
+					}else{
+						$total_tmc = intval($totalminutes/$totalcall);			
+					}
+				 
+				 ?>       
+			 <tr >
+              <td width="26%" >&nbsp;</td>
+              <td width="28%" >&nbsp;</td>              
+			  <td width="30%" >&nbsp; </td>
+			  <td width="16%" >&nbsp; </td>		  
+            </tr>
+            <tr bgcolor="#CCCCCC">
+              <td width="26%" ><font color="#003399"><?php echo gettext("TOTAL");?> </font></td>
+              <td width="28%" ><font color="#003399"><?php echo $totalminutes; ?></font></td> 
+			  <td width="30%" ><font color="#003399"><?php echo $totalcall; ?></font></td>  
+              <td align="right" ><font color="#003399"><?php  display_2bill($totalcost); ?></font> </td>
+            </tr>			
+			
+            <tr >
+              <td width="26%">&nbsp;</td>
+              <td width="28%">&nbsp;</td>              
+			  <td width="30%">&nbsp; </td>			
+			   <td width="16%">&nbsp; </td>			  
+            </tr>			
+			</table>
+			<?php } ?>
+			<!-- THIS IS END of PER DAY-->
+			
+			<!-- This is start of calls list-->
+			 
+			<?php  if (is_array($list) && count($list)>0){ ?>
+			<table align="center" width="80%"> 
+			<tr>
+				<td colspan="4" align="center"><font> <b><?php echo gettext("Number of call");?> : <?php  if (is_array($list) && count($list)>0){ echo $nb_record; }else{echo "0";}?></b></font> </td>
+			</tr>
+
+			<tr bgcolor="#CCCCCC">
+              <td  width="7%"><font color="#003399"><b><?php echo gettext("nb")?> </b></font></td>
+			  <?php 
+				  	
+				  		for($i=0;$i<$FG_NB_TABLE_COL;$i++){ 
+					?>	
+              <td align="center"><font color="#003399"><b><?php echo $FG_TABLE_COL[$i][0]?> </b></font> </td>
+			  <?php } ?>		
+			                
+            </tr>
+				<?php
+				  	 $ligne_number=0;					 
+				  	 foreach ($list as $recordset){ 
+						 $ligne_number++;
+				?>
+            <tr class="invoice_rows">
+              <td align="<?php echo $FG_TABLE_COL[$i][3]?>"><font color="#003399"><?php  echo $ligne_number+$current_page*$FG_LIMITE_DISPLAY; ?></font></td>
+			  <?php for($i=0;$i<$FG_NB_TABLE_COL;$i++){ 
+							if ($FG_TABLE_COL[$i][6]=="lie"){
+								$instance_sub_table = new Table($FG_TABLE_COL[$i][7], $FG_TABLE_COL[$i][8]);
+								$sub_clause = str_replace("%id", $recordset[$i], $FG_TABLE_COL[$i][9]);
+								$select_list = $instance_sub_table -> Get_list ($DBHandle, $sub_clause, null, null, null, null, null, null);
+								$field_list_sun = split(',',$FG_TABLE_COL[$i][8]);
+								$record_display = $FG_TABLE_COL[$i][10];
+								for ($l=1;$l<=count($field_list_sun);$l++){													$record_display = str_replace("%$l", $select_list[0][$l-1], $record_display);	
+								}
+							}elseif ($FG_TABLE_COL[$i][6]=="list"){
+									$select_list = $FG_TABLE_COL[$i][7];
+									$record_display = $select_list[$recordset[$i]][0];
+							}else{
+									$record_display = $recordset[$i];
+							}
+							
+							if ( is_numeric($FG_TABLE_COL[$i][5]) && (strlen($record_display) > $FG_TABLE_COL[$i][5])  ){
+								$record_display = substr($record_display, 0, $FG_TABLE_COL[$i][5]-3)."";  
+							}
+							
+				 		 ?>
+              <td align="<?php echo $FG_TABLE_COL[$i][3]?>"><font color="#003399"><?php 
+						 if (isset ($FG_TABLE_COL[$i][11]) && strlen($FG_TABLE_COL[$i][11])>1){
+						 		call_user_func($FG_TABLE_COL[$i][11], $record_display);
+						 }else{
+						 		echo stripslashes($record_display);
+						 }						 
+						 ?> </font></td>
+						  <?php  } ?>
+			  
+            </tr>
+			<?php
+					 }//foreach ($list as $recordset)
+					 if ($ligne_number < $FG_LIMITE_DISPLAY)  $ligne_number_end=$ligne_number +2;
+					 while ($ligne_number < $ligne_number_end){
+					 	$ligne_number++;
+				?>			  
+			 <tr >
+			 <?php for($i=0;$i<$FG_NB_TABLE_COL;$i++){ 
+				 		 ?>
+              <td >&nbsp;</td>
+			  <?php  } ?>
+              <td >&nbsp;</td>              
+            </tr>			
+			</table>					
+			
+			<?php } 
+			}
+			?>
+			<!-- THIS IS END of CALLs LIST-->
+			<table align="center" width="80%">
+			<tr bgcolor="#CCCCCC">
+			<td width="100%" align="right"><font color="#003399"><b> <?php echo gettext("Total");?> = <?php echo display_2bill($total_invoice_cost);?>&nbsp;</font></b></td>
+			</tr>
+			<tr bgcolor="#CCCCCC">
+			  <td align="right"><font color="#003399"><b><?php echo gettext("VAT");?> = <?php 
+	 $prvat = ($info_customer[0][13] / 100) * $total_invoice_cost;
+	 display_2bill($prvat);?>&nbsp;</font></b></td>
+			  </tr>
+			<tr bgcolor="#CCCCCC"><font color="#003399"><b>
+			  <td align="right"><?php echo gettext("Grand Total");?> = <?php echo display_2bill($total_invoice_cost + $prvat);?>&nbsp;</font></b></td>
+			  </tr>
+			</table>
+			
+
+<?php }?>
 
 <?php  if($exporttype!="pdf"){ ?>
 

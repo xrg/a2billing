@@ -1,11 +1,11 @@
 <?php
-include ("../lib/defines.php");
-include ("../lib/module.access.php");
-include ("../lib/Form/Class.FormHandler.inc.php");
+include ("./lib/defines.php");
+include ("./lib/module.access.php");
+include ("./lib/Form/Class.FormHandler.inc.php");
 include ("./form_data/FG_var_view_invoice.inc");
-include ("../lib/smarty.php");
+include ("./lib/smarty.php");
 
-if (! has_rights (ACX_BILLING)){ 
+if (! has_rights (ACX_ACCESS)){ 
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");	   
 	die();	   
@@ -83,22 +83,7 @@ function Check()
 <input type="hidden" name="searchenabled" value="yes">
 
 <table class="bar-status" width="85%" border="0" cellspacing="1" cellpadding="2" align="center">
-			<tbody>
-			<?php  if ($_SESSION["pr_groupID"]==2 && is_numeric($_SESSION["pr_IDCust"])){ ?>
-			<?php  }else{ ?>
-			<tr>
-				<td align="left" valign="top" class="bgcolor_004">					
-					<font class="fontstyle_003">&nbsp;&nbsp;<?php echo gettext("CUSTOMERS");?></font>
-				</td>				
-				<td class="bgcolor_005" align="left">
-				<table width="100%" border="0" cellspacing="0" cellpadding="0"><tr>
-					<td class="fontstyle_searchoptions">
-						<?php echo gettext("Enter the cardnumber");?>: <INPUT TYPE="text" NAME="entercustomer" value="<?php echo $entercustomer?>" class="form_input_text">
-						<a href="#" onclick="window.open('A2B_entity_card.php?popup_select=2&popup_formname=searchform&popup_fieldname=entercustomer' , 'CardNumberSelection','scrollbars=1,width=550,height=330,top=20,left=100,scrollbars=1');"><img src="<?php echo Images_Path;?>/icon_arrow_orange.gif"></a>
-					</td>					
-				</tr></table></td>
-			</tr>			
-			<?php  }?>
+			<tbody>			
 			<tr>
         		<td class="bgcolor_002" align="left">					 
 					<font class="fontstyle_003"> &nbsp;&nbsp;<?php echo gettext("SELECT MONTH");?></font>

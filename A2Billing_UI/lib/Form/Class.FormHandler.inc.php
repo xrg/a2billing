@@ -1016,11 +1016,11 @@ class FormHandler{
 				}
 			}
 
-			if ( is_null ($this->FG_ORDER) || is_null($this->FG_SENS) ){
+			if ( $this->FG_ORDER == "" || $this->FG_SENS == "" ){
 				$this->FG_ORDER = $this -> FG_TABLE_DEFAULT_ORDER;
 				$this->FG_SENS  = $this -> FG_TABLE_DEFAULT_SENS;
 			}
-
+			
 			if ( $form_action == "list" ){
 				
 				$instance_table = new Table($this -> FG_TABLE_NAME, $this -> FG_COL_QUERY);

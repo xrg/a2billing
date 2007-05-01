@@ -1693,7 +1693,8 @@ CREATE TABLE cc_invoices (
     total 							NUMERIC(15,5) DEFAULT 0,
     invoicetype 					INTEGER,
     filename 						TEXT,
-	payment_date 					TIMESTAMP WITHOUT TIME ZONE
+	payment_date 					TIMESTAMP WITHOUT TIME ZONE,
+	payment_status 					INTEGER DEFAULT 0
 ) WITH OIDS;
 
 ALTER TABLE ONLY cc_invoices

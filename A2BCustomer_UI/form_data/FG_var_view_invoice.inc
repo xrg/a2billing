@@ -10,11 +10,8 @@ $HD_Form = new FormHandler("cc_card card, cc_invoices inv LEFT JOIN (SELECT * FR
 
 $HD_Form -> FG_TABLE_NAME = "cc_card card, cc_invoices inv LEFT JOIN (SELECT * FROM cc_invoice_history GROUP BY invoiceid HAVING Max(invoicesent_date)) as his ON inv.ID = his.invoiceid";
 
-$HD_Form -> FG_TABLE_CLAUSE = " card.id = inv.cardid ";
-if (isset($entercustomer)  &&  ($entercustomer>0))
-{
-	$HD_Form -> FG_TABLE_CLAUSE .= " AND card.username = '$entercustomer' ";	
-}
+$HD_Form -> FG_TABLE_CLAUSE = " card.id = inv.cardid AND his.invoicestatus = 1 AND card.id = ".$_SESSION["card_id"];
+
 
 $date_clause='';
 if (DB_TYPE == "postgres"){
@@ -55,24 +52,17 @@ $status_list = array();
 $status_list["0"] = array( gettext("Failed"), "0");
 $status_list["1"] = array( gettext("Successful"), "1");
 
-$payment_status_list = array();
-$payment_status_list["0"] = array( gettext("UNPAID"), "0");
-$payment_status_list["1"] = array( gettext("SENT-UNPAID"), "1");
-$payment_status_list["2"] = array( gettext("SENT-PAID"),  "2");
-$payment_status_list["3"] = array( gettext("PAID"),  "3");
-
 $HD_Form -> AddViewElement(gettext("ID"), "id", "4%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("CARDNUMBER"), "username", "4%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("INVOICEDATE"), "invoicecreated_date", "7%", "center", "sort", "22", "", "", "", "", "", "display_dateonly");
 $HD_Form -> AddViewElement(gettext("COVERSTART"), "cover_startdate", "7%", "center", "sort", "22", "", "", "", "", "", "display_dateonly");
 $HD_Form -> AddViewElement(gettext("COVEREND"), "cover_enddate", "7%", "center", "sort", "22", "", "", "", "", "", "display_dateonly");
 $HD_Form -> AddViewElement(gettext("SENTDATE"), "invoicesent_date", "7%", "center", "sort", "22", "", "", "", "", "", "display_dateonly");
-$HD_Form -> AddViewElement(gettext("STATUS"), "invoicestatus", "5%", "center", "sort", "", "list", $status_list);
-$HD_Form -> AddViewElement(gettext("PAYMENTSTATUS"), "payment_status", "5%", "center", "sort", "", "list", $payment_status_list);
+//$HD_Form -> AddViewElement(gettext("STATUS"), "invoicestatus", "5%", "center", "sort", "", "list", $status_list);
 $HD_Form -> AddViewElement(gettext("AMOUNT"), "total", "7%", "center", "sort");
 //$HD_Form -> AddViewElement(gettext("PAYMENT"), "payment", "10%", "center", "sort", "15", "lie", "cc_logpayment as t2, cc_invoices t3", "CASE WHEN SUM(t2.payment) IS NULL THEN 0 ELSE SUM(t2.payment) END", "t3.cardid = t2.card_id  AND t2.card_id='$cardid' AND t3.id='%id' AND t2.date >= t3.cover_startdate AND t2.date < t3.cover_enddate", "%1");
 
-$HD_Form -> FieldViewElement ('inv.id, card.username,invoicecreated_date, cover_startdate, cover_enddate, invoicesent_date, invoicestatus, inv.payment_status, total');
+$HD_Form -> FieldViewElement ('inv.id, card.username,invoicecreated_date, cover_startdate, cover_enddate, invoicesent_date, total');
 
 $HD_Form -> FG_ACTION_SIZE_COLUMN = '10%';
 $HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO ".strtoupper($HD_Form->FG_INSTANCE_NAME)." CREATED!");
@@ -84,7 +74,7 @@ $HD_Form -> FG_EDITION = false;
 $HD_Form -> FG_DELETION = false;
 
 	$HD_Form -> FG_OTHER_BUTTON1 = true;
-	$HD_Form -> FG_OTHER_BUTTON2 = true;
+	$HD_Form -> FG_OTHER_BUTTON2 = false;
 	
 	$HD_Form -> FG_OTHER_BUTTON1_LINK="A2B_entity_invoice_detail.php?id=|param|&invoice_type=2";
 	$HD_Form -> FG_OTHER_BUTTON2_LINK="A2B_entity_invoice_detail_pdf.php?section=2&id=|param|&cardid=$cardid&action=sendinvoice&exporttype=pdf&invoice_type=2";
