@@ -26,7 +26,7 @@ INSTALLATION GUIDE OF THE ASTERISK APPLICATION:
      chmod +x a2billing.php
 
 4. Copy the sounds files
-	cp -r sounds/* /var/lib/asterisk/sounds/.
+	cp -r addons/sounds/en/* /var/lib/asterisk/sounds/.
 	 	 
 5. Create a Database use  a2billing-pgsql-schema.psql for postgres
 
