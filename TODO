@@ -104,11 +104,10 @@ http://forum.asterisk2billing.org/viewtopic.php?t=1927
 we have : pixel.gif ; spacer.gif ; spacer.jpg
 
 
-#### VOUCHER
+#### IMPORT FEATURE WITH INTERVAL & RANGE
 ********************************************************************
-if you want to refill you card with a voucher please dial...
-and its not understandable
-
+Morten Isaksen <misak _at misak.dk>
+http://misak.dk/download/a2billing/CC_ratecard_import_analyse.php.diff
 
 
 #### INVOICE
@@ -220,17 +219,6 @@ and Create a Destination and Bind it with a Card
 Go to the Client Side You will see the Destination in the Card
 but when you will go to edit the Destination you will see the DIDGroup List is Not Loaded
 
-
-#### FEATURE : REVIEW NEW DID MANAGEMENT
-********************************************************************
-Reservation and release
-* To check
-
-
-
-######## CURRENCY MANAGEMENT IN CRONT SERVICE 
-********************************************************************
-Currency management in cront service
 
 
 #### RIGHT MANAGEMENT
