@@ -231,7 +231,7 @@ class A2Billing {
 			if ($this->CC_TESTING) echo $string_log;
 			
 			$this -> BUFFER .= $string_log;				
-			if (!$tobuffer || $this->CC_TESTING){													
+			if (!$tobuffer || $this->CC_TESTING){
 				error_log ($this -> BUFFER, 3, $this->log_file);
 				$this-> BUFFER = '';
 			}
@@ -281,9 +281,10 @@ class A2Billing {
 			echo gettext("Invalid card number lenght defined in configuration.");
 			exit;
 		}
-		if(!isset($this->config['global']['len_aliasnumber']))	$this->config['global']['len_aliasnumber'] = 15;
-		if(!isset($this->config['global']['len_voucher']))		$this->config['global']['len_voucher'] = 15;
-		if(!isset($this->config['global']['base_currency'])) 	$this->config['global']['base_currency'] = 'usd';
+		if(!isset($this->config['global']['len_aliasnumber']))		$this->config['global']['len_aliasnumber'] = 15;
+		if(!isset($this->config['global']['len_voucher']))			$this->config['global']['len_voucher'] = 15;
+		if(!isset($this->config['global']['base_currency'])) 		$this->config['global']['base_currency'] = 'usd';
+		if(!isset($this->config['global']['didbilling_daytopay'])) 	$this->config['global']['didbilling_daytopay'] = 5;
 		
 		// conf for the database connection
 		if(!isset($this->config['database']['hostname']))	$this->config['database']['hostname'] = 'localhost';
@@ -328,8 +329,7 @@ class A2Billing {
 		if(!isset($this->config['paypal']['currency_code']))	$this->config['paypal']['currency_code'] = 'USD';
 		if(!isset($this->config['paypal']['purchase_amount']))	$this->config['paypal']['purchase_amount'] = '5;10;15';
 		if(!isset($this->config['paypal']['paypal_fees']))   $this->config['paypal']['paypal_fees'] = '1';
-		if(!isset($this->config['paypal']['paypal_logfile']))	$this->config['paypal']['paypal_logfile'] = '/tmp/a2billing_paypal.log';
-	
+		
 		// Conf for Backup
 		if(!isset($this->config['backup']['backup_path']))	$this->config['backup']['backup_path'] ='/tmp';
 		if(!isset($this->config['backup']['gzip_exe']))		$this->config['backup']['gzip_exe'] ='/bin/gzip';
@@ -403,8 +403,8 @@ class A2Billing {
 		if(!isset($this->config['log-files']['cront_autorefill'])) $this->config['log-files']['cront_autorefill'] = '/tmp/cront_a2b_autorefill.log';
 		if(!isset($this->config['log-files']['cront_batch_process'])) $this->config['log-files']['cront_batch_process'] = '/tmp/cront_a2b_batch_process.log';
 		if(!isset($this->config['log-files']['cront_bill_diduse'])) $this->config['log-files']['cront_bill_diduse'] = '/tmp/cront_a2b_bill_diduse.log';
-		if(!isset($this->config['log-files']['cront_subscription_fee'])) $this->config['log-files']['cront_subscription_fee'] = '/tmp/cront_a2b_subscription_fee.log';
-		if(!isset($this->config['log-files']['cront_currencies_update'])) $this->config['log-files']['cront_currencies_update'] = '/tmp/cront_a2b_currencies_update.log';
+		if(!isset($this->config['log-files']['cront_subscriptionfee'])) $this->config['log-files']['cront_subscriptionfee'] = '/tmp/cront_a2b_subscriptionfee.log';
+		if(!isset($this->config['log-files']['cront_currency_update'])) $this->config['log-files']['cront_currency_update'] = '/tmp/cront_a2b_currency_update.log';
 		if(!isset($this->config['log-files']['cront_invoice'])) $this->config['log-files']['cront_invoice'] = '/tmp/cront_a2b_invoice.log';
 		
 		if(!isset($this->config['log-files']['paypal'])) $this->config['log-files']['paypal'] = '/tmp/a2billing_paypal.log';
@@ -418,6 +418,19 @@ class A2Billing {
 		{
 			$this -> log_file = $this -> config['log-files']['agi'];
 		}
+		define ("LOGFILE_CRONT_ALARM", 			isset($this->config['log-files']['cront_alarm'])			?$this->config['log-files']['cront_alarm']:null);
+		define ("LOGFILE_CRONT_AUTOREFILL", 	isset($this->config['log-files']['cront_autorefill'])		?$this->config['log-files']['cront_autorefill']:null);
+		define ("LOGFILE_CRONT_BATCH_PROCESS", 	isset($this->config['log-files']['cront_batch_process'])	?$this->config['log-files']['cront_batch_process']:null);
+		define ("LOGFILE_CRONT_BILL_DIDUSE", 	isset($this->config['log-files']['cront_bill_diduse'])		?$this->config['log-files']['cront_bill_diduse']:null);
+		define ("LOGFILE_CRONT_SUBSCRIPTIONFEE",isset($this->config['log-files']['cront_subscriptionfee'])	?$this->config['log-files']['cront_subscriptionfee']:null);
+		define ("LOGFILE_CRONT_CURRENCY_UPDATE",isset($this->config['log-files']['cront_currency_update'])	?$this->config['log-files']['cront_currency_update']:null);
+		define ("LOGFILE_CRONT_INVOICE",		isset($this->config['log-files']['cront_invoice'])			?$this->config['log-files']['cront_invoice']:null);
+		
+		define ("LOGFILE_API_ECOMMERCE", 		isset($this->config['log-files']['api_ecommerce'])			?$this->config['log-files']['api_ecommerce']:null);
+		define ("LOGFILE_API_CALLBACK", 		isset($this->config['log-files']['api_callback'])			?$this->config['log-files']['api_callback']:null);
+		define ("LOGFILE_PAYPAL", 				isset($this->config['log-files']['paypal'])					?$this->config['log-files']['paypal']:null);
+		define ("LOGFILE_EPAYMENT", 			isset($this->config['log-files']['epayment'])				?$this->config['log-files']['epayment']:null);
+		
 		
 		// conf for the AGI
 		if(!isset($this->config["agi-conf$idconfig"]['debug'])) 	$this->config["agi-conf$idconfig"]['debug'] = false;
@@ -695,7 +708,7 @@ class A2Billing {
 		// LOOKUP RATE : FIND A RATE FOR THIS DESTINATION
 		$resfindrate = $RateEngine->rate_engine_findrates($this, $this->destination,$this->tariff);
 		if ($resfindrate==0){
-			$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "ERROR ::> RateEngine didnt succeed to match the dialed number over the ratecard (Please check : id the ratecard is well create ; if the removeInter_Prefix is set according to your prefix in the ratecard ; if you hooked the ratecard to the tariffgroup)");
+			$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "ERROR ::> RateEngine didnt succeed to match the dialed number over the ratecard (Please check : id the ratecard is well create ; if the removeInter_Prefix is set according to your prefix in the ratecard ; if you hooked the ratecard to the Call Plan)");
 		}else{
 			$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "OK - RESFINDRATE::> ".$resfindrate);
 		}
@@ -1090,9 +1103,8 @@ class A2Billing {
      *  @return nothing
 	**/
 	function fct_say_balance ($agi, $credit, $fromvoucher){
-				
-		global $currencies_list;
 		
+		global $currencies_list;
 		
 		if (isset($this->agiconfig['agi_force_currency']) && strlen($this->agiconfig['agi_force_currency'])==3)
 		{ 
@@ -1120,7 +1132,7 @@ class A2Billing {
 		
 		// say 'you have x dollars and x cents'
 		if ($fromvoucher!=1)$agi-> stream_file('prepaid-you-have', '#');
-		else $agi-> stream_file('account_refill', '#');
+		else $agi-> stream_file('prepaid-account_refill', '#');
 		
 		if ($units==0 && $cents==0){					
 			$agi->say_number(0);					
@@ -1167,7 +1179,7 @@ class A2Billing {
 		$cents = intval($rate_cur);
 		$units = round(($rate_cur - $cents) * 1E4);
 		while ($units != 0 && $units % 10 == 0) $units /= 10;
-
+		
 		// say 'the rate is'
 		//$agi->stream_file('the-rate-is');
 
@@ -1187,30 +1199,32 @@ class A2Billing {
 	 *  @param object $voucher number
 		
      *  @return 1 if Ok ; -1 if error
-	**/	
-
+	**/
 	function refill_card_with_voucher ($agi, $try_num){
 		
 		global $currencies_list;
 		
 		$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[VOUCHER REFILL CARD LOG BEGIN]");
 		if (isset($this->agiconfig['agi_force_currency']) && strlen($this->agiconfig['agi_force_currency'])==3){ 
-			$this->currency=$this->agiconfig['agi_force_currency'];
+			$this -> currency = $this->agiconfig['agi_force_currency'];
 		}
 		
-		if (!isset($currencies_list[strtoupper($this->currency)][2]) || !is_numeric($currencies_list[strtoupper($this->currency)][2])) $mycur = 1;
-		else $mycur = $currencies_list[strtoupper($this->currency)][2];
-		
-		$res_dtmf = $agi->get_data('voucher_enter_number', 6000, $this->config['global']['len_voucher'], '#');
-		$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "RES DTMF : ".$res_dtmf ["result"]);
-		$this->vouchernumber = $res_dtmf ["result"];		
-		if ($this->vouchernumber<=0){
+		if (!isset($currencies_list[strtoupper($this->currency)][2]) || !is_numeric($currencies_list[strtoupper($this->currency)][2])){ 
+			$mycur = 1;
+		} else { 
+			$mycur = $currencies_list[strtoupper($this->currency)][2];
+		}
+		$timetowait = ($this->config['global']['len_voucher'] < 6) ? 8000 : 20000;
+		$res_dtmf = $agi->get_data('prepaid-voucher_enter_number', $timetowait, $this->config['global']['len_voucher'], '#');
+		$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "VOUCHERNUMBER RES DTMF : ".$res_dtmf ["result"]);
+		$this -> vouchernumber = $res_dtmf ["result"];
+		if ($this -> vouchernumber <= 0){
 			return -1;
 		}
 		
 		$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "VOUCHER NUMBER : ".$this->vouchernumber);
 		
-		$QUERY = "SELECT voucher, credit, activated, tag, currency, expirationdate FROM cc_voucher WHERE expirationdate >= CURRENT_TIMESTAMP AND activated='t' AND voucher='".$this->vouchernumber."'";
+		$QUERY = "SELECT voucher, credit, activated, tag, currency, expirationdate FROM cc_voucher WHERE expirationdate >= CURRENT_TIMESTAMP AND activated='t' AND voucher='".$this -> vouchernumber."'";
 		
 		$result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY);
 		$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[VOUCHER SELECT: $QUERY]\n".print_r($result,true));	
@@ -1220,7 +1234,7 @@ class A2Billing {
 			if (!isset ($currencies_list[strtoupper($result[0][4])][2]))
 			{
 				$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "System Error : No currency table complete !!!");
-				$agi-> stream_file('unknow_used_currencie', '#');				
+				$agi-> stream_file('prepaid-unknow_used_currencie', '#');				
 				return -1;
 			}
 			else
@@ -1250,6 +1264,7 @@ class A2Billing {
 			return -1;
 		}
 		$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[VOUCHER REFILL CARD LOG END]");
+		return 1;
 	}
 
 	
@@ -1606,7 +1621,7 @@ class A2Billing {
 						if ($vou_res==1){
 							return 0;
 						}else {
-							$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[NOTENOUGHCREDIT - refiil_card_withvoucher fail] ");
+							$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[NOTENOUGHCREDIT - refill_card_withvoucher fail] ");
 						}
 					}
 					if ($prompt == "prepaid-zero-balance" && $this->agiconfig['notenoughcredit_cardnumber']==1) { 
