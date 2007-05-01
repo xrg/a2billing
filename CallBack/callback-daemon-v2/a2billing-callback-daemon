@@ -22,7 +22,7 @@ my $dbport = "5432";
 my $pgoptions = "";
 my $pgtty = "";
 my $login = "postgres";
-my ($pwd, $pwdkey);
+my $pwd = "";
 my $dbtype = "pgsql"; # value : mysql or pgsql
 
 ######################### LOG FILE ########################
@@ -87,7 +87,7 @@ while(1) {
 	&func_callback_processing();
  
 	# wait for 5 secondes
-	sleep(1);
+	sleep(10);
 	
 	foreach (@childs) {
 		waitpid($_, 0);

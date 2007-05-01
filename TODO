@@ -4,6 +4,14 @@
 ********************************************************************************
 
 
+#### INVOICE IMPROVE SENDING
+********************************************************************
+when you send invoices, there is no "to pay" field
+they might paid just a part of last invoice
+so a "current balance to pay" would be probably usefull
+maybe they had $50 in january and $30 in february and they only paid $20 in february, 
+so in march invoice, they have $20 but they need to pay $20 + $50 + $30 - $20
+
 
 #### FEATURE IN VIEW FRAMEWORK TO SHOW A BUTTON ACCORDING TO THE VALUE OF ONE OF THE FIELD
 ********************************************************************
