@@ -5,29 +5,28 @@ use DBI;
 use POSIX qw(setsid);
 use vars qw($dbh);
 
-use lib '/var/lib/asterisk/commercetel/callback/daemon/callback-daemon/lib';
+use lib '/var/lib/asterisk/a2billing/callback-daemon/lib';
 use Asterisk::Manager;
 
 $|++;
 
 ######################### GLOBALS ########################
-my $path_daemon = "/var/lib/asterisk/commercetel/callback/daemon/callback-daemon/";
+my $path_daemon = "/var/lib/asterisk/a2billing/callback-daemon/";
 my $daemon = "CallBack-Daemon";
 
 
-
-
 ######################### DB PARAMETER ########################
-my $dbname = "ct_callback";
-my $pghost = "localhost";
-my $pgport = "5432";
+my $dbname = "a2billing";
+my $dbhost = "localhost";
+my $dbport = "5432";
 my $pgoptions = "";
 my $pgtty = "";
 my $login = "postgres";
 my ($pwd, $pwdkey);
+my $dbtype = "pgsql"; # value : mysql or pgsql
 
 ######################### LOG FILE ########################
-my $log_file = "/var/log/asterisk/agi/daemon-callback.log";
+my $log_file = "/var/log/asterisk/a2billing-daemon-callback.log";
 
 ######################### ASTERISK MANAGER ########################
 my $manager_host = "127.0.0.1";
@@ -54,7 +53,7 @@ if (($path_daemon eq "") or ($daemon eq ""))
 }
 
 
-#### SET SIGNAL HANDLER ###########
+#### SET SIGNAL HANDLER #######
 
 $SIG{'TERM'} = 'INT_handler';
 my $set_exit = 0;
@@ -79,7 +78,9 @@ print LOGFILE "$timestamp";
 print LOGFILE "[DAEMON START FORK]\n";
 close LOGFILE;
 
+###
 # our infinite loop
+###
 while(1) {
 
 	# check if there're changes
@@ -105,12 +106,11 @@ while(1) {
 }
 
 
-#
+###
 # Subroutine that daemonize this proccess
-#
-
+###
 sub daemonize {
-    #    chdir '/home/areski/bin'   or die "Can't chdir to /: $!";
+    # chdir '/home/areski/bin'   or die "Can't chdir to /: $!";
     chdir $_[0]   or die "Can't chdir to /: $!";
     open STDIN, '/dev/null'   or die "Can't read /dev/null: $!";
     open STDOUT, '>>/dev/null' or die "Can't write to /dev/null: $!";
@@ -123,10 +123,9 @@ sub daemonize {
 
 
 
-#
+###
 # This Subroutine check if there new emails to import
-#
-
+###
 sub func_callback_processing{ 
 
 	my ($direlem,$LINES);
@@ -144,17 +143,22 @@ sub func_callback_processing{
 	open(LOGFILE, ">>".$log_file)
 		|| warn "Could not open >> $log_file.\n";
 	
-	#$dbh ||= DBI->connect("dbi:Pg:dbname=$dbname;host=$pghost;port=$pgport", "$login", "$pwd");
-	$dbh ||= DBI->connect("dbi:Pg:dbname=$dbname;host=$pghost;port=$pgport", "$login");
+	if ($dbtype eq "mysql")
+	{
+		$dbh ||= DBI->connect("dbi:mysql:$dbname:$dbhost", "$login", "$pwd");		
+	}else{
+		$dbh ||= DBI->connect("dbi:Pg:dbname=$dbname;host=$dbhost;port=$dbport", "$login", "$pwd");
+		#$dbh ||= DBI->connect("dbi:Pg:dbname=$dbname;host=$dbhost;port=$dbport", "$login");
+	}
 	
 	if (!$dbh) {
 		$timestamp = &longfmt();
-		print LOGFILE "$timestamp";
+		print LOGFILE "[$timestamp]";
 		print LOGFILE "ERR: Couldn't open connection: ".$DBI::errstr."\n";
 		die "ERR: Couldn't open connection: ".$DBI::errstr."\n";
 	}
 	
-	$SQL = "SELECT id, uniqueid, entry_time, status, server_ip, num_attempt, last_attempt_time, manager_result, agi_result, callback_time, channel, exten, context, priority, application, data, timeout, callerid, variable, account, async, actionid, id_server_group FROM callback_spool WHERE status='PENDING' AND entry_time > (CURRENT_TIMESTAMP - INTERVAL '72 HOUR') AND (callback_time IS NULL OR callback_time <= CURRENT_TIMESTAMP) LIMIT 5 OFFSET 0";
+	$SQL = "SELECT id, uniqueid, entry_time, status, server_ip, num_attempt, last_attempt_time, manager_result, agi_result, callback_time, channel, exten, context, priority, application, data, timeout, callerid, variable, account, async, actionid, id_server_group FROM cc_callback_spool WHERE status='PENDING' AND entry_time > (CURRENT_TIMESTAMP - INTERVAL '24 HOUR') AND (callback_time IS NULL OR callback_time <= CURRENT_TIMESTAMP) LIMIT 5 OFFSET 0";
 	
 	$timestamp = &longfmt();
 	print LOGFILE "$timestamp $SQL";
@@ -172,7 +176,7 @@ sub func_callback_processing{
 		$async = $row[20]; $actionid = $row[21]; $id_server_group = $row[22];
 		
 		## UPDATE THE CALLBACK BEFORE FORK
-		$QUERY = "UPDATE callback_spool SET status='PROCESSING' WHERE id='$id'";
+		$QUERY = "UPDATE cc_callback_spool SET status='PROCESSING' WHERE id='$id'";
 		print LOGFILE $QUERY."\n";
 		$sth3 = $dbh->prepare($QUERY);
 		$sth3->execute();
@@ -188,37 +192,37 @@ sub func_callback_processing{
 			# CHILD
 			print LOGFILE "\n WE ARE IN THE CHILD PROCESS\n";
 		} else {
-			$QUERY = "UPDATE callback_spool SET status='PENDING' WHERE id='$id'";
+			$QUERY = "UPDATE cc_callback_spool SET status='PENDING' WHERE id='$id'";
 			print LOGFILE $QUERY."\n";
 			$sth3 = $dbh->prepare($QUERY);
 			$sth3 -> execute();
 			$sth3 -> finish;
 			die "couldnt fork: $!\n";
 		}
-	
+		
 		# Save existing handler.
 		 my $saved_warn_handler = $SIG{__WARN__};
 		# Suppress warnings.
 		$SIG{__WARN__} = sub {};
-	
+		
 		# OPEN THE DB CONNECTION FOR THE CHILD
 		my $dbh_child = $dbh->clone();
-
+		
 		# Restore saved handler.
 		$SIG{__WARN__} = $saved_warn_handler;
 		
 		$dbh->{InactiveDestroy} = 1;
 		undef $dbh;
-
-		 
-#		my $dbh_child ||= DBI->connect("dbi:Pg:dbname=$dbname;host=$pghost;port=$pgport", "$login");
+		
+		
+		# my $dbh_child ||= DBI->connect("dbi:Pg:dbname=$dbname;host=$pghost;port=$pgport", "$login");
 		
 		$id_server_group = 1;
 		@server_manager = &get_server($dbh_child, $id_server_group);		
 		
 		if (!(@server_manager)){
 			print LOGFILE " server_manager not find for the id_server_group= $id_server_group \n";
-			$QUERY = "UPDATE callback_spool SET status='ERROR', last_attempt_time=now() WHERE id='$id'";
+			$QUERY = "UPDATE cc_callback_spool SET status='ERROR', last_attempt_time=now() WHERE id='$id'";
 			print LOGFILE "\n".$QUERY."\n";
 			$sth2 = $dbh_child->prepare($QUERY);
 
@@ -233,26 +237,15 @@ sub func_callback_processing{
 		$astman->user($server_manager[3]);
 		$astman->secret($server_manager[4]);
 		$astman->host($server_manager[1]);		
-
+		
 		$status = $astman->connect;
 		if ( defined $status ){
 			$timestamp = &longfmt();
-			print LOGFILE "$timestamp\n";
+			print LOGFILE "[$timestamp]\n";
 			print LOGFILE " ::>>> $status \n";
 			
-			# my @res_manager = $astman->command("show channels");
-			# my @res_manager = $astman->sendcommand( Action => 'Command', 'Command' => 'show channels', 1 );
-			# print STDERR $astman->sendcommand( Action => 'Command', 'Command' => 'show channels', 2 );
-			# $res = $as->Originate ($channel, $exten, $context, $priority, $application, $data, $timeout, $callerid, $variable, $account, $async, $actionid);
-			# print_r ($res);
-			# if ($res['Response']=='Success'){ 
-			# 	update_status($DBHandle, $instance_table, $id, 'SENT', 'Success', $num_attempt);
-			# }else{ 
-			# 	update_status($DBHandle, $instance_table, $id, 'ERROR', addslashes($res['Response'].' - '.$res['Message']), $num_attempt);
-			# }
 			# Action: Originate
 			# Parameters: Channel, Exten, Context, Priority, Timeout, CallerID, Variable, Account, Application, Data
-
 			my @res_manager = $astman->sendcommand( Action => 'Originate',
                                        Channel => $channel,
                                        Exten => $exten,
@@ -265,36 +258,36 @@ sub func_callback_processing{
                                        Application => $application,
                                        Data => $data );
 			$timestamp = &longfmt();
-			print LOGFILE "$timestamp";
+			print LOGFILE "[$timestamp]";
 			print LOGFILE $res_manager[0] . ' - ' . $res_manager[1] . ' - ' . $res_manager[2] . ' - ' . $res_manager[3] . "\n";
 			
 			if (is_integer($num_attempt)){  $num_attempt++;
 			}else{$num_attempt = 0;}
 			
 			if ( $res_manager[1] =~ /^Success/ ){
-				print LOGFILE "$timestamp";
+				print LOGFILE "[$timestamp]\n";
 				print LOGFILE "\n ## SUCCESS CALLBACK -> ($channel, $exten, $context, $priority)\n";
-				$QUERY = "UPDATE callback_spool SET status='SENT', manager_result='".$res_manager[1].'-'.$res_manager[3]."', num_attempt='$num_attempt', last_attempt_time=now(), id_server='".$server_manager[0]."' WHERE id='$id'";
+				$QUERY = "UPDATE cc_callback_spool SET status='SENT', manager_result='".$res_manager[1].'-'.$res_manager[3]."', num_attempt='$num_attempt', last_attempt_time=now(), id_server='".$server_manager[0]."' WHERE id='$id'";
 				print LOGFILE $QUERY;
 				$sth2 = $dbh_child->prepare($QUERY);
 				$sth2->execute();
 				
-				$QUERY = $SQL = "UPDATE server_manager SET lasttime_used=current_timestamp WHERE id ='".$server_manager[0]."'";
-				print LOGFILE "$timestamp";
+				$QUERY = $SQL = "UPDATE cc_server_manager SET lasttime_used=current_timestamp WHERE id ='".$server_manager[0]."'";
+				print LOGFILE "[$timestamp]\n";
 				$sth2 = $dbh_child->prepare($QUERY);
 				$sth2->execute();
 				$sth2->finish;
 				
 			}else{
-				print LOGFILE "$timestamp";
+				print LOGFILE "[$timestamp]\n";
 				print LOGFILE "\n ## CALLBACK FAIL \n";
-				$QUERY = "UPDATE callback_spool SET status='ERROR', manager_result='".$res_manager[1].'-'.$res_manager[3]."', num_attempt='$num_attempt', last_attempt_time=now(), id_server='".$server_manager[0]."' WHERE id='$id'";
+				$QUERY = "UPDATE cc_callback_spool SET status='ERROR', manager_result='".$res_manager[1].'-'.$res_manager[3]."', num_attempt='$num_attempt', last_attempt_time=now(), id_server='".$server_manager[0]."' WHERE id='$id'";
 				print LOGFILE $QUERY;			
 				$sth2 = $dbh_child->prepare($QUERY);
 				$sth2->execute();
-
-				$QUERY = $SQL = "UPDATE server_manager SET lasttime_used=current_timestamp WHERE id ='".$server_manager[0]."'";
-				print LOGFILE "$timestamp";
+				
+				$QUERY = $SQL = "UPDATE cc_server_manager SET lasttime_used=current_timestamp WHERE id ='".$server_manager[0]."'";
+				print LOGFILE "[$timestamp]\n";
 				print LOGFILE $QUERY;
 				$sth2 = $dbh_child->prepare($QUERY);
 				$sth2->execute();
@@ -305,19 +298,19 @@ sub func_callback_processing{
 			$astman->disconnect;	
 		}else{
 			$timestamp = &longfmt();
-			print LOGFILE "$timestamp\n";
+			print LOGFILE "[$timestamp]\n";
 			print LOGFILE "## ERROR Cannot connect to the asterisk manager! \n Please check the manager configuration...\n";
 			
 			## UPDATE THE CALLBACK AFTER FORK
-			$QUERY = "UPDATE callback_spool SET status='ERROR' WHERE id='$id'";
+			$QUERY = "UPDATE cc_callback_spool SET status='ERROR' WHERE id='$id'";
 			print LOGFILE $QUERY."\n";
 			$sth2 = $dbh_child->prepare($QUERY);
 			$sth2->execute();
 			$sth2->finish;
 		}
-
+		
 		$timestamp = &longfmt();
-		print LOGFILE "$timestamp\n";
+		print LOGFILE "[$timestamp]\n";
 		print LOGFILE " [END SELECT] \n";
 		
 		# CLOSE THE DB CONNECTION OF THE CHILD
@@ -326,20 +319,19 @@ sub func_callback_processing{
 	} # end while fetchrow
 	
 	
-	
 	$sth->finish;
-	
 	$dbh->disconnect;
 	
 	# print LOGFILE "   ++++ \n";
 	close LOGFILE;
-
 }
+
+
 
 #
 # Get the less recently used manager server
-#
 # Return an array with the selected row
+#
 sub get_server{
 	my ($dbh) = shift(@_);
 	my ($id_server_group) = shift(@_);
@@ -348,9 +340,9 @@ sub get_server{
 	my @row;
 
 	if ($id_server_group > 0){
-		$SQL = "SELECT id, server_ip, manager_host, manager_username, manager_secret, lasttime_used FROM server_manager WHERE id_group='".$id_server_group."' ORDER BY lasttime_used ASC LIMIT 1 OFFSET 0";
+		$SQL = "SELECT id, server_ip, manager_host, manager_username, manager_secret, lasttime_used FROM cc_server_manager WHERE id_group='".$id_server_group."' ORDER BY lasttime_used ASC LIMIT 1 OFFSET 0";
 	}else{
-		$SQL = "SELECT id, server_ip, manager_host, manager_username, manager_secret, lasttime_used FROM server_manager ORDER BY lasttime_used ASC LIMIT 1 OFFSET 0";
+		$SQL = "SELECT id, server_ip, manager_host, manager_username, manager_secret, lasttime_used FROM cc_server_manager ORDER BY lasttime_used ASC LIMIT 1 OFFSET 0";
 	}
 	print LOGFILE " SQL =".$SQL." \n";
 	
@@ -361,17 +353,19 @@ sub get_server{
 	return @row;
 }
 
-
+###
 # Perl trim function to remove whitespace from the start and end of the string
-sub trim($)
-{
+###
+sub trim($) {
 	my $string = shift;
 	$string =~ s/^\s+//;
 	$string =~ s/\s+$//;
 	return $string;
 }
 
+###
 # check if a variable is an integer
+###
 sub is_integer { 
 	$_[0] =~ /^[+-]?\d+$/ 
 }
@@ -379,16 +373,14 @@ sub is_integer {
 
 sub insert0 {
 	my ($date) = shift;
-
 	if ($date < 10) {
 		return "0$date";
-	} 
-
+	}
 	return $date;
 }
 
-##
-## Long format: Custom datestring for the logfile
+###
+# Long format: Custom datestring for the logfile
 ###
 sub longfmt {
 	my ($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$iddst) = localtime(time);

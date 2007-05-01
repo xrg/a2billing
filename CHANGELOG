@@ -4,6 +4,67 @@
 						V1.2.4
 ********************************************************************
 
+
+#### INVOICES 
+********************************************************************
+View Invoices 
+	# show cardnumber
+	# Status appears to be empty for the invoice I had previously why ?
+	# if I click on Sent the sent date is not update
+	# Enter the cardnumber: -> this is the Card ID
+	
+	# Click on Details -> it will be good to see the Start date and the End Date there
+	# Details -> 
+		the Charges is not converted at all if I have a charge of 100 in EUR and my base currency is in usd
+		it will show 100 usd the amount is not converted
+		there is function in Misc.php for this
+	# Details -> the amount dont fit with what I have on the invoice page !!
+	# Details -> keeping some options like in invoices.php	
+		- RESULT :  	 Minutes - Second
+		- EXPORT FORMAT :  	 See Invoice in HTML  or Export PDF
+		- CURRENCY : selection
+	# Details -> Status :   	   	 Connected      DisConnected
+		only show Status : [the appropiated image ] Connected or DisConnected
+	
+Create Invoices 
+	# For card number: -> From card ID:
+	# When you create the invoice we need an option to choose if we send or not directly the mail
+	# INVOICE STATUS
+		UNPAID
+		SENT-UNPAID
+		SENT-PAID
+		PAID
+	
+	# A2B_entity_create_invoice.php no footer
+	
+
+Invoice_Customer
+	# Menu dont use _ -> Invoice Customer
+	
+	# Error page : Blank with "No User found"
+	Can we design good error pages !!
+	
+	# if there is no calls and no charge, only the logo appear :
+		there is nothing telling u that the invoice is empty!!
+		
+	# show the covert start date
+	
+	# keeping some options like in invoices.php
+		- RESULT :  	 Minutes - Second
+		- EXPORT FORMAT :  	 See Invoice in HTML  or Export PDF
+		- CURRENCY : selection
+
+CUSTOMER
+	# A2BCustomer_UI/invoices_customer.php
+		- if there is no calls and no charge, only the logo appear :
+		there is nothing telling u that the invoice is empty!!
+		- show the covert start date
+	# List of invoices
+		customer should be able to see his own history of invoices with their status
+		Status should be different here, only pay or unpay
+	
+	
+
 #### FEATURE : REVIEW NEW DID MANAGEMENT
 ********************************************************************
 Reservation and release
