@@ -107,36 +107,6 @@
 	</div>
 	{/if}
 	
-	{if ($ACXINVOICING > 0)}
-	<div class="toggle_menu">
-	<li><a href="#" class="toggle_menu" target="_self"><img id="img2" 
-	{if ($section =="13")}
-	
-	src="templates/{$SKIN_NAME}/images/minus.gif"
-	{else}
-	src="templates/{$SKIN_NAME}/images/plus.gif"
-	
-	{/if}
-	 onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("INVOICES");{/php}</strong></a></li>
-	<div class="tohide"
-	{if ($section =="13")}
-	
-	style="">
-	{else}
-	style="display:none;">	
-	{/if}
-		<ul>
-			<li><ul>
-				<li><a href="A2B_entity_invoices.php?atmenu=payment&stitle=Solde&section=13&invoicetype=billed">{php} echo gettext("View Billed Invoices");{/php}</a></li>
-				<li><a href="A2B_entity_view_invoice.php?atmenu=payment&stitle=Solde&section=13">{php} echo gettext("View Invoices");{/php}</a></li>
-				<li><a href="A2B_entity_create_invoice.php?atmenu=payment&stitle=Solde&section=13">{php} echo gettext("Create Invoices");{/php}</a></li>
-				<li><a href="A2B_entity_invoices.php?atmenu=payment&stitle=Solde&section=13&invoicetype=unbilled">{php} echo gettext("View UnBilled Invoices");{/php}</a></li>				
-			</ul></li>
-		</ul>
-	</div>
-	</div>
-	{/if}
-	
 	{if ($ACXRATECARD > 0)}
 	<div class="toggle_menu">
 	<li><a href="#" class="toggle_menu" target="_self"><img id="img3" 
@@ -306,12 +276,39 @@
 		<ul>
 			<li><ul>
 					<li><a href="call-log-customers.php?stitle=Call_Report_Customers&nodisplay=1&posted=1&section=6">{php} echo gettext("CDR Report");{/php}</a></li>
-					<li><a href="invoices.php?stitle=Invoice&nodisplay=1&section=6">{php} echo gettext("Invoice");{/php}</a></li>
-					<li><a href="invoices_customer.php?stitle=Invoice&nodisplay=1&section=6">{php} echo gettext("Invoices Customer");{/php}</a></li>
 					<li><a href="call-comp.php?section=6">{php} echo gettext("Calls Compare");{/php}</a></li>
 					<li><a href="call-last-month.php?section=6">{php} echo gettext("Monthly Traffic");{/php}</a></li>
 					<li><a href="call-daily-load.php?section=6">{php} echo gettext("Daily Load");{/php}</a></li>
 					<li><a href="call-count-reporting.php?stitle=Call_Reporting&nodisplay=1&posted=1&section=6">{php} echo gettext("Report");{/php}</a></li>
+			</ul></li>
+		</ul>
+	</div>
+	</div>
+	{/if}
+	
+	{if ($ACXINVOICING > 0)}
+	<div class="toggle_menu">
+	<li><a href="#" class="toggle_menu" target="_self"><img id="img2" 
+	{if ($section =="13")}
+	src="templates/{$SKIN_NAME}/images/minus.gif"
+	{else}
+	src="templates/{$SKIN_NAME}/images/plus.gif"
+	{/if}
+	 onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("INVOICES");{/php}</strong></a></li>
+	<div class="tohide"
+	{if ($section =="13")}
+	style="">
+	{else}
+	style="display:none;">	
+	{/if}
+		<ul>
+			<li><ul>
+				<li><a href="A2B_entity_view_invoice.php?atmenu=payment&stitle=Solde&section=13">{php} echo gettext("View Invoices");{/php}</a></li>
+				<li><a href="A2B_entity_create_invoice.php?atmenu=payment&stitle=Solde&section=13">{php} echo gettext("Create Invoices");{/php}</a></li>
+				<li><a href="invoices.php?stitle=Invoice&nodisplay=1&section=13">{php} echo gettext("Invoice");{/php}</a></li>
+				<li><a href="invoices_customer.php?stitle=Invoice&nodisplay=1&section=13">{php} echo gettext("Invoices Customer");{/php}</a></li>
+				<li><a href="A2B_entity_invoices.php?atmenu=payment&stitle=Solde&section=13&invoicetype=billed">{php} echo gettext("View Billed Invoices");{/php}</a></li>
+				<li><a href="A2B_entity_invoices.php?atmenu=payment&stitle=Solde&section=13&invoicetype=unbilled">{php} echo gettext("View UnBilled Invoices");{/php}</a></li>				
 			</ul></li>
 		</ul>
 	</div>

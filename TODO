@@ -4,6 +4,14 @@
 ********************************************************************************
 
 
+#### INVOICE FIX
+********************************************************************
+fix on A2Billing_UI/Public/invoices_customer.php ->  false cardnumber
+# Error page : Blank page with "No User found"
+need design good error pages !!
+Golden rule : never show a white page with an error message.
+
+
 #### INVOICE IMPROVE SENDING
 ********************************************************************
 when you send invoices, there is no "to pay" field
@@ -55,6 +63,8 @@ This could be developed in a later release to allow the customer to change some 
 
 
 User info Profile user can see any data for SIP registrations his device like sip-login an sip-password (locked to change) 
+
+like in voip
 
 
 #### Misc : spacer
