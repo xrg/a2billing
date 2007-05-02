@@ -24,12 +24,12 @@ if (!is_numeric($campaignval[0])){
 
 
 
- $fixfield[0]="Campaign (KEY)";	 
-	
-	 $field[0]=gettext("Phone Number");
-	 $field[1]=gettext("Name");
-	 
-	 
+$fixfield[0]="Campaign (KEY)";	 
+
+$field[0]=gettext("Phone Number");
+$field[1]=gettext("Name");
+
+
 $FG_DEBUG = 0;
 
 if (DB_TYPE == "mysql"){
@@ -100,7 +100,7 @@ if ($task=='upload'){
 					$ligne = str_replace($chaine1[$i], ' ', $ligneoriginal);
 				
 			 $ligne = str_replace(',', '.', $ligne);
-			 $val= split(';', $ligne);
+			 $val= split('[;:]', $ligne);
 			 $val[0]=str_replace('"', '', $val[0]); //DH
 			 $val[1]=str_replace('"', '', $val[1]); //DH			 
 			 $val[0]=str_replace("'", '', $val[0]); //DH
