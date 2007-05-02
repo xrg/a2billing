@@ -725,7 +725,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 
 <table width="20%" align="center">
 <tr>
-<td> <img src="pdf-invoices/images/companylogo.gif"/> </td>
+<td> <img src="<?php echo Images_Path."/".INVOICE_IMAGE;?>"/> </td>
 </tr>
 </table>
 
@@ -754,7 +754,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 <br><hr width="350"><br><br>
 <table width="100%">
 <tr>
-<?php if (SHOW_ICON_INVOICE){?><td align="left"><img src="pdf-invoices/images/desktop.gif"/> </td><?php }?>
+<?php if (SHOW_ICON_INVOICE){?><td align="left"><img src="<?php echo Images_Path;?>/desktop.jpg"/> </td><?php }?>
 <td align="center"  class="invoices_table4_td1"><font ><?php echo gettext("B I L L I N G &nbsp;&nbsp; S E R V I C E");?> : <?php  if (strlen($info_customer[0][2])>0) echo $info_customer[0][2]; ?> </font></td>
 </tr>
 </table>
@@ -858,7 +858,7 @@ foreach ($list_total_destination as $data){
 		<td align="right" class="bgcolor_026"><font class="fontstyle_006"><?php echo $data[0]?></font></td>
 		<td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right"><font class="fontstyle_006"><?php echo $minutes?> </font></td>
         <td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="left">
-        	<img src="pdf-invoices/images/sidenav-selected.gif" height="6" width="<?php echo $widthbar?>">
+        	<img src="<?php echo Images_Path;?>/sidenav-selected.jpg" height="6" width="<?php echo $widthbar?>">
 		</td>
         <td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right"><font class="fontstyle_006"><?php echo $data[3]?></font></td>
         
@@ -884,7 +884,8 @@ foreach ($list_total_destination as $data){
 <br><hr width="350"><br><br>
 <table width="100%">
 <tr>
-<?php if (SHOW_ICON_INVOICE){?><td align="left"><img src="pdf-invoices/images/stock_landline-phone.gif"/> </td><?php } ?>
+<?php if (SHOW_ICON_INVOICE){?><td align="left"><img src="<?php echo Images_Path;?>/stock_landline-phone.jpg"/> </td>
+<?php } ?>
 <td class="invoices_table4_td1"><font ><?php echo gettext("B I L L &nbsp;&nbsp;  E V O L U T I O N");?> </td>
 </tr>
 </table>
@@ -945,7 +946,7 @@ foreach ($list_total_day as $data){
 		<td align="right"  class="bgcolor_026"><font class="fontstyle_006"><?php echo $data[0]?></font></td>
 		<td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right"><font class="fontstyle_006"><?php echo $minutes?> </font></td>
         <td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="left">
-        	<img src="pdf-invoices/images/sidenav-selected.gif" height="6" width="<?php echo $widthbar?>">
+        	<img src="<?php echo Images_Path;?>/sidenav-selected.jpg" height="6" width="<?php echo $widthbar?>">
 		</td>
         <td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right"><font class="fontstyle_006"><?php echo $data[3]?></font></td>
 		<td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right"><font class="fontstyle_006"><?php  display_2bill($data[2]) ?></font></td>
@@ -974,7 +975,8 @@ foreach ($list_total_day as $data){
 
 <table width="100%">
 <tr>
-<?php if (SHOW_ICON_INVOICE){?> <td align="left"><img src="pdf-invoices/images/kfind.gif"/> </td> <?php } ?>
+<?php if (SHOW_ICON_INVOICE){?> <td align="left"><img src="<?php echo Images_Path;?>/kfind.jpg"/> </td> 
+<?php } ?>
 <td  class="invoices_table4_td1"><?php echo gettext("C A L L S &nbsp;&nbsp;  D E T A I L");?> </td>
 </tr>
 </table>
