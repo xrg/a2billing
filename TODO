@@ -25,37 +25,6 @@ is there anything in framework that support like this?
 Therefore I suspect a bug in the emailing function of the customer sign-up screen.
 
 
-#### INVOICES MORE FIXES
-********************************************************************
-
-1#
-in customer interface if I click on View invoice A2B_entity_view_invoice.php?section=4
-we only see the last invoice!!!
-
-SELECT inv.id, card.username,invoicecreated_date, cover_startdate, cover_enddate, invoicesent_date, total, inv.id FROM cc_card card, cc_invoices inv LEFT JOIN (SELECT * FROM cc_invoice_history GROUP BY invoiceid HAVING Max(invoicesent_date)) as his ON inv.ID = his.invoiceid WHERE card.id = inv.cardid AND his.invoicestatus = 1 AND card.id = 12 ORDER BY inv.invoicecreated_date DESC LIMIT 0,10
-
-I guess the error come from HAVING Max(invoicesent_date)
-
-2#
-we still have Invoices_Customer in the menu
-
-3#
-invoices_customer.php?section=4
-
-if I update the currency I go amount with lot of decimals : 27.284012932622 USD
-always show we 3 decimals
-
-
-4# in Admin side we need a new section INVOICES
-with all the features we have for invoicing.
-
-
-
-#### SHIFT LEFT : DEFINES.PHP
-********************************************************************
-SHIFT LEFT : DEFINES.PHP
-
-
 #### DID CRONT : MAIL
 ********************************************************************
 	$mail_user_content.="BALANCE REMAINING ".$mydids[5]-$mydids[3]."\n\n";
@@ -84,6 +53,10 @@ Put the User name and password under each link from the appropriate table.
  
 This could be developed in a later release to allow the customer to change some of the more advanced settings, unless of course you just re-use the "List IAX-Friend" code from the admin screens, which would be a very quick win. 
 
+
+User info Profile user can see any data for SIP registrations his device like sip-login an sip-password (locked to change) 
+
+
 #### Misc : spacer
 ********************************************************************
 we have : pixel.gif ; spacer.gif ; spacer.jpg
@@ -95,15 +68,6 @@ Morten Isaksen <misak _at misak.dk>
 http://misak.dk/download/a2billing/CC_ratecard_import_analyse.php.diff
 
 
-#### INVOICE
-********************************************************************
-The DID section is still in the invoice, the extra charge will take care of this
-The VAT is not in the invoice
-
-
-#### FEATURES
-********************************************************************
-User info Profile user can see any data for SIP registrations his device like sip-login an sip-password (locked to change) 
 
 
 
