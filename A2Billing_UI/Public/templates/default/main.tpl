@@ -110,7 +110,7 @@
 	{if ($ACXINVOICING > 0)}
 	<div class="toggle_menu">
 	<li><a href="#" class="toggle_menu" target="_self"><img id="img2" 
-	{if ($section =="12")}
+	{if ($section =="13")}
 	
 	src="templates/{$SKIN_NAME}/images/minus.gif"
 	{else}
@@ -119,7 +119,7 @@
 	{/if}
 	 onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("INVOICES");{/php}</strong></a></li>
 	<div class="tohide"
-	{if ($section =="12")}
+	{if ($section =="13")}
 	
 	style="">
 	{else}
@@ -127,10 +127,10 @@
 	{/if}
 		<ul>
 			<li><ul>
-				<li><a href="A2B_entity_invoices.php?atmenu=payment&stitle=Solde&section=12&invoicetype=billed">{php} echo gettext("View Billed Invoices");{/php}</a></li>
-				<li><a href="A2B_entity_view_invoice.php?atmenu=payment&stitle=Solde&section=12">{php} echo gettext("View Invoices");{/php}</a></li>
-				<li><a href="A2B_entity_create_invoice.php?atmenu=payment&stitle=Solde&section=12">{php} echo gettext("Create Invoices");{/php}</a></li>
-				<li><a href="A2B_entity_invoices.php?atmenu=payment&stitle=Solde&section=12&invoicetype=unbilled">{php} echo gettext("View UnBilled Invoices");{/php}</a></li>				
+				<li><a href="A2B_entity_invoices.php?atmenu=payment&stitle=Solde&section=13&invoicetype=billed">{php} echo gettext("View Billed Invoices");{/php}</a></li>
+				<li><a href="A2B_entity_view_invoice.php?atmenu=payment&stitle=Solde&section=13">{php} echo gettext("View Invoices");{/php}</a></li>
+				<li><a href="A2B_entity_create_invoice.php?atmenu=payment&stitle=Solde&section=13">{php} echo gettext("Create Invoices");{/php}</a></li>
+				<li><a href="A2B_entity_invoices.php?atmenu=payment&stitle=Solde&section=13&invoicetype=unbilled">{php} echo gettext("View UnBilled Invoices");{/php}</a></li>				
 			</ul></li>
 		</ul>
 	</div>
