@@ -25,13 +25,13 @@ define ("ACX_CALL_REPORT",   			16);		// 1 << 4
 define ("ACX_CRONT_SERVICE",   			32);		// 1 << 5
 define ("ACX_ADMINISTRATOR",   			64);		// 1 << 6
 define ("ACX_FILE_MANAGER",   			128);		// 1 << 7
-define ("ACX_MISC",   				256);		// 1 << 8
+define ("ACX_MISC",   				    256);		// 1 << 8
 define ("ACX_DID",   					512);		// 1 << 9
 define ("ACX_CALLBACK",					1024);		// 1 << 10
 define ("ACX_OUTBOUNDCID",				2048);		// 1 << 11
 define ("ACX_PACKAGEOFFER",				4096);		// 1 << 12
 define ("ACX_PREDICTIVE_DIALER",		8192);		// 1 << 13
-
+define ("ACX_INVOICING",				16384);		// 1 << 13
 
 
 header("Expires: Sat, Jan 01 2000 01:01:01 GMT");
@@ -86,7 +86,7 @@ if ((!session_is_registered('pr_login') || !session_is_registered('pr_password')
 		// if groupID egal 1, this user is a root
 		if ($return[3]==0){
 			$return = true;
-			$rights = 16383;	
+			$rights = 32767;	
 			
 			$is_admin = 1;
 			$pr_groupID = $return[3];
@@ -168,7 +168,6 @@ $ACXCALLBACK	= has_rights (ACX_CALLBACK);
 $ACXOUTBOUNDCID = has_rights (ACX_OUTBOUNDCID);
 $ACXPACKAGEOFFER = has_rights (ACX_PACKAGEOFFER);
 $ACXPREDICTIVEDIALER = has_rights (ACX_PREDICTIVE_DIALER);
-
- 
+$ACXINVOICING = has_rights (ACX_INVOICING);
 
 ?>

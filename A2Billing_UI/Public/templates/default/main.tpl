@@ -92,11 +92,7 @@
                 <li><a href="A2B_entity_transactions.php?atmenu=payment&stitle=Solde&section=2">{php} echo gettext("View Transactions");{/php}</a></li>				
 				<li><a href="A2B_entity_moneysituation.php?atmenu=moneysituation&stitle=Money_Situation&section=2">{php} echo gettext("View money situation");{/php}</a></li>
 				<li><a href="A2B_entity_payment.php?atmenu=payment&stitle=Solde&section=2">{php} echo gettext("View Payment");{/php}</a></li>
-				<li><a href="A2B_entity_payment.php?stitle=Payment_add&form_action=ask-add&section=2">{php} echo gettext("Add new Payment");{/php}</a></li>
-				<li><a href="A2B_entity_invoices.php?atmenu=payment&stitle=Solde&section=2&invoicetype=billed">{php} echo gettext("View Billed Invoices");{/php}</a></li>
-				<li><a href="A2B_entity_view_invoice.php?atmenu=payment&stitle=Solde&section=2">{php} echo gettext("View Invoices");{/php}</a></li>
-				<li><a href="A2B_entity_create_invoice.php?atmenu=payment&stitle=Solde&section=2">{php} echo gettext("Create Invoices");{/php}</a></li>
-				<li><a href="A2B_entity_invoices.php?atmenu=payment&stitle=Solde&section=2&invoicetype=unbilled">{php} echo gettext("View UnBilled Invoices");{/php}</a></li>
+				<li><a href="A2B_entity_payment.php?stitle=Payment_add&form_action=ask-add&section=2">{php} echo gettext("Add new Payment");{/php}</a></li>				
 				<li><a href="A2B_entity_voucher.php?stitle=Voucher&section=2">{php} echo gettext("List Voucher");{/php}</a></li>
 				<li><a href="A2B_entity_voucher.php?stitle=Voucher_add&form_action=ask-add&section=2">{php} echo gettext("Create Voucher");{/php}</a></li>
 				<li><a href="A2B_entity_voucher_multi.php?stitle=Voucher_Generate&section=2">{php} echo gettext("Generate Vouchers");{/php}</a></li>
@@ -105,6 +101,36 @@
 				<li><a href="A2B_entity_charge.php?form_action=ask-add&atmenu=charge&stitle=Charge&section=2">{php} echo gettext("Add Charge");{/php}</a></li>
 				<li><a href="A2B_entity_ecommerce.php?atmenu=ecommerce&stitle=E-Commerce&section=2">{php} echo gettext("List E-Product");{/php}</a></li>
 				<li><a href="A2B_entity_ecommerce.php?form_action=ask-add&atmenu=ecommerce&stitle=E-Commerce&section=2">{php} echo gettext("Add E-Product");{/php}</a></li>
+			</ul></li>
+		</ul>
+	</div>
+	</div>
+	{/if}
+	
+	{if ($ACXINVOICING > 0)}
+	<div class="toggle_menu">
+	<li><a href="#" class="toggle_menu" target="_self"><img id="img2" 
+	{if ($section =="12")}
+	
+	src="templates/{$SKIN_NAME}/images/minus.gif"
+	{else}
+	src="templates/{$SKIN_NAME}/images/plus.gif"
+	
+	{/if}
+	 onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("INVOICES");{/php}</strong></a></li>
+	<div class="tohide"
+	{if ($section =="12")}
+	
+	style="">
+	{else}
+	style="display:none;">	
+	{/if}
+		<ul>
+			<li><ul>
+				<li><a href="A2B_entity_invoices.php?atmenu=payment&stitle=Solde&section=12&invoicetype=billed">{php} echo gettext("View Billed Invoices");{/php}</a></li>
+				<li><a href="A2B_entity_view_invoice.php?atmenu=payment&stitle=Solde&section=12">{php} echo gettext("View Invoices");{/php}</a></li>
+				<li><a href="A2B_entity_create_invoice.php?atmenu=payment&stitle=Solde&section=12">{php} echo gettext("Create Invoices");{/php}</a></li>
+				<li><a href="A2B_entity_invoices.php?atmenu=payment&stitle=Solde&section=12&invoicetype=unbilled">{php} echo gettext("View UnBilled Invoices");{/php}</a></li>				
 			</ul></li>
 		</ul>
 	</div>
@@ -281,7 +307,7 @@
 			<li><ul>
 					<li><a href="call-log-customers.php?stitle=Call_Report_Customers&nodisplay=1&posted=1&section=6">{php} echo gettext("CDR Report");{/php}</a></li>
 					<li><a href="invoices.php?stitle=Invoice&nodisplay=1&section=6">{php} echo gettext("Invoice");{/php}</a></li>
-					<li><a href="invoices_customer.php?stitle=Invoice&nodisplay=1&section=6">{php} echo gettext("Invoice_Customer");{/php}</a></li>
+					<li><a href="invoices_customer.php?stitle=Invoice&nodisplay=1&section=6">{php} echo gettext("Invoices Customer");{/php}</a></li>
 					<li><a href="call-comp.php?section=6">{php} echo gettext("Calls Compare");{/php}</a></li>
 					<li><a href="call-last-month.php?section=6">{php} echo gettext("Monthly Traffic");{/php}</a></li>
 					<li><a href="call-daily-load.php?section=6">{php} echo gettext("Daily Load");{/php}</a></li>

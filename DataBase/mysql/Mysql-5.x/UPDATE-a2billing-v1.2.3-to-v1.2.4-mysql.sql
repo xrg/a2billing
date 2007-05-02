@@ -888,8 +888,8 @@ INSERT INTO cc_configuration (configuration_title, configuration_key, configurat
 
 ALTER TABLE cc_card ADD COLUMN id_subscription_fee INT DEFAULT 0, ADD COLUMN mac_addr CHAR(17) DEFAULT '00-00-00-00-00-00' NOT NULL;
 
-UPDATE cc_ui_authen SET perms = '16383' WHERE userid = '1';
-UPDATE cc_ui_authen SET perms = '16383' WHERE userid = '2';
+UPDATE cc_ui_authen SET perms = '32767' WHERE userid = '1';
+UPDATE cc_ui_authen SET perms = '32767' WHERE userid = '2';
 
 ALTER TABLE cc_invoices ADD COLUMN payment_date TIMESTAMP;
 ALTER TABLE cc_invoices ADD COLUMN payment_status INT DEFAULT 0;

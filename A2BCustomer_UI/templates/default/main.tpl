@@ -246,7 +246,7 @@ function imgidclick(imgID,divID, imgbase, imgchange)
 		<ul>
 		<li><ul>					   
 		   <li><a href="invoices.php?section=4"><strong>{php} echo gettext("Invoices");{/php}</strong></a></li>
-		   <li><a href="invoices_customer.php?section=4"><strong>{php} echo gettext("Invoices_Customer");{/php}</strong></a></li>
+		   <li><a href="invoices_customer.php?section=4"><strong>{php} echo gettext("Invoices Customer");{/php}</strong></a></li>
 		   <li><a href="A2B_entity_view_invoice.php?section=4"><strong>{php} echo gettext("View Invoices");{/php}</strong></a></li>		   
 		   <li><a href="A2B_entity_invoice_summary.php?section=4&invoice_type=2"><strong>{php} echo gettext("Billed Summary");{/php}</strong></a></li>
 		   

@@ -53,7 +53,7 @@ $smarty->assign("ACXCALLBACK", $ACXCALLBACK);
 $smarty->assign("ACXOUTBOUNDCID", $ACXOUTBOUNDCID);
 $smarty->assign("ACXPACKAGEOFFER", $ACXPACKAGEOFFER);
 $smarty->assign("ACXPREDICTIVEDIALER", $ACXPREDICTIVEDIALER);
-
+$smarty->assign("ACXINVOICING", $ACXINVOICING);
 
 
 if($_GET["section"]!="")

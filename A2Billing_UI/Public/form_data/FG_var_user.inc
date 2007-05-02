@@ -45,7 +45,7 @@ $right_list["11"] = array( gettext("CALL BACK"), "1024");
 $right_list["12"] = array( gettext("OUTBOUND CID"), "2048");
 $right_list["13"] = array( gettext("PACKAGE OFFER"), "4096");
 //$right_list["14"] = array( gettext("PREDICTIVE DIALER"), "8192");
-
+$right_list["14"] = array( gettext("INVOICES"), "16384");
 $len_right_list = count($right_list);
 
 

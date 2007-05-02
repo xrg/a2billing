@@ -72,6 +72,17 @@ SHIFT LEFT : DEFINES.PHP
 http://forum.asterisk2billing.org/viewtopic.php?t=1927
 
 
+#### FEATURE CUSTOMER UI : SIP/IAX INFO & partial edit
+********************************************************************
+What about link under account Info.
+ 
+VoIP settings
+          o List SIP
+          o List IAX
+
+Put the User name and password under each link from the appropriate table.
+ 
+This could be developed in a later release to allow the customer to change some of the more advanced settings, unless of course you just re-use the "List IAX-Friend" code from the admin screens, which would be a very quick win. 
 
 #### Misc : spacer
 ********************************************************************
