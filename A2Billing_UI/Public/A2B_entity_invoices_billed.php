@@ -79,7 +79,7 @@ function Check()
 	return true;
 }
 </script>
-<form name="searchform" id="searchform" method="post" action="A2B_entity_invoice_list.php?section=2&cardid=<?php echo $cardid;?>">
+<form name="searchform" id="searchform" method="post" action="A2B_entity_invoices_billed.php?cardid=<?php echo $cardid;?>">
 <input type="hidden" name="searchenabled" value="yes">
 <table width="60%" bordercolor="#CCCCCC" cellpadding="2" cellspacing="0" align="center" style="border:1px solid orange;">
 <tr>
