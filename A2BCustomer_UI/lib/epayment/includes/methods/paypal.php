@@ -15,6 +15,6 @@
 
 //  define('MODULE_PAYMENT_PAYPAL_CURRENCY', 'USD');
 //  define('MODULE_PAYMENT_PAYPAL_ID', 'info@areski.net');
-  define('STORE_NAME', 'A2billing.com');
+  
 
 ?>
