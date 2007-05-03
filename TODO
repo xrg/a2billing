@@ -4,6 +4,12 @@
 ********************************************************************************
 
 
+#### BUG : Batch update in Rates
+********************************************************************
+Batch update in Rates don't work correctly.
+hardy test this part
+
+
 #### INVOICE FIX
 ********************************************************************
 fix on A2Billing_UI/Public/invoices_customer.php ->  false cardnumber

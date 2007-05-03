@@ -2,15 +2,14 @@
 // Common includes
 include ("../lib/defines.php");
 include ("../lib/module.access.php");
-//include ("../lib/Class.Table.php");
 include ("../lib/smarty.php");
 
 set_time_limit(0);
 
 if (! has_rights (ACX_RATECARD)){ 
-	   Header ("HTTP/1.0 401 Unauthorized");
-	   Header ("Location: PP_error.php?c=accessdenied");	   
-	   die();	   
+	Header ("HTTP/1.0 401 Unauthorized");
+	Header ("Location: PP_error.php?c=accessdenied");	   
+	die();	   
 }
 
 getpost_ifset(array('tariffplan','trunk', 'search_sources', 'task', 'status','currencytype'));
@@ -45,39 +44,39 @@ if ($search_sources!='nochange'){
 //print_r($fieldtoimport);
 
 
- $fixfield[0]="IDTariffplan (KEY)";
-	 $fixfield[1]="Outbound Trunk";
-	
-	 $field[0]="Dialprefix";
-	 $field[1]="Destination Country";
-	 $field[2]="Rate Initial";
-	 
-	 /*$field[3]="Initblock";
-	 $field[4]="Billingblock";
-	 $field[5]="Connectcharge";
-	 $field[6]="Disconnectcharge";
-	 $field[7]="Stepchargea";
-	 $field[8]="Chargea";
-	 
-	 
-	 $field[9]="timechargea";
-	 $field[10]="billingblocka";
-	 
-	 $field[11]="stepchargeb";
-	 $field[12]="chargeb";
-	 $field[13]="timechargeb";
-	 $field[14]="billingblockb";
-	 
-	 $field[15]="stepchargec";
-	 $field[16]="chargec";
-	 $field[17]="timechargec";
-	 $field[18]="billingblockc";
-	 
-	 $field[19]="startdate";
-	 $field[20]="stopdate";
-	 
-	 $field[21]="starttime";
-	 $field[22]="endtime";*/
+$fixfield[0]="IDTariffplan (KEY)";
+$fixfield[1]="Outbound Trunk";
+
+$field[0]="Dialprefix";
+$field[1]="Destination Country";
+$field[2]="Rate Initial";
+
+/*$field[3]="Initblock";
+$field[4]="Billingblock";
+$field[5]="Connectcharge";
+$field[6]="Disconnectcharge";
+$field[7]="Stepchargea";
+$field[8]="Chargea";
+
+
+$field[9]="timechargea";
+$field[10]="billingblocka";
+
+$field[11]="stepchargeb";
+$field[12]="chargeb";
+$field[13]="timechargeb";
+$field[14]="billingblockb";
+
+$field[15]="stepchargec";
+$field[16]="chargec";
+$field[17]="timechargec";
+$field[18]="billingblockc";
+
+$field[19]="startdate";
+$field[20]="stopdate";
+
+$field[21]="starttime";
+$field[22]="endtime";*/
 
 //RECEIVE buyrate buyrateinitblock
 // rateinitial, buyrate, buyrateinitblock, buyrateincrement, initblock, billingblock, connectcharge, disconnectcharge, stepchargea, chargea, timechargea, billingblocka, stepchargeb, chargeb, timechargeb, billingblockb, stepchargec, chargec, timechargec, billingblockc, startdate, stopdate, starttime, endtime
@@ -127,141 +126,137 @@ if ($task=='upload'){
 		exit;
 	}
 	
-	    
-	 $fp = fopen($the_file,  "r");  
-	 if (!$fp){  /* THE FILE DOESN'T EXIST */ 
-		 echo  gettext('Error: Failed to open the file.'); 
-		 exit(); 
-	 } 
-		 
-	 $chaine1 = '"\'';
-         
- 	$nb_imported=0;
+	
+	$fp = fopen($the_file,  "r");  
+	if (!$fp){  /* THE FILE DOESN'T EXIST */ 
+		echo  gettext('Error: Failed to open the file.'); 
+		exit(); 
+	} 
+	
+	$chaine1 = '"\'';
+	
+	$nb_imported=0;
 	$nb_to_import=0;
 	$DBHandle  = DbConnect();
     
 	while (!feof($fp)){ 
-     		
-			//if ($nb_imported==1000) break;
-			$ligneoriginal = fgets($fp,4096);  /* On se dplace d'une ligne */   
-			$ligneoriginal = trim ($ligneoriginal);
-			$ligneoriginal = strtolower($ligneoriginal);
-			
-			
-			for ($i = 0; $i < strlen($chaine1); $i++)   
-				$ligne = str_replace($chaine1[$i], ' ', $ligneoriginal);
-			
-			$ligne = str_replace(',', '.', $ligne);
-			$val= split('[;:]', $ligne);
-			$val[0]=str_replace('"', '', $val[0]); //DH
-			$val[1]=str_replace('"', '', $val[1]); //DH
-			$val[2]=str_replace('"', '', $val[2]); //DH
-			$val[0]=str_replace("'", '', $val[0]); //DH
-			$val[1]=str_replace("'", '', $val[1]); //DH
-			$val[2]=str_replace("'", '', $val[2]); //DH
-			
-			if ($status!="ok"){ 
-				if($currencytype == "cent")
-				{
-					$val[2] = $val[2] / 100;
-				}
-				break;
-			}
-			//if ($val[2]!='' && strlen($val[2])>0){
-			if (substr($ligne,0,1)!='#' && substr($ligne,0,2)!='"#' && $val[2]!='' && strlen($val[2])>0){
-				
-				$FG_ADITION_SECOND_ADD_TABLE  = 'cc_ratecard';		
-				$FG_ADITION_SECOND_ADD_FIELDS = 'idtariffplan, id_trunk, dialprefix, destination, rateinitial'; //$fieldtoimport_sql				
-				if($currencytype == "cent")
-				{
+		
+		//if ($nb_imported==1000) break;
+		$ligneoriginal = fgets($fp,4096);  /* On se dplace d'une ligne */   
+		$ligneoriginal = trim ($ligneoriginal);
+		$ligneoriginal = strtolower($ligneoriginal);
+		
+		
+		for ($i = 0; $i < strlen($chaine1); $i++)   
+			$ligne = str_replace($chaine1[$i], ' ', $ligneoriginal);
+		
+		$ligne = str_replace(',', '.', $ligne);
+		$val= split('[;:]', $ligne);
+		$val[0]=str_replace('"', '', $val[0]); //DH
+		$val[1]=str_replace('"', '', $val[1]); //DH
+		$val[2]=str_replace('"', '', $val[2]); //DH
+		$val[0]=str_replace("'", '', $val[0]); //DH
+		$val[1]=str_replace("'", '', $val[1]); //DH
+		$val[2]=str_replace("'", '', $val[2]); //DH
+		
+		if ($status!="ok"){ 
+			if($currencytype == "cent")
+			{
 				$val[2] = $val[2] / 100;
-				}
+			}
+			break;
+		}
+		//if ($val[2]!='' && strlen($val[2])>0){
+		if (substr($ligne,0,1)!='#' && substr($ligne,0,2)!='"#' && $val[2]!='' && strlen($val[2])>0){
+			
+			$FG_ADITION_SECOND_ADD_TABLE  = 'cc_ratecard';		
+			$FG_ADITION_SECOND_ADD_FIELDS = 'idtariffplan, id_trunk, dialprefix, destination, rateinitial'; //$fieldtoimport_sql				
+			if($currencytype == "cent")
+			{
+			$val[2] = $val[2] / 100;
+			}
+			
+			$FG_ADITION_SECOND_ADD_VALUE  = "'".$tariffplanval[0]."', '".$trunkval[0]."', '".$val[0]."', '".$val[1]."', '".$val[2]."'"; //, '".$val[5]."', '".$val[6]."', '".$val[7]."', '".$val[8]."', '".$val[9]."', '".$val[10]."', '".$val[11]."', '".$val[12]."', '".$val[13]."', '".$val[14]."', '".$val[15]."', '".$val[16]."', '".$val[17]."', '".$val[18]."', '".$val[19]."', '".$val[20]."', '".$val[21]."'";
+			
+			
+			
+			for ($k=0;$k<count($fieldtoimport);$k++){
 				
-				$FG_ADITION_SECOND_ADD_VALUE  = "'".$tariffplanval[0]."', '".$trunkval[0]."', '".$val[0]."', '".$val[1]."', '".$val[2]."'"; //, '".$val[5]."', '".$val[6]."', '".$val[7]."', '".$val[8]."', '".$val[9]."', '".$val[10]."', '".$val[11]."', '".$val[12]."', '".$val[13]."', '".$val[14]."', '".$val[15]."', '".$val[16]."', '".$val[17]."', '".$val[18]."', '".$val[19]."', '".$val[20]."', '".$val[21]."'";
-				
-				
-				
-				
-				for ($k=0;$k<count($fieldtoimport);$k++){
+				if (!empty($val[$k+3]) || $val[$k+3]=='0')
+				{
+					$val[$k+3]=str_replace('"', '', $val[$k+3]); //DH
+					$val[$k+3]=str_replace("'", '', $val[$k+3]); //DH
 					
-					if (!empty($val[$k+3]) || $val[$k+3]=='0')
+					if ($fieldtoimport[$k]=="startdate" && ($val[$k+3]=='0' || $val[$k+3]=='')) continue;
+					if ($fieldtoimport[$k]=="stopdate" && ($val[$k+3]=='0' || $val[$k+3]=='')) continue;
+					
+					if ($fieldtoimport[$k]=="buyrate" || $fieldtoimport[$k]=="connectcharge" || $fieldtoimport[$k]=="disconnectcharge" )
 					{
-						$val[$k+3]=str_replace('"', '', $val[$k+3]); //DH
-						$val[$k+3]=str_replace("'", '', $val[$k+3]); //DH
-						
-						if ($fieldtoimport[$k]=="startdate" && ($val[$k+3]=='0' || $val[$k+3]=='')) continue;
-						if ($fieldtoimport[$k]=="stopdate" && ($val[$k+3]=='0' || $val[$k+3]=='')) continue;
-						
-						if ($fieldtoimport[$k]=="buyrate" || $fieldtoimport[$k]=="connectcharge" || $fieldtoimport[$k]=="disconnectcharge" )
+						if($currencytype == "cent")
 						{
-							if($currencytype == "cent")
-							{
-								$val[$k+3] = $val[$k+3] / 100;
-							}
-							
-						} 
-						$FG_ADITION_SECOND_ADD_FIELDS .= ', '.$fieldtoimport[$k];
-						
-						if (is_numeric($val[$k+3])) {
-							$FG_ADITION_SECOND_ADD_VALUE .= ", ".$val[$k+3]."";
-						}else{
-							$FG_ADITION_SECOND_ADD_VALUE .= ", '".$val[$k+3]."'";
+							$val[$k+3] = $val[$k+3] / 100;
 						}
 						
-						if ($fieldtoimport[$k]=="startdate") $find_stardate = 1;
-						if ($fieldtoimport[$k]=="stopdate") $find_stopdate = 1;
-					}
-				}
-				 
-				if ($find_stardate!=1){
-					$begin_date = date("Y");	
-					$end_date = date("-m-d H:i:s");					
-					$FG_ADITION_SECOND_ADD_FIELDS .= ', startdate';
-			 		$FG_ADITION_SECOND_ADD_VALUE .= ", '".$begin_date.$end_date."'";
-				}
-				 
-				if ($find_stopdate!=1){
-					$begin_date_plus = date("Y")+10;	
-					$end_date = date("-m-d H:i:s");					
-					$FG_ADITION_SECOND_ADD_FIELDS .= ', stopdate';
-			 		$FG_ADITION_SECOND_ADD_VALUE .= ", '".$begin_date_plus.$end_date."'";
-				}
+					} 
+					$FG_ADITION_SECOND_ADD_FIELDS .= ', '.$fieldtoimport[$k];
 					
-				$TT_QUERY .= "INSERT INTO $sp".$FG_ADITION_SECOND_ADD_TABLE."$sp (".$FG_ADITION_SECOND_ADD_FIELDS.") values (".trim ($FG_ADITION_SECOND_ADD_VALUE).") ";
-				
-				$nb_to_import++;
+					if (is_numeric($val[$k+3])) {
+						$FG_ADITION_SECOND_ADD_VALUE .= ", ".$val[$k+3]."";
+					}else{
+						$FG_ADITION_SECOND_ADD_VALUE .= ", '".$val[$k+3]."'";
+					}
+					
+					if ($fieldtoimport[$k]=="startdate") $find_stardate = 1;
+					if ($fieldtoimport[$k]=="stopdate") $find_stopdate = 1;
+				}
 			}
-			
-			if ($TT_QUERY!='' && strlen($TT_QUERY)>0 && ($nb_to_import==1) ){
-				
-				$nb_to_import=0;
-				$result_query =  $DBHandle -> Execute($TT_QUERY);
-				//echo "<br>TT_QUERY:".$TT_QUERY;
-				//echo "<br>ERROR:".$DBHandle -> Error;
-				//echo "<br>RESULT_QUERY:".$result_query;
-				
-				if ($result_query){ 
-					$nb_imported = $nb_imported + 1;
-				}else{$buffer_error.= $ligneoriginal.'<br/>';}
-				$TT_QUERY='';
+			 
+			if ($find_stardate!=1){
+				$begin_date = date("Y");	
+				$end_date = date("-m-d H:i:s");					
+				$FG_ADITION_SECOND_ADD_FIELDS .= ', startdate';
+				$FG_ADITION_SECOND_ADD_VALUE .= ", '".$begin_date.$end_date."'";
 			}
+			 
+			if ($find_stopdate!=1){
+				$begin_date_plus = date("Y")+10;	
+				$end_date = date("-m-d H:i:s");					
+				$FG_ADITION_SECOND_ADD_FIELDS .= ', stopdate';
+				$FG_ADITION_SECOND_ADD_VALUE .= ", '".$begin_date_plus.$end_date."'";
+			}
+				
+			$TT_QUERY .= "INSERT INTO $sp".$FG_ADITION_SECOND_ADD_TABLE."$sp (".$FG_ADITION_SECOND_ADD_FIELDS.") values (".trim ($FG_ADITION_SECOND_ADD_VALUE).") ";
 			
-		} // END WHILE EOF
+			$nb_to_import++;
+		}
 		
+		if ($TT_QUERY!='' && strlen($TT_QUERY)>0 && ($nb_to_import==1) ){
+			
+			$nb_to_import=0;
+			$result_query =  $DBHandle -> Execute($TT_QUERY);
+			//echo "<br>TT_QUERY:".$TT_QUERY;
+			//echo "<br>ERROR:".$DBHandle -> Error;
+			//echo "<br>RESULT_QUERY:".$result_query;
+			
+			if ($result_query){ 
+				$nb_imported = $nb_imported + 1;
+			}else{$buffer_error.= $ligneoriginal.'<br/>';}
+			$TT_QUERY='';
+		}
 		
-		if ($TT_QUERY!='' && strlen($TT_QUERY)>0 && ($nb_to_import>0) ){
-			$result_query = @ $DBHandle -> Execute($TT_QUERY);
-			if ($result_query) $nb_imported = $nb_imported + $nb_to_import;				
-		}		
+	} // END WHILE EOF
 	
 	
+	if ($TT_QUERY!='' && strlen($TT_QUERY)>0 && ($nb_to_import>0) ){
+		$result_query = @ $DBHandle -> Execute($TT_QUERY);
+		if ($result_query) $nb_imported = $nb_imported + $nb_to_import;				
+	}
 }
 
 $Temps2 = time();
 $Temps = $Temps2 - $Temps1;
 //echo "<br>".$Temps2;
 //echo "<br>Script Time :".$Temps."<br>";
-
 
 
 $smarty->display('main.tpl');	 
