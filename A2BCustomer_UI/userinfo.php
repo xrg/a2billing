@@ -122,7 +122,7 @@ $credit_cur = round($credit_cur,3);
 <table width="80%" align="center">
 	<tr>
 		<?php
-			$arr_purchase_amount = split(":", PAYPAL_PURCHASE_AMOUNT);
+			$arr_purchase_amount = split(":", EPAYMENT_PURCHASE_AMOUNT);
 			if (!is_array($arr_purchase_amount)) $arr_purchase_amount[0]=10;
 
 			foreach($arr_purchase_amount as $value){
