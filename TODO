@@ -3,6 +3,23 @@
                    			TODO LIST - SPECIFIC
 ********************************************************************************
 
+#### MoneyBooker bug
+********************************************************************
+http://myaccount.call-labs.com/checkout_process.php?sess_id=58u4ckvmu0e0eedn9k872v1od4
+Fatal error: Call to undefined method moneybookers::get_CurrentCurrency() in /var/www/html/svn/trunk/A2BCustomer_UI/lib/epayment/classes/payment.php on line 168
+
+#### ADD referial ID : Admin & customer (conf)
+********************************************************************
+https://www.moneybookers.com/app/?rid=811621
+
+
+#### check files 
+********************************************************************
+A2BCustomer_UI/lib/epayment/includes/methods/*
+
+define action url from conf file
+A2BCustomer_UI/lib/epayment/methods/moneybookers.php
+
 
 #### BUG : Batch update in Rates
 ********************************************************************

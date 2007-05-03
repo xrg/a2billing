@@ -1,14 +1,4 @@
 <?php
-/*
-  $Id: authorizenet.php,v 1.13 2003/01/03 17:25:43 thomasamoulton Exp $
-
-  osCommerce, Open Source E-Commerce Solutions
-  http://www.oscommerce.com
-
-  Copyright (c) 2002 osCommerce
-
-  Released under the GNU General Public License
-*/
 
   define('MODULE_PAYMENT_AUTHORIZENET_TEXT_TITLE', 'Authorize.net');
   define('MODULE_PAYMENT_AUTHORIZENET_TEXT_DESCRIPTION', 'Credit Card Test Info:<br><br>CC#: 4111111111111111<br>Expiry: Any');
