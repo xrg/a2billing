@@ -2,6 +2,7 @@
 include ("./lib/defines.php");
 include ("./lib/module.access.php");
 include ("./lib/Form/Class.FormHandler.inc.php");
+include ("./lib/epayment/includes/configure.php");
 include ("./lib/epayment/classes/payment.php");
 include ("./lib/epayment/classes/order.php");
 include ("./lib/epayment/classes/currencies.php");
@@ -9,7 +10,6 @@ include ("./lib/epayment/includes/general.php");
 include ("./lib/epayment/includes/html_output.php");
 include ("./lib/epayment/includes/sessions.php");
 include ("./lib/epayment/includes/loadconfiguration.php");
-include ("./lib/epayment/includes/configure.php");
 include ("./lib/smarty.php");
 
 //include ("./form_data/FG_var_callerid.inc");
@@ -19,7 +19,7 @@ if (! has_rights (ACX_ACCESS)){
 	Header ("Location: PP_error.php?c=accessdenied");
 	die();
 }
-getpost_ifset(array('amount'));
+getpost_ifset(array('amount','payment'));
 $HD_Form = new FormHandler("cc_payment_methods","payment_method");
 
 $HD_Form -> setDBHandler (DbConnect());
@@ -50,7 +50,7 @@ $smarty->display( 'main.tpl');
     $form_action_url = tep_href_link("checkout_process.php", '', 'SSL');
   }
 
-  echo tep_draw_form('checkout_confirmation.php', $form_action_url, 'post');
+echo tep_draw_form('checkout_confirmation.php', $form_action_url, 'post');
 
   if (is_array($payment_modules->modules)) {
     echo $payment_modules->process_button();
