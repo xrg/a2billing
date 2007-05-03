@@ -138,6 +138,11 @@
     * @access public
     */
     var $audio = NULL;
+    
+    /**
+     * Whether the channel is answered
+     */
+     var $is_answered = false;
 
    /**
     * Constructor
@@ -235,6 +240,7 @@
     */
     function answer()
     {
+      $this->is_answered=true;
       return $this->evaluate('ANSWER');
     }
 
@@ -335,7 +341,7 @@
       if(is_array($options)) $options = join('|', $options);
       return $this->evaluate("EXEC $application $options");
     }
-
+ 
    /**
     * Plays the given file and receives DTMF data.
     *
@@ -671,6 +677,11 @@
     * command but this command returns after the first DTMF digit has been pressed while GET DATA can accumulated any number of 
     * digits before returning.
     *
+    * @note Addition: if the channel is not answered yet, respect that!
+    * Note: If the channel is answered, it makes sense to allow skip
+    * of the message with '#'. If not, the audio path is one-way, so
+    * we cannot hear any sound. This fn behaves accordingly.
+    *
     * @example examples/ping.php Ping an IP address
     *
     * @link http://www.voip-info.org/wiki-stream+file
@@ -682,7 +693,11 @@
     */
     function stream_file($filename, $escape_digits='', $offset=0)
     {
-      return $this->evaluate("STREAM FILE $filename \"$escape_digits\" $offset");
+      if ($this->is_answered)
+        return $this->evaluate("STREAM FILE $filename \"$escape_digits\" $offset");
+      else {
+	return $this->evaluate("EXEC Playback $filename|noanswer");
+      }
     }
 
    /**

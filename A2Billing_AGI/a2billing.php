@@ -141,6 +141,7 @@
 			$status_channel=6;
 		}else{
 			if ($A2B->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '.'[NO ANSWER CALL]');
+			$agi->exec('Progress');
 			$status_channel=4;
 		}
 		
@@ -1055,8 +1056,7 @@
 										$A2B-> fct_say_balance ($agi, $A2B-> credit);
 									}
 									
-									$A2B -> write_log("[callingcard_acct_stop]");									
-																				
+									$A2B -> write_log("[callingcard_acct_stop]");
 					}
 					
 					$QUERY = "UPDATE cc_phonelist SET inuse='0', last_attempt=now(),  num_trials_done=num_trials_done+1, secondusedreal=secondusedreal+".$RateEngine->answeredtime." WHERE id='".$id_phonelist."'";
