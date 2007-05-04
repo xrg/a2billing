@@ -21,7 +21,7 @@ $language_list_r["0"] = array("en", "ENGLISH");
 $language_list_r["1"] = array("es", "SPANISH");
 $language_list_r["2"] = array("fr", "FRENCH");
 
-$callPlan_idlist = "1,2"; 
+$callPlan_idlist = isset($A2B->config["signup"]['callplan_id_list'])?$A2B->config["signup"]['callplan_id_list']:null; 
 
 $call_table = new Table("cc_tariffgroup", "tariffgroupname,id");
 $HD_Form -> setDBHandler (DbConnect());
