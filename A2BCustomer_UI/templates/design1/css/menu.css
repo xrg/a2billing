@@ -175,7 +175,7 @@ img.rss {
 }
 body {
 	background: #fff url("../images/body_back.gif") repeat-x;
-	//background: #fff url("../images/bg5.jpg") repeat-x;
+	/* background: #fff url("../images/bg5.jpg") repeat-x; */
 	background-attachment: fixed;
 }
 
@@ -197,7 +197,7 @@ body {
 	content: url("../images/key-point_tl.gif");
 }
 #nav {
-	background: #E0E9E9 url("../images/menu_back.gif") right repeat-y;
+	/* background: #E0E9E9 url("../images/menu_back.gif") right repeat-y; */
 }
 #nav:after {
 	display: block;

@@ -1221,8 +1221,8 @@ SPAN.errorText {
 	background: #fff;
 	padding: 1px;
 	font-family: Arial, Verdana;
-	//font-size: x-small;
-	//font-variant : small-caps;
+	/* font-size: x-small; */
+	/* font-variant : small-caps; */
 	border : 1px solid #BC2222;
 }
 .button_inside {
