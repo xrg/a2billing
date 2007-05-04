@@ -47,7 +47,7 @@ if ($tariff!="" || $tariff != null)
 	$callPlan_count = count($callPlan_list);	
 	for ($i=0; $i< $callPlan_count; $i++ )
 	{	
-		if($callPlan_list[$i][1] == $tariff)
+		if($callPlan_list[$i][1] == trim($tariff,"'"))
 		{
 			$flag_callplan = 1;
 		}		
@@ -57,7 +57,6 @@ if ($tariff!="" || $tariff != null)
 		exit("Invalid Call Plan Id");	
 	}	 
 }
-
 
 $currency_list = array();
 $currency_list_r = array();
@@ -326,7 +325,7 @@ $HD_Form ->FG_QUERY_ADITION_HIDDEN_VALUE  = "'$iax_account','$sip_account','$mye
 if(strlen($callPlan_idlist) == 1)
 {
 	$HD_Form ->FG_QUERY_ADITION_HIDDEN_FIELDS .= ", tariff";
-	$HD_Form ->FG_QUERY_ADITION_HIDDEN_VALUE .= ",'$mytariff'";
+	$HD_Form ->FG_QUERY_ADITION_HIDDEN_VALUE .= ", '$mytariff'";
 }
 if (DB_TYPE != "postgres"){
 	$FG_QUERY_ADITION_HIDDEN_FIELDS .= ", creationdate ";
