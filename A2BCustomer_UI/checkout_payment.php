@@ -26,11 +26,6 @@ getpost_ifset(array('amount','item_name','item_number','currency_code'));
 $HD_Form -> setDBHandler (DbConnect());
 $HD_Form -> init();
 
-$instance_table = new Table("cc_card", "username, id");
-	$param_update .= " credit = credit+'10'";
-	$FG_EDITION_CLAUSE = " id='$transaction_data[0][1]'";
-	$instance_table -> Update_table ($DBHandle, $param_update, $FG_EDITION_CLAUSE, $func_table = null);
-
 // #### HEADER SECTION
 $smarty->display( 'main.tpl');
 
