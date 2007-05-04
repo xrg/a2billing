@@ -138,22 +138,23 @@ if ($customer_info[0] > 0 && $orderStatus == 2)
     }
 
 }
+$currencies_list = get_currencies();
 
 if ($id > 0 ){
     //$addcredit = $_SESSION["p_amount"];
-    $addcredit = $_SESSION["p_amount"] / $currencyObject->get_value($mc_currency);
+    $addcredit = $transaction_data[0][2]; 
 	$instance_table = new Table("cc_card", "username, id");
-	$param_update .= " credit = credit+'".$addcredit."'";
+	$param_update .= " credit = credit+'".convert_currency($currencies_list,$transaction_data[0][2], $currCurrency, BASE_CURRENCY)."'";
 	$FG_EDITION_CLAUSE = " id='$id'";
 	$instance_table -> Update_table ($DBHandle, $param_update, $FG_EDITION_CLAUSE, $func_table = null);
 
 	$field_insert = "date, credit, card_id";
-	$value_insert = "'$nowDate', '$addcredit', '$id'";
+	$value_insert = "'$nowDate', 'convert_currency($currencies_list,$transaction_data[0][2], $currCurrency, BASE_CURRENCY)', '$id'";
 	$instance_sub_table = new Table("cc_logrefill", $field_insert);
 	$result_query = $instance_sub_table -> Add_table ($DBHandle, $value_insert, null, null);
 
 	$field_insert = "date, payment, card_id";
-	$value_insert = "'$nowDate', '$addcredit', '$id'";
+	$value_insert = "'$nowDate', 'convert_currency($currencies_list,$transaction_data[0][2], $currCurrency, BASE_CURRENCY)', '$id'";
 	$instance_sub_table = new Table("cc_logpayment", $field_insert);
 	$result_query = $instance_sub_table -> Add_table ($DBHandle, $value_insert, null, null);
 
@@ -201,7 +202,7 @@ if (!$num)
 	
 	$messagetext = str_replace('$itemName', "balance", $messagetext);
 	$messagetext = str_replace('$itemID', $customer_info[0], $messagetext);
-	$messagetext = str_replace('$itemAmount', $_SESSION["p_amount"], $messagetext);
+	$messagetext = str_replace('$itemAmount', display_2bill($transaction_data[0][2]), $messagetext);
 	$messagetext = str_replace('$paymentMethod', $pmodule, $messagetext);
 	$messagetext = str_replace('$paymentStatus', $statusmessage, $messagetext);
 	
@@ -219,6 +220,7 @@ $_SESSION["p_cardno"] = null;
 $_SESSION["p_cardtype"] = null;
 $_SESSION["p_module"] = null;
 $_SESSION["p_module"] = null;
+
 
 // load the after_process function from the payment modules
 $payment_modules->after_process();

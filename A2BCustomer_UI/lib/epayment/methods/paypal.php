@@ -84,7 +84,11 @@ class paypal {
     }
     function get_CurrentCurrency()
     {
-        return MODULE_PAYMENT_PAYPAL_CURRENCY;
+        $my_currency = MODULE_PAYMENT_PAYPAL_CURRENCY;
+		if (!in_array($my_currency, array('CAD', 'EUR', 'GBP', 'JPY', 'USD'))) {
+			$my_currency = 'USD';
+		}
+        return $my_currency;
     }
     function before_process() {
 		return false;

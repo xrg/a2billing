@@ -80,7 +80,12 @@ class moneybookers {
 	
     function get_CurrentCurrency()
     {
-        return MODULE_PAYMENT_PAYPAL_CURRENCY;
+        $my_currency = MODULE_PAYMENT_MONEYBOOKERS_CURRENCY;
+		
+		if (!in_array($my_currency, array('EUR', 'USD', 'GBP', 'HKD', 'SGD', 'JPY', 'CAD', 'AUD', 'CHF', 'DKK', 'SEK', 'NOK', 'ILS', 'MYR', 'NZD', 'TWD', 'THB', 'CZK', 'HUF', 'SKK', 'ISK', 'INR'))) {
+        	$my_currency = 'USD';
+      	}
+        return $my_currency;
     }
 	
     function before_process()
