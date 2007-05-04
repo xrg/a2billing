@@ -1,92 +1,92 @@
 <?php
 
-  include("./lib/epayment/includes/methods/authorizenet.php");
+include("./lib/epayment/includes/methods/authorizenet.php");
 
-  class authorizenet {
+class authorizenet {
     var $code, $title, $description, $enabled;
     var $authorizeTable;
-// class constructor
+	
+	// class constructor
     function authorizenet() {
-      global $order;
-
-      $this->authorizeTable = new Table;
-      $this->code = 'authorizenet';
-      $this->title = MODULE_PAYMENT_AUTHORIZENET_TEXT_TITLE;
-      $this->description = MODULE_PAYMENT_AUTHORIZENET_TEXT_DESCRIPTION;
-      $this->enabled = ((MODULE_PAYMENT_AUTHORIZENET_STATUS == 'True') ? true : false);
-      $this->sort_order = 0;
-
-      $this->form_action_url = AUTHORIZE_PAYMENT_URL;
+		global $order;
+		
+		$this->authorizeTable = new Table;
+		$this->code = 'authorizenet';
+		$this->title = MODULE_PAYMENT_AUTHORIZENET_TEXT_TITLE;
+		$this->description = MODULE_PAYMENT_AUTHORIZENET_TEXT_DESCRIPTION;
+		$this->enabled = ((MODULE_PAYMENT_AUTHORIZENET_STATUS == 'True') ? true : false);
+		$this->sort_order = 0;
+		
+		$this->form_action_url = AUTHORIZE_PAYMENT_URL;
     }
 
-// Authorize.net utility functions
-// DISCLAIMER:
-//     This code is distributed in the hope that it will be useful, but without any warranty;
-//     without even the implied warranty of merchantability or fitness for a particular purpose.
+	// Authorize.net utility functions
+	// DISCLAIMER:
+	//     This code is distributed in the hope that it will be useful, but without any warranty;
+	//     without even the implied warranty of merchantability or fitness for a particular purpose.
+	
+	// Main Interfaces:
+	//
+	// function InsertFP ($loginid, $txnkey, $amount, $sequence) - Insert HTML form elements required for SIM
+	// function CalculateFP ($loginid, $txnkey, $amount, $sequence, $tstamp) - Returns Fingerprint.
+	
+	// compute HMAC-MD5
+	// Uses PHP mhash extension. Pl sure to enable the extension
+	// function hmac ($key, $data) {
+	//   return (bin2hex (mhash(MHASH_MD5, $data, $key)));
+	//}
+	
+	// Thanks is lance from http://www.php.net/manual/en/function.mhash.php
+	//lance_rushing at hot* spamfree *mail dot com
+	//27-Nov-2002 09:36
+	//
+	//Want to Create a md5 HMAC, but don't have hmash installed?
+	//
+	//Use this:
+	
+	function hmac ($key, $data)
+	{
+		// RFC 2104 HMAC implementation for php.
+		// Creates an md5 HMAC.
+		// Eliminates the need to install mhash to compute a HMAC
+		// Hacked by Lance Rushing
+		
+		$b = 64; // byte length for md5
+		if (strlen($key) > $b) {
+			$key = pack("H*",md5($key));
+		}
+		$key  = str_pad($key, $b, chr(0x00));
+		$ipad = str_pad('', $b, chr(0x36));
+		$opad = str_pad('', $b, chr(0x5c));
+		$k_ipad = $key ^ $ipad ;
+		$k_opad = $key ^ $opad;
+		
+		return md5($k_opad  . pack("H*",md5($k_ipad . $data)));
+	}
+	// end code from lance (resume authorize.net code)
 
-// Main Interfaces:
-//
-// function InsertFP ($loginid, $txnkey, $amount, $sequence) - Insert HTML form elements required for SIM
-// function CalculateFP ($loginid, $txnkey, $amount, $sequence, $tstamp) - Returns Fingerprint.
+	// Calculate and return fingerprint
+	// Use when you need control on the HTML output
+	function CalculateFP ($loginid, $txnkey, $amount, $sequence, $tstamp, $currency = "") {
+		return ($this->hmac ($txnkey, $loginid . "^" . $sequence . "^" . $tstamp . "^" . $amount . "^" . $currency));
+	}
 
-// compute HMAC-MD5
-// Uses PHP mhash extension. Pl sure to enable the extension
-// function hmac ($key, $data) {
-//   return (bin2hex (mhash(MHASH_MD5, $data, $key)));
-//}
+	// Inserts the hidden variables in the HTML FORM required for SIM
+	// Invokes hmac function to calculate fingerprint.
+	function InsertFP ($loginid, $txnkey, $amount, $sequence, $currency = "") {
+		$tstamp = time ();
+		$fingerprint = $this->hmac ($txnkey, $loginid . "^" . $sequence . "^" . $tstamp . "^" . $amount . "^" . $currency);
+		
+		$str = tep_draw_hidden_field('x_fp_sequence', $sequence) .
+			tep_draw_hidden_field('x_fp_timestamp', $tstamp) .
+			//tep_draw_hidden_field('x_tran_key', $txnkey) .
+			tep_draw_hidden_field('x_fp_hash', $fingerprint);
+		
+		return $str;
+	}
+	// end authorize.net code
 
-// Thanks is lance from http://www.php.net/manual/en/function.mhash.php
-//lance_rushing at hot* spamfree *mail dot com
-//27-Nov-2002 09:36
-//
-//Want to Create a md5 HMAC, but don't have hmash installed?
-//
-//Use this:
-
-function hmac ($key, $data)
-{
-   // RFC 2104 HMAC implementation for php.
-   // Creates an md5 HMAC.
-   // Eliminates the need to install mhash to compute a HMAC
-   // Hacked by Lance Rushing
-
-   $b = 64; // byte length for md5
-   if (strlen($key) > $b) {
-       $key = pack("H*",md5($key));
-   }
-   $key  = str_pad($key, $b, chr(0x00));
-   $ipad = str_pad('', $b, chr(0x36));
-   $opad = str_pad('', $b, chr(0x5c));
-   $k_ipad = $key ^ $ipad ;
-   $k_opad = $key ^ $opad;
-
-   return md5($k_opad  . pack("H*",md5($k_ipad . $data)));
-}
-// end code from lance (resume authorize.net code)
-
-// Calculate and return fingerprint
-// Use when you need control on the HTML output
-function CalculateFP ($loginid, $txnkey, $amount, $sequence, $tstamp, $currency = "") {
-  return ($this->hmac ($txnkey, $loginid . "^" . $sequence . "^" . $tstamp . "^" . $amount . "^" . $currency));
-}
-
-// Inserts the hidden variables in the HTML FORM required for SIM
-// Invokes hmac function to calculate fingerprint.
-
-function InsertFP ($loginid, $txnkey, $amount, $sequence, $currency = "") {
-  $tstamp = time ();
-  $fingerprint = $this->hmac ($txnkey, $loginid . "^" . $sequence . "^" . $tstamp . "^" . $amount . "^" . $currency);
-
-  $str = tep_draw_hidden_field('x_fp_sequence', $sequence) .
-         tep_draw_hidden_field('x_fp_timestamp', $tstamp) .
-         //tep_draw_hidden_field('x_tran_key', $txnkey) .
-         tep_draw_hidden_field('x_fp_hash', $fingerprint);
-
-  return $str;
-}
-// end authorize.net code
-
-// class methods
+	// class methods
     function update_status() {
       global $order;
       if ( ($this->enabled == true) && ((int)MODULE_PAYMENT_AUTHORIZENET_ZONE > 0) ) {
