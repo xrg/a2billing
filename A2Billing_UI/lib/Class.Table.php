@@ -114,7 +114,7 @@ class Table {
 		
 		$QUERY = $sql.$sql_clause.$sql_group.$sql_orderby.$sql_limit;
 		if ($this -> debug_st) echo $this->start_message_debug.$QUERY.$this->end_message_debug;
-		
+		echo $QUERY; 
 		$res = $DBHandle -> Execute($QUERY);
 		if (!$res){
 			$this -> errstr = "Could not do a select on the table '".$this -> table."'";
