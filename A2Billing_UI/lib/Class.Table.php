@@ -245,7 +245,7 @@ class Table {
         $countFK = count($this->FK_TABLES);
         for($i = 0; $i < $countFK; $i++)
         {	
-            if ($this -> FK_DELETE_OR_UPDATE == true)
+            if ($this -> FK_DELETE_OR_UPDATE == false)
             {
             	$QUERY = "UPDATE $sp".$this -> FK_TABLES[$i]."$sp SET ".trim ($this -> FK_EDITION_CLAUSE[$i])." = -1 WHERE (".trim ($this -> FK_EDITION_CLAUSE[$i])." = ".$this -> FK_ID_VALUE." )";
             }
@@ -253,8 +253,7 @@ class Table {
             {
                 $QUERY = "DELETE FROM $sp".$this -> FK_TABLES[$i]."$sp WHERE (".trim ($this -> FK_EDITION_CLAUSE[$i])." = ".$this -> FK_ID_VALUE." )";
             }
-			echo "<br>$QUERY</br>";
-			exit;
+			if ($this -> debug_st) echo "<br>$QUERY";
             $res = $DBHandle -> Execute($QUERY);
         }
 		

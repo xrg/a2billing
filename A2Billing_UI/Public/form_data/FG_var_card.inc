@@ -16,10 +16,18 @@ $HD_Form -> FG_FILTER_SEARCH_SESSION_NAME = 'entity_card_selection';
 
 $HD_Form -> FG_FK_DELETE_CONFIRM = true;
 $HD_Form -> FG_FK_DELETE_ALLOWED = true;
-$HD_Form -> FG_FK_TABLENAMES = array('cc_iax_buddies','cc_sip_buddies');
-$HD_Form -> FG_FK_EDITION_CLAUSE = array("id_cc_card","id_cc_card");
-$HD_Form -> FG_FK_WARNONLY = false;
-$HD_Form -> FG_FK_DELETE_MESSAGE = gettext("You are going as well to remove all the SIP/IAX accounts attached to this card! Please comfirm that you really want to remove that SIP/IAX Accounts ? ");
+$HD_Form -> FG_FK_TABLENAMES = array('cc_iax_buddies', 'cc_sip_buddies', 'cc_callerid');
+$HD_Form -> FG_FK_EDITION_CLAUSE = array("id_cc_card", "id_cc_card", "id_cc_card");
+// DEFINE IF WE WANT TO DELETE THE CARD OR NOT
+$HD_Form -> FG_FK_WARNONLY = DELETE_FK_CARD;
+
+if (DELETE_FK_CARD){
+	// WE WILL DELETE THE FK
+	$HD_Form -> FG_FK_DELETE_MESSAGE = gettext("You are going as well to remove all the SIP/IAX accounts & CallerIDs attached to this card! Please confirm that you really want to remove this card ? ");
+} else {
+	// WE JUST NOTIFY
+	$HD_Form -> FG_FK_DELETE_MESSAGE = gettext("You are going to remove a card that have SIP/IAX accounts and/or CallerIDs attached to it ! Please confirm that you really want to remove this card ? ");
+}
 
 // TODO Unify order of parameters
 
