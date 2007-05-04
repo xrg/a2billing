@@ -4,6 +4,13 @@
 						V1.2.4
 ********************************************************************
 
+#### check files 
+********************************************************************
+A2BCustomer_UI/lib/epayment/includes/methods/*
+
+define action url from conf file
+A2BCustomer_UI/lib/epayment/methods/moneybookers.php
+
 
 #### SHIFT LEFT : DEFINES.PHP
 ********************************************************************

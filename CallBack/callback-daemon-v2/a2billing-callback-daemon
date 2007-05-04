@@ -161,7 +161,7 @@ sub func_callback_processing{
 	$SQL = "SELECT id, uniqueid, entry_time, status, server_ip, num_attempt, last_attempt_time, manager_result, agi_result, callback_time, channel, exten, context, priority, application, data, timeout, callerid, variable, account, async, actionid, id_server_group FROM cc_callback_spool WHERE status='PENDING' AND entry_time > (CURRENT_TIMESTAMP - INTERVAL '24 HOUR') AND (callback_time IS NULL OR callback_time <= CURRENT_TIMESTAMP) LIMIT 5 OFFSET 0";
 	
 	$timestamp = &longfmt();
-	print LOGFILE "$timestamp $SQL";
+	print LOGFILE "$timestamp : TRY TO FIND PENDING CALLBACK";
 	
 	$sth = $dbh->prepare($SQL);
 	$sth->execute();

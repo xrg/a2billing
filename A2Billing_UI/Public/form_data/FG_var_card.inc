@@ -16,9 +16,9 @@ $HD_Form -> FG_FILTER_SEARCH_SESSION_NAME = 'entity_card_selection';
 
 $HD_Form -> FG_FK_DELETE_CONFIRM = true;
 $HD_Form -> FG_FK_DELETE_ALLOWED = true;
-$HD_Form -> FG_FK_TABLENAMES=array('cc_iax_buddies','cc_sip_buddies');
-$HD_Form -> FG_FK_EDITION_CLAUSE=array("id_cc_card","id_cc_card");
-$HD_Form -> FG_FK_WARNONLY=false;
+$HD_Form -> FG_FK_TABLENAMES = array('cc_iax_buddies','cc_sip_buddies');
+$HD_Form -> FG_FK_EDITION_CLAUSE = array("id_cc_card","id_cc_card");
+$HD_Form -> FG_FK_WARNONLY = false;
 $HD_Form -> FG_FK_DELETE_MESSAGE = gettext("You are going as well to remove all the SIP/IAX accounts attached to this card! Please comfirm that you really want to remove that SIP/IAX Accounts ? ");
 
 // TODO Unify order of parameters

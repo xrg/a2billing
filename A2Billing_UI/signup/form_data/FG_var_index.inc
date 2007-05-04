@@ -46,7 +46,7 @@ if ($tariff!="" || $tariff != null)
 {
 	$callPlan_count = count($callPlan_list);	
 	for ($i=0; $i< $callPlan_count; $i++ )
-	{	
+	{
 		if($callPlan_list[$i][1] == trim($tariff,"\'"))
 		{
 			$flag_callplan = 1;

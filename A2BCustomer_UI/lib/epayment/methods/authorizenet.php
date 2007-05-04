@@ -1,4 +1,4 @@
-<?php
+d<?php
 
 include("./lib/epayment/includes/methods/authorizenet.php");
 
@@ -28,7 +28,7 @@ class authorizenet {
 	// Main Interfaces:
 	//
 	// function InsertFP ($loginid, $txnkey, $amount, $sequence) - Insert HTML form elements required for SIM
-	// function CalculateFP ($loginid, $txnkey, $amount, $sequence, $tstamp) - Returns Fingerprint.
+	// function CalculateFP ($loginid, $txnkey, $amount, $sequence, $tstamp) - Returns Fingerprint. 
 	
 	// compute HMAC-MD5
 	// Uses PHP mhash extension. Pl sure to enable the extension

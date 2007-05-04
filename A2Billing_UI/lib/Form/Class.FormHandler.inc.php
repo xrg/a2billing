@@ -1693,8 +1693,11 @@ class FormHandler{
 		if ($processed['id']!="" || !is_null($processed['id'])){
 			$this->FG_EDITION_CLAUSE = str_replace("%id", $processed['id'], $this->FG_EDITION_CLAUSE);
 		}
+		echo $this->FG_EDITION_CLAUSE;
+		echo $instance_table->FK_DELETE_OR_UPDATE;
 		
 		$this -> RESULT_QUERY = $instance_table -> Delete_table ($this->DBHandle, $this->FG_EDITION_CLAUSE, $func_table = null);
+		exit;
 		if (!$this -> RESULT_QUERY)  echo gettext("error deletion");
 
 		$this->FG_INTRO_TEXT_DELETION = str_replace("%id", $processed['id'], $this->FG_INTRO_TEXT_DELETION);

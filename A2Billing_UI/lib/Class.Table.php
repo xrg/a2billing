@@ -247,12 +247,14 @@ class Table {
         {	
             if ($this -> FK_DELETE_OR_UPDATE == true)
             {
-                $QUERY = "UPDATE $sp".$this -> FK_TABLES[$i]."$sp SET ".trim ($this -> FK_EDITION_CLAUSE[$i])." = -1 WHERE (".trim ($this -> FK_EDITION_CLAUSE[$i])." = ".$this -> FK_ID_VALUE." )";
+            	$QUERY = "UPDATE $sp".$this -> FK_TABLES[$i]."$sp SET ".trim ($this -> FK_EDITION_CLAUSE[$i])." = -1 WHERE (".trim ($this -> FK_EDITION_CLAUSE[$i])." = ".$this -> FK_ID_VALUE." )";
             }
             else
             {
                 $QUERY = "DELETE FROM $sp".$this -> FK_TABLES[$i]."$sp WHERE (".trim ($this -> FK_EDITION_CLAUSE[$i])." = ".$this -> FK_ID_VALUE." )";
             }
+			echo "<br>$QUERY</br>";
+			exit;
             $res = $DBHandle -> Execute($QUERY);
         }
 		
