@@ -150,19 +150,21 @@ exten => *97,n,Hangup
 
 #### SIGNUP SELECT TARIFFGROUP
 ********************************************************************
+"
 ; ID Tariffgroup to use, check the ID in the tariffgroup list - WebUI
 tariff = 1
+"
+-> need to be changed to ->
 
-need to be changed to
+; ID CallPlan to sign the customers
+; or define a list of ID to let himselect select the callplan
+; check the ID in the callplan list - WebUI
+callplan = 1, 2, 3
+"
 
-; ID Tariffgroup to sign the customers
-; or define a list of ID to let himselect select the tariffgroup
-; check the ID in the tariffgroup list - WebUI
-tariff = 1, 2, 3
-
-So in case of multiple tariff, a new Dropdown menu will appear on the signup form.
-with the list of tariff group defined here 
-(name of the tariff group will appear, not the number 1, 2, 3)
+SO "IN CASE OF MULTIPLE CALLPLAN", a new Dropdown menu will appear on the signup form.
+with the list of Callplan associate here to the list of ID 
+(name of the callplab will appear, not the number 1, 2, 3)
 
 Security, ensure at the sign-up time that the value send by the form is include in
 it to avoid the possibility from the customer to signup under an other tariffgroup

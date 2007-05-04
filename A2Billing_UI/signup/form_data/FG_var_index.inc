@@ -1,22 +1,16 @@
 <?php
 
-getpost_ifset(array('id', 'username', 'useralias', 'uipass', 'credit', 'language', 'tariff',
-                    'activated', 'simultaccess', 'currency', 'typepaid', 'creditlimit',
-                    'lastname', 'firstname', 'email', 'address', 'city', 'state', 'country',
-                    'zipcode', 'phone', 'fax', 'inuse', 'cid', 'runservice', 'firstusedate',
-                    'expirationdate', 'enableexpire', 'expiredays','captchacode'));
+getpost_ifset(array('id', 'username', 'useralias', 'uipass', 'credit', 'language', 'tariff', 'activated', 'simultaccess', 'currency', 'typepaid', 'creditlimit','lastname', 'firstname', 'email', 'address', 'city', 'state', 'country', 'zipcode', 'phone', 'fax', 'inuse', 'cid', 'runservice', 'firstusedate', 'expirationdate', 'enableexpire', 'expiredays','captchacode'));
 
 
 $HD_Form = new FormHandler("cc_card","User");
 
 $HD_Form -> FG_DEBUG = 0;
-// FAQ
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "ASC";
 $HD_Form -> FG_FILTER_SEARCH_SESSION_NAME = 'entity_card_selection';
 
 
 // TODO Unify order of parameters
-
 $language_list = array();
 $language_list["0"] = array( "ENGLISH", "en");
 $language_list["1"] = array( "SPANISH", "es");

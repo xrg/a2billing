@@ -15,13 +15,6 @@ if ($_GET["dotest"]){
 	$_POST["zipcode"] = $_POST["phone"] = '12345667789';
 }
 
-/*
-if (! has_rights (ACX_CUSTOMER)){
-	   Header ("HTTP/1.0 401 Unauthorized");
-	   Header ("Location: PP_error.php?c=accessdenied");
-	   die();
-}
-*/
 
 
 /***********************************************************************************/
