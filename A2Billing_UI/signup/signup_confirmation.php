@@ -27,7 +27,7 @@ if (!isset($_SESSION["cardnumber_signup"]) || strlen($_SESSION["cardnumber_signu
 	exit();
 }
 
-$FG_DEBUG = 1;
+$FG_DEBUG = 0;
 //$link = DbConnect();
 $DBHandle  = DbConnect();
 
