@@ -33,6 +33,12 @@ if (!isset($action)) $action = $form_action;
 
 $list = $HD_Form -> perform_action($form_action);
 
+if($form_action == "add")
+{
+    unset($_SESSION["cardnumber_signup"]);
+    $_SESSION["cardnumber_signup"] = $maxi;	
+    Header ("Location: signup_confirmation.php");
+}
 
 
 // #### HEADER SECTION
@@ -51,13 +57,6 @@ if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
 
 $HD_Form -> create_form ($form_action, $list, $id=null);
 
-if($form_action == "add")
-{
-
-    unset($_SESSION["cardnumber_signup"]);
-    $_SESSION["cardnumber_signup"] = $maxi;	
-    Header ("Location: signup_confirmation.php");
-}
 
 // #### FOOTER SECTION
 // include("PP_footer.php");
