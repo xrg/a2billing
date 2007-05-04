@@ -45,7 +45,7 @@ class moneybookers {
 		return false;
     }
 
-    function process_button() {
+    function process_button($transactionID = 0) {
 		global $order, $currencies, $currency;
 		
 		$my_language = MODULE_PAYMENT_MONEYBOOKERS_LANGUAGE;
@@ -68,8 +68,12 @@ class moneybookers {
 								tep_draw_hidden_field('postal_code', $order->billing['postcode']) .
 								tep_draw_hidden_field('city', $order->billing['city']) .
 								tep_draw_hidden_field('country', $order->billing['country']['moneybookers']) .
-								tep_draw_hidden_field('pay_from_email', $order->customer['email_address']) .
-								tep_draw_hidden_field('status_url', tep_href_link("checkout_process.php?sess_id=".session_id(), '', 'SSL')) .
+								tep_draw_hidden_field('pay_from_email', $order->customer['email_address']); 
+								if($transactionID != 0)
+								{
+									$process_button_string .= tep_draw_hidden_field('transaction_id', $transactionID);
+								}
+								$process_button_string .= tep_draw_hidden_field('status_url', tep_href_link("checkout_process.php?sess_id=".session_id()."&transactionID=".$transactionID, '', 'SSL')) .
 								tep_draw_hidden_field('cancel_url', tep_href_link("checkout_payment.php", '', 'SSL'));
 		return $process_button_string;
     }

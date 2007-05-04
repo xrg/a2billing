@@ -892,3 +892,16 @@ UPDATE cc_ui_authen SET perms = '32767' WHERE userid = '1';
 UPDATE cc_ui_authen SET perms = '32767' WHERE userid = '2';
 ALTER TABLE cc_invoices ADD COLUMN payment_date TIMESTAMP;
 ALTER TABLE cc_invoices ADD COLUMN payment_status INT DEFAULT 0;
+
+CREATE TABLE cc_epayment_log (
+    id 								INT NOT NULL AUTO_INCREMENT,
+    cardid 							INT DEFAULT 0 NOT NULL,
+    amount 							FLOAT DEFAULT 0 NOT NULL,
+	vat 							FLOAT DEFAULT 0 NOT NULL,
+    paymentmethod	 				CHAR(50) NOT NULL,     
+  	cc_owner 						VARCHAR(64),
+  	cc_number 						VARCHAR(32),
+  	cc_expires 						VARCHAR(7),						   
+    creationdate  					TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,    
+    PRIMARY KEY (id)
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;

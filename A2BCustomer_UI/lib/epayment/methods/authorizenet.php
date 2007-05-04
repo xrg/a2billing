@@ -197,10 +197,10 @@ class authorizenet {
       return $confirmation;
     }
 
-    function process_button() {
+    function process_button($transactionID = 0) {
       global $_SERVER, $order, $customer_id;
 
-      $sequence = rand(1, 1000);
+      $sequence = $transactionID;
       $x_line_item = "Balance<|>Card Balance<|>1<|>".number_format($order->info['total'], 2)."<|>N";
 
       $process_button_string = tep_draw_hidden_field('x_Login', MODULE_PAYMENT_AUTHORIZENET_LOGIN) .
@@ -208,7 +208,7 @@ class authorizenet {
                                tep_draw_hidden_field('x_Exp_Date', $this->cc_expiry_month . substr($this->cc_expiry_year, -2)) .
                                tep_draw_hidden_field('x_Amount', number_format($order->info['total'], 2)) .
                                tep_draw_hidden_field('x_relay_response', "TRUE") .
-                               tep_draw_hidden_field('x_Relay_URL', tep_href_link("checkout_process.php?sess_id=".session_id(), '', 'SSL', false)) .
+                               tep_draw_hidden_field('x_Relay_URL', tep_href_link("checkout_process.php?sess_id=".session_id()."&transactionID=".$transactionID, '', 'SSL', false)) .
                                tep_draw_hidden_field('x_Method', ((MODULE_PAYMENT_AUTHORIZENET_METHOD == 'Credit Card') ? 'CC' : 'ECHECK')) .
                                tep_draw_hidden_field('x_Version', '3.0') .
                                tep_draw_hidden_field('session_id', session_id()) .

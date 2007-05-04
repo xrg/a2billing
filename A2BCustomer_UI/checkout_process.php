@@ -2,26 +2,18 @@
 include ("./lib/defines.php");
 
 
-$sess_id = $_REQUEST["sess_id"];
+getpost_ifset(array('transactionID', 'sess_id'));
 
+write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__." ----EPAYMENT TRANSACTION START----");
 if ($sess_id =="")
 {
 	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__." ERROR NO SESSION ID PROVIDED IN RETURN URL TO PAYMENT MODULE");
     exit(gettext("No session id provided in return URL to Payment Module"));
 }
-else
-{
-    session_id($sess_id);
-    session_start();
-	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__." SESSION ID ".$sess_id);
-   // echo "<br>New=".session_id();
-}
-
-
-if($_SESSION["p_module"] == "")
-{
-	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__." ERROR NO PAYMENT MODULE WAS RECORDED");    
-    exit (gettext("No payment module was recorded"));
+if($transactionID == "")
+{	
+	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__." NO TRANSACTION ID PROVIDED IN REQUEST");
+    exit;
 }
 
 
@@ -37,26 +29,31 @@ include ("./lib/epayment/includes/loadconfiguration.php");
 //include("PP_header.php");
 
 
-$payment_modules = new payment($_SESSION["p_module"]);
+$DBHandle_max  = DbConnect();
+$paymentTable = new Table();
+
+$QUERY = "SELECT * from cc_epayment_log WHERE id = ".$transactionID;
+$transaction_data = $paymentTable->SQLExec ($DBHandle_max, $QUERY);
+if(!is_array($transaction_data) && count($transaction_data) == 0)
+{
+	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__." ERROR INVALID TRANSACTION ID PROVIDED, TRANSACTION ID =".$transactionID);
+	exit();
+}
+else
+{
+	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__." EPAYMENT RESPONSE: TRANSACTIONID = ".$transactionID." FROM ".$transaction_data[0][4]."; FOR CUSTOMER ID ".$transaction_data[0][1]."; OF AMOUNT ".$transaction_data[0][2]);
+}
+
+$payment_modules = new payment($transaction_data[0][4]);
 // load the before_process function from the payment modules
 //$payment_modules->before_process();
 
 $tansaction_ID = null;
 
-if(isset($payment))
-{
-    switch($payment)
-    {
-        case "authorizenet":
 
-        break;
-    }
-}
+$QUERY = "SELECT  username, credit, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, lastuse, activated, currency FROM cc_card WHERE id = '".$transaction_data[0][1]."'";
 
 
-$QUERY = "SELECT  username, credit, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, lastuse, activated, currency FROM cc_card WHERE username = '".$_SESSION["pr_login"]."'";
-
-$DBHandle_max  = DbConnect();
 $numrow = 0;
 $resmax = $DBHandle_max -> Execute($QUERY);
 if ($resmax)
@@ -64,6 +61,7 @@ if ($resmax)
 
 if ($numrow == 0)
 {
+    write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__." ERROR NO SUCH CUSTOMER EXISTS, CUSTOMER ID = ".$transaction_data[0][1]);
     exit(gettext("No Such Customer exists."));
 }
 $customer_info =$resmax -> fetchRow();
@@ -73,10 +71,11 @@ $currencyObject = new currencies();
 $currCurrency = $payment_modules->get_CurrentCurrency();
 $nowDate = date("y-m-d H:i:s");
 
-$paymentTable = new Table();
-$pmodule = $_SESSION["p_module"];
+
+$pmodule = $transaction_data[0][4];
 
 $orderStatus = $payment_modules->get_OrderStatus();
+
 
 $Query = "Insert into cc_payments ( customers_id,
                                     customers_name,
@@ -106,14 +105,14 @@ $Query = "Insert into cc_payments ( customers_id,
                                     1,
                                     '$pmodule',
                                     '".$_SESSION["p_cardtype"]."',
-                                    '".$customer_info[3]." ".$customer_info[2]."',
-                                    '".$_SESSION["p_cardno"]."',
-                                    '".$_SESSION["p_cardexp"]."',
+                                    '".$transaction_data[0][5]."',
+                                    '".$transaction_data[0][6]."',
+                                    '".$transaction_data[0][7]."',
                                      $orderStatus,
                                     '".$nowDate."',
                                     '".$nowDate."',
                                     '".$nowDate."',
-                                     ".$_SESSION["p_amount"].",
+                                     ".$transaction_data[0][2].",
                                      '".$currCurrency."',
                                      '".$currencyObject->get_value($currCurrency)."'
                                     )";
@@ -223,8 +222,8 @@ $_SESSION["p_module"] = null;
 
 // load the after_process function from the payment modules
 $payment_modules->after_process();
-
-
+write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__." EPAYMENT ORDER STATUS ID = ".$orderStatus." ".$statusmessage);
+write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__." ----EPAYMENT TRANSACTION END----");
 Header ("Location: checkout_success.php?errcode=".$orderStatus);
 
 ?>

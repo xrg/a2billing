@@ -19,7 +19,8 @@ if (! has_rights (ACX_ACCESS)){
 	Header ("Location: PP_error.php?c=accessdenied");
 	die();
 }
-getpost_ifset(array('amount','payment'));
+getpost_ifset(array('amount','payment','authorizenet_cc_expires_year','authorizenet_cc_owner','authorizenet_cc_expires_month','authorizenet_cc_number','authorizenet_cc_expires_year'));
+
 $HD_Form = new FormHandler("cc_payment_methods","payment_method");
 
 $HD_Form -> setDBHandler (DbConnect());
@@ -29,7 +30,17 @@ $_SESSION["p_module"] = $payment;
 $_SESSION["p_amount"] = $amount;
 
 
+$paymentTable = new Table();
 
+$QUERY = "INSERT INTO cc_epayment_log (cardid,amount,vat,paymentmethod,cc_owner,cc_number,cc_expires) VALUES ('".$_SESSION["card_id"]."','$amount', 0, '$payment','$authorizenet_cc_owner','$authorizenet_cc_number','".$authorizenet_cc_expires_month."-".$authorizenet_cc_expires_year."')";
+$paymentTable->SQLExec($HD_Form -> DBHandle, $QUERY);
+
+$QUERY = "SELECT max(id) from cc_epayment_log";
+$transaction_no = $paymentTable->SQLExec ($DBHandle, $QUERY);
+if($transaction_no[0][0] == null)
+{
+	exit(gettext("No Transaction ID found"));
+}
 
 $HD_Form -> create_toppage ($form_action);
 
@@ -40,6 +51,8 @@ if (is_array($payment_modules->modules)) {
     $payment_modules->pre_confirmation_check();
   }
 // #### HEADER SECTION
+
+
 $smarty->display( 'main.tpl');
 ?>
 
@@ -53,7 +66,7 @@ $smarty->display( 'main.tpl');
 echo tep_draw_form('checkout_confirmation.php', $form_action_url, 'post');
 
   if (is_array($payment_modules->modules)) {
-    echo $payment_modules->process_button();
+    echo $payment_modules->process_button($transaction_no[0][0]);    
   }
 ?>
  <br>
