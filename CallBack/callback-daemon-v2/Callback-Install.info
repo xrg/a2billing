@@ -12,7 +12,14 @@ REQUERIMENTS
 	
 	Perl module DBD::Pg
 	(yum install perl-DBD-Pg)
-
+	
+	Perl module Config::INI::Simple
+	rpm perl-Config-INI-Simple
+	perl -MCPAN -e shell
+	> install Config::INI::Simple
+	> reload
+	
+	
 
 INSTALL
 
