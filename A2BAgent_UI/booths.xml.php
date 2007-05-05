@@ -140,6 +140,23 @@ function fmt_minutes($sessiontime){
 					
 				}
 				break;
+			case 'empty':
+			
+				$query= str_params("UPDATE cc_booth SET cur_card_id = NULL WHERE id = %#0 AND agentid = %1; ",
+					array($get_booth,$_SESSION['agent_id']));
+		
+				$res=$DBHandle->Execute($query);
+				
+				if ($res)
+					$message= gettext("Booth emptied"  );
+				else {
+					$message= gettext("Action failed:");
+					$message .= $DBHandle->ErrorMsg();
+					$message .= "<br>Query: " . $query;
+					$message_class="msg_error";
+				}
+
+				break;
 			default:
 				$message="Unknown request";
 				$message_class="msg_error";
@@ -183,6 +200,7 @@ function fmt_minutes($sessiontime){
 		$buttons['unl'] = false;
 		$buttons['ld'] = false;
 		$buttons['lr'] = false;
+		$buttons['emp'] = false;
 		$buttons['ln'] = false;
 		
 		$num = $res -> numRows();
@@ -233,12 +251,14 @@ function fmt_minutes($sessiontime){
 				break;
 			case 2:
 				$buttons["sta"]=true;
+				$buttons["emp"]=true;
 				//$buttons["lr"]=true;
 				//$buttons["ld"]=true;
 				$td_refill=true;
 				break;
 			case 3:
 				$buttons["stp"]=true;
+				$buttons['emp']=true;
 				$td_refill=true;
 				break;
 			case 4:

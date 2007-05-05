@@ -93,6 +93,7 @@ function parseBoothXML(the_xml){
 	booth_tags[i++]="button_ld";
 	booth_tags[i++]="button_lr";
 	//booth_tags[i++]="button_ln";
+	booth_tags[i++]="button_emp";
 	booth_tags[i++]="button_pay";
 	booth_tags[i++]="refill";
 	
@@ -229,6 +230,7 @@ window.onload = function() { startRequest("booths.xml.php",reqStateChanged2)};
 				<a href="javascript:booth_action(<?=$row[0]?>,'disable');" id='button_dis'><?=gettext("Disable"); ?></a>
 				<a href="javascript:booth_action(<?=$row[0]?>,'unload');" id='button_unl'><?=gettext("Unload"); ?></a>
 				<a href="javascript:booth_action(<?=$row[0]?>,'load_def');" id='button_ld'><?=gettext("One-Time"); ?></a>
+				<a href="javascript:booth_action(<?=$row[0]?>,'empty');" id='button_emp'><?=gettext("Empty"); ?></a>
 				<a href="javascript:select_regular(<?=$row[0]?>);" id='button_lr'><?=gettext("Member"); ?></a>
 				<!-- <a href="javascript:select_regular(<?=$row[0]?>);" id='button_ln'><?=gettext("New"); ?></a> -->
 				&nbsp;</td>
