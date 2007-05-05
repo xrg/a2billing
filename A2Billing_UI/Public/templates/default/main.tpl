@@ -24,7 +24,6 @@
 <div class="divleft">
 
 
-
 <ul id="nav">
 
 	{if ($ACXCUSTOMER > 0) }
@@ -32,18 +31,13 @@
 	<li>
 	<a href="#" class="toggle_menu" target="_self"><img id="img1"  
 	{if ($section == "1")}
-	
 	src="templates/{$SKIN_NAME}/images/minus.gif"
-	
 	{else}
-	
 	src="templates/{$SKIN_NAME}/images/plus.gif"
-	
 	{/if}
  onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("CUSTOMERS");{/php}</strong></a></li>
 	<div class="tohide" 
 	{if ($section =="1")}
-	
 	style="">
 	{else}
 	style="display:none;">
@@ -71,11 +65,9 @@
 	<div class="toggle_menu">
 	<li><a href="#" class="toggle_menu" target="_self"><img id="img2" 
 	{if ($section =="2")}
-	
 	src="templates/{$SKIN_NAME}/images/minus.gif"
 	{else}
 	src="templates/{$SKIN_NAME}/images/plus.gif"
-	
 	{/if}
 	 onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("BILLING");{/php}</strong></a></li>
 	<div class="tohide"
@@ -111,11 +103,9 @@
 	<div class="toggle_menu">
 	<li><a href="#" class="toggle_menu" target="_self"><img id="img3" 
 	{if ($section =="3")}
-	
 	src="templates/{$SKIN_NAME}/images/minus.gif"
 	{else}
 	src="templates/{$SKIN_NAME}/images/plus.gif"
-	
 	{/if}
 	  onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> &nbsp;<strong>{php} echo gettext("RATECARD");{/php}</strong></a></li>
 		<div class="tohide"
@@ -134,8 +124,6 @@
 				<li><a href="A2B_entity_def_ratecard.php?form_action=ask-add&atmenu=ratecard&stitle=RateCard&section=3">{php} echo gettext("Add Rate");{/php}</a></li>
 				<li><a href="CC_ratecard_import.php?atmenu=ratecard&stitle=RateCard&section=3">{php} echo gettext("Import RateCard");{/php}</a></li>
 				<li><a href="CC_entity_sim_ratecard.php?atmenu=ratecard&stitle=Ratecard+Simulator&section=3">{php} echo gettext("Ratecard Simulator");{/php}</a></li>
-				<li><a href="A2B_entity_prefix.php?atmenu=prefixe&stitle=Prefix&section=3">{php} echo gettext("Browse Prefix");{/php}</a></li>
-				<li><a href="A2B_entity_prefix.php?form_action=ask-add&atmenu=prefixe&stitle=Prefix&section=3">{php} echo gettext("Add Prefix");{/php}</a></li>
 			</ul></li>
 		</ul>
 	</div>
@@ -199,11 +187,9 @@
 	<div class="toggle_menu">
 	<li><a href="#" class="toggle_menu" target="_self"><img id="img4"  
 	{if ($section =="4")}
-	
 	src="templates/{$SKIN_NAME}/images/minus.gif"
 	{else}
 	src="templates/{$SKIN_NAME}/images/plus.gif"
-	
 	{/if} onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> &nbsp;<strong>{php} echo gettext("TRUNK");{/php}</strong></a></li>
 		<div class="tohide"
 	{if ($section =="4")}
@@ -227,11 +213,9 @@
 	<div class="toggle_menu">
 	<li><a href="#" class="toggle_menu" target="_self"><img id="img41"  
 	{if ($section == "5")}
-	
 	src="templates/{$SKIN_NAME}/images/minus.gif"
 	{else}
 	src="templates/{$SKIN_NAME}/images/plus.gif"
-	
 	{/if}
 	 onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> &nbsp;<strong>{php} echo gettext("DID");{/php}</strong></a></li>
 		<div class="tohide"
@@ -261,11 +245,9 @@
 	<div class="toggle_menu">
 	<li><a href="#" class="toggle_menu" target="_self"><img id="img5" 
 	{if ($section == "6")}
-	
 	src="templates/{$SKIN_NAME}/images/minus.gif"
 	{else}
 	src="templates/{$SKIN_NAME}/images/plus.gif"
-	
 	{/if} onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> &nbsp;<strong>{php} echo gettext("CALL REPORT");{/php}</strong></a></li>
 		<div class="tohide"
 	{if ($section =="6")}
@@ -319,11 +301,9 @@
 	<div class="toggle_menu">
 	<li><a href="#" class="toggle_menu" target="_self"><img id="img9" 
 	{if ($section =="7")}
-	
 	src="templates/{$SKIN_NAME}/images/minus.gif"
 	{else}
 	src="templates/{$SKIN_NAME}/images/plus.gif"
-	
 	{/if} onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("RECURRING SERVICE");{/php}</strong></a></li>
 		<div class="tohide"
 	{if ($section =="7")}
@@ -351,11 +331,9 @@
 	<div class="toggle_menu">
 	<li><a href="#" class="toggle_menu" target="_self"><img id="img10" 
 	{if ($section =="12")}
-	
 	src="templates/{$SKIN_NAME}/images/minus.gif"
 	{else}
 	src="templates/{$SKIN_NAME}/images/plus.gif"
-	
 	{/if} onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("CALLBACK");{/php}</strong></a></li>
 	<div class="tohide"
 	{if ($section =="12")}
@@ -381,18 +359,13 @@
 	{if ($ACXMISC  > 0)}
 	<div class="toggle_menu">
 	<li><a href="#" class="toggle_menu" target="_self"><img id="img6" 
-
 	{if ($section =="8")}
-	
 	src="templates/{$SKIN_NAME}/images/minus.gif"
 	{else}
 	src="templates/{$SKIN_NAME}/images/plus.gif"
-	
 	{/if}
-
 	onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("MISC");{/php}</strong></a></li>
 	<div class="tohide"
-
 	{if ($section =="8")}
 		style="">
 	{else}
@@ -402,6 +375,8 @@
 			<li><ul>
 				<li><a href="A2B_entity_mailtemplate.php?atmenu=mailtemplate&stitle=Mail+Tempalte&section=8">{php} echo gettext("Show mail template");{/php}</a></li>
 				<li><a href="A2B_entity_mailtemplate.php?form_action=ask-add&atmenu=mailtemplate&stitle=Mail+Tempalte&section=8">{php} echo gettext("Create mail template");{/php}</a></li>
+				<li><a href="A2B_entity_prefix.php?atmenu=prefixe&stitle=Prefix&section=8">{php} echo gettext("Browse Prefix");{/php}</a></li>
+				<li><a href="A2B_entity_prefix.php?form_action=ask-add&atmenu=prefixe&stitle=Prefix&section=8">{php} echo gettext("Add Prefix");{/php}</a></li>
 			</ul></li>
 		</ul>
 	</div>
@@ -412,11 +387,9 @@
 	<div class="toggle_menu">
 	<li><a href="#" class="toggle_menu" target="_self"><img id="img7" 
 	{if ($section =="10")}
-	
 	src="templates/{$SKIN_NAME}/images/minus.gif"
 	{else}
 	src="templates/{$SKIN_NAME}/images/plus.gif"
-	
 	{/if} onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("ADMINISTRATOR");{/php}</strong></a></li>
 		<div class="tohide"
 	{if ($section =="10")}
@@ -443,11 +416,9 @@
 	<div class="toggle_menu">
 	<li><a href="#" class="toggle_menu" target="_self"><img id="img8" 
 	{if ($section == "11")}
-	
 	src="templates/{$SKIN_NAME}/images/minus.gif"
 	{else}
 	src="templates/{$SKIN_NAME}/images/plus.gif"
-	
 	{/if} onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("FILE MANAGER");{/php}</strong></a></li>
 		<div class="tohide"
 	{if ($section =="11")}

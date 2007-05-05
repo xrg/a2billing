@@ -903,6 +903,7 @@ CREATE TABLE cc_epayment_log (
   	cc_owner 						VARCHAR(64),
   	cc_number 						VARCHAR(32),
   	cc_expires 						VARCHAR(7),						   
-    creationdate  					TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,    
+    creationdate  					TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (id)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
+reservationdate 				TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,

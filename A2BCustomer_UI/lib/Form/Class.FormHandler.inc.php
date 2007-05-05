@@ -1032,23 +1032,21 @@ class FormHandler{
 				{
 					$this -> Delete_Selected();
 				}
-	
-	
-				if ($this->FG_DEBUG >= 2) { echo "FG_CLAUSE:$this->FG_CLAUSE"; }
-
-
-                //echo "FG_TABLE_CLAUSE = ".$this -> FG_TABLE_CLAUSE."<br>";
-                //echo "FG_ORDER = ".$this->FG_ORDER."<br>";
-                //echo "FG_SENS = ".$this->FG_SENS."<br>";
-                //echo "FG_LIMITE_DISPLAY = ".$this -> FG_LIMITE_DISPLAY."<br>";
-                //echo "CV_CURRENT_PAGE = ".$this -> CV_CURRENT_PAGE."<br>";
-
+				
+				if ($this->FG_DEBUG >= 2) { 
+					echo "FG_CLAUSE:$this->FG_CLAUSE";
+					echo "FG_ORDER = ".$this->FG_ORDER."<br>";
+					echo "FG_SENS = ".$this->FG_SENS."<br>";
+					echo "FG_LIMITE_DISPLAY = ".$this -> FG_LIMITE_DISPLAY."<br>";
+					echo "CV_CURRENT_PAGE = ".$this -> CV_CURRENT_PAGE."<br>";
+				}
+				
 				$list = $instance_table -> Get_list ($this -> DBHandle, $this -> FG_TABLE_CLAUSE, $this->FG_ORDER, $this->FG_SENS, null, null,
 													 $this -> FG_LIMITE_DISPLAY, $this -> CV_CURRENT_PAGE * $this -> FG_LIMITE_DISPLAY, $this -> SQL_GROUP);
 				if ($this->FG_DEBUG == 3) echo "<br>Clause : ".$this -> FG_TABLE_CLAUSE;
 				$this -> FG_NB_RECORD = $instance_table -> Table_count ($this -> DBHandle, $this -> FG_TABLE_CLAUSE);
 				if ($this->FG_DEBUG >= 1) var_dump ($list);
-
+				
 				if ($this -> FG_NB_RECORD <=$this -> FG_LIMITE_DISPLAY){
 					$this -> FG_NB_RECORD_MAX = 1;
 				}else{

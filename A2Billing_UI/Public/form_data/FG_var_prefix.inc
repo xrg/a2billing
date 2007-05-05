@@ -1,12 +1,9 @@
 <?php
 getpost_ifset(array('id', 'destination','dialprefix','popup_select','popup_formname','popup_fieldname' ));
 
-$plang='en';
-
 $HD_Form = new FormHandler("cc_prefix","prefix");
 
 $HD_Form -> FG_DEBUG = 0;
-
 $HD_Form -> FG_TABLE_DEFAULT_ORDER = "destination";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "ASC";
 
@@ -15,7 +12,7 @@ $HD_Form -> AddViewElement(gettext("Destination"), "destination", "40%", "left",
 $HD_Form -> AddViewElement(gettext("Prefix"), "prefixe", "10%", "center", "sort");
 
 // added a parameter to append  FG_TABLE_ID  ( by default ) or disable 0.
-$HD_Form -> FieldViewElement ('destination,prefixe');
+$HD_Form -> FieldViewElement ('destination, prefixe');
 
 
 $HD_Form -> CV_NO_FIELDS  = gettext("THERE ARE NO")." ".strtoupper($HD_Form->FG_INSTANCE_NAME)." ".gettext("CREATED!");
@@ -51,7 +48,7 @@ $HD_Form -> AddEditElement (gettext("DESTINATION"),
 	"" , "", "", "", "" , "", "" ,"");
 
 $HD_Form -> AddEditElement (gettext("PREFIX"),
-	"prefix",
+	"prefixe",
 	'$value',
 	"INPUT",
 	"size=30 maxlength=300",
@@ -59,7 +56,7 @@ $HD_Form -> AddEditElement (gettext("PREFIX"),
 	gettext("Insert the Prefixe"),
 	"" , "", "", "", "" , "", "" ,"");
 
-$HD_Form -> FieldEditElement ('destination,prefixe');
+$HD_Form -> FieldEditElement ('destination, prefixe');
 
 
 

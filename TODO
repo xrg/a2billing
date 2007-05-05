@@ -3,10 +3,33 @@
                    			TODO LIST - SPECIFIC
 ********************************************************************************
 
+
+#### TODO
+********************************************************************
+Modified: trunk/A2BCustomer_UI/checkout_payment.php
+
+-$instance_table = new Table("cc_card", "username, id");
+-       $param_update .= " credit = credit+'10'";
+-       $FG_EDITION_CLAUSE = " id='$transaction_data[0][1]'";
+
+
+#### TODO
+********************************************************************
+
+we should also resolve that
+# when we are changing the currency code .,, on the userinfo it is shown to purchage 20 $
+
+and other thing is that we should have to add the way to manage the Pending transactions
+There is a interface Provideded by paypal and Money bookers to get status of pending transactions
+so that later on admin can update the status of transactions which were pending by quering the Epayment Gateway
+got my point ?
+
 #### BUG
 ********************************************************************
-You have 1 dependent records.
-You are going as well to remove all the SIP/IAX accounts attached to this card! Please comfirm that you really want to remove that SIP/IAX Accounts ?
+yes the authorize is always in USD as it s only for US peoples
+can we set the convert from  USD -> base currency
+
+
 
 
 #### Check voice one 
@@ -14,17 +37,11 @@ You are going as well to remove all the SIP/IAX accounts attached to this card! 
 SIP JAVA Phone
 
 
-#### MoneyBooker bug
-********************************************************************
-http://myaccount.call-labs.com/checkout_process.php?sess_id=58u4ckvmu0e0eedn9k872v1od4
-Fatal error: Call to undefined method moneybookers::get_CurrentCurrency() in /var/www/html/svn/trunk/A2BCustomer_UI/lib/epayment/classes/payment.php on line 168
-
-
-
 #### ADD referial ID : Admin & customer (conf)
 ********************************************************************
 https://www.moneybookers.com/app/?rid=811621
 https://www.paypal.com/es/mrb/pal=PGSJEXAEXKTBU
+
 
 #### BUG : Batch update in Rates
 ********************************************************************
