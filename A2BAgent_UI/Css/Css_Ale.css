@@ -219,8 +219,15 @@ body {
 
 
 .tableBody {
-	BORDER-BOTTOM: #e1e1e1 0px solid; BORDER-LEFT: #e1e1e1 0px solid; BORDER-RIGHT: #e1e1e1 1px solid; BORDER-TOP: #e1e1e1 0px solid; PADDING-BOTTOM: 4px; PADDING-LEFT: 4px; PADDING-RIGHT: 4px; PADDING-TOP: 4px;
-	FONT-SIZE: 10px;
+	border-bottom: #e1e1e1 0px solid;
+	border-left: #e1e1e1 0px solid;
+	border-right: #e1e1e1 1px solid;
+	border-top: #e1e1e1 0px solid;
+	padding-bottom: 4px;
+	padding-left: 4px;
+	padding-right: 4px;
+	padding-top: 4px;
+	font-size: 8pt;
 }
 .tableBodyRight {
 	PADDING-BOTTOM: 4px; PADDING-LEFT: 4px; PADDING-RIGHT: 4px; PADDING-TOP: 4px;
@@ -236,10 +243,20 @@ body {
 }
 
 .tableBody {
-	BORDER-BOTTOM: #e1e1e1 0px solid; BORDER-LEFT: #e1e1e1 0px solid; BORDER-RIGHT: #e1e1e1 1px solid; BORDER-TOP: #e1e1e1 0px solid; PADDING-BOTTOM: 4px; PADDING-LEFT: 4px; PADDING-RIGHT: 4px; PADDING-TOP: 4px
+	border-bottom: #e1e1e1 0px solid;
+	border-left: #e1e1e1 0px solid;
+	border-right: #e1e1e1 1px solid;
+	border-top: #e1e1e1 0px solid;
+	padding-bottom: 4px;
+	padding-left: 4px;
+	padding-right: 4px;
+	padding-top: 4px
 }
 .tableBodyRight {
-	PADDING-BOTTOM: 4px; PADDING-LEFT: 4px; PADDING-RIGHT: 4px; PADDING-TOP: 4px
+	padding-bottom: 4px;
+	padding-left: 4px;
+	padding-right: 4px;
+	padding-top: 4px
 }
 
 
@@ -305,4 +322,14 @@ table.Booth {
 
 table.Booth td {
 	background: #C0C0C0;
+}
+
+table.Booth td #credit {
+	color: #404040;
+	font-size: 9pt;
+}
+
+table.Booth td #mins {
+	color: #404040;
+	font-size: 8pt;
 }
