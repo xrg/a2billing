@@ -261,9 +261,11 @@ $nb_tariff = count($list_tariff);
 				
 			  	<strong>3)</strong> 
 				<?php echo gettext("Initial amount of credit");?> : 	<input class="form_enter" name="addcredit" size="10" maxlength="10" style="border: 2px inset rgb(204, 51, 0);">
+				<?php echo strtoupper(BASE_CURRENCY) ?>
 				<br/>
 				
 				<strong>4)</strong> 
+				<?php echo gettext("Simultaneous access");?> : 
 				<select NAME="choose_simultaccess" size="1" class="form_enter" style="border: 2px outset rgb(204, 51, 0);">
 					<option value='0' selected><?php echo gettext("INDIVIDUAL ACCESS");?></option>
 					<option value='1'><?php echo gettext("SIMULTANEOUS ACCESS");?></option>
@@ -271,6 +273,7 @@ $nb_tariff = count($list_tariff);
 				<br/>
 				
 				<strong>5)</strong> 
+				<?php echo gettext("Currency");?> :
 				<select NAME="choose_currency" size="1" class="form_enter" style="border: 2px outset rgb(204, 51, 0);">
 				<?php 
 					foreach($currencies_list as $key => $cur_value) {											
@@ -280,6 +283,7 @@ $nb_tariff = count($list_tariff);
 				</select>
 				<br/>
 				<strong>6)</strong>
+				<?php echo gettext("Card type");?> :
 				<select NAME="choose_typepaid" size="1" class="form_enter" style="border: 2px inset rgb(204, 51, 0);">
 					<option value='0' selected><?php echo gettext("PREPAID CARD");?></option>
 					<option value='1'><?php echo gettext("POSTPAY CARD");?></option>

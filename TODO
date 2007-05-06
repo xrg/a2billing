@@ -1,0 +1,761 @@
+
+
+-------________=======-------________=======-------________=======-------_______
+	 & & & & & 					 in process				& & & & &
+=======-------________=======-------________=======-------________=======-------
+
+1#
+	E-Payment method from OsCommerce
+	Analyze and do migration
+
+==-------________=======-------________=======-------________=======-------_____
+
+
+
+********************************************************************************
+                   			TODO LIST - SPECIFIC
+********************************************************************************
+
+
+
+#### BUG
+********************************************************************
+22 Aug 2006
+ subject: voucher list in web customer problem with Firefox 	Reply with quote
+I've the last version of A2Billing and I've Firefox.
+In the web Customer page i can't see the dialog box to insert the voucher, here:
+http://...../A2B_entity_voucher.php?form_action=list
+All OK with Internet Explorer.
+Can you test in your Firefox Browser? 
+
+
+#### BUG
+********************************************************************
+In the customer interface after purchasing a DID and assigning a
+Destination for one calling card account I login to another calling card account and the DID is still in the drop down box available for purchase. Is this a bug or an installation error?
+
+#### BUG
+********************************************************************
+
+1 - When you navigate CDR Report you see all calls from all customers.
+When you filter the calls list by cardnumber you're supposed to have a
+list with calls from that cardnumber only. That is true, unless you
+change the ordering column or navigate to the next results page. If you
+do, the filter seems to be ignored by the CDR Report, and you get
+listing from all customers again.
+
+#### BUG
+********************************************************************
+
+2 - Also in CDR Report, when trying to list the calls from July/31,
+there are no results. Search the same terms in AreskiCDR or directly in
+the MySQL shows hundreds of calls.
+
+
+
+#### Feature
+********************************************************************
+Try to add some captcha into the sensible Form
+http://www.nogajski.de/horst/php/captcha/index.php?download=yes&id=1234
+
+
+#### NOTE
+********************************************************************
+Note to areski – should we be able to define international access prefixes? 00 UK & Europe, 
+011 USA , but 0099 for South Africa. See http://kropla.com/dialcode.htm IDD column
+
+Note to Areski – why have free as an option, surely if I wanted free, I would set fixrate to 0?
+
+
+
+
+
+
+
+
+
+#### NEW TASK []
+********************************************************************
+Add Cardalias in the search engine -> list customers
+
+In Invoice option as in Call Report to show only the answered calls
+(Customer & Admin)
+
+
+
+
+
+
+
+********************************************************************
+
+  
+modify your billing system so that I can also sends DTMF digit to softphone
+
+For example: a) users use softphone to login
+b) login information is our card number and secret
+c) a2billing sendDTMF 5 dollars back
+d) users enter destination to call
+e) a2billing sendDTMF to the users' softphones to
+inform the available talk time instead of announcing
+through the voice system
+
+
+********************************************************************
+To tidy up the box for filtering, can you either reduce the font size or use symbols only, e.g. >  ;   >=  ; <=
+
+
+	
+#### NEW TASK []
+********************************************************************
+margin is (revenue - carrier cost)/revenue
+markup is revenue - carrier cost)/carrier cost
+the above gives a %
+$50 revenue $25 carrier cost
+Profit = $25
+MArgin = 50%
+Markup = 100%
+ 
+Yep - having a separate figure for VAT would be useful
+for VAT returns
+however - UK VAT laws say that if a call originates outside of the EU, then no VAT is required on the call
+however if a call starts within the EU, the VAT is payable
+
+ 
+
+
+
+
+
+#### NEW TASK []
+********************************************************************
+Card company can set default language and customer can change 1. English 2. Dutch, 3. French
+etc.
+make it more easily customizable
+
+
+
+#### NEW TASK []
+********************************************************************
+is there a way that 	
+
+
+
+#### NEW TASK []
+********************************************************************
+When removing a Card -> Check if SIP/IAX has been created if yes ask for confirmation.
+1# we can add an id_card in the buddy table
+2# we can add an id_sip id_iax in the cc_card table
+find the best solution
+
+
+#### NEW TASK - NEW button style []
+********************************************************************
+New button for edit/delete... really tiny but with text
+New button for confirm Data
+
+
+#### BUG []
+********************************************************************
+
+	Line 382 in a2billing.php has:
+					   if (substr($A2B->CallerID,0,1)=='0'){
+						   $A2B ->dnid = $A2B ->destination =
+	$caller_areacode.substr($A2B->CallerID,1);
+					   }else{
+						   $A2B ->dnid = $A2B ->destination =
+	$caller_areacode.$A2B->CallerID;
+					   }
+					   $agi->verbose('line:'.__LINE__.' - '.'[destination:
+	- '.$A2B->destination.']');
+	
+	[a2billing-cid-callback]
+	exten => _X.,1,DeadAGI(a2billing.php|1|cid-callback|34) ;last
+	parameter is the callback area code
+	exten => _X.,2,Hangup
+	
+	As u see the last parameter is the area code and from instance :
+	if I am in Belgium and use a local DID for callback but my server are
+	in UK, the system will probably not know that it needs to call me back
+	over the prefix 32, that's why is needed.
+	So in this case my cell number 0473510969, a2b will be call me as 32473510969.
+	That s the meaning of the remaining zero and it makes sense to set a parameter 
+	for the leading zero if you are
+	already in the local country.
+
+
+
+#### NEW TASK []
+********************************************************************
+Smarty - template management
+
+
+
+
+
+#### []
+********************************************************************
+Automatic DID Billing
+Maybe a cront to find the DID used and bill then accordingly
+
+
+#### []
+********************************************************************
+Improve invoices system : let us store the generate invoice on the 
+server. Define rules to send invoice at scheduled period
+
+
+#### []
+********************************************************************
+
+
+#### []
+********************************************************************
+Suggestion from Vahan
+	1. First of all I'd suggest to introduce one single yet simple config
+	option in a2billing.conf: silent=yes|no that allows to turn off all the
+	voice prompts in the case a2billing.php has successfully authenticated
+	the caller-id/card number and if the assosiated card number has enough
+	credit. Currently you have to disable several announce configs for this.
+
+	2. add an option to filter by first name / last name too in the card picker.
+
+	3. Please first name to the list to as a separate column or merged with
+	last name. It's difficult to track people by their lastnames only.
+	Areski : I propose more to get rid of lastname and include a new feature to 
+	roll over the row and get more info. it will keep up a clear design
+
+
+#### [Done]
+********************************************************************
+Add VAT in customer invoice
+
+#### [Done]
+********************************************************************
+NEW FRAMEWORK NEED TO CREATE SIP/IAX FRIENDS WHEN CREATING CARDS
+
+
+#### [done]
+********************************************************************
+We need also the option when creating rate to create multi entries
+ie:
+	Define the destination prefix. ie, 44 for UK proper. You can use 'defaultprefix' to setup a rate 
+	by default for the destination for which you dont want to provide a specific rate.
+	IF YOU ADD A RATE AND NOT AN EDIT => You can also define several in the same time and range, as below:
+	32484-32487 -> this would insert 32484, 32485, 32486, 32487
+	32476,32477,32478 separate by comma  
+
+
+#### [Done]
+********************************************************************
+BUG on new framework when you edit a def ratecard.
+
+
+#### []
+********************************************************************
+EXPORT CSV - REALLY CUSTOMIZABLE
+EXPORT VOUCHER & EXPORT CARD
+DEFINE CARD AND FIELD TO EXPORT ON FRAMEWORK
+
+
+#### []
+********************************************************************
+BATCH UPDATE
+
+
+
+#### []
+********************************************************************
+Edit card : date format
+
+
+#### []
+********************************************************************
+There are problems with multiple calls if the credit is running low.
+The system should secure a certain amount from the credit once the
+user is logged in.
+
+
+#### []
+********************************************************************
+mrtwister|mobile 2. auto-generation of both sip/iax accounts - think it cannot do
+mrtwister|mobile 3. choice (in a2billing.conf) - ffriends in files or in asterisk realtime
+mrtwister|mobile 4 - later - for realtime - link to existing users/peers (voiceone etc)
+
+#### []
+********************************************************************
+// IMPORTANT
+bug on call report customer side
+it seems that if the session end the customer is able to see all the
+call made
+
+
+
+#### []
+********************************************************************
+- INVOICES MODULES (STORE ON SERVER - PRECOFIGURE RULES TO CREATE THEM)
+
+Upgrade of the invoices html2pdf 
+Store invoices on the server for different periode of time
+
+
+
+
+
+#### [work-in-progess]
+********************************************************************
+// IMPORTANT
+Internationalization - Multiple languages support for the Web Interfaces 
+perhaps home version of gettext
+
+
+
+#### []
+********************************************************************
+Pass all the a2billing conf into the DB
+
+#### []
+********************************************************************
+Importation tools for the cards
+
+
+
+#### []
+********************************************************************
+//// IMPORTANT 
+Ben Pintilie <ben@energyradio.co.uk>
+Going to offer professional recording :D
+- rework on the IVR text 
+
+
+#### [done-recheck]
+********************************************************************
+//// IMPORTANT 
+
+Bug with DID in the customer interface
+with mysql < 4 sub-select doesnt working
+Replace the query
+
+Database error: Invalid SQL: SELECT id, did, fixrate FROM cc_did WHERE id_cc_country=225 and id_cc_didgroup='1' and activated='1' and id NOT IN (select id_cc_did from cc_did_destination) ORDER BY did ASC
+MySQL Error: 1064 (You have an error in your SQL syntax near 'select id_cc_did from cc_did_destination) ORDER BY did ASC' at line 1)
+
+
+#### []
+********************************************************************
+Add report by voip-provider 
+see the selling traffic and the buying traffic, be able to see how much I 
+earn for each voip-provider (difference from the selling rate and the buyrateº)
+
+
+#### []
+********************************************************************
+Feature requests :
+Print Voucher(s) (PDF ?)
+Print Anonymous Prepaid Card (PDF ?)
+Print Personal Prepaid/PostPaid Card (PDF ?)
+Print Rates/Ratecard (adminUI)
+Export Rates->PDF (customerUI)
+Printing with custom company logo.
+
+
+
+
+#### []
+********************************************************************
+e.) at the form of adding/changing SIP/IAX user there should be a possibilty to erase some parameters. like if there isn't any entry (example in canreinvite) that this also don't will be printed to the sip-config. Beause some parameter should be better to define in general without any possibility of overwriting
+
+#### []
+********************************************************************
+
+d) different SIP/IAX files for each administrator/account- so with this there would be a possibility for a better differnece of two persons which handle the system and don't overwrite any manual config or/and a better usefull possibility for special definitions for the caller if he want to change like the "callerid" or anything else
+
+#### []
+********************************************************************
+5.) BUG : if the debug level in /etc/asterisk/a2billing.conf will be activated to 1, 2 or 3 there sould be a DEBUG from the AGI-scripts to the log_file. But I've seen, that many debugging information will not be printed to the logfile.
+ 
+So the statments "if ($A2B->agiconfig['debug']>=1) " don't work even the debug is set (i printed out the debug and I've seen it that the entry is correct. Maybe there is a mistake in the $agi->verbose but I don't looked there because it isn't so urgent to fix it.
+ 
+Here is a example (the first line is from me and will printed out, the $A2B->agiconfig['debug'] = 2 but the two verbose don't will be printed to the log_file) :
+ 
+# diff /var/lib/asterisk/agi-bin/a2billing.php
+122c124
+                                        $A2B -> write_log("[CREDIT STATUS : ".$A2B-> credit."]");
+                                        if ($A2B->agiconfig['debug']>=1) $agi->verbose("[CREDIT STATUS : ".$A2B-> credit."]");
+                                        if ($A2B->agiconfig['debug']>=1) $agi->verbose("[CREDIT MIN_CREDIT_2CALL : ".$A2B->agiconfig['min_credit_2call']."]");
+
+
+
+#### []
+********************************************************************
+use the aliasnumber when call iax/sip friends
+
+#### []
+********************************************************************
+//// IMPORTANT 
+Create a parameter in a2billing.conf format the number of decimal to display
+in Misc.php -> number_format($var,2);
+
+
+SWITCH ALL THE FLOAT IN MYSQL TO DECIMAL(12,6)
+SWITCH ALL THE FLOAT IN POSTGRESQL TO NUMERIC(12,6)
+
+ALTER TABLE cc_ratecard CHANGE buyrate buyrate DECIMAL( 12, 6 ) NOT NULL DEFAULT '0';
+
+      
+
+ALL HERE
+ALTER TABLE `call` CHANGE `calledrate` `calledrate` DECIMAL( 12, 6 ) NULL DEFAULT NULL;
+ALTER TABLE `call` CHANGE `sessionbill` `sessionbill` DECIMAL( 12, 6 ) NULL DEFAULT NULL;
+ALTER TABLE `cc_card` CHANGE `credit` `credit` DECIMAL( 12, 6 ) NOT NULL DEFAULT '0';
+ALTER TABLE `cc_ratecard` CHANGE `buyrate` `buyrate` DECIMAL( 12, 6 ) NOT NULL DEFAULT '0';
+ALTER TABLE `cc_ratecard` CHANGE `rateinitial` `rateinitial` DECIMAL( 12, 6 ) NOT NULL DEFAULT '0';
+ALTER TABLE `cc_ratecard` CHANGE `connectcharge` `connectcharge` DECIMAL( 12, 6 ) NOT NULL DEFAULT '0';
+ALTER TABLE `cc_ratecard` CHANGE `disconnectcharge` `disconnectcharge` DECIMAL( 12, 6 ) NOT NULL DEFAULT '0';
+ALTER TABLE `cc_ratecard` CHANGE `stepchargea` `stepchargea` DECIMAL( 12, 6 ) NOT NULL DEFAULT '0';
+ALTER TABLE `cc_ratecard` CHANGE `chargea` `chargea` DECIMAL( 12, 6 ) NOT NULL DEFAULT '0';
+ALTER TABLE `cc_ratecard` CHANGE `stepchargeb` `stepchargeb` DECIMAL( 12, 6 ) NOT NULL DEFAULT '0';
+ALTER TABLE `cc_ratecard` CHANGE `chargeb` `chargeb` DECIMAL( 12, 6 ) NOT NULL DEFAULT '0';
+ALTER TABLE `cc_ratecard` CHANGE `stepchargec` `stepchargec` DECIMAL( 12, 6 ) NOT NULL DEFAULT '0';
+ALTER TABLE `cc_ratecard` CHANGE `chargec` `chargec` DECIMAL( 12, 6 ) NOT NULL DEFAULT '0';
+ALTER TABLE `cc_service` CHANGE `amount` `amount` DECIMAL( 12, 6 ) NOT NULL DEFAULT '0';
+ALTER TABLE `cc_service` CHANGE `totalcredit` `totalcredit` DECIMAL( 12, 6 ) NOT NULL DEFAULT '0';
+ALTER TABLE `cc_service_report` CHANGE `totalcredit` `totalcredit` DECIMAL( 12, 6 ) NULL DEFAULT NULL;
+ALTER TABLE `cc_voucher` CHANGE `credit` `credit` DECIMAL( 12, 6 ) NOT NULL DEFAULT '0';
+ 
+
+#### []
+********************************************************************
+Petite question: je suis entrain de mettre en place des routes et ai
+trouvé un truc que tu pourrais incorporer d'origine: un TRUNK nommé
+NotAllowed (exemple), ProvideIP=NoProvider. Dans les scripts, lorsque tu
+rencontres ce peer, soit tu ne fais rien et envois le message - le
+numéro composé n'est pas disponible - ce qui est le cas actuellement
+parceque * ne trouve pas ce host et renvoit un code erreur a A2Billing,
+soit tu permets d'appeller une extension de type 100@default ou
+Local/default/200 ou ... qui permettrait de personnaliser l'annonce/le
+traitement.
+
+Pourquoi je pense à ca? Prenons la FR comme ex: les routes vers les
+numéros 8xx. sont compliquées: soit c'est gratuit (Freebox et consors)
+soit c'est ultra-payant :-( Si je dois autoriser les règles une à une,
+ca se complique. Avec ce système, j'interdis (donc TRUNK=NotAllowed) la
+destination 338 puis je n'ouvre que les routes 338x que je veux ;-)
+
+
+
+#### []
+********************************************************************
+
+> Since you support simultaneous calls on the same acountcode, It would be
+> nice if the CustomerUI displayed CallerID and also be able to search on and
+> sort on that column. Would be nice.  This way we can segegrate within the
+> same account.
+
+
+#### []
+********************************************************************
+
+When Making a call that is not answered, after timeout : no explanation,
+just a busy tone/Hangup (voice prompt would be nice)
+
+Callback : Allow/Deny pr user
+
+Rates : it should be possible to enter rates in different currencies for
+each ratecard.
+
+I have 3 providers : a danish who list prices in DKK, a english who
+lists prices in EUR, and a US who list prices in USD.
+
+I think you can see my problem.
+
+DID : answer with voice on unassigned did.
+
+
+Needed DID improvement :
+;played when receiving call on DID with no assigned destination
+did_not_assigned_snd=
+
+
+
+#### [Update-local-text-files]
+********************************************************************
+
+DOCUMENTATION
+
+from your web site
+
+cp -rf libs_a2billing /var/lib/asterisk/agi-bin/.
+should be
+cp -rf libs_a2billing/* /var/lib/asterisk/agi-bin/.
+or u will miss 2 files in the folder
+
+likewise from your website
+cp  sounds/en/* /var/lib/asterisk/sounds/.
+can be
+cp  sounds/en/* /var/lib/asterisk/sounds/. < yes.txt
+if u want to automate in a script
+
+ 
+------------
+
+1) Your system has a term of credit and credit limit. In fact the field that
+has name CREDIT in your system in official terms of professional billing
+systems has name ACCOUNT BALANCE. So the right name for this field could be
+BALANCE. This balance can be positive and negative. The field name CREDIT is
+not so correct because positive condition of account is not credit in fact,
+this is DEBIT account, the CREDIT takes a place only when the user has
+negative condition of his account balance. Credit limit only shows the
+amount of negative condition of account balance. In other cases talking
+about credit is not right way because in fact it is not credit. This also
+could be better if credit customer could hear in the voice the real state of
+his account balance not just a sum of real payed money plus credit limit but
+only the number in BALANCE(CREDIT in your version) field. Talking the sum of
+money and credit limit don't give customers the real info if he has a debt
+of not. If the customer has a debt most calling card platforms say "balance
+of your account is minus blah blah blah".
+
+
+
+#### []
+********************************************************************
+beyond my means and ability to be able to modify the code to make a2billing
+charge a fixed amount eg: 5cents per minute. for sip to sip calls... :(
+
+
+#### []
+********************************************************************
+//// IMPORTANT 
+Add new reporting
+
+i also made little changes according to my poor understanding,  in call-log.php ( u sent me with billsec display)
+$QUERY = "SELECT substring(calldate,1,10) AS day, sum(billsec) AS calltime, count(*) as nbcall FROM cdr WHERE disposition LIKE 'ANSWERED' AND ".$FG_TABLE_CLAUSE." GROUP BY substring(calldate,1,10)"; //extract(DAY from calldate)
+replaced duration with billsec   to display billsec sum in bottom summery and to view correct ACT  i added  where disposion  like answered
+cos ACD  =  can be calculated with answered calls    and i am also looking to add ASR formula in it
+
+
+#### []
+********************************************************************
+//// IMPORTANT 
+- and kindly  do add   the option to   take backup of rates tables  etc...
+- and very important batch options  for all fields
+
+
+
+#### []
+********************************************************************
+FOR THE WIKI
+
+aka mantic
+
+
+
+
+Importing Rate Cards
+
+To import rate cards, your cvs file has to be formatted in a specific
+way.
+
+1 Obtain your vendors rates in cvs.
+
+2 Open it in your favorite spreadsheet or database editor.
+
+3 Find and arrange the columns so that the first three are:
+      dialprefix - dial prefix
+      destination - country
+      rate initial - how much you charge
+
+4 Find any of the other fields in your file that have data such as:
+      buyrate - how much you pay provider per minute
+      buyrateinitblock - minimum time provider bills you
+      buyrateincrement - billing time increment from provider
+      initblock - minimum time your bill caller
+      billingblock - billing time increment to caller
+      connect charge  - connect charge to caller
+      disconnect charge - disconnect charge to caller
+(there are additional fields not listed here available as
+well.)                          Once you have found them, I would
+suggest renameing them
+appropriately                           to lessen confusion.
+You may also find some cvs files have the country and city code in
+seperate fields, you going to have to append the latter to the first
+and call it dialprefix.
+
+5 Check that the field arrangement has the following order: dialprefix,
+destination, rate initial
+Additional fields can be in any order you like, but take note of the
+order for later.
+
+6 Preparing the file to import.
+The file has to be cvs format. Comma seperated format, but we cant use
+commas. The accepted characters are:
+';'  ':'  '-'  '\t'
+You must save the file using one of the above as the seperator.
+On my mac, I used excel to edit the file and bbedit to find and replace
+all ',' with ';' and save in the Unix Unicode UT8 format.
+Your file should look like this:
+
+dialprefix;destination;rate initial;buyrate;initblock
+119370;afghanistan cellular;0.8135;0.3135;30
+1193;afghanistan proper;0.7866;0.2866;30
+1135538;albania cellular;0.7076;0.2076;30
+
+7. Open the a2billing page in your browser. Find Import RateCard.
+'Choose the ratecard to import', 'Choose the trunk to use'.
+'Choose the additionnal field that you want to import from your cvs
+file.'
+Here you will add any additional fields you described in the file.
+Select the field and use the right green arrow to bring over. Do this
+for all fields you have in the file. Make sure they are in the order
+you noted earler. Make any order adjustments by selecting and using the
+red up/down arrows to move.
+
+8 Once you are finished "Choose File" and then "Import RateCard". If
+all is well
+you will see all of your field headers match up. Once you confirm they
+do, hit "Continue to Import the RateCard". (It may ask you to select
+the file again)
+
+9 You will then get a confirmation of how many rates were successfully
+imported.
+
+/////////////////////////////////////////////////////
+
+
+WIKI TO HAVE + SEVERAL A2B ON THE SAME BOX
+------------------------------------------------------------------
+
+Yes, you can program in a2billing.conf several configurations but only
+to set different behaviour for the "agi" not for the rest of the
+system.
+
+Well in your case if you want to make coexist 2+ a2billing platforms
+on the same box,
+you will have to trick a little bit. There is a file call
+Class.A2Billing.php in each components (web, agi, web-cust) and at the
+beginning of it there is the definition to select the conf files
+
+define('AST_CONFIG_DIR', '/etc/asterisk/');
+...
+define('DEFAULT_A2BILLING_CONFIG', AST_CONFIG_DIR . '/a2billing.conf');
+
+
+so you can create a new db
+duplicate the web interface in other directory and all files for the agi and
+for instance copy those last in /var/lib/asterisk/agi-bin/namecustomer/
+
+change the file
+/var/lib/asterisk/agi-bin/namecustomer/libs_a2billing/Class.A2Billing.php
+
+with for instance
+define('DEFAULT_A2BILLING_CONFIG', AST_CONFIG_DIR .
+'/a2billing.namecustomer.conf');
+
+etc...
+
+/////////////////////////////////////////////////////
+
+
+
+
+
+********************************************************************
+                   TODO LIST - GENERAL
+********************************************************************
+
+
+ 
+- MULTI CURRENCY FOR THE RECURRING SERVICE (maybe better to leave it like that)
+
+- CUSTOM WELCOM MESSAGE
+
+- CUSTOM ALL THE MESSAGE FROM WEB
+
+- PASS PART OF THE CONFIGURATION ON THE DB
+
+- CALLSHOP
+
+- RESELLERS MODULE
+
+- C MODULE (NON_AGI BASED) OR AEL
+
+- CLASS_ENTITY
+
+- KEEP TRACK OF THE COST - CALCULATE EARNING
+
+- MAKE A GLOBAL VISUALISATION OF ASR - GLOBAL COST - EARNINGS (AGILE BILLING)
+  REPORT ASR 
+  
+- SUPPORT ARA
+
+- EXPORT RATES
+
+- WHOLESALES (http://admin.coreswitch.com)
+
+- Flash Operator Panel integration of additional_a2billing_SIP/IAX.conf
+
+- Cront Manager 
+
+
+
+2) In most billing systems identification of customer is not associated with
+PIN code. Most usual and flexible way is to add the term of account.  The
+account has associated with it PIN codes, CLIDs and other methods of
+providing services. For example you have a corporative customer that is
+company with 15 employees. These all people use PIN codes, their cell phones
+callerids also used for access. They just call and call but money for calls
+everytime taken from ONE account and they don't have to think about their
+personal account balance, the company has one account for all PINs and
+CLIDs. This is usual practise for most billing systems. This
+company-customer can get the report in any time and look how many calls were
+made by employees and how much money they spent from the account and how
+many money were spent by all employees instead of looking the personal
+accounts of all employees.
+
+#### [work-in-progress]
+********************************************************************
+//// IMPORTANT BUT WE WAIT FOR THE WIKI
+ - Review Documentation about installation ( many missing , errors ) ? ( or maybe not ... :-D ).
+
+#### []
+********************************************************************
+
+ - Make a javascript wrappers to be sure that correct selections have been done for all script
+   where there's a search button . Also avoid or just warn to user when it select a Range but use
+   check out checkboxes from other selection i.ex :
+
+   Selection of the month ( selected ) but check out checkboxes from Selection of the day .
+
+#### []
+********************************************************************
+
+ - Allow set timezone in a2billing 
+
+#### []
+********************************************************************
+ - Add a .htaccess with php options i.ex : register_globals off , etc ... ( and also to protect the site maybe ? ).
+
+#### []
+********************************************************************
+ - Create a web base installation like many php projects do . ( no hurry at all ).
+
+#### []
+*******************************************************************
+//// IMPORTANT 
+ - Verify the design in IE , seems that doesn't like some CSS.
+
+#### [done-check-postgresql]
+ - Need to check possible problems with differents versions of MYSQL , the inserts for timestamps has been
+ fixeds but not update and others.
+
+
+#### []
+*******************************************************************
+//// IMPORTANT
+
+Check Call Report.
+
+#### []
+*******************************************************************
+
+Fix the generation of pdf avoid to use ob_* functions and generate the pdf to disk
+so we avoid the problem of php memory exausting.

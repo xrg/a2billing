@@ -20,7 +20,7 @@ if (isset($posted) && strlen(trim($tariffplan)) > 0){
 	$idtariff = explode('-:-',$tariffplan);
 	$HD_Form->FG_TOP_FILTER_NAME = str_replace ("-:-","",$idtariff[1]);
 	//echo "Debug hey ->".$HD_Form->FG_TOP_FILTER_NAME."<br>";
-	//$HD_Form->FG_TOP_FILTER_VALUE = $idtariff[0];
+	$HD_Form->FG_TOP_FILTER_VALUE = $idtariff[0];
 	//$HD_Form -> FG_TABLE_CLAUSE = " idtariffplan='$HD_Form->FG_TOP_FILTER_VALUE' ";
     $HD_Form -> FG_TABLE_CLAUSE .= "cc_tariffplan.id = cc_tariffgroup_plan.idtariffplan AND cc_tariffgroup_plan.idtariffgroup = '".$_SESSION["tariff"]."' AND  cc_tariffgroup_plan.idtariffplan=cc_ratecard.idtariffplan   AND cc_ratecard.idtariffplan='".$HD_Form->FG_TOP_FILTER_VALUE."' AND cc_tariffgroup_plan.idtariffgroup = '".$_SESSION["tariff"]."'";
 	$_SESSION['def_ratecard'] = $HD_Form -> FG_TABLE_CLAUSE;
