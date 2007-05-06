@@ -39,7 +39,7 @@ $list = $HD_Form -> perform_action($form_action);
 include("PP_header.php");
 
 // #### HELP SECTION
-echo '<br><br>'.$CC_help_agent_list;
+echo '<br><br>'.$CC_help_agent_list."<br>\n";
 
 
 
