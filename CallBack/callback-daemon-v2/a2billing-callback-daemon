@@ -8,40 +8,27 @@ use vars qw($dbh);
 use lib '/var/lib/asterisk/a2billing/callback-daemon/lib';
 use Asterisk::Manager;
 use Config::INI::Simple;
-use AppConfig::File;
 
 $|++;
 
-#my $conf_file = "a2billing.conf";
-my $conf_file = "settings.conf";
-
-
-my $conf = new Config::INI::Simple;
-# Read the config file.
-# $conf->read ("settings.conf");
-# $conf->{Server02}->{port} = 2237;
-# $conf->write ("settings.conf");
-# exit(0);  
-  
-# Read the config file
-$conf->read ("a2billing.conf");
-
-print "OK READ \n";
-print $conf->{database}->{hostname};
-exit(0);
 
 ######################### GLOBALS ########################
 my $path_daemon = "/var/lib/asterisk/a2billing/callback-daemon/";
 my $daemon = "CallBack-Daemon";
 
+######################### READ THE CONFIG FILE ########################
+my $conf_file = "/etc/asterisk/a2billing.conf";
+my $conf = new Config::INI::Simple;
+# Read the config file
+$conf->read ($conf_file);
 
 ######################### DB PARAMETER ########################
-my $dbname = "a2billing";
-my $dbhost = "localhost";
-my $dbport = "5432";
-my $login = "root";
-my $pwd = "";
-my $dbtype = "mysql"; # value : mysql or pgsql
+my $dbname = $conf->{database}->{dbname};
+my $dbhost = $conf->{database}->{hostname};
+my $dbport = $conf->{database}->{port};
+my $login = $conf->{database}->{user};
+my $pwd = $conf->{database}->{password};
+my $dbtype = $conf->{database}->{dbtype};
 
 ######################### LOG FILE ########################
 my $log_file = "/var/log/asterisk/a2billing-daemon-callback.log";
@@ -88,7 +75,7 @@ my $astman = new Asterisk::Manager;
 # print @res_manager;
 # exit(0);
 
-&daemonize($path_daemon);
+# &daemonize($path_daemon);
 
 open(LOGFILE, ">>".$log_file) || warn "Could not open >> $log_file.\n";
 $timestamp = &longfmt();

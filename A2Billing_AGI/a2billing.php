@@ -735,58 +735,49 @@ if ($mode == 'standard'){
 // MODE CALLBACK
 }elseif ($mode == 'callback'){
 	
-	$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, '[MODE : CALLBACK]');
+	$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, '[CALLBACK]:[MODE : CALLBACK]');
 
-	
-	
 	if ($A2B->agiconfig['answer_call']==1){
-		$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, '[ANSWER CALL]');
+		$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, '[CALLBACK]:[ANSWER CALL]');
 		$agi->answer();
 		$status_channel=6; 
 	}else{
-		$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, '[NO ANSWER CALL]');
+		$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, '[CALLBACK]:[NO ANSWER CALL]');
 		$status_channel=4;
 	}
 	
-	
 	$called_party = $agi->get_variable("CALLED");
 	$called_party = $called_party['data'];
-	
 	$calling_party = $agi->get_variable("CALLING");
 	$calling_party = $calling_party['data'];
-	
 	$callback_mode = $agi->get_variable("MODE");
 	$callback_mode = $callback_mode['data'];
-	
 	$callback_tariff = $agi->get_variable("TARIFF");
 	$callback_tariff = $callback_tariff['data'];
 	
 	// |MODEFROM=ALL-CALLBACK|TARIFF=".$A2B ->tariff;
 	
 	if ($callback_mode=='CID'){  
-		$A2B->agiconfig['use_dnid'] = 0;			
-		
+		$A2B->agiconfig['use_dnid'] = 0;
 	}elseif ($callback_mode=='ALL'){  
 		$A2B->agiconfig['use_dnid'] = 0;
 	}else{
-	
 		// FOR THE WEB-CALLBACK
 		$A2B->agiconfig['number_try'] =1;
 		$A2B->agiconfig['use_dnid'] =1;
 		$A2B->agiconfig['say_balance_after_auth']=0;
-		$A2B->agiconfig['cid_enable'] =0;		
+		$A2B->agiconfig['cid_enable'] =0;
 		$A2B->agiconfig['say_timetocall']=0;
 	}
 	
-	$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[GET VARIABLE : CALLED=$called_party | CALLING=$calling_party | MODE=$callback_mode | TARIFF=$callback_tariff]");
+	$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[CALLBACK]:[GET VARIABLE : CALLED=$called_party | CALLING=$calling_party | MODE=$callback_mode | TARIFF=$callback_tariff]");
 	
-	
-	/* WE START ;) */	
-	$cia_res = $A2B -> callingcard_ivr_authenticate($agi);
-	$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[TRY : callingcard_ivr_authenticate]");
+	/* WE START ;) */
+	$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[CALLBACK]:[TRY : callingcard_ivr_authenticate]");
+	$cia_res = $A2B -> callingcard_ivr_authenticate($agi);	
 	if ($cia_res==0){
 		
-		$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[callingcard_acct_start_inuse]");
+		$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[CALLBACK]:[Start]");
 		$A2B->callingcard_auto_setcallerid($agi);
 		//$A2B->callingcard_acct_start_inuse($agi,1);
 		
@@ -796,15 +787,12 @@ if ($mode == 'standard'){
 			$A2B-> Reinit();
 			
 			$stat_channel = $agi->channel_status($A2B-> channel);
-			$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, '[CHANNEL STATUS : '.$stat_channel["result"].' = '.$stat_channel["data"].']'."[CREDIT STATUS : ".$A2B-> credit." - CREDIT MIN_CREDIT_2CALL : ".$A2B->agiconfig['min_credit_2call']."]");
+			$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, '[CALLBACK]:[CHANNEL STATUS : '.$stat_channel["result"].' = '.$stat_channel["data"].']'."[CREDIT STATUS : ".$A2B-> credit." - CREDIT MIN_CREDIT_2CALL : ".$A2B->agiconfig['min_credit_2call']."]");
 			
 			
 			//if ($stat_channel["status"]!= "6" && $stat_channel["status"]!= "1"){	
 			if ($stat_channel["result"]!= $status_channel && ($A2B -> CC_TESTING!=1)){
 				break;
-				//$A2B->callingcard_acct_start_inuse($agi,0); 
-				//$A2B -> write_log("[STOP - EXIT]", 0);
-				//exit();
 			}
 			
 			
@@ -812,7 +800,7 @@ if ($mode == 'standard'){
 				// SAY TO THE CALLER THAT IT DEOSNT HAVE ENOUGH CREDIT TO MAKE A CALL							
 				$prompt = "prepaid-no-enough-credit-stop";
 				$agi-> stream_file($prompt, '#');
-				$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[STOP STREAM FILE $prompt]");
+				$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[CALLBACK]:[STOP STREAM FILE $prompt]");
 			}
 			
 			if ($A2B-> callingcard_ivr_authorize($agi, $RateEngine, $i)==1){
@@ -821,7 +809,6 @@ if ($mode == 'standard'){
 				$result_callperf = $RateEngine->rate_engine_performcall ($agi, $A2B-> destination, $A2B);
 				if (!$result_callperf) {
 					$prompt="prepaid-dest-unreachable";
-					//$agi->agi_exec("STREAM FILE $prompt #");
 					$agi-> stream_file($prompt, '#');
 				}
 				
@@ -833,21 +820,21 @@ if ($mode == 'standard'){
 				}
 				
 				$charge_callback = 1;
-				$arr_save_a2billing['countrycode']= $A2B-> countrycode;
-				$arr_save_a2billing['subcode']= $A2B-> subcode;
-				$arr_save_a2billing['myprefix']= $A2B-> myprefix;
-				$arr_save_a2billing['ipaddress']= $A2B-> ipaddress;
-				$arr_save_a2billing['rate']= $A2B-> rate;
-				$arr_save_a2billing['destination']= $A2B-> destination;
+				$arr_save_a2billing['countrycode']	= $A2B-> countrycode;
+				$arr_save_a2billing['subcode']		= $A2B-> subcode;
+				$arr_save_a2billing['myprefix']		= $A2B-> myprefix;
+				$arr_save_a2billing['ipaddress']	= $A2B-> ipaddress;
+				$arr_save_a2billing['rate']			= $A2B-> rate;
+				$arr_save_a2billing['destination']	= $A2B-> destination;
 				$arr_save_a2billing['sip_iax_buddy']= $A2B-> sip_iax_buddy;
 				
 				$arr_save_rateengine['number_trunk']= $RateEngine-> number_trunk;
 				$arr_save_rateengine['answeredtime']= $RateEngine-> answeredtime;
-				$arr_save_rateengine['dialstatus']= $RateEngine-> dialstatus;
+				$arr_save_rateengine['dialstatus']	= $RateEngine-> dialstatus;
 				$arr_save_rateengine['usedratecard']= $RateEngine-> usedratecard;
-				$arr_save_rateengine['lastcost']= $RateEngine-> lastcost;
+				$arr_save_rateengine['lastcost']	= $RateEngine-> lastcost;
 				
-				$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[callingcard_acct_stop 1] RateEngine->usedratecard=".$RateEngine->usedratecard);
+				$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[CALLBACK]:[a2billing end loop num_try] RateEngine->usedratecard=".$RateEngine->usedratecard);
 			}
 		}//END FOR
 		
@@ -856,7 +843,7 @@ if ($mode == 'standard'){
 		}
 		
 	}else{
-		$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[AUTHENTICATION FAILED (cia_res:".$cia_res.")]");
+		$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[CALLBACK]:[AUTHENTICATION FAILED (cia_res:".$cia_res.")]");
 	}
 
 
@@ -904,34 +891,16 @@ if ($mode == 'standard'){
 				exit();
 			}
 			
-			
-			/*
-			if( $A2B->credit < $A2B->agiconfig['min_credit_2call'] && $A2B -> typepaid==0) {
-					
-					// SAY TO THE CALLER THAT IT DEOSNT HAVE ENOUGH CREDIT TO MAKE A CALL							
-					$prompt = "prepaid-no-enough-credit-stop";
-					$agi-> stream_file($prompt, '#');
-					$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[STOP STREAM FILE $prompt]");
-					
-			}*/
-			
-			
-
-			$today_date = date("Y-m-d"); // 2005-12-24
-			
+			$today_date = date("Y-m-d"); // 2005-12-24			
 			// DEFINE HERE THE NUMBER OF DAY THAT A PHONENUMBER FROM THE LIST WILL LAST BEFORE BE CALL AGAIN
-			$days_compare = $A2B -> config["callback"]['nb_day_wait_before_retry'];					
-	
+			$days_compare = $A2B -> config["callback"]['nb_day_wait_before_retry'];			
 			if ($A2B->config["database"]['dbtype'] == "postgres"){
 				$UNIX_TIMESTAMP = ""; $sql_limit = " LIMIT 5 OFFSET 0";	
 				$date_clause = " last_attempt < date'$today_date'- INTERVAL '$days_compare DAY' ";
 				// last_attempt < date'2005-12-24'- INTERVAL '1 DAY'
 			}else{		
 				$UNIX_TIMESTAMP = "UNIX_TIMESTAMP"; 	$sql_limit = " LIMIT 0,5";	 
-				$date_clause = " last_attempt < SUBDATE('$today_date',INTERVAL $days_compare DAY)";  
-				// last_attempt < SUBDATE('2005-12-24',INTERVAL 1 DAY)
-				// SELECT id, numbertodial, name  FROM cc_phonelist WHERE enable=1 AND num_trials_done<10 AND inuse=0 AND id_cc_campaign=1 
-				// AND ( last_attempt < SUBDATE('2005-12-24',INTERVAL 1 DAY) OR num_trials_done=0) 
+				$date_clause = " last_attempt < SUBDATE('$today_date',INTERVAL $days_compare DAY)";
 			}
 			$QUERY = "SELECT id, numbertodial, name  FROM cc_phonelist WHERE enable=1 AND num_trials_done<10 AND inuse=0 AND id_cc_campaign=".$A2B->id_campaign.
 					" AND ( $date_clause OR num_trials_done=0) ORDER BY last_attempt DESC $sql_limit";
@@ -973,10 +942,8 @@ if ($mode == 'standard'){
 				}
 				$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[callingcard_acct_stop]");
 			}
-			
 			$QUERY = "UPDATE cc_phonelist SET inuse='0', last_attempt=now(),  num_trials_done=num_trials_done+1, secondusedreal=secondusedreal+".$RateEngine->answeredtime." WHERE id='".$id_phonelist."'";
 			$update_result = $A2B -> instance_table -> SQLExec ($A2B->DBHandle, $QUERY, 0);
-			
 		}//END FOR
 		if ($A2B->set_inuse==1){ 
 			$A2B->callingcard_acct_start_inuse($agi,0);
@@ -1010,7 +977,7 @@ if ($charge_callback){
 		$A2B -> tariff = $callback_tariff;
 	}
 	
-	$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[MAKE BILLING FOR THE 1ST LEG - TARIFF:".$A2B -> tariff.";CALLED=$called_party]");
+	$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[CALLBACK]:[MAKE BILLING FOR THE 1ST LEG - TARIFF:".$A2B -> tariff.";CALLED=$called_party]");
 	$A2B->agiconfig['use_dnid'] =1;
 	$A2B ->dnid = $A2B ->destination = $called_party;
 	
@@ -1022,15 +989,15 @@ if ($charge_callback){
 		if ($res_all_calcultimeout){
 			// SET CORRECTLY THE CALLTIME FOR THE 1st LEG
 			$RateEngine -> answeredtime  = time() - $G_startime;
-			$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[RateEngine -> answeredtime=".$RateEngine -> answeredtime."]");
+			$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[CALLBACK]:[RateEngine -> answeredtime=".$RateEngine -> answeredtime."]");
 			
 			// INSERT CDR  & UPDATE SYSTEM
 			$RateEngine->rate_engine_updatesystem($A2B, $agi, $A2B-> destination, 1, 0, 1);
 		}else{										
-			$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[ERROR - BILLING FOR THE 1ST LEG - rate_engine_all_calcultimeout: CALLED=$called_party]");
+			$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[CALLBACK]:[ERROR - BILLING FOR THE 1ST LEG - rate_engine_all_calcultimeout: CALLED=$called_party]");
 		}
 	}else{
-		$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[ERROR - BILLING FOR THE 1ST LEG - rate_engine_findrates: CALLED=$called_party - RateEngine->usedratecard=".$RateEngine->usedratecard."]");
+		$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[CALLBACK]:[ERROR - BILLING FOR THE 1ST LEG - rate_engine_findrates: CALLED=$called_party - RateEngine->usedratecard=".$RateEngine->usedratecard."]");
 	}
 }
 
