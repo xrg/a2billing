@@ -3,6 +3,9 @@ ALTER TABLE cc_tariffplan ADD COLUMN calleridprefix text NOT NULL DEFAULT 'all':
 
 
 
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (150, 'GYD', 'Guyana Dollar (GYD)', 0.00527,  'USD');
+
+
 
 ALTER TABLE cc_charge ADD COLUMN id_cc_did bigint ;
 ALTER TABLE cc_charge ALTER COLUMN id_cc_did SET DEFAULT 0;

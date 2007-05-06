@@ -71,11 +71,6 @@ body, td, th, h3, input { /* redundant rules for bad browsers  */
 	font-size: small;
 }
 
-body {
-	color: #333;
-	line-height: 140%;
-}
-
 a:link { color: #039; }
 a:visited { color: #609; }
 a:hover { color: #333; }

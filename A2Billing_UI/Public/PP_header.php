@@ -7,12 +7,12 @@
 <html><head>
 <link rel="shortcut icon" href="../Images/favicon.ico">
 <link rel="icon" href="../Images/animated_favicon1.gif" type="image/gif">
-
+<link rel="stylesheet" type="text/css" href="../Css/menu.css" media="all">
 <title>..:: <?php echo CCMAINTITLE; ?> ::..</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link href="../Css/Css_Ale.css" rel="stylesheet" type="text/css">
-<link href="../Css/menu.css" rel="stylesheet" type="text/css">
 <link href="../Css/style-def.css" rel="stylesheet" type="text/css">
+<link href="../Css/menu.css" rel="stylesheet" type="text/css">
 
 <script language="JavaScript">
 <!--
@@ -65,3 +65,9 @@ function imgidclick(imgID,divID, imgbase, imgchange)
 </head>
 <body  leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
 <p class="version" align="right"><?php echo WEBUI_VERSION.WEBUI_DATE; ?></p>
+<br>
+<DIV border=0 width="1000">
+<div class="divleft">
+	<?php include("PP_menu.php");?>
+</div>
+<div class="divright">

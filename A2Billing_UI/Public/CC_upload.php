@@ -52,24 +52,36 @@ function getlast($toget)
 {
 	$pos=strrpos($toget,".");
 	$lastext=substr($toget,$pos+1);
-
+	echo "lastext=	$lastext<br>";
 	return $lastext;
 }
 
-  session_start();
-  //print_r ($_FILES);  
-  $version = 1.13;
+function arr_rid_blank($my_arr)
+{
+	if (is_array($my_arr)){
+		for($i=0;$i<count($my_arr);$i++)
+		{
+			$my_arr[$i] = trim($my_arr[$i]);
+		}
+		return $my_arr;
+	}
+}
+
+$file_ext_allow = arr_rid_blank($file_ext_allow);
+
+  // print_r ($_FILES);  
 
   //When REGISTERED_GLOBALS are off in php.ini
+  /*
   $_POST    = $HTTP_POST_VARS;
   $_GET     = $HTTP_GET_VARS;
   $_SESSION = $HTTP_SESSION_VARS;
-
+  */
   
   //Any other action the user must be logged in!
+  
   if($_GET['method'])
   {
-
     session_register('message');
 
     //Upload the file
@@ -79,6 +91,10 @@ function getlast($toget)
       $file_array = $_FILES['file'];
       $_SESSION['message'] = "";
       $uploads = false;
+	  
+	  //print_r($file_ext_allow);
+	  //echo "<br>files_to_upload=$files_to_upload</br>";
+			
       for($i = 0 ; $i < $files_to_upload; $i++)
       { 
         if($_FILES['file']['name'][$i])
@@ -88,25 +104,27 @@ function getlast($toget)
           {
 		  
 		    $fileupload_name=$_FILES['file']['name'][0];
-		  
+		  	
 		  	for($i=0;$i<count($file_ext_allow);$i++)
 			{
-				if (getlast($fileupload_name)!=$file_ext_allow[$i])
+				//if (getlast($fileupload_name)!=$file_ext_allow[$i]){
+				if (strcmp(getlast($fileupload_name),$file_ext_allow[$i])!=0){
 					$test.="~~";
+					echo "<br>'".getlast($fileupload_name)."' - '".$file_ext_allow[$i]."'<br>";
+				}
 			}
 			$exp=explode("~~",$test);
 			if (count($exp)==(count($file_ext_allow)+1))
 			{
-				$_SESSION['message'] .= "<br><img src=\"$dir_img/error.gif\" width=\"15\" height=\"15\">&nbsp;<b><font size=\"2\">ERROR: your file type is not allowed (".getlast($fileupload_name).")</font>, or you didn't specify a file to upload.</b><br>";
+				$_SESSION['message'] .= "<br><img src=\"$dir_img/error.gif\" width=\"15\" height=\"15\">&nbsp;<b><font size=\"2\">ERROR: your file type is not allowed (".getlast($fileupload_name).")</font>, or you didn't specify a file to upload.</b><br>";				
 			}
 			else
-			{
-		  		
+			{		  		
 				if ($_FILES['file']['size'][0] > $file_size_ind)
 				{
 					$_SESSION['message'] .= "<br><img src=\"$dir_img/error.gif\" width=\"15\" height=\"15\">&nbsp;<b><font size=\"2\">ERROR: please get the file size less than ".$file_size_ind." BYTES  (".round(($file_size_ind/1024),2)." KB)</font></b><br>";
 				}else{
-					$file_to_upload = $upload_dir."/".$_FILES['file']['name'][0];
+					$file_to_upload = $upload_dir."/".$_FILES['file']['name'][0];					
 					move_uploaded_file($_FILES['file']['tmp_name'][0],$file_to_upload);
 					//echo "<br>::$file_to_upload</br>";
 					//chmod($file_to_upload,0777);
@@ -154,23 +172,17 @@ function getlast($toget)
       rename( $upload_dir . "/" . $_GET['file'] , $upload_dir . "/" . $_GET['to'] );
       $_SESSION['message'] = "Renamed " . $_GET['file'] . " to " . $_GET['to'];
     }
-    //Redirect to the script again
+    // Redirect to the script again
     Header("Location: " . $_SERVER['PHP_SELF']."?acc=$acc" );
   }
 
-  //HTML STARTING
-?>
-<html>  
-  <head>    
-  <title>FileUpload</title>
-  
-  
-<link href="../Css/menu.css" rel="stylesheet" type="text/css">
-<link href="../Css/style-def.css" rel="stylesheet" type="text/css">
-</head> 
 
-<body  leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
-<br><br><br><br><br><br>
+
+	include("PP_header.php");
+?>
+ 
+<br><br>
+
 
 <center>
 <table width="560" cellspacing="0" cellpadding="0" border="0">
@@ -185,6 +197,7 @@ function getlast($toget)
 
 <table width="560" cellspacing="0" cellpadding="0" border="0" class="table_decoration" style="padding-top:5px;padding-left=5px;padding-bottom:5px;padding-right:5px">
   <form method='post' enctype='multipart/form-data' action='<?php echo $_SERVER['PHP_SELF'];?>?method=upload'>
+  
   
   <input type="hidden" value="<?php echo $acc?>" name="acc"/>
  <?php

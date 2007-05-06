@@ -39,7 +39,7 @@ include("PP_header.php");
 
 
 // #### HELP SECTION
-echo '<br><br>'.$CC_help_list_autorefill;
+echo $CC_help_list_autorefill;
 
 
 
