@@ -273,7 +273,7 @@ class A2Billing {
 		// Conf for Paypal 		
 		if(!isset($this->config["paypal"]['item_name']))	$this->config["paypal"]['item_name'] = 'Credit Purchase';
 		if(!isset($this->config["paypal"]['currency_code']))	$this->config["paypal"]['currency_code'] = 'USD';
-		if(!isset($this->config["paypal"]['purchase_amount']))	$this->config["paypal"]['purchase_amount'] = '5;10;15';
+		if(!isset($this->config["paypal"]['purchase_amount']))	$this->config["paypal"]['purchase_amount'] = '5:10:15';
 		if(!isset($this->config["paypal"]['paypal_logfile']))	$this->config["paypal"]['paypal_logfile'] = '/tmp/a2billing_paypal.log';
 	
 
