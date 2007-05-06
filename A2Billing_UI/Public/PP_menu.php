@@ -139,14 +139,15 @@ function imgidclick(imgID,divID)
 		<div id="div3" style="display:none;">
 		<ul>
 			<li><ul>
-				<li><a href="A2B_entity_tariffgroup.php?form_action=ask-add&atmenu=tariffgroup&stitle=Tariff+Group"><?= gettext("Create TariffGroup");?></a></li>
-				<li><a href="A2B_entity_tariffgroup.php?atmenu=tariffgroup&stitle=TariffGroup"><?= gettext("List TariffGroup");?></a></li>
-				<li><a href="A2B_entity_tariffplan.php?atmenu=tariffplan&stitle=Tariffplan"><?= gettext("List RateCard");?></a></li>
-				<li><a href="A2B_entity_tariffplan.php?form_action=ask-add&atmenu=tariffplan&stitle=RateCard"><?= gettext("Create new RateCard");?></a></li>
-				<li><a href="A2B_entity_def_ratecard.php?atmenu=ratecard&stitle=RateCard"><?= gettext("Browse Rates");?></a></li>
-				<li><a href="A2B_entity_def_ratecard.php?form_action=ask-add&atmenu=ratecard&stitle=RateCard"><?= gettext("Add Rate");?></a></li>
-				<li><a href="CC_ratecard_import.php?atmenu=ratecard&stitle=RateCard"><?= gettext("Import RateCard");?></a></li>
-				<li><a href="CC_entity_sim_ratecard.php?atmenu=ratecard&stitle=Ratecard+Simulator"><?= gettext("Ratecard Simulator");?></a></li>
+				<li><a href="A2B_entity_tariffgroup.php?form_action=ask-add&atmenu=tariffgroup&stitle=Tariff+Group"><?php echo gettext("Create TariffGroup");?></a></li>
+				<li><a href="A2B_entity_tariffgroup.php?atmenu=tariffgroup&stitle=TariffGroup"><?php echo gettext("List TariffGroup");?></a></li>
+				<li><a href="A2B_entity_tariffplan.php?atmenu=tariffplan&stitle=Tariffplan"><?php echo gettext("List RateCard");?></a></li>
+				<li><a href="A2B_entity_tariffplan.php?form_action=ask-add&atmenu=tariffplan&stitle=RateCard"><?php echo gettext("Create new RateCard");?></a></li>
+				<li><a href="A2B_entity_def_ratecard.php?atmenu=ratecard&stitle=RateCard"><?php echo gettext("Browse Rates");?></a></li>
+				<li><a href="A2B_entity_def_ratecard.php?form_action=ask-add&atmenu=ratecard&stitle=RateCard"><?php echo gettext("Add Rate");?></a></li>
+				<li><a href="CC_ratecard_import.php?atmenu=ratecard&stitle=RateCard"><?php echo gettext("Import RateCard");?></a></li>
+				<li><a href="CC_entity_sim_ratecard.php?atmenu=ratecard&stitle=Ratecard+Simulator"><?php echo gettext("Ratecard Simulator");?></a></li>
+				<li><a href="A2B_entity_prefix.php"><?php echo gettext("Browse Prefix");?></a></li>
 			</ul></li>
 		</ul>
 		</div>

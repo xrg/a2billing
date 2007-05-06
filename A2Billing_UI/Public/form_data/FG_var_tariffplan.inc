@@ -1,6 +1,6 @@
 <?php
 
-getpost_ifset(array('id', 'tariffname', 'startingdate', 'expirationdate', 'id_trunk', 'description', 'dnidprefix'));
+getpost_ifset(array('id', 'tariffname', 'startingdate', 'expirationdate', 'id_trunk', 'description', 'dnidprefix', 'calleridprefix'));
 
 $HD_Form = new FormHandler("cc_tariffplan","Ratecard");
 
@@ -24,8 +24,9 @@ $HD_Form -> AddViewElement(gettext("EXPIRY DATE"), "expirationdate", "12%", "cen
 $HD_Form -> AddViewElement(gettext("TRUNK"), "id_trunk", "11%", "center", "sort", "15", "lie", "cc_trunk", "trunkcode", "id_trunk='%id'", "%1");
 $HD_Form -> AddViewElement(gettext("MINUTES USED"), "secondusedreal", "9%", "center", "SORT", "30", "", "", "", "", "", "display_minute");
 $HD_Form -> AddViewElement(gettext("DNID PREFIX"), "dnidprefix", "8%", "center", "SORT", "30");
+$HD_Form -> AddViewElement(gettext("CID PREFIX"), "calleridprefix", "8%", "center", "SORT", "30");
 
-$HD_Form -> FieldViewElement ('tariffname, startingdate, expirationdate, id_trunk, secondusedreal, dnidprefix');
+$HD_Form -> FieldViewElement ('tariffname, startingdate, expirationdate, id_trunk, secondusedreal, dnidprefix, calleridprefix');
 
 $HD_Form -> FG_ACTION_SIZE_COLUMN='15%';
 $HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO ".strtoupper($HD_Form->FG_INSTANCE_NAME)." CREATED!");  
@@ -94,6 +95,7 @@ $HD_Form -> AddEditElement (gettext("DESCRIPTION"),
 
 if ($form_action=="ask-add"){	
 	$val_dnidprefix = "value='all'";
+	$val_calleridprefix = "value='all'";
 }
 
 $HD_Form -> AddEditElement (gettext("DNID PREFIX"),
@@ -104,10 +106,19 @@ $HD_Form -> AddEditElement (gettext("DNID PREFIX"),
 			   "14",	
 			   gettext("Insert the dnid prefix"),
 			   "" , "", "",	"", "" , "", "", gettext("Set the DNID rules to choose the ratecard 'dnidprefix', by default, matches all DNID. For instance, Set the DNIDPrefix  to 900540540 to choose this ratecard when the DNID is 900540540"));
-																											
 
 
-$HD_Form -> FieldEditElement ('tariffname, startingdate, expirationdate, id_trunk, description, dnidprefix');
+$HD_Form -> AddEditElement (gettext("CALLERID PREFIX"),
+			   "calleridprefix",		
+			   '$value',	
+			   "INPUT",	
+			   "size=20 $val_calleridprefix maxlength=20",	
+			   "14",	
+			   gettext("Insert the dnid prefix"),
+			   "" , "", "",	"", "" , "", "", gettext("Set the CallerID rules to choose the ratecard 'calleridprefix', by default, matches all callerID. For instance, Set the calleridprefix to 900540540 to choose this ratecard when the CallerID is 900540540."));
+				
+
+$HD_Form -> FieldEditElement ('tariffname, startingdate, expirationdate, id_trunk, description, dnidprefix, calleridprefix');
 
 
 if (DB_TYPE == "postgres"){

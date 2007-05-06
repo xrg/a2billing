@@ -347,7 +347,6 @@ class FormHandler{
 
 	var $FG_ADDITIONAL_FUNCTION_AFTER_ADD = '';
 
-
 	var $FG_TABLE_ALTERNATE_ROW_COLOR = array();
 	
 
@@ -1320,6 +1319,7 @@ class FormHandler{
      * Function to edit the fields
      * @public
      */
+
 	function create_sipiax_friends_reload(){
 		$this -> create_sipiax_friends();
 		
@@ -1329,11 +1329,11 @@ class FormHandler{
 		
 		$as = new AGI_AsteriskManager();
 		// && CONNECTING  connect($server=NULL, $username=NULL, $secret=NULL)
-		$res = $as->connect(MANAGER_HOST,MANAGER_USERNAME,MANAGER_SECRET);				
-		if	($res){
-			$res = $as->Command('sip reload');		
-			$res = $as->Command('iax2 reload');		
-			// && DISCONNECTING	
+		$res = $as->connect(MANAGER_HOST,MANAGER_USERNAME,MANAGER_SECRET);	
+		if      ($res){
+			$res = $as->Command('sip reload');
+			$res = $as->Command('iax2 reload');
+			// && DISCONNECTING
 			$as->disconnect();
 		}
 	}
@@ -1345,7 +1345,6 @@ class FormHandler{
 
 		global $A2B;
 		$processed = $this->getProcessed();
-
 		$sip_buddy = $processed['sip_buddy'];
 		$iax_buddy = $processed['iax_buddy'];
 		$username = $processed['username'];
@@ -1818,7 +1817,8 @@ class FormHandler{
 
 	 ?>
 	<center>
-	  <?php  if (is_string ($this->FG_TOP_FILTER_NAME)) echo "<font size=\"3\">".gettext("THE CURRENT RATECARD")." : <b>$this->FG_TOP_FILTER_NAME</b></font><br><br>"; ?>
+	  <?php  if (is_string ($this->FG_TOP_FILTER_NAME)) echo "<font size=\"3\">".gettext("THE CURRENT RATECARD")." : <b>$this->FG_TOP_FILTER_NAME</b></font>"; ?>
+		<br><br>&nbsp;
 
 	  <!-- ** ** ** ** ** Part for the select form  ** ** ** ** ** -->
 
@@ -1851,7 +1851,8 @@ class FormHandler{
 
 				</tr></table></td>
 			</tr>
-		</tbody></table>
+			</tbody>
+		</table>
 	</FORM>
 </center>
 	<?php
@@ -1871,15 +1872,15 @@ class FormHandler{
 
 	 ?>
 	<center>
-	  <?php  if (is_string ($this->FG_TOP_FILTER_NAME)) echo "<font size=\"3\">".gettext("THE CURRENT RATECARD")." : <b>$this->FG_TOP_FILTER_NAME</b></font>"; ?>
-		<br><br>&nbsp;
+	  <?php  if (is_string ($this->FG_TOP_FILTER_NAME)) echo "<font size=\"3\">".gettext("THE CURRENT RATECARD")." : <b>$this->FG_TOP_FILTER_NAME</b></font><br><br>"; ?>
+
 	  <!-- ** ** ** ** ** Part for the select form  ** ** ** ** ** -->
-	
+
+	<FORM METHOD=POST ACTION="<?php echo $_SERVER['PHP_SELF']?>?s=1&t=0&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php echo $current_page?>">
+	<INPUT TYPE="hidden" NAME="posted" value=1>
+	<INPUT TYPE="hidden" NAME="current_page" value=0>
 		<table class="bar-status" width="75%" border="0" cellspacing="1" cellpadding="2" align="center">
-			<FORM METHOD=POST ACTION="<?php echo $_SERVER['PHP_SELF']?>?s=1&t=0&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php echo $current_page?>">
-				<INPUT TYPE="hidden" NAME="posted" value=1>
-				<INPUT TYPE="hidden" NAME="current_page" value=0>
-			
+			<tbody>
 			<tr>
 				<td align="left" valign="top" bgcolor="#000033">
 					<font face="verdana" size="1" color="#ffffff"><b>&nbsp;&nbsp;<?php echo gettext("R A T E C A R D");?></b></font>
@@ -1904,8 +1905,8 @@ class FormHandler{
 
 				</tr></table></td>
 			</tr>
-			</FORM>
-		</table>	
+		</tbody></table>
+	</FORM>
 </center>
 	<?php
 	}

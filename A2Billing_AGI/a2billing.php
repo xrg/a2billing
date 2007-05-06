@@ -150,10 +150,10 @@
 		$A2B -> write_log("[TRY : callingcard_ivr_authenticate]");
 		if ($cia_res==0){
 			
-			$A2B -> write_log("[callingcard_acct_start_inuse]");
 			
 			$A2B->callingcard_auto_setcallerid($agi);
-			$A2B->callingcard_acct_start_inuse($agi,1);
+			//$A2B -> write_log("[callingcard_acct_start_inuse]");
+			//$A2B->callingcard_acct_start_inuse($agi,1);
 			
 			for ($i=0;$i< $A2B->agiconfig['number_try'] ;$i++){
 					
@@ -222,8 +222,11 @@
 							}
 					}
 					
-					
-					$A2B->dnid = $agi->request['agi_extension'];
+					if ($agi->request['agi_extension']=='s'){
+						$A2B->dnid = $agi->request['agi_dnid'];
+					}else{
+						$A2B->dnid = $agi->request['agi_extension'];
+					}
 					
 					if ($A2B->agiconfig['sip_iax_friends']==1){
 					

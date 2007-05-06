@@ -1454,7 +1454,8 @@ class A2Billing {
 					}
 				}
 			}
-		
+		}else{
+			$callerID_enable=0;
 		}
 		
 		// check if we can authenticate through the "accountcode"
@@ -1585,8 +1586,8 @@ class A2Billing {
 		
 			// 		  -%-%-%-%-%-%-		IF NOT PREVIOUS WE WILL ASK THE CARDNUMBER AND AUTHENTICATE ACCORDINGLY 	-%-%-%-%-%-%-				
 			for ($retries = 0; $retries < 3; $retries++) {
-				if (($retries>0) && (strlen($prompt)>0)){
-					$agi-> stream_file($prompt, '#');
+				if (($retries>0) && (strlen($prompt)>0)){					
+					$agi-> stream_file($prompt, '#');					
 					if ($this->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '.strtoupper($prompt));
 				}
 				
@@ -1718,7 +1719,7 @@ class A2Billing {
 						$prompt = "prepaid-card-expired";			
 					}
 				}
-							
+				
 					
 				//CREATE AN INSTANCE IN CC_CALLERID
 				if ($this->agiconfig['cid_enable']==1 && $this->agiconfig['cid_auto_assign_card_to_cid']==1 && is_numeric($this->CallerID) && $this->CallerID>0 && $this -> ask_other_cardnumber!=1){
@@ -1761,7 +1762,10 @@ class A2Billing {
 		
 		if (($retries < 3) && $res==0) {
 			//ast_cdr_setaccount(chan, username);
-						
+			
+			$this -> write_log("[callingcard_acct_start_inuse]");
+			$this -> callingcard_acct_start_inuse($agi,1);
+			
 			if ($this->agiconfig['say_balance_after_auth']==1){		
 				if ($this->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '."[A2Billing] SAY BALANCE (".$this->agiconfig['say_balance_after_auth'].")\n");
 				$this -> fct_say_balance ($agi, $this->credit);

@@ -651,7 +651,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     <center><strong> 
                     <?php  if (strtoupper($FG_TABLE_COL[$i][4])=="SORT"){?>
                     <a href="<?php  echo $PHP_SELF."?customer=$customer&s=1&t=0&stitle=$stitle&atmenu=$atmenu&current_page=$current_page&order=".$FG_TABLE_COL[$i][1]."&sens="; if ($sens=="ASC"){echo"DESC";}else{echo"ASC";} 
-					echo "&posted=$posted&Period=$Period&frommonth=$frommonth&fromstatsmonth=$fromstatsmonth&tomonth=$tomonth&tostatsmonth=$tostatsmonth&fromday=$fromday&fromstatsday_sday=$fromstatsday_sday&fromstatsmonth_sday=$fromstatsmonth_sday&today=$today&tostatsday_sday=$tostatsday_sday&tostatsmonth_sday=$tostatsmonth_sday&dsttype=$dsttype&srctype=$srctype&clidtype=$clidtype&channel=$channel&resulttype=$resulttype&dst=$dst&src=$src&clid=$clid&terminatecause=$terminatecause";?>"> 
+					echo "&entercustomer=$entercustomer&enterprovider=$enterprovider&entertrunk=$entertrunk&posted=$posted&Period=$Period&frommonth=$frommonth&fromstatsmonth=$fromstatsmonth&tomonth=$tomonth&tostatsmonth=$tostatsmonth&fromday=$fromday&fromstatsday_sday=$fromstatsday_sday&fromstatsmonth_sday=$fromstatsmonth_sday&today=$today&tostatsday_sday=$tostatsday_sday&tostatsmonth_sday=$tostatsmonth_sday&dsttype=$dsttype&srctype=$srctype&clidtype=$clidtype&channel=$channel&resulttype=$resulttype&dst=$dst&src=$src&clid=$clid&terminatecause=$terminatecause";?>"> 
                     <span class="liens"><?php  } ?>
                     <?php echo $FG_TABLE_COL[$i][0]?> 
                     <?php if ($order==$FG_TABLE_COL[$i][1] && $sens=="ASC"){?>
@@ -772,13 +772,13 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                   <TD align="right"><SPAN style="COLOR: #ffffff; FONT-SIZE: 11px"><B> 
                     <?php if ($current_page>0){?>
                     <img src="../Images/fleche-g.gif" width="5" height="10"> <a href="<?php echo $PHP_SELF?>?s=1&t=0&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php  echo ($current_page-1)?><?php  if (!is_null($letter) && ($letter!="")){ echo "&letter=$letter";} 
-					echo "&customer=$customer&posted=$posted&Period=$Period&frommonth=$frommonth&fromstatsmonth=$fromstatsmonth&tomonth=$tomonth&tostatsmonth=$tostatsmonth&fromday=$fromday&fromstatsday_sday=$fromstatsday_sday&fromstatsmonth_sday=$fromstatsmonth_sday&today=$today&tostatsday_sday=$tostatsday_sday&tostatsmonth_sday=$tostatsmonth_sday&dsttype=$dsttype&srctype=$srctype&clidtype=$clidtype&channel=$channel&resulttype=$resulttype&dst=$dst&src=$src&clid=$clid&terminatecause=$terminatecause";?>">
+					echo "&customer=$customer&posted=$posted&Period=$Period&frommonth=$frommonth&fromstatsmonth=$fromstatsmonth&tomonth=$tomonth&tostatsmonth=$tostatsmonth&fromday=$fromday&fromstatsday_sday=$fromstatsday_sday&fromstatsmonth_sday=$fromstatsmonth_sday&today=$today&tostatsday_sday=$tostatsday_sday&tostatsmonth_sday=$tostatsmonth_sday&dsttype=$dsttype&srctype=$srctype&clidtype=$clidtype&channel=$channel&resulttype=$resulttype&dst=$dst&src=$src&clid=$clid&terminatecause=$terminatecause&entercustomer=$entercustomer&enterprovider=$enterprovider&entertrunk=$entertrunk";?>">
                     <?php echo gettext("Previous");?> </a> -
                     <?php }?>
                     <?php echo ($current_page+1);?> / <?php  echo $nb_record_max;?>
                     <?php if ($current_page<$nb_record_max-1){?>
                     - <a href="<?php echo $PHP_SELF?>?s=1&t=0&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php  echo ($current_page+1)?><?php  if (!is_null($letter) && ($letter!="")){ echo "&letter=$letter";}
-					echo "&customer=$customer&posted=$posted&Period=$Period&frommonth=$frommonth&fromstatsmonth=$fromstatsmonth&tomonth=$tomonth&tostatsmonth=$tostatsmonth&fromday=$fromday&fromstatsday_sday=$fromstatsday_sday&fromstatsmonth_sday=$fromstatsmonth_sday&today=$today&tostatsday_sday=$tostatsday_sday&tostatsmonth_sday=$tostatsmonth_sday&dsttype=$dsttype&srctype=$srctype&clidtype=$clidtype&channel=$channel&resulttype=$resulttype&dst=$dst&src=$src&clid=$clid&terminatecause=$terminatecause";?>">
+					echo "&customer=$customer&posted=$posted&Period=$Period&frommonth=$frommonth&fromstatsmonth=$fromstatsmonth&tomonth=$tomonth&tostatsmonth=$tostatsmonth&fromday=$fromday&fromstatsday_sday=$fromstatsday_sday&fromstatsmonth_sday=$fromstatsmonth_sday&today=$today&tostatsday_sday=$tostatsday_sday&tostatsmonth_sday=$tostatsmonth_sday&dsttype=$dsttype&srctype=$srctype&clidtype=$clidtype&channel=$channel&resulttype=$resulttype&dst=$dst&src=$src&clid=$clid&terminatecause=$terminatecause&entercustomer=$entercustomer&enterprovider=$enterprovider&entertrunk=$entertrunk";?>">
                     <?php echo gettext("Next");?></a> <img src="../Images/fleche-d.gif" width="5" height="10">
                     </B></SPAN> 
                     <?php }?>
@@ -911,11 +911,11 @@ foreach ($list_total_day as $data){
 		?>
 		</font></td>
 		<td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right" nowrap="nowrap"><font face="verdana" color="#000000" size="1"><?php  
-		display_2dec_percentage((($data[2]-$data[4])/$data[2])*100) 
+		if ($data[2]!=0){ display_2dec_percentage((($data[2]-$data[4])/$data[2])*100); }else{ echo "NULL";} 
 		?>
 		</font></td>
 		<td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right" nowrap="nowrap"><font face="verdana" color="#000000" size="1"><?php  
-		display_2dec_percentage((($data[2]-$data[4])/$data[4])*100) 
+		if ($data[4]!=0){ display_2dec_percentage((($data[2]-$data[4])/$data[4])*100); }else{ echo "NULL";} 
 		?>
 		</font></td>
      <?php 	 }	 	 	
@@ -943,8 +943,8 @@ foreach ($list_total_day as $data){
 		<td align="center" nowrap="nowrap"><font face="verdana" size="1" color="#ffffff"><b><?php  display_2bill($totalcost) ?></b></font></td>
 		<td align="center" nowrap="nowrap"><font face="verdana" size="1" color="#ffffff"><b><?php  display_2bill($totalbuycost) ?></b></font></td>
 		<td align="center" nowrap="nowrap"><font face="verdana" size="1" color="#ffffff"><b><?php  display_2bill($totalcost - $totalbuycost) ?></b></font></td>
-		<td align="center" nowrap="nowrap"><font face="verdana" size="1" color="#ffffff"><b><?php  display_2dec_percentage((($totalcost - $totalbuycost)/$totalcost)*100) ?></b></font></td>
-		<td align="center" nowrap="nowrap"><font face="verdana" size="1" color="#ffffff"><b><?php  display_2dec_percentage((($totalcost - $totalbuycost)/$totalbuycost)*100) ?></b></font></td>
+		<td align="center" nowrap="nowrap"><font face="verdana" size="1" color="#ffffff"><b><?php  if ($totalcost!=0){ display_2dec_percentage((($totalcost - $totalbuycost)/$totalcost)*100); }else{ echo "NULL";} ?></b></font></td>
+		<td align="center" nowrap="nowrap"><font face="verdana" size="1" color="#ffffff"><b><?php  if ($totalbuycost!=0){ display_2dec_percentage((($totalcost - $totalbuycost)/$totalbuycost)*100);  }else{ echo "NULL";} ?></b></font></td>
 	</tr>
 	<!-- FIN TOTAL -->
 

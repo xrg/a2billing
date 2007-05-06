@@ -9,7 +9,7 @@
 <link rel="icon" href="../Images/animated_favicon1.gif" type="image/gif">
 
 <title>..:: <?php echo CCMAINTITLE; ?> ::..</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=iso88591">
 <link href="Css/Css_Ale.css" rel="stylesheet" type="text/css">
 <link href="Css/menu.css" rel="stylesheet" type="text/css">
 <link href="Css/style-def.css" rel="stylesheet" type="text/css">

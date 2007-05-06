@@ -90,15 +90,15 @@ if (!($popup_select>=1)){
 	$HD_Form -> AddViewElement("<acronym title=\"CURRENCY\">".gettext("CUR")."</acronym>", "currency", "5%", "center", "sort", "", "list", $currency_list_key);
 	$HD_Form -> AddViewElement(gettext("SIP"), "sip_buddy", "3%", "center", "sort", "", "list", $yesno);
 	$HD_Form -> AddViewElement(gettext("IAX"), "iax_buddy", "3%", "center", "sort", "", "list", $yesno);
-	$HD_Form -> AddViewElement("<acronym title=\"NUM CALLS DONE\">".gettext("NT")."</acronym>", "num_trials_done", "4%", "center", "sort");
-	$FG_COL_QUERY='id, username, useralias, lastname, credit, tariff, activated, language, inuse, currency, sip_buddy, iax_buddy, num_trials_done';
+	$HD_Form -> AddViewElement("<acronym title=\"NUM CALLS DONE\">".gettext("NT")."</acronym>", "nbused", "4%", "center", "sort");
+	$FG_COL_QUERY='id, username, useralias, lastname, credit, tariff, activated, language, inuse, currency, sip_buddy, iax_buddy, nbused';
 }else{
 	$FG_COL_QUERY='id, username, lastname, credit';
 }
 // Code here for adding the fields in the Export File
 
 
-$HD_Form -> FieldExportElement('id, username, useralias, lastname, credit, tariff, activated, language, inuse, currency, sip_buddy, iax_buddy, num_trials_done');
+$HD_Form -> FieldExportElement('id, username, useralias, lastname, credit, tariff, activated, language, inuse, currency, sip_buddy, iax_buddy, nbused');
 
 // Code ends here for Export
 
