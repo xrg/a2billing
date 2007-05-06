@@ -214,6 +214,7 @@ function imgidclick(imgID,divID, imgbase, imgchange)
 {if ($EXPORT == 0)}
 <div class="divleft">
 
+	<div id="nav_before"></div>
 	<ul id="nav">
 	
        <li><a href="userinfo.php?section=1"><strong>{php} echo gettext("ACCOUNT INFO");{/php}</strong></a></li>
@@ -309,6 +310,7 @@ function imgidclick(imgID,divID, imgbase, imgchange)
        <li><a href="logout.php?logout=true" target="_parent"><font color="#DD0000"><strong>{php} echo gettext("LOGOUT");{/php}</strong></font></a></li>
 
 	</ul>
+	<div id="nav_after"></div>
 
 	<table width="150">
 	<tr>
