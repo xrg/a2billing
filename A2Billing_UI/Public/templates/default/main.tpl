@@ -24,6 +24,7 @@
 <div class="divleft">
 
 
+<div id="nav_before"></div>
 <ul id="nav">
 
 	{if ($ACXCUSTOMER > 0) }
@@ -444,6 +445,7 @@
 	</ul>
 
 </ul>
+<div id="nav_after"></div>
 <br>
 <table>
 <tr>
