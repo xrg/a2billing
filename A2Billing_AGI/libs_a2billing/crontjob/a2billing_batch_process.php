@@ -96,10 +96,7 @@
 	$oneday = 60*60*24;
 	
 // mail variable for user notification
-	$user_mail_adrr="";
-        $mail_user=false;
-	$mail_user_content="";
-
+	
 	// BROWSE THROUGH THE SERVICES 
 	foreach ($result as $myservice) {
 	
@@ -134,61 +131,6 @@
 				if ($verbose_level>=1) print_r ($mycard);
 				if ($verbose_level>=1) echo "------>>>  ID = ".$mycard[0]." - CARD =".$mycard[4]." - BALANCE =".$mycard[1]." \n";	
 
-				if ($myservice[4]==4){
-					$day_remaining=0;
-					$sql = "SELECT id_did,reservationdate,month_payed,fixrate from cc_did_use INNER JOIN cc_did on (id_did=cc_did.id) WHERE releasedate IS NULL and id_cc_card ='".$mycard[0]."'";
-					if ($verbose_level>=1) echo "==> SELECT DID QUERY : $sql\n";
-					$result_did = $instance_table -> SQLExec ($A2B -> DBHandle, $sql);
-					foreach ($result_did as $mydids){
-						$timestamp_datetopay = mktime(date('H',(strtotime($mydids[1]))-(intval($myservice[5]) * $oneday)),date("i",(strtotime($mydids[1]))-(intval($myservice[5]) * $oneday)),date("s",(strtotime($mydids[1]))-(intval($myservice[5]) * $oneday)),date("m",(strtotime($mydids[1]))-(intval($myservice[5]) * $oneday))+$mydids[2],date("d",(strtotime($mydids[1]))-(intval($myservice[5]) * $oneday)),date("Y",(strtotime($mydids[1]))-(intval($myservice[5]) * $oneday)));
-						$day_remaining=time()-$timestamp_datetopay;
-
-						if ($verbose_level>=1) 	echo $day_remaining."<=".(intval($myservice[5]) * $oneday)."\n";
-						if ($day_remaining >= 0)
-						{	
-							if ($day_remaining<=(intval($myservice[5]) * $oneday)){
-								if ($mycard[1]>=$mydids[3]){
-								$QUERY = "UPDATE cc_card SET nbservice=nbservice+1, credit=credit-'".$mydids[3]."' WHERE id=".$mycard[0];	
-								$result = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY, 0);
-								if ($verbose_level>=1) echo "==> UPDATE CARD QUERY: 	$QUERY\n";
-								$QUERY = "UPDATE cc_did_use set month_payed = month_payed+1 WHERE id_did = '".$mydids[0]."' and activated = 1" ;
-								if ($verbose_level>=1) echo "==> UPDATE DID USE QUERY: 	$QUERY\n";
-								$result = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY, 0);
-								$totalcardperform ++;
-								$totalcredit += $mydids[3];
-								$mail_user_content.="BALANCE REMAINING ".$mycard[1]-$mydids[3]."\n\n";
-								$mail_user_content.="A automaticly taking away of :".$mydids[3]." has been carry out of your acount \n\n";	
-								$mail_user_content.="Monthly Fixrate for DID :".$mydids[0]."\n\n";
-								$mail_user_subject="DID notification";
-								} else {
-									$mail_user_content.="BALANCE REMAINING ".$mycard[1]."\n\n";
-									$mail_user_content.="Your credit is not enouf to pay did number :".$mydids[0]."\n\n";
-									$mail_user_content.="You have ".date ("d",$day_remaining)." days to recharge your card, or the did will be automaticly unreserved \n\n";
-									$mail_user=true;
-									$mail_user_subject="DID notification";
-								}	
-							} else {
-							$QUERY = "UPDATE cc_did set iduser = 0 where id='".$mydids[0]."'" ;
-							$result = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY, 0);
-							$QUERY1 = "UPDATE cc_did_use set releasedate = now() where id_did = '".$mydids[0]."' and activated = 1" ;
-							$result = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY, 0);
-							$QUERY = "insert into cc_did_use (activated, id_did) values ('0','".$mydids[0]."')";
-							$result = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY, 0);
-							$QUERY = "delete FROM cc_did_destination where id_cc_did =".$mydids[0];
-							$result = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY, 0);
-							$mail_user_content.="The did ".$mydids[0]." has been automaticly unreserved\n\n";
-							$mail_user=true;
-							$mail_user_subject="DID last notification";
-							}
-						}
-					
-					}
-					$user_mail_adrr=$mycard[6];
-					if ($mail_user) mail($user_mail_adrr, $mail_user_subject, $mail_content);
-					
-				}
-				else
-				{
 				// RULE 3 : Apply the period to card - card last run date >= period
 				if ($myservice[4]==3){
 							
@@ -243,7 +185,6 @@
 				if ($verbose_level>=1) echo "==> UPDATE CARD QUERY: 	$QUERY\n";
 				$totalcardperform ++;
 				$totalcredit += $myservice[2];
-				}
 				//exit();
 			}
 			// Little bit of rest
