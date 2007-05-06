@@ -66,27 +66,9 @@ function imgidclick(imgID,divID)
 <ul id="nav" >
 	
 	<?php   if ( has_rights (ACX_CUSTOMER) ){ 	?>
-	<li><a href="#" target="_self"  onclick="imgidclick('img1','div1');"><img id="img1" <?php 
-	if($section =="1"){
-	?>
-	src="../Images/minus.gif"
-	<?php 
-	}else
-	{?>
-	src="../Images/plus.gif"
-	
-	<?php }?>
- onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> <strong><?php echo gettext("CUSTOMERS");?></strong></a></li>
-	<div id="div1" <?php 
-	if($section =="1"){
-	?>
-	style=""
-	<?php 
-	}else
-	{?>
-	style="display:none;"
-	>
-	<?php }?>
+	<li><a href="#" target="_self"  onclick="imgidclick('img1','div1');">
+	<img id="img1" src="../Images/plus.gif" onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> <strong><?php echo gettext("CUSTOMERS");?></strong></a></li>
+	<div id="div1" style="display:none;">
 	<ul>
 		<li><ul>
 				<li><a href="A2B_entity_card.php?atmenu=card&stitle=Customers_Card&section=1"><?php echo gettext("List Customers");?></a></li>
@@ -105,46 +87,27 @@ function imgidclick(imgID,divID)
 	</div>
 	<?php   }  ?>
 	<?php   if ( has_rights (ACX_AGENTS) ){ 	?>
-
-	<li><a href="#" target="_self"><a href="#" target="_self"  onclick="imgidclick('img1a','div1a');"><img id="img1a" src="../Images/plus.gif" onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> <strong><?= gettext("AGENTS");?></strong></a></li>
-	<div id="div1a" style="display:none;">
+	<li><a href="#" target="_self"  onclick="imgidclick('img12','div12');">
+	<img id="img1a" src="../Images/plus.gif" onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> <strong><?= gettext("AGENTS");?></strong></a></li>
+	<div id="div12" style="display:none;">
 	<ul>
 		<li><ul>
-				<li><a href="A2B_entity_agent.php?atmenu=card&stitle=Customers_Card"><?= _("List Agents");?></a></li>
-				<li><a href="A2B_entity_agent.php?form_action=ask-add&atmenu=card&stitle=Card"><?= _("Create Agents");?></a></li>
-				<li><a href="A2B_entity_regulars.php?atmenu=regular&stitle=Regular_Customers"><?= _("List Regulars");?></a></li>
-				<li><a href="A2B_entity_card_multia.php?stitle=Card"><?= gettext("Generate Regulars");?></a></li>
-				<li><a href="A2B_entity_booths.php?stitle=Booths"><?= gettext("Booths");?></a></li>
-				<li><a href="A2B_entity_booths.php?form_action=ask-add&atmenu=booth&stitle=Booth"><?= _("Create Booth");?></a></li>
-				<li><a href="A2B_entity_agentpay.php?atmenu=payment&stitle=Payment&form_action=list"><?= gettext("List Payments");?></a></li>
-				<li><a href="A2B_entity_agentpay.php?form_action=ask-add&atmenu=payment&stitle=Payment"><?= gettext("Add Payment");?></a></li>
-				<li><a href="CC_entity_sim_callshop.php?atmenu=ratecard&stitle=Callshop+Simulator"><?= gettext("Callshop Simulator");?></a></li>
+			<li><a href="A2B_entity_agent.php?atmenu=card&stitle=Customers_Card&section=12"><?= _("List Agents");?></a></li>
+			<li><a href="A2B_entity_agent.php?form_action=ask-add&atmenu=card&stitle=Card&section=12"><?= _("Create Agents");?></a></li>
+			<li><a href="A2B_entity_regulars.php?atmenu=regular&stitle=Regular_Customers&section=12"><?= _("List Regulars");?></a></li>
+			<li><a href="A2B_entity_card_multia.php?stitle=Card&section=12"><?= gettext("Generate Regulars");?></a></li>
+			<li><a href="A2B_entity_booths.php?stitle=Booths&section=12"><?= gettext("Booths");?></a></li>
+			<li><a href="A2B_entity_booths.php?form_action=ask-add&atmenu=booth&stitle=Booth&section=12"><?= _("Create Booth");?></a></li>
+			<li><a href="A2B_entity_agentpay.php?atmenu=payment&stitle=Payment&form_action=list&section=12"><?= gettext("List Payments");?></a></li>
+			<li><a href="A2B_entity_agentpay.php?form_action=ask-add&atmenu=payment&stitle=Payment&section=12"><?= gettext("Add Payment");?></a></li>
+			<li><a href="CC_entity_sim_callshop.php?atmenu=ratecard&stitle=Callshop+Simulator&section=12"><?= gettext("Callshop Simulator");?></a></li>
 		</ul></li>
 	</ul>
 	</div>
 	<?php   }  ?>
 	<?php   if ( has_rights (ACX_BILLING) ){ 	?>
-
-		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick('img2','div2');"><img id="img2" <?php 
-	if($section =="2"){
-	?>
-	src="../Images/minus.gif"
-	<?php 
-	}else
-	{?>
-	src="../Images/plus.gif"
-	
-	<?php }?> onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> <strong><?php echo gettext("BILLING");?></strong></a></li>
-		<div id="div2" <?php 
-	if($section =="2"){
-	?>
-	style=""
-	<?php 
-	}else
-	{?>
-	style="display:none;"
-	>
-	<?php }?>
+	<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick('img2','div2');"><img id="img2" src="../Images/plus.gif" onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> <strong><?php echo gettext("BILLING");?></strong></a></li>
+		<div id="div2" style="display:none;">
 		<ul>
 			<li><ul>
 				<li><a href="A2B_entity_paypal.php?atmenu=paypal&stitle=Paypal+Transaction&form_action=list&section=2"><?php echo gettext("PayPal Transaction");?></a></li>
@@ -164,26 +127,8 @@ function imgidclick(imgID,divID)
 		</div>
 	<?php   }  ?>
 	<?php   if ( has_rights (ACX_RATECARD) ){ 	?>
-		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick('img3','div3');"><img id="img3" <?php 
-	if($section =="3"){
-	?>
-	src="../Images/minus.gif"
-	<?php 
-	}else
-	{?>
-	src="../Images/plus.gif"
-	
-	<?php }?>  onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> <strong><?php echo gettext("RATECARD");?></strong></a></li>
-		<div id="div3" <?php 
-	if($section =="3"){
-	?>
-	style=""
-	<?php 
-	}else
-	{?>
-	style="display:none;"
-	>
-	<?php }?>
+		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick('img3','div3');"><img id="img3" src="../Images/plus.gif" onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> <strong><?php echo gettext("RATECARD");?></strong></a></li>
+		<div id="div3" style="display:none;">
 		<ul>
 			<li><ul>
 				<li><a href="A2B_entity_tariffgroup.php?form_action=ask-add&atmenu=tariffgroup&stitle=Tariff+Group&section=3"><?php echo gettext("Create TariffGroup");?></a></li>
@@ -200,26 +145,8 @@ function imgidclick(imgID,divID)
 		</div>
 	<?php   }  ?>
 	<?php   if ( has_rights (ACX_TRUNK) ){ 	?>
-		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick('img4','div4');"><img id="img4" <?php 
-	if($section =="4"){
-	?>
-	src="../Images/minus.gif"
-	<?php 
-	}else
-	{?>
-	src="../Images/plus.gif"
-	
-	<?php }?> onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> <strong><?php echo gettext("TRUNK");?></strong></a></li>
-		<div id="div4" <?php 
-	if($section =="4"){
-	?>
-	style=""
-	<?php 
-	}else
-	{?>
-	style="display:none;"
-	>
-	<?php }?>
+		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick('img4','div4');"><img id="img4" src="../Images/plus.gif" onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> <strong><?php echo gettext("TRUNK");?></strong></a></li>
+		<div id="div4" style="display:none;">
 		<ul>
 			<li><ul>
 				<li><a href="A2B_entity_trunk.php?stitle=Trunk&section=4"><?php echo gettext("List Trunk");?></a></li>
@@ -231,94 +158,40 @@ function imgidclick(imgID,divID)
 		</div>
 	<?php  } ?>
 	<?php   if ( has_rights (ACX_DID) ){ 	?>
-		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick('img41','div41');"><img id="img41" <?php 
-	if($section =="5"){
-	?>
-	src="../Images/minus.gif"
-	<?php 
-	}else
-	{?>
-	src="../Images/plus.gif"
-	
-	<?php }?> onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> <strong><?php echo gettext("DID");?></strong></a></li>
-		<div id="div41" <?php 
-	if($section =="5"){
-	?>
-	style=""
-	<?php 
-	}else
-	{?>
-	style="display:none;"
-	>
-	<?php }?>
+		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick('img41','div41');"><img id="img41" src="../Images/plus.gif" onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> <strong><?php echo gettext("DID");?></strong></a></li>
+		<div id="div41" style="display:none;">
 		<ul>
 			<li><ul>
-				<li><a href="A2B_entity_didgroup.php?stitle=DID+Group&section=5"><?php echo gettext("List DID Group");?></a>
-				<li><a href="A2B_entity_didgroup.php?stitle=DID+Group&form_action=ask-add&section=5"><?php echo gettext("Add DID Group");?></a></li>
-				<li><a href="A2B_entity_did.php?stitle=DID&section=5"><?php echo gettext("List DID");?></a></li>
-				<li><a href="A2B_entity_did.php?stitle=DID&form_action=ask-add&section=5"><?php echo gettext("Add DID");?></a></li>
-                <li><a href="A2B_entity_did_import.php?stitle=DID&section=5"><?php echo gettext("Import DID");?></a></li>
-				<li><a href="A2B_entity_did_destination.php?stitle=DID+Destination&section=5"><?php echo gettext("List Destination");?></a></li>
-				<li><a href="A2B_entity_did_destination.php?stitle=DID+Destination&form_action=ask-add&section=5"><?php echo gettext("Add Destination");?></a></li>
-				<li><a href="A2B_entity_did_billing.php?atmenu=did_billing&stitle=DID+BILLING&section=5"><?php echo gettext("DID BILLING");?></a></li>
-				<li><a href="A2B_entity_did_use.php?atmenu=did_use&stitle=DID+USE&section=5"><?php echo gettext("DID use");?></a></li>
+				<li><a href="A2B_entity_didgroup.php?stitle=DID+Group&section=41"><?php echo gettext("List DID Group");?></a>
+				<li><a href="A2B_entity_didgroup.php?stitle=DID+Group&form_action=ask-add&section=41"><?php echo gettext("Add DID Group");?></a></li>
+				<li><a href="A2B_entity_did.php?stitle=DID&section=41"><?php echo gettext("List DID");?></a></li>
+				<li><a href="A2B_entity_did.php?stitle=DID&form_action=ask-add&section=41"><?php echo gettext("Add DID");?></a></li>
+                <li><a href="A2B_entity_did_import.php?stitle=DID&section=41"><?php echo gettext("Import DID");?></a></li>
+				<li><a href="A2B_entity_did_destination.php?stitle=DID+Destination&section=41"><?php echo gettext("List Destination");?></a></li>
+				<li><a href="A2B_entity_did_destination.php?stitle=DID+Destination&form_action=ask-add&section=41"><?php echo gettext("Add Destination");?></a></li>
+				<li><a href="A2B_entity_did_billing.php?atmenu=did_billing&stitle=DID+BILLING&section=41"><?php echo gettext("DID BILLING");?></a></li>
+				<li><a href="A2B_entity_did_use.php?atmenu=did_use&stitle=DID+USE&section=41"><?php echo gettext("DID use");?></a></li>
 			</ul></li>
 		</ul>
 		</div>
 	<?php  } ?>
 	<?php   if ( has_rights (ACX_CALL_REPORT) ){ 	?>
-		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick('img5','div5');"><img id="img5" <?php 
-	if($section =="6"){
-	?>
-	src="../Images/minus.gif"
-	<?php 
-	}else
-	{?>
-	src="../Images/plus.gif"
-	
-	<?php }?> onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> <strong><?php echo gettext("CALL REPORT");?></strong></a></li>
-		<div id="div5" <?php 
-	if($section =="6"){
-	?>
-	style=""
-	<?php 
-	}else
-	{?>
-	style="display:none;"
-	>
-	<?php }?>
+		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick('img5','div5');"><img id="img5" src="../Images/plus.gif" onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> <strong><?php echo gettext("CALL REPORT");?></strong></a></li>
+		<div id="div5" style="display:none;">
 		<ul>
 			<li><ul>
-					<li><a href="call-log-customers.php?stitle=Call_Report_Customers&nodisplay=1&posted=1&section=6"><?php echo gettext("CDR Report");?></a></li>
-					<li><a href="invoices.php?stitle=Invoice&nodisplay=1&section=6"><?php echo gettext("Invoice");?></a></li>
-					<li><a href="asterisk-stat-v2/call-comp.php?section=6"><?php echo gettext("Calls Compare");?></a></li>
-					<li><a href="asterisk-stat-v2/call-last-month.php?section=6"><?php echo gettext("Monthly Traffic");?></a></li>
-					<li><a href="asterisk-stat-v2/call-daily-load.php?section=6"><?php echo gettext("Daily Load");?></a></li>
+					<li><a href="call-log-customers.php?stitle=Call_Report_Customers&nodisplay=1&posted=1&section=5"><?php echo gettext("CDR Report");?></a></li>
+					<li><a href="invoices.php?stitle=Invoice&nodisplay=1&section=5"><?php echo gettext("Invoice");?></a></li>
+					<li><a href="asterisk-stat-v2/call-comp.php?section=5"><?php echo gettext("Calls Compare");?></a></li>
+					<li><a href="asterisk-stat-v2/call-last-month.php?section=5"><?php echo gettext("Monthly Traffic");?></a></li>
+					<li><a href="asterisk-stat-v2/call-daily-load.php?section=5"><?php echo gettext("Daily Load");?></a></li>
 			</ul></li>
 		</ul>
 		</div>
 	<?php  } ?>
 	<?php   if ( has_rights (ACX_CRONT_SERVICE) ){ 	?>
-		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick('img9','div9');"><img id="img9" <?php 
-	if($section =="7"){
-	?>
-	src="../Images/minus.gif"
-	<?php 
-	}else
-	{?>
-	src="../Images/plus.gif"
-	
-	<?php }?> onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> <strong><?php echo gettext("CRONT SERVICE");?></strong></a></li>
-		<div id="div9" <?php 
-	if($section =="7"){
-	?>
-	style=""
-	<?php 
-	}else
-	{?>
-	style="display:none;"
-	>
-	<?php }?>
+		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick('img7','div7');"><img id="img7"  src="../Images/plus.gif" onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> <strong><?php echo gettext("CRONT SERVICE");?></strong></a></li>
+		<div id="div7" style="display:none;" >
 		<ul>
 			<li><ul>
 				<li><a href="A2B_entity_autorefill.php?stitle=Auto+Refill&section=7"><?php echo gettext("AutoRefill Report");?></a></li>
@@ -330,26 +203,8 @@ function imgidclick(imgID,divID)
 
 	<?php  } ?>
 	<?php   if ( has_rights (ACX_SIGNUP) ){ 	?>
-		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick('img6','div6');"><img id="img6" <?php 
-	if($section =="8"){
-	?>
-	src="../Images/minus.gif"
-	<?php 
-	}else
-	{?>
-	src="../Images/plus.gif"
-	
-	<?php }?> onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> <strong><?php echo gettext("SIGNUP");?></strong></a></li>
-		<div id="div6" <?php 
-	if($section =="8"){
-	?>
-	style=""
-	<?php 
-	}else
-	{?>
-	style="display:none;"
-	>
-	<?php }?>
+		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick('img8','div8');"><img id="img8" src="../Images/plus.gif" onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> <strong><?php echo gettext("SIGNUP");?></strong></a></li>
+		<div id="div8" style="display:none;">
 		<ul>
 			<li><ul>
 				<li><a href="A2B_entity_mailtemplate.php?atmenu=mailtemplate&stitle=Mail+Tempalte&section=8"><?php echo gettext("Show mail template");?></a></li>
@@ -359,26 +214,8 @@ function imgidclick(imgID,divID)
 		</div>
 	<?php  } ?>
 	<?php   if ( has_rights (ACX_DID) ){ 	?>
-		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick('img61','div61');"><img id="img61" <?php 
-	if($section =="9"){
-	?>
-	src="../Images/minus.gif"
-	<?php 
-	}else
-	{?>
-	src="../Images/plus.gif"
-	
-	<?php }?> onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> <strong><?php echo gettext("PREDICT-DIALER");?></strong></a></li>
-		<div id="div61" <?php 
-	if($section =="9"){
-	?>
-	style=""
-	<?php 
-	}else
-	{?>
-	style="display:none;"
-	>
-	<?php }?>
+		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick('img9','div9');"><img id="img9"  src="../Images/plus.gif" onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> <strong><?php echo gettext("PREDICT-DIALER");?></strong></a></li>
+		<div id="div9" style="display:none;">
 		<ul>
 			<li><ul>
 				<li><a href="A2B_entity_campaign.php?atmenu=campaign&stitle=Campaign&section=9"><?php echo gettext("List Campaign");?></a></li>
@@ -391,26 +228,8 @@ function imgidclick(imgID,divID)
 		</div>
 	<?php  } ?>
 	<?php   if ( has_rights (ACX_ADMINISTRATOR) ){ 	?>
-		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick('img7','div7');"><img id="img7" <?php 
-	if($section =="10"){
-	?>
-	src="../Images/minus.gif"
-	<?php 
-	}else
-	{?>
-	src="../Images/plus.gif"
-	
-	<?php }?> onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> <strong><?php echo gettext("ADMINISTRATOR");?></strong></a></li>
-		<div id="div7" <?php 
-	if($section =="10"){
-	?>
-	style=""
-	<?php 
-	}else
-	{?>
-	style="display:none;"
-	>
-	<?php }?>
+		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick('img10','div10');"><img id="img10" src="../Images/plus.gif" onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> <strong><?php echo gettext("ADMINISTRATOR");?></strong></a></li>
+		<div id="div10" style="display:none;">
 		<ul>
 			<li><ul>
 				<li><a href="A2B_entity_user.php?atmenu=user&groupID=0&stitle=Administrator+management&section=10"><?php echo gettext("Show Administrator");?></a></li>
@@ -425,26 +244,8 @@ function imgidclick(imgID,divID)
 		</div>
 	<?php  } ?>	
 	<?php   if ( has_rights (ACX_FILE_MANAGER) ){ 	?>
-		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick('img8','div8');"><img id="img8" <?php 
-	if($section =="11"){
-	?>
-	src="../Images/minus.gif"
-	<?php 
-	}else
-	{?>
-	src="../Images/plus.gif"
-	
-	<?php }?> onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> <strong><?php echo gettext("FILE MANAGER");?></strong></a></li>
-		<div id="div8" <?php 
-	if($section =="11"){
-	?>
-	style=""
-	<?php 
-	}else
-	{?>
-	style="display:none;"
-	>
-	<?php }?>
+		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick('img11','div11');"><img id="img11" src="../Images/plus.gif" onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> <strong><?php echo gettext("FILE MANAGER");?></strong></a></li>
+		<div id="div11" style="display:none;">
 		<ul>
 			<li><ul>
 				<li><a href="CC_musiconhold.php?section=11"><?php echo gettext("MusicOnHold");?></a></li>
@@ -471,3 +272,6 @@ function imgidclick(imgID,divID)
 	</td>
 </tr>
 </table>
+<script>
+imgidclick( <?= '\'img'.$section.'\', \'div'.$section.'\'' ?> );
+</script>
