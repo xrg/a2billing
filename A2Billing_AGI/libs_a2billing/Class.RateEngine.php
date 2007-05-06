@@ -895,7 +895,7 @@ class RateEngine {
 				$this -> usedtrunk = $this -> ratecard_obj[$k][29];
 				$usetrunk_failover=0;
 			}
-				
+			
 			$prefix			= $this -> ratecard_obj[$k][$usetrunk+1];
 			$tech 			= $this -> ratecard_obj[$k][$usetrunk+2];
 			$ipaddress 		= $this -> ratecard_obj[$k][$usetrunk+3];
