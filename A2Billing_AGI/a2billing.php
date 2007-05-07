@@ -33,7 +33,7 @@ include (dirname(__FILE__)."/libs_a2billing/Misc.php");
 
 $charge_callback=0;
 $G_startime = time();
-$agi_date = "Release : Somewhere in March 2007";
+$agi_date = "Release : May 2007";
 $agi_version = "Asterisk2Billing - Version 1.3 - Beta (Yellowjacket)";
 
 if ($argc > 1 && ($argv[1] == '--version' || $argv[1] == '-v'))
@@ -296,12 +296,10 @@ if ($mode == 'standard'){
 				}
 			$A2B->agiconfig['use_dnid']=0;
 		}//END FOR
-		if ($A2B->set_inuse==1) $A2B->callingcard_acct_start_inuse($agi,0);
 		
 	}else{
 		$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[AUTHENTICATION FAILED (cia_res:".$cia_res.")]");
 	}
-	
 	
 	/****************  SAY GOODBYE   ***************/
 	if ($A2B->agiconfig['say_goodbye']==1) $agi-> stream_file('prepaid-final', '#');
@@ -390,7 +388,6 @@ if ($mode == 'standard'){
 	// END
 	$agi->hangup();
 	
-	
 	// MAKE THE AUTHENTICATION ACCORDING TO THE CALLERID
 	$A2B->agiconfig['cid_enable']=1;
 	$A2B->agiconfig['cid_askpincode_ifnot_callerid']=0;
@@ -404,8 +401,6 @@ if ($mode == 'standard'){
 		if ($cia_res==0){
 			
 			$RateEngine = new RateEngine();
-			// $RateEngine -> webui = 0;
-			// LOOKUP RATE : FIND A RATE FOR THIS DESTINATION
 			
 			$A2B ->agiconfig['use_dnid']=1;
 			$A2B ->agiconfig['say_timetocall']=0;
@@ -415,24 +410,28 @@ if ($mode == 'standard'){
 				$A2B ->dnid = $A2B ->destination = $caller_areacode.$A2B->CallerID;
 			}
 			$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, '[destination: - '.$A2B->destination.']');
-					
-			$resfindrate = $RateEngine->rate_engine_findrates($A2B, $A2B ->destination, $A2B ->tariff);
-			//echo "resfindrate=$resfindrate";
-			$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, '[resfindrate: - '.$resfindrate.']');
 			
+			// LOOKUP RATE : FIND A RATE FOR THIS DESTINATION
+			$resfindrate = $RateEngine->rate_engine_findrates($A2B, $A2B ->destination, $A2B ->tariff);
+			$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, '[resfindrate: - '.$resfindrate.']');
 			
 			// IF FIND RATE
 			if ($resfindrate!=0){				
 				//$RateEngine -> debug_st	=1;
 				$res_all_calcultimeout = $RateEngine->rate_engine_all_calcultimeout($A2B, $A2B->credit);
 				//echo ("RES_ALL_CALCULTIMEOUT ::> $res_all_calcultimeout");
-				//print_r($RateEngine-> ratecard_obj);
-			
-				if ($res_all_calcultimeout){							
 				
+				if ($res_all_calcultimeout){
 					// MAKE THE CALL
-					if ($RateEngine -> ratecard_obj[0][34]!='-1'){	$usetrunk=34; $usetrunk_failover=1;}
-					else { 										$usetrunk=29; $usetrunk_failover=0;}
+					if ($RateEngine -> ratecard_obj[0][34]!='-1'){
+						$usetrunk = 34; 
+						$usetrunk_failover = 1;
+						$RateEngine -> usedtrunk = $RateEngine -> ratecard_obj[$k][34];
+					} else {
+						$usetrunk = 29;
+						$RateEngine -> usedtrunk = $RateEngine -> ratecard_obj[$k][29];
+						$usetrunk_failover = 0;
+					}
 					
 					$prefix			= $RateEngine -> ratecard_obj[0][$usetrunk+1];
 					$tech 			= $RateEngine -> ratecard_obj[0][$usetrunk+2];
@@ -441,17 +440,14 @@ if ($mode == 'standard'){
 					$timeout		= $RateEngine -> ratecard_obj[0]['timeout'];	
 					$failover_trunk	= $RateEngine -> ratecard_obj[0][40+$usetrunk_failover];
 					$addparameter	= $RateEngine -> ratecard_obj[0][42+$usetrunk_failover];
-	
+					
 					$destination = $A2B ->destination;
 					if (strncmp($destination, $removeprefix, strlen($removeprefix)) == 0) $destination= substr($destination, strlen($removeprefix));
-					
-					
 					
 					$pos_dialingnumber = strpos($ipaddress, '%dialingnumber%' );
 					
 					$ipaddress = str_replace("%cardnumber%", $A2B->cardnumber, $ipaddress);
 					$ipaddress = str_replace("%dialingnumber%", $prefix.$destination, $ipaddress);
-					
 					
 					if ($pos_dialingnumber !== false){					   
 						   $dialstr = "$tech/$ipaddress".$dialparams;
@@ -470,81 +466,43 @@ if ($mode == 'standard'){
 						$dialstr .= $addparameter;
 					}
 					
-					$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, '[manager_host: - '.$A2B->config["webui"]['manager_host'].']');
-					$as = new AGI_AsteriskManager();					
-					$res = $as->connect($A2B->config["webui"]['manager_host'],$A2B->config["webui"]['manager_username'],$A2B->config["webui"]['manager_secret']);
+					$channel= $dialstr;
+					$exten = $A2B -> config["callback"]['extension'];
+					if ($argc > 4 && strlen($argv[4]) > 0) $exten = $argv[4];
+					$context = $A2B -> config["callback"]['context_callback'];
+					$id_server_group = $A2B -> config["callback"]['id_server_group'];
+					$priority = 1;
+					$timeout = $A2B -> config["callback"]['timeout']*1000;
+					$application='';
+					$callerid = $A2B -> destination;
+					//$callerid=$A2B->CallerID;
+					$account = $A2B -> accountcode;
+					$variable = "CALLED=".$A2B ->destination."|MODE=CID";
 					
-					if	($res){
-						
-						$channel= $dialstr;
-						$exten = $A2B -> config["callback"]['extension'];
-						$context = $A2B -> config["callback"]['context_callback'];
-						$priority=1;
-						$timeout = $A2B -> config["callback"]['timeout']*1000;
-						$application='';
-						$callerid=$A2B->CallerID;
-						$account=$A2B->accountcode;
-						
-						$variable = "CALLED=".$A2B ->destination."|MODE=CID";
-						
-						sleep($A2B -> config["callback"]['sec_wait_before_callback']);
-						$res = $as->Originate($channel, $exten, $context, $priority, $application, $data, $timeout, $callerid, $variable, $account, $async, $actionid);
-						//$res=array();
-						//$res["Response"]='Error';
-						//print_r($resy);
-						
-						if($res["Response"]=='Error'){
-							
-							if (is_numeric($failover_trunk) && $failover_trunk>=0){
-								//echo "failover_trunk=$failover_trunk";
-								
-								
-								$QUERY = "SELECT trunkprefix, providertech, providerip, removeprefix FROM cc_trunk WHERE id_trunk='$failover_trunk'";
-								$A2B->instance_table = new Table();
-								$result = $A2B->instance_table -> SQLExec ($A2B -> DBHandle, $QUERY);
-								
-								//echo "QUERY=$QUERY";
-								//print_r($result);
-								
-								if (is_array($result) && count($result)>0){
-									
-									//DO SELECT WITH THE FAILOVER_TRUNKID									
-									$prefix			= $result[0][0];
-									$tech 			= $result[0][1];
-									$ipaddress 		= $result[0][2];
-									$removeprefix 	= $result[0][3];
-									
-									$pos_dialingnumber = strpos($ipaddress, '%dialingnumber%' );
-									$ipaddress = str_replace("%cardnumber%", $A2B->cardnumber, $ipaddress);
-									$ipaddress = str_replace("%dialingnumber%", $prefix.$destination, $ipaddress);
-									
-									if (strncmp($destination, $removeprefix, strlen($removeprefix)) == 0) $destination= substr($destination, strlen($removeprefix));
-									
-									$dialparams = str_replace("%timeout%", $timeout *1000, $A2B->agiconfig['dialcommand_param']);
-									$A2B->agiconfig['switchdialcommand']=1;
-									$dialparams='';
-									
-									if ($pos_dialingnumber !== false){					   
-										   $dialstr = "$tech/$ipaddress".$dialparams;
-									}else{
-										if ($A2B->agiconfig['switchdialcommand'] == 1){
-											$dialstr = "$tech/$prefix$destination@$ipaddress".$dialparams;
-										}else{
-											$dialstr = "$tech/$ipaddress/$prefix$destination".$dialparams;
-										}
-									}
-									
-									$channel= $dialstr;
-									$res = $as->Originate($channel, $exten, $context, $priority, $application, $data, $timeout, $callerid, $variable, $account, $async, $actionid);
-								}
-							}
-						}						
-						// && DISCONNECTING	
-						$as->disconnect();
-						
+					$uniqueid = MDP_NUMERIC(5).'-'.MDP_STRING(14);
+					$status = 'PENDING';
+					$server_ip = 'localhost';
+					$num_attempt = 0;
+					
+					if (is_numeric($A2B -> config["callback"]['sec_wait_before_callback']) && $A2B -> config["callback"]['sec_wait_before_callback']>=1){
+						$sec_wait_before_callback = $A2B -> config["callback"]['sec_wait_before_callback'];
 					}else{
-						$error_msg= "Cannot connect to the asterisk manager!\nPlease check the manager configuration...";
-						$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[CALLBACK-CALLERID : CALLED=".$A2B ->destination." | $error_msg]");
+						$sec_wait_before_callback = 1;
+					}
+					
+					if ($A2B->config["database"]['dbtype'] != "postgres"){
+						// MYSQL
+						$QUERY = " INSERT INTO cc_callback_spool (uniqueid, status, server_ip, num_attempt, channel, exten, context, priority, variable, id_server_group, callback_time, account ) VALUES ('$uniqueid', '$status', '$server_ip', '$num_attempt', '$channel', '$exten', '$context', '$priority', '$variable', '$id_server_group', ADDDATE( CURRENT_TIMESTAMP, INTERVAL $sec_wait_before_callback SECOND ), '$account')";
+					}else{
+						// POSTGRESQL
+						$QUERY = " INSERT INTO cc_callback_spool (uniqueid, status, server_ip, num_attempt, channel, exten, context, priority, variable, id_server_group, callback_time, account ) VALUES ('$uniqueid', '$status', '$server_ip', '$num_attempt', '$channel', '$exten', '$context', '$priority', '$variable', '$id_server_group',  (CURRENT_TIMESTAMP + INTERVAL '$sec_wait_before_callback SECOND'), '$account')";
+					}
+					$res = $A2B -> DBHandle -> Execute($QUERY);
+					$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[CALLBACK-ALL : INSERT CALLBACK REQUEST IN SPOOL : QUERY=$QUERY]");
+					
+					if (!$res){
+						$error_msg= "Cannot insert the callback request in the spool!";
+						$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[CALLBACK-ALL : CALLED=".$A2B ->destination." | $error_msg]");
 					}
 					
 				}else{
@@ -563,7 +521,7 @@ if ($mode == 'standard'){
 		
 	}else{
 		$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[CALLBACK-CALLERID : CALLED=".$A2B ->destination." | error callerid]");
-	}	
+	}
 
 }elseif ($mode == 'all-callback'){
 
@@ -1009,6 +967,10 @@ if (isset($send_reminder) && $send_reminder == 1 && $A2B->agiconfig['send_remind
 			$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[SEND-MAIL REMINDER]:[TO:".$A2B -> cardholder_email." - FROM:$from - SUBJECT:$subject]");
 		}
 	}
+}
+
+if ($A2B->set_inuse==1){ 
+	$A2B->callingcard_acct_start_inuse($agi,0);
 }
 
 /************** END OF THE APPLICATION ****************/

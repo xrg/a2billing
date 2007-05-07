@@ -75,7 +75,7 @@ my $astman = new Asterisk::Manager;
 # print @res_manager;
 # exit(0);
 
-# &daemonize($path_daemon);
+&daemonize($path_daemon);
 
 open(LOGFILE, ">>".$log_file) || warn "Could not open >> $log_file.\n";
 $timestamp = &longfmt();
