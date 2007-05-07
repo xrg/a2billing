@@ -477,9 +477,9 @@ if ($mode == 'standard'){
 					$callerid = $A2B -> destination;
 					//$callerid=$A2B->CallerID;
 					$account = $A2B -> accountcode;
-					$variable = "CALLED=".$A2B ->destination."|MODE=CID";
 					
-					$uniqueid = MDP_NUMERIC(5).'-'.MDP_STRING(14);
+					$uniqueid = MDP_NUMERIC(5).'-'.MDP_STRING(7);
+					$variable = "CALLED=".$A2B ->destination."|MODE=CID|CBID=$uniqueid";					
 					$status = 'PENDING';
 					$server_ip = 'localhost';
 					$num_attempt = 0;
@@ -608,9 +608,9 @@ if ($mode == 'standard'){
 					$application='';
 					$callerid = $A2B -> destination;
 					$account = $A2B -> accountcode;
-					$variable = "CALLED=".$A2B ->destination."|MODE=ALL|TARIFF=".$A2B ->tariff;
 					
-					$uniqueid = MDP_NUMERIC(5).'-'.MDP_STRING(14);
+					$uniqueid = MDP_NUMERIC(5).'-'.MDP_STRING(7);
+					$variable = "CALLED=".$A2B ->destination."|MODE=ALL|CBID=$uniqueid|TARIFF=".$A2B ->tariff;
 					$status = 'PENDING';
 					$server_ip = 'localhost';
 					$num_attempt = 0;
@@ -676,6 +676,8 @@ if ($mode == 'standard'){
 	$callback_mode = $callback_mode['data'];
 	$callback_tariff = $agi->get_variable("TARIFF");
 	$callback_tariff = $callback_tariff['data'];
+	$callback_uniqueid = $agi->get_variable("CBID");
+	$callback_uniqueid = $callback_uniqueid['data'];
 	
 	// |MODEFROM=ALL-CALLBACK|TARIFF=".$A2B ->tariff;
 	
@@ -692,7 +694,12 @@ if ($mode == 'standard'){
 		$A2B->agiconfig['say_timetocall']=0;
 	}
 	
-	$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[CALLBACK]:[GET VARIABLE : CALLED=$called_party | CALLING=$calling_party | MODE=$callback_mode | TARIFF=$callback_tariff]");
+	$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[CALLBACK]:[GET VARIABLE : CALLED=$called_party | CALLING=$calling_party | MODE=$callback_mode | TARIFF=$callback_tariff | CBID=$callback_uniqueid]");
+	
+	$QUERY = "UPDATE cc_callback_spool SET agi_result='AGI PROCESSING' WHERE uniqueid='$callback_uniqueid'";
+	$res = $A2B -> DBHandle -> Execute($QUERY);
+	$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[CALLBACK-ALL : UPDATE CALLBACK AGI_RESULT : QUERY=$QUERY]");
+	
 	
 	/* WE START ;) */
 	$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[CALLBACK]:[TRY : callingcard_ivr_authenticate]");
@@ -701,7 +708,6 @@ if ($mode == 'standard'){
 		
 		$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[CALLBACK]:[Start]");
 		$A2B->callingcard_auto_setcallerid($agi);
-		//$A2B->callingcard_acct_start_inuse($agi,1);
 		
 		for ($i=0;$i< $A2B->agiconfig['number_try'] ;$i++){
 			

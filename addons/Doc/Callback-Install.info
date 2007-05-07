@@ -59,6 +59,8 @@ INSTALL
 			You have to adapt a2billing-callback-daemon.rc script for your system.
 	
 	
+	service a2billing-callback-daemon start
+	
 	if you change the place for install 
 	dont forget to change into the perl script (a2billing-callback-daemon) ->  use lib '/var/lib/asterisk/a2billing/callback-daemon/lib';
 	and in the rc file -> A2BDAEMON='/var/lib/asterisk/a2billing/callback-daemon/a2billing-callback-daemon'

@@ -605,7 +605,7 @@ CREATE TABLE cc_callback_spool (
     data 							VARCHAR(60),
     timeout 						VARCHAR(60),
     callerid 						VARCHAR(60),
-    variable 						VARCHAR(60),
+    variable 						VARCHAR(100),
     account 						VARCHAR(60),
     async 							VARCHAR(60),
     actionid 						VARCHAR(60),
