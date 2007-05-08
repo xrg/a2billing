@@ -35,7 +35,9 @@ Min&field_type=,,money&".$_SERVER['QUERY_STRING']);
    9) prefix_select- i.e 32 only prefix start by 32
    10) currency_select currency code i.e USD
    11) merge_form (0 or 1) 1 for merge form search and 1 seaparated search form by default 0
-
+   12) fullhtmlpage (0 or 1) 1 to show the html header in the page
+	if not we will advice to add the css in your html page to display nicely the ratecard : 
+	add : <link href="http://a2billingserver/api/api_ratecard.css" rel="stylesheet" type="text/css">
 
 4. TROUBLESHOOTING
 

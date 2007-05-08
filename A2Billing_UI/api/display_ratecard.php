@@ -24,7 +24,7 @@ include ("../lib/module.access.php");
 	
 	$FG_DEBUG = 0;
 
-getpost_ifset(array('key', 'tariffgroupid', 'ratecardid', 'css_url', 'nb_display_lines', 'filter' ,'field_to_display', 'column_name', 'field_type', 'browse_letter', 'prefix_select', 'page_url', 'resulttitle', 'posted', 'stitle', 'current_page', 'order', 'sens', 'choose_currency', 'choose_country', 'letter', 'searchpre', 'currency_select', 'merge_form'));
+getpost_ifset(array('key', 'tariffgroupid', 'ratecardid', 'css_url', 'nb_display_lines', 'filter' ,'field_to_display', 'column_name', 'field_type', 'browse_letter', 'prefix_select', 'page_url', 'resulttitle', 'posted', 'stitle', 'current_page', 'order', 'sens', 'choose_currency', 'choose_country', 'letter', 'searchpre', 'currency_select', 'merge_form', 'fullhtmlpage'));
 /**variable to set rate display option
 
 	?key 
@@ -40,6 +40,7 @@ getpost_ifset(array('key', 'tariffgroupid', 'ratecardid', 'css_url', 'nb_display
 	&currency_select "cirency code i.e USD"
 	&page_url i.e http://mysite.com/rates.php
 	&merge_form (0 or 1) 1 for merge form search and 1 seaparated search form by default 0
+	&fullhtmlpage (0 or 1)
 */
   $ip_remote = getenv('REMOTE_ADDR'); 
   $mail_content = "[" . date("Y/m/d G:i:s", mktime()) . "] "."Request asked from:$ip_remote with key:$key \n";
@@ -70,6 +71,7 @@ if (!isset($currency_select) || strlen($currency_select)==0) $currency_select=tr
 if (!isset($css_url) || strlen($css_url)==0) $css_url=substr("http://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'],0,strlen("http://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'])-20)."api_ratecard.css";
 
 if (!isset($merge_form) || strlen($merge_form)==0) $merge_form=0;
+if (!isset($fullhtmlpage) || strlen($fullhtmlpage)==0) $fullhtmlpage=1;
 
 if (!isset($page_url) || strlen($page_url)==0){ echo "Error : need to define page_url !!!"; exit; }
 if ( (substr($page_url,0,7)!='http://') && (substr($page_url,0,8)!='https://') ){ echo "Error : page_url need to start by http:// or https:// "; exit; }
@@ -233,6 +235,7 @@ function Search(Source){
 //-->
 </script>
 
+<?php if ($fullhtmlpage){ ?>
 <html><head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
@@ -242,7 +245,8 @@ function Search(Source){
 </head>
 
 <div>
-<?php //echo "$page_url?order=$order&sens=$sens&current_page=$current_page&css_url=$css_url&page_url=$page_url"?>
+
+<?php } ?>
 
 <!-- ** ** ** ** ** Part for the research ** ** ** ** ** -->
 	<FORM METHOD="GET" name="myForm" ACTION="<?php echo "$page_url?order=$order&sens=$sens&current_page=$current_page&css_url=$css_url&page_url=$page_url"?>">
@@ -367,5 +371,9 @@ function Search(Source){
 	</TR>
 	</table>
 	<div>
+
+<?php if ($fullhtmlpage){ ?>
 </div>
+
 </html>
+<?php } ?>
