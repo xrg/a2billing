@@ -3,6 +3,18 @@
                    			TODO LIST - SPECIFIC
 ********************************************************************************
 
+#### WEB-CALLBACK
+********************************************************************
+if the 2 leg is not connected, we need to bill the 1st 
+
+
+#### UPDATE : IMPORT MODULE
+********************************************************************
+When I import, I get a page which allows me to check the data is being
+imported properly. There is no way to accept that rate import without
+selecting the rate card again. I think this is an error.
+
+
 #### FIX : HIDE DIV ON "List Customer" & "Browse Rates"
 ********************************************************************
 Jquery - HIDE DIV ON "List Customer" & "Browse Rates"

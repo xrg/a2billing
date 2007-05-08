@@ -18,7 +18,7 @@ if (! has_rights (ACX_ACCESS)){
 }
 
 $FG_DEBUG = 0;
-
+$color_msg = 'red';
 
 $QUERY = "SELECT  username, credit, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, lastuse, activated FROM cc_card WHERE username = '".$_SESSION["pr_login"]."' AND uipass = '".$_SESSION["pr_password"]."'";
 
@@ -144,6 +144,9 @@ if ($callback){
 						
 						if (!$res){
 							$error_msg= gettext("Cannot insert the callback request in the spool!");
+						}else{
+							$error_msg = gettext("Your callback request has been queued correctly!");
+							$color_msg = 'green';
 						}
 						
 						/*
@@ -210,40 +213,34 @@ if ($callback){
 						*/
 						
 					}else{
-						$error_msg = gettext("<font face='Arial, Helvetica, sans-serif' size='2' color='red'><b>Error : You don t have enough credit to call you back !!!</b></font><br>");
+						$error_msg = gettext("Error : You don t have enough credit to call you back!");
 					}
 				}else{
-					$error_msg = gettext("<font face='Arial, Helvetica, sans-serif' size='2' color='red'><b>Error : There is no route to call back your phonenumber !!!</b></font><br>");
+					$error_msg = gettext("Error : There is no route to call back your phonenumber!");
 				}
 				
 			}else{
 				// ERROR MESSAGE IS CONFIGURE BY THE callingcard_ivr_authenticate_light
 			}
 		}else{
-			$error_msg = gettext("<font face='Arial, Helvetica, sans-serif' size='2' color='red'><b>Error : You have to specify your phonenumber and the number you wish to call !!!</b></font><br>");
+			$error_msg = gettext("Error : You have to specify your phonenumber and the number you wish to call!");
 		
 		}
 }
 $customer = $_SESSION["pr_login"];
-?>
 
-<script language="JavaScript" type="text/JavaScript">
-<!--
-function MM_openBrWindow(theURL,winName,features) { //v2.0
-  window.open(theURL,winName,features);
-}
 
-//-->
-</script>
-
-<?php
 $smarty->display( 'main.tpl');
-?>
 
+?>
 
 <br>
-	  <center>
-	 <font class="fontstyle_007"> <?php echo $error_msg ?> <br>
+	<center>
+	 <font class="fontstyle_007"> 
+	 <font face='Arial, Helvetica, sans-serif' size='2' color='<?php echo $color_msg; ?>'><b>
+	 	<?php echo $error_msg ?> 
+	 </b></font>
+	 <br><br>
 	  <?php echo gettext("You can initiate the callback by entering your phonenumber and the number you wish to call!");?>
 	  </font>
 	  </center>
