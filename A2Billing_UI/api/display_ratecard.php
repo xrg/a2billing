@@ -1,7 +1,7 @@
 <?php
 /*
 this ligne is an exemple of wath you must add into the main page to desplay the ratecard
-include ("http://localhost/A2Billing_UI/api/display_ratecard.php?key=0951aa29a67836b860b0865bc495225c&page_url=localhost/index.php&field_to_display=t1.destination,t3.countryprefix,t1.dialprefix,t1.rateinitial&column_name=Destination,Country,Prefix,Rate/Min&field_type=,,money&".$_SERVER['QUERY_STRING']);
+include ("http://localhost/A2Billing_UI/api/display_ratecard.php?key=0951aa29a67836b860b0865bc495225c&page_url=localhost/index.php&field_to_display=t1.destination,t1.dialprefix,t1.rateinitial&column_name=Destination,Prefix,Rate/Min&field_type=,,money&".$_SERVER['QUERY_STRING']);
 
 
 to change display set css_url in the include ligne
@@ -115,15 +115,20 @@ for ($i=0;$i<count($fltr);$i++){
 if (isset($browse_letter) && strtoupper($browse_letter)=="YES") $DISPLAY_LETTER=true;
 if (isset($letter) && strlen($letter)!=0) add_clause($FG_TABLE_CLAUSE,"t1.destination LIKE '".strtolower ($letter)."%'");
 
-if (isset($ratecardid) && strlen($ratecardid)!=0) add_clause($FG_TABLE_CLAUSE,"t1.id = '$ratecardid'");
+
 if (isset($tariffgroupid) && strlen($tariffgroupid)!=0){
 	$FG_TABLE_NAME="cc_ratecard t1, cc_tariffplan t4, cc_tariffgroup t5, cc_tariffgroup_plan t6";
 	add_clause($FG_TABLE_CLAUSE,"t4.id = t6.idtariffplan AND t6.idtariffplan=t1.idtariffplan AND t6.idtariffgroup = '$tariffgroupid'");
 }else{
 	$FG_TABLE_NAME="cc_ratecard t1";
+	
+	if (isset($ratecardid) && strlen($ratecardid)!=0){ 
+		$FG_TABLE_NAME="cc_ratecard t1, cc_tariffplan t4";
+		add_clause($FG_TABLE_CLAUSE,"t4.id = '$ratecardid' AND t1.idtariffplan = t4.id");
+	}
 }
 if ($FILTER_COUNTRY || $DISPLAY_LETTER) {
-	$nb_display_lines=5000;
+	$nb_display_lines=100;
 	$current_page=0;
 }
 
@@ -190,9 +195,10 @@ $list = $instance_table -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, $order, $sens,
 $country_table = new Table("cc_country","countryname");
 $country_list = $country_table -> Get_list ($DBHandle);
 
-$QUERY="SELECT $FG_COL_QUERY from $FG_TABLE_NAME WHERE $FG_TABLE_CLAUSE";
-$list_c=$instance_table->SQLExec($DBHandle,$QUERY,1);
-$nb_record = count($list_c);
+$QUERY="SELECT count(*) from $FG_TABLE_NAME WHERE $FG_TABLE_CLAUSE";
+
+$list_nrecord=$instance_table->SQLExec($DBHandle,$QUERY,1);
+$nb_record = $list_nrecord[0][0];
 
 if ($nb_record<=$FG_LIMITE_DISPLAY){ 
 	$nb_record_max=1;
@@ -235,10 +241,10 @@ function Search(Source){
 </head>
 
 <div>
-<?php echo "$page_url?order=$order&sens=$sens&current_page=$current_page&css_url=$css_url&page_url=$page_url"?>
+<?php //echo "$page_url?order=$order&sens=$sens&current_page=$current_page&css_url=$css_url&page_url=$page_url"?>
 
 <!-- ** ** ** ** ** Part for the research ** ** ** ** ** -->
-	<FORM METHOD=GET name="myForm" ACTION="<?php echo "$page_url?order=$order&sens=$sens&current_page=$current_page&css_url=$css_url&page_url=$page_url"?>">
+	<FORM METHOD="GET" name="myForm" ACTION="<?php echo "$page_url?order=$order&sens=$sens&current_page=$current_page&css_url=$css_url&page_url=$page_url"?>">
 	<INPUT TYPE="hidden" NAME="posted" value=1>
 	<INPUT TYPE="hidden" NAME="merge_form" value=<?php echo $merge_form;?>>
 	<INPUT TYPE="hidden" NAME="current_page" value=0>
@@ -262,9 +268,9 @@ function Search(Source){
 			<?php for ($i=65;$i<=90;$i++) {
  				$x = chr($i);
 				if ($merge_form){
- 					echo "<a	href=\"$page_url?letter=$x&stitle=$stitle&current_page=$current_page&order=$order&sens=$sens&posted=$posted&choose_currency=$choose_currency&searchpre=$searchpre&choose_country=$choose_country&css_url=$css_url&page_url=$page_url\">$x</a>";
+ 					echo "<a	href=\"$page_url?letter=$x&stitle=$stitle&current_page=$current_page&order=$order&sens=$sens&posted=$posted&choose_currency=$choose_currency&searchpre=$searchpre&choose_country=$choose_country&css_url=$css_url&page_url=$page_url\">$x</a> ";
 				}else{
-					echo "<a href=\"$page_url?letter=$x&stitle=$stitle&current_page=$current_page&order=$order&sens=$sens&posted=$posted&choose_currency=$choose_currency&css_url=$css_url&page_url=$page_url\">$x</a>";
+					echo "<a href=\"$page_url?letter=$x&stitle=$stitle&current_page=$current_page&order=$order&sens=$sens&posted=$posted&choose_currency=$choose_currency&css_url=$css_url&page_url=$page_url\">$x</a> ";
 				}
 			}?></font>
 		</div>
