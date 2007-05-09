@@ -402,12 +402,15 @@ if ($mode == 'standard'){
 			
 			$RateEngine = new RateEngine();
 			
-			$A2B ->agiconfig['use_dnid']=1;
-			$A2B ->agiconfig['say_timetocall']=0;
+			$A2B -> agiconfig['use_dnid']=1;
+			$A2B -> agiconfig['say_timetocall']=0;
+			
 			if (substr($A2B->CallerID,0,1)=='0'){
-				$A2B ->dnid = $A2B ->destination = $caller_areacode.substr($A2B->CallerID,1);
+			
+				$A2B -> dnid = $A2B -> destination = $caller_areacode.substr($A2B->CallerID,1);
 			}else{
-				$A2B ->dnid = $A2B ->destination = $caller_areacode.$A2B->CallerID;
+			
+				$A2B -> dnid = $A2B -> destination = $caller_areacode.$A2B->CallerID;
 			}
 			$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, '[destination: - '.$A2B->destination.']');
 			
@@ -426,10 +429,10 @@ if ($mode == 'standard'){
 					if ($RateEngine -> ratecard_obj[0][34]!='-1'){
 						$usetrunk = 34; 
 						$usetrunk_failover = 1;
-						$RateEngine -> usedtrunk = $RateEngine -> ratecard_obj[$k][34];
+						$RateEngine -> usedtrunk = $RateEngine -> ratecard_obj[0][34];
 					} else {
 						$usetrunk = 29;
-						$RateEngine -> usedtrunk = $RateEngine -> ratecard_obj[$k][29];
+						$RateEngine -> usedtrunk = $RateEngine -> ratecard_obj[0][29];
 						$usetrunk_failover = 0;
 					}
 					
@@ -479,7 +482,7 @@ if ($mode == 'standard'){
 					$account = $A2B -> accountcode;
 					
 					$uniqueid = MDP_NUMERIC(5).'-'.MDP_STRING(7);
-					$variable = "CALLED=".$A2B ->destination."|MODE=CID|CBID=$uniqueid";					
+					$variable = "CALLED=".$A2B ->destination."|MODE=CID|CBID=$uniqueid|LEG=".$A2B -> username;
 					$status = 'PENDING';
 					$server_ip = 'localhost';
 					$num_attempt = 0;
@@ -610,7 +613,8 @@ if ($mode == 'standard'){
 					$account = $A2B -> accountcode;
 					
 					$uniqueid = MDP_NUMERIC(5).'-'.MDP_STRING(7);
-					$variable = "CALLED=".$A2B ->destination."|MODE=ALL|CBID=$uniqueid|TARIFF=".$A2B ->tariff;
+					$variable = "CALLED=".$A2B ->destination."|MODE=ALL|CBID=$uniqueid|TARIFF=".$A2B ->tariff.'|LEG='.$A2B -> username;
+					
 					$status = 'PENDING';
 					$server_ip = 'localhost';
 					$num_attempt = 0;
@@ -678,14 +682,20 @@ if ($mode == 'standard'){
 	$callback_tariff = $callback_tariff['data'];
 	$callback_uniqueid = $agi->get_variable("CBID");
 	$callback_uniqueid = $callback_uniqueid['data'];
+	$callback_leg = $agi->get_variable("LEG");
+	$callback_leg = $callback_leg['data'];
 	
 	// |MODEFROM=ALL-CALLBACK|TARIFF=".$A2B ->tariff;
 	
 	if ($callback_mode=='CID'){  
+		$charge_callback = 1;
 		$A2B->agiconfig['use_dnid'] = 0;
+		
 	}elseif ($callback_mode=='ALL'){  
 		$A2B->agiconfig['use_dnid'] = 0;
+		
 	}else{
+		$charge_callback = 1;
 		// FOR THE WEB-CALLBACK
 		$A2B->agiconfig['number_try'] =1;
 		$A2B->agiconfig['use_dnid'] =1;
@@ -694,7 +704,7 @@ if ($mode == 'standard'){
 		$A2B->agiconfig['say_timetocall']=0;
 	}
 	
-	$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[CALLBACK]:[GET VARIABLE : CALLED=$called_party | CALLING=$calling_party | MODE=$callback_mode | TARIFF=$callback_tariff | CBID=$callback_uniqueid]");
+	$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[CALLBACK]:[GET VARIABLE : CALLED=$called_party | CALLING=$calling_party | MODE=$callback_mode | TARIFF=$callback_tariff | CBID=$callback_uniqueid | LEG=$callback_leg]");
 	
 	$QUERY = "UPDATE cc_callback_spool SET agi_result='AGI PROCESSING' WHERE uniqueid='$callback_uniqueid'";
 	$res = $A2B -> DBHandle -> Execute($QUERY);
@@ -705,6 +715,8 @@ if ($mode == 'standard'){
 	$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[CALLBACK]:[TRY : callingcard_ivr_authenticate]");
 	$cia_res = $A2B -> callingcard_ivr_authenticate($agi);	
 	if ($cia_res==0){
+		
+		$charge_callback = 1; // EVEN FOR  ALL CALLBACK
 		
 		$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[CALLBACK]:[Start]");
 		$A2B->callingcard_auto_setcallerid($agi);
@@ -746,7 +758,7 @@ if ($mode == 'standard'){
 				}
 				
 				$charge_callback = 1;
-				$arr_save_a2billing['countrycode']	= $A2B-> countrycode;
+				/*$arr_save_a2billing['countrycode']	= $A2B-> countrycode;
 				$arr_save_a2billing['subcode']		= $A2B-> subcode;
 				$arr_save_a2billing['myprefix']		= $A2B-> myprefix;
 				$arr_save_a2billing['ipaddress']	= $A2B-> ipaddress;
@@ -759,7 +771,7 @@ if ($mode == 'standard'){
 				$arr_save_rateengine['dialstatus']	= $RateEngine-> dialstatus;
 				$arr_save_rateengine['usedratecard']= $RateEngine-> usedratecard;
 				$arr_save_rateengine['lastcost']	= $RateEngine-> lastcost;
-				$arr_save_rateengine['usedtrunk']	= $RateEngine-> usedtrunk;
+				$arr_save_rateengine['usedtrunk']	= $RateEngine-> usedtrunk;*/
 				
 				$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[CALLBACK]:[a2billing end loop num_try] RateEngine->usedratecard=".$RateEngine->usedratecard);
 			}
@@ -884,7 +896,7 @@ if ($mode == 'standard'){
 
 
 if ($charge_callback){
-	$A2B-> countrycode = $arr_save_a2billing['countrycode'];
+	/*$A2B-> countrycode = $arr_save_a2billing['countrycode'];
 	$A2B-> subcode = $arr_save_a2billing['subcode'];
 	$A2B-> myprefix = $arr_save_a2billing['myprefix'];
 	$A2B-> ipaddress = $arr_save_a2billing['ipaddress'];
@@ -897,35 +909,55 @@ if ($charge_callback){
 	$RateEngine-> dialstatus = $arr_save_rateengine['dialstatus'];
 	$RateEngine-> usedratecard = $arr_save_rateengine['usedratecard'];
 	$RateEngine-> lastcost = $arr_save_rateengine['lastcost'];
-	$RateEngine-> usedtrunk = $arr_save_rateengine['usedtrunk'];
+	$RateEngine-> usedtrunk = $arr_save_rateengine['usedtrunk'];*/
 	
-	// MAKE THE BILLING FOR THE 1ST LEG
+	//list($callback_username, $callback_usedratecard, $callback_lastcost, $callback_lastbuycost) = split(",", $callback_leg, 4);
+	
+	/*// MAKE THE BILLING FOR THE 1ST LEG
 	if ($callback_mode=='ALL'){  
 		//IF IT S ALL THE BILLING TO APPLY COME FROM $callback_tariff
 		$A2B -> tariff = $callback_tariff;
-	}
+	}*/
 	
-	$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[CALLBACK]:[MAKE BILLING FOR THE 1ST LEG - TARIFF:".$A2B -> tariff.";CALLED=$called_party]");
-	$A2B->agiconfig['use_dnid'] =1;
-	$A2B ->dnid = $A2B ->destination = $called_party;
+	$callback_username = $callback_leg;
+	$A2B -> accountcode = $callback_username;
+	$A2B -> agiconfig['say_balance_after_auth'] = 0;
+	$A2B -> agiconfig['cid_enable'] = 0;
+	$A2B -> agiconfig['say_timetocall'] = 0;
 	
-	$resfindrate = $RateEngine->rate_engine_findrates($A2B, $called_party, $A2B -> tariff);
-	// IF FIND RATE
-	if ($resfindrate!=0 && is_numeric($RateEngine->usedratecard)){														
-		$res_all_calcultimeout = $RateEngine->rate_engine_all_calcultimeout($A2B, $A2B->credit);
+	$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[CALLBACK 1ST LEG]:[INFO FOR THE 1ST LEG - callback_username=$callback_username");
+	
+	$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[CALLBACK 1ST LEG]:[TRY : callingcard_ivr_authenticate]");
+	$cia_res = $A2B -> callingcard_ivr_authenticate($agi);	
+	if ($cia_res==0){
 		
-		if ($res_all_calcultimeout){
-			// SET CORRECTLY THE CALLTIME FOR THE 1st LEG
-			$RateEngine -> answeredtime  = time() - $G_startime;
-			$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[CALLBACK]:[RateEngine -> answeredtime=".$RateEngine -> answeredtime."]");
+		$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[CALLBACK 1ST LEG]:[MAKE BILLING FOR THE 1ST LEG - TARIFF:".$A2B -> tariff.";CALLED=$called_party]");
+		$A2B->agiconfig['use_dnid'] =1;
+		$A2B ->dnid = $A2B ->destination = $called_party;
+		
+		$resfindrate = $RateEngine->rate_engine_findrates($A2B, $called_party, $A2B -> tariff);
+		
+		$RateEngine-> usedratecard = 0;
+		// IF FIND RATE
+		if ($resfindrate!=0 && is_numeric($RateEngine->usedratecard)){														
+			$res_all_calcultimeout = $RateEngine->rate_engine_all_calcultimeout($A2B, $A2B->credit);
 			
-			// INSERT CDR  & UPDATE SYSTEM
-			$RateEngine->rate_engine_updatesystem($A2B, $agi, $A2B-> destination, 1, 0, 1);
-		}else{										
-			$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[CALLBACK]:[ERROR - BILLING FOR THE 1ST LEG - rate_engine_all_calcultimeout: CALLED=$called_party]");
+			if ($res_all_calcultimeout){
+				// SET CORRECTLY THE CALLTIME FOR THE 1st LEG
+				$RateEngine -> answeredtime  = time() - $G_startime;
+				$RateEngine -> dialstatus = 'ANSWERED';
+				$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[CALLBACK]:[RateEngine -> answeredtime=".$RateEngine -> answeredtime."]");
+				
+				// INSERT CDR  & UPDATE SYSTEM
+				$RateEngine->rate_engine_updatesystem($A2B, $agi, $A2B-> destination, 1, 0, 1);
+			}else{										
+				$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[CALLBACK 1ST LEG]:[ERROR - BILLING FOR THE 1ST LEG - rate_engine_all_calcultimeout: CALLED=$called_party]");
+			}
+		}else{
+			$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[CALLBACK 1ST LEG]:[ERROR - BILLING FOR THE 1ST LEG - rate_engine_findrates: CALLED=$called_party - RateEngine->usedratecard=".$RateEngine->usedratecard."]");
 		}
 	}else{
-		$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[CALLBACK]:[ERROR - BILLING FOR THE 1ST LEG - rate_engine_findrates: CALLED=$called_party - RateEngine->usedratecard=".$RateEngine->usedratecard."]");
+		$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[CALLBACK 1ST LEG]:[ERROR - AUTHENTICATION USERNAME]");
 	}
 }
 

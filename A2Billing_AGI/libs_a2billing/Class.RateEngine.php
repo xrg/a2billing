@@ -31,6 +31,7 @@ class RateEngine {
 	var $dialstatus;
 	var $usedratecard;
 	var $webui = 1;
+	var $usedtrunk;
 
 	/* CONSTRUCTOR */
 
@@ -43,13 +44,14 @@ class RateEngine {
 
 	function Reinit () {     
 		
-		 $this -> number_trunk = 0;
-		 $this -> answeredtime = 0;	
-		 $this -> dialstatus = '';
-		 $this -> usedratecard = '';
-		 $this -> usedtrunk = '';
-		 $this -> lastcost = '';
-		 $this -> lastbuycost = '';
+		$this -> number_trunk = 0;
+		$this -> answeredtime = 0;	
+		$this -> dialstatus = '';
+		$this -> usedratecard = '';
+		$this -> usedtrunk = '';
+		$this -> lastcost = '';
+		$this -> lastbuycost = '';
+		
 	}
 
 	
@@ -1084,7 +1086,7 @@ class RateEngine {
 				$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "-> dialstatus : ".$this->dialstatus.", answered time is ".$this->answeredtime." \n");
 			}
 			
-			$this->usedratecard=$k;
+			$this->usedratecard = $k;
 			$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[USEDRATECARD=".$this->usedratecard."]");
 			return true;
 		} // End for

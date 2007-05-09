@@ -3,9 +3,22 @@
                    			TODO LIST - SPECIFIC
 ********************************************************************************
 
-#### WEB-CALLBACK
+#### FEATURES : CALLBACK APIs
 ********************************************************************
-if the 2 leg is not connected, we need to bill the 1st 
+1# Queue a callback request from an API : HTTP / WSDL
+- it will return the uniqueID generate for the callback request
+an API could generate a callback http://apiurl/callback.php?listparameter=values&uniqueid=123453
+
+2# API to check the status of the callback : webservice  
+- check the status of a generated callback 
+
+So an API will return result of a callback http://apiurl/callback_status.php?uniqueid=123453
+reply : Pending ; Success ; Error, etc ...
+
+3# supplementary audio when connect the callback
+It calls the first party and plays the wav. For Example, "Your call is now being connected, Please hold" 
+and it will then call the 2nd party and bridge.
+
 
 
 #### UPDATE : IMPORT MODULE
@@ -58,11 +71,6 @@ SIP JAVA Phone
 https://www.moneybookers.com/app/?rid=811621
 https://www.paypal.com/es/mrb/pal=PGSJEXAEXKTBU
 
-
-#### BUG : Batch update in Rates
-********************************************************************
-Batch update in Rates don't work correctly.
-hardy test this part
 
 
 #### INVOICE FIX

@@ -64,17 +64,14 @@ if ($callback){
 				$RateEngine = new RateEngine();
 				$RateEngine -> webui = 0;
 				// LOOKUP RATE : FIND A RATE FOR THIS DESTINATION
-					
-					
+				
 				$A2B ->agiconfig['accountcode']=$_SESSION["pr_login"];
 				$A2B ->agiconfig['use_dnid']=1;
 				$A2B ->agiconfig['say_timetocall']=0;						
 				$A2B ->dnid = $A2B ->destination = $called;
-							
-							
+				
 				$resfindrate = $RateEngine->rate_engine_findrates($A2B, $called, $_SESSION["tariff"]);
-
-					
+				
 				// IF FIND RATE
 				if ($resfindrate!=0){				
 					$res_all_calcultimeout = $RateEngine->rate_engine_all_calcultimeout($A2B, $A2B->credit);
@@ -101,7 +98,6 @@ if ($callback){
 						
 						$destination = $called;
 						if (strncmp($destination, $removeprefix, strlen($removeprefix)) == 0) $destination= substr($destination, strlen($removeprefix));
-						
 						
 						$pos_dialingnumber = strpos($ipaddress, '%dialingnumber%' );
 						$ipaddress = str_replace("%cardnumber%", $A2B->cardnumber, $ipaddress);
@@ -138,7 +134,8 @@ if ($callback){
 						$status = 'PENDING';
 						$server_ip = 'localhost';
 						$num_attempt = 0;
-						$variable = "CALLED=$called|CALLING=$calling|CBID=$uniqueid";
+						$variable = "CALLED=$called|CALLING=$calling|CBID=$uniqueid|LEG=".$A2B->cardnumber;
+						
 						$QUERY = " INSERT INTO cc_callback_spool (uniqueid, status, server_ip, num_attempt, channel, exten, context, priority, variable, id_server_group, callback_time, account ) VALUES ('$uniqueid', '$status', '$server_ip', '$num_attempt', '$channel', '$exten', '$context', '$priority', '$variable', '$id_server_group',  now(), '$account')";
 						$res = $A2B -> DBHandle -> Execute($QUERY);
 						
@@ -208,7 +205,7 @@ if ($callback){
 							// && DISCONNECTING	
 							$as->disconnect();
 						}else{
-								$error_msg= gettext("Cannot connect to the asterisk manager!<br>Please check the manager configuration...");
+							$error_msg= gettext("Cannot connect to the asterisk manager!<br>Please check the manager configuration...");
 						}
 						*/
 						

@@ -321,7 +321,7 @@ function Search(Source){
 						<TH width="<?php echo $FG_TABLE_COL[$i][2]?>" class="table_title"> 
 						<center><strong> 
 						<?php  if (strtoupper($FG_TABLE_COL[$i][4])=="SORT"){?>
-						<a href="<?php  echo "http://$page_url?stitle=$stitle&current_page=$current_page&order=".$FG_TABLE_COL[$i][1]."&sens=";if ($sens=="ASC"){echo"DESC";}else{echo"ASC";} echo "&posted=$posted&choose_currency=$choose_currency&searchpre=$searchpre&choose_country=$choose_country&letter=$letter&css_url=$css_url&page_url=$page_url";?>"> 
+						<a href="<?php  echo "$page_url?stitle=$stitle&current_page=$current_page&order=".$FG_TABLE_COL[$i][1]."&sens=";if ($sens=="ASC"){echo"DESC";}else{echo"ASC";} echo "&posted=$posted&choose_currency=$choose_currency&searchpre=$searchpre&choose_country=$choose_country&letter=$letter&css_url=$css_url&page_url=$page_url";?>"> 
 						<?php  } ?>
 						<?php echo $FG_TABLE_COL[$i][0]?> 
 						<?php  if (strtoupper($FG_TABLE_COL[$i][4])=="SORT"){?>
@@ -363,7 +363,7 @@ function Search(Source){
 	<TR>
 	<TD> 
 		<?php
-		$c_url="http://$page_url?stitle=$stitle&order=$order&sens=$sens&current_page=%s&posted=$posted&letter=$letter&choose_currency=$choose_currency&searchpre=$searchpre&choose_country=$choose_country&css_url=$css_url&page_url=$page_url";
+		$c_url="$page_url?stitle=$stitle&order=$order&sens=$sens&current_page=%s&posted=$posted&letter=$letter&choose_currency=$choose_currency&searchpre=$searchpre&choose_country=$choose_country&css_url=$css_url&page_url=$page_url";
 		printPages($current_page+1, $nb_record_max, $c_url); 
 		?>
 	</TD>
