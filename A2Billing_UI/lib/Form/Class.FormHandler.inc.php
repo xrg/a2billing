@@ -1776,19 +1776,19 @@ class FormHandler{
 		$processed = $this->getProcessed();
 		if ($form_action=="ask-edit" || $form_action=="edit" || $form_action == "add-content" ||
 			$form_action == "del-content"){ ?>
-			<table width="95%" height="30" border="0" cellpadding="2" cellspacing="2"  align="center">
+			<table class="toppage_maintable">
 				<tr><td height="20"  align="center"> 
-						<font face="Verdana,Arial,Helvetica" style="font-size: 13px;" color="#555555"><b>						  
+						<font class="toppage_maintable_text">						  
 						  <?php  
-						  	if ($this->FG_ADITION_GO_EDITION == "yes-done") echo '<font color="#FF0000">'.$this->FG_ADITION_GO_EDITION_MESSAGE.'</font><br><br>'; 								
+						  	if ($this->FG_ADITION_GO_EDITION == "yes-done") echo '<font class="toppage_maintable_editmsg">'.$this->FG_ADITION_GO_EDITION_MESSAGE.'</font><br><br>'; 								
 							if ($alarm_db_error_duplication){ 
-								echo '<font color="#FF0000">'.gettext("ERROR_DUPLICATION").' ::'.$this->FG_TEXT_ERROR_DUPLICATION.'</font>';
+								echo '<font class="toppage_maintable_editmsg">'.gettext("ERROR_DUPLICATION").' ::'.$this->FG_TEXT_ERROR_DUPLICATION.'</font>';
 							}else{	
 								echo $this->FG_INTRO_TEXT_EDITION;
 							}
 						  ?>
 						  <br>
-						</b></font>
+						</font>
 				</td></tr>
 			</table>	
 	  <?php 
