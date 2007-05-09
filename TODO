@@ -18,6 +18,12 @@
 
 #### FEATURE
 ********************************************************************
+thoughts to adding timezone to cc_card ? It's great that we've got language and currency so they can view items in their local currency. Why not have option for timezone so the CDR's are listed in their local times instead of where the switch is located?
+I borrowed this idea from SER. I can get you their database table they use if you like. It makes it easy for user instead of asking for +/- GMT, has items such as:
+
+
+#### FEATURE
+********************************************************************
 Marcel
 
 - invoices: keep an end of the month balance and send automatically invoices at the end of the month using an email template and attaching a html invoice report; fields in the template would include name, last month balance, current month payments, current month per minute charges, DIDs and other charges, etc.
@@ -41,7 +47,7 @@ ADD REPORTING PAGE TO VIEW :
 - 20 users making the more call
 - 20 more call destination
 
-20 might be a paramert
+20 might be a parameters
 we need to see the total time and sell made by this clause group
 etc...
 
