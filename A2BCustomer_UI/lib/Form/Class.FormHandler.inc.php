@@ -346,6 +346,9 @@ class FormHandler{
 	var $FG_BUTTON_EDITION_BOTTOM_TEXT = "";
 
 	var $FG_ADDITIONAL_FUNCTION_AFTER_ADD = '';
+	var $FG_ADDITIONAL_FUNCTION_BEFORE_DELETE = '';
+	var $FG_ADDITIONAL_FUNCTION_AFTER_DELETE = '';
+
 
 	var $FG_TABLE_ALTERNATE_ROW_COLOR = array();
 	
@@ -1319,7 +1322,50 @@ class FormHandler{
      * Function to edit the fields
      * @public
      */
-
+	/**
+	* Function to add/modify cc_did_use and cc_did_destination if records existe
+	*
+	*/
+	function is_did_in_use(){
+		$processed = $this->getProcessed();
+		$did=$processed['id'];
+		$instance_did_use_table = new Table();
+		$QUERY_DID="select id_cc_card from cc_did_use where id_did ='".$did."' and releasedate IS NULL and activated = 1";
+		$row= $instance_did_use_table -> SQLexec ($this->DBHandle,$QUERY_DID, 1);
+		if ((isset($row[0][0])) && (strlen($row[0][0]) > 0))
+			$this -> FG_INTRO_TEXT_ASK_DELETION = gettext ("This did is in use by customer id:".$row[0][0].", If you really want remove this ". $this -> FG_INSTANCE_NAME .", click on the delete button.");
+	}
+	
+	
+	function did_use_delete(){
+		$processed = $this->getProcessed();
+		$did=$processed['id'];
+		$FG_TABLE_DID_USE_NAME = "cc_did_use";
+		$FG_TABLE_DID_USE_CLAUSE= "id_did = '".$did."' and releasedate IS NULL";
+		$FG_TABLE_DID_USE_PARAM= "releasedate = now()";
+		$instance_did_use_table = new Table($FG_TABLE_DID_USE_NAME);
+		$result_query= $instance_did_use_table -> Update_table ($this->DBHandle, $FG_TABLE_DID_USE_PARAM, $FG_TABLE_DID_USE_CLAUSE, null);
+		$FG_TABLE_DID_USE_NAME = "cc_did_destination";
+		$instance_did_use_table = new Table($FG_TABLE_DID_USE_NAME);
+		$FG_TABLE_DID_USE_CLAUSE= "id_cc_did = '".$did."'";
+		$result_query= $instance_did_use_table -> Delete_table ($this->DBHandle, $FG_TABLE_DID_USE_CLAUSE, null);
+	}
+	
+	
+	function add_did_use(){
+		$processed = $this->getProcessed();
+		$did=$processed['did'];
+		$FG_TABLE_DID_USE_NAME = "cc_did_use";
+		$FG_QUERY_ADITION_DID_USE_FIELDS = 'id_did';
+		$instance_did_use_table = new Table($FG_TABLE_DID_USE_NAME, $FG_QUERY_ADITION_DID_USE_FIELDS);
+		$QUERY_DID="select id from cc_did where did ='".$did."'";
+		$row= $instance_did_use_table -> SQLexec ($this->DBHandle,$QUERY_DID, 1);
+		$result_query= $instance_did_use_table -> Add_table ($this->DBHandle, $row[0][0], null, null, null);
+	}
+	 
+	/*
+	****End
+	*/
 	function create_sipiax_friends_reload(){
 		$this -> create_sipiax_friends();
 		
@@ -1329,11 +1375,11 @@ class FormHandler{
 		
 		$as = new AGI_AsteriskManager();
 		// && CONNECTING  connect($server=NULL, $username=NULL, $secret=NULL)
-		$res = $as->connect(MANAGER_HOST,MANAGER_USERNAME,MANAGER_SECRET);	
-		if      ($res){
-			$res = $as->Command('sip reload');
-			$res = $as->Command('iax2 reload');
-			// && DISCONNECTING
+		$res = $as->connect(MANAGER_HOST,MANAGER_USERNAME,MANAGER_SECRET);				
+		if	($res){
+			$res = $as->Command('sip reload');		
+			$res = $as->Command('iax2 reload');		
+			// && DISCONNECTING	
 			$as->disconnect();
 		}
 	}
@@ -1345,6 +1391,7 @@ class FormHandler{
 
 		global $A2B;
 		$processed = $this->getProcessed();
+
 		$sip_buddy = $processed['sip_buddy'];
 		$iax_buddy = $processed['iax_buddy'];
 		$username = $processed['username'];
@@ -1581,6 +1628,8 @@ class FormHandler{
 	function perform_delete (&$form_action){
 		include_once (FSROOT."lib/Class.Table.php");
 
+		if (strlen($this -> FG_ADDITIONAL_FUNCTION_AFTER_DELETE) > 0)
+		$res_funct = call_user_func(array(&$this, $this->FG_ADDITIONAL_FUNCTION_AFTER_DELETE));
 		$processed = $this->getProcessed();  //$processed['firstname']
 
 		$this->VALID_SQL_REG_EXP = true;
@@ -1617,6 +1666,7 @@ class FormHandler{
 		}
 
 	}
+
     /*
       Function to check for the Dependent Data
     */
@@ -1817,8 +1867,7 @@ class FormHandler{
 
 	 ?>
 	<center>
-	  <?php  if (is_string ($this->FG_TOP_FILTER_NAME)) echo "<font size=\"3\">".gettext("THE CURRENT RATECARD")." : <b>$this->FG_TOP_FILTER_NAME</b></font>"; ?>
-		<br><br>&nbsp;
+	  <?php  if (is_string ($this->FG_TOP_FILTER_NAME)) echo "<font size=\"3\">".gettext("THE CURRENT RATECARD")." : <b>$this->FG_TOP_FILTER_NAME</b></font><br><br>"; ?>
 
 	  <!-- ** ** ** ** ** Part for the select form  ** ** ** ** ** -->
 
@@ -1851,8 +1900,7 @@ class FormHandler{
 
 				</tr></table></td>
 			</tr>
-			</tbody>
-		</table>
+		</tbody></table>
 	</FORM>
 </center>
 	<?php
@@ -1872,15 +1920,15 @@ class FormHandler{
 
 	 ?>
 	<center>
-	  <?php  if (is_string ($this->FG_TOP_FILTER_NAME)) echo "<font size=\"3\">".gettext("THE CURRENT RATECARD")." : <b>$this->FG_TOP_FILTER_NAME</b></font><br><br>"; ?>
-
+	  <?php  if (is_string ($this->FG_TOP_FILTER_NAME)) echo "<font size=\"3\">".gettext("THE CURRENT RATECARD")." : <b>$this->FG_TOP_FILTER_NAME</b></font>"; ?>
+		<br><br>&nbsp;
 	  <!-- ** ** ** ** ** Part for the select form  ** ** ** ** ** -->
-
-	<FORM METHOD=POST ACTION="<?php echo $_SERVER['PHP_SELF']?>?s=1&t=0&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php echo $current_page?>">
-	<INPUT TYPE="hidden" NAME="posted" value=1>
-	<INPUT TYPE="hidden" NAME="current_page" value=0>
+	
 		<table class="bar-status" width="75%" border="0" cellspacing="1" cellpadding="2" align="center">
-			<tbody>
+			<FORM METHOD=POST ACTION="<?php echo $_SERVER['PHP_SELF']?>?s=1&t=0&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php echo $current_page?>">
+				<INPUT TYPE="hidden" NAME="posted" value=1>
+				<INPUT TYPE="hidden" NAME="current_page" value=0>
+			
 			<tr>
 				<td align="left" valign="top" bgcolor="#000033">
 					<font face="verdana" size="1" color="#ffffff"><b>&nbsp;&nbsp;<?php echo gettext("R A T E C A R D");?></b></font>
@@ -1905,8 +1953,8 @@ class FormHandler{
 
 				</tr></table></td>
 			</tr>
-		</tbody></table>
-	</FORM>
+			</FORM>
+		</table>	
 </center>
 	<?php
 	}
@@ -1978,6 +2026,8 @@ class FormHandler{
 			break;
 			case "ask-delete":
             case "ask-del-confirm":
+				if (strlen($this -> FG_ADDITIONAL_FUNCTION_BEFORE_DELETE) > 0)
+			   	$res_funct = call_user_func(array(&$this, $this->FG_ADDITIONAL_FUNCTION_BEFORE_DELETE));
 				include('Class.FormHandler.DelForm.inc.php');	   	// need ID
 			break;
 			case "list":
