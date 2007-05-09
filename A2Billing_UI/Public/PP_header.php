@@ -5,11 +5,12 @@
 	define ("WEBUI_VERSION", 'Asterisk2Billing - Version 1.2.3 (BrainCoral) - ');	
 ?>
 <html><head>
-<link rel="shortcut icon" href="../Images/favicon.ico">
-<link rel="icon" href="../Images/animated_favicon1.gif" type="image/gif">
-<link rel="stylesheet" type="text/css" href="../Css/menu.css" media="all">
 <title>..:: <?php echo CCMAINTITLE; ?> ::..</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<link rel="shortcut icon" href="../Images/favicon.ico">
+<link rel="icon" href="../Images/animated_favicon1.gif" type="image/gif">
+
 <link href="../Css/Css_Ale.css" rel="stylesheet" type="text/css">
 <link href="../Css/style-def.css" rel="stylesheet" type="text/css">
 <link href="../Css/menu.css" rel="stylesheet" type="text/css">

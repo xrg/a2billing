@@ -1,6 +1,6 @@
 <?php 
-	include_once ("../lib/defines.php");
-	include_once ("../lib/module.access.php");
+	include_once (dirname(__FILE__)."/../lib/defines.php");
+	include_once (dirname(__FILE__)."/../lib/module.access.php");
 
 	$section = "";
 	if($_GET["section"]!="")
