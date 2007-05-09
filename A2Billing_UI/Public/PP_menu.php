@@ -185,6 +185,7 @@ function imgidclick(imgID,divID)
 					<li><a href="asterisk-stat-v2/call-comp.php?section=5"><?php echo gettext("Calls Compare");?></a></li>
 					<li><a href="asterisk-stat-v2/call-last-month.php?section=5"><?php echo gettext("Monthly Traffic");?></a></li>
 					<li><a href="asterisk-stat-v2/call-daily-load.php?section=5"><?php echo gettext("Daily Load");?></a></li>
+					<li><a href="A2B_entity_reporting.php?stitle=Reporting&section=5"><?php echo gettext("Report");?></a></li>
 			</ul></li>
 		</ul>
 		</div>
