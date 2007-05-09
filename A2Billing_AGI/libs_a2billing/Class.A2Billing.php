@@ -277,7 +277,7 @@ class A2Billing {
 		// Conf for Paypal 		
 		if(!isset($this->config["paypal"]['item_name']))	$this->config["paypal"]['item_name'] = 'Credit Purchase';
 		if(!isset($this->config["paypal"]['currency_code']))	$this->config["paypal"]['currency_code'] = 'USD';
-		if(!isset($this->config["paypal"]['purchase_amount']))	$this->config["paypal"]['purchase_amount'] = '5:10:15';
+		if(!isset($this->config["paypal"]['purchase_amount']))	$this->config["paypal"]['purchase_amount'] = '5;10;15';
 		if(!isset($this->config["paypal"]['paypal_logfile']))	$this->config["paypal"]['paypal_logfile'] = '/tmp/a2billing_paypal.log';
 	
 
@@ -1021,7 +1021,7 @@ class A2Billing {
 		
 		if (!isset($currencies_list[strtoupper($this->currency)][2]) || !is_numeric($currencies_list[strtoupper($this->currency)][2])) $mycur = 1;
 		else $mycur = $currencies_list[strtoupper($this->currency)][2];
-		$credit_cur = $credit / $mycur;				
+		$credit_cur = $credit / $mycur;
 		
 		list($units,$cents)=split('[.]', $credit_cur);
 		if (strlen($cents)>2) $cents=substr($cents,0,2);
@@ -1109,6 +1109,11 @@ class A2Billing {
 		
 		global $currencies_list;
 		
+		$this -> write_log("[VOUCHER REFILL CARD LOG BEGIN]");
+		if (isset($this->agiconfig['agi_force_currency']) && strlen($this->agiconfig['agi_force_currency'])==3) $this->currency=$this->agiconfig['agi_force_currency'];
+
+		if (!isset($currencies_list[strtoupper($this->currency)][2]) || !is_numeric($currencies_list[strtoupper($this->currency)][2])) $mycur = 1;
+		else $mycur = $currencies_list[strtoupper($this->currency)][2];
 
 		$res_dtmf = $agi->get_data('voucher_enter_number', 6000, $this->agiconfig['len_voucher'], '#');
 		if ($this->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '."RES DTMF : ".$res_dtmf ["result"]);
@@ -1122,7 +1127,9 @@ class A2Billing {
 			
 		
 		$QUERY = "SELECT voucher, credit, activated, tag, currency, expirationdate FROM cc_voucher WHERE expirationdate >= CURRENT_TIMESTAMP AND activated='t' AND voucher='".$this->vouchernumber."'";			
-		if ($this->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '.$QUERY);										
+		if ($this->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '.$QUERY);	
+		$this -> write_log("[VOUCHER SELECT: $QUERY]");	
+
 		$result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY);
 		if ($this->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '.$result);		
 		
@@ -1132,24 +1139,27 @@ class A2Billing {
 			{
 				if ($this->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - System Error : No currency table complete !!!');		
 				$agi-> stream_file('unknow_used_currencie', '#');				
-			return -1;
+				return -1;
 			}
 			else
-			{
+			{	
 				$this ->add_credit = $result[0][1]*$currencies_list[strtoupper($result[0][4])][2];
 				$QUERY = "UPDATE cc_voucher SET activated='f', usedcardnumber='".$this->username."', usedate=now() WHERE voucher='".$this->vouchernumber."'";
-				$result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY, 0);
+				$this -> write_log("[VOUCHER UPDATE : $QUERY]");
+				$result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY, 0);				
 
 				$QUERY = "UPDATE cc_card SET credit=credit+'".$this ->add_credit."' WHERE username='".$this->username."'";
+				$this -> write_log("[VOUCHER REFILL CARD: $QUERY]");
 				$result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY, 0);
 
-				if ($this->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.'The Voucher'.$this->vouchernumber.'has been used, We added'.$this ->add_credit.' credit on your account!');
-				return 1;	
+				if ($this->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - The Voucher '.$this->vouchernumber.' has been used, We added '.$this ->add_credit/$mycur.' '.strtoupper($this->currency).' of credit on your account!');
+				return 1;				
 			}
 		}
 		else
 		{
 			if ($this->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '."System Error : Voucher not avaible or dosn't exist");
+			$this -> write_log("[VOUCHER REFILL ERROR: ".$this->vouchernumber." Voucher not avaible or dosn't exist]");
 			$agi-> stream_file('voucher_does_not_exist');
 			return -1;
 		}
