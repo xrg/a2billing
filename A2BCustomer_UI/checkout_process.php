@@ -36,7 +36,7 @@ include ("./lib/epayment/includes/loadconfiguration.php");
 $DBHandle_max  = DbConnect();
 $paymentTable = new Table();
 
-$QUERY = "SELECT * from cc_epayment_log WHERE id = ".$transactionID;
+$QUERY = "SELECT * from cc_epayment_log WHERE status = 0 AND id = ".$transactionID;
 $transaction_data = $paymentTable->SQLExec ($DBHandle_max, $QUERY);
 if(!is_array($transaction_data) && count($transaction_data) == 0)
 {
@@ -186,7 +186,7 @@ switch($orderStatus)
 		$statusmessage = "Successful";
 		break;
 }
-
+write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." EPAYMENT ORDER STATUS  = ".$statusmessage);
 // CHECK IF THE EMAIL ADDRESS IS CORRECT
 if(eregi("^[a-z]+[a-z0-9_-]*(([.]{1})|([a-z0-9_-]*))[a-z0-9_-]+[@]{1}[a-z0-9_-]+[.](([a-z]{2,3})|([a-z]{3}[.]{1}[a-z]{2}))$", $customer_info["email"])){
 	
@@ -217,7 +217,7 @@ if(eregi("^[a-z]+[a-z0-9_-]*(([.]{1})|([a-z0-9_-]*))[a-z0-9_-]+[@]{1}[a-z0-9_-]+
 		
 		$messagetext = str_replace('$itemName', "balance", $messagetext);
 		$messagetext = str_replace('$itemID', $customer_info[0], $messagetext);
-		$messagetext = str_replace('$itemAmount', display_2bill($transaction_data[0][2]), $messagetext);
+		$messagetext = str_replace('$itemAmount', convert_currency($currencies_list,$transaction_data[0][2], $currCurrency, BASE_CURRENCY)." ".strtoupper(BASE_CURRENCY), $messagetext);
 		$messagetext = str_replace('$paymentMethod', $pmodule, $messagetext);
 		$messagetext = str_replace('$paymentStatus', $statusmessage, $messagetext);
 		
@@ -240,11 +240,14 @@ $_SESSION["p_cardtype"] = null;
 $_SESSION["p_module"] = null;
 $_SESSION["p_module"] = null;
 
+//Update the Transaction Status to 1
+$QUERY = "UPDATE cc_epayment_log SET status = 1 WHERE id = ".$transactionID;
+$paymentTable->SQLExec ($DBHandle_max, $QUERY);
 
 // load the after_process function from the payment modules
 $payment_modules->after_process();
 write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." EPAYMENT ORDER STATUS ID = ".$orderStatus." ".$statusmessage);
 write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." ----EPAYMENT TRANSACTION END----");
-Header ("Location: checkout_success.php?errcode=".$orderStatus);
+
 
 ?>

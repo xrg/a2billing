@@ -1799,5 +1799,6 @@ CREATE TABLE cc_epayment_log (
   	cc_number 						VARCHAR(32),
   	cc_expires 						VARCHAR(7),						   
     creationdate  					TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    status 							INT DEFAULT 0 NOT NULL,
     PRIMARY KEY (id)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
