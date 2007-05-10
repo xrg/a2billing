@@ -74,7 +74,7 @@ class moneybookers {
 									$process_button_string .= tep_draw_hidden_field('transaction_id', $transactionID);
 								}
 								$process_button_string .= tep_draw_hidden_field('status_url', tep_href_link("checkout_process.php?sess_id=".session_id()."&transactionID=".$transactionID, '', 'SSL')) .
-								tep_draw_hidden_field('return_url', tep_href_link("userinfo.php", '', '')) .
+								tep_draw_hidden_field('return_url', tep_href_link("userinfo.php", '', 'SSL')) .
 								tep_draw_hidden_field('cancel_url', tep_href_link("checkout_payment.php", '', 'SSL'));
 		return $process_button_string;
     }
