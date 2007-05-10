@@ -2,11 +2,11 @@
 include ("./lib/defines.php");
 
 
-getpost_ifset(array('transactionID', 'sess_id'));
+getpost_ifset(array('transactionID', 'sess_id','key'));
 
 
 write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." ----EPAYMENT TRANSACTION START (ID)----");
-
+write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionKey=$key"." ----EPAYMENT TRANSACTION KEY----");
 
 if ($sess_id =="")
 {
@@ -38,6 +38,10 @@ $paymentTable = new Table();
 
 $QUERY = "SELECT * from cc_epayment_log WHERE status = 0 AND id = ".$transactionID;
 $transaction_data = $paymentTable->SQLExec ($DBHandle_max, $QUERY);
+//Update the Transaction Status to 1
+$QUERY = "UPDATE cc_epayment_log SET status = 1 WHERE id = ".$transactionID;
+$paymentTable->SQLExec ($DBHandle_max, $QUERY);
+
 if(!is_array($transaction_data) && count($transaction_data) == 0)
 {
 	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." ERROR INVALID TRANSACTION ID PROVIDED, TRANSACTION ID =".$transactionID);
@@ -46,6 +50,17 @@ if(!is_array($transaction_data) && count($transaction_data) == 0)
 else
 {
 	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." EPAYMENT RESPONSE: TRANSACTIONID = ".$transactionID." FROM ".$transaction_data[0][4]."; FOR CUSTOMER ID ".$transaction_data[0][1]."; OF AMOUNT ".$transaction_data[0][2]);
+}
+
+$newkey = securitykey(EPAYMENT_TRANSACTION_KEY, $transaction_data[0][8]."^".$transactionID."^".$transaction_data[0][2]."^".$transaction_data[0][1]);
+if($newkey == $key)
+{
+	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."----------- Transaction Key Verified ------------\n");
+}
+else
+{
+	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."----NEW KEY =".$newkey." OLD KEY= ".$key." ------- Transaction Key Verification Failed:".$transaction_data[0][8]."^".$transactionID."^".$transaction_data[0][2]."^".$transaction_data[0][1]." ------------\n");
+	exit();
 }
 
 write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." ---------- TRANSACTION INFO ------------\n".print_r($transaction_data,1));
@@ -241,9 +256,6 @@ $_SESSION["p_cardtype"] = null;
 $_SESSION["p_module"] = null;
 $_SESSION["p_module"] = null;
 
-//Update the Transaction Status to 1
-$QUERY = "UPDATE cc_epayment_log SET status = 1 WHERE id = ".$transactionID;
-$paymentTable->SQLExec ($DBHandle_max, $QUERY);
 
 // load the after_process function from the payment modules
 $payment_modules->after_process();

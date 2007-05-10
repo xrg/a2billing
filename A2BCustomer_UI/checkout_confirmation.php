@@ -31,12 +31,15 @@ $_SESSION["p_amount"] = $amount;
 
 
 $paymentTable = new Table();
-
-$QUERY = "INSERT INTO cc_epayment_log (cardid,amount,vat,paymentmethod,cc_owner,cc_number,cc_expires) VALUES ('".$_SESSION["card_id"]."','$amount', 0, '$payment','$authorizenet_cc_owner','$authorizenet_cc_number','".$authorizenet_cc_expires_month."-".$authorizenet_cc_expires_year."')";
+$time_stamp = date("Y-m-d h:i:s"); 
+$QUERY = "INSERT INTO cc_epayment_log (cardid,amount,vat,paymentmethod,cc_owner,cc_number,cc_expires,creationdate) VALUES ('".$_SESSION["card_id"]."','$amount', 0, '$payment','$authorizenet_cc_owner','$authorizenet_cc_number','".$authorizenet_cc_expires_month."-".$authorizenet_cc_expires_year."','$time_stamp')";
 $paymentTable->SQLExec($HD_Form -> DBHandle, $QUERY);
 
 $QUERY = "SELECT max(id) from cc_epayment_log";
 $transaction_no = $paymentTable->SQLExec ($DBHandle, $QUERY);
+
+$key = securitykey(EPAYMENT_TRANSACTION_KEY, $time_stamp."^".$transaction_no[0][0]."^".$amount."^".$_SESSION["card_id"]);
+
 if($transaction_no[0][0] == null)
 {
 	exit(gettext("No Transaction ID found"));
@@ -64,9 +67,10 @@ $smarty->display( 'main.tpl');
   }
 
 echo tep_draw_form('checkout_confirmation.php', $form_action_url, 'post');
-
+?>
+<?php
   if (is_array($payment_modules->modules)) {
-    echo $payment_modules->process_button($transaction_no[0][0]);    
+    echo $payment_modules->process_button($transaction_no[0][0], $key);    
   }
 ?>
  <br>

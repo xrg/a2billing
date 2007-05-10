@@ -176,10 +176,10 @@ class payment {
         }
       }
     }
-    function process_button($trans_id = 0) {
+    function process_button($trans_id = 0, $key) {
       if (is_array($this->modules)) {
         if (is_object($GLOBALS[$this->selected_module]) && ($GLOBALS[$this->selected_module]->enabled) ) {
-          return $GLOBALS[$this->selected_module]->process_button($trans_id);
+          return $GLOBALS[$this->selected_module]->process_button($trans_id, $key);
         }
       }
     }

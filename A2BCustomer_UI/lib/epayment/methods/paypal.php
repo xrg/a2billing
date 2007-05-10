@@ -59,7 +59,7 @@ class paypal {
 		return false;
     }
 
-    function process_button($transactionID = 0) {
+    function process_button($transactionID = 0, $key= "") {
 		global $order, $currencies, $currency;
 		
 		$my_currency = MODULE_PAYMENT_PAYPAL_CURRENCY;
@@ -76,7 +76,7 @@ class paypal {
 							   tep_draw_hidden_field('amount', number_format(($order->info['total'] - $order->info['shipping_cost']) * $currencyObject->get_value($my_currency), $currencyObject->get_decimal_places($my_currency))) .
 							   //tep_draw_hidden_field('shipping', number_format($order->info['shipping_cost'] * $currencyObject->get_value($my_currency), $currencyObject->get_decimal_places($my_currency))) .
 							   tep_draw_hidden_field('currency_code', $my_currency) .
-							   tep_draw_hidden_field('notify_url', tep_href_link("checkout_process.php?transactionID=".$transactionID."&sess_id=".session_id(), '', 'SSL')) .
+							   tep_draw_hidden_field('notify_url', tep_href_link("checkout_process.php?transactionID=".$transactionID."&sess_id=".session_id()."&key=".$key, '', 'SSL')) .
 							   tep_draw_hidden_field('return', tep_href_link("userinfo.php", '', 'SSL')) .
 							   tep_draw_hidden_field('cancel_return', tep_href_link("userinfo.php", '', 'SSL'));
 		
