@@ -52,9 +52,7 @@ Jquery - HIDE DIV ON "List Customer" & "Browse Rates"
 ********************************************************************
 Modified: trunk/A2BCustomer_UI/checkout_payment.php
 
--$instance_table = new Table("cc_card", "username, id");
--       $param_update .= " credit = credit+'10'";
--       $FG_EDITION_CLAUSE = " id='$transaction_data[0][1]'";
+customers_id -> feed with the card ID
 
 
 #### TODO
