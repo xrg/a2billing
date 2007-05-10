@@ -125,8 +125,6 @@ $Query = "Insert into cc_payments ( customers_id,
 
 $result = $DBHandle_max -> Execute($Query);
 
-$QUERY = "SELECT mailtype, fromemail, fromname, subject, messagetext, messagehtml FROM cc_templatemail WHERE mailtype='payment' ";
-$res = $DBHandle_max -> Execute($QUERY);
 
 //************************UPDATE THE CREDIT IN THE CARD***********************
 $id = 0;
@@ -168,58 +166,71 @@ if ($id > 0 ){
 	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." Add_table cc_logpayment : $field_insert - VALUES $value_insert");
 }
 
-
 //*************************END UPDATE CREDIT************************************
-$num = 0;
-if ($res)
-	$num = $res -> RecordCount();
 
-if (!$num)
+switch($orderStatus)
 {
-	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." ERROR NO EMAIL TEMPLATE FOUND");    
-	echo gettext("Error : No email Template Found");
-    
-}else{
+	case -2:
+		$statusmessage = "Failed";
+		break;
+	case -1:
+		$statusmessage = "Denied";
+		break;
+	case 0:
+		$statusmessage = "Pending";
+		break;
+	case 1:
+		$statusmessage = "In-Progress";
+		break;
+	case 2:
+		$statusmessage = "Successful";
+		break;
+}
+
+// CHECK IF THE EMAIL ADDRESS IS CORRECT
+if(eregi("^[a-z]+[a-z0-9_-]*(([.]{1})|([a-z0-9_-]*))[a-z0-9_-]+[@]{1}[a-z0-9_-]+[.](([a-z]{2,3})|([a-z]{3}[.]{1}[a-z]{2}))$", $customer_info["email"])){
 	
-	for($i=0;$i<$num;$i++)
-	{
-		$listtemplate[] = $res->fetchRow();
+	// FIND THE TEMPLATE APPROPRIATE
+	$QUERY = "SELECT mailtype, fromemail, fromname, subject, messagetext, messagehtml FROM cc_templatemail WHERE mailtype='payment' ";
+	$res = $DBHandle_max -> Execute($QUERY);
+	
+	$num = 0;
+	if ($res){
+		$num = $res -> RecordCount();
 	}
 	
-	list($mailtype, $from, $fromname, $subject, $messagetext, $messagehtml) = $listtemplate [0];
-	$statusmessage= "";
-	switch($orderStatus)
+	if (!$num)
+	{
+		// WE DONT HAVE A TEMPLATE
+		write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." ERROR NO EMAIL TEMPLATE FOUND");
+		
+	} else {
+		
+		// WE HAVE A TEMPLATE
+		for($i=0;$i<$num;$i++)
 		{
-		case -2:
-			$statusmessage = "Failed";
-			break;
-		case -1:
-			$statusmessage = "Denied";
-			break;
-		case 0:
-			$statusmessage = "Pending";
-			break;
-		case 1:
-			$statusmessage = "In-Progress";
-			break;
-		case 2:
-			$statusmessage = "Successful";
-			break;
+			$listtemplate[] = $res->fetchRow();
 		}
-	
-	$messagetext = str_replace('$itemName', "balance", $messagetext);
-	$messagetext = str_replace('$itemID', $customer_info[0], $messagetext);
-	$messagetext = str_replace('$itemAmount', display_2bill($transaction_data[0][2]), $messagetext);
-	$messagetext = str_replace('$paymentMethod', $pmodule, $messagetext);
-	$messagetext = str_replace('$paymentStatus', $statusmessage, $messagetext);
-	
-	$em_headers  = "From: ".$fromname." <".$from.">\n";
-	$em_headers .= "Reply-To: ".$from."\n";
-	$em_headers .= "Return-Path: ".$from."\n";
-	$em_headers .= "X-Priority: 3\n";
-	
-	mail($customer_info["email"], $subject, $messagetext, $em_headers);
-	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"."|| MAIL CUSTOMER : ".$customer_info["email"]." subject=$subject, messagetext=$messagetext");
+		
+		list($mailtype, $from, $fromname, $subject, $messagetext, $messagehtml) = $listtemplate [0];
+		$statusmessage= "";
+		
+		$messagetext = str_replace('$itemName', "balance", $messagetext);
+		$messagetext = str_replace('$itemID', $customer_info[0], $messagetext);
+		$messagetext = str_replace('$itemAmount', display_2bill($transaction_data[0][2]), $messagetext);
+		$messagetext = str_replace('$paymentMethod', $pmodule, $messagetext);
+		$messagetext = str_replace('$paymentStatus', $statusmessage, $messagetext);
+		
+		$em_headers  = "From: ".$fromname." <".$from.">\n";
+		$em_headers .= "Reply-To: ".$from."\n";
+		$em_headers .= "Return-Path: ".$from."\n";
+		$em_headers .= "X-Priority: 3\n";
+		
+		mail($customer_info["email"], $subject, $messagetext, $em_headers);
+		write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"."- MAILTO:".$customer_info["email"]."-Sub=$subject, mtext=$messagetext");
+	}
+}else{
+	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." Customer : no email info !!!");
 }
 
 $_SESSION["p_amount"] = null;
