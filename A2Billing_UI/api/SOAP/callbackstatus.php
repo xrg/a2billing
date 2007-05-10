@@ -24,8 +24,8 @@ require_once('SOAP/Disco.php');
 	  *		Function for the Service Callback : it will call a phonenumber and redirect it into the BCB application
 	  */ 
     function Service_Callback($security_key, $phone_number, $callerid, $callback_time){
-		
-		$uniqueid 	=  MDP_STRING(5).'-'.MDP_NUMERIC(10);
+		 
+		$uniqueid 	=  rand_str(5).'-'.rand_nb(10);
 		$status = 'PENDING';
 		$server_ip = 'localhost';
 		$num_attempt = 0;
@@ -106,6 +106,27 @@ require_once('SOAP/Disco.php');
 		return array($keyword, 'result=Success', " Success - Callback request has been accepted ");
 }
 	
+	
+	
+function rand_str($size)
+{
+   $feed = "0123456789abcdefghijklmnopqrstuvwxyz";
+   for ($i=0; $i < $size; $i++)
+   {
+       $rand_str .= substr($feed, rand(0, strlen($feed)-1), 1);
+   }
+   return $rand_str;
+}
 
+
+function rand_nb($size)
+{
+   $feed = "0123456789";
+   for ($i=0; $i < $size; $i++)
+   {
+       $rand_nb .= substr($feed, rand(0, strlen($feed)-1), 1);
+   }
+   return $rand_nb;
+}
 
 ?>

@@ -156,6 +156,18 @@ The web interface have 2 options :
 							Http-API/Web Service INFO
 -----===========------===========------===========------===========------===========-----
 
+REQUERIMENTS
+
+	If pear, the PEAR package manager, is installed on your machine, run the following command in your shell:
+
+	% pear install --alldeps SOAP-0.9.4
+	
+	It install SOAP package correctly with all its dependencies.
+
+
+
+
+
 webservice with a parameter for call_time:
 WEB SERVICE DESCRIPTION :
 	http://domain/path/soap/soap-callback-server.php?wsdl

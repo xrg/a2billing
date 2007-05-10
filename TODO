@@ -3,16 +3,31 @@
                    			TODO LIST - SPECIFIC
 ********************************************************************************
 
+
+#### FEATURES : CALLBACK dont bill 1st if not connected
+********************************************************************
+add a parameter to not bill 1st if not connected
+bill_1stleg_call_notconnected = YES / NO
+
+or best of all, and simplest, set the initial IAX / SIP pasword to be the webui password
+the initial PW was set to the WebUI password, 
+then we could say in the customer signup email - IAX details : Username = $card_gen, Password = $password CID = $cardalias
+
+
+
+
 #### FEATURES : CALLBACK APIs
 ********************************************************************
 1# Queue a callback request from an API : HTTP / WSDL
 - it will return the uniqueID generate for the callback request
-an API could generate a callback http://apiurl/callback.php?listparameter=values&uniqueid=123453
+an API could generate a callback http://apiurl/callback-exec.php?listparameter=values&uniqueid=324234
+return an ID to identify the callback request
 
 2# API to check the status of the callback : webservice  
 - check the status of a generated callback 
 
-So an API will return result of a callback http://apiurl/callback_status.php?uniqueid=123453
+So an API will return result of a callback http://apiurl/callback-status.php?id=123453
+id is the ID returned by 
 reply : Pending ; Success ; Error, etc ...
 
 3# supplementary audio when connect the callback

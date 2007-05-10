@@ -222,8 +222,8 @@ function display_2bill($var, $currency = BASE_CURRENCY){
 function remove_prefix($phonenumber){
 		
 		if (substr($phonenumber,0,3) == "011"){
-					echo substr($phonenumber,3);
-					return 1;
+				echo substr($phonenumber,3);
+				return 1;
 		}
 		echo $phonenumber;
 }
@@ -232,12 +232,12 @@ function remove_prefix($phonenumber){
  * function linkonmonitorfile
  */
 function linkonmonitorfile($value){
-			  
-   $myfile = $value.".".MONITOR_FORMATFILE;
-   $myfile = base64_encode($myfile);
-   echo "<a target=_blank href=\"call-log-customers.php?download=file&file=".$myfile."\">";
-   echo '<img src="'.Images_Path.'/stock-mic.png" height="18" /></a>';
-   
+	
+	$myfile = $value.".".MONITOR_FORMATFILE;
+	$myfile = base64_encode($myfile);
+	echo "<a target=_blank href=\"call-log-customers.php?download=file&file=".$myfile."\">";
+	echo '<img src="'.Images_Path.'/stock-mic.png" height="18" /></a>';
+	
 }
 
 /*

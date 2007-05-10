@@ -1,7 +1,7 @@
 <?php
 /***************************************************************************
  *
- * soap-card-client.php : PHP A2Billing - Test Services
+ * test-callbackexec.php : PHP A2Billing - Test Callback
  * Written for PHP 4.x & PHP 5.X versions.
  *
  * A2Billing -- Asterisk billing solution.
@@ -18,18 +18,18 @@
 
 /***************************************************************************
  *
- * USAGE : http://domainname/A2Billing_UI/api/SOAP/soap-card-client.php
+ * USAGE : http://domainname/A2Billing_UI/api/SOAP/test-callbackexec.php   
  *
- * http://localhost/~areski/svn/a2billing/trunk/A2Billing_UI/api/SOAP/soap-card-client.php
+ * http://localhost/~areski/svn/a2billing/trunk/A2Billing_UI/api/SOAP/test-callbackexec.php   
  *
  ****************************************************************************/
- 
+
+
 include ("../../lib/defines.php");
 require('SOAP/Client.php');
 
-
-exit;
 $security_key = API_SECURITY_KEY;
+
 
 $endpoint = 'http://localhost/~areski/svn/a2billing/trunk/A2Billing_UI/api/SOAP/soap-card-server.php';
 

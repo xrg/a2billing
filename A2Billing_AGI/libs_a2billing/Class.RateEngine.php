@@ -38,10 +38,9 @@ class RateEngine {
 	function RateEngine () {     
 		
 	}
-
-
+	
+	
 	/* CONSTRUCTOR */
-
 	function Reinit () {     
 		
 		$this -> number_trunk = 0;
@@ -53,7 +52,6 @@ class RateEngine {
 		$this -> lastbuycost = '';
 		
 	}
-
 	
 	
 	/*
@@ -61,8 +59,15 @@ class RateEngine {
 		CALCUL THE RATE ACCORDING TO THE RATEGROUP, LCR - RATECARD
 	*/
 	function rate_engine_findrates (&$A2B, $phonenumber, $tariffgroupid){
-	
-			
+		
+		global $agi;
+		
+		// Check if we want to force the call plan
+		if (is_numeric($A2B->agiconfig['force_callplan_id']) && ($A2B->agiconfig['force_callplan_id'] > 0)){
+			$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "force the call plan : ".$A2B->agiconfig['force_callplan_id']);
+			$tariffgroupid = $A2B->tariff = $A2B->agiconfig['force_callplan_id'];
+		}
+		
 		if ($this->webui){
 			$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[CC_asterisk_rate-engine: ($tariffgroupid, $phonenumber)]");	
 		}
