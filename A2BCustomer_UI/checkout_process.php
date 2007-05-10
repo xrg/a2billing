@@ -75,6 +75,7 @@ $customer_info =$resmax -> fetchRow();
 
 $currencyObject = new currencies();
 $currCurrency = $payment_modules->get_CurrentCurrency();
+$currencies_list = get_currencies();
 $nowDate = date("y-m-d H:i:s");
 
 
@@ -103,7 +104,7 @@ $Query = "Insert into cc_payments ( customers_id,
                                     currency_value)
                                     values
                                     (
-                                    '".$customer_info[0]."',
+                                    '".$transaction_data[0][1]."',
                                     '".$customer_info[3]." ".$customer_info[2]."',
                                     '".$customer_info["email"]."',
                                     'balance',
@@ -118,7 +119,7 @@ $Query = "Insert into cc_payments ( customers_id,
                                     '".$nowDate."',
                                     '".$nowDate."',
                                     '".$nowDate."',
-                                     ".$transaction_data[0][2].",
+                                     ".convert_currency($currencies_list,$transaction_data[0][2], $currCurrency, BASE_CURRENCY).",
                                      '".$currCurrency."',
                                      '".$currencyObject->get_value($currCurrency)."'
                                     )";
@@ -142,7 +143,7 @@ if ($customer_info[0] > 0 && $orderStatus == 2)
     }
 	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." CARD FOUND IN DB ($id)");
 }
-$currencies_list = get_currencies();
+
 
 if ($id > 0 ){
     //$addcredit = $_SESSION["p_amount"];

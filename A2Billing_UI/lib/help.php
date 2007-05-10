@@ -813,7 +813,7 @@ $CC_help_transaction='<div class="toggle_show2hide">
 	<img src="'.KICON_PATH.'/kspread.gif" class="kikipic"/>
 	<div class="w2">'
 .gettext("You can view all the transactions proceed through the different epayment system configured (Paypal, MoneyBookers, etc...). ").'
-<br/><br/>
+<br/><br/></br>
 </div></div></div>
 </div></div>
 ';
