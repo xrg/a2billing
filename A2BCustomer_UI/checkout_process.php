@@ -4,15 +4,19 @@ include ("./lib/defines.php");
 
 getpost_ifset(array('transactionID', 'sess_id'));
 
-write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__." ----EPAYMENT TRANSACTION START----");
+
+write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." ----EPAYMENT TRANSACTION START (ID)----");
+
+
 if ($sess_id =="")
 {
-	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__." ERROR NO SESSION ID PROVIDED IN RETURN URL TO PAYMENT MODULE");
+	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." ERROR NO SESSION ID PROVIDED IN RETURN URL TO PAYMENT MODULE");
     exit(gettext("No session id provided in return URL to Payment Module"));
 }
+
 if($transactionID == "")
 {	
-	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__." NO TRANSACTION ID PROVIDED IN REQUEST");
+	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." NO TRANSACTION ID PROVIDED IN REQUEST");
     exit;
 }
 
@@ -36,13 +40,15 @@ $QUERY = "SELECT * from cc_epayment_log WHERE id = ".$transactionID;
 $transaction_data = $paymentTable->SQLExec ($DBHandle_max, $QUERY);
 if(!is_array($transaction_data) && count($transaction_data) == 0)
 {
-	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__." ERROR INVALID TRANSACTION ID PROVIDED, TRANSACTION ID =".$transactionID);
+	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." ERROR INVALID TRANSACTION ID PROVIDED, TRANSACTION ID =".$transactionID);
 	exit();
 }
 else
 {
-	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__." EPAYMENT RESPONSE: TRANSACTIONID = ".$transactionID." FROM ".$transaction_data[0][4]."; FOR CUSTOMER ID ".$transaction_data[0][1]."; OF AMOUNT ".$transaction_data[0][2]);
+	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." EPAYMENT RESPONSE: TRANSACTIONID = ".$transactionID." FROM ".$transaction_data[0][4]."; FOR CUSTOMER ID ".$transaction_data[0][1]."; OF AMOUNT ".$transaction_data[0][2]);
 }
+
+write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." ---------- TRANSACTION INFO ------------\n".print_r($transaction_data,1));
 
 $payment_modules = new payment($transaction_data[0][4]);
 // load the before_process function from the payment modules
@@ -61,7 +67,7 @@ if ($resmax)
 
 if ($numrow == 0)
 {
-    write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__." ERROR NO SUCH CUSTOMER EXISTS, CUSTOMER ID = ".$transaction_data[0][1]);
+    write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." ERROR NO SUCH CUSTOMER EXISTS, CUSTOMER ID = ".$transaction_data[0][1]);
     exit(gettext("No Such Customer exists."));
 }
 $customer_info =$resmax -> fetchRow();
@@ -136,7 +142,7 @@ if ($customer_info[0] > 0 && $orderStatus == 2)
     {
         $id = $list_tariff_card[0][1];
     }
-
+	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." CARD FOUND IN DB ($id)");
 }
 $currencies_list = get_currencies();
 
@@ -147,16 +153,19 @@ if ($id > 0 ){
 	$param_update .= " credit = credit+'".convert_currency($currencies_list,$transaction_data[0][2], $currCurrency, BASE_CURRENCY)."'";
 	$FG_EDITION_CLAUSE = " id='$id'";
 	$instance_table -> Update_table ($DBHandle, $param_update, $FG_EDITION_CLAUSE, $func_table = null);
+	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." Update_table cc_card : $param_update - CLAUSE : $FG_EDITION_CLAUSE");
 
 	$field_insert = "date, credit, card_id";
 	$value_insert = "'$nowDate', 'convert_currency($currencies_list,$transaction_data[0][2], $currCurrency, BASE_CURRENCY)', '$id'";
 	$instance_sub_table = new Table("cc_logrefill", $field_insert);
 	$result_query = $instance_sub_table -> Add_table ($DBHandle, $value_insert, null, null);
+	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." Add_table cc_logrefill : $field_insert - VALUES $value_insert");
 
 	$field_insert = "date, payment, card_id";
 	$value_insert = "'$nowDate', 'convert_currency($currencies_list,$transaction_data[0][2], $currCurrency, BASE_CURRENCY)', '$id'";
 	$instance_sub_table = new Table("cc_logpayment", $field_insert);
 	$result_query = $instance_sub_table -> Add_table ($DBHandle, $value_insert, null, null);
+	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." Add_table cc_logpayment : $field_insert - VALUES $value_insert");
 }
 
 
@@ -167,7 +176,7 @@ if ($res)
 
 if (!$num)
 {
-	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__." ERROR NO EMAIL TEMPLATE FOUND");    
+	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." ERROR NO EMAIL TEMPLATE FOUND");    
 	echo gettext("Error : No email Template Found");
     
 }else{
@@ -180,23 +189,23 @@ if (!$num)
 	list($mailtype, $from, $fromname, $subject, $messagetext, $messagehtml) = $listtemplate [0];
 	$statusmessage= "";
 	switch($orderStatus)
-		  {
-			  case -2:
-				$statusmessage = "Failed";
-			  break;
-			  case -1:
-				$statusmessage = "Denied";
-			  break;
-			  case 0:
-				$statusmessage = "Pending";
-			  break;
-			  case 1:
-				$statusmessage = "In-Progress";
-			  break;
-			  case 2:
-				$statusmessage = "Successful";
-			  break;
-		  }
+		{
+		case -2:
+			$statusmessage = "Failed";
+			break;
+		case -1:
+			$statusmessage = "Denied";
+			break;
+		case 0:
+			$statusmessage = "Pending";
+			break;
+		case 1:
+			$statusmessage = "In-Progress";
+			break;
+		case 2:
+			$statusmessage = "Successful";
+			break;
+		}
 	
 	$messagetext = str_replace('$itemName', "balance", $messagetext);
 	$messagetext = str_replace('$itemID', $customer_info[0], $messagetext);
@@ -210,6 +219,7 @@ if (!$num)
 	$em_headers .= "X-Priority: 3\n";
 	
 	mail($customer_info["email"], $subject, $messagetext, $em_headers);
+	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"."|| MAIL CUSTOMER : ".$customer_info["email"]." subject=$subject, messagetext=$messagetext");
 }
 
 $_SESSION["p_amount"] = null;
@@ -222,8 +232,8 @@ $_SESSION["p_module"] = null;
 
 // load the after_process function from the payment modules
 $payment_modules->after_process();
-write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__." EPAYMENT ORDER STATUS ID = ".$orderStatus." ".$statusmessage);
-write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__." ----EPAYMENT TRANSACTION END----");
+write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." EPAYMENT ORDER STATUS ID = ".$orderStatus." ".$statusmessage);
+write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." ----EPAYMENT TRANSACTION END----");
 Header ("Location: checkout_success.php?errcode=".$orderStatus);
 
 ?>
