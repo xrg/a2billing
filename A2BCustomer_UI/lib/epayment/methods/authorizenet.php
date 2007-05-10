@@ -1,4 +1,4 @@
-d<?php
+<?php
 
 include("./lib/epayment/includes/methods/authorizenet.php");
 
