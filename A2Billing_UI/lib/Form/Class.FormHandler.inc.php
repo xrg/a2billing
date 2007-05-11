@@ -164,8 +164,6 @@ class FormHandler{
 	var $FG_FILTER_SEARCH_FORM_2C = array();
 	var $FG_FILTER_SEARCH_FORM_SELECT = array();
 	var $FG_FILTER_SEARCH_FORM_SELECT_TEXT = '';
-	var $FG_FILTER_SEARCH_N_MAXMIN_RECORD = array();
-	var $FG_FILTER_SEARCH_N_MAXMIN_RECORD_TOTAL = array();
 	var $FG_FILTER_SEARCH_TOP_TEXT = 'You can define above some specific criterias in order to make a precised research';
 	var $FG_FILTER_SEARCH_SESSION_NAME = '';
 	
@@ -751,35 +749,6 @@ class FormHandler{
 	/**
      * Sets Search form fieldnames for the view module
      * @public     
-	 * @ $displayname, $selected_element, $value_var, $tablename, $fieldname, $change_view_element, $order, $sens, $temptable, $group, $helptext, $addelemt
-	 *
-	 *
-	 *$displayname name of the column for the current field
-	 *$selected_element value of radio button
-	 *$value_var name of the var were we store the entred value 
-	 *$tablename name of the table
-	 *$fieldname array with 2 element (1:name of the field to be used form the first select,2:name of the field to be used form the second 
-	 * 					select)
-	 *$change_view_element	array used to change  some information in the FG_TABLE_COL
-	 *$order	array with 2 element (1:name of the field to be used form the first order by,2:name of the field to be used form the second 
-	 *				order by)
-	 *$sens,  sens of the ordering (ASC/DESC)
-	 *$temptable,	name of the temp table
-	 *$group
-	 *$helptext, 
-	 *$addelemt	use to add a new element to FG_TABLE_COL
-	 *
-	 *
-	 *
-    **/
-	function AddSearchElement_Maxmin($displayname, $selected_element, $value_var, $tablename, $fieldname, $change_view_element, $order, $sens, $temptable, $group, $helptext, $addelemt){
-	$cur = count($this->FG_FILTER_SEARCH_N_MAXMIN_RECORD);
-	$this->FG_FILTER_SEARCH_N_MAXMIN_RECORD[$cur] = array($displayname, $selected_element, $value_var, $tablename, $fieldname, $change_view_element, $order, $sens, $temptable, $group, $helptext, $addelemt);
-	}
-
-	/**
-     * Sets Search form fieldnames for the view module
-     * @public     
 	 * @ $displayname , $fieldname, $fieldvar	 
      */
 	function AddSearchElement_C1($displayname, $fieldname, $fieldvar ){
@@ -1035,36 +1004,6 @@ class FormHandler{
 			}
 			if ( $form_action == "list" ){
 				
-				foreach ($this->FG_FILTER_SEARCH_N_MAXMIN_RECORD as $r){
-				
-					if (($r[1] == $processed['maxmin']) && (is_numeric($processed[$r[2]])) && ($processed[$r[2]]>=0))  {
-						
-						if (!$processed['sourcehref']){	
-							$this -> FG_ORDER=$r[6][1];
-							$this -> FG_SENS=$r[7];
-							$SQL = "DROP TABLE ".$r[8];
-							$RES = $this->DBHandle->query($SQL);
-							$SQL = "CREATE TABLE ".$r[8]." as (select ".$r[4][0]." from ".$r[3]." ".$r[9]." order by ".$r[6][0]." ".$r[7].
-									" LIMIT ".$processed[$r[2]].")";
-							$RES = $this->DBHandle->query($SQL);
-						}
-						$this -> SQL_GROUP="";//$r[9];
-						$this -> FG_TABLE_NAME=$r[8];
-						$this -> FG_COL_QUERY=$r[4][1];
-						$this-> CV_FOLLOWPARAMETERS = "&maxmin=".$processed['maxmin']."&".$r[2]."=".$processed[$r[2]]."&sourcehref=true";
-						for ($i=1;$i<count($r[5]);$i++){
-							$this -> FG_TABLE_COL[$r[5][0]][$i-1] = $r[5][$i];
-						}
-						if ($r[11][0]){
-							for ($i=1;$i<count($r[11]);$i++){
-								$this -> FG_TABLE_COL[$this->FG_NB_TABLE_COL][$i-1] = $r[11][$i];
-							}
-							$this->FG_NB_TABLE_COL = count($this->FG_TABLE_COL);
-						}
-						
-					}
-				}
-
 				$instance_table = new Table($this -> FG_TABLE_NAME, $this -> FG_COL_QUERY);
 
 				$this->prepare_list_subselection($form_action);
