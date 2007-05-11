@@ -24,6 +24,7 @@
  *
  ****************************************************************************/
 
+exit;
 
 include ("../../lib/defines.php");
 require('SOAP/Client.php');
@@ -31,38 +32,39 @@ require('SOAP/Client.php');
 $security_key = API_SECURITY_KEY;
 
 
-$endpoint = 'http://localhost/~areski/svn/a2billing/trunk/A2Billing_UI/api/SOAP/soap-card-server.php';
+$endpoint = 'http://localhost/~areski/svn/a2billing/trunk/A2Billing_UI/api/SOAP/callback-exec.php';
 
 // ADD ON THE SPEC SECURITY KEY
 
-$card = new SOAP_Client($endpoint);
+$callback = new SOAP_Client($endpoint);
 
-//	#############   CREATE_CARD   #############   
 
-echo "<hr>#############   CREATE_CARD   #############   </hr>";
-$method = 'Create_Card';   
+//	#############   Request CallBack   #############
+echo "<hr>#############   Request CallBack   #############   </hr>";
+$method = 'Request';   
 
-$params = array('security_key' => md5($security_key), 'transaction_code' => 'mytransaction_code', 'account_number' => 'myaccount_number', 'tariff' => '1', 'uipass' => '', 'credit' => '10', 'language' => 'en', 
-'activated' => '1', 'simultaccess' => '0', 'currency' => 'USD', 'runservice' => '0', 'typepaid' => '1', 'creditlimit' => '0', 
-'enableexpire' => '0', 'expirationdate' => '', 'expiredays' => '0', 'lastname' => 'Areski', 'firstname' => 'Areski', 'address' => 'my address', 
-'city' => 'mycity', 'state' => 'mystate', 'country' => 'mycoutry', 'zipcode' => '1000', 'phone' => '646486411', 'fax' => '', 
-'callerid_list' => '21345114', 'iax_friend' => '1', 'sip_friend' => '0');
+// array('in' => array('security_key' => 'string', 'pn_callingparty' => 'string', 'pn_calledparty' => 'string', 'callerid' => 'string', 'callback_time' => 'string', 'uniqueid' => 'string'),
+//                   'out' => array('id' => 'string', 'result' => 'string', 'details' => 'string')
+$params = array('security_key' => md5($security_key), 'pn_callingparty' => '34650784355', 'pn_calledparty' => '5633434', 'callerid' => '34650555555', 'callback_time' => '', 'uniqueid' => '');
 
-$ans = $card->call($method, $params);
+$ans = $callback -> call($method, $params);
 
 print_r($ans);
 
-//	#############   REMOVE_CARD   #############   
-echo "<hr>#############   REMOVE_CARD : $ans[2]  #############   </hr>";
-$method = 'Remove_Card';   
+$insert_id_callback = $ans[0];
 
-$params = array('security_key' => md5($security_key), 'transaction_code' => 'mytransaction_code', 'account_number' => 'myaccount_number', 
-				'cardnumber' => $ans[2]);
+//$insert_id_callback = '47'; // ??
+//	#############   Check Status   #############   
+echo "<hr>#############   Check Status  #############   </hr>";
+$method = 'Status';
+// array('in' => array('security_key' => 'string', 'id' => 'string'),
+//				'out' => array('uniqueid' => 'string', 'result' => 'string', 'details' => 'string')
+$params = array('security_key' => md5($security_key), 'id' => $insert_id_callback);
 
-$ans = $card->call($method, $params);
+$ans = $callback -> call($method, $params);
 
 print_r($ans);
-	
-    
+
+
 
 ?>

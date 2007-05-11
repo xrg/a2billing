@@ -51,7 +51,7 @@ if ($callback){
 	
 	$called=ereg_replace("^0111","1",$called);
 	$calling=ereg_replace("^0111","1",$calling);
-		
+	
 	if (strlen($called)>4 && strlen($calling)>4 && is_numeric($called) && is_numeric($calling)){
 				
 			$A2B -> DBHandle = DbConnect();

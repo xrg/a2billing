@@ -4,6 +4,12 @@
 ********************************************************************************
 
 
+#### FEATURES : WHOLESALE
+********************************************************************
+We may need an option like : wholesale = YES or NO
+it will not answer the line and get rid of all audio
+
+
 #### FEATURES : CALLBACK dont bill 1st if not connected
 ********************************************************************
 add a parameter to not bill 1st if not connected
@@ -52,8 +58,23 @@ Jquery - HIDE DIV ON "List Customer" & "Browse Rates"
 ********************************************************************
 Modified: trunk/A2BCustomer_UI/checkout_payment.php
 
-customers_id -> feed with the card ID
+# customers_id -> feed with the card ID
 
+# http://locals.com/checkout_process.php?sess_id=8g34831kbhdimm790mt5heh0u5&transactionID=6
+Secure that
+
+# ADD a random number MDP
+on $key = securitykey(EPAYMENT_TRANSACTION_KEY, $time_stamp."^".$transaction_no[0][0]."^".$amount."^".$_SESSION["card_id"]);
+
+# Check security on MD5 HMAC 
+but we need a secret code on moneybooker side / paypal / etc---
+
+// Calculate and return fingerprint
+// Use when you need control on the HTML output
+function CalculateFP ($loginid, $txnkey, $amount, $sequence, $tstamp, $currency = "") {
+  return ($this->hmac ($txnkey, $loginid . "^" . $sequence . "^" . $tstamp . "^" . $amount . "^" . $currency));
+}
+that will work only stored on provider side
 
 #### TODO
 ********************************************************************

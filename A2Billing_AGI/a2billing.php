@@ -159,141 +159,141 @@ if ($mode == 'standard'){
 		$A2B->callingcard_auto_setcallerid($agi);
 		//$A2B->callingcard_acct_start_inuse($agi,1);
 		for ($i=0;$i< $A2B->agiconfig['number_try'] ;$i++){
-				
-				$RateEngine->Reinit();
-				$A2B-> Reinit();
-				
-				// RETRIEVE THE CHANNEL STATUS AND LOG : STATUS - CREIT - MIN_CREDIT_2CALL 
-				$stat_channel = $agi->channel_status($A2B-> channel);
-				$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, '[CHANNEL STATUS : '.$stat_channel["result"].' = '.$stat_channel["data"].']');
-				$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[CREDIT : ".$A2B-> credit."][CREDIT MIN_CREDIT_2CALL : ".$A2B->agiconfig['min_credit_2call']."]");
-				
-				// CHECK IF THE CHANNEL IS UP
-				//if ($stat_channel["status"]!= "6" && $stat_channel["status"]!= "1"){	
-				if (($A2B->agiconfig['answer_call']==1) && ($stat_channel["result"]!=$status_channel) && ($A2B -> CC_TESTING!=1)){
-					if ($A2B->set_inuse==1) $A2B->callingcard_acct_start_inuse($agi,0);
-					$A2B -> write_log("[STOP - EXIT]", 0);
-					exit();
-				}
-				
-				// CREATE A DIFFERENT UNIQUEID FOR EACH TRY
-				if ($i>0)   $A2B-> uniqueid=$A2B-> uniqueid+ 1000000000 ;
-				
-				if( $A2B->credit < $A2B->agiconfig['min_credit_2call'] && $A2B -> typepaid==0) {
+			
+			$RateEngine->Reinit();
+			$A2B-> Reinit();
+			
+			// RETRIEVE THE CHANNEL STATUS AND LOG : STATUS - CREIT - MIN_CREDIT_2CALL 
+			$stat_channel = $agi->channel_status($A2B-> channel);
+			$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, '[CHANNEL STATUS : '.$stat_channel["result"].' = '.$stat_channel["data"].']');
+			$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[CREDIT : ".$A2B-> credit."][CREDIT MIN_CREDIT_2CALL : ".$A2B->agiconfig['min_credit_2call']."]");
+			
+			// CHECK IF THE CHANNEL IS UP
+			//if ($stat_channel["status"]!= "6" && $stat_channel["status"]!= "1"){	
+			if (($A2B->agiconfig['answer_call']==1) && ($stat_channel["result"]!=$status_channel) && ($A2B -> CC_TESTING!=1)){
+				if ($A2B->set_inuse==1) $A2B->callingcard_acct_start_inuse($agi,0);
+				$A2B -> write_log("[STOP - EXIT]", 0);
+				exit();
+			}
+			
+			// CREATE A DIFFERENT UNIQUEID FOR EACH TRY
+			if ($i>0)   $A2B-> uniqueid=$A2B-> uniqueid+ 1000000000 ;
+			
+			if( $A2B->credit < $A2B->agiconfig['min_credit_2call'] && $A2B -> typepaid==0) {
+					
+					// SAY TO THE CALLER THAT IT DEOSNT HAVE ENOUGH CREDIT TO MAKE A CALL							
+					$prompt = "prepaid-no-enough-credit-stop";
+					$agi-> stream_file($prompt, '#');
+					$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[STOP STREAM FILE $prompt]");
+					
+					
+					if (($A2B->agiconfig['notenoughcredit_cardnumber']==1) && (($i+1)< $A2B->agiconfig['number_try'])){
 						
-						// SAY TO THE CALLER THAT IT DEOSNT HAVE ENOUGH CREDIT TO MAKE A CALL							
-						$prompt = "prepaid-no-enough-credit-stop";
-						$agi-> stream_file($prompt, '#');
-						$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[STOP STREAM FILE $prompt]");
+						if ($A2B->set_inuse==1) $A2B->callingcard_acct_start_inuse($agi,0);
 						
+						$A2B->agiconfig['cid_enable']=0;
+						$A2B->agiconfig['use_dnid']=0;
+						$A2B->agiconfig['cid_auto_assign_card_to_cid']=0;
+						$A2B->accountcode='';
+						$A2B->username='';
+						$A2B-> ask_other_cardnumber	= 1;
 						
-						if (($A2B->agiconfig['notenoughcredit_cardnumber']==1) && (($i+1)< $A2B->agiconfig['number_try'])){
-							
-							if ($A2B->set_inuse==1) $A2B->callingcard_acct_start_inuse($agi,0);
-							
-							$A2B->agiconfig['cid_enable']=0;
-							$A2B->agiconfig['use_dnid']=0;
-							$A2B->agiconfig['cid_auto_assign_card_to_cid']=0;
-							$A2B->accountcode='';
-							$A2B->username='';
-							$A2B-> ask_other_cardnumber	= 1;
-							
-							$cia_res = $A2B -> callingcard_ivr_authenticate($agi);
-							$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[NOTENOUGHCREDIT_CARDNUMBER - TRY : callingcard_ivr_authenticate]");
-							if ($cia_res!=0) break;
-							
-							$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[NOTENOUGHCREDIT_CARDNUMBER - callingcard_acct_start_inuse]");
-							$A2B->callingcard_acct_start_inuse($agi,1);
-							continue;
-							
-						}else{
-							
-							$send_reminder = 1;
-							$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[SET MAIL REMINDER - NOT ENOUGH CREDIT]");
-							break;
-						}
-				}
-				
-				if ($agi->request['agi_extension']=='s'){
-					$A2B->dnid = $agi->request['agi_dnid'];
-				}else{
-					$A2B->dnid = $agi->request['agi_extension'];
-				}
-				
-				if ($A2B->agiconfig['ivr_voucher']==1){
-					$res_dtmf = $agi->get_data('prepaid-refill_card_with_voucher', 5000, 1);
-					$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "RES REFILL CARD VOUCHER DTMF : ".$res_dtmf ["result"]);
-					$A2B-> ivr_voucher = $res_dtmf ["result"];
-					if ((isset($A2B-> ivr_voucher)) && ($A2B-> ivr_voucher == $A2B->agiconfig['ivr_voucher_prefixe']))
-					{	
-						$vou_res = $A2B->refill_card_with_voucher($agi, $i);
-						//if ($vou_res==1)$A2B->fct_say_balance ($agi, $A2B->add_credit, 1);
-					}
-				}
-
-				if ($A2B->agiconfig['sip_iax_friends']==1){
-				
-					if ($A2B->agiconfig['sip_iax_pstn_direct_call']==1){	
-
-						if ($A2B->agiconfig['use_dnid']==1 && !in_array ($A2B->dnid, $A2B->agiconfig['no_auth_dnid']) && strlen($A2B->dnid)>2 && $i==0 ){
-				
-							$A2B -> destination = $A2B->dnid;
-							
-						}else{
-		
-							$prompt_enter_dest = $A2B->agiconfig['file_conf_enter_destination'];
-							$res_dtmf = $agi->get_data($prompt_enter_dest, 4000, 20);
-							$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "RES sip_iax_pstndirect_call DTMF : ".$res_dtmf ["result"]);
-							$A2B-> destination = $res_dtmf ["result"];
-						}
+						$cia_res = $A2B -> callingcard_ivr_authenticate($agi);
+						$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[NOTENOUGHCREDIT_CARDNUMBER - TRY : callingcard_ivr_authenticate]");
+						if ($cia_res!=0) break;
 						
-						if ( (strlen($A2B-> destination)>0) && (strlen($A2B->agiconfig['sip_iax_pstn_direct_call_prefix'])>0) && (strncmp($A2B->agiconfig['sip_iax_pstn_direct_call_prefix'], $A2B-> destination,strlen($A2B->agiconfig['sip_iax_pstn_direct_call_prefix']))==0) ){
-							$A2B-> dnid = $A2B-> destination;
-							$A2B-> sip_iax_buddy = $A2B->agiconfig['sip_iax_pstn_direct_call_prefix'];
-							$A2B-> agiconfig['use_dnid'] = 1;
-							$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "SIP 1. IAX - dnid : ".$A2B->dnid." - ".strlen($A2B->agiconfig['sip_iax_pstn_direct_call_prefix']));
-							$A2B->dnid = substr($A2B->dnid,strlen($A2B->agiconfig['sip_iax_pstn_direct_call_prefix']));
-							$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "SIP 2. IAX - dnid : ".$A2B->dnid);
-						}elseif (strlen($A2B->destination)>0){
-							$A2B->dnid = $A2B->destination;
-							$A2B->agiconfig['use_dnid'] = 1;
-							$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "TRUNK - dnid : ".$A2B->dnid." (".$A2B->agiconfig['use_dnid'].")");
-						}
+						$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[NOTENOUGHCREDIT_CARDNUMBER - callingcard_acct_start_inuse]");
+						$A2B->callingcard_acct_start_inuse($agi,1);
+						continue;
+						
 					}else{
-				
-						//$res_dtmf = $agi->agi_exec("GET DATA prepaid-sipiax-press9 2000 1");
-						$res_dtmf = $agi->get_data('prepaid-sipiax-press9', 2000, 1);
-						$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "RES SIP_IAX_FRIEND DTMF : ".$res_dtmf ["result"]);
 						
-						$A2B-> sip_iax_buddy = $res_dtmf ["result"];
+						$send_reminder = 1;
+						$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[SET MAIL REMINDER - NOT ENOUGH CREDIT]");
+						break;
 					}
+			}
+			
+			if ($agi->request['agi_extension']=='s'){
+				$A2B->dnid = $agi->request['agi_dnid'];
+			}else{
+				$A2B->dnid = $agi->request['agi_extension'];
+			}
+			
+			if ($A2B->agiconfig['ivr_voucher']==1){
+				$res_dtmf = $agi->get_data('prepaid-refill_card_with_voucher', 5000, 1);
+				$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "RES REFILL CARD VOUCHER DTMF : ".$res_dtmf ["result"]);
+				$A2B-> ivr_voucher = $res_dtmf ["result"];
+				if ((isset($A2B-> ivr_voucher)) && ($A2B-> ivr_voucher == $A2B->agiconfig['ivr_voucher_prefixe']))
+				{	
+					$vou_res = $A2B->refill_card_with_voucher($agi, $i);
+					//if ($vou_res==1)$A2B->fct_say_balance ($agi, $A2B->add_credit, 1);
 				}
-				
-				
-				if ( isset($A2B-> sip_iax_buddy) && ($A2B-> sip_iax_buddy == $A2B->agiconfig['sip_iax_pstn_direct_call_prefix'])) {
+			}
+
+			if ($A2B->agiconfig['sip_iax_friends']==1){
+			
+				if ($A2B->agiconfig['sip_iax_pstn_direct_call']==1){	
+
+					if ($A2B->agiconfig['use_dnid']==1 && !in_array ($A2B->dnid, $A2B->agiconfig['no_auth_dnid']) && strlen($A2B->dnid)>2 && $i==0 ){
+			
+						$A2B -> destination = $A2B->dnid;
+						
+					}else{
+	
+						$prompt_enter_dest = $A2B->agiconfig['file_conf_enter_destination'];
+						$res_dtmf = $agi->get_data($prompt_enter_dest, 4000, 20);
+						$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "RES sip_iax_pstndirect_call DTMF : ".$res_dtmf ["result"]);
+						$A2B-> destination = $res_dtmf ["result"];
+					}
 					
-					$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, 'CALL SIP_IAX_BUDDY');
-					$cia_res = $A2B-> call_sip_iax_buddy($agi, $RateEngine,$i);
-					
+					if ( (strlen($A2B-> destination)>0) && (strlen($A2B->agiconfig['sip_iax_pstn_direct_call_prefix'])>0) && (strncmp($A2B->agiconfig['sip_iax_pstn_direct_call_prefix'], $A2B-> destination,strlen($A2B->agiconfig['sip_iax_pstn_direct_call_prefix']))==0) ){
+						$A2B-> dnid = $A2B-> destination;
+						$A2B-> sip_iax_buddy = $A2B->agiconfig['sip_iax_pstn_direct_call_prefix'];
+						$A2B-> agiconfig['use_dnid'] = 1;
+						$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "SIP 1. IAX - dnid : ".$A2B->dnid." - ".strlen($A2B->agiconfig['sip_iax_pstn_direct_call_prefix']));
+						$A2B->dnid = substr($A2B->dnid,strlen($A2B->agiconfig['sip_iax_pstn_direct_call_prefix']));
+						$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "SIP 2. IAX - dnid : ".$A2B->dnid);
+					}elseif (strlen($A2B->destination)>0){
+						$A2B->dnid = $A2B->destination;
+						$A2B->agiconfig['use_dnid'] = 1;
+						$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "TRUNK - dnid : ".$A2B->dnid." (".$A2B->agiconfig['use_dnid'].")");
+					}
 				}else{
-					if ($A2B-> callingcard_ivr_authorize($agi, $RateEngine, $i)==1){
-						// PERFORM THE CALL	
-						$result_callperf = $RateEngine->rate_engine_performcall ($agi, $A2B-> destination, $A2B);
-						
-						if (!$result_callperf) {
-							$prompt="prepaid-dest-unreachable";
-							//$agi->agi_exec("STREAM FILE $prompt #");
-							$agi-> stream_file($prompt, '#');
-						}
-						// INSERT CDR  & UPDATE SYSTEM
-						$RateEngine->rate_engine_updatesystem($A2B, $agi, $A2B-> destination);
-						
-						if ($A2B->agiconfig['say_balance_after_call']==1){		
-							$A2B-> fct_say_balance ($agi, $A2B-> credit);
-						}
-						$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, '[a2billing account stop]');
-					}
+			
+					//$res_dtmf = $agi->agi_exec("GET DATA prepaid-sipiax-press9 2000 1");
+					$res_dtmf = $agi->get_data('prepaid-sipiax-press9', 2000, 1);
+					$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "RES SIP_IAX_FRIEND DTMF : ".$res_dtmf ["result"]);
+					
+					$A2B-> sip_iax_buddy = $res_dtmf ["result"];
 				}
+			}
+			
+			
+			if ( isset($A2B-> sip_iax_buddy) && ($A2B-> sip_iax_buddy == $A2B->agiconfig['sip_iax_pstn_direct_call_prefix'])) {
+				
+				$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, 'CALL SIP_IAX_BUDDY');
+				$cia_res = $A2B-> call_sip_iax_buddy($agi, $RateEngine,$i);
+				
+			}else{
+				if ($A2B-> callingcard_ivr_authorize($agi, $RateEngine, $i)==1){
+					// PERFORM THE CALL	
+					$result_callperf = $RateEngine->rate_engine_performcall ($agi, $A2B-> destination, $A2B);
+					
+					if (!$result_callperf) {
+						$prompt="prepaid-dest-unreachable";
+						//$agi->agi_exec("STREAM FILE $prompt #");
+						$agi-> stream_file($prompt, '#');
+					}
+					// INSERT CDR  & UPDATE SYSTEM
+					$RateEngine->rate_engine_updatesystem($A2B, $agi, $A2B-> destination);
+					
+					if ($A2B->agiconfig['say_balance_after_call']==1){		
+						$A2B-> fct_say_balance ($agi, $A2B-> credit);
+					}
+					$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, '[a2billing account stop]');
+				}
+			}
 			$A2B->agiconfig['use_dnid']=0;
 		}//END FOR
 		
@@ -527,7 +527,7 @@ if ($mode == 'standard'){
 	}
 
 }elseif ($mode == 'all-callback'){
-
+	
 	$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, '[MODE : ALL-CALLBACK - '.$A2B->CallerID.']');
 	
 	// END
@@ -537,8 +537,8 @@ if ($mode == 'standard'){
 	$A2B ->tariff = $A2B -> config["callback"]['all_callback_tariff'];
 	
 	if (strlen($A2B->CallerID)>1 && is_numeric($A2B->CallerID)){
-	
-		/* WE START ;) */		
+		
+		/* WE START ;) */
 		if ($cia_res==0){
 			
 			$RateEngine = new RateEngine();
