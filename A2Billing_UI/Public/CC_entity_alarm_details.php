@@ -13,18 +13,15 @@ getpost_ifset(array('id', 'displayheader', 'displayfooter', 'popup_select'));
 
 $FG_DEBUG = 0;
 
-
 $FG_TABLE_ALTERNATE_ROW_COLOR[] = "#F2F2EE";
 $FG_TABLE_ALTERNATE_ROW_COLOR[] = "#FCFBFB";
 		
 
 $FG_TABLE_COL=array();
 
-$FG_TABLE_COL[]=array ("DATE", "date", "50%", "center", "sort", "30", "", "", "", "", "", "display_dateformat");
-$FG_TABLE_COL[]=array ("TOTALCARDPERFORM", "totalcardperform", "20%", "center", "sort");
-$FG_TABLE_COL[]=array ("TOTALCREDIT", "totalcredit", "20%", "center", "sort");
+$FG_TABLE_COL[]=array ("DATE", "daterun", "50%", "center", "sort", "30", "", "", "", "", "", "display_dateformat");
+$FG_TABLE_COL[]=array ("CALCULTED VALUE", "calcultedvalue", "50%", "center", "sort");
 			
-//$FG_TABLE_COL[]=array ("RESELLER", "RESELLER", "30%", "center", "sort");
 
 $FG_NB_TABLE_COL=count($FG_TABLE_COL);
 
@@ -38,32 +35,31 @@ if (!isset ($current_page) || ($current_page == "")){
 $DBHandle  = DbConnect();
 
 
-/*******************   SERVICE INFO  *****************************************/
+/*******************   ALARM INFO  *****************************************/
 
-$QUERY = "SELECT id, name, numberofrun, datelastrun, totalcredit, totalcardperform from cc_service WHERE id='$id'";
+$QUERY = "SELECT id, name, type, numberofrun, substring(datelastrun,0,20), numberofalarm from cc_alarm WHERE id='$id'";
 $res = $DBHandle -> query($QUERY);
 $num = $res -> numRows();		
-
 for($i=0;$i<$num;$i++)
 {		
-	$list_service [] =$res -> fetchRow();			
+	$list_alarm [] =$res -> fetchRow();			
+	
 }
 
 	   
 /*******************  LIST REFILL  *****************************************/
 		
 
-$QUERY = "SELECT  t3.daterun, t3.totalcardperform, t3.totalcredit from cc_service_report as t3 WHERE t3.cc_service_id='$id'";
+$QUERY = "SELECT  t3.daterun, t3.calculatedvalue from cc_alarm_report as t3 WHERE t3.cc_alarm_id='$id'";
 
 
 $QUERY.=" ORDER BY t3.id DESC";
 if (DB_TYPE == "postgres"){
-	$QUERY .= " LIMIT 25 OFFSET 0";			
+	$QUERY .= " LIMIT 25 OFFSET 0";
 }else{
-	$QUERY .= " LIMIT 0, 25";			
+	$QUERY .= " LIMIT 0, 25";
 }
 if ($FG_DEBUG > 0)   echo $QUERY ;
-
 $res = $DBHandle -> query($QUERY);
 $num = $res -> numRows();		
 
@@ -77,6 +73,7 @@ for($i=0;$i<$num;$i++)
 
 <?php
 	include("PP_header.php");
+
 ?>
 <script language="JavaScript" type="text/JavaScript">
 <!--
@@ -96,14 +93,13 @@ function openURL(theLINK)
 
 //-->
 </script>
-	  <br/>
-	  
-<center><b>SERVICE NAME :	<?php echo $list_service [0][1] ?></b>
+	<br/>
+
+<center><b>ALARM NAME :<?php echo $list_alarm [0][1] ;?></b>
 <br>
-<?php echo "NUMBEROFRUN :".$list_service [0][2] ?>
-<?php echo " - DATELASTRUN :".$list_service [0][3] ?>
-<?php echo " <br> TOTALCREDIT :".$list_service [0][4] ?>
-<?php echo " - TOTALCARDPERFORM :".$list_service [0][5] ?>
+<?php echo "NUMBER OF RUN :".$list_alarm [0][3];?>
+<?php echo " -  NUMBER OF SENT ALARM :".$list_alarm [0][5] ;?>
+<?php echo "<br> DATELASTRUN :";display_dateformat($list_alarm [0][4]); ?>
 
 </center>
 	  <table width="100%">
@@ -116,7 +112,7 @@ function openURL(theLINK)
 	  <?php
 
 				$color="red";
-				$ttitle="SERVICE REPORT";
+				$ttitle="ALARM REPORT";
 				
 				
 	  			if ((count($list )>0) && is_array($list )){

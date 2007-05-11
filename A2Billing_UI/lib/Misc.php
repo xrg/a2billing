@@ -79,7 +79,7 @@
 		}
 		
 		function display_2dec_percentage($var){	
-				if ($var!="")
+				if (isset($var))
 				{	
 					echo number_format($var,2)."%";
 				}else
