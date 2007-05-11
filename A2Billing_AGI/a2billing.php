@@ -690,9 +690,11 @@ if ($mode == 'standard'){
 	if ($callback_mode=='CID'){  
 		$charge_callback = 1;
 		$A2B->agiconfig['use_dnid'] = 0;
+		$A2B->agiconfig['number_try'] =1;
 		
 	}elseif ($callback_mode=='ALL'){  
 		$A2B->agiconfig['use_dnid'] = 0;
+		$A2B->agiconfig['number_try'] =1;
 		
 	}else{
 		$charge_callback = 1;
@@ -719,7 +721,7 @@ if ($mode == 'standard'){
 		$charge_callback = 1; // EVEN FOR  ALL CALLBACK
 		
 		$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[CALLBACK]:[Start]");
-		$A2B->callingcard_auto_setcallerid($agi);
+		$A2B -> callingcard_auto_setcallerid($agi);
 		
 		for ($i=0;$i< $A2B->agiconfig['number_try'] ;$i++){
 			
@@ -727,7 +729,7 @@ if ($mode == 'standard'){
 			$A2B-> Reinit();
 			
 			$stat_channel = $agi->channel_status($A2B-> channel);
-			$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, '[CALLBACK]:[CHANNEL STATUS : '.$stat_channel["result"].' = '.$stat_channel["data"].']'."[CREDIT STATUS : ".$A2B-> credit." - CREDIT MIN_CREDIT_2CALL : ".$A2B->agiconfig['min_credit_2call']."]");
+			$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, '[CALLBACK]:[CHANNEL STATUS : '.$stat_channel["result"].' = '.$stat_channel["data"].']'."[status_channel=$status_channel]:[CREDIT STATUS : ".$A2B-> credit." - CREDIT MIN_CREDIT_2CALL : ".$A2B->agiconfig['min_credit_2call']."]");
 			
 			//if ($stat_channel["status"]!= "6" && $stat_channel["status"]!= "1"){	
 			if ($stat_channel["result"]!= $status_channel && ($A2B -> CC_TESTING!=1)){
