@@ -3,6 +3,13 @@
                    			TODO LIST - SPECIFIC
 ********************************************************************************
 
+#### BUGS
+********************************************************************
+1# One more thing - if the SIP/IAX friend is created via "Create SIP Friend" button, 
+then the defaults are not filled in, such as the context.
+
+2#
+IAX and SIP friends are not created correctly when created from the customer signup page. My understanding is that the account number and CID should be the same as the account number and card alias - this is the ony way it seems to work, otherwise the call is rejected.
 
 #### FEATURES : WHOLESALE
 ********************************************************************
