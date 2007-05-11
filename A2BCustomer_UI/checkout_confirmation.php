@@ -19,6 +19,7 @@ if (! has_rights (ACX_ACCESS)){
 	Header ("Location: PP_error.php?c=accessdenied");
 	die();
 }
+
 getpost_ifset(array('amount','payment','authorizenet_cc_expires_year','authorizenet_cc_owner','authorizenet_cc_expires_month','authorizenet_cc_number','authorizenet_cc_expires_year'));
 
 $HD_Form = new FormHandler("cc_payment_methods","payment_method");

@@ -11,13 +11,13 @@ write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionKe
 if ($sess_id =="")
 {
 	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." ERROR NO SESSION ID PROVIDED IN RETURN URL TO PAYMENT MODULE");
-    exit(gettext("No session id provided in return URL to Payment Module"));
+    exit();
 }
 
 if($transactionID == "")
 {	
 	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." NO TRANSACTION ID PROVIDED IN REQUEST");
-    exit;
+    exit();
 }
 
 
@@ -52,10 +52,52 @@ else
 	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." EPAYMENT RESPONSE: TRANSACTIONID = ".$transactionID." FROM ".$transaction_data[0][4]."; FOR CUSTOMER ID ".$transaction_data[0][1]."; OF AMOUNT ".$transaction_data[0][2]);
 }
 
+switch($transaction_data[0][4])
+{
+	case "paypal":
+	
+		$postvars = array();
+		$req = 'cmd=_notify-validate';
+		foreach ($_POST as $vkey => $Value) 
+		{
+			$req .= "&" . $vkey . "=" . urlencode ($Value);
+		}				
+		$header .= "POST /cgi-bin/webscr HTTP/1.0\r\n";
+		$header .= "Content-Type: application/x-www-form-urlencoded\r\n";
+		$header .= "Content-Length: " . strlen ($req) . "\r\n\r\n";
+		$fp = fsockopen ("www.sandbox.paypal.com", 80, $errno, $errstr, 30);
+		if (!$fp) 
+		{
+			write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."Failed to open HTTP Connection: ".$errstr.". Error Code: ".$errno);
+			exit();
+		}		
+		else 
+		{
+			fputs ($fp, $header . $req);			
+			$flag_ver = 0;
+			while (!feof($fp)) 
+			{
+				$res = fgets ($fp, 1024);
+				if (strcmp ($res, "VERIFIED") == 0) 
+				{
+					write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."PAYPAL Transaction Verification Status: Verified ");
+					$flag_ver = 1;
+				}				
+			}
+			if($flag_ver == 0)
+			{
+				write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."PAYPAL Transaction Verification Status: Failed ");
+				exit;
+			}
+		}
+		fclose ($fp);	
+		break;
+}
+
 $newkey = securitykey(EPAYMENT_TRANSACTION_KEY, $transaction_data[0][8]."^".$transactionID."^".$transaction_data[0][2]."^".$transaction_data[0][1]);
 if($newkey == $key)
 {
-	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."----------- Transaction Key Verified ------------\n");
+	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."----------- Transaction Key Verified ------------");
 }
 else
 {
