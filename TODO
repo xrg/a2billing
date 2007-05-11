@@ -10,35 +10,21 @@ We may need an option like : wholesale = YES or NO
 it will not answer the line and get rid of all audio
 
 
+#### NEW TASK - NEW button style []
+********************************************************************
+New button for edit/delete... really tiny but with text
+New button for confirm Data
+
+
 #### FEATURES : CALLBACK dont bill 1st if not connected
 ********************************************************************
 add a parameter to not bill 1st if not connected
-bill_1stleg_call_notconnected = YES / NO
+callback_bill_1stleg_ifcall_notconnected = YES / NO
 
 or best of all, and simplest, set the initial IAX / SIP pasword to be the webui password
 the initial PW was set to the WebUI password, 
 then we could say in the customer signup email - IAX details : Username = $card_gen, Password = $password CID = $cardalias
 
-
-
-
-#### FEATURES : CALLBACK APIs
-********************************************************************
-1# Queue a callback request from an API : HTTP / WSDL
-- it will return the uniqueID generate for the callback request
-an API could generate a callback http://apiurl/callback-exec.php?listparameter=values&uniqueid=324234
-return an ID to identify the callback request
-
-2# API to check the status of the callback : webservice  
-- check the status of a generated callback 
-
-So an API will return result of a callback http://apiurl/callback-status.php?id=123453
-id is the ID returned by 
-reply : Pending ; Success ; Error, etc ...
-
-3# supplementary audio when connect the callback
-It calls the first party and plays the wav. For Example, "Your call is now being connected, Please hold" 
-and it will then call the 2nd party and bridge.
 
 
 
@@ -76,9 +62,9 @@ function CalculateFP ($loginid, $txnkey, $amount, $sequence, $tstamp, $currency 
 }
 that will work only stored on provider side
 
+
 #### TODO
 ********************************************************************
-
 we should also resolve that
 # when we are changing the currency code .,, on the userinfo it is shown to purchage 20 $
 
@@ -86,6 +72,7 @@ and other thing is that we should have to add the way to manage the Pending tran
 There is a interface Provideded by paypal and Money bookers to get status of pending transactions
 so that later on admin can update the status of transactions which were pending by quering the Epayment Gateway
 got my point ?
+
 
 #### BUG
 ********************************************************************
@@ -129,11 +116,6 @@ so in march invoice, they have $20 but they need to pay $20 + $50 + $30 - $20
 what will happend when a invoice is paid
 we should not show the pay invoice button then 
 is there anything in framework that support like this?
-
-
-#### BUG MAIL INVOICE
-********************************************************************
-Therefore I suspect a bug in the emailing function of the customer sign-up screen.
 
 
 #### DID CRONT : MAIL
@@ -269,16 +251,6 @@ when u use this : "Add DID" and we assign a DID to a card
 a check should be proceed, if the DID don't belong to the user's DID group then it should warn the user/admin
 
 
-#### CALLBACK API_SPOOL_CALLBACK
-********************************************************************
-// USE RATE_ENGINE_FINDRATES - RATE_ENGINE_ALL_CALCULTIMEOUT - TARIFFGROUP BY DEFAULT TO FIND OUT THE CORRECT CHANNEL
-$channel = 'SIP/'.$phone_number.'@toreplace';
-
-
-#### GENERAL CHANGE IN CUSTOMER SIDE
-********************************************************************
-- to remove the all the page used for pdf export like : A2B_entity_unbilled_summary1.php
-  we should be able to deal with A2B_entity_unbilled_summary.php only and add a parameter mode for the pdf export.
 
 
 #### CONSOLIDATE THE GETTEXT FILES
@@ -300,34 +272,11 @@ Yes. Here's how it works: Say you have a balance of ten (10) dollars. When your 
 
 
 
-######## DID RANGE 
-********************************************************************
-Add the same feature that is used on CID to add a new callerID
-support range and coma
-
-
-
-######## NOTE FROM CHRISTEAS : BACKUP DB
-********************************************************************
-giving apache the right to dump stuff is bad, IMHO.
-So, you could have a crontab task backing up the database. 
-That task could use a 'a2billing' system user, with the rights to connect to the database.
-
-
 #### DIVERS
 ********************************************************************
 Add new tables for reseller and callshop
 
 
-#### FEATURE : NEW CALLBACK SYSTEM
-********************************************************************
-rebuild of the callback system, we are using a spool system in DB and a perl Daemon to initiate the callback.
-it brings flexibility and a way to track the callback request, their status, etc...
-So we have a spool system, all request are stored and handled by a perl daemon that will take care of dispatching 
-them through several asterisk server.
-There is also an API also for this to generate the callback.
-/api/api_spool_callback.php
-this could be use by any third application/platform to generate callback request.
 
 
 #### FEATURE : OPTIMIZE AGI TO USE PL/SQL functions for all important functions
@@ -346,18 +295,6 @@ let's the user define a range of cardnumber (ie: 45000-46000)
 working out the source of a signup so that comission can be paid. 
 a link to the signup be created that enters the source of the link against 
 the customer, e.g. an agent name or website address?
-
-
-#### FEATURE
-********************************************************************
-BATCH GENERATION OF INVOICE
-need a feature that can allow admin to generate the invoice for all the postpaid or 
-prepaid account with just one click.
-right now, we have to go to Call Report/Invoice, and then select the respective month, 
-and then select the card one by one, and then save the html page. And doing that 
-repetitively for 100 cards is quite gruesome 
-so auto generate invoice (with criteria) and maybe auto mailing, that will be cool
-
 
 
 #### FEATURE
@@ -405,44 +342,24 @@ Note to Areski – why have free as an option, surely if I wanted free, I would 
 
 
 
-********************************************************************
-To tidy up the box for filtering, can you either reduce the font size or use symbols only, e.g. >  ;   >=  ; <=
-
 
 	
-#### NEW TASK []
+#### NEW TASK
 ********************************************************************
 Yep - having a separate figure for VAT would be useful
 for VAT returns
 however - UK VAT laws say that if a call originates outside of the EU, then no VAT is required on the call
 however if a call starts within the EU, the VAT is payable
 
- 
-
-
 
 
 
 #### NEW TASK []
 ********************************************************************
-Card company can set default language and customer can change 1. English 2. Dutch, 3. French
-etc.
+Card company can set default language and customer can change 1. English 2. Dutch, 3. French etc.
 make it more easily customizable
 
 
-
-#### NEW TASK []
-********************************************************************
-When removing a Card -> Check if SIP/IAX has been created if yes ask for confirmation.
-1# we can add an id_card in the buddy table
-2# we can add an id_sip id_iax in the cc_card table
-find the best solution
-
-
-#### NEW TASK - NEW button style []
-********************************************************************
-New button for edit/delete... really tiny but with text
-New button for confirm Data
 
 
 #### BUG []
@@ -618,33 +535,11 @@ Here is a example (the first line is from me and will printed out, the $A2B->agi
 Create a parameter in a2billing.conf format the number of decimal to display
 in Misc.php -> number_format($var,2);
 
-
 SWITCH ALL THE FLOAT IN MYSQL TO DECIMAL(12,6)
 SWITCH ALL THE FLOAT IN POSTGRESQL TO NUMERIC(12,6)
-
 ALTER TABLE cc_ratecard CHANGE buyrate buyrate DECIMAL( 12, 6 ) NOT NULL DEFAULT '0';
 
-      
 
-ALL HERE
-ALTER TABLE `call` CHANGE `calledrate` `calledrate` DECIMAL( 12, 6 ) NULL DEFAULT NULL;
-ALTER TABLE `call` CHANGE `sessionbill` `sessionbill` DECIMAL( 12, 6 ) NULL DEFAULT NULL;
-ALTER TABLE `cc_card` CHANGE `credit` `credit` DECIMAL( 12, 6 ) NOT NULL DEFAULT '0';
-ALTER TABLE `cc_ratecard` CHANGE `buyrate` `buyrate` DECIMAL( 12, 6 ) NOT NULL DEFAULT '0';
-ALTER TABLE `cc_ratecard` CHANGE `rateinitial` `rateinitial` DECIMAL( 12, 6 ) NOT NULL DEFAULT '0';
-ALTER TABLE `cc_ratecard` CHANGE `connectcharge` `connectcharge` DECIMAL( 12, 6 ) NOT NULL DEFAULT '0';
-ALTER TABLE `cc_ratecard` CHANGE `disconnectcharge` `disconnectcharge` DECIMAL( 12, 6 ) NOT NULL DEFAULT '0';
-ALTER TABLE `cc_ratecard` CHANGE `stepchargea` `stepchargea` DECIMAL( 12, 6 ) NOT NULL DEFAULT '0';
-ALTER TABLE `cc_ratecard` CHANGE `chargea` `chargea` DECIMAL( 12, 6 ) NOT NULL DEFAULT '0';
-ALTER TABLE `cc_ratecard` CHANGE `stepchargeb` `stepchargeb` DECIMAL( 12, 6 ) NOT NULL DEFAULT '0';
-ALTER TABLE `cc_ratecard` CHANGE `chargeb` `chargeb` DECIMAL( 12, 6 ) NOT NULL DEFAULT '0';
-ALTER TABLE `cc_ratecard` CHANGE `stepchargec` `stepchargec` DECIMAL( 12, 6 ) NOT NULL DEFAULT '0';
-ALTER TABLE `cc_ratecard` CHANGE `chargec` `chargec` DECIMAL( 12, 6 ) NOT NULL DEFAULT '0';
-ALTER TABLE `cc_service` CHANGE `amount` `amount` DECIMAL( 12, 6 ) NOT NULL DEFAULT '0';
-ALTER TABLE `cc_service` CHANGE `totalcredit` `totalcredit` DECIMAL( 12, 6 ) NOT NULL DEFAULT '0';
-ALTER TABLE `cc_service_report` CHANGE `totalcredit` `totalcredit` DECIMAL( 12, 6 ) NULL DEFAULT NULL;
-ALTER TABLE `cc_voucher` CHANGE `credit` `credit` DECIMAL( 12, 6 ) NOT NULL DEFAULT '0';
- 
 
 #### []
 ********************************************************************
@@ -675,171 +570,26 @@ destination 338 puis je n'ouvre que les routes 338x que je veux ;-)
 > same account.
 
 
-#### []
+#### CURRENCY BY RATECARD 
 ********************************************************************
-
-When Making a call that is not answered, after timeout : no explanation,
-just a busy tone/Hangup (voice prompt would be nice)
-
-Callback : Allow/Deny pr user
-
-Rates : it should be possible to enter rates in different currencies for
-each ratecard.
-
-I have 3 providers : a danish who list prices in DKK, a english who
-lists prices in EUR, and a US who list prices in USD.
-
-I think you can see my problem.
-
-DID : answer with voice on unassigned did.
+Rates : it should be possible to enter rates in different currencies for each ratecard.
+I have 3 providers : a danish who list prices in DKK, a english who lists prices in EUR, and a US who list prices in USD.
 
 
+
+#### DID : answer with voice on unassigned did.
+********************************************************************
 Needed DID improvement :
-;played when receiving call on DID with no assigned destination
+;audio played when receiving call on DID with no assigned destination
 did_not_assigned_snd=
 
 
-
-#### [Update-local-text-files]
+#### FRIEND SIP/IAX - CHARGE CALLS
 ********************************************************************
-
-DOCUMENTATION
-
-from your web site
-
-cp -rf libs_a2billing /var/lib/asterisk/agi-bin/.
-should be
-cp -rf libs_a2billing/* /var/lib/asterisk/agi-bin/.
-or u will miss 2 files in the folder
-
-likewise from your website
-cp  sounds/en/* /var/lib/asterisk/sounds/.
-can be
-cp  sounds/en/* /var/lib/asterisk/sounds/. < yes.txt
-if u want to automate in a script
-
- 
-------------
-
-1) Your system has a term of credit and credit limit. In fact the field that
-has name CREDIT in your system in official terms of professional billing
-systems has name ACCOUNT BALANCE. So the right name for this field could be
-BALANCE. This balance can be positive and negative. The field name CREDIT is
-not so correct because positive condition of account is not credit in fact,
-this is DEBIT account, the CREDIT takes a place only when the user has
-negative condition of his account balance. Credit limit only shows the
-amount of negative condition of account balance. In other cases talking
-about credit is not right way because in fact it is not credit. This also
-could be better if credit customer could hear in the voice the real state of
-his account balance not just a sum of real payed money plus credit limit but
-only the number in BALANCE(CREDIT in your version) field. Talking the sum of
-money and credit limit don't give customers the real info if he has a debt
-of not. If the customer has a debt most calling card platforms say "balance
-of your account is minus blah blah blah".
+ability to charge a fixed amount eg: 5cents per minute. for sip to sip calls
 
 
 
-#### []
-********************************************************************
-beyond my means and ability to be able to modify the code to make a2billing
-charge a fixed amount eg: 5cents per minute. for sip to sip calls... :(
-
-
-#### []
-********************************************************************
-//// IMPORTANT 
-Add new reporting
-
-i also made little changes according to my poor understanding,  in call-log.php ( u sent me with billsec display)
-$QUERY = "SELECT substring(calldate,1,10) AS day, sum(billsec) AS calltime, count(*) as nbcall FROM cdr WHERE disposition LIKE 'ANSWERED' AND ".$FG_TABLE_CLAUSE." GROUP BY substring(calldate,1,10)"; //extract(DAY from calldate)
-replaced duration with billsec   to display billsec sum in bottom summery and to view correct ACT  i added  where disposion  like answered
-cos ACD  =  can be calculated with answered calls    and i am also looking to add ASR formula in it
-
-
-#### []
-********************************************************************
-//// IMPORTANT 
-- and kindly  do add   the option to   take backup of rates tables  etc...
-- and very important batch options  for all fields
-
-
-
-#### []
-********************************************************************
-FOR THE WIKI
-
-aka mantic
-
-
-
-
-Importing Rate Cards
-
-To import rate cards, your cvs file has to be formatted in a specific
-way.
-
-1 Obtain your vendors rates in cvs.
-
-2 Open it in your favorite spreadsheet or database editor.
-
-3 Find and arrange the columns so that the first three are:
-      dialprefix - dial prefix
-      destination - country
-      rate initial - how much you charge
-
-4 Find any of the other fields in your file that have data such as:
-      buyrate - how much you pay provider per minute
-      buyrateinitblock - minimum time provider bills you
-      buyrateincrement - billing time increment from provider
-      initblock - minimum time your bill caller
-      billingblock - billing time increment to caller
-      connect charge  - connect charge to caller
-      disconnect charge - disconnect charge to caller
-(there are additional fields not listed here available as
-well.)                          Once you have found them, I would
-suggest renameing them
-appropriately                           to lessen confusion.
-You may also find some cvs files have the country and city code in
-seperate fields, you going to have to append the latter to the first
-and call it dialprefix.
-
-5 Check that the field arrangement has the following order: dialprefix,
-destination, rate initial
-Additional fields can be in any order you like, but take note of the
-order for later.
-
-6 Preparing the file to import.
-The file has to be cvs format. Comma seperated format, but we cant use
-commas. The accepted characters are:
-';'  ':'  '-'  '\t'
-You must save the file using one of the above as the seperator.
-On my mac, I used excel to edit the file and bbedit to find and replace
-all ',' with ';' and save in the Unix Unicode UT8 format.
-Your file should look like this:
-
-dialprefix;destination;rate initial;buyrate;initblock
-119370;afghanistan cellular;0.8135;0.3135;30
-1193;afghanistan proper;0.7866;0.2866;30
-1135538;albania cellular;0.7076;0.2076;30
-
-7. Open the a2billing page in your browser. Find Import RateCard.
-'Choose the ratecard to import', 'Choose the trunk to use'.
-'Choose the additionnal field that you want to import from your cvs
-file.'
-Here you will add any additional fields you described in the file.
-Select the field and use the right green arrow to bring over. Do this
-for all fields you have in the file. Make sure they are in the order
-you noted earler. Make any order adjustments by selecting and using the
-red up/down arrows to move.
-
-8 Once you are finished "Choose File" and then "Import RateCard". If
-all is well
-you will see all of your field headers match up. Once you confirm they
-do, hit "Continue to Import the RateCard". (It may ask you to select
-the file again)
-
-9 You will then get a confirmation of how many rates were successfully
-imported.
 
 /////////////////////////////////////////////////////
 
