@@ -302,15 +302,15 @@ $_SESSION["pr_sql_export"]="SELECT $FG_COL_QUERY FROM $FG_TABLE_NAME WHERE $FG_T
 //************************************************************/
 
 
-$QUERY="CREATE TEMPORARY TABLE ASR_CIC_TEMP AS (SELECT substring(t1.starttime,1,10) AS day,case when t1.terminatecause='ANSWER' then 1 else 0 end as success,case when t1.terminatecause ='ANSWER' then 0 else 1 end as fail,0 as maxfail FROM $FG_TABLE_NAME WHERE ".$FG_TABLE_CLAUSE." ORDER BY day)";
+$QUERY="SELECT substring(t1.starttime,1,10) AS day,case when t1.terminatecause='ANSWER' then 1 else 0 end as success,case when t1.terminatecause ='ANSWER' then 0 else 1 end as fail,0 as maxfail FROM $FG_TABLE_NAME WHERE ".$FG_TABLE_CLAUSE." ORDER BY day";
 $max_fail=0;
 $max=0;
 $total_fail_succ=0;
 $total_max_succ=0;
+$totalsuccess=0;
+$totalfail=0;
 $update=array();
 if (!$nodisplay){
-		$res = $DBHandle -> query($QUERY);
-		$QUERY="SELECT * FROM ASR_CIC_TEMP order by day";
 		$res = $DBHandle -> query($QUERY);
 		$num = $res -> numRows();
 		$pos=0;
@@ -347,10 +347,15 @@ if (!$nodisplay){
 
 			if ($asr_cic_list[$i][2]==1){
 				$total_fail_succ++;	
-			}elseif($total_fail_succ > $total_max_succ){
-				$total_max_succ=$total_fail_succ;
+			}else{
+				if($total_fail_succ > $total_max_succ){
+					$total_max_succ=$total_fail_succ;
+				}
 				$total_fail_succ=0;
 			}
+			
+			$totalsuccess+=$asr_cic_list[$i][1];
+			$totalfail+=$asr_cic_list[$i][2];
 		}
 }
 
@@ -879,8 +884,6 @@ if (is_array($list_total_day) && count($list_total_day)>0){
 $mmax=0;
 $totalcall==0;
 $totalminutes=0;
-$totalsuccess=0;
-$totalfail=0;
 foreach ($list_total_day as $data){	
 	if ($mmax < $data[1]) $mmax=$data[1];
 	$totalcall+=$data[3];
@@ -888,12 +891,6 @@ foreach ($list_total_day as $data){
 	$totalcost+=$data[2];
 	$totalbuycost+=$data[4];
 }
-$max_fail=0;
-foreach ($asr_cic_list1 as $asr_cic_data){	
-	$totalsuccess+=$asr_cic_data[1];
-	$totalfail+=$asr_cic_data[2];
-}
-
 ?>
 
 

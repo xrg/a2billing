@@ -40,13 +40,13 @@ $HD_Form -> AddViewElement(gettext("MAX"), "maxvalue", "7%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("MIN"), "minvalue", "7%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("STATUS"), "status", "6%", "center", "sort", "", "list", $actived_list);
 $HD_Form -> AddViewElement(gettext("TRUNK"), "id_trunk", "12%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("CREATION DATE"), "creationdate", "12%", "center", "sort", "22", "", "", "", "", "", "display_dateformat");
+$HD_Form -> AddViewElement(gettext("CREATION DATE"), "datecreate", "12%", "center", "sort", "22", "", "", "", "", "", "display_dateformat");
 
 
 
 
 // added a parameter to append  FG_TABLE_ID  ( by default ) or disable 0.
-$HD_Form -> FieldViewElement ('name, periode, type, maxvalue, minvalue, status, id_trunk, creationdate');
+$HD_Form -> FieldViewElement ('name, periode, type, maxvalue, minvalue, status, id_trunk, datecreate');
 
 
 $HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO ".strtoupper($HD_Form->FG_INSTANCE_NAME)." CREATED!");  
@@ -75,7 +75,7 @@ $HD_Form -> AddEditElement (gettext("NAME"),
 	"",
 	"3",
 	gettext("Insert the alarm name"),
-	"" , "", "", "", "" , "" , "yes" , "");
+	"" , "", "", "", "" , "" , "no" , "");
 
 $HD_Form -> AddEditElement (gettext("PERIOD"),
 	"periode",
@@ -93,7 +93,7 @@ $HD_Form -> AddEditElement (gettext("TYPE"),
 	"",
 	"",
 	"",
-	"list" , "", "", "", $type_list, "%1", "", gettext("aa"));
+	"list" , "", "", "", $type_list, "%1", "");
 
 $HD_Form -> AddEditElement (gettext("MAX VALUE"),
 	"maxvalue",
@@ -102,7 +102,7 @@ $HD_Form -> AddEditElement (gettext("MAX VALUE"),
 	"",
 	"4",
 	gettext("Insert the maximu value in") ,
-	"" , "", "", "yes", "", "", "", gettext("Input the maximum value (between 0 and 1 for ASR /-/ >0 for ALOC in sec /-/ >0 for CIC)"));
+	"" , "", "", "", "", "", "no", gettext("Input the maximum value (between 0 and 1 for ASR /-/ >0 for ALOC in sec /-/ >0 for CIC)"));
 
 $HD_Form -> AddEditElement (gettext("MIN VALUE"),
 	"minvalue",
@@ -111,7 +111,7 @@ $HD_Form -> AddEditElement (gettext("MIN VALUE"),
 	"",
 	"",
 	"",
-	"" , "", "", "", "", "", "", gettext("Input the minimum value (between 0 and 1 for ASR /-/ >=0 for ALOC in sec /-/ >=0 for CIC) or leave empty"));
+	"" , "", "", "", "", "", "no", gettext("Input the minimum value (between 0 and 1 for ASR /-/ >=0 for ALOC in sec /-/ >=0 for CIC) or leave empty"));
 $HD_Form -> AddEditElement(gettext("TRUNK"),
 			   "id_trunk",
 			   '$value',	
@@ -119,7 +119,7 @@ $HD_Form -> AddEditElement(gettext("TRUNK"),
 			   "",	
 			   "",
 			   "",
-			   "" , "", "",	"", "" , "A2B_entity_trunk.php?popup_select=1&", ", 'id_trunk','width=550,height=340,top=20,left=100'", gettext("Set the trunk number or leave empty for all trunk."));
+			   "" , "", "","", "" ,"A2B_entity_trunk.php?popup_select=1&", ", 'NULL','width=550,height=340,top=20,left=100'", gettext("Set the trunk number or leave empty for all trunk."));
 
 $HD_Form -> AddEditElement ("STATUS",
 	"status",
@@ -137,7 +137,7 @@ $HD_Form -> AddEditElement (gettext("EMAIL TO SEND ALARM"),
 	"size=30 maxlength=30",
 	"1",
 	gettext("Insert the email to send the alarm"),
-	"" , "", "", "", "", "" , "yes", "");
+	"" , "", "", "", "", "" , "NO-NULL", "");
 
 
 

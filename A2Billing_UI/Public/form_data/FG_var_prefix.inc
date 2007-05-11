@@ -1,5 +1,5 @@
 <?php
-getpost_ifset(array('id', 'destination','dialprefix','popup_select','popup_formname','popup_fieldname' ));
+getpost_ifset(array('id', 'id_cc_country', 'destination','dialprefix','popup_select','popup_formname','popup_fieldname' ));
 
 $plang='en';
 
@@ -10,12 +10,12 @@ $HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_TABLE_DEFAULT_ORDER = "destination";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "ASC";
 
-
+$HD_Form -> AddViewElement(gettext("Country"), "id_cc_country", "20%", "left", "sort", "", "lie", "cc_country", "countryname", "id=%id","%1");
 $HD_Form -> AddViewElement(gettext("Destination"), "destination", "40%", "left", "sort");
 $HD_Form -> AddViewElement(gettext("Prefix"), "prefixe", "10%", "center", "sort");
 
 // added a parameter to append  FG_TABLE_ID  ( by default ) or disable 0.
-$HD_Form -> FieldViewElement ('destination,prefixe');
+$HD_Form -> FieldViewElement ('id_cc_country,destination,prefixe');
 
 
 $HD_Form -> CV_NO_FIELDS  = gettext("THERE ARE NO ".strtoupper($HD_Form->FG_INSTANCE_NAME)." CREATED!");
@@ -35,7 +35,7 @@ if (!($popup_select==1)){
 	//if ($popup_select==1){
 	//	$HD_Form -> FG_OTHER_BUTTON1_LINK = "javascript:sendValue('|param|');";
 	//}elseif ($popup_select==2){					
-		$HD_Form -> FG_OTHER_BUTTON1_LINK = "javascript:sendValue('|col1|');";
+		$HD_Form -> FG_OTHER_BUTTON1_LINK = "javascript:sendValue('|col2|');";
 	//}	
 	
 }
@@ -48,18 +48,27 @@ $HD_Form -> AddEditElement (gettext("DESTINATION"),
 	"size=30 maxlength=300",
 	"$destination",
 	gettext("Insert the Destination"),
-	"" , "", "", "", "" , "", "" ,"");
+	"" , "", "", "", "" , "", "" ,gettext("Define the destination name  i.e. 441 for UK Landlines"));
+
+$HD_Form -> AddEditElement (gettext("COUNTRY"),
+	"id_cc_country",
+	'$value',
+	"SELECT",
+	"size=1 maxlength=300",
+	"",
+	"",
+	"SQL" , "cc_country", "countryname, id", "", "" , "%1", "" ,"");
 
 $HD_Form -> AddEditElement (gettext("PREFIX"),
-	"prefix",
+	"prefixe",
 	'$value',
 	"INPUT",
 	"size=30 maxlength=300",
 	"$dialprefix",
 	gettext("Insert the Prefixe"),
-	"" , "", "", "", "" , "", "" ,"");
+	"" , "", "", "", "" , "", "" ,gettext("Define the destination prefix"));
 
-$HD_Form -> FieldEditElement ('destination,prefixe');
+$HD_Form -> FieldEditElement ('destination,id_cc_country,prefixe');
 
 
 
