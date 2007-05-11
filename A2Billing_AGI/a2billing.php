@@ -839,7 +839,7 @@
 			$A2B -> write_log("[callingcard_acct_start_inuse]");
 			
 			$A2B->callingcard_auto_setcallerid($agi);
-			$A2B->callingcard_acct_start_inuse($agi,1);
+			//$A2B->callingcard_acct_start_inuse($agi,1);
 			
 			for ($i=0;$i< $A2B->agiconfig['number_try'] ;$i++){
 						
@@ -961,7 +961,7 @@
 			$A2B -> write_log("[callingcard_acct_start_inuse]");
 			
 			$A2B->callingcard_auto_setcallerid($agi);
-			$A2B->callingcard_acct_start_inuse($agi,1);
+			//$A2B->callingcard_acct_start_inuse($agi,1);
 			
 			for ($i=0;$i< $A2B -> config["callback"]['nb_predictive_call'] ;$i++){
 			

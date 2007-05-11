@@ -34,8 +34,9 @@ CREATE TABLE cc_did_use (
     reservationdate TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     releasedate TIMESTAMP,
     activated INT DEFAULT 0,
-    month_payed INT DEFAULT 0
-)
+    month_payed INT DEFAULT 0,
+    PRIMARY KEY (id)
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
 CREATE TABLE cc_did (
     id BIGINT NOT NULL AUTO_INCREMENT,	
@@ -1163,20 +1164,15 @@ CREATE TABLE cc_autorefill_report (
 
 
 
-
 -- cc_prefix Table	
 
 CREATE TABLE cc_prefix (
 	id BIGINT NOT NULL AUTO_INCREMENT,
 	prefixe VARCHAR(50) NOT NULL,
-	destination VARCHAR(100) NOT NULL
-	PRIMARY KEY ( id ),
+	destination VARCHAR(100) NOT NULL,
+	PRIMARY KEY (id)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
-ALTER TABLE ONLY cc_prefix
-    ADD CONSTRAINT cc_prefix_pkey PRIMARY KEY (id)
-	
-	
 
 INSERT INTO cc_prefix (destination,prefixe) VALUES ('Afghanistan','93');
 INSERT INTO cc_prefix (destination,prefixe) VALUES ('Albania','355');

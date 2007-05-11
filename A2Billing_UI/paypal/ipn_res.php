@@ -92,9 +92,10 @@ switch( $paypal_ipn->get_payment_status() )
 					$result_query = $instance_sub_table -> Add_table ($DBHandle, $value_insert, null, null);	
 					
 					if (!$result_query ){									
-						$paypal_ipn->error_out("[item_number:$item_number] - This was a duplicate transaction or wrong sql (cc_paypal -> $field_insert|$value_insert) error:".$instance_sub_table -> errstr, $em_headers);							
+						$paypal_ipn->error_out("[item_number:$item_number] - This was a duplicate transaction or wrong sql (cc_paypal -> $field_insert|$value_insert) error:".$instance_sub_table -> errstr, $em_headers);
+						break;
 					}else{
-						$paypal_ipn->error_out("This was a successful transaction", $em_headers);	
+						$paypal_ipn->error_out("[item_number:$item_number] -This was a successful transaction", $em_headers);	
 					}
 					
 				$cardnumber = $item_number;
@@ -125,8 +126,7 @@ switch( $paypal_ipn->get_payment_status() )
 					$field_insert = "date, payment, card_id";
 					$value_insert = "now(), '$addcredit', '$id'";
 					$instance_sub_table = new Table("cc_logpayment", $field_insert);			
-					$result_query = $instance_sub_table -> Add_table ($DBHandle, $value_insert, null, null);
-			
+					$result_query = $instance_sub_table -> Add_table ($DBHandle, $value_insert, null, null);		
 				
 				}
 				
