@@ -65,7 +65,19 @@ switch($transaction_data[0][4])
 		$header .= "POST /cgi-bin/webscr HTTP/1.0\r\n";
 		$header .= "Content-Type: application/x-www-form-urlencoded\r\n";
 		$header .= "Content-Length: " . strlen ($req) . "\r\n\r\n";
-		$fp = fsockopen ("www.sandbox.paypal.com", 80, $errno, $errstr, 30);
+		for ($i = 1; $i <=3; $i++)
+		{
+			$fp = fsockopen (PAYPAL_VERIFY_URL, 80, $errno, $errstr, 30);
+			if($fp)
+			{	
+				break;
+			}
+			else
+			{
+				write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__." -Try#".$i." Failed to open HTTP Connection : ".$errstr.". Error Code: ".$errno);
+				sleep(10);
+			}
+		}		
 		if (!$fp) 
 		{
 			write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."Failed to open HTTP Connection: ".$errstr.". Error Code: ".$errno);
