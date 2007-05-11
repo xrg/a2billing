@@ -158,4 +158,6 @@
 
 		return $currencies_list;
 	}
+	define ("WEBUI_DATE", 'Release : Somewhere in November 2006');
+	define ("WEBUI_VERSION", 'Asterisk2Billing - Version 1.2.4 (Yellowjacket) ');
 ?>

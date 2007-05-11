@@ -236,4 +236,7 @@
 		$_SESSION["stylefile"] = $cssname;
 	}
 	
+	define ("WEBUI_DATE", 'Release : Somewhere in November 2006');
+	define ("WEBUI_VERSION", 'Asterisk2Billing - Version 1.2.4 (Yellowjacket) ');
+	include (FSROOT."lib/help.php");
 ?>

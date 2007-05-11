@@ -37,8 +37,8 @@
 
 	$charge_callback=0;
 	$G_startime = time();
-	$agi_date = "Release : 13 August 2006";
-	$agi_version = "1.2.3 (BrainCoral)";
+	$agi_date = "Release : Somewhere in November 2006";
+	$agi_version = "Asterisk2Billing - Version 1.2.4 (Yellowjacket)";
 	
 	if ($argc > 1 && ($argv[1] == '--version' || $argv[1] == '-v'))
 	{
