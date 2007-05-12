@@ -209,9 +209,8 @@ define ("LOGFILE_EPAYMENT",isset($A2B->config['log-files']['epayment'])?$A2B->co
 define ("SIP_IAX_INFO_TRUNKNAME",isset($A2B->config['sip-iax-info']['sip_iax_info_trunkname'])?$A2B->config['sip-iax-info']['sip_iax_info_trunkname']:null);
 define ("SIP_IAX_INFO_ALLOWCODEC",isset($A2B->config['sip-iax-info']['sip_iax_info_allowcodec'])?$A2B->config['sip-iax-info']['sip_iax_info_allowcodec']:null);
 define ("SIP_IAX_INFO_HOST",isset($A2B->config['sip-iax-info']['sip_iax_info_host'])?$A2B->config['sip-iax-info']['sip_iax_info_host']:null);
-define ("SIP_IAX_INFO_TRUSTRPID",isset($A2B->config['sip-iax-info']['sip_iax_info_trustrpid'])?$A2B->config['sip-iax-info']['sip_iax_info_trustrpid']:null);
-define ("SIP_IAX_INFO_SENDRPID",isset($A2B->config['sip-iax-info']['sip_iax_info_sendrpid'])?$A2B->config['sip-iax-info']['sip_iax_info_sendrpid']:null);
-define ("SIP_IAX_INFO_CANREINVITE",isset($A2B->config['sip-iax-info']['sip_iax_info_canreinvite'])?$A2B->config['sip-iax-info']['sip_iax_info_canreinvite']:null);
+define ("IAX_ADDITIONAL_PARAMETERS",isset($A2B->config['sip-iax-info']['iax_additional_parameters'])?$A2B->config['sip-iax-info']['iax_additional_parameters']:null);
+define ("SIP_ADDITIONAL_PARAMETERS",isset($A2B->config['sip-iax-info']['sip_additional_parameters'])?$A2B->config['sip-iax-info']['sip_additional_parameters']:null);
 
 //Images Path
 define ("Images_Path","./templates/".$_SESSION["stylefile"]."/images");

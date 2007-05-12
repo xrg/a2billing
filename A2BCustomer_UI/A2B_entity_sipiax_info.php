@@ -26,18 +26,21 @@ $table_instance = new Table();
 if($configtype == "IAX")
 {
 	$config_name = gettext("IAX Config");
-	$config_file = gettext("iax.config");
+	$config_file = gettext("iax.conf");
 	$QUERY = "SELECT iax.id, iax.username, iax.secret, iax.disallow, iax.allow, iax.type, iax.host, iax.context FROM cc_iax_buddies iax WHERE iax.id_cc_card = ".$_SESSION["card_id"];	
 
 }
 else
 {
 	$config_name = gettext("SIP Config");
-	$config_file = gettext("sip.config");
+	$config_file = gettext("sip.conf");
 	$QUERY = "SELECT sip.id, sip.username, sip.secret, sip.disallow, sip.allow, sip.type, sip.host, sip.context FROM cc_sip_buddies sip where sip.id_cc_card = ".$_SESSION["card_id"];
 }
-
 $sip_iax_data = $table_instance->SQLExec ($DBHandle, $QUERY);
+
+//Additonal parameters
+$additional_sip = explode("|", SIP_ADDITIONAL_PARAMETERS);
+$additional_iax = explode("|", IAX_ADDITIONAL_PARAMETERS);
 
 // #### HEADER SECTION
 $smarty->display('main.tpl');
@@ -58,7 +61,7 @@ $smarty->display('main.tpl');
                                       </tr>
                                       <tr>
 
-                                        <td bgcolor="#FFFFFF" class="fontstyle_006">&nbsp;<?php echo gettext("Configuration type")?> </td>
+                                        <td bgcolor="#FFFFFF" class="fontstyle_006">&nbsp;<?php echo gettext("CONFIGURATION TYPE")?> </td>
                                         <td bgcolor="#FFFFFF" class="fontstyle_006"><form name="form1" method="post" action="">
                                            <select name="configtype" id="col_configtype" onChange="window.document.form1.elements['PMChange'].value='Change';window.document.form1.submit();">
                                              <option value="IAX" <?php if($configtype == "IAX")echo "selected"?>><?php echo gettext("IAX")?></option>
@@ -83,17 +86,20 @@ secret=<?php echo $sip_iax_data[0][2]?>
 host=<?php echo SIP_IAX_INFO_HOST; ?>
 disallow=all
 context=from-trunk ; change for proper context
-canreinvite=<?php if (SIP_IAX_INFO_CANREINVITE){ echo "yes"; }else{ echo "no"; } ?>
-
 allow=<?php echo SIP_IAX_INFO_ALLOWCODEC?> ; we support ulaw,alaw,ilbc,gsm,g723.1,g726,g729a
+<?php 
+if (count($additional_iax) > 0)
+{
+	for ($i = 0; $i< count($additional_iax); $i++)
+	{
+		echo trim($additional_iax[$i]).chr(10);
+	}
+}		
+?>
 <?php }else{ ?>[<?php echo SIP_IAX_INFO_TRUNKNAME; ?>]
 username=<?php echo $sip_iax_data[0][1]?>
 
 type=friend
-trustrpid= <?php if (SIP_IAX_INFO_TRUSTRPID){ echo "yes"; }else{ echo "no"; } ?>
-
-sendrpid=<?php if (SIP_IAX_INFO_SENDRPID){ echo "yes"; }else{ echo "no"; } ?>
-
 secret=<?php echo $sip_iax_data[0][2]?>
 
 host=<?php echo SIP_IAX_INFO_HOST; ?>
@@ -101,9 +107,16 @@ host=<?php echo SIP_IAX_INFO_HOST; ?>
 fromuser=<?php echo $sip_iax_data[0][1]?>
 
 context=from-trunk ; change for proper context
-canreinvite=<?php if (SIP_IAX_INFO_CANREINVITE){ echo "yes"; }else{ echo "no"; } ?>
-
 allow=<?php echo SIP_IAX_INFO_ALLOWCODEC?> ; we support ulaw,alaw,ilbc,gsm,g723.1,g726,g729a
+<?php 
+if (count($additional_sip) > 0)
+{
+	for ($i = 0; $i< count($additional_sip); $i++)
+	{
+		echo trim($additional_sip[$i]).chr(10);
+	}
+}		
+?>
 <?php } ?>
 </textarea>
 <br><br>
