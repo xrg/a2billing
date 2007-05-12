@@ -229,12 +229,21 @@ if (isset($customer)  &&  ($customer>0)){
 	}
 }
 
-//echo $FG_TABLE_CLAUSE;
-//exit;
+$FG_TABLE_CLAUSE_NORMAL = $FG_TABLE_CLAUSE ." AND t1.sipiax not in (2,3)";
+
 if (!$nodisplay){
-	$list = $instance_table -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, $order, $sens, null, null, $FG_LIMITE_DISPLAY, $current_page*$FG_LIMITE_DISPLAY);
+	$list = $instance_table -> Get_list ($DBHandle, $FG_TABLE_CLAUSE_NORMAL, $order, $sens, null, null, $FG_LIMITE_DISPLAY, $current_page*$FG_LIMITE_DISPLAY);
 }
+
+$FG_TABLE_CLAUSE_DID = $FG_TABLE_CLAUSE ." AND t1.sipiax in (2,3)";
+
+if (!$nodisplay){
+	$list_did = $instance_table -> Get_list ($DBHandle, $FG_TABLE_CLAUSE_DID, $order, $sens, null, null, $FG_LIMITE_DISPLAY, $current_page*$FG_LIMITE_DISPLAY);
+}
+
+
 $_SESSION["pr_sql_export"]="SELECT $FG_COL_QUERY FROM $FG_TABLE_NAME WHERE $FG_TABLE_CLAUSE";
+
 
 /************************/
 //$QUERY = "SELECT substring(calldate,1,10) AS day, sum(duration) AS calltime, count(*) as nbcall FROM cdr WHERE ".$FG_TABLE_CLAUSE." GROUP BY substring(calldate,1,10)"; //extract(DAY from calldate)
@@ -244,17 +253,19 @@ $QUERY = "SELECT substring(t1.starttime,1,10) AS day, sum(t1.sessiontime) AS cal
 //echo "$QUERY";
 
 if (!$nodisplay){
-		$res = $DBHandle -> query($QUERY);
-		$num = $res -> numRows();
-		for($i=0;$i<$num;$i++)
-		{				
-			$list_total_day [] =$res -> fetchRow();				 
+		$res = $DBHandle -> Execute($QUERY);
+		if ($res){
+			$num = $res -> RecordCount();
+			for($i=0;$i<$num;$i++)
+			{				
+				$list_total_day [] =$res -> fetchRow();				 
+			}
 		}
 
 
-
 if ($FG_DEBUG == 3) echo "<br>Clause : $FG_TABLE_CLAUSE";
-$nb_record = $instance_table -> Table_count ($DBHandle, $FG_TABLE_CLAUSE);
+$nb_record = $instance_table -> Table_count ($DBHandle, $FG_TABLE_CLAUSE_NORMAL);
+$nb_record_did = $instance_table -> Table_count ($DBHandle, $FG_TABLE_CLAUSE_DID);
 if ($FG_DEBUG >= 1) var_dump ($list);
 
 }//end IF nodisplay
@@ -267,13 +278,14 @@ $QUERY = "SELECT destination, sum(t1.sessiontime) AS calltime,
 sum(t1.sessionbill) AS cost, count(*) as nbcall FROM $FG_TABLE_NAME WHERE ".$FG_TABLE_CLAUSE." GROUP BY destination";
 
 if (!$nodisplay){
-		$res = $DBHandle -> query($QUERY);
-		$num = $res -> numRows();
-		for($i=0;$i<$num;$i++)
-		{				
-			$list_total_destination [] =$res -> fetchRow();				 
+		$res = $DBHandle -> Execute($QUERY);
+		if ($res){
+			$num = $res -> RecordCount();
+			for($i=0;$i<$num;$i++)
+			{				
+				$list_total_destination [] =$res -> fetchRow();				 
+			}
 		}
-
 
 if ($FG_DEBUG == 3) echo "<br>Clause : $FG_TABLE_CLAUSE";
 if ($FG_DEBUG >= 1) var_dump ($list_total_destination);
@@ -355,13 +367,14 @@ $QUERY = "SELECT substring(t1.creationdate,1,10) AS day, sum(t1.amount) AS cost,
 
 
 if (!$nodisplay){	
-		$res = $DBHandle -> query($QUERY);
-		$num = $res -> numRows();
-		for($i=0;$i<$num;$i++)
-		{				
-			$list_total_day_charge [] =$res -> fetchRow();				 
+		$res = $DBHandle -> Execute($QUERY);
+		if ($res){
+			$num = $res -> RecordCount();
+			for($i=0;$i<$num;$i++)
+			{				
+				$list_total_day_charge [] =$res -> fetchRow();				 
+			}
 		}
-
 		if ($FG_DEBUG >= 1) var_dump ($list_total_day_charge);
 
 }//end IF nodisplay
@@ -385,11 +398,9 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 
 function formsubmit()
 {
-alert('I am in function');
 	if(document.calldataform.exporttype[1].checked == true)
 	{
-		document.calldataform.action="A2B_entity_call_details1.php?s=1&t=0&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php echo $current_page?>";
-		
+		document.calldataform.action="A2B_entity_call_details1.php?s=1&t=0&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php echo $current_page?>";		
 	}
 	if(document.calldataform.exporttype[0].checked == true)
 	{
@@ -757,13 +768,13 @@ alert('I am in function');
 	  
 	  <table width="100%" align="left" cellpadding="0" cellspacing="0">
    				<tr>
-				<td colspan="100" align="center"><font><b>DID Calls :: No of Calls:&nbsp;<?php  if (is_array($list) && count($list)>0){ echo $nb_record; }else{echo "0";}?></center></b></font> </td>
+				<td colspan="100" align="center"><font><b>DID Calls :: No of Calls:&nbsp;<?php  if (is_array($list_did) && count($list_did)>0){ echo $nb_record_did; }else{echo "0";}?></center></b></font> </td>
 				</tr>
 
 			<tr class="invoice_subheading">
               <td class="invoice_td" width="5%">nb </td>
 			   <?php 
-				  	if (is_array($list) && count($list)>0)
+				  	if (is_array($list_did) && count($list_did)>0)
 					{
 					
 				  		for($i=0;$i<$FG_NB_TABLE_COL;$i++)
@@ -785,7 +796,7 @@ alert('I am in function');
 			
 			<?php
 				  	 $ligne_number=0;					 
-				  	 foreach ($list as $recordset)
+				  	 foreach ($list_did as $recordset)
 					 { 
 						 $ligne_number++;
 			?>

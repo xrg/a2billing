@@ -4,8 +4,7 @@ getpost_ifset(array('id', 'username', 'useralias', 'uipass', 'credit', 'language
 'id_didgroup', 'id_campaign', 'callback', 'activated','simultaccess', 'currency','typepaid', 'creditlimit',
 'lastname', 'firstname', 'email', 'address','city', 'state', 'country', 'zipcode', 'phone', 'fax', 'inuse',
 'cid', 'runservice', 'firstusedate','expirationdate', 'enableexpire', 'expiredays', 'sip_buddy',
-'iax_buddy','popup_select', 'vat', 'autorefill', 'initialbalance'));
-
+'iax_buddy','popup_select', 'vat', 'autorefill', 'initialbalance', 'id_subscription_fee'));
 
 
 $HD_Form = new FormHandler("cc_card","Card");
@@ -248,6 +247,17 @@ $HD_Form -> AddEditElement (gettext("TARIFFGROUP"),
 			   "", "", "%1", "", "");
 
 
+$HD_Form -> AddEditElement (gettext("SUBSCRIPTION FEE"),
+			   "id_subscription_fee",
+			   "",
+			   "SELECT",
+			   "", "", "",
+			   "sql",
+			   "cc_subscription_fee",
+			   "label, id",
+			   "", "", "%1", "", "", "", '<OPTION  value="-1" selected>'.gettext("NOT DEFINED").'</OPTION>' );
+
+
 $HD_Form -> AddEditElement (gettext("DIDGROUP"),
 			   "id_didgroup",
 			   "",
@@ -418,6 +428,7 @@ $HD_Form -> AddEditElement (gettext("EXPIRY DAYS"),
 			   gettext("Insert the number of days after which the card will expire"),
 			   "" , "", "",	"", "", "", "", gettext("The number of days after which the card will expire."));
 
+
 $HD_Form -> AddEditElement (gettext("VAT"),
 			   "vat",
 			   "",
@@ -572,7 +583,7 @@ $HD_Form -> AddEditElement (gettext("CALLERID"),
 
 
 
-$HD_Form -> FieldEditElement ('username, useralias, uipass, credit, language, tariff, id_didgroup, id_campaign,'.
+$HD_Form -> FieldEditElement ('username, useralias, uipass, credit, language, tariff, id_subscription_fee, id_didgroup, id_campaign,'.
 'callback, activated, activatedbyuser, simultaccess, currency, runservice, autorefill, initialbalance, typepaid, creditlimit,	firstusedate, enableexpire,'.
 'expirationdate, expiredays, vat, lastname, firstname, email, address, city, state, country, zipcode, phone,'.
 'fax, sip_buddy, iax_buddy, inuse');

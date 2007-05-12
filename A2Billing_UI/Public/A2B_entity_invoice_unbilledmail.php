@@ -17,11 +17,12 @@ if($cardid == "")
 }
 
 $DBHandle = DbConnect();
-
+$num = 0;
 $QUERY = "Select username from cc_card t1 where t1.id = $cardid";
-$res_user = $DBHandle -> query($QUERY);
+$res_user = $DBHandle -> Execute($QUERY);
+if ($res_user)
+	$num = $res_user -> RecordCount( );
 
-$num = $res_user -> numRows();
 if($num > 0)
 {
 	$userRecord = $res_user -> fetchRow();				 
@@ -262,11 +263,13 @@ else
 //echo "$QUERY";
 
 if (!$nodisplay){		
-		$res = $DBHandle -> query($QUERY);
-		$num = $res -> numRows();
-		for($i=0;$i<$num;$i++)
-		{				
-			$list_total_day [] =$res -> fetchRow();				 
+		$res = $DBHandle -> Execute($QUERY);
+		if ($res){
+			$num = $res -> RecordCount( );
+			for($i=0;$i<$num;$i++)
+			{					
+				$list_total_day [] =$res -> fetchRow();				 
+			}
 		}
 
 
@@ -295,11 +298,13 @@ else
 
 } 
 if (!$nodisplay){
-		$res = $DBHandle -> query($QUERY);
-		$num = $res -> numRows();
-		for($i=0;$i<$num;$i++)
-		{				
-			$list_total_destination [] =$res -> fetchRow();				 
+		$res = $DBHandle -> Execute($QUERY);
+		if ($res){
+			$num = $res -> RecordCount( );
+			for($i=0;$i<$num;$i++)
+			{				
+				$list_total_destination [] =$res -> fetchRow();				 
+			}
 		}
 
 
@@ -325,11 +330,13 @@ $QUERY = "SELECT t1.id_did, t2.fixrate, t2.billingtype, sum(t1.sessiontime) AS c
  
 if (!$nodisplay)
 {
-	$res = $DBHandle -> query($QUERY);	
-	$num = $res -> numRows();
-	for($i=0;$i<$num;$i++)
-	{				
-		$list_total_did [] =$res -> fetchRow();
+	$res = $DBHandle -> Execute($QUERY);	
+	if ($res){
+		$num = $res -> RecordCount( );
+		for($i=0;$i<$num;$i++)
+		{				
+			$list_total_did [] =$res -> fetchRow();
+		}
 	}
 	if ($FG_DEBUG >= 1) var_dump ($list_total_did);
 }//end IF nodisplay
@@ -414,11 +421,13 @@ else
 }
 
 if (!$nodisplay){
-		$res = $DBHandle -> query($QUERY);
-		$num = $res -> numRows();
-		for($i=0;$i<$num;$i++)
-		{				
-			$list_total_day_charge [] =$res -> fetchRow();				 
+		$res = $DBHandle -> Execute($QUERY);
+		if ($res){
+			$num = $res -> RecordCount( );
+			for($i=0;$i<$num;$i++)
+			{				
+				$list_total_day_charge [] =$res -> fetchRow();				 
+			}
 		}
 
 		if ($FG_DEBUG >= 1) var_dump ($list_total_day_charge);

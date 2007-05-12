@@ -96,7 +96,7 @@ require_once('SOAP/Disco.php');
 				 " values ('$uniqueid', '$status', '$server_ip', '$num_attempt', '$channel', '$exten', '$context', '$priority', '$variable')";
 		}
 		
-		$res = $DBHandle -> query($QUERY);
+		$res = $DBHandle -> Execute($QUERY);
 		if (!$res){
 			write_log(basename(__FILE__).' line:'.__LINE__."[" . date("Y/m/d G:i:s", mktime()) . "] "." ERROR INSERT INTO DB");
 			sleep(2);

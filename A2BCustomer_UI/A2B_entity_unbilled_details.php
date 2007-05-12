@@ -242,13 +242,14 @@ $QUERY = "SELECT substring(t1.starttime,1,10) AS day, sum(t1.sessiontime) AS cal
 //echo "$QUERY";
 
 if (!$nodisplay){		
-		$res = $DBHandle -> query($QUERY);
-		$num = $res -> numRows();
-		for($i=0;$i<$num;$i++)
-		{				
-			$list_total_day [] =$res -> fetchRow();				 
+		$res = $DBHandle -> Execute($QUERY);
+		if ($res){
+			$num = $res -> RecordCount();
+			for($i=0;$i<$num;$i++)
+			{				
+				$list_total_day [] =$res -> fetchRow();				 
+			}
 		}
-
 
 
 if ($FG_DEBUG == 3) echo "<br>Clause : $FG_TABLE_CLAUSE";
@@ -272,12 +273,15 @@ $QUERY = "SELECT t1.id_did, t2.fixrate, t2.billingtype, sum(t1.sessiontime) AS c
  
 if (!$nodisplay)
 {
-	$res = $DBHandle -> query($QUERY);	
-	$num = $res -> numRows();
-	for($i=0;$i<$num;$i++)
-	{				
-		$list_total_did [] =$res -> fetchRow();
+	$res = $DBHandle -> Execute($QUERY);	
+	if ($res){	
+		$num = $res -> RecordCount();
+		for($i=0;$i<$num;$i++)
+		{				
+			$list_total_did [] =$res -> fetchRow();
+		}
 	}
+
 	if ($FG_DEBUG >= 1) var_dump ($list_total_did);
 }//end IF nodisplay
 
@@ -294,13 +298,14 @@ $QUERY = "SELECT destination, sum(t1.sessiontime) AS calltime,
 sum(t1.sessionbill) AS cost, count(*) as nbcall FROM $FG_TABLE_NAME WHERE ".$FG_TABLE_CLAUSE." AND t1.sipiax not in (2,3) GROUP BY destination";
 
 if (!$nodisplay){
-		$res = $DBHandle -> query($QUERY);
-		$num = $res -> numRows();
-		for($i=0;$i<$num;$i++)
-		{				
-			$list_total_destination [] =$res -> fetchRow();				 
+		$res = $DBHandle -> Execute($QUERY);
+		if ($res){
+			$num = $res -> RecordCount();	
+			for($i=0;$i<$num;$i++)
+			{				
+				$list_total_destination [] =$res -> fetchRow();				 
+			}
 		}
-
 
 if ($FG_DEBUG == 3) echo "<br>Clause : $FG_TABLE_CLAUSE";
 if ($FG_DEBUG >= 1) var_dump ($list_total_destination);
@@ -382,11 +387,13 @@ $QUERY = "SELECT substring(t1.creationdate,1,10) AS day, sum(t1.amount) AS cost,
 
 
 if (!$nodisplay){
-		$res = $DBHandle -> query($QUERY);
-		$num = $res -> numRows();
-		for($i=0;$i<$num;$i++)
-		{				
-			$list_total_day_charge [] =$res -> fetchRow();				 
+		$res = $DBHandle -> Execute($QUERY);
+		if ($res){
+			$num = $res -> RecordCount();
+			for($i=0;$i<$num;$i++)
+			{				
+				$list_total_day_charge [] =$res -> fetchRow();				 
+			}
 		}
 
 		if ($FG_DEBUG >= 1) var_dump ($list_total_day_charge);
@@ -681,25 +688,33 @@ if (is_array($list_total_did) && count($list_total_did)>0)
             </tr>
 			<?php  		
 				$i=0;				
-				foreach ($list_total_did as $data){	
-				$fcost = 0;
-				$ccost = 0;
-				$i=($i+1)%2;		
-				$tmc = $data[3]/$data[5];
-				
-				if ((!isset($resulttype)) || ($resulttype=="min")){  
-					$tmc = sprintf("%02d",intval($tmc/60)).":".sprintf("%02d",intval($tmc%60));		
-				}else{
-				
-					$tmc =intval($tmc);
-				}
-				
-				if ((!isset($resulttype)) || ($resulttype=="min")){  
-						$minutes = sprintf("%02d",intval($data[3]/60)).":".sprintf("%02d",intval($data[3]%60));
-				}else{
+				if (is_array($list_total_did) && count($list_total_did)>0)
+				{
+					foreach ($list_total_did as $data)
+					{	
+					$fcost = 0;
+					$ccost = 0;
+					$i=($i+1)%2;		
+					$tmc = $data[3]/$data[5];
+					
+					if ((!isset($resulttype)) || ($resulttype=="min"))
+					{  
+						$tmc = sprintf("%02d",intval($tmc/60)).":".sprintf("%02d",intval($tmc%60));		
+					}
+					else
+					{				
+						$tmc =intval($tmc);
+					}
+					
+					if ((!isset($resulttype)) || ($resulttype=="min"))
+					{  
+							$minutes = sprintf("%02d",intval($data[3]/60)).":".sprintf("%02d",intval($data[3]%60));
+					}
+					else
+					{
 						$minutes = $data[3];
-				}
-				if ($mmax>0) 	$widthbar= intval(($data[3]/$mmax)*200); 
+					}
+					if ($mmax>0) 	$widthbar= intval(($data[3]/$mmax)*200); 
 			
 			?>
 			 <tr class="invoice_rows">
@@ -733,14 +748,18 @@ if (is_array($list_total_did) && count($list_total_did)>0)
 			  ?></td>
               <td width="25%" align="right" class="invoice_td"><?php  display_2bill($ccost + $fcost) ?></td>
             </tr>
-			 <?php 	 }	 	 	
-	 	
-				if ((!isset($resulttype)) || ($resulttype=="min")){  				
-					$total_tmc = sprintf("%02d",intval(($totalminutes_did/$totalcall_did)/60)).":".sprintf("%02d",intval(($totalminutes_did/$totalcall_did)%60));				
-					$totalminutes_did = sprintf("%02d",intval($totalminutes_did/60)).":".sprintf("%02d",intval($totalminutes_did%60));
-				}else{
-					$total_tmc = intval($totalminutes_did/$totalcall_did);			
-				}			 
+			 <?php
+					}	 	 	
+			
+					if ((!isset($resulttype)) || ($resulttype=="min")){  				
+						$total_tmc = sprintf("%02d",intval(($totalminutes_did/$totalcall_did)/60)).":".sprintf("%02d",intval(($totalminutes_did/$totalcall_did)%60));				
+						$totalminutes_did = sprintf("%02d",intval($totalminutes_did/60)).":".sprintf("%02d",intval($totalminutes_did%60));
+					}else{
+						$total_tmc = intval($totalminutes_did/$totalcall_did);			
+					}
+					
+				
+								
 			 ?>   
 			 <tr >
               <td width="18%" class="invoice_td">&nbsp;</td>
@@ -757,7 +776,19 @@ if (is_array($list_total_did) && count($list_total_did)>0)
 			  <td width="17%" class="invoice_td"><?php echo $totalcall_did?> </td>
 			  <td width="10%" class="invoice_td">&nbsp;</td>
               <td width="25%" align="right" class="invoice_td"><?php  display_2bill($totalcost_did) ?> </td>
-            </tr>            
+            </tr> 
+			<?php
+			
+			}else
+			{								
+			 ?>   
+			  <tr >
+              <td width="100%" class="invoice_td" colspan="6">&nbsp; No DID Calls Available</td>             
+			  
+            </tr>          
+			 <?php			 
+			 }
+			 ?>
             <tr >
               <td width="18%">&nbsp;</td>
               <td width="15%">&nbsp;</td>

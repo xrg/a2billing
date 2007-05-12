@@ -115,11 +115,10 @@ function login ($user, $pass) {
 	global $DBHandle;
 	$user = trim($user);
 	$pass = trim($pass);
-	if (strlen($user)==0 || strlen($user)>=20 || strlen($pass)==0 || strlen($pass)>=20) return false;
+	if (strlen($user)==0 || strlen($user)>=50 || strlen($pass)==0 || strlen($pass)>=50) return false;
 
-	$QUERY = "SELECT username, credit, activated, id, id_didgroup, tariff, vat, activatedbyuser FROM cc_card WHERE useralias = '".$user."' AND uipass = '".$pass."'";
-
-	$res = $DBHandle -> query($QUERY);
+	$QUERY = "SELECT username, credit, activated, id, id_didgroup, tariff, vat, activatedbyuser FROM cc_card WHERE (email = '".$user."' OR useralias = '".$user."') AND uipass = '".$pass."'"; 
+	$res = $DBHandle -> Execute($QUERY);
 
 	if (!$res) {
 		$errstr = $DBHandle->ErrorMsg();

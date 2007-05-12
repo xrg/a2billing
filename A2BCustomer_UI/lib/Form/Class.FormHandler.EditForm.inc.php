@@ -23,7 +23,7 @@ function sendtolittle(direction){
 </script>
 
 
-<table width="95%" border="0" cellpadding="3" cellspacing="2" bgcolor="#EAEAEA" align="center">
+<table class="editform_table1" cellspacing="2">
 			
 	<FORM action=<?php echo $_SERVER['PHP_SELF']?> method=post name="myForm" id="myForm"> 
 		<INPUT type="hidden" name="id" value="<?php echo $id?>">
@@ -80,19 +80,19 @@ function sendtolittle(direction){
 				<INPUT class="form_enter" name=<?php echo $this->FG_TABLE_EDITION[$i][1]?>  <?php echo $this->FG_TABLE_EDITION[$i][4]?> value="<?
 					if($this->VALID_SQL_REG_EXP){ 
 						echo stripslashes($list[0][$i]);
-					}else{ echo $this->FG_TABLE_ADITION[$i][2]; }?>">
+					}else{ echo $_POST[$this->FG_TABLE_ADITION[$i][1]]; }?>">
                                 	<a href="#" onclick="window.open('<?php echo $this->FG_TABLE_EDITION[$i][12]?>popup_formname=myForm&popup_fieldname=<?php echo $this->FG_TABLE_EDITION[$i][1]?>' <?php echo $this->FG_TABLE_EDITION[$i][13]?>);"><img src="<?php echo Images_Path_Main;?>/icon_arrow_orange.gif"/></a>
 			 <?php
 				}elseif (strtoupper ($this -> FG_TABLE_EDITION[$i][3])==strtoupper ("POPUPVALUETIME"))
 				{
                         ?>
-                        <INPUT class="form_enter" name=<?php echo $this->FG_TABLE_EDITION[$i][1]?>  <?php echo $this->FG_TABLE_EDITION[$i][4]?> value="<?php if($this->VALID_SQL_REG_EXP){ echo stripslashes($list[0][$i]); }else{ echo $this->FG_TABLE_ADITION[$i][1]; }?>">
+                        <INPUT class="form_enter" name=<?php echo $this->FG_TABLE_EDITION[$i][1]?>  <?php echo $this->FG_TABLE_EDITION[$i][4]?> value="<?php if($this->VALID_SQL_REG_EXP){ echo stripslashes($list[0][$i]); }else{ echo $_POST[$this->FG_TABLE_ADITION[$i][1]]; }?>">
                          <a href="#" onclick="window.open('<?php echo $this->FG_TABLE_EDITION[$i][14]?>formname=myForm&fieldname=<?php echo $this->FG_TABLE_EDITION[$i][1]?>' <?php echo $this->FG_TABLE_EDITION[$i][14]?>);"><img src="<?php echo Images_Path_Main;?>/icon_arrow_orange.gif"/></a>
                         <?php
 				}elseif (strtoupper ($this->FG_TABLE_EDITION[$i][3])==strtoupper ("POPUPDATETIME"))
 				{
                         ?>
-                         <INPUT class="form_enter" name=<?php echo $this->FG_TABLE_EDITION[$i][1]?>  <?php echo $this->FG_TABLE_EDITION[$i][4]?> value="<?php if($this->VALID_SQL_REG_EXP){ echo stripslashes($list[0][$i]); }else{ echo $this->FG_TABLE_ADITION[$i][1]; }?>">
+                         <INPUT class="form_enter" name=<?php echo $this->FG_TABLE_EDITION[$i][1]?>  <?php echo $this->FG_TABLE_EDITION[$i][4]?> value="<?php if($this->VALID_SQL_REG_EXP){ echo stripslashes($list[0][$i]); }else{ echo $_POST[$this->FG_TABLE_ADITION[$i][1]]; }?>">
                           <a href="javascript:cal<?php echo $this->FG_TABLE_EDITION[$i][1]?>.popup();"><img src="img/cal.gif" width="16" height="16" border="0" title="Click Here to Pick up the date" alt="Click Here to Pick up the date"></a>
                           <script language="JavaScript">
                          <!-- // create calendar object(s) just after form tag closed
@@ -301,7 +301,7 @@ function sendtolittle(direction){
                                 </TBODY>
                               </TABLE></td>
                           </tr>
-                          <TR bgcolor="#ffffff"> 
+                          <TR class="bgcolor_016"> 
                             <TD bgcolor="#AAAAAA"  height=16 style="PADDING-LEFT: 5px; PADDING-RIGHT: 3px"> 
                               <TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">                                
                                   <TR> 
@@ -470,7 +470,7 @@ function sendtolittle(direction){
                                   </TR>
                               </TABLE></td>
                           </tr>
-                          <TR bgcolor="#ffffff"> 
+                          <TR class="bgcolor_016"> 
                             <TD bgcolor="#AAAAAA"  height=16 style="PADDING-LEFT: 5px; PADDING-RIGHT: 3px"> 
                             	<TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
                                 	<TR><TD height="4" align="right"></TD></TR>

@@ -214,11 +214,18 @@ if (isset($customer)  &&  ($customer>0)){
 	}
 }
 
-//echo $FG_TABLE_CLAUSE;
-//exit;
+$FG_TABLE_CLAUSE_NORMAL = $FG_TABLE_CLAUSE ." AND t1.sipiax not in (2,3)";
+
 if (!$nodisplay){
-	$list = $instance_table -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, $order, $sens, null, null, $FG_LIMITE_DISPLAY, $current_page*$FG_LIMITE_DISPLAY);
+	$list = $instance_table -> Get_list ($DBHandle, $FG_TABLE_CLAUSE_NORMAL, $order, $sens, null, null, $FG_LIMITE_DISPLAY, $current_page*$FG_LIMITE_DISPLAY);
 }
+
+$FG_TABLE_CLAUSE_DID = $FG_TABLE_CLAUSE ." AND t1.sipiax in (2,3)";
+
+if (!$nodisplay){
+	$list_did = $instance_table -> Get_list ($DBHandle, $FG_TABLE_CLAUSE_DID, $order, $sens, null, null, $FG_LIMITE_DISPLAY, $current_page*$FG_LIMITE_DISPLAY);
+}
+
 $_SESSION["pr_sql_export"]="SELECT $FG_COL_QUERY FROM $FG_TABLE_NAME WHERE $FG_TABLE_CLAUSE";
 
 /************************/
@@ -229,17 +236,18 @@ $QUERY = "SELECT substring(t1.starttime,1,10) AS day, sum(t1.sessiontime) AS cal
 //echo "$QUERY";
 
 if (!$nodisplay){
-		$res = $DBHandle -> query($QUERY);
-		$num = $res -> numRows();
-		for($i=0;$i<$num;$i++)
-		{				
-			$list_total_day [] =$res -> fetchRow();				 
+		$res = $DBHandle -> Execute($QUERY);
+		if ($res){
+			$num = $res -> RecordCount();
+			for($i=0;$i<$num;$i++)
+			{				
+				$list_total_day [] =$res -> fetchRow();				 
+			}
 		}
 
-
-
 if ($FG_DEBUG == 3) echo "<br>Clause : $FG_TABLE_CLAUSE";
-$nb_record = $instance_table -> Table_count ($DBHandle, $FG_TABLE_CLAUSE);
+$nb_record = $instance_table -> Table_count ($DBHandle, $FG_TABLE_CLAUSE_NORMAL);
+$nb_record_did = $instance_table -> Table_count ($DBHandle, $FG_TABLE_CLAUSE_DID);
 if ($FG_DEBUG >= 1) var_dump ($list);
 
 }//end IF nodisplay
@@ -252,13 +260,14 @@ $QUERY = "SELECT destination, sum(t1.sessiontime) AS calltime,
 sum(t1.sessionbill) AS cost, count(*) as nbcall FROM $FG_TABLE_NAME WHERE ".$FG_TABLE_CLAUSE." GROUP BY destination";
 
 if (!$nodisplay){
-		$res = $DBHandle -> query($QUERY);
-		$num = $res -> numRows();
-		for($i=0;$i<$num;$i++)
-		{				
-			$list_total_destination [] =$res -> fetchRow();				 
+		$res = $DBHandle -> Execute($QUERY);
+		if ($res){
+			$num = $res -> RecordCount();
+			for($i=0;$i<$num;$i++)
+			{				
+				$list_total_destination [] =$res -> fetchRow();				 
+			}
 		}
-
 
 if ($FG_DEBUG == 3) echo "<br>Clause : $FG_TABLE_CLAUSE";
 if ($FG_DEBUG >= 1) var_dump ($list_total_destination);
@@ -340,11 +349,13 @@ $QUERY = "SELECT substring(t1.creationdate,1,10) AS day, sum(t1.amount) AS cost,
 
 
 if (!$nodisplay){	
-		$res = $DBHandle -> query($QUERY);
-		$num = $res -> numRows();
-		for($i=0;$i<$num;$i++)
-		{				
-			$list_total_day_charge [] =$res -> fetchRow();				 
+		$res = $DBHandle -> Execute($QUERY);
+		if ($res){
+			$num = $res -> RecordCount();
+			for($i=0;$i<$num;$i++)
+			{				
+				$list_total_day_charge [] =$res -> fetchRow();				 
+			}
 		}
 
 		if ($FG_DEBUG >= 1) var_dump ($list_total_day_charge);
@@ -517,7 +528,99 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
               <td width="100%" colspan="100">&nbsp;</td>			  
             </tr>					
     </table>
-
+<table  cellspacing="0"  cellpadding="2" width="80%" align="center">
+   		  <tr>
+					<td colspan="100" align="center"><font><b>No of DID Calls:&nbsp;<?php  if (is_array($list_did) && count($list_did)>0){ echo $nb_record_did; }else{echo "0";}?></center></b></font> </td>
+			  </tr>
+      		<tr bgcolor="#CCCCCC">
+              <td  width="5%"><font color="#003399"><b>Sr#</b></font> </td>
+			   <?php 
+				  	if (is_array($list_did) && count($list_did)>0)
+					{
+					
+				  		for($i=0;$i<$FG_NB_TABLE_COL;$i++)
+						{ 
+				?>				
+				  
+						  <TD width="<?php echo $FG_TABLE_COL[$i][2]?>" align=middle  >
+							<center>
+							<font color="#003399"><b><?php echo $FG_TABLE_COL[$i][0]?></b></font>
+						   
+					 		</center></TD>
+				   <?php } ?>		
+				   <?php if ($FG_DELETION || $FG_EDITION)
+				   {
+				   ?>
+				   <?php
+				   } ?>	
+            </tr>
+			
+			<?php
+				  	 $ligne_number=0;					 
+				  	 foreach ($list_did as $recordset)
+					 { 
+						 $ligne_number++;
+			?>
+			
+            <tr class="invoice_rows">
+             <TD align="<?php echo $FG_TABLE_COL[$i][3]?>" bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$ligne_number%2]?>" ><font color="#003399"><?php  echo $ligne_number+$current_page*$FG_LIMITE_DISPLAY; ?></font></TD>
+				  		<?php for($i=0;$i<$FG_NB_TABLE_COL;$i++){ 
+							if ($FG_TABLE_COL[$i][6]=="lie"){
+								$instance_sub_table = new Table($FG_TABLE_COL[$i][7], $FG_TABLE_COL[$i][8]);
+								$sub_clause = str_replace("%id", $recordset[$i], $FG_TABLE_COL[$i][9]);																																	
+								$select_list = $instance_sub_table -> Get_list ($DBHandle, $sub_clause, null, null, null, null, null, null);
+									
+									
+								$field_list_sun = split(',',$FG_TABLE_COL[$i][8]);
+								$record_display = $FG_TABLE_COL[$i][10];
+									
+								for ($l=1;$l<=count($field_list_sun);$l++){										
+									$record_display = str_replace("%$l", $select_list[0][$l-1], $record_display);	
+								}
+								
+							}elseif ($FG_TABLE_COL[$i][6]=="list"){
+									$select_list = $FG_TABLE_COL[$i][7];
+									$record_display = $select_list[$recordset[$i]][0];
+							
+							}else{
+									$record_display = $recordset[$i];
+							}
+							
+							
+							if ( is_numeric($FG_TABLE_COL[$i][5]) && (strlen($record_display) > $FG_TABLE_COL[$i][5])  ){
+								$record_display = substr($record_display, 0, $FG_TABLE_COL[$i][5]-3)."";  
+															
+							}
+							
+				 		 ?>
+                 		 <TD align="<?php echo $FG_TABLE_COL[$i][3]?>" bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$ligne_number%2]?>"><font color="#003399"><?php
+						 if (isset ($FG_TABLE_COL[$i][11]) && strlen($FG_TABLE_COL[$i][11])>1){
+						 	call_user_func($FG_TABLE_COL[$i][11], $record_display);
+						 }else{
+						 	echo stripslashes($record_display);
+						 }						 
+						 ?></font></TD>
+				 		 <?php  } 
+						 
+						 
+					 }//foreach ($list as $recordset)
+					 if ($ligne_number < $FG_LIMITE_DISPLAY)  $ligne_number_end=$ligne_number +2;
+					 while ($ligne_number < $ligne_number_end){
+					 	$ligne_number++;
+				?>
+									
+				<?php					 
+					 } //END_WHILE
+					 
+				  }else{
+				  		echo gettext("No data found !!!");
+				  }//end_if
+				 ?>      					
+            </tr>  
+            <tr >
+              <td width="100%" colspan="100">&nbsp;</td>			  
+            </tr>					
+    </table>
 
 <!--################### Call Details Ends --> 
 

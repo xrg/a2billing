@@ -20,19 +20,31 @@ $HD_Form_c -> FG_TABLE_DEFAULT_SENS = "DESC";
 $HD_Form_c -> FG_TABLE_CLAUSE = " cc_card.id=id_cc_card ";
 $HD_Form_c -> FG_TABLE_ID="cc_charge.id";
 
-
+// -- chargetype : 1 - connection charge for DID setup, 2 - Montly charge for DID use, 3 - Subscription fee, 4 - Extra Charge, etc...
 $chargetype_list = get_chargetypes();
-// -- chargetype : 1 - connection charge for DID setup, 2 - Montly charge for DID use, 3 - just wanted to charge you for extra, 4 - cactus renting charges, etc...
+
+$currency_list = array();
+$currency_list_r = array();
+$indcur=0;
+$currencies_list = get_currencies();
+
+foreach($currencies_list as $key => $cur_value) {
+	$currency_list[$key]  = array( $cur_value[1].' ('.$cur_value[2].')', $key);
+	$currency_list_r[$key]  = array( $key, $cur_value[1]);
+	$currency_list_key[$key][0] = $key;
+}
+
 
 
 $HD_Form_c -> AddViewElement(gettext("CARDNUMBER"), "username", "12%", "center", "sort");
 $HD_Form_c -> AddViewElement(gettext("DATE"), "cc_charge.creationdate", "10%", "center", "sort", "16", "", "", "", "", "", "display_dateformat");
 $HD_Form_c -> AddViewElement(gettext("AMOUNT"), "amount", "10%", "center", "sort");
+$HD_Form_c -> AddViewElement("<acronym title=\"CURRENCY\">".gettext("CUR")."</acronym>", "currency", "5%", "center", "sort", "", "list", $currency_list_key);
 $HD_Form_c -> AddViewElement(gettext("CHARGETYPE"), "chargetype", "20%", "center", "sort", "30", "list", $chargetype_list);
 $HD_Form_c -> AddViewElement(gettext("DESCRIPTION"), "description", "20%", "center", "SORT", "30");
 
 // added a parameter to append  FG_TABLE_ID  ( by default ) or disable 0.
-$HD_Form_c -> FieldViewElement ('username, cc_charge.creationdate, amount, chargetype, description');
+$HD_Form_c -> FieldViewElement ('username, cc_charge.creationdate, amount, cc_charge.currency, chargetype, description');
 
 
 $HD_Form_c -> CV_NO_FIELDS  = gettext("THERE IS NO CHARGE CREATED!");
@@ -50,8 +62,11 @@ $HD_Form_c -> FG_DELETION = true;
 if ($form_action=='ask-add'){
 	$DBHandle_max  = DbConnect();
 	if ($username){
-		$resmax = $DBHandle_max -> query("SELECT id FROM cc_card where username='$username'");
-		$numrow = $resmas -> numRows();
+		$resmax = $DBHandle_max -> Execute("SELECT id FROM cc_card where username='$username'");
+		$numrow = 0;
+		if ($resmax) 
+			$numrow = $resmas -> RecordCount( );
+
 		if ($numrow!=0){
 			$db_row [] = $resmax -> fetchRow();
 			$val_default = "value='".$db_row[0][0]."'";
@@ -59,8 +74,11 @@ if ($form_action=='ask-add'){
 	}
 
 	if ($id_did){
-		$resmax = $DBHandle_max -> query("SELECT fixrate FROM cc_did where id='$id_did'");
-		$numrow = $resmax -> numRows();
+		$resmax = $DBHandle_max -> Execute("SELECT fixrate FROM cc_did where id='$id_did'");
+		$numrow = 0;
+		if ($resmax)
+			$numrow = $resmax -> RecordCount( );
+
 		if ($numrow!=0){
 			$db_row2 [] = $resmax -> fetchRow();
 			$val_default_fixrate = "value='".$db_row2[0][0]."'";
@@ -91,6 +109,15 @@ $HD_Form_c -> AddEditElement (gettext("AMOUNT"),
 	gettext("Insert the amount"),
 	"" , "", "", "", "" , "", "" ,"");
 
+$HD_Form_c -> AddEditElement (gettext("CURRENCY"),
+   "currency",
+   "",
+   "SELECT",
+   "",
+   "",
+   "",
+   "list" , "", "",	"", $currency_list, "%1", "", "" );
+
 $HD_Form_c -> AddEditElement (gettext("CHARGETYPE"),
 	"chargetype",
 	"",
@@ -110,7 +137,7 @@ $HD_Form_c -> AddEditElement (gettext("DESCRIPTION"),
 	"" , "", "", "", "" , "", "", "");
 
 
-$HD_Form_c -> FieldEditElement ('id_cc_card, amount, chargetype, description');
+$HD_Form_c -> FieldEditElement ('id_cc_card, amount, currency, chargetype, description');
 
 
 

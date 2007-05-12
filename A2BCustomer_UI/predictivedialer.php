@@ -23,15 +23,17 @@ if (! has_rights (ACX_ACCESS)){
 $QUERY = "SELECT  username, credit, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, lastuse, activated, callback FROM cc_card WHERE username = '".$_SESSION["pr_login"]."' AND uipass = '".$_SESSION["pr_password"]."'";
 
 $DBHandle_max  = DbConnect();
-$resmax = $DBHandle_max -> query($QUERY);
-$numrow = $resmax -> numRows();
+$resmax = $DBHandle_max -> Execute($QUERY);
+$numrow = 0;
+if ($resmax)	
+	$numrow = $resmax -> RercordCount();
+
 if ($numrow == 0) exit();
 $customer_info =$resmax -> fetchRow();
 
 if( $customer_info [13] != "t" && $customer_info [13] != "1" ) {
 	 exit();
 }
-
 
 
 if ($callback){

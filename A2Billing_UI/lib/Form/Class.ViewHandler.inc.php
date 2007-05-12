@@ -93,6 +93,7 @@ $nb_site = is_array($list_site) ? count($list_site) : 0 ;
  // ******************** END IF $topviewer *******************************
  
  	$stitle = $_GET['stitle'];
+	$ratesort = $_GET['ratesort'];
 	$current_page = $_GET['current_page'];
 	if (isset($_GET['order']) && ($_GET['order'] != ''))
 		$this->FG_ORDER = $_GET['order']; // really need ?!
@@ -461,7 +462,7 @@ function openURLFilter(theLINK)
 
 
 					<?php
-					$c_url = $_SERVER['PHP_SELF'].'?stitle='.$stitle.'&atmenu='.$atmenu.'&current_page=%s'."&filterprefix=".$_GET['filterprefix']."&order=".$this->FG_ORDER."&sens=".$this->FG_SENS."&mydisplaylimit=".$_GET['mydisplaylimit'].$this-> CV_FOLLOWPARAMETERS;
+					$c_url = $_SERVER['PHP_SELF'].'?stitle='.$stitle.'&atmenu='.$atmenu.'&current_page=%s'."&filterprefix=".$_GET['filterprefix']."&order=".$this->FG_ORDER."&sens=".$this->FG_SENS."&mydisplaylimit=".$_GET['mydisplaylimit']."&ratesort=".$ratesort.$this-> CV_FOLLOWPARAMETERS;
 					if (!is_null($letter) && ($letter!=""))   $c_url .= "&letter=".$_GET['letter'];
 
 					$this -> printPages($this -> CV_CURRENT_PAGE+1, $this -> FG_NB_RECORD_MAX, $c_url) ;

@@ -27,13 +27,13 @@ class Table {
 		$this -> table = $table;
 		$this -> fields = $liste_fields;
 
-        if ((count($fk_Tables) == count($fk_Fields)) && (count($fk_Fields) > 0))
-        {
-            $this -> FK_TABLES = $fk_Tables;
-            $this -> FK_EDITION_CLAUSE = $fk_Fields;
-            $this -> FK_DELETE_OR_UPDATE = $fk_del_upd;
-            $this -> FK_ID_VALUE = $id_Value;
-        }
+		if ((count($fk_Tables) == count($fk_Fields)) && (count($fk_Fields) > 0))
+		{
+			$this -> FK_TABLES = $fk_Tables;
+			$this -> FK_EDITION_CLAUSE = $fk_Fields;
+			$this -> FK_DELETE_OR_UPDATE = $fk_del_upd;
+			$this -> FK_ID_VALUE = $id_Value;
+		}
 	}
 
 
@@ -58,7 +58,7 @@ class Table {
 
 		if ($this -> debug_st) echo $this->start_message_debug.$QUERY.$this->end_message_debug;
 		
-		$res = $DBHandle -> query($QUERY);
+		$res = $DBHandle -> Execute($QUERY);
 
 		if (!$res){
 			$this -> errstr = "Could not do a select count on the table '".$this -> table."'";					
@@ -66,7 +66,7 @@ class Table {
 		}
 	
 		if ($select){
-			$num = $res -> numRows();
+			$num = $res -> RecordCount();
 			if ($num==0) return 0;		
 		
 			for($i=0;$i<$num;$i++)
@@ -117,14 +117,14 @@ class Table {
 		$QUERY = $sql.$sql_clause.$sql_group.$sql_orderby.$sql_limit;
 		if ($this -> debug_st) echo $this->start_message_debug.$QUERY.$this->end_message_debug;
 
-		$res = $DBHandle -> query($QUERY);
+		$res = $DBHandle -> Execute($QUERY);
 
 		if (!$res){
 			$this -> errstr = "Could not do a select on the table '".$this -> table."'";
 			return (false);
 		}
 
-		$num = $res -> numRows();
+		$num = $res -> RecordCount();
 		if ($num==0) return 0;
 
 		for($i=0;$i<$num;$i++)
@@ -156,7 +156,7 @@ class Table {
 
 		$QUERY = $sql.$sql_clause;
 		if ($this -> debug_st) echo $this->start_message_debug.$QUERY.$this->end_message_debug;
-		$res = $DBHandle -> query($QUERY);
+		$res = $DBHandle -> Execute($QUERY);
 
 		if (!$res){
 			$this -> errstr = "Could not do a select count on the table '".$this -> table."'";
@@ -186,7 +186,7 @@ class Table {
 		if ($this -> debug_st) echo $this->start_message_debug.$QUERY.$this->end_message_debug;
 		if ($this -> debug_stop_add){ echo $this->start_message_debug.$QUERY.$this->end_message_debug; exit(); }
 		
-		$res = $DBHandle -> query($QUERY);
+		$res = $DBHandle -> Execute($QUERY);
 
 		if (!$res){
 			$this -> errstr = "Could not create a new instance in the table '".$this -> table."'";
@@ -203,7 +203,7 @@ class Table {
 				
 				$sql = 'SELECT '.$id_name.' FROM '.$this -> table.' WHERE oid=\''.$oid.'\''; 
 				
-				$res = $DBHandle -> query($sql);
+				$res = $DBHandle -> Execute($sql);
 
 				if (!$res) return (false);
 				
@@ -237,7 +237,7 @@ class Table {
 		if ($this -> debug_st) echo $this->start_message_debug.$QUERY.$this->end_message_debug;
 		if ($this -> debug_stop_update){ echo $this->start_message_debug.$QUERY.$this->end_message_debug; exit(); }
 
-		$res = $DBHandle -> query($QUERY);
+		$res = $DBHandle -> Execute($QUERY);
 		
 		if (!$res){
 			$this -> errstr = "Could not update the instances of the table '".$this -> table."'";
@@ -271,14 +271,14 @@ class Table {
             {
                 $QUERY = "DELETE FROM $sp".$this -> FK_TABLES[$i]."$sp WHERE (".trim ($this -> FK_EDITION_CLAUSE[$i])." = ".$this -> FK_ID_VALUE." )";
             }
-            $res = $DBHandle -> query($QUERY);
+            $res = $DBHandle -> Execute($QUERY);
         }
 
 		$QUERY = "DELETE FROM $sp".$this -> table."$sp WHERE (".trim ($clause).")";
 		if ($this -> debug_st) echo $this->start_message_debug.$QUERY.$this->end_message_debug;
 		if ($this -> debug_stop_delete){ echo $this->start_message_debug.$QUERY.$this->end_message_debug; exit(); }
 
-		$res = $DBHandle -> query($QUERY);
+		$res = $DBHandle -> Execute($QUERY);
 
 		if (!$res){
 			$this -> errstr = "Could not delete the instances of the table '".$this -> table."'";
@@ -330,14 +330,14 @@ class Table {
 
         //$QUERY1 = "DELETE FROM $sp".$this -> table."$sp WHERE ( ID IN ( ".$QUERY." ))";
 
-        $res = $DBHandle -> query($QUERY);
+        $res = $DBHandle -> Execute($QUERY);
 
 		if (!$res){
 			$this -> errstr = "Could not do a select on the table '".$this -> table."'";
 			return (false);
 		}
 
-		/*$num = $res -> numRows();
+		/*$num = $res -> RecordCount();
 		if ($num==0) return 0;
 
 		for($i=0;$i<$num;$i++)

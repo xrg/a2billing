@@ -1,22 +1,57 @@
 
-
--------________=======-------________=======-------________=======-------_______
-	 & & & & & 					 in process				& & & & &
-=======-------________=======-------________=======-------________=======-------
-
-1#
-	E-Payment method from OsCommerce
-	Analyze and do migration
-
-==-------________=======-------________=======-------________=======-------_____
-
-
-
 ********************************************************************************
                    			TODO LIST - SPECIFIC
 ********************************************************************************
 
-!!! Ask Malik send me DB changes for invoicing
+
+
+#### a2billing.conf new section with all the log files
+********************************************************************
+handle this in different part of the application (API, AGI, Cront)
+
+######## CURRENCY MANAGEMENT IN CRONT SERVICE 
+********************************************************************
+Currency management in cront service
+
+
+#### FEATURE : NEW DID MANAGEMENT
+********************************************************************
+Reservation and release
+* To check and document
+
+
+######## CREDIT RESERVE - SIMULTANEOUS ACCESS
+********************************************************************
+
+Wouldn't this mean on simultaneous access, callers could go negative in balance if subsequent calls were made while balance still exists?
+http://forum.a2billing.net/viewtopic.php?t=1759&highlight=
+
+
+Does the same account allow for simultaneous calls?
+Yes. Here's how it works: Say you have a balance of ten (10) dollars. When your first call comes in, two hours worth of credit is temporarily frozen. So, if you are calling a destination that costs 2 cents a minute, that means $2.40 (2 cents/min x 120 minutes) has been frozen in your account. This leaves $7.60 available for another simultaneous call. When that second call comes in, more of your balance is frozen. You can keep making simultaneous calls so long as your effective balance is above zero. When calls are completed, the balance that was frozen is released and once again available for use. If you have a low balance, there's no sense in letting many simultaneous calls go through, only to have them all disconnect at the same time when your balance hits zero (what most carriers do).
+
+
+
+######## CID GROUP DELETE
+********************************************************************
+when u delete a group of CID, it may remove all the CID inside that group
+
+
+######## DID RANGE 
+********************************************************************
+Add the same feature that is used on CID to add a new callerID
+support range and coma
+
+
+
+######## TO CHECK ON CID ROUTING
+********************************************************************
+
+something I see in the DB change u made
+activated CHAR(1)       DEFAULT 't' NOT NULL,
+
+I will prefer we use always the following type
+activated INTEGER NOT NULL DEFAULT 0,
 
 
 
@@ -27,10 +62,6 @@ So, you could have a crontab task backing up the database.
 That task could use a 'a2billing' system user, with the rights to connect to the database.
 
 
-#### FEATURE : ADD ALL EPAYMENT METHOD TO THE VERSION
-********************************************************************
-Authorize, moneybooker, etc...
-%% AR
 
 
 #### BUGS & CHECKS : DIVERS
@@ -55,36 +86,21 @@ Authorize, moneybooker, etc...
 #### FEATURE : NEW CALLBACK SYSTEM
 ********************************************************************
 long story
-%% AR
 
 
 #### FEATURE : OPTIMIZE AGI TO USE PL/SQL functions for all important functions (couples of weeks)
 ******************************************************************************
-%% AS
 
 
 #### FEATURE : LINK SIP/IAX FRIENDS TO THE CARD - iax/sip_friend_id
 ********************************************************************
 ???
 
-
-#### FEATURE : ENSURE MENU STAY OPTION IN THE LAST SELECTED SECTION 
-********************************************************************
-Ensure menu stay option in the last selected section : use session for this
-Keep a different format for the last select submenu
-%% MA
-
-#### BUGS : TEST AGI 1.2 & 1.4 
-********************************************************************
-Test AGI for 1.2. and 1.4 and check warning and fix it
-%% MA
-
-
 #### FEATURE : ADD RANGE CARDNUMBER IN CARDGENERATOR
 ********************************************************************
 let user define a range of cardnumber (ie: 45000-46000)
 + option to check if there is a cards already between this range (interval limit 10000)
-%% MA
+
 
 
 #### FEATURE : PACKAGES SYSTEM - FREE MINUTES
@@ -149,6 +165,7 @@ CREATE TABLE cc_subscription_fee (
     id 				BIGSERIAL NOT NULL,
     label 			TEXT NOT NULL,	
 	fee 			NUMERIC(12,4) NOT NULL,
+	currency 		CHARACTER VARYING(3) DEFAULT 'USD'::character varying,
 	status 			INTEGER NOT NULL DEFAULT 0,
     numberofrun 	INTEGER NOT NULL DEFAULT 0,
     datecreate 		timestamp(0) without time zone DEFAULT now(),
@@ -171,16 +188,18 @@ CREATE INDEX ind_cc_charge_creationdate 			ON cc_charge USING btree (creationdat
 
 
 -- INSTEAD USE CC_CHARGE
-
 CREATE TABLE cc_subscription_fee_card (
     id 						BIGSERIAL NOT NULL,
     id_cc_card 				BIGINT NOT NULL,
 	id_cc_subscription_fee 	BIGINT NOT NULL,
     datefee 				TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT now(),
-    fee 					NUMERIC(12,4) NOT NULL
+    fee 					NUMERIC(12,4) NOT NULL,
+	fee_converted			NUMERIC(12,4) NOT NULL,
+	currency 				CHARACTER VARYING(3) DEFAULT 'USD'::CHARACTER VARYING
 );
 ALTER TABLE ONLY cc_subscription_fee_card
 ADD CONSTRAINT cc_subscription_fee_card_pkey PRIMARY KEY (id);
+
 
 CREATE INDEX ind_cc_subscription_fee_card_id_card ON cc_subscription_fee_card USING btree (id_card);
 CREATE INDEX ind_cc_subscription_fee_card_id_cc_subscription_fee ON cc_card_package_offer USING btree (id_cc_subscription_fee);
@@ -192,59 +211,38 @@ CREATE INDEX ind_cc_subscription_fee_card_datefee ON cc_card_package_offer USING
 PACKAGE OFFER
 	* List package Offer
 	* Add package Offer
-	* list detail card
+	* details by card
 
 SERVICE
 	* List subscription service
 	* Add subscription service
-	
-
-
 
 
 
 
 ?? ADD CC_SUBSCRIPTION_FEE & CC_CHARGE CHANGES IN MYSQL SCHEMAS
 
+MISSING : 
+- AGI
+- CRONT
+	- BROWSE ALL THE CUSTOMER THAT HAVE A SUBSCRIPTION FEE ENABLE
+		SELECT * FROM cc_card LEFT JOIN cc_subscription_fee ON cc_card.id_subscription_fee=cc_subscription_fee.id WHERE cc_subscription_fee.status=1
+	- Support multi currency
+	- Add a charge for this user
+		INSERT INTO cc_charge (id_cc_card, amount, chargetype, description) values ('1', '120', '3', 'description here...')
+	- Decrement his balance
+	
+	
+- ADD SELECT subscription fee on card 
+ALTER TABLE cc_card ADD COLUMN id_subscription_fee INTEGER;
 
-%% AS
 
 
 
 
-
-#### FEATURE : ROTATION CALLERID IN OUTBOUND CALLS
+#### MIGRATE NEW FRAMEWORK : call-log-customers.php
 ********************************************************************
-Situation: if I want to put a Asterisk box in Romania with a Digium board to terminate Romanian traffic.
-But the Romanian PTT will deny all calls if they don't have a Romanian CID. we need a way you can make some 
-thing so that every time I send a call to Romania it takes a good Romanian number out of a list of 500 or 1000 CID's.
-
-NEED : Little modification to do in the AGI and on the Admin UI.
-We will have to define the group of CallerID according to the destination and so we need a new field in
-cc_ratecard -> outbound_cid_group
-
-
-and 2 new tables :
-cc_outbound_cid_group
-(id, label, datecreated, blabla...)
-cc_outbound_cid_list
-(id, outbound_cid_group, cid, datecreated, blabla...)
-
-cc_outbound_cid_group is the group info that will be associate to the destination : destination (cc_ratecard)
-
-In the AGI : if the system found cc_outbound_cid_group defined when running the outbound call, it will take randomly
-a CID number in this group and it will be defined before the outbound call.
-
-
-In the admin site, there is a bit of work also, but basically it will use the standard function from the framework.
-OUTBOUND CID
-- Create Group
-- List Group
-- Add OUTBOUND CID
-- List OUTBOUND CID
-
-later :
-- Import OUTBOUND CID
+call-log-customers.php : use old way to display cdr table 
 
 
 
@@ -255,31 +253,18 @@ See Description mails - EXCEL
 %% MA
 
 
-
-
-#### FEATURE : API SHOW RATECARD
+#### WRITE DOCUMENTATION: API SHOW RATECARD -> 
 ********************************************************************
-http://domain/a2billing/api/display_ratecard.php?security_key&ratecardid&css_url&
-nb_display_lines&filter&field_to_display=sellingrate|buyrate|etc...&column_name=sellingrate|buyrate|etc...
-&browse_style= page number or Letter (A, B, C)
-& prefix_select = 32 (only prefix start by 32)
-& url_page = http://mysite.com/rates.php
+WRITE FULL DOCUMENTATION FOR :
+trunk/A2Billing_UI/api/display_ratecard.php
 
-The idea it s to have something very flexible so that users could get
-something like this
-http://www.voip.com/voip_international.aspx
-well more or less :D
-
-I guess we can reuse some page from the customer interface to show ratecard and
-transform this to an API and something more flexible on design
-well the idea it s to keep something flexible so that anybody can display what
-they want from the ratecard.
-
-
-
-#### FEATURE
+#### WRITE DOCUMENTATION: ALARM SYSTEM
 ********************************************************************
+See Changelog
 
+
+#### FEATURE : jump_voucher_if_min_credit
+********************************************************************
 When the user credit are below the minimum credit to call min_credit 
 we might have an option to decide if we jump directly to the voucher IVR menu instead of just disconecting
 
@@ -301,50 +286,6 @@ and then select the card one by one, and then save the html page. And doing that
 repetitively for 100 cards is quite gruesome 
 
 so auto generate invoice (with criteria) and maybe auto mailing, that will be cool
-
-
-#### FEATURE : NEW INVOICING SYSTEM
-********************************************************************
-Smarty Integration in customer and admin
-+
-Gettext consolidation
-
-
-
-#### FEATURE
-********************************************************************
-REPORTING AND SUPPORT ALARMS :
-
-   * ALOC (average length of call): Too low or too high.
-   * ASR (answer seize ratio): Too low or too high.
-maybe if possible :
-   * Consecutive Incomplete Calls: Too many.
-   
-We already have ALOC under the name of ACD in the page "CDR REPORT", we just need a new column for ASR and
-rename ACD -> ALOC
-
-
-ASR = Answer Seizure Ratio
-Its calculated by taking the number of sucessfully answered calls and dividing by the total number of calls attempted (seizures). Since busy signals and other rejections by the called number count as call failures, the calculated ASR value can vary depending on user behaviour. 
-
-
-For "Consecutive Incomplete Calls", we might find a way to display this I open to your suggestion. maybe a report as follow :
-Date ; total nb fails ; max of number fail calls succesively ; rate of fails (%)
-
-
-
-For the alarm let's build a new table and a new page in CRONT SERVICE.
-We need the user to be able to define different kind of alarm, for instance if I want
-to monitor a specific trunk and not all
-We can have in the table something like :
-- period (daily ; monday-sunday ; 01 - 31)
-- typealarm (asr, aloc, callfail)
-- trunk (all or the ID of the trunk)
-- etc...
-
-
-#### FEATURE : NEW DID MANAGEMENT
-********************************************************************
 
 
 
@@ -385,31 +326,6 @@ etc...
 
 
 
-#### BUG
-********************************************************************
-INVOICES
-in the called nr   ..there is shown the pin code , not the card alias
-
-
-
-#### BUG
-********************************************************************
-In the customer interface after purchasing a DID and assigning a
-Destination for one calling card account I login to another calling card account and the DID is still in the drop down box available for purchase. Is this a bug or an installation error?
-
-#### BUG
-********************************************************************
-
-1 - When you navigate CDR Report you see all calls from all customers.
-When you filter the calls list by cardnumber you're supposed to have a
-list with calls from that cardnumber only. That is true, unless you
-change the ordering column or navigate to the next results page. If you
-do, the filter seems to be ignored by the CDR Report, and you get
-listing from all customers again.
-
-
-
-
 #### Feature
 ********************************************************************
 Try to add some captcha into the sensible Form
@@ -423,39 +339,6 @@ Note to areski – should we be able to define international access prefixes? 00
 
 Note to Areski – why have free as an option, surely if I wanted free, I would set fixrate to 0?
 
-
-
-
-
-
-
-
-
-#### NEW TASK []
-********************************************************************
-Add Cardalias in the search engine -> list customers
-
-In Invoice option as in Call Report to show only the answered calls
-(Customer & Admin)
-
-
-
-
-
-
-
-********************************************************************
-
-  
-modify your billing system so that I can also sends DTMF digit to softphone
-
-For example: a) users use softphone to login
-b) login information is our card number and secret
-c) a2billing sendDTMF 5 dollars back
-d) users enter destination to call
-e) a2billing sendDTMF to the users' softphones to
-inform the available talk time instead of announcing
-through the voice system
 
 
 ********************************************************************
@@ -481,12 +364,6 @@ however if a call starts within the EU, the VAT is payable
 Card company can set default language and customer can change 1. English 2. Dutch, 3. French
 etc.
 make it more easily customizable
-
-
-
-#### NEW TASK []
-********************************************************************
-is there a way that 	
 
 
 
@@ -534,28 +411,12 @@ New button for confirm Data
 
 
 
-#### NEW TASK []
-********************************************************************
-Smarty - template management
-
-
-
-
-
-#### []
-********************************************************************
-Automatic DID Billing
-Maybe a cront to find the DID used and bill then accordingly
-
 
 #### []
 ********************************************************************
 Improve invoices system : let us store the generate invoice on the 
 server. Define rules to send invoice at scheduled period
 
-
-#### []
-********************************************************************
 
 
 #### []
@@ -575,29 +436,6 @@ Suggestion from Vahan
 	roll over the row and get more info. it will keep up a clear design
 
 
-#### [Done]
-********************************************************************
-Add VAT in customer invoice
-
-#### [Done]
-********************************************************************
-NEW FRAMEWORK NEED TO CREATE SIP/IAX FRIENDS WHEN CREATING CARDS
-
-
-#### [done]
-********************************************************************
-We need also the option when creating rate to create multi entries
-ie:
-	Define the destination prefix. ie, 44 for UK proper. You can use 'defaultprefix' to setup a rate 
-	by default for the destination for which you dont want to provide a specific rate.
-	IF YOU ADD A RATE AND NOT AN EDIT => You can also define several in the same time and range, as below:
-	32484-32487 -> this would insert 32484, 32485, 32486, 32487
-	32476,32477,32478 separate by comma  
-
-
-#### [Done]
-********************************************************************
-BUG on new framework when you edit a def ratecard.
 
 
 #### []
@@ -627,16 +465,9 @@ user is logged in.
 
 #### []
 ********************************************************************
-mrtwister|mobile 2. auto-generation of both sip/iax accounts - think it cannot do
-mrtwister|mobile 3. choice (in a2billing.conf) - ffriends in files or in asterisk realtime
-mrtwister|mobile 4 - later - for realtime - link to existing users/peers (voiceone etc)
-
-#### []
-********************************************************************
-// IMPORTANT
-bug on call report customer side
-it seems that if the session end the customer is able to see all the
-call made
+2. auto-generation of both sip/iax accounts - think it cannot do
+3. choice (in a2billing.conf) - friends in files or in asterisk realtime
+4 - later - for realtime - link to existing users/peers (voiceone etc)
 
 
 
@@ -649,23 +480,11 @@ Store invoices on the server for different periode of time
 
 
 
-
-
-#### [work-in-progess]
-********************************************************************
-// IMPORTANT
-Internationalization - Multiple languages support for the Web Interfaces 
-perhaps home version of gettext
-
-
-
 #### []
 ********************************************************************
-Pass all the a2billing conf into the DB
+Move all the a2billing conf into the DB
 
-#### []
-********************************************************************
-Importation tools for the cards
+
 
 
 
@@ -689,11 +508,6 @@ Database error: Invalid SQL: SELECT id, did, fixrate FROM cc_did WHERE id_cc_cou
 MySQL Error: 1064 (You have an error in your SQL syntax near 'select id_cc_did from cc_did_destination) ORDER BY did ASC' at line 1)
 
 
-#### []
-********************************************************************
-Add report by voip-provider 
-see the selling traffic and the buying traffic, be able to see how much I 
-earn for each voip-provider (difference from the selling rate and the buyrateº)
 
 
 #### []
@@ -733,10 +547,6 @@ Here is a example (the first line is from me and will printed out, the $A2B->agi
                                         if ($A2B->agiconfig['debug']>=1) $agi->verbose("[CREDIT MIN_CREDIT_2CALL : ".$A2B->agiconfig['min_credit_2call']."]");
 
 
-
-#### []
-********************************************************************
-use the aliasnumber when call iax/sip friends
 
 #### []
 ********************************************************************

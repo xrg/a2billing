@@ -169,7 +169,7 @@ if ((isset($inputtopvar)) && ($inputtopvar!="") && (isset($topsearch)) && ($tops
 		$SQL_GROUP1=" GROUP BY $field[1],terminatecause,starttime";
 	}
 	$QUERY = "CREATE TEMPORARY TABLE temp_result AS (SELECT $FG_COL_QUERY1 FROM $FG_TABLE_NAME WHERE $FG_TABLE_CLAUSE  $SQL_GROUP1 ORDER BY nbcall DESC LIMIT $inputtopvar)";
-	$res = $DBHandle -> query($QUERY);
+	$res = $DBHandle -> Execute($QUERY);
 	if ($res){
 		$FG_TABLE_NAME="temp_result";
 		if ($grouped){
@@ -189,9 +189,9 @@ $instance_table = new Table($FG_TABLE_NAME, $FG_COL_QUERY);
 
 if (!$nodisplay){
 	$list = $instance_table -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, $order, $sens, null, null, $FG_LIMITE_DISPLAY, $current_page*$FG_LIMITE_DISPLAY,$SQL_GROUP);
-	$res = $DBHandle -> query($QUERY_TOTAL);
+	$res = $DBHandle -> Execute($QUERY_TOTAL);
 	if ($res){
-		$num=$res->numRows();
+		$num=$res->RecordCount( );
 		for($i=0;$i<$num;$i++)
 		{				
 			$list_total[]=$res -> fetchRow();

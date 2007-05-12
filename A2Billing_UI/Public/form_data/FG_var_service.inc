@@ -85,7 +85,7 @@ $HD_Form -> AddEditElement (gettext("AMOUNT CREDIT"),
 	"size=30 maxlength=30",
 	"12",
 	gettext("Insert the number of credit to remove from the cards."),
-	"" , "", "", "", "" , "", "", gettext("Set the amount of credit to to remove from the card. 0 will remove all credit from the card use -1 for DID recurrent service."));
+	"" , "", "", "", "" , "", "", gettext("Set the amount of credit to remove from the card. 0 will remove all credit from the card use -1 for DID recurrent service."));
 	
 $HD_Form -> AddEditElement (gettext("PERIOD"),
 	"period",

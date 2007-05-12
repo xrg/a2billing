@@ -1,8 +1,6 @@
 <?php
 getpost_ifset(array('id', 'destination', 'id_cc_card', 'id_cc_did', 'activated', 'priority', 'id_trunk', 'voip_call'));
 
-$plang='en';
-
 $HD_Form = new FormHandler("cc_did_destination","Did Destination");
 
 $HD_Form -> FG_DEBUG = 0;
@@ -72,7 +70,7 @@ $HD_Form -> AddEditElement (gettext("DESTINATION"),
 	"destination",
 	'$value',
 	"INPUT",
-	"size=30 maxlength=30",
+	"size=50 maxlength=40",
 	"0",
 	"Insert the DID",
 	"" , "", "", "", "" , "", "", gettext("Enter the phone number you wish to call, or the VoIP client to reach. (ie: 347894999 or SIP/jeremy@182.212.1.45). If the call is VoIP, the VoIP_Call must be set to yes."));

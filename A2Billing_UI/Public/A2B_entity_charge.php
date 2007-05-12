@@ -47,8 +47,7 @@ if ($wantinclude!=1){
 	include("PP_header.php");
 
 	// #### HELP SECTION
-	if ($form_action=='list') echo $CC_help_list_charge;
-	else echo $CC_help_edit_charge;
+	echo $CC_help_edit_charge;
 }
 
 

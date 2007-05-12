@@ -21,7 +21,6 @@
 	error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
 	//dl("pgsql.so"); // remove "extension= pgsql.so !
 	
-	include (dirname(__FILE__)."/../defines.php");
 	include (dirname(__FILE__)."/../db_php_lib/Class.Table.php");
 	include (dirname(__FILE__)."/../Class.A2Billing.php");
 	
@@ -58,7 +57,7 @@
 	$instance_table = new Table();
 	
 	
-	// CHECK NUMBER OF CARD
+	// CHECK AMOUNT OF CARD ON WHICH APPLY THE SERVICE
 	$QUERY = 'SELECT count(*) FROM cc_card WHERE runservice=1';
 
 	$result = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY);

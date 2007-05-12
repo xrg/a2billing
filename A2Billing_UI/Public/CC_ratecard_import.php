@@ -6,7 +6,6 @@ include ("../lib/module.access.php");
 
 set_time_limit(0);
 
-
 if (! has_rights (ACX_RATECARD)){ 
 	   Header ("HTTP/1.0 401 Unauthorized");
 	   Header ("Location: PP_error.php?c=accessdenied");
@@ -43,8 +42,6 @@ $list_trunk = $instance_table_trunk  -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, "
 $nb_trunk = count($list_trunk);
 
 
-
-
 ?>
 <?php
 	include("PP_header.php");
@@ -54,22 +51,6 @@ $nb_trunk = count($list_trunk);
 
 function MM_openBrWindow(theURL,winName,features) { //v2.0
   window.open(theURL,winName,features);
-}
-//-->
-</script>
-
-<script language="JavaScript">
-<!--
-function sendtofield(form){
-
-	if (form.listemail.value.length < 5){
-		alert ('Insert emails on the Field!');
-		form.listemail.focus ();
-		return (false);
-	}
-	
-    document.forms["prefs"].elements["task"].value = "field";	
-	document.forms[0].submit();
 }
 
 function sendtoupload(form){
@@ -302,9 +283,6 @@ function moveSourceDown()
 
 				<option value="starttime"><?php echo gettext("starttime");?></option>
 				<option value="endtime"><?php echo gettext("endtime");?></option>
-
-
-	down_black
 			</select>
         </td>
 
@@ -365,7 +343,7 @@ function moveSourceDown()
                       <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo $my_max_file_size?>">
                       <input type="hidden" name="task" value="upload">
                       <input name="the_file" type="file" size="50" onFocus=this.select() class="saisie1">
-                      <input type="button" style="border: 2px outset rgb(204, 51, 0);"  value="Import RateCard" onFocus=this.select() class="form_enter" name="submit1" onClick="sendtoupload(this.form);">
+					  <input type="submit" value="Import RateCard" onFocus=this.select() class="form_input_button" name="submit1" onClick="sendtoupload(this.form);">
 					   </p>
                   </td>
                 </tr>

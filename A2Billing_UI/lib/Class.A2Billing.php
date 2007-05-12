@@ -211,7 +211,7 @@ class A2Billing {
 		}
 	}
 	
-	/* set the DB handler */ 
+	/* set the DB handler NOT USED !!*/ 
 	function set_dbhandler ($DBHandle){
 		$this->DBHandle	= $DBHandle;
 	}
@@ -284,9 +284,9 @@ class A2Billing {
 		if(!isset($this->config["paypal"]['item_name']))	$this->config["paypal"]['item_name'] = 'Credit Purchase';
 		if(!isset($this->config["paypal"]['currency_code']))	$this->config["paypal"]['currency_code'] = 'USD';
 		if(!isset($this->config["paypal"]['purchase_amount']))	$this->config["paypal"]['purchase_amount'] = '5;10;15';
+		if(!isset($this->config["paypal"]['paypal_fees']))   $this->config["paypal"]['paypal_fees'] = '1';
 		if(!isset($this->config["paypal"]['paypal_logfile']))	$this->config["paypal"]['paypal_logfile'] = '/tmp/a2billing_paypal.log';
 	
-
 		// Conf for Backup
 		if(!isset($this->config["backup"]['backup_path']))	$this->config["backup"]['backup_path'] ='/tmp';
 		if(!isset($this->config["backup"]['gzip_exe']))		$this->config["backup"]['gzip_exe'] ='/bin/gzip';
@@ -1421,9 +1421,13 @@ class A2Billing {
 						}
 						$card_gen = MDP();
 						//echo "SELECT username FROM card where username='$card_gen'<br>";
-						$resmax = $this->DBHandle -> query("SELECT username FROM $FG_TABLE_NAME where username='$card_gen'");
-						$numrow = $resmax -> numRows();
+						$numrow = 0;
+						$resmax = $this->DBHandle -> Execute("SELECT username FROM $FG_TABLE_NAME where username='$card_gen'");
+						if ($resmax)
+							$numrow = $resmax -> RecordCount();
+
 						if ($numrow!=0) continue;
+						
 						break;		
 					}
 					
@@ -1573,7 +1577,8 @@ class A2Billing {
 		
 		// 		  -%-%-%-%-%-%-		CHECK IF WE CAN AUTHENTICATE THROUGH THE "ACCOUNTCODE" 	-%-%-%-%-%-%-
 		
-		$prompt_entercardnum= "prepaid-enter-pin-number";			
+		$prompt_entercardnum= "prepaid-enter-pin-number";
+		if ($this->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - Acconut code - '.$this->accountcode);
 		if (strlen ($this->accountcode)>=1) {
 			$this->username = $this -> cardnumber = $this->accountcode;
 			for ($i=0;$i<=0;$i++){									 
@@ -2014,7 +2019,6 @@ class A2Billing {
 
 	function DbConnect()
 	{
-		//require_once('DB.php'); // PEAR
 		require_once('adodb/adodb.inc.php'); // AdoDB
 		
 		if ($this->config["database"]['dbtype'] == "postgres"){

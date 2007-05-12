@@ -1,6 +1,5 @@
 <?php 
 include ("../lib/defines.php");
-//include ("../lib/Class.Table.php");
 include ("../lib/regular_express.inc");
 include ("../lib/Misc.php");
 

@@ -66,7 +66,7 @@ if ($batchupdate == 1 && is_array($check)){
 		$SQL_UPDATE .= $HD_Form->FG_TABLE_CLAUSE;
 	}
 		
-	if (! $res = $HD_Form -> DBHandle -> query($SQL_UPDATE))		$update_msg = "<center><font color=\"red\"><b>Could not perform the batch update!</b></font></center>";		
+	if (! $res = $HD_Form -> DBHandle -> Execute($SQL_UPDATE))		$update_msg = "<center><font color=\"red\"><b>Could not perform the batch update!</b></font></center>";		
 	else		$update_msg = "<center><font color=\"green\"><b>The batch update has been successfully perform !</b></font></center>";		
 	
 }

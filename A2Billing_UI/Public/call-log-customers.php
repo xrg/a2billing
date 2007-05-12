@@ -302,17 +302,19 @@ $_SESSION["pr_sql_export"]="SELECT $FG_COL_QUERY FROM $FG_TABLE_NAME WHERE $FG_T
 //************************************************************/
 
 
-$QUERY="SELECT substring(t1.starttime,1,10) AS day,case when t1.terminatecause='ANSWER' then 1 else 0 end as success,case when t1.terminatecause ='ANSWER' then 0 else 1 end as fail,0 as maxfail FROM $FG_TABLE_NAME WHERE ".$FG_TABLE_CLAUSE." ORDER BY day";
+$QUERY="CREATE TEMPORARY TABLE ASR_CIC_TEMP AS (SELECT substring(t1.starttime,1,10) AS day,case when t1.terminatecause='ANSWER' then 1 else 0 end as success,case when t1.terminatecause ='ANSWER' then 0 else 1 end as fail,0 as maxfail FROM $FG_TABLE_NAME WHERE ".$FG_TABLE_CLAUSE." ORDER BY day)";
 $max_fail=0;
 $max=0;
 $total_fail_succ=0;
 $total_max_succ=0;
-$totalsuccess=0;
-$totalfail=0;
 $update=array();
 if (!$nodisplay){
-		$res = $DBHandle -> query($QUERY);
-		$num = $res -> numRows();
+		$num = 0;
+		$res = $DBHandle -> Execute($QUERY);
+		$QUERY="SELECT * FROM ASR_CIC_TEMP order by day";
+		$res = $DBHandle -> Execute($QUERY);
+		if ($res)
+			$num = $res -> RecordCount();
 		$pos=0;
 		for($i=0;$i<$num;$i++)
 		{	
@@ -347,15 +349,10 @@ if (!$nodisplay){
 
 			if ($asr_cic_list[$i][2]==1){
 				$total_fail_succ++;	
-			}else{
-				if($total_fail_succ > $total_max_succ){
-					$total_max_succ=$total_fail_succ;
-				}
+			}elseif($total_fail_succ > $total_max_succ){
+				$total_max_succ=$total_fail_succ;
 				$total_fail_succ=0;
 			}
-			
-			$totalsuccess+=$asr_cic_list[$i][1];
-			$totalfail+=$asr_cic_list[$i][2];
 		}
 }
 
@@ -411,7 +408,7 @@ if (!$nodisplay){
 $instance_table_customer = new Table("cc_card", "id,  username, lastname");
 
 $FG_TABLE_CLAUSE = "";
-if ($_SESSION["is_admin"]==0){
+if ($_SESSION["is_admin"]==0){ 	
 	$FG_TABLE_CLAUSE =" IDmanager='".$_SESSION["pr_reseller_ID"]."'";	
 }
 
@@ -447,22 +444,20 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 			<?php  if ($_SESSION["pr_groupID"]==2 && is_numeric($_SESSION["pr_IDCust"])){ ?>
 			<?php  }else{ ?>
 			<tr>
-				<td align="left" valign="top" bgcolor="#000033">					
-					<font face="verdana" size="1" color="#ffffff"><b>&nbsp;&nbsp;<?php echo gettext("CUSTOMERS");?></b></font>
+				<td align="left" valign="top" class="bgcolor_004">					
+					<font class="fontstyle_003">&nbsp;&nbsp;<?php echo gettext("CUSTOMERS");?></font>
 				</td>				
-				<td class="bar-search" align="left" bgcolor="#acbdee">
-				<table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#acbdee"><tr>
+				<td class="bgcolor_005" align="left">
+				<table width="100%" border="0" cellspacing="0" cellpadding="0" class="bgcolor_005"><tr>
 					<td>
 						<?php echo gettext("Enter the cardnumber");?>: <INPUT TYPE="text" NAME="entercustomer" value="<?php echo $entercustomer?>">
 						<a href="#" onclick="window.open('A2B_entity_card.php?popup_select=2&popup_formname=myForm&popup_fieldname=entercustomer' , 'CardNumberSelection','width=550,height=330,top=20,left=100');"><img src="../Images/icon_arrow_orange.gif"></a>
-						<br/>&nbsp;
 					</td>
 					<td align="right">
 						<?php echo gettext("Provider");?>: <INPUT TYPE="text" NAME="enterprovider" value="<?php echo $enterprovider?>" size="4">
 						<a href="#" onclick="window.open('A2B_entity_provider.php?popup_select=2&popup_formname=myForm&popup_fieldname=enterprovider' , 'ProviderSelection','width=550,height=330,top=20,left=100');"><img src="../Images/icon_arrow_orange.gif"></a>
 						<?php echo gettext("Trunk");?>: <INPUT TYPE="text" NAME="entertrunk" value="<?php echo $entertrunk?>" size="4">
 						<a href="#" onclick="window.open('A2B_entity_trunk.php?popup_select=2&popup_formname=myForm&popup_fieldname=entertrunk' , 'TrunkSelection','width=550,height=330,top=20,left=100');"><img src="../Images/icon_arrow_orange.gif"></a>
-						<br/>&nbsp;
 					</td>
 				</tr></table></td>
 			</tr>			

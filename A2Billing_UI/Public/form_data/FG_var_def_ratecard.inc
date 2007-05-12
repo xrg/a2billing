@@ -4,7 +4,7 @@ getpost_ifset(array('id', 'idtariffplan', 'dialprefix', 'destination', 'buyrate'
 'buyrateincrement', 'rateinitial', 'initblock', 'billingblock', 'connectcharge', 'disconnectcharge',
 'stepchargea', 'chargea', 'timechargea', 'billingblocka', 'stepchargeb', 'chargeb', 'timechargeb',
 'billingblockb', 'stepchargec', 'chargec', 'timechargec', 'billingblockc', 'startdate', 'stopdate',
-'starttime', 'endtime', 'id_trunk', 'freeminute_package_offer', 'musiconhold','tariffplan','posted'));
+'starttime', 'endtime', 'id_trunk', 'freeminute_package_offer', 'musiconhold','tariffplan','posted','id_outbound_cidgroup'));
 
 
 $HD_Form = new FormHandler("cc_ratecard","Rates");
@@ -52,6 +52,7 @@ $HD_Form -> AddViewElement("<acronym title=\"INITBLOCK\">".gettext("INITB")."</a
 $HD_Form -> AddViewElement("<acronym title=\"CONNECT CHARGE\">".gettext("CC")."</acronym>", "connectcharge", "4%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("TRUNK"), "id_trunk", "12%", "center", "sort", "15", "lie", "cc_trunk", "trunkcode", "id_trunk='%id'", "%1");
 $HD_Form -> AddViewElement(gettext("<acronym title=\"FREEMINUTE\">".gettext("FM")."</acronym>"), "freeminute_package_offer", "3%", "center", "sort", "", "list", $yesno);
+//$HD_Form -> AddViewElement(gettext("CIDGroup"), "id_outbound_cidgroup", "12%", "center", "sort", "15", "lie", "cc_outbound_cid_group", "group_name", "id='%id'", "%1");
 
 
 
@@ -380,6 +381,15 @@ $HD_Form -> AddEditElement (gettext("USE FREEMINUTE PACKAGE"),
 			   "", 
 			   "" , 
 			   "No:0, - Yes :1",	"", "", "", gettext("Set to use this destination with the freeminute package offer."));
+$HD_Form -> AddEditElement(gettext("CIDGroup"),
+			   "id_outbound_cidgroup",
+			   '$value',
+			   "SELECT",
+			   "", "", "",
+			   "sql",
+			   "cc_outbound_cid_group",
+			   "group_name, id",
+			   	"", "", "%1", "", gettext("Set the Outgoing CID Group to use for this destination, or NOT DEFINED to use the rate card trunk."), '', '<OPTION  value="-1" selected>NOT DEFINED</OPTION>');
 
 if (ADVANCED_MODE){
 
@@ -396,10 +406,10 @@ $HD_Form -> AddEditElement(gettext("MUSICONHOLD"),
 
 if (ADVANCED_MODE){
 	// This Variable store the argument for the SQL query
-	$HD_Form -> FieldEditElement ('idtariffplan, dialprefix, destination, buyrate, buyrateinitblock, buyrateincrement, rateinitial, initblock, billingblock, connectcharge, disconnectcharge, stepchargea, chargea, timechargea, billingblocka, stepchargeb, chargeb, timechargeb, billingblockb, stepchargec, chargec, timechargec, billingblockc, startdate, stopdate, starttime, endtime, id_trunk, freeminute_package_offer, musiconhold');
+	$HD_Form -> FieldEditElement ('idtariffplan, dialprefix, destination, buyrate, buyrateinitblock, buyrateincrement, rateinitial, initblock, billingblock, connectcharge, disconnectcharge, stepchargea, chargea, timechargea, billingblocka, stepchargeb, chargeb, timechargeb, billingblockb, stepchargec, chargec, timechargec, billingblockc, startdate, stopdate, starttime, endtime, id_trunk, freeminute_package_offer,id_outbound_cidgroup, musiconhold');
 }else{
 	// This Variable store the argument for the SQL query
-	$HD_Form -> FieldEditElement ('idtariffplan, dialprefix, destination, buyrate, buyrateinitblock, buyrateincrement,rateinitial, initblock, billingblock, connectcharge, disconnectcharge, startdate, stopdate, starttime, endtime, id_trunk, freeminute_package_offer');
+	$HD_Form -> FieldEditElement ('idtariffplan, dialprefix, destination, buyrate, buyrateinitblock, buyrateincrement,rateinitial, initblock, billingblock, connectcharge, disconnectcharge, startdate, stopdate, starttime, endtime, id_trunk, freeminute_package_offer,id_outbound_cidgroup');
 }
 
 

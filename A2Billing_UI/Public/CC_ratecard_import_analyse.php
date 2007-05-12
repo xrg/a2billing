@@ -263,13 +263,14 @@ if ($task=='upload'){
 				
 				$nb_to_import=0;
 								
-				$result_query =  $DBHandle -> query($TT_QUERY);
+				$result_query =  $DBHandle -> Execute($TT_QUERY);
 				//echo "<br>TT_QUERY:".$TT_QUERY;
 				//echo "<br>ERROR:".$DBHandle -> Error;
 				//echo "<br>RESULT_QUERY:".$result_query;
 				
 								
-				if ($result_query){ $nb_imported = $nb_imported + 1;
+				if ($result_query){ 
+					$nb_imported = $nb_imported + 1;
 				}else{$buffer_error.= $ligneoriginal.'<br/>';}
 				$TT_QUERY='';
 				
@@ -280,9 +281,8 @@ if ($task=='upload'){
 		
 		
 		if ($TT_QUERY!='' && strlen($TT_QUERY)>0 && ($nb_to_import>0) ){
-				
-				$result_query = @ $DBHandle -> query($TT_QUERY);								
-				if ($result_query) $nb_imported = $nb_imported + $nb_to_import;				
+			$result_query = @ $DBHandle -> Execute($TT_QUERY);
+			if ($result_query) $nb_imported = $nb_imported + $nb_to_import;				
 		}		
 	
 	
@@ -420,7 +420,7 @@ function sendtoupload(form){
                       <input type="hidden" name="task" value="upload">
 					  <input type="hidden" name="status" value="ok">
                       <input name="the_file" type="file" size="50" onFocus=this.select() class="saisie1">
-                      <input type="button" style="border: 2px outset rgb(204, 51, 0);"   value="Continue to Import the RateCard" onFocus=this.select() class="form_enter" name="submit1" onClick="sendtoupload(this.form);">
+                      <input type="submit"  value="Continue to Import the RateCard" onFocus=this.select() class="form_input_select" name="submit1" onClick="sendtoupload(this.form);">
                       <br>
                       &nbsp; </p>
                   </td>

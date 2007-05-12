@@ -164,8 +164,11 @@
 				if ($k==200){ echo "ERROR : Impossible to generate a $field not yet used!<br>Perhaps check the LEN_CARDNUMBER (value:".LEN_CARDNUMBER.")";exit();}
 		
 				$query = "SELECT ".$field." FROM ".$table." where ".$field."='$card_gen'";
-				$resmax = $DBHandle_max -> query($query);
-				$numrow = $resmax -> numRows();
+				$resmax = $DBHandle_max -> Execute($query);
+				$numrow = 0;
+				if ($resmax)
+					$numrow = $resmax -> RecordCount( );
+
 				if ($numrow!=0) continue;
 				return $card_gen;
 			}	
@@ -192,8 +195,11 @@
 				}
 		
 				$query = "SELECT username FROM ".$table." where username='$card_gen' OR useralias='$alias_gen'";
-				$resmax = $DBHandle_max -> query($query);
-				$numrow = $resmax -> numRows();
+				$numrow = 0;
+				$resmax = $DBHandle_max -> Execute($query);
+				if ($resmax)
+					$numrow = $resmax -> RecordCount( );
+
 				if ($numrow!=0) continue;
 				$arr_val [0] = $card_gen;
 				$arr_val [1] = $alias_gen;

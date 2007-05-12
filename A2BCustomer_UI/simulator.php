@@ -16,8 +16,11 @@ $QUERY = "SELECT  username, credit, lastname, firstname, address, city, state, c
 
 //echo $QUERY."<br>";
 $DBHandle_max  = DbConnect();
-$resmax = $DBHandle_max -> query($QUERY);
-$numrow = $resmax -> numRows();
+$resmax = $DBHandle_max -> Execute($QUERY);
+$numrow = 0;
+if ($resmax)	
+	$numrow = $resmax -> RecordCount();
+
 if ($numrow == 0) exit();
 $customer_info =$resmax -> fetchRow();
 
@@ -47,10 +50,11 @@ if ($called  && $id_cc_card){
 				$A2B -> DBHandle = DbConnect();
 				$instance_table = new Table();
 				$A2B -> set_instance_table ($instance_table);
-								
-				$resmax = $A2B -> DBHandle -> query("SELECT username, tariff FROM cc_card where id='$customer_info[14]'");
-				
-				$num = $resmax -> numRows();
+				$num = 0;				
+				$resmax = $A2B -> DBHandle -> Execute("SELECT username, tariff FROM cc_card where id='$customer_info[14]'");
+				if ($resmax) 
+					$num = $resmax -> RecordCount();
+
 				if ($num==0){ echo gettext("Error card !!!"); exit();}
 
 				for($i=0;$i<$num;$i++)
@@ -66,7 +70,7 @@ if ($called  && $id_cc_card){
 					if ($FG_DEBUG == 1) $RateEngine -> debug_st = 1;
 
 					$RateEngine = new RateEngine();
-					$RateEngine -> webui = 0;
+					$RateEngine -> webui = 1;
 					// LOOKUP RATE : FIND A RATE FOR THIS DESTINATION
 
 

@@ -167,12 +167,14 @@ $_SESSION["pr_sql_export"]="SELECT $FG_COL_QUERY FROM $FG_TABLE_NAME WHERE $FG_T
 $QUERY = "SELECT substring(t1.callstart,1,10) AS day, sum(t1.duration) AS calltime, count(*) as nbcall FROM $FG_TABLE_NAME WHERE ".$FG_TABLE_CLAUSE." GROUP BY substring(t1.callstart,1,10)"; //extract(DAY from calldate) 
 //echo "$QUERY";
 
+		$res = $DBHandle -> Execute($QUERY);
+		if ($res){
+			$num = $res -> RecordCount( );
 
-		$res = $DBHandle -> query($QUERY);
-		$num = $res -> numRows();
-		for($i=0;$i<$num;$i++)
-		{				
-			$list_total_day [] =$res -> fetchRow();				 
+			for($i=0;$i<$num;$i++)
+			{				
+				$list_total_day [] =$res -> fetchRow();				 
+			}
 		}
 
 
@@ -219,12 +221,14 @@ $total_cost = $instance_table_cost -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, nul
 		}
 		
 		//echo $QUERY ;
-		$res = $DBHandle -> query($QUERY);
-		$num = $res -> numRows();		
+		$res = $DBHandle -> Execute($QUERY);
+		if ($res){
+			$num = $res -> RecordCount( );		
 		
-		for($i=0;$i<$num;$i++)
-		{		
-			$list_credit [] =$res -> fetchRow();			
+			for($i=0;$i<$num;$i++)
+			{		
+				$list_credit [] =$res -> fetchRow();			
+			}
 		}
 	   //print_r($list_refill);
 	    $total_credit=$list_credit[0][0];
@@ -241,12 +245,14 @@ $total_cost = $instance_table_cost -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, nul
 		}
 		$QUERY.=" GROUP BY t1.IDCust";
 		
-		$res = $DBHandle -> query($QUERY);
-		$num = $res -> numRows();		
+		$res = $DBHandle -> Execute($QUERY);
+		if ($res){
+			$num = $res -> RecordCount( );		
 		
-		for($i=0;$i<$num;$i++)
-		{		
-			$list_refill [] =$res -> fetchRow();			
+			for($i=0;$i<$num;$i++)
+			{		
+				$list_refill [] =$res -> fetchRow();			
+			}
 		}
 	   //print_r($list_refill);
 	   $total_refill=0;
@@ -278,12 +284,14 @@ $total_cost = $instance_table_cost -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, nul
 		}
 		$QUERY.=" GROUP BY t1.IDCust";
 		
-		$res = $DBHandle -> query($QUERY);
-		$num = $res -> numRows();		
+		$res = $DBHandle -> Execute($QUERY);
+		if ($res){
+			$num = $res -> RecordCount( );		
 		
-		for($i=0;$i<$num;$i++)
-		{		
-			$list_discount[] =$res -> fetchRow();			
+			for($i=0;$i<$num;$i++)
+			{		
+				$list_discount[] =$res -> fetchRow();			
+			}
 		}
 	   //print_r($list_discount);
 	   $total_discount=0;
@@ -306,12 +314,14 @@ $total_cost = $instance_table_cost -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, nul
 		}
 		$QUERY.=" GROUP BY t1.IDCust";
 		
-		$res = $DBHandle -> query($QUERY);
-		$num = $res -> numRows();		
+		$res = $DBHandle -> Execute($QUERY);
+		if ($res){
+			$num = $res -> RecordCount( );		
 		
-		for($i=0;$i<$num;$i++)
-		{		
-			$list_saldo [] =$res -> fetchRow();			
+			for($i=0;$i<$num;$i++)
+			{		
+				$list_saldo [] =$res -> fetchRow();			
+			}
 		}
 		
 		$total_saldo=0;

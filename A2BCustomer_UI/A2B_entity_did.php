@@ -39,12 +39,78 @@ $rate=$did_rate[1];
 
 $QUERY = "SELECT  credit FROM cc_card WHERE username = '".$_SESSION["pr_login"]."' AND uipass = '".$_SESSION["pr_password"]."'";
 $DBHandle_max  = DbConnect();
-$resmax = $DBHandle_max -> query($QUERY);
+$resmax = $DBHandle_max -> Execute($QUERY);
+if ($resmax)
+	$user_credit = $resmax -> fetchRow();
 
-$user_credit = $resmax -> fetchRow();
+/*************************************************************/
+/*           releese the choosen did                        */
+
+if ($action_release=="confirm_release"){
 
 if ((isset($confirm_buy_did)) && ($confirm_buy_did == 1))
 {
+	$message = "\n\n".gettext("The following Destinaton-DID has been relesed:")."\n\n";
+	$instance_table = new Table();
+	$QUERY = "UPDATE cc_did set iduser = 0 ,reserved=0 where id=$choose_did" ;
+	$result = $instance_table -> SQLExec ($HD_Form -> DBHandle, $QUERY, 0);
+	$message .= "QUERY on cc_did : $QUERY \n\n";
+
+	$QUERY = "UPDATE cc_did_use set releasedate = now() where id_did =$choose_did and activated = 1" ;
+	$result = $instance_table -> SQLExec ($HD_Form -> DBHandle, $QUERY, 0);
+	$message .= "QUERY on cc_did_use : $QUERY \n\n";
+
+	$QUERY = "insert into cc_did_use (activated, id_did) values ('0','".$choose_did."')";
+	$result = $instance_table -> SQLExec ($HD_Form -> DBHandle, $QUERY, 0);
+	$message .= "INSERT new free entrie in cc_did use : $QUERY \n\n";
+
+	$QUERY = "delete FROM cc_did_destination where id_cc_did =".$choose_did;
+	$result = $instance_table -> SQLExec ($HD_Form -> DBHandle, $QUERY, 0);
+	$message .= "DELETE all DID destination: $QUERY \n\n";
+
+	$date = date("D M j G:i:s T Y", time());
+		// email header
+	$em_headers  = "From: A2BILLING ALERT <a2billing_alert@localhost>\n";
+	$em_headers .= "X-Priority: 3\n";
+	if (strlen($A2B->config["webcustomerui"]['error_email'])>3)
+	mail($A2B->config["webcustomerui"]['error_email'], "[$date] Release-DID notification", $message, $em_headers);
+
+}
+
+/***********************************************************/
+
+if ($action_release=="ask_release") { 
+	echo '<br><br>'.$CC_help_release_did;
+	?>
+	<FORM action="A2B_entity_did.php" name="form1">
+		<INPUT type="hidden" name="choose_did" value="<?php echo $choose_did?>">
+		<INPUT type="hidden" name="action_release" value="confirm_release"><br><br>
+		<br><br>
+		<TABLE cellspacing="0" class="delform_table5">
+			<tr>
+				<td width="434" class="text_azul"><?php echo gettext("If you really want release this DID , Click on the 	release button.")?>
+				</td>
+			</tr>
+			<tr height="2">
+				<td style="border-bottom: medium dotted rgb(255, 119, 102);">&nbsp; </td>
+			</tr>
+			<tr>
+		    		<td width="190" align="right" class="text"><INPUT title="<?php echo gettext("Release the DID ");?> " alt="<?php echo gettext("Release the DID "); ?>" hspace=2 name=submit src="<?php echo Images_Path;?>/btn_release_did_94x20.gif" type="image"></td>
+			</tr>
+		</TABLE>
+	</FORM>
+<?php 
+} 
+
+if (!isset($action_release) || $action_release=="confirm_release" || $action_release==""){ 
+	// #### HELP SECTION
+	if ($form_action=='list')
+	{
+		echo '<br><br>'.$CC_help_list_did;
+	}	
+
+	if ((isset($confirm_buy_did)) && ($confirm_buy_did == 1))
+	{
 		if ($rate <= $user_credit[0]) $confirm_buy_did = 2;
 		else $confirm_buy_did = 0;
 } else 

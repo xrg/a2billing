@@ -16,23 +16,30 @@ if (!$A2B->config["webcustomerui"]['webphone']) exit();
 $QUERY = "SELECT  activated, sip_buddy, iax_buddy, username FROM cc_card WHERE username = '".$_SESSION["pr_login"]."' AND uipass = '".$_SESSION["pr_password"]."'";
 
 $DBHandle_max  = DbConnect();
-$resmax = $DBHandle_max -> query($QUERY);
-$numrow = $resmax -> numRows();
+$resmax = $DBHandle_max -> Execute($QUERY);
+$numrow = 0;	
+if ($resmax)
+	$numrow = $resmax -> RecordCount();
+
 if ($numrow == 0) exit();
 $customer_info =$resmax -> fetchRow();
 
 if( $customer_info [1] == "t" || $customer_info [1] == "1" ) {
 	$SIPQUERY="SELECT secret FROM cc_sip_buddies WHERE username = '".$customer_info[3]."'";
-	$sipresmax = $DBHandle_max -> query($SIPQUERY);
-	$sipnumrow = $sipresmax -> numRows();
-	$sip_info =$sipresmax -> fetchRow();
+	$sipresmax = $DBHandle_max -> Execute($SIPQUERY);
+	if ($sipresmax){
+		$sipnumrow = $sipresmax -> RecordCount();
+		$sip_info =$sipresmax -> fetchRow();
+	}	
 }
 
 if( $customer_info [2] == "t" || $customer_info [2] == "1" ) {
 	$IAXQUERY="SELECT secret FROM cc_iax_buddies WHERE username = '".$customer_info[3]."'";
-	$iaxresmax = $DBHandle_max -> query($IAXQUERY);
-	$iaxnumrow = $iaxresmax -> numRows();
-	$iax_info =$iaxresmax -> fetchRow();
+	$iaxresmax = $DBHandle_max -> Execute($IAXQUERY);
+	if ($iaxremax){
+		$iaxnumrow = $iaxresmax -> RecordCount();
+		$iax_info =$iaxresmax -> fetchRow();
+	}
 }
 
 
