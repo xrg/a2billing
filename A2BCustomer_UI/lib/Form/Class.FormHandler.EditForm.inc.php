@@ -649,19 +649,21 @@ function sendtolittle(direction){
 
                 </FORM>
               </TABLE>
-			  <table width="95%" height="70" cellpadding="3" cellspacing="0" bgcolor="#FFFFFF" align="center">
-					<tr height="2">
-                      <td colspan="2" style="border-bottom: medium dotted rgb(102, 119, 102);"> &nbsp;</td>
-
-                    </tr>
-                    <tr>
-                      <td width="200" class="text_azul"><span class="tableBodyRight"><?php echo $this->FG_BUTTON_EDITION_BOTTOM_TEXT?></span></td>
-                      <td width="200" align="right" class="text">
-					  	<a href="#" onClick="sendto('edit');" class="cssbutton_big"><IMG src="<?php echo Images_Path_Main;?>/icon_arrow_orange.gif">
-						<?php echo gettext("CONFIRM DATA"); ?> </a>
-					  	<!-- 
-							<input onClick="sendto('edit');" border=0 hspace=0 id=submit3 name=submit32 src="<?php echo $this->FG_BUTTON_EDITION_SRC?>" type=image value="add-split">		-->
-							
-					  </td>
-                    </tr>
-               </table>
+	  <TABLE cellspacing="0" class="editform_table8">
+		<tr>
+		 <td colspan="2" style="border-bottom: medium dotted rgb(102, 119, 102);">&nbsp; </td>
+		</tr>
+		<tr>
+			<td width="50%" class="text_azul"><span class="tableBodyRight"><?php echo $this->FG_BUTTON_EDITION_BOTTOM_TEXT?></span></td>
+			<td width="50%" align="right" class="text">
+			
+				<a href="#" onClick="sendto('edit');" class="cssbutton_big"><IMG src="<?php echo Images_Path_Main;?>/icon_arrow_orange.gif">
+				<?php echo gettext("CONFIRM DATA"); ?> </a>
+				
+				<!-- 
+				<input onClick="sendto('edit');" border=0 hspace=0 id=submit3 name=submit32 src="<?php echo $this->FG_BUTTON_EDITION_SRC?>" 
+				type=image value="add-split">		
+				-->
+			</td>
+		</tr>
+	  </TABLE>

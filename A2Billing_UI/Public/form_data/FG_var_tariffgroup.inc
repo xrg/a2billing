@@ -40,7 +40,7 @@ $inter_prefix_list_short["1"] = array( gettext("Remove prefix"), "1");
 
 $HD_Form -> AddViewElement(gettext("ID"), "id", "5%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("TARIFFGROUPNAME"), "tariffgroupname", "20%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("CREATIONDATE"), "creationdate", "20%", "center", "sort", "16", "", "", "", "", "", "display_dateformat");
+$HD_Form -> AddViewElement(gettext("CREATIONDATE"), "creationdate", "20%", "center", "sort", "19", "", "", "", "", "", "display_dateformat");
 $HD_Form -> AddViewElement(gettext("LC TYPE"), "lcrtype", "15%", "center", "sort", "", "list", $lcrtype_list_short);
 $HD_Form -> AddViewElement(gettext("PACKAGE"), "id_cc_package_offer", "11%", "center", "sort", "15", "lie", "cc_package_offer", "label", "id='%id'", "%1");
 $HD_Form -> AddViewElement(gettext("INTER PREFIX"), "removeinterprefix", "15%", "center", "sort", "", "list", $inter_prefix_list_short);
