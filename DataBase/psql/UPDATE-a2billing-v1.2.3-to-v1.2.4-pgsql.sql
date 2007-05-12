@@ -582,3 +582,48 @@ CREATE TABLE cc_alarm_report (
 );
 ALTER TABLE ONLY cc_alarm_report
     ADD CONSTRAINT cc_alarm_report_pkey PRIMARY KEY (id);
+
+
+
+
+
+
+
+CREATE TABLE cc_callback_spool (
+    id 					bigserial NOT NULL,
+	uniqueid			text,
+    entry_time 			timestamp without time zone DEFAULT now(),	
+    status 				text,
+	server_ip 			text,	
+	num_attempt 		int,
+	last_attempt_time	timestamp without time zone,
+	manager_result		text,
+	agi_result			text,
+	callback_time 		timestamp without time zone,	
+    channel 			text,
+	exten 				text,
+	context 			text,
+	priority 			text,
+	application 		text,
+	data 				text,
+	timeout 			text,
+	callerid 			text,
+	variable 			text,
+	account 			text,
+	async 				text,
+	actionid 			text
+) WITH OIDS;
+
+ALTER TABLE ONLY cc_callback_spool
+    ADD CONSTRAINT cc_callback_spool_uniqueid_key UNIQUE (uniqueid);
+
+
+CREATE TABLE cc_server_manager (
+	id 					bigserial NOT NULL,
+	server_ip 			text,
+	manager_host		text,
+	manager_username 	text,
+	manager_secret		text
+) WITH OIDS;
+
+INSERT INTO cc_server_manager (server_ip, manager_host, manager_username, manager_secret) VALUES ('default', 'localhost', 'myasterisk', 'mycode');

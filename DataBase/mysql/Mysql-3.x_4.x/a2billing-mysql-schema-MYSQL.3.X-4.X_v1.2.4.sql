@@ -1489,3 +1489,46 @@ CREATE TABLE cc_alarm (
     daterun TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
     PRIMARY KEY (id)
 );
+
+
+
+
+
+
+CREATE TABLE cc_callback_spool (
+    id BIGINT NOT NULL AUTO_INCREMENT,
+	uniqueid VARCHAR(40),
+	entry_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	status VARCHAR(80),
+	server_ip VARCHAR(40),
+	num_attempt INT NOT NULL DEFAULT 0,
+	last_attempt_time TIMESTAMP,
+	manager_result VARCHAR(60),
+	agi_result VARCHAR(60),
+	callback_time TIMESTAMP,
+	channel VARCHAR(60),
+	exten VARCHAR(60),
+	context VARCHAR(60),
+	priority VARCHAR(60),
+	application VARCHAR(60),
+	data VARCHAR(60),
+	timeout VARCHAR(60),
+	callerid VARCHAR(60),
+	variable VARCHAR(60),
+	account VARCHAR(60),
+	async VARCHAR(60),
+	actionid VARCHAR(60),
+    PRIMARY KEY (id),
+	UNIQUE cc_callback_spool_uniqueid_key (uniqueid)
+);
+
+CREATE TABLE cc_server_manager (
+    id BIGINT NOT NULL AUTO_INCREMENT,
+	server_ip VARCHAR(40),
+	manager_host VARCHAR(50),
+	manager_username VARCHAR(50),
+	manager_secret VARCHAR(50),
+	PRIMARY KEY (id)
+);
+
+INSERT INTO cc_server_manager (server_ip, manager_host, manager_username, manager_secret) VALUES ('default', 'localhost', 'myasterisk', 'mycode');
