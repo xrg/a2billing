@@ -4,47 +4,31 @@
 ********************************************************************************
 
 
-
-#### SIGNUP MODULE
+#### SIGN-UP LINK ON CUSTOMER UI
 ********************************************************************
-the design is broken probably due to smarty template
+ 
+put a link on the Customer sign in page. 
+"To sign up click here" where "here" links to  A2Billing_UI/signup
+
+use of the new parameter in a2billing.conf
+
+[webcustomerui]
+
+; url of the signup page to show up on the sign in page (if empty no link will show up)
+signup_page_url = http://localhost/~areski/svn/a2billing/trunk/A2Billing_UI/signup/
+	
 
 
-#### REPORT IMPROVE PRESENTATION
+#### IVR VOUCHER
 ********************************************************************
-commit :
-http://trac.a2billing.net/cgi-bin/trac.cgi/changeset/895
-this patch make a couples of fixes & changes on the CDR Report (such as text size, position, names, colors...)
+No need to press 8 go directly to the option if user's credit is below the
+minimum credit to call
+new parameter
+redirect_voucher_if_mincredit = yes or no
+and it will be base on the minimum credit to make a call
 
-We need to make those same changes over the other report page :
-# Invoices
-# Calls Compare
-# Monthly Traffic
-# Daily Load
-# Report
+maybe a voucher mode as callback instead
 
-and also on the customer interface.
-
-
-
-#### IE ISSUES
-********************************************************************
-A user can face following issues in the client side Website.
-
-1) Login Page: Click Here Text is very Small.
-2) Main Problem at the Pages is Menu. Left Side Menu is Half Displayed. and + Expand functionality is not working for DID.
-3) Userinfo.php: Text Font is very bad. Huge font are displayed. 2) Page layout is disturbed.
-4) Layout is disturbed on all pages
-5) Layout of the Footer is not ok.
-6) Change password page layout: Page has much white space under the header.
-7) Add Caller ID Page is containing different text fonts.
-
-
-#### MISC
-********************************************************************
-- Selection of the month -> replace by -> Month select ...
-- 1.Call Report – CDR Report – for appearances sake, can you make the font and size 
-the same for Show: Answered Calls etc in the options section. As per the rest of this form ? 
 
 
 #### BUG : DID BILLING
@@ -53,6 +37,7 @@ bug DID billing
 we create a DID with no monthly cost for instance free or just dialout cost!!
 When the use take the DID from the customer interface, it still have to pay for it
 we dont check the billingtype of DID
+
 
 #### BUG : DID  (not urgent)
 ********************************************************************
@@ -63,28 +48,18 @@ Go to the Client Side You will see the Destination in the Card
 but when you will go to edit the Destination you will see the DIDGroup List is Not Loaded
 
 
-
-#### CHECK DESIGN ERROR WITH IE (INTERNET EXPLORER)
-********************************************************************
-- licence at the bottom is broken
-- anything else we find, etc...
-
-
-#### FEATURE : NEW DID MANAGEMENT
+#### FEATURE : REVIEW NEW DID MANAGEMENT
 ********************************************************************
 Reservation and release
 * To check
 
+
 #### DOCUMENTATION : SMARTY & NEW DID MANAGEMENT
 ********************************************************************
-- How smarty works and how to customize the design of a2billing with smarty and css
-- Doc/DID_Billing.info to conitnue : make a detailed explanation of how to configure and use 
+- How smarty works and how to customize the design of a2billing with smarty and css.
+  little guide about how to do it!
+- Doc/DID_Billing.info to continue : make a detailed explanation of how to configure and use 
   the DID billing explain a real case when we need to sell DIDs through A2Billing
-
-
-#### DOCUMENTATION : SMARTY
-********************************************************************
-- How smarty works and how to customize the design of a2billing with smarty and css
 
 
 ######## CURRENCY MANAGEMENT IN CRONT SERVICE 

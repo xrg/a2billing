@@ -334,13 +334,14 @@ echo '<br><br>'.$CC_help_balance_customer;
 		<table class="bar-status" width="75%" border="0" cellspacing="1" cellpadding="2" align="center">
 			<tbody>
 			<tr>
-        		<td class="bar-search" align="left" bgcolor="#555577">
+        		<td class="bgcolor_004" align="left" >
 
 					<input type="radio" name="Period" value="Month" <?php  if (($Period=="Month") || !isset($Period)){ ?>checked="checked" <?php  } ?>> 
-					<font face="verdana" size="1" color="#ffffff"><b><?php echo gettext("Selection of the month");?></b></font>
+					<font class="callhistory_td4"><?php echo gettext("SELECT MONTH");?></font>
 				</td>
-      			<td class="bar-search" align="left" bgcolor="#cddeff">
-					<table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#cddeff"><tr><td>
+				<td class="bgcolor_005" align="left" >
+					<table width="100%" border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="fontstyle_searchoptions">
 	  				<input type="checkbox" name="frommonth" value="true" <?php  if ($frommonth){ ?>checked<?php }?>>
 					<?php echo gettext("FROM");?> : <select name="fromstatsmonth">
 					<?php 	$year_actual = date("Y");
@@ -360,7 +361,7 @@ echo '<br><br>'.$CC_help_balance_customer;
 						}
 					?>		
 					</select>
-					</td><td>&nbsp;&nbsp;
+					</td><td class="fontstyle_searchoptions">&nbsp;&nbsp;
 					<input type="checkbox" name="tomonth" value="true" <?php  if ($tomonth){ ?>checked<?php }?>> 
 					<?php echo gettext("TO");?> : <select name="tostatsmonth">
 					<?php 	$year_actual = date("Y");
@@ -385,12 +386,13 @@ echo '<br><br>'.$CC_help_balance_customer;
     		</tr>
 			
 			<tr>
-        		<td align="left" bgcolor="#000033">
+        		<td align="left" class="bgcolor_002">
 					<input type="radio" name="Period" value="Day" <?php  if ($Period=="Day"){ ?>checked="checked" <?php  } ?>> 
-					<font face="verdana" size="1" color="#ffffff"><b><?php echo gettext("Selection of the day");?></b></font>
+					<font class="callhistory_td4"><?php echo gettext("SELECT DAY");?></b></font>
 				</td>
-      			<td align="left" bgcolor="#acbdee">
-					<table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#acbdee"><tr><td>
+      			<td align="left" class="bgcolor_003">
+					<table width="100%" border="0" cellspacing="0" cellpadding="0" >
+					<tr><td class="fontstyle_searchoptions">
 	  				<input type="checkbox" name="fromday" value="true" <?php  if ($fromday){ ?>checked<?php }?>> <?php echo gettext("FROM");?> :
 					<select name="fromstatsday_sday">
 						<?php  
@@ -418,7 +420,7 @@ echo '<br><br>'.$CC_help_balance_customer;
 						}
 					?>
 					</select>
-					</td><td>&nbsp;&nbsp;
+					</td><td class="fontstyle_searchoptions">&nbsp;&nbsp;
 					<input type="checkbox" name="today" value="true" <?php  if ($today){ ?>checked<?php }?>> <?php echo gettext("TO");?> :
 					<select name="tostatsday_sday">
 					<?php  
@@ -450,52 +452,50 @@ echo '<br><br>'.$CC_help_balance_customer;
 	  			</td>
     		</tr>
 			<tr>
-				<td class="bar-search" align="left" bgcolor="#555577">			
+				<td  align="left" class="bgcolor_004">
 					<font face="verdana" size="1" color="#ffffff"><b>&nbsp;&nbsp;<?php echo gettext("DESTINATION");?></b></font>
-				</td>				
-				<td class="bar-search" align="left" bgcolor="#cddeff">
-				<table width="100%" border="0" cellspacing="0" cellpadding="0"><tr><td>&nbsp;&nbsp;<INPUT TYPE="text" NAME="dst" value="<?php echo $dst?>"></td>
-				<td class="bar-search" align="center" bgcolor="#cddeff"><input type="radio" NAME="dsttype" value="1" <?php if((!isset($dsttype))||($dsttype==1)){?>checked<?php }?>><?php echo gettext("Exact");?></td>
-				<td class="bar-search" align="center" bgcolor="#cddeff"><input type="radio" NAME="dsttype" value="2" <?php if($dsttype==2){?>checked<?php }?>><?php echo gettext("Begins with")?></td>
-				<td class="bar-search" align="center" bgcolor="#cddeff"><input type="radio" NAME="dsttype" value="3" <?php if($dsttype==3){?>checked<?php }?>><?php echo gettext("Contains");?></td>
-				<td class="bar-search" align="center" bgcolor="#cddeff"><input type="radio" NAME="dsttype" value="4" <?php if($dsttype==4){?>checked<?php }?>><?php echo gettext("End with");?></td>
+				</td>
+				<td  align="left" class="bgcolor_005">
+				<table width="100%" border="0" cellspacing="0" cellpadding="0">
+				<tr><td class="fontstyle_searchoptions">&nbsp;&nbsp;<INPUT TYPE="text" NAME="dst" value="<?php echo $dst?>" class="form_input_text"></td>
+				<td  align="center" ><input type="radio" NAME="dsttype" value="1" <?php if((!isset($dsttype))||($dsttype==1)){?>checked<?php }?>><?php echo gettext("Exact");?></td>
+				<td  align="center" ><input type="radio" NAME="dsttype" value="2" <?php if($dsttype==2){?>checked<?php }?>><?php echo gettext("Begins with")?></td>
+				<td  align="center" ><input type="radio" NAME="dsttype" value="3" <?php if($dsttype==3){?>checked<?php }?>><?php echo gettext("Contains");?></td>
+				<td  align="center" ><input type="radio" NAME="dsttype" value="4" <?php if($dsttype==4){?>checked<?php }?>><?php echo gettext("End with");?></td>
 				</tr></table></td>
 			</tr>			
-			
-			
 			<!-- Select Option : to show just the Answered Calls or all calls, Result type, currencies... -->
-
-			
 			<tr>
-			  <td class="bar-search" align="left" bgcolor="#000033"><font face="verdana" size="1" color="#ffffff"><b>&nbsp;&nbsp;<?php echo gettext("Options"); ?></b></font></td>
-			  <td class="bar-search" align="center" bgcolor="#acbdee"><div align="left">
-
+			  <td class="bgcolor_002" align="left" ><font class="callhistory_td4">&nbsp;&nbsp;<?php echo gettext("OPTIONS"); ?></font></td>
+			  <td class="bgcolor_003" align="center">
+			  
 			  <table width="100%" border="0" cellspacing="0" cellpadding="0">
-			  <tr>
-			  	<td width="60%" >
-				  <b><?php echo gettext("Show: "); ?></b>
-				  <?php echo gettext("Answered Calls"); ?>
+				<tr>
+					<td width="20%"  class="fontstyle_searchoptions">
+						<?php echo gettext("SHOW");?> :  						
+				   </td>
+				   <td width="80%"  class="fontstyle_searchoptions">				   		
+				 <?php echo gettext("Answered Calls"); ?>
 				  <input name="terminatecause" type="radio" value="ANSWER" <?php if((!isset($terminatecause))||($terminatecause=="ANSWER")){?>checked<?php }?> />
 				  <?php echo gettext("All Calls"); ?>
 
 				   <input name="terminatecause" type="radio" value="ALL" <?php if($terminatecause=="ALL"){?>checked<?php }?>/>
-				   
-			   </td>
-			   <td>
-			   
-					<b><?php echo gettext("Result");?> : </b>
+					</td>
+				</tr>
+				<tr class="bgcolor_005">
+					<td  class="fontstyle_searchoptions">
+						<?php echo gettext("RESUTL");?> : 
+				   </td>
+				   <td  class="fontstyle_searchoptions">
 					<?php echo gettext("Minutes");?><input type="radio" NAME="resulttype" value="min" <?php if((!isset($resulttype))||($resulttype=="min")){?>checked<?php }?>> - <?php echo gettext("Seconds");?> <input type="radio" NAME="resulttype" value="sec" <?php if($resulttype=="sec"){?>checked<?php }?>>
-					
-					
-					
-						  
-			  
-			  	</td>
+					</td>
 				</tr>
 				<tr>
-					<td>
-						<b><?php echo gettext("Currency");?> :</b>
-						<select NAME="choose_currency" size="1" class="form_enter" style="border: 2px outset rgb(204, 51, 0);">
+					<td  class="fontstyle_searchoptions">
+						<?php echo gettext("CURRENCY");?> :
+					</td>
+					<td  class="fontstyle_searchoptions">
+					<select NAME="choose_currency" size="1" class="form_input_select" >
 							<?php
 								$currencies_list = get_currencies();
 								foreach($currencies_list as $key => $cur_value) {
@@ -504,12 +504,11 @@ echo '<br><br>'.$CC_help_balance_customer;
 								</option>
 							<?php 	} ?>
 						</select>
-						 </div>		
 					</td>
-					<td>
-					</td>
-				</tr>
+				</tr>				
 				</table>
+			
+
 			  </td>
 			  </tr>
 

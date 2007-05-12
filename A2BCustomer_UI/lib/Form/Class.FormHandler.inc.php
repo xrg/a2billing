@@ -737,7 +737,7 @@ class FormHandler{
 	// 6. ERROR MESSAGE // Used IF SELECT for ask-add as option with value -1
 	// 7.  IF THE FIELD TYPE IS A SELECT,  DEFINE LIST OR SQL
 	// 8.  IF SQL,		THE TABLE NAME
-	// 9. IF SQL,		THE FIELDS  : Three MAXIMUM IN ORDER (NAME, VALUE, ...other that we need for the display) ;)
+	// 9.  IF SQL,		THE FIELDS  : Three MAXIMUM IN ORDER (NAME, VALUE, ...other that we need for the display) ;)
 	// 10. IF SQL,		THE CLAUSE
 	// 11. IF LIST,		THE NAME OF THE LIST
 	// 12. IF LIST,		DISPLAY : %1 : (%2) ; IF SELECT , show the content of that field

@@ -661,7 +661,13 @@ function sendtolittle(direction){
 
                     </tr>
                     <tr>
-                      <td width="434" class="text_azul"><span class="tableBodyRight"><?= $this->FG_BUTTON_EDITION_BOTTOM_TEXT?></span></td>
-                      <td width="190" align="right" class="text"><input onClick="sendto('edit');"  border=0 hspace=0 id=submit3 name=submit32 src="<?= $this->FG_BUTTON_EDITION_SRC?>" type=image value="add-split"></td>
+                      <td width="200" class="text_azul"><span class="tableBodyRight"><?php echo $this->FG_BUTTON_EDITION_BOTTOM_TEXT?></span></td>
+                      <td width="200" align="right" class="text">
+					  	<a href="#" onClick="sendto('edit');" class="cssbutton_big"><IMG src="<?php echo Images_Path_Main;?>/icon_arrow_orange.gif">
+						<?php echo gettext("CONFIRM DATA"); ?> </a>
+					  	<!-- 
+							<input onClick="sendto('edit');" border=0 hspace=0 id=submit3 name=submit32 src="<?php echo $this->FG_BUTTON_EDITION_SRC?>" type=image value="add-split">		-->
+							
+					  </td>
                     </tr>
                </table>
