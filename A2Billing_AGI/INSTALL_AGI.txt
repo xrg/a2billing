@@ -81,12 +81,14 @@ exten => _X.,n,Hangup
 exten => _X.,1,DeadAGI(a2billing.php|1|predictivedialer)	
 exten => _X.,n,Hangup
 
-
 [a2billing-did]
 exten => _X.,1,DeadAGI(a2billing.php|1|did)
 exten => _X.,2,Hangup
-	
-	
+
+[a2billing-voucher]
+exten => _X.,1,DeadAGI(a2billing.php|1|voucher)
+exten => _X.,n,Hangup	
+
 
 8. sip.conf add the line at the end	
    #include additional_a2billing_sip.conf 

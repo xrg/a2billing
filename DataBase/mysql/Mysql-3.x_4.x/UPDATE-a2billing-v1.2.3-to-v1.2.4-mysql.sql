@@ -713,6 +713,15 @@ CREATE TABLE cc_subscription_fee (
     PRIMARY KEY (id)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
+
+ALTER TABLE cc_charge 	ADD COLUMN currency 				CHAR(3) DEFAULT 'USD';
+ALTER TABLE cc_charge 	ADD COLUMN id_cc_subscription_fee 	BIGINT DEFAULT '0';
+
+CREATE INDEX ind_cc_charge_id_cc_card				ON cc_charge (id_cc_card);
+CREATE INDEX ind_cc_charge_id_cc_subscription_fee 	ON cc_charge (id_cc_subscription_fee);
+CREATE INDEX ind_cc_charge_creationdate 			ON cc_charge (creationdate);
+
+
 -- INSTEAD USE CC_CHARGE
 CREATE TABLE cc_subscription_fee_card (
     id 									BIGINT NOT NULL AUTO_INCREMENT,

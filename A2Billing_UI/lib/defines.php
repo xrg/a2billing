@@ -26,8 +26,7 @@
 
 	
 	// WEB DEFINE FROM THE A2BILLING.CONF FILE
-	define ("EMAIL_ADMIN", isset($A2B->config["webui"]['email_admin'])?$A2B->config["webui"]['email_admin']:null);
-	define ("LEN_CARDNUMBER", isset($A2B->config["webui"]['len_cardnumber'])?$A2B->config["webui"]['len_cardnumber']:null);
+	define ("EMAIL_ADMIN", isset($A2B->config["webui"]['email_admin'])?$A2B->config["webui"]['email_admin']:null);	
 	define ("LEN_ALIASNUMBER", isset($A2B->config["webui"]['len_aliasnumber'])?$A2B->config["webui"]['len_aliasnumber']:null);
 	define ("LEN_VOUCHER", isset($A2B->config["webui"]['len_voucher'])?$A2B->config["webui"]['len_voucher']:null);
 	define ("NUM_MUSICONHOLD_CLASS", isset($A2B->config["webui"]['num_musiconhold_class'])?$A2B->config["webui"]['num_musiconhold_class']:null);
@@ -36,7 +35,6 @@
 	define ("MANAGER_SECRET", isset($A2B->config["webui"]['manager_secret'])?$A2B->config["webui"]['manager_secret']:null);
 	define ("SHOW_HELP", isset($A2B->config["webui"]['show_help'])?$A2B->config["webui"]['show_help']:null);	
 	define ("MY_MAX_FILE_SIZE_IMPORT", isset($A2B->config["webui"]['my_max_file_size_import'])?$A2B->config["webui"]['my_max_file_size_import']:null);
-	define ("MY_MAX_FILE_SIZE", isset($A2B->config["webui"]['my_max_file_size'])?$A2B->config["webui"]['my_max_file_size']:null);
 	define ("DIR_STORE_MOHMP3",isset($A2B->config["webui"]['dir_store_mohmp3'])?$A2B->config["webui"]['dir_store_mohmp3']:null);
 	define ("DIR_STORE_AUDIO", isset($A2B->config["webui"]['dir_store_audio'])?$A2B->config["webui"]['dir_store_audio']:null);
 	define ("MY_MAX_FILE_SIZE_AUDIO", isset($A2B->config["webui"]['my_max_file_size_audio'])?$A2B->config["webui"]['my_max_file_size_audio']:null);
@@ -75,11 +73,20 @@
 	define ("PG_DUMP", isset($A2B->config["backup"]['pg_dump'])?$A2B->config["backup"]['pg_dump']:null);
 	define ("MYSQL", isset($A2B->config["backup"]['mysql'])?$A2B->config["backup"]['mysql']:null);
 	define ("PSQL", isset($A2B->config["backup"]['psql'])?$A2B->config["backup"]['psql']:null);
-
+	
     //Images Path
     define ("Images_Path","./images");
     define ("Images_Path_Main","../Images");
-	
+	// SIP IAX FRIEND CREATION
+	define ("FRIEND_TYPE", isset($A2B->config["peer_friend"]['type'])?$A2B->config["peer_friend"]['type']:null);
+	define ("FRIEND_ALLOW", isset($A2B->config["peer_friend"]['allow'])?$A2B->config["peer_friend"]['allow']:null);
+	define ("FRIEND_CONTEXT", isset($A2B->config["peer_friend"]['context'])?$A2B->config["peer_friend"]['context']:null);
+	define ("FRIEND_NAT", isset($A2B->config["peer_friend"]['nat'])?$A2B->config["peer_friend"]['nat']:null);
+	define ("FRIEND_AMAFLAGS", isset($A2B->config["peer_friend"]['amaflags'])?$A2B->config["peer_friend"]['amaflags']:null);
+	define ("FRIEND_QUALIFY", isset($A2B->config["peer_friend"]['qualify'])?$A2B->config["peer_friend"]['qualify']:null);
+	define ("FRIEND_HOST", isset($A2B->config["peer_friend"]['host'])?$A2B->config["peer_friend"]['host']:null);
+	define ("FRIEND_DTMFMODE", isset($A2B->config["peer_friend"]['dtmfmode'])?$A2B->config["peer_friend"]['dtmfmode']:null);
+
 	// INCLUDE FILES
 	define ("FSROOT", substr(dirname(__FILE__),0,-3));
 	define ("LIBDIR", FSROOT."lib/");
@@ -236,7 +243,13 @@
 		$_SESSION["stylefile"] = $cssname;
 	}
 	
-	define ("WEBUI_DATE", 'Release : Somewhere in March 2007');
+	define ("WEBUI_DATE", 'Release : Somewhere in March 2007');	 
 	define ("WEBUI_VERSION", 'Asterisk2Billing - Version 1.3 - Beta (Yellowjacket)');
+	
+	//Enable Disable Captcha
+	define ("CAPTCHA_ENABLE", isset($A2B->config["signup"]['enable_captcha'])?$A2B->config["signup"]['enable_captcha']:0);
+	
+	
+
 	include (FSROOT."lib/help.php");
 ?>

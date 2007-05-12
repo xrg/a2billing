@@ -90,7 +90,7 @@ $CC_help_callerid_list ='
 <div id="kiki"><div class="w1">
   <img src="../Css/kicons/vcard.gif" class="kikipic"/>
   <div class="w2"> 
-'.gettext("CallerID, Set the Caller ID (CLI) that is delivered to the called party.</br>Set the callerID via the List Customer's screen").'<br>
+'.gettext("Set the caller ID so that the customer calling in is authenticated on the basis of the callerID rather than with account number").'<br>
 <br/><br/>
 </div></div></div>
 </div>';
@@ -124,8 +124,7 @@ $CC_help_view_payment ='
 <div id="kiki"><div class="w1">
 	<img src="../Css/kicons/gnome-finance.gif" class="kikipic"/>
 	<div class="w2"><br>
-'.gettext("Payment history - The section below shows all payments that have been received.").'
-<br/>
+'.gettext("Payment history - The section below allows you to add payments against a customer. Note that this does not change the balance on the card. Click refill under customer list to top-up a card.").'
 <br/>
 </div></div></div>
 </div>';
@@ -189,9 +188,8 @@ $CC_help_list_ratecard ='
 <div id="div1000" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<img src="../Css/kicons/kspread_ksp.gif" class="kikipic"/>
-	<div class="w2"><br/> '.gettext("List ratecards that have been created").'
+	<div class="w2"><br/> '.gettext("List ratecards that have been created!<br>Ensure that the rate card is added into the tariff group under 'List Ratecard'").'
 <br/><br/>
-<br/>
 </div></div></div>
 </div>';
 
@@ -668,12 +666,13 @@ $CC_help_list_alarm='<a href="#" target="_self"  onclick="imgidclick(\'img1000\'
 <div id="div1000" style="display:visible;">
 <div id="kiki"><div class="w1">
 	<img src="../Css/kicons/system-config-date.gif" class="kikipic"/>
-	<div class="w2">'
-.gettext("Alarms that monitor trunks at timed intervals.<br>").'
-<br/>
+	<div class="w2"><br>'
+.gettext("Alarms that monitors trunks at timed intervals.").'
+<br/><br>
 </div></div></div>
 </div>
 ';
+
 
 $CC_help_logfile='<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
 <div id="div1000" style="display:visible;">
@@ -753,5 +752,25 @@ $CC_help_transaction='<a href="#" target="_self"  onclick="imgidclick(\'img1000\
 </div>
 ';
 
+$CC_help_payment_config ='<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
+<div id="div1000" style="display:visible;">
+<div id="kiki"><div class="w1">
+	<img src="'.KICON_PATH.'/kspread.gif" class="kikipic"/>
+	<div class="w2"><br>'
+.gettext("You can configure your epayment method here. It helps you to enable or disable the payment method. You can define the currency settings.").'
+<br/><br/>
+</div></div></div>
+</div>
+';
+$CC_help_list_payment_methods = '<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
+<div id="div1000" style="display:visible;">
+<div id="kiki"><div class="w1">
+	<img src="'.KICON_PATH.'/kspread.gif" class="kikipic"/>
+	<div class="w2"><br>'
+.gettext("Epayment methods help you to collect payments from your customers.").'
+<br/><br/><br>
+</div></div></div>
+</div>
+'; 
 } //ENDIF SHOW_HELP
 ?>

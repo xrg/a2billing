@@ -3,7 +3,6 @@ include ("../lib/defines.php");
 include ("../lib/module.access.php");
 include ("../lib/Form/Class.FormHandler.inc.php");
 include ("../lib/smarty.php");
-include ("./form_data/FG_var_payment_settings.inc");
 include ("../lib/epayment/classes/payment.php");
 include ("../lib/epayment/classes/objectinfo.php");
 include ("../lib/epayment/classes/table_block.php");
@@ -21,7 +20,11 @@ if (! has_rights (ACX_BILLING)){
 
 /***********************************************************************************/
 $nowDate = date("m/d/y");
-
+$message = "";
+if($_GET["result"]=="success")
+{
+	$message = gettext("Record updated successfully");
+}
 $instance_sub_table = new Table("cc_payment_methods", "payment_filename");
 if (isset($_GET["id"]))
 {
@@ -54,9 +57,9 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
         while (list($key, $value) = each($_POST['configuration']))
         {
           $QUERY = "update cc_configuration set configuration_value = '" . $value . "' where configuration_key = '" . $key . "'";
-          $instance_sub_table -> Update_table($DBHandle, "configuration_value = '" . $value . "'","configuration_key = '" . $key . "'" );
+          $instance_sub_table -> Update_table($DBHandle, "configuration_value = '" . $value . "'","configuration_key = '" . $key . "'" );          
         }
-        tep_redirect("A2B_entity_payment_settings.php?".'method=' . $paymentMethod."&id=".$_GET['id']);
+        tep_redirect("A2B_entity_payment_settings.php?".'method=' . $paymentMethod."&id=".$_GET['id']."&result=success");
       break;
     }
   }
@@ -110,23 +113,16 @@ $contents[] = array('align' => 'center', 'text' => '<br><input type=submit name=
 // #### HEADER SECTION
 $smarty->display('main.tpl');
 
-echo '<br><br>'.$CC_help_payment_config;
+echo $CC_help_payment_config;
 
 ?>
 
-
-
-<br><br>
-
-
-
-
-<table border=0 cellspacing=0 cellpadding=0 align=center width=60%>
+<table class="epayment_conf_table">
 <tr class="form_head">
-    <td><font color="#FFFFFF">CONFIGURATION</font></td>
+    <td><font color="#FFFFFF"><?php echo gettext("CONFIGURATION"); ?></font></td>
 </tr>
-<tr class="form_head">
-    <td>&nbsp;</td>
+<tr >
+    <td><font color="Green"><b><?php echo $message ?></b></font></td>
 </tr>
 
     <tr>

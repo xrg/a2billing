@@ -16,7 +16,7 @@ Contents
 	you can generate the po file with the help of xgettext utility.
 	
 	> xgettext -n --no-wrap *.php 
-	if you want xgettext to travers the child directories and search for ".inc" and ".php" files.
+	if you want xgettext to traverse the child directories and search for ".inc" and ".php" files.
 	> find | grep [.][p,i][h,n][p,c]$ | xargs xgettext -n --no-wrap
 
 	this will get all the gettext entries from the all php file and generate a po file.

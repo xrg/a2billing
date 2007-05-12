@@ -434,7 +434,7 @@ if ($totalcallmade > 0)
 	<table  cellspacing="0" class="invoice_main_table">
      
       <tr>
-        <td class="invoice_heading">Unbilled Details</td>
+        <td class="invoice_heading"><?php echo gettext("Unbilled Details")?></td>
       </tr>
       <tr>
         <td valign="top"><table width="60%" align="left" cellpadding="0" cellspacing="0">
@@ -443,15 +443,15 @@ if ($totalcallmade > 0)
               <td width="65%">&nbsp; </td>
             </tr>
             <tr>
-              <td width="35%" class="invoice_td">Name : </td>
+              <td width="35%" class="invoice_td"><?php echo gettext("Name")?>&nbsp; : </td>
               <td width="65%" class="invoice_td"><?php echo $info_customer[0][3] ." ".$info_customer[0][2] ?></td>
             </tr>
             <tr>
-              <td width="35%" class="invoice_td">Card Number :</td>
+              <td width="35%" class="invoice_td"><?php echo gettext("Card Number")?>&nbsp; :</td>
               <td width="65%" class="invoice_td"><?php echo $info_customer[0][1] ?> </td>
             </tr>           
             <tr>
-              <td width="35%" class="invoice_td">As of Date :</td>
+              <td width="35%" class="invoice_td"><?php echo gettext("As of Date")?>&nbsp; :</td>
               <td width="65%" class="invoice_td"><?php echo date('m-d-Y');?> </td>
             </tr>
             
@@ -467,15 +467,15 @@ if ($totalcallmade > 0)
       <tr>
         <td valign="top"><table width="100%" align="left" cellpadding="0" cellspacing="0">
    				<tr>
-				<td colspan="5" align="center"><font></font> <b>Calls by Destination</b></font> </td>
+				<td colspan="5" align="center"><font></font> <b><?php echo gettext("Calls by Destination")?></b></font> </td>
 				</tr>
 
 			<tr class="invoice_subheading">
-              <td class="invoice_td" width="29%">Destination </td>
-              <td width="19%" class="invoice_td">Duration </td>
-			  <td width="20%" class="invoice_td">Graphic </td>
-			  <td width="11%" class="invoice_td">Calls </td>
-              <td width="21%" class="invoice_td" align="right">Amount (US $) </td>
+              <td class="invoice_td" width="29%"><?php echo gettext("Destination")?> </td>
+              <td width="19%" class="invoice_td"><?php echo gettext("Duration")?> </td>
+			  <td width="20%" class="invoice_td"><?php echo gettext("Graphic")?> </td>
+			  <td width="11%" class="invoice_td"><?php echo gettext("Calls")?> </td>
+              <td width="21%" class="invoice_td" align="right"><?php echo gettext("Amount (US $)")?> </td>
             </tr>
 			<?php  		
 				$i=0;
@@ -552,14 +552,14 @@ if ($totalcallmade > 0)
 				}
 				?>
 				<tr>
-				<td colspan="5" align="center"><b>Calls by Date</b> </td>
+				<td colspan="5" align="center"><b><?php echo gettext("Calls by Date")?></b> </td>
 				</tr>
 			  <tr class="invoice_subheading">
-              <td class="invoice_td" width="29%">Date </td>
-              <td width="19%" class="invoice_td">Duration </td>
-			  <td width="20%" class="invoice_td">Graphic </td>
-			  <td width="11%" class="invoice_td">Calls </td>
-              <td width="21%" class="invoice_td" align="right">Cost (US $) </td>
+              <td class="invoice_td" width="29%"><?php echo gettext("Date")?> </td>
+              <td width="19%" class="invoice_td"><?php echo gettext("Duration")?> </td>
+			  <td width="20%" class="invoice_td"><?php echo gettext("Graphic")?> </td>
+			  <td width="11%" class="invoice_td"><?php echo gettext("Calls")?> </td>
+              <td width="21%" class="invoice_td" align="right"><?php echo gettext("Cost (US $)")?> </td>
             </tr>
 			<?php  		
 				$i=0;
@@ -636,15 +636,15 @@ if ($totalcallmade > 0)
 		
 		<table width="100%" align="left" cellpadding="0" cellspacing="0">
    				<tr>
-				<td colspan="6" align="center"><font></font> <b>DID Billing</b></td>
+				<td colspan="6" align="center"><font></font> <b><?php echo gettext("DID Billing")?></b></td>
 				</tr>
 			<tr class="invoice_subheading">
-              <td class="invoice_td" width="18%">DID </td>
-              <td width="15%" class="invoice_td">Duration </td>
-			  <td width="13%" class="invoice_td">Fixed </td>
-			  <td width="12%" class="invoice_td">Calls </td>
-  			  <td width="17%" class="invoice_td">Call Cost </td>
-              <td width="25%" class="invoice_td" align="right">Amount (US $) </td>
+              <td class="invoice_td" width="18%"><?php echo gettext("DID")?> </td>
+              <td width="15%" class="invoice_td"><?php echo gettext("Duration")?> </td>
+			  <td width="13%" class="invoice_td"><?php echo gettext("Fixed")?> </td>
+			  <td width="12%" class="invoice_td"><?php echo gettext("Calls")?> </td>
+  			  <td width="17%" class="invoice_td"><?php echo gettext("Call Cost")?> </td>
+              <td width="25%" class="invoice_td" align="right"><?php echo gettext("Amount (US $)")?> </td>
             </tr>
 			<?php  		
 				$i=0;				
@@ -743,7 +743,7 @@ if ($totalcallmade > 0)
 			{								
 			 ?>   
 			  <tr >
-              <td width="100%" class="invoice_td" colspan="6">&nbsp; No DID Calls Available</td>             
+              <td width="100%" class="invoice_td" colspan="6">&nbsp; <?php echo gettext("No DID Calls Available")?></td>             
 			  
             </tr>          
 			 <?php			 
@@ -779,7 +779,7 @@ if ($totalcallmade > 0)
       <tr>
         <td><table cellspacing="0" cellpadding="0">
             <tr>
-              <td width="15%">Status :&nbsp; </td>
+              <td width="15%"><?php echo gettext("Status")?>&nbsp; :&nbsp; </td>
              <td width="10%"><?php if($info_customer[0][12] == 't') {?>
 			  <img width="18" height="7" src="<?php echo Images_Path;?>/connected.gif">
 			  <?php }
@@ -799,9 +799,9 @@ if ($totalcallmade > 0)
                   <tr>
                     <td width="4%">&nbsp; </td>
                     <td width="4%"><img width="18" height="7" src="<?php echo Images_Path;?>/connected.gif"></td>
-                    <td width="20%">Connected </td>
+                    <td width="20%"><?php echo gettext("Connected")?> </td>
                     <td width="4%"><img width="22" height="7" src="<?php echo Images_Path;?>/terminated.gif"></td>
-                    <td width="20%">DisConnected </td>                       
+                    <td width="20%"><?php echo gettext("DisConnected")?> </td>                       
                   </tr>
                 </table>
                   <table cellpadding="0">
@@ -820,13 +820,13 @@ if ($totalcallmade > 0)
 <table  cellspacing="0" class="invoice_main_table">
      
       <tr>
-        <td class="invoice_heading">Unbilled Details</td>
+        <td class="invoice_heading"><?php echo gettext("Unbilled Details")?></td>
       </tr>	  
 	 <tr>
 	 <td>&nbsp;</td>
 	 </tr> 
 	  <tr>
-	 <td align="center">No calls are made yet!</td>
+	 <td align="center"><?php echo gettext("No calls are made yet")?>!</td>
 	 </tr> 
 	  <tr>
 	 <td>&nbsp;</td>

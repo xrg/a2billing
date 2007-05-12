@@ -3,51 +3,127 @@
                    			TODO LIST - SPECIFIC
 ********************************************************************************
 
-  a2billing.php|1: line:1626 - Array
-    -- AGI Script Executing Application: (AGI) Options: (SET)
-    -- Launched AGI Script /var/lib/asterisk/agi-bin/SET
-  ==  SET: Failed to execute '/var/lib/asterisk/agi-bin/SET': No such file or directory
-    -- AGI Script SET completed, returning 0
-
-number to try
-0034934243109
+#### move a2billing.conf in DB
+********************************************************************
+move a2billing.conf in DB
 
 
+#### bug CallerID
+********************************************************************
+CID not working  when  ANSWER_CALL=NO
+iv changed back to ANSER_CALL=YES , AND WORKS
+
+
+#### CallerID Name
+********************************************************************
+Support callerID name for authentication
+
+
+#### ENSURE WE HAVE ALL IN GETTEXT FILES
+********************************************************************
+create a fake langagues with a test flag
+and replace all the strin value in the PO 
+by #### 
+so we can find out easily the missing text
+
+
+
+#### Add VoiceMail
+********************************************************************
+
+http://www.ecualug.org/?q=2006/12/12/comos/configurar_a2billing_en_menos_de_10_minutos
+http://forum.asterisk2billing.org/viewtopic.php?t=93&highlight=voicemail
+
+
+You need to create the appropiated line for each extension at the voicemail.conf file. Add the following lines to your a2billing context to give your clients the voicemail feature:
+
+Code:
+
+[vmmain]
+exten => *97,1,Answer
+exten => *97,n,Wait(1)
+exten => *97,n,VoiceMailMain(${CALLERID(num)}@default)
+exten => *97,n,Hangup 
+
+
+
+
+#### SIGNUP SELECT TARIFFGROUP
+********************************************************************
+; ID Tariffgroup to use, check the ID in the tariffgroup list - WebUI
+tariff = 1
+
+need to be changed to
+
+; ID Tariffgroup to sign the customers
+; or define a list of ID to let himselect select the tariffgroup
+; check the ID in the tariffgroup list - WebUI
+tariff = 1, 2, 3
+
+So in case of multiple tariff, a new Dropdown menu will appear on the signup form.
+with the list of tariff group defined here 
+(name of the tariff group will appear, not the number 1, 2, 3)
+
+Security, ensure at the sign-up time that the value send by the form is include in
+it to avoid the possibility from the customer to signup under an other tariffgroup
+
+
+
+#### HOURLY ALARM
+********************************************************************
+add in the alarm system an hourly check
+
+
+#### OnLine Payment 
+********************************************************************
+Checkout Google
+
+
+#### BUG CAPTCHA
+********************************************************************
+please have a look also at the captcha
+if u use caps letters, it wont work, all the pics are shows with caps
+
+
+#### UPDATE a2billing_invoice_cront
+********************************************************************
+
+* use the conf parameter : invoice_system -> invoiceday
+* add cc_charge
+* invoice_history
+* Customer -> Call Details : add criteria - Answered call
+
+
+
+#### MANAGE MULTI LENGHT CARD NUMBER
+********************************************************************
+New parameter :
+[global]
+; len_cardnumber is removed
+; interval for the length of the cardnumber (number of digits), 
+; ie: 10-15 (cardnumber authorised 10, 11, 12, 13, 14, 15) ; 10,12,14 (cardnumber authorised 10, 12, 14)
+interval_len_cardnumber = 10-15
+
+
+We will support more than 1 lenght for the cardnumber.
+Admin Web interface :
+- Create customer : 
+	Add a drop-down button in the top page (below the help) to select the lenght for the card creation
+	-> if the drop-down is selected the page will refresh with the new value for the card lenght
+	by default we will use the minimum value of interval_len_cardnumber
 	
+- Generate Customer :
+	Add a point 13) as a drop-down button, select the card lenght but no refresh needed here
+
+- AGI
+
 
 #### EXEC_SETLANGUAGE
 ********************************************************************
-    function exec_setlanguage($language='en')
-    {
-      return $this->exec('SetLanguage', $language);
-    }
-	
-
-#### SIGN-UP LINK ON CUSTOMER UI
-********************************************************************
- 
-put a link on the Customer sign in page. 
-"To sign up click here" where "here" links to  A2Billing_UI/signup
-
-use of the new parameter in a2billing.conf
-
-[webcustomerui]
-
-; url of the signup page to show up on the sign in page (if empty no link will show up)
-signup_page_url = http://localhost/~areski/svn/a2billing/trunk/A2Billing_UI/signup/
-	
-
-
-#### IVR VOUCHER
-********************************************************************
-No need to press 8 go directly to the option if user's credit is below the
-minimum credit to call
-new parameter
-redirect_voucher_if_mincredit = yes or no
-and it will be base on the minimum credit to make a call
-
-maybe a voucher mode as callback instead
-
+function exec_setlanguage($language='en')
+{
+  return $this->exec('SetLanguage', $language);
+}
 
 
 #### BUG : DID BILLING
@@ -72,13 +148,6 @@ but when you will go to edit the Destination you will see the DIDGroup List is N
 Reservation and release
 * To check
 
-
-#### DOCUMENTATION : SMARTY & NEW DID MANAGEMENT
-********************************************************************
-- How smarty works and how to customize the design of a2billing with smarty and css.
-  little guide about how to do it!
-- Doc/DID_Billing.info to continue : make a detailed explanation of how to configure and use 
-  the DID billing explain a real case when we need to sell DIDs through A2Billing
 
 
 ######## CURRENCY MANAGEMENT IN CRONT SERVICE 
@@ -108,7 +177,8 @@ $channel = 'SIP/'.$phone_number.'@toreplace';
 
 #### CONSOLIDATE THE GETTEXT FILES
 ********************************************************************
-  CONSOLIDATE THE GETTEXT FILES
+Consolidate the gettext files for customer and admin interface
+regenerate all PO & MO files
 
 
 
@@ -145,26 +215,10 @@ So, you could have a crontab task backing up the database.
 That task could use a 'a2billing' system user, with the rights to connect to the database.
 
 
-
-
-#### BUGS & CHECKS : DIVERS
+#### DIVERS
 ********************************************************************
-[FIXED]
-1) Bug on edit entity (framework) keep transfered value in case of errors RegEx 
+Add new tables for reseller and callshop
 
-2) Reduce big space in top pages :
-			A2B_entity_def_ratecard.php?atmenu=ratecard&stitle=RateCard&section=3
-			CC_ratecard_import.php?atmenu=ratecard&stitle=RateCard&section=3
-			
-			Good high :
-			A2B_entity_card.php?atmenu=card&stitle=Customers_Card&section=1
-			
-
-2) LIST CARDNUMBER -> REFILL : ARANGE FORMAT OF REFILL - remove the ugly red border
-3) EDIT TARIFFGROUP -> add ratecard : reduce the border
-4) Security check on update tariffgroup : not create code on tmp
-5) Add new tables for reseller and callshop
-%% ??
 
 #### FEATURE : NEW CALLBACK SYSTEM
 ********************************************************************
@@ -183,193 +237,6 @@ long story
 ********************************************************************
 let user define a range of cardnumber (ie: 45000-46000)
 + option to check if there is a cards already between this range (interval limit 10000)
-
-
-
-#### FEATURE : PACKAGES SYSTEM - FREE MINUTES
-********************************************************************
-Situation :
-We need to support a new relation call "FREE MINUTE" under kind of package according to the destination.
-We have an example : http://www.blueface.ie/
-There is several kind of packages :
-- Unlimited UK/Ireland where they can call as much as they want to this destination and pay for the rest.
-- 300 minutes free over 20 destinations + unlimited on Uk for instance
-- 300 minutes free over 20 destinations
-- pay as you go, standard
-
-We have to add in A2Billing this relation... For the unlimited calls we already have the routes at 0 cost.
-now we might need to assign the X free minutes relation over YZ destinations.
-
-
-- 300 minutes free over 20 destinations + unlimited on Uk for instance
-the relation unlimited is already defined in the rate-engine through the route with cost=0
-
-we need to add new table :
-table cc_package to define the type package & min free. 
-CREATE TABLE cc_package_offer (
-    id bigserial NOT NULL,
-    creationdate timestamp without time zone DEFAULT now(),
-    label text NOT NULL,
-    packagetype int NOT NULL,
-	billingtype int NOT NULL,
-	startday int NOT NULL,
-	freeminutes int NOT NULL
-);
--- packagetype : Free minute + Unlimited ; Free minute ; Unlimited ; Normal
--- billingtype : Monthly ; Weekly 
--- startday : according to billingtype ; if monthly value 1-31 ; if Weekly value 1-7 (Monday to Sunday) 
-I guess a field in cc_tariffgroup which will define the relation with cc_package_offer 
-and a field in cc_ratecard to define if the rate will take advantage of the package offer (part of X min free)
-
-We have also to think that the offer will be per month (per week, etc..) so we will need to keep the number of free-minutes used by month (period)
-and by user/card, Customer have to have the offer for each time period (since the creation date).
-Table cc_card_package (id_card, id_package_offer, time_used(secondes) )
-
-CREATE TABLE cc_card_package_offer (
-    id 					bigserial NOT NULL,
-	id_cc_card 			bigint NOT NULL.
-	id_cc_package_offer bigint NOT NULL,
-    date_consumption 	timestamp without time zone DEFAULT now(),
-	used_secondes 		bigint NOT NULL
-);
-CREATE INDEX ind_cc_card_package_offer_id_card ON cc_card_package_offer USING btree (id_cc_card);
-CREATE INDEX ind_cc_card_package_offer_id_package_offer ON cc_card_package_offer USING btree (id_package_offer);
-CREATE INDEX ind_cc_card_package_offer_date_consumption ON cc_card_package_offer USING btree (date_consumption);
-
-ALTER TABLE cc_tariffgroup 	ADD COLUMN id_cc_package_offer BIGINT NOT NULL DEFAULT 0;
-ALTER TABLE cc_ratecard 	ADD COLUMN freeminute_package_offer INT NOT NULL DEFAULT 0;
-
-
-Other Billing difficulty : 
-When we reach the limite, we will have part of the call inside the offer (so not billed) and the rest of the minutes should be billed...
-
-
-CREATE TABLE cc_subscription_fee (
-    id 				BIGSERIAL NOT NULL,
-    label 			TEXT NOT NULL,	
-	fee 			NUMERIC(12,4) NOT NULL,
-	currency 		CHARACTER VARYING(3) DEFAULT 'USD'::character varying,
-	status 			INTEGER NOT NULL DEFAULT 0,
-    numberofrun 	INTEGER NOT NULL DEFAULT 0,
-    datecreate 		timestamp(0) without time zone DEFAULT now(),
-    datelastrun 	timestamp(0) without time zone DEFAULT now(),
-    emailreport 	TEXT,
-    totalcredit 	DOUBLE PRECISION NOT NULL DEFAULT 0,
-    totalcardperform INTEGER NOT NULL DEFAULT 0
-);
-ALTER TABLE ONLY cc_subscription_fee
-ADD CONSTRAINT cc_subscription_fee_pkey PRIMARY KEY (id);
-
-
-ALTER TABLE cc_charge 	ADD COLUMN currency 				CHARACTER VARYING(3) DEFAULT 'USD'::CHARACTER VARYING;
-ALTER TABLE cc_charge 	ADD COLUMN id_cc_subscription_fee 	BIGINT DEFAULT 0;
-
-
-CREATE INDEX ind_cc_charge_id_cc_card				ON cc_charge USING btree (id_cc_card);
-CREATE INDEX ind_cc_charge_id_cc_subscription_fee 	ON cc_charge USING btree (id_cc_subscription_fee);
-CREATE INDEX ind_cc_charge_creationdate 			ON cc_charge USING btree (creationdate);
-
-
--- INSTEAD USE CC_CHARGE
-CREATE TABLE cc_subscription_fee_card (
-    id 						BIGSERIAL NOT NULL,
-    id_cc_card 				BIGINT NOT NULL,
-	id_cc_subscription_fee 	BIGINT NOT NULL,
-    datefee 				TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT now(),
-    fee 					NUMERIC(12,4) NOT NULL,
-	fee_converted			NUMERIC(12,4) NOT NULL,
-	currency 				CHARACTER VARYING(3) DEFAULT 'USD'::CHARACTER VARYING
-);
-ALTER TABLE ONLY cc_subscription_fee_card
-ADD CONSTRAINT cc_subscription_fee_card_pkey PRIMARY KEY (id);
-
-
-CREATE INDEX ind_cc_subscription_fee_card_id_card ON cc_subscription_fee_card USING btree (id_card);
-CREATE INDEX ind_cc_subscription_fee_card_id_cc_subscription_fee ON cc_card_package_offer USING btree (id_cc_subscription_fee);
-CREATE INDEX ind_cc_subscription_fee_card_datefee ON cc_card_package_offer USING btree (datefee);
-
-
-
---- MENU ---
-PACKAGE OFFER
-	* List package Offer
-	* Add package Offer
-	* details by card
-
-SERVICE
-	* List subscription service
-	* Add subscription service
-
-
-
-
-?? ADD CC_SUBSCRIPTION_FEE & CC_CHARGE CHANGES IN MYSQL SCHEMAS
-
-MISSING : 
-- AGI
-	http://trac.a2billing.net/cgi-bin/trac.cgi/changeset/789
-	
-	IF PACKAGE IN THE TARIFFGROUP
-		0#	add freetimetocall_package_offer in select ratecard
-		
-		1# 	Get info from the package
-			- billingtype ; startday ; freetimetocall
-		2# 
-			According to billingtype (monthly 0 ; weekly 1)
-			if (monthly){
-				if (startday > last day of the month) startday = last day of the month;
-				if (startday <= 0 ) startday = 1;
-				dateclause >= year-month-startday
-			}else{// weekly
-				startday = startday % 7 (modulo)
-				if (currentdayofweek < startday) currentdayofweek++7
-				diffday = currentdayofweek - startday (current lundi 1 - mercredi 3 = 5) 
-				dateclause >= 				
-				# mysql -> SELECT DATE_SUB('2003-07-13 00:00:00', INTERVAL 14 DAY);
-				# mysql -> SELECT DATE_SUB(NOW(), INTERVAL 14 DAY);
-				# psql  -> SELECT (date('2003-07-13 00:00:00') - interval '14 day');
-				# psql  -> SELECT (now() - interval '14 day');				
-			}
-			SELECT  sum(used_secondes) AS used_secondes 
-			FROM cc_card_package_offer
-			WHERE (date_consumption) >= ('2007-02-01') AND id_cc_card = '%%%%%%%%%%%' AND id_cc_package_offer = '%%%%%%%%%%%'
-			AND DATE_CLAUSE
-			
-			init freetimetocall_used
-			freetimetocall_left = freetimetocall - freetimetocall_used
-			
-			### MAKE CALL ### 
-			CHECK IF THE RATE HAVE "freetimetocall_package_offer" = Yes
-			
-			if (Yes && (TimeofCAll >0) && (freetimetocall_left > 0)){
-					
-					if (freetimetocall_left >= TIMEOFCALL) freetimetocall_used = TIMEOFCALL;
-					else freetimetocall_used = freetimetocall_left;
-					
-					TIMEOFCALL = TIMEOFCALL - freetimetocall_used
-					Before calculated the cost
-					TIMEOFCALL = TIMEOFCALL + freetimetocall_used
-					
-					Add table cc_card_package_offer (...freetimetocall_used)
-					add cc_call <- id_card_package_offer
-			}
-	
-- CRONT
-	- BROWSE ALL THE CUSTOMER THAT HAVE A SUBSCRIPTION FEE ENABLE
-		SELECT * FROM cc_card LEFT JOIN cc_subscription_fee ON cc_card.id_subscription_fee=cc_subscription_fee.id WHERE cc_subscription_fee.status=1
-	- Support multi currency
-	- Add a charge for this user
-		INSERT INTO cc_charge (id_cc_card, amount, chargetype, description) values ('1', '120', '3', 'description here...')
-	- Decrement his balance
-	
-- ADD SELECT subscription fee on card 
-ALTER TABLE cc_card ADD COLUMN id_subscription_fee INTEGER;
-
-
-#### MIGRATE NEW FRAMEWORK : call-log-customers.php
-********************************************************************
-call-log-customers.php : use old way to display cdr table 
-
 
 
 
@@ -449,13 +316,6 @@ ADD REPORTING PAGE TO VIEW :
 20 might be a parameters
 we need to see the total time and sell made by this clause group
 etc...
-
-
-
-#### Feature
-********************************************************************
-Try to add some captcha into the sensible Form
-http://www.nogajski.de/horst/php/captcha/index.php?download=yes&id=1234
 
 
 #### NOTE

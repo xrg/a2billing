@@ -30,7 +30,6 @@ if (!$A2B->config["signup"]['enable_signup']) exit;
 $HD_Form -> setDBHandler (DbConnect());
 $HD_Form -> init();
 
-
 if ($id!="" || !is_null($id)){
 	$HD_Form -> FG_EDITION_CLAUSE = str_replace("%id", "$id", $HD_Form -> FG_EDITION_CLAUSE);
 }
@@ -61,8 +60,9 @@ $HD_Form -> create_form ($form_action, $list, $id=null);
 
 if($form_action == "add")
 {
+
     unset($_SESSION["cardnumber_signup"]);
-    $_SESSION["cardnumber_signup"] = $maxi;
+    $_SESSION["cardnumber_signup"] = $maxi;	
     Header ("Location: signup_confirmation.php");
 }
 

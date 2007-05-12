@@ -1,7 +1,5 @@
 <?php
 
-$plang='en';
-
 $HD_Form = new FormHandler("cc_card","Card");
 
 $HD_Form -> FG_DEBUG = 0;
@@ -33,7 +31,7 @@ $HD_Form -> AddViewElement(gettext("TO PAY"), "to pay", "7%", "center", "sort", 
 $HD_Form -> FieldViewElement ('username, useralias, lastname, credit, id, id, id');
 
 $HD_Form -> FG_ACTION_SIZE_COLUMN = '15%';
-$HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO ".strtoupper($HD_Form->FG_INSTANCE_NAME)." CREATED!"); 
+$HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO").strtoupper($HD_Form->FG_INSTANCE_NAME)." ".gettext("CREATED!"); 
 $HD_Form -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;
 $HD_Form -> CV_TEXT_TITLE_ABOVE_TABLE = '';
 $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;
@@ -50,18 +48,18 @@ $HD_Form -> FG_OTHER_BUTTON1_IMG = "../Images/icon-viewdetails.gif";
 
 	$HD_Form -> FG_OTHER_BUTTON1 = true;
 	$HD_Form -> FG_OTHER_BUTTON2 = true;
-	$HD_Form -> FG_OTHER_BUTTON2_LINK="javascript:;\" onClick=\"MM_openBrWindow('A2B_entity_moneysituation_details.php?type=payment&form_action=list&atmenu=card&displayheader=0&id=|param|','','scrollbars=yes,resizable=yes,width=500,height=270')\"";
-	$HD_Form -> FG_OTHER_BUTTON1_LINK="javascript:;\" onClick=\"MM_openBrWindow('A2B_entity_moneysituation_details.php?type=refill&form_action=list&atmenu=card&displayheader=0&id=|param|','','scrollbars=yes,resizable=yes,width=500,height=270')\"";
-	$HD_Form -> FG_OTHER_BUTTON2_ALT = '<font color="red">PAYMENT</font>';
-	$HD_Form -> FG_OTHER_BUTTON1_ALT = '<font color="red">REFILL</font>';
+	$HD_Form -> FG_OTHER_BUTTON2_LINK="javascript:;\" onClick=\"MM_openBrWindow('A2B_entity_moneysituation_details.php?type=payment&form_action=list&atmenu=card&displayheader=0&popup_select=1&id=|param|','','scrollbars=yes,resizable=yes,width=500,height=270')\"";
+	$HD_Form -> FG_OTHER_BUTTON1_LINK="javascript:;\" onClick=\"MM_openBrWindow('A2B_entity_moneysituation_details.php?type=refill&form_action=list&atmenu=card&displayheader=0&popup_select=1&id=|param|','','scrollbars=yes,resizable=yes,width=500,height=270')\"";
+	$HD_Form -> FG_OTHER_BUTTON2_ALT = '<font color="red">'.gettext('PAYMENT').'</font>';
+	$HD_Form -> FG_OTHER_BUTTON1_ALT = '<font color="red">'.gettext('REFILL').'</font>';
 	
 	$HD_Form -> FG_OTHER_BUTTON1_IMG = '';
 	$HD_Form -> FG_OTHER_BUTTON2_IMG = '';
 	
 
-$HD_Form -> FG_INTRO_TEXT_EDITION= gettext("You can modify, through the following form, the different properties of your ".$HD_Form->FG_INSTANCE_NAME);
-$HD_Form -> FG_INTRO_TEXT_ASK_DELETION = gettext("If you really want remove this ".$HD_Form->FG_INSTANCE_NAME.", click on the delete button.");
-$HD_Form -> FG_INTRO_TEXT_ADD = gettext("you can add easily a new ".$HD_Form->FG_INSTANCE_NAME.".<br>Fill the following fields and confirm by clicking on the button add.");
+$HD_Form -> FG_INTRO_TEXT_EDITION= gettext("You can modify, through the following form, the different properties of your")." ".$HD_Form->FG_INSTANCE_NAME;
+$HD_Form -> FG_INTRO_TEXT_ASK_DELETION = gettext("If you really want remove this")." ".$HD_Form->FG_INSTANCE_NAME.", ".gettext("click on the delete button.");
+$HD_Form -> FG_INTRO_TEXT_ADD = gettext("you can add easily a new")." ".$HD_Form->FG_INSTANCE_NAME.".<br>".gettext("Fill the following fields and confirm by clicking on the button add.");
 
 
 $HD_Form -> FG_FILTER_APPLY = true;

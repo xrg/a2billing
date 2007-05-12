@@ -11,7 +11,6 @@ if (! has_rights (ACX_CUSTOMER)){
 
 include ("./form_data/FG_var_card.inc");
 
-
 $HD_Form -> FG_FILTER_SEARCH_FORM = false;
 $HD_Form -> FG_EDITION = false;
 $HD_Form -> FG_DELETION = false;
@@ -19,7 +18,7 @@ $HD_Form -> FG_OTHER_BUTTON1 = false;
 $HD_Form -> FG_OTHER_BUTTON2 = false;
 $HD_Form -> FG_FILTER_APPLY = false;
 
-getpost_ifset(array('choose_list', 'creditlimit', 'cardnum', 'addcredit', 'choose_tariff', 'gen_id', 'cardnum', 'choose_simultaccess', 'choose_currency', 'choose_typepaid', 'creditlimit', 'enableexpire', 'expirationdate', 'expiredays', 'runservice', 'sip', 'iax'));
+getpost_ifset(array('choose_list', 'creditlimit', 'cardnum', 'addcredit', 'choose_tariff', 'gen_id', 'cardnum', 'choose_simultaccess', 'choose_currency', 'choose_typepaid', 'creditlimit', 'enableexpire', 'expirationdate', 'expiredays', 'runservice', 'sip', 'iax','cardnumberlenght_list'));
 
 
 /***********************************************************************************/
@@ -48,8 +47,8 @@ country, zipcode, phone, userpass) values ('2465773443', '331', 'a', 't', 'LASTN
 				
 		$FG_TABLE_SIP_NAME="cc_sip_buddies";
 		$FG_TABLE_IAX_NAME="cc_iax_buddies";
-		$FG_QUERY_ADITION_SIP_IAX_FIELDS = "name, accountcode, regexten, amaflags, callerid, context, dtmfmode, host, type, username, allow, secret";
-		
+		//$FG_QUERY_ADITION_SIP_IAX_FIELDS = "name, accountcode, regexten, amaflags, callerid, context, dtmfmode, host, type, username, allow, secret";
+		$FG_QUERY_ADITION_SIP_IAX_FIELDS = "name, accountcode, regexten, amaflags, callerid, context, dtmfmode, host, type, username, allow, secret, id_cc_card, nat,  qualify";
 		if (isset($sip)){
 			$FG_ADITION_SECOND_ADD_FIELDS .= ", sip_buddy"; 
 			$instance_sip_table = new Table($FG_TABLE_SIP_NAME, $FG_QUERY_ADITION_SIP_IAX_FIELDS);
@@ -62,8 +61,14 @@ country, zipcode, phone, userpass) values ('2465773443', '331', 'a', 't', 'LASTN
 		
 		if ( (isset($sip)) ||  (isset($iax)) ){
 			$list_names = explode(",",$FG_QUERY_ADITION_SIP_IAX);
-			$amaflag = $A2B->config["signup"]['amaflag'];
-			$context = $A2B->config["signup"]['context'];
+			$type = FRIEND_TYPE;
+			$allow = FRIEND_ALLOW;
+			$context = FRIEND_CONTEXT;
+			$nat = FRIEND_NAT;
+			$amaflags = FRIEND_AMAFLAGS;
+			$qualify = FRIEND_QUALIFY;
+			$host = FRIEND_HOST;   
+			$dtmfmode = FRIEND_DTMFMODE;
 		}	
 		
 		
@@ -76,12 +81,13 @@ country, zipcode, phone, userpass) values ('2465773443', '331', 'a', 't', 'LASTN
 		$creditlimit = is_numeric($creditlimit) ? $creditlimit : 0;
 		//echo "::> $choose_simultaccess, $choose_currency, $choose_typepaid, $creditlimit";
 		for ($k=0;$k<$nbcard;$k++){
-			 $arr_card_alias = gen_card_with_alias();
+			 $arr_card_alias = gen_card_with_alias("cc_card", 0, $cardnumberlenght_list);
 			 $cardnum = $arr_card_alias[0];
 			 $useralias = $arr_card_alias[1];
 			if (!is_numeric($addcredit)) $addcredit=0;
 			$passui_secret = MDP_NUMERIC(10);
 			$FG_ADITION_SECOND_ADD_VALUE  = "'$cardnum', '$useralias', '$addcredit', '$choose_tariff', 't', '$gen_id', '', '', '', '', '', '', '', '', '$cardnum', $choose_simultaccess, '$choose_currency', $choose_typepaid, $creditlimit, $enableexpire, '$expirationdate', $expiredays, '$passui_secret', '$runservice'";
+			
 			
 			if (DB_TYPE != "postgres") $FG_ADITION_SECOND_ADD_VALUE .= ",now() ";
 					
@@ -89,16 +95,18 @@ country, zipcode, phone, userpass) values ('2465773443', '331', 'a', 't', 'LASTN
 			if (isset($sip)) $FG_ADITION_SECOND_ADD_VALUE .= ", 1";
 			if (isset($iax)) $FG_ADITION_SECOND_ADD_VALUE .= ", 1";
 
-			$result_query = $instance_sub_table -> Add_table ($HD_Form ->DBHandle, $FG_ADITION_SECOND_ADD_VALUE, null, null, null);
-
+			$id_cc_card = $instance_sub_table -> Add_table ($HD_Form -> DBHandle, $FG_ADITION_SECOND_ADD_VALUE, null, null, $HD_Form -> FG_TABLE_ID);
+			
 			// Insert data for sip_buddy
 			if (isset($sip)){
-				$FG_QUERY_ADITION_SIP_IAX_VALUE = "'$cardnum', '$cardnum', '$cardnum', '$amaflag', '$cardnum', '$context', 'RFC2833','dynamic', 'friend', '$cardnum', 'g729,ulaw,alaw,gsm','".$passui_secret."'";
+				//$FG_QUERY_ADITION_SIP_IAX_VALUE = "'$cardnum', '$cardnum', '$cardnum', '$amaflag', '$cardnum', '$context', 'RFC2833','dynamic', 'friend', '$cardnum', 'g729,ulaw,alaw,gsm','".$passui_secret."'";
+				$FG_QUERY_ADITION_SIP_IAX_VALUE = "'$cardnum', '$cardnum', '$cardnum', '$amaflags', '$cardnum', '$context', '$dtmfmode','$host', '$type', '$cardnum', '$allow', '".$passui_secret."', '$id_cc_card', '$nat', '$qualify'";
 				$result_query1 = $instance_sip_table -> Add_table ($HD_Form ->DBHandle, $FG_QUERY_ADITION_SIP_IAX_VALUE, null, null, null);
 			}
 			// Insert data for iax_buddy
 			if (isset($iax)){
-				$FG_QUERY_ADITION_SIP_IAX_VALUE = "'$cardnum', '$cardnum', '$cardnum', '$amaflag', '$cardnum', '$context', 'RFC2833','dynamic', 'friend', '$cardnum', 'g729,ulaw,alaw,gsm','".$passui_secret."'";
+				//$FG_QUERY_ADITION_SIP_IAX_VALUE = "'$cardnum', '$cardnum', '$cardnum', '$amaflag', '$cardnum', '$context', 'RFC2833','dynamic', 'friend', '$cardnum', 'g729,ulaw,alaw,gsm','".$passui_secret."'";
+				$FG_QUERY_ADITION_SIP_IAX_VALUE = "'$cardnum', '$cardnum', '$cardnum', '$amaflags', '$cardnum', '$context', '$dtmfmode','$host', '$type', '$cardnum', '$allow', '".$passui_secret."', '$id_cc_card', '$nat', '$qualify'";
 				$result_query2 = $instance_iax_table -> Add_table ($HD_Form ->DBHandle, $FG_QUERY_ADITION_SIP_IAX_VALUE, null, null, null);
 			}
 		}
@@ -233,8 +241,21 @@ $nb_tariff = count($list_tariff);
         <tbody><tr>
 	<form name="theForm" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
           <td align="left" width="75%">
-	  	<strong>1)</strong> 
-		<select name="choose_list" size="1" class="form_enter" style="border: 2px outset rgb(204, 51, 0);">
+		<strong>1)</strong> <?php echo gettext("Length of card number:");?>
+		<select name="cardnumberlenght_list" size="1" class="form_input_select">
+		<?php 
+		foreach ($cardnumber_range as $value){
+		?>
+			<option value='<?php echo $value ?>' 
+			<?php if ($value == $cardnumberlenght_list) echo "selected";
+			?>> <?php echo $value." ".gettext("Digits");?> </option>
+			
+		<?php
+		}
+		?>						
+		</select><br>
+	  	<strong>2)</strong> 
+		<select name="choose_list" size="1" class="form_input_select">
 			<option value=""><?php echo gettext("Choose the number of cards to create");?></option>
 			<option class="input" value="1"><?php echo gettext("1 Card");?></option>
 			<option class="input" value="10"><?php echo gettext("10 Cards");?></option>
@@ -246,7 +267,7 @@ $nb_tariff = count($list_tariff);
 		</select>
 		<br/>
 				
-		  	<strong>2)</strong> 
+		  	<strong>3)</strong> 
 				<select NAME="choose_tariff" size="1" class="form_enter" style="border: 2px outset rgb(204, 51, 0);">
 					<option value=''><?php echo gettext("Choose a Tariff");?></option>
 				
@@ -259,12 +280,12 @@ $nb_tariff = count($list_tariff);
 				</select>
 				<br/>
 				
-			  	<strong>3)</strong> 
+			  	<strong>4)</strong> 
 				<?php echo gettext("Initial amount of credit");?> : 	<input class="form_enter" name="addcredit" size="10" maxlength="10" style="border: 2px inset rgb(204, 51, 0);">
 				<?php echo strtoupper(BASE_CURRENCY) ?>
 				<br/>
 				
-				<strong>4)</strong> 
+				<strong>5)</strong> 
 				<?php echo gettext("Simultaneous access");?> : 
 				<select NAME="choose_simultaccess" size="1" class="form_enter" style="border: 2px outset rgb(204, 51, 0);">
 					<option value='0' selected><?php echo gettext("INDIVIDUAL ACCESS");?></option>
@@ -272,7 +293,7 @@ $nb_tariff = count($list_tariff);
 				   </select>
 				<br/>
 				
-				<strong>5)</strong> 
+				<strong>6)</strong> 
 				<?php echo gettext("Currency");?> :
 				<select NAME="choose_currency" size="1" class="form_enter" style="border: 2px outset rgb(204, 51, 0);">
 				<?php 
@@ -282,17 +303,17 @@ $nb_tariff = count($list_tariff);
 				<?php } ?>			
 				</select>
 				<br/>
-				<strong>6)</strong>
+				<strong>7)</strong>
 				<?php echo gettext("Card type");?> :
 				<select NAME="choose_typepaid" size="1" class="form_enter" style="border: 2px inset rgb(204, 51, 0);">
 					<option value='0' selected><?php echo gettext("PREPAID CARD");?></option>
 					<option value='1'><?php echo gettext("POSTPAY CARD");?></option>
 				   </select>
 				<br/>
-				<strong>7)</strong>
+				<strong>8)</strong>
 				<?php echo gettext("Credit Limit of postpay");?> : <input class="form_enter" name="creditlimit" size="10" maxlength="16" style="border: 2px inset rgb(204, 51, 0);">
 				<br/>
-				<strong>8)</strong>
+				<strong>9)</strong>
 			   <?php echo gettext("Enable expire");?>&nbsp;: <select name="enableexpire" class="form_enter" style="border: 2px inset rgb(204, 51, 0);">
 								<option value="0" selected="selected">
 						                           <?php echo gettext("NO EXPIRATION");?>                            </option><option value="1">
@@ -307,17 +328,17 @@ $nb_tariff = count($list_tariff);
 					$comp_date = "value='".$begin_date.$end_date."'";
 					$comp_date_plus = "value='".$begin_date_plus.$end_date."'";
 				?>
-				<strong>9)</strong>
+				<strong>10)</strong>
 				<?php echo gettext("Expiry Date");?>&nbsp;: <input class="form_enter" style="border: 2px inset rgb(204, 51, 0);" name="expirationdate" size="40" maxlength="40" <?php echo $comp_date_plus; ?>><?php echo gettext("(Format YYYY-MM-DD HH:MM:SS)");?>
 				<br/>
-				<strong>10)</strong>
+				<strong>11)</strong>
 			   <?php echo gettext("Expiry days");?>&nbsp;: <input class="form_enter" style="border: 2px inset rgb(204, 51, 0);" name="expiredays" size="10" maxlength="6" value="0">
 				<br/>
-				<strong>11)</strong>
+				<strong>12)</strong>
 				<?php echo gettext("Run service");?>&nbsp; : 
 				<?php echo gettext("Yes");?> <input name="runservice" value="1" type="radio"> - <?php echo gettext("No");?> <input name="runservice" value="0" checked="checked"  type="radio">
 				<br/>
-				<strong>12)</strong>
+				<strong>13)</strong>
 			   <?php echo gettext("Create SIP/IAX Friends");?>&nbsp;: SIP <input type="checkbox" name="sip" value="1" checked> IAX : <input type="checkbox" name="iax" value="1" checked>
 				<br/>
 		</td>	

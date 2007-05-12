@@ -96,18 +96,18 @@ function Check()
 <td width="21%" align="right"><input type="radio" name="filterradio" value="date" class="form_input_text" title="Month and Year wise search" <?php if ($filterradio == "date" || $filterradio == "") echo 'checked'; ?>>  </td>
 <td width="26%" align="right">Invoice: </td>
 <td width="53%"> <select name="monthselect" class="form_input_select"> 
-<option value="1" <?php if ($monthselect == "1") echo 'selected'; ?>>January</option>
-<option value="2" <?php if ($monthselect == "2") echo 'selected'; ?>>Feburay</option>
-<option value="3" <?php if ($monthselect == "3") echo 'selected'; ?>>March</option>
-<option value="4" <?php if ($monthselect == "4") echo 'selected'; ?>>April</option>
-<option value="5" <?php if ($monthselect == "5") echo 'selected'; ?>>May</option>
-<option value="6" <?php if ($monthselect == "6") echo 'selected'; ?>>June</option>
-<option value="7" <?php if ($monthselect == "7") echo 'selected'; ?>>July</option>
-<option value="8" <?php if ($monthselect == "8") echo 'selected'; ?>>August</option>
-<option value="9" <?php if ($monthselect == "9") echo 'selected'; ?>>September</option>
-<option value="10" <?php if ($monthselect == "10") echo 'selected'; ?>>October</option>
-<option value="11" <?php if ($monthselect == "11") echo 'selected'; ?>>November</option>
-<option value="12" <?php if ($monthselect == "12") echo 'selected'; ?>>December</option>
+<option value="1" <?php if ($monthselect == "1") echo 'selected'; ?>><?php echo gettext("January") ?></option>
+<option value="2" <?php if ($monthselect == "2") echo 'selected'; ?>><?php echo gettext("Feburay") ?></option>
+<option value="3" <?php if ($monthselect == "3") echo 'selected'; ?>><?php echo gettext("March") ?></option>
+<option value="4" <?php if ($monthselect == "4") echo 'selected'; ?>><?php echo gettext("April") ?></option>
+<option value="5" <?php if ($monthselect == "5") echo 'selected'; ?>><?php echo gettext("May") ?></option>
+<option value="6" <?php if ($monthselect == "6") echo 'selected'; ?>><?php echo gettext("June") ?></option>
+<option value="7" <?php if ($monthselect == "7") echo 'selected'; ?>><?php echo gettext("July") ?></option>
+<option value="8" <?php if ($monthselect == "8") echo 'selected'; ?>><?php echo gettext("August") ?></option>
+<option value="9" <?php if ($monthselect == "9") echo 'selected'; ?>><?php echo gettext("September") ?></option>
+<option value="10" <?php if ($monthselect == "10") echo 'selected'; ?>><?php echo gettext("October") ?>z</option>
+<option value="11" <?php if ($monthselect == "11") echo 'selected'; ?>><?php echo gettext("November") ?></option>
+<option value="12" <?php if ($monthselect == "12") echo 'selected'; ?>><?php echo gettext("December") ?></option>
 </select> 
 <select name="yearselect" class="form_input_select">
 <option value="2001" <?php if ($yearselect == "2001") echo 'selected'; ?>>2001</option>

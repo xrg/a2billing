@@ -79,16 +79,22 @@ CREATE TABLE cc_did_destination (
 
 
 CREATE TABLE cc_charge (
-    id 				BIGINT NOT NULL AUTO_INCREMENT,
-    id_cc_card 		BIGINT NOT NULL,
-    iduser 			INT DEFAULT '0' NOT NULL,
-    creationdate 	TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    amount FLOAT 	DEFAULT 0 NOT NULL,
-    chargetype 		INT DEFAULT 0,    
-    description 	MEDIUMTEXT,
-    id_cc_did 		BIGINT DEFAULT 0,
+    id 									BIGINT NOT NULL AUTO_INCREMENT,
+    id_cc_card 							BIGINT NOT NULL,
+    iduser 								INT DEFAULT '0' NOT NULL,
+    creationdate 						TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    amount 								FLOAT DEFAULT 0 NOT NULL,
+	currency 							CHAR(3) DEFAULT 'USD',
+    chargetype 							INT DEFAULT 0,    
+    description 						MEDIUMTEXT,
+    id_cc_did 							BIGINT DEFAULT 0,
+	id_cc_subscription_fee				BIGINT DEFAULT 0,
     PRIMARY KEY (id)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
+
+CREATE INDEX ind_cc_charge_id_cc_card				ON cc_charge (id_cc_card);
+CREATE INDEX ind_cc_charge_id_cc_subscription_fee 	ON cc_charge (id_cc_subscription_fee);
+CREATE INDEX ind_cc_charge_creationdate 			ON cc_charge (creationdate);
 
 
 

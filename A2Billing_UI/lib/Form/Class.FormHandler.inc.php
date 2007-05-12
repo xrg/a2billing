@@ -164,7 +164,7 @@ class FormHandler{
 	var $FG_FILTER_SEARCH_FORM_2C = array();
 	var $FG_FILTER_SEARCH_FORM_SELECT = array();
 	var $FG_FILTER_SEARCH_FORM_SELECT_TEXT = '';
-	var $FG_FILTER_SEARCH_TOP_TEXT = 'You can define above some specific criterias in order to make a precised research';
+	var $FG_FILTER_SEARCH_TOP_TEXT = "";	
 	var $FG_FILTER_SEARCH_SESSION_NAME = '';
 	
 	
@@ -395,7 +395,6 @@ class FormHandler{
 	//This variable define the width of the HTML table
 	var $FG_HTML_TABLE_WIDTH="95%";
 
-
 	// text for multi-page navigation.
 	var $lang = array('strfirst' => '&lt;&lt; First', 'strprev' => '&lt; Prev', 'strnext' => 'Next &gt;', 'strlast' => 'Last &gt;&gt;' );
 
@@ -476,7 +475,7 @@ class FormHandler{
 		$this -> FG_INTRO_TEXT_ADD = str_replace('#FG_INSTANCE_NAME#', $this -> FG_INSTANCE_NAME, $this -> FG_INTRO_TEXT_ADD);
 		$this -> FG_INTRO_TEXT_ADITION 	= str_replace('#FG_INSTANCE_NAME#', $this -> FG_INSTANCE_NAME, $this -> FG_INTRO_TEXT_ADITION);
 		$this -> FG_TEXT_ADITION_CONFIRMATIONi = str_replace('#FG_INSTANCE_NAME#', $this -> FG_INSTANCE_NAME, $this -> FG_TEXT_ADITION_CONFIRMATION);
-
+		$this -> FG_FILTER_SEARCH_TOP_TEXT = gettext("You can define above some specific criterias in order to make a precised research");
 
 		//$this -> FG_TABLE_ALTERNATE_ROW_COLOR[] = "#E2E2D3";
 		//$this -> FG_TABLE_ALTERNATE_ROW_COLOR[] = "#F0F0E8";
@@ -746,15 +745,18 @@ class FormHandler{
 
 	function AddEditElement($displayname, $fieldname, $defaultvalue, $fieldtype, $fieldproperty, $regexpr_nb, $error_message, $type_selectfield,
 		$lie_tablename, $lie_tablefield, $lie_clause, $listname, $displayformat_selectfield, $check_emptyvalue , $comment, $custom_query = null,
-		$displayinput_defaultselect = null, $comment_above = null){
-
-		$cur = count($this->FG_TABLE_EDITION);
-		$this->FG_TABLE_EDITION[$cur] = array ( $displayname, $fieldname, $defaultvalue, $fieldtype, $fieldproperty, $regexpr_nb, $error_message,
-						$type_selectfield, $lie_tablename, $lie_tablefield, $lie_clause, $listname, $displayformat_selectfield, $check_emptyvalue,
-						$custom_query, $displayinput_defaultselect, $comment_above);		
-		$this->FG_TABLE_COMMENT[$cur] = $comment;
-		$this->FG_TABLE_ADITION[$cur] = $this->FG_TABLE_EDITION[$cur];
-		$this->FG_NB_TABLE_ADITION = $this->FG_NB_TABLE_EDITION = count($this->FG_TABLE_EDITION);
+		$displayinput_defaultselect = null, $comment_above = null, $field_enabled = true){
+		
+		if($field_enabled==true)
+		{		
+			$cur = count($this->FG_TABLE_EDITION);
+			$this->FG_TABLE_EDITION[$cur] = array ( $displayname, $fieldname, $defaultvalue, $fieldtype, $fieldproperty, $regexpr_nb, $error_message,
+							$type_selectfield, $lie_tablename, $lie_tablefield, $lie_clause, $listname, $displayformat_selectfield, $check_emptyvalue,
+							$custom_query, $displayinput_defaultselect, $comment_above);		
+			$this->FG_TABLE_COMMENT[$cur] = $comment;
+			$this->FG_TABLE_ADITION[$cur] = $this->FG_TABLE_EDITION[$cur];
+			$this->FG_NB_TABLE_ADITION = $this->FG_NB_TABLE_EDITION = count($this->FG_TABLE_EDITION);
+		}
 	}
 
 	/**
@@ -882,7 +884,9 @@ class FormHandler{
 		// 18 - CALLERID - PhoneNumber
 		$this -> FG_regular[]  = array(    "^(\+|[0-9]{1})[0-9]+$"   ,
 		                        "Phone Number format");
-		
+		// 19 - CAPTCHAIMAGE - Alpahnumeric
+		$this -> FG_regular[]  = array("^(".strtoupper($_SESSION["captcha_code"]).")|(".strtolower($_SESSION["captcha_code"]).")$",
+						gettext("(at least 6 Alphanumeric characters)"));
 		// check_select
 		// TO check if a select have a value different -1
 	}
@@ -1201,7 +1205,6 @@ class FormHandler{
 	function perform_add (&$form_action){
 		include_once (FSROOT."lib/Class.Table.php");
 		$processed = $this->getProcessed();  //$processed['firstname']
-
 		$this->VALID_SQL_REG_EXP = true;
 			
 		for($i=0; $i < $this->FG_NB_TABLE_ADITION; $i++){ 
@@ -1234,7 +1237,7 @@ class FormHandler{
 					// NO MULTIPLE SELECT
 					
 					// CHECK ACCORDING TO THE REGULAR EXPRESSION DEFINED	
-					if (is_numeric($regexp) && !(strtoupper(substr($this->FG_TABLE_ADITION[$i][13],0,2))=="NO" && $processed[$fields_name]=="") ){
+					if (is_numeric($regexp) && !(strtoupper(substr($this->FG_TABLE_ADITION[$i][13],0,2))=="NO" && $processed[$fields_name]=="") ){						
 						$this-> FG_fit_expression[$i] = ereg( $this->FG_regular[$regexp][0] , $processed[$fields_name]);								
 						if ($this->FG_DEBUG >= 1)  echo "<br>->  $fields_name => ".$this->FG_regular[$regexp][0]." , ".$processed[$fields_name];
 						if (!$this-> FG_fit_expression[$i]){
@@ -1259,30 +1262,37 @@ class FormHandler{
 							if (count($arr_value_explode)>1){
 								if (is_numeric($arr_value_explode[0]) && is_numeric($arr_value_explode[1]) && $arr_value_explode[0] < $arr_value_explode[1] ){
 									for ($kk=$arr_value_explode[0];$kk<=$arr_value_explode[1];$kk++){
-											$arr_value_to_import[] = $kk;
+										$arr_value_to_import[] = $kk;
 									}
+								}elseif (is_numeric($arr_value_explode[0])){
+									$arr_value_to_import[] = $arr_value_explode[0];
+								}elseif (is_numeric($arr_value_explode[1])){
+									$arr_value_to_import[] = $arr_value_explode[1];
 								}
-								
 							}else{
 								$arr_value_to_import[] = $arr_value_explode[0];
 							}
-						}						
-								
+						}
+						
 						if (!is_null($processed[$fields_name]) && ($processed[$fields_name]!="") && ($this->FG_TABLE_ADITION[$i][4]!="disabled") ){
 							if ($i>0) $param_add_fields .= ", ";							
 							$param_add_fields .= str_replace('myfrom_', '', $fields_name);
 							if ($i>0) $param_add_value .= ", ";
-							$param_add_value .= "'%TAGPREFIX%'";
+							$param_add_value .= "'%TAGPREFIX%'";							
 						}
 					}else{
 						if ($this->FG_DEBUG >= 1) echo "<br>$fields_name : ".$processed[$fields_name];
 						if (!is_null($processed[$fields_name]) && ($processed[$fields_name]!="") && ($this->FG_TABLE_ADITION[$i][4]!="disabled") ){
-							if ($i>0) $param_add_fields .= ", ";							
-							$param_add_fields .= str_replace('myfrom_', '', $fields_name);
-							if ($i>0) $param_add_value .= ", ";
-							$param_add_value .= "'".addslashes(trim($processed[$fields_name]))."'";
+							if (strtoupper ($this->FG_TABLE_ADITION[$i][3]) != strtoupper("CAPTCHAIMAGE"))
+							{
+								if ($i>0) $param_add_fields .= ", ";							
+									$param_add_fields .= str_replace('myfrom_', '', $fields_name);
+								if ($i>0) $param_add_value .= ", ";
+									$param_add_value .= "'".addslashes(trim($processed[$fields_name]))."'";
+							}
 						}
 					}
+									
 				}		
 			}
 		}
@@ -1412,28 +1422,33 @@ class FormHandler{
 
 		global $A2B;
 		$processed = $this->getProcessed();
-		$id=$this -> RESULT_QUERY;
+		$id = $this -> RESULT_QUERY; // DEFINED BEFORE FG_ADDITIONAL_FUNCTION_AFTER_ADD		
 		$sip_buddy = $processed['sip_buddy'];
 		$iax_buddy = $processed['iax_buddy'];
 		$username = $processed['username'];
 		$uipass = $processed['uipass'];
 		$useralias = $processed['useralias'];
-
+		
 		$FG_TABLE_SIP_NAME="cc_sip_buddies";
 		$FG_TABLE_IAX_NAME="cc_iax_buddies";
-
-		$FG_QUERY_ADITION_SIP_IAX_FIELDS = "name, accountcode, regexten, amaflags, callerid, context, dtmfmode, host, type, username, allow, secret, id_cc_card";
-
+		
+		$FG_QUERY_ADITION_SIP_IAX_FIELDS = "name, accountcode, regexten, amaflags, callerid, context, dtmfmode, host, type, username, allow, secret, id_cc_card, nat,  qualify";
+		
 		$FG_QUERY_ADITION_SIP_IAX='name, type, username, accountcode, regexten, callerid, amaflags, secret, md5secret, nat, dtmfmode, qualify, canreinvite,disallow, allow, host, callgroup, context, defaultip, fromuser, fromdomain, insecure, language, mailbox, permit, deny, mask, pickupgroup, port,restrictcid, rtptimeout, rtpholdtimeout, musiconhold, regseconds, ipaddr, cancallforward';
 
 		if (($sip_buddy == 1) || ($iax_buddy == 1)){
 			$list_names = explode(",",$FG_QUERY_ADITION_SIP_IAX);
-			$amaflag = $A2B->config["signup"]['amaflag'];
-			$context = $A2B->config["signup"]['context'];
-            $FG_QUERY_ADITION_SIP_IAX_VALUE = "'$username', '$username', '$username', '$amaflag', '$useralias', '$context', 'RFC2833','dynamic', 'friend', '$username', 'g729,ulaw,alaw,gsm','".$uipass."','$id'";
-			if(strlen($this->FG_QUERY_ADITION_SIP_IAX_VALUE)==0){
-            		$this->FG_QUERY_ADITION_SIP_IAX_VALUE = "'$username', '$username', '$username', '$amaflag', '$useralias', '$context', 'RFC2833','dynamic', 'friend', '$username', 'g729,ulaw,alaw,gsm','".$uipass."','$id'";
-			}
+			
+			$type = FRIEND_TYPE;
+			$allow = FRIEND_ALLOW;
+			$context = FRIEND_CONTEXT;
+			$nat = FRIEND_NAT;
+			$amaflags = FRIEND_AMAFLAGS;
+			$qualify = FRIEND_QUALIFY;
+			$host = FRIEND_HOST;   
+			$dtmfmode = FRIEND_DTMFMODE;
+			
+            $this->FG_QUERY_ADITION_SIP_IAX_VALUE = "'$username', '$username', '$username', '$amaflags', '$useralias', '$context', '$dtmfmode','$host', '$type', '$username', '$allow', '".$uipass."', '$id', '$nat', '$qualify'";			
 		}	
 
 		// Save info in table and in sip file

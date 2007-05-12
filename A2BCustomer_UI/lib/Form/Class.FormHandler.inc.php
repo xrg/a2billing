@@ -394,7 +394,6 @@ class FormHandler{
 	//This variable define the width of the HTML table
 	var $FG_HTML_TABLE_WIDTH="95%";
 
-
 	// text for multi-page navigation.
 	var $lang = array('strfirst' => '&lt;&lt; First', 'strprev' => '&lt; Prev', 'strnext' => 'Next &gt;', 'strlast' => 'Last &gt;&gt;' );
 
@@ -888,7 +887,9 @@ class FormHandler{
 		// 18 - CALLERID - PhoneNumber
 		$this -> FG_regular[]  = array(    "^(\+|[0-9]{1})[0-9]+$"   ,
 		                        "Phone Number format");
-		
+		// 19 - CAPTCHAIMAGE - Alpahnumeric
+		$this -> FG_regular[]  = array("^(".$_SESSION["captcha_code"].")$", 
+						gettext("(at least 6 Alphanumeric characters)"));
 		// check_select
 		// TO check if a select have a value different -1
 	}
@@ -1202,7 +1203,6 @@ class FormHandler{
 	function perform_add (&$form_action){
 		include_once (FSROOT."lib/Class.Table.php");
 		$processed = $this->getProcessed();  //$processed['firstname']
-
 		$this->VALID_SQL_REG_EXP = true;
 			
 		for($i=0; $i < $this->FG_NB_TABLE_ADITION; $i++){ 
@@ -1232,7 +1232,7 @@ class FormHandler{
 					// NO MULTIPLE SELECT
 					
 					// CHECK ACCORDING TO THE REGULAR EXPRESSION DEFINED	
-					if (is_numeric($regexp) && !(strtoupper(substr($this->FG_TABLE_ADITION[$i][13],0,2))=="NO" && $processed[$fields_name]=="") ){
+					if (is_numeric($regexp) && !(strtoupper(substr($this->FG_TABLE_ADITION[$i][13],0,2))=="NO" && $processed[$fields_name]=="") ){						
 						$this-> FG_fit_expression[$i] = ereg( $this->FG_regular[$regexp][0] , $processed[$fields_name]);								
 						if ($this->FG_DEBUG == 1)  echo "<br>->  $fields_name => ".$this->FG_regular[$regexp][0]." , ".$processed[$fields_name];
 						if (!$this-> FG_fit_expression[$i]){
@@ -1270,17 +1270,21 @@ class FormHandler{
 							if ($i>0) $param_add_fields .= ", ";							
 							$param_add_fields .= str_replace('myfrom_', '', $fields_name);
 							if ($i>0) $param_add_value .= ", ";
-							$param_add_value .= "'%TAGPREFIX%'";
+							$param_add_value .= "'%TAGPREFIX%'";							
 						}
 					}else{
 						if ($this->FG_DEBUG == 1) echo "<br>$fields_name : ".$processed[$fields_name];
 						if (!is_null($processed[$fields_name]) && ($processed[$fields_name]!="") && ($this->FG_TABLE_ADITION[$i][4]!="disabled") ){
+							if (strtoupper ($this->FG_TABLE_ADITION[$i][3])!=strtoupper("CAPTCHAIMAGE"))
+							{
 							if ($i>0) $param_add_fields .= ", ";							
 							$param_add_fields .= str_replace('myfrom_', '', $fields_name);
 							if ($i>0) $param_add_value .= ", ";
 							$param_add_value .= "'".addslashes(trim($processed[$fields_name]))."'";
+							}
 						}
 					}
+									
 				}		
 			}
 		}

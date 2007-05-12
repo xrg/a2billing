@@ -4,13 +4,12 @@ getpost_ifset(array('id', 'username', 'useralias', 'uipass', 'credit', 'language
 'id_didgroup', 'id_campaign', 'callback', 'activated','simultaccess', 'currency','typepaid', 'creditlimit',
 'lastname', 'firstname', 'email', 'address','city', 'state', 'country', 'zipcode', 'phone', 'fax', 'inuse',
 'cid', 'runservice', 'firstusedate','expirationdate', 'enableexpire', 'expiredays', 'sip_buddy',
-'iax_buddy','popup_select', 'vat', 'autorefill', 'initialbalance', 'id_subscription_fee', 'mac_addr'));
+'iax_buddy','popup_select', 'vat', 'autorefill', 'initialbalance', 'id_subscription_fee', 'mac_addr', 'cardnumberlenght_list'));
 
 
 $HD_Form = new FormHandler("cc_card","Card");
 
 $HD_Form -> FG_DEBUG = 0;
-// FAQ
 $HD_Form -> FG_TABLE_ID="id";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "ASC";
 $HD_Form -> FG_FILTER_SEARCH_SESSION_NAME = 'entity_card_selection';
@@ -129,9 +128,9 @@ $HD_Form -> CV_FOLLOWPARAMETERS= "&popup_select=".$_GET['popup_select']."&popup_
 // Search form
 if (!($popup_select>=1))	 $HD_Form -> FG_FILTER_SEARCH_FORM = true;
 $HD_Form -> FG_FILTER_SEARCH_TOP_TEXT = gettext('Define specific criteria to search for cards created.');
-$HD_Form -> FG_FILTER_SEARCH_1_TIME_TEXT = gettext("Selection by month <br>of the creationdate");
-$HD_Form -> FG_FILTER_SEARCH_2_TIME_TEXT = gettext("Selection by day <br>of the creationdate");
-$HD_Form -> FG_FILTER_SEARCH_2_TIME_FIELD = "creationdate";
+$HD_Form -> FG_FILTER_SEARCH_1_TIME_TEXT = gettext('Creation date / Month');
+$HD_Form -> FG_FILTER_SEARCH_2_TIME_TEXT = gettext('Creation date / Day');
+$HD_Form -> FG_FILTER_SEARCH_2_TIME_FIELD = 'creationdate';
 $HD_Form -> AddSearchElement_C1(gettext("CARDNUMBER"), 'username','usernametype');
 $HD_Form -> AddSearchElement_C1(gettext("LASTNAME"),'lastname','lastnametype');
 $HD_Form -> AddSearchElement_C1(gettext("CARDALIAS"),'useralias','useraliastype');
@@ -141,10 +140,10 @@ $HD_Form -> AddSearchElement_C2(gettext("CREDIT"),'credit1','credit1type','credi
 $HD_Form -> AddSearchElement_C2(gettext("INUSE"),'inuse1','inuse1type','inuse2','inuse2type','inuse');
 
 $HD_Form -> FG_FILTER_SEARCH_FORM_SELECT_TEXT = '';
-$HD_Form -> AddSearchElement_Select(gettext("select language"), null, null, null, null, null, "language", 0, $language_list_r);
-$HD_Form -> AddSearchElement_Select(gettext("select tariff"), "cc_tariffgroup", "id, tariffgroupname, id", "", "tariffgroupname", "ASC", "tariff");
-$HD_Form -> AddSearchElement_Select(gettext("select access"), null, null, null, null, null, "simultaccess", 0, $simultaccess_list_r);
-$HD_Form -> AddSearchElement_Select(gettext("select currency"), null, null, null, null, null, "currency", 0, $currency_list_r);
+$HD_Form -> AddSearchElement_Select(gettext("SELECT LANGUAGE"), null, null, null, null, null, "language", 0, $language_list_r);
+$HD_Form -> AddSearchElement_Select(gettext("SELECT TARIFF"), "cc_tariffgroup", "id, tariffgroupname, id", "", "tariffgroupname", "ASC", "tariff");
+$HD_Form -> AddSearchElement_Select(gettext("SELECT ACCESS"), null, null, null, null, null, "simultaccess", 0, $simultaccess_list_r);
+$HD_Form -> AddSearchElement_Select(gettext("SELECT CURRENCY"), null, null, null, null, null, "currency", 0, $currency_list_r);
 
 
 if (($popup_select>=1)){
@@ -171,7 +170,7 @@ if (($popup_select>=1)){
 	$HD_Form -> FG_OTHER_BUTTON1_IMG ="../Images/icon-sip.gif";
 	$HD_Form -> FG_OTHER_BUTTON2_IMG ="../Images/icon-iax.gif";
 	
-	$HD_Form -> FG_OTHER_BUTTON1_ALT=gettext("SIP buddy ");
+	$HD_Form -> FG_OTHER_BUTTON1_ALT=gettext("SIP buddy");
 	$HD_Form -> FG_OTHER_BUTTON2_ALT=gettext("IAX buddy");
 }
 
@@ -179,7 +178,8 @@ $maxi='';
 $maxi2='';
 $maxi3='';
 if (isset($form_action) && $form_action=="ask-add"){
-	$array_card_generated  = gen_card_with_alias();
+	if (!is_numeric($cardnumberlenght_list)) 	$cardnumberlenght_list = LEN_CARDNUMBER;
+	$array_card_generated  = gen_card_with_alias("cc_card", 0, $cardnumberlenght_list);
 
 	$maxi = "value='".$array_card_generated[0]."'";
 	$maxi2 = "value='".$array_card_generated[1]."'";
@@ -188,16 +188,16 @@ if (isset($form_action) && $form_action=="ask-add"){
 	$default_initbalance = "value='0'";
 }
 
-$HD_Form -> AddEditElement (gettext("CARD NUMBER "),
+$HD_Form -> AddEditElement (gettext("CARD NUMBER"),
 			   "username",
 			   "",
 			   "INPUT",
-			    "size=20 $maxi readonly  maxlength=40",
+			    "size=30 $maxi readonly  maxlength=40",
 			   "4",
 			   gettext("Insert the username"),
 			   "" , "", "",	"", "", "",	"", "" );
 
-$HD_Form -> AddEditElement (gettext("CARD ALIAS "),
+$HD_Form -> AddEditElement (gettext("CARD ALIAS"),
 			   "useralias",
 			   "",
 			   "INPUT",
@@ -415,7 +415,7 @@ $HD_Form -> AddEditElement (gettext("EXPIRY DATE"),
 			   "INPUT",
 			   "size=40 maxlength=40  $comp_date_plus",
 			   "10",
-			   "Insert the expiration date",
+			   gettext("Insert the expiration date"),
 			   "" , "", "",	"", "", "", "NO-NULL", gettext("please respect the format YYYY-MM-DD HH:MM:SS. For instance, '2004-12-31 00:00:00'"), "", "res_display_dateformat");
 
 
@@ -622,16 +622,16 @@ if (isset($filterprefix)  &&  (strlen($filterprefix)>0)){
 
 
 
-$HD_Form -> FG_INTRO_TEXT_EDITION= gettext("You can modify, through the following form, the different properties of your ".$HD_Form->FG_INSTANCE_NAME);
-$HD_Form -> FG_INTRO_TEXT_ASK_DELETION = gettext("If you really want remove this ".$HD_Form->FG_INSTANCE_NAME.", click on the delete button.");
-$HD_Form -> FG_INTRO_TEXT_ADD = gettext("you can add easily a new ".$HD_Form->FG_INSTANCE_NAME.".<br>Fill the following fields and confirm by clicking on the button add.");
+$HD_Form -> FG_INTRO_TEXT_EDITION= gettext("You can modify, through the following form, the different properties of your")." ".$HD_Form->FG_INSTANCE_NAME;
+$HD_Form -> FG_INTRO_TEXT_ASK_DELETION = gettext("If you really want remove this")." ".$HD_Form->FG_INSTANCE_NAME.", ".gettext("click on the delete button.");
+$HD_Form -> FG_INTRO_TEXT_ADD = gettext("you can add easily a new")." ".$HD_Form->FG_INSTANCE_NAME.".<br>".gettext("Fill the following fields and confirm by clicking on the button add.");
 
 
 
 
 
 $HD_Form -> FG_INTRO_TEXT_ADITION = '';
-$HD_Form -> FG_TEXT_ADITION_CONFIRMATION = gettext("Your new ".$HD_Form->FG_INSTANCE_NAME." has been inserted. <br>");
+$HD_Form -> FG_TEXT_ADITION_CONFIRMATION = gettext("Your new")." ".$HD_Form->FG_INSTANCE_NAME." ".gettext("has been inserted.")."<br>";
 
 
 $HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = "../Images/cormfirmboton.gif";

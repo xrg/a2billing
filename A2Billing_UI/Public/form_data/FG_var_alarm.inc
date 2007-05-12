@@ -1,20 +1,19 @@
 <?php
-getpost_ifset(array('id', 'name', 'periode', 'type', 'maxvalue', 'minvalue', 'status', 'id_trunk', 'numberofrun', 'datelastrun', 'popup_select'));
 
+getpost_ifset(array('id', 'name', 'periode', 'type', 'maxvalue', 'minvalue', 'status', 'id_trunk', 'numberofrun', 'datelastrun', 'popup_select'));
 
 $HD_Form = new FormHandler("cc_alarm","Alarm");
 
 $HD_Form -> FG_DEBUG = 0;
-// FAQ
 $HD_Form -> FG_TABLE_DEFAULT_ORDER = "id";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
 
 
 // TODO Integrate a generic LIST to Framework
 $period_list = array();
-$period_list["1"]  = array( "Daily", "1");
-$period_list["2"]  = array( "Weekly", "2");
-$period_list["3"]  = array( "Monday to Sunday", "3");
+$period_list["1"]  = array( "Hourly", "1");
+$period_list["2"]  = array( "Daily", "2");
+$period_list["3"]  = array( "Weekly", "3");
 $period_list["4"]  = array( "Monthly", "4");
 
 
@@ -93,7 +92,7 @@ $HD_Form -> AddEditElement (gettext("TYPE"),
 	"",
 	"",
 	"",
-	"list" , "", "", "", $type_list, "%1", "");
+	"list" , "", "", "", $type_list, "%1", "", gettext("ALOC (average length of call) ; ASR (answer seize ratio) ; CIC (Consecutive Incomplete Calls)"));
 
 $HD_Form -> AddEditElement (gettext("MAX VALUE"),
 	"maxvalue",
@@ -102,7 +101,7 @@ $HD_Form -> AddEditElement (gettext("MAX VALUE"),
 	"",
 	"4",
 	gettext("Insert the maximu value in") ,
-	"" , "", "", "", "", "", "no", gettext("Input the maximum value (between 0 and 1 for ASR /-/ >0 for ALOC in sec /-/ >0 for CIC)"));
+	"" , "", "", "yes", "", "", "", gettext("Input the maximum value (between 0 and 1 for ASR ; > 0 for ALOC in sec ; > 0 for CIC)"));
 
 $HD_Form -> AddEditElement (gettext("MIN VALUE"),
 	"minvalue",
@@ -111,7 +110,7 @@ $HD_Form -> AddEditElement (gettext("MIN VALUE"),
 	"",
 	"",
 	"",
-	"" , "", "", "", "", "", "no", gettext("Input the minimum value (between 0 and 1 for ASR /-/ >=0 for ALOC in sec /-/ >=0 for CIC) or leave empty"));
+	"" , "", "", "", "", "", "", gettext("Input the minimum value (between 0 and 1 for ASR ; >= 0 for ALOC in sec ; not used by CIC) or leave it empty"));
 $HD_Form -> AddEditElement(gettext("TRUNK"),
 			   "id_trunk",
 			   '$value',	
@@ -119,9 +118,9 @@ $HD_Form -> AddEditElement(gettext("TRUNK"),
 			   "",	
 			   "",
 			   "",
-			   "" , "", "","", "" ,"A2B_entity_trunk.php?popup_select=1&", ", 'NULL','width=550,height=340,top=20,left=100'", gettext("Set the trunk number or leave empty for all trunk."));
+			   "" , "", "",	"", "" , "A2B_entity_trunk.php?popup_select=1&", ", 'id_trunk','width=550,height=340,top=20,left=100'", gettext("Set if you want to apply the alarm on a specific trunk or leave empty for all trunk."));
 
-$HD_Form -> AddEditElement ("STATUS",
+$HD_Form -> AddEditElement (gettext("STATUS"),
 	"status",
 	'$value',
 	"SELECT",
@@ -156,12 +155,12 @@ if (DB_TYPE == "postgres"){
 
 
 $HD_Form -> FG_INTRO_TEXT_EDITION= gettext("You can modify, through the following form, the different properties of your ".$HD_Form->FG_INSTANCE_NAME);
-$HD_Form -> FG_INTRO_TEXT_ASK_DELETION = gettext("If you really want remove this ".$HD_Form->FG_INSTANCE_NAME.", click on the delete button.");
-$HD_Form -> FG_INTRO_TEXT_ADD = gettext("you can add easily a new ".$HD_Form->FG_INSTANCE_NAME.".<br>Fill the following fields and confirm by clicking on the button add.");
+$HD_Form -> FG_INTRO_TEXT_ASK_DELETION = gettext("If you really want remove this")." ".$HD_Form->FG_INSTANCE_NAME.", ".gettext("click on the delete button.");
+$HD_Form -> FG_INTRO_TEXT_ADD = gettext("you can add easily a new")." ".$HD_Form->FG_INSTANCE_NAME.".<br>".gettext("Fill the following fields and confirm by clicking on the button add.");
 
 
 $HD_Form -> FG_INTRO_TEXT_ADITION = gettext("Add an alarm below");
-$HD_Form -> FG_TEXT_ADITION_CONFIRMATION = gettext("Your new ".$HD_Form->FG_INSTANCE_NAME." has been inserted. <br>");
+$HD_Form -> FG_TEXT_ADITION_CONFIRMATION = gettext("Your new")." ".$HD_Form->FG_INSTANCE_NAME." ".gettext("has been inserted. <br>");
 
 
 $HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = "../Images/cormfirmboton.gif";

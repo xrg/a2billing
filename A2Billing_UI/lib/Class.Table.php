@@ -185,7 +185,7 @@ class Table {
 		$QUERY = "INSERT INTO $sp".$this -> table."$sp (".$this -> fields.") values (".trim ($value).")";
 		if ($this -> debug_st) echo $this->start_message_debug.$QUERY.$this->end_message_debug;
 		if ($this -> debug_stop_add){ echo $this->start_message_debug.$QUERY.$this->end_message_debug; exit(); }
-		
+				
 		$res = $DBHandle -> Execute($QUERY);
 
 		if (!$res){

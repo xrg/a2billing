@@ -73,7 +73,6 @@
 	
 	
 	
-	
 	// CHECK THE SERVICES
 	$QUERY = 'SELECT id, name, amount, period, rule, daynumber, stopmode, maxnumbercycle, status, numberofrun, datecreate, 
 	$UNIX_TIMESTAMP datelastrun, emailreport, totalcredit,totalcardperform FROM cc_service WHERE status=1';

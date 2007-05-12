@@ -205,16 +205,12 @@ class Cards
 				."'$state', '$country', '$zipcode', '$phone', '$fax', '$cardnum', ".$simultaccess.", '".$currency."', '".$typepaid."','".$creditlimit."', '".$language."', '".$runservice."', '"
 				.$enableexpire."', $expirationdate, '$expiredays', '$uipass', '$iax_friend', '$sip_friend'";
 				
-				$result_query = $instance_sub_table -> Add_table ($DBHandle, $FG_ADITION_SECOND_ADD_VALUE, null,  null);			
+				$result_query = $instance_sub_table -> Add_table ($DBHandle, $FG_ADITION_SECOND_ADD_VALUE, null,  null, 'id');			
 				
 				
 				if ($result_query){	
-
 					
-					$QUERY = "SELECT id from cc_card WHERE username='$cardnum'";					
-					$result = $instance_sub_table -> SQLExec ($DBHandle, $QUERY);
-					
-					$idcard = $result[0][0];
+					$id_cc_card = $result_query;
 					
 					if (strlen($callerid_list)>1){
 						$callerid_list = split(',',$callerid_list);
@@ -226,7 +222,7 @@ class Cards
 									$QUERY = "SELECT * FROM cc_callerid WHERE cid='$mycallerid'";
 									$result = $instance_sub_table -> SQLExec ($DBHandle, $QUERY);
 									if (!is_array($result)){
-										$QUERY = "INSERT INTO cc_callerid (cid, id_cc_card) VALUES ('$mycallerid', '$idcard')";
+										$QUERY = "INSERT INTO cc_callerid (cid, id_cc_card) VALUES ('$mycallerid', '$id_cc_card')";
 										$result = $instance_sub_table -> SQLExec ($DBHandle, $QUERY, 0);
 										if ($result==false)
 											$callerid_result .= "|callerid$k-$mycallerid=NOK"; 
@@ -242,22 +238,29 @@ class Cards
 					
 					
 					
-					//return array('transaction_code', 'account_number', 'card_number', $useralias, 'uipass', 'result', "IDCARD_CREATED=$idcard"."$callerid_result");
+					//return array('transaction_code', 'account_number', 'card_number', $useralias, 'uipass', 'result', "IDCARD_CREATED=$id_cc_card"."$callerid_result");
 					//|LASTQUERY=$QUERY
 					
 					// CHECK IF THERE IS A FRIEND TO CREATE
 					if ($iax_friend || $sip_friend){
 					
 						// NEW ACCOUNT CREATED 					
-						$amaflag = $A2B->config["signup"]['amaflag'];
-						$context = $A2B->config["signup"]['context'];			
+						$type = FRIEND_TYPE;
+						$allow = FRIEND_ALLOW;
+						$context = FRIEND_CONTEXT;
+						$nat = FRIEND_NAT;
+						$amaflags = FRIEND_AMAFLAGS;
+						$qualify = FRIEND_QUALIFY;
+						$host = FRIEND_HOST;   
+						$dtmfmode = FRIEND_DTMFMODE;
+						$uipass = MDP_STRING();
 						
 						
 						$FG_QUERY_ADITION_SIP_IAX='name, type, username, accountcode, regexten, callerid, amaflags, secret, md5secret, nat, dtmfmode, qualify, canreinvite,disallow, allow, host, callgroup, context, defaultip, fromuser, fromdomain, insecure, language, mailbox, permit, deny, mask, pickupgroup, port,restrictcid, rtptimeout, rtpholdtimeout, musiconhold, regseconds, ipaddr, cancallforward';
 						
 						// For IAX and SIP
-						$param_add_fields = "name, accountcode, regexten, amaflags, callerid, context, dtmfmode, host,  type, username, allow";
-						$param_add_value = "'$cardnum', '$cardnum', '$cardnum', '$amaflag', '$cardnum', '$context', 'RFC2833','dynamic', 'friend', '$cardnum', 'g729,ulaw,alaw,gsm'";
+						$param_add_fields = "name, accountcode, regexten, amaflags, callerid, context, dtmfmode, host,  type, username, allow, secret";
+						$param_add_value = "'$cardnum', '$cardnum', '$cardnum', '$amaflags', '$cardnum', '$context', '$dtmfmode','$host', '$type', '$cardnum', '$allow', '".$uipass."', '$id_cc_card', '$nat', '$qualify'";
 						$list_names = explode(",",$FG_QUERY_ADITION_SIP_IAX);
 						$FG_TABLE_SIP_NAME="cc_sip_buddies";
 						$FG_TABLE_IAX_NAME="cc_iax_buddies";

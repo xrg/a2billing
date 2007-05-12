@@ -211,11 +211,11 @@ function gen_card($table = "cc_card", $len = LEN_CARDNUMBER, $field="username"){
 }
 
 
-function gen_card_with_alias($table = "cc_card", $api=0){
+function gen_card_with_alias($table = "cc_card", $api=0, $length_cardnumber=LEN_CARDNUMBER){	
 
 	$DBHandle_max  = DbConnect();
-	for ($k=0;$k<=200;$k++){
-		$card_gen = MDP(LEN_CARDNUMBER);
+	for ($k=0;$k<=200;$k++){			
+		$card_gen = MDP($length_cardnumber);
 		$alias_gen = MDP(LEN_ALIASNUMBER);
 		if ($k==200){ 
 			if ($api){
@@ -242,8 +242,6 @@ function gen_card_with_alias($table = "cc_card", $api=0){
 		return $arr_val;
 	}	
 }
-
-
 		
 //Get productID and all parameter and retrieve info for card creation into cc_ecommerce_product
 function get_productinfo($DBHandle, $instance_table, $productid, $email_alarm, $mail_content, $logfile){
@@ -340,9 +338,75 @@ function printPages($page, $pages, $url, $max_width = 20) {
 		}
 	}
 }
+/**
+* Validate the Uploaded Files.  Return the error string if any.
+* @param $the_file the file to validate
+* @param $the_file_type the file type
+*/
+function validate_upload($the_file, $the_file_type) {
 
-	
-	/** Calculate arguments in a string of the form "Test %1 or %4 .." 
+	$registered_types = array(
+                                        "application/x-gzip-compressed"         => ".tar.gz, .tgz",
+                                        "application/x-zip-compressed"          => ".zip",
+                                        "application/x-tar"                     => ".tar",
+                                        "text/plain"                            => ".html, .php, .txt, .inc (etc)",
+                                        "image/bmp"                             => ".bmp, .ico",
+                                        "image/gif"                             => ".gif",
+                                        "image/pjpeg"                           => ".jpg, .jpeg",
+                                        "image/jpeg"                            => ".jpg, .jpeg",
+                                        "image/png"                             => ".png",
+                                        "application/x-shockwave-flash"         => ".swf",
+                                        "application/msword"                    => ".doc",
+                                        "application/vnd.ms-excel"              => ".xls",
+                                        "application/octet-stream"              => ".exe, .fla (etc)",
+										"text/x-comma-separated-values"			=> ".csv"
+                                        ); # these are only a few examples, you can find many more!
+
+	$allowed_types = array("text/plain", "text/x-comma-separated-values");
+
+
+	$start_error = "\n<b>ERROR:</b>\n<ul>";
+	$error = "";
+	if ($the_file=="")
+	{		
+		$error .= "\n<li>".gettext("File size is greater than allowed limit.")."\n<ul>";
+	}else
+	{
+        if ($the_file == "none") { 
+                $error .= "\n<li>".gettext("You did not upload anything!")."</li>";
+        }
+        elseif ($_FILES['the_file']['size'] == 0)
+        {
+        	$error .= "\n<li>".gettext("Failed to upload the file, The file you uploaded may not exist on disk.")."!</li>";
+        } 
+        else        
+        {
+ 			if (!in_array($the_file_type,$allowed_types))
+ 			{
+ 				$error .= "\n<li>".gettext("file type is not allowed")."\n<ul>";
+                while ($type = current($allowed_types))
+                {
+                    $error .= "\n<li>" . $registered_types[$type] . " (" . $type . ")</li>";
+                	next($allowed_types);
+                }
+                $error .= "\n</ul>";
+            }                
+        }
+	}
+	if ($error)
+	{
+		$error = $start_error . $error . "\n</ul>";
+        return $error;
+    }
+    else 
+    {
+    	return false;
+    }
+
+} # END validate_upload
+
+
+/** Calculate arguments in a string of the form "Test %1 or %4 .." 
 	This function is carefully written, so that it could be used securely, for
 	example, when 'eval(string_param(" echo %&0",array( $dangerous_str)))' is called.
 	That is, we have some special prefixes:

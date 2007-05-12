@@ -52,18 +52,18 @@ if ( (isset ($id_cc_card) && (is_numeric($id_cc_card)  != "")) && ( $form_action
 	if (is_array($list_friend) && count($list_friend)>0){ Header ("Location: ".$HD_Form->FG_GO_LINK_AFTER_ACTION); exit();}
 
 	$form_action = "add";
-		
+	
 	$_POST['accountcode'] = $_POST['username']= $_POST['name']= $_POST['cardnumber'] = $cardnumber;
-	$_POST['allow']='g729,ulaw,alaw,gsm'; // *-*
-	$_POST['context']='a2billing';
-	$_POST['nat']='yes';
-	$_POST['amaflags']='billing';
-	$_POST['regexten']=$cardnumber;
-	$_POST['id_cc_card']=$id_cc_card;
-	$_POST['callerid']=$useralias;
-	$_POST['qualify']='yes';
-	$_POST['host']='dynamic';   
-	$_POST['dtmfmode']='RFC2833';
+	$_POST['allow'] = FRIEND_ALLOW;
+	$_POST['context'] = FRIEND_CONTEXT;
+	$_POST['nat'] = FRIEND_NAT;
+	$_POST['amaflags'] = FRIEND_AMAFLAGS;
+	$_POST['regexten'] = $cardnumber;
+	$_POST['id_cc_card'] = $id_cc_card;
+	$_POST['callerid'] = $useralias;
+	$_POST['qualify'] = FRIEND_QUALIFY;
+	$_POST['host'] = FRIEND_HOST;   
+	$_POST['dtmfmode'] = FRIEND_DTMFMODE;
 	$_POST['secret'] = MDP_NUMERIC(10);
 	
 	// for the getProcessed var

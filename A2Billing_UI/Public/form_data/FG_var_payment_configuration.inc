@@ -1,6 +1,6 @@
 <?php
 
-getpost_ifset(array('id', 'billingtype', 'did', 'startingdate', 'expirationdate', 'id_cc_didgroup', 'id_cc_country', 'activated', 'fixrate', 'id_trunk'));
+getpost_ifset(array('id', 'payment_method', 'payment_filename'));
 
 
 $HD_Form = new FormHandler("cc_payment_methods","payment method");
@@ -10,15 +10,8 @@ $HD_Form -> FG_TABLE_DEFAULT_ORDER = "payment_method";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
 
 
-// TODO Integrate a generic LIST to Framework
-$actived_list = array();
-$actived_list["t"] = array( gettext("Active"), "t");
-$actived_list["f"] = array( gettext("Inactive"), "f");
-
-
 $HD_Form -> AddViewElement(gettext("Payment Method"), "payment_method", "25%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("File Name"), "payment_filename", "20%", "center", "sort");
-//$HD_Form -> AddViewElement(gettext("<acronym title=\"ACTIVATED\">".gettext("ACT")."</acronym>"), "active", "10%", "center", "sort", "", "list", $actived_list);
 
 
 // added a parameter to append  FG_TABLE_ID  ( by default ) or disable 0.

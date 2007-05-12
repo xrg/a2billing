@@ -13,11 +13,11 @@ $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
 
 // TODO Integrate a generic LIST to Framework
 $actived_list = array();
-$actived_list["1"]  = array( "Active", "1"); 
-$actived_list["0"]  = array( "Inactive", "0");
+$actived_list["1"]  = array( gettext("Active"), "1"); 
+$actived_list["0"]  = array( gettext("Inactive"), "0");
 $yesno_list = array(); 
-$yesno_list["1"]  = array( "Yes", "1"); 
-$yesno_list["0"]  = array( "No", "0");
+$yesno_list["1"]  = array( gettext("Yes"), "1"); 
+$yesno_list["0"]  = array( gettext("No"), "0");
 
 $HD_Form -> AddViewElement(gettext("CAMPAIGN"), "id_cc_campaign", "12%", "center", "sort", "15", "lie", "cc_campaign", "campaign_name", "id='%id'", "%1");
 $HD_Form -> AddViewElement(gettext("PHONENUMBER"), "numbertodial", "10%", "center", "sort", "26");
@@ -71,7 +71,7 @@ $HD_Form -> AddEditElement (gettext("NAME"),
 	"INPUT",
 	"size=30 maxlength=20",
 	"",
-	"Insert the name ",
+	gettext("Insert the name "),
 	"" , "", "", "", "" , "", "", "");
 
 if ($form_action=="ask-add" || $form_action=="add"){
@@ -141,13 +141,13 @@ if (DB_TYPE == "postgres"){
 
 
 
-$HD_Form -> FG_INTRO_TEXT_EDITION= gettext("You can modify, through the following form, the different properties of your ".$HD_Form->FG_INSTANCE_NAME);
-$HD_Form -> FG_INTRO_TEXT_ASK_DELETION = gettext("If you really want remove this ".$HD_Form->FG_INSTANCE_NAME.", click on the delete button.");
-$HD_Form -> FG_INTRO_TEXT_ADD = gettext("you can add easily a new ".$HD_Form->FG_INSTANCE_NAME.".<br>Fill the following fields and confirm by clicking on the button add.");
+$HD_Form -> FG_INTRO_TEXT_EDITION= gettext("You can modify, through the following form, the different properties of your")." ".$HD_Form->FG_INSTANCE_NAME;
+$HD_Form -> FG_INTRO_TEXT_ASK_DELETION = gettext("If you really want remove this")." ".$HD_Form->FG_INSTANCE_NAME.", ".gettext("click on the delete button.");
+$HD_Form -> FG_INTRO_TEXT_ADD = gettext("you can add easily a new")." ".$HD_Form->FG_INSTANCE_NAME.".<br>".gettext("Fill the following fields and confirm by clicking on the button add.");
 
 
 $HD_Form -> FG_INTRO_TEXT_ADITION = gettext("Add a $HD_Form->FG_INSTANCE_NAME now.");
-$HD_Form -> FG_TEXT_ADITION_CONFIRMATION = gettext("Your new ".$HD_Form->FG_INSTANCE_NAME." has been inserted. <br>");
+$HD_Form -> FG_TEXT_ADITION_CONFIRMATION = gettext("Your new")." ".$HD_Form->FG_INSTANCE_NAME." ".gettext("has been inserted.")."<br>";
 
 
 $HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = "../Images/cormfirmboton.gif";

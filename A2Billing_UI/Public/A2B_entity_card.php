@@ -155,7 +155,7 @@ echo $CC_help_list_customer;
 
 <center><a href="#" target="_self"  onclick="imgidclick('img54000','div54000','kfind.png','viewmag.png');"><img id="img54000" src="../Css/kicons/kfind.png" onmouseover="this.style.cursor='hand';" HEIGHT="16"> <font color="#AA4444"><?php echo gettext("REFILL");?> </font></a></center>
 	<div id="div54000" style="display:none;">
-	   <table width="95%" border="0" align="center">
+	   <table width="90%" border="0" align="center">
         <tr><form NAME="theForm">
 		   <td align="left" width='5%'><img src="../Css/kicons/pipe.png">
 		   </td>
@@ -171,8 +171,7 @@ echo $CC_help_list_customer;
 			</td></tr>
 			</table>
 		</td>
-		<td  class="bgcolor_001">		
-				<select NAME="opt" size="1" class="form_enter" style="border: 2px outset rgb(204, 51, 0);"><option value='0'><?php echo gettext("REFILL");?> </option></select>
+		<td  class="bgcolor_001" align="center">				
 				<input class="form_enter" name="addcredit" size="18" maxlength="6" value="">
 				<input class="form_enter" style="border: 2px outset rgb(204, 51, 0);"
 				TYPE="button" VALUE="<?php echo gettext("ADD CREDIT TO THE SELECTED CARD");?>" onClick="openURL('<?php echo $_SERVER['PHP_SELF']?>?form_action=addcredit&stitle=Card_Refilled&current_page=<?php echo $current_page?>&order=<?php echo $order?>&sens=<?php echo $sens?>&id=')">
@@ -199,7 +198,7 @@ echo $CC_help_list_customer;
 			<?php } ?>	
 			</b></font></td></FORM>
         </TR>
-	   </table>
+</table>
 <?php  } // endif is_sip_iax_change
 
 }elseif (!($popup_select>=1)) echo $CC_help_create_customer;
@@ -211,8 +210,43 @@ if (isset($update_msg) && strlen($update_msg)>0) echo $update_msg;
 
 // #### TOP SECTION PAGE
 $HD_Form -> create_toppage ($form_action);
+if (!$popup_select && $form_action == "ask-add"){
+?>
+<table width="70%" align="center" cellpadding="2" cellspacing="0">
+	<script language="javascript">
+	function submitform()
+	{
+		document.cardform.submit();
+	}
+	</script>
+	<form action="A2B_entity_card.php?form_action=ask-add&atmenu=card&stitle=Card&section=1" method="post" name="cardform">
+	<tr>
+		<td class="viewhandler_filter_td1">
+		<span>		
+			
+			<font class="viewhandler_filter_on"><?php echo gettext("Change the Card Number Length")?> :</font>
+			<select name="cardnumberlenght_list" size="1" class="form_input_select" onChange="submitform()">
+			<?php 
+			//for($i=CARDNUMBER_LENGTH_MIN;$i<=CARDNUMBER_LENGTH_MAX;$i++) {
+			
+			foreach ($A2B -> cardnumber_range as $value){
+			?>
+				<option value='<?php echo $value ?>' 
+				<?php if ($value == $cardnumberlenght_list) echo "selected";
+				?>> <?php echo $value." ".gettext("Digits");?> </option>
+				
+			<?php
+			}
+			?>						
+			</select>
+		</span>
+		</td>	
+	</tr>
+	</form>
+</table>
 
-
+<?php
+}
 // #### CREATE FORM OR LIST
 //$HD_Form -> CV_TOPVIEWER = "menu";
 if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
@@ -272,8 +306,8 @@ if ($form_action == "list" && (!($popup_select>=1))	){
 				?>
 					<option value='<?php echo $cur_value[1] ?>'  <?php if ($upd_inuse==$cur_value[1]) echo 'selected="selected"'?>><?php echo $cur_value[0] ?></option>
 				<?php } ?>			
-				   </select>
-			</td>
+		    </select>
+		  </td>
 		</tr>
 		<tr>		
           <td align="left" bgcolor="#cccccc">
@@ -285,7 +319,7 @@ if ($form_action == "list" && (!($popup_select>=1))	){
 				<input type="radio" NAME="type[upd_activated]" value="t" <?php if((!isset($type[upd_activated]))|| ($type[upd_activated]=='t') ){?>checked<?php }?>> <?php echo gettext("Yes");?>
 				<input type="radio" NAME="type[upd_activated]" value="f" <?php if($type[upd_activated]=='f'){?>checked<?php }?>> <?php echo gettext("No");?>
 				</font>
-			</td>
+		  </td>
 		</tr>
 		<tr>		
           <td align="left" bgcolor="#cccccc">
@@ -299,8 +333,8 @@ if ($form_action == "list" && (!($popup_select>=1))	){
 				?>
 					<option value='<?php echo $cur_value[1] ?>' <?php if ($upd_language==$cur_value[1]) echo 'selected="selected"'?>><?php echo $cur_value[0] ?></option>
 				<?php } ?>			
-				   </select>
-			</td>
+		    </select>
+		  </td>
 		</tr>
 		<tr>		
           <td align="left"  bgcolor="#cccccc">
@@ -319,7 +353,7 @@ if ($form_action == "list" && (!($popup_select>=1))	){
 					?>
 				</select>
 				<br/>
-			</td>
+		  </td>
 		</tr>
 		<tr>		
           <td align="left" bgcolor="#cccccc">
@@ -334,7 +368,7 @@ if ($form_action == "list" && (!($popup_select>=1))	){
 				<input type="radio" NAME="type[upd_credit]" value="2" <?php if($type["upd_credit"]==2){?>checked<?php }?>> <?php echo gettext("Add");?>
 				<input type="radio" NAME="type[upd_credit]" value="3" <?php if($type["upd_credit"]==3){?>checked<?php }?>> <?php echo gettext("Subtract");?>
 				</font>
-			</td>
+		  </td>
 		</tr>
 		<tr>		
           <td align="left" bgcolor="#cccccc">
@@ -345,8 +379,8 @@ if ($form_action == "list" && (!($popup_select>=1))	){
 				<select NAME="upd_simultaccess" size="1" class="form_enter" style="border: 2px outset rgb(204, 51, 0);">
 					<option value='0'  <?php if ($upd_simultaccess==0) echo 'selected="selected"'?>><?php echo gettext("INDIVIDUAL ACCESS");?></option>
 					<option value='1'  <?php if ($upd_simultaccess==1) echo 'selected="selected"'?>><?php echo gettext("SIMULTANEOUS ACCESS");?></option>
-				   </select>
-			</td>
+		    </select>
+		  </td>
 		</tr>
 		<tr>		
           <td align="left" bgcolor="#cccccc">
@@ -360,8 +394,8 @@ if ($form_action == "list" && (!($popup_select>=1))	){
 				?>
 					<option value='<?php echo $key ?>'  <?php if ($upd_currency==$key) echo 'selected="selected"'?>><?php echo $cur_value[1].' ('.$cur_value[2].')' ?></option>
 				<?php } ?>			
-				   </select>
-			</td>
+		    </select>
+		  </td>
 		</tr>
 		<tr>		
           <td align="left" bgcolor="#cccccc">
@@ -372,8 +406,8 @@ if ($form_action == "list" && (!($popup_select>=1))	){
 				<select NAME="upd_typepaid" size="1" class="form_enter" style="border: 2px inset rgb(204, 51, 0);">
 					<option value='0'  <?php if ($upd_typepaid==0) echo 'selected="selected"'?>><?php echo gettext("PREPAID CARD");?></option>
 					<option value='1'  <?php if ($upd_typepaid==1) echo 'selected="selected"'?>><?php echo gettext("POSTPAY CARD");?></option>
-				   </select>
-			</td>
+		    </select>
+		  </td>
 		</tr>
 		<tr>		
           <td align="left" bgcolor="#cccccc">
@@ -389,7 +423,7 @@ if ($form_action == "list" && (!($popup_select>=1))	){
 				<input type="radio" NAME="type[upd_creditlimit]" value="2" <?php if($type[upd_creditlimit]==2){?>checked<?php }?>><?php echo gettext("Add");?>
 				<input type="radio" NAME="type[upd_creditlimit]" value="3" <?php if($type[upd_creditlimit]==3){?>checked<?php }?>> <?php echo gettext("Subtract");?>
 				</font>
-			</td>
+		  </td>
 		</tr>
 		<tr>
           <td align="left" bgcolor="#cccccc">
@@ -403,7 +437,7 @@ if ($form_action == "list" && (!($popup_select>=1))	){
 								<option value="2"  <?php if ($upd_enableexpire==2) echo 'selected="selected"'?>> <?php echo gettext("EXPIRE DAYS SINCE FIRST USE");?>	   </option>
 								<option value="3"  <?php if ($upd_enableexpire==3) echo 'selected="selected"'?>> <?php echo gettext("EXPIRE DAYS SINCE CREATION");?>	   </option>
 				</select>
-			</td>
+		  </td>
 		</tr>
 		<tr>		
           <td align="left" bgcolor="#cccccc">
@@ -446,7 +480,7 @@ if ($form_action == "list" && (!($popup_select>=1))	){
 				<input type="radio" NAME="type[upd_runservice]" value="1" <?php if((!isset($type[upd_runservice]))|| ($type[upd_runservice]=='1') ){?>checked<?php }?>>
 				<?php echo gettext("Yes");?> <input type="radio" NAME="type[upd_runservice]" value="0" <?php if($type[upd_runservice]=='0'){?>checked<?php }?>><?php echo gettext("No");?>
 				</font>
-			</td>
+		  </td>
 		</tr>
 
 		<tr>		

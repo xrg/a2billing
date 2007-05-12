@@ -4,7 +4,7 @@ getpost_ifset(array('id', 'username', 'useralias', 'uipass', 'credit', 'language
                     'activated', 'simultaccess', 'currency', 'typepaid', 'creditlimit',
                     'lastname', 'firstname', 'email', 'address', 'city', 'state', 'country',
                     'zipcode', 'phone', 'fax', 'inuse', 'cid', 'runservice', 'firstusedate',
-                    'expirationdate', 'enableexpire', 'expiredays'));
+                    'expirationdate', 'enableexpire', 'expiredays','captchacode'));
 
 
 $HD_Form = new FormHandler("cc_card","User");
@@ -13,6 +13,7 @@ $HD_Form -> FG_DEBUG = 0;
 // FAQ
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "ASC";
 $HD_Form -> FG_FILTER_SEARCH_SESSION_NAME = 'entity_card_selection';
+
 
 // TODO Unify order of parameters
 
@@ -25,6 +26,33 @@ $language_list_r = array();
 $language_list_r["0"] = array("en", "ENGLISH");
 $language_list_r["1"] = array("es", "SPANISH");
 $language_list_r["2"] = array("fr", "FRENCH");
+
+$callPlan_idlist = "1,2"; 
+
+$call_table = new Table("cc_tariffgroup", "tariffgroupname,id");
+$HD_Form -> setDBHandler (DbConnect());
+$callPlan_list = $call_table-> Get_list($HD_Form -> DBHandle,"id in ($callPlan_idlist)");
+
+if (!is_array($callPlan_list) && count($callPlan_list) <= 0)
+{
+	exit(gettext("No Call Plan id are defined"));
+} 
+$flag_callplan = 0;
+if ($tariff!="" || $tariff != null)
+{
+	$callPlan_count = count($callPlan_list);	
+	for ($i=0; $i< $callPlan_count; $i++ )
+	{	
+		if($callPlan_list[$i][1] == $tariff)
+		{
+			$flag_callplan = 1;
+		}		
+	}
+	if($flag_callplan == 0)
+	{
+		exit("Invalid Call Plan Id");	
+	}	 
+}
 
 
 $currency_list = array();
@@ -86,7 +114,7 @@ $maxi3='';
 if (isset($form_action) && $form_action=="add")
 {
 	$array_card_generated  = gen_card_with_alias();
-    $maxi = $array_card_generated[0];
+    $maxi = $array_card_generated[0];	
     $maxi2 = $array_card_generated[1];
 	$pass = MDP_NUMERIC(10);
     $loginkey = MDP_STRING(20);
@@ -111,6 +139,14 @@ $HD_Form -> AddEditElement ("CURRENCY",
 			   "",
 			   "list" , "", "",	"", $currency_list, "%1", "", "" );
 
+$HD_Form -> AddEditElement (gettext("CALL PLAN"),
+			   "tariff",
+			   "",
+			   "SELECT",
+			   "",
+			   "",
+			   "",
+			   "list" , "", "",	"", $callPlan_list, "%1", "", "" );			   
 
 $comp_zero = $comp_date_plus='';
 if (isset($form_action) && $form_action=="ask-add"){
@@ -219,12 +255,21 @@ $HD_Form -> AddEditElement (gettext("FAXNUMBER"),
 			   "",
 			   gettext("Insert your fax number"),
 			   "" , "", "",	"", "", "" , "", "");
+			   
+$HD_Form -> AddEditElement (gettext("VERIFICATION"),
+			   "captchacode",
+			   '$value',
+			   "CAPTCHAIMAGE",
+			   "size=10 maxlength=6",
+			   "19",
+			   gettext("Insert code from above picture"),
+			   "" , "", "",	"", "", "" , "", "", null, null, null,CAPTCHA_ENABLE);
 
 
 $HD_Form -> FieldEditElement ('username, useralias, uipass, credit, language, tariff, id_didgroup, id_campaign,'.
 'callback, activated, simultaccess, currency, runservice, typepaid, creditlimit,	firstusedate, enableexpire,'.
 'expirationdate, expiredays, vat, lastname, firstname, email, address, city, state, country, zipcode, phone,'.
-'fax, sip_buddy, iax_buddy, inuse');
+'fax, captchacode, sip_buddy, iax_buddy, inuse');
 
 
 if(!isset($myusername)) $myusername='';
@@ -262,8 +307,8 @@ $activatedbyuser = $A2B->config["signup"]['activatedbyuser'] ? 't' : 'f';
 
 $HD_Form ->FG_QUERY_ADITION_SIP_IAX_VALUE = "'$maxi', '$maxi', '$maxi', '$amaflag', '$maxi2', '$context', 'RFC2833','dynamic', 'friend', '$maxi', 'g729,ulaw,alaw,gsm','$pass'";
 
-$HD_Form ->FG_QUERY_ADITION_HIDDEN_FIELDS = "iax_buddy, sip_buddy, expiredays, expirationdate, typepaid, enableexpire, runservice, simultaccess, activated, tariff, credit, username, useralias, uipass,  userpass, loginkey, activatedbyuser";
-$HD_Form ->FG_QUERY_ADITION_HIDDEN_VALUE  = "'$iax_account','$sip_account','$myexpiredays','$myexpirationdate','$mytypepaid','$myenableexpire', '$myrunservice','$mysimultaccess','$myactivated','$mytariff','$mycredit','$maxi','$maxi2','$pass',"."'$myusername',"."'$loginkey',"."'$activatedbyuser'";
+$HD_Form ->FG_QUERY_ADITION_HIDDEN_FIELDS = "iax_buddy, sip_buddy, expiredays, expirationdate, typepaid, enableexpire, runservice, simultaccess, activated, credit, username, useralias, uipass,  userpass, loginkey, activatedbyuser";
+$HD_Form ->FG_QUERY_ADITION_HIDDEN_VALUE  = "'$iax_account','$sip_account','$myexpiredays','$myexpirationdate','$mytypepaid','$myenableexpire', '$myrunservice','$mysimultaccess','$myactivated','$mycredit','$maxi','$maxi2','$pass',"."'$myusername',"."'$loginkey',"."'$activatedbyuser'";
 
 if (DB_TYPE != "postgres"){
 	$FG_QUERY_ADITION_HIDDEN_FIELDS .= ", creationdate ";
@@ -300,7 +345,7 @@ $HD_Form -> FG_ADDITIONAL_FUNCTION_AFTER_ADD = 'create_sipiax_friends_reload';
 
 
 //$HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
-$HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = "signup_confirmation.php?id=";
+//$HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = "signup_confirmation.php?id=";
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_DELETE = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
 
