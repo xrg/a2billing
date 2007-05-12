@@ -45,6 +45,7 @@ $additional_iax = explode("|", IAX_ADDITIONAL_PARAMETERS);
 // #### HEADER SECTION
 $smarty->display('main.tpl');
 
+echo $CC_help_sipiax_info;
 ?>
 <form name="form1">
 <table width="60%" border="0" align="center" cellpadding="0" cellspacing="1">
@@ -72,10 +73,10 @@ $smarty->display('main.tpl');
 
                                       </tr>
 									    <tr>
-                                        <td colspan="2" bgcolor="#FFFFFF" class="fontstyle_006">&nbsp;<strong><?php echo $config_file;?></strong></td>
+                                        <td colspan="2" bgcolor="#FFFFFF" class="fontstyle_006">&nbsp;<strong><?php echo $config_name;?></strong></td>
                                         </tr>
                                       <tr>
-                                        <td colspan="2" bgcolor="#FFFFFF" class="fontstyle_006" align="center"><?php echo $config_name;?><br>
+                                        <td colspan="2" bgcolor="#FFFFFF" class="fontstyle_006" align="center"><br><?php echo $config_file;?><br>
                                          
                                             <textarea name="textfield" cols="80" rows="12" class="form_input_text" ><?php if($configtype == "IAX"){ ?>[<?php echo SIP_IAX_INFO_TRUNKNAME; ?>]
 username=<?php echo $sip_iax_data[0][1]?>
