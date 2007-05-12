@@ -8,16 +8,15 @@ include ("lib/smarty.php");
 if (!$A2B->config["webcustomerui"]['invoice']) exit();
 
 if (! has_rights (ACX_ACCESS)){ 
-	   Header ("HTTP/1.0 401 Unauthorized");
-	   Header ("Location: PP_error.php?c=accessdenied");	   
-	   die();	   
+	Header ("HTTP/1.0 401 Unauthorized");
+	Header ("Location: PP_error.php?c=accessdenied");	   
+	die();	   
 }
 
 getpost_ifset(array('customer', 'posted', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth', 'tostatsmonth', 'fromday', 'fromstatsday_sday', 'fromstatsmonth_sday', 'today', 'tostatsday_sday', 'tostatsmonth_sday', 'dsttype', 'sourcetype', 'clidtype', 'channel', 'resulttype', 'stitle', 'atmenu', 'current_page', 'order', 'sens', 'dst', 'src', 'clid', 'fromstatsmonth_sday', 'fromstatsmonth_shour', 'tostatsmonth_sday', 'tostatsmonth_shour', 'srctype', 'src', 'choose_currency','exporttype'));
 
 $customer = $_SESSION["pr_login"];
 $vat = $_SESSION["vat"];
-//require (LANGUAGE_DIR.FILENAME_INVOICES);
 
 if (($_GET[download]=="file") && $_GET[file] ) 
 {
@@ -40,19 +39,17 @@ if (($_GET[download]=="file") && $_GET[file] )
 	header("Expires: 0");
 	header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
 	header("Content-transfer-encoding: binary");
-			
+	
 	@readfile($dl_full);
 	
 	exit();
-
 }
 
 
 
 if (!isset ($current_page) || ($current_page == "")){	
-		$current_page=0; 
-	}
-
+	$current_page=0; 
+}
 
 // this variable specifie the debug type (0 => nothing, 1 => sql result, 2 => boucle checking, 3 other value checking)
 $FG_DEBUG = 0;
@@ -82,10 +79,9 @@ $FG_TABLE_COL = array();
 /*******
 Calldate Clid Src Dst Dcontext Channel Dstchannel Lastapp Lastdata Duration Billsec Disposition Amaflags Accountcode Uniqueid Serverid
 *******/
-
 $FG_TABLE_COL[]=array (gettext("Calldate"), "starttime", "18%", "center", "SORT", "19", "", "", "", "", "", "display_dateformat");
-$FG_TABLE_COL[]=array (gettext("Source"), "src", "10%", "center", "SORT", "30");
-$FG_TABLE_COL[]=array (gettext("Callednumber"), "calledstation", "18%", "right", "SORT", "30", "", "", "", "", "", "");
+// $FG_TABLE_COL[]=array (gettext("Source"), "src", "10%", "center", "SORT", "30");
+$FG_TABLE_COL[]=array (gettext("Callednumber"), "calledstation", "18%", "center", "SORT", "30", "", "", "", "", "", "");
 $FG_TABLE_COL[]=array (gettext("Destination"), "destination", "18%", "center", "SORT", "30", "", "", "", "", "", "remove_prefix");
 $FG_TABLE_COL[]=array (gettext("Duration"), "sessiontime", "8%", "center", "SORT", "30", "", "", "", "", "", "display_minute");
 
@@ -96,22 +92,14 @@ if (!(isset($customer)  &&  ($customer>0)) && !(isset($entercustomer)  &&  ($ent
 //if ($_SESSION["is_admin"]==1) $FG_TABLE_COL[]=array ("Con_charg", "connectcharge", "12%", "center", "SORT", "30");
 //if ($_SESSION["is_admin"]==1) $FG_TABLE_COL[]=array ("Dis_charg", "disconnectcharge", "12%", "center", "SORT", "30");
 //if ($_SESSION["is_admin"]==1) $FG_TABLE_COL[]=array ("Sec/mn", "secpermin", "12%", "center", "SORT", "30");
+$FG_TABLE_COL[]=array (gettext("Cost"), "sessionbill", "12%", "center", "SORT", "30", "", "", "", "", "", "display_2bill");
 
-
-//if ($_SESSION["is_admin"]==1) $FG_TABLE_COL[]=array ("Buycosts", "buycosts", "12%", "center", "SORT", "30");
-//-- $FG_TABLE_COL[]=array ("InitialRate", "calledrate", "10%", "center", "SORT", "30", "", "", "", "", "", "display_2dec");
-$FG_TABLE_COL[]=array (gettext("Cost"), "sessionbill", "9%", "center", "SORT", "30", "", "", "", "", "", "display_2bill");
-
-//-- if (LINK_AUDIO_FILE == 'YES') 
-//-- 	$FG_TABLE_COL[]=array ("", "uniqueid", "1%", "center", "", "30", "", "", "", "", "", "linkonmonitorfile");
-
-// ??? cardID
 $FG_TABLE_DEFAULT_ORDER = "t1.starttime";
 $FG_TABLE_DEFAULT_SENS = "DESC";
 	
 // This Variable store the argument for the SQL query
-
-$FG_COL_QUERY='t1.starttime, t1.src, t1.calledstation, t1.destination, t1.sessiontime  ';
+//$FG_COL_QUERY='t1.starttime, t1.src, t1.calledstation, t1.destination, t1.sessiontime  ';
+$FG_COL_QUERY='t1.starttime, t1.calledstation, t1.destination, t1.sessiontime  ';
 if (!(isset($customer)  &&  ($customer>0)) && !(isset($entercustomer)  &&  ($entercustomer>0))){
 	$FG_COL_QUERY.=', t1.username';
 }
@@ -134,16 +122,12 @@ $FG_EDITION=true;
 $FG_TOTAL_TABLE_COL = $FG_NB_TABLE_COL;
 if ($FG_DELETION || $FG_EDITION) $FG_TOTAL_TABLE_COL++;
 
-//This variable define the Title of the HTML table
-$FG_HTML_TABLE_TITLE=" - Call Logs - ";
-
 //This variable define the width of the HTML table
 $FG_HTML_TABLE_WIDTH="70%";
 
-	if ($FG_DEBUG == 3) echo "<br>Table : $FG_TABLE_NAME  	- 	Col_query : $FG_COL_QUERY";
-	$instance_table = new Table($FG_TABLE_NAME, $FG_COL_QUERY);
-	$instance_table_graph = new Table($FG_TABLE_NAME, $FG_COL_QUERY_GRAPH);
-
+if ($FG_DEBUG == 3) echo "<br>Table : $FG_TABLE_NAME  	- 	Col_query : $FG_COL_QUERY";
+$instance_table = new Table($FG_TABLE_NAME, $FG_COL_QUERY);
+$instance_table_graph = new Table($FG_TABLE_NAME, $FG_COL_QUERY_GRAPH);
 
 if ( is_null ($order) || is_null($sens) ){
 	$order = $FG_TABLE_DEFAULT_ORDER;
@@ -151,59 +135,53 @@ if ( is_null ($order) || is_null($sens) ){
 }
 
 if ($posted==1){
-  
-  function do_field($sql,$fld,$dbfld){
-  		$fldtype = $fld.'type';
+	function do_field($sql,$fld,$dbfld){
+		$fldtype = $fld.'type';
 		global $$fld;
 		global $$fldtype;		
-        if ($$fld){
-                if (strpos($sql,'WHERE') > 0){
-                        $sql = "$sql AND ";
-                }else{
-                        $sql = "$sql WHERE ";
-                }
+		if ($$fld){
+				if (strpos($sql,'WHERE') > 0){
+						$sql = "$sql AND ";
+				}else{
+						$sql = "$sql WHERE ";
+				}
 				$sql = "$sql t1.$dbfld";
 				if (isset ($$fldtype)){                
-                        switch ($$fldtype) {							
+						switch ($$fldtype) {							
 							case 1:	$sql = "$sql='".$$fld."'";  break;
 							case 2: $sql = "$sql LIKE '".$$fld."%'";  break;
 							case 3: $sql = "$sql LIKE '%".$$fld."%'";  break;
 							case 4: $sql = "$sql LIKE '%".$$fld."'";  break;
 							case 5:	$sql = "$sql <> '".$$fld."'";  
 						}
-                }else{ $sql = "$sql LIKE '%".$$fld."%'"; }
+				}else{ $sql = "$sql LIKE '%".$$fld."%'"; }
 		}
-        return $sql;
-  }  
-  $SQLcmd = '';
-  
-  $SQLcmd = do_field($SQLcmd, 'src', 'src');
-  $SQLcmd = do_field($SQLcmd, 'dst', 'calledstation');
-	
-  
+		return $sql;
+	}  
+	$SQLcmd = '';
+	$SQLcmd = do_field($SQLcmd, 'src', 'src');
+	$SQLcmd = do_field($SQLcmd, 'dst', 'calledstation');
 }
 
 
 $date_clause='';
 // Period (Month-Day)
 if (DB_TYPE == "postgres"){		
-	 	$UNIX_TIMESTAMP = "";
+	$UNIX_TIMESTAMP = "";
 }else{
-		$UNIX_TIMESTAMP = "UNIX_TIMESTAMP";
+	$UNIX_TIMESTAMP = "UNIX_TIMESTAMP";
 }
 
 
 $lastdayofmonth = date("t", strtotime($tostatsmonth.'-01'));
 
 if ($Period=="Month"){
-		
-		
-		if ($frommonth && isset($fromstatsmonth)) $date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) >= $UNIX_TIMESTAMP('$fromstatsmonth-01')";
-		if ($tomonth && isset($tostatsmonth)) $date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) <= $UNIX_TIMESTAMP('".$tostatsmonth."-$lastdayofmonth 23:59:59')"; 
-		
+	if ($frommonth && isset($fromstatsmonth)) $date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) >= $UNIX_TIMESTAMP('$fromstatsmonth-01')";
+	if ($tomonth && isset($tostatsmonth)) $date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) <= $UNIX_TIMESTAMP('".$tostatsmonth."-$lastdayofmonth 23:59:59')"; 	
 }else{
-		if ($fromday && isset($fromstatsday_sday) && isset($fromstatsmonth_sday) && isset($fromstatsmonth_shour) && isset($fromstatsmonth_smin) ) $date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) >= $UNIX_TIMESTAMP('$fromstatsmonth_sday-$fromstatsday_sday $fromstatsmonth_shour:$fromstatsmonth_smin')";
-		if ($today && isset($tostatsday_sday) && isset($tostatsmonth_sday) && isset($tostatsmonth_shour) && isset($tostatsmonth_smin)) $date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) <= $UNIX_TIMESTAMP('$tostatsmonth_sday-".sprintf("%02d",intval($tostatsday_sday))." $tostatsmonth_shour:$tostatsmonth_smin')";
+	if ($fromday && isset($fromstatsday_sday) && isset($fromstatsmonth_sday) && isset($fromstatsmonth_shour) && isset($fromstatsmonth_smin) ) $date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) >= $UNIX_TIMESTAMP('$fromstatsmonth_sday-$fromstatsday_sday $fromstatsmonth_shour:$fromstatsmonth_smin')";
+
+	if ($today && isset($tostatsday_sday) && isset($tostatsmonth_sday) && isset($tostatsmonth_shour) && isset($tostatsmonth_smin)) $date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) <= $UNIX_TIMESTAMP('$tostatsmonth_sday-".sprintf("%02d",intval($tostatsday_sday))." $tostatsmonth_shour:$tostatsmonth_smin')";
 }
 
   
@@ -215,9 +193,8 @@ if (strpos($SQLcmd, 'WHERE') > 0) {
 
 
 if (!isset ($FG_TABLE_CLAUSE) || strlen($FG_TABLE_CLAUSE)==0){
-		
-		$cc_yearmonth = sprintf("%04d-%02d-%02d",date("Y"),date("n"),date("d")); 	
-		$FG_TABLE_CLAUSE=" $UNIX_TIMESTAMP(t1.starttime) >= $UNIX_TIMESTAMP('$cc_yearmonth')";
+	$cc_yearmonth = sprintf("%04d-%02d-%02d",date("Y"),date("n"),date("d")); 	
+	$FG_TABLE_CLAUSE=" $UNIX_TIMESTAMP(t1.starttime) >= $UNIX_TIMESTAMP('$cc_yearmonth')";
 }
 
 
@@ -242,52 +219,41 @@ $_SESSION["pr_sql_export"]="SELECT $FG_COL_QUERY FROM $FG_TABLE_NAME WHERE $FG_T
 
 
 $QUERY = "SELECT substring(t1.starttime,1,10) AS day, sum(t1.sessiontime) AS calltime, sum(t1.sessionbill) AS cost, count(*) as nbcall FROM $FG_TABLE_NAME WHERE ".$FG_TABLE_CLAUSE." GROUP BY substring(t1.starttime,1,10) ORDER BY day"; //extract(DAY from calldate)
-//echo "$QUERY";
 
 if (!$nodisplay){
-		$res = $DBHandle -> Execute($QUERY);
-		if ($res){
-			$num = $res -> RecordCount();
-			for($i=0;$i<$num;$i++)
-			{				
-				$list_total_day [] =$res -> fetchRow();				 
-			}
+	$res = $DBHandle -> Execute($QUERY);
+	if ($res){
+		$num = $res -> RecordCount();
+		for($i=0;$i<$num;$i++)
+		{				
+			$list_total_day [] =$res -> fetchRow();				 
 		}
-
-
-
-if ($FG_DEBUG == 3) echo "<br>Clause : $FG_TABLE_CLAUSE";
-$nb_record = $instance_table -> Table_count ($DBHandle, $FG_TABLE_CLAUSE);
-if ($FG_DEBUG >= 1) var_dump ($list);
+	}
+	
+	if ($FG_DEBUG == 3) echo "<br>Clause : $FG_TABLE_CLAUSE";
+	$nb_record = $instance_table -> Table_count ($DBHandle, $FG_TABLE_CLAUSE);
+	if ($FG_DEBUG >= 1) var_dump ($list);
 
 }//end IF nodisplay
 
 
 // GROUP BY DESTINATION FOR THE INVOICE
-
-
 $QUERY = "SELECT destination, sum(t1.sessiontime) AS calltime, 
 sum(t1.sessionbill) AS cost, count(*) as nbcall FROM $FG_TABLE_NAME WHERE ".$FG_TABLE_CLAUSE." GROUP BY destination";
 
 if (!$nodisplay){
-		$res = $DBHandle -> Execute($QUERY);
-		if ($res){
-			$num = $res -> RecordCount();
-			for($i=0;$i<$num;$i++)
-			{				
-				$list_total_destination [] =$res -> fetchRow();				 
-			}
+	$res = $DBHandle -> Execute($QUERY);
+	if ($res){
+		$num = $res -> RecordCount();
+		for($i=0;$i<$num;$i++)
+		{				
+			$list_total_destination [] =$res -> fetchRow();				 
 		}
+	}
 
-
-if ($FG_DEBUG == 3) echo "<br>Clause : $FG_TABLE_CLAUSE";
-if ($FG_DEBUG >= 1) var_dump ($list_total_destination);
-
-
+	if ($FG_DEBUG == 3) echo "<br>Clause : $FG_TABLE_CLAUSE";
+	if ($FG_DEBUG >= 1) var_dump ($list_total_destination);
 }//end IF nodisplay
-
-
-
 
 
 if ($nb_record<=$FG_LIMITE_DISPLAY){
@@ -305,20 +271,6 @@ if ($FG_DEBUG == 3) echo "<br>Nb_record : $nb_record";
 if ($FG_DEBUG == 3) echo "<br>Nb_record_max : $nb_record_max";
 
 
-/*******************   TOTAL COSTS  *****************************************
-
-$instance_table_cost = new Table($FG_TABLE_NAME, "sum(t1.costs), sum(t1.buycosts)");		
-if (!$nodisplay){	
-	$total_cost = $instance_table_cost -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, null, null, null, null, null, null);
-}
-*/
-
-
-
-/*************************************************************/
-
-
-
 if ((isset($customer)  &&  ($customer>0)) || (isset($entercustomer)  &&  ($entercustomer>0))){
 
 	$FG_TABLE_CLAUSE = "";
@@ -328,30 +280,23 @@ if ((isset($customer)  &&  ($customer>0)) || (isset($entercustomer)  &&  ($enter
 		$FG_TABLE_CLAUSE =" username='$entercustomer' ";
 	}
 
-
-
 	$instance_table_customer = new Table("cc_card", "id,  username, lastname, firstname, address, city, state, country, zipcode, phone, email, fax");
-	
-	
-	
 	$info_customer = $instance_table_customer -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, "id", "ASC", null, null, null, null);
 	
-	// if (count($info_customer)>0){
 }
 
 
 
 /************************************************************/
 
-
 $date_clause='';
 
 if ($Period=="Month"){		
-		if ($frommonth && isset($fromstatsmonth)) $date_clause.=" AND $UNIX_TIMESTAMP(t1.creationdate) >= $UNIX_TIMESTAMP('$fromstatsmonth-01')";
-		if ($tomonth && isset($tostatsmonth)) $date_clause.=" AND  $UNIX_TIMESTAMP(t1.creationdate) <= $UNIX_TIMESTAMP('".$tostatsmonth."-$lastdayofmonth 23:59:59')"; 
+	if ($frommonth && isset($fromstatsmonth)) $date_clause.=" AND $UNIX_TIMESTAMP(t1.creationdate) >= $UNIX_TIMESTAMP('$fromstatsmonth-01')";
+	if ($tomonth && isset($tostatsmonth)) $date_clause.=" AND  $UNIX_TIMESTAMP(t1.creationdate) <= $UNIX_TIMESTAMP('".$tostatsmonth."-$lastdayofmonth 23:59:59')"; 
 }else{
-		if ($fromday && isset($fromstatsday_sday) && isset($fromstatsmonth_sday) && isset($fromstatsmonth_shour) && isset($fromstatsmonth_smin) ) $date_clause.=" AND  $UNIX_TIMESTAMP(t1.creationdate) >= $UNIX_TIMESTAMP('$fromstatsmonth_sday-$fromstatsday_sday $fromstatsmonth_shour:$fromstatsmonth_smin')";
-		if ($today && isset($tostatsday_sday) && isset($tostatsmonth_sday) && isset($tostatsmonth_shour) && isset($tostatsmonth_smin)) $date_clause.=" AND  $UNIX_TIMESTAMP(t1.creationdate) <= $UNIX_TIMESTAMP('$tostatsmonth_sday-".sprintf("%02d",intval($tostatsday_sday))." $tostatsmonth_shour:$tostatsmonth_smin')";
+	if ($fromday && isset($fromstatsday_sday) && isset($fromstatsmonth_sday) && isset($fromstatsmonth_shour) && isset($fromstatsmonth_smin) ) $date_clause.=" AND  $UNIX_TIMESTAMP(t1.creationdate) >= $UNIX_TIMESTAMP('$fromstatsmonth_sday-$fromstatsday_sday $fromstatsmonth_shour:$fromstatsmonth_smin')";
+	if ($today && isset($tostatsday_sday) && isset($tostatsmonth_sday) && isset($tostatsmonth_shour) && isset($tostatsmonth_smin)) $date_clause.=" AND  $UNIX_TIMESTAMP(t1.creationdate) <= $UNIX_TIMESTAMP('$tostatsmonth_sday-".sprintf("%02d",intval($tostatsday_sday))." $tostatsmonth_shour:$tostatsmonth_smin')";
 }
 
 
@@ -360,42 +305,32 @@ $QUERY = "SELECT substring(t1.creationdate,1,10) AS day, sum(t1.amount) AS cost,
 
 
 if (!$nodisplay){
-		$res = $DBHandle -> Execute($QUERY);
-		if ($res){
-			$num = $res -> RecordCount();
-			for($i=0;$i<$num;$i++)
-			{				
-				$list_total_day_charge [] =$res -> fetchRow();				 
-			}
+	$res = $DBHandle -> Execute($QUERY);
+	if ($res){
+		$num = $res -> RecordCount();
+		for($i=0;$i<$num;$i++)
+		{				
+			$list_total_day_charge [] =$res -> fetchRow();				 
 		}
+	}
 
-		if ($FG_DEBUG >= 1) var_dump ($list_total_day_charge);
+	if ($FG_DEBUG >= 1) var_dump ($list_total_day_charge);
 
 }//end IF nodisplay
 
 
 
-?>
-<?php if($exporttype!="pdf"){?>
 
-<?php
+if($exporttype!="pdf"){
+
 $smarty->display( 'main.tpl');
+
 ?>
-
-
-<script language="JavaScript" type="text/JavaScript">
-<!--
-function MM_openBrWindow(theURL,winName,features) { //v2.0
-  window.open(theURL,winName,features);
-}
-
-//-->
-</script>
 
 <br/><br/>
 <!-- ** ** ** ** ** Part for the research ** ** ** ** ** -->
 	<center>
-	<FORM METHOD=POST ACTION="<?php echo $PHP_SELF?>?s=1&t=0&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php echo $current_page?>">
+	<FORM METHOD="POST" ACTION="<?php echo $PHP_SELF?>?s=1&t=0&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php echo $current_page?>">
 	<INPUT TYPE="hidden" NAME="posted" value=1>
 	<INPUT TYPE="hidden" NAME="current_page" value=0>	
 		<table class="invoices_table1">
@@ -1115,15 +1050,16 @@ if ($vat>0) echo  " (".$vat." % ".gettext("VAT").")";
 <?php  } ?>
 </center>
 
-<?php  if($exporttype!="pdf"){ ?>
+<?php  
 
-<?php
-$smarty->display( 'footer.tpl');
-?>
+if($exporttype!="pdf"){ 
+	
+	// SHOT FOOTER PAGE
+	$smarty->display('footer.tpl');
 
-<?php  }else{
-// EXPORT TO PDF
+}else{
 
+	// EXPORT TO PDF
 	$html = ob_get_contents();
 	// delete output-Buffer
 	ob_end_clean();
@@ -1139,6 +1075,6 @@ $smarty->display( 'footer.tpl');
 	
 	$pdf->Output('CC_invoice_'.date("d/m/Y-H:i").'.pdf', 'I');
 
+}
 
-
-} ?>
+?>
