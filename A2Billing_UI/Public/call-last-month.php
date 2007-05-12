@@ -284,36 +284,36 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 	<center>
 	<FORM METHOD=POST name="myForm" ACTION="<?php echo $PHP_SELF?>?s=<?php echo $s?>&t=<?php echo $t?>&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php echo $current_page?>">
 	<INPUT TYPE="hidden" NAME="posted" value=1>
-		<table class="bar-status" width="75%" border="0" cellspacing="1" cellpadding="2" align="center">
+		<table class="bar-status" width="80%" border="0" cellspacing="1" cellpadding="2" align="center">
 			<tbody>
 			<tr>
-				<td align="left" valign="top" bgcolor="#555577">					
+				<td align="left" valign="top" class="bgcolor_004">					
 					<font face="verdana" size="1" color="#ffffff"><b>&nbsp;&nbsp;<?php echo gettext("CUSTOMERS");?></b></font>
 				</td>				
-				<td class="bar-search" align="left" bgcolor="#cddeff">
-				<table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#cddeff"><tr>
-					<td>
+				<td class="bgcolor_005" align="left">
+				<table width="100%" border="0" cellspacing="0" cellpadding="0"><tr>
+					<td class="fontstyle_searchoptions">
 						<?php echo gettext("Enter the cardnumber");?>: <INPUT TYPE="text" NAME="entercustomer" value="<?php echo $entercustomer?>"
 						<a href="#" onclick="window.open('../A2B_entity_card.php?popup_select=2&popup_formname=myForm&popup_fieldname=entercustomer' , 'CardNumberSelection','width=550,height=330,top=20,left=100');"><img src="../Images/icon_arrow_orange.gif"></a>
-						<br/>&nbsp;
+						
 					</td>
-					<td align="right">
+					<td align="right" class="class="fontstyle_searchoptions"">
 						<?php echo gettext("Provider");?>: <INPUT TYPE="text" NAME="enterprovider" value="<?php echo $enterprovider?>" size="4">
 						<a href="#" onclick="window.open('../A2B_entity_provider.php?popup_select=2&popup_formname=myForm&popup_fieldname=enterprovider' , 'ProviderSelection','width=550,height=330,top=20,left=100');"><img src="../Images/icon_arrow_orange.gif"></a>
 						<?php echo gettext("Trunk");?>: <INPUT TYPE="text" NAME="entertrunk" value="<?php echo $entertrunk?>" size="4">
 						<a href="#" onclick="window.open('../A2B_entity_trunk.php?popup_select=2&popup_formname=myForm&popup_fieldname=entertrunk' , 'TrunkSelection','width=550,height=330,top=20,left=100');"><img src="../Images/icon_arrow_orange.gif"></a>
-						<br/>&nbsp;
+						
                                         </td>
 				</tr></table></td>
 			</tr>
 			<tr>
-        		<td align="left" bgcolor="#000033">					
-					<font face="verdana" size="1" color="#ffffff"><b><?php echo gettext("Select the Month");?></b></font>
+        		<td align="left"  class="bgcolor_002">					
+					<font class="fontstyle_003">&nbsp;&nbsp;<?php echo gettext("SELECT MONTH");?></font>
 				</td>
-      			<td align="left" bgcolor="#acbdee">
-					<table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#acbdee"><tr><td>
-	  				<b><?php echo gettext("From");?> : </b>
-				 	<select name="fromstatsmonth_sday">
+      			<td align="left"  class="bgcolor_003">
+					<table width="100%" border="0" cellspacing="0" cellpadding="0" >
+					<tr><td class="fontstyle_searchoptions">
+	  				<?php echo gettext("From");?> : 
 					<?php 	
 						$monthname = array( gettext("January"), gettext("February"),gettext("March"), gettext("April"), gettext("May"), gettext("June"), gettext("July"), gettext("August"), gettext("September"), gettext("October"), gettext("November"), gettext("December"));
 						$year_actual = date("Y");  	
@@ -333,8 +333,8 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 						}								
 					?>										
 					</select>
-					</td><td>&nbsp;&nbsp;
-					<b><?php echo gettext("Laps of month to compare");?> :</b>
+					</td><td class="fontstyle_searchoptions">&nbsp;&nbsp;
+					<?php echo gettext("Laps of month to compare");?> :
 				 	<select name="months_compare">
 					<option value="6" <?php if ($months_compare=="6"){ echo "selected";}?>>- 6 <?php echo gettext("months");?></option>
 					<option value="5" <?php if ($months_compare=="5"){ echo "selected";}?>>- 5 <?php echo gettext("months");?></option>
@@ -348,21 +348,22 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
     		</tr>	
 			
 			<tr>
-				<td class="bar-search" align="left" bgcolor="#555577">			
+				<td class="bgcolor_004" align="left" >
 					<font face="verdana" size="1" color="#ffffff"><b>&nbsp;&nbsp;<?php echo gettext("DESTINATION");?></b></font>
 				</td>				
-				<td class="bar-search" align="left" bgcolor="#cddeff">
-				<table width="100%" border="0" cellspacing="0" cellpadding="0"><tr><td>&nbsp;&nbsp;<INPUT TYPE="text" NAME="dst" value="<?php echo $dst?>"></td>
-				<td class="bar-search" align="center" bgcolor="#cddeff"><input type="radio" NAME="dsttype" value="1" <?php if((!isset($dsttype))||($dsttype==1)){?>checked<?php }?>><?php echo gettext("Exact");?></td>
-				<td class="bar-search" align="center" bgcolor="#cddeff"><input type="radio" NAME="dsttype" value="2" <?php if($dsttype==2){?>checked<?php }?>><?php echo gettext("Begins with");?></td>
-				<td class="bar-search" align="center" bgcolor="#cddeff"><input type="radio" NAME="dsttype" value="3" <?php if($dsttype==3){?>checked<?php }?>><?php echo gettext("Contains");?></td>
-				<td class="bar-search" align="center" bgcolor="#cddeff"><input type="radio" NAME="dsttype" value="4" <?php if($dsttype==4){?>checked<?php }?>><?php echo gettext("Ends with");?></td>
+				<td class="bgcolor_005" align="left" >
+				<table width="100%" border="0" cellspacing="0" cellpadding="0">
+				<tr><td class="fontstyle_searchoptions">&nbsp;&nbsp;<INPUT TYPE="text" NAME="dst" value="<?php echo $dst?>" class="form_input_select"></td>
+				<td  align="center" class="fontstyle_searchoptions"><input type="radio" NAME="dsttype" value="1" <?php if((!isset($dsttype))||($dsttype==1)){?>checked<?php }?>><?php echo gettext("Exact");?></td>
+				<td  align="center" class="fontstyle_searchoptions"><input type="radio" NAME="dsttype" value="2" <?php if($dsttype==2){?>checked<?php }?>><?php echo gettext("Begins with");?></td>
+				<td  align="center" class="fontstyle_searchoptions"><input type="radio" NAME="dsttype" value="3" <?php if($dsttype==3){?>checked<?php }?>><?php echo gettext("Contains");?></td>
+				<td  align="center" class="fontstyle_searchoptions"><input type="radio" NAME="dsttype" value="4" <?php if($dsttype==4){?>checked<?php }?>><?php echo gettext("Ends with");?></td>
 				</tr></table></td>
 			</tr>			
 			
 
 			<tr>
-        		<td class="bar-search" align="left" bgcolor="#000033"> </td>
+        		<td class="bgcolor_002" align="left" > </td>
 
 				<td class="bar-search" align="center" bgcolor="#cddeff">
 					<table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#acbdee">

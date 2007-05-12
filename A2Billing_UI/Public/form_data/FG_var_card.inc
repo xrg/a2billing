@@ -4,7 +4,7 @@ getpost_ifset(array('id', 'username', 'useralias', 'uipass', 'credit', 'language
 'id_didgroup', 'id_campaign', 'callback', 'activated','simultaccess', 'currency','typepaid', 'creditlimit',
 'lastname', 'firstname', 'email', 'address','city', 'state', 'country', 'zipcode', 'phone', 'fax', 'inuse',
 'cid', 'runservice', 'firstusedate','expirationdate', 'enableexpire', 'expiredays', 'sip_buddy',
-'iax_buddy','popup_select', 'vat', 'autorefill', 'initialbalance', 'id_subscription_fee'));
+'iax_buddy','popup_select', 'vat', 'autorefill', 'initialbalance', 'id_subscription_fee', 'mac_addr'));
 
 
 $HD_Form = new FormHandler("cc_card","Card");
@@ -103,7 +103,7 @@ if (!($popup_select>=1)){
 // Code here for adding the fields in the Export File
 
 
-$HD_Form -> FieldExportElement('id, username, useralias, lastname, credit, tariff, activated, language, inuse, currency, sip_buddy, iax_buddy, nbused');
+$HD_Form -> FieldExportElement('id, username, useralias, lastname, credit, tariff, activated, language, inuse, currency, sip_buddy, iax_buddy, nbused, mac_addr');
 
 // Code ends here for Export
 
@@ -135,6 +135,7 @@ $HD_Form -> FG_FILTER_SEARCH_2_TIME_FIELD = "creationdate";
 $HD_Form -> AddSearchElement_C1(gettext("CARDNUMBER"), 'username','usernametype');
 $HD_Form -> AddSearchElement_C1(gettext("LASTNAME"),'lastname','lastnametype');
 $HD_Form -> AddSearchElement_C1(gettext("CARDALIAS"),'useralias','useraliastype');
+$HD_Form -> AddSearchElement_C1(gettext("MACADDRESS"),'mac_addr','macaddresstype');
 $HD_Form -> AddSearchElement_C2(gettext("CARDID (SERIAL)"),'id1','id1type','id2','id2type','id');
 $HD_Form -> AddSearchElement_C2(gettext("CREDIT"),'credit1','credit1type','credit2','credit2type','credit');
 $HD_Form -> AddSearchElement_C2(gettext("INUSE"),'inuse1','inuse1type','inuse2','inuse2type','inuse');
@@ -518,7 +519,7 @@ $HD_Form -> AddEditElement (gettext("ZIP/POSTAL CODE"),
 			   "" , "", "",	"", "", "" , "NO", "");
 
 
-$HD_Form -> AddEditElement (gettext("PHONENUMBER"),
+$HD_Form -> AddEditElement (gettext("PHONE NUMBER"),
 			   "phone",			
 			   '$value',	
 			   "INPUT",	
@@ -528,7 +529,7 @@ $HD_Form -> AddEditElement (gettext("PHONENUMBER"),
 			   "" , "", "",	"", "", "" , "NO", "");
 
 
-$HD_Form -> AddEditElement (gettext("FAXNUMBER"),
+$HD_Form -> AddEditElement (gettext("FAX NUMBER"),
 			   "fax",			
 			   '$value',	
 			   "INPUT",	
@@ -556,6 +557,15 @@ $HD_Form -> AddEditElement (gettext("IAX ACCOUNT"),
 			   "",
 			   gettext("Choose if you want to enable the iax account"),
 			   "" , "", "" , "Yes :1, - No:0",  "", "" , "", gettext("Enable IAX account"));
+			   
+$HD_Form -> AddEditElement (gettext("MAC ADDRESS"),
+			   "mac_addr",			
+			   '$value',	
+			   "INPUT",	
+			   "size=20 maxlength=17",
+			   "",	
+			   gettext("Insert the MAC address customers' device"),
+			   "" , "", "",	"", "", "" , "NO", gettext("FORMAT: 00-08-74-4C-7F-1D"));
 
 
 $HD_Form -> AddEditElement (gettext("IN USE"),
@@ -586,7 +596,7 @@ $HD_Form -> AddEditElement (gettext("CALLERID"),
 $HD_Form -> FieldEditElement ('username, useralias, uipass, credit, language, tariff, id_subscription_fee, id_didgroup, id_campaign,'.
 'callback, activated, activatedbyuser, simultaccess, currency, runservice, autorefill, initialbalance, typepaid, creditlimit,	firstusedate, enableexpire,'.
 'expirationdate, expiredays, vat, lastname, firstname, email, address, city, state, country, zipcode, phone,'.
-'fax, sip_buddy, iax_buddy, inuse');
+'fax, sip_buddy, iax_buddy, mac_addr, inuse');
 
 
 if(!isset($myusername)) $myusername='';

@@ -360,6 +360,9 @@ class FormHandler{
     // if it is set to true and confirm flag is true confirm box will be showed.
     var $FG_FK_DELETE_ALLOWED = false;
 
+	// if it is set to true and Allowed flag is true all dependent records will be deleted.
+	var $FG_FK_DELETE_OR_UPDATE = false;
+	
     // Foreign Key Tables
     var $FG_FK_TABLENAMES = array();
 
@@ -449,14 +452,14 @@ class FormHandler{
      * @public     	 
      */	
 	function init () {         
-		global $_SERVER;				
+		global $_SERVER;		
 		if($_GET["section"]!="")
-		{			
+		{
 			$section = $_GET["section"];
 			$_SESSION["menu_section"] = $section;
 		}
 		else
-		{			
+		{
 			$section = $_SESSION["menu_section"];
 		}
 		$this -> FG_EDITION_LINK	= $_SERVER['PHP_SELF']."?form_action=ask-edit&id=";
@@ -1660,11 +1663,18 @@ class FormHandler{
         {
 		    $instance_table = new Table($this->FG_TABLE_NAME, $this->FG_QUERY_EDITION);
         }
-
+		if($this->FG_FK_DELETE_OR_UPDATE)
+		{
+			$instance_table->FK_DELETE_OR_UPDATE = false;
+		}
+		else
+		{
+			$instance_table->FK_DELETE_OR_UPDATE = true;
+		}				
 		if ($processed['id']!="" || !is_null($processed['id'])){
 			$this->FG_EDITION_CLAUSE = str_replace("%id", $processed['id'], $this->FG_EDITION_CLAUSE);
 		}
-
+		
 		$this -> RESULT_QUERY = $instance_table -> Delete_table ($this->DBHandle, $this->FG_EDITION_CLAUSE, $func_table = null);
 		if (!$this -> RESULT_QUERY)  echo gettext("error deletion");
 
@@ -1944,7 +1954,7 @@ class FormHandler{
 				<td align="left" valign="top" class="form_selectform_td1">
 					&nbsp;&nbsp;<?php echo gettext("RATECARD");?>
 				</td>
-				<td class="bar-search" align="left" bgcolor="#acbdee">
+				<td class="bgcolor_005" align="left" bgcolor="#acbdee">
 				<table class="form_selectform_table1"><tr>
 					<td width="50%" align="center">&nbsp;&nbsp;
 						<select NAME="tariffplan" size="1"  class="form_input_select">
@@ -2009,13 +2019,17 @@ class FormHandler{
 
 			if (isset($_POST['stitle']))  $stitle = $_POST['stitle'];
 			else $stitle = $_GET['stitle'];
-
+			
+			if (isset($_POST['ratesort'])) $ratesort = $_POST['ratesort'];
+			else $ratesort = $_GET['ratesort'];
+			
 			if (isset($_POST['sub_action'])) $sub_action = $_POST['sub_action'];
 			else $sub_action = $_GET['sub_action'];	
 		}else{
 			$id = $_GET['id'];
 			$atmenu = $_GET['atmenu'];
 			$stitle = $_GET['stitle'];
+			$ratesort = $_GET['ratesort'];
 			$sub_action = $_GET['sub_action'];
 		}
 	

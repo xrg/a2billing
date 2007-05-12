@@ -58,7 +58,7 @@ echo '<br><br>'.$CC_help_webphone;
 
 	   <br><center>
 	  <br></br>
-	  <b><?php echo gettext("Account/Phone");?> :</b> <?php echo $customer_info[3]; ?>
+	  <font class="fontstyle_002"><?php echo gettext("Account/Phone");?> :</font> <font class="fontstyle_007"><?php echo $customer_info[3]; ?></font>
 	  </center>
 
 	  <?php if (false){ ?>
@@ -73,16 +73,16 @@ echo '<br><br>'.$CC_help_webphone;
         <tbody><tr bgcolor="#cccccc">
 		<td align="center" valign="bottom">
 				<img src="Css/kicons/stock_cell-phone.png" class="kikipic"/>
-				<br><b><?php echo gettext("SIP WEB-PHONE")?></b>
+				<br><font class="fontstyle_002"><?php echo gettext("SIP WEB-PHONE")?></font>
 					</br></br>
 			</td>
-			<td align="center" valign="middle">
+			<td align="center" valign="middle"><font class="fontstyle_007">
 					<?php
 						if( $customer_info [1] != "t" && $customer_info [1] != "1" ) {
 							echo gettext("&nbsp;NO SIP ACCOUNT&nbsp;");
 						}else{ ?>
 						<input class="form_enter" style="border: 2px outset rgb(204, 51, 0);" value="[ <?php echo gettext("Click to start SIP WebPhone")?>]" type="submit">
-					<?php } ?>
+					<?php } ?></font>
 			</td>
         </tr>
 
@@ -102,16 +102,16 @@ echo '<br><br>'.$CC_help_webphone;
         <tbody><tr bgcolor="#cccccc">
 		<td align="center" valign="bottom">
 				<img src="Css/kicons/stock_cell-phone.png" class="kikipic"/><br>
-				<b><?php echo gettext("IAX WEB-PHONE")?></b>
+				<font class="fontstyle_002"><?php echo gettext("IAX WEB-PHONE")?></font>
 					</br></br>
 			</td>
-			<td align="center" valign="middle">
+			<td align="center" valign="middle"><font class="fontstyle_007">
 					<?php
 						if( $customer_info [2] != "t" && $customer_info [2] != "1" ) {
 							echo gettext("NO IAX ACCOUNT");
 						}else{ ?>
 						<input class="form_enter" style="border: 2px outset rgb(204, 51, 0);" value="[ <?php echo gettext("START IAX PHONE")?>]" type="submit">
-					<?php } ?>
+					<?php } ?></font>
 			</td>
         </tr>
         </tbody>

@@ -448,12 +448,12 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 					<font class="fontstyle_003">&nbsp;&nbsp;<?php echo gettext("CUSTOMERS");?></font>
 				</td>				
 				<td class="bgcolor_005" align="left">
-				<table width="100%" border="0" cellspacing="0" cellpadding="0" class="bgcolor_005"><tr>
-					<td>
+				<table width="100%" border="0" cellspacing="0" cellpadding="0"><tr>
+					<td class="fontstyle_searchoptions">
 						<?php echo gettext("Enter the cardnumber");?>: <INPUT TYPE="text" NAME="entercustomer" value="<?php echo $entercustomer?>">
 						<a href="#" onclick="window.open('A2B_entity_card.php?popup_select=2&popup_formname=myForm&popup_fieldname=entercustomer' , 'CardNumberSelection','width=550,height=330,top=20,left=100');"><img src="../Images/icon_arrow_orange.gif"></a>
 					</td>
-					<td align="right">
+					<td align="right" class="fontstyle_searchoptions">
 						<?php echo gettext("Provider");?>: <INPUT TYPE="text" NAME="enterprovider" value="<?php echo $enterprovider?>" size="4">
 						<a href="#" onclick="window.open('A2B_entity_provider.php?popup_select=2&popup_formname=myForm&popup_fieldname=enterprovider' , 'ProviderSelection','width=550,height=330,top=20,left=100');"><img src="../Images/icon_arrow_orange.gif"></a>
 						<?php echo gettext("Trunk");?>: <INPUT TYPE="text" NAME="entertrunk" value="<?php echo $entertrunk?>" size="4">
@@ -466,10 +466,11 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
         		<td class="bar-search" align="left" bgcolor="#555577">
 
 					<input type="radio" name="Period" value="Month" <?php  if (($Period=="Month") || !isset($Period)){ ?>checked="checked" <?php  } ?>> 
-					<font face="verdana" size="1" color="#ffffff"><b><?php echo gettext("Selection of the month");?></b></font>
+					<font class="fontstyle_003"><?php echo gettext("SELECT MONTH");?></font>
 				</td>
       			<td class="bar-search" align="left" bgcolor="#cddeff">
-					<table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#cddeff"><tr><td>
+					<table width="100%" border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="fontstyle_searchoptions">
 	  				<input type="checkbox" name="frommonth" value="true" <?php  if ($frommonth){ ?>checked<?php }?>>
 					<?php echo gettext("From");?> : <select name="fromstatsmonth">
 					<?php
@@ -491,9 +492,9 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 						}
 					?>		
 					</select>
-					</td><td>&nbsp;&nbsp;
+					</td><td  class="fontstyle_searchoptions">&nbsp;&nbsp;
 					<input type="checkbox" name="tomonth" value="true" <?php  if ($tomonth){ ?>checked<?php }?>> 
-					To : <select name="tostatsmonth">
+					<?php echo gettext("To");?> : <select name="tostatsmonth" class="form_input_select">
 					<?php 	$year_actual = date("Y");  	
 						for ($i=$year_actual;$i >= $year_actual-1;$i--)
 						{		   
@@ -518,10 +519,11 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 			<tr>
         		<td align="left" bgcolor="#000033">
 					<input type="radio" name="Period" value="Day" <?php  if ($Period=="Day"){ ?>checked="checked" <?php  } ?>> 
-					<font face="verdana" size="1" color="#ffffff"><b><?php echo gettext("Selection of the day");?></b></font>
+					<font class="fontstyle_003"><?php echo gettext("SELECT DAY");?></font>
 				</td>
       			<td align="left" bgcolor="#acbdee">
-					<table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#acbdee"><tr><td>
+					<table width="100%" border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="fontstyle_searchoptions">
 	  				<input type="checkbox" name="fromday" value="true" <?php  if ($fromday){ ?>checked<?php }?>> <?php echo gettext("From");?> :
 					<select name="fromstatsday_sday">
 						<?php  
@@ -550,9 +552,9 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 						}
 					?>
 					</select>
-					</td><td>&nbsp;&nbsp;
-					<input type="checkbox" name="today" value="true" <?php  if ($today){ ?>checked<?php }?>> <?php echo gettext("To");?>  :
-					<select name="tostatsday_sday">
+					</td><td class="fontstyle_searchoptions">&nbsp;&nbsp;
+					<input type="checkbox" name="today" value="true" <?php  if ($today){ ?>checked<?php }?>> 
+					<?php echo gettext("To");?>  :
 					<?php  
 						for ($i=1;$i<=31;$i++){
 							if ($tostatsday_sday==sprintf("%02d",$i)){$selected="selected";}else{$selected="";}
@@ -560,7 +562,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 						}
 					?>						
 					</select>
-				 	<select name="tostatsmonth_sday">
+				 	<select name="tostatsmonth_sday" class="form_input_select">
 					<?php 	$year_actual = date("Y");  	
 						for ($i=$year_actual;$i >= $year_actual-1;$i--)
 						{		   
@@ -585,24 +587,27 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 				<td class="bar-search" align="left" bgcolor="#555577">			
 					<font face="verdana" size="1" color="#ffffff"><b>&nbsp;&nbsp;<?php echo gettext("DESTINATION");?></b></font>
 				</td>				
-				<td class="bar-search" align="left" bgcolor="#cddeff">
-				<table width="100%" border="0" cellspacing="0" cellpadding="0"><tr><td>&nbsp;&nbsp;<INPUT TYPE="text" NAME="dst" value="<?php echo $dst?>"></td>
-				<td class="bar-search" align="center" bgcolor="#cddeff"><input type="radio" NAME="dsttype" value="1" <?php if((!isset($dsttype))||($dsttype==1)){?>checked<?php }?>><?php echo gettext("Exact");?></td>
-				<td class="bar-search" align="center" bgcolor="#cddeff"><input type="radio" NAME="dsttype" value="2" <?php if($dsttype==2){?>checked<?php }?>><?php echo gettext("Begins with");?></td>
-				<td class="bar-search" align="center" bgcolor="#cddeff"><input type="radio" NAME="dsttype" value="3" <?php if($dsttype==3){?>checked<?php }?>><?php echo gettext("Contains");?></td>
-				<td class="bar-search" align="center" bgcolor="#cddeff"><input type="radio" NAME="dsttype" value="4" <?php if($dsttype==4){?>checked<?php }?>><?php echo gettext("Ends with");?></td>
-				</tr></table></td>
+				<td class="bgcolor_003" align="left">
+				<table width="100%" border="0" cellspacing="0" cellpadding="0">
+					<tr><td>&nbsp;&nbsp;<INPUT TYPE="text" NAME="dst" value="<?php echo $dst?>" class="form_input_text"></td>
+					<td class="fontstyle_searchoptions" align="center" ><input type="radio" NAME="dsttype" value="1" <?php if((!isset($dsttype))||($dsttype==1)){?>checked<?php }?>><?php echo gettext("Exact");?></td>
+					<td class="fontstyle_searchoptions" align="center" ><input type="radio" NAME="dsttype" value="2" <?php if($dsttype==2){?>checked<?php }?>><?php echo gettext("Begins with");?></td>
+					<td class="fontstyle_searchoptions" align="center" ><input type="radio" NAME="dsttype" value="3" <?php if($dsttype==3){?>checked<?php }?>><?php echo gettext("Contains");?></td>
+					<td class="fontstyle_searchoptions" align="center" ><input type="radio" NAME="dsttype" value="4" <?php if($dsttype==4){?>checked<?php }?>><?php echo gettext("Ends with");?></td>
+					</tr>
+				</table></td>
 			</tr>			
 			<tr>
 				<td align="left" bgcolor="#000033">					
 					<font face="verdana" size="1" color="#ffffff"><b>&nbsp;&nbsp;<?php echo gettext("SOURCE");?></b></font>
 				</td>				
 				<td class="bar-search" align="left" bgcolor="#acbdee">
-				<table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#acbdee"><tr><td>&nbsp;&nbsp;<INPUT TYPE="text" NAME="src" value="<?php echo "$src";?>"></td>
-				<td class="bar-search" align="center" bgcolor="#acbdee"><input type="radio" NAME="srctype" value="1" <?php if((!isset($srctype))||($srctype==1)){?>checked<?php }?>><?php echo gettext("Exact");?></td>
-				<td class="bar-search" align="center" bgcolor="#acbdee"><input type="radio" NAME="srctype" value="2" <?php if($srctype==2){?>checked<?php }?>><?php echo gettext("Begins with");?></td>
-				<td class="bar-search" align="center" bgcolor="#acbdee"><input type="radio" NAME="srctype" value="3" <?php if($srctype==3){?>checked<?php }?>><?php echo gettext("Contains");?></td>
-				<td class="bar-search" align="center" bgcolor="#acbdee"><input type="radio" NAME="srctype" value="4" <?php if($srctype==4){?>checked<?php }?>><?php echo gettext("Ends with");?></td>
+				<table width="100%" border="0" cellspacing="0" cellpadding="0" >
+				<tr><td>&nbsp;&nbsp;<INPUT TYPE="text" NAME="src" value="<?php echo "$src";?>" class="form_input_text"></td>
+				<td class="fontstyle_searchoptions" align="center" ><input type="radio" NAME="srctype" value="1" <?php if((!isset($srctype))||($srctype==1)){?>checked<?php }?>><?php echo gettext("Exact");?></td>
+				<td class="fontstyle_searchoptions" align="center" ><input type="radio" NAME="srctype" value="2" <?php if($srctype==2){?>checked<?php }?>><?php echo gettext("Begins with");?></td>
+				<td class="fontstyle_searchoptions" align="center" ><input type="radio" NAME="srctype" value="3" <?php if($srctype==3){?>checked<?php }?>><?php echo gettext("Contains");?></td>
+				<td class="fontstyle_searchoptions" align="center" ><input type="radio" NAME="srctype" value="4" <?php if($srctype==4){?>checked<?php }?>><?php echo gettext("Ends with");?></td>
 				</tr></table></td>
 			</tr>
 			
@@ -613,32 +618,34 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 
 			
 			<tr>
-			  <td class="bar-search" align="left" bgcolor="#000033"><font face="verdana" size="1" color="#ffffff"><b>&nbsp;&nbsp;<?php echo gettext("Options");?></b></font></td>
-			  <td class="bar-search" align="center" bgcolor="#acbdee"><div align="left">
+			  <td class="bgcolor_002" align="left" ><font class="fontstyle_003">&nbsp;&nbsp;<?php echo gettext("OPTIONS");?></font></td>
+			  <td class="bgcolor_003" align="center"><div align="left">
 			  
 			  <table width="100%" border="0" cellspacing="0" cellpadding="0">
-			  <tr>
-			  	<td width="60%" >
-				  <b>Show:</b>
-				  Answered Calls
-				  <input name="terminatecause" type="radio" value="ANSWER" <?php if((!isset($terminatecause))||($terminatecause=="ANSWER")){?>checked<?php }?> /> 
-				  All Calls
-	
-				   <input name="terminatecause" type="radio" value="ALL" <?php if($terminatecause=="ALL"){?>checked<?php }?>/>
-				   
-			   </td>
-			   <td>
-			   
-					<b><?php echo gettext("RESULT");?>: </b>
-					<?php echo gettext("mins");?><input type="radio" NAME="resulttype" value="min" <?php if((!isset($resulttype))||($resulttype=="min")){?>checked<?php }?>> - <?php echo gettext("secs")?> <input type="radio" NAME="resulttype" value="sec" <?php if($resulttype=="sec"){?>checked<?php }?>>
-
-
-			  	</td>
+				<tr>
+					<td width="20%"  class="fontstyle_searchoptions">
+						<?php echo gettext("SHOW");?> :  						
+				   </td>
+				   <td width="80%"  class="fontstyle_searchoptions">
+				   		<?php echo gettext("Answered Calls");?>  
+						<input name="terminatecause" type="radio" value="ANSWER" <?php if((!isset($terminatecause))||($terminatecause=="ANSWER")){?>checked<?php }?> /> 
+						<?php echo gettext("All Calls");?>  
+						<input name="terminatecause" type="radio" value="ALL" <?php if($terminatecause=="ALL"){?>checked<?php }?>/>
+					</td>
+				</tr>
+				<tr class="bgcolor_005">
+					<td  class="fontstyle_searchoptions">
+						<?php echo gettext("RESULT");?> : 
+				   </td>
+				   <td  class="fontstyle_searchoptions">
+						<?php echo gettext("mins");?><input type="radio" NAME="resulttype" value="min" <?php if((!isset($resulttype))||($resulttype=="min")){?>checked<?php }?>> - <?php echo gettext("secs")?> <input type="radio" NAME="resulttype" value="sec" <?php if($resulttype=="sec"){?>checked<?php }?>>
+					</td>
 				</tr>
 				<tr>
-					<td>
-						<b><?php echo gettext("CURRENCY");?> :</b>
-						<select NAME="choose_currency" size="1" class="form_enter" style="border: 2px outset rgb(204, 51, 0);">
+					<td  class="fontstyle_searchoptions">
+						<?php echo gettext("CURRENCY");?> :
+					</td>
+					<td  class="fontstyle_searchoptions">
 							<?php
 								$currencies_list = get_currencies();
 								foreach($currencies_list as $key => $cur_value) {
@@ -647,9 +654,6 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 								</option>
 							<?php 	} ?>
 						</select>
-						 </div>		
-					</td>
-					<td>
 					</td>
 				</tr>
 				</table>

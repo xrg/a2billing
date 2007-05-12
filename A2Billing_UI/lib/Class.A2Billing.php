@@ -92,6 +92,14 @@ class A2Billing {
     */	
 	var $instance_table;
 	
+	/**
+    * store the file name to store the logs
+    *
+    * @var string
+    * @access public
+    */
+	var $log_file = '';
+	
 	
 	/**
     * request AGI variables
@@ -157,6 +165,7 @@ class A2Billing {
 	var $vouchernumber;
 	var $add_credit;
 	
+	
 	// Define if we have changed the status of the card
 	var $set_inuse = 0;
 	
@@ -169,49 +178,48 @@ class A2Billing {
 	*/	
 	var $CC_TESTING;
 	
-		
+	
 	/* CONSTRUCTOR */
 
 	function A2Billing() {     
 		
-		  //$this -> DBHandle = $DBHandle;
-
+		//$this -> DBHandle = $DBHandle;
+		
 	}
-
-
+	
+	
 	/* Init */
-
+	
 	function Reinit () {  
-			$this -> countrycode='';
-			$this -> subcode='';
-			$this -> myprefix='';
-			$this -> ipaddress='';
-			$this -> rate='';
-			$this -> destination='';			
-			$this -> sip_iax_buddy='';		
+		$this -> countrycode='';
+		$this -> subcode='';
+		$this -> myprefix='';
+		$this -> ipaddress='';
+		$this -> rate='';
+		$this -> destination='';
+		$this -> sip_iax_buddy='';
 	}
 	
 	
 	/* Write log into file */
 	
 	function write_log($output, $tobuffer = 1){
-						
 		//$tobuffer = 0;
+		
+		if (strlen($this->log_file) > 1){
 			
-		if ($this->agiconfig['logger_enable'] == 1){
-				
 			$string_log = "[".date("d/m/Y H:i:s")."]:[CallerID:".$this->CallerID."]:[CN:".$this->cardnumber."]:$output\n";
 			if ($this->CC_TESTING) echo $string_log;
-				
+			
 			$this -> BUFFER .= $string_log;				
 			if (!$tobuffer || $this->CC_TESTING){													
-				error_log ($this -> BUFFER, 3, $this->agiconfig['log_file']);					
+				error_log ($this -> BUFFER, 3, $this->log_file);
 				$this-> BUFFER = '';
 			}
 		}
 	}
 	
-	/* set the DB handler NOT USED !!*/ 
+	/* set the DB handler */ 
 	function set_dbhandler ($DBHandle){
 		$this->DBHandle	= $DBHandle;
 	}
@@ -347,13 +355,36 @@ class A2Billing {
 
 		  
 		// conf for the recurring process
-		if(!isset($this->config["recprocess"]['batch_log_file'])) 	$this->config["batch_log_file"]['buddyfilepath'] = '/etc/asterisk/';
-		 
+		if(!isset($this->config["recprocess"]['batch_log_file'])) 	$this->config["recprocess"]['batch_log_file'] = '/tmp/batch-a2billing.log';
+		
+		// conf for the log-files
+		/*
+		if(!isset($this->config["log-files"]['cront_alarm'])) $this->config["log-files"]['cront_alarm'] = '/tmp/cront_a2b_alarm.log';
+		if(!isset($this->config["log-files"]['cront_autorefill'])) $this->config["log-files"]['cront_autorefill'] = '/tmp/cront_a2b_autorefill.log';
+		if(!isset($this->config["log-files"]['cront_batch_process'])) $this->config["log-files"]['cront_batch_process'] = '/tmp/cront_a2b_batch_process.log';
+		if(!isset($this->config["log-files"]['cront_bill_diduse'])) $this->config["log-files"]['cront_bill_diduse'] = '/tmp/cront_a2b_bill_diduse.log';
+		if(!isset($this->config["log-files"]['cront_subscription_fee'])) $this->config["log-files"]['cront_subscription_fee'] = '/tmp/cront_a2b_subscription_fee.log';
+		if(!isset($this->config["log-files"]['cront_currencies_update'])) $this->config["log-files"]['cront_currencies_update'] = '/tmp/cront_a2b_currencies_update.log';
+		if(!isset($this->config["log-files"]['cront_invoice'])) $this->config["log-files"]['cront_invoice'] = '/tmp/cront_a2b_invoice.log';
+		
+		if(!isset($this->config["log-files"]['paypal'])) $this->config["log-files"]['paypal'] = '/tmp/a2billing_paypal.log';
+		if(!isset($this->config["log-files"]['epayment'])) $this->config["log-files"]['epayment'] = '/tmp/a2billing_epayment.log';
+		if(!isset($this->config["log-files"]['ecommerce_api'])) $this->config["log-files"]['ecommerce_api'] = '/tmp/api_ecommerce_request.log';
+		if(!isset($this->config["log-files"]['soap_api'])) $this->config["log-files"]['soap_api'] = '/tmp/api_soap_request.log';
+		if(!isset($this->config["log-files"]['callback_api'])) $this->config["log-files"]['callback_api'] = '/tmp/api_callback_request.log';
+		if(!isset($this->config["log-files"]['agi'])) $this->config["log-files"]['agi'] = '/tmp/a2billing_agi.log';
+		*/
+		if(isset($this->config["log-files"]['agi']) && strlen ($this->config["log-files"]['agi']) > 1)
+		{
+			$this -> log_file = $this -> config["log-files"]['agi'];
+		}
+		
 		// conf for the AGI
 		if(!isset($this->config["agi-conf$idconfig"]['debug'])) 	$this->config["agi-conf$idconfig"]['debug'] = false;
 		if(!isset($this->config["agi-conf$idconfig"]['logger_enable'])) $this->config["agi-conf$idconfig"]['logger_enable'] = 1;
 		if(!isset($this->config["agi-conf$idconfig"]['log_file'])) $this->config["agi-conf$idconfig"]['log_file'] = '/tmp/a2billing.log';
 		
+
 		if(!isset($this->config["agi-conf$idconfig"]['answer_call'])) $this->config["agi-conf$idconfig"]['answer_call'] = 1;
 		
 		if(!isset($this->config["agi-conf$idconfig"]['auto_setcallerid'])) $this->config["agi-conf$idconfig"]['auto_setcallerid'] = 1;
@@ -415,7 +446,7 @@ class A2Billing {
 		if(!isset($this->config["agi-conf$idconfig"]['ivr_voucher'])) $this->config["agi-conf$idconfig"]['ivr_voucher'] = 0;
 		if(!isset($this->config["agi-conf$idconfig"]['ivr_voucher_prefixe'])) $this->config["agi-conf$idconfig"]['ivr_voucher_prefixe'] = 8;
 		if(!isset($this->config["agi-conf$idconfig"]['jump_voucher_if_min_credit'])) $this->config["agi-conf$idconfig"]['jump_voucher_if_min_credit'] = 1;
-
+		
 		$this->agiconfig = $this->config["agi-conf$idconfig"];
 		
 		if (!$webui) $this->conlog('A2Billing AGI internal configuration:');
@@ -549,8 +580,8 @@ class A2Billing {
 
 		if ($this->agiconfig['debug']>=1)  $agi->verbose('line:'.__LINE__.' - '.$QUERY);
 		$this->write_log("[Start: $QUERY]");
-		$result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY, 0);
-				
+		if (!$this -> CC_TESTING) $result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY, 0);
+		
 		return 0;
 	}
 	
@@ -596,9 +627,9 @@ class A2Billing {
 		}
 			
 		// FOR TESTING : ENABLE THE DESTINATION NUMBER
-		if ($this->CC_TESTING) $this->destination="011324885";
-		if ($this->CC_TESTING) $this->destination="4455555";
-			
+		if ($this->CC_TESTING) $this->destination="1800300200";
+		if ($this->CC_TESTING) $this->destination="3390010022";
+		
 		if ($this->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '."DESTINATION ::> ".$this->destination);					
 		if ($this->removeinterprefix) $this->destination = $this -> apply_rules ($this->destination);			
 		if ($this->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '."APPLY_RULES DESTINATION ::> ".$this->destination);
@@ -668,11 +699,11 @@ class A2Billing {
 			$agi-> stream_file($prompt, '#');
 			return -1;
 		}
-						
-						
+		
+		
 		// calculate timeout
 		//$this->timeout = intval(($this->credit * 60*100) / $rate);  // -- RATE is millime cents && credit is 1cents
-	
+		
 		$this->timeout = $RateEngine-> ratecard_obj[0]['timeout'];
 		// set destination and timeout
 		// say 'you have x minutes and x seconds'
@@ -769,8 +800,7 @@ class A2Billing {
 		}
 			
 		if ($this -> CC_TESTING) $this->destination="kphone";
-
-				
+		
 		for ($k=0;$k< $sip_buddies+$iax_buddies;$k++){
 			if ($k==0 && $sip_buddies){ $this->tech = 'SIP'; $this->destination= $destsip; }
 			else{ $this->tech = 'IAX2'; $this->destination = $destiax; }
@@ -1427,7 +1457,6 @@ class A2Billing {
 							$numrow = $resmax -> RecordCount();
 
 						if ($numrow!=0) continue;
-						
 						break;		
 					}
 					
@@ -1725,10 +1754,10 @@ class A2Billing {
 				$res_dtmf = $agi->get_data($prompt_entercardnum, 6000, $this->agiconfig['len_cardnumber']);
 				if ($this->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '."RES DTMF : ".$res_dtmf ["result"]);
 				$this->cardnumber = $res_dtmf ["result"];
-							
+				
 				if ($this->CC_TESTING) $this->cardnumber="2222222222";
 				if ($this->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '."CARDNUMBER ::> ".$this->cardnumber);
-							
+				
 				if ( !isset($this->cardnumber) || strlen($this->cardnumber) == 0) {
 					$prompt = "prepaid-no-card-entered";
 					if ($this->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '.strtoupper($prompt));
@@ -2019,6 +2048,7 @@ class A2Billing {
 
 	function DbConnect()
 	{
+		//require_once('DB.php'); // PEAR
 		require_once('adodb/adodb.inc.php'); // AdoDB
 		
 		if ($this->config["database"]['dbtype'] == "postgres"){

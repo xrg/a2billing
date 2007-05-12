@@ -369,7 +369,8 @@ function openURLFilter(theLINK)
 								if (substr($new_FG_OTHER_BUTTON1_LINK,-1)=='=') echo $list[$ligne_number][$this->FG_NB_TABLE_COL];
 
 								if (strlen($this -> FG_OTHER_BUTTON1_IMG)==0){
-									echo '">'.$this->FG_OTHER_BUTTON1_ALT;
+									echo '"> '.'<span class="cssbutton">'.$this->FG_OTHER_BUTTON1_ALT.'</span>';
+									// onclick="location.href='http://www.google.com'"
 								}else{
 									?>"><img src="<?php echo $this -> FG_OTHER_BUTTON1_IMG?>" border="0" title="<?php echo $this->FG_OTHER_BUTTON1_ALT?>" alt="<?php echo $this->FG_OTHER_BUTTON1_ALT?>"><?
 
@@ -414,7 +415,9 @@ function openURLFilter(theLINK)
 								if (substr($new_FG_OTHER_BUTTON2_LINK,-1)=='=') echo $list[$ligne_number][$this->FG_NB_TABLE_COL];
 
 								if (strlen($this -> FG_OTHER_BUTTON2_IMG)==0){
-									echo '">'.$this->FG_OTHER_BUTTON2_ALT;
+									//echo '">'.$this->FG_OTHER_BUTTON2_ALT;
+									// echo '"> '.'<input class="form_input_button"  value=" '.$this->FG_OTHER_BUTTON2_ALT.' " type="button">';
+									echo '"> '.'<span class="cssbutton">'.$this->FG_OTHER_BUTTON2_ALT.'</span>';
 								}else{
 									?>"><img src="<?php echo $this -> FG_OTHER_BUTTON2_IMG?>" border="0" title="<?php echo $this->FG_OTHER_BUTTON2_ALT?>" alt="<?php echo $this->FG_OTHER_BUTTON2_ALT?>"><?
 

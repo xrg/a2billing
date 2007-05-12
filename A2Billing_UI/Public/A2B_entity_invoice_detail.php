@@ -4,11 +4,12 @@ include ("../lib/module.access.php");
 include ("../lib/Form/Class.FormHandler.inc.php");
 include ("../lib/smarty.php");
 
-if (! has_rights (ACX_RATECARD)){ 
+if (! has_rights (ACX_BILLING)){ 
 	   Header ("HTTP/1.0 401 Unauthorized");
 	   Header ("Location: PP_error.php?c=accessdenied");	   
 	   die();	   
 }
+
 
 getpost_ifset(array('customer', 'posted', 'Period', 'exporttype', 'choose_billperiod','id'));
 
@@ -38,33 +39,6 @@ else
 $vat = $_SESSION["vat"];
 //require (LANGUAGE_DIR.FILENAME_INVOICES);
 
-if (($_GET[download]=="file") && $_GET[file] ) 
-{
-	
-	$value_de=base64_decode($_GET[file]);
-	$dl_full = MONITOR_PATH."/".$value_de;
-	$dl_name=$value_de;
-
-	if (!file_exists($dl_full))
-	{ 
-		echo gettext("ERROR: Cannot download file $dl_full , it does not exist").'<br>';
-		exit();
-	} 
-	
-	header("Content-Type: application/octet-stream");
-	header("Content-Disposition: attachment; filename=$dl_name");
-	header("Content-Length: ".filesize($dl_full));
-	header("Accept-Ranges: bytes");
-	header("Pragma: no-cache");
-	header("Expires: 0");
-	header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
-	header("Content-transfer-encoding: binary");
-			
-	@readfile($dl_full);
-	
-	exit();
-
-}
 
 if (!isset ($current_page) || ($current_page == "")){	
 		$current_page=0; 
@@ -109,13 +83,6 @@ if (!(isset($customer)  &&  ($customer>0)) && !(isset($entercustomer)  &&  ($ent
 	$FG_TABLE_COL[]=array (gettext("Cardused"), "username", "11%", "center", "SORT", "30");
 }
 
-//if ($_SESSION["is_admin"]==1) $FG_TABLE_COL[]=array ("Con_charg", "connectcharge", "12%", "center", "SORT", "30");
-//if ($_SESSION["is_admin"]==1) $FG_TABLE_COL[]=array ("Dis_charg", "disconnectcharge", "12%", "center", "SORT", "30");
-//if ($_SESSION["is_admin"]==1) $FG_TABLE_COL[]=array ("Sec/mn", "secpermin", "12%", "center", "SORT", "30");
-
-
-//if ($_SESSION["is_admin"]==1) $FG_TABLE_COL[]=array ("Buycosts", "buycosts", "12%", "center", "SORT", "30");
-//-- $FG_TABLE_COL[]=array ("InitialRate", "calledrate", "10%", "center", "SORT", "30", "", "", "", "", "", "display_2dec");
 $FG_TABLE_COL[]=array (gettext("Cost"), "sessionbill", "9%", "center", "SORT", "30", "", "", "", "", "", "display_2bill");
 
 //-- if (LINK_AUDIO_FILE == 'YES') 
@@ -348,20 +315,6 @@ if ($FG_DEBUG == 3) echo "<br>Nb_record : $nb_record";
 if ($FG_DEBUG == 3) echo "<br>Nb_record_max : $nb_record_max";
 
 
-/*******************   TOTAL COSTS  *****************************************
-
-$instance_table_cost = new Table($FG_TABLE_NAME, "sum(t1.costs), sum(t1.buycosts)");		
-if (!$nodisplay){	
-	$total_cost = $instance_table_cost -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, null, null, null, null, null, null);
-}
-*/
-
-
-
-/*************************************************************/
-
-
-
 if ((isset($customer)  &&  ($customer>0)) || (isset($entercustomer)  &&  ($entercustomer>0))){
 
 	$FG_TABLE_CLAUSE = "";
@@ -391,32 +344,6 @@ if ($Period=="Month"){
 		if ($fromday && isset($fromstatsday_sday) && isset($fromstatsmonth_sday) && isset($fromstatsmonth_shour) && isset($fromstatsmonth_smin) ) $date_clause.=" AND  $UNIX_TIMESTAMP(t1.creationdate) >= $UNIX_TIMESTAMP('$fromstatsmonth_sday-$fromstatsday_sday $fromstatsmonth_shour:$fromstatsmonth_smin')";
 		if ($today && isset($tostatsday_sday) && isset($tostatsmonth_sday) && isset($tostatsmonth_shour) && isset($tostatsmonth_smin)) $date_clause.=" AND  $UNIX_TIMESTAMP(t1.creationdate) <= $UNIX_TIMESTAMP('$tostatsmonth_sday-".sprintf("%02d",intval($tostatsday_sday))." $tostatsmonth_shour:$tostatsmonth_smin')";
 }
-
-if (DB_TYPE == "postgres")
-{	
-
-$QUERY = "SELECT substring(t1.creationdate,1,10) AS day, sum(t1.amount) AS cost, count(*) as nbcharge FROM cc_charge t1 ".
-		 " WHERE id_cc_card=$id $date_clause GROUP BY substring(t1.creationdate,1,10) ORDER BY day"; //extract(DAY from calldate)
-}
-else
-{
-	$QUERY = "SELECT substring(t1.creationdate,1,10) AS day, sum(t1.amount) AS cost, count(*) as nbcharge FROM cc_charge t1 ".
-		 " WHERE id_cc_card='".$_SESSION["card_id"]."' $date_clause GROUP BY substring(t1.creationdate,1,10) ORDER BY day"; //extract(DAY from calldate)
-
-}
-
-if (!$nodisplay){
-		$res = $DBHandle -> Execute($QUERY);
-		if ($res){
-			$num = $res -> RecordCount( );
-			for($i=0;$i<$num;$i++)
-			{				
-				$list_total_day_charge [] =$res -> fetchRow();				 
-			}
-		}
-
-		if ($FG_DEBUG >= 1) var_dump ($list_total_day_charge);
-}//end IF nodisplay
 
 
 $QUERY = "Select t1.invoicecreated_date from cc_invoices t1, cc_card t2 where t2.id = t1.cardid and t2.username = '$customer' order by t1.invoicecreated_date";
@@ -918,33 +845,5 @@ else
 <?php
 
 }
-?>
-
-
-<?php  if($exporttype!="pdf"){ ?>
-
-<?php
 $smarty->display( 'footer.tpl');
 ?>
-
-<?php  }else{
-// EXPORT TO PDF
-
-	$html = ob_get_contents();
-	// delete output-Buffer
-	ob_end_clean();
-	
-	$pdf = new HTML2FPDF();
-	
-	$pdf -> DisplayPreferences('HideWindowUI');
-	
-	$pdf -> AddPage();
-	$pdf -> WriteHTML($html);
-	
-	$html = ob_get_contents();
-	
-	$pdf->Output('CC_invoice_'.date("d/m/Y-H:i").'.pdf', 'I');
-
-
-
-} ?>

@@ -107,11 +107,11 @@ alert("System is failed to update your password.");
     <td align=left colspan=2>&nbsp;</td>
 </tr>
 <tr>
-    <td align=right><b>New Password :</b></td>
+    <td align=right><font class="fontstyle_002">New Password :</font></td>
     <td align=left><input name="NewPassword" type="password" class="form_enter" ></td>
 </tr>
 <tr>
-    <td align=right><b>Confirm Password :</b></td>
+    <td align=right><font class="fontstyle_002">Confirm Password :</font></td>
     <td align=left><input name="CNewPassword" type="password" class="form_enter" ></td>
 </tr>
 <tr>

@@ -2,6 +2,7 @@
 include ("../lib/defines.php");
 include ("../lib/module.access.php");
 include ("../lib/Form/Class.FormHandler.inc.php");
+include ("../lib/smarty.php");
 include ("./form_data/FG_var_payment_settings.inc");
 include ("../lib/epayment/classes/payment.php");
 include ("../lib/epayment/classes/objectinfo.php");
@@ -11,7 +12,7 @@ include ("../lib/epayment/includes/general.php");
 include ("../lib/epayment/includes/html_output.php");
 
 
-if (! has_rights (ACX_RATECARD)){
+if (! has_rights (ACX_BILLING)){
 	   Header ("HTTP/1.0 401 Unauthorized");
 	   Header ("Location: PP_error.php?c=accessdenied");
 	   die();
@@ -104,10 +105,10 @@ $keys = substr($keys, 0, strrpos($keys, '<br><br>'));
 $heading[] = array('text' => '<b>' . $mInfo->title . '</b>');
 $contents = array('form' => tep_draw_form('modules', "A2B_entity_payment_settings.php?".'method=' . $paymentMethod . '&action=save&id='.$_GET["id"]));
 $contents[] = array('text' => $keys);
-$contents[] = array('align' => 'center', 'text' => '<br>' . tep_image_submit('button_update.gif', "Update") . ' <a href="' . "A2B_entity_payment_settings.php?method=" . $paymentMethod."&id=".$_GET["id"]. '">' . tep_image_button('button_cancel.gif', "Cancel") . '</a>');
+$contents[] = array('align' => 'center', 'text' => '<br><input type=submit name=submitbutton value=Update class=form_input_button> <a href="A2B_entity_payment_configuration.php?atmenu=payment"><input type="button" name="cancelbutton" value="Cancel" class="form_input_button"></a>');
 
 // #### HEADER SECTION
-include("PP_header.php");
+$smarty->display('main.tpl');
 
 echo '<br><br>'.$CC_help_payment_config;
 
@@ -146,7 +147,6 @@ echo '<br><br>'.$CC_help_payment_config;
 <?
 
 // #### FOOTER SECTION
-include("PP_footer.php");
-
+$smarty->display('footer.tpl');
 
 ?>

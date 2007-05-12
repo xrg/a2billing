@@ -119,8 +119,30 @@ if ($callback){
 								$addparameter = str_replace("%dialingnumber%", $prefix.$destination, $addparameter);
 								$dialstr .= $addparameter;
 							}
-				
 							
+							$channel= $dialstr;
+							$exten = $calling;
+							$context = $A2B -> config["callback"]['context_callback'];
+							$id_server_group = $A2B -> config["callback"]['id_server_group'];
+							$priority=1;
+							$timeout = $A2B -> config["callback"]['timeout']*1000;
+							$application='';
+							$callerid = $A2B -> config["callback"]['callerid'];
+							$account = $_SESSION["pr_login"];
+							
+							$uniqueid 	=  MDP_NUMERIC(5).'-'.MDP_STRING(14);
+							$status = 'PENDING';
+							$server_ip = 'localhost';
+							$num_attempt = 0;
+							$variable = "CALLED=$called|CALLING=$calling";
+							$QUERY = " INSERT INTO cc_callback_spool (uniqueid, status, server_ip, num_attempt, channel, exten, context, priority, variable, id_server_group, callback_time, account ) VALUES ('$uniqueid', '$status', '$server_ip', '$num_attempt', '$channel', '$exten', '$context', '$priority', '$variable', '$id_server_group',  now(), '$account')";
+							$res = $A2B -> DBHandle -> Execute($QUERY);
+							
+							if (!$res){
+								$error_msg= gettext("Cannot insert the callback request in the spool!");
+							}
+							
+							/*
 							$as = new AGI_AsteriskManager();
 							
 							// && CONNECTING  connect($server=NULL, $username=NULL, $secret=NULL)
@@ -187,8 +209,8 @@ if ($callback){
 							}else{
 									$error_msg= gettext("Cannot connect to the asterisk manager!<br>Please check the manager configuration...");
 							}
-						
-												
+							*/
+							
 						}else{
 							$error_msg = gettext("<font face='Arial, Helvetica, sans-serif' size='2' color='red'><b>Error : You don t have enough credit to call you back !!!</b></font><br>");
 						}
@@ -220,7 +242,6 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 	include("PP_header.php");
 ?><br>
 	  <center>
-	  <font color=red><b><?php echo $res['Message']; ?></b></font>
 	  <?php echo $error_msg ?> <br>
 	  <?php echo gettext("You can initiate the callback by entering your phonenumber and the number you wish to call!");?>
 	  </center>

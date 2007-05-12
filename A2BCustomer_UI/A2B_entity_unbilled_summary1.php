@@ -180,24 +180,6 @@ if (DB_TYPE == "postgres"){
 
 
 $lastdayofmonth = date("t", strtotime($tostatsmonth.'-01'));
-
-
-
-//echo "<br>$date_clause<br>";
-// fromstatsmonth_sday, fromstatsmonth_shour, tostatsmonth_sday, tostatsmonth_shour
-/*
-Month
-fromday today
-frommonth tomonth (true)
-fromstatsmonth tostatsmonth
-
-fromstatsday_sday
-fromstatsmonth_sday
-tostatsday_sday
-tostatsmonth_sday
-*/
-
-
   
 if (strpos($SQLcmd, 'WHERE') > 0) { 
 	$FG_TABLE_CLAUSE = substr($SQLcmd,6).$date_clause; 
@@ -389,26 +371,6 @@ if ($Period=="Month"){
 		if ($fromday && isset($fromstatsday_sday) && isset($fromstatsmonth_sday) && isset($fromstatsmonth_shour) && isset($fromstatsmonth_smin) ) $date_clause.=" AND  $UNIX_TIMESTAMP(t1.creationdate) >= $UNIX_TIMESTAMP('$fromstatsmonth_sday-$fromstatsday_sday $fromstatsmonth_shour:$fromstatsmonth_smin')";
 		if ($today && isset($tostatsday_sday) && isset($tostatsmonth_sday) && isset($tostatsmonth_shour) && isset($tostatsmonth_smin)) $date_clause.=" AND  $UNIX_TIMESTAMP(t1.creationdate) <= $UNIX_TIMESTAMP('$tostatsmonth_sday-".sprintf("%02d",intval($tostatsday_sday))." $tostatsmonth_shour:$tostatsmonth_smin')";
 }
-
-
-$QUERY = "SELECT substring(t1.creationdate,1,10) AS day, sum(t1.amount) AS cost, count(*) as nbcharge FROM cc_charge t1 ".
-		 " WHERE id_cc_card='".$_SESSION["card_id"]."' $date_clause GROUP BY substring(t1.creationdate,1,10) ORDER BY day"; //extract(DAY from calldate)
-
-
-if (!$nodisplay){
-		$res = $DBHandle -> Execute($QUERY);
-		if ($res){
-			$num = $res -> RecordCount();
-			for($i=0;$i<$num;$i++)
-			{				
-				$list_total_day_charge [] =$res -> fetchRow();				 
-			}
-		}
-
-		if ($FG_DEBUG >= 1) var_dump ($list_total_day_charge);
-
-}//end IF nodisplay
-
 
 
 ?>

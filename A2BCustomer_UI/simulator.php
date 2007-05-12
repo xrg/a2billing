@@ -11,7 +11,6 @@ if (! has_rights (ACX_ACCESS)){
 
 if (!$A2B->config["webcustomerui"]['simulator']) exit;
 
-
 $QUERY = "SELECT  username, credit, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, lastuse, activated, id,tariff FROM cc_card WHERE username = '".$_SESSION["pr_login"]."' AND uipass = '".$_SESSION["pr_password"]."'";
 
 //echo $QUERY."<br>";
@@ -164,7 +163,7 @@ function openURL(theLINK)
 		<tr>			
             <td height="31" bgcolor="#8888CC" style="padding-left: 5px; padding-right: 3px;">
 					<br>
-					<font color="white"><b><?php echo gettext("Enter the number you wish to call :");?></b></font>
+					<font class="fontstyle_008"><?php echo gettext("Enter the number you wish to call :");?></font>
 					<INPUT type="text" name="called" value="<?php echo $called;?>">
 					<br>
 					<?php if (false){ ?>

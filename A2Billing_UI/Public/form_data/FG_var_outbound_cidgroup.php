@@ -14,7 +14,9 @@ $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
 // Dependent Tables
 $HD_Form -> FG_FK_DELETE_ALLOWED = true;
 $HD_Form -> FG_FK_DELETE_CONFIRM = true;
-$HD_Form -> FG_FK_DELETE_OR_UPDATE = true;
+
+$HD_Form->FG_FK_DELETE_OR_UPDATE = true;
+
 $HD_Form -> FG_FK_WARNONLY = true;
 $HD_Form -> FG_FK_TABLENAMES = array("cc_outbound_cid_list");
 $HD_Form -> FG_FK_EDITION_CLAUSE = array(" outbound_cid_group ");

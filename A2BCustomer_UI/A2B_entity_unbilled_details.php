@@ -19,19 +19,6 @@ $customer = $_SESSION["pr_login"];
 $vat = $_SESSION["vat"];
 //require (LANGUAGE_DIR.FILENAME_INVOICES);
 
-if ($exporttype=="pdf") 
-{	
-	header("Content-Type: application/octet-stream");
-	header("Content-Disposition: attachment; filename=UnBilledDetails_".date("d/m/Y-H:i").'.pdf');
-	//header("Content-Length: ".filesize($dl_full));
-	header("Accept-Ranges: bytes");
-	header("Pragma: no-cache");
-	header("Expires: 0");
-	header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
-	header("Content-transfer-encoding: binary");	
-	
-}
-
 if (!isset ($current_page) || ($current_page == "")){	
 		$current_page=0; 
 	}
@@ -188,21 +175,6 @@ if ($Period=="Month"){
 		if ($fromday && isset($fromstatsday_sday) && isset($fromstatsmonth_sday) && isset($fromstatsmonth_shour) && isset($fromstatsmonth_smin) ) $date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) >= $UNIX_TIMESTAMP('$fromstatsmonth_sday-$fromstatsday_sday $fromstatsmonth_shour:$fromstatsmonth_smin')";
 		if ($today && isset($tostatsday_sday) && isset($tostatsmonth_sday) && isset($tostatsmonth_shour) && isset($tostatsmonth_smin)) $date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) <= $UNIX_TIMESTAMP('$tostatsmonth_sday-".sprintf("%02d",intval($tostatsday_sday))." $tostatsmonth_shour:$tostatsmonth_smin')";
 }
-
-//echo "<br>$date_clause<br>";
-// fromstatsmonth_sday, fromstatsmonth_shour, tostatsmonth_sday, tostatsmonth_shour
-/*
-Month
-fromday today
-frommonth tomonth (true)
-fromstatsmonth tostatsmonth
-
-fromstatsday_sday
-fromstatsmonth_sday
-tostatsday_sday
-tostatsmonth_sday
-*/
-
 
   
 if (strpos($SQLcmd, 'WHERE') > 0) { 
@@ -381,27 +353,6 @@ if ($Period=="Month"){
 		if ($today && isset($tostatsday_sday) && isset($tostatsmonth_sday) && isset($tostatsmonth_shour) && isset($tostatsmonth_smin)) $date_clause.=" AND  $UNIX_TIMESTAMP(t1.creationdate) <= $UNIX_TIMESTAMP('$tostatsmonth_sday-".sprintf("%02d",intval($tostatsday_sday))." $tostatsmonth_shour:$tostatsmonth_smin')";
 }
 
-
-$QUERY = "SELECT substring(t1.creationdate,1,10) AS day, sum(t1.amount) AS cost, count(*) as nbcharge FROM cc_charge t1 ".
-		 " WHERE id_cc_card='".$_SESSION["card_id"]."' $date_clause GROUP BY substring(t1.creationdate,1,10) ORDER BY day"; //extract(DAY from calldate)
-
-
-if (!$nodisplay){
-		$res = $DBHandle -> Execute($QUERY);
-		if ($res){
-			$num = $res -> RecordCount();
-			for($i=0;$i<$num;$i++)
-			{				
-				$list_total_day_charge [] =$res -> fetchRow();				 
-			}
-		}
-
-		if ($FG_DEBUG >= 1) var_dump ($list_total_day_charge);
-
-}//end IF nodisplay
-
-
-
 ?>
 
 <?php
@@ -417,8 +368,10 @@ if($exporttype == "pdf")
 $currencies_list = get_currencies();
 //For DID DIAL & Fixed + Dial
 $totalcost = 0;
+$totalcallmade = 0;
 if (is_array($list_total_did) && count($list_total_did)>0)
 {
+	$totalcallmade = $totalcallmade  + count($list_total_did);
 	$mmax = 0;
 	$totalcall_did = 0;
 	$totalminutes_did = 0;
@@ -457,6 +410,7 @@ if (is_array($list_total_did) && count($list_total_did)>0)
 	$totalcost_did = $totalcost;
 
 	if (is_array($list_total_destination) && count($list_total_destination)>0){
+	$totalcallmade = $totalcallmade + count($list_total_destination);
 	$mmax=0;
 	$totalcall=0;
 	$totalminutes=0;	
@@ -468,8 +422,8 @@ if (is_array($list_total_did) && count($list_total_did)>0)
 	
 	}	
 	}
-$totalcallmade = 0;
-$totalcallmade = count($list_total_destination) + count($list_total_did);
+
+
 
 if ($totalcallmade > 0)
 {
@@ -880,30 +834,5 @@ if ($totalcallmade > 0)
 	 </table>
 <?php
 }
-
-?>
-
-<?php  if($exporttype!="pdf"){ ?>
-
-<?php
 $smarty->display( 'footer.tpl');
 ?>
-
-<?php  }else{
-// EXPORT TO PDF
-
-	$html = ob_get_contents();
-	// delete output-Buffer
-	ob_end_clean();
-	
-	$pdf = new HTML2FPDF();
-	
-	$pdf -> DisplayPreferences('HideWindowUI');
-	
-	$pdf -> AddPage();
-	$pdf -> WriteHTML($html);	
-	$pdf->Output('CC_invoice_'.date("d/m/Y-H:i").'.pdf', 'I');
-
-
-
-} ?>

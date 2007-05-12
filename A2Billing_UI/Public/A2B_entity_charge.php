@@ -5,10 +5,10 @@ if ($wantinclude!=1){
 	include ("../lib/Form/Class.FormHandler.inc.php");
 }
 
-if (! has_rights (ACX_RATECARD)){
-	   Header ("HTTP/1.0 401 Unauthorized");
-	   Header ("Location: PP_error.php?c=accessdenied");
-	   die();
+if (! has_rights (ACX_BILLING)){ 
+	Header ("HTTP/1.0 401 Unauthorized");
+	Header ("Location: PP_error.php?c=accessdenied");	   
+	die();	   
 }
 
 

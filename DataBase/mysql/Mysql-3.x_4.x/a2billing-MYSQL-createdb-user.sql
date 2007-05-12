@@ -19,8 +19,8 @@ mysql -u root -p"root password" < a2billing-MYSQL-createdb-user.sql
 
 use mysql;
 
-delete from user where User='a2billinguser';
-delete from db where User='a2billinguser';
+DELETE from user where User='a2billinguser';
+DELETE from db where User='a2billinguser';
 
 GRANT ALL PRIVILEGES ON mya2billing.* TO 'a2billinguser'@'%' IDENTIFIED BY 'a2billing' WITH GRANT OPTION;
 GRANT ALL PRIVILEGES ON mya2billing.* TO 'a2billinguser'@'localhost' IDENTIFIED BY 'a2billing' WITH GRANT OPTION;

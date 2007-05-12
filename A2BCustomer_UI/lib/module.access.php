@@ -58,12 +58,12 @@ if ((!session_is_registered('pr_login') || !session_is_registered('pr_password')
 		$_POST["pr_login"] = access_sanitize_data($_POST["pr_login"]);
 		$_POST["pr_password"] = access_sanitize_data($_POST["pr_password"]);
 
-		$return = login ($_POST["pr_login"], $_POST["pr_password"]);
+		$return = login ($_POST["pr_login"], $_POST["pr_password"]);		
 		if ($FG_DEBUG == 1) print_r($return);
 		if ($FG_DEBUG == 1) echo "==>".$return[1];
 
 		if (!is_array($return))
-        {
+        {		
 			sleep(2);
 			header ("HTTP/1.0 401 Unauthorized");
             if(is_int($return))

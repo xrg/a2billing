@@ -3,6 +3,108 @@
                    			TODO LIST - SPECIFIC
 ********************************************************************************
 
+
+
+#### SIGNUP MODULE
+********************************************************************
+the design is broken probably due to smarty template
+
+
+#### REPORT IMPROVE PRESENTATION
+********************************************************************
+commit :
+http://trac.a2billing.net/cgi-bin/trac.cgi/changeset/895
+this patch make a couples of fixes & changes on the CDR Report (such as text size, position, names, colors...)
+
+We need to make those same changes over the other report page :
+# Invoices
+# Calls Compare
+# Monthly Traffic
+# Daily Load
+# Report
+
+and also on the customer interface.
+
+
+
+#### IE ISSUES
+********************************************************************
+A user can face following issues in the client side Website.
+
+1) Login Page: Click Here Text is very Small.
+2) Main Problem at the Pages is Menu. Left Side Menu is Half Displayed. and + Expand functionality is not working for DID.
+3) Userinfo.php: Text Font is very bad. Huge font are displayed. 2) Page layout is disturbed.
+4) Layout is disturbed on all pages
+5) Layout of the Footer is not ok.
+6) Change password page layout: Page has much white space under the header.
+7) Add Caller ID Page is containing different text fonts.
+
+
+#### MISC
+********************************************************************
+- Selection of the month -> replace by -> Month select ...
+- 1.Call Report – CDR Report – for appearances sake, can you make the font and size 
+the same for Show: Answered Calls etc in the options section. As per the rest of this form ? 
+
+
+#### BUG : DID BILLING
+********************************************************************
+bug DID billing
+we create a DID with no monthly cost for instance free or just dialout cost!!
+When the use take the DID from the customer interface, it still have to pay for it
+we dont check the billingtype of DID
+
+#### BUG : DID  (not urgent)
+********************************************************************
+I Create a Card when I dont have  any DID Group
+and I Simply Go and Create DID Group
+and Create a Destination and Bind it with a Card
+Go to the Client Side You will see the Destination in the Card
+but when you will go to edit the Destination you will see the DIDGroup List is Not Loaded
+
+
+
+#### CHECK DESIGN ERROR WITH IE (INTERNET EXPLORER)
+********************************************************************
+- licence at the bottom is broken
+- anything else we find, etc...
+
+
+#### FEATURE : NEW DID MANAGEMENT
+********************************************************************
+Reservation and release
+* To check
+
+#### DOCUMENTATION : SMARTY & NEW DID MANAGEMENT
+********************************************************************
+- How smarty works and how to customize the design of a2billing with smarty and css
+- Doc/DID_Billing.info to conitnue : make a detailed explanation of how to configure and use 
+  the DID billing explain a real case when we need to sell DIDs through A2Billing
+
+
+#### DOCUMENTATION : SMARTY
+********************************************************************
+- How smarty works and how to customize the design of a2billing with smarty and css
+
+
+######## CURRENCY MANAGEMENT IN CRONT SERVICE 
+********************************************************************
+Currency management in cront service
+
+
+#### RIGHT MANAGEMENT
+********************************************************************
+when u use this : "Add DID" and we assign a DID to a card
+a check should be proceed, if the DID don't belong to the user's DID group then it should warn the user/admin
+
+
+#### CALLBACK API_SPOOL_CALLBACK
+********************************************************************
+// USE RATE_ENGINE_FINDRATES - RATE_ENGINE_ALL_CALCULTIMEOUT - TARIFFGROUP BY DEFAULT TO FIND OUT THE CORRECT CHANNEL
+$channel = 'SIP/'.$phone_number.'@toreplace';
+
+
+
 #### GENERAL CHANGE IN CUSTOMER SIDE
 ********************************************************************
 - to clean the code of those page invoices
@@ -15,50 +117,11 @@
   CONSOLIDATE THE GETTEXT FILES
 
 
-#### UPDATE THE FORMAT OF THE SCRIPT : REARRANGE
-********************************************************************
-DataBase/mysql/Mysql-3.x_4.x/a2billing-mysql-schema-MYSQL.3.X-4.X_v1.2.4.sql
-DataBase/mysql/Mysql-5.x/a2billing-mysql-schema-MYSQL.5.X-v1.2.4.sql
-DataBase/psql/a2billing-pgsql-schema-v1.2.4.sql
-
-This :
-
-	CREATE TABLE cc_service_report (
-		id bigserial NOT NULL,
-		cc_service_id bigserial NOT NULL,
-		daterun timestamp(0) without time zone DEFAULT now(),
-		totalcardperform integer,
-		totalcredit double precision
-	);
-	ALTER TABLE ONLY cc_service_report
-	ADD CONSTRAINT cc_service_report_pkey PRIMARY KEY (id);
-	
-will become :
-
-	CREATE TABLE cc_service_report (
-		id 					BIGSERIAL NOT NULL,
-		cc_service_id 		BIGSERIAL NOT NULL,
-		daterun 			TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NOW(),
-		totalcardperform 	INTEGER,
-		totalcredit 		DOUBLE PRECISION
-	);
-	ALTER TABLE ONLY cc_service_report
-	ADD CONSTRAINT cc_service_report_pkey PRIMARY KEY (id);
-	
 
 #### a2billing.conf new section with all the log files
 ********************************************************************
 handle this in different part of the application (API, AGI, Cront)
 
-######## CURRENCY MANAGEMENT IN CRONT SERVICE 
-********************************************************************
-Currency management in cront service
-
-
-#### FEATURE : NEW DID MANAGEMENT
-********************************************************************
-Reservation and release
-* To check and document
 
 
 ######## CREDIT RESERVE - SIMULTANEOUS ACCESS
@@ -73,26 +136,11 @@ Yes. Here's how it works: Say you have a balance of ten (10) dollars. When your 
 
 
 
-######## CID GROUP DELETE
-********************************************************************
-when u delete a group of CID, it may remove all the CID inside that group
-
 
 ######## DID RANGE 
 ********************************************************************
 Add the same feature that is used on CID to add a new callerID
 support range and coma
-
-
-
-######## TO CHECK ON CID ROUTING
-********************************************************************
-
-something I see in the DB change u made
-activated CHAR(1)       DEFAULT 't' NOT NULL,
-
-I will prefer we use always the following type
-activated INTEGER NOT NULL DEFAULT 0,
 
 
 

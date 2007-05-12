@@ -92,6 +92,14 @@ class A2Billing {
     */	
 	var $instance_table;
 	
+	/**
+    * store the file name to store the logs
+    *
+    * @var string
+    * @access public
+    */
+	var $log_file = '';
+	
 	
 	/**
     * request AGI variables
@@ -196,16 +204,15 @@ class A2Billing {
 	/* Write log into file */
 	
 	function write_log($output, $tobuffer = 1){
-						
 		//$tobuffer = 0;
-		if ($this->agiconfig['logger_enable'] == 1){
-				
+		if (strlen($this->log_file) > 1){
+			
 			$string_log = "[".date("d/m/Y H:i:s")."]:[CallerID:".$this->CallerID."]:[CN:".$this->cardnumber."]:$output\n";
 			if ($this->CC_TESTING) echo $string_log;
-				
+			
 			$this -> BUFFER .= $string_log;
 			if (!$tobuffer || $this->CC_TESTING){
-				error_log ($this -> BUFFER, 3, $this->agiconfig['log_file']);
+				error_log ($this -> BUFFER, 3, $this->log_file);
 				$this-> BUFFER = '';
 			}
 		}
@@ -347,12 +354,35 @@ class A2Billing {
 		  
 		// conf for the recurring process
 		if(!isset($this->config["recprocess"]['batch_log_file'])) 	$this->config["recprocess"]['batch_log_file'] = '/tmp/batch-a2billing.log';
-		 
+		
+		// conf for the log-files
+		/*
+		if(!isset($this->config["log-files"]['cront_alarm'])) $this->config["log-files"]['cront_alarm'] = '/tmp/cront_a2b_alarm.log';
+		if(!isset($this->config["log-files"]['cront_autorefill'])) $this->config["log-files"]['cront_autorefill'] = '/tmp/cront_a2b_autorefill.log';
+		if(!isset($this->config["log-files"]['cront_batch_process'])) $this->config["log-files"]['cront_batch_process'] = '/tmp/cront_a2b_batch_process.log';
+		if(!isset($this->config["log-files"]['cront_bill_diduse'])) $this->config["log-files"]['cront_bill_diduse'] = '/tmp/cront_a2b_bill_diduse.log';
+		if(!isset($this->config["log-files"]['cront_subscription_fee'])) $this->config["log-files"]['cront_subscription_fee'] = '/tmp/cront_a2b_subscription_fee.log';
+		if(!isset($this->config["log-files"]['cront_currencies_update'])) $this->config["log-files"]['cront_currencies_update'] = '/tmp/cront_a2b_currencies_update.log';
+		if(!isset($this->config["log-files"]['cront_invoice'])) $this->config["log-files"]['cront_invoice'] = '/tmp/cront_a2b_invoice.log';
+		
+		if(!isset($this->config["log-files"]['paypal'])) $this->config["log-files"]['paypal'] = '/tmp/a2billing_paypal.log';
+		if(!isset($this->config["log-files"]['epayment'])) $this->config["log-files"]['epayment'] = '/tmp/a2billing_epayment.log';
+		if(!isset($this->config["log-files"]['ecommerce_api'])) $this->config["log-files"]['ecommerce_api'] = '/tmp/api_ecommerce_request.log';
+		if(!isset($this->config["log-files"]['soap_api'])) $this->config["log-files"]['soap_api'] = '/tmp/api_soap_request.log';
+		if(!isset($this->config["log-files"]['callback_api'])) $this->config["log-files"]['callback_api'] = '/tmp/api_callback_request.log';
+		if(!isset($this->config["log-files"]['agi'])) $this->config["log-files"]['agi'] = '/tmp/a2billing_agi.log';
+		*/
+		if(isset($this->config["log-files"]['agi']) && strlen ($this->config["log-files"]['agi']) > 1)
+		{
+			$this -> log_file = $this -> config["log-files"]['agi'];
+		}
+		
 		// conf for the AGI
 		if(!isset($this->config["agi-conf$idconfig"]['debug'])) 	$this->config["agi-conf$idconfig"]['debug'] = false;
 		if(!isset($this->config["agi-conf$idconfig"]['logger_enable'])) $this->config["agi-conf$idconfig"]['logger_enable'] = 1;
 		if(!isset($this->config["agi-conf$idconfig"]['log_file'])) $this->config["agi-conf$idconfig"]['log_file'] = '/tmp/a2billing.log';
 		
+
 		if(!isset($this->config["agi-conf$idconfig"]['answer_call'])) $this->config["agi-conf$idconfig"]['answer_call'] = 1;
 		
 		if(!isset($this->config["agi-conf$idconfig"]['auto_setcallerid'])) $this->config["agi-conf$idconfig"]['auto_setcallerid'] = 1;
@@ -414,7 +444,7 @@ class A2Billing {
 		if(!isset($this->config["agi-conf$idconfig"]['ivr_voucher'])) $this->config["agi-conf$idconfig"]['ivr_voucher'] = 0;
 		if(!isset($this->config["agi-conf$idconfig"]['ivr_voucher_prefixe'])) $this->config["agi-conf$idconfig"]['ivr_voucher_prefixe'] = 8;
 		if(!isset($this->config["agi-conf$idconfig"]['jump_voucher_if_min_credit'])) $this->config["agi-conf$idconfig"]['jump_voucher_if_min_credit'] = 1;
-
+		
 		$this->agiconfig = $this->config["agi-conf$idconfig"];
 		
 		if (!$webui) $this->conlog('A2Billing AGI internal configuration:');

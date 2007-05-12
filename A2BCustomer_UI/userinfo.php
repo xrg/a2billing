@@ -55,61 +55,53 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 
 
 <?php if ($A2B->config["webcustomerui"]['customerinfo']){ ?>
-<table width="100%">
+<table width="100%" align="center">
 <tr>
-
-<td>
-<div id="div1000" style="display:visible;">
-<div id="kiblue"><div class="w4">
-	<img src="Css/kicons/personal.gif" class="kikipic"/>
-	<div class="w2">
-<table width="100%">
-<tr>
-<td width="50%">
-<b><?php echo gettext("LAST NAME");?> :</b> <?php echo $customer_info[2]; ?>
-<br/><b><?php echo gettext("FIRST NAME");?> :</b> <?php echo $customer_info[3]; ?>
-<br/><b><?php echo gettext("EMAIL");?> :</b> <?php echo $customer_info[10]; ?>
-<br/><b><?php echo gettext("PHONE");?> :</b> <?php echo $customer_info[9]; ?>
-<br/><b><?php echo gettext("FAX");?> :</b> <?php echo $customer_info[11]; ?>
+<td align="center">	
+<table width="90%" class="tablebackgroundblue" align="center">
+<tr >
+<td><img src="<?php echo KICON_PATH ?>/personal.gif" align="left" class="kikipic"/></td>
+<td width="50%"><font class="fontstyle_002">
+<?php echo gettext("LAST NAME");?> :</font>  <font class="fontstyle_007"><?php echo $customer_info[2]; ?></font>
+<br/><font class="fontstyle_002"><?php echo gettext("FIRST NAME");?> :</font> <font class="fontstyle_007"><?php echo $customer_info[3]; ?></font>
+<br/><font class="fontstyle_002"><?php echo gettext("EMAIL");?> :</font> <font class="fontstyle_007"><?php echo $customer_info[10]; ?></font> 
+<br/><font class="fontstyle_002"><?php echo gettext("PHONE");?> :</font><font class="fontstyle_007"> <?php echo $customer_info[9]; ?></font> 
+<br/><font class="fontstyle_002"><?php echo gettext("FAX");?> :</font><font class="fontstyle_007"> <?php echo $customer_info[11]; ?></font> 
 
 </td>
-<td>
-<b><?php echo gettext("ADDRESS");?> :</b> <?php echo $customer_info[4]; ?>
-<br/><b><?php echo gettext("ZIP CODE");?> :</b> <?php echo $customer_info[8]; ?>
-<br/><b><?php echo gettext("CITY");?> :</b> <?php echo $customer_info[5]; ?>
-<br/><b><?php echo gettext("STATE");?> :</b> <?php echo $customer_info[6]; ?>
-<br/><b><?php echo gettext("COUNTRY");?> :</b> <?php echo $customer_info[7]; ?>
+<td width="50%">
+<font class="fontstyle_002"><?php echo gettext("ADDRESS");?> :</font> <font class="fontstyle_007"><?php echo $customer_info[4]; ?></font> 
+<br/><font class="fontstyle_002"><?php echo gettext("ZIP CODE");?> :</font> <font class="fontstyle_007"><?php echo $customer_info[8]; ?></font> 
+<br/><font class="fontstyle_002"><?php echo gettext("CITY");?> :</font> <font class="fontstyle_007"><?php echo $customer_info[5]; ?></font> 
+<br/><font class="fontstyle_002"><?php echo gettext("STATE");?> :</font> <font class="fontstyle_007"><?php echo $customer_info[6]; ?></font> 
+<br/><font class="fontstyle_002"><?php echo gettext("COUNTRY");?> :</font> <font class="fontstyle_007"><?php echo $customer_info[7]; ?></font> 
 </td></tr>
 </table>
 
-</div></div></div>
+
 </td>
 </tr>
 </table>
 <?php } ?>
-
-<table width="100%">
+<br>
+<table width="100%" align="center" >
 <tr>
-<td width="55"></td>
-<td>
-<div id="kiki"><div class="w1">
-	<img src="Css/kicons/gnome-finance.gif" class="kikipic"/>
-	<div class="w2">
-<table width="90%">
-<tr>
-<td width="45%">
-<br><b><?php echo gettext("CARD NUMBER");?> :</b>  <?php echo $customer_info[0]; ?>
-<br></br>
-</td>
-<td>
-<br><b><?php echo gettext("BALANCE REMAINING");?> :</b> <?php echo $credit_cur.' '.$customer_info[14]; ?> 
-<br></br>
-</td></tr>
-</table>
-
-</div></div></div>
-</td>
-<td width="55"></td>
+	<td align="center">
+		<table width="80%" align="center" class="tablebackgroundcamel">
+		<tr>
+			<td><img src="<?php echo KICON_PATH ?>/gnome-finance.gif" class="kikipic"/></td>
+			<td width="50%">
+			<br><font class="fontstyle_002"><?php echo gettext("CARD NUMBER");?> :</font><font class="fontstyle_007"> <?php echo $customer_info[0]; ?></font>
+			<br></br>
+			</td>
+			<td width="50%">
+			<br><font class="fontstyle_002"><?php echo gettext("BALANCE REMAINING");?> :</font><font class="fontstyle_007"> <?php echo $credit_cur.' '.$customer_info[14]; ?> </font>
+			<br></br>
+			</td>
+			<td valign="bottom" align="right"><img src="<?php echo KICON_PATH ?>/help_index.gif" class="kikipic"></td>
+		</tr>
+		</table>
+	</td>
 </tr>
 </table>
 
@@ -140,7 +132,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 		?>
 
 		<td align="center"> <br>
-			<font size="1"><?php echo gettext("Click below to buy<br>credit for");?> <font color="red"><b><?php echo $value.' '.PAYPAL_CURRENCY_CODE ?></font></b></font>
+			<font size="1"><?php echo gettext("Click below to buy<br>credit for");?> <font color="red"><b><?php echo $value.' '.PAYPAL_CURRENCY_CODE ?></b></font></font>
 			<form action="checkout_payment.php" method="post">
 				<input type="hidden" name="notify_url" value="<?php echo PAYPAL_NOTIFY_URL ?>">
 				<input type="hidden" name="rm" value="2">
@@ -167,7 +159,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 </td>
 </tr>
 </table>
-<center><span><?php echo gettext('The fee from $5 is $0.45, from $10 is $0.59, from $20 is $0.88, from $40 is $1.46. <br><b>Paypal Fee Calculator');?> <a target="_blank" href="http://www.ppcalc.com/">http://www.ppcalc.com/</a></b></span></center>
+<center><span><?php echo gettext('The fee from $5 is $0.45, from $10 is $0.59, from $20 is $0.88, from $40 is $1.46. <br><font class="fontstyle_002">Paypal Fee Calculator</font>');?> <a target="_blank" href="http://www.ppcalc.com/">http://www.ppcalc.com/</a></b></span></center>
 <br>
 
 <?php }else{ ?>

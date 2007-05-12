@@ -1,42 +1,24 @@
 <?php
 
-
 getpost_ifset(array('invoicetype'));
 
-$plang='en';
 
 $HD_Form = new FormHandler("cc_card","Card");
 
 $HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_LIMITE_DISPLAY = 10;
-// FAQ
 
 
-// Weird Hack to allow TO PAY
-$QUERY="SELECT id from cc_card";
-$QUERY_REFILL="SELECT t1.id, sum(t3.credit) from cc_card as t1, cc_logrefill as t3 WHERE t1.id=t3.card_id GROUP BY t1.id";
-$QUERY_PAYMENT="SELECT t1.id, SUM(t2.payment) from cc_card as t1, cc_logpayment as t2 WHERE t1.id=t2.card_id GROUP BY t1.id";
-
-$instance = new Table();
-$DBhandle = DbConnect();
-$to_pay = $instance -> SQLExec($DBhandle,$QUERY);
-
-
-//QUERY_CREDIT=SELECT t1.id, SUM(t1.credit) from cc_card as t1 GROUP BY t1.id
-
-$HD_Form -> AddViewElement(gettext("CardNumber"), "username", "7%", "center", "sort", "15");
+$HD_Form -> AddViewElement(gettext("CARDNUMBER"), "username", "7%", "center", "sort", "15");
 $HD_Form -> AddViewElement(gettext("<acronym title=\"CARDALIAS\">ALIAS</acronym>"), "useralias", "12%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("LASTNAME"), "lastname", "10%", "center", "sort", "15");
 $HD_Form -> AddViewElement(gettext("CREDIT"), "credit", "7%", "center", "sort", "15");
 
-if($invoicetype == "billed")
-{
+if($invoicetype == "billed"){
 	$HD_Form -> AddViewElement(gettext("REFILL"), "refill", "10%", "center", "sort", "15", "lie", "cc_logrefill as t3", "SUM(t3.credit),t3.card_id", "t3.card_id='%id' GROUP BY t3.card_id", "%1");
 	$HD_Form -> AddViewElement(gettext("PAYMENT"), "payment", "7%", "center", "sort", "15", "lie", "cc_logpayment as t2", "SUM(t2.payment),t2.card_id", "t2.card_id='%id' GROUP BY t2.card_id", "%1");
 	$HD_Form -> AddViewElement(gettext("TO PAY"), "to pay", "7%", "center", "sort", "", "eval",'(%5-%4)'); //abs
-}
-else
-{
+} else {
 	$HD_Form -> AddViewElement(gettext("REFILL"), "refill", "10%", "center", "sort", "15", "lie", "cc_logrefill as t3", "CASE WHEN SUM(t3.credit) is NULL THEN 0 ELSE SUM(t3.credit) END", "t3.card_id='%id' AND t3.date >= (Select max(cover_enddate) from cc_invoices where cardid='%id')", "%1");
 	$HD_Form -> AddViewElement(gettext("PAYMENT"), "payment", "10%", "center", "sort", "15", "lie", "cc_logpayment as t2", "CASE WHEN SUM(t2.payment) is NULL THEN 0 ELSE SUM(t2.payment) END", "t2.card_id='%id' AND t2.date >= (Select max(cover_enddate) from cc_invoices where cardid='%id')", "%1");
 	$HD_Form -> AddViewElement(gettext("TO PAY"), "to pay", "7%", "center", "sort", "", "eval",'(%5-%4)'); //abs
@@ -62,22 +44,22 @@ $HD_Form -> FG_OTHER_BUTTON1_IMG = Images_Path . "/icon-viewdetails.gif";
 	$HD_Form -> FG_OTHER_BUTTON1 = true;
 	$HD_Form -> FG_OTHER_BUTTON2 = true;
 	$HD_Form -> FG_OTHER_BUTTON2_LINK="javascript:;\" onClick=\"MM_openBrWindow('A2B_entity_moneysituation_details.php?popup_select=1&section=2&type=payment&form_action=list&atmenu=card&displayheader=0&id=|param|','','scrollbars=yes,resizable=yes,width=500,height=270')\"";	
-	$HD_Form -> FG_OTHER_BUTTON2_ALT = '<font color="red">PAYMENTS</font>';
+	$HD_Form -> FG_OTHER_BUTTON2_ALT = 'payments';
 	if($invoicetype == "billed")
 	{
-		$HD_Form -> FG_OTHER_BUTTON1_ALT = '<font color="red">INVOICES</font>';
+		$HD_Form -> FG_OTHER_BUTTON1_ALT = 'Invoices';
 		$HD_Form -> FG_OTHER_BUTTON1_LINK="A2B_entity_invoice_list.php?section=2&cardid=|param|";
 		$HD_Form -> FG_OTHER_BUTTON1_IMG = '';
 		$HD_Form -> FG_OTHER_BUTTON2_IMG = '';
 	}
 	else
 	{
-		$HD_Form -> FG_OTHER_BUTTON1_ALT = 'DETAIL';
+		$HD_Form -> FG_OTHER_BUTTON1_ALT = 'Detail';
 		$HD_Form -> FG_OTHER_BUTTON1_LINK="A2B_entity_invoices_unbilled.php?section=2&cardid=|param|";
 		$HD_Form -> FG_OTHER_BUTTON2_ALT = 'Email';
 		$HD_Form -> FG_OTHER_BUTTON2_LINK="A2B_entity_invoice_unbilledmail.php?section=2&cardid=|param|&action=sendinvoice&exporttype=pdf";		
-		$HD_Form -> FG_OTHER_BUTTON1_IMG = Images_Path.'/details.gif';
-		$HD_Form -> FG_OTHER_BUTTON2_IMG = Images_Path.'/email03.gif';
+		//$HD_Form -> FG_OTHER_BUTTON1_IMG = Images_Path.'/details.gif';
+		//$HD_Form -> FG_OTHER_BUTTON2_IMG = Images_Path.'/email03.gif';
 	}	
 	
 	

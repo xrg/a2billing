@@ -20,7 +20,7 @@ $HD_Form -> init();
 
 
 /********************************* BATCH UPDATE ***********************************/
-getpost_ifset(array('popup_select', 'popup_formname', 'popup_fieldname', 'upd_inuse', 'upd_activated', 'upd_language', 'upd_tariff', 'upd_credit', 'upd_credittype', 'upd_simultaccess', 'upd_currency', 'upd_typepaid', 'upd_creditlimit', 'upd_enableexpire', 'upd_expirationdate', 'upd_expiredays', 'upd_runservice', 'upd_runservice', 'batchupdate', "check", "type", "mode", "addcredit", "cardnumber"));
+getpost_ifset(array('popup_select', 'popup_formname', 'popup_fieldname', 'upd_inuse', 'upd_activated', 'upd_language', 'upd_tariff', 'upd_credit', 'upd_credittype', 'upd_simultaccess', 'upd_currency', 'upd_typepaid', 'upd_creditlimit', 'upd_enableexpire', 'upd_expirationdate', 'upd_expiredays', 'upd_runservice', 'upd_runservice', 'batchupdate', 'check', 'type', 'mode', 'addcredit', 'cardnumber'));
 
 // CHECK IF REQUEST OF BATCH UPDATE
 if ($batchupdate == 1 && is_array($check)){
@@ -66,8 +66,11 @@ if ($batchupdate == 1 && is_array($check)){
 		$SQL_UPDATE .= $HD_Form->FG_TABLE_CLAUSE;
 	}
 		
-	if (! $res = $HD_Form -> DBHandle -> Execute($SQL_UPDATE))		$update_msg = "<center><font color=\"red\"><b>Could not perform the batch update!</b></font></center>";		
-	else		$update_msg = "<center><font color=\"green\"><b>The batch update has been successfully perform !</b></font></center>";		
+	if (! $res = $HD_Form -> DBHandle -> Execute($SQL_UPDATE)){
+		$update_msg = '<center><font color="red"><b>'.gettext('Could not perform the batch update!').'</b></font></center>';
+	} else {
+		$update_msg = '<center><font color="green"><b>'.gettext('The batch update has been successfully perform!').'</b></font></center>';
+	}
 	
 }
 /********************************* END BATCH UPDATE ***********************************/
@@ -156,8 +159,8 @@ echo $CC_help_list_customer;
         <tr><form NAME="theForm">
 		   <td align="left" width='5%'><img src="../Css/kicons/pipe.png">
 		   </td>
-          <td align="left" width='35%' bgcolor="#CCCCCC">
-           	<table bgcolor="#ABABAB" width='100%'>
+          <td align="left" width="35%" class="bgcolor_001">
+           	<table>
 			<tr><td align="center">
 			   <?php echo gettext("CARD ID");?>	 :<input class="form_enter" name="choose_list" onfocus="clear_textbox2();" size="18" maxlength="16" value="enter ID Card">
 				<a href="#" onclick="window.open('A2B_entity_card.php?nodisplay=1&popup_select=1&popup_formname=theForm&popup_fieldname=choose_list' , 'CardNumberSelection','width=550,height=330,top=20,left=100');"><img src="../Images/icon_arrow_orange.gif"></a>
@@ -168,7 +171,7 @@ echo $CC_help_list_customer;
 			</td></tr>
 			</table>
 		</td>
-		<td bgcolor="#CCCCCC">	-				
+		<td  class="bgcolor_001">		
 				<select NAME="opt" size="1" class="form_enter" style="border: 2px outset rgb(204, 51, 0);"><option value='0'><?php echo gettext("REFILL");?> </option></select>
 				<input class="form_enter" name="addcredit" size="18" maxlength="6" value="">
 				<input class="form_enter" style="border: 2px outset rgb(204, 51, 0);"

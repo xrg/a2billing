@@ -19,35 +19,6 @@ $customer = $_SESSION["pr_login"];
 $vat = $_SESSION["vat"];
 //require (LANGUAGE_DIR.FILENAME_INVOICES);
 
-if (($_GET[download]=="file") && $_GET[file] ) 
-{
-	
-	$value_de=base64_decode($_GET[file]);
-	$dl_full = MONITOR_PATH."/".$value_de;
-	$dl_name=$value_de;
-
-	if (!file_exists($dl_full))
-	{ 
-		echo gettext("ERROR: Cannot download file $dl_full , it does not exist").'<br>';
-		exit();
-	} 
-	
-	header("Content-Type: application/octet-stream");
-	header("Content-Disposition: attachment; filename=$dl_name");
-	header("Content-Length: ".filesize($dl_full));
-	header("Accept-Ranges: bytes");
-	header("Pragma: no-cache");
-	header("Expires: 0");
-	header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
-	header("Content-transfer-encoding: binary");
-			
-	@readfile($dl_full);
-	
-	exit();
-
-}
-
-
 
 if (!isset ($current_page) || ($current_page == "")){	
 		$current_page=0; 
@@ -221,33 +192,6 @@ if (!$nodisplay){
 }
 $_SESSION["pr_sql_export"]="SELECT $FG_COL_QUERY FROM $FG_TABLE_NAME WHERE $FG_TABLE_CLAUSE";
 
-/************************/
-//$QUERY = "SELECT substring(calldate,1,10) AS day, sum(duration) AS calltime, count(*) as nbcall FROM cdr WHERE ".$FG_TABLE_CLAUSE." GROUP BY substring(calldate,1,10)"; //extract(DAY from calldate)
-
-
-$QUERY = "SELECT substring(t1.starttime,1,10) AS day, sum(t1.sessiontime) AS calltime, sum(t1.sessionbill) AS cost, count(*) as nbcall FROM $FG_TABLE_NAME WHERE ".$FG_TABLE_CLAUSE." GROUP BY substring(t1.starttime,1,10) ORDER BY day"; //extract(DAY from calldate)
-
-
-if (!$nodisplay){
-		$res = $DBHandle -> Execute($QUERY);
-		if ($res){
-			$num = $res -> RecordCount();
-				for($i=0;$i<$num;$i++)
-			{				
-				$list_total_day [] =$res -> fetchRow();				 
-			}
-		}
-
-
-if ($FG_DEBUG == 3) echo "<br>Clause : $FG_TABLE_CLAUSE";
-$nb_record = $instance_table -> Table_count ($DBHandle, $FG_TABLE_CLAUSE);
-if ($FG_DEBUG >= 1) var_dump ($list);
-
-}//end IF nodisplay
-
-
-// GROUP BY DESTINATION FOR THE INVOICE
-
 
 /************************************************ DID Billing Section *********************************************/
 // Fixed + Dial = 0
@@ -315,24 +259,10 @@ if ($nb_record<=$FG_LIMITE_DISPLAY){
 	}	
 }
 
-
 if ($FG_DEBUG == 3) echo "<br>Nb_record : $nb_record";
 if ($FG_DEBUG == 3) echo "<br>Nb_record_max : $nb_record_max";
 
-
-/*******************   TOTAL COSTS  *****************************************
-
-$instance_table_cost = new Table($FG_TABLE_NAME, "sum(t1.costs), sum(t1.buycosts)");		
-if (!$nodisplay){	
-	$total_cost = $instance_table_cost -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, null, null, null, null, null, null);
-}
-*/
-
-
-
 /*************************************************************/
-
-
 
 if ((isset($customer)  &&  ($customer>0)) || (isset($entercustomer)  &&  ($entercustomer>0))){
 
@@ -343,11 +273,7 @@ if ((isset($customer)  &&  ($customer>0)) || (isset($entercustomer)  &&  ($enter
 		$FG_TABLE_CLAUSE =" username='$entercustomer' ";
 	}
 
-
-
 	$instance_table_customer = new Table("cc_card", "id,  username, lastname, firstname, address, city, state, country, zipcode, phone, email, fax");
-	
-	
 	
 	$info_customer = $instance_table_customer -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, "id", "ASC", null, null, null, null);
 	
@@ -368,25 +294,6 @@ if ($Period=="Month"){
 		if ($fromday && isset($fromstatsday_sday) && isset($fromstatsmonth_sday) && isset($fromstatsmonth_shour) && isset($fromstatsmonth_smin) ) $date_clause.=" AND  $UNIX_TIMESTAMP(t1.creationdate) >= $UNIX_TIMESTAMP('$fromstatsmonth_sday-$fromstatsday_sday $fromstatsmonth_shour:$fromstatsmonth_smin')";
 		if ($today && isset($tostatsday_sday) && isset($tostatsmonth_sday) && isset($tostatsmonth_shour) && isset($tostatsmonth_smin)) $date_clause.=" AND  $UNIX_TIMESTAMP(t1.creationdate) <= $UNIX_TIMESTAMP('$tostatsmonth_sday-".sprintf("%02d",intval($tostatsday_sday))." $tostatsmonth_shour:$tostatsmonth_smin')";
 }
-
-
-$QUERY = "SELECT substring(t1.creationdate,1,10) AS day, sum(t1.amount) AS cost, count(*) as nbcharge FROM cc_charge t1 ".
-		 " WHERE id_cc_card='".$_SESSION["card_id"]."' $date_clause GROUP BY substring(t1.creationdate,1,10) ORDER BY day"; //extract(DAY from calldate)
-
-
-if (!$nodisplay){
-		$res = $DBHandle -> Execute($QUERY);
-		if ($res){
-			$num = $res -> RecordCount();
-			for($i=0;$i<$num;$i++)
-			{				
-				$list_total_day_charge [] =$res -> fetchRow();				 
-			}
-		}
-
-		if ($FG_DEBUG >= 1) var_dump ($list_total_day_charge);
-
-}//end IF nodisplay
 
 $QUERY = "Select t1.invoicecreated_date from cc_invoices t1, cc_card t2 where t2.id = t1.cardid and t2.username = '$customer'";
 
@@ -606,33 +513,7 @@ if (is_array($list_total_did) && count($list_total_did)>0)
 	 <td>&nbsp;</td>
 	 </tr> 
 	 </table>
-	<?php } ?>
+	<?php } 
+	$smarty->display( 'footer.tpl');
+	?>
 	
-	
-<?php  if($exporttype!="pdf"){ ?>
-
-<?php
-$smarty->display( 'footer.tpl');
-?>
-
-<?php  }else{
-// EXPORT TO PDF
-
-	$html = ob_get_contents();
-	// delete output-Buffer
-	ob_end_clean();
-	
-	$pdf = new HTML2FPDF();
-	
-	$pdf -> DisplayPreferences('HideWindowUI');
-	
-	$pdf -> AddPage();
-	$pdf -> WriteHTML($html);
-	
-	$html = ob_get_contents();
-	
-	$pdf->Output('CC_invoice_'.date("d/m/Y-H:i").'.pdf', 'I');
-
-
-
-} ?>

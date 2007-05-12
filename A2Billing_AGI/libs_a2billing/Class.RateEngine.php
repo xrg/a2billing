@@ -101,13 +101,13 @@ class RateEngine {
 		if ($this->webui) $A2B -> write_log("[CC_asterisk_rate-engine: CALLERID]\n".$A2B->CallerID."\n",0);
 		
 		if ($A2B->config["database"]['dbtype'] != "postgres"){
-			$DNID_QUERY = "SELECT count(dnidprefix) FROM cc_tariffplan RIGHT JOIN cc_tariffgroup_plan ON cc_tariffgroup_plan.idtariffgroup=$tariffgroupid WHERE dnidprefix  LIKE '$mydnid%'";
+			$DNID_QUERY = "SELECT count(dnidprefix) FROM cc_tariffplan RIGHT JOIN cc_tariffgroup_plan ON cc_tariffgroup_plan.idtariffgroup=$tariffgroupid WHERE dnidprefix=SUBSTRING('$mydnid',1,length(dnidprefix))";
 			$result_sub = $A2B->instance_table -> SQLExec ($A2B -> DBHandle, $DNID_QUERY);
 			if (!is_array($result_sub) || count($result_sub)==0) $nb_dnid = 0;
 			else $nb_dnid = $result_sub[0][0];
 			$DNID_SUB_QUERY = "AND 0 = $nb_dnid";
 			
-			$CALLERID_QUERY = "SELECT count(calleridprefix) FROM cc_tariffplan RIGHT JOIN cc_tariffgroup_plan ON cc_tariffgroup_plan.idtariffgroup=$tariffgroupid WHERE calleridprefix  LIKE '$mycallerid%'";
+			$CALLERID_QUERY = "SELECT count(calleridprefix) FROM cc_tariffplan RIGHT JOIN cc_tariffgroup_plan ON cc_tariffgroup_plan.idtariffgroup=$tariffgroupid WHERE calleridprefix=SUBSTRING('$mycallerid',1,length(calleridprefix))";
 			$result_sub = $A2B->instance_table -> SQLExec ($A2B -> DBHandle, $CALLERID_QUERY);
 			if (!is_array($result_sub) || count($result_sub)==0) $nb_callerid = 0;
 			else $nb_callerid = $result_sub[0][0];
@@ -952,11 +952,11 @@ class RateEngine {
 			//$myres = $agi->agi_exec("EXEC DIAL SIP/3465078XXXXX@254.20.7.28|30|HL(" . ($timeout * 60 * 1000) . ":60000:30000)");
 
 			if ($A2B->config["database"]['dbtype'] == "postgres"){
-				$QUERY = "SELECT cid FROM cc_outbound_cid_list WHERE outbound_cid_group = $cidgroupid ORDER BY RANDOM() LIMIT 1";
+				$QUERY = "SELECT cid FROM cc_outbound_cid_list WHERE activated = 1 AND outbound_cid_group = $cidgroupid ORDER BY RANDOM() LIMIT 1";
 			}
 			else
 			{
-				$QUERY = "SELECT cid FROM cc_outbound_cid_list WHERE outbound_cid_group = $cidgroupid ORDER BY RAND() LIMIT 1";	
+				$QUERY = "SELECT cid FROM cc_outbound_cid_list WHERE activated = 1 AND outbound_cid_group = $cidgroupid ORDER BY RAND() LIMIT 1";	
 			}
 		
 

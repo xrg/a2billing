@@ -1,20 +1,16 @@
 <?php
 
-
-$plang='en';
-
 $HD_Form = new FormHandler("cc_currencies","Currencies");
 
 $HD_Form -> FG_DEBUG = 0;
-// FAQ
 $HD_Form -> FG_TABLE_DEFAULT_ORDER = " currency";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "ASC";
 
-$HD_Form -> AddViewElement("", "", "15%", "center", "sort", "", "value", '<img src="../Css/kicons/favorites_16.png"> <img src="../Css/kicons/favorites_16.png"> <img src="../Css/kicons/favorites_24.png"><img src="../Css/kicons/favorites_16.png"> ');
+//$HD_Form -> AddViewElement("", "", "15%", "center", "sort", "", "value", '<img src="'.KICON_PATH.'/favorites_16.png"> <img src="'.KICON_PATH.'/favorites_16.png"> <img src="'.KICON_PATH.'/favorites_24.png"><img src="'.KICON_PATH.'/favorites_16.png"> ');
 $HD_Form -> AddViewElement(gettext("CURRENCY"), "currency", "15%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("DETAIL"), "name", "20%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("VALUE"), "value", "15%", "center", "sort");
-$HD_Form -> AddViewElement("", "", "15%", "center", "sort", "", "value", '<img src="../Css/kicons/favorites_16.png"> <img src="../Css/kicons/favorites_16.png"> <img src="../Css/kicons/favorites_24.png"><img src="../Css/kicons/favorites_16.png"> ');
+//$HD_Form -> AddViewElement("", "", "15%", "center", "sort", "", "value", '<img src="'.KICON_PATH.'/favorites_16.png"> <img src="'.KICON_PATH.'/favorites_16.png"> <img src="'.KICON_PATH.'/favorites_24.png"><img src="'.KICON_PATH.'/favorites_16.png"> ');
 
 $HD_Form -> FieldViewElement ('currency,name,value');
 
@@ -28,7 +24,7 @@ $HD_Form -> FG_VIEW_TABLE_WITDH = '70%';
 $HD_Form -> FG_EDITION = false;
 $HD_Form -> FG_DELETION = false;
 
-$HD_Form -> FG_TABLE_ALTERNATE_ROW_COLOR = array("#EEEEEE", "#EEEEEE");
+//$HD_Form -> FG_TABLE_ALTERNATE_ROW_COLOR = array("#EEEEEE", "#EEEEEE");
 
 
 // Set the filter variables

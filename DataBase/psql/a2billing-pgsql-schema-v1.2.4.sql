@@ -58,18 +58,18 @@ ALTER TABLE ONLY cc_campaign
 
 
 CREATE TABLE cc_phonelist (
-    id bigserial NOT NULL,
-    id_cc_campaign bigint DEFAULT 0 NOT NULL,
-    id_cc_card bigint DEFAULT 0 NOT NULL,
-    numbertodial text NOT NULL,
-    name text NOT NULL,
-    inuse integer DEFAULT 0,
-    enable integer DEFAULT 1 NOT NULL,
-    num_trials_done integer DEFAULT 0,
-    creationdate timestamp without time zone DEFAULT now(),
-    last_attempt timestamp without time zone DEFAULT now(),		
-    secondusedreal integer DEFAULT 0,
-    additionalinfo text NOT NULL	
+    id 							BIGSERIAL NOT NULL,
+    id_cc_campaign 				BIGINT DEFAULT 0 NOT NULL,
+    id_cc_card 					BIGINT DEFAULT 0 NOT NULL,
+    numbertodial 				TEXT NOT NULL,
+    name 						TEXT NOT NULL,
+    inuse 						INTEGER DEFAULT 0,
+    enable 						INTEGER DEFAULT 1 NOT NULL,
+    num_trials_done 			INTEGER DEFAULT 0,
+    creationdate 				TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
+    last_attempt 				TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),		
+    secondusedreal 				INTEGER DEFAULT 0,
+    additionalinfo 				TEXT NOT NULL	
 );
 
 ALTER TABLE ONLY cc_phonelist
@@ -81,10 +81,10 @@ CREATE INDEX ind_cc_phonelist_numbertodial ON cc_phonelist USING btree (numberto
 
 
 CREATE TABLE cc_didgroup (
-    id bigserial NOT NULL,
-    idreseller integer DEFAULT 0 NOT NULL,	
-    creationdate timestamp without time zone DEFAULT now(),
-    didgroupname text NOT NULL
+    id 							BIGSERIAL NOT NULL,
+    idreseller 					INTEGER DEFAULT 0 NOT NULL,	
+    creationdate 				TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
+    didgroupname 				TEXT NOT NULL
 );
 
 ALTER TABLE ONLY cc_didgroup
@@ -93,20 +93,20 @@ ALTER TABLE ONLY cc_didgroup
 
 
 CREATE TABLE cc_did (
-    id bigserial NOT NULL,
-    id_cc_didgroup bigint NOT NULL,
-    id_cc_country integer NOT NULL,    
-    activated integer DEFAULT 1 NOT NULL,
-    reserved integer DEFAULT 0,
-    iduser integer DEFAULT 0 NOT NULL,
-    did text NOT NULL,
-    creationdate timestamp without time zone DEFAULT now(),	
-    startingdate timestamp without time zone DEFAULT now(),
-    expirationdate timestamp without time zone,
-    description text,
-    secondusedreal integer DEFAULT 0,
-    billingtype integer DEFAULT 0,
-    fixrate numeric(12,4) NOT NULL
+    id 							BIGSERIAL NOT NULL,
+    id_cc_didgroup 				BIGINT NOT NULL,
+    id_cc_country 				INTEGER NOT NULL,    
+    activated 					INTEGER DEFAULT 1 NOT NULL,
+    reserved 					INTEGER DEFAULT 0,
+    iduser 						INTEGER DEFAULT 0 NOT NULL,
+    did 						TEXT NOT NULL,
+    creationdate 				TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),	
+    startingdate 				TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
+    expirationdate 				TIMESTAMP WITHOUT TIME ZONE,
+    description 				TEXT ,
+    secondusedreal 				INTEGER DEFAULT 0,
+    billingtype 				INTEGER DEFAULT 0,
+    fixrate 					NUMERIC(12,4) NOT NULL
 );
 -- billtype: 0 = fix per month + dialoutrate, 1= fix per month, 2 = dialoutrate, 3 = free
 
@@ -120,15 +120,15 @@ ALTER TABLE ONLY cc_did
 
 
 CREATE TABLE cc_did_destination (
-    id bigserial NOT NULL,
-    destination text NOT NULL,
-    priority integer DEFAULT 0 NOT NULL,
-    id_cc_card bigint NOT NULL,
-    id_cc_did bigint NOT NULL,	
-    creationdate timestamp without time zone DEFAULT now(),
-    activated integer DEFAULT 1 NOT NULL,
-    secondusedreal integer DEFAULT 0,
-    voip_call integer DEFAULT 0
+    id 								BIGSERIAL NOT NULL,
+    destination 					TEXT NOT NULL,
+    priority 						INTEGER DEFAULT 0 NOT NULL,
+    id_cc_card 						BIGINT NOT NULL,
+    id_cc_did 						BIGINT NOT NULL,	
+    creationdate 					TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
+    activated 						INTEGER DEFAULT 1 NOT NULL,
+    secondusedreal 					INTEGER DEFAULT 0,
+    voip_call 						INTEGER DEFAULT 0
 );
 
 
@@ -162,35 +162,35 @@ CREATE INDEX ind_cc_charge_creationdate 			ON cc_charge USING btree (creationdat
 
 
 CREATE TABLE cc_paypal (
-  id bigserial NOT NULL,
-  payer_id character varying(60) default NULL,
-  payment_date character varying(50) default NULL,
-  txn_id character varying(50) default NULL,
-  first_name character varying(50) default NULL,
-  last_name character varying(50) default NULL,
-  payer_email character varying(75) default NULL,
-  payer_status character varying(50) default NULL,
-  payment_type character varying(50) default NULL,
-  memo text,
-  item_name character varying(127) default NULL,
-  item_number character varying(127) default NULL,
-  quantity bigint NOT NULL default '0',
-  mc_gross numeric(9,2) default NULL,
-  mc_fee numeric(9,2) default NULL,
-  tax numeric(9,2) default NULL,
-  mc_currency character varying(3) default NULL,
-  address_name character varying(255) NOT NULL default '',
-  address_street character varying(255) NOT NULL default '',
-  address_city character varying(255) NOT NULL default '',
-  address_state character varying(255) NOT NULL default '',
-  address_zip character varying(255) NOT NULL default '',
-  address_country character varying(255) NOT NULL default '',
-  address_status character varying(255) NOT NULL default '',
-  payer_business_name character varying(255) NOT NULL default '',
-  payment_status character varying(255) NOT NULL default '',
-  pending_reason character varying(255) NOT NULL default '',
-  reason_code character varying(255) NOT NULL default '',
-  txn_type character varying(255) NOT NULL default ''
+  id 								BIGSERIAL NOT NULL,
+  payer_id 							CHARACTER VARYING(60) default NULL,
+  payment_date 						CHARACTER VARYING(50) default NULL,
+  txn_id 							CHARACTER VARYING(50) default NULL,
+  first_name 						CHARACTER VARYING(50) default NULL,
+  last_name 						CHARACTER VARYING(50) default NULL,
+  payer_email 						CHARACTER VARYING(75) default NULL,
+  payer_status 						CHARACTER VARYING(50) default NULL,
+  payment_type 						CHARACTER VARYING(50) default NULL,
+  memo 								TEXT ,
+  item_name 						CHARACTER VARYING(127) default NULL,
+  item_number 						CHARACTER VARYING(127) default NULL,
+  quantity 							BIGINT NOT NULL default '0',
+  mc_gross 							NUMERIC(9,2) default NULL,
+  mc_fee 							NUMERIC(9,2) default NULL,
+  tax 								NUMERIC(9,2) default NULL,
+  mc_currency 						CHARACTER VARYING(3) default NULL,
+  address_name 						CHARACTER VARYING(255) NOT NULL default '',
+  address_street 					CHARACTER VARYING(255) NOT NULL default '',
+  address_city 						CHARACTER VARYING(255) NOT NULL default '',
+  address_state 					CHARACTER VARYING(255) NOT NULL default '',
+  address_zip 						CHARACTER VARYING(255) NOT NULL default '',
+  address_country 					CHARACTER VARYING(255) NOT NULL default '',
+  address_status 					CHARACTER VARYING(255) NOT NULL default '',
+  payer_business_name 				CHARACTER VARYING(255) NOT NULL default '',
+  payment_status 					CHARACTER VARYING(255) NOT NULL default '',
+  pending_reason 					CHARACTER VARYING(255) NOT NULL default '',
+  reason_code 						CHARACTER VARYING(255) NOT NULL default '',
+  txn_type 							CHARACTER VARYING(255) NOT NULL default ''
 );
 
 ALTER TABLE ONLY cc_paypal
@@ -203,17 +203,17 @@ ALTER TABLE ONLY cc_paypal
 	
 
 CREATE TABLE cc_voucher (
-    id bigserial NOT NULL,
-    creationdate timestamp without time zone DEFAULT now(),
-    usedate timestamp without time zone,
-    expirationdate timestamp without time zone,	
-    voucher text NOT NULL,
-    usedcardnumber text,
-    tag text,	
-    credit numeric(12,4) NOT NULL,    
-    activated boolean DEFAULT true NOT NULL,
-    used integer DEFAULT 0,
-    currency character varying(3) DEFAULT 'USD'::character varying
+    id 									BIGSERIAL NOT NULL,
+    creationdate 						TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
+    usedate 							TIMESTAMP WITHOUT TIME ZONE,
+    expirationdate 						TIMESTAMP WITHOUT TIME ZONE,	
+    voucher 							TEXT NOT NULL,
+    usedcardnumber 						TEXT ,
+    tag 								TEXT ,	
+    credit 								NUMERIC(12,4) NOT NULL,    
+    activated 							BOOLEAN DEFAULT true NOT NULL,
+    used 								INTEGER DEFAULT 0,
+    currency 							CHARACTER VARYING(3) DEFAULT 'USD'::CHARACTER varying
 );
 
 ALTER TABLE ONLY cc_voucher
@@ -603,8 +603,8 @@ create table cc_did_use (
 );
 
 
-INSERT INTO cc_ui_authen VALUES (2, 'admin', 'mypassword', 0, 1023, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2005-02-26 21:14:05.391501-05');
-INSERT INTO cc_ui_authen VALUES (1, 'root', 'myroot', 0, 1023, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2005-02-26 20:33:27.691314-05');
+INSERT INTO cc_ui_authen VALUES (2, 'admin', 'mypassword', 0, 32767, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2005-02-26 21:14:05.391501-05');
+INSERT INTO cc_ui_authen VALUES (1, 'root', 'myroot', 0, 32767, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2005-02-26 20:33:27.691314-05');
 
 
 INSERT INTO cc_templatemail VALUES ('signup', 'info@call-labs.com', 'Call-Labs', 'SIGNUP CONFIRMATION', '
@@ -1040,7 +1040,7 @@ ALTER TABLE ONLY cc_provider
     ADD CONSTRAINT cons_cc_provider_name_key UNIQUE (provider_name);
 
 
-ALTER TABLE cc_trunk ADD COLUMN id_provider integer;
+ALTER TABLE cc_trunk ADD COLUMN id_provider INTEGER;
 
 
 
@@ -1296,13 +1296,6 @@ CREATE TABLE cc_autorefill_report (
 );
 ALTER TABLE ONLY cc_autorefill_report
 ADD CONSTRAINT cc_autorefill_report_pkey PRIMARY KEY (id);
-
-
-
-
-
-
-
 
 
 -- cc_prefix Table	
@@ -1632,9 +1625,6 @@ ALTER TABLE ONLY cc_alarm_report
     ADD CONSTRAINT cc_alarm_report_pkey PRIMARY KEY (id);
 
 
-
-
-
 CREATE TABLE cc_callback_spool (
     id 	bigserial NOT NULL,
     uniqueid text,
@@ -1665,14 +1655,25 @@ ALTER TABLE ONLY cc_callback_spool
 
 
 CREATE TABLE cc_server_manager (
-    id bigserial NOT NULL,
-    server_ip text,
-    manager_host text,
-    manager_username text,
-    manager_secret text
+    id 								BIGSERIAL NOT NULL,
+	id_group						INTEGER DEFAULT 1,
+    server_ip 						TEXT ,
+    manager_host 					TEXT ,
+    manager_username 				TEXT ,
+    manager_secret 					TEXT ,
+	lasttime_used		 			TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW()
 ) WITH OIDS;
-
 INSERT INTO cc_server_manager (server_ip, manager_host, manager_username, manager_secret) VALUES ('default', 'localhost', 'myasterisk', 'mycode');
+
+
+CREATE TABLE cc_server_group (
+	id								BIGSERIAL NOT NULL,
+	name							TEXT ,
+	description						TEXT
+) WITH OIDS;
+INSERT INTO cc_server_group (name, description) VALUES ('default', 'default group of server');
+
+
 
 CREATE TABLE cc_invoices (
     id bigserial NOT NULL,
@@ -1702,10 +1703,6 @@ CREATE TABLE cc_invoice_history (
 ALTER TABLE ONLY cc_invoice_history
     ADD CONSTRAINT cc_invoice_history_pkey PRIMARY KEY (id);
 CREATE INDEX ind_cc_invoice_history ON cc_invoice_history USING btree (invoicesent_date);
-
-
-
-
 
 
 CREATE TABLE cc_package_offer (
@@ -1739,11 +1736,11 @@ CREATE TABLE cc_subscription_fee (
     id 				BIGSERIAL NOT NULL,
     label 			TEXT NOT NULL,	
 	fee 			NUMERIC(12,4) NOT NULL,
-	currency 		CHARACTER VARYING(3) DEFAULT 'USD'::character varying,
+	currency 		CHARACTER VARYING(3) DEFAULT 'USD'::CHARACTER varying,
 	status 			INTEGER NOT NULL DEFAULT 0,
     numberofrun 	INTEGER NOT NULL DEFAULT 0,
-    datecreate 		timestamp(0) without time zone DEFAULT now(),
-    datelastrun 	timestamp(0) without time zone DEFAULT now(),
+    datecreate 		TIMESTAMP(0) without time zone DEFAULT NOW(),
+    datelastrun 	TIMESTAMP(0) without time zone DEFAULT NOW(),
     emailreport 	TEXT,
     totalcredit 	DOUBLE PRECISION NOT NULL DEFAULT 0,
     totalcardperform INTEGER NOT NULL DEFAULT 0
@@ -1756,7 +1753,7 @@ CREATE TABLE cc_subscription_fee_card (
     id 						BIGSERIAL NOT NULL,
     id_cc_card 				BIGINT NOT NULL,
 	id_cc_subscription_fee 	BIGINT NOT NULL,
-    datefee 				TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT now(),
+    datefee 				TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NOW(),
     fee 					NUMERIC(12,4) NOT NULL,
 	fee_converted			NUMERIC(12,4) NOT NULL,
 	currency 				CHARACTER VARYING(3) DEFAULT 'USD'::CHARACTER VARYING
@@ -1772,7 +1769,7 @@ CREATE INDEX ind_cc_subscription_fee_card_datefee 					ON cc_subscription_fee_ca
 
 CREATE TABLE cc_outbound_cid_group (
     id 					BIGSERIAL NOT NULL,
-    creationdate 		timestamp(0) without time zone DEFAULT now(),
+    creationdate 		TIMESTAMP(0) without time zone DEFAULT NOW(),
     group_name 			TEXT NOT NULL    
     
 );
@@ -1784,8 +1781,8 @@ CREATE TABLE cc_outbound_cid_list (
     id 					BIGSERIAL NOT NULL,
 	outbound_cid_group	BIGINT NOT NULL,
 	cid					TEXT NOT NULL,    
-    activated CHAR(1)	DEFAULT 't' NOT NULL,
-    creationdate 		timestamp(0) without time zone DEFAULT now()   
+    activated 			INTEGER NOT NULL DEFAULT 0,
+    creationdate 		TIMESTAMP(0) without time zone DEFAULT NOW()   
 );
 ALTER TABLE ONLY cc_outbound_cid_list
 ADD CONSTRAINT cc_outbound_cid_list_pkey PRIMARY KEY (id);

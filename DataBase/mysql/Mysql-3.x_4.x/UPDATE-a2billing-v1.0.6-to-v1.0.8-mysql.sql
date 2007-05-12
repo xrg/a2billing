@@ -18,34 +18,34 @@ mysql -u root -p"root password" < UPDATE-a2billing-v1.0.6-to-v1.0.8-mysql.sql
 
 
 CREATE TABLE cc_campaign (
-    id INT NOT NULL AUTO_INCREMENT,    
-    campaign_name CHAR(50) NOT NULL,
-    creationdate TIMESTAMP DEFAULT 'now()' NOT NULL,
-    startingdate TIMESTAMP DEFAULT 'now()' NOT NULL,  
-    expirationdate TIMESTAMP,
-    description MEDIUMTEXT,
-    id_trunk INT DEFAULT 0,
-    secondusedreal INT DEFAULT 0,
-    nb_callmade INT DEFAULT 0,
-    enable INT DEFAULT 0 NOT NULL,
+    id 							INT NOT NULL AUTO_INCREMENT,    
+    campaign_name 				CHAR(50) NOT NULL,
+    creationdate 				TIMESTAMP DEFAULT 'now()' NOT NULL,
+    startingdate 				TIMESTAMP DEFAULT 'now()' NOT NULL,  
+    expirationdate 				TIMESTAMP,
+    description 				MEDIUMTEXT,
+    id_trunk 					INT DEFAULT 0,
+    secondusedreal 				INT DEFAULT 0,
+    nb_callmade 				INT DEFAULT 0,
+    enable 						INT DEFAULT 0 NOT NULL,
     PRIMARY KEY (id),
     UNIQUE cons_phonelistname (campaign_name)
 );
 
 
 CREATE TABLE cc_phonelist (
-    id INT NOT NULL AUTO_INCREMENT,
-    id_cc_campaign INT DEFAULT 0 NOT NULL,
-    id_cc_card INT DEFAULT 0 NOT NULL,
-    numbertodial CHAR(50) NOT NULL,
-    name CHAR(60) NOT NULL,
-    inuse INT DEFAULT 0,	
-    enable INT DEFAULT 1 NOT NULL,    
-    num_trials_done INT DEFAULT 0,
-    creationdate TIMESTAMP DEFAULT 'now()' NOT NULL,	
-    last_attempt TIMESTAMP DEFAULT 'now()' NOT NULL,  
-    secondusedreal INT DEFAULT 0,
-    additionalinfo MEDIUMTEXT,
+    id 								INT NOT NULL AUTO_INCREMENT,
+    id_cc_campaign 					INT DEFAULT 0 NOT NULL,
+    id_cc_card 						INT DEFAULT 0 NOT NULL,
+    numbertodial 					CHAR(50) NOT NULL,
+    name 							CHAR(60) NOT NULL,
+    inuse 							INT DEFAULT 0,	
+    enable 							INT DEFAULT 1 NOT NULL,    
+    num_trials_done 				INT DEFAULT 0,
+    creationdate 					TIMESTAMP DEFAULT 'now()' NOT NULL,	
+    last_attempt 					TIMESTAMP DEFAULT 'now()' NOT NULL,  
+    secondusedreal 					INT DEFAULT 0,
+    additionalinfo 					MEDIUMTEXT,
     PRIMARY KEY (id)
 );
 CREATE INDEX ind_cc_phonelist_numbertodial ON cc_phonelist (numbertodial);

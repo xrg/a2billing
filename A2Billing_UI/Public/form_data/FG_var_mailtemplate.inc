@@ -2,7 +2,6 @@
 
 getpost_ifset(array('id', 'IDCust', 'mailtype', 'fromemail', 'fromname', 'subject', 'messagetext'));
 
-$plang='en';
 
 $HD_Form = new FormHandler("cc_templatemail","mailtemplate");
 
@@ -13,8 +12,9 @@ $HD_Form -> FG_TABLE_DEFAULT_ORDER = "mailtype";
 $typemail_list = array();
 $typemail_list["reminder"]  		= array( gettext("Reminder"), "reminder");
 $typemail_list["signup"]    		= array( gettext("Signup"), "signup");
-$typemail_list["forgetpassword"]  	= array( gettext("Forgetpassword"), "forgetpassword");
-$typemail_list["signupconfirmed"]  	= array( gettext("Signupconfirmed"), "signupconfirmed");
+$typemail_list["forgetpassword"]  	= array( gettext("Forget password"), "forgetpassword");
+$typemail_list["signupconfirmed"]  	= array( gettext("Signup confirmed"), "signupconfirmed");
+$typemail_list["payment"]  	= array( gettext("Payment Confirmation"), "payment");
 $typemail_list["template1"] = array( gettext("template1"), "template1");
 $typemail_list["template2"] = array( gettext("template2"), "template2");
 $typemail_list["template3"] = array( gettext("template3"), "template3");

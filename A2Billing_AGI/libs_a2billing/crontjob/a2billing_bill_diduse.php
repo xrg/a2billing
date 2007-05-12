@@ -57,58 +57,62 @@
 	$instance_table = new Table();
 	
 	// CHECK THE CARD WITH DID'S
-	$QUERY = 'select id_did,reservationdate,month_payed,fixrate,cc_card.id,credit,email from (cc_did_use INNER JOIN cc_card on cc_card.id=id_cc_card) INNER JOIN cc_did on (id_did=cc_did.id) where releasedate IS NULL and cc_did_use.activated=1';
-"SELECT id_did,reservationdate,month_payed,fixrate from cc_did_use INNER JOIN cc_did on (id_did=cc_did.id) WHERE releasedate IS NULL and id_cc_card ='".$mycard[0]."'";
+	$QUERY = 'SELECT id_did,reservationdate,month_payed,fixrate,cc_card.id,credit,email FROM (cc_did_use INNER JOIN cc_card on cc_card.id=id_cc_card) INNER JOIN cc_did ON (id_did=cc_did.id) WHERE releasedate IS NULL AND cc_did_use.activated=1';
+
 	if ($verbose_level>=1) echo "==> SELECT CARD WIHT DID'S QUERY : $QUERY\n";
 	$result = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY);
 	
 	if ($verbose_level>=1) print_r ($result);
 	
 	if( !is_array($result)) {
-			if ($verbose_level>=1) echo "[No card to run the did use bill recurring service]\n";
-			write_log("[ No card to run the did use bill recurring service]");
-			exit();
-        }
-	// 0 id, 1 name, 2 amount, 3 period, 4 rule, 5 daynumber, 6 stopmode,  7 maxnumbercycle, 8 status, 9 numberofrun, 
-	// 10 datecreate, 11 datelastrun, 12 emailreport, 13 totalcredit, 14 totalcardperform 
+		if ($verbose_level>=1) echo "[No card to run the did use bill recurring service]\n";
+		write_log("[ No card to run the did use bill recurring service]");
+		exit();
+	}
 	
 	$oneday = 60*60*24;
-
-//	count day that user have to recharge his account
+	// count day that user have to recharge his account
 	$daytopay=5;
 
-	// BROWSE THROUGH THE CARD TO APPLY THE SERVICE 
+
+	// BROWSE THROUGH THE CARD TO APPLY THE DID USAGE
 	foreach ($result as $mydids){
 
-	// mail variable for user notification
-		$user_mail_adrr="";
-        	$mail_user=false;
-		$mail_user_content="";
-	//
+		// mail variable for user notification
+		$user_mail_adrr = '';
+        $mail_user = false;
+		$mail_user_content = '';
+		
 		if ($verbose_level>=1) print_r ($mydids);
 		if ($verbose_level>=1) echo "------>>>  ID DID = ".$mydids[0]." - FIXERATE = ".$mydids[3]."ID CARD = ".$mydids[4]." -BALANCE =".$mycard[5]." \n";	
-		$day_remaining=0;
-		$timestamp_datetopay = mktime(date('H',(strtotime($mydids[1]))-(intval($daytopay) * $oneday)),date("i",(strtotime($mydids[1]))-(intval($daytopay) * $oneday)),date("s",(strtotime($mydids[1]))-(intval($daytopay) * $oneday)),date("m",(strtotime($mydids[1]))-(intval($daytopay) * $oneday))+$mydids[2],date("d",(strtotime($mydids[1]))-(intval($daytopay) * $oneday)),date("Y",(strtotime($mydids[1]))-(intval($daytopay) * $oneday)));
-		$day_remaining=time()-$timestamp_datetopay;
-		if ($verbose_level>=1) 	echo $day_remaining."<=".(intval($daytopay) * $oneday)."\n";
+		$day_remaining = 0;
+		$timestamp_datetopay = mktime(date('H',(strtotime($mydids[1]))-(intval($daytopay) * $oneday)),
+										date("i",(strtotime($mydids[1]))-(intval($daytopay) * $oneday)),
+										date("s",(strtotime($mydids[1]))-(intval($daytopay) * $oneday)),
+										date("m",(strtotime($mydids[1]))-(intval($daytopay) * $oneday))+$mydids[2],
+										date("d",(strtotime($mydids[1]))-(intval($daytopay) * $oneday)),
+										date("Y",(strtotime($mydids[1]))-(intval($daytopay) * $oneday)));
+		
+		$day_remaining = time() - $timestamp_datetopay;
+		if ($verbose_level>=1) echo $day_remaining."<=".(intval($daytopay) * $oneday)."\n";
 			if ($day_remaining >= 0)
-			{	
+			{
 				if ($day_remaining<=(intval($daytopay) * $oneday))
 				{
-					if ($mydids[5]>=$mydids[3])
+					if ($mydids[5] >= $mydids[3])
 					{
 						$QUERY = "UPDATE cc_card SET credit=credit-'".$mydids[3]."' WHERE id=".$mydids[4];	
 						$result = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY, 0);
 						if ($verbose_level>=1) echo "==> UPDATE CARD QUERY: 	$QUERY\n";
-
-						$QUERY = "UPDATE cc_did_use set month_payed = month_payed+1 WHERE id_did = '".$mydids[0]."' and activated = 1 and releasedate IS NULL" ;
+						
+						$QUERY = "UPDATE cc_did_use set month_payed = month_payed+1 WHERE id_did = '".$mydids[0]."' AND activated = 1 AND releasedate IS NULL" ;
 						if ($verbose_level>=1) echo "==> UPDATE DID USE QUERY: 	$QUERY\n";
 						$result = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY, 0);
-
+						
 						$QUERY = "INSERT INTO cc_charge (id_cc_card, amount, chargetype,id_cc_did) VALUES ('".$mydids[4]."', '".$mydids[3]."', '2','".$mydids[0]."')";
 						if ($verbose_level>=1) echo "==> INSERT CHARGE QUERY: 	$QUERY\n";
 						$result = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY, 0);
-
+						
 						$mail_user_content.="BALANCE REMAINING ".$mydids[5]-$mydids[3]."\n\n";
 						$mail_user_content.="A automaticly taking away of :".$mydids[3]." has been carry out of your acount \n\n";	
 						$mail_user_content.="Monthly Fixrate for DID :".$mydids[0]."\n\n";
@@ -123,13 +127,13 @@
 					}	
 				}
 			} else {
-					$QUERY = "UPDATE cc_did set iduser = 0 where id='".$mydids[0]."'" ;
+					$QUERY = "UPDATE cc_did set iduser = 0, reserved = 0 WHERE id='".$mydids[0]."'" ;
 					$result = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY, 0);
 					$QUERY1 = "UPDATE cc_did_use set releasedate = now() where id_did = '".$mydids[0]."' and activated = 1" ;
 					$result = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY, 0);
-					$QUERY = "insert into cc_did_use (activated, id_did) values ('0','".$mydids[0]."')";
+					$QUERY = "INSERT INTO cc_did_use (activated, id_did) values ('0','".$mydids[0]."')";
 					$result = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY, 0);
-					$QUERY = "delete FROM cc_did_destination where id_cc_did =".$mydids[0];
+					$QUERY = "DELETE FROM cc_did_destination where id_cc_did =".$mydids[0];
 					$result = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY, 0);
 					$mail_user_content.="The did ".$mydids[0]." has been automaticly unreserved\n\n";
 					$mail_user=true;
