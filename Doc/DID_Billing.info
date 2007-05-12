@@ -1,0 +1,30 @@
+
+****************************************************************************************************
+									DID Billing
+****************************************************************************************************
+
+
+1. INTRODUCTION
+
+	Astersik2Billing provides an extensive functionality to handle the DID calls and its Billing.
+	You can Create the DID Groups in our A2Billing Admin Web Application. and Add DID to the Groups.
+	DID can be Assigned to Card to re-route the calls to a SIP/IAX Client. You can active or deactivate your DID's.
+
+
+2. DID BILLING
+
+	In the DID Billing A2Billing offer's 4 Powerful ways to carry out billing.
+	
+	1. Fix per Month + Dialout Rate.
+	In this type of billing You have a Fix Recurring cost of for your DID. and You also have to pay per call you made.
+	2. Fix per Month
+	In this type of DID Billing you only have a fixed recurring cost for your DID for every month.
+	3. Only Dialout Rate
+	Only dial out charges apply on all out going did calls.
+	4. Free
+	There is no cost for all calls made through this did.
+
+
+3. INVOICES
+
+	A2Billing Provides DID Calls Billing information in a Separate section. you can Check the billing information for your any type of DID Billing.

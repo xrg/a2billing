@@ -1,6 +1,6 @@
 <?php
 
-getpost_ifset(array('id', 'label', 'packagetype', 'billingtype','startday', 'freeminutes'));
+getpost_ifset(array('id', 'label', 'packagetype', 'billingtype','startday', 'freetimetocall'));
 
 $HD_Form = new FormHandler("cc_package_offer","OFFER PACKAGE");
 
@@ -25,9 +25,9 @@ $HD_Form -> AddViewElement(gettext("CREATIONDATE"), "creationdate", "15%", "cent
 $HD_Form -> AddViewElement(gettext("PACKAGETYPE"), "packagetype", "15%", "center", "sort","","list",$packagetype_list);
 $HD_Form -> AddViewElement(gettext("BILLINGTYPE"), "billingtype", "15%", "center", "sort","","list",$packagetype_list);
 $HD_Form -> AddViewElement(gettext("STARTDAY"), "startday", "7%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("FREE MIN"), "freeminutes", "7%", "center", "sort");
+$HD_Form -> AddViewElement(gettext("FREE CALL"), "freetimetocall", "7%", "center", "sort", "30", "", "", "", "", "", "display_minute");
 
-$HD_Form -> FieldViewElement ('label, creationdate, packagetype, billingtype, startday, freeminutes');
+$HD_Form -> FieldViewElement ('label, creationdate, packagetype, billingtype, startday, freetimetocall');
 
 $HD_Form -> FG_ACTION_SIZE_COLUMN='15%';
 $HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO ".strtoupper($HD_Form->FG_INSTANCE_NAME)." CREATED!");  
@@ -41,13 +41,13 @@ $HD_Form -> FG_DELETION = true;
 
 
 $HD_Form -> AddEditElement (gettext("LABEL"),
-			   "label",	
-			   '$value',	
-			   "INPUT",	
-			   "size=30 maxlength=30",	
-			   "0",	
-			   gettext("Insert the package label"),
-			   "" , "", "",	"", "", "", "",	"");
+	"label",	
+	'$value',	
+	"INPUT",	
+	"size=30 maxlength=30",	
+	"0",	
+	gettext("Insert the package label"),
+	"" , "", "",	"", "", "", "",	"");
 
 $HD_Form -> AddEditElement (gettext("PACKAGETYPE"),
 	"packagetype",		
@@ -72,25 +72,25 @@ if (isset($form_action) && $form_action=="ask-add"){
 }
 
 $HD_Form -> AddEditElement (gettext("STARTDAY"),
-			   "startday",
-			   '$value',	
-			   "INPUT",	
-			   "size=10 $default_init maxlength=5",	
-			   "4",	
-			   gettext("Insert the start day"),			   
-			   			   "" , "", "",	"", "", "", "", gettext("The value will be related to billingtype ; if monthly accepted value are 1-31 ; if Weekly accepted value 1-7 (Monday to Sunday) "));
-			   
-			   
-$HD_Form -> AddEditElement (gettext("FREE MINUTE"),
-			   "freeminutes",	
-			   '$value',	
-			   "INPUT",	
-			   "size=10 maxlength=10",	
-			   "4",	
-			   gettext("Insert free minutes"),
-			   "" , "", "",	"", "", "", "",	"");
+   "startday",
+   '$value',	
+   "INPUT",	
+   "size=10 $default_init maxlength=5",	
+   "4",	
+   gettext("Insert the start day"),			   
+   "" , "", "",	"", "", "", "", gettext("The value will be related to billingtype ; if monthly accepted value are 1-31 ; if Weekly accepted value 1-7 (Monday to Sunday) "));
 
-$HD_Form -> FieldEditElement ('label, packagetype, billingtype, startday, freeminutes');
+
+$HD_Form -> AddEditElement (gettext("FREE TIME TO CALL"),
+   "freetimetocall",	
+   '$value',	
+   "INPUT",	
+   "size=10 maxlength=10",	
+   "4",	
+   gettext("Insert the amount of free time to call (seconds)"),
+   "" , "", "",	"", "", "", "", gettext("Insert the amount of free time to call (seconds)"));
+
+$HD_Form -> FieldEditElement ('label, packagetype, billingtype, startday, freetimetocall');
 
 
 $HD_Form -> FG_INTRO_TEXT_EDITION= gettext("Modify the properties of the ".$HD_Form->FG_INSTANCE_NAME.".");

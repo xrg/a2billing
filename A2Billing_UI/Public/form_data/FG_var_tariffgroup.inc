@@ -2,8 +2,6 @@
 
 getpost_ifset(array('id', 'tariffgroupname', 'lcrtype', 'removeinterprefix', 'idtariffplan', 'id_cc_package_offer'));
 
-$plang='en';
-
 $HD_Form = new FormHandler("cc_tariffgroup","TariffGroup");
 
 $HD_Form -> FG_DEBUG = 0;
@@ -88,7 +86,7 @@ $HD_Form -> AddEditElement(gettext("PACKAGE"),
 			   "sql",
 			   "cc_package_offer",
 			   "label, id",
-			   	"", "", "%1", "", gettext("Set the Package offer if you wish to use one in this tariffgroup"), '', '<OPTION  value="-1" selected>NO PACKAGE OFFER</OPTION>');
+			   	"", "", "%1", "", gettext("Set the Package offer if you wish to use one with this tariffgroup"), '', '<OPTION  value="-1" selected>NO PACKAGE OFFER</OPTION>');
 
 $HD_Form -> AddEditElement (gettext("REMOVE INTER PREFIX"),
 	"removeinterprefix",		

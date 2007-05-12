@@ -3,7 +3,48 @@
                    			TODO LIST - SPECIFIC
 ********************************************************************************
 
+#### GENERAL CHANGE IN CUSTOMER SIDE
+********************************************************************
+- to clean the code of those page invoices
+- to remove the all the page used for pdf export like : A2B_entity_unbilled_summary1.php
+  we should be able to deal with A2B_entity_unbilled_summary.php only and add a parameter mode for the pdf export.
 
+
+#### CONSOLIDATE THE GETTEXT FILES
+********************************************************************
+  CONSOLIDATE THE GETTEXT FILES
+
+
+#### UPDATE THE FORMAT OF THE SCRIPT : REARRANGE
+********************************************************************
+DataBase/mysql/Mysql-3.x_4.x/a2billing-mysql-schema-MYSQL.3.X-4.X_v1.2.4.sql
+DataBase/mysql/Mysql-5.x/a2billing-mysql-schema-MYSQL.5.X-v1.2.4.sql
+DataBase/psql/a2billing-pgsql-schema-v1.2.4.sql
+
+This :
+
+	CREATE TABLE cc_service_report (
+		id bigserial NOT NULL,
+		cc_service_id bigserial NOT NULL,
+		daterun timestamp(0) without time zone DEFAULT now(),
+		totalcardperform integer,
+		totalcredit double precision
+	);
+	ALTER TABLE ONLY cc_service_report
+	ADD CONSTRAINT cc_service_report_pkey PRIMARY KEY (id);
+	
+will become :
+
+	CREATE TABLE cc_service_report (
+		id 					BIGSERIAL NOT NULL,
+		cc_service_id 		BIGSERIAL NOT NULL,
+		daterun 			TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NOW(),
+		totalcardperform 	INTEGER,
+		totalcredit 		DOUBLE PRECISION
+	);
+	ALTER TABLE ONLY cc_service_report
+	ADD CONSTRAINT cc_service_report_pkey PRIMARY KEY (id);
+	
 
 #### a2billing.conf new section with all the log files
 ********************************************************************
@@ -224,6 +265,53 @@ SERVICE
 
 MISSING : 
 - AGI
+	http://trac.a2billing.net/cgi-bin/trac.cgi/changeset/789
+	
+	IF PACKAGE IN THE TARIFFGROUP
+		0#	add freetimetocall_package_offer in select ratecard
+		
+		1# 	Get info from the package
+			- billingtype ; startday ; freetimetocall
+		2# 
+			According to billingtype (monthly 0 ; weekly 1)
+			if (monthly){
+				if (startday > last day of the month) startday = last day of the month;
+				if (startday <= 0 ) startday = 1;
+				dateclause >= year-month-startday
+			}else{// weekly
+				startday = startday % 7 (modulo)
+				if (currentdayofweek < startday) currentdayofweek++7
+				diffday = currentdayofweek - startday (current lundi 1 - mercredi 3 = 5) 
+				dateclause >= 				
+				# mysql -> SELECT DATE_SUB('2003-07-13 00:00:00', INTERVAL 14 DAY);
+				# mysql -> SELECT DATE_SUB(NOW(), INTERVAL 14 DAY);
+				# psql  -> SELECT (date('2003-07-13 00:00:00') - interval '14 day');
+				# psql  -> SELECT (now() - interval '14 day');				
+			}
+			SELECT  sum(used_secondes) AS used_secondes 
+			FROM cc_card_package_offer
+			WHERE (date_consumption) >= ('2007-02-01') AND id_cc_card = '%%%%%%%%%%%' AND id_cc_package_offer = '%%%%%%%%%%%'
+			AND DATE_CLAUSE
+			
+			init freetimetocall_used
+			freetimetocall_left = freetimetocall - freetimetocall_used
+			
+			### MAKE CALL ### 
+			CHECK IF THE RATE HAVE "freetimetocall_package_offer" = Yes
+			
+			if (Yes && (TimeofCAll >0) && (freetimetocall_left > 0)){
+					
+					if (freetimetocall_left >= TIMEOFCALL) freetimetocall_used = TIMEOFCALL;
+					else freetimetocall_used = freetimetocall_left;
+					
+					TIMEOFCALL = TIMEOFCALL - freetimetocall_used
+					Before calculated the cost
+					TIMEOFCALL = TIMEOFCALL + freetimetocall_used
+					
+					Add table cc_card_package_offer (...freetimetocall_used)
+					add cc_call <- id_card_package_offer
+			}
+	
 - CRONT
 	- BROWSE ALL THE CUSTOMER THAT HAVE A SUBSCRIPTION FEE ENABLE
 		SELECT * FROM cc_card LEFT JOIN cc_subscription_fee ON cc_card.id_subscription_fee=cc_subscription_fee.id WHERE cc_subscription_fee.status=1
@@ -232,12 +320,8 @@ MISSING :
 		INSERT INTO cc_charge (id_cc_card, amount, chargetype, description) values ('1', '120', '3', 'description here...')
 	- Decrement his balance
 	
-	
 - ADD SELECT subscription fee on card 
 ALTER TABLE cc_card ADD COLUMN id_subscription_fee INTEGER;
-
-
-
 
 
 #### MIGRATE NEW FRAMEWORK : call-log-customers.php

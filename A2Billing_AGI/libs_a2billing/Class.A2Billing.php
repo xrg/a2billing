@@ -157,6 +157,7 @@ class A2Billing {
 	var $vouchernumber;
 	var $add_credit;
 	
+	
 	// Define if we have changed the status of the card
 	var $set_inuse = 0;
 	
@@ -169,26 +170,26 @@ class A2Billing {
 	*/	
 	var $CC_TESTING;
 	
-		
+	
 	/* CONSTRUCTOR */
 
 	function A2Billing() {     
 		
-		  //$this -> DBHandle = $DBHandle;
-
+		//$this -> DBHandle = $DBHandle;
+		
 	}
-
-
+	
+	
 	/* Init */
-
+	
 	function Reinit () {  
-			$this -> countrycode='';
-			$this -> subcode='';
-			$this -> myprefix='';
-			$this -> ipaddress='';
-			$this -> rate='';
-			$this -> destination='';			
-			$this -> sip_iax_buddy='';		
+		$this -> countrycode='';
+		$this -> subcode='';
+		$this -> myprefix='';
+		$this -> ipaddress='';
+		$this -> rate='';
+		$this -> destination='';
+		$this -> sip_iax_buddy='';
 	}
 	
 	
@@ -547,8 +548,8 @@ class A2Billing {
 
 		if ($this->agiconfig['debug']>=1)  $agi->verbose('line:'.__LINE__.' - '.$QUERY);
 		$this->write_log("[Start: $QUERY]");
-		$result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY, 0);
-				
+		if (!$this -> CC_TESTING) $result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY, 0);
+		
 		return 0;
 	}
 	
@@ -594,9 +595,9 @@ class A2Billing {
 		}
 			
 		// FOR TESTING : ENABLE THE DESTINATION NUMBER
-		if ($this->CC_TESTING) $this->destination="011324885";
-		if ($this->CC_TESTING) $this->destination="4455555";
-			
+		if ($this->CC_TESTING) $this->destination="1800300200";
+		if ($this->CC_TESTING) $this->destination="3390010022";
+		
 		if ($this->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '."DESTINATION ::> ".$this->destination);					
 		if ($this->removeinterprefix) $this->destination = $this -> apply_rules ($this->destination);			
 		if ($this->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '."APPLY_RULES DESTINATION ::> ".$this->destination);
@@ -666,11 +667,11 @@ class A2Billing {
 			$agi-> stream_file($prompt, '#');
 			return -1;
 		}
-						
-						
+		
+		
 		// calculate timeout
 		//$this->timeout = intval(($this->credit * 60*100) / $rate);  // -- RATE is millime cents && credit is 1cents
-	
+		
 		$this->timeout = $RateEngine-> ratecard_obj[0]['timeout'];
 		// set destination and timeout
 		// say 'you have x minutes and x seconds'
@@ -767,8 +768,7 @@ class A2Billing {
 		}
 			
 		if ($this -> CC_TESTING) $this->destination="kphone";
-
-				
+		
 		for ($k=0;$k< $sip_buddies+$iax_buddies;$k++){
 			if ($k==0 && $sip_buddies){ $this->tech = 'SIP'; $this->destination= $destsip; }
 			else{ $this->tech = 'IAX2'; $this->destination = $destiax; }

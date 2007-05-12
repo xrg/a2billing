@@ -456,6 +456,12 @@ if (is_array($list_total_did) && count($list_total_did)>0)
 		}
 	}	
 }
+$totalcallmade = 0;
+$totalcallmade = count($list_total_destination) + count($list_total_did);
+
+if ($totalcallmade > 0)
+{
+
 ?>
 
 <table  cellspacing="0" style="border-width:thin;border-color:#CCCCCC;border-style:solid;" width="95%" align="center">
@@ -575,6 +581,30 @@ if (is_array($list_total_did) && count($list_total_did)>0)
     </table>
 	
 <?php
+}
+else
+{
+?>
+<table  cellspacing="0" class="invoice_main_table">
+     
+      <tr>
+        <td class="invoice_heading">Unbilled Summary</td>
+      </tr>	  
+	 <tr>
+	 <td>&nbsp;</td>
+	 </tr> 
+	  <tr>
+	 <td align="center">No calls are made yet!</td>
+	 </tr> 
+	  <tr>
+	 <td>&nbsp;</td>
+	 </tr> 
+	 </table>
+<?php
+}
+?>
+<?php
+
 if($exporttype!="pdf")
 { 
 $smarty->display( 'footer.tpl');

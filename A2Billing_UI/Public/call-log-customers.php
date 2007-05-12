@@ -246,7 +246,7 @@ if (strpos($SQLcmd, 'WHERE') > 0) {
 
 if (!isset ($FG_TABLE_CLAUSE) || strlen($FG_TABLE_CLAUSE)==0){
 		
-		$cc_yearmonth = sprintf("%04d-%02d-%02d",date("Y"),date("n"),date("d")); 	
+		$cc_yearmonth = sprintf("%04d-%02d-%02d",date("Y"),date("n"),date("d"));
 		$FG_TABLE_CLAUSE=" $UNIX_TIMESTAMP(t1.starttime) >= $UNIX_TIMESTAMP('$cc_yearmonth')";
 }
 

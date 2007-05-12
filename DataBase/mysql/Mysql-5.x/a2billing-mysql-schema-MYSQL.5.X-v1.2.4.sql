@@ -235,9 +235,10 @@ CREATE TABLE cc_call (
     id_trunk int(11) default NULL,
     sipiax int(11) default '0',
     src char(40) default NULL,
-    id_did int(11) default NULL,
-    buyrate decimal(15,5) default 0,
-    buycost decimal(15,5) default 0,
+    id_did 						int(11) default NULL,
+    buyrate 					decimal(15,5) default 0,
+    buycost 					decimal(15,5) default 0,
+	id_card_package_offer 		int(11) default 0,
     PRIMARY KEY  (id)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
@@ -383,7 +384,7 @@ CREATE TABLE cc_ratecard (
     endtime smallint(5) unsigned default '10079',
     id_trunk INT DEFAULT -1,
     musiconhold CHAR(100) NOT NULL,
-	freeminute_package_offer INT NOT NULL DEFAULT 0,
+	freetimetocall_package_offer INT NOT NULL DEFAULT 0,
 	id_outbound_cidgroup INT DEFAULT -1,
     PRIMARY KEY (id)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
@@ -1584,7 +1585,7 @@ CREATE TABLE cc_package_offer (
     packagetype 		INT NOT NULL,
 	billingtype 		INT NOT NULL,
 	startday 			INT NOT NULL,
-	freeminutes 		INT NOT NULL,
+	freetimetocall 		INT NOT NULL,
     PRIMARY KEY (id)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 -- packagetype : Free minute + Unlimited ; Free minute ; Unlimited ; Normal

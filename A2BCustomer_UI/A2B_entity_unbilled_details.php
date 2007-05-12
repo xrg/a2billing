@@ -467,7 +467,13 @@ if (is_array($list_total_did) && count($list_total_did)>0)
 		$totalcost+=$data[2];
 	
 	}	
+	}
+$totalcallmade = 0;
+$totalcallmade = count($list_total_destination) + count($list_total_did);
 
+if ($totalcallmade > 0)
+{
+	
 ?>
 	
 	
@@ -854,9 +860,28 @@ if (is_array($list_total_did) && count($list_total_did)>0)
 	  <?php }?>
     </table>
 	
-<?php }?>
+<?php }else
+{
+?>
+<table  cellspacing="0" class="invoice_main_table">
+     
+      <tr>
+        <td class="invoice_heading">Unbilled Details</td>
+      </tr>	  
+	 <tr>
+	 <td>&nbsp;</td>
+	 </tr> 
+	  <tr>
+	 <td align="center">No calls are made yet!</td>
+	 </tr> 
+	  <tr>
+	 <td>&nbsp;</td>
+	 </tr> 
+	 </table>
+<?php
+}
 
-
+?>
 
 <?php  if($exporttype!="pdf"){ ?>
 
