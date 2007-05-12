@@ -218,7 +218,8 @@ function imgidclick(imgID,divID, imgbase, imgchange)
 	<ul id="nav">
 	
        <li><a href="userinfo.php?section=1"><strong>{php} echo gettext("ACCOUNT INFO");{/php}</strong></a></li>
-	   
+	   <li><a href="#" target="_self"></a></li>
+	   <li><a href="A2B_entity_sipiax_info.php?section=1"><strong>{php} echo gettext("SIP/IAX INFO");{/php}</strong></a></li>
        {if $A2Bconfig.webcustomerui.cdr==1 }
        <li><a href="#" target="_self"></a></li>
        <li><a href="call-history.php?section=2"><strong>{php} echo gettext("CALL HISTORY");{/php}</strong></a></li>

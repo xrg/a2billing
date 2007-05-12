@@ -204,6 +204,15 @@ define ("EPAYMENT_TRANSACTION_KEY", isset($A2B->config["epayment_method"]['trans
 define ("PAYPAL_VERIFY_URL", isset($A2B->config["epayment_method"]['paypal_verify_url'])?$A2B->config["epayment_method"]['paypal_verify_url']:null);
 
 define ("LOGFILE_EPAYMENT",isset($A2B->config['log-files']['epayment'])?$A2B->config['log-files']['epayment']:null);
+
+//SIP/IAX Info
+define ("SIP_IAX_INFO_TRUNKNAME",isset($A2B->config['sip-iax-info']['sip_iax_info_trunkname'])?$A2B->config['sip-iax-info']['sip_iax_info_trunkname']:null);
+define ("SIP_IAX_INFO_ALLOWCODEC",isset($A2B->config['sip-iax-info']['sip_iax_info_allowcodec'])?$A2B->config['sip-iax-info']['sip_iax_info_allowcodec']:null);
+define ("SIP_IAX_INFO_HOST",isset($A2B->config['sip-iax-info']['sip_iax_info_host'])?$A2B->config['sip-iax-info']['sip_iax_info_host']:null);
+define ("SIP_IAX_INFO_TRUSTRPID",isset($A2B->config['sip-iax-info']['sip_iax_info_trustrpid'])?$A2B->config['sip-iax-info']['sip_iax_info_trustrpid']:null);
+define ("SIP_IAX_INFO_SENDRPID",isset($A2B->config['sip-iax-info']['sip_iax_info_sendrpid'])?$A2B->config['sip-iax-info']['sip_iax_info_sendrpid']:null);
+define ("SIP_IAX_INFO_CANREINVITE",isset($A2B->config['sip-iax-info']['sip_iax_info_canreinvite'])?$A2B->config['sip-iax-info']['sip_iax_info_canreinvite']:null);
+
 //Images Path
 define ("Images_Path","./templates/".$_SESSION["stylefile"]."/images");
 define ("Images_Path_Main","./templates/".$_SESSION["stylefile"]."/images");
