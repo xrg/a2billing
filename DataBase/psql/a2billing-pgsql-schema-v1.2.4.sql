@@ -97,6 +97,7 @@ CREATE TABLE cc_did (
     id_cc_didgroup bigint NOT NULL,
     id_cc_country integer NOT NULL,    
     activated integer DEFAULT 1 NOT NULL,
+    reserved integer DEFAULT 0,
     iduser integer DEFAULT 0 NOT NULL,
     did text NOT NULL,
     creationdate timestamp without time zone DEFAULT now(),	
@@ -136,22 +137,27 @@ ALTER TABLE ONLY cc_did_destination
 
 
 
-
+-- chargetype : 0 - subscription fee ; 1 - connection charge for DID setup, 2 - Montly charge for DID use, 3 - just wanted to charge you for extra, 4 - cactus renting charges, etc...
 CREATE TABLE cc_charge (
-    id bigserial NOT NULL,
-    id_cc_card bigint NOT NULL,
-    iduser integer DEFAULT 0 NOT NULL,
+    id 						BIGSERIAL NOT NULL,
+    id_cc_card 				BIGINT NOT NULL,
+    iduser 					INTEGER DEFAULT 0 NOT NULL,
     creationdate timestamp without time zone DEFAULT now(),
-    amount numeric(12,4) NOT NULL,
+    amount 					NUMERIC(12,4) NOT NULL,
     chargetype integer DEFAULT 0,
-    id_cc_did bigint DEFAULT 0,
-    description text
+    chargetype 				INTEGER DEFAULT 0,    
+    id_cc_did 				BIGINT DEFAULT 0,
+	id_cc_subscription_fee 	BIGINT DEFAULT 0,
+    description 			TEXT
 );
 
 ALTER TABLE ONLY cc_charge
     ADD CONSTRAINT cc_charge_pkey PRIMARY KEY (id);
 
--- chargetype : 1 - connection charge for DID setup, 2 - Montly charge for DID use, 3 - just wanted to charge you for extra, 4 - cactus renting charges, etc...
+
+CREATE INDEX ind_cc_charge_id_cc_card				ON cc_charge USING btree (id_cc_card);
+CREATE INDEX ind_cc_charge_id_cc_subscription_fee 	ON cc_charge USING btree (id_cc_subscription_fee);
+CREATE INDEX ind_cc_charge_creationdate 			ON cc_charge USING btree (creationdate);
 
 
 
@@ -342,7 +348,7 @@ CREATE TABLE cc_tariffgroup (
     lcrtype integer DEFAULT 0 NOT NULL,
     creationdate timestamp without time zone DEFAULT now(),
     removeinterprefix integer DEFAULT 0 NOT NULL,
-	id_cc_package bigint not null default 0
+	id_cc_package_offer bigint not null default 0
 );
 
 
@@ -369,7 +375,7 @@ CREATE TABLE cc_tariffplan (
     reftariffplan integer DEFAULT 0,
     idowner integer DEFAULT 0,
     dnidprefix text NOT NULL DEFAULT 'all'::text,
-	calleridprefix text NOT NULL DEFAULT 'all'::text
+    calleridprefix text NOT NULL DEFAULT 'all'::text
 );
 
 
@@ -412,18 +418,17 @@ CREATE TABLE cc_card (
     "language" text DEFAULT 'en'::text,
     redial text,
     runservice integer DEFAULT 0,
-	nbservice integer DEFAULT 0,
+    nbservice integer DEFAULT 0,
     id_campaign integer DEFAULT 0,
     num_trials_done integer DEFAULT 0,
     callback text,
-	vat numeric(6,3) DEFAULT 0,
-	servicelastrun timestamp without time zone,
-	initialbalance numeric(12,4) NOT NULL DEFAULT 0,
-	invoiceday integer DEFAULT 1,
-	autorefill integer DEFAULT 0,
-	loginkey text,
-    activatedbyuser boolean DEFAULT false NOT NULL,	
-	free_min_used numeric(12,4) not null default 0
+    vat numeric(6,3) DEFAULT 0,
+    servicelastrun timestamp without time zone,
+    initialbalance numeric(12,4) NOT NULL DEFAULT 0,
+    invoiceday integer DEFAULT 1,
+    autorefill integer DEFAULT 0,
+    loginkey text,
+    activatedbyuser boolean DEFAULT false NOT NULL
 );
 
 
@@ -458,7 +463,7 @@ CREATE TABLE cc_ratecard (
     endtime integer NOT NULL DEFAULT 10079,
     id_trunk integer DEFAULT -1,	
     musiconhold character varying(100),
-	id_cc_package bigint not null default 0
+    freeminute_package_offer int not null default 0
 );
 
 
@@ -586,13 +591,13 @@ CREATE TABLE cc_logpayment (
 );
 
 create table cc_did_use (
-id serial not null ,
-id_cc_card bigint,
-id_did bigint not null,
-reservationdate timestamp not null default now(),
-releasedate timestamp,
-activated integer default 0,
-month_payed integer default 0
+    id serial not null ,
+    id_cc_card bigint,
+    id_did bigint not null,
+    reservationdate timestamp not null default now(),
+    releasedate timestamp,
+    activated integer default 0,
+    month_payed integer default 0
 );
 
 
@@ -1613,28 +1618,28 @@ ALTER TABLE ONLY cc_alarm_report
 
 
 CREATE TABLE cc_callback_spool (
-    id 					bigserial NOT NULL,
-	uniqueid			text,
-    entry_time 			timestamp without time zone DEFAULT now(),	
-    status 				text,
-	server_ip 			text,	
-	num_attempt 		int,
-	last_attempt_time	timestamp without time zone,
-	manager_result		text,
-	agi_result			text,
-	callback_time 		timestamp without time zone,	
-    channel 			text,
-	exten 				text,
-	context 			text,
-	priority 			text,
-	application 		text,
-	data 				text,
-	timeout 			text,
-	callerid 			text,
-	variable 			text,
-	account 			text,
-	async 				text,
-	actionid 			text
+    id 	bigserial NOT NULL,
+    uniqueid text,
+    entry_time timestamp without time zone DEFAULT now(),	
+    status text,
+    server_ip text,	
+    num_attempt int,
+    last_attempt_time timestamp without time zone,
+    manager_result text,
+    agi_result text,
+    callback_time timestamp without time zone,	
+    channel text,
+    exten text,
+    context text,
+    priority text,
+    application text,
+    data text,
+    timeout text,
+    callerid text,
+    variable text,
+    account text,
+    async text,
+    actionid text
 ) WITH OIDS;
 
 ALTER TABLE ONLY cc_callback_spool
@@ -1642,31 +1647,27 @@ ALTER TABLE ONLY cc_callback_spool
 
 
 CREATE TABLE cc_server_manager (
-	id 					bigserial NOT NULL,
-	server_ip 			text,
-	manager_host		text,
-	manager_username 	text,
-	manager_secret		text
+    id bigserial NOT NULL,
+    server_ip text,
+    manager_host text,
+    manager_username text,
+    manager_secret text
 ) WITH OIDS;
 
 INSERT INTO cc_server_manager (server_ip, manager_host, manager_username, manager_secret) VALUES ('default', 'localhost', 'myasterisk', 'mycode');
 
-
-
-
-    
 CREATE TABLE cc_invoices (
     id bigserial NOT NULL,
     cardid bigint NOT NULL,
-	orderref text,
+    orderref text,
     invoicecreated_date timestamp without time zone DEFAULT now(),
     cover_startdate timestamp without time zone,
-	cover_enddate timestamp without time zone,
+    cover_enddate timestamp without time zone,
     amount numeric(15,5) DEFAULT 0,
-	tax numeric(15,5) DEFAULT 0,
-	total numeric(15,5) DEFAULT 0,
-	invoicetype integer,
-	filename text
+    tax numeric(15,5) DEFAULT 0,
+    total numeric(15,5) DEFAULT 0,
+    invoicetype integer,
+    filename text
 ) WITH OIDS;
 
 ALTER TABLE ONLY cc_invoices
@@ -1678,7 +1679,7 @@ CREATE TABLE cc_invoice_history (
     id bigserial NOT NULL,
     invoiceid integer NOT NULL,	
     invoicesent_date timestamp without time zone DEFAULT now(),
-	invoicestatus integer
+    invoicestatus integer
 ) WITH OIDS;
 ALTER TABLE ONLY cc_invoice_history
     ADD CONSTRAINT cc_invoice_history_pkey PRIMARY KEY (id);
@@ -1687,10 +1688,61 @@ CREATE INDEX ind_cc_invoice_history ON cc_invoice_history USING btree (invoicese
 
 
 
-CREATE TABLE cc_package(
-	id serial not null,
-	name text not null,
-	package_type int not null default 0,
-	free_minute float not null default 0,
-	creationdate timestamp without time zone DEFAULT now()
+
+
+CREATE TABLE cc_package_offer (
+    id bigserial NOT NULL,
+    creationdate timestamp without time zone DEFAULT now(),
+    label text NOT NULL,
+    packagetype int NOT NULL,
+	billingtype int NOT NULL,
+	startday int NOT NULL,
+	freeminutes int NOT NULL
 );
+-- packagetype : Free minute + Unlimited ; Free minute ; Unlimited ; Normal
+-- billingtype : Monthly ; Weekly 
+-- startday : according to billingtype ; if monthly value 1-31 ; if Weekly value 1-7 (Monday to Sunday) 
+
+
+CREATE TABLE cc_card_package_offer (
+    id 					bigserial NOT NULL,
+	id_cc_card 			bigint NOT NULL,
+	id_cc_package_offer bigint NOT NULL,
+    date_consumption 	timestamp without time zone DEFAULT now(),
+	used_secondes 		bigint NOT NULL
+);
+CREATE INDEX ind_cc_card_package_offer_id_card ON cc_card_package_offer USING btree (id_cc_card);
+CREATE INDEX ind_cc_card_package_offer_id_package_offer ON cc_card_package_offer USING btree (id_cc_package_offer);
+CREATE INDEX ind_cc_card_package_offer_date_consumption ON cc_card_package_offer USING btree (date_consumption);
+
+
+
+CREATE TABLE cc_subscription_fee (
+    id 				BIGSERIAL NOT NULL,
+    label 			TEXT NOT NULL,	
+	fee 			NUMERIC(12,4) NOT NULL,
+	status 			INTEGER NOT NULL DEFAULT 0,
+    numberofrun 	INTEGER NOT NULL DEFAULT 0,
+    datecreate 		timestamp(0) without time zone DEFAULT now(),
+    datelastrun 	timestamp(0) without time zone DEFAULT now(),
+    emailreport 	TEXT,
+    totalcredit 	DOUBLE PRECISION NOT NULL DEFAULT 0,
+    totalcardperform INTEGER NOT NULL DEFAULT 0
+);
+ALTER TABLE ONLY cc_subscription_fee
+ADD CONSTRAINT cc_subscription_fee_pkey PRIMARY KEY (id);
+
+-- INSTEAD USE CC_CHARGE
+CREATE TABLE cc_subscription_fee_card (
+    id 						BIGSERIAL NOT NULL,
+    id_cc_card 				BIGINT NOT NULL,
+	id_cc_subscription_fee 	BIGINT NOT NULL,
+    datefee 				TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT now(),
+    fee 					NUMERIC(12,4) NOT NULL
+);
+ALTER TABLE ONLY cc_subscription_fee_card
+ADD CONSTRAINT cc_subscription_fee_card_pkey PRIMARY KEY (id);
+
+CREATE INDEX ind_cc_subscription_fee_card_id_cc_card 				ON cc_subscription_fee_card USING btree (id_cc_card);
+CREATE INDEX ind_cc_subscription_fee_card_id_cc_subscription_fee 	ON cc_subscription_fee_card USING btree (id_cc_subscription_fee);
+CREATE INDEX ind_cc_subscription_fee_card_datefee 					ON cc_subscription_fee_card USING btree (datefee);

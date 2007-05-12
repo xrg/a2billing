@@ -38,8 +38,8 @@ $list = $HD_Form -> perform_action($form_action);
 include("PP_header.php");
 
 // #### HELP SECTION
-if ($form_action=='list') echo '<br><br>'.$CC_help_list_tariffgroup;
-else echo '<br><br>'.$CC_help_add_tariffgroup;
+if ($form_action=='list') echo $CC_help_list_tariffgroup;
+else echo $CC_help_add_tariffgroup;
 
 
 // #### TOP SECTION PAGE

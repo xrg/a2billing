@@ -664,13 +664,76 @@ CREATE INDEX ind_cc_invoice_history ON cc_invoice_history USING btree (invoicese
 
 
 
-CREATE TABLE cc_package(
-	id serial not null,
-	name text not null,
-	package_type int not null default 0,
-	free_minute float not null default 0,
-	creationdate timestamp without time zone DEFAULT now()
+
+
+CREATE TABLE cc_package_offer (
+    id bigserial NOT NULL,
+    creationdate timestamp without time zone DEFAULT now(),
+    label text NOT NULL,
+    packagetype int NOT NULL,
+	billingtype int NOT NULL,
+	startday int NOT NULL,
+	freeminutes int NOT NULL
 );
-ALTER TABLE cc_ratecard ADD column id_cc_package bigint not null default 0;
-ALTER TABLE cc_tariffgroup ADD column id_cc_package bigint not null default 0;
-ALTER TABLE cc_card ADD column free_min_used numeric(12,4) not null default 0;
+-- packagetype : Free minute + Unlimited ; Free minute ; Unlimited ; Normal
+-- billingtype : Monthly ; Weekly 
+-- startday : according to billingtype ; if monthly value 1-31 ; if Weekly value 1-7 (Monday to Sunday) 
+
+
+CREATE TABLE cc_card_package_offer (
+    id 					bigserial NOT NULL,
+	id_cc_card 			bigint NOT NULL,
+	id_cc_package_offer bigint NOT NULL,
+    date_consumption 	timestamp without time zone DEFAULT now(),
+	used_secondes 		bigint NOT NULL
+);
+CREATE INDEX ind_cc_card_package_offer_id_card ON cc_card_package_offer USING btree (id_cc_card);
+CREATE INDEX ind_cc_card_package_offer_id_package_offer ON cc_card_package_offer USING btree (id_cc_package_offer);
+CREATE INDEX ind_cc_card_package_offer_date_consumption ON cc_card_package_offer USING btree (date_consumption);
+
+ALTER TABLE cc_tariffgroup 	ADD COLUMN id_cc_package_offer BIGINT NOT NULL DEFAULT 0;
+ALTER TABLE cc_ratecard 	ADD COLUMN freeminute_package_offer INT NOT NULL DEFAULT 0;
+
+
+
+
+CREATE TABLE cc_subscription_fee (
+    id 				BIGSERIAL NOT NULL,
+    label 			TEXT NOT NULL,	
+	fee 			NUMERIC(12,4) NOT NULL,
+	status 			INTEGER NOT NULL DEFAULT 0,
+    numberofrun 	INTEGER NOT NULL DEFAULT 0,
+    datecreate 		timestamp(0) without time zone DEFAULT now(),
+    datelastrun 	timestamp(0) without time zone DEFAULT now(),
+    emailreport 	TEXT,
+    totalcredit 	DOUBLE PRECISION NOT NULL DEFAULT 0,
+    totalcardperform INTEGER NOT NULL DEFAULT 0
+);
+ALTER TABLE ONLY cc_subscription_fee
+ADD CONSTRAINT cc_subscription_fee_pkey PRIMARY KEY (id);
+
+
+ALTER TABLE cc_charge 	ADD COLUMN currency 				CHARACTER VARYING(3) DEFAULT 'USD'::CHARACTER VARYING;
+ALTER TABLE cc_charge 	ADD COLUMN id_cc_subscription_fee 	BIGINT DEFAULT 0;
+
+
+CREATE INDEX ind_cc_charge_id_cc_card				ON cc_charge USING btree (id_cc_card);
+CREATE INDEX ind_cc_charge_id_cc_subscription_fee 	ON cc_charge USING btree (id_cc_subscription_fee);
+CREATE INDEX ind_cc_charge_creationdate 			ON cc_charge USING btree (creationdate);
+
+
+-- INSTEAD USE CC_CHARGE
+CREATE TABLE cc_subscription_fee_card (
+    id 						BIGSERIAL NOT NULL,
+    id_cc_card 				BIGINT NOT NULL,
+	id_cc_subscription_fee 	BIGINT NOT NULL,
+    datefee 				TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT now(),
+    amount 					NUMERIC(12,4) NOT NULL,
+	currency 				CHARACTER VARYING(3) DEFAULT 'USD'::CHARACTER VARYING
+);
+ALTER TABLE ONLY cc_subscription_fee_card
+ADD CONSTRAINT cc_subscription_fee_card_pkey PRIMARY KEY (id);
+
+CREATE INDEX ind_cc_charge_id_cc_card ON cc_subscription_fee_card USING btree (id_cc_card);
+CREATE INDEX ind_cc_subscription_fee_card_id_cc_subscription_fee ON cc_card_package_offer USING btree (id_cc_subscription_fee);
+CREATE INDEX ind_cc_subscription_fee_card_datefee ON cc_card_package_offer USING btree (datefee);

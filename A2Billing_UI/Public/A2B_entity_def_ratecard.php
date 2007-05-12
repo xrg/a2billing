@@ -112,8 +112,8 @@ $list = $HD_Form -> perform_action($form_action);
 include("PP_header.php");
 
 // #### HELP SECTION
-if (($form_action == 'ask-add') || ($form_action == 'ask-edit')) echo '<br><br>'.$CC_help_add_rate;
-else echo '<br><br>'.$CC_help_def_ratecard;
+if (($form_action == 'ask-add') || ($form_action == 'ask-edit')) echo $CC_help_add_rate;
+else echo $CC_help_def_ratecard;
 
 // DISPLAY THE UPDATE MESSAGE
 if (isset($update_msg) && strlen($update_msg)>0) echo $update_msg; 
@@ -160,7 +160,7 @@ if ($form_action == "list"){
 <div id="div52000" style="display:visible;">
 
 <!-- ** ** ** ** ** Part for the Update ** ** ** ** ** -->
-<br>
+
 <center>
 <b>&nbsp;<?php echo $HD_Form -> FG_NB_RECORD ?> <?php echo gettext("rates selected!"); ?>&nbsp;<?php echo gettext("Use the options below to batch update the selected rates.");?></b>
 	   <table align="center" border="0" width="65%"  cellspacing="1" cellpadding="2">

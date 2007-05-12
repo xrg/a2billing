@@ -27,7 +27,7 @@ if (! has_rights (ACX_FILE_MANAGER)){
 						<img src="../Css/kicons/stock-panel-multimedia.png"/>
 					</td>
 					<td bgcolor="#EEEEEE" height="31" align="center">
-						<a href="CC_upload.php?acc=<?php echo $i?>"><?php echo gettext("CUSTOM THE MUSICONHOLD CLASS");?> : <b>ACC_<?php echo $i?></b></a>
+						<a href="CC_upload.php?section=11&acc=<?php echo $i?>"><?php echo gettext("CUSTOM THE MUSICONHOLD CLASS");?> : <b>ACC_<?php echo $i?></b></a>
 					</td>
 				</tr>
 				<?php  } ?>

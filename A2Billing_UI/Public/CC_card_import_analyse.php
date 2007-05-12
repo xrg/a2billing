@@ -297,8 +297,7 @@ function sendtoupload(form){
 	include("PP_header.php");
 ?>
 
-      <br>
-      <br>
+      
 	  <?php
 	  if ($status=="ok"){
 	  		echo $CC_help_import_card_confirm;

@@ -52,8 +52,8 @@ if ($popup_select)
 
 
 // #### HELP SECTION
-if ($form_action=='list') { if (!$popup_select) echo '<br><br>'.$CC_help_trunk_list; }
-else echo '<br><br>'.$CC_help_trunk_edit;
+if ($form_action=='list') { if (!$popup_select) echo $CC_help_trunk_list; }
+else echo $CC_help_trunk_edit;
 
 
 

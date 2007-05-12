@@ -135,7 +135,7 @@ function openURL(theLINK)
 //-->
 </script>
 
-<br><br>
+
 <?php
 	echo $CC_help_sim_ratecard;
 ?>

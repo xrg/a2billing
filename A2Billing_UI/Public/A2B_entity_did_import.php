@@ -214,8 +214,7 @@ function moveSourceDown()
 
 // -->
 </script>
-      <br>
-      <br>
+     
 	  <?php
 	echo $CC_help_import_did;
 ?>
@@ -224,7 +223,6 @@ function moveSourceDown()
 		<table width="95%" border="0" cellspacing="2" align="center" class="records">
 
               <form name="prefs" enctype="multipart/form-data" action="A2B_entity_did_import_analyse.php" method="post">
-
 
 				<tr>
                   <td colspan="2" align=center>

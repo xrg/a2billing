@@ -317,8 +317,6 @@ function sendtoupload(form){
 	include("PP_header.php");
 ?>
 
-      <br>
-      <br>
 	  <?php
 	  if ($status=="ok"){
 	  		echo $CC_help_import_did_confirm;
@@ -326,8 +324,6 @@ function sendtoupload(form){
 			echo $CC_help_import_did_analyse;
 	  }
 	  ?>
-
-
           
 		<?php  if ($status!="ok"){?> 
 		

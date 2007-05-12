@@ -48,7 +48,10 @@
 			}	
 			echo $mydate;			
 		}
-		
+		function display_dateonly($mydate)
+		{
+			echo date("m/d/Y", strtotime($mydate));
+		}
 		function res_display_dateformat($mydate){
 			
 			if (DB_TYPE == "mysql"){			

@@ -39,8 +39,8 @@ include("PP_header.php");
 
 
 // #### HELP SECTION
-if ($form_action == 'ask-add') echo '<br><br>'.$CC_help_edit_service;
-else echo '<br><br>'.$CC_help_list_service;
+if ($form_action == 'ask-add') echo $CC_help_edit_service;
+else echo $CC_help_list_service;
 
 
 

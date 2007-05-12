@@ -29,10 +29,10 @@
  /**
   */
 
-  if(!class_exists('AGI_AsteriskManager'))
+  /*if(!class_exists('AGI_AsteriskManager'))
   {
     require_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'phpagi-asmanager.php');
-  }
+  }*/
 
   define('AST_CONFIG_DIR', '/etc/asterisk/');
   define('AST_SPOOL_DIR', '/var/spool/asterisk/');
@@ -97,6 +97,14 @@
    /**
     * Config variables
     *
+    * @var integer
+    * @access public
+    */
+	var $nlinetoread=5;
+	
+   /**
+    * Config variables
+    *
     * @var array
     * @access public
     */
@@ -136,14 +144,15 @@
     *
     * @param string $config is the name of the config file to parse
     * @param array $optconfig is an array of configuration vars and vals, stuffed into $this->config['phpagi']
-    */
+    */	
     function AGI($config=NULL, $optconfig=array())
     {
       // load config
       if(!is_null($config) && file_exists($config))
         $this->config = parse_ini_file($config, true);
       elseif(file_exists(DEFAULT_PHPAGI_CONFIG))
-        $this->config = parse_ini_file(DEFAULT_PHPAGI_CONFIG, true);
+       //--$this->config = parse_ini_file(DEFAULT_PHPAGI_CONFIG, true);
+		//-- DONT WANT HIM TO OPEN A FILE EACH TIME
 
       // If optconfig is specified, stuff vals and vars into 'phpagi' config array.
       foreach($optconfig as $var=>$val)
@@ -205,8 +214,9 @@
 
       $this->conlog('AGI Request:');
       $this->conlog(print_r($this->request, true));
-      $this->conlog('PHPAGI internal configuration:');
-      $this->conlog(print_r($this->config, true));
+	  // DONT WANT TO READ THE INTERNAL CONFIG
+      /* $this->conlog('PHPAGI internal configuration:');
+      $this->conlog(print_r($this->config, true));*/
     }
 
    // *********************************************************************************************************
@@ -320,7 +330,7 @@
     * @param mixed $options
     * @return array, see evaluate for return information. ['result'] is whatever the application returns, or -2 on failure to find application
     */
-    function exec($application, $options)
+    function exec($application, $options='')
     {
       if(is_array($options)) $options = join('|', $options);
       return $this->evaluate("EXEC $application $options");
@@ -359,13 +369,14 @@
     * @param string $filename file to play. Do not include file extension.
     * @param integer $timeout milliseconds
     * @param integer $max_digits
+	* @param char $escape_character	
     * @return array, see evaluate for return information. ['result'] holds the digits and ['data'] holds the timeout if present.
     *
     * This differs from other commands with return DTMF as numbers representing ASCII characters.
     */
-    function get_data($filename, $timeout=NULL, $max_digits=NULL)
+    function get_data($filename, $timeout=NULL, $max_digits=NULL, $escape_character=NULL)
     {
-      return $this->evaluate(rtrim("GET DATA $filename $timeout $max_digits"));
+      return $this->evaluate(rtrim("GET DATA $filename $timeout $max_digits $escape_character"));
     }
 
    /**
@@ -552,7 +563,8 @@
     {
       return $this->evaluate("SET AUTOHANGUP $time");
     }
-
+	
+	
    /**
     * Changes the caller ID of the current channel.
     *
@@ -758,6 +770,10 @@
       return $this->exec("AGI $command", $args);
     }
 
+    function ChangeLanguage($lang)
+    {
+	return $this->exec("AGI SET VARIABLE LANGUAGE()",$lang);
+    }
    /**
     * Set Language.
     *
@@ -767,6 +783,18 @@
     function exec_setlanguage($language='en')
     {
       return $this->exec('SetLanguage', $language);
+    }
+	
+	/**
+    * Set Account Code
+	*  Set the channel account code for billing purposes.
+    *
+    * @param string $accountcode
+    * @return array, see evaluate for return information.	
+    */
+    function exec_setaccountcode($accountcode)
+    {
+      return $this->exec('SetAccount', $accountcode);
     }
 
    /**
@@ -1507,7 +1535,7 @@
       do
       {
         $str = trim(fgets($this->in, 4096));
-      } while($str == '' && $count++ < 5);
+      } while($str == '' && $count++ < $this->nlinetoread);
 
       if($count >= 5)
       {
@@ -1737,4 +1765,73 @@
     }
   }
   $phpagi_error_handler_email = NULL;
+  
+  
+  
+  
+  
+  	
+/*
+ *   Write data into the log file
+ *   $writetype = 1  - write to buffer
+ *   $writetype = 0  - write to file
+ */
+function write_log2($output, $writetype = 1){ // 
+		global $DNID;
+		global $CallerID;
+		global $log_file;		
+		global $BUFFER;
+		
+		
+		//verbose("BUFFER: $BUFFER");	
+		$string_log = "[".date("d/m/Y H:i:s")."]:[CallerID:$CallerID]:[DNID:$DNID]:$output";
+		if ($writetype){ // write to buffer
+			$BUFFER	= $BUFFER.$string_log."\n";
+		}else{		// write to file			
+			error_log ($BUFFER.$string_log."\n", 3, $log_file);
+			$BUFFER='';
+		}
+		//verbose("BUFFER: $BUFFER");	
+}
+
+
+/*
+ *   Write data into the Trans file
+ */
+function write_stat($output){		
+		global $stat_file;		
+		
+		$string_log = "[".date("d/m/Y H:i:s")."]:$output";
+		error_log ($string_log."\n", 3, $stat_file);		
+}
+
+
+
+/*
+ *   Write data into the Error file
+ */
+function write_error($output){		
+		global $error_file;				
+		$string_log = "[".date("d/m/Y H:i:s")."]:$output";		
+		error_log ($string_log."\n", 3, $error_file);		
+}
+
+/*
+ *   Detect the Hangup and call the callback function
+ */
+function hangup_check($agi){		
+		if ($agi->response['code']==false){		
+			//my_callback();
+		}
+}
+
+function iferrorexec($result,$callback)
+{
+        /*if ($agi->response['code']==false){             
+                $callback();
+        } */		
+		if ($result['result']=='-1'){  //$result['code']=='500' && 
+				$callback();
+		}		
+}
 ?>

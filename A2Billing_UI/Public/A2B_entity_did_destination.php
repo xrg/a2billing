@@ -38,8 +38,8 @@ $list = $HD_Form -> perform_action($form_action);
 include("PP_header.php");
 
 // #### HELP SECTION
-if ($form_action=='list') echo '<br><br>'.$CC_help_list_did;
-else echo '<br><br>'.$CC_help_edit_did;
+if ($form_action=='list') echo $CC_help_list_did;
+else echo $CC_help_edit_did;
 
 
 // #### TOP SECTION PAGE

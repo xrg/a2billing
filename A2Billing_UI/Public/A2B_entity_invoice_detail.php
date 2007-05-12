@@ -252,6 +252,7 @@ $QUERY = "SELECT substring(t1.starttime,1,10) AS day, sum(t1.sessiontime) AS cal
 //echo "$QUERY";
 
 
+
 if (!$nodisplay){
 		$res = $DBHandle -> query($QUERY);
 		$num = $res -> numRows();
@@ -300,11 +301,19 @@ if ($FG_DEBUG >= 1) var_dump ($list_total_destination);
 
 
 // 1. Billing Type:: All DID Calls that have DID Type 0 and 2
-
+if (DB_TYPE == "postgres")
+{	
+$QUERY = "SELECT t1.id_did, t2.fixrate, t2.billingtype, sum(t1.sessiontime) AS calltime, 
+ sum(t1.sessionbill) AS cost, count(*) as nbcall FROM cc_call t1, cc_did t2 WHERE ".$FG_TABLE_CLAUSE." 
+ AND t1.sipiax in (2,3) AND t1.id_did = t2.id GROUP BY t1.id_did,t2.fixrate, t2.billingtype ORDER BY t2.billingtype";
+}
+else
+{
 $QUERY = "SELECT t1.id_did, t2.fixrate, t2.billingtype, sum(t1.sessiontime) AS calltime, 
  sum(t1.sessionbill) AS cost, count(*) as nbcall FROM cc_call t1, cc_did t2 WHERE ".$FG_TABLE_CLAUSE." 
  AND t1.sipiax in (2,3) AND t1.id_did = t2.id GROUP BY t1.id_did ORDER BY t2.billingtype";
- 
+
+} 
 $list_total_did = NULL;
 if (!$nodisplay)
 {
@@ -377,10 +386,18 @@ if ($Period=="Month"){
 		if ($today && isset($tostatsday_sday) && isset($tostatsmonth_sday) && isset($tostatsmonth_shour) && isset($tostatsmonth_smin)) $date_clause.=" AND  $UNIX_TIMESTAMP(t1.creationdate) <= $UNIX_TIMESTAMP('$tostatsmonth_sday-".sprintf("%02d",intval($tostatsday_sday))." $tostatsmonth_shour:$tostatsmonth_smin')";
 }
 
+if (DB_TYPE == "postgres")
+{	
 
 $QUERY = "SELECT substring(t1.creationdate,1,10) AS day, sum(t1.amount) AS cost, count(*) as nbcharge FROM cc_charge t1 ".
+		 " WHERE id_cc_card=$id $date_clause GROUP BY substring(t1.creationdate,1,10) ORDER BY day"; //extract(DAY from calldate)
+}
+else
+{
+	$QUERY = "SELECT substring(t1.creationdate,1,10) AS day, sum(t1.amount) AS cost, count(*) as nbcharge FROM cc_charge t1 ".
 		 " WHERE id_cc_card='".$_SESSION["card_id"]."' $date_clause GROUP BY substring(t1.creationdate,1,10) ORDER BY day"; //extract(DAY from calldate)
 
+}
 
 if (!$nodisplay){
 		$res = $DBHandle -> query($QUERY);
@@ -449,7 +466,6 @@ if (is_array($list_total_did) && count($list_total_did)>0)
 }
 
 	$totalcost_did = $totalcost;
-
 
 	if (is_array($list_total_destination) && count($list_total_destination)>0){
 	$mmax=0;

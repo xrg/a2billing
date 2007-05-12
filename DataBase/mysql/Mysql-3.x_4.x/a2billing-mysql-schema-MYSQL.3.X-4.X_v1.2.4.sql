@@ -1,12 +1,12 @@
 --
--- A2Billing database script - Create user & create database for MYSQL 5.X
+-- A2Billing database script - Create user & create database for MYSQL 3.X-4.X
 --
 
 
 /* 
 Usage:
 
-mysql -u root -p"root password" < a2billing-mysql-schema-MYSQL.5.X-v1.2.0.sql 
+mysql -u root -p"root password" < a2billing-mysql-schema-MYSQL.3.X-4.X_v1.2.4.sql
 
 */
 
@@ -263,7 +263,7 @@ CREATE TABLE cc_tariffgroup (
     lcrtype INT DEFAULT 0 NOT NULL,
     creationdate  TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
     removeinterprefix INT DEFAULT 0 NOT NULL,
-	id_cc_package BIGINT NOT NULL DEFAULT 0,
+	id_cc_package_offer BIGINT NOT NULL DEFAULT 0,
     PRIMARY KEY (id)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
@@ -345,7 +345,6 @@ CREATE TABLE cc_card (
 	autorefill INT DEFAULT 0,
     loginkey CHAR(40),
     activatedbyuser char(1) DEFAULT 't' NOT NULL,
-	free_min_used DECIMAL(15,5) NOT NULL DEFAULT 0,
     PRIMARY KEY (id),
     UNIQUE cons_cc_card_username (username),
     UNIQUE cons_cc_card_useralias (useralias)
@@ -383,7 +382,7 @@ CREATE TABLE cc_ratecard (
     endtime smallint(5) unsigned default '10079',
     id_trunk INT DEFAULT -1,
     musiconhold CHAR(100) NOT NULL,
-	id_cc_package BIGINT NOT NULL DEFAULT 0,
+	freeminute_package_offer INT NOT NULL DEFAULT 0,
     PRIMARY KEY (id)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 CREATE INDEX ind_cc_ratecard_dialprefix ON cc_ratecard (dialprefix);
@@ -1484,11 +1483,11 @@ CREATE TABLE cc_alarm (
     PRIMARY KEY (id)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
- CREATE TABLE cc_alarm_report (
+CREATE TABLE cc_alarm_report (
     id BIGINT NOT NULL AUTO_INCREMENT,
     cc_alarm_id BIGINT NOT NULL,
     calculatedvalue float NOT NULL,
-    daterun TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+    daterun TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (id)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
@@ -1556,18 +1555,67 @@ CREATE TABLE cc_invoice_history (
     id INT NOT NULL AUTO_INCREMENT,    
     invoiceid int NOT NULL,	
     invoicesent_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	invoicestatus INT,    
+    invoicestatus INT,    
     PRIMARY KEY (id)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 CREATE INDEX ind_cc_invoice_history ON cc_invoice_history (invoicesent_date);
 
 
 
-CREATE TABLE cc_package(
-	id INT NOT NULL AUTO_INCREMENT,    
-	name VARCHAR(70) NOT NULL,
-	package_type INT NOT NULL DEFAULT 0,
-	free_minute decimal(15,5) NOT NULL DEFAULT 0,
-	creationdate TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+CREATE TABLE cc_package_offer (
+    id 					BIGINT NOT NULL AUTO_INCREMENT,
+    creationdate 		TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    label 				VARCHAR(70) NOT NULL,
+    packagetype 		INT NOT NULL,
+	billingtype 		INT NOT NULL,
+	startday 			INT NOT NULL,
+	freeminutes 		INT NOT NULL,
     PRIMARY KEY (id)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
+-- packagetype : Free minute + Unlimited ; Free minute ; Unlimited ; Normal
+-- billingtype : Monthly ; Weekly 
+-- startday : according to billingtype ; if monthly value 1-31 ; if Weekly value 1-7 (Monday to Sunday) 
+
+
+CREATE TABLE cc_card_package_offer (
+    id 	BIGINT NOT NULL AUTO_INCREMENT,
+    id_cc_card BIGINT NOT NULL,
+    id_cc_package_offer BIGINT NOT NULL,
+    date_consumption TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    used_secondes BIGINT NOT NULL,
+    PRIMARY KEY (id)
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
+
+CREATE INDEX ind_cc_card_package_offer_id_card 	ON cc_card_package_offer (id_cc_card);
+CREATE INDEX ind_cc_card_package_offer_id_package_offer ON cc_card_package_offer (id_cc_package_offer);
+CREATE INDEX ind_cc_card_package_offer_date_consumption ON cc_card_package_offer (date_consumption);
+
+
+CREATE TABLE cc_subscription_fee (
+    id BIGINT NOT NULL AUTO_INCREMENT,
+    label TEXT NOT NULL,
+    fee float DEFAULT 0 NOT NULL,
+    status INT DEFAULT '0' NOT NULL,
+    numberofrun INT DEFAULT '0' NOT NULL,
+    datecreate TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    datelastrun TIMESTAMP,
+    emailreport TEXT,
+    totalcredit float NOT NULL DEFAULT 0,
+    totalcardperform INT DEFAULT '0' NOT NULL,
+    PRIMARY KEY (id)	
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
+
+-- INSTEAD USE CC_CHARGE
+CREATE TABLE cc_subscription_fee_card (
+    id BIGINT NOT NULL AUTO_INCREMENT,
+    id_cc_card BIGINT NOT NULL,
+    id_cc_subscription_fee BIGINT NOT NULL,
+    datefee TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    fee float DEFAULT 0 NOT NULL,
+    PRIMARY KEY (id) 
+);
+
+CREATE INDEX ind_cc_subscription_fee_card_id_cc_card  ON cc_subscription_fee_card (id_cc_card);
+CREATE INDEX ind_cc_subscription_fee_card_id_cc_subscription_fee ON cc_subscription_fee_card (id_cc_subscription_fee);
+CREATE INDEX ind_cc_subscription_fee_card_datefee ON cc_subscription_fee_card (datefee);

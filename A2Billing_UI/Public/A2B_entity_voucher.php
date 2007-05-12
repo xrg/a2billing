@@ -38,8 +38,8 @@ $list = $HD_Form -> perform_action($form_action);
 include("PP_header.php");
 
 // #### HELP SECTION
-if ($form_action=='list') echo '<br><br>'.$CC_help_list_voucher;
-else echo '<br><br>'.$CC_help_create_voucher;
+if ($form_action=='list') echo $CC_help_list_voucher;
+else echo $CC_help_create_voucher;
 
 
 // #### TOP SECTION PAGE

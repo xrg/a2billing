@@ -278,7 +278,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 //-->
 </script>
 
-<br><br><br>
+
 
 <!-- ** ** ** ** ** Part for the research ** ** ** ** ** -->
 	<center>

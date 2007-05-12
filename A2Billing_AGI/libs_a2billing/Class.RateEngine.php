@@ -96,11 +96,6 @@ class RateEngine {
 		
 		if (strlen($A2B->dnid)>=1) $mydnid = $A2B->dnid;
 		if (strlen($A2B->CallerID)>=1) $mycallerid = $A2B->CallerID;
-		if (strlen($A2B->free_minute_used>=1){
-			 $free_used=$A2B->free_minute_used;
-		}else{
-			 $free_used=0;
-		}
 		
 		
 		if ($A2B->config["database"]['dbtype'] != "postgres"){
@@ -135,9 +130,7 @@ class RateEngine {
 		tp_trunk.failover_trunk AS tp_failover_trunk,
 		rt_trunk.failover_trunk AS rt_failover_trunk,
 		tp_trunk.addparameter AS tp_addparameter_trunk,
-		rt_trunk.addparameter AS rt_addparameter_trunk,
-		cc_package.package_type AS package_type,
-		cc_package.free_minute - $free_used  AS free_minute
+		rt_trunk.addparameter AS rt_addparameter_trunk
 		
 		
 		FROM cc_tariffgroup 
@@ -148,7 +141,6 @@ class RateEngine {
 		LEFT JOIN cc_ratecard ON cc_ratecard.idtariffplan=cc_tariffplan.id
 		LEFT JOIN cc_trunk AS rt_trunk ON cc_ratecard.id_trunk=rt_trunk.id_trunk
 		LEFT JOIN cc_trunk AS tp_trunk ON cc_tariffplan.id_trunk=tp_trunk.id_trunk
-		LEFT JOIN cc_package ON cc_ratecard.id_cc_package=cc_package.id
 		
 		WHERE (dialprefix=SUBSTRING('$phonenumber',1,length(dialprefix)) OR dialprefix='defaultprefix')
 		AND startingdate<= CURRENT_TIMESTAMP AND (expirationdate > CURRENT_TIMESTAMP OR expirationdate IS NULL OR LENGTH(expirationdate)<5)
@@ -305,21 +297,14 @@ class RateEngine {
 		$timechargeb = $this -> ratecard_obj[$K][23];		$billingblockb = $this -> ratecard_obj[$K][24];	
 		$stepchargec = $this -> ratecard_obj[$K][25];		$chargec = round(abs($this -> ratecard_obj[$K][26]),4);	
 		$timechargec = $this -> ratecard_obj[$K][27];		$billingblockc = $this -> ratecard_obj[$K][28];
-		$free_minute = $this -> ratecard_obj[$K][45];
-		$free_call=false;
-
-		if (!isset($free_minute) || $free_minute=="" || $free_minute<=0){
-			$free_minute=0;
-		}else{
-			$free_call=true;
-		}
+				
 		
 		$credit -= $connectcharge;
 		$credit -= $disconnectcharge;
 		//$credit -= ($initblock/60)*$rateinitial;
 		
 		$this -> ratecard_obj[$K]['timeout']=0;
-		if (($credit < $A2B->agiconfig['min_credit_2call']) && (!$free_call)) return "ERROR CT1";  //NO ENOUGH CREDIT TO CALL THIS NUMBER
+		if ($credit < $A2B->agiconfig['min_credit_2call']) return "ERROR CT1";  //NO ENOUGH CREDIT TO CALL THIS NUMBER
 		
 		// if ($rateinitial==0) return "ERROR RATEINITIAL($rateinitial)";
 		$TIMEOUT = 0;
@@ -335,7 +320,7 @@ class RateEngine {
 		// IF FLAT RATE 
 		if (empty($chargea) || $chargea==0 || empty($timechargea) || $timechargea==0 ){
 						
-			$num_min = ($credit/$rateinitial)+$free_minute;
+			$num_min = $credit/$rateinitial;
 			
 			if ($this -> debug_st) echo "num_min:$num_min ($credit/$rateinitial)\n";			
 			$num_sec = intval($num_min * 60);
@@ -353,7 +338,7 @@ class RateEngine {
 			if ($this -> debug_st) echo "CYCLE A	TIMEOUT:$TIMEOUT\n";
 			// CYCLE A
 			$credit -= $stepchargea;
-			if (($credit<=0) && (!$free_call)) return "ERROR CT2";		//NO ENOUGH CREDIT TO CALL THIS NUMBER
+			if ($credit<=0) return "ERROR CT2";		//NO ENOUGH CREDIT TO CALL THIS NUMBER
 			
 			if (!($chargea>0)) return "ERROR CHARGEA($chargea)";
 			$num_min = $credit/$chargea;
@@ -373,7 +358,7 @@ class RateEngine {
 				if ($this -> debug_st) echo "		CYCLE B		TIMEOUT:$TIMEOUT\n";
 				// CYCLE B
 				$credit -= $stepchargeb;
-				if (($credit<=0) && (!$free_call)) return $TIMEOUT;		//NO ENOUGH CREDIT TO GO TO THE CYCLE B
+				if ($credit<=0) return $TIMEOUT;		//NO ENOUGH CREDIT TO GO TO THE CYCLE B
 					
 				if (!($chargeb>0)) return "ERROR CHARGEB($chargeb)";
 				$num_min = $credit/$chargeb;
@@ -393,7 +378,7 @@ class RateEngine {
 					if ($this -> debug_st) echo "				CYCLE C		TIMEOUT:$TIMEOUT\n";
 					// CYCLE C
 					$credit -= $stepchargec;
-					if (($credit<=0) && (!$free_call)) return $TIMEOUT;	//NO ENOUGH CREDIT TO GO TO THE CYCLE B
+					if ($credit<=0) return $TIMEOUT;		//NO ENOUGH CREDIT TO GO TO THE CYCLE B
 							
 					if (!($chargec>0)) return "ERROR CHARGEC($chargec)";
 					$num_min = $credit/$chargec;
@@ -479,7 +464,6 @@ class RateEngine {
 		
 			}		
 		}
-		$TIMEOUT += $free_minute * 60;
 		$this -> ratecard_obj[$K]['timeout']=$TIMEOUT;
 		if ($this -> debug_st) print_r($this -> ratecard_obj[$K]);
 		RETURN $TIMEOUT;
@@ -511,15 +495,14 @@ class RateEngine {
 		$timechargeb = $this -> ratecard_obj[$K][23];		$billingblockb = $this -> ratecard_obj[$K][24];	
 		$stepchargec = $this -> ratecard_obj[$K][25];		$chargec = round(abs($this -> ratecard_obj[$K][26]),4);	
 		$timechargec = $this -> ratecard_obj[$K][27];		$billingblockc = $this -> ratecard_obj[$K][28];
-		$free_minute = $this -> ratecard_obj[$K][45];
-
-		if (!isset($free_minute) || $free_minute=="" || $free_minute<=0){
-			$free_minute=0;
-		}
+		
 		
 		if ($this -> debug_st)  echo "CALLDURATION: $callduration\n\n";
 		$A2B -> write_log("[CC_RATE_ENGINE_CALCULCOST: K=$K - CALLDURATION:$callduration]");
 		
+		$cost =0;
+		$cost -= $connectcharge;
+		$cost -= $disconnectcharge;
 		
 		// CALCULATION BUYRATE COST
 		$buyratecallduration = $callduration;		
@@ -535,13 +518,7 @@ class RateEngine {
 
 		if ($this -> debug_st)  echo "1. cost: $cost\n buyratecost:$buyratecost\n";
 		
-		$callduration -= $free_minute * 60;
 		
-		$cost =0;	
-		if ($callduration > 0)
-		{
-		$cost -= $connectcharge;
-		$cost -= $disconnectcharge;
 		// 2 KIND OF CALCULATION : PROGRESSIVE RATE & FLAT RATE
 		// IF FLAT RATE 
 		if (empty($chargea) || $chargea==0 || empty($timechargea) || $timechargea==0 ){
@@ -630,7 +607,6 @@ class RateEngine {
 			}
 			
 		}
-		}
 		$cost = round($cost,4);
 		if ($this -> debug_st)  echo "FINAL COST: $cost\n\n";
 		$A2B -> write_log("[CC_RATE_ENGINE_CALCULCOST: K=$K - BUYCOST: $buyratecost - SELLING COST: $cost]");
@@ -687,21 +663,6 @@ class RateEngine {
 		$id_tariffplan = $this -> ratecard_obj[$K][3];
 		$id_ratecard = $this -> ratecard_obj[$K][6];
 		
-
-		$free_minute = $this -> ratecard_obj[$K][45];
-		$free_call=false;
-		$free_minute_update=0;
-
-		if (!isset($free_minute) || $free_minute=="" || $free_minute<=0){
-			$free_minute=0;
-		}else{
-			$free_call=true;
-			if ($free_minute > $sessiontime){
-				$free_minute_update=$sessiontime;
-			}else{
-				$free_minute_update=$free_minute;
-			}
-		}
 		
 		$buycost = 0;
 		if ($doibill==0 || $sessiontime < $A2B->agiconfig['min_duration_2bill']) $cost = 0;		
@@ -763,9 +724,9 @@ class RateEngine {
 			
 			
 			if ($A2B->nbused>0){
-				$QUERY = "UPDATE cc_card SET credit= credit$signe".round(abs($cost),4)." $myclause_nodidcall,  lastuse=now(), nbused=nbused+1,free_minute_used=free_minute_used + $free_minute_update WHERE username='".$A2B->username."'";
+				$QUERY = "UPDATE cc_card SET credit= credit$signe".round(abs($cost),4)." $myclause_nodidcall,  lastuse=now(), nbused=nbused+1 WHERE username='".$A2B->username."'";
 			}else{
-				$QUERY = "UPDATE cc_card SET credit= credit$signe".round(abs($cost),4)." $myclause_nodidcall,  lastuse=now(), firstusedate=now(), nbused=nbused+1 ,free_minute_used=free_minute_used + $free_minute_update WHERE username='".
+				$QUERY = "UPDATE cc_card SET credit= credit$signe".round(abs($cost),4)." $myclause_nodidcall,  lastuse=now(), firstusedate=now(), nbused=nbused+1 WHERE username='".
 				$A2B->username."'";
 			}
 			

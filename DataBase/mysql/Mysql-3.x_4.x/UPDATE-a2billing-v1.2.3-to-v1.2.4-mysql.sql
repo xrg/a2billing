@@ -565,8 +565,8 @@ CREATE TABLE cc_alarm (
     status INT NOT NULL DEFAULT 0,
     numberofrun INT NOT NULL DEFAULT 0,
     numberofalarm INT NOT NULL DEFAULT 0,    
-	datecreate    TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,	
-	datelastrun    TIMESTAMP,
+    datecreate TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,	
+    datelastrun TIMESTAMP,
     emailreport VARCHAR(50),
     PRIMARY KEY (id)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
@@ -575,7 +575,7 @@ CREATE TABLE cc_alarm (
     id BIGINT NOT NULL AUTO_INCREMENT,
     cc_alarm_id BIGINT NOT NULL,
     calculatedvalue float NOT NULL,
-    daterun TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+    daterun TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (id)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
@@ -584,38 +584,38 @@ CREATE TABLE cc_alarm (
 
 CREATE TABLE cc_callback_spool (
     id BIGINT NOT NULL AUTO_INCREMENT,
-	uniqueid VARCHAR(40),
-	entry_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	status VARCHAR(80),
-	server_ip VARCHAR(40),
-	num_attempt INT NOT NULL DEFAULT 0,
-	last_attempt_time TIMESTAMP,
-	manager_result VARCHAR(60),
-	agi_result VARCHAR(60),
-	callback_time TIMESTAMP,
-	channel VARCHAR(60),
-	exten VARCHAR(60),
-	context VARCHAR(60),
-	priority VARCHAR(60),
-	application VARCHAR(60),
-	data VARCHAR(60),
-	timeout VARCHAR(60),
-	callerid VARCHAR(60),
-	variable VARCHAR(60),
-	account VARCHAR(60),
-	async VARCHAR(60),
-	actionid VARCHAR(60),
+    uniqueid VARCHAR(40),
+    entry_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    status VARCHAR(80),
+    server_ip VARCHAR(40),
+    num_attempt INT NOT NULL DEFAULT 0,
+    last_attempt_time TIMESTAMP,
+    manager_result VARCHAR(60),
+    agi_result VARCHAR(60),
+    callback_time TIMESTAMP,
+    channel VARCHAR(60),
+    exten VARCHAR(60),
+    context VARCHAR(60),
+    priority VARCHAR(60),
+    application VARCHAR(60),
+    data VARCHAR(60),
+    timeout VARCHAR(60),
+    callerid VARCHAR(60),
+    variable VARCHAR(60),
+    account VARCHAR(60),
+    async VARCHAR(60),
+    actionid VARCHAR(60),
     PRIMARY KEY (id),
-	UNIQUE cc_callback_spool_uniqueid_key (uniqueid)
+    UNIQUE cc_callback_spool_uniqueid_key (uniqueid)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
 CREATE TABLE cc_server_manager (
     id BIGINT NOT NULL AUTO_INCREMENT,
-	server_ip VARCHAR(40),
-	manager_host VARCHAR(50),
-	manager_username VARCHAR(50),
-	manager_secret VARCHAR(50),
-	PRIMARY KEY (id)
+    server_ip VARCHAR(40),
+    manager_host VARCHAR(50),
+    manager_username VARCHAR(50),
+    manager_secret VARCHAR(50),
+    PRIMARY KEY (id)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
 INSERT INTO cc_server_manager (server_ip, manager_host, manager_username, manager_secret) VALUES ('default', 'localhost', 'myasterisk', 'mycode');
@@ -624,15 +624,15 @@ INSERT INTO cc_server_manager (server_ip, manager_host, manager_username, manage
 CREATE TABLE cc_invoices (
     id INT NOT NULL AUTO_INCREMENT,    
     cardid bigint NOT NULL,
-	orderref VARCHAR(50),
+    orderref VARCHAR(50),
     invoicecreated_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	cover_startdate TIMESTAMP,
+    cover_startdate TIMESTAMP,
     cover_enddate TIMESTAMP,	
     amount decimal(15,5) default 0,
-	tax decimal(15,5) default 0,
-	total decimal(15,5) default 0,
-	invoicetype int,
-	filename VARCHAR(250),
+    tax decimal(15,5) default 0,
+    total decimal(15,5) default 0,
+    invoicetype int,
+    filename VARCHAR(250),
     PRIMARY KEY (id)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 CREATE INDEX ind_cc_invoices ON cc_invoices (cover_startdate);
@@ -641,7 +641,7 @@ CREATE TABLE cc_invoice_history (
     id INT NOT NULL AUTO_INCREMENT,    
     invoiceid int NOT NULL,	
     invoicesent_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	invoicestatus INT,    
+    invoicestatus INT,    
     PRIMARY KEY (id)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 CREATE INDEX ind_cc_invoice_history ON cc_invoice_history (invoicesent_date);
@@ -652,15 +652,15 @@ INSERT INTO cc_server_manager (server_ip, manager_host, manager_username, manage
 CREATE TABLE cc_invoices (
     id INT NOT NULL AUTO_INCREMENT,    
     cardid bigint NOT NULL,
-	orderref VARCHAR(50),
+    orderref VARCHAR(50),
     invoicecreated_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	cover_startdate TIMESTAMP,
+    cover_startdate TIMESTAMP,
     cover_enddate TIMESTAMP,	
     amount float DEFAULT 0.0,
-	tax float DEFAULT 0.0,
-	total float DEFAULT 0.0,
-	invoicetype int,
-	filename VARCHAR(250),
+    tax float DEFAULT 0.0,
+    total float DEFAULT 0.0,
+    invoicetype int,
+    filename VARCHAR(250),
     PRIMARY KEY (id)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 CREATE INDEX ind_cc_invoices ON cc_invoices (cover_startdate);
@@ -669,7 +669,7 @@ CREATE TABLE cc_invoice_history (
     id INT NOT NULL AUTO_INCREMENT,    
     invoiceid int NOT NULL,	
     invoicesent_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	invoicestatus INT,    
+    invoicestatus INT,    
     PRIMARY KEY (id)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 CREATE INDEX ind_cc_invoice_history ON cc_invoice_history (invoicesent_date);
@@ -679,15 +679,61 @@ CREATE INDEX ind_cc_invoice_history ON cc_invoice_history (invoicesent_date);
 
 
 
-CREATE TABLE cc_package(
-	id INT NOT NULL AUTO_INCREMENT,    
-	name VARCHAR(70) NOT NULL,
-	package_type INT NOT NULL DEFAULT 0,
-	free_minute decimal(15,5) NOT NULL DEFAULT 0,
-	creationdate TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+CREATE TABLE cc_package_offer (
+    id 					BIGINT NOT NULL AUTO_INCREMENT,
+    creationdate 		TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    label 				VARCHAR(70) NOT NULL,
+    packagetype 		INT NOT NULL,
+	billingtype 		INT NOT NULL,
+	startday 			INT NOT NULL,
+	freeminutes 		INT NOT NULL,
+    PRIMARY KEY (id)
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
+-- packagetype : Free minute + Unlimited ; Free minute ; Unlimited ; Normal
+-- billingtype : Monthly ; Weekly 
+-- startday : according to billingtype ; if monthly value 1-31 ; if Weekly value 1-7 (Monday to Sunday) 
+
+
+CREATE TABLE cc_card_package_offer (
+    id 					BIGINT NOT NULL AUTO_INCREMENT,
+	id_cc_card 			BIGINT NOT NULL,
+	id_cc_package_offer BIGINT NOT NULL,
+    date_consumption 	TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	used_secondes 		BIGINT NOT NULL,
+    PRIMARY KEY (id)
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
+CREATE INDEX ind_cc_card_package_offer_id_card 			ON cc_card_package_offer (id_cc_card);
+CREATE INDEX ind_cc_card_package_offer_id_package_offer ON cc_card_package_offer (id_cc_package_offer);
+CREATE INDEX ind_cc_card_package_offer_date_consumption ON cc_card_package_offer (date_consumption);
+
+
+ALTER TABLE cc_tariffgroup 	ADD COLUMN id_cc_package_offer 		BIGINT NOT NULL DEFAULT 0;
+ALTER TABLE cc_ratecard 	ADD COLUMN freeminute_package_offer INT NOT NULL DEFAULT 0;
+
+CREATE TABLE cc_subscription_fee (
+    id BIGINT NOT NULL AUTO_INCREMENT,
+    label TEXT NOT NULL,
+    fee float DEFAULT 0 NOT NULL,
+    status INT DEFAULT '0' NOT NULL,
+    numberofrun INT DEFAULT '0' NOT NULL,
+    datecreate TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    datelastrun TIMESTAMP,
+    emailreport TEXT,
+    totalcredit float NOT NULL DEFAULT 0,
+    totalcardperform INT DEFAULT '0' NOT NULL,
+    PRIMARY KEY (id)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
+-- INSTEAD USE CC_CHARGE
+CREATE TABLE cc_subscription_fee_card (
+    id BIGINT NOT NULL AUTO_INCREMENT,
+    id_cc_card BIGINT NOT NULL,
+    id_cc_subscription_fee BIGINT NOT NULL,
+    datefee TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    fee float DEFAULT 0 NOT NULL,
+    PRIMARY KEY (id)
+);
 
-ALTER TABLE cc_ratecard ADD column id_cc_package BIGINT NOT NULL DEFAULT 0
-ALTER TABLE cc_tariffgroup ADD column id_cc_package BIGINT NOT NULL DEFAULT 0
-ALTER TABLE cc_card ADD column free_min_used DECIMAL(15,5) NOT NULL DEFAULT 0
+CREATE INDEX ind_cc_subscription_fee_card_id_cc_card  ON cc_subscription_fee_card (id_cc_card);
+CREATE INDEX ind_cc_subscription_fee_card_id_cc_subscription_fee ON cc_subscription_fee_card (id_cc_subscription_fee);
+CREATE INDEX ind_cc_subscription_fee_card_datefee ON cc_subscription_fee_card (datefee);

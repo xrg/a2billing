@@ -50,7 +50,7 @@ DocumentRoot "/var/www/html/test"
 		
 	# THERE IS MORE PARAMETERS, PLEASE CHECK THE COMPLETE CONF FILE AND READ THE INFORMATION ASIDE
 		
-3.1 Set the permissions for /etc/asterisk 
+3.1 Set the permissions for /etc/asterisk ( in Debian use www-data instead of apache ) 
 
    chown -R asterisk:apache /etc/asterisk
    chmod -R 774 /etc/asterisk
@@ -86,7 +86,7 @@ chown asterisk:apache /var/lib/asterisk/mohmp3/acc_*
 chmod 774 /var/lib/asterisk/mohmp3/acc_*
 
 
-* Set asterisk user and apache group permissions
+* Set asterisk user and apache group permissions ( in Debian use www-data instead of apache )
 
 mkdir -p /var/lib/asterisk/sounds/a2billing
 chown asterisk:apache /var/lib/asterisk/sounds/a2billing

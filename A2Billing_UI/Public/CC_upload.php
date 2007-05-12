@@ -181,7 +181,6 @@ $file_ext_allow = arr_rid_blank($file_ext_allow);
 	include("PP_header.php");
 ?>
  
-<br><br>
 
 
 <center>

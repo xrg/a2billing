@@ -467,7 +467,14 @@ class A2Billing {
 			else									
 				$language = 'en';
 			
-			$agi -> set_variable('LANGUAGE()', $language);
+			if($this->agiconfig['asterisk_version'] == "1_1")
+			{
+				$agi -> set_variable('LANGUAGE()', $language);								
+			}
+			else
+			{
+				$agi->ChangeLanguage($language);
+			}
 			$this -> write_log("[SET LANGUAGE() $language]");
 			
 		}elseif (strlen($this->agiconfig['force_language'])==2){
@@ -475,7 +482,14 @@ class A2Billing {
 			if ($this->agiconfig['debug']>=1)   $agi->verbose('line:'.__LINE__."FORCE LANGUAGE : ".$this->agiconfig['force_language']);	
 			$this->languageselected = 1;
 			$language = strtolower($this->agiconfig['force_language']);
-			$agi -> set_variable('LANGUAGE()', $language);
+			if($this->agiconfig['asterisk_version'] == "1_1")
+			{
+				$agi -> set_variable('LANGUAGE()', $language);								
+			}
+			else
+			{
+				$agi->ChangeLanguage($language);
+			}
 			$this -> write_log("[SET LANGUAGE() $language]");
 			
 		}
@@ -1383,7 +1397,7 @@ class A2Billing {
 				  $QUERY .=  " enableexpire, UNIX_TIMESTAMP(expirationdate), expiredays, nbused, UNIX_TIMESTAMP(firstusedate), UNIX_TIMESTAMP(cc_card.creationdate), ";
 			}
 
-			$QUERY .=  " cc_card.currency, cc_card.lastname, cc_card.firstname, cc_card.email, cc_card.uipass, cc_card.id_campaign, cc_card.id, useralias  ".
+			$QUERY .=  " cc_card.currency, cc_card.lastname, cc_card.firstname, cc_card.email, cc_card.uipass, cc_card.id_campaign, cc_card.id, useralias ".
 			" FROM cc_callerid ".
 			" LEFT JOIN cc_card ON cc_callerid.id_cc_card=cc_card.id ".
 			" LEFT JOIN cc_tariffgroup ON cc_card.tariff=cc_tariffgroup.id ".
@@ -1638,14 +1652,21 @@ class A2Billing {
 							
 				if (strlen($language)==2 && !($this->languageselected>=1)){								
 					// SetLanguage is deprecated, please use Set(LANGUAGE()=language) instead.
-					$agi -> set_variable('LANGUAGE()', $language);
+					if($this->agiconfig['force_language'] == "1_1")
+					{
+						$agi -> set_variable('LANGUAGE()', $language);								
+					}
+					else
+					{
+						$agi->ChangeLanguage($language);
+					}
 					$this -> write_log("[SET LANGUAGE() $language]");
 				}
-						
+				
 				$this -> write_log("[credit=".$this->credit." :: tariff=".$this->tariff." :: active=".$this->active." :: isused=$isused :: simultaccess=$simultaccess :: typepaid=".$this->typepaid." :: creditlimit=$creditlimit :: language=$language]");
-							
-														
-							
+				
+				
+				
 				$prompt = '';
 				// CHECK credit > min_credit_2call / you have zero balance
 				if( $this->credit < $this->agiconfig['min_credit_2call'] ) $prompt = "prepaid-zero-balance";
@@ -1787,7 +1808,14 @@ class A2Billing {
 				if ($this->typepaid==1) $this->credit = $this->credit+$creditlimit;
 				
 				if (strlen($language)==2  && !($this->languageselected>=1)){					
-					$agi -> set_variable('LANGUAGE()', $language);
+					if($this->agiconfig['asterisk_version'] == "1_1")
+					{
+						$agi -> set_variable('LANGUAGE()', $language);								
+					}
+					else
+					{
+						$agi->ChangeLanguage($language);
+					}
 					$this -> write_log("[SET LANGUAGE() $language]");
 				}
 				$prompt = '';
@@ -1901,7 +1929,7 @@ class A2Billing {
 			$error_msg = '<font face="Arial, Helvetica, sans-serif" size="2" color="red"><b>Error : Authentication Failed !!!</b></font><br>';
 			return 0;
 		}
-								   
+		
 		$this->credit = $result[0][0];
 		$this->tariff = $result[0][1];
 		$this->active = $result[0][2];

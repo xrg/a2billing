@@ -52,7 +52,7 @@ if ($popup_select)
 
 
 // #### HELP SECTION
-if (!$popup_select) echo '<br><br>'.$CC_help_provider;
+if (!$popup_select) echo $CC_help_provider;
 
 
 

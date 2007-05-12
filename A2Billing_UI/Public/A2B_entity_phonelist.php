@@ -37,7 +37,7 @@ $list = $HD_Form -> perform_action($form_action);
 include("PP_header.php");
 
 // #### HELP SECTION
-echo '<br><br>'.$CC_help_phonelist;
+echo $CC_help_phonelist;
 
 
 

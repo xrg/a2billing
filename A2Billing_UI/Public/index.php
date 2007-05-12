@@ -5,7 +5,6 @@
 <head>
 <link rel="shortcut icon" href="../Images/favicon.ico">
 <link rel="icon" href="../Images/animated_favicon1.gif" type="image/gif">
-
 <title>..:: <?php echo CCMAINTITLE; ?> ::..</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link href="../Css/menu.css" rel="stylesheet" type="text/css">

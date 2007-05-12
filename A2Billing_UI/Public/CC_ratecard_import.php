@@ -220,8 +220,7 @@ function moveSourceDown()
 
 // -->
 </script>
-      <br>
-      <br>
+     
 	  <?php
 	echo $CC_help_import_ratecard;
 ?>
