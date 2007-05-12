@@ -263,6 +263,7 @@ CREATE TABLE cc_tariffgroup (
     lcrtype INT DEFAULT 0 NOT NULL,
     creationdate  TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
     removeinterprefix INT DEFAULT 0 NOT NULL,
+	id_cc_package BIGINT NOT NULL DEFAULT 0,
     PRIMARY KEY (id)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
@@ -344,6 +345,7 @@ CREATE TABLE cc_card (
 	autorefill INT DEFAULT 0,
     loginkey CHAR(40),
     activatedbyuser char(1) DEFAULT 't' NOT NULL,
+	free_min_used DECIMAL(15,5) NOT NULL DEFAULT 0,
     PRIMARY KEY (id),
     UNIQUE cons_cc_card_username (username),
     UNIQUE cons_cc_card_useralias (useralias)
@@ -381,6 +383,7 @@ CREATE TABLE cc_ratecard (
     endtime smallint(5) unsigned default '10079',
     id_trunk INT DEFAULT -1,
     musiconhold CHAR(100) NOT NULL,
+	id_cc_package BIGINT NOT NULL DEFAULT 0,
     PRIMARY KEY (id)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 CREATE INDEX ind_cc_ratecard_dialprefix ON cc_ratecard (dialprefix);
@@ -429,6 +432,7 @@ CREATE TABLE cc_trunk (
 
 CREATE TABLE cc_sip_buddies (
     id INT NOT NULL AUTO_INCREMENT,
+    id_cc_card INT DEFAULT 0 NOT NULL,
     name CHAR(80) DEFAULT '' NOT NULL,
     accountcode CHAR(20),
     regexten CHAR(20),
@@ -474,6 +478,7 @@ CREATE TABLE cc_sip_buddies (
 
 CREATE TABLE cc_iax_buddies (
     id INT NOT NULL AUTO_INCREMENT,
+    id_cc_card INT DEFAULT 0 NOT NULL,
     name CHAR(80) DEFAULT '' NOT NULL,
     accountcode CHAR(20),
     regexten CHAR(20),
@@ -1462,9 +1467,6 @@ INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Zimbabwe','26
 
 
 
-
-
-
 CREATE TABLE cc_alarm (
     id BIGINT NOT NULL AUTO_INCREMENT,
     name text NOT NULL,
@@ -1476,11 +1478,11 @@ CREATE TABLE cc_alarm (
     status INT NOT NULL DEFAULT 0,
     numberofrun INT NOT NULL DEFAULT 0,
     numberofalarm INT NOT NULL DEFAULT 0,    
-    datecreate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    datelastrun TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    emailreport VARCHAR(50)
+	datecreate    TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,	
+	datelastrun    TIMESTAMP,
+    emailreport VARCHAR(50),
     PRIMARY KEY (id)
-);
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
  CREATE TABLE cc_alarm_report (
     id BIGINT NOT NULL AUTO_INCREMENT,
@@ -1488,7 +1490,7 @@ CREATE TABLE cc_alarm (
     calculatedvalue float NOT NULL,
     daterun TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
     PRIMARY KEY (id)
-);
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
 
 
@@ -1520,7 +1522,7 @@ CREATE TABLE cc_callback_spool (
 	actionid VARCHAR(60),
     PRIMARY KEY (id),
 	UNIQUE cc_callback_spool_uniqueid_key (uniqueid)
-);
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
 CREATE TABLE cc_server_manager (
     id BIGINT NOT NULL AUTO_INCREMENT,
@@ -1529,6 +1531,43 @@ CREATE TABLE cc_server_manager (
 	manager_username VARCHAR(50),
 	manager_secret VARCHAR(50),
 	PRIMARY KEY (id)
-);
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
 INSERT INTO cc_server_manager (server_ip, manager_host, manager_username, manager_secret) VALUES ('default', 'localhost', 'myasterisk', 'mycode');
+
+
+CREATE TABLE cc_invoices (
+    id INT NOT NULL AUTO_INCREMENT,    
+    cardid bigint NOT NULL,
+	orderref VARCHAR(50),
+    invoicecreated_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	cover_startdate TIMESTAMP,
+    cover_enddate TIMESTAMP,	
+    amount decimal(15,5) default 0,
+	tax decimal(15,5) default 0,
+	total decimal(15,5) default 0,
+	invoicetype int,
+	filename VARCHAR(250),
+    PRIMARY KEY (id)
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
+CREATE INDEX ind_cc_invoices ON cc_invoices (cover_startdate);
+
+CREATE TABLE cc_invoice_history (
+    id INT NOT NULL AUTO_INCREMENT,    
+    invoiceid int NOT NULL,	
+    invoicesent_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	invoicestatus INT,    
+    PRIMARY KEY (id)
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
+CREATE INDEX ind_cc_invoice_history ON cc_invoice_history (invoicesent_date);
+
+
+
+CREATE TABLE cc_package(
+	id INT NOT NULL AUTO_INCREMENT,    
+	name VARCHAR(70) NOT NULL,
+	package_type INT NOT NULL DEFAULT 0,
+	free_minute decimal(15,5) NOT NULL DEFAULT 0,
+	creationdate TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (id)
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;

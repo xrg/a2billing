@@ -25,10 +25,11 @@ class RateEngine {
 
 	function Reinit () {     
 		
-		 $this -> number_trunk=0;
-		 $this -> answeredtime=0;	
-		 $this -> dialstatus='';
-		 $this -> usedratecard='';
+		 $this -> number_trunk = 0;
+		 $this -> answeredtime = 0;	
+		 $this -> dialstatus = '';
+		 $this -> usedratecard = '';
+		 $this -> usedtrunk = '';
 		 $this -> lastcost = '';
 		 $this -> lastbuycost = '';
 	}
@@ -95,6 +96,11 @@ class RateEngine {
 		
 		if (strlen($A2B->dnid)>=1) $mydnid = $A2B->dnid;
 		if (strlen($A2B->CallerID)>=1) $mycallerid = $A2B->CallerID;
+		if (strlen($A2B->free_minute_used>=1){
+			 $free_used=$A2B->free_minute_used;
+		}else{
+			 $free_used=0;
+		}
 		
 		
 		if ($A2B->config["database"]['dbtype'] != "postgres"){
@@ -129,7 +135,9 @@ class RateEngine {
 		tp_trunk.failover_trunk AS tp_failover_trunk,
 		rt_trunk.failover_trunk AS rt_failover_trunk,
 		tp_trunk.addparameter AS tp_addparameter_trunk,
-		rt_trunk.addparameter AS rt_addparameter_trunk
+		rt_trunk.addparameter AS rt_addparameter_trunk,
+		cc_package.package_type AS package_type,
+		cc_package.free_minute - $free_used  AS free_minute
 		
 		
 		FROM cc_tariffgroup 
@@ -140,6 +148,7 @@ class RateEngine {
 		LEFT JOIN cc_ratecard ON cc_ratecard.idtariffplan=cc_tariffplan.id
 		LEFT JOIN cc_trunk AS rt_trunk ON cc_ratecard.id_trunk=rt_trunk.id_trunk
 		LEFT JOIN cc_trunk AS tp_trunk ON cc_tariffplan.id_trunk=tp_trunk.id_trunk
+		LEFT JOIN cc_package ON cc_ratecard.id_cc_package=cc_package.id
 		
 		WHERE (dialprefix=SUBSTRING('$phonenumber',1,length(dialprefix)) OR dialprefix='defaultprefix')
 		AND startingdate<= CURRENT_TIMESTAMP AND (expirationdate > CURRENT_TIMESTAMP OR expirationdate IS NULL OR LENGTH(expirationdate)<5)
@@ -296,14 +305,21 @@ class RateEngine {
 		$timechargeb = $this -> ratecard_obj[$K][23];		$billingblockb = $this -> ratecard_obj[$K][24];	
 		$stepchargec = $this -> ratecard_obj[$K][25];		$chargec = round(abs($this -> ratecard_obj[$K][26]),4);	
 		$timechargec = $this -> ratecard_obj[$K][27];		$billingblockc = $this -> ratecard_obj[$K][28];
-				
+		$free_minute = $this -> ratecard_obj[$K][45];
+		$free_call=false;
+
+		if (!isset($free_minute) || $free_minute=="" || $free_minute<=0){
+			$free_minute=0;
+		}else{
+			$free_call=true;
+		}
 		
 		$credit -= $connectcharge;
 		$credit -= $disconnectcharge;
 		//$credit -= ($initblock/60)*$rateinitial;
 		
 		$this -> ratecard_obj[$K]['timeout']=0;
-		if ($credit < $A2B->agiconfig['min_credit_2call']) return "ERROR CT1";  //NO ENOUGH CREDIT TO CALL THIS NUMBER
+		if (($credit < $A2B->agiconfig['min_credit_2call']) && (!$free_call)) return "ERROR CT1";  //NO ENOUGH CREDIT TO CALL THIS NUMBER
 		
 		// if ($rateinitial==0) return "ERROR RATEINITIAL($rateinitial)";
 		$TIMEOUT = 0;
@@ -319,7 +335,7 @@ class RateEngine {
 		// IF FLAT RATE 
 		if (empty($chargea) || $chargea==0 || empty($timechargea) || $timechargea==0 ){
 						
-			$num_min = $credit/$rateinitial;
+			$num_min = ($credit/$rateinitial)+$free_minute;
 			
 			if ($this -> debug_st) echo "num_min:$num_min ($credit/$rateinitial)\n";			
 			$num_sec = intval($num_min * 60);
@@ -337,7 +353,7 @@ class RateEngine {
 			if ($this -> debug_st) echo "CYCLE A	TIMEOUT:$TIMEOUT\n";
 			// CYCLE A
 			$credit -= $stepchargea;
-			if ($credit<=0) return "ERROR CT2";		//NO ENOUGH CREDIT TO CALL THIS NUMBER
+			if (($credit<=0) && (!$free_call)) return "ERROR CT2";		//NO ENOUGH CREDIT TO CALL THIS NUMBER
 			
 			if (!($chargea>0)) return "ERROR CHARGEA($chargea)";
 			$num_min = $credit/$chargea;
@@ -357,7 +373,7 @@ class RateEngine {
 				if ($this -> debug_st) echo "		CYCLE B		TIMEOUT:$TIMEOUT\n";
 				// CYCLE B
 				$credit -= $stepchargeb;
-				if ($credit<=0) return $TIMEOUT;		//NO ENOUGH CREDIT TO GO TO THE CYCLE B
+				if (($credit<=0) && (!$free_call)) return $TIMEOUT;		//NO ENOUGH CREDIT TO GO TO THE CYCLE B
 					
 				if (!($chargeb>0)) return "ERROR CHARGEB($chargeb)";
 				$num_min = $credit/$chargeb;
@@ -377,7 +393,7 @@ class RateEngine {
 					if ($this -> debug_st) echo "				CYCLE C		TIMEOUT:$TIMEOUT\n";
 					// CYCLE C
 					$credit -= $stepchargec;
-					if ($credit<=0) return $TIMEOUT;		//NO ENOUGH CREDIT TO GO TO THE CYCLE B
+					if (($credit<=0) && (!$free_call)) return $TIMEOUT;	//NO ENOUGH CREDIT TO GO TO THE CYCLE B
 							
 					if (!($chargec>0)) return "ERROR CHARGEC($chargec)";
 					$num_min = $credit/$chargec;
@@ -463,6 +479,7 @@ class RateEngine {
 		
 			}		
 		}
+		$TIMEOUT += $free_minute * 60;
 		$this -> ratecard_obj[$K]['timeout']=$TIMEOUT;
 		if ($this -> debug_st) print_r($this -> ratecard_obj[$K]);
 		RETURN $TIMEOUT;
@@ -494,14 +511,15 @@ class RateEngine {
 		$timechargeb = $this -> ratecard_obj[$K][23];		$billingblockb = $this -> ratecard_obj[$K][24];	
 		$stepchargec = $this -> ratecard_obj[$K][25];		$chargec = round(abs($this -> ratecard_obj[$K][26]),4);	
 		$timechargec = $this -> ratecard_obj[$K][27];		$billingblockc = $this -> ratecard_obj[$K][28];
-		
+		$free_minute = $this -> ratecard_obj[$K][45];
+
+		if (!isset($free_minute) || $free_minute=="" || $free_minute<=0){
+			$free_minute=0;
+		}
 		
 		if ($this -> debug_st)  echo "CALLDURATION: $callduration\n\n";
 		$A2B -> write_log("[CC_RATE_ENGINE_CALCULCOST: K=$K - CALLDURATION:$callduration]");
 		
-		$cost =0;
-		$cost -= $connectcharge;
-		$cost -= $disconnectcharge;
 		
 		// CALCULATION BUYRATE COST
 		$buyratecallduration = $callduration;		
@@ -517,7 +535,13 @@ class RateEngine {
 
 		if ($this -> debug_st)  echo "1. cost: $cost\n buyratecost:$buyratecost\n";
 		
+		$callduration -= $free_minute * 60;
 		
+		$cost =0;	
+		if ($callduration > 0)
+		{
+		$cost -= $connectcharge;
+		$cost -= $disconnectcharge;
 		// 2 KIND OF CALCULATION : PROGRESSIVE RATE & FLAT RATE
 		// IF FLAT RATE 
 		if (empty($chargea) || $chargea==0 || empty($timechargea) || $timechargea==0 ){
@@ -606,6 +630,7 @@ class RateEngine {
 			}
 			
 		}
+		}
 		$cost = round($cost,4);
 		if ($this -> debug_st)  echo "FINAL COST: $cost\n\n";
 		$A2B -> write_log("[CC_RATE_ENGINE_CALCULCOST: K=$K - BUYCOST: $buyratecost - SELLING COST: $cost]");
@@ -662,10 +687,21 @@ class RateEngine {
 		$id_tariffplan = $this -> ratecard_obj[$K][3];
 		$id_ratecard = $this -> ratecard_obj[$K][6];
 		
-		
-		if ($this -> ratecard_obj[$K][34]!='-1')	$usetrunk=34;
-		else 	$usetrunk=29;
-		$id_trunk = $this -> ratecard_obj[$K][$usetrunk];
+
+		$free_minute = $this -> ratecard_obj[$K][45];
+		$free_call=false;
+		$free_minute_update=0;
+
+		if (!isset($free_minute) || $free_minute=="" || $free_minute<=0){
+			$free_minute=0;
+		}else{
+			$free_call=true;
+			if ($free_minute > $sessiontime){
+				$free_minute_update=$sessiontime;
+			}else{
+				$free_minute_update=$free_minute;
+			}
+		}
 		
 		$buycost = 0;
 		if ($doibill==0 || $sessiontime < $A2B->agiconfig['min_duration_2bill']) $cost = 0;		
@@ -708,8 +744,7 @@ class RateEngine {
 		}
 		
 		$QUERY .= ", '$sessiontime', '$calledstation', '$dialstatus', now(), '$rateapply', '$signe_cc_call".round(abs($cost),4)."', ".
-			" '', '', '$calldestination', '$id_tariffgroup', '$id_tariffplan', '$id_ratecard', '$id_trunk', '".$A2B->CallerID."', '$calltype', '$buyrateapply', '$buycost')";
-		
+			" '', '', '$calldestination', '$id_tariffgroup', '$id_tariffplan', '$id_ratecard', '".$this -> usedtrunk."', '".$A2B->CallerID."', '$calltype', '$buyrateapply', '$buycost')";
 		
 		
 		if ($A2B->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '.$QUERY);
@@ -718,8 +753,7 @@ class RateEngine {
 		
 		$A2B -> write_log("[CC_asterisk_stop 1.1: SQL: DONE : result=".$result."]");
 		
-	
-
+		
 		if ($sessiontime>0){
 			//Update the global credit	
 			$A2B -> credit = $A2B -> credit + $cost;
@@ -727,11 +761,11 @@ class RateEngine {
 			if ($didcall==0 && $callback==0) $myclause_nodidcall = " , redial='".$calledstation."' ";
 			else $myclause_nodidcall='';
 			
-						
+			
 			if ($A2B->nbused>0){
-				$QUERY = "UPDATE cc_card SET credit= credit$signe".round(abs($cost),4)." $myclause_nodidcall,  lastuse=now(), nbused=nbused+1 WHERE username='".$A2B->username."'";
+				$QUERY = "UPDATE cc_card SET credit= credit$signe".round(abs($cost),4)." $myclause_nodidcall,  lastuse=now(), nbused=nbused+1,free_minute_used=free_minute_used + $free_minute_update WHERE username='".$A2B->username."'";
 			}else{
-				$QUERY = "UPDATE cc_card SET credit= credit$signe".round(abs($cost),4)." $myclause_nodidcall,  lastuse=now(), firstusedate=now(), nbused=nbused+1 WHERE username='".
+				$QUERY = "UPDATE cc_card SET credit= credit$signe".round(abs($cost),4)." $myclause_nodidcall,  lastuse=now(), firstusedate=now(), nbused=nbused+1 ,free_minute_used=free_minute_used + $free_minute_update WHERE username='".
 				$A2B->username."'";
 			}
 			
@@ -740,7 +774,7 @@ class RateEngine {
 			$result = $A2B->instance_table -> SQLExec ($A2B -> DBHandle, $QUERY, 0);
 				
 				
-			$QUERY = "UPDATE cc_trunk SET secondusedreal = secondusedreal + $sessiontime WHERE id_trunk='$id_trunk'";
+			$QUERY = "UPDATE cc_trunk SET secondusedreal = secondusedreal + $sessiontime WHERE id_trunk='".$this -> usedtrunk."'";
 			if ($A2B->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '.$QUERY);
 			$result = $A2B->instance_table -> SQLExec ($A2B -> DBHandle, $QUERY, 0);
 			
@@ -764,11 +798,13 @@ class RateEngine {
 			$destination=$old_destination;
 			if ($this -> ratecard_obj[$k][34]!='-1'){
 				$usetrunk=34;
+				$this -> usedtrunk = $this -> ratecard_obj[$k][34];
 				$usetrunk_failover=1;
 			}
 			else {
 				$usetrunk=29;
-				 $usetrunk_failover=0;
+				$this -> usedtrunk = $this -> ratecard_obj[$k][29];
+				$usetrunk_failover=0;
 			}
 				
 			$prefix			= $this -> ratecard_obj[$k][$usetrunk+1];
@@ -848,81 +884,80 @@ class RateEngine {
 			$this->answeredtime = $answeredtime['data'];
 			$dialstatus = $agi->get_variable("DIALSTATUS");
 			$this->dialstatus = $dialstatus['data'];
-				
+			
 			//$this->answeredtime='60';
 			//$this->dialstatus='ANSWERED';
-				
-			$A2B -> write_log("[K=$k]:[ANSWEREDTIME=".$this->answeredtime."-DIALSTATUS=".$this->dialstatus."]");
 			
-			if (($this->dialstatus  == "CHANUNAVAIL") || ($this->dialstatus  == "CONGESTION") ) 
-			{
+			// LOOOOP FOR THE FAILOVER LIMITED TO failover_recursive_limit
+			$loop_failover = 0;
+			while ( $loop_failover <= $A2B->agiconfig['failover_recursive_limit'] && is_numeric($failover_trunk) && $failover_trunk>=0 && (($this->dialstatus == "CHANUNAVAIL") || ($this->dialstatus == "CONGESTION")) ){
+				$loop_failover++;
 				$this->answeredtime=0;
-				if (is_numeric($failover_trunk) && $failover_trunk>=0)
-				{
-					
-					$destination=$old_destination;
-					
-					$QUERY = "SELECT trunkprefix, providertech, providerip, removeprefix FROM cc_trunk WHERE id_trunk='$failover_trunk'";
-					$A2B->instance_table = new Table();
-					$result = $A2B->instance_table -> SQLExec ($A2B -> DBHandle, $QUERY);
-					
-					
-					if (is_array($result) && count($result)>0){
-							
-						//DO SELECT WITH THE FAILOVER_TRUNKID
-							
-						$prefix		= $result[0][0];
-						$tech 		= $result[0][1];
-						$ipaddress 	= $result[0][2];
-						$removeprefix 	= $result[0][3];
-							
-							
-						$pos_dialingnumber = strpos($ipaddress, '%dialingnumber%' );
-						
-						$ipaddress = str_replace("%cardnumber%", $A2B->cardnumber, $ipaddress);
-						$ipaddress = str_replace("%dialingnumber%", $prefix.$destination, $ipaddress);
-							
-						if (strncmp($destination, $removeprefix, strlen($removeprefix)) == 0) 
-							$destination= substr($destination, strlen($removeprefix));
-							
-										
-						$dialparams = str_replace("%timeout%", $timeout *1000, $A2B->agiconfig['dialcommand_param']);
-								
-						if ($pos_dialingnumber !== false){					   
-							   $dialstr = "$tech/$ipaddress".$dialparams;
-						}else{
-							if ($A2B->agiconfig['switchdialcommand'] == 1){
-								$dialstr = "$tech/$prefix$destination@$ipaddress".$dialparams;
-							}else{
-								$dialstr = "$tech/$ipaddress/$prefix$destination".$dialparams;
-							}
-						}	
-								
-								
-						if ($A2B->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '."FAILOVER app_callingcard: Dialing '$dialstr' with timeout of '$timeout'.\n");
+				$this -> usedtrunk = $failover_trunk;
 				
-						$myres = $agi->exec("DIAL $dialstr");
-						$A2B -> write_log("DIAL FAILOVER $dialstr");
-								
-						$answeredtime = $agi->get_variable("ANSWEREDTIME");
-						$this->answeredtime = $answeredtime['data'];
-						$dialstatus = $agi->get_variable("DIALSTATUS");
-						$this->dialstatus = $dialstatus['data'];
-							
-						$A2B -> write_log("[FAILOVER K=$k]:[ANSWEREDTIME=".$this->answeredtime."-DIALSTATUS=".$this->dialstatus."]");
+				$A2B -> write_log("[K=$k]:[ANSWEREDTIME=".$this->answeredtime."-DIALSTATUS=".$this->dialstatus."]");			
+				
+				
+				$destination=$old_destination;
+				
+				$QUERY = "SELECT trunkprefix, providertech, providerip, removeprefix, failover_trunk FROM cc_trunk WHERE id_trunk='$failover_trunk'";
+				$A2B->instance_table = new Table();
+				$result = $A2B->instance_table -> SQLExec ($A2B -> DBHandle, $QUERY);
+				
+				
+				if (is_array($result) && count($result)>0){
 						
-						if (($this->dialstatus  == "CHANUNAVAIL") || ($this->dialstatus  == "CONGESTION")){
-							$this->answeredtime=0;
-							continue;
-						}	
-					}
+					//DO SELECT WITH THE FAILOVER_TRUNKID
 						
-				}else{
-					if (($this->dialstatus  == "CHANUNAVAIL") || ($this->dialstatus  == "CONGESTION")) 
-						continue;
-				}
+					$prefix		= $result[0][0];
+					$tech 		= $result[0][1];
+					$ipaddress 	= $result[0][2];
+					$removeprefix 	= $result[0][3];
+					$next_failover_trunk = $result[0][4];
+						
+						
+					$pos_dialingnumber = strpos($ipaddress, '%dialingnumber%' );
 					
-			}
+					$ipaddress = str_replace("%cardnumber%", $A2B->cardnumber, $ipaddress);
+					$ipaddress = str_replace("%dialingnumber%", $prefix.$destination, $ipaddress);
+						
+					if (strncmp($destination, $removeprefix, strlen($removeprefix)) == 0) 
+						$destination= substr($destination, strlen($removeprefix));
+						
+									
+					$dialparams = str_replace("%timeout%", $timeout *1000, $A2B->agiconfig['dialcommand_param']);
+							
+					if ($pos_dialingnumber !== false){					   
+						   $dialstr = "$tech/$ipaddress".$dialparams;
+					}else{
+						if ($A2B->agiconfig['switchdialcommand'] == 1){
+							$dialstr = "$tech/$prefix$destination@$ipaddress".$dialparams;
+						}else{
+							$dialstr = "$tech/$ipaddress/$prefix$destination".$dialparams;
+						}
+					}	
+					
+					
+					if ($A2B->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '."FAILOVER app_callingcard: Dialing '$dialstr' with timeout of '$timeout'.\n");
+					
+					$myres = $agi->exec("DIAL $dialstr");
+					$A2B -> write_log("DIAL FAILOVER $dialstr");
+							
+					$answeredtime = $agi->get_variable("ANSWEREDTIME");
+					$this->answeredtime = $answeredtime['data'];
+					$dialstatus = $agi->get_variable("DIALSTATUS");
+					$this->dialstatus = $dialstatus['data'];
+					
+					$A2B -> write_log("[FAILOVER K=$k]:[ANSWEREDTIME=".$this->answeredtime."-DIALSTATUS=".$this->dialstatus."]");
+					
+				}
+				// IF THE FAILOVER TRUNK IS SAME AS THE ACTUAL TRUNK WE BREAK 
+				if ($next_failover_trunk == $failover_trunk) break;
+				else $failover_trunk = $next_failover_trunk;
+				
+			} // END FOR LOOP FAILOVER 
+			if (($this->dialstatus  == "CHANUNAVAIL") || ($this->dialstatus  == "CONGESTION")) 
+				continue;
 				
 			//# Ooh, something actually happend! 
 			if ($this->dialstatus  == "BUSY") {										

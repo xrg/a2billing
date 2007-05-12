@@ -1,12 +1,11 @@
 <?php
 
-getpost_ifset(array('id', 'idtariffplan', 'dialprefix', 'destination', 'buyrate', 'buyrateinitblock',
+getpost_ifset(array('id', 'idtariffplan', 'dialprefix', 'id_cc_package', 'destination', 'buyrate', 'buyrateinitblock',
 'buyrateincrement', 'rateinitial', 'initblock', 'billingblock', 'connectcharge', 'disconnectcharge',
 'stepchargea', 'chargea', 'timechargea', 'billingblocka', 'stepchargeb', 'chargeb', 'timechargeb',
 'billingblockb', 'stepchargec', 'chargec', 'timechargec', 'billingblockc', 'startdate', 'stopdate',
 'starttime', 'endtime', 'id_trunk', 'musiconhold','tariffplan','posted'));
 
-$plang='en';
 
 $HD_Form = new FormHandler("cc_ratecard","Rates");
 
@@ -38,12 +37,13 @@ for ($i=1;$i<=NUM_MUSICONHOLD_CLASS;$i++){
 }
 
 
-$HD_Form -> AddViewElement(gettext("DESTINATION"), "destination", "15%", "center", "sort", "");
-$HD_Form -> AddViewElement("<acronym title=\"DIALING PREFIX\">".gettext("PREFIX")."</acronym>", "dialprefix", "5%", "center", "sort", "");
+$HD_Form -> AddViewElement(gettext("DESTINATION"), "destination", "17%", "center", "sort", "");
+$HD_Form -> AddViewElement("<acronym title=\"DIALING PREFIX\">".gettext("PREFIX")."</acronym>", "dialprefix", "10%", "center", "sort", "");
+$HD_Form -> AddViewElement(gettext("PACKAGE"), "id_cc_package", "11%", "center", "sort", "15", "lie", "cc_package", "name", "id='%id'", "%1");
 $HD_Form -> AddViewElement("<acronym title=\"BUYING RATE\">".gettext("BR")."</acronym>", "buyrate", "4%", "center", "sort");
 $HD_Form -> AddViewElement("<acronym title=\"SELLING RATE\">".gettext("SR")."</acronym>", "rateinitial", "4%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("START-DATE"), "startdate", "13%", "center", "sort", "19", "", "", "", "", "", "display_dateformat");
-$HD_Form -> AddViewElement(gettext("STOP-DATE"), "stopdate", "13%", "center", "sort", "19", "", "", "", "", "", "display_dateformat");
+$HD_Form -> AddViewElement(gettext("START-DATE"), "startdate", "15%", "center", "sort", "19", "", "", "", "", "", "display_dateformat");
+$HD_Form -> AddViewElement(gettext("STOP-DATE"), "stopdate", "15%", "center", "sort", "19", "", "", "", "", "", "display_dateformat");
 $HD_Form -> AddViewElement("<acronym title=\"INITBLOCK\">".gettext("INITB")."</acronym>", "initblock", "4%", "center", "sort");
 $HD_Form -> AddViewElement("<acronym title=\"CONNECT CHARGE\">".gettext("CC")."</acronym>", "connectcharge", "4%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("TRUNK"), "id_trunk", "12%", "center", "sort", "15", "lie", "cc_trunk", "trunkcode", "id_trunk='%id'", "%1");
@@ -51,7 +51,7 @@ $HD_Form -> AddViewElement(gettext("TRUNK"), "id_trunk", "12%", "center", "sort"
 
 
 
-$HD_Form -> FieldViewElement ('destination, dialprefix, buyrate, rateinitial, startdate, stopdate, initblock, connectcharge, id_trunk');
+$HD_Form -> FieldViewElement ('destination, dialprefix, id_cc_package, buyrate, rateinitial, startdate, stopdate, initblock, connectcharge, id_trunk');
 
 
 $HD_Form -> CV_NO_FIELDS  = gettext("NO ".strtoupper($HD_Form->FG_INSTANCE_NAME)." HAVE BEEN CREATED."); 
@@ -105,6 +105,15 @@ $HD_Form -> AddEditElement(gettext("DIALPREFIX"),
 			   gettext("Insert the dialing prefix, such as for UK '44' or for US '1' "),
 			   "" , "", "",	"", "" , "A2B_entity_prefix.php?popup_select=1&", ", 'Prefixe Selection', 'width=550,height=340,top=20,left=100'", gettext("Define the destination prefix. i.e. 441 for UK Landlines. Use 'defaultprefix' to setup a rate for all destinations where a specific rate is is not provided. If you ADD a rate, NOT an EDIT, you can define a range of prefixes. <br>32484-32487 would match all dialled digits between 32484 and 32487, whereas prefixes separated by a comma e.g. 32484,32386,32488 would only match the individual prefixes listed."));
 
+$HD_Form -> AddEditElement (gettext("PACKAGE"),
+			   "id_cc_package",	
+			   '$value',	
+			   "SELECT",	
+			   "", "", "",	
+			   "sql",		
+			   "cc_package",	
+			   "name, id",		
+			   "", "", "%1", "", "");
 
 $HD_Form -> AddEditElement(gettext("DESTINATION"),
 			   "destination",
@@ -384,10 +393,10 @@ $HD_Form -> AddEditElement(gettext("MUSICONHOLD"),
 
 if (ADVANCED_MODE){
 	// This Variable store the argument for the SQL query
-	$HD_Form -> FieldEditElement ('idtariffplan, dialprefix, destination, buyrate, buyrateinitblock, buyrateincrement, rateinitial, initblock, billingblock, connectcharge, disconnectcharge, stepchargea, chargea, timechargea, billingblocka, stepchargeb, chargeb, timechargeb, billingblockb, stepchargec, chargec, timechargec, billingblockc, startdate, stopdate, starttime, endtime, id_trunk, musiconhold');
+	$HD_Form -> FieldEditElement ('idtariffplan, dialprefix, id_cc_package, destination, buyrate, buyrateinitblock, buyrateincrement, rateinitial, initblock, billingblock, connectcharge, disconnectcharge, stepchargea, chargea, timechargea, billingblocka, stepchargeb, chargeb, timechargeb, billingblockb, stepchargec, chargec, timechargec, billingblockc, startdate, stopdate, starttime, endtime, id_trunk, musiconhold');
 }else{
 	// This Variable store the argument for the SQL query
-	$HD_Form -> FieldEditElement ('idtariffplan, dialprefix, destination, buyrate, buyrateinitblock, buyrateincrement,rateinitial, initblock, billingblock, connectcharge, disconnectcharge, startdate, stopdate, starttime, endtime, id_trunk');
+	$HD_Form -> FieldEditElement ('idtariffplan, dialprefix, id_cc_package, destination, buyrate, buyrateinitblock, buyrateincrement,rateinitial, initblock, billingblock, connectcharge, disconnectcharge, startdate, stopdate, starttime, endtime, id_trunk');
 }
 
 

@@ -10,6 +10,9 @@ INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (150,
 ALTER TABLE cc_charge ADD COLUMN id_cc_did bigint ;
 ALTER TABLE cc_charge ALTER COLUMN id_cc_did SET DEFAULT 0;
 
+ALTER TABLE cc_iax_buddies ADD COLUMN id_cc_card integer DEFAULT 0 NOT NULL;
+ALTER TABLE cc_sip_buddies ADD COLUMN id_cc_card integer DEFAULT 0 NOT NULL;
+
 create table cc_did_use (
 id serial not null ,
 id_cc_card bigint,
@@ -627,3 +630,47 @@ CREATE TABLE cc_server_manager (
 ) WITH OIDS;
 
 INSERT INTO cc_server_manager (server_ip, manager_host, manager_username, manager_secret) VALUES ('default', 'localhost', 'myasterisk', 'mycode');
+
+
+    
+CREATE TABLE cc_invoices (
+    id bigserial NOT NULL,
+    cardid bigint NOT NULL,
+	orderref text,
+    invoicecreated_date timestamp without time zone DEFAULT now(),
+    cover_startdate timestamp without time zone,
+	cover_enddate timestamp without time zone,
+    amount numeric(15,5) DEFAULT 0,
+	tax numeric(15,5) DEFAULT 0,
+	total numeric(15,5) DEFAULT 0,
+	invoicetype integer,
+	filename text
+) WITH OIDS;
+
+ALTER TABLE ONLY cc_invoices
+    ADD CONSTRAINT cc_invoices_pkey PRIMARY KEY (id);
+CREATE INDEX ind_cc_invoices ON cc_invoices USING btree (cover_startdate);
+
+
+CREATE TABLE cc_invoice_history (
+    id bigserial NOT NULL,
+    invoiceid integer NOT NULL,	
+    invoicesent_date timestamp without time zone DEFAULT now(),
+	invoicestatus integer
+) WITH OIDS;
+ALTER TABLE ONLY cc_invoice_history
+    ADD CONSTRAINT cc_invoice_history_pkey PRIMARY KEY (id);
+CREATE INDEX ind_cc_invoice_history ON cc_invoice_history USING btree (invoicesent_date);
+
+
+
+CREATE TABLE cc_package(
+	id serial not null,
+	name text not null,
+	package_type int not null default 0,
+	free_minute float not null default 0,
+	creationdate timestamp without time zone DEFAULT now()
+);
+ALTER TABLE cc_ratecard ADD column id_cc_package bigint not null default 0;
+ALTER TABLE cc_tariffgroup ADD column id_cc_package bigint not null default 0;
+ALTER TABLE cc_card ADD column free_min_used numeric(12,4) not null default 0;

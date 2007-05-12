@@ -16,6 +16,90 @@
                    			TODO LIST - SPECIFIC
 ********************************************************************************
 
+!!! Ask Malik send me DB changes for invoicing
+
+
+#### FEATURE : ADD ALL EPAYMENT METHOD TO THE VERSION
+********************************************************************
+Authorize, moneybooker, etc...
+%% AR
+
+
+#### BUGS & CHECKS : DIVERS
+********************************************************************
+[FIXED]
+1) Bug on edit entity (framework) keep transfered value in case of errors RegEx 
+
+2) Reduce big space in top pages :
+			A2B_entity_def_ratecard.php?atmenu=ratecard&stitle=RateCard&section=3
+			CC_ratecard_import.php?atmenu=ratecard&stitle=RateCard&section=3
+			
+			Good high :
+			A2B_entity_card.php?atmenu=card&stitle=Customers_Card&section=1
+			
+
+2) LIST CARDNUMBER -> REFILL : ARANGE FORMAT OF REFILL - remove the ugly red border
+3) EDIT TARIFFGROUP -> add ratecard : reduce the border
+4) Security check on update tariffgroup : not create code on tmp
+5) Add new tables for reseller and callshop
+%% ??
+
+#### FEATURE : NEW CALLBACK SYSTEM
+********************************************************************
+long story
+%% AR
+
+
+#### FEATURE : OPTIMIZE AGI TO USE PL/SQL functions for all important functions (couples of weeks)
+******************************************************************************
+%% AS
+
+
+#### FEATURE : LINK SIP/IAX FRIENDS TO THE CARD - iax/sip_friend_id
+********************************************************************
+???
+
+
+#### FEATURE : ENSURE MENU STAY OPTION IN THE LAST SELECTED SECTION 
+********************************************************************
+Ensure menu stay option in the last selected section : use session for this
+Keep a different format for the last select submenu
+%% MA
+
+#### BUGS : TEST AGI 1.2 & 1.4 
+********************************************************************
+Test AGI for 1.2. and 1.4 and check warning and fix it
+%% MA
+
+
+#### FEATURE : ADD RANGE CARDNUMBER IN CARDGENERATOR
+********************************************************************
+let user define a range of cardnumber (ie: 45000-46000)
++ option to check if there is a cards already between this range (interval limit 10000)
+%% MA
+
+
+#### FEATURE : PACKAGES SYSTEM - FREE MINUTES
+********************************************************************
+See Description mails
+%% AS
+
+
+#### FEATURE : ROTATION CALLERID IN OUTBOUND CALLS
+********************************************************************
+See Description mails
+%% AS
+
+
+
+#### FEATURE : NEW INVOICING SYSTEM
+********************************************************************
+See Description mails - EXCEL
+%% MA
+
+
+
+
 #### FEATURE : API SHOW RATECARD
 ********************************************************************
 http://domain/a2billing/api/display_ratecard.php?security_key&ratecardid&css_url&
@@ -62,6 +146,14 @@ repetitively for 100 cards is quite gruesome
 so auto generate invoice (with criteria) and maybe auto mailing, that will be cool
 
 
+#### FEATURE : NEW INVOICING SYSTEM
+********************************************************************
+Smarty Integration in customer and admin
++
+Gettext consolidation
+
+
+
 #### FEATURE
 ********************************************************************
 REPORTING AND SUPPORT ALARMS :
@@ -92,6 +184,10 @@ We can have in the table something like :
 - typealarm (asr, aloc, callfail)
 - trunk (all or the ID of the trunk)
 - etc...
+
+
+#### FEATURE : NEW DID MANAGEMENT
+********************************************************************
 
 
 

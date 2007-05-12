@@ -9,6 +9,9 @@ INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (150,
 ALTER TABLE cc_charge ADD COLUMN id_cc_did bigint ;
 ALTER TABLE cc_charge ALTER COLUMN id_cc_did SET DEFAULT 0;
 
+ALTER TABLE cc_iax_buddies ADD COLUMN id_cc_card INT DEFAULT 0 NOT NULL;
+ALTER TABLE cc_sip_buddies ADD COLUMN id_cc_card INT DEFAULT 0 NOT NULL;
+
 CREATE TABLE cc_did_use (
     id BIGINT NOT NULL AUTO_INCREMENT,
     id_cc_card BIGINT,
@@ -561,12 +564,13 @@ CREATE TABLE cc_alarm (
     id_trunk INT,
     status INT NOT NULL DEFAULT 0,
     numberofrun INT NOT NULL DEFAULT 0,
-    numberofalarm INT NOT NULL DEFAULT 0,    
-    datecreate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    datelastrun TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    emailreport VARCHAR(50)
+    numberofalarm INT NOT NULL DEFAULT 0,   
+	datecreate    TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,	
+	datelastrun    TIMESTAMP,
+    emailreport VARCHAR(50),
     PRIMARY KEY (id)
-);
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
+
 
  CREATE TABLE cc_alarm_report (
     id BIGINT NOT NULL AUTO_INCREMENT,
@@ -617,3 +621,47 @@ CREATE TABLE cc_server_manager (
 );
 
 INSERT INTO cc_server_manager (server_ip, manager_host, manager_username, manager_secret) VALUES ('default', 'localhost', 'myasterisk', 'mycode');
+
+
+
+CREATE TABLE cc_invoices (
+    id INT NOT NULL AUTO_INCREMENT,    
+    cardid bigint NOT NULL,
+	orderref VARCHAR(50),
+    invoicecreated_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	cover_startdate TIMESTAMP,
+    cover_enddate TIMESTAMP,	
+    amount decimal(15,5) default 0,
+	tax decimal(15,5) default 0,
+	total decimal(15,5) default 0,
+	invoicetype int,
+	filename VARCHAR(250),
+    PRIMARY KEY (id)
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
+CREATE INDEX ind_cc_invoices ON cc_invoices (cover_startdate);
+
+
+CREATE TABLE cc_invoice_history (
+    id INT NOT NULL AUTO_INCREMENT,    
+    invoiceid int NOT NULL,	
+    invoicesent_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	invoicestatus INT,
+    PRIMARY KEY (id)
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
+CREATE INDEX ind_cc_invoice_history ON cc_invoice_history (invoicesent_date);
+
+
+
+
+CREATE TABLE cc_package(
+	id INT NOT NULL AUTO_INCREMENT,    
+	name VARCHAR(70) NOT NULL,
+	package_type INT NOT NULL DEFAULT 0,
+	free_minute decimal(15,5) NOT NULL DEFAULT 0,
+	creationdate TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (id)
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
+
+ALTER TABLE cc_ratecard ADD column id_cc_package bigint not null default 0;
+ALTER TABLE cc_tariffgroup ADD column id_cc_package bigint not null default 0;
+ALTER TABLE cc_card ADD column free_min_used decimal(15,5) not null default 0;

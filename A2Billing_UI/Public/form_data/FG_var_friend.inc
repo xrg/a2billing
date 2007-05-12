@@ -1,6 +1,6 @@
 <?php
 
-getpost_ifset(array('cardnumber', 'id', 'name', 'amaflags', 'callgroup', 'accountcode', 'callerid', 'canreinvite', 'context', 'defaultip', 'dtmfmode', 
+getpost_ifset(array('id_cc_card', 'cardnumber', 'id', 'name', 'amaflags', 'callgroup', 'accountcode', 'callerid', 'canreinvite', 'context', 'defaultip', 'dtmfmode', 
 'fromuser', 'fromdomain', 'host', 'insecure', 'language', 'mailbox', 'md5secret', 'nat', 'permit', 'deny', 'mask', 'pickupgroup', 'port', 'qualify', 
 'restrictcid', 'rtptimeout', 'rtpholdtimeout', 'secret', 'type', 'username', 'disallow', 'allow', 'musiconhold', 'regseconds', 'ipaddr', 'cancallforward', 'regexten','friend_id'));
 
@@ -33,7 +33,7 @@ $yesno["1"] = array( gettext("Yes"), "1");
 $yesno["0"] = array( gettext("No"), "0");
 
 
-$HD_Form -> AddViewElement(gettext("CARDHOLDER"), "accountcode", "10%", "center", "sort", "25", "lie", "cc_card", "lastname, firstname", "username='%id'", "%1 %2");
+$HD_Form -> AddViewElement(gettext("CARDHOLDER"), "id_cc_card", "10%", "center", "sort", "25", "lie", "cc_card", "lastname, firstname", "id='%id'", "%1 %2");
 $HD_Form -> AddViewElement(gettext("USERNAME"), "name", "12%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("ACCOUNTCODE"), "accountcode", "12%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("SECRET"), "secret", "10%", "center", "sort");
@@ -44,7 +44,7 @@ $HD_Form -> AddViewElement(gettext("DTMF"), "dtmfmode", "8%", "center", "sort");
 
 
 
-$HD_Form -> FieldViewElement ('accountcode, name, accountcode, secret, callerid, context, defaultip, dtmfmode');
+$HD_Form -> FieldViewElement ('id_cc_card, name, accountcode, secret, callerid, context, defaultip, dtmfmode');
 
 
 $HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO ".strtoupper($HD_Form->FG_INSTANCE_NAME)." CREATED!"); 
@@ -77,6 +77,17 @@ if ($form_action=="ask-add"){
 	$pass_secret = "value='".$pass."'";
 }
 
+$HD_Form -> AddEditElement (gettext("ID CARD"),
+	"id_cc_card",
+	'',
+	"POPUPVALUE",
+	"size=30 maxlength=50",
+	"4",
+	gettext("Insert the Id CardNumber"),
+	"" , "", "", "", "",
+	"A2B_entity_card.php?popup_select=1&"
+	, ", 'CardNumberSelection','width=550,height=350,top=20,left=100'" ,
+	gettext("Insert the card ID."));
 
 
 $HD_Form -> AddEditElement (gettext("NAME"),
@@ -482,7 +493,7 @@ $HD_Form -> AddEditElement (gettext("CANCALLFORWARD"),
 
 
 
-$HD_Form -> FieldEditElement ('name, type, username, accountcode, regexten, callerid, amaflags, secret, md5secret, nat, dtmfmode, qualify, canreinvite, disallow, allow, host, callgroup, context, defaultip, fromuser, fromdomain, insecure, language, mailbox, permit, deny, mask, pickupgroup, port, restrictcid, rtptimeout, rtpholdtimeout, musiconhold, regseconds, ipaddr, cancallforward');
+$HD_Form -> FieldEditElement ('id_cc_card, name, type, username, accountcode, regexten, callerid, amaflags, secret, md5secret, nat, dtmfmode, qualify, canreinvite, disallow, allow, host, callgroup, context, defaultip, fromuser, fromdomain, insecure, language, mailbox, permit, deny, mask, pickupgroup, port, restrictcid, rtptimeout, rtpholdtimeout, musiconhold, regseconds, ipaddr, cancallforward');
 
 
 

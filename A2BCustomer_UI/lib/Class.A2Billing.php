@@ -394,6 +394,7 @@ class A2Billing {
 		if(!isset($this->config["agi-conf$idconfig"]['dialcommand_param'])) $this->config["agi-conf$idconfig"]['dialcommand_param'] = '|30|HL(%timeout%:61000:30000)';
 		if(!isset($this->config["agi-conf$idconfig"]['dialcommand_param_sipiax_friend'])) $this->config["agi-conf$idconfig"]['dialcommand_param_sipiax_friend'] = '|30|HL(3600000:61000:30000)';
 		if(!isset($this->config["agi-conf$idconfig"]['switchdialcommand'])) $this->config["agi-conf$idconfig"]['switchdialcommand'] = 0;
+		if(!isset($this->config["agi-conf$idconfig"]['failover_recursive_limit'])) $this->config["agi-conf$idconfig"]['failover_recursive_limit'] = 1;
 		if(!isset($this->config["agi-conf$idconfig"]['record_call'])) $this->config["agi-conf$idconfig"]['record_call'] = 0;
 		if(!isset($this->config["agi-conf$idconfig"]['monitor_formatfile'])) $this->config["agi-conf$idconfig"]['monitor_formatfile'] = 'gsm';
 		if(!isset($this->config["agi-conf$idconfig"]['base_currency'])) 	$this->config["agi-conf$idconfig"]['base_currency'] = 'usd';
@@ -953,7 +954,7 @@ class A2Billing {
 							$QUERY .= " CURRENT_TIMESTAMP - INTERVAL $answeredtime SECOND ";
 						}						
 						$QUERY .= ", '$answeredtime', '".$inst_listdestination[4]."', '$dialstatus', now(), '0', '0', ".
-							" '".$this->countrycode."', '".$this->subcode."', 'DID CALL', '0', '0', '0', '0', $this->CallerID, '3' )";
+							" '".$this->countrycode."', '".$this->subcode."', 'DID CALL', '0', '0', '0', '0', '$this->CallerID', '3' )";
 						if ($this->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '.$QUERY);
 						$this -> write_log("[DID CALL - LOG CC_CALL: SQL: $QUERY]");
 						$result = $this -> instance_table -> SQLExec ($this->DBHandle, $QUERY, 0);

@@ -200,9 +200,8 @@ class Table {
 	
 				$oid = $DBHandle -> Insert_ID();
 				if ($oid <= 0 || $oid=='') return (true);					
-
-				$sql = 'SELECT "'.$id_name.'" FROM "'.$this -> table.'" WHERE oid=\''.$oid.'\'';
 				
+				$sql = 'SELECT '.$id_name.' FROM '.$this -> table.' WHERE oid=\''.$oid.'\''; 
 				
 				$res = $DBHandle -> query($sql);
 

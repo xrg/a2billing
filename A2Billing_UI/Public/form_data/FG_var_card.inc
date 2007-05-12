@@ -12,10 +12,16 @@ $HD_Form = new FormHandler("cc_card","Card");
 
 $HD_Form -> FG_DEBUG = 0;
 // FAQ
+$HD_Form -> FG_TABLE_ID="id";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "ASC";
 $HD_Form -> FG_FILTER_SEARCH_SESSION_NAME = 'entity_card_selection';
 
 $HD_Form -> FG_FK_DELETE_CONFIRM = true;
+$HD_Form -> FG_FK_DELETE_ALLOWED = true;
+$HD_Form -> FG_FK_TABLENAMES=array('cc_iax_buddies','cc_sip_buddies');
+$HD_Form -> FG_FK_EDITION_CLAUSE=array("id_cc_card","id_cc_card");
+$HD_Form -> FG_FK_WARNONLY=false;
+$HD_Form -> FG_FK_DELETE_MESSAGE = gettext("You are going as well to remove all the SIP/IAX accounts attached to this card! Please comfirm that you really want to remove that SIP/IAX Accounts ? ");
 
 // TODO Unify order of parameters
 
@@ -32,7 +38,7 @@ $simultaccess_list_r["0"] = array( "0", gettext("INDIVIDUAL ACCESS"));
 $simultaccess_list_r["1"] = array( "1", gettext("SIMULTANEOUS ACCESS"));
 
 
-$HD_Form -> FG_FK_DELETE_MESSAGE = gettext("You are going as well to remove all the SIP/IAX accounts attached to this card! Please comfirm that you really want to remove that SIP/IAX Accounts ? ");
+
 
 
 $currency_list = array();
@@ -160,8 +166,8 @@ if (($popup_select>=1)){
 	$HD_Form -> FG_DELETION = true;
 	$HD_Form -> FG_OTHER_BUTTON1 = true;
 	$HD_Form -> FG_OTHER_BUTTON2 = true;
-	$HD_Form -> FG_OTHER_BUTTON1_LINK="A2B_entity_friend.php?atmenu=sipfriend&form_action=add_sip&stitle=Customers_Card&cardnumber=|col1|&useralias=|col2|";
-	$HD_Form -> FG_OTHER_BUTTON2_LINK="A2B_entity_friend.php?atmenu=iaxfriend&form_action=add_iax&stitle=Customers_Card&cardnumber=|col1|&useralias=|col2|";
+	$HD_Form -> FG_OTHER_BUTTON1_LINK="A2B_entity_friend.php?atmenu=sipfriend&form_action=add_sip&stitle=Customers_Card&id_cc_card=|col0|&cardnumber=|col1|&useralias=|col2|";
+	$HD_Form -> FG_OTHER_BUTTON2_LINK="A2B_entity_friend.php?atmenu=iaxfriend&form_action=add_iax&stitle=Customers_Card&id_cc_card=|col0|&cardnumber=|col1|&useralias=|col2|";
 	$HD_Form -> FG_OTHER_BUTTON1_IMG ="../Images/icon-sip.gif";
 	$HD_Form -> FG_OTHER_BUTTON2_IMG ="../Images/icon-iax.gif";
 	

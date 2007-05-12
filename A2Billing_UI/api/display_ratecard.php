@@ -68,6 +68,9 @@ if (!isset($prefix_select) || strlen($prefix_select)==0) $prefix_select="";
 if (!isset($currency_select) || strlen($currency_select)==0) $currency_select=true;else $choose_currency=$currency_select;
 if (!isset($css_url) || strlen($css_url)==0) $css_url=substr("http://".$_SERVER['SERVER_ADDR'].$_SERVER['PHP_SELF'],0,strlen("http://".$_SERVER['SERVER_ADDR'].$_SERVER['PHP_SELF'])-20)."api_ratecard.css";
 
+if (!isset($page_url) || strlen($page_url)==0){ echo "Error : need to define page_url !!!"; exit; }
+if ( (substr($page_url,0,7)!='http://') && (substr($page_url,0,8)!='https://') ){ echo "Error : page_url need to start by http:// or https:// "; exit; }
+
 
 //end set default
 trim($field_to_display);
@@ -196,6 +199,8 @@ if ($nb_record<=$FG_LIMITE_DISPLAY){
 </head>
 
 <div>
+<?php echo "$page_url?order=$order&sens=$sens&current_page=$current_page&css_url=$css_url&page_url=$page_url"?>
+
 <!-- ** ** ** ** ** Part for the research ** ** ** ** ** -->
 	<FORM METHOD=GET name="myForm" ACTION="<?php echo "http://$page_url?order=$order&sens=$sens&current_page=$current_page&css_url=$css_url&page_url=$page_url"?>">
 	<INPUT TYPE="hidden" NAME="posted" value=1>
