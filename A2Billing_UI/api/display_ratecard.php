@@ -35,9 +35,9 @@ getpost_ifset(array('key', 'ratecardid', 'a2b_url', 'nb_display_lines', 'filter'
 */
 
   $ip_remote = getenv('REMOTE_ADDR'); 
-  $mail_content = "[" . date("Y/m/d G:i:s", mktime()) . "] "."Request asked from:$ip_remote with key:$key \n";
+  // $mail_content = "[" . date("Y/m/d G:i:s", mktime()) . "] "."Request asked from:$ip_remote with key:$key \n";
  // CHECK KEY
- if ($FG_DEBUG > 0) echo "<br> md5(".md5($security_key).") !== $key";
+ // if ($FG_DEBUG > 0) echo "<br> md5(".md5($security_key).") !== $key";
 if (md5($security_key) !== $key  || strlen($security_key)==0)
  {
 	  mail($email_alarm, "ALARM : RATE CARD API - CODE_ERROR 2", $mail_content);
@@ -250,7 +250,7 @@ if ($nb_record<=$FG_LIMITE_DISPLAY){
 		<?php } ?>
 		<tr class="bar-search" align="left" bgcolor="#000033">
 			<td colspan="2" align="center">
-			<input type="image"  name="image16" align="top" border="0" src="<?php echo "http://".$a2b_url; ?>/Images/button-search.gif" />
+			<input type="image"  name="image16" align="top" border="0" src="<?php echo "http://".$a2b_url; ?>/Public/templates/default/images/button-search.gif" />			
     			</td>
 		</tr>
 		</tbody>
