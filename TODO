@@ -3,6 +3,14 @@
                    			TODO LIST - SPECIFIC
 ********************************************************************************
 
+
+#### UPDATE : IMPORT MODULE
+********************************************************************
+When I import, I get a page which allows me to check the data is being
+imported properly. There is no way to accept that import without selecting 
+the csv files again. 
+
+
 #### BUGS
 ********************************************************************
 1# One more thing - if the SIP/IAX friend is created via "Create SIP Friend" button, 
@@ -10,6 +18,35 @@ then the defaults are not filled in, such as the context.
 
 2#
 IAX and SIP friends are not created correctly when created from the customer signup page. My understanding is that the account number and CID should be the same as the account number and card alias - this is the ony way it seems to work, otherwise the call is rejected.
+
+
+
+#### BUG
+********************************************************************
+yes the authorize is always in USD as it s only for US peoples.
+So the amount received by Authorize is in USD, we need configure it convert from  
+USD -> base currency before making the insert.
+if the base currency is in EURO it wont work correctly now
+
+
+## USE CC_COUNTRY TO SELECT THE COUNTRY : ON SIGNUP & EDIT CUSTOMER
+********************************************************************
+We will use cc_country table to select the country on signup module and also when 
+we edit customer info. The value store in cc_card->country will be the cc_country->countrycode
+
+
+#### FEATURES : EDIT SOME CUSTOMER INFORMATION ON CUSTOMERUI
+********************************************************************
+A2BCustomer_UI/userinfo.php
+add a button below "Country" -> "edit my personal informations"
+we should be able to edit some of the data, not all, base on our framework.
+Ensure that customer cannot edit an other cardid
+
+
+#### CONSOLIDATE THE GETTEXT FILES
+********************************************************************
+Consolidate the gettext files for customer and admin interface
+regenerate all PO & MO files
 
 #### FEATURES : WHOLESALE
 ********************************************************************
@@ -35,39 +72,13 @@ then we could say in the customer signup email - IAX details : Username = $card_
 
 
 
-#### UPDATE : IMPORT MODULE
-********************************************************************
-When I import, I get a page which allows me to check the data is being
-imported properly. There is no way to accept that rate import without
-selecting the rate card again. I think this is an error.
-
 
 #### FIX : HIDE DIV ON "List Customer" & "Browse Rates"
 ********************************************************************
 Jquery - HIDE DIV ON "List Customer" & "Browse Rates"
 
 
-#### TODO
-********************************************************************
-Modified: trunk/A2BCustomer_UI/checkout_payment.php
 
-# customers_id -> feed with the card ID
-
-# http://locals.com/checkout_process.php?sess_id=8g34831kbhdimm790mt5heh0u5&transactionID=6
-Secure that
-
-# ADD a random number MDP
-on $key = securitykey(EPAYMENT_TRANSACTION_KEY, $time_stamp."^".$transaction_no[0][0]."^".$amount."^".$_SESSION["card_id"]);
-
-# Check security on MD5 HMAC 
-but we need a secret code on moneybooker side / paypal / etc---
-
-// Calculate and return fingerprint
-// Use when you need control on the HTML output
-function CalculateFP ($loginid, $txnkey, $amount, $sequence, $tstamp, $currency = "") {
-  return ($this->hmac ($txnkey, $loginid . "^" . $sequence . "^" . $tstamp . "^" . $amount . "^" . $currency));
-}
-that will work only stored on provider side
 
 
 #### TODO
@@ -79,13 +90,6 @@ and other thing is that we should have to add the way to manage the Pending tran
 There is a interface Provideded by paypal and Money bookers to get status of pending transactions
 so that later on admin can update the status of transactions which were pending by quering the Epayment Gateway
 got my point ?
-
-
-#### BUG
-********************************************************************
-yes the authorize is always in USD as it s only for US peoples
-can we set the convert from  USD -> base currency
-
 
 
 
@@ -259,11 +263,6 @@ a check should be proceed, if the DID don't belong to the user's DID group then 
 
 
 
-
-#### CONSOLIDATE THE GETTEXT FILES
-********************************************************************
-Consolidate the gettext files for customer and admin interface
-regenerate all PO & MO files
 
 
 ######## CREDIT RESERVE - SIMULTANEOUS ACCESS

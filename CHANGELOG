@@ -5,6 +5,28 @@
 ********************************************************************
 
 
+#### E-PAYMENT MODULE
+********************************************************************
+Modified: trunk/A2BCustomer_UI/checkout_payment.php
+
+# customers_id -> feed with the card ID
+
+# http://locals.com/checkout_process.php?sess_id=8g34831kbhdimm790mt5heh0u5&transactionID=6
+Secure that
+
+# ADD a random number MDP
+on $key = securitykey(EPAYMENT_TRANSACTION_KEY, $time_stamp."^".$transaction_no[0][0]."^".$amount."^".$_SESSION["card_id"]);
+
+# Check security on MD5 HMAC 
+but we need a secret code on moneybooker side / paypal / etc---
+
+// Calculate and return fingerprint
+// Use when you need control on the HTML output
+function CalculateFP ($loginid, $txnkey, $amount, $sequence, $tstamp, $currency = "") {
+  return ($this->hmac ($txnkey, $loginid . "^" . $sequence . "^" . $tstamp . "^" . $amount . "^" . $currency));
+}
+that will work only stored on provider side
+
 
 #### FEATURES : CALLBACK APIs
 ********************************************************************
