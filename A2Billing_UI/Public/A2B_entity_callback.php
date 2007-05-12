@@ -1,10 +1,9 @@
 <?php
-include_once ("../lib/defines.php");
-include_once ("../lib/module.access.php");
-include_once ("../lib/Form/Class.FormHandler.inc.php");
-
-include_once ("./form_data/FG_var_diduse.inc");
-
+include ("../lib/defines.php");
+include ("../lib/module.access.php");
+include ("../lib/Form/Class.FormHandler.inc.php");
+include ("./form_data/FG_var_callback.inc");
+include ("../lib/smarty.php");
 
 
 if (! has_rights (ACX_RATECARD)){ 
@@ -12,8 +11,6 @@ if (! has_rights (ACX_RATECARD)){
 	   Header ("Location: PP_error.php?c=accessdenied");	   
 	   die();	   
 }
-
-
 
 /***********************************************************************************/
 
@@ -23,23 +20,29 @@ $HD_Form -> setDBHandler (DbConnect());
 $HD_Form -> init();
 
 
-		
-
 if ($id!="" || !is_null($id)){	
 	$HD_Form -> FG_EDITION_CLAUSE = str_replace("%id", "$id", $HD_Form -> FG_EDITION_CLAUSE);	
 }
 
 
-if (!isset($form_action))  $form_action="list"; 
+if (!isset($form_action))  $form_action="list"; //ask-add
 if (!isset($action)) $action = $form_action;
 
 
 $list = $HD_Form -> perform_action($form_action);
 
-include("PP_header.php");
 
-echo '<br><br>'.$CC_help_did_use;
 
+// #### HEADER SECTION
+$smarty->display('main.tpl');
+
+// #### HELP SECTION
+echo $CC_help_callback;
+?>
+<br>
+
+<script language="JavaScript" src="./javascript/calendar2.js"></script>
+<?
 // #### TOP SECTION PAGE
 $HD_Form -> create_toppage ($form_action);
 
@@ -50,7 +53,9 @@ if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
 
 $HD_Form -> create_form ($form_action, $list, $id=null) ;
 
-	include("PP_footer.php");
+// #### FOOTER SECTION
+$smarty->display('footer.tpl');
+
 
 
 ?>

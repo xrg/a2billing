@@ -4,7 +4,6 @@ include ("./lib/module.access.php");
 include ("./lib/Form/Class.FormHandler.inc.php");
 include ("./form_data/FG_var_did.inc");
 
-
 if (! has_rights (ACX_ACCESS)){
 	   Header ("HTTP/1.0 401 Unauthorized");
 	   Header ("Location: PP_error.php?c=accessdenied");
@@ -54,12 +53,11 @@ if ((isset($confirm_buy_did)) && ($confirm_buy_did == 1))
 }
 
 if (is_numeric($voip_call) && ($confirm_buy_did >= 2)){
-//if (strlen($destination)>0  && is_numeric($choose_did) && is_numeric($voip_call) && ($confirm_buy_did >= 2)){
-
+//if (strlen($destination)>0  && is_numeric($choose_did) && is_numeric($voip_call) && ($confirm_buy_did >= 2)){		
 		$FG_DID_TABLE  = "cc_did";
 		$FG_DID_FIELDS = "did";
 		$instance_sub_table = new Table($FG_DID_TABLE, $FG_DID_FIELDS);
-		$QUERY = "INSERT INTO cc_did_destination (activated, id_cc_card, id_cc_did, destination, priority, voip_call) VALUES ('0', '".$_SESSION["card_id"]."', '".$choose_did."', '".$destination."', '1', '".$voip_call."')";
+		$QUERY = "INSERT INTO cc_did_destination (activated, id_cc_card, id_cc_did, destination, priority, voip_call) VALUES ('1', '".$_SESSION["card_id"]."', '".$choose_did."', '".$destination."', '1', '".$voip_call."')";
 
 		$result = $instance_sub_table -> SQLExec ($HD_Form -> DBHandle, $QUERY, 0);
 		if ($confirm_buy_did == 2){
@@ -104,7 +102,11 @@ if (!isset ($current_page) || ($current_page == ""))
 //////////////////////////////////////////////////////////////////////////////
 
 if ($id!="" || !is_null($id)){
-	$HD_Form -> FG_EDITION_CLAUSE = $HD_Form -> FG_TABLE_CLAUSE." AND t1.id = ".$id;
+	if (isset($form_action) && ($form_action=='ask-edit' || $form_action=='edit')){
+		$HD_Form -> FG_EDITION_CLAUSE = " id = ".$id;
+	}else{
+		$HD_Form -> FG_EDITION_CLAUSE = $HD_Form -> FG_TABLE_CLAUSE." AND t1.id = ".$id;
+	}
 }
 
 
@@ -189,10 +191,10 @@ if (isset($choose_country)){
 		/*************************************************************/
 
 		// LIST FREE DID TO ADD PHONENUMBER
-	//	$instance_table_did = new Table("cc_did", "id, did, fixrate");
-	//	$FG_TABLE_CLAUSE = "id_cc_country=$choose_country and id_cc_didgroup='".$_SESSION["id_didgroup"]."' and activated='1' and id NOT IN (select id_cc_did from cc_did_destination)";
+		//	$instance_table_did = new Table("cc_did", "id, did, fixrate");
+		//	$FG_TABLE_CLAUSE = "id_cc_country=$choose_country and id_cc_didgroup='".$_SESSION["id_didgroup"]."' and activated='1' and id NOT IN (select id_cc_did from cc_did_destination)";
 
-		// FIX SQL for Mysql < 4 that doesn't support subqueries		
+		// FIX SQL for Mysql < 4 that doesn't support subqueries
 		$instance_table_did = new Table("cc_did LEFT JOIN cc_did_destination ON (cc_did.id!=cc_did_destination.id)", "DISTINCT cc_did.id, did, fixrate");
 		$FG_TABLE_CLAUSE = " id_cc_country=$choose_country and id_cc_didgroup='".$_SESSION["id_didgroup"]."' and cc_did.activated='1'";
 		$list_did = $instance_table_did -> Get_list ($HD_Form -> DBHandle, $FG_TABLE_CLAUSE, "did", "ASC", null, null, null, null);
@@ -280,10 +282,11 @@ function CheckCountry(Source){
 	}
 	if (Source == 'Add')
 	{	
+		destination = document.theForm.destination.value;
+		document.theForm.confirm_buy_did.value=4;
 		if (destination == '') 
 		{ 
-			return false; 
-			document.theForm.confirm_buy_did.value=4;
+			return false; 			
 		}
 		else test=true;
 	}
@@ -524,7 +527,7 @@ function CheckCountry(Source){
 			</tr>
 			<tr bgcolor="#dddddd">
 				<td colspan="2" height="40">
-					<center><font color="red"><?php echo gettext("A monthly taking away of :").number_format($rate,2,".",",")." ".BASE_CURRENCY."<br>".gettext(" will be carrie out from your acount");?> </font></center>
+					<center><font color="red"><?php echo gettext("A monthly fee of ").number_format($rate,2,".",",")." ".BASE_CURRENCY."<br>".gettext(" will be carrie out from your acount");?> </font></center>
 				</td>
 			</tr>
 			<tr bgcolor="#cccccc">

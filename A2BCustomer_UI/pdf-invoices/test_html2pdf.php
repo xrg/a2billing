@@ -1,5 +1,5 @@
 <?php
-error_reporting(E_ALL);
+//error_reporting(E_ALL);
 
 if ($printable != 'yes') {
    require('html2pdf/html2fpdf.php');
@@ -11,7 +11,7 @@ if ($printable != 'yes') {
 
 <table width="100%">
 <tr>
-<td width="5%" align="left"><img src="images/ast-invoice.gif"/> </td>
+<td width="5%" align="left"><img src="http://localhost/~areski/svn/a2billing/trunk/A2BCustomer_UI/templates/default/images/companylogo.gif"/> </td>
 <td align="left" width="50%">&nbsp; </td> 
 <td align="right"> <img src="images/asterisk.gif"/> </td>
 </tr>

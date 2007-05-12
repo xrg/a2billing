@@ -701,5 +701,31 @@ $CC_help_list_alarm='<a href="#" target="_self"  onclick="imgidclick(\'img1000\'
 </div>
 ';
 
+
+$CC_help_logfile='<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
+<div id="div1000" style="display:visible;">
+<div id="kiki"><div class="w1">
+	<img src="'.KICON_PATH.'/cache.gif" class="kikipic"/>
+	<div class="w2">'
+.gettext("Browse for log file.<br> Use to locate the log file on a remote Web server.<br>It can generate combined reports for all logs. This tool can be use for extraction and presentation of information from various logfiles.").'
+<br/>
+</div></div></div>
+</div>
+';
+
+
+$CC_help_callback='<a href="#" target="_self"  onclick="imgidclick(\'img1000\',\'div1000\',\'help.png\',\'viewmag.png\');"><img id="img1000" src="'.KICON_PATH.'/viewmag.png" onmouseover="this.style.cursor=\'hand\';" WIDTH="16" HEIGHT="16"></a>
+<div id="div1000" style="display:visible;">
+<div id="kiki"><div class="w1">
+	<img src="'.KICON_PATH.'/cache.gif" class="kikipic"/>
+	<div class="w2">'
+.gettext("Callback will offer you an easy way to connect any phone to our Asterisk platform.
+We handle a spool with all the callbacks that need to be running and you might be able to view here all the pending and performed callback with their current status. Different parameters determine the callback, the way to reach the user, the time when we need to call him, the result of the last attempts, etc...").'
+<br/>
+</div></div></div>
+</div>
+';
+
+
 } //ENDIF SHOW_HELP
 ?>

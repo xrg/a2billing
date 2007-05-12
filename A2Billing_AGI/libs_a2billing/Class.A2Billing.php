@@ -157,6 +157,9 @@ class A2Billing {
 	var $vouchernumber;
 	var $add_credit;
 	
+	// Define if we have changed the status of the card
+	var $set_inuse = 0;
+	
 	/**
 	* CC_TESTING variables 
 	* for developer purpose, will replace some get_data inputs in order to test the application from shell
@@ -519,8 +522,13 @@ class A2Billing {
 	 */
 	function callingcard_acct_start_inuse($agi, $inuse){
 		
-		if ($inuse)		$QUERY = "UPDATE cc_card SET inuse=inuse+1 WHERE username='".$this->username."'";
-		else 			$QUERY = "UPDATE cc_card SET inuse=inuse-1 WHERE username='".$this->username."'";
+		if ($inuse){		
+			$QUERY = "UPDATE cc_card SET inuse=inuse+1 WHERE username='".$this->username."'";
+			$this -> set_inuse = 1;
+		}else{ 			
+			$QUERY = "UPDATE cc_card SET inuse=inuse-1 WHERE username='".$this->username."'";
+			$this -> set_inuse = 0;
+		}
 
 		if ($this->agiconfig['debug']>=1)  $agi->verbose('line:'.__LINE__.' - '.$QUERY);
 		$this->write_log("[Start: $QUERY]");
@@ -1857,7 +1865,7 @@ class A2Billing {
 			//ast_cdr_setaccount(chan, username);
 			
 			$this -> write_log("[callingcard_acct_start_inuse]");
-			$this -> callingcard_acct_start_inuse($agi,1);
+			$this -> callingcard_acct_start_inuse($agi,1);			
 			
 			if ($this->agiconfig['say_balance_after_auth']==1){		
 				if ($this->agiconfig['debug']>=1) $agi->verbose('line:'.__LINE__.' - '."[A2Billing] SAY BALANCE (".$this->agiconfig['say_balance_after_auth'].")\n");
