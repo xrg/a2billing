@@ -85,6 +85,7 @@ type=friend
 secret=<?php echo $sip_iax_data[0][2]?>
 
 host=<?php echo SIP_IAX_INFO_HOST; ?>
+
 disallow=all
 context=from-trunk ; change for proper context
 allow=<?php echo SIP_IAX_INFO_ALLOWCODEC?> ; we support ulaw,alaw,ilbc,gsm,g723.1,g726,g729a
