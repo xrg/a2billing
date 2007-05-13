@@ -224,12 +224,13 @@ $HD_Form -> AddEditElement (gettext("STATE/PROVINCE"),
 
 $HD_Form -> AddEditElement (gettext("COUNTRY"),
 			   "country",
-			   '$value',
-			   "INPUT",
-			   "size=30 maxlength=30",
-			   "0",
-			   gettext("Insert your country"),
-			   "" , "", "",	"", "", "" , "", "");
+			   "",
+			   "SELECT",
+			   "", "", "",
+			   "sql",
+			   "cc_country",
+			   "countryname, countrycode",
+			   "", "", "%1", "", "", "", '' );
 
 
 $HD_Form -> AddEditElement (gettext("ZIP/POSTAL CODE"),
@@ -317,8 +318,9 @@ $context = $A2B->config["signup"]['context'];
 $activatedbyuser = $A2B->config["signup"]['activatedbyuser'] ? 't' : 'f';
 
 //END END END  Code here for getting data from configuration files
+//$HD_Form -> FG_ADDITIONAL_FUNCTION_AFTER_ADD = 'create_sipiax_friends';
 
-$HD_Form ->FG_QUERY_ADITION_SIP_IAX_VALUE = "'$maxi', '$maxi', '$maxi', '$amaflag', '$maxi2', '$context', 'RFC2833','dynamic', 'friend', '$maxi', 'g729,ulaw,alaw,gsm','$pass'";
+//$HD_Form ->FG_QUERY_ADITION_SIP_IAX_VALUE = "'$maxi', '$maxi', '$maxi', '$amaflag', '$maxi2', '$context', 'RFC2833','dynamic', 'friend', '$maxi', 'g729,ulaw,alaw,gsm','$pass'";
 
 $HD_Form ->FG_QUERY_ADITION_HIDDEN_FIELDS = "iax_buddy, sip_buddy, expiredays, expirationdate, typepaid, enableexpire, runservice, simultaccess, activated, credit, username, useralias, uipass,  userpass, loginkey, activatedbyuser";
 $HD_Form ->FG_QUERY_ADITION_HIDDEN_VALUE  = "'$iax_account','$sip_account','$myexpiredays','$myexpirationdate','$mytypepaid','$myenableexpire', '$myrunservice','$mysimultaccess','$myactivated','$mycredit','$maxi','$maxi2','$pass',"."'$myusername',"."'$loginkey',"."'$activatedbyuser'";
@@ -358,7 +360,7 @@ $HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = Images_
 $HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT = gettext("Once you have completed the form above, click on the CONFIRM DATA button.");
 
 
-$HD_Form -> FG_ADDITIONAL_FUNCTION_AFTER_ADD = 'create_sipiax_friends_reload';
+$HD_Form -> FG_ADDITIONAL_FUNCTION_AFTER_ADD = 'create_sipiax_friends';
 
 
 //$HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";

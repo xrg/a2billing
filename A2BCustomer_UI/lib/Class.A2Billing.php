@@ -343,6 +343,7 @@ class A2Billing {
 		// Conf for Customer Web UI
 		if(!isset($this->config['webcustomerui']['customerinfo']))	$this->config['webcustomerui']['customerinfo'] = '1';
 		if(!isset($this->config['webcustomerui']['sipiaxinfo']))	$this->config['webcustomerui']['sipiaxinfo'] = '1';
+		if(!isset($this->config['webcustomerui']['personalinfo']))	$this->config['webcustomerui']['personalinfo'] = '1';
 		if(!isset($this->config['webcustomerui']['cdr']))		$this->config['webcustomerui']['cdr'] = '1';
 		if(!isset($this->config['webcustomerui']['invoice']))		$this->config['webcustomerui']['invoice'] = '1';		
 		if(!isset($this->config['webcustomerui']['voucher']))		$this->config['webcustomerui']['voucher'] = '1';

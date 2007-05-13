@@ -32,6 +32,21 @@ $CC_help_balance_customer='
 </table>
 </div></div></div>&nbsp;';
 
+$CC_help_card='
+<div id="div1000" style="display:visible;">
+<div id="kiblue_header"><div class="w4">
+	<img src="'.KICON_PATH.'/gnome-finance.gif" width="48" height="48" class="kikipic"/>
+	<div class="w2">
+<table width="90%">
+<tr>
+<td width="100%">
+
+'.gettext("You can update your personal information here.").' 
+<br></br>
+</td>
+</tr>
+</table>
+</div></div></div>&nbsp;';
 
 $CC_help_simulator_rateengine='
 <div id="div1000" style="display:visible;">

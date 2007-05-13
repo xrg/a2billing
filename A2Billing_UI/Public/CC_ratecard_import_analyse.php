@@ -12,7 +12,7 @@ if (! has_rights (ACX_RATECARD)){
 	die();	   
 }
 
-getpost_ifset(array('tariffplan','trunk', 'search_sources', 'task', 'status','currencytype'));
+getpost_ifset(array('tariffplan','trunk', 'search_sources', 'task', 'status','currencytype','uploadedfile_name'));
 
 
 //print_r ($_POST);
@@ -51,35 +51,6 @@ $field[0]="Dialprefix";
 $field[1]="Destination Country";
 $field[2]="Rate Initial";
 
-/*$field[3]="Initblock";
-$field[4]="Billingblock";
-$field[5]="Connectcharge";
-$field[6]="Disconnectcharge";
-$field[7]="Stepchargea";
-$field[8]="Chargea";
-
-
-$field[9]="timechargea";
-$field[10]="billingblocka";
-
-$field[11]="stepchargeb";
-$field[12]="chargeb";
-$field[13]="timechargeb";
-$field[14]="billingblockb";
-
-$field[15]="stepchargec";
-$field[16]="chargec";
-$field[17]="timechargec";
-$field[18]="billingblockc";
-
-$field[19]="startdate";
-$field[20]="stopdate";
-
-$field[21]="starttime";
-$field[22]="endtime";*/
-
-//RECEIVE buyrate buyrateinitblock
-// rateinitial, buyrate, buyrateinitblock, buyrateincrement, initblock, billingblock, connectcharge, disconnectcharge, stepchargea, chargea, timechargea, billingblocka, stepchargeb, chargeb, timechargeb, billingblockb, stepchargec, chargec, timechargec, billingblockc, startdate, stopdate, starttime, endtime
 $FG_DEBUG = 0;
 
 if (DB_TYPE == "mysql"){
@@ -89,21 +60,12 @@ if (DB_TYPE == "mysql"){
 // THIS VARIABLE DEFINE THE COLOR OF THE HEAD TABLE
 $FG_TABLE_ALTERNATE_ROW_COLOR[] = "#FFFFFF";
 $FG_TABLE_ALTERNATE_ROW_COLOR[] = "#F2F8FF";
-
-
 $Temps1 = time();
-
-
 if ($FG_DEBUG == 1) echo "::::>> ".$the_file;
-
-
-
 //INUTILE
 $my_max_file_size = (int) MY_MAX_FILE_SIZE_IMPORT;
 
-
 if ($FG_DEBUG == 1) echo "<br> Task :: $task";
-
 if ($task=='upload'){
 
 	//---------------------------------------------------------
@@ -113,19 +75,37 @@ if ($task=='upload'){
 	$the_file_name = $_FILES['the_file']['name'];
 	$the_file_type = $_FILES['the_file']['type'];
 	$the_file = $_FILES['the_file']['tmp_name'];
-	
-	
-	if ($FG_DEBUG == 1) echo "<br> FILE  ::> ".$the_file_name;
-	if ($FG_DEBUG == 1) echo "<br> THE_FILE:$the_file <br>THE_FILE_TYPE:$the_file_type";
 
-	
-	$errortext = validate_upload($the_file,$the_file_type);
-	if ($errortext != "" || $errortext  != false)	
+	if(count($_FILES) > 0)
 	{
-		echo $errortext;
-		exit;
+		$errortext = validate_upload($the_file, $the_file_type);	
+		if ($errortext != "" || $errortext  != false)	
+		{
+			echo $errortext;
+			exit;
+		}
+		$new_filename = "/tmp/".MDP(6).".csv";
+		if (file_exists($new_filename))
+		{
+			echo $_FILES["file"]["name"] . " already exists. ";
+		}
+		else
+		{
+			if(!move_uploaded_file($_FILES["the_file"]["tmp_name"],	$new_filename))
+			{
+			    echo gettext("File Save Failed, FILE=".$new_filename);
+			}
+		}
+		$the_file = $new_filename;
+	}
+	else
+	{		
+		$the_file_type = $uploadedfile_type;
+		$the_file = $uploadedfile_name;
 	}
 	
+	if ($FG_DEBUG == 1) echo "<br> FILE  ::> ".$the_file_name;
+	if ($FG_DEBUG == 1) echo "<br> THE_FILE:$the_file <br>THE_FILE_TYPE:$the_file_type";	
 	
 	$fp = fopen($the_file,  "r");  
 	if (!$fp){  /* THE FILE DOESN'T EXIST */ 
@@ -373,7 +353,8 @@ if ($status=="ok"){
 			  <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo $my_max_file_size?>">
 			  <input type="hidden" name="task" value="upload">
 			  <input type="hidden" name="status" value="ok">
-			  <input name="the_file" type="file" size="50" onFocus=this.select() class="saisie1">
+			  <input type="hidden" name="uploadedfile_name" value="<?php echo $new_filename?>">
+			  <input type="hidden" name="uploadedfile_type" value="<?php echo $the_file_type?>">
 			  <input type="submit"  value="Continue to Import the RateCard" onFocus=this.select() class="form_input_button" name="submit1" onClick="sendtoupload(this.form);">
 			  <br>
 			  &nbsp; </p>
@@ -425,7 +406,10 @@ if ($status=="ok"){
 	<br>
 	
 <?php
-
+if($uploadedfile_name != "")
+{
+	unlink($uploadedfile_name);
+}
 $smarty->display('footer.tpl');
 
 ?>

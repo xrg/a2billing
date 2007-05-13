@@ -393,7 +393,7 @@ class FormHandler{
 
     //*****************************
 	//This variable define the width of the HTML table
-	var $FG_HTML_TABLE_WIDTH="95%";
+	var $FG_HTML_TABLE_WIDTH = "95%";
 
 	// text for multi-page navigation.
 	var $lang = array('strfirst' => '&lt;&lt; First', 'strprev' => '&lt; Prev', 'strnext' => 'Next &gt;', 'strlast' => 'Last &gt;&gt;' );

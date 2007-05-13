@@ -304,6 +304,11 @@ function imgidclick(imgID,divID, imgbase, imgchange)
        <li><a href="A2B_entity_callerid.php?atmenu=callerid&stitle=CallerID&section=12"><strong>{php} echo gettext("ADD CALLER ID");{/php}</strong></a></li>
        {/if}
 
+	   {if $A2Bconfig.webcustomerui.personalinfo==1 }
+		<li><a href="#" target="_self"></a></a></li>
+        <li><a href="A2B_entity_card.php?atmenu=password&form_action=ask-edit&stitle=PersonalInformation&section=14"><strong>{php} echo gettext("PERSONAL INFORMATION");{/php}</strong></a></li>
+	   {/if}
+	   
 	   {if $A2Bconfig.webcustomerui.password==1 }
 	   <li><a href="#" target="_self"></a></a></li>
        <li><a href="A2B_entity_password.php?atmenu=password&form_action=ask-edit&stitle=Password&section=13"><strong>{php} echo gettext("PASSWORD");{/php}</strong></a></li>
