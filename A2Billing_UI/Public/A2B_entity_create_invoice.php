@@ -12,7 +12,7 @@ if (! has_rights (ACX_BILLING)){
 	die();	   
 }
 
-getpost_ifset(array('tocustomer','forcustomer'));
+getpost_ifset(array('tocustomer','forcustomer','sendemail'));
 $HD_Form -> setDBHandler (DbConnect());
 $verbose_level = 0;
 $groupcard = 100;
@@ -170,20 +170,21 @@ if($forcustomer != "")
 				$Query_Invoices = "INSERT INTO cc_invoices (cardid, orderref, invoicecreated_date, cover_startdate, cover_enddate, amount, tax, total, invoicetype,".
 					"filename) VALUES ('$Customer[0]', NULL, NOW(), '$cover_startdate', NOW(), $totalcost, $totaltax, $totalcost + $totaltax, NULL, NULL)";
 				$instance_table -> SQLExec ($HD_Form ->DBHandle, $Query_Invoices);
-				
-				$QUERY = "Select Max(id) from cc_invoices";
-				$result = $instance_table -> SQLExec ($HD_Form ->DBHandle, $QUERY);
-				$invoice_id = $result[0][0];
-				$ok = EmailInvoice($invoice_id, 2);
-				$issent = 0;
-				if($ok)
+				if($sendemail =="Yes")
 				{
-					$issent = 1;
-				}
-				$currentdate = date("Y-m-d h:i:s");
-				$QUERY = "INSERT INTO cc_invoice_history (invoiceid,invoicesent_date,invoicestatus) VALUES('$invoice_id', '$currentdate', '$issent')";
-				$instance_table -> SQLExec ($HD_Form ->DBHandle, $QUERY);
-								
+					$QUERY = "Select Max(id) from cc_invoices";
+					$result = $instance_table -> SQLExec ($HD_Form ->DBHandle, $QUERY);
+					$invoice_id = $result[0][0];
+					$ok = EmailInvoice($invoice_id, 2);
+					$issent = 0;
+					if($ok)
+					{
+						$issent = 1;
+					}
+					$currentdate = date("Y-m-d h:i:s");
+					$QUERY = "INSERT INTO cc_invoice_history (invoiceid,invoicesent_date,invoicestatus) VALUES('$invoice_id', '$currentdate', '$issent')";
+					$instance_table -> SQLExec ($HD_Form ->DBHandle, $QUERY);
+				}				
 				if($verbose_level >= 1)
 				{
 					echo "\n Total Cost for '$Customer[0]': ".$totalcost;
@@ -206,21 +207,8 @@ if (cardid!='' || !is_null($cardid)){
 }
 $HD_Form -> FG_OTHER_BUTTON1 = false;
 $HD_Form -> FG_OTHER_BUTTON2 = false;
-if ($fromcustomer != "")
-{	
-	if ($tocustomer == "")
-	{
-		$HD_Form -> FG_TABLE_CLAUSE = " inv.cardid = '$fromcustomer' ";	
-	}
-	else
-	{
-		$HD_Form -> FG_TABLE_CLAUSE .= " inv.cardid <= '$fromcustomer'  AND inv.cardid <= '$tocustomer'";
-	}	
-}
-else
-{
-	$HD_Form -> FG_TABLE_CLAUSE = "";	
-}
+
+
 if (!isset($form_action))  $form_action="list"; //ask-add
 if (!isset($action)) $action = $form_action;
 
@@ -241,29 +229,43 @@ echo $CC_help_money_situation;
 
 ?>
 <br>
+<form name="theForm" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
 <table align="center"  class="bgcolor_001" border="0" width="55%">
         <tbody><tr>
-	<form name="theForm" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
-          <td align="left" width="75%">
-		<?php echo gettext("For card number:");?>
-		<INPUT TYPE="text" NAME="forcustomer" value="<?php echo $forcustomer?>" class="form_input_text">
-						<a href="#" onclick="window.open('A2B_entity_card.php?popup_select=1&popup_formname=theForm&popup_fieldname=forcustomer' , 'CardNumberSelection','scrollbars=1,width=550,height=330,top=20,left=100,scrollbars=1');"><img src="<?php echo Images_Path;?>/icon_arrow_orange.gif"></a>
-		<br>
-		<?php echo gettext("To card number:");?>&nbsp;&nbsp;<INPUT TYPE="text" NAME="tocustomer" value="<?php echo $tocustomer?>" class="form_input_text">
-						<a href="#" onclick="window.open('A2B_entity_card.php?popup_select=1&popup_formname=theForm&popup_fieldname=tocustomer' , 'CardNumberSelection','scrollbars=1,width=550,height=330,top=20,left=100,scrollbars=1');"><img src="<?php echo Images_Path;?>/icon_arrow_orange.gif"></a>
+	
+          <td align="left" width="35%">
+		<?php echo gettext("FROM CARD ID");?>:	
 		
-		<br/>
-		  	<br/>
-		</td>
-		<td align="left" valign="bottom"> 
-				<input class="form_input_button"  value=" GENERATE INVOICE " type="submit"> 
+		  
+		</td>		
+		<td width="65%" align="left" valign="bottom"><INPUT TYPE="text" NAME="forcustomer" value="<?php echo $forcustomer?>" class="form_input_text">
+						<a href="#" onclick="window.open('A2B_entity_card.php?popup_select=1&popup_formname=theForm&popup_fieldname=forcustomer' , 'CardNumberSelection','scrollbars=1,width=550,height=330,top=20,left=100,scrollbars=1');"><img src="<?php echo Images_Path;?>/icon_arrow_orange.gif"></a> 
         </td>
-	 </form>
+	
         </tr>
+          <tr>
+            <td align="left"><?php echo gettext("TO CARD ID");?>:</td>
+            <td align="left" valign="bottom"><INPUT TYPE="text" NAME="tocustomer" value="<?php echo $tocustomer?>" class="form_input_text">
+						<a href="#" onclick="window.open('A2B_entity_card.php?popup_select=1&popup_formname=theForm&popup_fieldname=tocustomer' , 'CardNumberSelection','scrollbars=1,width=550,height=330,top=20,left=100,scrollbars=1');"><img src="<?php echo Images_Path;?>/icon_arrow_orange.gif"></a></td>
+          </tr>
+          <tr>
+            <td align="left"><?php echo gettext("EMAIL TO CUSTOMER");?>:</td>
+            <td align="left" valign="bottom"><input type="radio" name="sendemail" value="Yes"><?php echo gettext("Yes");?>&nbsp;&nbsp;<input type="radio" name="sendemail" value="No" checked><?php echo gettext("No");?></td>
+          </tr>
+          <tr>
+            <td align="left">&nbsp;</td>
+            <td align="left" valign="bottom"><input name="submit" type="submit" class="form_input_button"  value=" GENERATE INVOICE "></td>
+          </tr>
       </tbody></table>
-<br><br>
+	   </form>
+<br>
 	  
 <?php
 	$HD_Form -> create_form ($form_action, $list, $id=null);
-		
+
 ?>	  
+
+<br>
+<?php
+$smarty->display('footer.tpl');
+?>

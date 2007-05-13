@@ -11,7 +11,7 @@ if (! has_rights (ACX_ACCESS)){
 	   die();	   
 }
 
-getpost_ifset(array('customer', 'posted', 'Period', 'choose_currency','exporttype', 'invoice_type', 'choose_billperiod'));
+getpost_ifset(array('customer', 'posted', 'Period', 'choose_currency','exporttype', 'invoice_type', 'id','cardid'));
 
 $customer = $_SESSION["pr_login"];
 $vat = $_SESSION["vat"];
@@ -175,14 +175,7 @@ if ($invoice_type == 1)
 }
 else
 {
-	if($choose_billperiod == "")
-	{
-		$FG_TABLE_CLAUSE.="t1.starttime >(Select max(cover_startdate)  from cc_invoices  WHERE cardid = ".$_SESSION["card_id"].") "." AND t1.stoptime <(Select max(cover_enddate) from cc_invoices  WHERE cardid = ".$_SESSION["card_id"].")";
-	}
-	else
-	{
-		$FG_TABLE_CLAUSE.="t1.starttime >(Select cover_startdate  from cc_invoices where invoicecreated_date ='$choose_billperiod') AND t1.stoptime <(Select cover_enddate from cc_invoices where invoicecreated_date ='$choose_billperiod') ";
-	}
+	$FG_TABLE_CLAUSE.="t1.starttime >(Select cover_startdate  from cc_invoices where id ='$id') AND t1.stoptime <(Select cover_enddate from cc_invoices where id ='$id') ";	
 }
 
 $_SESSION["pr_sql_export"]="SELECT $FG_COL_QUERY FROM $FG_TABLE_NAME WHERE $FG_TABLE_CLAUSE";
@@ -223,20 +216,10 @@ if ($invoice_type == 1)
 }
 else
 {
-	if($choose_billperiod == "")
-	{
-		$QUERY = "SELECT t1.amount, t1.creationdate, t1.description, t3.countryname, t2.did ".
-		" FROM cc_charge t1 LEFT JOIN (cc_did t2, cc_country t3 ) ON ( t1.id_cc_did = t2.id AND t2.id_cc_country = t3.id ) ".
-		" WHERE (t1.chargetype = 1 OR t1.chargetype = 2) AND t1.id_cc_card = ".$_SESSION["card_id"].
-		" AND t1.creationdate > (Select max(cover_startdate)  from cc_invoices) AND t1.creationdate <(Select max(cover_enddate) from cc_invoices) ";
-	}
-	else
-	{
-		$QUERY = "SELECT t1.amount, t1.creationdate, t1.description, t3.countryname, t2.did ".
-		" FROM cc_charge t1 LEFT JOIN (cc_did t2, cc_country t3 ) ON ( t1.id_cc_did = t2.id AND t2.id_cc_country = t3.id ) ".
-		" WHERE (t1.chargetype = 1 OR t1.chargetype = 2) AND t1.id_cc_card = ".$_SESSION["card_id"].
-		" AND t1.creationdate > (Select cover_startdate  from cc_invoices where invoicecreated_date = '$choose_billperiod') AND t1.creationdate < (Select cover_enddate from cc_invoices where invoicecreated_date = '$choose_billperiod')";
-	}
+	$QUERY = "SELECT t1.amount, t1.creationdate, t1.description, t3.countryname, t2.did ".
+	" FROM cc_charge t1 LEFT JOIN (cc_did t2, cc_country t3 ) ON ( t1.id_cc_did = t2.id AND t2.id_cc_country = t3.id ) ".
+	" WHERE (t1.chargetype = 1 OR t1.chargetype = 2) AND t1.id_cc_card = ".$_SESSION["card_id"].
+	" AND t1.creationdate > (Select cover_startdate  from cc_invoices where id = '$id') AND t1.creationdate < (Select cover_enddate from cc_invoices where id = '$id')";
 }
 
  
@@ -265,22 +248,11 @@ if ($invoice_type == 1)
 }
 else
 {
-	if($choose_billperiod == "")
-	{	
-		$QUERY = "SELECT t1.id_cc_card, t1.iduser, t1.creationdate, t1.amount, t1.chargetype, t1.id_cc_did, t1.currency, t1.description" .
-		" FROM cc_charge t1, cc_card t2 WHERE (t1.chargetype <> 1 AND t1.chargetype <> 2) AND" .
-		" t2.username = '$customer' AND t1.id_cc_card = t2.id AND " .
-		" t1.creationdate >(Select max(cover_startdate)  from cc_invoices) " .
-		" AND t1.creationdate <(Select max(cover_enddate) from cc_invoices)";
-	}
-	else
-	{
-		$QUERY = "SELECT t1.id_cc_card, t1.iduser, t1.creationdate, t1.amount, t1.chargetype, t1.id_cc_did, t1.currency" .
-		" FROM cc_charge t1, cc_card t2 WHERE (t1.chargetype <> 1 AND t1.chargetype <> 2) AND" .
-		" t2.username = '$customer' AND t1.id_cc_card = t2.id AND " .
-		" t1.creationdate >(Select cover_startdate  from cc_invoices where invoicecreated_date ='$choose_billperiod') " .
-		" AND t1.creationdate <(Select cover_enddate from cc_invoices where invoicecreated_date ='$choose_billperiod')";
-	}
+	$QUERY = "SELECT t1.id_cc_card, t1.iduser, t1.creationdate, t1.amount, t1.chargetype, t1.id_cc_did, t1.currency" .
+	" FROM cc_charge t1, cc_card t2 WHERE (t1.chargetype <> 1 AND t1.chargetype <> 2) AND" .
+	" t2.username = '$customer' AND t1.id_cc_card = t2.id AND " .
+	" t1.creationdate >(Select cover_startdate  from cc_invoices where id ='$id') " .
+	" AND t1.creationdate <(Select cover_enddate from cc_invoices where id ='$id')";	
 }
 //echo "<br>".$QUERY."<br>";
 
@@ -315,10 +287,25 @@ if ((isset($customer)  &&  ($customer>0)) || (isset($entercustomer)  &&  ($enter
 	}elseif (isset($entercustomer)  &&  ($entercustomer>0)){
 		$FG_TABLE_CLAUSE =" username='$entercustomer' ";
 	}
-	$instance_table_customer = new Table("cc_card", "id,  username, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, activated");
+	$instance_table_customer = new Table("cc_card", "id,  username, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, activated, creationdate");
 	$info_customer = $instance_table_customer -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, "id", "ASC", null, null, null, null);
 }
-/************************************************************/
+
+if($invoice_type == 1)
+{
+	$QUERY = "Select CASE WHEN max(cover_enddate) is NULL THEN '0001-01-01 01:00:00' ELSE max(cover_enddate) END from cc_invoices WHERE cardid = ".$cardid;
+}
+else
+{
+	$QUERY = "Select cover_enddate, cover_startdate  from cc_invoices where id ='$id'";
+}
+if (!$nodisplay){
+	$invoice_dates = $instance_table->SQLExec ($DBHandle, $QUERY);			
+	if ($invoice_dates[0][0] == '0001-01-01 01:00:00')
+	{
+		$invoice_dates[0][0] = $info_customer[0][13];
+	}
+}//end IF nodisplay
 
 ?>
 
@@ -384,10 +371,23 @@ if (is_array($list_total_destination) && count($list_total_destination)>0){
 	  <td width="35%" ><font color="#003399"><?php echo gettext("Card Number")?>&nbsp; :</font></td>
 	  <td  ><font color="#003399"><?php echo $info_customer[0][1] ?></font> </td>
 	</tr>           
+	<?php 
+			if ($invoice_type == 1){
+	?>
 	<tr>
-	  <td width="35%" ><font color="#003399"><?php echo gettext("As of Date")?>&nbsp; :</font></td>
-	  <td  ><font color="#003399"><?php echo date('m-d-Y');?> </font></td>
+	  <td width="35%" ><font color="#003399"><?php echo gettext("From Date")?>&nbsp; :</font></td>
+	  <td  ><font color="#003399"><?php echo display_dateonly($invoice_dates[0][0]);?> </font></td>
 	</tr>
+	<?php }else{ ?>
+	<tr>
+	  <td width="35%" ><font color="#003399"><?php echo gettext("From Date")?>&nbsp; :</font></td>
+	  <td  ><font color="#003399"><?php echo display_dateonly($invoice_dates[0][1]);?> </font></td>
+	</tr>
+	<tr>
+	  <td width="35%" ><font color="#003399"><?php echo gettext("To Date")?>&nbsp; :</font></td>
+	  <td  ><font color="#003399"><?php echo display_dateonly($invoice_dates[0][0]);?> </font></td>
+	</tr>
+	<?php } ?>
 	</table>  
   <table align="center" width="80%"> 
 	<tr>

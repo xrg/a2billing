@@ -1131,7 +1131,7 @@ class A2Billing {
 		
 		// say 'you have x dollars and x cents'
 		if ($fromvoucher!=1)$agi-> stream_file('prepaid-you-have', '#');
-		else $agi-> stream_file('account_refill', '#');
+		else $agi-> stream_file('prepaid-account_refill', '#');
 		
 		if ($units==0 && $cents==0){					
 			$agi->say_number(0);					
@@ -1214,7 +1214,7 @@ class A2Billing {
 			$mycur = $currencies_list[strtoupper($this->currency)][2];
 		}
 		$timetowait = ($this->config['global']['len_voucher'] < 6) ? 8000 : 20000;
-		$res_dtmf = $agi->get_data('voucher_enter_number', $timetowait, $this->config['global']['len_voucher'], '#');
+		$res_dtmf = $agi->get_data('prepaid-voucher_enter_number', $timetowait, $this->config['global']['len_voucher'], '#');
 		$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "VOUCHERNUMBER RES DTMF : ".$res_dtmf ["result"]);
 		$this -> vouchernumber = $res_dtmf ["result"];
 		if ($this -> vouchernumber <= 0){
@@ -1233,7 +1233,7 @@ class A2Billing {
 			if (!isset ($currencies_list[strtoupper($result[0][4])][2]))
 			{
 				$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "System Error : No currency table complete !!!");
-				$agi-> stream_file('unknow_used_currencie', '#');				
+				$agi-> stream_file('prepaid-unknow_used_currencie', '#');				
 				return -1;
 			}
 			else
