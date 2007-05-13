@@ -1888,3 +1888,17 @@ insert into cc_configuration (configuration_title, configuration_key, configurat
 insert into cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) values ('Transaction Currency', 'MODULE_PAYMENT_MONEYBOOKERS_CURRENCY', 'Selected Currency', 'The default currency for the payment transactions', 'tep_cfg_select_option(array(\'Selected Currency\',\'EUR\', \'USD\', \'GBP\', \'HKD\', \'SGD\', \'JPY\', \'CAD\', \'AUD\', \'CHF\', \'DKK\', \'SEK\', \'NOK\', \'ILS\', \'MYR\', \'NZD\', \'TWD\', \'THB\', \'CZK\', \'HUF\', \'SKK\', \'ISK\', \'INR\'), ');
 insert into cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) values ('Transaction Language', 'MODULE_PAYMENT_MONEYBOOKERS_LANGUAGE', 'Selected Language', 'The default language for the payment transactions', 'tep_cfg_select_option(array(\'Selected Language\',\'EN\', \'DE\', \'ES\', \'FR\'), ');
 insert into cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) values ('Enable moneybookers Module', 'MODULE_PAYMENT_MONEYBOOKERS_STATUS', 'True', 'Do you want to accept moneybookers payments?','tep_cfg_select_option(array(\'True\', \'False\'), ');
+
+CREATE TABLE cc_epayment_log (
+    id 				BIGSERIAL NOT NULL,
+    cardid 			INTEGER NOT NULL DEFAULT 0,	
+	amount 			DOUBLE PRECISION NOT NULL DEFAULT 0,
+	vat 			DOUBLE PRECISION NOT NULL DEFAULT 0,
+	paymentmethod	CHARACTER VARYING(255) NOT NULL,
+    cc_owner 		CHARACTER VARYING(255) NOT NULL,
+    cc_number 		CHARACTER VARYING(255) NOT NULL,
+    cc_expires 		CHARACTER VARYING(255) NOT NULL,
+    creationdate 	TIMESTAMP(0) without time zone DEFAULT NOW()
+);
+ALTER TABLE ONLY cc_epayment_log
+ADD CONSTRAINT cc_epayment_log_pkey PRIMARY KEY (id);

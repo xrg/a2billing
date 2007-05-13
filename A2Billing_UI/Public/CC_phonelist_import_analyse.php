@@ -6,10 +6,10 @@ include ("../lib/module.access.php");
 
 set_time_limit(0);
 
-if (! has_rights (ACX_DID)){ 
-	   Header ("HTTP/1.0 401 Unauthorized");
-	   Header ("Location: PP_error.php?c=accessdenied");	   
-	   die();	   
+if (! has_rights (ACX_PREDICTIVE_DIALER)){ 
+	Header ("HTTP/1.0 401 Unauthorized");
+	Header ("Location: PP_error.php?c=accessdenied");	   
+	die();	   
 }
 
 getpost_ifset(array('campaign', 'task', 'status'));
@@ -23,12 +23,12 @@ if (!is_numeric($campaignval[0])){
 
 
 
- $fixfield[0]="Campaign (KEY)";	 
-	
-	 $field[0]=gettext("Phone Number");
-	 $field[1]=gettext("Name");
-	 
-	 
+$fixfield[0]="Campaign (KEY)";	 
+
+$field[0]=gettext("Phone Number");
+$field[1]=gettext("Name");
+
+
 $FG_DEBUG = 0;
 
 if (DB_TYPE == "mysql"){
@@ -74,87 +74,76 @@ if ($task=='upload'){
 		exit;
 	}			
 	
-        
-	 $fp = fopen($the_file,  "r");  
-	 if (!$fp){  /* THE FILE DOESN'T EXIST */ 
-		 echo  gettext('THE FILE DOESN T EXIST'); 
-		 exit(); 
-	 } 
-		 
-	 $chaine1 = '"\'';
-         
+	
+	$fp = fopen($the_file,  "r");  
+	if (!$fp){  /* THE FILE DOESN'T EXIST */ 
+		echo  gettext('THE FILE DOESN T EXIST'); 
+		exit(); 
+	} 
+	
+	$chaine1 = '"\'';
+	
  	$nb_imported=0;
 	$nb_to_import=0;
 	$DBHandle  = DbConnect();
     
 	while (!feof($fp)){ 
-     		
-		 //if ($nb_imported==1000) break;
-             $ligneoriginal = fgets($fp,4096);  /* On se dplace d'une ligne */   
-			 $ligneoriginal = trim ($ligneoriginal);
-			 $ligneoriginal = strtolower($ligneoriginal);
-				
-			 
-			 for ($i = 0; $i < strlen($chaine1); $i++)   
-					$ligne = str_replace($chaine1[$i], ' ', $ligneoriginal);
-				
-			 $ligne = str_replace(',', '.', $ligne);
-			 $val= split(';', $ligne);
-			 $val[0]=str_replace('"', '', $val[0]); //DH
-			 $val[1]=str_replace('"', '', $val[1]); //DH			 
-			 $val[0]=str_replace("'", '', $val[0]); //DH
-			 $val[1]=str_replace("'", '', $val[1]); //DH
-			 
-			 
-			 if ($status!="ok") break;
-			 
-			 if (substr($ligne,0,1)!='#' && substr($ligne,0,2)!='"#' && $val[0]!='' && strlen($val[0])>0){
-			  
-			 
-				 $FG_ADITION_SECOND_ADD_TABLE  = 'cc_phonelist';		
-				 $FG_ADITION_SECOND_ADD_FIELDS = 'id_cc_campaign, numbertodial, name'; //$fieldtoimport_sql
-				 $FG_ADITION_SECOND_ADD_VALUE  = "'".$campaignval[0]."', '".$val[0]."', '".$val[1]."'"; 
-				 
-				 				 
-				 
-				 
-				 $begin_date = date("Y");	
-				 $end_date = date("-m-d H:i:s");					
-				 $FG_ADITION_SECOND_ADD_FIELDS .= ', last_attempt';
-			 	 $FG_ADITION_SECOND_ADD_VALUE .= ", '".$begin_date.$end_date."'";
-				 				 
+     	
+		//if ($nb_imported==1000) break;
+		$ligneoriginal = fgets($fp,4096);  /* On se dplace d'une ligne */   
+		$ligneoriginal = trim ($ligneoriginal);
+		$ligneoriginal = strtolower($ligneoriginal);
+		
+		for ($i = 0; $i < strlen($chaine1); $i++)   
+			$ligne = str_replace($chaine1[$i], ' ', $ligneoriginal);
+		
+		$ligne = str_replace(',', '.', $ligne);
+		$val= split('[;:]', $ligne);
+		$val[0]=str_replace('"', '', $val[0]); //DH
+		$val[1]=str_replace('"', '', $val[1]); //DH			 
+		$val[0]=str_replace("'", '', $val[0]); //DH
+		$val[1]=str_replace("'", '', $val[1]); //DH
+		
+		
+		if ($status!="ok") break;
+		
+		if (substr($ligne,0,1)!='#' && substr($ligne,0,2)!='"#' && $val[0]!='' && strlen($val[0])>0){
+			
+			$FG_ADITION_SECOND_ADD_TABLE  = 'cc_phonelist';		
+			$FG_ADITION_SECOND_ADD_FIELDS = 'id_cc_campaign, numbertodial, name'; //$fieldtoimport_sql
+			$FG_ADITION_SECOND_ADD_VALUE  = "'".$campaignval[0]."', '".$val[0]."', '".$val[1]."'"; 
+			
+			$begin_date = date("Y");	
+			$end_date = date("-m-d H:i:s");					
+			$FG_ADITION_SECOND_ADD_FIELDS .= ', last_attempt';
+			$FG_ADITION_SECOND_ADD_VALUE .= ", '".$begin_date.$end_date."'";
+			
+			$TT_QUERY .= "INSERT INTO $sp".$FG_ADITION_SECOND_ADD_TABLE."$sp (".$FG_ADITION_SECOND_ADD_FIELDS.") values (".trim ($FG_ADITION_SECOND_ADD_VALUE).") ";
+			
+			$nb_to_import++;
+		}
+		
+		if ($TT_QUERY!='' && strlen($TT_QUERY)>0 && ($nb_to_import==1) ){
+			
+			$nb_to_import=0;
+			$result_query =  $DBHandle -> Execute($TT_QUERY);
+			// echo "<br>TT_QUERY:".$TT_QUERY;
+			// echo "<br>ERROR:".$DBHandle -> Error;
+			// echo "<br>RESULT_QUERY:".$result_query;
+			
+			if ($result_query){ $nb_imported = $nb_imported + 1;
+			}else{$buffer_error.= $ligneoriginal.'<br/>';}
+			$TT_QUERY='';
+			
+		}
+		
+	} // END WHILE EOF
 	
-					
-				 $TT_QUERY .= "INSERT INTO $sp".$FG_ADITION_SECOND_ADD_TABLE."$sp (".$FG_ADITION_SECOND_ADD_FIELDS.") values (".trim ($FG_ADITION_SECOND_ADD_VALUE).") ";
-											
-				 
-				 $nb_to_import++;
-			}
-			
-			if ($TT_QUERY!='' && strlen($TT_QUERY)>0 && ($nb_to_import==1) ){
-				
-				$nb_to_import=0;
-								
-				$result_query =  $DBHandle -> Execute($TT_QUERY);
-				// echo "<br>TT_QUERY:".$TT_QUERY;
-				// echo "<br>ERROR:".$DBHandle -> Error;
-				// echo "<br>RESULT_QUERY:".$result_query;
-				
-								
-				if ($result_query){ $nb_imported = $nb_imported + 1;
-				}else{$buffer_error.= $ligneoriginal.'<br/>';}
-				$TT_QUERY='';
-				
-			}
-			
-			             
-		} // END WHILE EOF
-		
-		
-		if ($TT_QUERY!='' && strlen($TT_QUERY)>0 && ($nb_to_import>0) ){
-			$result_query = @ $DBHandle -> Execute($TT_QUERY);
-			if ($result_query) $nb_imported = $nb_imported + $nb_to_import;
-		}		
+	
+	if ($TT_QUERY!='' && strlen($TT_QUERY)>0 && ($nb_to_import>0) ){
+		$result_query = @ $DBHandle -> Execute($TT_QUERY);
+		if ($result_query) $nb_imported = $nb_imported + $nb_to_import;
+	}		
 	
 	
 }

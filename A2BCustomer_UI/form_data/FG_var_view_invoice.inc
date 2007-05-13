@@ -8,7 +8,8 @@ if ($totaltext == "")
 }
 $HD_Form = new FormHandler("cc_card card, cc_invoices inv LEFT JOIN (SELECT * FROM cc_invoice_history GROUP BY invoiceid HAVING Max(invoicesent_date)) as his ON inv.ID = his.invoiceid ","Invoice");
 
-$HD_Form -> FG_TABLE_NAME = "cc_card card, cc_invoices inv LEFT JOIN (SELECT * FROM cc_invoice_history GROUP BY invoiceid HAVING Max(invoicesent_date)) as his ON inv.ID = his.invoiceid";
+//$HD_Form -> FG_TABLE_NAME = "cc_card card, cc_invoices inv LEFT JOIN (SELECT * FROM cc_invoice_history GROUP BY invoiceid HAVING Max(invoicesent_date)) as his ON inv.ID = his.invoiceid";
+$HD_Form -> FG_TABLE_NAME = "cc_card card, cc_invoices inv LEFT JOIN (SELECT ih.* FROM cc_invoice_history ih, cc_invoices iv where iv.id = ih.invoiceid AND iv.cardid = '".$_SESSION["card_id"]."') as his ON inv.ID = his.invoiceid";
 
 $HD_Form -> FG_TABLE_CLAUSE = " card.id = inv.cardid AND his.invoicestatus = 1 AND card.id = ".$_SESSION["card_id"];
 

@@ -5,7 +5,6 @@ getpost_ifset(array('id', 'tariffname', 'startingdate', 'expirationdate', 'id_tr
 $HD_Form = new FormHandler("cc_tariffplan","Ratecard");
 
 $HD_Form -> FG_DEBUG = 0;
-// FAQ
 $HD_Form -> FG_TABLE_DEFAULT_ORDER = " tariffname";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
 
@@ -19,8 +18,8 @@ $HD_Form -> FG_FK_DELETE_MESSAGE = gettext("You are going as well to remove all 
 
 
 $HD_Form -> AddViewElement(gettext("TARIFFNAME"), "tariffname", "18%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("START DATE"), "startingdate", "12%", "center", "sort", "19", "", "", "", "", "", "display_dateformat");
-$HD_Form -> AddViewElement(gettext("EXPIRY DATE"), "expirationdate", "12%", "center", "sort", "19", "", "", "", "", "", "display_dateformat");
+$HD_Form -> AddViewElement(gettext("START DATE"), "startingdate", "13%", "center", "sort", "19", "", "", "", "", "", "display_dateformat");
+$HD_Form -> AddViewElement(gettext("EXPIRY DATE"), "expirationdate", "13%", "center", "sort", "19", "", "", "", "", "", "display_dateformat");
 $HD_Form -> AddViewElement(gettext("TRUNK"), "id_trunk", "11%", "center", "sort", "15", "lie", "cc_trunk", "trunkcode", "id_trunk='%id'", "%1");
 $HD_Form -> AddViewElement(gettext("MINUTES USED"), "secondusedreal", "9%", "center", "SORT", "30", "", "", "", "", "", "display_minute");
 $HD_Form -> AddViewElement(gettext("DNID PREFIX"), "dnidprefix", "8%", "center", "SORT", "30");
@@ -28,7 +27,7 @@ $HD_Form -> AddViewElement(gettext("CID PREFIX"), "calleridprefix", "8%", "cente
 
 $HD_Form -> FieldViewElement ('tariffname, startingdate, expirationdate, id_trunk, secondusedreal, dnidprefix, calleridprefix');
 
-$HD_Form -> FG_ACTION_SIZE_COLUMN='15%';
+$HD_Form -> FG_ACTION_SIZE_COLUMN='12%';
 $HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO")." ".strtoupper($HD_Form->FG_INSTANCE_NAME)." ".gettext("CREATED!");  
 $HD_Form -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;
 $HD_Form -> CV_TEXT_TITLE_ABOVE_TABLE = '';

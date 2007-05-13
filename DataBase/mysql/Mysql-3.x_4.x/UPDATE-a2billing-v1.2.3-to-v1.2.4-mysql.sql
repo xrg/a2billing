@@ -886,7 +886,20 @@ insert into cc_configuration (configuration_title, configuration_key, configurat
 
 ALTER TABLE cc_card ADD COLUMN id_subscription_fee INT DEFAULT 0, ADD COLUMN mac_addr CHAR(17) DEFAULT '00-00-00-00-00-00' NOT NULL;
 
-UPDATE cc_ui_authen SET perms = '16383' WHERE userid = '1';
-UPDATE cc_ui_authen SET perms = '16383' WHERE userid = '2';
+UPDATE cc_ui_authen SET perms = '32767' WHERE userid = '1';
+UPDATE cc_ui_authen SET perms = '32767' WHERE userid = '2';
 ALTER TABLE cc_invoices ADD COLUMN payment_date TIMESTAMP;
 ALTER TABLE cc_invoices ADD COLUMN payment_status INT DEFAULT 0;
+
+CREATE TABLE cc_epayment_log (
+    id 								INT NOT NULL AUTO_INCREMENT,
+    cardid 							INT DEFAULT 0 NOT NULL,
+    amount 							FLOAT DEFAULT 0 NOT NULL,
+	vat 							FLOAT DEFAULT 0 NOT NULL,
+    paymentmethod	 				CHAR(50) NOT NULL,     
+  	cc_owner 						VARCHAR(64),
+  	cc_number 						VARCHAR(32),
+  	cc_expires 						VARCHAR(7),						   
+    creationdate  					TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (id)
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;

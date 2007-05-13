@@ -3,113 +3,113 @@ session_name("UISIGNUP");
 session_start();
 
 
-	include ("../lib/defines.php");
-	if (!$A2B->config["signup"]['enable_signup'])
-    {
-        exit;
-    }
+include ("../lib/defines.php");
+if (!$A2B->config["signup"]['enable_signup'])
+{
+	exit;
+}
 
-	if (!isset($_SESSION["date_mail"]) || (time()-$_SESSION["date_mail"]) > 60)
-    {
-        $_SESSION["date_mail"]=time();
-    }
-	else
-    {
-        sleep(3);
-        echo gettext("Sorry the confirmation email has been sent already, multi-signup are not authorized! Please wait 2 minutes before making any other signup!");
-        exit();
-    }
+if (!isset($_SESSION["date_mail"]) || (time()-$_SESSION["date_mail"]) > 60)
+{
+	$_SESSION["date_mail"]=time();
+}
+else
+{
+	sleep(3);
+	echo gettext("Sorry the confirmation email has been sent already, multi-signup are not authorized! Please wait 2 minutes before making any other signup!");
+	exit();
+}
 
-	if (!isset($_SESSION["cardnumber_signup"]) || strlen($_SESSION["cardnumber_signup"])<=1)
-    {
-        echo "Error : No User Created.";
-        exit();
-    }
+if (!isset($_SESSION["cardnumber_signup"]) || strlen($_SESSION["cardnumber_signup"])<=1)
+{
+	echo "Error : No User Created.";
+	exit();
+}
 
-	$FG_DEBUG = 0;
-	//$link = DbConnect();
-	$DBHandle  = DbConnect();
+$FG_DEBUG = 0;
+//$link = DbConnect();
+$DBHandle  = DbConnect();
 
-    $activatedbyuser = $A2B->config["signup"]['activatedbyuser'];
+$activatedbyuser = $A2B->config["signup"]['activatedbyuser'];
 
-    if(!$activatedbyuser){
-        $QUERY = "SELECT mailtype, fromemail, fromname, subject, messagetext, messagehtml FROM cc_templatemail WHERE mailtype='signup' ";
-        //echo "<br>User is Not Activated";
-    }else{
-        $QUERY = "SELECT mailtype, fromemail, fromname, subject, messagetext, messagehtml FROM cc_templatemail WHERE mailtype='signupconfirmed' ";
-        //echo "<br>User is Already Activated";		
-    }
+if(!$activatedbyuser){
+	$QUERY = "SELECT mailtype, fromemail, fromname, subject, messagetext, messagehtml FROM cc_templatemail WHERE mailtype='signup' ";
+	echo "<br>User is Not Activated";
+}else{
+	$QUERY = "SELECT mailtype, fromemail, fromname, subject, messagetext, messagehtml FROM cc_templatemail WHERE mailtype='signupconfirmed' ";
+	echo "<br>User is Already Activated";		
+}
 
-	$res = $DBHandle -> Execute($QUERY);
-	$num = 0;	
-	if ($res)
-		$num = $res -> RecordCount();
+$res = $DBHandle -> Execute($QUERY);
+$num = 0;	
+if ($res)
+	$num = $res -> RecordCount();
 
-	if (!$num)
-    {
-        echo "<br>Error : No email Template Found";
-        exit();
-    }
+if (!$num)
+{
+	echo "<br>Error : No email Template Found";
+	exit();
+}
 
-	for($i=0;$i<$num;$i++)
-	{
-		$listtemplate[] = $res->fetchRow();
-	}
+for($i=0;$i<$num;$i++)
+{
+	$listtemplate[] = $res->fetchRow();
+}
 
-	list($mailtype, $from, $fromname, $subject, $messagetext, $messagehtml) = $listtemplate [0];
-	if ($FG_DEBUG == 1)
-    {
-        echo "<br><b>mailtype : </b>$mailtype</br><b>from:</b> $from</br><b>fromname :</b> $fromname</br><b>subject</b> : $subject</br><b>ContentTemplate:</b></br><pre>$messagetext</pre></br><hr>";
-    }
+list($mailtype, $from, $fromname, $subject, $messagetext, $messagehtml) = $listtemplate [0];
+if ($FG_DEBUG == 1)
+{
+	echo "<br><b>mailtype : </b>$mailtype</br><b>from:</b> $from</br><b>fromname :</b> $fromname</br><b>subject</b> : $subject</br><b>ContentTemplate:</b></br><pre>$messagetext</pre></br><hr>";
+}
 
-    $QUERY = "SELECT username, lastname, firstname, email, uipass, credit, useralias, loginkey FROM cc_card WHERE username='".$_SESSION["cardnumber_signup"]."' ";
+$QUERY = "SELECT username, lastname, firstname, email, uipass, credit, useralias, loginkey FROM cc_card WHERE username='".$_SESSION["cardnumber_signup"]."' ";
 
-	$res = $DBHandle -> Execute($QUERY);
-	$num = 0;	
-	if ($res)
-		$num = $res -> RecordCount();
+$res = $DBHandle -> Execute($QUERY);
+$num = 0;	
+if ($res)
+	$num = $res -> RecordCount();
 
-	if (!$num)
-    {
-        echo "<br>Error : No such user found in database";
-        exit();
-    }
+if (!$num)
+{
+	echo "<br>Error : No such user found in database";
+	exit();
+}
 
-	for($i=0;$i<$num;$i++)
-	{
-		$list[] = $res->fetchRow();
-	}
+for($i=0;$i<$num;$i++)
+{
+	$list[] = $res->fetchRow();
+}
 
-	if ($FG_DEBUG == 1) echo "</br><b>BELOW THE CARD PROPERTIES </b><hr></br>";
-	 $keepmessagetext = $messagetext;
-	 foreach ($list as $recordset)
-     {
+if ($FG_DEBUG == 1) echo "</br><b>BELOW THE CARD PROPERTIES </b><hr></br>";
+$keepmessagetext = $messagetext;
 
-		$messagetext = $keepmessagetext;
+foreach ($list as $recordset)
+{
 
-		list($username, $lastname, $firstname, $email, $uipass, $credit, $cardalias, $loginkey) = $recordset;
+	$messagetext = $keepmessagetext;
 
-		if ($FG_DEBUG == 1) echo "<br># $username, $lastname, $firstname, $email, $uipass, $credit, $cardalias #</br>";
+	list($username, $lastname, $firstname, $email, $uipass, $credit, $cardalias, $loginkey) = $recordset;
 
-
-		$messagetext = str_replace('$name', $lastname, $messagetext);
-		//$message = str_replace('$username', $form->getValue('username'), $messagetext);
-		$messagetext = str_replace('$card_gen', $username, $messagetext);
-		$messagetext = str_replace('$password', $uipass, $messagetext);
-		$messagetext = str_replace('$cardalias', $cardalias, $messagetext);
-        $messagetext = str_replace('$cardalias', $cardalias, $messagetext);
-		$messagetext = str_replace('=$loginkey', "=$loginkey", $messagetext);
-        $messagetext = str_replace('$loginkey', "=$loginkey", $messagetext);
-
-		$em_headers  = "From: ".$fromname." <".$from.">\n";
-		$em_headers .= "Reply-To: ".$from."\n";
-		$em_headers .= "Return-Path: ".$from."\n";
-		$em_headers .= "X-Priority: 3\n";
-
-		mail($recordset[3], $subject, $messagetext, $em_headers);
+	if ($FG_DEBUG == 1) echo "<br># $username, $lastname, $firstname, $email, $uipass, $credit, $cardalias #</br>";
 
 
-	 }
+	$messagetext = str_replace('$name', $lastname, $messagetext);
+	//$message = str_replace('$username', $form->getValue('username'), $messagetext);
+	$messagetext = str_replace('$card_gen', $username, $messagetext);
+	$messagetext = str_replace('$password', $uipass, $messagetext);
+	$messagetext = str_replace('$cardalias', $cardalias, $messagetext);
+	$messagetext = str_replace('$cardalias', $cardalias, $messagetext);
+	$messagetext = str_replace('=$loginkey', "=$loginkey", $messagetext);
+	$messagetext = str_replace('$loginkey', "=$loginkey", $messagetext);
+
+	$em_headers  = "From: ".$fromname." <".$from.">\n";
+	$em_headers .= "Reply-To: ".$from."\n";
+	$em_headers .= "Return-Path: ".$from."\n";
+	$em_headers .= "X-Priority: 3\n";
+
+	mail($recordset[3], $subject, $messagetext, $em_headers);
+	if ($FG_DEBUG == 1) echo "</br><b>".$recordset[3]."<br> subject=$subject,<br> messagetext=$messagetext,</br> em_headers=$em_headers</b><hr></br>";
+}
 
 
 ?>

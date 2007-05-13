@@ -69,7 +69,7 @@ $HD_Form -> AddViewElement(gettext("COVEREND"), "cover_enddate", "7%", "center",
 $HD_Form -> AddViewElement(gettext("SENTDATE"), "invoicesent_date", "7%", "center", "sort", "22", "", "", "", "", "", "display_dateonly");
 $HD_Form -> AddViewElement(gettext("STATUS"), "invoicestatus", "5%", "center", "sort", "", "list", $status_list);
 $HD_Form -> AddViewElement(gettext("PAYMENTSTATUS"), "payment_status", "5%", "center", "sort", "", "list", $payment_status_list);
-$HD_Form -> AddViewElement(gettext("AMOUNT"), "total", "7%", "center", "sort");
+$HD_Form -> AddViewElement(gettext("AMOUNT"), "total", "9%", "center", "sort", "", "", "", "", "", "", "display_2bill");
 //$HD_Form -> AddViewElement(gettext("PAYMENT"), "payment", "10%", "center", "sort", "15", "lie", "cc_logpayment as t2, cc_invoices t3", "CASE WHEN SUM(t2.payment) IS NULL THEN 0 ELSE SUM(t2.payment) END", "t3.cardid = t2.card_id  AND t2.card_id='$cardid' AND t3.id='%id' AND t2.date >= t3.cover_startdate AND t2.date < t3.cover_enddate", "%1");
 
 $HD_Form -> FieldViewElement ('inv.id, card.username,invoicecreated_date, cover_startdate, cover_enddate, invoicesent_date, invoicestatus, inv.payment_status, total');
@@ -87,7 +87,7 @@ $HD_Form -> FG_DELETION = false;
 	$HD_Form -> FG_OTHER_BUTTON2 = true;
 	
 	$HD_Form -> FG_OTHER_BUTTON1_LINK="A2B_entity_invoice_detail.php?id=|param|&invoice_type=2";
-	$HD_Form -> FG_OTHER_BUTTON2_LINK="A2B_entity_invoice_detail_pdf.php?section=2&id=|param|&cardid=$cardid&action=sendinvoice&exporttype=pdf&invoice_type=2";
+	$HD_Form -> FG_OTHER_BUTTON2_LINK="A2B_entity_invoice_detail_pdf.php?id=|param|&cardid=$cardid&action=sendinvoice&exporttype=pdf&invoice_type=2";
 	
 	$HD_Form -> FG_OTHER_BUTTON1_ALT = 'Details';
 	$HD_Form -> FG_OTHER_BUTTON2_ALT = 'Send';

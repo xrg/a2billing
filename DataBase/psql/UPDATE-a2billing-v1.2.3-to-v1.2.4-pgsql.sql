@@ -890,7 +890,20 @@ INSERT INTO cc_configuration (configuration_title, configuration_key, configurat
 
 ALTER TABLE cc_card ADD COLUMN id_subscription_fee INTEGER DEFAULT 0, ADD COLUMN mac_addr VARCHAR(17) DEFAULT '00-00-00-00-00-00' NOT NULL;
 
-UPDATE cc_ui_authen SET perms = '16383' WHERE userid = '1';
-UPDATE cc_ui_authen SET perms = '16383' WHERE userid = '2';
+UPDATE cc_ui_authen SET perms = '32767' WHERE userid = '1';
+UPDATE cc_ui_authen SET perms = '32767' WHERE userid = '2';
 ALTER TABLE cc_invoices ADD COLUMN payment_date TIMESTAMP WITHOUT TIME ZONE;
 ALTER TABLE cc_invoices ADD COLUMN payment_status INTEGER DEFAULT 0;
+CREATE TABLE cc_epayment_log (
+    id 				BIGSERIAL NOT NULL,
+    cardid 			INTEGER NOT NULL DEFAULT 0,	
+	amount 			DOUBLE PRECISION NOT NULL DEFAULT 0,
+	vat 			DOUBLE PRECISION NOT NULL DEFAULT 0,
+	paymentmethod	CHARACTER VARYING(255) NOT NULL,
+    cc_owner 		CHARACTER VARYING(255) NOT NULL,
+    cc_number 		CHARACTER VARYING(255) NOT NULL,
+    cc_expires 		CHARACTER VARYING(255) NOT NULL,
+    creationdate 	TIMESTAMP(0) without time zone DEFAULT NOW()
+);
+ALTER TABLE ONLY cc_epayment_log
+ADD CONSTRAINT cc_epayment_log_pkey PRIMARY KEY (id);

@@ -3,6 +3,63 @@
                    			TODO LIST - SPECIFIC
 ********************************************************************************
 
+#### FIX : HIDE DIV ON "List Customer" & "Browse Rates"
+********************************************************************
+Jquery - HIDE DIV ON "List Customer" & "Browse Rates"
+
+
+#### TODO
+********************************************************************
+Modified: trunk/A2BCustomer_UI/checkout_payment.php
+
+-$instance_table = new Table("cc_card", "username, id");
+-       $param_update .= " credit = credit+'10'";
+-       $FG_EDITION_CLAUSE = " id='$transaction_data[0][1]'";
+
+
+#### TODO
+********************************************************************
+
+we should also resolve that
+# when we are changing the currency code .,, on the userinfo it is shown to purchage 20 $
+
+and other thing is that we should have to add the way to manage the Pending transactions
+There is a interface Provideded by paypal and Money bookers to get status of pending transactions
+so that later on admin can update the status of transactions which were pending by quering the Epayment Gateway
+got my point ?
+
+#### BUG
+********************************************************************
+yes the authorize is always in USD as it s only for US peoples
+can we set the convert from  USD -> base currency
+
+
+
+
+#### Check voice one 
+********************************************************************
+SIP JAVA Phone
+
+
+#### ADD referial ID : Admin & customer (conf)
+********************************************************************
+https://www.moneybookers.com/app/?rid=811621
+https://www.paypal.com/es/mrb/pal=PGSJEXAEXKTBU
+
+
+#### BUG : Batch update in Rates
+********************************************************************
+Batch update in Rates don't work correctly.
+hardy test this part
+
+
+#### INVOICE FIX
+********************************************************************
+fix on A2Billing_UI/Public/invoices_customer.php ->  false cardnumber
+# Error page : Blank page with "No User found"
+need design good error pages !!
+Golden rule : never show a white page with an error message.
+
 
 #### INVOICE IMPROVE SENDING
 ********************************************************************
@@ -25,37 +82,6 @@ is there anything in framework that support like this?
 Therefore I suspect a bug in the emailing function of the customer sign-up screen.
 
 
-#### INVOICES MORE FIXES
-********************************************************************
-
-1#
-in customer interface if I click on View invoice A2B_entity_view_invoice.php?section=4
-we only see the last invoice!!!
-
-SELECT inv.id, card.username,invoicecreated_date, cover_startdate, cover_enddate, invoicesent_date, total, inv.id FROM cc_card card, cc_invoices inv LEFT JOIN (SELECT * FROM cc_invoice_history GROUP BY invoiceid HAVING Max(invoicesent_date)) as his ON inv.ID = his.invoiceid WHERE card.id = inv.cardid AND his.invoicestatus = 1 AND card.id = 12 ORDER BY inv.invoicecreated_date DESC LIMIT 0,10
-
-I guess the error come from HAVING Max(invoicesent_date)
-
-2#
-we still have Invoices_Customer in the menu
-
-3#
-invoices_customer.php?section=4
-
-if I update the currency I go amount with lot of decimals : 27.284012932622 USD
-always show we 3 decimals
-
-
-4# in Admin side we need a new section INVOICES
-with all the features we have for invoicing.
-
-
-
-#### SHIFT LEFT : DEFINES.PHP
-********************************************************************
-SHIFT LEFT : DEFINES.PHP
-
-
 #### DID CRONT : MAIL
 ********************************************************************
 	$mail_user_content.="BALANCE REMAINING ".$mydids[5]-$mydids[3]."\n\n";
@@ -72,6 +98,23 @@ SHIFT LEFT : DEFINES.PHP
 http://forum.asterisk2billing.org/viewtopic.php?t=1927
 
 
+#### FEATURE CUSTOMER UI : SIP/IAX INFO & partial edit
+********************************************************************
+What about link under account Info.
+ 
+VoIP settings
+          o List SIP
+          o List IAX
+
+Put the User name and password under each link from the appropriate table.
+ 
+This could be developed in a later release to allow the customer to change some of the more advanced settings, unless of course you just re-use the "List IAX-Friend" code from the admin screens, which would be a very quick win. 
+
+
+User info Profile user can see any data for SIP registrations his device like sip-login an sip-password (locked to change) 
+
+like in voip
+
 
 #### Misc : spacer
 ********************************************************************
@@ -84,15 +127,6 @@ Morten Isaksen <misak _at misak.dk>
 http://misak.dk/download/a2billing/CC_ratecard_import_analyse.php.diff
 
 
-#### INVOICE
-********************************************************************
-The DID section is still in the invoice, the extra charge will take care of this
-The VAT is not in the invoice
-
-
-#### FEATURES
-********************************************************************
-User info Profile user can see any data for SIP registrations his device like sip-login an sip-password (locked to change) 
 
 
 
@@ -138,26 +172,6 @@ exten => *97,n,VoiceMailMain(${CALLERID(num)}@default)
 exten => *97,n,Hangup 
 
 
-
-
-#### SIGNUP SELECT TARIFFGROUP
-********************************************************************
-; ID Tariffgroup to use, check the ID in the tariffgroup list - WebUI
-tariff = 1
-
-need to be changed to
-
-; ID Tariffgroup to sign the customers
-; or define a list of ID to let himselect select the tariffgroup
-; check the ID in the tariffgroup list - WebUI
-tariff = 1, 2, 3
-
-So in case of multiple tariff, a new Dropdown menu will appear on the signup form.
-with the list of tariff group defined here 
-(name of the tariff group will appear, not the number 1, 2, 3)
-
-Security, ensure at the sign-up time that the value send by the form is include in
-it to avoid the possibility from the customer to signup under an other tariffgroup
 
 
 

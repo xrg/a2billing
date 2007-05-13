@@ -18,7 +18,7 @@
   
   define('PAYPAL_PAYMENT_URL', $A2B->config["epayment_method"]["paypal_payment_url"]);
   define('AUTHORIZE_PAYMENT_URL', $A2B->config["epayment_method"]["authorize_payment_url"]);
-  
+  define('STORE_NAME', $A2B->config["epayment_method"]["store_name"]);
   
   define('DIR_WS_IMAGES', 'images/');
   define('DIR_WS_ICONS', DIR_WS_IMAGES . 'icons/');

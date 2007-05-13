@@ -381,7 +381,8 @@ class A2Billing {
 		if(!isset($this->config['webui']['currency_choose'])) 		$this->config['webui']['currency_choose'] = 'all';
 		if(!isset($this->config['webui']['card_export_field_list']))	$this->config['webui']['card_export_field_list'] = 'creationdate, username, credit, lastname, firstname';
 		if(!isset($this->config['webui']['voucher_export_field_list']))	$this->config['webui']['voucher_export_field_list'] = 'id, voucher, credit, tag, activated, usedcardnumber, usedate, currency';
-		if(!isset($this->config['webui']['advanced_mode']))			$this->config['webui']['advanced_mode'] = 0;	
+		if(!isset($this->config['webui']['advanced_mode']))				$this->config['webui']['advanced_mode'] = 0;
+		if(!isset($this->config['webui']['delete_fk_card']))			$this->config['webui']['delete_fk_card'] = 1;	
 
 		  
 		// conf for the recurring process

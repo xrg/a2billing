@@ -7,102 +7,21 @@ if (!function_exists("stripos")) {
 	}
 }
 
-if ($this -> CV_TOPVIEWER == "sdoc"){
+
+// ******************** END IF $topviewer *******************************
+
+$stitle = $_GET['stitle'];
+$ratesort = $_GET['ratesort'];
+$current_page = $_GET['current_page'];
+$this->FG_ORDER = $_GET['order']; // really need ?!
+$this->FG_SENS = $_GET['sens']; // really need  ?
 
 
-// The variable  Where the edition will target (link)
-$FG_INSERT_LINK="P2E_entity_edit.php?form_action=ask-add&atmenu=site";
 
-
-
-// *** 		GET SITE LIST  	***
-$instance_table_site = new Table("site", "id, name");
-
-$list_site = $instance_table_site -> Get_list ($this -> DBHandle, $FG_TABLE_CLAUSE, "name", "ASC", null, null, null, null);
-$nb_site = is_array($list_site) ? count($list_site) : 0 ;
-
-
+if ((count($list)>0) && is_array($list)){
+	$ligne_number=0;
 ?>
 
-  <?php  if ($done=="siteadded"){ ?>
-  
-   <table class="viewhandler_table1" cellspacing="3">
-	  <tr>
-		<td width="90%" height="40" class="textnegrita12" ><?php echo gettext("Congratulations! Your site");?> <span class="liens"><?php echo $sitename?></span> <?php echo gettext("has been registered.");?></td>
-	  
-	  </tr>
-	</table>
-	<table width="90%" height="10" border="0" cellpadding="0" cellspacing="0">
-	  <tr>
-		<td><img src="<?php echo Images_Path;?>/line.gif" width="90%" height="1"></td>
-	  </tr>
-   </table>
-
-  <?php  } ?>
-  
-<table width="90%" height="43" border="0" cellpadding="0" cellspacing="3" background="<?php echo Images_Path;?>/background_cells.gif">
-  <tr>
-    <td width="90%" height="40" class="textnegrita12" ><?php echo gettext("Currently you have registered");?> <?php echo $nb_site?> <?php echo gettext("sites and");?> <?php echo $this -> FG_NB_RECORD?> <?php echo gettext("documents");?>.</td>
-  
-  </tr>
-</table>
-
-<br/>
-
-
-	  
-		
-		
-<?php 	
-
-}elseif ($this -> CV_TOPVIEWER == "site"){ 
- 
-  		if ((count($list)>0) && is_array($list)){
- 		?>
- 
-		  <br/>
-			  <table width="90%" height="43" border="0" cellpadding="0" cellspacing="3" background="<?php echo Images_Path;?>/background_cells.gif">
-		  <tr>
-			<td height="40" valign="top" class="textnegrita12"> <?php echo gettext("These are the sites you have registered.");?></td>
-		  </tr>
-		</table>
-		 
- 
-
- 		<?php  
-		}
- }elseif ($this -> CV_TOPVIEWER == "menu"){ 
- 
-  		if ((count($list)>0) && is_array($list)){
- 		?>
- 
-		  <br/>
-			  <table width="90%" height="43" border="0" cellpadding="0" cellspacing="3" background="<?php echo Images_Path;?>/background_cells.gif">
-		  <tr>
-			<td height="40" valign="top" class="textnegrita12"> <h1><font color="#008E9C"> <img src="<?php echo Images_Path;?>/click_icon.gif"/>
-			<?php  	echo $_SESSION["menu"]; ?></font></h1></td>
-		  </tr>
-		</table>
-		 
- 
- 
- 		<?php  
-		}
- }
- // ******************** END IF $topviewer *******************************
- 
- 	$stitle = $_GET['stitle'];
-	$ratesort = $_GET['ratesort'];
-	$current_page = $_GET['current_page'];
-	$this->FG_ORDER = $_GET['order']; // really need ?!
-	$this->FG_SENS = $_GET['sens']; // really need  ?
-	
-	
-	
-    if ((count($list)>0) && is_array($list)){
-	 $ligne_number=0;
-	  ?>
-	  
 <script language="JavaScript" type="text/JavaScript">
 <!--
 function MM_openBrWindow(theURL,winName,features) { //v2.0
@@ -136,19 +55,19 @@ function openURLFilter(theLINK)
 			<input type="hidden" name="popup_formname" value="<?php echo $_GET['popup_formname']?>">
 			<input type="hidden" name="popup_fieldname" value="<?php echo $_GET['popup_fieldname']?>">
             <TD height="25" bgcolor="#52BEDE" style="padding-left: 5px; padding-right: 3px;"><span class="text_blanconegrita">			   		
-					<SELECT name="choose_list" size="1" class="form_enter" style="border: 2px outset rgb(204, 51, 0); width: 185px;" onchange="openURLFilter('<?php echo $_SERVER['PHP_SELF'].$this->CV_FILTER_ABOVE_TABLE_PARAM?>')">
-					
-						<OPTION><?php echo gettext("Sort");?></OPTION>
-					
-						<?php	
-							// TODO not sure for what should be used that, because exist already a filter.	
-						 	if (!isset($list_site)) $list_site = $list;
-							foreach ($list_site as $recordset){ 						 
-						?>
-							<option class=input value='<?php echo $recordset[0]?>'  <?php if ($recordset[0]==$site_id) echo "selected";?>><?php echo $recordset[1]?></option>
-						<?php 	 }
-						?>
-					</SELECT>
+				<SELECT name="choose_list" size="1" class="form_input_select" style="width: 185px;" onchange="openURLFilter('<?php echo $_SERVER['PHP_SELF'].$this->CV_FILTER_ABOVE_TABLE_PARAM?>')">
+				
+					<OPTION><?php echo gettext("Sort");?></OPTION>
+				
+					<?php	
+						// TODO not sure for what should be used that, because exist already a filter.	
+						if (!isset($list_site)) $list_site = $list;
+						foreach ($list_site as $recordset){ 						 
+					?>
+					<OPTION class=input value='<?php echo $recordset[0]?>'  <?php if ($recordset[0]==$site_id) echo "selected";?>><?php echo $recordset[1]?></OPTION>
+					<?php 	 }
+					?>
+				</SELECT>
 			  </SPAN></TD></FORM>	
         </TR>
 		<?php  } //END IF ?>
@@ -156,13 +75,10 @@ function openURLFilter(theLINK)
 		<tr> 
           <td style="padding-left: 5px; padding-right: 3px;" height="16"> 
             <table border="0" cellpadding="0" cellspacing="0" width="100%">
-              <tbody>
                 <tr> 
                   <td><span style="color: rgb(120, 120, 120); font-size: 9px;"><b> - <?php echo strtoupper($this->FG_INSTANCE_NAME) ?> LIST - </b></span></td>
-                  <td align="right"> </td>
+                  <td align="right"> <span class="viewhandler_span1"> <?php echo $this -> FG_NB_RECORD.' '.gettext("Records"); ?></span></td>
                 </tr>
-              </tbody>
-
             </table></td>
         </tr>
 		
@@ -221,30 +137,29 @@ function openURLFilter(theLINK)
           <TD> 
 
 			<TABLE border="0" cellPadding="2" cellSpacing="2" width="100%">
-			   <TBODY>			   
-                <TR class="form_head"> 
-	<?php 
-		  for($i=0;$i<$this->FG_NB_TABLE_COL;$i++){ 
-	?>				
-			 <td class="tableBody" style="padding: 2px;" align="center" width="<?php echo $this->FG_TABLE_COL[$i][2]?>" > 				
-                    <strong> 
-                    <?php  if (strtoupper($this->FG_TABLE_COL[$i][4])=="SORT"){?>
-                    <a href="<?php  echo $_SERVER['PHP_SELF']."?stitle=$stitle&atmenu=$atmenu&current_page=$current_page&order=".$this->FG_TABLE_COL[$i][1]."&sens="; if ($this->FG_SENS=="ASC"){echo"DESC";}else{echo"ASC";} echo $this-> CV_FOLLOWPARAMETERS;?>"> 
-                    <font color="#FFFFFF"><?php  } ?>
-                    <?php echo $this->FG_TABLE_COL[$i][0]?> 
-                    <?php if ($this->FG_ORDER==$this->FG_TABLE_COL[$i][1] && $this->FG_SENS=="ASC"){?>
-                    &nbsp;<img src="<?php echo Images_Path_Main;?>/icon_up_12x12.GIF" border="0">
-                    <?php }elseif ($this->FG_ORDER==$this->FG_TABLE_COL[$i][1] && $this->FG_SENS=="DESC"){?>
-                    &nbsp;<img src="<?php echo Images_Path_Main;?>/icon_down_12x12.GIF" border="0">
-                    <?php }?>
-                    <?php  if (strtoupper($this->FG_TABLE_COL[$i][4])=="SORT"){?>
-                    </font></a> 
-                    <?php }?>
-                    </strong></TD>
-		   <?php } 		
-			 if ($this->FG_DELETION || $this->FG_EDITION || $this -> FG_OTHER_BUTTON1 || $this -> FG_OTHER_BUTTON2){ ?>
-  				 <td width="<?php echo $this->FG_ACTION_SIZE_COLUMN?>" align="center" class="tableBody" ><strong> <?php echo gettext("ACTION");?></strong> </td>
-		   <?php } ?>		
+				<TR class="form_head"> 
+				<?php 
+					  for($i=0;$i<$this->FG_NB_TABLE_COL;$i++){ 
+				?>				
+				 <td class="tableBody" style="padding: 2px;" align="center" width="<?php echo $this->FG_TABLE_COL[$i][2]?>" > 				
+						<strong> 
+						<?php  if (strtoupper($this->FG_TABLE_COL[$i][4])=="SORT"){?>
+						<a href="<?php  echo $_SERVER['PHP_SELF']."?stitle=$stitle&atmenu=$atmenu&current_page=$current_page&order=".$this->FG_TABLE_COL[$i][1]."&sens="; if ($this->FG_SENS=="ASC"){echo"DESC";}else{echo"ASC";} echo $this-> CV_FOLLOWPARAMETERS;?>"> 
+						<font color="#FFFFFF"><?php  } ?>
+						<?php echo $this->FG_TABLE_COL[$i][0]?> 
+						<?php if ($this->FG_ORDER==$this->FG_TABLE_COL[$i][1] && $this->FG_SENS=="ASC"){?>
+						&nbsp;<img src="<?php echo Images_Path_Main;?>/icon_up_12x12.GIF" border="0">
+						<?php }elseif ($this->FG_ORDER==$this->FG_TABLE_COL[$i][1] && $this->FG_SENS=="DESC"){?>
+						&nbsp;<img src="<?php echo Images_Path_Main;?>/icon_down_12x12.GIF" border="0">
+						<?php }?>
+						<?php  if (strtoupper($this->FG_TABLE_COL[$i][4])=="SORT"){?>
+						</font></a> 
+						<?php }?>
+						</strong></TD>
+			   <?php } 		
+				 if ($this->FG_DELETION || $this->FG_EDITION || $this -> FG_OTHER_BUTTON1 || $this -> FG_OTHER_BUTTON2){ ?>
+					 <td width="<?php echo $this->FG_ACTION_SIZE_COLUMN?>" align="center" class="tableBody" ><strong> <?php echo gettext("ACTION");?></strong> </td>
+			   <?php } ?>		
                 </TR>
 		<?php			
 			 /**********************   START BUILDING THE TABLE WITH BROWSING VALUES ************************/
@@ -355,15 +270,12 @@ function openURLFilter(theLINK)
 								}
 								
 								echo $new_FG_OTHER_BUTTON1_LINK;
-
 								if (substr($new_FG_OTHER_BUTTON1_LINK,-1)=='=') echo $list[$ligne_number][$this->FG_NB_TABLE_COL];
-
 								if (strlen($this -> FG_OTHER_BUTTON1_IMG)==0){
 									echo '"> '.'<span class="cssbutton">'.$this->FG_OTHER_BUTTON1_ALT.'</span>';
 									// onclick="location.href='http://www.google.com'"
 								}else{
 									?>"><img src="<?php echo $this -> FG_OTHER_BUTTON1_IMG?>" border="0" title="<?php echo $this->FG_OTHER_BUTTON1_ALT?>" alt="<?php echo $this->FG_OTHER_BUTTON1_ALT?>"><?
-
 								}
 								?></a>
 						<?php } ?>
@@ -399,14 +311,9 @@ function openURLFilter(theLINK)
 										}
 									}
 								}
-
 								echo $new_FG_OTHER_BUTTON2_LINK;
-
 								if (substr($new_FG_OTHER_BUTTON2_LINK,-1)=='=') echo $list[$ligne_number][$this->FG_NB_TABLE_COL];
-
 								if (strlen($this -> FG_OTHER_BUTTON2_IMG)==0){
-									//echo '">'.$this->FG_OTHER_BUTTON2_ALT;
-									// echo '"> '.'<input class="form_input_button"  value=" '.$this->FG_OTHER_BUTTON2_ALT.' " type="button">';
 									echo '"> '.'<span class="cssbutton">'.$this->FG_OTHER_BUTTON2_ALT.'</span>';
 								}else{
 									?>"><img src="<?php echo $this -> FG_OTHER_BUTTON2_IMG?>" border="0" title="<?php echo $this->FG_OTHER_BUTTON2_ALT?>" alt="<?php echo $this->FG_OTHER_BUTTON2_ALT?>"><?
@@ -420,8 +327,8 @@ function openURLFilter(theLINK)
 
 					</TR>
 				<?php
-					 } //  for (ligne_number=0;ligne_number<count($list);$ligne_number++)
-					 while ($ligne_number < 7){
+					} //  for (ligne_number=0;ligne_number<count($list);$ligne_number++)
+					while ($ligne_number < 7){
 				?>
 					<TR bgcolor="<?php echo $this->FG_TABLE_ALTERNATE_ROW_COLOR[$ligne_number%2]?>">
 				  		<?php
@@ -435,44 +342,32 @@ function openURLFilter(theLINK)
 
 				<?php
 						$ligne_number++;
-					 } //END_WHILE
-
+					} //END_WHILE
 				 ?>
                 <TR>
                   <TD class=tableDivider colSpan=<?php echo $this->FG_TOTAL_TABLE_COL?>><IMG height=1 src="<?php echo Images_Path_Main;?>/clear.gif" width=1></TD>
                 </TR>
-              </TBODY>
             </TABLE>
 
-		  </td>
-        </tr>
+		  </TD>
+        </TR>
          <TR >
           <TD height=16 style="PADDING-LEFT: 5px; PADDING-RIGHT: 3px">
 			<TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
-              <TBODY>
                 <TR>
                   <TD align="right" valign="bottom"><span class="text"><font color="#cc0000">
-
-
-					<?php
+					<?php					
 					$c_url = $_SERVER['PHP_SELF'].'?stitle='.$stitle.'&atmenu='.$atmenu.'&current_page=%s'."&filterprefix=".$_GET['filterprefix']."&order=".$_GET['order']."&sens=".$_GET['sens']."&mydisplaylimit=".$_GET['mydisplaylimit']."&ratesort=".$ratesort.$this-> CV_FOLLOWPARAMETERS;
 					if (!is_null($letter) && ($letter!=""))   $c_url .= "&letter=".$_GET['letter'];
-
 					$this -> printPages($this -> CV_CURRENT_PAGE+1, $this -> FG_NB_RECORD_MAX, $c_url) ;
 					?>
-
+					</span>
                   </TD>
-              </TBODY>
             </TABLE></TD>
         </TR>
-
-		<tr>
-          <td style="border-bottom: medium dotted rgb(102, 119, 102);"> </td>
-        </tr>
 		
 		<FORM name="otherForm2" action="<?php echo $_SERVER['PHP_SELF']?>">
 		<tr><td>
-			
 			<?php echo gettext("DISPLAY");?>
 			<input type="hidden" name="stitle" value="<?php echo $stitle?>">
 			<input type="hidden" name="atmenu" value="<?php echo $atmenu?>">
@@ -485,7 +380,7 @@ function openURLFilter(theLINK)
 			<input type="hidden" name="popup_fieldname" value="<?php echo $_GET['popup_fieldname']?>">
 			<input type="hidden" name="type" value="<?php echo $_GET['type']?>">
 			<input type="hidden" name="id" value="<?php echo $_GET['id']?>">
-				
+			
 			<select name="mydisplaylimit" size="1" class="form_input_select">
 				<option value="10" selected>10</option>
 				<option value="50">50</option>
@@ -493,9 +388,8 @@ function openURLFilter(theLINK)
 				<option value="ALL">All</option>
 			</select>
 			<input class="form_input_button"  value=" <?php echo gettext("GO");?> " type="SUBMIT">
-
 			&nbsp; &nbsp; &nbsp;
-
+			
 		<?php if ($this->FG_EXPORT_CSV){ ?>
 		 - &nbsp; &nbsp; <a href="export_csv.php?var_export=<?php echo $this->FG_EXPORT_SESSION_VAR ?>&var_export_type=type_csv" target="_blank" ><img src="<?php echo Images_Path;?>/excel.gif" border="0" height="30"/><?php echo gettext("Export CSV");?></a>
 
@@ -508,21 +402,18 @@ function openURLFilter(theLINK)
 		</td></tr>
 		</FORM>
       </table>
-	  <?php
-				  }else{
-				  ?>
-
-				   <br><br>
-				  <table width="50%" border="0" align="center">
-					<tbody><tr>
-					  <td align="center">
-						<?php echo $this -> CV_NO_FIELDS;?><br>
-					</td>
-					</tr>
-
-				  </tbody></table>
-				  <br><br>
-
-				  <?php
-				  }//end_if
-	  ?>
+<?php
+	}else{
+?>
+	<br><br>
+	<table width="50%" border="0" align="center">
+		<tr>
+			<td align="center">
+				<?php echo $this -> CV_NO_FIELDS;?><br>
+			</td>
+		</tr>
+	</table>
+	<br><br>
+<?php
+	}//end_if
+?>

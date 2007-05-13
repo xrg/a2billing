@@ -423,7 +423,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 					<tr class="invoice_rows">
 						<td align="center" class="invoice_td"><?php echo $data[0]?></td>
 						<td class="invoice_td" align="right"><?php echo $data[2]?></td>
-						<td  class="invoice_td" align="right"><?php echo convert_currency($currencies_list, $data[1], $data[3], $selected_currency)." ".$selected_currency ?></td>
+						<td  class="invoice_td" align="right"><?php echo number_format(convert_currency($currencies_list, $data[1], $data[3], $selected_currency),3)." ".$selected_currency ?></td>
 					                 	
 					</tr>	 
 					<?php 
@@ -815,7 +815,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
             <tr class="invoice_rows">
               <td width="37%" ><font color="#003399"><?php echo $data[0]?></font></td>
               <td width="41%" ><font color="#003399"><?php echo $data[2]?> </font></td>			 
-              <td  align="right" ><font color="#003399"><?php echo convert_currency($currencies_list, $data[1], $data[3], $selected_currency)." ".$selected_currency ?></font></td>
+              <td  align="right" ><font color="#003399"><?php echo number_format(convert_currency($currencies_list, $data[1], $data[3], $selected_currency),3)." ".$selected_currency ?></font></td>
             </tr>
 			  <?php } ?> 
 			 <tr >
@@ -1093,7 +1093,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 	 display_2bill($prvat);?>&nbsp;</font></b></td>
 			  </tr>
 			<tr bgcolor="#CCCCCC"><font color="#003399"><b>
-			  <td align="right"><?php echo gettext("Grand Total");?> = <?php echo display_2bill($total_invoice_cost + $prvat);?>&nbsp;</font></b></td>
+			  <td align="right"><?php echo gettext("Grand Total");?> = <?php echo display_2bill($total_invoice_cost + $prvat);?>&nbsp;</font></td></b>
 			  </tr>
 			</table>
 <?php  } ?>

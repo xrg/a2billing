@@ -2,7 +2,7 @@
 include ("../lib/defines.php");
 include ("../lib/module.access.php");
 
-if (! has_rights (ACX_CALL_REPORT)){
+if (! has_rights (ACX_INVOICING)){
 	   Header ("HTTP/1.0 401 Unauthorized");
 	   Header ("Location: PP_error.php?c=accessdenied");
 	   die();
@@ -764,7 +764,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 <br><hr width="350"><br><br>
 <table width="100%">
 <tr>
-<?php if (SHOW_ICON_INVOICE){?><td align="left"><img src="pdf-invoices/images/desktop.gif"/> </td><?php }?>
+<?php if (SHOW_ICON_INVOICE){?><td align="left"><img src="<?php echo Images_Path;?>/desktop.jpg"/> </td><?php }?>
 <td align="center"  bgcolor="#fff1d1"><font color="#000000" face="verdana" size="5"> <b><?php echo gettext("B I L L I N G &nbsp;&nbsp; S E R V I C E");?> : <?php  if (strlen($info_customer[0][2])>0) echo $info_customer[0][2]; ?> </b> </td>
 </tr>
 </table>
@@ -868,7 +868,7 @@ foreach ($list_total_destination as $data){
 		<td align="right" bgcolor="#D2D8ED"><font face="verdana" size="1" color="#000000"><?php echo $data[0]?></font></td>
 		<td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right"><font face="verdana" color="#000000" size="1"><?php echo $minutes?> </font></td>
         <td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="left">
-        	<img src="pdf-invoices/images/sidenav-selected.gif" height="6" width="<?php echo $widthbar?>">
+        	<img src="<?php echo Images_Path;?>/sidenav-selected.jpg" height="6" width="<?php echo $widthbar?>">
 		</td>
         <td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right"><font face="verdana" color="#000000" size="1"><?php echo $data[3]?></font></td>
         
@@ -894,8 +894,9 @@ foreach ($list_total_destination as $data){
 <br><hr width="350"><br><br>
 <table width="100%">
 <tr>
-<?php if (SHOW_ICON_INVOICE){?><td align="left"><img src="pdf-invoices/images/stock_landline-phone.gif"/> </td><?php } ?>
-<td align="center"  bgcolor="#fff1d1"><font color="#000000" face="verdana" size="5"> <b><?php echo gettext("B I L L &nbsp;&nbsp;  E V O L U T I O N");?></b> </td>
+<?php if (SHOW_ICON_INVOICE){?><td align="left"><img src="<?php echo Images_Path;?>/stock_landline-phone.jpg"/> </td>
+<?php } ?>
+<td class="invoices_table4_td1"><font ><?php echo gettext("B I L L &nbsp;&nbsp;  E V O L U T I O N");?> </td>
 </tr>
 </table>
 <br><br>
@@ -955,7 +956,7 @@ foreach ($list_total_day as $data){
 		<td align="right" bgcolor="#D2D8ED"><font face="verdana" size="1" color="#000000"><?php echo $data[0]?></font></td>
 		<td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right"><font face="verdana" color="#000000" size="1"><?php echo $minutes?> </font></td>
         <td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="left">
-        	<img src="pdf-invoices/images/sidenav-selected.gif" height="6" width="<?php echo $widthbar?>">
+        	<img src="<?php echo Images_Path;?>/sidenav-selected.jpg" height="6" width="<?php echo $widthbar?>">
 		</td>
         <td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right"><font face="verdana" color="#000000" size="1"><?php echo $data[3]?></font></td>
 		<td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right"><font face="verdana" color="#000000" size="1"><?php  display_2bill($data[2]) ?></font></td>
@@ -984,15 +985,16 @@ foreach ($list_total_day as $data){
 
 <table width="100%">
 <tr>
-<?php if (SHOW_ICON_INVOICE){?> <td align="left"><img src="pdf-invoices/images/kfind.gif"/> </td> <?php } ?>
-<td align="center"  bgcolor="#fff1d1"><font color="#000000" face="verdana" size="5"> <b><?php echo gettext("C A L L S &nbsp;&nbsp;  D E T A I L");?></b> </td>
+<?php if (SHOW_ICON_INVOICE){?> <td align="left"><img src="<?php echo Images_Path;?>/kfind.jpg"/> </td> 
+<?php } ?>
+<td  class="invoices_table4_td1"><?php echo gettext("C A L L S &nbsp;&nbsp;  D E T A I L");?> </td>
 </tr>
 </table>
 <br><br>
 <!-- ** ** ** ** ** Part to display the CDR ** ** ** ** ** -->
 		<center><?php echo gettext("Number of call");?> : <?php  if (is_array($list) && count($list)>0){ echo $nb_record; }else{echo "0";}?></center>
 		<TABLE border=0 cellPadding=0 cellSpacing=0 width="<?php echo $FG_HTML_TABLE_WIDTH?>" align="center">
-                <TR bgColor=#F0F0F0> 
+                <TR class="bgcolor_008"> 
 		  <TD width="7%" class="tableBodyRight" style="PADDING-BOTTOM: 2px; PADDING-LEFT: 2px; PADDING-RIGHT: 2px; PADDING-TOP: 2px">nb</TD>					
                   <?php 
 				  	if (is_array($list) && count($list)>0){

@@ -1049,7 +1049,7 @@ class FormHandler{
 				if ($this->FG_DEBUG >= 3) echo "<br>Clause : ".$this -> FG_TABLE_CLAUSE;
 				$this -> FG_NB_RECORD = $instance_table -> Table_count ($this -> DBHandle, $this -> FG_TABLE_CLAUSE);
 				if ($this->FG_DEBUG >= 3) var_dump ($list);
-
+				
 				if ($this -> FG_NB_RECORD <=$this -> FG_LIMITE_DISPLAY){
 					$this -> FG_NB_RECORD_MAX = 1;
 				}else{
@@ -1674,7 +1674,7 @@ class FormHandler{
 			if ($this->FG_DEBUG >= 1)  echo gettext("<br> GOTO ; ").$this->FG_GO_LINK_AFTER_ACTION_EDIT.$processed['id'];
 			Header ("Location: ".$this->FG_GO_LINK_AFTER_ACTION_EDIT.$processed['id']);
 		}			
-			
+		
 	}
 	
 	
@@ -1684,13 +1684,13 @@ class FormHandler{
      */
 	function perform_delete (&$form_action){
 		include_once (FSROOT."lib/Class.Table.php");
-
+		
 		if (strlen($this -> FG_ADDITIONAL_FUNCTION_AFTER_DELETE) > 0)
 		$res_funct = call_user_func(array(&$this, $this->FG_ADDITIONAL_FUNCTION_AFTER_DELETE));
 		$processed = $this->getProcessed();  //$processed['firstname']
-
+		
 		$this->VALID_SQL_REG_EXP = true;
-
+		
         $instance_table = null;
         $tableCount = count($this -> FG_FK_TABLENAMES);
         $clauseCount = count($this -> FG_FK_EDITION_CLAUSE);
@@ -1708,29 +1708,23 @@ class FormHandler{
 		    $instance_table = new Table($this->FG_TABLE_NAME, $this->FG_QUERY_EDITION);
 		    if ($this->FG_DEBUG >=4 ) $instance_table->debug_st = 1 ;
         }
-		if($this->FG_FK_DELETE_OR_UPDATE)
-		{
-			$instance_table->FK_DELETE_OR_UPDATE = false;
-		}
-		else
-		{
-			$instance_table->FK_DELETE_OR_UPDATE = true;
-		}				
+		$instance_table->FK_DELETE_OR_UPDATE = $this->FG_FK_WARNONLY;
+		
 		if ($processed['id']!="" || !is_null($processed['id'])){
 			$this->FG_EDITION_CLAUSE = str_replace("%id", $processed['id'], $this->FG_EDITION_CLAUSE);
 		}
 		
 		$this -> RESULT_QUERY = $instance_table -> Delete_table ($this->DBHandle, $this->FG_EDITION_CLAUSE, $func_table = null);
 		if (!$this -> RESULT_QUERY)  echo gettext("error deletion");
-
+		
 		$this->FG_INTRO_TEXT_DELETION = str_replace("%id", $processed['id'], $this->FG_INTRO_TEXT_DELETION);
 		$this->FG_INTRO_TEXT_DELETION = str_replace("%table", $this->FG_TABLE_NAME, $this->FG_INTRO_TEXT_DELETION);
-
+		
 		if (isset($this->FG_GO_LINK_AFTER_ACTION_DELETE)){
 			if ($this->FG_DEBUG >= 1)  echo gettext("<br> GOTO ; ").$this->FG_GO_LINK_AFTER_ACTION_DELETE.$processed['id'];
 			Header ("Location: ".$this->FG_GO_LINK_AFTER_ACTION_DELETE.$processed['id']);
 		}
-
+		
 	}
 
     /*

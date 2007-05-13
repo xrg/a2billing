@@ -12,7 +12,14 @@ REQUERIMENTS
 	
 	Perl module DBD::Pg
 	(yum install perl-DBD-Pg)
-
+	
+	Perl module Config::INI::Simple
+	rpm perl-Config-INI-Simple
+	perl -MCPAN -e shell
+	> install Config::INI::Simple
+	> reload
+	
+	
 
 INSTALL
 
@@ -22,6 +29,21 @@ INSTALL
 	cp -rf callback-daemon /var/lib/asterisk/a2billing/
 	
 	cd /var/lib/asterisk/a2billing/callback-daemon/
+	
+	
+	
+	CHKCONFIG : RUNLEVEL FILES
+		Each  service  which  should be manageable by chkconfig needs two or more commented lines added to its init.d script. The first line
+		tells chkconfig what runlevels the service should be started in by default, as well as the start and stop priority  levels.  If  the
+		service  should  not,  by  default, be started in any runlevels, a - should be used in place of the runlevels list.  The second line
+		contains a description for the service, and may be extended across multiple lines with backslash continuation.
+	
+	you may need to check the priority of postgresql or mysql through : 
+	ls -la /etc/rc3.d/
+	
+	then set the priority of the runlevel accordingly, edit a2billing-callback-daemon.rc
+	# chkconfig: levels S K
+	in our script : # chkconfig: 2345 80 80
 	
 	
 	CALLBACK-DAEMON :
@@ -44,7 +66,6 @@ INSTALL
 	when the daemon is started you should see [START] into the log file (/var/log/asterisk/a2billing-daemon-callback.log)
 	
 	
-
 
 
 -----===========------===========------===========------===========------===========-----

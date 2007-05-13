@@ -4,7 +4,7 @@ include ("../lib/module.access.php");
 include ("../lib/Form/Class.FormHandler.inc.php");
 include ("../lib/smarty.php");
 
-if (! has_rights (ACX_BILLING)){ 
+if (! has_rights (ACX_INVOICING)){ 
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");	   
 	die();	   
@@ -192,7 +192,7 @@ if (strlen($FG_TABLE_CLAUSE)>0)
 }
 if ($invoice_type == 1)
 {
-	$FG_TABLE_CLAUSE.="t1.starttime >(Select CASE  WHEN max(cover_enddate) IS NULL THEN '0001-01-01 01:00:00' ELSE max(cover_enddate) END from cc_invoices) AND t1.cardid = $cardid";
+	$FG_TABLE_CLAUSE.="t1.starttime >(Select CASE  WHEN max(cover_enddate) IS NULL THEN '0001-01-01 01:00:00' ELSE max(cover_enddate) END from cc_invoices WHERE cardid = '$cardid') ";
 }
 else
 {

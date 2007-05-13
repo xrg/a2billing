@@ -7,29 +7,34 @@ use vars qw($dbh);
 
 use lib '/var/lib/asterisk/a2billing/callback-daemon/lib';
 use Asterisk::Manager;
+use Config::INI::Simple;
 
 $|++;
+
 
 ######################### GLOBALS ########################
 my $path_daemon = "/var/lib/asterisk/a2billing/callback-daemon/";
 my $daemon = "CallBack-Daemon";
 
+######################### READ THE CONFIG FILE ########################
+my $conf_file = "/etc/asterisk/a2billing.conf";
+my $conf = new Config::INI::Simple;
+# Read the config file
+$conf->read ($conf_file);
 
 ######################### DB PARAMETER ########################
-my $dbname = "a2billing";
-my $dbhost = "localhost";
-my $dbport = "5432";
-my $pgoptions = "";
-my $pgtty = "";
-my $login = "postgres";
-my $pwd = "";
-my $dbtype = "pgsql"; # value : mysql or pgsql
+my $dbname = $conf->{database}->{dbname};
+my $dbhost = $conf->{database}->{hostname};
+my $dbport = $conf->{database}->{port};
+my $login = $conf->{database}->{user};
+my $pwd = $conf->{database}->{password};
+my $dbtype = $conf->{database}->{dbtype};
 
 ######################### LOG FILE ########################
 my $log_file = "/var/log/asterisk/a2billing-daemon-callback.log";
 
 ######################### ASTERISK MANAGER ########################
-my $manager_host = "127.0.0.1";
+my $manager_host = "localhost";
 my $manager_username = "myasterisk";
 my $manager_secret = "mycode";
 
@@ -70,7 +75,7 @@ my $astman = new Asterisk::Manager;
 # print @res_manager;
 # exit(0);
 
-&daemonize($path_daemon);
+# &daemonize($path_daemon);
 
 open(LOGFILE, ">>".$log_file) || warn "Could not open >> $log_file.\n";
 $timestamp = &longfmt();
@@ -158,10 +163,15 @@ sub func_callback_processing{
 		die "ERR: Couldn't open connection: ".$DBI::errstr."\n";
 	}
 	
-	$SQL = "SELECT id, uniqueid, entry_time, status, server_ip, num_attempt, last_attempt_time, manager_result, agi_result, callback_time, channel, exten, context, priority, application, data, timeout, callerid, variable, account, async, actionid, id_server_group FROM cc_callback_spool WHERE status='PENDING' AND entry_time > (CURRENT_TIMESTAMP - INTERVAL '24 HOUR') AND (callback_time IS NULL OR callback_time <= CURRENT_TIMESTAMP) LIMIT 5 OFFSET 0";
+	if ($dbtype eq "mysql")
+	{
+		$SQL = "SELECT id, uniqueid, entry_time, status, server_ip, num_attempt, last_attempt_time, manager_result, agi_result, callback_time, channel, exten, context, priority, application, data, timeout, callerid, variable, account, async, actionid, id_server_group FROM cc_callback_spool WHERE status='PENDING' AND entry_time > SUBDATE( CURRENT_TIMESTAMP, INTERVAL 24 HOUR ) AND ( callback_time IS NULL OR callback_time <= CURRENT_TIMESTAMP ) LIMIT 0, 5";
+	} else {
+		$SQL = "SELECT id, uniqueid, entry_time, status, server_ip, num_attempt, last_attempt_time, manager_result, agi_result, callback_time, channel, exten, context, priority, application, data, timeout, callerid, variable, account, async, actionid, id_server_group FROM cc_callback_spool WHERE status='PENDING' AND entry_time > (CURRENT_TIMESTAMP - INTERVAL '24 HOUR') AND (callback_time IS NULL OR callback_time <= CURRENT_TIMESTAMP) LIMIT 5 OFFSET 0";
+	}
 	
 	$timestamp = &longfmt();
-	print LOGFILE "$timestamp $SQL";
+	print LOGFILE "$timestamp : TRY TO FIND PENDING CALLBACK";
 	
 	$sth = $dbh->prepare($SQL);
 	$sth->execute();
