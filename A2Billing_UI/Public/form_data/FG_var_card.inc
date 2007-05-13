@@ -90,7 +90,7 @@ $HD_Form -> AddViewElement(gettext("LASTNAME"), "lastname", "10%", "center", "so
 $HD_Form -> AddViewElement("<acronym title=\"BALANCE\">".gettext("BA")."</acronym>", "credit", "5%", "center", "sort", "", "", "", "", "", "", "");
 
 if (!($popup_select>=1)){
-	$HD_Form -> AddViewElement(gettext("TARIFFG"), "tariff", "10%", "center", "sort", "15", "lie", "cc_tariffgroup", "tariffgroupname", "id='%id'", "%1");
+	$HD_Form -> AddViewElement(gettext("Call Plan"), "tariff", "10%", "center", "sort", "15", "lie", "cc_tariffgroup", "tariffgroupname", "id='%id'", "%1");
 	$HD_Form -> AddViewElement("<acronym title=\"ACTIVATED\">".gettext("ACT")."</acronym>", "activated", "4%", "center", "sort", "", "list", $actived_list);
 	$HD_Form -> AddViewElement(gettext("LG"), "language", "3%", "center", "sort");
 	$HD_Form -> AddViewElement(gettext("USE"), "inuse", "3%", "center", "sort");
@@ -240,7 +240,7 @@ $HD_Form -> AddEditElement (gettext("LANGUAGE"),
 			   "list" , "", "",	"", $language_list, "%1", "", "" );
 
 
-$HD_Form -> AddEditElement (gettext("TARIFFGROUP"),
+$HD_Form -> AddEditElement (gettext("CALL PLAN"),
 			   "tariff",
 			   "",
 			   "SELECT",

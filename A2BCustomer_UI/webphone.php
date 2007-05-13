@@ -41,15 +41,11 @@ if( $customer_info [2] == "t" || $customer_info [2] == "1" ) {
 		$iax_info =$iaxresmax -> fetchRow();
 	}
 }
-
-
-
 $customer = $_SESSION["pr_login"];
-
 	include("PP_header.php");
 	
 	// #### HELP SECTION
-echo '<br><br>'.$CC_help_webphone;
+echo $CC_help_webphone;
 
 ?><br>
 

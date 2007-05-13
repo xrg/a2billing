@@ -706,7 +706,7 @@ class A2Billing {
 		// LOOKUP RATE : FIND A RATE FOR THIS DESTINATION
 		$resfindrate = $RateEngine->rate_engine_findrates($this, $this->destination,$this->tariff);
 		if ($resfindrate==0){
-			$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "ERROR ::> RateEngine didnt succeed to match the dialed number over the ratecard (Please check : id the ratecard is well create ; if the removeInter_Prefix is set according to your prefix in the ratecard ; if you hooked the ratecard to the tariffgroup)");
+			$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "ERROR ::> RateEngine didnt succeed to match the dialed number over the ratecard (Please check : id the ratecard is well create ; if the removeInter_Prefix is set according to your prefix in the ratecard ; if you hooked the ratecard to the Call Plan)");
 		}else{
 			$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "OK - RESFINDRATE::> ".$resfindrate);
 		}

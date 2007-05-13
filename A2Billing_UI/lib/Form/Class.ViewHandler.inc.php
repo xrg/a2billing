@@ -479,27 +479,30 @@ function openURLFilter(theLINK)
 		<tr>
           <td style="border-bottom: medium dotted rgb(102, 119, 102);"> </td>
         </tr>
+		
 		<FORM name="otherForm2" action="<?php echo $_SERVER['PHP_SELF']?>">
 		<tr><td>
-
-						<?php echo gettext("DISPLAY");?>
-						<input type="hidden" name="stitle" value="<?php echo $stitle?>">
-						<input type="hidden" name="atmenu" value="<?php echo $atmenu?>">
-						<input type="hidden" name="order" value="<?php echo $_GET['order']?>">
-						<input type="hidden" name="sens" value="<?php echo $_GET['sens']?>">
-						<input type="hidden" name="current_page" value="0">
-						<input type="hidden" name="filterprefix" value="<?php echo $_GET['filterprefix']?>">
-						<input type="hidden" name="popup_select" value="<?php echo $_GET['popup_select']?>">
-						<input type="hidden" name="popup_formname" value="<?php echo $_GET['popup_formname']?>">
-						<input type="hidden" name="popup_fieldname" value="<?php echo $_GET['popup_fieldname']?>">
-
-						<select name="mydisplaylimit" size="1" style="border: 2px outset rgb(204, 51, 0);">
-								<option value="10" selected>10</option>
-								<option value="50">50</option>
-								<option value="100">100</option>
-								<option value="ALL">All</option>
-						</select>
-						<input class="form_enter" style="border: 2px outset rgb(204, 51, 0);" value=" <?php echo gettext("GO");?> " type="SUBMIT">
+			
+			<?php echo gettext("DISPLAY");?>
+			<input type="hidden" name="stitle" value="<?php echo $stitle?>">
+			<input type="hidden" name="atmenu" value="<?php echo $atmenu?>">
+			<input type="hidden" name="order" value="<?php echo $_GET['order']?>">
+			<input type="hidden" name="sens" value="<?php echo $_GET['sens']?>">
+			<input type="hidden" name="current_page" value="0">
+			<input type="hidden" name="filterprefix" value="<?php echo $_GET['filterprefix']?>">
+			<input type="hidden" name="popup_select" value="<?php echo $_GET['popup_select']?>">
+			<input type="hidden" name="popup_formname" value="<?php echo $_GET['popup_formname']?>">
+			<input type="hidden" name="popup_fieldname" value="<?php echo $_GET['popup_fieldname']?>">
+			<input type="hidden" name="type" value="<?php echo $_GET['type']?>">
+			<input type="hidden" name="id" value="<?php echo $_GET['id']?>">
+				
+			<select name="mydisplaylimit" size="1" class="form_input_select">
+				<option value="10" selected>10</option>
+				<option value="50">50</option>
+				<option value="100">100</option>
+				<option value="ALL">All</option>
+			</select>
+			<input class="form_input_button"  value=" <?php echo gettext("GO");?> " type="SUBMIT">
 
 			&nbsp; &nbsp; &nbsp;
 

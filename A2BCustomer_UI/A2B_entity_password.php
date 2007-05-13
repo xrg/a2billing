@@ -32,16 +32,11 @@ if($form_action=="ask-update")
     $QUERY = "UPDATE cc_card SET  uipass= '".$NewPassword."' WHERE ( ID = ".$_SESSION["card_id"]." ) ";
     $result = $instance_sub_table -> SQLExec ($HD_Form -> DBHandle, $QUERY, 0);
 }
-
-
-
 // #### HEADER SECTION
 include("PP_header.php");
 
 // #### HELP SECTION
-
-echo '<br><br>'.$CC_help_password_change."<br>";
-
+echo $CC_help_password_change."<br>";
 
 ?>
 <script language="JavaScript">

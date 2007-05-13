@@ -80,6 +80,7 @@ function rowOutEffect(object) {
     <table width="80%" cellspacing="0" cellpadding="2" align=center>
     <?php
   if (isset($_GET['payment_error']) && is_object(${$_GET['payment_error']}) && ($error = ${$_GET['payment_error']}->get_error())) {
+  	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__." ERROR ".$error['title']." ".$error['error']);
 ?>
       <tr>
         <td ><table border="0" width="100%" cellspacing="0" cellpadding="2">

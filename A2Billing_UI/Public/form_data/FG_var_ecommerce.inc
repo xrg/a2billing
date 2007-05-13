@@ -59,7 +59,7 @@ $HD_Form -> AddViewElement(gettext("ID"), "id", "4%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("PRODUCT_NAME"), "product_name", "13%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("creationdate"), "creationdate", "10%", "center", "sort", "16", "", "", "", "", "", "display_dateformat");
 $HD_Form -> AddViewElement(gettext("CREDIT"), "credit", "9%", "center", "sort", "", "", "", "", "", "", "");
-$HD_Form -> AddViewElement(gettext("TARIFFGROUP"), "tariff", "10%", "center", "sort", "15", "lie", "cc_tariffgroup", "tariffgroupname", "id='%id'", "%1");
+$HD_Form -> AddViewElement(gettext("CALLPLAN"), "tariff", "10%", "center", "sort", "15", "lie", "cc_tariffgroup", "tariffgroupname", "id='%id'", "%1");
 $HD_Form -> AddViewElement(gettext("LG"), "language", "3%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("CURRENCY"), "currency", "7%", "center", "sort", "", "list", $currency_list_r);
 $HD_Form -> AddViewElement(gettext("SIP"), "sip_friend", "3%", "center", "sort", "", "list", $yesno);
@@ -125,7 +125,7 @@ $HD_Form -> AddEditElement (gettext("LANGUAGE"),
 				   "list" , "", "",	"", $language_list, "%1", "", "" );
 
 
-$HD_Form -> AddEditElement (gettext("TARIFFGROUP"),
+$HD_Form -> AddEditElement (gettext("CALLPLAN"),
 				   "tariff",
 				   "",
 				   "SELECT",

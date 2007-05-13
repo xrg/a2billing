@@ -248,7 +248,7 @@ function sendtolittle(direction){
 //-->
 </script>
 
-           <br><br>
+          
 <?php
 	echo $CC_help_edit_did;
 ?>

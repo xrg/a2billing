@@ -7,6 +7,16 @@
  ****************************************************************************/
 
 /*
+ * function write_log
+ */
+function write_log($logfile, $output){
+	if (strlen($logfile) > 1){
+		$string_log = "[".date("d/m/Y H:i:s")."]:[$output]\n";
+		error_log ($string_log."\n", 3, $logfile);
+	}
+}
+
+/*
  * function sanitize_data
  */
 function sanitize_data($data){

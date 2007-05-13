@@ -13,7 +13,7 @@ if (! has_rights (ACX_ACCESS)){
 	   die();	   
 }
 
-getpost_ifset(array('customer', 'posted', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth', 'tostatsmonth', 'fromday', 'fromstatsday_sday', 'fromstatsmonth_sday', 'today', 'tostatsday_sday', 'tostatsmonth_sday', 'dsttype', 'sourcetype', 'clidtype', 'channel', 'resulttype', 'stitle', 'atmenu', 'current_page', 'order', 'sens', 'dst', 'src', 'clid', 'fromstatsmonth_sday', 'fromstatsmonth_shour', 'tostatsmonth_sday', 'tostatsmonth_shour', 'srctype', 'src', 'choose_currency','exporttype'));
+getpost_ifset(array('customer', 'posted', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth', 'tostatsmonth', 'fromday', 'fromstatsday_sday', 'fromstatsmonth_sday', 'today', 'tostatsday_sday', 'tostatsmonth_sday', 'dsttype', 'sourcetype', 'clidtype', 'channel', 'resulttype', 'stitle', 'atmenu', 'current_page', 'order', 'sens', 'dst', 'src', 'clid', 'fromstatsmonth_sday', 'fromstatsmonth_shour', 'tostatsmonth_sday', 'tostatsmonth_shour', 'srctype', 'src', 'choose_currency','exporttype','terminatecause'));
 
 $customer = $_SESSION["pr_login"];
 $vat = $_SESSION["vat"];
@@ -93,19 +93,8 @@ if (!(isset($customer)  &&  ($customer>0)) && !(isset($entercustomer)  &&  ($ent
 	$FG_TABLE_COL[]=array (gettext("Cardused"), "username", "11%", "center", "SORT", "30");
 }
 
-//if ($_SESSION["is_admin"]==1) $FG_TABLE_COL[]=array ("Con_charg", "connectcharge", "12%", "center", "SORT", "30");
-//if ($_SESSION["is_admin"]==1) $FG_TABLE_COL[]=array ("Dis_charg", "disconnectcharge", "12%", "center", "SORT", "30");
-//if ($_SESSION["is_admin"]==1) $FG_TABLE_COL[]=array ("Sec/mn", "secpermin", "12%", "center", "SORT", "30");
-
-
-//if ($_SESSION["is_admin"]==1) $FG_TABLE_COL[]=array ("Buycosts", "buycosts", "12%", "center", "SORT", "30");
-//-- $FG_TABLE_COL[]=array ("InitialRate", "calledrate", "10%", "center", "SORT", "30", "", "", "", "", "", "display_2dec");
 $FG_TABLE_COL[]=array (gettext("Cost"), "sessionbill", "9%", "center", "SORT", "30", "", "", "", "", "", "display_2bill");
 
-//-- if (LINK_AUDIO_FILE == 'YES') 
-//-- 	$FG_TABLE_COL[]=array ("", "uniqueid", "1%", "center", "", "30", "", "", "", "", "", "linkonmonitorfile");
-
-// ??? cardID
 $FG_TABLE_DEFAULT_ORDER = "t1.starttime";
 $FG_TABLE_DEFAULT_SENS = "DESC";
 	
@@ -178,11 +167,8 @@ if ($posted==1){
   $SQLcmd = '';
   
   $SQLcmd = do_field($SQLcmd, 'src', 'src');
-  $SQLcmd = do_field($SQLcmd, 'dst', 'calledstation');
-  
+  $SQLcmd = do_field($SQLcmd, 'dst', 'calledstation');  
 }
-
-
 $date_clause='';
 // Period (Month-Day)
 if (DB_TYPE == "postgres"){		
@@ -190,10 +176,7 @@ if (DB_TYPE == "postgres"){
 }else{
 		$UNIX_TIMESTAMP = "UNIX_TIMESTAMP";
 }
-
-
 $lastdayofmonth = date("t", strtotime($tostatsmonth.'-01'));
-
 if ($Period=="Month"){
 		
 		
@@ -229,6 +212,14 @@ if (isset($customer)  &&  ($customer>0)){
 	}
 }
 
+if (!isset($terminatecause)){
+	$terminatecause="ANSWER";
+}
+if ($terminatecause=="ANSWER") {
+	if (strlen($FG_TABLE_CLAUSE)>0) $FG_TABLE_CLAUSE.=" AND ";
+	$FG_TABLE_CLAUSE.=" t1.terminatecause='$terminatecause' ";
+}
+
 $FG_TABLE_CLAUSE_NORMAL = $FG_TABLE_CLAUSE ." AND t1.sipiax not in (2,3)";
 
 if (!$nodisplay){
@@ -240,62 +231,28 @@ $FG_TABLE_CLAUSE_DID = $FG_TABLE_CLAUSE ." AND t1.sipiax in (2,3)";
 if (!$nodisplay){
 	$list_did = $instance_table -> Get_list ($DBHandle, $FG_TABLE_CLAUSE_DID, $order, $sens, null, null, $FG_LIMITE_DISPLAY, $current_page*$FG_LIMITE_DISPLAY);
 }
-
-
 $_SESSION["pr_sql_export"]="SELECT $FG_COL_QUERY FROM $FG_TABLE_NAME WHERE $FG_TABLE_CLAUSE";
-
-
 /************************/
-//$QUERY = "SELECT substring(calldate,1,10) AS day, sum(duration) AS calltime, count(*) as nbcall FROM cdr WHERE ".$FG_TABLE_CLAUSE." GROUP BY substring(calldate,1,10)"; //extract(DAY from calldate)
-
-
 $QUERY = "SELECT substring(t1.starttime,1,10) AS day, sum(t1.sessiontime) AS calltime, sum(t1.sessionbill) AS cost, count(*) as nbcall FROM $FG_TABLE_NAME WHERE ".$FG_TABLE_CLAUSE." GROUP BY substring(t1.starttime,1,10) ORDER BY day"; //extract(DAY from calldate)
 //echo "$QUERY";
 
-if (!$nodisplay){
-		$res = $DBHandle -> Execute($QUERY);
-		if ($res){
-			$num = $res -> RecordCount();
-			for($i=0;$i<$num;$i++)
-			{				
-				$list_total_day [] =$res -> fetchRow();				 
-			}
-		}
-
-
-if ($FG_DEBUG == 3) echo "<br>Clause : $FG_TABLE_CLAUSE";
-$nb_record = $instance_table -> Table_count ($DBHandle, $FG_TABLE_CLAUSE_NORMAL);
-$nb_record_did = $instance_table -> Table_count ($DBHandle, $FG_TABLE_CLAUSE_DID);
-if ($FG_DEBUG >= 1) var_dump ($list);
-
+if (!$nodisplay)
+{
+	$list_total_day  = $instance_table->SQLExec ($DBHandle, $QUERY);
+	if ($FG_DEBUG == 3) echo "<br>Clause : $FG_TABLE_CLAUSE";
+	$nb_record = $instance_table -> Table_count ($DBHandle, $FG_TABLE_CLAUSE_NORMAL);
+	$nb_record_did = $instance_table -> Table_count ($DBHandle, $FG_TABLE_CLAUSE_DID);
+	if ($FG_DEBUG >= 1) var_dump ($list);
 }//end IF nodisplay
 
-
 // GROUP BY DESTINATION FOR THE INVOICE
-
-
 $QUERY = "SELECT destination, sum(t1.sessiontime) AS calltime, 
 sum(t1.sessionbill) AS cost, count(*) as nbcall FROM $FG_TABLE_NAME WHERE ".$FG_TABLE_CLAUSE." GROUP BY destination";
 
-if (!$nodisplay){
-		$res = $DBHandle -> Execute($QUERY);
-		if ($res){
-			$num = $res -> RecordCount();
-			for($i=0;$i<$num;$i++)
-			{				
-				$list_total_destination [] =$res -> fetchRow();				 
-			}
-		}
-
-if ($FG_DEBUG == 3) echo "<br>Clause : $FG_TABLE_CLAUSE";
-if ($FG_DEBUG >= 1) var_dump ($list_total_destination);
-
-
+if (!$nodisplay)
+{
+	$list_total_destination = $instance_table->SQLExec ($DBHandle, $QUERY);	 
 }//end IF nodisplay
-
-
-
-
 
 if ($nb_record<=$FG_LIMITE_DISPLAY){
 	$nb_record_max=1;
@@ -306,25 +263,9 @@ if ($nb_record<=$FG_LIMITE_DISPLAY){
 		$nb_record_max=(intval($nb_record/$FG_LIMITE_DISPLAY)+1);
 	}	
 }
-
-
 if ($FG_DEBUG == 3) echo "<br>Nb_record : $nb_record";
 if ($FG_DEBUG == 3) echo "<br>Nb_record_max : $nb_record_max";
-
-
-/*******************   TOTAL COSTS  *****************************************
-
-$instance_table_cost = new Table($FG_TABLE_NAME, "sum(t1.costs), sum(t1.buycosts)");		
-if (!$nodisplay){	
-	$total_cost = $instance_table_cost -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, null, null, null, null, null, null);
-}
-*/
-
-
-
 /*************************************************************/
-
-
 
 if ((isset($customer)  &&  ($customer>0)) || (isset($entercustomer)  &&  ($entercustomer>0))){
 
@@ -334,22 +275,10 @@ if ((isset($customer)  &&  ($customer>0)) || (isset($entercustomer)  &&  ($enter
 	}elseif (isset($entercustomer)  &&  ($entercustomer>0)){
 		$FG_TABLE_CLAUSE =" username='$entercustomer' ";
 	}
-
-
-
 	$instance_table_customer = new Table("cc_card", "id,  username, lastname, firstname, address, city, state, country, zipcode, phone, email, fax");
-	
-	
-	
 	$info_customer = $instance_table_customer -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, "id", "ASC", null, null, null, null);
-	
-	// if (count($info_customer)>0){
 }
-
-
-
 /************************************************************/
-
 
 $date_clause='';
 
@@ -361,29 +290,14 @@ if ($Period=="Month"){
 		if ($today && isset($tostatsday_sday) && isset($tostatsmonth_sday) && isset($tostatsmonth_shour) && isset($tostatsmonth_smin)) $date_clause.=" AND  $UNIX_TIMESTAMP(t1.creationdate) <= $UNIX_TIMESTAMP('$tostatsmonth_sday-".sprintf("%02d",intval($tostatsday_sday))." $tostatsmonth_shour:$tostatsmonth_smin')";
 }
 
-
 $QUERY = "SELECT substring(t1.creationdate,1,10) AS day, sum(t1.amount) AS cost, count(*) as nbcharge FROM cc_charge t1 ".
 		 " WHERE id_cc_card='".$_SESSION["card_id"]."' $date_clause GROUP BY substring(t1.creationdate,1,10) ORDER BY day"; //extract(DAY from calldate)
 
-
-if (!$nodisplay){	
-		$res = $DBHandle -> Execute($QUERY);
-		if ($res){
-			$num = $res -> RecordCount();
-			for($i=0;$i<$num;$i++)
-			{				
-				$list_total_day_charge [] =$res -> fetchRow();				 
-			}
-		}
-		if ($FG_DEBUG >= 1) var_dump ($list_total_day_charge);
-
+if (!$nodisplay)
+{	
+	$list_total_day_charge = $instance_table->SQLExec ($DBHandle, $QUERY);	 
 }//end IF nodisplay
-
-
-
 ?>
-
-
 <?php
 $smarty->display( 'main.tpl');
 $currencies_list = get_currencies();
@@ -623,6 +537,18 @@ function formsubmit()
 					<?php echo gettext("or Export PDF");?> <input type="radio" NAME="exporttype" value="pdf" <?php if($exporttype=="pdf"){?>checked<?php }?>>
 					</td>
 				</tr>
+				<tr class="bgcolor_005">
+					<td  class="fontstyle_searchoptions">
+						<?php echo gettext("SHOW");?> : 
+				   </td>
+				   <td  class="fontstyle_searchoptions">
+					<?php echo gettext("Answered Calls"); ?>
+				  <input name="terminatecause" type="radio" value="ANSWER" <?php if((!isset($terminatecause))||($terminatecause=="ANSWER")){?>checked<?php }?> />
+				  <?php echo gettext("All Calls"); ?>
+
+				   <input name="terminatecause" type="radio" value="ALL" <?php if($terminatecause=="ALL"){?>checked<?php }?>/>
+					</td>
+				</tr>				
 				<tr>
 					<td  class="fontstyle_searchoptions">
 						<?php echo gettext("CURRENCY");?> :
