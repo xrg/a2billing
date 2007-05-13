@@ -86,7 +86,7 @@ echo tep_draw_form('checkout_confirmation.php', $form_action_url, 'post');
 </tr>
 <tr>
     <td align=right><?php echo gettext("Total Amount")?>: &nbsp;</td>
-    <td align=left><?php echo $amount?> <?php echo gettext("USD")?></td>
+    <td align=left><?php echo $amount?> <?php echo $payment_modules->get_CurrentCurrency();?></td>
 </tr>
 <tr>
     <td>&nbsp;</td>

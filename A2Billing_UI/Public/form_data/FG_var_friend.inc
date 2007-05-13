@@ -149,7 +149,7 @@ $HD_Form -> AddEditElement (gettext("CALLERID"),
 
 
 if ($form_action=="ask-add" ||  $form_action == "add_sip" || $form_action == "add_iax") 
-	$AMAFLAGS_default= "value='".$A2B->config["signup"]['amaflag']."'";
+	$AMAFLAGS_default= "value='".$A2B->config["peer_friend"]['amaflag']."'";
 	
 $HD_Form -> AddEditElement (gettext("AMAFLAGS"),
 			   "amaflags",		
@@ -281,7 +281,7 @@ $HD_Form -> AddEditElement (gettext("CALLGROUP"),
 
 
 if ($form_action=="ask-add" ||  $form_action == "add_sip" || $form_action == "add_iax") 
-	$CONTEXT_default= "value='".$A2B->config["signup"]['context']."'";
+	$CONTEXT_default= "value='".$A2B->config["peer_friend"]['context']."'";
 
 
 $HD_Form -> AddEditElement (gettext("CONTEXT"),

@@ -7,7 +7,7 @@ use vars qw($dbh);
 
 use lib '/var/lib/asterisk/a2billing/callback-daemon/lib';
 use Asterisk::Manager;
-use Config::INI::Simple;
+use Config::IniFiles;
 
 $|++;
 
@@ -18,17 +18,17 @@ my $daemon = "CallBack-Daemon";
 
 ######################### READ THE CONFIG FILE ########################
 my $conf_file = "/etc/asterisk/a2billing.conf";
-my $conf = new Config::INI::Simple;
 # Read the config file
-$conf->read ($conf_file);
+my $cfg = Config::IniFiles->new( -file => $conf_file );
 
 ######################### DB PARAMETER ########################
-my $dbname = $conf->{database}->{dbname};
-my $dbhost = $conf->{database}->{hostname};
-my $dbport = $conf->{database}->{port};
-my $login = $conf->{database}->{user};
-my $pwd = $conf->{database}->{password};
-my $dbtype = $conf->{database}->{dbtype};
+my $dbname = $cfg->val('database', 'dbname');
+my $dbhost = $cfg->val('database', 'hostname');
+my $dbport = $cfg->val('database', 'port');
+my $login = $cfg->val('database', 'user');
+my $pwd = $cfg->val('database', 'password');
+my $dbtype = $cfg->val('database', 'dbtype');
+
 
 ######################### LOG FILE ########################
 my $log_file = "/var/log/asterisk/a2billing-daemon-callback.log";

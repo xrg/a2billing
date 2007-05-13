@@ -271,18 +271,18 @@ class Callback
 				}
 				
 				// LIST FIELDS TO INSERT CALLBACK REQUEST
-				$QUERY_FIELS = 'uniqueid, status, server_ip, num_attempt, channel, exten, context, priority, variable, id_server_group, callback_time, account';
+				$QUERY_FIELS = 'uniqueid, status, server_ip, num_attempt, channel, exten, context, priority, variable, id_server_group, callback_time, account, callerid, timeout';
 				
 				// DEFINE THE CORRECT VALUE FOR THE INSERT
 				if (strlen($callback_time)>1){
-					$QUERY_VALUES = "'$uniqueid', '$status', '$server_ip', '$num_attempt', '$channel', '$exten', '$context', '$priority', '$variable', '$id_server_group', '$callback_time', '$account'";
+					$QUERY_VALUES = "'$uniqueid', '$status', '$server_ip', '$num_attempt', '$channel', '$exten', '$context', '$priority', '$variable', '$id_server_group', '$callback_time', '$account', '$callerid', '30000'";
 				}else{
 					if ($A2B->config["database"]['dbtype'] != "postgres"){
 						// MYSQL
-						$QUERY_VALUES = "'$uniqueid', '$status', '$server_ip', '$num_attempt', '$channel', '$exten', '$context', '$priority', '$variable', '$id_server_group', ADDDATE( CURRENT_TIMESTAMP, INTERVAL $sec_wait_before_callback SECOND ), '$account'";
+						$QUERY_VALUES = "'$uniqueid', '$status', '$server_ip', '$num_attempt', '$channel', '$exten', '$context', '$priority', '$variable', '$id_server_group', ADDDATE( CURRENT_TIMESTAMP, INTERVAL $sec_wait_before_callback SECOND ), '$account', '$callerid', '30000'";
 					}else{
 						// POSTGRESQL
-						$QUERY_VALUES = "'$uniqueid', '$status', '$server_ip', '$num_attempt', '$channel', '$exten', '$context', '$priority', '$variable', '$id_server_group',  (CURRENT_TIMESTAMP + INTERVAL '$sec_wait_before_callback SECOND'), '$account'";
+						$QUERY_VALUES = "'$uniqueid', '$status', '$server_ip', '$num_attempt', '$channel', '$exten', '$context', '$priority', '$variable', '$id_server_group',  (CURRENT_TIMESTAMP + INTERVAL '$sec_wait_before_callback SECOND'), '$account', '$callerid', '30000'";
 					}
 				}
 				

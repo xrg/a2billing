@@ -73,7 +73,7 @@ class paypal {
 							   tep_draw_hidden_field('rm', '2') .
 							   tep_draw_hidden_field('no_shipping', '1') .
 							   tep_draw_hidden_field('PHPSESSID', session_id()) .
-							   tep_draw_hidden_field('amount', number_format(($order->info['total'] - $order->info['shipping_cost']) * $currencyObject->get_value($my_currency), $currencyObject->get_decimal_places($my_currency))) .
+							   tep_draw_hidden_field('amount', number_format($order->info['total'], $currencyObject->get_decimal_places($my_currency))) .
 							   //tep_draw_hidden_field('shipping', number_format($order->info['shipping_cost'] * $currencyObject->get_value($my_currency), $currencyObject->get_decimal_places($my_currency))) .
 							   tep_draw_hidden_field('currency_code', $my_currency) .
 							   tep_draw_hidden_field('notify_url', tep_href_link("checkout_process.php?transactionID=".$transactionID."&sess_id=".session_id()."&key=".$key, '', 'SSL')) .

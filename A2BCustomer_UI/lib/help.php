@@ -48,6 +48,21 @@ $CC_help_simulator_rateengine='
 </div></div></div>
 &nbsp;
 ';
+$CC_help_sipiax_info='
+<div id="div1000" style="display:visible;">
+<div id="kiblue_header"><div class="w4">
+	<img src="'.KICON_PATH.'/connect_to_network.gif" width="48" height="48" class="kikipic"/>
+	<div class="w2">
+<table width="90%">
+<tr>
+<td width="100%">
+<br>'.gettext("Configuration information for SIP and IAX Client. You can simply copy and paste it in your configuration files and can do neccessory modifications.").'<br>
+<br></td>
+</tr>
+</table>
+</div></div></div>
+&nbsp;
+';
 
 $CC_help_password_change ='
 <div id="div1000" style="display:visible;">

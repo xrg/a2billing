@@ -58,7 +58,7 @@ class moneybookers {
 		$currencyObject = new currencies();
 		$process_button_string = tep_draw_hidden_field('pay_to_email', MODULE_PAYMENT_MONEYBOOKERS_ID) .
 								tep_draw_hidden_field('language', $my_language) .
-								tep_draw_hidden_field('amount', number_format($order->info['total'] * $currencyObject->get_value($my_currency), $currencyObject->get_decimal_places($my_currency))) .
+								tep_draw_hidden_field('amount', number_format($order->info['total'] , $currencyObject->get_decimal_places($my_currency))) .
 								tep_draw_hidden_field('currency', $my_currency) .
 								tep_draw_hidden_field('detail1_description', STORE_NAME) .
 								tep_draw_hidden_field('detail1_text', 'Order - ' . date('d. M Y - H:i')) .
