@@ -21,13 +21,13 @@ getpost_ifset(array('tariffplan','trunk', 'search_sources', 'task', 'status','cu
 
 $tariffplanval= split('-:-', $tariffplan);
 if (!is_numeric($tariffplanval[0])){ 
-	echo "No tariffplan defined !"; 
+	echo gettext("No tariffplan defined !"); 
 	exit();
 }
 
 $trunkval= split('-:-', $trunk);
 if (!is_numeric($trunkval[0])){ 
-	echo "No Trunk defined !"; 
+	echo gettext("No Trunk defined !"); 
 	exit();
 }
 
@@ -129,7 +129,7 @@ if ($task=='upload'){
 	    
 	 $fp = fopen($the_file,  "r");  
 	 if (!$fp){  /* THE FILE DOESN'T EXIST */ 
-		 echo  'Error: Failed to open the file.'; 
+		 echo  gettext('Error: Failed to open the file.'); 
 		 exit(); 
 	 } 
 		 
@@ -296,7 +296,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 function sendtoupload(form){
 
 	if (form.the_file.value.length < 2){
-		alert ('Please, you must first select a file !');
+		alert ('<?php echo gettext("Please, you must first select a file !")?>');
 		form.the_file.focus ();
 		return (false);
 	}
@@ -323,17 +323,18 @@ if ($status=="ok"){
 
 <?php  if ($status!="ok"){?> 
 	
-<center>As a preview for the import, we have made a quick analyze of the first line of your csv file.<br/>
-Please check out if everything look correct!</center>
+<center>
+<?php echo gettext("The first line of your import is previewed below, please check to ensure that every is correct")?>.
+</center>
 	
 <table align=center border="0" cellpadding="2" cellspacing="2" width="300">
 	<tbody>
 		<tr class="form_head">                  					
 		  <td class="tableBody" style="padding: 2px;" align="center" width="50%"> 
-			<strong> <span class="white_link">FIELD </span> </strong>
+			<strong> <span class="white_link"><?php echo gettext("")?>FIELD </span> </strong>
 		  </td>
 		  <td class="tableBody" style="padding: 2px;" align="center" width="50%"> 
-			<strong> <span class="white_link">VALUE </span> </strong>
+			<strong> <span class="white_link"><?php echo gettext("")?>VALUE </span> </strong>
 		  </td>
 		</tr>
 		<tr bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[1]?>"  onMouseOver="bgColor='#C4FFD7'" onMouseOut="bgColor='<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[1]?>'">  
@@ -373,8 +374,7 @@ Please check out if everything look correct!</center>
 		<tr> 
 		  <td colspan="2"> 
 			<div align="center"><span class="textcomment"> 
-			   Please check if the datas above are correct. <br><b>If Yes</b>, you can continue the import. 
-			  Otherwise you must fix your csv file!
+			   <?php echo gettext("Please check if the datas above are correct.")?> <br><b><?php echo gettext("If Yes")?></b>, <?php echo gettext("you can continue the import. Otherwise you must fix your csv file!")?>
 			  </span></div>
 		  </td>
 		</tr>                
@@ -412,14 +412,13 @@ Please check out if everything look correct!</center>
 		  <td colspan="2" class="bgcolor_015" style="padding-left: 5px; padding-right: 3px;" align=center>
 			<div align="center"><span class="textcomment"> 
 			  <br>
-			  The import of the new TariffPlan have been realized with success!<br>
-			  <?php echo $nb_imported?> new tariff-rates have been imported into your Database.
+			  <?php echo gettext("Success")?>, <?php echo $nb_imported?> &nbsp; <?php echo gettext("new rates have been imported")?>.<br>
 			  </span></div>
 			  <br><br>
 			  
 			  <?php  if (!empty($buffer_error)){ ?>
 			  <center>
-				 <b><i>Line that has not been inserted!</i></b>
+				 <b><i><?php echo gettext("Line that has not been inserted")?>!</i></b>
 				 <div class="myscroll">
 					  <span style="color: red;">
 					  <?php echo $buffer_error?> 

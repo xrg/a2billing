@@ -204,7 +204,7 @@ write_log("[#### BATCH PROCESS END ####]");
  *            Function to handle the currencies
  ***************************************************************************/
 
-	
+
 function get_currencies($DBHandle)
 {
 	$instance_table = new Table();
@@ -227,7 +227,6 @@ function get_currencies($DBHandle)
 	
 	
 function convert_currency ($currencies_list, $amount, $from_cur, $to_cur){
-	
 	if (!is_numeric($amount) || ($amount == 0)){
 		return 0;
 	}
@@ -236,13 +235,11 @@ function convert_currency ($currencies_list, $amount, $from_cur, $to_cur){
 	}
 	// EUR -> 1.19175 : MAD -> 0.10897		
 	// FROM -> 2 - TO -> 0.5 =>>>> multiply 4
-	
 	$mycur_tobase = $currencies_list[strtoupper($from_cur)][2];		
 	$mycur = $currencies_list[strtoupper($to_cur)][2];
 	if ($mycur == 0) return 0;
 	$amount = $amount * ($mycur_tobase / $mycur);		
 	// echo "\n \n AMOUNT CONVERTED IN NEW CURRENCY $to_cur -> VALUE =".$amount;
-	
 	return $amount;
 }
 

@@ -19,8 +19,8 @@ $FG_TABLE_ALTERNATE_ROW_COLOR[] = "#FCFBFB";
 
 $FG_TABLE_COL=array();
 
-$FG_TABLE_COL[]=array ("DATE", "daterun", "50%", "center", "sort", "30", "", "", "", "", "", "display_dateformat");
-$FG_TABLE_COL[]=array ("CALCULTED VALUE", "calcultedvalue", "50%", "center", "sort");
+$FG_TABLE_COL[]=array (gettext("DATE"), "daterun", "50%", "center", "sort", "30", "", "", "", "", "", "display_dateformat");
+$FG_TABLE_COL[]=array (gettext("CALCULTED VALUE"), "calcultedvalue", "50%", "center", "sort");
 			
 
 $FG_NB_TABLE_COL=count($FG_TABLE_COL);
@@ -98,9 +98,9 @@ function openURL(theLINK)
 
 <center><b>ALARM NAME :<?php echo $list_alarm [0][1] ;?></b>
 <br>
-<?php echo "NUMBER OF RUN :".$list_alarm [0][3];?>
-<?php echo " -  NUMBER OF SENT ALARM :".$list_alarm [0][5] ;?>
-<?php echo "<br> DATE LAST RUN :";display_dateformat($list_alarm [0][4]); ?>
+<?php echo gettext("NUMBER OF RUN")." :".$list_alarm [0][3];?>
+<?php echo " -  ".gettext("NUMBER OF SENT ALARM")." :".$list_alarm [0][5] ;?>
+<?php echo "<br> ".gettext("DATE LAST RUN")." :";display_dateformat($list_alarm [0][4]); ?>
 
 </center>
 	  <table width="100%">
@@ -113,7 +113,7 @@ function openURL(theLINK)
 	  <?php
 
 				$color="red";
-				$ttitle="ALARM REPORT";
+				$ttitle=gettext("ALARM REPORT");
 				
 				
 	  			if ((count($list )>0) && is_array($list )){
@@ -254,7 +254,7 @@ function openURL(theLINK)
 		  <table width="100%" border="0" align="center" bgcolor="#DCDCDC">
 			<tr>
 			  <td align="center">
-				NOTHING FOUND !<br/> 
+				<?php echo gettext("NOTHING FOUND")?>&nbsp; !<br/> 
 			</td>
 			</tr>
 		  </table>

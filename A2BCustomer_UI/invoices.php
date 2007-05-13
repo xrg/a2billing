@@ -27,7 +27,7 @@ if (($_GET[download]=="file") && $_GET[file] )
 
 	if (!file_exists($dl_full))
 	{ 
-		echo gettext("ERROR: Cannot download file $dl_full , it does not exist").'<br>';
+		echo gettext("ERROR: Cannot download file"). $dl_full.", ".gettext("it does not exist").'<br>';
 		exit();
 	} 
 	
@@ -962,7 +962,7 @@ foreach ($list_total_day as $data){
 	</tr>
 	<tr>		
 		<td align="center" bgcolor="#BA5151" colspan="5"><font color="#ffffff">
-		<b>TOTAL = 
+		<?php echo gettext("TOTAL");?>&nbsp; = 
 
 <?php  
 $prvat = ($vat / 100) * $totalcost;
@@ -983,7 +983,7 @@ if ($vat>0) echo  " (".$vat." % ".gettext("VAT").")";
 <table width="100%">
 <tr>
 <?php if (SHOW_ICON_INVOICE){?> <td align="left"><img src="pdf-invoices/images/kfind.gif"/> </td> <?php } ?>
-<td align="center"  bgcolor="#fff1d1"><font color="#000000" face="verdana" size="5"> <b><?php echo gettext("C A L L S &nbsp;&nbsp;  D E T A I L");?></b> </td>
+<td align="center" class="invoices_table4_td1"><?php echo gettext("C A L L S")." &nbsp;&nbsp;".gettext("D E T A I L");?> </td>
 </tr>
 </table>
 
@@ -1091,7 +1091,7 @@ if ($vat>0) echo  " (".$vat." % ".gettext("VAT").")";
 			<table cellpadding="1" bgcolor="#000000" cellspacing="1" width="<?php if ($_SESSION["is_admin"]==1){ ?>450<?php }else{?>200<?php }?>" align="right">
 				<tbody>
                 <tr class="form_head">                   									   
-				   <td width="33%" align="center" class="tableBodyRight" bgcolor="#600101" style="padding: 5px;"><strong>TOTAL COSTS</strong></td>
+				   <td width="33%" align="center" class="tableBodyRight" bgcolor="#600101" style="padding: 5px;"><strong><?php echo gettext("TOTAL COSTS");?></strong></td>
 				   <?php if ($_SESSION["is_admin"]==1){ ?><td width="33%" align="center" class="tableBodyRight" bgcolor="#600101" style="padding: 5px;"><strong><?php echo gettext("TOTAL BUYCOSTS");?></strong></td><?php }?>
 				   <?php if ($_SESSION["is_admin"]==1){ ?><td width="33%" align="center" class="tableBodyRight" bgcolor="#600101" style="padding: 5px;"><strong><?php echo gettext("DIFFERENCE");?></strong></td><?php }?>
                 </tr>
@@ -1114,10 +1114,10 @@ if ($vat>0) echo  " (".$vat." % ".gettext("VAT").")";
 <!--
 <br/>
 <table width="60%"><tr><td>
-<a href="export_pdf.php" target="_blank"><img src="../Images/pdf.gif	" border="0"/> Export PDF file</a>
+<a href="export_pdf.php" target="_blank"><img src="../Images/pdf.gif	" border="0"/> <?php echo gettext("Export PDF file");?></a>
 </td>
 <td>
-<a href="export_csv.php" target="_blank" ><img src="../Images/excel.gif" border="0"/> Export CSV file</a>
+<a href="export_csv.php" target="_blank" ><img src="../Images/excel.gif" border="0"/> <?php echo gettext("Export CSV file");?></a>
 </td></tr></table>-->
 
 <?php  }else{ ?>

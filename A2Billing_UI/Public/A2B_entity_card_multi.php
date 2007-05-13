@@ -102,12 +102,18 @@ country, zipcode, phone, userpass) values ('2465773443', '331', 'a', 't', 'LASTN
 				//$FG_QUERY_ADITION_SIP_IAX_VALUE = "'$cardnum', '$cardnum', '$cardnum', '$amaflag', '$cardnum', '$context', 'RFC2833','dynamic', 'friend', '$cardnum', 'g729,ulaw,alaw,gsm','".$passui_secret."'";
 				$FG_QUERY_ADITION_SIP_IAX_VALUE = "'$cardnum', '$cardnum', '$cardnum', '$amaflags', '$cardnum', '$context', '$dtmfmode','$host', '$type', '$cardnum', '$allow', '".$passui_secret."', '$id_cc_card', '$nat', '$qualify'";
 				$result_query1 = $instance_sip_table -> Add_table ($HD_Form ->DBHandle, $FG_QUERY_ADITION_SIP_IAX_VALUE, null, null, null);
+				
+				$_SESSION["is_sip_iax_change"]=1;
+				$_SESSION["is_sip_changed"]=1;
 			}
 			// Insert data for iax_buddy
 			if (isset($iax)){
 				//$FG_QUERY_ADITION_SIP_IAX_VALUE = "'$cardnum', '$cardnum', '$cardnum', '$amaflag', '$cardnum', '$context', 'RFC2833','dynamic', 'friend', '$cardnum', 'g729,ulaw,alaw,gsm','".$passui_secret."'";
 				$FG_QUERY_ADITION_SIP_IAX_VALUE = "'$cardnum', '$cardnum', '$cardnum', '$amaflags', '$cardnum', '$context', '$dtmfmode','$host', '$type', '$cardnum', '$allow', '".$passui_secret."', '$id_cc_card', '$nat', '$qualify'";
 				$result_query2 = $instance_iax_table -> Add_table ($HD_Form ->DBHandle, $FG_QUERY_ADITION_SIP_IAX_VALUE, null, null, null);
+				
+				$_SESSION["is_sip_iax_change"]=1;
+				$_SESSION["is_iax_changed"]=1;
 			}
 		}
 
@@ -121,7 +127,7 @@ country, zipcode, phone, userpass) values ('2465773443', '331', 'a', 't', 'LASTN
 			if (is_array($list_friend)){
 				$fd=fopen($buddyfile,"w");
 				if (!$fd){
-					$error_msg= "</br><center><b><font color=red>Could not open buddy file '$buddyfile'</font></b></center>";
+					$error_msg= "</br><center><b><font color=red>".gettext("Could not open buddy file")." ". $buddyfile."</font></b></center>";
 				}else{
 					foreach ($list_friend as $data){
 						$line="\n\n[".$data[1]."]\n";
@@ -139,7 +145,7 @@ country, zipcode, phone, userpass) values ('2465773443', '331', 'a', 't', 'LASTN
 									} else    $line = (trim($list_names[$i]).'='.$data[$i+1]."\n");
 	
 									if (fwrite($fd, $line) === FALSE){
-										echo "Impossible to write to the file ($buddyfile)";
+										echo gettext("Impossible to write to the file")." ($buddyfile)";
 										break;
 									}
 								}
@@ -162,7 +168,7 @@ country, zipcode, phone, userpass) values ('2465773443', '331', 'a', 't', 'LASTN
 			if (is_array($list_friend)){
 				$fd=fopen($buddyfile,"w");
 				if (!$fd){
-					$error_msg= "</br><center><b><font color=red>Could not open buddy file '$buddyfile'</font></b></center>";
+					$error_msg= "</br><center><b><font color=red>".gettext("Could not open buddy file"). $buddyfile."</font></b></center>";
 				}else{
 					foreach ($list_friend as $data){
 						$line="\n\n[".$data[1]."]\n";
@@ -180,7 +186,7 @@ country, zipcode, phone, userpass) values ('2465773443', '331', 'a', 't', 'LASTN
 									} else    $line = (trim($list_names[$i]).'='.$data[$i+1]."\n");
 	
 									if (fwrite($fd, $line) === FALSE){
-										echo "Impossible to write to the file ($buddyfile)";
+										echo gettext("Impossible to write to the file")." ($buddyfile)";
 										break;
 									}
 								}
@@ -244,7 +250,7 @@ $nb_tariff = count($list_tariff);
 		<strong>1)</strong> <?php echo gettext("Length of card number:");?>
 		<select name="cardnumberlenght_list" size="1" class="form_input_select">
 		<?php 
-		foreach ($cardnumber_range as $value){
+		foreach ($A2B -> cardnumber_range as $value){
 		?>
 			<option value='<?php echo $value ?>' 
 			<?php if ($value == $cardnumberlenght_list) echo "selected";
@@ -339,7 +345,7 @@ $nb_tariff = count($list_tariff);
 				<?php echo gettext("Yes");?> <input name="runservice" value="1" type="radio"> - <?php echo gettext("No");?> <input name="runservice" value="0" checked="checked"  type="radio">
 				<br/>
 				<strong>13)</strong>
-			   <?php echo gettext("Create SIP/IAX Friends");?>&nbsp;: SIP <input type="checkbox" name="sip" value="1" checked> IAX : <input type="checkbox" name="iax" value="1" checked>
+			   <?php echo gettext("Create SIP/IAX Friends");?>&nbsp;: <?php echo gettext("SIP")?> <input type="checkbox" name="sip" value="1" checked> <?php echo gettext("IAX")?> : <input type="checkbox" name="iax" value="1" checked>
 				<br/>
 		</td>	
 		<td align="left" valign="bottom"> 

@@ -37,22 +37,22 @@ $FG_TABLE_COL = array();
 Calldate Clid Src Dst Dcontext Channel Dstchannel Lastapp Lastdata Duration Billsec Disposition Amaflags Accountcode Uniqueid Serverid
 *******/
 
-$FG_TABLE_COL[]=array ("Calldate", "starttime", "15%", "center", "SORT", "19", "", "", "", "", "", "display_dateformat");
+$FG_TABLE_COL[]=array (gettext("Calldate"), "starttime", "15%", "center", "SORT", "19", "", "", "", "", "", "display_dateformat");
 //$FG_TABLE_COL[]=array ("Callend", "stoptime", "15%", "center", "SORT", "19");
 
 
 //$FG_TABLE_COL[]=array ("Source", "source", "20%", "center", "SORT", "30");
 
-$FG_TABLE_COL[]=array ("CalledNumber", "calledstation", "15%", "center", "SORT", "30", "", "", "", "", "", "remove_prefix");
-$FG_TABLE_COL[]=array ("Destination", "destination", "15%", "center", "SORT", "30", "", "", "", "", "", "remove_prefix");
+$FG_TABLE_COL[]=array (gettext("CalledNumber"), "calledstation", "15%", "center", "SORT", "30", "", "", "", "", "", "remove_prefix");
+$FG_TABLE_COL[]=array (gettext("Destination"), "destination", "15%", "center", "SORT", "30", "", "", "", "", "", "remove_prefix");
 //$FG_TABLE_COL[]=array ("Country",  "calledcountry", "10%", "center", "SORT", "30", "lie", "country", "countryname", "countrycode='%id'", "%1");
 //$FG_TABLE_COL[]=array ("Site", "site_id", "7%", "center", "sort", "15", "lie", "site", "name", "id='%id'", "%1");
 
-$FG_TABLE_COL[]=array ("Duration", "sessiontime", "7%", "center", "SORT", "30", "", "", "", "", "", "display_minute");
+$FG_TABLE_COL[]=array (gettext("Duration"), "sessiontime", "7%", "center", "SORT", "30", "", "", "", "", "", "display_minute");
 
-$FG_TABLE_COL[]=array ("CardUsed", "username", "11%", "center", "SORT", "30");
-$FG_TABLE_COL[]=array ("terminatecause", "terminatecause", "10%", "center", "SORT", "30");
-$FG_TABLE_COL[]=array ("IAX/SIP", "sipiax", "6%", "center", "SORT",  "", "list", $yesno);
+$FG_TABLE_COL[]=array (gettext("CardUsed"), "username", "11%", "center", "SORT", "30");
+$FG_TABLE_COL[]=array (gettext("terminatecause"), "terminatecause", "10%", "center", "SORT", "30");
+$FG_TABLE_COL[]=array (gettext("IAX/SIP"), "sipiax", "6%", "center", "SORT",  "", "list", $yesno);
 //$FG_TABLE_COL[]=array ("DestID", "destID", "12%", "center", "SORT", "30");
 
 //if ($_SESSION["is_admin"]==1) $FG_TABLE_COL[]=array ("Con_charg", "connectcharge", "12%", "center", "SORT", "30");
@@ -61,8 +61,8 @@ $FG_TABLE_COL[]=array ("IAX/SIP", "sipiax", "6%", "center", "SORT",  "", "list",
 
 
 //if ($_SESSION["is_admin"]==1) $FG_TABLE_COL[]=array ("Buycosts", "buycosts", "12%", "center", "SORT", "30");
-$FG_TABLE_COL[]=array ("InitialRate", "calledrate", "10%", "center", "SORT", "30", "", "", "", "", "", "display_2dec");
-$FG_TABLE_COL[]=array ("Cost", "sessionbill", "10%", "center", "SORT", "30", "", "", "", "", "", "display_2bill");
+$FG_TABLE_COL[]=array (gettext("InitialRate"), "calledrate", "10%", "center", "SORT", "30", "", "", "", "", "", "display_2dec");
+$FG_TABLE_COL[]=array (gettext("Cost"), "sessionbill", "10%", "center", "SORT", "30", "", "", "", "", "", "display_2bill");
 
 
 
@@ -252,8 +252,8 @@ $nbday=0;  // in tableau_value and tableau_hours to select the day in which you 
 //$min_call=0; // min_call variable : 0 > get the number of call 1 > number minutes
 
 
-$table_subtitle[]="Statistic : Load by hours";
-$table_subtitle[]="Statistic : Minutes by Hours";
+$table_subtitle[]=gettext("Statistic : Load by hours");
+$table_subtitle[]=gettext("Statistic : Minutes by Hours");
 
 
 

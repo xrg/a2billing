@@ -372,7 +372,7 @@ $HD_Form -> AddEditElement(gettext("TRUNK"),
 
 $HD_Form -> AddEditElement (gettext("USE FREE TIME TO CALL PACKAGE"),
    "freetimetocall_package_offer",
-   't',
+   '0',
    "RADIOBUTTON",
    "", "", gettext("Choose to use this destination with the freetimetocall package offer."),
    "" , 

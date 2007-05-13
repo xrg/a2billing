@@ -13,7 +13,7 @@ if (! has_rights (ACX_BILLING)){
 getpost_ifset(array('customer', 'posted', 'Period', 'stitle', 'atmenu', 'current_page', 'order', 'sens', 'dst', 'src', 'clid', 'srctype', 'src', 'cardid','exporttype'));
 if($cardid == "")
 {
-	exit("Invalid ID");
+	exit(gettext("Invalid ID"));
 }
 
 $DBHandle = DbConnect();
@@ -454,14 +454,14 @@ $totalcost_did = $totalcost;
 </tr>
 </table>
 <br>
-<center><h4><font color="#FF0000">Unbilled Details for Card Number&nbsp;<?php echo $info_customer[0][1] ?> </font></h4></center>
+<center><h4><font color="#FF0000"><?php echo gettext("Unbilled Details for Card Number")?>&nbsp;<?php echo $info_customer[0][1] ?> </font></h4></center>
 <br>
 <br>
 	
 	<table cellspacing="0" cellpadding="2" align="center" width="80%" >
      
       <tr>
-        <td colspan="2" bgcolor="#FFFFCC"><font size="5" color="#FF0000">Unbilled Details</font></td>
+        <td colspan="2" bgcolor="#FFFFCC"><font size="5" color="#FF0000"><?php echo gettext("Unbilled Details")?></font></td>
       </tr>
       <tr>
         <td valign="top" colspan="2"></td>
@@ -471,15 +471,15 @@ $totalcost_did = $totalcost;
 	  <td >&nbsp; </td>
 	</tr>
 	<tr>
-	  <td width="35%" ><font color="#003399">Name :</font> </td>
+	  <td width="35%" ><font color="#003399"><?php echo gettext("Name")?>&nbsp; :</font> </td>
 	  <td  ><font color="#003399"><?php echo $info_customer[0][3] ." ".$info_customer[0][2] ?></font></td>
 	</tr>
 	<tr>
-	  <td width="35%" ><font color="#003399">Card Number :</font></td>
+	  <td width="35%" ><font color="#003399"><?php echo gettext("Card Number")?>&nbsp; :</font></td>
 	  <td  ><font color="#003399"><?php echo $info_customer[0][1] ?></font> </td>
 	</tr>           
 	<tr>
-	  <td width="35%" ><font color="#003399">As of Date :</font></td>
+	  <td width="35%" ><font color="#003399"><?php echo gettext("As of Date")?>&nbsp; :</font></td>
 	  <td  ><font color="#003399"><?php echo date('m-d-Y');?> </font></td>
 	</tr>
 	</table>
@@ -495,15 +495,15 @@ $totalcost_did = $totalcost;
 	  <?php }?>
 	 
    				<tr>
-				<td colspan="4" align="center"><font> <b>By Destination</b></font> </td>
+				<td colspan="4" align="center"><font> <b><?php echo gettext("By Destination")?></b></font> </td>
 				</tr>
 
 			<tr bgcolor="#CCCCCC">
-              <td  width="29%"><font color="#003399"><b>Destination </b></font></td>
-              <td width="38%" ><font color="#003399"><b>Duration</b></font> </td>
+              <td  width="29%"><font color="#003399"><b><?php echo gettext("Destination")?> </b></font></td>
+              <td width="38%" ><font color="#003399"><b><?php echo gettext("Duration")?></b></font> </td>
 			 
-			  <td width="12%" align="center" ><font color="#003399"><b>Calls </b></font></td>
-              <td   align="right"><font color="#003399"><b>Amount (US $) </b></font></td>
+			  <td width="12%" align="center" ><font color="#003399"><b><?php echo gettext("Calls")?> </b></font></td>
+              <td   align="right"><font color="#003399"><b><?php echo gettext("Amount (US $)")?> </b></font></td>
             </tr>
 			<?php  		
 				$i=0;
@@ -582,14 +582,14 @@ $totalcost_did = $totalcost;
 				?>
 				
 				<tr>
-				<td colspan="4" align="center"><b>By Date</b> </td>
+				<td colspan="4" align="center"><b><?php echo gettext("By Date")?></b> </td>
 				</tr>
 			  <tr bgcolor="#CCCCCC">
-              <td  width="29%"><font color="#003399"><b>Date</b> </font></td>
-              <td width="38%" ><font color="#003399"><b>Duration</b> </font></td>
+              <td  width="29%"><font color="#003399"><b><?php echo gettext("Date")?></b> </font></td>
+              <td width="38%" ><font color="#003399"><b><?php echo gettext("Duration")?></b> </font></td>
 			  
-			  <td width="12%" align="center" ><font color="#003399"><b>Calls</b> </font></td>
-              <td width="21%"  align="right"><font color="#003399"><b>Cost (US $)</b> </font></td>
+			  <td width="12%" align="center" ><font color="#003399"><b><?php echo gettext("Calls")?></b> </font></td>
+              <td width="21%"  align="right"><font color="#003399"><b><?php echo gettext("Cost (US $)")?></b> </font></td>
             </tr>
 			<?php  		
 				$i=0;
@@ -665,15 +665,15 @@ $totalcost_did = $totalcost;
 		
 		<table width="100%" align="right" cellpadding="0" cellspacing="0">
    				<tr>
-				<td colspan="6" align="center"><font><b>DID Billing</b></font> </td>
+				<td colspan="6" align="center"><font><b><?php echo gettext("DID Billing")?></b></font> </td>
 				</tr>
 			<tr  bgcolor="#CCCCCC">
-              <td  width="20%"> <font color="#003399"><b>DID </b></font></td>
-              <td width="14%" ><font color="#003399"><b>Duration </b></font></td>
-			  <td width="16%" ><font color="#003399"><b>Fixed</b></font> </td>
-			  <td width="14%" ><font color="#003399"><b>Calls </b></font></td>
-  			  <td width="17%" ><font color="#003399"><b>Call Cost </b></font></td>
-              <td width="19%"  align="right"><font color="#003399"><b>Amount (US $)</b></font> </td>
+              <td  width="20%"> <font color="#003399"><b><?php echo gettext("DID")?> </b></font></td>
+              <td width="14%" ><font color="#003399"><b><?php echo gettext("Duration")?> </b></font></td>
+			  <td width="16%" ><font color="#003399"><b><?php echo gettext("Fixed")?></b></font> </td>
+			  <td width="14%" ><font color="#003399"><b><?php echo gettext("Calls")?> </b></font></td>
+  			  <td width="17%" ><font color="#003399"><b><?php echo gettext("Call Cost")?> </b></font></td>
+              <td width="19%"  align="right"><font color="#003399"><b><?php echo gettext("Amount (US $)")?></b></font> </td>
             </tr>
 			<?php  		
 			if (is_array($list_total_did) && count($list_total_did)>0)
@@ -761,7 +761,7 @@ $totalcost_did = $totalcost;
 			
 			?>        
 			<tr >
-              <td width="18%" colspan="6">No DID Calls are made yet.</td>             
+              <td width="18%" colspan="6"><?php echo gettext("No DID Calls are made yet.")?></td>             
 			  
             </tr>
 			<?php
@@ -786,7 +786,7 @@ $totalcost_did = $totalcost;
 	 <td><img src="<?php echo Images_Path;?>/spacer.jpg" align="middle" height="30px"></td>
 	 </tr>
 	 <tr bgcolor="#CCCCCC" >
-	 <td  align="right" width="100%"><font color="#003399"><b>Grand Total = <?php echo display_2bill($totalcost);?>&nbsp;</b></font></td>
+	 <td  align="right" width="100%"><font color="#003399"><b><?php echo gettext("Grand Total")?> = <?php echo display_2bill($totalcost);?>&nbsp;</b></font></td>
 	 </tr>
 	 <tr>
 	 <td><img src="<?php echo Images_Path;?>/spacer.jpg" align="middle" height="30px"></td>
@@ -808,8 +808,8 @@ $totalcost_did = $totalcost;
 			  <?php }?> </td>              
             </tr>      
       <tr>	  
-	  <td  align="left">&nbsp; <img src="<?php echo Images_Path;?>/connected.jpg"> &nbsp; Connected
-	  &nbsp;&nbsp;&nbsp;<img src="<?php echo Images_Path;?>/terminated.jpg">&nbsp; Disconnected
+	  <td  align="left">&nbsp; <img src="<?php echo Images_Path;?>/connected.jpg"> &nbsp;<?php echo gettext("Connected")?> 
+	  &nbsp;&nbsp;&nbsp;<img src="<?php echo Images_Path;?>/terminated.jpg">&nbsp;<?php echo gettext("Disconnected")?> 
 	  
 	  </td>
 </table>
@@ -887,10 +887,10 @@ if($ok)
 	<br><br>
 	<table align="center" width="415" style="border:1px solid orange;">	
 	<tr>
-	<td width="407" height="20" bgcolor="#000066"><font color="#FFFFFF" face="Verdana, Arial, Helvetica, sans-serif"><b>Message</b></font></td>
+	<td width="407" height="20" bgcolor="#000066"><font color="#FFFFFF" face="Verdana, Arial, Helvetica, sans-serif"><b><?php echo gettext("Message")?></b></font></td>
 	</tr>
 	<tr>
-	<td height="82" align="center" valign="middle"><font color="#000066" face="Verdana, Arial, Helvetica, sans-serif">Congratulations!!! Email sent successfully to&nbsp;<?php echo $email_to;?>.</font></td>
+	<td height="82" align="center" valign="middle"><font color="#000066" face="Verdana, Arial, Helvetica, sans-serif"><?php echo gettext("Congratulations!!! Email sent successfully to")?>&nbsp;<?php echo $email_to;?>.</font></td>
 	</tr>
 	<tr>
 	<td align="center"><FORM>
@@ -910,10 +910,10 @@ else
 <br><br>
 <table align="center" width="415" style="border:1px solid orange;">	
 	<tr>
-	<td width="407" height="20" bgcolor="#000066"><font color="#FFFFFF" face="Verdana, Arial, Helvetica, sans-serif"><b>Message</b></font></td>
+	<td width="407" height="20" bgcolor="#000066"><font color="#FFFFFF" face="Verdana, Arial, Helvetica, sans-serif"><b><?php echo gettext("Message")?></b></font></td>
 	</tr>
 	<tr>
-	<td height="82" align="center" valign="middle"><font color="#000066" face="Verdana, Arial, Helvetica, sans-serif">Sorry!!! Email sending failed to&nbsp;<?php echo $email_to;?>.</font></td>
+	<td height="82" align="center" valign="middle"><font color="#000066" face="Verdana, Arial, Helvetica, sans-serif"><?php echo gettext("Sorry!!! Email sending failed to")?>&nbsp;<?php echo $email_to;?>.</font></td>
 	</tr>
 	<tr>
 	<td align="center">

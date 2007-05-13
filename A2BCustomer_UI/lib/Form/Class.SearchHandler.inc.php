@@ -20,14 +20,14 @@
 	<INPUT TYPE="hidden" NAME="posted_search" value="1">
 	<INPUT TYPE="hidden" NAME="current_page" value="0">		
 			<tr>
-        		<td class="searchhandler_table1_td1" align="left">
+        		<td class="bgcolor_004" align="left" width="120px">
 
 					<input type="radio" name="Period" value="Month" <?php  if (!isset($processed['Period']) || ($processed['Period']=="Month")){ ?>checked="checked" <?php  } ?>> 
 					<font face="verdana" size="1" color="#ffffff"><b><?php echo $this-> FG_FILTER_SEARCH_1_TIME_TEXT?></b></font>
 				</td>
-      			<td class="searchhandler_table1_td2" align="left">
-					<table border="0" cellspacing="0" cellpadding="0" class="searchhandler_table1_td3">
-					<tr><td>
+      			<td class="bgcolor_005" align="left">
+					<table border="0" cellspacing="0" cellpadding="0"  width="100%">
+					<tr><td class="fontstyle_searchoptions">
 	  				<input type="checkbox" name="frommonth" value="true" <?php  if ($processed['frommonth']){ ?>checked<?php }?>>
 					
 					From : <select name="fromstatsmonth" class="form_input_select">
@@ -50,7 +50,7 @@
 						}
 					?>
 					</select>
-					</td><td>&nbsp;&nbsp;
+					</td><td class="fontstyle_searchoptions">&nbsp;&nbsp;
 					<input type="checkbox" name="tomonth" value="true" <?php  if ($processed['tomonth']){ ?>checked<?php }?>>
 					To : <select name="tostatsmonth" class="form_input_select">
 					<?php 	$year_actual = date("Y");
@@ -79,8 +79,9 @@
 					<input type="radio" name="Period" value="Day" <?php  if ($processed['Period']=="Day"){ ?>checked="checked" <?php  } ?>>
 					<font class="fontstyle_003"><?php echo $this-> FG_FILTER_SEARCH_2_TIME_TEXT?></font>
 				</td>
-      			<td align="left" class="searchhandler_table1_td4">
-					<table  border="0" cellspacing="0" cellpadding="0" class="searchhandler_table2"><tr><td>
+      			<td align="left" class="bgcolor_003">
+					<table  border="0" cellspacing="0" cellpadding="0" width="100%">
+					<tr><td class="fontstyle_searchoptions">
 	  				<input type="checkbox" name="fromday" value="true" <?php  if ($processed['fromday']){ ?>checked<?php }?>> <? echo gettext("From :");?>
 					<select name="fromstatsday_sday" class="form_input_select">
 						<?php
@@ -108,7 +109,7 @@
 						}
 					?>
 					</select>
-					</td><td>&nbsp;&nbsp;
+					</td><td class="fontstyle_searchoptions">&nbsp;&nbsp;
 					<input type="checkbox" name="today" value="true" <?php  if ($processed['today']){ ?>checked<?php }?>><?php echo gettext("To :");?>
 					<select name="tostatsday_sday" class="form_input_select">
 					<?php
@@ -143,18 +144,31 @@
 			<!-- compare with a value //-->
 
 			<?php
+			$nu = 0;
 			foreach ($this->FG_FILTER_SEARCH_FORM_1C as $one_compare){
+			if ($nu%2 == 0)
+			{
+				$classleft="bgcolor_004";
+				$classright="bgcolor_005";		
+			}
+			else
+			{
+				$classleft="bgcolor_002";
+				$classright="bgcolor_003";
+			}
+			$nu = $nu + 1;
 			?>
 			<tr>
-				<td class="searchhandler_compare_td1" align="left">
+				<td class="<?php echo $classleft?>" align="left">
 					<font class="searchhandler_compare_td1_text">&nbsp;&nbsp;<?php echo $one_compare[0]?></font>
 				</td>
-				<td class="searchhandler_compare_td2" align="left" >
-				<table width="100%" border="0" cellspacing="0" cellpadding="0"><tr><td>&nbsp;&nbsp;<INPUT TYPE="text" NAME="<?php echo $one_compare[1]?>" value="<?php echo $processed[$one_compare[1]]?>" class="form_input_text"></td>
-				<td class="searchhandler_compare_td2" align="center" ><input type="radio" NAME="<?php echo $one_compare[2]?>" value="1" <?php if((!isset($processed[$one_compare[2]]))||($processed[$one_compare[2]]==1)){?>checked<?php }?>><?php echo gettext("Exact");?> </td>
-				<td class="searchhandler_compare_td2" align="center" ><input type="radio" NAME="<?php echo $one_compare[2]?>" value="2" <?php if($processed[$one_compare[2]]==2){?>checked<?php }?>> <?php echo gettext("Begins with");?></td>
-				<td class="searchhandler_compare_td2" align="center" ><input type="radio" NAME="<?php echo $one_compare[2]?>" value="3" <?php if($processed[$one_compare[2]]==3){?>checked<?php }?>> <?php echo gettext("Contains");?></td>
-				<td class="searchhandler_compare_td2" align="center" ><input type="radio" NAME="<?php echo $one_compare[2]?>" value="4" <?php if($processed[$one_compare[2]]==4){?>checked<?php }?>> <?php echo gettext("Ends with");?></td>
+				<td class="<?php echo $classright?>" align="left" >
+				<table width="100%" border="0" cellspacing="0" cellpadding="0">
+				<tr><td class="fontstyle_searchoptions">&nbsp;&nbsp;<INPUT TYPE="text" NAME="<?php echo $one_compare[1]?>" value="<?php echo $processed[$one_compare[1]]?>" class="form_input_text"></td>
+				<td class="fontstyle_searchoptions" align="center" ><input type="radio" NAME="<?php echo $one_compare[2]?>" value="1" <?php if((!isset($processed[$one_compare[2]]))||($processed[$one_compare[2]]==1)){?>checked<?php }?>><?php echo gettext("Exact");?> </td>
+				<td class="fontstyle_searchoptions" align="center" ><input type="radio" NAME="<?php echo $one_compare[2]?>" value="2" <?php if($processed[$one_compare[2]]==2){?>checked<?php }?>> <?php echo gettext("Begins with");?></td>
+				<td class="fontstyle_searchoptions" align="center" ><input type="radio" NAME="<?php echo $one_compare[2]?>" value="3" <?php if($processed[$one_compare[2]]==3){?>checked<?php }?>> <?php echo gettext("Contains");?></td>
+				<td class="fontstyle_searchoptions" align="center" ><input type="radio" NAME="<?php echo $one_compare[2]?>" value="4" <?php if($processed[$one_compare[2]]==4){?>checked<?php }?>> <?php echo gettext("Ends with");?></td>
 				</tr></table></td>
 			</tr>
 
@@ -165,27 +179,39 @@
 			<!-- compare between 2 values //-->
 
 			<?php
+			$nu = 0;
 			foreach ($this->FG_FILTER_SEARCH_FORM_2C as $two_compare){
+			if ($nu%2 == 0)
+			{
+				$classleft="bgcolor_004";
+				$classright="bgcolor_005";		
+			}
+			else
+			{
+				$classleft="bgcolor_002";
+				$classright="bgcolor_003";
+			}
+			$nu = $nu + 1;
 			?>
 			<tr>
-				<td class="bgcolor_002" align="left">
+				<td class="<?php echo $classleft?>" align="left">
 					<font class="searchhandler_compare_td1_text">&nbsp;&nbsp;<?php echo $two_compare[0]?></font>
 				</td>
-				<td class="searchhandler_compare_td2" align="left">
+				<td class="<?php echo $classright?>" align="left">
 				<table width="100%" border="0" cellspacing="0" cellpadding="0"><tr>
-				<td>&nbsp;&nbsp;<INPUT TYPE="text" NAME="<?php echo $two_compare[1]?>" size="4" value="<?php echo $processed[$two_compare[1]]?>" class="form_input_text"></td>
-				<td class="searchhandler_compare_td2" align="center" ><input type="radio" NAME="<?php echo $two_compare[2]?>" value="4" <?php if($processed[$two_compare[2]]==4){?>checked<?php }?>>&gt;</td>
-				<td class="searchhandler_compare_td2" align="center" ><input type="radio" NAME="<?php echo $two_compare[2]?>" value="5" <?php if($processed[$two_compare[2]]==5){?>checked<?php }?>>&gt; =</td>
-				<td class="searchhandler_compare_td2" align="center"><input type="radio" NAME="<?php echo $two_compare[2]?>" value="1" <?php if((!isset($processed[$two_compare[2]]))||($processed[$two_compare[2]]==1)){?>checked<?php }?>> = </td>
-				<td class="searchhandler_compare_td2" align="center" ><input type="radio" NAME="<?php echo $two_compare[2]?>" value="2" <?php if($processed[$two_compare[2]]==2){?>checked<?php }?>>&lt; =</td>
-				<td class="searchhandler_compare_td2" align="center" ><input type="radio" NAME="<?php echo $two_compare[2]?>" value="3" <?php if($processed[$two_compare[2]]==3){?>checked<?php }?>>&lt;</td>
-				<td width="5%" class="searchhandler_compare_td2" align="center" ></td>
+				<td class="fontstyle_searchoptions">&nbsp;&nbsp;<INPUT TYPE="text" NAME="<?php echo $two_compare[1]?>" size="4" value="<?php echo $processed[$two_compare[1]]?>" class="form_input_text"></td>
+				<td class="fontstyle_searchoptions" align="center" ><input type="radio" NAME="<?php echo $two_compare[2]?>" value="4" <?php if($processed[$two_compare[2]]==4){?>checked<?php }?>>&gt;</td>
+				<td class="fontstyle_searchoptions" align="center" ><input type="radio" NAME="<?php echo $two_compare[2]?>" value="5" <?php if($processed[$two_compare[2]]==5){?>checked<?php }?>>&gt; =</td>
+				<td class="fontstyle_searchoptions" align="center"><input type="radio" NAME="<?php echo $two_compare[2]?>" value="1" <?php if((!isset($processed[$two_compare[2]]))||($processed[$two_compare[2]]==1)){?>checked<?php }?>> = </td>
+				<td class="fontstyle_searchoptions" align="center" ><input type="radio" NAME="<?php echo $two_compare[2]?>" value="2" <?php if($processed[$two_compare[2]]==2){?>checked<?php }?>>&lt; =</td>
+				<td class="fontstyle_searchoptions" align="center" ><input type="radio" NAME="<?php echo $two_compare[2]?>" value="3" <?php if($processed[$two_compare[2]]==3){?>checked<?php }?>>&lt;</td>
+				<td width="5%" class="fontstyle_searchoptions" align="center" ></td>
 
 				<td>&nbsp;&nbsp;<INPUT TYPE="text" NAME="<?php echo $two_compare[3]?>" size="4" value="<?php echo $processed[$two_compare[3]]?>" class="form_input_text"></td>
-				<td class="searchhandler_compare_td2" align="center"><input type="radio" NAME="<?php echo $two_compare[4]?>" value="4" <?php if($processed[$two_compare[4]]==4){?>checked<?php }?>>&gt;</td>
-				<td class="searchhandler_compare_td2" align="center" ><input type="radio" NAME="<?php echo $two_compare[4]?>" value="5" <?php if($processed[$two_compare[4]]==5){?>checked<?php }?>>&gt; =</td>
-				<td class="searchhandler_compare_td2" align="center" ><input type="radio" NAME="<?php echo $two_compare[4]?>" value="2" <?php if($processed[$two_compare[4]]==1){?>checked<?php }?>>&lt; =</td>
-				<td class="searchhandler_compare_td2" align="center" ><input type="radio" NAME="<?php echo $two_compare[4]?>" value="3" <?php if($processed[$two_compare[4]]==3){?>checked<?php }?>>&lt;</td>
+				<td class="fontstyle_searchoptions" align="center"><input type="radio" NAME="<?php echo $two_compare[4]?>" value="4" <?php if($processed[$two_compare[4]]==4){?>checked<?php }?>>&gt;</td>
+				<td class="fontstyle_searchoptions" align="center" ><input type="radio" NAME="<?php echo $two_compare[4]?>" value="5" <?php if($processed[$two_compare[4]]==5){?>checked<?php }?>>&gt; =</td>
+				<td class="fontstyle_searchoptions" align="center" ><input type="radio" NAME="<?php echo $two_compare[4]?>" value="2" <?php if($processed[$two_compare[4]]==1){?>checked<?php }?>>&lt; =</td>
+				<td class="fontstyle_searchoptions" align="center" ><input type="radio" NAME="<?php echo $two_compare[4]?>" value="3" <?php if($processed[$two_compare[4]]==3){?>checked<?php }?>>&lt;</td>
 				</tr></table>
 				</td>
 			</tr>
@@ -227,7 +253,7 @@
 			</tr>
 
 			<tr>
-        		<td class="bgcolor_002" align="left"> </td>
+        		<td class="bgcolor_004" align="left"> </td>
 
 				<td class="searchhandler_table3_td2" align="center">
 					<input type="image"  name="image16" align="top" border="0" src="<?php echo Images_Path_Main;?>/button-search.gif" />

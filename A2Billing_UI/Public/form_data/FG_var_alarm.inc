@@ -11,10 +11,12 @@ $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
 
 // TODO Integrate a generic LIST to Framework
 $period_list = array();
+
 $period_list["1"]  = array( "Hourly", "1");
 $period_list["2"]  = array( "Daily", "2");
 $period_list["3"]  = array( "Weekly", "3");
 $period_list["4"]  = array( "Monthly", "4");
+
 
 
 

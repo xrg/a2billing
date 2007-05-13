@@ -425,7 +425,7 @@ function formsubmit()
         		<td class="bgcolor_004" align="left">
 
 					<input type="radio" name="Period" value="Month" <?php  if (($Period=="Month") || !isset($Period)){ ?>checked="checked" <?php  } ?>> 
-					<font face="verdana" size="1" color="#ffffff"><b><?php echo gettext("SELECT MONTH");?></b></font>
+					<font face="verdana" size="1" color="#ffffff"><b><?php echo gettext("SELECT BY MONTH");?></b></font>
 				</td>
       			<td class="bgcolor_005" align="left">
 					<table width="100%" border="0" cellspacing="0" cellpadding="0" >
@@ -475,7 +475,7 @@ function formsubmit()
 			<tr>
         		<td align="left" class="bgcolor_002">
 					<input type="radio" name="Period" value="Day" <?php  if ($Period=="Day"){ ?>checked="checked" <?php  } ?>> 
-					<font face="verdana" size="1" color="#ffffff"><b><?php echo gettext("SELECT DAY");?></b></font>
+					<font face="verdana" size="1" color="#ffffff"><b><?php echo gettext("SELECT BY DAY");?></b></font>
 				</td>
       			<td align="left" class="bgcolor_003">
 					<table width="100%" border="0" cellspacing="0" cellpadding="0" >
@@ -666,7 +666,7 @@ function formsubmit()
 <table  cellspacing="0" class="invoice_main_table">
      
       <tr>
-        <td class="invoice_heading" width="100%">Calls Details</td>
+        <td class="invoice_heading" width="100%"><?php echo gettext("Call Details");?></td>
       </tr>
       <tr>
         <td valign="top"><table width="60%" align="left" cellpadding="0" cellspacing="0">
@@ -675,15 +675,15 @@ function formsubmit()
               <td width="65%">&nbsp; </td>
             </tr>
             <tr>
-              <td width="35%" class="invoice_td">Name : </td>
+              <td width="35%" class="invoice_td"><?php echo gettext("Name")?>&nbsp; : </td>
               <td width="65%" class="invoice_td"><?php echo $info_customer[0][3] ." ".$info_customer[0][2] ?></td>
             </tr>
             <tr>
-              <td width="35%" class="invoice_td">Card Number :</td>
+              <td width="35%" class="invoice_td"><?php echo gettext("Card Number")?>&nbsp; :</td>
               <td width="65%" class="invoice_td"><?php echo $info_customer[0][1] ?> </td>
             </tr>
             <tr>
-              <td width="35%" class="invoice_td">As of Date :</td>
+              <td width="35%" class="invoice_td"><?php echo gettext("As of Date")?>&nbsp; :</td>
               <td width="65%" class="invoice_td"><?php echo date('m-d-Y');?> </td>
             </tr>
             <tr>
@@ -694,7 +694,7 @@ function formsubmit()
       <tr>
         <td valign="top"><table width="100%" align="left" cellpadding="0" cellspacing="0">
    				<tr>
-				<td colspan="100" align="center"><font><b>No of Calls:&nbsp;<?php  if (is_array($list) && count($list)>0){ echo $nb_record; }else{echo "0";}?></center></b></font> </td>
+				<td colspan="100" align="center"><font><b><?php echo gettext("No of Calls")?>:&nbsp;<?php  if (is_array($list) && count($list)>0){ echo $nb_record; }else{echo "0";}?></center></b></font> </td>
 				</tr>
 
 			<tr class="invoice_subheading">
@@ -794,7 +794,7 @@ function formsubmit()
 	  
 	  <table width="100%" align="left" cellpadding="0" cellspacing="0">
    				<tr>
-				<td colspan="100" align="center"><font><b>DID Calls :: No of Calls:&nbsp;<?php  if (is_array($list_did) && count($list_did)>0){ echo $nb_record_did; }else{echo "0";}?></center></b></font> </td>
+				<td colspan="100" align="center"><font><b><?php echo gettext("DID Calls")?>&nbsp; ::&nbsp; <?php echo gettext("No of Calls")?>:&nbsp;<?php  if (is_array($list_did) && count($list_did)>0){ echo $nb_record_did; }else{echo "0";}?></center></b></font> </td>
 				</tr>
 
 			<tr class="invoice_subheading">

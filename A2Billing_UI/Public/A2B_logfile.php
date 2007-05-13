@@ -62,10 +62,10 @@ $nb = $nb?$nb:50;
 ?>
 
 <form method="get">
-Browse log file : <?=array2drop_down('view_log', $view_log, $arr_log)?> - 
+<?php echo gettext("Browse log file")?>&nbsp; : <?=array2drop_down('view_log', $view_log, $arr_log)?> - 
 <?=array2drop_down('nb', $nb, $arr_nb)?>
 
-Filter : <input class="form_enter" name="filter" size="20" maxlength="30" value="<?php echo $filter; ?>">
+<?php echo gettext("Filter")?> : <input class="form_enter" name="filter" size="20" maxlength="30" value="<?php echo $filter; ?>">
 
 <input class="form_enter" style="border: 2px outset rgb(204, 51, 0);" value=" Submit Query " type="submit">
 </form>

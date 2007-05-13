@@ -12,7 +12,7 @@ if ($groupID=="0"){
 }else{
 	$FG_INSTANCE_NAME="Reseller";
 }
-				
+
 $HD_Form = new FormHandler("cc_ui_authen",$FG_INSTANCE_NAME);
 
 
@@ -56,7 +56,7 @@ $HD_Form -> AddViewElement(gettext("PASSWORD"), "password", "24%", "center", "so
 
 $HD_Form -> FieldViewElement ('userid, datecreation, login, password');
 
-$HD_Form -> CV_NO_FIELDS  = gettext("NO ".strtoupper($HD_Form->FG_INSTANCE_NAME)." HAVE BEEN CREATED!"); 
+$HD_Form -> CV_NO_FIELDS  = gettext("NO")." ".strtoupper($HD_Form->FG_INSTANCE_NAME)." ".gettext("HAVE BEEN CREATED!"); 
 $HD_Form -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;
 $HD_Form -> CV_TEXT_TITLE_ABOVE_TABLE = '';
 $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;
@@ -101,14 +101,11 @@ if ($groupID!="0"){
 		'$value',
 		"SELECT",
 		"size=\"$len_right_list\" multiple=\"multiple\"",
-		"",
-		"",
-		"list" ,
-		"",
-		"description, id",
-		"",
-		$right_list, "%1" , "", "");
+		"", "",
+		"list", "", "description, id", "", $right_list, "%1" , "", 
+		gettext("To select several rights in the above ListBox, hold the CTRL key down while clicking the items") );
 }
+	
 
 $HD_Form -> AddEditElement (gettext("NAME"),
 	"name",
@@ -232,16 +229,16 @@ if (is_numeric($groupID)){
 	$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  .= "1";
 }
 						 
-$HD_Form -> FG_INTRO_TEXT_EDITION= gettext("Modify the properties of the ".$HD_Form->FG_INSTANCE_NAME);
-$HD_Form -> FG_INTRO_TEXT_ASK_DELETION = gettext("If you really want remove this ".$HD_Form->FG_INSTANCE_NAME.", click on the delete button.");
-$HD_Form -> FG_INTRO_TEXT_ADD = gettext("you can add easily a new ".$HD_Form->FG_INSTANCE_NAME.".<br>Fill the following fields and confirm by clicking on the button add.");
+$HD_Form -> FG_INTRO_TEXT_EDITION= gettext("Modify the properties of the")." ".$HD_Form->FG_INSTANCE_NAME;
+$HD_Form -> FG_INTRO_TEXT_ASK_DELETION = gettext("If you really want remove this")." ".$HD_Form->FG_INSTANCE_NAME.", ".gettext("click on the delete button.");
+$HD_Form -> FG_INTRO_TEXT_ADD = gettext("you can add easily a new")." ".$HD_Form->FG_INSTANCE_NAME.".<br>".gettext("Fill the following fields and confirm by clicking on the button add.");
 
 
 
 
 
 $HD_Form -> FG_INTRO_TEXT_ADITION = '';
-$HD_Form -> FG_TEXT_ADITION_CONFIRMATION = gettext("Your new ".$HD_Form->FG_INSTANCE_NAME." has been inserted. <br>");
+$HD_Form -> FG_TEXT_ADITION_CONFIRMATION = gettext("Your new")." ".$HD_Form->FG_INSTANCE_NAME." ".gettext("has been inserted.")."<br>";
 
 
 $HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = "../Images/cormfirmboton.gif";

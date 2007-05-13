@@ -1,10 +1,7 @@
 <?php
 
 
-
 if (SHOW_HELP){
-
-
 $CC_help_webphone='
 <div id="div1000" style="display:visible;">
 <div id="kiblue_header"><div class="w4">
@@ -33,7 +30,6 @@ $CC_help_balance_customer='
 </td>
 </tr>
 </table>
-
 </div></div></div>&nbsp;';
 
 
@@ -91,7 +87,7 @@ $CC_help_list_voucher = '
 <table width="90%">
 <tr height="55px">
 <td width="100%">
-'.gettext("Here you can view your used vouchers").'
+'.gettext("Enter your voucher number to top up your card.").'
 <br>&nbsp;
 </td>
 </tr>

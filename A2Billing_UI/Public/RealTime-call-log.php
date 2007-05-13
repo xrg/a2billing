@@ -55,9 +55,9 @@ Calldate Clid Src Dst Dcontext Channel Dstchannel Lastapp Lastdata Duration Bill
 *******/
 
 
-$FG_TABLE_COL[]=array ("Nb Call", "count(*)", "12%", "center", "SORT", "30");
+$FG_TABLE_COL[]=array (gettext("Nb Call"), "count(*)", "12%", "center", "SORT", "30");
 
-$FG_TABLE_COL[]=array ("Customer", "cardID", "20%", "center", "SORT", "30", "lie", "Customer", "AnaCust", "IDCust ='%id'", "%1");
+$FG_TABLE_COL[]=array (gettext("Customer"), "cardID", "20%", "center", "SORT", "30", "lie", "Customer", "AnaCust", "IDCust ='%id'", "%1");
 
 
 
@@ -65,12 +65,12 @@ $FG_TABLE_COL[]=array ("Customer", "cardID", "20%", "center", "SORT", "30", "lie
 if ($_SESSION["is_admin"]==1) $FG_TABLE_COL[]=array ("Buycosts", "buycosts", "12%", "center", "SORT", "30");
 if ($_SESSION["is_admin"]==1) $FG_TABLE_COL[]=array ("Rate", "rate", "12%", "center", "SORT", "30");
 */
-$FG_TABLE_COL[]=array ("Incoming", "costs", "12%", "center", "SORT", "30");
+$FG_TABLE_COL[]=array (gettext("Incoming"), "costs", "12%", "center", "SORT", "30");
 
 if ($_SESSION["is_admin"]==1){
-	$FG_TABLE_COL[]=array ("RealDuration", "realduration", "12%", "center", "SORT", "30");
+	$FG_TABLE_COL[]=array (gettext("RealDuration"), "realduration", "12%", "center", "SORT", "30");
 }else{
-	$FG_TABLE_COL[]=array ("Duration", "duration", "12%", "center", "SORT", "30");
+	$FG_TABLE_COL[]=array (gettext("Duration"), "duration", "12%", "center", "SORT", "30");
 }
 
 
@@ -359,11 +359,11 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 			<table cellpadding="1" bgcolor="#000000" cellspacing="1" width="<?php  if ($_SESSION["is_admin"]==1) echo "600"; else echo "300";  ?>" align="left">
 				<tbody>
                 <tr class="form_head">                   									   
-				   <td width="20%" align="center" class="tableBodyRight" bgcolor="#bbbbbb" style="padding: 5px;"><strong>TOTAL COSTS</strong></td>
-				   <?php  if ($_SESSION["is_admin"]==1) { ?><td width="20%" align="center" class="tableBodyRight" bgcolor="#aaaaaa" style="padding: 5px;"><strong>TOTAL BUYCOSTS</strong></td><?php }?>
-				   <?php  if ($_SESSION["is_admin"]==1) { ?><td width="20%" align="center" class="tableBodyRight" bgcolor="#999999" style="padding: 5px;"><strong>REVENUE</strong></td><?php }?>
-				   <?php  if ($_SESSION["is_admin"]==1) { ?><td width="20%" align="center" class="tableBodyRight" bgcolor="#888888" style="padding: 5px;"><strong>PERCENTAGE</strong></td><?php }?>
-				   <td width="20%" align="center" class="tableBodyRight" bgcolor="#777777" style="padding: 5px;"><strong>TOTAL MINUTES</strong></td>				   
+				   <td width="20%" align="center" class="tableBodyRight" bgcolor="#bbbbbb" style="padding: 5px;"><strong><?php echo gettext("TOTAL COSTS")?></strong></td>
+				   <?php  if ($_SESSION["is_admin"]==1) { ?><td width="20%" align="center" class="tableBodyRight" bgcolor="#aaaaaa" style="padding: 5px;"><strong><?php echo gettext("TOTAL BUYCOSTS")?></strong></td><?php }?>
+				   <?php  if ($_SESSION["is_admin"]==1) { ?><td width="20%" align="center" class="tableBodyRight" bgcolor="#999999" style="padding: 5px;"><strong><?php echo gettext("REVENUE")?></strong></td><?php }?>
+				   <?php  if ($_SESSION["is_admin"]==1) { ?><td width="20%" align="center" class="tableBodyRight" bgcolor="#888888" style="padding: 5px;"><strong><?php echo gettext("PERCENTAGE")?></strong></td><?php }?>
+				   <td width="20%" align="center" class="tableBodyRight" bgcolor="#777777" style="padding: 5px;"><strong><?php echo gettext("TOTAL MINUTES")?></strong></td>				   
                 </tr>
 				<tr>
 				  <td valign="top" align="center" class="tableBody" bgcolor="#FFFFFF"><b><?php  echo sprintf("%8.3f",$total_cost[0][0]);?></b></td>
@@ -394,13 +394,13 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 
 			
 <div class="scrollreal" style="padding-left: 15px;">
-<center>Number of call : <?php  if (is_array($list) && count($list)>0){ echo $nb_record; }else{echo "0";}?></center>
+<center><?php echo gettext("Number of call")?> : <?php  if (is_array($list) && count($list)>0){ echo $nb_record; }else{echo "0";}?></center>
       <table width="<?php echo $FG_HTML_TABLE_WIDTH?>" border="0" align="center" cellpadding="0" cellspacing="0">
         <TR> 
           <TD> <TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
 <TBODY>
                 <TR bgColor=#F0F0F0> 
-				  <TD width="<?php echo $FG_ACTION_SIZE_COLUMN?>" align=center class="tableBodyRight" style="PADDING-BOTTOM: 2px; PADDING-LEFT: 2px; PADDING-RIGHT: 2px; PADDING-TOP: 2px"> <span class="liens">idx</span></TD>					
+				  <TD width="<?php echo $FG_ACTION_SIZE_COLUMN?>" align=center class="tableBodyRight" style="PADDING-BOTTOM: 2px; PADDING-LEFT: 2px; PADDING-RIGHT: 2px; PADDING-TOP: 2px"> <span class="liens"><?php echo gettext("idx")?></span></TD>					
 				  
                   <?php 
 				  	if (is_array($list) && count($list)>0){
@@ -423,16 +423,16 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     </strong></center></TD>
 				   <?php } ?>		
 
-					<TD width="<?php echo $FG_ACTION_SIZE_COLUMN?>" align=center class="tableBodyRight" style="PADDING-BOTTOM: 2px; PADDING-LEFT: 2px; PADDING-RIGHT: 2px; PADDING-TOP: 2px"><strong><span class="liens">Credit</span></strong></TD>
-					<TD width="<?php echo $FG_ACTION_SIZE_COLUMN?>" align=center class="tableBodyRight" style="PADDING-BOTTOM: 2px; PADDING-LEFT: 2px; PADDING-RIGHT: 2px; PADDING-TOP: 2px"><strong><span class="liens">Incoming</span></strong></TD>
+					<TD width="<?php echo $FG_ACTION_SIZE_COLUMN?>" align=center class="tableBodyRight" style="PADDING-BOTTOM: 2px; PADDING-LEFT: 2px; PADDING-RIGHT: 2px; PADDING-TOP: 2px"><strong><span class="liens"><?php echo gettext("Credit")?></span></strong></TD>
+					<TD width="<?php echo $FG_ACTION_SIZE_COLUMN?>" align=center class="tableBodyRight" style="PADDING-BOTTOM: 2px; PADDING-LEFT: 2px; PADDING-RIGHT: 2px; PADDING-TOP: 2px"><strong><span class="liens"><?php echo gettext("Incoming")?></span></strong></TD>
 				   <?php  if ($_SESSION["is_admin"]==1) { ?>
-				   <TD width="<?php echo $FG_ACTION_SIZE_COLUMN?>" align=center class="tableBodyRight" style="PADDING-BOTTOM: 2px; PADDING-LEFT: 2px; PADDING-RIGHT: 2px; PADDING-TOP: 2px"><strong><span class="liens">Cost</span></strong></TD>
+				   <TD width="<?php echo $FG_ACTION_SIZE_COLUMN?>" align=center class="tableBodyRight" style="PADDING-BOTTOM: 2px; PADDING-LEFT: 2px; PADDING-RIGHT: 2px; PADDING-TOP: 2px"><strong><span class="liens"><?php echo gettext("Cost")?></span></strong></TD>
 				   <?php  } ?>
-				   <TD width="<?php echo $FG_ACTION_SIZE_COLUMN?>" align=center class="tableBodyRight" style="PADDING-BOTTOM: 2px; PADDING-LEFT: 2px; PADDING-RIGHT: 2px; PADDING-TOP: 2px"><strong><span class="liens">Minutes</span></strong></TD>
+				   <TD width="<?php echo $FG_ACTION_SIZE_COLUMN?>" align=center class="tableBodyRight" style="PADDING-BOTTOM: 2px; PADDING-LEFT: 2px; PADDING-RIGHT: 2px; PADDING-TOP: 2px"><strong><span class="liens"><?php echo gettext("Minutes")?></span></strong></TD>
 				   
-<!--					<TD width="<?php echo $FG_ACTION_SIZE_COLUMN?>" align=center class="tableBodyRight" style="PADDING-BOTTOM: 2px; PADDING-LEFT: 2px; PADDING-RIGHT: 2px; PADDING-TOP: 2px"><strong><span class="liens">Refill</span></strong></TD>
-				   <TD width="<?php echo $FG_ACTION_SIZE_COLUMN?>" align=center class="tableBodyRight" style="PADDING-BOTTOM: 2px; PADDING-LEFT: 2px; PADDING-RIGHT: 2px; PADDING-TOP: 2px"><strong><span class="liens">Payment</span></strong></TD>
--->				   <TD width="<?php echo $FG_ACTION_SIZE_COLUMN?>" align=center class="tableBodyRight" style="PADDING-BOTTOM: 2px; PADDING-LEFT: 2px; PADDING-RIGHT: 2px; PADDING-TOP: 2px"><strong><span class="liens">Signal</span></strong></TD>
+<!--					<TD width="<?php echo $FG_ACTION_SIZE_COLUMN?>" align=center class="tableBodyRight" style="PADDING-BOTTOM: 2px; PADDING-LEFT: 2px; PADDING-RIGHT: 2px; PADDING-TOP: 2px"><strong><span class="liens"><?php echo gettext("Refill")?></span></strong></TD>
+				   <TD width="<?php echo $FG_ACTION_SIZE_COLUMN?>" align=center class="tableBodyRight" style="PADDING-BOTTOM: 2px; PADDING-LEFT: 2px; PADDING-RIGHT: 2px; PADDING-TOP: 2px"><strong><span class="liens"><?php echo gettext("Payment")?></span></strong></TD>
+-->				   <TD width="<?php echo $FG_ACTION_SIZE_COLUMN?>" align=center class="tableBodyRight" style="PADDING-BOTTOM: 2px; PADDING-LEFT: 2px; PADDING-RIGHT: 2px; PADDING-TOP: 2px"><strong><span class="liens"><?php echo gettext("Signal")?></span></strong></TD>
 					
 
                 </TR>
@@ -612,7 +612,7 @@ foreach ($list_total_day as $data){
  <table border="0" cellspacing="0" cellpadding="0" width="80%"><tbody><tr><td align="left" height="30">
 		<table cellspacing="0" cellpadding="1" bgcolor="#000000" width="50%"><tbody><tr><td>
 			<table cellspacing="0" cellpadding="0" width="100%"><tbody>
-				<tr><td bgcolor="#600101" align="left"><font face="verdana" size="1" color="white"><b>TOTAL</b></font></td></tr>
+				<tr><td  class="bgcolor_019" align="left"><font  class="fontstyle_003"><?php echo gettext("TOTAL")?></font></td></tr>
 			</tbody></table>
 		</td></tr></tbody></table>
  </td></tr></tbody></table>
@@ -624,14 +624,14 @@ foreach ($list_total_day as $data){
 	<table border="0" cellspacing="1" cellpadding="2" width="100%"><tbody>
 	<tr>	
 		<td align="center" bgcolor="#600101"></td>
-    	<td bgcolor="#b72222" align="center" colspan="4"><font face="verdana" size="1" color="#ffffff"><b>ASTERISK MINUTES</b></font></td>
+    	<td  class="bgcolor_020" align="center" colspan="4"><font class="fontstyle_003"><?php echo gettext("ASTERISK MINUTES")?></font></td>
     </tr>
 	<tr bgcolor="#600101">
-		<td align="right" bgcolor="#b72222"><font face="verdana" size="1" color="#ffffff"><b>DATE</b></font></td>
-        <td align="center"><font face="verdana" size="1" color="#ffffff"><b>DURATION</b></font></td>
-		<td align="center"><font face="verdana" size="1" color="#ffffff"><b>GRAPHIC</b></font></td>
-		<td align="center"><font face="verdana" size="1" color="#ffffff"><b>CALLS</b></font></td>
-		<td align="center"><font face="verdana" size="1" color="#ffffff"><b>TMC</b></font></td>
+		<td align="right"  class="bgcolor_020"><font class="fontstyle_003"><?php echo gettext("DATE")?></font></td>
+        <td align="center"><font class="fontstyle_003"><?php echo gettext("DURATION")?></font></td>
+		<td align="center"><font class="fontstyle_003"><?php echo gettext("GRAPHIC")?></font></td>
+		<td align="center"><font class="fontstyle_003"><?php echo gettext("CALLS")?></font></td>
+		<td align="center"><font class="fontstyle_003"><?php echo gettext("TMC")?></font></td>
                 			
 		<!-- LOOP -->
 	<?php  		
@@ -683,8 +683,8 @@ foreach ($list_total_day as $data){
 				<!-- FIN BOUCLE -->
 
 	<!-- TOTAL -->
-	<tr bgcolor="#600101">
-		<td align="right" nowrap="nowrap"><font face="verdana" size="1" color="#ffffff"><b>TOTAL</b></font></td>
+	<tr  class="bgcolor_019">
+		<td align="right" nowrap="nowrap"><font class="fontstyle_003"><?php echo gettext("TOTAL")?></font></td>
 		<td align="center" nowrap="nowrap" colspan="2"><font face="verdana" size="1" color="#ffffff"><b><?php echo $totalminutes?> </b></font></td>
 		<td align="center" nowrap="nowrap"><font face="verdana" size="1" color="#ffffff"><b><?php echo $totalcall?></b></font></td>
 		<td align="center" nowrap="nowrap"><font face="verdana" size="1" color="#ffffff"><b><?php echo $total_tmc?></b></font></td>                        
@@ -698,7 +698,7 @@ foreach ($list_total_day as $data){
 
 
 <?php  }else{ ?>
-	<center><h3>No calls today !!!</h3></center><br></br>
+	<center><h3><?php echo gettext("No calls today")?>&nbsp; !!!</h3></center><br></br>
 <?php  } ?>
 </center>
 

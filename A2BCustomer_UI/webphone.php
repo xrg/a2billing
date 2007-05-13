@@ -79,7 +79,7 @@ echo '<br><br>'.$CC_help_webphone;
 			<td align="center" valign="middle"><font class="fontstyle_007">
 					<?php
 						if( $customer_info [1] != "t" && $customer_info [1] != "1" ) {
-							echo gettext("&nbsp;NO SIP ACCOUNT&nbsp;");
+							echo "&nbsp;".gettext("NO SIP ACCOUNT")."&nbsp;";
 						}else{ ?>
 						<input class="form_enter" style="border: 2px outset rgb(204, 51, 0);" value="[ <?php echo gettext("Click to start SIP WebPhone")?>]" type="submit">
 					<?php } ?></font>

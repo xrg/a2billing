@@ -17,7 +17,7 @@ $DBHandle  = DbConnect();
 
 if($id == "")
 {
-	exit("Invalid ID");
+	exit(gettext("Invalid ID"));
 }
 $num = 0;
 $QUERY = "Select username from cc_card t1, cc_invoices t2 where t1.id = t2.cardid and t2.id=$id";
@@ -32,7 +32,8 @@ if($num > 0)
 }
 else
 {
-	exit("No User found");
+	echo gettext("No User found");
+	exit;
 }
 
 $vat = $_SESSION["vat"];
@@ -50,28 +51,11 @@ $FG_DEBUG = 0;
 // The variable FG_TABLE_NAME define the table name to use
 $FG_TABLE_NAME="cc_call t1";
 
-// THIS VARIABLE DEFINE THE COLOR OF THE HEAD TABLE
-$FG_TABLE_HEAD_COLOR = "#D1D9E7";
-
-$FG_TABLE_EXTERN_COLOR = "#7F99CC"; //#CC0033 (Rouge)
-$FG_TABLE_INTERN_COLOR = "#EDF3FF"; //#FFEAFF (Rose)
-
-// THIS VARIABLE DEFINE THE COLOR OF THE HEAD TABLE
-$FG_TABLE_ALTERNATE_ROW_COLOR[] = "#FFFFFF";
-$FG_TABLE_ALTERNATE_ROW_COLOR[] = "#F2F8FF";
-
 $yesno = array(); 	$yesno["1"]  = array( "Yes", "1");	 $yesno["0"]  = array( "No", "0");
 
 $DBHandle  = DbConnect();
 
-// The variable Var_col would define the col that we want show in your table
-// First Name of the column in the html page, second name of the field
 $FG_TABLE_COL = array();
-
-
-/*******
-Calldate Clid Src Dst Dcontext Channel Dstchannel Lastapp Lastdata Duration Billsec Disposition Amaflags Accountcode Uniqueid Serverid
-*******/
 
 $FG_TABLE_COL[]=array (gettext("Calldate"), "starttime", "18%", "center", "SORT", "19", "", "", "", "", "", "display_dateformat");
 $FG_TABLE_COL[]=array (gettext("Source"), "src", "10%", "center", "SORT", "30");
@@ -83,31 +67,18 @@ if (!(isset($customer)  &&  ($customer>0)) && !(isset($entercustomer)  &&  ($ent
 	$FG_TABLE_COL[]=array (gettext("Cardused"), "username", "11%", "center", "SORT", "30");
 }
 
-//if ($_SESSION["is_admin"]==1) $FG_TABLE_COL[]=array ("Con_charg", "connectcharge", "12%", "center", "SORT", "30");
-//if ($_SESSION["is_admin"]==1) $FG_TABLE_COL[]=array ("Dis_charg", "disconnectcharge", "12%", "center", "SORT", "30");
-//if ($_SESSION["is_admin"]==1) $FG_TABLE_COL[]=array ("Sec/mn", "secpermin", "12%", "center", "SORT", "30");
-
-
-//if ($_SESSION["is_admin"]==1) $FG_TABLE_COL[]=array ("Buycosts", "buycosts", "12%", "center", "SORT", "30");
-//-- $FG_TABLE_COL[]=array ("InitialRate", "calledrate", "10%", "center", "SORT", "30", "", "", "", "", "", "display_2dec");
 $FG_TABLE_COL[]=array (gettext("Cost"), "sessionbill", "9%", "center", "SORT", "30", "", "", "", "", "", "display_2bill");
 
-//-- if (LINK_AUDIO_FILE == 'YES') 
-//-- 	$FG_TABLE_COL[]=array ("", "uniqueid", "1%", "center", "", "30", "", "", "", "", "", "linkonmonitorfile");
 
-// ??? cardID
 $FG_TABLE_DEFAULT_ORDER = "t1.starttime";
 $FG_TABLE_DEFAULT_SENS = "DESC";
 	
 // This Variable store the argument for the SQL query
-
 $FG_COL_QUERY='t1.starttime, t1.src, t1.calledstation, t1.destination, t1.sessiontime  ';
 if (!(isset($customer)  &&  ($customer>0)) && !(isset($entercustomer)  &&  ($entercustomer>0))){
 	$FG_COL_QUERY.=', t1.username';
 }
 $FG_COL_QUERY.=', t1.sessionbill';
-if (LINK_AUDIO_FILE == 'YES') 
-	$FG_COL_QUERY .= ', t1.uniqueid';
 
 $FG_COL_QUERY_GRAPH='t1.callstart, t1.duration';
 
@@ -124,16 +95,9 @@ $FG_EDITION=true;
 $FG_TOTAL_TABLE_COL = $FG_NB_TABLE_COL;
 if ($FG_DELETION || $FG_EDITION) $FG_TOTAL_TABLE_COL++;
 
-//This variable define the Title of the HTML table
-$FG_HTML_TABLE_TITLE=" - Call Logs - ";
-
-//This variable define the width of the HTML table
-$FG_HTML_TABLE_WIDTH="70%";
-
-	if ($FG_DEBUG == 3) echo "<br>Table : $FG_TABLE_NAME  	- 	Col_query : $FG_COL_QUERY";
-	$instance_table = new Table($FG_TABLE_NAME, $FG_COL_QUERY);
-	$instance_table_graph = new Table($FG_TABLE_NAME, $FG_COL_QUERY_GRAPH);
-
+if ($FG_DEBUG == 3) echo "<br>Table : $FG_TABLE_NAME  	- 	Col_query : $FG_COL_QUERY";
+$instance_table = new Table($FG_TABLE_NAME, $FG_COL_QUERY);
+$instance_table_graph = new Table($FG_TABLE_NAME, $FG_COL_QUERY_GRAPH);
 
 if ( is_null ($order) || is_null($sens) ){
 	$order = $FG_TABLE_DEFAULT_ORDER;
@@ -141,56 +105,49 @@ if ( is_null ($order) || is_null($sens) ){
 }
 
 if ($posted==1){
-  
-  function do_field($sql,$fld,$dbfld){
-  		$fldtype = $fld.'type';
+	function do_field($sql,$fld,$dbfld){
+		$fldtype = $fld.'type';
 		global $$fld;
 		global $$fldtype;		
-        if ($$fld){
-                if (strpos($sql,'WHERE') > 0){
-                        $sql = "$sql AND ";
-                }else{
-                        $sql = "$sql WHERE ";
-                }
+		if ($$fld){
+				if (strpos($sql,'WHERE') > 0){
+						$sql = "$sql AND ";
+				}else{
+						$sql = "$sql WHERE ";
+				}
 				$sql = "$sql t1.$dbfld";
 				if (isset ($$fldtype)){                
-                        switch ($$fldtype) {							
+						switch ($$fldtype) {							
 							case 1:	$sql = "$sql='".$$fld."'";  break;
 							case 2: $sql = "$sql LIKE '".$$fld."%'";  break;
 							case 3: $sql = "$sql LIKE '%".$$fld."%'";  break;
 							case 4: $sql = "$sql LIKE '%".$$fld."'";  break;
 							case 5:	$sql = "$sql <> '".$$fld."'";  
 						}
-                }else{ $sql = "$sql LIKE '%".$$fld."%'"; }
+				}else{ $sql = "$sql LIKE '%".$$fld."%'"; }
 		}
-        return $sql;
-  }  
-  $SQLcmd = '';
-  
-  $SQLcmd = do_field($SQLcmd, 'src', 'src');
-  $SQLcmd = do_field($SQLcmd, 'dst', 'calledstation');
-	
-  
+		return $sql;
+	}  
+	$SQLcmd = '';
+	$SQLcmd = do_field($SQLcmd, 'src', 'src');
+	$SQLcmd = do_field($SQLcmd, 'dst', 'calledstation');
 }
 
 
 $date_clause='';
 // Period (Month-Day)
 if (DB_TYPE == "postgres"){		
-	 	$UNIX_TIMESTAMP = "";
+	$UNIX_TIMESTAMP = "";
 }else{
-		$UNIX_TIMESTAMP = "UNIX_TIMESTAMP";
+	$UNIX_TIMESTAMP = "UNIX_TIMESTAMP";
 }
 
 
 $lastdayofmonth = date("t", strtotime($tostatsmonth.'-01'));
 
 if ($Period=="Month"){
-		
-		
-		if ($frommonth && isset($fromstatsmonth)) $date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) >= $UNIX_TIMESTAMP('$fromstatsmonth-01')";
-		if ($tomonth && isset($tostatsmonth)) $date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) <= $UNIX_TIMESTAMP('".$tostatsmonth."-$lastdayofmonth 23:59:59')"; 
-		
+	if ($frommonth && isset($fromstatsmonth)) $date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) >= $UNIX_TIMESTAMP('$fromstatsmonth-01')";
+	if ($tomonth && isset($tostatsmonth)) $date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) <= $UNIX_TIMESTAMP('".$tostatsmonth."-$lastdayofmonth 23:59:59')"; 
 }else{
 		if ($fromday && isset($fromstatsday_sday) && isset($fromstatsmonth_sday) && isset($fromstatsmonth_shour) && isset($fromstatsmonth_smin) ) $date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) >= $UNIX_TIMESTAMP('$fromstatsmonth_sday-$fromstatsday_sday $fromstatsmonth_shour:$fromstatsmonth_smin')";
 		if ($today && isset($tostatsday_sday) && isset($tostatsmonth_sday) && isset($tostatsmonth_shour) && isset($tostatsmonth_smin)) $date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) <= $UNIX_TIMESTAMP('$tostatsmonth_sday-".sprintf("%02d",intval($tostatsday_sday))." $tostatsmonth_shour:$tostatsmonth_smin')";
@@ -468,33 +425,33 @@ if (is_array($list_total_did) && count($list_total_did)>0)
 </table>
 <br>
 <center>
-  <h4><font color="#FF0000">Billed</font><font color="#FF0000"> Details for Card Number&nbsp;<?php echo $info_customer[0][1] ?> </font></h4>
+  <h4><font color="#FF0000"><?php echo gettext("Billed")?></font><font color="#FF0000"><?php echo gettext("Details for Card Number")?> &nbsp;<?php echo $info_customer[0][1] ?> </font></h4>
 </center>
 <br>
 <br>
 	<table  cellspacing="0"  width="80%" align="center">
      
       <tr>
-        <td bgcolor="#FFFFCC" colspan="2"><font size="5" color="#FF0000">Bill Details</font></td>
+        <td bgcolor="#FFFFCC" colspan="2"><font size="5" color="#FF0000"><?php echo gettext("Bill Details")?></font></td>
       </tr>
       <tr>
               <td width="35%">&nbsp; </td>
               <td width="65%">&nbsp; </td>
       </tr>
             <tr>
-              <td width="35%" class="invoice_td"><font color="#003399">Name : </font></td>
+              <td width="35%" class="invoice_td"><font color="#003399"><?php echo gettext("Name")?>&nbsp; : </font></td>
               <td width="65%" class="invoice_td"><font color="#003399"><?php echo $info_customer[0][3] ." ".$info_customer[0][2] ?></font></td>
             </tr>
             <tr>
-              <td width="35%" class="invoice_td"><font color="#003399">Card Number :</font></td>
+              <td width="35%" class="invoice_td"><font color="#003399"><?php echo gettext("Card Number")?>&nbsp; :</font></td>
               <td width="65%" class="invoice_td"><font color="#003399"><?php echo $info_customer[0][1] ?> </font></td>
             </tr>            
             <tr>
-              <td width="35%" class="invoice_td"><font color="#003399">As of Date :</font></td>
+              <td width="35%" class="invoice_td"><font color="#003399"><?php echo gettext("As of Date")?>&nbsp; :</font></td>
               <td width="65%" class="invoice_td"><font color="#003399"><?php echo date('m-d-Y');?></font> </td>
             </tr>
 			<tr>
-              <td width="35%" class="invoice_td" valign="middle"><font color="#003399">Billing Period :</font></td>
+              <td width="35%" class="invoice_td" valign="middle"><font color="#003399"><?php echo gettext("Billing Period")?>&nbsp; :</font></td>
               <td width="65%" class="invoice_td" valign="middle"><font color="#003399"><?php 
 			  if ($choose_billperiod == "")
 			  {
@@ -516,15 +473,15 @@ if (is_array($list_total_did) && count($list_total_did)>0)
 		</table>
 			<table width="80%" align="center" cellpadding="0" cellspacing="0">
    				<tr>
-				<td colspan="5" align="center"><font><b>By Destination</b></font> </td>
+				<td colspan="5" align="center"><font><b><?php echo gettext("By Destination")?></b></font> </td>
 				</tr>
 
 			<tr bgcolor="#CCCCCC">
-              <td class="invoice_td" width="29%"><font color="#003399"><b>Destination</b></font> </td>
-              <td width="27%" class="invoice_td"><font color="#003399"><b>Duration </b></font></td>
+              <td class="invoice_td" width="29%"><font color="#003399"><b><?php echo gettext("Destination")?></b></font> </td>
+              <td width="27%" class="invoice_td"><font color="#003399"><b><?php echo gettext("Duration")?> </b></font></td>
 			
-			  <td width="17%" class="invoice_td"><font color="#003399"><b>Calls </b></font></td>
-              <td width="27%" class="invoice_td" align="right"><font color="#003399"><b>Amount (US $)</b></font> </td>
+			  <td width="17%" class="invoice_td"><font color="#003399"><b><?php echo gettext("Calls")?> </b></font></td>
+              <td width="27%" class="invoice_td" align="right"><font color="#003399"><b><?php echo gettext("Amount (US $)")?></b></font> </td>
             </tr>
 			<?php  		
 				$i=0;
@@ -602,14 +559,14 @@ if (is_array($list_total_did) && count($list_total_did)>0)
 				}
 				?>
 				<tr>
-				<td colspan="5" align="center"><b>By Date</b> </td>
+				<td colspan="5" align="center"><b><?php echo gettext("By Date")?></b> </td>
 				</tr>
 			  <tr bgcolor="#CCCCCC">
-              <td class="invoice_td" width="29%"><font color="#003399"><b>Date</b></font> </td>
-              <td width="27%" class="invoice_td"><font color="#003399"><b>Duration </b></font></td>
+              <td class="invoice_td" width="29%"><font color="#003399"><b><?php echo gettext("Date")?></b></font> </td>
+              <td width="27%" class="invoice_td"><font color="#003399"><b><?php echo gettext("Duration")?> </b></font></td>
 
-			  <td width="17%" class="invoice_td"><font color="#003399"><b>Calls </b></font></td>
-              <td width="27%" class="invoice_td" align="right"><font color="#003399"><b>Cost (US $) </b></font></td>
+			  <td width="17%" class="invoice_td"><font color="#003399"><b><?php echo gettext("Calls")?> </b></font></td>
+              <td width="27%" class="invoice_td" align="right"><font color="#003399"><b><?php echo gettext("Cost (US $)")?> </b></font></td>
             </tr>
 			<?php  		
 				$i=0;
@@ -682,15 +639,15 @@ if (is_array($list_total_did) && count($list_total_did)>0)
 		<td>
 		<table width="100%" align="left" cellpadding="0" cellspacing="0">
    				<tr>
-				<td colspan="6" align="center"><font><b>DID Billing</b></font> </td>
+				<td colspan="6" align="center"><font><b><?php echo gettext("DID Billing")?></b></font> </td>
 				</tr>
 			<tr  bgcolor="#CCCCCC">
-              <td  width="20%"> <font color="#003399"><b>DID </b></font></td>
-              <td width="14%" ><font color="#003399"><b>Duration </b></font></td>
-			  <td width="16%" ><font color="#003399"><b>Fixed</b></font> </td>
-			  <td width="14%" ><font color="#003399"><b>Calls </b></font></td>
-  			  <td width="17%" ><font color="#003399"><b>Call Cost </b></font></td>
-              <td width="19%"  align="right"><font color="#003399"><b>Amount (US $)</b></font> </td>
+              <td  width="20%"> <font color="#003399"><b><?php echo gettext("DID")?> </b></font></td>
+              <td width="14%" ><font color="#003399"><b><?php echo gettext("Duration")?> </b></font></td>
+			  <td width="16%" ><font color="#003399"><b><?php echo gettext("Fixed")?></b></font> </td>
+			  <td width="14%" ><font color="#003399"><b><?php echo gettext("Calls")?> </b></font></td>
+  			  <td width="17%" ><font color="#003399"><b><?php echo gettext("Call Cost")?> </b></font></td>
+              <td width="19%"  align="right"><font color="#003399"><b><?php echo gettext("Amount (US $)")?></b></font> </td>
             </tr>
 			<?php  		
 				$i=0;
@@ -723,7 +680,7 @@ if (is_array($list_total_did) && count($list_total_did)>0)
   			  <td width="16%" ><font color="#003399"><?php 
 			  if($data[2] == 2 || $data[2] == 3)
 			  {
-			  	echo "None";
+			  	echo gettext("None");
 				$fcost = 0;
 				
 			  }
@@ -737,7 +694,7 @@ if (is_array($list_total_did) && count($list_total_did)>0)
 			  <td width="17%" ><font color="#003399"><?php 
 			  if($data[2] == 3 || $data[2] == 1)
 			  {
-			  	echo "None";
+			  	echo gettext("None");
 				$ccost = 0;
 			  }
 			  else
@@ -779,7 +736,7 @@ if (is_array($list_total_did) && count($list_total_did)>0)
 			?>
 			<tr >
               <td width="18%">&nbsp;</td>              
-			  <td  colspan="4" align="center">No DID Calls data available.</td>
+			  <td  colspan="4" align="center"><?php echo gettext("No DID Calls data available.")?></td>
 			  <td width="25%">&nbsp; </td>
 			  
             </tr>
@@ -801,7 +758,7 @@ if (is_array($list_total_did) && count($list_total_did)>0)
 	 <td><img src="<?php echo Images_Path;?>/spacer.jpg" align="middle"></td>
 	 </tr>
 	 <tr bgcolor="#CCCCCC" >
-	 <td  align="right"><font color="#003399"><b>Grand Total = <?php echo display_2bill($totalcost);?>&nbsp;</b></font></td>
+	 <td  align="right"><font color="#003399"><b><?php echo gettext("Grand Total")?> = <?php echo display_2bill($totalcost);?>&nbsp;</b></font></td>
 	 </tr>
 	 <tr>
 	 <td><img src="<?php echo Images_Path;?>/spacer.jpg" align="middle"></td>
@@ -825,8 +782,8 @@ if (is_array($list_total_did) && count($list_total_did)>0)
 			  <?php }?> </font></td>              
             </tr>      
       <tr>	  
-	  <td  align="left">&nbsp; <font color="#003399"><img src="<?php echo Images_Path;?>/connected.jpg"> &nbsp; Connected
-	  &nbsp;&nbsp;&nbsp;<img src="<?php echo Images_Path;?>/terminated.jpg">&nbsp; Disconnected</font>
+	  <td  align="left">&nbsp; <font color="#003399"><img src="<?php echo Images_Path;?>/connected.jpg"> &nbsp; <?php echo gettext("Connected")?>
+	  &nbsp;&nbsp;&nbsp;<img src="<?php echo Images_Path;?>/terminated.jpg">&nbsp; <?php echo gettext("Disconnected")?></font>
 	  
 	  
 	  </td>
@@ -840,13 +797,13 @@ if (is_array($list_total_did) && count($list_total_did)>0)
 	<table  cellspacing="0" class="invoice_main_table">
      
       <tr>
-        <td class="invoice_heading">Bill Details</td>
+        <td class="invoice_heading"><?php echo gettext("Bill Details")?></td>
       </tr>	  
 	 <tr>
 	 <td>&nbsp;</td>
 	 </tr> 
 	  <tr>
-	 <td align="center">No invoice is billed to you yet!</td>
+	 <td align="center"><?php echo gettext("No invoice is billed to you yet!")?></td>
 	 </tr> 
 	  <tr>
 	 <td>&nbsp;</td>
@@ -861,13 +818,13 @@ else
 	<table  cellspacing="0" class="invoice_main_table">
      
       <tr>
-        <td class="invoice_heading">Bill Details</td>
+        <td class="invoice_heading"><?php echo gettext("Bill Details")?></td>
       </tr>	  
 	 <tr>
 	 <td>&nbsp;</td>
 	 </tr> 
 	  <tr>
-	 <td align="center">No invoice is billed to you yet!</td>
+	 <td align="center"><?php echo gettext("No invoice is billed to you yet!")?></td>
 	 </tr> 
 	  <tr>
 	 <td>&nbsp;</td>
@@ -951,10 +908,10 @@ if($ok)
 	<br><br>
 	<table align="center" width="415" style="border:1px solid orange;">	
 	<tr>
-	<td width="407" height="20" bgcolor="#000066"><font color="#FFFFFF" face="Verdana, Arial, Helvetica, sans-serif"><b>Message</b></font></td>
+	<td width="407" height="20" bgcolor="#000066"><font color="#FFFFFF" face="Verdana, Arial, Helvetica, sans-serif"><b><?php echo gettext("Message")?></b></font></td>
 	</tr>
 	<tr>
-	<td height="82" align="center" valign="middle"><font color="#000066" face="Verdana, Arial, Helvetica, sans-serif">Congratulations!!! Email sent successfully to&nbsp;<?php echo $email_to;?>.</font></td>
+	<td height="82" align="center" valign="middle"><font color="#000066" face="Verdana, Arial, Helvetica, sans-serif"><?php echo gettext("Congratulations!!! Email sent successfully to")?>&nbsp;<?php echo $email_to;?>.</font></td>
 	</tr>
 	<tr>
 	<td align="center"><FORM>
@@ -974,10 +931,10 @@ else
 <br><br>
 <table align="center" width="415" style="border:1px solid orange;">	
 	<tr>
-	<td width="407" height="20" bgcolor="#000066"><font color="#FFFFFF" face="Verdana, Arial, Helvetica, sans-serif"><b>Message</b></font></td>
+	<td width="407" height="20" bgcolor="#000066"><font color="#FFFFFF" face="Verdana, Arial, Helvetica, sans-serif"><b><?php echo gettext("Message")?></b></font></td>
 	</tr>
 	<tr>
-	<td height="82" align="center" valign="middle"><font color="#000066" face="Verdana, Arial, Helvetica, sans-serif">Sorry!!! Email sending failed to to&nbsp;<?php echo $email_to;?>.</font></td>
+	<td height="82" align="center" valign="middle"><font color="#000066" face="Verdana, Arial, Helvetica, sans-serif"><?php echo gettext("Sorry!!! Email sending failed to ")?>&nbsp;<?php echo $email_to;?>.</font></td>
 	</tr>
 	<tr>
 	<td align="center"><FORM>

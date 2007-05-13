@@ -225,7 +225,7 @@ function query($query){
 		$this->numFields = mysql_num_fields($this->results);
 	}else{
 		$this->results = pg_query($this->conn, $query);
-		if(!$this->results )	die("Could not perform the Query: ".pg_ErrorMessage($this->results));		
+		if(!$this->results )	die(gettext("Could not perform the Query: ").pg_ErrorMessage($this->results));		
 		$this->numFields = pg_num_fields($this->results);
 	}
 }

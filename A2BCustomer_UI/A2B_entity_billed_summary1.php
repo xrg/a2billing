@@ -426,7 +426,7 @@ if (is_array($list_total_did) && count($list_total_did)>0)
 </tr>
 </table>
 <br>
-<center><h4><font color="#FF0000">Billed Invoice Summary for Card Number&nbsp;<?php echo $info_customer[0][1] ?> </font></h4></center>
+<center><h4><font color="#FF0000"><?php echo gettext("Billed Invoice Summary for Card Number")?>&nbsp;<?php echo $info_customer[0][1] ?> </font></h4></center>
 <br>
 <br>
 		
@@ -434,23 +434,23 @@ if (is_array($list_total_did) && count($list_total_did)>0)
 <table  cellspacing="0" class="invoice_main_table" width="80%" align="center">
      
       <tr>
-        <td bgcolor="#FFFFCC" colspan="2"><font size="5" color="#FF0000">Bill Summary</font></td>
+        <td bgcolor="#FFFFCC" colspan="2"><font size="5" color="#FF0000"><?php echo gettext("Bill Summary")?></font></td>
       </tr>
       <tr>
               <td width="35%">&nbsp; </td>
               <td >&nbsp; </td>
             </tr>
             <tr>
-              <td width="35%" ><font color="#003399" size="2">Name : </font></td>
+              <td width="35%" ><font color="#003399" size="2"><?php echo gettext("Name")?>&nbsp; : </font></td>
               <td  ><font color="#003399" size="2"><?php echo $info_customer[0][3] ." ".$info_customer[0][2] ?></font></td>
             </tr>
             <tr>
-              <td width="35%" ><font color="#003399" size="2">Card Number :</font></td>
+              <td width="35%" ><font color="#003399" size="2"><?php echo gettext("Card Number")?>&nbsp; :</font></td>
               <td  ><font color="#003399" size="2"><?php echo $info_customer[0][1] ?> </font></td>
             </tr>
            
             <tr>
-              <td width="35%" ><font color="#003399" size="2">As of Date :</font></td>
+              <td width="35%" ><font color="#003399" size="2"><?php echo gettext("As of Date")?>&nbsp; :</font></td>
               <td  ><font color="#003399" size="2"><?php echo date("d/m/Y", strtotime($billperiod_list[0]));?></font> </td>
             </tr>
             <tr>
@@ -466,17 +466,17 @@ if (is_array($list_total_did) && count($list_total_did)>0)
 	  </tr>
 	  <?php }?>
       <tr bgcolor="#CCCCCC">
-              <td  width="37%"><font color="#003399" size="2">Description</font></td>
+              <td  width="37%"><font color="#003399" size="2"><?php echo gettext("Description")?></font></td>
               <td width="23%" >&nbsp; </td>
-              <td align="right"><font color="#003399" size="2">Amount (US $) </font></td>
+              <td align="right"><font color="#003399" size="2"><?php echo gettext("Amount (US $)")?> </font></td>
             </tr>
             <tr class="invoice_rows">
-              <td width="37%" ><font color="#003399" size="2">Previous Balance</font></td>
+              <td width="37%" ><font color="#003399" size="2"><?php echo gettext("Previous Balance")?></font></td>
               <td width="23%" >&nbsp; </td>
               <td  align="right" ><font color="#003399" size="2">0.00 </font></td>
             </tr>
             <tr class="invoice_rows">
-              <td width="37%" ><font color="#003399" size="2">Current Period Charges </font></td>
+              <td width="37%" ><font color="#003399" size="2"><?php echo gettext("Current Period Charges")?> </font></td>
               <td width="23%" >&nbsp; </td>
               <td  align="right" ><font color="#003399" size="2"><?php  
 															$prvat = ($vat / 100) * $totalcost;															
@@ -488,7 +488,7 @@ if (is_array($list_total_did) && count($list_total_did)>0)
 															</font> </td>
             </tr>
             <tr bgcolor="#CCCCCC">
-              <td  width="37%" ><font color="#003399" size="2">Total Payable Bill</font></td>
+              <td  width="37%" ><font color="#003399" size="2"><?php echo gettext("Total Payable Bill")?></font></td>
               <td width="23%" >&nbsp;</td>
               <td   align="right" ><font color="#003399" size="2"><?php  
 															$prvat = ($vat / 100) * $totalcost;															
@@ -512,7 +512,7 @@ if (is_array($list_total_did) && count($list_total_did)>0)
 			<td colspan="3">&nbsp;</td>
 			</tr>           			
 			<tr>
-              <td  align="left"><font color="#003399" size="2">Status :&nbsp;<?php if($info_customer[0][12] == 't') {?>
+              <td  align="left"><font color="#003399" size="2"><?php echo gettext("Status")?>&nbsp; :&nbsp;<?php if($info_customer[0][12] == 't') {?>
 			  <img src="<?php echo Images_Path;?>/connected.jpg">
 			  <?php }
 			  else
@@ -522,8 +522,8 @@ if (is_array($list_total_did) && count($list_total_did)>0)
 			  <?php }?></font> </td>              
             </tr>      
       <tr>	  
-	  <td  align="left"><font color="#003399" size="2">&nbsp; <img src="<?php echo Images_Path;?>/connected.jpg"> &nbsp; Connected
-	  &nbsp;&nbsp;&nbsp;<img src="<?php echo Images_Path;?>/terminated.jpg">&nbsp; Disconnected
+	  <td  align="left"><font color="#003399" size="2">&nbsp; <img src="<?php echo Images_Path;?>/connected.jpg"> &nbsp; <?php echo gettext("Connected")?>
+	  &nbsp;&nbsp;&nbsp;<img src="<?php echo Images_Path;?>/terminated.jpg">&nbsp;<?php echo gettext("Disconnected")?> 
 	  </font>
 	  
 	  </td>
@@ -536,13 +536,13 @@ if (is_array($list_total_did) && count($list_total_did)>0)
 	<table  cellspacing="0" class="invoice_main_table">
      
       <tr>
-        <td class="invoice_heading">Bill Details</td>
+        <td class="invoice_heading"><?php echo gettext("Bill Details")?></td>
       </tr>	  
 	 <tr>
 	 <td>&nbsp;</td>
 	 </tr> 
 	  <tr>
-	 <td align="center">No invoice is billed to you yet!</td>
+	 <td align="center"><?php echo gettext("No invoice is billed to you yet!")?></td>
 	 </tr> 
 	  <tr>
 	 <td>&nbsp;</td>

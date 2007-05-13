@@ -132,7 +132,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 		?>
 
 		<td align="center"> <br>
-			<font size="1"><?php echo gettext("Click below to buy<br>credit for");?> <font color="red"><b><?php echo $value.' '.PAYPAL_CURRENCY_CODE ?></b></font></font>
+			<font size="1"><?php echo gettext("Click below to buy")."<br>".gettext("credit for");?> <font color="red"><b><?php echo $value.' '.PAYPAL_CURRENCY_CODE ?></b></font></font>
 			<form action="checkout_payment.php" method="post">
 				<input type="hidden" name="notify_url" value="<?php echo PAYPAL_NOTIFY_URL ?>">
 				<input type="hidden" name="rm" value="2">
@@ -159,7 +159,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 </td>
 </tr>
 </table>
-<center><span><?php echo gettext('The fee from $5 is $0.45, from $10 is $0.59, from $20 is $0.88, from $40 is $1.46. <br><font class="fontstyle_002">Paypal Fee Calculator</font>');?> <a target="_blank" href="http://www.ppcalc.com/">http://www.ppcalc.com/</a></b></span></center>
+<center><span><?php echo gettext('The fee from $5 is $0.45, from $10 is $0.59, from $20 is $0.88, from $40 is $1.46.').' <br><font class="fontstyle_002">'.gettext('Paypal Fee Calculator').'</font>';?> <a target="_blank" href="http://www.ppcalc.com/">http://www.ppcalc.com/</a></b></span></center>
 <br>
 
 <?php }else{ ?>

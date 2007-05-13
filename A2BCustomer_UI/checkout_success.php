@@ -15,15 +15,15 @@ getpost_ifset(array('errcode'));
 <br>
 <table width=80% align=center class="infoBox">
 <tr height="15">
-    <td colspan=2 class="infoBoxHeading">&nbsp;Message</td>
+    <td colspan=2 class="infoBoxHeading">&nbsp;<?php echo gettext("Message")?></td>
 </tr>
 <tr>
     <td width=50%>&nbsp;</td>
     <td width=50%>&nbsp;</td>
 </tr>
 <tr>
-    <td align=center colspan=2>
-    Thank you for your purchase at A2Billing&nbsp;
+    <td align=center colspan=2><?php echo gettext("Thank you for your purchase at A2Billing")?>
+    &nbsp;
     <?php
       switch($errcode)
       {

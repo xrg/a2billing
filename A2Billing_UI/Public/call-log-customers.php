@@ -109,7 +109,7 @@ $FG_TABLE_COL[]=array (gettext("Duration"), "sessiontime", "6%", "center", "SORT
 
 $FG_TABLE_COL[]=array (gettext("CardUsed"), "username", "6%", "center", "SORT", "30");
 $FG_TABLE_COL[]=array (gettext("Trunk"), "trunkcode", "6%", "center", "SORT", "30");
-$FG_TABLE_COL[]=array (gettext("terminatecause"), "terminatecause", "7%", "center", "SORT", "30");
+$FG_TABLE_COL[]=array ('<acronym title="'.gettext("Terminate Cause").'">'.gettext("TC").'</acronym>', "terminatecause", "7%", "center", "SORT", "30");
 $FG_TABLE_COL[]=array (gettext("Calltype"), "sipiax", "6%", "center", "SORT",  "", "list", $list_calltype);
 //$FG_TABLE_COL[]=array ("DestID", "destID", "12%", "center", "SORT", "30");
 
@@ -160,7 +160,7 @@ if ($FG_DELETION || $FG_EDITION) $FG_TOTAL_TABLE_COL++;
 $FG_HTML_TABLE_TITLE=gettext(" - Call Logs - ");
 
 //This variable define the width of the HTML table
-$FG_HTML_TABLE_WIDTH="96%";
+$FG_HTML_TABLE_WIDTH="98%";
 
 
 
@@ -676,13 +676,12 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 </center>
 
 
-<br><br>
-
 <!-- ** ** ** ** ** Part to display the CDR ** ** ** ** ** -->
 
-			<center><?php echo gettext("Number of call");?> : <?php  if (is_array($list) && count($list)>0){ echo $nb_record; }else{echo "0";}?></center>
+<center><?php echo gettext("Number of call");?> : <?php  if (is_array($list) && count($list)>0){ echo $nb_record; }else{echo "0";}?></center>
+
       <table width="<?php echo $FG_HTML_TABLE_WIDTH?>" border="0" align="center" cellpadding="0" cellspacing="0">
-<TR bgcolor="#ffffff"> 
+		<TR bgcolor="#ffffff"> 
           <TD bgColor=#7f99cc height=16 style="PADDING-LEFT: 5px; PADDING-RIGHT: 3px"> 
             <TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
               <TBODY>
@@ -873,7 +872,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 <?php  } ?>
 
 <!-- ** ** ** ** ** Part to display the GRAPHIC ** ** ** ** ** -->
-<br><br>
+<br>
 
 <?php 
 
@@ -899,7 +898,7 @@ foreach ($list_total_day as $data){
  <table border="0" cellspacing="0" cellpadding="0" width="80%"><tbody><tr><td align="left" height="30">
 		<table cellspacing="0" cellpadding="1" bgcolor="#000000" width="50%"><tbody><tr><td>
 			<table cellspacing="0" cellpadding="0" width="100%"><tbody>
-				<tr><td bgcolor="#600101" align="left"><font face="verdana" size="1" color="white"><b><?php echo gettext("TOTAL");?></b></font></td></tr>
+				<tr><td  class="bgcolor_019" align="left"><font class="fontstyle_003"><?php echo gettext("SUMMARY");?></font></td></tr>
 			</tbody></table>
 		</td></tr></tbody></table>
  </td></tr></tbody></table>
@@ -911,18 +910,18 @@ foreach ($list_total_day as $data){
 	<table border="0" cellspacing="1" cellpadding="2" width="100%"><tbody>
 	<tr>	
 		<td align="center" bgcolor="#600101"></td>
-    	<td bgcolor="#b72222" align="center" colspan="9"><font face="verdana" size="1" color="#ffffff"><b><?php echo gettext("CALLING CARD MINUTES");?></b></font></td>
+    	<td  class="bgcolor_020" align="center" colspan="13"><font class="fontstyle_003"><?php echo gettext("CALLING CARD MINUTES");?></font></td>
     </tr>
 	<tr bgcolor="#600101">
-		<td align="right" bgcolor="#b72222"><font face="verdana" size="1" color="#ffffff"><b><?php echo gettext("DATE");?></b></font></td>
-        <td align="center"><font face="verdana" size="1" color="#ffffff"><b><?php echo gettext("DURATION");?></b></font></td>
+		<td align="center" class="bgcolor_020"><font class="fontstyle_003"><?php echo gettext("DATE");?></font></td>
+        <td align="center"><font class="fontstyle_003"><acronym title="<?php echo gettext("DURATION");?>"><?php echo gettext("DUR");?></acronym></font></td>
 		<td align="center"><font face="verdana" size="1" color="#ffffff"><b><?php echo gettext("GRAPHIC");?></b></font></td>
 		<td align="center"><font face="verdana" size="1" color="#ffffff"><b><?php echo gettext("CALLS");?></b></font></td>
 		<td align="center"><font face="verdana" size="1" color="#ffffff"><b><acronym title="<?php echo gettext("AVERAGE LENGTH OF CALL");?>"><?php echo gettext("ALOC");?></acronym></b></font></td>
 		<td align="center"><font face="verdana" size="1" color="#ffffff"><b><acronym title="<?php echo gettext("ANSWER SEIZE RATIO");?>"><?php echo gettext("ASR");?></acronym></b></font></td>
 		<td align="center"><font face="verdana" size="1" color="#ffffff"><b><acronym title="<?php echo gettext("NUMBER OF FAIL CALLS");?>"><?php echo gettext("FAIL");?></acronym></b></font></td>
 		<td align="center"><font face="verdana" size="1" color="#ffffff"><b><acronym title="<?php echo gettext("MAX OF NUMBER FAIL CALLS SUCCESSIVELY");?>"><?php echo gettext("MFCS");?></acronym></b></font></td>
-		<td align="center"><font face="verdana" size="1" color="#ffffff"><b><?php echo gettext("RATE OF FAIL");?></b></font></td>
+		<td align="center"><font class="fontstyle_003"><acronym title="<?php echo gettext("RATE OF FAIL");?>"><?php echo gettext("ROF");?></acronym></font></td>
 		<td align="center"><font face="verdana" size="1" color="#ffffff"><b><?php echo gettext("SELL");?></b></font></td>
 		<td align="center"><font face="verdana" size="1" color="#ffffff"><b><?php echo gettext("BUY");?></b></font></td>
 		<td align="center"><font face="verdana" size="1" color="#ffffff"><b><?php echo gettext("PROFIT");?></b></font></td>
@@ -949,12 +948,12 @@ foreach ($list_total_day as $data){
 		}else{
 				$minutes = $data[1];
 		}
-		if ($mmax>0) 	$widthbar= intval(($data[1]/$mmax)*200); 
+		if ($mmax>0) 	$widthbar= intval(($data[1]/$mmax)*150); 
 	?>
 		</tr><tr>
 		<td align="right" class="sidenav" nowrap="nowrap"><font face="verdana" size="1" color="#ffffff"><?php echo $data[0]?></font></td>
 		<td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right" nowrap="nowrap"><font face="verdana" color="#000000" size="1"><?php echo $minutes?> </font></td>
-        <td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="left" nowrap="nowrap" width="<?php echo $widthbar+60?>">
+        <td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="left" nowrap="nowrap" width="<?php echo $widthbar+40?>">
         <table cellspacing="0" cellpadding="0"><tbody><tr>
         <td bgcolor="#e22424"><img src="../Images/spacer.gif" width="<?php echo $widthbar?>" height="6"></td>
         </tr></tbody></table></td>
@@ -1000,7 +999,6 @@ foreach ($list_total_day as $data){
 	</tr>
 	<!-- FIN DETAIL -->		
 	
-				
 	<!-- FIN BOUCLE -->
 
 	<!-- TOTAL -->
@@ -1013,11 +1011,11 @@ foreach ($list_total_day as $data){
         	<td align="center" nowrap="nowrap"><font face="verdana" size="1" color="#ffffff"><b><?php echo $totalfail?></b></font></td>
 		<td align="center" nowrap="nowrap"><font face="verdana" size="1" color="#ffffff"><b><?php echo $total_max_succ?></b></font></td>
 		<td align="center" nowrap="nowrap"><font face="verdana" size="1" color="#ffffff"><b><?php display_2dec_percentage(($totalfail/$totalcall)*100)?></b></font></td>
-		<td align="center" nowrap="nowrap"><font face="verdana" size="1" color="#ffffff"><b><?php  display_2bill($totalcost) ?></b></font></td>
-		<td align="center" nowrap="nowrap"><font face="verdana" size="1" color="#ffffff"><b><?php  display_2bill($totalbuycost) ?></b></font></td>
-		<td align="center" nowrap="nowrap"><font face="verdana" size="1" color="#ffffff"><b><?php  display_2bill($totalcost - $totalbuycost) ?></b></font></td>
-		<td align="center" nowrap="nowrap"><font face="verdana" size="1" color="#ffffff"><b><?php  if ($totalcost!=0){ display_2dec_percentage((($totalcost - $totalbuycost)/$totalcost)*100); }else{ echo "NULL";} ?></b></font></td>
-		<td align="center" nowrap="nowrap"><font face="verdana" size="1" color="#ffffff"><b><?php  if ($totalbuycost!=0){ display_2dec_percentage((($totalcost - $totalbuycost)/$totalbuycost)*100);  }else{ echo "NULL";} ?></b></font></td>
+		<td align="center" nowrap="nowrap"><font class="fontstyle_003"><?php display_2bill($totalcost) ?></font></td>
+		<td align="center" nowrap="nowrap"><font class="fontstyle_003"><?php display_2bill($totalbuycost) ?></font></td>
+		<td align="center" nowrap="nowrap"><font class="fontstyle_003"><?php display_2bill($totalcost - $totalbuycost) ?></font></td>
+		<td align="center" nowrap="nowrap"><font class="fontstyle_003"><?php if ($totalcost!=0){ display_2dec_percentage((($totalcost - $totalbuycost)/$totalcost)*100); }else{ echo "NULL";} ?></font></td>
+		<td align="center" nowrap="nowrap"><font class="fontstyle_003"><?php if ($totalbuycost!=0){ display_2dec_percentage((($totalcost - $totalbuycost)/$totalbuycost)*100);  }else{ echo "NULL";} ?></font></td>
 	</tr>
 	<!-- FIN TOTAL -->
 

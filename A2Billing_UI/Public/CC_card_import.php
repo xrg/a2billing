@@ -6,8 +6,7 @@ include ("../lib/module.access.php");
 
 set_time_limit(0);
 
-
-if (! has_rights (ACX_RATECARD)){
+if (! has_rights (ACX_CUSTOMER)){
 	   Header ("HTTP/1.0 401 Unauthorized");
 	   Header ("Location: PP_error.php?c=accessdenied");
 	   die();
@@ -50,7 +49,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 function sendtofield(form){
 
 	if (form.listemail.value.length < 5){
-		alert ('Insert emails on the Field!');
+		alert ('<?php echo gettext("Insert emails on the Field!")?>');
 		form.listemail.focus ();
 		return (false);
 	}
@@ -62,7 +61,7 @@ function sendtofield(form){
 function sendtoupload(form){
 
 	if (form.the_file.value.length < 2){
-		alert ('Please, you must first select a file !');
+		alert ('<?php echo gettext("Please, you must first select a file !")?>');
 		form.the_file.focus ();
 		return (false);
 	}

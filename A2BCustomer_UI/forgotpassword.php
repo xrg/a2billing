@@ -126,7 +126,7 @@ switch($error)
 	{
 		if(document.form.pr_email.value=="")
 		{
-			alert("You must enter an email address!");
+			alert("<?php echo gettext("You must enter an email address!")?>");
 			return false;
 		}
 		else
@@ -159,8 +159,8 @@ switch($error)
 	<input type="hidden" name="done" value="submit_log">
 
   	<?php if (isset($_GET["error"]) && $_GET["error"]==1) { ?>
-		<font face="Arial, Helvetica, Sans-serif" size="2" color="red">
-			<b>AUTHENTICATION REFUSED, please check your user/password!</b>
+		<font class="error_message">
+			<?php echo gettext("AUTHENTICATION REFUSED, please check your user/password!")?>
 		</font>
 	<?php } ?><br><br>
     <?php if($show_message== false){ ?>
@@ -168,7 +168,7 @@ switch($error)
 	<tr>
 		<td class="form_enter" align="center">
 			<img src="images/icon_arrow_orange.gif" width="15" height="15">
-			<font size="3" color="red" ><b> Forgot your password?</b></font>
+			 <?php echo gettext("Forgot your password?")?>
 		</td>
 	</tr>
 	<tr>
@@ -177,13 +177,13 @@ switch($error)
 			<tr align="center">
 				<td rowspan="3" style="padding-left: 8px; padding-right: 8px"><img src="images/security.png"></td>
 				<td></td>
-				<td align="left"><font size="2" face="Arial, Helvetica, Sans-Serif"><b>Email:</b></font></td>
+				<td align="left"><font size="2" face="Arial, Helvetica, Sans-Serif"><b><?php echo gettext("Email")?>:</b></font></td>
 				<td><input class="form_enter" type="text" name="pr_email" size="32"></td>
 			</tr>
 			<tr align="center">
 				<td></td>
 				<td></td>
-				<td><input type="submit" name="submit" value="SUBMIT" class="form_enter"></td>
+				<td><input type="submit" name="submit" value="<?php echo gettext("SUBMIT")?>" class="form_input_button"></td>
 			</tr>
 			</table>
 		</td>

@@ -20,9 +20,9 @@ $FG_TABLE_ALTERNATE_ROW_COLOR[] = "#FCFBFB";
 
 $FG_TABLE_COL=array();
 
-$FG_TABLE_COL[]=array ("DATE", "date", "50%", "center", "sort", "30", "", "", "", "", "", "display_dateformat");
-$FG_TABLE_COL[]=array ("TOTALCARDPERFORM", "totalcardperform", "20%", "center", "sort");
-$FG_TABLE_COL[]=array ("TOTALCREDIT", "totalcredit", "20%", "center", "sort");
+$FG_TABLE_COL[]=array (gettext("DATE"), "date", "50%", "center", "sort", "30", "", "", "", "", "", "display_dateformat");
+$FG_TABLE_COL[]=array (gettext("TOTALCARDPERFORM"), "totalcardperform", "20%", "center", "sort");
+$FG_TABLE_COL[]=array (gettext("TOTALCREDIT"), "totalcredit", "20%", "center", "sort");
 			
 //$FG_TABLE_COL[]=array ("RESELLER", "RESELLER", "30%", "center", "sort");
 
@@ -101,12 +101,12 @@ function openURL(theLINK)
 </script>
 	
 	  
-<center><b>SERVICE NAME :	<?php echo $list_service [0][1] ?></b>
+<center><b><?php echo gettext("SERVICE NAME")?>&nbsp; :	<?php echo $list_service [0][1] ?></b>
 <br>
-<?php echo "NUMBEROFRUN :".$list_service [0][2] ?>
-<?php echo " - DATELASTRUN :".$list_service [0][3] ?>
-<?php echo " <br> TOTALCREDIT :".$list_service [0][4] ?>
-<?php echo " - TOTALCARDPERFORM :".$list_service [0][5] ?>
+<?php echo gettext("NUMBEROFRUN")." :".$list_service [0][2] ?>
+<?php echo " - ".gettext("DATELASTRUN")." :".$list_service [0][3] ?>
+<?php echo " <br> ".gettext("TOTALCREDIT")." :".$list_service [0][4] ?>
+<?php echo " - ".gettext("TOTALCARDPERFORM")." :".$list_service [0][5] ?>
 
 </center>
 	  <table width="100%">
@@ -119,7 +119,7 @@ function openURL(theLINK)
 	  <?php
 
 				$color="red";
-				$ttitle="SERVICE REPORT";
+				$ttitle=gettext("SERVICE REPORT");
 				
 				
 	  			if ((count($list )>0) && is_array($list )){
@@ -260,7 +260,7 @@ function openURL(theLINK)
 		  <table width="100%" border="0" align="center" bgcolor="#DCDCDC">
 			<tr>
 			  <td align="center">
-				NOTHING FOUND !<br/> 
+				<?php echo gettext("NOTHING FOUND")?>&nbsp; !<br/> 
 			</td>
 			</tr>
 		  </table>

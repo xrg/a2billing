@@ -32,7 +32,7 @@ if (isset($_GET["id"]))
 }
 else
 {
-    exit("Payment module ID not found");
+    exit(gettext("Payment module ID not found"));
 }
 $QUERY = " id = ".$paymentMethodID;
 $DBHandle  = DbConnect();

@@ -224,7 +224,7 @@ $HD_Form -> AddEditElement (gettext("BALANCE"),
 			   "size=30 maxlength=30",
 			   "12",
 			   gettext("Insert the number of credit"),
-			   "" , "", "",	"", "", "",	"", "" );
+			   "" , "", "",	"", "", "",	"", gettext("currency : ").strtoupper(BASE_CURRENCY) );
 
 
 $HD_Form -> AddEditElement (gettext("LANGUAGE"),
@@ -325,14 +325,12 @@ $HD_Form -> AddEditElement (gettext("CURRENCY"),
 			   "",
 			   "SELECT",
 			   "",
-			   "",
-			   "",
-			   "list" , "", "",	"", $currency_list, "%1", "", "" );
+			   "", "", "list" , "", "",	"", $currency_list, "%1", "", gettext("Currency used at the customer end.") );
 
 
 $HD_Form -> AddEditElement (gettext("RUN SERVICE"),
 			   "runservice",
-			   '1',
+			   '0',
 			   "RADIOBUTTON",
 			   "",
 			   "",
@@ -342,7 +340,7 @@ $HD_Form -> AddEditElement (gettext("RUN SERVICE"),
 
 $HD_Form -> AddEditElement (gettext("RUN AUTOREFILL"),
 			   "autorefill",
-			   '1',
+			   '0',
 			   "RADIOBUTTON",
 			   "",
 			   "",
@@ -541,7 +539,7 @@ $HD_Form -> AddEditElement (gettext("FAX NUMBER"),
 
 $HD_Form -> AddEditElement (gettext("SIP ACCOUNT"),
 			   "sip_buddy",
-			   '1',
+			   '0',
 			   "RADIOBUTTON",
 			   "",
 			   "",
@@ -551,7 +549,7 @@ $HD_Form -> AddEditElement (gettext("SIP ACCOUNT"),
 
 $HD_Form -> AddEditElement (gettext("IAX ACCOUNT"),
 			   "iax_buddy",
-			   '1',
+			   '0',
 			   "RADIOBUTTON",
 			   "",
 			   "",

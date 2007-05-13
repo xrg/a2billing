@@ -23,7 +23,7 @@ if (($_GET[download]=="file") && $_GET[file] )
 
 	if (!file_exists($dl_full))
 	{ 
-		echo gettext("ERROR: Cannot download file ".$dl_full.", it does not exist.<br>");
+		echo gettext("ERROR: Cannot download file")." ".$dl_full.", ".gettext("it does not exist.")."<br>";
 		exit();
 	} 
 	

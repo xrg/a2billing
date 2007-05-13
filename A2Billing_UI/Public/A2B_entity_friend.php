@@ -5,7 +5,7 @@ include ("../lib/Form/Class.FormHandler.inc.php");
 include ("./form_data/FG_var_friend.inc");
 
 
-if (! has_rights (ACX_RATECARD)){ 
+if (! has_rights (ACX_CUSTOMER)){ 
 	   Header ("HTTP/1.0 401 Unauthorized");
 	   Header ("Location: PP_error.php?c=accessdenied");
 	   die();
@@ -16,7 +16,6 @@ if (! has_rights (ACX_RATECARD)){
 /***********************************************************************************/
 
 $HD_Form -> setDBHandler (DbConnect());
-
 $HD_Form -> init();
 
 /********************************* ADD SIP / IAX FRIEND ***********************************/
@@ -110,7 +109,7 @@ if ($form_action=='list'){
 	
 	if ( isset($_SESSION["is_sip_iax_change"]) && $_SESSION["is_sip_iax_change"]){ ?>
 		  <table width="<?php echo $HD_Form -> FG_HTML_TABLE_WIDTH?>" border="0" align="center" cellpadding="0" cellspacing="0" >	  
-			<TR><TD style="border-bottom: medium dotted #ED2525" align="center"> Changes detected on SIP/IAX Friends</TD></TR>
+			<TR><TD style="border-bottom: medium dotted #ED2525" align="center"> <?php echo gettext("Changes detected on SIP/IAX Friends")?></TD></TR>
 			<TR><FORM NAME="sipfriend">
 				<td height="31" bgcolor="#ED2525" style="padding-left: 5px; padding-right: 3px;" align="center">			
 				<font color=white><b>

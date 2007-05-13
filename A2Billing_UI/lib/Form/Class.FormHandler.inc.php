@@ -1437,6 +1437,10 @@ class FormHandler{
 		$FG_QUERY_ADITION_SIP_IAX='name, type, username, accountcode, regexten, callerid, amaflags, secret, md5secret, nat, dtmfmode, qualify, canreinvite,disallow, allow, host, callgroup, context, defaultip, fromuser, fromdomain, insecure, language, mailbox, permit, deny, mask, pickupgroup, port,restrictcid, rtptimeout, rtpholdtimeout, musiconhold, regseconds, ipaddr, cancallforward';
 
 		if (($sip_buddy == 1) || ($iax_buddy == 1)){
+			$_SESSION["is_sip_iax_change"]=1;
+			$_SESSION["is_sip_changed"]=1;
+			$_SESSION["is_iax_changed"]=1;
+			
 			$list_names = explode(",",$FG_QUERY_ADITION_SIP_IAX);
 			
 			$type = FRIEND_TYPE;
@@ -1449,7 +1453,7 @@ class FormHandler{
 			$dtmfmode = FRIEND_DTMFMODE;
 			
             $this->FG_QUERY_ADITION_SIP_IAX_VALUE = "'$username', '$username', '$username', '$amaflags', '$useralias', '$context', '$dtmfmode','$host', '$type', '$username', '$allow', '".$uipass."', '$id', '$nat', '$qualify'";			
-		}	
+		}
 
 		// Save info in table and in sip file
 		if ($sip_buddy == 1){

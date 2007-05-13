@@ -157,18 +157,18 @@ function openURL(theLINK)
 	  <table width="<?php echo $FG_HTML_TABLE_WIDTH?>" border="0" align="center" cellpadding="0" cellspacing="0">
 		
 		<TR> 
-          <TD style="border-bottom: medium dotted #8888CC" colspan="2"> <B><?php gettext("Call - Simulator");?></B></TD>
+          <TD style="border-bottom: medium dotted #8888CC" colspan="2"> <B><?php echo gettext("Call")." - ".gettext("Simulator");?></B></TD>
         </TR>
 		<FORM NAME="theFormFilter" action="<?php echo $PHP_SELF?>">		
 		<tr>			
             <td height="31" bgcolor="#8888CC" style="padding-left: 5px; padding-right: 3px;">
 					<br>
-					<font class="fontstyle_008"><?php echo gettext("Enter the number you wish to call :");?></font>
+					<font class="fontstyle_008"><?php echo gettext("Enter the number you wish to call");?>&nbsp;:</font>
 					<INPUT type="text" name="called" value="<?php echo $called;?>">
 					<br>
 					<?php if (false){ ?>
 					<br>
-					<font color="white"><b><?php echo gettext("YOUR BALANCE :");?></b></font>
+					<font color="white"><b><?php echo gettext("YOUR BALANCE");?>&nbsp;:</b></font>
 					<INPUT type="text" name="balance" value="<?php if (!isset($balance)) echo "10"; else echo $balance;?>">
 					<?php } ?>
 
@@ -204,7 +204,7 @@ $FG_TABLE_ALTERNATE_ROW_COLOR[1]='#EEE9E9';
 	  <table width="65%" border="0" align="center" cellpadding="0" cellspacing="0">
 		
 		<TR> 
-          <TD style="border-bottom: medium dotted #FF4444" colspan="2"> <B><font color="red" size="3"><?php echo gettext("Congrats, the simulator found a destination for this number!");?></font></B></TD>
+          <TD style="border-bottom: medium dotted #FF4444" colspan="2"> <B><font color="red" size="3"><?php echo gettext("Simulator found a rate for your destination");?></font></B></TD>
         </TR>
 
 		<?php if (count($RateEngine->ratecard_obj)>1){ ?>
@@ -221,14 +221,14 @@ $FG_TABLE_ALTERNATE_ROW_COLOR[1]='#EEE9E9';
         	</TR>
 			<TR>
           	<td height="15" bgcolor="#55CC55" style="padding-left: 5px; padding-right: 3px;" colspan="2">
-					<b><?php echo gettext("DESTINATION : #");?><?php echo $j+1;?></b>
+					<b><?php echo gettext("DESTINATION");?>&nbsp;:#<?php echo $j+1;?></b>
 			</td>
         	</TR>
 			<tr>
 				<td height="15" bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[1]?>" style="padding-left: 5px; padding-right: 3px;">
 						<font color="blue"><b><a href="did.php"><img src="images/icons/user.png" alt="a " name="image2" width="16" height="16" border="0" align="texttop" id="image2" /></a><?php echo gettext("CallTime available");?></b></font>				</td>
 				<td height="15" bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[1]?>" style="padding-left: 5px; padding-right: 3px;">
-						<font color="blue"><i><?php echo $RateEngine->ratecard_obj[$j]['timeout']/60;?> <?php echo gettext("minutes");?> </i></font>
+						<font color="blue"><i><?php echo display_minute($RateEngine->ratecard_obj[$j]['timeout']);?> <?php echo gettext("Minutes");?> </i></font>
 				</td>
 			
 			</tr>

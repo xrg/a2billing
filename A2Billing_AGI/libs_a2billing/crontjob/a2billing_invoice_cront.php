@@ -143,7 +143,7 @@ for ($page = 0; $page <= $nbpagemax; $page++)
 			//$Query_Destinations = "SELECT destination, sum(t1.sessiontime) AS calltime, sum(t1.sessionbill) AS cost, count(*) AS nbcall FROM cc_call t1 WHERE (t1.sipiax<>2 AND t1.sipiax<>3) AND ".$FG_TABLE_CLAUSE." GROUP BY destination";		
 			$Query_Destinations = "SELECT destination, sum(t1.sessiontime) AS calltime, sum(t1.sessionbill) AS cost, count(*) AS nbcall FROM cc_call t1 WHERE ".
 								  $FG_TABLE_CLAUSE." GROUP BY destination";		
-								  
+			
 			$list_total_destination = NULL;
 			$list_total_destination = $instance_table -> SQLExec ($A2B -> DBHandle, $Query_Destinations);
 			if (is_array($list_total_destination)){
@@ -190,7 +190,7 @@ for ($page = 0; $page <= $nbpagemax; $page++)
 			}
 			//echo "\n<br> Total Cost Before DID = ".$totalcost;
 			//For DID Calls
-			/*if (is_array($list_total_did) && count($list_total_did)>0){
+			/* if (is_array($list_total_did) && count($list_total_did)>0){
 				$mmax = 0;
 				$totalcall = 0;
 				$totalminutes = 0;
@@ -226,15 +226,17 @@ for ($page = 0; $page <= $nbpagemax; $page++)
 				}	
 			}*/
 			
-			if($verbose_level >= 1)
-			{	
-				echo "\n<br>Total Cost for '$Customer[0]': ".$totalcost;
-			}
-			
 			// Here we have to Create a Insert Statement to insert Records into the Invoices Table.
 			$Query_Invoices = "INSERT INTO cc_invoices (cardid, orderref, invoicecreated_date, cover_startdate, cover_enddate, amount, tax, total, invoicetype,".
-				"filename) VALUES ('$Customer[0]', NULL, NOW(), '$cover_startdate', NOW(), $totalcost, $totaltax, $totalcost + $totaltax, NULL, NULL)";		
+				"filename) VALUES ('$Customer[0]', NULL, NOW(), '$cover_startdate', NOW(), $totalcost, $totaltax, $totalcost + $totaltax, NULL, NULL)";
 			$instance_table -> SQLExec ($A2B -> DBHandle, $Query_Invoices);			
+			
+			
+			if($verbose_level >= 1)
+			{	
+				echo "\nTotal Cost for '$Customer[0]': ".$totalcost;
+				echo "\n Query_Invoices=$Query_Invoices \n";
+			}
 			
 			exit;
 	 	}// END foreach($resmax as $Customer)

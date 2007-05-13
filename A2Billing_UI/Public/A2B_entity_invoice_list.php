@@ -37,7 +37,7 @@ $list = $HD_Form -> perform_action($form_action);
 $smarty->display('main.tpl');
 
 // #### HELP SECTION
-echo '<br><br>'.$CC_help_money_situation;
+echo $CC_help_money_situation;
 
 
 
@@ -84,17 +84,13 @@ function Check()
 <table width="60%" bordercolor="#CCCCCC" cellpadding="2" cellspacing="0" align="center" style="border:1px solid orange;">
 <tr>
 	<td colspan="3" bgcolor="#FFFFCC">
-		&nbsp;<font color="#3399CC" style="font-weight:bold; font-size:12px; font-family:Verdana, Arial, Helvetica, sans-serif">Search</font>
+		&nbsp;<font color="#3399CC" style="font-weight:bold; font-size:12px; font-family:Verdana, Arial, Helvetica, sans-serif"><?php echo gettext("Search")?></font>
 	</td>	
 </tr>
-<tr>
-	<td colspan="3" >&nbsp;
-		
-	</td>	
-</tr>
+
 <tr>
 <td width="21%" align="right"><input type="radio" name="filterradio" value="date" class="form_input_text" title="Month and Year wise search" <?php if ($filterradio == "date" || $filterradio == "") echo 'checked'; ?>>  </td>
-<td width="26%" align="right">Invoice: </td>
+<td width="26%" align="right"><?php echo gettext("Invoice")?>: </td>
 <td width="53%"> <select name="monthselect" class="form_input_select"> 
 <option value="1" <?php if ($monthselect == "1") echo 'selected'; ?>><?php echo gettext("January") ?></option>
 <option value="2" <?php if ($monthselect == "2") echo 'selected'; ?>><?php echo gettext("Feburay") ?></option>
@@ -123,7 +119,7 @@ function Check()
 </tr>
 <tr>
 <td align="right"> <input type="radio" name="filterradio" value="total" class="form_input_text" title="Payment Amount wise search" <?php if ($filterradio == "total") echo 'checked'; ?>></td>
-<td align="right"> Invoice Amount:</td>
+<td align="right"> <?php echo gettext("Invoice Amount")?>:</td>
 <td><select name="totaloperator" class="form_input_select">
 <option value="equal" <?php if ($totaloperator == "equal") echo 'selected';?>>&nbsp; = &nbsp;</option>
 <option value="greater" <?php if ($totaloperator == "greater") echo 'selected';?>>&nbsp; > &nbsp;</option>
@@ -135,26 +131,14 @@ function Check()
 </td>
 </tr>
 <tr>
-	<td colspan="3" >&nbsp;
-		
-	</td>	
-</tr>
-<tr>
 	<td  >&nbsp;
 		
 	</td>	
 	<td>&nbsp;</td>
-	<td><input type="submit" name="submit" class="form_input_button" value="&nbsp;Search&nbsp;" onClick="javascript: return Check()">
-	&nbsp;<input type="reset" name="reset" class="form_input_button" value="&nbsp;Reset&nbsp;"></td>
-</tr>
-<tr>
-	<td colspan="3" >&nbsp;
-		
-	</td>	
+	<td align="right"><input type="submit" name="submit" class="form_input_button" value="&nbsp;Search&nbsp;" onClick="javascript: return Check()">
 </tr>
 </table>
 </form>
-<br>
 <?php
 
 $HD_Form -> create_form ($form_action, $list, $id=null) ;
