@@ -15,8 +15,8 @@ $HD_Form -> AddViewElement(gettext("LASTNAME"), "lastname", "10%", "center", "so
 $HD_Form -> AddViewElement(gettext("CREDIT"), "credit", "7%", "center", "sort", "15");
 
 if($invoicetype == "billed"){
-	$HD_Form -> AddViewElement(gettext("REFILL"), "refill", "10%", "center", "sort", "15", "lie", "cc_logrefill as t3", "SUM(t3.credit),t3.card_id", "t3.card_id='%id' GROUP BY t3.card_id", "%1");
-	$HD_Form -> AddViewElement(gettext("PAYMENT"), "payment", "7%", "center", "sort", "15", "lie", "cc_logpayment as t2", "SUM(t2.payment),t2.card_id", "t2.card_id='%id' GROUP BY t2.card_id", "%1");
+	$HD_Form -> AddViewElement(gettext("REFILL"), "refill", "10%", "center", "sort", "15", "lie", "cc_logrefill as t3", "CASE WHEN SUM(t3.credit) is NULL THEN 0 ELSE SUM(t3.credit) END", "t3.card_id='%id'", "%1");
+	$HD_Form -> AddViewElement(gettext("PAYMENT"), "payment", "7%", "center", "sort", "15", "lie", "cc_logpayment as t2", "CASE WHEN SUM(t2.payment) is NULL THEN 0 ELSE SUM(t2.payment) END", "t2.card_id='%id'", "%1");
 	$HD_Form -> AddViewElement(gettext("TO PAY"), "to pay", "7%", "center", "sort", "", "eval",'(%5-%4)'); //abs
 } else {
 	$HD_Form -> AddViewElement(gettext("REFILL"), "refill", "10%", "center", "sort", "15", "lie", "cc_logrefill as t3", "CASE WHEN SUM(t3.credit) is NULL THEN 0 ELSE SUM(t3.credit) END", "t3.card_id='%id' AND t3.date >= (Select max(cover_enddate) from cc_invoices where cardid='%id')", "%1");

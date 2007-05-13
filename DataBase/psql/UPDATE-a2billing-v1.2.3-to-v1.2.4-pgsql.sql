@@ -892,3 +892,4 @@ ALTER TABLE cc_card ADD COLUMN id_subscription_fee INTEGER DEFAULT 0, ADD COLUMN
 
 UPDATE cc_ui_authen SET perms = '16383' WHERE userid = '1';
 UPDATE cc_ui_authen SET perms = '16383' WHERE userid = '2';
+ALTER TABLE cc_invoices ADD COLUMN payment_date TIMESTAMP WITHOUT TIME ZONE;

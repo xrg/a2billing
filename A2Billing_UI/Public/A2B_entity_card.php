@@ -55,7 +55,6 @@ if ($batchupdate == 1 && is_array($check)){
 				}				
 			}
 		}
-		
 		$loop_pass++;
 	}
 	

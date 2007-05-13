@@ -177,27 +177,6 @@
 		$DBHandle ->disconnect();
 	}
 
-	function get_currencies()
-	{
-		$handle = DbConnect();
-		$instance_table = new Table();
-
-		$QUERY =  "SELECT id,currency,name,value from cc_currencies order by id";
-		$result = $instance_table -> SQLExec ($handle, $QUERY);
-
-		/*
-			$currencies_list['ADF'][1]="Andorran Franc";
-			$currencies_list['ADF'][2]="0.1339";
-			[ADF] => Array ( [1] => Andorran Franc (ADF), [2] => 0.1339 )
-		*/
-		if (is_array($result)){
-			$num_cur = count($result);
-				for ($i=0;$i<$num_cur;$i++)
-					$currencies_list[$result[$i][1]] = array (1 => $result[$i][2], 2 => $result[$i][3]);
-		}
-
-		return $currencies_list;
-	}
 	// EPayment Module Settings
 	define ("HTTP_SERVER", isset($A2B->config["epayment_method"]['http_server'])?$A2B->config["epayment_method"]['http_server']:null);
 	define ("HTTPS_SERVER", isset($A2B->config["epayment_method"]['https_server'])?$A2B->config["epayment_method"]['https_server']:null);

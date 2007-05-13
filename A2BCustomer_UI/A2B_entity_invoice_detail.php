@@ -154,28 +154,13 @@ if (DB_TYPE == "postgres"){
 		$UNIX_TIMESTAMP = "UNIX_TIMESTAMP";
 }
 
-
 $lastdayofmonth = date("t", strtotime($tostatsmonth.'-01'));
 
-if ($Period=="Month"){
-		
-		
-		if ($frommonth && isset($fromstatsmonth)) $date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) >= $UNIX_TIMESTAMP('$fromstatsmonth-01')";
-		if ($tomonth && isset($tostatsmonth)) $date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) <= $UNIX_TIMESTAMP('".$tostatsmonth."-$lastdayofmonth 23:59:59')"; 
-		
-}else{
-		if ($fromday && isset($fromstatsday_sday) && isset($fromstatsmonth_sday) && isset($fromstatsmonth_shour) && isset($fromstatsmonth_smin) ) $date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) >= $UNIX_TIMESTAMP('$fromstatsmonth_sday-$fromstatsday_sday $fromstatsmonth_shour:$fromstatsmonth_smin')";
-		if ($today && isset($tostatsday_sday) && isset($tostatsmonth_sday) && isset($tostatsmonth_shour) && isset($tostatsmonth_smin)) $date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) <= $UNIX_TIMESTAMP('$tostatsmonth_sday-".sprintf("%02d",intval($tostatsday_sday))." $tostatsmonth_shour:$tostatsmonth_smin')";
-}
-
-  
 if (strpos($SQLcmd, 'WHERE') > 0) { 
 	$FG_TABLE_CLAUSE = substr($SQLcmd,6).$date_clause; 
 }elseif (strpos($date_clause, 'AND') > 0){
 	$FG_TABLE_CLAUSE = substr($date_clause,5); 
 }
-
-
 
 if (isset($customer)  &&  ($customer>0)){
 	if (strlen($FG_TABLE_CLAUSE)>0) $FG_TABLE_CLAUSE.=" AND ";
@@ -192,13 +177,13 @@ if (strlen($FG_TABLE_CLAUSE)>0)
 }
 if ($invoice_type == 1)
 {
-	$FG_TABLE_CLAUSE.="t1.starttime >(Select CASE  WHEN max(cover_enddate) IS NULL THEN '0001-01-01 01:00:00' ELSE max(cover_enddate) END from cc_invoices)";
+	$FG_TABLE_CLAUSE.="t1.starttime >(Select CASE  WHEN max(cover_enddate) IS NULL THEN '0001-01-01 01:00:00' ELSE max(cover_enddate) END from cc_invoices WHERE cardid = ".$_SESSION["card_id"].")";
 }
 else
 {
 	if($choose_billperiod == "")
 	{
-		$FG_TABLE_CLAUSE.="t1.starttime >(Select max(cover_startdate)  from cc_invoices) AND t1.stoptime <(Select max(cover_enddate) from cc_invoices) ";
+		$FG_TABLE_CLAUSE.="t1.starttime >(Select max(cover_startdate)  from cc_invoices  WHERE cardid = ".$_SESSION["card_id"].")"." AND t1.stoptime <(Select max(cover_enddate) from cc_invoices  WHERE cardid = ".$_SESSION["card_id"].")";
 	}
 	else
 	{
@@ -206,18 +191,10 @@ else
 	}
 }
 
-
-if (!$nodisplay){
-	$list = $instance_table -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, $order, $sens, null, null, $FG_LIMITE_DISPLAY, $current_page*$FG_LIMITE_DISPLAY);
-}
 $_SESSION["pr_sql_export"]="SELECT $FG_COL_QUERY FROM $FG_TABLE_NAME WHERE $FG_TABLE_CLAUSE";
 
-/************************/
-//$QUERY = "SELECT substring(calldate,1,10) AS day, sum(duration) AS calltime, count(*) as nbcall FROM cdr WHERE ".$FG_TABLE_CLAUSE." GROUP BY substring(calldate,1,10)"; //extract(DAY from calldate)
-
-
 $QUERY = "SELECT substring(t1.starttime,1,10) AS day, sum(t1.sessiontime) AS calltime, sum(t1.sessionbill) AS cost, count(*) as nbcall FROM $FG_TABLE_NAME WHERE ".$FG_TABLE_CLAUSE."  GROUP BY substring(t1.starttime,1,10) ORDER BY day"; //extract(DAY from calldate)
-//echo "$QUERY";
+//echo "$QUERY"; exit;
 
 if (!$nodisplay)
 {		
@@ -358,6 +335,7 @@ if($invoice_type == 2)
 	}
 }
 
+
 ?>
 
 <?php
@@ -440,7 +418,11 @@ if (is_array($list_total_destination) && count($list_total_destination)>0)
 	  
       <tr>
         <td valign="top"><table width="100%" align="left" cellpadding="0" cellspacing="0">
-   				<tr>
+   				<?php 
+				if (is_array($list_total_destination) && count($list_total_destination)>0)
+				{
+				?>
+				<tr>
 				<td colspan="5" align="center"><font></font> <b><?php echo gettext("Calls by Destination")?></b></font> </td>
 				</tr>
 
@@ -453,8 +435,7 @@ if (is_array($list_total_destination) && count($list_total_destination)>0)
             </tr>
 			<?php  		
 				$i=0;
-				if (is_array($list_total_destination) && count($list_total_destination)>0)
-				{
+				
 				foreach ($list_total_destination as $data){	
 				$i=($i+1)%2;		
 				$tmc = $data[1]/$data[3];
@@ -504,9 +485,7 @@ if (is_array($list_total_destination) && count($list_total_destination)>0)
 			  <td width="11%" class="invoice_td"><?php echo $totalcall?> </td>
               <td width="21%" align="right" class="invoice_td"><?php  display_2bill($totalcost -$totalcost_did) ?> </td>
             </tr> 
-			<?php }else{?>
-				<td width="100%"  colspan="5" class="invoice_td"><?php echo gettext("None!!!");?> </td>
-			<?php }?>
+			
             <tr >
               <td width="29%">&nbsp;</td>
               <td width="19%">&nbsp;</td>
@@ -515,6 +494,7 @@ if (is_array($list_total_destination) && count($list_total_destination)>0)
 			  <td width="21%">&nbsp; </td>
 			  
             </tr>			
+			<?php }?>				
 			<!-- Start Here ****************************************-->
 			<?php 
 				
@@ -523,6 +503,8 @@ if (is_array($list_total_destination) && count($list_total_destination)>0)
 				$totalcall=0;
 				$totalminutes=0;
 				$totalcost_day=0;
+				if (is_array($list_total_day) && count($list_total_day) > 0)
+				{
 				foreach ($list_total_day as $data){	
 					if ($mmax < $data[1]) $mmax=$data[1];
 					$totalcall+=$data[3];
@@ -542,8 +524,7 @@ if (is_array($list_total_destination) && count($list_total_destination)>0)
             </tr>
 			<?php  		
 				$i=0;
-				if (is_array($list_total_day) && count($list_total_day) > 0)
-				{
+				
 				foreach ($list_total_day as $data){	
 				$i=($i+1)%2;		
 				$tmc = $data[1]/$data[3];
@@ -593,14 +574,7 @@ if (is_array($list_total_destination) && count($list_total_destination)>0)
               <td width="39%" class="invoice_td"colspan="2"><?php echo $totalminutes?></td>			  
 			  <td width="11%" class="invoice_td"><?php echo $totalcall?> </td>
               <td width="21%" align="right" class="invoice_td"><?php  display_2bill($totalcost_day) ?> </td>
-            </tr>   
-			   <?php
-			 	}else{
-				?>
-				    <td width="100%" class="invoice_td"><?php echo gettext("None!!!");?> </td>
-				<?php
-			 	}
-				?>  
+            </tr> 				   
             <tr >
               <td width="29%">&nbsp;</td>
               <td width="19%">&nbsp;</td>
@@ -608,7 +582,9 @@ if (is_array($list_total_destination) && count($list_total_destination)>0)
 			  <td width="11%">&nbsp; </td>
 			  <td width="21%">&nbsp; </td>			  
             </tr>		
-			
+			<?php
+			 	}
+				?>
 			<!-- END HERE ******************************************-->
         </table>		
 		</td>

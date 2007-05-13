@@ -1,5 +1,4 @@
 <?php
-
 include ("./lib/defines.php");
 include ("./lib/module.access.php");
 include ("./lib/Form/Class.FormHandler.inc.php");
@@ -15,9 +14,9 @@ include ("./lib/smarty.php");
 //include ("./form_data/FG_var_callerid.inc");
 
 if (! has_rights (ACX_ACCESS)){
-	   //Header ("HTTP/1.0 401 Unauthorized");
-	   //Header ("Location: PP_error.php?c=accessdenied");
-	   //die();
+	Header ("HTTP/1.0 401 Unauthorized");
+	Header ("Location: PP_error.php?c=accessdenied");
+	die();
 }
 getpost_ifset(array('amount'));
 $HD_Form = new FormHandler("cc_payment_methods","payment_method");
@@ -35,7 +34,6 @@ $HD_Form -> create_toppage ($form_action);
 
 $payment_modules = new payment($payment);
 $order = new order($amount);
-
 
 if (is_array($payment_modules->modules)) {
     $payment_modules->pre_confirmation_check();

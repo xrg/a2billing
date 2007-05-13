@@ -200,7 +200,7 @@ if (strlen($FG_TABLE_CLAUSE)>0)
 }
 if ($invoice_type == 1)
 {
-	$FG_TABLE_CLAUSE.="t1.starttime >(Select CASE  WHEN max(cover_enddate) IS NULL THEN '0001-01-01 01:00:00' ELSE max(cover_enddate) END from cc_invoices)";
+	$FG_TABLE_CLAUSE.="t1.starttime >(Select CASE  WHEN max(cover_enddate) IS NULL THEN '0001-01-01 01:00:00' ELSE max(cover_enddate) END from cc_invoices) AND t1.cardid = $cardid";
 }
 else
 {
@@ -377,7 +377,7 @@ if (is_array($list_total_destination) && count($list_total_destination)>0){
       <tr>
         <td valign="top"><table width="100%" align="left" cellpadding="0" cellspacing="0">
    				<tr>
-				<td colspan="5" align="center"><font></font> <b><?php echo gettext("Calls by Destination");?></b></font> </td>
+				<td colspan="5" align="center"> <b><?php echo gettext("Calls by Destination");?></b></font> </td>
 				</tr>
 
 			<tr class="invoice_subheading">

@@ -5,7 +5,6 @@ getpost_ifset(array('id', 'tariffgroupname', 'lcrtype', 'removeinterprefix', 'id
 $HD_Form = new FormHandler("cc_tariffgroup","Call Plan");
 
 $HD_Form -> FG_DEBUG = 0;
-// FAQ
 $HD_Form -> FG_TABLE_DEFAULT_ORDER = " tariffgroupname";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
 
@@ -35,7 +34,7 @@ $inter_prefix_list_short["0"] = array( gettext("Keep prefix"), "0");
 $inter_prefix_list_short["1"] = array( gettext("Remove prefix"), "1");
 
 $HD_Form -> AddViewElement(gettext("ID"), "id", "5%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("CALLPLANNAME"), "tariffgroupname", "20%", "center", "sort");
+$HD_Form -> AddViewElement(gettext("NAME"), "tariffgroupname", "20%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("CREATIONDATE"), "creationdate", "20%", "center", "sort", "19", "", "", "", "", "", "display_dateformat");
 $HD_Form -> AddViewElement(gettext("LC TYPE"), "lcrtype", "15%", "center", "sort", "", "list", $lcrtype_list_short);
 $HD_Form -> AddViewElement(gettext("PACKAGE"), "id_cc_package_offer", "11%", "center", "sort", "15", "lie", "cc_package_offer", "label", "id='%id'", "%1");
@@ -53,6 +52,7 @@ $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;
 
 $HD_Form -> FG_EDITION = true;
 $HD_Form -> FG_DELETION = true;
+
 
 
 $HD_Form -> AddEditElement (gettext("NAME"),

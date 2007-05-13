@@ -20,6 +20,7 @@
 	day of month	 1-31
 	month	 1-12 (or names, see below)
 	day of week	 0-7 (0 or 7 is Sun, or use names)
+	
 ****************************************************************************/
 
 set_time_limit(0);
@@ -33,7 +34,7 @@ include (dirname(__FILE__)."/../Misc.php");
 
 
 //Flag to show the debuging information
-$verbose_level=1;
+$verbose_level=0;
 
 $groupcard = 5000;
 
@@ -221,49 +222,5 @@ for ($page = 0; $page <= $nbpagemax; $page++)
 
 
 
-/***************************************************************************
- *            Function to handle the currencies
- ***************************************************************************/
-
-	
-function get_currencies($DBHandle)
-{
-	$instance_table = new Table();
-	$QUERY =  "SELECT id,currency,name,value FROM cc_currencies ORDER BY id";
-	$result = $instance_table -> SQLExec ($DBHandle, $QUERY);
-	/*
-		$currencies_list['ADF'][1]="Andorran Franc";
-		$currencies_list['ADF'][2]="0.1339";
-		[ADF] => Array ( [1] => Andorran Franc (ADF), [2] => 0.1339 )
-	*/
-
-	if (is_array($result)){
-		$num_cur = count($result);
-		for ($i=0;$i<$num_cur;$i++)
-			$currencies_list[$result[$i][1]] = array (1 => $result[$i][2], 2 => $result[$i][3]);
-	}	
-	
-	return $currencies_list;
-}
-
-function convert_currency ($currencies_list, $amount, $from_cur, $to_cur){
-	
-	if (!is_numeric($amount) || ($amount == 0)){
-		return 0;
-	}
-	if ($from_cur == $to_cur){
-		return $amount;
-	}
-	// EUR -> 1.19175 : MAD -> 0.10897		
-	// FROM -> 2 - TO -> 0.5 =>>>> multiply 4
-	
-	$mycur_tobase = $currencies_list[strtoupper($from_cur)][2];		
-	$mycur = $currencies_list[strtoupper($to_cur)][2];
-	if ($mycur == 0) return 0;
-	$amount = $amount * ($mycur_tobase / $mycur);		
-	// echo "\n \n AMOUNT CONVERTED IN NEW CURRENCY $to_cur -> VALUE =".$amount;
-	
-	return $amount;
-}
 
 ?>

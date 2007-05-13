@@ -207,7 +207,7 @@ if (strlen($FG_TABLE_CLAUSE)>0)
 
 if ($invoice_type == 1)
 {
-	$FG_TABLE_CLAUSE.="t1.starttime >(Select CASE  WHEN max(cover_enddate) IS NULL THEN '0001-01-01 01:00:00' ELSE max(cover_enddate) END from cc_invoices)";
+	$FG_TABLE_CLAUSE.="t1.starttime >(Select CASE  WHEN max(cover_enddate) IS NULL THEN '0001-01-01 01:00:00' ELSE max(cover_enddate) END from cc_invoices) AND t1.cardid = $cardid";
 }
 else
 {
@@ -226,6 +226,13 @@ if (!$nodisplay){
 	$list_total_day = $instance_table->SQLExec ($DBHandle, $QUERY);		
 	$nb_record = $instance_table -> Table_count ($DBHandle, $FG_TABLE_CLAUSE);	
 }//end IF nodisplay
+
+$QUERY = "Select cover_startdate,cover_enddate  from cc_invoices where id ='$id'";
+if (!$nodisplay){
+	$invoice_dates = $instance_table->SQLExec ($DBHandle, $QUERY);			
+}//end IF nodisplay
+
+
 // GROUP BY DESTINATION FOR THE INVOICE
 $QUERY = "SELECT destination, sum(t1.sessiontime) AS calltime, 
 sum(t1.sessionbill) AS cost, count(*) as nbcall FROM $FG_TABLE_NAME WHERE ".$FG_TABLE_CLAUSE."  GROUP BY destination";
@@ -380,8 +387,12 @@ if (is_array($list_total_destination) && count($list_total_destination)>0){
 	  <td  ><font color="#003399"><?php echo $info_customer[0][1] ?></font> </td>
 	</tr>           
 	<tr>
-	  <td width="35%" ><font color="#003399"><?php echo gettext("As of Date")?>&nbsp; :</font></td>
-	  <td  ><font color="#003399"><?php echo date('m-d-Y');?> </font></td>
+	  <td width="35%" ><font color="#003399"><?php echo gettext("From Date")?>&nbsp; :</font></td>
+	  <td  ><font color="#003399"><?php echo display_dateonly($invoice_dates[0][0]);?> </font></td>
+	</tr>
+	<tr>
+	  <td width="35%" ><font color="#003399"><?php echo gettext("To Date")?>&nbsp; :</font></td>
+	  <td  ><font color="#003399"><?php echo display_dateonly($invoice_dates[0][1]);?> </font></td>
 	</tr>
 	</table>
 	  
@@ -826,47 +837,7 @@ if (is_array($list_total_destination) && count($list_total_destination)>0){
 	
 	//================================================================================================
 $ok = send_email_attachment($from, $info_customer[0][10], $subject, $messagetext,'UnBilledDetails_'.date("d/m/Y-H:i").'.pdf', $stream );
-/*
-$email_from = "admin@a2billing.org"; 
-$email_subject = "A2Billing Invoice";
-$email_message = "Dear Customer<br><br> \n".
-				"Attached is the Invoice.<br><br>\n\n".
-				" Sincerely <br>\n\n".
-				"Administrator A2Billing"; 
-$email_to = $info_customer[0][10];
-$headers = "From: ".$email_from;
 
-$semi_rand = md5(time()); 
-$mime_boundary = "==Multipart_Boundary_x{$semi_rand}x"; 
-   
-$headers .= "\nMIME-Version: 1.0\n" . 
-            "Content-Type: multipart/mixed;\n" . 
-            " boundary=\"{$mime_boundary}\""; 
-
-$email_message .= "This is a multi-part message in MIME format.\n\n" . 
-                "--{$mime_boundary}\n" . 
-                "Content-Type:text/html; charset=\"iso-8859-1\"\n" . 
-                "Content-Transfer-Encoding: 7bit\n\n" . 
-$email_message . "\n\n"; 
-
-$fileatt = "";           
-$fileatt_type = "application/octet-stream"; 
-$fileatt_name = 'UnBilledDetails_'.date("d/m/Y-H:i").'.pdf';  
-$data = $stream;
-$data = chunk_split(base64_encode($data)); 
-$email_message .= "--{$mime_boundary}\n" . 
-                  "Content-Type: {$fileatt_type};\n" . 
-                  " name=\"{$fileatt_name}\"\n" .                 
-                  "Content-Transfer-Encoding: base64\n\n" . 
-                 $data . "\n\n" . 
-                  "--{$mime_boundary}\n"; 
-unset($data);
-unset($file);
-unset($fileatt);
-unset($fileatt_type);
-unset($fileatt_name);
-$ok = @mail($email_to, $email_subject, $email_message, $headers);
-*/
 
 $smarty->display('main.tpl');
 if($ok) 

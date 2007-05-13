@@ -5,10 +5,9 @@ include ("./lib/Form/Class.FormHandler.inc.php");
 include ("./form_data/FG_var_did.inc");
 
 if (! has_rights (ACX_ACCESS)){
-	   Header ("HTTP/1.0 401 Unauthorized");
-	   Header ("Location: PP_error.php?c=accessdenied");
-	   die();
-
+	Header ("HTTP/1.0 401 Unauthorized");
+	Header ("Location: PP_error.php?c=accessdenied");
+	die();
 }
 
 if (!$A2B->config["webcustomerui"]['did'])
@@ -37,7 +36,7 @@ $did_rate=explode("CUR",$choose_did_rate);
 $choose_did=$did_rate[0];
 $rate=$did_rate[1];
 
-$QUERY = "SELECT  credit FROM cc_card WHERE username = '".$_SESSION["pr_login"]."' AND uipass = '".$_SESSION["pr_password"]."'";
+$QUERY = "SELECT credit FROM cc_card WHERE username = '".$_SESSION["pr_login"]."' AND uipass = '".$_SESSION["pr_password"]."'";
 $DBHandle_max  = DbConnect();
 $resmax = $DBHandle_max -> Execute($QUERY);
 if ($resmax)
@@ -52,19 +51,19 @@ if ((isset($confirm_buy_did)) && ($confirm_buy_did == 1))
 {
 	$message = "\n\n".gettext("The following Destinaton-DID has been relesed:")."\n\n";
 	$instance_table = new Table();
-	$QUERY = "UPDATE cc_did set iduser = 0 ,reserved=0 where id=$choose_did" ;
+	$QUERY = "UPDATE cc_did SET iduser = 0, reserved=0 WHERE id=$choose_did" ;
 	$result = $instance_table -> SQLExec ($HD_Form -> DBHandle, $QUERY, 0);
 	$message .= "QUERY on cc_did : $QUERY \n\n";
 
-	$QUERY = "UPDATE cc_did_use set releasedate = now() where id_did =$choose_did and activated = 1" ;
+	$QUERY = "UPDATE cc_did_use SET releasedate = now() WHERE id_did =$choose_did and activated = 1" ;
 	$result = $instance_table -> SQLExec ($HD_Form -> DBHandle, $QUERY, 0);
 	$message .= "QUERY on cc_did_use : $QUERY \n\n";
 
-	$QUERY = "insert into cc_did_use (activated, id_did) values ('0','".$choose_did."')";
+	$QUERY = "INSERT INTO cc_did_use (activated, id_did) VALUES ('0','".$choose_did."')";
 	$result = $instance_table -> SQLExec ($HD_Form -> DBHandle, $QUERY, 0);
 	$message .= "INSERT new free entrie in cc_did use : $QUERY \n\n";
 
-	$QUERY = "delete FROM cc_did_destination where id_cc_did =".$choose_did;
+	$QUERY = "DELETE FROM cc_did_destination WHERE id_cc_did =".$choose_did;
 	$result = $instance_table -> SQLExec ($HD_Form -> DBHandle, $QUERY, 0);
 	$message .= "DELETE all DID destination: $QUERY \n\n";
 
@@ -141,7 +140,7 @@ if (is_numeric($voip_call) && ($confirm_buy_did >= 2)){
 			$QUERY1 = "UPDATE cc_did_use set releasedate = now(), month_payed=month_payed+1 where id_did = '".$choose_did."' and activated = 0" ;
 			$result = $instance_table_did_use -> SQLExec ($HD_Form -> DBHandle, $QUERY1, 0);
 	
-			$QUERY1 = "insert into cc_did_use (activated, id_cc_card, id_did) values ('1','".$_SESSION["card_id"]."','".$choose_did."')";
+			$QUERY1 = "INSERT INTO cc_did_use (activated, id_cc_card, id_did, month_payed) values ('1','".$_SESSION["card_id"]."','".$choose_did."', 1)";
 			$result = $instance_table_did_use -> SQLExec ($HD_Form -> DBHandle, $QUERY1, 0);
 		}
 		$date = date("D M j G:i:s T Y", time());
@@ -270,7 +269,8 @@ if (isset($choose_country)){
 }elseif ($assign==2){
 		// LIST USED DID TO ADD PHONENUMBER
 		$instance_table_did = new Table("cc_did LEFT JOIN cc_did_use ON id_did=cc_did.id", "cc_did.id, did, fixrate");
-		$FG_TABLE_CLAUSE = "id_cc_didgroup='".$_SESSION["id_didgroup"]."' and id_cc_card='".$_SESSION["card_id"]."' and cc_did_use.activated=1 and releasedate IS NULL GROUP BY cc_did.id, did, fixrate ";
+		$FG_TABLE_CLAUSE = "id_cc_didgroup='".$_SESSION["id_didgroup"]."' and id_cc_card='".$_SESSION["card_id"]."' and cc_did_use.activated=1 AND ( releasedate IS NULL OR releasedate = '0000-00-00 00:00:00')  GROUP BY cc_did.id, did, fixrate ";
+		//$instance_table_did -> debug_st = 1;
 		$list_did = $instance_table_did -> Get_list ($HD_Form -> DBHandle, $FG_TABLE_CLAUSE, "did", "ASC", null, null, null, null);
 		$nb_did = count($list_did);
 }

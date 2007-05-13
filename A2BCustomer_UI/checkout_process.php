@@ -1,10 +1,13 @@
 <?php
+include ("./lib/defines.php");
+
+
 $sess_id = $_REQUEST["sess_id"];
 
 if ($sess_id =="")
 {
 	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__." ERROR NO SESSION ID PROVIDED IN RETURN URL TO PAYMENT MODULE");
-    exit(gettext("No session id provided in return URL to Payment Moudle"));
+    exit(gettext("No session id provided in return URL to Payment Module"));
 }
 else
 {
@@ -22,7 +25,6 @@ if($_SESSION["p_module"] == "")
 }
 
 
-include ("./lib/defines.php");
 include ("./lib/module.access.php");
 include ("./lib/Form/Class.FormHandler.inc.php");
 include ("./lib/epayment/classes/payment.php");
@@ -30,9 +32,9 @@ include ("./lib/epayment/classes/order.php");
 include ("./lib/epayment/classes/currencies.php");
 include ("./lib/epayment/includes/general.php");
 include ("./lib/epayment/includes/html_output.php");
-include ("./lib/epayment/includes/configure.php")
+include ("./lib/epayment/includes/configure.php");
 include ("./lib/epayment/includes/loadconfiguration.php");
-include("PP_header.php");
+//include("PP_header.php");
 
 
 $payment_modules = new payment($_SESSION["p_module"]);

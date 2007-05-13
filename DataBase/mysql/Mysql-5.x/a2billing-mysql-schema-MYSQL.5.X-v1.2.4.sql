@@ -2,13 +2,8 @@
 -- A2Billing database script - Create user & create database for MYSQL 5.X
 --
 
-
-/* 
-Usage:
-
-mysql -u root -p"root password" < a2billing-mysql-schema-MYSQL.5.X-v1.2.0.sql 
-
-*/
+-- Usage:
+-- mysql -u root -p"root password" < a2billing-mysql-schema-MYSQL.5.X-v1.2.0.sql 
 
 
 --
@@ -1589,6 +1584,7 @@ CREATE TABLE cc_invoices (
 	total 									DECIMAL(15,5) DEFAULT 0,
 	invoicetype 							INT ,
 	filename 								VARCHAR(250),
+	payment_date		 					TIMESTAMP,
     PRIMARY KEY (id)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 CREATE INDEX ind_cc_invoices ON cc_invoices (cover_startdate);
@@ -1734,14 +1730,15 @@ CREATE TABLE cc_payments (
   currency 						CHAR(3),
   currency_value 				DECIMAL(14,6),
   PRIMARY KEY (id)
-);
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
+
 -- Payment Status Lookup Table
 CREATE TABLE cc_payments_status (
   id 							INT NOT NULL AUTO_INCREMENT,
   status_id 					INT NOT NULL,
   status_name 					VARCHAR(200) NOT NULL,
   PRIMARY KEY (id)
-);
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
 INSERT INTO cc_payments_status (status_id,status_name) VALUES (-2, 'Failed');
 INSERT INTO cc_payments_status (status_id,status_name) VALUES (-1, 'Denied');
@@ -1763,7 +1760,7 @@ CREATE TABLE cc_configuration (
   use_function 						VARCHAR(255) NULL,
   set_function 						VARCHAR(255) NULL,
   PRIMARY KEY (configuration_id)
-);
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
 INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description) VALUES ('Login Username', 'MODULE_PAYMENT_AUTHORIZENET_LOGIN', 'testing', 'The login username used for the Authorize.net service');
 INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description) VALUES ('Transaction Key', 'MODULE_PAYMENT_AUTHORIZENET_TXNKEY', 'Test', 'Transaction Key used for encrypting TP data');

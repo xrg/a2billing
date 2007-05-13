@@ -5,6 +5,17 @@
 ********************************************************************
 
 
+#### DID CRONT - currency cc_charge
+********************************************************************
+1#  add currency
+	a2billing_bill_diduse.php
+	
+	
+#### JQUERY SLIDE
+********************************************************************
+Menu with Jquery
+
+
 #### NAMING
 ********************************************************************
 REPLACE SIGNUP IN THE LEFT MENU -> MISC
@@ -14,10 +25,10 @@ TARIFFGROUP -> CALL PLAN
 	TARIFFGROUPNAME -> NAME
 	Change in edit card, signup & AGI
 
+
 #### JQUERY SLIDE
 ********************************************************************
 help.php
-
 
 
 #### Misc : INVOICE
