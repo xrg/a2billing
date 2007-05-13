@@ -87,7 +87,9 @@ function Check()
 		&nbsp;<font color="#3399CC" style="font-weight:bold; font-size:12px; font-family:Verdana, Arial, Helvetica, sans-serif"><?php echo gettext("Search")?></font>
 	</td>	
 </tr>
-
+<tr height="5px">
+<td colspan="3" >&nbsp;</td>
+</tr>
 <tr>
 <td width="21%" align="right"><input type="radio" name="filterradio" value="date" class="form_input_text" title="Month and Year wise search" <?php if ($filterradio == "date" || $filterradio == "") echo 'checked'; ?>>  </td>
 <td width="26%" align="right"><?php echo gettext("Invoice")?>: </td>
@@ -135,7 +137,7 @@ function Check()
 		
 	</td>	
 	<td>&nbsp;</td>
-	<td align="right"><input type="submit" name="submit" class="form_input_button" value="&nbsp;Search&nbsp;" onClick="javascript: return Check()">
+	<td align="left"><input type="submit" name="submit" class="form_input_button" value="&nbsp;Search&nbsp;" onClick="javascript: return Check()"></td>
 </tr>
 </table>
 </form>

@@ -24,7 +24,7 @@ class paypal_ipn
 			sleep(10);
 			$fp = @fsockopen( "www.paypal.com", 80, $errno, $errstr, 120 ); 
 		}
-
+		
 		if (!$fp) { 
 			$this->error_out("TRY 2 - PHP fsockopen() error: " . $errstr , "");
 		} else {
@@ -55,11 +55,9 @@ class paypal_ipn
 					$this->error_out("Timed out waiting for a response from PayPal. ($this->timeout seconds)" , "");
 				}
 			}
-
-			fclose( $fp );
-
+			
+			fclose( $fp );			
 		}
-
 	}
 	
 	function is_verified() {
@@ -75,18 +73,17 @@ class paypal_ipn
 
 	function error_out($message, $em_headers)
 	{
-
+		
 		$date = date("D M j G:i:s T Y", time());
 		$message .= "\n\nThe following data was received from PayPal:\n\n";
-
+		
 		@reset($this->paypal_post_vars);
 		while( @list($key,$value) = @each($this->paypal_post_vars)) {
 			$message .= $key . ':' . " \t$value\n";
 		}
-		error_log ("\n\n[$date] paypay_ipn notification\n\n".$message, 3, PAYPAL_LOGFILE);	
-		//error_log ("\n\n[$date] paypay_ipn notification\n\n".$message, 3, 'mylog.txt');	
+		error_log ("\n\n[$date] paypay_ipn notification\n\n".$message, 3, LOGFILE_PAYPAL);
 		mail($this->error_email, "[$date] paypay_ipn notification", $message, $em_headers);
-
+		
 	}
 } 
 

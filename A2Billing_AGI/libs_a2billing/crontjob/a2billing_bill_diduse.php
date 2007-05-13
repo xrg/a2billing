@@ -21,21 +21,14 @@
 set_time_limit(0);
 error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
 
-include (dirname(__FILE__)."/../defines.php");
 include (dirname(__FILE__)."/../db_php_lib/Class.Table.php");
 include (dirname(__FILE__)."/../Class.A2Billing.php");
-
+include (dirname(__FILE__)."/../Misc.php");
 
 $verbose_level=1;
 
 $groupcard=5000;
 
-function write_log($output, $tobuffer = 1){
-		
-		$string_log = "[".date("d/m/Y H:i:s")."]:$output\n";
-		error_log ($string_log, 3, BATCH_LOG_FILE);
-					
-}
 
 if ($A2B->config["database"]['dbtype'] == "postgres"){
 		$UNIX_TIMESTAMP = "date_part('epoch',";
@@ -43,15 +36,14 @@ if ($A2B->config["database"]['dbtype'] == "postgres"){
 		$UNIX_TIMESTAMP = "UNIX_TIMESTAMP(";
 }
 
-write_log("[#### BATCH BEGIN ####]");
-
-
 $A2B = new A2Billing();
 $A2B -> load_conf($agi, NULL, 0, $idconfig);
 
+write_log(LOGFILE_CRONT_BILL_DIDUSE, basename(__FILE__).' line:'.__LINE__."[#### BATCH BEGIN ####]");
+
 if (!$A2B -> DbConnect()){				
 			echo "[Cannot connect to the database]\n";
-			write_log("[Cannot connect to the database]");
+			write_log(LOGFILE_CRONT_BILL_DIDUSE, basename(__FILE__).' line:'.__LINE__."[Cannot connect to the database]");
 			exit;						
 }
 //$A2B -> DBHandle
@@ -67,7 +59,7 @@ if ($verbose_level>=1) print_r ($result);
 
 if( !is_array($result)) {
 	if ($verbose_level>=1) echo "[No card to run the did use bill recurring service]\n";
-	write_log("[ No card to run the did use bill recurring service]");
+	write_log(LOGFILE_CRONT_BILL_DIDUSE, basename(__FILE__).' line:'.__LINE__."[ No card to run the did use bill recurring service]");
 	exit();
 }
 
@@ -143,10 +135,10 @@ foreach ($result as $mydids){
 		$user_mail_adrr=$mydids[6];
 		if ($mail_user) mail($user_mail_adrr, $mail_user_subject, $mail_content);
 	}
-write_log("[Service finish]");
+write_log(LOGFILE_CRONT_BILL_DIDUSE, basename(__FILE__).' line:'.__LINE__."[Service finish]");
 
 if ($verbose_level>=1) echo "#### END RECURRING SERVICES \n";
 
-write_log("[#### BATCH PROCESS END ####]");
+write_log(LOGFILE_CRONT_BILL_DIDUSE, basename(__FILE__).' line:'.__LINE__."[#### BATCH PROCESS END ####]");
 	
 ?>

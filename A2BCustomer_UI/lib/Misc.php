@@ -122,7 +122,7 @@ function display_2dec_percentage($var){
 		}
 }
 
-function display_2bill($var, $currency = BASE_CURRENCY){	
+function display_2bill($var, $currency = BASE_CURRENCY){
 		global $currencies_list, $choose_currency;
 		if (isset($choose_currency) && strlen($choose_currency)==3) $currency=$choose_currency;
 		if ( (!isset($currencies_list)) || (!is_array($currencies_list)) ) $currencies_list = get_currencies();
@@ -339,6 +339,5 @@ function printPages($page, $pages, $url, $max_width = 20) {
 		}
 	}
 }
-
 
 ?>

@@ -38,8 +38,7 @@ include ("../lib/defines.php");
 	  */ 
     function Service_Callback($security_key, $phone_number, $callerid, $transaction_id, $callback_time, $id_server_group){
 		
-		
-		$uniqueid 	=  rand_str(10).'-'.$transaction_id;
+		$uniqueid 	=  MDP(10).'-'.$transaction_id;
 		$status = 'PENDING';
 		$server_ip = 'localhost';
 		$num_attempt = 0;		
@@ -50,20 +49,16 @@ include ("../lib/defines.php");
 		
 		// USE RATE_ENGINE_FINDRATES - RATE_ENGINE_ALL_CALCULTIMEOUT - TARIFFGROUP BY DEFAULT TO FIND OUT THE CORRECT CHANNEL
 		$channel = 'SIP/'.$phone_number.'@toreplace';
-		
-		
-		
 		$variable = "mode=callback|phonenumber=$phone_number|callerid=$callerid|transaction_id=$transaction_id|id_server_group=$id_server_group";
 		
-		$FG_regular[]  = array(    "^([0-9]{4})-([0-9]{2})-([0-9]{2}) ([0-9]{2}):([0-9]{2}):([0-9]{2})$"   ,"(YYYY-MM-DD HH:MM:SS)");
-		
+		$FG_regular[]  = array( "^([0-9]{4})-([0-9]{2})-([0-9]{2}) ([0-9]{2}):([0-9]{2}):([0-9]{2})$"   ,"(YYYY-MM-DD HH:MM:SS)");
 		
 		// The wrapper variables for security
 		// $security_key = API_SECURITY_KEY;
-		write_log(" Service_Callback( security_key=$security_key, transaction_id=$transaction_id, phonenumber=$phone_number, callerid=$callerid, callerid=$callerid, callback_time=$callback_time, id_server_group=$id_server_group)");
-	
+		write_log(LOGFILE_API_CALLBACK,"Service_Callback( security_key=$security_key, transaction_id=$transaction_id, phonenumber=$phone_number, callerid=$callerid, callerid=$callerid, callback_time=$callback_time, id_server_group=$id_server_group)");
+		
 		$mysecurity_key = API_SECURITY_KEY;
-					
+		
 		$mail_content = "[" . date("Y/m/d G:i:s", mktime()) . "] "." API - Request asked: Callback [security_key=$security_key, transaction_id=$transaction_id, phonenumber=$phone_number, callerid=$callerid, callerid=$callerid, callback_time=$callback_time, id_server_group=$id_server_group]";
 		
 		if (!is_numeric($id_server_group)){
@@ -73,7 +68,7 @@ include ("../lib/defines.php");
 		// CHECK CALLERID
 		if (strlen($callerid)<1)
 		{
-			write_log(basename(__FILE__).' line:'.__LINE__."[" . date("Y/m/d G:i:s", mktime()) . "] "." ERROR FORMAT CALLERID AT LEAST 1 DIGIT ");
+			write_log(LOGFILE_API_CALLBACK, basename(__FILE__).' line:'.__LINE__." ERROR FORMAT CALLERID AT LEAST 1 DIGIT ");
 			sleep(2);
 			return array($transaction_id, '400 -- malformed query', " ERROR - FORMAT CALLERID AT LEAST 1 DIGIT ");
 		}
@@ -81,7 +76,7 @@ include ("../lib/defines.php");
 		// CHECK PHONE_NUMBER
 		if (strlen($phone_number)<10)
 		{
-			write_log(basename(__FILE__).' line:'.__LINE__."[" . date("Y/m/d G:i:s", mktime()) . "] "." ERROR FORMAT PHONENUMBER AT LEAST 10 DIGITS ");
+			write_log(LOGFILE_API_CALLBACK, basename(__FILE__).' line:'.__LINE__." ERROR FORMAT PHONENUMBER AT LEAST 10 DIGITS ");
 			sleep(2);
 			return array($transaction_id, '400 -- malformed query', " ERROR - FORMAT PHONENUMBER AT LEAST 10 DIGITS ");
 		}
@@ -89,7 +84,7 @@ include ("../lib/defines.php");
 		// CHECK CALLBACK TIME
 		if (strlen($callback_time)>1 && !(ereg( $FG_regular[0][0], $callback_time)))
 		{
-			write_log(basename(__FILE__).' line:'.__LINE__."[" . date("Y/m/d G:i:s", mktime()) . "] "." ERROR FORMAT CALLBACKTIME : ".$FG_regular[0][0]);
+			write_log(LOGFILE_API_CALLBACK, basename(__FILE__).' line:'.__LINE__." ERROR FORMAT CALLBACKTIME : ".$FG_regular[0][0]);
 			sleep(2);
 			return array($transaction_id, '400 -- malformed query', " ERROR - FORMAT CALLBACKTIME : ".$FG_regular[0][0]);
 		}
@@ -97,14 +92,14 @@ include ("../lib/defines.php");
 		// CHECK SECURITY KEY
 		if (md5($mysecurity_key) !== $security_key  || strlen($security_key)==0)
 		{
-			write_log(basename(__FILE__).' line:'.__LINE__."[" . date("Y/m/d G:i:s", mktime()) . "] "." CODE_ERROR SECURITY_KEY");
+			write_log(LOGFILE_API_CALLBACK, basename(__FILE__).' line:'.__LINE__." CODE_ERROR SECURITY_KEY");
 			sleep(2);
 			return array($transaction_id, '400 -- malformed query', ' KEY - BAD PARAMETER ');
 		}
 		
 		$DBHandle = DbConnect();
 		if (!$DBHandle){			
-			write_log(basename(__FILE__).' line:'.__LINE__."[" . date("Y/m/d G:i:s", mktime()) . "] "." ERROR CONNECT DB");
+			write_log(LOGFILE_API_CALLBACK, basename(__FILE__).' line:'.__LINE__." ERROR CONNECT DB");
 			sleep(2);
 			return array($transaction_id, '500 -- error processing query or fetching data', ' ERROR - CONNECT DB ');
 		}
@@ -118,7 +113,7 @@ include ("../lib/defines.php");
 		$res = $DBHandle -> Execute($QUERY);
 		
 		if (!$res){
-			write_log(basename(__FILE__).' line:'.__LINE__."[" . date("Y/m/d G:i:s", mktime()) . "] "." ERROR INSERT INTO DB");
+			write_log(LOGFILE_API_CALLBACK, basename(__FILE__).' line:'.__LINE__." ERROR INSERT INTO DB");
 			sleep(2);
 			return array($transaction_id, '500 -- error processing query or fetching data', ' ERROR - INSERT CALLBACK INTO DB');
 		}
@@ -128,20 +123,5 @@ include ("../lib/defines.php");
 }
 
 
-
-function write_log($to_log){
-	$logfile=API_LOGFILE;
-	error_log ($to_log."\n", 3, $logfile);
-}
-	
-function rand_str($size)
-{
-   $feed = "0123456789abcdefghijklmnopqrstuvwxyz";
-   for ($i=0; $i < $size; $i++)
-   {
-       $rand_str .= substr($feed, rand(0, strlen($feed)-1), 1);
-   }
-   return $rand_str;
-}
 
 ?>

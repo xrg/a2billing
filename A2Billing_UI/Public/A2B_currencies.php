@@ -104,7 +104,7 @@ echo $CC_help_currency;
 	<INPUT type="hidden" name="updatecurrency" value="1">
 	<tr>
 	  <td align="center"  class="bgcolor_001">
-		&nbsp;<?php echo gettext("THE CURRENCY TABLE BASE FROM YAHOO FINANCE"); ?>&nbsp;: 
+		&nbsp;<?php echo gettext("THE CURRENCY LIST IS BASED FROM YAHOO FINANCE"); ?>&nbsp;: 
 			<input class="form_input_button"  value=" <?php echo gettext("CLICK HERE TO UPDATE NOW");?>  " type="submit">
 		</td>
 	</tr>

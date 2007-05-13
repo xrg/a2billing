@@ -426,7 +426,7 @@ class FormHandler{
 
         $this -> CV_NO_FIELDS = gettext("THERE IS NO RECORD !!!");
         $this -> CV_TEXT_TITLE_ABOVE_TABLE = gettext("DIRECTORY");
-        $this -> FG_FILTER_SEARCH_TOP_TEXT = gettext("You can define above some specific criterias in order to make a precised research");
+        $this -> FG_FILTER_SEARCH_TOP_TEXT = gettext("Define criteria to make a precise search");
         $this -> FG_INTRO_TEXT = gettext("You can browse through our")." #FG_INSTANCE_NAME# ".gettext("and modify their different properties<br>");
         $this -> FG_DELETE_ALT = gettext("Delete this record");
 	    $this -> FG_EDIT_ALT = gettext("Edit this record");
@@ -475,7 +475,7 @@ class FormHandler{
 		$this -> FG_INTRO_TEXT_ADD = str_replace('#FG_INSTANCE_NAME#', $this -> FG_INSTANCE_NAME, $this -> FG_INTRO_TEXT_ADD);
 		$this -> FG_INTRO_TEXT_ADITION 	= str_replace('#FG_INSTANCE_NAME#', $this -> FG_INSTANCE_NAME, $this -> FG_INTRO_TEXT_ADITION);
 		$this -> FG_TEXT_ADITION_CONFIRMATIONi = str_replace('#FG_INSTANCE_NAME#', $this -> FG_INSTANCE_NAME, $this -> FG_TEXT_ADITION_CONFIRMATION);
-		$this -> FG_FILTER_SEARCH_TOP_TEXT = gettext("You can define above some specific criterias in order to make a precised research");
+		$this -> FG_FILTER_SEARCH_TOP_TEXT = gettext("Define criteria to make a precise search");
 
 		//$this -> FG_TABLE_ALTERNATE_ROW_COLOR[] = "#E2E2D3";
 		//$this -> FG_TABLE_ALTERNATE_ROW_COLOR[] = "#F0F0E8";

@@ -12,11 +12,11 @@
 	
 	field	 allowed values
 	-----	 --------------
-	minute	 0-59
-	hour		 0-23
-	day of month	 1-31
-	month	 1-12 (or names, see below)
-	day of week	 0-7 (0 or 7 is Sun, or use names)
+	minute	 		0-59
+	hour		 	0-23
+	day of month	1-31
+	month	 		1-12 (or names, see below)
+	day of week	 	0-7 (0 or 7 is Sun, or use names)
 	
 	The sample above will run the script every 21 of each month at 10AM
 	
@@ -33,16 +33,12 @@ error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
 
 include (dirname(__FILE__)."/../db_php_lib/Class.Table.php");
 include (dirname(__FILE__)."/../Class.A2Billing.php");
-
+include (dirname(__FILE__)."/../Misc.php");
 
 $verbose_level=0;
 
 $groupcard=5000;
 
-function write_log($output, $tobuffer = 1){
-	$string_log = "[".date("d/m/Y H:i:s")."]:$output\n";
-	error_log ($string_log, 3, BATCH_LOG_FILE);
-}
 
 if ($A2B->config["database"]['dbtype'] == "postgres"){
 	$UNIX_TIMESTAMP = "date_part('epoch',";
@@ -50,15 +46,14 @@ if ($A2B->config["database"]['dbtype'] == "postgres"){
 	$UNIX_TIMESTAMP = "UNIX_TIMESTAMP(";
 }
 
-write_log("[#### BATCH BEGIN ####]");
-
-
 $A2B = new A2Billing();
 $A2B -> load_conf($agi, NULL, 0, $idconfig);
 
+write_log(LOGFILE_CRONT_SUBSCRIPTIONFEE, basename(__FILE__).' line:'.__LINE__."[#### BATCH BEGIN ####]");
+
 if (!$A2B -> DbConnect()){				
 	echo "[Cannot connect to the database]\n";
-	write_log("[Cannot connect to the database]");
+	write_log(LOGFILE_CRONT_SUBSCRIPTIONFEE, basename(__FILE__).' line:'.__LINE__."[Cannot connect to the database]");
 	exit;						
 }
 
@@ -77,7 +72,7 @@ if ($verbose_level>=1) echo "===> NB_CARD : $nb_card - NBPAGEMAX:$nbpagemax\n";
 
 if (!($nb_card>0)){
 	if ($verbose_level>=1) echo "[No card to run the Subscription Fee service]\n";
-	write_log("[No card to run the Subscription Feeservice]");
+	write_log(LOGFILE_CRONT_SUBSCRIPTIONFEE, basename(__FILE__).' line:'.__LINE__."[No card to run the Subscription Feeservice]");
 	exit();
 }
 
@@ -94,11 +89,11 @@ if ($verbose_level>=1) print_r ($result);
 
 if( !is_array($result)) {
 		echo "[No Recurring service to run]\n";
-		write_log("[ No Recurring service to run]");
+		write_log(LOGFILE_CRONT_SUBSCRIPTIONFEE, basename(__FILE__).' line:'.__LINE__."[ No Recurring service to run]");
 		exit();
 }
 
-write_log("[Number of card found : $nb_card]");
+write_log(LOGFILE_CRONT_SUBSCRIPTIONFEE, basename(__FILE__).' line:'.__LINE__."[Number of card found : $nb_card]");
 
 $oneday = 60*60*24;
 
@@ -124,7 +119,7 @@ foreach ($result as $myservice) {
 	$myservice_fee = $myservice[2];
 	$myservice_cur = $myservice[3];
 	
-	write_log("[Subscription Fee Service analyze cards on which to apply service ]");
+	write_log(LOGFILE_CRONT_SUBSCRIPTIONFEE, basename(__FILE__).' line:'.__LINE__."[Subscription Fee Service analyze cards on which to apply service ]");
 	// BROWSE THROUGH THE CARD TO APPLY THE SUBSCRIPTION FEE SERVICE 
 	for ($page = 0; $page <= $nbpagemax; $page++) {
 		
@@ -172,9 +167,9 @@ foreach ($result as $myservice) {
 		//sleep(15);
 	}
 	
-	write_log("[Service finish]");
+	write_log(LOGFILE_CRONT_SUBSCRIPTIONFEE, basename(__FILE__).' line:'.__LINE__."[Service finish]");
 	
-	write_log("[Service report : 'totalcardperform=$totalcardperform', 'totalcredit=$totalcredit']");
+	write_log(LOGFILE_CRONT_SUBSCRIPTIONFEE, basename(__FILE__).' line:'.__LINE__."[Service report : 'totalcardperform=$totalcardperform', 'totalcredit=$totalcredit']");
 	if ($verbose_level>=1) echo "[Service report : 'totalcardperform=$totalcardperform', 'totalcredit=$totalcredit']";
 	
 	// UPDATE THE SERVICE		
@@ -195,7 +190,7 @@ foreach ($result as $myservice) {
 } // END FOREACH SERVICES
 
 if ($verbose_level>=1) echo "#### END SUBSCRIPTION SERVICES \n";
-write_log("[#### BATCH PROCESS END ####]");
+write_log(LOGFILE_CRONT_SUBSCRIPTIONFEE, basename(__FILE__).' line:'.__LINE__."[#### BATCH PROCESS END ####]");
 	
 	
 	

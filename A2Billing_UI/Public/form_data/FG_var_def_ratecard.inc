@@ -65,8 +65,8 @@ $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;
 // Search form
 $HD_Form -> FG_FILTER_SEARCH_FORM = true;
 $HD_Form -> FG_FILTER_SEARCH_TOP_TEXT = gettext("Define the criteria to search");
-$HD_Form -> FG_FILTER_SEARCH_1_TIME_TEXT = gettext("Selection by month <br>of the startdate");
-$HD_Form -> FG_FILTER_SEARCH_2_TIME_TEXT = gettext("Selection by day <br>of the startdate");
+$HD_Form -> FG_FILTER_SEARCH_1_TIME_TEXT = gettext("Start Date / Month");
+$HD_Form -> FG_FILTER_SEARCH_2_TIME_TEXT = gettext("Start Date / Day");
 $HD_Form -> FG_FILTER_SEARCH_2_TIME_FIELD = 'startdate';
 $HD_Form -> AddSearchElement_C1(gettext("DESTINATION"), 'destination','destinationtype');
 $HD_Form -> AddSearchElement_C1(gettext("PREFIX"),'dialprefix','dialprefixtype');
@@ -107,7 +107,7 @@ $HD_Form -> AddEditElement(gettext("DIALPREFIX"),
    "size=50 maxlength=80",	
    "$dialprefix_regexpress",
    gettext("Insert the dialing prefix, such as for UK '44' or for US '1' "),
-   "" , "", "",	"", "" , "A2B_entity_prefix.php?popup_select=1&", ", 'prefix','width=550,height=340,top=20,left=100'", gettext("Define the destination prefix. i.e. 441 for UK Landlines. Use 'defaultprefix' to setup a rate for all destinations where a specific rate is is not provided. If you ADD a rate, NOT an EDIT, you can define a range of prefixes. <br>32484-32487 would match all dialled digits between 32484 and 32487, whereas prefixes separated by a comma e.g. 32484,32386,32488 would only match the individual prefixes listed."));
+   "" , "", "",	"", "" , "A2B_entity_prefix.php?popup_select=1&", ", 'prefix','width=550,height=340,top=20,left=100,scrollbars=1'", gettext("Define the destination prefix. i.e. 441 for UK Landlines. Use 'defaultprefix' to setup a rate for all destinations where a specific rate is is not provided. If you ADD a rate, NOT an EDIT, you can define a range of prefixes. <br>32484-32487 would match all dialled digits between 32484 and 32487, whereas prefixes separated by a comma e.g. 32484,32386,32488 would only match the individual prefixes listed."));
 
 $HD_Form -> AddEditElement(gettext("DESTINATION"),
    "destination",

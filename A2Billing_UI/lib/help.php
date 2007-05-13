@@ -344,7 +344,7 @@ $CC_help_create_voucher='
 	<img src="../Css/kicons/vcard.gif" class="kikipic"/>
 	<div class="w2">
 <br/>'
-.gettext("Create a single voucher, defining such properties as credit, tag, currency etc, click confirm when finished. <br/> The customer applies voucher credit to their card via the customer interface.").'
+.gettext("Create a single voucher, defining such properties as credit, tag, currency etc, click confirm when finished. <br/> The customer applies voucher credit to their card via the customer interface or via an IVR menu.").'
 <br/><br/>
 </div></div></div>
 </div>';
@@ -441,7 +441,7 @@ $CC_help_currency ='
 	<div class="w2">'
 .gettext("Currency data are automaticaly updated from Yahoo Financial.")
 .gettext("<br>For more information please visite the website http://finance.yahoo.com.")
-.gettext("<br>The table below is based over your currency base :").' <b>'.BASE_CURRENCY.'</b>'
+.gettext("<br>The list below is based over your currency base :").' <b>'.BASE_CURRENCY.'</b>'
 .'<br>
 </div></div></div>
 </div>';
@@ -490,8 +490,7 @@ $CC_help_edit_did ='
 	<img src="../Css/kicons/connect_to_network.gif" class="kikipic"/>
 	<div class="w2">
 <br/>'
-.gettext("DID can be assigned to a card to re-route calls to a SIP/IAX client!").'<br>
-<br/>
+.gettext("DID can be assigned to a card to re-route calls to a SIP/IAX client or a PSTN number. The Priority sets the order in which the calls are to be routed to allow for failover or follow-me.").'<br>
 </div></div></div>
 </div>';
 

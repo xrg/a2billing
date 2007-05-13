@@ -3,8 +3,6 @@ include ("lib/defines.php");
 include ("lib/module.access.php");
 include ("lib/smarty.php");
 
-
-
 if (!$A2B->config["webcustomerui"]['invoice']) exit();
 
 if (! has_rights (ACX_ACCESS)){ 
@@ -13,17 +11,22 @@ if (! has_rights (ACX_ACCESS)){
 	   die();	   
 }
 
-getpost_ifset(array('customer', 'posted', 'Period', 'exporttype', 'choose_billperiod'));
+getpost_ifset(array('customer', 'posted', 'Period', 'choose_currency','exporttype', 'invoice_type', 'choose_billperiod'));
 
 $customer = $_SESSION["pr_login"];
 $vat = $_SESSION["vat"];
-//require (LANGUAGE_DIR.FILENAME_INVOICES);
-
-
-if (!isset ($current_page) || ($current_page == "")){	
-		$current_page=0; 
-	}
-
+if ($invoice_type == "")
+{	
+	$invoice_type = 1;
+}
+if ($invoice_type == 1)
+{
+	$invoice_heading = gettext("Unbilled Details");	
+}
+else
+{
+	$invoice_heading = gettext("Billed Details");
+}
 // this variable specifie the debug type (0 => nothing, 1 => sql result, 2 => boucle checking, 3 other value checking)
 $FG_DEBUG = 0;
 
@@ -64,7 +67,6 @@ if (!(isset($customer)  &&  ($customer>0)) && !(isset($entercustomer)  &&  ($ent
 }
 
 $FG_TABLE_COL[]=array (gettext("Cost"), "sessionbill", "9%", "center", "SORT", "30", "", "", "", "", "", "display_2bill");
-
 // ??? cardID
 $FG_TABLE_DEFAULT_ORDER = "t1.starttime";
 $FG_TABLE_DEFAULT_SENS = "DESC";
@@ -82,7 +84,7 @@ if (LINK_AUDIO_FILE == 'YES')
 $FG_COL_QUERY_GRAPH='t1.callstart, t1.duration';
 
 // The variable LIMITE_DISPLAY define the limit of record to display by page
-$FG_LIMITE_DISPLAY=500;
+$FG_LIMITE_DISPLAY = 500;
 
 // Number of column in the html table
 $FG_NB_TABLE_COL=count($FG_TABLE_COL);
@@ -115,7 +117,7 @@ if ($posted==1){
   function do_field($sql,$fld,$dbfld){
   		$fldtype = $fld.'type';
 		global $$fld;
-		global $$fldtype;		
+		global $$fldtype;
         if ($$fld){
                 if (strpos($sql,'WHERE') > 0){
                         $sql = "$sql AND ";
@@ -166,6 +168,14 @@ if ($Period=="Month"){
 		if ($today && isset($tostatsday_sday) && isset($tostatsmonth_sday) && isset($tostatsmonth_shour) && isset($tostatsmonth_smin)) $date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) <= $UNIX_TIMESTAMP('$tostatsmonth_sday-".sprintf("%02d",intval($tostatsday_sday))." $tostatsmonth_shour:$tostatsmonth_smin')";
 }
 
+  
+if (strpos($SQLcmd, 'WHERE') > 0) { 
+	$FG_TABLE_CLAUSE = substr($SQLcmd,6).$date_clause; 
+}elseif (strpos($date_clause, 'AND') > 0){
+	$FG_TABLE_CLAUSE = substr($date_clause,5); 
+}
+
+
 
 if (isset($customer)  &&  ($customer>0)){
 	if (strlen($FG_TABLE_CLAUSE)>0) $FG_TABLE_CLAUSE.=" AND ";
@@ -176,19 +186,26 @@ if (isset($customer)  &&  ($customer>0)){
 		$FG_TABLE_CLAUSE.="t1.username='$entercustomer'";
 	}
 }
-
 if (strlen($FG_TABLE_CLAUSE)>0)
 {
 	$FG_TABLE_CLAUSE.=" AND ";
 }
-if($choose_billperiod == "")
+if ($invoice_type == 1)
 {
-	$FG_TABLE_CLAUSE.="t1.starttime >(Select max(cover_startdate)  from cc_invoices) AND t1.stoptime <(Select max(cover_enddate) from cc_invoices) ";
+	$FG_TABLE_CLAUSE.="t1.starttime >(Select CASE  WHEN max(cover_enddate) IS NULL THEN '0001-01-01 01:00:00' ELSE max(cover_enddate) END from cc_invoices)";
 }
 else
 {
-	$FG_TABLE_CLAUSE.="t1.starttime >(Select cover_startdate  from cc_invoices where invoicecreated_date ='$choose_billperiod') AND t1.stoptime <(Select cover_enddate from cc_invoices where invoicecreated_date ='$choose_billperiod') ";
+	if($choose_billperiod == "")
+	{
+		$FG_TABLE_CLAUSE.="t1.starttime >(Select max(cover_startdate)  from cc_invoices) AND t1.stoptime <(Select max(cover_enddate) from cc_invoices) ";
+	}
+	else
+	{
+		$FG_TABLE_CLAUSE.="t1.starttime >(Select cover_startdate  from cc_invoices where invoicecreated_date ='$choose_billperiod') AND t1.stoptime <(Select cover_enddate from cc_invoices where invoicecreated_date ='$choose_billperiod') ";
+	}
 }
+
 
 if (!$nodisplay){
 	$list = $instance_table -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, $order, $sens, null, null, $FG_LIMITE_DISPLAY, $current_page*$FG_LIMITE_DISPLAY);
@@ -199,11 +216,10 @@ $_SESSION["pr_sql_export"]="SELECT $FG_COL_QUERY FROM $FG_TABLE_NAME WHERE $FG_T
 //$QUERY = "SELECT substring(calldate,1,10) AS day, sum(duration) AS calltime, count(*) as nbcall FROM cdr WHERE ".$FG_TABLE_CLAUSE." GROUP BY substring(calldate,1,10)"; //extract(DAY from calldate)
 
 
-$QUERY = "SELECT substring(t1.starttime,1,10) AS day, sum(t1.sessiontime) AS calltime, sum(t1.sessionbill) AS cost, count(*) as nbcall FROM $FG_TABLE_NAME WHERE ".$FG_TABLE_CLAUSE." AND t1.sipiax not in (2,3) GROUP BY substring(t1.starttime,1,10) ORDER BY day"; //extract(DAY from calldate)
+$QUERY = "SELECT substring(t1.starttime,1,10) AS day, sum(t1.sessiontime) AS calltime, sum(t1.sessionbill) AS cost, count(*) as nbcall FROM $FG_TABLE_NAME WHERE ".$FG_TABLE_CLAUSE."  GROUP BY substring(t1.starttime,1,10) ORDER BY day"; //extract(DAY from calldate)
 //echo "$QUERY";
 
-
-if (!$nodisplay){
+if (!$nodisplay){		
 		$res = $DBHandle -> Execute($QUERY);
 		if ($res){
 			$num = $res -> RecordCount();
@@ -214,38 +230,11 @@ if (!$nodisplay){
 		}
 
 
-
 if ($FG_DEBUG == 3) echo "<br>Clause : $FG_TABLE_CLAUSE";
 $nb_record = $instance_table -> Table_count ($DBHandle, $FG_TABLE_CLAUSE);
 if ($FG_DEBUG >= 1) var_dump ($list);
 
 }//end IF nodisplay
-
-
-// GROUP BY DESTINATION FOR THE INVOICE
-
-
-$QUERY = "SELECT destination, sum(t1.sessiontime) AS calltime, 
-sum(t1.sessionbill) AS cost, count(*) as nbcall FROM $FG_TABLE_NAME WHERE ".$FG_TABLE_CLAUSE." AND t1.sipiax not in (2,3) GROUP BY destination";
-
-if (!$nodisplay){
-
-		$res = $DBHandle -> Execute($QUERY);
-		if ($res){
-			$num = $res -> RecordCount();
-			for($i=0;$i<$num;$i++)
-			{				
-				$list_total_destination [] =$res -> fetchRow();				 
-			}
-		}
-
-
-if ($FG_DEBUG == 3) echo "<br>Clause : $FG_TABLE_CLAUSE";
-if ($FG_DEBUG >= 1) var_dump ($list_total_destination);
-
-
-}//end IF nodisplay
-
 
 /************************************************ DID Billing Section *********************************************/
 // Fixed + Dial = 0
@@ -255,27 +244,120 @@ if ($FG_DEBUG >= 1) var_dump ($list_total_destination);
 
 
 // 1. Billing Type:: All DID Calls that have DID Type 0 and 2
-
-$QUERY = "SELECT t1.id_did, t2.fixrate, t2.billingtype, sum(t1.sessiontime) AS calltime, 
- sum(t1.sessionbill) AS cost, count(*) as nbcall FROM cc_call t1, cc_did t2 WHERE ".$FG_TABLE_CLAUSE." 
- AND t1.sipiax in (2,3) AND t1.id_did = t2.id GROUP BY t1.id_did ORDER BY t2.billingtype";
-
-
-$list_total_did = NULL;
+if ($invoice_type == 1)
+{
+	$QUERY = "SELECT t1.amount, t1.creationdate, t1.description, t3.countryname, t2.did ".
+	" FROM cc_charge t1 LEFT JOIN (cc_did t2, cc_country t3 ) ON ( t1.id_cc_did = t2.id AND t2.id_cc_country = t3.id ) ".
+	" WHERE (t1.chargetype = 1 OR  t1.chargetype = 2) AND t1.id_cc_card = ".$_SESSION["card_id"].
+	" AND t1.creationdate >(Select CASE  WHEN max(cover_enddate) IS NULL THEN '0001-01-01 01:00:00' ELSE max(cover_enddate) END from cc_invoices)";
+}
+else
+{
+	if($choose_billperiod == "")
+	{
+		$QUERY = "SELECT t1.amount, t1.creationdate, t1.description, t3.countryname, t2.did ".
+		" FROM cc_charge t1 LEFT JOIN (cc_did t2, cc_country t3 ) ON ( t1.id_cc_did = t2.id AND t2.id_cc_country = t3.id ) ".
+		" WHERE (t1.chargetype = 1 OR t1.chargetype = 2) AND t1.id_cc_card = ".$_SESSION["card_id"].
+		" AND t1.creationdate > (Select max(cover_startdate)  from cc_invoices) AND t1.creationdate <(Select max(cover_enddate) from cc_invoices) ";
+	}
+	else
+	{
+		$QUERY = "SELECT t1.amount, t1.creationdate, t1.description, t3.countryname, t2.did ".
+		" FROM cc_charge t1 LEFT JOIN (cc_did t2, cc_country t3 ) ON ( t1.id_cc_did = t2.id AND t2.id_cc_country = t3.id ) ".
+		" WHERE (t1.chargetype = 1 OR t1.chargetype = 2) AND t1.id_cc_card = ".$_SESSION["card_id"].
+		" AND t1.creationdate > (Select cover_startdate  from cc_invoices where invoicecreated_date = '$choose_billperiod') AND t1.creationdate < (Select cover_enddate from cc_invoices where invoicecreated_date = '$choose_billperiod')";
+	}
+}
+ 
 if (!$nodisplay)
 {
 	$res = $DBHandle -> Execute($QUERY);	
 	if ($res){	
 		$num = $res -> RecordCount();
-		for($i=0; $i<$num; $i++)
+		for($i=0;$i<$num;$i++)
 		{				
 			$list_total_did [] =$res -> fetchRow();
 		}
 	}
+
 	if ($FG_DEBUG >= 1) var_dump ($list_total_did);
 }//end IF nodisplay
 
 /************************************************ END DID Billing Section *********************************************/
+
+/*************************************************CHARGES SECTION START ************************************************/
+
+// Charge Types
+
+// Connection charge for DID setup = 1
+// Monthly Charge for DID use = 2
+// Subscription fee = 3
+// Extra charge =  4
+
+if ($invoice_type == 1)
+{
+	$QUERY = "SELECT t1.id_cc_card, t1.iduser, t1.creationdate, t1.amount, t1.chargetype, t1.id_cc_did, t1.currency, t1.description" .
+	" FROM cc_charge t1, cc_card t2 WHERE (t1.chargetype <> 1 AND t1.chargetype <> 2) " .
+	" AND t2.username = '$customer' AND t1.id_cc_card = t2.id AND t1.creationdate >= (Select CASE WHEN max(cover_enddate) is NULL " .
+	" THEN '0001-01-01 01:00:00' ELSE max(cover_enddate) END from cc_invoices) Order by t1.creationdate";
+}
+else
+{
+	if($choose_billperiod == "")
+	{	
+		$QUERY = "SELECT t1.id_cc_card, t1.iduser, t1.creationdate, t1.amount, t1.chargetype, t1.id_cc_did, t1.currency, t1.description" .
+		" FROM cc_charge t1, cc_card t2 WHERE (t1.chargetype <> 1 AND t1.chargetype <> 2) AND" .
+		" t2.username = '$customer' AND t1.id_cc_card = t2.id AND " .
+		" t1.creationdate >(Select max(cover_startdate)  from cc_invoices) " .
+		" AND t1.creationdate <(Select max(cover_enddate) from cc_invoices)";
+	}
+	else
+	{
+		$QUERY = "SELECT t1.id_cc_card, t1.iduser, t1.creationdate, t1.amount, t1.chargetype, t1.id_cc_did, t1.currency" .
+		" FROM cc_charge t1, cc_card t2 WHERE (t1.chargetype <> 1 AND t1.chargetype <> 2) AND" .
+		" t2.username = '$customer' AND t1.id_cc_card = t2.id AND " .
+		" t1.creationdate >(Select cover_startdate  from cc_invoices where invoicecreated_date ='$choose_billperiod') " .
+		" AND t1.creationdate <(Select cover_enddate from cc_invoices where invoicecreated_date ='$choose_billperiod')";
+	}
+}
+//echo "<br>".$QUERY."<br>";
+
+if (!$nodisplay)
+{
+	$res = $DBHandle -> Execute($QUERY);
+	if ($res){
+		$num = $res -> RecordCount();
+		for($i=0;$i<$num;$i++)
+		{
+			$list_total_charges [] =$res -> fetchRow();
+		}
+	}
+	
+	if ($FG_DEBUG >= 1) var_dump ($list_total_charges);
+}//end IF nodisplay
+
+
+/*************************************************CHARGES SECTION END ************************************************/
+// GROUP BY DESTINATION FOR THE INVOICE
+
+$QUERY = "SELECT destination, sum(t1.sessiontime) AS calltime, 
+sum(t1.sessionbill) AS cost, count(*) as nbcall FROM $FG_TABLE_NAME WHERE ".$FG_TABLE_CLAUSE."  GROUP BY destination";
+
+if (!$nodisplay){
+		$res = $DBHandle -> Execute($QUERY);
+		if ($res){
+			$num = $res -> RecordCount();	
+			for($i=0;$i<$num;$i++)
+			{				
+				$list_total_destination [] =$res -> fetchRow();				 
+			}
+		}
+
+if ($FG_DEBUG == 3) echo "<br>Clause : $FG_TABLE_CLAUSE";
+if ($FG_DEBUG >= 1) var_dump ($list_total_destination);
+
+
+}//end IF nodisplay
 
 if ($nb_record<=$FG_LIMITE_DISPLAY){
 	$nb_record_max=1;
@@ -286,25 +368,11 @@ if ($nb_record<=$FG_LIMITE_DISPLAY){
 		$nb_record_max=(intval($nb_record/$FG_LIMITE_DISPLAY)+1);
 	}	
 }
-
 if ($FG_DEBUG == 3) echo "<br>Nb_record : $nb_record";
 if ($FG_DEBUG == 3) echo "<br>Nb_record_max : $nb_record_max";
 
 
-/*******************   TOTAL COSTS  *****************************************
-
-$instance_table_cost = new Table($FG_TABLE_NAME, "sum(t1.costs), sum(t1.buycosts)");		
-if (!$nodisplay){	
-	$total_cost = $instance_table_cost -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, null, null, null, null, null, null);
-}
-*/
-
-
-
 /*************************************************************/
-
-
-
 if ((isset($customer)  &&  ($customer>0)) || (isset($entercustomer)  &&  ($entercustomer>0))){
 
 	$FG_TABLE_CLAUSE = "";
@@ -314,88 +382,37 @@ if ((isset($customer)  &&  ($customer>0)) || (isset($entercustomer)  &&  ($enter
 		$FG_TABLE_CLAUSE =" username='$entercustomer' ";
 	}
 	$instance_table_customer = new Table("cc_card", "id,  username, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, activated");
-
 	$info_customer = $instance_table_customer -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, "id", "ASC", null, null, null, null);
 	
-	// if (count($info_customer)>0){
 }
-
-
-
-/************************************************************/
-
-
-$date_clause='';
-
-if ($Period=="Month"){		
-		if ($frommonth && isset($fromstatsmonth)) $date_clause.=" AND $UNIX_TIMESTAMP(t1.creationdate) >= $UNIX_TIMESTAMP('$fromstatsmonth-01')";
-		if ($tomonth && isset($tostatsmonth)) $date_clause.=" AND  $UNIX_TIMESTAMP(t1.creationdate) <= $UNIX_TIMESTAMP('".$tostatsmonth."-$lastdayofmonth 23:59:59')"; 
-}else{
-		if ($fromday && isset($fromstatsday_sday) && isset($fromstatsmonth_sday) && isset($fromstatsmonth_shour) && isset($fromstatsmonth_smin) ) $date_clause.=" AND  $UNIX_TIMESTAMP(t1.creationdate) >= $UNIX_TIMESTAMP('$fromstatsmonth_sday-$fromstatsday_sday $fromstatsmonth_shour:$fromstatsmonth_smin')";
-		if ($today && isset($tostatsday_sday) && isset($tostatsmonth_sday) && isset($tostatsmonth_shour) && isset($tostatsmonth_smin)) $date_clause.=" AND  $UNIX_TIMESTAMP(t1.creationdate) <= $UNIX_TIMESTAMP('$tostatsmonth_sday-".sprintf("%02d",intval($tostatsday_sday))." $tostatsmonth_shour:$tostatsmonth_smin')";
-}
-
-
-$QUERY = "Select t1.invoicecreated_date from cc_invoices t1, cc_card t2 where t2.id = t1.cardid and t2.username = '$customer' order by t1.invoicecreated_date";
-
-$res = $DBHandle -> Execute($QUERY);
-if ($res){	
-	$total_invoices = $res -> RecordCount();
-	if ($total_invoices > 0)
-	{
-		$billperiod_list = $res;
+if($invoice_type == 2)
+{
+	$QUERY = "Select t1.invoicecreated_date from cc_invoices t1, cc_card t2 where t2.id = t1.cardid and t2.username = '$customer' order by t1.invoicecreated_date";
+	
+	$res = $DBHandle -> Execute($QUERY);
+	if ($res){	
+		$total_invoices = $res -> RecordCount();
+		if ($total_invoices > 0)
+		{
+			$billperiod_list = $res;
+		}
 	}
 }
 
-
 ?>
+
 <?php
 $smarty->display( 'main.tpl');
 $currencies_list = get_currencies();
 
-//For DID DIAL & Fixed + Dial
+//calculate calls cost
 $totalcost = 0;
-if (is_array($list_total_did) && count($list_total_did)>0)
+$totalcallmade = 0;
+
+$totalcost_did = $totalcost;
+if (is_array($list_total_destination) && count($list_total_destination)>0)
 {
-	$mmax = 0;
-	$totalcall_did = 0;
-	$totalminutes_did = 0;
-	//echo "<br>Total Cost at Dial = ".$totalcost;
-	foreach ($list_total_did as $data)
-	{	
-		if ($mmax < $data[3])
-		{
-			$mmax = $data[3];
-		}
-		$totalcall_did += $data[5];
-		$totalminutes_did += $data[3];		
-		if ($data[2] == 0)
-		{			
-			$totalcost += ($data[4] + $data[1]);
-			//echo "<br>DID =".$data[0]."; Fixed Cost=".$data[1]."; Total Call Cost=".$data[4]."; Total = ".$totalcost;
-		}
-		if ($data[2] == 2)
-		{				
-			$totalcost += $data[4];
-			//echo "<br>DID =".$data[0]."; Fixed Cost=0; Total Call Cost=".$data[4]."; Total = ".$totalcost;
-		}
-		if ($data[2] == 1)
-		{			
-			$totalcost += ($data[1]);
-			//echo "<br>DID =".$data[0]."; Fixed Cost=".$data[1]."; Total = ".$totalcost;
-		}
-		if ($data[2] == 3)
-		{
-			$totalcost += 0;
-			//echo "<br>DID =".$data[0]."; TYPE = FREE; Total = ".$totalcost;
-		}
-	}	
-}
-
-	$totalcost_did = $totalcost;
-
-
-	if (is_array($list_total_destination) && count($list_total_destination)>0){
+	$totalcallmade = $totalcallmade + count($list_total_destination);
 	$mmax=0;
 	$totalcall=0;
 	$totalminutes=0;	
@@ -403,18 +420,17 @@ if (is_array($list_total_did) && count($list_total_did)>0)
 		if ($mmax < $data[1]) $mmax=$data[1];
 		$totalcall+=$data[3];
 		$totalminutes+=$data[1];
-		$totalcost+=$data[2];
-	
-	}
+		$totalcost+=$data[2];	
+	}	
+}
 
 ?>
-		<?php if ($total_invoices > 0)
-		{
-		?>
+	
+	
 	<table  cellspacing="0" class="invoice_main_table">
      
       <tr>
-        <td class="invoice_heading"><?php echo gettext("Billed Details")?></td>
+        <td class="invoice_heading"><?php echo $invoice_heading; ?></td>
       </tr>
       <tr>
         <td valign="top"><table width="60%" align="left" cellpadding="0" cellspacing="0">
@@ -429,11 +445,12 @@ if (is_array($list_total_did) && count($list_total_did)>0)
             <tr>
               <td width="35%" class="invoice_td"><?php echo gettext("Card Number")?>&nbsp; :</td>
               <td width="65%" class="invoice_td"><?php echo $info_customer[0][1] ?> </td>
-            </tr>            
+            </tr>           
             <tr>
               <td width="35%" class="invoice_td"><?php echo gettext("As of Date")?>&nbsp; :</td>
               <td width="65%" class="invoice_td"><?php echo date('m-d-Y');?> </td>
             </tr>
+			<?php if($invoice_type == 2) { ?>
 			<tr>
               <td width="35%" class="invoice_td" valign="middle"><?php echo gettext("Billing Period")?>&nbsp; :</td>
               <td width="65%" class="invoice_td" valign="middle">
@@ -452,18 +469,20 @@ if (is_array($list_total_did) && count($list_total_did)>0)
 				</form>
 		</td>			 
             </tr>
-            <tr>
-              <td colspan="2">&nbsp; </td>
-            </tr>
+            <?php }?>
         </table></td>
       </tr>
+	   
 	  <tr>
-			<td  align="right"><a href="A2B_entity_billed_details1.php?exporttype=pdf&choose_billperiod=<?php echo $choose_billperiod?>"><img src="<?php echo Images_Path;?>/pdf.gif" height="20" width="20" title="Download as PDF."> </a>&nbsp;</td>
+	  <td align="right">
+	  <a href="A2B_entity_invoice_detail_pdf.php?exporttype=pdf&invoice_type=<?php echo $invoice_type; ?>"><img src="<?php echo Images_Path;?>/pdf.gif" height="20" width="20" title="Download as PDF."> </a>&nbsp;
+	  </td>
 	  </tr>
+	  
       <tr>
         <td valign="top"><table width="100%" align="left" cellpadding="0" cellspacing="0">
    				<tr>
-				<td colspan="5" align="center"><font></font> <b><?php echo gettext("By Destination")?></b></font> </td>
+				<td colspan="5" align="center"><font></font> <b><?php echo gettext("Calls by Destination")?></b></font> </td>
 				</tr>
 
 			<tr class="invoice_subheading">
@@ -471,10 +490,12 @@ if (is_array($list_total_did) && count($list_total_did)>0)
               <td width="19%" class="invoice_td"><?php echo gettext("Duration")?> </td>
 			  <td width="20%" class="invoice_td"><?php echo gettext("Graphic")?> </td>
 			  <td width="11%" class="invoice_td"><?php echo gettext("Calls")?> </td>
-              <td width="21%" class="invoice_td" align="right"><?php echo gettext("Amount (US $)")?> </td>
+              <td width="21%" class="invoice_td" align="right"><?php echo gettext("Amount")." (".BASE_CURRENCY.")"; ?> </td>
             </tr>
 			<?php  		
 				$i=0;
+				if (is_array($list_total_destination) && count($list_total_destination)>0)
+				{
 				foreach ($list_total_destination as $data){	
 				$i=($i+1)%2;		
 				$tmc = $data[1]/$data[3];
@@ -494,7 +515,6 @@ if (is_array($list_total_did) && count($list_total_did)>0)
 				if ($mmax>0) 	$widthbar= intval(($data[1]/$mmax)*200); 
 		
 			?>
-			
             <tr class="invoice_rows">
               <td width="29%" class="invoice_td"><?php echo $data[0]?></td>
               <td width="19%" class="invoice_td"><?php echo $minutes?> </td>
@@ -524,7 +544,10 @@ if (is_array($list_total_did) && count($list_total_did)>0)
               <td width="39%" class="invoice_td"colspan="2"><?php echo $totalminutes?></td>			  
 			  <td width="11%" class="invoice_td"><?php echo $totalcall?> </td>
               <td width="21%" align="right" class="invoice_td"><?php  display_2bill($totalcost -$totalcost_did) ?> </td>
-            </tr>            
+            </tr> 
+			<?php }else{?>
+				<td width="100%"  colspan="5" class="invoice_td"><?php echo gettext("None!!!");?> </td>
+			<?php }?>
             <tr >
               <td width="29%">&nbsp;</td>
               <td width="19%">&nbsp;</td>
@@ -535,12 +558,12 @@ if (is_array($list_total_did) && count($list_total_did)>0)
             </tr>			
 			<!-- Start Here ****************************************-->
 			<?php 
-				if (is_array($list_total_day) && count($list_total_day)>0){
+				
 				
 				$mmax=0;
 				$totalcall=0;
 				$totalminutes=0;
-				$totalcost_day = 0;
+				$totalcost_day=0;
 				foreach ($list_total_day as $data){	
 					if ($mmax < $data[1]) $mmax=$data[1];
 					$totalcall+=$data[3];
@@ -549,17 +572,19 @@ if (is_array($list_total_did) && count($list_total_did)>0)
 				}
 				?>
 				<tr>
-				<td colspan="5" align="center"><b><?php echo gettext("By Date")?></b> </td>
+				<td colspan="5" align="center"><b><?php echo gettext("Calls by Date")?></b> </td>
 				</tr>
 			  <tr class="invoice_subheading">
               <td class="invoice_td" width="29%"><?php echo gettext("Date")?> </td>
               <td width="19%" class="invoice_td"><?php echo gettext("Duration")?> </td>
 			  <td width="20%" class="invoice_td"><?php echo gettext("Graphic")?> </td>
 			  <td width="11%" class="invoice_td"><?php echo gettext("Calls")?> </td>
-              <td width="21%" class="invoice_td" align="right"><?php echo gettext("Cost (US $)")?> </td>
+              <td width="21%" class="invoice_td" align="right"><?php echo gettext("Amount")." (".BASE_CURRENCY.")"; ?> </td>
             </tr>
 			<?php  		
 				$i=0;
+				if (is_array($list_total_day) && count($list_total_day) > 0)
+				{
 				foreach ($list_total_day as $data){	
 				$i=($i+1)%2;		
 				$tmc = $data[1]/$data[3];
@@ -609,163 +634,210 @@ if (is_array($list_total_did) && count($list_total_did)>0)
               <td width="39%" class="invoice_td"colspan="2"><?php echo $totalminutes?></td>			  
 			  <td width="11%" class="invoice_td"><?php echo $totalcall?> </td>
               <td width="21%" align="right" class="invoice_td"><?php  display_2bill($totalcost_day) ?> </td>
-            </tr>            
+            </tr>   
+			   <?php
+			 	}else{
+				?>
+				    <td width="100%" class="invoice_td"><?php echo gettext("None!!!");?> </td>
+				<?php
+			 	}
+				?>  
             <tr >
               <td width="29%">&nbsp;</td>
               <td width="19%">&nbsp;</td>
               <td width="20%">&nbsp; </td>
 			  <td width="11%">&nbsp; </td>
-			  <td width="21%">&nbsp; </td>
-			  
-            </tr>
-				
-				<?php
-			 	}
-				?>
+			  <td width="21%">&nbsp; </td>			  
+            </tr>		
 			
 			<!-- END HERE ******************************************-->
-        </table></td>
+        </table>		
+		</td>
       </tr>
-	  <tr>
+	  <?php 
+	  if (is_array($list_total_did) && count($list_total_did)>0)
+		{
+	  ?>
+	   <tr>
 	  <td>
 	  <!------------------------ DID Billing Here Starts ----------------------->
 		
 		<table width="100%" align="left" cellpadding="0" cellspacing="0">
    				<tr>
-				<td colspan="6" align="center"><font></font> <b><?php echo gettext("DID Billing")?></b></font> </td>
+				<td colspan="5" align="center"><font></font> <b><?php echo gettext("DID Billing")?></b></td>
 				</tr>
 			<tr class="invoice_subheading">
-              <td class="invoice_td" width="18%"><?php echo gettext("DID")?> </td>
-              <td width="15%" class="invoice_td"><?php echo gettext("Duration")?> </td>
-			  <td width="13%" class="invoice_td"><?php echo gettext("Fixed")?> </td>
-			  <td width="12%" class="invoice_td"><?php echo gettext("Calls")?> </td>
-  			  <td width="17%" class="invoice_td"><?php echo gettext("Call Cost")?> </td>
-              <td width="25%" class="invoice_td" align="right"><?php echo gettext("Amount (US $)")?> </td>
+			  <td width="16%" class="invoice_td"><?php echo gettext("Charge Date")?> </td>
+              <td class="invoice_td" width="15%"><?php echo gettext("DID")?> </td>
+              <td width="16%" class="invoice_td"><?php echo gettext("Country")?> </td>
+			  <td width="37%" class="invoice_td"><?php echo gettext("Description")?> </td>			  			  
+              <td width="16%" class="invoice_td" align="right"><?php echo gettext("Amount")." (".BASE_CURRENCY.")"; ?> </td>
             </tr>
-			
-			<?php  	
-			if (is_array($list_total_did) && count($list_total_did)>0)
-			{	
+			<?php  		
 				$i=0;				
-				foreach ($list_total_did as $data){	
-				$fcost = 0;
-				$ccost = 0;
-				$i=($i+1)%2;		
-				$tmc = $data[3]/$data[5];
+				$totaldidcost = 0;
 				
-				if ((!isset($resulttype)) || ($resulttype=="min")){  
-					$tmc = sprintf("%02d",intval($tmc/60)).":".sprintf("%02d",intval($tmc%60));		
-				}else{
-				
-					$tmc =intval($tmc);
-				}
-				
-				if ((!isset($resulttype)) || ($resulttype=="min")){  
-						$minutes = sprintf("%02d",intval($data[3]/60)).":".sprintf("%02d",intval($data[3]%60));
-				}else{
-						$minutes = $data[3];
-				}
-				if ($mmax>0) 	$widthbar= intval(($data[3]/$mmax)*200); 
+					foreach ($list_total_did as $data)
+					{	
+						$totaldidcost = $totaldidcost + $data[0];
 			
 			?>
 			 <tr class="invoice_rows">
-              <td width="18%" class="invoice_td"><?php echo $data[0]?></td>
-              <td width="15%" class="invoice_td"><?php echo $minutes?> </td>
-  			  <td width="10%" class="invoice_td"><?php 
-			  if($data[2] == 2 || $data[2] == 3)
-			  {
-			  	echo "None";
-				$fcost = 0;
-				
-			  }
-			  else
-			  {
-			  	echo $data[1];
-				$fcost = $data[1];
-			  }
-			  ?></td>
-			  <td width="12%" class="invoice_td"><?php echo $data[5]?> </td>
-			  <td width="10%" class="invoice_td"><?php 
-			  if($data[2] == 3 || $data[2] == 1)
-			  {
-			  	echo "None";
-				$ccost = 0;
-			  }
-			  else
-			  {
-			  	echo $data[4];
-				$ccost = $data[4];
-			  }
-			  ?></td>
-              <td width="25%" align="right" class="invoice_td"><?php  display_2bill($ccost + $fcost) ?></td>
+			 <td width="16%" class="invoice_td"><?php echo $data[1]?> </td>
+              <td width="15%" class="invoice_td">&nbsp;<?php echo $data[4]; ?></td>
+              <td width="16%" class="invoice_td">&nbsp;<?php  echo $data[3]; ?> </td>
+  			  <td width="37%" class="invoice_td">&nbsp;<?php echo $data[2]?></td>			  			  
+              <td width="16%" align="right" class="invoice_td"><?php  display_2bill($data[0])?></td>
             </tr>
-			 <?php 	 }	 	 	
-	 	
-				if ((!isset($resulttype)) || ($resulttype=="min")){  				
-					$total_tmc = sprintf("%02d",intval(($totalminutes_did/$totalcall_did)/60)).":".sprintf("%02d",intval(($totalminutes_did/$totalcall_did)%60));				
-					$totalminutes_did = sprintf("%02d",intval($totalminutes_did/60)).":".sprintf("%02d",intval($totalminutes_did%60));
-				}else{
-					$total_tmc = intval($totalminutes_did/$totalcall_did);			
-				}			 
+			 <?php
+				}
+				$totalcost = $totalcost  + $totaldidcost;
 			 ?>   
 			 <tr >
-              <td width="18%" class="invoice_td">&nbsp;</td>
+              <td width="16%" class="invoice_td">&nbsp;</td>
               <td width="15%" class="invoice_td">&nbsp;</td>
-              <td width="13%" class="invoice_td">&nbsp; </td>
-			  <td width="12%" class="invoice_td">&nbsp; </td>
-			  <td width="17%" class="invoice_td">&nbsp; </td>
-			  <td width="25%" class="invoice_td">&nbsp; </td>
+              <td width="16%" class="invoice_td">&nbsp; </td>
+			  <td width="37%" class="invoice_td">&nbsp; </td>			  
+			  <td width="16%" class="invoice_td">&nbsp; </td>
 			  
             </tr>
             <tr class="invoice_subheading">
-              <td width="18%" class="invoice_td"><?php echo gettext("TOTAL");?> </td>
-              <td class="invoice_td" colspan="2"><?php echo $totalminutes_did?></td>			  
-			  <td width="17%" class="invoice_td"><?php echo $totalcall_did?> </td>
-			  <td width="10%" class="invoice_td">&nbsp;</td>
-              <td width="25%" align="right" class="invoice_td"><?php  display_2bill($totalcost_did) ?> </td>
-            </tr>  
-			<?php }
-			else
-			{
-			?>
-			<tr >
-              <td width="18%">&nbsp;</td>              
-			  <td  colspan="4" align="center"><?php echo gettext("No DID Calls data available")?>.</td>
-			  <td width="25%">&nbsp; </td>
-			  
-            </tr>
-			<?php
-			}
-			?>          
+              <td width="16%" class="invoice_td"><?php echo gettext("TOTAL");?> </td>
+              <td class="invoice_td" >&nbsp;</td>			  
+			  <td width="16%" class="invoice_td">&nbsp; </td>
+			  <td width="37%" class="invoice_td">&nbsp;</td>
+              <td width="16%" align="right" class="invoice_td"><?php  display_2bill($totaldidcost) ?> </td>
+            </tr> 			         
+			
             <tr >
-              <td width="18%">&nbsp;</td>
+              <td width="16%">&nbsp;</td>
               <td width="15%">&nbsp;</td>
-              <td width="13%">&nbsp; </td>
-			  <td width="12%">&nbsp; </td>
-			  <td width="17%">&nbsp; </td>
-			  <td width="25%">&nbsp; </td>
+              <td width="16%">&nbsp; </td>
+			  <td width="37%">&nbsp; </td>			  
+			  <td width="16%">&nbsp; </td>
 			  
             </tr>
 		
 		</table>
 		
-		<!------------------------DID Billing ENDS Here ----------------------------->
+		
 	  </td>
 	  </tr>
+	   <?php			 
+		 }
+   	   ?>
+		 <!------------------------DID Billing ENDS Here ----------------------------->
+	  <!------------------------Extra Charges Start Here ----------------------------->
+	  <?php  		
+		$i=0;				
+		$extracharge_total = 0;
+		if (is_array($list_total_charges) && count($list_total_charges)>0)
+		{
+					
+	  ?>		
 	  <tr>
+	  <td>
+	  
+	  <table width="100%" align="left" cellpadding="0" cellspacing="0">
+   				<tr>
+				<td colspan="4" align="center"><font></font> <b><?php echo gettext("Extra Charges")?></b></td>
+				</tr>
+			<tr class="invoice_subheading">
+              <td class="invoice_td" width="18%"><?php echo gettext("Date")?> </td>
+              <td width="15%" class="invoice_td"><?php echo gettext("Type")?> </td>			  
+			  <td width="12%" class="invoice_td"><?php echo gettext("Description")?> </td>  			  
+              <td width="25%" class="invoice_td" align="right"><?php echo gettext("Amount")." (".BASE_CURRENCY.")"; ?> </td>
+            </tr>
+			<?php  		
+			
+			foreach ($list_total_charges as $data)
+			{	
+			 	$extracharge_total = $extracharge_total + convert_currency($currencies_list,$data[3], $data[6], BASE_CURRENCY) ;
+		
+			?>
+			 <tr class="invoice_rows">
+              <td width="18%" class="invoice_td"><?php echo $data[2]?></td>
+              <td width="15%" class="invoice_td"><?php 
+			  if($data[4] == 1) //connection setup charges
+				{
+					echo gettext("Setup Charges");
+				}
+				if($data[4] == 2) //DID Montly charges
+				{
+					echo gettext("DID Montly Use");
+				}
+				if($data[4] == 3) //Subscription fee charges
+				{
+					echo gettext("Subscription Fee");
+				}
+				if($data[4] == 4) //Extra Misc charges
+				{
+					echo gettext("Extra Charges");
+				}
+			  ?> </td>
+  			  <td width="10%" class="invoice_td"><?php  echo $data[7]; ?></td>			  
+              <td width="25%" align="right" class="invoice_td"><?php echo convert_currency($currencies_list,$data[3], $data[6],BASE_CURRENCY)." ".BASE_CURRENCY ?></td>
+            </tr>
+			 <?php
+			  }
+			  //for loop end here
+			   ?>
+			 <tr >
+              <td width="18%" class="invoice_td">&nbsp;</td>
+              <td width="15%" class="invoice_td">&nbsp;</td>
+              <td width="13%" class="invoice_td">&nbsp; </td>			  			 
+			  <td width="25%" class="invoice_td">&nbsp; </td>
+			  
+            </tr>
+            <tr class="invoice_subheading">
+              <td width="18%" class="invoice_td"><?php echo gettext("TOTAL");?> </td>
+              <td class="invoice_td" >&nbsp;</td>			  
+			  <td width="17%" class="invoice_td">&nbsp; </td>
+              <td width="25%" align="right" class="invoice_td"><?php echo display_2bill($extracharge_total) ?> </td>
+            </tr>
+			
+            <tr >
+              <td width="18%">&nbsp;</td>
+              <td width="15%">&nbsp;</td>
+              <td width="13%">&nbsp; </td>			  
+			  <td width="25%">&nbsp; </td>			  
+            </tr>		
+		</table>
+		
+	  
+	  </td>
+	  </tr>
+	  <?php
+	   }
+	   //if check end here
+	   $totalcost = $totalcost + $extracharge_total;
+	   ?>
+	  <!------------------------Extra Charges End Here ----------------------------->
+	 <tr>
 	 <td>&nbsp;</td>
 	 </tr>
 	 <tr class="invoice_subheading">
-	 <td  align="right">Grand Total = <?php echo display_2bill($totalcost);?>&nbsp;</td>
+	 <td  align="right" class="invoice_td"><?php echo gettext("Total")?> = <?php  display_2bill($totalcost);?>&nbsp;</td>
+	 </tr>
+	  <tr class="invoice_subheading">
+	 <td  align="right" class="invoice_td"><?php echo gettext("VAT")?> = <?php  
+	 $prvat = ($vat / 100) * $totalcost;
+	 display_2bill($prvat);?>&nbsp;</td>
+	 </tr>	 
+	 <tr class="invoice_subheading">
+	 <td  align="right" class="invoice_td"><?php echo gettext("Grand Total")?> = <?php  display_2bill($totalcost + $prvat);?>&nbsp;</td>
 	 </tr>
 	 <tr>
 	 <td>&nbsp;</td>
 	 </tr>
+	 
+	 
+	  <?php if ($exporttype != "pdf"){?>
       <tr>
         <td><table cellspacing="0" cellpadding="0">
             <tr>
-              <td width="15%"><?php echo gettext("Status")?>&nbsp; :&nbsp; </td>
-              <td width="10%"><?php if($info_customer[0][12] == 't') {?>
+              <td width="15%"><?php echo gettext("Status");?> :&nbsp; </td>
+             <td width="20%"><?php if($info_customer[0][12] == 't') {?>
 			  <img width="18" height="7" src="<?php echo Images_Path;?>/connected.gif">
 			  <?php }
 			  else
@@ -773,74 +845,17 @@ if (is_array($list_total_did) && count($list_total_did)>0)
 			  ?>
 			  <img width="18" height="7" src="<?php echo Images_Path;?>/terminated.gif">
 			  <?php }?></td>
-              <td width="75%">&nbsp; </td>
+              <td width="65%"><img width="18" height="7" src="<?php echo Images_Path;?>/connected.gif">&nbsp;<?php echo gettext("Connected");?>&nbsp;&nbsp;&nbsp;
+			  <img width="22" height="7" src="<?php echo Images_Path;?>/terminated.gif">&nbsp; <?php echo gettext("DisConnected");?></td>
             </tr>
         </table></td>
       </tr>
       <tr>
-        <td><table width="100%" cellpadding="0" cellspacing="0">
-            <tr>
-              <td valign="top"><table width="400" height="22" align="left" cellpadding="0" cellspacing="0">
-                  <tr>
-                    <td width="4%">&nbsp; </td>
-                    <td width="4%"><img width="18" height="7" src="<?php echo Images_Path;?>/connected.gif"></td>
-                    <td width="20%"><?php echo gettext("Connected")?> </td>
-                    <td width="4%"><img width="22" height="7" src="<?php echo Images_Path;?>/terminated.gif"></td>
-                    <td width="20%"><?php echo gettext("DisConnected")?> </td> 
-                  </tr>
-                </table>
-                  <table cellpadding="0">
-                    <tr>
-                      <td>&nbsp;</td>
-                    </tr>
-                  </table>
-        </table></td>
+        <td>&nbsp;</td>
       </tr>
+	  <?php }?>
     </table>
-	<?php
-	
-	}	
-	else
-	{
-	?>
-	<table  cellspacing="0" class="invoice_main_table">
-     
-      <tr>
-        <td class="invoice_heading">Bill Details</td>
-      </tr>	  
-	 <tr>
-	 <td>&nbsp;</td>
-	 </tr> 
-	  <tr>
-	 <td align="center">No invoice is billed to you yet!</td>
-	 </tr> 
-	  <tr>
-	 <td>&nbsp;</td>
-	 </tr> 
-	 </table>
-	<?php } ?>
-	
-<?php }
-else
-{
-?>
-	<table  cellspacing="0" class="invoice_main_table">
-     
-      <tr>
-        <td class="invoice_heading">Bill Details</td>
-      </tr>	  
-	 <tr>
-	 <td>&nbsp;</td>
-	 </tr> 
-	  <tr>
-	 <td align="center">No invoice is billed to you yet!</td>
-	 </tr> 
-	  <tr>
-	 <td>&nbsp;</td>
-	 </tr> 
-	 </table>
-
 <?php
-}
+
 $smarty->display( 'footer.tpl');
 ?>

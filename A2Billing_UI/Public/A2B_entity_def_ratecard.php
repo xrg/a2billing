@@ -181,7 +181,7 @@ if ($form_action == "list"){
 		  		<input name="check[upd_id_trunk]" type="checkbox" <?php if ($check["upd_id_trunk"]=="on") echo "checked"?>>
 		  </td>
 		  <td align="left"  bgcolor="#cccccc">
-				1) <?php echo gettext("TRUNK");?> : 
+				<font class="fontstyle_009">1) <?php echo gettext("TRUNK");?> :</font> 
 				<select NAME="upd_id_trunk" size="1" class="form_enter" style="border: 2px outset rgb(204, 51, 0);">
 					<?php
 					 foreach ($list_trunk as $recordset){ 						 
@@ -198,7 +198,7 @@ if ($form_action == "list"){
 		  </td>
 		  <td align="left"  bgcolor="#cccccc">
 		   						
-			  	2) <?php echo gettext("RATECARD");?> :
+			  <font class="fontstyle_009">	2) <?php echo gettext("RATECARD");?> :</font>
 				<select NAME="upd_idtariffplan" size="1" class="form_enter" style="border: 2px outset rgb(204, 51, 0);">
 									
 					<?php					 
@@ -217,7 +217,7 @@ if ($form_action == "list"){
 				<input name="mode[upd_buyrate]" type="hidden" value="2">
 		  </td>
 		  <td align="left"  bgcolor="#cccccc">	
-			  	3) <?php echo gettext("BUYRATE");?> :
+			  <font class="fontstyle_009">	3) <?php echo gettext("BUYRATE");?> :</font>
 					<input class="form_enter" name="upd_buyrate" size="10" maxlength="10" style="border: 2px inset rgb(204, 51, 0);" value="<?php if (isset($upd_buyrate)) echo $upd_buyrate; else echo '0';?>">
 				<font class="version">
 				<input type="radio" NAME="type[upd_buyrate]" value="1" <?php if((!isset($type["upd_buyrate"]))|| ($type["upd_buyrate"]==1) ){?>checked<?php }?>><?php echo gettext("Equal");?>
@@ -232,7 +232,7 @@ if ($form_action == "list"){
 				<input name="mode[upd_buyrateinitblock]" type="hidden" value="2">
 		  </td>
 		  <td align="left"  bgcolor="#cccccc">
-			  	4) <?php echo gettext("BUYRATEINITBLOCK");?> :
+			  	<font class="fontstyle_009">4) <?php echo gettext("BUYRATEINITBLOCK");?> :</font>
 					<input class="form_enter" name="upd_buyrateinitblock" size="10" maxlength="10" style="border: 2px inset rgb(204, 51, 0);" value="<?php if (isset($upd_buyrateinitblock)) echo $upd_buyrateinitblock; else echo '0';?>">
 				<font class="version">
 				<input type="radio" NAME="type[upd_buyrateinitblock]" value="1" <?php if((!isset($type["upd_buyrateinitblock"]))|| ($type["upd_buyrateinitblock"]==1) ){?>checked<?php }?>> <?php echo gettext("Equal");?>
@@ -248,7 +248,7 @@ if ($form_action == "list"){
 				<input name="mode[upd_buyrateincrement]" type="hidden" value="2">
 		  </td>
 		  <td align="left"  bgcolor="#cccccc">	
-			  	5) <?php echo gettext("BUYRATEINCREMENT");?> :
+			  	<font class="fontstyle_009">5) <?php echo gettext("BUYRATEINCREMENT");?> :</font>
 					<input class="form_enter" name="upd_buyrateincrement" size="10" maxlength="10" style="border: 2px inset rgb(204, 51, 0);" value="<?php if (isset($upd_buyrateincrement)) echo $upd_buyrateincrement; else echo '0';?>">
 				<font class="version">
 				<input type="radio" NAME="type[upd_buyrateincrement]" value="1" <?php if((!isset($type["upd_buyrateincrement"]))|| ($type["upd_buyrateincrement"]==1) ){?>checked<?php }?>> <?php echo gettext("Equal");?>
@@ -264,7 +264,7 @@ if ($form_action == "list"){
 		  </td>
 		  <td align="left"  bgcolor="#cccccc">	
 
-				6) <?php echo gettext("RATE INITIAL");?> :
+				<font class="fontstyle_009">6) <?php echo gettext("RATE INITIAL");?> :</font>
 				 	<input class="form_enter" name="upd_rateinitial" size="10" maxlength="10" style="border: 2px inset rgb(204, 51, 0);" value="<?php if (isset($upd_rateinitial)) echo $upd_rateinitial; else echo '0';?>" >
 				<font class="version">
 				<input type="radio" NAME="type[upd_rateinitial]" value="1" <?php if((!isset($type[upd_rateinitial]))|| ($type[upd_rateinitial]==1) ){?>checked<?php }?>> <?php echo gettext("Equal");?>
@@ -280,7 +280,7 @@ if ($form_action == "list"){
 		  </td>
 		  <td align="left"  bgcolor="#cccccc">	
 				
-				7) <?php echo gettext("MIN DURATION");?>  :
+				<font class="fontstyle_009">7) <?php echo gettext("MIN DURATION");?>  :</font>
 				 	<input class="form_enter" name="upd_initblock" size="10" maxlength="10" style="border: 2px inset rgb(204, 51, 0);" value="<?php if (isset($upd_initblock)) echo $upd_initblock; else echo '0';?>" >
 				<font class="version">
 				<input type="radio" NAME="type[upd_initblock]" value="1" <?php if((!isset($type[upd_initblock]))|| ($type[upd_initblock]==1) ){?>checked<?php }?>>  <?php echo gettext("Equal");?>
@@ -296,7 +296,7 @@ if ($form_action == "list"){
 		  </td>
 		  <td align="left"  bgcolor="#cccccc">	
 				
-				8) <?php echo gettext("BILLINGBLOCK");?>  :
+				<font class="fontstyle_009">8) <?php echo gettext("BILLINGBLOCK");?>  :</font>
 				 	<input class="form_enter" name="upd_billingblock" size="10" maxlength="10" style="border: 2px inset rgb(204, 51, 0);" value="<?php if (isset($upd_billingblock)) echo $upd_billingblock; else echo '0';?>" >
 				<font class="version">
 				<input type="radio" NAME="type[upd_billingblock]" value="1" <?php if((!isset($type[upd_billingblock]))|| ($type[upd_billingblock]==1) ){?>checked<?php }?>> <?php echo gettext("Equal");?>
@@ -312,7 +312,7 @@ if ($form_action == "list"){
 		  </td>
 		  <td align="left"  bgcolor="#cccccc">	
 
-				9) <?php echo gettext("CONNECTCHARGE");?>  :
+				<font class="fontstyle_009">9) <?php echo gettext("CONNECTCHARGE");?>  :</font>
 				 	<input class="form_enter" name="upd_connectcharge" size="10" maxlength="10" style="border: 2px inset rgb(204, 51, 0);" value="<?php if (isset($upd_connectcharge)) echo $upd_connectcharge; else echo '0';?>" >
 				<font class="version">
 				<input type="radio" NAME="type[upd_connectcharge]" value="1" <?php if((!isset($type[upd_connectcharge]))|| ($type[upd_connectcharge]==1) ){?>checked<?php }?>> <?php echo gettext("Equal");?>
@@ -328,7 +328,7 @@ if ($form_action == "list"){
 		  </td>
 		  <td align="left"  bgcolor="#cccccc">	
 				
-				10) <?php echo gettext("DISCONNECTCHARGE");?> :
+				<font class="fontstyle_009">10) <?php echo gettext("DISCONNECTCHARGE");?> :</font>
 				 	<input class="form_enter" name="upd_disconnectcharge" size="10" maxlength="10" style="border: 2px inset rgb(204, 51, 0);" value="<?php if (isset($upd_disconnectcharge)) echo $upd_disconnectcharge; else echo '0';?>" >
 				<font class="version">
 				<input type="radio" NAME="type[upd_disconnectcharge]" value="1" <?php if((!isset($type[upd_disconnectcharge]))|| ($type[upd_disconnectcharge]==1) ){?>checked<?php }?>> <?php echo gettext("Subtract");?>

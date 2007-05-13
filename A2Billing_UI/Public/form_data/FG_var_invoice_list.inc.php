@@ -93,8 +93,8 @@ $HD_Form -> FG_DELETION = false;
 	$HD_Form -> FG_OTHER_BUTTON1 = true;
 	$HD_Form -> FG_OTHER_BUTTON2 = true;
 	
-	$HD_Form -> FG_OTHER_BUTTON1_LINK="A2B_entity_invoice_detail.php?id=|param|";
-	$HD_Form -> FG_OTHER_BUTTON2_LINK="A2B_entity_invoice_billedmail.php?section=2&id=|param|&cardid=$cardid&action=sendinvoice&exporttype=pdf";
+	$HD_Form -> FG_OTHER_BUTTON1_LINK="A2B_entity_invoice_detail.php?id=|param|&invoice_type=2";
+	$HD_Form -> FG_OTHER_BUTTON2_LINK="A2B_entity_invoice_detail_pdf.php?section=2&id=|param|&cardid=$cardid&action=sendinvoice&exporttype=pdf&invoice_type=2";
 	
 	$HD_Form -> FG_OTHER_BUTTON1_ALT = 'Details';
 	$HD_Form -> FG_OTHER_BUTTON2_ALT = 'Send';

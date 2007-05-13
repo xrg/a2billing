@@ -1,14 +1,5 @@
 <?php
-/*
-  $Id: payment.php,v 1.37 2003/06/09 22:26:32 hpdl Exp $
 
-  osCommerce, Open Source E-Commerce Solutions
-  http://www.oscommerce.com
-
-  Copyright (c) 2003 osCommerce
-
-  Released under the GNU General Public License
-*/
         
   class payment {
     var $modules, $selected_module;
@@ -48,7 +39,6 @@
             $include_modules[] = array('class' => $class, 'file' => $value);
           }
         }
-
         for ($i=0, $n=sizeof($include_modules); $i<$n; $i++) {
 
           //include(DIR_WS_LANGUAGES . $language . '/modules/payment/' . $include_modules[$i]['file']);
@@ -144,7 +134,7 @@
       $selection_array = array();
 
       if (is_array($this->modules)) {
-        reset($this->modules);
+        reset($this->modules);		
         while (list(, $value) = each($this->modules)) {
           $class = substr($value, 0, strrpos($value, '.'));
           if ($GLOBALS[$class]->enabled)

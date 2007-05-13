@@ -1,15 +1,13 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# A2BCustomer_UI PO File.
+# Copyright (C) 2006 A2BILLING
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# ARESKI <areski@gmail.com>, 2006.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-04-12 09:42+0500\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2006-06-12 14:37+0500\n"
 "Last-Translator: ARESKI <areski@gmail.com>\n"
 "Language-Team: ARESKI <areski@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -24,7 +22,7 @@ msgstr ""
 #: A2B_entity_call_details1.php:71 A2B_entity_billed_details1.php:75
 #: A2B_entity_unbilled_details.php:56 A2B_entity_billed_summary1.php:75
 msgid "Calldate"
-msgstr ""
+msgstr "&#65279;&#1603;&#1575;&#1604; &#1603;&#1609; &#1578;&#1575; &#1585;&#1609;&#1582;"
 
 #: A2B_entity_unbilled_details1.php:70 A2B_entity_billed_details.php:57
 #: A2B_entity_unbilled_summary.php:55 A2B_entity_unbilled_summary1.php:73
@@ -33,7 +31,7 @@ msgstr ""
 #: A2B_entity_billed_details1.php:76 A2B_entity_unbilled_details.php:57
 #: A2B_entity_billed_summary1.php:76
 msgid "Source"
-msgstr ""
+msgstr "&#65279;&#1584;&#1585;&#1740;&#1593;&#1607;"
 
 #: A2B_entity_unbilled_details1.php:71 A2B_entity_billed_details.php:58
 #: A2B_entity_unbilled_summary.php:56 A2B_entity_unbilled_summary1.php:74
@@ -42,7 +40,7 @@ msgstr ""
 #: A2B_entity_billed_details1.php:77 A2B_entity_unbilled_details.php:58
 #: A2B_entity_billed_summary1.php:77
 msgid "Callednumber"
-msgstr ""
+msgstr "&#65279;&#1705;&#1575;&#1604; &#1705;&#1585;&#1583;&#1607; &#1606;&#1605;&#1576;&#1585;"
 
 #: A2B_entity_unbilled_details1.php:72 A2B_entity_unbilled_details1.php:500
 #: call-history.php:92 A2B_entity_billed_details.php:59
@@ -54,7 +52,7 @@ msgstr ""
 #: A2B_entity_unbilled_details.php:59 A2B_entity_unbilled_details.php:474
 #: A2B_entity_billed_summary1.php:78
 msgid "Destination"
-msgstr ""
+msgstr "&#65279;&#1605;&#1606;&#1586;&#1604;"
 
 #: A2B_entity_unbilled_details1.php:73 A2B_entity_unbilled_details1.php:501
 #: A2B_entity_unbilled_details1.php:587 A2B_entity_unbilled_details1.php:670
@@ -69,7 +67,7 @@ msgstr ""
 #: A2B_entity_unbilled_details.php:475 A2B_entity_unbilled_details.php:559
 #: A2B_entity_unbilled_details.php:643 A2B_entity_billed_summary1.php:79
 msgid "Duration"
-msgstr ""
+msgstr "&#65279;&#1583;&#1608;&#1585;&#1575;&#1606;&#1740;&#1607;"
 
 #: A2B_entity_unbilled_details1.php:76 call-history.php:96
 #: A2B_entity_billed_details.php:63 A2B_entity_unbilled_summary.php:61
@@ -78,7 +76,7 @@ msgstr ""
 #: A2B_entity_call_details1.php:78 A2B_entity_billed_details1.php:82
 #: A2B_entity_unbilled_details.php:63 A2B_entity_billed_summary1.php:82
 msgid "Cardused"
-msgstr ""
+msgstr "&#65279;&#1575;&#1587;&#1578;&#1593;&#1605;&#1575;&#1604;"
 
 #: A2B_entity_unbilled_details1.php:86 call-history.php:107
 #: A2B_entity_billed_details.php:66 A2B_entity_unbilled_summary.php:71
@@ -87,7 +85,7 @@ msgstr ""
 #: A2B_entity_call_details1.php:88 A2B_entity_billed_details1.php:92
 #: A2B_entity_unbilled_details.php:73 A2B_entity_billed_summary1.php:92
 msgid "Cost"
-msgstr ""
+msgstr "&#65279;&#1602;&#1740;&#1605;&#1578;"
 
 #: A2B_entity_unbilled_details1.php:455
 msgid "Unbilled Details for Card Number"
@@ -112,8 +110,9 @@ msgstr ""
 #: A2B_entity_call_details.php:682 A2B_entity_billed_summary.php:396
 #: A2B_entity_call_details1.php:426 A2B_entity_billed_details1.php:482
 #: A2B_entity_unbilled_details.php:450 A2B_entity_billed_summary1.php:448
+#, fuzzy
 msgid "Card Number"
-msgstr ""
+msgstr "&#65279;&#1603;&#1575;&#1604; &#1606;&#1605;&#1576;&#1585;"
 
 #: A2B_entity_unbilled_details1.php:480 A2B_entity_billed_details.php:434
 #: A2B_entity_unbilled_summary.php:437 A2B_entity_unbilled_summary1.php:496
@@ -125,8 +124,9 @@ msgstr ""
 
 #: A2B_entity_unbilled_details1.php:496 A2B_entity_billed_details.php:466
 #: A2B_entity_billed_details1.php:512
+#, fuzzy
 msgid "By Destination"
-msgstr ""
+msgstr "&#65279;&#1605;&#1606;&#1586;&#1604;"
 
 #: A2B_entity_unbilled_details1.php:503 A2B_entity_unbilled_details1.php:589
 #: A2B_entity_unbilled_details1.php:672 A2B_entity_billed_details.php:473
@@ -134,8 +134,9 @@ msgstr ""
 #: A2B_entity_billed_details1.php:519 A2B_entity_billed_details1.php:604
 #: A2B_entity_billed_details1.php:684 A2B_entity_unbilled_details.php:477
 #: A2B_entity_unbilled_details.php:561 A2B_entity_unbilled_details.php:645
+#, fuzzy
 msgid "Calls"
-msgstr ""
+msgstr "&#65279;&#1705;&#1575;&#1604; &#1585;&#1740;&#1705;&#1575;&#1585;&#1672;"
 
 #: A2B_entity_unbilled_details1.php:504 A2B_entity_unbilled_details1.php:674
 #: A2B_entity_billed_details.php:474 A2B_entity_billed_details.php:643
@@ -154,18 +155,19 @@ msgstr ""
 #: A2B_entity_billed_details1.php:763 A2B_entity_unbilled_details.php:526
 #: A2B_entity_unbilled_details.php:611 A2B_entity_unbilled_details.php:734
 msgid "TOTAL"
-msgstr ""
+msgstr "&#65279;&#1705;&#1604;"
 
 #: A2B_entity_unbilled_details1.php:583 A2B_entity_billed_details.php:552
 #: A2B_entity_billed_details1.php:598
+#, fuzzy
 msgid "By Date"
-msgstr ""
+msgstr "&#65279;&#1578;&#1575;&#1585;&#1740;&#1582;"
 
 #: A2B_entity_unbilled_details1.php:586 call-history.php:768
 #: A2B_entity_billed_details.php:555 A2B_entity_billed_details1.php:601
 #: A2B_entity_unbilled_details.php:558
 msgid "Date"
-msgstr ""
+msgstr "&#65279;&#1578;&#1575;&#1585;&#1740;&#1582;"
 
 #: A2B_entity_unbilled_details1.php:590 A2B_entity_billed_details.php:559
 #: A2B_entity_billed_details1.php:605 A2B_entity_unbilled_details.php:562
@@ -183,7 +185,7 @@ msgstr ""
 #: form_data/FG_var_did.inc:80 A2B_entity_unbilled_details.php:642
 #: templates/design1/main.tpl:261 templates/default/main.tpl:262
 msgid "DID"
-msgstr ""
+msgstr "&#65279;&#1672;&#1740; &#1570;&#1574;&#1740; &#1672;&#1740;"
 
 #: A2B_entity_unbilled_details1.php:671 A2B_entity_billed_details.php:640
 #: A2B_entity_billed_details1.php:683 A2B_entity_unbilled_details.php:644
@@ -192,8 +194,9 @@ msgstr ""
 
 #: A2B_entity_unbilled_details1.php:673 A2B_entity_billed_details.php:642
 #: A2B_entity_billed_details1.php:685 A2B_entity_unbilled_details.php:646
+#, fuzzy
 msgid "Call Cost"
-msgstr ""
+msgstr "&#65279;&#1705;&#1575;&#1604; &#1585;&#1740;&#1705;&#1575;&#1585;&#1672;"
 
 #: A2B_entity_unbilled_details1.php:707 A2B_entity_unbilled_details1.php:721
 msgid "None"
@@ -224,57 +227,58 @@ msgstr ""
 
 #: userinfo.php:62
 msgid "LAST NAME"
-msgstr ""
+msgstr "&#65279;&#1662;&#1729;&#1604;&#1575; &#1606;&#1575;&#1605;"
 
 #: userinfo.php:63
 msgid "FIRST NAME"
-msgstr ""
+msgstr "&#65279;&#1582;&#1575;&#1606;&#1583;&#1575;&#1606;&#1740; &#1606;&#1575;&#1605;"
 
 #: userinfo.php:64 frontoffice_data/CC_var_base.inc:172
 msgid "EMAIL"
-msgstr ""
+msgstr "&#65279;&#1575;&#1740;&#1748;&#1605;&#1740;&#1604;"
 
 #: userinfo.php:65 lib/Form/Class.FormHandler.inc.php:528
 #: form_data/FG_var_speeddial.inc:27 form_data/FG_var_speeddial.inc:80
 msgid "PHONE"
-msgstr ""
+msgstr "&#65279;&#1601;&#1608;&#1606;"
 
 #: userinfo.php:66 frontoffice_data/CC_var_base.inc:240
 msgid "FAX"
-msgstr ""
+msgstr "&#65279;&#1601;&#1740;&#1705;&#1587;"
 
 #: userinfo.php:70 frontoffice_data/CC_var_base.inc:194
 msgid "ADDRESS"
-msgstr ""
+msgstr "&#65279;&#1662;&#1578;&#1729;"
 
 #: userinfo.php:71
 msgid "ZIP CODE"
-msgstr ""
+msgstr "5279;&#1593;&#1604;&#1575;&#1602;&#1607; &#1705;&#1608;&#1672;"
 
 #: userinfo.php:72 frontoffice_data/CC_var_base.inc:206
 msgid "CITY"
-msgstr ""
+msgstr "&#65279;&#1588;&#1726;&#1585;"
 
 #: userinfo.php:73
 msgid "STATE"
-msgstr ""
+msgstr "&#65279;&#1589;&#1608;&#1576;&#1729;"
 
 #: userinfo.php:74 form_data/FG_var_did.inc:47
 #: frontoffice_data/CC_var_base.inc:250
 msgid "COUNTRY"
-msgstr ""
+msgstr "&#65279;&#1605;&#1615;&#1604;&#1705;"
 
 #: userinfo.php:91
 msgid "CARD NUMBER"
-msgstr ""
+msgstr "&#65279;&#1705;&#1575;&#1585;&#1672; &#1606;&#1605;&#1576;&#1585;"
 
 #: userinfo.php:95
 msgid "BALANCE REMAINING"
-msgstr ""
+msgstr "&#65279;&#1576;&#1602;&#1575;&#1740;&#1575; &#1585;&#1602;&#1605;"
 
 #: userinfo.php:132
+#, fuzzy
 msgid "Click below to buy"
-msgstr ""
+msgstr "&#65279;&#1582;&#1585;&#1740;&#1583;&#1575;&#1585;&#1740; &#1705;&#1746; &#1604;&#1620;&#1740;&#1746; &#1705;&#1604;&#1705; &#1705;&#1585;&#1740;&#1722;"
 
 #: userinfo.php:132
 msgid "credit for"
@@ -285,8 +289,9 @@ msgid "Make payments - it's fast, free and secure!"
 msgstr ""
 
 #: userinfo.php:159
+#, fuzzy
 msgid "The fee from $5 is $0.45, from $10 is $0.59, from $20 is $0.88, from $40 is $1.46."
-msgstr ""
+msgstr "$5 &#65279;&#1705;&#1740; &#1601;&#1740;&#1587; $0.45, $10 &#65279;&#1705;&#1740; $0.59,  $20 &#65279;&#1705;&#1740; $0.88, $40 &#65279;&#1705;&#1740; $1.46.<br>Paypal&#65279;&#1601;&#1740;&#1587;&#1705;&#1740;&#1604;&#1705;&#1608;&#1604;&#1740;&#1657;&#1585;"
 
 #: userinfo.php:159
 msgid "Paypal Fee Calculator"
@@ -294,32 +299,34 @@ msgstr ""
 
 #: call-history.php:91
 msgid "CardNumber"
-msgstr ""
+msgstr "&#65279;&#1603;&#1575;&#1604; &#1606;&#1605;&#1576;&#1585;"
 
 #: call-history.php:97
+#, fuzzy
 msgid "Terminate Cause"
-msgstr ""
+msgstr "&#65279;&#1575;&#1587;&#1578;&#1593;&#1605;&#1575;&#1604"
 
 #: call-history.php:98
 msgid "Calltype"
-msgstr ""
+msgstr "&#65279;&#1603;&#1575;&#1604; &#1603;&#1740; &#1657;&#1575;&#1574;&#1662;"
 
 #: call-history.php:106
 msgid "InitalRate"
-msgstr ""
+msgstr "&#65279;&#1575;&#1576;&#1578;&#1583;&#1575;&#1574;&#1740; &#1585;&#1740;&#1657;"
 
 #: call-history.php:135
 msgid "Call Logs"
-msgstr ""
+msgstr "&#65279;&#1705;&#1575;&#1604; &#1585;&#1740;&#1705;&#1575;&#1585;&#1672;"
 
 #: call-history.php:342 A2B_entity_call_details.php:428
+#, fuzzy
 msgid "SELECT BY MONTH"
-msgstr ""
+msgstr "&#65279;&#1587;&#1662;&#1740;&#1672; &#1672;&#1575;&#1574;&#1604;"
 
 #: call-history.php:349 call-history.php:399 A2B_entity_call_details.php:434
 #: A2B_entity_call_details.php:483 invoices.php:429 invoices.php:478
 msgid "FROM"
-msgstr ""
+msgstr "&#65279;&#1587;&#1746; &#1604;&#1740;&#1705;&#1585;"
 
 #: call-history.php:353 call-history.php:373 call-history.php:412
 #: call-history.php:440 A2B_entity_call_details.php:438
@@ -327,7 +334,7 @@ msgstr ""
 #: A2B_entity_call_details.php:541 invoices.php:433 invoices.php:453
 #: invoices.php:491 invoices.php:536
 msgid "JANUARY"
-msgstr ""
+msgstr "&#65279;&#1580;&#1606;&#1608;&#1585;&#1740;"
 
 #: call-history.php:353 call-history.php:373 call-history.php:412
 #: call-history.php:440 A2B_entity_call_details.php:438
@@ -335,7 +342,7 @@ msgstr ""
 #: A2B_entity_call_details.php:541 invoices.php:433 invoices.php:453
 #: invoices.php:491 invoices.php:536
 msgid "FEBRUARY"
-msgstr ""
+msgstr "&#65279;&#1601;&#1585;&#1608;&#1585;&#1740;"
 
 #: call-history.php:353 call-history.php:373 call-history.php:412
 #: call-history.php:440 A2B_entity_call_details.php:438
@@ -343,7 +350,7 @@ msgstr ""
 #: A2B_entity_call_details.php:541 invoices.php:433 invoices.php:453
 #: invoices.php:491 invoices.php:536
 msgid "MARCH"
-msgstr ""
+msgstr "&#65279;&#1605;&#1575;&#1585;&#1670;"
 
 #: call-history.php:353 call-history.php:373 call-history.php:412
 #: call-history.php:440 A2B_entity_call_details.php:438
@@ -351,7 +358,7 @@ msgstr ""
 #: A2B_entity_call_details.php:541 invoices.php:433 invoices.php:453
 #: invoices.php:491 invoices.php:536
 msgid "APRIL"
-msgstr ""
+msgstr "&#65279;&#1575;&#1662;&#1585;&#1740;&#1604;"
 
 #: call-history.php:353 call-history.php:373 call-history.php:412
 #: call-history.php:440 A2B_entity_call_details.php:438
@@ -359,7 +366,7 @@ msgstr ""
 #: A2B_entity_call_details.php:541 invoices.php:433 invoices.php:453
 #: invoices.php:491 invoices.php:536
 msgid "MAY"
-msgstr ""
+msgstr "&#65279;&#1605;&#1620;&#1740;"
 
 #: call-history.php:353 call-history.php:373 call-history.php:412
 #: call-history.php:440 A2B_entity_call_details.php:438
@@ -367,7 +374,7 @@ msgstr ""
 #: A2B_entity_call_details.php:541 invoices.php:433 invoices.php:453
 #: invoices.php:491 invoices.php:536
 msgid "JUNE"
-msgstr ""
+msgstr "&#65279;&#1580;&#1608;&#1606;"
 
 #: call-history.php:353 call-history.php:373 call-history.php:412
 #: call-history.php:440 A2B_entity_call_details.php:438
@@ -375,7 +382,7 @@ msgstr ""
 #: A2B_entity_call_details.php:541 invoices.php:433 invoices.php:453
 #: invoices.php:491 invoices.php:536
 msgid "JULY"
-msgstr ""
+msgstr "&#65279;&#1580;&#1608;&#1604;&#1575;&#1620;&#1740;"
 
 #: call-history.php:353 call-history.php:373 call-history.php:412
 #: call-history.php:440 A2B_entity_call_details.php:438
@@ -383,7 +390,7 @@ msgstr ""
 #: A2B_entity_call_details.php:541 invoices.php:433 invoices.php:453
 #: invoices.php:491 invoices.php:536
 msgid "AUGUST"
-msgstr ""
+msgstr "&#65279;&#1580;&#1608;&#1604;&#1575;&#1620;&#1740;"
 
 #: call-history.php:353 call-history.php:373 call-history.php:412
 #: call-history.php:440 A2B_entity_call_details.php:438
@@ -391,7 +398,7 @@ msgstr ""
 #: A2B_entity_call_details.php:541 invoices.php:433 invoices.php:453
 #: invoices.php:491 invoices.php:536
 msgid "SEPTEMBER"
-msgstr ""
+msgstr "&#65279;&#1587;&#1578;&#1605;&#1576;&#1585;"
 
 #: call-history.php:353 call-history.php:373 call-history.php:412
 #: call-history.php:440 A2B_entity_call_details.php:438
@@ -399,7 +406,7 @@ msgstr ""
 #: A2B_entity_call_details.php:541 invoices.php:433 invoices.php:453
 #: invoices.php:491 invoices.php:536
 msgid "OCTOBER"
-msgstr ""
+msgstr "&#65279;&#1575;&#1705;&#1578;&#1608;&#1576;&#1585;"
 
 #: call-history.php:353 call-history.php:373 call-history.php:412
 #: call-history.php:440 A2B_entity_call_details.php:438
@@ -407,7 +414,7 @@ msgstr ""
 #: A2B_entity_call_details.php:541 invoices.php:433 invoices.php:453
 #: invoices.php:491 invoices.php:536
 msgid "NOVEMBER"
-msgstr ""
+msgstr "&#65279;&#1606;&#1608;&#1605;&#1576;&#1585;"
 
 #: call-history.php:353 call-history.php:373 call-history.php:412
 #: call-history.php:440 A2B_entity_call_details.php:438
@@ -415,49 +422,51 @@ msgstr ""
 #: A2B_entity_call_details.php:541 invoices.php:433 invoices.php:453
 #: invoices.php:491 invoices.php:536
 msgid "DECEMBER"
-msgstr ""
+msgstr "&#65279;&#1583;&#1587;&#1605;&#1576;&#1585;"
 
 #: call-history.php:369 call-history.php:427 A2B_entity_call_details.php:454
 #: A2B_entity_call_details.php:528 invoices.php:449 invoices.php:523
 msgid "TO"
-msgstr ""
+msgstr "&#65279;&#1578;&#1705;"
 
 #: call-history.php:394 A2B_entity_call_details.php:478
+#, fuzzy
 msgid "SELECT BY DAY"
-msgstr ""
+msgstr "&#65279;&#1587;&#1662;&#1740;&#1672; &#1672;&#1575;&#1574;&#1604;"
 
 #: call-history.php:459 A2B_entity_call_details.php:577 invoices.php:572
 #: invoices.php:808 simulator.php:225 form_data/FG_var_ratecard.inc:34
 #: form_data/FG_var_ratecard.inc:58 form_data/FG_var_did.inc:42
 #: form_data/FG_var_did.inc:71
 msgid "DESTINATION"
-msgstr ""
+msgstr "&#65279;&#1605;&#1606;&#1586;&#1604;"
 
 #: call-history.php:464 A2B_entity_call_details.php:582
 #: A2B_entity_call_details.php:596 lib/Form/Class.SearchHandler.inc.php:168
 #: invoices.php:577 invoices.php:591
 msgid "Exact"
-msgstr ""
+msgstr "&#65279;&#1605;&#1705;&#1605;&#1604;"
 
 #: call-history.php:465 A2B_entity_call_details.php:583
 #: A2B_entity_call_details.php:597 lib/Form/Class.SearchHandler.inc.php:169
 #: invoices.php:578 invoices.php:592
 msgid "Begins with"
-msgstr ""
+msgstr "&#65279;&#1588;&#1585;&#1608;&#1593;"
 
 #: call-history.php:466 A2B_entity_call_details.php:584
 #: A2B_entity_call_details.php:598 lib/Form/Class.SearchHandler.inc.php:170
 #: invoices.php:579 invoices.php:593
 msgid "Contains"
-msgstr ""
+msgstr "&#65279;&#1585;&#1705;&#1726;&#1578;&#1575; &#1729;&#1746;"
 
 #: call-history.php:467
 msgid "End with"
-msgstr ""
+msgstr "&#65279;&#1575;&#1582;&#1578;&#1578;&#1575;&#1605;"
 
 #: call-history.php:472 A2B_entity_call_details.php:604 invoices.php:599
+#, fuzzy
 msgid "OPTIONS"
-msgstr ""
+msgstr "&#65279;&#1575;&#1740;&#1603;&#1588;&#1606;"
 
 #: call-history.php:478
 msgid "SHOW"
@@ -478,11 +487,11 @@ msgstr ""
 #: call-history.php:493 A2B_entity_call_details.php:614 invoices.php:609
 #: simulator.php:232
 msgid "Minutes"
-msgstr ""
+msgstr "&#65279;&#1605;&#1606;&#1657;"
 
 #: call-history.php:493 A2B_entity_call_details.php:614 invoices.php:609
 msgid "Seconds"
-msgstr ""
+msgstr "&#65279;&#1587;&#1740;&#1705;&#1606;&#1672;"
 
 #: call-history.php:498 A2B_entity_call_details.php:628 invoices.php:623
 msgid "CURRENCY"
@@ -490,11 +499,11 @@ msgstr ""
 
 #: call-history.php:526 A2B_entity_call_details.php:652 invoices.php:647
 msgid "Search"
-msgstr ""
+msgstr "&#65279;&#1587;&#1585;&#1670;"
 
 #: call-history.php:539
 msgid "Number of Calls"
-msgstr ""
+msgstr "&#65279;&#1705;&#1575;&#1604;&#1608;&#1722; &#1705;&#1740; &#1578;&#1593;&#1583;&#1575;&#1583;"
 
 #: call-history.php:666 CC_entity_edit_did_destination.php:376
 #: CC_entity_edit_did_destination.php:595
@@ -511,59 +520,60 @@ msgstr ""
 #: CC_entity_edit_speeddial.php:266 CC_entity_edit_speeddial.php:476
 #: CC_entity_edit_speeddial.php:768 CC_entity_edit_speeddial.php:1014
 msgid "No data found !!!"
-msgstr ""
+msgstr "&#65279;&#1705;&#1608;&#1620;&#1740; &#1585;&#1740;&#1705;&#1575;&#1585;&#1672; &#1606;&#1740;&#1740;&#1722; &#1605;&#1604;&#1575;!!!"
 
 #: call-history.php:691
 msgid "PREVIOUS"
-msgstr ""
+msgstr "&#65279;&#1662;&#1740;&#1670;&#1726;&#1746;"
 
 #: call-history.php:697 predictivedialer.php:322
 msgid "NEXT"
-msgstr ""
+msgstr "&#65279;&#1570;&#1711;&#1746;"
 
 #: call-history.php:713
 msgid "Total Cost"
-msgstr ""
+msgstr "&#65279;&#1705;&#1604; &#1602;&#1740;&#1605;&#1578;"
 
 #: call-history.php:753 call-history.php:827
 msgid "Total"
-msgstr ""
+msgstr "&#65279;&#1657;&#1608;&#1657;&#1604;"
 
 #: call-history.php:765
 msgid "CALLING CARD MINUTES"
-msgstr ""
+msgstr "&#65279;&#1705;&#1575;&#1604;&#1606;&#1711; &#1705;&#1575;&#1585;&#1672; &#1605;&#1606;&#1657;"
 
 #: call-history.php:769
 msgid "DURATION"
-msgstr ""
+msgstr "&#65279;&#1583;&#1608;&#1585;&#1575;&#1606;&#1740;&#1729;"
 
 #: call-history.php:770 invoices.php:810 invoices.php:913
 msgid "GRAPHIC"
-msgstr ""
+msgstr "&#65279;&#1711;&#1585;&#1575;&#1601;&#1705;"
 
 #: call-history.php:771
 msgid "CALLS"
-msgstr ""
+msgstr "&#65279;&#1705;&#1575;&#1604;&#1586;"
 
 #: call-history.php:772
+#, fuzzy
 msgid "ACT"
-msgstr ""
+msgstr "&#65279;&#1575;&#1740;&#1603;&#1588;&#1606;"
 
 #: call-history.php:773 invoices.php:812 invoices.php:915
 msgid "TOTAL COST"
-msgstr ""
+msgstr "&#65279;&#1705;&#1604; &#1602;&#1740;&#1605;&#1578;"
 
 #: call-history.php:842 invoices.php:1119
 msgid "Export PDF file"
-msgstr ""
+msgstr "&#65279;&#1575;&#1740;&#1705;&#1662;&#1608;&#1585;&#1657; &#1657;&#1608; PDF"
 
 #: call-history.php:845 invoices.php:1122
 msgid "Export CSV file"
-msgstr ""
+msgstr "&#65279;&#1575;&#1740;&#1705;&#1662;&#1608;&#1585;&#1657; &#1657;&#1608; CSV"
 
 #: call-history.php:849
 msgid "No calls in your selection"
-msgstr ""
+msgstr "&#65279;&#1575;&#1740;&#1705;&#1662;&#1608;&#1585;&#1657; &#1657;&#1608;"
 
 #: A2B_entity_voucher.php:40
 msgid "System Error : No currency table complete !!!"
@@ -571,65 +581,67 @@ msgstr ""
 
 #: A2B_entity_voucher.php:51
 msgid "The Voucher"
-msgstr ""
+msgstr "&#65279;&#1608;&#1575;&#1608;&#1670;&#1585;"
 
 #: A2B_entity_voucher.php:51
 msgid "has been used, We added"
-msgstr ""
+msgstr "&#65279;&#1575;&#1587;&#1578;&#1593;&#1605;&#1575;&#1604; &#1705;&#1585; &#1604;&#1740;&#1575; &#1711;&#1740;&#1575; &#1548; &#1607;&#1605; &#1606;&#1746; &#1580;&#1605;&#1593; &#1705;&#1740;&#1575;"
 
 #: A2B_entity_voucher.php:51
 msgid "credit on your account!"
-msgstr ""
+msgstr "! &#65279;&#1705;&#1585;&#1740;&#1672;&#1657; &#1657;&#1608; &#1575;&#1705;&#1575;&#1652;&#1608;&#1606;&#1657;"
 
 #: A2B_entity_voucher.php:56
 msgid "This Voucher doesn't exist !"
-msgstr ""
+msgstr "! &#65279;&#1608;&#1575;&#1608;&#1670;&#1585; &#1605;&#1608;&#1580;&#1608;&#1583; &#1606;&#1607;&#1740;&#1722;"
 
 #: A2B_entity_voucher.php:110 templates_c/%%72^72D^72DAF6E8%%main.tpl.php:237
 #: form_data/FG_var_voucher.inc:14 templates/design1/main.tpl:223
 #: templates/default/main.tpl:224
 msgid "VOUCHER"
-msgstr ""
+msgstr "&#65279;&#1608;&#1575;&#1608;&#1670;&#1585;'"
 
 #: A2B_entity_voucher.php:115
 msgid "USE VOUCHER"
-msgstr ""
+msgstr "&#65279;&#1608;&#1575;&#1608;&#1670;&#1585; &#1705;&#1575; &#1575;&#1587;&#1578;&#1593;&#1605;&#1575;&#1604;"
 
 #: webphone.php:63
 msgid "Account/Phone"
-msgstr ""
+msgstr "&#65279;&#1575;&#1705;&#1575;&#1620;&#1608;&#1606;&#1657;/&#1601;&#1608;&#1606;"
 
 #: webphone.php:78
 msgid "SIP WEB-PHONE"
-msgstr ""
+msgstr "&#65279;&#1608;&#1740;&#1576; &#1601;&#1608;&#1606; SIP "
 
 #: webphone.php:84
+#, fuzzy
 msgid "NO SIP ACCOUNT"
-msgstr ""
+msgstr "&#65279;&#1705;&#1608;&#1620;&#1740; &#1575;&#1705;&#1575;&#1620;&#1608;&#1606;&#1657; &#1606;&#1729;&#1740;&#1722;&#1748; IAX "
 
 #: webphone.php:86
 msgid "Click to start SIP WebPhone"
-msgstr ""
+msgstr "&#65279;&#1587;&#1662; &#1601;&#1608;&#1606; &#1705;&#1746; &#1604;&#1740;&#1746; &#1740;&#1729;&#1575;&#1722; &#1705;&#1604;&#1705; &#1705;&#1585;&#1740;&#1722;&#1748;"
 
 #: webphone.php:107
 msgid "IAX WEB-PHONE"
-msgstr ""
+msgstr "&#65279;&#1608;&#1740;&#1576; &#1601;&#1608;&#1606; IAX "
 
 #: webphone.php:113
 msgid "NO IAX ACCOUNT"
-msgstr ""
+msgstr "&#65279;&#1705;&#1608;&#1620;&#1740; &#1575;&#1705;&#1575;&#1620;&#1608;&#1606;&#1657; &#1606;&#1729;&#1740;&#1722;&#1748; IAX "
 
 #: webphone.php:115
 msgid "START IAX PHONE"
-msgstr ""
+msgstr "&#65279;&#1570;&#1620;&#1740;&#1748;&#1575;&#1746;&#1748;&#1575;&#1740;&#1705;&#1587;&#1748;&#1601;&#1608;&#1606;&#1740;&#1729;&#1575;&#1722;&#1587;&#1657;&#1575;&#1585;&#1657;&#1705;&#1585;&#1740;&#1722;&#1748;"
 
 #: checkout_confirmation.php:64
 msgid "Please confirm your order"
 msgstr ""
 
 #: checkout_confirmation.php:71
+#, fuzzy
 msgid "Total Amount"
-msgstr ""
+msgstr "&#65279;&#1705;&#1604; &#1602;&#1740;&#1605;&#1578;"
 
 #: checkout_confirmation.php:72
 msgid "USD"
@@ -706,17 +718,17 @@ msgstr ""
 #: templates_c/%%72^72D^72DAF6E8%%main.tpl.php:228
 #: templates/design1/main.tpl:214 templates/default/main.tpl:215
 msgid "ACCOUNT INFO"
-msgstr ""
+msgstr "&#65279;&#1575;&#1705;&#1575;&#1608;&#1606;&#1657;"
 
 #: templates_c/%%72^72D^72DAF6E8%%main.tpl.php:232
 #: templates/design1/main.tpl:218 templates/default/main.tpl:219
 msgid "CALL HISTORY"
-msgstr ""
+msgstr "&#65279;&#1705;&#1575;&#1604; &#1585;&#1740;&#1705;&#1575;&#1585;&#1672;"
 
 #: templates_c/%%72^72D^72DAF6E8%%main.tpl.php:251
 #: templates/design1/main.tpl:235 templates/default/main.tpl:236
 msgid "INVOICES"
-msgstr ""
+msgstr "&#65279;&#1576;&#1604;"
 
 #: templates_c/%%72^72D^72DAF6E8%%main.tpl.php:259
 #: templates/design1/main.tpl:243 templates/default/main.tpl:244
@@ -747,13 +759,13 @@ msgstr ""
 #: templates_c/%%72^72D^72DAF6E8%%main.tpl.php:282
 #: templates/design1/main.tpl:266 templates/default/main.tpl:267
 msgid "SPEED DIAL"
-msgstr ""
+msgstr "&#65279;&#1587;&#1662;&#1740;&#1672; &#1672;&#1575;&#1574;&#1604;"
 
 #: templates_c/%%72^72D^72DAF6E8%%main.tpl.php:287
 #: lib/Form/Class.SearchHandler.inc.php:315 templates/design1/main.tpl:271
 #: templates/default/main.tpl:272
 msgid "RATECARD"
-msgstr ""
+msgstr "&#65279;&#1585;&#1740;&#1657; &#1705;&#1575;&#1585;&#1672;"
 
 #: templates_c/%%72^72D^72DAF6E8%%main.tpl.php:292
 #: templates/design1/main.tpl:276 templates/default/main.tpl:277
@@ -763,12 +775,12 @@ msgstr ""
 #: templates_c/%%72^72D^72DAF6E8%%main.tpl.php:297
 #: templates/design1/main.tpl:281 templates/default/main.tpl:282
 msgid "CALLBACK"
-msgstr ""
+msgstr "&#65279;&#1705;&#1575;&#1604; &#1576;&#1740;&#1705;"
 
 #: templates_c/%%72^72D^72DAF6E8%%main.tpl.php:302
 #: templates/design1/main.tpl:286 templates/default/main.tpl:287
 msgid "WEB-PHONE"
-msgstr ""
+msgstr "&#65279;&#1608;&#1740;&#1576; &#1601;&#1608;&#1606;"
 
 #: templates_c/%%72^72D^72DAF6E8%%main.tpl.php:307
 #: templates/design1/main.tpl:291 templates/default/main.tpl:292
@@ -783,7 +795,7 @@ msgstr ""
 #: templates_c/%%72^72D^72DAF6E8%%main.tpl.php:316
 #: templates/design1/main.tpl:300 templates/default/main.tpl:301
 msgid "LOGOUT"
-msgstr ""
+msgstr "&#65279;&#1604;&#1575;&#1711; &#1570;&#1652;&#1608;&#1657;"
 
 #: checkout_success.php:18 lib/Form/Class.FormHandler.DelForm.inc.php:32
 msgid "Message"
@@ -820,8 +832,9 @@ msgstr ""
 
 #: A2B_entity_unbilled_summary.php:452 A2B_entity_unbilled_summary1.php:510
 #: A2B_entity_billed_summary.php:419 A2B_entity_billed_summary1.php:469
+#, fuzzy
 msgid "Description"
-msgstr ""
+msgstr "&#65279;&#1605;&#1606;&#1586;&#1604;"
 
 #: A2B_entity_unbilled_summary.php:457 A2B_entity_unbilled_summary1.php:515
 #: A2B_entity_billed_summary.php:424 A2B_entity_billed_summary1.php:474
@@ -848,15 +861,15 @@ msgstr ""
 
 #: callback.php:217
 msgid "<font face='Arial, Helvetica, sans-serif' size='2' color='red'><b>Error : You don t have enough credit to call you back !!!</b></font><br>"
-msgstr ""
+msgstr "<font face='Arial, Helvetica, sans-serif' size='2' color='red'><b> !!!&#65279;&#1570;&#1662; &#1705;&#1746; &#1662;&#1575;&#1587; &#1585;&#1602;&#1605; &#1606;&#1575;&#1705;&#1575;&#1601;&#1740; &#1607;&#1746;</b></font><br>"
 
 #: callback.php:220
 msgid "<font face='Arial, Helvetica, sans-serif' size='2' color='red'><b>Error : There is no route to call back your phonenumber !!!</b></font><br>"
-msgstr ""
+msgstr "<font face='Arial, Helvetica, sans-serif' size='2' color='red'><b>!!!&#65279;&#1705;&#1575;&#1604; &#1576;&#1740;&#1705; &#1705;&#1746; &#1604;&#1574;&#1746; &#1604;&#1575;&#1574;&#1606; &#1606;&#1607;&#1740;&#1722; &#1605;&#1604;&#1740; </b></font><br>"
 
 #: callback.php:227
 msgid "<font face='Arial, Helvetica, sans-serif' size='2' color='red'><b>Error : You have to specify your phonenumber and the number you wish to call !!!</b></font><br>"
-msgstr ""
+msgstr "<font face='Arial, Helvetica, sans-serif' size='2' color='red'><b>!!!&#65279;&#1575;&#1662;&#1606;&#1575; &#1605;&#1591;&#1604;&#1608;&#1576;&#1607; &#1606;&#1605;&#1576;&#1585; &#1672;&#1575;&#1574;&#1604; &#1705;&#1585;&#1740;&#1722;</b></font><br>"
 
 #: callback.php:251
 msgid "You can initiate the callback by entering your phonenumber and the number you wish to call!"
@@ -887,8 +900,9 @@ msgstr ""
 #: CC_entity_edit_did_destination.php:844
 #: lib/Form/Class.FormHandler.EditForm.inc.php:417
 #: CC_entity_edit_speeddial.php:532 CC_entity_edit_speeddial.php:701
+#, fuzzy
 msgid "LIST"
-msgstr ""
+msgstr "&#65279;&#1601;&#1608;&#1606; &#1604;&#1587;&#1657; "
 
 #: CC_entity_edit_did_destination.php:708
 #: lib/Form/Class.FormHandler.EditForm.inc.php:293
@@ -904,16 +918,17 @@ msgid "Add a new"
 msgstr ""
 
 #: CC_entity_edit_did_destination.php:1119
+#, fuzzy
 msgid "Deletion confirmation"
-msgstr ""
+msgstr "&#65279;&#1605;&#1606;&#1586;&#1604;"
 
 #: CC_entity_edit_did_destination.php:1214
 msgid "Remove this DID DESTINATION"
-msgstr ""
+msgstr "&#65279;&#1575;&#1587; &#1605;&#1606;&#1586;&#1604; &#1705;&#1608; &#1672;&#1604;&#1740;&#1657; &#1705;&#1585;&#1740;&#1722;"
 
 #: CC_entity_edit_did_destination.php:1214 CC_entity_edit_speeddial.php:1029
 msgid "Delete"
-msgstr ""
+msgstr "&#65279;&#1672;&#1604;&#1740;&#1657;"
 
 #: CC_entity_edit_did_destination.php:1239
 msgid "Deletion"
@@ -934,16 +949,16 @@ msgstr ""
 #: A2B_entity_call_details.php:585 A2B_entity_call_details.php:599
 #: lib/Form/Class.SearchHandler.inc.php:171 invoices.php:580 invoices.php:594
 msgid "Ends with"
-msgstr ""
+msgstr "&#65279;&#1582;&#1578;&#1605; &#1607;&#1608; &#1580;&#1575;&#1578;&#1575; &#1607;&#1746;"
 
 #: A2B_entity_call_details.php:586 A2B_entity_call_details.php:600
 #: invoices.php:581 invoices.php:595
 msgid "Is not"
-msgstr ""
+msgstr "&#65279;&#1606;&#1607;&#1740;&#1722; &#1607;&#1746;"
 
 #: A2B_entity_call_details.php:591 invoices.php:586
 msgid "SOURCE"
-msgstr ""
+msgstr "&#65279;&#1584;&#1585;&#1740;&#1593;&#1607;"
 
 #: A2B_entity_call_details.php:611 invoices.php:606
 msgid "RESULT"
@@ -955,20 +970,22 @@ msgstr ""
 
 #: A2B_entity_call_details.php:622 invoices.php:617
 msgid "See Invoice in HTML"
-msgstr ""
+msgstr "&#65279;&#1576;&#1604; &#1705;&#1608; &#1608;&#1740;&#1576; &#1662;&#1740;&#1580; &#1662;&#1585; &#1583;&#1740;&#1705;&#1607;&#1740;&#1722;"
 
 #: A2B_entity_call_details.php:623 invoices.php:618
 msgid "or Export PDF"
-msgstr ""
+msgstr "&#65279;&#1576;&#1604; &#1705;&#1608; &#1662;&#1740; &#1672;&#1740; &#1575;&#1740;&#1601; &#1605;&#1740;&#1722; &#1583;&#1740;&#1705;&#1607;&#1740;&#1722;"
 
 #: A2B_entity_call_details.php:697 A2B_entity_call_details.php:797
 #: A2B_entity_call_details1.php:440
+#, fuzzy
 msgid "No of Calls"
-msgstr ""
+msgstr "&#65279;&#1705;&#1575;&#1604;&#1608;&#1722; &#1705;&#1740; &#1578;&#1593;&#1583;&#1575;&#1583;"
 
 #: A2B_entity_call_details.php:797
+#, fuzzy
 msgid "DID Calls"
-msgstr ""
+msgstr "&#65279;&#1705;&#1575;&#1604; &#1585;&#1740;&#1705;&#1575;&#1585;&#1672;"
 
 #: lib/Form/Class.SearchHandler.inc.php:36
 msgid "January"
@@ -1092,16 +1109,18 @@ msgid "BILLINGBLOCK"
 msgstr ""
 
 #: lib/Form/Class.SearchHandler.inc.php:429
+#, fuzzy
 msgid "CONNECTCHARGE"
-msgstr ""
+msgstr "&#65279;&#1605;&#1586;&#1740;&#1583; &#1670;&#1575;&#1585;&#1580;"
 
 #: lib/Form/Class.SearchHandler.inc.php:445
 msgid "DISCONNECTCHARGE"
 msgstr ""
 
 #: lib/Form/Class.SearchHandler.inc.php:460
+#, fuzzy
 msgid " BATCH UPDATE RATECARD "
-msgstr ""
+msgstr "&#65279;&#1605;&#1608;&#1580;&#1608;&#1583;&#1607; &#1585;&#1740;&#1657; &#1705;&#1575;&#1585;&#1672;"
 
 #: lib/Form/Class.FormHandler.inc.php:426
 msgid "THERE IS NO RECORD !!!"
@@ -1464,17 +1483,17 @@ msgstr ""
 #: lib/Form/Class.FormHandler.inc.php:1907
 #: lib/Form/Class.FormHandler.inc.php:1960
 msgid "THE CURRENT RATECARD"
-msgstr ""
+msgstr "&#65279;&#1605;&#1608;&#1580;&#1608;&#1583;&#1607; &#1585;&#1740;&#1657; &#1705;&#1575;&#1585;&#1672;"
 
 #: lib/Form/Class.FormHandler.inc.php:1918
 #: lib/Form/Class.FormHandler.inc.php:1971
 msgid "R A T E C A R D"
-msgstr ""
+msgstr "&#65279;&#1585;&#1740;&#1657; &#1705;&#1575;&#1585;&#1672;"
 
 #: lib/Form/Class.FormHandler.inc.php:1924
 #: lib/Form/Class.FormHandler.inc.php:1977
 msgid "Choose a ratecard"
-msgstr ""
+msgstr "&#65279;&#1585;&#1740;&#1657; &#1705;&#1575;&#1585;&#1672; &#1670;&#1606;&#1740;&#1722;"
 
 #: lib/Form/Class.FormHandler.EditForm.inc.php:116
 msgid "<br> TYPE DE SELECT :"
@@ -1535,15 +1554,15 @@ msgstr ""
 
 #: lib/Form/Class.ViewHandler.inc.php:246
 msgid "ACTION"
-msgstr ""
+msgstr "&#65279;&#1575;&#1740;&#1603;&#1588;&#1606;"
 
 #: lib/Form/Class.ViewHandler.inc.php:475
 msgid "DISPLAY"
-msgstr ""
+msgstr "&#65279;&#1672;&#1587;&#1662;&#1604;&#1746;"
 
 #: lib/Form/Class.ViewHandler.inc.php:492
 msgid "GO"
-msgstr ""
+msgstr "&#65279;&#1711;&#1608;"
 
 #: lib/Form/Class.ViewHandler.inc.php:497
 msgid "Export CSV"
@@ -1639,16 +1658,18 @@ msgid "ERROR: Cannot download file"
 msgstr ""
 
 #: invoices.php:31
+#, fuzzy
 msgid "it does not exist"
-msgstr ""
+msgstr "! &#65279;&#1608;&#1575;&#1608;&#1670;&#1585; &#1605;&#1608;&#1580;&#1608;&#1583; &#1606;&#1607;&#1740;&#1722;"
 
 #: invoices.php:423
 msgid "SELECT MONTH"
 msgstr ""
 
 #: invoices.php:473
+#, fuzzy
 msgid "SELECT DAY"
-msgstr ""
+msgstr "&#65279;&#1587;&#1662;&#1740;&#1672; &#1672;&#1575;&#1574;&#1604;"
 
 #: invoices.php:689
 msgid "Phone :"
@@ -1660,15 +1681,15 @@ msgstr ""
 
 #: invoices.php:705
 msgid "B I L L I N G &nbsp;&nbsp;S E R V I C E"
-msgstr ""
+msgstr "&#65279;&#1576;&#1604;&#1606;&#1711; &#1587;&#1585;&#1608;&#1587;"
 
 #: invoices.php:731
 msgid "EXTRA CHARGE"
-msgstr ""
+msgstr "&#65279;&#1605;&#1586;&#1740;&#1583; &#1670;&#1575;&#1585;&#1580;"
 
 #: invoices.php:735 invoices.php:911
 msgid "DATE"
-msgstr ""
+msgstr "&#65279;&#1578;&#1575;&#1585;&#1740;&#1582;"
 
 #: invoices.php:736
 msgid "NB CHARGE"
@@ -1684,23 +1705,24 @@ msgstr ""
 
 #: invoices.php:805
 msgid "CALLS PER DESTINATION"
-msgstr ""
+msgstr "&#65279;&#1705;&#1575;&#1604;&#1586; &#1605;&#1606;&#1586;&#1604; &#1705;&#1746; &#1581;&#1587;&#1575;&#1576; &#1587;&#1746;"
 
 #: invoices.php:809 invoices.php:912
 msgid "DUR"
-msgstr ""
+msgstr "DUR"
 
 #: invoices.php:811 invoices.php:914
 msgid "CALL"
-msgstr ""
+msgstr "&#65279;&#1705;&#1575;&#1604;&#1586;"
 
 #: invoices.php:883
 msgid "B I L L&nbsp;&nbsp;E V O L U T I O N"
-msgstr ""
+msgstr "&#65279;&#1576;&#1604; &#1606;&#1705;&#1575;&#1604;&#1740;&#1722;"
 
 #: invoices.php:988
+#, fuzzy
 msgid "C A L L S"
-msgstr ""
+msgstr "&#65279;&#1705;&#1575;&#1604;&#1586;"
 
 #: invoices.php:988
 msgid "D E T A I L"
@@ -1708,15 +1730,16 @@ msgstr ""
 
 #: invoices.php:997
 msgid "Number of call"
-msgstr ""
+msgstr "&#65279;&#1705;&#1575;&#1604;&#1608;&#1722; &#1705;&#1740; &#1578;&#1593;&#1583;&#1575;&#1583;"
 
 #: invoices.php:1000
 msgid "nb"
-msgstr ""
+msgstr "nb"
 
 #: invoices.php:1096
+#, fuzzy
 msgid "TOTAL COSTS"
-msgstr ""
+msgstr "&#65279;&#1705;&#1604; &#1602;&#1740;&#1605;&#1578;"
 
 #: invoices.php:1097
 msgid "TOTAL BUYCOSTS"
@@ -1728,11 +1751,11 @@ msgstr ""
 
 #: invoices.php:1126
 msgid "No calls in your Selection"
-msgstr ""
+msgstr "&#65279;&#1705;&#1608;&#1574;&#1740; &#1705;&#1575;&#1604; &#1587;&#1604;&#1740;&#1705;&#1657; &#1606;&#1607;&#1740;&#1722; &#1705;&#1740;"
 
 #: A2B_entity_speeddial.php:76
 msgid "Enter the number which you wish to assign to the code here"
-msgstr ""
+msgstr "&#65279;&#1705;&#1608;&#1672; &#1705;&#1746; &#1604;&#1574;&#1746; &#1606;&#1605;&#1576;&#1585; &#1583;&#1740;&#1722;"
 
 #: A2B_entity_speeddial.php:82
 msgid "Speed Dial code"
@@ -1740,7 +1763,7 @@ msgstr ""
 
 #: A2B_entity_speeddial.php:98
 msgid "ASSIGN NUMBER TO SPEEDDIAL"
-msgstr ""
+msgstr "&#65279;&#1587;&#1662;&#1740;&#1672; &#1672;&#1575;&#1574;&#1604; &#1705;&#1608; &#1606;&#1605;&#1576;&#1585; &#1604;&#1711;&#1575;&#1574;&#1740;&#1722;"
 
 #: A2B_entity_callerid.php:70
 msgid "CALLER ID :"
@@ -1809,32 +1832,36 @@ msgid "Call Details for Card Number"
 msgstr ""
 
 #: A2B_entity_call_details1.php:415
+#, fuzzy
 msgid "Calls Details"
-msgstr ""
+msgstr "&#65279;&#1605;&#1606;&#1586;&#1604;"
 
 #: A2B_entity_call_details1.php:443 A2B_entity_call_details1.php:536
 msgid "Sr"
 msgstr ""
 
 #: A2B_entity_call_details1.php:533
+#, fuzzy
 msgid "No of DID Calls"
-msgstr ""
+msgstr "&#65279;&#1705;&#1575;&#1604;&#1608;&#1722; &#1705;&#1740; &#1578;&#1593;&#1583;&#1575;&#1583;"
 
 #: simulator.php:58
 msgid "Error card !!!"
 msgstr ""
 
 #: simulator.php:161
+#, fuzzy
 msgid "Call"
-msgstr ""
+msgstr "&#65279;&#1705;&#1575;&#1604; &#1585;&#1740;&#1705;&#1575;&#1585;&#1672;"
 
 #: simulator.php:161
 msgid "Simulator"
 msgstr ""
 
 #: simulator.php:167
+#, fuzzy
 msgid "Enter the number you wish to call"
-msgstr ""
+msgstr "&#65279;&#1705;&#1608;&#1672; &#1705;&#1746; &#1604;&#1574;&#1746; &#1606;&#1605;&#1576;&#1585; &#1583;&#1740;&#1722;"
 
 #: simulator.php:172
 msgid "YOUR BALANCE"
@@ -1857,36 +1884,40 @@ msgid "The number, you have entered, is not correct!"
 msgstr ""
 
 #: predictivedialer.php:70
+#, fuzzy
 msgid "Error : The system cannot call you back, please inform the administrator"
-msgstr ""
+msgstr "<font face='Arial, Helvetica, sans-serif' size='2' color='red'><b>!!!&#65279;&#1587;&#1587;&#1657;&#1605; &#1587;&#1746; &#1705;&#1575;&#1604; &#1576;&#1740;&#1705; &#1605;&#1605;&#1705;&#1606; &#1606;&#1607;&#1740;&#1722; &#1600;&#1575;&#1740;&#1672;&#1605;&#1606;&#1587;&#1657;&#1585;&#1740;&#1657;&#1585; &#1587;&#1746; &#1585;&#1575;&#1576;&#1591;&#1607; &#1705;&#1585;&#1740;&#1722;</b></font><br>"
 
 #: predictivedialer.php:80
+#, fuzzy
 msgid "Cannot connect to the asterisk manager!"
-msgstr ""
+msgstr "...&#65279;&#1575;&#1587;&#1657;&#1740;&#1585;&#1705; &#1605;&#1606;&#1740;&#1580;&#1585; &#1587;&#1746; &#1585;&#1575;&#1576;&#1591;&#1607; &#1605;&#1605;&#1705;&#1606;&#1606;&#1607;&#1740;&#1722;&#1548; &#1705;&#1575;&#1606;&#1601;&#1711;&#1585;&#1740;&#1588;&#1606; &#1670;&#1740;&#1705; &#1705;&#1585;&#1740;&#1722;"
 
 #: predictivedialer.php:80
+#, fuzzy
 msgid "Please check the manager configuration..."
-msgstr ""
+msgstr "...&#65279;&#1575;&#1587;&#1657;&#1740;&#1585;&#1705; &#1605;&#1606;&#1740;&#1580;&#1585; &#1587;&#1746; &#1585;&#1575;&#1576;&#1591;&#1607; &#1605;&#1605;&#1705;&#1606;&#1606;&#1607;&#1740;&#1722;&#1548; &#1705;&#1575;&#1606;&#1601;&#1711;&#1585;&#1740;&#1588;&#1606; &#1670;&#1740;&#1705; &#1705;&#1585;&#1740;&#1722;"
 
 #: predictivedialer.php:88
+#, fuzzy
 msgid "Error : You have to specify your phonenumber and the number you wish to call"
-msgstr ""
+msgstr "<font face='Arial, Helvetica, sans-serif' size='2' color='red'><b>!!!&#65279;&#1575;&#1662;&#1606;&#1575; &#1605;&#1591;&#1604;&#1608;&#1576;&#1607; &#1606;&#1605;&#1576;&#1585; &#1672;&#1575;&#1574;&#1604; &#1705;&#1585;&#1740;&#1722;</b></font><br>"
 
 #: predictivedialer.php:146
 msgid "You can initiate the predictive dialer by clicking on the Place call button!"
-msgstr ""
+msgstr "!&#65279;&#1662;&#1585;&#1740;&#1672;&#1705;&#1657;&#1608; &#1672;&#1575;&#1574;&#1604;&#1585; &#1705;&#1746; &#1604;&#1574;&#1746; &#1705;&#1575;&#1604; &#1576;&#1657;&#1606; &#1662;&#1585; &#1705;&#1604;&#1705; &#1705;&#1585;&#1740;&#1722;"
 
 #: predictivedialer.php:157
 msgid "Your PhoneNumber / Location"
-msgstr ""
+msgstr "&#65279;&#1570;&#1662; &#1705;&#1575; &#1601;&#1608;&#1606; &#1606;&#1605;&#1576;&#1585; &#1740;&#1575; &#1580;&#1711;&#1607;"
 
 #: predictivedialer.php:163
 msgid "Click here to place 10 calls"
-msgstr ""
+msgstr "&#65279;&#1583;&#1587; &#1705;&#1575;&#1604;&#1740;&#1722; &#1705;&#1585;&#1606;&#1746; &#1705;&#1746; &#1604;&#1574;&#1746; &#1740;&#1607;&#1575;&#1722; &#1705;&#1604;&#1705; &#1705;&#1585;&#1740;&#1722;"
 
 #: predictivedialer.php:171
 msgid "Click here to see the last called persons and the current connect call"
-msgstr ""
+msgstr "&#65279;&#1605;&#1608;&#1580;&#1608;&#1583;&#1607; &#1705;&#1575;&#1604; &#1575;&#1608;&#1585; &#1585;&#1740;&#1705;&#1575;&#1585;&#1672; &#1705;&#1746; &#1604;&#1574;&#1746; &#1705;&#1604;&#1705; &#1705;&#1585;&#1740;&#1722;"
 
 #: predictivedialer.php:317 CC_entity_phonelist.php:243
 msgid "Previous"
@@ -1894,47 +1925,49 @@ msgstr ""
 
 #: predictivedialer.php:341 A2B_entity_did.php:565 CC_entity_phonelist.php:267
 msgid "NO"
-msgstr ""
+msgstr "&#65279;&#1606;&#1607;&#1740;&#1722;"
 
 #: predictivedialer.php:341 CC_entity_phonelist.php:267
 msgid "REGISTERED"
-msgstr ""
+msgstr "&#65279;&#1585;&#1580;&#1587;&#1657;&#1585;&#1672"
 
 #: predictivedialer.php:363
 msgid "INSERT a new"
-msgstr ""
+msgstr "&#65279;&#1606;&#1740;&#1575; &#1585;&#1740;&#1705;&#1575;&#1585;&#1672;"
 
 #: predictivedialer.php:363 predictivedialer.php:374 predictivedialer.php:380
 msgid "PHONELIST"
-msgstr ""
+msgstr "&#65279;&#1601;&#1608;&#1606; &#1604;&#1587;&#1657; "
 
 #: predictivedialer.php:374
 msgid "You wish to insert a new"
-msgstr ""
+msgstr "&#65279;&#1570;&#1662; &#1575;&#1740;&#1705; &#1606;&#1740;&#1575; &#1585;&#1740;&#1705;&#1575;&#1585;&#1672; &#1576;&#1606;&#1575;&#1606;&#1575; &#1670;&#1575;&#1607;&#1578;&#1746; &#1607;&#1740;&#1722;"
 
 #: predictivedialer.php:374
 msgid "Click on Add button"
-msgstr ""
+msgstr "&#65279;&#1575;&#1740;&#1672; &#1576;&#1657;&#1606; &#1662;&#1585; &#1705;&#1604;&#1705; &#1705;&#1585;&#1740;&#1722;"
 
 #: predictivedialer.php:380 CC_entity_phonelist.php:289
 msgid "Insert a new"
-msgstr ""
+msgstr "&#65279;&#1606;&#1740;&#1575; &#1585;&#1740;&#1705;&#1575;&#1585;&#1672;"
 
 #: A2B_entity_billed_details1.php:464
 msgid "Billed"
 msgstr ""
 
 #: A2B_entity_billed_details1.php:464
+#, fuzzy
 msgid "Details for Card Number"
-msgstr ""
+msgstr "&#65279;&#1603;&#1575;&#1604; &#1606;&#1605;&#1576;&#1585;"
 
 #: A2B_entity_billed_details1.php:775
 msgid "No DID Calls data available."
 msgstr ""
 
 #: A2B_entity_billed_details1.php:797
+#, fuzzy
 msgid "Grand Total"
-msgstr ""
+msgstr "&#65279;&#1657;&#1608;&#1657;&#1604;"
 
 #: A2B_entity_billed_details1.php:842 A2B_entity_billed_details1.php:863
 #: A2B_entity_billed_summary1.php:545
@@ -2012,21 +2045,23 @@ msgid "Active"
 msgstr ""
 
 #: form_data/FG_var_callerid.inc:13
+#, fuzzy
 msgid "Disactive"
-msgstr ""
+msgstr "&#65279;&#1578;&#1575;&#1585;&#1740;&#1582;"
 
 #: form_data/FG_var_callerid.inc:16 A2B_entity_did.php:565
 msgid "Yes"
-msgstr ""
+msgstr "&#65279;&#1607;&#1575;&#1722;"
 
 #: form_data/FG_var_callerid.inc:20 form_data/FG_var_callerid.inc:53
+#, fuzzy
 msgid "CALLERID"
-msgstr ""
+msgstr "&#65279;&#1705;&#1575;&#1604;&#1586;"
 
 #: form_data/FG_var_callerid.inc:22 form_data/FG_var_callerid.inc:63
 #: form_data/FG_var_did.inc:44 form_data/FG_var_did.inc:90
 msgid "ACTIVATED"
-msgstr ""
+msgstr "&#65279;&#1575;&#1740;&#1603;&#1657;&#1740;&#1608;&#1740;&#1657;&#1672;"
 
 #: form_data/FG_var_callerid.inc:28 form_data/FG_var_did.inc:61
 msgid "THERE IS NO"
@@ -2042,8 +2077,9 @@ msgstr ""
 
 #: form_data/FG_var_callerid.inc:103 form_data/FG_var_did.inc:132
 #: form_data/FG_var_speeddial.inc:113
+#, fuzzy
 msgid "click on the delete button."
-msgstr ""
+msgstr "&#65279;&#1575;&#1740;&#1672; &#1576;&#1657;&#1606; &#1662;&#1585; &#1705;&#1604;&#1705; &#1705;&#1585;&#1740;&#1722;"
 
 #: form_data/FG_var_callerid.inc:111
 msgid "You can add your home phone number below to allow you to call in and use your Calling Card Services with out having to enter your Calling Card every time you call in."
@@ -2055,8 +2091,9 @@ msgstr ""
 
 #: form_data/FG_var_callerid.inc:112 form_data/FG_var_did.inc:137
 #: form_data/FG_var_speeddial.inc:121
+#, fuzzy
 msgid "has been inserted."
-msgstr ""
+msgstr "&#65279;&#1575;&#1587;&#1578;&#1593;&#1605;&#1575;&#1604; &#1705;&#1585; &#1604;&#1740;&#1575; &#1711;&#1740;&#1575; &#1548; &#1607;&#1605; &#1606;&#1746; &#1580;&#1605;&#1593; &#1705;&#1740;&#1575;"
 
 #: form_data/FG_var_callerid.inc:116
 msgid "Made your change to edit this callerid."
@@ -2096,23 +2133,25 @@ msgstr ""
 
 #: form_data/FG_var_did.inc:45 form_data/FG_var_did.inc:99
 msgid "PRIORITY"
-msgstr ""
+msgstr "&#65279;&#1601;&#1608;&#1602;&#1740;&#1578;"
 
 #: form_data/FG_var_did.inc:46
 msgid "USED MINUTE"
-msgstr ""
+msgstr "&#65279;&#1575;&#1587;&#1578;&#1593;&#1605;&#1575;&#1604; &#1588;&#1583;&#1607; &#1605;&#1606;&#1657;"
 
 #: form_data/FG_var_did.inc:61
+#, fuzzy
 msgid "CREATED!"
-msgstr ""
+msgstr "&#65279;&#1585;&#1740;&#1657; &#1705;&#1575;&#1585;&#1672;"
 
 #: form_data/FG_var_did.inc:78
 msgid "Enter here the phonenumber you want to call or the SIP/IAX/H323 peer to reach (ie: 347894999 or SIP/jeremy@182.212.1.45). To call SIP/IAX/H323 peer, you need to enable the voip_call bellow (voip_call = Yes) "
 msgstr ""
 
 #: form_data/FG_var_did.inc:109
+#, fuzzy
 msgid "VOIP_CALL"
-msgstr ""
+msgstr "&#65279;&#1608;&#1575;&#1574;&#1662; &#1705;&#1575;&#1604; : "
 
 #: form_data/FG_var_did.inc:115
 msgid "Choose if you want to not use the trunk and let the asterisk call directly the destination (ie, Destination : SIP/jeremy@182.212.1.45)"
@@ -2123,31 +2162,34 @@ msgid "Setup those values to create the new"
 msgstr ""
 
 #: form_data/FG_var_speeddial.inc:26 form_data/FG_var_speeddial.inc:60
+#, fuzzy
 msgid "SPEEDDIAL"
-msgstr ""
+msgstr "&#65279;&#1587;&#1662;&#1740;&#1672; &#1672;&#1575;&#1574;&#1604;"
 
 #: form_data/FG_var_speeddial.inc:28 form_data/FG_var_speeddial.inc:70
 #: frontoffice_data/CC_var_phonelist.inc:38
 #: frontoffice_data/CC_var_phonelist.inc:173
 #: frontoffice_data/CC_var_base.inc:152
 msgid "NAME"
-msgstr ""
+msgstr "&#65279;&#1606;&#1575;&#1605;"
 
 #: form_data/FG_var_speeddial.inc:37
 msgid "THERE ARE NO "
 msgstr ""
 
 #: form_data/FG_var_speeddial.inc:76
+#, fuzzy
 msgid "Insert the name"
-msgstr ""
+msgstr "&#65279;&#1606;&#1740;&#1575; &#1585;&#1740;&#1705;&#1575;&#1585;&#1672;"
 
 #: form_data/FG_var_speeddial.inc:77
 msgid "Enter here the name/label that will identify this speed dial"
 msgstr ""
 
 #: form_data/FG_var_speeddial.inc:86
+#, fuzzy
 msgid "Insert the phone"
-msgstr ""
+msgstr "&#65279;&#1606;&#1740;&#1575; &#1585;&#1740;&#1705;&#1575;&#1585;&#1672;"
 
 #: form_data/FG_var_speeddial.inc:87
 msgid "Enter here the phonenumber you want to call for this speed dial"
@@ -2159,47 +2201,55 @@ msgstr ""
 
 #: form_data/FG_var_voucher.inc:15
 msgid "CREDIT"
-msgstr ""
+msgstr "&#65279;&#1705;&#1585;&#1740;&#1672;&#1657;"
 
 #: A2B_entity_unbilled_details.php:470
+#, fuzzy
 msgid "Calls by Destination"
-msgstr ""
+msgstr "&#65279;&#1605;&#1606;&#1586;&#1604;"
 
 #: A2B_entity_unbilled_details.php:555
+#, fuzzy
 msgid "Calls by Date"
-msgstr ""
+msgstr "&#65279;&#1603;&#1575;&#1604; &#1603;&#1609; &#1578;&#1575; &#1585;&#1609;&#1582;"
 
 #: frontoffice_data/CC_var_phonelist.inc:37
+#, fuzzy
 msgid "PHONENUMBER"
-msgstr ""
+msgstr "&#65279;&#1606;&#1608;&#1605;&#1576;&#1585;"
 
 #: frontoffice_data/CC_var_phonelist.inc:39
+#, fuzzy
 msgid "LAST ATTEMPT"
-msgstr ""
+msgstr "&#65279;&#1662;&#1729;&#1604;&#1575; &#1606;&#1575;&#1605;"
 
 #: frontoffice_data/CC_var_phonelist.inc:40
+#, fuzzy
 msgid "CONNECTED TO"
-msgstr ""
+msgstr "&#65279;&#1605;&#1586;&#1740;&#1583; &#1670;&#1575;&#1585;&#1580;"
 
 #: frontoffice_data/CC_var_phonelist.inc:41
 msgid "NUM TRIALS"
 msgstr ""
 
 #: frontoffice_data/CC_var_phonelist.inc:42
+#, fuzzy
 msgid "CALLED MINUTE"
-msgstr ""
+msgstr "&#65279;&#1575;&#1587;&#1578;&#1593;&#1605;&#1575;&#1604; &#1588;&#1583;&#1607; &#1605;&#1606;&#1657;"
 
 #: frontoffice_data/CC_var_phonelist.inc:105
 msgid "- PHONELIST List -"
-msgstr ""
+msgstr "&#65279;&#1601;&#1608;&#1606; &#1604;&#1587;&#1657; "
 
 #: frontoffice_data/CC_var_phonelist.inc:149
+#, fuzzy
 msgid "Phone Number"
-msgstr ""
+msgstr "&#65279;&#1672;&#1740; &#1570;&#1574;&#1740; &#1672;&#1740; &#1605;&#1740;&#1722; &#1601;&#1608;&#1606;&#1605;&#1576;&#1585; &#1580;&#1605;&#1593; &#1705;&#1585;&#1740;&#1722;"
 
 #: frontoffice_data/CC_var_phonelist.inc:155
+#, fuzzy
 msgid "Insert the phonenumber"
-msgstr ""
+msgstr "&#65279;&#1672;&#1740; &#1570;&#1574;&#1740; &#1672;&#1740; &#1605;&#1740;&#1722; &#1601;&#1608;&#1606;&#1605;&#1576;&#1585; &#1580;&#1605;&#1593; &#1705;&#1585;&#1740;&#1722;"
 
 #: frontoffice_data/CC_var_phonelist.inc:157
 msgid "Enter here the phonenumber you want to call"
@@ -2210,12 +2260,14 @@ msgid "CAMPAIGN"
 msgstr ""
 
 #: frontoffice_data/CC_var_phonelist.inc:179
+#, fuzzy
 msgid "Insert the name "
-msgstr ""
+msgstr "&#65279;&#1606;&#1740;&#1575; &#1585;&#1740;&#1705;&#1575;&#1585;&#1672;"
 
 #: frontoffice_data/CC_var_phonelist.inc:194
+#, fuzzy
 msgid "LAST ATTEMPT DATE"
-msgstr ""
+msgstr "&#65279;&#1662;&#1729;&#1604;&#1575; &#1606;&#1575;&#1605;"
 
 #: frontoffice_data/CC_var_phonelist.inc:200
 msgid "Insert the last attempt date"
@@ -2308,20 +2360,23 @@ msgid "Insert the user Name"
 msgstr ""
 
 #: frontoffice_data/CC_var_base.inc:162
+#, fuzzy
 msgid "FIRSTNAME"
-msgstr ""
+msgstr "&#65279;&#1582;&#1575;&#1606;&#1583;&#1575;&#1606;&#1740; &#1606;&#1575;&#1605;"
 
 #: frontoffice_data/CC_var_base.inc:168
+#, fuzzy
 msgid "Insert the firstname"
-msgstr ""
+msgstr "&#65279;&#1606;&#1740;&#1575; &#1585;&#1740;&#1705;&#1575;&#1585;&#1672;"
 
 #: frontoffice_data/CC_var_base.inc:178
 msgid "Insert the email address of the webmaster"
 msgstr ""
 
 #: frontoffice_data/CC_var_base.inc:183
+#, fuzzy
 msgid "COMPANY"
-msgstr ""
+msgstr "&#65279;&#1605;&#1620;&#1740;"
 
 #: frontoffice_data/CC_var_base.inc:189
 msgid "Insert the name of your company"
@@ -2336,12 +2391,14 @@ msgid "Insert the City"
 msgstr ""
 
 #: frontoffice_data/CC_var_base.inc:219
+#, fuzzy
 msgid "ZIPCODE"
-msgstr ""
+msgstr "5279;&#1593;&#1604;&#1575;&#1602;&#1607; &#1705;&#1608;&#1672;"
 
 #: frontoffice_data/CC_var_base.inc:225
+#, fuzzy
 msgid "Insert the zipcode"
-msgstr ""
+msgstr "&#65279;&#1606;&#1740;&#1575; &#1585;&#1740;&#1705;&#1575;&#1585;&#1672;"
 
 #: frontoffice_data/CC_var_base.inc:236
 msgid "Insert the webmaster Phonenumber"
@@ -2376,8 +2433,9 @@ msgid ".<br>Fill the following fields and confirm by clicking on the add button.
 msgstr ""
 
 #: frontoffice_data/CC_var_base.inc:366
+#, fuzzy
 msgid "You can insert easily new "
-msgstr ""
+msgstr "&#65279;&#1570;&#1662; &#1575;&#1740;&#1705; &#1606;&#1740;&#1575; &#1585;&#1740;&#1705;&#1575;&#1585;&#1672; &#1576;&#1606;&#1575;&#1606;&#1575; &#1670;&#1575;&#1607;&#1578;&#1746; &#1607;&#1740;&#1722;"
 
 #: frontoffice_data/CC_var_base.inc:366
 msgid ", <br>fill the following form and click on the add button<br>"
@@ -2392,8 +2450,9 @@ msgid " has been inserted. <br>Thanks to trust to these system !"
 msgstr ""
 
 #: A2B_entity_ratecard.php:72
+#, fuzzy
 msgid "NONE"
-msgstr ""
+msgstr "&#65279;&#1606;&#1607;&#1740;&#1722;"
 
 #: A2B_entity_did.php:63
 msgid "The following Destinaton-DID has been relesed:"
@@ -2413,11 +2472,11 @@ msgstr ""
 
 #: A2B_entity_did.php:364
 msgid "Buy New DID"
-msgstr ""
+msgstr "&#65279;&#1606;&#1740;&#1575; &#1672;&#1740; &#1570;&#1574;&#1740; &#1672;&#1740; &#1582;&#1585;&#1740;&#1583;&#1740;&#1722;"
 
 #: A2B_entity_did.php:364
 msgid "Add Phone Number to your DID"
-msgstr ""
+msgstr "&#65279;&#1672;&#1740; &#1570;&#1574;&#1740; &#1672;&#1740; &#1605;&#1740;&#1722; &#1601;&#1608;&#1606;&#1605;&#1576;&#1585; &#1580;&#1605;&#1593; &#1705;&#1585;&#1740;&#1722;"
 
 #: A2B_entity_did.php:364
 msgid "Release DID"
@@ -2425,7 +2484,7 @@ msgstr ""
 
 #: A2B_entity_did.php:381
 msgid "Select Country"
-msgstr ""
+msgstr "&#65279;&#1605;&#1604;&#1705; &#1587;&#1604;&#1740;&#1705;&#1657; &#1705;&#1585;&#1740;&#1722;"
 
 #: A2B_entity_did.php:395
 msgid "Select Virtual Phone Number"
@@ -2437,11 +2496,11 @@ msgstr ""
 
 #: A2B_entity_did.php:561
 msgid "Country Code - Area Code - Number"
-msgstr ""
+msgstr "&#65279;&#1705;&#1606;&#1657;&#1585;&#1740; &#1705;&#1608;&#1672; &#1600; &#1575;&#1740;&#1585;&#1740;&#1575; &#1705;&#1608;&#1672; &#1600; &#1605;&#1604;&#1705;"
 
 #: A2B_entity_did.php:565
 msgid "VOIP CALL : "
-msgstr ""
+msgstr "&#65279;&#1608;&#1575;&#1574;&#1662; &#1705;&#1575;&#1604; : "
 
 #: A2B_entity_did.php:567
 msgid "Ring To destination "
@@ -2460,8 +2519,9 @@ msgid "Next"
 msgstr ""
 
 #: A2B_entity_did.php:582
+#, fuzzy
 msgid "Add phone number"
-msgstr ""
+msgstr "&#65279;&#1672;&#1740; &#1570;&#1574;&#1740; &#1672;&#1740; &#1605;&#1740;&#1722; &#1601;&#1608;&#1606;&#1605;&#1576;&#1585; &#1580;&#1605;&#1593; &#1705;&#1585;&#1740;&#1722;"
 
 #: A2B_entity_did.php:584 A2B_entity_did.php:613 A2B_entity_did.php:634
 msgid "Ok"
@@ -2476,8 +2536,9 @@ msgid "A monthly fee of "
 msgstr ""
 
 #: A2B_entity_did.php:605
+#, fuzzy
 msgid " will be carrie out from your acount"
-msgstr ""
+msgstr "! &#65279;&#1705;&#1585;&#1740;&#1672;&#1657; &#1657;&#1608; &#1575;&#1705;&#1575;&#1652;&#1608;&#1606;&#1657;"
 
 #: A2B_entity_did.php:610
 msgid "Prev"
@@ -2496,8 +2557,9 @@ msgid " is lower than Fixerate of the DID  "
 msgstr ""
 
 #: A2B_entity_did.php:625
+#, fuzzy
 msgid "Please reload your account "
-msgstr ""
+msgstr "! &#65279;&#1705;&#1585;&#1740;&#1672;&#1657; &#1657;&#1608; &#1575;&#1705;&#1575;&#1652;&#1608;&#1606;&#1657;"
 
 #: templates/design1/PP_error.tpl:17 templates/default/PP_error.tpl:17
 #: PP_error.php:26
@@ -2514,19 +2576,22 @@ msgstr ""
 
 #: CC_entity_edit_speeddial.php:1029
 msgid "Remove this Speed Dial"
-msgstr ""
+msgstr "&#65279;&#1587;&#1662;&#1740;&#1672; &#1672;&#1575;&#1574;&#1604; &#1582;&#1578;&#1605; &#1705;&#1585;&#1740;&#1722;"
 
 #: CC_entity_edit_speeddial.php:1046
+#, fuzzy
 msgid "Deletetion"
-msgstr ""
+msgstr "&#65279;&#1672;&#1604;&#1740;&#1657;"
 
 #: CC_entity_phonelist.php:299
+#, fuzzy
 msgid "If you wish to insert a new"
-msgstr ""
+msgstr "&#65279;&#1570;&#1662; &#1575;&#1740;&#1705; &#1606;&#1740;&#1575; &#1585;&#1740;&#1705;&#1575;&#1585;&#1672; &#1576;&#1606;&#1575;&#1606;&#1575; &#1670;&#1575;&#1607;&#1578;&#1746; &#1607;&#1740;&#1722;"
 
 #: CC_entity_phonelist.php:299
+#, fuzzy
 msgid "click on the Add button"
-msgstr ""
+msgstr "&#65279;&#1575;&#1740;&#1672; &#1576;&#1657;&#1606; &#1662;&#1585; &#1705;&#1604;&#1705; &#1705;&#1585;&#1740;&#1722;"
 
 #: CC_entity_phonelist.php:304
 msgid "Information about the insertion"
@@ -2534,20 +2599,54 @@ msgstr ""
 
 #: PP_error.php:13
 msgid "ERROR : ACCESS REFUSED"
-msgstr ""
+msgstr "&#65279;&#1594;&#1604;&#1591;&#1740; &#1563; &#1604;&#1580;&#1575;&#1586;&#1578; &#1606;&#1607;&#1740;&#1722;"
 
 #: PP_error.php:14
 msgid "Sorry a problem occur on our system, please try later!"
-msgstr ""
+msgstr "!&#65279;&#1605;&#1593;&#1575;&#1601; &#1705;&#1740;&#1580;&#1740;&#1746; &#1711;&#1575; &#1600; &#1587;&#1587;&#1657;&#1605; &#1605;&#1740;&#1722; &#1705;&#1608;&#1574;&#1740; &#1605;&#1587;&#1574;&#1604;&#1607; &#1607;&#1746; &#1600;&#1583;&#1608;&#1576;&#1575;&#1585;&#1607; &#1657;&#1585;&#1575;&#1574;&#1740; &#1705;&#1585;&#1740;&#1722;"
 
 #: PP_error.php:15
 msgid "There is an error on this page!"
-msgstr ""
+msgstr "!&#65279;&#1575;&#1587; &#1662;&#1740;&#1580; &#1605;&#1740;&#1722; &#1705;&#1608;&#1574;&#1740; &#1605;&#1587;&#1574;&#1604;&#1607; &#1607;&#1746;"
 
 #: PP_error.php:16
 msgid "Sorry, you don t have access to this page !"
-msgstr ""
+msgstr "!&#65279;&#1605;&#1593;&#1575;&#1601; &#1705;&#1740;&#1580;&#1740;&#1746; &#1711;&#1575; &#1570;&#1662; &#1705;&#1608; &#1575;&#1587; &#1662;&#1740;&#1580; &#1705;&#1740; &#1575;&#1580;&#1575;&#1586;&#1578; &#1606;&#1607;&#1740;&#1722; &#1607;&#1746;"
 
 #: PP_error.php:17
 msgid "Sorry, this page is in construction !"
-msgstr ""
+msgstr "!&#65279;&#1605;&#1593;&#1575;&#1601; &#1705;&#1740;&#1580;&#1740;&#1746; &#1711;&#1575; &#1740;&#1607; &#1662;&#1740;&#1580; &#1586;&#1740;&#1585;&#1578;&#1705;&#1605;&#1740;&#1604; &#1607;&#1746;"
+
+#~ msgid "<acronym title='AVERAGE CONNECTION TIME'>ACT</acronym>"
+#~ msgstr "<acronym title='AVERAGE CONNECTION TIME'>&#65279;&#1575;&#1608;&#1587;&#1591; &#1705;&#1575;&#1604; &#1583;&#1608;&#1585;&#1575;&#1606;&#1740;&#1729;</acronym>"
+
+#~ msgid "&nbsp;NO SIP ACCOUNT&nbsp;"
+#~ msgstr "&#65279; &#1705;&#1608;&#1620;&#1740; &#1587;&#1662; &#1575;&#1705;&#1575;&#1620;&#1608;&#1606;&#1657; &#1606;&#1729;&#1740;&#1722;"
+
+#~ msgid "C A L L S &nbsp;&nbsp;  D E T A I L"
+#~ msgstr "&#65279;&#1705;&#1575;&#1604;&#1608;&#1722; &#1705;&#1740; &#1578;&#1601;&#1589;&#1740;&#1604;"
+
+#, fuzzy
+#~ msgid "Reset"
+#~ msgstr "&#65279;&#1606;&#1578;&#1740;&#1580;&#1729;"
+
+#~ msgid "Selection of the month"
+#~ msgstr "&#65279;&#1575;&#1587; &#1605;&#1729;&#1740;&#1606;&#1746; &#1705;&#1575; &#1575;&#1606;&#1578;&#1582;&#1575;&#1576;"
+
+#~ msgid "Selection of the day"
+#~ msgstr "&#65279;&#1570;&#1580; &#1705;&#1575"
+
+#~ msgid "Result"
+#~ msgstr "&#65279;&#1606;&#1578;&#1740;&#1580;&#1729;"
+
+#~ msgid "Currency"
+#~ msgstr "&#65279;&#1705;&#1585;&#1606;&#1587;&#1740;"
+
+#~ msgid "PRED-DIALER"
+#~ msgstr "&#65279;&#1662;&#1585;&#1740; &#1672;&#1575;&#1574;&#1604;&#1585;"
+
+#~ msgid "The CODE is not a VALID CODE or has been already used! Please check it and try again."
+#~ msgstr "&#65279;&#1672;&#1575;&#1574;&#1604; &#1705;&#1585;&#1583;&#1607; &#1705;&#1608;&#1672; &#1594;&#1604;&#1591; &#1607;&#1746; &#1740;&#1575; &#1575;&#1587;&#1578;&#1593;&#1605;&#1575;&#1604; &#1705;&#1740;&#1575; &#1580;&#1575; &#1670;&#1705;&#1575; &#1607;&#1746; &#1600; &#1583;&#1608;&#1576;&#1575;&#1585;&#1607; &#1657;&#1585;&#1575;&#1574;&#1740; &#1705;&#1585;&#1740;&#1722;"
+
+#~ msgid "ASSIGN NUMBER TO DID"
+#~ msgstr "&#65279;&#1672;&#1740; &#1570;&#1574;&#1740; &#1672;&#1740; &#1705;&#1608; &#1606;&#1605;&#1576;&#1585; &#1575;&#1587;&#1575;&#1574;&#1606; &#1705;&#1585;&#1740;&#1722;"

@@ -3,6 +3,8 @@ include ("./lib/defines.php");
 include ("./lib/module.access.php");
 include ("./lib/Form/Class.FormHandler.inc.php");
 include ("./lib/epayment/includes/general.php");
+include ("./lib/epayment/includes/configure.php");
+
 include ("./lib/epayment/includes/html_output.php");
 include("./lib/epayment/includes/PP_header.php");
 
@@ -22,8 +24,9 @@ getpost_ifset(array('errcode'));
     <td width=50%>&nbsp;</td>
 </tr>
 <tr>
-    <td align=center colspan=2><?php echo gettext("Thank you for your purchase at A2Billing")?>
-    &nbsp;
+    <td align=center colspan=2>
+	<?php echo gettext("Thank you for your purchase")?>
+	&nbsp;
     <?php
       switch($errcode)
       {
@@ -55,7 +58,3 @@ getpost_ifset(array('errcode'));
 </tr>
 
 </table>
-
-
-
-

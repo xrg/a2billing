@@ -19,13 +19,12 @@
 	
 	define ("LEN_ALIASNUMBER", isset($A2B->config['global']['len_aliasnumber'])?$A2B->config['global']['len_aliasnumber']:null);
 	define ("LEN_VOUCHER", isset($A2B->config['global']['len_voucher'])?$A2B->config['global']['len_voucher']:null);
+	define ("BASE_CURRENCY", isset($A2B->config['global']['base_currency'])?$A2B->config['global']['base_currency']:null);
 	
 	define ("BUDDY_SIP_FILE", isset($A2B->config['webui']['buddy_sip_file'])?$A2B->config['webui']['buddy_sip_file']:null);
 	define ("BUDDY_IAX_FILE", isset($A2B->config['webui']['buddy_iax_file'])?$A2B->config['webui']['buddy_iax_file']:null);
-	define ("API_SECURITY_KEY", isset($A2B->config['webui']['api_security_key'])?$A2B->config['webui']['api_security_key']:null);	
-	define ("API_LOGFILE", isset($A2B->config['webui']['api_logfile'])?$A2B->config['webui']['api_logfile']:null);
-	define ("SOAP_LOGFILE", isset($A2B->config['webui']['soap_logfile'])?$A2B->config['webui']['soap_logfile']:null);
-		
+	define ("API_SECURITY_KEY", isset($A2B->config['webui']['api_security_key'])?$A2B->config['webui']['api_security_key']:null);
+	
 	// WEB DEFINE FROM THE A2BILLING.CONF FILE
 	define ("EMAIL_ADMIN", isset($A2B->config['webui']['email_admin'])?$A2B->config['webui']['email_admin']:null);
 	define ("NUM_MUSICONHOLD_CLASS", isset($A2B->config['webui']['num_musiconhold_class'])?$A2B->config['webui']['num_musiconhold_class']:null);
@@ -45,11 +44,7 @@
 	define ("SHOW_ICON_INVOICE", isset($A2B->config['webui']['show_icon_invoice'])?$A2B->config['webui']['show_icon_invoice']:null);
 	define ("SHOW_TOP_FRAME", isset($A2B->config['webui']['show_top_frame'])?$A2B->config['webui']['show_top_frame']:null);
 	define ("ADVANCED_MODE", isset($A2B->config['webui']['advanced_mode'])?$A2B->config['webui']['advanced_mode']:null);
-	
-	
-	define ("BASE_CURRENCY", isset($A2B->config['webui']['base_currency'])?$A2B->config['webui']['base_currency']:null);
 	define ("CURRENCY_CHOOSE", isset($A2B->config['webui']['currency_choose'])?$A2B->config['webui']['currency_choose']:null);
-	
 	
 	// PAYPAL	
 	define ("PAYPAL_EMAIL", isset($A2B->config['paypal']['paypal_email'])?$A2B->config['paypal']['paypal_email']:null);
@@ -62,7 +57,7 @@
 	define ("PAYPAL_NOTIFY_URL", isset($A2B->config['paypal']['notify_url'])?$A2B->config['paypal']['notify_url']:null);
 	define ("PAYPAL_PURCHASE_AMOUNT", isset($A2B->config['paypal']['purchase_amount'])?$A2B->config['paypal']['purchase_amount']:null);
 	define ("PAYPAL_FEES", isset($A2B->config['paypal']['paypal_fees'])?$A2B->config['paypal']['paypal_fees']:null); 
-	define ("PAYPAL_LOGFILE", isset($A2B->config['paypal']['paypal_logfile'])?$A2B->config['paypal']['paypal_logfile']:null);
+	
 
 	// BACKUP
 	define ("BACKUP_PATH", isset($A2B->config['backup']['backup_path'])?$A2B->config['backup']['backup_path']:null);
@@ -254,9 +249,50 @@
 		return $charges_list;
 	}
 
+	function send_email_attachment($emailfrom, $emailto, $emailsubject, $emailmessage,$attachmentfilename, $emailfilestream )
+	{
+		$email_from = $emailfrom; 
+		$email_subject = $emailsubject;
+		$email_message = $emailmessage; 
+		
+		$email_to = $emailto;
+		$headers = "From: ".$email_from;
+		
+		$semi_rand = md5(time()); 
+		$mime_boundary = "==Multipart_Boundary_x{$semi_rand}x"; 
+		   
+		$headers .= "\nMIME-Version: 1.0\n" . 
+					"Content-Type: multipart/mixed;\n" . 
+					" boundary=\"{$mime_boundary}\""; 
+		
+		$email_message .= "This is a multi-part message in MIME format.\n\n" . 
+						"--{$mime_boundary}\n" . 
+						"Content-Type:text/html; charset=\"iso-8859-1\"\n" . 
+						"Content-Transfer-Encoding: 7bit\n\n" . 
+		$email_message . "\n\n"; 
+		
+		$fileatt = "";           
+		$fileatt_type = "application/octet-stream"; 
+		$fileatt_name = $attachmentfilename;  
+		$stream = chunk_split(base64_encode($emailfilestream)); 
+		$email_message .= "--{$mime_boundary}\n" . 
+						  "Content-Type: {$fileatt_type};\n" . 
+						  " name=\"{$fileatt_name}\"\n" .                 
+						  "Content-Transfer-Encoding: base64\n\n" . 
+						 $stream . "\n\n" . 
+						  "--{$mime_boundary}\n"; 
+		unset($stream);
+		unset($file);
+		unset($fileatt);
+		unset($fileatt_type);
+		unset($fileatt_name);
+		$ok = @mail($email_to, $email_subject, $email_message, $headers);
+		return $ok;
+	}
+
 	if(isset($cssname) && $cssname != "")
 	{
-		$_SESSION["stylefile"] = $cssname;
+		$_SESSION["stylefile"] = $cssname;		
 	}
 	
 	define ("WEBUI_DATE", 'Release : Somewhere in March 2007');	 

@@ -5,6 +5,105 @@
 ********************************************************************
 
 
+#### ADD SCROLLBAR ON ALL POPUP
+********************************************************************
+scrollbars=1 in the window.open
+Check Rev 977
+
+
+#### WRITE DOCUMENTATION: API SHOW RATECARD -> 
+********************************************************************
+WRITE FULL DOCUMENTATION FOR :
+trunk/A2Billing_UI/api/display_ratecard.php
+
+
+
+#### WRITE DOCUMENTATION: ALARM SYSTEM
+********************************************************************
+WRITE DOCUMENTATION: ALARM SYSTEM
+
+
+#### FEATURE : NEW INVOICING SYSTEM
+********************************************************************
+you will see, I dont describe here
+
+
+#### FEATURE : jump_voucher_if_min_credit
+********************************************************************
+When the user credit are below the minimum credit to call min_credit 
+we might have an option to decide if we jump directly to the voucher IVR menu instead of just disconecting
+
+option in a2billing.conf
+jump_voucher_if_min_credit = yes or no
+
+
+#### MANAGE MULTI LENGHT CARD NUMBER
+********************************************************************
+New parameter :
+[global]
+; len_cardnumber is removed
+; interval for the length of the cardnumber (number of digits), 
+; ie: 10-15 (cardnumber authorised 10, 11, 12, 13, 14, 15) ; 10,12,14 (cardnumber authorised 10, 12, 14)
+interval_len_cardnumber = 10-15
+
+
+We will support more than 1 lenght for the cardnumber.
+Admin Web interface :
+- Create customer : 
+	Add a drop-down button in the top page (below the help) to select the lenght for the card creation
+	-> if the drop-down is selected the page will refresh with the new value for the card lenght
+	by default we will use the minimum value of interval_len_cardnumber
+- Generate Customer :
+	Add a point 13) as a drop-down button, select the card lenght but no refresh needed here
+- AGI
+
+#### EXEC_SETLANGUAGE
+********************************************************************
+function exec_setlanguage($language='en')
+{
+  return $this->exec('SetLanguage', $language);
+}
+
+
+#### UPDATE a2billing_invoice_cront
+********************************************************************
+* use the conf parameter : invoice_system -> invoiceday
+* add cc_charge
+* invoice_history
+
+
+#### BUG CAPTCHA
+********************************************************************
+please have a look also at the captcha
+if u use caps letters, it wont work, all the pics are shows with caps
+
+#### HOURLY ALARM
+********************************************************************
+add in the alarm system an hourly check
+
+
+#### bug CallerID
+********************************************************************
+CID not working  when  ANSWER_CALL=NO
+iv changed back to ANSER_CALL=YES , AND WORKS
+
+
+#### missing text put text in Gettext
+********************************************************************
+CC_phonelist_import_analyse.php
+CC_ratecard_import_analyse.php
+CC_card_import_analyse.php
+
+also some more are missing on those files (check the javascript):
+CC_card_import.php
+CC_phonelist_import.php
+CC_ratecard_import.php
+
+
+#### ADD INVOICE DAY
+********************************************************************
+
+
 #### SAVE PAYMENT OPTION
 ********************************************************************
 when go on edit paypal/moneybooker and click on Update
@@ -600,6 +699,18 @@ earn for each voip-provider (difference from the selling rate and the buyrate)
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 ********************************************************************
 						V1.2.3
 ********************************************************************
@@ -822,6 +933,14 @@ AUTO REFILL FEATURE
 	
 
 
+
+
+
+
+
+
+
+
 ********************************************************************
 						V1.2.2
 ********************************************************************
@@ -850,6 +969,17 @@ When removing a DIDgroup -> Check if Card are using it if yes ask for confirmati
 #### BUG [fixed]
 ********************************************************************
 Paypal update the card correctly
+
+
+
+
+
+
+
+
+
+
+
 
 
 

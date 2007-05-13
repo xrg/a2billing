@@ -788,7 +788,13 @@ Kind regards,
 Call Labs
 ', '');
 
+INSERT INTO cc_templatemail VALUES ('invoice', 'info@call-labs.com', 'Call-Labs', 'A2BILLING INVOICE', 'Dear Customer.
 
+Attached is the invoice.
+
+Kind regards,
+Call Labs
+', '');
 
 CREATE TABLE cc_payment_methods (
     id BIGSERIAL NOT NULL,

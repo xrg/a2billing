@@ -16,13 +16,10 @@ else
 if($_SESSION["p_module"] == "")
 {
     print_r($_REQUEST);
-    exit("No payment module was recorded");
+    exit ("No payment module was recorded");
 }
 
-?>
 
-
-<?php
 include ("./lib/defines.php");
 include ("./lib/module.access.php");
 include ("./lib/Form/Class.FormHandler.inc.php");
@@ -31,6 +28,7 @@ include ("./lib/epayment/classes/order.php");
 include ("./lib/epayment/classes/currencies.php");
 include ("./lib/epayment/includes/general.php");
 include ("./lib/epayment/includes/html_output.php");
+include ("./lib/epayment/includes/configure.php")
 include ("./lib/epayment/includes/loadconfiguration.php");
 include("PP_header.php");
 
@@ -167,48 +165,49 @@ if ($res)
 
 if (!$num)
 {
-    echo "<br>Error : No email Template Found";
-    exit();
+	echo gettext("Error : No email Template Found");
+    
+}else{
+	
+	for($i=0;$i<$num;$i++)
+	{
+		$listtemplate[] = $res->fetchRow();
+	}
+	
+	list($mailtype, $from, $fromname, $subject, $messagetext, $messagehtml) = $listtemplate [0];
+	$statusmessage= "";
+	switch($orderStatus)
+		  {
+			  case -2:
+				$statusmessage = "Failed";
+			  break;
+			  case -1:
+				$statusmessage = "Denied";
+			  break;
+			  case 0:
+				$statusmessage = "Pending";
+			  break;
+			  case 1:
+				$statusmessage = "In-Progress";
+			  break;
+			  case 2:
+				$statusmessage = "Successful";
+			  break;
+		  }
+	
+	$messagetext = str_replace('$itemName', "balance", $messagetext);
+	$messagetext = str_replace('$itemID', $customer_info[0], $messagetext);
+	$messagetext = str_replace('$itemAmount', $_SESSION["p_amount"], $messagetext);
+	$messagetext = str_replace('$paymentMethod', $pmodule, $messagetext);
+	$messagetext = str_replace('$paymentStatus', $statusmessage, $messagetext);
+	
+	$em_headers  = "From: ".$fromname." <".$from.">\n";
+	$em_headers .= "Reply-To: ".$from."\n";
+	$em_headers .= "Return-Path: ".$from."\n";
+	$em_headers .= "X-Priority: 3\n";
+	
+	mail($customer_info["email"], $subject, $messagetext, $em_headers);
 }
-
-for($i=0;$i<$num;$i++)
-{
-	$listtemplate[] = $res->fetchRow();
-}
-
-list($mailtype, $from, $fromname, $subject, $messagetext, $messagehtml) = $listtemplate [0];
-$statusmessage= "";
-switch($orderStatus)
-      {
-          case -2:
-            $statusmessage = "Failed";
-          break;
-          case -1:
-            $statusmessage = "Denied";
-          break;
-          case 0:
-            $statusmessage = "Pending";
-          break;
-          case 1:
-            $statusmessage = "In-Progress";
-          break;
-          case 2:
-            $statusmessage = "Successful";
-          break;
-      }
-
-$messagetext = str_replace('$itemName', "balance", $messagetext);
-$messagetext = str_replace('$itemID', $customer_info[0], $messagetext);
-$messagetext = str_replace('$itemAmount', $_SESSION["p_amount"], $messagetext);
-$messagetext = str_replace('$paymentMethod', $pmodule, $messagetext);
-$messagetext = str_replace('$paymentStatus', $statusmessage, $messagetext);
-
-$em_headers  = "From: ".$fromname." <".$from.">\n";
-$em_headers .= "Reply-To: ".$from."\n";
-$em_headers .= "Return-Path: ".$from."\n";
-$em_headers .= "X-Priority: 3\n";
-
-mail($customer_info["email"], $subject, $messagetext, $em_headers);
 
 $_SESSION["p_amount"] = null;
 $_SESSION["p_cardexp"] = null;
@@ -224,5 +223,3 @@ $payment_modules->after_process();
 Header ("Location: checkout_success.php?errcode=".$orderStatus);
 
 ?>
-
-

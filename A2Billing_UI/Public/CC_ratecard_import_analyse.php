@@ -331,10 +331,10 @@ if ($status=="ok"){
 	<tbody>
 		<tr class="form_head">                  					
 		  <td class="tableBody" style="padding: 2px;" align="center" width="50%"> 
-			<strong> <span class="white_link"><?php echo gettext("")?>FIELD </span> </strong>
+			<strong> <span class="white_link"><?php echo gettext("FIELD")?> </span> </strong>
 		  </td>
 		  <td class="tableBody" style="padding: 2px;" align="center" width="50%"> 
-			<strong> <span class="white_link"><?php echo gettext("")?>VALUE </span> </strong>
+			<strong> <span class="white_link"><?php echo gettext("VALUE")?> </span> </strong>
 		  </td>
 		</tr>
 		<tr bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[1]?>"  onMouseOver="bgColor='#C4FFD7'" onMouseOut="bgColor='<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[1]?>'">  

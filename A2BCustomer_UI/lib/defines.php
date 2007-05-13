@@ -20,6 +20,7 @@
 
 	define ("LEN_ALIASNUMBER", isset($A2B->config["global"]['len_aliasnumber'])?$A2B->config["global"]['len_aliasnumber']:null);
 	define ("LEN_VOUCHER", isset($A2B->config["global"]['len_voucher'])?$A2B->config["global"]['len_voucher']:null);
+	define ("BASE_CURRENCY", isset($A2B->config['global']['base_currency'])?$A2B->config['global']['base_currency']:null);
 
     // For ePayment Modules
     define('PULL_DOWN_DEFAULT', 'Please Select');    
@@ -83,11 +84,9 @@
 	define ("SHOW_ICON_INVOICE", isset($A2B->config['webui']['show_icon_invoice'])?$A2B->config['webui']['show_icon_invoice']:null);
 	define ("SHOW_TOP_FRAME", isset($A2B->config['webui']['show_top_frame'])?$A2B->config['webui']['show_top_frame']:null);
 	define ("ADVANCED_MODE", isset($A2B->config['webui']['advanced_mode'])?$A2B->config['webui']['advanced_mode']:null);
-		
-	define ("BASE_CURRENCY", isset($A2B->config['webui']['base_currency'])?$A2B->config['webui']['base_currency']:null);
 	define ("CURRENCY_CHOOSE", isset($A2B->config['webui']['currency_choose'])?$A2B->config['webui']['currency_choose']:null);
 	
-		// PAYPAL	
+	// PAYPAL	
 	define ("PAYPAL_EMAIL", isset($A2B->config['paypal']['paypal_email'])?$A2B->config['paypal']['paypal_email']:null);
 	define ("PAYPAL_FROM_EMAIL",isset( $A2B->config['paypal']['from_email'])?$A2B->config['paypal']['from_email']:null);
 	define ("PAYPAL_FROM_NAME", isset($A2B->config['paypal']['from_name'])?$A2B->config['paypal']['from_name']:null);
@@ -209,6 +208,7 @@
 	define ("DIR_WS_HTTP_CATALOG", isset($A2B->config["epayment_method"]['dir_ws_http_catalog'])?$A2B->config["epayment_method"]['dir_ws_http_catalog']:null);
 	define ("DIR_WS_HTTPS_CATALOG", isset($A2B->config["epayment_method"]['dir_ws_https_catalog'])?$A2B->config["epayment_method"]['dir_ws_https_catalog']:null);
 	define ("ENABLE_SSL", isset($A2B->config["epayment_method"]['enable_ssl'])?$A2B->config["epayment_method"]['enable_ssl']:null);
+	define ("INVOICE_IMAGE", isset($A2B->config["global"]['invoice_image'])?$A2B->config["global"]['invoice_image']:null);
 	define ("WEBUI_DATE", 'Release : Somewhere in March 2007');
 	define ("WEBUI_VERSION", 'Asterisk2Billing - Version 1.3 - Beta (Yellowjacket)');
 ?>
