@@ -2,7 +2,7 @@
 include ("./lib/defines.php");
 
 
-getpost_ifset(array('transactionID', 'sess_id','key'));
+getpost_ifset(array('transactionID', 'sess_id','key','mc_currency','mb_currency'));
 
 
 write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." ----EPAYMENT TRANSACTION START (ID)----");
@@ -54,8 +54,8 @@ else
 
 switch($transaction_data[0][4])
 {
-	case "paypal":
-	
+	case "paypal":	
+		$currCurrency = $mc_currency;
 		$postvars = array();
 		$req = 'cmd=_notify-validate';
 		foreach ($_POST as $vkey => $Value) 
@@ -104,6 +104,12 @@ switch($transaction_data[0][4])
 		}
 		fclose ($fp);	
 		break;
+	case "moneybookers":
+		$currCurrency = $mb_currency;
+		break;
+	case "authorizenet":
+		$currCurrency = BASE_CURRENCY;
+		break;
 }
 
 $newkey = securitykey(EPAYMENT_TRANSACTION_KEY, $transaction_data[0][8]."^".$transactionID."^".$transaction_data[0][2]."^".$transaction_data[0][1]);
@@ -143,7 +149,7 @@ $customer_info =$resmax -> fetchRow();
 
 
 $currencyObject = new currencies();
-$currCurrency = $payment_modules->get_CurrentCurrency();
+
 $currencies_list = get_currencies();
 $nowDate = date("y-m-d H:i:s");
 
@@ -224,7 +230,7 @@ if ($id > 0 ){
 	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." Update_table cc_card : $param_update - CLAUSE : $FG_EDITION_CLAUSE");
 
 	$field_insert = "date, credit, card_id";
-	$value_insert = "'$nowDate', 'convert_currency($currencies_list,$transaction_data[0][2], $currCurrency, BASE_CURRENCY)', '$id'";
+	$value_insert = "'$nowDate', '".convert_currency($currencies_list,$transaction_data[0][2], $currCurrency, BASE_CURRENCY)."', '$id'";
 	$instance_sub_table = new Table("cc_logrefill", $field_insert);
 	$result_query = $instance_sub_table -> Add_table ($DBHandle, $value_insert, null, null);
 	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." Add_table cc_logrefill : $field_insert - VALUES $value_insert");
