@@ -16,7 +16,7 @@ if (! has_rights (ACX_ACCESS)){
 }
 
 $FG_DEBUG = 0;
-
+$color_msg = 'red';
 
 $QUERY = "SELECT  username, credit, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, lastuse, activated FROM cc_card WHERE username = '".$_SESSION["pr_login"]."' AND uipass = '".$_SESSION["pr_password"]."'";
 
@@ -49,7 +49,7 @@ if ($callback){
 	
 	$called=ereg_replace("^0111","1",$called);
 	$calling=ereg_replace("^0111","1",$calling);
-		
+	
 	if (strlen($called)>4 && strlen($calling)>4 && is_numeric($called) && is_numeric($calling)){
 				
 			$A2B -> DBHandle = DbConnect();
@@ -62,17 +62,14 @@ if ($callback){
 				$RateEngine = new RateEngine();
 				$RateEngine -> webui = 0;
 				// LOOKUP RATE : FIND A RATE FOR THIS DESTINATION
-					
-					
+				
 				$A2B ->agiconfig['accountcode']=$_SESSION["pr_login"];
 				$A2B ->agiconfig['use_dnid']=1;
 				$A2B ->agiconfig['say_timetocall']=0;						
 				$A2B ->dnid = $A2B ->destination = $called;
-							
-							
+				
 				$resfindrate = $RateEngine->rate_engine_findrates($A2B, $called, $_SESSION["tariff"]);
-
-					
+				
 				// IF FIND RATE
 				if ($resfindrate!=0){				
 					$res_all_calcultimeout = $RateEngine->rate_engine_all_calcultimeout($A2B, $A2B->credit);
@@ -99,7 +96,6 @@ if ($callback){
 						
 						$destination = $called;
 						if (strncmp($destination, $removeprefix, strlen($removeprefix)) == 0) $destination= substr($destination, strlen($removeprefix));
-						
 						
 						$pos_dialingnumber = strpos($ipaddress, '%dialingnumber%' );
 						$ipaddress = str_replace("%cardnumber%", $A2B->cardnumber, $ipaddress);
@@ -132,16 +128,20 @@ if ($callback){
 						$callerid = $A2B -> config["callback"]['callerid'];
 						$account = $_SESSION["pr_login"];
 						
-						$uniqueid 	=  MDP_NUMERIC(5).'-'.MDP_STRING(14);
+						$uniqueid 	=  MDP_NUMERIC(5).'-'.MDP_STRING(7);
 						$status = 'PENDING';
 						$server_ip = 'localhost';
 						$num_attempt = 0;
-						$variable = "CALLED=$called|CALLING=$calling";
+						$variable = "CALLED=$called|CALLING=$calling|CBID=$uniqueid|LEG=".$A2B->cardnumber;
+						
 						$QUERY = " INSERT INTO cc_callback_spool (uniqueid, status, server_ip, num_attempt, channel, exten, context, priority, variable, id_server_group, callback_time, account ) VALUES ('$uniqueid', '$status', '$server_ip', '$num_attempt', '$channel', '$exten', '$context', '$priority', '$variable', '$id_server_group',  now(), '$account')";
 						$res = $A2B -> DBHandle -> Execute($QUERY);
 						
 						if (!$res){
 							$error_msg= gettext("Cannot insert the callback request in the spool!");
+						}else{
+							$error_msg = gettext("Your callback request has been queued correctly!");
+							$color_msg = 'green';
 						}
 						
 						/*
@@ -203,42 +203,37 @@ if ($callback){
 							// && DISCONNECTING	
 							$as->disconnect();
 						}else{
-								$error_msg= gettext("Cannot connect to the asterisk manager!<br>Please check the manager configuration...");
+							$error_msg= gettext("Cannot connect to the asterisk manager!<br>Please check the manager configuration...");
 						}
 						*/
 						
 					}else{
-						$error_msg = gettext("<font face='Arial, Helvetica, sans-serif' size='2' color='red'><b>Error : You don t have enough credit to call you back !!!</b></font><br>");
+						$error_msg = gettext("Error : You don t have enough credit to call you back!");
 					}
 				}else{
-					$error_msg = gettext("<font face='Arial, Helvetica, sans-serif' size='2' color='red'><b>Error : There is no route to call back your phonenumber !!!</b></font><br>");
+					$error_msg = gettext("Error : There is no route to call back your phonenumber!");
 				}
 				
 			}else{
 				// ERROR MESSAGE IS CONFIGURE BY THE callingcard_ivr_authenticate_light
 			}
 		}else{
-			$error_msg = gettext("<font face='Arial, Helvetica, sans-serif' size='2' color='red'><b>Error : You have to specify your phonenumber and the number you wish to call !!!</b></font><br>");
+			$error_msg = gettext("Error : You have to specify your phonenumber and the number you wish to call!");
 		
 		}
 }
 $customer = $_SESSION["pr_login"];
-?>
 
-<script language="JavaScript" type="text/JavaScript">
-<!--
-function MM_openBrWindow(theURL,winName,features) { //v2.0
-  window.open(theURL,winName,features);
-}
-
-//-->
-</script>
 
 <?php
 	include("PP_header.php");
 ?><br>
-	  <center>
-	  <?php echo $error_msg ?> <br>
+	<center>
+	 <font class="fontstyle_007"> 
+	 <font face='Arial, Helvetica, sans-serif' size='2' color='<?php echo $color_msg; ?>'><b>
+	 	<?php echo $error_msg ?> 
+	 </b></font>
+	 <br><br>
 	  <?php echo gettext("You can initiate the callback by entering your phonenumber and the number you wish to call!");?>
 	  </center>
 	   <table align="center"  border="0" width="75%" bgcolor="#eeeeee">

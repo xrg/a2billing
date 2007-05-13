@@ -1,13 +1,9 @@
 <?php
-
-
 getpost_ifset(array('IDCust', 'id', 'cid', 'activated'));
-
 
 $HD_Form = new FormHandler("cc_callerid","CallerID");
 
 $HD_Form -> FG_DEBUG = 0;
-// FAQ
 
 $actived_list = array();
 $actived_list["t"] = array( gettext("Active"), "t");
@@ -63,21 +59,15 @@ $HD_Form -> FieldEditElement ('cid, activated');
 
 
 
-
-
 // Set the filter variables
-
 $HD_Form -> FG_FILTER_APPLY = true;
 $HD_Form -> FG_FILTERFIELD = 'callerid';
 $HD_Form -> FG_FILTERFIELDNAME = 'callerid';
 
-
 if (isset($filterprefix)  &&  (strlen($filterprefix)>0)){
-        if (strlen($HD_Form -> FG_TABLE_CLAUSE)>0) $HD_Form -> FG_TABLE_CLAUSE.=" AND ";
-        $HD_Form -> FG_TABLE_CLAUSE.="cid like '$filterprefix%'";
+	if (strlen($HD_Form -> FG_TABLE_CLAUSE)>0) $HD_Form -> FG_TABLE_CLAUSE.=" AND ";
+	$HD_Form -> FG_TABLE_CLAUSE.="cid like '$filterprefix%'";
 }
-
-
 
 
 $HD_Form -> FG_INTRO_TEXT_EDITION= gettext("Modify via the form below, the properties of the callerID");

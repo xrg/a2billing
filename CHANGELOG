@@ -5,6 +5,27 @@
 ********************************************************************
 
 
+
+#### FEATURES : CALLBACK APIs
+********************************************************************
+1# Queue a callback request from an API : HTTP / WSDL
+- it will return the uniqueID generate for the callback request
+an API could generate a callback http://apiurl/callback-exec.php?listparameter=values&uniqueid=324234
+return an ID to identify the callback request
+
+2# API to check the status of the callback : webservice  
+- check the status of a generated callback 
+
+So an API will return result of a callback http://apiurl/callback-status.php?id=123453
+id is the ID returned by 
+reply : Pending ; Success ; Error, etc ...
+
+
+#### WEB-CALLBACK
+********************************************************************
+if the 2 leg is not connected, we need to bill the 1st 
+
+
 #### SIGNUP SELECT TARIFFGROUP
 ********************************************************************
 "
@@ -52,6 +73,16 @@ A2BCustomer_UI/lib/epayment/methods/moneybookers.php
 ********************************************************************
 SHIFT LEFT : DEFINES.PHP
 
+
+#### FEATURE : NEW CALLBACK SYSTEM
+********************************************************************
+rebuild of the callback system, we are using a spool system in DB and a perl Daemon to initiate the callback.
+it brings flexibility and a way to track the callback request, their status, etc...
+So we have a spool system, all request are stored and handled by a perl daemon that will take care of dispatching 
+them through several asterisk server.
+There is also an API also for this to generate the callback.
+/api/api_spool_callback.php
+this could be use by any third application/platform to generate callback request.
 
 #### INVOICES 
 ********************************************************************
@@ -157,6 +188,11 @@ TARIFFGROUP -> CALL PLAN
 #### JQUERY SLIDE
 ********************************************************************
 help.php
+
+
+#### Misc : FORMAT
+********************************************************************
+To tidy up the box for filtering, can you either reduce the font size or use symbols only, e.g. >  ;   >=  ; <=
 
 
 #### Misc : INVOICE
@@ -631,6 +667,14 @@ jump_voucher_if_min_credit = NO
 #### SIGNUP MODULE
 ********************************************************************
 the design is broken probably due to smarty template
+
+
+#### NEW TASK
+********************************************************************
+When removing a Card -> Check if SIP/IAX has been created if yes ask for confirmation.
+1# we can add an id_card in the buddy table
+2# we can add an id_sip id_iax in the cc_card table
+find the best solution
 
 
 #### REPORT IMPROVE PRESENTATION

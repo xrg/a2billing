@@ -2,7 +2,7 @@
 #
 # callback          Start/Stop the callback daemon.
 #
-# chkconfig: 2345 40 60
+# chkconfig: 2345 80 80
 # description: a2billing-callback-daemon is a daemon who check if a new call have to be initiate
 # processname: a2billing-callback-daemon
 # pidfile: /var/run/a2billing-callback-daemon.pid
@@ -13,7 +13,7 @@ INITD=/etc/rc.d/init.d
 
 
 NAME='a2billing-callback-daemon'
-A2BDAEMON='/root/a2billing/callback-daemon/a2billing-callback-daemon'
+A2BDAEMON='/var/lib/asterisk/a2billing/callback-daemon/a2billing-callback-daemon'
 # Clean
 
 # See how we were called.

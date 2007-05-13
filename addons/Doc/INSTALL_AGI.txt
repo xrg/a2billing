@@ -4,9 +4,9 @@
 ********************************************************************
 Name: Asterisk2Billing / Asterisk callingcard agi 
 Author: Belaid Arezqui <areski at gmail dot com>
-Date: 10 March 2006
-[Tested with $PHP 4.3.10 ; $PostgreSQL 7.4.6 ;  mysql-3.23 ; mysql-4.1.x]
-[Tested with $PHP-5.0.4  ; $PostgreSQL-8.0.4]
+Date: 7 May 2007
+[Tested with $PHP 4.3.10 ; $PostgreSQL 7.4.6 ; mysql-3.23 ; mysql-4.1.x ]
+[Tested with $PHP-5.0.4  ; $PostgreSQL-8.0.4 ; mysql-5.x]
 [Testing with $PHP-5.2.0 ; PostgreSQL-8.1.5 ; Asterisk-1.4 (xrg) ]
 
  * Requires : php-pcntl, wget , php as console interpret ( php4-cli or something like ) and php-/mysql/pgsql
@@ -47,7 +47,7 @@ INSTALLATION GUIDE OF THE ASTERISK APPLICATION:
     * DBNAME: Name of the Database.
       Example: a2billing
     * DB_TYPE: Database type.
-      support: postgres (mysql not still supported)
+      support: postgres or mysql
 
 		
 	# THERE IS MORE PARAMETERS, PLEASE CHECK THE COMPLETE CONF FILE AND READ THE INFORMATION ASIDE

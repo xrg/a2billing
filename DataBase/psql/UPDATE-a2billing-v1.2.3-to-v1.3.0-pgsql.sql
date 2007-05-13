@@ -902,8 +902,9 @@ CREATE TABLE cc_epayment_log (
 	paymentmethod	CHARACTER VARYING(255) NOT NULL,
     cc_owner 		CHARACTER VARYING(255) NOT NULL,
     cc_number 		CHARACTER VARYING(255) NOT NULL,
-    cc_expires 		CHARACTER VARYING(255) NOT NULL,
-    creationdate 	TIMESTAMP(0) without time zone DEFAULT NOW()
+    cc_expires 		CHARACTER VARYING(255) NOT NULL,    
+    creationdate 	TIMESTAMP(0) without time zone DEFAULT NOW(),
+    status 			INTEGER NOT NULL DEFAULT 0
 );
 ALTER TABLE ONLY cc_epayment_log
 ADD CONSTRAINT cc_epayment_log_pkey PRIMARY KEY (id);

@@ -59,6 +59,8 @@ INSTALL
 			You have to adapt a2billing-callback-daemon.rc script for your system.
 	
 	
+	service a2billing-callback-daemon start
+	
 	if you change the place for install 
 	dont forget to change into the perl script (a2billing-callback-daemon) ->  use lib '/var/lib/asterisk/a2billing/callback-daemon/lib';
 	and in the rc file -> A2BDAEMON='/var/lib/asterisk/a2billing/callback-daemon/a2billing-callback-daemon'
@@ -153,6 +155,18 @@ The web interface have 2 options :
 -----===========------===========------===========------===========------===========-----
 							Http-API/Web Service INFO
 -----===========------===========------===========------===========------===========-----
+
+REQUERIMENTS
+
+	If pear, the PEAR package manager, is installed on your machine, run the following command in your shell:
+
+	% pear install --alldeps SOAP-0.9.4
+	
+	It install SOAP package correctly with all its dependencies.
+
+
+
+
 
 webservice with a parameter for call_time:
 WEB SERVICE DESCRIPTION :

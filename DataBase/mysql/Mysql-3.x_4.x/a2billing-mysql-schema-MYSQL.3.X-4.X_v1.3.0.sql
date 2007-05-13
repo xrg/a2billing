@@ -1,615 +1,541 @@
 --
--- A2Billing database
+-- A2Billing database script - Create user & create database for MYSQL 3.X-4.X
 --
 
---  Default values - Please change them to whatever you want 
+
+/* 
+Usage:
+
+mysql -u root -p"root password" < a2billing-mysql-schema-MYSQL.3.X-4.X_v1.2.4.sql
+
+*/
+
+
+--
+-- A2Billing database - Create database schema
+--
  
--- 	Database name is: mya2billing
--- 	Database user is: a2billinguser
--- 	User password is: a2billing
-
-
-
--- 1. make sure that the Database user is GRANT to access the database in pg_hba.conf!
-
---     a line like this will do it
-    
---     # TYPE  DATABASE    USER        IP-ADDRESS        IP-MASK           METHOD
---     # Database asterisk/a2billing login with password for a non real user
---     #
---     local   mya2billing all						md5
-    
---     DON'T FORGET TO RESTART Postgresql SERVER IF YOU MADE ANY MODIFICATION ON THIS FILE
-    
--- 2. open a terminal and enter the below commands. We assume our superuser to be postgres.
---    Please adapt to your setup.
-
---     su - postgres
---     psql -f a2billing-pgsql-schema-v1.2.3.sql template1
-
---     NOTE: the errors you will see about missing tables are OK, it's the default behaviour of pgsql.
-    
---     When prompted for the password, please enter the one you choose. In our case, it's 'a2billing'. 
-
-
-
-
-SET default_with_oids = true;
-
-
-CREATE TABLE cc_campaign (
-    id bigserial NOT NULL,
-    campaign_name text NOT NULL,
-    creationdate timestamp without time zone DEFAULT now(),
-    startingdate timestamp without time zone DEFAULT now(),
-    expirationdate timestamp without time zone,
-    description text,
-    id_trunk bigint NOT NULL,	
-    secondusedreal integer DEFAULT 0,
-    nb_callmade integer DEFAULT 0,
-    enable integer DEFAULT 0 NOT NULL
-);
-
-ALTER TABLE ONLY cc_campaign
-    ADD CONSTRAINT cc_campaign_pkey PRIMARY KEY (id);
-ALTER TABLE ONLY cc_campaign
-    ADD CONSTRAINT cons_phonelistname UNIQUE (campaign_name);
-
-
-
-CREATE TABLE cc_phonelist (
-    id 							BIGSERIAL NOT NULL,
-    id_cc_campaign 				BIGINT DEFAULT 0 NOT NULL,
-    id_cc_card 					BIGINT DEFAULT 0 NOT NULL,
-    numbertodial 				TEXT NOT NULL,
-    name 						TEXT NOT NULL,
-    inuse 						INTEGER DEFAULT 0,
-    enable 						INTEGER DEFAULT 1 NOT NULL,
-    num_trials_done 			INTEGER DEFAULT 0,
-    creationdate 				TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
-    last_attempt 				TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),		
-    secondusedreal 				INTEGER DEFAULT 0,
-    additionalinfo 				TEXT NOT NULL	
-);
-
-ALTER TABLE ONLY cc_phonelist
-    ADD CONSTRAINT cc_phonelist_pkey PRIMARY KEY (id);
-	
-CREATE INDEX ind_cc_phonelist_numbertodial ON cc_phonelist USING btree (numbertodial);
-
 
 
 
 CREATE TABLE cc_didgroup (
-    id 							BIGSERIAL NOT NULL,
-    idreseller 					INTEGER DEFAULT 0 NOT NULL,	
-    creationdate 				TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
-    didgroupname 				TEXT NOT NULL
-);
-
-ALTER TABLE ONLY cc_didgroup
-    ADD CONSTRAINT cc_didgroup_pkey PRIMARY KEY (id);
+    id BIGINT NOT NULL AUTO_INCREMENT,
+    iduser INT DEFAULT 0 NOT NULL,
+    didgroupname CHAR(50) NOT NULL,    
+    creationdate   TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (id)
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
 
+CREATE TABLE cc_did_use (
+    id 				BIGINT NOT NULL AUTO_INCREMENT,
+    id_cc_card 		BIGINT,
+    id_did 			BIGINT NOT NULL,
+    reservationdate TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    releasedate 	TIMESTAMP,
+    activated 		INT DEFAULT 0,
+    month_payed 	INT DEFAULT 0,
+    PRIMARY KEY (id)
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
 CREATE TABLE cc_did (
-    id 							BIGSERIAL NOT NULL,
-    id_cc_didgroup 				BIGINT NOT NULL,
-    id_cc_country 				INTEGER NOT NULL,    
-    activated 					INTEGER DEFAULT 1 NOT NULL,
-    reserved 					INTEGER DEFAULT 0,
-    iduser 						INTEGER DEFAULT 0 NOT NULL,
-    did 						TEXT NOT NULL,
-    creationdate 				TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),	
-    startingdate 				TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
-    expirationdate 				TIMESTAMP WITHOUT TIME ZONE,
-    description 				TEXT ,
-    secondusedreal 				INTEGER DEFAULT 0,
-    billingtype 				INTEGER DEFAULT 0,
-    fixrate 					NUMERIC(12,4) NOT NULL
-);
+    id 				BIGINT NOT NULL AUTO_INCREMENT,	
+    id_cc_didgroup 	BIGINT NOT NULL,
+    id_cc_country 	INT NOT NULL,    
+    activated 		INT DEFAULT '1' NOT NULL,
+    reserved 		INT DEFAULT '0',
+    iduser 			INT DEFAULT '0' NOT NULL,
+    did 			CHAR(50) NOT NULL,
+    creationdate  	TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    startingdate  	TIMESTAMP,
+    expirationdate 	TIMESTAMP,
+    description 	MEDIUMTEXT,
+    secondusedreal 	INT DEFAULT 0,
+    billingtype 	INT DEFAULT 0,
+    fixrate 		FLOAT DEFAULT 0 NOT NULL,
+    PRIMARY KEY (id),
+    UNIQUE cons_cc_did_did (did)
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
+
+
 -- billtype: 0 = fix per month + dialoutrate, 1= fix per month, 2 = dialoutrate, 3 = free
 
 
-ALTER TABLE ONLY cc_did
-    ADD CONSTRAINT cc_did_pkey PRIMARY KEY (id);
-
-ALTER TABLE ONLY cc_did
-    ADD CONSTRAINT cons_did_cc_did UNIQUE (did);
-	
-
 
 CREATE TABLE cc_did_destination (
-    id 								BIGSERIAL NOT NULL,
-    destination 					TEXT NOT NULL,
-    priority 						INTEGER DEFAULT 0 NOT NULL,
-    id_cc_card 						BIGINT NOT NULL,
-    id_cc_did 						BIGINT NOT NULL,	
-    creationdate 					TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
-    activated 						INTEGER DEFAULT 1 NOT NULL,
-    secondusedreal 					INTEGER DEFAULT 0,
-    voip_call 						INTEGER DEFAULT 0
-);
-
-
-ALTER TABLE ONLY cc_did_destination
-    ADD CONSTRAINT cc_did_destination_pkey PRIMARY KEY (id);
+    id 				BIGINT NOT NULL AUTO_INCREMENT,	
+    destination 	CHAR(50) NOT NULL,
+    priority 		INT DEFAULT 0 NOT NULL,
+    id_cc_card 		BIGINT NOT NULL,
+    id_cc_did 		BIGINT NOT NULL,	
+    creationdate  	TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    activated 		INT DEFAULT 1 NOT NULL,
+    secondusedreal 	INT DEFAULT 0,	
+    voip_call 		INT DEFAULT 0,
+    PRIMARY KEY (id)
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
 
 
--- chargetype : 0 - subscription fee ; 1 - connection charge for DID setup, 2 - Montly charge for DID use, 3 - just wanted to charge you for extra, 4 - cactus renting charges, etc...
+
 CREATE TABLE cc_charge (
-    id 						BIGSERIAL NOT NULL,
-    id_cc_card 				BIGINT NOT NULL,
-    iduser 					INTEGER DEFAULT 0 NOT NULL,
-    creationdate timestamp without time zone DEFAULT now(),
-    amount 					NUMERIC(12,4) NOT NULL,
-    chargetype integer DEFAULT 0,
-    chargetype 				INTEGER DEFAULT 0,    
-    id_cc_did 				BIGINT DEFAULT 0,
-	id_cc_subscription_fee 	BIGINT DEFAULT 0,
-    description 			TEXT
-);
+    id 									BIGINT NOT NULL AUTO_INCREMENT,
+    id_cc_card 							BIGINT NOT NULL,
+    iduser 								INT DEFAULT '0' NOT NULL,
+    creationdate 						TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    amount 								FLOAT DEFAULT 0 NOT NULL,
+	currency 							CHAR(3) DEFAULT 'USD',
+    chargetype 							INT DEFAULT 0,    
+    description 						MEDIUMTEXT,
+    id_cc_did 							BIGINT DEFAULT 0,
+	id_cc_subscription_fee				BIGINT DEFAULT 0,
+    PRIMARY KEY (id)
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
-ALTER TABLE ONLY cc_charge
-    ADD CONSTRAINT cc_charge_pkey PRIMARY KEY (id);
+CREATE INDEX ind_cc_charge_id_cc_card				ON cc_charge (id_cc_card);
+CREATE INDEX ind_cc_charge_id_cc_subscription_fee 	ON cc_charge (id_cc_subscription_fee);
+CREATE INDEX ind_cc_charge_creationdate 			ON cc_charge (creationdate);
 
-
-CREATE INDEX ind_cc_charge_id_cc_card				ON cc_charge USING btree (id_cc_card);
-CREATE INDEX ind_cc_charge_id_cc_subscription_fee 	ON cc_charge USING btree (id_cc_subscription_fee);
-CREATE INDEX ind_cc_charge_creationdate 			ON cc_charge USING btree (creationdate);
 
 
 
 CREATE TABLE cc_paypal (
-  id 								BIGSERIAL NOT NULL,
-  payer_id 							CHARACTER VARYING(60) default NULL,
-  payment_date 						CHARACTER VARYING(50) default NULL,
-  txn_id 							CHARACTER VARYING(50) default NULL,
-  first_name 						CHARACTER VARYING(50) default NULL,
-  last_name 						CHARACTER VARYING(50) default NULL,
-  payer_email 						CHARACTER VARYING(75) default NULL,
-  payer_status 						CHARACTER VARYING(50) default NULL,
-  payment_type 						CHARACTER VARYING(50) default NULL,
-  memo 								TEXT ,
-  item_name 						CHARACTER VARYING(127) default NULL,
-  item_number 						CHARACTER VARYING(127) default NULL,
-  quantity 							BIGINT NOT NULL default '0',
-  mc_gross 							NUMERIC(9,2) default NULL,
-  mc_fee 							NUMERIC(9,2) default NULL,
-  tax 								NUMERIC(9,2) default NULL,
-  mc_currency 						CHARACTER VARYING(3) default NULL,
-  address_name 						CHARACTER VARYING(255) NOT NULL default '',
-  address_street 					CHARACTER VARYING(255) NOT NULL default '',
-  address_city 						CHARACTER VARYING(255) NOT NULL default '',
-  address_state 					CHARACTER VARYING(255) NOT NULL default '',
-  address_zip 						CHARACTER VARYING(255) NOT NULL default '',
-  address_country 					CHARACTER VARYING(255) NOT NULL default '',
-  address_status 					CHARACTER VARYING(255) NOT NULL default '',
-  payer_business_name 				CHARACTER VARYING(255) NOT NULL default '',
-  payment_status 					CHARACTER VARYING(255) NOT NULL default '',
-  pending_reason 					CHARACTER VARYING(255) NOT NULL default '',
-  reason_code 						CHARACTER VARYING(255) NOT NULL default '',
-  txn_type 							CHARACTER VARYING(255) NOT NULL default ''
-);
+    id 					INT(11) NOT NULL AUTO_INCREMENT,
+    payer_id 			VARCHAR(60) DEFAULT NULL,
+    payment_date 		VARCHAR(50) DEFAULT NULL,
+    txn_id 				VARCHAR(50) DEFAULT NULL,
+    first_name 			VARCHAR(50) DEFAULT NULL,
+    last_name 			VARCHAR(50) DEFAULT NULL,
+    payer_email 		VARCHAR(75) DEFAULT NULL,
+    payer_status 		VARCHAR(50) DEFAULT NULL,
+    payment_type 		VARCHAR(50) DEFAULT NULL,
+    memo 				tinytext,
+    item_name 			VARCHAR(127) DEFAULT NULL,
+    item_number 		VARCHAR(127) DEFAULT NULL,
+    quantity 			INT(11) NOT NULL DEFAULT '0',
+    mc_gross 			DECIMAL(9,2) DEFAULT NULL,
+    mc_fee 				DECIMAL(9,2) DEFAULT NULL,
+    tax 				DECIMAL(9,2) DEFAULT NULL,
+    mc_currency 		CHAR(3) DEFAULT NULL,
+    address_name 		VARCHAR(255) NOT NULL DEFAULT '',
+    address_street 		VARCHAR(255) NOT NULL DEFAULT '',
+    address_city 		VARCHAR(255) NOT NULL DEFAULT '',
+    address_state 		VARCHAR(255) NOT NULL DEFAULT '',
+    address_zip 		VARCHAR(255) NOT NULL DEFAULT '',
+    address_country 	VARCHAR(255) NOT NULL DEFAULT '',
+    address_status 		VARCHAR(255) NOT NULL DEFAULT '',
+    payer_business_name VARCHAR(255) NOT NULL DEFAULT '',
+    payment_status 		VARCHAR(255) NOT NULL DEFAULT '',
+    pending_reason 		VARCHAR(255) NOT NULL DEFAULT '',
+    reason_code 		VARCHAR(255) NOT NULL DEFAULT '',
+    txn_type 			VARCHAR(255) NOT NULL DEFAULT '',
+    PRIMARY KEY  (id),
+    UNIQUE KEY txn_id (txn_id),
+    KEY txn_id_2 (txn_id)
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
-ALTER TABLE ONLY cc_paypal
-ADD CONSTRAINT cc_paypal_pkey PRIMARY KEY (id);
 
-ALTER TABLE ONLY cc_paypal
-    ADD CONSTRAINT cons_txn_id_cc_paypal UNIQUE (txn_id);
-	
-	
-	
 
 CREATE TABLE cc_voucher (
-    id 									BIGSERIAL NOT NULL,
-    creationdate 						TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
-    usedate 							TIMESTAMP WITHOUT TIME ZONE,
-    expirationdate 						TIMESTAMP WITHOUT TIME ZONE,	
-    voucher 							TEXT NOT NULL,
-    usedcardnumber 						TEXT ,
-    tag 								TEXT ,	
-    credit 								NUMERIC(12,4) NOT NULL,    
-    activated 							BOOLEAN DEFAULT true NOT NULL,
-    used 								INTEGER DEFAULT 0,
-    currency 							CHARACTER VARYING(3) DEFAULT 'USD'::CHARACTER varying
-);
-
-ALTER TABLE ONLY cc_voucher
-    ADD CONSTRAINT cc_voucher_pkey PRIMARY KEY (id);
-ALTER TABLE ONLY cc_voucher
-    ADD CONSTRAINT cons_voucher_cc_voucher UNIQUE (voucher);
-
+    id 					BIGINT NOT NULL AUTO_INCREMENT,   
+    creationdate 		TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    usedate 			TIMESTAMP,
+    expirationdate 		TIMESTAMP,
+    voucher				CHAR(50) NOT NULL,
+    usedcardnumber		CHAR(50),
+    tag 				CHAR(50),
+    credit 				FLOAT DEFAULT 0 NOT NULL,
+    activated 			CHAR(1) DEFAULT 'f' NOT NULL,
+    used 				INT DEFAULT 0,    
+    currency 			CHAR(3) DEFAULT 'USD',
+    PRIMARY KEY (id),
+    UNIQUE cons_cc_voucher_voucher (voucher)
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
 
 
 CREATE TABLE cc_service (
-    id bigserial NOT NULL,	
-    name text NOT NULL,
-    amount numeric(12,4) NOT NULL,
-    period integer NOT NULL DEFAULT 1,
-    rule integer NOT NULL DEFAULT 0,
-    daynumber integer NOT NULL DEFAULT 0,
-    stopmode integer NOT NULL DEFAULT 0,
-    maxnumbercycle integer NOT NULL DEFAULT 0,
-    status integer NOT NULL DEFAULT 0,
-    numberofrun integer NOT NULL DEFAULT 0,
-    datecreate timestamp(0) without time zone DEFAULT now(),
-    datelastrun timestamp(0) without time zone DEFAULT now(),
-    emailreport text,
-    totalcredit numeric(12,4) NOT NULL DEFAULT 0,
-    totalcardperform integer NOT NULL DEFAULT 0
-);
-ALTER TABLE ONLY cc_service
-ADD CONSTRAINT cc_service_pkey PRIMARY KEY (id);
-
+    id 						BIGINT NOT NULL AUTO_INCREMENT,	
+    name 					CHAR(100) NOT NULL, 
+    amount 					FLOAT NOT NULL,	
+    period 					INT NOT NULL DEFAULT '1',	
+    rule 					INT NOT NULL DEFAULT '0',
+    daynumber 				INT NOT NULL DEFAULT '0',
+    stopmode 				INT NOT NULL DEFAULT '0',
+    maxnumbercycle 			INT NOT NULL DEFAULT '0',	
+    status 					INT NOT NULL DEFAULT '0',	
+    numberofrun 			INT NOT NULL DEFAULT '0',	
+    datecreate 				TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    datelastrun 			TIMESTAMP,
+    emailreport 			CHAR(100) NOT NULL,
+    totalcredit 			FLOAT NOT NULL DEFAULT '0',
+    totalcardperform 		INT NOT NULL DEFAULT '0',
+    PRIMARY KEY (id)
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 	
+
+
 CREATE TABLE cc_service_report (
-    id bigserial NOT NULL,
-    cc_service_id bigserial NOT NULL,
-    daterun timestamp(0) without time zone DEFAULT now(),
-    totalcardperform integer,
-    totalcredit numeric(12,4)
-);
-ALTER TABLE ONLY cc_service_report
-ADD CONSTRAINT cc_service_report_pkey PRIMARY KEY (id);
-
-
+    id 							BIGINT NOT NULL AUTO_INCREMENT,
+    cc_service_id 				BIGINT NOT NULL,
+    daterun 					TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    totalcardperform 			INT,
+    totalcredit 				FLOAT,
+    PRIMARY KEY (id)
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
 
 
 CREATE TABLE cc_callerid (
-    id bigserial NOT NULL,
-    cid text NOT NULL,
-    id_cc_card bigint NOT NULL,
-    activated boolean DEFAULT true NOT NULL
-);
-
-ALTER TABLE ONLY cc_callerid
-    ADD CONSTRAINT cc_calleridd_pkey PRIMARY KEY (id);
-
-ALTER TABLE ONLY cc_callerid
-    ADD CONSTRAINT cc_callerid_cid_key UNIQUE (cid);
+    id 						BIGINT NOT NULL AUTO_INCREMENT,
+    cid 					CHAR(100) NULL,
+    id_cc_card 				BIGINT NOT NULL,
+    activated 				CHAR(1) DEFAULT 't' NOT NULL,
+    PRIMARY KEY (id),
+    UNIQUE cons_cc_callerid_cid (cid)
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
 
 CREATE TABLE cc_ui_authen (
-    userid bigserial NOT NULL,
-    login text NOT NULL,
-    "password" text NOT NULL,
-    groupid integer,
-    perms integer,
-    confaddcust integer,
-    name text,
-    direction text,
-    zipcode text,
-    state text,
-    phone text,
-    fax text,
-    datecreation timestamp with time zone DEFAULT now()
-);
+    userid 					BIGINT NOT NULL AUTO_INCREMENT,
+    login 					CHAR(50) NOT NULL,
+    password 				CHAR(50) NOT NULL,
+    groupid 				INT,
+    perms 					INT,
+    confaddcust 			INT,
+    name 					CHAR(50),
+    direction 				CHAR(80),
+    zipcode 				CHAR(20),
+    state 					CHAR(20),
+    phone 					CHAR(30),
+    fax 					CHAR(30),
+    datecreation 			TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (userid),
+    UNIQUE cons_cc_ui_authen_login (login)
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
-ALTER TABLE ONLY cc_ui_authen
-    ADD CONSTRAINT cc_ui_authen_pkey PRIMARY KEY (userid);
 
-ALTER TABLE ONLY cc_ui_authen
-    ADD CONSTRAINT cons_cc_ui_authen_login_key UNIQUE(login);
 
 CREATE TABLE cc_call (
-    id bigserial NOT NULL,
-    sessionid text NOT NULL,
-    uniqueid text NOT NULL,
-    username text NOT NULL,
-    nasipaddress text,
-    starttime timestamp without time zone,
-    stoptime timestamp without time zone,
-    sessiontime integer,
-    calledstation text,
-    startdelay integer,
-    stopdelay integer,
-    terminatecause text,
-    usertariff text,
-    calledprovider text,
-    calledcountry text,
-    calledsub text,
-    calledrate numeric(12,4),
-    sessionbill numeric(12,4),
-    destination text,
-    id_tariffgroup integer,
-    id_tariffplan integer,
-    id_ratecard integer,
-    id_trunk integer,
-    sipiax integer DEFAULT 0,
-    src text,
-    id_did integer,
-    buyrate numeric(15,5) DEFAULT 0,
-    buycost numeric(15,5) DEFAULT 0,
-	id_card_package_offer integer DEFAULT 0
-);
+    id 								BIGINT(20) NOT NULL AUTO_INCREMENT,
+    sessionid 						CHAR(40) NOT NULL,
+    uniqueid 						CHAR(30) NOT NULL,
+    username 						CHAR(40) NOT NULL,
+    nasipaddress 					CHAR(30) DEFAULT NULL,
+    starttime 						timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    stoptime 						timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+    sessiontime 					INT(11) DEFAULT NULL,
+    calledstation 					CHAR(30) DEFAULT NULL,
+    startdelay 						INT(11) DEFAULT NULL,
+    stopdelay 						INT(11) DEFAULT NULL,
+    terminatecause 					CHAR(20) DEFAULT NULL,
+    usertariff 						CHAR(20) DEFAULT NULL,
+    calledprovider 					CHAR(20) DEFAULT NULL,
+    calledcountry 					CHAR(30) DEFAULT NULL,
+    calledsub 						CHAR(20) DEFAULT NULL,
+    calledrate 						FLOAT DEFAULT NULL,
+    sessionbill 					FLOAT DEFAULT NULL,
+    destination 					CHAR(40) DEFAULT NULL,
+    id_tariffgroup 					INT(11) DEFAULT NULL,
+    id_tariffplan 					INT(11) DEFAULT NULL,
+    id_ratecard 					INT(11) DEFAULT NULL,
+    id_trunk 						INT(11) DEFAULT NULL,
+    sipiax 							INT(11) DEFAULT '0',
+    src 							CHAR(40) DEFAULT NULL,
+    id_did 							INT(11) DEFAULT NULL,
+    buyrate 						DECIMAL(15,5) DEFAULT 0,
+    buycost 						DECIMAL(15,5) DEFAULT 0,
+	id_card_package_offer 			INT(11) DEFAULT 0,
+    PRIMARY KEY  (id)
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
 
 CREATE TABLE cc_templatemail (
-    mailtype text,
-    fromemail text,
-    fromname text,
-    subject text,
-    messagetext text,
-    messagehtml text
-);
-ALTER TABLE ONLY cc_templatemail
-    ADD CONSTRAINT cons_cc_templatemail_mailtype UNIQUE (mailtype);
+    mailtype 					CHAR(50),
+    fromemail 					CHAR(70),
+    fromname 					CHAR(70),
+    subject 					CHAR(70),
+    messagetext 				LONGTEXT,
+    messagehtml 				LONGTEXT,
+    UNIQUE cons_cc_templatemail_mailtype (mailtype)
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
+
 
 
 
 CREATE TABLE cc_tariffgroup (
-    id serial NOT NULL,
-    iduser integer DEFAULT 0 NOT NULL,
-    idtariffplan integer DEFAULT 0 NOT NULL,
-    tariffgroupname text NOT NULL,
-    lcrtype integer DEFAULT 0 NOT NULL,
-    creationdate timestamp without time zone DEFAULT now(),
-    removeinterprefix integer DEFAULT 0 NOT NULL,
-	id_cc_package_offer bigint not null default 0
-);
-
+    id 								INT NOT NULL AUTO_INCREMENT,
+    iduser 							INT DEFAULT 0 NOT NULL,
+    idtariffplan 					INT DEFAULT 0 NOT NULL,
+    tariffgroupname 				CHAR(50) NOT NULL,
+    lcrtype 						INT DEFAULT 0 NOT NULL,
+    creationdate  					TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    removeinterprefix				INT DEFAULT 0 NOT NULL,
+	id_cc_package_offer 			BIGINT NOT NULL DEFAULT 0,
+    PRIMARY KEY (id)
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
 
 CREATE TABLE cc_tariffgroup_plan (
-    idtariffgroup integer NOT NULL,
-    idtariffplan integer NOT NULL
-);
-
+    idtariffgroup 						INT NOT NULL,
+    idtariffplan 						INT NOT NULL,
+    PRIMARY KEY (idtariffgroup, idtariffplan)
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
 
 CREATE TABLE cc_tariffplan (
-    id serial NOT NULL,
-    iduser integer DEFAULT 0 NOT NULL,
-    tariffname text NOT NULL,
-    creationdate timestamp without time zone DEFAULT now(),
-    startingdate timestamp without time zone DEFAULT now(),
-    expirationdate timestamp without time zone,
-    description text,
-    id_trunk integer DEFAULT 0,
-    secondusedreal integer DEFAULT 0,
-    secondusedcarrier integer DEFAULT 0,
-    secondusedratecard integer DEFAULT 0,
-    reftariffplan integer DEFAULT 0,
-    idowner integer DEFAULT 0,
-    dnidprefix text NOT NULL DEFAULT 'all'::text,
-    calleridprefix text NOT NULL DEFAULT 'all'::text
-);
-
+    id 								INT NOT NULL AUTO_INCREMENT,
+    iduser 							INT DEFAULT 0 NOT NULL,
+    tariffname 						CHAR(50) NOT NULL,
+    creationdate 					TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    startingdate 					TIMESTAMP,
+    expirationdate				 	TIMESTAMP,
+    description 					MEDIUMTEXT,
+    id_trunk 						INT DEFAULT 0,
+    secondusedreal 					INT DEFAULT 0,
+    secondusedcarrier 				INT DEFAULT 0,
+    secondusedratecard 				INT DEFAULT 0,
+    reftariffplan 					INT DEFAULT 0,
+    idowner 						INT DEFAULT 0,
+    dnidprefix 						CHAR(30) NOT NULL DEFAULT 'all',
+	calleridprefix 					CHAR(30) NOT NULL DEFAULT 'all',
+    PRIMARY KEY (id),
+    UNIQUE cons_cc_tariffplan_iduser_tariffname (iduser,tariffname)
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
 
 CREATE TABLE cc_card (
-    id bigserial NOT NULL,
-    creationdate timestamp without time zone DEFAULT now(),
-    firstusedate timestamp without time zone,
-    expirationdate timestamp without time zone,
-    enableexpire integer DEFAULT 0,
-    expiredays integer DEFAULT 0,
-    username text NOT NULL,
-    useralias text NOT NULL,
-    userpass text NOT NULL,
-    uipass text,
-    credit numeric(12,4) NOT NULL,
-    tariff integer DEFAULT 0,
-    id_didgroup integer DEFAULT 0,
-    activated boolean DEFAULT false NOT NULL,
-    lastname text,
-    firstname text,
-    address text,
-    city text,
-    state text,
-    country text,
-    zipcode text,
-    phone text,
-    email text,
-    fax text,
-    inuse integer DEFAULT 0,
-    simultaccess integer DEFAULT 0,
-    currency character varying(3) DEFAULT 'USD'::character varying,
-    lastuse date DEFAULT now(),
-    nbused integer DEFAULT 0,
-    typepaid integer DEFAULT 0,
-    creditlimit integer DEFAULT 0,
-    voipcall integer DEFAULT 0,
-    sip_buddy integer DEFAULT 0,
-    iax_buddy integer DEFAULT 0,
-    "language" text DEFAULT 'en'::text,
-    redial text,
-    runservice integer DEFAULT 0,
-    nbservice integer DEFAULT 0,
-    id_campaign integer DEFAULT 0,
-    num_trials_done integer DEFAULT 0,
-    callback text,
-    vat numeric(6,3) DEFAULT 0,
-    servicelastrun timestamp without time zone,
-    initialbalance numeric(12,4) NOT NULL DEFAULT 0,
-    invoiceday integer DEFAULT 1,
-    autorefill integer DEFAULT 0,
-    loginkey text,
-    activatedbyuser boolean DEFAULT false NOT NULL,
-	id_subscription_fee INTEGER DEFAULT 0
-);
+    id 								BIGINT NOT NULL AUTO_INCREMENT,
+    creationdate 					TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    firstusedate 					TIMESTAMP,
+    expirationdate 					TIMESTAMP,
+    enableexpire 					INT DEFAULT 0,
+    expiredays 						INT DEFAULT 0,
+    username 						CHAR(50) NOT NULL,
+    useralias 						CHAR(50) NOT NULL,
+    userpass 						CHAR(50) NOT NULL,
+    uipass 							CHAR(50),
+    credit 							DECIMAL(15,5) DEFAULT 0 NOT NULL,
+    tariff 								INT DEFAULT 0,
+    id_didgroup 						INT DEFAULT 0,
+    activated 							CHAR(1) DEFAULT 'f' NOT NULL,
+    lastname 						CHAR(50),
+    firstname 						CHAR(50),
+    address 						CHAR(100),
+    city 							CHAR(40),
+    state 							CHAR(40),
+    country 						CHAR(40),
+    zipcode 						CHAR(20),
+    phone 							CHAR(20),
+    email 							CHAR(70),
+    fax 							CHAR(20),
+    inuse 							INT DEFAULT 0,
+    simultaccess 					INT DEFAULT 0,
+    currency 						CHAR(3) DEFAULT 'USD',
+    lastuse  						TIMESTAMP,
+    nbused 							INT DEFAULT 0,
+    typepaid 						INT DEFAULT 0,
+    creditlimit 					INT DEFAULT 0,
+    voipcall 						INT DEFAULT 0,
+    sip_buddy 						INT DEFAULT 0,
+    iax_buddy	 					INT DEFAULT 0,
+    language 						CHAR(5) DEFAULT 'en',
+    redial 							CHAR(50),
+    runservice 						INT DEFAULT 0,
+	nbservice 						INT DEFAULT 0,
+    id_campaign 					INT DEFAULT 0,
+    num_trials_done 				BIGINT DEFAULT 0,
+    callback 						CHAR(50),
+	vat 							FLOAT DEFAULT 0 NOT NULL,
+	servicelastrun 					TIMESTAMP,
+	initialbalance 					DECIMAL(15,5) DEFAULT 0 NOT NULL,
+	invoiceday 						INT DEFAULT 1,
+	autorefill 						INT DEFAULT 0,
+    loginkey 						CHAR(40),
+    activatedbyuser 				CHAR(1) DEFAULT 't' NOT NULL,
+	id_subscription_fee 			INT DEFAULT 0,
+	mac_addr						CHAR(17) DEFAULT '00-00-00-00-00-00' NOT NULL,
+    PRIMARY KEY (id),
+    UNIQUE cons_cc_card_username (username),
+    UNIQUE cons_cc_card_useralias (useralias)
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
+
 
 CREATE TABLE cc_ratecard (
-    id serial NOT NULL,
-    idtariffplan integer DEFAULT 0 NOT NULL,
-    dialprefix text NOT NULL,
-    destination text NOT NULL,
-    buyrate real DEFAULT 0 NOT NULL,
-    buyrateinitblock integer DEFAULT 0 NOT NULL,
-    buyrateincrement integer DEFAULT 0 NOT NULL,
-    rateinitial real DEFAULT 0 NOT NULL,
-    initblock integer DEFAULT 0 NOT NULL,
-    billingblock integer DEFAULT 0 NOT NULL,
-    connectcharge real DEFAULT 0 NOT NULL,
-    disconnectcharge real DEFAULT 0 NOT NULL,
-    stepchargea real DEFAULT 0 NOT NULL,
-    chargea real DEFAULT 0 NOT NULL,
-    timechargea integer DEFAULT 0 NOT NULL,
-    billingblocka integer DEFAULT 0 NOT NULL,
-    stepchargeb real DEFAULT 0 NOT NULL,
-    chargeb real DEFAULT 0 NOT NULL,
-    timechargeb integer DEFAULT 0 NOT NULL,
-    billingblockb integer DEFAULT 0 NOT NULL,
-    stepchargec real DEFAULT 0 NOT NULL,
-    chargec real DEFAULT 0 NOT NULL,
-    timechargec integer DEFAULT 0 NOT NULL,
-    billingblockc integer DEFAULT 0 NOT NULL,
-    startdate timestamp(0) without time zone DEFAULT now(),
-    stopdate timestamp(0) without time zone,
-    starttime integer NOT NULL DEFAULT 0,
-    endtime integer NOT NULL DEFAULT 10079,
-    id_trunk integer DEFAULT -1,	
-    musiconhold character varying(100),
-    freetimetocall_package_offer INTEGER NOT NULL DEFAULT 0,
-    id_outbound_cidgroup INTEGER NOT NULL DEFAULT -1
-);
+    id 									INT NOT NULL AUTO_INCREMENT,
+    idtariffplan 						INT DEFAULT 0 NOT NULL,
+    dialprefix 							CHAR(30) NOT NULL,
+    destination 						CHAR(50) NOT NULL,
+    buyrate 							FLOAT DEFAULT 0 NOT NULL,
+    buyrateinitblock 					INT DEFAULT 0 NOT NULL,
+    buyrateincrement 					INT DEFAULT 0 NOT NULL,
+    rateinitial 						FLOAT DEFAULT 0 NOT NULL,
+    initblock 							INT DEFAULT 0 NOT NULL,
+    billingblock						INT DEFAULT 0 NOT NULL,
+    connectcharge 						FLOAT DEFAULT 0 NOT NULL,
+    disconnectcharge 					FLOAT DEFAULT 0 NOT NULL,
+    stepchargea 						FLOAT DEFAULT 0 NOT NULL,
+    chargea 							FLOAT DEFAULT 0 NOT NULL,
+    timechargea 						INT DEFAULT 0 NOT NULL,
+    billingblocka 						INT DEFAULT 0 NOT NULL,
+    stepchargeb 						FLOAT DEFAULT 0 NOT NULL,
+    chargeb 							FLOAT DEFAULT 0 NOT NULL,
+    timechargeb 						INT DEFAULT 0 NOT NULL,
+    billingblockb 						INT DEFAULT 0 NOT NULL,
+    stepchargec 						FLOAT DEFAULT 0 NOT NULL,
+    chargec 							FLOAT DEFAULT 0 NOT NULL,
+    timechargec 						INT DEFAULT 0 NOT NULL,
+    billingblockc 						INT DEFAULT 0 NOT NULL,
+    startdate 							TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    stopdate 							TIMESTAMP,
+    starttime 							smallINT(5) unsigned DEFAULT '0',
+    endtime 							smallINT(5) unsigned DEFAULT '10079',
+    id_trunk 							INT DEFAULT -1,
+    musiconhold 						CHAR(100) NOT NULL,
+	freetimetocall_package_offer 		INT NOT NULL DEFAULT 0,
+	id_outbound_cidgroup 				INT NOT NULL DEFAULT -1,
+    PRIMARY KEY (id)
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
+CREATE INDEX ind_cc_ratecard_dialprefix ON cc_ratecard (dialprefix);
+
+
+CREATE TABLE cc_logrefill (
+    id 									INT NOT NULL AUTO_INCREMENT,
+    date 								TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    credit 								FLOAT NOT NULL,
+    card_id 							bigint NOT NULL,
+    reseller_id 						bigint,
+    PRIMARY KEY (id)
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
+
+
+CREATE TABLE cc_logpayment (
+    id 									INT NOT NULL AUTO_INCREMENT,
+    date 								TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    payment 							FLOAT NOT NULL,
+    card_id 							bigint NOT NULL,
+    reseller_id 						BIGINT,
+    PRIMARY KEY (id)
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
 
 
 CREATE TABLE cc_trunk (
-    id_trunk serial NOT NULL,
-    trunkcode text NOT NULL,
-    trunkprefix text,
-    providertech text NOT NULL,
-    providerip text NOT NULL,
-    removeprefix text,
-    secondusedreal integer DEFAULT 0,
-    secondusedcarrier integer DEFAULT 0,
-    secondusedratecard integer DEFAULT 0,
-    creationdate timestamp(0) without time zone DEFAULT now(),
-    failover_trunk integer,
-    addparameter text,
-    id_provider integer
-);
+    id_trunk 							INT NOT NULL AUTO_INCREMENT,
+    trunkcode 							CHAR(20) NOT NULL,
+    trunkprefix 						CHAR(20),
+    providertech 						CHAR(20) NOT NULL,
+    providerip 							CHAR(80) NOT NULL,
+    removeprefix 						CHAR(20),
+    secondusedreal 						INT DEFAULT 0,
+    secondusedcarrier 					INT DEFAULT 0,
+    secondusedratecard 					INT DEFAULT 0,
+    creationdate 						TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    failover_trunk 						INT,
+    addparameter 						CHAR(120),
+    id_provider 						INT,
+    PRIMARY KEY (id_trunk)
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
+
+
 
 
 CREATE TABLE cc_sip_buddies (
-    id serial NOT NULL,
-    id_cc_card integer DEFAULT 0 NOT NULL,
-    name character varying(80) DEFAULT ''::character varying NOT NULL,
-    "type" character varying(6) DEFAULT 'friend'::character varying NOT NULL,
-    username character varying(80) DEFAULT ''::character varying NOT NULL,	
-    accountcode character varying(20),    
-    regexten character varying(20),
-    callerid character varying(80),	
-    amaflags character varying(7),
-    secret character varying(80),
-    md5secret character varying(80),
-    nat character varying(3) DEFAULT 'yes'::character varying NOT NULL,
-    dtmfmode character varying(7) DEFAULT 'RFC2833'::character varying NOT NULL,	
-    disallow character varying(100) DEFAULT 'all'::character varying,
-    allow character varying(100) DEFAULT 'gsm,ulaw,alaw'::character varying,
-    host character varying(31) DEFAULT ''::character varying NOT NULL,
-    qualify character varying(3) DEFAULT 'yes'::character varying NOT NULL,
-    canreinvite character varying(3) DEFAULT 'yes'::character varying,
-    callgroup character varying(10),
-    context character varying(80),
-    defaultip character varying(15),
-    fromuser character varying(80),    
-    fromdomain character varying(80),
-    insecure character varying(4),
-    "language" character varying(2),
-    mailbox character varying(50),
-    permit character varying(95),
-    deny character varying(95),
-    mask character varying(95),
-    pickupgroup character varying(10),
-    port character varying(5) DEFAULT ''::character varying NOT NULL,
-    restrictcid character varying(1),
-    rtptimeout character varying(3),
-    rtpholdtimeout character varying(3),
-    musiconhold character varying(100),
-    regseconds integer DEFAULT 0 NOT NULL,
-    ipaddr character varying(15) DEFAULT ''::character varying NOT NULL,
-    cancallforward character varying(3) DEFAULT 'yes'::character varying,	
-    fullcontact character varying(80),
-    setvar character varying(100) DEFAULT ''::character varying NOT NULL
-);
-
+    id 									INT NOT NULL AUTO_INCREMENT,
+    id_cc_card 							INT DEFAULT 0 NOT NULL,
+    name 								CHAR(80) DEFAULT '' NOT NULL,
+    accountcode 						CHAR(20),
+    regexten 							CHAR(20),
+    amaflags 							CHAR(7),
+    callgroup 							CHAR(10),
+    callerid 							CHAR(80),
+    canreinvite 						CHAR(3) DEFAULT 'yes',
+    context 							CHAR(80),
+    DEFAULTip 							CHAR(15),
+    dtmfmode 							CHAR(7)  DEFAULT 'RFC2833' NOT NULL,	 
+    fromuser 							CHAR(80),
+    fromdomain 							CHAR(80),
+    host 								CHAR(31) DEFAULT '' NOT NULL,
+    insecure 							CHAR(4),
+    language 							CHAR(2),
+    mailbox 							CHAR(50),
+    md5secret 							CHAR(80),
+    nat 								CHAR(3) DEFAULT 'yes',
+    permit 								CHAR(95),
+    deny 								CHAR(95),
+    mask 								CHAR(95),
+    pickupgroup 						CHAR(10),
+    port 								CHAR(5) DEFAULT '' NOT NULL,
+    qualify 							CHAR(3) DEFAULT 'yes',
+    restrictcid 						CHAR(1),
+    rtptimeout 							CHAR(3),
+    rtpholdtimeout 						CHAR(3),
+    secret 								CHAR(80),
+    type 								CHAR(6) DEFAULT 'friend' NOT NULL,
+    username 							CHAR(80) DEFAULT '' NOT NULL,
+    disallow 							CHAR(100) DEFAULT 'all',
+    allow 								CHAR(100) DEFAULT 'gsm,ulaw,alaw',
+    musiconhold 						CHAR(100),
+    regseconds 							INT DEFAULT 0 NOT NULL,
+    ipaddr 								CHAR(15) DEFAULT '' NOT NULL,
+    cancallforward 						CHAR(3) DEFAULT 'yes',
+    fullcontact 						VARCHAR(80) DEFAULT NULL,
+    setvar 								VARCHAR(100) NOT NULL DEFAULT '',
+    PRIMARY KEY (id),
+    UNIQUE cons_cc_sip_buddies_name (name)
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
 
 CREATE TABLE cc_iax_buddies (
-    id serial NOT NULL,
-    id_cc_card integer DEFAULT 0 NOT NULL,
-    name character varying(80) DEFAULT ''::character varying NOT NULL,
-    "type" character varying(6) DEFAULT 'friend'::character varying NOT NULL,
-    username character varying(80) DEFAULT ''::character varying NOT NULL,	
-    accountcode character varying(20),    
-    regexten character varying(20),
-    callerid character varying(80),	
-    amaflags character varying(7),
-    secret character varying(80),
-    md5secret character varying(80),
-    nat character varying(3) DEFAULT 'yes'::character varying NOT NULL,
-    dtmfmode character varying(7) DEFAULT 'RFC2833'::character varying NOT NULL,	
-    disallow character varying(100) DEFAULT 'all'::character varying,
-    allow character varying(100) DEFAULT 'gsm,ulaw,alaw'::character varying,
-    host character varying(31) DEFAULT ''::character varying NOT NULL,
-    qualify character varying(3) DEFAULT 'yes'::character varying NOT NULL,
-    canreinvite character varying(3) DEFAULT 'yes'::character varying,
-    callgroup character varying(10),
-    context character varying(80),
-    defaultip character varying(15),
-    fromuser character varying(80),    
-    fromdomain character varying(80),
-    insecure character varying(4),
-    "language" character varying(2),
-    mailbox character varying(50),
-    permit character varying(95),
-    deny character varying(95),
-    mask character varying(95),
-    pickupgroup character varying(10),
-    port character varying(5) DEFAULT ''::character varying NOT NULL,
-    restrictcid character varying(1),
-    rtptimeout character varying(3),
-    rtpholdtimeout character varying(3),
-    musiconhold character varying(100),
-    regseconds integer DEFAULT 0 NOT NULL,
-    ipaddr character varying(15) DEFAULT ''::character varying NOT NULL,
-    cancallforward character varying(3) DEFAULT 'yes'::character varying
-);
-
-
-
-
-CREATE TABLE cc_logrefill (
-    id serial NOT NULL,
-    date timestamp(0) without time zone DEFAULT now() NOT NULL,
-    credit numeric(12,4) NOT NULL,
-    card_id bigint NOT NULL,
-    reseller_id bigint
-);
-
-
-CREATE TABLE cc_logpayment (
-    id serial NOT NULL,
-    date timestamp(0) without time zone DEFAULT now() NOT NULL,
-    payment real NOT NULL,
-    card_id bigint NOT NULL,
-    reseller_id bigint
-);
-
-create table cc_did_use (
-    id serial not null ,
-    id_cc_card bigint,
-    id_did bigint not null,
-    reservationdate timestamp not null default now(),
-    releasedate timestamp,
-    activated integer default 0,
-    month_payed integer default 0
-);
+    id 								INT NOT NULL AUTO_INCREMENT,
+    id_cc_card 						INT DEFAULT 0 NOT NULL,
+    name 							CHAR(80) DEFAULT '' NOT NULL,
+    accountcode 					CHAR(20),
+    regexten 						CHAR(20),
+    amaflags 						CHAR(7),
+    callgroup 						CHAR(10),
+    callerid 						CHAR(80),
+    canreinvite 					CHAR(3) DEFAULT 'yes',
+    context 						CHAR(80),
+    DEFAULTip 						CHAR(15),
+    dtmfmode 						CHAR(7)  DEFAULT 'RFC2833' NOT NULL,	 
+    fromuser 						CHAR(80),
+    fromdomain 						CHAR(80),
+    host 							CHAR(31) DEFAULT '' NOT NULL,
+    insecure 						CHAR(4),
+    language 						CHAR(2),
+    mailbox 						CHAR(50),
+    md5secret 						CHAR(80),
+    nat 							CHAR(3) DEFAULT 'yes',
+    permit 							CHAR(95),
+    deny 							CHAR(95),
+    mask 							CHAR(95),
+    pickupgroup 					CHAR(10),
+    port 							CHAR(5) DEFAULT '' NOT NULL,
+    qualify 						CHAR(3) DEFAULT 'yes',
+    restrictcid 					CHAR(1),
+    rtptimeout 						CHAR(3),
+    rtpholdtimeout 					CHAR(3),
+    secret 							CHAR(80),
+    type 							CHAR(6) DEFAULT 'friend' NOT NULL,
+    username 						CHAR(80) DEFAULT '' NOT NULL,
+    disallow 						CHAR(100) DEFAULT 'all',
+    allow 							CHAR(100) DEFAULT 'gsm,ulaw,alaw',
+    musiconhold 					CHAR(100),
+    regseconds 						INT DEFAULT 0 NOT NULL,
+    ipaddr 							CHAR(15) DEFAULT '' NOT NULL,
+    cancallforward 					CHAR(3) DEFAULT 'yes',
+    PRIMARY KEY (id),
+    UNIQUE cons_cc_iax_buddies_name (name)
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
 
 INSERT INTO cc_ui_authen VALUES (2, 'admin', 'mypassword', 0, 32767, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2005-02-26 21:14:05.391501-05');
 INSERT INTO cc_ui_authen VALUES (1, 'root', 'myroot', 0, 32767, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2005-02-26 20:33:27.691314-05');
 
-
 INSERT INTO cc_templatemail VALUES ('signup', 'info@call-labs.com', 'Call-Labs', 'SIGNUP CONFIRMATION', '
 Thank you for registering with us
+
 Please click on below link to activate your account.
 
 http://call-labs.com/A2Billing_UI/signup/activate.php?key$loginkey
@@ -624,6 +550,7 @@ Call Labs
 ', '');
 INSERT INTO cc_templatemail VALUES ('reminder', 'info@call-labs.com', 'Call-Labs', 'REMINDER', '
 Our record indicates that you have less than $min_credit usd in your "$card_gen" account.
+
 We hope this message provides you with enough notice to refill your account.
 We value your business, but our system can disconnect you automatically
 when you reach your pre-paid balance.
@@ -699,77 +626,8 @@ Kind regards,
 Call Labs
 ', '');
 
+
 INSERT INTO cc_trunk VALUES (1, 'DEFAULT', '011', 'IAX2', 'kiki@switch-2.kiki.net', '', 0, 0, 0, '2005-03-14 01:01:36', 0, '', NULL);
-
-
-CREATE INDEX ind_cc_ratecard_dialprefix ON cc_ratecard USING btree (dialprefix);
-
-
-
-ALTER TABLE ONLY cc_card
-    ADD CONSTRAINT cc_card_pkey PRIMARY KEY (id);
-	
-ALTER TABLE ONLY cc_card
-    ADD CONSTRAINT cons_username_cc_card UNIQUE (username);
-
-ALTER TABLE ONLY cc_card
-    ADD CONSTRAINT cons_useralias_cc_card UNIQUE (useralias);
-
-
-
-ALTER TABLE ONLY cc_call
-    ADD CONSTRAINT cc_call_pkey PRIMARY KEY (id);
-
-
-
-ALTER TABLE ONLY cc_tariffgroup
-    ADD CONSTRAINT cc_tariffgroup_pkey PRIMARY KEY (id);
-
-
-ALTER TABLE ONLY cc_tariffplan
-    ADD CONSTRAINT cc_tariffplan_pkey PRIMARY KEY (id);
-
-
-
-ALTER TABLE ONLY cc_tariffplan
-    ADD CONSTRAINT cons_iduser_tariffname UNIQUE (iduser, tariffname);
-
-
-ALTER TABLE ONLY cc_tariffgroup_plan
-    ADD CONSTRAINT pk_groupplan PRIMARY KEY (idtariffgroup, idtariffplan);
-
-
-
-ALTER TABLE ONLY cc_ratecard
-    ADD CONSTRAINT cc_ratecard_pkey PRIMARY KEY (id);
-
-
-ALTER TABLE ONLY cc_trunk
-    ADD CONSTRAINT cc_trunk_pkey PRIMARY KEY (id_trunk);
-
-ALTER TABLE ONLY cc_sip_buddies
-    ADD CONSTRAINT cc_sip_buddies_pkey PRIMARY KEY (id);
-
-
-ALTER TABLE ONLY cc_sip_buddies
-    ADD CONSTRAINT unique_name UNIQUE (name);
-
-
-
-ALTER TABLE ONLY cc_iax_buddies
-    ADD CONSTRAINT cc_iax_buddies_pkey PRIMARY KEY (id);
-
-
-ALTER TABLE ONLY cc_iax_buddies
-    ADD CONSTRAINT iax_unique_name UNIQUE (name);
-
-
-SELECT pg_catalog.setval('cc_ui_authen_userid_seq', 3, true);
-
-SELECT pg_catalog.setval('cc_trunk_id_trunk_seq', 2, true);
-
-
-
 
 
 
@@ -778,15 +636,12 @@ SELECT pg_catalog.setval('cc_trunk_id_trunk_seq', 2, true);
 --
 
 CREATE TABLE cc_country (
-    id serial NOT NULL,
-    countrycode text NOT NULL,
-    countryprefix text NOT NULL,
-    countryname text NOT NULL
-);
-
-ALTER TABLE ONLY cc_country
-    ADD CONSTRAINT cc_country_pkey PRIMARY KEY (id);
-
+    id 								BIGINT NOT NULL AUTO_INCREMENT,
+    countrycode 					CHAR(80) NOT NULL,
+    countryprefix 					CHAR(80) NOT NULL,
+    countryname 					CHAR(80) NOT NULL,
+    PRIMARY KEY (id)
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
 INSERT INTO cc_country VALUES (1, 'AFG' ,'93', 'Afghanistan');
 INSERT INTO cc_country VALUES (2, 'ALB' ,'355',  'Albania');
@@ -1034,38 +889,81 @@ INSERT INTO cc_country VALUES (244, 'AK' ,'0', 'Alaska');
 INSERT INTO cc_country VALUES (245, 'HI' ,'0', 'Hawaii');
 INSERT INTO cc_country VALUES (53, 'CIV' ,'225', 'Côte d''Ivoire');
 
+--
+-- Predictive Dialer update  database - Create database schema
+--
+
+--
+-- CURRENT_TIMESTAMP
+-- last_attempt TIMESTAMP DEFAULT 'now()' NOT NULL,  
+-- last_attempt TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+--
+
+--
+--	MYSQL 5.x - MYSQL 5.x - MYSQL 5.x - MYSQL 5.x - MYSQL 5.x
+--
+--
+-- Predictive Dialer update  database - Create database schema
+--
+
+
+
+CREATE TABLE cc_campaign (
+    id 							INT NOT NULL AUTO_INCREMENT,    
+    campaign_name 				CHAR(50) NOT NULL,
+    creationdate 				TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    startingdate 				TIMESTAMP, 
+    expirationdate 				TIMESTAMP,
+    description 				MEDIUMTEXT,
+    id_trunk 					INT DEFAULT 0,
+    secondusedreal 				INT DEFAULT 0,
+    nb_callmade 				INT DEFAULT 0,
+    enable 						INT DEFAULT 0 NOT NULL,	
+    PRIMARY KEY (id),
+    UNIQUE cons_cc_campaign_campaign_name (campaign_name)
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
+
+
+CREATE TABLE cc_phonelist (
+    id 							INT NOT NULL AUTO_INCREMENT,
+    id_cc_campaign 				INT DEFAULT 0 NOT NULL,
+    numbertodial 				CHAR(50) NOT NULL,
+    name 						CHAR(60) NOT NULL,
+    inuse 						INT DEFAULT 0,
+    enable 						INT DEFAULT 1 NOT NULL,    
+    num_trials_done 			INT DEFAULT 0,
+    creationdate 				TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,	
+    last_attempt 				TIMESTAMP,
+    secondusedreal 				INT DEFAULT 0,
+    additionalinfo 				MEDIUMTEXT,
+    PRIMARY KEY (id)
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
+CREATE INDEX ind_cc_phonelist_numbertodial ON cc_phonelist (numbertodial);
+
+
 CREATE TABLE cc_provider(
-    id bigserial NOT NULL,
-    provider_name text NOT NULL,
-    creationdate timestamp without time zone DEFAULT now(),
-    description text
-);
-
-ALTER TABLE ONLY cc_provider
-    ADD CONSTRAINT cc_provider_pkey PRIMARY KEY (id);
-ALTER TABLE ONLY cc_provider
-    ADD CONSTRAINT cons_cc_provider_name_key UNIQUE (provider_name);
-
-
-
+    id 							INT NOT NULL AUTO_INCREMENT,
+    provider_name 				CHAR(30) NOT NULL,
+    creationdate 				TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    description 				MEDIUMTEXT,
+    PRIMARY KEY (id),
+    UNIQUE cons_cc_provider_provider_name (provider_name)
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
+		
 --
 --  cc_currencies table
 --
 
 CREATE TABLE cc_currencies (
-    id serial NOT NULL,
-    currency char(3) default '' NOT NULL,
-    name character varying(30) default '' NOT NULL,
-    value numeric(12,5) default '0.00000' NOT NULL,
-    lastupdate timestamp without time zone DEFAULT now(),	
-    basecurrency char(3) default 'USD' NOT NULL
-);
-
-
-ALTER TABLE ONLY cc_currencies
-    ADD CONSTRAINT cc_currencies_pkey PRIMARY KEY (id);
-ALTER TABLE ONLY cc_currencies
-    ADD CONSTRAINT cons_cc_currencies_currency_key UNIQUE(currency);
+    id 							smallINT(5) unsigned NOT NULL AUTO_INCREMENT,
+    currency 					CHAR(3) NOT NULL DEFAULT '',
+    name 						VARCHAR(30) NOT NULL DEFAULT '',
+    value 						FLOAT(7,5) unsigned NOT NULL DEFAULT '0.00000',
+    lastupdate 					TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    basecurrency 				CHAR(3) NOT NULL DEFAULT 'USD',
+    PRIMARY KEY  (id),
+    UNIQUE cons_cc_currencies_currency (currency)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin AUTO_INCREMENT=150;
 
 
 INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (1, 'ALL', 'Albanian Lek (ALL)', 0.00974,  'USD');
@@ -1124,7 +1022,7 @@ INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (53, 
 INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (54, 'HTG', 'Haiti Gourde (HTG)', 0.02387,  'USD');
 INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (55, 'HNL', 'Honduras Lempira (HNL)', 0.05292,  'USD');
 INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (56, 'HKD', 'Hong Kong Dollar (HKD)', 0.12884,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (57, 'HUF', 'Hungarian Forint (HUF)', 0.00461,  'USD');
+INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (57, 'HUF', 'Hungarian ForINT(HUF)', 0.00461,  'USD');
 INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (58, 'ISK', 'Iceland Krona (ISK)', 0.01436,  'USD');
 INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (59, 'INR', 'Indian Rupee (INR)', 0.02253,  'USD');
 INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (60, 'IDR', 'Indonesian Rupiah (IDR)', 0.00011,  'USD');
@@ -1221,46 +1119,51 @@ INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (150,
 
 
 
-CREATE TABLE cc_backup (
-    id bigserial NOT NULL,
-    name character varying(255) DEFAULT ''::character varying NOT NULL,
-    path character varying(255) DEFAULT ''::character varying NOT NULL,
-    creationdate timestamp without time zone DEFAULT now()
-);
+--
+-- Backup Database
+--
 
-ALTER TABLE ONLY cc_backup
-    ADD CONSTRAINT cc_backup_pkey PRIMARY KEY (id);
-ALTER TABLE ONLY cc_backup
-    ADD CONSTRAINT cons_cc_backup_name_key UNIQUE (name);
-    
+CREATE TABLE cc_backup (
+    id 								BIGINT NOT NULL AUTO_INCREMENT ,
+    name 							VARCHAR( 255 ) NOT NULL ,
+    path 							VARCHAR( 255 ) NOT NULL ,
+    creationdate 					TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+    PRIMARY KEY ( id ) ,
+    UNIQUE cons_cc_backup_name(name)
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
+
+
+
+
+
+-- 
+-- E-Commerce Table
+--
+
 
 CREATE TABLE cc_ecommerce_product (
-    id bigserial NOT NULL,
-    product_name text NOT NULL,
-    creationdate timestamp without time zone DEFAULT now(),		
-    description text,	
-    expirationdate timestamp without time zone,
-    enableexpire integer DEFAULT 0,
-    expiredays integer DEFAULT 0,    
-    credit numeric(12,4) NOT NULL,
-    tariff integer DEFAULT 0,
-    id_didgroup integer DEFAULT 0,
-    mailtype character varying(50) DEFAULT ''::character varying NOT NULL,
-    activated boolean DEFAULT false NOT NULL,
-    simultaccess integer DEFAULT 0,
-    currency character varying(3) DEFAULT 'USD'::character varying,
-    typepaid integer DEFAULT 0,
-    creditlimit integer DEFAULT 0,        
-    "language" text DEFAULT 'en'::text,	
-    runservice integer DEFAULT 0,
-    sip_friend integer DEFAULT 0,
-    iax_friend integer DEFAULT 0
-);
-
-ALTER TABLE ONLY cc_ecommerce_product
-    ADD CONSTRAINT cc_ecommerce_product_pkey PRIMARY KEY (id);
-
-
+    id 								BIGINT NOT NULL AUTO_INCREMENT,
+    product_name 					VARCHAR(255) NOT NULL,	
+    creationdate 					TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    description						MEDIUMTEXT,
+    expirationdate 					TIMESTAMP,
+    enableexpire 					INT DEFAULT 0,
+    expiredays 						INT DEFAULT 0,
+    mailtype 						VARCHAR(50) NOT NULL,
+    credit 							FLOAT DEFAULT 0 NOT NULL,
+    tariff 							INT DEFAULT 0,
+    id_didgroup 					INT DEFAULT 0,
+    activated 						CHAR(1) DEFAULT 'f' NOT NULL,
+    simultaccess 					INT DEFAULT 0,
+    currency 						CHAR(3) DEFAULT 'USD',
+    typepaid 						INT DEFAULT 0,
+    creditlimit 					INT DEFAULT 0,
+    language 						CHAR(5) DEFAULT 'en',
+    runservice 						INT DEFAULT 0,
+    sip_friend 						INT DEFAULT 0,
+    iax_friend 						INT DEFAULT 0,
+    PRIMARY KEY ( id )
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
 
 
@@ -1268,49 +1171,45 @@ ALTER TABLE ONLY cc_ecommerce_product
 -- Speed Dial Table
 --
 
-
 CREATE TABLE cc_speeddial (
-    id bigserial NOT NULL,
-    id_cc_card bigint DEFAULT 0 NOT NULL,	
-    phone text NOT NULL,
-    name text NOT NULL,
-    speeddial integer DEFAULT 0,
-    creationdate timestamp without time zone DEFAULT now()
-);
-
-
-ALTER TABLE ONLY cc_speeddial
-    ADD CONSTRAINT cc_speeddial_pkey PRIMARY KEY (id);
-
-
-ALTER TABLE ONLY cc_speeddial
-    ADD CONSTRAINT cons_cc_speeddial_pkey UNIQUE (id_cc_card, speeddial);
-
+    id 								BIGINT NOT NULL AUTO_INCREMENT,
+    id_cc_card 						BIGINT NOT NULL DEFAULT 0,
+    phone 							VARCHAR(100) NOT NULL,	
+    name 							VARCHAR(100) NOT NULL,	
+    speeddial 						INT DEFAULT 0,
+    creationdate 					TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (id),
+    UNIQUE cons_cc_speeddial_id_cc_card_speeddial (id_cc_card, speeddial)
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
 
 
 -- Auto Refill Report Table	
-
 CREATE TABLE cc_autorefill_report (
-	id bigserial NOT NULL,
-	daterun timestamp(0) without time zone DEFAULT now(),
-	totalcardperform integer,
-	totalcredit numeric(12,4)
-);
-ALTER TABLE ONLY cc_autorefill_report
-ADD CONSTRAINT cc_autorefill_report_pkey PRIMARY KEY (id);
+	id 								BIGINT NOT NULL AUTO_INCREMENT,    
+	daterun 						TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	totalcardperform 				INT,
+	totalcredit 					DECIMAL(15,5),
+	PRIMARY KEY (id)
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
+
+
+
+
+
+
 
 
 -- cc_prefix Table	
 
-CREATE TABLE cc_prefix (
-	id serial NOT NULL,
-	prefixe text NOT NULL,
-	destination text NOT NULL,
-	id_cc_country bigint
-);
 
-ALTER TABLE ONLY cc_prefix ADD CONSTRAINT cc_prefix_pkey PRIMARY KEY (id);
+CREATE TABLE cc_prefix (
+	id 								BIGINT NOT NULL AUTO_INCREMENT,
+	prefixe 						VARCHAR(50) NOT NULL,
+	destination 					VARCHAR(100) NOT NULL,
+	id_cc_country 					BIGINT,
+	PRIMARY KEY (id)
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
 
 INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Afghanistan','93','1');
@@ -1601,196 +1500,203 @@ INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Zimbabwe','26
 
 
 CREATE TABLE cc_alarm (
-    id bigserial NOT NULL,
-    name text NOT NULL,
-    periode integer NOT NULL DEFAULT 1,
-    type integer NOT NULL DEFAULT 1,
-    maxvalue numeric NOT NULL,
-    minvalue numeric NOT NULL DEFAULT -1,
-    id_trunk integer,
-    status integer NOT NULL DEFAULT 0,
-    numberofrun integer NOT NULL DEFAULT 0,
-    numberofalarm integer NOT NULL DEFAULT 0,    
-    datecreate timestamp without time zone DEFAULT now(),
-    datelastrun timestamp without time zone DEFAULT now(),
-    emailreport text
-);
-ALTER TABLE ONLY cc_alarm
-    ADD CONSTRAINT cc_alarm_pkey PRIMARY KEY (id);
+    id 								BIGINT NOT NULL AUTO_INCREMENT,
+    name 							TEXT NOT NULL,
+    periode 						INT NOT NULL DEFAULT 1,
+    type 							INT NOT NULL DEFAULT 1,
+    maxvalue 						FLOAT NOT NULL,
+    minvalue 						FLOAT NOT NULL DEFAULT -1,
+    id_trunk 						INT,
+    status 							INT NOT NULL DEFAULT 0,
+    numberofrun 					INT NOT NULL DEFAULT 0,
+    numberofalarm 					INT NOT NULL DEFAULT 0,    
+	datecreate    					TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,	
+	datelastrun    					TIMESTAMP,
+    emailreport 					VARCHAR(50),
+    PRIMARY KEY (id)
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
 CREATE TABLE cc_alarm_report (
-    id bigserial NOT NULL,
-    cc_alarm_id bigserial NOT NULL,
-    calculatedvalue numeric NOT NULL,
-    daterun timestamp without time zone DEFAULT now()
-);
-ALTER TABLE ONLY cc_alarm_report
-    ADD CONSTRAINT cc_alarm_report_pkey PRIMARY KEY (id);
+    id 								BIGINT NOT NULL AUTO_INCREMENT,
+    cc_alarm_id	 					BIGINT NOT NULL,
+    calculatedvalue 				FLOAT NOT NULL,
+    daterun 						TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (id)
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
+
 
 
 CREATE TABLE cc_callback_spool (
-    id 	bigserial NOT NULL,
-    uniqueid text,
-    entry_time timestamp without time zone DEFAULT now(),	
-    status text,
-    server_ip text,	
-    num_attempt int,
-    last_attempt_time timestamp without time zone,
-    manager_result text,
-    agi_result text,
-    callback_time timestamp without time zone,	
-    channel text,
-    exten text,
-    context text,
-    priority text,
-    application text,
-    data text,
-    timeout text,
-    callerid text,
-    variable text,
-    account text,
-    async text,
-    actionid text
-) WITH OIDS;
-
-ALTER TABLE ONLY cc_callback_spool
-    ADD CONSTRAINT cc_callback_spool_uniqueid_key UNIQUE (uniqueid);
-
+    id 								BIGINT NOT NULL AUTO_INCREMENT,
+    uniqueid 						VARCHAR(40),
+    entry_time 						TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    status 							VARCHAR(80),
+    server_ip 						VARCHAR(40),
+    num_attempt 					INT NOT NULL DEFAULT 0,
+    last_attempt_time 				TIMESTAMP,
+    manager_result 					VARCHAR(60),
+    agi_result 						VARCHAR(60),
+    callback_time 					TIMESTAMP,
+    channel 						VARCHAR(60),
+    exten 							VARCHAR(60),
+    context 						VARCHAR(60),
+    priority 						VARCHAR(60),
+    application 					VARCHAR(60),
+    data 							VARCHAR(60),
+    timeout 						VARCHAR(60),
+    callerid 						VARCHAR(60),
+    variable 						VARCHAR(100),
+    account 						VARCHAR(60),
+    async 							VARCHAR(60),
+    actionid 						VARCHAR(60),
+	id_server						INT,
+	id_server_group					INT,
+    PRIMARY KEY (id),
+    UNIQUE cc_callback_spool_uniqueid_key (uniqueid)
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
 CREATE TABLE cc_server_manager (
-    id 								BIGSERIAL NOT NULL,
-	id_group						INTEGER DEFAULT 1,
-    server_ip 						TEXT ,
-    manager_host 					TEXT ,
-    manager_username 				TEXT ,
-    manager_secret 					TEXT ,
-	lasttime_used		 			TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW()
-) WITH OIDS;
+    id 								BIGINT NOT NULL AUTO_INCREMENT,
+	id_group						INT DEFAULT 1,
+    server_ip 						VARCHAR(40),
+    manager_host 					VARCHAR(50),
+    manager_username 				VARCHAR(50),
+    manager_secret 					VARCHAR(50),
+	lasttime_used		 			TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (id)
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
+
 INSERT INTO cc_server_manager (server_ip, manager_host, manager_username, manager_secret) VALUES ('default', 'localhost', 'myasterisk', 'mycode');
 
 
 CREATE TABLE cc_server_group (
-	id								BIGSERIAL NOT NULL,
-	name							TEXT ,
-	description						TEXT
-) WITH OIDS;
+	id 								BIGINT NOT NULL AUTO_INCREMENT,
+	name 							VARCHAR(60),
+	description						MEDIUMTEXT,
+    PRIMARY KEY (id)
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 INSERT INTO cc_server_group (name, description) VALUES ('default', 'default group of server');
 
 
 
 CREATE TABLE cc_invoices (
-    id bigserial NOT NULL,
-    cardid bigint NOT NULL,
-    orderref text,
-    invoicecreated_date timestamp without time zone DEFAULT now(),
-    cover_startdate timestamp without time zone,
-    cover_enddate timestamp without time zone,
-    amount numeric(15,5) DEFAULT 0,
-    tax numeric(15,5) DEFAULT 0,
-    total numeric(15,5) DEFAULT 0,
-    invoicetype integer,
-    filename text,
-	payment_date   TIMESTAMP WITHOUT TIME ZONE,
-	payment_status INTEGER DEFAULT 0
-) WITH OIDS;
-
-ALTER TABLE ONLY cc_invoices
-    ADD CONSTRAINT cc_invoices_pkey PRIMARY KEY (id);
-CREATE INDEX ind_cc_invoices ON cc_invoices USING btree (cover_startdate);
-
+    id 								INT NOT NULL AUTO_INCREMENT,    
+    cardid 							bigint NOT NULL,
+	orderref 						VARCHAR(50),
+    invoicecreated_date 			TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	cover_startdate 				TIMESTAMP,
+    cover_enddate 					TIMESTAMP,	
+    amount 							DECIMAL(15,5) DEFAULT 0,
+	tax 							DECIMAL(15,5) DEFAULT 0,
+	total 							DECIMAL(15,5) DEFAULT 0,
+	invoicetype 					INT ,
+	filename 						VARCHAR(250),
+	payment_date		 			TIMESTAMP,
+	payment_status					INT DEFAULT 0,
+    PRIMARY KEY (id)
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
+CREATE INDEX ind_cc_invoices ON cc_invoices (cover_startdate);
 
 CREATE TABLE cc_invoice_history (
-    id bigserial NOT NULL,
-    invoiceid integer NOT NULL,	
-    invoicesent_date timestamp without time zone DEFAULT now(),
-    invoicestatus integer
-) WITH OIDS;
-ALTER TABLE ONLY cc_invoice_history
-    ADD CONSTRAINT cc_invoice_history_pkey PRIMARY KEY (id);
-CREATE INDEX ind_cc_invoice_history ON cc_invoice_history USING btree (invoicesent_date);
+    id 								INT NOT NULL AUTO_INCREMENT,    
+    invoiceid 						INT NOT NULL,	
+    invoicesent_date 				TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    invoicestatus 					INT,    
+    PRIMARY KEY (id)
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
+CREATE INDEX ind_cc_invoice_history ON cc_invoice_history (invoicesent_date);
+
+
 
 
 CREATE TABLE cc_package_offer (
-    id bigserial NOT NULL,
-    creationdate timestamp without time zone DEFAULT now(),
-    label text NOT NULL,
-    packagetype integer NOT NULL,
-	billingtype integer NOT NULL,
-	startday integer NOT NULL,
-	freetimetocall integer NOT NULL
-);
+    id 					BIGINT NOT NULL AUTO_INCREMENT,
+    creationdate 		TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    label 				VARCHAR(70) NOT NULL,
+    packagetype 		INT NOT NULL,
+	billingtype 		INT NOT NULL,
+	startday 			INT NOT NULL,
+	freetimetocall 		INT NOT NULL,
+    PRIMARY KEY (id)
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 -- packagetype : Free minute + Unlimited ; Free minute ; Unlimited ; Normal
 -- billingtype : Monthly ; Weekly 
 -- startday : according to billingtype ; if monthly value 1-31 ; if Weekly value 1-7 (Monday to Sunday) 
 
 
 CREATE TABLE cc_card_package_offer (
-    id 					bigserial NOT NULL,
-	id_cc_card 			bigint NOT NULL,
-	id_cc_package_offer bigint NOT NULL,
-    date_consumption 	timestamp without time zone DEFAULT now(),
-	used_secondes 		bigint NOT NULL
-);
-CREATE INDEX ind_cc_card_package_offer_id_card ON cc_card_package_offer USING btree (id_cc_card);
-CREATE INDEX ind_cc_card_package_offer_id_package_offer ON cc_card_package_offer USING btree (id_cc_package_offer);
-CREATE INDEX ind_cc_card_package_offer_date_consumption ON cc_card_package_offer USING btree (date_consumption);
+    id 									BIGINT NOT NULL AUTO_INCREMENT,
+    id_cc_card 							BIGINT NOT NULL,
+    id_cc_package_offer 				BIGINT NOT NULL,
+    date_consumption 					TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    used_secondes 						BIGINT NOT NULL,
+    PRIMARY KEY (id)
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
+CREATE INDEX ind_cc_card_package_offer_id_card 	ON cc_card_package_offer (id_cc_card);
+CREATE INDEX ind_cc_card_package_offer_id_package_offer ON cc_card_package_offer (id_cc_package_offer);
+CREATE INDEX ind_cc_card_package_offer_date_consumption ON cc_card_package_offer (date_consumption);
 
 
 CREATE TABLE cc_subscription_fee (
-    id 				BIGSERIAL NOT NULL,
-    label 			TEXT NOT NULL,	
-	fee 			NUMERIC(12,4) NOT NULL,
-	currency 		CHARACTER VARYING(3) DEFAULT 'USD'::CHARACTER varying,
-	status 			INTEGER NOT NULL DEFAULT 0,
-    numberofrun 	INTEGER NOT NULL DEFAULT 0,
-    datecreate 		TIMESTAMP(0) without time zone DEFAULT NOW(),
-    datelastrun 	TIMESTAMP(0) without time zone DEFAULT NOW(),
-    emailreport 	TEXT,
-    totalcredit 	DOUBLE PRECISION NOT NULL DEFAULT 0,
-    totalcardperform INTEGER NOT NULL DEFAULT 0
-);
-ALTER TABLE ONLY cc_subscription_fee
-ADD CONSTRAINT cc_subscription_fee_pkey PRIMARY KEY (id);
+    id 								BIGINT NOT NULL AUTO_INCREMENT,
+    label 							TEXT NOT NULL,
+    fee 							FLOAT DEFAULT 0 NOT NULL,
+	currency 						CHAR(3) DEFAULT 'USD',
+    status 							INT DEFAULT '0' NOT NULL,
+    numberofrun 					INT DEFAULT '0' NOT NULL,
+    datecreate 						TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    datelastrun 					TIMESTAMP,
+    emailreport 					TEXT,
+    totalcredit 					FLOAT NOT NULL DEFAULT 0,
+    totalcardperform 				INT DEFAULT '0' NOT NULL,
+    PRIMARY KEY (id)	
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
 -- ## 	INSTEAD USE CC_CHARGE  ##
 -- CREATE TABLE cc_subscription_fee_card (
---     id 						BIGSERIAL NOT NULL,
---     id_cc_card 				 NOT NULL,
--- 	id_cc_subscription_fee 	 NOT NULL,
---     datefee 				TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT now(),
---     fee 					NUMERIC(12,4) NOT NULL,
--- 	fee_converted			NUMERIC(12,4) NOT NULL,
--- 	currency 				CHARACTER VARYING(3) DEFAULT 'USD'::CHARACTER VARYING
--- );
--- ALTER TABLE ONLY cc_subscription_fee_card
--- ADD CONSTRAINT cc_subscription_fee_card_pkey PRIMARY KEY (id)
+--     id 						BIGINT NOT NULL AUTO_INCREMENT,
+--     id_cc_card 				BIGINT NOT NULL,
+--     id_cc_subscription_fee 	BIGINT NOT NULL,
+--     datefee 				TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+--     fee 					FLOAT DEFAULT 0 NOT NULL,	
+-- 	fee_converted 			FLOAT DEFAULT 0 NOT NULL,
+-- 	currency 				CHAR(3) DEFAULT 'USD',
+--     PRIMARY KEY (id)
+-- )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 -- 
--- 
--- CREATE INDEX ind_cc_charge_id_cc_card 								ON cc_subscription_fee_card USING btree (id_cc_card);
--- CREATE INDEX ind_cc_subscription_fee_card_id_cc_subscription_fee 	ON cc_subscription_fee_card USING btree (id_cc_subscription_fee);
--- CREATE INDEX ind_cc_subscription_fee_card_datefee 					ON cc_subscription_fee_card USING btree (datefee);
+-- CREATE INDEX ind_cc_subscription_fee_card_id_cc_card  				ON cc_subscription_fee_card (id_cc_card);
+-- CREATE INDEX ind_cc_subscription_fee_card_id_cc_subscription_fee 	ON cc_subscription_fee_card (id_cc_subscription_fee);
+-- CREATE INDEX ind_cc_subscription_fee_card_datefee 					ON cc_subscription_fee_card (datefee);
 
+
+
+-- Table Name: cc_outbound_cid_group
+-- For outbound CID Group
+-- group_name: Name of the Group Created.
 
 CREATE TABLE cc_outbound_cid_group (
-    id 					BIGSERIAL NOT NULL,
-    creationdate 		TIMESTAMP(0) without time zone DEFAULT NOW(),
-    group_name 			TEXT NOT NULL    
-    
-);
-ALTER TABLE ONLY cc_outbound_cid_group
-ADD CONSTRAINT cc_outbound_cid_group_pkey PRIMARY KEY (id);
+    id 					INT NOT NULL AUTO_INCREMENT,
+    creationdate 		TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    group_name 			VARCHAR(70) NOT NULL,    
+    PRIMARY KEY (id)
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
+
+-- Table Name: cc_outbound_cid_list
+-- For outbound CIDs 
+-- outbound_cid_group: Foreign Key of the CID Group
+-- cid: Caller ID
+-- activated Field for Activated or Disabled t=activated.
 
 CREATE TABLE cc_outbound_cid_list (
-    id 					BIGSERIAL NOT NULL,
-	outbound_cid_group	BIGINT NOT NULL,
-	cid					TEXT NOT NULL,    
-    activated 			INTEGER NOT NULL DEFAULT 0,
-    creationdate 		TIMESTAMP(0) without time zone DEFAULT NOW()   
-);
-ALTER TABLE ONLY cc_outbound_cid_list
-ADD CONSTRAINT cc_outbound_cid_list_pkey PRIMARY KEY (id);
+    id 					INT NOT NULL AUTO_INCREMENT,
+	outbound_cid_group	INT NOT NULL,
+	cid					CHAR(100) NULL,    
+    activated 			INT NOT NULL DEFAULT 0,
+    creationdate 		TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,    
+    PRIMARY KEY (id)
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
 
 
@@ -1799,106 +1705,100 @@ ADD CONSTRAINT cc_outbound_cid_list_pkey PRIMARY KEY (id);
 
 
 
+-- Payment Methods Table
 CREATE TABLE cc_payment_methods (
-    id bigserial NOT NULL,
-    payment_method text NOT NULL,
-    payment_filename text NOT NULL,
-    active character varying(1) DEFAULT 'f' NOT NULL
-);
-ALTER TABLE ONLY cc_payment_methods
-    ADD CONSTRAINT cc_payment_methods_pkey PRIMARY KEY (id);
+    id 								INT NOT NULL AUTO_INCREMENT,
+    payment_method 					CHAR(100) NOT NULL,
+    payment_filename 				CHAR(200) NOT NULL,
+    active 							CHAR(1) DEFAULT 'f' NOT NULL,
+    PRIMARY KEY (id)
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
-Insert into cc_payment_methods (payment_method,payment_filename,active) values('paypal','paypal.php','t');
-Insert into cc_payment_methods (payment_method,payment_filename,active) values('Authorize.Net','authorizenet.php','t');
-Insert into cc_payment_methods (payment_method,payment_filename,active) values('MoneyBookers','moneybookers.php','t');
+Insert INTO cc_payment_methods (payment_method,payment_filename,active) VALUES ('paypal','paypal.php','t');
+Insert INTO cc_payment_methods (payment_method,payment_filename,active) VALUES ('Authorize.Net','authorizenet.php','t');
+Insert INTO cc_payment_methods (payment_method,payment_filename,active) VALUES ('MoneyBookers','moneybookers.php','t');
 
 
 CREATE TABLE cc_payments (
-  id bigserial NOT NULL,
-  customers_id character varying(60) NOT NULL,
-  customers_name text NOT NULL,
-  customers_email_address text NOT NULL,
-  item_name text NOT NULL,
-  item_id text NOT NULL,
-  item_quantity integer NOT NULL DEFAULT 0,
-  payment_method varchar(32) NOT NULL,
-  cc_type character varying(20),
-  cc_owner character varying(64),
-  cc_number character varying(32),
-  cc_expires character varying(6),
-  orders_status integer NOT NULL,
-  orders_amount numeric(14,6),
-  last_modified timestamp,
-  date_purchased timestamp,
-  orders_date_finished timestamp,
-  currency character varying(3),
-  currency_value decimal(14,6)
-);
+  id 						INT NOT NULL AUTO_INCREMENT,
+  customers_id 				VARCHAR(60) NOT NULL,
+  customers_name 			VARCHAR(200) NOT NULL,
+  customers_email_address 	VARCHAR(96) NOT NULL,
+  item_name 				VARCHAR(127),
+  item_id 					VARCHAR(127),
+  item_quantity 			INT NOT NULL DEFAULT 0,
+  payment_method 			VARCHAR(32) NOT NULL,
+  cc_type 					VARCHAR(20),
+  cc_owner 					VARCHAR(64),
+  cc_number 				VARCHAR(32),
+  cc_expires 				VARCHAR(4),
+  orders_status 			INT(5) NOT NULL,
+  orders_amount 			DECIMAL(14,6),
+  last_modified 			DATETIME,
+  date_purchased 			DATETIME,
+  orders_date_finished 		DATETIME,
+  currency 					CHAR(3),
+  currency_value 			DECIMAL(14,6),
+  PRIMARY KEY (id)
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
-ALTER TABLE ONLY cc_payments
-    ADD CONSTRAINT cc_payments_pkey PRIMARY KEY (id);
-
-
+-- Payment Status Lookup Table
 CREATE TABLE cc_payments_status (
-   id bigserial NOT NULL,
-  status_id integer NOT NULL,
-  status_name character varying(200) NOT NULL
-);
-ALTER TABLE ONLY cc_payments_status
-    ADD CONSTRAINT cc_payments_status_pkey PRIMARY KEY (id);
+  id 						INT NOT NULL AUTO_INCREMENT,
+  status_id 				INT NOT NULL,
+  status_name 				VARCHAR(200) NOT NULL,
+  PRIMARY KEY (id)
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
+Insert INTO cc_payments_status (status_id,status_name) VALUES (-2, 'Failed');
+Insert INTO cc_payments_status (status_id,status_name) VALUES (-1, 'Denied');
+Insert INTO cc_payments_status (status_id,status_name) VALUES (0, 'Pending');
+Insert INTO cc_payments_status (status_id,status_name) VALUES (1, 'In-Progress');
+Insert INTO cc_payments_status (status_id,status_name) VALUES (2, 'Completed');
+Insert INTO cc_payments_status (status_id,status_name) VALUES (3, 'Processed');
+Insert INTO cc_payments_status (status_id,status_name) VALUES (4, 'Refunded');
+Insert INTO cc_payments_status (status_id,status_name) VALUES (5, 'Unknown');
 
-Insert into cc_payments_status (status_id,status_name) values (-2, 'Failed');
-Insert into cc_payments_status (status_id,status_name) values (-1, 'Denied');
-Insert into cc_payments_status (status_id,status_name) values (0, 'Pending');
-Insert into cc_payments_status (status_id,status_name) values (1, 'In-Progress');
-Insert into cc_payments_status (status_id,status_name) values (2, 'Completed');
-Insert into cc_payments_status (status_id,status_name) values (3, 'Processed');
-Insert into cc_payments_status (status_id,status_name) values (4, 'Refunded');
-Insert into cc_payments_status (status_id,status_name) values (5, 'Unknown');
 
 CREATE TABLE cc_configuration (
-  configuration_id bigserial NOT NULL,
-  configuration_title character varying(64) NOT NULL,
-  configuration_key character varying(64) NOT NULL,
-  configuration_value character varying(255) NOT NULL,
-  configuration_description character varying(255) NOT NULL,
-  configuration_type integer NOT NULL DEFAULT 0,
-  use_function character varying(255) NULL,
-  set_function character varying(255) NULL
+  configuration_id 							INT NOT NULL AUTO_INCREMENT,
+  configuration_title 						VARCHAR(64) NOT NULL,
+  configuration_key 						VARCHAR(64) NOT NULL,
+  configuration_value 						VARCHAR(255) NOT NULL,
+  configuration_description 				VARCHAR(255) NOT NULL,
+  configuration_type 						INT NOT NULL DEFAULT 0,
+  use_function 								VARCHAR(255) NULL,
+  set_function 								VARCHAR(255) NULL,
+  PRIMARY KEY (configuration_id)
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
-);
-ALTER TABLE ONLY cc_configuration
-ADD CONSTRAINT cc_configuration_id_pkey PRIMARY KEY (configuration_id);
+INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description) VALUES ('Login Username', 'MODULE_PAYMENT_AUTHORIZENET_LOGIN', 'testing', 'The login username used for the Authorize.net service');
+INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description) VALUES ('Transaction Key', 'MODULE_PAYMENT_AUTHORIZENET_TXNKEY', 'Test', 'Transaction Key used for encrypting TP data');
+INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) VALUES ('Transaction Mode', 'MODULE_PAYMENT_AUTHORIZENET_TESTMODE', 'Test', 'Transaction mode used for processing orders', 'tep_cfg_select_option(array(\'Test\', \'Production\'), ');
+INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) VALUES ('Transaction Method', 'MODULE_PAYMENT_AUTHORIZENET_METHOD', 'Credit Card', 'Transaction method used for processing orders', 'tep_cfg_select_option(array(\'Credit Card\', \'eCheck\'), ');
+INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) VALUES ('Customer Notifications', 'MODULE_PAYMENT_AUTHORIZENET_EMAIL_CUSTOMER', 'False', 'Should Authorize.Net e-mail a receipt to the customer?', 'tep_cfg_select_option(array(\'True\', \'False\'), ');
+INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) VALUES ('Enable Authorize.net Module', 'MODULE_PAYMENT_AUTHORIZENET_STATUS', 'True', 'Do you want to accept Authorize.net payments?', 'tep_cfg_select_option(array(\'True\', \'False\'), ');
 
+INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) VALUES ('Enable PayPal Module', 'MODULE_PAYMENT_PAYPAL_STATUS', 'True', 'Do you want to accept PayPal payments?','tep_cfg_select_option(array(\'True\', \'False\'), ');
+INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description) VALUES ('E-Mail Address', 'MODULE_PAYMENT_PAYPAL_ID', 'you@yourbusiness.com', 'The e-mail address to use for the PayPal service');
+INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) VALUES ('Transaction Currency', 'MODULE_PAYMENT_PAYPAL_CURRENCY', 'Selected Currency', 'The currency to use for credit card transactions', 'tep_cfg_select_option(array(\'Selected Currency\',\'USD\',\'CAD\',\'EUR\',\'GBP\',\'JPY\'), ');
 
-insert into cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description) values ('Login Username', 'MODULE_PAYMENT_AUTHORIZENET_LOGIN', 'testing', 'The login username used for the Authorize.net service');
-insert into cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description) values ('Transaction Key', 'MODULE_PAYMENT_AUTHORIZENET_TXNKEY', 'Test', 'Transaction Key used for encrypting TP data');
-insert into cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) values ('Transaction Mode', 'MODULE_PAYMENT_AUTHORIZENET_TESTMODE', 'Test', 'Transaction mode used for processing orders', 'tep_cfg_select_option(array(\'Test\', \'Production\'), ');
-insert into cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) values ('Transaction Method', 'MODULE_PAYMENT_AUTHORIZENET_METHOD', 'Credit Card', 'Transaction method used for processing orders', 'tep_cfg_select_option(array(\'Credit Card\', \'eCheck\'), ');
-insert into cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) values ('Customer Notifications', 'MODULE_PAYMENT_AUTHORIZENET_EMAIL_CUSTOMER', 'False', 'Should Authorize.Net e-mail a receipt to the customer?', 'tep_cfg_select_option(array(\'True\', \'False\'), ');
-insert into cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) values ('Enable Authorize.net Module', 'MODULE_PAYMENT_AUTHORIZENET_STATUS', 'True', 'Do you want to accept Authorize.net payments?', 'tep_cfg_select_option(array(\'True\', \'False\'), ');
-
-insert into cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) values ('Enable PayPal Module', 'MODULE_PAYMENT_PAYPAL_STATUS', 'True', 'Do you want to accept PayPal payments?','tep_cfg_select_option(array(\'True\', \'False\'), ');
-insert into cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description) values ('E-Mail Address', 'MODULE_PAYMENT_PAYPAL_ID', 'you@yourbusiness.com', 'The e-mail address to use for the PayPal service');
-insert into cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) values ('Transaction Currency', 'MODULE_PAYMENT_PAYPAL_CURRENCY', 'Selected Currency', 'The currency to use for credit card transactions', 'tep_cfg_select_option(array(\'Selected Currency\',\'USD\',\'CAD\',\'EUR\',\'GBP\',\'JPY\'), ');
-
-insert into cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description) values ('E-Mail Address', 'MODULE_PAYMENT_MONEYBOOKERS_ID', 'you@yourbusiness.com', 'The eMail address to use for the moneybookers service');
-insert into cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description) values ('Referral ID', 'MODULE_PAYMENT_MONEYBOOKERS_REFID', '989999', 'Your personal Referral ID from moneybookers.com');
-insert into cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) values ('Transaction Currency', 'MODULE_PAYMENT_MONEYBOOKERS_CURRENCY', 'Selected Currency', 'The default currency for the payment transactions', 'tep_cfg_select_option(array(\'Selected Currency\',\'EUR\', \'USD\', \'GBP\', \'HKD\', \'SGD\', \'JPY\', \'CAD\', \'AUD\', \'CHF\', \'DKK\', \'SEK\', \'NOK\', \'ILS\', \'MYR\', \'NZD\', \'TWD\', \'THB\', \'CZK\', \'HUF\', \'SKK\', \'ISK\', \'INR\'), ');
-insert into cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) values ('Transaction Language', 'MODULE_PAYMENT_MONEYBOOKERS_LANGUAGE', 'Selected Language', 'The default language for the payment transactions', 'tep_cfg_select_option(array(\'Selected Language\',\'EN\', \'DE\', \'ES\', \'FR\'), ');
-insert into cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) values ('Enable moneybookers Module', 'MODULE_PAYMENT_MONEYBOOKERS_STATUS', 'True', 'Do you want to accept moneybookers payments?','tep_cfg_select_option(array(\'True\', \'False\'), ');
+INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description) VALUES ('E-Mail Address', 'MODULE_PAYMENT_MONEYBOOKERS_ID', 'you@yourbusiness.com', 'The eMail address to use for the moneybookers service');
+INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description) VALUES ('Referral ID', 'MODULE_PAYMENT_MONEYBOOKERS_REFID', '989999', 'Your personal Referral ID from moneybookers.com');
+INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) VALUES ('Transaction Currency', 'MODULE_PAYMENT_MONEYBOOKERS_CURRENCY', 'Selected Currency', 'The default currency for the payment transactions', 'tep_cfg_select_option(array(\'Selected Currency\',\'EUR\', \'USD\', \'GBP\', \'HKD\', \'SGD\', \'JPY\', \'CAD\', \'AUD\', \'CHF\', \'DKK\', \'SEK\', \'NOK\', \'ILS\', \'MYR\', \'NZD\', \'TWD\', \'THB\', \'CZK\', \'HUF\', \'SKK\', \'ISK\', \'INR\'), ');
+INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) VALUES ('Transaction Language', 'MODULE_PAYMENT_MONEYBOOKERS_LANGUAGE', 'Selected Language', 'The default language for the payment transactions', 'tep_cfg_select_option(array(\'Selected Language\',\'EN\', \'DE\', \'ES\', \'FR\'), ');
+INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) VALUES ('Enable moneybookers Module', 'MODULE_PAYMENT_MONEYBOOKERS_STATUS', 'True', 'Do you want to accept moneybookers payments?','tep_cfg_select_option(array(\'True\', \'False\'), ');
 
 CREATE TABLE cc_epayment_log (
-    id 				BIGSERIAL NOT NULL,
-    cardid 			INTEGER NOT NULL DEFAULT 0,	
-	amount 			DOUBLE PRECISION NOT NULL DEFAULT 0,
-	vat 			DOUBLE PRECISION NOT NULL DEFAULT 0,
-	paymentmethod	CHARACTER VARYING(255) NOT NULL,
-    cc_owner 		CHARACTER VARYING(255) NOT NULL,
-    cc_number 		CHARACTER VARYING(255) NOT NULL,
-    cc_expires 		CHARACTER VARYING(255) NOT NULL,
-    creationdate 	TIMESTAMP(0) without time zone DEFAULT NOW()
-);
-ALTER TABLE ONLY cc_epayment_log
-ADD CONSTRAINT cc_epayment_log_pkey PRIMARY KEY (id);
+    id 								INT NOT NULL AUTO_INCREMENT,
+    cardid 							INT DEFAULT 0 NOT NULL,
+    amount 							FLOAT DEFAULT 0 NOT NULL,
+	vat 							FLOAT DEFAULT 0 NOT NULL,
+    paymentmethod	 				CHAR(50) NOT NULL,     
+  	cc_owner 						VARCHAR(64),
+  	cc_number 						VARCHAR(32),
+  	cc_expires 						VARCHAR(7),						   
+    creationdate  					TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    status 							INT DEFAULT 0 NOT NULL,
+    PRIMARY KEY (id)
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;

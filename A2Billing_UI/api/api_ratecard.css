@@ -1,13 +1,4 @@
-html {
-	font-family: Arial,Verdana;
-	font-size: 11px; 
-	color: #666666;
-}
-/* to set the defaul font style for the HTML page*/
-H1 {
-	font-size: 16px; 
-	color: #666666;
-}
+
 /* H1 class is used to set the style oh search title*/
 /* the class bellow are used to set the div parametres
 .title : for the div contained search title
@@ -16,12 +7,10 @@ H1 {
 .serchelement: for the element in the search form
 */
 .title {
-	width:100%; 
-	margin-left:300px; 
+	width:100%;
 }
 .search {
-	width:100%; 
-	margin-left:290px; 
+	width:100%;
 	padding-left: 0px;
 	padding-top: 0px;
 }
@@ -29,7 +18,6 @@ H1 {
 .result {
 	width:100%; 
 	margin-top:40px;
-	margin-left:300px;
 	padding:20px;
 	padding-left: 0px;
 	padding-top: 0px;
@@ -60,15 +48,7 @@ a:hover {
 .tabletr_1 : for the shaded tr
 table a: to define the display style of the order links
 */
-table {
-	border-collapse: collapse;
-	border-left: #DBDBDB solid 0px;
-	border-bottom: #DBDBDB solid 0px;
-	BORDER-RIGHT: #f1f1f1 0px solid; 
-	BORDER-TOP: #f1f1f1 0px solid;
-	font-size: 12px;
-	background-color: #FFFFFF;
-}
+
 
 .table_title {
 	BORDER-BOTTOM: #f1f1f1 1px solid; 
@@ -114,4 +94,3 @@ table a {
 	color: #000033;
 	background-color: #FFFFFF;
 }
-

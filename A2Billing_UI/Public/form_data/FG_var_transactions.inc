@@ -1,44 +1,30 @@
 <?php
-getpost_ifset(array('id', 'customers_id', 'customers_name', 'customers_email_address',
-                    'item_name', 'item_id', 'item_quantity', 'payment_method',
-                    'cc_type', 'cc_owner','cc_number', 'cc_expires', 'orders_status',
-                    'last_modified', 'date_purchased','orders_date_finished', 'orders_amount', 'currency',
-                     'currency_value'));
+getpost_ifset(array('id', 'customers_id', 'customers_name', 'customers_email_address', 'item_name', 'item_id', 'item_quantity', 'payment_method','cc_type', 'cc_owner','cc_number', 'cc_expires', 'orders_status', 'last_modified', 'date_purchased','orders_date_finished', 'orders_amount', 'currency', 'currency_value'));
 
-$plang='en';
 
 $HD_Form = new FormHandler("cc_payments","Transactions");
 
 $HD_Form -> FG_DEBUG = 0;
-// FAQ
 $HD_Form -> FG_TABLE_DEFAULT_ORDER = "id";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
 
 
-// TODO Integrate a generic LIST to Framework
-//$actived_list = array();
-//$actived_list["1"] = array( gettext("Active"), "1");
-//$actived_list["0"] = array( gettext("Inactive"), "0");
 
-
-
+$HD_Form -> AddViewElement(gettext("ID"), "id", "4%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("ORDER DATE"), "date_purchased", "10%", "center", "sort", "19", "", "", "", "", "display_dateformat");
-$HD_Form -> AddViewElement(gettext("CUSTOMERID"), "customers_id", "7%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("NAME"), "customers_name", "7%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("EMAIL"), "customers_email_address", "10%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("ITEM NAME"), "item_name", "7%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("METHOD"), "payment_method", "7%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("CC NUMBER"), "cc_number", "7%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("CC EXPIRES"), "cc_expires", "7%", "center", "sort");
+$HD_Form -> AddViewElement(gettext("CARDID"), "customers_id", "7%", "center", "sort");
+$HD_Form -> AddViewElement(gettext("NAME"), "customers_name", "10%", "center", "sort");
+//$HD_Form -> AddViewElement(gettext("EMAIL"), "customers_email_address", "10%", "center", "sort");
+$HD_Form -> AddViewElement(gettext("ITEM NAME"), "item_name", "12%", "center", "sort");
+$HD_Form -> AddViewElement(gettext("METHOD"), "payment_method", "9%", "center", "sort");
+$HD_Form -> AddViewElement(gettext("CC NUMBER"), "cc_number", "10%", "center", "sort");
+//$HD_Form -> AddViewElement(gettext("CC EXPIRES"), "cc_expires", "7%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("STATUS"), "orders_status", "7%", "center", "sort","15","lie","cc_payments_status","status_name","status_id='%id'","%1");
 $HD_Form -> AddViewElement(gettext("AMOUNT"), "orders_amount", "8%", "center", "SORT", "30");
-$HD_Form -> AddViewElement(gettext("CURRENCY"), "currency", "5%", "center", "SORT", "30");
+$HD_Form -> AddViewElement("<acronym title=\"".gettext("CURRENCY")."\">".gettext("CUR")."</acronym>", "currency", "5%", "center", "sort", "");
 $HD_Form -> AddViewElement(gettext("VALUE"), "currency_value", "5%", "center", "SORT", "30");
 // added a parameter to append  FG_TABLE_ID  ( by default ) or disable 0.
-$HD_Form -> FieldViewElement ('date_purchased, customers_id, customers_name, customers_email_address,
-                              item_name, payment_method, cc_number, cc_expires,
-                              orders_status, orders_amount, currency,
-                              currency_value');
+$HD_Form -> FieldViewElement ('id, date_purchased, customers_id, customers_name, item_name, payment_method, cc_number, orders_status, orders_amount, currency, currency_value');
 
 
 $HD_Form -> CV_NO_FIELDS  = gettext("THERE ARE NO")." ".strtoupper($HD_Form->FG_INSTANCE_NAME)." ".gettext("CREATED!");
@@ -47,7 +33,7 @@ $HD_Form -> CV_TEXT_TITLE_ABOVE_TABLE = '';
 $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;
 
 
-$HD_Form -> FG_EDITION = true;
+$HD_Form -> FG_EDITION = false;
 $HD_Form -> FG_DELETION = true;
 
 
@@ -230,19 +216,19 @@ $HD_Form -> AddEditElement (gettext("AMOUNT"),
 
 
 
-$HD_Form -> FieldEditElement ('customers_id,customers_name,customers_email_address,item_name,
-                               item_id,item_quantity,payment_method,cc_type,cc_owner,cc_number,
-                               cc_expires,orders_status,last_modified,date_purchased,orders_date_finished,
-                               currency,currency_value,orders_amount');
+$HD_Form -> FieldEditElement ('customers_id,customers_name,customers_email_address,item_name, item_id,item_quantity,payment_method,cc_type,cc_owner,cc_number, cc_expires,orders_status,last_modified,date_purchased,orders_date_finished, currency,currency_value,orders_amount');
 
 
-if (DB_TYPE == "postgres"){
-	$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS = "";
-	$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  = "";
-}else{
-	$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS = "";
-	$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  = "";
+// Set the filter variables
+$HD_Form -> FG_FILTER_APPLY = true;
+$HD_Form -> FG_FILTERFIELD = 'transaction_id';
+$HD_Form -> FG_FILTERFIELDNAME = 'transaction ID';
+
+if (isset($filterprefix)  &&  (strlen($filterprefix)>0)){
+	if (strlen($HD_Form -> FG_TABLE_CLAUSE)>0) $HD_Form -> FG_TABLE_CLAUSE.=" AND ";
+	$HD_Form -> FG_TABLE_CLAUSE.="id like '$filterprefix%'";
 }
+
 
 
 $HD_Form -> FG_INTRO_TEXT_EDITION= '';

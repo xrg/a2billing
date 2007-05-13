@@ -1,7 +1,7 @@
 <?php
 /*
 this ligne is an exemple of wath you must add into the main page to desplay the ratecard
-include ("http://localhost/A2Billing_UI/api/display_ratecard.php?key=0951aa29a67836b860b0865bc495225c&page_url=localhost/index.php&field_to_display=t1.destination,t5.countryprefix,t1.dialprefix,t1.rateinitial&column_name=Destination,Country,Prefix,Rate/Min&field_type=,,money&".$_SERVER['QUERY_STRING']);
+include ("http://localhost/A2Billing_UI/api/display_ratecard.php?key=0951aa29a67836b860b0865bc495225c&page_url=localhost/index.php&field_to_display=t1.destination,t1.dialprefix,t1.rateinitial&column_name=Destination,Prefix,Rate/Min&field_type=,,money&".$_SERVER['QUERY_STRING']);
 
 
 to change display set css_url in the include ligne
@@ -23,9 +23,7 @@ include ("../lib/module.access.php");
 	
 	$FG_DEBUG = 0;
 
-
-getpost_ifset(array('key', 'ratecardid', 'css_url', 'nb_display_lines', 'filter' ,'field_to_display', 'column_name', 'field_type', 'browse_letter', 'prefix_select', 'page_url', 'resulttitle', 'posted', 'stitle', 'current_page', 'order', 'sens', 'choose_currency', 'choose_country', 'letter', 'search', 'currency_select'));
-
+getpost_ifset(array('key', 'tariffgroupid', 'ratecardid', 'css_url', 'nb_display_lines', 'filter' ,'field_to_display', 'column_name', 'field_type', 'browse_letter', 'prefix_select', 'page_url', 'resulttitle', 'posted', 'stitle', 'current_page', 'order', 'sens', 'choose_currency', 'choose_country', 'letter', 'searchpre', 'currency_select', 'merge_form', 'fullhtmlpage'));
 /**variable to set rate display option
 
 	?key 
@@ -40,6 +38,7 @@ getpost_ifset(array('key', 'ratecardid', 'css_url', 'nb_display_lines', 'filter'
 	&prefix_select i.e 32 (only prefix start by 32)
 	&currency_select "cirency code i.e USD"
 	&page_url i.e http://mysite.com/rates.php
+	&fullhtmlpage (0 or 1)
 */
   $ip_remote = getenv('REMOTE_ADDR'); 
   $mail_content = "[" . date("Y/m/d G:i:s", mktime()) . "] "."Request asked from:$ip_remote with key:$key \n";
@@ -66,7 +65,9 @@ if (!isset($field_type) || strlen ($field_to_type)==0) $field_type=",,,money";
 if (!isset($browse_letter) || strlen($browse_letter)==0) $browse_letter="yes";
 if (!isset($prefix_select) || strlen($prefix_select)==0) $prefix_select="";
 if (!isset($currency_select) || strlen($currency_select)==0) $currency_select=true;else $choose_currency=$currency_select;
-if (!isset($css_url) || strlen($css_url)==0) $css_url=substr("http://".$_SERVER['SERVER_ADDR'].$_SERVER['PHP_SELF'],0,strlen("http://".$_SERVER['SERVER_ADDR'].$_SERVER['PHP_SELF'])-20)."api_ratecard.css";
+if (!isset($css_url) || strlen($css_url)==0) $css_url=substr("http://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'],0,strlen("http://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'])-20)."api_ratecard.css";
+
+if (!isset($fullhtmlpage) || strlen($fullhtmlpage)==0) $fullhtmlpage=1;
 
 if (!isset($page_url) || strlen($page_url)==0){ echo "Error : need to define page_url !!!"; exit; }
 if ( (substr($page_url,0,7)!='http://') && (substr($page_url,0,8)!='https://') ){ echo "Error : page_url need to start by http:// or https:// "; exit; }
@@ -107,9 +108,20 @@ for ($i=0;$i<count($fltr);$i++){
 if (isset($browse_letter) && strtoupper($browse_letter)=="YES") $DISPLAY_LETTER=true;
 if (isset($letter) && strlen($letter)!=0) $FG_TABLE_CLAUSE.=" AND t5.countryname LIKE '".strtolower ($letter)."%'";
 
-if (isset($ratecardid) && strlen($ratecardid)!=0) $FG_TABLE_CLAUSE.=" AND t1.id = '$ratecardid'";
+
+if (isset($tariffgroupid) && strlen($tariffgroupid)!=0){
+	$FG_TABLE_NAME="cc_ratecard t1, cc_tariffplan t4, cc_tariffgroup t5, cc_tariffgroup_plan t6";
+	add_clause($FG_TABLE_CLAUSE,"t4.id = t6.idtariffplan AND t6.idtariffplan=t1.idtariffplan AND t6.idtariffgroup = '$tariffgroupid'");
+}else{
+	$FG_TABLE_NAME="cc_ratecard t1";
+	
+	if (isset($ratecardid) && strlen($ratecardid)!=0){ 
+		$FG_TABLE_NAME="cc_ratecard t1, cc_tariffplan t4";
+		add_clause($FG_TABLE_CLAUSE,"t4.id = '$ratecardid' AND t1.idtariffplan = t4.id");
+	}
+}
 if ($FILTER_COUNTRY || $DISPLAY_LETTER) {
-	$nb_display_lines=5000;
+	$nb_display_lines=100;
 	$current_page=0;
 }
 
@@ -176,9 +188,10 @@ $list = $instance_table -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, $order, $sens,
 $country_table = new Table("cc_country","id,countryname");
 $country_list = $country_table -> Get_list ($DBHandle);
 
-$QUERY="SELECT $FG_COL_QUERY from $FG_TABLE_NAME where $FG_TABLE_CLAUSE";
-$list_c=$instance_table->SQLExec($DBHandle,$QUERY,1);
-$nb_record = count($list_c);
+$QUERY="SELECT count(*) from $FG_TABLE_NAME WHERE $FG_TABLE_CLAUSE";
+
+$list_nrecord=$instance_table->SQLExec($DBHandle,$QUERY,1);
+$nb_record = $list_nrecord[0][0];
 if ($nb_record<=$FG_LIMITE_DISPLAY){ 
 	$nb_record_max=1;
 }else{ 
@@ -189,7 +202,29 @@ if ($nb_record<=$FG_LIMITE_DISPLAY){
 	}	
 }
 ?>
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function Search(Source){
+	
+	if (Source == 'btn01') 
+	{	
+		if (document.myForm.merge_form.value == 0){
+			document.myForm.searchpre.value="";
+		}
+	}
+	if (Source == 'btn02') 
+	{	
+		if (document.myForm.merge_form.value == 0){
+			var index = document.myForm.choose_country.selectedIndex;
+			document.myForm.choose_country.options[index].value="";
+		}
+	}
+	document.myForm.submit();
+}
+//-->
+</script>
 
+<?php if ($fullhtmlpage){ ?>
 <html><head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
@@ -199,11 +234,13 @@ if ($nb_record<=$FG_LIMITE_DISPLAY){
 </head>
 
 <div>
-<?php echo "$page_url?order=$order&sens=$sens&current_page=$current_page&css_url=$css_url&page_url=$page_url"?>
+
+<?php } ?>
 
 <!-- ** ** ** ** ** Part for the research ** ** ** ** ** -->
-	<FORM METHOD=GET name="myForm" ACTION="<?php echo "http://$page_url?order=$order&sens=$sens&current_page=$current_page&css_url=$css_url&page_url=$page_url"?>">
+	<FORM METHOD="GET" name="myForm" ACTION="<?php echo "$page_url?order=$order&sens=$sens&current_page=$current_page&css_url=$css_url&page_url=$page_url"?>">
 	<INPUT TYPE="hidden" NAME="posted" value=1>
+	<INPUT TYPE="hidden" NAME="merge_form" value=<?php echo $merge_form;?>>
 	<INPUT TYPE="hidden" NAME="current_page" value=0>
 	<div class="title"  align="left">
 		<H1><?php echo gettext("Rate search");?></H1>
@@ -225,6 +262,10 @@ if ($nb_record<=$FG_LIMITE_DISPLAY){
 			<?php for ($i=65;$i<=90;$i++) {
  				$x = chr($i);
  				echo "<a href=\"http://$page_url?letter=$x&stitle=$stitle&current_page=$current_page&order=$order&sens=$sens&posted=$posted&choose_currency=$choose_currency&search=$search&choose_country=$choose_country&css_url=$css_url&page_url=$page_url\">$x</a>";
+ 					echo "<a	href=\"$page_url?letter=$x&stitle=$stitle&current_page=$current_page&order=$order&sens=$sens&posted=$posted&choose_currency=$choose_currency&searchpre=$searchpre&choose_country=$choose_country&css_url=$css_url&page_url=$page_url\">$x</a> ";
+				}else{
+					echo "<a href=\"$page_url?letter=$x&stitle=$stitle&current_page=$current_page&order=$order&sens=$sens&posted=$posted&choose_currency=$choose_currency&css_url=$css_url&page_url=$page_url\">$x</a> ";
+				}
 			}?></font>
 		</div>
 		<?php } if ($FILTER_PREFIX){ ?>
@@ -270,7 +311,7 @@ if ($nb_record<=$FG_LIMITE_DISPLAY){
 						<TH width="<?php echo $FG_TABLE_COL[$i][2]?>" class="table_title"> 
 						<center><strong> 
 						<?php  if (strtoupper($FG_TABLE_COL[$i][4])=="SORT"){?>
-						<a href="<?php  echo "http://$page_url?stitle=$stitle&current_page=$current_page&order=".$FG_TABLE_COL[$i][1]."&sens=";if ($sens=="ASC"){echo"DESC";}else{echo"ASC";} echo "&posted=$posted&letter=$letter&choose_currency=$choose_currency&search=$search&choose_country=$choose_country&letter=$letter&css_url=$css_url&page_url=$page_url";?>"> 
+						<a href="<?php  echo "$page_url?stitle=$stitle&current_page=$current_page&order=".$FG_TABLE_COL[$i][1]."&sens=";if ($sens=="ASC"){echo"DESC";}else{echo"ASC";} echo "&posted=$posted&choose_currency=$choose_currency&searchpre=$searchpre&choose_country=$choose_country&letter=$letter&css_url=$css_url&page_url=$page_url";?>"> 
 						<?php  } ?>
 						<?php echo $FG_TABLE_COL[$i][0]?> 
 						<?php  if (strtoupper($FG_TABLE_COL[$i][4])=="SORT"){?>
@@ -312,7 +353,7 @@ if ($nb_record<=$FG_LIMITE_DISPLAY){
 	<TR>
 	<TD> 
 		<?php
-		$c_url="http://$page_url?stitle=$stitle&order=$order&sens=$sens&current_page=%s&posted=$posted&letter=$letter&choose_currency=$choose_currency&search=$search&choose_country=$choose_country&css_url=$css_url&page_url=$page_url";
+		$c_url="$page_url?stitle=$stitle&order=$order&sens=$sens&current_page=%s&posted=$posted&letter=$letter&choose_currency=$choose_currency&searchpre=$searchpre&choose_country=$choose_country&css_url=$css_url&page_url=$page_url";
 		printPages($current_page+1, $nb_record_max, $c_url); 
 		?>
 	</TD>
@@ -320,5 +361,9 @@ if ($nb_record<=$FG_LIMITE_DISPLAY){
 	</TR>
 	</table>
 	<div>
+
+<?php if ($fullhtmlpage){ ?>
 </div>
+
 </html>
+<?php } ?>

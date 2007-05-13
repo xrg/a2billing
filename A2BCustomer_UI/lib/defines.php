@@ -189,9 +189,10 @@ define ("HTTPS_COOKIE_PATH", isset($A2B->config["epayment_method"]['https_cookie
 define ("DIR_WS_HTTP_CATALOG", isset($A2B->config["epayment_method"]['dir_ws_http_catalog'])?$A2B->config["epayment_method"]['dir_ws_http_catalog']:null);
 define ("DIR_WS_HTTPS_CATALOG", isset($A2B->config["epayment_method"]['dir_ws_https_catalog'])?$A2B->config["epayment_method"]['dir_ws_https_catalog']:null);
 define ("ENABLE_SSL", isset($A2B->config["epayment_method"]['enable_ssl'])?$A2B->config["epayment_method"]['enable_ssl']:null);
+define ("EPAYMENT_TRANSACTION_KEY", isset($A2B->config["epayment_method"]['transaction_key'])?$A2B->config["epayment_method"]['transaction_key']:null);
 define ("LOGFILE_EPAYMENT",isset($A2B->config['log-files']['epayment'])?$A2B->config['log-files']['epayment']:null);
 define ("INVOICE_IMAGE", isset($A2B->config["global"]['invoice_image'])?$A2B->config["global"]['invoice_image']:null);
-define ("WEBUI_DATE", 'Release : Somewhere in March 2007');
+define ("WEBUI_DATE", 'Release : May 2007');
 define ("WEBUI_VERSION", 'Asterisk2Billing - Version 1.3 - Beta (Yellowjacket)');
 
 ?>

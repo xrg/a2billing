@@ -210,10 +210,10 @@ function openURLFilter(theLINK)
 					}else{
 						$record_display = $list[$ligne_number][$i-$k];
 					}
-							
+					
 					/**********************   IF LENGHT OF THE VALUE IS TOO LONG IT MIGHT BE CUT ************************/
 					if ( is_numeric($this->FG_TABLE_COL[$i][5]) && (strlen($record_display) > $this->FG_TABLE_COL[$i][5])  ){
-						$record_display = substr($record_display, 0, $this->FG_TABLE_COL[$i][5]-3)."";   //...
+						$record_display = substr($record_display, 0, $this->FG_TABLE_COL[$i][5])."";
 					}
 					/*
 

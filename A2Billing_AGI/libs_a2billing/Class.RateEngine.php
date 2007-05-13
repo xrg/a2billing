@@ -31,27 +31,27 @@ class RateEngine {
 	var $dialstatus;
 	var $usedratecard;
 	var $webui = 1;
+	var $usedtrunk;
 
 	/* CONSTRUCTOR */
 
 	function RateEngine () {     
 		
 	}
-
-
+	
+	
 	/* CONSTRUCTOR */
-
 	function Reinit () {     
 		
-		 $this -> number_trunk = 0;
-		 $this -> answeredtime = 0;	
-		 $this -> dialstatus = '';
-		 $this -> usedratecard = '';
-		 $this -> usedtrunk = '';
-		 $this -> lastcost = '';
-		 $this -> lastbuycost = '';
+		$this -> number_trunk = 0;
+		$this -> answeredtime = 0;	
+		$this -> dialstatus = '';
+		$this -> usedratecard = '';
+		$this -> usedtrunk = '';
+		$this -> lastcost = '';
+		$this -> lastbuycost = '';
+		
 	}
-
 	
 	
 	/*
@@ -59,8 +59,15 @@ class RateEngine {
 		CALCUL THE RATE ACCORDING TO THE RATEGROUP, LCR - RATECARD
 	*/
 	function rate_engine_findrates (&$A2B, $phonenumber, $tariffgroupid){
-	
-			
+		
+		global $agi;
+		
+		// Check if we want to force the call plan
+		if (is_numeric($A2B->agiconfig['force_callplan_id']) && ($A2B->agiconfig['force_callplan_id'] > 0)){
+			$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "force the call plan : ".$A2B->agiconfig['force_callplan_id']);
+			$tariffgroupid = $A2B->tariff = $A2B->agiconfig['force_callplan_id'];
+		}
+		
 		if ($this->webui){
 			$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[CC_asterisk_rate-engine: ($tariffgroupid, $phonenumber)]");	
 		}
@@ -1084,7 +1091,7 @@ class RateEngine {
 				$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "-> dialstatus : ".$this->dialstatus.", answered time is ".$this->answeredtime." \n");
 			}
 			
-			$this->usedratecard=$k;
+			$this->usedratecard = $k;
 			$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[USEDRATECARD=".$this->usedratecard."]");
 			return true;
 		} // End for

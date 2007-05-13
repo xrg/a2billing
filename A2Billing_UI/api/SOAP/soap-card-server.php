@@ -4,7 +4,7 @@ include ("../../lib/regular_express.inc");
 require_once('SOAP/Server.php');
 require_once('SOAP/Disco.php');
 
-
+exit;
 // USAGE 
 // , to separate the CallerID 9010213,9010214,9010200
 
@@ -25,10 +25,9 @@ require_once('SOAP/Disco.php');
 */
 
 
-
-
 //echo $security_key;
-	
+
+
 class Cards
 {
      var $__dispatch_map = array();
@@ -537,12 +536,6 @@ function getallheaders_xmlrpc($m)
     }
 	
 	
-
-
-/*
- *		END
- */
-
 	
 
 ?>

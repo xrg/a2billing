@@ -166,10 +166,10 @@ body {
 
 /* Sidebar */
 
-#nav:before {
+#nav_before {
 	line-height: 0.1;
 	font-size: 1px;
-	background: transparent url("images/menu_tr.gif") no-repeat top right;
+	background: #E0E9E9 url("../images/menu_tr.gif") no-repeat top right;
 	margin: 0;
 	height: 9px;
 	display: block;
@@ -179,14 +179,15 @@ body {
 #nav {
 	/* background: #E0E9E9 url("../images/menu_back.gif") right repeat-y; */
 }
-#nav:after {
+#nav_after {
 	display: block;
 	padding-top: 0;
 	line-height: 0.1;
 	font-size: 1px;
 	content:  url("images/key-point_bl.gif");
 	margin: 0 0 0 0;	
-	background: transparent url("images/menu_br.gif") scroll no-repeat bottom right ;
+	height: 9px;
+	background: #E0E9E9 url("../images/menu_br.gif") scroll no-repeat bottom right ;
 	border-top: 1px solid #fff;
 }
 
