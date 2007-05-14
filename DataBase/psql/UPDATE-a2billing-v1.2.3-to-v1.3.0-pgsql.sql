@@ -693,14 +693,14 @@ CREATE INDEX ind_cc_card_package_offer_id_card ON cc_card_package_offer USING bt
 CREATE INDEX ind_cc_card_package_offer_id_package_offer ON cc_card_package_offer USING btree (id_cc_package_offer);
 CREATE INDEX ind_cc_card_package_offer_date_consumption ON cc_card_package_offer USING btree (date_consumption);
 
-ALTER TABLE cc_tariffgroup      ADD COLUMN id_cc_package_offer                           NOT NULL DEFAULT 0;
-ALTER TABLE cc_ratecard         ADD COLUMN freetimetocall_package_offer         INTEGER NOT NULL DEFAULT 0;
-ALTER TABLE cc_call             ADD COLUMN id_card_package_offer                        INTEGER DEFAULT 0;
+ALTER TABLE cc_tariffgroup      ADD COLUMN id_cc_package_offer           BIGINT NOT NULL DEFAULT 0;
+ALTER TABLE cc_ratecard         ADD COLUMN freetimetocall_package_offer  INTEGER NOT NULL DEFAULT 0;
+ALTER TABLE cc_call             ADD COLUMN id_card_package_offer         INTEGER DEFAULT 0;
 
 
 
 CREATE TABLE cc_subscription_fee (
-    id                  BIGSERIAL NOT NULL,
+    id                  BIGSERIAL NOT NULL PRIMARY KEY,
     label               TEXT NOT NULL,  
     fee                 NUMERIC(12,4) NOT NULL,
     currency            CHARACTER VARYING(3) DEFAULT 'USD'::character varying,
@@ -712,8 +712,6 @@ CREATE TABLE cc_subscription_fee (
     totalcredit         NUMERIC(12,4) NOT NULL DEFAULT 0,
     totalcardperform INTEGER NOT NULL DEFAULT 0
 );
-ALTER TABLE ONLY cc_subscription_fee
-ADD CONSTRAINT cc_subscription_fee_pkey PRIMARY KEY (id);
 
 
 ALTER TABLE cc_charge   ADD COLUMN currency                     CHARACTER VARYING(3) DEFAULT 'USD'::CHARACTER VARYING;
@@ -755,10 +753,10 @@ ADD CONSTRAINT cc_outbound_cid_group_pkey PRIMARY KEY (id);
 
 CREATE TABLE cc_outbound_cid_list (
     id                  BIGSERIAL NOT NULL,
-    outbound_cid_group  NOT NULL,
-    cid                 TEXT NOT NULL,    
+    outbound_cid_group  BIGINT NOT NULL,
+    cid                 TEXT NOT NULL,
     activated           INTEGER NOT NULL DEFAULT 0,
-    creationdate        TIMESTAMP(0) without time zone DEFAULT now()   
+    creationdate        TIMESTAMP(0) without time zone DEFAULT now()
 );
 ALTER TABLE ONLY cc_outbound_cid_list
 ADD CONSTRAINT cc_outbound_cid_list_pkey PRIMARY KEY (id);
@@ -797,7 +795,7 @@ CREATE TABLE cc_payment_methods (
     id BIGSERIAL NOT NULL,
     payment_method TEXT NOT NULL,
     payment_filename TEXT NOT NULL,
-    active CHARACTERVARYING(1) DEFAULT 'f' NOT NULL
+    active VARCHAR(1) DEFAULT 'f' NOT NULL
 );
 ALTER TABLE ONLY cc_payment_methods
     ADD CONSTRAINT cc_payment_methods_pkey PRIMARY KEY (id);
@@ -808,29 +806,26 @@ INSERT INTO cc_payment_methods (payment_method,payment_filename,active) VALUES (
 
 
 CREATE TABLE cc_payments (
-  id                            BIGSERIAL NOT NULL,
-  customers_id                  CHARACTERVARYING(60) NOT NULL,
+  id                            BIGSERIAL NOT NULL PRIMARY KEY,
+  customers_id                  VARCHAR(60) NOT NULL,
   customers_name                TEXT NOT NULL,
   customers_email_address       TEXT NOT NULL,
   item_name                     TEXT NOT NULL,
   item_id                       TEXT NOT NULL,
   item_quantity                 INTEGER NOT NULL DEFAULT 0,
   payment_method                VARCHAR(32) NOT NULL,
-  cc_type                       CHARACTERVARYING(20),
-  cc_owner                      CHARACTERVARYING(64),
-  cc_number                     CHARACTERVARYING(32),
-  cc_expires                    CHARACTERVARYING(6),
+  cc_type                       VARCHAR(20),
+  cc_owner                      VARCHAR(64),
+  cc_number                     VARCHAR(32),
+  cc_expires                    VARCHAR(6),
   orders_status                 INTEGER NOT NULL,
   orders_amount                 numeric(14,6),
   last_modified                 TIMESTAMP,
   date_purchased                TIMESTAMP,
   orders_date_finished          TIMESTAMP,
-  currency                      CHARACTERVARYING(3),
+  currency                      VARCHAR(3),
   currency_value                decimal(14,6)
 );
-
-ALTER TABLE ONLY cc_payments
-    ADD CONSTRAINT cc_payments_pkey PRIMARY KEY (id);
 
 
 CREATE TABLE cc_payments_status (
@@ -865,20 +860,20 @@ CREATE TABLE cc_configuration (
 
 INSERT INTO cc_configuration (ctitle, ckey, cvalue, cdescription) VALUES ('Login Username', 'MODULE_PAYMENT_AUTHORIZENET_LOGIN', 'testing', 'The login username used for the Authorize.net service');
 INSERT INTO cc_configuration (ctitle, ckey, cvalue, cdescription) VALUES ('Transaction Key', 'MODULE_PAYMENT_AUTHORIZENET_TXNKEY', 'Test', 'Transaction Key used for encrypting TP data');
-INSERT INTO cc_configuration (ctitle, ckey, cvalue, cdescription, set_function) VALUES ('Transaction Mode', 'MODULE_PAYMENT_AUTHORIZENET_TESTMODE', 'Test', 'Transaction mode used for processing orders', 'tep_cfg_select_option(array(\'Test\', \'Production\'), ');
-INSERT INTO cc_configuration (ctitle, ckey, cvalue, cdescription, set_function) VALUES ('Transaction Method', 'MODULE_PAYMENT_AUTHORIZENET_METHOD', 'Credit Card', 'Transaction method used for processing orders', 'tep_cfg_select_option(array(\'Credit Card\', \'eCheck\'), ');
-INSERT INTO cc_configuration (ctitle, ckey, cvalue, cdescription, set_function) VALUES ('Customer Notifications', 'MODULE_PAYMENT_AUTHORIZENET_EMAIL_CUSTOMER', 'False', 'Should Authorize.Net e-mail a receipt to the customer?', 'tep_cfg_select_option(array(\'True\', \'False\'), ');
-INSERT INTO cc_configuration (ctitle, ckey, cvalue, cdescription, set_function) VALUES ('Enable Authorize.net Module', 'MODULE_PAYMENT_AUTHORIZENET_STATUS', 'True', 'Do you want to accept Authorize.net payments?', 'tep_cfg_select_option(array(\'True\', \'False\'), ');
+INSERT INTO cc_configuration (ctitle, ckey, cvalue, cdescription, set_function) VALUES ('Transaction Mode', 'MODULE_PAYMENT_AUTHORIZENET_TESTMODE', 'Test', 'Transaction mode used for processing orders', 'tep_cfg_select_option(array(''Test'', ''Production''), ');
+INSERT INTO cc_configuration (ctitle, ckey, cvalue, cdescription, set_function) VALUES ('Transaction Method', 'MODULE_PAYMENT_AUTHORIZENET_METHOD', 'Credit Card', 'Transaction method used for processing orders', 'tep_cfg_select_option(array(''Credit Card'', ''eCheck''), ');
+INSERT INTO cc_configuration (ctitle, ckey, cvalue, cdescription, set_function) VALUES ('Customer Notifications', 'MODULE_PAYMENT_AUTHORIZENET_EMAIL_CUSTOMER', 'False', 'Should Authorize.Net e-mail a receipt to the customer?', 'tep_cfg_select_option(array(''True'', ''False''), ');
+INSERT INTO cc_configuration (ctitle, ckey, cvalue, cdescription, set_function) VALUES ('Enable Authorize.net Module', 'MODULE_PAYMENT_AUTHORIZENET_STATUS', 'True', 'Do you want to accept Authorize.net payments?', 'tep_cfg_select_option(array(''True'', ''False''), ');
 
-INSERT INTO cc_configuration (ctitle, ckey, cvalue, cdescription, set_function) VALUES ('Enable PayPal Module', 'MODULE_PAYMENT_PAYPAL_STATUS', 'True', 'Do you want to accept PayPal payments?','tep_cfg_select_option(array(\'True\', \'False\'), ');
+INSERT INTO cc_configuration (ctitle, ckey, cvalue, cdescription, set_function) VALUES ('Enable PayPal Module', 'MODULE_PAYMENT_PAYPAL_STATUS', 'True', 'Do you want to accept PayPal payments?','tep_cfg_select_option(array(''True'', ''False''), ');
 INSERT INTO cc_configuration (ctitle, ckey, cvalue, cdescription) VALUES ('E-Mail Address', 'MODULE_PAYMENT_PAYPAL_ID', 'you@yourbusiness.com', 'The e-mail address to use for the PayPal service');
-INSERT INTO cc_configuration (ctitle, ckey, cvalue, cdescription, set_function) VALUES ('Transaction Currency', 'MODULE_PAYMENT_PAYPAL_CURRENCY', 'Selected Currency', 'The currency to use for credit card transactions', 'tep_cfg_select_option(array(\'Selected Currency\',\'USD\',\'CAD\',\'EUR\',\'GBP\',\'JPY\'), ');
+INSERT INTO cc_configuration (ctitle, ckey, cvalue, cdescription, set_function) VALUES ('Transaction Currency', 'MODULE_PAYMENT_PAYPAL_CURRENCY', 'Selected Currency', 'The currency to use for credit card transactions', 'tep_cfg_select_option(array(''Selected Currency'',''USD'',''CAD'',''EUR'',''GBP'',''JPY''), ');
 
 INSERT INTO cc_configuration (ctitle, ckey, cvalue, cdescription) VALUES ('E-Mail Address', 'MODULE_PAYMENT_MONEYBOOKERS_ID', 'you@yourbusiness.com', 'The eMail address to use for the moneybookers service');
 INSERT INTO cc_configuration (ctitle, ckey, cvalue, cdescription) VALUES ('Referral ID', 'MODULE_PAYMENT_MONEYBOOKERS_REFID', '989999', 'Your personal Referral ID from moneybookers.com');
-INSERT INTO cc_configuration (ctitle, ckey, cvalue, cdescription, set_function) VALUES ('Transaction Currency', 'MODULE_PAYMENT_MONEYBOOKERS_CURRENCY', 'Selected Currency', 'The default currency for the payment transactions', 'tep_cfg_select_option(array(\'Selected Currency\',\'EUR\', \'USD\', \'GBP\', \'HKD\', \'SGD\', \'JPY\', \'CAD\', \'AUD\', \'CHF\', \'DKK\', \'SEK\', \'NOK\', \'ILS\', \'MYR\', \'NZD\', \'TWD\', \'THB\', \'CZK\', \'HUF\', \'SKK\', \'ISK\', \'INR\'), ');
-INSERT INTO cc_configuration (ctitle, ckey, cvalue, cdescription, set_function) VALUES ('Transaction Language', 'MODULE_PAYMENT_MONEYBOOKERS_LANGUAGE', 'Selected Language', 'The default language for the payment transactions', 'tep_cfg_select_option(array(\'Selected Language\',\'EN\', \'DE\', \'ES\', \'FR\'), ');
-INSERT INTO cc_configuration (ctitle, ckey, cvalue, cdescription, set_function) VALUES ('Enable moneybookers Module', 'MODULE_PAYMENT_MONEYBOOKERS_STATUS', 'True', 'Do you want to accept moneybookers payments?','tep_cfg_select_option(array(\'True\', \'False\'), ');
+INSERT INTO cc_configuration (ctitle, ckey, cvalue, cdescription, set_function) VALUES ('Transaction Currency', 'MODULE_PAYMENT_MONEYBOOKERS_CURRENCY', 'Selected Currency', 'The default currency for the payment transactions', 'tep_cfg_select_option(array(''Selected Currency'',''EUR'', ''USD'', ''GBP'', ''HKD'', ''SGD'', ''JPY'', ''CAD'', ''AUD'', ''CHF'', ''DKK'', ''SEK'', ''NOK'', ''ILS'', ''MYR'', ''NZD'', ''TWD'', ''THB'', ''CZK'', ''HUF'', ''SKK'', ''ISK'', ''INR''), ');
+INSERT INTO cc_configuration (ctitle, ckey, cvalue, cdescription, set_function) VALUES ('Transaction Language', 'MODULE_PAYMENT_MONEYBOOKERS_LANGUAGE', 'Selected Language', 'The default language for the payment transactions', 'tep_cfg_select_option(array(''Selected Language'',''EN'', ''DE'', ''ES'', ''FR''), ');
+INSERT INTO cc_configuration (ctitle, ckey, cvalue, cdescription, set_function) VALUES ('Enable moneybookers Module', 'MODULE_PAYMENT_MONEYBOOKERS_STATUS', 'True', 'Do you want to accept moneybookers payments?','tep_cfg_select_option(array(''True'', ''False''), ');
 
 
 
