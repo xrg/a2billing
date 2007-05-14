@@ -2,11 +2,11 @@
 	include_once (dirname(__FILE__)."/../lib/defines.php");
 	include_once (dirname(__FILE__)."/../lib/module.access.php");
 
-	$section = "";
-	if($_GET["section"]!="")
-	{
-		$section = $_GET["section"];		
-	}
+	//$section = "";  No, it's specified inside the container entity
+// 	if($_GET["section"]!="")
+// 	{
+// 		$section = $_GET["section"];		
+// 	}
 
 ?>
 <script language="JavaScript">
@@ -67,194 +67,212 @@ function imgidclick(imgID,divID)
 	
 	<?php   if ( has_rights (ACX_CUSTOMER) ){ 	?>
 	<li><a href="#" target="_self"  onclick="imgidclick('img1','div1');">
-	<img id="img1" src="../Images/plus.gif" onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> <strong><?php echo gettext("CUSTOMERS");?></strong></a></li>
+	<img id="img1" src="../Images/plus.gif" onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> <strong><?= _("CUSTOMERS");?></strong></a></li>
 	<div id="div1" style="display:none;">
 	<ul>
-		<li><ul>
-				<li><a href="A2B_entity_card.php?atmenu=card&stitle=Customers_Card&section=1"><?php echo gettext("List Customers");?></a></li>
-				<li><a href="A2B_entity_card.php?form_action=ask-add&atmenu=card&stitle=Card&section=1"><?php echo gettext("Create Customers");?></a></li>
-                <li><a href="CC_card_import.php?atmenu=card&stitle=Card&section=1"><?php echo gettext("Import Customers");?></a></li>
-				<li><a href="A2B_entity_card_multi.php?stitle=Card&section=1"><?php echo gettext("Generate Customers");?></a></li>
-				<li><a href="A2B_entity_friend.php?atmenu=sipfriend&stitle=SIP+Friends&section=1"><?php echo gettext("List SIP-FRIEND");?></a></li>
-				<li><a href="A2B_entity_friend.php?form_action=ask-add&atmenu=sipfriend&stitle=SIP+Friends&section=1"><?php echo gettext("Create SIP-FRIEND");?></a></li>
-				<li><a href="A2B_entity_friend.php?atmenu=iaxfriend&stitle=IAX+Friends&section=1"><?php echo gettext("List IAX-FRIEND");?></a></li>
-				<li><a href="A2B_entity_friend.php?form_action=ask-add&atmenu=iaxfriend&stitle=IAX+Friends&section=1"><?php echo gettext("Create IAX-FRIEND");?></a></li>
-				<li><a href="A2B_entity_callerid.php?atmenu=callerid&stitle=CallerID&section=1"><?php echo gettext("List CallerID");?></a></li>
-				<li><a href="A2B_entity_speeddial.php?atmenu=speeddial&stitle=Speed+Dial&section=1"><?php echo gettext("List Speed Dial");?></a></li>
-				<li><a href="A2B_entity_speeddial.php?form_action=ask-add&atmenu=speeddial&stitle=Speed+Dial&section=1"><?php echo gettext("Create Speed Dial");?></a></li>
-		</ul></li>
+		<li><a href="A2B_entity_card.php"><?= _("List Customers");?></a></li>
+		<li><a href="A2B_entity_card.php?form_action=ask-add"><?= _("Create Customers");?></a></li>
+                <li><a href="CC_card_import.php"><?= _("Import Customers");?></a></li>
+		<li><a href="A2B_entity_card_multi.php"><?= _("Generate Customers");?></a></li>
+		<li><a href="A2B_entity_friend.php"><?= _("List SIP-FRIEND");?></a></li>
+		<li><a href="A2B_entity_friend.php?form_action=ask-add"><?= _("Create SIP-FRIEND");?></a></li>
+		<li><a href="A2B_entity_friend.php"><?= _("List IAX-FRIEND");?></a></li>
+		<li><a href="A2B_entity_friend.php?form_action=ask-add"><?= _("Create IAX-FRIEND");?></a></li>
+		<li><a href="A2B_entity_callerid.php"><?= _("List CallerID");?></a></li>
+		<li><a href="A2B_entity_speeddial.php"><?= _("List Speed Dial");?></a></li>
+		<li><a href="A2B_entity_speeddial.php?form_action=ask-add"><?= _("Create Speed Dial");?></a></li>
 	</ul>
 	</div>
 	<?php   }  ?>
 	<?php   if ( has_rights (ACX_AGENTS) ){ 	?>
-	<li><a href="#" target="_self"  onclick="imgidclick('img12','div12');">
-	<img id="img1a" src="../Images/plus.gif" onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> <strong><?= gettext("AGENTS");?></strong></a></li>
-	<div id="div12" style="display:none;">
+	<li><a href="#" target="_self"  onclick="imgidclick('img2','div2');">
+	<img id="img2" src="../Images/plus.gif" onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> <strong><?= gettext("AGENTS");?></strong></a></li>
+	<div id="div2" style="display:none;">
 	<ul>
-		<li><ul>
-			<li><a href="A2B_entity_agent.php?atmenu=card&stitle=Customers_Card&section=12"><?= _("List Agents");?></a></li>
-			<li><a href="A2B_entity_agent.php?form_action=ask-add&atmenu=card&stitle=Card&section=12"><?= _("Create Agents");?></a></li>
-			<li><a href="A2B_entity_regulars.php?atmenu=regular&stitle=Regular_Customers&section=12"><?= _("List Regulars");?></a></li>
-			<li><a href="A2B_entity_card_multia.php?stitle=Card&section=12"><?= gettext("Generate Regulars");?></a></li>
-			<li><a href="A2B_entity_booths.php?stitle=Booths&section=12"><?= gettext("Booths");?></a></li>
-			<li><a href="A2B_entity_booths.php?form_action=ask-add&atmenu=booth&stitle=Booth&section=12"><?= _("Create Booth");?></a></li>
-			<li><a href="A2B_entity_agentpay.php?atmenu=payment&stitle=Payment&form_action=list&section=12"><?= gettext("List Payments");?></a></li>
-			<li><a href="A2B_entity_agentpay.php?form_action=ask-add&atmenu=payment&stitle=Payment&section=12"><?= gettext("Add Payment");?></a></li>
-			<li><a href="CC_entity_sim_callshop.php?atmenu=ratecard&stitle=Callshop+Simulator&section=12"><?= gettext("Callshop Simulator");?></a></li>
-		</ul></li>
+		<li><a href="A2B_entity_agent.php"><?= _("List Agents");?></a></li>
+		<li><a href="A2B_entity_agent.php?form_action=ask-add"><?= _("Create Agents");?></a></li>
+		<li><a href="A2B_entity_regulars.php"><?= _("List Regulars");?></a></li>
+		<li><a href="A2B_entity_card_multia.php"><?= _("Generate Regulars");?></a></li>
+		<li><a href="A2B_entity_booths.php"><?= _("Booths");?></a></li>
+		<li><a href="A2B_entity_booths.php?form_action=ask-add"><?= _("Create Booth");?></a></li>
+		<li><a href="A2B_entity_agentpay.php?form_action=list"><?= _("List Payments");?></a></li>
+		<li><a href="A2B_entity_agentpay.php?form_action=ask-add"><?= _("Add Payment");?></a></li>
+		<li><a href="CC_entity_sim_callshop.php"><?= _("Callshop Simulator");?></a></li>
 	</ul>
 	</div>
 	<?php   }  ?>
 	<?php   if ( has_rights (ACX_BILLING) ){ 	?>
-	<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick('img2','div2');"><img id="img2" src="../Images/plus.gif" onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> <strong><?php echo gettext("BILLING");?></strong></a></li>
-		<div id="div2" style="display:none;">
+	<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick('img3','div3');"><img id="img3" src="../Images/plus.gif" onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> <strong><?= _("BILLING");?></strong></a></li>
+	<div id="div3" style="display:none;">
+	<ul>
+		<li><a href="A2B_entity_paypal.php?form_action=list"><?= _("OLD PayPal Transaction");?></a></li>
+		<li><a href="A2B_entity_payment_configuration.php"><?= _("View Payment Methods") ?></a></li>
+                <li><a href="A2B_entity_transactions.php"><?= _("View Transactions"); ?></a></li>
+		<li><a href="A2B_entity_moneysituation.php"><?= _("View money situation");?></a></li>
+		<li><a href="A2B_entity_payment.php"><?= _("View Payment");?></a></li>
+		<li><a href="A2B_entity_payment.php?form_action=ask-add"><?= _("Add new Payment");?></a></li>
+		<li><a href="A2B_entity_voucher.php"><?= _("List Voucher");?></a></li>
+		<li><a href="A2B_entity_voucher.php?form_action=ask-add"><?= _("Create Voucher");?></a></li>
+		<li><a href="A2B_entity_voucher_multi.php"><?= _("Generate Vouchers");?></a></li>
+		<li><a href="A2B_currencies.php"><?= _("Currency Table");?></a></li>
+		<li><a href="A2B_entity_charge.php?form_action=list"><?= _("List Charge");?></a></li>
+		<li><a href="A2B_entity_charge.php?form_action=ask-add"><?= _("Add Charge");?></a></li>
+		<li><a href="A2B_entity_ecommerce.php"><?= _("List E-Product");?></a></li>
+		<li><a href="A2B_entity_ecommerce.php?form_action=ask-add"><?= _("Add E-Product");?></a></li>
+	</ul>
+	</div>
+	<?php   }  ?>
+	<?php   if ( has_rights (ACX_RATECARD) ){ 	?>
+		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick('img4','div4');"><img id="img4" src="../Images/plus.gif" onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> <strong><?= _("RATECARD");?></strong></a></li>
+		<div id="div4" style="display:none;">
 		<ul>
-			<li><ul>
-				<li><a href="A2B_entity_paypal.php?atmenu=paypal&stitle=Paypal+Transaction&form_action=list&section=2"><?php echo gettext("PayPal Transaction");?></a></li>
-				<li><a href="A2B_entity_moneysituation.php?atmenu=moneysituation&stitle=Money_Situation&section=2"><?php echo gettext("View money situation");?></a></li>
-				<li><a href="A2B_entity_payment.php?atmenu=payment&stitle=Solde&section=2"><?php echo gettext("View Payment");?></a></li>
-				<li><a href="A2B_entity_payment.php?stitle=Payment_add&form_action=ask-add&section=2"><?php echo gettext("Add new Payment");?></a></li>
-				<li><a href="A2B_entity_voucher.php?stitle=Voucher&section=2"><?php echo gettext("List Voucher");?></a></li>
-				<li><a href="A2B_entity_voucher.php?stitle=Voucher_add&form_action=ask-add&section=2"><?php echo gettext("Create Voucher");?></a></li>
-				<li><a href="A2B_entity_voucher_multi.php?stitle=Voucher_Generate&section=2"><?php echo gettext("Generate Vouchers");?></a></li>
-				<li><a href="A2B_currencies.php?section=2"><?php echo gettext("Currency Table");?></a></li>
-				<li><a href="A2B_entity_charge.php?atmenu=charge&stitle=Charge&form_action=list&section=2"><?php echo gettext("List Charge");?></a></li>
-				<li><a href="A2B_entity_charge.php?form_action=ask-add&atmenu=charge&stitle=Charge&section=2"><?php echo gettext("Add Charge");?></a></li>
-				<li><a href="A2B_entity_ecommerce.php?atmenu=ecommerce&stitle=E-Commerce&section=2"><?php echo gettext("List E-Product");?></a></li>
-				<li><a href="A2B_entity_ecommerce.php?form_action=ask-add&atmenu=ecommerce&stitle=E-Commerce&section=2"><?php echo gettext("Add E-Product");?></a></li>
-			</ul></li>
+			<li><a href="A2B_entity_tariffgroup.php?form_action=ask-add"><?= _("Create TariffGroup");?></a></li>
+			<li><a href="A2B_entity_tariffgroup.php?"><?= _("List TariffGroup");?></a></li>
+			<li><a href="A2B_entity_tariffplan.php"><?= _("List RateCard");?></a></li>
+			<li><a href="A2B_entity_tariffplan.php?form_action=ask-add"><?= _("Create new RateCard");?></a></li>
+			<li><a href="A2B_entity_def_ratecard.php"><?= _("Browse Rates");?></a></li>
+			<li><a href="A2B_entity_def_ratecard.php?form_action=ask-add"><?= _("Add Rate");?></a></li>
+			<li><a href="CC_ratecard_import.php"><?= _("Import RateCard");?></a></li>
+			<li><a href="CC_entity_sim_ratecard.php"><?= _("Ratecard Simulator");?></a></li>
 		</ul>
 		</div>
 	<?php   }  ?>
-	<?php   if ( has_rights (ACX_RATECARD) ){ 	?>
-		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick('img3','div3');"><img id="img3" src="../Images/plus.gif" onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> <strong><?php echo gettext("RATECARD");?></strong></a></li>
-		<div id="div3" style="display:none;">
+	<?php   if ( has_rights (ACX_PACKAGEOFFER) ){ 	?>
+		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick('img5','div5');"><img id="img5" src="../Images/plus.gif" onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> <strong><?= _("PACKAGE OFFER");?></strong></a></li>
+		<div id="div5" style="display:none;">
 		<ul>
-			<li><ul>
-				<li><a href="A2B_entity_tariffgroup.php?form_action=ask-add&atmenu=tariffgroup&stitle=Tariff+Group&section=3"><?php echo gettext("Create TariffGroup");?></a></li>
-				<li><a href="A2B_entity_tariffgroup.php?atmenu=tariffgroup&stitle=TariffGroup&section=3"><?php echo gettext("List TariffGroup");?></a></li>
-				<li><a href="A2B_entity_tariffplan.php?atmenu=tariffplan&stitle=Tariffplan&section=3"><?php echo gettext("List RateCard");?></a></li>
-				<li><a href="A2B_entity_tariffplan.php?form_action=ask-add&atmenu=tariffplan&stitle=RateCard&section=3"><?php echo gettext("Create new RateCard");?></a></li>
-				<li><a href="A2B_entity_def_ratecard.php?atmenu=ratecard&stitle=RateCard&section=3"><?php echo gettext("Browse Rates");?></a></li>
-				<li><a href="A2B_entity_def_ratecard.php?form_action=ask-add&atmenu=ratecard&stitle=RateCard&section=3"><?php echo gettext("Add Rate");?></a></li>
-				<li><a href="CC_ratecard_import.php?atmenu=ratecard&stitle=RateCard&section=3"><?php echo gettext("Import RateCard");?></a></li>
-				<li><a href="CC_entity_sim_ratecard.php?atmenu=ratecard&stitle=Ratecard+Simulator&section=3"><?php echo gettext("Ratecard Simulator");?></a></li>
-				<li><a href="A2B_entity_prefix.php?atmenu=prefixe&stitle=Prefix&section=3"><?php echo gettext("Browse Prefix");?></a></li>
-				<li><a href="A2B_entity_prefix.php?form_action=ask-add&atmenu=prefixe&stitle=Prefix&section=3"><?php echo gettext("Add Prefix");?></a></li>
-			</ul></li>
+			<li><a href="A2B_entity_package.php"><?= _("List Offer Package");?></a></li>
+			<li><a href="A2B_entity_package.php?form_action=ask-add"><?= _("Add Offer Package");?></a></li>
+			<li><a href="A2B_detail_package.php"><?= _("Details Package");?></a></li>
+		</ul>
+		</div>
+	<?php   }  ?>
+	<?php   if ( has_rights (ACX_OUTBOUNDCID) ){ 	?>
+		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick('img6','div6');"><img id="img6" src="../Images/plus.gif" onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> <strong><?= _("OUTBOUND CID");?></strong></a></li>
+		<div id="div6" style="display:none;">
+		<ul>
+			<li><a href="A2B_entity_outbound_cidgroup.php?form_action=ask-add"><?= _("Create CIDGroup");?></a></li>
+			<li><a href="A2B_entity_outbound_cidgroup.php"><?= _("List CIDGroup");?></a></li>
+			<li><a href="A2B_entity_outbound_cid.php?form_action=ask-add"><?= _("Add CID");?></a></li>
+			<li><a href="A2B_entity_outbound_cid.php"><?= _("List CID's");?></a></li>
 		</ul>
 		</div>
 	<?php   }  ?>
 	<?php   if ( has_rights (ACX_TRUNK) ){ 	?>
-		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick('img4','div4');"><img id="img4" src="../Images/plus.gif" onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> <strong><?php echo gettext("TRUNK");?></strong></a></li>
-		<div id="div4" style="display:none;">
+		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick('img7','div7');"><img id="img7" src="../Images/plus.gif" onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> <strong><?= _("TRUNK");?></strong></a></li>
+		<div id="div7" style="display:none;">
 		<ul>
-			<li><ul>
-				<li><a href="A2B_entity_trunk.php?stitle=Trunk&section=4"><?php echo gettext("List Trunk");?></a></li>
-				<li><a href="A2B_entity_trunk.php?stitle=Trunk&form_action=ask-add&section=4"><?php echo gettext("Add Trunk");?></a></li>
-				<li><a href="A2B_entity_provider.php?stitle=Provider&section=4"><?php echo gettext("List Provider");?></a></li>
-				<li><a href="A2B_entity_provider.php?stitle=Provider&form_action=ask-add&section=4"><?php echo gettext("Create Provider");?></a></li>
-			</ul></li>
+			<li><a href="A2B_entity_trunk.php"><?= _("List Trunk");?></a></li>
+			<li><a href="A2B_entity_trunk.php?form_action=ask-add"><?= _("Add Trunk");?></a></li>
+			<li><a href="A2B_entity_provider.php"><?= _("List Provider");?></a></li>
+			<li><a href="A2B_entity_provider.php?form_action=ask-add"><?= _("Create Provider");?></a></li>
 		</ul>
 		</div>
 	<?php  } ?>
 	<?php   if ( has_rights (ACX_DID) ){ 	?>
-		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick('img41','div41');"><img id="img41" src="../Images/plus.gif" onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> <strong><?php echo gettext("DID");?></strong></a></li>
-		<div id="div41" style="display:none;">
+		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick('img8','div8');"><img id="img8" src="../Images/plus.gif" onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> <strong><?= _("DID");?></strong></a></li>
+		<div id="div8" style="display:none;">
 		<ul>
-			<li><ul>
-				<li><a href="A2B_entity_didgroup.php?stitle=DID+Group&section=41"><?php echo gettext("List DID Group");?></a>
-				<li><a href="A2B_entity_didgroup.php?stitle=DID+Group&form_action=ask-add&section=41"><?php echo gettext("Add DID Group");?></a></li>
-				<li><a href="A2B_entity_did.php?stitle=DID&section=41"><?php echo gettext("List DID");?></a></li>
-				<li><a href="A2B_entity_did.php?stitle=DID&form_action=ask-add&section=41"><?php echo gettext("Add DID");?></a></li>
-                <li><a href="A2B_entity_did_import.php?stitle=DID&section=41"><?php echo gettext("Import DID");?></a></li>
-				<li><a href="A2B_entity_did_destination.php?stitle=DID+Destination&section=41"><?php echo gettext("List Destination");?></a></li>
-				<li><a href="A2B_entity_did_destination.php?stitle=DID+Destination&form_action=ask-add&section=41"><?php echo gettext("Add Destination");?></a></li>
-				<li><a href="A2B_entity_did_billing.php?atmenu=did_billing&stitle=DID+BILLING&section=41"><?php echo gettext("DID BILLING");?></a></li>
-				<li><a href="A2B_entity_did_use.php?atmenu=did_use&stitle=DID+USE&section=41"><?php echo gettext("DID use");?></a></li>
-			</ul></li>
+			<li><a href="A2B_entity_didgroup.php?"><?= _("List DID Group");?></a>
+			<li><a href="A2B_entity_didgroup.php?form_action=ask-add"><?= _("Add DID Group");?></a></li>
+			<li><a href="A2B_entity_did.php?"><?= _("List DID");?></a></li>
+			<li><a href="A2B_entity_did.php?form_action=ask-add"><?= _("Add DID");?></a></li>
+			<li><a href="A2B_entity_did_import.php?"><?= _("Import DID");?></a></li>
+			<li><a href="A2B_entity_did_destination.php"><?= _("List Destination");?></a></li>
+			<li><a href="A2B_entity_did_destination.php?form_action=ask-add"><?= _("Add Destination");?></a></li>
+			<li><a href="A2B_entity_did_billing.php"><?= _("DID BILLING");?></a></li>
+			<li><a href="A2B_entity_did_use.php"><?= _("DID use");?></a></li>
 		</ul>
 		</div>
 	<?php  } ?>
 	<?php   if ( has_rights (ACX_CALL_REPORT) ){ 	?>
-		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick('img5','div5');"><img id="img5" src="../Images/plus.gif" onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> <strong><?php echo gettext("CALL REPORT");?></strong></a></li>
-		<div id="div5" style="display:none;">
+		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick('img9','div9');"><img id="img9" src="../Images/plus.gif" onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> <strong><?= _("CALL REPORT");?></strong></a></li>
+		<div id="div9" style="display:none;">
 		<ul>
-			<li><ul>
-					<li><a href="call-log-customers.php?stitle=Call_Report_Customers&nodisplay=1&posted=1&section=5"><?php echo gettext("CDR Report");?></a></li>
-					<li><a href="invoices.php?stitle=Invoice&nodisplay=1&section=5"><?php echo gettext("Invoice");?></a></li>
-					<li><a href="asterisk-stat-v2/call-comp.php?section=5"><?php echo gettext("Calls Compare");?></a></li>
-					<li><a href="asterisk-stat-v2/call-last-month.php?section=5"><?php echo gettext("Monthly Traffic");?></a></li>
-					<li><a href="asterisk-stat-v2/call-daily-load.php?section=5"><?php echo gettext("Daily Load");?></a></li>
-					<li><a href="call-count-reporting.php?stitle=Call_Reporting&nodisplay=1&posted=1&section=5"><?php echo gettext("Report");?></a></li>
-			</ul></li>
+			<li><a href="call-log-customers.php?nodisplay=1&posted=1"><?= _("CDR Report");?></a></li>
+			<li><a href="call-comp.php?"><?= _("Calls Compare");?></a></li>
+			<li><a href="call-last-month.php?"><?= _("Monthly Traffic");?></a></li>
+			<li><a href="call-daily-load.php?"><?= _("Daily Load");?></a></li>
+			<li><a href="call-count-reporting.php?nodisplay=1&posted=1&"><?= _("Report");?></a></li>
+		</ul>
+		</div>
+	<?php  } ?>
+	<?php   if ( has_rights (ACX_INVOICING) ){ 	?>
+		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick('img10','div10');"><img id="img10" src="../Images/plus.gif" onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> <strong><?= _("CALL REPORT");?></strong></a></li>
+		<div id="div10" style="display:none;">
+		<ul>
+			<li><a href="A2B_entity_view_invoice.php"><?= _("View Invoices");?></a></li>
+			<li><a href="A2B_entity_create_invoice.php"><?= _("Create Invoices");?></a></li>
+			<li><a href="invoices.php?nodisplay=1"><?= _("Invoice");?></a></li>
+			<li><a href="invoices_customer.php?nodisplay=1"><?= _("Invoices Customer");?></a></li>
+			<li><a href="A2B_entity_invoices.php?invoicetype=billed"><?= _("View Billed Invoices");?></a></li>
+			<li><a href="A2B_entity_invoices.php?invoicetype=unbilled"><?= _("View UnBilled Invoices");?></a></li>				
 		</ul>
 		</div>
 	<?php  } ?>
 	<?php   if ( has_rights (ACX_CRONT_SERVICE) ){ 	?>
-		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick('img7','div7');"><img id="img7"  src="../Images/plus.gif" onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> <strong><?php echo gettext("CRONT SERVICE");?></strong></a></li>
-		<div id="div7" style="display:none;" >
+		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick('img11','div11');"><img id="img11" src="../Images/plus.gif" onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> <strong><?= _("CRONT SERVICE");?></strong></a></li>
+		<div id="div11" style="display:none;" >
 		<ul>
-			<li><ul>
-				<li><a href="A2B_entity_autorefill.php?stitle=Auto+Refill&section=7"><?php echo gettext("AutoRefill Report");?></a></li>
-				<li><a href="A2B_entity_service.php?stitle=Recurring+Service&section=7"><?php echo gettext("List Recurring Service");?></a></li>
-				<li><a href="A2B_entity_service.php?stitle=Recurring+Service&form_action=ask-add&section=7"><?php echo gettext("Add Recurring Service");?></a></li>
-				<li><a href="A2B_entity_alarm.php?stitle=Alarm&section=7"><?php echo gettext("List Alarm");?></a></li>
-				<li><a href="A2B_entity_alarm.php?stitle=Alarm&form_action=ask-add&section=7"><?php echo gettext("Add Alarm");?></a></li>
-			</ul></li>
+			<li><a href="A2B_entity_autorefill.php"><?= _("AutoRefill Report");?></a></li>
+			<li><a href="A2B_entity_service.php"><?= _("List Recurring Service");?></a></li>
+			<li><a href="A2B_entity_service.php?form_action=ask-add"><?= _("Add Recurring Service");?></a></li>
+			<li><a href="A2B_entity_alarm.php"><?= _("List Alarm");?></a></li>
+			<li><a href="A2B_entity_alarm.php?form_action=ask-add"><?= _("Add Alarm");?></a></li>
+			<li><a href="A2B_entity_subscription.php"><?= _("List Subscription");?></a></li>
+			<li><a href="A2B_entity_subscription.php?form_action=ask-add"><?= _("Add Subscription");?></a></li>
 		</ul>
 		</div>
 
 	<?php  } ?>
-	<?php   if ( has_rights (ACX_SIGNUP) ){ 	?>
-		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick('img8','div8');"><img id="img8" src="../Images/plus.gif" onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> <strong><?php echo gettext("SIGNUP");?></strong></a></li>
-		<div id="div8" style="display:none;">
+	<?php   if ( has_rights (ACX_CALLBACK) ){ 	?>
+		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick('img12','div12');"><img id="img12" src="../Images/plus.gif" onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> <strong><?= _("SIGNUP");?></strong></a></li>
+		<div id="div12" style="display:none;">
 		<ul>
-			<li><ul>
-				<li><a href="A2B_entity_mailtemplate.php?atmenu=mailtemplate&stitle=Mail+Tempalte&section=8"><?php echo gettext("Show mail template");?></a></li>
-				<li><a href="A2B_entity_mailtemplate.php?form_action=ask-add&atmenu=mailtemplate&stitle=Mail+Tempalte&section=8"><?php echo gettext("Create mail template");?></a></li>
-			</ul></li>
+			<li><a href="A2B_entity_callback.php"><?= _("Show Callbacks");?></a></li>
+			<li><a href="A2B_entity_callback.php?form_action=ask-add"><?= _("Add new Callback");?></a></li>
+			<li><a href="A2B_entity_server_group.php"><?= _("Show Server Group");?></a></li>
+			<li><a href="A2B_entity_server_group.php?form_action=ask-add"><?= _("Add Server Group");?></a></li>
+			<li><a href="A2B_entity_server.php"><?= _("Show Server");?></a></li>
+			<li><a href="A2B_entity_server.php?form_action=ask-add"><?= _("Add Server");?></a></li>
 		</ul>
 		</div>
 	<?php  } ?>
-	<?php   if ( has_rights (ACX_DID) ){ 	?>
-		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick('img9','div9');"><img id="img9"  src="../Images/plus.gif" onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> <strong><?php echo gettext("PREDICT-DIALER");?></strong></a></li>
-		<div id="div9" style="display:none;">
+
+	
+	
+	<?php   if ( has_rights (ACX_MISC) ){ 	?>
+		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick('img13','div13');"><img id="img13" src="../Images/plus.gif" onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> <strong><?= _("SIGNUP");?></strong></a></li>
+		<div id="div13" style="display:none;">
 		<ul>
-			<li><ul>
-				<li><a href="A2B_entity_campaign.php?atmenu=campaign&stitle=Campaign&section=9"><?php echo gettext("List Campaign");?></a></li>
-				<li><a href="A2B_entity_campaign.php?form_action=ask-add&atmenu=campaign&stitle=Campaign&section=9"><?php echo gettext("Create Campaign");?></a></li>
-				<li><a href="A2B_entity_phonelist.php?atmenu=phonelist&stitle=Phonelist&section=9"><?php echo gettext("Show Phonelist");?></a></li>
-				<li><a href="A2B_entity_phonelist.php?atmenu=phonelist&stitle=Phonelist&form_action=ask-add&section=9"><?php echo gettext("Add PhoneNumber");?></a></li>
-				<li><a href="CC_phonelist_import.php?atmenu=phonelist&stitle=Phonelist+Import&section=9"><?php echo gettext("Import Phonelist");?></a></li>
-			</ul></li>
+			<li><a href="A2B_entity_mailtemplate.php"><?= _("Show mail template");?></a></li>
+			<li><a href="A2B_entity_mailtemplate.php?form_action=ask-add"><?= _("Create mail template");?></a></li>
+			<li><a href="A2B_entity_prefix.php"><?= _("Browse Prefix");?></a></li>
+			<li><a href="A2B_entity_prefix.php?form_action=ask-add"><?= _("Add Prefix");?></a></li>
 		</ul>
 		</div>
 	<?php  } ?>
 	<?php   if ( has_rights (ACX_ADMINISTRATOR) ){ 	?>
-		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick('img10','div10');"><img id="img10" src="../Images/plus.gif" onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> <strong><?php echo gettext("ADMINISTRATOR");?></strong></a></li>
-		<div id="div10" style="display:none;">
+		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick('img20','div20');"><img id="img20" src="../Images/plus.gif" onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> <strong><?= _("ADMINISTRATOR");?></strong></a></li>
+		<div id="div20" style="display:none;">
 		<ul>
-			<li><ul>
-				<li><a href="A2B_entity_user.php?atmenu=user&groupID=0&stitle=Administrator+management&section=10"><?php echo gettext("Show Administrator");?></a></li>
-				<li><a href="A2B_entity_user.php?form_action=ask-add&atmenu=user&groupID=0&stitle=Administrator+management&section=10"><?php echo gettext("Add Administrator");?></a></li>
-				<li><a href="A2B_entity_user.php?atmenu=user&groupID=1&stitle=ACL+Admin+management&section=10"><?php echo gettext("Show ACL Admin");?></a></li>
-				<li><a href="A2B_entity_user.php?form_action=ask-add&atmenu=user&groupID=1&stitle=ACL+Admin+management&section=10"><?php echo gettext("Add ACL Admin");?></a></li>
-				<li><a href="A2B_entity_backup.php?form_action=ask-add&section=10"><?php echo gettext("Database Backup");?></a></li>
-				<li><a href="A2B_entity_restore.php?section=10"><?php echo gettext("Database Restore");?></a></li>
-				<li><a href="A2B_entity_texts.php"><?= _("Localized texts");?></a></li>
-			</ul></li>
+			<li><a href="A2B_entity_user.php?groupID=0"><?= _("Show Administrator");?></a></li>
+			<li><a href="A2B_entity_user.php?form_action=ask-add&groupID=0"><?= _("Add Administrator");?></a></li>
+			<li><a href="A2B_entity_user.php?groupID=1"><?= _("Show ACL Admin");?></a></li>
+			<li><a href="A2B_entity_user.php?form_action=ask-add&groupID=1"><?= _("Add ACL Admin");?></a></li>
+			<li><a href="A2B_entity_backup.php?form_action=ask-add"><?= _("Database Backup");?></a></li>
+			<li><a href="A2B_entity_restore.php"><?= _("Database Restore");?></a></li>
+			<li><a href="A2B_entity_texts.php"><?= _("Localized texts");?></a></li>
+			<li><a href="A2B_logfile.php"><?= _("Watch Log files");?></a></li>
 		</ul>
 		</div>
 	<?php  } ?>	
 	<?php   if ( has_rights (ACX_FILE_MANAGER) ){ 	?>
-		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick('img11','div11');"><img id="img11" src="../Images/plus.gif" onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> <strong><?php echo gettext("FILE MANAGER");?></strong></a></li>
-		<div id="div11" style="display:none;">
+		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick('img21','div21');"><img id="img21" src="../Images/plus.gif" onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> <strong><?= _("FILE MANAGER");?></strong></a></li>
+		<div id="div21" style="display:none;">
 		<ul>
-			<li><ul>
-				<li><a href="CC_musiconhold.php?section=11"><?php echo gettext("MusicOnHold");?></a></li>
-				<li><a href="CC_upload.php?section=11"><?php echo gettext("Standard File");?></a></li>
-			</ul></li>
+			<li><a href="CC_musiconhold.php"><?= _("MusicOnHold");?></a></li>
+			<li><a href="CC_upload.php"><?= _("Standard File");?></a></li>
 		</ul>
 		</div>
 	<?php  } ?>
@@ -277,5 +295,5 @@ function imgidclick(imgID,divID)
 </tr>
 </table>
 <script>
-imgidclick( <?= '\'img'.$section.'\', \'div'.$section.'\'' ?> );
+imgidclick( <?= '\'img'.$menu_section.'\', \'div'.$menu_section.'\'' ?> );
 </script>
