@@ -3,6 +3,16 @@
                    			TODO LIST - SPECIFIC
 ********************************************************************************
 
+#### PROMOTE : CALL-LABS
+********************************************************************
+Promote : call-labs on a2billing trunk
+
+
+#### EPAYMENT : MULTI CURRENCY MANAGEMENT
+********************************************************************
+handle mc_currency with paypal & mb_currency with moneybookers
+in order to secure the currency of the transactions
+
 
 #### UPDATE : IMPORT MODULE
 ********************************************************************
@@ -47,6 +57,7 @@ Ensure that customer cannot edit an other cardid
 ********************************************************************
 Consolidate the gettext files for customer and admin interface
 regenerate all PO & MO files
+
 
 #### FEATURES : WHOLESALE
 ********************************************************************

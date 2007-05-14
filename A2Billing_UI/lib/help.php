@@ -291,9 +291,12 @@ $CC_help_trunk_list ='
 <div id="kiki"><div class="w1">
 	<img src="'.KICON_PATH.'/hwbrowser.gif" class="kikipic"/>
 	<div class="w2">
-'.gettext("Trunk List<br/>Trunks can be modified by clicking the edit button").'
-
-<br/><br/>
+'.gettext("Trunk List.").'
+ <br/>
+'.gettext("Trunks can be modified by clicking the edit button").'
+ <br/>
+ 
+<br/>
 </div></div></div>
 </div></div>';
 
@@ -840,5 +843,19 @@ $CC_help_list_payment_methods = '<div class="toggle_show2hide">
 </div></div></div>
 </div></div>
 '; 
+
+$CALL_LABS ='
+<table width="70%" align="center">
+	<tr>
+		<TD width="%75" valign="top" align="center" class="tableBodyRight" background="'.Images_Path.'/background_cells.gif" >
+			Global VoIP termination (A-Z)  to over 400 worldwide destinations!<br>
+			Visit Call-Labs at <a href="http://www.call-labs.com/" target="_blank">http://www.call-labs.com/</a><br/> 
+		</td>
+		<TD width="%25" valign="middle" align="center" class="tableBodyRight" background="'.Images_Path.'/background_cells.gif" >
+			<a href="http://www.call-labs.com/" target="_blank"><img src="'.Images_Path.'/call-labs.com.png" alt="call-labs"/></a>
+		</td>
+	</tr>
+</table>
+';
 } //ENDIF SHOW_HELP
 ?>
