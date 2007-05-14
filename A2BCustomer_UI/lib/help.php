@@ -35,18 +35,18 @@ $CC_help_balance_customer='
 $CC_help_card='
 <div id="div1000" style="display:visible;">
 <div id="kiblue_header"><div class="w4">
-	<img src="'.KICON_PATH.'/gnome-finance.gif" width="48" height="48" class="kikipic"/>
+	<img src="'.KICON_PATH.'/personal.gif" class="kikipic"/>
 	<div class="w2">
 <table width="90%">
 <tr>
 <td width="100%">
-
-'.gettext("You can update your personal information here.").' 
-<br></br>
-</td>
+'.gettext("Personal information.").'<br>
+'.gettext("You can update your personal information here.").'<br>
+<br></td>
 </tr>
 </table>
-</div></div></div>&nbsp;';
+</div></div></div>
+';
 
 $CC_help_simulator_rateengine='
 <div id="div1000" style="display:visible;">
@@ -63,6 +63,7 @@ $CC_help_simulator_rateengine='
 </div></div></div>
 &nbsp;
 ';
+
 $CC_help_sipiax_info='
 <div id="div1000" style="display:visible;">
 <div id="kiblue_header"><div class="w4">
@@ -70,8 +71,7 @@ $CC_help_sipiax_info='
 	<div class="w2">
 <table width="90%">
 <tr>
-<td width="100%">
-<br>'.gettext("Configuration information for SIP and IAX Client. You can simply copy and paste it in your configuration files and can do neccessory modifications.").'<br>
+<td width="100%">'.gettext("Configuration information for SIP and IAX Client. You can simply copy and paste it in your configuration files and can do neccessory modifications.").'<br>
 <br></td>
 </tr>
 </table>

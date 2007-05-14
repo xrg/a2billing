@@ -30,16 +30,6 @@ $HD_Form -> AddEditElement (gettext("FIRSTNAME"),
 			   "" , "", "",	"", "", "" , "NO", "");
 
 
-$HD_Form -> AddEditElement (gettext("EMAIL"),
-			   "email",
-			   '$value',
-			   "INPUT",
-			   "size=30 maxlength=30 readonly",
-			   "1",
-			   gettext("Insert the email"),
-			   "" , "", "",	"", "", "" , "NO", "");
-
-
 $HD_Form -> AddEditElement (gettext("ADDRESS"),
 			   "address",
 			   '$value',
@@ -71,13 +61,14 @@ $HD_Form -> AddEditElement (gettext("STATE/PROVINCE"),
 
 
 $HD_Form -> AddEditElement (gettext("COUNTRY"),
-			   "country",			
-			   '$value',	
-			   "INPUT",
-			   "size=30 maxlength=30",	
-			   "0",	
-			   gettext("Insert the country"),
-			   "" , "", "",	"", "", "" , "NO", "");
+			   "country",
+			   "",
+			   "SELECT",
+			   "", "", "",
+			   "sql",
+			   "cc_country",
+			   "countryname, countrycode",
+			   "", "", "%1", "", "", "", '' );
 
 
 $HD_Form -> AddEditElement (gettext("ZIP/POSTAL CODE"),
@@ -109,7 +100,7 @@ $HD_Form -> AddEditElement (gettext("FAX NUMBER"),
 			   gettext("Insert the fax number of the customers"),
 			   "" , "", "",	"", "", "" , "NO", "");
 
-$HD_Form -> FieldEditElement ('lastname, firstname, email, address, city, state, country, zipcode, phone,'.
+$HD_Form -> FieldEditElement ('lastname, firstname, address, city, state, country, zipcode, phone,'.
 'fax');
 
 $HD_Form -> FG_INTRO_TEXT_ADD = gettext("you can add easily update your information clicking on the button.");
