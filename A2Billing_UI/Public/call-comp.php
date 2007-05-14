@@ -394,6 +394,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 					<table width="100%" border="0" cellspacing="0" cellpadding="0" class="bgcolor_005">
 					<tr><td class="fontstyle_searchoptions">				
 						<?php echo gettext("Graph");?> :
+							<select name="min_call" class="form_input_select">
 							<option value=1 <?php  if ($min_call==1){ echo "selected";}?>><?php echo gettext("Minutes by hours");?></option>
 							<option value=0 <?php  if (($min_call==0) || !isset($min_call)){ echo "selected";}?>><?php echo gettext("Number of calls by hours");?></option>
 							<option value=2 <?php  if ($min_call==2){ echo "selected";}?>><?php echo gettext("Profits by hours");?></option>

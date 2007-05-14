@@ -6,8 +6,8 @@ include_once(dirname(__FILE__) . "/../lib/module.access.php");
 
 if (! has_rights (ACX_CALL_REPORT)){ 
 	   Header ("HTTP/1.0 401 Unauthorized");
-	   Header ("Location: PP_error.php?c=accessdenied");	   
-	   die();	   
+	   Header ("Location: PP_error.php?c=accessdenied");
+	   die();
 }
 
 
@@ -147,7 +147,7 @@ if ($_POST['posted']==1){
                         $sql = "$sql WHERE ";
                 }
 				$sql = "$sql $fld";
-				if (isset ($$fldtype)){                
+				if (isset ($$fldtype)){
                         switch ($$fldtype) {
 							case 1:	$sql = "$sql='".$$fld."'";  break;
 							case 2: $sql = "$sql LIKE '".$$fld."%'";  break;
@@ -315,7 +315,9 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 					<table width="100%" border="0" cellspacing="0" cellpadding="0" >
 					<tr><td class="fontstyle_searchoptions">
 	  				<?php echo gettext("From");?> : 
+	  				<select name="fromstatsmonth_sday" class="form_input_select">
 					<?php 	
+						// *-*
 						$monthname = array( gettext("January"), gettext("February"),gettext("March"), gettext("April"), gettext("May"), gettext("June"), gettext("July"), gettext("August"), gettext("September"), gettext("October"), gettext("November"), gettext("December"));
 						$year_actual = date("Y");  	
 						for ($i=$year_actual;$i >= $year_actual-1;$i--)

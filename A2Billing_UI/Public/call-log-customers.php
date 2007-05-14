@@ -475,6 +475,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 	  				<input type="checkbox" name="frommonth" value="true" <?php  if ($frommonth){ ?>checked<?php }?>>
 					<?php echo gettext("From");?> : <select name="fromstatsmonth">
 					<?php
+						// *-*
 						$monthname = array( gettext("January"), gettext("February"),gettext("March"), gettext("April"), gettext("May"), gettext("June"), gettext("July"), gettext("August"), gettext("September"), gettext("October"), gettext("November"), gettext("December"));
 						$year_actual = date("Y");  	
 						for ($i=$year_actual;$i >= $year_actual-1;$i--)
@@ -495,7 +496,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 					</select>
 					</td><td  class="fontstyle_searchoptions">&nbsp;&nbsp;
 					<input type="checkbox" name="tomonth" value="true" <?php  if ($tomonth){ ?>checked<?php }?>> 
-					<?php echo gettext("To");?> : <select name="tostatsmonth" class="form_input_select">
+					<?php echo gettext("To"); ?> : <select name="tostatsmonth" class="form_input_select">
 					<?php 	$year_actual = date("Y");  	
 						for ($i=$year_actual;$i >= $year_actual-1;$i--)
 						{		   
@@ -508,7 +509,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 							$month_formated = sprintf("%02d",$j+1);
 				   			if ($tostatsmonth=="$i-$month_formated") $selected="selected";
 							else $selected="";
-							echo "<OPTION value=\"$i-$month_formated\" $selected> $monthname[$j]-$i </option>";				
+							echo "<option value=\"$i-$month_formated\" $selected> $monthname[$j]-$i </option>";				
 						   }
 						}
 					?>
@@ -548,7 +549,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 								$month_formated = sprintf("%02d",$j+1);
 								if ($fromstatsmonth_sday=="$i-$month_formated") $selected="selected";
 								else $selected="";
-								echo "<OPTION value=\"$i-$month_formated\" $selected> $monthname[$j]-$i </option>";				
+								echo "<option value=\"$i-$month_formated\" $selected> $monthname[$j]-$i </option>";				
 							}
 						}
 					?>
@@ -556,6 +557,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 					</td><td class="fontstyle_searchoptions">&nbsp;&nbsp;
 					<input type="checkbox" name="today" value="true" <?php  if ($today){ ?>checked<?php }?>> 
 					<?php echo gettext("To");?>  :
+					<select name="tostatsday_sday" class="form_input_select">
 					<?php  
 						for ($i=1;$i<=31;$i++){
 							if ($tostatsday_sday==sprintf("%02d",$i)){$selected="selected";}else{$selected="";}
@@ -647,6 +649,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 						<?php echo gettext("CURRENCY");?> :
 					</td>
 					<td  class="fontstyle_searchoptions">
+						<select NAME="choose_currency" size="1" class="form_input_select">
 							<?php
 								$currencies_list = get_currencies();
 								foreach($currencies_list as $key => $cur_value) {

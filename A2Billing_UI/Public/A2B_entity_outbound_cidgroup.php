@@ -35,7 +35,7 @@ $list = $HD_Form -> perform_action($form_action);
 
 
 // #### HEADER SECTION
-include('PP_footer.php');
+include('PP_header.php');
 
 // #### HELP SECTION
 if ($form_action=='list') show_help('list_cidgroup');

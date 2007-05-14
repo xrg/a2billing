@@ -779,5 +779,5 @@ foreach ($list_total_day as $data){
 </center>
 
 <?php
-	include('PP_footer.tpl');
+	include('PP_footer.php');
 ?>
