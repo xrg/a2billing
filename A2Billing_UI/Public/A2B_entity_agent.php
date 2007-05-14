@@ -1,4 +1,5 @@
 <?php
+$menu_section=2;
 include ("../lib/defines.php");
 include ("../lib/module.access.php");
 include ("../lib/Form/Class.FormHandler.inc.php");
@@ -39,9 +40,7 @@ $list = $HD_Form -> perform_action($form_action);
 include("PP_header.php");
 
 // #### HELP SECTION
-echo '<br><br>'.$CC_help_agent_list."<br>\n";
-
-
+show_help('agent_list');
 
 // #### TOP SECTION PAGE
 $HD_Form -> create_toppage ($form_action);
