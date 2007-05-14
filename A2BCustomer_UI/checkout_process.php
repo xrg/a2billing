@@ -158,6 +158,7 @@ $pmodule = $transaction_data[0][4];
 
 $orderStatus = $payment_modules->get_OrderStatus();
 
+$amount_paid = convert_currency($currencies_list,$transaction_data[0][2], $currCurrency, BASE_CURRENCY);
 
 $Query = "Insert into cc_payments ( customers_id,
                                     customers_name,
@@ -194,7 +195,7 @@ $Query = "Insert into cc_payments ( customers_id,
                                     '".$nowDate."',
                                     '".$nowDate."',
                                     '".$nowDate."',
-                                     ".convert_currency($currencies_list,$transaction_data[0][2], $currCurrency, BASE_CURRENCY).",
+                                     ".$amount_paid.",
                                      '".$currCurrency."',
                                      '".$currencyObject->get_value($currCurrency)."'
                                     )";
@@ -224,19 +225,19 @@ if ($id > 0 ){
     //$addcredit = $_SESSION["p_amount"];
     $addcredit = $transaction_data[0][2]; 
 	$instance_table = new Table("cc_card", "username, id");
-	$param_update .= " credit = credit+'".convert_currency($currencies_list,$transaction_data[0][2], $currCurrency, BASE_CURRENCY)."'";
+	$param_update .= " credit = credit+'".$amount_paid."'";
 	$FG_EDITION_CLAUSE = " id='$id'";
 	$instance_table -> Update_table ($DBHandle, $param_update, $FG_EDITION_CLAUSE, $func_table = null);
 	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." Update_table cc_card : $param_update - CLAUSE : $FG_EDITION_CLAUSE");
 
 	$field_insert = "date, credit, card_id";
-	$value_insert = "'$nowDate', '".convert_currency($currencies_list,$transaction_data[0][2], $currCurrency, BASE_CURRENCY)."', '$id'";
+	$value_insert = "'$nowDate', '".$amount_paid."', '$id'";
 	$instance_sub_table = new Table("cc_logrefill", $field_insert);
 	$result_query = $instance_sub_table -> Add_table ($DBHandle, $value_insert, null, null);
 	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." Add_table cc_logrefill : $field_insert - VALUES $value_insert");
 
 	$field_insert = "date, payment, card_id";
-	$value_insert = "'$nowDate', 'convert_currency($currencies_list,$transaction_data[0][2], $currCurrency, BASE_CURRENCY)', '$id'";
+	$value_insert = "'$nowDate', '".$amount_paid."', '$id'";
 	$instance_sub_table = new Table("cc_logpayment", $field_insert);
 	$result_query = $instance_sub_table -> Add_table ($DBHandle, $value_insert, null, null);
 	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." Add_table cc_logpayment : $field_insert - VALUES $value_insert");
@@ -293,7 +294,7 @@ if(eregi("^[a-z]+[a-z0-9_-]*(([.]{1})|([a-z0-9_-]*))[a-z0-9_-]+[@]{1}[a-z0-9_-]+
 		
 		$messagetext = str_replace('$itemName', "balance", $messagetext);
 		$messagetext = str_replace('$itemID', $customer_info[0], $messagetext);
-		$messagetext = str_replace('$itemAmount', convert_currency($currencies_list,$transaction_data[0][2], $currCurrency, BASE_CURRENCY)." ".strtoupper(BASE_CURRENCY), $messagetext);
+		$messagetext = str_replace('$itemAmount', $amount_paid." ".strtoupper(BASE_CURRENCY), $messagetext);
 		$messagetext = str_replace('$paymentMethod', $pmodule, $messagetext);
 		$messagetext = str_replace('$paymentStatus', $statusmessage, $messagetext);
 		

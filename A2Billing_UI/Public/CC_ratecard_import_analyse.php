@@ -12,7 +12,7 @@ if (! has_rights (ACX_RATECARD)){
 	die();	   
 }
 
-getpost_ifset(array('tariffplan','trunk', 'search_sources', 'task', 'status','currencytype','uploadedfile_name'));
+getpost_ifset(array('tariffplan','trunk', 'search_sources', 'task', 'status','currencytype','uploadedfile_name','uploadedfile_name'));
 
 
 //print_r ($_POST);
@@ -266,12 +266,6 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 }
 
 function sendtoupload(form){
-
-	if (form.the_file.value.length < 2){
-		alert ('<?php echo gettext("Please, you must first select a file !")?>');
-		form.the_file.focus ();
-		return (false);
-	}
 	
     document.forms["myform"].elements["task"].value = "upload";	
 	document.forms[0].submit();

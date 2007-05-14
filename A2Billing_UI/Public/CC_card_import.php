@@ -17,23 +17,11 @@ $FG_DEBUG = 0;
 
 $DBHandle  = DbConnect();
 
-
-
 $my_max_file_size = (int) MY_MAX_FILE_SIZE_IMPORT;
 
 
 /*************************************************************/
-/*
-$instance_table_tariffname = new Table("cc_didgroup", "id, didgroupname");
 
-$FG_TABLE_CLAUSE = "";
-
-$list_tariffname = $instance_table_tariffname  -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, "didgroupname", "ASC", null, null, null, null);
-
-$nb_tariffname = count($list_tariffname);*/
-
-?>
-<?php
 	$smarty->display('main.tpl');
 ?>
 <script type="text/javascript">
@@ -68,7 +56,8 @@ function sendtoupload(form){
 	}
 
     document.forms["prefs"].elements["task"].value = "upload";
-	document.forms[0].submit();
+	document.prefs.action='CC_card_import_analyse.php';
+	document.prefs.submit();
 }
 
 //-->
@@ -215,7 +204,7 @@ function moveSourceDown()
 		<b><?php echo gettext("New Cards have to be imported from a CSV file.");?>.</b></br></br>
 		<table width="95%" border="0" cellspacing="2" align="center" class="records">
 
-              <form name="prefs" enctype="multipart/form-data" action="CC_card_import_analyse.php" method="post">
+              <form name="prefs" enctype="multipart/form-data"  method="post">
 				<tr>
                   <td colspan="2" align=center>
 				<?php echo gettext("These fields are mandatory");?><br>
