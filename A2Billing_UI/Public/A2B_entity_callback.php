@@ -1,9 +1,9 @@
 <?php
+$menu_section=12;
 include ("../lib/defines.php");
 include ("../lib/module.access.php");
 include ("../lib/Form/Class.FormHandler.inc.php");
 include ("./form_data/FG_var_callback.inc");
-include ("../lib/smarty.php");
 
 
 if (! has_rights (ACX_CALLBACK)){ 

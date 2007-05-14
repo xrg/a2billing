@@ -1,4 +1,5 @@
 <?php
+$menu_section=9;
 include_once(dirname(__FILE__) . "/../lib/defines.php");
 include_once(dirname(__FILE__) . "/../lib/module.access.php");
 

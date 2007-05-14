@@ -1,8 +1,8 @@
 <?php
+$menu_section=20;
 include ("../lib/defines.php");
 include ("../lib/module.access.php");
 include ("../lib/Form/Class.FormHandler.inc.php");
-include ("../lib/smarty.php");
 
 if (! has_rights (ACX_RATECARD)){ 
 	   Header ("HTTP/1.0 401 Unauthorized");
@@ -11,13 +11,6 @@ if (! has_rights (ACX_RATECARD)){
 }
 
 getpost_ifset(array('nb', 'view_log', 'filter'));
-
-
-/***********************************************************************************/
-
-
-// #### HEADER SECTION
-$smarty->display('main.tpl');
 
 // #### HELP SECTION
 echo $CC_help_logfile;

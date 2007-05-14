@@ -1,4 +1,5 @@
 <?php
+$menu_section=1;
 // Common includes
 include ("../lib/defines.php");
 include ("../lib/module.access.php");

@@ -1,15 +1,15 @@
 <?php
+$menu_section=10;
 include ("../lib/defines.php");
 include ("../lib/module.access.php");
 include ("../lib/Form/Class.FormHandler.inc.php");
 include ("./form_data/FG_var_view_invoice.inc");
-include ("../lib/smarty.php");
 include ("../lib/invoice.php");
 
 if (! has_rights (ACX_BILLING)){ 
 	Header ("HTTP/1.0 401 Unauthorized");
-	Header ("Location: PP_error.php?c=accessdenied");	   
-	die();	   
+	Header ("Location: PP_error.php?c=accessdenied");
+	die();
 }
 
 getpost_ifset(array('tocustomer','forcustomer','sendemail'));

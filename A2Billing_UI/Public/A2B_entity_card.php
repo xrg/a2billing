@@ -1,4 +1,6 @@
 <?php
+$menu_section = 1;
+
 include ("../lib/defines.php");
 include ("../lib/module.access.php");
 include ("../lib/Form/Class.FormHandler.inc.php");
@@ -7,8 +9,8 @@ include ("./form_data/FG_var_card.inc");
 
 if (! has_rights (ACX_CUSTOMER)){ 
 	Header ("HTTP/1.0 401 Unauthorized");
-	Header ("Location: PP_error.php?c=accessdenied");	   
-	die();	   
+	Header ("Location: PP_error.php?c=accessdenied");
+	die();
 }
 
 

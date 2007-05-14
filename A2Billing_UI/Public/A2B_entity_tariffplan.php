@@ -1,4 +1,6 @@
 <?php
+$menu_section=4;
+
 include ("../lib/defines.php");
 include ("../lib/module.access.php");
 include ("../lib/Form/Class.FormHandler.inc.php");

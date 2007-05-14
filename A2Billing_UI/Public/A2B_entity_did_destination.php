@@ -1,4 +1,5 @@
 <?php
+$menu_section=8;
 include ("../lib/defines.php");
 include ("../lib/module.access.php");
 include ("../lib/Form/Class.FormHandler.inc.php");
@@ -7,8 +8,8 @@ include ("./form_data/FG_var_did_destination.inc");
 
 if (! has_rights (ACX_RATECARD)){ 
 	   Header ("HTTP/1.0 401 Unauthorized");
-	   Header ("Location: PP_error.php?c=accessdenied");	   
-	   die();	   
+	   Header ("Location: PP_error.php?c=accessdenied");
+	   die();
 }
 
 

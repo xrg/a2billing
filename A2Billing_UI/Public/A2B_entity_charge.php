@@ -1,5 +1,7 @@
 <?php
 if ($wantinclude!=1){
+	$menu_section=3;
+
 	include ("../lib/defines.php");
 	include ("../lib/module.access.php");
 	include ("../lib/Form/Class.FormHandler.inc.php");

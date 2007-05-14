@@ -1,4 +1,5 @@
 <?php
+$menu_section=2;
 include ("../lib/defines.php");
 include ("../lib/module.access.php");
 //include ("./frontoffice_data/CC_var_def_ratecard.inc");

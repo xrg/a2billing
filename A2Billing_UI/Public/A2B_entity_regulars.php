@@ -1,4 +1,5 @@
 <?php
+$menu_section=2;
 require("../lib/defines.php");
 require("../lib/module.access.php");
 require("../lib/Form/Class.FormHandler.inc.php");

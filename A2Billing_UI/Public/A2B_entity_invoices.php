@@ -1,9 +1,9 @@
 <?php
+$menu_section=10;
 include ("../lib/defines.php");
 include ("../lib/module.access.php");
 include ("../lib/Form/Class.FormHandler.inc.php");
 include ("./form_data/FG_var_invoices.inc.php");
-include ("../lib/smarty.php");
 
 if (! has_rights (ACX_INVOICING)){ 
 	Header ("HTTP/1.0 401 Unauthorized");
