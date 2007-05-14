@@ -1,7 +1,7 @@
 // Title: Tigra Calendar
 // URL: http://www.softcomplex.com/products/tigra_calendar/
-// Version: 3.3 (American date format)
-// Date: 09/01/2005 (mm/dd/yyyy)
+// Version: 3.3 (mySQL format)
+// Date: 03/09/2007
 // Note: Permission given to use this script in ANY kind of applications if
 //    header lines are left unchanged.
 // Note: Script consists of two files: calendar?.js and calendar.html
@@ -16,16 +16,16 @@ var BUL_YEARSCROLL = true;
 var calendars = [];
 var RE_NUM = /^\-?\d+$/;
 
-function calendar2(obj_target) {
+function calendar3(obj_target) {
 
 	// assigning methods
-	this.gen_date = cal_gen_date2;
-	this.gen_time = cal_gen_time2;
-	this.gen_tsmp = cal_gen_tsmp2;
-	this.prs_date = cal_prs_date2;
-	this.prs_time = cal_prs_time2;
-	this.prs_tsmp = cal_prs_tsmp2;
-	this.popup    = cal_popup2;
+	this.gen_date = cal_gen_date3;
+	this.gen_time = cal_gen_time3;
+	this.gen_tsmp = cal_gen_tsmp3;
+	this.prs_date = cal_prs_date3;
+	this.prs_time = cal_prs_time3;
+	this.prs_tsmp = cal_prs_tsmp3;
+	this.popup    = cal_popup3;
 
 	// validate input parameters
 	if (!obj_target)
@@ -41,7 +41,7 @@ function calendar2(obj_target) {
 	calendars[this.id] = this;
 }
 
-function cal_popup2 (str_datetime) {
+function cal_popup3 (str_datetime) {
 	if (str_datetime) {
 		this.dt_current = this.prs_tsmp(str_datetime);
 	}
@@ -52,7 +52,7 @@ function cal_popup2 (str_datetime) {
 	if (!this.dt_current) return;
 
 	var obj_calwindow = window.open(
-		'calendar.html?datetime=' + this.dt_current.valueOf()+ '&id=' + this.id,
+		'calendar.php?datetime=' + this.dt_current.valueOf()+ '&id=' + this.id,
 		'Calendar', 'width=200,height='+(this.time_comp ? 215 : 190)+
 		',status=no,resizable=no,top=200,left=200,dependent=yes,alwaysRaised=yes'
 	);
@@ -61,20 +61,20 @@ function cal_popup2 (str_datetime) {
 }
 
 // timestamp generating function
-function cal_gen_tsmp2 (dt_datetime) {
+function cal_gen_tsmp3 (dt_datetime) {
 	return(this.gen_date(dt_datetime) + ' ' + this.gen_time(dt_datetime));
 }
 
 // date generating function
-function cal_gen_date2 (dt_datetime) {
+function cal_gen_date3 (dt_datetime) {
 	return (
-		(dt_datetime.getMonth() < 9 ? '0' : '') + (dt_datetime.getMonth() + 1) + "/"
-		+ (dt_datetime.getDate() < 10 ? '0' : '') + dt_datetime.getDate() + "/"
-		+ dt_datetime.getFullYear()
+		dt_datetime.getFullYear() + "-"
+		+ (dt_datetime.getMonth() < 9 ? '0' : '') + (dt_datetime.getMonth() + 1) + "-"
+		+ (dt_datetime.getDate() < 10 ? '0' : '') + dt_datetime.getDate()
 	);
 }
 // time generating function
-function cal_gen_time2 (dt_datetime) {
+function cal_gen_time3 (dt_datetime) {
 	return (
 		(dt_datetime.getHours() < 10 ? '0' : '') + dt_datetime.getHours() + ":"
 		+ (dt_datetime.getMinutes() < 10 ? '0' : '') + (dt_datetime.getMinutes()) + ":"
@@ -83,7 +83,7 @@ function cal_gen_time2 (dt_datetime) {
 }
 
 // timestamp parsing function
-function cal_prs_tsmp2 (str_datetime) {
+function cal_prs_tsmp3 (str_datetime) {
 	// if no parameter specified return current timestamp
 	if (!str_datetime)
 		return (new Date());
@@ -98,36 +98,43 @@ function cal_prs_tsmp2 (str_datetime) {
 }
 
 // date parsing function
-function cal_prs_date2 (str_date) {
+function cal_prs_date3 (str_date) {
 
-	var arr_date = str_date.split('/');
+	var arr_date = str_date.split('-');
 
-	if (arr_date.length != 3) return alert ("Invalid date format: '" + str_date + "'.\nFormat accepted is dd-mm-yyyy.");
-	if (!arr_date[1]) return alert ("Invalid date format: '" + str_date + "'.\nNo day of month value can be found.");
-	if (!RE_NUM.exec(arr_date[1])) return alert ("Invalid day of month value: '" + arr_date[1] + "'.\nAllowed values are unsigned integers.");
-	if (!arr_date[0]) return alert ("Invalid date format: '" + str_date + "'.\nNo month value can be found.");
-	if (!RE_NUM.exec(arr_date[0])) return alert ("Invalid month value: '" + arr_date[0] + "'.\nAllowed values are unsigned integers.");
-	if (!arr_date[2]) return alert ("Invalid date format: '" + str_date + "'.\nNo year value can be found.");
-	if (!RE_NUM.exec(arr_date[2])) return alert ("Invalid year value: '" + arr_date[2] + "'.\nAllowed values are unsigned integers.");
+	if (arr_date.length != 3) return alert ("Invalid date format: '" + str_date + "'.\nFormat accepted is yyyy-mm-dd.");
+
+	if (!arr_date[0]) return alert ("Invalid date format: '" + str_date + "'.\nNo year value can be found.");
+	if (!RE_NUM.exec(arr_date[0])) return alert ("Invalid year value: '" + arr_date[0] + "'.\nAllowed values are unsigned integers.");
+
+	if (!arr_date[1]) return alert ("Invalid date format: '" + str_date + "'.\nNo month value can be found.");
+	if (!RE_NUM.exec(arr_date[1])) return alert ("Invalid month value: '" + arr_date[1] + "'.\nAllowed values are unsigned integers.");
+
+	if (!arr_date[2]) return alert ("Invalid date format: '" + str_date + "'.\nNo day of month value can be found.");
+	if (!RE_NUM.exec(arr_date[2])) return alert ("Invalid day of month value: '" + arr_date[2] + "'.\nAllowed values are unsigned integers.");
+
+
 
 	var dt_date = new Date();
 	dt_date.setDate(1);
 
-	if (arr_date[0] < 1 || arr_date[0] > 12) return alert ("Invalid month value: '" + arr_date[0] + "'.\nAllowed range is 01-12.");
-	dt_date.setMonth(arr_date[0]-1);
-	 
-	if (arr_date[2] < 100) arr_date[2] = Number(arr_date[2]) + (arr_date[2] < NUM_CENTYEAR ? 2000 : 1900);
-	dt_date.setFullYear(arr_date[2]);
+	if (arr_date[0] < 100) arr_date[0] = Number(arr_date[0]) + (arr_date[0] < NUM_CENTYEAR ? 2000 : 1900);
+	dt_date.setFullYear(arr_date[0]);
 
-	var dt_numdays = new Date(arr_date[2], arr_date[0], 0);
-	dt_date.setDate(arr_date[1]);
-	if (dt_date.getMonth() != (arr_date[0]-1)) return alert ("Invalid day of month value: '" + arr_date[1] + "'.\nAllowed range is 01-"+dt_numdays.getDate()+".");
+
+	if (arr_date[1] < 1 || arr_date[1] > 12) return alert ("Invalid month value: '" + arr_date[1] + "'.\nAllowed range is 01-12.");
+	dt_date.setMonth(arr_date[1] - 1);
+	 
+
+	var dt_numdays = new Date(arr_date[0], arr_date[1], 0);
+	dt_date.setDate(arr_date[2]);
+	if (dt_date.getMonth() != (arr_date[1]-1)) return alert ("Invalid day of month value: '" + arr_date[2] + "'.\nAllowed range is 01-"+dt_numdays.getDate()+".");
 
 	return (dt_date)
 }
 
 // time parsing function
-function cal_prs_time2 (str_time, dt_date) {
+function cal_prs_time3 (str_time, dt_date) {
 
 	if (!dt_date) return null;
 	var arr_time = String(str_time ? str_time : '').split(':');

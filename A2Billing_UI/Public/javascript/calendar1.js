@@ -1,7 +1,7 @@
 // Title: Tigra Calendar
 // URL: http://www.softcomplex.com/products/tigra_calendar/
-// Version: 3.2 (European date format)
-// Date: 10/14/2002 (mm/dd/yyyy)
+// Version: 3.3 (European date format)
+// Date: 09/01/2005 (mm/dd/yyyy)
 // Note: Permission given to use this script in ANY kind of applications if
 //    header lines are left unchanged.
 // Note: Script consists of two files: calendar?.js and calendar.html
@@ -12,9 +12,6 @@ var NUM_CENTYEAR = 30;
 var BUL_TIMECOMPONENT = false;
 // are year scrolling buttons required by default
 var BUL_YEARSCROLL = true;
-
-// SPECIAL FORMAT YYYY-MM-DD HH:MM:SS
-var BUL_FORMATPGSQL = true;
 
 var calendars = [];
 var RE_NUM = /^\-?\d+$/;
@@ -38,7 +35,6 @@ function calendar1(obj_target) {
 	this.target = obj_target;
 	this.time_comp = BUL_TIMECOMPONENT;
 	this.year_scroll = BUL_YEARSCROLL;
-	this.formatpgsql = BUL_FORMATPGSQL;
 	
 	// register in global collections
 	this.id = calendars.length;
@@ -46,7 +42,13 @@ function calendar1(obj_target) {
 }
 
 function cal_popup1 (str_datetime) {
-	this.dt_current = this.prs_tsmp(str_datetime ? str_datetime : this.target.value);
+	if (str_datetime) {
+		this.dt_current = this.prs_tsmp(str_datetime);
+	}
+	else {
+		this.dt_current = this.prs_tsmp(this.target.value);
+		this.dt_selected = this.dt_current;
+	}
 	if (!this.dt_current) return;
 
 	var obj_calwindow = window.open(
@@ -65,20 +67,11 @@ function cal_gen_tsmp1 (dt_datetime) {
 
 // date generating function
 function cal_gen_date1 (dt_datetime) {
-	
-	if (this.formatpgsql)
-		// YYYY-MM-DD HH:MM:SS
-		return (
-			dt_datetime.getFullYear() + "-" +		
-			+ (dt_datetime.getMonth() < 9 ? '0' : '') + (dt_datetime.getMonth() + 1) + "-"
-			+ (dt_datetime.getDate() < 10 ? '0' : '') + dt_datetime.getDate() 
-		);
-	else 
-		return (
-			(dt_datetime.getDate() < 10 ? '0' : '') + dt_datetime.getDate() + "-"
-			+ (dt_datetime.getMonth() < 9 ? '0' : '') + (dt_datetime.getMonth() + 1) + "-"
-			+ dt_datetime.getFullYear()
-		);
+	return (
+		(dt_datetime.getDate() < 10 ? '0' : '') + dt_datetime.getDate() + "-"
+		+ (dt_datetime.getMonth() < 9 ? '0' : '') + (dt_datetime.getMonth() + 1) + "-"
+		+ dt_datetime.getFullYear()
+	);
 }
 // time generating function
 function cal_gen_time1 (dt_datetime) {
@@ -109,27 +102,27 @@ function cal_prs_date1 (str_date) {
 
 	var arr_date = str_date.split('-');
 
-	/*if (arr_date.length != 3) return cal_error ("Invalid date format: '" + str_date + "'.\nFormat accepted is dd-mm-yyyy.");
+	if (arr_date.length != 3) return cal_error ("Invalid date format: '" + str_date + "'.\nFormat accepted is dd-mm-yyyy.");
 	if (!arr_date[0]) return cal_error ("Invalid date format: '" + str_date + "'.\nNo day of month value can be found.");
 	if (!RE_NUM.exec(arr_date[0])) return cal_error ("Invalid day of month value: '" + arr_date[0] + "'.\nAllowed values are unsigned integers.");
 	if (!arr_date[1]) return cal_error ("Invalid date format: '" + str_date + "'.\nNo month value can be found.");
 	if (!RE_NUM.exec(arr_date[1])) return cal_error ("Invalid month value: '" + arr_date[1] + "'.\nAllowed values are unsigned integers.");
 	if (!arr_date[2]) return cal_error ("Invalid date format: '" + str_date + "'.\nNo year value can be found.");
 	if (!RE_NUM.exec(arr_date[2])) return cal_error ("Invalid year value: '" + arr_date[2] + "'.\nAllowed values are unsigned integers.");
-	*/
-	var dt_date = new Date();
-	//dt_date.setDate(1);
-	
-	//if (arr_date[1] < 1 || arr_date[1] > 12) return cal_error ("Invalid month value: '" + arr_date[1] + "'.\nAllowed range is 01-12.");
-	//dt_date.setMonth(arr_date[1]-1);
-	 
-	//if (arr_date[2] < 100) arr_date[2] = Number(arr_date[2]) + (arr_date[2] < NUM_CENTYEAR ? 2000 : 1900);
-	//dt_date.setFullYear(arr_date[2]);
 
-	//var dt_numdays = new Date(arr_date[2], arr_date[1], 0);
-	//dt_date.setDate(arr_date[0]);
-	//if (dt_date.getMonth() != (arr_date[1]-1)) return cal_error ("Invalid day of month value: '" + arr_date[0] + "'.\nAllowed range is 01-"+dt_numdays.getDate()+".");
-	
+	var dt_date = new Date();
+	dt_date.setDate(1);
+
+	if (arr_date[1] < 1 || arr_date[1] > 12) return cal_error ("Invalid month value: '" + arr_date[1] + "'.\nAllowed range is 01-12.");
+	dt_date.setMonth(arr_date[1]-1);
+	 
+	if (arr_date[2] < 100) arr_date[2] = Number(arr_date[2]) + (arr_date[2] < NUM_CENTYEAR ? 2000 : 1900);
+	dt_date.setFullYear(arr_date[2]);
+
+	var dt_numdays = new Date(arr_date[2], arr_date[1], 0);
+	dt_date.setDate(arr_date[0]);
+	if (dt_date.getMonth() != (arr_date[1]-1)) return cal_error ("Invalid day of month value: '" + arr_date[0] + "'.\nAllowed range is 01-"+dt_numdays.getDate()+".");
+
 	return (dt_date)
 }
 

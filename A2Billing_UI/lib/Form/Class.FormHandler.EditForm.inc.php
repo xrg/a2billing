@@ -1,5 +1,5 @@
 
-<script language="JavaScript" src="./javascript/calonlydays.js"></script>
+<script language="JavaScript" src="./javascript/calendar3.js"></script>
 <script language="JavaScript" type="text/JavaScript">
 <!--
 function MM_openBrWindow(theURL,winName,features) { //v2.0
@@ -98,7 +98,7 @@ function sendtolittle(direction){
                          <!-- // create calendar object(s) just after form tag closed
                              // specify form element as the only parameter (document.forms['formname'].elements['inputname']);
                              // note: you can have as many calendar objects as you need for your application
-                          var cal<?= $this->FG_TABLE_EDITION[$i][1]?> = new calendaronlyminutes(document.forms['myForm'].elements['<?= $this->FG_TABLE_EDITION[$i][1]?>']);
+                          var cal<?= $this->FG_TABLE_EDITION[$i][1]?> = new calendar3(document.forms['myForm'].elements['<?= $this->FG_TABLE_EDITION[$i][1]?>']);
                           cal<?= $this->FG_TABLE_EDITION[$i][1]?>.year_scroll = false;
                           cal<?= $this->FG_TABLE_EDITION[$i][1]?>.time_comp = true;
                           cal<?= $this->FG_TABLE_EDITION[$i][1]?>.formatpgsql = true;

@@ -421,7 +421,7 @@ if (isset($form_action) && $form_action=="ask-add"){
 $HD_Form -> AddEditElement (gettext("EXPIRY DATE"),
 			   "expirationdate",
 			   '$value',
-			   "INPUT",
+			   "POPUPDATETIME",
 			   "size=40 maxlength=40  $comp_date_plus",
 			   "10",
 			   gettext("Insert the expiration date"),
