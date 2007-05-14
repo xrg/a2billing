@@ -198,7 +198,7 @@ function imgidclick(imgID,divID)
 		</div>
 	<?php  } ?>
 	<?php   if ( has_rights (ACX_INVOICING) ){ 	?>
-		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick('img10','div10');"><img id="img10" src="../Images/plus.gif" onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> <strong><?= _("CALL REPORT");?></strong></a></li>
+		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick('img10','div10');"><img id="img10" src="../Images/plus.gif" onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> <strong><?= _("INVOICING");?></strong></a></li>
 		<div id="div10" style="display:none;">
 		<ul>
 			<li><a href="A2B_entity_view_invoice.php"><?= _("View Invoices");?></a></li>
@@ -226,7 +226,7 @@ function imgidclick(imgID,divID)
 
 	<?php  } ?>
 	<?php   if ( has_rights (ACX_CALLBACK) ){ 	?>
-		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick('img12','div12');"><img id="img12" src="../Images/plus.gif" onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> <strong><?= _("SIGNUP");?></strong></a></li>
+		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick('img12','div12');"><img id="img12" src="../Images/plus.gif" onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> <strong><?= _("CALLBACK");?></strong></a></li>
 		<div id="div12" style="display:none;">
 		<ul>
 			<li><a href="A2B_entity_callback.php"><?= _("Show Callbacks");?></a></li>
@@ -242,7 +242,7 @@ function imgidclick(imgID,divID)
 	
 	
 	<?php   if ( has_rights (ACX_MISC) ){ 	?>
-		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick('img13','div13');"><img id="img13" src="../Images/plus.gif" onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> <strong><?= _("SIGNUP");?></strong></a></li>
+		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick('img13','div13');"><img id="img13" src="../Images/plus.gif" onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> <strong><?= _("MISC");?></strong></a></li>
 		<div id="div13" style="display:none;">
 		<ul>
 			<li><a href="A2B_entity_mailtemplate.php"><?= _("Show mail template");?></a></li>
