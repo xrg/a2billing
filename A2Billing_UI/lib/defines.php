@@ -238,8 +238,8 @@ function send_email_attachment($emailfrom, $emailto, $emailsubject, $emailmessag
 	return $ok;
 }
 
-define ("WEBUI_DATE", 'Release : May 2007');	 
-define ("WEBUI_VERSION", 'Asterisk2Billing - Version 1.3 - Beta (Yellowjacket)');
+define ("WEBUI_DATE", 'Release : May 2007');
+define ("WEBUI_VERSION", 'Asterisk2Billing - Version 1.3xrg - (Break-the-world)');
 
 //Enable Disable Captcha
 define ("CAPTCHA_ENABLE", isset($A2B->config["signup"]['enable_captcha'])?$A2B->config["signup"]['enable_captcha']:0);
