@@ -269,6 +269,8 @@ class A2Billing {
 		
 		//Card Number Length Code
 		$card_length_range = isset($this->config['global']['interval_len_cardnumber'])?$this->config['global']['interval_len_cardnumber']:null;
+		if ($card_length_range == NULL)
+			$card_length_range='10-15';
 		$this -> cardnumber_range = $this -> splitable_data ($card_length_range);
 		
 		if(is_array($this -> cardnumber_range) && ($this -> cardnumber_range[0] >= 4))

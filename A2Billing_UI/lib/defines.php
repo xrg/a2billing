@@ -6,7 +6,7 @@ include (dirname(__FILE__)."/Class.Table.php");
 $A2B = new A2Billing();
 
 // SELECT THE FILES TO LOAD THE CONFIGURATION
-	$A2B -> load_conf($agi, AST_CONFIG_DIR."a2billing.conf", 1);
+$A2B -> load_conf($agi, AST_CONFIG_DIR."a2billing.conf", 1);
 
 
 // DEFINE FOR THE DATABASE CONNECTION
@@ -70,8 +70,8 @@ define ("MYSQL", isset($A2B->config['backup']['mysql'])?$A2B->config['backup']['
 define ("PSQL", isset($A2B->config['backup']['psql'])?$A2B->config['backup']['psql']:null);
 
     //Images Path
-    define ("Images_Path","./images");
-    define ("Images_Path_Main","../Images");
+define ("Images_Path","./images");
+define ("Images_Path_Main","../Images");
 // SIP IAX FRIEND CREATION
 define ("FRIEND_TYPE", isset($A2B->config['peer_friend']['type'])?$A2B->config['peer_friend']['type']:null);
 define ("FRIEND_ALLOW", isset($A2B->config['peer_friend']['allow'])?$A2B->config['peer_friend']['allow']:null);
@@ -84,8 +84,7 @@ define ("FRIEND_DTMFMODE", isset($A2B->config['peer_friend']['dtmfmode'])?$A2B->
 
 // INCLUDE FILES
 define ("FSROOT", substr(dirname(__FILE__),0,-3));
-	define ("LIBDIR", FSROOT."lib/");
-	include (FSROOT."lib/help.php");
+define ("LIBDIR", FSROOT."lib/");
 include (FSROOT."lib/Misc.php");
 
 
@@ -154,49 +153,49 @@ function DbDisconnect($DBHandle)
 }
 
 
-	function get_languages() {
-	// *-*
-		$language_list = array();
-		$language_list["0"] = array( _("English"), "en");
-		$language_list["1"] = array( _("Spanish"), "es");
-		$language_list["2"] = array( _("French"),  "fr");
-		return $language_list;
+function get_languages() {
+// *-*
+	$language_list = array();
+	$language_list["0"] = array( _("English"), "en");
+	$language_list["1"] = array( _("Spanish"), "es");
+	$language_list["2"] = array( _("French"),  "fr");
+	return $language_list;
+}
+
+function get_languages_r(&$langs) {
+	if (is_array($langs)){
+		$num=count($langs);
+		for ($i=0;$i<$num;$i++)
+			$ret_list[$i]=array($langs[$i][1], $langs[$i][0]);
 	}
-	
-	function get_languages_r(&$langs) {
-		if (is_array($langs)){
-			$num=count($langs);
-			for ($i=0;$i<$num;$i++)
-				$ret_list[$i]=array($langs[$i][1], $langs[$i][0]);
-		}
-		return $ret_list;
-	}
+	return $ret_list;
+}
 
 
 /** @param $typ a string describing the charge type. It can be in the form "3|4|5" so
 	that multiple sides can be selected.
 */
-	function get_chargetypes($typ = '3')
-	{
-		$handle = DbConnect();
-		$it = new Table();
-		$sides= explode('|',$typ);
-		foreach ($sides as $s)
-			$sides_c[] = "side = " . trim($s);
-		$sides_clause = implode (" OR ", $sides_c);
-		$QUERY =  "SELECT id, gettexti(id,'". getenv('LANG')."'), charge FROM cc_paytypes WHERE $sides_clause ORDER BY id";
-		// $it->debug_st =1;
-		$result = $it -> SQLExec ($handle, $QUERY);
-		
-		if (is_array($result)){
-			$num = count($result);
-			for ($i=0;$i<$num;$i++)
-				$charges_list[$result[$i][0]] = array (1 => $result[$i][0], 
-					0 => $result[$i][1], 2 => $result[$i][2]);
-		}
-		
-		return $charges_list;
+function get_chargetypes($typ = '3')
+{
+	$handle = DbConnect();
+	$it = new Table();
+	$sides= explode('|',$typ);
+	foreach ($sides as $s)
+		$sides_c[] = "side = " . trim($s);
+	$sides_clause = implode (" OR ", $sides_c);
+	$QUERY =  "SELECT id, gettexti(id,'". getenv('LANG')."'), charge FROM cc_paytypes WHERE $sides_clause ORDER BY id";
+	// $it->debug_st =1;
+	$result = $it -> SQLExec ($handle, $QUERY);
+	
+	if (is_array($result)){
+		$num = count($result);
+		for ($i=0;$i<$num;$i++)
+			$charges_list[$result[$i][0]] = array (1 => $result[$i][0], 
+				0 => $result[$i][1], 2 => $result[$i][2]);
 	}
+	
+	return $charges_list;
+}
 
 function send_email_attachment($emailfrom, $emailto, $emailsubject, $emailmessage,$attachmentfilename, $emailfilestream )
 {
@@ -211,25 +210,25 @@ function send_email_attachment($emailfrom, $emailto, $emailsubject, $emailmessag
 	$mime_boundary = "==Multipart_Boundary_x{$semi_rand}x"; 
 	   
 	$headers .= "\nMIME-Version: 1.0\n" . 
-				"Content-Type: multipart/mixed;\n" . 
-				" boundary=\"{$mime_boundary}\""; 
+			"Content-Type: multipart/mixed;\n" . 
+			" boundary=\"{$mime_boundary}\""; 
 	
 	$email_message .= "This is a multi-part message in MIME format.\n\n" . 
-					"--{$mime_boundary}\n" . 
-					"Content-Type:text/html; charset=\"iso-8859-1\"\n" . 
-					"Content-Transfer-Encoding: 7bit\n\n" . 
+			"--{$mime_boundary}\n" . 
+			"Content-Type:text/html; charset=\"iso-8859-1\"\n" . 
+			"Content-Transfer-Encoding: 7bit\n\n" . 
 	$email_message . "\n\n"; 
 	
-	$fileatt = "";           
+	$fileatt = "";
 	$fileatt_type = "application/octet-stream"; 
 	$fileatt_name = $attachmentfilename;  
 	$stream = chunk_split(base64_encode($emailfilestream)); 
 	$email_message .= "--{$mime_boundary}\n" . 
-					  "Content-Type: {$fileatt_type};\n" . 
-					  " name=\"{$fileatt_name}\"\n" .                 
-					  "Content-Transfer-Encoding: base64\n\n" . 
-					 $stream . "\n\n" . 
-					  "--{$mime_boundary}\n"; 
+		"Content-Type: {$fileatt_type};\n" .
+		" name=\"{$fileatt_name}\"\n" .
+		"Content-Transfer-Encoding: base64\n\n" . 
+		$stream . "\n\n" . 
+		"--{$mime_boundary}\n"; 
 	unset($stream);
 	unset($file);
 	unset($fileatt);
@@ -239,17 +238,11 @@ function send_email_attachment($emailfrom, $emailto, $emailsubject, $emailmessag
 	return $ok;
 }
 
-if(isset($cssname) && $cssname != "")
-{
-	$_SESSION["stylefile"] = $cssname;		
-}
-
 define ("WEBUI_DATE", 'Release : May 2007');	 
 define ("WEBUI_VERSION", 'Asterisk2Billing - Version 1.3 - Beta (Yellowjacket)');
 
 //Enable Disable Captcha
 define ("CAPTCHA_ENABLE", isset($A2B->config["signup"]['enable_captcha'])?$A2B->config["signup"]['enable_captcha']:0);
-
 
 
 include (FSROOT."lib/help.php");

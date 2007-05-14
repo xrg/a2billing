@@ -2,7 +2,7 @@
 	include (dirname(__FILE__)."/../lib/company_info.php");
 	
 	define ("WEBUI_DATE", 'Release : 13 August 2006');
-	define ("WEBUI_VERSION", 'Asterisk2Billing - Version 1.2.3 (BrainCoral) - ');	
+	define ("WEBUI_VERSION", 'Asterisk2Billing - Version 1.2.3 (BrainCoral) - ');
 ?>
 <html><head>
 <title>..:: <?php echo CCMAINTITLE; ?> ::..</title>
@@ -75,3 +75,5 @@ function imgidclick(imgID,divID, imgbase, imgchange)
 	<?php include("PP_menu.php");?>
 </div>
 <div class="divright">
+
+<?php } ?>
