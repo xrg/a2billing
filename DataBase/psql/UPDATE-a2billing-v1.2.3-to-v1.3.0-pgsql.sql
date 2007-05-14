@@ -834,74 +834,69 @@ ALTER TABLE ONLY cc_payments
 
 
 CREATE TABLE cc_payments_status (
-  id                    BIGSERIAL NOT NULL,
-  status_id             INTEGER NOT NULL,
-  status_name           CHARACTERVARYING(200) NOT NULL
+  id       INTEGER NOT NULL PRIMARY KEY,
+  name     VARCHAR(200) NOT NULL
 );
-ALTER TABLE ONLY cc_payments_status
-    ADD CONSTRAINT cc_payments_status_pkey PRIMARY KEY (id);
+-- ALTER TABLE ONLY cc_payments_status
+--     ADD CONSTRAINT cc_payments_status_pkey PRIMARY KEY (id);
 
 
-INSERT INTO cc_payments_status (status_id,status_name) VALUES (-2, 'Failed');
-INSERT INTO cc_payments_status (status_id,status_name) VALUES (-1, 'Denied');
-INSERT INTO cc_payments_status (status_id,status_name) VALUES (0, 'Pending');
-INSERT INTO cc_payments_status (status_id,status_name) VALUES (1, 'In-Progress');
-INSERT INTO cc_payments_status (status_id,status_name) VALUES (2, 'Completed');
-INSERT INTO cc_payments_status (status_id,status_name) VALUES (3, 'Processed');
-INSERT INTO cc_payments_status (status_id,status_name) VALUES (4, 'Refunded');
-INSERT INTO cc_payments_status (status_id,status_name) VALUES (5, 'Unknown');
+INSERT INTO cc_payments_status (id,name) VALUES (-2, 'Failed');
+INSERT INTO cc_payments_status (id,name) VALUES (-1, 'Denied');
+INSERT INTO cc_payments_status (id,name) VALUES (0, 'Pending');
+INSERT INTO cc_payments_status (id,name) VALUES (1, 'In-Progress');
+INSERT INTO cc_payments_status (id,name) VALUES (2, 'Completed');
+INSERT INTO cc_payments_status (id,name) VALUES (3, 'Processed');
+INSERT INTO cc_payments_status (id,name) VALUES (4, 'Refunded');
+INSERT INTO cc_payments_status (id,name) VALUES (5, 'Unknown');
 
 CREATE TABLE cc_configuration (
-  configuration_id 		BIGSERIAL NOT NULL,
-  configuration_title 		CHARACTERVARYING(64) NOT NULL,
-  configuration_key 		CHARACTERVARYING(64) NOT NULL,
-  configuration_value 		CHARACTERVARYING(255) NOT NULL,
-  configuration_description	CHARACTERVARYING(255) NOT NULL,
-  configuration_type 		INTEGER NOT NULL DEFAULT 0,
-  use_function 						CHARACTERVARYING(255) NULL,
-  set_function 						CHARACTERVARYING(255) NULL
+  cid           BIGSERIAL NOT NULL PRIMARY KEY,
+  ctitle        VARCHAR(64) NOT NULL,
+  ckey          VARCHAR(64) NOT NULL,
+  cvalue        VARCHAR(255) NOT NULL,
+  cdescription  VARCHAR(255) NOT NULL,
+  ctype         INTEGER NOT NULL DEFAULT 0,
+  use_function  VARCHAR(255) NULL,
+  set_function  VARCHAR(255) NULL
 
 );
-ALTER TABLE ONLY cc_configuration
-ADD CONSTRAINT cc_configuration_id_pkey PRIMARY KEY (configuration_id);
 
 
-INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description) VALUES ('Login Username', 'MODULE_PAYMENT_AUTHORIZENET_LOGIN', 'testing', 'The login username used for the Authorize.net service');
-INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description) VALUES ('Transaction Key', 'MODULE_PAYMENT_AUTHORIZENET_TXNKEY', 'Test', 'Transaction Key used for encrypting TP data');
-INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) VALUES ('Transaction Mode', 'MODULE_PAYMENT_AUTHORIZENET_TESTMODE', 'Test', 'Transaction mode used for processing orders', 'tep_cfg_select_option(array(\'Test\', \'Production\'), ');
-INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) VALUES ('Transaction Method', 'MODULE_PAYMENT_AUTHORIZENET_METHOD', 'Credit Card', 'Transaction method used for processing orders', 'tep_cfg_select_option(array(\'Credit Card\', \'eCheck\'), ');
-INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) VALUES ('Customer Notifications', 'MODULE_PAYMENT_AUTHORIZENET_EMAIL_CUSTOMER', 'False', 'Should Authorize.Net e-mail a receipt to the customer?', 'tep_cfg_select_option(array(\'True\', \'False\'), ');
-INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) VALUES ('Enable Authorize.net Module', 'MODULE_PAYMENT_AUTHORIZENET_STATUS', 'True', 'Do you want to accept Authorize.net payments?', 'tep_cfg_select_option(array(\'True\', \'False\'), ');
+INSERT INTO cc_configuration (ctitle, ckey, cvalue, cdescription) VALUES ('Login Username', 'MODULE_PAYMENT_AUTHORIZENET_LOGIN', 'testing', 'The login username used for the Authorize.net service');
+INSERT INTO cc_configuration (ctitle, ckey, cvalue, cdescription) VALUES ('Transaction Key', 'MODULE_PAYMENT_AUTHORIZENET_TXNKEY', 'Test', 'Transaction Key used for encrypting TP data');
+INSERT INTO cc_configuration (ctitle, ckey, cvalue, cdescription, set_function) VALUES ('Transaction Mode', 'MODULE_PAYMENT_AUTHORIZENET_TESTMODE', 'Test', 'Transaction mode used for processing orders', 'tep_cfg_select_option(array(\'Test\', \'Production\'), ');
+INSERT INTO cc_configuration (ctitle, ckey, cvalue, cdescription, set_function) VALUES ('Transaction Method', 'MODULE_PAYMENT_AUTHORIZENET_METHOD', 'Credit Card', 'Transaction method used for processing orders', 'tep_cfg_select_option(array(\'Credit Card\', \'eCheck\'), ');
+INSERT INTO cc_configuration (ctitle, ckey, cvalue, cdescription, set_function) VALUES ('Customer Notifications', 'MODULE_PAYMENT_AUTHORIZENET_EMAIL_CUSTOMER', 'False', 'Should Authorize.Net e-mail a receipt to the customer?', 'tep_cfg_select_option(array(\'True\', \'False\'), ');
+INSERT INTO cc_configuration (ctitle, ckey, cvalue, cdescription, set_function) VALUES ('Enable Authorize.net Module', 'MODULE_PAYMENT_AUTHORIZENET_STATUS', 'True', 'Do you want to accept Authorize.net payments?', 'tep_cfg_select_option(array(\'True\', \'False\'), ');
 
-INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) VALUES ('Enable PayPal Module', 'MODULE_PAYMENT_PAYPAL_STATUS', 'True', 'Do you want to accept PayPal payments?','tep_cfg_select_option(array(\'True\', \'False\'), ');
-INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description) VALUES ('E-Mail Address', 'MODULE_PAYMENT_PAYPAL_ID', 'you@yourbusiness.com', 'The e-mail address to use for the PayPal service');
-INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) VALUES ('Transaction Currency', 'MODULE_PAYMENT_PAYPAL_CURRENCY', 'Selected Currency', 'The currency to use for credit card transactions', 'tep_cfg_select_option(array(\'Selected Currency\',\'USD\',\'CAD\',\'EUR\',\'GBP\',\'JPY\'), ');
+INSERT INTO cc_configuration (ctitle, ckey, cvalue, cdescription, set_function) VALUES ('Enable PayPal Module', 'MODULE_PAYMENT_PAYPAL_STATUS', 'True', 'Do you want to accept PayPal payments?','tep_cfg_select_option(array(\'True\', \'False\'), ');
+INSERT INTO cc_configuration (ctitle, ckey, cvalue, cdescription) VALUES ('E-Mail Address', 'MODULE_PAYMENT_PAYPAL_ID', 'you@yourbusiness.com', 'The e-mail address to use for the PayPal service');
+INSERT INTO cc_configuration (ctitle, ckey, cvalue, cdescription, set_function) VALUES ('Transaction Currency', 'MODULE_PAYMENT_PAYPAL_CURRENCY', 'Selected Currency', 'The currency to use for credit card transactions', 'tep_cfg_select_option(array(\'Selected Currency\',\'USD\',\'CAD\',\'EUR\',\'GBP\',\'JPY\'), ');
 
-INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description) VALUES ('E-Mail Address', 'MODULE_PAYMENT_MONEYBOOKERS_ID', 'you@yourbusiness.com', 'The eMail address to use for the moneybookers service');
-INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description) VALUES ('Referral ID', 'MODULE_PAYMENT_MONEYBOOKERS_REFID', '989999', 'Your personal Referral ID from moneybookers.com');
-INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) VALUES ('Transaction Currency', 'MODULE_PAYMENT_MONEYBOOKERS_CURRENCY', 'Selected Currency', 'The default currency for the payment transactions', 'tep_cfg_select_option(array(\'Selected Currency\',\'EUR\', \'USD\', \'GBP\', \'HKD\', \'SGD\', \'JPY\', \'CAD\', \'AUD\', \'CHF\', \'DKK\', \'SEK\', \'NOK\', \'ILS\', \'MYR\', \'NZD\', \'TWD\', \'THB\', \'CZK\', \'HUF\', \'SKK\', \'ISK\', \'INR\'), ');
-INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) VALUES ('Transaction Language', 'MODULE_PAYMENT_MONEYBOOKERS_LANGUAGE', 'Selected Language', 'The default language for the payment transactions', 'tep_cfg_select_option(array(\'Selected Language\',\'EN\', \'DE\', \'ES\', \'FR\'), ');
-INSERT INTO cc_configuration (configuration_title, configuration_key, configuration_value, configuration_description, set_function) VALUES ('Enable moneybookers Module', 'MODULE_PAYMENT_MONEYBOOKERS_STATUS', 'True', 'Do you want to accept moneybookers payments?','tep_cfg_select_option(array(\'True\', \'False\'), ');
+INSERT INTO cc_configuration (ctitle, ckey, cvalue, cdescription) VALUES ('E-Mail Address', 'MODULE_PAYMENT_MONEYBOOKERS_ID', 'you@yourbusiness.com', 'The eMail address to use for the moneybookers service');
+INSERT INTO cc_configuration (ctitle, ckey, cvalue, cdescription) VALUES ('Referral ID', 'MODULE_PAYMENT_MONEYBOOKERS_REFID', '989999', 'Your personal Referral ID from moneybookers.com');
+INSERT INTO cc_configuration (ctitle, ckey, cvalue, cdescription, set_function) VALUES ('Transaction Currency', 'MODULE_PAYMENT_MONEYBOOKERS_CURRENCY', 'Selected Currency', 'The default currency for the payment transactions', 'tep_cfg_select_option(array(\'Selected Currency\',\'EUR\', \'USD\', \'GBP\', \'HKD\', \'SGD\', \'JPY\', \'CAD\', \'AUD\', \'CHF\', \'DKK\', \'SEK\', \'NOK\', \'ILS\', \'MYR\', \'NZD\', \'TWD\', \'THB\', \'CZK\', \'HUF\', \'SKK\', \'ISK\', \'INR\'), ');
+INSERT INTO cc_configuration (ctitle, ckey, cvalue, cdescription, set_function) VALUES ('Transaction Language', 'MODULE_PAYMENT_MONEYBOOKERS_LANGUAGE', 'Selected Language', 'The default language for the payment transactions', 'tep_cfg_select_option(array(\'Selected Language\',\'EN\', \'DE\', \'ES\', \'FR\'), ');
+INSERT INTO cc_configuration (ctitle, ckey, cvalue, cdescription, set_function) VALUES ('Enable moneybookers Module', 'MODULE_PAYMENT_MONEYBOOKERS_STATUS', 'True', 'Do you want to accept moneybookers payments?','tep_cfg_select_option(array(\'True\', \'False\'), ');
 
 
 
 ALTER TABLE cc_card ADD COLUMN id_subscription_fee INTEGER DEFAULT 0, ADD COLUMN mac_addr VARCHAR(17) DEFAULT '00-00-00-00-00-00' NOT NULL;
 
-UPDATE cc_ui_authen SET perms = '32767' WHERE userid = '1';
-UPDATE cc_ui_authen SET perms = '32767' WHERE userid = '2';
+UPDATE cc_ui_authen SET perms = '65535' WHERE userid = '1';
+UPDATE cc_ui_authen SET perms = '65535' WHERE userid = '2';
 ALTER TABLE cc_invoices ADD COLUMN payment_date TIMESTAMP WITHOUT TIME ZONE;
 ALTER TABLE cc_invoices ADD COLUMN payment_status INTEGER DEFAULT 0;
 CREATE TABLE cc_epayment_log (
-    id 				BIGSERIAL NOT NULL,
-    cardid 			INTEGER NOT NULL DEFAULT 0,	
-	amount 			DOUBLE PRECISION NOT NULL DEFAULT 0,
-	vat 			DOUBLE PRECISION NOT NULL DEFAULT 0,
-	paymentmethod	CHARACTER VARYING(255) NOT NULL,
-    cc_owner 		CHARACTER VARYING(255) NOT NULL,
-    cc_number 		CHARACTER VARYING(255) NOT NULL,
-    cc_expires 		CHARACTER VARYING(255) NOT NULL,    
-    creationdate 	TIMESTAMP(0) without time zone DEFAULT NOW(),
-    status 			INTEGER NOT NULL DEFAULT 0
+    id                  BIGSERIAL NOT NULL PRIMARY KEY,
+    cardid              INTEGER NOT NULL DEFAULT 0,     
+    amount              DOUBLE PRECISION NOT NULL DEFAULT 0,
+    vat                 DOUBLE PRECISION NOT NULL DEFAULT 0,
+    paymentmethod       CHARACTER VARYING(255) NOT NULL,
+    cc_owner            CHARACTER VARYING(255) NOT NULL,
+    cc_number           CHARACTER VARYING(255) NOT NULL,
+    cc_expires          CHARACTER VARYING(255) NOT NULL,
+    creationdate        TIMESTAMP(0) without time zone DEFAULT NOW(),
+    status                      INTEGER NOT NULL DEFAULT 0
 );
-ALTER TABLE ONLY cc_epayment_log
-ADD CONSTRAINT cc_epayment_log_pkey PRIMARY KEY (id);
