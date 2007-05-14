@@ -201,7 +201,8 @@ $Temps = $Temps2 - $Temps1;
 //echo "<br>Script Time :".$Temps."<br>";
 
 
-$smarty->display('main.tpl');
+include('PP_header.php'); // *-*
+?>
 
 <html>
 <head>
@@ -245,7 +246,7 @@ function sendtoupload(form){
 </script>
 
 <?php
-	include("PP_header.php");
+	//include("PP_header.php");
 ?>
 
 	  <?php

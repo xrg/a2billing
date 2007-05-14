@@ -2,12 +2,11 @@
 include ("../lib/defines.php");
 include ("../lib/module.access.php");
 include ("../lib/Form/Class.FormHandler.inc.php");
-include ("../lib/smarty.php");
 
 if (! has_rights (ACX_INVOICING)){ 
 	Header ("HTTP/1.0 401 Unauthorized");
-	Header ("Location: PP_error.php?c=accessdenied");	   
-	die();	   
+	Header ("Location: PP_error.php?c=accessdenied");
+	die();
 }
 
 getpost_ifset(array('customer', 'posted', 'Period', 'cardid','exporttype','choose_billperiod','id','invoice_type','payment_status'));
@@ -335,7 +334,7 @@ $payment_status_list["3"] = array( gettext("PAID"),  "3");
 ?>
 
 <?php
-$smarty->display( 'main.tpl');
+include('PP_header.php');
 
 ?>
 <?php 
@@ -798,5 +797,5 @@ if (is_array($list_total_destination) && count($list_total_destination)>0){
     </table>
 <?php
 
-$smarty->display( 'footer.tpl');
+include('PP_footer.php');
 ?>

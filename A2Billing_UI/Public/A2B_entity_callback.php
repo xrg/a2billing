@@ -34,10 +34,10 @@ $list = $HD_Form -> perform_action($form_action);
 
 
 // #### HEADER SECTION
-$smarty->display('main.tpl');
+include('PP_header.php');
 
 // #### HELP SECTION
-echo $CC_help_callback;
+show_help('callback');
 ?>
 
 
@@ -54,8 +54,6 @@ if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
 $HD_Form -> create_form ($form_action, $list, $id=null) ;
 
 // #### FOOTER SECTION
-$smarty->display('footer.tpl');
-
-
+include('PP_footer.php');
 
 ?>

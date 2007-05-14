@@ -1,13 +1,11 @@
 <?php
 include ("../lib/defines.php");
 include ("../lib/module.access.php");
-include ("../lib/smarty.php");
-
 
 if (! has_rights (ACX_PACKAGEOFFER)){ 
 	   Header ("HTTP/1.0 401 Unauthorized");
 	   Header ("Location: PP_error.php?c=accessdenied");	   
-	   die();	   
+	   die();
 }
 
 getpost_ifset(array('customer', 'enter_cardid', 'enter_packageid', 'posted', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth', 'tostatsmonth', 'fromday', 'fromstatsday_sday', 'fromstatsmonth_sday', 'today', 'tostatsday_sday', 'tostatsmonth_sday', 'stitle', 'atmenu', 'current_page', 'order', 'sens'));
@@ -295,7 +293,7 @@ $nb_package = count($list_package);
 
 ?>
 <?php
-	$smarty->display('main.tpl');
+	include('PP_header.php');
 ?>
 <script language="JavaScript" type="text/JavaScript">
 <!--
@@ -781,5 +779,5 @@ foreach ($list_total_day as $data){
 </center>
 
 <?php
-	$smarty->display('footer.tpl');
+	include('PP_footer.tpl');
 ?>

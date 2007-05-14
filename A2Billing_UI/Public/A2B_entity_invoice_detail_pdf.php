@@ -2,13 +2,12 @@
 include ("../lib/defines.php");
 include ("../lib/module.access.php");
 include ("../lib/Form/Class.FormHandler.inc.php");
-include ("../lib/smarty.php");
 include ("../lib/invoice.php");
 
 if (! has_rights (ACX_INVOICING)){ 
 	Header ("HTTP/1.0 401 Unauthorized");
-	Header ("Location: PP_error.php?c=accessdenied");	   
-	die();	   
+	Header ("Location: PP_error.php?c=accessdenied");
+	die();
 }
 
 getpost_ifset(array('customer', 'posted', 'Period', 'cardid','exporttype','choose_billperiod','id','invoice_type'));
@@ -49,7 +48,7 @@ else
 }
 
 
-$smarty->display('main.tpl');
+include('PP_header.php');
 if($ok) 
 { 
 ?>
@@ -99,7 +98,7 @@ else
 <?php
 	
 } 
-$smarty->display('footer.tpl');
+include('PP_footer.tpl');
  
 
 ?>

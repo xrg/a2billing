@@ -7,8 +7,8 @@ include ("./form_data/FG_var_invoices.inc.php");
 
 if (! has_rights (ACX_INVOICING)){ 
 	Header ("HTTP/1.0 401 Unauthorized");
-	Header ("Location: PP_error.php?c=accessdenied");	   
-	die();	   
+	Header ("Location: PP_error.php?c=accessdenied");
+	die();
 }
 
 
@@ -36,10 +36,10 @@ $list = $HD_Form -> perform_action($form_action);
 
 
 // #### HEADER SECTION
-$smarty->display('main.tpl');
+include('PP_header.php');
 
 // #### HELP SECTION
-echo $CC_help_money_situation;
+show_help('money_situation');
 
 
 
@@ -53,4 +53,5 @@ if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
 
 $HD_Form -> create_form ($form_action, $list, $id=null) ;
 
+include('PP_footer.php');
 ?>

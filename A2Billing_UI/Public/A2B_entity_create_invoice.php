@@ -214,7 +214,7 @@ if (!isset($action)) $action = $form_action;
 
 $list = $HD_Form -> perform_action($form_action);
 
-$smarty->display('main.tpl');
+include('PP_header.php');
 
 // #### TOP SECTION PAGE
 $HD_Form -> create_toppage ($form_action);
@@ -225,7 +225,7 @@ $HD_Form -> create_toppage ($form_action);
 if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
 
 // #### HELP SECTION
-echo $CC_help_money_situation;
+show_help('money_situation');
 
 ?>
 <br>
@@ -267,5 +267,5 @@ echo $CC_help_money_situation;
 
 <br>
 <?php
-$smarty->display('footer.tpl');
+include('PP_footer.php');
 ?>

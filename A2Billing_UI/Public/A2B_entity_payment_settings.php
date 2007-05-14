@@ -2,7 +2,6 @@
 include ("../lib/defines.php");
 include ("../lib/module.access.php");
 include ("../lib/Form/Class.FormHandler.inc.php");
-include ("../lib/smarty.php");
 include ("../lib/epayment/classes/payment.php");
 include ("../lib/epayment/classes/objectinfo.php");
 include ("../lib/epayment/classes/table_block.php");
@@ -110,10 +109,7 @@ $contents = array('form' => tep_draw_form('modules', "A2B_entity_payment_setting
 $contents[] = array('text' => $keys);
 $contents[] = array('align' => 'center', 'text' => '<br><input type=submit name=submitbutton value=Update class=form_input_button> <a href="A2B_entity_payment_configuration.php?atmenu=payment"><input type="button" name="cancelbutton" value="Cancel" class="form_input_button"></a>');
 
-// #### HEADER SECTION
-$smarty->display('main.tpl');
-
-echo $CC_help_payment_config;
+show_help('payment_config');
 
 ?>
 
@@ -143,6 +139,6 @@ echo $CC_help_payment_config;
 <?
 
 // #### FOOTER SECTION
-$smarty->display('footer.tpl');
+include('PP_footer.php');
 
 ?>

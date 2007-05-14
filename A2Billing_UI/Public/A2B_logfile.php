@@ -6,14 +6,15 @@ include ("../lib/Form/Class.FormHandler.inc.php");
 
 if (! has_rights (ACX_RATECARD)){ 
 	   Header ("HTTP/1.0 401 Unauthorized");
-	   Header ("Location: PP_error.php?c=accessdenied");	   
-	   die();	   
+	   Header ("Location: PP_error.php?c=accessdenied");
+	   die();
 }
 
 getpost_ifset(array('nb', 'view_log', 'filter'));
 
+include ('PP_header.php');
 // #### HELP SECTION
-echo $CC_help_logfile;
+show_help('logfile');
 ?>
 <br>
 
@@ -115,6 +116,6 @@ if(isset($_GET['view_log']))
 
 
 // #### FOOTER SECTION
-$smarty->display('footer.tpl');
+include('PP_footer.php');
 
 ?>

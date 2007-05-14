@@ -32,10 +32,13 @@ if (!isset($action)) $action = $form_action;
 
 $list = $HD_Form -> perform_action($form_action);
 
+include('PP_header.php');
 
 // #### HELP SECTION
-if ($form_action=='list') echo $CC_help_list_cid;
-else echo $CC_help_edit_cid;
+if ($form_action=='list')
+	show_help('list_cid');
+else
+	show_help('edit_cid');
 
 
 // #### TOP SECTION PAGE
@@ -49,7 +52,7 @@ if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
 $HD_Form -> create_form ($form_action, $list, $id=null) ;
 
 // #### FOOTER SECTION
-$smarty->display('footer.tpl');
+include('PP_footer.php');
 
 
 

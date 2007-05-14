@@ -142,7 +142,7 @@ function sendValue(selvalue){
 
 // #### HELP SECTION
 if ($form_action=='list' && !($popup_select>=1)){
-echo $CC_help_list_customer;
+show_help('list customer');
 
 ?>
 <script language="JavaScript" src="javascript/card.js"></script>
@@ -151,7 +151,7 @@ echo $CC_help_list_customer;
 
 
 <div class="toggle_hide2show">
-<center><a href="#" target="_self"><img class="toggle_hide2show" src="<?php echo KICON_PATH; ?>/toggle_hide2show.png" onmouseover="this.style.cursor='hand';" HEIGHT="16"> <font class="fontstyle_002"><?php echo gettext("REFILL");?> </font></a></center>
+<center><a href="#" target="_self"><img class="toggle_hide2show" src="../Css/kicons/toggle_hide2show.png" onmouseover="this.style.cursor='hand';" HEIGHT="16"> <font class="fontstyle_002"><?php echo gettext("REFILL");?> </font></a></center>
 	<div class="tohide" style="display:none;">
 	   <table width="90%" border="0" align="center">
         <tr><form NAME="theForm">

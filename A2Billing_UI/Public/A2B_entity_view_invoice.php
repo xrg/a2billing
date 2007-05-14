@@ -4,12 +4,11 @@ include ("../lib/defines.php");
 include ("../lib/module.access.php");
 include ("../lib/Form/Class.FormHandler.inc.php");
 include ("./form_data/FG_var_view_invoice.inc");
-include ("../lib/smarty.php");
 
 if (! has_rights (ACX_INVOICING)){ 
 	Header ("HTTP/1.0 401 Unauthorized");
-	Header ("Location: PP_error.php?c=accessdenied");	   
-	die();	   
+	Header ("Location: PP_error.php?c=accessdenied");
+	die();
 }
 
 
@@ -35,10 +34,10 @@ $list = $HD_Form -> perform_action($form_action);
 
 
 // #### HEADER SECTION
-$smarty->display('main.tpl');
+include('PP_header.php');
 
 // #### HELP SECTION
-echo $CC_help_money_situation;
+show_help('money_situation');
 
 
 
@@ -170,4 +169,5 @@ function Check()
 
 $HD_Form -> create_form ($form_action, $list, $id=null) ;
 
+include('PP_footer.php');
 ?>

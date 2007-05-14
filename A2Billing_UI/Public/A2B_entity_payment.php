@@ -9,8 +9,8 @@ include ("./form_data/FG_var_payment.inc");
 
 if (! has_rights (ACX_RATECARD)){ 
 	   Header ("HTTP/1.0 401 Unauthorized");
-	   Header ("Location: PP_error.php?c=accessdenied");	   
-	   die();	   
+	   Header ("Location: PP_error.php?c=accessdenied");
+	   die();
 }
 
 
@@ -40,7 +40,7 @@ $list = $HD_Form -> perform_action($form_action);
 include("PP_header.php");
 
 // #### HELP SECTION
-echo $CC_help_view_payment;
+show_help('view_payment');
 
 
 
@@ -56,8 +56,5 @@ $HD_Form -> create_form ($form_action, $list, $id=null) ;
 
 // #### FOOTER SECTION
 include("PP_footer.php");
-
-
-
 
 ?>

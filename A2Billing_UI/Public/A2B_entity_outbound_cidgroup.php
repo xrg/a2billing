@@ -35,10 +35,11 @@ $list = $HD_Form -> perform_action($form_action);
 
 
 // #### HEADER SECTION
+include('PP_footer.php');
 
 // #### HELP SECTION
-if ($form_action=='list') echo $CC_help_list_cidgroup;
-else echo $CC_help_edit_cidgroup;
+if ($form_action=='list') show_help('list_cidgroup');
+else show_help('edit_cidgroup');
 
 
 // #### TOP SECTION PAGE
@@ -52,7 +53,7 @@ if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
 $HD_Form -> create_form ($form_action, $list, $id=null);
 
 // #### FOOTER SECTION
-$smarty->display('footer.tpl');
+include('PP_footer.php');
 
 
 

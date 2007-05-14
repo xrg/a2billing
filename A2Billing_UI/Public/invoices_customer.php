@@ -1,13 +1,11 @@
 <?php
 include ("../lib/defines.php");
 include ("../lib/module.access.php");
-include ("../lib/smarty.php");
-
 
 if (! has_rights (ACX_INVOICING)){
 	   Header ("HTTP/1.0 401 Unauthorized");
-	   Header ("Location: PP_error.php?c=accessdenied");	   
-	   die();	   
+	   Header ("Location: PP_error.php?c=accessdenied");
+	   die();
 }
 
 session_start();
@@ -300,7 +298,7 @@ if ($entercustomer != "")
 
 $currencies_list = get_currencies();
 if($exporttype!="pdf"){
-	$smarty->display('main.tpl');
+	include('PP_header.php');
 ?>
 <script language="JavaScript" type="text/JavaScript">
 <!--
@@ -1166,10 +1164,9 @@ else
 
 <?php }?>
 
-<?php  if($exporttype!="pdf"){ ?>
+<?php  if($exporttype!="pdf"){
 
-<?php
-	$smarty->display('footer.tpl');
+	include('PP_footer.php');
 ?>
 
 <?php  }else{
@@ -1189,7 +1186,5 @@ else
 	$html = ob_get_contents();
 	
 	$pdf->Output('CC_invoice_'.date("d/m/Y-H:i").'.pdf', 'I');
-
-
 
 } ?>

@@ -5,12 +5,11 @@ include ("../lib/defines.php");
 include ("../lib/module.access.php");
 include ("../lib/Form/Class.FormHandler.inc.php");
 include ("./form_data/FG_var_transactions.inc");
-include ("../lib/smarty.php");
 
 if (! has_rights (ACX_BILLING)){ 
 	Header ("HTTP/1.0 401 Unauthorized");
-	Header ("Location: PP_error.php?c=accessdenied");	   
-	die();	   
+	Header ("Location: PP_error.php?c=accessdenied");
+	die();
 }
 
 /***********************************************************************************/
@@ -36,10 +35,10 @@ $list = $HD_Form -> perform_action($form_action);
 
 
 // #### HEADER SECTION
-$smarty->display('main.tpl');
+include('PP_header.php');
 
 // #### HELP SECTION
-echo $CC_help_transaction;
+show_help('transaction');
 
 
 // #### TOP SECTION PAGE
@@ -53,9 +52,6 @@ if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
 $HD_Form -> create_form ($form_action, $list, $id=null) ;
 
 // #### FOOTER SECTION
-$smarty->display('footer.tpl');
-
-
-
+include('PP_footer.php');
 
 ?>
