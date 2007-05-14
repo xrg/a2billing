@@ -30,6 +30,9 @@ $error["construction"] = gettext("Sorry, this page is in construction !");
 				<br/><br/>
 			</td>
 		</tr>
+		<tr><td>
+			<a href="index.php"><?= _("Click here to login again.") ?></a>
+		<td></tr>
 		</table>			
 	</td>
 	</tr>
