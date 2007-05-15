@@ -37,6 +37,8 @@ $smarty->display('main.tpl');
 // #### HELP SECTION
 echo $CC_help_list_payment_methods;
 
+// #### PAYMENT METHOD SECTION
+echo $PAYMENT_METHOD;
 
 // #### TOP SECTION PAGE
 $HD_Form -> create_toppage ($form_action);

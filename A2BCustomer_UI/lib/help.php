@@ -156,6 +156,24 @@ $CC_help_release_did ='
 </div></div></div>
 </div>';
 
+
+$PAYMENT_METHOD ='
+<table width="70%" align="center">
+	<tr>
+		<TD valign="top" align="center" class="tableBodyRight">
+			<a href="https://www.paypal.com/es/mrb/pal=PGSJEXAEXKTBU"><img src="'.KICON_PATH.'/paypal_logo.gif" alt="paypal"/></a> 
+			&nbsp;&nbsp; &nbsp; 
+			<a href="https://www.moneybookers.com/app/?rid=811621"><img src="'.KICON_PATH.'/moneybookers.gif" alt="moneybookers"/></a>
+			&nbsp;&nbsp; &nbsp;
+			<img src="'.KICON_PATH.'/authorize.gif" />
+		</td>
+	</tr>
+</table>';
+
+
+
+
+
 } //ENDIF SHOW_HELP
 
 ?>

@@ -111,9 +111,10 @@ $credit_cur = round($credit_cur,3);
 <table width="100%">
 <tr>
 <td valign=top align=center>
-<img src="<?php echo KICON_PATH ?>/paypal_logo.gif" /> &nbsp;&nbsp;
-<img  src="http://www.moneybookers.com/images/banners/88_en_mb.gif" width=88 height=31 border=0>&nbsp;&nbsp;
-<img src="<?php echo KICON_PATH ?>/authorize.gif" />
+
+<?php 
+echo $PAYMENT_METHOD;
+?>
 </td>
 </tr>
 <tr>
