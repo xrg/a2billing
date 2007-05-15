@@ -4,6 +4,84 @@
 						V1.2.4
 ********************************************************************
 
+## USE CC_COUNTRY TO SELECT THE COUNTRY : ON SIGNUP & EDIT CUSTOMER
+********************************************************************
+We will use cc_country table to select the country on signup module and also when 
+we edit customer info. The value store in cc_card->country will be the cc_country->countrycode
+
+
+#### BUG
+********************************************************************
+yes the authorize is always in USD as it s only for US peoples.
+So the amount received by Authorize is in USD, we need configure it convert from  
+USD -> base currency before making the insert.
+if the base currency is in EURO it wont work correctly now
+
+
+#### PROMOTE : CALL-LABS
+********************************************************************
+Promote : call-labs on a2billing trunk
+
+
+#### EPAYMENT : MULTI CURRENCY MANAGEMENT
+********************************************************************
+handle mc_currency with paypal & mb_currency with moneybookers
+in order to secure the currency of the transactions
+
+
+#### UPDATE : IMPORT MODULE
+********************************************************************
+When I import, I get a page which allows me to check the data is being
+imported properly. There is no way to accept that import without selecting 
+the csv files again. 
+
+
+#### BUGS
+********************************************************************
+1# One more thing - if the SIP/IAX friend is created via "Create SIP Friend" button, 
+then the defaults are not filled in, such as the context.
+
+2#
+IAX and SIP friends are not created correctly when created from the customer signup page. My understanding is that the account number and CID should be the same as the account number and card alias - this is the ony way it seems to work, otherwise the call is rejected.
+
+
+#### FEATURES : EDIT SOME CUSTOMER INFORMATION ON CUSTOMERUI
+********************************************************************
+A2BCustomer_UI/userinfo.php
+add a button below "Country" -> "edit my personal informations"
+we should be able to edit some of the data, not all, base on our framework.
+Ensure that customer cannot edit an other cardid
+
+#### CONSOLIDATE THE GETTEXT FILES
+********************************************************************
+Consolidate the gettext files for customer and admin interface
+regenerate all PO & MO files
+
+#### ADD referial ID : Admin & customer (conf)
+********************************************************************
+https://www.moneybookers.com/app/?rid=811621
+https://www.paypal.com/es/mrb/pal=PGSJEXAEXKTBU
+
+
+#### BUG
+********************************************************************
+http://forum.asterisk2billing.org/viewtopic.php?t=1927
+
+
+#### FEATURE CUSTOMER UI : SIP/IAX INFO & partial edit
+********************************************************************
+What about link under account Info.
+ 
+VoIP settings
+          o List SIP
+          o List IAX
+
+Put the User name and password under each link from the appropriate table.
+ 
+This could be developed in a later release to allow the customer to change some of the more advanced settings, unless of course you just re-use the "List IAX-Friend" code from the admin screens, which would be a very quick win. 
+
+
+User info Profile user can see any data for SIP registrations his device like sip-login an sip-password (locked to change) 
 
 #### E-PAYMENT MODULE
 ********************************************************************

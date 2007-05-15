@@ -3,60 +3,40 @@
                    			TODO LIST - SPECIFIC
 ********************************************************************************
 
-#### PROMOTE : CALL-LABS
+
+#### INVOICE FIX
 ********************************************************************
-Promote : call-labs on a2billing trunk
+fix on A2Billing_UI/Public/invoices_customer.php ->  false cardnumber
+# Error page : Blank page with "No User found"
+need design good error pages !!
+Golden rule : never show a white page with an error message.
 
 
-#### EPAYMENT : MULTI CURRENCY MANAGEMENT
-********************************************************************
-handle mc_currency with paypal & mb_currency with moneybookers
-in order to secure the currency of the transactions
-
-
-#### UPDATE : IMPORT MODULE
-********************************************************************
-When I import, I get a page which allows me to check the data is being
-imported properly. There is no way to accept that import without selecting 
-the csv files again. 
-
-
-#### BUGS
-********************************************************************
-1# One more thing - if the SIP/IAX friend is created via "Create SIP Friend" button, 
-then the defaults are not filled in, such as the context.
-
-2#
-IAX and SIP friends are not created correctly when created from the customer signup page. My understanding is that the account number and CID should be the same as the account number and card alias - this is the ony way it seems to work, otherwise the call is rejected.
-
-
-
-#### BUG
-********************************************************************
-yes the authorize is always in USD as it s only for US peoples.
-So the amount received by Authorize is in USD, we need configure it convert from  
-USD -> base currency before making the insert.
-if the base currency is in EURO it wont work correctly now
-
-
-## USE CC_COUNTRY TO SELECT THE COUNTRY : ON SIGNUP & EDIT CUSTOMER
-********************************************************************
-We will use cc_country table to select the country on signup module and also when 
-we edit customer info. The value store in cc_card->country will be the cc_country->countrycode
-
-
-#### FEATURES : EDIT SOME CUSTOMER INFORMATION ON CUSTOMERUI
+#### FIX : REFILL BASE CURRENCY
 ********************************************************************
 A2BCustomer_UI/userinfo.php
-add a button below "Country" -> "edit my personal informations"
-we should be able to edit some of the data, not all, base on our framework.
-Ensure that customer cannot edit an other cardid
+# when we are changing the base currency -> on the userinfo it is shown to purchage 20 $
+the amount to refill should be show in the base currency and the next page should refill accordingly
 
 
-#### CONSOLIDATE THE GETTEXT FILES
+#### UPDATE STATUS IN PAYPAL AND MONEY BOOKERS
 ********************************************************************
-Consolidate the gettext files for customer and admin interface
-regenerate all PO & MO files
+We should have the way to manage the Pending transactions !!!
+
+There is a interface Provideded by paypal and Money bookers to get status of pending transactions
+so that later on admin can update the status of transactions which were pending by quering the Epayment Gateway
+
+so that if any Payment is Pending, the Admin can check the Status of Transaction 
+this will actually query the epayment gateway to provide the status of transaction 
+we will need to build the admin interface to see the transactions that are pending
+so that admin can click on update button to update the status
+
+
+#### FEATURE IN VIEW FRAMEWORK TO SHOW A BUTTON ACCORDING TO THE VALUE OF ONE OF THE FIELD
+********************************************************************
+what will happend when a invoice is paid
+we should not show the pay invoice button then 
+is there anything in framework that support like this?
 
 
 #### FEATURES : WHOLESALE
@@ -81,47 +61,14 @@ the initial PW was set to the WebUI password,
 then we could say in the customer signup email - IAX details : Username = $card_gen, Password = $password CID = $cardalias
 
 
-
-
-
 #### FIX : HIDE DIV ON "List Customer" & "Browse Rates"
 ********************************************************************
 Jquery - HIDE DIV ON "List Customer" & "Browse Rates"
 
 
-
-
-
-#### TODO
-********************************************************************
-we should also resolve that
-# when we are changing the currency code .,, on the userinfo it is shown to purchage 20 $
-
-and other thing is that we should have to add the way to manage the Pending transactions
-There is a interface Provideded by paypal and Money bookers to get status of pending transactions
-so that later on admin can update the status of transactions which were pending by quering the Epayment Gateway
-got my point ?
-
-
-
 #### Check voice one 
 ********************************************************************
 SIP JAVA Phone
-
-
-#### ADD referial ID : Admin & customer (conf)
-********************************************************************
-https://www.moneybookers.com/app/?rid=811621
-https://www.paypal.com/es/mrb/pal=PGSJEXAEXKTBU
-
-
-
-#### INVOICE FIX
-********************************************************************
-fix on A2Billing_UI/Public/invoices_customer.php ->  false cardnumber
-# Error page : Blank page with "No User found"
-need design good error pages !!
-Golden rule : never show a white page with an error message.
 
 
 #### INVOICE IMPROVE SENDING
@@ -133,11 +80,6 @@ maybe they had $50 in january and $30 in february and they only paid $20 in febr
 so in march invoice, they have $20 but they need to pay $20 + $50 + $30 - $20
 
 
-#### FEATURE IN VIEW FRAMEWORK TO SHOW A BUTTON ACCORDING TO THE VALUE OF ONE OF THE FIELD
-********************************************************************
-what will happend when a invoice is paid
-we should not show the pay invoice button then 
-is there anything in framework that support like this?
 
 
 #### DID CRONT : MAIL
@@ -151,27 +93,6 @@ is there anything in framework that support like this?
 	use mail template 
 	(maybe after the release :D not urgent)
 
-#### BUG
-********************************************************************
-http://forum.asterisk2billing.org/viewtopic.php?t=1927
-
-
-#### FEATURE CUSTOMER UI : SIP/IAX INFO & partial edit
-********************************************************************
-What about link under account Info.
- 
-VoIP settings
-          o List SIP
-          o List IAX
-
-Put the User name and password under each link from the appropriate table.
- 
-This could be developed in a later release to allow the customer to change some of the more advanced settings, unless of course you just re-use the "List IAX-Friend" code from the admin screens, which would be a very quick win. 
-
-
-User info Profile user can see any data for SIP registrations his device like sip-login an sip-password (locked to change) 
-
-like in voip
 
 
 #### Misc : spacer
