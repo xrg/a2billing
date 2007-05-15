@@ -30,7 +30,8 @@ if ($entercustomer != "")
 	}
 	else
 	{
-		exit(gettext("No User found"));
+		Header ("Location: PP_error.php?c=ERR-0002&err_type=1");	   
+	    die();
 	}	
 	if (($_GET[download]=="file") && $_GET[file] ) 
 	{
@@ -1159,7 +1160,7 @@ else
 	 display_2bill($prvat);?>&nbsp;</font></b></td>
 			  </tr>
 			<tr bgcolor="#CCCCCC"><font color="#003399"><b>
-			  <td align="right"><?php echo gettext("Grand Total");?> = <?php echo display_2bill($total_invoice_cost + $prvat);?>&nbsp;</font></b></td>
+			  <td align="right"><?php echo gettext("Grand Total");?> = <?php echo display_2bill($total_invoice_cost + $prvat);?>&nbsp;</font></td></b>
 			  </tr>
 			</table>
 			
