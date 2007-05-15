@@ -14,6 +14,7 @@ session_start();
 
 getpost_ifset(array('customer', 'entercustomer', 'enterprovider', 'entertrunk', 'posted', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth', 'tostatsmonth', 'fromday', 'fromstatsday_sday', 'fromstatsmonth_sday', 'today', 'tostatsday_sday', 'tostatsmonth_sday', 'dsttype', 'sourcetype', 'clidtype', 'channel', 'resulttype', 'stitle', 'atmenu', 'current_page', 'order', 'sens', 'dst', 'src', 'clid', 'fromstatsmonth_sday', 'fromstatsmonth_shour', 'tostatsmonth_sday', 'tostatsmonth_shour', 'fromstatsmonth_smin', '','tostatsmonth_smin', 'src', 'choose_currency','exporttype'));
 
+$error_message = "";
 if ($entercustomer != "")
 {
 	//$link = DbConnect();
@@ -30,8 +31,7 @@ if ($entercustomer != "")
 	}
 	else
 	{
-		Header ("Location: PP_error.php?c=ERR-0002&err_type=1");	   
-	    die();
+		$error_message = "No such card number found. Please check your card number!";
 	}	
 	if (($_GET[download]=="file") && $_GET[file] ) 
 	{
@@ -317,6 +317,9 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 	<FORM name="myForm"  METHOD=POST ACTION="<?php echo $PHP_SELF?>?s=1&t=0&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php echo $current_page?>">
 	<INPUT TYPE="hidden" NAME="posted" value=1>
 	<INPUT TYPE="hidden" NAME="current_page" value=0>	
+	<?php if (strlen($error_message)>0){ ?>
+	<center><font color="#FF0000"><?php echo $error_message ?></center>
+	<?php }?>	
 		<table  width="95%" border="0" cellspacing="1" cellpadding="2" align="center">
 			<tbody>			
 			<tr>
