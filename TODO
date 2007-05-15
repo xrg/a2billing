@@ -3,6 +3,12 @@
                    			TODO LIST - SPECIFIC
 ********************************************************************************
 
+#### CHANGE : INVOICE ADD MORE INFO
+********************************************************************
+A2BCustomer_UI/A2B_entity_call_details.php
+add : Calls by Destination ; Calls by Date ; TOTAL ; VAT
+like we have in A2BCustomer_UI/A2B_entity_invoice_detail.php?section=4&invoice_type=1
+
 
 #### INVOICE FIX
 ********************************************************************

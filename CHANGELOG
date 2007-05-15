@@ -4,11 +4,12 @@
 						V1.2.4
 ********************************************************************
 
+
+
 ## USE CC_COUNTRY TO SELECT THE COUNTRY : ON SIGNUP & EDIT CUSTOMER
 ********************************************************************
 We will use cc_country table to select the country on signup module and also when 
 we edit customer info. The value store in cc_card->country will be the cc_country->countrycode
-
 
 #### BUG
 ********************************************************************
@@ -16,7 +17,6 @@ yes the authorize is always in USD as it s only for US peoples.
 So the amount received by Authorize is in USD, we need configure it convert from  
 USD -> base currency before making the insert.
 if the base currency is in EURO it wont work correctly now
-
 
 #### PROMOTE : CALL-LABS
 ********************************************************************
@@ -28,13 +28,11 @@ Promote : call-labs on a2billing trunk
 handle mc_currency with paypal & mb_currency with moneybookers
 in order to secure the currency of the transactions
 
-
 #### UPDATE : IMPORT MODULE
 ********************************************************************
 When I import, I get a page which allows me to check the data is being
 imported properly. There is no way to accept that import without selecting 
 the csv files again. 
-
 
 #### BUGS
 ********************************************************************
@@ -43,7 +41,6 @@ then the defaults are not filled in, such as the context.
 
 2#
 IAX and SIP friends are not created correctly when created from the customer signup page. My understanding is that the account number and CID should be the same as the account number and card alias - this is the ony way it seems to work, otherwise the call is rejected.
-
 
 #### FEATURES : EDIT SOME CUSTOMER INFORMATION ON CUSTOMERUI
 ********************************************************************
