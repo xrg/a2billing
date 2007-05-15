@@ -159,7 +159,7 @@ if($security_verify == false)
 	$em_headers .= "Return-Path: ".$from."\n";
 	$em_headers .= "X-Priority: 3\n";
 
-	mail("asif@palmchip.com", $subject, $messagetext, $em_headers);
+	mail(ADMIN_EMAIL, $subject, $messagetext, $em_headers);
 	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-EMAIL SENT: SENT A WARNING EMAIL TO ADMINISTRATOR FOR EPAYMENT VERIFICATION FAILURE");
 	exit;
 }
