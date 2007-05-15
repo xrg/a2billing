@@ -2,7 +2,7 @@
 include ("./lib/defines.php");
 
 
-getpost_ifset(array('transactionID', 'sess_id','key','mc_currency','mb_currency'));
+getpost_ifset(array('transactionID', 'sess_id','key','mc_currency','currency','md5sig','merchant_id','mb_amount','status','mb_currency','transaction_id'));
 
 
 write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." ----EPAYMENT TRANSACTION START (ID)----");
@@ -51,6 +51,7 @@ else
 {
 	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." EPAYMENT RESPONSE: TRANSACTIONID = ".$transactionID." FROM ".$transaction_data[0][4]."; FOR CUSTOMER ID ".$transaction_data[0][1]."; OF AMOUNT ".$transaction_data[0][2]);
 }
+$security_verify = true;
 
 switch($transaction_data[0][4])
 {
@@ -80,7 +81,7 @@ switch($transaction_data[0][4])
 		}		
 		if (!$fp) 
 		{
-			write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."Failed to open HTTP Connection: ".$errstr.". Error Code: ".$errno);
+			write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-Failed to open HTTP Connection: ".$errstr.". Error Code: ".$errno);
 			exit();
 		}		
 		else 
@@ -92,26 +93,76 @@ switch($transaction_data[0][4])
 				$res = fgets ($fp, 1024);
 				if (strcmp ($res, "VERIFIED") == 0) 
 				{
-					write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."PAYPAL Transaction Verification Status: Verified ");
+					write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-PAYPAL Transaction Verification Status: Verified ");
 					$flag_ver = 1;
 				}				
 			}
 			if($flag_ver == 0)
 			{
-				write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."PAYPAL Transaction Verification Status: Failed ");
-				exit;
+				write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-PAYPAL Transaction Verification Status: Failed ");
+				$security_verify = false;
 			}
 		}
 		fclose ($fp);	
 		break;
 	case "moneybookers":
-		$currCurrency = $mb_currency;
+		$sec_string = $merchant_id.$transaction_id.strtoupper(md5(MONEYBOOKERS_SECRETWORD)).$mb_amount.$mb_currency.$status;
+		$sig_string = strtoupper(md5($sec_string));
+		if($sig_string == $md5sig)
+		{
+			write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-MoneyBookers Transaction Verification Status: Verified ");
+		}
+		else
+		{
+			write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-MoneyBookers Transaction Verification Status: Failed | md5sig =".$md5sig." Reproduced Signature = ".$sig_string." Generated String = ".$sec_string);
+			$security_verify = false;			
+		}
+		$currCurrency = $currency;
 		break;
 	case "authorizenet":
 		$currCurrency = BASE_CURRENCY;
 		break;
+	default:
+		write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-NO SUCH EPAYMENT FOUND");
+		exit;
 }
+//If security verification fails then send an email to administrator as it may be a possible attack on epayment security.
+$currencyObject = new currencies();
+$currencies_list = get_currencies();
+$amount_paid = convert_currency($currencies_list,$transaction_data[0][2], $currCurrency, BASE_CURRENCY);
 
+if($security_verify == false)
+{
+	$QUERY = "SELECT mailtype, fromemail, fromname, subject, messagetext, messagehtml FROM cc_templatemail WHERE mailtype='epaymentverify' ";
+	$res = $DBHandle_max -> Execute($QUERY);
+	$num = 0;	
+	if ($res)
+		$num = $res -> RecordCount();
+	
+	if (!$num)
+	{
+		write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-NO EMAIL TEMPLATE FOUND TO SEND WARNING EMAIL TO ADMINISTRATOR FOR EPAYMENT VERIFICATION FAILURE");
+		exit();
+	}
+	for($i=0;$i<$num;$i++)
+	{
+		$listtemplate[] = $res->fetchRow();
+	}
+	list($mailtype, $from, $fromname, $subject, $messagetext, $messagehtml) = $listtemplate [0];
+
+	$messagetext = str_replace('$time', date("y-m-d H:i:s"), $messagetext);	
+	$messagetext = str_replace('$paymentgateway', $transaction_data[0][4], $messagetext);
+	$messagetext = str_replace('$amount', $amount_paid.$currCurrency, $messagetext);
+
+	$em_headers  = "From: ".$fromname." <".$from.">\n";
+	$em_headers .= "Reply-To: ".$from."\n";
+	$em_headers .= "Return-Path: ".$from."\n";
+	$em_headers .= "X-Priority: 3\n";
+
+	mail("asif@palmchip.com", $subject, $messagetext, $em_headers);
+	write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-EMAIL SENT: SENT A WARNING EMAIL TO ADMINISTRATOR FOR EPAYMENT VERIFICATION FAILURE");
+	exit;
+}
 $newkey = securitykey(EPAYMENT_TRANSACTION_KEY, $transaction_data[0][8]."^".$transactionID."^".$transaction_data[0][2]."^".$transaction_data[0][1]);
 if($newkey == $key)
 {
@@ -146,11 +197,6 @@ if ($numrow == 0)
     exit(gettext("No Such Customer exists."));
 }
 $customer_info =$resmax -> fetchRow();
-
-
-$currencyObject = new currencies();
-
-$currencies_list = get_currencies();
 $nowDate = date("y-m-d H:i:s");
 
 
@@ -158,7 +204,7 @@ $pmodule = $transaction_data[0][4];
 
 $orderStatus = $payment_modules->get_OrderStatus();
 
-$amount_paid = convert_currency($currencies_list,$transaction_data[0][2], $currCurrency, BASE_CURRENCY);
+
 
 $Query = "Insert into cc_payments ( customers_id,
                                     customers_name,
