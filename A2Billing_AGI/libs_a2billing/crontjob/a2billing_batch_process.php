@@ -61,9 +61,9 @@ $nbpagemax=(intval($nb_card/$groupcard));
 if ($verbose_level>=1) echo "===> NB_CARD : $nb_card - NBPAGEMAX:$nbpagemax\n";
 
 if (!($nb_card>0)){
-		if ($verbose_level>=1) echo "[No card to run the Recurring service]\n";
-		write_log(LOGFILE_CRONT_BATCH_PROCESS, basename(__FILE__).' line:'.__LINE__."[No card to run the Recurring service]");
-		exit();
+	if ($verbose_level>=1) echo "[No card to run the Recurring service]\n";
+	write_log(LOGFILE_CRONT_BATCH_PROCESS, basename(__FILE__).' line:'.__LINE__."[No card to run the Recurring service]");
+	exit();
 }
 
 

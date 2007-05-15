@@ -1,7 +1,7 @@
 #!/usr/bin/php -q
 <?php
 /***************************************************************************
- *            XX.php
+ *            a2billing_check_account.php
  *
  *  13 April 2007
  *  Purpose: To check account of each Users and send an email if the balance is less than the first argument.
@@ -10,7 +10,7 @@
  *
  *  The sample above will run the script every day of each month at 6AM
 	crontab -e
-	0 6 1 * * php /var/lib/asterisk/agi-bin/libs_a2billing/crontjob/XXXXX.php
+	0 6 1 * * php /var/lib/asterisk/agi-bin/libs_a2billing/crontjob/a2billing_check_account.php
 	
 	
 	field	 allowed values
@@ -22,73 +22,102 @@
 	day of week	 0-7 (0 or 7 is Sun, or use names)
 	
 ****************************************************************************/
-
 exit();
-include ("defines.php");
-include ("Class.Table.php");
-include ("class.phpmailer.php");
+// CHECK ALL AND ENSURE IT WORKS / NOT URGENT
+
+set_time_limit(0);
+error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
+//dl("pgsql.so"); // remove "extension= pgsql.so !
+
+include (dirname(__FILE__)."/../db_php_lib/Class.Table.php");
+include (dirname(__FILE__)."/../Class.A2Billing.php");
+include (dirname(__FILE__)."/../Misc.php");
 
 
-$FG_DEBUG = 1;
-$DBHandle  = DbConnect();
-$num = 0;	
+
+$verbose_level=0;
+$groupcard=5000;
+
+$min_credit = 5;
+
+$A2B = new A2Billing();
+$A2B -> load_conf($agi, NULL, 0, $idconfig);
+
+??????? LOGFILE_CRONT_CHECKACCOUNT
+write_log(LOGFILE_CRONT_CHECKACCOUNT, basename(__FILE__).' line:'.__LINE__."[#### BATCH BEGIN ####]");
+
+if (!$A2B -> DbConnect()){				
+	echo "[Cannot connect to the database]\n";
+	write_log(LOGFILE_CRONT_CHECKACCOUNT, basename(__FILE__).' line:'.__LINE__."[Cannot connect to the database]");
+	exit;
+}
+//$A2B -> DBHandle
+$instance_table = new Table();
 
 
 $QUERY = "SELECT mailtype, fromemail, fromname, subject, messagetext, messagehtml FROM cc_templatemail WHERE mailtype='reminder' ";
-$res = $DBHandle -> Execute($QUERY);
-if ($res)
-	$num = $res -> RecordCount( );
+$listtemplate = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY);
+if (!is_array(listtemplate)){
+	echo "[Cannot find a template mail for reminder]\n";
+	write_log(LOGFILE_CRONT_CHECKACCOUNT, basename(__FILE__).' line:'.__LINE__."[Cannot find a template mail for reminder]");
+	exit;
+}
 
-if (!$num) exit();
 
-for($i=0;$i<$num;$i++)
-{				
-	$listtemplate [] =$res-> fetchRow();				 
-}				
 list($mailtype, $from, $fromname, $subject, $messagetext, $messagehtml) = $listtemplate [0];
 if ($FG_DEBUG == 1) echo "<br><b>mailtype : </b>$mailtype</br><b>from:</b> $from</br><b>fromname :</b> $fromname</br><b>subject</b> : $subject</br><b>ContentTemplate:</b></br><pre>$messagetext</pre></br><hr>";
 
-$QUERY = "SELECT username, lastname, firstname, email, uipass, credit FROM cc_card WHERE activated='TRUE' AND credit<500 ";
 
-$res = $DBHandle -> Execute($QUERY);
-$num = 0;
-if ($res)
-	$num = $res -> RecordCount( );
 
-if (!$num) exit();
+// CHECK AMOUNT OF CARD ON WHICH APPLY THE CHECK ACCOUNT SERVICE
+$QUERY = "SELECT count(*) FROM cc_card WHERE activated='1' AND credit < $min_credit";
 
-for($i=0;$i<$num;$i++)
-{				
-	$list [] =$res -> fetchRow();				 
+$result = $instance_table -> SQLExec ($A2B -> DBHandle, $QUERY);
+$nb_card = $result[0][0];
+$nbpagemax=(intval($nb_card/$groupcard));
+if ($verbose_level>=1) echo "===> NB_CARD : $nb_card - NBPAGEMAX:$nbpagemax\n";
+
+if (!($nb_card>0)){
+	if ($verbose_level>=1) echo "[No card to run the Recurring service]\n";
+	write_log(LOGFILE_CRONT_CHECKACCOUNT, basename(__FILE__).' line:'.__LINE__."[No card to run the check account service]");
+	exit();
 }
 
-if ($FG_DEBUG == 1) echo "</br><b>BELOW LIST OF THE CARD WITH LESS THAN 5 DOLLARS:</b><hr></br>";
- $keepmessagetext = $messagetext;		 
- foreach ($list as $recordset){ 
-	
-	$messagetext = $keepmessagetext;
- 
-	list($username, $lastname, $firstname, $email, $uipass, $credit) = $recordset;
-	if ($FG_DEBUG == 1) echo "<br># $username, $lastname, $firstname, $email, $uipass, $credit #</br>";
-	
-	$messagetext = str_replace('$name', $lastname, $messagetext);
-	$messagetext = str_replace('$card_gen', $username, $messagetext);
-	$messagetext = str_replace('$password', $uipass, $messagetext);
-	
-	$mail = new phpmailer();
-	$mail -> From     = $from;
-	$mail -> FromName = $fromname;
-	//$mail -> IsSendmail();
-	$mail -> IsSMTP();
-	$mail -> Subject  = $subject;
-	$mail -> Body    = $messagetext ; //$HTML;
-	//$mail -> AltBody = $messagetext;	// Plain text body (for mail clients that cannot read 	HTML)
-	//$mail -> ContentType = "multipart/alternative";
-	$mail->AddAddress($recordset[3]);
 
-	$mail->Send();
-	echo " ::> MAIL SENT TO ".$recordset[3]."!!!";
+write_log(LOGFILE_CRONT_CHECKACCOUNT, basename(__FILE__).' line:'.__LINE__."[Number of card found : $nb_card]");
+
+
+
+// BROWSE THROUGH THE CARD TO APPLY THE CHECK ACCOUNT SERVICE 
+for ($page = 0; $page <= $nbpagemax; $page++) {
+	
+	$sql = "SELECT id, credit, username, email FROM cc_card WHERE activated='1' AND credit < $min_credit ORDER BY id  ";
+	if ($A2B->config["database"]['dbtype'] == "postgres"){
+		$sql .= " LIMIT $groupcard OFFSET ".$page*$groupcard;
+	}else{
+		$sql .= " LIMIT ".$page*$groupcard.", $groupcard";
+	}
+	if ($verbose_level>=1) echo "==> SELECT CARD QUERY : $sql\n";
+	$result_card = $instance_table -> SQLExec ($A2B -> DBHandle, $sql);
+
+	foreach ($result_card as $mycard){
+		if ($verbose_level>=1) print_r ($mycard);
+		if ($verbose_level>=1) echo "------>>>  ID = ".$mycard[0]." - CARD =".$mycard[2]." - BALANCE =".$mycard[1]." \n";	
+		
+		// SEND NOTIFICATION
+		if (strlen($mycard[3])>0){ // ADD CHECK EMAIL
+			$mail_tile = $mail_content = "CREDIT LOW : You have less than $min_credit";
+			mail($mycard[12], $mail_tile, $mail_content);
+		}
+	
+	}
+	// Little bit of rest
+	sleep(15);
 }
+
+
+if ($verbose_level>=1) echo "#### END RECURRING CHECK ACCOUNT \n";
+write_log(LOGFILE_CRONT_CHECKACCOUNT, basename(__FILE__).' line:'.__LINE__."[#### BATCH PROCESS END ####]");
 
 
 ?>
