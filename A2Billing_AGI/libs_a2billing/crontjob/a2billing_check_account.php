@@ -43,7 +43,6 @@ $min_credit = 5;
 $A2B = new A2Billing();
 $A2B -> load_conf($agi, NULL, 0, $idconfig);
 
-??????? LOGFILE_CRONT_CHECKACCOUNT
 write_log(LOGFILE_CRONT_CHECKACCOUNT, basename(__FILE__).' line:'.__LINE__."[#### BATCH BEGIN ####]");
 
 if (!$A2B -> DbConnect()){				
