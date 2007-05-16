@@ -6,9 +6,9 @@ include ("./form_data/FG_var_def_ratecard.inc");
 include ("../lib/smarty.php");
 
 if (! has_rights (ACX_RATECARD)){ 
-	   Header ("HTTP/1.0 401 Unauthorized");
-	   Header ("Location: PP_error.php?c=accessdenied");
-	   die();	   
+	Header ("HTTP/1.0 401 Unauthorized");
+	Header ("Location: PP_error.php?c=accessdenied");
+	die();	   
 }
 
 
@@ -120,28 +120,23 @@ else echo $CC_help_def_ratecard;
 // DISPLAY THE UPDATE MESSAGE
 if (isset($update_msg) && strlen($update_msg)>0) echo $update_msg; 
 
+?>
 
 
-// Weird hack to create a select form
-if ($form_action == "list" ) $HD_Form -> create_select_form();
-
-
-// #### TOP SECTION PAGE
-$HD_Form -> create_toppage ($form_action);
-
-
-// #### CREATE FORM OR LIST
-//$HD_Form -> CV_TOPVIEWER = "menu";
-if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
-
-$HD_Form -> create_form ($form_action, $list, $id=null) ;
-
+<div class="toggle_hide2show">
+<center><a href="#" target="_self"><img class="toggle_hide2show" src="<?php echo KICON_PATH; ?>/toggle_hide2show.png" onmouseover="this.style.cursor='hand';" HEIGHT="16"> <font class="fontstyle_002"><?php echo gettext("SEARCH RATES");?> </font></a></center>
+	<div class="tohide" style="display:none;">
+<?php
 // #### CREATE SEARCH FORM
 if ($form_action == "list"){
 	$HD_Form -> create_search_form();
 }
+?>
+	</div>
+</div>
 
 
+<?php
 
 /********************************* BATCH UPDATE ***********************************/
 if ($form_action == "list"){
@@ -158,15 +153,15 @@ if ($form_action == "list"){
 	$nb_trunk = count($list_trunk);
 ?>
 
-<a href="#" target="_self"  onclick="imgidclick('img52000','div52000','kfind.png','viewmag.png');"><img id="img52000" src="<?php echo KICON_PATH; ?>/viewmag.png" onmouseover="this.style.cursor='hand';" WIDTH="16" HEIGHT="16"></a>
-<div id="div52000" style="display:visible;">
 
 <!-- ** ** ** ** ** Part for the Update ** ** ** ** ** -->
-
+<div class="toggle_hide2show">
+<center><a href="#" target="_self"><img class="toggle_hide2show" src="<?php echo KICON_PATH; ?>/toggle_hide2show.png" onmouseover="this.style.cursor='hand';" HEIGHT="16"> <font class="fontstyle_002"><?php echo gettext("BATCH UPDATE");?> </font></a></center>
+	<div class="tohide" style="display:none;">
+	
 <center>
 <b>&nbsp;<?php echo $HD_Form -> FG_NB_RECORD ?> <?php echo gettext("rates selected!"); ?>&nbsp;<?php echo gettext("Use the options below to batch update the selected rates.");?></b>
 	   <table align="center" border="0" width="65%"  cellspacing="1" cellpadding="2">
-        <tbody>
 		<form name="updateForm" action="<?php echo $_SERVER['PHP_SELF']?>" method="post">
 		<INPUT type="hidden" name="batchupdate" value="1">
 		<INPUT type="hidden" name="atmenu" value="<?php echo $_GET['atmenu']?>">
@@ -176,7 +171,6 @@ if ($form_action == "list"){
 		<INPUT type="hidden" name="form_action" value="<?php echo $_GET['form_action']?>">
 		<INPUT type="hidden" name="filterprefix" value="<?php echo $_GET['filterprefix']?>">
 		<INPUT type="hidden" name="filterfield" value="<?php echo $_GET['filterfield']?>">
-
 		<tr>		
           <td align="left" class="bgcolor_001">
 		  		<input name="check[upd_id_trunk]" type="checkbox" <?php if ($check["upd_id_trunk"]=="on") echo "checked"?>>
@@ -188,8 +182,7 @@ if ($form_action == "list"){
 					 foreach ($list_trunk as $recordset){ 						 
 					?>
 						<option class=input value='<?php echo $recordset[0]?>'  <?php if ($upd_id_trunk==$recordset[0]) echo 'selected="selected"'?>><?php echo $recordset[1].' ('.$recordset[2].')'?></option>                        
-					<?php 	 }
-					?>
+					<?php } ?>
 				</select>
 			</td>
 		</tr>
@@ -198,10 +191,8 @@ if ($form_action == "list"){
 		  	<input name="check[upd_idtariffplan]" type="checkbox" <?php if ($check["upd_idtariffplan"]=="on") echo "checked"?> >
 		  </td>
 		  <td align="left"  class="bgcolor_001">
-		   						
 			  <font class="fontstyle_009">	2) <?php echo gettext("RATECARD");?> :</font>
 				<select NAME="upd_idtariffplan" size="1" class="form_enter" >
-									
 					<?php					 
 				  	 foreach ($list_tariffname as $recordset){ 						 
 					?>
@@ -242,7 +233,6 @@ if ($form_action == "list"){
 				</font>
 			</td>
 		</tr>
-		
 		<tr>		
           <td align="left" class="bgcolor_001">
 		  		<input name="check[upd_buyrateincrement]" type="checkbox" <?php if ($check["upd_buyrateincrement"]=="on") echo "checked"?>>
@@ -263,8 +253,7 @@ if ($form_action == "list"){
 		  		<input name="check[upd_rateinitial]" type="checkbox" <?php if ($check["upd_rateinitial"]=="on") echo "checked"?>>
 				<input name="mode[upd_rateinitial]" type="hidden" value="2">
 		  </td>
-		  <td align="left"  class="bgcolor_001">	
-
+		  <td align="left"  class="bgcolor_001">
 				<font class="fontstyle_009">6) <?php echo gettext("RATE INITIAL");?> :</font>
 				 	<input class="form_input_text" name="upd_rateinitial" size="10" maxlength="10" value="<?php if (isset($upd_rateinitial)) echo $upd_rateinitial; else echo '0';?>" >
 				<font class="version">
@@ -311,8 +300,7 @@ if ($form_action == "list"){
 		  		<input name="check[upd_connectcharge]" type="checkbox" <?php if ($check["upd_connectcharge"]=="on") echo "checked"?>>
 				<input name="mode[upd_connectcharge]" type="hidden" value="2">
 		  </td>
-		  <td align="left"  class="bgcolor_001">	
-
+		  <td align="left"  class="bgcolor_001">
 				<font class="fontstyle_009">9) <?php echo gettext("CONNECTCHARGE");?>  :</font>
 				 	<input class="form_input_text" name="upd_connectcharge" size="10" maxlength="10"  value="<?php if (isset($upd_connectcharge)) echo $upd_connectcharge; else echo '0';?>" >
 				<font class="version">
@@ -341,24 +329,40 @@ if ($form_action == "list"){
 		<tr>		
 			<td align="right" class="bgcolor_001">
 			</td>
-		 	<td align="right"  class="bgcolor_001">		
-		  
-				
+		 	<td align="right"  class="bgcolor_001">
 				<input class="form_input_button"  value=" <?php echo gettext("BATCH UPDATE RATECARD");?> " type="submit">
-
-
-          
         	</td>
 		</tr>
-		 </form>
-        
-      </tbody></table>
+		</form>
+		</table>
 </center>
 <!-- ** ** ** ** ** Part for the Update ** ** ** ** ** -->
+	</div>
 </div>
+
 
 <?php
 } // END if ($form_action == "list")
+?>
+
+
+<br>
+<?php
+
+// Weird hack to create a select form
+if ($form_action == "list" ) $HD_Form -> create_select_form();
+
+
+// #### TOP SECTION PAGE
+$HD_Form -> create_toppage ($form_action);
+
+
+// #### CREATE FORM OR LIST
+//$HD_Form -> CV_TOPVIEWER = "menu";
+if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
+
+$HD_Form -> create_form ($form_action, $list, $id=null) ;
+
 
 
 // #### FOOTER SECTION

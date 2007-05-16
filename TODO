@@ -3,6 +3,32 @@
                    			TODO LIST - SPECIFIC
 ********************************************************************************
 
+#### CONSOLIDATE : CLASS FORM - CSS
+********************************************************************
+After the public signup , get Asterisk to do a reload, as when a new card is created, 
+asterisk is not reloaded, and therefore the SIP/IAX friend cannot register.
+
+
+#### CONSOLIDATE : CLASS FORM - CSS
+********************************************************************
+CONSOLIDATE : CLASS FORM - CSS
+
+
+#### CHANGE : PAYMENT MODULE
+********************************************************************
+We should have a single button but just saying that Pay Amount.. and then on the check_payment select payment gate way then fill the amount
+This will be the right process otherwise we cannot remove this conflict
+Userinfo => Just Pay Now Button..no amount
+Checkout_payment => Select Payment gateway
+Checkout_amount => Enter the amount ,,, Currecny will be shown to him
+checkout_confirmation =>
+
+$arr_purchase_amount = split(":", EPAYMENT_PURCHASE_AMOUNT);
+if (!is_array($arr_purchase_amount)) $arr_purchase_amount[0]=10;
+
+foreach($arr_purchase_amount as $value){
+
+
 #### CHANGE : INVOICE ADD MORE INFO
 ********************************************************************
 A2BCustomer_UI/A2B_entity_call_details.php

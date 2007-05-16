@@ -1,27 +1,18 @@
 <?php
 
-	//echo "<b><hr>$this->FG_FILTER_SEARCH_SESSION_NAME<br>".$_SESSION[$this->FG_FILTER_SEARCH_SESSION_NAME]."</br></b>";	
-
-	if ($this->FG_FILTER_SEARCH_FORM){
+if ($this->FG_FILTER_SEARCH_FORM){
 
 ?>
-
-
-
-<a href="#" target="_self"  onclick="imgidclick('img51000','div51000','kfind.png','viewmag.png');"><img id="img51000" src="<?php echo KICON_PATH; ?>/viewmag.png" onmouseover="this.style.cursor='hand';" WIDTH="16" HEIGHT="16"></a>
-<div id="div51000" style="display:visible;">
 
 <!-- ** ** ** ** ** Part for the research - ** ** ** ** ** -->
 	<center>
 		<b><?php echo $this -> FG_FILTER_SEARCH_TOP_TEXT?></b>
-	
 		<table class="searchhandler_table1">
 		<FORM METHOD=POST ACTION="<?php echo $_SERVER['PHP_SELF']?>?s=<?php echo $processed['s']?>&t=<?php echo $processed['t']?>&order=<?php echo $processed['order']?>&sens=<?php echo $processed['sens']?>&current_page=<?php echo $processed['current_page']?>">
 	<INPUT TYPE="hidden" NAME="posted_search" value="1">
 	<INPUT TYPE="hidden" NAME="current_page" value="0">		
 			<tr>
         		<td class="bgcolor_004" align="left" width="120px">
-
 					<input type="radio" name="Period" value="Month" <?php  if (!isset($processed['Period']) || ($processed['Period']=="Month")){ ?>checked="checked" <?php  } ?>> 
 					<font face="verdana" size="1" color="#ffffff"><b><?php echo $this-> FG_FILTER_SEARCH_1_TIME_TEXT?></b></font>
 				</td>
@@ -140,9 +131,7 @@
 					</td></tr></table>
 	  			</td>
     		</tr>
-
 			<!-- compare with a value //-->
-
 			<?php
 			$nu = 0;
 			foreach ($this->FG_FILTER_SEARCH_FORM_1C as $one_compare){
@@ -175,9 +164,7 @@
 			<?php
 			}
 			?>
-
 			<!-- compare between 2 values //-->
-
 			<?php
 			$nu = 0;
 			foreach ($this->FG_FILTER_SEARCH_FORM_2C as $two_compare){
@@ -219,10 +206,7 @@
 			<?php
 			}
 			?>
-
 			<!-- select box //-->
-
-
 			<tr>
 				<td class="bgcolor_002" align="left" >
 					<font class="fontstyle_003">&nbsp;&nbsp;<?php echo $this->FG_FILTER_SEARCH_FORM_SELECT_TEXT?></font>
@@ -251,25 +235,20 @@
 				</tr>
 				</table></td>
 			</tr>
-
 			<tr>
         		<td class="bgcolor_004" align="left"> </td>
-
 				<td class="bgcolor_005" align="center">
 					<input type="image"  name="image16" align="top" border="0" src="<?php echo Images_Path_Main;?>/button-search.gif" />
 					<?php if(isset($_SESSION[$this->FG_FILTER_SEARCH_SESSION_NAME]) && strlen($_SESSION[$this->FG_FILTER_SEARCH_SESSION_NAME])>10 ){ ?>
                     - <a href="<?php echo $_SERVER['PHP_SELF']?>?cancelsearch=true"><font color="red"><b><img src="<?php echo KICON_PATH; ?>/button_cancel.png" height="16"> Cancel Search</b></font></a>&nbsp;
 					- <a href="<?php echo $_SERVER['PHP_SELF']?>?deleteselected=true" onclick="return confirm('<?php echo "Are you sure to delete ".$this -> FG_NB_RECORD." selected records?";?>');"><font color="red"><b>Delete All</b></font></a>
                     <?php } ?>
-
-
-
 	  			</td>
     		</tr>
 		</tbody></table>
 	</FORM>
 </center>
-</div>
+
 <!-- ** ** ** ** ** End - Part for the research ** ** ** ** ** -->
 <?php
 }
@@ -455,12 +434,7 @@
 			<td align="right" class="searchhandler_table4_td1">
 			</td>
 		 	<td align="right" class="searchhandler_table4_td1">		
-		   
-				
 				<input class="form_input_button" value="<?php gettext(" BATCH UPDATE RATECARD ");?>" type="submit">
-
-
-          
         	</td>
 		</tr>
 		
@@ -468,7 +442,6 @@
       </table>
 </center>
 <!-- ** ** ** ** ** Part for the Update ** ** ** ** ** -->
-</div>
 
 <?php
 }
