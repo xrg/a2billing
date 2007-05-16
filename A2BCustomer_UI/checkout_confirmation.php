@@ -85,6 +85,10 @@ echo tep_draw_form('checkout_confirmation.php', $form_action_url, 'post');
     <td width=50%>&nbsp;</td>
 </tr>
 <tr>
+    <td width=50%><div align="right"><?php echo gettext("Payment Method");?>:&nbsp;</div></td>
+    <td width=50%><?php echo strtoupper($payment)?></td>
+</tr>
+<tr>
     <td align=right><?php echo gettext("Total Amount")?>: &nbsp;</td>
     <td align=left><?php echo $amount?> <?php echo $payment_modules->get_CurrentCurrency();?></td>
 </tr>
