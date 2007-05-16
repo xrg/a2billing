@@ -3,10 +3,30 @@
                    			TODO LIST - SPECIFIC
 ********************************************************************************
 
-#### CONSOLIDATE : CLASS FORM - CSS
+#### CHANGE THIS A2BCustomer_UI/userinfo.php
+********************************************************************
+<input type="image" src="https://www.paypal.com/en_US/i/btn/x-click-but23.gif" border="0" name="submit"
+
+#### MISC
+********************************************************************
+1. Voice over ring tone.
+how to simulate:  Set up multiaccess on the user account,  answer=no (in a2billing.conf). 
+sometimes u can hear (durring the other party phone rings) a voice with "and then pres pound key" over the ring tone.
+ 
+2. Can not call users alias with 9+alias  , again answer=no in a2billing.conf
+ 
+3.Soft Phone dont work.
+
+
+#### SIGNUP : IF SIP/IAX Created reload asterik
 ********************************************************************
 After the public signup , get Asterisk to do a reload, as when a new card is created, 
 asterisk is not reloaded, and therefore the SIP/IAX friend cannot register.
+
+I added new parameter to handle this :
+; Define if you want to reload Asterisk when a SIP / IAX Friend is created at signup time
+reload_asterisk_if_sipiax_created = no
+
 
 
 #### CONSOLIDATE : CLASS FORM - CSS
@@ -91,11 +111,6 @@ callback_bill_1stleg_ifcall_notconnected = YES / NO
 or best of all, and simplest, set the initial IAX / SIP pasword to be the webui password
 the initial PW was set to the WebUI password, 
 then we could say in the customer signup email - IAX details : Username = $card_gen, Password = $password CID = $cardalias
-
-
-#### FIX : HIDE DIV ON "List Customer" & "Browse Rates"
-********************************************************************
-Jquery - HIDE DIV ON "List Customer" & "Browse Rates"
 
 
 #### Check voice one 

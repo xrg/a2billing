@@ -12,8 +12,6 @@ include ("./lib/epayment/includes/loadconfiguration.php");
 include ("./lib/epayment/includes/configure.php");
 include ("./lib/smarty.php");
 
-//include ("./form_data/FG_var_callerid.inc");
-
 if (! has_rights (ACX_ACCESS)){
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");
@@ -70,8 +68,11 @@ function rowOutEffect(object) {
 
 <?php echo $payment_modules->javascript_validation(); ?>
 
-
 <br>
+<center>
+<?php 
+	echo $PAYMENT_METHOD;
+?>
 <br>
 <form name="checkout_payment" action="checkout_amount.php" method="post" onsubmit="return check_form();">
     <input name="amount" type=hidden value="<?php echo $amount?>">

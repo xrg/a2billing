@@ -6,6 +6,10 @@
 
 
 
+#### FIX : HIDE DIV ON "List Customer" & "Browse Rates"
+********************************************************************
+Jquery - HIDE DIV ON "List Customer" & "Browse Rates"
+
 ## USE CC_COUNTRY TO SELECT THE COUNTRY : ON SIGNUP & EDIT CUSTOMER
 ********************************************************************
 We will use cc_country table to select the country on signup module and also when 

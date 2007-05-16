@@ -844,16 +844,34 @@ $CC_help_list_payment_methods = '<div class="toggle_show2hide">
 </div></div>
 '; 
 
+$SPOT['PAYPAL'] 		= '<a href="https://www.paypal.com/es/mrb/pal=PGSJEXAEXKTBU"><img src="'.KICON_PATH.'/paypal_logo.gif" alt="paypal"/></a>';
+$SPOT['MONEYBOOKER'] 	= '<a href="https://www.moneybookers.com/app/?rid=811621"><img src="'.KICON_PATH.'/moneybookers.gif" alt="moneybookers"/></a>';
+$SPOT['AUTHORIZE'] 	= '<img src="'.KICON_PATH.'/authorize.gif" />';
+
 $PAYMENT_METHOD ='
 <table width="70%" align="center">
 	<tr>
 		<TD valign="top" align="center" class="tableBodyRight">
-			<a href="https://www.paypal.com/es/mrb/pal=PGSJEXAEXKTBU"><img src="'.KICON_PATH.'/paypal_logo.gif" alt="paypal"/></a> 
+			'.$SPOT['PAYPAL'].'
 			&nbsp;&nbsp; &nbsp; 
-			<a href="https://www.moneybookers.com/app/?rid=811621"><img src="'.KICON_PATH.'/moneybookers.gif" alt="moneybookers"/></a>
+			'.$SPOT['MONEYBOOKER'].'
 			&nbsp;&nbsp; &nbsp;
-			<img src="'.KICON_PATH.'/authorize.gif" />
+			'.$SPOT['AUTHORIZE'].'
 		</td>
+	</tr>
+</table>';
+
+
+$CALL_LABS ='
+<table width="70%" align="center">
+	<tr>
+		<TD width="%75" valign="top" align="center" class="tableBodyRight" background="'.Images_Path.'/background_cells.gif" >
+				Global VoIP termination (A-Z)  to over 400 worldwide destinations!<br>
+				Visit Call-Labs at <a href="http://www.call-labs.com/" target="_blank">http://www.call-labs.com/</a><br/>
+		</TD>
+		<TD width="%25" valign="middle" align="center" class="tableBodyRight" background="'.Images_Path.'/background_cells.gif" >
+				<a href="http://www.call-labs.com/" target="_blank"><img src="'.Images_Path.'/call-labs.com.png" alt="call-labs"/></a>
+		</TD>
 	</tr>
 </table>';
 

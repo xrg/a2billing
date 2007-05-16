@@ -50,8 +50,19 @@ $form_action_url = tep_href_link("checkout_confirmation.php", '', 'SSL');
 
 echo tep_draw_form('checkout_amount', $form_action_url, 'post', 'onsubmit="checkamount()"');
 ?>
- <br>
- <br>
+
+
+<br>
+<center>
+<?php 
+	echo $SPOT[strtoupper($payment)];
+?>
+<br>
+
+<?php echo gettext("Payment Method");?>:&nbsp;
+<?php echo strtoupper($payment)?>
+</center>
+<br>
 
 <input type="hidden" name="payment" value="<?php echo $payment?>">
 <input type="hidden" name="authorizenet_cc_expires_year" value="<?php echo $authorizenet_cc_expires_year?>">
@@ -67,10 +78,6 @@ echo tep_draw_form('checkout_amount', $form_action_url, 'post', 'onsubmit="check
 <tr>
     <td width=50%>&nbsp;</td>
     <td width=50%>&nbsp;</td>
-</tr>
-<tr>
-    <td width=50%><div align="right"><?php echo gettext("Payment Method");?>:&nbsp;</div></td>
-    <td width=50%><?php echo strtoupper($payment)?></td>
 </tr>
 <tr>
     <td align=right><?php echo gettext("Total Amount")?>: &nbsp;</td>
@@ -102,6 +109,19 @@ echo tep_draw_form('checkout_amount', $form_action_url, 'post', 'onsubmit="check
           </tr>
  </table>
 </form>
+
+
+<br>
+<?php if (strtoupper($payment)=='PAYPAL') { ?>
+<table width="70%" align="center">
+	<tr>
+		<TD  valign="top" align="center" class="tableBodyRight" background="<?php echo Images_Path; ?>/background_cells.gif" >
+			<?php echo gettext('The fee from $5 is $0.45, from $10 is $0.59, from $20 is $0.88, from $40 is $1.46.').' <br><font class="fontstyle_002">'.gettext('Paypal Fee Calculator').'</font>';?> <a target="_blank" href="http://www.ppcalc.com/">http://www.ppcalc.com/</a></b>
+		</TD>
+	</tr>
+</table>
+<?php } ?>
+
 <?php 
 // #### FOOTER SECTION
 $smarty->display( 'footer.tpl');

@@ -107,47 +107,39 @@ $credit_cur = round($credit_cur,3);
 
 <?php if ($A2B->config["epayment_method"]['enable']){ ?>
 
-<table width="100%">
-<tr>
-<td valign=top align=center>
+<br>
 
 <?php 
-echo $PAYMENT_METHOD;
+	echo $PAYMENT_METHOD;
 ?>
-</td>
-</tr>
-<tr>
-<td>
-<div id="div2200" style="display:visible;">
-<div id="kiblue">
-<div class="w4">
-	<div class="w2">
-<table width="80%" align="center">
-	<tr>
-		<td align="center"> <br>
-			<font size="1"><?php echo gettext("Click below to buy")."<br>".gettext("credit");?> </font>
-			<form action="checkout_payment.php" method="post">
-				
-				<input type="image" src="https://www.paypal.com/en_US/i/btn/x-click-but23.gif" border="0" name="submit"
-				alt='<?php  gettext("Make payments - it's fast, free and secure!");?>'>
-			</form>
-		</td>
-	</tr>
-</table>
-
-</div></div></div>
-</div>
-</td>
-</tr>
-</table>
 
 <table width="70%" align="center">
 	<tr>
-		<TD valign="top" align="center" class="tableBodyRight" background="'.Images_Path.'/background_cells.gif" >
-			<?php echo gettext('The fee from $5 is $0.45, from $10 is $0.59, from $20 is $0.88, from $40 is $1.46.').' <br><font class="fontstyle_002">'.gettext('Paypal Fee Calculator').'</font>';?> <a target="_blank" href="http://www.ppcalc.com/">http://www.ppcalc.com/</a></b>
-		</td>
+		<TD  valign="top" align="center" class="tableBodyRight" background="<?php echo Images_Path; ?>/background_cells.gif" >
+			<font size="2"><?php echo gettext("Click below to buy credit : ");?> </font>
+			
+			<?php
+			$arr_purchase_amount = split(":", EPAYMENT_PURCHASE_AMOUNT);
+			if (!is_array($arr_purchase_amount)){
+				$to_echo = 10;
+			}else{
+				$to_echo = join(" - ", $arr_purchase_amount);
+			}
+			echo $to_echo;
+			?>
+			<font size="2"><?php echo strtoupper(BASE_CURRENCY);?> </font>
+			
+			<form action="checkout_payment.php" method="post">
+				
+				<input type="submit" class="form_input_button" value="BUY NOW">
+			</form>
+		</TD>
 	</tr>
 </table>
+
+
+
+
 
 
 <?php }else{ ?>
