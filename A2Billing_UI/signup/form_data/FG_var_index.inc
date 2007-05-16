@@ -82,34 +82,6 @@ if (!($popup_select>=1)) $HD_Form -> FG_EXPORT_XML = true;
 if (($popup_select>=1))	$HD_Form ->FG_LIMITE_DISPLAY=7;
 
 $HD_Form -> CV_FOLLOWPARAMETERS= "&popup_select=".$_GET['popup_select']."&popup_formname=".$_GET['popup_formname']."&popup_fieldname=".$_GET['popup_fieldname'];
-/*
-if (($popup_select>=1)){
-	$HD_Form -> FG_OTHER_BUTTON1 = true;
-	$HD_Form -> FG_OTHER_BUTTON1_ALT = '<font color="red">&lt;Select Card&gt;</font>';
-	$HD_Form -> FG_OTHER_BUTTON1_IMG = '';
-
-
-	if ($popup_select==1){
-		$HD_Form -> FG_OTHER_BUTTON1_LINK = "javascript:sendValue('|param|');";
-		//echo"<a title=\"Select Card\" href=\"javascript:sendValue('".$recordset[$FG_NB_TABLE_COL]."');\">&lt;Select Card&gt;</a>";
-	}elseif ($popup_select==2){
-		$HD_Form -> FG_OTHER_BUTTON1_LINK = "javascript:sendValue('|col1|');";
-		//echo"<a title=\"Select Card\" href=\"javascript:sendValue('".$recordset[1]."');\">&lt;Select Card&gt;</a>";
-	}
-
-}else{
-	$HD_Form -> FG_EDITION = false;
-	$HD_Form -> FG_DELETION = false;
-	$HD_Form -> FG_OTHER_BUTTON1 = true;
-	$HD_Form -> FG_OTHER_BUTTON2 = true;
-	$HD_Form -> FG_OTHER_BUTTON1_LINK="A2B_entity_friend.php?atmenu=sipfriend&form_action=add_sip&stitle=Customers_Card&cardnumber=|col1|";
-	$HD_Form -> FG_OTHER_BUTTON2_LINK="A2B_entity_friend.php?atmenu=iaxfriend&form_action=add_iax&stitle=Customers_Card&cardnumber=|col1|";
-	$HD_Form -> FG_OTHER_BUTTON1_IMG = Images_Path . "/icon-sip.gif";
-	$HD_Form -> FG_OTHER_BUTTON2_IMG = Images_Path . "/icon-iax.gif";
-
-	$HD_Form -> FG_OTHER_BUTTON1_ALT="SIP buddy ";
-	$HD_Form -> FG_OTHER_BUTTON2_ALT="IAX buddy";
-}  */
 
 $maxi='';
 $maxi2='';
@@ -322,8 +294,13 @@ $activatedbyuser = $A2B->config["signup"]['activatedbyuser'] ? 't' : 'f';
 
 //$HD_Form ->FG_QUERY_ADITION_SIP_IAX_VALUE = "'$maxi', '$maxi', '$maxi', '$amaflag', '$maxi2', '$context', 'RFC2833','dynamic', 'friend', '$maxi', 'g729,ulaw,alaw,gsm','$pass'";
 
-$HD_Form ->FG_QUERY_ADITION_HIDDEN_FIELDS = "iax_buddy, sip_buddy, expiredays, expirationdate, typepaid, enableexpire, runservice, simultaccess, activated, credit, username, useralias, uipass,  userpass, loginkey, activatedbyuser";
-$HD_Form ->FG_QUERY_ADITION_HIDDEN_VALUE  = "'$iax_account','$sip_account','$myexpiredays','$myexpirationdate','$mytypepaid','$myenableexpire', '$myrunservice','$mysimultaccess','$myactivated','$mycredit','$maxi','$maxi2','$pass',"."'$myusername',"."'$loginkey',"."'$activatedbyuser'";
+$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS = "iax_buddy, sip_buddy, expiredays, expirationdate, typepaid, enableexpire, runservice, simultaccess, activated, credit, username, useralias, uipass,  userpass, loginkey, activatedbyuser";
+$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  = "'$iax_account','$sip_account','$myexpiredays','$myexpirationdate','$mytypepaid','$myenableexpire', '$myrunservice','$mysimultaccess','$myactivated','$mycredit','$maxi','$maxi2','$pass','$maxi','$loginkey','$activatedbyuser'";
+
+// username, useralias, uipass, loginkey
+$HD_Form -> FG_QUERY_EXTRA_HIDDED = array($maxi, $maxi2, $pass, $loginkey);
+
+
 if(strlen($callPlan_idlist) == 1)
 {
 	$HD_Form ->FG_QUERY_ADITION_HIDDEN_FIELDS .= ", tariff";
@@ -340,11 +317,6 @@ $HD_Form -> FG_FILTERFIELD = 'cardnumber';
 $HD_Form -> FG_FILTERFIELDNAME = 'cardnumber';
 $HD_Form -> FG_FILTER_FORM_ACTION = 'list';
 
-if (isset($filterprefix)  &&  (strlen($filterprefix)>0)){
-	if (strlen($HD_Form -> FG_TABLE_CLAUSE)>0) $HD_Form -> FG_TABLE_CLAUSE.=" AND ";
-	$HD_Form -> FG_TABLE_CLAUSE.="username like '$filterprefix%'";
-}
-
 
 $HD_Form -> FG_INTRO_TEXT_EDITION= gettext("You can modify, through the following form, the different properties of your ".$HD_Form->FG_INSTANCE_NAME);
 $HD_Form -> FG_INTRO_TEXT_ASK_DELETION = gettext("If you really want remove this ".$HD_Form->FG_INSTANCE_NAME.", click on the delete button.");
@@ -353,7 +325,6 @@ $HD_Form -> FG_INTRO_TEXT_ADD = gettext("you can add easily a new ".$HD_Form->FG
 
 $HD_Form -> FG_INTRO_TEXT_ADITION = '';
 $HD_Form -> FG_TEXT_ADITION_CONFIRMATION = "<font>".gettext("Thanks for registering with us.<br>A email with your information has been sent to your account ").$_POST["email"]."<br><br><b>".gettext("Your card number is ").$maxi."</b><br><b>".gettext("Your password is ").$pass."</b></font>";
-                                           // <br>Your new $HD_Form->FG_INSTANCE_NAME has been inserted.<br>";
 
 
 $HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = Images_Path . "/cormfirmboton.gif";

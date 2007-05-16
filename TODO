@@ -3,7 +3,13 @@
                    			TODO LIST - SPECIFIC
 ********************************************************************************
 
-
+#### WHOLESALE
+********************************************************************
+Playing 'prepaid-enter-dest' (language 'en')
+    -- Playing 'prepaid-invalid-digits' (escape_digits=#) (sample_offset 0)
+when a call is not oky or the other party is bussy
+u get  this voice mesage from a2b, clients will charge theie clients for this
+becouse we open the channel
 
 #### MISC
 ********************************************************************

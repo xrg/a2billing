@@ -284,6 +284,12 @@ class FormHandler{
 	var $FG_QUERY_ADITION_HIDDEN_FIELDS = '';
 	var $FG_QUERY_ADITION_HIDDEN_VALUE  = '';
 	var $FG_QUERY_SQL_HIDDEN = '';
+	
+	/**
+    * Set the EXTRA HIDDED VALUES for the edition/addition
+    * @public	-	@type array
+    */
+	var $FG_QUERY_EXTRA_HIDDED = '';
 
      /**
      * Set the Hidden value for the edition/addition
@@ -1205,13 +1211,13 @@ class FormHandler{
 		include_once (FSROOT."lib/Class.Table.php");
 		$processed = $this->getProcessed();  //$processed['firstname']
 		$this->VALID_SQL_REG_EXP = true;
-			
+		
 		for($i=0; $i < $this->FG_NB_TABLE_ADITION; $i++){ 
-
+			
 			$pos = strpos($this->FG_TABLE_ADITION[$i][14], ":"); // SQL CUSTOM QUERY
 			$pos_mul = strpos($this->FG_TABLE_ADITION[$i][4], "multiple");
 			if (!$pos){
-
+				
 				$fields_name = $this->FG_TABLE_ADITION[$i][1];
 				$regexp = $this->FG_TABLE_ADITION[$i][5];
 				
@@ -1288,11 +1294,10 @@ class FormHandler{
 							}
 						}
 					}
-									
 				}		
 			}
 		}
-			
+		
 		if (!is_null($this->FG_QUERY_ADITION_HIDDEN_FIELDS) && $this->FG_QUERY_ADITION_HIDDEN_FIELDS!=""){
 			if ($i>0) $param_add_fields .= ", ";		
 			$param_add_fields .= $this->FG_QUERY_ADITION_HIDDEN_FIELDS;
@@ -1304,7 +1309,7 @@ class FormHandler{
 		if ($this->FG_DEBUG == 1)  echo "<br><hr> $param_add_value";	
 		
 		$instance_table = new Table($this->FG_TABLE_NAME, $param_add_fields);
-
+		
 		// CHECK IF WE HAD FOUND A SPLITABLE FIELD THEN WE MIGHT HAVE %TAGPREFIX%
 		if (strpos($param_add_value, '%TAGPREFIX%')){
 			foreach ($arr_value_to_import as $current_value){
@@ -1409,15 +1414,18 @@ class FormHandler{
      * @public
      */
 	function create_sipiax_friends(){
-
+		
 		global $A2B;
 		$processed = $this->getProcessed();
+		
 		$id = $this -> RESULT_QUERY; // DEFINED BEFORE FG_ADDITIONAL_FUNCTION_AFTER_ADD		
 		$sip_buddy = $processed['sip_buddy'];
 		$iax_buddy = $processed['iax_buddy'];
-		$username = $processed['username'];
-		$uipass = $processed['uipass'];
-		$useralias = $processed['useralias'];
+		
+		// $this -> FG_QUERY_EXTRA_HIDDED - username, useralias, uipass, loginkey
+		$username = $this -> FG_QUERY_EXTRA_HIDDED[0];
+		$uipass = $this -> FG_QUERY_EXTRA_HIDDED[2];
+		$useralias = $this -> FG_QUERY_EXTRA_HIDDED[1];
 		
 		$FG_TABLE_SIP_NAME="cc_sip_buddies";
 		$FG_TABLE_IAX_NAME="cc_iax_buddies";
