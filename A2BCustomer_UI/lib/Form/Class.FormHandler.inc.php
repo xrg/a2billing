@@ -393,7 +393,7 @@ class FormHandler{
 
     //*****************************
 	//This variable define the width of the HTML table
-	var $FG_HTML_TABLE_WIDTH = "95%";
+	var $FG_HTML_TABLE_WIDTH="95%";
 
 	// text for multi-page navigation.
 	var $lang = array('strfirst' => '&lt;&lt; First', 'strprev' => '&lt; Prev', 'strnext' => 'Next &gt;', 'strlast' => 'Last &gt;&gt;' );
@@ -1449,7 +1449,7 @@ class FormHandler{
 		if ($sip_buddy == 1){
 			$instance_sip_table = new Table($FG_TABLE_SIP_NAME, $FG_QUERY_ADITION_SIP_IAX_FIELDS);
 			$result_query1 = $instance_sip_table -> Add_table ($this->DBHandle, $this->FG_QUERY_ADITION_SIP_IAX_VALUE, null, null, null);
-
+			
 			$buddyfile = BUDDY_SIP_FILE;
 			$instance_table_friend = new Table($FG_TABLE_SIP_NAME,'id, '.$FG_QUERY_ADITION_SIP_IAX);
 			$list_friend = $instance_table_friend -> Get_list ($this->DBHandle, '', null, null, null, null);
