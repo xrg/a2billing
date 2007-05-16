@@ -73,7 +73,7 @@ function rowOutEffect(object) {
 
 <br>
 <br>
-<form name="checkout_payment" action="checkout_confirmation.php" method="post" onsubmit="return check_form();">
+<form name="checkout_payment" action="checkout_amount.php" method="post" onsubmit="return check_form();">
     <input name="amount" type=hidden value="<?php echo $amount?>">
     <input name="item_name" type=hidden value="<?php echo $item_name?>">
     <input name="item_number" type=hidden value="<?php echo $item_number?>">

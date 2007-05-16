@@ -9,6 +9,8 @@ if (! has_rights (ACX_ACCESS)){
 	Header ("Location: PP_error.php?c=accessdenied");	   
 	die();	   
 }
+
+
 //require (LANGUAGE_DIR.FILENAME_USERINFO);
 $QUERY = "SELECT  username, credit, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, lastuse, activated, currency FROM cc_card WHERE username = '".$_SESSION["pr_login"]."' AND uipass = '".$_SESSION["pr_password"]."'";
 
@@ -122,33 +124,14 @@ echo $PAYMENT_METHOD;
 	<div class="w2">
 <table width="80%" align="center">
 	<tr>
-		<?php
-			$arr_purchase_amount = split(":", EPAYMENT_PURCHASE_AMOUNT);
-			if (!is_array($arr_purchase_amount)) $arr_purchase_amount[0]=10;
-
-			foreach($arr_purchase_amount as $value){
-		?>
-
 		<td align="center"> <br>
-			<font size="1"><?php echo gettext("Click below to buy")."<br>".gettext("credit for");?> <font color="red"><b><?php echo $value.' '.PAYPAL_CURRENCY_CODE ?></b></font></font>
+			<font size="1"><?php echo gettext("Click below to buy")."<br>".gettext("credit");?> </font>
 			<form action="checkout_payment.php" method="post">
-				<input type="hidden" name="notify_url" value="<?php echo PAYPAL_NOTIFY_URL ?>">
-				<input type="hidden" name="rm" value="2">
-				<input type="hidden" name="cmd" value="_xclick">
-				<input type="hidden" name="business" value="<?php echo PAYPAL_EMAIL ?>">
-				<input type="hidden" name="item_name" value="<?php echo PAYPAL_ITEM_NAME ?>">
-				<input type="hidden" name="item_number" value="<?php echo $customer_info[0]; ?>">
-				<input type="hidden" name="amount" value="<?php echo $value ?>">
-				<input type="hidden" name="no_note" value="1">
-				<input type="hidden" name="currency_code" value="<?php echo PAYPAL_CURRENCY_CODE ?>">
-				<input type="hidden" name="bn" value="PP-BuyNowBF">
-				<input type="hidden" name="no_shipping" value="1">
+				
 				<input type="image" src="https://www.paypal.com/en_US/i/btn/x-click-but23.gif" border="0" name="submit"
 				alt='<?php  gettext("Make payments - it's fast, free and secure!");?>'>
 			</form>
 		</td>
-		<?php } ?>
-
 	</tr>
 </table>
 

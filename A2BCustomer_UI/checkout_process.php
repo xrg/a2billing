@@ -38,9 +38,7 @@ $paymentTable = new Table();
 
 $QUERY = "SELECT * from cc_epayment_log WHERE status = 0 AND id = ".$transactionID;
 $transaction_data = $paymentTable->SQLExec ($DBHandle_max, $QUERY);
-//Update the Transaction Status to 1
-$QUERY = "UPDATE cc_epayment_log SET status = 1 WHERE id = ".$transactionID;
-$paymentTable->SQLExec ($DBHandle_max, $QUERY);
+
 
 if(!is_array($transaction_data) && count($transaction_data) == 0)
 {
@@ -68,6 +66,7 @@ switch($transaction_data[0][4])
 		$header .= "Content-Length: " . strlen ($req) . "\r\n\r\n";
 		for ($i = 1; $i <=3; $i++)
 		{
+			write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-OPENDING HTTP CONNECTION TO ".PAYPAL_VERIFY_URL);
 			$fp = fsockopen (PAYPAL_VERIFY_URL, 80, $errno, $errstr, 30);
 			if($fp)
 			{	
@@ -76,7 +75,7 @@ switch($transaction_data[0][4])
 			else
 			{
 				write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__." -Try#".$i." Failed to open HTTP Connection : ".$errstr.". Error Code: ".$errno);
-				sleep(10);
+				sleep(3);
 			}
 		}		
 		if (!$fp) 
@@ -124,7 +123,7 @@ switch($transaction_data[0][4])
 		break;
 	default:
 		write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-NO SUCH EPAYMENT FOUND");
-		exit;
+		exit();
 }
 //If security verification fails then send an email to administrator as it may be a possible attack on epayment security.
 $currencyObject = new currencies();
@@ -312,7 +311,6 @@ switch($orderStatus)
 write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"." EPAYMENT ORDER STATUS  = ".$statusmessage);
 // CHECK IF THE EMAIL ADDRESS IS CORRECT
 if(eregi("^[a-z]+[a-z0-9_-]*(([.]{1})|([a-z0-9_-]*))[a-z0-9_-]+[@]{1}[a-z0-9_-]+[.](([a-z]{2,3})|([a-z]{3}[.]{1}[a-z]{2}))$", $customer_info["email"])){
-	
 	// FIND THE TEMPLATE APPROPRIATE
 	$QUERY = "SELECT mailtype, fromemail, fromname, subject, messagetext, messagehtml FROM cc_templatemail WHERE mailtype='payment' ";
 	$res = $DBHandle_max -> Execute($QUERY);
@@ -321,7 +319,7 @@ if(eregi("^[a-z]+[a-z0-9_-]*(([.]{1})|([a-z0-9_-]*))[a-z0-9_-]+[@]{1}[a-z0-9_-]+
 	if ($res){
 		$num = $res -> RecordCount();
 	}
-	
+
 	if (!$num)
 	{
 		// WE DONT HAVE A TEMPLATE
@@ -348,8 +346,9 @@ if(eregi("^[a-z]+[a-z0-9_-]*(([.]{1})|([a-z0-9_-]*))[a-z0-9_-]+[@]{1}[a-z0-9_-]+
 		$em_headers .= "Reply-To: ".$from."\n";
 		$em_headers .= "Return-Path: ".$from."\n";
 		$em_headers .= "X-Priority: 3\n";
-		
+		write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-SENDING EMAIL TO CUSTOMER ".$customer_info["email"]);
 		mail($customer_info["email"], $subject, $messagetext, $em_headers);
+		write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-SENDING EMAIL TO CUSTOMER ENDS");
 		write_log(LOGFILE_EPAYMENT, basename(__FILE__).' line:'.__LINE__."-transactionID=$transactionID"."- MAILTO:".$customer_info["email"]."-Sub=$subject, mtext=$messagetext");
 	}
 }else{
@@ -363,6 +362,9 @@ $_SESSION["p_cardtype"] = null;
 $_SESSION["p_module"] = null;
 $_SESSION["p_module"] = null;
 
+//Update the Transaction Status to 1
+$QUERY = "UPDATE cc_epayment_log SET status = 1 WHERE id = ".$transactionID;
+$paymentTable->SQLExec ($DBHandle_max, $QUERY);
 
 // load the after_process function from the payment modules
 $payment_modules->after_process();
