@@ -1449,7 +1449,7 @@ class FormHandler{
 		if ($sip_buddy == 1){
 			$instance_sip_table = new Table($FG_TABLE_SIP_NAME, $FG_QUERY_ADITION_SIP_IAX_FIELDS);
 			$result_query1 = $instance_sip_table -> Add_table ($this->DBHandle, $this->FG_QUERY_ADITION_SIP_IAX_VALUE, null, null, null);
-
+exit;
 			$buddyfile = BUDDY_SIP_FILE;
 			$instance_table_friend = new Table($FG_TABLE_SIP_NAME,'id, '.$FG_QUERY_ADITION_SIP_IAX);
 			$list_friend = $instance_table_friend -> Get_list ($this->DBHandle, '', null, null, null, null);
