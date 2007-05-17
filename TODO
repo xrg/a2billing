@@ -3,6 +3,58 @@
                    			TODO LIST - SPECIFIC
 ********************************************************************************
 
+#### REMOVE
+********************************************************************
+A2Billing_UI/paypal
+A2B_entity_paypal.php?atmenu=paypal&stitle=PaypalTransaction&form_action=list&section=2
+FG_var_paypal
+
+#### ACL : Access Control List
+********************************************************************
+1# Check each page on admin to see if they have the appropiated protection 
+ie, 
+if (! has_rights (ACX_RATECARD)){
+replace by 
+if (! has_rights (ACX_MISC)){
+
+replace according to the section
+each php page that is not included need a protection.
+
+
+#### ACL : Access Control List
+********************************************************************
+try to improve for a complex ACL,
+for each pages / Section
+
+Access Right like Edit ; Delete ; Add
+
+
+#### Building a logging / tracking system on the web interface
+********************************************************************
+Building a logging / tracking system on the web interface
+
+
+
+#### IAX / SIP Info on signup
+********************************************************************
+then we could say in the customer signup email - 
+IAX details : Username = $card_gen, Password = $password CID = $cardalias
+
+
+#### WEB SYSTEM TO AUTOMATE UPDATE OF RATECARD
+********************************************************************
+Web system to automate update of ratecard
+
+changed rates : the 15th -> 00:00 and the 1st -> 00:00
+GMT : 0
+
+#### AUTO CREATE CARD
+********************************************************************
+Creating an Account from the Caller ID
+there is no setting for currency, so despite the fact that I had set the base currency to Euro, it created an account in USD. 
+Maybe the account should be setup in the Base currency by default ?
+
+
 #### WHOLESALE
 ********************************************************************
 Playing 'prepaid-enter-dest' (language 'en')
@@ -68,9 +120,6 @@ New button for confirm Data
 add a parameter to not bill 1st if not connected
 callback_bill_1stleg_ifcall_notconnected = YES / NO
 
-or best of all, and simplest, set the initial IAX / SIP pasword to be the webui password
-the initial PW was set to the WebUI password, 
-then we could say in the customer signup email - IAX details : Username = $card_gen, Password = $password CID = $cardalias
 
 
 #### Check voice one 
