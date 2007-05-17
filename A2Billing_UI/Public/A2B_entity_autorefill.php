@@ -6,7 +6,7 @@ include ("./form_data/FG_var_autorefill.inc");
 include ("../lib/smarty.php");
 
 
-if (! has_rights (ACX_RATECARD)){ 
+if (! has_rights (ACX_CRONT_SERVICE)){ 
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");	   
 	die();	   
