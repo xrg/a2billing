@@ -407,6 +407,7 @@
 				<li><a href="A2B_entity_backup.php?form_action=ask-add&section=10">{php} echo gettext("Database Backup");{/php}</a></li>
 				<li><a href="A2B_entity_restore.php?section=10">{php} echo gettext("Database Restore");{/php}</a></li>
 				<li><a href="A2B_logfile.php?section=10">{php} echo gettext("Watch Log files");{/php}</a></li>
+				<li><a href="A2B_entity_log_viewer.php?section=10">{php} echo gettext("System Log");{/php}</a></li>
 			</ul></li>
 		</ul>
 	</div>

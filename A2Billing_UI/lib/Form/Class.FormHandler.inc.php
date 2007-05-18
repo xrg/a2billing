@@ -404,7 +404,7 @@ class FormHandler{
 	// text for multi-page navigation.
 	var $lang = array('strfirst' => '&lt;&lt; First', 'strprev' => '&lt; Prev', 'strnext' => 'Next &gt;', 'strlast' => 'Last &gt;&gt;' );
 
-
+	var $logger = null;
 	// ----------------------------------------------
 	// CLASS CONSTRUCTOR : FormHandler
 	//	@public
@@ -448,6 +448,7 @@ class FormHandler{
         $this -> FG_TEXT_ERROR_DUPLICATION = gettext("You cannot choose more than one !");
 
         $this -> FG_FK_DELETE_MESSAGE = "Are you sure to delete all records connected to this instance.";
+		$this -> logger = new Logger();
 	}
 
 
@@ -1210,8 +1211,7 @@ class FormHandler{
 	function perform_add (&$form_action){
 		include_once (FSROOT."lib/Class.Table.php");
 		$processed = $this->getProcessed();  //$processed['firstname']
-		$this->VALID_SQL_REG_EXP = true;
-		
+		$this->VALID_SQL_REG_EXP = true;		
 		for($i=0; $i < $this->FG_NB_TABLE_ADITION; $i++){ 
 			
 			$pos = strpos($this->FG_TABLE_ADITION[$i][14], ":"); // SQL CUSTOM QUERY
@@ -1319,6 +1319,8 @@ class FormHandler{
 		}else{
 			if ($this->VALID_SQL_REG_EXP) $this -> RESULT_QUERY = $instance_table -> Add_table ($this->DBHandle, $param_add_value, null, null, $this->FG_TABLE_ID);
 		}
+		
+		$this -> logger -> insertLog_Add($_SESSION["admin_id"], 3, "NEW ".strtoupper($this->FG_INSTANCE_NAME)." CREATED" , "User added a new record in database", $this->FG_TABLE_NAME, $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'], $param_add_fields, $param_add_value);
 		if (!$this -> RESULT_QUERY ){					
 			$findme   = 'duplicate';
 			$pos_find = strpos($instance_sub_table -> errstr, $findme);								
@@ -1649,7 +1651,8 @@ class FormHandler{
 		if ($this->FG_DEBUG == 1)  echo "<br><hr> PARAM_UPDATE: $param_update<br>".$this->FG_EDITION_CLAUSE;
 			
 		if ($this->VALID_SQL_REG_EXP) $this -> RESULT_QUERY = $instance_table -> Update_table ($this->DBHandle, $param_update, $this->FG_EDITION_CLAUSE, $func_table = null);
-
+		
+		$this -> logger -> insertLog_Update($_SESSION["admin_id"], 3, "A ".strtoupper($this->FG_INSTANCE_NAME)." UPDATED" , "A RECORD IS UPDATED, EDITION CALUSE USED IS ".$this->FG_EDITION_CLAUSE, $this->FG_TABLE_NAME, $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'], $param_update);
 		if ($this->FG_DEBUG == 1) echo $this -> RESULT_QUERY;
 		
 		if ( ($this->VALID_SQL_REG_EXP) && (isset($this->FG_GO_LINK_AFTER_ACTION_EDIT))){				
@@ -1695,6 +1698,7 @@ class FormHandler{
 		}
 		
 		$this -> RESULT_QUERY = $instance_table -> Delete_table ($this->DBHandle, $this->FG_EDITION_CLAUSE, $func_table = null);
+		$this -> logger -> insertLog($_SESSION["admin_id"], 3, "A ".strtoupper($this->FG_INSTANCE_NAME)." DELETED" , "A RECORD IS DELETED, EDITION CALUSE USED IS ".$this->FG_EDITION_CLAUSE, $this->FG_TABLE_NAME, $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'], $param_update);
 		if (!$this -> RESULT_QUERY)  echo gettext("error deletion");
 		
 		$this->FG_INTRO_TEXT_DELETION = str_replace("%id", $processed['id'], $this->FG_INTRO_TEXT_DELETION);

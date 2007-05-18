@@ -440,10 +440,10 @@ function validate_upload($the_file, $the_file_type) {
                                         "application/msword"                    => ".doc",
                                         "application/vnd.ms-excel"              => ".xls",
                                         "application/octet-stream"              => ".exe, .fla (etc)",
-										"text/x-comma-separated-values"			=> ".csv"
+										"application/vnd.ms-excel"			=> ".csv"
                                         ); # these are only a few examples, you can find many more!
 
-	$allowed_types = array("text/plain", "text/x-comma-separated-values");
+	$allowed_types = array("text/plain", "text/x-comma-separated-values", "application/vnd.ms-excel");
 
 
 	$start_error = "\n<b>ERROR:</b>\n<ul>";
@@ -462,7 +462,7 @@ function validate_upload($the_file, $the_file_type) {
         } 
         else        
         {
- 			if (!in_array($the_file_type,$allowed_types))
+ 			if (!in_array($the_file_type, $allowed_types))
  			{
  				$error .= "\n<li>".gettext("file type is not allowed")."\n<ul>";
                 while ($type = current($allowed_types))

@@ -5,7 +5,6 @@ include_once("../lib/module.access.php");
 include ("../lib/smarty.php");
 
 $smarty->display('main.tpl');
-
 ?>
 <br/><br/><br/><br/>
 <br/>

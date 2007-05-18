@@ -43,6 +43,9 @@ session_start();
 
 if (isset($_GET["logout"]) && $_GET["logout"]=="true") {       
 	   	   
+		$log = new Logger();			
+		$log -> insertLog($admin_id, 1, "USER LOGGED OUT", "User Logged out from website", '', $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'],'');
+	    $log = null;   
 	   session_destroy();
 	   $rights=0;
 	   Header ("HTTP/1.0 401 Unauthorized");
@@ -76,6 +79,7 @@ if ((!session_is_registered('pr_login') || !session_is_registered('pr_password')
 		$_POST["pr_password"] = access_sanitize_data($_POST["pr_password"]);
 		
 		$return = login ($_POST["pr_login"], $_POST["pr_password"]);
+		
 		if ($FG_DEBUG == 1) print_r($return);
 		if ($FG_DEBUG == 1) echo "==>".$return[1];
 		if (!is_array($return) || $return[1]==0 ) {
@@ -84,7 +88,9 @@ if ((!session_is_registered('pr_login') || !session_is_registered('pr_password')
 			die();
 		}	
 		// if groupID egal 1, this user is a root
+		
 		if ($return[3]==0){
+			$admin_id = $return[0];
 			$return = true;
 			$rights = 32767;	
 			
@@ -92,6 +98,7 @@ if ((!session_is_registered('pr_login') || !session_is_registered('pr_password')
 			$pr_groupID = $return[3];
 		}else{				
 			$pr_reseller_ID = $return[0];
+			$admin_id = $return[0];
 			$rights = $return[1];
 			if ($return[3]==1) $is_admin=1;
 			else $is_admin=0;
@@ -99,9 +106,8 @@ if ((!session_is_registered('pr_login') || !session_is_registered('pr_password')
 			if ($return[3] == 3) $pr_reseller_ID = $return[4];
 			
 			$pr_groupID = $return[3];			
-		}		
-		
-		
+		}
+				
 		if ($_POST["pr_login"]){
 		
 			$pr_login = $_POST["pr_login"];
@@ -114,7 +120,10 @@ if ((!session_is_registered('pr_login') || !session_is_registered('pr_password')
 			$_SESSION["is_admin"]=$is_admin;	
 			$_SESSION["pr_reseller_ID"]=$pr_reseller_ID;
 			$_SESSION["pr_groupID"]=$pr_groupID;
-			
+			$_SESSION["admin_id"] = $admin_id;
+			$log = new Logger();			
+			$log -> insertLog($admin_id, 1, "User Logged In", "User Logged in to website", '', $_SERVER['REMOTE_ADDR'], 'PP_Intro.php','');
+			$log = null;
 		}	
 		
 	}else{
@@ -144,7 +153,6 @@ function login ($user, $pass) {
 	}
 
 	$row [] =$res -> fetchRow();
-	
 	return ($row[0]);
 }
 

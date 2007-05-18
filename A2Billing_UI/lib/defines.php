@@ -223,5 +223,5 @@ define ("RELOAD_ASTERISK_IF_SIPIAX_CREATED", isset($A2B->config["signup"]['reloa
 
 
 include (FSROOT."lib/help.php");
-
+include (FSROOT."lib/Class.Logger.php");
 ?>
