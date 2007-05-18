@@ -39,13 +39,10 @@ if (!isset($currencies_list[strtoupper($customer_info [14])][2]) || !is_numeric(
 else $mycur = $currencies_list[strtoupper($customer_info [14])][2];
 $credit_cur = $customer_info[1] / $mycur;
 $credit_cur = round($credit_cur,3);
-?>
 
 
 
-<?php
-
-	$smarty->display( 'main.tpl');
+$smarty->display( 'main.tpl');
 	
 ?>
 

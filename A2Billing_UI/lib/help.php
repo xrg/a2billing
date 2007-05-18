@@ -844,9 +844,10 @@ $CC_help_list_payment_methods = '<div class="toggle_show2hide">
 </div></div>
 '; 
 
-$SPOT['PAYPAL'] 		= '<a href="https://www.paypal.com/es/mrb/pal=PGSJEXAEXKTBU"><img src="'.KICON_PATH.'/paypal_logo.gif" alt="paypal"/></a>';
-$SPOT['MONEYBOOKER'] 	= '<a href="https://www.moneybookers.com/app/?rid=811621"><img src="'.KICON_PATH.'/moneybookers.gif" alt="moneybookers"/></a>';
-$SPOT['AUTHORIZE'] 	= '<img src="'.KICON_PATH.'/authorize.gif" />';
+
+$SPOT['PAYPAL'] 		= '<a href="https://www.paypal.com/es/mrb/pal=PGSJEXAEXKTBU" target="_blank"><img src="'.KICON_PATH.'/paypal_logo.gif" alt="Paypal"/></a>';
+$SPOT['MONEYBOOKERS'] 	= '<a href="https://www.moneybookers.com/app/?rid=811621" target="_blank"><img src="'.KICON_PATH.'/moneybookers.gif" alt="Moneybookers"/></a>';
+$SPOT['AUTHORIZENET'] 	= '<a href="http://authorize.net/" target="_blank"><img src="'.KICON_PATH.'/authorize.gif" alt="Authorize.net"/></a>';
 
 $PAYMENT_METHOD ='
 <table width="70%" align="center">
@@ -854,9 +855,9 @@ $PAYMENT_METHOD ='
 		<TD valign="top" align="center" class="tableBodyRight">
 			'.$SPOT['PAYPAL'].'
 			&nbsp;&nbsp; &nbsp; 
-			'.$SPOT['MONEYBOOKER'].'
+			'.$SPOT['MONEYBOOKERS'].'
 			&nbsp;&nbsp; &nbsp;
-			'.$SPOT['AUTHORIZE'].'
+			'.$SPOT['AUTHORIZENET'].'
 		</td>
 	</tr>
 </table>';

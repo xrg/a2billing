@@ -3,9 +3,20 @@
                    			TODO LIST - SPECIFIC
 ********************************************************************************
 
+
+#### GMT : REPORT & INVOICING
+********************************************************************
+Suppot GMT : report & invoicing
+
+
 #### IVR : OPTION NO VOICE
 ********************************************************************
 Create an option on the AGI to remove Audio
+
+
+#### SECTION : IMPORT RATES
+********************************************************************
+underline : "  _  "  character not suport in  the .csv file   example   name_blabla.csv
 
 
 #### ACL : Access Control List
