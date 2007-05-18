@@ -5,6 +5,11 @@
 ********************************************************************
 
 
+#### REMOVE OLD PAYPAL
+********************************************************************
+A2Billing_UI/paypal
+A2B_entity_paypal.php?atmenu=paypal&stitle=PaypalTransaction&form_action=list&section=2
+FG_var_paypal
 
 #### SIGNUP : IF SIP/IAX Created reload asterik
 ********************************************************************

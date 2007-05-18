@@ -3,11 +3,10 @@
                    			TODO LIST - SPECIFIC
 ********************************************************************************
 
-#### REMOVE
+#### IVR : OPTION NO VOICE
 ********************************************************************
-A2Billing_UI/paypal
-A2B_entity_paypal.php?atmenu=paypal&stitle=PaypalTransaction&form_action=list&section=2
-FG_var_paypal
+Create an option on the AGI to remove Audio
+
 
 #### ACL : Access Control List
 ********************************************************************
