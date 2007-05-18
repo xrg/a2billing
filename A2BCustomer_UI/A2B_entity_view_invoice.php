@@ -12,11 +12,9 @@ if (! has_rights (ACX_ACCESS)){
 }
 
 
-
 /***********************************************************************************/
 
 $HD_Form -> setDBHandler (DbConnect());
-
 
 $HD_Form -> init();
 
@@ -50,19 +48,16 @@ $HD_Form -> create_toppage ($form_action);
 if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
 
 ?>
-<br>
+
 <script language="javascript">
 function go(URL)
 {
 	if ( Check() )
 	{
-		
 		document.searchform.action = URL;		
 		alert(document.searchform.action);
 		document.searchform.submit();
-
 	}
-		
 }	
 
 function Check()

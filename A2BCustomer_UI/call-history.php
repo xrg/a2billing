@@ -4,15 +4,13 @@ include ("lib/module.access.php");
 include ("lib/smarty.php");
 
 if (! has_rights (ACX_ACCESS)){ 
-	   Header ("HTTP/1.0 401 Unauthorized");
-	   Header ("Location: PP_error.php?c=accessdenied");	   
-	   die();
+	Header ("HTTP/1.0 401 Unauthorized");
+	Header ("Location: PP_error.php?c=accessdenied");	   
+	die();
 }
 
 
 if (!$A2B->config["webcustomerui"]['cdr']) exit();
-
-//require (LANGUAGE_DIR.FILENAME_BALANCE);
 
 
 $QUERY = "SELECT  username, credit, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, lastuse, activated FROM cc_card WHERE username = '".$_SESSION["pr_login"]."' AND uipass = '".$_SESSION["pr_password"]."'";
@@ -28,7 +26,7 @@ if ($numrow == 0) exit();
 $customer_info =$resmax -> fetchRow();
 
 if( $customer_info [13] != "t" && $customer_info [13] != "1" ) {
-	 exit();
+	exit();
 }
 
 $customer = $_SESSION["pr_login"];

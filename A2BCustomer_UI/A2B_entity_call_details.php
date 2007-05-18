@@ -324,7 +324,7 @@ function formsubmit()
 //-->
 </script>
 
-<br/><br/>
+
 <!-- ** ** ** ** ** Part for the research ** ** ** ** ** -->
 	
 	<FORM name="calldataform" id="calldataform"  METHOD=POST>

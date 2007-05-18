@@ -9,11 +9,12 @@ CALLBACK
 	The Document Explains you following topics
 	1. Introduction
 	2. Basic description of the Callback
-	3. CallBack Solution
-		3.1 Web Callback
-		3.2 ANI Callback
-		3.3 DID Callback
-		3.4 API Callback.
+	3. Table CallBack
+	4. CallBack Solution
+		4.1 Web Callback
+		4.2 ANI Callback
+		4.3 DID Callback
+		4.4 API Callback.
 
 
 
@@ -50,3 +51,35 @@ CALLBACK
 		9. A2Billing will tell the maximum time for the call and so on.
 		
 		10. ...
+		
+		
+		
+3. TABLE CALLBACK_SPOOL
+
+	
+	id					Id of the table
+	uniqueid 	 		Unique ID to cross-check with other platform 
+	entry_time			Time the record is stored in this table
+	status 	 			enum('NEW', 'QUEUE', 'SENT', 'UPDATED', 'DEAD')	
+	server_ip 	 		Server IP receive the callback to initiate and handle
+	
+	num_attempt			number of attempt
+	last_attempt_time	Time the record is stored in this table
+	manager_result		Originate
+	agi_result			Ok, Hangup, etc...
+	
+	callback_time		Time to start to initiate the callback
+	
+	channel				Channel on which to originate the call (SIP/123@1.1.1.4)
+	exten				Extension to use on connect (must use Context & Priority with it)
+	context				Context to use on connect (must use Exten & Priority with it)
+	priority			Priority to use on connect (must use Context & Exten with it)
+	application			Application to use on connect : meetme or other (use Data for parameters)
+	data				Data if Application parameter is used
+	timeout				Timeout for the connection to happen (30000)
+	callerid			CallerID to use for the call
+	variable			Callback info for Asterisk (variable list to transfer to the channel) var1=23|var2=24|var3=25 
+	account				Account code for the call for billing purpose
+	async				For the origination to be asynchronous (allows multiple calls to be generated without waiting for a response)
+	actionid			The request identifier. It allows you to identify the response to this request. You may use a number or a string. 
+						Useful when you make several simultaneous requests. ActionID: ABC45678901234
