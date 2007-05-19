@@ -412,7 +412,7 @@ function sql_report($query,$dump=false,$attr=array()){
     $this->morepagestable($this->FontSizePt);
 	$myfilename = "Asterisk_CDR_". date("Y-m-d").".pdf";
 	$log = new Logger();			
-	$log -> insertLog($_SESSION["admin_id"], 4, "FILE EXPORTED", "A File in Pdf Format is exported by User, File Name= ".$myfilename, '', $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'],'');
+	$log -> insertLog($_SESSION["admin_id"], 2, "FILE EXPORTED", "A File in Pdf Format is exported by User, File Name= ".$myfilename, '', $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'],'');
 	$log = null;
 
    $this->Output($myfilename,"D");

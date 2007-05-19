@@ -355,6 +355,11 @@ function sendtoupload(form){
                     <div align="center"><span class="textcomment"> 
                        
 					  <br>
+					  <?php 
+			  			$log = new Logger();
+						  $log -> insertLog($_SESSION["admin_id"], 2, "DID IMPORTED", $nb_imported." New DID's Imported Successfully", '', $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'],'');
+						  $log = null;
+						?>
 					  <?php echo gettext("The import of the new DID's have been realized with success!");?><br>
 					  <?php echo $nb_imported?> <?php echo gettext("new DID's have been imported into your Database.");?>
                       </span></div>

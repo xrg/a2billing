@@ -334,7 +334,7 @@ $CC_help_list_log ='
 	<img src="'.KICON_PATH.'/kdmconfig.gif" class="kikipic"/>
 	<div class="w2">
 	<br/>'
-	.gettext("System log help you to keep track and event all event happening in your application.").'
+	.gettext("System log help you to keep track and event all event happening in your application. Log Level are the Importance Levels for the Events which are logged. '1' is lowest level and '3' is highest level. 1 if for Login, Logout, Page Visit, 2 if for Add, Import, Export. and 3 is for update and Delete.").'
 <br/><br/>
 </div></div></div>
 </div></div>';

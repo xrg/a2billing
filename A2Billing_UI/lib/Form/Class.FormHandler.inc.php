@@ -1320,7 +1320,7 @@ class FormHandler{
 			if ($this->VALID_SQL_REG_EXP) $this -> RESULT_QUERY = $instance_table -> Add_table ($this->DBHandle, $param_add_value, null, null, $this->FG_TABLE_ID);
 		}
 		
-		$this -> logger -> insertLog_Add($_SESSION["admin_id"], 3, "NEW ".strtoupper($this->FG_INSTANCE_NAME)." CREATED" , "User added a new record in database", $this->FG_TABLE_NAME, $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'], $param_add_fields, $param_add_value);
+		$this -> logger -> insertLog_Add($_SESSION["admin_id"], 2, "NEW ".strtoupper($this->FG_INSTANCE_NAME)." CREATED" , "User added a new record in database", $this->FG_TABLE_NAME, $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'], $param_add_fields, $param_add_value);
 		if (!$this -> RESULT_QUERY ){					
 			$findme   = 'duplicate';
 			$pos_find = strpos($instance_sub_table -> errstr, $findme);								
