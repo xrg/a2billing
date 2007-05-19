@@ -193,9 +193,7 @@ if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
 				<option value="0" <?php if ($loglevel == 0) echo "selected"?>>ALL</option>
 				<option value="1" <?php if ($loglevel == 1) echo "selected"?>>Level-1</option>
 				<option value="2" <?php if ($loglevel == 2) echo "selected"?>>Level-2</option>
-				<option value="3" <?php if ($loglevel == 3) echo "selected"?>>Level-3</option>
-				<option value="4" <?php if ($loglevel == 4) echo "selected"?>>Level-4</option>
-				<option value="5" <?php if ($loglevel == 5) echo "selected"?>>Level-5</option>
+				<option value="3" <?php if ($loglevel == 3) echo "selected"?>>Level-3</option>				
 				</select>
 				</td>
 			</tr>
