@@ -41,7 +41,6 @@ if($enteradmin != "")
 	$HD_Form -> FG_TABLE_CLAUSE.=" csl.iduser = '$enteradmin'";
 }	
 if (strlen($enteradmin)>0 && strlen($loglevel)>0 && $loglevel > 0) $HD_Form -> FG_TABLE_CLAUSE.=" AND ";
-echo $loglevel;
 if($loglevel != "" && $loglevel > 0)
 {
 	$HD_Form -> FG_TABLE_CLAUSE.=" csl.loglevel = '$loglevel'";
