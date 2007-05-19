@@ -473,7 +473,9 @@
     */
     function say_digits($digits, $escape_digits='')
     {
-      return $this->evaluate("SAY DIGITS $digits \"$escape_digits\"");
+	  if (PLAY_AUDIO){
+        return $this->evaluate("SAY DIGITS $digits \"$escape_digits\"");
+	  }
     }
 
    /**
@@ -487,7 +489,9 @@
     */
     function say_number($number, $escape_digits='')
     {
-      return $this->evaluate("SAY NUMBER $number \"$escape_digits\"");
+	  if (PLAY_AUDIO){
+        return $this->evaluate("SAY NUMBER $number \"$escape_digits\"");
+	  }
     }
 
    /**
@@ -501,7 +505,9 @@
     */
     function say_phonetic($text, $escape_digits='')
     {
-      return $this->evaluate("SAY PHONETIC $text \"$escape_digits\"");
+	  if (PLAY_AUDIO){
+      	return $this->evaluate("SAY PHONETIC $text \"$escape_digits\"");
+	  }
     }
 
    /**
@@ -515,8 +521,10 @@
     */
     function say_time($time=NULL, $escape_digits='')
     {
-      if(is_null($time)) $time = time();
-      return $this->evaluate("SAY TIME $time \"$escape_digits\"");
+	  if (PLAY_AUDIO){
+        if(is_null($time)) $time = time();
+        return $this->evaluate("SAY TIME $time \"$escape_digits\"");
+	  }
     }
 
    /**
@@ -682,7 +690,9 @@
     */
     function stream_file($filename, $escape_digits='', $offset=0)
     {
-      return $this->evaluate("STREAM FILE $filename \"$escape_digits\" $offset");
+		if (PLAY_AUDIO){
+      		return $this->evaluate("STREAM FILE $filename \"$escape_digits\" $offset");
+		}
     }
 
    /**

@@ -5,11 +5,21 @@
 ********************************************************************
 
 
+#### FEATURE : IVR - OPTION NO VOICE
+********************************************************************
+Create an option on the AGI to remove Audio
+
+; Play audio - this will disable all stream file but not the Get Data 
+; for wholesale ensure that the authentication works and than number_try = 1
+play_audio = YES
+
+
 #### REMOVE OLD PAYPAL
 ********************************************************************
 A2Billing_UI/paypal
 A2B_entity_paypal.php?atmenu=paypal&stitle=PaypalTransaction&form_action=list&section=2
 FG_var_paypal
+
 
 #### SIGNUP : IF SIP/IAX Created reload asterik
 ********************************************************************

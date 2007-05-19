@@ -4,14 +4,16 @@
 ********************************************************************************
 
 
+#### consolidate
+********************************************************************
+U    A2Billing_UI/lib/Class.Table.php
+U    A2Billing_UI/lib/Form/Class.FormHandler.inc.php
+
+
 #### GMT : REPORT & INVOICING
 ********************************************************************
 Suppot GMT : report & invoicing
 
-
-#### IVR : OPTION NO VOICE
-********************************************************************
-Create an option on the AGI to remove Audio
 
 
 #### SECTION : IMPORT RATES
