@@ -4,21 +4,9 @@
 ********************************************************************************
 
 
-#### consolidate
-********************************************************************
-U    A2Billing_UI/lib/Class.Table.php
-U    A2Billing_UI/lib/Form/Class.FormHandler.inc.php
-
-
 #### GMT : REPORT & INVOICING
 ********************************************************************
 Suppot GMT : report & invoicing
-
-
-
-#### SECTION : IMPORT RATES
-********************************************************************
-underline : "  _  "  character not suport in  the .csv file   example   name_blabla.csv
 
 
 #### ACL : Access Control List
@@ -43,6 +31,7 @@ Web system to automate update of ratecard
 changed rates : the 15th -> 00:00 and the 1st -> 00:00
 GMT : 0
 
+
 #### AUTO CREATE CARD
 ********************************************************************
 Creating an Account from the Caller ID
@@ -50,13 +39,6 @@ there is no setting for currency, so despite the fact that I had set the base cu
 Maybe the account should be setup in the Base currency by default ?
 
 
-#### WHOLESALE
-********************************************************************
-Playing 'prepaid-enter-dest' (language 'en')
-    -- Playing 'prepaid-invalid-digits' (escape_digits=#) (sample_offset 0)
-when a call is not oky or the other party is bussy
-u get  this voice mesage from a2b, clients will charge theie clients for this
-becouse we open the channel
 
 #### MISC
 ********************************************************************
@@ -68,11 +50,6 @@ sometimes u can hear (durring the other party phone rings) a voice with "and the
  
 3. Soft Phone dont work.
 
-
-
-#### CONSOLIDATE : CLASS FORM - CSS
-********************************************************************
-CONSOLIDATE : CLASS FORM - CSS
 
 
 
