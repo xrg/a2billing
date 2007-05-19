@@ -50,21 +50,21 @@ if($date_clause != "")
 {
 	$HD_Form -> FG_TABLE_CLAUSE.=" ".$date_clause;
 }
-$HD_Form -> FG_EDITION_CLAUSE = " id = $id";
+//$HD_Form -> FG_EDITION_CLAUSE = " id = $id";
 
-$HD_Form -> AddViewElement(gettext("ID"), "id", "10%", "center", "sort");
+$HD_Form -> AddViewElement(gettext("ID"), "id", "5%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("LOGIN"), "login", "8%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("LOGLEVEL"), "loglevel", "14%", "center");
-$HD_Form -> AddViewElement(gettext("ACTION"), "action", "14%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("description"), "description", "12%", "center", "sort");
+$HD_Form -> AddViewElement(gettext("LOGLEVEL"), "loglevel", "10%", "center");
+$HD_Form -> AddViewElement(gettext("ACTION"), "action", "15%", "center", "sort");
+$HD_Form -> AddViewElement(gettext("description"), "description", "15%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("TABLENAME"), "tablename", "12%", "center", "sort", "15");
 $HD_Form -> AddViewElement(gettext("PAGENAME"), "pagename", "5%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("IPADDRESS"), "ipaddress", "4%", "center", "SORT");
-$HD_Form -> AddViewElement(gettext("DATE"), "creationdate", "14%", "center", "sort");
+$HD_Form -> AddViewElement(gettext("IPADDRESS"), "ipaddress", "4%", "center", "sort");
+$HD_Form -> AddViewElement(gettext("DATE"), "creationdate", "14%", "center", "sort", "16");
 //$HD_Form -> AddViewElement(gettext("DATA"), "data", "8%", "center", "SORT");
 
 // added a parameter to append  FG_TABLE_ID  ( by default ) or disable 0.
-$HD_Form -> FieldViewElement ('id, cua.login, loglevel,action,description,tablename,pagename,ipaddress,creationdate,data');
+$HD_Form -> FieldViewElement ('id, cua.login, loglevel, action, description, tablename, pagename, ipaddress, creationdate');
 $HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO LOG AVAILABLE1!");
 
 $HD_Form -> FG_EDITION = true;
@@ -76,17 +76,17 @@ $HD_Form -> AddEditElement (gettext("LOGIN"),
 	"INPUT",
 	"size=30 maxlength=30 readonly",
 	"",
-	gettext("Insert the Login"),
-	"" , "", "", "", "" , "", "" ,"Insert Login");
+	"",
+	"" , "", "", "", "" , "", "" ,"");
 	
-$HD_Form -> AddEditElement (gettext("LOGINLEVEL"),
-	"loginlevel",
+$HD_Form -> AddEditElement (gettext("LOG-LEVEL"),
+	"loglevel",
 	'$value',
 	"INPUT",
 	"size=30 maxlength=30 readonly",
 	"",
-	gettext("Insert the Login Level"),
-	"" , "", "", "", "" , "", "" ,"Insert Login Level");
+	"",
+	"" , "", "", "", "" , "", "" ,"");
 	
 $HD_Form -> AddEditElement (gettext("action"),
 	"action",
@@ -94,8 +94,8 @@ $HD_Form -> AddEditElement (gettext("action"),
 	"INPUT",
 	"size=30 maxlength=30 readonly",
 	"",
-	gettext("Insert the Action"),
-	"" , "", "", "", "" , "", "" ,"Insert Action");
+	"",
+	"" , "", "", "", "" , "", "" ,"");
 
 $HD_Form -> AddEditElement (gettext("DESCRIPTION"),
 	"description",
@@ -103,10 +103,10 @@ $HD_Form -> AddEditElement (gettext("DESCRIPTION"),
 	"TEXTAREA",
 	"size=30 maxlength=30 readonly",
 	"",
-	gettext("Insert the Login"),
-	"" , "", "", "", "" , "", "" ,"Insert Login");
+	"",
+	"" , "", "", "", "" , "", "" ,"");
 
-$HD_Form -> FieldEditElement ('login, loginlevel, action, description');
+$HD_Form -> FieldEditElement ('login, loglevel, action, description');
 
 
 $HD_Form -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;
