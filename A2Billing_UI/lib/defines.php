@@ -224,4 +224,7 @@ define ("RELOAD_ASTERISK_IF_SIPIAX_CREATED", isset($A2B->config["signup"]['reloa
 
 include (FSROOT."lib/help.php");
 include (FSROOT."lib/Class.Logger.php");
+$log = new Logger();			
+$log -> insertLog($_SESSION["admin_id"], 4, "Page Visit", "User Visited the Page", '', $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'],'');
+$log = null;
 ?>

@@ -1816,3 +1816,18 @@ CREATE TABLE cc_epayment_log (
     status 							INT DEFAULT 0 NOT NULL,
     PRIMARY KEY (id)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
+
+
+CREATE TABLE cc_system_log (
+    id 								INT NOT NULL AUTO_INCREMENT,
+    iduser 							INT DEFAULT 0 NOT NULL,
+    loglevel	 					INT DEFAULT 0 NOT NULL,
+    action			 				TEXT NOT NULL,
+    description						MEDIUMTEXT,    
+    data			 				BLOB,
+	tablename						VARCHAR(255),
+	pagename			 			VARCHAR(255),
+	ipaddress						VARCHAR(255),	
+	creationdate  					TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    PRIMARY KEY (id)
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;

@@ -1921,3 +1921,18 @@ CREATE TABLE cc_epayment_log (
 );
 ALTER TABLE ONLY cc_epayment_log
 ADD CONSTRAINT cc_epayment_log_pkey PRIMARY KEY (id);
+
+CREATE TABLE cc_system_log (
+    id 								BIGSERIAL NOT NULL,
+    iduser 							INTEGER NOT NULL DEFAULT 0,
+    loglevel	 					INTEGER NOT NULL DEFAULT 0,
+    action			 				TEXT NOT NULL,
+    description						TEXT,    
+    data			 				TEXT,
+	tablename						CHARACTER VARYING(255),
+	pagename			 			CHARACTER VARYING(255),
+	ipaddress						CHARACTER VARYING(255),	
+	creationdate  					TIMESTAMP(0) without time zone DEFAULT NOW()   
+);
+ALTER TABLE ONLY cc_system_log
+ADD CONSTRAINT cc_system_log_pkey PRIMARY KEY (id);

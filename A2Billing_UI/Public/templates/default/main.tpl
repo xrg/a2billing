@@ -16,7 +16,7 @@
 </HEAD>
 <BODY leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
 
-<p class="version" align="right">{$WEBUI_VERSION} - {$WEBUI_DATE}</p>
+<p class="version" align="right">{$WEBUI_VERSION} - {$WEBUI_DATE}<br><br><br>Logged-in as: <b>{$adminname}</b></p>
 <br>
 
 <DIV border="0" width="1000px">

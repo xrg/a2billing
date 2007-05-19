@@ -1,25 +1,57 @@
 <?php
-getpost_ifset(array('id', 'billingtype', 'did', 'startingdate', 'expirationdate', 'id_cc_didgroup', 'id_cc_country', 'activated', 'fixrate', 'id_trunk'));
-
+getpost_ifset(array('id', 'loglevel', 'enteradmin', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth', 'tostatsmonth', 'fromday', 'fromstatsday_sday', 'fromstatsmonth_sday', 'today', 'tostatsday_sday', 'tostatsmonth_sday', 'stitle', 'atmenu', 'current_page', 'order', 'sens','popup_select'));
 
 $HD_Form = new FormHandler("cc_system_log csl LEFT JOIN cc_ui_authen cua ON csl.iduser = cua.userid", "Log");
 
 $HD_Form -> FG_DEBUG = 0;
-$HD_Form -> FG_TABLE_ID="id";
+$HD_Form -> FG_TABLE_ID = "id";
 $HD_Form -> FG_TABLE_DEFAULT_ORDER = "creationdate";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
-//$HD_Form -> FG_TABLE_CLAUSE = " csl.iduser = cua.userid";
 
-// TODO Integrate a generic LIST to Framework
-$actived_list = array(); 
-$actived_list["1"] = array( gettext("Active"), "1");
-$actived_list["0"] = array( gettext("Inactive"), "0");
+$date_clause = "";
+if (DB_TYPE == "postgres"){		
+	 	$UNIX_TIMESTAMP = "";
+}else{
+		$UNIX_TIMESTAMP = "UNIX_TIMESTAMP";
+}
+$lastdayofmonth = date("t", strtotime($tostatsmonth.'-01'));
+if ($Period=="Month"){
+	if ($frommonth && isset($fromstatsmonth)) $date_clause.=" $UNIX_TIMESTAMP(csl.creationdate) >= $UNIX_TIMESTAMP('$fromstatsmonth-01')";
+	if ($tomonth && isset($tostatsmonth))
+	{
+		if (strlen($date_clause)>0) $date_clause.=" AND ";
+		$date_clause.=" $UNIX_TIMESTAMP(csl.creationdate) <= $UNIX_TIMESTAMP('".$tostatsmonth."-$lastdayofmonth 23:59:59')"; 
+	}
+}else{
+	if ($fromday && isset($fromstatsday_sday) && isset($fromstatsmonth_sday)) 
+	{
+		if (strlen($date_clause)>0) $date_clause.=" AND ";
+		$date_clause.=" $UNIX_TIMESTAMP(csl.creationdate) >= $UNIX_TIMESTAMP('$fromstatsmonth_sday-$fromstatsday_sday')";
+	}
+	if ($today && isset($tostatsday_sday) && isset($tostatsmonth_sday))
+	{
+		if (strlen($date_clause)>0) $date_clause.=" AND ";
+		$date_clause.=" $UNIX_TIMESTAMP(csl.creationdate) <= $UNIX_TIMESTAMP('$tostatsmonth_sday-".sprintf("%02d",intval($tostatsday_sday)/*+1*/)." 23:59:59')";
+	}
+}
 
-$billingtype_list = array();
-$billingtype_list["0"] = array( gettext("Fix per month + dialoutrate"), "0");
-$billingtype_list["1"] = array( gettext("Fix per month"), "1");
-$billingtype_list["2"] = array( gettext("Only dialout rate"), "2");
-$billingtype_list["3"]  = array( gettext("Free"), "3");
+if (strlen($HD_Form -> FG_TABLE_CLAUSE)>0 && strlen($enteradmin)>0) $HD_Form -> FG_TABLE_CLAUSE.=" AND ";
+if($enteradmin != "")
+{
+	$HD_Form -> FG_TABLE_CLAUSE.=" csl.iduser = '$enteradmin'";
+}	
+if (strlen($enteradmin)>0 && strlen($loglevel)>0 && $loglevel > 0) $HD_Form -> FG_TABLE_CLAUSE.=" AND ";
+echo $loglevel;
+if($loglevel != "" && $loglevel > 0)
+{
+	$HD_Form -> FG_TABLE_CLAUSE.=" csl.loglevel = '$loglevel'";
+}
+if (strlen($loglevel)>0 && strlen($date_clause)>0) $HD_Form -> FG_TABLE_CLAUSE.=" AND ";
+if($date_clause != "")
+{
+	$HD_Form -> FG_TABLE_CLAUSE.=" ".$date_clause;
+}
+$HD_Form -> FG_EDITION_CLAUSE = " id = $id";
 
 $HD_Form -> AddViewElement(gettext("ID"), "id", "10%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("LOGIN"), "login", "8%", "center", "sort");
@@ -34,14 +66,58 @@ $HD_Form -> AddViewElement(gettext("DATE"), "creationdate", "14%", "center", "so
 
 // added a parameter to append  FG_TABLE_ID  ( by default ) or disable 0.
 $HD_Form -> FieldViewElement ('id, cua.login, loglevel,action,description,tablename,pagename,ipaddress,creationdate,data');
+$HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO LOG AVAILABLE1!");
+
+$HD_Form -> FG_EDITION = true;
+$HD_Form -> FG_DELETION = false;
+
+$HD_Form -> AddEditElement (gettext("LOGIN"),
+	"login",
+	'$value',
+	"INPUT",
+	"size=30 maxlength=30 readonly",
+	"",
+	gettext("Insert the Login"),
+	"" , "", "", "", "" , "", "" ,"Insert Login");
+	
+$HD_Form -> AddEditElement (gettext("LOGINLEVEL"),
+	"loginlevel",
+	'$value',
+	"INPUT",
+	"size=30 maxlength=30 readonly",
+	"",
+	gettext("Insert the Login Level"),
+	"" , "", "", "", "" , "", "" ,"Insert Login Level");
+	
+$HD_Form -> AddEditElement (gettext("action"),
+	"action",
+	'$value',
+	"INPUT",
+	"size=30 maxlength=30 readonly",
+	"",
+	gettext("Insert the Action"),
+	"" , "", "", "", "" , "", "" ,"Insert Action");
+
+$HD_Form -> AddEditElement (gettext("DESCRIPTION"),
+	"description",
+	'$value',
+	"TEXTAREA",
+	"size=30 maxlength=30 readonly",
+	"",
+	gettext("Insert the Login"),
+	"" , "", "", "", "" , "", "" ,"Insert Login");
+
+$HD_Form -> FieldEditElement ('login, loginlevel, action, description');
+
 
 $HD_Form -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;
 $HD_Form -> CV_TEXT_TITLE_ABOVE_TABLE = '';
 $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;
 
-$HD_Form -> FG_DELETION = false;
+
 $HD_Form -> FG_INTRO_TEXT_ADD = gettext("you can add easily a new")." ".$HD_Form->FG_INSTANCE_NAME.".<br>".gettext("Fill the following fields and confirm by clicking on the button add.");
 
+$HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_DELETE = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
 
 ?>

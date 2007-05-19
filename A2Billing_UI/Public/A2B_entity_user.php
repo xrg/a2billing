@@ -43,9 +43,25 @@ $list = $HD_Form -> perform_action($form_action);
 $smarty->display('main.tpl');
 
 // #### HELP SECTION
-if ($form_action == 'ask-add') echo $CC_help_admin_edit;
-else echo $CC_help_admin_list;
+if($popup_select == "")
+{
+	if ($form_action == 'ask-add') echo $CC_help_admin_edit;
+	else echo $CC_help_admin_list;
+}
+if ($popup_select != ""){
+?>
 
+<SCRIPT LANGUAGE="javascript">
+<!-- Begin
+function sendValue(selvalue){
+	window.opener.document.<?php echo $popup_formname ?>.<?php echo $popup_fieldname ?>.value = selvalue;
+	window.close();
+}
+// End -->
+</script>
+
+<?php
+}
 
 
 // #### TOP SECTION PAGE

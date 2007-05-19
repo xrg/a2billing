@@ -66,7 +66,7 @@ else
 	$section = $_SESSION["menu_section"];
 }
 $smarty->assign("section", $section);
-
+$smarty->assign("adminname", $_SESSION["pr_login"]);
 
 // OPTION FOR THE MENU
 $smarty->assign("A2Bconfig", $A2B->config);
