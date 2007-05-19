@@ -1828,6 +1828,6 @@ CREATE TABLE cc_system_log (
 	tablename						VARCHAR(255),
 	pagename			 			VARCHAR(255),
 	ipaddress						VARCHAR(255),	
-	creationdate  					TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	creationdate  					TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (id)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;

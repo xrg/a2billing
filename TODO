@@ -23,27 +23,10 @@ underline : "  _  "  character not suport in  the .csv file   example   name_bla
 
 #### ACL : Access Control List
 ********************************************************************
-1# Check each page on admin to see if they have the appropiated protection 
-ie, 
-if (! has_rights (ACX_RATECARD)){
-replace by 
-if (! has_rights (ACX_MISC)){
-
-replace according to the section
-each php page that is not included need a protection.
-
-
-#### ACL : Access Control List
-********************************************************************
 try to improve for a complex ACL,
 for each pages / Section
 
 Access Right like Edit ; Delete ; Add
-
-
-#### Building a logging / tracking system on the web interface
-********************************************************************
-Building a logging / tracking system on the web interface
 
 
 
