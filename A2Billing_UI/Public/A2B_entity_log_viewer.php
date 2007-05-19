@@ -196,16 +196,7 @@ if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
 				<option value="3" <?php if ($loglevel == 3) echo "selected"?>>Level-3</option>				
 				</select>
 				</td>
-			</tr>
-			
-			
-			
-			
-			<!-- Select Option : to show just the Answered Calls or all calls, Result type, currencies... -->
-
-			<!-- Select Option : to show just the Answered Calls or all calls, Result type, currencies... -->
-			
-			
+			</tr>			
 			<tr>
         		<td class="bgcolor_004" align="left" > </td>
 
@@ -223,8 +214,5 @@ $HD_Form -> create_form ($form_action, $list, $id=null) ;
 
 // #### FOOTER SECTION
 $smarty->display('footer.tpl');
-
-
-
 
 ?>
