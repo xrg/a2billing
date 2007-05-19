@@ -66,7 +66,7 @@ $HD_Form -> AddViewElement(gettext("DATE"), "creationdate", "14%", "center", "so
 // added a parameter to append  FG_TABLE_ID  ( by default ) or disable 0.
 $HD_Form -> FieldViewElement ('id, cua.login, loglevel, action, description, tablename, pagename, ipaddress, creationdate');
 $HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO LOG AVAILABLE1!");
-
+$HD_Form -> FG_INTRO_TEXT_EDITION = "";
 $HD_Form -> FG_EDITION = false;
 $HD_Form -> FG_DELETION = false;
 
