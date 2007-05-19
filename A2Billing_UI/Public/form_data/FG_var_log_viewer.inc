@@ -67,7 +67,7 @@ $HD_Form -> AddViewElement(gettext("DATE"), "creationdate", "14%", "center", "so
 $HD_Form -> FieldViewElement ('id, cua.login, loglevel, action, description, tablename, pagename, ipaddress, creationdate');
 $HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO LOG AVAILABLE1!");
 
-$HD_Form -> FG_EDITION = true;
+$HD_Form -> FG_EDITION = false;
 $HD_Form -> FG_DELETION = false;
 
 $HD_Form -> AddEditElement (gettext("LOGIN"),
@@ -106,7 +106,45 @@ $HD_Form -> AddEditElement (gettext("DESCRIPTION"),
 	"",
 	"" , "", "", "", "" , "", "" ,"");
 
-$HD_Form -> FieldEditElement ('login, loglevel, action, description');
+$HD_Form -> AddEditElement (gettext("TABLENAME"),
+	"tablename",
+	'$value',
+	"INPUT",
+	"size=30 maxlength=30 readonly",
+	"",
+	"",
+	"" , "", "", "", "" , "", "" ,"");
+	
+	$HD_Form -> AddEditElement (gettext("IPADDRESS"),
+	"ipaddress",
+	'$value',
+	"INPUT",
+	"size=30 maxlength=30 readonly",
+	"",
+	"",
+	"" , "", "", "", "" , "", "" ,"");
+	
+	$HD_Form -> AddEditElement (gettext("CREATIONDATE"),
+	"creationdate",
+	'$value',
+	"INPUT",
+	"size=30 maxlength=30 readonly",
+	"",
+	"",
+	"" , "", "", "", "" , "", "" ,"");
+	
+	$HD_Form -> AddEditElement (gettext("DATA"),
+	"data",
+	'$value',
+	"TEXTAREA",
+	"size=30 maxlength=30 readonly",
+	"",
+	"",
+	"" , "", "", "", "" , "", "" ,"");
+$HD_Form -> FieldEditElement ('login, loglevel, action, description,tablename,ipaddress,creationdate,data');
+$HD_Form -> FG_OTHER_BUTTON1 = true;
+$HD_Form -> FG_OTHER_BUTTON1_LINK="A2B_entity_log_viewer.php?form_action=ask-edit&id=|param|";
+$HD_Form -> FG_OTHER_BUTTON1_ALT = 'DETAILS';
 
 
 $HD_Form -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;
