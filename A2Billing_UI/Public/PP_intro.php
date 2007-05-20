@@ -1,6 +1,5 @@
 <?php
 include ("../lib/defines.php");
-include ("../lib/company_info.php");
 include_once("../lib/module.access.php");
 include ("../lib/smarty.php");
 

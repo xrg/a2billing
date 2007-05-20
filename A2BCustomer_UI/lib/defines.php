@@ -220,8 +220,16 @@ define ("KICON_PATH","./templates/".$_SESSION["stylefile"]."/images/kicons");
 define('DIR_WS_IMAGES', Images_Path.'/');
 define ("INVOICE_IMAGE", isset($A2B->config["global"]['invoice_image'])?$A2B->config["global"]['invoice_image']:null);
 define ("ADMIN_EMAIL", isset($A2B->config["global"]['admin_email'])?$A2B->config["global"]['admin_email']:null);
-define ("WEBUI_DATE", 'Release : May 2007');
+
+// A2BILLING INFO
+define ("WEBUI_DATE", 'Release : May 2007');	 
 define ("WEBUI_VERSION", 'Asterisk2Billing - Version 1.3 - Beta (Yellowjacket)');
+// A2BILLING COPYRIGHT & CONTACT
+define ("TEXTCONTACT", gettext("This software has been created by Areski under GPL licence. For futher information, feel free to contact me:"));
+define ("EMAILCONTACT", "areski@gmail.com");
+define ("COPYRIGHT", gettext(" This software is under GPL licence. For further information, please visit : <a href=\"http://www.asterisk2billing.org\" target=\"_blank\">asterisk2billing.org</a>"));
+define ("CCMAINTITLE", gettext("Asterisk2Billing : CallingCard & VOIP Billing system"));
+
 include (FSROOT."lib/help.php");
 
 

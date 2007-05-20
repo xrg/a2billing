@@ -3,6 +3,37 @@
                    			TODO LIST - SPECIFIC
 ********************************************************************************
 
+#### IAX / SIP Info on signup
+********************************************************************
+then we could say in the customer signup email - 
+IAX details : Username = $card_gen, Password = $password CID = $cardalias
+
+
+Thank you for registering with Call-Labs
+
+Please credit your account by paying via the customer interface at http://myaccount.call-labs.com/
+
+To log into your account please use your email address or card-alias ($cardalias) as your username and your password ($password) to login.
+
+For security purposes, we recommend that you change your account login password on the customer interface as soon as possible
+
+Configure your VoIP phone with the following settings.
+
+Host / SIP proxy = voip.call-labs.com
+
+Account Number = $card_gen
+
+Password = $password
+
+CallerID = $cardalias
+
+ 
+
+Kind regards,
+
+The Call Labs Team
+
+
 
 
 #### CALLBACK : INTRO MESSAGE
@@ -15,6 +46,39 @@ Play an intro message on CallBack
 Suppot GMT : report & invoicing
 
 
+#### move a2billing.conf in DB
+********************************************************************
+move a2billing.conf in DB
+
+
+#### CallerID Name
+********************************************************************
+Support callerID name for authentication
+
+
+
+#### Add VoiceMail
+********************************************************************
+
+http://www.ecualug.org/?q=2006/12/12/comos/configurar_a2billing_en_menos_de_10_minutos
+http://forum.asterisk2billing.org/viewtopic.php?t=93&highlight=voicemail
+
+
+You need to create the appropiated line for each extension at the voicemail.conf file. Add the following lines to your a2billing context to give your clients the voicemail feature:
+
+Code:
+
+[vmmain]
+exten => *97,1,Answer
+exten => *97,n,Wait(1)
+exten => *97,n,VoiceMailMain(${CALLERID(num)}@default)
+exten => *97,n,Hangup 
+
+
+
+
+
+
 #### ACL : Access Control List
 ********************************************************************
 try to improve for a complex ACL,
@@ -24,10 +88,6 @@ Access Right like Edit ; Delete ; Add
 
 
 
-#### IAX / SIP Info on signup
-********************************************************************
-then we could say in the customer signup email - 
-IAX details : Username = $card_gen, Password = $password CID = $cardalias
 
 
 #### WEB SYSTEM TO AUTOMATE UPDATE OF RATECARD
@@ -152,37 +212,6 @@ http://misak.dk/download/a2billing/CC_ratecard_import_analyse.php.diff
 
 Reason for this is, I would like a reminder to be sent when a user has £x credit left in their account but the user should still be able to use the account with the current balance. At the moment the only way to achieve this is to set the min_credit_2call=0 (this way the user gets to use every penny in their account) but by this time i think the reminder that is being sent when credit=0 is too late.
 
-
-
-
-
-#### move a2billing.conf in DB
-********************************************************************
-move a2billing.conf in DB
-
-
-#### CallerID Name
-********************************************************************
-Support callerID name for authentication
-
-
-
-#### Add VoiceMail
-********************************************************************
-
-http://www.ecualug.org/?q=2006/12/12/comos/configurar_a2billing_en_menos_de_10_minutos
-http://forum.asterisk2billing.org/viewtopic.php?t=93&highlight=voicemail
-
-
-You need to create the appropiated line for each extension at the voicemail.conf file. Add the following lines to your a2billing context to give your clients the voicemail feature:
-
-Code:
-
-[vmmain]
-exten => *97,1,Answer
-exten => *97,n,Wait(1)
-exten => *97,n,VoiceMailMain(${CALLERID(num)}@default)
-exten => *97,n,Hangup 
 
 
 

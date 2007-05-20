@@ -60,7 +60,7 @@
 		{/if}
 	 	onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9">&nbsp; <strong>{php} echo gettext("INVOICES");{/php}</strong></a></li>
 		<div class="tohide" 
-		{if ($section =="1")}
+		{if ($section =="4")}
 		style="">
 		{else}
 		style="display:none;">
