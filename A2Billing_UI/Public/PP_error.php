@@ -48,7 +48,7 @@ $error["ERR-0002"] = gettext("No such card number found. Please check your card 
 		<table width="100%" border="0" cellpadding="5" cellspacing="5">		  
 		<tr> 
 			<td align="center"><br/>
-				<img src="<?php echo KICON_PATH; ?>/system-config-rootpassword.png"> 
+				<img src="<?php echo KICON_PATH; ?>/system-config-rootpassword.gif"> 
 				<br/>
 				<b><font size="3"><?php echo $error[$c]?></font></b>
 				<br/><br/>

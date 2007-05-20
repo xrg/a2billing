@@ -6,12 +6,10 @@ include ("../lib/smarty.php");
 $FG_DEBUG =0;
 
 
-
-
 if (! has_rights (ACX_FILE_MANAGER)){ 
-	   Header ("HTTP/1.0 401 Unauthorized");
-	   Header ("Location: PP_error.php?c=accessdenied");	   
-	   die();	   
+	Header ("HTTP/1.0 401 Unauthorized");
+	Header ("Location: PP_error.php?c=accessdenied");	   
+	die();
 }
 
 	$smarty->display('main.tpl');
@@ -25,7 +23,7 @@ if (! has_rights (ACX_FILE_MANAGER)){
 				<?php  for ($i=1;$i<=NUM_MUSICONHOLD_CLASS;$i++){ ?>
 				<tr>
 					<td class="bgcolor_006" height="31" align="center">
-						<img src="<?php echo KICON_PATH; ?>/stock-panel-multimedia.png"/>
+						<img src="<?php echo KICON_PATH; ?>/stock-panel-multimedia.gif"/>
 					</td>
 					<td class="bgcolor_006" height="31" align="center">
 						<a href="CC_upload.php?section=11&acc=<?php echo $i?>"><?php echo gettext("CUSTOM THE MUSICONHOLD CLASS");?> : <b>ACC_<?php echo $i?></b></a>
