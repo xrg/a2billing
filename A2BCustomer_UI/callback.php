@@ -224,8 +224,6 @@ if ($callback){
 }
 $customer = $_SESSION["pr_login"];
 
-
-<?php
 	include("PP_header.php");
 ?><br>
 	<center>

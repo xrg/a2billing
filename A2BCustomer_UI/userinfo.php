@@ -25,8 +25,6 @@ else if ($FG_DEBUG>0) {
 }
 
 if ($numrow == 0) exit();
-
-
 $customer_info =$resmax -> fetchRow();
 
 if( $customer_info [13] != "t" && $customer_info [13] != "1" ) {
