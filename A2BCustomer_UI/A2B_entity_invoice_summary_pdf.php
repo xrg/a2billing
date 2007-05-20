@@ -1,8 +1,6 @@
 <?php
 include ("lib/defines.php");
 include ("lib/module.access.php");
-include ("lib/smarty.php");
-
 
 if (!$A2B->config["webcustomerui"]['invoice']) exit();
 
@@ -455,7 +453,7 @@ $totalcost = $totalcost + $extracharge_total;
 <?php
 if($exporttype!="pdf")
 { 
-//$smarty->display( 'footer.tpl');
+//include( 'footer.php');
 }
 else
 {

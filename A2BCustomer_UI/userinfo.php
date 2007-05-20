@@ -67,7 +67,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 <td align="center">	
 <table width="90%" class="tablebackgroundblue" align="center">
 <tr >
-<td><img src="<?php echo KICON_PATH ?>/personal.gif" align="left" class="kikipic"/></td>
+<td><img src="./images/personal.png" align="left" class="kikipic"/></td>
 <td width="50%"><font class="fontstyle_002">
 <?php echo gettext("LAST NAME");?> :</font>  <font class="fontstyle_007"><?php echo $customer_info[2]; ?></font>
 <br/><font class="fontstyle_002"><?php echo gettext("FIRST NAME");?> :</font> <font class="fontstyle_007"><?php echo $customer_info[3]; ?></font>
@@ -96,7 +96,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 	<td align="center">
 		<table width="80%" align="center" class="tablebackgroundcamel">
 		<tr>
-			<td><img src="<?php echo KICON_PATH ?>/gnome-finance.gif" class="kikipic"/></td>
+			<td><img src="./images/gnome-finance.png" class="kikipic"/></td>
 			<td width="50%">
 			<br><font class="fontstyle_002"><?php echo gettext("CARD NUMBER");?> :</font><font class="fontstyle_007"> <?php echo $customer_info[0]; ?></font>
 			<br></br>
@@ -105,7 +105,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 			<br><font class="fontstyle_002"><?php echo gettext("BALANCE REMAINING");?> :</font><font class="fontstyle_007"> <?php echo $credit_cur.' '.$customer_info[14]; ?> </font>
 			<br></br>
 			</td>
-			<td valign="bottom" align="right"><img src="<?php echo KICON_PATH ?>/help_index.gif" class="kikipic"></td>
+			<td valign="bottom" align="right"><img src="./images/help_index.png" class="kikipic"></td>
 		</tr>
 		</table>
 	</td>
@@ -118,9 +118,9 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 <table width="100%">
 <tr>
 <td valign=top align=center>
-<img src="<?php echo KICON_PATH ?>/paypal_logo.gif" /> &nbsp;&nbsp;
-<img  src="http://www.moneybookers.com/images/banners/88_en_mb.gif" width=88 height=31 border=0>&nbsp;&nbsp;
-<img src="<?php echo KICON_PATH ?>/authorize.gif" />
+<img src="./images/paypal_logo.png" /> &nbsp;&nbsp;
+<img  src="http://www.moneybookers.com/images/banners/88_en_mb.png" width=88 height=31 border=0>&nbsp;&nbsp;
+<img src="./images/authorize.png" />
 </td>
 </tr>
 <tr>
@@ -152,7 +152,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 				<input type="hidden" name="currency_code" value="<?php echo PAYPAL_CURRENCY_CODE ?>">
 				<input type="hidden" name="bn" value="PP-BuyNowBF">
 				<input type="hidden" name="no_shipping" value="1">
-				<input type="image" src="https://www.paypal.com/en_US/i/btn/x-click-but23.gif" border="0" name="submit"
+				<input type="image" src="https://www.paypal.com/en_US/i/btn/x-click-but23.png" border="0" name="submit"
 				alt='<?php  gettext("Make payments - it's fast, free and secure!");?>'>
 			</form>
 		</td>

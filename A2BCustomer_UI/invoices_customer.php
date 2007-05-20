@@ -1,9 +1,6 @@
 <?php
 include ("lib/defines.php");
 include ("lib/module.access.php");
-include ("lib/smarty.php");
-
-
 
 if (!$A2B->config["webcustomerui"]['invoice']) exit();
 
@@ -265,7 +262,7 @@ else
 }
 if($exporttype!="pdf"){
 $currencies_list = get_currencies();
-$smarty->display( 'main.tpl');
+include( 'PP_header.php');
 ?>
 
 <script language="JavaScript" type="text/JavaScript">
@@ -1102,7 +1099,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 <?php  if($exporttype!="pdf"){ ?>
 
 <?php
-	$smarty->display('footer.tpl');
+	include('PP_footer.php');
 ?>
 
 <?php  }else{

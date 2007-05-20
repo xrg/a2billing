@@ -10,7 +10,6 @@ include ("./lib/epayment/includes/html_output.php");
 include ("./lib/epayment/includes/sessions.php");
 include ("./lib/epayment/includes/loadconfiguration.php");
 include ("./lib/epayment/includes/configure.php");
-include ("./lib/smarty.php");
 
 //include ("./form_data/FG_var_callerid.inc");
 
@@ -27,7 +26,7 @@ $HD_Form -> setDBHandler (DbConnect());
 $HD_Form -> init();
 
 // #### HEADER SECTION
-$smarty->display( 'main.tpl');
+include( 'PP_header.php');
 
 $HD_Form -> create_toppage ($form_action);
 
@@ -229,5 +228,5 @@ function rowOutEffect(object) {
 
 <?php 
 // #### FOOTER SECTION
-$smarty->display( 'footer.tpl');
+include( 'PP_footer.php');
 ?>

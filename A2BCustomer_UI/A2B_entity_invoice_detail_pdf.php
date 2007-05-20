@@ -1,7 +1,6 @@
 <?php
 include ("lib/defines.php");
 include ("lib/module.access.php");
-include ("lib/smarty.php");
 
 if (!$A2B->config["webcustomerui"]['invoice']) exit();
 
@@ -310,7 +309,7 @@ if (!$nodisplay){
 ?>
 
 <?php
-//$smarty->display( 'main.tpl');
+//include( 'PP_header.php');
 if($exporttype == "pdf")
 {
 	require('pdf-invoices/html2pdf/html2fpdf.php');
@@ -771,7 +770,7 @@ if (is_array($list_total_destination) && count($list_total_destination)>0){
 <?php  if($exporttype!="pdf"){ ?>
 
 <?php
-//$smarty->display( 'footer.tpl');
+//include( 'footer.php');
 ?>
 
 <?php  }else{

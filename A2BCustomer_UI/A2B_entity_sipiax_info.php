@@ -3,7 +3,6 @@ include ("./lib/defines.php");
 include ("./lib/module.access.php");
 include ("./lib/Form/Class.FormHandler.inc.php");
 include ("./form_data/FG_var_sipiax_info.inc");
-include ("./lib/smarty.php");
 
 
 if (! has_rights (ACX_ACCESS)){
@@ -43,42 +42,42 @@ $additional_sip = explode("|", SIP_ADDITIONAL_PARAMETERS);
 $additional_iax = explode("|", IAX_ADDITIONAL_PARAMETERS);
 
 // #### HEADER SECTION
-$smarty->display('main.tpl');
+include('PP_header.php');
 
 echo $CC_help_sipiax_info;
 ?>
 <form name="form1">
 <table width="60%" border="0" align="center" cellpadding="0" cellspacing="1">
-                                <tr>
-                                  <td  class="bgcolor_021">
-								  <table width="100%" border="0" cellspacing="1" cellpadding="0">
-                                      <tr>
+	<tr>
+		<td  class="bgcolor_021">
+			<table width="100%" border="0" cellspacing="1" cellpadding="0">
+		<tr>
 
-                                        <td colspan="2" class="fontstyle_008">&nbsp;<?php echo gettext("General informations");?> </td>
-                                      </tr>
-                                      <tr>
-                                        <td width="50%" bgcolor="#FFFFFF" class="fontstyle_006">&nbsp;<?php echo gettext("CARD")?></td>
-                                        <td width="50%" bgcolor="#FFFFFF" class="fontstyle_006"><?php echo $_SESSION["pr_login"]?></td>
-                                      </tr>
-                                      <tr>
+		<td colspan="2" class="fontstyle_008">&nbsp;<?php echo gettext("General informations");?> </td>
+		</tr>
+		<tr>
+		<td width="50%" bgcolor="#FFFFFF" class="fontstyle_006">&nbsp;<?php echo gettext("CARD")?></td>
+		<td width="50%" bgcolor="#FFFFFF" class="fontstyle_006"><?php echo $_SESSION["pr_login"]?></td>
+		</tr>
+		<tr>
 
-                                        <td bgcolor="#FFFFFF" class="fontstyle_006">&nbsp;<?php echo gettext("CONFIGURATION TYPE")?> </td>
-                                        <td bgcolor="#FFFFFF" class="fontstyle_006"><form name="form1" method="post" action="">
-                                           <select name="configtype" id="col_configtype" onChange="window.document.form1.elements['PMChange'].value='Change';window.document.form1.submit();">
-                                             <option value="IAX" <?php if($configtype == "IAX")echo "selected"?>><?php echo gettext("IAX")?></option>
-                                             <option value="SIP" <?php if($configtype == "SIP")echo "selected"?>><?php echo gettext("SIP")?></option>
-                                           </select> 
-										  <input name="PMChange" type="hidden" id="PMChange">
-                                        </form>                                        </td>
+		<td bgcolor="#FFFFFF" class="fontstyle_006">&nbsp;<?php echo gettext("CONFIGURATION TYPE")?> </td>
+		<td bgcolor="#FFFFFF" class="fontstyle_006"><form name="form1" method="post" action="">
+			<select name="configtype" id="col_configtype" onChange="window.document.form1.elements['PMChange'].value='Change';window.document.form1.submit();">
+			<option value="IAX" <?php if($configtype == "IAX")echo "selected"?>><?php echo gettext("IAX")?></option>
+			<option value="SIP" <?php if($configtype == "SIP")echo "selected"?>><?php echo gettext("SIP")?></option>
+			</select> 
+								<input name="PMChange" type="hidden" id="PMChange">
+		</form>                                        </td>
 
-                                      </tr>
-									    <tr>
-                                        <td colspan="2" bgcolor="#FFFFFF" class="fontstyle_006">&nbsp;<strong><?php echo $config_name;?></strong></td>
-                                        </tr>
-                                      <tr>
-                                        <td colspan="2" bgcolor="#FFFFFF" class="fontstyle_006" align="center"><br><?php echo $config_file;?><br>
-                                         
-                                            <textarea name="textfield" cols="80" rows="12" class="form_input_text" ><?php if($configtype == "IAX"){ ?>[<?php echo SIP_IAX_INFO_TRUNKNAME; ?>]
+		</tr>
+							<tr>
+		<td colspan="2" bgcolor="#FFFFFF" class="fontstyle_006">&nbsp;<strong><?php echo $config_name;?></strong></td>
+		</tr>
+		<tr>
+		<td colspan="2" bgcolor="#FFFFFF" class="fontstyle_006" align="center"><br><?php echo $config_file;?><br>
+			
+					<textarea name="textfield" cols="80" rows="12" class="form_input_text" ><?php if($configtype == "IAX"){ ?>[<?php echo SIP_IAX_INFO_TRUNKNAME; ?>]
 username=<?php echo $sip_iax_data[0][1]?>
 
 type=friend
@@ -123,16 +122,14 @@ if (count($additional_sip) > 0)
 </textarea>
 <br><br>
 </td>
-                                        </tr>
-										
-                                  </table></td>
-                                </tr>
-                              </table>
-							  
-							  </form>
+		</tr>
+		</table></td>
+	</tr>
+	</table>
+	</form>
 <?
 
 // #### FOOTER SECTION
-$smarty->display('footer.tpl');
+include('PP_footer.php');
 
 ?>

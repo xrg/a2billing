@@ -10,7 +10,6 @@ include ("./lib/epayment/includes/general.php");
 include ("./lib/epayment/includes/html_output.php");
 include ("./lib/epayment/includes/sessions.php");
 include ("./lib/epayment/includes/loadconfiguration.php");
-include ("./lib/smarty.php");
 
 //include ("./form_data/FG_var_callerid.inc");
 
@@ -57,7 +56,7 @@ if (is_array($payment_modules->modules)) {
 // #### HEADER SECTION
 
 
-$smarty->display( 'main.tpl');
+include( 'PP_header.php');
 ?>
 
 <?php
@@ -106,5 +105,5 @@ echo tep_draw_form('checkout_confirmation.php', $form_action_url, 'post');
 </form>
 <?php 
 // #### FOOTER SECTION
-$smarty->display( 'footer.tpl');
+include( 'PP_footer.php');
 ?>

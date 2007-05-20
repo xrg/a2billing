@@ -1,8 +1,6 @@
 <?php
 include ("lib/defines.php");
 include ("lib/module.access.php");
-include ("lib/smarty.php");
-
 
 if (!$A2B->config["webcustomerui"]['invoice']) exit();
 
@@ -275,7 +273,7 @@ if ((isset($customer)  &&  ($customer>0)) || (isset($entercustomer)  &&  ($enter
 ?>
 
 <?php
-$smarty->display( 'main.tpl');	
+include( 'PP_header.php');
 ?>
 
 <?php 
@@ -429,5 +427,5 @@ $totalcost = $totalcost + $extracharge_total;
 
 <?php
 
-$smarty->display( 'footer.tpl');
+include( 'PP_footer.php');
 ?>
