@@ -67,7 +67,7 @@ if ($action_release=="confirm_release"){
 	$message .= "DELETE all DID destination: $QUERY \n\n";
 
 	$date = date("D M j G:i:s T Y", time());
-		// email header
+		// email header *-*
 	$em_headers  = "From: A2BILLING ALERT <a2billing_alert@localhost>\n";
 	$em_headers .= "X-Priority: 3\n";
 	if (strlen($A2B->config["webcustomerui"]['error_email'])>3)
@@ -77,7 +77,7 @@ if ($action_release=="confirm_release"){
 
 /***********************************************************/
 
-if ($action_release=="ask_release") { 
+if ($action_release=="ask_release") {
 	echo $CC_help_release_did;
 	?>
 	<FORM action="A2B_entity_did.php" name="form1">
@@ -101,18 +101,13 @@ if ($action_release=="ask_release") {
 } 
 
 if (!isset($action_release) || $action_release=="confirm_release" || $action_release==""){ 
-	// #### HELP SECTION
-	if ($form_action=='list')
-	{
-		echo $CC_help_list_did;
-	}	
 
 	if ((isset($confirm_buy_did)) && ($confirm_buy_did == 1))
 	{
 		if ($rate <= $user_credit[0]) $confirm_buy_did = 2;
 		else $confirm_buy_did = 0;
-} else 
-{   
+	} else
+	{
 		if ($confirm_buy_did != 4) $confirm_buy_did = 0;
 	}
 
@@ -123,7 +118,7 @@ if (!isset($action_release) || $action_release=="confirm_release" || $action_rel
 		$QUERY = "INSERT INTO cc_did_destination (activated, id_cc_card, id_cc_did, destination, priority, voip_call) VALUES ('1', '".$_SESSION["card_id"]."', '".$choose_did."', '".$destination."', '1', '".$voip_call."')";
 
 		$result = $instance_table_did_use -> SQLExec ($HD_Form -> DBHandle, $QUERY, 0);
-		if ($confirm_buy_did == 2){			
+		if ($confirm_buy_did == 2){	// *-* FIX: convert to sql fn() ..
 			$QUERY1 = "INSERT INTO cc_charge (id_cc_card, amount, chargetype,id_cc_did) VALUES ('".$_SESSION["card_id"]."', '".$rate."', '2','".$choose_did."')";
 			$result = $instance_table_did_use -> SQLExec ($HD_Form -> DBHandle, $QUERY1, 0);	
 			
@@ -184,7 +179,7 @@ include("PP_header.php");
 // #### HELP SECTION
 if ($form_action=='list')
 {
-    echo '<br><br>'.$CC_help_list_did;
+    //show_help(list_did);
 }
 
 
@@ -216,8 +211,8 @@ if ($nb_record<=$FG_LIMITE_DISPLAY){
 	}
 }
 
-if ($FG_DEBUG == 3) echo "<br>Nb_record : $nb_record";
-if ($FG_DEBUG == 3) echo "<br>Nb_record_max : $nb_record_max";
+if ($FG_DEBUG >= 3) echo "<br>Nb_record : $nb_record";
+if ($FG_DEBUG >= 3) echo "<br>Nb_record_max : $nb_record_max";
 
 
 /*************************************************************/
