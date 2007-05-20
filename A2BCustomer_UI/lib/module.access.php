@@ -9,7 +9,7 @@ If you are using $_SESSION (or $HTTP_SESSION_VARS), do not use session_register(
 
 
 */
-$FG_DEBUG = 0;
+$FG_DEBUG = 3;
 error_reporting(E_ALL & ~E_NOTICE);
 
 // Zone strings
@@ -30,8 +30,8 @@ if (isset($_GET["logout"]) && $_GET["logout"]=="true") {
 	   session_destroy();
 	   $cus_rights=0;
 	   Header ("HTTP/1.0 401 Unauthorized");
-	   Header ("Location: index.php");	   
-	   die();	   
+	   Header ("Location: index.php");
+	   die();
 	}
 	
 function access_sanitize_data($data){
@@ -65,6 +65,7 @@ if ((!session_is_registered('pr_login') || !session_is_registered('pr_password')
 		if (!is_array($return))
         {		
 			sleep(2);
+			if ($FG_DEBUG==0) {
 			header ("HTTP/1.0 401 Unauthorized");
             if(is_int($return))
             {
@@ -82,7 +83,11 @@ if ((!session_is_registered('pr_login') || !session_is_registered('pr_password')
                 Header ("Location: index.php?error=1");
             }
 			die();
-		}
+			}else {
+				echo "Unauthorized: error=" . $return . "<br>\n";
+				die();
+			}
+	}
 
 		$cus_rights = 1;
 
