@@ -5,8 +5,8 @@ include (dirname(__FILE__)."/lib/company_info.php");
 
 if (! has_rights (ACX_ACCESS)){ 
 	   Header ("HTTP/1.0 401 Unauthorized");
-	   Header ("Location: PP_error.php?c=accessdenied");	   
-	   die();	   
+	   Header ("Location: PP_error.php?c=accessdenied");
+	   die();
 }
 
 //require (LANGUAGE_DIR.FILENAME_PP_MENU);
@@ -81,76 +81,68 @@ function imgidclick(imgID,divID)
 <div id="dummydiv"></div>
 
 
-<ul id="nav">
+	<div id="nav_before"></div>
+	<ul class="menu">
 	
+       <div><a href="userinfo.php?"><?= _("ACCOUNT INFO");?></a><div>
+<?php if ($A2B->config['webcustomerui']['sipiaxinfo']==1) { ?>
+	<div><a href="A2B_entity_sipiax_info.php?"><?= _("SIP/IAX INFO");?></a></div>
+<?php }
+if ($A2B->config['webcustomerui']['cdr']==1) { ?>
+	<div><a href="call-history.php"><?= _("CALL HISTORY");?></a></div>
+<?php }
+if ($A2B->config['webcustomerui']['voucher']==1) { ?>
+       <div><a href="A2B_entity_voucher.php?form_action=list"><?= _("VOUCHER");?></a></div>
+<?php }
+if ($A2B->config['webcustomerui']['invoice']==1) { ?>
+	<div id='menu_invoices'>
+	<a onclick="menu_toggle('menu_invoices');"><?= _("INVOICES");?></a>
+	<ul>
+		<li><a href="invoices.php"><?= _("Invoices");?></a></li>
+		<li><a href="invoices_customer.php"><?= _("Invoices Customer");?></a></li>
+		<li><a href="A2B_entity_view_invoice.php"><?= _("View Invoices");?></a></li>
+		<li><a href="A2B_entity_invoice_summary.php?invoice_type=2"><?= _("Billed Summary");?></a></li>
 		
-	<li><a href="userinfo.php"><strong><?php echo gettext("ACCOUNT INFO");?></strong></a></li>
+		<li><a href="A2B_entity_invoice_detail.php?invoice_type=2"><?= _("Billed Details");?></a></li>
+		
+		<li><a href="A2B_entity_invoice_summary.php?invoice_type=1"><?= _("UnBilled Summary");?></a></li>
 	
-	
-	<?php if ($A2B->config["webcustomerui"]['cdr']){ ?>
-	<li><a href=# target=_self></a></li>	
-	<li><a href="balance.php"><strong><?php echo gettext("CALL HISTORY");?></strong></a></li>
-	<?php  } ?>
-	
-    <?php if ($A2B->config["webcustomerui"]['voucher']){ ?>
-	<li><a href=# target=_self></a></li>
-	<li><a href="A2B_entity_voucher.php?form_action=list"><strong><?php echo gettext("VOUCHER");?></strong></a></li>
-	<?php  } ?>
-	
-	<?php if ($A2B->config["webcustomerui"]['invoice']){ ?>
-	<li><a href=# target=_self></a></li>
-	<li><a href="invoices.php"><strong><?php echo gettext("INVOICES");?></strong></a></li>
-	<?php  } ?>
-	
-    <?php if ($A2B->config["webcustomerui"]['did']){ ?>
-	<li><a href=# target=_self></a></li>
-	<li><a href="A2B_entity_did.php?form_action=list"><strong><?php echo gettext("DID");?></strong></a></li>
-	<?php  } ?>
-	
-    <?php if ($A2B->config["webcustomerui"]['speeddial']){ ?>
-	<li><a href=# target=_self></a></li>
-	<li><a href="A2B_entity_speeddial.php?atmenu=speeddial&stitle=Speed+Dial"><strong><?php echo gettext("SPEED DIAL");?></strong></a></li>
-	<?php  } ?>
+		<li><a href="A2B_entity_invoice_detail.php?invoice_type=1"><?= _("UnBilled Details");?></a></li>
+ 
+		<li><a href="A2B_entity_call_details.php"><?= _("Call Details");?></a></li>
+	</ul>
+	</div>
+		
+       <div><a href="invoices_customer.php"><?= _("INVOICE CUSTOMER");?></a></div>
+<?php }
+if ($A2B->config['webcustomerui']['did']==1) { ?>
+       <div><a href="A2B_entity_did.php?form_action=list"><?= _("DID");?></a></div>
+<?php }
+if ($A2B->config['webcustomerui']['speeddial']==1) { ?>
+	<div><a href="A2B_entity_speeddial.php"><?= _("SPEED DIAL");?></a></div>
+<?php }
+if ($A2B->config['webcustomerui']['ratecard']==1) { ?>
+	<div><a href="A2B_entity_ratecard.php?form_action=list"><?= _("RATECARD");?></a></div>
+<?php }
+if ($A2B->config['webcustomerui']['simulator']==1) {?>
+	<div><a href="simulator.php"><?= _("SIMULATOR");?></a></div>
+<?php }
+if ($A2B->config['webcustomerui']['callback']==1) { ?>
+	<div><a href="callback.php"><?= _("CALLBACK");?></a></div>
+<?php }
+if ($A2B->config['webcustomerui']['webphone']==1) { ?>
+	<div><a href="webphone.php"><?= _("WEB-PHONE");?></a></div>
+<?php }
+if ($A2B->config['webcustomerui']['callerid']==1){ ?>
+	<div><a href="A2B_entity_callerid.php"><?= _("ADD CALLER ID");?></a></div>
+<?php }
+if ($A2B->config['webcustomerui']['password']==1) { ?>
+	<div><a href="A2B_entity_password.php?form_action=ask-edit"><?= _("PASSWORD");?></a></div>
+<?php } ?>
+	<div><a href="logout.php?logout=true" target="_parent"><font color="#DD0000"><?= _("LOGOUT");?></font></a></div>
 
-    <?php if ($A2B->config["webcustomerui"]['ratecard']){ ?>
-	<li><a href=# target=_self></a></li>
-	<li><a href="A2B_entity_ratecard.php?form_action=list"><strong><?php echo gettext("RATECARD");?></strong></a></li>
-	<?php  } ?>
+</div>
 
-	<?php if ($A2B->config["webcustomerui"]['simulator']){ ?>
-	<li><a href=# target=_self></a></li>
-	<li><a href="simulator.php"><strong><?php echo gettext("SIMULATOR");?></strong></a></li>
-	<?php  } ?>
-
-	<?php if ($A2B->config["webcustomerui"]['callback']){ ?>
-	<li><a href=# target=_self></a></li>
-	<li><a href="callback.php"><strong><?php echo gettext("CALLBACK");?></strong></a></li>
-	<?php  } ?>
-
-	<?php if ($A2B->config["webcustomerui"]['predictivedialer']){ ?>
-	<li><a href=# target=_self></a></li>
-	<li><a href="predictivedialer.php"><strong><?php echo gettext("PRED-DIALER");?></strong></a></li>
-	<?php  } ?>
-
-	<?php if ($A2B->config["webcustomerui"]['webphone']){ ?>
-	<li><a href=# target=_self></a></li>
-	<li><a href="webphone.php"><strong><?php echo gettext("WEB-PHONE");?></strong></a></li>
-	<?php  } ?>
-
-    <?php if ($A2B->config["webcustomerui"]['callerid']){ ?>
-	<li><a href=# target=_self></a></li>
-	<li><a href="A2B_entity_callerid.php?atmenu=callerid&stitle=CallerID"><strong><?php echo gettext("ADD CALLER ID");?></strong></a></li>
-    <?php  } ?>
-	
-	<?php if ($A2B->config["webcustomerui"]['password']){ ?>
-    <li><a href=# target=_self></a></li>
-	<li><a href="A2B_entity_password.php?atmenu=password&form_action=ask-edit&stitle=Password"><strong><?php echo gettext("PASSWORD");?></strong></a></li>
-	<?php  } ?>
-
-	<li><a href=# target=_self></a></li>
-	<li><a href="logout.php?logout=true" target="_parent"><font color="#DD0000"><strong><?php echo gettext("LOGOUT");?></strong></font></a></li>
-
-</ul>
 
 <table>
 <tr>
