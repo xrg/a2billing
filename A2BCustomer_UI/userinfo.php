@@ -4,20 +4,25 @@ include ("lib/module.access.php");
 
 if (! has_rights (ACX_ACCESS)){ 
 	   Header ("HTTP/1.0 401 Unauthorized");
-	   Header ("Location: PP_error.php?c=accessdenied");	   
-	   die();	   
+	   Header ("Location: PP_error.php?c=accessdenied");
+	   die();
 }
 
 //require (LANGUAGE_DIR.FILENAME_USERINFO);
-
 
 $QUERY = "SELECT  username, credit, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, lastuse, activated, currency FROM cc_card WHERE username = '".$_SESSION["pr_login"]."' AND uipass = '".$_SESSION["pr_password"]."'";
 
 $DBHandle_max  = DbConnect();
 $numrow = 0;	
 $resmax = $DBHandle_max -> Execute($QUERY);
+
 if ($resmax)
 	$numrow = $resmax -> RecordCount();
+else if ($FG_DEBUG>0) {
+	echo "Error: ";
+	echo $DBHandle_max->Error_Msg();
+	echo "<br>No user info. <br>\n";
+}
 
 if ($numrow == 0) exit();
 
@@ -25,6 +30,8 @@ if ($numrow == 0) exit();
 $customer_info =$resmax -> fetchRow();
 
 if( $customer_info [13] != "t" && $customer_info [13] != "1" ) {
+	if ($FG_DEBUG>2)
+		echo "customer info[13] = " .$customer_info [13] ."<br>\n";
 	 exit();
 }
 
