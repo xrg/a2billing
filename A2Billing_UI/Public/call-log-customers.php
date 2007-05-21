@@ -5,9 +5,9 @@ include ("../lib/smarty.php");
 
 
 if (! has_rights (ACX_CALL_REPORT)){ 
-	   Header ("HTTP/1.0 401 Unauthorized");
-	   Header ("Location: PP_error.php?c=accessdenied");	   
-	   die();	   
+	Header ("HTTP/1.0 401 Unauthorized");
+	Header ("Location: PP_error.php?c=accessdenied");	   
+	die();
 }
 
 getpost_ifset(array('customer', 'entercustomer', 'enterprovider', 'entertrunk', 'posted', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth', 'tostatsmonth', 'fromday', 'fromstatsday_sday', 'fromstatsmonth_sday', 'today', 'tostatsday_sday', 'tostatsmonth_sday', 'dsttype', 'srctype', 'clidtype', 'channel', 'resulttype', 'stitle', 'atmenu', 'current_page', 'order', 'sens', 'dst', 'src', 'clid', 'choose_currency', 'terminatecause'));
@@ -277,12 +277,12 @@ if ($_SESSION["is_admin"]==0){
 $FG_ASR_CIC_CLAUSE = $FG_TABLE_CLAUSE;
 //To select just terminatecause=ANSWER
 if (!isset($terminatecause)){
-$terminatecause="ANSWER";
+	$terminatecause="ANSWER";
 }
 if ($terminatecause=="ANSWER") {
 	if (strlen($FG_TABLE_CLAUSE)>0) $FG_TABLE_CLAUSE.=" AND ";
-	$FG_TABLE_CLAUSE.="t1.terminatecause='$terminatecause'";
-	}
+	$FG_TABLE_CLAUSE .= " t1.terminatecause='ANSWER' OR t1.terminatecause='ANSWERED' ";
+}
 
 //WORKS! 
 
@@ -297,7 +297,7 @@ $_SESSION["pr_sql_export"]="SELECT $FG_COL_QUERY FROM $FG_TABLE_NAME WHERE $FG_T
 //************************************************************/
 
 
-$QUERY="CREATE TEMPORARY TABLE ASR_CIC_TEMP AS (SELECT substring(t1.starttime,1,10) AS day,case when t1.terminatecause='ANSWER' then 1 else 0 end as success,case when t1.terminatecause ='ANSWER' then 0 else 1 end as fail,0 as maxfail FROM $FG_TABLE_NAME WHERE ".$FG_TABLE_CLAUSE." ORDER BY day)";
+$QUERY="CREATE TEMPORARY TABLE ASR_CIC_TEMP AS (SELECT substring(t1.starttime,1,10) AS day,case when t1.terminatecause='ANSWER' then 1 else 0 end as success,case when t1.terminatecause ='ANSWER'  OR t1.terminatecause='ANSWERED' then 0 else 1 end as fail,0 as maxfail FROM $FG_TABLE_NAME WHERE ".$FG_TABLE_CLAUSE." ORDER BY day)";
 $max_fail=0;
 $max=0;
 $total_fail_succ=0;

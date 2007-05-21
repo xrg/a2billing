@@ -146,8 +146,9 @@ if ($mode == 'standard'){
 	$A2B -> play_menulanguage ($agi);
 	
 	/*************************   PLAY INTRO MESSAGE   ************************/
-	if (strlen($A2B->agiconfig['intro_prompt'])>0) 		$agi-> stream_file($A2B->agiconfig['intro_prompt'], '#');		
-	
+	if (strlen($A2B->agiconfig['intro_prompt'])>0){
+		$agi-> stream_file($A2B->agiconfig['intro_prompt'], '#');
+	}
 	
 	/* WE START ;) */	
 	$cia_res = $A2B -> callingcard_ivr_authenticate($agi);
@@ -663,10 +664,17 @@ if ($mode == 'standard'){
 	
 	$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, '[CALLBACK]:[MODE : CALLBACK]');
 
-	if ($A2B->agiconfig['answer_call']==1){
+
+	if ($A2B -> config["callback"]['answer_call']==1){
 		$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, '[CALLBACK]:[ANSWER CALL]');
 		$agi->answer();
 		$status_channel=6; 
+		
+		// PLAY INTRO FOR CALLBACK
+		if (strlen($A2B -> config["callback"]['callback_audio_intro']) > 0){
+			$agi-> stream_file($A2B -> config["callback"]['callback_audio_intro'], '#');
+		}
+		
 	}else{
 		$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, '[CALLBACK]:[NO ANSWER CALL]');
 		$status_channel=4;
