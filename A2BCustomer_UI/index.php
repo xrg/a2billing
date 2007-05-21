@@ -15,7 +15,11 @@
 <!--
 	function test()
 	{
-		if(document.form.pr_login.value=="" || document.form.pr_password.value=="")
+		if (document.form.pr_password.value==""){
+			document.form.pr_password.focus();
+			return false;
+		}
+		if(document.form.pr_login.value=="" )
 		{
 			alert("You must enter an user and a password!");
 			return false;
@@ -66,12 +70,12 @@
 	<table style="border: 1px solid #C1C1C1">
 	<tr>
 		<td class="form_enter" align="center">
-			<img src="images/icon_arrow_orange.gif" width="15" height="15">
+			<img src="images/icon_arrow_orange.png" width="15" height="15">
 			<font size="3" color="red" ><b> AUTHENTICATION</b></font>
 		</td>
 	</tr>
 	<tr>
-		<td style="padding: 5px, 5px, 5px, 5px" bgcolor="#EDF3FF">
+		<td style="padding: 5px, 5px, 5px, 5px;" bgcolor="#EDF3FF">
 			<table border="0" cellpadding="0" cellspacing="10">
 			<tr align="center">
 				<td rowspan="3" style="padding-left: 8px; padding-right: 8px"><img src="images/security.png"></td>
