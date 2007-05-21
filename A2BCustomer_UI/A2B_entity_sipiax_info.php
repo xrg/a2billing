@@ -26,7 +26,7 @@ if($configtype == "IAX")
 {
 	$config_name = gettext("IAX Config");
 	$config_file = gettext("iax.conf");
-	$QUERY = "SELECT iax.id, iax.username, iax.secret, iax.disallow, iax.allow, iax.type, iax.host, iax.context FROM cc_iax_buddies iax WHERE iax.id_cc_card = ".$_SESSION["card_id"];	
+	$QUERY = "SELECT iax.id, iax.username, iax.secret, iax.disallow, iax.allow, iax.type, iax.host, iax.context FROM cc_iax_buddies iax WHERE iax.id_cc_card = ".$_SESSION["card_id"];
 
 }
 else
@@ -44,7 +44,7 @@ $additional_iax = explode("|", IAX_ADDITIONAL_PARAMETERS);
 // #### HEADER SECTION
 include('PP_header.php');
 
-echo $CC_help_sipiax_info;
+show_help('sipiax_info');
 ?>
 <form name="form1">
 <table width="60%" border="0" align="center" cellpadding="0" cellspacing="1">

@@ -179,7 +179,7 @@ include("PP_header.php");
 // #### HELP SECTION
 if ($form_action=='list')
 {
-    //show_help(list_did);
+    show_help(list_did);
 }
 
 

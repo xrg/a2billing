@@ -44,11 +44,12 @@ if ($id!="" || !is_null($id)){
 if (!isset($form_action))  $form_action="list"; //ask-add
 if (!isset($action)) $action = $form_action;
 $list = $HD_Form -> perform_action($form_action);
-// #### HEADER SECTION
+
 include("PP_header.php");
-// #### HELP SECTION
+
 if ($form_action == "list")
 {
+    
     // My code for Creating two functionalities in a page
     $HD_Form -> create_toppage ("ask-add");
     if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];

@@ -36,7 +36,7 @@ if($form_action=="ask-update")
 include("PP_header.php");
 
 // #### HELP SECTION
-echo $CC_help_password_change."<br>";
+show_help('password_change');
 
 ?>
 <script language="JavaScript">

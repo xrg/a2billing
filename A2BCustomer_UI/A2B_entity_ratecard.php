@@ -50,7 +50,7 @@ include("PP_header.php");
 // #### HELP SECTION
 if ($form_action == 'list')
 {
-    echo $CC_help_ratecard.'';
+    show_help('ratecard');
 }
 
 $HD_Form -> FG_TABLE_CLAUSE = "cc_tariffplan.id = cc_tariffgroup_plan.idtariffplan AND cc_tariffgroup_plan.idtariffgroup = '".$_SESSION["tariff"]."'";

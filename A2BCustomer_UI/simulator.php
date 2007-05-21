@@ -5,8 +5,8 @@ include ("lib/Class.RateEngine.php");
 
 if (! has_rights (ACX_ACCESS)){ 
 	   Header ("HTTP/1.0 401 Unauthorized");
-	   Header ("Location: PP_error.php?c=accessdenied");	   
-	   die();	   
+	   Header ("Location: PP_error.php?c=accessdenied");
+	   die();
 }
 
 if (!$A2B->config["webcustomerui"]['simulator']) exit;
@@ -108,7 +108,7 @@ $nb_tariffname = count($list_tariffname);
 <?php
 	include("PP_header.php");
 // #### HELP SECTION
-echo $CC_help_simulator_rateengine;
+show_help('simulator_rateengine');
 
 ?>
 

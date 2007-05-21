@@ -75,7 +75,7 @@ include("PP_header.php");
 // #### HELP SECTION
 if ($form_action=='list')
 {
-    echo $CC_help_list_voucher;
+    show_help('list_voucher');
 }
 
 // #### TOP SECTION PAGE
