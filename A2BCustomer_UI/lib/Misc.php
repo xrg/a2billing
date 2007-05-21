@@ -486,6 +486,134 @@ function validate_upload($the_file, $the_file_type) {
 
 } # END validate_upload
 
+/** Calculate arguments in a string of the form "Test %1 or %4 .." 
+	This function is carefully written, so that it could be used securely, for
+	example, when 'eval(string_param(" echo %&0",array( $dangerous_str)))' is called.
+	That is, we have some special prefixes:
+		%#x means the x-th parameter as a number, 0 if nan
+		%&x means the x-th parameter as a quoted string
+		%% will become '%', as will %X where X not [1-9a-z]
+	@param $str The input string
+	@param $parm_arr An array with the parameters, so %1 will become $parm_arr[1]
+	@param $noffset	The offset of the param. noffset=1 means %1 = $parm_arr[0],
+			noffset=-2 means %0 = $parm_arr[2]
+	@note This fn won't work for more than 10 params!	
+*/
+
+function str_params($str, $parm_arr, $noffset = 0){
+	$strlen=strlen($str);
+	$strp=0;
+	$stro=0;
+	$resstr='';
+	do{
+		$strp=strpos($str,"%",$stro);
+		if($strp===false){
+			$resstr=$resstr . substr($str,$stro);
+			break;
+		}
+		$resstr=$resstr . substr($str,$stro,$strp-$stro);
+		$strp++;
+		if ($strp>=$strlen)
+			break;
+		$sm=0;
+		if ($str[$strp] == '#'){
+			$sm=1;
+			$strp++;
+		}
+		else if ($str[$strp] =='&'){
+			$sm=2;
+			$strp++;
+		}
+		if (( $str[$strp]>='0')  && ( $str[$strp]<='9')){
+			$pv=$str{$strp} - '0';
+// 			echo "Var %$pv\n";
+			if (isset($parm_arr[$pv - $noffset]))
+				$v = $parm_arr[$pv - $noffset];
+			else	$v = '';
+			if ($sm==1)
+				$v = (integer) $v;
+			else if ($sm == 2)
+				$v = addslashes($v);
+			
+			$resstr= $resstr . $v;
+		}else
+			$resstr= $resstr . $str[$strp];
+		$stro=$strp+1;
+	}while ($stro<$strlen);
+		
+	return $resstr;
+}
+
+/** Calculate arguments in a string of the form "Test %1 or %4 .." 
+	This function is intended for database usage:
+	eg. str_dbparams(dbh,"SELECT %1 , %2 ; ", array("me", "'DROP DATABASE sql_inject;'"));
+		will result in "SELECT 'me', '''DROP DATABASE sql_inject;''' ;" which is safe!
+		
+	Additionaly, parms in the form %!3 will result in "NULL" when parm is empty.
+	
+	@param $str The input string, say, the sql command
+	@param $parm_arr An array with the parameters, so %1 will become $parm_arr[0]
+	@param $dbh the db handle
+	@note This fn won't work for more than 10 params!	
+*/
+
+function str_dbparams($dbh, $str, $parm_arr){
+	$strlen=strlen($str);
+	$strp=0;
+	$stro=0;
+	$resstr='';
+	do{
+		$strp=strpos($str,"%",$stro);
+		if($strp===false){
+			$resstr=$resstr . substr($str,$stro);
+			break;
+		}
+		$resstr=$resstr . substr($str,$stro,$strp-$stro);
+		$strp++;
+		if ($strp>=$strlen)
+			break;
+		$sm=0;
+		if ($str[$strp] == '!'){
+			$sm=1;
+			$strp++;
+		}
+		if (( $str[$strp]>='0')  && ( $str[$strp]<='9')){
+			$pv=$str{$strp} - '0';
+// 			echo "Var %$pv\n";
+			$v= null;
+			if (isset($parm_arr[$pv - 1]))
+				$v = $parm_arr[$pv - 1];
+			if ($sm==1) {
+				if ($v == '') $v = null;
+				if ($v == null)
+					$resstr .= 'NULL';
+				else
+					$resstr .= $dbh->Quote($v);
+			}else {
+				if ($v == null) $v = '';
+				$resstr .= $dbh->Quote($v);
+			}
+		}else
+			$resstr .= $str[$strp];
+		$stro=$strp+1;
+	}while ($stro<$strlen);
+		
+	return $resstr;
+}
+
+/** For code clarity only: it will produce the string for an &lt;acronym&gt; element
+	@param acr   The acronym, the short one
+	@param title the explanation (usually a hint)
+*/
+function acronym($acr, $title){
+	$res ="<acronym title=\"";
+	$res .= $title;
+	$res .= "\" >";
+	$res .= $acr;
+	$res .= "</acronym>";
+	return $res;
+}
+
 function securitykey ($key, $data)
 	{
 		// RFC 2104 HMAC implementation for php.
