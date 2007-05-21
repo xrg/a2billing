@@ -347,7 +347,7 @@ function CheckCountry(Source){
 		did = document.theForm.choose_did_rate.value;
 		if (did == '') 
 		{ 
-			return false; 			
+			return false;
 		}
 		else test=true;
 	}

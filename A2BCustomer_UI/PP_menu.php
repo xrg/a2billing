@@ -72,6 +72,17 @@ function imgidclick(imgID,divID)
 }
 
 
+function menu_toggle(sect_str){
+	//elmnt.parent.style.visibility="hidden";
+	//alert(elmnt.style.visibility);
+	var sect=document.getElementById(sect_str);
+	var dom_ul=sect.getElementsByTagName("ul")[0];
+	if (dom_ul.style.display=="inline")
+		dom_ul.style.display="none";
+	else
+		dom_ul.style.display="inline";
+}
+
 //-->
 </script>
 <base target="mainFrame">
@@ -112,8 +123,6 @@ if ($A2B->config['webcustomerui']['invoice']==1) { ?>
 		<li><a href="A2B_entity_call_details.php"><?= _("Call Details");?></a></li>
 	</ul>
 	</div>
-		
-       <div><a href="invoices_customer.php"><?= _("INVOICE CUSTOMER");?></a></div>
 <?php }
 if ($A2B->config['webcustomerui']['did']==1) { ?>
        <div><a href="A2B_entity_did.php?form_action=list"><?= _("DID");?></a></div>
