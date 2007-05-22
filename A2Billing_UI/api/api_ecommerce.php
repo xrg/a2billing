@@ -196,7 +196,7 @@ for ($ki=0;$ki<2;$ki++){
 		$buddyfile = BUDDY_IAX_FILE;
 	}
 	
-	if ($FG_DEBUG > 0) echo "CREATATION $cfriend FRIEND<br>";
+	if ($FG_DEBUG > 0) echo "CREATION $cfriend FRIEND<br>";
 	
 	// Insert Sip/Iax account info
 	if ($ec_prod[17]){

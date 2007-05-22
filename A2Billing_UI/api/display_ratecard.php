@@ -24,6 +24,7 @@ include ("../lib/module.access.php");
 	
 	$FG_DEBUG = 0;
 
+
 getpost_ifset(array('key', 'tariffgroupid', 'ratecardid', 'css_url', 'nb_display_lines', 'filter' ,'field_to_display', 'column_name', 'field_type', 'browse_letter', 'prefix_select', 'page_url', 'resulttitle', 'posted', 'stitle', 'current_page', 'order', 'sens', 'choose_currency', 'choose_country', 'letter', 'searchpre', 'currency_select', 'merge_form', 'fullhtmlpage'));
 /**variable to set rate display option
 
@@ -132,6 +133,7 @@ if (isset($tariffgroupid) && strlen($tariffgroupid)!=0){
 }
 if ($FILTER_COUNTRY || $DISPLAY_LETTER) {
 	$nb_display_lines=100;
+	$FG_LIMITE_DISPLAY=$nb_display_lines;
 	$current_page=0;
 }
 
@@ -376,4 +378,6 @@ function Search(Source){
 </div>
 
 </html>
-<?php } ?>
+<?php } 
+//echo "current_page=$current_page";
+?>

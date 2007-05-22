@@ -4,6 +4,12 @@
 ********************************************************************************
 
 
+
+#### A2Billing_UI/Public/index.php
+********************************************************************
+QUERY:INSERT INTO cc_system_log (iduser, loglevel, action, description, tablename, pagename, ipaddress, data) VALUES('1','1','Page Visit','User Visited the Page','','index.php','127.0.0.1','')
+
+
 #### MAILTYPE : EPAYMENT GATEWAY SECURITY 
 ********************************************************************
 Can you add a Mailtype to Epayment Gateway Security Verification Failed so that it can be edited?
