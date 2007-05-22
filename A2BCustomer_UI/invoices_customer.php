@@ -137,7 +137,7 @@ if ($posted==1){
                         $sql = "$sql WHERE ";
                 }
 				$sql = "$sql t1.$dbfld";
-				if (isset ($$fldtype)){                
+				if (isset ($$fldtype)){
                         switch ($$fldtype) {							
 							case 1:	$sql = "$sql='".$$fld."'";  break;
 							case 2: $sql = "$sql LIKE '".$$fld."%'";  break;

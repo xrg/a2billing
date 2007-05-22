@@ -6,8 +6,8 @@ if (!$A2B->config["webcustomerui"]['invoice']) exit();
 
 if (! has_rights (ACX_ACCESS)){ 
 	   Header ("HTTP/1.0 401 Unauthorized");
-	   Header ("Location: PP_error.php?c=accessdenied");	   
-	   die();	   
+	   Header ("Location: PP_error.php?c=accessdenied");
+	   die();
 }
 
 getpost_ifset(array('customer', 'posted', 'Period', 'choose_currency','exporttype', 'invoice_type', 'choose_billperiod'));
@@ -20,14 +20,13 @@ if ($invoice_type == "")
 }
 if ($invoice_type == 1)
 {
-	$invoice_heading = gettext("Unbilled Details");	
+	$invoice_heading = gettext("Unbilled Details");
 }
 else
 {
 	$invoice_heading = gettext("Billed Details");
 }
 // this variable specifie the debug type (0 => nothing, 1 => sql result, 2 => boucle checking, 3 other value checking)
-$FG_DEBUG = 0;
 
 // The variable FG_TABLE_NAME define the table name to use
 $FG_TABLE_NAME="cc_call t1";
@@ -49,10 +48,6 @@ $FG_TABLE_COL[]=array (gettext("Callednumber"), "calledstation", "18%", "right",
 $FG_TABLE_COL[]=array (gettext("Destination"), "destination", "18%", "center", "SORT", "30", "", "", "", "", "", "remove_prefix");
 $FG_TABLE_COL[]=array (gettext("Duration"), "sessiontime", "8%", "center", "SORT", "30", "", "", "", "", "", "display_minute");
 
-if (!(isset($customer)  &&  ($customer>0)) && !(isset($entercustomer)  &&  ($entercustomer>0))){
-	$FG_TABLE_COL[]=array (gettext("Cardused"), "username", "11%", "center", "SORT", "30");
-}
-
 $FG_TABLE_COL[]=array (gettext("Cost"), "sessionbill", "9%", "center", "SORT", "30", "", "", "", "", "", "display_2bill");
 // ??? cardID
 $FG_TABLE_DEFAULT_ORDER = "t1.starttime";
@@ -61,9 +56,7 @@ $FG_TABLE_DEFAULT_SENS = "DESC";
 // This Variable store the argument for the SQL query
 
 $FG_COL_QUERY='t1.starttime, t1.src, t1.calledstation, t1.destination, t1.sessiontime  ';
-if (!(isset($customer)  &&  ($customer>0)) && !(isset($entercustomer)  &&  ($entercustomer>0))){
-	$FG_COL_QUERY.=', t1.username';
-}
+
 $FG_COL_QUERY.=', t1.sessionbill';
 if (LINK_AUDIO_FILE == 'YES') 
 	$FG_COL_QUERY .= ', t1.uniqueid';
@@ -91,7 +84,11 @@ $FG_HTML_TABLE_WIDTH="70%";
 
 	if ($FG_DEBUG == 3) echo "<br>Table : $FG_TABLE_NAME  	- 	Col_query : $FG_COL_QUERY";	
 	$instance_table = new Table($FG_TABLE_NAME, $FG_COL_QUERY);
+	if ($FG_DEBUG > 1)
+		$instance_table->debug_st=1;
 	$instance_table_graph = new Table($FG_TABLE_NAME, $FG_COL_QUERY_GRAPH);
+	if ($FG_DEBUG > 1)
+		$instance_table_graph->debug_st=1;
 
 
 if ( is_null ($order) || is_null($sens) ){
@@ -142,15 +139,6 @@ if (strpos($SQLcmd, 'WHERE') > 0) {
 	$FG_TABLE_CLAUSE = substr($date_clause,5); 
 }
 
-if (isset($customer)  &&  ($customer>0)){
-	if (strlen($FG_TABLE_CLAUSE)>0) $FG_TABLE_CLAUSE.=" AND ";
-	$FG_TABLE_CLAUSE.="t1.username='$customer'";
-}else{
-	if (isset($entercustomer)  &&  ($entercustomer>0)){
-		if (strlen($FG_TABLE_CLAUSE)>0) $FG_TABLE_CLAUSE.=" AND ";
-		$FG_TABLE_CLAUSE.="t1.username='$entercustomer'";
-	}
-}
 if (strlen($FG_TABLE_CLAUSE)>0)
 {
 	$FG_TABLE_CLAUSE.=" AND ";
@@ -162,6 +150,16 @@ if ($invoice_type == 1)
 else
 {
 	$FG_TABLE_CLAUSE.="t1.starttime >(Select cover_startdate  from cc_invoices where id ='$id') AND t1.stoptime <(Select cover_enddate from cc_invoices where id ='$id') ";
+}
+
+if (strlen($FG_TABLE_CLAUSE) )
+	$FG_TABLE_CLAUSE = str_dbparams($DBHandle, '('. $FG_TABLE_CLAUSE . ') AND t1.username = %1',
+		array($_SESSION['pr_login']));
+else
+	$FG_TABLE_CLAUSE = str_dbparams($DBHandle, 't1.username = %1', array($_SESSION['pr_login']));
+
+if (!$nodisplay){
+	$list = $instance_table -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, $order, $sens, null, null, $FG_LIMITE_DISPLAY, $current_page*$FG_LIMITE_DISPLAY);
 }
 
 $_SESSION["pr_sql_export"]="SELECT $FG_COL_QUERY FROM $FG_TABLE_NAME WHERE $FG_TABLE_CLAUSE";
@@ -378,7 +376,7 @@ if (is_array($list_total_destination) && count($list_total_destination)>0)
 	   
 	  <tr>
 	  <td align="right">
-	  <a href="A2B_entity_invoice_detail_pdf.php?exporttype=pdf&id=<?php echo $id; ?>&cardid=<?php echo $cardid; ?>&invoice_type=<?php echo $invoice_type; ?>"><img src="<?php echo Images_Path;?>/pdf.gif" height="20" width="20" title="Download as PDF."> </a>&nbsp;
+	  <a href="A2B_entity_invoice_detail_pdf.php?exporttype=pdf&id=<?php echo $id; ?>&cardid=<?php echo $cardid; ?>&invoice_type=<?php echo $invoice_type; ?>"><img src="./images/pdf.png" height="20" width="20" title="Download as PDF."> </a>&nbsp;
 	  </td>
 	  </tr>
 	  
@@ -424,11 +422,11 @@ if (is_array($list_total_destination) && count($list_total_destination)>0)
             <tr class="invoice_rows">
               <td width="29%" class="invoice_td"><?php echo $data[0]?></td>
               <td width="19%" class="invoice_td"><?php echo $minutes?> </td>
-			  <td width="20%" class="invoice_td"><img src="<?php echo Images_Path_Main ?>/sidenav-selected.gif" height="6" width="<?php echo $widthbar?>"> </td>
+			  <td width="20%" class="invoice_td"><img src="./images/sidenav-selected.png" height="6" width="<?php echo $widthbar?>"> </td>
 			  <td width="11%" class="invoice_td"><?php echo $data[3]?> </td>
               <td width="21%" align="right" class="invoice_td"><?php  display_2bill($data[2]) ?></td>
             </tr>
-			<?php 	 }	 	 	
+			<?php 	 }
 	 	
 			if ((!isset($resulttype)) || ($resulttype=="min")){  
 				$total_tmc = sprintf("%02d",intval(($totalminutes/$totalcall)/60)).":".sprintf("%02d",intval(($totalminutes/$totalcall)%60));				
@@ -436,7 +434,7 @@ if (is_array($list_total_destination) && count($list_total_destination)>0)
 			}else{
 				$total_tmc = intval($totalminutes/$totalcall);			
 			}
-			 ?>   
+			 ?>
 			 <tr >
               <td width="29%" class="invoice_td">&nbsp;</td>
               <td width="19%" class="invoice_td">&nbsp;</td>
@@ -447,7 +445,7 @@ if (is_array($list_total_destination) && count($list_total_destination)>0)
             </tr>
             <tr class="invoice_subheading">
               <td width="29%" class="invoice_td"><?php echo gettext("TOTAL");?> </td>
-              <td width="39%" class="invoice_td"colspan="2"><?php echo $totalminutes?></td>			  
+              <td width="39%" class="invoice_td" colspan="2"><?php echo $totalminutes?></td>			  
 			  <td width="11%" class="invoice_td"><?php echo $totalcall?> </td>
               <td width="21%" align="right" class="invoice_td"><?php  display_2bill($totalcost -$totalcost_did) ?> </td>
             </tr> 
@@ -513,20 +511,20 @@ if (is_array($list_total_destination) && count($list_total_destination)>0)
             <tr class="invoice_rows">
               <td width="29%" class="invoice_td"><?php echo $data[0]?></td>
               <td width="19%" class="invoice_td"><?php echo $minutes?> </td>
-			  <td width="20%" class="invoice_td"><img src="<?php echo Images_Path_Main ?>/sidenav-selected.gif" height="6" width="<?php echo $widthbar?>"> </td>
+			  <td width="20%" class="invoice_td"><img src="./images/sidenav-selected.png" height="6" width="<?php echo $widthbar?>"> </td>
 			  <td width="11%" class="invoice_td"><?php echo $data[3]?> </td>
               <td width="21%" align="right" class="invoice_td"><?php  display_2bill($data[2]) ?></td>
             </tr>
-			 <?php 	 }	 	 	
+			 <?php 	 }
 	 	
 				if ((!isset($resulttype)) || ($resulttype=="min")){  
 					$total_tmc = sprintf("%02d",intval(($totalminutes/$totalcall)/60)).":".sprintf("%02d",intval(($totalminutes/$totalcall)%60));				
 					$totalminutes = sprintf("%02d",intval($totalminutes/60)).":".sprintf("%02d",intval($totalminutes%60));
 				}else{
-					$total_tmc = intval($totalminutes/$totalcall);			
+					$total_tmc = intval($totalminutes/$totalcall);
 				}
 			 
-			 ?>               
+			 ?>
 			 <tr >
               <td width="29%" class="invoice_td">&nbsp;</td>
               <td width="19%" class="invoice_td">&nbsp;</td>
@@ -537,16 +535,16 @@ if (is_array($list_total_destination) && count($list_total_destination)>0)
             </tr>
             <tr class="invoice_subheading">
               <td width="29%" class="invoice_td"><?php echo gettext("TOTAL");?> </td>
-              <td width="39%" class="invoice_td"colspan="2"><?php echo $totalminutes?></td>			  
+              <td width="39%" class="invoice_td" colspan="2"><?php echo $totalminutes?></td>
 			  <td width="11%" class="invoice_td"><?php echo $totalcall?> </td>
               <td width="21%" align="right" class="invoice_td"><?php  display_2bill($totalcost_day) ?> </td>
-            </tr> 				   
+            </tr>
             <tr >
               <td width="29%">&nbsp;</td>
               <td width="19%">&nbsp;</td>
               <td width="20%">&nbsp; </td>
 			  <td width="11%">&nbsp; </td>
-			  <td width="21%">&nbsp; </td>			  
+			  <td width="21%">&nbsp; </td>
             </tr>		
 			<?php
 			 	}
@@ -739,15 +737,15 @@ if (is_array($list_total_destination) && count($list_total_destination)>0)
             <tr>
               <td width="15%"><?php echo gettext("Status");?> :&nbsp; </td>
              <td width="20%"><?php if($info_customer[0][12] == 't') {?>
-			  <img width="18" height="7" src="<?php echo Images_Path;?>/connected.gif">
+			  <img width="18" height="7" src="./images/connected.png">
 			  <?php }
 			  else
 			  {
 			  ?>
-			  <img width="18" height="7" src="<?php echo Images_Path;?>/terminated.gif">
+			  <img width="18" height="7" src="./images/terminated.png">
 			  <?php }?></td>
-              <td width="65%"><img width="18" height="7" src="<?php echo Images_Path;?>/connected.gif">&nbsp;<?php echo gettext("Connected");?>&nbsp;&nbsp;&nbsp;
-			  <img width="22" height="7" src="<?php echo Images_Path;?>/terminated.gif">&nbsp; <?php echo gettext("DisConnected");?></td>
+              <td width="65%"><img width="18" height="7" src="./images/connected.png">&nbsp;<?php echo gettext("Connected");?>&nbsp;&nbsp;&nbsp;
+			  <img width="22" height="7" src="./images/terminated.png">&nbsp; <?php echo gettext("DisConnected");?></td>
             </tr>
         </table></td>
       </tr>

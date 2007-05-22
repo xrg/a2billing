@@ -6,8 +6,8 @@ if (!$A2B->config["webcustomerui"]['invoice']) exit();
 
 if (! has_rights (ACX_ACCESS)){ 
 	   Header ("HTTP/1.0 401 Unauthorized");
-	   Header ("Location: PP_error.php?c=accessdenied");	   
-	   die();	   
+	   Header ("Location: PP_error.php?c=accessdenied");
+	   die();
 }
 
 getpost_ifset(array('customer', 'posted', 'choose_currency','exporttype', 'invoice_type'));
@@ -354,7 +354,7 @@ $totalcost = $totalcost + $extracharge_total;
 	  <?php if($exporttype != "pdf"){?>
 	  <tr>
 	  <td align="right">
-	  <a href="A2B_entity_invoice_summary_pdf.php?exporttype=pdf&invoice_type=2"><img src="<?php echo Images_Path;?>/pdf.gif" height="20" width="20" title="Download as PDF."> </a>&nbsp;
+	  <a href="A2B_entity_invoice_summary_pdf.php?exporttype=pdf&invoice_type=2"><img src="./images/pdf.png" height="20" width="20" title="Download as PDF."> </a>&nbsp;
 	  </td>
 	  </tr>
 	  <?php }?>
@@ -373,27 +373,27 @@ $totalcost = $totalcost + $extracharge_total;
             <tr class="invoice_rows">
               <td width="40%" class="invoice_td"><?php echo gettext("Current Period Charges")?> </td>
               <td width="30%" class="invoice_td">&nbsp; </td>
-              <td width="30%" align="right" class="invoice_td"><?php  															
-															display_2bill($totalcost );
-															 ?>
-															 </td>
+              <td width="30%" align="right" class="invoice_td"><?php
+			display_2bill($totalcost );
+				?>
+				</td>
             </tr>
 			 <tr class="invoice_rows">
               <td width="40%" class="invoice_td"><?php echo gettext("VAT")?> </td>
               <td width="30%" class="invoice_td">&nbsp; </td>
               <td width="30%" align="right" class="invoice_td"><?php  
-															$prvat = ($vat / 100) * $totalcost;															
-															display_2bill($prvat);
-															 ?>
-															 </td>
+			$prvat = ($vat / 100) * $totalcost;
+			display_2bill($prvat);
+				?>
+				</td>
             </tr>
             <tr>
               <td  width="40%" class="invoice_td"><?php echo gettext("Total Payable Bill")?></td>
               <td width="30%" class="invoice_td">&nbsp;</td>
               <td width="30%"  align="right" class="invoice_td"><?php  
-															display_2bill($totalcost + $prvat);
-															 ?>
-															 </td>
+			display_2bill($totalcost + $prvat);
+				?>
+				</td>
             </tr>
             <tr >
               <td width="40%">&nbsp;</td>
@@ -408,15 +408,15 @@ $totalcost = $totalcost + $extracharge_total;
             <tr>
               <td width="15%"><?php echo gettext("Status");?> :&nbsp; </td>
              <td width="20%"><?php if($info_customer[0][12] == 't') {?>
-			  <img width="18" height="7" src="<?php echo Images_Path;?>/connected.gif">
+			  <img width="18" height="7" src="./images/connected.png">
 			  <?php }
 			  else
 			  {
 			  ?>
-			  <img width="18" height="7" src="<?php echo Images_Path;?>/terminated.gif">
+			  <img width="18" height="7" src="./images/terminated.png">
 			  <?php }?></td>
-              <td width="65%"><img width="18" height="7" src="<?php echo Images_Path;?>/connected.gif">&nbsp;<?php echo gettext("Connected");?>&nbsp;&nbsp;&nbsp;
-			  <img width="22" height="7" src="<?php echo Images_Path;?>/terminated.gif">&nbsp; <?php echo gettext("DisConnected");?></td>
+              <td width="65%"><img width="18" height="7" src="./images/connected.png">&nbsp;<?php echo gettext("Connected");?>&nbsp;&nbsp;&nbsp;
+			  <img width="22" height="7" src="./images/terminated.png">&nbsp; <?php echo gettext("DisConnected");?></td>
             </tr>
         </table></td>
       </tr>
