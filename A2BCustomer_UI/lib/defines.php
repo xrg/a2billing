@@ -23,7 +23,7 @@ define ("LEN_VOUCHER", isset($A2B->config["global"]['len_voucher'])?$A2B->config
 define ("BASE_CURRENCY", isset($A2B->config['global']['base_currency'])?$A2B->config['global']['base_currency']:null);
 
 // For ePayment Modules
-define('PULL_DOWN_DEFAULT', 'Please Select');    
+define('PULL_DOWN_DEFAULT', 'Please Select');
 define('TYPE_BELOW', 'Type Below');
 define('TEXT_CCVAL_ERROR_INVALID_DATE', gettext('The expiry date entered for the credit card is invalid.')."<br>".gettext('Please check the date and try again.'));
 define('TEXT_CCVAL_ERROR_INVALID_NUMBER', gettext('The credit card number entered is invalid.')."<br>".gettext('Please check the number and try again.'));

@@ -10,7 +10,7 @@ $HD_Form -> FG_DEBUG = 0;
 
 $actived_list = array();
 $actived_list["t"] = array( gettext("Active"), "t");
-$actived_list["f"] = array( gettext("Disactive"), "f");
+$actived_list["f"] = array( gettext("Inactive"), "f");
 
 $yesno = array();
 $yesno["1"] = array( gettext("Yes"), "1");
@@ -18,8 +18,8 @@ $yesno["0"] = array( gettext("No"), "0");
 
 
 $HD_Form -> AddViewElement(gettext("CALLERID"), "cid", "25%", "center", "sort");
-// $HD_Form -> AddViewElement("CARDNUMBER", "id_cc_card", "25%", "center", "sort", "15", "lie", "cc_card", "username", "id='%id'", "%1");
-$HD_Form -> AddViewElement(gettext("ACTIVATED"), "activated", "25%", "center", "sort", "26");
+$HD_Form -> AddViewElement(gettext("CARDNUMBER"), "id_cc_card", "25%", "center", "sort", "15", "lie", "cc_card", "username", "id='%id'", "%1");
+$HD_Form -> AddViewElement(gettext("ACTIVATED"), "activated", "25%", "center", "sort", "", "list", $actived_list);
 
 
 $HD_Form -> FieldViewElement ('cid, activated');
@@ -95,7 +95,7 @@ if (isset($filterprefix)  &&  (strlen($filterprefix)>0))
 {
         if (strlen($HD_Form -> FG_TABLE_CLAUSE)>0)
             $HD_Form -> FG_TABLE_CLAUSE.=" AND ";
-        $HD_Form -> FG_TABLE_CLAUSE.="cid like '$filterprefix%'";
+	$HD_Form -> FG_TABLE_CLAUSE.="cid like '$filterprefix%'";
 }
 
 

@@ -253,6 +253,7 @@ class Table {
             {
                 $QUERY = "DELETE FROM $sp".$this -> FK_TABLES[$i]."$sp WHERE (".trim ($this -> FK_EDITION_CLAUSE[$i])." = ".$this -> FK_ID_VALUE." )";
             }
+			if ($this -> debug_st) echo "<br>$QUERY";
             $res = $DBHandle -> Execute($QUERY);
         }
 		

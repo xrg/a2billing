@@ -8,13 +8,16 @@ if (!function_exists("stripos")) {
 }
 
 
+
 // ******************** END IF $topviewer *******************************
 
 $stitle = $_GET['stitle'];
 $ratesort = $_GET['ratesort'];
 $current_page = $_GET['current_page'];
-$this->FG_ORDER = $_GET['order']; // really need ?!
-$this->FG_SENS = $_GET['sens']; // really need  ?
+	if (isset($_GET['order']) && ($_GET['order'] != ''))
+		$this->FG_ORDER = $_GET['order']; // really need ?!
+	if (isset($_GET['sens']) && ($_GET['sens'] != ''))
+		$this->FG_SENS = $_GET['sens']; // really need  ?
 
 
 
@@ -129,7 +132,7 @@ function openURLFilter(theLINK)
 			?>
 				<input type="SUBMIT" value="<?php echo gettext("APPLY FILTER ");?>" style="border: 2px outset rgb(204, 51, 0);" class="form_enter"/>
 			</span>
-			</td></FORM>	
+			</td></FORM>
         </tr>
 		<?php } ?>
 		
@@ -174,24 +177,27 @@ function openURLFilter(theLINK)
 					/**********************   select the mode to browse define the column value : lie, list, value, eval.... ************************/
 					if ($this->FG_TABLE_COL[$i][6]=="lie"){
 						$instance_sub_table = new Table($this->FG_TABLE_COL[$i][7], $this->FG_TABLE_COL[$i][8]);
+						if ($this->FG_DEBUG>3) {
+							 $instance_sub_table->debug_st=1;
+							 //echo "i=" . $i . ", k=". $k ."<br>";
+							 }
 						$sub_clause = str_replace("%id", $list[$ligne_number][$i-$k], $this->FG_TABLE_COL[$i][9]);																																	
 						$select_list = $instance_sub_table -> Get_list ($this->DBHandle, $sub_clause, null, null, null, null, null, null);
 						$field_list_sun = split(',',$this->FG_TABLE_COL[$i][8]);
 						$record_display = $this->FG_TABLE_COL[$i][10];
 								
-						for ($l=1;$l<=count($field_list_sun);$l++){													
+						$record_display=str_params($record_display,$select_list[0],1);
+						/*for ($l=1;$l<=count($field_list_sun);$l++){													
 							$record_display = str_replace("%$l", $select_list[0][$l-1], $record_display);
-						}						
+						}*/
 						
 					}elseif ($this->FG_TABLE_COL[$i][6]=="eval"){
 						$string_to_eval = $this->FG_TABLE_COL[$i][7]; // %4-%3
-						for ($ll=0;$ll<=15;$ll++){
-							if ($list[$ligne_number][$ll]=='') $list[$ligne_number][$ll]=0;
-							$string_to_eval = str_replace("%$ll", $list[$ligne_number][$ll], $string_to_eval);
-						}
+						$string_to_eval = str_params($string_to_eval,$list[$ligne_number]);
 						eval("\$eval_res = $string_to_eval;");
 						$record_display = $eval_res;
 						//$record_display = "\$eval_res = $string_to_eval";
+						
 						
 					}elseif ($this->FG_TABLE_COL[$i][6]=="list"){
 						$select_list = $this->FG_TABLE_COL[$i][7];
@@ -199,6 +205,8 @@ function openURLFilter(theLINK)
 					}elseif ($this->FG_TABLE_COL[$i][6]=="value"){
 						$record_display = $this->FG_TABLE_COL[$i][7];
 						$k++;
+					}elseif ($this->FG_TABLE_COL[$i][6]=="object"){
+						$record_display = $this->FG_TABLE_COL[$i][7]->disp($list[$ligne_number],$i);
 					}else{
 						$record_display = $list[$ligne_number][$i-$k];
 					}
@@ -232,11 +240,13 @@ function openURLFilter(theLINK)
 		 		 <?php  } ?>
 
 				  	<?php if($this->FG_EDITION || $this->FG_DELETION || $this -> FG_OTHER_BUTTON1 || $this -> FG_OTHER_BUTTON2){?>
-					  <TD align="center" vAlign=top class=tableBodyRight>
-						<?php if($this->FG_EDITION){?>&nbsp; <a href="<?php echo $this->FG_EDITION_LINK?><?php echo $list[$ligne_number][$this->FG_NB_TABLE_COL]?>&stitle=<?php echo $stitle?>&site_id=<?php echo $list[$ligne_number][0]?>"><img src="<?php echo Images_Path_Main;?>/icon-edit.gif" border="0" title="<?php echo $this->FG_EDIT_ALT?>" alt="<?php echo $this->FG_EDIT_ALT?>"></a><?php } ?>
-                        <?php if($this->FG_DELETION){?>&nbsp; <a href="<?php echo $this->FG_DELETION_LINK?><?php echo $list[$ligne_number][$this->FG_NB_TABLE_COL]?>&stitle=<?php echo $stitle?>"><img src="<?php echo Images_Path_Main;?>/icon-del.gif" border="0" title="<?php echo $this->FG_DELETE_ALT?>" alt="<?php echo $this->FG_DELETE_ALT?>"></a><?php } ?>
-					  	<?php if($this->FG_OTHER_BUTTON1){ ?>
-							<a href="<?php
+					  <TD align="center" vAlign=top class=tableBodyRight><?php
+					   if($this->FG_EDITION){
+						?>&nbsp; <a href="<?php echo $this->FG_EDITION_LINK?><?php echo $list[$ligne_number][$this->FG_NB_TABLE_COL]?>&stitle=<?php echo $stitle?>&site_id=<?php echo $list[$ligne_number][0]?>"><img src="<?php echo Images_Path_Main;?>/icon-edit.gif" border="0" title="<?php echo $this->FG_EDIT_ALT?>" alt="<?php echo $this->FG_EDIT_ALT?>"></a><?php } ?>
+					<?php if($this->FG_DELETION){
+						?>&nbsp; <a href="<?php echo $this->FG_DELETION_LINK?><?php echo $list[$ligne_number][$this->FG_NB_TABLE_COL]?>&stitle=<?php echo $stitle?>"><img src="<?php echo Images_Path_Main;?>/icon-del.gif" border="0" title="<?php echo $this->FG_DELETE_ALT?>" alt="<?php echo $this->FG_DELETE_ALT?>"></a><?php } ?>
+					<?php if($this->FG_OTHER_BUTTON1){ 
+					?> <a href="<?php
 								$new_FG_OTHER_BUTTON1_LINK = $this -> FG_OTHER_BUTTON1_LINK;
 								// we should depreciate |param| and only use |col|
 								if (strpos($this -> FG_OTHER_BUTTON1_LINK,"|param|")){
@@ -357,7 +367,7 @@ function openURLFilter(theLINK)
                 <TR>
                   <TD align="right" valign="bottom"><span class="text"><font color="#cc0000">
 					<?php					
-					$c_url = $_SERVER['PHP_SELF'].'?stitle='.$stitle.'&atmenu='.$atmenu.'&current_page=%s'."&filterprefix=".$_GET['filterprefix']."&order=".$_GET['order']."&sens=".$_GET['sens']."&mydisplaylimit=".$_GET['mydisplaylimit']."&ratesort=".$ratesort.$this-> CV_FOLLOWPARAMETERS;
+					$c_url = $_SERVER['PHP_SELF'].'?stitle='.$stitle.'&atmenu='.$atmenu.'&current_page=%s'."&filterprefix=".$_GET['filterprefix']."&order=".$this->FG_ORDER."&sens=".$this->FG_SENS."&mydisplaylimit=".$_GET['mydisplaylimit']."&ratesort=".$ratesort.$this-> CV_FOLLOWPARAMETERS;
 					if (!is_null($letter) && ($letter!=""))   $c_url .= "&letter=".$_GET['letter'];
 					$this -> printPages($this -> CV_CURRENT_PAGE+1, $this -> FG_NB_RECORD_MAX, $c_url) ;
 					?>

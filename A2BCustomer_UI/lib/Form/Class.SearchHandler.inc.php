@@ -8,7 +8,7 @@
 
 
 
-<a href="#" target="_self"  onclick="imgidclick('img51000','div51000','kfind.png','viewmag.png');"><img id="img51000" src="<?php echo KICON_PATH; ?>/viewmag.png" onmouseover="this.style.cursor='hand';" WIDTH="16" HEIGHT="16"></a>
+<a href="#" target="_self"  onclick="imgidclick('img51000','div51000','kfind.png','viewmag.png');"><img id="img51000" src="../Css/kicons/viewmag.png" onmouseover="this.style.cursor='hand';" WIDTH="16" HEIGHT="16"></a>
 <div id="div51000" style="display:visible;">
 
 <!-- ** ** ** ** ** Part for the research - ** ** ** ** ** -->
@@ -258,7 +258,7 @@
 				<td class="searchhandler_table3_td2" align="center">
 					<input type="image"  name="image16" align="top" border="0" src="<?php echo Images_Path_Main;?>/button-search.gif" />
 					<?php if(isset($_SESSION[$this->FG_FILTER_SEARCH_SESSION_NAME]) && strlen($_SESSION[$this->FG_FILTER_SEARCH_SESSION_NAME])>10 ){ ?>
-                    - <a href="<?php echo $_SERVER['PHP_SELF']?>?cancelsearch=true"><font color="red"><b><img src="<?php echo KICON_PATH; ?>/button_cancel.png" height="16"> Cancel Search</b></font></a>&nbsp;
+                    - <a href="<?php echo $_SERVER['PHP_SELF']?>?cancelsearch=true"><font color="red"><b><img src="../Css/kicons/button_cancel.png" height="16"> Cancel Search</b></font></a>&nbsp;
 					- <a href="<?php echo $_SERVER['PHP_SELF']?>?deleteselected=true" onclick="return confirm('<?php echo "Are you sure to delete ".$this -> FG_NB_RECORD." selected records?";?>');"><font color="red"><b>Delete All</b></font></a>
                     <?php } ?>
 
@@ -278,7 +278,7 @@
 ?>
 
 <!-- ** ** ** ** ** Part for the Update ** ** ** ** ** -->
-<a href="#" target="_self"  onclick="imgidclick('img61000','div61000','kfind.png','viewmag.png');"><img id="img61000" src="<?php echo KICON_PATH; ?>/viewmag.png" onmouseover="this.style.cursor='hand';" WIDTH="16" HEIGHT="16"></a>
+<a href="#" target="_self"  onclick="imgidclick('img61000','div61000','kfind.png','viewmag.png');"><img id="img61000" src="../Css/kicons/viewmag.png" onmouseover="this.style.cursor='hand';" WIDTH="16" HEIGHT="16"></a>
 <div id="div61000" style="display:visible;">
 
 <br>

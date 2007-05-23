@@ -5,13 +5,13 @@ class Table {
 	var $fields = "*"; // "id", "name", etc..
 	var $table  = "";
 	var $errstr = "";
-	var $debug_st  = 0;
+	var $debug_st = 0;
 	var $debug_stop_add 	= 0;
 	var $debug_stop_update 	= 0;
 	var $debug_stop_delete 	= 0;
 	var $sp                 = "`"; //bound_caract
 	var $start_message_debug = '<table width="70%" align="right"><tr><td>QUERY:';
-	var $end_message_debug = '</td></tr></table>';
+	var $end_message_debug = '</td></tr></table><br style="clear:both" />';
 		
 		
     var $FK_TABLES ;
@@ -67,7 +67,7 @@ class Table {
 	
 		if ($select){
 			$num = $res -> RecordCount();
-			if ($num==0) return 0;
+			if ($num==0) return 0;		
 		
 			for($i=0;$i<$num;$i++)
 			{
@@ -75,7 +75,7 @@ class Table {
 			}
 			
 			return ($row);
-		}
+		}	
 		return true;
 	}
 
@@ -247,7 +247,7 @@ class Table {
         {	
             if ($this -> FK_DELETE_OR_UPDATE == false)
             {
-            	$QUERY = "UPDATE $sp".$this -> FK_TABLES[$i]."$sp SET ".trim ($this -> FK_EDITION_CLAUSE[$i])." = -1 WHERE (".trim ($this -> FK_EDITION_CLAUSE[$i])." = ".$this -> FK_ID_VALUE." )";
+                $QUERY = "UPDATE $sp".$this -> FK_TABLES[$i]."$sp SET ".trim ($this -> FK_EDITION_CLAUSE[$i])." = -1 WHERE (".trim ($this -> FK_EDITION_CLAUSE[$i])." = ".$this -> FK_ID_VALUE." )";
             }
             else
             {

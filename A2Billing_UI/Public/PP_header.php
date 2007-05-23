@@ -1,8 +1,8 @@
 <?php 
 	include (dirname(__FILE__)."/../lib/company_info.php");
 	
-	define ("WEBUI_DATE", 'Release : 13 August 2006');
-	define ("WEBUI_VERSION", 'Asterisk2Billing - Version 1.2.3 (BrainCoral) - ');
+/*	define ("WEBUI_DATE", 'Release : 13 August 2006');
+	define ("WEBUI_VERSION", 'Asterisk2Billing - Version 1.2.3 (BrainCoral) - ');*/
 ?>
 <html><head>
 <title>..:: <?php echo CCMAINTITLE; ?> ::..</title>
@@ -69,7 +69,7 @@ function imgidclick(imgID,divID, imgbase, imgchange)
 <br>
 <DIV border=0 width="100%">
 <?php if (isset($popup_select) && $popup_select>0){ ?>
-<div>
+<div></div>
 <?php }else{  ?>
 <div class="divleft">
 	<?php include("PP_menu.php");?>

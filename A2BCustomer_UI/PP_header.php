@@ -1,15 +1,15 @@
 <?php 
 	include (dirname(__FILE__)."/lib/company_info.php");
 	
-	define ("WEBUI_DATE", 'Release : 13 August 2006');
-	define ("WEBUI_VERSION", 'Asterisk2Billing - Version 1.2.3 (BrainCoral)- ');	
+/*	define ("WEBUI_DATE", 'Release : 13 August 2006');
+	define ("WEBUI_VERSION", 'Asterisk2Billing - Version 1.2.3 (BrainCoral)- ');	*/
 ?>
 <html><head>
 <link rel="shortcut icon" href="../Images/favicon.ico">
 <link rel="icon" href="../Images/animated_favicon1.gif" type="image/gif">
 
 <title>..:: <?php echo CCMAINTITLE; ?> ::..</title>
-<meta http-equiv="Content-Type" content="text/html; charset=iso88591">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"> <!-- *-* -->
 <link href="Css/Css_Ale.css" rel="stylesheet" type="text/css">
 <link href="Css/menu.css" rel="stylesheet" type="text/css">
 <link href="Css/style-def.css" rel="stylesheet" type="text/css">
@@ -69,3 +69,13 @@ function imgidclick(imgID,divID)
 <body  leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
 <p class="version" align="right"><?php echo WEBUI_VERSION.WEBUI_DATE; ?></p>
 <br>
+<DIV border=0 width="100%">
+<?php if (isset($popup_select) && $popup_select>0){ ?>
+<div>
+<?php }else{  ?>
+<div class="divleft">
+	<?php include("PP_menu.php");?>
+</div>
+<div class="divright">
+
+<?php } ?>

@@ -256,7 +256,8 @@ class A2Billing {
 			$this->config = parse_ini_file($config, true);
 		elseif(file_exists(DEFAULT_A2BILLING_CONFIG)){
 			$this->config = parse_ini_file(DEFAULT_A2BILLING_CONFIG, true);		
-		}
+		} /*else
+			error_log("Cannot locate config: ". DEFAULT_A2BILLING_CONFIG);*/
 	  
 	  
 		// If optconfig is specified, stuff vals and vars into 'a2billing' config array.
@@ -1981,7 +1982,7 @@ class A2Billing {
 	}
 	
 	
-	function callingcard_ivr_authenticate_light (&$error_msg){
+	function callingcard_ivr_authenticate_light (&$error_msg, $debug = false){
 		$res=0;
 		
 		$QUERY =  "SELECT credit, tariff, activated, inuse, simultaccess, typepaid, ";
@@ -1992,10 +1993,13 @@ class A2Billing {
 		
 		$QUERY .=  "LEFT JOIN cc_tariffgroup ON tariff=cc_tariffgroup.id WHERE username='".$this->cardnumber."'";
 			
+		if ($debug)
+			echo "<br> QUERY: ". $QUERY ."<br>";
 		$result = $this->instance_table -> SQLExec ($this->DBHandle, $QUERY);
 			
 		if( !is_array($result)) {
-			$error_msg = '<font face="Arial, Helvetica, sans-serif" size="2" color="red"><b>'.gettext("Error : Authentication Failed !!!").'</b></font><br>';
+			if ($debug) echo $this->DBHandle->ErrorMsg() . "<br>";
+			$error_msg = '<font face="Arial, Helvetica, sans-serif" size="2" color="red"><b>Error : Authentication Failed !!!</b></font><br>';
 			return 0;
 		}
 		
@@ -2026,12 +2030,14 @@ class A2Billing {
 		
 		// CHECK IF ENOUGH CREDIT TO CALL		
 		if( $this->credit <= $this->agiconfig['min_credit_2call'] && $this -> typepaid==0){
-			$error_msg = '<font face="Arial, Helvetica, sans-serif" size="2" color="red"><b>'.gettext("Error : Not enough credit to call !!!").'</b></font><br>';
+			$error_msg = '<font face="Arial, Helvetica, sans-serif" size="2" color="red"><b>' . gettext("Error : Not enough credit to call !!!") .'</b></font><br>';
+			if($debug) $error_msg .= "credit = $this->credit &lt; min_credit_2call = " .$this->agiconfig['min_credit_2call'];
 			return 0;
 		}
 		// CHECK POSTPAY
 		if( $this->typepaid==1 && $this->credit <= -$creditlimit && $creditlimit!=0){
 			$error_msg = '<font face="Arial, Helvetica, sans-serif" size="2" color="red"><b>'.gettext("Error : Not enough credit to call !!!").'</b></font><br>';
+			if($debug) $error_msg .= 'credit &lt; creditlimit';
 			return 0;
 		}
 		
@@ -2073,7 +2079,7 @@ class A2Billing {
 				}		
 			}
 		}
-		
+
 		return 1;
 	}
 

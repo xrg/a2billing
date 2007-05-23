@@ -1,4 +1,11 @@
 <?php
+/*
+  $Id: moneybookers.php,v 2.0 2004/04/20 12:00:00 by Templatefactory.info
+
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
+
+  Copyright (c) 2002 osCommerce
 
 include("./lib/epayment/includes/methods/moneybookers.php");
 class moneybookers {
@@ -6,31 +13,31 @@ class moneybookers {
 
 	// class constructor
     function moneybookers() {
-		global $order;
-		
-		$this->code = 'moneybookers';
-		$this->title = MODULE_PAYMENT_MONEYBOOKERS_TEXT_TITLE;
-		$this->description = MODULE_PAYMENT_MONEYBOOKERS_TEXT_DESCRIPTION;
-		$this->sort_order = MODULE_PAYMENT_MONEYBOOKERS_SORT_ORDER;
+      global $order;
+
+      $this->code = 'moneybookers';
+      $this->title = MODULE_PAYMENT_MONEYBOOKERS_TEXT_TITLE;
+      $this->description = MODULE_PAYMENT_MONEYBOOKERS_TEXT_DESCRIPTION;
+      $this->sort_order = MODULE_PAYMENT_MONEYBOOKERS_SORT_ORDER;
 		$this->enabled = ((MODULE_PAYMENT_MONEYBOOKERS_STATUS == 'True') ? true : false);
-		
-		$my_actionurl = 'https://www.moneybookers.com/app/payment.pl';
-		
-		if  (strlen(MODULE_PAYMENT_MONEYBOOKERS_REFID) <= '5')
-		{
+
+      $my_actionurl = 'https://www.moneybookers.com/app/payment.pl';
+
+      if  (strlen(MODULE_PAYMENT_MONEYBOOKERS_REFID) <= '5')
+      {
 			$my_actionurl = $my_actionurl . '?rid=811621' ;
-		}
-		else
-		{
-			$my_actionurl = $my_actionurl . '?rid=' . MODULE_PAYMENT_MONEYBOOKERS_REFID;
-		}
-		
-		$this->form_action_url = $my_actionurl;
-	}
+      }
+      else
+      {
+          $my_actionurl = $my_actionurl . '?rid=' . MODULE_PAYMENT_MONEYBOOKERS_REFID;
+      }
+
+      $this->form_action_url = $my_actionurl;
+      }
 
 	// class methods
     function javascript_validation() {
-    	return false;
+      return false;
     }
 
     function selection() {
@@ -38,36 +45,36 @@ class moneybookers {
     }
 
     function pre_confirmation_check() {
-		return false;
+      return false;
     }
 
     function confirmation() {
-		return false;
+      return false;
     }
 
     function process_button($transactionID = 0, $key= "") {
-		global $order, $currencies, $currency;
-		
-		$my_language = MODULE_PAYMENT_MONEYBOOKERS_LANGUAGE;
-		$my_currency = MODULE_PAYMENT_MONEYBOOKERS_CURRENCY;
-		
-		if (!in_array($my_currency, array('EUR', 'USD', 'GBP', 'HKD', 'SGD', 'JPY', 'CAD', 'AUD', 'CHF', 'DKK', 'SEK', 'NOK', 'ILS', 'MYR', 'NZD', 'TWD', 'THB', 'CZK', 'HUF', 'SKK', 'ISK', 'INR'))) {
-        	$my_currency = 'USD';
-      	}
-		
-		$currencyObject = new currencies();
+      global $order, $currencies, $currency;
+
+      $my_language = MODULE_PAYMENT_MONEYBOOKERS_LANGUAGE;
+      $my_currency = MODULE_PAYMENT_MONEYBOOKERS_CURRENCY;
+
+      if (!in_array($my_currency, array('EUR', 'USD', 'GBP', 'HKD', 'SGD', 'JPY', 'CAD', 'AUD', 'CHF', 'DKK', 'SEK', 'NOK', 'ILS', 'MYR', 'NZD', 'TWD', 'THB', 'CZK', 'HUF', 'SKK', 'ISK', 'INR'))) {
+        $my_currency = 'USD';
+      }
+
+      $currencyObject = new currencies();
 		$process_button_string = tep_draw_hidden_field('pay_to_email', MODULE_PAYMENT_MONEYBOOKERS_ID) .
-								tep_draw_hidden_field('language', $my_language) .
+                               tep_draw_hidden_field('language', $my_language) .
 								tep_draw_hidden_field('amount', number_format($order->info['total'] , $currencyObject->get_decimal_places($my_currency))) .
-								tep_draw_hidden_field('currency', $my_currency) .
-								tep_draw_hidden_field('detail1_description', STORE_NAME) .
-								tep_draw_hidden_field('detail1_text', 'Order - ' . date('d. M Y - H:i')) .
-								tep_draw_hidden_field('firstname', $order->billing['firstname']) .
-								tep_draw_hidden_field('lastname', $order->billing['lastname'] ) .
-								tep_draw_hidden_field('address', $order->billing['street_address']) .
-								tep_draw_hidden_field('postal_code', $order->billing['postcode']) .
-								tep_draw_hidden_field('city', $order->billing['city']) .
-								tep_draw_hidden_field('country', $order->billing['country']['moneybookers']) .
+                               tep_draw_hidden_field('currency', $my_currency) .
+                               tep_draw_hidden_field('detail1_description', STORE_NAME) .
+                               tep_draw_hidden_field('detail1_text', 'Order - ' . date('d. M Y - H:i')) .
+                               tep_draw_hidden_field('firstname', $order->billing['firstname']) .
+                               tep_draw_hidden_field('lastname', $order->billing['lastname'] ) .
+                               tep_draw_hidden_field('address', $order->billing['street_address']) .
+                               tep_draw_hidden_field('postal_code', $order->billing['postcode']) .
+                               tep_draw_hidden_field('city', $order->billing['city']) .
+                               tep_draw_hidden_field('country', $order->billing['country']['moneybookers']) .
 								tep_draw_hidden_field('pay_from_email', $order->customer['email_address']); 
 								if($transactionID != 0)
 								{
@@ -75,10 +82,13 @@ class moneybookers {
 								}
 								$process_button_string .= tep_draw_hidden_field('status_url', tep_href_link("checkout_process.php?sess_id=".session_id()."&transactionID=".$transactionID."&key=".$key, '', 'SSL')) .
 								tep_draw_hidden_field('return_url', tep_href_link("userinfo.php", '', 'SSL')) .
-								tep_draw_hidden_field('cancel_url', tep_href_link("checkout_payment.php", '', 'SSL'));
-		return $process_button_string;
+							   tep_draw_hidden_field('cancel_url', tep_href_link("checkout_payment.php", '', 'SSL'));
+      return $process_button_string;
     }
-	
+
+      return $process_button_string;
+    }
+
     function get_CurrentCurrency()
     {
         $my_currency = MODULE_PAYMENT_MONEYBOOKERS_CURRENCY;
@@ -92,10 +102,6 @@ class moneybookers {
     function before_process()
     {
         return;
-    }
-	
-    function get_OrderStatus()
-    {
         //status of the transaction;
         // Failed= -2
         // Canceled = -1;
