@@ -4,6 +4,7 @@ include ("./lib/defines.php");
 
 if (!isset($c))	$c="0";
 
+
 $error["0"] = gettext("ERROR : ACCESS REFUSED");
 $error["syst"] = gettext("Sorry a problem occur on our system, please try later!");
 $error["errorpage"] = gettext("There is an error on this page!");
@@ -27,18 +28,21 @@ $error["construction"] = gettext("Sorry, this page is in construction !");
 		<td> 					
 			<div align="center"><b><font size="3"><?php echo gettext("Error Page");?></font></b></div>
 		</td>
-	</tr>				 
+	</tr>
 	<tr> 
 	<td align="center" colspan=2> 
 		<table width="100%" border="0" cellpadding="5" cellspacing="5">		  
 		<tr> 
 			<td align="center"><br/>
-				<img src="<?php echo KICON_PATH; ?>/system-config-rootpassword.png"> 
+				<img src="./Css/kicons/messagebox_critical.png"> <img src="./Css/kicons/messagebox_critical.png"> <img src="./Css/kicons/system-config-rootpassword.png"> <img src="./Css/kicons/messagebox_critical.png"> <img src="./Css/kicons/messagebox_critical.png">
 				<br/>
 				<b><font size="3"><?php echo $error[$c]?></font></b>
 				<br/><br/>
 			</td>
 		</tr>
+		<tr><td>
+			<a href="index.php"><?= _("Click here to login again.") ?></a>
+		<td></tr>
 		</table>			
 	</td>
 	</tr>
