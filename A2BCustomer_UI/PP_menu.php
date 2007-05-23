@@ -77,13 +77,21 @@ function menu_toggle(sect_str){
 
 //-->
 </script>
+<style type="text/css">
+/* *-* Must go.. */
+div.menu div ul {
+	display: none;
+	position: static;
+}
+</style>
+
 <div id="dummydiv"></div>
 
 
 	<div id="nav_before"></div>
-	<ul class="menu">
+	<div class="menu">
 	
-       <div><a href="userinfo.php?"><?= _("ACCOUNT INFO");?></a><div>
+       <div><a href="userinfo.php?"><?= _("ACCOUNT INFO");?></a></div>
 <?php if ($A2B->config['webcustomerui']['sipiaxinfo']==1) { ?>
 	<div><a href="A2B_entity_sipiax_info.php?"><?= _("SIP/IAX INFO");?></a></div>
 <?php }
@@ -138,7 +146,7 @@ if ($A2B->config['webcustomerui']['password']==1) { ?>
 <?php } ?>
 	<div><a href="logout.php?logout=true" target="_parent"><font color="#DD0000"><?= _("LOGOUT");?></font></a></div>
 
-</ul>
+</div>
 
 
 <table>
