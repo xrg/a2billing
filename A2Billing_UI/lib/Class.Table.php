@@ -260,7 +260,7 @@ class Table {
 		$QUERY = "DELETE FROM $sp".$this -> table."$sp WHERE (".trim ($clause).")";
 		if ($this -> debug_st) echo $this->start_message_debug.$QUERY.$this->end_message_debug;
 		if ($this -> debug_stop_delete){ echo $this->start_message_debug.$QUERY.$this->end_message_debug; exit(); }
-		
+
 		$res = $DBHandle -> Execute($QUERY);
 		if (!$res){
 			$this -> errstr = "Could not delete the instances of the table '".$this -> table."'";

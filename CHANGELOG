@@ -6,6 +6,78 @@
 
 
 
+#### Building a logging / tracking system on the web interface
+********************************************************************
+Building a logging / tracking system on the web interface
+
+
+#### FEATURE : IVR - OPTION NO VOICE
+********************************************************************
+Create an option on the AGI to remove Audio
+
+; Play audio - this will disable all stream file but not the Get Data 
+; for wholesale ensure that the authentication works and than number_try = 1
+play_audio = YES
+
+
+#### REMOVE OLD PAYPAL
+********************************************************************
+A2Billing_UI/paypal
+A2B_entity_paypal.php?atmenu=paypal&stitle=PaypalTransaction&form_action=list&section=2
+FG_var_paypal
+
+
+#### SIGNUP : IF SIP/IAX Created reload asterik
+********************************************************************
+After the public signup , get Asterisk to do a reload, as when a new card is created, 
+asterisk is not reloaded, and therefore the SIP/IAX friend cannot register.
+
+I added new parameter to handle this :
+; Define if you want to reload Asterisk when a SIP / IAX Friend is created at signup time
+reload_asterisk_if_sipiax_created = no
+
+
+
+#### CHANGE : INVOICE ADD MORE INFO
+********************************************************************
+A2BCustomer_UI/A2B_entity_call_details.php
+add : Calls by Destination ; Calls by Date ; TOTAL ; VAT
+like we have in A2BCustomer_UI/A2B_entity_invoice_detail.php?section=4&invoice_type=1
+
+
+#### CHANGE : PAYMENT MODULE
+********************************************************************
+We should have a single button but just saying that Pay Amount.. and then on the check_payment select payment gate way then fill the amount
+This will be the right process otherwise we cannot remove this conflict
+Userinfo => Just Pay Now Button..no amount
+Checkout_payment => Select Payment gateway
+Checkout_amount => Enter the amount ,,, Currecny will be shown to him
+checkout_confirmation =>
+
+$arr_purchase_amount = split(":", EPAYMENT_PURCHASE_AMOUNT);
+if (!is_array($arr_purchase_amount)) $arr_purchase_amount[0]=10;
+
+foreach($arr_purchase_amount as $value){
+
+#### INVOICE FIX
+********************************************************************
+fix on A2Billing_UI/Public/invoices_customer.php ->  false cardnumber
+# Error page : Blank page with "No User found"
+need design good error pages !!
+Golden rule : never show a white page with an error message.
+
+
+#### FIX : REFILL BASE CURRENCY
+********************************************************************
+A2BCustomer_UI/userinfo.php
+# when we are changing the base currency -> on the userinfo it is shown to purchage 20 $
+the amount to refill should be show in the base currency and the next page should refill accordingly
+
+
+#### FIX : HIDE DIV ON "List Customer" & "Browse Rates"
+********************************************************************
+Jquery - HIDE DIV ON "List Customer" & "Browse Rates"
+
 ## USE CC_COUNTRY TO SELECT THE COUNTRY : ON SIGNUP & EDIT CUSTOMER
 ********************************************************************
 We will use cc_country table to select the country on signup module and also when 

@@ -25,6 +25,9 @@ $(document).ready(
 		
 		
 		$("div.toggle_hide2show a").toggle(function(){
+			//div_toggle = $(this).parent().parent().parent().find("div.toggle_hide2show");
+			//div_toggle.css("background-color","#555555");
+			//$(this).parent().parent().append("&nbsp;");
 			$(this).find("img").each(function(i) {
 				newimage = $(this).attr('src');
 				$(this).attr('src', newimage.substr(0,newimage.length-4) + '_on.png');
@@ -33,7 +36,10 @@ $(document).ready(
 			//alert(div_toggle.html());
 			div_toggle.animate({ height: 'show', opacity: 'show' }, 'slow');
 			
-		},function(){			
+		},function(){
+			//div_toggle = $(this).parent().parent().parent().find("div.toggle_hide2show");
+			//div_toggle.css("background-color","#FFFF44");
+			//$(this).parent().parent().append("&nbsp;");
 			$(this).find("img").each(function(i) {
 				newimage = $(this).attr('src');
 				$(this).attr('src', newimage.substr(0,newimage.length-7) + '.png');

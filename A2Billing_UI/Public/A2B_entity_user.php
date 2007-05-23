@@ -6,10 +6,10 @@ include ("../lib/Form/Class.FormHandler.inc.php");
 include ("./form_data/FG_var_user.inc");
 
 
-if (! has_rights (ACX_RATECARD)){ 
-	   Header ("HTTP/1.0 401 Unauthorized");
-	   Header ("Location: PP_error.php?c=accessdenied");	   
-	   die();	   
+if (! has_rights (ACX_ADMINISTRATOR)){ 
+	Header ("HTTP/1.0 401 Unauthorized");
+	Header ("Location: PP_error.php?c=accessdenied");	   
+	die();	   
 }
 
 
@@ -43,9 +43,25 @@ $list = $HD_Form -> perform_action($form_action);
 include("PP_header.php");
 
 // #### HELP SECTION
-if ($form_action == 'ask-add') echo $CC_help_admin_edit;
-else echo $CC_help_admin_list;
+if($popup_select == "")
+{
+	if ($form_action == 'ask-add') echo $CC_help_admin_edit;
+	else echo $CC_help_admin_list;
+}
+if ($popup_select != ""){
+?>
 
+<SCRIPT LANGUAGE="javascript">
+<!-- Begin
+function sendValue(selvalue){
+	window.opener.document.<?php echo $popup_formname ?>.<?php echo $popup_fieldname ?>.value = selvalue;
+	window.close();
+}
+// End -->
+</script>
+
+<?php
+}
 
 
 // #### TOP SECTION PAGE

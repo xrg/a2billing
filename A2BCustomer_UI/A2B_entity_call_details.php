@@ -7,7 +7,7 @@ if (!$A2B->config["webcustomerui"]['invoice']) exit();
 if (! has_rights (ACX_ACCESS)){ 
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");	   
-	die();	   
+	die();
 }
 
 getpost_ifset(array('customer', 'posted', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth', 'tostatsmonth', 'fromday', 'fromstatsday_sday', 'fromstatsmonth_sday', 'today', 'tostatsday_sday', 'tostatsmonth_sday', 'dsttype', 'sourcetype', 'clidtype', 'channel', 'resulttype', 'stitle', 'atmenu', 'current_page', 'order', 'sens', 'dst', 'src', 'clid', 'fromstatsmonth_sday', 'fromstatsmonth_shour', 'tostatsmonth_sday', 'tostatsmonth_shour', 'srctype', 'src', 'choose_currency','exporttype','terminatecause'));
@@ -82,6 +82,7 @@ $FG_TABLE_COL[]=array (gettext("Source"), "src", "10%", "center", "SORT", "30");
 $FG_TABLE_COL[]=array (gettext("Callednumber"), "calledstation", "18%", "right", "SORT", "30", "", "", "", "", "", "");
 $FG_TABLE_COL[]=array (gettext("Destination"), "destination", "18%", "center", "SORT", "30", "", "", "", "", "", "remove_prefix");
 $FG_TABLE_COL[]=array (gettext("Duration"), "sessiontime", "8%", "center", "SORT", "30", "", "", "", "", "", "display_minute");
+
 
 if (!(isset($customer)  &&  ($customer>0)) && !(isset($entercustomer)  &&  ($entercustomer>0))){
 	$FG_TABLE_COL[]=array (gettext("Cardused"), "username", "11%", "center", "SORT", "30");
@@ -207,7 +208,7 @@ if (isset($customer)  &&  ($customer>0)){
 }
 
 if (!isset($terminatecause)){
-	$terminatecause="ANSWER";
+	$terminatecause="ALL";
 }
 if ($terminatecause=="ANSWER") {
 	if (strlen($FG_TABLE_CLAUSE)>0) $FG_TABLE_CLAUSE.=" AND ";
@@ -241,11 +242,11 @@ if (!$nodisplay)
 
 // GROUP BY DESTINATION FOR THE INVOICE
 $QUERY = "SELECT destination, sum(t1.sessiontime) AS calltime, 
-sum(t1.sessionbill) AS cost, count(*) as nbcall FROM $FG_TABLE_NAME WHERE ".$FG_TABLE_CLAUSE." GROUP BY destination";
+sum(t1.sessionbill) AS cost, count(*) as nbcall FROM $FG_TABLE_NAME WHERE ".$FG_TABLE_CLAUSE."  GROUP BY destination";
 
 if (!$nodisplay)
 {
-	$list_total_destination = $instance_table->SQLExec ($DBHandle, $QUERY);	 
+	$list_total_destination = $instance_table->SQLExec ($DBHandle, $QUERY);
 }//end IF nodisplay
 
 if ($nb_record<=$FG_LIMITE_DISPLAY){
@@ -320,7 +321,7 @@ function formsubmit()
 //-->
 </script>
 
-<br/><br/>
+
 <!-- ** ** ** ** ** Part for the research ** ** ** ** ** -->
 	
 	<FORM name="calldataform" id="calldataform"  METHOD=POST>
@@ -578,7 +579,28 @@ function formsubmit()
 	
    
 <br><br>
+<?php
+$currencies_list = get_currencies();
 
+//calculate calls cost
+$totalcost = 0;
+$totalcallmade = 0;
+
+$totalcost_did = $totalcost;
+if (is_array($list_total_destination) && count($list_total_destination)>0)
+{
+	$totalcallmade = $totalcallmade + count($list_total_destination);
+	$mmax=0;
+	$totalcall=0;
+	$totalminutes=0;	
+	foreach ($list_total_destination as $data){	
+		if ($mmax < $data[1]) $mmax=$data[1];
+		$totalcall+=$data[3];
+		$totalminutes+=$data[1];
+		$totalcost+=$data[2];	
+	}	
+}
+?>
 
 <!-- %%%%%%%%%%%%%%%%%Call Details Filter ENDS Here-->
 <!-- ################# Call Details            -->
@@ -611,6 +633,196 @@ function formsubmit()
             </tr>
         </table></td>
       </tr>	  
+	  <tr>
+	  <td>
+	  <table width="100%" align="left" cellpadding="0" cellspacing="0">
+   				<?php 
+				if (is_array($list_total_destination) && count($list_total_destination)>0)
+				{
+				?>
+				<tr>
+				<td colspan="5" align="center"><font></font> <b><?php echo gettext("Calls by Destination")?></b></font> </td>
+				</tr>
+
+			<tr class="invoice_subheading">
+              <td class="invoice_td" width="29%"><?php echo gettext("Destination")?> </td>
+              <td width="19%" class="invoice_td"><?php echo gettext("Duration")?> </td>
+			  <td width="20%" class="invoice_td"><?php echo gettext("Graphic")?> </td>
+			  <td width="11%" class="invoice_td"><?php echo gettext("Calls")?> </td>
+              <td width="21%" class="invoice_td" align="right"><?php echo gettext("Amount")." (".BASE_CURRENCY.")"; ?> </td>
+            </tr>
+			<?php  		
+				$i=0;
+				
+				foreach ($list_total_destination as $data){	
+				$i=($i+1)%2;		
+				$tmc = $data[1]/$data[3];
+				
+				if ((!isset($resulttype)) || ($resulttype=="min")){  
+					$tmc = sprintf("%02d",intval($tmc/60)).":".sprintf("%02d",intval($tmc%60));		
+				}else{
+				
+					$tmc =intval($tmc);
+				}
+				
+				if ((!isset($resulttype)) || ($resulttype=="min")){  
+						$minutes = sprintf("%02d",intval($data[1]/60)).":".sprintf("%02d",intval($data[1]%60));
+				}else{
+						$minutes = $data[1];
+				}
+				if ($mmax>0) 	$widthbar= intval(($data[1]/$mmax)*200); 
+		
+			?>
+            <tr class="invoice_rows">
+              <td width="29%" class="invoice_td"><?php echo $data[0]?></td>
+              <td width="19%" class="invoice_td"><?php echo $minutes?> </td>
+			  <td width="20%" class="invoice_td"><img src="<?php echo Images_Path_Main ?>/sidenav-selected.gif" height="6" width="<?php echo $widthbar?>"> </td>
+			  <td width="11%" class="invoice_td"><?php echo $data[3]?> </td>
+              <td width="21%" align="right" class="invoice_td"><?php  display_2bill($data[2]) ?></td>
+            </tr>
+			<?php 	 }	 	 	
+	 	
+			if ((!isset($resulttype)) || ($resulttype=="min")){  
+				$total_tmc = sprintf("%02d",intval(($totalminutes/$totalcall)/60)).":".sprintf("%02d",intval(($totalminutes/$totalcall)%60));				
+				$totalminutes = sprintf("%02d",intval($totalminutes/60)).":".sprintf("%02d",intval($totalminutes%60));
+			}else{
+				$total_tmc = intval($totalminutes/$totalcall);			
+			}
+			 ?>   
+			 <tr >
+              <td width="29%" class="invoice_td">&nbsp;</td>
+              <td width="19%" class="invoice_td">&nbsp;</td>
+              <td width="20%" class="invoice_td">&nbsp; </td>
+			  <td width="11%" class="invoice_td">&nbsp; </td>
+			  <td width="21%" class="invoice_td">&nbsp; </td>
+			  
+            </tr>
+            <tr class="invoice_subheading">
+              <td width="29%" class="invoice_td"><?php echo gettext("TOTAL");?> </td>
+              <td width="39%" class="invoice_td"colspan="2"><?php echo $totalminutes?></td>			  
+			  <td width="11%" class="invoice_td"><?php echo $totalcall?> </td>
+              <td width="21%" align="right" class="invoice_td"><?php  display_2bill($totalcost -$totalcost_did) ?> </td>
+            </tr> 
+			
+            <tr >
+              <td width="29%">&nbsp;</td>
+              <td width="19%">&nbsp;</td>
+              <td width="20%">&nbsp; </td>
+			  <td width="11%">&nbsp; </td>
+			  <td width="21%">&nbsp; </td>
+			  
+            </tr>			
+			<?php }?>				
+			<!-- Start Here ****************************************-->
+			<?php 
+				
+				
+				$mmax=0;
+				$totalcall=0;
+				$totalminutes=0;
+				$totalcost_day=0;
+				if (is_array($list_total_day) && count($list_total_day) > 0)
+				{
+				foreach ($list_total_day as $data){	
+					if ($mmax < $data[1]) $mmax=$data[1];
+					$totalcall+=$data[3];
+					$totalminutes+=$data[1];
+					$totalcost_day+=$data[2];
+				}
+				?>
+				<tr>
+				<td colspan="5" align="center"><b><?php echo gettext("Calls by Date")?></b> </td>
+				</tr>
+			  <tr class="invoice_subheading">
+              <td class="invoice_td" width="29%"><?php echo gettext("Date")?> </td>
+              <td width="19%" class="invoice_td"><?php echo gettext("Duration")?> </td>
+			  <td width="20%" class="invoice_td"><?php echo gettext("Graphic")?> </td>
+			  <td width="11%" class="invoice_td"><?php echo gettext("Calls")?> </td>
+              <td width="21%" class="invoice_td" align="right"><?php echo gettext("Amount")." (".BASE_CURRENCY.")"; ?> </td>
+            </tr>
+			<?php  		
+				$i=0;
+				
+				foreach ($list_total_day as $data){	
+				$i=($i+1)%2;		
+				$tmc = $data[1]/$data[3];
+				
+				if ((!isset($resulttype)) || ($resulttype=="min")){  
+					$tmc = sprintf("%02d",intval($tmc/60)).":".sprintf("%02d",intval($tmc%60));		
+				}else{
+				
+					$tmc =intval($tmc);
+				}
+				
+				if ((!isset($resulttype)) || ($resulttype=="min")){  
+						$minutes = sprintf("%02d",intval($data[1]/60)).":".sprintf("%02d",intval($data[1]%60));
+				}else{
+						$minutes = $data[1];
+				}
+				if ($mmax>0) 	$widthbar= intval(($data[1]/$mmax)*200); 
+			
+			?>
+            <tr class="invoice_rows">
+              <td width="29%" class="invoice_td"><?php echo $data[0]?></td>
+              <td width="19%" class="invoice_td"><?php echo $minutes?> </td>
+			  <td width="20%" class="invoice_td"><img src="<?php echo Images_Path_Main ?>/sidenav-selected.gif" height="6" width="<?php echo $widthbar?>"> </td>
+			  <td width="11%" class="invoice_td"><?php echo $data[3]?> </td>
+              <td width="21%" align="right" class="invoice_td"><?php  display_2bill($data[2]) ?></td>
+            </tr>
+			 <?php 	 }	 	 	
+	 	
+				if ((!isset($resulttype)) || ($resulttype=="min")){  
+					$total_tmc = sprintf("%02d",intval(($totalminutes/$totalcall)/60)).":".sprintf("%02d",intval(($totalminutes/$totalcall)%60));				
+					$totalminutes = sprintf("%02d",intval($totalminutes/60)).":".sprintf("%02d",intval($totalminutes%60));
+				}else{
+					$total_tmc = intval($totalminutes/$totalcall);			
+				}
+			 
+			 ?>               
+			 <tr >
+              <td width="29%" class="invoice_td">&nbsp;</td>
+              <td width="19%" class="invoice_td">&nbsp;</td>
+              <td width="20%" class="invoice_td">&nbsp; </td>
+			  <td width="11%" class="invoice_td">&nbsp; </td>
+			  <td width="21%" class="invoice_td">&nbsp; </td>
+			  
+            </tr>
+            <tr class="invoice_subheading">
+              <td width="29%" class="invoice_td"><?php echo gettext("TOTAL");?> </td>
+              <td width="39%" class="invoice_td"colspan="2"><?php echo $totalminutes?></td>			  
+			  <td width="11%" class="invoice_td"><?php echo $totalcall?> </td>
+              <td width="21%" align="right" class="invoice_td"><?php  display_2bill($totalcost_day) ?> </td>
+            </tr> 				   
+            <tr >
+              <td width="29%">&nbsp;</td>
+              <td width="19%">&nbsp;</td>
+              <td width="20%">&nbsp; </td>
+			  <td width="11%">&nbsp; </td>
+			  <td width="21%">&nbsp; </td>			  
+            </tr>		
+			<?php
+			 	}
+				?>
+			<!-- END HERE ******************************************-->
+        </table>
+	  
+	  </td>
+	  </tr>
+	  <tr class="invoice_subheading">
+	 <td  align="right" class="invoice_td"><?php echo gettext("Total")?> = <?php  display_2bill($totalcost);?>&nbsp;</td>
+	 </tr>
+	  <tr class="invoice_subheading">
+	 <td  align="right" class="invoice_td"><?php echo gettext("VAT")?> = <?php  
+	 $prvat = ($vat / 100) * $totalcost;
+	 display_2bill($prvat);?>&nbsp;</td>
+	 </tr>	 
+	 <tr class="invoice_subheading">
+	 <td  align="right" class="invoice_td"><?php echo gettext("Grand Total")?> = <?php  display_2bill($totalcost + $prvat);?>&nbsp;</td>
+	 </tr>
+	 <tr>
+	 <td>&nbsp;</td>
+	 </tr>
+	  
       <tr>
         <td valign="top"><table width="100%" align="left" cellpadding="0" cellspacing="0">
    				<tr>

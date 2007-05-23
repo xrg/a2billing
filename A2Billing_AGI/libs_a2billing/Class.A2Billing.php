@@ -437,6 +437,9 @@ class A2Billing {
 		
 		
 		// conf for the AGI
+		if(!isset($this->config["agi-conf$idconfig"]['play_audio'])) 	$this->config["agi-conf$idconfig"]['play_audio'] = 1;
+		define ("PLAY_AUDIO", 											$this->config["agi-conf$idconfig"]['play_audio']);
+		
 		if(!isset($this->config["agi-conf$idconfig"]['debug'])) 	$this->config["agi-conf$idconfig"]['debug'] = false;
 		if(!isset($this->config["agi-conf$idconfig"]['logger_enable'])) $this->config["agi-conf$idconfig"]['logger_enable'] = 1;
 		if(!isset($this->config["agi-conf$idconfig"]['log_file'])) $this->config["agi-conf$idconfig"]['log_file'] = '/tmp/a2billing.log';

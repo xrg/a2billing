@@ -4,8 +4,9 @@ include ("../lib/defines.php");
 include ("../lib/module.access.php");
 include ("../lib/Form/Class.FormHandler.inc.php");
 
-if (! has_rights (ACX_RATECARD)){ 
-	   Header ("HTTP/1.0 401 Unauthorized");
+
+if (! has_rights (ACX_ADMINISTRATOR)){ 
+	Header ("HTTP/1.0 401 Unauthorized");
 	   Header ("Location: PP_error.php?c=accessdenied");
 	   die();
 }
@@ -48,8 +49,28 @@ $d->close();
 sort($arr_log);
 */
 
-$arr_log[0] = '/var/log/asterisk/a2billing-daemon-callback.log';
-$arr_log[1] = '/var/log/asterisk/a2billing-webcallback.log';
+//$arr_log[0] = '/var/log/asterisk/a2billing-daemon-callback.log';
+//$arr_log[1] = '/var/log/asterisk/a2billing-webcallback.log';
+
+
+//$directory = '/var/log/asterisk/';
+$directory = '/var/log/asterisk/';
+$d = dir($directory);
+
+while(false!==($entry=$d->read()))
+{
+	if(is_file($directory.$entry) && $entry!='.' && $entry!='..')
+		$arr_log[] = $directory.$entry;
+}
+$d->close();
+
+
+foreach($A2B->config["log-files"] as $log_file){
+	if (strlen(trim($log_file))>1){
+		$arr_log[] = $log_file;
+	}	
+}
+sort($arr_log);
 
 $arr_nb = array(25=>25, 50=>50, 100=>100, 250=>250, 500=>500, 1000=>1000, 2500=>2500);
 $nb = $nb?$nb:50;
@@ -66,6 +87,8 @@ $nb = $nb?$nb:50;
 <hr/>
 </center>
 <?php
+echo $_GET['view_log']."<hr>";
+
 if(isset($_GET['view_log']))
 {
 	$f = $arr_log[$_GET['view_log']];

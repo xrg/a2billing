@@ -341,6 +341,11 @@ function sendtoupload(form){
                     <div align="center"><span class="textcomment">
 
 					  <br>
+					  <?php 
+					  $log = new Logger();
+					  $log -> insertLog($_SESSION["admin_id"], 2, "CARDs IMPORTED", $nb_imported." New CARDS Imported Successfully", '', $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'],'');
+					  $log = null;
+					  ?>
 					  <?php echo gettext("Success")?>, <?php echo $nb_imported?>&nbsp; <?php echo gettext("new cards have been imported.")?> 
 					  <br>
                       </span></div>

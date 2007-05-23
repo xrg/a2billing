@@ -285,6 +285,12 @@ class FormHandler{
 	var $FG_QUERY_ADITION_HIDDEN_VALUE  = '';
 	var $FG_QUERY_EDITION_HIDDEN_IGNORE = false;
 	var $FG_QUERY_SQL_HIDDEN = '';
+	
+	/**
+    * Set the EXTRA HIDDED VALUES for the edition/addition
+    * @public	-	@type array
+    */
+	var $FG_QUERY_EXTRA_HIDDED = '';
 
      /**
      * Set the Hidden value for the edition/addition
@@ -394,12 +400,14 @@ class FormHandler{
 
     //*****************************
 	//This variable define the width of the HTML table
-	var $FG_HTML_TABLE_WIDTH = "95%";
+	var $FG_HTML_TABLE_WIDTH="95%";
 
 	// text for multi-page navigation.
 	var $lang = array('strfirst' => '&lt;&lt; First', 'strprev' => '&lt; Prev', 'strnext' => 'Next &gt;', 'strlast' => 'Last &gt;&gt;' );
 
-
+	var $logger = null;
+	// To Enable Disable the Log 
+	var $FG_ENABLE_LOG = 0;
 	// ----------------------------------------------
 	// CLASS CONSTRUCTOR : FormHandler
 	//	@public
@@ -443,6 +451,10 @@ class FormHandler{
         $this -> FG_TEXT_ERROR_DUPLICATION = gettext("You cannot choose more than one !");
 
         $this -> FG_FK_DELETE_MESSAGE = "Are you sure to delete all records connected to this instance.";
+		if($this -> FG_ENABLE_LOG == 1)
+		{
+			$this -> logger = new Logger();
+		}
 	}
 
 
@@ -1208,17 +1220,16 @@ class FormHandler{
 	function perform_add (&$form_action){
 		include_once (FSROOT."lib/Class.Table.php");
 		$processed = $this->getProcessed();  //$processed['firstname']
-		$this->VALID_SQL_REG_EXP = true;
-			
+		$this->VALID_SQL_REG_EXP = true;		
 		for($i=0; $i < $this->FG_NB_TABLE_ADITION; $i++){ 
-
+			
 			$pos = strpos($this->FG_TABLE_ADITION[$i][14], ":"); // SQL CUSTOM QUERY
 			$pos_mul = strpos($this->FG_TABLE_ADITION[$i][4], "multiple");
 			if ((!isset($this->FG_TABLE_ADITION[$i][1])) || ($this->FG_TABLE_ADITION[$i][1] == ''))
 				continue;
 			
 			if (!$pos){
-
+				
 				$fields_name = $this->FG_TABLE_ADITION[$i][1];
 				$regexp = $this->FG_TABLE_ADITION[$i][5];
 				
@@ -1295,11 +1306,10 @@ class FormHandler{
 							}
 						}
 					}
-									
 				}		
 			}
 		}
-			
+		
 		if (!is_null($this->FG_QUERY_ADITION_HIDDEN_FIELDS) && $this->FG_QUERY_ADITION_HIDDEN_FIELDS!=""){
 			if ($i>0) $param_add_fields .= ", ";		
 			$param_add_fields .= $this->FG_QUERY_ADITION_HIDDEN_FIELDS;
@@ -1312,7 +1322,7 @@ class FormHandler{
 		
 		$instance_table = new Table($this->FG_TABLE_NAME, $param_add_fields);
 		if (FG_DEBUG >=2) $instance_table->debug_st=1;
-
+		
 		// CHECK IF WE HAD FOUND A SPLITABLE FIELD THEN WE MIGHT HAVE %TAGPREFIX%
 		if (strpos($param_add_value, '%TAGPREFIX%')){
 			foreach ($arr_value_to_import as $current_value){
@@ -1322,6 +1332,10 @@ class FormHandler{
 		}else{
 			if ($this->VALID_SQL_REG_EXP) $this -> RESULT_QUERY = $instance_table -> Add_table ($this->DBHandle, $param_add_value, null, null, $this->FG_TABLE_ID);
 		}
+		if($this -> FG_ENABLE_LOG == 1)
+		{
+			$this -> logger -> insertLog_Add($_SESSION["admin_id"], 2, "NEW ".strtoupper($this->FG_INSTANCE_NAME)." CREATED" , "User added a new record in database", $this->FG_TABLE_NAME, $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'], $param_add_fields, $param_add_value);
+		}	
 		if (!$this -> RESULT_QUERY ){					
 			if ($this->FG_DEBUG >= 2)
 				echo "<br><hr>Error: " . $this->DBHandle->ErrorMsg() . "<br><hr>";
@@ -1422,15 +1436,18 @@ class FormHandler{
      * @public
      */
 	function create_sipiax_friends(){
-
+		
 		global $A2B;
 		$processed = $this->getProcessed();
+		
 		$id = $this -> RESULT_QUERY; // DEFINED BEFORE FG_ADDITIONAL_FUNCTION_AFTER_ADD		
 		$sip_buddy = $processed['sip_buddy'];
 		$iax_buddy = $processed['iax_buddy'];
-		$username = $processed['username'];
-		$uipass = $processed['uipass'];
-		$useralias = $processed['useralias'];
+		
+		// $this -> FG_QUERY_EXTRA_HIDDED - username, useralias, uipass, loginkey
+		$username = $this -> FG_QUERY_EXTRA_HIDDED[0];
+		$uipass = $this -> FG_QUERY_EXTRA_HIDDED[2];
+		$useralias = $this -> FG_QUERY_EXTRA_HIDDED[1];
 		
 		$FG_TABLE_SIP_NAME="cc_sip_buddies";
 		$FG_TABLE_IAX_NAME="cc_iax_buddies";
@@ -1462,7 +1479,7 @@ class FormHandler{
 		if ($sip_buddy == 1){
 			$instance_sip_table = new Table($FG_TABLE_SIP_NAME, $FG_QUERY_ADITION_SIP_IAX_FIELDS);
 			$result_query1 = $instance_sip_table -> Add_table ($this->DBHandle, $this->FG_QUERY_ADITION_SIP_IAX_VALUE, null, null, null);
-
+			
 			$buddyfile = BUDDY_SIP_FILE;
 			$instance_table_friend = new Table($FG_TABLE_SIP_NAME,'id, '.$FG_QUERY_ADITION_SIP_IAX);
 			$list_friend = $instance_table_friend -> Get_list ($this->DBHandle, '', null, null, null, null);
@@ -1660,15 +1677,11 @@ class FormHandler{
 		if ($this->FG_DEBUG >= 1)  echo "<br><hr> PARAM_UPDATE: $param_update<br>".$this->FG_EDITION_CLAUSE . "<br>";
 			
 		if ($this->VALID_SQL_REG_EXP)
-			$this -> RESULT_QUERY = $instance_table -> Update_table ($this->DBHandle, $param_update, $this->FG_EDITION_CLAUSE, $func_table = null);
-		else if ($FG_DEBUG >0 ) echo "Invalid SQL regexp <br>";
-
-		if ($this->FG_DEBUG >= 1) {
-			echo "Result:" . $this->RESULT_QUERY;
-			if (!$this -> RESULT_QUERY)
-				echo ", error:" .$this->DBHandle->ErrorMsg();
-			echo "<br>\n";
-		}
+		if($this -> FG_ENABLE_LOG == 1)
+		{
+			$this -> logger -> insertLog_Update($_SESSION["admin_id"], 3, "A ".strtoupper($this->FG_INSTANCE_NAME)." UPDATED" , "A RECORD IS UPDATED, EDITION CALUSE USED IS ".$this->FG_EDITION_CLAUSE, $this->FG_TABLE_NAME, $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'], $param_update);
+		}	
+		if ($this->FG_DEBUG == 1) echo $this -> RESULT_QUERY;
 		
 		if ( ($this->VALID_SQL_REG_EXP) && (isset($this->FG_GO_LINK_AFTER_ACTION_EDIT)) && $this->RESULT_QUERY){
 			if ($this->FG_DEBUG >= 1)  echo gettext("<br> GOTO ; ").$this->FG_GO_LINK_AFTER_ACTION_EDIT.$processed['id'];
@@ -1715,6 +1728,10 @@ class FormHandler{
 		}
 		
 		$this -> RESULT_QUERY = $instance_table -> Delete_table ($this->DBHandle, $this->FG_EDITION_CLAUSE, $func_table = null);
+		if($this -> FG_ENABLE_LOG == 1)
+		{
+			$this -> logger -> insertLog($_SESSION["admin_id"], 3, "A ".strtoupper($this->FG_INSTANCE_NAME)." DELETED" , "A RECORD IS DELETED, EDITION CALUSE USED IS ".$this->FG_EDITION_CLAUSE, $this->FG_TABLE_NAME, $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'], $param_update);
+		}	
 		if (!$this -> RESULT_QUERY)  echo gettext("error deletion");
 		
 		$this->FG_INTRO_TEXT_DELETION = str_replace("%id", $processed['id'], $this->FG_INTRO_TEXT_DELETION);

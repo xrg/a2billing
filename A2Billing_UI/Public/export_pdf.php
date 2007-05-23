@@ -410,7 +410,12 @@ function sql_report($query,$dump=false,$attr=array()){
     $this->setY($this->tMargin);
     $this->AddPage();
     $this->morepagestable($this->FontSizePt);
-   $this->Output("Asterisk_CDR_". date("Y-m-d").".pdf","D");
+	$myfilename = "Asterisk_CDR_". date("Y-m-d").".pdf";
+	$log = new Logger();			
+	$log -> insertLog($_SESSION["admin_id"], 2, "FILE EXPORTED", "A File in Pdf Format is exported by User, File Name= ".$myfilename, '', $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'],'');
+	$log = null;
+
+   $this->Output($myfilename,"D");
    //$this->Output("doc.pdf");
 }
 

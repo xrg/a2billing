@@ -44,6 +44,9 @@ session_start();
 
 if (isset($_GET["logout"]) && $_GET["logout"]=="true") {
 
+		$log = new Logger();			
+		$log -> insertLog($admin_id, 1, "USER LOGGED OUT", "User Logged out from website", '', $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'],'');
+	    $log = null;   
 	   session_destroy();
 	   $rights=0;
 	   Header ("HTTP/1.0 401 Unauthorized");

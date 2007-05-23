@@ -139,6 +139,11 @@ function show_help($str) {
 		$text =gettext("Trunk List<br/>Trunks can be modified by clicking the edit button");
 		break;
 	
+	case 'list_log':
+		$icon = 'kdmconfig.png';
+		$text = gettext("System log help you to keep track and event all event happening in your application. Log Level are the Importance Levels for the Events which are logged. '1' is lowest level and '3' is highest level. 1 if for Login, Logout, Page Visit, 2 if for Add, Import, Export. and 3 is for update and Delete.");
+		break;
+
 	case 'trunk_edit':
 		$icon = 'hwbrowser.gif';
 		$text = gettext("Trunks are used to terminate the call!<br>" .

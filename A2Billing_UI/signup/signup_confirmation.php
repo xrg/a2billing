@@ -147,7 +147,6 @@ function sendtolittle(direction){
 		  <br></br>
 		  
 	<?php if (!activatedbyuser){ ?>
-			  
 		  <?php echo $list[0][2]; ?> <?php echo $list[0][1]; ?>, <?php echo gettext("Thank you for registering with us !");?><br>
 		  <?php echo gettext("An email confirming your information has been sent to"); ?> <b><?php echo $list[0][3]; ?></b><br></br>
 			<h3>
@@ -157,7 +156,6 @@ function sendtolittle(direction){
 			  <?php echo gettext("Your password is "); ?> <b><font color="#00AA00"><?php echo $list[0][4]; ?></font></b><br>
 			</h3>	  
 	<?php }else{ ?>
-	
 		<?php echo $list[0][2]; ?> <?php echo $list[0][1]; ?>, <?php echo gettext("thank you for registering with us!");?><br>
 		<?php echo gettext("An activation email has been sent to"); ?> <b><?php echo $list[0][3]; ?></b><br></br>
 	

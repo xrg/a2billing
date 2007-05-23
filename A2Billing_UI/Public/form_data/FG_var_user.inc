@@ -1,6 +1,6 @@
 <?php
 
-getpost_ifset(array('id', 'groupID', 'userid', 'login', 'password', 'perms', 'name', 'direction', 'zipcode', 'state', 'phone', 'fax'));
+getpost_ifset(array('id', 'groupID', 'userid', 'login', 'password', 'perms', 'name', 'direction', 'zipcode', 'state', 'phone', 'fax', 'popup_select', 'popup_formname', 'popup_fieldname'));
 
 
 if ($groupID=="0"){
@@ -61,9 +61,11 @@ $HD_Form -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;
 $HD_Form -> CV_TEXT_TITLE_ABOVE_TABLE = '';
 $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;
 
-
-$HD_Form -> FG_EDITION = true;
-$HD_Form -> FG_DELETION = true;
+if($popup_select == "")
+{
+	$HD_Form -> FG_EDITION = true;
+	$HD_Form -> FG_DELETION = true;
+}
 
 
 if ($form_action!="ask-add" && $form_action!="add"){
@@ -227,6 +229,17 @@ if (is_numeric($groupID)){
 }else{
 	$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS .= "groupID";
 	$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  .= "1";
+}
+
+if (($popup_select>=1)){
+	$HD_Form -> FG_OTHER_BUTTON1 = true;
+	$HD_Form -> FG_OTHER_BUTTON1_ALT = '<font color="red">&lt;select&gt;</font>';
+	$HD_Form -> FG_OTHER_BUTTON1_IMG = '';
+	
+//echo $popup_select;
+if ($popup_select==1){
+	$HD_Form -> FG_OTHER_BUTTON1_LINK = "javascript:sendValue('|param|');";	
+}
 }
 						 
 $HD_Form -> FG_INTRO_TEXT_EDITION= gettext("Modify the properties of the")." ".$HD_Form->FG_INSTANCE_NAME;

@@ -382,6 +382,11 @@ if ($status=="ok"){
 		  <td colspan="2" class="bgcolor_015" style="padding-left: 5px; padding-right: 3px;" align=center>
 			<div align="center"><span class="textcomment"> 
 			  <br>
+			  <?php 
+			  $log = new Logger();
+			  $log -> insertLog($_SESSION["admin_id"], 2, "RATE CARD IMPORTED", $nb_imported." Ratecards Imported Successfully", '', $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'],'');
+			  $log = null;
+			  ?>
 			  <?php echo gettext("Success")?>, <?php echo $nb_imported?> &nbsp; <?php echo gettext("new rates have been imported")?>.<br>
 			  </span></div>
 			  <br><br>

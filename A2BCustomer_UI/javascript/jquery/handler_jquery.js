@@ -1,52 +1,95 @@
 
 DEBUG = true;
+
 $(document).ready(
 	function()
 	{
-	
-	
-		$("#toggle_hide2show a").toggle(function(){
-			$("#tohide").animate({ height: 'show', opacity: 'show' }, 'slow');
+		$("div.toggle_menu a.toggle_menu").click(function(){
+			div_toggle = $(this).parent().parent().find("div.tohide");
+			if (div_toggle.css('display') == 'none') {
+				div_toggle.animate({ height: 'show', opacity: 'show' }, 'slow');
+				$(this).find("img").each(function(i) {
+					newimage = $(this).attr('src');
+					//alert(newimage.substr(0,newimage.length-8) + 'minus.gif');
+					$(this).attr('src', newimage.substr(0,newimage.length-8) + 'minus.gif');
+				});				
+			} else {
+				div_toggle.animate({ height: 'hide', opacity: 'hide' }, 'slow');
+				$(this).find("img").each(function(i) {
+					newimage = $(this).attr('src');
+					$(this).attr('src', newimage.substr(0,newimage.length-9) + 'plus.gif');
+				});
+			}
 			
-			//$(this).find("img").attr('src', $(this).attr('id') + '_on.png');
+		});
+		
+		
+		$("div.toggle_hide2show a").toggle(function(){
+			//div_toggle = $(this).parent().parent().parent().find("div.toggle_hide2show");
+			//div_toggle.css("background-color","#555555");
+			//$(this).parent().parent().append("&nbsp;");
 			$(this).find("img").each(function(i) {
 				newimage = $(this).attr('src');
 				$(this).attr('src', newimage.substr(0,newimage.length-4) + '_on.png');
 			});
+			div_toggle = $(this).parent().parent().find("div.tohide");
+			//alert(div_toggle.html());
+			div_toggle.animate({ height: 'show', opacity: 'show' }, 'slow');
 			
 		},function(){
-			$("#tohide").animate({ height: 'hide', opacity: 'hide' }, 'slow');
-			//$(this).find("img").attr('src', $(this).attr('id') + '.png');
+			//div_toggle = $(this).parent().parent().parent().find("div.toggle_hide2show");
+			//div_toggle.css("background-color","#FFFF44");
+			//$(this).parent().parent().append("&nbsp;");
 			$(this).find("img").each(function(i) {
 				newimage = $(this).attr('src');
 				$(this).attr('src', newimage.substr(0,newimage.length-7) + '.png');
 			});
+			div_toggle = $(this).parent().parent().find("div.tohide");
+			div_toggle.animate({ height: 'hide', opacity: 'hide' }, 'slow');
 		});
+		
+		$("div.toggle_show2hide a").toggle(function(){
+			$(this).find("img").each(function(i) {
+				newimage = $(this).attr('src');
+				$(this).attr('src', newimage.substr(0,newimage.length-7) + '.png');
+			});
+			div_toggle = $(this).parent().find("div.tohide");
+			//alert(div_toggle.html());
+			div_toggle.animate({ height: 'hide', opacity: 'hide' }, 'slow');
+			
+		},function(){			
+			$(this).find("img").each(function(i) {
+				newimage = $(this).attr('src');
+				$(this).attr('src', newimage.substr(0,newimage.length-4) + '_on.png');
+			});
+			div_toggle = $(this).parent().find("div.tohide");
+			//alert(div_toggle.html());
+			div_toggle.animate({ height: 'show', opacity: 'show' }, 'slow');
+		});
+		
+		
+		/*
 		
 		$("#toggle_showhide a").toggle(function(){
 			$("#tohide").animate({ height: 'hide', opacity: 'hide' }, 'slow');
 		},function(){
 			$("#tohide").animate({ height: 'show', opacity: 'show' }, 'slow');
 		});
-   
-   
- /*
-	
-		 
-		 $("a").click(function(){
+		
+		$("a").click(function(){
 		   $(this).hide("slow");
 		   return false;
-		 });*/
+		});
 		 
-		//$("#treeItem").find("li").each(function(i) {			
-		//	$(this).html( $(this).html() + " BAM! " + i );
-		//});
+		$("#treeItem").find("li").each(function(i) {			
+			$(this).html( $(this).html() + " BAM! " + i );
+		});
 		
+		$('.editInput').each(function(i){
+			setClickable(this, i, 'INPUT');
+		});
 		
-		//$('.editInput').each(function(i){
-		//	setClickable(this, i, 'INPUT');
-		//});
-		
+		*/
 		
 	}
 );
@@ -54,7 +97,7 @@ $(document).ready(
 
 
 
-
+/*
 function applyChanges(obj, cancel, n) {
 	if(!cancel) {
 		var t = $(obj).parent().siblings(0).val();
@@ -101,3 +144,4 @@ function setClickable(obj, i, type) {
 $.log( 'DEBUG' );
 
 $('ul.properties').debug();
+*/

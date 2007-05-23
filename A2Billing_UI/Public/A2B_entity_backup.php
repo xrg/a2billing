@@ -5,8 +5,8 @@ include ("../lib/module.access.php");
 include ("../lib/Form/Class.FormHandler.inc.php");
 
 
-if (! has_rights (ACX_RATECARD)){ 
-	   Header ("HTTP/1.0 401 Unauthorized");
+if (! has_rights (ACX_ADMINISTRATOR)){ 
+	Header ("HTTP/1.0 401 Unauthorized");
 	   Header ("Location: PP_error.php?c=accessdenied");
 	   die();
 }

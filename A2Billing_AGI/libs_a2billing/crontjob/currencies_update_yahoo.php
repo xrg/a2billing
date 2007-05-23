@@ -30,6 +30,10 @@ include (dirname(__FILE__)."/../Class.A2Billing.php");
 include (dirname(__FILE__)."/../db_php_lib/Class.Table.php");
 include (dirname(__FILE__)."/../Misc.php");
 
+
+$FG_DEBUG=0;
+
+
 $A2B = new A2Billing();
 
 // SELECT THE FILES TO LOAD THE CONFIGURATION
@@ -37,7 +41,7 @@ $A2B -> load_conf($agi, DEFAULT_A2BILLING_CONFIG, 1);
 
 
 // DEFINE FOR THE DATABASE CONNECTION
-define ("BASE_CURRENCY", strtoupper($A2B->config["webui"]['base_currency']));
+define ("BASE_CURRENCY", strtoupper($A2B->config["global"]['base_currency']));
 
 // get in a csv file USD to EUR and USD to CAD
 // http://finance.yahoo.com/d/quotes.csv?s=USDEUR=X+USDCAD=X&f=l1
@@ -71,7 +75,7 @@ if (is_array($result)){
 	$num_cur = count($result);
 	write_log(LOGFILE_CRONT_CURRENCY_UPDATE, basename(__FILE__).' line:'.__LINE__."[CURRENCIES TO UPDATE = $num_cur]", 0);
 	for ($i=0;$i<$num_cur;$i++){
-		
+		if ($FG_DEBUG >= 1) echo $result[$i][0].' - '.$result[$i][1].' - '.$result[$i][2]."\n";
 		// Finish and add termination ? 
 		if ($i+1 == $num_cur) $url .= BASE_CURRENCY.$result[$i][1]."=X&f=l1";
 		else $url .= BASE_CURRENCY.$result[$i][1]."=X+";
@@ -111,16 +115,17 @@ if (is_array($result)){
 		if ($id == $index_base_currency) $currency = 1;
 		
 		if ($currency!=0) $currency=1/$currency;
-		$QUERY="UPDATE cc_currencies set value=".$currency;
+		$QUERY="UPDATE cc_currencies SET value=".$currency;
 		
 		if (BASE_CURRENCY != $result[$i][2]){
-			$QUERY .= ",basecurrency='".BASE_CURRENCY."'";
+			$QUERY .= ", basecurrency='".BASE_CURRENCY."'";
 		}
 		$QUERY .= " , lastupdate = CURRENT_TIMESTAMP WHERE id =".$id;
 		
 			//echo $QUERY . "\n";
 		$result = $A2B -> instance_table -> SQLExec ($A2B->DBHandle, $QUERY, 0);
-		// echo "$QUERY \n\n"; if ($id == 5) exit;
+		if ($FG_DEBUG >= 1) echo "$QUERY \n"; 
+		//if ($id == 5) exit;
 		}
 		unlink($tmpfname);
 	write_log(LOGFILE_CRONT_CURRENCY_UPDATE, basename(__FILE__).' line:'.__LINE__."[CURRENCIES UPDATED !!!]", 0);

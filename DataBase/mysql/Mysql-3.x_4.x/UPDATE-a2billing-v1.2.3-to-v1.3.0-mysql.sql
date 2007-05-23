@@ -918,3 +918,17 @@ Amount: $amount
 Kind regards,
 Call Labs
 ', '');
+
+CREATE TABLE cc_system_log (
+    id 								INT NOT NULL AUTO_INCREMENT,
+    iduser 							INT DEFAULT 0 NOT NULL,
+    loglevel	 					INT DEFAULT 0 NOT NULL,
+    action			 				TEXT NOT NULL,
+    description						MEDIUMTEXT,    
+    data			 				BLOB,
+	tablename						VARCHAR(255),
+	pagename			 			VARCHAR(255),
+	ipaddress						VARCHAR(255),	
+	creationdate  					TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (id)
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;

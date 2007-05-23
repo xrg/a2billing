@@ -3,26 +3,62 @@
                    			TODO LIST - SPECIFIC
 ********************************************************************************
 
-#### CHANGE : INVOICE ADD MORE INFO
+
+
+#### CALLBACK : INTRO MESSAGE
 ********************************************************************
-A2BCustomer_UI/A2B_entity_call_details.php
-add : Calls by Destination ; Calls by Date ; TOTAL ; VAT
-like we have in A2BCustomer_UI/A2B_entity_invoice_detail.php?section=4&invoice_type=1
+Play an intro message on CallBack
 
 
-#### INVOICE FIX
+#### GMT : REPORT & INVOICING
 ********************************************************************
-fix on A2Billing_UI/Public/invoices_customer.php ->  false cardnumber
-# Error page : Blank page with "No User found"
-need design good error pages !!
-Golden rule : never show a white page with an error message.
+Suppot GMT : report & invoicing
 
 
-#### FIX : REFILL BASE CURRENCY
+#### ACL : Access Control List
 ********************************************************************
-A2BCustomer_UI/userinfo.php
-# when we are changing the base currency -> on the userinfo it is shown to purchage 20 $
-the amount to refill should be show in the base currency and the next page should refill accordingly
+try to improve for a complex ACL,
+for each pages / Section
+
+Access Right like Edit ; Delete ; Add
+
+
+
+#### IAX / SIP Info on signup
+********************************************************************
+then we could say in the customer signup email - 
+IAX details : Username = $card_gen, Password = $password CID = $cardalias
+
+
+#### WEB SYSTEM TO AUTOMATE UPDATE OF RATECARD
+********************************************************************
+Web system to automate update of ratecard
+
+changed rates : the 15th -> 00:00 and the 1st -> 00:00
+GMT : 0
+
+
+#### AUTO CREATE CARD
+********************************************************************
+Creating an Account from the Caller ID
+there is no setting for currency, so despite the fact that I had set the base currency to Euro, it created an account in USD. 
+Maybe the account should be setup in the Base currency by default ?
+
+
+
+#### MISC
+********************************************************************
+1. Voice over ring tone.
+how to simulate:  Set up multiaccess on the user account,  answer=no (in a2billing.conf). 
+sometimes u can hear (durring the other party phone rings) a voice with "and then pres pound key" over the ring tone.
+ 
+2. Can not call users alias with 9+alias  , again answer=no in a2billing.conf
+ 
+3. Soft Phone dont work.
+
+
+
+
 
 
 #### UPDATE STATUS IN PAYPAL AND MONEY BOOKERS
@@ -62,14 +98,6 @@ New button for confirm Data
 add a parameter to not bill 1st if not connected
 callback_bill_1stleg_ifcall_notconnected = YES / NO
 
-or best of all, and simplest, set the initial IAX / SIP pasword to be the webui password
-the initial PW was set to the WebUI password, 
-then we could say in the customer signup email - IAX details : Username = $card_gen, Password = $password CID = $cardalias
-
-
-#### FIX : HIDE DIV ON "List Customer" & "Browse Rates"
-********************************************************************
-Jquery - HIDE DIV ON "List Customer" & "Browse Rates"
 
 
 #### Check voice one 
@@ -90,14 +118,14 @@ so in march invoice, they have $20 but they need to pay $20 + $50 + $30 - $20
 
 #### DID CRONT : MAIL
 ********************************************************************
-	$mail_user_content.="BALANCE REMAINING ".$mydids[5]-$mydids[3]."\n\n";
-	$mail_user_content.="A automaticly taking away of :".$mydids[3]." has been carry out of your acount \n\n";	
-	$mail_user_content.="Monthly Fixrate for DID :".$mydids[0]."\n\n";
-	$mail_user=true;
-	$mail_user_subject="DID notification";
-	
-	use mail template 
-	(maybe after the release :D not urgent)
+$mail_user_content.="BALANCE REMAINING ".$mydids[5]-$mydids[3]."\n\n";
+$mail_user_content.="A automaticly taking away of :".$mydids[3]." has been carry out of your acount \n\n";	
+$mail_user_content.="Monthly Fixrate for DID :".$mydids[0]."\n\n";
+$mail_user=true;
+$mail_user_subject="DID notification";
+
+use mail template 
+(maybe after the release :D not urgent)
 
 
 
