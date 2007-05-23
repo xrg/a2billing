@@ -895,3 +895,17 @@ CREATE TABLE cc_epayment_log (
     creationdate        TIMESTAMP(0) without time zone DEFAULT NOW(),
     status                      INTEGER NOT NULL DEFAULT 0
 );
+
+INSERT INTO cc_templatemail VALUES ('epaymentverify', 'info@call-labs.com', 'Call-Labs', 'Epayment Gateway Security Verification Failed', 'Dear Administrator
+
+Please check the Epayment Log, System has logged a Epayment Security failure. that may be a possible attack on epayment processing.
+
+Time of Transaction: $time
+Payment Gateway: $paymentgateway
+Amount: $amount
+
+
+
+Kind regards,
+Call Labs
+', '');

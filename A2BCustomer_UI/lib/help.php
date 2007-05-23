@@ -35,6 +35,16 @@ function show_help($str) {
 		$icon='vcard.png';
 		$text=gettext("Select the country below where you would like a DID, select a DID from the list and enter the destination you would like to assign it to.");
 		break;
+	case 'card':
+		$icon='personal.png';
+		$text= gettext("Personal information. <br>" .
+			"You can update your personal information here.");
+		break;
+	case 'payment_method':
+		$icon='authorize.png';
+		$text= 'authorize.png'; // *-*
+		break;
+
 	default:
 		$icon = 'vcard.gif';
 		$text = "No help for '" .$str ."' !";

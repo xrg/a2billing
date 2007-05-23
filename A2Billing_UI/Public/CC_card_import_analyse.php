@@ -11,8 +11,7 @@ if (! has_rights (ACX_CUSTOMER)){
 	   die();
 }
 
-getpost_ifset(array('search_sources', 'task', 'status'));
-
+getpost_ifset(array('search_sources', 'task', 'status','uploadedfile_name'));
 
 if ($search_sources!='nochange'){
 
@@ -23,13 +22,6 @@ if ($search_sources!='nochange'){
 	if (strlen($fieldtoimport_sql)>0) $fieldtoimport_sql = ', '.$fieldtoimport_sql;
 }
 
-//echo "<br>---$fieldtoimport_sql<br>";
-//print_r($fieldtoimport);
-
-
-//     $fixfield[0]="DIDGroup (KEY)";
-//	 $fixfield[1]="Outbound Trunk";
-
 	 $field[0]="username";
 	 $field[1]="useralias";
      $field[2]="userpass";
@@ -39,8 +31,6 @@ if ($search_sources!='nochange'){
      $field[6]="firstname";
      $field[7]="activated";
 
-//RECEIVE buyrate buyrateinitblock
-// rateinitial, buyrate, buyrateinitblock, buyrateincrement, initblock, billingblock, connectcharge, disconnectcharge, stepchargea, chargea, timechargea, billingblocka, stepchargeb, chargeb, timechargeb, billingblockb, stepchargec, chargec, timechargec, billingblockc, startdate, stopdate, starttime, endtime
 $FG_DEBUG = 0;
 
 if (DB_TYPE == "mysql"){
@@ -74,18 +64,36 @@ if ($task=='upload'){
 	$the_file_type = $_FILES['the_file']['type'];
 	$the_file = $_FILES['the_file']['tmp_name'];
 
+	if(count($_FILES) > 0)
+	{
+		$errortext = validate_upload($the_file, $the_file_type);	
+		if ($errortext != "" || $errortext  != false)	
+		{
+			echo $errortext;
+			exit;
+		}
+		$new_filename = "/tmp/".MDP(6).".csv";
+		if (file_exists($new_filename))
+		{
+			echo $_FILES["file"]["name"] . " already exists. ";
+		}
+		else
+		{
+			if(!move_uploaded_file($_FILES["the_file"]["tmp_name"],	$new_filename))
+			{
+			    echo gettext("File Save Failed, FILE=".$new_filename);
+			}
+		}
+		$the_file = $new_filename;
+	}
+	else
+	{		
+		$the_file_type = $uploadedfile_type;
+		$the_file = $uploadedfile_name;
+	}
 
 	if ($FG_DEBUG == 1) echo "<br> FILE  ::> ".$the_file_name;
 	if ($FG_DEBUG == 1) echo "<br> THE_FILE:$the_file <br>THE_FILE_TYPE:$the_file_type";
-
-
-	$errortext = validate_upload($the_file,$the_file_type);
-	if ($errortext != "" || $errortext  != false)	
-	{
-		echo $errortext;
-		exit;
-	}
-
 
 	 $fp = fopen($the_file,  "r");
 	 if (!$fp){  /* THE FILE DOESN'T EXIST */
@@ -232,25 +240,16 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 
 function sendtoupload(form){
 
-
-	if (form.the_file.value.length < 2){
-		alert ('<?php echo gettext("Please, you must first select a file !")?>');
-		form.the_file.focus ();
-		return (false);
-	}
-
     document.forms["myform"].elements["task"].value = "upload";
 	document.forms[0].submit();
 }
 
 //-->
 </script>
-
+      
 <?php
 	include("PP_header.php");
 ?>
-
-      
 	  <?php
 	  if ($status=="ok"){
 	  		echo $CC_help_import_card_confirm;
@@ -258,9 +257,6 @@ function sendtoupload(form){
 			echo $CC_help_import_card_analyse;
 	  }
 	  ?>
-
-
-
 		<?php  if ($status!="ok"){?>
 
 		<center>
@@ -315,8 +311,9 @@ function sendtoupload(form){
                       <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo $my_max_file_size?>">
                       <input type="hidden" name="task" value="upload">
 					  <input type="hidden" name="status" value="ok">
-                      <input name="the_file" type="file" size="50" onFocus=this.select() class="saisie1">
-                      <input type="button" value="<?php echo gettext("Continue to Import the CARD's")?>" onFocus=this.select() class="form_input_text" name="submit1" onClick="sendtoupload(this.form);">
+                     <input type="hidden" name="uploadedfile_name" value="<?php echo $new_filename?>">
+			  			<input type="hidden" name="uploadedfile_type" value="<?php echo $the_file_type?>">
+                      <input type="submit" value="<?php echo gettext("Continue to Import the CARD's")?>" onFocus=this.select() class="form_input_text" name="submit1" >
                       <br>
                       &nbsp; </p>
                   </td>

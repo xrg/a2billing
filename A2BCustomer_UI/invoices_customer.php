@@ -1,20 +1,18 @@
 <?php
 include ("lib/defines.php");
 include ("lib/module.access.php");
-
 if (!$A2B->config["webcustomerui"]['invoice']) exit();
 
 if (! has_rights (ACX_ACCESS)){ 
-	   Header ("HTTP/1.0 401 Unauthorized");
-	   Header ("Location: PP_error.php?c=accessdenied");	   
-	   die();	   
+	Header ("HTTP/1.0 401 Unauthorized");
+	Header ("Location: PP_error.php?c=accessdenied");	   
+	die();	   
 }
 
 getpost_ifset(array('customer', 'posted', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth', 'tostatsmonth', 'fromday', 'fromstatsday_sday', 'fromstatsmonth_sday', 'today', 'tostatsday_sday', 'tostatsmonth_sday', 'dsttype', 'sourcetype', 'clidtype', 'channel', 'resulttype', 'stitle', 'atmenu', 'current_page', 'order', 'sens', 'dst', 'src', 'clid', 'fromstatsmonth_sday', 'fromstatsmonth_shour', 'tostatsmonth_sday', 'tostatsmonth_shour', 'srctype', 'src', 'choose_currency','exporttype'));
 
 $customer = $_SESSION["pr_login"];
 $vat = $_SESSION["vat"];
-//require (LANGUAGE_DIR.FILENAME_INVOICES);
 
 if (($_GET[download]=="file") && $_GET[file] ) 
 {
@@ -37,7 +35,7 @@ if (($_GET[download]=="file") && $_GET[file] )
 	header("Expires: 0");
 	header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
 	header("Content-transfer-encoding: binary");
-			
+	
 	@readfile($dl_full);
 	
 	exit();
@@ -45,10 +43,9 @@ if (($_GET[download]=="file") && $_GET[file] )
 }
 
 
-
 if (!isset ($current_page) || ($current_page == "")){	
-		$current_page=0; 
-	}
+	$current_page=0; 
+}
 
 
 // this variable specifie the debug type (0 => nothing, 1 => sql result, 2 => boucle checking, 3 other value checking)
@@ -96,7 +93,7 @@ if (LINK_AUDIO_FILE == 'YES')
 $FG_COL_QUERY_GRAPH='t1.callstart, t1.duration';
 
 // The variable LIMITE_DISPLAY define the limit of record to display by page
-$FG_LIMITE_DISPLAY=500;
+// $FG_LIMITE_DISPLAY=500;
 
 // Number of column in the html table
 $FG_NB_TABLE_COL=count($FG_TABLE_COL);
@@ -108,15 +105,12 @@ $FG_EDITION=true;
 $FG_TOTAL_TABLE_COL = $FG_NB_TABLE_COL;
 if ($FG_DELETION || $FG_EDITION) $FG_TOTAL_TABLE_COL++;
 
-//This variable define the Title of the HTML table
-$FG_HTML_TABLE_TITLE=" - Call Logs - ";
-
 //This variable define the width of the HTML table
 $FG_HTML_TABLE_WIDTH="70%";
 
-	if ($FG_DEBUG == 3) echo "<br>Table : $FG_TABLE_NAME  	- 	Col_query : $FG_COL_QUERY";
-	$instance_table = new Table($FG_TABLE_NAME, $FG_COL_QUERY);
-	$instance_table_graph = new Table($FG_TABLE_NAME, $FG_COL_QUERY_GRAPH);
+if ($FG_DEBUG == 3) echo "<br>Table : $FG_TABLE_NAME  	- 	Col_query : $FG_COL_QUERY";
+$instance_table = new Table($FG_TABLE_NAME, $FG_COL_QUERY);
+$instance_table_graph = new Table($FG_TABLE_NAME, $FG_COL_QUERY_GRAPH);
 
 
 if ( is_null ($order) || is_null($sens) ){

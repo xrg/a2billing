@@ -517,16 +517,15 @@ $HD_Form -> AddEditElement (gettext("STATE/PROVINCE"),
 			   gettext("Insert the state"),
 			   "" , "", "",	"", "", "" , "NO", "");
 
-
 $HD_Form -> AddEditElement (gettext("COUNTRY"),
-			   "country",			
-			   '$value',	
-			   "INPUT",
-			   "size=30 maxlength=30",	
-			   "0",	
-			   gettext("Insert the country"),
-			   "" , "", "",	"", "", "" , "NO", "");
-
+			   "country",
+			   "",
+			   "SELECT",
+			   "", "", "",
+			   "sql",
+			   "cc_country",
+			   "countryname, countrycode",
+			   "", "", "%1", "", "", "", '' );
 
 $HD_Form -> AddEditElement (gettext("ZIP/POSTAL CODE"),
 			   "zipcode",			

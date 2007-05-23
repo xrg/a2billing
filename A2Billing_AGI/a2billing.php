@@ -723,6 +723,7 @@ if ($mode == 'standard'){
 	if ($cia_res==0){
 		
 		$charge_callback = 1; // EVEN FOR  ALL CALLBACK
+		$callback_leg = $A2B -> username;
 		
 		$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[CALLBACK]:[Start]");
 		$A2B -> callingcard_auto_setcallerid($agi);

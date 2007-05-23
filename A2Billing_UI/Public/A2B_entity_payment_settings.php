@@ -11,10 +11,9 @@ include ("../lib/epayment/includes/html_output.php");
 
 
 if (! has_rights (ACX_BILLING)){
-	   Header ("HTTP/1.0 401 Unauthorized");
-	   Header ("Location: PP_error.php?c=accessdenied");
-	   die();
-
+	Header ("HTTP/1.0 401 Unauthorized");
+	Header ("Location: PP_error.php?c=accessdenied");
+	die();
 }
 
 /***********************************************************************************/
@@ -111,6 +110,8 @@ $contents[] = array('align' => 'center', 'text' => '<br><input type=submit name=
 
 show_help('payment_config');
 
+// #### PAYMENT METHOD SECTION
+echo $PAYMENT_METHOD;
 ?>
 
 <table class="epayment_conf_table">

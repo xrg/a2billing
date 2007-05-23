@@ -12,7 +12,7 @@ if (! has_rights (ACX_DID)){
 	die();
 }
 
-getpost_ifset(array('didgroup', 'search_sources', 'task', 'status','countryID'));
+getpost_ifset(array('didgroup', 'search_sources', 'task', 'status','countryID','uploadedfile_name'));
 
 
 $didgroupval= split('-:-', $didgroup);
@@ -73,17 +73,36 @@ if ($task=='upload'){
 	$the_file_type = $_FILES['the_file']['type'];
 	$the_file = $_FILES['the_file']['tmp_name'];
 	
+	if(count($_FILES) > 0)
+	{
+		$errortext = validate_upload($the_file, $the_file_type);	
+		if ($errortext != "" || $errortext  != false)	
+		{
+			echo $errortext;
+			exit;
+		}
+		$new_filename = "/tmp/".MDP(6).".csv";
+		if (file_exists($new_filename))
+		{
+			echo $_FILES["file"]["name"] . " already exists. ";
+		}
+		else
+		{
+			if(!move_uploaded_file($_FILES["the_file"]["tmp_name"],	$new_filename))
+			{
+			    echo gettext("File Save Failed, FILE=".$new_filename);
+			}
+		}
+		$the_file = $new_filename;
+	}
+	else
+	{		
+		$the_file_type = $uploadedfile_type;
+		$the_file = $uploadedfile_name;
+	}
+	
 	if ($FG_DEBUG == 1) echo "<br> FILE  ::> ".$the_file_name;
 	if ($FG_DEBUG == 1) echo "<br> THE_FILE:$the_file <br>THE_FILE_TYPE:$the_file_type";
-
-
-	$errortext = validate_upload($the_file,$the_file_type);
-	if ($errortext != "" || $errortext  != false)	
-	{
-		echo $errortext;
-		exit;
-	}				
-	
 	
 	$fp = fopen($the_file,  "r");  
 	if (!$fp){  /* THE FILE DOESN'T EXIST */ 
@@ -230,13 +249,6 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 }
 
 function sendtoupload(form){
-		
-	
-	if (form.the_file.value.length < 2){
-		alert ('<?php echo gettext("Please, you must first select a file !")?>');
-		form.the_file.focus ();
-		return (false);
-	}
 	
     document.forms["myform"].elements["task"].value = "upload";	
 	document.forms[0].submit();
@@ -302,7 +314,7 @@ function sendtoupload(form){
 <br></br>
 		<table width="95%" border="0" cellspacing="2" align="center" class="records">
 			
-              <form name="myform" enctype="multipart/form-data" action="A2B_entity_did_import_analyse.php" method="post" >
+              <form name="myform" action="A2B_entity_did_import_analyse.php" method="post" >
                 <INPUT type="hidden" name="didgroup" value="<?php echo $didgroup?>">
                 <INPUT type="hidden" name="countryID" value="<?php echo $countryID?>">
 				<INPUT type="hidden" name="search_sources" value="<?php echo $search_sources?>">
@@ -321,8 +333,9 @@ function sendtoupload(form){
                       <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo $my_max_file_size?>">
                       <input type="hidden" name="task" value="upload">
 					  <input type="hidden" name="status" value="ok">
-                      <input name="the_file" type="file" size="50" onFocus=this.select() class="saisie1">
-                      <input type="button" style="border: 2px outset rgb(204, 51, 0);"   value="Continue to Import the DID's" onFocus=this.select() class="form_enter" name="submit1" onClick="sendtoupload(this.form);">
+                      <input type="hidden" name="uploadedfile_name" value="<?php echo $new_filename?>">
+			  		  <input type="hidden" name="uploadedfile_type" value="<?php echo $the_file_type?>">
+                      <input type="submit"    value="Continue to Import the DID's" onFocus=this.select() class="form_input_button" name="submit1" >
                       <br>
                       &nbsp; </p>
                   </td>

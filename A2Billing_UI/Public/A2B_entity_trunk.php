@@ -57,7 +57,7 @@ if ($popup_select)
 if ($form_action=='list') { if (!$popup_select) echo $CC_help_trunk_list; }
 else echo $CC_help_trunk_edit;
 
-
+echo $CALL_LABS;
 
 // #### TOP SECTION PAGE
 $HD_Form -> create_toppage ($form_action);

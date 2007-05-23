@@ -22,7 +22,7 @@ else
 
 if (!isset($_SESSION["cardnumber_signup"]) || strlen($_SESSION["cardnumber_signup"])<=1)
 {
-	echo "Error : No User Created.";
+	echo gettext("Error : No User Created.");
 	exit();
 }
 
@@ -34,10 +34,10 @@ $activatedbyuser = $A2B->config["signup"]['activatedbyuser'];
 
 if(!$activatedbyuser){
 	$QUERY = "SELECT mailtype, fromemail, fromname, subject, messagetext, messagehtml FROM cc_templatemail WHERE mailtype='signup' ";
-	echo "<br>User is Not Activated";
+	//echo "<br>User is Not Activated";
 }else{
 	$QUERY = "SELECT mailtype, fromemail, fromname, subject, messagetext, messagehtml FROM cc_templatemail WHERE mailtype='signupconfirmed' ";
-	echo "<br>User is Already Activated";		
+	//echo "<br>User is Already Activated";		
 }
 
 $res = $DBHandle -> Execute($QUERY);
@@ -47,7 +47,7 @@ if ($res)
 
 if (!$num)
 {
-	echo "<br>Error : No email Template Found";
+	echo "<br>".gettext("Error : No email Template Found");
 	exit();
 }
 
@@ -71,7 +71,7 @@ if ($res)
 
 if (!$num)
 {
-	echo "<br>Error : No such user found in database";
+	echo "<br>".gettext("Error : No such user found in database");
 	exit();
 }
 

@@ -288,6 +288,7 @@ class A2Billing {
 		if(!isset($this->config['global']['len_voucher']))			$this->config['global']['len_voucher'] = 15;
 		if(!isset($this->config['global']['base_currency'])) 		$this->config['global']['base_currency'] = 'usd';
 		if(!isset($this->config['global']['didbilling_daytopay'])) 	$this->config['global']['didbilling_daytopay'] = 5;
+		if(!isset($this->config['global']['admin_email'])) 			$this->config['global']['admin_email'] = 'root@localhost';
 		
 		// conf for the database connection
 		//if(!isset($this->config["database"]['hostname']))	$this->config["database"]['hostname'] = 'localhost';
@@ -345,6 +346,8 @@ class A2Billing {
 		
 		// Conf for Customer Web UI
 		if(!isset($this->config['webcustomerui']['customerinfo']))	$this->config['webcustomerui']['customerinfo'] = '1';
+		if(!isset($this->config['webcustomerui']['sipiaxinfo']))	$this->config['webcustomerui']['sipiaxinfo'] = '1';
+		if(!isset($this->config['webcustomerui']['personalinfo']))	$this->config['webcustomerui']['personalinfo'] = '1';
 		if(!isset($this->config['webcustomerui']['cdr']))		$this->config['webcustomerui']['cdr'] = '1';
 		if(!isset($this->config['webcustomerui']['invoice']))		$this->config['webcustomerui']['invoice'] = '1';		
 		if(!isset($this->config['webcustomerui']['voucher']))		$this->config['webcustomerui']['voucher'] = '1';
@@ -429,6 +432,7 @@ class A2Billing {
 		define ("LOGFILE_CRONT_SUBSCRIPTIONFEE",isset($this->config['log-files']['cront_subscriptionfee'])	?$this->config['log-files']['cront_subscriptionfee']:null);
 		define ("LOGFILE_CRONT_CURRENCY_UPDATE",isset($this->config['log-files']['cront_currency_update'])	?$this->config['log-files']['cront_currency_update']:null);
 		define ("LOGFILE_CRONT_INVOICE",		isset($this->config['log-files']['cront_invoice'])			?$this->config['log-files']['cront_invoice']:null);
+		define ("LOGFILE_CRONT_CHECKACCOUNT",	isset($this->config['log-files']['cront_check_account'])	?$this->config['log-files']['cront_check_account']:null);
 		
 		define ("LOGFILE_API_ECOMMERCE", 		isset($this->config['log-files']['api_ecommerce'])			?$this->config['log-files']['api_ecommerce']:null);
 		define ("LOGFILE_API_CALLBACK", 		isset($this->config['log-files']['api_callback'])			?$this->config['log-files']['api_callback']:null);

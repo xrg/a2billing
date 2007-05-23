@@ -1,4 +1,24 @@
 <?php
+include ("../lib/defines.php");
+include ("../lib/company_info.php");
+
+getpost_ifset(array('err_type','c'));
+
+if($err_type == 0)
+{
+	$err_type = 0;
+}
+
+//Error Type == 0 Mean Critical Error dont need to show left menu.
+//Error Type == 1 Mean User generated error.and it will show menu to him too.
+if($err_type == 0)
+{
+	$popup_select=1;
+}
+else
+{
+	include ("../lib/module.access.php");
+}
 
 if (!isset($c))	$c="0";
 
@@ -8,6 +28,8 @@ $error["syst"] = gettext("Sorry a problem occur on our system, please try later!
 $error["errorpage"] = gettext("There is an error on this page!");
 $error["accessdenied"] = gettext("Sorry, you don t have access to this page !");
 $error["construction"] = gettext("Sorry, this page is in construction !");
+$error["ERR-0001"] = gettext("Invalid User Id !");
+$error["ERR-0002"] = gettext("No such card number found. Please check your card number!");
 
 ?>
 

@@ -57,6 +57,7 @@ if ($popup_select)
 if (!$popup_select) echo $CC_help_provider;
 
 
+echo $CALL_LABS;
 
 
 // #### TOP SECTION PAGE

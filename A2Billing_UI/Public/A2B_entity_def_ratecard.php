@@ -26,7 +26,6 @@ $HD_Form -> setDBHandler (DbConnect());
 $HD_Form -> init();
 
 
-
 // CHECK IF REQUEST OF BATCH UPDATE
 if ($batchupdate == 1 && is_array($check)){
 
@@ -69,10 +68,13 @@ if ($batchupdate == 1 && is_array($check)){
 	if (strlen($HD_Form->FG_TABLE_CLAUSE)>1) {
 		$SQL_UPDATE .= ' WHERE ';
 		$SQL_UPDATE .= $HD_Form->FG_TABLE_CLAUSE;
-		$SQL_UPDATE .= ' AND '.$_SESSION['def_ratecard'];
+		if ($_SESSION['def_ratecard'] != null)
+		{		
+			$SQL_UPDATE .= ' AND '.$_SESSION['def_ratecard'];
+		}
 	}else{
 		$SQL_UPDATE .= ' WHERE '.$_SESSION['def_ratecard'];
-	}
+	}	
 	if (! $res = $HD_Form -> DBHandle -> query($SQL_UPDATE))		$update_msg = "<center><font color=\"red\"><b>".gettext("Could not perform the batch update")."!</b></font></center>";		
 	else		$update_msg = "<center><font color=\"green\"><b>".gettext("The batch update has been successfully perform")." !</b></font></center>";		
 

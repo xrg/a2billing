@@ -6,9 +6,9 @@ include ("./form_data/FG_var_sipiax_info.inc");
 
 
 if (! has_rights (ACX_ACCESS)){
-	   Header ("HTTP/1.0 401 Unauthorized");
-	   Header ("Location: PP_error.php?c=accessdenied");
-	   die();
+	Header ("HTTP/1.0 401 Unauthorized");
+	Header ("Location: PP_error.php?c=accessdenied");
+	die();
 }
 
 /***********************************************************************************/
@@ -28,13 +28,12 @@ if($configtype == "IAX")
 	$config_file = gettext("iax.conf");
 	$QUERY = "SELECT iax.id, iax.username, iax.secret, iax.disallow, iax.allow, iax.type, iax.host, iax.context FROM cc_iax_buddies iax WHERE iax.id_cc_card = ".$_SESSION["card_id"];
 
-}
-else
-{
+} else {
 	$config_name = gettext("SIP Config");
 	$config_file = gettext("sip.conf");
 	$QUERY = "SELECT sip.id, sip.username, sip.secret, sip.disallow, sip.allow, sip.type, sip.host, sip.context FROM cc_sip_buddies sip where sip.id_cc_card = ".$_SESSION["card_id"];
 }
+
 $sip_iax_data = $table_instance->SQLExec ($DBHandle, $QUERY);
 
 //Additonal parameters
@@ -47,20 +46,18 @@ include('PP_header.php');
 show_help('sipiax_info');
 ?>
 <form name="form1">
+
+
+
 <table width="60%" border="0" align="center" cellpadding="0" cellspacing="1">
 	<tr>
 		<td  class="bgcolor_021">
 			<table width="100%" border="0" cellspacing="1" cellpadding="0">
 		<tr>
-
-		<td colspan="2" class="fontstyle_008">&nbsp;<?php echo gettext("General informations");?> </td>
-		</tr>
-		<tr>
 		<td width="50%" bgcolor="#FFFFFF" class="fontstyle_006">&nbsp;<?php echo gettext("CARD")?></td>
 		<td width="50%" bgcolor="#FFFFFF" class="fontstyle_006"><?php echo $_SESSION["pr_login"]?></td>
 		</tr>
 		<tr>
-
 		<td bgcolor="#FFFFFF" class="fontstyle_006">&nbsp;<?php echo gettext("CONFIGURATION TYPE")?> </td>
 		<td bgcolor="#FFFFFF" class="fontstyle_006"><form name="form1" method="post" action="">
 			<select name="configtype" id="col_configtype" onChange="window.document.form1.elements['PMChange'].value='Change';window.document.form1.submit();">
@@ -68,16 +65,25 @@ show_help('sipiax_info');
 			<option value="SIP" <?php if($configtype == "SIP")echo "selected"?>><?php echo gettext("SIP")?></option>
 			</select> 
 								<input name="PMChange" type="hidden" id="PMChange">
-		</form>                                        </td>
-
+			</form>                                        
+			</td>
+		  </tr>
+	  </table></td>
 		</tr>
+</table>
+
+<br>
+<table width="60%" border="0" align="center" cellpadding="0" cellspacing="1">
 							<tr>
-		<td colspan="2" bgcolor="#FFFFFF" class="fontstyle_006">&nbsp;<strong><?php echo $config_name;?></strong></td>
+	  <td  class="bgcolor_021">
+	  <table width="100%" border="0" cellspacing="1" cellpadding="0">
+		  <tr>
+			<td colspan="2" class="fontstyle_008">&nbsp;<strong><?php echo $config_name;?></strong> </td>
 		</tr>
 		<tr>
-		<td colspan="2" bgcolor="#FFFFFF" class="fontstyle_006" align="center"><br><?php echo $config_file;?><br>
-			
-					<textarea name="textfield" cols="80" rows="12" class="form_input_text" ><?php if($configtype == "IAX"){ ?>[<?php echo SIP_IAX_INFO_TRUNKNAME; ?>]
+			<td colspan="2" bgcolor="#FFFFFF" class="fontstyle_006" align="center"><br><?php echo gettext("Copy and past this into your ")?> <?php echo $config_file;?><br>
+			 
+				<textarea name="textfield" cols="80" rows="12" class="form_input_text" ><?php if($configtype == "IAX"){ ?>[<?php echo SIP_IAX_INFO_TRUNKNAME; ?>]
 username=<?php echo $sip_iax_data[0][1]?>
 
 type=friend
@@ -122,11 +128,13 @@ if (count($additional_sip) > 0)
 </textarea>
 <br><br>
 </td>
-		</tr>
-		</table></td>
+			</tr>
+			
+	  </table></td>
 	</tr>
-	</table>
-	</form>
+  </table>
+
+</form>
 <?
 
 // #### FOOTER SECTION
