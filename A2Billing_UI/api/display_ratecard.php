@@ -51,7 +51,7 @@ if (md5($security_key) !== $key  || strlen($security_key)==0)
  {
 	  mail($email_alarm, "ALARM : RATE CARD API - CODE_ERROR 2", $mail_content);
 	  if ($FG_DEBUG > 0) echo ("[" . date("Y/m/d G:i:s", mktime()) . "] "."[$productid] - CODE_ERROR 2"."\n");
-	  error_log ("[" . date("Y/m/d G:i:s", mktime()) . "].CODE_ERROR 2"."\n", 3, $logfile);
+	  //error_log ("[" . date("Y/m/d G:i:s", mktime()) . "].CODE_ERROR 2"."\n", 3, $logfile);
 	  echo("400 Bad Request");
 	  exit();  
  } 
@@ -307,7 +307,7 @@ function Search(Source){
 <!-- ** ** ** ** ** Part to display the ratecard ** ** ** ** ** -->
 
 	<div class="result" align="left">
-	<table width="50%" border=0 cellPadding=0 cellSpacing=0>
+	<table width="70%" border=0 cellPadding=0 cellSpacing=0>
 	<TR> 
 		<TD> 
 			<?php echo $FG_HTML_TABLE_TITLE?>
@@ -379,5 +379,5 @@ function Search(Source){
 
 </html>
 <?php } 
-//echo "current_page=$current_page";
+echo "current_page=$current_page";
 ?>
