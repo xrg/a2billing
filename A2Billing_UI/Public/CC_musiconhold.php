@@ -5,12 +5,10 @@ include ("../lib/module.access.php");
 $FG_DEBUG =0;
 
 
-
-
 if (! has_rights (ACX_FILE_MANAGER)){ 
-	   Header ("HTTP/1.0 401 Unauthorized");
-	   Header ("Location: PP_error.php?c=accessdenied");	   
-	   die();	   
+	Header ("HTTP/1.0 401 Unauthorized");
+	Header ("Location: PP_error.php?c=accessdenied");	   
+	die();
 }
 
 	include("PP_header.php");

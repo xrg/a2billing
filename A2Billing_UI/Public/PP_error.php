@@ -1,6 +1,5 @@
 <?php
 include ("../lib/defines.php");
-include ("../lib/company_info.php");
 
 getpost_ifset(array('err_type','c'));
 

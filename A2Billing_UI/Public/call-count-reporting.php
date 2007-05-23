@@ -5,9 +5,9 @@ include ("../lib/module.access.php");
 
 
 if (! has_rights (ACX_CALL_REPORT)){ 
-	   Header ("HTTP/1.0 401 Unauthorized");
-	   Header ("Location: PP_error.php?c=accessdenied");	   
-	   die();	   
+	Header ("HTTP/1.0 401 Unauthorized");
+	Header ("Location: PP_error.php?c=accessdenied");	   
+	die();
 }
 
 getpost_ifset(array('inputtopvar','topsearch', 'posted', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth', 'tostatsmonth', 'fromday', 'fromstatsday_sday', 'fromstatsmonth_sday', 'today', 'tostatsday_sday', 'tostatsmonth_sday', 'resulttype', 'stitle', 'atmenu', 'current_page', 'order', 'sens', 'choose_currency', 'terminatecause', 'nodisplay','grouped'));
@@ -148,12 +148,12 @@ if (strpos($date_clause, 'AND') > 0){
 
 //To select just terminatecause=ANSWER
 if (!isset($terminatecause)){
-$terminatecause="ANSWER";
+	$terminatecause="ANSWER";
 }
 if ($terminatecause=="ANSWER") {
 	if (strlen($FG_TABLE_CLAUSE)>0) $FG_TABLE_CLAUSE.=" AND ";
-	$FG_TABLE_CLAUSE.="terminatecause='$terminatecause'";
-	}
+	$FG_TABLE_CLAUSE.="terminatecause='ANSWER' OR terminatecause='ANSWERED'";
+}
 
 if ($grouped){
 	$QUERY_TOTAL = "SELECT sum(sessiontime) AS calltime, sum(sessionbill) as cost, sum(buycost) as buy, count(*) as nbcall,substring(starttime,1,10) AS day FROM $FG_TABLE_NAME  GROUP BY day";

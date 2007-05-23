@@ -23,6 +23,7 @@ include ("../lib/module.access.php");
 	
 	$FG_DEBUG = 0;
 
+
 getpost_ifset(array('key', 'tariffgroupid', 'ratecardid', 'css_url', 'nb_display_lines', 'filter' ,'field_to_display', 'column_name', 'field_type', 'browse_letter', 'prefix_select', 'page_url', 'resulttitle', 'posted', 'stitle', 'current_page', 'order', 'sens', 'choose_currency', 'choose_country', 'letter', 'searchpre', 'currency_select', 'merge_form', 'fullhtmlpage'));
 /**variable to set rate display option
 
@@ -48,7 +49,7 @@ if (md5($security_key) !== $key  || strlen($security_key)==0)
  {
 	  mail($email_alarm, "ALARM : RATE CARD API - CODE_ERROR 2", $mail_content);
 	  if ($FG_DEBUG > 0) echo ("[" . date("Y/m/d G:i:s", mktime()) . "] "."[$productid] - CODE_ERROR 2"."\n");
-	  error_log ("[" . date("Y/m/d G:i:s", mktime()) . "].CODE_ERROR 2"."\n", 3, $logfile);
+	  //error_log ("[" . date("Y/m/d G:i:s", mktime()) . "].CODE_ERROR 2"."\n", 3, $logfile);
 	  echo("400 Bad Request");
 	  exit();  
  } 
@@ -122,6 +123,7 @@ if (isset($tariffgroupid) && strlen($tariffgroupid)!=0){
 }
 if ($FILTER_COUNTRY || $DISPLAY_LETTER) {
 	$nb_display_lines=100;
+	$FG_LIMITE_DISPLAY=$nb_display_lines;
 	$current_page=0;
 }
 
@@ -295,7 +297,7 @@ function Search(Source){
 <!-- ** ** ** ** ** Part to display the ratecard ** ** ** ** ** -->
 
 	<div class="result" align="left">
-	<table width="50%" border=0 cellPadding=0 cellSpacing=0>
+	<table width="70%" border=0 cellPadding=0 cellSpacing=0>
 	<TR> 
 		<TD> 
 			<?php echo $FG_HTML_TABLE_TITLE?>
@@ -366,4 +368,6 @@ function Search(Source){
 </div>
 
 </html>
-<?php } ?>
+<?php } 
+echo "current_page=$current_page";
+?>

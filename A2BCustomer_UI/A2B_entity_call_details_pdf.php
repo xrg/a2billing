@@ -196,7 +196,7 @@ if (!isset($terminatecause)){
 }
 if ($terminatecause=="ANSWER") {
 	if (strlen($FG_TABLE_CLAUSE)>0) $FG_TABLE_CLAUSE.=" AND ";
-	$FG_TABLE_CLAUSE.=" t1.terminatecause='$terminatecause' ";
+	$FG_TABLE_CLAUSE.=" t1.terminatecause='ANSWER' OR t1.terminatecause='ANSWERED' ";
 }
 
 $FG_TABLE_CLAUSE_NORMAL = $FG_TABLE_CLAUSE ." AND t1.sipiax not in (2,3)";

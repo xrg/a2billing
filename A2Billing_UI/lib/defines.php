@@ -238,8 +238,17 @@ function send_email_attachment($emailfrom, $emailto, $emailsubject, $emailmessag
 	return $ok;
 }
 
+
+
+// A2BILLING INFO
 define ("WEBUI_DATE", 'Release : May 2007');
 define ("WEBUI_VERSION", 'Asterisk2Billing - Version 1.3xrg - (Break-the-world)');
+// A2BILLING COPYRIGHT & CONTACT
+define ("TEXTCONTACT", gettext("This software has been created by Areski under GPL licence. For futher information, feel free to contact me:"));
+define ("EMAILCONTACT", "areski@gmail.com");
+define ("COPYRIGHT", gettext(" This software is under GPL licence. For further information, please visit : <a href=\"http://www.asterisk2billing.org\" target=\"_blank\">asterisk2billing.org</a>"));
+define ("CCMAINTITLE", gettext("Asterisk2Billing : CallingCard & VOIP Billing system"));
+
 
 //Enable Disable Captcha
 define ("CAPTCHA_ENABLE", isset($A2B->config["signup"]['enable_captcha'])?$A2B->config["signup"]['enable_captcha']:0);

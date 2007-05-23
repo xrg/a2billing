@@ -68,7 +68,7 @@ show_help('webphone');
 		?>
         <tbody><tr bgcolor="#cccccc">
 		<td align="center" valign="bottom">
-				<img src="Css/kicons/stock_cell-phone.png" class="kikipic"/>
+				<img src="Css/kicons/stock_cell-phone.gif" class="kikipic"/>
 				<br><font class="fontstyle_002"><?php echo gettext("SIP WEB-PHONE")?></font>
 					</br></br>
 			</td>

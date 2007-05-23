@@ -50,7 +50,7 @@ if ($updatecurrency == 1){
 		
 		// Create the script to get the currencies
 		exec("wget '".$url."' -O /tmp/currencies.cvs  2>&1", $output);
-		echo "wget '".$url."' -O /tmp/currencies.cvs";
+		
 		// get the file with the currencies to update the database
 		$currencies = file("/tmp/currencies.cvs");
 		

@@ -1,5 +1,5 @@
 <?php
-include (dirname(__FILE__)."/../lib/company_info.php");
+include (dirname(__FILE__)."/../lib/defines.php");
 ?>
 <html><head>
 <title>..:: :<?php echo CCMAINTITLE; ?>: ::..</title>
