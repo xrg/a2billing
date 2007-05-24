@@ -115,7 +115,6 @@ show_help('webphone');
 	</table>
 	<br><br><br>
 <br></br>
-</div></div></div>
 
 <?php
 	include("PP_footer.php");

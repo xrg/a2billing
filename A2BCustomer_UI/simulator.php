@@ -145,31 +145,31 @@ function openURL(theLINK)
 		<TR> 
           <TD style="border-bottom: medium dotted #8888CC" colspan="2"> <B><?php echo gettext("Call")." - ".gettext("Simulator");?></B></TD>
         </TR>
-		<FORM NAME="theFormFilter" action="<?php echo $PHP_SELF?>">		
-		<tr>			
+	<FORM NAME="theFormFilter" action="<?php echo $PHP_SELF?>" >
+	<tr>
             <td height="31" bgcolor="#8888CC" style="padding-left: 5px; padding-right: 3px;">
-					<br>
-					<font class="fontstyle_008"><?php echo gettext("Enter the number you wish to call");?>&nbsp;:</font>
-					<INPUT type="text" name="called" value="<?php echo $called;?>">
-					<br>
-					<?php if (false){ ?>
-					<br>
-					<font color="white"><b><?php echo gettext("YOUR BALANCE");?>&nbsp;:</b></font>
-					<INPUT type="text" name="balance" value="<?php if (!isset($balance)) echo "10"; else echo $balance;?>">
-					<?php } ?>
+			<br>
+			<font class="fontstyle_008"><?php echo gettext("Enter the number you wish to call");?>&nbsp;:</font>
+			<INPUT type="text" name="called" value="<?php echo $called;?>">
+			<br>
+			<?php if (false){ ?>
+			<br>
+			<font color="white"><b><?php echo gettext("YOUR BALANCE");?>&nbsp;:</b></font>
+			<INPUT type="text" name="balance" value="<?php if (!isset($balance)) echo "10"; else echo $balance; ?>" >
+			<?php } ?>
 
-					<br>
-					<br>
+			<br>
+			<br>
 
 			</td>
 			<td height="31" bgcolor="#8888CC" style="padding-left: 5px; padding-right: 3px;">
-				<span class="bar-search">
-				<input type="image"  name="image16" align="top" border="0" src="images/button-search.gif" />
-				</span></td>
+			<span class="bar-search">
+				<input type="image"  name="image16" align="top" border="0" src="images/button-search.png" />
+			</span></td>
         </tr>
 
-		</FORM>
-		<TR>
+	</FORM>
+	<TR>
           <TD style="border-bottom: medium dotted #8888CC"  colspan="2"><br></TD>
         </TR>
 	  </table>
@@ -196,7 +196,7 @@ $FG_TABLE_ALTERNATE_ROW_COLOR[1]='#EEE9E9';
 		<?php if (count($RateEngine->ratecard_obj)>1){ ?>
 		<TR>
           <td height="15" bgcolor="#5555CC" style="padding-left: 5px; padding-right: 3px;" colspan="2">
-					<b><?php echo gettext("We found several destinations:");?></b></td>
+			<b><?php echo gettext("We found several destinations:");?></b></td>
         </TR>
 		<?php } ?>
 		<?php for($j=0;$j<count($RateEngine->ratecard_obj);$j++){ ?>
@@ -223,7 +223,7 @@ $FG_TABLE_ALTERNATE_ROW_COLOR[1]='#EEE9E9';
 			
 			
 			
-						<p>			<p>			<p>
+			<p>			<p>			<p>
 						
 			<tr>			
 				<td height="15" bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[0]?>" style="padding-left: 5px; padding-right: 3px;"><b><a href="did.php"><img src="images/icons/globe1.png" alt="a " name="image2" width="16" height="16" border="0" align="texttop" id="image2" /></a><a href="simulador.php"></a><?php echo $arr_ratecard[3];?></b>				</td>
@@ -235,11 +235,11 @@ $FG_TABLE_ALTERNATE_ROW_COLOR[1]='#EEE9E9';
 				<td height="15" bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[1]?>" style="padding-left: 5px; padding-right: 3px;">
 						<b><a href="simulador.php"><img src="images/icons/query.png" alt="a " name="image2" width="16" height="16" border="0" align="texttop" id="image2" /></a><?php echo $arr_ratecard[10];?></b>				</td>
 				<td height="15" bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[1]?>" style="padding-left: 5px; padding-right: 3px;">
-						<i><?php echo "$" . $RateEngine->ratecard_obj[$j][12] ;?></i>
+						<i><?php echo "?*-*" . $RateEngine->ratecard_obj[$j][12] ;?></i>
 				</td>
 			</tr>
 						
-			<p>			<p>			<p>
+			<p> <p> <p>
 			
 			
 			
@@ -250,15 +250,13 @@ $FG_TABLE_ALTERNATE_ROW_COLOR[1]='#EEE9E9';
 		
 
 		
-		<TR> 
+	<TR>
           <TD style="border-bottom: medium dotted #8888CC"  colspan="2"><br></TD>
         </TR>
 	  </table>
-      <div align="center">
         <?php  } ?>
-        
-        
-        
+      <div align="center">
+
         <?php  if (count($RateEngine->ratecard_obj)==0) {
 		if  ($called){
 		?>
@@ -269,9 +267,10 @@ $FG_TABLE_ALTERNATE_ROW_COLOR[1]='#EEE9E9';
         
         <br>
         <br>
-        <br>
-        <br>
       </div>
-      <?php
+        <br>
+        <br>
+      
+<?php
 	include("PP_footer.php");
 ?>
