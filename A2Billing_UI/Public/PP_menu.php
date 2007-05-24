@@ -57,18 +57,44 @@ function imgidclick(imgID,divID)
 	}
 }
 
+function menu_toggle(sect_str){
+	//elmnt.parent.style.visibility="hidden";
+	//alert(elmnt.style.visibility);
+	var sect=document.getElementById(sect_str);
+	var dom_ul=sect.getElementsByTagName("ul")[0];
+	if (dom_ul.style.display=="inline")
+		dom_ul.style.display="none";
+	else
+		dom_ul.style.display="inline";
+}
+
+function menu_show(sect_str){
+	//elmnt.parent.style.visibility="hidden";
+	//alert(elmnt.style.visibility);
+	var sect=document.getElementById(sect_str);
+	var dom_ul=sect.getElementsByTagName("ul")[0];
+	dom_ul.style.display="inline";
+}
 
 //-->
 </script>
+
+<style type="text/css">
+/* *-* Must go.. */
+div.menu div ul {
+	display: none;
+	position: static;
+}
+</style>
+
 <div id="dummydiv"></div>
 
 
-<ul id="nav" >
+<div id="menu" class="menu" >
 	
 	<?php   if ( has_rights (ACX_CUSTOMER) ){ 	?>
-	<li><a href="#" target="_self"  onclick="imgidclick('img1','div1');">
-	<img id="img1" src="../Images/plus.gif" onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> <strong><?= _("CUSTOMERS");?></strong></a></li>
-	<div id="div1" style="display:none;">
+	<div id='menu_customers'>
+	<a onclick="menu_toggle('menu_customers');"><?= _("CUSTOMERS");?></a>
 	<ul>
 		<li><a href="A2B_entity_card.php"><?= _("List Customers");?></a></li>
 		<li><a href="A2B_entity_card.php?form_action=ask-add"><?= _("Create Customers");?></a></li>
@@ -85,9 +111,8 @@ function imgidclick(imgID,divID)
 	</div>
 	<?php   }  ?>
 	<?php   if ( has_rights (ACX_AGENTS) ){ 	?>
-	<li><a href="#" target="_self"  onclick="imgidclick('img2','div2');">
-	<img id="img2" src="../Images/plus.gif" onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> <strong><?= gettext("AGENTS");?></strong></a></li>
-	<div id="div2" style="display:none;">
+	<div id='menu_agents'>
+	<a onclick="menu_toggle('menu_agents');"><?= _("AGENTS");?></a>
 	<ul>
 		<li><a href="A2B_entity_agent.php"><?= _("List Agents");?></a></li>
 		<li><a href="A2B_entity_agent.php?form_action=ask-add"><?= _("Create Agents");?></a></li>
@@ -102,10 +127,9 @@ function imgidclick(imgID,divID)
 	</div>
 	<?php   }  ?>
 	<?php   if ( has_rights (ACX_BILLING) ){ 	?>
-	<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick('img3','div3');"><img id="img3" src="../Images/plus.gif" onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> <strong><?= _("BILLING");?></strong></a></li>
-	<div id="div3" style="display:none;">
+	<div id='menu_billing'>
+	<a onclick="menu_toggle('menu_billing');"><?= _("BILLING");?></a>
 	<ul>
-		<li><a href="A2B_entity_paypal.php?form_action=list"><?= _("OLD PayPal Transaction");?></a></li>
 		<li><a href="A2B_entity_payment_configuration.php"><?= _("View Payment Methods") ?></a></li>
                 <li><a href="A2B_entity_transactions.php"><?= _("View Transactions"); ?></a></li>
 		<li><a href="A2B_entity_moneysituation.php"><?= _("View money situation");?></a></li>
@@ -123,8 +147,8 @@ function imgidclick(imgID,divID)
 	</div>
 	<?php   }  ?>
 	<?php   if ( has_rights (ACX_RATECARD) ){ 	?>
-		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick('img4','div4');"><img id="img4" src="../Images/plus.gif" onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> <strong><?= _("RATECARD");?></strong></a></li>
-		<div id="div4" style="display:none;">
+	<div id='menu_ratecard'>
+	<a onclick="menu_toggle('menu_ratecard');"><?= _("RATECARD");?></a>
 		<ul>
 			<li><a href="A2B_entity_tariffgroup.php?form_action=ask-add"><?= _("Create TariffGroup");?></a></li>
 			<li><a href="A2B_entity_tariffgroup.php?"><?= _("List TariffGroup");?></a></li>
@@ -138,8 +162,8 @@ function imgidclick(imgID,divID)
 		</div>
 	<?php   }  ?>
 	<?php   if ( has_rights (ACX_PACKAGEOFFER) ){ 	?>
-		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick('img5','div5');"><img id="img5" src="../Images/plus.gif" onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> <strong><?= _("PACKAGE OFFER");?></strong></a></li>
-		<div id="div5" style="display:none;">
+	<div id='menu_pkgoffer'>
+	<a onclick="menu_toggle('menu_pkgoffer');"><?= _("PACKAGE OFFER");?></a>
 		<ul>
 			<li><a href="A2B_entity_package.php"><?= _("List Offer Package");?></a></li>
 			<li><a href="A2B_entity_package.php?form_action=ask-add"><?= _("Add Offer Package");?></a></li>
@@ -148,8 +172,8 @@ function imgidclick(imgID,divID)
 		</div>
 	<?php   }  ?>
 	<?php   if ( has_rights (ACX_OUTBOUNDCID) ){ 	?>
-		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick('img6','div6');"><img id="img6" src="../Images/plus.gif" onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> <strong><?= _("OUTBOUND CID");?></strong></a></li>
-		<div id="div6" style="display:none;">
+		<div id='menu_obcid'>
+		<a onclick="menu_toggle('menu_obcid');"><?= _("OUTBOUND_CID");?></a>
 		<ul>
 			<li><a href="A2B_entity_outbound_cidgroup.php?form_action=ask-add"><?= _("Create CIDGroup");?></a></li>
 			<li><a href="A2B_entity_outbound_cidgroup.php"><?= _("List CIDGroup");?></a></li>
@@ -159,8 +183,8 @@ function imgidclick(imgID,divID)
 		</div>
 	<?php   }  ?>
 	<?php   if ( has_rights (ACX_TRUNK) ){ 	?>
-		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick('img7','div7');"><img id="img7" src="../Images/plus.gif" onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> <strong><?= _("TRUNK");?></strong></a></li>
-		<div id="div7" style="display:none;">
+		<div id='menu_trunk'>
+		<a onclick="menu_toggle('menu_trunk');"><?= _("TRUNK");?></a>
 		<ul>
 			<li><a href="A2B_entity_trunk.php"><?= _("List Trunk");?></a></li>
 			<li><a href="A2B_entity_trunk.php?form_action=ask-add"><?= _("Add Trunk");?></a></li>
@@ -170,8 +194,8 @@ function imgidclick(imgID,divID)
 		</div>
 	<?php  } ?>
 	<?php   if ( has_rights (ACX_DID) ){ 	?>
-		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick('img8','div8');"><img id="img8" src="../Images/plus.gif" onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> <strong><?= _("DID");?></strong></a></li>
-		<div id="div8" style="display:none;">
+		<div id='menu_did'>
+		<a onclick="menu_toggle('menu_did');"><?= _("DID");?></a>
 		<ul>
 			<li><a href="A2B_entity_didgroup.php?"><?= _("List DID Group");?></a>
 			<li><a href="A2B_entity_didgroup.php?form_action=ask-add"><?= _("Add DID Group");?></a></li>
@@ -186,8 +210,8 @@ function imgidclick(imgID,divID)
 		</div>
 	<?php  } ?>
 	<?php   if ( has_rights (ACX_CALL_REPORT) ){ 	?>
-		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick('img9','div9');"><img id="img9" src="../Images/plus.gif" onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> <strong><?= _("CALL REPORT");?></strong></a></li>
-		<div id="div9" style="display:none;">
+		<div id='menu_creport'>
+		<a onclick="menu_toggle('menu_creport');"><?= _("CALL REPORT");?></a>
 		<ul>
 			<li><a href="call-log-customers.php?nodisplay=1&posted=1"><?= _("CDR Report");?></a></li>
 			<li><a href="call-comp.php?"><?= _("Calls Compare");?></a></li>
@@ -198,8 +222,8 @@ function imgidclick(imgID,divID)
 		</div>
 	<?php  } ?>
 	<?php   if ( has_rights (ACX_INVOICING) ){ 	?>
-		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick('img10','div10');"><img id="img10" src="../Images/plus.gif" onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> <strong><?= _("INVOICING");?></strong></a></li>
-		<div id="div10" style="display:none;">
+		<div id='menu_invoicing'>
+		<a onclick="menu_toggle('menu_invoicing');"><?= _("INVOICING");?></a>
 		<ul>
 			<li><a href="A2B_entity_view_invoice.php"><?= _("View Invoices");?></a></li>
 			<li><a href="A2B_entity_create_invoice.php"><?= _("Create Invoices");?></a></li>
@@ -211,8 +235,8 @@ function imgidclick(imgID,divID)
 		</div>
 	<?php  } ?>
 	<?php   if ( has_rights (ACX_CRONT_SERVICE) ){ 	?>
-		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick('img11','div11');"><img id="img11" src="../Images/plus.gif" onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> <strong><?= _("CRONT SERVICE");?></strong></a></li>
-		<div id="div11" style="display:none;" >
+		<div id='menu_cront'>
+		<a onclick="menu_toggle('menu_cront');"><?= _("CRON SERVICE");?></a>
 		<ul>
 			<li><a href="A2B_entity_autorefill.php"><?= _("AutoRefill Report");?></a></li>
 			<li><a href="A2B_entity_service.php"><?= _("List Recurring Service");?></a></li>
@@ -226,8 +250,8 @@ function imgidclick(imgID,divID)
 
 	<?php  } ?>
 	<?php   if ( has_rights (ACX_CALLBACK) ){ 	?>
-		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick('img12','div12');"><img id="img12" src="../Images/plus.gif" onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> <strong><?= _("CALLBACK");?></strong></a></li>
-		<div id="div12" style="display:none;">
+		<div id='menu_callback'>
+		<a onclick="menu_toggle('menu_callback');"><?= _("CALLBACK");?></a>
 		<ul>
 			<li><a href="A2B_entity_callback.php"><?= _("Show Callbacks");?></a></li>
 			<li><a href="A2B_entity_callback.php?form_action=ask-add"><?= _("Add new Callback");?></a></li>
@@ -242,8 +266,8 @@ function imgidclick(imgID,divID)
 	
 	
 	<?php   if ( has_rights (ACX_MISC) ){ 	?>
-		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick('img13','div13');"><img id="img13" src="../Images/plus.gif" onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> <strong><?= _("MISC");?></strong></a></li>
-		<div id="div13" style="display:none;">
+		<div id='menu_misc'>
+		<a onclick="menu_toggle('menu_misc');"><?= _("MISC");?></a>
 		<ul>
 			<li><a href="A2B_entity_mailtemplate.php"><?= _("Show mail template");?></a></li>
 			<li><a href="A2B_entity_mailtemplate.php?form_action=ask-add"><?= _("Create mail template");?></a></li>
@@ -253,8 +277,8 @@ function imgidclick(imgID,divID)
 		</div>
 	<?php  } ?>
 	<?php   if ( has_rights (ACX_ADMINISTRATOR) ){ 	?>
-		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick('img20','div20');"><img id="img20" src="../Images/plus.gif" onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> <strong><?= _("ADMINISTRATOR");?></strong></a></li>
-		<div id="div20" style="display:none;">
+		<div id='menu_admin'>
+		<a onclick="menu_toggle('menu_admin');"><?= _("ADMINISTRATOR");?></a>
 		<ul>
 			<li><a href="A2B_entity_user.php?groupID=0"><?= _("Show Administrator");?></a></li>
 			<li><a href="A2B_entity_user.php?form_action=ask-add&groupID=0"><?= _("Add Administrator");?></a></li>
@@ -263,13 +287,14 @@ function imgidclick(imgID,divID)
 			<li><a href="A2B_entity_backup.php?form_action=ask-add"><?= _("Database Backup");?></a></li>
 			<li><a href="A2B_entity_restore.php"><?= _("Database Restore");?></a></li>
 			<li><a href="A2B_entity_texts.php"><?= _("Localized texts");?></a></li>
-			<li><a href="A2B_logfile.php"><?= _("Watch Log files");?></a></li>
+			<li><a href="A2B_logfile.php"><?= _("Watch Log files"); ?></a></li>
+			<li><a href="A2B_entity_log_viewer.php"><?= _("System Log");?></a></li>
 		</ul>
 		</div>
 	<?php  } ?>	
 	<?php   if ( has_rights (ACX_FILE_MANAGER) ){ 	?>
-		<li><a href="#" target="_self"><a href="#" target="_self" onclick="imgidclick('img21','div21');"><img id="img21" src="../Images/plus.gif" onmouseover="this.style.cursor='hand';" WIDTH="9" HEIGHT="9"> <strong><?= _("FILE MANAGER");?></strong></a></li>
-		<div id="div21" style="display:none;">
+		<div id='menu_files'>
+		<a onclick="menu_toggle('menu_files');"><?= _("FILE MANAGER");?></a>
 		<ul>
 			<li><a href="CC_musiconhold.php"><?= _("MusicOnHold");?></a></li>
 			<li><a href="CC_upload.php"><?= _("Standard File");?></a></li>
@@ -277,15 +302,9 @@ function imgidclick(imgID,divID)
 		</div>
 	<?php  } ?>
 
-	<li><a href=# target=_self></a></li>
+	<div><a style="color: #DD0000; font-weight: bold;" href="logout.php?logout=true" target="_top"><?= gettext("LOGOUT");?></a></div>
 
-	<ul>
-		<li><ul>
-		<li><a href="logout.php?logout=true" target="_top"><font color="#DD0000"><b>&nbsp;&nbsp;<?= gettext("LOGOUT");?></b></font></a></li>
-		</ul></li>
-	</ul>
-
-</ul>
+</div>
 <br>
 <table>
 <tr>
@@ -295,5 +314,5 @@ function imgidclick(imgID,divID)
 </tr>
 </table>
 <script>
-imgidclick( <?= '\'img'.$menu_section.'\', \'div'.$menu_section.'\'' ?> );
+menu_show( '<?= $menu_section ?>',true);
 </script>

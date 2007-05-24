@@ -389,7 +389,7 @@ function show_help($str) {
 	echo "<img src=\"../Css/kicons/$icon\" class=\"kikipic\"/>\n";
 	echo "<div class=\"w2\">\n";
 	echo "\t\t" .$text ."\n";
-	echo '<br/><br/> </div></div></div></div>';
+	echo '<br/><br/> </div></div></div></div><br style=\'clear:both\'>';
 }
 
 ?>
