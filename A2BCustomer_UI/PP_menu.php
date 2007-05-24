@@ -105,18 +105,9 @@ if ($A2B->config['webcustomerui']['invoice']==1) { ?>
 	<div id='menu_invoices'>
 	<a onclick="menu_toggle('menu_invoices');"><?= _("INVOICES");?></a>
 	<ul>
-		<li><a href="invoices.php"><?= _("Invoices");?></a></li>
-		<li><a href="invoices_customer.php"><?= _("Invoices Customer");?></a></li>
+		<li><a href="A2B_entity_call_details.php"><?= _("Invoice Details");?></a></li>
 		<li><a href="A2B_entity_view_invoice.php"><?= _("View Invoices");?></a></li>
-		<li><a href="A2B_entity_invoice_summary.php?invoice_type=2"><?= _("Billed Summary");?></a></li>
-		
-		<li><a href="A2B_entity_invoice_detail.php?invoice_type=2"><?= _("Billed Details");?></a></li>
-		
-		<li><a href="A2B_entity_invoice_summary.php?invoice_type=1"><?= _("UnBilled Summary");?></a></li>
-	
-		<li><a href="A2B_entity_invoice_detail.php?invoice_type=1"><?= _("UnBilled Details");?></a></li>
- 
-		<li><a href="A2B_entity_call_details.php"><?= _("Call Details");?></a></li>
+		<li><a href="invoices_customer.php"><?= _("Current Invoice");?></a></li> 
 	</ul>
 	</div>
 <?php }
