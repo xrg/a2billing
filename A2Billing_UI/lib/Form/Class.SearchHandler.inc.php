@@ -23,7 +23,7 @@ if ($this->FG_FILTER_SEARCH_FORM){
 					
 					From : <select name="fromstatsmonth" class="form_input_select">
 					<?php 
-						$year_actual = date("Y");  	
+						$year_actual = date("Y");
 						$monthname = array( gettext("January"), gettext("February"),gettext("March"), gettext("April"), gettext("May"), gettext("June"), gettext("July"), gettext("August"), gettext("September"), gettext("October"), gettext("November"), gettext("December"));
 						for ($i=$year_actual;$i >= $year_actual-1;$i--)
 						{
@@ -238,7 +238,7 @@ if ($this->FG_FILTER_SEARCH_FORM){
 			<tr>
         		<td class="bgcolor_004" align="left"> </td>
 				<td class="searchhandler_table3_td2" align="center">
-					<input type="image"  name="image16" align="top" border="0" src="<?php echo Images_Path_Main;?>/button-search.gif" />
+					<input type="image"  name="image16" align="top" border="0" alt="<?= _("Search")?>" src="<?php echo Images_Path_Main;?>/button-search.png" />
 					<?php if(isset($_SESSION[$this->FG_FILTER_SEARCH_SESSION_NAME]) && strlen($_SESSION[$this->FG_FILTER_SEARCH_SESSION_NAME])>10 ){ ?>
                     - <a href="<?php echo $_SERVER['PHP_SELF']?>?cancelsearch=true"><font color="red"><b><img src="../Css/kicons/button_cancel.png" height="16"> Cancel Search</b></font></a>&nbsp;
 					- <a href="<?php echo $_SERVER['PHP_SELF']?>?deleteselected=true" onclick="return confirm('<?php echo "Are you sure to delete ".$this -> FG_NB_RECORD." selected records?";?>');"><font color="red"><b>Delete All</b></font></a>

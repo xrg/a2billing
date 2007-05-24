@@ -1971,7 +1971,7 @@ class FormHandler{
 						</select>
 					</td>
 					<td class="form_selectform_table1_td1">
-					<input type="image"  name="image16" align="top" border="0" src="<?php echo Images_Path_Main;?>/button-search.gif" />
+					<input type="image"  name="image16" align="top" border="0" alt="<?= _("Search")?>" src="<?php echo Images_Path_Main;?>/button-search.png" />
 	  			</td>
 
 				</tr></table></td>
@@ -2024,7 +2024,7 @@ class FormHandler{
 						</select>
 					</td>
 					<td class="form_selectform_table1_td1" >
-					<input type="image"  name="image16" align="top" border="0" src="<?php echo Images_Path;?>/button-search.gif" />
+					<input type="image"  name="image16" align="top" border="0" src="<?php echo Images_Path;?>/button-search.png" />
 	  			</td>
 
 				</tr></table></td>
