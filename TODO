@@ -3,6 +3,19 @@
                    			TODO LIST - SPECIFIC
 ********************************************************************************
 
+#### FILE USED ?
+********************************************************************
+trunk/A2BCustomer_UI/lib/epayment/includes/PP_header.php
+trunk/A2Billing_UI/lib/epayment/includes/PP_header.php
+
+To remove : 
+trunk/A2Billing_UI/signup/PP_footer.php
+trunk/A2Billing_UI/signup/PP_header.php
+
+
+
+#### NEW LOGO ON MAIN PAGE
+********************************************************************
 
 
 #### A2Billing_UI/Public/index.php
@@ -51,11 +64,6 @@ Kind regards,
 The Call Labs Team
 
 
-
-
-#### CALLBACK : INTRO MESSAGE
-********************************************************************
-Play an intro message on CallBack
 
 
 #### GMT : REPORT & INVOICING
