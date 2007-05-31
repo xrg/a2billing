@@ -11,7 +11,7 @@ if (! has_rights (ACX_ACCESS)){
 	die();
 }
 
-getpost_ifset(array('customer', 'posted', 'Period', 'choose_currency','exporttype', 'invoice_type', 'choose_billperiod'));
+getpost_ifset(array('id','customer', 'posted', 'Period', 'choose_currency','exporttype', 'invoice_type', 'choose_billperiod'));
 
 $customer = $_SESSION["pr_login"];
 $vat = $_SESSION["vat"];
