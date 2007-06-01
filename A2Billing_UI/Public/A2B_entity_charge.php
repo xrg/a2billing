@@ -1,6 +1,6 @@
 <?php
 if ($wantinclude!=1){
-	$menu_section=3;
+	$menu_section='menu_billing';
 
 	include ("../lib/defines.php");
 	include ("../lib/module.access.php");

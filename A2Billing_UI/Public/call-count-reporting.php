@@ -1,5 +1,5 @@
 <?php
-$menu_section=9;
+$menu_section='menu_creport';
 include ("../lib/defines.php");
 include ("../lib/module.access.php");
 

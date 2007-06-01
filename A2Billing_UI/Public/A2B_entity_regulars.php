@@ -1,5 +1,5 @@
 <?php
-$menu_section=2;
+$menu_section='menu_agents';
 require("../lib/defines.php");
 require("../lib/module.access.php");
 require("../lib/Form/Class.FormHandler.inc.php");

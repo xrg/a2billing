@@ -1,5 +1,5 @@
 <?php
-$menu_section=5;
+$menu_section='menu_pkgoffer';
 include ("../lib/defines.php");
 include ("../lib/module.access.php");
 include ("../lib/Form/Class.FormHandler.inc.php");

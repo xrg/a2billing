@@ -1,5 +1,5 @@
 <?php
-$menu_section=8;
+$menu_section='menu_did';
 include ("../lib/defines.php");
 include ("../lib/module.access.php");
 include ("../lib/Form/Class.FormHandler.inc.php");

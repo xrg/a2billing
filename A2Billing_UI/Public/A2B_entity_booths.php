@@ -2,7 +2,7 @@
 include ("../lib/defines.php");
 require("../lib/module.access.php");
 require("../lib/Form/Class.FormHandler.inc.php");
-
+$menu_section='menu_agents';
 
 if (! has_rights (ACX_AGENTS)){
 	   Header ("HTTP/1.0 401 Unauthorized");

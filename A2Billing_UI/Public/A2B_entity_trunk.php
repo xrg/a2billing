@@ -1,5 +1,5 @@
 <?php
-$menu_section=7;
+$menu_section='menu_trunk';
 
 include ("../lib/defines.php");
 include ("../lib/module.access.php");

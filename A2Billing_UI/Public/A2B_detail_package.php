@@ -1,4 +1,5 @@
 <?php
+$menu_section='menu_pkgoffer';
 include ("../lib/defines.php");
 include ("../lib/module.access.php");
 

@@ -1,5 +1,5 @@
 <?php
-$menu_section=4;
+$menu_section='menu_billing';
 
 include ("../lib/defines.php");
 include ("../lib/module.access.php");

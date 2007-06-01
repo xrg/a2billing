@@ -1,5 +1,5 @@
 <?php
-$menu_section=11;
+$menu_section='menu_cront';
 include ("../lib/defines.php");
 include ("../lib/module.access.php");
 include ("../lib/Form/Class.FormHandler.inc.php");

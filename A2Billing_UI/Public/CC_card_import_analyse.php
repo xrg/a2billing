@@ -1,5 +1,6 @@
 <?php
 // Common includes
+$menu_section='menu_customers';
 include ("../lib/defines.php");
 include ("../lib/module.access.php");
 

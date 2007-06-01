@@ -1,5 +1,5 @@
 <?php
-$menu_section=4;
+$menu_section='menu_ratecard';
 
 // Common includes
 include ("../lib/defines.php");
