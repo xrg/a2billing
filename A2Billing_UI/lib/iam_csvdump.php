@@ -29,7 +29,9 @@
  */
 class iam_csvdump
 {
-
+	public $sep = ','; ///< field separator
+	public $prolog = ''; ///< A string to append to start of file
+	public $epilog = ''; ///< A string to append to end of file
     /**
     * @desc Takes an array and creates a csv string from it.
     *
@@ -204,15 +206,20 @@ class iam_csvdump
     * @param  String $host Name of the Host holding the DB
     */
 		  
-	function _db_connect($dbname="mysql", $user="root", $password="", $host="localhost")
-    {
-      $result = pg_connect("host=$host port=5432 dbname=$dbname user=$user password=$password");
-      if(!$result)     // If no connection, return 0
-      {
-       return false;
-      }      
-      return $result;
-    }
+function _db_connect($dbname="mysql", $user="root", $password="", $host=NULL)
+{
+	$conn_str = "dbname=$dbname user=$user";
+	if ($host !=null && strlen($host))
+		$conn_str = "host=$host ". $conn_str;
+	if (strlen($password))
+		$conn_str .= "password=$password";
+	
+	$result = pg_connect($conn_str);
+	if(!$result)     // If no connection, return 0
+		return false;
+	
+	return $result;
+}
 
 	
     function _db_connect_mysql($dbname="mysql", $user="root", $password="", $host="localhost")
@@ -251,19 +258,24 @@ class iam_csvdump
       if(!$conn= $this->_db_connect($dbname, $user , $password, $host))
           die("Error. Cannot connect to Database.");
       else
-      {	  	
+      {
 	$result = pg_query($conn, $query_string);
-        if(!$result){		
+        if(!$result){
+//         	echo "Query: $query_string <br>\n";
 		die("Could not perform the Query: ".pg_ErrorMessage($result));
         }else
         {
             $file = "";
             $crlf = $this->_define_newline();
-		while ($str= @pg_fetch_array($result,NULL, PGSQL_NUM))			
+            if (strlen($this->prolog))
+            	echo $this->prolog;
+		while ($str= @pg_fetch_array($result,NULL, PGSQL_NUM))
             {
-                $file .= $this->arrayToCsvString($str,",'").$crlf;
+                echo $this->arrayToCsvString($str,$this->sep).$crlf;
             }
-            echo $file;
+            //echo $file;
+            if (strlen($this->epilog))
+            	echo $this->epilog;
         }
       }
     }
