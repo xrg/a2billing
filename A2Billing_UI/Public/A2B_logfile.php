@@ -55,15 +55,18 @@ sort($arr_log);
 
 //$directory = '/var/log/asterisk/';
 $directory = '/var/log/asterisk/';
-$d = dir($directory);
+$d = @dir($directory);
 
+if ($d == null) {
+	echo _("Directory $directory cannot be opened!");
+}else{
 while(false!==($entry=$d->read()))
 {
 	if(is_file($directory.$entry) && $entry!='.' && $entry!='..')
 		$arr_log[] = $directory.$entry;
 }
 $d->close();
-
+}
 
 foreach($A2B->config["log-files"] as $log_file){
 	if (strlen(trim($log_file))>1){
@@ -78,7 +81,7 @@ $nb = $nb?$nb:50;
 
 <form method="get">
 <?php echo gettext("Browse log file")?>&nbsp; : <?=array2drop_down('view_log', $view_log, $arr_log)?> - 
-<?=array2drop_down('nb', $nb, $arr_nb)?>
+<?= array2drop_down('nb', $nb, $arr_nb)?>
 
 <?php echo gettext("Filter")?> : <input class="form_enter" name="filter" size="20" maxlength="30" value="<?php echo $filter; ?>">
 
