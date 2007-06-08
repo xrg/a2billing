@@ -3,15 +3,21 @@
                    			TODO LIST - SPECIFIC
 ********************************************************************************
 
-#### FILE USED ?
+
+#### TODO : Detach Selling ratecard from Buying ratecard
 ********************************************************************
-trunk/A2BCustomer_UI/lib/epayment/includes/PP_header.php
-trunk/A2Billing_UI/lib/epayment/includes/PP_header.php
+- you need to update the selling prices multiple times
+- you cannot really remove the sorter matching prefixes as you do right now, since one provider can have more granularity than other
 
-To remove : 
-trunk/A2Billing_UI/signup/PP_footer.php
-trunk/A2Billing_UI/signup/PP_header.php
 
+#### TODO : CallerID prefix for DIDs
+********************************************************************
+to have a CallerID prefix for DIDs, so that you might want to allocate the same DID do different persons, depending on the caller id
+
+#### BUG : IAX / SIP friends
+********************************************************************
+problems with IAX / SIP friends, where I could not dial from one friend to another
+nor could I forward a DDI to a SIP/IAX friend 
 
 
 
@@ -41,8 +47,6 @@ Thank you for registering with Call-Labs
 Please credit your account by paying via the customer interface at http://myaccount.call-labs.com/
 
 To log into your account please use your email address or card-alias ($cardalias) as your username and your password ($password) to login.
-
-For security purposes, we recommend that you change your account login password on the customer interface as soon as possible
 
 Configure your VoIP phone with the following settings.
 
@@ -163,12 +167,6 @@ we should not show the pay invoice button then
 is there anything in framework that support like this?
 
 
-#### FEATURES : WHOLESALE
-********************************************************************
-We may need an option like : wholesale = YES or NO
-it will not answer the line and get rid of all audio
-
-
 #### NEW TASK - NEW button style []
 ********************************************************************
 New button for edit/delete... really tiny but with text
@@ -180,6 +178,11 @@ New button for confirm Data
 add a parameter to not bill 1st if not connected
 callback_bill_1stleg_ifcall_notconnected = YES / NO
 
+
+#### multi-langague on email template
+********************************************************************
+multiple email templates based on location signup
+ie, if some one is from india, they will recieve their email in indian language
 
 
 #### Check voice one 
