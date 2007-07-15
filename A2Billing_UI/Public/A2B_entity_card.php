@@ -149,7 +149,7 @@ show_help('list customer');
 
 
 <div class="toggle_hide2show">
-<center><a href="#" target="_self"><img class="toggle_hide2show" src="../Css/kicons/toggle_hide2show.png" onmouseover="this.style.cursor='hand';" HEIGHT="16"> <font class="fontstyle_002"><?php echo gettext("REFILL");?> </font></a></center>
+<center><a href="#" target="_self" class="toggle_menu"><img class="toggle_hide2show" src="../Css/kicons/toggle_hide2show.png" onmouseover="this.style.cursor='hand';" HEIGHT="16"> <font class="fontstyle_002"><?php echo gettext("REFILL");?> </font></a></center>
 	<div class="tohide" style="display:none;">
 	   <table width="90%" border="0" align="center">
         <tr><form NAME="theForm">
@@ -179,7 +179,7 @@ show_help('list customer');
 
 
 <div class="toggle_hide2show">
-<center><a href="#" target="_self"><img class="toggle_hide2show" src="<?php echo KICON_PATH; ?>/toggle_hide2show.png" onmouseover="this.style.cursor='hand';" HEIGHT="16"> <font class="fontstyle_002"><?php echo gettext("SEARCH CARDS");?> </font></a></center>
+<center><a href="#" target="_self" class="toggle_menu"><img class="toggle_hide2show" src="<?php echo KICON_PATH; ?>/toggle_hide2show.png" onmouseover="this.style.cursor='hand';" HEIGHT="16"> <font class="fontstyle_002"><?php echo gettext("SEARCH CARDS");?> </font></a></center>
 	<div class="tohide" style="display:none;">
 
 <?php
@@ -193,7 +193,7 @@ if ($form_action == "list"){
 </div>
 
 <div class="toggle_hide2show">
-<center><a href="#" target="_self"><img class="toggle_hide2show" src="<?php echo KICON_PATH; ?>/toggle_hide2show.png" onmouseover="this.style.cursor='hand';" HEIGHT="16"> <font class="fontstyle_002"><?php echo gettext("BATCH UPDATE");?> </font></a></center>
+<center><a href="#" target="_self" class="toggle_menu"><img class="toggle_hide2show" src="<?php echo KICON_PATH; ?>/toggle_hide2show.png" onmouseover="this.style.cursor='hand';" HEIGHT="16"> <font class="fontstyle_002"><?php echo gettext("BATCH UPDATE");?> </font></a></center>
 	<div class="tohide" style="display:none;">
 <?php
 
