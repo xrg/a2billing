@@ -1,6 +1,5 @@
 <?php
 include ("./lib/defines.php");
-//require (LANGUAGE_DIR.FILENAME_PP_ERROR);
 
 if (!isset($c))	$c="0";
 
@@ -23,8 +22,7 @@ $error["construction"] = gettext("Sorry, this page is in construction !");
 
 <br></br><br></br>
 <table width="460" border="2" align="center" cellpadding="1" cellspacing="2" bordercolor="#eeeeff" bgcolor="#FFFFFF">
-	<tr  class="pp_error_maintable_tr1"> 
-		
+	<tr  class="pp_error_maintable_tr1">
 		<td> 					
 			<div align="center"><b><font size="3"><?php echo gettext("Error Page");?></font></b></div>
 		</td>

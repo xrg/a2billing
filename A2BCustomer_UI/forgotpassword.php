@@ -3,7 +3,6 @@ session_name("FORGOT");
 session_start();
 	
 	
-include (dirname(__FILE__)."/lib/company_info.php");
 include ("./lib/defines.php");
 
 getpost_ifset(array('pr_email','action'));
@@ -31,7 +30,7 @@ if(isset($pr_email) && isset($action))
         $res = $DBHandle -> Execute($QUERY);
 	if ($res)
 	        $num = $res -> RecordCount();
-
+		
         if (!$num) exit();
         for($i=0;$i<$num;$i++)
         {
@@ -107,7 +106,6 @@ switch($error)
 }
 
 
-//include("PP_header.php");
  ?>
 <html>
 <head>
