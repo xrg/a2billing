@@ -1112,7 +1112,7 @@ class A2Billing {
      *  @param float $credit
      *  @return nothing
 	**/
-	function fct_say_balance ($agi, $credit, $fromvoucher){
+	function fct_say_balance ($agi, $credit, $fromvoucher = 0){
 		
 		global $currencies_list;
 		
