@@ -10,6 +10,9 @@ $A2B = new A2Billing();
 $A2B -> load_conf($agi, AST_CONFIG_DIR."a2billing.conf", 1);
 
 
+define ("MANAGER_HOST", isset($A2B->config['global']['manager_host'])?$A2B->config['global']['manager_host']:null);
+define ("MANAGER_USERNAME", isset($A2B->config['global']['manager_username'])?$A2B->config['global']['manager_username']:null);
+define ("MANAGER_SECRET", isset($A2B->config['global']['manager_secret'])?$A2B->config['global']['manager_secret']:null);
 // For ePayment Modules
 define('PULL_DOWN_DEFAULT', 'Please Select');
 define('TYPE_BELOW', 'Type Below');
@@ -54,9 +57,6 @@ define('MODULE_PAYMENT_IPAYMENT_TEXT_JS_CC_NUMBER', gettext('* The credit card n
 // WEB DEFINE FROM THE A2BILLING.CONF FILE
 define ("EMAIL_ADMIN", isset($A2B->config['webui']['email_admin'])?$A2B->config['webui']['email_admin']:null);
 define ("NUM_MUSICONHOLD_CLASS", isset($A2B->config['webui']['num_musiconhold_class'])?$A2B->config['webui']['num_musiconhold_class']:null);
-define ("MANAGER_HOST", isset($A2B->config['webui']['manager_host'])?$A2B->config['webui']['manager_host']:null);
-define ("MANAGER_USERNAME", isset($A2B->config['webui']['manager_username'])?$A2B->config['webui']['manager_username']:null);
-define ("MANAGER_SECRET", isset($A2B->config['webui']['manager_secret'])?$A2B->config['webui']['manager_secret']:null);
 define ("MY_MAX_FILE_SIZE_IMPORT", isset($A2B->config['webui']['my_max_file_size_import'])?$A2B->config['webui']['my_max_file_size_import']:null);
 define ("MY_MAX_FILE_SIZE", isset($A2B->config['webui']['my_max_file_size'])?$A2B->config['webui']['my_max_file_size']:null);
 define ("DIR_STORE_MOHMP3",isset($A2B->config['webui']['dir_store_mohmp3'])?$A2B->config['webui']['dir_store_mohmp3']:null);
@@ -188,13 +188,13 @@ define ("INVOICE_IMAGE", isset($A2B->config["global"]['invoice_image'])?$A2B->co
 define ("ADMIN_EMAIL", isset($A2B->config["global"]['admin_email'])?$A2B->config["global"]['admin_email']:null);
 
 // A2BILLING INFO
-define ("WEBUI_DATE", 'Release : May 2007');	 
-define ("WEBUI_VERSION", 'Asterisk2Billing - Version 1.3 - Beta (Yellowjacket)');
+define ("WEBUI_DATE", 'Release : July 2007');	 
+define ("WEBUI_VERSION", 'Asterisk2Billing - Version 1.3.0 (Yellowjacket)');
 // A2BILLING COPYRIGHT & CONTACT
 define ("TEXTCONTACT", gettext("This software has been created by Areski under GPL licence. For futher information, feel free to contact me:"));
 define ("EMAILCONTACT", "areski@gmail.com");
 define ("COPYRIGHT", gettext(" This software is under GPL licence. For further information, please visit : <a href=\"http://www.asterisk2billing.org\" target=\"_blank\">asterisk2billing.org</a>"));
 define ("CCMAINTITLE", gettext("Asterisk2Billing : CallingCard & VOIP Billing system"));
 
-
+define ("ENABLE_LOG", 0);
 ?>

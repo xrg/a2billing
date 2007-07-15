@@ -10,7 +10,7 @@ if (! has_rights (ACX_ACCESS)){
 	   die();
 }
 
-getpost_ifset(array('customer', 'posted', 'Period', 'choose_currency','exporttype', 'invoice_type', 'choose_billperiod'));
+getpost_ifset(array('id','customer', 'posted', 'Period', 'choose_currency','exporttype', 'invoice_type', 'choose_billperiod'));
 
 $customer = $_SESSION["pr_login"];
 $vat = $_SESSION["vat"];
@@ -82,11 +82,11 @@ $FG_HTML_TABLE_TITLE=" - Call Logs - ";
 //This variable define the width of the HTML table
 $FG_HTML_TABLE_WIDTH="70%";
 
-	if ($FG_DEBUG == 3) echo "<br>Table : $FG_TABLE_NAME  	- 	Col_query : $FG_COL_QUERY";	
-	$instance_table = new Table($FG_TABLE_NAME, $FG_COL_QUERY);
+if ($FG_DEBUG == 3) echo "<br>Table : $FG_TABLE_NAME  	- 	Col_query : $FG_COL_QUERY";	
+$instance_table = new Table($FG_TABLE_NAME, $FG_COL_QUERY);
 	if ($FG_DEBUG > 1)
 		$instance_table->debug_st=1;
-	$instance_table_graph = new Table($FG_TABLE_NAME, $FG_COL_QUERY_GRAPH);
+$instance_table_graph = new Table($FG_TABLE_NAME, $FG_COL_QUERY_GRAPH);
 	if ($FG_DEBUG > 1)
 		$instance_table_graph->debug_st=1;
 
@@ -138,6 +138,8 @@ if (strpos($SQLcmd, 'WHERE') > 0) {
 }elseif (strpos($date_clause, 'AND') > 0){
 	$FG_TABLE_CLAUSE = substr($date_clause,5); 
 }
+
+
 
 if (strlen($FG_TABLE_CLAUSE)>0)
 {

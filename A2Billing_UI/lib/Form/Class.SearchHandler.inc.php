@@ -10,7 +10,8 @@ if ($this->FG_FILTER_SEARCH_FORM){
 		<table class="searchhandler_table1">
 		<FORM METHOD=POST ACTION="<?php echo $_SERVER['PHP_SELF']?>?s=<?php echo $processed['s']?>&t=<?php echo $processed['t']?>&order=<?php echo $processed['order']?>&sens=<?php echo $processed['sens']?>&current_page=<?php echo $processed['current_page']?>">
 	<INPUT TYPE="hidden" NAME="posted_search" value="1">
-	<INPUT TYPE="hidden" NAME="current_page" value="0">		
+	<INPUT TYPE="hidden" NAME="current_page" value="0">
+		<?php if ($this -> FG_FILTER_SEARCH_1_TIME){ ?>
 			<tr>
         		<td class="bgcolor_004" align="left" width="120px">
 					<input type="radio" name="Period" value="Month" <?php  if (!isset($processed['Period']) || ($processed['Period']=="Month")){ ?>checked="checked" <?php  } ?>> 
@@ -64,7 +65,8 @@ if ($this->FG_FILTER_SEARCH_FORM){
 					</td></tr></table>
 	  			</td>
     		</tr>
-
+		<?php } ?>
+		<?php if ($this -> FG_FILTER_SEARCH_2_TIME){ ?>
 			<tr>
         		<td align="left" class="bgcolor_002">
 					<input type="radio" name="Period" value="Day" <?php  if ($processed['Period']=="Day"){ ?>checked="checked" <?php  } ?>>
@@ -131,22 +133,24 @@ if ($this->FG_FILTER_SEARCH_FORM){
 					</td></tr></table>
 	  			</td>
     		</tr>
-			<!-- compare with a value //-->
-			<?php
-			$nu = 0;
-			foreach ($this->FG_FILTER_SEARCH_FORM_1C as $one_compare){
-			if ($nu%2 == 0)
-			{
-				$classleft="bgcolor_004";
-				$classright="bgcolor_005";		
-			}
-			else
-			{
-				$classleft="bgcolor_002";
-				$classright="bgcolor_003";
-			}
-			$nu = $nu + 1;
-			?>
+		<?php } ?>
+		
+		<!-- compare with a value //-->
+		<?php
+		$nu = 0;
+		foreach ($this->FG_FILTER_SEARCH_FORM_1C as $one_compare){
+		if ($nu%2 == 0)
+		{
+			$classleft="bgcolor_004";
+			$classright="bgcolor_005";		
+		}
+		else
+		{
+			$classleft="bgcolor_002";
+			$classright="bgcolor_003";
+		}
+		$nu = $nu + 1;
+		?>
 			<tr>
 				<td class="<?php echo $classleft?>" align="left">
 					<font class="searchhandler_compare_td1_text">&nbsp;&nbsp;<?php echo $one_compare[0]?></font>
@@ -224,7 +228,7 @@ if ($this->FG_FILTER_SEARCH_FORM){
 				<?php
 					 foreach ($selects[1] as $recordset){
 				?>
-						<option class=input value='<?php echo $recordset[0]?>'  <?php if ($processed[$selects[2]]==$recordset[0]) echo 'selected="selected"'?>><?php echo $recordset[1]?></option>
+						<option class=input value='<?php echo $recordset[0]?>'  <?php if ($processed[$selects[2]]==$recordset[0]) echo 'selected="selected"'?>><?php echo $recordset[1]; if (strlen($recordset[2])>0) echo ' - '.$recordset[2]; ?></option>
 				<?php 	 }
 				?>
 					</select>
@@ -241,7 +245,9 @@ if ($this->FG_FILTER_SEARCH_FORM){
 					<input type="image"  name="image16" align="top" border="0" alt="<?= _("Search")?>" src="<?php echo Images_Path_Main;?>/button-search.png" />
 					<?php if(isset($_SESSION[$this->FG_FILTER_SEARCH_SESSION_NAME]) && strlen($_SESSION[$this->FG_FILTER_SEARCH_SESSION_NAME])>10 ){ ?>
                     - <a href="<?php echo $_SERVER['PHP_SELF']?>?cancelsearch=true"><font color="red"><b><img src="../Css/kicons/button_cancel.png" height="16"> Cancel Search</b></font></a>&nbsp;
-					- <a href="<?php echo $_SERVER['PHP_SELF']?>?deleteselected=true" onclick="return confirm('<?php echo "Are you sure to delete ".$this -> FG_NB_RECORD." selected records?";?>');"><font color="red"><b>Delete All</b></font></a>
+						<?php if ($this -> FG_FILTER_SEARCH_DELETE_ALL){ ?>
+							- <a href="<?php echo $_SERVER['PHP_SELF']?>?deleteselected=true" onclick="return confirm('<?php echo "Are you sure to delete ".$this -> FG_NB_RECORD." selected records?";?>');"><font color="red"><b>Delete All</b></font></a>
+						<?php } ?>
                     <?php } ?>
 	  			</td>
     		</tr>

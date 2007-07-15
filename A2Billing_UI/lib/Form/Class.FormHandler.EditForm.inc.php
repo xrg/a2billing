@@ -279,12 +279,12 @@ function sendtolittle(direction){
 			
 	?>
                                   <TR bgcolor="<?= $this->FG_TABLE_ALTERNATE_ROW_COLOR[$j%2]?>"  onMouseOver="bgColor='#C4FFD7'" onMouseOut="bgColor='<?= $this->FG_TABLE_ALTERNATE_ROW_COLOR[$j%2]?>'"> 
-                                    <TD vAlign=top align="<?= $this->FG_TABLE_COL[$i][3]?>" class=tableBody> 
+                                    <TD vAlign=top class=tableBody> 
                                       <font face="Verdana" size="2">
                                       <b><?= $split_select_list[$j][$table_split[7]]?></b> : <?= $split_select_list[$j][0]?>
                                       </font> </TD>
                                     <TD align="center" vAlign=top class=tableBodyRight> 
-                                      <input onClick="sendto('del-content','<?= $i?>','<?= $table_split[1]?>','<?= $split_select_list[$j][1]?>');" title="Remove this <?= $this->FG_TABLE_EDITION[$i][0]?>" alt="Remove this <?= $this->FG_TABLE_EDITION[$i][0]?>" border=0 height=11 hspace=2 id=submit33 name=submit33 src="<?= Images_Path_Main;?>/icon-del.gif" type=image width=33 value="add-split">
+                                      <input onClick="sendto('del-content','<?php echo $i?>','<?php echo $table_split[1]?>_hidden','<?php echo $split_select_list[$j][1]?>');" title="Remove this <?php echo $this->FG_TABLE_EDITION[$i][0]?>" alt="Remove this <?php echo $this->FG_TABLE_EDITION[$i][0]?>" border=0 height=11 hspace=2 id=submit33 name=submit33 src="<?php echo Images_Path_Main;?>/icon-del.gif" type=image width=33 value="add-split">
                                     </TD>
                                   </TR>
                                   <?php 
@@ -340,7 +340,8 @@ function sendtolittle(direction){
 									<TR> 
 										<TD width="122" class="tableBody"><?php echo $this->FG_TABLE_EDITION[$i][0]?></TD>
 										<TD width="516"><div align="center"> 	
-                                          <SELECT name=<?= $table_split[1]?> class="form_enter">
+							 <input name="<?php echo $table_split[1]?>_hidden" type="hidden" value="" />
+                                          <SELECT name="<?php echo $table_split[1]?>[]" <?php echo $this->FG_TABLE_EDITION[$i][4]?> class="form_input_select">
                                             <?php
 					 $split_select_list = $instance_sub_table -> Get_list ($this->DBHandle, null, null, null, null, null, null, null);
 

@@ -20,6 +20,9 @@ define ("DB_TYPE", isset($A2B->config['database']['dbtype'])?$A2B->config['datab
 define ("LEN_ALIASNUMBER", isset($A2B->config['global']['len_aliasnumber'])?$A2B->config['global']['len_aliasnumber']:null);
 define ("LEN_VOUCHER", isset($A2B->config['global']['len_voucher'])?$A2B->config['global']['len_voucher']:null);
 define ("BASE_CURRENCY", isset($A2B->config['global']['base_currency'])?$A2B->config['global']['base_currency']:null);
+define ("MANAGER_HOST", isset($A2B->config['global']['manager_host'])?$A2B->config['global']['manager_host']:null);
+define ("MANAGER_USERNAME", isset($A2B->config['global']['manager_username'])?$A2B->config['global']['manager_username']:null);
+define ("MANAGER_SECRET", isset($A2B->config['global']['manager_secret'])?$A2B->config['global']['manager_secret']:null);
 
 define ("BUDDY_SIP_FILE", isset($A2B->config['webui']['buddy_sip_file'])?$A2B->config['webui']['buddy_sip_file']:null);
 define ("BUDDY_IAX_FILE", isset($A2B->config['webui']['buddy_iax_file'])?$A2B->config['webui']['buddy_iax_file']:null);
@@ -28,9 +31,6 @@ define ("API_SECURITY_KEY", isset($A2B->config['webui']['api_security_key'])?$A2
 // WEB DEFINE FROM THE A2BILLING.CONF FILE
 define ("EMAIL_ADMIN", isset($A2B->config['webui']['email_admin'])?$A2B->config['webui']['email_admin']:null);
 define ("NUM_MUSICONHOLD_CLASS", isset($A2B->config['webui']['num_musiconhold_class'])?$A2B->config['webui']['num_musiconhold_class']:null);
-define ("MANAGER_HOST", isset($A2B->config['webui']['manager_host'])?$A2B->config['webui']['manager_host']:null);
-define ("MANAGER_USERNAME", isset($A2B->config['webui']['manager_username'])?$A2B->config['webui']['manager_username']:null);
-define ("MANAGER_SECRET", isset($A2B->config['webui']['manager_secret'])?$A2B->config['webui']['manager_secret']:null);
 define ("SHOW_HELP", isset($A2B->config['webui']['show_help'])?$A2B->config['webui']['show_help']:null);	
 define ("MY_MAX_FILE_SIZE_IMPORT", isset($A2B->config['webui']['my_max_file_size_import'])?$A2B->config['webui']['my_max_file_size_import']:null);
 define ("DIR_STORE_MOHMP3",isset($A2B->config['webui']['dir_store_mohmp3'])?$A2B->config['webui']['dir_store_mohmp3']:null);
@@ -241,11 +241,9 @@ function send_email_attachment($emailfrom, $emailto, $emailsubject, $emailmessag
 
 
 // A2BILLING INFO
-define ("WEBUI_DATE", 'Release : May 2007');
+define ("WEBUI_DATE", 'Release : July 2007');	 
 define ("WEBUI_VERSION", 'Asterisk2Billing - Version 1.3xrg - (Break-the-world)');
 // A2BILLING COPYRIGHT & CONTACT
-define ("TEXTCONTACT", gettext("This software has been created by Areski under GPL licence. For futher information, feel free to contact me:"));
-define ("EMAILCONTACT", "areski@gmail.com");
 define ("COPYRIGHT", gettext(" This software is under GPL licence. For further information, please visit : <a href=\"http://www.asterisk2billing.org\" target=\"_blank\">asterisk2billing.org</a>"));
 define ("CCMAINTITLE", gettext("Asterisk2Billing : CallingCard & VOIP Billing system"));
 
@@ -254,9 +252,13 @@ define ("CCMAINTITLE", gettext("Asterisk2Billing : CallingCard & VOIP Billing sy
 define ("CAPTCHA_ENABLE", isset($A2B->config["signup"]['enable_captcha'])?$A2B->config["signup"]['enable_captcha']:0);
 define ("RELOAD_ASTERISK_IF_SIPIAX_CREATED", isset($A2B->config["signup"]['reload_asterisk_if_sipiax_created'])?$A2B->config["signup"]['reload_asterisk_if_sipiax_created']:0);
 
+define ("ENABLE_LOG", 1);
+
 include (FSROOT."lib/help.php");
 include (FSROOT."lib/Class.Logger.php");
 $log = new Logger();			
 $log -> insertLog($_SESSION["admin_id"], 1, "Page Visit", "User Visited the Page", '', $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'],'');
 $log = null;
+
+
 ?>

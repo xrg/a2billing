@@ -552,30 +552,32 @@ class A2Billing {
 			else
 				$language = 'en';
 			
-			if($this->agiconfig['asterisk_version'] == "1_1")
+			if($this->agiconfig['asterisk_version'] == "1_2")
 			{
-				$agi -> set_variable('LANGUAGE()', $language);								
+				$lg_var_set = 'LANGUAGE()';				
 			}
 			else
 			{
-				$agi->ChangeLanguage($language);
+				$lg_var_set = 'CHANNEL(language)';
 			}
-			$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[SET LANGUAGE() $language]");
+			$agi -> set_variable($lg_var_set, $language);
+			$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[SET $lg_var_set $language]");
 			
 		}elseif (strlen($this->agiconfig['force_language'])==2){
 			
 			$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "FORCE LANGUAGE : ".$this->agiconfig['force_language']);	
 			$this->languageselected = 1;
 			$language = strtolower($this->agiconfig['force_language']);
-			if($this->agiconfig['asterisk_version'] == "1_1")
+			if($this->agiconfig['asterisk_version'] == "1_2")
 			{
-				$agi -> set_variable('LANGUAGE()', $language);								
+				$lg_var_set = 'LANGUAGE()';				
 			}
 			else
 			{
-				$agi->ChangeLanguage($language);
+				$lg_var_set = 'CHANNEL(language)';
 			}
-			$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[SET LANGUAGE() $language]");
+			$agi -> set_variable($lg_var_set, $language);
+			$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[SET $lg_var_set $language]");
 			
 		}
 	}
@@ -1109,7 +1111,7 @@ class A2Billing {
      *  @param float $credit
      *  @return nothing
 	**/
-	function fct_say_balance ($agi, $credit, $fromvoucher){
+	function fct_say_balance ($agi, $credit, $fromvoucher = 0){
 		
 		global $currencies_list;
 		
@@ -1591,7 +1593,7 @@ class A2Billing {
 				if( $result[0][2] != "t" && $result[0][2] != "1" )
 					$prompt = "prepaid-auth-fail";
 				
-				// CHECK credit > min_credit_2call / you have zero balance
+				// CHECK credit < min_credit_2call / you have zero balance
 				if( $this->credit < $this->agiconfig['min_credit_2call'] )
 					$prompt = "prepaid-zero-balance";
 				// CHECK activated=t / CARD NOT ACTIVE, CONTACT CUSTOMER SUPPORT
@@ -1626,8 +1628,7 @@ class A2Billing {
 					$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, 'prompt:'.strtoupper($prompt));
 					
 					$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[ERROR CHECK CARD : $prompt (cardnumber:".$this->cardnumber.")]");
-					$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[NOTENOUGHCREDIT - refiil_card_withvoucher] ");
-					$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, "NOTENOUGHCREDIT - Refill with vouchert");
+					$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[NOTENOUGHCREDIT - Refill with vouchert]");
 					
 					if ($this->agiconfig['jump_voucher_if_min_credit']==1 && $prompt == "prepaid-zero-balance"){
 					

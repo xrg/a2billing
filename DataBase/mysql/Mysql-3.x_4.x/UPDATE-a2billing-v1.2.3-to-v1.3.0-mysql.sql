@@ -622,7 +622,7 @@ CREATE TABLE cc_server_manager (
     PRIMARY KEY (id)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
-INSERT INTO cc_server_manager (server_ip, manager_host, manager_username, manager_secret) VALUES ('default', 'localhost', 'myasterisk', 'mycode');
+INSERT INTO cc_server_manager (id_group, server_ip, manager_host, manager_username, manager_secret) VALUES (1, 'localhost', 'localhost', 'myasterisk', 'mycode');
 
 
 CREATE TABLE cc_server_group (
@@ -631,7 +631,7 @@ CREATE TABLE cc_server_group (
 	description						MEDIUMTEXT,
     PRIMARY KEY (id)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
-INSERT INTO cc_server_group (name, description) VALUES ('default', 'default group of server');
+INSERT INTO cc_server_group (id, name, description) VALUES (1, 'default', 'default group of server');
 
 
 
@@ -932,3 +932,7 @@ CREATE TABLE cc_system_log (
 	creationdate  					TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (id)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
+
+
+ALTER TABLE cc_iax_buddies CHANGE qualify qualify char(7);
+ALTER TABLE cc_sip_buddies CHANGE qualify qualify char(7);

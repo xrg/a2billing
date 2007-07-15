@@ -625,7 +625,7 @@ CREATE TABLE cc_server_manager (
     manager_secret      TEXT ,
     lasttime_used       TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW()
 ) WITH OIDS;
-INSERT INTO cc_server_manager (server_ip, manager_host, manager_username, manager_secret) VALUES ('default', 'localhost', 'myasterisk', 'mycode');
+INSERT INTO cc_server_manager (id_group, server_ip, manager_host, manager_username, manager_secret) VALUES (1, 'localhost', 'localhost', 'myasterisk', 'mycode');
 
 
 CREATE TABLE cc_server_group (
@@ -633,7 +633,7 @@ CREATE TABLE cc_server_group (
         name            TEXT ,
         description     TEXT
 ) WITH OIDS;
-INSERT INTO cc_server_group (name, description) VALUES ('default', 'default group of server');
+INSERT INTO cc_server_group (id, name, description) VALUES (1, 'default', 'default group of server');
 
 
     
@@ -924,3 +924,7 @@ CREATE TABLE cc_system_log (
 );
 ALTER TABLE ONLY cc_system_log
 ADD CONSTRAINT cc_system_log_pkey PRIMARY KEY (id);
+
+
+ALTER TABLE cc_iax_buddies ALTER COLUMN qualify TYPE char(7);
+ALTER TABLE cc_sip_buddies ALTER COLUMN qualify TYPE char(7);

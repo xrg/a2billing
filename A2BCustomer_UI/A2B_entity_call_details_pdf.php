@@ -5,9 +5,9 @@ include ("lib/module.access.php");
 if (!$A2B->config["webcustomerui"]['invoice']) exit();
 
 if (! has_rights (ACX_ACCESS)){ 
-	   Header ("HTTP/1.0 401 Unauthorized");
-	   Header ("Location: PP_error.php?c=accessdenied");
-	   die();
+	Header ("HTTP/1.0 401 Unauthorized");
+	Header ("Location: PP_error.php?c=accessdenied");	   
+	die();
 }
 
 getpost_ifset(array('customer', 'posted', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth', 'tostatsmonth', 'fromday', 'fromstatsday_sday', 'fromstatsmonth_sday', 'today', 'tostatsday_sday', 'tostatsmonth_sday', 'dsttype', 'sourcetype', 'clidtype', 'channel', 'resulttype', 'stitle', 'atmenu', 'current_page', 'order', 'sens', 'dst', 'src', 'clid', 'fromstatsmonth_sday', 'fromstatsmonth_shour', 'tostatsmonth_sday', 'tostatsmonth_shour', 'srctype', 'src', 'choose_currency','exporttype','terminatecause'));
@@ -181,22 +181,17 @@ if (!isset ($FG_TABLE_CLAUSE) || strlen($FG_TABLE_CLAUSE)==0){
 		$FG_TABLE_CLAUSE=" $UNIX_TIMESTAMP(t1.starttime) >= $UNIX_TIMESTAMP('$cc_yearmonth')";
 }
 
-if (isset($customer)  &&  ($customer>0)){
-	if (strlen($FG_TABLE_CLAUSE)>0) $FG_TABLE_CLAUSE.=" AND ";
-	$FG_TABLE_CLAUSE.="t1.username='$customer'";
-}else{
-	if (isset($entercustomer)  &&  ($entercustomer>0)){
-		if (strlen($FG_TABLE_CLAUSE)>0) $FG_TABLE_CLAUSE.=" AND ";
-		$FG_TABLE_CLAUSE.="t1.username='$entercustomer'";
-	}
-}
+
+if (strlen($FG_TABLE_CLAUSE)>0) $FG_TABLE_CLAUSE.=" AND ";
+$FG_TABLE_CLAUSE.="t1.username='$customer'";
+
 
 if (!isset($terminatecause)){
 	$terminatecause="ALL";
 }
 if ($terminatecause=="ANSWER") {
 	if (strlen($FG_TABLE_CLAUSE)>0) $FG_TABLE_CLAUSE.=" AND ";
-	$FG_TABLE_CLAUSE.=" t1.terminatecause='ANSWER' OR t1.terminatecause='ANSWERED' ";
+	$FG_TABLE_CLAUSE.=" (t1.terminatecause='ANSWER' OR t1.terminatecause='ANSWERED') ";
 }
 
 $FG_TABLE_CLAUSE_NORMAL = $FG_TABLE_CLAUSE ." AND t1.sipiax not in (2,3)";

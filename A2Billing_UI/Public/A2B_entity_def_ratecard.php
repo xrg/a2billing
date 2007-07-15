@@ -211,7 +211,7 @@ if ($form_action == "list"){
 				<input name="mode[upd_buyrate]" type="hidden" value="2">
 		  </td>
 		  <td align="left"  bgcolor="#cccccc">	
-			  <font class="fontstyle_009">	3) <?php echo gettext("BUYRATE");?> :</font>
+			  <font class="fontstyle_009">	3) <?php echo gettext("BUYING RATE");?> :</font>
 					<input class="form_enter" name="upd_buyrate" size="10" maxlength="10" style="border: 2px inset rgb(204, 51, 0);" value="<?php if (isset($upd_buyrate)) echo $upd_buyrate; else echo '0';?>">
 				<font class="version">
 				<input type="radio" NAME="type[upd_buyrate]" value="1" <?php if((!isset($type["upd_buyrate"]))|| ($type["upd_buyrate"]==1) ){?>checked<?php }?>><?php echo gettext("Equal");?>
@@ -226,7 +226,7 @@ if ($form_action == "list"){
 				<input name="mode[upd_buyrateinitblock]" type="hidden" value="2">
 		  </td>
 		  <td align="left"  bgcolor="#cccccc">
-			  	<font class="fontstyle_009">4) <?php echo gettext("BUYRATEINITBLOCK");?> :</font>
+			  	<font class="fontstyle_009">4) <?php echo gettext("BUYRATE MIN DURATION");?> :</font>
 					<input class="form_enter" name="upd_buyrateinitblock" size="10" maxlength="10" style="border: 2px inset rgb(204, 51, 0);" value="<?php if (isset($upd_buyrateinitblock)) echo $upd_buyrateinitblock; else echo '0';?>">
 				<font class="version">
 				<input type="radio" NAME="type[upd_buyrateinitblock]" value="1" <?php if((!isset($type["upd_buyrateinitblock"]))|| ($type["upd_buyrateinitblock"]==1) ){?>checked<?php }?>> <?php echo gettext("Equal");?>
@@ -241,7 +241,7 @@ if ($form_action == "list"){
 				<input name="mode[upd_buyrateincrement]" type="hidden" value="2">
 		  </td>
 		  <td align="left"  bgcolor="#cccccc">	
-			  	<font class="fontstyle_009">5) <?php echo gettext("BUYRATEINCREMENT");?> :</font>
+			  	<font class="fontstyle_009">5) <?php echo gettext("BUYRATE BILLING BLOCK");?> :</font>
 					<input class="form_enter" name="upd_buyrateincrement" size="10" maxlength="10" style="border: 2px inset rgb(204, 51, 0);" value="<?php if (isset($upd_buyrateincrement)) echo $upd_buyrateincrement; else echo '0';?>">
 				<font class="version">
 				<input type="radio" NAME="type[upd_buyrateincrement]" value="1" <?php if((!isset($type["upd_buyrateincrement"]))|| ($type["upd_buyrateincrement"]==1) ){?>checked<?php }?>> <?php echo gettext("Equal");?>
@@ -256,7 +256,7 @@ if ($form_action == "list"){
 				<input name="mode[upd_rateinitial]" type="hidden" value="2">
 		  </td>
 		  <td align="left"  class="bgcolor_001">
-				<font class="fontstyle_009">6) <?php echo gettext("RATE INITIAL");?> :</font>
+				<font class="fontstyle_009">6) <?php echo gettext("SELLING RATE");?> :</font>
 				 	<input class="form_enter" name="upd_rateinitial" size="10" maxlength="10" style="border: 2px inset rgb(204, 51, 0);" value="<?php if (isset($upd_rateinitial)) echo $upd_rateinitial; else echo '0';?>" >
 				<font class="version">
 				<input type="radio" NAME="type[upd_rateinitial]" value="1" <?php if((!isset($type[upd_rateinitial]))|| ($type[upd_rateinitial]==1) ){?>checked<?php }?>> <?php echo gettext("Equal");?>
@@ -272,7 +272,7 @@ if ($form_action == "list"){
 		  </td>
 		  <td align="left"  bgcolor="#cccccc">	
 				
-				<font class="fontstyle_009">7) <?php echo gettext("MIN DURATION");?>  :</font>
+				<font class="fontstyle_009">7) <?php echo gettext("SELLRATE MIN DURATION");?>  :</font>
 				 	<input class="form_enter" name="upd_initblock" size="10" maxlength="10" style="border: 2px inset rgb(204, 51, 0);" value="<?php if (isset($upd_initblock)) echo $upd_initblock; else echo '0';?>" >
 				<font class="version">
 				<input type="radio" NAME="type[upd_initblock]" value="1" <?php if((!isset($type[upd_initblock]))|| ($type[upd_initblock]==1) ){?>checked<?php }?>>  <?php echo gettext("Equal");?>
@@ -288,7 +288,7 @@ if ($form_action == "list"){
 		  </td>
 		  <td align="left"  bgcolor="#cccccc">	
 				
-				<font class="fontstyle_009">8) <?php echo gettext("BILLINGBLOCK");?>  :</font>
+				<font class="fontstyle_009">8) <?php echo gettext("SELLRATE BILLING BLOCK");?>  :</font>
 				 	<input class="form_enter" name="upd_billingblock" size="10" maxlength="10" style="border: 2px inset rgb(204, 51, 0);" value="<?php if (isset($upd_billingblock)) echo $upd_billingblock; else echo '0';?>" >
 				<font class="version">
 				<input type="radio" NAME="type[upd_billingblock]" value="1" <?php if((!isset($type[upd_billingblock]))|| ($type[upd_billingblock]==1) ){?>checked<?php }?>> <?php echo gettext("Equal");?>
@@ -303,7 +303,7 @@ if ($form_action == "list"){
 				<input name="mode[upd_connectcharge]" type="hidden" value="2">
 		  </td>
 		  <td align="left"  class="bgcolor_001">
-				<font class="fontstyle_009">9) <?php echo gettext("CONNECTCHARGE");?>  :</font>
+				<font class="fontstyle_009">9) <?php echo gettext("CONNECT CHARGE");?>  :</font>
 				 	<input class="form_enter" name="upd_connectcharge" size="10" maxlength="10" style="border: 2px inset rgb(204, 51, 0);" value="<?php if (isset($upd_connectcharge)) echo $upd_connectcharge; else echo '0';?>" >
 				<font class="version">
 				<input type="radio" NAME="type[upd_connectcharge]" value="1" <?php if((!isset($type[upd_connectcharge]))|| ($type[upd_connectcharge]==1) ){?>checked<?php }?>> <?php echo gettext("Equal");?>
@@ -319,7 +319,7 @@ if ($form_action == "list"){
 		  </td>
 		  <td align="left"  bgcolor="#cccccc">	
 				
-				<font class="fontstyle_009">10) <?php echo gettext("DISCONNECTCHARGE");?> :</font>
+				<font class="fontstyle_009">10) <?php echo gettext("DISCONNECT CHARGE");?> :</font>
 				 	<input class="form_enter" name="upd_disconnectcharge" size="10" maxlength="10" style="border: 2px inset rgb(204, 51, 0);" value="<?php if (isset($upd_disconnectcharge)) echo $upd_disconnectcharge; else echo '0';?>" >
 				<font class="version">
 				<input type="radio" NAME="type[upd_disconnectcharge]" value="1" <?php if((!isset($type[upd_disconnectcharge]))|| ($type[upd_disconnectcharge]==1) ){?>checked<?php }?>> <?php echo gettext("Subtract");?>
@@ -364,6 +364,15 @@ $HD_Form -> create_toppage ($form_action);
 if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
 
 $HD_Form -> create_form ($form_action, $list, $id=null) ;
+
+
+// Code for the Export Functionality
+//* Query Preparation.
+$_SESSION[$HD_Form->FG_EXPORT_SESSION_VAR]= "SELECT ".$HD_Form -> FG_EXPORT_FIELD_LIST." FROM $HD_Form->FG_TABLE_NAME";
+if (strlen($HD_Form->FG_TABLE_CLAUSE)>1) 
+	$_SESSION[$HD_Form->FG_EXPORT_SESSION_VAR] .= " WHERE $HD_Form->FG_TABLE_CLAUSE ";
+if (!is_null ($HD_Form->FG_ORDER) && ($HD_Form->FG_ORDER!='') && !is_null ($HD_Form->FG_SENS) && ($HD_Form->FG_SENS!='')) 
+	$_SESSION[$HD_Form->FG_EXPORT_SESSION_VAR].= " ORDER BY $HD_Form->FG_ORDER $HD_Form->FG_SENS";
 
 
 

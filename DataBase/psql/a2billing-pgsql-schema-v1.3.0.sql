@@ -504,7 +504,7 @@ CREATE TABLE cc_sip_buddies (
     disallow character varying(100) DEFAULT 'all'::character varying,
     allow character varying(100) DEFAULT 'gsm,ulaw,alaw'::character varying,
     host character varying(31) DEFAULT ''::character varying NOT NULL,
-    qualify character varying(3) DEFAULT 'yes'::character varying NOT NULL,
+    qualify CHARACTER VARYING(7) DEFAULT 'yes'::CHARACTER varying NOT NULL,
     canreinvite character varying(3) DEFAULT 'yes'::character varying,
     callgroup character varying(10),
     context character varying(80),
@@ -549,7 +549,7 @@ CREATE TABLE cc_iax_buddies (
     disallow character varying(100) DEFAULT 'all'::character varying,
     allow character varying(100) DEFAULT 'gsm,ulaw,alaw'::character varying,
     host character varying(31) DEFAULT ''::character varying NOT NULL,
-    qualify character varying(3) DEFAULT 'yes'::character varying NOT NULL,
+    qualify CHARACTER VARYING(7) DEFAULT 'yes'::CHARACTER varying NOT NULL,
     canreinvite character varying(3) DEFAULT 'yes'::character varying,
     callgroup character varying(10),
     context character varying(80),
@@ -1681,7 +1681,7 @@ CREATE TABLE cc_server_manager (
     manager_secret 					TEXT ,
 	lasttime_used		 			TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW()
 ) WITH OIDS;
-INSERT INTO cc_server_manager (server_ip, manager_host, manager_username, manager_secret) VALUES ('default', 'localhost', 'myasterisk', 'mycode');
+INSERT INTO cc_server_manager (id_group, server_ip, manager_host, manager_username, manager_secret) VALUES (1, 'localhost', 'localhost', 'myasterisk', 'mycode');
 
 
 CREATE TABLE cc_server_group (
@@ -1689,7 +1689,7 @@ CREATE TABLE cc_server_group (
 	name							TEXT ,
 	description						TEXT
 ) WITH OIDS;
-INSERT INTO cc_server_group (name, description) VALUES ('default', 'default group of server');
+INSERT INTO cc_server_group (id, name, description) VALUES (1, 'default', 'default group of server');
 
 
 

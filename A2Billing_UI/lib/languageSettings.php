@@ -24,6 +24,7 @@
 	
 	load_Lang(_("English"), "en", "english","en_US","iso88591",true,"us.gif");
 	load_Lang( _("Arabic"), "ar","arabic","en_US","iso88591",false,null);
+	load_Lang( _("Brazilian"),"br","brazilian","pt_BR","iso88591",true,"br.gif");
 	load_Lang( _("Chinese"), "zh", "chinese", "zh_TW","UTF-8",false,"cn.gif");
 	load_Lang( _("French"), "fr", "french","fr_FR","iso88591",true,"fr.gif");
 	load_Lang( _("German"),"de","german","de","iso88591",false,null);

@@ -3,19 +3,103 @@
                    			TODO LIST - SPECIFIC
 ********************************************************************************
 
-#### FILE USED ?
+#### BUG : FAILOVER
 ********************************************************************
-trunk/A2BCustomer_UI/lib/epayment/includes/PP_header.php
-trunk/A2Billing_UI/lib/epayment/includes/PP_header.php
+http://forum.asterisk2billing.org/viewtopic.php?t=2243
 
-To remove : 
-trunk/A2Billing_UI/signup/PP_footer.php
-trunk/A2Billing_UI/signup/PP_header.php
+Consider 2 trunks configured like this:
+#1: trunkprefix=8888 removeprefix=0 failover=trunk #2
+#2: trunkprefix=8889 removeprefix=0 failover=-1/none
+
+When dialing 0123456789 the call is presented to trunk #1 as it should be:
+888812345678
+
+If the call fails over each of the successive attempts will add the correct prefix, but not remove the desired digits:
+88890123456789
 
 
 
-#### NEW LOGO ON MAIN PAGE
+#### GMT
 ********************************************************************
+- we need a parameter to define the server_GMT
+- when creating a customer we need to have it as default on GMT+0
+- for signup module it can be managed with a right definition in the sql
+- call-history.php on customer dont have any GMT support on it
+
+
+#### CONFIGURATION
+********************************************************************
+- if the field is readonly : find a way maybe with css to change the backgroup color of the field like grey color
+
+- comments when u edit : "Insert the Group Name",  stuff like that when u edit -> this section is to provide a real information
+
+- dropdown value : As we have many Variables like Card_Type which can have 2 Values like postpaid & Prepaid, 
+   Our System will automatically show a Dropdown List to provide customer to select from it...
+   
+- we need a drop down for the group in list configuration   
+
+- remove the Text Area  and will make it simple Paragraph.. i will add a new type in the Framework
+  we need to show the only Description,, it should not confuse the use that either it is something to enter in database as this is description for this whole record
+
+- we want to define a concept of heritage for the AGI-Conf1, 2, 3
+using a general one agi-conf-base and we will only redefine the changes in agi-conf1, 2, etc...
+The web interface need to allow us to redefine only the parameter we want.
+
+- Change the name of list config groups to List Global Config
+
+
+
+We should get something like this at the end :
+ 
+1. In Global config (list config groups), we should be able to click on each line, and only see the settings pertaining to that section.
+ 
+2. When we click on a section, we can then edit, just as we can under list configuration, but you can only see the section you have clicked on.
+ 
+4. Beneath "List Global Config" we need a button call Add AGI-CONF - this simply creates a standard agi-conf and calls it agi-conf2 (or 3 or 4 depending on how many have been created) We will see the parameter from AGI-Conf-Base and be able to redefine and save the changes
+ 
+The new agi-conf-X can then be accessed via "List Global Config"
+this will do a SELECT of the AGI-Conf-Base and show the parameter that has been created
+ 
+5. Within each setting, where possible, the user should be restricted to valid values, e.g if the options are "yes" or "no" then there should be a dropdown that only allows "yes" or "no" and no other value is allowed.
+ 
+ 
+
+#### BUG : SIGNUP
+********************************************************************
+http://forum.asterisk2billing.org/viewtopic.php?p=7406#7406
+ we shouldn't deactivate magic_quotes_gpc at all.
+ 
+
+#### FEATURE : FRIENDS
+********************************************************************
+its really hard to identify a sip frind based on name,  make the search base on the card number
+
+#### BUG : IMPORT
+********************************************************************
+http://forum.asterisk2billing.org/viewtopic.php?t=2221
+
+
+#### TODO : CUSTOMER UI
+********************************************************************
+1. May I suggest that the only Logo's displayed on the customer interface are the payment methods that are enabled.
+
+#### TODO : GENERATE VOUCHER
+********************************************************************
+In the generate option, the tag value is set to a random ID : 1181897201
+this allow us to see exactly after the generation those that has been created!
+If someone really use the tag feature to classify his voucher, this can be bit annoying! 
+
+
+#### TODO : Detach Selling ratecard from Buying ratecard
+********************************************************************
+- you need to update the selling prices multiple times
+- you cannot really remove the sorter matching prefixes as you do right now, since one provider can have more granularity than other
+
+
+#### TODO : CallerID prefix for DIDs
+********************************************************************
+to have a CallerID prefix for DIDs, so that you might want to allocate the same DID do different persons, depending on the caller id
+
 
 
 #### A2Billing_UI/Public/index.php
@@ -45,8 +129,6 @@ Please credit your account by paying via the customer interface at http://myacco
 
 To log into your account please use your email address or card-alias ($cardalias) as your username and your password ($password) to login.
 
-For security purposes, we recommend that you change your account login password on the customer interface as soon as possible
-
 Configure your VoIP phone with the following settings.
 
 Host / SIP proxy = voip.call-labs.com
@@ -62,6 +144,8 @@ CallerID = $cardalias
 Kind regards,
 
 The Call Labs Team
+
+
 
 
 
@@ -166,12 +250,6 @@ we should not show the pay invoice button then
 is there anything in framework that support like this?
 
 
-#### FEATURES : WHOLESALE
-********************************************************************
-We may need an option like : wholesale = YES or NO
-it will not answer the line and get rid of all audio
-
-
 #### NEW TASK - NEW button style []
 ********************************************************************
 New button for edit/delete... really tiny but with text
@@ -183,6 +261,11 @@ New button for confirm Data
 add a parameter to not bill 1st if not connected
 callback_bill_1stleg_ifcall_notconnected = YES / NO
 
+
+#### multi-langague on email template
+********************************************************************
+multiple email templates based on location signup
+ie, if some one is from india, they will recieve their email in indian language
 
 
 #### Check voice one 

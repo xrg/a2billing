@@ -12,9 +12,9 @@ getpost_ifset(array('action', 'atmenu','agent' ));
 
 
 if (! has_rights (ACX_CUSTOMER)){ 
-	   Header ("HTTP/1.0 401 Unauthorized");
-	   Header ("Location: PP_error.php?c=accessdenied");
-	   die();
+	Header ("HTTP/1.0 401 Unauthorized");
+	Header ("Location: PP_error.php?c=accessdenied");	   
+	die();
 }
 
 error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
@@ -36,7 +36,6 @@ restrictcid, rtptimeout, rtpholdtimeout, musiconhold, regseconds, ipaddr, cancal
 		$html_message .=str_params(_("<p style='color: orange'>No entries for file %1 found</p>"),array($filename),1);
 		return true;
 	}
-	
 		
 	$fd=fopen($filename,"w");
 	if (!$fd){
@@ -44,7 +43,7 @@ restrictcid, rtptimeout, rtpholdtimeout, musiconhold, regseconds, ipaddr, cancal
 			array($filename),1);
 		return false;
 
-	}else{
+		}else{
 		if (isset($hdr_lines)){
 			$line=$hdr_lines."\n";
 			if (fwrite($fd, $line) === FALSE) {
@@ -53,22 +52,22 @@ restrictcid, rtptimeout, rtpholdtimeout, musiconhold, regseconds, ipaddr, cancal
 			}
 		}
 		
-		foreach ($list_friend as $data){
-			$line="\n\n[".$data[1]."]\n";
+			foreach ($list_friend as $data){
+				$line="\n\n[".$data[1]."]\n";
 			if (fwrite($fd, $line) === FALSE) {
 				$html_message .=str_params(_("<p style='color: red'>Impossible to write to file %1</p>"),array($filename),1);
 				return false;
-			}
-		
-			for ($i=1;$i<count($data)-1;$i++){
-				if (strlen($data[$i+1])>0){
-					if (trim($list_names[$i]) == 'allow'){
-						$codecs = explode(",",$data[$i+1]);
-						$line = "";
-						foreach ($codecs as $value)
-							$line .= trim($list_names[$i]).'='.$value."\n";
-					}else    $line = (trim($list_names[$i]).'='.$data[$i+1]."\n");
-					if (fwrite($fd, $line) === FALSE){
+				}
+				
+				for ($i=1;$i<count($data)-1;$i++){
+					if (strlen($data[$i+1])>0){
+						if (trim($list_names[$i]) == 'allow'){
+							$codecs = explode(",",$data[$i+1]);
+							$line = "";
+							foreach ($codecs as $value)
+								$line .= trim($list_names[$i]).'='.$value."\n";
+						}else    $line = (trim($list_names[$i]).'='.$data[$i+1]."\n");
+						if (fwrite($fd, $line) === FALSE){
 						$html_message .=str_params(_("<p style='color: red'>Impossible to write to file %1</p>"),
 							array($filename),1);
 						break;
@@ -208,79 +207,61 @@ default:
 	$error_msg = _("Unknown action:"). $action;
 }
 	
-?>
-
-
-
-<?php
 	include("PP_header.php");
-?>
-<script language="JavaScript" type="text/JavaScript">
-<!--
-function MM_openBrWindow(theURL,winName,features) { //v2.0
-  window.open(theURL,winName,features);
 }
 
-function openURL(theLINK)
-{
-      // grab index number of the selected option
-      selInd = document.theForm.choose_list.selectedIndex;
-      // get value of the selected option
-      goURL = document.theForm.choose_list.options[selInd].value;
-      // redirect browser to the grabbed value (hopefully a URL)
-     self.location.href = theLINK + goURL;
-}
-
-function openURLFilter(theLINK)
-{
-      selInd = document.theFormFilter.choose_list.selectedIndex;
-	  if(selInd==0){return false;}
-      goURL = document.theFormFilter.choose_list.options[selInd].value;
-      this.location.href = theLINK + goURL;
-}
-
-//-->
-</script>
 
            
-<?php
-	echo $CC_help_sipfriend_reload;
+echo $CC_help_sipfriend_reload;
+
 ?>
+<table width="60%" border="0" align="center" cellpadding="0" cellspacing="0" >
 
-	  <table width="<?php echo $FG_HTML_TABLE_WIDTH?>" border="0" align="center" cellpadding="0" cellspacing="0" >
-	  
-		<TR> 
-          <TD style="border-bottom: medium dotted #252525"> &nbsp;</TD>
-        </TR>
-		<tr><FORM NAME="sipfriend">
-            <td height="31" bgcolor="#CCCCCC" style="padding-left: 5px; padding-right: 3px;" align=center>
-			<br><br>
-			<b>
-			<?php 	
-				if (strlen($error_msg)>0){
-					echo $error_msg;
-				}
-				
-			?>
-			
-			
-			<br><br><br>
+<TR> 
+  <TD style="border-bottom: medium dotted #555555">&nbsp; </TD>
+</TR>
+<tr><FORM NAME="sipfriend">
+	<td height="31" class="bgcolor_001" style="padding-left: 5px; padding-right: 3px;" align=center>
+	<br><br>
+	<b>
+	<?php 	
+		if (strlen($error_msg)>0){			
+			echo $error_msg;
+		}elseif ( $action != "reload" ){		
+			if ( $atmenu == "sipfriend" ){
+				echo gettext("The sipfriend file has been generated : ").$buddyfile;
+			}else{
+				echo gettext("The iaxfriend file has been generated : ").$buddyfile;
+			}
+		
+	?>
+	
+	
+	<br><br><br>
 			<a href="<?php  echo $PHP_SELF."?atmenu=$atmenu&action=reload";?>"><img src="../Images/icon_refresh.gif" />
-				<?php echo gettext("Click here to reload Asterisk Server"); ?>
-			</a>
+		<?php echo gettext("Click here to reload Asterisk Server"); ?>
+	</a>
+	
+	<?php 
+		}else{
 			
-			<br><br><br>
-			
-			</b>
-			  </td></FORM>
-          </tr>
-	   </table>
-	  <br><br>
+			echo gettext("Asterisk has been reload!");
+		
+		}
+	?>
+	<br><br><br>
+	
+	</b>
+	  </td></FORM>
+  </tr>
+</table>
+<br><br>
 
 
-	  <br>
+<br>
 
 
 <?php
 	include("PP_footer.php");
+
 ?>
