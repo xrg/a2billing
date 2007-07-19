@@ -95,12 +95,12 @@ function Check()
 					<td class="fontstyle_searchoptions">
 						<?php echo gettext("Enter the cardnumber");?>: <INPUT TYPE="text" NAME="entercustomer" value="<?php echo $entercustomer?>" class="form_input_text">
 						<a href="#" onclick="window.open('A2B_entity_card.php?popup_select=2&popup_formname=searchform&popup_fieldname=entercustomer' , 'CardNumberSelection','scrollbars=1,width=550,height=330,top=20,left=100,scrollbars=1');"><img src="<?php echo Images_Path;?>/icon_arrow_orange.gif"></a>
-					</td>					
+					</td>
 				</tr></table></td>
-			</tr>			
+			</tr>
 			<?php  }?>
 			<tr>
-        		<td class="bgcolor_002" align="left">					 
+        		<td class="bgcolor_002" align="left">
 					<font class="fontstyle_003"> &nbsp;&nbsp;<?php echo gettext("SELECT MONTH");?></font>
 				</td>
       			<td class="bgcolor_003" align="left">
@@ -110,9 +110,9 @@ function Check()
 					<?php echo gettext("From");?> : <select name="fromstatsmonth" class="form_input_select">
 					<?php
 						$monthname = array( gettext("January"), gettext("February"),gettext("March"), gettext("April"), gettext("May"), gettext("June"), gettext("July"), gettext("August"), gettext("September"), gettext("October"), gettext("November"), gettext("December"));
-						$year_actual = date("Y");  	
+						$year_actual = date("Y");
 						for ($i=$year_actual;$i >= $year_actual-1;$i--)
-						{		   
+						{
 						   if ($year_actual==$i){
 							$monthnumber = date("n")-1; // Month number without lead 0.
 						   }else{
@@ -155,7 +155,7 @@ function Check()
         		<td class="bgcolor_004" align="left" > </td>
 
 				<td class="bgcolor_005" align="center" >
-					<input type="image"  name="image16" align="top" border="0" src="<?php echo Images_Path;?>/button-search.gif" />
+					<input type="image"  name="image16" align="top" border="0" src="../Images/button-search.png" />
 					
 	  			</td>
     		</tr>

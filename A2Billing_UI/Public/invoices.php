@@ -1,4 +1,5 @@
 <?php
+$menu_section='menu_invoicing';
 include ("../lib/defines.php");
 include ("../lib/module.access.php");
 
@@ -144,8 +145,8 @@ if ($posted==1){
 						$sql = "$sql WHERE ";
 				}
 				$sql = "$sql t1.$dbfld";
-				if (isset ($$fldtype)){                
-						switch ($$fldtype) {							
+				if (isset ($$fldtype)){
+						switch ($$fldtype) {
 				case 1:	$sql = "$sql='".$$fld."'";  break;
 				case 2: $sql = "$sql LIKE '".$$fld."%'";  break;
 				case 3: $sql = "$sql LIKE '%".$$fld."%'";  break;
@@ -246,9 +247,9 @@ if (!$nodisplay){
 		echo "Query:" . htmlspecialchars($QUERY) . "<br>Error: " . $DBHandle->ErrorMsg() . "<br>";
 	}
 	
-	if ($FG_DEBUG == 3) echo "<br>Clause : $FG_TABLE_CLAUSE";
+	if ($FG_DEBUG >2 ) echo "<br>Clause : $FG_TABLE_CLAUSE";
 	$nb_record = $instance_table -> Table_count ($DBHandle, $FG_TABLE_CLAUSE);
-if ($FG_DEBUG > 1) var_dump ($list);
+if ($FG_DEBUG > 3) var_dump ($list);
 
 }//end IF nodisplay
 
@@ -269,8 +270,8 @@ if (!$nodisplay){
 		echo "Query: " . htmlspecialchars($QUERY) . "<br>Error: " . $DBHandle->ErrorMsg() . "<br>";
 
 
-	if ($FG_DEBUG == 3) echo "<br>Clause : $FG_TABLE_CLAUSE";
-if ($FG_DEBUG > 1) var_dump ($list_total_destination);
+	if ($FG_DEBUG >1) echo "<br>Clause : $FG_TABLE_CLAUSE";
+if ($FG_DEBUG > 3) var_dump ($list_total_destination);
 }//end IF nodisplay
 
 if ($nb_record<=$FG_LIMITE_DISPLAY){ 
@@ -283,8 +284,8 @@ if ($nb_record<=$FG_LIMITE_DISPLAY){
 	}	
 }
 
-if ($FG_DEBUG == 3) echo "<br>Nb_record : $nb_record";
-if ($FG_DEBUG == 3) echo "<br>Nb_record_max : $nb_record_max";
+if ($FG_DEBUG >= 3) echo "<br>Nb_record : $nb_record";
+if ($FG_DEBUG >= 3) echo "<br>Nb_record_max : $nb_record_max";
 
 
 
@@ -372,7 +373,7 @@ if (!$nodisplay){
 		}
 	}
 	
-	if ($FG_DEBUG >= 1) var_dump ($list_total_day_charge);
+	if ($FG_DEBUG >= 3) var_dump ($list_total_day_charge);
 
 }//end IF nodisplay
 
@@ -399,7 +400,7 @@ if($exporttype!="pdf"){
 				<table width="100%" border="0" cellspacing="0" cellpadding="0"><tr>
 					<td class="fontstyle_searchoptions">
 						<?php echo gettext("Enter the cardnumber");?>: <INPUT TYPE="text" NAME="entercustomer" value="<?php echo $entercustomer?>">
-						<a href="#" onclick="window.open('A2B_entity_card.php?popup_select=2&popup_formname=myForm&popup_fieldname=entercustomer' , 'CardNumberSelection','width=550,height=330,top=20,left=100,scrollbars=1');"><img src="<?php echo Images_Path;?>/icon_arrow_orange.gif"></a>
+						<a href="#" onclick="window.open('A2B_entity_card.php?popup_select=2&popup_formname=myForm&popup_fieldname=entercustomer' , 'CardNumberSelection','width=550,height=330,top=20,left=100,scrollbars=1');"><img src="../Images/icon_arrow_orange.gif"></a>
 						
 					</td>
 					<td align="right" class="fontstyle_searchoptions">
@@ -646,7 +647,7 @@ if($exporttype!="pdf"){
 				</td>				
 				<td class="bgcolor_005" align="left" >
 					<center>
-					<input type="image"  name="image16" align="top" border="0" src="<?php echo Images_Path;?>/button-search.gif" />						
+					<input type="image"  name="image16" align="top" border="0" src="../Images/button-search.gif" />						
 					</center>	
 				</td>
 			</tr>			
@@ -692,7 +693,7 @@ if($exporttype!="pdf"){
 <br><hr width="350"><br><br>
 <table width="100%">
 <tr>
-<?php if (SHOW_ICON_INVOICE){?><td align="left"><img src="<?php echo Images_Path;?>/desktop.jpg"/> </td><?php }?>
+<?php if (SHOW_ICON_INVOICE){?><td align="left"><img src="../Images/desktop.jpg"/> </td><?php }?>
 <td align="center"  bgcolor="#fff1d1"><font color="#000000" face="verdana" size="5"> <b><?php echo gettext("B I L L I N G &nbsp;&nbsp; S E R V I C E");?> : <?php  if (strlen($info_customer[0][2])>0) echo $info_customer[0][2]; ?> </b> </td>
 </tr>
 </table>
@@ -796,7 +797,7 @@ foreach ($list_total_destination as $data){
 		<td align="right" bgcolor="#D2D8ED"><font face="verdana" size="1" color="#000000"><?php echo $data[0]?></font></td>
 		<td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right"><font face="verdana" color="#000000" size="1"><?php echo $minutes?> </font></td>
         <td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="left">
-        	<img src="<?php echo Images_Path;?>/sidenav-selected.jpg" height="6" width="<?php echo $widthbar?>">
+        	<img src="../Images/sidenav-selected.jpg" height="6" width="<?php echo $widthbar?>">
 		</td>
         <td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right"><font face="verdana" color="#000000" size="1"><?php echo $data[3]?></font></td>
         
@@ -822,7 +823,7 @@ foreach ($list_total_destination as $data){
 <br><hr width="350"><br><br>
 <table width="100%">
 <tr>
-<?php if (SHOW_ICON_INVOICE){?><td align="left"><img src="<?php echo Images_Path;?>/stock_landline-phone.jpg"/> </td>
+<?php if (SHOW_ICON_INVOICE){?><td align="left"><img src="../Images/stock_landline-phone.jpg"/> </td>
 <?php } ?>
 <td class="invoices_table4_td1"><font ><?php echo gettext("B I L L &nbsp;&nbsp;  E V O L U T I O N");?> </td>
 </tr>
@@ -884,7 +885,7 @@ foreach ($list_total_day as $data){
 		<td align="right" bgcolor="#D2D8ED"><font face="verdana" size="1" color="#000000"><?php echo $data[0]?></font></td>
 		<td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right"><font face="verdana" color="#000000" size="1"><?php echo $minutes?> </font></td>
         <td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="left">
-        	<img src="<?php echo Images_Path;?>/sidenav-selected.jpg" height="6" width="<?php echo $widthbar?>">
+        	<img src="../Images/sidenav-selected.jpg" height="6" width="<?php echo $widthbar?>">
 		</td>
         <td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right"><font face="verdana" color="#000000" size="1"><?php echo $data[3]?></font></td>
 		<td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right"><font face="verdana" color="#000000" size="1"><?php  display_2bill($data[2]) ?></font></td>
@@ -913,7 +914,7 @@ foreach ($list_total_day as $data){
 
 <table width="100%">
 <tr>
-<?php if (SHOW_ICON_INVOICE){?> <td align="left"><img src="<?php echo Images_Path;?>/kfind.jpg"/> </td> 
+<?php if (SHOW_ICON_INVOICE){?> <td align="left"><img src="../Images/kfind.jpg"/> </td> 
 <?php } ?>
 <td  class="invoices_table4_td1"><?php echo gettext("C A L L S &nbsp;&nbsp;  D E T A I L");?> </td>
 </tr>

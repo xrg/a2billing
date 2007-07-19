@@ -1,4 +1,5 @@
 <?php
+$menu_section='menu_invoicing';
 include ("../lib/defines.php");
 include ("../lib/module.access.php");
 
@@ -328,7 +329,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 				<table width="100%" border="0" cellspacing="0" cellpadding="0"><tr>
 					<td class="fontstyle_searchoptions">
 						<?php echo gettext("Enter the cardnumber");?>: <INPUT TYPE="text" NAME="entercustomer" value="<?php echo $entercustomer?>" class="form_input_text">
-						<a href="#" onclick="window.open('A2B_entity_card.php?popup_select=2&popup_formname=myForm&popup_fieldname=entercustomer' , 'CardNumberSelection','width=550,height=330,top=20,left=100,scrollbars=1');"><img src="<?php echo Images_Path;?>/icon_arrow_orange.gif"></a>
+						<a href="#" onclick="window.open('A2B_entity_card.php?popup_select=2&popup_formname=myForm&popup_fieldname=entercustomer' , 'CardNumberSelection','width=550,height=330,top=20,left=100,scrollbars=1');"><img src="../Images/icon_arrow_orange.gif"></a>
 					</td>
 			    </tr></table></td>
 			</tr>			
@@ -381,7 +382,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 				</td>				
 				<td class="bgcolor_005" align="left" >
 					<center>
-					<input type="image"  name="image16" align="top" border="0" src="<?php echo Images_Path;?>/button-search.gif" />						
+					<input type="image"  name="image16" align="top" border="0" src="../Images/button-search.gif" />						
 					</center>	
 				</td>
 			</tr>			
@@ -400,7 +401,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 <?php  if($exporttype!="pdf"){ ?>
 <table width="20%" align="center">
 <tr>
-<td> <img src="<?php echo Images_Path;?>/companylogo.gif"/> </td>
+<td> <img src="../Images/companylogo.gif"/> </td>
 </tr>
 </table>
 
@@ -780,12 +781,12 @@ if ((is_array($list_total_day_charge) && count($list_total_day_charge)>0 ) || (i
 	 <tr >
 	 <td  align="left" ><b><?php echo gettext("Status");?></b> :&nbsp; 
 	 <?php if($info_customer[0][12] == 't') {?>
-			  <img width="18" height="7" src="<?php echo Images_Path;?>/connected.gif">
+			  <img width="18" height="7" src="../Images/connected.gif">
 	 <?php }
 			else
 			{
 	 ?>
-			  <img width="18" height="7" src="<?php echo Images_Path;?>/terminated.gif">
+			  <img width="18" height="7" src="../Images/terminated.gif">
 	<?php 
 			}
 	?>
@@ -820,7 +821,7 @@ else
 <table cellpadding="0"  align="center">
 <tr>
 <td align="center">
-<img src="<?php echo Images_Path;?>/asterisk01.jpg" align="middle">
+<img src="../Images/asterisk01.jpg" align="middle">
 </td>
 </tr>
 </table>
