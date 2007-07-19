@@ -26,7 +26,7 @@ error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
 	
 include_once (dirname(__FILE__)."/libs_a2billing/db_php_lib/Class.Table.php");
 include (dirname(__FILE__)."/libs_a2billing/Class.A2Billing.php");
-include (dirname(__FILE__)."/libs_a2billing/Class.RateEngine.php");   
+include (dirname(__FILE__)."/libs_a2billing/Class.RateEngine.php");
 include (dirname(__FILE__)."/libs_a2billing/phpagi_2_14/phpagi.php");
 include (dirname(__FILE__)."/libs_a2billing/phpagi_2_14/phpagi-asmanager.php");
 include (dirname(__FILE__)."/libs_a2billing/Misc.php");
@@ -34,7 +34,7 @@ include (dirname(__FILE__)."/libs_a2billing/Misc.php");
 $charge_callback=0;
 $G_startime = time();
 $agi_date = "Release : July 2007";
-$agi_version = "Asterisk2Billing - Version 1.3.0 (Yellowjacket)";
+$agi_version = "Asterisk2Billing - Version 1.3.0xrg (Yellow-torn-jacket)";
 
 if ($argc > 1 && ($argv[1] == '--version' || $argv[1] == '-v'))
 {
