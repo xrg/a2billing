@@ -165,7 +165,7 @@ window.onload = function() { startRequest("booths.xml.php",reqStateChanged2)};
 	
 	$DBHandle  = DbConnect();
 	
-	$QUERY="SELECT id FROM cc_booth_v WHERE owner = " . trim($_SESSION["agent_id"]) . " ORDER BY id;";
+	$QUERY="SELECT id FROM cc_booth_v WHERE def_card_id IS NOT NULL AND owner = " . trim($_SESSION["agent_id"]) . " ORDER BY id;";
 		
 	$res = $DBHandle -> query($QUERY);
 

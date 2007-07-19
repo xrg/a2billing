@@ -172,7 +172,7 @@ function fmt_minutes($sessiontime){
 	if ($base_currency == NULL)
 		$base_currency = 'USD';
 	$QUERY="SELECT id, name, state, secs, format_currency(COALESCE(credit,0),'$base_currency',currency), in_now ";
-	$QUERY.=" FROM cc_booth_v WHERE owner = " . trim($_SESSION["agent_id"]) . " ORDER BY id;";
+	$QUERY.=" FROM cc_booth_v WHERE def_card_id IS NOT NULL AND owner = " . trim($_SESSION["agent_id"]) . " ORDER BY id;";
 
 	$res = $DBHandle -> query($QUERY);
 
