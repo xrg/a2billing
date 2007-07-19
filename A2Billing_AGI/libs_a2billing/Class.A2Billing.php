@@ -179,7 +179,7 @@ class A2Billing {
 	
 	/* CONSTRUCTOR */
 
-	function A2Billing() {     
+	function A2Billing() {
 		
 		//$this -> DBHandle = $DBHandle;
 		
@@ -224,6 +224,7 @@ class A2Billing {
 	 */
 	function write_log($output, $tobuffer = 1, $line_file_info = ''){
 		//$tobuffer = 0;
+		
 		if (strlen($this->log_file) > 1){
 			
 			$string_log = "[".date("d/m/Y H:i:s")."]:".$line_file_info."[CallerID:".$this->CallerID."]:[CN:".$this->cardnumber."]:[$output]\n";
@@ -246,8 +247,54 @@ class A2Billing {
 		$this->instance_table	= $instance_table;
 	}
 
+	/** \brief Sets the default value for a config entry
+		\param sect   The config section, like 'global' for the [global] section
+		\param name   the config entry name
+		\param def    Default value. If you don't mind, use 'null'.
+		\param const  If not null, set a superglobal constant with that name
+		\param handl  Special handling for the entry:
+				Values: 'error' Exit with a fatal error if var not set in config
+				        'no-set' Don't set the constant to default. $def makes no sense then.
+				        null   The defalut. Assign default etc.
+	
+		\return The value assigned to the entry
+	*/
+	function set_def_conf($sect,$name,$def,$const=null,$handl = null) {
+		if (!isset($this->config[$sect][$name])){
+			switch($handl){
+			case 'error':
+				error_log("Fatal: Config entry $sect/$name not found in config!");
+				die();
+				break;
+			case 'no-set':
+				break;
+			case null:
+			default:
+				if (defined('DEBUG_CONF') && constant('DEBUG_CONF'))
+					error_log("Warning: conf entry $sect/$name not in config, using default.");
+				$this->config[$sect][$name] = $def;
+				break;
+			}
+		}
+		// second pass
+		if (isset($this->config[$sect][$name])) {
+			if($const !=null){
+			define($const,$this->config[$sect][$name]);
+			//echo "define('$const',\$this->config[$sect][$name]);<br>\n";
+			}
+			return $this->config[$sect][$name];
+		}
+		else {
+			if($const !=null){
+			define($const,null);
+			//echo "define('$const',null);<br>\n";
+			}
+			return null;
+		}
+	}
+	
 	function load_conf( &$agi, $config=NULL, $webui=0, $idconfig=1, $optconfig=array())
-    {
+	{
 	  
 		$this -> idconfig = $idconfig;
 		// load config
@@ -255,7 +302,8 @@ class A2Billing {
 			$this->config = parse_ini_file($config, true);
 		elseif(file_exists(DEFAULT_A2BILLING_CONFIG)){
 			$this->config = parse_ini_file(DEFAULT_A2BILLING_CONFIG, true);		
-		}
+		} else
+			error_log("Cannot locate config: ". DEFAULT_A2BILLING_CONFIG);
 	  
 	  
 		// If optconfig is specified, stuff vals and vars into 'a2billing' config array.
@@ -267,6 +315,8 @@ class A2Billing {
 		
 		//Card Number Length Code
 		$card_length_range = isset($this->config['global']['interval_len_cardnumber'])?$this->config['global']['interval_len_cardnumber']:null;
+		if ($card_length_range == NULL)
+			$card_length_range='10-15';
 		$this -> cardnumber_range = $this -> splitable_data ($card_length_range);
 		
 		if(is_array($this -> cardnumber_range) && ($this -> cardnumber_range[0] >= 4))
@@ -280,124 +330,128 @@ class A2Billing {
 			echo gettext("Invalid card number lenght defined in configuration.");
 			exit;
 		}
-		if(!isset($this->config['global']['len_aliasnumber']))		$this->config['global']['len_aliasnumber'] = 15;
-		if(!isset($this->config['global']['len_voucher']))			$this->config['global']['len_voucher'] = 15;
-		if(!isset($this->config['global']['base_currency'])) 		$this->config['global']['base_currency'] = 'usd';
-		if(!isset($this->config['global']['didbilling_daytopay'])) 	$this->config['global']['didbilling_daytopay'] = 5;
-		if(!isset($this->config['global']['admin_email'])) 			$this->config['global']['admin_email'] = 'root@localhost';
+		$this->set_def_conf('global','len_aliasnumber',15,'LEN_ALIASNUMBER');
+		$this->set_def_conf('global','len_voucher',15,'LEN_VOUCHER');
+		$this->set_def_conf('global','base_currency',null,'BASE_CURRENCY','error');
+		$this->set_def_conf('global','didbilling_daytopay',5);
+		$this->set_def_conf('global','admin_email','root@localhost');
 		
 		// conf for the database connection
 		//if(!isset($this->config["database"]['hostname']))	$this->config["database"]['hostname'] = 'localhost';
-		if(!isset($this->config['database']['port']))		$this->config['database']['port'] = '5432';
-		if(!isset($this->config['database']['user']))		$this->config['database']['user'] = 'postgres';
+		$this->set_def_conf('database','port','5432','PORT');	//is that right for mysql?
+		$this->set_def_conf('database','user','a2billing','USER');	// changed from 'postgres'
 		//if(!isset($this->config["database"]['password']))	$this->config["database"]['password'] = '';
-		if(!isset($this->config['database']['dbname']))		$this->config['database']['dbname'] = 'a2billing';
-		if(!isset($this->config['database']['dbtype']))		$this->config['database']['dbtype'] = 'postgres';
+		$this->set_def_conf('database','dbname','a2billing','DBNAME');
+		$this->set_def_conf('database','dbtype','postgres','DB_TYPE');
 		
 		
 		
 		
 		// Conf for the Callback
-		if(!isset($this->config['callback']['context_callback']))	$this->config['callback']['context_callback'] = 'a2billing-callback';
-		if(!isset($this->config['callback']['ani_callback_delay']))	$this->config['callback']['ani_callback_delay'] = '10';
-		if(!isset($this->config['callback']['extension']))		$this->config['callback']['extension'] = '1000';
-		if(!isset($this->config['callback']['sec_avoid_repeate']))	$this->config['callback']['sec_avoid_repeate'] = '30';
-		if(!isset($this->config['callback']['timeout']))		$this->config['callback']['timeout'] = '20';
-		if(!isset($this->config['callback']['answer_call']))		$this->config['callback']['answer_call'] = '1';
-		if(!isset($this->config['callback']['nb_predictive_call']))	$this->config['callback']['nb_predictive_call'] = '10';
-		if(!isset($this->config['callback']['nb_day_wait_before_retry']))	$this->config['callback']['nb_day_wait_before_retry'] = '1';
-		if(!isset($this->config['callback']['context_preditctivedialer']))	$this->config['callback']['context_preditctivedialer'] = 'a2billing-predictivedialer';
-		if(!isset($this->config['callback']['predictivedialer_maxtime_tocall']))	$this->config['callback']['predictivedialer_maxtime_tocall'] = '5400';		
-		if(!isset($this->config['callback']['sec_wait_before_callback']))	$this->config['callback']['sec_wait_before_callback'] = '10';		
+		$this->set_def_conf('callback','context_callback','a2billing-callback');
+		$this->set_def_conf('callback','ani_callback_delay','10');
+		$this->set_def_conf('callback','extension','1000');
+		$this->set_def_conf('callback','sec_avoid_repeate','30');
+		$this->set_def_conf('callback','timeout','20');
+		$this->set_def_conf('callback','answer_call','1');
+		$this->set_def_conf('callback','nb_predictive_call','10');
+		$this->set_def_conf('callback','nb_day_wait_before_retry','1');
+		$this->set_def_conf('callback','context_preditctivedialer','a2billing-predictivedialer');
+		$this->set_def_conf('callback','predictivedialer_maxtime_tocall','5400');
+		$this->set_def_conf('callback','sec_wait_before_callback','10');	
 		
 		
 		
 		// Conf for the signup 
-		if(!isset($this->config['signup']['enable_signup']))$this->config['signup']['enable_signup'] = '1';
-		if(!isset($this->config['signup']['credit']))		$this->config['signup']['credit'] = '0';
-		if(!isset($this->config['signup']['tariff']))		$this->config['signup']['tariff'] = '8';
-		if(!isset($this->config['signup']['activated']))	$this->config['signup']['activated'] = 't';
-		if(!isset($this->config['signup']['simultaccess']))	$this->config['signup']['simultaccess'] = '0';
-		if(!isset($this->config['signup']['typepaid']))		$this->config['signup']['typepaid'] = '0';
-		if(!isset($this->config['signup']['creditlimit']))	$this->config['signup']['creditlimit'] = '0';
-		if(!isset($this->config['signup']['runservice']))	$this->config['signup']['runservice'] = '0';
-		if(!isset($this->config['signup']['enableexpire']))	$this->config['signup']['enableexpire'] = '0';
-		if(!isset($this->config['signup']['expiredays']))	$this->config['signup']['expiredays'] = '0';
+		$this->set_def_conf('signup','enable_signup','1');
+		$this->set_def_conf('signup','credit','0');
+		$this->set_def_conf('signup','tariff','8');
+		$this->set_def_conf('signup','activated','t');
+		$this->set_def_conf('signup','simultaccess','0');
+		$this->set_def_conf('signup','typepaid','0');
+		$this->set_def_conf('signup','creditlimit','0');
+		$this->set_def_conf('signup','runservice','0');
+		$this->set_def_conf('signup','enableexpire','0');
+		$this->set_def_conf('signup','expiredays','0');
 		
-		// Conf for Paypal 		
-		if(!isset($this->config['paypal']['item_name']))	$this->config['paypal']['item_name'] = 'Credit Purchase';
-		if(!isset($this->config['paypal']['currency_code']))	$this->config['paypal']['currency_code'] = 'USD';
-		if(!isset($this->config['paypal']['purchase_amount']))	$this->config['paypal']['purchase_amount'] = '5;10;15';
-		if(!isset($this->config['paypal']['paypal_fees']))   $this->config['paypal']['paypal_fees'] = '1';
+		$this->set_def_conf('epayment_method','purchase_amount',null,'EPAYMENT_PURCHASE_AMOUNT');
+		
+		// Conf for Paypal
+		$this->set_def_conf('paypal','item_name','Credit Purchase');
+		$this->set_def_conf('paypal','currency_code','USD');
+		$this->set_def_conf('paypal','purchase_amount','5;10;15');
+		$this->set_def_conf('paypal','paypal_fees','1');
 		
 		// Conf for Backup
-		if(!isset($this->config['backup']['backup_path']))	$this->config['backup']['backup_path'] ='/tmp';
-		if(!isset($this->config['backup']['gzip_exe']))		$this->config['backup']['gzip_exe'] ='/bin/gzip';
-		if(!isset($this->config['backup']['gunzip_exe']))	$this->config['backup']['gunzip_exe'] ='/bin/gunzip';
-		if(!isset($this->config['backup']['mysqldump']))	$this->config['backup']['mysqldump'] ='/usr/bin/mysqldump';
-		if(!isset($this->config['backup']['pg_dump']))		$this->config['backup']['pg_dump'] ='/usr/bin/pg_dump';
-		if(!isset($this->config['backup']['mysql']))		$this->config['backup']['mysql'] ='/usr/bin/mysql';
-		if(!isset($this->config['backup']['psql']))		$this->config['backup']['psql'] ='/usr/bin/psql';
+		$this->set_def_conf('backup','backup_path','/tmp');
+		$this->set_def_conf('backup','gzip_exe','/bin/gzip');
+		$this->set_def_conf('backup','gunzip_exe','/bin/gunzip');
+		$this->set_def_conf('backup','mysqldump','/usr/bin/mysqldump');
+		$this->set_def_conf('backup','pg_dump','/usr/bin/pg_dump');
+		$this->set_def_conf('backup','mysql','/usr/bin/mysql');
+		$this->set_def_conf('backup','psql','/usr/bin/psql');
 	
 		
 		// Conf for Customer Web UI
-		if(!isset($this->config['webcustomerui']['customerinfo']))	$this->config['webcustomerui']['customerinfo'] = '1';
-		if(!isset($this->config['webcustomerui']['sipiaxinfo']))	$this->config['webcustomerui']['sipiaxinfo'] = '1';
-		if(!isset($this->config['webcustomerui']['personalinfo']))	$this->config['webcustomerui']['personalinfo'] = '1';
-		if(!isset($this->config['webcustomerui']['cdr']))		$this->config['webcustomerui']['cdr'] = '1';
-		if(!isset($this->config['webcustomerui']['invoice']))		$this->config['webcustomerui']['invoice'] = '1';		
-		if(!isset($this->config['webcustomerui']['voucher']))		$this->config['webcustomerui']['voucher'] = '1';
-		if(!isset($this->config['webcustomerui']['paypal']))		$this->config['webcustomerui']['paypal'] = '1';
-		if(!isset($this->config['webcustomerui']['speeddial']))		$this->config['webcustomerui']['speeddial'] = '1';
-		if(!isset($this->config['webcustomerui']['did']))		$this->config['webcustomerui']['did'] = '1';
-		if(!isset($this->config['webcustomerui']['ratecard']))		$this->config['webcustomerui']['ratecard'] = '1';
-		if(!isset($this->config['webcustomerui']['simulator']))		$this->config['webcustomerui']['simulator'] = '1';
-		if(!isset($this->config['webcustomerui']['callback']))		$this->config['webcustomerui']['callback'] = '1';
-		if(!isset($this->config['webcustomerui']['predictivedialer']))	$this->config['webcustomerui']['predictivedialer'] = '1';
-		if(!isset($this->config['webcustomerui']['webphone']))		$this->config['webcustomerui']['webphone'] = '1';
-		if(!isset($this->config['webcustomerui']['callerid']))		$this->config['webcustomerui']['callerid'] = '1';
-		if(!isset($this->config['webcustomerui']['limit_callerid']))	$this->config['webcustomerui']['limit_callerid'] = '5';
-		if(!isset($this->config['webcustomerui']['error_email']))	$this->config['webcustomerui']['error_email'] = 'root@localhost';
+		$this->set_def_conf('webcustomerui','customerinfo','1');
+		$this->set_def_conf('webcustomerui','sipiaxinfo','1');
+		$this->set_def_conf('webcustomerui','personalinfo','1');
+		$this->set_def_conf('webcustomerui','cdr','1');
+		$this->set_def_conf('webcustomerui','invoice','1');
+		$this->set_def_conf('webcustomerui','voucher','1');
+		$this->set_def_conf('webcustomerui','paypal','1');
+		$this->set_def_conf('webcustomerui','speeddial','1');
+		$this->set_def_conf('webcustomerui','did','1');
+		$this->set_def_conf('webcustomerui','ratecard','1');
+		$this->set_def_conf('webcustomerui','simulator','1');
+		$this->set_def_conf('webcustomerui','callback','1');
+		$this->set_def_conf('webcustomerui','predictivedialer','1');
+		$this->set_def_conf('webcustomerui','webphone','1');
+		$this->set_def_conf('webcustomerui','callerid','1');
+		$this->set_def_conf('webcustomerui','limit_callerid','5');
+		$this->set_def_conf('webcustomerui','error_email','root@localhost');
 		
 		// conf for the web ui
-		if(!isset($this->config['webui']['buddy_sip_file']))		$this->config['webui']['buddy_sip_file'] = '/etc/asterisk/additional_a2billing_sip.conf';
-		if(!isset($this->config['webui']['buddy_iax_file']))		$this->config['webui']['buddy_iax_file'] = '/etc/asterisk/additional_a2billing_iax.conf';
-		if(!isset($this->config['webui']['api_logfile']))		$this->config['webui']['api_logfile'] = '/tmp/api_ecommerce_request.log';
-		if(isset($this->config['webui']['api_ip_auth']))		$this->config['webui']['api_ip_auth'] = explode(";", $this->config['webui']['api_ip_auth']);
+		$this->set_def_conf('webui','buddy_sip_file', '/etc/asterisk/additional_a2billing_sip.conf');
+		$this->set_def_conf('webui','buddy_iax_file', '/etc/asterisk/additional_a2billing_iax.conf');
+		$this->set_def_conf('webui','api_logfile', '/tmp/api_ecommerce_request.log');
+		if(isset($this->config['webui']['api_ip_auth']))
+			$this->config['webui']['api_ip_auth'] = explode(";", $this->config['webui']['api_ip_auth']);
 		
-		if(!isset($this->config['webui']['dir_store_mohmp3']))		$this->config['webui']['dir_store_mohmp3'] = '/var/lib/asterisk/mohmp3';
-		if(!isset($this->config['webui']['num_musiconhold_class']))	$this->config['webui']['num_musiconhold_class'] = 10;
-		if(!isset($this->config['webui']['show_help']))			$this->config['webui']['show_help'] = 1;
-		if(!isset($this->config['webui']['my_max_file_size_import']))	$this->config['webui']['my_max_file_size_import'] = 1024000;
-		if(!isset($this->config['webui']['dir_store_audio']))		$this->config['webui']['dir_store_audio'] = '/var/lib/asterisk/sounds/a2billing';
-		if(!isset($this->config['webui']['my_max_file_size_audio']))	$this->config['webui']['my_max_file_size_audio'] = 3072000;
+		$this->set_def_conf('webui','dir_store_mohmp3','/var/lib/asterisk/mohmp3');
+		$this->set_def_conf('webui','num_musiconhold_class', 10,'NUM_MUSICONHOLD_CLASS');
+		$this->set_def_conf('webui','show_help', 1,'SHOW_HELP');
+		$this->set_def_conf('webui','my_max_file_size_import', 1024000);
+		$this->set_def_conf('webui','dir_store_audio', '/var/lib/asterisk/sounds/a2billing');
+		$this->set_def_conf('webui','my_max_file_size_audio', 3072000,'MY_MAX_FILE_SIZE_AUDIO');
 
-		if(isset($this->config['webui']['file_ext_allow']))		$this->config['webui']['file_ext_allow'] = explode(",", $this->config['webui']['file_ext_allow']);
+		if(isset($this->config['webui']['file_ext_allow']))
+			$this->config['webui']['file_ext_allow'] = explode(",", $this->config['webui']['file_ext_allow']);
 		else $this->config['webui']['file_ext_allow'] = explode(",", "gsm, mp3, wav");
 		
 		if(isset($this->config['webui']['file_ext_allow_musiconhold']))	$this->config['webui']['file_ext_allow_musiconhold'] = explode(",", $this->config['webui']['file_ext_allow_musiconhold']);
 		else $this->config['webui']['file_ext_allow_musiconhold'] = explode(",", "mp3");
 
-		if(!isset($this->config['webui']['show_top_frame'])) 		$this->config['webui']['show_top_frame'] = 1;
-		if(!isset($this->config['webui']['currency_choose'])) 		$this->config['webui']['currency_choose'] = 'all';
-		if(!isset($this->config['webui']['card_export_field_list']))	$this->config['webui']['card_export_field_list'] = 'creationdate, username, credit, lastname, firstname';
-		if(!isset($this->config['webui']['voucher_export_field_list']))	$this->config['webui']['voucher_export_field_list'] = 'id, voucher, credit, tag, activated, usedcardnumber, usedate, currency';
-		if(!isset($this->config['webui']['advanced_mode']))				$this->config['webui']['advanced_mode'] = 0;
-		if(!isset($this->config['webui']['delete_fk_card']))			$this->config['webui']['delete_fk_card'] = 1;	
+		$this->set_def_conf('webui','show_top_frame', 1,'SHOW_TOP_FRAME');
+		$this->set_def_conf('webui','currency_choose', 'all','CURRENCY_CHOOSE');
+		$this->set_def_conf('webui','card_export_field_list', 'creationdate, username, credit, lastname, firstname');
+		$this->set_def_conf('webui','voucher_export_field_list', 'id, voucher, credit, tag, activated, usedcardnumber, usedate, currency');
+		$this->set_def_conf('webui','advanced_mode', 0,'ADVANCED_MODE');
+		$this->set_def_conf('webui','delete_fk_card', 1);
 
 		  
 		// conf for the recurring process
-		if(!isset($this->config["recprocess"]['batch_log_file'])) 	$this->config["recprocess"]['batch_log_file'] = '/tmp/batch-a2billing.log';
+		$this->set_def_conf("recprocess",'batch_log_file', '/tmp/batch-a2billing.log');
 		
 		// conf for the peer_friend
-		if(!isset($this->config['peer_friend']['type'])) 		$this->config['peer_friend']['type'] = 'friend';
-		if(!isset($this->config['peer_friend']['allow'])) 		$this->config['peer_friend']['allow'] = 'ulaw, alaw, gsm, g729';
-		if(!isset($this->config['peer_friend']['context'])) 	$this->config['peer_friend']['context'] = 'a2billing';
-		if(!isset($this->config['peer_friend']['nat'])) 		$this->config['peer_friend']['nat'] = 'yes';
-		if(!isset($this->config['peer_friend']['amaflags'])) 	$this->config['peer_friend']['amaflags'] = 'billing';
-		if(!isset($this->config['peer_friend']['qualify'])) 	$this->config['peer_friend']['qualify'] = 'yes';
-		if(!isset($this->config['peer_friend']['host'])) 		$this->config['peer_friend']['host'] = 'dynamic';
-		if(!isset($this->config['peer_friend']['dtmfmode'])) 	$this->config['peer_friend']['dtmfmode'] = 'RFC2833';
+		$this->set_def_conf('peer_friend','type', 'friend');
+		$this->set_def_conf('peer_friend','allow', 'ulaw, alaw, gsm, g729');
+		$this->set_def_conf('peer_friend','context', 'a2billing');
+		$this->set_def_conf('peer_friend','nat', 'yes');
+		$this->set_def_conf('peer_friend','amaflags', 'billing');
+		$this->set_def_conf('peer_friend','qualify', 'yes');
+		$this->set_def_conf('peer_friend','host', 'dynamic');
+		$this->set_def_conf('peer_friend','dtmfmode', 'RFC2833');
 		
 		
 		// conf for the log-files
@@ -417,6 +471,8 @@ class A2Billing {
 		if(!isset($this->config['log-files']['callback_api'])) $this->config['log-files']['callback_api'] = '/tmp/api_callback_request.log';
 		if(!isset($this->config['log-files']['agi'])) $this->config['log-files']['agi'] = '/tmp/a2billing_agi.log';
 		*/
+		
+		//TODO:
 		if(isset($this->config['log-files']['agi']) && strlen ($this->config['log-files']['agi']) > 1)
 		{
 			$this -> log_file = $this -> config['log-files']['agi'];
@@ -437,73 +493,74 @@ class A2Billing {
 		
 		
 		// conf for the AGI
-		if(!isset($this->config["agi-conf$idconfig"]['play_audio'])) 	$this->config["agi-conf$idconfig"]['play_audio'] = 1;
-		define ("PLAY_AUDIO", 											$this->config["agi-conf$idconfig"]['play_audio']);
+		$str_agiconf="agi-conf$idconfig";
+		$this->set_def_conf($str_agiconf,'play_audio',1,'PLAY_AUDIO');
 		
-		if(!isset($this->config["agi-conf$idconfig"]['debug'])) 	$this->config["agi-conf$idconfig"]['debug'] = false;
-		if(!isset($this->config["agi-conf$idconfig"]['logger_enable'])) $this->config["agi-conf$idconfig"]['logger_enable'] = 1;
-		if(!isset($this->config["agi-conf$idconfig"]['log_file'])) $this->config["agi-conf$idconfig"]['log_file'] = '/tmp/a2billing.log';
+		$this->set_def_conf($str_agiconf,'debug', false);
+		$this->set_def_conf($str_agiconf,'logger_enable', 1);
+		$this->set_def_conf($str_agiconf,'log_file', '/tmp/a2billing.log');
 		
-		if(!isset($this->config["agi-conf$idconfig"]['answer_call'])) $this->config["agi-conf$idconfig"]['answer_call'] = 1;
-		if(!isset($this->config["agi-conf$idconfig"]['auto_setcallerid'])) $this->config["agi-conf$idconfig"]['auto_setcallerid'] = 1;
-		if(!isset($this->config["agi-conf$idconfig"]['say_goodbye'])) $this->config["agi-conf$idconfig"]['say_goodbye'] = 0;
-		if(!isset($this->config["agi-conf$idconfig"]['play_menulanguage'])) $this->config["agi-conf$idconfig"]['play_menulanguage'] = 0;
-		if(!isset($this->config["agi-conf$idconfig"]['force_language'])) $this->config["agi-conf$idconfig"]['force_language'] = 'EN';
-		if(!isset($this->config["agi-conf$idconfig"]['min_credit_2call'])) $this->config["agi-conf$idconfig"]['min_credit_2call'] = 0;
-		if(!isset($this->config["agi-conf$idconfig"]['min_duration_2bill'])) $this->config["agi-conf$idconfig"]['min_duration_2bill'] = 0;
+		$this->set_def_conf($str_agiconf,'answer_call', 1);
+		$this->set_def_conf($str_agiconf,'auto_setcallerid', 1);
+		$this->set_def_conf($str_agiconf,'say_goodbye', 0);
+		$this->set_def_conf($str_agiconf,'play_menulanguage', 0);
+		$this->set_def_conf($str_agiconf,'force_language', 'EN');
+		$this->set_def_conf($str_agiconf,'min_credit_2call', 0);
+		$this->set_def_conf($str_agiconf,'min_duration_2bill', 0);
 		
-		if(!isset($this->config["agi-conf$idconfig"]['use_dnid'])) $this->config["agi-conf$idconfig"]['use_dnid'] = 0;
+		$this->set_def_conf($str_agiconf,'use_dnid', 0);
 		// Explode the no_auth_dnid string 
-		if(isset($this->config["agi-conf$idconfig"]['no_auth_dnid'])) $this->config["agi-conf$idconfig"]['no_auth_dnid'] = explode(",",$this->config["agi-conf$idconfig"]['no_auth_dnid']);
+		if(isset($this->config[$str_agiconf]['no_auth_dnid'])) $this->config[$str_agiconf]['no_auth_dnid'] = explode(",",$this->config[$str_agiconf]['no_auth_dnid']);
 		
 		// Explode the extracharge_did and extracharge_fee strings
-		if(isset($this->config["agi-conf$idconfig"]['extracharge_did'])) $this->config["agi-conf$idconfig"]['extracharge_did'] = explode(",",$this->config["agi-conf$idconfig"]['extracharge_did']);
-		if(isset($this->config["agi-conf$idconfig"]['extracharge_fee'])) $this->config["agi-conf$idconfig"]['extracharge_fee'] = explode(",",$this->config["agi-conf$idconfig"]['extracharge_fee']);
+		if(isset($this->config[$str_agiconf]['extracharge_did'])) $this->config[$str_agiconf]['extracharge_did'] = explode(",",$this->config[$str_agiconf]['extracharge_did']);
+		if(isset($this->config[$str_agiconf]['extracharge_fee'])) $this->config[$str_agiconf]['extracharge_fee'] = explode(",",$this->config[$str_agiconf]['extracharge_fee']);
 
-		if(!isset($this->config["agi-conf$idconfig"]['number_try'])) $this->config["agi-conf$idconfig"]['number_try'] = 3;
-		if(!isset($this->config["agi-conf$idconfig"]['say_balance_after_auth'])) $this->config["agi-conf$idconfig"]['say_balance_after_auth'] = 1;
-		if(!isset($this->config["agi-conf$idconfig"]['say_balance_after_call'])) $this->config["agi-conf$idconfig"]['say_balance_after_call'] = 0;
-		if(!isset($this->config["agi-conf$idconfig"]['say_rateinitial'])) $this->config["agi-conf$idconfig"]['say_rateinitial'] = 0;
-		if(!isset($this->config["agi-conf$idconfig"]['say_timetocall'])) $this->config["agi-conf$idconfig"]['say_timetocall'] = 1;
-		if(!isset($this->config["agi-conf$idconfig"]['cid_enable'])) $this->config["agi-conf$idconfig"]['cid_enable'] = 0;
-		if(!isset($this->config["agi-conf$idconfig"]['cid_sanitize'])) $this->config["agi-conf$idconfig"]['cid_sanitize'] = 0;
-		if(!isset($this->config["agi-conf$idconfig"]['cid_askpincode_ifnot_callerid'])) $this->config["agi-conf$idconfig"]['cid_askpincode_ifnot_callerid'] = 1;
-		if(!isset($this->config["agi-conf$idconfig"]['cid_auto_assign_card_to_cid'])) $this->config["agi-conf$idconfig"]['cid_auto_assign_card_to_cid'] = 0;
-		if(!isset($this->config["agi-conf$idconfig"]['notenoughcredit_cardnumber'])) $this->config["agi-conf$idconfig"]['notenoughcredit_cardnumber'] = 0;
-		if(!isset($this->config["agi-conf$idconfig"]['notenoughcredit_assign_newcardnumber_cid'])) $this->config["agi-conf$idconfig"]['notenoughcredit_assign_newcardnumber_cid'] = 0;
-		if(!isset($this->config["agi-conf$idconfig"]['maxtime_tocall_negatif_free_route'])) $this->config["agi-conf$idconfig"]['maxtime_tocall_negatif_free_route'] = 1800;
-		if(!isset($this->config["agi-conf$idconfig"]['callerid_authentication_over_cardnumber'])) $this->config["agi-conf$idconfig"]['callerid_authentication_over_cardnumber'] = 0;
-		if(!isset($this->config["agi-conf$idconfig"]['cid_auto_create_card_len'])) $this->config["agi-conf$idconfig"]['cid_auto_create_card_len'] = 10;
+		$this->set_def_conf($str_agiconf,'number_try', 3);
+		$this->set_def_conf($str_agiconf,'say_balance_after_auth', 1);
+		$this->set_def_conf($str_agiconf,'say_balance_after_call', 0);
+		$this->set_def_conf($str_agiconf,'say_rateinitial', 0);
+		$this->set_def_conf($str_agiconf,'say_timetocall', 1);
+		$this->set_def_conf($str_agiconf,'cid_enable', 0);
+		$this->set_def_conf($str_agiconf,'cid_sanitize', 0);
+		$this->set_def_conf($str_agiconf,'cid_askpincode_ifnot_callerid', 1);
+		$this->set_def_conf($str_agiconf,'cid_auto_assign_card_to_cid', 0);
+		$this->set_def_conf($str_agiconf,'notenoughcredit_cardnumber', 0);
+		$this->set_def_conf($str_agiconf,'notenoughcredit_assign_newcardnumber_cid', 0);
+		$this->set_def_conf($str_agiconf,'maxtime_tocall_negatif_free_route', 1800);
+		$this->set_def_conf($str_agiconf,'callerid_authentication_over_cardnumber', 0);
+		$this->set_def_conf($str_agiconf,'cid_auto_create_card_len', 10);
 		
-		if(!isset($this->config["agi-conf$idconfig"]['sip_iax_friends'])) $this->config["agi-conf$idconfig"]['sip_iax_friends'] = 0;
-		if(!isset($this->config["agi-conf$idconfig"]['sip_iax_pstn_direct_call'])) $this->config["agi-conf$idconfig"]['sip_iax_pstn_direct_call'] = 0;
-		if(!isset($this->config["agi-conf$idconfig"]['dialcommand_param'])) $this->config["agi-conf$idconfig"]['dialcommand_param'] = '|30|HL(%timeout%:61000:30000)';
-		if(!isset($this->config["agi-conf$idconfig"]['dialcommand_param_sipiax_friend'])) $this->config["agi-conf$idconfig"]['dialcommand_param_sipiax_friend'] = '|30|HL(3600000:61000:30000)';
-		if(!isset($this->config["agi-conf$idconfig"]['switchdialcommand'])) $this->config["agi-conf$idconfig"]['switchdialcommand'] = 0;
-		if(!isset($this->config["agi-conf$idconfig"]['failover_recursive_limit'])) $this->config["agi-conf$idconfig"]['failover_recursive_limit'] = 1;
-		if(!isset($this->config["agi-conf$idconfig"]['record_call'])) $this->config["agi-conf$idconfig"]['record_call'] = 0;
-		if(!isset($this->config["agi-conf$idconfig"]['monitor_formatfile'])) $this->config["agi-conf$idconfig"]['monitor_formatfile'] = 'gsm';		
-		if(!isset($this->config["agi-conf$idconfig"]['currency_association']))	$this->config["agi-conf$idconfig"]['currency_association'] = 'all:credit';
-		$this->config["agi-conf$idconfig"]['currency_association'] = explode(",",$this->config["agi-conf$idconfig"]['currency_association']);
+		$this->set_def_conf($str_agiconf,'sip_iax_friends', 0);
+		$this->set_def_conf($str_agiconf,'sip_iax_pstn_direct_call', 0);
+		$this->set_def_conf($str_agiconf,'dialcommand_param', '|30|HL(%timeout%:61000:30000)');
+		$this->set_def_conf($str_agiconf,'dialcommand_param_sipiax_friend', '|30|HL(3600000:61000:30000)');
+		$this->set_def_conf($str_agiconf,'switchdialcommand', 0);
+		$this->set_def_conf($str_agiconf,'failover_recursive_limit', 1);
+		$this->set_def_conf($str_agiconf,'record_call', 0);
+		$this->set_def_conf($str_agiconf,'monitor_formatfile', 'gsm');
+		$this->set_def_conf($str_agiconf,'currency_association','all:credit');
+		$this->config[$str_agiconf]['currency_association'] = explode(",",$this->config[$str_agiconf]['currency_association']);
 		
-		foreach($this->config["agi-conf$idconfig"]['currency_association'] as $cur_val){
+		foreach($this->config[$str_agiconf]['currency_association'] as $cur_val){
 			$cur_val = explode(":",$cur_val);
-			$this->config["agi-conf$idconfig"]['currency_association_internal'][$cur_val[0]]=$cur_val[1];
+			$this->config[$str_agiconf]['currency_association_internal'][$cur_val[0]]=$cur_val[1];
 		}
 					
-		if(!isset($this->config["agi-conf$idconfig"]['file_conf_enter_destination']))	$this->config["agi-conf$idconfig"]['file_conf_enter_destination'] = 'prepaid-enter-number-u-calling-1-or-011';
-		if(!isset($this->config["agi-conf$idconfig"]['file_conf_enter_menulang']))	$this->config["agi-conf$idconfig"]['file_conf_enter_menulang'] = 'prepaid-menulang';		
-		if(!isset($this->config["agi-conf$idconfig"]['send_reminder'])) $this->config["agi-conf$idconfig"]['send_reminder'] = 0;
-		if(isset($this->config["agi-conf$idconfig"]['debugshell']) && $this->config["agi-conf$idconfig"]['debugshell'] == 1 && isset($agi)) $agi->nlinetoread = 0;
+		$this->set_def_conf($str_agiconf,'file_conf_enter_destination','prepaid-enter-number-u-calling-1-or-011');
+		$this->set_def_conf($str_agiconf,'file_conf_enter_menulang','prepaid-menulang');
+		$this->set_def_conf($str_agiconf,'send_reminder', 0);
+		if(isset($this->config[$str_agiconf]['debugshell']) && $this->config[$str_agiconf]['debugshell'] == 1 && isset($agi))
+			$agi->nlinetoread = 0;
 		
-		if(!isset($this->config["agi-conf$idconfig"]['ivr_voucher'])) $this->config["agi-conf$idconfig"]['ivr_voucher'] = 0;
-		if(!isset($this->config["agi-conf$idconfig"]['ivr_voucher_prefixe'])) $this->config["agi-conf$idconfig"]['ivr_voucher_prefixe'] = 8;
-		if(!isset($this->config["agi-conf$idconfig"]['jump_voucher_if_min_credit'])) $this->config["agi-conf$idconfig"]['jump_voucher_if_min_credit'] = 0;
+		$this->set_def_conf($str_agiconf,'ivr_voucher', 0);
+		$this->set_def_conf($str_agiconf,'ivr_voucher_prefixe', 8);
+		$this->set_def_conf($str_agiconf,'jump_voucher_if_min_credit', 0);
 		
-		$this->agiconfig = $this->config["agi-conf$idconfig"];
+		$this->agiconfig = $this->config[$str_agiconf];
 		
 		if (!$webui) $this->conlog('A2Billing AGI internal configuration:');
-      	if (!$webui) $this->conlog(print_r($this->agiconfig, true));
+		if (!$webui) $this->conlog(print_r($this->agiconfig, true));
     }
 	
 	/**
@@ -545,11 +602,11 @@ class A2Billing {
 			
 			$this -> languageselected = $res_dtmf ["result"];
 			
-			if  ($this->languageselected=="2")
+			if 		($this->languageselected=="2")		
 				$language = 'es';
-			elseif ($this->languageselected=="3")
+			elseif 	($this->languageselected=="3")		
 				$language = 'fr';
-			else
+			else									
 				$language = 'en';
 			
 			if($this->agiconfig['asterisk_version'] == "1_2")
@@ -1469,7 +1526,7 @@ class A2Billing {
 			$QUERY =  "SELECT cc_callerid.cid, cc_callerid.id_cc_card, cc_callerid.activated, cc_card.credit, ".
 				  " cc_card.tariff, cc_card.activated, cc_card.inuse, cc_card.simultaccess,  ".
 				  " cc_card.typepaid, cc_card.creditlimit, cc_card.language, cc_card.username, removeinterprefix, cc_card.redial, ";
-			if ($this->config["database"]['dbtype'] == "postgres"){
+			if ($this->config['database']['dbtype'] == "postgres"){	  
 				$QUERY .=  " enableexpire, date_part('epoch',expirationdate), expiredays, nbused, date_part('epoch',firstusedate), date_part('epoch',cc_card.creationdate), ";
 			}else{
 				$QUERY .=  " enableexpire, UNIX_TIMESTAMP(expirationdate), expiredays, nbused, UNIX_TIMESTAMP(firstusedate), UNIX_TIMESTAMP(cc_card.creationdate), ";
@@ -1541,7 +1598,7 @@ class A2Billing {
 				}else{
 					
 					$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[CID_CONTROL - STOP - NO CALLERID]");
-	
+							
 					// $callerID_enable=1; -> we are checking later if the callerID/accountcode has been define if not ask for pincode
 					if ($this->agiconfig['cid_askpincode_ifnot_callerid']==1) {
 						$this->accountcode='';
@@ -1552,7 +1609,7 @@ class A2Billing {
 						if ($this->agiconfig['debug']>=1) 
 							$agi->verbose('line:'.__LINE__.' - '.strtoupper($prompt));
 						//$agi->agi_exec("STREAM FILE $prompt #");
-						$agi-> stream_file($prompt, '#');
+					$agi-> stream_file($prompt, '#');
 						return -2;
 					}
 				}
@@ -1648,7 +1705,9 @@ class A2Billing {
 						return -2;
 					}
 				}
+				
 			} // elseif We -> found a card for this callerID
+			
 		}else{
 			// NO CALLERID AUTHENTICATION
 			$callerID_enable=0;
@@ -1660,7 +1719,7 @@ class A2Billing {
 		$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, ' - Account code - '.$this->accountcode);
 		if (strlen ($this->accountcode)>=1) {
 			$this->username = $this -> cardnumber = $this->accountcode;
-			for ($i=0;$i<=0;$i++){
+			for ($i=0;$i<=0;$i++){									 
 					
 				if ($callerID_enable!=1 || !is_numeric($this->CallerID) || $this->CallerID<=0){
 					
@@ -1794,7 +1853,7 @@ class A2Billing {
 				if (($retries>0) && (strlen($prompt)>0)){					
 					$agi-> stream_file($prompt, '#');					
 					$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, strtoupper($prompt));
-				}
+				}												
 				if ($res < 0) {
 					$res = -1;
 					break;
@@ -1988,7 +2047,7 @@ class A2Billing {
 	}
 	
 	
-	function callingcard_ivr_authenticate_light (&$error_msg){
+	function callingcard_ivr_authenticate_light (&$error_msg, $debug = false){
 		$res=0;
 		
 		$QUERY =  "SELECT credit, tariff, activated, inuse, simultaccess, typepaid, ";
@@ -1999,10 +2058,13 @@ class A2Billing {
 		
 		$QUERY .=  "LEFT JOIN cc_tariffgroup ON tariff=cc_tariffgroup.id WHERE username='".$this->cardnumber."'";
 			
+		if ($debug)
+			echo "<br> QUERY: ". $QUERY ."<br>";
 		$result = $this->instance_table -> SQLExec ($this->DBHandle, $QUERY);
 			
 		if( !is_array($result)) {
-			$error_msg = '<font face="Arial, Helvetica, sans-serif" size="2" color="red"><b>'.gettext("Error : Authentication Failed !!!").'</b></font><br>';
+			if ($debug) echo $this->DBHandle->ErrorMsg() . "<br>";
+			$error_msg = '<font face="Arial, Helvetica, sans-serif" size="2" color="red"><b>Error : Authentication Failed !!!</b></font><br>';
 			return 0;
 		}
 		
@@ -2033,12 +2095,14 @@ class A2Billing {
 		
 		// CHECK IF ENOUGH CREDIT TO CALL		
 		if( $this->credit <= $this->agiconfig['min_credit_2call'] && $this -> typepaid==0){
-			$error_msg = '<font face="Arial, Helvetica, sans-serif" size="2" color="red"><b>'.gettext("Error : Not enough credit to call !!!").'</b></font><br>';
+			$error_msg = '<font face="Arial, Helvetica, sans-serif" size="2" color="red"><b>' . gettext("Error : Not enough credit to call !!!") .'</b></font><br>';
+			if($debug) $error_msg .= "credit = $this->credit &lt; min_credit_2call = " .$this->agiconfig['min_credit_2call'];
 			return 0;
 		}
 		// CHECK POSTPAY
 		if( $this->typepaid==1 && $this->credit <= -$creditlimit && $creditlimit!=0){
 			$error_msg = '<font face="Arial, Helvetica, sans-serif" size="2" color="red"><b>'.gettext("Error : Not enough credit to call !!!").'</b></font><br>';
+			if($debug) $error_msg .= 'credit &lt; creditlimit';
 			return 0;
 		}
 		
@@ -2080,7 +2144,7 @@ class A2Billing {
 				}		
 			}
 		}
-		
+
 		return 1;
 	}
 
@@ -2098,11 +2162,11 @@ class A2Billing {
 				$datasource = 'pgsql://dbname='.$this->config["database"]['dbname'] .' user=' . $this->config["database"]['user'];			
 		}else{
 			$datasource = 'mysql://'.$this->config['database']['user'].':'.$this->config['database']['password'].'@'.$this->config['database']['hostname'].'/'.$this->config['database']['dbname'];
-		}
+		}		
 		$this->DBHandle = NewADOConnection($datasource);
 		if (!$this->DBHandle)
 			return false;
-	
+				
 		return true;
 	}
 	

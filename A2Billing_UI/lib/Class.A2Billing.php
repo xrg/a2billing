@@ -313,6 +313,8 @@ class A2Billing {
 		// add default values to config for uninitialized values
         
 		
+		if (isset($this->config['general']['timezone'])) // PHP >=5.1
+			date_default_timezone_set($this->config['general']['timezone']);
 		//Card Number Length Code
 		$card_length_range = isset($this->config['global']['interval_len_cardnumber'])?$this->config['global']['interval_len_cardnumber']:null;
 		if ($card_length_range == NULL)
@@ -1517,7 +1519,7 @@ class A2Billing {
 		$callerID_enable = $this->agiconfig['cid_enable'];
 		
 		
-		// 		  -%-%-%-%-%-%-		FIRST TRY WITH THE CALLERID AUTHENTICATION 	-%-%-%-%-%-%-
+		//first try with the callerid authentication
 		
 		if ($callerID_enable==1 && is_numeric($this->CallerID) && $this->CallerID>0){
 			$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[CID_ENABLE - CID_CONTROL - CID:".$this->CallerID."]");
@@ -1536,7 +1538,8 @@ class A2Billing {
 						" FROM cc_callerid ".
 						" LEFT JOIN cc_card ON cc_callerid.id_cc_card=cc_card.id ".
 						" LEFT JOIN cc_tariffgroup ON cc_card.tariff=cc_tariffgroup.id ".
-						" WHERE cc_callerid.cid='".$this->CallerID."'";
+			" WHERE cc_callerid.cid=".$this->DBHandle->Quote($this->CallerID) .
+			"OR replace(cc_callerid.cid,'.','') =". $this->DBHandle->Quote($this->CallerID);
 			$result = $this->instance_table -> SQLExec ($this->DBHandle, $QUERY);
 			$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "QUERY = $QUERY\n RESULT : ".print_r($result,true));
 			
@@ -1600,15 +1603,18 @@ class A2Billing {
 					$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[CID_CONTROL - STOP - NO CALLERID]");
 							
 					// $callerID_enable=1; -> we are checking later if the callerID/accountcode has been define if not ask for pincode
-					if ($this->agiconfig['cid_askpincode_ifnot_callerid']==1) { $this->accountcode=''; $callerID_enable=0;}
-								
-					// REMOVE THE COMMAND BELOW IF YOU WANT TO STOP THE APP IF NO CALLERID IS AUTHENTICATE
-					/*$prompt="prepaid-auth-fail";
-					if ($this->agiconfig['debug']>=1) $this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, strtoupper($prompt));
-					$agi->agi_exec("STREAM FILE $prompt #");
+					if ($this->agiconfig['cid_askpincode_ifnot_callerid']==1) {
+						$this->accountcode='';
+						$callerID_enable=0;
+					}else {
+						// caller id not found, fail authentication!
+						$prompt="prepaid-auth-fail";
+						if ($this->agiconfig['debug']>=1) 
+							$agi->verbose('line:'.__LINE__.' - '.strtoupper($prompt));
+						//$agi->agi_exec("STREAM FILE $prompt #");
 					$agi-> stream_file($prompt, '#');
-					return -2;*/
-					
+						return -2;
+					}
 				}
 			}else{
 				// We found a card for this callerID 
@@ -1640,17 +1646,22 @@ class A2Billing {
 				$this->id_card  = $result[0][26];
 				$this->useralias = $result[0][27];
 				
-				if ($this->typepaid==1) $this->credit = $this->credit+$creditlimit;
+				if ($this->typepaid==1)
+					$this->credit = $this->credit+$creditlimit;
 				
 				// CHECK IF CALLERID ACTIVATED
-				if( $result[0][2] != "t" && $result[0][2] != "1" ) 	$prompt = "prepaid-auth-fail";
+				if( $result[0][2] != "t" && $result[0][2] != "1" )
+					$prompt = "prepaid-auth-fail";
 				
 				// CHECK credit < min_credit_2call / you have zero balance
-				if( $this->credit < $this->agiconfig['min_credit_2call'] ) $prompt = "prepaid-zero-balance";
+				if( $this->credit < $this->agiconfig['min_credit_2call'] )
+					$prompt = "prepaid-zero-balance";
 				// CHECK activated=t / CARD NOT ACTIVE, CONTACT CUSTOMER SUPPORT
-				if( $this->active != "t" && $this->active != "1" ) 	$prompt = "prepaid-auth-fail";	// not expired but inactive.. probably not yet sold.. find better prompt
+				if( $this->active != "t" && $this->active != "1" )
+					$prompt = "prepaid-auth-fail";	// not expired but inactive.. probably not yet sold.. find better prompt
 				// CHECK IF THE CARD IS USED
-				if (($isused>0) && ($simultaccess!=1))	$prompt="prepaid-card-in-use";
+				if (($isused>0) && ($simultaccess!=1))
+					$prompt="prepaid-card-in-use";
 				// CHECK FOR EXPIRATION  -  enableexpire ( 0 : none, 1 : expire date, 2 : expire days since first use, 3 : expire days since creation)
 				if ($this->enableexpire>0){
 					if ($this->enableexpire==1  && $this->expirationdate!='00000000000000' && strlen($this->expirationdate)>5){
@@ -1705,7 +1716,7 @@ class A2Billing {
 			$callerID_enable=0;
 		}
 		
-		// 		  -%-%-%-%-%-%-		CHECK IF WE CAN AUTHENTICATE THROUGH THE "ACCOUNTCODE" 	-%-%-%-%-%-%-
+		// check if we can authenticate through the "accountcode"
 		
 		$prompt_entercardnum= "prepaid-enter-pin-number";
 		$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, ' - Account code - '.$this->accountcode);
@@ -2147,12 +2158,17 @@ class A2Billing {
 		require_once('adodb/adodb.inc.php'); // AdoDB
 		
 		if ($this->config['database']['dbtype'] == "postgres"){
-			$datasource = 'pgsql://'.$this->config['database']['user'].':'.$this->config['database']['password'].'@'.$this->config['database']['hostname'].'/'.$this->config['database']['dbname'];
+			if (isset($this->config["database"]['hostname']) && (strlen($this->config["database"]['hostname'])>0))
+				$datasource = 'pgsql://'.$this->config["database"]['user'].':'.$this->config["database"]['password'].'@'.
+					$this->config["database"]['hostname'].'/'.$this->config["database"]['dbname'];
+			else
+				$datasource = 'pgsql://dbname='.$this->config["database"]['dbname'] .' user=' . $this->config["database"]['user'];			
 		}else{
 			$datasource = 'mysql://'.$this->config['database']['user'].':'.$this->config['database']['password'].'@'.$this->config['database']['hostname'].'/'.$this->config['database']['dbname'];
 		}		
 		$this->DBHandle = NewADOConnection($datasource);
-		if (!$this->DBHandle) return false;
+		if (!$this->DBHandle)
+			return false;
 				
 		return true;
 	}
