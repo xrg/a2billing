@@ -6,9 +6,9 @@ if ($totaltext == "")
 {
 	$totaltext = 0;
 }
-$HD_Form = new FormHandler("cc_card card, cc_invoices inv LEFT JOIN (SELECT * FROM cc_invoice_history GROUP BY invoiceid HAVING Max(invoicesent_date)) as his ON inv.ID = his.invoiceid ","Invoice");
+$HD_Form = new FormHandler("cc_card card, cc_invoices inv LEFT JOIN (SELECT DISTINCT ON (invoiceid) * FROM cc_invoice_history ORDER by invoiceid, invoicesent_date DESC) as his ON inv.ID = his.invoiceid ","Invoice");
 
-$HD_Form -> FG_TABLE_NAME = "cc_card card, cc_invoices inv LEFT JOIN (SELECT * FROM cc_invoice_history GROUP BY invoiceid HAVING Max(invoicesent_date)) as his ON inv.ID = his.invoiceid";
+$HD_Form -> FG_TABLE_NAME = "cc_card card, cc_invoices inv LEFT JOIN (SELECT DISTINCT ON (invoiceid) * FROM cc_invoice_history ORDER by invoiceid, invoicesent_date DESC) as his ON inv.ID = his.invoiceid";
 
 $HD_Form -> FG_TABLE_CLAUSE = " card.id = inv.cardid ";
 if (isset($entercustomer)  &&  ($entercustomer>0))
@@ -18,9 +18,9 @@ if (isset($entercustomer)  &&  ($entercustomer>0))
 
 $date_clause='';
 if (DB_TYPE == "postgres"){
-	 	$UNIX_TIMESTAMP = "";
+	$UNIX_TIMESTAMP = "";
 }else{
-		$UNIX_TIMESTAMP = "UNIX_TIMESTAMP";
+	$UNIX_TIMESTAMP = "UNIX_TIMESTAMP";
 }
 $lastdayofmonth = date("t", strtotime($tostatsmonth.'-01'));
 if (strlen($HD_Form -> FG_TABLE_CLAUSE) > 0 && $frommonth)
@@ -48,7 +48,7 @@ $HD_Form -> FG_TABLE_CLAUSE .= $date_clause;
 $HD_Form -> FG_TABLE_ID = "inv.id";
 $HD_Form -> FG_TABLE_DEFAULT_ORDER = "inv.invoicecreated_date";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
-$HD_Form -> FG_DEBUG = 0;
+$HD_Form -> FG_DEBUG = 2;
 $HD_Form -> FG_LIMITE_DISPLAY = 10;
 
 $status_list = array();
@@ -92,8 +92,8 @@ $HD_Form -> FG_DELETION = false;
 	$HD_Form -> FG_OTHER_BUTTON1_ALT = 'Details';
 	$HD_Form -> FG_OTHER_BUTTON2_ALT = 'Send';
 		
-	$HD_Form -> FG_OTHER_BUTTON1_IMG = Images_Path.'/details.gif';
-	$HD_Form -> FG_OTHER_BUTTON2_IMG = Images_Path.'/email03.gif';
+	$HD_Form -> FG_OTHER_BUTTON1_IMG = '../Images/details.png';
+	$HD_Form -> FG_OTHER_BUTTON2_IMG = '../Images/email03.png';
 
 	//$HD_Form -> FG_OTHER_BUTTON2_IMG = '';
 
@@ -115,7 +115,7 @@ if (isset($filterprefix)  &&  (strlen($filterprefix)>0)){
 $HD_Form -> FG_INTRO_TEXT_ADITION = gettext("Add a ".$HD_Form->FG_INSTANCE_NAME." now.");
 $HD_Form -> FG_TEXT_ADITION_CONFIRMATION = gettext("Your new")." ".$HD_Form->FG_INSTANCE_NAME." ".gettext("has been inserted. <br>");
 
-$HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = Images_Path . "/cormfirmboton.gif";
+$HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = "../Images/cormfirmboton.png";
 $HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT = gettext("Once you have completed the form above, click on the CONTINUE button.");
 
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
