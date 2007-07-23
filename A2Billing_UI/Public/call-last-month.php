@@ -11,7 +11,7 @@ if (! has_rights (ACX_CALL_REPORT)){
 }
 
 
-getpost_ifset(array('months_compare', 'current_page', 'fromstatsday_sday', 'fromstatsmonth_sday', 'days_compare', 'min_call', 'posted',  'dsttype', 'srctype', 'clidtype', 'channel', 'resulttype', 'stitle', 'atmenu', 'current_page', 'order', 'sens', 'dst', 'src', 'clid', 'userfieldtype', 'userfield', 'accountcodetype', 'accountcode', 'customer', 'entercustomer', 'enterprovider', 'entertrunk', 'graphtype'));
+getpost_ifset(array('months_compare', 'current_page', 'fromstatsday_sday', 'fromstatsmonth_sday', 'days_compare', 'min_call', 'posted',  'dsttype', 'srctype', 'clidtype', 'channel', 'resulttype', 'stitle', 'atmenu', 'current_page', 'order', 'sens', 'dst', 'src', 'clid', 'userfieldtype', 'userfield', 'accountcodetype', 'accountcode', 'customer', 'entercustomer', 'enterprovider', 'entertrunk', 'graphtype', 'choose_agent'));
 
 // graphtype = 1, 2, 3  
 // 1 : traffic
@@ -123,7 +123,7 @@ $FG_HTML_TABLE_WIDTH="90%";
 
 
 
-if ($FG_DEBUG == 3) echo "<br>Table : $FG_TABLE_NAME  	- 	Col_query : $FG_COL_QUERY";
+if ($FG_DEBUG >= 3) echo "<br>Table : $FG_TABLE_NAME  	- 	Col_query : $FG_COL_QUERY";
 $instance_table = new Table($FG_TABLE_NAME, $FG_COL_QUERY);
 $instance_table_graph = new Table($FG_TABLE_NAME, $FG_COL_QUERY_GRAPH);
 
@@ -172,8 +172,7 @@ if ($_POST['posted']==1){
 
 
   $SQLcmd = do_field($SQLcmd, 'dst');
-  
-  
+
 }
 
 
@@ -183,7 +182,7 @@ $date_clause='';
 
 
 
-if (!isset($months_compare)){		
+if (!isset($months_compare)){
 	$months_compare=2;
 }
 
@@ -221,7 +220,7 @@ if ($_SESSION["is_admin"] == 1)
 
 
 
-if ($FG_DEBUG == 3) echo "<br>$date_clause<br>";
+if ($FG_DEBUG >= 3) echo "<br>$date_clause<br>";
 
 
   
@@ -231,12 +230,29 @@ if (strpos($SQLcmd, 'WHERE') > 0) {
 	$FG_TABLE_CLAUSE = substr($date_clause,5); 
 }
 
+if (isset($choose_agent) && ($choose_agent != '')) {
+	switch ($choose_agent) {
+	case 'all':
+		$tmp_agent_clause = 't1.username IN (SELECT cc_card.username FROM cc_card, cc_agent_cards WHERE cc_card.id = cc_agent_cards.card_id)';
+		break;
+	case 'no':
+		$tmp_agent_clause = 't1.username NOT IN (SELECT cc_card.username FROM cc_card, cc_agent_cards WHERE cc_card.id = cc_agent_cards.card_id)';
+		break;
+	default:
+		$tmp_agent_clause = str_dbparams($DBHandle,'t1.username IN (SELECT cc_card.username FROM cc_card, cc_agent_cards WHERE cc_card.id = cc_agent_cards.card_id AND cc_agent_cards.agentid = %1)',
+			array((integer)$choose_agent ));
+		break;
+	}
+
+	if (strlen($FG_TABLE_CLAUSE)>0) $FG_TABLE_CLAUSE.=" AND ";
+	$FG_TABLE_CLAUSE.=$tmp_agent_clause;
+}
 
 
-if ($FG_DEBUG == 3) echo "<br>Clause : $FG_TABLE_CLAUSE";
+if ($FG_DEBUG >= 2) echo "<br>Clause : $FG_TABLE_CLAUSE";
 //$nb_record = $instance_table -> Table_count ($FG_TABLE_CLAUSE);
 $nb_record = count($list_total);
-if ($FG_DEBUG >= 1) var_dump ($list);
+if ($FG_DEBUG >= 4) var_dump ($list);
 
 
 
@@ -246,8 +262,8 @@ if ($nb_record<=$FG_LIMITE_DISPLAY){
 	$nb_record_max=(intval($nb_record/$FG_LIMITE_DISPLAY)+1);
 }
 
-if ($FG_DEBUG == 3) echo "<br>Nb_record : $nb_record";
-if ($FG_DEBUG == 3) echo "<br>Nb_record_max : $nb_record_max";
+if ($FG_DEBUG >= 3) echo "<br>Nb_record : $nb_record";
+if ($FG_DEBUG >= 3) echo "<br>Nb_record_max : $nb_record_max";
 
 
 /*************************************************************/
@@ -255,14 +271,19 @@ if ($FG_DEBUG == 3) echo "<br>Nb_record_max : $nb_record_max";
 
 $instance_table_customer = new Table("cc_card", "id,  username, lastname");
 
-$FG_TABLE_CLAUSE = "";
+$FG_TABLE_CLAUSE_CU = "";
 /*if ($_SESSION["is_admin"]==0){ 	
 	$FG_TABLE_CLAUSE =" IDmanager='".$_SESSION["pr_reseller_ID"]."'";	
 }*/
 
-$list_customer = $instance_table_customer -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, "id", "ASC", null, null, null, null);
+$list_customer = $instance_table_customer -> Get_list ($DBHandle, $FG_TABLE_CLAUSE_CU, "id", "ASC", null, null, null, null);
 
 $nb_customer = count($list_customer);
+
+$instance_table_agent = new Table("cc_agent", "id, name");
+$FG_TABLE_CLAUSE_AG = "";
+$list_agent = $instance_table_agent -> Get_list ($DBHandle, $FG_TABLE_CLAUSE_AG, "name", "ASC", null, null, null, null);
+$nb_agent = count($list_agent);
 
 ?>
 
@@ -349,11 +370,35 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 					</td></tr></table>
 	  			</td>
     		</tr>	
+    		
+		<tr>
+			<td align="left" valign="top" class="bgcolor_004">					
+				<font class="fontstyle_003">&nbsp;&nbsp;<?php echo gettext("AGENT");?></font>
+			</td>				
+			<td class="bgcolor_005" align="left">
+			<table width="100%" border="0" cellspacing="0" cellpadding="0"><tr>
+				<td class="fontstyle_searchoptions">
+					<?= _("Select an agent") ?>: 
+					<select name="choose_agent" size="1" class="form_enter" style="border: 2px outset rgb(204, 51, 0);">
+					<option value=''><?= _("All cards");?></option>
+					<option value='all'><?= _("All agents");?></option>
+					<option value='no'><?= _("No agent");?></option>
+					<?php
+					foreach ($list_agent as $recordset){
+					?>
+						<option class=input value='<?php echo $recordset[0]?>' ><?php echo $recordset[1]?></option>
+					<?php 	 }
+					?>
+					</select>
+				</td>
+			</tr></table></td>
+		</tr>
+
 			
 			<tr>
 				<td class="bgcolor_004" align="left" >
-					<font face="verdana" size="1" color="#ffffff"><b>&nbsp;&nbsp;<?php echo gettext("DESTINATION");?></b></font>
-				</td>				
+					<font face="verdana" ><b>&nbsp;&nbsp;<?php echo gettext("DESTINATION");?></b></font>
+				</td>
 				<td class="bgcolor_005" align="left" >
 				<table width="100%" border="0" cellspacing="0" cellpadding="0">
 				<tr><td class="fontstyle_searchoptions">&nbsp;&nbsp;<INPUT TYPE="text" NAME="dst" value="<?php echo $dst?>" class="form_input_select"></td>
@@ -362,7 +407,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 				<td  align="center" class="fontstyle_searchoptions"><input type="radio" NAME="dsttype" value="3" <?php if($dsttype==3){?>checked<?php }?>><?php echo gettext("Contains");?></td>
 				<td  align="center" class="fontstyle_searchoptions"><input type="radio" NAME="dsttype" value="4" <?php if($dsttype==4){?>checked<?php }?>><?php echo gettext("Ends with");?></td>
 				</tr></table></td>
-			</tr>			
+			</tr>
 			
 
 			<tr>
@@ -390,7 +435,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 
 <?php 
 
-if ($FG_DEBUG == 3) print_r($list);
+if ($FG_DEBUG >= 4) print_r($list);
 
 if (is_array($list) && count($list)>0){
 
@@ -516,19 +561,19 @@ foreach ($table_graph as $tkey => $data){
 <?php  if ($posted==1){ ?>
 	<center>
 	<?php echo gettext("TRAFFIC")?><br> 
-	<IMG SRC="graph_pie.php?graphtype=1&min_call=<?php echo $min_call?>&fromstatsday_sday=<?php echo $fromstatsday_sday?>&months_compare=<?php echo $months_compare?>&fromstatsmonth_sday=<?php echo $fromstatsmonth_sday?>&dsttype=<?php echo $dsttype?>&srctype=<?php echo $srctype?>&clidtype=<?php echo $clidtype?>&channel=<?php echo $channel?>&resulttype=<?php echo $resulttype?>&dst=<?php echo $dst?>&src=<?php echo $src?>&clid=<?php echo $clid?>&userfieldtype=<?php echo $userfieldtype?>&userfield=<?php echo $userfield?>&accountcodetype=<?php echo $accountcodetype?>&accountcode=<?php echo $accountcode?>&customer=<?php echo $customer?>&entercustomer=<?php echo $entercustomer?>&enterprovider=<?php echo $enterprovider?>&entertrunk=<?php echo $entertrunk?>" ALT="<?php echo gettext("Stat Graph");?>">
+	<IMG SRC="graph_pie.php?graphtype=1&min_call=<?php echo $min_call?>&fromstatsday_sday=<?php echo $fromstatsday_sday?>&months_compare=<?php echo $months_compare?>&fromstatsmonth_sday=<?php echo $fromstatsmonth_sday?>&dsttype=<?php echo $dsttype?>&srctype=<?php echo $srctype?>&clidtype=<?php echo $clidtype?>&channel=<?php echo $channel?>&resulttype=<?php echo $resulttype?>&dst=<?php echo $dst?>&src=<?php echo $src?>&clid=<?php echo $clid?>&userfieldtype=<?php echo $userfieldtype?>&userfield=<?php echo $userfield?>&accountcodetype=<?php echo $accountcodetype?>&accountcode=<?php echo $accountcode?>&customer=<?php echo $customer?>&entercustomer=<?php echo $entercustomer?>&enterprovider=<?php echo $enterprovider?>&entertrunk=<?php echo $entertrunk?>&choose_agent=<?= $choose_agent?>" ALT="<?php echo gettext("Stat Graph");?>">
 	</center>
 	<br>
 	
 	<center>
 	<?php echo gettext("PROFIT")?> <br>
-	<IMG SRC="graph_pie.php?graphtype=2&min_call=<?php echo $min_call?>&fromstatsday_sday=<?php echo $fromstatsday_sday?>&months_compare=<?php echo $months_compare?>&fromstatsmonth_sday=<?php echo $fromstatsmonth_sday?>&dsttype=<?php echo $dsttype?>&srctype=<?php echo $srctype?>&clidtype=<?php echo $clidtype?>&channel=<?php echo $channel?>&resulttype=<?php echo $resulttype?>&dst=<?php echo $dst?>&src=<?php echo $src?>&clid=<?php echo $clid?>&userfieldtype=<?php echo $userfieldtype?>&userfield=<?php echo $userfield?>&accountcodetype=<?php echo $accountcodetype?>&accountcode=<?php echo $accountcode?>&customer=<?php echo $customer?>&entercustomer=<?php echo $entercustomer?>&enterprovider=<?php echo $enterprovider?>&entertrunk=<?php echo $entertrunk?>" ALT="<?php echo gettext("Stat Graph");?>">
+	<IMG SRC="graph_pie.php?graphtype=2&min_call=<?php echo $min_call?>&fromstatsday_sday=<?php echo $fromstatsday_sday?>&months_compare=<?php echo $months_compare?>&fromstatsmonth_sday=<?php echo $fromstatsmonth_sday?>&dsttype=<?php echo $dsttype?>&srctype=<?php echo $srctype?>&clidtype=<?php echo $clidtype?>&channel=<?php echo $channel?>&resulttype=<?php echo $resulttype?>&dst=<?php echo $dst?>&src=<?php echo $src?>&clid=<?php echo $clid?>&userfieldtype=<?php echo $userfieldtype?>&userfield=<?php echo $userfield?>&accountcodetype=<?php echo $accountcodetype?>&accountcode=<?php echo $accountcode?>&customer=<?php echo $customer?>&entercustomer=<?php echo $entercustomer?>&enterprovider=<?php echo $enterprovider?>&entertrunk=<?php echo $entertrunk?>&choose_agent=<?= $choose_agent?>" ALT="<?php echo gettext("Stat Graph");?>">
 	</center>
 	
 	<br>
 		<center>
 	<?php echo gettext("SELL")?> <br>
-	<IMG SRC="graph_pie.php?graphtype=3&min_call=<?php echo $min_call?>&fromstatsday_sday=<?php echo $fromstatsday_sday?>&months_compare=<?php echo $months_compare?>&fromstatsmonth_sday=<?php echo $fromstatsmonth_sday?>&dsttype=<?php echo $dsttype?>&srctype=<?php echo $srctype?>&clidtype=<?php echo $clidtype?>&channel=<?php echo $channel?>&resulttype=<?php echo $resulttype?>&dst=<?php echo $dst?>&src=<?php echo $src?>&clid=<?php echo $clid?>&userfieldtype=<?php echo $userfieldtype?>&userfield=<?php echo $userfield?>&accountcodetype=<?php echo $accountcodetype?>&accountcode=<?php echo $accountcode?>&customer=<?php echo $customer?>&entercustomer=<?php echo $entercustomer?>&enterprovider=<?php echo $enterprovider?>&entertrunk=<?php echo $entertrunk?>" ALT="<?php echo gettext("Stat Graph");?>">
+	<IMG SRC="graph_pie.php?graphtype=3&min_call=<?php echo $min_call?>&fromstatsday_sday=<?php echo $fromstatsday_sday?>&months_compare=<?php echo $months_compare?>&fromstatsmonth_sday=<?php echo $fromstatsmonth_sday?>&dsttype=<?php echo $dsttype?>&srctype=<?php echo $srctype?>&clidtype=<?php echo $clidtype?>&channel=<?php echo $channel?>&resulttype=<?php echo $resulttype?>&dst=<?php echo $dst?>&src=<?php echo $src?>&clid=<?php echo $clid?>&userfieldtype=<?php echo $userfieldtype?>&userfield=<?php echo $userfield?>&accountcodetype=<?php echo $accountcodetype?>&accountcode=<?php echo $accountcode?>&customer=<?php echo $customer?>&entercustomer=<?php echo $entercustomer?>&enterprovider=<?php echo $enterprovider?>&entertrunk=<?php echo $entertrunk?>&choose_agent=<?= $choose_agent?>" ALT="<?php echo gettext("Stat Graph");?>">
 	</center>
 	
 <?php  } ?>

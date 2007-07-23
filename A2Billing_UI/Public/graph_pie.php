@@ -31,7 +31,7 @@ cdrasterisk=> SELECT sum(duration) FROM cdr WHERE calldate < date '2005-02-01'  
 (1 row)
 */
 
-getpost_ifset(array('months_compare', 'min_call', 'fromstatsday_sday', 'days_compare', 'fromstatsmonth_sday', 'dsttype', 'srctype', 'clidtype', 'channel', 'resulttype', 'dst', 'src', 'clid', 'userfieldtype', 'userfield', 'accountcodetype', 'accountcode', 'customer', 'entercustomer', 'enterprovider', 'entertrunk', 'graphtype'));
+getpost_ifset(array('months_compare', 'min_call', 'fromstatsday_sday', 'days_compare', 'fromstatsmonth_sday', 'dsttype', 'srctype', 'clidtype', 'channel', 'resulttype', 'dst', 'src', 'clid', 'userfieldtype', 'userfield', 'accountcodetype', 'accountcode', 'customer', 'entercustomer', 'enterprovider', 'entertrunk', 'graphtype', 'choose_agent'));
 
 // graphtype = 1, 2, 3  
 // 1 : traffic
@@ -99,16 +99,16 @@ if ( is_null ($order) || is_null($sens) ){
                 }else{
                         $sql = "$sql WHERE ";
                 }
-				$sql = "$sql $dbfld";
-				if (isset ($$fldtype)){                
+		$sql = "$sql $dbfld";
+		if (isset ($$fldtype)){
                         switch ($$fldtype) {
-							case 1:	$sql = "$sql='".$$fld."'";  break;
-							case 2: $sql = "$sql LIKE '".$$fld."%'";  break;
-							case 3: $sql = "$sql LIKE '%".$$fld."%'";  break;
-							case 4: $sql = "$sql LIKE '%".$$fld."'";
-						}
+				case 1:	$sql = "$sql='".$$fld."'";  break;
+				case 2: $sql = "$sql LIKE '".$$fld."%'";  break;
+				case 3: $sql = "$sql LIKE '%".$$fld."%'";  break;
+				case 4: $sql = "$sql LIKE '%".$$fld."'";
+			}
                 }else{ $sql = "$sql LIKE '%".$$fld."%'"; }
-		}
+	}
         return $sql;
   }  
   $SQLcmd = '';
@@ -117,12 +117,19 @@ if ( is_null ($order) || is_null($sens) ){
   
 
   if ($_GET['before']) {
-    if (strpos($SQLcmd, 'WHERE') > 0) { 	$SQLcmd = "$SQLcmd AND ";
-    }else{     								$SQLcmd = "$SQLcmd WHERE "; }
+    if (strpos($SQLcmd, 'WHERE') > 0) {
+    	$SQLcmd = "$SQLcmd AND ";
+    }else{
+	$SQLcmd = "$SQLcmd WHERE ";
+    }
     $SQLcmd = "$SQLcmd calldate<'".$_POST['before']."'";
   }
-  if ($_GET['after']) {    if (strpos($SQLcmd, 'WHERE') > 0) {      $SQLcmd = "$SQLcmd AND ";
-  } else {      $SQLcmd = "$SQLcmd WHERE ";    }
+  if ($_GET['after']) {
+      if (strpos($SQLcmd, 'WHERE') > 0) {
+            $SQLcmd = "$SQLcmd AND ";
+  } else {
+  	$SQLcmd = "$SQLcmd WHERE ";
+  }
     $SQLcmd = "$SQLcmd calldate>'".$_GET['after']."'";
   }
   //$SQLcmd = do_field($SQLcmd, 'src', 'source');
@@ -153,7 +160,6 @@ if ($_SESSION["is_admin"] == 1)
 	}
 }
 
-
 $date_clause='';
 
 $min_call= intval($min_call);
@@ -178,6 +184,20 @@ if ($current_mymonth==13) {
 		$myyear = $myyear + 1;
 }
 
+if (isset($choose_agent) && ($choose_agent != '')) {
+	switch ($choose_agent) {
+	case 'all':
+		$tmp_agent_clause = 't1.username IN (SELECT cc_card.username FROM cc_card, cc_agent_cards WHERE cc_card.id = cc_agent_cards.card_id)';
+		break;
+	case 'no':
+		$tmp_agent_clause = 't1.username NOT IN (SELECT cc_card.username FROM cc_card, cc_agent_cards WHERE cc_card.id = cc_agent_cards.card_id)';
+		break;
+	default:
+		$tmp_agent_clause = str_dbparams($DBHandle,'t1.username IN (SELECT cc_card.username FROM cc_card, cc_agent_cards WHERE cc_card.id = cc_agent_cards.card_id AND cc_agent_cards.agentid = %1)',
+			array((integer)$choose_agent ));
+		break;
+	}
+}
 
 for ($i=0; $i<$months_compare+1; $i++){
 	// creer un table legende	
@@ -215,7 +235,12 @@ for ($i=0; $i<$months_compare+1; $i++){
 		$FG_TABLE_CLAUSE = substr($date_clause,5); 
 	}
 	
-	if ($FG_DEBUG == 3) echo $FG_TABLE_CLAUSE;
+	if (isset($tmp_agent_clause)){
+		if (strlen($FG_TABLE_CLAUSE)>0) $FG_TABLE_CLAUSE.=" AND ";
+			$FG_TABLE_CLAUSE.=$tmp_agent_clause;
+	}
+
+	if ($FG_DEBUG >= 3) echo $FG_TABLE_CLAUSE;
 	
 	
 	

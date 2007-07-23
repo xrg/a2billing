@@ -10,7 +10,7 @@ if (! has_rights (ACX_CALL_REPORT)){
 	   die();
 }
 
-getpost_ifset(array('customer', 'entercustomer', 'enterprovider', 'entertrunk', 'posted', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth', 'tostatsmonth', 'fromday', 'fromstatsday_sday', 'fromstatsmonth_sday', 'today', 'tostatsday_sday', 'tostatsmonth_sday', 'dsttype', 'srctype', 'clidtype', 'channel', 'resulttype', 'stitle', 'atmenu', 'current_page', 'order', 'sens', 'dst', 'src', 'clid', 'choose_currency', 'terminatecause'));
+getpost_ifset(array('customer', 'entercustomer', 'enterprovider', 'entertrunk', 'posted', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth', 'tostatsmonth', 'fromday', 'fromstatsday_sday', 'fromstatsmonth_sday', 'today', 'tostatsday_sday', 'tostatsmonth_sday', 'dsttype', 'srctype', 'clidtype', 'channel', 'resulttype', 'stitle', 'atmenu', 'current_page', 'order', 'sens', 'dst', 'src', 'clid', 'choose_currency', 'terminatecause', 'choose_agent'));
 
 
 
@@ -166,7 +166,7 @@ $FG_HTML_TABLE_WIDTH="98%";
 
 
 
-	if ($FG_DEBUG == 3) echo "<br>Table : $FG_TABLE_NAME  	- 	Col_query : $FG_COL_QUERY";
+	if ($FG_DEBUG >= 3) echo "<br>Table : $FG_TABLE_NAME  	- 	Col_query : $FG_COL_QUERY";
 	$instance_table = new Table($FG_TABLE_NAME, $FG_COL_QUERY);
 	$instance_table_graph = new Table($FG_TABLE_NAME, $FG_COL_QUERY_GRAPH);
 
@@ -280,6 +280,24 @@ if ($_SESSION["is_admin"]==0){
 	$FG_TABLE_CLAUSE.="t1.cardID=t2.IDCust AND t2.IDmanager='".$_SESSION["pr_reseller_ID"]."'";
 	
 }
+
+if (isset($choose_agent) && ($choose_agent != '')) {
+	switch ($choose_agent) {
+	case 'all':
+		$tmp_agent_clause = 't1.username IN (SELECT cc_card.username FROM cc_card, cc_agent_cards WHERE cc_card.id = cc_agent_cards.card_id)';
+		break;
+	case 'no':
+		$tmp_agent_clause = 't1.username NOT IN (SELECT cc_card.username FROM cc_card, cc_agent_cards WHERE cc_card.id = cc_agent_cards.card_id)';
+		break;
+	default:
+		$tmp_agent_clause = str_dbparams($DBHandle,'t1.username IN (SELECT cc_card.username FROM cc_card, cc_agent_cards WHERE cc_card.id = cc_agent_cards.card_id AND cc_agent_cards.agentid = %1)',
+			array((integer)$choose_agent ));
+		break;
+	}
+
+	if (strlen($FG_TABLE_CLAUSE)>0) $FG_TABLE_CLAUSE.=" AND ";
+	$FG_TABLE_CLAUSE.=$tmp_agent_clause;
+}
 $FG_ASR_CIC_CLAUSE = $FG_TABLE_CLAUSE;
 //To select just terminatecause=ANSWER
 if (!isset($terminatecause)){
@@ -362,7 +380,8 @@ $QUERY = "SELECT substring(t1.starttime,1,10) AS day, sum(t1.sessiontime) AS cal
 
 if (!$nodisplay){
 		$res = $DBHandle -> query($QUERY);
-		$num = $res -> numRows();
+		if ($res)
+			$num = $res -> numRows();
 		for($i=0;$i<$num;$i++)
 		{				
 			$list_total_day [] =$res -> fetchRow();
@@ -370,9 +389,9 @@ if (!$nodisplay){
 
 
 
-if ($FG_DEBUG == 3) echo "<br>Clause : $FG_TABLE_CLAUSE";
+if ($FG_DEBUG >= 2) echo "<br>Clause : $FG_TABLE_CLAUSE";
 $nb_record = $instance_table -> Table_count ($DBHandle, $FG_TABLE_CLAUSE);
-if ($FG_DEBUG >= 1) var_dump ($list);
+if ($FG_DEBUG >= 4) var_dump ($list);
 
 }//end IF nodisplay
 
@@ -389,8 +408,8 @@ if ($nb_record<=$FG_LIMITE_DISPLAY){
 }
 
 
-if ($FG_DEBUG == 3) echo "<br>Nb_record : $nb_record";
-if ($FG_DEBUG == 3) echo "<br>Nb_record_max : $nb_record_max";
+if ($FG_DEBUG >= 3) echo "<br>Nb_record : $nb_record";
+if ($FG_DEBUG >= 3) echo "<br>Nb_record_max : $nb_record_max";
 
 
 /*******************   TOTAL COSTS  *****************************************
@@ -416,6 +435,11 @@ if ($_SESSION["is_admin"]==0){
 $list_customer = $instance_table_customer -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, "id", "ASC", null, null, null, null);
 
 $nb_customer = count($list_customer);
+
+$instance_table_agent = new Table("cc_agent", "id, name");
+$FG_TABLE_CLAUSE = "";
+$list_agent = $instance_table_agent -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, "name", "ASC", null, null, null, null);
+$nb_agent = count($list_agent);
 
 
 
@@ -614,7 +638,28 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 			</tr>
 			
 			
-			
+			<tr>
+				<td align="left" valign="top" class="bgcolor_004">					
+					<font class="fontstyle_003">&nbsp;&nbsp;<?php echo gettext("AGENT");?></font>
+				</td>				
+				<td class="bgcolor_005" align="left">
+				<table width="100%" border="0" cellspacing="0" cellpadding="0"><tr>
+					<td class="fontstyle_searchoptions">
+						<?= _("Select an agent") ?>: 
+						<select name="choose_agent" size="1" class="form_enter" style="border: 2px outset rgb(204, 51, 0);">
+						<option value=''><?= _("All cards");?></option>
+						<option value='all'><?= _("All agents");?></option>
+						<option value='no'><?= _("No agent");?></option>
+						<?php
+						foreach ($list_agent as $recordset){
+						?>
+							<option class=input value='<?php echo $recordset[0]?>' ><?php echo $recordset[1]?></option>
+						<?php 	 }
+						?>
+						</select>
+					</td>
+				</tr></table></td>
+			</tr>
 			
 			<!-- Select Option : to show just the Answered Calls or all calls, Result type, currencies... -->
 
