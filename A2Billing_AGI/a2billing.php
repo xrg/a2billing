@@ -142,7 +142,7 @@ if ($mode == 'standard'){
 		$status_channel=6;
 	}else{
 		$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, '[NO ANSWER CALL]');
-			$agi->exec('Progress');
+		$agi->exec('Progress');
 		$status_channel=4;
 	}
 	

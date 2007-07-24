@@ -313,6 +313,8 @@ class A2Billing {
 		// add default values to config for uninitialized values
         
 		
+		if (isset($this->config['general']['timezone'])) // PHP >=5.1
+			date_default_timezone_set($this->config['general']['timezone']);
 		//Card Number Length Code
 		$card_length_range = isset($this->config['global']['interval_len_cardnumber'])?$this->config['global']['interval_len_cardnumber']:null;
 		if ($card_length_range == NULL)
@@ -968,7 +970,7 @@ class A2Billing {
 					$QUERY .= " CURRENT_TIMESTAMP - interval '$answeredtime seconds' ";
 				}else{
 					$QUERY .= " CURRENT_TIMESTAMP - INTERVAL $answeredtime SECOND ";
-				}						
+				}
 				$QUERY .= ", '$answeredtime', '".$this->destination."', '$dialstatus', now(), '0', '0', ".
 					" '".$this->countrycode."', '".$this->subcode."', '".$this->tech." CALL', '0', '0', '0', '0', '$this->CallerID', '1' )";
 				
@@ -1097,7 +1099,7 @@ class A2Billing {
 							$QUERY .= " CURRENT_TIMESTAMP - interval '$answeredtime seconds' ";
 						}else{
 							$QUERY .= " CURRENT_TIMESTAMP - INTERVAL $answeredtime SECOND ";
-						}						
+						}
 						$QUERY .= ", '$answeredtime', '".$inst_listdestination[4]."', '$dialstatus', now(), '0', '0', ".
 							" '".$this->countrycode."', '".$this->subcode."', 'DID CALL', '0', '0', '0', '0', '$this->CallerID', '3' )";
 						
@@ -1200,8 +1202,8 @@ class A2Billing {
 		if ($fromvoucher!=1)$agi-> stream_file('prepaid-you-have', '#');
 		else $agi-> stream_file('prepaid-account_refill', '#');
 		
-		if ($units==0 && $cents==0){					
-			$agi->say_number(0);					
+		if ($units==0 && $cents==0){
+			$agi->say_number(0);
 			$agi-> stream_file($unit_audio, '#');
 		}else{
 			if ($units >= 1){
@@ -1519,7 +1521,7 @@ class A2Billing {
 		
 		//first try with the callerid authentication
 		
-		if ($callerID_enable==1 && is_numeric($this->CallerID) && $this->CallerID>0){
+		if ($callerID_enable==1 ){
 			$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[CID_ENABLE - CID_CONTROL - CID:".$this->CallerID."]");
 			$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[CID_ENABLE - CID_CONTROL - CID:".$this->CallerID."]");
 			
@@ -1536,7 +1538,8 @@ class A2Billing {
 						" FROM cc_callerid ".
 						" LEFT JOIN cc_card ON cc_callerid.id_cc_card=cc_card.id ".
 						" LEFT JOIN cc_tariffgroup ON cc_card.tariff=cc_tariffgroup.id ".
-			" WHERE cc_callerid.cid=".$this->DBHandle->Quote($this->CallerID);
+			" WHERE cc_callerid.cid=".$this->DBHandle->Quote($this->CallerID) .
+			" OR replace(cc_callerid.cid,'.','') =". $this->DBHandle->Quote($this->CallerID);
 			$result = $this->instance_table -> SQLExec ($this->DBHandle, $QUERY);
 			$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "QUERY = $QUERY\n RESULT : ".print_r($result,true));
 			
