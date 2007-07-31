@@ -8,7 +8,6 @@ getpost_ifset(array('id', 'username', 'useralias', 'uipass', 'credit', 'language
 
 
 $HD_Form = new FormHandler("cc_card","User");
-
 $HD_Form -> FG_DEBUG = 0;
 // FAQ
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "ASC";
@@ -32,6 +31,7 @@ if(strlen($callPlan_idlist) == 0)
 {
 	exit("No Call Plan Defined.");
 }
+
 
 $call_table = new Table("cc_tariffgroup", "tariffgroupname,id");
 $HD_Form -> setDBHandler (DbConnect());
