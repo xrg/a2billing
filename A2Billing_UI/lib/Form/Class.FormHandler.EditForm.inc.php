@@ -60,10 +60,10 @@ function sendtolittle(direction){
 		
 		<?php if (!$this-> FG_fit_expression[$i]  &&  isset($this-> FG_fit_expression[$i]) ){ ?>
 			<TD width="%25" valign="middle" class="form_head_red"> 		<?= $this->FG_TABLE_EDITION[$i][0]?> 		</TD>  
-		  	<TD width="%75" valign="top" class="tableBodyRight" background="<?= Images_Path;?>/background_cells_red.gif" class="text">
+		  	<TD width="%75" valign="top" class="tableBodyRight" background="../Images/background_cells_red.png" class="text">
         <?php }else{ ?>
 			<TD width="%25" valign="middle" class="form_head"> 		<?= $this->FG_TABLE_EDITION[$i][0]?> 		</TD>  
-			<TD width="%75" valign="top" class="tableBodyRight" background="<?= Images_Path;?>/background_cells.gif" class="text">
+			<TD width="%75" valign="top" class="tableBodyRight" background="../Images/background_cells.png" class="text">
 		<?php } ?>
                         <?php 
 			if ($this->FG_DEBUG >= 1) print($this->FG_TABLE_EDITION[$i][3]);
@@ -81,19 +81,19 @@ function sendtolittle(direction){
 					if($this->VALID_SQL_REG_EXP){ 
 						echo stripslashes($list[0][$i]);
 					}else{ echo $_POST[$this->FG_TABLE_ADITION[$i][1]]; }?>">
-                                	<a href="#" onclick="window.open('<?= $this->FG_TABLE_EDITION[$i][12]?>popup_formname=myForm&popup_fieldname=<?= $this->FG_TABLE_EDITION[$i][1]?>' <?= $this->FG_TABLE_EDITION[$i][7]?>);"><img src="<?= Images_Path_Main;?>/icon_arrow_orange.gif"/></a>
+                                	<a href="#" onclick="window.open('<?= $this->FG_TABLE_EDITION[$i][12]?>popup_formname=myForm&popup_fieldname=<?= $this->FG_TABLE_EDITION[$i][1]?>' <?= $this->FG_TABLE_EDITION[$i][7]?>);"><img src="../Images/icon_arrow_orange.png"/></a>
 			 <?php
 				}elseif (strtoupper ($this -> FG_TABLE_EDITION[$i][3])==strtoupper ("POPUPVALUETIME"))
 				{
                         ?>
                         <INPUT class="form_enter" name=<?php echo $this->FG_TABLE_EDITION[$i][1]?>  <?php echo $this->FG_TABLE_EDITION[$i][4]?> value="<?php if($this->VALID_SQL_REG_EXP){ echo stripslashes($list[0][$i]); }else{ echo $_POST[$this->FG_TABLE_ADITION[$i][1]]; }?>">
-                         <a href="#" onclick="window.open('<?= $this->FG_TABLE_EDITION[$i][14]?>formname=myForm&fieldname=<?= $this->FG_TABLE_EDITION[$i][1]?>' <?= $this->FG_TABLE_EDITION[$i][14]?>);"><img src="<?= Images_Path_Main;?>/icon_arrow_orange.gif"/></a>
+                         <a href="#" onclick="window.open('<?= $this->FG_TABLE_EDITION[$i][14]?>formname=myForm&fieldname=<?= $this->FG_TABLE_EDITION[$i][1]?>' <?= $this->FG_TABLE_EDITION[$i][14]?>);"><img src="../Images/icon_arrow_orange.png"/></a>
                         <?php
 				}elseif (strtoupper ($this->FG_TABLE_EDITION[$i][3])==strtoupper ("POPUPDATETIME"))
 				{
                         ?>
                          <INPUT class="form_enter" name=<?php echo $this->FG_TABLE_EDITION[$i][1]?>  <?php echo $this->FG_TABLE_EDITION[$i][4]?> value="<?php if($this->VALID_SQL_REG_EXP){ echo stripslashes($list[0][$i]); }else{ echo $_POST[$this->FG_TABLE_ADITION[$i][1]]; }?>">
-                          <a href="javascript:cal<?= $this->FG_TABLE_EDITION[$i][1]?>.popup();"><img src="img/cal.gif" width="16" height="16" border="0" title="Click Here to Pick up the date" alt="Click Here to Pick up the date"></a>
+                          <a href="javascript:cal<?= $this->FG_TABLE_EDITION[$i][1]?>.popup();"><img src="img/cal.png" width="16" height="16" border="0" title="Click Here to Pick up the date" alt="Click Here to Pick up the date"></a>
                           <script language="JavaScript">
                          <!-- // create calendar object(s) just after form tag closed
                              // specify form element as the only parameter (document.forms['formname'].elements['inputname']);
@@ -137,18 +137,19 @@ function sendtolittle(direction){
 						if (count($select_list)>0)
 						{
 							$select_number=0;
-							foreach ($select_list as $select_recordset){ 
+							if (is_array($select_list))
+							foreach ($select_list as $select_recordset){
 								$select_number++;
 								?>
-								<OPTION  value=<?= $select_recordset[1]?> <?php 
+								<option  value=<?= $select_recordset[1]?> <?php 
 									
 									if($this->VALID_SQL_REG_EXP){ 
-										if (strpos($this->FG_TABLE_EDITION[$i][4], "multiple")){										
+										if (strpos($this->FG_TABLE_EDITION[$i][4], "multiple")){
 											if (intval($select_recordset[1]) & intval($list[0][$i])) echo "selected"; 
 										}else{
-											if (strcmp($list[0][$i],$select_recordset[1])==0) echo "selected";  
+											if (strcmp($list[0][$i],$select_recordset[1])==0) echo "selected";
 										}
-									}else{ 										
+									}else{
 										if (strpos($this->FG_TABLE_EDITION[$i][4], "multiple")){
 											//if (intval($select_recordset[1]) & intval($_POST[$this->FG_TABLE_EDITION[$i][1]])) echo "selected"; 
 											if (is_array($_POST[$this->FG_TABLE_EDITION[$i][1]]) && (intval($select_recordset[1]) & array_sum($_POST[$this->FG_TABLE_EDITION[$i][1]]))) echo "selected"; 
@@ -158,7 +159,7 @@ function sendtolittle(direction){
 									}
 									  
 									// CLOSE THE <OPTION
-									echo '> ';
+									?> > <?php
 									if ($this->FG_TABLE_EDITION[$i][12] != ""){
 										$value_display = $this->FG_TABLE_EDITION[$i][12];
 										$nb_recor_k = count($select_recordset);
@@ -171,9 +172,9 @@ function sendtolittle(direction){
 									}
 									
 									// DISPLAY THE VALUE
-									echo $value_display;									
+									echo $value_display;
 									?>
-								</OPTION>
+								</option>
                           		<?php 
 			  				}// END_FOREACH
 						}else{
@@ -228,7 +229,7 @@ function sendtolittle(direction){
                     <TR> 
 						<!-- ******************** PARTIE EXTERN : SELECT ***************** -->
                       	<TD width="122" class="form_head"><?= $this->FG_TABLE_EDITION[$i][0]?></TD>
-					  	<TD align="center" valign="top" background="<?= Images_Path;?>/background_cells.gif" class="tableBodyRight">
+					  	<TD align="center" valign="top" background="../Images/background_cells.png" class="tableBodyRight">
                      		<br>
                          
 						 	<!-- Table with list instance already inserted -->
@@ -247,7 +248,7 @@ function sendtolittle(direction){
 								<TD> <TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
 									<TBODY>
 									  <TR> 
-										<TD bgColor=#e1e1e1 colSpan=<?= $this->FG_TOTAL_TABLE_COL?> height=1><IMG height=1 src="<?= Images_Path_Main;?>/clear.gif" width=1></TD>
+										<TD bgColor=#e1e1e1 colSpan=<?= $this->FG_TOTAL_TABLE_COL?> height=1><IMG height=1 src="../Images/clear.png" width=1></TD>
 									  </TR>
 									  <?php
 								$SPLIT_CLAUSE = str_replace("%id", "$id", $table_split[4]);
@@ -284,7 +285,7 @@ function sendtolittle(direction){
                                       <b><?= $split_select_list[$j][$table_split[7]]?></b> : <?= $split_select_list[$j][0]?>
                                       </font> </TD>
                                     <TD align="center" vAlign=top class=tableBodyRight> 
-                                      <input onClick="sendto('del-content','<?php echo $i?>','<?php echo $table_split[1]?>_hidden','<?php echo $split_select_list[$j][1]?>');" title="Remove this <?php echo $this->FG_TABLE_EDITION[$i][0]?>" alt="Remove this <?php echo $this->FG_TABLE_EDITION[$i][0]?>" border=0 height=11 hspace=2 id=submit33 name=submit33 src="<?php echo Images_Path_Main;?>/icon-del.gif" type=image width=33 value="add-split">
+                                      <input onClick="sendto('del-content','<?php echo $i?>','<?php echo $table_split[1]?>_hidden','<?php echo $split_select_list[$j][1]?>');" title="Remove this <?php echo $this->FG_TABLE_EDITION[$i][0]?>" alt="Remove this <?php echo $this->FG_TABLE_EDITION[$i][0]?>" border=0 height=11 hspace=2 id=submit33 name=submit33 src="../Images/icon-del.png" type=image width=33 value="add-split">
                                     </TD>
                                   </TR>
                                   <?php 
@@ -299,7 +300,7 @@ function sendtolittle(direction){
 	}
 	?>
                                   <TR> 
-                                    <TD class=tableDivider colSpan=<?= $this->FG_TOTAL_TABLE_COL?>><IMG height=1 src="<?= Images_Path_Main;?>/clear.gif" width=1></TD>
+                                    <TD class=tableDivider colSpan=<?= $this->FG_TOTAL_TABLE_COL?>><IMG height=1 src="../Images/clear.png" width=1></TD>
                                   </TR>
                                 </TBODY>
                               </TABLE></td>
@@ -319,7 +320,7 @@ function sendtolittle(direction){
                     <TR>
 					  <!-- *******************   Select to ADD new instances  ****************************** -->					  					  
                       <TD class="form_head">&nbsp;</TD>
-                      <TD align="center" valign="top" background="<?php echo Images_Path;?>/background_cells.gif" class="text"><br>
+                      <TD align="center" valign="top" background="<?php echo Images_Path;?>/background_cells.png" class="text"><br>
                         <TABLE width="300" height=50 border=0 align="center" cellPadding=0 cellSpacing=0>
                             <TR> 
                             	<TD bgColor=#7f99cc colSpan=3 height=16 style="PADDING-LEFT: 5px; PADDING-RIGHT: 5px" class="form_head">
@@ -332,7 +333,7 @@ function sendtolittle(direction){
                             </TR>
 							
                             <TR> 
-								<TD class="form_head"> <IMG height=1 src="<?php echo Images_Path_Main;?>/clear.gif" width=1>
+								<TD class="form_head"> <IMG height=1 src="../Images/clear.png" width=1>
 								</TD>
 								<TD class="editform_table4_td1"> 
                                 
@@ -386,15 +387,15 @@ function sendtolittle(direction){
                                     </TR>
                                     <TR>
                                       <TD colspan="2" align="center" vAlign="middle">
-										<input onClick="sendto('add-content','<?= $i?>');" title="<?= gettext("add new a ");?><?= $this->FG_TABLE_EDITION[$i][0]?>" alt="<?= gettext("add new a ");?><?= $this->FG_TABLE_EDITION[$i][0]?>" border=0 height=20 hspace=2 id=submit32 name=submit3 src="<?= Images_Path_Main;?>/btn_Add_94x20.gif" type=image width=94 value="add-split">
+										<input onClick="sendto('add-content','<?= $i?>');" title="<?= gettext("add new a ");?><?= $this->FG_TABLE_EDITION[$i][0]?>" alt="<?= gettext("add new a ");?><?= $this->FG_TABLE_EDITION[$i][0]?>" border=0 height=20 hspace=2 id=submit32 name=submit3 src="../Images/btn_Add_94x20.png" type=image width=94 value="add-split">
                                       </TD>
                                     </TR>
                                 </TABLE>
 							</TD>
-                            <TD class="form_head"><IMG height=1 src="<?= Images_Path_Main;?>/clear.gif" width=1></TD>
+                            <TD class="form_head"><IMG height=1 src="../Images/clear.png" width=1></TD>
                             </TR>
                             <TR>
-                              <TD colSpan=3 class="form_head"><IMG height=1 src="<?= Images_Path_Main;?>/clear.gif" width=1></TD>
+                              <TD colSpan=3 class="form_head"><IMG height=1 src="../Images/clear.png" width=1></TD>
                             </TR>
 
                         </TABLE>
@@ -410,7 +411,7 @@ function sendtolittle(direction){
 
                       	<TD width="122" class="form_head"><?= $this->FG_TABLE_EDITION[$i][0]?></TD>
 
-                      	<TD align="center" valign="top" background="<?= Images_Path;?>/background_cells.gif" class="text"><br>
+                      	<TD align="center" valign="top" background="../Images/background_cells.png" class="text"><br>
 
 
                         <!-- Table with list instance already inserted -->
@@ -428,7 +429,7 @@ function sendtolittle(direction){
                             <TD>
 								<TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
                                 <TR>
-                                	<TD bgColor=#e1e1e1 colSpan=<?= $this->FG_TOTAL_TABLE_COL?> height=1><IMG height=1 src="<?= Images_Path_Main;?>/clear.gif" width=1></TD>
+                                	<TD bgColor=#e1e1e1 colSpan=<?= $this->FG_TOTAL_TABLE_COL?> height=1><IMG height=1 src="../Images/clear.png" width=1></TD>
                                 </TR>
                                 <?php
 			$SPLIT_CLAUSE = str_replace("%id", "$id", $table_split[4]);
@@ -456,7 +457,7 @@ function sendtolittle(direction){
                                       <b><?= $split_select_list[$j][$table_split[7]]?></b> : <?= $split_select_list[$j][0]?>
                                       </font> </TD>
                                     <TD align="center" vAlign="top2" class="tableBodyRight">
-                                      <input onClick="sendto('del-content','<?= $i?>','<?= $table_split[1]?>','<?= $split_select_list[$j][1]?>');" alt="Remove this <?= $this->FG_TABLE_EDITION[$i][0]?>" border=0 height=11 hspace=2 id=submit33 name=submit33 src="<?= Images_Path_Main;?>/icon-del.gif" type=image width=33 value="add-split">
+                                      <input onClick="sendto('del-content','<?= $i?>','<?= $table_split[1]?>','<?= $split_select_list[$j][1]?>');" alt="Remove this <?= $this->FG_TABLE_EDITION[$i][0]?>" border=0 height=11 hspace=2 id=submit33 name=submit33 src="../Images/icon-del.png" type=image width=33 value="add-split">
                                     </TD>
                                   </TR>
                                   <?php
@@ -471,7 +472,7 @@ function sendtolittle(direction){
 	}
 	?>
                                   <TR> 
-                                    <TD class="tableDivider" colSpan=<?= $this->FG_TOTAL_TABLE_COL?>><IMG height=1 src="<?= Images_Path_Main;?>/clear.gif" width=1></TD>
+                                    <TD class="tableDivider" colSpan=<?= $this->FG_TOTAL_TABLE_COL?>><IMG height=1 src="../Images/clear.png" width=1></TD>
                                   </TR>
                               </TABLE></td>
                           </tr>
@@ -488,7 +489,7 @@ function sendtolittle(direction){
                     <TR>
 					  <!-- *******************   Select to ADD new instances  ****************************** -->					  
                       <TD class="form_head">&nbsp;</TD>
-                      <TD align="center" valign="top" background="<?= Images_Path;?>/background_cells.gif" class="text"><br>
+                      <TD align="center" valign="top" background="../Images/background_cells.png" class="text"><br>
                         <TABLE width="300" height=50 border=0 align="center" cellPadding=0 cellSpacing=0>
                             <TR> 
                             	<TD bgColor=#7f99cc colSpan=3 height=16 style="PADDING-LEFT: 5px; PADDING-RIGHT: 5px" class="form_head">
@@ -501,7 +502,7 @@ function sendtolittle(direction){
                             </TR>
 							
                             <TR> 
-								<TD class="form_head"> <IMG height=1 src="<?= Images_Path_Main;?>/clear.gif" width=1>
+								<TD class="form_head"> <IMG height=1 src="../Images/clear.png" width=1>
 								</TD>
 								<TD bgColor=#F3F3F3 style="PADDING-BOTTOM: 7px; PADDING-LEFT: 5px; PADDING-RIGHT: 5px; PADDING-TOP: 5px"> 
                                 
@@ -514,7 +515,7 @@ function sendtolittle(direction){
                                     </TR>                                    
                                     <TR> 
 										<TD colspan="2" align="center">									  	
-											<input onClick="sendto('add-content','<?= $i?>');" alt="add new a <?= $this->FG_TABLE_EDITION[$i][0]?>" border=0 height=20 hspace=2 id=submit32 name=submit3 src="<?= Images_Path_Main;?>/btn_Add_94x20.gif" type=image width=94 value="add-split">
+											<input onClick="sendto('add-content','<?= $i?>');" alt="add new a <?= $this->FG_TABLE_EDITION[$i][0]?>" border=0 height=20 hspace=2 id=submit32 name=submit3 src="../Images/btn_Add_94x20.png" type=image width=94 value="add-split">
 										</TD>
                                     </TR>
                                     <TR> 
@@ -525,11 +526,11 @@ function sendtolittle(direction){
                                     </TR>
                                 </TABLE>
 								</TD>
-								<TD class="form_head"><IMG height=1 src="<?= Images_Path_Main;?>/clear.gif" width=1>
+								<TD class="form_head"><IMG height=1 src="../Images/clear.png" width=1>
 								</TD>
                             </TR>
                             <TR> 
-                              <TD colSpan=3 class="form_head"><IMG height=1 src="<?= Images_Path_Main;?>/clear.gif" width=1></TD>
+                              <TD colSpan=3 class="form_head"><IMG height=1 src="../Images/clear.png" width=1></TD>
                             </TR>
                         </TABLE>
                         <br></TD>
@@ -548,7 +549,7 @@ function sendtolittle(direction){
                         </tr>
 						</table>
 					</td>
-					<td width="400" valign="top" background="<?= Images_Path;?>/background_cells.gif" class="text">
+					<td width="400" valign="top" background="../Images/background_cells.png" class="text">
 					    
 	<?php 
 	$SPLIT_CLAUSE = str_replace("%id", "$id", $table_split[4]);
@@ -583,7 +584,7 @@ function sendtolittle(direction){
 					</TD>
 				</TR>
                 <TR> 
-                	<TD class="form_head"> <IMG height=1 src="<?= Images_Path_Main;?>/clear.gif" width=1>
+                	<TD class="form_head"> <IMG height=1 src="../Images/clear.png" width=1>
                     </TD>
                     <TD bgColor=#F3F3F3 style="PADDING-BOTTOM: 7px; PADDING-LEFT: 5px; PADDING-RIGHT: 5px; PADDING-TOP: 5px"> 
 						<TABLE width="97%" border=0 align="center" cellPadding=0 cellSpacing=0>
@@ -635,11 +636,11 @@ function sendtolittle(direction){
 					</span>
 				</TD></TR>
                                 </TABLE></TD>
-                              <TD class="form_head"><IMG height=1 src="<?= Images_Path_Main;?>/clear.gif" width=1>
+                              <TD class="form_head"><IMG height=1 src="../Images/clear.png" width=1>
                               </TD>
                             </TR>
                             <TR>
-                              <TD colSpan=3 class="form_head"><IMG height=1 src="<?= Images_Path_Main;?>/clear.gif" width=1></TD>
+                              <TD colSpan=3 class="form_head"><IMG height=1 src="../Images/clear.png" width=1></TD>
                             </TR>
                         </TABLE>
 
@@ -664,7 +665,7 @@ function sendtolittle(direction){
 			<td width="50%" class="text_azul"><span class="tableBodyRight"><?php echo $this->FG_BUTTON_EDITION_BOTTOM_TEXT?></span></td>
 			<td width="50%" align="right" class="text">
 			
-				<a href="#" onClick="sendto('edit');" class="cssbutton_big"><IMG src="<?php echo Images_Path_Main;?>/icon_arrow_orange.gif">
+				<a href="#" onClick="sendto('edit');" class="cssbutton_big"><IMG src="../Images/icon_arrow_orange.png">
 				<?php echo gettext("CONFIRM DATA"); ?> </a>
 				
 				<!-- 
