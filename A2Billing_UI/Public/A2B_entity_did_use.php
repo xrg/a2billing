@@ -88,6 +88,8 @@ switch ($actionbtn){
 if (!isset($actionbtn) || $actionbtn=="ask_release"){
 
 echo $CC_help_list_did_use;
+
+
 if (!isset($inuse) || $inuse=="")$inuse=1;
 /*<!-- ** ** ** ** ** Part for the research ** ** ** ** ** -->*/?>
 	<center>
@@ -107,7 +109,7 @@ if (!isset($inuse) || $inuse=="")$inuse=1;
 			</td>
 			<td class="bgcolor_005" align="center"><div align="left">
 			<b><?php echo gettext("Show")?>:<?php echo gettext("Dids in use")?> 
-				<input name="inuse" type=radio value=1 <?php if($inuse){?>checked<?php } ?>> 
+				<input name="inuse" type=radio value=1 <?php if($inuse){?>checked<?php } ?> > 
 				<?php echo gettext("All Dids")?> <input name="inuse" type="radio" value=0 <?php if (!$inuse){?>checked<?php } ?>>
 
 					
@@ -117,7 +119,7 @@ if (!isset($inuse) || $inuse=="")$inuse=1;
         		<td class="bgcolor_004" align="left" > 
 			</td>
 			<td class="bgcolor_005" align="center" >
-				<input type="image"  name="image16" align="top" border="0" src="<?php echo Images_Path;?>/button-search.gif" />
+				<input type="image"  name="image16" align="top" border="0" src="../Images/button-search.png" />
 	  		</td>
     		</tr>
 		</tbody></table>
@@ -131,8 +133,9 @@ if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
 $list = $HD_Form -> perform_action($form_action);
 
 $HD_Form -> create_form ($form_action, $list, $id=null) ;
+}
 
-	include("PP_footer.php");
+include("PP_footer.php");
 
 
 ?>
