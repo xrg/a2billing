@@ -92,7 +92,7 @@ for ($k=0;$k<=28;$k++)
 
 
 $HD_Form -> AddViewElement(gettext("ID"), "id", "3%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("CARD NUMBER"), "username", "11%", "center", "sort");
+$HD_Form -> AddViewElement_edit(gettext("CARD NUMBER"), "username", "11%", "center", "sort");
 if (!($popup_select>=1))  $HD_Form -> AddViewElement("<acronym title=\"CARDALIAS\">".gettext("ALIAS")."</acronym>", "useralias", "12%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("LASTNAME"), "lastname", "10%", "center", "sort", "15");
 $HD_Form -> AddViewElement("<acronym title=\"BALANCE\">".gettext("BA")."</acronym>", "credit", "5%", "center", "sort", "", "", "", "", "", "", "");
@@ -172,7 +172,7 @@ if (($popup_select>=1)){
 	}	
 	
 }else{
-	$HD_Form -> FG_EDITION = true;
+	//$HD_Form -> FG_EDITION = true;   :)
 	$HD_Form -> FG_DELETION = true;
 	$HD_Form -> FG_OTHER_BUTTON1 = true;
 	$HD_Form -> FG_OTHER_BUTTON2 = true;
