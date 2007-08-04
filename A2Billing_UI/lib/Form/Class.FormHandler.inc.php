@@ -1974,8 +1974,10 @@ class FormHandler{
 	/**
      *  CREATE_CUSTOM : Function to display a custom message using form_action
      *  @public		TODO : maybe is better to allow use a string as parameter
+     
+     	// TODO: Deprecate!!
      */
-	 function create_select_form(){
+	 function create_select_form2(){
 	 	$processed = $this->getProcessed();
 	 	include_once (FSROOT."lib/Class.Table.php");
 		$instance_table_tariffname = new Table("cc_tariffplan", "id, tariffname");
@@ -2018,6 +2020,66 @@ class FormHandler{
 
 				</tr></table></td>
 			</tr>
+		</tbody></table>
+	</FORM>
+</center>
+	<?php
+	}
+
+	/** Create a select form on some criteria
+	 * @param $tablename The name of the table to use
+	 * @param $title    Some text to display by the combo
+	 * @param $donull   Include some first, null option. This param can be set to the text to display.
+	 * @param $idcol     The name of the 'id' column, typically "id"
+	 * @param $namecols  The name(s) of the name columns, like "name" or "name || ' ' || name2" ..
+	 * @param $tclause   Some clause in the table
+	*/
+	 function create_select_form($tablename, $title, $donull = false, $idcol = 'id' , $namecols = 'name' , $tclause = ''){
+	 	$processed = $this->getProcessed();
+	 	include_once (FSROOT."lib/Class.Table.php");
+		$instance_table = new Table($tablename, "$idcol, $namecols");
+		$FG_TABLE_CLAUSE = $tclause;
+
+		$list_selform = $instance_table  -> Get_list ($this->DBHandle, $FG_TABLE_CLAUSE, $idcol, "ASC", null, null, null, null);
+
+		$donull_text= _("None");
+		if ($donull != false)
+			if (is_string($donull))
+			$donull_text= $donull;
+	 ?>
+	<center>
+
+	<FORM METHOD=POST ACTION="<?php echo $_SERVER['PHP_SELF']?>">
+	<INPUT TYPE="hidden" NAME="posted" value=1>
+	<INPUT TYPE="hidden" NAME="current_page" value=0>
+		<table class="form_selectform" cellspacing="1">
+		<tbody>
+		<tr>
+			<td align="left" valign="top" class="form_selectform_td1">
+				&nbsp;&nbsp;<?= $title ?>
+			</td>
+			<td class="bgcolor_005" align="left">
+			<table class="form_selectform_table1"><tr>
+			<td width="50%" align="center">&nbsp;&nbsp;
+			<select NAME="select" size="1"  class="form_input_select" width=250>
+				<?php if ($donull != false){ ?>
+					<option value=''><?= $donull_text ?></option>
+				<?php } ?>
+
+				<?php
+					foreach ($list_selform as $recordset){
+				?>
+				<option class=input value='<?= $recordset[0]?>' <?php if ($recordset[0]==$this->FG_TOP_FILTER_VALUE) echo "selected";?>><?= $recordset[1]?></option>
+				<?php }
+				?>
+			</select>
+			</td>
+			<td class="form_selectform_table1_td1">
+			<input type="image" name="image16" align="top" border="0" alt="<?= _("Search")?>" src="../Images/button-search.png" />
+			</td>
+
+			</tr></table></td>
+		</tr>
 		</tbody></table>
 	</FORM>
 </center>

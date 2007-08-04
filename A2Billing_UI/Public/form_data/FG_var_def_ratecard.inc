@@ -4,7 +4,8 @@ getpost_ifset(array('id', 'idtariffplan', 'dialprefix', 'destination', 'buyrate'
 'buyrateincrement', 'rateinitial', 'initblock', 'billingblock', 'connectcharge', 'disconnectcharge',
 'stepchargea', 'chargea', 'timechargea', 'billingblocka', 'stepchargeb', 'chargeb', 'timechargeb',
 'billingblockb', 'stepchargec', 'chargec', 'timechargec', 'billingblockc', 'startdate', 'stopdate',
-'starttime', 'endtime', 'id_trunk', 'freetimetocall_package_offer', 'musiconhold','tariffplan','posted','id_outbound_cidgroup'));
+'starttime', 'endtime', 'id_trunk', 'freetimetocall_package_offer', 'musiconhold','tariffplan','posted',
+'id_outbound_cidgroup', 'select'));
 
 
 $HD_Form = new FormHandler("cc_ratecard","Rates");
@@ -16,10 +17,10 @@ $HD_Form -> FG_TABLE_DEFAULT_SENS = "ASC";
 $HD_Form->FG_FILTER_SEARCH_SESSION_NAME = 'entity_ratecard_selection';
 //echo "<b>def_ratecard = ".$_SESSION['def_ratecard']."</b><br><br>";
 if (isset($posted)){
-	$idtariff = explode('-:-',$tariffplan);
-	$HD_Form->FG_TOP_FILTER_NAME = str_replace ("-:-","",$idtariff[1]);
+// 	$idtariff = explode('-:-',$tariffplan);
+// 	$HD_Form->FG_TOP_FILTER_NAME = str_replace ("-:-","",$idtariff[1]);
 	//echo "Debug hey ->".$HD_Form->FG_TOP_FILTER_NAME."<br>";
-	$HD_Form->FG_TOP_FILTER_VALUE = $idtariff[0];
+	$HD_Form->FG_TOP_FILTER_VALUE = $select; //FIXME: PLEASE quote()!
 	$HD_Form -> FG_TABLE_CLAUSE = " idtariffplan='$HD_Form->FG_TOP_FILTER_VALUE' ";
 	$_SESSION['def_ratecard']=$HD_Form -> FG_TABLE_CLAUSE;
 }else{

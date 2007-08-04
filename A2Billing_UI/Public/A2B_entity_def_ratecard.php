@@ -348,7 +348,8 @@ if ($form_action == "list"){
 <?php
 
 // Weird hack to create a select form
-if ($form_action == "list" ) $HD_Form -> create_select_form();
+if ($form_action == "list" )
+	$HD_Form -> create_select_form('cc_tariffplan', _("RATECARD"),true,'id','tariffname');
 
 
 // #### TOP SECTION PAGE
