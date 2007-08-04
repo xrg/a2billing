@@ -624,13 +624,13 @@ class RateEngine {
 
 		if ($this -> debug_st)  echo "1. cost: $cost\n buyratecost:$buyratecost\n";
 		
+		if ($callduration<$initblock) $callduration=$initblock;
+
 		$callduration = $callduration - $freetimetocall_used;
-		
+
 		// 2 KIND OF CALCULATION : PROGRESSIVE RATE & FLAT RATE
 		// IF FLAT RATE 
 		if (empty($chargea) || $chargea==0 || empty($timechargea) || $timechargea==0 ){
-		
-			if ($callduration<$initblock) $callduration=$initblock;
 			
 			if ($billingblock > 0) {	
 				$mod_sec = $callduration % $billingblock;  
@@ -701,9 +701,6 @@ class RateEngine {
 			}
 			
 			if ($duration_report>0){
-			
-				if ($duration_report<$initblock) $duration_report=$initblock;
-		
 				if ($billingblock > 0) {	
 					$mod_sec = $duration_report % $billingblock;  
 					if ($mod_sec>0) $duration_report += ($billingblock - $mod_sec);
