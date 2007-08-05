@@ -1653,7 +1653,7 @@ class FormHandler{
 					for($j=0;$j<$snum;$j++){
 						$this -> RESULT_QUERY = $instance_sub_table -> Add_table ($this-> DBHandle, "'".addslashes(trim($checkbox_data_tab[$j]))."', '".addslashes(trim($processed['id']))."'", null, null);
 						if (!$this -> RESULT_QUERY){
-							if ($this->FG_DEBUG >= 2)
+							if ($this->FG_DEBUG >= 1)
 								echo "<br><b>Error:".$this-> DBHandle->ErrorMsg(). "</b><br>\n";
 							//echo "<br><b>OOOOOOOOOO".$instance_sub_table -> errstr."</b><br>";
 							$findme   = 'duplicate';
@@ -1666,11 +1666,11 @@ class FormHandler{
 							}else{
 								//echo $FG_TEXT_ERROR_DUPLICATION;
 								$alarm_db_error_duplication = true;
-							}								
-						}						
-					}			
+							}
+						}
+					}
 							
-				}	
+				}
 						
 			}			
 		}
@@ -1684,23 +1684,24 @@ class FormHandler{
 			for($k=0;$k<count($table_split_field);$k++){
 				$param_update .= ", ";
 				$param_update .= "$table_split_field[$k] = '".addslashes(trim($table_split_value[$k]))."'";
-			}				
+			}
 		}
 			
 			
 		if ($this->FG_DEBUG >= 1)  echo "<br><hr> PARAM_UPDATE: $param_update<br>".$this->FG_EDITION_CLAUSE . "<br>";
 			
 		if ($this->VALID_SQL_REG_EXP)
+			$this -> RESULT_QUERY = $instance_table -> Update_table ($this->DBHandle, $param_update, $this->FG_EDITION_CLAUSE, $func_table = null);
 		if($this -> FG_ENABLE_LOG == 1)
 		{
 			$this -> logger -> insertLog_Update($_SESSION["admin_id"], 3, "A ".strtoupper($this->FG_INSTANCE_NAME)." UPDATED" , "A RECORD IS UPDATED, EDITION CALUSE USED IS ".$this->FG_EDITION_CLAUSE, $this->FG_TABLE_NAME, $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'], $param_update);
 		}	
-		if ($this->FG_DEBUG == 1) echo $this -> RESULT_QUERY;
+		if ($this->FG_DEBUG >= 1) echo $this -> RESULT_QUERY;
 		
 		if ( ($this->VALID_SQL_REG_EXP) && (isset($this->FG_GO_LINK_AFTER_ACTION_EDIT)) && $this->RESULT_QUERY){
 			if ($this->FG_DEBUG >= 1)  echo gettext("<br> GOTO ; ").$this->FG_GO_LINK_AFTER_ACTION_EDIT.$processed['id'];
 			Header ("Location: ".$this->FG_GO_LINK_AFTER_ACTION_EDIT.$processed['id']);
-		}			
+		}
 		
 	}
 	
