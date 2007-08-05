@@ -128,7 +128,7 @@ function sendtolittle(direction){
 						 if ($this->FG_DEBUG >= 3) print_r ($list);			 
 						 if ($this->FG_DEBUG >= 2) echo "<br>#$i<br>::>".$this->VALID_SQL_REG_EXP;
 						 if ($this->FG_DEBUG >= 2) echo "<br><br>::>".$list[0][$i];
-						 if ($this->FG_DEBUG >= 2) echo "<br><br>::>".$$this->FG_TABLE_ADITION[$i][1];
+						 if ($this->FG_DEBUG >= 2) echo "<br><br>::>".$this->FG_TABLE_ADITION[$i][1];
 			  			?>
 						<SELECT name='<?= $this->FG_TABLE_EDITION[$i][1]?><?php if (strpos($this->FG_TABLE_EDITION[$i][4], "multiple")) echo "[]";?>' class="form_enter" <?= $this->FG_TABLE_EDITION[$i][4]?>  class="form_enter">
                         <?php
@@ -137,18 +137,19 @@ function sendtolittle(direction){
 						if (count($select_list)>0)
 						{
 							$select_number=0;
-							foreach ($select_list as $select_recordset){ 
+							if (is_array($select_list))
+							foreach ($select_list as $select_recordset){
 								$select_number++;
 								?>
-								<OPTION  value=<?= $select_recordset[1]?> <?php 
+								<option  value=<?= $select_recordset[1]?> <?php 
 									
 									if($this->VALID_SQL_REG_EXP){ 
-										if (strpos($this->FG_TABLE_EDITION[$i][4], "multiple")){										
+										if (strpos($this->FG_TABLE_EDITION[$i][4], "multiple")){
 											if (intval($select_recordset[1]) & intval($list[0][$i])) echo "selected"; 
 										}else{
-											if (strcmp($list[0][$i],$select_recordset[1])==0) echo "selected";  
+											if (strcmp($list[0][$i],$select_recordset[1])==0) echo "selected";
 										}
-									}else{ 										
+									}else{
 										if (strpos($this->FG_TABLE_EDITION[$i][4], "multiple")){
 											//if (intval($select_recordset[1]) & intval($_POST[$this->FG_TABLE_EDITION[$i][1]])) echo "selected"; 
 											if (is_array($_POST[$this->FG_TABLE_EDITION[$i][1]]) && (intval($select_recordset[1]) & array_sum($_POST[$this->FG_TABLE_EDITION[$i][1]]))) echo "selected"; 
@@ -158,7 +159,7 @@ function sendtolittle(direction){
 									}
 									  
 									// CLOSE THE <OPTION
-									echo '> ';
+									?> > <?php
 									if ($this->FG_TABLE_EDITION[$i][12] != ""){
 										$value_display = $this->FG_TABLE_EDITION[$i][12];
 										$nb_recor_k = count($select_recordset);
@@ -171,9 +172,9 @@ function sendtolittle(direction){
 									}
 									
 									// DISPLAY THE VALUE
-									echo $value_display;									
+									echo $value_display;
 									?>
-								</OPTION>
+								</option>
                           		<?php 
 			  				}// END_FOREACH
 						}else{
@@ -228,7 +229,7 @@ function sendtolittle(direction){
                     <TR> 
 						<!-- ******************** PARTIE EXTERN : SELECT ***************** -->
                       	<TD width="122" class="form_head"><?= $this->FG_TABLE_EDITION[$i][0]?></TD>
-					  	<TD align="center" valign="top" background="<?= Images_Path;?>/background_cells.gif" class="tableBodyRight">
+					  	<TD align="center" valign="top" background="../Images/background_cells.png" class="tableBodyRight">
                      		<br>
                          
 						 	<!-- Table with list instance already inserted -->
@@ -324,29 +325,29 @@ function sendtolittle(direction){
                         <TABLE width="300" height=50 border=0 align="center" cellPadding=0 cellSpacing=0>
 <TBODY>
                             <TR> 
-                              	<TD bgColor=#7f99cc colSpan=3 height=16 style="PADDING-LEFT: 5px; PADDING-RIGHT: 5px" class="form_head">
-									<TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">                                
+                            	<TD bgColor=#7f99cc colSpan=3 height=16 style="PADDING-LEFT: 5px; PADDING-RIGHT: 5px" class="form_head">
+									<TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
 										<TR> 
 										  <TD class="form_head"><?= gettext("Add a new ");?><?= $this->FG_TABLE_EDITION[$i][0]?></TD>
 										</TR>
 									</TABLE>
 								</TD>
+									</TABLE>
+								</TD>
                             </TR>
-                            <TR>
+                            <TR> 
                               <TD class="form_head"> <IMG height=1 src="<?= Images_Path_Main;?>/clear.gif" width=1>
-                              </TD>
+								</TD>
                               <TD bgColor=#F3F3F3 style="PADDING-BOTTOM: 7px; PADDING-LEFT: 5px; PADDING-RIGHT: 5px; PADDING-TOP: 5px">
-
+                                
 								<TABLE width="97%" border=0 align="center" cellPadding=0 cellSpacing=0>
-                                    <TR>
+									<TR> 
                                       <TD width="40%" class="tableBody"><?= $this->FG_TABLE_EDITION[$i][0]?></TD>
                                       <TD width="60%"><div align="center">
                                           <SELECT name=<?= $table_split[1]?> class="form_enter">
                                             <?php
 					 $split_select_list = $instance_sub_table -> Get_list ($this->DBHandle, null, null, null, null, null, null, null);
 
-					 if (count($split_select_list)>0)
-					 {
 						 $select_number=0;
 						 foreach ($split_select_list as $select_recordset){
 							 $select_number++;
@@ -660,9 +661,9 @@ function sendtolittle(direction){
 					<tr height="2">
                       <td colspan="2" style="border-bottom: medium dotted rgb(102, 119, 102);"> &nbsp;</td>
 
-                    </tr>
-                    <tr>
+		</tr>
+		<tr>
                       <td width="434" class="text_azul"><span class="tableBodyRight"><?= $this->FG_BUTTON_EDITION_BOTTOM_TEXT?></span></td>
                       <td width="190" align="right" class="text"><input onClick="sendto('edit');"  border=0 hspace=0 id=submit3 name=submit32 src="<?= $this->FG_BUTTON_EDITION_SRC?>" type=image value="add-split"></td>
-                    </tr>
+		</tr>
                </table>

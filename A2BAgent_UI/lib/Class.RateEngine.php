@@ -74,10 +74,10 @@ class RateEngine {
 		
 		
 		/***  0 ) CODE TO RETURN THE DAY OF WEEK + CREATE THE CLAUSE  ***/
-		
-		$daytag = date("w", time()); // Day of week ( Sunday = 0 .. Saturday = 6 )
-		$hours = date("G", time()); // Hours in 24h format ( 0-23 )
-		$minutes = date("i", time()); // Minutes (00-59)
+		$tmp_time_now=time(); // pedantic syntax: ony fetch time atomically!
+		$daytag = date("w", $tmp_time_now); // Day of week ( Sunday = 0 .. Saturday = 6 )
+		$hours = date("G", $tmp_time_now); // Hours in 24h format ( 0-23 )
+		$minutes = date("i", $tmp_time_now); // Minutes (00-59)
 		if (!$daytag) $daytag=6;
 		else $daytag--;
 		if ($this -> debug_st) echo "$daytag $hours $minutes <br>";
@@ -748,8 +748,8 @@ class RateEngine {
 	
 	
 	/*
-		RATE ENGINE - UPDATE SYSTEM (DURATIONCALL)
-		* CALCUL THE DURATION ALLOWED FOR THE CALLER TO THIS NUMBER
+		rate engine - update system (durationcall)
+		* calcul the duration allowed for the caller to this number
 	*/
 	function rate_engine_updatesystem (&$A2B, &$agi, $calledstation, $doibill = 1, $didcall=0, $callback=0){
 		
@@ -1035,9 +1035,9 @@ class RateEngine {
 					$ipaddress = str_replace("%cardnumber%", $A2B->cardnumber, $ipaddress);
 					$ipaddress = str_replace("%dialingnumber%", $prefix.$destination, $ipaddress);
 						
-					if (strncmp($destination, $removeprefix, strlen($removeprefix)) == 0) 
+					if (strncmp($destination, $removeprefix, strlen($removeprefix)) == 0){
 						$destination= substr($destination, strlen($removeprefix));
-						
+					}
 									
 					$dialparams = str_replace("%timeout%", $timeout *1000, $A2B->agiconfig['dialcommand_param']);
 							

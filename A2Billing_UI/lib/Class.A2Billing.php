@@ -1521,7 +1521,7 @@ class A2Billing {
 		
 		//first try with the callerid authentication
 		
-		if ($callerID_enable==1 && is_numeric($this->CallerID) && $this->CallerID>0){
+		if ($callerID_enable==1 ){
 			$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[CID_ENABLE - CID_CONTROL - CID:".$this->CallerID."]");
 			$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[CID_ENABLE - CID_CONTROL - CID:".$this->CallerID."]");
 			
@@ -1539,7 +1539,7 @@ class A2Billing {
 						" LEFT JOIN cc_card ON cc_callerid.id_cc_card=cc_card.id ".
 						" LEFT JOIN cc_tariffgroup ON cc_card.tariff=cc_tariffgroup.id ".
 			" WHERE cc_callerid.cid=".$this->DBHandle->Quote($this->CallerID) .
-			"OR replace(cc_callerid.cid,'.','') =". $this->DBHandle->Quote($this->CallerID);
+			" OR replace(cc_callerid.cid,'.','') =". $this->DBHandle->Quote($this->CallerID);
 			$result = $this->instance_table -> SQLExec ($this->DBHandle, $QUERY);
 			$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "QUERY = $QUERY\n RESULT : ".print_r($result,true));
 			

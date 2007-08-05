@@ -1328,7 +1328,7 @@ class FormHandler{
 		if ($this->FG_DEBUG >= 1)  echo "<br><hr> $param_add_value";	
 		
 		$instance_table = new Table($this->FG_TABLE_NAME, $param_add_fields);
-		if (FG_DEBUG >=2) $instance_table->debug_st=1;
+		if ($this->FG_DEBUG >=2) $instance_table->debug_st=1;
 		
 		// CHECK IF WE HAD FOUND A SPLITABLE FIELD THEN WE MIGHT HAVE %TAGPREFIX%
 		if (strpos($param_add_value, '%TAGPREFIX%')){
@@ -1692,11 +1692,19 @@ class FormHandler{
 			
 		if ($this->VALID_SQL_REG_EXP)
 			$this -> RESULT_QUERY = $instance_table -> Update_table ($this->DBHandle, $param_update, $this->FG_EDITION_CLAUSE, $func_table = null);
+		else if ($FG_DEBUG >0 ) echo "Invalid SQL regexp <br>";
+
+		if ($this->FG_DEBUG >= 1) {
+			echo "Result:" . $this->RESULT_QUERY;
+			if (!$this -> RESULT_QUERY)
+				echo ", error:" .$this->DBHandle->ErrorMsg();
+			echo "<br>\n";
+		}
+		
 		if($this -> FG_ENABLE_LOG == 1)
 		{
 			$this -> logger -> insertLog_Update($_SESSION["admin_id"], 3, "A ".strtoupper($this->FG_INSTANCE_NAME)." UPDATED" , "A RECORD IS UPDATED, EDITION CALUSE USED IS ".$this->FG_EDITION_CLAUSE, $this->FG_TABLE_NAME, $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'], $param_update);
-		}	
-		if ($this->FG_DEBUG >= 1) echo $this -> RESULT_QUERY;
+		}
 		
 		if ( ($this->VALID_SQL_REG_EXP) && (isset($this->FG_GO_LINK_AFTER_ACTION_EDIT)) && $this->RESULT_QUERY){
 			if ($this->FG_DEBUG >= 1)  echo gettext("<br> GOTO ; ").$this->FG_GO_LINK_AFTER_ACTION_EDIT.$processed['id'];

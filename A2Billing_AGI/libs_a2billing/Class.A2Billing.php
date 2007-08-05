@@ -302,8 +302,8 @@ class A2Billing {
 			$this->config = parse_ini_file($config, true);
 		elseif(file_exists(DEFAULT_A2BILLING_CONFIG)){
 			$this->config = parse_ini_file(DEFAULT_A2BILLING_CONFIG, true);		
-		} else
-			error_log("Cannot locate config: ". DEFAULT_A2BILLING_CONFIG);
+		} /*else
+			error_log("Cannot locate config: ". DEFAULT_A2BILLING_CONFIG);*/
 	  
 	  
 		// If optconfig is specified, stuff vals and vars into 'a2billing' config array.
@@ -970,7 +970,7 @@ class A2Billing {
 					$QUERY .= " CURRENT_TIMESTAMP - interval '$answeredtime seconds' ";
 				}else{
 					$QUERY .= " CURRENT_TIMESTAMP - INTERVAL $answeredtime SECOND ";
-				}
+				}						
 				$QUERY .= ", '$answeredtime', '".$this->destination."', '$dialstatus', now(), '0', '0', ".
 					" '".$this->countrycode."', '".$this->subcode."', '".$this->tech." CALL', '0', '0', '0', '0', '$this->CallerID', '1' )";
 				
@@ -1099,7 +1099,7 @@ class A2Billing {
 							$QUERY .= " CURRENT_TIMESTAMP - interval '$answeredtime seconds' ";
 						}else{
 							$QUERY .= " CURRENT_TIMESTAMP - INTERVAL $answeredtime SECOND ";
-						}
+						}						
 						$QUERY .= ", '$answeredtime', '".$inst_listdestination[4]."', '$dialstatus', now(), '0', '0', ".
 							" '".$this->countrycode."', '".$this->subcode."', 'DID CALL', '0', '0', '0', '0', '$this->CallerID', '3' )";
 						
@@ -1202,8 +1202,8 @@ class A2Billing {
 		if ($fromvoucher!=1)$agi-> stream_file('prepaid-you-have', '#');
 		else $agi-> stream_file('prepaid-account_refill', '#');
 		
-		if ($units==0 && $cents==0){
-			$agi->say_number(0);
+		if ($units==0 && $cents==0){					
+			$agi->say_number(0);					
 			$agi-> stream_file($unit_audio, '#');
 		}else{
 			if ($units >= 1){
