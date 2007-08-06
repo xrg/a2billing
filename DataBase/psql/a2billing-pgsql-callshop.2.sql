@@ -734,4 +734,121 @@ UNION SELECT agentid, date, pay_type, gettexti(pay_type, cc_agent.locale) AS pay
 
 
 
+CREATE OR REPLACE FUNCTION mkpasswd(len INTEGER) RETURNS TEXT AS $$
+DECLARE
+	ret TEXT;
+	rn INTEGER;
+BEGIN
+	IF len < 1 OR len > 20 THEN
+		RAISE EXCEPTION 'Password length out of bounds!';
+	END IF;
+	
+	ret := '';
+	
+	FOR i IN 1..len LOOP
+		rn := floor(random() * 62.0);
+		IF rn < 10 THEN
+			ret := ret || chr(rn + 48) ;
+		ELSIF rn < 36 THEN
+			ret := ret || chr(rn + 55) ;
+		ELSE
+			ret := ret || chr(rn + 61) ;
+		END IF;
+	END LOOP;
+	
+	RETURN RET;
+END; $$ LANGUAGE PLPGSQL STRICT VOLATILE;
+
+CREATE OR REPLACE FUNCTION mknumpasswd(len INTEGER) RETURNS TEXT AS $$
+DECLARE
+	ret TEXT;
+	rn INTEGER;
+BEGIN
+	IF len < 1 OR len > 20 THEN
+		RAISE EXCEPTION 'Password length out of bounds!';
+	END IF;
+	
+	ret := '';
+	
+	FOR i IN 1..len LOOP
+		rn := floor(random() * 10.0);
+		ret := ret || chr(rn + 48) ;
+	END LOOP;
+	
+	RETURN RET;
+END; $$ LANGUAGE PLPGSQL STRICT VOLATILE;
+
+CREATE OR REPLACE FUNCTION agent_gen_regular(p_agent_id INTEGER, p_def BOOLEAN, p_prepay INTEGER,
+	p_regpat TEXT, p_alias_start INTEGER, p_lenuname INTEGER,
+	p_climit INTEGER, p_eexpire INTEGER, p_eaeday TIMESTAMP, p_edays INTEGER)
+RETURNS BIGINT AS $$
+DECLARE
+	agent_row RECORD;
+	numplan_row RECORD;
+	dcard_id BIGINT;
+	di INTEGER;
+	dusername TEXT;
+	duseralias TEXT;
+BEGIN
+
+	SELECT * INTO agent_row FROM cc_agent WHERE id = p_agent_id;
+	IF NOT FOUND THEN
+		RAISE EXCEPTION 'Agent not found!' ;
+	END IF ;
+	
+	SELECT * INTO numplan_row FROM cc_numplan WHERE id = agent_row.numplan;
+	
+	IF NOT FOUND THEN
+		RAISE EXCEPTION 'Numplan % not found!', agent_row.numplan ;
+	END IF ;
+
+	-- Compute the username/useralias
+	
+	di :=0;
+	LOOP
+		IF di > 100 THEN
+			RAISE EXCEPTION 'Cannot find usable name/alias';
+		END IF;
+		
+		di := di + 1;
+		
+		duseralias := CAST ( (p_alias_start + CAST(mknumpasswd(numplan_row.intlen-1) AS BIGINT)) AS TEXT);
+		
+		PERFORM 1 FROM cc_card WHERE useralias = duseralias AND numplan = numplan_row.id;
+		IF FOUND THEN
+			-- Alias exists, skip
+			CONTINUE;
+		END IF;
+		
+		IF p_def THEN
+			dusername := replace (replace(p_regpat, '%1', duseralias), '%2', agent_row.login);
+		ELSE -- Regulars
+			dusername := mknumpasswd(p_lenuname);
+		END IF;
+	
+		PERFORM 1 FROM cc_card WHERE username = dusername;
+		IF NOT FOUND THEN
+			-- username is unique
+			EXIT ;
+		END IF;
+	END LOOP;
+	
+	INSERT INTO cc_card (username, useralias, credit, tariff, activated, lastname, 
+		userpass, currency, typepaid , creditlimit, enableexpire, expirationdate,
+		expiredays, uipass, numplan, language)
+		VALUES (dusername, duseralias, 0, agent_row.tariffgroup, 'f', '',
+		dusername,agent_row.currency, p_prepay, p_climit, p_eexpire, p_eaeday,
+		p_edays, mkpasswd(8), agent_row.numplan, agent_row.language ) 
+		RETURNING id INTO dcard_id ;
+		
+	IF NOT FOUND THEN
+		RAISE EXCEPTION 'Cannot create card!';
+	END IF;
+	
+	-- Then, bind the card to the agent
+	INSERT INTO cc_agent_cards(card_id, agentid, def) VALUES (dcard_id, p_agent_id, p_def);
+	
+	RETURN dcard_id;
+	
+END; $$ LANGUAGE PLPGSQL STRICT VOLATILE;
 -- eof

@@ -6,8 +6,8 @@ include ("../lib/Form/Class.FormHandler.inc.php");
 
 if (! has_rights (ACX_CUSTOMER)){ 
 	   Header ("HTTP/1.0 401 Unauthorized");
-	   Header ("Location: PP_error.php?c=accessdenied");	   
-	   die();	   
+	   Header ("Location: PP_error.php?c=accessdenied");
+	   die();
 }
 
 include ("./form_data/FG_var_card.inc");
@@ -19,9 +19,9 @@ $HD_Form -> FG_DELETION = false;
 $HD_Form -> FG_OTHER_BUTTON1 = false;
 $HD_Form -> FG_OTHER_BUTTON2 = false;
 $HD_Form -> FG_FILTER_APPLY = false;
-// $HD_Form -> FG_DEBUG = 4;
+$HD_Form -> FG_DEBUG = 4;
 
-getpost_ifset(array('choose_list', 'choose_agent', 'creditlimit', 'addcredit', 'gen_id', 'cardnum', 'choose_simultaccess', 'choose_typepaid', 'creditlimit', 'enableexpire', 'expirationdate', 'expiredays'));
+getpost_ifset(array('choose_list', 'choose_agent', 'creditlimit', 'addcredit', 'gen_id', 'cardnum', 'choose_simultaccess', 'choose_typepaid', 'creditlimit', 'enableexpire', 'expirationdate', 'expiredays', 'gtype','guname','gnumtype','gnumstart'));
 
 
 /***********************************************************************************/
@@ -34,80 +34,78 @@ $HD_Form -> setDBHandler (DbConnect());
 
 $nbcard = $choose_list;
 
+$new_cards = array();
+
 if ($nbcard>0){
-/*
-'2465773443', '331', 'a', 't', 'LASTNAME', 'FIRSTNAME', 'email@kiki.net', 'adresse', 'city', 'state', 'countr', '1000', '65000000', '2465773443'
-INSERT INTO card (myusername, credit, tariff, activated, lastname, firstname, email, address, city, state, 
-country, zipcode, phone, userpass) values ('2465773443', '331', 'a', 't', 'LASTNAME', 'FIRSTNAME', 'email@domain.com', 
-'adresse', 'city', 'state', 'country', '1000', '0000000000', '2465773443')
-*/
-
-	$currency = BASE_CURRENCY;
-	$language = 'en';
-	$tariff = 0;
-
-	$instance_tmp_agent = new Table("cc_agent", "id, name,currency,language,tariffgroup");
-	if ($HD_Form->FG_DEBUG>=4) $instance_tmp_agent->debug_st=1;
-	$FG_TABLE_CLAUSE = "id = ". $HD_Form->DBHandle->Quote($choose_agent);
-	$list_tmp_agent = $instance_tmp_agent -> Get_list ($HD_Form ->DBHandle, $FG_TABLE_CLAUSE);
-	if (count($list_tmp_agent) !=1) {
-		if ($HD_Form->FG_DEBUG>1)
-			echo "Cannot locate agent with query: " . $FG_TABLE_CLAUSE;
+	if (($gtype == 'def') || ($gtype == 'booth'))
+		$pdef = 't' ;
+	else
+		$pdef = 'f';
+	$QUERY = str_dbparams($HD_Form->DBHandle, "SELECT agent_gen_regular( %#1, '$pdef', %#2, %3 :: TEXT, %4, %#5, %#6, %#7, %8 ::TIMESTAMP , %#9 );",
+	array( $choose_agent, $choose_typepaid, $guname,$gnumstart, LEN_CARDNUMBER,
+		$creditlimit, $enableexpire, $expirationdate, $expiredays));
 		
-	}
-	else {
-		echo " > " . $list_tmp_agent . "<br>";
-		if ($HD_Form->FG_DEBUG>2)
-			echo "Located agent \"".
-				$list_tmp_agent[0][1] . "\" for generation\n<br>";
-		$currency = $list_tmp_agent[0][2];
-		$language = $list_tmp_agent[0][3];
-		$tariff = $list_tmp_agent[0][4];
-	}
+	if ($HD_Form->FG_DEBUG>0)
+		echo $QUERY ." <br>\n";
+		
+	$SIP_CONSTS = str_dbparams ($HD_Form->DBHandle, " %1 AS type, %2 AS allow, %3 AS context, %4 AS nat, %5 AS amaflags, %6 AS qualify, %7 AS host, %8 AS dtmfmode ",	
+	array(FRIEND_TYPE, FRIEND_ALLOW, FRIEND_CONTEXT, FRIEND_NAT, FRIEND_AMAFLAGS,
+		FRIEND_QUALIFY, RIEND_HOST, FRIEND_DTMFMODE));
 
-		$FG_ADITION_SECOND_ADD_TABLE  = "cc_card";		
-		$FG_ADITION_SECOND_ADD_FIELDS = "username, useralias, credit, tariff, activated, lastname,  userpass, currency, typepaid , creditlimit, enableexpire, expirationdate, expiredays, uipass";
-
-		if (DB_TYPE != "postgres"){
-		        $FG_ADITION_SECOND_ADD_FIELDS .= ",creationdate ";
+	for ($k=0;$k<$nbcard;$k++){
+		$result = $HD_Form -> DBHandle->Execute($QUERY);
+		
+		if (($HD_Form->FG_DEBUG >2) || (! $result))
+			echo "DB Err:" . $HD_Form -> DBHandle->ErrorMsg() . "<br>\n";
+		if (! $result) {
+			if ($HD_Form->FG_DEBUG >0)
+				echo "Cannot create regular!<br>\n";
+			break;
 		}
-				
-		
-		
-		$instance_sub_table = new Table($FG_ADITION_SECOND_ADD_TABLE, $FG_ADITION_SECOND_ADD_FIELDS);
-				
-		if ($HD_Form->FG_DEBUG>=4) $instance_sub_table->debug_st=1;
-		$gen_id = time();
-		$_SESSION["IDfilter"]=$gen_id;
-		
-		
-		$creditlimit = is_numeric($creditlimit) ? $creditlimit : 0;
-		if ($HD_Form->FG_DEBUG >1 ) echo "::> $currency, $choose_typepaid, $creditlimit <br>\n";
-		for ($k=0;$k<$nbcard;$k++){
-			 $arr_card_alias = gen_card_with_alias();
-			 $cardnum = $arr_card_alias[0];
-			 $useralias = $arr_card_alias[1];
-			if (!is_numeric($addcredit)) $addcredit=0;
-			$passui_secret = MDP_NUMERIC(10);
-			$FG_ADITION_SECOND_ADD_VALUE  = "'$cardnum', '$useralias', '$addcredit', '$tariff', 'f', '$gen_id', '$cardnum',  '$currency', $choose_typepaid, $creditlimit, $enableexpire, '$expirationdate', $expiredays, '$passui_secret'";
-			
-			if (DB_TYPE != "postgres") $FG_ADITION_SECOND_ADD_VALUE .= ",now() ";
-
-			$result_query = $instance_sub_table -> Add_table ($HD_Form ->DBHandle, $FG_ADITION_SECOND_ADD_VALUE, null, null, null);
-			
- 			
+		else {
+			$row = $result->FetchRow();
+			array_push($new_cards, $row[0]);
 		}
 		
-		{
-			$query2="INSERT INTO cc_agent_cards (card_id, agentid) SELECT id, " . $HD_Form->DBHandle->Quote($choose_agent) .
-			" FROM cc_card WHERE lastname = " . $HD_Form->DBHandle->Quote($gen_id) ." ;" ;
-			$result_query2 = $HD_Form->DBHandle->Execute($query2);
-			//if (!$result_query2 ) echo $query2;
- 		}
-
-
-
-
+		if ($gtype == 'booth'){
+		
+			$BOOTH_QUERY = str_dbparams($HD_Form -> DBHandle, "INSERT INTO cc_booth(agentid,  name, def_card_id, callerid)" .
+			"SELECT %#1, 'Booth ' || useralias, %2, username ".
+			"FROM cc_card WHERE id = %2 ;",
+			array($choose_agent, $row[0]));
+			
+			$result = $HD_Form -> DBHandle->Execute($BOOTH_QUERY);
+		
+			if (($HD_Form->FG_DEBUG >2) || (! $result))
+				echo "DB Err:" . $HD_Form -> DBHandle->ErrorMsg() . "<br>\n";
+			if (! $result) {
+				if ($HD_Form->FG_DEBUG >0)
+					echo "Cannot create booth!<br>\n";
+				break;
+			}
+			
+			$SIP_QUERY = str_dbparams($HD_Form -> DBHandle, "INSERT INTO cc_sip_buddies(".
+			"name, accountcode, regexten, callerid, username, secret, " .
+			"type, allow, context, nat, amaflags, qualify, host, dtmfmode) ".
+			" SELECT username, username, NULL, username, username, mkpasswd(8), " . $SIP_CONSTS .
+			" FROM cc_card WHERE id = %#1;", array($row[0])) ;
+			
+			$result = $HD_Form -> DBHandle->Execute($SIP_QUERY);
+		
+			if (($HD_Form->FG_DEBUG >2) || (! $result))
+				echo "DB Err:" . $HD_Form -> DBHandle->ErrorMsg() . "<br>\n";
+			if (! $result) {
+				if ($HD_Form->FG_DEBUG >0)
+					echo "Cannot create sip_buddy!<br>\n";
+				continue;
+			}
+			$_SESSION["is_sip_iax_change"]=1;
+			$_SESSION["is_sip_changed"]=1;
+		}
+	}
+	echo "New cards:";
+	print_r($new_cards);
+	echo "<br>\n";
 }
 if (!isset($_SESSION["IDfilter"])) $_SESSION["IDfilter"]='NODEFINED';
 
@@ -139,9 +137,7 @@ $list = $HD_Form -> perform_action($form_action);
 include("PP_header.php");
 
 // #### HELP SECTION
-echo '<br><br>'.$CC_help_generate_customer;
-
-
+//echo '<br><br>'.$CC_help_generate_customer; FIXME
 
 $instance_table_agent = new Table("cc_agent", "id, name");
 $FG_TABLE_CLAUSE = "";
@@ -151,97 +147,97 @@ $nb_agent = count($list_agent);
 // FORM FOR THE GENERATION
 ?>
 
-	  
-   <table align="center" bgcolor="#cccccc" border="0" width="65%">
+
+   <table align="center" bgcolor="#cccccc" border="0" width="75%">
         <tbody><tr>
 	<form name="theForm" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
-          <td align="left" width="75%">
-	  	<strong>1)</strong> 
+          <td align="left" width="80%">
+          <ol>
+          
+	  	<li> 
 	  	<label> <?= _("Choose the number of cards to create: ");?></label>
 	  	<input name="choose_list" size="4" class="form_enter" value="1" />
-		<br/>
+		</li>
 				
-		  	<strong>2)</strong> 
-				<select name="choose_agent" size="1" class="form_enter" style="border: 2px outset rgb(204, 51, 0);">
-					<option value=''><?php echo gettext("Select the Agent");?></option>
-				
-				<?php					 
-			  	 foreach ($list_agent as $recordset){ 						 
-				?>
-					<option class=input value='<?php echo $recordset[0]?>' ><?php echo $recordset[1]?></option>                        
-				<?php 	 }
-					?>
-				</select>
-				<br/>
-				
-			  	<strong>3)</strong> 
-				<?php echo gettext("Initial amount of credit");?> : 	<input class="form_enter" name="addcredit" size="10" maxlength="10" style="border: 2px inset rgb(204, 51, 0);">
-				<br/>
-				
-				
-				<strong>4)</strong>
-				<select NAME="choose_typepaid" size="1" class="form_enter" style="border: 2px inset rgb(204, 51, 0);">
-					<option value='0' selected><?php echo gettext("PREPAID CARD");?></option>
-					<option value='1'><?php echo gettext("POSTPAY CARD");?></option>
-				   </select>
-				<br/>
-				<strong>5)</strong>
-				<?php echo gettext("Credit Limit of postpay");?> : <input class="form_enter" name="creditlimit" size="10" maxlength="16" style="border: 2px inset rgb(204, 51, 0);">
-				<br/>
-				<strong>6)</strong>
-			   <?php echo gettext("Enable expire");?>&nbsp;: <select name="enableexpire" class="form_enter" style="border: 2px inset rgb(204, 51, 0);">
-								<option value="0" selected="selected">
-						                           <?php echo gettext("NO EXPIRATION");?>                            </option><option value="1">
-						                             <?php echo gettext("EXPIRE DATE");?>                          </option><option value="2">
-						                            <?php echo gettext("EXPIRE DAYS SINCE FIRST USE");?>                           </option><option value="3">
-						                            <?php echo gettext("EXPIRE DAYS SINCE CREATION");?>                           </option></select>
-				<br/>
-				<?php 
-					$begin_date = date("Y");
-					$begin_date_plus = date("Y")+10;	
-					$end_date = date("-m-d H:i:s");
-					$comp_date = "value='".$begin_date.$end_date."'";
-					$comp_date_plus = "value='".$begin_date_plus.$end_date."'";
-				?>
-				<strong>7)</strong>
-				<?php echo gettext("Expiry Date");?>&nbsp;: <input class="form_enter" style="border: 2px inset rgb(204, 51, 0);" name="expirationdate" size="40" maxlength="40" <?php echo $comp_date_plus; ?>><?php echo gettext("(Format YYYY-MM-DD HH:MM:SS)");?>
-				<br/>
-				<strong>8)</strong>
-			   <?php echo gettext("Expiry days");?>&nbsp;: <input class="form_enter" style="border: 2px inset rgb(204, 51, 0);" name="expiredays" size="10" maxlength="6" value="0">
-				<br/>
-		</td>	
+		<li> 
+		<select name="choose_agent" size="1" class="form_enter" style="border: 2px outset rgb(204, 51, 0);">
+			<option value=''><?php echo gettext("Select the Agent");?></option>
+		
+		<?php
+			foreach ($list_agent as $recordset){
+		?>
+			<option class=input value='<?php echo $recordset[0]?>' ><?php echo $recordset[1]?></option>                        
+		<?php 	 }
+			?>
+		</select>
+		</li>
+		
+		<li>
+			<?= _("Type of cards");?>&nbsp; :
+			<input name="gtype" value="reg" type="radio">&nbsp;<?=_ ("Regulars");?> 
+			<input name="gtype" value="def" checked="checked" type="radio">&nbsp;<?= _("Default cards");?>
+			<input name="gtype" value="booth" type="radio">&nbsp;<?= _("Booths (def+booth)");?>
+			<br><?= _("Naming (defaults)") ?>:
+			<input class="form_enter" name="guname" size="20" maxlength="30" value="phone%1.%2">
+			<br><?= _("You can use placemarkers %1 = number, %2 = agent nick "); ?>
+		
+		</li>
+
+		<li>
+			<?= _("Numbering");?>&nbsp; :
+			<input name="gnumtype" value="rnd" type="radio">&nbsp;<?=_ ("Random");?> 
+			<input name="gnumtype" value="seq" checked="checked" type="radio">&nbsp;<?= _("Sequential");?>
+			<br><?= _("First number to try") ?>:
+			<input class="form_enter" name="gnumstart" size="10" maxlength="30" value="100">
+		</li>
+		
+		<li>
+		
+		<li>
+		<select NAME="choose_typepaid" size="1" class="form_enter" style="border: 2px inset rgb(204, 51, 0);">
+			<option value='0' selected><?php echo gettext("PREPAID CARD");?></option>
+			<option value='1'><?php echo gettext("POSTPAY CARD");?></option>
+			</select>
+		</li>
+		
+		<li>
+		<?php echo gettext("Credit Limit of postpay");?> : <input class="form_enter" name="creditlimit" size="10" maxlength="16" style="border: 2px inset rgb(204, 51, 0);">
+		</li>
+		
+		<li>
+		<?php echo gettext("Enable expire");?>&nbsp;: <select name="enableexpire" class="form_enter" style="border: 2px inset rgb(204, 51, 0);">
+		<option value="0" selected="selected"> <?php echo gettext("NO EXPIRATION");?></option>
+		<option value="1"> <?php echo gettext("EXPIRE DATE");?></option>
+		<option value="2"> <?php echo gettext("EXPIRE DAYS SINCE FIRST USE");?></option>
+		<option value="3"> <?php echo gettext("EXPIRE DAYS SINCE CREATION");?></option>
+		</select>
+		</li>
+		
+		<li>
+		<?php 
+			$begin_date = date("Y");
+			$begin_date_plus = date("Y")+10;	
+			$end_date = date("-m-d H:i:s");
+			$comp_date = "value='".$begin_date.$end_date."'";
+			$comp_date_plus = "value='".$begin_date_plus.$end_date."'";
+		?>
+		<?php echo gettext("Expiry Date");?>&nbsp;: <input class="form_enter" style="border: 2px inset rgb(204, 51, 0);" name="expirationdate" size="40" maxlength="40" <?php echo $comp_date_plus; ?>>
+		<br><?php echo gettext("(Format YYYY-MM-DD HH:MM:SS)");?>
+		</li>
+		
+		<li>
+		<?php echo gettext("Expiry days");?>&nbsp;: <input class="form_enter" style="border: 2px inset rgb(204, 51, 0);" name="expiredays" size="10" maxlength="6" value="0">
+		</li>
+	</ol></td>
+		
 		<td align="left" valign="bottom"> 
-				<input class="form_enter" style="border: 2px outset rgb(204, 51, 0);" value="<?php echo gettext(" GENERATE CARDS ");?>" type="submit"> 
+		<input class="form_enter" style="border: 2px outset rgb(204, 51, 0);" value="<?= _(" GENERATE CARDS ");?>" type="submit"> 
         </td>
 	 </form>
         </tr>
       </tbody></table>
 	  <br>
-	    
-	  
-	  <?php  if (($_SESSION["is_admin"]==1) && (2==3)){ ?>
-	  
-	   <table width="<?php echo $FG_HTML_TABLE_WIDTH?>" border="0" align="center" bgcolor="#CCCCCC">
-        <tr>
-          <td align="left">
-		   <form NAME="theForm">
-			  	<select NAME="choose_list" size="1" class="form_enter" style="border: 2px outset rgb(204, 51, 0);">
-					<option value=''><?php echo gettext("Choose a Reseller");?></option>
-					<?php					 
-				  	 foreach ($list_reseller as $recordset){ 						 
-					?>
-					<option class=input value='<?php echo $recordset[0]?>' <?php if ($recordset[0]==$IDmanager) echo "selected";?>><?php echo $recordset[1]?></option>                        
-					<?php 	 }
-					?>
-				</select>
-				<input class="form_enter" style="border: 2px outset rgb(204, 51, 0);" 
-				TYPE="button" VALUE=" DISPLAY CUSTOMERS OF THIS RESELLER" onClick="openURL('./PP_entity_anacust.php?IDmanager=')"> 
-		   </form>
-        </td>
-        </tr>
-      </table>
-	  <br/>
-	   <?php  } ?>
+
 
 <?php
 // #### TOP SECTION PAGE

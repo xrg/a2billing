@@ -85,6 +85,8 @@ BEGIN
     -- NOT copied:  freetimetocall_package_offer, id_outbound_cidgroup, parent_card, startdate, stopdate
 END; $$ LANGUAGE PLPGSQL STRICT;
 
+
+
 --	 (bill/EXTRACT(EPOCH FROM session_time))*3600
 -- for percent: to_char('990D0000%')
 --eof
