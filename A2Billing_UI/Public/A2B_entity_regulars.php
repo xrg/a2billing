@@ -128,6 +128,9 @@ if (!isset($action)) $action = $form_action;
 
 $list = $HD_Form -> perform_action($form_action);
 
+if ($form_action == "list" )
+	$HD_Form -> create_select_form('cc_agent', _("AGENT"),true,'id','name');
+	
 $HD_Form -> create_toppage ($form_action);
 
 

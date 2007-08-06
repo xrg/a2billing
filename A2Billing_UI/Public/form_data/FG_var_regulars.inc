@@ -1,6 +1,6 @@
 <?php
 
-getpost_ifset(array('id',"check", "type", "mode", "cardnumber", "action", "booth", "cardid"));
+getpost_ifset(array('id',"check", "type", "mode", "cardnumber", "action", "booth", "cardid",'posted','select'));
 
 $HD_Form = new FormHandler("cc_card_agent_v","Card");
 
@@ -32,9 +32,17 @@ $HD_Form -> FG_FILTER_SEARCH_SESSION_NAME = 'entity_card_selection';
 
 $HD_Form -> FG_FK_DELETE_CONFIRM = true;
 
+if (isset($posted)){
+	$HD_Form->FG_TOP_FILTER_VALUE = $select; //FIXME: PLEASE quote()!
+	$agentid = $select;
+	
+}else{
+	$HD_Form -> FG_TOP_FILTER_NAME = 0;
+	$HD_Form -> FG_TABLE_CLAUSE = '';
+}
 
 $HD_Form -> AddViewElement(gettext("ID"), "id", "3%", "center", "sort");
-$HD_Form -> AddViewElement(_("AGENT"), "agentid", "15%", "left", "sort", "15", "lie", "cc_agent", "name", "id='%id'", "%&1");
+$HD_Form -> AddViewElement(_("AGENT"), "agentid", "15%", "left", "sort", "", "lie", "cc_agent", "name", "id='%id'", "%&1");
 $HD_Form -> AddViewElement(gettext("CARD NUMBER"), "username", "11%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("NAME"), "name", "10%", "left", "sort", "15");
 $HD_Form -> AddViewElement("<acronym title=\"". gettext("BALANCE"). "\">".gettext("BA")."</acronym>", "credit", "10%", "center", "sort", "", "", "", "", "", "", "");
@@ -42,7 +50,7 @@ $HD_Form -> AddViewElement("<acronym title=\"". gettext("BALANCE"). "\">".gettex
 //$HD_Form -> AddViewElement(gettext("ACTION (eval)"), "", "10%", "", "", "","eval", "\"Test %&1\"");
 
 if ($popup_select == '')
-	$HD_Form -> AddViewElement(gettext("NOW IN"), "", "20%", "", "", "","object", $fb_form);
+	$HD_Form -> AddViewElement(gettext("NOW IN"), "", "40%", "", "", "","object", $fb_form);
 
 $FG_COL_QUERY="id, agentid, username, firstname|| ' ' ||lastname AS name, format_currency(credit,'EUR','EUR'), def, id, now_id, now_name, def_id, def_name, agentid";
 
@@ -75,8 +83,8 @@ if ($action == 'fillb') {
 	}
 }
 
-if (isset($agentid))
-	$HD_Form -> FG_TABLE_CLAUSE = "agentid = ". $agentid;
+if (isset($agentid) && ((integer)$agentid)>1)
+	$HD_Form -> FG_TABLE_CLAUSE = str_dbparams($HD_Form->DBHandle, "agentid = %1", array($agentid));
 $HD_Form -> FieldViewElement ($FG_COL_QUERY);
 
 $HD_Form -> CV_NO_FIELDS  = gettext("NO CARDS HAVE BEEN CREATED!");
@@ -85,7 +93,7 @@ $HD_Form -> CV_TEXT_TITLE_ABOVE_TABLE = _("Customers");
 $HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false; //--
 $HD_Form -> FG_LIMITE_DISPLAY = 10;
 
-$HD_Form -> CV_FOLLOWPARAMETERS= "&popup_select=".$_GET['popup_select']."&popup_formname=".$_GET['popup_formname']."&popup_fieldname=".$_GET['popup_fieldname'];
+$HD_Form -> CV_FOLLOWPARAMETERS= "&posted=$posted&select=$select&popup_select=".$_GET['popup_select']."&popup_formname=".$_GET['popup_formname']."&popup_fieldname=".$_GET['popup_fieldname'];
 
 if ($popup_select == 'def'){
 	$HD_Form -> FG_OTHER_BUTTON1 = true;
