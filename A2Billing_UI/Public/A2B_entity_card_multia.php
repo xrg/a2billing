@@ -19,7 +19,7 @@ $HD_Form -> FG_DELETION = false;
 $HD_Form -> FG_OTHER_BUTTON1 = false;
 $HD_Form -> FG_OTHER_BUTTON2 = false;
 $HD_Form -> FG_FILTER_APPLY = false;
-$HD_Form -> FG_DEBUG = 4;
+$HD_Form -> FG_DEBUG = 0;
 
 getpost_ifset(array('choose_list', 'choose_agent', 'creditlimit', 'addcredit', 'gen_id', 'cardnum', 'choose_simultaccess', 'choose_typepaid', 'creditlimit', 'enableexpire', 'expirationdate', 'expiredays', 'gtype','guname','gnumtype','gnumstart'));
 
