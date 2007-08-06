@@ -557,7 +557,7 @@ function str_params($str, $parm_arr, $noffset = 0){
 	This function is intended for database usage:
 	eg. str_dbparams(dbh,"SELECT %1 , %2 ; ", array("me", "'DROP DATABASE sql_inject;'"));
 	 will result in "SELECT 'me', '''DROP DATABASE sql_inject;''' ;" which is safe!
-	 
+	 %#x means the x-th parameter as a number, 0 if nan
 	Additionaly, parms in the form %!3 will result in "NULL" when parm is empty.
 	
 	@param $str The input string, say, the sql command
@@ -585,6 +585,10 @@ function str_dbparams($dbh, $str, $parm_arr){
 		if ($str[$strp] == '!'){
 			$sm=1;
 			$strp++;
+		}else
+		if ($str[$strp] == '#'){
+			$sm=2;
+			$strp++;
 		}
 		if (( $str[$strp]>='0')  && ( $str[$strp]<='9')){
 			$pv=$str{$strp} - '0';
@@ -598,7 +602,16 @@ function str_dbparams($dbh, $str, $parm_arr){
 					$resstr .= 'NULL';
 				else
 					$resstr .= $dbh->Quote($v);
-			}else {
+			} if ($sm ==2) {
+				if ($v == '') 
+					$v = null;
+				$v = (integer) $v;
+				if ($v == null)
+					$resstr .= '0';
+				else
+					$resstr .= $v;
+			}
+			else {
 				if ($v == null) $v = '';
 				$resstr .= $dbh->Quote($v);
 			}
