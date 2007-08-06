@@ -208,11 +208,9 @@ default:
 }
 	
 	include("PP_header.php");
-}
 
 
-           
-echo $CC_help_sipfriend_reload;
+// echo $CC_help_sipfriend_reload; //FIXME
 
 ?>
 <table width="60%" border="0" align="center" cellpadding="0" cellspacing="0" >

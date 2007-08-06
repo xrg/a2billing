@@ -50,7 +50,7 @@ if ($nbcard>0){
 		
 	$SIP_CONSTS = str_dbparams ($HD_Form->DBHandle, " %1 AS type, %2 AS allow, %3 AS context, %4 AS nat, %5 AS amaflags, %6 AS qualify, %7 AS host, %8 AS dtmfmode ",	
 	array(FRIEND_TYPE, FRIEND_ALLOW, FRIEND_CONTEXT, FRIEND_NAT, FRIEND_AMAFLAGS,
-		FRIEND_QUALIFY, RIEND_HOST, FRIEND_DTMFMODE));
+		FRIEND_QUALIFY, FRIEND_HOST, FRIEND_DTMFMODE));
 
 	for ($k=0;$k<$nbcard;$k++){
 		$result = $HD_Form -> DBHandle->Execute($QUERY);
