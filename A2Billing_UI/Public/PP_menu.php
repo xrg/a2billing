@@ -128,8 +128,8 @@ div.menu div ul {
 		<li><a href="A2B_entity_card.php?form_action=ask-add"><?= _("Create Customers");?></a></li>
                 <li><a href="CC_card_import.php"><?= _("Import Customers");?></a></li>
 		<li><a href="A2B_entity_card_multi.php"><?= _("Generate Customers");?></a></li>
-		<li><a href="A2B_entity_friend.php"><?= _("List SIP-FRIEND");?></a></li>
-		<li><a href="A2B_entity_friend.php?form_action=ask-add"><?= _("Create SIP-FRIEND");?></a></li>
+		<li><a href="A2B_entity_friend.php?atmenu=sipfriend"><?= _("List SIP-FRIEND");?></a></li>
+		<li><a href="A2B_entity_friend.php?atmenu=sipfriend&form_action=ask-add"><?= _("Create SIP-FRIEND");?></a></li>
 		<li><a href="A2B_entity_friend.php"><?= _("List IAX-FRIEND");?></a></li>
 		<li><a href="A2B_entity_friend.php?form_action=ask-add"><?= _("Create IAX-FRIEND");?></a></li>
 		<li><a href="A2B_entity_callerid.php"><?= _("List CallerID");?></a></li>
