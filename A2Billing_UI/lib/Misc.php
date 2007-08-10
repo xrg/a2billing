@@ -147,6 +147,20 @@ function putpost_arr($test_vars, $empty_null = false){
 	return $ret;
 }
 
+/** Convert params in array to url string
+   @param arr An array like (var1 => value1, ...)
+   @return A url like var1=value1
+   */
+function arr2url ($arr) {
+	if (!is_array($arr))
+		return;
+	$rar = array();
+	foreach($arr as $key => $value) {
+		$rar[] = "$key" . '=' . rawurlencode($value);
+	}
+	return implode('&',$rar);
+}
+
 /*
  * function display_money
  */
