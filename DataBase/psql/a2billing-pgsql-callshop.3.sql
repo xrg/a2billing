@@ -86,6 +86,19 @@ BEGIN
 END; $$ LANGUAGE PLPGSQL STRICT;
 
 
+CREATE OR REPLACE FUNCTION copy_ratecard_sell(rcid_src integer, rcid_dest integer) RETURNS void AS $$
+	UPDATE cc_ratecard SET rateinitial = src.rateinitial, initblock = src.initblock,
+		billingblock = src.billingblock, 
+		connectcharge = src.connectcharge, disconnectcharge = src.disconnectcharge,
+		stepchargea = src.stepchargea, chargea = src.chargea,
+		timechargea = src.timechargea, billingblocka = src.billingblocka,
+		stepchargeb = src.stepchargeb, chargeb = src.chargeb,
+		timechargeb = src.timechargeb, billingblockb = src.billingblockb, 
+		stepchargec = src.stepchargec, chargec = src.chargec,
+		timechargec = src.timechargec, billingblockc = src.billingblockc
+	    FROM cc_ratecard AS src WHERE src.id = $1 AND cc_ratecard.id = $2;
+
+$$ LANGUAGE SQL STRICT VOLATILE;
 
 --	 (bill/EXTRACT(EPOCH FROM session_time))*3600
 -- for percent: to_char('990D0000%')
