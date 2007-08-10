@@ -126,14 +126,32 @@ function getpost_ifset($test_vars)
 			$$test_var = sanitize_data($$test_var);
 		}
 	}
-} 
+}
 
+/** The opposite of getpost_ifset: create an array with those post vars
+	@param arr Array of ("var name", ...)
+	@param empty_null If true, treat empty vars as null
+	@return array( var => val, ...)*/
+
+function putpost_arr($test_vars, $empty_null = false){
+	$ret = array();
+	if (!is_array($test_vars)) {
+		$test_vars = array($test_vars);
+	}
+	foreach($test_vars as $test_var) {
+		global $$test_var;
+		if (isset($$test_var) && ($$test_var != null) &&
+			((!$empty_null) || $$test_var != '') )
+			$ret[$test_var] = $$test_var;
+	}
+	return $ret;
+}
 
 /*
  * function display_money
  */
-function display_money($value, $currency = BASE_CURRENCY){			
-	echo $value.' '.$currency;			
+function display_money($value, $currency = BASE_CURRENCY){
+	echo $value.' '.$currency;
 }
 
 
@@ -141,7 +159,7 @@ function display_money($value, $currency = BASE_CURRENCY){
  * function display_dateformat
  */
 function display_dateformat($mydate){
-	if (DB_TYPE == "mysql"){			
+	if (DB_TYPE == "mysql"){
 		if (strlen($mydate)==14){
 			// YYYY-MM-DD HH:MM:SS 20300331225242
 			echo substr($mydate,0,4).'-'.substr($mydate,4,2).'-'.substr($mydate,6,2);
@@ -149,7 +167,7 @@ function display_dateformat($mydate){
 			return;
 		}
 	}	
-	echo $mydate;			
+	echo $mydate;	
 }
 
 /*
