@@ -40,8 +40,8 @@ if ($batchupdate == 1 && is_array($check)){
 		if ($loop_pass!=0) $SQL_UPDATE.=',';
 		
 		// Standard update mode
-		if (!isset($mode["$ind_field"]) || $mode["$ind_field"]==1){		
-			if (!isset($type["$ind_field"])){		
+		if (!isset($mode["$ind_field"]) || $mode["$ind_field"]==1){
+			if (!isset($type["$ind_field"])){
 				$SQL_UPDATE .= " $myfield='".$$ind_field."'";
 			}else{
 				$SQL_UPDATE .= " $myfield='".$type["$ind_field"]."'";
@@ -52,7 +52,7 @@ if ($batchupdate == 1 && is_array($check)){
 				$SQL_UPDATE .= " $myfield='".$$ind_field."'";
 			}else{
 				if ($type["$ind_field"] == 1){
-					$SQL_UPDATE .= " $myfield='".$$ind_field."'";					
+					$SQL_UPDATE .= " $myfield='".$$ind_field."'";
 				}elseif ($type["$ind_field"] == 2){
 					$SQL_UPDATE .= " $myfield = $myfield +'".$$ind_field."'";
 				}else{
@@ -93,11 +93,11 @@ if (!isset($form_action))  $form_action="list"; //ask-add
 if (!isset($action)) $action = $form_action;
 
 
-if (is_string ($tariffplan) && strlen(trim($tariffplan))>0){		
-		list($mytariff_id, $mytariffname) = split('-:-', $tariffplan);		
+if (is_string ($tariffplan) && strlen(trim($tariffplan))>0){
+		list($mytariff_id, $mytariffname) = split('-:-', $tariffplan);
 		$_SESSION["mytariff_id"]= $mytariff_id;
 		$_SESSION["mytariffname"]= $mytariffname;
-		//$_SESSION["basetariffgroup"]= $basetariffgroup;		
+		//$_SESSION["basetariffgroup"]= $basetariffgroup;
 }else{
 		$mytariff_id = $_SESSION["mytariff_id"];
 		$mytariffname = $_SESSION["mytariffname"];
