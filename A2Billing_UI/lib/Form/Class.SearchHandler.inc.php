@@ -142,7 +142,7 @@ if ($this->FG_FILTER_SEARCH_FORM){
 		if ($nu%2 == 0)
 		{
 			$classleft="bgcolor_004";
-			$classright="bgcolor_005";		
+			$classright="bgcolor_005";
 		}
 		else
 		{
