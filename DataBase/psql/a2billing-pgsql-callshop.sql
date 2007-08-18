@@ -19,6 +19,7 @@ CREATE TABLE cc_agent (
     currency CHARACTER(3) NOT NULL DEFAULT 'EUR',
     locale VARCHAR(10) DEFAULT 'C',
     commission NUMERIC(4,4),
+    vat numeric(6,3) NOT NULL DEFAULT 0,
     banner TEXT
     );
 
