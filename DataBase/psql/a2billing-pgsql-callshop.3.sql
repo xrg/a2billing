@@ -100,6 +100,59 @@ CREATE OR REPLACE FUNCTION copy_ratecard_sell(rcid_src integer, rcid_dest intege
 
 $$ LANGUAGE SQL STRICT VOLATILE;
 
+
+
+CREATE OR REPLACE FUNCTION agent_create_invoice(s_agentid INTEGER, s_startdate TIMESTAMP, s_stopdate TIMESTAMP) 
+	RETURNS bigint AS $$
+DECLARE
+	sum_charges NUMERIC;
+	sum_calls   NUMERIC;
+	agent_vat   NUMERIC;
+	sum_amount  NUMERIC;
+	sum_tax     NUMERIC;
+	ret_id      BIGINT;
+BEGIN
+	-- Step x: check for overlapping invoices
+	PERFORM id FROM cc_invoices WHERE agentid = s_agentid 
+		AND ( cover_startdate BETWEEN s_startdate AND s_stopdate
+			OR cover_enddate BETWEEN s_startdate AND s_stopdate);
+	IF FOUND THEN
+		RAISE EXCEPTION 'Invoices already exist for this time period and agent';
+	END IF;
+	
+	-- Step 1: check for unchecked charges
+	-- TODO: we MISS charges on agent's cards w/o agentid in table.
+	PERFORM id FROM cc_charge WHERE agentid = s_agentid AND
+		(creationdate BETWEEN s_startdate AND s_stopdate)
+		AND from_agent = true AND checked IS NULL;
+	IF FOUND THEN
+		RAISE EXCEPTION 'Unchecked charges found in that period';
+	END IF;
+	
+	SELECT vat INTO agent_vat FROM cc_agent WHERE id = s_agentid;
+	IF NOT FOUND THEN
+		RAISE EXCEPTION 'Can''t find VAT for agent %!',s_agentid;
+	END IF;
+	-- Step x: Sum calls and charges (here goes anything that should be invoiced)
+	-- FIXME: commission on charges? VAT on them?
+	SELECT COALESCE(SUM(amount),0.0) INTO sum_charges FROM cc_charge WHERE agentid = s_agentid AND
+		(creationdate BETWEEN s_startdate AND s_stopdate)
+		AND from_agent = true AND checked IS NOT NULL;
+	
+	-- That view subtracts the commission.
+	SELECT COALESCE(sum(sessionbill),0.0) INTO sum_calls FROM cc_agent_calls3_v
+		WHERE agentid = s_agentid AND starttime BETWEEN s_startdate AND s_stopdate;
+	-- Create invoice.
+
+	sum_amount := (sum_calls * (100.0 - agent_vat))/100.0 + sum_charges;
+	sum_tax :=(sum_calls * agent_vat)/100.0 ;
+	INSERT INTO cc_invoices(agentid, cover_startdate, cover_enddate, amount,tax, total )
+		VALUES(s_agentid, s_startdate,s_stopdate, sum_amount, sum_tax, sum_amount + sum_tax)
+		RETURNING id INTO ret_id;
+
+	RETURN ret_id;
+END; $$ LANGUAGE PLPGSQL STRICT VOLATILE;
+
 --	 (bill/EXTRACT(EPOCH FROM session_time))*3600
 -- for percent: to_char('990D0000%')
 --eof

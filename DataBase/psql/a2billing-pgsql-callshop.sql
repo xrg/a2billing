@@ -160,4 +160,8 @@ CREATE TABLE cc_charge_bk (
     checked bigint REFERENCES cc_ui_authen(userid)
 );
 
+ALTER TABLE cc_invoices ALTER cardid DROP NOT NULL;
+ALTER TABLE cc_invoices ADD agentid bigint references cc_agent(id);
+ALTER TABLE cc_invoices ADD CHECK( (cardid IS NOT NULL) OR (agentid IS NOT NULL));
+
 -- eof
