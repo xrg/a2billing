@@ -102,7 +102,7 @@ $$ LANGUAGE SQL STRICT VOLATILE;
 
 
 
-CREATE OR REPLACE FUNCTION agent_create_invoice(s_agentid INTEGER, s_startdate TIMESTAMP, s_stopdate TIMESTAMP) 
+CREATE OR REPLACE FUNCTION agent_create_invoice(s_agentid BIGINT, s_startdate TIMESTAMP, s_stopdate TIMESTAMP) 
 	RETURNS bigint AS $$
 DECLARE
 	sum_charges NUMERIC;
@@ -140,7 +140,7 @@ BEGIN
 		AND from_agent = true AND checked IS NOT NULL;
 	
 	-- That view subtracts the commission.
-	SELECT COALESCE(sum(sessionbill),0.0) INTO sum_calls FROM cc_agent_calls3_v
+	SELECT COALESCE(sum(agentbill),0.0) INTO sum_calls FROM cc_agent_calls3_v
 		WHERE agentid = s_agentid AND starttime BETWEEN s_startdate AND s_stopdate;
 	-- Create invoice.
 
@@ -153,6 +153,39 @@ BEGIN
 	RETURN ret_id;
 END; $$ LANGUAGE PLPGSQL STRICT VOLATILE;
 
+
+SELECT agentid, cover_enddate + interval '0.01sec' FROM cc_invoices WHERE agentid IS NOT NULL;
+
+CREATE OR REPLACE FUNCTION agent_create_all_invoices(s_agentid BIGINT, s_intv INTERVAL) RETURNS void AS $$
+DECLARE
+	s_time TIMESTAMP;
+	e_time TIMESTAMP;
+	s_trunc TEXT;
+BEGIN
+	SELECT MAX(cover_enddate) + interval '0.01 sec' INTO s_time FROM cc_invoices WHERE agentid = s_agentid;
+	IF NOT FOUND OR s_time IS NULL THEN
+		SELECT date_trunc('day',min(starttime)) INTO s_time FROM cc_agent_calls_v
+			WHERE agentid = s_agentid;
+		IF NOT FOUND OR s_time IS NULL THEN
+			SELECT date_trunc('day',now() - s_intv) INTO s_time;
+		END IF;
+	END IF;
+	
+	RAISE NOTICE 'First date: %',s_time;
+	s_trunc := CASE WHEN s_intv = interval '1 month' then 'month' 
+		WHEN s_intv = interval '1 day' THEN 'day' ELSE 'month' END;
+	LOOP
+		e_time := date_trunc(s_trunc, s_time + s_intv) - interval '0.01 sec';
+		IF e_time > now() THEN 
+			EXIT;
+		END IF;
+		
+		RAISE DEBUG 'Invoice from % to %',s_time, e_time;
+		PERFORM agent_create_invoice(s_agentid, s_time, e_time);
+		
+		s_time := e_time + interval '0.01 sec';
+	END LOOP;
+END; $$ LANGUAGE PLPGSQL STRICT VOLATILE;
 --	 (bill/EXTRACT(EPOCH FROM session_time))*3600
 -- for percent: to_char('990D0000%')
 --eof
