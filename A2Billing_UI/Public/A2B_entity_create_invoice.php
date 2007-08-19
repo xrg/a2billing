@@ -172,7 +172,7 @@ if($forcustomer != "")
 				$instance_table -> SQLExec ($HD_Form ->DBHandle, $Query_Invoices);
 				if($sendemail =="Yes")
 				{
-					$QUERY = "Select Max(id) from cc_invoices";
+					$QUERY = "Select Max(id) from cc_invoices"; // VERY primitive!
 					$result = $instance_table -> SQLExec ($HD_Form ->DBHandle, $QUERY);
 					$invoice_id = $result[0][0];
 					$ok = EmailInvoice($invoice_id, 2);
