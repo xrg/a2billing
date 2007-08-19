@@ -258,7 +258,8 @@ div.menu div ul {
 			<li><a href="invoices.php?nodisplay=1"><?= _("Invoice");?></a></li>
 			<li><a href="invoices_customer.php?nodisplay=1"><?= _("Invoices Customer");?></a></li>
 			<li><a href="A2B_entity_invoices.php?invoicetype=billed"><?= _("View Billed Invoices");?></a></li>
-			<li><a href="A2B_entity_invoices.php?invoicetype=unbilled"><?= _("View UnBilled Invoices");?></a></li>				
+			<li><a href="A2B_entity_invoices.php?invoicetype=unbilled"><?= _("View UnBilled Invoices");?></a></li>
+			<li><a href="A2B_entity_agent_invoicev.php"><?= _("Agent Invoices");?></a></li>
 		</ul>
 		</div>
 	<?php  } ?>

@@ -186,6 +186,42 @@ BEGIN
 		s_time := e_time + interval '0.01 sec';
 	END LOOP;
 END; $$ LANGUAGE PLPGSQL STRICT VOLATILE;
+
+CREATE OR REPLACE VIEW cc_agent_invoices_v AS
+	SELECT cc_agent.login,cc_invoices.* , invoicesent_date, invoicestatus
+		FROM cc_agent, cc_invoices LEFT JOIN (SELECT DISTINCT ON (invoiceid) * 
+			FROM cc_invoice_history ORDER by invoiceid, invoicesent_date DESC) AS his 
+			ON cc_invoices.id = his.invoiceid
+		WHERE cc_agent.id = cc_invoices.agentid;
+
+CREATE OR REPLACE FUNCTION cc_invoice_lock_f() RETURNS trigger AS $$
+BEGIN
+	PERFORM cc_invoices.id FROM cc_invoices , cc_card
+		WHERE cardid IS NOT NULL AND
+			( OLD.starttime BETWEEN cover_startdate AND cover_enddate)
+			AND cc_card.id = cardid AND OLD.username = cc_card.username;
+	IF FOUND THEN
+		RAISE EXCEPTION 'Call is invoiced through card. Cannot modify';
+	END IF;
+	
+	PERFORM cc_invoices.id FROM cc_invoices, cc_agent_cards, cc_card
+		WHERE cc_invoices.agentid = cc_agent_cards.agentid
+			AND cc_card.id = cc_agent_cards.card_id
+			AND cc_card.username = OLD.username
+			AND ( OLD.starttime BETWEEN cover_startdate AND cover_enddate);
+	IF FOUND THEN
+		RAISE EXCEPTION 'Call is invoiced through agent. Cannot modify';
+	END IF;
+	IF TG_OP = 'DELETE' THEN
+		RETURN OLD;
+	ELSE
+		RETURN NEW;
+	END IF;
+END ; $$ LANGUAGE PLPGSQL;
+
+CREATE TRIGGER cc_call_check_invoice BEFORE UPDATE OR DELETE ON cc_call
+	FOR EACH ROW EXECUTE PROCEDURE cc_invoice_lock_f();
+
 --	 (bill/EXTRACT(EPOCH FROM session_time))*3600
 -- for percent: to_char('990D0000%')
 --eof
