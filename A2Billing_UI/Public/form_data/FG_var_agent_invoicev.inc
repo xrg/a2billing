@@ -48,7 +48,7 @@ $HD_Form -> FG_TABLE_CLAUSE .= $date_clause;
 	
 //
 $HD_Form -> FG_TABLE_ID = "id";
-$HD_Form -> FG_TABLE_DEFAULT_ORDER = "invoicecreated_date";
+$HD_Form -> FG_TABLE_DEFAULT_ORDER = "id";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
 $HD_Form -> FG_DEBUG = 2;
 $HD_Form -> FG_LIMITE_DISPLAY = 10;
@@ -73,8 +73,10 @@ $HD_Form -> AddViewElement(gettext("STATUS"), "invoicestatus", "5%", "center", "
 $HD_Form -> AddViewElement(gettext("PAYMENTSTATUS"), "payment_status", "5%", "center", "sort", "", "list", $payment_status_list);
 $HD_Form -> AddViewElement(gettext("AMOUNT"), "total", "9%", "center", "sort", "", "", "", "", "", "");
 //$HD_Form -> AddViewElement(gettext("PAYMENT"), "payment", "10%", "center", "sort", "15", "lie", "cc_logpayment as t2, cc_invoices t3", "CASE WHEN SUM(t2.payment) IS NULL THEN 0 ELSE SUM(t2.payment) END", "t3.cardid = t2.card_id  AND t2.card_id='$cardid' AND t3.id='%id' AND t2.date >= t3.cover_startdate AND t2.date < t3.cover_enddate", "%1");
+if (! isset($base_currency)) $base_currency = strtoupper(BASE_CURRENCY);
 
-$HD_Form -> FieldViewElement ('id, login,invoicecreated_date, cover_startdate, cover_enddate, invoicesent_date, invoicestatus, payment_status, total');
+$HD_Form -> FieldViewElement ('id, login,invoicecreated_date, cover_startdate, cover_enddate, invoicesent_date, invoicestatus, payment_status, format_currency(total,\''. $base_currency . '\', \'' . $base_currency . '\') ');
+
 
 $HD_Form -> FG_ACTION_SIZE_COLUMN = '10%';
 $HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO ".strtoupper($HD_Form->FG_INSTANCE_NAME)." CREATED!");
