@@ -506,7 +506,7 @@ CREATE OR REPLACE FUNCTION carry_session( sid bigint, agentid_p bigint) RETURNS 
 			RAISE EXCEPTION 'No such session for agent';
 		END IF;
 		INSERT INTO cc_agentrefill(card_id, agentid, credit, carried, pay_type)
-			VALUES(cid, agentid_p,ssum, true, 3);
+			VALUES(cid, agentid_p,ssum, true, 3); /* *-* why '3' ? */
 	RETURN ssum;
 	END; $$
 	LANGUAGE plpgsql STRICT;

@@ -188,6 +188,7 @@ $$ LANGUAGE SQL STRICT VOLATILE;
 
 ALTER TABLE cc_call ADD invoice_id BIGINT REFERENCES cc_invoices(id);
 ALTER TABLE cc_charge ADD invoice_id BIGINT REFERENCES cc_invoices(id);
+ALTER TABLE cc_agentpay ADD invoice_id BIGINT REFERENCES cc_invoices(id);
 
 CREATE OR REPLACE FUNCTION agent_create_invoice(s_agentid BIGINT, s_startdate TIMESTAMP, s_stopdate TIMESTAMP) 
 	RETURNS bigint AS $$
@@ -195,9 +196,12 @@ DECLARE
 	sum_charges NUMERIC;
 	sum_calls   NUMERIC;
 	agent_vat   NUMERIC;
+	agent_commission NUMERIC;
 	sum_amount  NUMERIC;
 	sum_tax     NUMERIC;
+	sum_bills   NUMERIC;
 	ret_id      BIGINT;
+	s_paytype   INTEGER;
 BEGIN
 	-- Step x: check for overlapping invoices
 	PERFORM id FROM cc_invoices WHERE agentid = s_agentid 
@@ -216,7 +220,7 @@ BEGIN
 		RAISE EXCEPTION 'Unchecked charges found in that period';
 	END IF;
 	
-	SELECT vat INTO agent_vat FROM cc_agent WHERE id = s_agentid;
+	SELECT vat, commission INTO agent_vat,agent_commission FROM cc_agent WHERE id = s_agentid;
 	IF NOT FOUND THEN
 		RAISE EXCEPTION 'Can''t find VAT for agent %!',s_agentid;
 	END IF;
@@ -244,10 +248,21 @@ BEGIN
 		    AND starttime BETWEEN s_startdate AND s_stopdate;
 
 	-- That view subtracts the commission.
-	SELECT COALESCE(sum(agentbill),0.0) INTO sum_calls FROM cc_agent_calls3_v
+	SELECT COALESCE(sum(agentbill),0.0), SUM(sessionbill) INTO sum_calls, sum_bills FROM cc_agent_calls3_v
 		WHERE invoice_id = ret_id;
 	-- Create invoice.
 
+	-- Automatically credit the commission to the agent!
+	IF sum_bills IS NOT NULL AND sum_bills > 0.0 THEN
+		SELECT id INTO s_paytype FROM cc_paytypes WHERE preset = 'auto-commission';
+		IF NOT FOUND THEN
+			RAISE WARNING 'No preset found for auto-commission, cannot charge.';
+		ELSE
+			INSERT INTO cc_agentpay(credit,pay_type,agentid,invoice_id)
+				VALUES(sum_bills*agent_commission, s_paytype,s_agentid, ret_id);
+		END IF;
+	END IF;
+	
 	sum_amount := (sum_calls * (100.0 - agent_vat))/100.0 + sum_charges;
 	sum_tax :=(sum_calls * agent_vat)/100.0 ;
 
@@ -312,6 +327,57 @@ END ; $$ LANGUAGE PLPGSQL;
 
 CREATE TRIGGER cc_call_check_invoice BEFORE UPDATE OR DELETE ON cc_call
 	FOR EACH ROW EXECUTE PROCEDURE cc_invoice_lock_f();
+
+INSERT INTO cc_paytypes(id,side,preset) VALUES(gettext_ri('Manual commission credit'),3,'manual-commission');
+INSERT INTO cc_paytypes(id,side,preset) VALUES(gettext_ri('Auto commission credit'),3,'auto-commission');
+
+
+CREATE OR REPLACE FUNCTION agent_manual_commission(s_inv_id BIGINT) RETURNS void AS $$
+DECLARE
+	s_inv_date TIMESTAMP;
+	s_agent_commission NUMERIC;
+	s_agent_id BIGINT;
+	s_paytype INTEGER;
+	s_sum_commission NUMERIC;
+BEGIN
+	SELECT cc_agent.id, cc_agent.commission, cc_invoices.invoicecreated_date
+		INTO s_agent_id, s_agent_commission, s_inv_date
+		FROM cc_invoices, cc_agent
+		WHERE cc_invoices.agentid = cc_agent.id AND cc_invoices.id = s_inv_id;
+		
+	IF NOT FOUND THEN
+		RAISE EXCEPTION 'Invoice or agent not found!';
+	END IF;
+
+	IF s_agent_commission IS NULL OR s_agent_commission <= 0.0 THEN
+		RAISE WARNING 'Agent gets no commission, exiting';
+		RETURN;
+	END IF;
+	
+	PERFORM cc_agentpay.id FROM cc_agentpay, cc_paytypes
+		WHERE invoice_id = s_inv_id AND cc_agentpay.pay_type = cc_paytypes.id
+		AND (cc_paytypes.preset = 'manual-commission' OR cc_paytypes.preset ='auto-commission');
+	IF FOUND THEN
+		RAISE EXCEPTION 'Invoice already connected to commission charge';
+	END IF;
+	
+	SELECT id INTO s_paytype FROM cc_paytypes WHERE preset = 'manual-commission';
+	IF NOT FOUND THEN
+		RAISE EXCEPTION 'No preset found for manual-commission, cannot continue';
+	END IF;
+	
+	SELECT SUM(sessionbill)*s_agent_commission INTO s_sum_commission 
+		FROM cc_call WHERE invoice_id = s_inv_id;
+	
+	IF s_sum_commission IS NULL OR s_sum_commission = 0.0 THEN
+		RAISE NOTICE 'No calls/no commission. No credit paid.';
+		RETURN;
+	END IF;
+	
+	INSERT INTO cc_agentpay(date,credit,pay_type,agentid,invoice_id)
+		VALUES(s_inv_date,s_sum_commission, s_paytype,s_agent_id, s_inv_id);
+	
+END;  $$ LANGUAGE PLPGSQL STRICT VOLATILE;
 
 --	 (bill/EXTRACT(EPOCH FROM session_time))*3600
 -- for percent: to_char('990D0000%')
