@@ -141,7 +141,7 @@ function sendtolittle(direction){
 							foreach ($select_list as $select_recordset){
 								$select_number++;
 								?>
-								<option  value=<?= $select_recordset[1]?> <?php 
+								<option value='<?= $select_recordset[1]?>' <?php 
 									
 									if($this->VALID_SQL_REG_EXP){ 
 										if (strpos($this->FG_TABLE_EDITION[$i][4], "multiple")){
@@ -369,7 +369,7 @@ function sendtolittle(direction){
 							 }
 
 			  ?>
-                                            <OPTION  value=<?= $select_recordset[1]?>>
+                                            <OPTION value='<?= $select_recordset[1]?>'>
                                             <?= $value_display?>
                                             </OPTION>
                                             <?php
@@ -387,11 +387,11 @@ function sendtolittle(direction){
                                     </TR>
                                     <TR>
                                       <TD colspan="2" align="center" vAlign="middle">
-										<input onClick="sendto('add-content','<?= $i?>');" title="<?= gettext("add new a ");?><?= $this->FG_TABLE_EDITION[$i][0]?>" alt="<?= gettext("add new a ");?><?= $this->FG_TABLE_EDITION[$i][0]?>" border=0 height=20 hspace=2 id=submit32 name=submit3 src="../Images/btn_Add_94x20.png" type=image width=94 value="add-split">
+					<input onClick="sendto('add-content','<?= $i?>');" title="<?= gettext("add new a ");?><?= $this->FG_TABLE_EDITION[$i][0]?>" alt="<?= gettext("add new a ");?><?= $this->FG_TABLE_EDITION[$i][0]?>" border=0 height=20 hspace=2 id=submit32 name=submit3 src="../Images/btn_Add_94x20.png" type=image width=94 value="add-split">
                                       </TD>
                                     </TR>
                                 </TABLE>
-							</TD>
+				</TD>
                             <TD class="form_head"><IMG height=1 src="../Images/clear.png" width=1></TD>
                             </TR>
                             <TR>
@@ -427,7 +427,7 @@ function sendtolittle(direction){
                           </TR>
                           <TR>
                             <TD>
-								<TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
+					<TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
                                 <TR>
                                 	<TD bgColor=#e1e1e1 colSpan=<?= $this->FG_TOTAL_TABLE_COL?> height=1><IMG height=1 src="../Images/clear.png" width=1></TD>
                                 </TR>
