@@ -23,6 +23,9 @@ $FG_DEBUG = 4;
 $show_actions = true;
 $show_history  = true;
 $show_calls = true;
+$currency = 'EUR';
+$num_cols = 2;
+$num_rows = 0;
 
 include('PP_header.php');
 
@@ -123,6 +126,66 @@ if ($show_history){
 	}
 }
 ?>
+<?php if ($show_calls){
+	$QUERY = str_dbparams($DBHandle,"SELECT starttime, ".
+		"substring(calledstation from '#\"%%#\"___' for '#') || '***' AS dest, ".
+		" sessiontime, format_currency(sessionbill, %3, %2) AS bill ".
+		"FROM cc_call WHERE invoice_id = %#1 AND sessionbill > 0.0 ORDER BY starttime;", 
+		array($id, $currency, strtoupper(BASE_CURRENCY)));
+	$res = $DBHandle->Execute($QUERY);
+	?> <?= _("Calls!") ?>
+<?php
+	if (!$res){
+		?> <?= _("No calls found!") ?> <?php
+		if ($FG_DEBUG >0){
+			echo "Query failed: " . htmlspecialchars($QUERY). "<br>\n";
+			echo $DBHandle->ErrorMsg();
+			echo "<br><br>\n";
+		}
+	}else {
+		$n = 0;
+		$ncol = 0;
+		if ($num_rows == 0 )
+			$num_rows = ($res->RecordCount() + $num_cols ) / $num_cols;
+		
+		?>
+		<table>
+	<?php
+		$row = true ; // for the first one
+		while ($row){
+		if ( ($ncol++) % $num_cols == 0)
+			echo "<tr>";
+		echo "<td>";
+?>
+		<table>
+		<thead><tr><td><?= _("Date") ?></td> <td><?= _("Destination") ?></td> <td><?= _("Duration") ?></td> <td><?= _("Charge") ?></td>
+		</tr>
+		</thead>
+		<tbody>
+<?php
+		while ($row = $res->fetchRow()){
+			echo "<tr>";
+			for ($i = 0; $i<4 ; $i++)
+				echo "<td>" .htmlspecialchars($row[$i]) . "</td>";
+			echo "</tr>\n";
+			if ( (++$n) % $num_rows == 0 )
+				break;
+		}
+		?>
+		</tbody>
+		</table>
+<?php
+		echo "</td>";
+		if ( $ncol % $num_cols == 0)
+			echo "</tr>";
+		}; //while
+		
+		// if stopped at an odd column, make up.
+		if ( $ncol % $num_cols != 0)
+			echo "</tr>";
+	}
+
+} ?>
 
 <table width="60%" cellpadding="0" cellspacing="0">
 	<tr>
