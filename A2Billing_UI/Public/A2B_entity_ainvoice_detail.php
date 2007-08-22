@@ -26,14 +26,18 @@ $show_calls = true;
 $currency = 'EUR';
 $num_cols = 2;
 $num_rows = 0;
+$date_format = 'DD/MM/IYYY HH24:MI';
+
 
 include('PP_header.php');
 
-$QUERY = str_dbparams($DBHandle,'SELECT invoicecreated_date, cover_startdate,cover_enddate, '.
-	'orderref, amount, tax, total,invoicetype, filename, payment_status, '.
-	'name, email, location, vat '.
+$QUERY = str_dbparams($DBHandle,'SELECT to_char(invoicecreated_date,%4) AS invoicecreated_date, '.
+	'to_char(cover_startdate,%4) AS cover_startdate, to_char(cover_enddate, %4) AS cover_enddate, '.
+	'orderref, format_currency(amount, %3, %2) AS amount, format_currency(tax, %3, %2) AS tax, format_currency(total, %3, %2) AS total, '.
+	'invoicetype, filename, payment_status, '.
+	'name, email, location, vat, commission '.
 	' FROM cc_invoices, cc_agent WHERE cc_invoices.agentid = cc_agent.id AND cc_invoices.id = %#1;',
-	array($id));
+	array($id, $currency,strtoupper(BASE_CURRENCY),$date_format));
 $res = $DBHandle->Execute($QUERY);
 
 if (!$res){
@@ -102,8 +106,8 @@ if ($show_actions){
 
 <?php
 if ($show_history){
-	$QUERY = str_dbparams($DBHandle,'SELECT invoicesent_date, invoicestatus FROM cc_invoice_history' .
-		' WHERE invoiceid = %#1 ORDER BY invoicesent_date DESC;', array($id));
+	$QUERY = str_dbparams($DBHandle,'SELECT to_char(invoicesent_date, %2), invoicestatus FROM cc_invoice_history' .
+		' WHERE invoiceid = %#1 ORDER BY invoicesent_date DESC;', array($id,$date_format));
 	$res = $DBHandle->Execute($QUERY);
 
 	if (!$res){
@@ -127,11 +131,19 @@ if ($show_history){
 }
 ?>
 <?php if ($show_calls){
-	$QUERY = str_dbparams($DBHandle,"SELECT starttime, ".
+	$QUERY = str_dbparams($DBHandle,"SELECT fmt_mins(SUM(sessiontime) ::INTEGER) AS ttime, ".
+		" format_currency(SUM(sessionbill) * %2, %4, %3) AS bill ".
+		"FROM cc_call WHERE invoice_id = %#1;", 
+		array($id,(1.0 - $info_invoice['commission']), $currency, strtoupper(BASE_CURRENCY)));
+	$res = $DBHandle->Execute($QUERY);
+	if ($res)
+		$sum_row = $res->fetchRow();
+
+	$QUERY = str_dbparams($DBHandle,"SELECT to_char(starttime, %5) AS stime, ".
 		"substring(calledstation from '#\"%%#\"___' for '#') || '***' AS dest, ".
-		" sessiontime, format_currency(sessionbill, %3, %2) AS bill ".
+		" fmt_mins(sessiontime), format_currency(sessionbill * %2, %4, %3) AS bill ".
 		"FROM cc_call WHERE invoice_id = %#1 AND sessionbill > 0.0 ORDER BY starttime;", 
-		array($id, $currency, strtoupper(BASE_CURRENCY)));
+		array($id,(1.0 - $info_invoice['commission']), $currency, strtoupper(BASE_CURRENCY),$date_format));
 	$res = $DBHandle->Execute($QUERY);
 	?> <?= _("Calls!") ?>
 <?php
@@ -146,7 +158,7 @@ if ($show_history){
 		$n = 0;
 		$ncol = 0;
 		if ($num_rows == 0 )
-			$num_rows = ($res->RecordCount() + $num_cols ) / $num_cols;
+			$num_rows = ($res->RecordCount() + $num_cols +1 ) / $num_cols;
 		
 		?>
 		<table>
@@ -170,6 +182,13 @@ if ($show_history){
 			echo "</tr>\n";
 			if ( (++$n) % $num_rows == 0 )
 				break;
+		}
+		
+		if ((! $row) && $sum_row){
+			?> <tr><td> </td></tr>
+			<tr> <td colspan=2> <?= _("Total:") ?> </td>
+			<td><?= $sum_row['ttime'] ?> </td> <td> <?= $sum_row['bill'] ?> </td></tr>
+			<?php
 		}
 		?>
 		</tbody>

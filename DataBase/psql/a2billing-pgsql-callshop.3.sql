@@ -379,6 +379,12 @@ BEGIN
 	
 END;  $$ LANGUAGE PLPGSQL STRICT VOLATILE;
 
+CREATE OR REPLACE FUNCTION fmt_mins( seconds INTEGER) RETURNS text AS $$
+	SELECT CASE WHEN $1 > 1800 THEN to_char(floor($1 /3600) ,'FM99') || 'h' || 
+		to_char( ($1 / 60 ) % 60, 'FM00')
+		WHEN $1 > 59 THEN to_char(floor($1/60),'FM9900:') || to_char($1 % 60, 'FM00')
+		ELSE to_char($1, 'FM00') || 's' END ;
+	$$ LANGUAGE SQL IMMUTABLE STRICT;
 --	 (bill/EXTRACT(EPOCH FROM session_time))*3600
 -- for percent: to_char('990D0000%')
 --eof
