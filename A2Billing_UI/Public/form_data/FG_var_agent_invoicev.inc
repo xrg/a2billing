@@ -50,7 +50,7 @@ $HD_Form -> FG_TABLE_CLAUSE .= $date_clause;
 $HD_Form -> FG_TABLE_ID = "id";
 $HD_Form -> FG_TABLE_DEFAULT_ORDER = "id";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
-$HD_Form -> FG_DEBUG = 2;
+$HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_LIMITE_DISPLAY = 10;
 
 $status_list = array();
