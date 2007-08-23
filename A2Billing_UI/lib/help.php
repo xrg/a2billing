@@ -1,7 +1,10 @@
 <?php
 
 function show_help($str) {
-
+	global $HD_Form;
+	if (isset($HD_Form) && isset($HD_Form->FG_DEBUG) &&$HD_Form->FG_DEBUG > 1)
+		return;
+	
 	switch ($str) {
 	case 'list customer':
 		$icon = "vcard.gif";
