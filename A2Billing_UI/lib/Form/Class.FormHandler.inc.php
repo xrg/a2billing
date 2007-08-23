@@ -652,6 +652,16 @@ class FormHandler{
 		// For each query we need to have the ID at the lenght FG_NB_TABLE_COL
 		if ($add_id)	$this->FG_COL_QUERY .= ", ".$this->FG_TABLE_ID;
 	}
+	
+	/** Set Field view query on columns */
+	function AutoFieldViewElements($add_id = 1){
+		$fields = Array();
+		foreach($this->FG_TABLE_COL as $col)
+			$fields[] = $col[1];
+		$tfields= implode(', ', $fields);
+		$this->FieldViewElement($tfields,$add_id);
+		
+	}
 
 
 	function Is_EDITION() {
@@ -828,6 +838,17 @@ class FormHandler{
 		$this->FG_QUERY_ADITION = $fieldname;
 	}
 	
+	
+	/** Set the add/edit fields automatically on the inserted columns
+	   Replace calls to FieldEditElement() with this when they all have correct fields
+	   */
+	function AutoFieldEditElements() {
+		$fields= Array();
+		foreach($this->FG_TABLE_EDITION as $col)
+			$fields[] = $col[1];
+		$tfields= implode(', ', $fields);
+		$this->FieldEditElement($tfields);
+	}
 	
 	function set_regular_expression(){
 	
