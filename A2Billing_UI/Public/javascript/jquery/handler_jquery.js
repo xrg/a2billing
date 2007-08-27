@@ -12,7 +12,7 @@ $(document).ready(
 					newimage = $(this).attr('src');
 					//alert(newimage.substr(0,newimage.length-8) + 'minus.gif');
 					$(this).attr('src', newimage.substr(0,newimage.length-8) + 'minus.gif');
-				});				
+				});
 			} else {
 				div_toggle.animate({ height: 'hide', opacity: 'hide' }, 'slow');
 				$(this).find("img").each(function(i) {

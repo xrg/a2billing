@@ -122,23 +122,19 @@ else echo $CC_help_def_ratecard;
 // DISPLAY THE UPDATE MESSAGE
 if (isset($update_msg) && strlen($update_msg)>0) echo $update_msg; 
 
-?>
-
-
-<div class="toggle_hide2show">
-<center><a href="#" target="_self" class="toggle_menu"><img class="toggle_hide2show" src="<?php echo KICON_PATH; ?>/toggle_hide2show.png" onmouseover="this.style.cursor='hand';" HEIGHT="16"> <font class="fontstyle_002"><?php echo gettext("SEARCH RATES");?> </font></a></center>
-	<div class="tohide" style="display:none;">
-<?php
 // #### CREATE SEARCH FORM
 if ($form_action == "list"){
+?>
+<div class="toggle_hide2show">
+<center><a href="#" target="_self" class="toggle_menu"><img class="toggle_hide2show" src="../Images/kicons/toggle_hide2show.png" onmouseover="this.style.cursor='hand';" HEIGHT="16"> <font class="fontstyle_002"><?php echo gettext("SEARCH RATES");?> </font></a></center>
+	<div class="tohide" style="display:none;">
+<?php
 	$HD_Form -> create_search_form();
-}
 ?>
 	</div>
 </div>
-
-
 <?php
+}
 
 /********************************* BATCH UPDATE ***********************************/
 if ($form_action == "list"){
@@ -158,7 +154,7 @@ if ($form_action == "list"){
 
 <!-- ** ** ** ** ** Part for the Update ** ** ** ** ** -->
 <div class="toggle_hide2show">
-<center><a href="#" target="_self" class="toggle_menu"><img class="toggle_hide2show" src="<?php echo KICON_PATH; ?>/toggle_hide2show.png" onmouseover="this.style.cursor='hand';" HEIGHT="16"> <font class="fontstyle_002"><?php echo gettext("BATCH UPDATE");?> </font></a></center>
+<center><a href="#" target="_self" class="toggle_menu"><img class="toggle_hide2show" src="../Images/kicons/toggle_hide2show.png" onmouseover="this.style.cursor='hand';" HEIGHT="16"> <font class="fontstyle_002"><?php echo gettext("BATCH UPDATE");?> </font></a></center>
 	<div class="tohide" style="display:none;">
 	
 <center>
