@@ -61,6 +61,92 @@ SELECT booth, date_trunc('day',session_start) as dday,COUNT(id) AS sessions, COU
 	FROM cc_session_usage_v
 	GROUP BY booth, dday;
 	
+	
+	
+CREATE OR REPLACE VIEW cc_tariffrates_v3 AS SELECT cc_tariffgroup.id AS tg_id, cc_tariffgroup.tariffgroupname AS tg_name, 
+	cc_tariffplan.id AS tp_id, cc_tariffplan.tariffname AS tp_name,
+	cc_tariffplan.startingdate AS tp_start, cc_tariffplan.expirationdate AS tp_end,
+	MIN(cc_ratecard.dialprefix) AS dialprefix, cc_ratecard.destination, MIN(cc_ratecard.rateinitial) AS rateinitial, 
+	MIN(cc_ratecard.connectcharge + cc_ratecard.disconnectcharge) AS charge_once,
+	MIN(cc_ratecard.billingblock) AS billingblock
+
+	FROM cc_tariffgroup, cc_tariffgroup_plan, cc_tariffplan, cc_ratecard
+	
+	WHERE cc_tariffgroup.id = cc_tariffgroup_plan.idtariffgroup AND
+		cc_tariffplan.id = cc_tariffgroup_plan.idtariffplan AND
+		cc_ratecard.idtariffplan = cc_tariffplan.id
+	GROUP BY cc_ratecard.destination,cc_tariffgroup.id, cc_tariffgroup.tariffgroupname, 
+		cc_tariffplan.id,cc_tariffplan.tariffname,cc_tariffplan.startingdate, cc_tariffplan.expirationdate ;
+
+CREATE OR REPLACE VIEW cc_tariffrates_v4 AS
+SELECT cc_agent_cards.agentid, cc_ratecard.dialprefix, SUM(cc_call.sessiontime) AS total_secs, cc_call.id_ratecard, cc_ratecard.destination,
+	cc_ratecard.rateinitial
+	FROM cc_call,cc_agent_cards, cc_card, cc_ratecard
+	WHERE (cc_call.starttime between NOW() - interval '10 days' AND NOW())
+		AND cc_call.username = cc_card.username AND cc_agent_cards.card_id = cc_card.id
+		AND cc_ratecard.id = cc_call.id_ratecard
+	GROUP BY cc_call.id_ratecard, cc_agent_cards.agentid, cc_ratecard.destination,
+		cc_ratecard.rateinitial, cc_ratecard.dialprefix
+	ORDER BY SUM(cc_call.sessiontime) DESC LIMIT 100;
+	
+	
+CREATE OR REPLACE VIEW cc_agent_calls_v AS
+	SELECT starttime, stoptime, stoptime-starttime AS duration, terminatecause,
+		sessionbill, id_ratecard,
+		cc_agent_cards.agentid
+	
+	FROM cc_call, cc_card LEFT OUTER JOIN  cc_agent_cards ON cc_card.id = cc_agent_cards.card_id
+	WHERE cc_card.username = cc_call.username;
+	
+	SELECT sum(duration), EXTRACT(hour from starttime) from cc_agent_calls_v 
+		WHERE agentid = 1
+		GROUP BY EXTRACT(hour from starttime)
+		ORDER BY EXTRACT(hour from starttime);
+		
+CREATE OR REPLACE VIEW cc_agent_calls2_v AS
+	SELECT cc_agent_calls_v.* , CASE WHEN terminatecause <> 'ANSWER' THEN terminatecause
+		WHEN duration < interval '10 sec' THEN '10sec'
+		WHEN duration < interval '30 sec' THEN '30sec'
+		WHEN duration < interval '1 min' THEN '1min'
+		WHEN duration > interval '5 min' THEN 'long'
+		ELSE 'Normal'
+		END AS categ,
+		date_trunc('day',cc_agent_calls_v.starttime),
+		EXTRACT(hour from cc_agent_calls_v.starttime),
+		cc_ratecard.destination
+		FROM cc_agent_calls_v LEFT OUTER JOIN cc_ratecard ON id_ratecard = cc_ratecard.id
+		WHERE cc_agent_calls_v.starttime > '2007-06-13 11:22';
+		
+
+CREATE OR REPLACE VIEW cc_agent_calls3_v AS
+	SELECT cc_agent_cards.agentid, starttime, stoptime-starttime AS duration, terminatecause,
+		sessionbill, invoice_id,
+		substring(calledstation from '#"%#"___' for '#') || '***' AS calledstation,
+		CASE WHEN cc_agent.id IS NOT NULL THEN
+			(sessionbill * (1 -cc_agent.commission))
+			ELSE NULL END AS agentbill
+		FROM cc_call, cc_card LEFT OUTER JOIN  cc_agent_cards ON cc_card.id = cc_agent_cards.card_id
+			LEFT OUTER JOIN cc_agent ON cc_agent.id = cc_agent_cards.agentid
+	WHERE cc_card.username = cc_call.username;
+	
+CREATE OR REPLACE VIEW cc_agent_calls4_v AS
+	SELECT * FROM cc_agent_calls3_v WHERE
+		agentid = 1 AND starttime >'2007-06-13 11:22' AND starttime < '2007-07-01 00:00'
+		AND sessionbill > 0.0;
+
+
+CREATE TABLE cc_numplan (
+	id serial PRIMARY KEY,
+	name VARCHAR(30) NOT NULL,
+	intlen SMALLINT NOT NULL DEFAULT 5,
+	intprefix VARCHAR(10) NOT NULL DEFAULT '55'
+);
+
+INSERT INTO cc_numplan(id,name) VALUES(1,'Default');
+
+ALTER TABLE cc_card ADD numplan INTEGER not null DEFAULT 1;
+
+
 /** Actually copy the ratecards: insert identical rates to the destination, as the source.
 */
 CREATE OR REPLACE FUNCTION copy_ratecards(idtp_src integer, idtp_dest integer) RETURNS void AS $$
@@ -100,7 +186,8 @@ CREATE OR REPLACE FUNCTION copy_ratecard_sell(rcid_src integer, rcid_dest intege
 
 $$ LANGUAGE SQL STRICT VOLATILE;
 
-
+ALTER TABLE cc_call ADD invoice_id BIGINT REFERENCES cc_invoices(id);
+ALTER TABLE cc_charge ADD invoice_id BIGINT REFERENCES cc_invoices(id);
 
 CREATE OR REPLACE FUNCTION agent_create_invoice(s_agentid BIGINT, s_startdate TIMESTAMP, s_stopdate TIMESTAMP) 
 	RETURNS bigint AS $$
@@ -133,23 +220,39 @@ BEGIN
 	IF NOT FOUND THEN
 		RAISE EXCEPTION 'Can''t find VAT for agent %!',s_agentid;
 	END IF;
-	-- Step x: Sum calls and charges (here goes anything that should be invoiced)
-	-- FIXME: commission on charges? VAT on them?
-	SELECT COALESCE(SUM(amount),0.0) INTO sum_charges FROM cc_charge WHERE agentid = s_agentid AND
-		(creationdate BETWEEN s_startdate AND s_stopdate)
-		AND from_agent = true AND checked IS NOT NULL;
 	
+	-- Create the invoice. We need its id this early.
+	INSERT INTO cc_invoices(agentid, cover_startdate, cover_enddate )
+		VALUES(s_agentid, s_startdate,s_stopdate)
+		RETURNING id INTO ret_id;
+	IF NOT FOUND THEN
+		RAISE EXCEPTION 'Cannot create invoice';
+	END IF;
+	
+	-- Step x: Sum calls and charges (here goes anything that should be invoiced)
+	UPDATE cc_charge SET invoice_id = ret_id 
+		WHERE agentid = s_agentid AND invoice_id IS NULL
+		AND from_agent = true AND checked IS NOT NULL
+		AND (creationdate BETWEEN s_startdate AND s_stopdate) ;
+		
+	-- FIXME: commission on charges? VAT on them? Non-invoiced charges?
+	SELECT COALESCE(SUM(amount),0.0) INTO sum_charges FROM cc_charge WHERE invoice_id = ret_id;
+	
+	UPDATE cc_call SET invoice_id = ret_id FROM cc_card, cc_agent_cards
+		WHERE cc_card.id = cc_agent_cards.card_id AND cc_agent_cards.agentid = s_agentid
+		    AND cc_card.username = cc_call.username AND cc_call.invoice_id IS NULL
+		    AND starttime BETWEEN s_startdate AND s_stopdate;
+
 	-- That view subtracts the commission.
 	SELECT COALESCE(sum(agentbill),0.0) INTO sum_calls FROM cc_agent_calls3_v
-		WHERE agentid = s_agentid AND starttime BETWEEN s_startdate AND s_stopdate;
+		WHERE invoice_id = ret_id;
 	-- Create invoice.
 
 	sum_amount := (sum_calls * (100.0 - agent_vat))/100.0 + sum_charges;
 	sum_tax :=(sum_calls * agent_vat)/100.0 ;
-	INSERT INTO cc_invoices(agentid, cover_startdate, cover_enddate, amount,tax, total )
-		VALUES(s_agentid, s_startdate,s_stopdate, sum_amount, sum_tax, sum_amount + sum_tax)
-		RETURNING id INTO ret_id;
 
+	UPDATE cc_invoices SET amount = sum_amount, tax = sum_tax, total =sum_amount + sum_tax
+		WHERE id = ret_id;
 	RETURN ret_id;
 END; $$ LANGUAGE PLPGSQL STRICT VOLATILE;
 
@@ -196,22 +299,10 @@ CREATE OR REPLACE VIEW cc_agent_invoices_v AS
 
 CREATE OR REPLACE FUNCTION cc_invoice_lock_f() RETURNS trigger AS $$
 BEGIN
-	PERFORM cc_invoices.id FROM cc_invoices , cc_card
-		WHERE cardid IS NOT NULL AND
-			( OLD.starttime BETWEEN cover_startdate AND cover_enddate)
-			AND cc_card.id = cardid AND OLD.username = cc_card.username;
-	IF FOUND THEN
-		RAISE EXCEPTION 'Call is invoiced through card. Cannot modify';
+	IF OLD.invoice_id IS NOT NULL THEN
+		RAISE EXCEPTION 'Call is invoiced in invoice %. Cannot modify',OLD.invoice_id;
 	END IF;
 	
-	PERFORM cc_invoices.id FROM cc_invoices, cc_agent_cards, cc_card
-		WHERE cc_invoices.agentid = cc_agent_cards.agentid
-			AND cc_card.id = cc_agent_cards.card_id
-			AND cc_card.username = OLD.username
-			AND ( OLD.starttime BETWEEN cover_startdate AND cover_enddate);
-	IF FOUND THEN
-		RAISE EXCEPTION 'Call is invoiced through agent. Cannot modify';
-	END IF;
 	IF TG_OP = 'DELETE' THEN
 		RETURN OLD;
 	ELSE
