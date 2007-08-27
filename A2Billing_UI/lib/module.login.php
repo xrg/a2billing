@@ -39,6 +39,8 @@ if ((!session_is_registered('pr_login') || !session_is_registered('pr_password')
 			
 			$is_admin = 1;
 			$pr_groupID = $return[3];
+			$admin_id = $return[0];
+			
 		}else{				
 			$pr_reseller_ID = $return[0];
 			$rights = $return[1];
@@ -63,11 +65,16 @@ if ((!session_is_registered('pr_login') || !session_is_registered('pr_password')
 			$_SESSION["is_admin"]=$is_admin;	
 			$_SESSION["pr_reseller_ID"]=$pr_reseller_ID;
 			$_SESSION["pr_groupID"]=$pr_groupID;
+			$_SESSION["admin_id"] = $admin_id;
 			
-		}	
+			$log = new Logger();
+			$log -> insertLog($return[0], 1, "User Logged In", "User Logged in to website", '', $_SERVER['REMOTE_ADDR'], 'PP_Intro.php','');
+			$log = null;
+
+		}
 		
 	}else{
-		$rights=0;	
+		$rights=0;
 		
 	}	
 	
