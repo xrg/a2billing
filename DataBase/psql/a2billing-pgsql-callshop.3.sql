@@ -61,6 +61,30 @@ SELECT booth, date_trunc('day',session_start) as dday,COUNT(id) AS sessions, COU
 	FROM cc_session_usage_v
 	GROUP BY booth, dday;
 	
+/** Actually copy the ratecards: insert identical rates to the destination, as the source.
+*/
+CREATE OR REPLACE FUNCTION copy_ratecards(idtp_src integer, idtp_dest integer) RETURNS void AS $$
+BEGIN
+
+	INSERT INTO cc_ratecard(idtariffplan, dialprefix, destination, 
+		buyrate, buyrateinitblock, buyrateincrement,
+		rateinitial, initblock, billingblock, connectcharge, disconnectcharge,
+		stepchargea, chargea, timechargea, billingblocka,
+		stepchargeb, chargeb, timechargeb, billingblockb, 
+		stepchargec, chargec, timechargec, billingblockc, 
+		starttime, endtime, id_trunk, musiconhold)
+	    SELECT $2,dialprefix, destination, 
+		buyrate, buyrateinitblock, buyrateincrement,
+		rateinitial, initblock, billingblock, connectcharge, disconnectcharge,
+		stepchargea, chargea, timechargea, billingblocka,
+		stepchargeb, chargeb, timechargeb, billingblockb, 
+		stepchargec, chargec, timechargec, billingblockc, 
+		starttime, endtime, id_trunk, musiconhold
+	    FROM cc_ratecard WHERE idtariffplan = $1 ;
+    
+    -- NOT copied:  freetimetocall_package_offer, id_outbound_cidgroup, parent_card, startdate, stopdate
+END; $$ LANGUAGE PLPGSQL STRICT;
+
 --	 (bill/EXTRACT(EPOCH FROM session_time))*3600
 -- for percent: to_char('990D0000%')
 --eof
