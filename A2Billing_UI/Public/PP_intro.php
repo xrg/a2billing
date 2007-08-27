@@ -16,7 +16,7 @@
 		For Commercial Installations, Hosted Systems, Customisation and Commercial support, please email <a href="mailto:info@asterisk2billing.org">info@asterisk2billing.org</a><br><br>
 		
 		<center>
-		<?php echo '<a href="http://www.call-labs.com/" target="_blank"><img src="'.Images_Path.'/call-labs.com.png" alt="call-labs"/></a>'; ?>
+		<?php echo '<a href="http://www.call-labs.com/" target="_blank"><img src=../Images/call-labs-com.png" alt="call-labs"/></a>'; ?>
 		</center>
 		For VoIP termination, please visit <a href="http://www.call-labs.com" target="_blank">http://www.call-labs.com</a> <br>
 		Profits from Call-Labs are used to support the A2Billing project.<br><br>
