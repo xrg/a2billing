@@ -124,7 +124,7 @@ CREATE TABLE cc_texts (
 		pay_type would be used many times in reports and it has to be both
 		matched and translated. Hence an integer field.
 	side is an arbitrary enum like:
-		1 customer to agent
+		1 company to agent
 		2 agent to company
 		3 charges from agent to customer
 		4 bonuses from agent to customer

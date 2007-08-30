@@ -10,7 +10,7 @@ if (! has_rights (ACX_INVOICING)){
 	die();
 }
 
-getpost_ifset(array('id'));
+getpost_ifset(array('id','action','pay_amount'));
 
 $DBHandle = DbConnect();
 $payment_sl = array();
@@ -23,6 +23,7 @@ $FG_DEBUG = 4;
 $show_actions = true;
 $show_history  = true;
 $show_calls = true;
+$show_charges = true;
 $currency = 'EUR';
 $num_cols = 2;
 $num_rows = 0;
@@ -31,9 +32,23 @@ $date_format = 'DD/MM/IYYY HH24:MI';
 
 include('PP_header.php');
 
+switch ($action) {
+	case 'pay':
+		$QUERY = str_dbparams($DBHandle, 'SELECT agent_pay_invoice(%#1, %2);',
+			array($id,$pay_amount));
+		if ($FG_DEBUG > 2) echo "Pay Query: " . htmlspecialchars($QUERY) ."<br>\n";
+		$res = $DBHandle->Execute($QUERY);
+		if (! $res) {
+			?><div> <?= _("Cannot pay invoice!") ?><br>
+			<?= "Message: ". $DBHandle->ErrorMsg() ?></div>
+			<?php
+		}
+	break;
+};
+
 $QUERY = str_dbparams($DBHandle,'SELECT to_char(invoicecreated_date,%4) AS invoicecreated_date, '.
 	'to_char(cover_startdate,%4) AS cover_startdate, to_char(cover_enddate, %4) AS cover_enddate, '.
-	'orderref, format_currency(amount, %3, %2) AS amount, format_currency(tax, %3, %2) AS tax, format_currency(total, %3, %2) AS total, '.
+	'orderref, format_currency(amount, %3, %2) AS amount, format_currency(tax, %3, %2) AS tax, format_currency(total, %3, %2) AS total, total AS raw_total, '.
 	'invoicetype, filename, payment_status, '.
 	'name, email, location, vat, commission '.
 	' FROM cc_invoices, cc_agent WHERE cc_invoices.agentid = cc_agent.id AND cc_invoices.id = %#1;',
@@ -96,8 +111,16 @@ if ($FG_DEBUG>3)
 if ($show_actions){
 	if ($info_invoice['payment_status']< 2)
 		echo "Edit!<br>\n";
-	if (($info_invoice['payment_status']== 0)||($info_invoice['payment_status'])){
-		echo "Pay!<br>\n";
+	if (($info_invoice['payment_status']== 0)||($info_invoice['payment_status'] == 1)){
+	?>
+	<form name="payForm" action="<?php echo $_SERVER['PHP_SELF']?>" method="post">
+		<INPUT type="hidden" name="action" value="pay">
+		<input type="hidden" name="id" value="<?= $id ?>">
+		<?= str_params(_("Pay (in %1):"),array(BASE_CURRENCY),1) ?>
+		<input class="form_enter" name="pay_amount" size="10" maxlength="10" value="<?= $info_invoice['raw_total'] ?>">
+		<input class="form_enter"  value=" <?= _("PAY");?> " type="submit">
+	</form>
+	<?php
 	}
 	if ($info_invoice['payment_status']== 0){
 		echo "Send!<br>\n";
@@ -106,7 +129,7 @@ if ($show_actions){
 
 <?php
 if ($show_history){
-	$QUERY = str_dbparams($DBHandle,'SELECT to_char(invoicesent_date, %2), invoicestatus FROM cc_invoice_history' .
+	$QUERY = str_dbparams($DBHandle,'SELECT to_char(invoicesent_date, %2) AS date, invoicestatus FROM cc_invoice_history' .
 		' WHERE invoiceid = %#1 ORDER BY invoicesent_date DESC;', array($id,$date_format));
 	$res = $DBHandle->Execute($QUERY);
 
@@ -121,7 +144,7 @@ if ($show_history){
 		<table>
 <?php
 		while ($row = $res->fetchRow()){
-		?><tr><td><?= _("At:")?> <?= $row['invoicesent_date'] ?></td>
+		?><tr><td><?= _("At:")?> <?= $row['date'] ?></td>
 		<td><?= $payment_sl[$row['invoicestatus']][0] ?> </td></tr>
 <?php
 		}
@@ -145,7 +168,7 @@ if ($show_history){
 		"FROM cc_call WHERE invoice_id = %#1 AND sessionbill > 0.0 ORDER BY starttime;", 
 		array($id,(1.0 - $info_invoice['commission']), $currency, strtoupper(BASE_CURRENCY),$date_format));
 	$res = $DBHandle->Execute($QUERY);
-	?> <?= _("Calls!") ?>
+	?> <div class="invoice_heading"><?= _("Calls!") ?> </div>
 <?php
 	if (!$res){
 		?> <?= _("No calls found!") ?> <?php
@@ -202,6 +225,89 @@ if ($show_history){
 		// if stopped at an odd column, make up.
 		if ( $ncol % $num_cols != 0)
 			echo "</tr>";
+	?>
+	</table>
+	<?php
+	}
+
+} ?>
+
+<?php if ($show_charges){
+	$QUERY = str_dbparams($DBHandle,"SELECT count(id) AS cnt, ".
+		" format_currency(SUM(amount), %3, %2) AS bill ".
+		"FROM cc_charge WHERE invoice_id = %#1;", 
+		array($id, $currency, strtoupper(BASE_CURRENCY)));
+	$res = $DBHandle->Execute($QUERY);
+	if ($res)
+		$csum_row = $res->fetchRow();
+
+	$QUERY = str_dbparams($DBHandle,"SELECT to_char(creationdate, %4) AS stime, ".
+		"cc_texts.txt AS chargetype, description, ".
+		"format_currency(amount, %3, %2) AS bill ".
+		"FROM cc_charge, cc_texts WHERE invoice_id = %#1 AND cc_texts.id = cc_charge.chargetype " .
+		"AND cc_texts.lang = %5 ORDER BY creationdate;", 
+		array($id, $currency, strtoupper(BASE_CURRENCY),$date_format,'C'));
+	$res = $DBHandle->Execute($QUERY);
+	?> <div class="invoice_heading"> <?= _("Charges!") ?> </div>
+<?php
+	if (!$res){
+		?> <?= _("No charges found.") ?> <?php
+		if ($FG_DEBUG >0){
+			echo "Query failed: " . htmlspecialchars($QUERY). "<br>\n";
+			echo $DBHandle->ErrorMsg();
+			echo "<br><br>\n";
+		}
+	}else {
+		$n = 0;
+		$ncol = 0;
+		if ($num_rows == 0 )
+			$num_rows = ($res->RecordCount() + $num_cols +1 ) / $num_cols;
+		
+		?>
+		<table>
+	<?php
+		$row = true ; // for the first one
+		while ($row){
+		if ( ($ncol++) % $num_cols == 0)
+			echo "<tr>";
+		echo "<td>";
+?>
+		<table>
+		<thead><tr><td><?= _("Date") ?></td> <td><?= _("Type") ?></td> <td><?= _("Description") ?></td> <td><?= _("Charge") ?></td>
+		</tr>
+		</thead>
+		<tbody>
+<?php
+		while ($row = $res->fetchRow()){
+			echo "<tr>";
+			for ($i = 0; $i<4 ; $i++)
+				echo "<td>" .htmlspecialchars($row[$i]) . "</td>";
+			echo "</tr>\n";
+			if ( (++$n) % $num_rows == 0 )
+				break;
+		}
+		
+		if ((! $row) && $csum_row){
+			?> <tr><td> </td></tr>
+			<tr> <td colspan=2> <?= _("Total:") ?> </td>
+			<td><?= $csum_row['cnt'] ?> </td> <td> <?= $csum_row['bill'] ?> </td></tr>
+			<?php
+		}
+		?>
+		</tbody>
+		</table>
+<?php
+		echo "</td>";
+		if ( $ncol % $num_cols == 0)
+			echo "</tr>";
+		}; //while
+		
+		// if stopped at an odd column, make up.
+		if ( $ncol % $num_cols != 0)
+			echo "</tr>";
+	?>
+	</table>
+	<?php
 	}
 
 } ?>

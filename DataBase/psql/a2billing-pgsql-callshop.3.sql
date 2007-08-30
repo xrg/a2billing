@@ -328,8 +328,10 @@ END ; $$ LANGUAGE PLPGSQL;
 CREATE TRIGGER cc_call_check_invoice BEFORE UPDATE OR DELETE ON cc_call
 	FOR EACH ROW EXECUTE PROCEDURE cc_invoice_lock_f();
 
-INSERT INTO cc_paytypes(id,side,preset) VALUES(gettext_ri('Manual commission credit'),3,'manual-commission');
-INSERT INTO cc_paytypes(id,side,preset) VALUES(gettext_ri('Auto commission credit'),3,'auto-commission');
+INSERT INTO cc_paytypes(id,side,preset) VALUES(gettext_ri('Manual commission credit'),1,'manual-commission');
+INSERT INTO cc_paytypes(id,side,preset) VALUES(gettext_ri('Auto commission credit'),1,'auto-commission');
+
+INSERT INTO cc_paytypes(id,side,preset) VALUES(gettext_ri('Payment from agent'),2,'agent-pay');
 
 
 CREATE OR REPLACE FUNCTION agent_manual_commission(s_inv_id BIGINT) RETURNS void AS $$
@@ -385,6 +387,53 @@ CREATE OR REPLACE FUNCTION fmt_mins( seconds INTEGER) RETURNS text AS $$
 		WHEN $1 > 59 THEN to_char(floor($1/60),'FM9900:') || to_char($1 % 60, 'FM00')
 		ELSE to_char($1, 'FM00') || 's' END ;
 	$$ LANGUAGE SQL IMMUTABLE STRICT;
+
+CREATE OR REPLACE FUNCTION agent_pay_invoice(s_inv_id BIGINT, s_amount NUMERIC) RETURNS BIGINT AS $$
+DECLARE
+	s_paytype INTEGER;
+	s_ret     BIGINT;
+	s_agent_id BIGINT;
+	s_inv_total NUMERIC;
+	s_inv_status INTEGER;
+BEGIN
+	SELECT agentid, total, payment_status INTO s_agent_id, s_inv_total, s_inv_status
+		FROM cc_invoices 
+		WHERE cc_invoices.id = s_inv_id AND (payment_status = 0 OR payment_status = 1);
+	
+	IF NOT FOUND THEN
+		RAISE EXCEPTION 'Invoice not found!';
+	END IF;
+
+	IF (s_amount NOT BETWEEN -1.0 AND 1.0 ) AND (s_amount NOT BETWEEN s_inv_total * 0.5 AND s_inv_total * 1.5) THEN
+		RAISE EXCEPTION 'Amount does not match invoice total!';
+	END IF;
+
+	SELECT id INTO s_paytype FROM cc_paytypes WHERE preset = 'agent-pay';
+	IF NOT FOUND THEN
+		RAISE EXCEPTION 'No preset found for agent-pay, cannot continue';
+	END IF;
+	
+	IF s_amount <> 0.0 THEN
+	INSERT INTO cc_agentpay(credit,pay_type,agentid,invoice_id) 
+		VALUES(s_amount, s_paytype, s_agent_id,s_inv_id)
+		RETURNING id INTO s_ret;
+	END IF;
+	
+	s_inv_status := CASE WHEN s_inv_status = 0 THEN 3 
+		WHEN s_inv_status = 1 THEN 2
+		ELSE s_inv_status END;
+	
+	INSERT INTO cc_invoice_history(invoiceid, invoicestatus) VALUES(s_inv_id, s_inv_status);
+	
+	UPDATE cc_invoices SET payment_status = s_inv_status, payment_date = now() 
+		WHERE id = s_inv_id;
+	
+	RETURN s_ret;
+
+END;  $$ LANGUAGE PLPGSQL STRICT VOLATILE;
+
+
+
 --	 (bill/EXTRACT(EPOCH FROM session_time))*3600
 -- for percent: to_char('990D0000%')
 --eof
