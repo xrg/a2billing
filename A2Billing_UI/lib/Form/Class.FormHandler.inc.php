@@ -974,14 +974,14 @@ class FormHandler{
 			$fld_escaped=$this->DBHandle->Quote($_POST[$fld]);
 				if (isset ($_POST[$fldtype])){
                         switch ($_POST[$fldtype]) {
-				case 1:	$sql = "$sql ='".$fld_escaped."'";  break;
-				case 2: $sql = "$sql <= '".$fld_escaped."'";  break;
-				case 3: $sql = "$sql < '".$fld_escaped."'";  break;							
-				case 4: $sql = "$sql > '".$fld_escaped."'";  break;
-				case 5: $sql = "$sql >= '".$fld_escaped."'";  break;
-						}
+				case 1:	$sql = "$sql =".$fld_escaped;  break;
+				case 2: $sql = "$sql <= ".$fld_escaped;  break;
+				case 3: $sql = "$sql < ".$fld_escaped;  break;							
+				case 4: $sql = "$sql > ".$fld_escaped;  break;
+				case 5: $sql = "$sql >= ".$fld_escaped;  break;
+				}
                 	}else
-                		$sql = "$sql = '".$fld_escaped."'";
+                		$sql = "$sql = ".$fld_escaped;
 		}
 		return $sql;
   }
