@@ -156,9 +156,24 @@ function arr2url ($arr) {
 		return;
 	$rar = array();
 	foreach($arr as $key => $value) {
+		if ($value == null)
+			continue;
 		$rar[] = "$key" . '=' . rawurlencode($value);
 	}
 	return implode('&',$rar);
+}
+
+/** Generate an html combo, with selected values etc. */
+function gen_Combo($name, $value, $option_array){
+	?> <select name="<?= $name?>" size="1" class="form_input_select">
+	<?php
+		foreach($option_array as $option){ ?>
+		<option value="<?= $option[0] ?>"<?php if ($value == $option[0]) echo ' selected'; ?>><?= htmlspecialchars($option[1])?></option>
+	<?php	}
+	?>
+	</select>
+	<?php
+	
 }
 
 /*
