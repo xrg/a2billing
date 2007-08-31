@@ -404,7 +404,7 @@ BEGIN
 		RAISE EXCEPTION 'Invoice not found!';
 	END IF;
 
-	IF (s_amount NOT BETWEEN -1.0 AND 1.0 ) AND (s_amount NOT BETWEEN s_inv_total * 0.5 AND s_inv_total * 1.5) THEN
+	IF (s_amount NOT BETWEEN -1.0 AND 1.0 ) AND (s_amount NOT BETWEEN SYMMETRIC s_inv_total * 0.5 AND s_inv_total * 1.5) THEN
 		RAISE EXCEPTION 'Amount does not match invoice total!';
 	END IF;
 
