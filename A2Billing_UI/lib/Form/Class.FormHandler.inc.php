@@ -1668,7 +1668,7 @@ class FormHandler{
 			}else{
 				if (strtoupper ($this->FG_TABLE_EDITION[$i][3])==strtoupper ("CHECKBOX")){
 					$table_split = split(":",$this->FG_TABLE_EDITION[$i][1]);
-					$checkbox_data = $table_split[0];	//doc_tariff			
+					$checkbox_data = $table_split[0];	//doc_tariff
 					$instance_sub_table = new Table($table_split[0], $table_split[1].", ".$table_split[5]);
 					$SPLIT_FG_DELETE_CLAUSE = $table_split[5]."='".trim($processed['id'])."'";	
 					$instance_sub_table -> Delete_table ($this -> DBHandle, $SPLIT_FG_DELETE_CLAUSE, $func_table = null);	
@@ -1676,7 +1676,7 @@ class FormHandler{
 						$snum=0;
 						$this -> VALID_SQL_REG_EXP = false;
 						$this-> FG_fit_expression[$i] = false;
-					}else{									
+					}else{
 						$snum = count($processed[$checkbox_data]);
 					}
 								
