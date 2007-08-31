@@ -27,6 +27,7 @@ class FormHandler{
 	var $CV_DISPLAY_FILTER_ABOVE_TABLE = true;
 	var $CV_FILTER_ABOVE_TABLE_PARAM = "?id=";
 	var $CV_FOLLOWPARAMETERS = '';
+	var $CV_FOLLOWPARAMETER_ARRAY = array();
 
 	var $CV_CURRENT_PAGE = 0;
 
@@ -588,8 +589,42 @@ class FormHandler{
 	}
 
 
+	/** Construct an url out of the follow parameters + some custom ones
+	   @param $arr_more  An array to be added in the form ( key => data ...)
+	   @return A string like "?key1=data&key2=data..."
+	*/
+	function gen_GetParams($arr_more = NULL){
+		$arr = $this->CV_FOLLOWPARAMETER_ARRAY;
+		if (is_array($arr_more))
+		$arr = array_merge($arr, $arr_more);
+		$str = arr2url($arr);
+		if (strlen($this->CV_FOLLOWPARAMETERS)){
+			if ($this->CV_FOLLOWPARAMETERS[0] != '&')
+				$str .= '&';
+			$str .= $this->CV_FOLLOWPARAMETERS;
+		}
+		if (strlen($str))
+			$str = '?' . $str;
+		return $str;
+	}
+	function gen_PostParams($arr_more = NULL){
+		$arr = $this->CV_FOLLOWPARAMETER_ARRAY;
+		if (is_array($arr_more))
+		$arr = array_merge($arr, $arr_more);
+		// unfortunately, it is hard to use CV_FOLLOWPARAMETERS here!
+		
+		foreach($arr as $key => $value){
+		?><input type="hidden" name="<?= $key ?>" value="<?= htmlspecialchars($value) ?>" >
+		<?php
+		}
+	}
 
-	
+	/** Push those params so that links preserve them when clicked */
+	function Add_FormParams($arr){
+		if (!is_array($arr))
+			return;
+		$this->CV_FOLLOWPARAMETER_ARRAY = array_merge($this->CV_FOLLOWPARAMETER_ARRAY, $arr);
+	}
 
 	// ----------------------------------------------
     // RECIPIENT METHODS
@@ -1058,7 +1093,12 @@ class FormHandler{
 			$this->FG_SENS = $processed['sens'];
 			$this -> CV_CURRENT_PAGE = $processed['current_page'];
 
+			$this->Add_FormParams(array(order=> $processed['order'], sens =>$processed['sens'], current_page => $processed['current_page']));
+			
 			if (isset($processed['mydisplaylimit']) && (is_numeric($processed['mydisplaylimit']) || ($processed['mydisplaylimit']=='ALL'))){
+				if ($processed['mydisplaylimit'] != $this -> FG_LIMITE_DISPLAY)
+					$this->Add_FormParams(array(mydisplaylimit => $processed['mydisplaylimit']));
+					
 				if ($processed['mydisplaylimit']=='ALL'){
 					$this -> FG_LIMITE_DISPLAY = 5000;
 				}else{
@@ -2275,7 +2315,7 @@ class FormHandler{
 	 * @param $url the url to refer to with the page number inserted
 	 * @param $max_width the number of pages to make available at any one time (default = 20)
 	 */
-	function printPages($page, $pages, $url, $max_width = 20) {
+	function printPages($page, $pages, $url, $max_width = 20, $page_var = 'current_page') {
 		global $lang;
 
 		$window = 8;
@@ -2287,9 +2327,9 @@ class FormHandler{
 		if ($pages > 1) {
 			//echo "<center><p>\n";
 			if ($page != 1) {
-				$temp = str_replace('%s', 1-1, $url);
+				$temp = $url . $this->gen_GetParams( array( $page_var =>  0));
 				echo "<a class=\"pagenav\" href=\"{$temp}\">{$this->lang['strfirst']}</a>\n";
-				$temp = str_replace('%s', $page - 1-1, $url);
+				$temp = $url . $this->gen_GetParams( array( $page_var =>  $page-2 ));
 				echo "<a class=\"pagenav\" href=\"{$temp}\">{$this->lang['strprev']}</a>\n";
 			}
 			
@@ -2312,14 +2352,14 @@ class FormHandler{
 			$max_page = min($max_page, $pages);
 			
 			for ($i = $min_page; $i <= $max_page; $i++) {
-				$temp = str_replace('%s', $i-1, $url);
+				$temp = $url . $this->gen_GetParams( array( $page_var => $i-1));
 				if ($i != $page) echo "<a class=\"pagenav\" href=\"{$temp}\">$i</a>\n";
 				else echo "$i\n";
 			}
 			if ($page != $pages) {
-				$temp = str_replace('%s', $page + 1-1, $url);
+				$temp = $url . $this->gen_GetParams( array( $page_var =>  $page ));
 				echo "<a class=\"pagenav\" href=\"{$temp}\">{$this->lang['strnext']}</a>\n";
-				$temp = str_replace('%s', $pages-1, $url);
+				$temp = $url . $this->gen_GetParams( array( $page_var => $pages-1));
 				echo "<a class=\"pagenav\" href=\"{$temp}\">{$this->lang['strlast']}</a>\n";
 			}
 		}

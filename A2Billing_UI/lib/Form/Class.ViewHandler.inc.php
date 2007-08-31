@@ -11,14 +11,14 @@ if (!function_exists("stripos")) {
 
 // ******************** END IF $topviewer *******************************
 
-$stitle = $_GET['stitle'];
-$ratesort = $_GET['ratesort'];
-$current_page = $_GET['current_page'];
-	if (isset($_GET['order']) && ($_GET['order'] != ''))
-		$this->FG_ORDER = $_GET['order']; // really need ?!
-	if (isset($_GET['sens']) && ($_GET['sens'] != ''))
-		$this->FG_SENS = $_GET['sens']; // really need  ?
-
+// $stitle = $_GET['stitle'];
+// $ratesort = $_GET['ratesort'];
+// $current_page = $_GET['current_page'];
+// 	if (isset($_GET['order']) && ($_GET['order'] != ''))
+// 		$this->FG_ORDER = $_GET['order']; // really need ?!
+// 	if (isset($_GET['sens']) && ($_GET['sens'] != ''))
+// 		$this->FG_SENS = $_GET['sens']; // really need  ?
+// 	$this->Add_FormParams(putpost_arr('stitle','ratesort','current_page','order','sens'));
 
 
 if ((count($list)>0) && is_array($list)){
@@ -144,10 +144,15 @@ function openURLFilter(theLINK)
 				<?php 
 					  for($i=0;$i<$this->FG_NB_TABLE_COL;$i++){ 
 				?>				
-				 <td class="tableBody" style="padding: 2px;" align="center" width="<?php echo $this->FG_TABLE_COL[$i][2]?>" > 				
+				 <td class="tableBody" style="padding: 2px;" align="center" width="<?php echo $this->FG_TABLE_COL[$i][2]?>" >
 						<strong> 
-						<?php  if (strtoupper($this->FG_TABLE_COL[$i][4])=="SORT"){?>
-						<a href="<?php  echo $_SERVER['PHP_SELF']."?stitle=$stitle&atmenu=$atmenu&current_page=$current_page&order=".$this->FG_TABLE_COL[$i][1]."&sens="; if ($this->FG_SENS=="ASC"){echo"DESC";}else{echo"ASC";} echo $this-> CV_FOLLOWPARAMETERS;?>"> 
+						<?php  if (strtoupper($this->FG_TABLE_COL[$i][4])=="SORT"){
+							if ($this->FG_ORDER == $this->FG_TABLE_COL[$i][1]) {
+								if ($this->FG_SENS=="ASC") $next_sens= "DESC"; else $next_sens = "ASC";
+							}else $next_sens = $this->FG_SENS;
+						?>
+						<a href="<?= $_SERVER['PHP_SELF']. $this->gen_GetParams(
+							array(order => $this->FG_TABLE_COL[$i][1], sens => $next_sens)) ?>" >
 						<font color="#FFFFFF"><?php  } ?>
 						<?php echo $this->FG_TABLE_COL[$i][0]?> 
 						<?php if ($this->FG_ORDER==$this->FG_TABLE_COL[$i][1] && $this->FG_SENS=="ASC"){?>
@@ -366,12 +371,10 @@ function openURLFilter(theLINK)
 			<TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
                 <TR>
                   <TD align="right" valign="bottom"><span class="text"><font color="#cc0000">
-					<?php					
-					$c_url = $_SERVER['PHP_SELF'].'?stitle='.$stitle.'&atmenu='.$atmenu.'&current_page=%s'."&filterprefix=".$_GET['filterprefix']."&order=".$this->FG_ORDER."&sens=".$this->FG_SENS."&mydisplaylimit=".$_GET['mydisplaylimit']."&ratesort=".$ratesort.$this-> CV_FOLLOWPARAMETERS;
-					if (!is_null($letter) && ($letter!=""))   $c_url .= "&letter=".$_GET['letter'];
-					$this -> printPages($this -> CV_CURRENT_PAGE+1, $this -> FG_NB_RECORD_MAX, $c_url) ;
-					?>
-					</span>
+			<?php
+			$this -> printPages($this -> CV_CURRENT_PAGE+1, $this -> FG_NB_RECORD_MAX, $_SERVER['PHP_SELF']) ;
+			?>
+			</span>
                   </TD>
             </TABLE></TD>
         </TR>
@@ -379,17 +382,7 @@ function openURLFilter(theLINK)
 		<FORM name="otherForm2" action="<?php echo $_SERVER['PHP_SELF']?>">
 		<tr><td>
 			<?php echo gettext("DISPLAY");?>
-			<input type="hidden" name="stitle" value="<?php echo $stitle?>">
-			<input type="hidden" name="atmenu" value="<?php echo $atmenu?>">
-			<input type="hidden" name="order" value="<?php echo $_GET['order']?>">
-			<input type="hidden" name="sens" value="<?php echo $_GET['sens']?>">
-			<input type="hidden" name="current_page" value="0">
-			<input type="hidden" name="filterprefix" value="<?php echo $_GET['filterprefix']?>">
-			<input type="hidden" name="popup_select" value="<?php echo $_GET['popup_select']?>">
-			<input type="hidden" name="popup_formname" value="<?php echo $_GET['popup_formname']?>">
-			<input type="hidden" name="popup_fieldname" value="<?php echo $_GET['popup_fieldname']?>">
-			<input type="hidden" name="type" value="<?php echo $_GET['type']?>">
-			<input type="hidden" name="id" value="<?php echo $_GET['id']?>">
+			<?= $this->gen_PostParams(array(current_page => 0)); ?>
 			
 			<select name="mydisplaylimit" size="1" class="form_input_select">
 				<option value="10" selected>10</option>
