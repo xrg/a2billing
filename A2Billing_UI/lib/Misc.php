@@ -634,7 +634,7 @@ function str_dbparams($dbh, $str, $parm_arr){
 					$resstr .= 'NULL';
 				else
 					$resstr .= $dbh->Quote($v);
-			} if ($sm ==2) {
+			} else if ($sm ==2) {
 				if ($v == '') 
 					$v = null;
 				$v = (integer) $v;
