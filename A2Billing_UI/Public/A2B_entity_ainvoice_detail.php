@@ -19,18 +19,55 @@ $payment_sl["1"] = array( gettext("SENT-UNPAID"), "1");
 $payment_sl["2"] = array( gettext("SENT-PAID"),  "2");
 $payment_sl["3"] = array( gettext("PAID"),  "3");
 
-$FG_DEBUG = 4;
+$FG_DEBUG = 0;
 $show_actions = true;
 $show_history  = true;
 $show_calls = true;
+$show_calls_cumul = true;
 $show_charges = true;
 $currency = 'EUR';
 $num_cols = 2;
 $num_rows = 0;
 $date_format = 'DD/MM/IYYY HH24:MI';
-
+$date_only_format = 'DD/MM/IYYY';
 
 include('PP_header.php');
+
+?>
+<style>
+div.invoice_heading {
+	font-size: 200%;
+	margin-top: 1em;
+	margin-bottom: 0.5em;
+}
+table.invoice_sum {
+	background: #f0f0f0;
+}
+table.invoice_data {
+}
+
+table.invoice_list {
+	border: thin solid black;
+}
+table.invoice_list thead td {
+	border-bottom: thin solid black;
+	font-weight: bold;
+}
+
+table.invoice_list td {
+	border-bottom: thin solid gray;
+}
+
+table.invoice_list .total {
+	font-weight: bold;
+}
+
+table.invoice_cols td {
+	vertical-align: top;
+}
+
+</style>
+<?php
 
 switch ($action) {
 	case 'pay':
@@ -72,7 +109,7 @@ if ($FG_DEBUG>3)
 	print_r($info_invoice);
 ?>
 <div>
-<table width="60%" cellpadding="0" cellspacing="0">
+<table width="60%" cellpadding="0" cellspacing="0" class="invoice_data">
 	<tr>
 	<td width="35%">&nbsp; </td>
 	<td width="65%">&nbsp; </td>
@@ -139,9 +176,9 @@ if ($show_history){
 			echo $DBHandle->ErrorMsg();
 			echo "<br><br>\n";
 		}
-	}else {
-		?><div><?= _("History") ?> </div>
-		<table>
+	}else if($res->RecordCount()){
+		?><div class="invoice_heading"><?= _("History") ?> </div>
+		<table class="invoice_list">
 <?php
 		while ($row = $res->fetchRow()){
 		?><tr><td><?= _("At:")?> <?= $row['date'] ?></td>
@@ -162,13 +199,21 @@ if ($show_history){
 	if ($res)
 		$sum_row = $res->fetchRow();
 
+	if ($show_calls_cumul)
+		$QUERY = str_dbparams($DBHandle,"SELECT to_char(date_trunc('day',starttime), %5) AS stime, ".
+		"destination AS dest, ".
+		" fmt_mins(SUM(sessiontime) :: INTEGER), format_currency(SUM(sessionbill) * %2, %4, %3) AS bill ".
+		"FROM cc_call WHERE invoice_id = %#1 AND sessionbill > 0.0 GROUP BY date_trunc('day',starttime), destination ".
+		" ORDER BY date_trunc('day',starttime);", 
+		array($id,(1.0 - $info_invoice['commission']), $currency, strtoupper(BASE_CURRENCY),$date_only_format));
+	else 
 	$QUERY = str_dbparams($DBHandle,"SELECT to_char(starttime, %5) AS stime, ".
 		"substring(calledstation from '#\"%%#\"___' for '#') || '***' AS dest, ".
 		" fmt_mins(sessiontime), format_currency(sessionbill * %2, %4, %3) AS bill ".
 		"FROM cc_call WHERE invoice_id = %#1 AND sessionbill > 0.0 ORDER BY starttime;", 
 		array($id,(1.0 - $info_invoice['commission']), $currency, strtoupper(BASE_CURRENCY),$date_format));
 	$res = $DBHandle->Execute($QUERY);
-	?> <div class="invoice_heading"><?= _("Calls!") ?> </div>
+	?> <div class="invoice_heading"><?= _("Call Details") ?> </div>
 <?php
 	if (!$res){
 		?> <?= _("No calls found!") ?> <?php
@@ -184,7 +229,7 @@ if ($show_history){
 			$num_rows = ($res->RecordCount() + $num_cols +1 ) / $num_cols;
 		
 		?>
-		<table>
+		<table class="invoice_cols">
 	<?php
 		$row = true ; // for the first one
 		while ($row){
@@ -192,7 +237,7 @@ if ($show_history){
 			echo "<tr>";
 		echo "<td>";
 ?>
-		<table>
+		<table class='invoice_list'>
 		<thead><tr><td><?= _("Date") ?></td> <td><?= _("Destination") ?></td> <td><?= _("Duration") ?></td> <td><?= _("Charge") ?></td>
 		</tr>
 		</thead>
@@ -209,7 +254,7 @@ if ($show_history){
 		
 		if ((! $row) && $sum_row){
 			?> <tr><td> </td></tr>
-			<tr> <td colspan=2> <?= _("Total:") ?> </td>
+			<tr class="total"> <td colspan=2> <?= _("Total:") ?> </td>
 			<td><?= $sum_row['ttime'] ?> </td> <td> <?= $sum_row['bill'] ?> </td></tr>
 			<?php
 		}
@@ -248,7 +293,7 @@ if ($show_history){
 		"AND cc_texts.lang = %5 ORDER BY creationdate;", 
 		array($id, $currency, strtoupper(BASE_CURRENCY),$date_format,'C'));
 	$res = $DBHandle->Execute($QUERY);
-	?> <div class="invoice_heading"> <?= _("Charges!") ?> </div>
+	?> <div class="invoice_heading"> <?= _("List of Charges") ?> </div>
 <?php
 	if (!$res){
 		?> <?= _("No charges found.") ?> <?php
@@ -264,7 +309,7 @@ if ($show_history){
 			$num_rows = ($res->RecordCount() + $num_cols +1 ) / $num_cols;
 		
 		?>
-		<table>
+		<table class="invoice_cols">
 	<?php
 		$row = true ; // for the first one
 		while ($row){
@@ -272,7 +317,7 @@ if ($show_history){
 			echo "<tr>";
 		echo "<td>";
 ?>
-		<table>
+		<table class="invoice_list">
 		<thead><tr><td><?= _("Date") ?></td> <td><?= _("Type") ?></td> <td><?= _("Description") ?></td> <td><?= _("Charge") ?></td>
 		</tr>
 		</thead>
@@ -289,7 +334,7 @@ if ($show_history){
 		
 		if ((! $row) && $csum_row){
 			?> <tr><td> </td></tr>
-			<tr> <td colspan=2> <?= _("Total:") ?> </td>
+			<tr class="total"> <td colspan=2> <?= _("Total:") ?> </td>
 			<td><?= $csum_row['cnt'] ?> </td> <td> <?= $csum_row['bill'] ?> </td></tr>
 			<?php
 		}
@@ -312,7 +357,7 @@ if ($show_history){
 
 } ?>
 
-<table width="60%" cellpadding="0" cellspacing="0">
+<table width="60%" cellpadding="0" cellspacing="0" class="invoice_sum">
 	<tr>
 	<td width="35%">&nbsp; </td>
 	<td width="65%">&nbsp; </td>
