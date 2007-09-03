@@ -725,9 +725,9 @@ CREATE OR REPLACE VIEW cc_agent_money_v AS
 		FROM cc_agentpay WHERE credit >=0
 UNION SELECT agentid, date, pay_type, descr, NULL::bigint AS card_id, 0-credit AS pos_credit, NULL  AS neg_credit, credit 
 		FROM cc_agentpay WHERE credit <0
-UNION	SELECT agentid, date, pay_type, 'Money from customer' as descr, card_id, credit AS pos_credit, NULL AS neg_credit, 0-credit
+UNION SELECT agentid, date, pay_type, 'Money from customer' as descr, card_id, credit AS pos_credit, NULL AS neg_credit, 0-credit
 		FROM cc_agentrefill WHERE credit >=0 AND carried = false
-UNION	SELECT agentid, date, pay_type, 'Pay back customer' as descr, card_id, NULL AS pos_credit, 0-credit AS neg_credit, 0-credit
+UNION SELECT agentid, date, pay_type, 'Pay back customer' as descr, card_id, NULL AS pos_credit, 0-credit AS neg_credit, 0-credit
 		FROM cc_agentrefill WHERE credit <0 AND carried = false;
 
 CREATE OR REPLACE VIEW cc_agent_money_vi AS
