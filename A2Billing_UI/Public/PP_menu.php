@@ -150,6 +150,7 @@ div.menu div ul {
 		<li><a href="A2B_entity_booths.php?form_action=ask-add"><?= _("Create Booth");?></a></li>
 		<li><a href="A2B_entity_agentpay.php?form_action=list"><?= _("List Payments");?></a></li>
 		<li><a href="A2B_entity_agentpay.php?form_action=ask-add"><?= _("Add Payment");?></a></li>
+		<li><a href="agent-money.php"><?= _("Money situation");?></a></li>
 		<li><a href="CC_entity_sim_callshop.php"><?= _("Callshop Simulator");?></a></li>
 	</ul>
 	</div>
