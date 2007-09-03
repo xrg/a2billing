@@ -10,7 +10,7 @@ if (! has_rights (ACX_INVOICING)){
 	die();
 }
 
-getpost_ifset(array('id','action','pay_amount'));
+getpost_ifset(array('id','action','pay_amount','printable'));
 
 $DBHandle = DbConnect();
 $payment_sl = array();
@@ -30,6 +30,18 @@ $num_cols = 2;
 $num_rows = 0;
 $date_format = 'DD/MM/IYYY HH24:MI';
 $date_only_format = 'DD/MM/IYYY';
+
+if (isset($printable) && ($printable = 1)){
+	$show_actions = false;
+	$show_history  = false;
+	$show_calls = true;
+	$show_calls_cumul = true;
+	$show_charges = true;
+	$currency = 'EUR';
+	$num_cols = 2;
+	$num_rows = 50;
+	$disp_printable = true;
+}
 
 include('PP_header.php');
 
@@ -162,6 +174,10 @@ if ($show_actions){
 	if ($info_invoice['payment_status']== 0){
 		echo "Send!<br>\n";
 	}
+	?>
+	<a href="<?= $_SERVER['PHP_SELF'] .'?id='.$id.'&printable=1' ?>"><?= _("Printable version") ?></a>
+	<br>
+	<?php
 } ?>
 
 <?php

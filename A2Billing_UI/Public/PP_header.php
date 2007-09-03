@@ -65,10 +65,12 @@ function imgidclick(imgID,divID, imgbase, imgchange)
 </script>
 </head>
 <body  leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+<?php if (!isset($disp_printable) || (!$disp_printable)){ ?>
 <p class="version" align="right"><?php echo WEBUI_VERSION.WEBUI_DATE; ?></p>
 <br>
-<DIV border=0 width="100%">
-<?php if (isset($popup_select) && $popup_select>0){ ?>
+<?php } ?>
+<div border=0 width="100%">
+<?php if ((isset($popup_select) && $popup_select>0)||($disp_printable)){ ?>
 <div></div>
 <?php }else{  ?>
 <div class="divleft">
