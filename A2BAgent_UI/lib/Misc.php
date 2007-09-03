@@ -112,6 +112,21 @@ function display_dateformat($mydate){
 	}
 
 /*
+ * function display_dateonly
+ */
+function display_dateonly($mydate)
+{
+	if ($mydate != "")
+	{
+		echo date("m/d/Y", strtotime($mydate));
+	}
+	else
+	{
+		echo $mydate;
+	}
+}
+
+/*
  * function res_display_dateformat
  */
 function res_display_dateformat($mydate){

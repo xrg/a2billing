@@ -659,6 +659,15 @@ class FormHandler{
 		if ($add_id)	$this->FG_COL_QUERY .= ", ".$this->FG_TABLE_ID;
 	}
 
+	/** Set Field view query on columns */
+	function AutoFieldViewElements($add_id = 1){
+		$fields = Array();
+		foreach($this->FG_TABLE_COL as $col)
+			$fields[] = $col[1];
+		$tfields= implode(', ', $fields);
+		$this->FieldViewElement($tfields,$add_id);
+		
+	}
 
 	function Is_EDITION() {
 		$this->FG_EDITION = true;
