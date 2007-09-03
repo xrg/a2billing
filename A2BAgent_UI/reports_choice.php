@@ -24,6 +24,7 @@ include("PP_header.php");
 	</tr>
 	<tr class="repch"><td><a href="A2B_entity_charge.php"><?= _("Customer charges") ?></a></td></tr>
 	<tr class="repch"><td><a href="A2B_entity_agentpay.php"><?= _("Agent payments") ?></a></td></tr>
+	<tr class="repch"><td><a href="A2B_entity_agent_invoicev.php"><?= _("Agent invoices") ?></a></td></tr>
 
 </table>
 
