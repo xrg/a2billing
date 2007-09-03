@@ -682,4 +682,57 @@ function acronym($acr, $title){
 	$res .= "</acronym>";
 	return $res;
 }
+
+/** Format a where clause, based on the date selection table.
+	The selection parameters are automatically got from the _GET/_POST
+	\param col The table column to check the dates against.
+	\note Postgres only!
+*/
+function fmt_dateclause($dbhandle, $col){
+	global $Period, $frommonth, $fromstatsmonth, $tomonth, $tostatsmonth, $fromday, $fromstatsday_sday, $fromstatsmonth_sday, $today, $tostatsday_sday, $tostatsmonth_sday, $fromstatsmonth_sday, $fromstatsmonth_shour, $tostatsmonth_sday, $tostatsmonth_shour, $fromstatsmonth_smin, $tostatsmonth_smin;
+	$date_clauses = array();
+	if ($Period == "Month"){
+		if ($frommonth && isset($fromstatsmonth))
+			$date_clauses[] ="$col >=  timestamptz " .
+				$dbhandle->Quote($fromstatsmonth."-01");
+		if ($tomonth && isset($tostatsmonth))
+			$date_clauses[] ="date_trunc('month', $col) <= timestamptz " . $dbhandle->Quote( $tostatsmonth."-01");
+	
+	}elseif ($Period == "Day") {
+		//echo "Day!" ;
+		//echo "From: $fromday $fromstatsday_sday,$fromstatsmonth_sday, $fromstatsmonth_shour, $fromstatsmonth_smin <br>\n";
+		if ($fromday && isset($fromstatsday_sday) && isset($fromstatsmonth_sday) && isset($fromstatsmonth_shour) && isset($fromstatsmonth_smin) ) 
+			$date_clauses[]= "$col >= timestamptz " .
+				$dbhandle->Quote( $fromstatsmonth_sday. "-".$fromstatsday_sday. " " . $fromstatsmonth_shour.":". $fromstatsmonth_smin);
+		if ($today&& isset($tostatsday_sday) && isset($tostatsmonth_sday) && isset($tostatsmonth_shour) && isset($tostatsmonth_smin))
+			$date_clauses[] =" $col <= timestamptz ". $dbhandle->Quote(sprintf("%12s-%02d %02d:%02d",
+			$tostatsmonth_sday, intval($tostatsday_sday),  intval($tostatsmonth_shour), intval($tostatsmonth_smin)));
+	}
+		// if other period, no date_clause!
+	
+	return implode(" AND ",$date_clauses);
+
+}
+
+/** A companion to fmt_dateclause: find the clause for items \b before the
+	date clause. This is useful for the sums carried to our interval */
+function fmt_dateclause_c($dbhandle, $col){
+	global $Period, $frommonth, $fromstatsmonth, $fromday, $fromstatsday_sday, $fromstatsmonth_sday,$fromstatsmonth_sday, $fromstatsmonth_shour, $fromstatsmonth_smin;
+	
+	$date_clause = "";
+	if ($Period == "Month"){
+		if ($frommonth && isset($fromstatsmonth))
+			$date_clause ="$col <  timestamptz " .
+				$dbhandle->Quote($fromstatsmonth."-01");
+	}elseif ($Period == "Day") {
+		if ($fromday && isset($fromstatsday_sday) && isset($fromstatsmonth_sday) && isset($fromstatsmonth_shour) && isset($fromstatsmonth_smin) ) 
+			$date_clause = "$col < timestamptz " .
+				$dbhandle->Quote( $fromstatsmonth_sday. "-".$fromstatsday_sday. " " . $fromstatsmonth_shour.":". $fromstatsmonth_smin);
+	}
+		// if other period, no date_clause!
+	
+	return $date_clause;
+
+}
+
 ?>
