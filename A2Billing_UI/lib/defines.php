@@ -197,6 +197,15 @@ function get_chargetypes($typ = '3')
 	return $charges_list;
 }
 
+/** Returns a list with month names. Helps gettext here. */
+function getmonthnames(){
+return array( gettext("JANUARY"), gettext("FEBRUARY"), gettext("MARCH"),
+	gettext("APRIL"), gettext("MAY"), gettext("JUNE"),
+	gettext("JULY"), gettext("AUGUST"), gettext("SEPTEMBER"),
+	gettext("OCTOBER"), gettext("NOVEMBER"), gettext("DECEMBER"));
+}
+
+
 function send_email_attachment($emailfrom, $emailto, $emailsubject, $emailmessage,$attachmentfilename, $emailfilestream )
 {
 	$email_from = $emailfrom; 
