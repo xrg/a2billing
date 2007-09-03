@@ -16,7 +16,7 @@ $HD_Form -> setDBHandler (DbConnect());
 $HD_Form -> FG_TABLE_CLAUSE = str_dbparams($HD_Form->DBHandle,"agentid = %1", array($_SESSION['agent_id']));
 
 if (! isset($choose_currency) || ( $choose_currency == ''))
-	$choose_currency = BASE_CURRENCY;
+	$choose_currency = strtoupper(BASE_CURRENCY);
 	
 $date_clause='';
 if (DB_TYPE == "postgres"){
