@@ -2,7 +2,7 @@
 	if (isset($HD_Form->DBHandle))
 		DbDisconnect($HD_Form->DBHandle);
 	
-	if (isset($displayfooter) && $displayfooter){
+	if (!isset($displayfooter) || $displayfooter){
 	
 	if (!isset($disp_printable) || (!$disp_printable)){
     		include_once (dirname(__FILE__)."/../lib/company_info.php");
