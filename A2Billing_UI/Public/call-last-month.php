@@ -282,7 +282,8 @@ $nb_customer = count($list_customer);
 
 $instance_table_agent = new Table("cc_agent", "id, name");
 $FG_TABLE_CLAUSE_AG = "";
-$list_agent = $instance_table_agent -> Get_list ($DBHandle, $FG_TABLE_CLAUSE_AG, "name", "ASC", null, null, null, null);
+$list_agent = array_merge(array(array('' , _("All cards")),array('all', _("All agents")), array('no', _("No agent"))),
+	 $instance_table_agent -> Get_list ($DBHandle, $FG_TABLE_CLAUSE_AG, "name", "ASC", null, null, null, null));
 $nb_agent = count($list_agent);
 
 ?>
@@ -316,14 +317,14 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 				<table width="100%" border="0" cellspacing="0" cellpadding="0"><tr>
 					<td class="fontstyle_searchoptions">
 						<?php echo gettext("Enter the cardnumber");?>: <INPUT TYPE="text" NAME="entercustomer" value="<?php echo $entercustomer?>"
-						<a href="#" onclick="window.open('../A2B_entity_card.php?popup_select=2&popup_formname=myForm&popup_fieldname=entercustomer' , 'CardNumberSelection','width=550,height=330,top=20,left=100,scrollbars=1');"><img src="<?php echo Images_Path;?>/icon_arrow_orange.gif"></a>
+						<a href="#" onclick="window.open('../A2B_entity_card.php?popup_select=2&popup_formname=myForm&popup_fieldname=entercustomer' , 'CardNumberSelection','width=550,height=330,top=20,left=100,scrollbars=1');"><img src="../Images/icon_arrow_orange.png"></a>
 						
 					</td>
 					<td align="right" class="fontstyle_searchoptions"">
 						<?php echo gettext("Provider");?>: <INPUT TYPE="text" NAME="enterprovider" value="<?php echo $enterprovider?>" size="4">
-						<a href="#" onclick="window.open('../A2B_entity_provider.php?popup_select=2&popup_formname=myForm&popup_fieldname=enterprovider' , 'ProviderSelection','width=550,height=330,top=20,left=100,scrollbars=1,scrollbars=1');"><img src="<?php echo Images_Path;?>/icon_arrow_orange.gif"></a>
+						<a href="#" onclick="window.open('../A2B_entity_provider.php?popup_select=2&popup_formname=myForm&popup_fieldname=enterprovider' , 'ProviderSelection','width=550,height=330,top=20,left=100,scrollbars=1,scrollbars=1');"><img src="../Images/icon_arrow_orange.png"></a>
 						<?php echo gettext("Trunk");?>: <INPUT TYPE="text" NAME="entertrunk" value="<?php echo $entertrunk?>" size="4">
-						<a href="#" onclick="window.open('../A2B_entity_trunk.php?popup_select=2&popup_formname=myForm&popup_fieldname=entertrunk' , 'TrunkSelection','width=550,height=330,top=20,left=100,scrollbars=1');"><img src="<?php echo Images_Path;?>/icon_arrow_orange.gif"></a>
+						<a href="#" onclick="window.open('../A2B_entity_trunk.php?popup_select=2&popup_formname=myForm&popup_fieldname=entertrunk' , 'TrunkSelection','width=550,height=330,top=20,left=100,scrollbars=1');"><img src="../Images/icon_arrow_orange.png"></a>
 						
                                         </td>
 				</tr></table></td>
@@ -379,17 +380,8 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 			<table width="100%" border="0" cellspacing="0" cellpadding="0"><tr>
 				<td class="fontstyle_searchoptions">
 					<?= _("Select an agent") ?>: 
-					<select name="choose_agent" size="1" class="form_enter" style="border: 2px outset rgb(204, 51, 0);">
-					<option value=''><?= _("All cards");?></option>
-					<option value='all'><?= _("All agents");?></option>
-					<option value='no'><?= _("No agent");?></option>
-					<?php
-					foreach ($list_agent as $recordset){
-					?>
-						<option class=input value='<?php echo $recordset[0]?>' ><?php echo $recordset[1]?></option>
-					<?php 	 }
-					?>
-					</select>
+					<?php gen_Combo("choose_agent",$choose_agent,$list_agent); ?>
+					
 				</td>
 			</tr></table></td>
 		</tr>
@@ -417,7 +409,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 					<table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#acbdee">
 						<tr>
 						<td align="center">							
-							<input type="image"  name="image16" align="top" border="0" src="../Images/button-search.gif" />
+							<input type="image"  name="image16" align="top" border="0" src="../Images/button-search.png" />
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					</td></tr></table>
 	  			</td>
