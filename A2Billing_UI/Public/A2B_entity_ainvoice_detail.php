@@ -26,7 +26,8 @@ $show_calls = true;
 $show_calls_cumul = true;
 $show_charges = true;
 $currency = 'EUR';
-$num_cols = 2;
+$num_cols = 2;	///< columns per page
+$num_rows_first = 0; ///< Skip so many rows on first page!
 $num_rows = 0;
 $date_format = 'DD/MM/IYYY HH24:MI';
 $date_only_format = 'DD/MM/IYYY';
@@ -39,7 +40,8 @@ if (isset($printable) && ($printable = 1)){
 	$show_charges = true;
 	$currency = 'EUR';
 	$num_cols = 2;
-	$num_rows = 50;
+	$num_rows = 40;
+	$num_rows_first = 15;
 	$disp_printable = true;
 }
 
@@ -60,6 +62,8 @@ table.invoice_data {
 
 table.invoice_list {
 	border: thin solid black;
+	border-collapse: collapse;
+	page-break-inside: avoid;
 }
 table.invoice_list thead td {
 	border-bottom: thin solid black;
@@ -68,6 +72,9 @@ table.invoice_list thead td {
 
 table.invoice_list td {
 	border-bottom: thin solid gray;
+	border-left: thin dashed gray;
+	padding-right: 5px;
+	padding-left: 5px;
 }
 
 table.invoice_list .total {
@@ -249,6 +256,8 @@ if ($show_history){
 	<?php
 		$row = true ; // for the first one
 		while ($row){
+		if ( $n < $num_rows * $num_cols)
+			$n += $num_rows_first;
 		if ( ($ncol++) % $num_cols == 0)
 			echo "<tr>";
 		echo "<td>";
