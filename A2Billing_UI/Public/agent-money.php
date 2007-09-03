@@ -1,5 +1,5 @@
 <?php
-$menu_section='menu-agents';
+$menu_section = 'menu_agents';
 include ("../lib/defines.php");
 include ("../lib/module.access.php");
 
@@ -10,12 +10,8 @@ if (! has_rights (ACX_AGENTS)){
 }
 
 
-getpost_ifset(array('agent_id','nobq', 'posted',  'stitle', 'atmenu', 'dst', 'src', 'srctype', 'src',  'choose_currency','exporttype','Period', 'frommonth', 'fromstatsmonth', 'tomonth', 'tostatsmonth', 'fromday', 'fromstatsday_sday', 'fromstatsmonth_sday', 'today', 'tostatsday_sday', 'tostatsmonth_sday','fromstatsmonth_sday', 'fromstatsmonth_shour', 'tostatsmonth_sday', 'tostatsmonth_shour','fromstatsmonth_smin','tostatsmonth_smin'));
+getpost_ifset(array('agent_id','nobq', 'posted',  'stitle', 'dst', 'src', 'srctype', 'src',  'choose_currency','exporttype','Period', 'frommonth', 'fromstatsmonth', 'tomonth', 'tostatsmonth', 'fromday', 'fromstatsday_sday', 'fromstatsmonth_sday', 'today', 'tostatsday_sday', 'tostatsmonth_sday','fromstatsmonth_sday', 'fromstatsmonth_shour', 'tostatsmonth_sday', 'tostatsmonth_shour','fromstatsmonth_smin','tostatsmonth_smin'));
 
-//$customer = $_SESSION["pr_login"];
-$vat = $_SESSION["vat"];
-
-//require (LANGUAGE_DIR.FILENAME_INVOICES);
 
 if (($_GET[download]=="file") && $_GET[file] ) 
 {
@@ -47,10 +43,10 @@ if (($_GET[download]=="file") && $_GET[file] )
 
 
 // this variable specifie the debug type (0 => nothing, 1 => sql result, 2 => boucle checking, 3 other value checking)
-$FG_DEBUG = 2;
+$FG_DEBUG = 1;
 
 // The variable FG_TABLE_NAME define the table name to use
-$FG_TABLE_NAME="cc_agent_money_vi";
+$FG_TABLE_NAME="cc_agent_money_v";
 
 // THIS VARIABLE DEFINE THE COLOR OF THE HEAD TABLE
 $FG_TABLE_HEAD_COLOR = "#D1D9E7";
@@ -96,9 +92,12 @@ $FG_TABLE_DEFAULT_SENS = "ASC";
 // This Variable store the argument for the SQL query
 
 if (! isset($choose_currency) || ( $choose_currency == ''))
-	$choose_currency = $_SESSION["currency"];
+	$choose_currency = BASE_CURRENCY;
 
-$FG_COL_QUERY=str_dbparams($DBHandle, 'fmt_date(date), pay_type_txt,descr, ' .
+if (! isset($agent_id))
+	$agent_id = -1;
+
+$FG_COL_QUERY=str_dbparams($DBHandle, 'fmt_date(date), gettexti(pay_type,\'C\') AS pay_type_txt,descr, ' .
 	'format_currency(pos_credit,%1, %2), format_currency(neg_credit,%1, %2)',
 	array(strtoupper(BASE_CURRENCY),$choose_currency));
 //$FG_COL_QUERY_GRAPH='t1.callstart, t1.duration';
@@ -167,7 +166,7 @@ if (!$nodisplay){
 		$res_sums['all_sums']=$list_tmp[0][2];
 		$res_sums['raw_credit']=$list_tmp[0][3];
 	}else
-		if ($FG_DEBUG) echo "Sums query failed." . $DBHandle->ErrorMsg() . "<br>";
+		if ($FG_DEBUG>0) echo "Sums query failed." . $DBHandle->ErrorMsg() . "<br>";
 	
 	if ($date_clause_c != ''){
 		$list_tmp = $instance_table_carry -> Get_list ($DBHandle, $FG_TABLE_CLAUSE_NODATE . " AND ". $date_clause_c);
@@ -177,7 +176,7 @@ if (!$nodisplay){
 			$res_sums['all_carry']=$list_tmp[0][2];
 			$res_sums['raw_carry']=$list_tmp[0][3];
 		}else
-			if ($FG_DEBUG) echo "Carry query failed." . $DBHandle->ErrorMsg() . "<br>";
+			if ($FG_DEBUG>0) echo "Carry query failed." . $DBHandle->ErrorMsg() . "<br>";
 		
 	}
 	$res= $DBHandle->Query($FG_DL_QUERY);
@@ -186,7 +185,7 @@ if (!$nodisplay){
 		$res_sums['climit']=$list_tmp[0];
 		$res_sums['days_left']=$list_tmp[1];
 	}else
-		if ($FG_DEBUG) echo "Days-left query failed." . $DBHandle->ErrorMsg() . "<br>";
+		if ($FG_DEBUG>0) echo "Days-left query failed." . $DBHandle->ErrorMsg() . "<br>";
 	
 	$query=str_dbparams($DBHandle, "SELECT format_currency(SUM(credit),%1, %2) FROM cc_card, cc_agent_cards WHERE cc_agent_cards.card_id= cc_card.id AND cc_agent_cards.agentid = %3 AND credit < 0;",
 		array(strtoupper(BASE_CURRENCY),$choose_currency,$agent_id));
@@ -195,7 +194,7 @@ if (!$nodisplay){
 		$list_tmp=$res->FetchRow();
 		$res_sums['total_cdebit']=$list_tmp[0];
 	}else
-		if ($FG_DEBUG) echo "Total cdebit query failed." . $DBHandle->ErrorMsg() . "<br>";
+		if ($FG_DEBUG>0) echo "Total cdebit query failed." . $DBHandle->ErrorMsg() . "<br>";
 	
 	$query=str_dbparams($DBHandle, "SELECT format_currency(SUM(credit),%1, %2) FROM cc_card, cc_agent_cards WHERE cc_agent_cards.card_id= cc_card.id AND cc_agent_cards.agentid = %3 AND credit > 0;",
 		array(strtoupper(BASE_CURRENCY),$choose_currency,$agent_id));
@@ -204,7 +203,7 @@ if (!$nodisplay){
 		$list_tmp=$res->FetchRow();
 		$res_sums['total_ccredit']=$list_tmp[0];
 	}else
-		if ($FG_DEBUG) echo "Total ccredit query failed." . $DBHandle->ErrorMsg() . "<br>";
+		if ($FG_DEBUG>0) echo "Total ccredit query failed." . $DBHandle->ErrorMsg() . "<br>";
 
 	$query=str_dbparams($DBHandle, "SELECT format_currency(SUM(creditlimit),%1, %2) FROM cc_card, cc_agent_cards WHERE cc_agent_cards.card_id= cc_card.id AND cc_agent_cards.agentid = %3 AND creditlimit > 0;",
 	array(strtoupper(BASE_CURRENCY),$choose_currency,$agent_id));
@@ -213,7 +212,7 @@ if (!$nodisplay){
 		$list_tmp=$res->FetchRow();
 		$res_sums['total_cclimit']=$list_tmp[0];
 	}else
-		if ($FG_DEBUG) echo "Total cclimit query failed." . $DBHandle->ErrorMsg() . "<br>";
+		if ($FG_DEBUG>0) echo "Total cclimit query failed." . $DBHandle->ErrorMsg() . "<br>";
 
 	$dc2= fmt_dateclause($DBHandle,"cc_call.starttime");
 	if ($dc2 != '' )
@@ -227,7 +226,7 @@ if (!$nodisplay){
 		$res_sums['total_calls_com']=$list_tmp[1];
 		$res_sums['total_calls_wh']=$list_tmp[2];
 	}else
-		if ($FG_DEBUG) echo "Total calls query failed." . $DBHandle->ErrorMsg() . "<br>";
+		if ($FG_DEBUG>0) echo "Total calls query failed." . $DBHandle->ErrorMsg() . "<br>";
 
 	if ($FG_DEBUG>=2) print_r($res_sums);
 }
@@ -269,11 +268,12 @@ if ($FG_DEBUG >= 4) var_dump ($list);
 // Using MIN(descr) as we don't expect to have multiple descriptions
 // for pay types.
 
-$QUERY = str_dbparams($DBHandle,"SELECT MIN(descr), " .
-	"format_currency(SUM(pos_credit), %1, %2), " .
-	"format_currency(SUM(neg_credit), %1, %2), pay_type " .
-	"FROM cc_agent_money_vi WHERE " . $FG_TABLE_CLAUSE .
-	" GROUP BY pay_type,descr",
+$QUERY = str_dbparams($DBHandle,"SELECT MIN(descr) AS descr, " .
+	"format_currency(SUM(pos_credit), %1, %2) AS pos_sum, " .
+	"format_currency(SUM(neg_credit), %1, %2) AS neg_sum, pay_type, ".
+	"gettexti(pay_type,'C') AS pay_type_txt " .
+	"FROM cc_agent_money_v WHERE " . $FG_TABLE_CLAUSE .
+	" GROUP BY pay_type,descr; ",
 	array(strtoupper(BASE_CURRENCY),$choose_currency));
 
 //extract(DAY from calldate)
@@ -335,171 +335,132 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 
 <table width="20%" align="center">
 <tr>
-<td> <img src="images/mM_logo.png"/> </td>
+<td> <img src="../Images/asterisk01.jpg"/> </td>
 </tr>
 </table>
 
 
-<?php /*-*/ if (!isset($card) && ($nobq !=1)){ ?>
+<?php if (!isset($card) && ($nobq !=1)){ 
+	$months_combo_array = array();
+	$year_actual = date("Y");
+	$monthname = getmonthnames();
+	for ($i=$year_actual;$i >= $year_actual-1;$i--) {
+		
+		if ($year_actual==$i){
+			$monthnumber = date("n")-1; // Month number without lead 0.
+		}else{
+			$monthnumber=11;
+		}
+		for ($j=$monthnumber;$j>=0;$j--){
+			$month_formated = sprintf("%02d",$j+1);
+			$months_combo_array[]= array("$i-$month_formated","$monthname[$j]-$i");
+		}
+	}
+
+	$instance_table_agent = new Table("cc_agent", "id, name");
+	$FG_TABLE_CLAUSE_AG = "";
+	$list_agent = $instance_table_agent -> Get_list ($DBHandle, $FG_TABLE_CLAUSE_AG, "name", "ASC", null, null, null, null);
+
+?>
 	<center>
 	<FORM method=POST action="<?php echo $PHP_SELF?>?s=1&t=0&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php echo $current_page?>">
 	<INPUT TYPE="hidden" name="posted" value=1>
 	<INPUT TYPE="hidden" name="current_page" value=0>	
 	<table class="bar-status" width="95%" border="0" cellspacing="1" cellpadding="2" align="center">
 	<tbody>
+	<tr><td class="bar-search" align="left" color="#ffffff" bgcolor="#000033"><b><?= gettext("Agent");?></b></td>
+	    <td class="bar-search" bgcolor="#cddeff" colspan="2">
+		<?php gen_Combo("agent_id",$agent_id,$list_agent); ?></td>
+	</tr>
 	<tr><td class="bar-search" align="left" bgcolor="#555577">
 
 		<input type="radio" name="Period" value="none" <?php  if (($Period=="none") || !isset($Period)){ ?>checked="checked" <?php  } ?>> 
 		<font face="verdana" size="1" color="#ffffff"><b><?= gettext("All transactions");?></b></font>
 	</td><td class="bar-search" bgcolor="#cddeff" colspan="2">&nbsp;</td></tr>
+	
+	
 	<tr><td class="bar-search" align="left" bgcolor="#555577">
 
 		<input type="radio" name="Period" value="Month" <?php  if ($Period=="Month"){ ?>checked="checked" <?php  } ?>> 
 		<font face="verdana" size="1" color="#ffffff"><b><?= gettext("Selection of the month");?></b></font>
 	</td>
 	<td class="bar-search" colspan=2 align="left" bgcolor="#cddeff">
-			<table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#cddeff"><tr><td>
-			<input type="checkbox" name="frommonth" value="true" <?php  if ($frommonth){ ?>checked<?php }?>> 
-			<?= gettext("FROM");?> : <select name="fromstatsmonth">
-			<?php 	$year_actual = date("Y");
-				for ($i=$year_actual;$i >= $year_actual-1;$i--)
-				{	
-					$monthname = getmonthnames();
-					if ($year_actual==$i){
-						$monthnumber = date("n")-1; // Month number without lead 0.
-					}else{
-						$monthnumber=11;
-					}
-					for ($j=$monthnumber;$j>=0;$j--){	
-						$month_formated = sprintf("%02d",$j+1);
-						if ($fromstatsmonth=="$i-$month_formated"){$selected="selected";}else{$selected="";}
-						echo "<OPTION value=\"$i-$month_formated\" $selected> $monthname[$j]-$i </option>";
-					}
-				}
-			?>		
-			</select>
-			</td><td>&nbsp;&nbsp;
-			<input type="checkbox" name="tomonth" value="true" <?php  if ($tomonth){ ?>checked<?php }?>> 
-			<?= gettext("TO");?> : <select name="tostatsmonth">
-			<?php 	$year_actual = date("Y");
-				for ($i=$year_actual;$i >= $year_actual-1;$i--)
-				{	
-					$monthname = getmonthnames();
-					if ($year_actual==$i){
-						$monthnumber = date("n")-1; // Month number without lead 0.
-					}else{
-						$monthnumber=11;
-					}
-					for ($j=$monthnumber;$j>=0;$j--){	
-						$month_formated = sprintf("%02d",$j+1);
-						if ($tostatsmonth=="$i-$month_formated"){$selected="selected";}else{$selected="";}
-						echo "<OPTION value=\"$i-$month_formated\" $selected> $monthname[$j]-$i </option>";
-					}
-				}
-			?>
-			</select>
-			</td></tr></table>
+		<table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#cddeff"><tr><td>
+		<input type="checkbox" name="frommonth" value="true" <?php  if ($frommonth){ ?>checked<?php }?>> 
+		<?= gettext("FROM");?> :
+			<?php gen_Combo("fromstatsmonth",$fromstatsmonth,$months_combo_array); ?>
+		</td><td>&nbsp;&nbsp;
+		<input type="checkbox" name="tomonth" value="true" <?php  if ($tomonth){ ?>checked<?php }?>> 
+		<?= gettext("TO");?> : 
+		<?php gen_Combo("tostatsmonth",$tostatsmonth,$months_combo_array); ?>
+		</td></tr></table>
 		</td>
 	</tr>
 			
 		<tr>
 		<td align="left" bgcolor="#000033">
-				<input type="radio" name="Period" value="Day" <?php  if ($Period=="Day"){ ?>checked="checked" <?php  } ?>> 
-				<font face="verdana" size="1" color="#ffffff"><b><?= gettext("Selection of the day");?></b></font>
+			<input type="radio" name="Period" value="Day" <?php  if ($Period=="Day"){ ?>checked="checked" <?php  } ?>> 
+			<font face="verdana" size="1" color="#ffffff"><b><?= gettext("Selection of the day");?></b></font>
 			</td>
 		<td align="left" colspan=2 bgcolor="#acbdee">
-				<table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#acbdee"><tr><td>
-				<input type="checkbox" name="fromday" value="true" <?php  if ($fromday){ ?>checked<?php }?>> <?= gettext("FROM");?> :
-				<select name="fromstatsday_sday">
-					<?php  
-						for ($i=1;$i<=31;$i++){
-							if ($fromstatsday_sday==sprintf("%02d",$i)){$selected="selected";}else{$selected="";}
-							echo '<option value="'.sprintf("%02d",$i)."\"$selected>".sprintf("%02d",$i).'</option>';
-						}
-					?>	
-				</select>
-				<select name="fromstatsmonth_sday">
-				<?php 	$year_actual = date("Y");  	
-					for ($i=$year_actual;$i >= $year_actual-1;$i--)
-					{	
-						$monthname = getmonthnames();
-						if ($year_actual==$i){
-							$monthnumber = date("n")-1; // Month number without lead 0.
-						}else{
-							$monthnumber=11;
-						}		   
-						for ($j=$monthnumber;$j>=0;$j--){	
-							$month_formated = sprintf("%02d",$j+1);
-							if ($fromstatsmonth_sday=="$i-$month_formated"){$selected="selected";}else{$selected="";}
-							echo "<OPTION value=\"$i-$month_formated\" $selected> $monthname[$j]-$i </option>";
-							}
-					}
-				?>
-				</select>
-				<select name="fromstatsmonth_shour">
-				<?php  
-					if (strlen($fromstatsmonth_shour)==0) $fromstatsmonth_shour='0';
-					for ($i=0;$i<=23;$i++){	
-						if ($fromstatsmonth_shour==sprintf("%02d",$i)){$selected="selected";}else{$selected="";}						
-						echo '<option value="'.sprintf("%02d",$i)."\" $selected>".sprintf("%02d",$i).'</option>';
-					}
-				?>					
-				</select>:<select name="fromstatsmonth_smin">
-				<?php  
-					if (strlen($fromstatsmonth_smin)==0) $fromstatsmonth_smin='0';
-					for ($i=0;$i<=59;$i++){	
-						if ($fromstatsmonth_smin==sprintf("%02d",$i)){$selected="selected";}else{$selected="";}						
-						echo '<option value="'.sprintf("%02d",$i)."\" $selected>".sprintf("%02d",$i).'</option>';
-					}
-				?>					
-				</select>
-				</td><td>&nbsp;&nbsp;
-				<input type="checkbox" name="today" value="true" <?php  if ($today){ ?>checked<?php }?>> <?= gettext("TO");?> :
-				<select name="tostatsday_sday">
+			<table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#acbdee"><tr><td>
+			<input type="checkbox" name="fromday" value="true" <?php  if ($fromday){ ?>checked<?php }?>> <?= gettext("FROM");?> :
+			<select name="fromstatsday_sday">
 				<?php  
 					for ($i=1;$i<=31;$i++){
-						if ($tostatsday_sday==sprintf("%02d",$i)){$selected="selected";}else{$selected="";}
+						if ($fromstatsday_sday==sprintf("%02d",$i)){$selected="selected";}else{$selected="";}
 						echo '<option value="'.sprintf("%02d",$i)."\"$selected>".sprintf("%02d",$i).'</option>';
 					}
-				?>						
-				</select>
-				<select name="tostatsmonth_sday">
-				<?php 	$year_actual = date("Y");  	
-					for ($i=$year_actual;$i >= $year_actual-1;$i--)
-					{	
-						$monthname = getmonthnames();
-						if ($year_actual==$i){
-							$monthnumber = date("n")-1; // Month number without lead 0.
-						}else{
-							$monthnumber=11;
-						}		   
-						for ($j=$monthnumber;$j>=0;$j--){
-							$month_formated = sprintf("%02d",$j+1);
-							if ($tostatsmonth_sday=="$i-$month_formated"){$selected="selected";}else{$selected="";}
-							echo "<OPTION value=\"$i-$month_formated\" $selected> $monthname[$j]-$i </option>";
-							}
-					}
-				?>
-				</select>
-				<select name="tostatsmonth_shour">
-				<?php  
-					if (strlen($tostatsmonth_shour)==0) $tostatsmonth_shour='23';
-					for ($i=0;$i<=23;$i++){	
-						if ($tostatsmonth_shour==sprintf("%02d",$i)){$selected="selected";}else{$selected="";}
-						echo '<option value="'.sprintf("%02d",$i)."\" $selected>".sprintf("%02d",$i).'</option>';
-					}
-				?>					
-				</select>:<select name="tostatsmonth_smin">
-				<?php  
-					if (strlen($tostatsmonth_smin)==0) $tostatsmonth_smin='59';
-					for ($i=0;$i<=59;$i++){	
-						if ($tostatsmonth_smin==sprintf("%02d",$i)){$selected="selected";}else{$selected="";}						
-						echo '<option value="'.sprintf("%02d",$i)."\" $selected>".sprintf("%02d",$i).'</option>';
-					}
-				?>					
-				</select>
-				</td></tr></table>
-			</td>
+				?>	
+			</select>
+			<?php gen_Combo("fromstatsmonth_sday",$fromstatsmonth_sday,$months_combo_array); ?>
+			<select name="fromstatsmonth_shour">
+			<?php  
+				if (strlen($fromstatsmonth_shour)==0) $fromstatsmonth_shour='0';
+				for ($i=0;$i<=23;$i++){	
+					if ($fromstatsmonth_shour==sprintf("%02d",$i)){$selected="selected";}else{$selected="";}						
+					echo '<option value="'.sprintf("%02d",$i)."\" $selected>".sprintf("%02d",$i).'</option>';
+				}
+			?>
+			</select>:<select name="fromstatsmonth_smin">
+			<?php  
+				if (strlen($fromstatsmonth_smin)==0) $fromstatsmonth_smin='0';
+				for ($i=0;$i<=59;$i++){	
+					if ($fromstatsmonth_smin==sprintf("%02d",$i)){$selected="selected";}else{$selected="";}						
+					echo '<option value="'.sprintf("%02d",$i)."\" $selected>".sprintf("%02d",$i).'</option>';
+				}
+			?>
+			</select>
+			</td><td>&nbsp;&nbsp;
+			<input type="checkbox" name="today" value="true" <?php  if ($today){ ?>checked<?php }?>> <?= gettext("TO");?> :
+			<select name="tostatsday_sday">
+			<?php  
+				for ($i=1;$i<=31;$i++){
+					if ($tostatsday_sday==sprintf("%02d",$i)){$selected="selected";}else{$selected="";}
+					echo '<option value="'.sprintf("%02d",$i)."\"$selected>".sprintf("%02d",$i).'</option>';
+				}
+			?>						
+			</select>
+			<?php gen_Combo("tostatsmonth_sday",$tostatsmonth_sday,$months_combo_array); ?>
+			<select name="tostatsmonth_shour">
+			<?php  
+				if (strlen($tostatsmonth_shour)==0) $tostatsmonth_shour='23';
+				for ($i=0;$i<=23;$i++){	
+					if ($tostatsmonth_shour==sprintf("%02d",$i)){$selected="selected";}else{$selected="";}
+					echo '<option value="'.sprintf("%02d",$i)."\" $selected>".sprintf("%02d",$i).'</option>';
+				}
+			?>					
+			</select>:<select name="tostatsmonth_smin">
+			<?php  
+				if (strlen($tostatsmonth_smin)==0) $tostatsmonth_smin='59';
+				for ($i=0;$i<=59;$i++){	
+					if ($tostatsmonth_smin==sprintf("%02d",$i)){$selected="selected";}else{$selected="";}						
+					echo '<option value="'.sprintf("%02d",$i)."\" $selected>".sprintf("%02d",$i).'</option>';
+				}
+			?>					
+			</select>
+			</td></tr></table>
+		</td>
 		</tr>
 
 	<tr>
@@ -543,7 +504,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 <table width="100%">
 <tr>
 <?php if (SHOW_ICON_INVOICE){?> <td align="left"><img src="pdf-invoices/images/kfind.gif"/> </td> <?php } ?>
-<td align="center"  bgcolor="#fff1d1"><font color="#000000" face="verdana" size="5"> <b><?=  str_dblspace(gettext("TRANSACTIONS DETAIL"));?></b> </td>
+<td align="center"  bgcolor="#fff1d1"><font color="#000000" face="verdana" size="5"> <b><?=  _("TRANSACTIONS DETAIL");?></b> </td>
 </tr>
 </table>
 
@@ -676,6 +637,15 @@ table.total td.hdr3 {
 	font-size: 9pt;
 }
 
+table.total td.col0 {
+	text-align: left;
+	background-color: #D2D8ED;
+	color: black;
+	font-family: Arial,Verdana;
+	font-weight: normal;
+	font-size: 9pt;
+}
+
 table.total td.col1 {
 	text-align: center;
 	background-color: #D2D8ED;
@@ -714,30 +684,34 @@ table.total td.total {
 <table width="100%">
 <tr>
 <?php if (SHOW_ICON_INVOICE){?><td align="left"><img src="pdf-invoices/images/desktop.gif"/> </td><?php }?>
-<td align="center"  bgcolor="#fff1d1"><font color="#000000" face="verdana" size="5"> <b><?=  str_dblspace(gettext("MONEY SITUATION:"));?> </b> </td>
+<td align="center"  bgcolor="#fff1d1"><font color="#000000" face="verdana" size="5"> <b><?=  _("MONEY SITUATION:");?> </b> </td>
 </tr>
 </table>
 <table class="total" cellspacing="1" cellpadding="2" align="center">
-	<tr><td class="hdr1" colspan="3"><?= _("TRANSACTIONS") ?></td></tr>
-	<tr><td class="hdr1"></td><td class="hdr2" colspan="2"><?= _("IN/OUT") ?></td>
+	<tr><td class="hdr1" colspan="4"><?= _("TRANSACTIONS") ?></td></tr>
+	<tr><td class="hdr1" colspan="2">&nbsp;</td>
+	<td class="hdr2" colspan="2"><?= _("IN/OUT") ?></td>
     </tr>
 	<tr><td class="hdr3"><?= _("TYPE");?></td>
+	<td class="hdr3"><?= _("DESCRIPTION");?></td>
         <td class="hdr3"><?= _("IN");?></td>
 	<td class="hdr3"><?= _("OUT");?></td>
+	</tr>
 <?php
 	$i=0;
 	foreach ($list_type_charge as $data){
-	$i=($i+1)%2;	
-?>
+		$i=($i+1)%2; ?>
+	<tr><td class="col0"><?= $data['pay_type_txt']?></td>
+	    <td class="col1"><?= $data['descr']?></td>
+	    <td class="row<?= $i?>"><?= $data['pos_sum']?></td>
+	    <td class="row<?= $i?>"><?= $data['neg_sum'] ?></td>
 	</tr>
-	<tr><td class="col1"><?= $data[0]?></td><td class="row<?= $i?>"><?= $data[1]?></td>
-		<td class="row<?= $i?>"><?= $data[2] ?></td>
-     <?php 	 }
-?></tr>
-	<tr><td class="hdr1" colspan="3"><?= _("SITUATION") ?></td></tr>
-	<tr><td class="hdr3"><?= _("DESCRIPTION") ?></td> <td class="hdr3" colspan="2"><?= _("SUM") ?></td></tr>
+     <?php } ?>
+
+	<tr><td class="hdr1" colspan="4"><?= _("SITUATION") ?></td></tr>
+	<tr><td class="hdr3" colspan="2"><?= _("DESCRIPTION") ?></td> <td class="hdr3" colspan="2"><?= _("SUM") ?></td></tr>
 <?php if (isset($res_sums['all_carry'])){
-?>	<tr><td class="col1"><?= _("Total sum carried from previous period"); ?></td>
+?>	<tr><td class="col1" colspan="2"><?= _("Total sum carried from previous period"); ?></td>
 		<td class="row0" colspan=2><?= $res_sums['all_carry'] ?></td><tr><?php } ?>
 <?php /* if (isset($res_sums['per_agentcharge'])){
 ?>	<tr><td class="col1"><?= _("Sum of charges during the period"); ?></td>
@@ -745,22 +719,22 @@ table.total td.total {
 	<tr><td class="col1"><?= _("Sum paid to us"); ?></td>
 		<td class="row0"><?= $res_sums['per_agentpay'] ?></td><tr>
 	<tr><td>&nbsp;</td></tr><?php */ ?>
-	<tr><td class="col1"><?= _("Total sum credited to customers"); ?></td>
+	<tr><td class="col1" colspan="2"><?= _("Total sum credited to customers"); ?></td>
 		<td class="row0" colspan=2><?= $res_sums['total_ccredit'] ?></td><tr>
 <?php if (isset($res_sums['total_cdebit'])){
-?>	<tr><td class="col1"><?= _("Total sum debited from customers"); ?></td>
+?>	<tr><td class="col1" colspan="2"><?= _("Total sum debited from customers"); ?></td>
 		<td class="row1" colspan=2><?= $res_sums['total_cdebit'] ?></td><tr><?php } ?>
 <?php if (isset($res_sums['total_cclimit'])){
-?>	<tr><td class="col1"><?= _("Total potential debit from customers"); ?></td>
+?>	<tr><td class="col1" colspan="2"><?= _("Total potential debit from customers"); ?></td>
 		<td class="row0" colspan=2><?= $res_sums['total_cclimit'] ?></td><tr><?php } ?>
-	<tr><td class="col1"><?= _("Total calls made by customers"); ?></td>
+	<tr><td class="col1" colspan="2"><?= _("Total calls made by customers"); ?></td>
 		<td class="row1" colspan=2><?= $res_sums['total_calls'] ?></td><tr>
-	<tr><td class="col1"><?= _("Wholesale price of calls"); ?></td>
+	<tr><td class="col1" colspan="2"><?= _("Wholesale price of calls"); ?></td>
 		<td class="row1" colspan=2><?= $res_sums['total_calls_wh'] ?></td><tr>
-	<tr><td class="col1"><?= _("Estimated profit from calls"); ?></td>
+	<tr><td class="col1" colspan="2"><?= _("Estimated profit from calls"); ?></td>
 		<td class="row1" colspan=2><?= $res_sums['total_calls_com'] ?></td><tr>
 	<tr>
-		<td class="total" colspan="3"><?= _("TOTAL");?> =
+		<td class="total" colspan="4"><?= _("TOTAL");?> =
 <?php echo $res_sums['all_sums'];
 if ($vat>0) echo  " (" .gettext("includes VAT"). "$vat %)";
 if (isset($res_sums['climit'])) 
@@ -773,23 +747,10 @@ if (isset($res_sums['days_left']))
 </table>
 <?php  } ?>
 
-<?php  if($exporttype!="pdf"){ 
-if ($list_sum[0][4] >0.0){ ?>
-	<br><hr width="350"><br>
-	<p class='pay-back-btn'> <a href='pay.php?sid=<?= $session_sid . '&choose_currency=' .$choose_currency; ?>&pback=1'> <?=_("Pay back:") . '&nbsp' . $list_sum[0][3] ; ?></a>
-	<br><hr width="350"><br>
-<?php }else if ($list_sum[0][4] <0.0){ ?>
-	<br><hr width="350"><br>
-	<p class='pay-btn'> <a href='pay.php?sid=<?= $session_sid .'&choose_currency=' .$choose_currency; ?>&pback=0'> <?=_("Pay:") . '&nbsp' . $list_sum[0][5] ; ?></a>
-	<br><hr width="350"><br>
-<?php } ?>
-<br>
-<?php
-	include("PP_footer.php");
-?>
-
-<?php  }else{
-// EXPORT TO PDF
+<?php  if($exporttype!="pdf"){
+	require("PP_footer.php");
+ }else{
+ 	// EXPORT TO PDF
 
 	$html = ob_get_contents();
 	// delete output-Buffer
@@ -808,4 +769,5 @@ if ($list_sum[0][4] >0.0){ ?>
 
 
 
-} ?>
+}
+?>
