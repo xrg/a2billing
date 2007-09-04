@@ -658,6 +658,12 @@ class FormHandler{
 		$this->FG_NB_TABLE_COL = count($this->FG_TABLE_COL);
 	}
 
+	function AddViewElement_sql($displayname, $fieldname,$sqlexpr, $colpercentage, $textalign='center', $sort='sort', $char_limit = null, $lie_type = null, $lie_with = null, $lie_fieldname = null, $lie_clause = null, $lie_display = null, $myfunc = null) {
+        	$cur = count($this->FG_TABLE_COL);
+		$this->FG_TABLE_COL[$cur] = array($displayname, $fieldname, $colpercentage, $textalign, $sort, $char_limit, $lie_type, $lie_with, $lie_fieldname , $lie_clause , $lie_display, $myfunc, 'sql_expr' => $sqlexpr );
+
+		$this->FG_NB_TABLE_COL = count($this->FG_TABLE_COL);
+	}
     //----------------------------------------------------
     // Method to Add the Field which will be included in the export file
     //----------------------------------------------------
@@ -691,8 +697,12 @@ class FormHandler{
 	/** Set Field view query on columns */
 	function AutoFieldViewElements($add_id = 1){
 		$fields = Array();
-		foreach($this->FG_TABLE_COL as $col)
-			$fields[] = $col[1];
+		foreach($this->FG_TABLE_COL as $col){
+			if (isset($col['sql_expr']))
+				$fields[] = $col['sql_expr'] ." AS ".$col[1] ."_disp";
+			else
+				$fields[] = $col[1];
+		}
 		$tfields= implode(', ', $fields);
 		$this->FieldViewElement($tfields,$add_id);
 		
