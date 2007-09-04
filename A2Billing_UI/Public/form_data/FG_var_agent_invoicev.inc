@@ -64,19 +64,21 @@ $payment_status_list["2"] = array( gettext("SENT-PAID"),  "2");
 $payment_status_list["3"] = array( gettext("PAID"),  "3");
 
 $HD_Form -> AddViewElement(gettext("ID"), "id", "4%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("AGENT"), "agent", "4%", "center", "sort");
+$HD_Form -> AddViewElement(gettext("AGENT"), "login", "4%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("INVOICEDATE"), "invoicecreated_date", "7%", "center", "sort", "22", "", "", "", "", "", "display_dateonly");
 $HD_Form -> AddViewElement(gettext("COVERSTART"), "cover_startdate", "7%", "center", "sort", "22", "", "", "", "", "", "display_dateonly");
 $HD_Form -> AddViewElement(gettext("COVEREND"), "cover_enddate", "7%", "center", "sort", "22", "", "", "", "", "", "display_dateonly");
 $HD_Form -> AddViewElement(gettext("SENTDATE"), "invoicesent_date", "7%", "center", "sort", "22", "", "", "", "", "", "display_dateonly");
 $HD_Form -> AddViewElement(gettext("STATUS"), "invoicestatus", "5%", "center", "sort", "", "list", $status_list);
 $HD_Form -> AddViewElement(gettext("PAYMENTSTATUS"), "payment_status", "5%", "center", "sort", "", "list", $payment_status_list);
-$HD_Form -> AddViewElement(gettext("AMOUNT"), "total", "9%", "center", "sort", "", "", "", "", "", "");
-//$HD_Form -> AddViewElement(gettext("PAYMENT"), "payment", "10%", "center", "sort", "15", "lie", "cc_logpayment as t2, cc_invoices t3", "CASE WHEN SUM(t2.payment) IS NULL THEN 0 ELSE SUM(t2.payment) END", "t3.cardid = t2.card_id  AND t2.card_id='$cardid' AND t3.id='%id' AND t2.date >= t3.cover_startdate AND t2.date < t3.cover_enddate", "%1");
+
 if (! isset($base_currency)) $base_currency = strtoupper(BASE_CURRENCY);
 
-$HD_Form -> FieldViewElement ('id, login,invoicecreated_date, cover_startdate, cover_enddate, invoicesent_date, invoicestatus, payment_status, format_currency(total,\''. $base_currency . '\', \'' . $base_currency . '\') ');
+$HD_Form -> AddViewElement_sql(gettext("AMOUNT"), "total",'format_currency(total,\''. $base_currency . '\', \'' . $base_currency . '\') ' , "9%", "center", "sort", "", "", "", "", "", "");
+//$HD_Form -> AddViewElement(gettext("PAYMENT"), "payment", "10%", "center", "sort", "15", "lie", "cc_logpayment as t2, cc_invoices t3", "CASE WHEN SUM(t2.payment) IS NULL THEN 0 ELSE SUM(t2.payment) END", "t3.cardid = t2.card_id  AND t2.card_id='$cardid' AND t3.id='%id' AND t2.date >= t3.cover_startdate AND t2.date < t3.cover_enddate", "%1");
 
+// $HD_Form -> FieldViewElement ('id, login,invoicecreated_date, cover_startdate, cover_enddate, invoicesent_date, invoicestatus, payment_status, format_currency(total,\''. $base_currency . '\', \'' . $base_currency . '\') ');
+$HD_Form -> AutoFieldViewElements();
 
 $HD_Form -> FG_ACTION_SIZE_COLUMN = '10%';
 $HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO ".strtoupper($HD_Form->FG_INSTANCE_NAME)." CREATED!");
