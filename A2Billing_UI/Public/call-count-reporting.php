@@ -6,7 +6,7 @@ include ("../lib/module.access.php");
 
 if (! has_rights (ACX_CALL_REPORT)){ 
 	Header ("HTTP/1.0 401 Unauthorized");
-	Header ("Location: PP_error.php?c=accessdenied");	   
+	Header ("Location: PP_error.php?c=accessdenied");
 	die();
 }
 
@@ -478,7 +478,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
         		<td class="bar-search" align="left" bgcolor="#000033"> </td>
 
 				<td class="bar-search" align="center" bgcolor="#acbdee">
-					<input type="image"  name="image16" align="top" border="0" src="../Images/button-search.gif" />
+					<input type="image"  name="image16" align="top" border="0" src="../Images/button-search.png" />
 					
 	  			</td>
     		</tr>
@@ -499,7 +499,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
               <TBODY>
                 <TR> 
                   <TD><SPAN style="COLOR: #ffffff; FONT-SIZE: 11px"><tr><?php echo $FG_HTML_TABLE_TITLE?></B></SPAN></TD>
-                  <TD align=right> <IMG alt="Back to Top" border=0 height=12 src="../Images/btn_top_12x12.gif" width=12> 
+                  <TD align=right> <IMG alt="Back to Top" border=0 height=12 src="../Images/btn_top_12x12.png" width=12> 
                   </TD>
                 </TR>
               </TBODY>
@@ -526,9 +526,9 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     <span class="liens"><?php  } ?>
                     <?php echo $FG_TABLE_COL[$i][0]?> 
                     <?php if ($order==$FG_TABLE_COL[$i][1] && $sens=="ASC"){?>
-                    &nbsp;<img src="../Images/icon_up_12x12.GIF" width="12" height="12" border="0"> 
+                    &nbsp;<img src="../Images/icon_up_12x12.png" width="12" height="12" border="0"> 
                     <?php }elseif ($order==$FG_TABLE_COL[$i][1] && $sens=="DESC"){?>
-                    &nbsp;<img src="../Images/icon_down_12x12.GIF" width="12" height="12" border="0"> 
+                    &nbsp;<img src="../Images/icon_down_12x12.png" width="12" height="12" border="0"> 
                     <?php }?>
                     <?php  if (strtoupper($FG_TABLE_COL[$i][4])=="SORT"){?>
                     </span></a> 
@@ -543,7 +543,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 <TR> 
                   <TD bgColor=#e1e1e1 colSpan=<?php echo $FG_TOTAL_TABLE_COL?> height=1><IMG 
                               height=1 
-                              src="../Images/clear.gif" 
+                              src="../Images/clear.png" 
                               width=1></TD>
                 </TR>
 				<?php
@@ -595,12 +595,12 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 				 ?>
                 <TR> 
                   <TD class=tableDivider colSpan=<?php echo $FG_TOTAL_TABLE_COL?>><IMG height=1 
-                              src="../Images/clear.gif" 
+                              src="../Images/clear.png" 
                               width=1></TD>
                 </TR>
                 <TR> 
                   <TD class=tableDivider colSpan=<?php echo $FG_TOTAL_TABLE_COL?>><IMG height=1 
-                              src="../Images/clear.gif" 
+                              src="../Images/clear.png" 
                               width=1></TD>
                 </TR>
               </TBODY>
@@ -613,7 +613,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                 <TR> 
                   <TD align="right"><SPAN style="COLOR: #ffffff; FONT-SIZE: 11px"><td> 
                     <?php if ($current_page>0){?>
-                    <img src="../Images/fleche-g.gif" width="5" height="10"> <a href="<?php echo $PHP_SELF?>?s=1&t=0&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php  echo ($current_page-1)?><?php  if (!is_null($letter) && ($letter!="")){ echo "&letter=$letter";} 
+                    <img src="../Images/fleche-g.png" width="5" height="10"> <a href="<?php echo $PHP_SELF?>?s=1&t=0&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php  echo ($current_page-1)?><?php  if (!is_null($letter) && ($letter!="")){ echo "&letter=$letter";} 
 					echo "&topsearch=$topsearch&inputtopvar=$inputtopvar&posted=$posted&Period=$Period&frommonth=$frommonth&fromstatsmonth=$fromstatsmonth&tomonth=$tomonth&tostatsmonth=$tostatsmonth&fromday=$fromday&fromstatsday_sday=$fromstatsday_sday&fromstatsmonth_sday=$fromstatsmonth_sday&today=$today&tostatsday_sday=$tostatsday_sday&tostatsmonth_sday=$tostatsmonth_sday&resulttype=$resulttype&terminatecause=$terminatecause&grouped=$grouped";?>">
                     <?php echo gettext("Previous");?> </a> -
                     <?php }?>
@@ -621,7 +621,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
                     <?php if ($current_page<$nb_record_max-1){?>
                     - <a href="<?php echo $PHP_SELF?>?s=1&t=0&order=<?php echo $order?>&sens=<?php echo $sens?>&current_page=<?php  echo ($current_page+1)?><?php  if (!is_null($letter) && ($letter!="")){ echo "&letter=$letter";}
 					echo "&posted=$posted&Period=$Period&frommonth=$frommonth&fromstatsmonth=$fromstatsmonth&tomonth=$tomonth&tostatsmonth=$tostatsmonth&fromday=$fromday&fromstatsday_sday=$fromstatsday_sday&fromstatsmonth_sday=$fromstatsmonth_sday&today=$today&tostatsday_sday=$tostatsday_sday&tostatsmonth_sday=$tostatsmonth_sday&clidtype=$clidtype&resulttype=$resulttype&clid=$clid&terminatecause=$terminatecause&topsearch=$topsearch&inputtopvar=$inputtopvar&grouped=$grouped";?>">
-                    <?php echo gettext("Next");?></a> <img src="../Images/fleche-d.gif" width="5" height="10">
+                    <?php echo gettext("Next");?></a> <img src="../Images/fleche-d.png" width="5" height="10">
                     </B></SPAN> 
                     <?php }?>
                   </TD>

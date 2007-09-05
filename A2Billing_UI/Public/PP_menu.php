@@ -202,7 +202,7 @@ div.menu div ul {
 	<?php   }  ?>
 	<?php   if ( has_rights (ACX_OUTBOUNDCID) ){ 	?>
 		<div id='menu_obcid'>
-		<a onclick="menu_toggle('menu_obcid');"><?= _("OUTBOUND_CID");?></a>
+		<a onclick="menu_toggle('menu_obcid');"><?= _("OUTBOUND CID");?></a>
 		<ul>
 			<li><a href="A2B_entity_outbound_cidgroup.php?form_action=ask-add"><?= _("Create CIDGroup");?></a></li>
 			<li><a href="A2B_entity_outbound_cidgroup.php"><?= _("List CIDGroup");?></a></li>

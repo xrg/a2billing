@@ -6,7 +6,7 @@ include_once(dirname(__FILE__) . "/../lib/module.access.php");
 
 if (! has_rights (ACX_CALL_REPORT)){ 
 	Header ("HTTP/1.0 401 Unauthorized");
-	Header ("Location: PP_error.php?c=accessdenied");	   
+	Header ("Location: PP_error.php?c=accessdenied");
 	die();
 }
 
@@ -143,7 +143,7 @@ if ($posted==1){
                         $sql = "$sql WHERE ";
                 }
 				$sql = "$sql t1.$dbfld";
-				if (isset ($$fldtype)){                
+				if (isset ($$fldtype)){
                         switch ($$fldtype) {
 							case 1:	$sql = "$sql='".$$fld."'";  break;
 							case 2: $sql = "$sql LIKE '".$$fld."%'";  break;
@@ -301,14 +301,14 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 				<table width="100%" border="0" cellspacing="0" cellpadding="0" ><tr>
 				  <td class="fontstyle_searchoptions" valign="middle">
 						<?php echo gettext("Enter the cardnumber");?>: <INPUT TYPE="text" NAME="entercustomer" value="<?php echo $entercustomer?>"
-						<a href="#" onclick="window.open('../A2B_entity_card.php?popup_select=2&popup_formname=myForm&popup_fieldname=entercustomer' , 'CardNumberSelection','width=550,height=330,top=20,left=100');"><img src="../Images/icon_arrow_orange.gif"></a>
+						<a href="#" onclick="window.open('../A2B_entity_card.php?popup_select=2&popup_formname=myForm&popup_fieldname=entercustomer' , 'CardNumberSelection','width=550,height=330,top=20,left=100');"><img src="../Images/icon_arrow_orange.png"></a>
 						
 					</td>
 					<td align="right" class="fontstyle_searchoptions">
 						<?php echo gettext("Provider");?>: <INPUT TYPE="text" NAME="enterprovider" value="<?php echo $enterprovider?>" size="4">
-						<a href="#" onclick="window.open('../A2B_entity_provider.php?popup_select=2&popup_formname=myForm&popup_fieldname=enterprovider' , 'ProviderSelection','width=550,height=330,top=20,left=100,scrollbars=1');"><img src="<?php echo Images_Path;?>/icon_arrow_orange.gif"></a>
+						<a href="#" onclick="window.open('../A2B_entity_provider.php?popup_select=2&popup_formname=myForm&popup_fieldname=enterprovider' , 'ProviderSelection','width=550,height=330,top=20,left=100,scrollbars=1');"><img src="../Images/icon_arrow_orange.png"></a>
 						<?php echo gettext("Trunk");?>: <INPUT TYPE="text" NAME="entertrunk" value="<?php echo $entertrunk?>" size="4">
-						<a href="#" onclick="window.open('../A2B_entity_trunk.php?popup_select=2&popup_formname=myForm&popup_fieldname=entertrunk' , 'TrunkSelection','width=550,height=330,top=20,left=100,scrollbars=1');"><img src="<?php echo Images_Path;?>/icon_arrow_orange.gif"></a>
+						<a href="#" onclick="window.open('../A2B_entity_trunk.php?popup_select=2&popup_formname=myForm&popup_fieldname=entertrunk' , 'TrunkSelection','width=550,height=330,top=20,left=100,scrollbars=1');"><img src="../Images/icon_arrow_orange.gif"></a>
 						
 					</td>
 				</tr></table></td>
@@ -413,7 +413,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 					
 				</td>				
 				<td class="bgcolor_003" align="left">
-				<center><input type="image"  name="image16" align="top" border="0" src="<?php echo Images_Path;?>/button-search.gif" />
+				<center><input type="image"  name="image16" align="top" border="0" src="../Images/button-search.png" />
 				</center>
 				</td>
 			</tr>
@@ -538,7 +538,7 @@ foreach ($table_graph as $tkey => $data){
 		<td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right" nowrap="nowrap"><font face="verdana" color="#000000" size="1"><?php echo $minutes_60?> </font></td>
         <td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="left" nowrap="nowrap" width="<?php echo $widthbar+60?>">
         <table cellspacing="0" cellpadding="0"><tbody><tr>
-        <td bgcolor="#e22424"><img src="images/spacer.gif" width="<?php echo $widthbar?>" height="6"></td>
+        <td bgcolor="#e22424"><img src="images/spacer.png" width="<?php echo $widthbar?>" height="6"></td>
         </tr></tbody></table></td>
         <td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right" nowrap="nowrap"><font face="verdana" color="#000000" size="1"><?php echo $data[0]?></font></td>
         <td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right" nowrap="nowrap"><font face="verdana" color="#000000" size="1"><?php echo $tmc_60?> </font></td>
