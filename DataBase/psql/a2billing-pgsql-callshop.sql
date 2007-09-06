@@ -52,7 +52,7 @@ CREATE TABLE cc_booth (
 ALTER TABLE cc_currencies ADD csign VARCHAR(6);
 ALTER TABLE cc_currencies ADD sign_pre boolean DEFAULT 'f' NOT NULL;
 ALTER TABLE cc_currencies ADD cformat VARCHAR(20) DEFAULT 'FM99G999G999G990D00' NOT NULL;
-ALTER TABLE cc_currencies ADD cformat2 VARCHAR(26) DEFAULT 'FM99G999G999G990D0000' NOT NULL;
+ALTER TABLE cc_currencies ADD cformat2 VARCHAR(26) DEFAULT 'FM99G999G999G990D0099' NOT NULL;
 
 -- This table will hold the transactions for the agent<->card
 -- refills. boothid is optional.
