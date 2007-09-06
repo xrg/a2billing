@@ -33,8 +33,8 @@ include (dirname(__FILE__)."/libs_a2billing/Misc.php");
 
 $charge_callback=0;
 $G_startime = time();
-$agi_date = "Release : July 2007";
-$agi_version = "Asterisk2Billing - Version 1.3.0 (Yellowjacket)";
+$agi_date = "Release : September 2007";
+$agi_version = "Asterisk2Billing - Version 1.3.1 (Yellowjacket)";
 
 if ($argc > 1 && ($argv[1] == '--version' || $argv[1] == '-v'))
 {

@@ -217,8 +217,8 @@ define ("INVOICE_IMAGE", isset($A2B->config["global"]['invoice_image'])?$A2B->co
 
 
 // A2BILLING INFO
-define ("WEBUI_DATE", 'Release : July 2007');	 
-define ("WEBUI_VERSION", 'Asterisk2Billing - Version 1.3.0 (Yellowjacket)');
+define ("WEBUI_DATE", 'Release : September 2007');	 
+define ("WEBUI_VERSION", 'Asterisk2Billing - Version 1.3.1 (Yellowjacket)');
 // A2BILLING COPYRIGHT & CONTACT
 define ("COPYRIGHT", gettext(" This software is under GPL licence. For further information, please visit : <a href=\"http://www.asterisk2billing.org\" target=\"_blank\">asterisk2billing.org</a>"));
 define ("CCMAINTITLE", gettext("Asterisk2Billing : CallingCard & VOIP Billing system"));
