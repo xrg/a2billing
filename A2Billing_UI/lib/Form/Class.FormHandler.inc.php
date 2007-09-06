@@ -810,7 +810,7 @@ class FormHandler{
 	1. name of the field
 	2. value of the field
 	3. the type of the field (INPUT/SELECT/TEXTAREA)
-	4. the property of this field
+	4. the property of this field, if SQL custom modifiers
 	5. regexpres to check the value
 	   "^.{3}$": a string with exactly 3 characters.
 	    ^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*$  : email adresse
@@ -818,16 +818,16 @@ class FormHandler{
 	7.  if the field type is a SELECT,  define list or SQL
 	    if the field is POPUP, any additional options to the window.open() fn.
 	8.  if SQL,		the table name
-	9. if SQL,		the fields  : three maximum in order (name, value, ...other that we need for the display) ;)
+	9. if SQL,		the fields  : three maximum in order (value,name, ...other that we need for the display) ;)
 	10. if sql,		the clause
 	11. if list,		the name of the list
-	12. if list,		display : %1 : (%2) ; if select , show the content of that field
+	12. if list,		display : %2 : (%1) ; if select , show the content of that field
 	13. check_emptyvalue - ("no" or "yes") if "no" we we check the regularexpression only if a value has been entered - if no-null, if the value is
 		 					  not entered the field will not be include in the update/addition query
 	14. comment ( that is not included in fg_table_edition or fg_table_adition )
 	15. sql custom query : customer sql   or   function to display the edit input
 	16. displayinput_defaultselect : if input : function to display the value of the field ; if select it will display the option per defautl, ie:
-										'<option  value="-1" selected>not defined</option>'
+										array('-1', "not defined")
 	17. comment above : this will insert a comment line above the edition line, useful to separate section and to provide some detailed instruction
 	 */
 
@@ -1686,24 +1686,32 @@ class FormHandler{
 			$pos_mul = strpos($this->FG_TABLE_EDITION[$i][4], "multiple");
 			if ((!isset($this->FG_TABLE_EDITION[$i][1])) || ($this->FG_TABLE_EDITION[$i][1] == ''))
 				continue;
-			if (!$pos){
+			if ($pos===false){
 				$fields_name = $this->FG_TABLE_EDITION[$i][1];
 				$regexp = $this->FG_TABLE_EDITION[$i][5];
 
-				if ($pos_mul && is_array($processed[$fields_name])){
-					$total_mult_select=0;
-					foreach ($processed[$fields_name] as $value){
-							$total_mult_select += $value;
+				if ($pos_mul!==false && is_array($processed[$fields_name])){
+					if (strpos($this->FG_TABLE_EDITION[$i][4], "bitfield")!==false){
+						$total_mult_select=0;
+						foreach ($processed[$fields_name] as $value){
+								$total_mult_select += $value;
+						}
+						
+						if ($this->FG_DEBUG >= 1) echo "<br>$fields_name : ".$total_mult_select;
+						if ($param_update != '') $param_update .= ", ";
+						$param_update .= $sp . "$fields_name".$sp ." = '".addslashes(trim($total_mult_select))."'";
+					}elseif(strpos($this->FG_TABLE_EDITION[$i][4], "sql")!==false){
+						//TODO: fix this!
+						$tmp_value= sql_encodeArray($this->DBHandle,$processed[$fields_name]);
+						//$param_update= ...;
+						if ($param_update != '') $param_update .= ", ";
+						$param_update .= $fields_name . ' = ' . $tmp_value;
 					}
-					
-					if ($this->FG_DEBUG >= 1) echo "<br>$fields_name : ".$total_mult_select;
-					if ($param_update != '') $param_update .= ", ";				
-					$param_update .= $sp . "$fields_name".$sp ." = '".addslashes(trim($total_mult_select))."'";
 				
 				}else{
 					
-					if (is_numeric($regexp) && !(strtoupper(substr($this->FG_TABLE_ADITION[$i][13],0,2))=="NO" && $processed[$fields_name]=="") ){						
-						$this-> FG_fit_expression[$i] = ereg( $this->FG_regular[$regexp][0] , $processed[$fields_name]);								
+					if (is_numeric($regexp) && !(strtoupper(substr($this->FG_TABLE_ADITION[$i][13],0,2))=="NO" && $processed[$fields_name]=="") ){
+						$this-> FG_fit_expression[$i] = ereg( $this->FG_regular[$regexp][0] , $processed[$fields_name]);
 						if ($this->FG_DEBUG >= 1)  echo "<br>->  ".$this->FG_regular[$regexp][0]." , ".$processed[$fields_name];
 						if (!$this-> FG_fit_expression[$i]){
 							$this->VALID_SQL_REG_EXP = false;
@@ -1755,7 +1763,7 @@ class FormHandler{
 							}
 						}
 					}
-							
+			
 				}
 						
 			}			

@@ -747,4 +747,38 @@ function fmt_dateclause_c($dbhandle, $col){
 
 }
 
+function sql_encodeArray($DBHandle,$arr_data){
+	$tmp_arr = array();
+	foreach($arr_data as $data)
+	if (is_numeric($data))
+		$tmp_arr[] = (string) $data;
+	else
+		$tmp_arr[] = $DBHandle->Quote($data);
+	return 'ARRAY[' . implode(', ', $tmp_arr) . ']';
+}
+
+function sql_decodeArray($arr_str){
+	if (!is_string($arr_str))
+		return array();
+	$len = strlen($arr_str)-1;
+	if (($arr_str[0] != '{' ) || ($arr_str[$len] != '}'))
+		return array();
+	//$a=1;
+	$b=1;
+	$ret_array=array();
+	while($b<=$len){
+		$tmp_str='';
+		for(;($b<$len) && ($arr_str[$b] == ' ');$b++);
+		if ($arr_str[$b] =='"'){
+			for($b=$b+1;($b<$len) && ($arr_str[$b]!='"');$b++)
+				$tmp_str.=$arr_str[$b];
+			$b++;
+		}
+		for(;($b<$len) &&($arr_str[$b]!=',');$b++)
+			$tmp_str.=$arr_str[$b];
+		$b++;
+		$ret_array[]=$tmp_str;
+	}
+	return $ret_array;
+}
 ?>

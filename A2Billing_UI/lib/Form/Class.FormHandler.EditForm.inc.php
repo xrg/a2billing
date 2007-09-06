@@ -159,6 +159,7 @@ function sendtolittle(direction){
 							}
 						}elseif (strpos($this->FG_TABLE_EDITION[$i][4], "sql")!==false) {
 							// decode SQL list into values
+							$tmp_value=sql_decodeArray($tmp_value);
 							
 						} // else how to decode this?
 					}
