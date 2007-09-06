@@ -16,16 +16,15 @@ ALTER TABLE cc_iax_buddies ADD COLUMN id_cc_card INTEGER DEFAULT 0 NOT NULL;
 ALTER TABLE cc_sip_buddies ADD COLUMN id_cc_card INTEGER DEFAULT 0 NOT NULL;
 
 create table cc_did_use (
-id 								SERIAL NOT NULL ,
+id 								BIGSERIAL NOT NULL ,
 id_cc_card 						BIGINT,
 id_did 							BIGINT NOT NULL,
-reservationdate 				TIMESTAMP NOT NULL default now(),
-releasedate 					TIMESTAMP,
+reservationdate 				TIMESTAMP WITHOUT TIME ZONE NOT NULL default now(),
+releasedate 					TIMESTAMP WITHOUT TIME ZONE,
 activated 						INTEGER default 0,
 month_payed 					INTEGER default 0
 );
-
-
+ALTER TABLE ONLY cc_did_use ADD CONSTRAINT cc_did_use_pkey PRIMARY KEY (id);
 
 CREATE TABLE cc_prefix (
 	id 							SERIAL NOT NULL,
@@ -33,10 +32,9 @@ CREATE TABLE cc_prefix (
 	prefixe 					TEXT NOT NULL,
 	destination 				TEXT NOT NULL
 );
-
 ALTER TABLE ONLY cc_prefix  ADD CONSTRAINT cc_prefix_pkey PRIMARY KEY (id);
+ALTER TABLE cc_country ADD COLUMN countryprefix TEXT NOT NULL DEFAULT '0';
 	
-
 INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Afghanistan','93','1');
 INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Albania','355','2');
 INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Algeria','213','3');
@@ -322,7 +320,8 @@ INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Zanzibar','25
 INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Zimbabwe','263','239');
 
 
-ALTER TABLE cc_country ADD COLUMN countryprefix TEXT NOT NULL DEFAULT 0;
+
+
 
 UPDATE cc_country SET countryprefix = '93' WHERE id = '1';
 UPDATE cc_country SET countryprefix = '355' WHERE id = '2';
@@ -558,9 +557,6 @@ UPDATE cc_country SET countryprefix = '670' WHERE id = '243';
 
 
 
-
-
-
 CREATE TABLE cc_alarm (
     id 							BIGSERIAL NOT NULL,
     name 						TEXT NOT NULL,
@@ -581,7 +577,7 @@ ALTER TABLE ONLY cc_alarm
 
 CREATE TABLE cc_alarm_report (
     id 							BIGSERIAL NOT NULL,
-    cc_alarm_id 				BIGSERIAL NOT NULL,
+    cc_alarm_id 				BIGINT NOT NULL,
     calculatedvalue 			numeric NOT NULL,
     daterun 					TIMESTAMP without time zone DEFAULT now()
 );
@@ -595,7 +591,7 @@ CREATE TABLE cc_callback_spool (
     entry_time 						TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),	
     status 							TEXT ,
     server_ip 						TEXT ,	
-    num_attempt 					int,
+    num_attempt 					int NOT NULL DEFAULT 0,
     last_attempt_time 				TIMESTAMP WITHOUT TIME ZONE,
     manager_result 					TEXT ,
     agi_result 						TEXT ,
@@ -617,6 +613,8 @@ CREATE TABLE cc_callback_spool (
 ) WITH OIDS;
 
 ALTER TABLE ONLY cc_callback_spool
+    ADD CONSTRAINT cc_callback_spool_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY cc_callback_spool
     ADD CONSTRAINT cc_callback_spool_uniqueid_key UNIQUE (uniqueid);
 
 
@@ -629,6 +627,8 @@ CREATE TABLE cc_server_manager (
     manager_secret 					TEXT ,
 	lasttime_used		 			TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW()
 ) WITH OIDS;
+ALTER TABLE ONLY cc_server_manager
+    ADD CONSTRAINT cc_server_manager_pkey PRIMARY KEY (id);
 INSERT INTO cc_server_manager (id_group, server_ip, manager_host, manager_username, manager_secret) VALUES (1, 'localhost', 'localhost', 'myasterisk', 'mycode');
 
 
@@ -637,6 +637,8 @@ CREATE TABLE cc_server_group (
 	name							TEXT ,
 	description						TEXT
 ) WITH OIDS;
+ALTER TABLE ONLY cc_server_group
+    ADD CONSTRAINT cc_server_group_pkey PRIMARY KEY (id);
 INSERT INTO cc_server_group (id, name, description) VALUES (1, 'default', 'default group of server');
 
 
@@ -696,7 +698,7 @@ CREATE INDEX ind_cc_card_package_offer_id_card ON cc_card_package_offer USING bt
 CREATE INDEX ind_cc_card_package_offer_id_package_offer ON cc_card_package_offer USING btree (id_cc_package_offer);
 CREATE INDEX ind_cc_card_package_offer_date_consumption ON cc_card_package_offer USING btree (date_consumption);
 
-ALTER TABLE cc_tariffgroup 	ADD COLUMN id_cc_package_offer 				 NOT NULL DEFAULT 0;
+ALTER TABLE cc_tariffgroup 	ADD COLUMN id_cc_package_offer 			BIGINT	 NOT NULL DEFAULT 0;
 ALTER TABLE cc_ratecard 	ADD COLUMN freetimetocall_package_offer 	INTEGER NOT NULL DEFAULT 0;
 ALTER TABLE cc_call 		ADD COLUMN id_card_package_offer 			INTEGER DEFAULT 0;
 
@@ -759,8 +761,8 @@ ADD CONSTRAINT cc_outbound_cid_group_pkey PRIMARY KEY (id);
 
 CREATE TABLE cc_outbound_cid_list (
     id 					BIGSERIAL NOT NULL,
-	outbound_cid_group	NOT NULL,
-	cid					TEXT NOT NULL,    
+	outbound_cid_group	BIGINT NOT NULL,
+	cid					TEXT NOT NULL,
     activated 			INTEGER NOT NULL DEFAULT 0,
     creationdate 		TIMESTAMP(0) without time zone DEFAULT now()   
 );
@@ -768,7 +770,6 @@ ALTER TABLE ONLY cc_outbound_cid_list
 ADD CONSTRAINT cc_outbound_cid_list_pkey PRIMARY KEY (id);
 
 ALTER TABLE cc_ratecard ADD COLUMN id_outbound_cidgroup INTEGER NOT NULL DEFAULT -1;
-
 
 
 
@@ -801,7 +802,7 @@ CREATE TABLE cc_payment_methods (
     id BIGSERIAL NOT NULL,
     payment_method TEXT NOT NULL,
     payment_filename TEXT NOT NULL,
-    active CHARACTERVARYING(1) DEFAULT 'f' NOT NULL
+    active CHARACTER VARYING(1) DEFAULT 'f' NOT NULL
 );
 ALTER TABLE ONLY cc_payment_methods
     ADD CONSTRAINT cc_payment_methods_pkey PRIMARY KEY (id);
@@ -813,23 +814,23 @@ INSERT INTO cc_payment_methods (payment_method,payment_filename,active) VALUES (
 
 CREATE TABLE cc_payments (
   id 						BIGSERIAL NOT NULL,
-  customers_id 				CHARACTERVARYING(60) NOT NULL,
+  customers_id 				CHARACTER VARYING(60) NOT NULL,
   customers_name 			TEXT NOT NULL,
   customers_email_address 	TEXT NOT NULL,
   item_name 				TEXT NOT NULL,
   item_id 					TEXT NOT NULL,
   item_quantity 			INTEGER NOT NULL DEFAULT 0,
   payment_method 			VARCHAR(32) NOT NULL,
-  cc_type 					CHARACTERVARYING(20),
-  cc_owner 					CHARACTERVARYING(64),
-  cc_number 				CHARACTERVARYING(32),
-  cc_expires 				CHARACTERVARYING(6),
+  cc_type 					CHARACTER VARYING(20),
+  cc_owner 					CHARACTER VARYING(64),
+  cc_number 				CHARACTER VARYING(32),
+  cc_expires 				CHARACTER VARYING(6),
   orders_status 			INTEGER NOT NULL,
   orders_amount 			numeric(14,6),
-  last_modified 			TIMESTAMP,
-  date_purchased 			TIMESTAMP,
-  orders_date_finished 		TIMESTAMP,
-  currency 					CHARACTERVARYING(3),
+  last_modified 			TIMESTAMP WITHOUT TIME ZONE,
+  date_purchased 			TIMESTAMP WITHOUT TIME ZONE,
+  orders_date_finished 		TIMESTAMP WITHOUT TIME ZONE,
+  currency 					CHARACTER VARYING(3),
   currency_value 			decimal(14,6)
 );
 
@@ -840,7 +841,7 @@ ALTER TABLE ONLY cc_payments
 CREATE TABLE cc_payments_status (
   id 						BIGSERIAL NOT NULL,
   status_id 				INTEGER NOT NULL,
-  status_name 				CHARACTERVARYING(200) NOT NULL
+  status_name 				CHARACTER VARYING(200) NOT NULL
 );
 ALTER TABLE ONLY cc_payments_status
     ADD CONSTRAINT cc_payments_status_pkey PRIMARY KEY (id);
@@ -857,13 +858,13 @@ INSERT INTO cc_payments_status (status_id,status_name) VALUES (5, 'Unknown');
 
 CREATE TABLE cc_configuration (
   configuration_id 					BIGSERIAL NOT NULL,
-  configuration_title 				CHARACTERVARYING(64) NOT NULL,
-  configuration_key 				CHARACTERVARYING(64) NOT NULL,
-  configuration_value 				CHARACTERVARYING(255) NOT NULL,
-  configuration_description 		CHARACTERVARYING(255) NOT NULL,
+  configuration_title 				CHARACTER VARYING(64) NOT NULL,
+  configuration_key 				CHARACTER VARYING(64) NOT NULL,
+  configuration_value 				CHARACTER VARYING(255) NOT NULL,
+  configuration_description 		CHARACTER VARYING(255) NOT NULL,
   configuration_type 				INTEGER NOT NULL DEFAULT 0,
-  use_function 						CHARACTERVARYING(255) NULL,
-  set_function 						CHARACTERVARYING(255) NULL
+  use_function 						CHARACTER VARYING(255) NULL,
+  set_function 						CHARACTER VARYING(255) NULL
 
 );
 ALTER TABLE ONLY cc_configuration
@@ -889,10 +890,16 @@ INSERT INTO cc_configuration (configuration_title, configuration_key, configurat
 
 
 
-ALTER TABLE cc_card ADD COLUMN id_subscription_fee INTEGER DEFAULT 0, ADD COLUMN mac_addr VARCHAR(17) DEFAULT '00-00-00-00-00-00' NOT NULL;
+ALTER TABLE ONLY cc_card ADD COLUMN id_subscription_fee INTEGER DEFAULT 0, ADD COLUMN mac_addr VARCHAR(17) DEFAULT '00-00-00-00-00-00' NOT NULL;
+ALTER TABLE ONLY cc_card
+    ADD CONSTRAINT cons_cc_card_username UNIQUE (username);
+ALTER TABLE ONLY cc_card
+    ADD CONSTRAINT cons_cc_card_useralias UNIQUE (useralias);
 
 UPDATE cc_ui_authen SET perms = '32767' WHERE userid = '1';
 UPDATE cc_ui_authen SET perms = '32767' WHERE userid = '2';
+ALTER TABLE cc_ui_authen ALTER COLUMN datecreation TYPE TIMESTAMP WITHOUT TIME ZONE,
+    ALTER COLUMN datecreation SET DEFAULT now();
 ALTER TABLE cc_invoices ADD COLUMN payment_date TIMESTAMP WITHOUT TIME ZONE;
 ALTER TABLE cc_invoices ADD COLUMN payment_status INTEGER DEFAULT 0;
 CREATE TABLE cc_epayment_log (
