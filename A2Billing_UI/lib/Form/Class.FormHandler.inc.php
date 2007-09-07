@@ -1319,7 +1319,9 @@ class FormHandler{
 	function perform_add (&$form_action){
 		include_once (FSROOT."lib/Class.Table.php");
 		$processed = $this->getProcessed();  //$processed['firstname']
-		$this->VALID_SQL_REG_EXP = true;		
+		$this->VALID_SQL_REG_EXP = true;
+		$tmp_add_fields=array();
+		$tmp_add_values=array();
 		for($i=0; $i < $this->FG_NB_TABLE_ADITION; $i++){ 
 			
 			$pos = strpos($this->FG_TABLE_ADITION[$i][14], ":"); // SQL CUSTOM QUERY
@@ -1327,31 +1329,36 @@ class FormHandler{
 			if ((!isset($this->FG_TABLE_ADITION[$i][1])) || ($this->FG_TABLE_ADITION[$i][1] == ''))
 				continue;
 			
-			if (!$pos){
+			if ($pos===false){
 				
 				$fields_name = $this->FG_TABLE_ADITION[$i][1];
 				$regexp = $this->FG_TABLE_ADITION[$i][5];
 				
 				// FIND THE MULTIPLE SELECT
-				if ($pos_mul && is_array($processed[$fields_name])){ 
-					$total_mult_select=0;					
-					foreach ($processed[$fields_name] as $value){
+				if ($pos_mul!==false ){
+					if (strpos($this->FG_TABLE_EDITION[$i][4], "bitfield")!==false){
+						$total_mult_select=0;
+						foreach ($processed[$fields_name] as $value){
 							$total_mult_select += $value;
-					}		
-					
-					if ($this->FG_DEBUG >= 1) echo "<br>$fields_name : ".$total_mult_select;					
-					
-					if ($i>0) $param_add_fields .= ", ";
-					$param_add_fields .= $sp . "$fields_name". $sp;
-					if ($i>0) $param_add_value .= ", ";
-					$param_add_value .= "'".addslashes(trim($total_mult_select))."'";
-				
+						}
+						
+						if ($this->FG_DEBUG >= 1) echo "<br>$fields_name : ".$total_mult_select;
+						
+						$tmp_add_fields[] = $fields_name;
+						$tmp_add_values[] = str_dbparams($this->DBHandle,"%#1",array($total_mult_select));
+					}elseif(strpos($this->FG_TABLE_EDITION[$i][4], "sql")!==false){
+						//TODO: fix this!
+						$tmp_value= sql_encodeArray($this->DBHandle,$processed[$fields_name]);
+						//$param_update= ...;
+						$tmp_add_fields[]=$fields_name;
+						$tmp_add_values[]=$tmp_value;
+					}
 				}else{
 					// NO MULTIPLE SELECT
 					
 					// CHECK ACCORDING TO THE REGULAR EXPRESSION DEFINED	
-					if (is_numeric($regexp) && !(strtoupper(substr($this->FG_TABLE_ADITION[$i][13],0,2))=="NO" && $processed[$fields_name]=="") ){						
-						$this-> FG_fit_expression[$i] = ereg( $this->FG_regular[$regexp][0] , $processed[$fields_name]);								
+					if (is_numeric($regexp) && !(strtoupper(substr($this->FG_TABLE_ADITION[$i][13],0,2))=="NO" && $processed[$fields_name]=="") ){
+						$this-> FG_fit_expression[$i] = ereg( $this->FG_regular[$regexp][0] , $processed[$fields_name]);
 						if ($this->FG_DEBUG >= 1)  echo "<br>->  $fields_name => ".$this->FG_regular[$regexp][0]." , ".$processed[$fields_name];
 						if (!$this-> FG_fit_expression[$i]){
 							$this->VALID_SQL_REG_EXP = false;
@@ -1388,34 +1395,32 @@ class FormHandler{
 						}
 						
 						if (!is_null($processed[$fields_name]) && ($processed[$fields_name]!="") && ($this->FG_TABLE_ADITION[$i][4]!="disabled") ){
-							if ($i>0) $param_add_fields .= ", ";							
-							$param_add_fields .= str_replace('myfrom_', '', $fields_name);
+							if ($i>0) $param_add_fields .= ", ";
+							$tmp_add_fields[] = str_replace('myfrom_', '', $fields_name);
 							if ($i>0) $param_add_value .= ", ";
-							$param_add_value .= "'%TAGPREFIX%'";							
+							$tmp_add_values[]= "'%TAGPREFIX%'";
 						}
 					}else{
 						if ($this->FG_DEBUG >= 1) echo "<br>$fields_name : ".$processed[$fields_name];
 						if (!is_null($processed[$fields_name]) && ($processed[$fields_name]!="") && ($this->FG_TABLE_ADITION[$i][4]!="disabled") ){
 							if (strtoupper ($this->FG_TABLE_ADITION[$i][3]) != strtoupper("CAPTCHAIMAGE"))
 							{
-								if ($i>0) $param_add_fields .= ", ";							
-									$param_add_fields .= str_replace('myfrom_', '', $fields_name);
-								if ($i>0) $param_add_value .= ", ";
-									$param_add_value .= "'".addslashes(trim($processed[$fields_name]))."'";
+								$tmp_add_fields[] = str_replace('myfrom_', '', $fields_name);
+								$tmp_add_values[]= "'".addslashes(trim($processed[$fields_name]))."'";
 							}
 						}
 					}
-				}		
+				}
 			}
 		}
 		
 		if (!is_null($this->FG_QUERY_ADITION_HIDDEN_FIELDS) && $this->FG_QUERY_ADITION_HIDDEN_FIELDS!=""){
-			if ($i>0) $param_add_fields .= ", ";		
-			$param_add_fields .= $this->FG_QUERY_ADITION_HIDDEN_FIELDS;
-			if ($i>0) $param_add_value .= ", ";
-			$param_add_value  .= $this->FG_QUERY_ADITION_HIDDEN_VALUE;
+			$tmp_add_fields[]= $this->FG_QUERY_ADITION_HIDDEN_FIELDS;
+			$tmp_add_values[]= $this->FG_QUERY_ADITION_HIDDEN_VALUE;
 		}
 			
+		$param_add_fields = implode(', ',$tmp_add_fields);
+		$param_add_value = implode(', ',$tmp_add_values);
 		if ($this->FG_DEBUG >= 1)  echo "<br><hr> $param_add_fields";
 		if ($this->FG_DEBUG >= 1)  echo "<br><hr> $param_add_value";	
 		
@@ -1425,30 +1430,26 @@ class FormHandler{
 		// CHECK IF WE HAD FOUND A SPLITABLE FIELD THEN WE MIGHT HAVE %TAGPREFIX%
 		if (strpos($param_add_value, '%TAGPREFIX%')){
 			foreach ($arr_value_to_import as $current_value){
-				$param_add_value_replaced = str_replace("%TAGPREFIX%", $current_value, $param_add_value);				
+				$param_add_value_replaced = str_replace("%TAGPREFIX%", $current_value, $param_add_value);
 				if ($this->VALID_SQL_REG_EXP) $this -> RESULT_QUERY = $instance_table -> Add_table ($this->DBHandle, $param_add_value_replaced, null, null, $this->FG_TABLE_ID);
 			}
 		}else{
 			if ($this->VALID_SQL_REG_EXP) $this -> RESULT_QUERY = $instance_table -> Add_table ($this->DBHandle, $param_add_value, null, null, $this->FG_TABLE_ID);
 		}
-		if($this -> FG_ENABLE_LOG == 1)
-		{
-			$this -> logger -> insertLog_Add($_SESSION["admin_id"], 2, "NEW ".strtoupper($this->FG_INSTANCE_NAME)." CREATED" , "User added a new record in database", $this->FG_TABLE_NAME, $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'], $param_add_fields, $param_add_value);
-		}	
-		if (!$this -> RESULT_QUERY ){					
+		if (!$this -> RESULT_QUERY ){
 			if ($this->FG_DEBUG >= 2)
 				echo "<br><hr>Error: " . $this->DBHandle->ErrorMsg() . "<br><hr>";
 
 			$findme   = 'duplicate';
-			$pos_find = strpos($instance_sub_table -> errstr, $findme);								
+			$pos_find = strpos($instance_sub_table -> errstr, $findme);
 			if ($pos_find !== false) {
-				$alarm_db_error_duplication = true;				
+				$alarm_db_error_duplication = true;
 				exit;
-			}					
+			}
 		}else{
 			// CALL DEFINED FUNCTION AFTER THE ACTION ADDITION
 			if (strlen($this->FG_ADDITIONAL_FUNCTION_AFTER_ADD)>0)
-						$res_funct = call_user_func(array(&$this, $this->FG_ADDITIONAL_FUNCTION_AFTER_ADD)); 
+				$res_funct = call_user_func(array(&$this, $this->FG_ADDITIONAL_FUNCTION_AFTER_ADD)); 
 			
 			if ($this->FG_ADITION_GO_EDITION == "yes"){
 				$form_action="ask-edit";
@@ -1457,12 +1458,18 @@ class FormHandler{
 			$id = $this -> RESULT_QUERY;
 			if ($this->FG_DEBUG >= 2)
 				echo "Result: " . $this -> RESULT_QUERY . "<br>";
-		}
-			
-		if ( ($this->VALID_SQL_REG_EXP) && (isset($this->FG_GO_LINK_AFTER_ACTION_ADD))){				
-			if ($this->FG_DEBUG >= 1)  echo "<br> GOTO ; ".$this->FG_GO_LINK_AFTER_ACTION_ADD.$id;
-			//echo "<br> GOTO ; ".$this->FG_GO_LINK_AFTER_ACTION_ADD.$id;
-			Header ("Location: ".$this->FG_GO_LINK_AFTER_ACTION_ADD.$id);
+				
+			if($this -> FG_ENABLE_LOG == 1)
+			{
+				$this -> logger -> insertLog_Add($_SESSION["admin_id"], 2, "NEW ".strtoupper($this->FG_INSTANCE_NAME)." CREATED" , "User added a new record in database", $this->FG_TABLE_NAME, $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'], $param_add_fields, $param_add_value);
+			}	
+
+			if ($this->FG_DEBUG < 2)
+			if ( ($this->VALID_SQL_REG_EXP) && (isset($this->FG_GO_LINK_AFTER_ACTION_ADD))){
+				if ($this->FG_DEBUG >= 1)  echo "<br> GOTO ; ".$this->FG_GO_LINK_AFTER_ACTION_ADD.$id;
+				//echo "<br> GOTO ; ".$this->FG_GO_LINK_AFTER_ACTION_ADD.$id;
+				Header ("Location: ".$this->FG_GO_LINK_AFTER_ACTION_ADD.$id);
+			}
 		}
 	}
 
@@ -1690,11 +1697,11 @@ class FormHandler{
 				$fields_name = $this->FG_TABLE_EDITION[$i][1];
 				$regexp = $this->FG_TABLE_EDITION[$i][5];
 
-				if ($pos_mul!==false && is_array($processed[$fields_name])){
+				if ($pos_mul!==false ){
 					if (strpos($this->FG_TABLE_EDITION[$i][4], "bitfield")!==false){
 						$total_mult_select=0;
 						foreach ($processed[$fields_name] as $value){
-								$total_mult_select += $value;
+							$total_mult_select += $value;
 						}
 						
 						if ($this->FG_DEBUG >= 1) echo "<br>$fields_name : ".$total_mult_select;
@@ -1784,6 +1791,7 @@ class FormHandler{
 			
 		if ($this->FG_DEBUG >= 1)  echo "<br><hr> PARAM_UPDATE: $param_update<br>".$this->FG_EDITION_CLAUSE . "<br>";
 			
+		$this -> RESULT_QUERY= false;
 		if ($this->VALID_SQL_REG_EXP)
 			$this -> RESULT_QUERY = $instance_table -> Update_table ($this->DBHandle, $param_update, $this->FG_EDITION_CLAUSE, $func_table = null);
 		else if ($FG_DEBUG >0 ) echo "Invalid SQL regexp <br>";
@@ -1795,14 +1803,17 @@ class FormHandler{
 			echo "<br>\n";
 		}
 		
-		if($this -> FG_ENABLE_LOG == 1)
-		{
-			$this -> logger -> insertLog_Update($_SESSION["admin_id"], 3, "A ".strtoupper($this->FG_INSTANCE_NAME)." UPDATED" , "A RECORD IS UPDATED, EDITION CALUSE USED IS ".$this->FG_EDITION_CLAUSE, $this->FG_TABLE_NAME, $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'], $param_update);
-		}
-		
-		if ( ($this->VALID_SQL_REG_EXP) && (isset($this->FG_GO_LINK_AFTER_ACTION_EDIT)) && $this->RESULT_QUERY){
-			if ($this->FG_DEBUG >= 1)  echo gettext("<br> GOTO ; ").$this->FG_GO_LINK_AFTER_ACTION_EDIT.$processed['id'];
-			Header ("Location: ".$this->FG_GO_LINK_AFTER_ACTION_EDIT.$processed['id']);
+		if ($this -> RESULT_QUERY){
+			if($this -> FG_ENABLE_LOG == 1)
+			{
+				$this -> logger -> insertLog_Update($_SESSION["admin_id"], 3, "A ".strtoupper($this->FG_INSTANCE_NAME)." UPDATED" , "A RECORD IS UPDATED, EDITION CALUSE USED IS ".$this->FG_EDITION_CLAUSE, $this->FG_TABLE_NAME, $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'], $param_update);
+			}
+			
+			if ($this->FG_DEBUG<2)
+			if ( ($this->VALID_SQL_REG_EXP) && (isset($this->FG_GO_LINK_AFTER_ACTION_EDIT)) && $this->RESULT_QUERY){
+				if ($this->FG_DEBUG >= 1)  echo gettext("<br> GOTO ; ").$this->FG_GO_LINK_AFTER_ACTION_EDIT.$processed['id'];
+				Header ("Location: ".$this->FG_GO_LINK_AFTER_ACTION_EDIT.$processed['id']);
+			}
 		}
 		
 	}
