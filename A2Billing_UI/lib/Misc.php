@@ -158,6 +158,10 @@ function arr2url ($arr) {
 	foreach($arr as $key => $value) {
 		if ($value == null)
 			continue;
+		if (is_array($value)){
+			foreach($value as $arr_val)
+				$rar[] = "$key" . '[]=' . rawurlencode($arr_val);
+		}else
 		$rar[] = "$key" . '=' . rawurlencode($value);
 	}
 	return implode('&',$rar);
