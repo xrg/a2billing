@@ -289,6 +289,7 @@ class RateEngine {
 		* CALCUL THE DURATION ALLOWED FOR THE CALLER TO THIS NUMBER
 	*/
 	function rate_engine_all_calcultimeout (&$A2B, $credit){
+		global $agi;
 			
 		if ($this->webui) $A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[CC_RATE_ENGINE_ALL_CALCULTIMEOUT ($credit)]");
 		if (!is_array($this -> ratecard_obj) || count($this -> ratecard_obj)==0) return false;
@@ -584,7 +585,8 @@ class RateEngine {
 		* CALCUL THE CREDIT COSUMED BY THE CALL
 	*/
 	function rate_engine_calculcost (&$A2B, $callduration, $K=0, $freetimetocall_used){
-	
+		global $agi;
+		
 		$K = $this->usedratecard;
 		$buyrate = round(abs($this -> ratecard_obj[$K][9]),4);
 		$buyrateinitblock = $this -> ratecard_obj[$K][10];
