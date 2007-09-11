@@ -14,7 +14,7 @@ messages: $(UIS:%=%/lib/locale/messages.pot)
 
 
 %/lib/locale/messages.pot: % FORCE
-	@xgettext -o $@ -L PHP $$(find $< -name '*.php') $$(find $< -name '*.inc')
+	@xgettext --omit-header -o $@ -L PHP $$(find $< -name '*.php') $$(find $< -name '*.inc')
 	@for LANG in $(LANGS-$<) ; do \
 		LDIR=$</lib/locale/$$LANG/LC_MESSAGES ; \
 		echo "Merging into $$LANG locales for $<" ;\
