@@ -155,8 +155,19 @@ class RateEngine {
 		tp_trunk.addparameter AS tp_addparameter_trunk,
 		rt_trunk.addparameter AS rt_addparameter_trunk,
 		id_outbound_cidgroup,
-		freetimetocall_package_offer, freetimetocall, packagetype, billingtype, startday, id_cc_package_offer
-
+		freetimetocall_package_offer, freetimetocall, packagetype, billingtype, startday, id_cc_package_offer,
+		tp_trunk.status, 
+		rt_trunk.status,
+		tp_trunk.inuse, 
+		rt_trunk.inuse,
+		tp_trunk.maxuse, 
+		rt_trunk.maxuse,
+		tp_trunk.if_max_use, 
+		rt_trunk.if_max_use,
+		cc_ratecard.rounding_calltime AS rounding_calltime,
+		cc_ratecard.rounding_threshold AS rounding_threshold,
+		cc_ratecard.additional_block_charge AS additional_block_charge,
+		cc_ratecard.additional_block_charge_time AS additional_block_charge_time
 		
 		FROM cc_tariffgroup 
 		RIGHT JOIN cc_tariffgroup_plan ON cc_tariffgroup.id=$tariffgroupid
@@ -241,20 +252,26 @@ class RateEngine {
 		}
 	
 		
-		// 3) REMOVE THOSE THAT USE THE SAME TRUNK - MAKE A DISTINCT
+		// 3) REMOVE THOSE THAT USE THE SAME TRUNK - MAKE A DISTINCT 
+		//    AND THOSE THAT ARE DISABLED.
 		$mylistoftrunk = array();
 		for ($i=0;$i<count($result);$i++){
 			
-			if ($result[$i][34]==-1) $mylistoftrunk_next[]= $mycurrenttrunk = $result[$i][29];
-			else $mylistoftrunk_next[]= $mycurrenttrunk = $result[$i][34];
+			if ($result[$i][34]==-1) {
+				$status = $result[$i][51];
+				$mylistoftrunk_next[]= $mycurrenttrunk = $result[$i][29];
+			} else {
+				$status = $result[$i][52];
+				$mylistoftrunk_next[]= $mycurrenttrunk = $result[$i][34];
+			}			
 			
-			
-			// Check if we already have the same trunk in the ratecard 
-			if ($i==0 || !in_array ($mycurrenttrunk , $mylistoftrunk)) {
+			// Check if we already have the same trunk in the ratecard 	
+			if (($i==0 || !in_array ($mycurrenttrunk , $mylistoftrunk)) && $status == 1) {
 				$distinct_result[] = $result[$i];			
 			}	
 			
-			$mylistoftrunk[]= $mycurrenttrunk;				
+			if ($status == 1)
+				$mylistoftrunk[]= $mycurrenttrunk;				
 		}	
 	
 		
@@ -579,30 +596,48 @@ class RateEngine {
 		RETURN $TIMEOUT + $this -> freetimetocall_left[$K];
 	}
 
-
 	/*
 		RATE ENGINE - CALCUL COST OF THE CALL
 		* CALCUL THE CREDIT COSUMED BY THE CALL
 	*/
-	function rate_engine_calculcost (&$A2B, $callduration, $K=0, $freetimetocall_used){
+	function rate_engine_calculcost (&$A2B, $callduration, $K=0, $freetimetocall_used)
+	{	
 		global $agi;
 		
 		$K = $this->usedratecard;
-		$buyrate = round(abs($this -> ratecard_obj[$K][9]),4);
-		$buyrateinitblock = $this -> ratecard_obj[$K][10];
-		$buyrateincrement = $this -> ratecard_obj[$K][11];
 		
-		$rateinitial = round(abs($this -> ratecard_obj[$K][12]),4);
-		$initblock = $this -> ratecard_obj[$K][13];
-		$billingblock = $this -> ratecard_obj[$K][14];	
-		$connectcharge = round(abs($this -> ratecard_obj[$K][15]),4);
-		$disconnectcharge = round(abs($this -> ratecard_obj[$K][16]),4);	
-		$stepchargea = $this -> ratecard_obj[$K][17]; 		$chargea = round(abs($this -> ratecard_obj[$K][18]),4);
-		$timechargea = $this -> ratecard_obj[$K][19];		$billingblocka = $this -> ratecard_obj[$K][20];	
-		$stepchargeb = $this -> ratecard_obj[$K][21];		$chargeb = round(abs($this -> ratecard_obj[$K][22]),4);
-		$timechargeb = $this -> ratecard_obj[$K][23];		$billingblockb = $this -> ratecard_obj[$K][24];	
-		$stepchargec = $this -> ratecard_obj[$K][25];		$chargec = round(abs($this -> ratecard_obj[$K][26]),4);	
-		$timechargec = $this -> ratecard_obj[$K][27];		$billingblockc = $this -> ratecard_obj[$K][28];
+		$buyrate 						= round(abs($this -> ratecard_obj[$K][9]),4);
+		$buyrateinitblock 				= $this -> ratecard_obj[$K][10];
+		$buyrateincrement 				= $this -> ratecard_obj[$K][11];
+		
+		$rateinitial 					= round(abs($this -> ratecard_obj[$K][12]),4);
+		$initblock 						= $this -> ratecard_obj[$K][13];
+		$billingblock 					= $this -> ratecard_obj[$K][14];	
+		$connectcharge 					= round(abs($this -> ratecard_obj[$K][15]),4);
+		$disconnectcharge 				= round(abs($this -> ratecard_obj[$K][16]),4);	
+		$stepchargea 					= $this -> ratecard_obj[$K][17];
+		$chargea 						= round(abs($this -> ratecard_obj[$K][18]),4);
+		$timechargea 					= $this -> ratecard_obj[$K][19];
+		$billingblocka 					= $this -> ratecard_obj[$K][20];	
+		$stepchargeb 					= $this -> ratecard_obj[$K][21];
+		$chargeb 						= round(abs($this -> ratecard_obj[$K][22]),4);
+		$timechargeb 					= $this -> ratecard_obj[$K][23];
+		$billingblockb 					= $this -> ratecard_obj[$K][24];	
+		$stepchargec 					= $this -> ratecard_obj[$K][25];
+		$chargec 						= round(abs($this -> ratecard_obj[$K][26]),4);	
+		$timechargec 					= $this -> ratecard_obj[$K][27];
+		$billingblockc 					= $this -> ratecard_obj[$K][28];
+		// Initialization rounding calltime and rounding threshold variables
+		$rounding_calltime 				= $this->ratecard_obj[$K][59];   
+		$rounding_threshold 			= $this->ratecard_obj[$K][60];
+		// Initialization additional block charge and additional block charge time variables
+		$additional_block_charge 		= $this->ratecard_obj[$K][61];   
+		$additional_block_charge_time 	= $this->ratecard_obj[$K][62];
+		
+		if (!is_numeric($rounding_calltime))			$rounding_calltime = 0;
+		if (!is_numeric($rounding_threshold))			$rounding_threshold = 0;
+		if (!is_numeric($additional_block_charge))		$additional_block_charge = 0;
+		if (!is_numeric($additional_block_charge_time))	$additional_block_charge_time = 0;
 		
 		if (!is_numeric($freetimetocall_used)) $freetimetocall_used=0;		
 		if ($this -> debug_st)  echo "CALLDURATION: $callduration - freetimetocall_used=$freetimetocall_used\n\n";
@@ -611,6 +646,26 @@ class RateEngine {
 		$cost =0;
 		$cost -= $connectcharge;
 		$cost -= $disconnectcharge;
+		
+		/*
+		 * Following condition will append cost of call 
+		 * according to the the additional_block_charge and additional_block_charge_time
+		 * Reference to the TODO : ADDITIONAL CHARGES ON REALTIME BILLING - 2
+		 */
+		// If call duration is greater then block charge time
+		if($callduration >= $additional_block_charge_time){
+			$block_charge = intval($callduration / $additional_block_charge_time);
+			$cost += $block_charge * $additional_block_charge;
+		}
+		
+		/*
+		 * In following condition callduration will be updated 
+		 * according to the the rounding_calltime and rounding_threshold
+		 * Reference to the TODO : ADDITIONAL CHARGES ON REALTIME BILLING - 1
+		 */
+		if($rounding_calltime > 0 && $rounding_threshold > 0 && $rounding_threshold > $callduration && $rounding_calltime > $callduration){
+			$callduration = $rounding_calltime;
+		}
 		
 		// CALCULATION BUYRATE COST
 		$buyratecallduration = $callduration;
@@ -626,13 +681,13 @@ class RateEngine {
 
 		if ($this -> debug_st)  echo "1. cost: $cost\n buyratecost:$buyratecost\n";
 		
-		if ($callduration<$initblock) $callduration=$initblock;
+		if ($callduration < $initblock) $callduration = $initblock;
 
 		$callduration = $callduration - $freetimetocall_used;
 
 		// 2 KIND OF CALCULATION : PROGRESSIVE RATE & FLAT RATE
 		// IF FLAT RATE 
-		if (empty($chargea) || $chargea==0 || empty($timechargea) || $timechargea==0 ){
+		if (empty($chargea) || $chargea==0 || empty($timechargea) || $timechargea==0) {
 			
 			if ($billingblock > 0) {	
 				$mod_sec = $callduration % $billingblock;  
@@ -650,7 +705,10 @@ class RateEngine {
 			$cost -= $stepchargea;
 			if ($this -> debug_st)  echo "1.A cost: $cost\n\n";
 			
-			if ($callduration>$timechargea){ $duration_report = $callduration-$timechargea; $callduration=$timechargea; }
+			if ($callduration > $timechargea) {
+				$duration_report = $callduration - $timechargea;
+				$callduration = $timechargea;
+			}
 			
 			if ($billingblocka > 0) {	
 				$mod_sec = $callduration % $billingblocka;  
@@ -660,18 +718,18 @@ class RateEngine {
 			
 			if (($duration_report>0) && !(empty($chargeb) || $chargeb==0 || empty($timechargeb) || $timechargeb==0) )
 			{
-				$callduration=$duration_report;
-				$duration_report=0;				
+				$callduration = $duration_report;
+				$duration_report = 0;				
 				
 				// CYCLE B
 				$cost -= $stepchargeb;
 				if ($this -> debug_st)  echo "1.B cost: $cost\n\n";
 					
-				if ($callduration>$timechargeb){ 
-					$duration_report = $callduration-$timechargeb; 
+				if ($callduration > $timechargeb){ 
+					$duration_report = $callduration - $timechargeb; 
 					$callduration=$timechargeb;
 				}
-					
+				
 				if ($billingblockb > 0) {	
 					$mod_sec = $callduration % $billingblockb;  
 					if ($mod_sec>0) $callduration += ($billingblockb - $mod_sec);
@@ -680,29 +738,27 @@ class RateEngine {
 					
 				if (($duration_report>0) && !(empty($chargec) || $chargec==0 || empty($timechargec) || $timechargec==0) )
 				{
-						
 					$callduration=$duration_report;
 					$duration_report=0;						
-						
+					
 					// CYCLE C
 					$cost -= $stepchargec;
 					if ($this -> debug_st)  echo "1.C cost: $cost\n\n";
-							
-					if ($callduration>$timechargec){ 
-						$duration_report = $callduration-$timechargec; 
+					
+					if ($callduration > $timechargec){ 
+						$duration_report = $callduration - $timechargec; 
 						$callduration=$timechargec; 
 					}
-							
+					
 					if ($billingblockc > 0) {	
 						$mod_sec = $callduration % $billingblockc;  
 						if ($mod_sec>0) $callduration += ($billingblockc - $mod_sec);
 					}
 					$cost -= ($callduration/60) * $chargec;
-							
 				}
 			}
 			
-			if ($duration_report>0){
+			if ($duration_report > 0){
 				if ($billingblock > 0) {	
 					$mod_sec = $duration_report % $billingblock;  
 					if ($mod_sec>0) $duration_report += ($billingblock - $mod_sec);
@@ -879,6 +935,22 @@ class RateEngine {
 		}
 	}
 	
+	/*
+	 *	function would set when the trunk is used or when it release
+	 */
+	function trunk_start_inuse($agi, $A2B, $inuse){
+		
+		if ($inuse){
+			$QUERY = "UPDATE cc_trunk SET inuse=inuse+1 WHERE id_trunk='".$this -> usedtrunk."'";
+		}else{ 			
+			$QUERY = "UPDATE cc_trunk SET inuse=inuse-1 WHERE id_trunk='".$this -> usedtrunk."'";
+		}
+		
+		$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[TRUNK STATUS UPDATE : $QUERY]");
+		if (!$this -> CC_TESTING) $result = $A2B -> instance_table -> SQLExec ($A2B->DBHandle, $QUERY, 0);
+		
+		return 0;
+	}
 	
 	/*
 		RATE ENGINE - PERFORM CALLS
@@ -911,7 +983,10 @@ class RateEngine {
 			$failover_trunk	= $this -> ratecard_obj[$k][40+$usetrunk_failover];
 			$addparameter	= $this -> ratecard_obj[$k][42+$usetrunk_failover];
 			$cidgroupid		= $this -> ratecard_obj[$k][44];
-
+			$inuse 			= $this -> ratecard_obj[$k][53+$usetrunk_failover];
+			$maxuse 		= $this -> ratecard_obj[$k][55+$usetrunk_failover];
+			$ifmaxuse 		= $this -> ratecard_obj[$k][57+$usetrunk_failover];
+			
 			if (strncmp($destination, $removeprefix, strlen($removeprefix)) == 0) 
 				$destination= substr($destination, strlen($removeprefix));
 				
@@ -946,10 +1021,9 @@ class RateEngine {
 				}else{
 					$dialstr = "$tech/$ipaddress/$prefix$destination".$dialparams;
 				}
-			}	
-				
-				
-				
+			}
+			
+			
 			//ADDITIONAL PARAMETER 			%dialingnumber%,	%cardnumber%	
 			if (strlen($addparameter)>0){
 				$addparameter = str_replace("%cardnumber%", $A2B->cardnumber, $addparameter);
@@ -972,8 +1046,7 @@ class RateEngine {
 			{
 				$QUERY = "SELECT cid FROM cc_outbound_cid_list WHERE activated = 1 AND outbound_cid_group = $cidgroupid ORDER BY RAND() LIMIT 1";	
 			}
-		
-
+			
 			$A2B->instance_table = new Table();
 			$cidresult = $A2B->instance_table -> SQLExec ($A2B -> DBHandle, $QUERY);
 			$outcid = 0;
@@ -985,17 +1058,32 @@ class RateEngine {
 			}
 			$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "app_callingcard: CIDGROUPID='$cidgroupid' OUTBOUND CID SELECTED IS '$outcid'.");
 			
-			$myres = $agi->exec("Dial $dialstr");	
-    		//exec('Dial', trim("$type/$identifier|$timeout|$options|$url", '|'));
+			if ($maxuse == -1 || $inuse < $maxuse) {
+				// Count this call on the trunk
+				$this -> trunk_start_inuse($agi, $A2B, 1);
+							
+				$myres = $agi->exec("Dial $dialstr");	
+	    		//exec('Dial', trim("$type/$identifier|$timeout|$options|$url", '|'));
+				    		
+	    		$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "DIAL $dialstr");
+									
+				// Count this call on the trunk
+				$this -> trunk_start_inuse($agi, $A2B, 0);
+			} else {
+				if ($ifmaxuse == 1) {
+					$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "This trunk cannot be used because maximum number of connections is reached. Now use next trunk\n");
+					continue 1;
+				} else {
+					$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "This trunk cannot be used because maximum number of connections is reached. Now use failover trunk\n");
+				}				
+			}			
 			
-			$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "DIAL $dialstr");
-				
 			if ($A2B -> agiconfig['record_call'] == 1){
 				// Monitor(wav,kiki,m)					
 				$myres = $agi->exec("STOPMONITOR");
 				$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "EXEC StopMonitor (".$A2B->uniqueid."-".$A2B->cardnumber.")");
 			}
-				
+			
 			$answeredtime = $agi->get_variable("ANSWEREDTIME");
 			$this->answeredtime = $answeredtime['data'];
 			$dialstatus = $agi->get_variable("DIALSTATUS");
@@ -1006,7 +1094,7 @@ class RateEngine {
 			
 			// LOOOOP FOR THE FAILOVER LIMITED TO failover_recursive_limit
 			$loop_failover = 0;
-			while ( $loop_failover <= $A2B->agiconfig['failover_recursive_limit'] && is_numeric($failover_trunk) && $failover_trunk>=0 && (($this->dialstatus == "CHANUNAVAIL") || ($this->dialstatus == "CONGESTION")) ){
+			while ( $loop_failover <= $A2B->agiconfig['failover_recursive_limit'] && is_numeric($failover_trunk) && $failover_trunk>=0 && (($this->dialstatus == "CHANUNAVAIL") || ($this->dialstatus == "CONGESTION") || ($inuse>=$maxuse && $maxuse!=-1)) ){
 				$loop_failover++;
 				$this->answeredtime=0;
 				$this -> usedtrunk = $failover_trunk;
@@ -1016,22 +1104,46 @@ class RateEngine {
 				
 				$destination=$old_destination;
 				
-				$QUERY = "SELECT trunkprefix, providertech, providerip, removeprefix, failover_trunk FROM cc_trunk WHERE id_trunk='$failover_trunk'";
+				$QUERY = "SELECT trunkprefix, providertech, providerip, removeprefix, failover_trunk, status, inuse, maxuse, if_max_use FROM cc_trunk WHERE id_trunk='$failover_trunk'";
 				$A2B->instance_table = new Table();
 				$result = $A2B->instance_table -> SQLExec ($A2B -> DBHandle, $QUERY);
 				
 				
 				if (is_array($result) && count($result)>0){
-						
+					
 					//DO SELECT WITH THE FAILOVER_TRUNKID
-						
 					$prefix		= $result[0][0];
 					$tech 		= $result[0][1];
 					$ipaddress 	= $result[0][2];
 					$removeprefix 	= $result[0][3];
 					$next_failover_trunk = $result[0][4];
+					$status = $result[0][5];
+					$inuse = $result[0][6];
+					$maxuse = $result[0][7];
+					$ifmaxuse = $result[0][8];
+
+					// Check if we will be able to use this route:
+					//  if the trunk is activated and 
+					//  if there are less connection than it can support or there is an unlimited number of connections
+					// If not, use the next failover trunk or next trunk in list
+					if ($status == 0) {
+						$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "Failover trunk cannot be used because it is disabled. Now use next trunk\n");
+						continue 2;
+					}
+
+					if ($maxuse!=-1 && $inuse >= $maxuse) {
+						$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "Failover trunk cannot be used because maximum number of connections on this trunk is already reached.\n");
 						
-						
+						// use failover trunk
+						if ($ifmaxuse == 0) { 
+							$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "Now using its failover trunk\n");
+							continue 1;
+						} else {
+							$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "Now using next trunk\n");
+							continue 2;							
+						}						
+					}
+					
 					$pos_dialingnumber = strpos($ipaddress, '%dialingnumber%' );
 					
 					$ipaddress = str_replace("%cardnumber%", $A2B->cardnumber, $ipaddress);
@@ -1040,11 +1152,11 @@ class RateEngine {
 					if (strncmp($destination, $removeprefix, strlen($removeprefix)) == 0){
 						$destination= substr($destination, strlen($removeprefix));
 					}
-									
+					
 					$dialparams = str_replace("%timeout%", $timeout *1000, $A2B->agiconfig['dialcommand_param']);
-							
+					
 					if ($pos_dialingnumber !== false){					   
-						   $dialstr = "$tech/$ipaddress".$dialparams;
+						$dialstr = "$tech/$ipaddress".$dialparams;
 					}else{
 						if ($A2B->agiconfig['switchdialcommand'] == 1){
 							$dialstr = "$tech/$prefix$destination@$ipaddress".$dialparams;
@@ -1053,12 +1165,17 @@ class RateEngine {
 						}
 					}	
 					
-					
 					$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "FAILOVER app_callingcard: Dialing '$dialstr' with timeout of '$timeout'.\n");
 					
+					// Count this call on the trunk
+					$this -> trunk_start_inuse($agi, $A2B, 1);
+			
 					$myres = $agi->exec("DIAL $dialstr");
 					$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "DIAL FAILOVER $dialstr");
-							
+					
+					// Count this call on the trunk
+					$this -> trunk_start_inuse($agi, $A2B, 0);
+			
 					$answeredtime = $agi->get_variable("ANSWEREDTIME");
 					$this->answeredtime = $answeredtime['data'];
 					$dialstatus = $agi->get_variable("DIALSTATUS");

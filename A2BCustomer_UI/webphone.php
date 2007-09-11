@@ -38,7 +38,6 @@ if( $customer_info [0][2] == "t" || $customer_info [0][2] == "1" ) {
 $customer = $_SESSION["pr_login"];
 	include("PP_header.php");
 	
-// #### HELP SECTION
 show_help('webphone');
 
 ?>

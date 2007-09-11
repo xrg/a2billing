@@ -82,7 +82,7 @@ CREATE INDEX ind_cc_phonelist_numbertodial ON cc_phonelist USING btree (numberto
 
 CREATE TABLE cc_didgroup (
     id 							BIGSERIAL NOT NULL,
-    idreseller 					INTEGER DEFAULT 0 NOT NULL,	
+    iduser 					INTEGER DEFAULT 0 NOT NULL,	
     creationdate 				TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
     didgroupname 				TEXT NOT NULL
 );
@@ -98,12 +98,12 @@ CREATE TABLE cc_did (
     id_cc_country 				INTEGER NOT NULL,    
     activated 					INTEGER DEFAULT 1 NOT NULL,
     reserved 					INTEGER DEFAULT 0,
-    iduser 						INTEGER DEFAULT 0 NOT NULL,
-    did 						TEXT NOT NULL,
+    iduser 					BIGINT DEFAULT 0 NOT NULL,
+    did 					TEXT NOT NULL,
     creationdate 				TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),	
     startingdate 				TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
     expirationdate 				TIMESTAMP WITHOUT TIME ZONE,
-    description 				TEXT ,
+    description 				TEXT,
     secondusedreal 				INTEGER DEFAULT 0,
     billingtype 				INTEGER DEFAULT 0,
     fixrate 					NUMERIC(12,4) NOT NULL
@@ -146,9 +146,9 @@ CREATE TABLE cc_charge (
     amount 					NUMERIC(12,4) NOT NULL,
     chargetype integer DEFAULT 0,
     chargetype 				INTEGER DEFAULT 0,    
+    description 			TEXT,
     id_cc_did 				BIGINT DEFAULT 0,
-	id_cc_subscription_fee 	BIGINT DEFAULT 0,
-    description 			TEXT
+	id_cc_subscription_fee 	BIGINT DEFAULT 0
 );
 
 ALTER TABLE ONLY cc_charge
@@ -247,7 +247,7 @@ ADD CONSTRAINT cc_service_pkey PRIMARY KEY (id);
 	
 CREATE TABLE cc_service_report (
     id bigserial NOT NULL,
-    cc_service_id bigserial NOT NULL,
+    cc_service_id BIGINT NOT NULL,
     daterun timestamp(0) without time zone DEFAULT now(),
     totalcardperform integer,
     totalcredit numeric(12,4)
@@ -286,7 +286,7 @@ CREATE TABLE cc_ui_authen (
     state text,
     phone text,
     fax text,
-    datecreation timestamp with time zone DEFAULT now()
+    datecreation TIMESTAMP without time zone DEFAULT NOW()
 );
 
 ALTER TABLE ONLY cc_ui_authen
@@ -432,6 +432,13 @@ CREATE TABLE cc_card (
     activatedbyuser boolean DEFAULT false NOT NULL,
 	id_subscription_fee INTEGER DEFAULT 0
 );
+ALTER TABLE ONLY cc_card
+    ADD CONSTRAINT cons_cc_card_username UNIQUE (username);
+ALTER TABLE ONLY cc_card
+    ADD CONSTRAINT cons_cc_card_useralias UNIQUE (useralias);
+ALTER TABLE ONLY cc_card
+    ADD CONSTRAINT cons_cc_card_pkey PRIMARY KEY (id);
+
 
 CREATE TABLE cc_ratecard (
     id serial NOT NULL,
@@ -467,7 +474,7 @@ CREATE TABLE cc_ratecard (
     freetimetocall_package_offer INTEGER NOT NULL DEFAULT 0,
     id_outbound_cidgroup INTEGER NOT NULL DEFAULT -1
 );
-
+CREATE INDEX ind_cc_ratecard_dialprefix ON cc_ratecard USING btree (dialprefix);
 
 
 CREATE TABLE cc_trunk (
@@ -594,15 +601,16 @@ CREATE TABLE cc_logpayment (
 );
 
 create table cc_did_use (
-    id serial not null ,
+    id bigserial not null ,
     id_cc_card bigint,
     id_did bigint not null,
-    reservationdate timestamp not null default now(),
-    releasedate timestamp,
+    reservationdate TIMESTAMP WITHOUT TIME ZONE not null default NOW(),
+    releasedate TIMESTAMP WITHOUT TIME ZONE,
     activated integer default 0,
     month_payed integer default 0
 );
-
+ALTER TABLE cc_did_use
+ADD CONSTRAINT cc_did_use_pkey PRIMARY KEY (id);
 
 INSERT INTO cc_ui_authen VALUES (2, 'admin', 'mypassword', 0, 65535, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2005-02-26 21:14:05.391501-05');
 INSERT INTO cc_ui_authen VALUES (1, 'root', 'myroot', 0, 65535, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2005-02-26 20:33:27.691314-05');
@@ -717,13 +725,10 @@ Call Labs
 INSERT INTO cc_trunk VALUES (1, 'DEFAULT', '011', 'IAX2', 'kiki@switch-2.kiki.net', '', 0, 0, 0, '2005-03-14 01:01:36', 0, '', NULL);
 
 
-CREATE INDEX ind_cc_ratecard_dialprefix ON cc_ratecard USING btree (dialprefix);
 
 
 
-ALTER TABLE ONLY cc_card
-    ADD CONSTRAINT cc_card_pkey PRIMARY KEY (id);
-	
+
 ALTER TABLE ONLY cc_card
     ADD CONSTRAINT cons_username_cc_card UNIQUE (username);
 
@@ -795,7 +800,7 @@ SELECT pg_catalog.setval('cc_trunk_id_trunk_seq', 2, true);
 CREATE TABLE cc_country (
     id serial NOT NULL,
     countrycode text NOT NULL,
-    countryprefix text NOT NULL,
+    countryprefix TEXT NOT NULL DEFAULT '0',
     countryname text NOT NULL
 );
 
@@ -1635,7 +1640,7 @@ ALTER TABLE ONLY cc_alarm
 
 CREATE TABLE cc_alarm_report (
     id bigserial NOT NULL,
-    cc_alarm_id bigserial NOT NULL,
+    cc_alarm_id BIGINT NOT NULL,
     calculatedvalue numeric NOT NULL,
     daterun timestamp without time zone DEFAULT now()
 );
@@ -1649,7 +1654,7 @@ CREATE TABLE cc_callback_spool (
     entry_time timestamp without time zone DEFAULT now(),	
     status text,
     server_ip text,	
-    num_attempt int,
+    num_attempt int NOT NULL DEFAULT 0,
     last_attempt_time timestamp without time zone,
     manager_result text,
     agi_result text,
@@ -1669,6 +1674,8 @@ CREATE TABLE cc_callback_spool (
 ) WITH OIDS;
 
 ALTER TABLE ONLY cc_callback_spool
+    ADD CONSTRAINT cc_callback_spool_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY cc_callback_spool
     ADD CONSTRAINT cc_callback_spool_uniqueid_key UNIQUE (uniqueid);
 
 
@@ -1681,6 +1688,8 @@ CREATE TABLE cc_server_manager (
     manager_secret 					TEXT ,
 	lasttime_used		 			TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW()
 ) WITH OIDS;
+ALTER TABLE ONLY cc_server_manager
+    ADD CONSTRAINT cc_server_manager_pkey PRIMARY KEY (id);
 INSERT INTO cc_server_manager (id_group, server_ip, manager_host, manager_username, manager_secret) VALUES (1, 'localhost', 'localhost', 'myasterisk', 'mycode');
 
 
@@ -1689,6 +1698,8 @@ CREATE TABLE cc_server_group (
 	name							TEXT ,
 	description						TEXT
 ) WITH OIDS;
+ALTER TABLE ONLY cc_server_group
+    ADD CONSTRAINT cc_server_group_pkey PRIMARY KEY (id);
 INSERT INTO cc_server_group (id, name, description) VALUES (1, 'default', 'default group of server');
 
 
@@ -1843,9 +1854,9 @@ CREATE TABLE cc_payments (
   cc_expires character varying(6),
   orders_status integer NOT NULL,
   orders_amount numeric(14,6),
-  last_modified timestamp,
-  date_purchased timestamp,
-  orders_date_finished timestamp,
+  last_modified TIMESTAMP WITHOUT TIME ZONE,
+  date_purchased TIMESTAMP WITHOUT TIME ZONE,
+  orders_date_finished TIMESTAMP WITHOUT TIME ZONE,
   currency character varying(3),
   currency_value decimal(14,6)
 );

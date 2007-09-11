@@ -1,8 +1,7 @@
 <?php
-session_name("FORGOT");
-session_start();
-	
-	
+// session_name("FORGOT");
+// session_start();
+
 include ("./lib/defines.php");
 
 getpost_ifset(array('pr_email','action'));
@@ -22,13 +21,13 @@ if(isset($pr_email) && isset($action))
 			echo gettext("Please wait 1 minutes before making any other request for the forgot password!");
 			exit();
 		}
-		
         $show_message = true;
         $DBHandle  = DbConnect();
         $QUERY = "SELECT mailtype, fromemail, fromname, subject, messagetext, messagehtml FROM cc_templatemail WHERE mailtype='forgetpassword' ";
-	$num = 0;
+		
+		$num = 0;
         $res = $DBHandle -> Execute($QUERY);
-	if ($res)
+		if ($res)
 	        $num = $res -> RecordCount();
 		
         if (!$num) exit();
@@ -101,7 +100,7 @@ switch($error)
         $login_message = gettext("Invalid Action.");
     break;
     case 3:
-        $login_message = gettext("Pleaes provide your email address to get your login information.");
+        $login_message = gettext("Please provide your email address to get your login information.");
     break;
 }
 

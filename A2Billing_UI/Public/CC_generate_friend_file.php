@@ -81,8 +81,7 @@ restrictcid, rtptimeout, rtpholdtimeout, musiconhold, regseconds, ipaddr, cancal
 		array($filename),1);
 
 	return true;
-}
-
+	}
 function gen_all_agents($dbh,$do_sip, $do_iax,&$err_msg){
 	global $FG_DEBUG;
 	global $A2B;

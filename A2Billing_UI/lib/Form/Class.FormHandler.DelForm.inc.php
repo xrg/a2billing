@@ -1,6 +1,5 @@
 <?php
 
-
 if ($form_action == "ask-delete")
 {
     if ($this -> isFKDataExists() == false)
@@ -16,10 +15,21 @@ if ($form_action == "ask-delete")
     }
 
 }
+?>
 
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function sendto(action, record, field_inst, instance){
+  document.myForm.submit();
+}
+//-->
+</script>
+
+<?php
 if ($this->FG_FK_DELETE_CONFIRM && $form_action == "ask-del-confirm" && $this-> FG_FK_DELETE_ALLOWED)
 { ?>
-<FORM action=<?php echo $_SERVER['PHP_SELF']?> id=form1 method=post name=form1>
+
+<FORM action=<?php echo $_SERVER['PHP_SELF']?> id="myForm" method="post" name="myForm">
 	<INPUT type="hidden" name="id" value="<?php echo $id?>">
 	<INPUT type="hidden" name="atmenu" value="<?php echo $atmenu?>">
 	<INPUT type="hidden" name="form_action" value="delete">
@@ -68,7 +78,7 @@ else
 	  	<td height="40" valign="top"> <span class="textnegrita"><?php echo $this->FG_INTRO_TEXT_ASK_DELETION?></span></td>
 	</tr>
 </table>
-<FORM action=<?php echo $_SERVER['PHP_SELF']?> id=form1 method=post name=form1>
+<FORM action=<?php echo $_SERVER['PHP_SELF']?> id="myForm" method="post" name="myForm">
 	<INPUT type="hidden" name="id" value="<?php echo $id?>">
 	<INPUT type="hidden" name="atmenu" value="<?php echo $atmenu?>">
     <INPUT type="hidden" name="fkCount" value="<?php echo $this -> FG_FK_RECORDS_COUNT;?>">
@@ -136,7 +146,7 @@ else
 										$value_display = $select_recordset[0];
 									}
 						?>
-						<OPTION  value=<?php echo $select_recordset[1]?> <?php if (strcmp($list[0][$i],$select_recordset[1])==0){ echo "selected"; } ?>>
+						<OPTION  value='<?php echo $select_recordset[1]?>' <?php if (strcmp($list[0][$i],$select_recordset[1])==0){ echo "selected"; } ?>>
 							<?php echo $value_display?>
 						</OPTION>
 						<?php
@@ -182,8 +192,16 @@ else
 			<td colspan="2" style="border-bottom: medium dotted rgb(255, 119, 102);"> &nbsp;</td>
 		</tr>
 		<tr>
-		  <td width="434" class="text_azul"><?php echo $this->FG_BUTTON_DELETION_BOTTOM_TEXT?></td>
-		  <td width="190" align="right" class="text"><INPUT title="<?php echo gettext("Remove this ");?> <?php echo $this->FG_INSTANCE_NAME; ?>" alt="<?php echo gettext("Remove this ");?> <?php echo $this->FG_INSTANCE_NAME; ?>" hspace=2 id=submit22 name=submit22 src="<?php echo Images_Path_Main;?>/btn_Delete_94x20.gif" type="image"></td>
+		  <td width="50%" class="text_azul"><span class="tableBodyRight"><?php echo $this->FG_BUTTON_DELETION_BOTTOM_TEXT?></span></td>
+		  <td width="50%" align="right" class="text">
+			
+				<a href="#" onClick="sendto('delete');"  class="cssbutton_big"><IMG src="<?php echo Images_Path_Main;?>/icon_arrow_orange.gif">
+				<?php echo $this->FG_DELETE_PAGE_CONFIRM_BUTTON; ?> </a>
+				
+				<!--
+				<INPUT title="<?php echo gettext("Remove this ");?> <?php echo $this->FG_INSTANCE_NAME; ?>" alt="<?php echo gettext("Remove this ");?> <?php echo $this->FG_INSTANCE_NAME; ?>" hspace=2 id=submit22 name=submit22 src="<?php echo Images_Path_Main;?>/btn_Delete_94x20.gif" type="image">
+				-->
+			</td>
 		</tr>
 	</TABLE>
 </FORM>

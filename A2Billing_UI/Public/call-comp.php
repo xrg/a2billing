@@ -68,7 +68,7 @@ $FG_TABLE_COL[]=array (gettext("Destination"), "destination", "15%", "center", "
 
 $FG_TABLE_COL[]=array (gettext("Duration"), "sessiontime", "7%", "center", "SORT", "30", "", "", "", "", "", "display_minute");
 
-$FG_TABLE_COL[]=array (gettext("CardUsed"), "username", "11%", "center", "SORT", "30");
+$FG_TABLE_COL[]=array (gettext("CardUsed"), "username", "11%", "center", "SORT", "", "30", "", "", "", "", "linktocustomer");
 $FG_TABLE_COL[]=array (gettext("terminatecause"), "terminatecause", "10%", "center", "SORT", "30");
 $FG_TABLE_COL[]=array (gettext("IAX/SIP"), "sipiax", "6%", "center", "SORT",  "", "list", $yesno);
 //$FG_TABLE_COL[]=array ("DestID", "destID", "12%", "center", "SORT", "30");
@@ -301,14 +301,14 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 				<table width="100%" border="0" cellspacing="0" cellpadding="0" ><tr>
 				  <td class="fontstyle_searchoptions" valign="middle">
 						<?php echo gettext("Enter the cardnumber");?>: <INPUT TYPE="text" NAME="entercustomer" value="<?php echo $entercustomer?>"
-						<a href="#" onclick="window.open('../A2B_entity_card.php?popup_select=2&popup_formname=myForm&popup_fieldname=entercustomer' , 'CardNumberSelection','width=550,height=330,top=20,left=100');"><img src="../Images/icon_arrow_orange.png"></a>
+						<a href="#" onclick="window.open('A2B_entity_card.php?popup_select=2&popup_formname=myForm&popup_fieldname=entercustomer' , 'CardNumberSelection','width=550,height=330,top=20,left=100');"><img src="../Images/icon_arrow_orange.png"></a>
 						
 					</td>
 					<td align="right" class="fontstyle_searchoptions">
 						<?php echo gettext("Provider");?>: <INPUT TYPE="text" NAME="enterprovider" value="<?php echo $enterprovider?>" size="4">
-						<a href="#" onclick="window.open('../A2B_entity_provider.php?popup_select=2&popup_formname=myForm&popup_fieldname=enterprovider' , 'ProviderSelection','width=550,height=330,top=20,left=100,scrollbars=1');"><img src="../Images/icon_arrow_orange.png"></a>
+						<a href="#" onclick="window.open('A2B_entity_provider.php?popup_select=2&popup_formname=myForm&popup_fieldname=enterprovider' , 'ProviderSelection','width=550,height=330,top=20,left=100,scrollbars=1');"><img src="../Images/icon_arrow_orange.png"></a>
 						<?php echo gettext("Trunk");?>: <INPUT TYPE="text" NAME="entertrunk" value="<?php echo $entertrunk?>" size="4">
-						<a href="#" onclick="window.open('../A2B_entity_trunk.php?popup_select=2&popup_formname=myForm&popup_fieldname=entertrunk' , 'TrunkSelection','width=550,height=330,top=20,left=100,scrollbars=1');"><img src="../Images/icon_arrow_orange.gif"></a>
+						<a href="#" onclick="window.open('A2B_entity_trunk.php?popup_select=2&popup_formname=myForm&popup_fieldname=entertrunk' , 'TrunkSelection','width=550,height=330,top=20,left=100,scrollbars=1');"><img src="../Images/icon_arrow_orange.gif"></a>
 						
 					</td>
 				</tr></table></td>

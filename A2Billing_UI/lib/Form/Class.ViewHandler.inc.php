@@ -186,8 +186,9 @@ function openURLFilter(theLINK)
 							 $instance_sub_table->debug_st=1;
 							 //echo "i=" . $i . ", k=". $k ."<br>";
 							 }
-						$sub_clause = str_replace("%id", $list[$ligne_number][$i-$k], $this->FG_TABLE_COL[$i][9]);																																	
-						$select_list = $instance_sub_table -> Get_list ($this->DBHandle, $sub_clause, null, null, null, null, null, null);
+						$sub_clause = str_replace("%id", $list[$ligne_number][$i-$k], $this->FG_TABLE_COL[$i][9]);
+						
+						$select_list = $instance_sub_table -> Get_list ($this->DBHandle, $sub_clause, null, null, null, null, null, null, null, 10);
 						$field_list_sun = split(',',$this->FG_TABLE_COL[$i][8]);
 						$record_display = $this->FG_TABLE_COL[$i][10];
 								
@@ -196,7 +197,20 @@ function openURLFilter(theLINK)
 							$record_display = str_replace("%$l", $select_list[0][$l-1], $record_display);
 						}*/
 						
-					}elseif ($this->FG_TABLE_COL[$i][6]=="eval"){
+					}elseif($this->FG_TABLE_COL[$i][6]=="lie_link"){
+						$instance_sub_table = new Table($this->FG_TABLE_COL[$i][7], $this->FG_TABLE_COL[$i][8]);
+						$sub_clause = str_replace("%id", $list[$ligne_number][$i-$k], $this->FG_TABLE_COL[$i][9]);
+						$select_list = $instance_sub_table -> Get_list ($this->DBHandle, $sub_clause, null, null, null, null, null, null, null, 10);
+						$field_list_sun = split(',',$this->FG_TABLE_COL[$i][8]);
+						$record_display = $this->FG_TABLE_COL[$i][10];
+						$link = $this->FG_TABLE_COL[$i][12]."?form_action=ask-edit&id=".$select_list[0][1];		
+						for ($l=1;$l<=count($field_list_sun);$l++){													
+							$val = str_replace("%$l", $select_list[0][$l-1], $record_display);
+							$record_display = "<a href='$link'>$val</a>";
+						}						
+
+					}
+					elseif ($this->FG_TABLE_COL[$i][6]=="eval"){
 						$string_to_eval = $this->FG_TABLE_COL[$i][7]; // %4-%3
 						$string_to_eval = str_params($string_to_eval,$list[$ligne_number]);
 						eval("\$eval_res = $string_to_eval;");
@@ -235,7 +249,7 @@ function openURLFilter(theLINK)
 						$list[$ligne_number][$i-$k] = $record_display;
 
 						if (isset ($this->FG_TABLE_COL[$i][11]) && strlen($this->FG_TABLE_COL[$i][11])>1){
-							call_user_func($this->FG_TABLE_COL[$i][11], $record_display);
+							print call_user_func($this->FG_TABLE_COL[$i][11], $record_display);
 						}else{
 							echo stripslashes($record_display);
 						}
@@ -366,7 +380,8 @@ function openURLFilter(theLINK)
 
 		  </TD>
         </TR>
-         <TR >
+		<?php if ($this->CV_DISPLAY_BROWSE_PAGE){ ?>
+        <TR >
           <TD height=16 style="PADDING-LEFT: 5px; PADDING-RIGHT: 3px">
 			<TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
                 <TR>
@@ -378,9 +393,11 @@ function openURLFilter(theLINK)
                   </TD>
             </TABLE></TD>
         </TR>
+		<?php  	} 	?>
 		
 		<FORM name="otherForm2" action="<?php echo $_SERVER['PHP_SELF']?>">
 		<tr><td>
+		<?php if ($this->CV_DISPLAY_RECORD_LIMIT){ ?>
 			<?php echo gettext("DISPLAY");?>
 			<?= $this->gen_PostParams(array(current_page => 0)); ?>
 			
@@ -392,7 +409,7 @@ function openURLFilter(theLINK)
 			</select>
 			<input class="form_input_button"  value=" <?php echo gettext("GO");?> " type="SUBMIT">
 			&nbsp; &nbsp; &nbsp;
-			
+		<?php  	} 	?>
 		<?php if ($this->FG_EXPORT_CSV){ ?>
 		 - &nbsp; &nbsp; <a href="export_csv.php?var_export=<?php echo $this->FG_EXPORT_SESSION_VAR ?>&var_export_type=type_csv" target="_blank" ><img src="../Images/spread.png" border="0" height="30"/><?php echo gettext("Export CSV");?></a>
 

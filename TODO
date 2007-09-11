@@ -1,7 +1,192 @@
-
-********************************************************************************
+*******************************************************************************
                    			TODO LIST - SPECIFIC
 ********************************************************************************
+
+
+#### CHECK : Check AGI use the Status
+********************************************************************
+in AGI Class.A2Billing, function authentication, 
+when we check card is valid or not, we still use cc_card.activated
+we need to replace this by cc_card.status
+
+
+#### FIX : Web service - status log dont work, check Activation_Card
+********************************************************************
+Web service - status log dont work, check Activation_Card
+
+
+#### TRUNK CHANGE : UPDATE DAEMON TO USE THE DB CONF
+********************************************************************
+read conf from the DB
+
+	my $manager_host = $cfg->val('global', 'manager_host');
+	my $manager_username = $cfg->val('global', 'manager_username');
+	my $manager_secret = $cfg->val('global', 'manager_secret');
+
+
+#### FEATURE : CUSTOMER SERVICES FRIENDLY
+********************************************************************
+ 
+1. Make the customer account number a link everywhere that it is displayed, 
+so that if you see a customer number, you click on it, and it takes you to the customer details screen.
+
+2. Within the customer accounts screen, have a link to click to bring up to 
+the login screen A2BCustomer_UI - but without the requirement to fill again the user's name and password.
+
+3. A notes field against the customer - simply a free text field.
+
+4. A customer history, would include date stamped notes added by the 
+Customer services, and may even display an element of the automatic history already displayed on the system.
+
+5. A Customer Dashboard - showing services, payments etc.
+
+
+#### ADDITIONAL CHARGES ON REALTIME BILLING
+********************************************************************
+1) Rouding calltime
+
+	We will need 2 new fields in the ratecard to define this, 
+	
+	- rounding_calltime will define the new calltime that will be assigned to this call, for instance 360 (6 minutes)
+	- rounding_threshold that will define the amount in seconds from which the rounding calltime will apply
+	for instance 300 (5 minutes)
+	
+	** take note that if the call last 7 minutes if the rounding_calltime is less than the current 
+		calltime we dont round down the calltime
+	
+	Example :
+	I make a call of 5 minutes to Belgium,  the rate is 0.1$ per minutes, I have normally to pay 0.5 for this call
+	now the ratecard will be configure with  rounding_calltime = 360 - 6min
+	and rounding_threshold will be set to 240, so 4min, the rateengine will see that my current calltime (300) is upper than the defined rounding_threshold 
+	and so it will round the call to the new calltime, rounding_calltime = 360
+	so my call will be rated to 0.6$ instead of 0.5
+	
+	
+2) Additional Block charge
+
+	This is an additional charge that will be apply according to the duration of the call and 
+	the amount of "time block" inside the the calltime.
+	We will need 2 new fields in the ratecard to define this, 
+	- additional_block_charge that will define the charge amount, ie 0.50 cents
+	- additional_block_charge_time that will define the amount of seconds from which we have to apply this 
+	  new charge, we will count the amount of time this block of time can be contain inside 
+	  the calltime and apply the charge accordingly to this.
+	Example, additional_block_charge_time = 300 (5 minutes) if the call last 360 seconds, the 
+	additional_block_charge_time is contains 1 time so we apply this charge once. 
+	If the call last now 660 seconds (11 minutes), the additional_block_charge_time (5min) is contains 
+	2 time so we will apply this charge 2 time too (2 time 0.50 cents)
+
+
+#### TODO : TRANSLATION - CANCEL, ANSWERED, CONGESTION
+********************************************************************
+I am puting all the a2customer and a2billing in correct portuguese grammar and i need the help. 
+I need to know the file or where I can change the status of the call from english to portuguese?
+Explaining: When a customer log in in the a2customer control panel and click in historic call the customer see 
+the status of the call, if was CANCEL, ANSWERED, CONGESTION... 
+ewrtwet
+
+#### TODO : GENERATE VOUCHER & GENERATE CARD
+********************************************************************
+In the generate option, the tag value is set to a random ID : 1181897201
+this allow us to see exactly after the generation those that has been created!
+If someone really use the tag feature to classify his voucher, this can be bit annoying! 
+we need to give the option to define the tag to a specific value or to use the random number.
+
+We can add a new field in cc_card for this :
+ALTER TABLE cc_card ADD COLUMN tag CHAR(50);
+We should add a reseach by tag too on View card.
+
+
+#### GENERAL : replace activated by status
+********************************************************************
+we need to review where we use activated and replace it by status everywhere in the code or we are duplicating the need on this field.
+
+
+#### BILLING : ADD VIEW AND SEARCH ON TABLE cc_epayment_log
+********************************************************************
+ADD VIEW AND SEARCH ON TABLE cc_epayment_log
+status -> 0 : New ; 1 : proceed ; 2 ; in process
+
+
+
+#### CHECK BACKUP & RESTORE FEATURE
+********************************************************************
+user posted that is broken.
+
+
+#### UPDATE CSS Menu : menu.css
+********************************************************************
+With some translation the text in the menu overpass the size of the cell.
+changing has below the height change the design we need to wrap the text and make it 
+fit according to the amount of text.
+
+ #nav ul li span,#nav ul li a {
+      padding: 2px 18px 2px 20px;
+      font-size: 10px;
+-       height : 11px;
+ }
+
+#### UPDATE : MAIL TEMPLATE TAG HTML - Add a plaintext versions
+********************************************************************
+Shopping details is as below.
+
+Item Name  <b>balance</b>
+Item ID  <b>8711503777</b>
+Amount  <b>1 USD</b>
+Payment Method  <b>paypal</b>
+Status  <b></b>
+
+#### TRUNK REPORTING PAGE - DASH BOARD
+********************************************************************
+A screen page where you can see the call stats Expl. ASR, ALOC, CIC  from each trunk on one web page.
+
+
+#### FEATURE : USE ADODB CACHING IN THE FRAMEWORK
+********************************************************************
+Use adoDB caching in the framework
+many part can be improve, most of all the part when we bound to a view to other table
+for each field we run a little query. Caching here will save a lot!
+
+for instance if you put the sql debug on Class.Table, you will see that on all the view 
+there is lot lot of query performed cause for all the LIE action made on view
+a query is perform so if you view 20 records on a page u will have all the sql query of the page more 20 sql select for the LIE to find back some information
+the sample of card
+$HD_Form -> AddViewElement(gettext("Call Plan"), "tariff", "10%", "center", "sort", "15", "lie", "cc_tariffgroup", "tariffgroupname", "id='%id'", "%1");
+you have a LIE here to see the tariffgroup name so if you view lot of card, you will do a lot of sql query 
+
+
+#### MASS MAIL FEATURE
+********************************************************************
+option to let send an email to all the a2billing user
+- check how is it done on phpBB
+if we have several thousand of mail to send this can be an issue with normal php scripts
+maybe a daemon is needed
+
+
+#### NEW TASK - NEW button style []
+********************************************************************
+Replace all the big button on view by a cute icons.
+
+
+#### FEATURE : BILLING ON VOIP CALL - DID VOIP CALL
+********************************************************************
+add billing for voip/call
+
+
+
+#### FEATURE : AGI
+********************************************************************
+Showing Balance on Softphone....
+
+
+#### LOAD BALANCING ON TRUNK
+********************************************************************
+Laod balancing not role over or fail over but load balancing. Expl.
+If you have 3 GSM gtwy of 90 port each, we want to send one call to the first gtwy 
+then the second call to the next gtwy and then the next call to the next gtwy.
+
+
+
 
 #### BUG : FAILOVER
 ********************************************************************
@@ -19,75 +204,11 @@ If the call fails over each of the successive attempts will add the correct pref
 
 
 
-#### GMT
-********************************************************************
-- we need a parameter to define the server_GMT
-- when creating a customer we need to have it as default on GMT+0
-- for signup module it can be managed with a right definition in the sql
-- call-history.php on customer dont have any GMT support on it
-
-
-#### CONFIGURATION
-********************************************************************
-- if the field is readonly : find a way maybe with css to change the backgroup color of the field like grey color
-
-- comments when u edit : "Insert the Group Name",  stuff like that when u edit -> this section is to provide a real information
-
-- dropdown value : As we have many Variables like Card_Type which can have 2 Values like postpaid & Prepaid, 
-   Our System will automatically show a Dropdown List to provide customer to select from it...
-   
-- we need a drop down for the group in list configuration   
-
-- remove the Text Area  and will make it simple Paragraph.. i will add a new type in the Framework
-  we need to show the only Description,, it should not confuse the use that either it is something to enter in database as this is description for this whole record
-
-- we want to define a concept of heritage for the AGI-Conf1, 2, 3
-using a general one agi-conf-base and we will only redefine the changes in agi-conf1, 2, etc...
-The web interface need to allow us to redefine only the parameter we want.
-
-- Change the name of list config groups to List Global Config
-
-
-
-We should get something like this at the end :
- 
-1. In Global config (list config groups), we should be able to click on each line, and only see the settings pertaining to that section.
- 
-2. When we click on a section, we can then edit, just as we can under list configuration, but you can only see the section you have clicked on.
- 
-4. Beneath "List Global Config" we need a button call Add AGI-CONF - this simply creates a standard agi-conf and calls it agi-conf2 (or 3 or 4 depending on how many have been created) We will see the parameter from AGI-Conf-Base and be able to redefine and save the changes
- 
-The new agi-conf-X can then be accessed via "List Global Config"
-this will do a SELECT of the AGI-Conf-Base and show the parameter that has been created
- 
-5. Within each setting, where possible, the user should be restricted to valid values, e.g if the options are "yes" or "no" then there should be a dropdown that only allows "yes" or "no" and no other value is allowed.
- 
- 
-
 #### BUG : SIGNUP
 ********************************************************************
 http://forum.asterisk2billing.org/viewtopic.php?p=7406#7406
  we shouldn't deactivate magic_quotes_gpc at all.
  
-
-#### FEATURE : FRIENDS
-********************************************************************
-its really hard to identify a sip frind based on name,  make the search base on the card number
-
-#### BUG : IMPORT
-********************************************************************
-http://forum.asterisk2billing.org/viewtopic.php?t=2221
-
-
-#### TODO : CUSTOMER UI
-********************************************************************
-1. May I suggest that the only Logo's displayed on the customer interface are the payment methods that are enabled.
-
-#### TODO : GENERATE VOUCHER
-********************************************************************
-In the generate option, the tag value is set to a random ID : 1181897201
-this allow us to see exactly after the generation those that has been created!
-If someone really use the tag feature to classify his voucher, this can be bit annoying! 
 
 
 #### TODO : Detach Selling ratecard from Buying ratecard
@@ -102,9 +223,7 @@ to have a CallerID prefix for DIDs, so that you might want to allocate the same 
 
 
 
-#### A2Billing_UI/Public/index.php
-********************************************************************
-QUERY:INSERT INTO cc_system_log (iduser, loglevel, action, description, tablename, pagename, ipaddress, data) VALUES('1','1','Page Visit','User Visited the Page','','index.php','127.0.0.1','')
+
 
 
 #### MAILTYPE : EPAYMENT GATEWAY SECURITY 
@@ -114,7 +233,7 @@ Can you add a Mailtype to Epayment Gateway Security Verification Failed so that 
 
 #### CUSTOMER : IAX / SIP Info 
 ********************************************************************
-user interface ability to et up the codec, etc..
+user interface ability to set up the codec, etc..
 
 
 #### IAX / SIP Info on signup
@@ -248,12 +367,6 @@ so that admin can click on update button to update the status
 what will happend when a invoice is paid
 we should not show the pay invoice button then 
 is there anything in framework that support like this?
-
-
-#### NEW TASK - NEW button style []
-********************************************************************
-New button for edit/delete... really tiny but with text
-New button for confirm Data
 
 
 #### FEATURES : CALLBACK dont bill 1st if not connected
@@ -842,3 +955,8 @@ Check Call Report.
 
 Fix the generation of pdf avoid to use ob_* functions and generate the pdf to disk
 so we avoid the problem of php memory exausting.
+
+#### [LEFT MENUS OF ADMIN AND CUSTOMER UI]
+*******************************************************************
+While browsing Admin and customer ui on clicking menus, page move upward to the top.
+It should not move upward when someone want to open the menus.

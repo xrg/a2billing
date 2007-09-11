@@ -9,7 +9,7 @@ If you are using $_SESSION (or $HTTP_SESSION_VARS), do not use session_register(
 
 
 */
-$FG_DEBUG = 2;
+$FG_DEBUG = 0;
 error_reporting(E_ALL & ~E_NOTICE);
 
 // Zone strings
@@ -27,12 +27,12 @@ session_start();
 
 
 if (isset($_GET["logout"]) && $_GET["logout"]=="true") { 
-	   session_destroy();
-	   $cus_rights=0;
-	   Header ("HTTP/1.0 401 Unauthorized");
-	   Header ("Location: index.php");
-	   die();
-	}
+	session_destroy();
+	$cus_rights=0;
+	Header ("HTTP/1.0 401 Unauthorized");
+	Header ("Location: index.php");	   
+	die();
+}
 	
 function access_sanitize_data($data){
 	$lowerdata = strtolower ($data);
@@ -50,4 +50,5 @@ function access_sanitize_data($data){
 function has_rights ($condition) {
 	return ($_SESSION['cus_rights'] & $condition);
 }
+
 ?>

@@ -35,15 +35,15 @@ $list = $HD_Form -> perform_action($form_action);
 
 if($form_action == "add")
 {
-    unset($_SESSION["cardnumber_signup"]);
-    $_SESSION["cardnumber_signup"] = $maxi;	
+	unset($_SESSION["cardnumber_signup"]);
+	$_SESSION["language_code"] = $_POST["language"];
+	$_SESSION["cardnumber_signup"] = $maxi;	
     Header ("Location: signup_confirmation.php");
 }
 
 
 // #### HEADER SECTION
 include("PP_header.php");
-
 
 
 

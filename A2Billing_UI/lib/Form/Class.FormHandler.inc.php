@@ -9,16 +9,16 @@
 // ************************************************************************
 
 
-class FormHandler{
+class FormHandler
+{	
 	var $_action = '';
 	var $_vars = null;
 	var $_processed = array();
 	var $DBHandle;
 	var $VALID_SQL_REG_EXP = true;
 	var $RESULT_QUERY = false;
-
-
-
+	
+	
 	/* CONFIG THE VIEWER : CV */
 	var $CV_TOPVIEWER = '';
 	var $CV_NO_FIELDS = "THERE IS NO RECORD !";
@@ -28,6 +28,9 @@ class FormHandler{
 	var $CV_FILTER_ABOVE_TABLE_PARAM = "?id=";
 	var $CV_FOLLOWPARAMETERS = '';
 	var $CV_FOLLOWPARAMETER_ARRAY = array();
+	
+	var $CV_DISPLAY_RECORD_LIMIT = true;
+	var $CV_DISPLAY_BROWSE_PAGE = true;
 
 	var $CV_CURRENT_PAGE = 0;
 
@@ -113,7 +116,10 @@ class FormHandler{
 	var $FG_OTHER_BUTTON1_IMG = '';
 	var $FG_OTHER_BUTTON2_IMG = '';
 	
-
+	var $FG_EDIT_PAGE_CONFIRM_BUTTON	= '';
+	var $FG_DELETE_PAGE_CONFIRM_BUTTON	= '';
+	var $FG_ADD_PAGE_CONFIRM_BUTTON		= '';
+	
 	/**
     * Sets the number of record to show by page
     * @public	-	@type integer
@@ -362,7 +368,7 @@ class FormHandler{
 	var $FG_ADDITIONAL_FUNCTION_AFTER_ADD = '';
 	var $FG_ADDITIONAL_FUNCTION_BEFORE_DELETE = '';
 	var $FG_ADDITIONAL_FUNCTION_AFTER_DELETE = '';
-
+	var $FG_ADDITIONAL_FUNCTION_AFTER_EDITION = '';
 
 	var $FG_TABLE_ALTERNATE_ROW_COLOR = array();
 	
@@ -398,7 +404,15 @@ class FormHandler{
 
     // Delete Message for FK
     var $FG_FK_DELETE_MESSAGE = "Are you sure to delete all records connected to this instance.";
+	
+    //To enable Disable Selection List 
+    var $FG_DISPLAY_SELECT  = false;	
 
+    //Selection List Field Name to get from Database
+    var $FG_SELECT_FIELDNAME  = "";
+
+	//Configuration Key value Field Name
+    var $FG_CONF_VALUE_FIELDNAME  = "";
     //*****************************
     // For Pre Selected Delete
     //Pre Selected Records Count
@@ -455,7 +469,12 @@ class FormHandler{
         $this -> FG_TEXT_ADITION_CONFIRMATION = gettext("Your new")." #FG_INSTANCE_NAME# ".gettext("has been inserted. <br>");
         $this -> FG_TEXT_ERROR_DUPLICATION = gettext("You cannot choose more than one !");
 
-        $this -> FG_FK_DELETE_MESSAGE = "Are you sure to delete all records connected to this instance.";
+        $this -> FG_FK_DELETE_MESSAGE = gettext("Are you sure to delete all records connected to this instance.");
+		
+		$this -> FG_EDIT_PAGE_CONFIRM_BUTTON	= gettext("CONFIRM DATA");
+		$this -> FG_DELETE_PAGE_CONFIRM_BUTTON	= gettext('DELETE');
+		$this -> FG_ADD_PAGE_CONFIRM_BUTTON		= gettext('CONFIRM DATA');
+		
 		if($this -> FG_ENABLE_LOG == 1)
 		{
 			$this -> logger = new Logger();
@@ -484,6 +503,8 @@ class FormHandler{
 		}
 		$this -> FG_EDITION_LINK	= $_SERVER['PHP_SELF']."?form_action=ask-edit&".$this->FG_TABLE_ID."=";
 		$this -> FG_DELETION_LINK	= $_SERVER['PHP_SELF']."?form_action=ask-delete&".$this->FG_TABLE_ID."=";
+
+ 
 
 		$this -> FG_DELETE_ALT = gettext("Delete this ").$this -> FG_INSTANCE_NAME;
 		$this -> FG_EDIT_ALT = gettext("Edit this ").$this -> FG_INSTANCE_NAME;
@@ -661,10 +682,10 @@ class FormHandler{
 	 * @ 12. $function render
      */
 
-	function AddViewElement($displayname, $fieldname, $colpercentage, $textalign='center', $sort='sort', $char_limit = null, $lie_type = null, $lie_with = null, $lie_fieldname = null, $lie_clause = null, $lie_display = null, $myfunc = null) {
+	function AddViewElement($displayname, $fieldname, $colpercentage, $textalign='center', $sort='sort', $char_limit = null, $lie_type = null, $lie_with = null, $lie_fieldname = null, $lie_clause = null, $lie_display = null, $myfunc = null, $link_file = null) {
         	$cur = count($this->FG_TABLE_COL);
 
-		$this->FG_TABLE_COL[$cur] = array($displayname, $fieldname, $colpercentage, $textalign, $sort, $char_limit, $lie_type, $lie_with, $lie_fieldname , $lie_clause , $lie_display, $myfunc );
+		$this->FG_TABLE_COL[$cur] = array($displayname, $fieldname, $colpercentage, $textalign, $sort, $char_limit, $lie_type, $lie_with, $lie_fieldname , $lie_clause , $lie_display, $myfunc , $link_file);
 
 		$this->FG_NB_TABLE_COL = count($this->FG_TABLE_COL);
 	}
@@ -889,7 +910,14 @@ class FormHandler{
 	 * @ $col_query	 
      */
 	 
-	function FieldEditElement ($fieldname) {         
+	function FieldEditElement ($fieldname) {     
+		if($this->FG_DISPLAY_SELECT == true)
+		{
+			if(strlen($this->FG_SELECT_FIELDNAME)>0)
+			{
+				$fieldname.= ", ".$this->FG_SELECT_FIELDNAME;
+			}
+		}
 		$this->FG_QUERY_EDITION = $fieldname;
 		$this->FG_QUERY_ADITION = $fieldname;
 	}
@@ -1537,12 +1565,27 @@ class FormHandler{
 			$as->disconnect();
 		}
 	}
+	
+	function create_status_log(){
+		$processed = $this->getProcessed();
+		$status = $processed['status'];
+		if($this -> RESULT_QUERY != '')
+			$id = $this -> RESULT_QUERY; // DEFINED BEFORE FG_ADDITIONAL_FUNCTION_AFTER_ADD		
+		else
+			$id = $processed['id']; // DEFINED BEFORE FG_ADDITIONAL_FUNCTION_AFTER_ADD		
+
+		$value = "'$status','$id'";
+		$func_fields = "status,id_cc_card";
+		$func_table = 'cc_status_log';
+		$id_name = "";
+		$instance_table = new Table();
+		$inserted_id = $instance_table -> Add_table ($this->DBHandle, $value, $func_fields, $func_table, $id_name);
+	} 
 	/**
      * Function to edit the fields
      * @public
      */
 	function create_sipiax_friends(){
-		
 		global $A2B;
 		$processed = $this->getProcessed();
 		
@@ -1731,7 +1774,10 @@ class FormHandler{
 					if (empty($processed[$fields_name]) && strtoupper(substr($this->FG_TABLE_ADITION[$i][13],3,4))=="NULL"){
 						$param_update .= $fields_name." = NULL ";
 					}else{
-						$param_update .= $fields_name." = '".addslashes(trim($processed[$fields_name]))."' ";
+						if($this->FG_TABLE_EDITION[$i][3]!= "SPAN")
+						{
+							$param_update .= $fields_name." = '".addslashes(trim($processed[$fields_name]))."' ";
+						}
 					}
 				}
 
@@ -1808,6 +1854,9 @@ class FormHandler{
 			{
 				$this -> logger -> insertLog_Update($_SESSION["admin_id"], 3, "A ".strtoupper($this->FG_INSTANCE_NAME)." UPDATED" , "A RECORD IS UPDATED, EDITION CALUSE USED IS ".$this->FG_EDITION_CLAUSE, $this->FG_TABLE_NAME, $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'], $param_update);
 			}
+		// CALL DEFINED FUNCTION AFTER THE ACTION ADDITION
+			if (strlen($this->FG_ADDITIONAL_FUNCTION_AFTER_EDITION)>0)
+				$res_funct = call_user_func(array(&$this, $this->FG_ADDITIONAL_FUNCTION_AFTER_EDITION)); 
 			
 			if ($this->FG_DEBUG<2)
 			if ( ($this->VALID_SQL_REG_EXP) && (isset($this->FG_GO_LINK_AFTER_ACTION_EDIT)) && $this->RESULT_QUERY){

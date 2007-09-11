@@ -65,7 +65,7 @@ $FG_TABLE_COL = array();
 Calldate Clid Src Dst Dcontext Channel Dstchannel Lastapp Lastdata Duration Billsec Disposition Amaflags Accountcode Uniqueid Serverid
 *******/
 
-$FG_TABLE_COL[]=array (gettext("Calldate"), "starttime", "18%", "center", "SORT", "19", "", "", "", "", "", "display_dateformat");
+$FG_TABLE_COL[]=array (gettext("Calldate"), "starttime", "18%", "center", "SORT", "19", "", "", "", "", "", "");
 $FG_TABLE_COL[]=array (gettext("Source"), "src", "10%", "center", "SORT", "30");
 $FG_TABLE_COL[]=array (gettext("Callednumber"), "calledstation", "18%", "right", "SORT", "30", "", "", "", "", "", "");
 $FG_TABLE_COL[]=array (gettext("Destination"), "destination", "18%", "center", "SORT", "30", "", "", "", "", "", "remove_prefix");
@@ -363,7 +363,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
             </tr>           
             <tr>
               <td width="35%" class="invoice_td"><?php echo gettext("From Date");?>&nbsp;:</td>
-              <td width="65%" class="invoice_td"><?php echo display_dateonly($invoice_dates[0][0]);?></td>
+              <td width="65%" class="invoice_td"><?php echo display_GMT($invoice_dates[0][0], $_SESSION["gmtoffset"], 0);?></td>
             </tr>
             <tr>
               <td >&nbsp;</td>
@@ -404,7 +404,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 						$i=($i+1)%2;		
 					?>
 					<tr class="invoice_rows">
-						<td align="center" class="invoice_td"><?php echo $data[0]?></td>
+						<td align="center" class="invoice_td"><?php echo display_GMT($data[0], $_SESSION["gmtoffset"], 0);?></td>
 						<td class="invoice_td" align="right"><?php echo $data[2]?></td>
 						<td  class="invoice_td" align="right"><?php echo number_format(convert_currency($currencies_list, $data[1], $data[3], $selected_currency),3)." ".$selected_currency ?></td>
 					                 	
@@ -575,7 +575,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 					
 				?>
 				<tr class="invoice_rows">
-					<td align="center"  class="invoice_td"><?php echo $data[0]?></td>
+					<td align="center"  class="invoice_td"><?php echo display_GMT($data[0], $_SESSION["gmtoffset"], 0);?></td>
 					<td class="invoice_td" align="right"><?php echo $minutes?> </td>
 					<td class="invoice_td" align="left">
 						<img src="<?php echo Images_Path_Main ?>/sidenav-selected.jpg" height="6" width="<?php echo $widthbar?>">
@@ -649,7 +649,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 								$select_list = $instance_sub_table -> Get_list ($DBHandle, $sub_clause, null, null, null, null, null, null);
 								$field_list_sun = split(',',$FG_TABLE_COL[$i][8]);
 								$record_display = $FG_TABLE_COL[$i][10];
-								for ($l=1;$l<=count($field_list_sun);$l++){													$record_display = str_replace("%$l", $select_list[0][$l-1], $record_display);	
+								for ($l=1;$l<=count($field_list_sun);$l++){$record_display = str_replace("%$l", $select_list[0][$l-1], $record_display);	
 								}
 							}elseif ($FG_TABLE_COL[$i][6]=="list"){
 									$select_list = $FG_TABLE_COL[$i][7];
@@ -667,7 +667,14 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 						 if (isset ($FG_TABLE_COL[$i][11]) && strlen($FG_TABLE_COL[$i][11])>1){
 						 		call_user_func($FG_TABLE_COL[$i][11], $record_display);
 						 }else{
-						 		echo stripslashes($record_display);
+						 		if($i == 0)
+								{
+									echo display_GMT($record_display, $_SESSION["gmtoffset"]);
+								}
+								else
+								{
+									echo stripslashes($record_display);
+								}
 						 }						 
 						 ?></TD>
 				 		 <?php  } ?>
@@ -764,7 +771,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 	</tr>           
 	<tr>
 	  <td width="35%" ><font color="#003399"><?php echo gettext("From Date")?>&nbsp; :</font></td>
-	  <td  ><font color="#003399"><?php echo display_dateonly($invoice_dates[0][0]);?> </font></td>
+	  <td  ><font color="#003399"><?php echo display_GMT($invoice_dates[0][0], $_SESSION["gmtoffset"], 0);?> </font></td>
 	</tr>
 	</table>
 	<?php 	
@@ -796,7 +803,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 						$i=($i+1)%2;		
 					?>
             <tr class="invoice_rows">
-              <td width="37%" ><font color="#003399"><?php echo $data[0]?></font></td>
+              <td width="37%" ><font color="#003399"><?php echo display_GMT($data[0], $_SESSION["gmtoffset"], 0);?></font></td>
               <td width="41%" ><font color="#003399"><?php echo $data[2]?> </font></td>			 
               <td  align="right" ><font color="#003399"><?php echo number_format(convert_currency($currencies_list, $data[1], $data[3], $selected_currency),3)." ".$selected_currency ?></font></td>
             </tr>
@@ -868,7 +875,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 				
 			?>
             <tr class="invoice_rows">
-              <td width="26%" ><font color="#003399"><?php echo $data[0]?></font></td>
+              <td width="26%" ><font color="#003399"><?php echo display_GMT($data[0], $_SESSION["gmtoffset"], 0);?></font></td>
               <td width="28%" ><font color="#003399"><?php echo $minutes ?> </font></td>
 			   <td width="30%" ><font color="#003399"><?php echo $data[3]?> </font></td>			 
               <td  align="right" ><font color="#003399"><?php  display_2bill($data[2]) ?></font></td>
@@ -1024,7 +1031,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 								$select_list = $instance_sub_table -> Get_list ($DBHandle, $sub_clause, null, null, null, null, null, null);
 								$field_list_sun = split(',',$FG_TABLE_COL[$i][8]);
 								$record_display = $FG_TABLE_COL[$i][10];
-								for ($l=1;$l<=count($field_list_sun);$l++){													$record_display = str_replace("%$l", $select_list[0][$l-1], $record_display);	
+								for ($l=1;$l<=count($field_list_sun);$l++){	$record_display = str_replace("%$l", $select_list[0][$l-1], $record_display);	
 								}
 							}elseif ($FG_TABLE_COL[$i][6]=="list"){
 									$select_list = $FG_TABLE_COL[$i][7];
@@ -1042,7 +1049,14 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 						 if (isset ($FG_TABLE_COL[$i][11]) && strlen($FG_TABLE_COL[$i][11])>1){
 						 		call_user_func($FG_TABLE_COL[$i][11], $record_display);
 						 }else{
-						 		echo stripslashes($record_display);
+						 		if($i == 0)
+								{
+									echo display_GMT($record_display, $_SESSION["gmtoffset"], 1);
+								}
+								else
+								{
+									echo stripslashes($record_display);
+								}
 						 }						 
 						 ?> </font></td>
 						  <?php  } ?>

@@ -10,6 +10,9 @@ $A2B = new A2Billing();
 $A2B -> load_conf($agi, AST_CONFIG_DIR."a2billing.conf", 1);
 
 
+//Loading Configuration from DB
+
+$A2B -> load_conf_db($agi, AST_CONFIG_DIR."a2billing.conf", 1);
 define ("MANAGER_HOST", isset($A2B->config['global']['manager_host'])?$A2B->config['global']['manager_host']:null);
 define ("MANAGER_USERNAME", isset($A2B->config['global']['manager_username'])?$A2B->config['global']['manager_username']:null);
 define ("MANAGER_SECRET", isset($A2B->config['global']['manager_secret'])?$A2B->config['global']['manager_secret']:null);
@@ -140,6 +143,9 @@ SetLocalLanguage();
 
 function DbConnect($db= NULL)
 {
+	$ADODB_CACHE_DIR = dirname(__FILE__)."/ADODB_cache"; *-*
+	/*	$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;	*/
+	
 	if (DB_TYPE == "postgres"){
 			if (HOST!=null)
 				$datasource = 'pgsql://'.USER.':'.PASS.'@'.HOST.'/'.DBNAME;
@@ -150,11 +156,11 @@ function DbConnect($db= NULL)
 	}
 	
 	$DBHandle = NewADOConnection($datasource);
-
 	if (!$DBHandle) die("Connection failed");
-
+	
 	return $DBHandle;
 }
+
 
 function DbDisconnect($DBHandle)
 {

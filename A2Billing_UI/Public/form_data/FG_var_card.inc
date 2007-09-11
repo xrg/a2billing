@@ -1,14 +1,13 @@
 <?php
 
 getpost_ifset(array('id', 'username', 'useralias', 'uipass', 'credit', 'language', 'tariff',
-'id_didgroup', 'id_campaign', 'callback', 'activated','simultaccess', 'currency','typepaid', 'creditlimit',
+'id_didgroup','id_campaign', 'callback', 'activated','simultaccess', 'currency','typepaid', 'creditlimit',
 'lastname', 'firstname', 'email', 'address','city', 'state', 'country', 'zipcode', 'phone', 'fax', 'inuse',
 'cid', 'runservice', 'firstusedate','expirationdate', 'enableexpire', 'expiredays', 'sip_buddy',
-'iax_buddy','popup_select', 'vat', 'autorefill', 'initialbalance', 'id_subscription_fee', 'mac_addr', 'cardnumberlenght_list'));
-
+'iax_buddy','popup_select', 'vat', 'autorefill', 'initialbalance', 'mac_addr', 'cardnumberlenght_list', 
+'status', 'template_invoice', 'template_outstanding', 'description' ));
 
 $HD_Form = new FormHandler("cc_card","Card");
-
 $HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_TABLE_ID="id";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "ASC";
@@ -16,8 +15,8 @@ $HD_Form -> FG_FILTER_SEARCH_SESSION_NAME = 'entity_card_selection';
 
 $HD_Form -> FG_FK_DELETE_CONFIRM = true;
 $HD_Form -> FG_FK_DELETE_ALLOWED = true;
-$HD_Form -> FG_FK_TABLENAMES = array('cc_iax_buddies', 'cc_sip_buddies', 'cc_callerid');
-$HD_Form -> FG_FK_EDITION_CLAUSE = array("id_cc_card", "id_cc_card", "id_cc_card");
+$HD_Form -> FG_FK_TABLENAMES = array('cc_iax_buddies', 'cc_sip_buddies', 'cc_callerid', 'cc_card_history');
+$HD_Form -> FG_FK_EDITION_CLAUSE = array("id_cc_card", "id_cc_card", "id_cc_card", "id_cc_card");
 // DEFINE IF WE WANT TO DELETE THE CARD OR NOT
 $HD_Form -> FG_FK_WARNONLY = DELETE_FK_CARD;
 
@@ -44,15 +43,11 @@ $simultaccess_list_r["0"] = array( "0", gettext("INDIVIDUAL ACCESS"));
 $simultaccess_list_r["1"] = array( "1", gettext("SIMULTANEOUS ACCESS"));
 
 
-
-
-
 $currency_list = array();
 $currency_list_r = array();
 $indcur=0;
 
 $currencies_list = get_currencies();
-
 foreach($currencies_list as $key => $cur_value) {
 	$currency_list[$key]  = array( $cur_value[1].' ('.$cur_value[2].')', $key);
 	$currency_list_r[$key]  = array( $key, $cur_value[1]);
@@ -60,11 +55,26 @@ foreach($currencies_list as $key => $cur_value) {
 }
 
 
+$cardstatus_list = array();
+$cardstatus_list["0"]  = array( gettext("CANCELLED"), "0");
+$cardstatus_list["1"]  = array( gettext("ACTIVE"), "1");
+$cardstatus_list["2"]  = array( gettext("NEW"), "2");
+$cardstatus_list["3"]  = array( gettext("WAITING-MAILCONFIRMATION"), "3");
+$cardstatus_list["4"]  = array( gettext("RESERVED"), "4");
+$cardstatus_list["5"]  = array( gettext("EXPIRED"), "5");
+
+$cardstatus_list_acronym = array();
+$cardstatus_list_acronym["0"]  = array( gettext("<acronym title=\"CANCELLED\">".gettext("CANCEL")."</acronym>"), "0");
+$cardstatus_list_acronym["1"]  = array( gettext("<acronym title=\"ACTIVE\">".gettext("ACTIV")."</acronym>"), "1");
+$cardstatus_list_acronym["2"]  = array( gettext("<acronym title=\"NEW\">".gettext("NEW")."</acronym>"), "2");
+$cardstatus_list_acronym["3"]  = array( gettext("<acronym title=\"WAITING-MAILCONFIRMATION\">".gettext("WAIT")."</acronym>"), "3");
+$cardstatus_list_acronym["4"]  = array( gettext("<acronym title=\"RESERVED\">".gettext("RESERV")."</acronym>"), "4");
+$cardstatus_list_acronym["5"]  = array( gettext("<acronym title=\"EXPIRED\">".gettext("EXPIR")."</acronym>"), "5");
+
 
 $typepaid_list = array();
 $typepaid_list["0"]  = array( gettext("PREPAID CARD"), "0");
 $typepaid_list["1"]  = array( gettext("POSTPAY CARD"), "1");
-
 
 $expire_list = array();
 $expire_list["0"]  = array( gettext("NO EXPIRY"), "0");
@@ -72,6 +82,25 @@ $expire_list["1"]  = array( gettext("EXPIRE DATE"), "1");
 $expire_list["2"]  = array( gettext("EXPIRE DAYS SINCE FIRST USE"), "2");
 $expire_list["3"]  = array( gettext("EXPIRE DAYS SINCE CREATION"), "3");
 
+$template_invoice_list = array();
+$no = 0;
+$dir = opendir ('./templates/default/'.$A2B->config['global']['invoice_template_path']);
+while (false !== ($file = readdir($dir))) {
+	if (strpos($file, '.tpl',1)) {
+		$template_invoice_list[''.$no++] = array(substr($file, 0, -4), $file);
+	}
+}
+closedir($dir);
+
+$template_outstanding_list = array();
+$no = 0;
+$dir = opendir ('./templates/default/'.$A2B->config['global']['outstanding_template_path']);
+while (false !== ($file = readdir($dir))) {
+	if (strpos($file, '.tpl',1)) {
+		$template_outstanding_list[''.$no++] = array(substr($file, 0, -4), $file);
+	}
+}
+closedir($dir);
 
 $inuse_list = array();
 for ($k=0;$k<=40;$k++)
@@ -88,10 +117,11 @@ $yesno["0"] = array( gettext("No"), "0");
 $invoiceday_list = array();
 for ($k=0;$k<=28;$k++)
 	$invoiceday_list["$k"]  = array( "$k", "$k");
-
-
+	
 
 $HD_Form -> AddViewElement(gettext("ID"), "id", "3%", "center", "sort");
+if(stristr($_SERVER['REQUEST_URI'], 'A2B_entity_card_multi.php'))
+	$HD_Form -> AddViewElement(gettext("TAG"), "tag", "11%", "center", "sort");
 $HD_Form -> AddViewElement_edit(gettext("CARD NUMBER"), "username", "11%", "center", "sort");
 if (!($popup_select>=1))  $HD_Form -> AddViewElement("<acronym title=\"CARDALIAS\">".gettext("ALIAS")."</acronym>", "useralias", "12%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("LASTNAME"), "lastname", "10%", "center", "sort", "15");
@@ -99,21 +129,24 @@ $HD_Form -> AddViewElement("<acronym title=\"BALANCE\">".gettext("BA")."</acrony
 
 if (!($popup_select>=1)){
 	$HD_Form -> AddViewElement(gettext("Call Plan"), "tariff", "10%", "center", "sort", "15", "lie", "cc_tariffgroup", "tariffgroupname", "id='%id'", "%1");
-	$HD_Form -> AddViewElement("<acronym title=\"ACTIVATED\">".gettext("ACT")."</acronym>", "activated", "4%", "center", "sort", "", "list", $actived_list);
+	$HD_Form -> AddViewElement(gettext("STATUS"), "status", "4%", "center", "sort", "", "list", $cardstatus_list_acronym);
 	$HD_Form -> AddViewElement(gettext("LG"), "language", "3%", "center", "sort");
 	$HD_Form -> AddViewElement(gettext("USE"), "inuse", "3%", "center", "sort");
 	$HD_Form -> AddViewElement("<acronym title=\"".gettext("CURRENCY")."\">".gettext("CUR")."</acronym>", "currency", "5%", "center", "sort", "", "list", $currency_list_key);
 	$HD_Form -> AddViewElement(gettext("SIP"), "sip_buddy", "3%", "center", "sort", "", "list", $yesno);
 	$HD_Form -> AddViewElement(gettext("IAX"), "iax_buddy", "3%", "center", "sort", "", "list", $yesno);
 	$HD_Form -> AddViewElement("<acronym title=\"NUM CALLS DONE\">".gettext("NT")."</acronym>", "nbused", "4%", "center", "sort");
-	$FG_COL_QUERY='id, username, useralias, lastname, credit, tariff, activated, language, inuse, currency, sip_buddy, iax_buddy, nbused';
+	if(stristr($_SERVER['REQUEST_URI'], 'A2B_entity_card_multi.php')) {
+		$FG_COL_QUERY='id, tag, username, useralias, lastname, credit, tariff, status, language, inuse, currency, sip_buddy, iax_buddy, nbused';
+	} else {
+		$FG_COL_QUERY='id, username, useralias, lastname, credit, tariff, status, language, inuse, currency, sip_buddy, iax_buddy, nbused';
+	}
 }else{
 	$FG_COL_QUERY='id, username, lastname, credit';
 }
 // Code here for adding the fields in the Export File
 
-
-$HD_Form -> FieldExportElement('id, username, useralias, lastname, credit, tariff, activated, language, inuse, currency, sip_buddy, iax_buddy, nbused, mac_addr');
+$HD_Form -> FieldExportElement('id, username, useralias, lastname, credit, tariff, activated, language, inuse, currency, sip_buddy, iax_buddy, nbused, mac_addr, template_invoice, template_outstanding');
 
 // Code ends here for Export
 
@@ -153,6 +186,7 @@ $HD_Form -> AddSearchElement_C2(gettext("INUSE"),'inuse1','inuse1type','inuse2',
 $HD_Form -> FG_FILTER_SEARCH_FORM_SELECT_TEXT = '';
 $HD_Form -> AddSearchElement_Select(gettext("SELECT LANGUAGE"), null, null, null, null, null, "language", 0, $language_list_r);
 $HD_Form -> AddSearchElement_Select(gettext("SELECT TARIFF"), "cc_tariffgroup", "id, tariffgroupname, id", "", "tariffgroupname", "ASC", "tariff");
+$HD_Form -> AddSearchElement_Select(gettext("SELECT STATUS"), "cc_status", "id, status", "", "status", "ASC", "status");
 $HD_Form -> AddSearchElement_Select(gettext("SELECT ACCESS"), null, null, null, null, null, "simultaccess", 0, $simultaccess_list_r);
 $HD_Form -> AddSearchElement_Select(gettext("SELECT CURRENCY"), null, null, null, null, null, "currency", 0, $currency_list_r);
 
@@ -259,17 +293,6 @@ $HD_Form -> AddEditElement (gettext("CALL PLAN"),
 			   "", "", "", "", "");
 
 
-$HD_Form -> AddEditElement (gettext("SUBSCRIPTION FEE"),
-			   "id_subscription_fee",
-			   "",
-			   "SELECT",
-			   "", "", "",
-			   "sql",
-			   "cc_subscription_fee",
-			   "id, label",
-			   "", "", "", "", "", "", array("-1", gettext("NOT DEFINED")) );
-
-
 $HD_Form -> AddEditElement (gettext("DIDGROUP"),
 			   "id_didgroup",
 			   "",
@@ -280,7 +303,9 @@ $HD_Form -> AddEditElement (gettext("DIDGROUP"),
 			   "id,didgroupname",
 			   "", "", "%1", "", "", "", array("-1",gettext("NOT DEFINED")) );
 
-
+/*
+// The campaign for predictive dialer is removing for now, as this feature arent supported anymore
+// this is not fully depreciated
 $HD_Form -> AddEditElement (gettext("CAMPAIGN"),
 			   "id_campaign",
 			   "",
@@ -290,7 +315,7 @@ $HD_Form -> AddEditElement (gettext("CAMPAIGN"),
 			   "cc_campaign",
 			   "id,campaign_name",
 			   "", "", "", "", "", "", array('-1',gettext("NOT DEFINED")) );
-
+*/
 
 $HD_Form -> AddEditElement (gettext("CALLBACK"),
 			   "callback",
@@ -302,14 +327,14 @@ $HD_Form -> AddEditElement (gettext("CALLBACK"),
 			   "" , "", "",	"", "", "",	"", gettext("Configure the callback url, ie : SIP/jeremy@211.23.76.12 or ZAP/g2, etc...") );
 
 
-$HD_Form -> AddEditElement (gettext("ACTIVATED"),
-			   "activated",
-			   't',
-			   "RADIOBUTTON",
+$HD_Form -> AddEditElement (gettext("STATUS"),
+			   "status",
+			   "",
+			   "SELECT",
 			   "",
 			   "",
-			   gettext("Choose if you want to activate this card"),
-			   "" , "", "" , "Yes :t, - No:f",	"", "", "", "" );
+			   "",
+			   "list" , "", "",	"", $cardstatus_list, "%1", "", "" );
 
 
 $HD_Form -> AddEditElement (gettext("SIGNUP CONFIRMATION"),
@@ -535,7 +560,23 @@ $HD_Form -> AddEditElement (gettext("ZIP/POSTAL CODE"),
 			   gettext("Insert the zipcode"),
 			   "" , "", "",	"", "", "" , "NO", "");
 
+$timezone_list = get_timezones();  
+foreach($timezone_list as $key => $cur_value) {
+	if(in_array(SERVER_GMT,$cur_value)){
+		$timezone_list[$key]  = array( $cur_value[2], $key." selected");
+	}else{
+		$timezone_list[$key]  = array( $cur_value[2], $key);
+	}
+}
 
+
+$HD_Form -> AddEditElement (gettext("TIMEZONE"),
+			   "id_timezone",
+			   "",
+			   "SELECT",
+			   "","","",
+			   "list" , "", "",	"", $timezone_list, "%1", "", "" );
+			   
 $HD_Form -> AddEditElement (gettext("PHONE NUMBER"),
 			   "phone",			
 			   '$value',	
@@ -594,7 +635,24 @@ $HD_Form -> AddEditElement (gettext("IN USE"),
 			   "", 
 			   "list" , "", "",	"", $inuse_list, "", "", gettext("Define the number of use of this cardnumber. If a non-standard stop of the application occurs it maybe that the card is in 'in-use' > 0  status. Get it back to '0' if you know there is a issue on this card.") );
 
-
+$HD_Form -> AddEditElement (gettext("INVOICE TEMPLATE"),
+			   "template_invoice",
+			   '',	
+			   "SELECT",
+			   "",	
+			   "",	
+			   "", 
+			   "list" , "", "",	"", $template_invoice_list, "%1", "", gettext("Define the default template to use to display invoice.") );
+			   
+$HD_Form -> AddEditElement (gettext("INCUR TEMPLATE"),
+			   "template_outstanding",
+			   '',	
+			   "SELECT",
+			   "",	
+			   "",	
+			   "", 
+			   "list" , "", "",	"", $template_outstanding_list, "%1", "", gettext("Define the default template to use to display incur.") );		
+			   
 $HD_Form -> AddEditElement (gettext("CALLERID"),
 			   "callerid",
 			   '$value',
@@ -607,13 +665,24 @@ $HD_Form -> AddEditElement (gettext("CALLERID"),
 			   "label, id",
 			   "", "", "%1 : (%2)", "", "", "cc_callerid:cid:cc_callerid:cid, cid, id_cc_card:id_cc_card = %id:id_cc_card:%3 - (%1)::othertablelinked:cli, id_cc_card:%1:id_cc_card='%1':18");
 
+$HD_Form -> AddEditElement (gettext("CARD HISTORY"),
+			   "description",
+			   '$value',
+			   "INSERT",
+			   "multiline",
+			   "",
+			   "",
+			   "sql",
+			   "call_tariff",
+			   "description, id",
+			   "", "", "%1 : (%2)", "", "", "cc_card_history:description:cc_card_history:description, description, id_cc_card:id_cc_card = %id:id_cc_card:%3 - (%1)::othertablelinked:cli, id_cc_card:%1:id_cc_card='%1':18");
+
+$HD_Form -> FieldEditElement ('username, useralias, uipass, credit, language, tariff, id_didgroup, '.
+'callback, status,  activatedbyuser, simultaccess, currency, runservice, autorefill, initialbalance, typepaid, creditlimit,	firstusedate, enableexpire,'.
+'expirationdate, expiredays, invoiceday, vat, lastname, firstname, email, address, city, state, country, zipcode, id_timezone, phone,'.
+'fax, sip_buddy, iax_buddy, mac_addr, inuse, template_invoice, template_outstanding');
 
 
-
-$HD_Form -> FieldEditElement ('username, useralias, uipass, credit, language, tariff, id_subscription_fee, id_didgroup, id_campaign,'.
-'callback, activated, activatedbyuser, simultaccess, currency, runservice, autorefill, initialbalance, typepaid, creditlimit,	firstusedate, enableexpire,'.
-'expirationdate, expiredays, invoiceday, vat, lastname, firstname, email, address, city, state, country, zipcode, phone,'.
-'fax, sip_buddy, iax_buddy, mac_addr, inuse');
 
 
 if(!isset($myusername)) $myusername='';
@@ -631,6 +700,7 @@ $HD_Form -> FG_FILTER_APPLY = true;
 $HD_Form -> FG_FILTERFIELD = 'cardnumber';
 $HD_Form -> FG_FILTERFIELDNAME = 'cardnumber';
 $HD_Form -> FG_FILTER_FORM_ACTION = 'list';
+
 
 if (isset($filterprefix)  &&  (strlen($filterprefix)>0)){
 	if (strlen($HD_Form -> FG_TABLE_CLAUSE)>0) $HD_Form -> FG_TABLE_CLAUSE.=" AND ";
@@ -656,6 +726,8 @@ $HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM
 
 
 $HD_Form -> FG_ADDITIONAL_FUNCTION_AFTER_ADD = 'create_sipiax_friends';
+$HD_Form -> FG_ADDITIONAL_FUNCTION_AFTER_ADD = 'create_status_log';
+$HD_Form -> FG_ADDITIONAL_FUNCTION_AFTER_EDITION = 'create_status_log';
 
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";

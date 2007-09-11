@@ -66,9 +66,7 @@ if ((!isset($field)) && (count($field)<=1)){
 	$field[0]="CARD ID";
 	$field[1]="username";	}
 
-
-
-$FG_TABLE_COL[]=array (gettext($field[0]), $field[1], "20%", "center","SORT");
+$FG_TABLE_COL[]=array (gettext($field[0]), $field[1], "20%", "center","SORT", "", "30", "", "", "", "", "linktocustomer");
 $FG_TABLE_COL[]=array (gettext("Duration"), "calltime", "20%", "center", "SORT", "30", "", "", "", "", "", "display_minute");
 $FG_TABLE_COL[]=array (gettext("Buy"), "buy", "25%", "center","sort","","","","","","","display_2bill");
 $FG_TABLE_COL[]=array (gettext("Sell"), "cost", "25%", "center","sort","","","","","","","display_2bill");
@@ -187,7 +185,6 @@ if ((isset($inputtopvar)) && ($inputtopvar!="") && (isset($topsearch)) && ($tops
 }
 
 $instance_table = new Table($FG_TABLE_NAME, $FG_COL_QUERY);
-
 if (!$nodisplay){
 	$list = $instance_table -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, $order, $sens, null, null, $FG_LIMITE_DISPLAY, $current_page*$FG_LIMITE_DISPLAY,$SQL_GROUP);
 	$res = $DBHandle -> Execute($QUERY_TOTAL);
@@ -198,7 +195,6 @@ if (!$nodisplay){
 			$list_total[]=$res -> fetchRow();
 		}
 	}
-
 	if ($FG_DEBUG == 3) echo "<br>Clause : $FG_TABLE_CLAUSE";
 	$nb_record = $instance_table -> Table_count ($DBHandle);
 	if ($FG_DEBUG >= 1) var_dump ($list);

@@ -5,6 +5,8 @@ include (dirname(__FILE__)."/Class.Table.php");
 
 $A2B = new A2Billing();
 
+$_START_TIME = time();
+
 // SELECT THE FILES TO LOAD THE CONFIGURATION
 $A2B -> load_conf($agi, AST_CONFIG_DIR."a2billing.conf", 1);
 
@@ -17,19 +19,23 @@ define ("PASS", isset($A2B->config['database']['password'])?$A2B->config['databa
 define ("DBNAME", isset($A2B->config['database']['dbname'])?$A2B->config['database']['dbname']:null);
 define ("DB_TYPE", isset($A2B->config['database']['dbtype'])?$A2B->config['database']['dbtype']:null); 	
 
+$A2B -> load_conf_db($agi, AST_CONFIG_DIR."a2billing.conf", 1);
+
 define ("LEN_ALIASNUMBER", isset($A2B->config['global']['len_aliasnumber'])?$A2B->config['global']['len_aliasnumber']:null);
 define ("LEN_VOUCHER", isset($A2B->config['global']['len_voucher'])?$A2B->config['global']['len_voucher']:null);
 define ("BASE_CURRENCY", isset($A2B->config['global']['base_currency'])?$A2B->config['global']['base_currency']:null);
 define ("MANAGER_HOST", isset($A2B->config['global']['manager_host'])?$A2B->config['global']['manager_host']:null);
 define ("MANAGER_USERNAME", isset($A2B->config['global']['manager_username'])?$A2B->config['global']['manager_username']:null);
 define ("MANAGER_SECRET", isset($A2B->config['global']['manager_secret'])?$A2B->config['global']['manager_secret']:null);
+define ("SERVER_GMT", isset($A2B->config['global']['server_GMT'])?$A2B->config['global']['server_GMT']:null);
+
 
 define ("BUDDY_SIP_FILE", isset($A2B->config['webui']['buddy_sip_file'])?$A2B->config['webui']['buddy_sip_file']:null);
 define ("BUDDY_IAX_FILE", isset($A2B->config['webui']['buddy_iax_file'])?$A2B->config['webui']['buddy_iax_file']:null);
 define ("API_SECURITY_KEY", isset($A2B->config['webui']['api_security_key'])?$A2B->config['webui']['api_security_key']:null);
 
 // WEB DEFINE FROM THE A2BILLING.CONF FILE
-define ("EMAIL_ADMIN", isset($A2B->config['webui']['email_admin'])?$A2B->config['webui']['email_admin']:null);
+define ("EMAIL_ADMIN", isset($A2B->config['webui']['email_admin'])?$A2B->config['webui']['email_admin']:'root@localhost');
 define ("NUM_MUSICONHOLD_CLASS", isset($A2B->config['webui']['num_musiconhold_class'])?$A2B->config['webui']['num_musiconhold_class']:null);
 define ("SHOW_HELP", isset($A2B->config['webui']['show_help'])?$A2B->config['webui']['show_help']:null);	
 define ("MY_MAX_FILE_SIZE_IMPORT", isset($A2B->config['webui']['my_max_file_size_import'])?$A2B->config['webui']['my_max_file_size_import']:null);
@@ -115,21 +121,23 @@ if(ini_get('register_globals'))
 		$$key = $value;
 	}
 }
-
 if (!isset($_SESSION["language"]))
 {
-	$_SESSION["language"]='english';
+  $_SESSION["language"] = 'english';
 }
 else if (isset($language))
 {
   $_SESSION["language"] = $language;
 }
 define ("LANGUAGE",$_SESSION["language"]);
-require("languageSettings.php");
+require_once("languageSettings.php");
     SetLocalLanguage($_SESSION["language"]);
  
 function DbConnect($db= NULL)
 {
+	$ADODB_CACHE_DIR = dirname(__FILE__)."/ADODB_cache";
+	/*	$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;	*/
+	
 	if (DB_TYPE == "postgres"){
 			if (HOST!=null)
 				$datasource = 'pgsql://'.USER.':'.PASS.'@'.HOST.'/'.DBNAME;
@@ -140,9 +148,8 @@ function DbConnect($db= NULL)
 	}
 	
 	$DBHandle = NewADOConnection($datasource);
-
 	if (!$DBHandle) die("Connection failed");
-
+	
 	return $DBHandle;
 }
 
@@ -263,11 +270,20 @@ define ("RELOAD_ASTERISK_IF_SIPIAX_CREATED", isset($A2B->config["signup"]['reloa
 
 define ("ENABLE_LOG", 1);
 
-include (FSROOT."lib/help.php");
+define ("ENABLE_LOG", 1);
 include (FSROOT."lib/Class.Logger.php");
 $log = new Logger();
-$log -> insertLog((integer) $_SESSION['admin_id'], 1, "Page Visit", "User Visited the Page", '', $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'],'');
+include (FSROOT."lib/help.php");
+// 
+// The system will not log for Public/index.php and 
+// signup/index.php
+$URI = $_SERVER['REQUEST_URI'];
+$restircted_url = substr($URI,-16);
+if(!($restircted_url == "Public/index.php") && !($restircted_url == "signup/index.php") ){
+	$log -> insertLog($_SESSION["admin_id"], 1, "Page Visit", "User Visited the Page", '', $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'],'');
+}
 $log = null;
 
-
+//Enable Disable, list of values on page A2B_entity_config.php?form_action=ask-edit&id=1
+define("LIST_OF_VALUES",true)
 ?>

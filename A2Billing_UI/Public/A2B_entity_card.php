@@ -7,12 +7,12 @@ include ("../lib/Form/Class.FormHandler.inc.php");
 include ("./form_data/FG_var_card.inc");
 
 
+
 if (! has_rights (ACX_CUSTOMER)){ 
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");
 	die();
 }
-
 
 /***********************************************************************************/
 
@@ -20,8 +20,16 @@ $HD_Form -> setDBHandler (DbConnect());
 $HD_Form -> init();
 
 
+
 /********************************* BATCH UPDATE ***********************************/
-getpost_ifset(array('popup_select', 'popup_formname', 'popup_fieldname', 'upd_inuse', 'upd_activated', 'upd_language', 'upd_tariff', 'upd_credit', 'upd_credittype', 'upd_simultaccess', 'upd_currency', 'upd_typepaid', 'upd_creditlimit', 'upd_enableexpire', 'upd_expirationdate', 'upd_expiredays', 'upd_runservice', 'upd_runservice', 'batchupdate', 'check', 'type', 'mode', 'addcredit', 'cardnumber'));
+getpost_ifset(array('popup_select', 'popup_formname', 'popup_fieldname', 'upd_inuse', 'upd_status', 'upd_language', 'upd_tariff', 'upd_credit', 'upd_credittype', 'upd_simultaccess', 'upd_currency', 'upd_typepaid', 'upd_creditlimit', 'upd_enableexpire', 'upd_expirationdate', 'upd_expiredays', 'upd_runservice', 'upd_runservice', 'batchupdate', 'check', 'type', 'mode', 'addcredit', 'cardnumber'));
+
+if(isset($id) && isset($description) && !is_numeric($description) && !empty($description)){
+	$field_insert = "id_cc_card, description";
+	$value_insert = "'$id', '$description'";
+	$instance_sub_table = new Table("cc_card_history", $field_insert);
+	$result_query = $instance_sub_table -> Add_table ($HD_Form -> DBHandle, $value_insert, null, null);	
+}
 
 // CHECK IF REQUEST OF BATCH UPDATE
 if ($batchupdate == 1 && is_array($check)){
@@ -126,6 +134,8 @@ $list = $HD_Form -> perform_action($form_action);
 // #### HEADER SECTION
 include("PP_header.php");
 
+
+
 if ($popup_select){
 ?>
 <SCRIPT LANGUAGE="javascript">
@@ -143,6 +153,7 @@ function sendValue(selvalue){
 // #### HELP SECTION
 if ($form_action=='list' && !($popup_select>=1)){
 show_help('list customer');
+
 
 ?>
 <script language="JavaScript" src="javascript/card.js"></script>
@@ -192,9 +203,6 @@ if ($form_action == "list"){
 	</div>
 </div>
 
-<div class="toggle_hide2show">
-<center><a href="#" target="_self" class="toggle_menu"><img class="toggle_hide2show" src="../Images/kicons/toggle_hide2show.png" onmouseover="this.style.cursor='hand';" HEIGHT="16"> <font class="fontstyle_002"><?php echo gettext("BATCH UPDATE");?> </font></a></center>
-	<div class="tohide" style="display:none;">
 <?php
 
 /********************************* BATCH UPDATE ***********************************/
@@ -204,8 +212,17 @@ if ($form_action == "list" && (!($popup_select>=1))	){
 	$FG_TABLE_CLAUSE = "";
 	$list_tariff = $instance_table_tariff -> Get_list ($HD_Form -> DBHandle, $FG_TABLE_CLAUSE, "tariffgroupname", "ASC", null, null, null, null);
 	$nb_tariff = count($list_tariff);
+	
+	$instance_table_status = new Table("cc_status", "id, status");
+	$FG_TABLE_CLAUSE = "";
+	$list_status = $instance_table_status -> Get_list ($HD_Form -> DBHandle, $FG_TABLE_CLAUSE, "status", "ASC", null, null, null, null);
+	$nb_status = count($list_status);
+
 ?>
 <!-- ** ** ** ** ** Part for the Update ** ** ** ** ** -->
+<div class="toggle_hide2show">
+<center><a href="#" target="_self" class="toggle_menu"><img class="toggle_hide2show" src="<?php echo KICON_PATH; ?>/toggle_hide2show.png" onmouseover="this.style.cursor='hand';" HEIGHT="16"> <font class="fontstyle_002"><?php echo gettext("BATCH UPDATE");?> </font></a></center>
+	<div class="tohide" style="display:none;">
 
 <center>
 <b>&nbsp;<?php echo $HD_Form -> FG_NB_RECORD ?> <?php echo gettext("cards selected!"); ?>&nbsp;<?php echo gettext("Use the options below to batch update the selected cards.");?></b>
@@ -229,17 +246,21 @@ if ($form_action == "list" && (!($popup_select>=1))	){
 		  </td>
 		</tr>
 		<tr>		
-          <td align="left" class="bgcolor_001">
-		  	<input name="check[upd_activated]" type="checkbox" <?php if ($check["upd_activated"]=="on") echo "checked"?>>
+          <td align="left"  class="bgcolor_001">
+		  	<input name="check[upd_status]" type="checkbox" <?php if ($check["upd_status"]=="on") echo "checked"?> >
 		  </td>
-		  <td align="left"  class="bgcolor_001">	
-				 2)&nbsp;<?php echo gettext("ACTIVATE");?>&nbsp;:
-				<font class="version">
-				<input type="radio" NAME="type[upd_activated]" value="t" <?php if((!isset($type[upd_activated]))|| ($type[upd_activated]=='t') ){?>checked<?php }?>> <?php echo gettext("Yes");?>
-				<input type="radio" NAME="type[upd_activated]" value="f" <?php if($type[upd_activated]=='f'){?>checked<?php }?>> <?php echo gettext("No");?>
-				</font>
+		  <td align="left" class="bgcolor_001">
+			  	2)&nbsp;<?php echo gettext("STATUS");?>&nbsp;:
+				<select NAME="upd_status" size="1" class="form_input_select">
+					<?php					 
+				  	 foreach ($list_status as $recordset){ 						 
+					?>
+						<option class=input value='<?php echo $recordset[0]?>'  <?php if ($upd_status==$recordset[0]) echo 'selected="selected"'?>><?php echo $recordset[1]?></option>                        
+					<?php } ?>
+				</select><br/>
 		  </td>
 		</tr>
+
 		<tr>		
           <td align="left" class="bgcolor_001">
 		  		<input name="check[upd_language]" type="checkbox" <?php if ($check["upd_language"]=="on") echo "checked"?>>
@@ -339,7 +360,7 @@ if ($form_action == "list" && (!($popup_select>=1))	){
 				</font>
 		  </td>
 		</tr>
-		<tr>
+		<tr>$HD_Form -> DBHandle
           <td align="left" class="bgcolor_001">
 		  		<input name="check[upd_enableexpire]" type="checkbox" <?php if ($check["upd_enableexpire"]=="on") echo "checked"?>>
 		  </td>
@@ -400,15 +421,12 @@ if ($form_action == "list" && (!($popup_select>=1))	){
 		</form>
 		</table>
 </center>
+	</div>
+</div>
 <!-- ** ** ** ** ** Part for the Update ** ** ** ** ** -->
-
 <?php
 } // END if ($form_action == "list")
 ?>
-
-
-	</div>
-</div>
 
 
 <?php  if ( isset($_SESSION["is_sip_iax_change"]) && $_SESSION["is_sip_iax_change"]){ ?>
@@ -479,6 +497,18 @@ if (!$popup_select && $form_action == "ask-add"){
 // #### CREATE FORM OR LIST
 //$HD_Form -> CV_TOPVIEWER = "menu";
 if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
+if ($form_action=='ask-edit')
+{
+	$inst_table = new Table("cc_card", "useralias, uipass");
+	$FG_TABLE_CLAUSE = "id = $id";
+	$list_card_info = $inst_table -> Get_list ($HD_Form -> DBHandle, $FG_TABLE_CLAUSE);			
+	$username = $list_card_info[0][0];
+	$password = base64_encode($list_card_info[0][1]);
+	
+?>
+
+		<div align="right" style="padding-right:20px;"><a href="../../A2BCustomer_UI/index.php?username=<?=$username?>&password=<?=$password?>" target="_blank">GO TO CUSTOMER ACCOUNT</a></div>
+<?php }
 
 $HD_Form -> create_form ($form_action, $list, $id=null) ;
 
@@ -493,7 +523,7 @@ if (!is_null ($HD_Form->FG_ORDER) && ($HD_Form->FG_ORDER!='') && !is_null ($HD_F
 
 
 
-
 // #### FOOTER SECTION
 if (!($popup_select>=1)) include("PP_footer.php");
+
 ?>

@@ -8,7 +8,6 @@ getpost_ifset(array('id', 'username', 'useralias', 'uipass', 'credit', 'language
 
 
 $HD_Form = new FormHandler("cc_card","User");
-
 $HD_Form -> FG_DEBUG = 0;
 // FAQ
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "ASC";
@@ -32,6 +31,7 @@ if(strlen($callPlan_idlist) == 0)
 {
 	exit("No Call Plan Defined.");
 }
+
 
 $call_table = new Table("cc_tariffgroup", "tariffgroupname,id");
 $HD_Form -> setDBHandler (DbConnect());
@@ -95,16 +95,22 @@ if (isset($form_action) && $form_action=="add")
     $loginkey = MDP_STRING(20);
 }
 
-$HD_Form -> AddEditElement ("LANGUAGE",
+
+$languages_db_list = get_db_languages();  
+
+foreach($languages_db_list as $key => $cur_value) {
+	if(in_array('en', $cur_value)){
+		$lang_list[$key]  = array( $cur_value[1], $key." selected");
+	}else{
+		$lang_list[$key]  = array( $cur_value[1], $key);
+	}
+}
+$HD_Form -> AddEditElement (gettext("LANGUAGE"),
 			   "language",
 			   "",
 			   "SELECT",
-			   "",
-			   "",
-			   "",
-			   "list" , "", "",	"", $language_list, "%1", "", "" );
-
-
+			   "","","",
+			   "list" , "", "",	"", $lang_list, "%1", "", "" );
 $HD_Form -> AddEditElement ("CURRENCY",
 			   "currency",
 			   "",
@@ -214,7 +220,23 @@ $HD_Form -> AddEditElement (gettext("ZIP/POSTAL CODE"),
 			   gettext("Insert your zipcode"),
 			   "" , "", "",	"", "", "" , "", "");
 
+$timezone_list = get_timezones();  
+foreach($timezone_list as $key => $cur_value) {
+	if(in_array(SERVER_GMT, $cur_value)){
+		$timezone_list[$key]  = array( $cur_value[2], $key." selected");
+	}else{
+		$timezone_list[$key]  = array( $cur_value[2], $key);
+	}
+}
 
+
+$HD_Form -> AddEditElement (gettext("TIMEZONE"),
+			   "id_timezone",
+			   "",
+			   "SELECT",
+			   "","","",
+			   "list" , "", "",	"", $timezone_list, "%1", "", "" );
+			   
 $HD_Form -> AddEditElement (gettext("PHONENUMBER"),
 			   "phone",
 			   '$value',
@@ -241,20 +263,20 @@ $HD_Form -> AddEditElement (gettext("VERIFICATION"),
 			   "size=10 maxlength=6",
 			   "19",
 			   gettext("Insert code from above picture"),
-			   "" , "", "",	"", "", "" , "", "", null, null, null,CAPTCHA_ENABLE);
+			   "" , "", "",	"", "", "" , "", "",CAPTCHA_ENABLE);
 
 if (strlen($callPlan_idlist) > 1)
 {
 	$HD_Form -> FieldEditElement ('username, useralias, uipass, credit, language, tariff, id_didgroup, id_campaign,'.
 	'callback, activated, simultaccess, currency, runservice, typepaid, creditlimit, firstusedate, enableexpire,'.
-	'expirationdate, expiredays, vat, lastname, firstname, email, address, city, state, country, zipcode, phone,'.
+	'expirationdate, expiredays, vat, lastname, firstname, email, address, city, state, country, zipcode, id_timezone, phone,'.
 	'fax, captchacode, sip_buddy, iax_buddy, inuse');
 }
 else
 {
 	$HD_Form -> FieldEditElement ('username, useralias, uipass, credit, language, id_didgroup, id_campaign,'.
 	'callback, activated, simultaccess, currency, runservice, typepaid, creditlimit, firstusedate, enableexpire,'.
-	'expirationdate, expiredays, vat, lastname, firstname, email, address, city, state, country, zipcode, phone,'.
+	'expirationdate, expiredays, vat, lastname, firstname, email, address, city, state, country, zipcode, id_timezone, phone,'.
 	'fax, captchacode, sip_buddy, iax_buddy, inuse');
 }
 

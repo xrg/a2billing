@@ -220,13 +220,8 @@ function display_dateformat($mydate){
  */
 function display_dateonly($mydate)
 {
-	if ($mydate != "")
-	{
+	if (strlen($mydate) > 0 && $mydate != '0000-00-00'){
 		echo date("m/d/Y", strtotime($mydate));
-	}
-	else
-	{
-		echo $mydate;
 	}
 }
 
@@ -302,6 +297,17 @@ function linkonmonitorfile($value){
 	echo '<img src="'.Images_Path.'/stock-mic.png" height="18" /></a>';
 	
 }
+
+function linktocustomer($value){
+	$handle = DbConnect();
+	$inst_table = new Table("cc_card", "id");
+	$FG_TABLE_CLAUSE = "username = '$value'";
+	$list_customer = $inst_table -> Get_list ($handle, $FG_TABLE_CLAUSE, "", "", "", "", "", "", "", 10);			
+	$id = $list_customer[0][0];
+    echo "<a href=\"A2B_entity_card.php?form_action=ask-edit&id=$id\">$value</a>";
+}
+
+
 
 /*
  * function MDP_STRING
@@ -558,6 +564,7 @@ function validate_upload($the_file, $the_file_type) {
 } # END validate_upload
 
 
+
 /** Calculate arguments in a string of the form "Test %1 or %4 .." 
 	This function is carefully written, so that it could be used securely, for
 	example, when 'eval(string_param(" echo %&0",array( $dangerous_str)))' is called.
@@ -785,4 +792,248 @@ function sql_decodeArray($arr_str){
 	}
 	return $ret_array;
 }
+
+function securitykey ($key, $data)
+{
+	// RFC 2104 HMAC implementation for php.
+	// Creates an md5 HMAC.
+	// Eliminates the need to install mhash to compute a HMAC
+	// Hacked by Lance Rushing
+	
+	$b = 64; // byte length for md5
+	if (strlen($key) > $b) {
+		$key = pack("H*",md5($key));
+	}
+	$key  = str_pad($key, $b, chr(0x00));
+	$ipad = str_pad('', $b, chr(0x36));
+	$opad = str_pad('', $b, chr(0x5c));
+	$k_ipad = $key ^ $ipad ;
+	$k_opad = $key ^ $opad;
+	
+	return md5($k_opad  . pack("H*",md5($k_ipad . $data)));
+}
+
+/*
+	Function to show GMT DateTime.
+*/	
+
+function get_timezones($handle = null)
+{
+	if (empty($handle)){
+		$handle = DbConnect();
+	}
+	$instance_table = new Table();
+	$QUERY =  "SELECT id, gmttime, gmtzone from cc_timezone order by id";
+	$result = $instance_table -> SQLExec ($handle, $QUERY);
+	
+	if (is_array($result)){
+		$num_cur = count($result);
+		for ($i=0;$i<$num_cur;$i++){
+			$timezone_list[$result[$i][0]] = array (1 => $result[$i][1], 2 => $result[$i][2]);
+		}
+	}
+	
+	return $timezone_list;
+}
+
+
+function display_GMT($currDate, $number, $fulldate = 1)
+{	
+	$date_time_array = getdate(strtotime($currDate));
+    $hours = $date_time_array['hours'];
+    $minutes = $date_time_array['minutes'];
+    $seconds = $date_time_array['seconds'];
+    $month = $date_time_array['mon'];
+    $day = $date_time_array['mday'];
+    $year = $date_time_array['year'];      
+    $timestamp = mktime($hours, $minutes, $seconds, $month, $day, $year);  
+	
+	if ($number < 0){ $timestamp = $timestamp -($number); }
+	else { $timestamp = $timestamp +($number);}
+
+	if($fulldate == 1)
+	{
+		$gmdate = gmdate("m/d/Y h:i:s A", $timestamp);
+	}
+	else
+	{
+		$gmdate = gmdate("m/d/Y", $timestamp);
+	}
+	return $gmdate;
+}
+
+/*
+ * Following fuctions return the latest title to add as 
+ * agi-conf(title_number) for Global configurations and List of confiurations
+ * Tables : cc_confi_group
+ * Operations : SELECT
+ * 
+ */
+
+function agi_confx_title($handle=null){
+		if (empty($handle)){
+		$handle = DbConnect();
+	}
+	$instance_table = new Table();
+
+	$QUERY =  "SELECT id,group_title,group_description from cc_config_group where group_title like '%agi-conf%' order by group_title";
+	$result = $instance_table -> SQLExec ($handle, $QUERY);
+	
+	if (is_array($result)){
+		$num_cur = count($result);
+		for ($i=0;$i<$num_cur;$i++){
+			$config_group_id = $result[0][0];
+			$group_title[] = $result[$i][1];
+			$description = $result[0][2];
+		}
+	}
+	foreach($group_title as $value){
+		$agi_number[] = (int)substr($value, -1);	
+	}
+	$len_agi_array = sizeof($agi_number);
+	$agi_conf_number = $len_agi_array + 1;
+	for($i=1; $i <= $len_agi_array; $i++){
+		if($i != $agi_number[$i - 1]){
+			$agi_conf_number = $i;
+			break;
+		}
+	}
+	$config_group = array();
+	$config_group[0] = "agi-conf".$agi_conf_number;
+	$config_group[1] = $config_group_id;
+	$config_group[2] = $description;
+	return $config_group;
+}
+
+
+/*
+ * Following function will generate agi-confx, 
+ * Duplicate all the configurations of agi-conf1 and produce agi-confx
+ * Subquery is also used in this function to improve functional response.
+ * Operations : SELECT , INSERT
+ * Tables : cc_config, cc_config_group
+ */
+
+
+function add_agi_confx($handle = null)
+{
+	if (empty($handle)){
+		$handle = DbConnect();
+	}
+	$instance_table = new Table();
+	$config_group = array();
+	$config_group  = agi_confx_title(); // calling function  to generate agi-conf(title_number)
+	$group_title = $config_group[0];
+	$config_group_id = $config_group[1]; 
+	$description = $config_group[2];
+	$value = "'$group_title','$description'";
+	$func_fields = "group_title,group_description";
+	$func_table = 'cc_config_group';
+	$id_name = "id";
+	$inserted_id = $instance_table -> Add_table ($handle, $value, $func_fields, $func_table, $id_name);
+
+	$value = "SELECT config_title,config_key,config_value,config_description,config_valuetype,$inserted_id,config_listvalues FROM cc_config WHERE config_group_id = $config_group_id";
+	$func_fields = "config_title,config_key,config_value,config_description,config_valuetype,config_group_id,config_listvalues";
+	$func_table = 'cc_config';
+	$id_name = "";
+	$subquery = true;
+	$result = $instance_table -> Add_table ($handle, $value, $func_fields, $func_table, $id_name,$subquery);
+	return $inserted_id;
+}
+
+
+/*
+ * This function delete agi-confx, all its global configurations and list of configurations
+ * Operations : DELETE
+ * Tables : cc_config, cc_config_group
+ */
+function delete_agi_confx($id_agi)
+{
+	if (empty($handle)){
+		$handle = DbConnect();
+	}
+	$instance_table = new Table();
+	
+	$clause = "id = $id_agi";
+	$fun_table = "cc_config_group";
+	$result = $instance_table -> Delete_table ($handle, $clause, $fun_table);
+
+	$clause = "config_group_id = $id_agi";
+	$fun_table = "cc_config";
+	$result = $instance_table -> Delete_table ($handle, $clause, $fun_table);
+
+	return $result;
+	
+}
+function check_translated($id, $languages){
+	if (empty($handle)){
+		$handle = DbConnect();
+	}
+	$instance_table = new Table();
+
+	$QUERY =  "SELECT id from cc_templatemail where id = $id and id_language = '$languages'";
+	$result = $instance_table -> SQLExec ($handle, $QUERY);
+	if (is_array($result)){
+		if(count($result) > 0)
+			return true;
+		else
+			return false;
+	}else{
+		return false;
+	} 		
+	
+}
+function update_translation($id, $languages, $subject, $mailtext){
+	if (empty($handle)){
+		$handle = DbConnect();
+	}
+	$instance_table = new Table();
+	$param_update = "subject = '$subject', messagetext = '$mailtext'";
+	$clause = "id = $id and id_language = '$languages'";
+	$func_table = 'cc_templatemail';
+	$update = $instance_table -> Update_table ($handle, $param_update, $clause, $func_table);
+	return $update;
+}
+
+function insert_translation($id, $languages, $subject, $mailtext){
+	if (empty($handle)){
+		$handle = DbConnect();
+	}
+	$instance_table = new Table();
+	$fromemail = '';
+	$fromname = '';			
+	$mailtype = '';			
+	$QUERY =  "SELECT fromemail,fromname,mailtype from cc_templatemail where id = $id and id_language = 'en'";
+	$result = $instance_table -> SQLExec ($handle, $QUERY);
+	if (is_array($result)){
+		if(count($result) > 0){
+			$fromemail = $result[0][0];
+			$fromname = $result[0][1];						
+			$mailtype = $result[0][2];						
+		}
+	}
+			
+	
+	$value = "$id, '$languages', '$subject', '$mailtext', '$mailtype','$fromemail','$fromname'";
+	$func_fields = "id,id_language,subject,messagetext,mailtype,fromemail,fromname";
+	$func_table = 'cc_templatemail';
+	$id_name = "";
+	$inserted = $instance_table -> Add_table ($handle, $value, $func_fields, $func_table, $id_name);
+	return $inserted;
+}
+
+function mailtemplate_latest_id(){
+		if (empty($handle)){
+		$handle = DbConnect();
+	}
+	$instance_table = new Table();
+
+	$QUERY =  "SELECT max(id) as latest_id from cc_templatemail where id_language = 'en'";
+	$result = $instance_table -> SQLExec ($handle, $QUERY);
+	$result[0][0] = $result[0][0] + 1;
+	return $result[0][0];
+	
+}
+
+
 ?>

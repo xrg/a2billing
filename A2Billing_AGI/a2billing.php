@@ -169,8 +169,8 @@ if ($mode == 'standard'){
 			
 			// RETRIEVE THE CHANNEL STATUS AND LOG : STATUS - CREIT - MIN_CREDIT_2CALL 
 			$stat_channel = $agi->channel_status($A2B-> channel);
-			$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, '[CHANNEL STATUS : '.$stat_channel["result"].' = '.$stat_channel["data"].']');
-			$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[CREDIT : ".$A2B-> credit."][CREDIT MIN_CREDIT_2CALL : ".$A2B->agiconfig['min_credit_2call']."]");
+			$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, '[CHANNEL STATUS : '.$stat_channel["result"].' = '.$stat_channel["data"].']'.
+						   "\n[CREDIT : ".$A2B-> credit."][CREDIT MIN_CREDIT_2CALL : ".$A2B->agiconfig['min_credit_2call']."]");
 			
 			// CHECK IF THE CHANNEL IS UP
 			//if ($stat_channel["status"]!= "6" && $stat_channel["status"]!= "1"){	
@@ -277,16 +277,12 @@ if ($mode == 'standard'){
 						$A2B->agiconfig['use_dnid'] = 1;
 						$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "TRUNK - dnid : ".$A2B->dnid." (".$A2B->agiconfig['use_dnid'].")");
 					}
-				}else{
-			
-					//$res_dtmf = $agi->agi_exec("GET DATA prepaid-sipiax-press9 2000 1");
+				} else {
 					$res_dtmf = $agi->get_data('prepaid-sipiax-press9', 2000, 1);
 					$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "RES SIP_IAX_FRIEND DTMF : ".$res_dtmf ["result"]);
-					
 					$A2B-> sip_iax_buddy = $res_dtmf ["result"];
 				}
 			}
-			
 			
 			if ( isset($A2B-> sip_iax_buddy) && ($A2B-> sip_iax_buddy == $A2B->agiconfig['sip_iax_pstn_direct_call_prefix'])) {
 				
@@ -348,8 +344,12 @@ if ($mode == 'standard'){
 		$QUERY =  "SELECT cc_did.id, cc_did_destination.id, billingtype, tariff, destination,  voip_call, username".
 			" FROM cc_did, cc_did_destination,  cc_card ".
 			" WHERE id_cc_did=cc_did.id and cc_card.id=id_cc_card and cc_did_destination.activated=1  and cc_did.activated=1 and did='$mydnid' ".
-			" AND cc_did.startingdate<= CURRENT_TIMESTAMP AND (cc_did.expirationdate > CURRENT_TIMESTAMP OR cc_did.expirationdate IS NULL OR ".
-			" cc_did.expirationdate = '0000-00-00 00:00:00') ORDER BY priority ASC";
+			" AND cc_did.startingdate<= CURRENT_TIMESTAMP AND (cc_did.expirationdate > CURRENT_TIMESTAMP OR cc_did.expirationdate IS NULL";
+		if ($A2B->config["database"]['dbtype'] != "postgres"){
+			// MYSQL
+			$QUERY .= " OR cc_did.expirationdate = '0000-00-00 00:00:00'";
+		}
+		$QUERY .= ") ORDER BY priority ASC";
 		
 		$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, $QUERY);
 		$result = $A2B -> instance_table -> SQLExec ($A2B->DBHandle, $QUERY);
@@ -495,9 +495,9 @@ if ($mode == 'standard'){
 					$id_server_group = $A2B -> config["callback"]['id_server_group'];
 					$priority = 1;
 					$timeout = $A2B -> config["callback"]['timeout']*1000;
-					$callerid = $A2B -> config["callback"]['callerid'];
+					//$callerid = $A2B -> config["callback"]['callerid'];
+					$callerid=$A2B->CallerID;
 					$application='';
-					//$callerid=$A2B->CallerID;
 					$account = $A2B -> accountcode;
 					
 					$uniqueid = MDP_NUMERIC(5).'-'.MDP_STRING(7);

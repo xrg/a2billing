@@ -181,8 +181,9 @@ function openURLFilter(theLINK)
 							 $instance_sub_table->debug_st=1;
 							 //echo "i=" . $i . ", k=". $k ."<br>";
 							 }
-						$sub_clause = str_replace("%id", $list[$ligne_number][$i-$k], $this->FG_TABLE_COL[$i][9]);																																	
-						$select_list = $instance_sub_table -> Get_list ($this->DBHandle, $sub_clause, null, null, null, null, null, null);
+						$sub_clause = str_replace("%id", $list[$ligne_number][$i-$k], $this->FG_TABLE_COL[$i][9]);
+						
+						$select_list = $instance_sub_table -> Get_list ($this->DBHandle, $sub_clause, null, null, null, null, null, null, null, 10);
 						$field_list_sun = split(',',$this->FG_TABLE_COL[$i][8]);
 						$record_display = $this->FG_TABLE_COL[$i][10];
 								
@@ -361,7 +362,8 @@ function openURLFilter(theLINK)
 
 		  </TD>
         </TR>
-         <TR >
+		<?php if ($this->CV_DISPLAY_BROWSE_PAGE){ ?>
+        <TR >
           <TD height=16 style="PADDING-LEFT: 5px; PADDING-RIGHT: 3px">
 			<TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
                 <TR>
@@ -375,9 +377,11 @@ function openURLFilter(theLINK)
                   </TD>
             </TABLE></TD>
         </TR>
+		<?php  	} 	?>
 		
 		<FORM name="otherForm2" action="<?php echo $_SERVER['PHP_SELF']?>">
 		<tr><td>
+		<?php if ($this->CV_DISPLAY_RECORD_LIMIT){ ?>
 			<?php echo gettext("DISPLAY");?>
 			<input type="hidden" name="stitle" value="<?php echo $stitle?>">
 			<input type="hidden" name="atmenu" value="<?php echo $atmenu?>">
@@ -399,7 +403,7 @@ function openURLFilter(theLINK)
 			</select>
 			<input class="form_input_button"  value=" <?php echo gettext("GO");?> " type="SUBMIT">
 			&nbsp; &nbsp; &nbsp;
-			
+		<?php  	} 	?>
 		<?php if ($this->FG_EXPORT_CSV){ ?>
 		 - &nbsp; &nbsp; <a href="export_csv.php?var_export=<?php echo $this->FG_EXPORT_SESSION_VAR ?>&var_export_type=type_csv" target="_blank" ><img src="<?php echo Images_Path;?>/excel.png" border="0" height="30"/><?php echo gettext("Export CSV");?></a>
 

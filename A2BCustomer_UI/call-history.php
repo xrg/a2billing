@@ -12,7 +12,7 @@ if (! has_rights (ACX_ACCESS)){
 if (!$A2B->config["webcustomerui"]['cdr']) exit();
 
 
-$QUERY = "SELECT  username, credit, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, lastuse, activated FROM cc_card WHERE username = '".$_SESSION["pr_login"]."' AND uipass = '".$_SESSION["pr_password"]."'";
+$QUERY = "SELECT  username, credit, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, lastuse, activated, status FROM cc_card WHERE username = '".$_SESSION["pr_login"]."' AND uipass = '".$_SESSION["pr_password"]."'";
 
 
 $DBHandle_max  = DbConnect();
@@ -24,7 +24,7 @@ if ($resmax)
 if ($numrow == 0) exit();
 $customer_info =$resmax -> fetchRow();
 
-if( $customer_info [13] != "t" && $customer_info [13] != "1" ) {
+if($customer_info [14] != "1" ) {
 	exit();
 }
 
@@ -45,18 +45,6 @@ $FG_DEBUG = 0;
 $FG_TABLE_NAME="cc_call t1";
 
 
-
-
-// THIS VARIABLE DEFINE THE COLOR OF THE HEAD TABLE
-$FG_TABLE_HEAD_COLOR = "#D1D9E7";
-
-
-$FG_TABLE_EXTERN_COLOR = "#7F99CC"; //#CC0033 (Rouge)
-$FG_TABLE_INTERN_COLOR = "#EDF3FF"; //#FFEAFF (Rose)
-
-
-
-
 // THIS VARIABLE DEFINE THE COLOR OF THE HEAD TABLE
 $FG_TABLE_ALTERNATE_ROW_COLOR[] = "#FFFFFF";
 $FG_TABLE_ALTERNATE_ROW_COLOR[] = "#F2F8FF";
@@ -75,36 +63,18 @@ $DBHandle  = DbConnect();
 $FG_TABLE_COL = array();
 
 
-/*******
-Calldate Clid Src Dst Dcontext Channel Dstchannel Lastapp Lastdata Duration Billsec Disposition Amaflags Accountcode Uniqueid Serverid
-*******/
-
 $FG_TABLE_COL[]=array (gettext("Calldate"), "starttime", "14%", "center", "SORT", "19", "", "", "", "", "", "display_dateformat");
-//$FG_TABLE_COL[]=array ("Callend", "stoptime", "15%", "center", "SORT", "19");
-
-
-$FG_TABLE_COL[]=array ("Source", "source", "12%", "center", "SORT", "30");
-
-$FG_TABLE_COL[]=array (gettext("CardNumber"), "calledstation", "12%", "center", "SORT", "30", "", "", "", "", "", "remove_prefix");
+$FG_TABLE_COL[]=array (gettext("Source"), "source", "12%", "center", "SORT", "30");
+$FG_TABLE_COL[]=array (gettext("PhoneNumber"), "calledstation", "12%", "center", "SORT", "30", "", "", "", "", "", "remove_prefix");
 $FG_TABLE_COL[]=array (gettext("Destination"), "destination", "12%", "center", "SORT", "30", "", "", "", "", "", "remove_prefix");
-
 $FG_TABLE_COL[]=array (gettext("Duration"), "sessiontime", "7%", "center", "SORT", "30", "", "", "", "", "", "display_minute");
-
 $FG_TABLE_COL[]=array (gettext("Cardused"), "username", "11%", "center", "SORT", "30");
 $FG_TABLE_COL[]=array ('<acronym title="'.gettext("Terminate Cause").'">'.gettext("TC").'</acronym>', "terminatecause", "9%", "center", "SORT", "30");
 $FG_TABLE_COL[]=array (gettext("Calltype"), "sipiax", "6%", "center", "SORT",  "", "list", $list_calltype);
-//if ($_SESSION["is_admin"]==1) $FG_TABLE_COL[]=array ("Con_charg", "connectcharge", "12%", "center", "SORT", "30");
-//if ($_SESSION["is_admin"]==1) $FG_TABLE_COL[]=array ("Dis_charg", "disconnectcharge", "12%", "center", "SORT", "30");
-//if ($_SESSION["is_admin"]==1) $FG_TABLE_COL[]=array ("Sec/mn", "secpermin", "12%", "center", "SORT", "30");
-
-
-//if ($_SESSION["is_admin"]==1) $FG_TABLE_COL[]=array ("Buycosts", "buycosts", "12%", "center", "SORT", "30");
 $FG_TABLE_COL[]=array (gettext("InitalRate"), "calledrate", "7%", "center", "SORT", "30", "", "", "", "", "", "display_2dec");
 $FG_TABLE_COL[]=array (gettext("Cost"), "sessionbill", "10%", "center", "SORT", "30", "", "", "", "", "", "display_2bill");
 
 
-
-// ??? cardID
 $FG_TABLE_DEFAULT_ORDER = "t1.starttime";
 $FG_TABLE_DEFAULT_SENS = "DESC";
 	
@@ -259,8 +229,6 @@ $nb_record = $instance_table -> Table_count ($DBHandle, $FG_TABLE_CLAUSE);
 if ($FG_DEBUG >= 1) var_dump ($list);
 
 }//end IF nodisplay
-
-
 
 if ($nb_record<=$FG_LIMITE_DISPLAY){ 
 	$nb_record_max=1;
@@ -558,17 +526,15 @@ echo $CC_help_balance_customer;
 				  	 $ligne_number=0;					 
 				  	 foreach ($list as $recordset){ 
 						 $ligne_number++;
+						 $recordset[0] = display_GMT($recordset[0], $_SESSION["gmtoffset"], 1);
 				?>
 				
                		 <TR bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$ligne_number%2]?>"  onMouseOver="bgColor='#C4FFD7'" onMouseOut="bgColor='<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$ligne_number%2]?>'"> 
 						<TD vAlign=top align="<?php echo $FG_TABLE_COL[$i][3]?>" class=tableBody><?php  echo $ligne_number+$current_page*$FG_LIMITE_DISPLAY.".&nbsp;"; ?></TD>
 							 
 				  		<?php for($i=0;$i<$FG_NB_TABLE_COL;$i++){ ?>
-						
-						  
 						<?php 				
 							if ($FG_TABLE_COL[$i][6]=="lie"){
-
 									$instance_sub_table = new Table($FG_TABLE_COL[$i][7], $FG_TABLE_COL[$i][8]);
 									$sub_clause = str_replace("%id", $recordset[$i], $FG_TABLE_COL[$i][9]);																																	
 									$select_list = $instance_sub_table -> Get_list ($DBHandle, $sub_clause, null, null, null, null, null, null);
@@ -598,11 +564,11 @@ echo $CC_help_balance_customer;
 							
 				 		 ?>
                  		 <TD vAlign=top align="<?php echo $FG_TABLE_COL[$i][3]?>" class=tableBody><?php 
-						 if (isset ($FG_TABLE_COL[$i][11]) && strlen($FG_TABLE_COL[$i][11])>1){
+                 		 if (isset ($FG_TABLE_COL[$i][11]) && strlen($FG_TABLE_COL[$i][11])>1){
 						 		call_user_func($FG_TABLE_COL[$i][11], $record_display);
 						 }else{
-						 		echo stripslashes($record_display);
-						 }						 
+									echo stripslashes($record_display);
+							 }						 
 						 ?></TD>
 				 		 <?php  } ?>
                   
