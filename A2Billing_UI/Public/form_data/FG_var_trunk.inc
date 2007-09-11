@@ -142,7 +142,7 @@ $HD_Form -> AddEditElement (gettext("FAILOVER TRUNK"),
 	"cc_trunk",
 	"id_trunk, trunkcode",
 	"", "", "", "", gettext("You can define an other trunk in case of failover!"), '', 
-	array('-1',_("NOT DEFINED"));
+	array('-1',_("NOT DEFINED")));
 
 
 $HD_Form -> FieldEditElement ('id_provider, trunkcode, trunkprefix, removeprefix, providertech, providerip, addparameter, failover_trunk');
