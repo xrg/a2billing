@@ -263,8 +263,8 @@ BEGIN
 		END IF;
 	END IF;
 	
-	sum_amount := (sum_calls * (100.0 - agent_vat))/100.0 + sum_charges;
-	sum_tax :=(sum_calls * agent_vat)/100.0 ;
+	sum_amount := sum_calls/(100.0 +agent_vat) + sum_charges;
+	sum_tax :=(sum_calls*agent_vat)/(100.0 + agent_vat);
 
 	UPDATE cc_invoices SET amount = sum_amount, tax = sum_tax, total =sum_amount + sum_tax
 		WHERE id = ret_id;
@@ -304,6 +304,8 @@ BEGIN
 		s_time := e_time + interval '0.01 sec';
 	END LOOP;
 END; $$ LANGUAGE PLPGSQL STRICT VOLATILE;
+
+-- SELECT agent_create_all_invoices(id, interval '1 month') from cc_agent;
 
 CREATE OR REPLACE VIEW cc_agent_invoices_v AS
 	SELECT cc_agent.login,cc_invoices.* , invoicesent_date, invoicestatus
@@ -382,7 +384,7 @@ BEGIN
 END;  $$ LANGUAGE PLPGSQL STRICT VOLATILE;
 
 CREATE OR REPLACE FUNCTION fmt_mins( seconds INTEGER) RETURNS text AS $$
-	SELECT CASE WHEN $1 > 1800 THEN to_char(floor($1 /3600) ,'FM99') || 'h' || 
+	SELECT CASE WHEN $1 > 10800 THEN to_char(floor($1 /3600) ,'FM999') || 'h' || 
 		to_char( ($1 / 60 ) % 60, 'FM00')
 		WHEN $1 > 59 THEN to_char(floor($1/60),'FM9900:') || to_char($1 % 60, 'FM00')
 		ELSE to_char($1, 'FM00') || 's' END ;
@@ -434,6 +436,8 @@ END;  $$ LANGUAGE PLPGSQL STRICT VOLATILE;
 
 
 
---	 (bill/EXTRACT(EPOCH FROM session_time))*3600
--- for percent: to_char('990D0000%')
+/*SELECT id, destination, buycost, buycost2 FROM cc_call_recalc_v WHERE starttime > '2007-08-28 00:00' AND round(buycost-buycost2,4) <> 0.0 ;
+SELECT round(buycost2 - buycost,4), round(sessionbill2 - sessionbill,4) from cc_call_recalc_v;*/
+
+
 --eof
