@@ -51,8 +51,8 @@ $HD_Form_c-> AddEditElement (gettext("AGENT"),
 	"$prop", "", "",
 	"sql",
 	"cc_agent",
-	"name, id",
-	"", "", "%1", "", gettext("The agent involved in the transaction"));
+	"id,name",
+	"", "", "", "", gettext("The agent involved in the transaction"));
 
 $HD_Form_c -> AddEditElement (gettext("AMOUNT"),
 	"credit",
@@ -67,7 +67,7 @@ $HD_Form_c -> AddEditElement (gettext("CHARGETYPE"),
 	"pay_type",
 	"",
 	"SELECT",
-	"",
+	"label-first",
 	"",
 	"",
 	"list" , "", "",  "", $chargetype_list, "%1" , "" , "");

@@ -35,8 +35,8 @@ $HD_Form -> AddEditElement (gettext("SERVER GROUP"),
 				"", "", "",
 				"sql",
 				"cc_server_group",
-				"name, id",
-				"", "", "%1","", "");
+				"id,name",
+				"", "", "","", "");
 
 $HD_Form -> AddEditElement (gettext("SERVER HOSTNAME"),	
 			   "server_ip",		

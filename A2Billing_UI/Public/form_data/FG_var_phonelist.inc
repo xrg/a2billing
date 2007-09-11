@@ -62,8 +62,8 @@ $HD_Form -> AddEditElement (gettext("CAMPAIGN"),
 	"", "", "",
 	"sql",
 	"cc_campaign",
-	"campaign_name, id",
-	"", "", "%1", "", "");
+	"id, campaign_name",
+	"", "", "", "", "");
 
 $HD_Form -> AddEditElement (gettext("NAME"),
 	"name",

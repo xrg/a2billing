@@ -112,10 +112,10 @@ $HD_Form -> AddEditElement (gettext("CURRENCY"),
 				   "currency",
 				   '$value',
 				   "SELECT",
+				   "label-first",
 				   "",
 				   "",
-				   "",
-				   "list" , "", "",	"", $currency_list, "%1", "", "" );
+				   "list" , "", "",	"", $currency_list, "", "", "" );
 
 
 if ($form_action=="ask-add"){

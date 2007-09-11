@@ -106,16 +106,16 @@ if ($numrow>0){
 		"tariffplan",	
 		'$value',	
 		"SELECT",		
-		'size="10" multiple="multiple"',
+		'multiple',
 		"",		
 		"",	
 		"sql",		
 		"call_tariff",	
-		"label, id",		
-		"", "", "%1 : (%2)", "", "", "cc_tariffgroup_plan:idtariffplan:cc_tariffplan LEFT JOIN cc_tariffgroup_plan ON cc_tariffplan.id=cc_tariffgroup_plan.idtariffplan:DISTINCT cc_tariffplan.tariffname, cc_tariffplan.id: cc_tariffgroup_plan.idtariffgroup = %id:idtariffgroup:%2 - (%1)::::%1:id='%1'");		
+		"id,label",		
+		"", "", "%1 : (%2)", "", "", "cc_tariffgroup_plan:idtariffplan:cc_tariffplan LEFT JOIN cc_tariffgroup_plan ON cc_tariffplan.id=cc_tariffgroup_plan.idtariffplan:DISTINCT cc_tariffplan.id,cc_tariffplan.tariffname : cc_tariffgroup_plan.idtariffgroup = %id:idtariffgroup:%2 - (%1)::::%1:id='%1'");		
 		
 }
-																											
+
 
 
 $HD_Form -> FieldEditElement ('tariffgroupname, lcrtype, id_cc_package_offer, removeinterprefix');

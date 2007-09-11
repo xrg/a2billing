@@ -48,7 +48,7 @@ $HD_Form -> AddEditElement (gettext("MAILTYPE"),
 	"mailtype",
 	'$value',
 	"SELECT",
-	"",
+	"label-first",
 	"",
 	"",
 	"list" , "", "", "", $typemail_list, "%1", "", "");

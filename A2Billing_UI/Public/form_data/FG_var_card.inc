@@ -242,10 +242,10 @@ $HD_Form -> AddEditElement (gettext("LANGUAGE"),
 			   "language",
 			   "",
 			   "SELECT",
+			   "label-first",
 			   "",
 			   "",
-			   "",
-			   "list" , "", "",	"", $language_list, "%1", "", "" );
+			   "list" , "", "","", $language_list, "", "", "" );
 
 
 $HD_Form -> AddEditElement (gettext("CALL PLAN"),
@@ -255,8 +255,8 @@ $HD_Form -> AddEditElement (gettext("CALL PLAN"),
 			   "", "", "",
 			   "sql",
 			   "cc_tariffgroup",
-			   "tariffgroupname, id",
-			   "", "", "%1", "", "");
+			   "id, tariffgroupname",
+			   "", "", "", "", "");
 
 
 $HD_Form -> AddEditElement (gettext("SUBSCRIPTION FEE"),
@@ -266,8 +266,8 @@ $HD_Form -> AddEditElement (gettext("SUBSCRIPTION FEE"),
 			   "", "", "",
 			   "sql",
 			   "cc_subscription_fee",
-			   "label, id",
-			   "", "", "%1", "", "", "", '<OPTION  value="-1" selected>'.gettext("NOT DEFINED").'</OPTION>' );
+			   "id, label",
+			   "", "", "", "", "", "", array("-1", gettext("NOT DEFINED")) );
 
 
 $HD_Form -> AddEditElement (gettext("DIDGROUP"),
@@ -277,8 +277,8 @@ $HD_Form -> AddEditElement (gettext("DIDGROUP"),
 			   "", "", "",
 			   "sql",
 			   "cc_didgroup",
-			   "didgroupname, id",
-			   "", "", "%1", "", "", "", '<OPTION  value="-1" selected>'.gettext("NOT DEFINED").'</OPTION>' );
+			   "id,didgroupname",
+			   "", "", "%1", "", "", "", array("-1",gettext("NOT DEFINED")) );
 
 
 $HD_Form -> AddEditElement (gettext("CAMPAIGN"),
@@ -288,8 +288,8 @@ $HD_Form -> AddEditElement (gettext("CAMPAIGN"),
 			   "", "", "",
 			   "sql",
 			   "cc_campaign",
-			   "campaign_name, id",
-			   "", "", "%1", "", "", "", '<OPTION  value="-1" selected>'.gettext("NOT DEFINED").'</OPTION>' );
+			   "id,campaign_name",
+			   "", "", "", "", "", "", array('-1',gettext("NOT DEFINED")) );
 
 
 $HD_Form -> AddEditElement (gettext("CALLBACK"),
@@ -325,18 +325,18 @@ $HD_Form -> AddEditElement (gettext("SIMULTANEOUS ACCESS"),
 			   "simultaccess",
 			   "",
 			   "SELECT",
+			   "label-first",
 			   "",
 			   "",
-			   "",
-			   "list" , "", "",	"", $simultaccess_list, "%1", "", "" );
+			   "list" , "", "",	"", $simultaccess_list, "", "", "" );
 
 
 $HD_Form -> AddEditElement (gettext("CURRENCY"),
 			   "currency",
 			   "",
 			   "SELECT",
-			   "",
-			   "", "", "list" , "", "",	"", $currency_list, "%1", "", gettext("Currency used at the customer end.") );
+			   "label-first",
+			   "", "", "list" , "", "",	"", $currency_list, "", "", gettext("Currency used at the customer end.") );
 
 
 $HD_Form -> AddEditElement (gettext("RUN SERVICE"),
@@ -371,10 +371,10 @@ $HD_Form -> AddEditElement (gettext("CARD TYPE"),
 			   "typepaid",
 			   "",
 			   "SELECT",
+			   "label-first",
 			   "",
 			   "",
-			   "",
-			   "list" , "", "",	"", $typepaid_list, "%1", "", "" );
+			   "list" , "", "", "", $typepaid_list, "", "", "" );
 
 
 $HD_Form -> AddEditElement (gettext("CREDIT LIMIT"),
@@ -401,10 +401,10 @@ $HD_Form -> AddEditElement (gettext("ENABLE EXPIRY"),
 			   "enableexpire",
 			   "",
 			   "SELECT",
+			   "label-first",
 			   "",
 			   "",
-			   "",
-			   "list" , "", "",	"", $expire_list, "%1", "", gettext("Select method of expiry for the card.") );
+			   "list" , "", "",	"", $expire_list, "", "", gettext("Select method of expiry for the card.") );
 
 
 
@@ -443,10 +443,10 @@ $HD_Form -> AddEditElement (gettext("INVOICE DAY"),
 			   "invoiceday",
 			   '$value',	
 			   "SELECT",
-			   "",	
+			   "label-first",	
 			   "",	
 			   "", 
-			   "list" , "", "",	"", $invoiceday_list, "%1", "", gettext("Define the day of the month when the system will generate the customer invoice.") );
+			   "list" , "", "", "", $invoiceday_list, "", "", gettext("Define the day of the month when the system will generate the customer invoice.") );
 
 
 $HD_Form -> AddEditElement (gettext("VAT"),
@@ -524,8 +524,7 @@ $HD_Form -> AddEditElement (gettext("COUNTRY"),
 			   "", "", "",
 			   "sql",
 			   "cc_country",
-			   "countryname, countrycode",
-			   "", "", "%1", "", "", "", '' );
+			   "countrycode, countryname" );
 
 $HD_Form -> AddEditElement (gettext("ZIP/POSTAL CODE"),
 			   "zipcode",			
@@ -590,10 +589,10 @@ $HD_Form -> AddEditElement (gettext("IN USE"),
 			   "inuse",
 			   '$value',	
 			   "SELECT",
-			   "",
+			   "label-first",
 			   "",
 			   "", 
-			   "list" , "", "",	"", $inuse_list, "%1", "", gettext("Define the number of use of this cardnumber. If a non-standard stop of the application occurs it maybe that the card is in 'in-use' > 0  status. Get it back to '0' if you know there is a issue on this card.") );
+			   "list" , "", "",	"", $inuse_list, "", "", gettext("Define the number of use of this cardnumber. If a non-standard stop of the application occurs it maybe that the card is in 'in-use' > 0  status. Get it back to '0' if you know there is a issue on this card.") );
 
 
 $HD_Form -> AddEditElement (gettext("CALLERID"),

@@ -157,8 +157,8 @@ $HD_Form -> AddEditElement (gettext("CC EXPIRY"),
 	"", "", "",
 	"sql",
 	"cc_payments_status",
-	"status_name, status_id",
-	"", "", "%1","", "");
+	"status_id, status_name",
+	"", "", "","", "");
 
 $HD_Form -> AddEditElement (gettext("DATE MODIFIED"),
 	"last_modified",

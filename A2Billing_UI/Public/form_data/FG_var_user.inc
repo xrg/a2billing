@@ -1,6 +1,6 @@
 <?php
 
-getpost_ifset(array('id', 'groupID', 'userid', 'login', 'password', 'perms', 'name', 'direction', 'zipcode', 'state', 'phone', 'fax', 'popup_select', 'popup_formname', 'popup_fieldname'));
+getpost_ifset(array('userid', 'groupID', 'userid', 'login', 'password', 'perms', 'name', 'direction', 'zipcode', 'state', 'phone', 'fax', 'popup_select', 'popup_formname', 'popup_fieldname'));
 
 
 if ($groupID=="0"){
@@ -16,8 +16,9 @@ if ($groupID=="0"){
 $HD_Form = new FormHandler("cc_ui_authen",$FG_INSTANCE_NAME);
 
 
-$HD_Form -> FG_DEBUG = 0;
-$HD_Form -> FG_TABLE_ID = " userid";
+$HD_Form -> FG_DEBUG = 2;
+$HD_Form -> FG_TABLE_ID = "userid";
+$HD_Form -> FG_EDITION_CLAUSE = 'userid = %#1';
 $HD_Form -> FG_TABLE_DEFAULT_ORDER = " datecreation";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "ASC";
 
@@ -31,30 +32,32 @@ $HD_Form -> FG_TABLE_CLAUSE = $FG_TABLE_CLAUSE;
 
 $right_list = array();
 // 1 2 4 8 16 32 64 128 256 512
-$right_list["1"] = array( gettext("CUSTOMERS"), "1");
-$right_list["2"] = array( gettext("BILLING"), "2");
-$right_list["3"] = array( gettext("RATECARD"), "4");
-$right_list["4"] = array( gettext("TRUNK"), "8");
-$right_list["5"] = array( gettext("CALL REPORT"), "16");
-$right_list["6"] = array( gettext("CRONT SERVICE"), "32");
-$right_list["7"] = array( gettext("ADMINISTRATOR"), "64");
-$right_list["8"] = array( gettext("FILE MANAGER"), "128");
-$right_list["9"] = array( gettext("MISC"), "256");
-$right_list["10"] = array( gettext("DID"), "512");
-$right_list["11"] = array( gettext("CALL BACK"), "1024");
-$right_list["12"] = array( gettext("OUTBOUND CID"), "2048");
-$right_list["13"] = array( gettext("PACKAGE OFFER"), "4096");
-//$right_list["14"] = array( gettext("PREDICTIVE DIALER"), "8192");
-$right_list["14"] = array( gettext("INVOICES"), "16384");
+$right_list["1"] = array( "1", _("CUSTOMERS"));
+$right_list["2"] = array( "2", _("BILLING"));
+$right_list["3"] = array( "4", _("RATECARD"));
+$right_list["4"] = array( "8", _("TRUNK"));
+$right_list["5"] = array( "16", _("CALL REPORT"));
+$right_list["6"] = array( "32", _("CRONT SERVICE"));
+$right_list["7"] = array( "64", _("ADMINISTRATOR"));
+$right_list["8"] = array( "128", _("FILE MANAGER"));
+$right_list["9"] = array( "256", _("MISC"));
+$right_list["10"] = array( "512", _("DID"));
+$right_list["11"] = array( "1024", _("CALL BACK"));
+$right_list["12"] = array( "2048", _("OUTBOUND CID"));
+$right_list["13"] = array( "4096", _("PACKAGE OFFER"));
+//$right_list["14"] = array( "8192", _("PREDICTIVE DIALER"));
+$right_list["14"] = array( "16384", _("INVOICES"));
+$right_list["15"] = array( "32768", _("AGENTS"));
+$right_list["16"] = array( "65536", _("PRICING"));
 $len_right_list = count($right_list);
 
 
-$HD_Form -> AddViewElement(gettext("USERID"), "UserID", "14%", "center", "sort");
+$HD_Form -> AddViewElement(gettext("USERID"), "userid", "14%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("DATE CREATION"), "datecreation", "24%", "center", "sort", "19", "", "", "", "", "", "display_dateformat");
 $HD_Form -> AddViewElement(gettext("LOGIN"), "login", "24%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("PASSWORD"), "password", "24%", "center", "sort");
 
-$HD_Form -> FieldViewElement ('userid, datecreation, login, password');
+$HD_Form -> AutoFieldViewElements ();
 
 $HD_Form -> CV_NO_FIELDS  = gettext("NO")." ".strtoupper($HD_Form->FG_INSTANCE_NAME)." ".gettext("HAVE BEEN CREATED!"); 
 $HD_Form -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;
@@ -102,7 +105,7 @@ if ($groupID!="0"){
 		"perms",
 		'$value',
 		"SELECT",
-		"size=\"$len_right_list\" multiple=\"multiple\"",
+		"multiple bitfield",
 		"", "",
 		"list", "", "description, id", "", $right_list, "%1" , "", 
 		gettext("To select several rights in the above ListBox, hold the CTRL key down while clicking the items") );
@@ -173,7 +176,7 @@ if (($groupID=="2") || ($groupID=="3")){
 			"","", "Insert the iva",
 			"sql" ,
 			"Customer",
-			"AnaCust, IDCust",
+			"IDCust,AnaCust",
 			"", "", "%2 (%1)", "", "");
 	}else{
 		$HD_Form -> AddEditElement ("ResellerID",
@@ -183,7 +186,7 @@ if (($groupID=="2") || ($groupID=="3")){
 			"","", "Insert the iva",
 			"sql" ,
 			"secauth",
-			"login, userID",
+			"userID,login",
 			"groupID='1'", "", "%2 (%1)", "", "" );
 	}
 }	
@@ -202,7 +205,7 @@ $FG_QUERY_EDITION .= 'name, direction, zipcode, state, phone, fax';
 
 $HD_Form -> FieldEditElement ($FG_QUERY_EDITION);
 
-$HD_Form -> FG_EDITION_CLAUSE = " userid='%id'";
+//$HD_Form -> FG_EDITION_CLAUSE = " userid='%id'";
 
 if (DB_TYPE == "postgres"){
 	$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS = "";
@@ -241,12 +244,10 @@ if ($popup_select==1){
 	$HD_Form -> FG_OTHER_BUTTON1_LINK = "javascript:sendValue('|param|');";	
 }
 }
-						 
+
 $HD_Form -> FG_INTRO_TEXT_EDITION= gettext("Modify the properties of the")." ".$HD_Form->FG_INSTANCE_NAME;
 $HD_Form -> FG_INTRO_TEXT_ASK_DELETION = gettext("If you really want remove this")." ".$HD_Form->FG_INSTANCE_NAME.", ".gettext("click on the delete button.");
 $HD_Form -> FG_INTRO_TEXT_ADD = gettext("you can add easily a new")." ".$HD_Form->FG_INSTANCE_NAME.".<br>".gettext("Fill the following fields and confirm by clicking on the button add.");
-
-
 
 
 
@@ -258,8 +259,8 @@ $HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = "../Ima
 $HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT = gettext("Click 'Confirm Data' to continue");
 
 
-$HD_Form -> FG_GO_LINK_AFTER_ACTION = $_SERVER['PHP_SELF']."?atmenu=user&groupID=$groupID&stitle=Administrator+management&id=";
-$HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = $_SERVER['PHP_SELF']."?atmenu=user&groupID=$groupID&stitle=Administrator+management&id=";
-$HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?atmenu=user&groupID=$groupID&stitle=Administrator+management&id=";
-$HD_Form -> FG_GO_LINK_AFTER_ACTION_DELETE = $_SERVER['PHP_SELF']."?atmenu=user&groupID=$groupID&stitle=Administrator+management&id=";
+$HD_Form -> FG_GO_LINK_AFTER_ACTION = $_SERVER['PHP_SELF']."?groupID=$groupID&userid=";
+$HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = $_SERVER['PHP_SELF']."?groupID=$groupID&userid=";
+$HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?groupID=$groupID&userid=";
+$HD_Form -> FG_GO_LINK_AFTER_ACTION_DELETE = $_SERVER['PHP_SELF']."?groupID=$groupID&userid=";
 ?>

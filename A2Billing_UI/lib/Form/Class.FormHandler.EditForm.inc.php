@@ -25,12 +25,9 @@ function sendtolittle(direction){
 
 <table class="editform_table1" cellspacing="2">
 			
-	<FORM action=<?= $_SERVER['PHP_SELF']?> method=post name="myForm" id="myForm"> 
-		<INPUT type="hidden" name="id" value="<?= $id?>">
-		<INPUT type="hidden" name="form_action" value="edit">
-		<INPUT type="hidden" name="sub_action" value="">
-		<INPUT type="hidden" name="atmenu" value="<?= $atmenu?>">
-		<INPUT type="hidden" name="stitle" value="<?= $stitle?>">	
+	<FORM action=<?= $_SERVER['PHP_SELF']?> method=post name="myForm" id="myForm">
+		<?php $this->gen_PostParams(array( form_action => 'edit', sub_action => '',
+			$this->FG_TABLE_ID => $this->FG_TABLE_ID)); ?>
 <?php
 	if (!is_null($this->FG_QUERY_EDITION_HIDDEN_FIELDS) && $this->FG_QUERY_EDITION_HIDDEN_FIELDS!=""){
 		$split_hidden_fields = split(",",trim($this->FG_QUERY_EDITION_HIDDEN_FIELDS));
@@ -112,77 +109,83 @@ function sendtolittle(direction){
                         <?php 	
 				}elseif (strtoupper ($this->FG_TABLE_EDITION[$i][3])==strtoupper ("SELECT"))
 				{
-								
-					if ($this->FG_DEBUG >= 1)	echo gettext("<br> TYPE OF SELECT :").$this->FG_TABLE_EDITION[$i][7];
+					
+					if ($this->FG_DEBUG >= 1)
+						echo "<br> TYPE OF SELECT :".$this->FG_TABLE_EDITION[$i][7]."<br>";
+					$tmp_value=NULL;
 					if (strtoupper ($this->FG_TABLE_EDITION[$i][7])==strtoupper ("SQL")){
 						$instance_sub_table = new Table($this->FG_TABLE_EDITION[$i][8], $this->FG_TABLE_EDITION[$i][9]);
-						if (FG_DEBUG >=2) $instance_sub_table->debug_st=1;
+						if ($this-> FG_DEBUG >=2) 
+							$instance_sub_table->debug_st=1;
 						$select_list = $instance_sub_table -> Get_list ($this->DBHandle, $this->FG_TABLE_EDITION[$i][10], null, null, null, null, null, null);
-						if ($this->FG_DEBUG >= 3) { echo "<br>"; print_r($select_list);}
-											
+						if ($this->FG_DEBUG >= 3) { 
+							echo "<br> sql_select_list:";
+							print_r($select_list);
+						}
 					}elseif (strtoupper ($this->FG_TABLE_EDITION[$i][7])==strtoupper ("LIST"))
 					{
 						$select_list = $this->FG_TABLE_EDITION[$i][11];
-						if ($this->FG_DEBUG >= 3) { echo "<br>"; print_r($select_list);}
-										 }
-						 if ($this->FG_DEBUG >= 3) print_r ($list);			 
-						 if ($this->FG_DEBUG >= 2) echo "<br>#$i<br>::>".$this->VALID_SQL_REG_EXP;
-						 if ($this->FG_DEBUG >= 2) echo "<br><br>::>".$list[0][$i];
-						 if ($this->FG_DEBUG >= 2) echo "<br><br>::>".$this->FG_TABLE_ADITION[$i][1];
-			  			?>
-						<SELECT name='<?= $this->FG_TABLE_EDITION[$i][1]?><?php if (strpos($this->FG_TABLE_EDITION[$i][4], "multiple")) echo "[]";?>' class="form_enter" <?= $this->FG_TABLE_EDITION[$i][4]?>  class="form_enter">
-                        <?php
-						echo ($this->FG_TABLE_EDITION[$i][15]);
-						
-						if (count($select_list)>0)
-						{
-							$select_number=0;
-							if (is_array($select_list))
-							foreach ($select_list as $select_recordset){
-								$select_number++;
-								?>
-								<option value='<?= $select_recordset[1]?>' <?php 
-									
-									if($this->VALID_SQL_REG_EXP){ 
-										if (strpos($this->FG_TABLE_EDITION[$i][4], "multiple")){
-											if (intval($select_recordset[1]) & intval($list[0][$i])) echo "selected"; 
-										}else{
-											if (strcmp($list[0][$i],$select_recordset[1])==0) echo "selected";
-										}
-									}else{
-										if (strpos($this->FG_TABLE_EDITION[$i][4], "multiple")){
-											//if (intval($select_recordset[1]) & intval($_POST[$this->FG_TABLE_EDITION[$i][1]])) echo "selected"; 
-											if (is_array($_POST[$this->FG_TABLE_EDITION[$i][1]]) && (intval($select_recordset[1]) & array_sum($_POST[$this->FG_TABLE_EDITION[$i][1]]))) echo "selected"; 
-										}else{
-											if (strcmp($_POST[$this->FG_TABLE_EDITION[$i][1]],$select_recordset[1])==0){ echo "selected"; } 
-										}
-									}
-									  
-									// CLOSE THE <OPTION
-									?> > <?php
-									if ($this->FG_TABLE_EDITION[$i][12] != ""){
-										$value_display = $this->FG_TABLE_EDITION[$i][12];
-										$nb_recor_k = count($select_recordset);
-										for ($k=1;$k<=$nb_recor_k;$k++){
-											$value_display  = str_replace("%$k", $select_recordset[$k-1], $value_display );
-										}
-											
-									}else{
-										$value_display = $select_recordset[0];	
-									}
-									
-									// DISPLAY THE VALUE
-									echo $value_display;
-									?>
-								</option>
-                          		<?php 
-			  				}// END_FOREACH
-						}else{
-							echo gettext("No data found !!!");
-						}//END_IF				
-			  ?>
-                        </SELECT>
-                        <?php   
+						if ($this->FG_DEBUG >= 3) {
+							echo "<br>select-list:"; print_r($select_list);
+						}
+					}
+					$tmp_multiple=false;
+					$tmp_value=$list[0][$i];
+					if(strpos($this->FG_TABLE_EDITION[$i][4], "label-first")!==false){
+						// array is ('label','id') instead of (id,label)
+						$tmp2 = array();
+						foreach($select_list as $tmp)
+							$tmp2[]=array($tmp[1],$tmp[0]);
+						$select_list = $tmp2;
+					}
+					if (isset($this->FG_TABLE_EDITION[$i][15]))
+						array_unshift($select_list,$this->FG_TABLE_EDITION[$i][15]);
+					
+					
+					if(strpos($this->FG_TABLE_EDITION[$i][4], "multiple")!==false){
+						$tmp_multiple=true;
+						if ($this->FG_DEBUG >= 3)
+							echo "Multiple<br>\n";
+						if (strpos($this->FG_TABLE_EDITION[$i][4], "bitfield")!==false){
+							//decode bitfield into values
+							$tmp_int = (integer)$tmp_value;
+							$tmp_value= array();
+							$tmp_i = 1;
+							for($tmp_i=1;($tmp_i!=0) && ($tmp_int!=0);$tmp_i*=2){
+								if ($tmp_int & $tmp_i){
+									$tmp_value[] = $tmp_i;
+									$tmp_int -= $tmp_i;
+								}
+							}
+						}elseif (strpos($this->FG_TABLE_EDITION[$i][4], "sql")!==false) {
+							// decode SQL list into values
+							
+						} // else how to decode this?
+					}
+					if ($this->FG_TABLE_EDITION[$i][12] != ""){
+						// replace expression into Option display
+						foreach($select_list as $tmp_disp)
+							$tmp_disp[1]=str_params($this->FG_TABLE_EDITION[$i][12],$tmp_disp,1);
+					}
+					
+					if ($this->FG_DEBUG >= 3) {
+						echo "list: ";
+						print_r ($list);
+						echo "<br>\n";
+					}
+					if ($this->FG_DEBUG >= 2){ ?>
+						<br>
+						#<?= $i?> <br> 
+						SQL-REGEXP: <?= $this->VALID_SQL_REG_EXP ?><br>
+						list[0]: <?= $list[0][$i] ?><br>
+						fieldname: <?= $this->FG_TABLE_ADITION[$i][1] ?> <br>
+						tmp_value: <?php var_dump($tmp_value); ?><br>
+					<?php
+					}
+						//now, build the combo automatically!
+					gen_Combo($this->FG_TABLE_EDITION[$i][1],$tmp_value,$select_list,$tmp_multiple);
+
+
 					}elseif (strtoupper ($this->FG_TABLE_EDITION[$i][3])==strtoupper ("RADIOBUTTON")){
 						$radio_table = split(",",trim($this->FG_TABLE_EDITION[$i][10]));
 						foreach ($radio_table as $radio_instance){
@@ -210,13 +213,13 @@ function sendtolittle(direction){
                         <span class="liens">
                         <?php 						
 					if (!$this-> FG_fit_expression[$i]  &&  isset($this-> FG_fit_expression[$i]) ){
-						echo "<br>".$this->FG_TABLE_EDITION[$i][6]." - ".$this->FG_regular[$this->FG_TABLE_EDITION[$i][5]][1];								
+						echo "<br>".$this->FG_TABLE_EDITION[$i][6]." - ".$this->FG_regular[$this->FG_TABLE_EDITION[$i][5]][1];
 					}
 							   
 			  ?>
                         </span>
 			<?php  
-					if (strlen($this->FG_TABLE_COMMENT[$i])>0){  ?><?php  echo "<br/>".$this->FG_TABLE_COMMENT[$i];?>  <?php  } ?>                        
+					if (strlen($this->FG_TABLE_COMMENT[$i])>0){  ?><?php  echo "<br/>".$this->FG_TABLE_COMMENT[$i];?>  <?php  } ?>
                         &nbsp; </TD>
                     </TR>
                     <?php 					
@@ -307,15 +310,15 @@ function sendtolittle(direction){
                           </tr>
                           <TR class="bgcolor_016"> 
                             <TD bgcolor="#AAAAAA"  height=16 style="PADDING-LEFT: 5px; PADDING-RIGHT: 3px"> 
-                              <TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">                                
+                              <TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
                                   <TR> 
                                     <TD height="4" align="right"></TD>
                                 </TR>
                               </TABLE>
-							</TD>
+			</TD>
                           </TR>
                         </table><br>
-						</TD>
+			</TD>
                     </TR>
                     <TR>
 					  <!-- *******************   Select to ADD new instances  ****************************** -->					  					  

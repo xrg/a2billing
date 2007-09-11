@@ -52,19 +52,19 @@ $HD_Form -> AddEditElement (gettext("PACKAGETYPE"),
 	"packagetype",		
 	'$value',	
 	"SELECT",	
-	"",	
+	"label-first",	
 	"",	
 	"",
-	"list" , "", "", "", $packagetype_list, "%1", "", "");
+	"list" , "", "", "", $packagetype_list, "", "", "");
 
 $HD_Form -> AddEditElement (gettext("BILLINGTYPE"),
 	"billingtype",
 	'$value',	
 	"SELECT",	
-	"",	
+	"label-first",	
 	"",	
 	"",
-	"list" , "", "", "", $billingtype_list, "%1", "", "");
+	"list" , "", "", "", $billingtype_list, "", "", "");
 
 if (isset($form_action) && $form_action=="ask-add"){
 	$default_init = "value='0'";

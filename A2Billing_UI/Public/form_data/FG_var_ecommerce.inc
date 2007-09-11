@@ -119,7 +119,7 @@ $HD_Form -> AddEditElement (gettext("LANGUAGE"),
 				   "language",
 				   "",
 				   "SELECT",
-				   "",
+				   "label-first",
 				   "",
 				   "",
 				   "list" , "", "",	"", $language_list, "%1", "", "" );
@@ -132,8 +132,8 @@ $HD_Form -> AddEditElement (gettext("CALLPLAN"),
 				   "", "", "",
 				   "sql",
 				   "cc_tariffgroup",
-				   "tariffgroupname, id",
-				   "", "", "%1" , "", "");
+				   "id, tariffgroupname",
+				   "", "", "" , "", "");
 
 
 $HD_Form -> AddEditElement (gettext("DIDGROUP"),
@@ -143,8 +143,8 @@ $HD_Form -> AddEditElement (gettext("DIDGROUP"),
 				   "", "", "NOT DEFINED",	
 				   "sql",		
 				   "cc_didgroup",	
-				   "didgroupname, id",		
-				   "", "", "%1", "<OPTION  value='-1'>".gettext("NOT DEFINED")."</OPTION>", "", "");
+				   "id, didgroupname",		
+				   "", "", "%1", array('-1',gettext("NOT DEFINED")), "", "");
 
 
 
@@ -162,7 +162,7 @@ $HD_Form -> AddEditElement (gettext("SIMULTANEOUS ACCESS"),
 				   "simultaccess",			
 				   "",	
 				   "SELECT",	
-				   "",	
+				   "label-first",	
 				   "",	
 				   "", 
 				   "list" , "", "",	"", $simultaccess_list, "%1", "", "" );
@@ -172,10 +172,10 @@ $HD_Form -> AddEditElement (gettext("CURRENCY"),
 				   "currency",			
 				   "",	
 				   "SELECT",	
-				   "",	
+				   "label-first",	
 				   "",	
 				   "", 
-				   "list" , "", "",	"", $currency_list, "%1", "", "" );
+				   "list" , "", "",	"", $currency_list, "", "", "" );
 
 
 $HD_Form -> AddEditElement (gettext("RUN SERVICE"),
@@ -192,10 +192,10 @@ $HD_Form -> AddEditElement (gettext("CARD TYPE"),
 				   "typepaid",			
 				   "",	
 				   "SELECT",	
-				   "",	
+				   "label-first",	
 				   "",	
 				   "", 
-				   "list" , "", "",	"", $typepaid_list, "%1", "", "" );
+				   "list" , "", "",	"", $typepaid_list, "", "", "" );
 
 $HD_Form -> AddEditElement (gettext("CREDIT LIMIT"),
 			   "creditlimit",			
@@ -211,10 +211,10 @@ $HD_Form -> AddEditElement (gettext("ENABLE EXPIRE"),
 				   "enableexpire",
 				   "",
 				   "SELECT",
+				   "label-first",
 				   "",
 				   "",
-				   "",
-				   "list" , "", "",	"", $expire_list, "%1", "", gettext("Define how do you want to enable the expiration over this card"));
+				   "list" , "", "",	"", $expire_list, "", "", gettext("Define how do you want to enable the expiration over this card"));
 
 
 $comp_zero = $comp_date_plus='';
@@ -255,8 +255,8 @@ $HD_Form -> AddEditElement (gettext("MAIL TEMPLATE"),
 			   "", "", "",	
 			   "sql",		
 			   "cc_templatemail",	
-			   "subject, mailtype",		
-			   "", "", "%2 (subject:%1)", "", "");
+			   "mailtype, subject",		
+			   "", "", "%1 (subject:%2)", "", "");
 
 
 $HD_Form -> AddEditElement (gettext("SIP FRIEND"),

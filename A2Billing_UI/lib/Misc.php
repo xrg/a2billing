@@ -164,11 +164,23 @@ function arr2url ($arr) {
 }
 
 /** Generate an html combo, with selected values etc. */
-function gen_Combo($name, $value, $option_array){
-	?> <select name="<?= $name?>" size="1" class="form_input_select">
+function gen_Combo($name, $value, $option_array,$multiple=false){
+	$tmp_name=$name;
+	if ($multiple){
+		$tmp_name.='[]';
+		$tmp_size=count($option_array);
+		if ($tmp_size>20)
+			$tmp_size=15;
+		$opts .= ' class="form_enter" multiple="multiple" size='.$tmp_size;
+	}else
+		$opts .=' size=1 class="form_enter"';
+	?> <select name="<?= $tmp_name?>" <?=$opts ?>>
 	<?php
 		foreach($option_array as $option){ ?>
-		<option value="<?= $option[0] ?>"<?php if ($value == $option[0]) echo ' selected'; ?>><?= htmlspecialchars($option[1])?></option>
+		<option value="<?= $option[0] ?>"<?php 
+		if (($value == $option[0]) || ($multiple && is_array($value) && in_array($option[0],$value)))
+			echo ' selected'; 
+		?>><?= htmlspecialchars($option[1])?></option>
 	<?php	}
 	?>
 	</select>

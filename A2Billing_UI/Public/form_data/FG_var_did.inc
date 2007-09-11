@@ -84,10 +84,10 @@ $HD_Form -> AddEditElement (gettext("BILLING"),
 	"billingtype",
 	"",
 	"SELECT",
+	"label-first",
 	"",
 	"",
-	"",
-	"list" , "", "",  "", $billingtype_list, "%1" , "", "");
+	"list" , "", "",  "", $billingtype_list, "" , "", "");
 
 $HD_Form -> AddEditElement (gettext("START DATE"),
 	"startingdate",
@@ -114,7 +114,7 @@ $HD_Form -> AddEditElement (gettext("DIDGROUP"),
 	"", "", "",
 	"sql",
 	"cc_didgroup",
-	"didgroupname, id",
+	"id,didgroupname",
 	"", "", "%1","", "");
 
 $HD_Form -> AddEditElement (gettext("COUNTRY"),
@@ -124,8 +124,8 @@ $HD_Form -> AddEditElement (gettext("COUNTRY"),
 	"", "", "",
 	"sql",
 	"cc_country",
-	"countryname, id",
-	"", "", "%1", "", "");
+	"id, countryname",
+	"", "", "", "", "");
 
 
 $HD_Form -> AddEditElement (gettext("ACTIVATED"),

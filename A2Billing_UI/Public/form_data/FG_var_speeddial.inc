@@ -43,7 +43,7 @@ $HD_Form -> AddEditElement (gettext("SPEEDDIAL"),
 				   "speeddial",			
 				   "",	
 				   "SELECT",	
-				   "",	
+				   "label-first",	
 				   "",	
 				   "", 
 				   "list" , "", "",	"", $speeddial_list, "%1", "", "" );

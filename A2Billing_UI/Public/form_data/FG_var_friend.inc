@@ -86,13 +86,13 @@ $HD_Form -> AddEditElement (gettext("ID CARD"),
 
 
 $HD_Form -> AddEditElement (gettext("NAME"),
-						   "name",			
-						   "$value",	
-						   "INPUT",	
-							"size=40 $maxi maxlength=40",	 
-						   "9",	
-						   gettext("Insert the name"),
-						   "" , "", "",	"", "", "",	"", "" );
+	"name",			
+	"$value",	
+	"INPUT",	
+	"size=40 $maxi maxlength=40",	 
+	"9",	
+	gettext("Insert the name"),
+	"" , "", "",	"", "", "",	"", "" );
 
 
 if ($form_action=="ask-add" ||  $form_action == "add_sip" || $form_action == "add_iax"){
@@ -152,13 +152,13 @@ if ($form_action=="ask-add" ||  $form_action == "add_sip" || $form_action == "ad
 	$AMAFLAGS_default= "value='".$A2B->config["peer_friend"]['amaflag']."'";
 	
 $HD_Form -> AddEditElement (gettext("AMAFLAGS"),
-						   "amaflags",		
-						   '',	
-						   "INPUT",	
-						   "size=10 maxlength=7 $AMAFLAGS_default",	
-						   "",	
-						   gettext("Insert the amaflags"),
-						   "" , "", "",	"", "", "",	"", "(default : billing)" );
+	"amaflags",		
+	'',	
+	"INPUT",	
+	"size=10 maxlength=7 $AMAFLAGS_default",	
+	"",	
+	gettext("Insert the amaflags"),
+	"" , "", "",	"", "", "",	"", "(default : billing)" );
 
 
 $HD_Form -> AddEditElement (gettext("SECRET"),
@@ -483,13 +483,13 @@ if ($form_action=="ask-add" ||  $form_action == "add_sip" || $form_action == "ad
 }
 
 $HD_Form -> AddEditElement (gettext("CANCALLFORWARD"),
-						   "cancallforward",		
-						   '',	
-						   "INPUT",	
-						   "size=7 maxlength=3 $CANCALLFORWARD_default",	
-						   "",	
-						   gettext("Insert the cancallforward"),
-						   "" , "", "",	"", "", "",	"", gettext("cancallforward = yes | no ( default : yes )"));
+		"cancallforward",		
+		'',	
+		"INPUT",	
+		"size=7 maxlength=3 $CANCALLFORWARD_default",	
+		"",	
+		gettext("Insert the cancallforward"),
+		"" , "", "",	"", "", "",	"", gettext("cancallforward = yes | no ( default : yes )"));
 
 
 

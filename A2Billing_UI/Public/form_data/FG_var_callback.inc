@@ -60,8 +60,8 @@ $HD_Form -> AddEditElement (gettext("SERVER GROUP"),
 	"", "", "",
 	"sql",
 	"cc_server_group",
-	"name, id",
-	"", "", "%1","", "");
+	"id,name",
+	"", "", "","", "");
 
 $HD_Form -> AddEditElement (gettext("UNIQUEID"),	
 	"uniqueid",		
@@ -87,10 +87,10 @@ $HD_Form -> AddEditElement (gettext("STATUS"),
 	"status",			
 	'$value',	
 	"SELECT",	
-	"",	
+	"label-first",	
 	"",	
 	"", 
-	"list" , "", "",	"", $status_list, "%1", "", "" );
+	"list" , "", "",	"", $status_list, "", "", "" );
 
 $HD_Form -> AddEditElement (gettext("IP SERVER"),
 	"server_ip",

@@ -81,8 +81,8 @@ $HD_Form -> AddEditElement (gettext("TRUNK"),
 			   "", "", "",	
 			   "sql",		
 			   "cc_trunk",	
-			   "trunkcode, id_trunk",		
-			   "", "", "%1", "", "");
+			   "id_trunk, trunkcode",		
+			   "", "", "", "", "");
 
 $HD_Form -> AddEditElement (gettext("DESCRIPTION"),
 			   "description",		

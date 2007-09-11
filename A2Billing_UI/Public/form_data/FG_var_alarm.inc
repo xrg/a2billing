@@ -80,19 +80,19 @@ $HD_Form -> AddEditElement (gettext("PERIOD"),
 	"periode",
 	'$value',
 	"SELECT",
+	"label-first",
 	"",
 	"",
-	"",
-	"list" , "", "", "", $period_list, "%1" , "" , gettext("Interval to apply alarm"));
+	"list" , "", "", "", $period_list, "" , "" , gettext("Interval to apply alarm"));
 
 $HD_Form -> AddEditElement (gettext("TYPE"),
 	"type",
 	'$value',
 	"SELECT",
+	"label-first",
 	"",
 	"",
-	"",
-	"list" , "", "", "", $type_list, "%1", "", gettext("ALOC (average length of call) ; ASR (answer seize ratio) ; CIC (Consecutive Incomplete Calls)"));
+	"list" , "", "", "", $type_list, "", "", gettext("ALOC (average length of call) ; ASR (answer seize ratio) ; CIC (Consecutive Incomplete Calls)"));
 
 $HD_Form -> AddEditElement (gettext("MAX VALUE"),
 	"maxvalue",
@@ -124,10 +124,10 @@ $HD_Form -> AddEditElement (gettext("STATUS"),
 	"status",
 	'$value',
 	"SELECT",
+	"label-first",
 	"",
 	"",
-	"",
-	"list" , "", "", "", $actived_list, "%1" , "", "");
+	"list" , "", "", "", $actived_list, "" , "", "");
 
 $HD_Form -> AddEditElement (gettext("EMAIL TO SEND ALARM"),
 	"emailreport",

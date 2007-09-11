@@ -273,7 +273,7 @@ class FormHandler{
     * Set the SQL Clause for the edition
     * @public	-	@type string
     */
-	var $FG_EDITION_CLAUSE = " id='%id' ";
+	var $FG_EDITION_CLAUSE = " id = %#1 ";
 
 	/**
     * Set the HIDDED VALUE for the edition/addition
@@ -482,8 +482,8 @@ class FormHandler{
 		{
 			$section = $_SESSION["menu_section"];
 		}
-		$this -> FG_EDITION_LINK	= $_SERVER['PHP_SELF']."?form_action=ask-edit&id=";
-		$this -> FG_DELETION_LINK	= $_SERVER['PHP_SELF']."?form_action=ask-delete&id=";
+		$this -> FG_EDITION_LINK	= $_SERVER['PHP_SELF']."?form_action=ask-edit&".$this->FG_TABLE_ID."=";
+		$this -> FG_DELETION_LINK	= $_SERVER['PHP_SELF']."?form_action=ask-delete&".$this->FG_TABLE_ID."=";
 
 		$this -> FG_DELETE_ALT = gettext("Delete this ").$this -> FG_INSTANCE_NAME;
 		$this -> FG_EDIT_ALT = gettext("Edit this ").$this -> FG_INSTANCE_NAME;
@@ -506,6 +506,17 @@ class FormHandler{
 		$this -> FG_TOTAL_TABLE_COL = $this -> FG_NB_TABLE_COL;
 		if ($this -> FG_DELETION || $this -> FG_EDITION || $this -> FG_OTHER_BUTTON1 || $this -> FG_OTHER_BUTTON2) 
 			$this -> FG_TOTAL_TABLE_COL++;
+			
+		$tmp_id=NULL;
+		if (isset($_GET[$this->FG_TABLE_ID]))
+			$tmp_id=$_GET[$this->FG_TABLE_ID];
+		elseif(isset($_POST[$this->FG_TABLE_ID]))
+			$tmp_id=$_POST[$this->FG_TABLE_ID];
+			// NOTE: NO further sanitization!
+			
+		$this->FG_EDITION_CLAUSE=str_dbparams($this->DBHandle,$this->FG_EDITION_CLAUSE,
+			array($tmp_id));
+
 	}
 	
 	/**
@@ -1668,13 +1679,7 @@ class FormHandler{
 			
 		$instance_table = new Table($this->FG_TABLE_NAME, $this->FG_QUERY_EDITION);
 		if ($this->FG_DEBUG >=4 ) $instance_table->debug_st = 1 ;
-			
-			
-		if ($processed['id']!="" || !is_null($processed['id'])){
-			$this->FG_EDITION_CLAUSE = str_replace("%id", $processed['id'], $this->FG_EDITION_CLAUSE);
-		}
-			
-			
+		
 		for($i=0;$i<$this->FG_NB_TABLE_EDITION;$i++){ 
 			
 			$pos = strpos($this->FG_TABLE_EDITION[$i][14], ":"); // SQL CUSTOM QUERY

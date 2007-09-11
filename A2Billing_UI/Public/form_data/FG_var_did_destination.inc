@@ -94,8 +94,8 @@ $HD_Form -> AddEditElement (gettext("DID"),
 	"", "", "",
 	"sql",
 	"cc_did",
-	"did, id",
-	"", "", "%1", "" , "");
+	"id,did",
+	"", "", "", "" , "");
 
 $HD_Form -> AddEditElement (gettext("ACTIVATED"),
 	"activated",
@@ -110,10 +110,10 @@ $HD_Form -> AddEditElement (gettext("PRIORITY"),
 	"priority",
 	"",
 	"SELECT",
+	"label-first",
 	"",
 	"",
-	"",
-	"list" , "", "",  "", $priority_list, "%1" , "" , "");
+	"list" , "", "",  "", $priority_list, "" , "" , "");
 
 $HD_Form -> AddEditElement (gettext("VOIP_CALL"),
 	"voip_call",

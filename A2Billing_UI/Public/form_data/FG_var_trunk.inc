@@ -76,8 +76,8 @@ $HD_Form -> AddEditElement (gettext("VOIP-PROVIDER"),
 	"", "", "",
 	"sql",
 	"cc_provider",
-	"provider_name, id",
-	"", "", "%1","", "", '', '<OPTION  value="-1" selected>NOT DEFINED</OPTION>');
+	"id, provider_name",
+	"", "", "","", "", '', array('-1',_("NOT DEFINED")) );
 	
 $HD_Form -> AddEditElement (gettext("LABEL"),
 	"trunkcode",
@@ -140,8 +140,9 @@ $HD_Form -> AddEditElement (gettext("FAILOVER TRUNK"),
 	"", "", "",
 	"sql",
 	"cc_trunk",
-	"trunkcode, id_trunk",
-	"", "", "%1", "", gettext("You can define an other trunk in case of failover!"), '', '<OPTION  value="-1" selected>NOT DEFINED</OPTION>');
+	"id_trunk, trunkcode",
+	"", "", "", "", gettext("You can define an other trunk in case of failover!"), '', 
+	array('-1',_("NOT DEFINED"));
 
 
 $HD_Form -> FieldEditElement ('id_provider, trunkcode, trunkprefix, removeprefix, providertech, providerip, addparameter, failover_trunk');

@@ -51,10 +51,10 @@ $HD_Form -> AddEditElement (gettext("COUNTRY"),
 	"id_cc_country",
 	'$value',
 	"SELECT",
-	"size=1 maxlength=300",
 	"",
 	"",
-	"SQL" , "cc_country", "countryname, id", "", "" , "%1", "" ,"");
+	"",
+	"SQL" , "cc_country", "id, countryname", "", "" , "", "" ,"");
 
 $HD_Form -> AddEditElement (gettext("PREFIX"),
 	"prefixe",

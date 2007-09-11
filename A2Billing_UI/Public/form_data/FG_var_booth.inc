@@ -81,8 +81,8 @@ if (($form_action == 'ask-add') || ($form_action == 'add'))
 			   "", "", "",
 			   "sql",
 			   "cc_agent",
-			   "name, id",
-			   "", "", "%1", "", gettext("The agent who owns the booth"));
+			   "id,name",
+			   "", "", "", "", gettext("The agent who owns the booth"));
 
 $HD_Form -> AddEditElement (gettext("NAME"),
 			   "name",

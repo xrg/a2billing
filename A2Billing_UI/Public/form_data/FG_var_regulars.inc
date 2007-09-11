@@ -135,10 +135,10 @@ $HD_Form -> AddEditElement (gettext("LANGUAGE"),
 			   "language",
 			   "",
 			   "SELECT",
+			   "label-first",
 			   "",
 			   "",
-			   "",
-			   "list" , "", "",	"", $language_list, "%1", "", "" );
+			   "list" , "", "",	"", $language_list, "", "", "" );
 
 
 $HD_Form -> AddEditElement (gettext("ACTIVATED"),
@@ -155,10 +155,10 @@ $HD_Form -> AddEditElement (gettext("CURRENCY"),
 			   "currency",
 			   "",
 			   "SELECT",
+			   "label-first",
 			   "",
 			   "",
-			   "",
-			   "list" , "", "",	"", $currency_list, "%1", "", "" );
+			   "list" , "", "",	"", $currency_list, "", "", "" );
 
 
 $HD_Form -> AddEditElement (gettext("RUN SERVICE"),
@@ -192,10 +192,10 @@ $HD_Form -> AddEditElement (gettext("CARD TYPE"),
 			   "typepaid",
 			   "",
 			   "SELECT",
+			   "label-first",
 			   "",
 			   "",
-			   "",
-			   "list" , "", "",	"", $typepaid_list, "%1", "", "" );
+			   "list" , "", "",	"", $typepaid_list, "", "", "" );
 
 $HD_Form -> AddEditElement (gettext("CREDIT LIMIT"),
 			   "creditlimit",

@@ -23,12 +23,8 @@ $HD_Form -> setDBHandler (DbConnect());
 // the include file
 $HD_Form -> init();
 
-$HD_Form -> FG_EDITION_LINK= $_SERVER[PHP_SELF]."?form_action=ask-edit&groupID=$groupID&id=";
-$HD_Form -> FG_DELETION_LINK= $_SERVER[PHP_SELF]."?form_action=ask-delete&groupID=$groupID&id=";
-
-if ($id!="" || !is_null($id)){	
-	$HD_Form -> FG_EDITION_CLAUSE = str_replace("%id", "$id", $HD_Form -> FG_EDITION_CLAUSE);	
-}
+$HD_Form -> FG_EDITION_LINK= $_SERVER['PHP_SELF']."?form_action=ask-edit&groupID=$groupID&userid=";
+$HD_Form -> FG_DELETION_LINK= $_SERVER['PHP_SELF']."?form_action=ask-delete&groupID=$groupID&userid=";
 
 
 if (!isset($form_action))  $form_action="list"; //ask-add
