@@ -69,6 +69,7 @@ if ($argc > 3 && strlen($argv[3]) > 0) $caller_areacode = $argv[3];
 
 $A2B = new A2Billing();
 $A2B -> load_conf($agi, NULL, 0, $idconfig);
+$A2B -> mode = $mode;
 
 
 
@@ -464,7 +465,8 @@ if ($mode == 'standard'){
 					$tech 			= $RateEngine -> ratecard_obj[0][$usetrunk+2];
 					$ipaddress 		= $RateEngine -> ratecard_obj[0][$usetrunk+3];
 					$removeprefix 	= $RateEngine -> ratecard_obj[0][$usetrunk+4];
-					$timeout		= $RateEngine -> ratecard_obj[0]['timeout'];	
+					$timeout		= $RateEngine -> ratecard_obj[0]['timeout'];
+					$callbackrate		= $RateEngine -> ratecard_obj[0]['callbackrate'];
 					$failover_trunk	= $RateEngine -> ratecard_obj[0][40+$usetrunk_failover];
 					$addparameter	= $RateEngine -> ratecard_obj[0][42+$usetrunk_failover];
 					
@@ -507,6 +509,9 @@ if ($mode == 'standard'){
 					
 					$uniqueid = MDP_NUMERIC(5).'-'.MDP_STRING(7);
 					$variable = "CALLED=".$A2B ->destination."|MODE=CID|CBID=$uniqueid|LEG=".$A2B -> username;
+					foreach($callbackrate as $key => $value){
+						$variable .= '|'.strtoupper($key).'='.$value;
+					}
 					$status = 'PENDING';
 					$server_ip = 'localhost';
 					$num_attempt = 0;
@@ -708,18 +713,12 @@ if ($mode == 'standard'){
 		$status_channel=4;
 	}
 	
-	$called_party = $agi->get_variable("CALLED");
-	$called_party = $called_party['data'];
-	$calling_party = $agi->get_variable("CALLING");
-	$calling_party = $calling_party['data'];
-	$callback_mode = $agi->get_variable("MODE");
-	$callback_mode = $callback_mode['data'];
-	$callback_tariff = $agi->get_variable("TARIFF");
-	$callback_tariff = $callback_tariff['data'];
-	$callback_uniqueid = $agi->get_variable("CBID");
-	$callback_uniqueid = $callback_uniqueid['data'];
-	$callback_leg = $agi->get_variable("LEG");
-	$callback_leg = $callback_leg['data'];
+	$called_party = $agi->get_variable("CALLED", true);
+	$calling_party = $agi->get_variable("CALLING", true);
+	$callback_mode = $agi->get_variable("MODE", true);
+	$callback_tariff = $agi->get_variable("TARIFF", true);
+	$callback_uniqueid = $agi->get_variable("CBID", true);
+	$callback_leg = $agi->get_variable("LEG", true);
 	
 	// |MODEFROM=ALL-CALLBACK|TARIFF=".$A2B ->tariff;
 	
@@ -727,6 +726,7 @@ if ($mode == 'standard'){
 		$charge_callback = 1;
 		$A2B->agiconfig['use_dnid'] = 0;
 		$A2B->agiconfig['number_try'] =1;
+		$A2B->CallerID = $called_party;
 		
 	}elseif ($callback_mode=='ALL'){  
 		$A2B->agiconfig['use_dnid'] = 0;

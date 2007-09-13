@@ -126,6 +126,7 @@ class A2Billing {
 	var $hostname='';
 	var $currency='usd';
     
+	var $mode = '';
         
 	var $timeout;
 	var $newdestination;
