@@ -417,8 +417,7 @@ if ($mode == 'standard'){
 	$A2B->agiconfig['cid_enable']=1;
 	$A2B->agiconfig['cid_askpincode_ifnot_callerid']=0;
 	
-	if (strlen($A2B->CallerID)>1 && is_numeric($A2B->CallerID)){
-	
+	if (strlen($A2B->CallerID)>1 && is_numeric($A2B->CallerID)) {
 		
 		/* WE START ;) */	
 		$cia_res = $A2B -> callingcard_ivr_authenticate($agi);
@@ -430,13 +429,9 @@ if ($mode == 'standard'){
 			$A2B -> agiconfig['use_dnid']=1;
 			$A2B -> agiconfig['say_timetocall']=0;
 			
-			if (substr($A2B->CallerID,0,1)=='0'){
+			// We arent removing leading zero in front of the callerID if needed this might be done over the dialplan
+			$A2B -> dnid = $A2B -> destination = $caller_areacode.$A2B->CallerID;
 			
-				$A2B -> dnid = $A2B -> destination = $caller_areacode.substr($A2B->CallerID,1);
-			}else{
-			
-				$A2B -> dnid = $A2B -> destination = $caller_areacode.$A2B->CallerID;
-			}
 			$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, '[destination: - '.$A2B->destination.']');
 			
 			// LOOKUP RATE : FIND A RATE FOR THIS DESTINATION
@@ -444,14 +439,14 @@ if ($mode == 'standard'){
 			$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, '[resfindrate: - '.$resfindrate.']');
 			
 			// IF FIND RATE
-			if ($resfindrate!=0){				
+			if ($resfindrate!=0) {
 				//$RateEngine -> debug_st	=1;
 				$res_all_calcultimeout = $RateEngine->rate_engine_all_calcultimeout($A2B, $A2B->credit);
 				//echo ("RES_ALL_CALCULTIMEOUT ::> $res_all_calcultimeout");
 				
-				if ($res_all_calcultimeout){
+				if ($res_all_calcultimeout) {
 					// MAKE THE CALL
-					if ($RateEngine -> ratecard_obj[0][34]!='-1'){
+					if ($RateEngine -> ratecard_obj[0][34]!='-1') {
 						$usetrunk = 34; 
 						$usetrunk_failover = 1;
 						$RateEngine -> usedtrunk = $RateEngine -> ratecard_obj[0][34];
