@@ -36,25 +36,27 @@ define ("ACX_INVOICING",				16384);		// 1 << 13
 
 header("Expires: Sat, Jan 01 2000 01:01:01 GMT");
 //echo "PHP_AUTH_USER : $PHP_AUTH_USER";
-session_name("UIADMINSESSION");
-session_start();
+
+if (!isset($_SESSION)) {
+	session_name("UIADMINSESSION");
+	session_start();
+}
 
 
-
-if (isset($_GET["logout"]) && $_GET["logout"]=="true") {       
-	   	   
-		$log = new Logger();			
-		$log -> insertLog($admin_id, 1, "USER LOGGED OUT", "User Logged out from website", '', $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'],'');
-	    $log = null;   
-	   session_destroy();
-	   $rights=0;
-	   Header ("HTTP/1.0 401 Unauthorized");
-	   Header ("Location: index.php");	   
-	   die();	   
-	}
+if (isset($_GET["logout"]) && $_GET["logout"]=="true") {	
+	$log = new Logger();			
+	$log -> insertLog($admin_id, 1, "USER LOGGED OUT", "User Logged out from website", '', $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'],'');
+	$log = null;   
+	session_destroy();
+	$rights=0;
+	Header ("HTTP/1.0 401 Unauthorized");
+	Header ("Location: index.php");	   
+	die();	   
+}
 	
    
-function access_sanitize_data($data){
+function access_sanitize_data($data)
+{
 	$lowerdata = strtolower ($data);
 	$data = str_replace('--', '', $data);	
 	$data = str_replace("'", '', $data);

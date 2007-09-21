@@ -102,8 +102,9 @@ getpost_ifset(array('form_action', 'atmenu', 'action', 'stitle', 'sub_action', '
  *		CONNECT / DISCONNECT DATABASE
  */
 
-
- session_start();
+if (!isset($_SESSION)) {
+	session_start();
+}
 
 if(ini_get('register_globals'))
 {
@@ -241,6 +242,3 @@ if(!($restircted_url == "Public/index.php") && !($restircted_url == "signup/inde
 	$log -> insertLog($_SESSION["admin_id"], 1, "Page Visit", "User Visited the Page", '', $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'],'');	
 }
 $log = null;
-
-
-?>
