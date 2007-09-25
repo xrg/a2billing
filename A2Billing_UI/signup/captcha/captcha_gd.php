@@ -139,7 +139,7 @@ class captcha
 		{
 			global $phpbb_root_path;
 			
-			$dr = @opendir(FSROOT.'lib/captcha/fonts');
+			$dr = @opendir(FSROOT.'/signup/captcha/fonts');
 
 			if (!$dr)
 			{
@@ -150,7 +150,7 @@ class captcha
 			{
 				if (strtolower(pathinfo($entry, PATHINFO_EXTENSION)) == 'ttf')
 				{
-					$fonts[] = FSROOT.'lib/captcha/fonts/' . $entry;
+					$fonts[] = FSROOT.'/signup/captcha/fonts/' . $entry;
 				}
 			}
 			closedir($dr);

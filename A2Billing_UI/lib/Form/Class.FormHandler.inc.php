@@ -1430,7 +1430,6 @@ class FormHandler{
      * @public
      */
 	function create_sipiax_friends(){
-		
 		global $A2B;
 		$processed = $this->getProcessed();
 		
@@ -1478,6 +1477,7 @@ class FormHandler{
 
 		// Save info in table and in sip file
 		if ($sip_buddy == 1){
+			
 			$instance_sip_table = new Table($FG_TABLE_SIP_NAME, $FG_QUERY_ADITION_SIP_IAX_FIELDS);
 			$result_query1 = $instance_sip_table -> Add_table ($this->DBHandle, $this->FG_QUERY_ADITION_SIP_IAX_VALUE, null, null, null);
 			

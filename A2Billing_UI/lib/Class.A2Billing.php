@@ -26,7 +26,6 @@ define ('WRITELOG',			2);			// 1 << 1
 
 class A2Billing {
 	
-	
 	/**
     * Config variables
     *
@@ -249,7 +248,6 @@ class A2Billing {
 
 	function load_conf( &$agi, $config=NULL, $webui=0, $idconfig=1, $optconfig=array())
     {
-	  
 		$this -> idconfig = $idconfig;
 		// load config
 		if(!is_null($config) && file_exists($config))
@@ -264,10 +262,9 @@ class A2Billing {
 			$this->config["agi-conf$idconfig"][$var] = $val;
 		
 		// add default values to config for uninitialized values
-        
-		
-		//Card Number Length Code
+        //Card Number Length Code
 		$card_length_range = isset($this->config['global']['interval_len_cardnumber'])?$this->config['global']['interval_len_cardnumber']:null;
+		
 		$this -> cardnumber_range = $this -> splitable_data ($card_length_range);
 		
 		if(is_array($this -> cardnumber_range) && ($this -> cardnumber_range[0] >= 4))
