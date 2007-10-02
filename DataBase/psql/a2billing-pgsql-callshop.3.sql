@@ -186,9 +186,9 @@ CREATE OR REPLACE FUNCTION copy_ratecard_sell(rcid_src integer, rcid_dest intege
 
 $$ LANGUAGE SQL STRICT VOLATILE;
 
-ALTER TABLE cc_call ADD invoice_id BIGINT REFERENCES cc_invoices(id);
-ALTER TABLE cc_charge ADD invoice_id BIGINT REFERENCES cc_invoices(id);
-ALTER TABLE cc_agentpay ADD invoice_id BIGINT REFERENCES cc_invoices(id);
+ALTER TABLE cc_call ADD invoice_id BIGINT REFERENCES cc_invoices(id) ON DELETE SET NULL;
+ALTER TABLE cc_charge ADD invoice_id BIGINT REFERENCES cc_invoices(id) ON DELETE SET NULL;
+ALTER TABLE cc_agentpay ADD invoice_id BIGINT REFERENCES cc_invoices(id) ON DELETE RESTRICT;
 
 CREATE OR REPLACE FUNCTION agent_create_invoice(s_agentid BIGINT, s_startdate TIMESTAMP, s_stopdate TIMESTAMP) 
 	RETURNS bigint AS $$
@@ -263,7 +263,8 @@ BEGIN
 		END IF;
 	END IF;
 	
-	sum_amount := sum_calls/(100.0 +agent_vat) + sum_charges;
+	sum_amount := (sum_calls*100.0)/(100.0 +agent_vat) + sum_charges;
+	--RAISE NOTICE 'Sum calls: %, bills: %, amount: %', sum_calls,sum_bills, sum_amount;
 	sum_tax :=(sum_calls*agent_vat)/(100.0 + agent_vat);
 
 	UPDATE cc_invoices SET amount = sum_amount, tax = sum_tax, total =sum_amount + sum_tax
@@ -316,6 +317,13 @@ CREATE OR REPLACE VIEW cc_agent_invoices_v AS
 
 CREATE OR REPLACE FUNCTION cc_invoice_lock_f() RETURNS trigger AS $$
 BEGIN
+	-- Shortcut: allow clearing of the invoice
+	IF TG_OP = 'UPDATE' THEN
+		IF NEW.invoice_id IS NULL THEN
+			RETURN NEW;
+		END IF;
+	END IF;
+	
 	IF OLD.invoice_id IS NOT NULL THEN
 		RAISE EXCEPTION 'Call is invoiced in invoice %. Cannot modify',OLD.invoice_id;
 	END IF;
