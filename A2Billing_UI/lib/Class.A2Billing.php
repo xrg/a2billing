@@ -127,6 +127,7 @@ class A2Billing {
 	var $hostname='';
 	var $currency='usd';
     
+	var $mode = '';
         
 	var $timeout;
 	var $newdestination;
@@ -443,7 +444,7 @@ class A2Billing {
 		$this->set_def_conf('backup','pg_dump','/usr/bin/pg_dump');
 		$this->set_def_conf('backup','mysql','/usr/bin/mysql');
 		$this->set_def_conf('backup','psql','/usr/bin/psql');
-	
+		$this->set_def_conf('backup','archive_data_x_month','3');	
 		
 		// Conf for Customer Web UI
 		$this->set_def_conf('webcustomerui','customerinfo','1');
@@ -564,7 +565,7 @@ class A2Billing {
 		// Explode the no_auth_dnid string 
 		if(isset($this->config[$str_agiconf]['no_auth_dnid'])) $this->config[$str_agiconf]['no_auth_dnid'] = explode(",",$this->config[$str_agiconf]['no_auth_dnid']);
 		
-		// Explode the extracharge_did and extracharge_fee strings
+		// Explode the international_prefixes, extracharge_did and extracharge_fee strings
 		if(isset($this->config[$str_agiconf]['extracharge_did'])) $this->config[$str_agiconf]['extracharge_did'] = explode(",",$this->config[$str_agiconf]['extracharge_did']);
 		if(isset($this->config[$str_agiconf]['extracharge_fee'])) $this->config[$str_agiconf]['extracharge_fee'] = explode(",",$this->config[$str_agiconf]['extracharge_fee']);
 
@@ -834,12 +835,12 @@ class A2Billing {
 		
 		/*$rate=$result[0][0];
 		if ($rate<=0){
-				//$prompt="prepaid-dest-blocked";
-				$prompt="prepaid-dest-unreachable";
-				continue;
+			//$prompt="prepaid-dest-blocked";
+			$prompt="prepaid-dest-unreachable";
+			continue;
 		}*/
-						
-						
+		
+		
 		// CHECKING THE TIMEOUT					
 		$res_all_calcultimeout = $RateEngine->rate_engine_all_calcultimeout($this, $this->credit);
 		
@@ -905,19 +906,19 @@ class A2Billing {
      *  @param integer $try_num
      *  @return 1 if Ok ; -1 if error
 	**/
-	function call_sip_iax_buddy($agi, &$RateEngine, $try_num){
-		$res=0;
+	function call_sip_iax_buddy($agi, &$RateEngine, $try_num)
+	{
+		$res = 0;
+		
 		if ( ($this->agiconfig['use_dnid']==1) && (!in_array ($this->dnid, $this->agiconfig['no_auth_dnid'])) && (strlen($this->dnid)>2 ))
 		{								
 			$this->destination = $this->dnid;
-		}
-		else
-		{
+		} else {
 			$res_dtmf = $agi->get_data('prepaid-sipiax-enternumber', 6000, $this->config['global']['len_aliasnumber'], '#');			
 			$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "RES DTMF : ".$res_dtmf ["result"]);
 			$this->destination = $res_dtmf ["result"];
 			
-			if ($this->destination<=0){
+			if ($this->destination<=0) {
 				return -1;
 			}
 		}
@@ -985,7 +986,7 @@ class A2Billing {
 			$dialstatus = $agi->get_variable("DIALSTATUS");
 			$dialstatus = $dialstatus['data'];
 			
-			if ($this->agiconfig['record_call'] == 1){
+			if ($this->agiconfig['record_call'] == 1) {
 				// Monitor(wav,kiki,m)					
 				$myres = $agi->exec("STOPMONITOR");
 				$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, "EXEC StopMonitor (".$this->uniqueid."-".$this->cardnumber.")");
@@ -1043,7 +1044,7 @@ class A2Billing {
 		
      *  @return 1 if Ok ; -1 if error
 	**/
-	function call_did($agi, &$RateEngine, $listdestination){
+	function call_did ($agi, &$RateEngine, $listdestination){
 		$res=0;
 
 		if ($this -> CC_TESTING) $this->destination="kphone";
@@ -1066,11 +1067,10 @@ class A2Billing {
 			$this->destination = $inst_listdestination[4];
 			$this->username = $inst_listdestination[6];
 			
-			
 			// MAKE THE AUTHENTICATION TO GET ALL VALUE : CREDIT - EXPIRATION - ...
 			if ($this -> callingcard_ivr_authenticate($agi)!=0){
 				$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[A2Billing] DID call friend: AUTHENTICATION FAILS !!!\n");
-			}else{				
+			} else {				
 				// CHECK IF DESTINATION IS SET
 				if (strlen($inst_listdestination[4])==0) continue;
 				
@@ -1432,68 +1432,19 @@ class A2Billing {
 	/*
 	 * Function apply_rules to the phonenumber : Remove internation prefix
 	 */	
-	function apply_rules ($phonenumber){
-						
-		// BEGIN
-		if (substr($phonenumber,0,3)=="011"){
-			$this->myprefix='011';
-			return substr($phonenumber,3);		
-		}	
-		if (substr($phonenumber,0,1)=="1"){
-			$this->myprefix='1';
-			return $phonenumber;		
-		}
-		if (substr($phonenumber,0,2)=="00"){
-			$this->myprefix='00';
-			return substr($phonenumber,2);		
-		}
-		if (substr($phonenumber,0,2)=="09"){
-			$this->myprefix='09';
-			return substr($phonenumber,2);		
-		}
-			
-		$this->myprefix='';
-		return $phonenumber;
-		// END
-		
+	function apply_rules ($phonenumber) {
 
-		// THIS PART IS DEPRECIATE : IT WAS DONE TO MANAGE THE CANADIAN LOCAL CALL 
-		// (NOT USEFUL ANYMORE AS WE CAN MANAGE THIS FROM THE RATECARD PROPERTIES)
-		
-		/*
-		// EUROPE CALL TO THE CANADIAN SYSTEM
-		if (substr($phonenumber,0,2)=="00"){
-			$this->myprefix='011';
-			return "011".substr($phonenumber,2);		
-		}		
-		// CALL TO US / OR US CALL IN CANADA
-		if (substr($phonenumber,0,1)=="1"){
-			$this->myprefix='';
-			return "011".$phonenumber;		
-		}
-		
-		// LOCAL CALL WITH 1
-		$canada[]="1403";	$canada[]="1780";	$canada[]="1250";	$canada[]="1604";	$canada[]="1778";	
-		$canada[]="1204";   $canada[]="1506";	$canada[]="1709";	$canada[]="1902";	$canada[]="1289";  $canada[]="1416";	
-		$canada[]="1519";	$canada[]="1613";	$canada[]="1647";	$canada[]="1705";	$canada[]="1807";	$canada[]="1905";	
-		$canada[]="1418";	$canada[]="1450";	$canada[]="1514";	$canada[]="1819";	$canada[]="1306";	$canada[]="1867";
-		
-		// LOCAL CALL WITHOUT 1
-		$localcanada[]="403";	$localcanada[]="780";	$localcanada[]="250";	$localcanada[]="604";	$localcanada[]="778";	
-		$localcanada[]="204";   $localcanada[]="506";	$localcanada[]="709";	$localcanada[]="902";	$localcanada[]="289";  $localcanada[]="416";	
-		$localcanada[]="519";	$localcanada[]="613";	$localcanada[]="647";	$localcanada[]="705";	$localcanada[]="807";	$localcanada[]="905";	
-		$localcanada[]="418";	$localcanada[]="450";	$localcanada[]="514";	$localcanada[]="819";	$localcanada[]="306";	$localcanada[]="867";
-		
-		foreach ($localcanada as $pn){
-			if ($pn == substr($phonenumber,0,3)){
-				$this->myprefix='';
-				return "011"."1".$phonenumber;
+		if (is_array($this->agiconfig['international_prefixes']) && (count($this->agiconfig['international_prefixes'])>0)) {
+			foreach ($this->agiconfig['international_prefixes'] as $testprefix) {
+				if (substr($phonenumber,0,strlen($testprefix))==$testprefix) {
+					$this->myprefix = $testprefix;
+					return substr($phonenumber,strlen($testprefix));
+				}
 			}
 		}
-		
-		// NO CHANGE
-		$this->myprefix='011';
-		return $phonenumber;*/
+
+		$this->myprefix='';
+		return $phonenumber;
 	}
 	
 	
@@ -2289,5 +2240,3 @@ class A2Billing {
 
 
 };
-	
-?>

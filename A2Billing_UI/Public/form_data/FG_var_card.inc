@@ -63,6 +63,15 @@ $cardstatus_list["3"]  = array( gettext("WAITING-MAILCONFIRMATION"), "3");
 $cardstatus_list["4"]  = array( gettext("RESERVED"), "4");
 $cardstatus_list["5"]  = array( gettext("EXPIRED"), "5");
 
+$cardstatus_list_r = array();
+$cardstatus_list_r["0"]  = array("0", gettext("CANCELLED"));
+$cardstatus_list_r["1"]  = array("1", gettext("ACTIVE"));
+$cardstatus_list_r["2"]  = array("2", gettext("NEW"));
+$cardstatus_list_r["3"]  = array("3", gettext("WAITING-MAILCONFIRMATION"));
+$cardstatus_list_r["4"]  = array("4", gettext("RESERVED"));
+$cardstatus_list_r["5"]  = array("5", gettext("EXPIRED"));
+
+
 $cardstatus_list_acronym = array();
 $cardstatus_list_acronym["0"]  = array( gettext("<acronym title=\"CANCELLED\">".gettext("CANCEL")."</acronym>"), "0");
 $cardstatus_list_acronym["1"]  = array( gettext("<acronym title=\"ACTIVE\">".gettext("ACTIV")."</acronym>"), "1");
@@ -135,7 +144,7 @@ if (!($popup_select>=1)){
 	$HD_Form -> AddViewElement("<acronym title=\"".gettext("CURRENCY")."\">".gettext("CUR")."</acronym>", "currency", "5%", "center", "sort", "", "list", $currency_list_key);
 	$HD_Form -> AddViewElement(gettext("SIP"), "sip_buddy", "3%", "center", "sort", "", "list", $yesno);
 	$HD_Form -> AddViewElement(gettext("IAX"), "iax_buddy", "3%", "center", "sort", "", "list", $yesno);
-	$HD_Form -> AddViewElement("<acronym title=\"NUM CALLS DONE\">".gettext("NT")."</acronym>", "nbused", "4%", "center", "sort");
+	$HD_Form -> AddViewElement("<acronym title=\"AMOUNT OF CALL DONE\">".gettext("ACD")."</acronym>", "nbused", "4%", "center", "sort");
 	if(stristr($_SERVER['REQUEST_URI'], 'A2B_entity_card_multi.php')) {
 		$FG_COL_QUERY='id, tag, username, useralias, lastname, credit, tariff, status, language, inuse, currency, sip_buddy, iax_buddy, nbused';
 	} else {
@@ -186,7 +195,7 @@ $HD_Form -> AddSearchElement_C2(gettext("INUSE"),'inuse1','inuse1type','inuse2',
 $HD_Form -> FG_FILTER_SEARCH_FORM_SELECT_TEXT = '';
 $HD_Form -> AddSearchElement_Select(gettext("SELECT LANGUAGE"), null, null, null, null, null, "language", 0, $language_list_r);
 $HD_Form -> AddSearchElement_Select(gettext("SELECT TARIFF"), "cc_tariffgroup", "id, tariffgroupname, id", "", "tariffgroupname", "ASC", "tariff");
-$HD_Form -> AddSearchElement_Select(gettext("SELECT STATUS"), "cc_status", "id, status", "", "status", "ASC", "status");
+$HD_Form -> AddSearchElement_Select(gettext("SELECT STATUS"), null, null, null, null,null , "status", 0, $cardstatus_list_r);
 $HD_Form -> AddSearchElement_Select(gettext("SELECT ACCESS"), null, null, null, null, null, "simultaccess", 0, $simultaccess_list_r);
 $HD_Form -> AddSearchElement_Select(gettext("SELECT CURRENCY"), null, null, null, null, null, "currency", 0, $currency_list_r);
 
@@ -743,4 +752,3 @@ $HD_Form -> FG_ADDITIONAL_FUNCTION_AFTER_EDITION = 'create_status_log';
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_DELETE = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
-?>

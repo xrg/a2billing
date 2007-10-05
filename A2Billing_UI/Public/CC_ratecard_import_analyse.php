@@ -339,6 +339,7 @@ if ($status=="ok"){
 		<INPUT type="hidden" name="trunk" value="<?php echo $trunk?>">
 		<INPUT type="hidden" name="currencytype" value="<?php echo $currencytype?>">
 		<INPUT type="hidden" name="search_sources" value="<?php echo $search_sources?>">
+		<INPUT TYPE="hidden" VALUE="<?php echo $tag?>" NAME="tag">
 		
 		<tr> 
 		  <td colspan="2"> 

@@ -1223,7 +1223,6 @@ class FormHandler
 
 
 			if ( $form_action == "list" && $this->FG_FILTER_SEARCH_FORM){
-
 				if (isset($processed['cancelsearch']) && ($processed['cancelsearch'] == true)){
 					$_SESSION[$this->FG_FILTER_SEARCH_SESSION_NAME] = '';
 				}

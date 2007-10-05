@@ -1,6 +1,6 @@
 <?php
-include (dirname(__FILE__)."/Class.A2Billing.php");
-include (dirname(__FILE__)."/Class.Table.php");
+include_once (dirname(__FILE__)."/Class.A2Billing.php");
+include_once (dirname(__FILE__)."/Class.Table.php");
 //	require_once('DB.php'); // PEAR
 require_once('adodb/adodb.inc.php'); // AdoDB
 
@@ -9,10 +9,6 @@ $A2B = new A2Billing();
 // SELECT THE FILES TO LOAD THE CONFIGURATION
 $A2B -> load_conf($agi, AST_CONFIG_DIR."a2billing.conf", 1);
 
-
-//Loading Configuration from DB
-
-$A2B -> load_conf_db($agi, AST_CONFIG_DIR."a2billing.conf", 1);
 define ("MANAGER_HOST", isset($A2B->config['global']['manager_host'])?$A2B->config['global']['manager_host']:null);
 define ("MANAGER_USERNAME", isset($A2B->config['global']['manager_username'])?$A2B->config['global']['manager_username']:null);
 define ("MANAGER_SECRET", isset($A2B->config['global']['manager_secret'])?$A2B->config['global']['manager_secret']:null);
@@ -181,7 +177,6 @@ define ("ENABLE_SSL", isset($A2B->config["epayment_method"]['enable_ssl'])?$A2B-
 define ("EPAYMENT_TRANSACTION_KEY", isset($A2B->config["epayment_method"]['transaction_key'])?$A2B->config["epayment_method"]['transaction_key']:null);
 define ("PAYPAL_VERIFY_URL", isset($A2B->config["epayment_method"]['paypal_verify_url'])?$A2B->config["epayment_method"]['paypal_verify_url']:null);
 define ("MONEYBOOKERS_SECRETWORD", isset($A2B->config["epayment_method"]['moneybookers_secretword'])?$A2B->config["epayment_method"]['moneybookers_secretword']:null);
-define ("LOGFILE_EPAYMENT",isset($A2B->config['log-files']['epayment'])?$A2B->config['log-files']['epayment']:null);
 
 //SIP/IAX Info
 define ("SIP_IAX_INFO_TRUNKNAME",isset($A2B->config['sip-iax-info']['sip_iax_info_trunkname'])?$A2B->config['sip-iax-info']['sip_iax_info_trunkname']:null);

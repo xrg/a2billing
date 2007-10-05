@@ -192,7 +192,20 @@ function openURLFilter(theLINK)
 							$record_display = str_replace("%$l", $select_list[0][$l-1], $record_display);
 						}*/
 						
-					}elseif ($this->FG_TABLE_COL[$i][6]=="eval"){
+					}elseif($this->FG_TABLE_COL[$i][6]=="lie_link"){
+						$instance_sub_table = new Table($this->FG_TABLE_COL[$i][7], $this->FG_TABLE_COL[$i][8]);
+						$sub_clause = str_replace("%id", $list[$ligne_number][$i-$k], $this->FG_TABLE_COL[$i][9]);
+						$select_list = $instance_sub_table -> Get_list ($this->DBHandle, $sub_clause, null, null, null, null, null, null, null, 10);
+						$field_list_sun = split(',',$this->FG_TABLE_COL[$i][8]);
+						$record_display = $this->FG_TABLE_COL[$i][10];
+						$link = $this->FG_TABLE_COL[$i][12]."?form_action=ask-edit&id=".$select_list[0][1];		
+						for ($l=1;$l<=count($field_list_sun);$l++){													
+							$val = str_replace("%$l", $select_list[0][$l-1], $record_display);
+							$record_display = "<a href='$link'>$val</a>";
+						}						
+
+					}
+					elseif ($this->FG_TABLE_COL[$i][6]=="eval"){
 						$string_to_eval = $this->FG_TABLE_COL[$i][7]; // %4-%3
 						$string_to_eval = str_params($string_to_eval,$list[$ligne_number]);
 						eval("\$eval_res = $string_to_eval;");
@@ -203,6 +216,10 @@ function openURLFilter(theLINK)
 					}elseif ($this->FG_TABLE_COL[$i][6]=="list"){
 						$select_list = $this->FG_TABLE_COL[$i][7];
 						$record_display = $select_list[$list[$ligne_number][$i-$k]][0];
+					}elseif ($this->FG_TABLE_COL[$i][6]=="list-conf"){
+						$select_list = $this->FG_TABLE_COL[$i][7];
+						$key_config =  $list[$ligne_number][$i-$k + 3] - 1;
+						$record_display = $select_list[$key_config][0];
 					}elseif ($this->FG_TABLE_COL[$i][6]=="value"){
 						$record_display = $this->FG_TABLE_COL[$i][7];
 						$k++;
@@ -231,7 +248,7 @@ function openURLFilter(theLINK)
 						$list[$ligne_number][$i-$k] = $record_display;
 
 						if (isset ($this->FG_TABLE_COL[$i][11]) && strlen($this->FG_TABLE_COL[$i][11])>1){
-							call_user_func($this->FG_TABLE_COL[$i][11], $record_display);
+							print call_user_func($this->FG_TABLE_COL[$i][11], $record_display);
 						}else{
 							echo stripslashes($record_display);
 						}

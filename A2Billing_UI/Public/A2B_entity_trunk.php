@@ -54,8 +54,11 @@ if ($popup_select)
 
 
 // #### HELP SECTION
-if ($form_action=='list') { if (!$popup_select) echo $CC_help_trunk_list; }
-else echo $CC_help_trunk_edit;
+if ($form_action=='list') { 
+	if (!$popup_select) echo $CC_help_trunk_list;
+} else {
+	echo $CC_help_trunk_edit;
+}
 
 echo $CALL_LABS;
 
@@ -71,8 +74,3 @@ $HD_Form -> create_form ($form_action, $list, $id=null) ;
 
 // #### FOOTER SECTION
 if (!$popup_select) include("PP_footer.php");
-
-
-
-
-?>

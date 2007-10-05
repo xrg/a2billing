@@ -11,17 +11,13 @@ if (! has_rights (ACX_CALL_REPORT)){
 }
 
 
-getpost_ifset(array('months_compare', 'current_page', 'fromstatsday_sday', 'fromstatsmonth_sday', 'days_compare', 'min_call', 'posted',  'dsttype', 'srctype', 'clidtype', 'channel', 'resulttype', 'stitle', 'atmenu', 'current_page', 'order', 'sens', 'dst', 'src', 'clid', 'userfieldtype', 'userfield', 'accountcodetype', 'accountcode', 'customer', 'entercustomer', 'enterprovider', 'entertrunk', 'graphtype', 'choose_agent'));
+getpost_ifset(array('months_compare', 'current_page', 'fromstatsday_sday', 'fromstatsmonth_sday', 'days_compare', 'min_call', 'posted',  'dsttype', 'srctype', 'clidtype', 'channel', 'resulttype', 'stitle', 'atmenu', 'current_page', 'order', 'sens', 'dst', 'src', 'clid', 'userfieldtype', 'userfield', 'accountcodetype', 'accountcode', 'customer', 'entercustomer', 'enterprovider', 'entertrunk', 'graphtype', 'choose_agent', 'entertariffgroup', 'enterratecard','graphtype'));
 
-// graphtype = 1, 2, 3  
-// 1 : traffic
-// 2 : Profit
-// 3 : Sells
-// 4 : Buys
-
+// graphtype = 1, 2, 3 , 4 
+// 1 : traffic - 2 : Profit - 3 : Sells -  4 : Buys
 if (!isset ($current_page) || ($current_page == "")){	
-		$current_page=0; 
-	}
+	$current_page=0;
+}
 
 // this variable specifie the debug type (0 => nothing, 1 => sql result, 2 => boucle checking, 3 other value checking)
 $FG_DEBUG = 0;
@@ -29,19 +25,9 @@ $FG_DEBUG = 0;
 // The variable FG_TABLE_NAME define the table name to use
 $FG_TABLE_NAME="cc_call t1 LEFT OUTER JOIN cc_trunk t3 ON t1.id_trunk = t3.id_trunk";
 
-if ($_SESSION["is_admin"]==0){
- 	$FG_TABLE_NAME.=", cc_card t2";
+if ($_SESSION["is_admin"]==0) {
+	$FG_TABLE_NAME.=", cc_card t2";
 }
-
-// THIS VARIABLE DEFINE THE COLOR OF THE HEAD TABLE
-$FG_TABLE_HEAD_COLOR = "#D1D9E7";
-
-
-$FG_TABLE_EXTERN_COLOR = "#7F99CC"; //#CC0033 (Rouge)
-$FG_TABLE_INTERN_COLOR = "#EDF3FF"; //#FFEAFF (Rose)
-
-
-
 
 // THIS VARIABLE DEFINE THE COLOR OF THE HEAD TABLE
 $FG_TABLE_ALTERNATE_ROW_COLOR[] = "#FFFFFF";
@@ -50,55 +36,26 @@ $FG_TABLE_ALTERNATE_ROW_COLOR[] = "#F2F8FF";
 
 $DBHandle  = DbConnect();
 
-// The variable Var_col would define the col that we want show in your table
-// First Name of the column in the html page, second name of the field
 $FG_TABLE_COL = array();
 
 
-/*******
-Calldate Clid Src Dst Dcontext Channel Dstchannel Lastapp Lastdata Duration Billsec Disposition Amaflags Accountcode Uniqueid Serverid
-*******/
 
 $FG_TABLE_COL[]=array (gettext("Calldate"), "starttime", "15%", "center", "SORT", "19", "", "", "", "", "", "display_dateformat");
-//$FG_TABLE_COL[]=array ("Callend", "stoptime", "15%", "center", "SORT", "19");
-
-
-//$FG_TABLE_COL[]=array ("Source", "source", "20%", "center", "SORT", "30");
-
 $FG_TABLE_COL[]=array (gettext("CalledNumber"), "calledstation", "15%", "center", "SORT", "30", "", "", "", "", "", "remove_prefix");
 $FG_TABLE_COL[]=array (gettext("Destination"), "destination", "15%", "center", "SORT", "30", "", "", "", "", "", "remove_prefix");
-//$FG_TABLE_COL[]=array ("Country",  "calledcountry", "10%", "center", "SORT", "30", "lie", "country", "countryname", "countrycode='%id'", "%1");
-//$FG_TABLE_COL[]=array ("Site", "site_id", "7%", "center", "sort", "15", "lie", "site", "name", "id='%id'", "%1");
-
 $FG_TABLE_COL[]=array (gettext("Duration"), "sessiontime", "7%", "center", "SORT", "30", "", "", "", "", "", "display_minute");
-
 $FG_TABLE_COL[]=array (gettext("CardUsed"), "username", "11%", "center", "SORT", "", "30", "", "", "", "", "linktocustomer");
 $FG_TABLE_COL[]=array (gettext("terminatecause"), "terminatecause", "10%", "center", "SORT", "30");
 $FG_TABLE_COL[]=array (gettext("IAX/SIP"), "sipiax", "6%", "center", "SORT",  "", "list", $yesno);
-//$FG_TABLE_COL[]=array ("DestID", "destID", "12%", "center", "SORT", "30");
-
-//if ($_SESSION["is_admin"]==1) $FG_TABLE_COL[]=array ("Con_charg", "connectcharge", "12%", "center", "SORT", "30");
-//if ($_SESSION["is_admin"]==1) $FG_TABLE_COL[]=array ("Dis_charg", "disconnectcharge", "12%", "center", "SORT", "30");
-//if ($_SESSION["is_admin"]==1) $FG_TABLE_COL[]=array ("Sec/mn", "secpermin", "12%", "center", "SORT", "30");
-
-
-//if ($_SESSION["is_admin"]==1) $FG_TABLE_COL[]=array ("Buycosts", "buycosts", "12%", "center", "SORT", "30");
 $FG_TABLE_COL[]=array (gettext("InitialRate"), "calledrate", "10%", "center", "SORT", "30", "", "", "", "", "", "display_2dec");
 $FG_TABLE_COL[]=array (gettext("Cost"), "sessionbill", "10%", "center", "SORT", "30", "", "", "", "", "", "display_2bill");
 
-
-
-// ??? cardID
 $FG_TABLE_DEFAULT_ORDER = "t1.starttime";
 $FG_TABLE_DEFAULT_SENS = "DESC";
 	
-// This Variable store the argument for the SQL query
-
 $FG_COL_QUERY='t1.starttime, t1.calledstation, t1.destination, t1.sessiontime, t1.username, t1.terminatecause, t1.sipiax, t1.calledrate, t1.sessionbill';
-// t1.stoptime,
 
-
-$FG_COL_QUERY_GRAPH='t1.callstart, t1.duration';
+$FG_COL_QUERY_GRAPH='t1.starttime, t1.sessiontime';
 
 
 // The variable LIMITE_DISPLAY define the limit of record to display by page
@@ -136,72 +93,65 @@ if ( is_null ($order) || is_null($sens) ){
 
 if ($_POST['posted']==1){
 	
-  function do_field($sql,$fld){
-  		$fldtype = $fld.'type';
+	function do_field($sql,$fld){
+		$fldtype = $fld.'type';
 		global $$fld;
 		global $$fldtype;
-        if (isset($$fld) && ($$fld!='')){
-                if (strpos($sql,'WHERE') > 0){
-                        $sql = "$sql AND ";
-                }else{
-                        $sql = "$sql WHERE ";
-                }
+		if (isset($$fld) && ($$fld!='')){
+				if (strpos($sql,'WHERE') > 0){
+					$sql = "$sql AND ";
+				}else{
+					$sql = "$sql WHERE ";
+				}
 				$sql = "$sql $fld";
 				if (isset ($$fldtype)){
-                        switch ($$fldtype) {
-							case 1:	$sql = "$sql='".$$fld."'";  break;
-							case 2: $sql = "$sql LIKE '".$$fld."%'";  break;
-							case 3: $sql = "$sql LIKE '%".$$fld."%'";  break;
-							case 4: $sql = "$sql LIKE '%".$$fld."'";
-						}
-                }else{ $sql = "$sql LIKE '%".$$fld."%'"; }
+					switch ($$fldtype) {
+						case 1:	$sql = "$sql='".$$fld."'";  break;
+						case 2: $sql = "$sql LIKE '".$$fld."%'";  break;
+						case 3: $sql = "$sql LIKE '%".$$fld."%'";  break;
+						case 4: $sql = "$sql LIKE '%".$$fld."'";
+					}
+				}else{ $sql = "$sql LIKE '%".$$fld."%'"; }
 		}
-        return $sql;
-  }  
-  $SQLcmd = '';
-
-  if ($_POST['before']) {
-    if (strpos($SQLcmd, 'WHERE') > 0) { 	$SQLcmd = "$SQLcmd AND ";
-    }else{     								$SQLcmd = "$SQLcmd WHERE "; }
-    $SQLcmd = "$SQLcmd calldate<'".$_POST['before']."'";
-  }
-  if ($_POST['after']) {    if (strpos($SQLcmd, 'WHERE') > 0) {      $SQLcmd = "$SQLcmd AND ";
-  } else {      $SQLcmd = "$SQLcmd WHERE ";    }
-    $SQLcmd = "$SQLcmd calldate>'".$_POST['after']."'";
-  }
-
-
-  $SQLcmd = do_field($SQLcmd, 'dst');
+		return $sql;
+	}  
+	$SQLcmd = '';
+	
+	if ($_POST['before']) {
+	if (strpos($SQLcmd, 'WHERE') > 0) { 	$SQLcmd = "$SQLcmd AND ";
+	}else{     								$SQLcmd = "$SQLcmd WHERE "; }
+		$SQLcmd = "$SQLcmd calldate<'".$_POST['before']."'";
+	}
+	if ($_POST['after']) {    if (strpos($SQLcmd, 'WHERE') > 0) {      $SQLcmd = "$SQLcmd AND ";
+	} else {      $SQLcmd = "$SQLcmd WHERE ";    }
+		$SQLcmd = "$SQLcmd calldate>'".$_POST['after']."'";
+	}
+	
+	$SQLcmd = do_field($SQLcmd, 'dst');
 
 }
 
-
 $date_clause='';
-// Period (Month-Day)
-
-
 
 
 if (!isset($months_compare)){
 	$months_compare=2;
 }
 
+$fromstatsday_sday = 1;
 
-
-//if (isset($fromstatsday_sday) && isset($fromstatsmonth_sday)) $date_clause.=" AND calldate <= '$fromstatsmonth_sday-$fromstatsday_sday+23' AND calldate >= SUBDATE('$fromstatsmonth_sday-$fromstatsday_sday',INTERVAL $days_compare DAY)";
-
-if (DB_TYPE == "postgres"){	
-	if (isset($fromstatsday_sday) && isset($fromstatsmonth_sday)) $date_clause.=" AND t1.starttime < date'$fromstatsmonth_sday-$fromstatsday_sday'+ INTERVAL '1 DAY' AND t1.starttime >= date'$fromstatsmonth_sday-$fromstatsday_sday' - INTERVAL '$days_compare DAY'";
-}else{
-	if (isset($fromstatsday_sday) && isset($fromstatsmonth_sday)) $date_clause.=" AND t1.starttime < ADDDATE('$fromstatsmonth_sday-$fromstatsday_sday',INTERVAL 1 DAY) AND t1.starttime >= SUBDATE('$fromstatsmonth_sday-$fromstatsday_sday',INTERVAL $days_compare DAY)";  
+if (DB_TYPE == "postgres") {	
+	if (isset($fromstatsmonth_sday)) $date_clause.=" AND t1.starttime < date'$fromstatsmonth_sday-$fromstatsday_sday'+ INTERVAL '$months_compare MONTH' AND t1.starttime >= date'$fromstatsmonth_sday-$fromstatsday_sday' - INTERVAL '$months_compare MONTH'";
+} else {
+	if (isset($fromstatsmonth_sday)) $date_clause.=" AND t1.starttime < ADDDATE('$fromstatsmonth_sday-$fromstatsday_sday',INTERVAL $months_compare MONTH) AND t1.starttime >= SUBDATE('$fromstatsmonth_sday-$fromstatsday_sday',INTERVAL $months_compare MONTH)";  
 }
 
 
-if (isset($customer)  &&  ($customer>0)){
+if (isset($customer)  &&  ($customer>0)) {
 	if (strlen($FG_TABLE_CLAUSE)>0) $FG_TABLE_CLAUSE.=" AND ";
 	$FG_TABLE_CLAUSE.="t1.username='$customer'";
 }else{
-	if (isset($entercustomer)  &&  ($entercustomer>0)){
+	if (isset($entercustomer)  &&  ($entercustomer>0)) {
 		if (strlen($FG_TABLE_CLAUSE)>0) $FG_TABLE_CLAUSE.=" AND ";
 		$FG_TABLE_CLAUSE.="t1.username='$entercustomer'";
 	}
@@ -215,6 +165,14 @@ if ($_SESSION["is_admin"] == 1)
 	if (isset($entertrunk) && $entertrunk > 0) {
 		if (strlen($FG_TABLE_CLAUSE) > 0) $FG_TABLE_CLAUSE .= " AND ";
 		$FG_TABLE_CLAUSE .= "t3.id_trunk = '$entertrunk'";
+	}
+	if (isset($entertariffgroup) && $entertariffgroup > 0) {
+		if (strlen($FG_TABLE_CLAUSE) > 0) $FG_TABLE_CLAUSE .= " AND ";
+		$FG_TABLE_CLAUSE .= "t1.id_tariffgroup = '$entertariffgroup'";
+	}
+	if (isset($enterratecard) && $enterratecard > 0) {
+		if (strlen($FG_TABLE_CLAUSE) > 0) $FG_TABLE_CLAUSE .= " AND ";
+		$FG_TABLE_CLAUSE .= "t1.id_ratecard = '$enterratecard'";
 	}
 }
 
@@ -286,22 +244,10 @@ $list_agent = array_merge(array(array('' , _("All cards")),array('all', _("All a
 	 $instance_table_agent -> Get_list ($DBHandle, $FG_TABLE_CLAUSE_AG, "name", "ASC", null, null, null, null));
 $nb_agent = count($list_agent);
 
-?>
 
-<?php
 	include("PP_header.php");
+
 ?>
-
-<script language="JavaScript" type="text/JavaScript">
-<!--
-function MM_openBrWindow(theURL,winName,features) { //v2.0
-  window.open(theURL,winName,features);
-}
-
-//-->
-</script>
-
-
 
 <!-- ** ** ** ** ** Part for the research ** ** ** ** ** -->
 	<center>
@@ -318,16 +264,25 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 					<td class="fontstyle_searchoptions">
 						<?php echo gettext("Enter the cardnumber");?>: <INPUT TYPE="text" NAME="entercustomer" value="<?php echo $entercustomer?>"
 						<a href="#" onclick="window.open('A2B_entity_card.php?popup_select=2&popup_formname=myForm&popup_fieldname=entercustomer' , 'CardNumberSelection','width=550,height=330,top=20,left=100,scrollbars=1');"><img src="../Images/icon_arrow_orange.png"></a>
-						
-					</td>
-					<td align="right" class="fontstyle_searchoptions"">
-						<?php echo gettext("Provider");?>: <INPUT TYPE="text" NAME="enterprovider" value="<?php echo $enterprovider?>" size="4">
-						<a href="#" onclick="window.open('A2B_entity_provider.php?popup_select=2&popup_formname=myForm&popup_fieldname=enterprovider' , 'ProviderSelection','width=550,height=330,top=20,left=100,scrollbars=1,scrollbars=1');"><img src="../Images/icon_arrow_orange.png"></a>
-						<?php echo gettext("Trunk");?>: <INPUT TYPE="text" NAME="entertrunk" value="<?php echo $entertrunk?>" size="4">
-						<a href="#" onclick="window.open('A2B_entity_trunk.php?popup_select=2&popup_formname=myForm&popup_fieldname=entertrunk' , 'TrunkSelection','width=550,height=330,top=20,left=100,scrollbars=1');"><img src="../Images/icon_arrow_orange.png"></a>
-						
-                                        </td>
-				</tr></table></td>
+				</td>
+				<td width="50%">
+					<table width="100%" border="0" cellspacing="0" cellpadding="0">
+						<tr>
+							<td align="left" class="fontstyle_searchoptions"><?php echo gettext("CallPlan");?> :</td>
+							<td align="left" class="fontstyle_searchoptions"><INPUT TYPE="text" NAME="entertariffgroup" value="<?php echo $entertariffgroup?>" size="4" class="form_input_text">&nbsp;<a href="#" onclick="window.open('A2B_entity_tariffgroup.php?popup_select=2&popup_formname=myForm&popup_fieldname=entertariffgroup' , 'CallPlanSelection','scrollbars=1,width=550,height=330,top=20,left=100');"><img src="<?php echo Images_Path;?>/icon_arrow_orange.gif"></a></td>
+							<td align="left" class="fontstyle_searchoptions"><?php echo gettext("Provider");?> :
+							<td align="left" class="fontstyle_searchoptions"><INPUT TYPE="text" NAME="enterprovider" value="<?php echo $enterprovider?>" size="4" class="form_input_text">&nbsp;<a href="#" onclick="window.open('A2B_entity_provider.php?popup_select=2&popup_formname=myForm&popup_fieldname=enterprovider' , 'ProviderSelection','scrollbars=1,width=550,height=330,top=20,left=100');"><img src="<?php echo Images_Path;?>/icon_arrow_orange.gif"></a></td>
+						</tr>
+						<tr>
+							<td align="left" class="fontstyle_searchoptions"><?php echo gettext("Trunk");?> :</td>
+							<td align="left" class="fontstyle_searchoptions"><INPUT TYPE="text" NAME="entertrunk" value="<?php echo $entertrunk?>" size="4" class="form_input_text">&nbsp;<a href="#" onclick="window.open('A2B_entity_trunk.php?popup_select=2&popup_formname=myForm&popup_fieldname=entertrunk' , 'TrunkSelection','scrollbars=1,width=550,height=330,top=20,left=100');"><img src="<?php echo Images_Path;?>/icon_arrow_orange.gif"></a></td>
+							<td align="left" class="fontstyle_searchoptions"><?php echo gettext("Ratecard ID");?> :</td>
+							<td align="left" class="fontstyle_searchoptions"><INPUT TYPE="text" NAME="enterratecard" value="<?php echo $enterratecard?>" size="4" class="form_input_text">&nbsp;<a href="#" onclick="window.open('A2B_entity_def_ratecard.php?popup_select=2&popup_formname=myForm&popup_fieldname=enterratecard' , 'RatecardSelection','scrollbars=1,width=550,height=330,top=20,left=100');"><img src="<?php echo Images_Path;?>/icon_arrow_orange.gif"></a></td>
+						</tr>
+					</table>
+				</tr>
+			</table>
+			</td>
 			</tr>
 			<tr>
         		<td align="left"  class="bgcolor_002">					
@@ -419,153 +374,22 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 </center>
 
 
-
-
-
-<!-- ** ** ** ** ** Part to display the GRAPHIC ** ** ** ** ** -->
-<br><br>
-
-<?php 
-
-if ($FG_DEBUG >= 4) print_r($list);
-
-if (is_array($list) && count($list)>0){
-
-$table_graph=array();
-$table_graph_hours=array();
-$numm=0;
-foreach ($list_total as $recordset){
-		$numm++;
-		$mydate= substr($recordset[0],0,10);
-		$mydate_hours= substr($recordset[0],0,13);
-		//echo "$mydate<br>";
-		if (is_array($table_graph_hours[$mydate_hours])){
-			$table_graph_hours[$mydate_hours][0]++;
-			$table_graph_hours[$mydate_hours][1]=$table_graph_hours[$mydate_hours][1]+$recordset[1];
-		}else{
-			$table_graph_hours[$mydate_hours][0]=1;
-			$table_graph_hours[$mydate_hours][1]=$recordset[1];
-		}
-		
-		
-		if (is_array($table_graph[$mydate])){
-			$table_graph[$mydate][0]++;
-			$table_graph[$mydate][1]=$table_graph[$mydate][1]+$recordset[1];
-		}else{
-			$table_graph[$mydate][0]=1;
-			$table_graph[$mydate][1]=$recordset[1];
-		}
-		
-}
-
-$mmax=0;
-$totalcall==0;
-$totalminutes=0;
-foreach ($table_graph as $tkey => $data){	
-	if ($mmax < $data[1]) $mmax=$data[1];
-	$totalcall+=$data[0];
-	$totalminutes+=$data[1];
-}
-
-?>
-
-
-<!-- TITLE GLOBAL -->
-<center>
- <table border="0" cellspacing="0" cellpadding="0" width="80%"><tbody><tr><td align="left" height="30">
-		<table cellspacing="0" cellpadding="1" bgcolor="#000000" width="50%"><tbody><tr><td>
-			<table cellspacing="0" cellpadding="0" width="100%"><tbody>
-				<tr><td bgcolor="#600101" align="left"><font face="verdana" size="1" color="white"><b><?php echo gettext("TOTAL");?></b></font></td></tr>
-			</tbody></table>
-		</td></tr></tbody></table>
- </td></tr></tbody></table>
-		  
-<!-- FIN TITLE GLOBAL MINUTES //-->
-				
-<table border="0" cellspacing="0" cellpadding="0" width="80%">
-<tbody><tr><td bgcolor="#000000">			
-	<table border="0" cellspacing="1" cellpadding="2" width="100%"><tbody>
-	<tr>	
-		<td align="center" bgcolor="#600101"></td>
-    	<td bgcolor="#b72222" align="center" colspan="4"><font face="verdana" size="1" color="#ffffff"><b><?php echo gettext("ASTERISK MINUTES");?></b></font></td>
-    </tr>
-	<tr bgcolor="#600101">
-		<td align="right" bgcolor="#b72222"><font face="verdana" size="1" color="#ffffff"><b><?php echo gettext("DATE");?></b></font></td>
-        <td align="center"><font face="verdana" size="1" color="#ffffff"><b><?php echo gettext("DURATION");?></b></font></td>
-		<td align="center"><font face="verdana" size="1" color="#ffffff"><b><?php echo gettext("GRAPHIC");?></b></font></td>
-		<td align="center"><font face="verdana" size="1" color="#ffffff"><b><?php echo gettext("CALLS");?></b></font></td>
-		<td align="center"><font class="fontstyle_003"> <acronym title="<?php echo gettext("AVERAGE LENGTH OF CALL");?>"><?php echo gettext("ALOC");?></acronym></font></td>
-                			
-		<!-- LOOP -->
-	<?php  		
-		$i=0;
-		// #ffffff #cccccc
-		foreach ($table_graph as $tkey => $data){	
-		$i=($i+1)%2;		
-		$tmc = $data[1]/$data[0];
-		
-		$tmc_60 = sprintf("%02d",intval($tmc/60)).":".sprintf("%02d",intval($tmc%60));		
-		
-		$minutes_60 = sprintf("%02d",intval($data[1]/60)).":".sprintf("%02d",intval($data[1]%60));
-		$widthbar= intval(($data[1]/$mmax)*200); 
-		
-		//bgcolor="#336699" 
-	?>
-		</tr><tr>
-		<td align="right" class="sidenav" nowrap="nowrap"><font face="verdana" size="1" color="#ffffff"><?php echo $tkey?></font></td>
-		<td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right" nowrap="nowrap"><font face="verdana" color="#000000" size="1"><?php echo $minutes_60?> </font></td>
-        <td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="left" nowrap="nowrap" width="<?php echo $widthbar+60?>">
-        <table cellspacing="0" cellpadding="0"><tbody><tr>
-        <td bgcolor="#e22424"><img src="images/spacer.gif" width="<?php echo $widthbar?>" height="6"></td>
-        </tr></tbody></table></td>
-        <td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right" nowrap="nowrap"><font face="verdana" color="#000000" size="1"><?php echo $data[0]?></font></td>
-        <td bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[$i]?>" align="right" nowrap="nowrap"><font face="verdana" color="#000000" size="1"><?php echo $tmc_60?> </font></td>
-     <?php 	 }	 
-	 	$total_tmc_60 = sprintf("%02d",intval(($totalminutes/$totalcall)/60)).":".sprintf("%02d",intval(($totalminutes/$totalcall)%60));				
-		$total_minutes_60 = sprintf("%02d",intval($totalminutes/60)).":".sprintf("%02d",intval($totalminutes%60));
-	 
-	 ?>                   	
-	</tr>
-	<!-- FIN DETAIL -->		
-	
-				
-				<!-- FIN BOUCLE -->
-
-	<!-- TOTAL -->
-	<tr bgcolor="#600101">
-		<td align="right" nowrap="nowrap"><font face="verdana" size="1" color="#ffffff"><b><?php echo gettext("TOTAL");?></b></font></td>
-		<td align="center" nowrap="nowrap" colspan="2"><font face="verdana" size="1" color="#ffffff"><b><?php echo $total_minutes_60?> </b></font></td>
-		<td align="center" nowrap="nowrap"><font face="verdana" size="1" color="#ffffff"><b><?php echo $totalcall?></b></font></td>
-		<td align="center" nowrap="nowrap"><font face="verdana" size="1" color="#ffffff"><b><?php echo $total_tmc_60?></b></font></td>                        
-	</tr>
-	<!-- FIN TOTAL -->
-
-	  </tbody></table>
-	  <!-- Fin Tableau Global //-->
-
-</td></tr></tbody></table>
-	<br>
- 	
-
-<?php  }else{ ?>
-	
-<?php  } ?>
 <?php  if ($posted==1){ ?>
 	<center>
 	<?php echo gettext("TRAFFIC")?><br> 
-	<IMG SRC="graph_pie.php?graphtype=1&min_call=<?php echo $min_call?>&fromstatsday_sday=<?php echo $fromstatsday_sday?>&months_compare=<?php echo $months_compare?>&fromstatsmonth_sday=<?php echo $fromstatsmonth_sday?>&dsttype=<?php echo $dsttype?>&srctype=<?php echo $srctype?>&clidtype=<?php echo $clidtype?>&channel=<?php echo $channel?>&resulttype=<?php echo $resulttype?>&dst=<?php echo $dst?>&src=<?php echo $src?>&clid=<?php echo $clid?>&userfieldtype=<?php echo $userfieldtype?>&userfield=<?php echo $userfield?>&accountcodetype=<?php echo $accountcodetype?>&accountcode=<?php echo $accountcode?>&customer=<?php echo $customer?>&entercustomer=<?php echo $entercustomer?>&enterprovider=<?php echo $enterprovider?>&entertrunk=<?php echo $entertrunk?>&choose_agent=<?= $choose_agent?>" ALT="<?php echo gettext("Stat Graph");?>">
+	<IMG SRC="graph_pie.php?graphtype=1&min_call=<?php /*-*/ echo $min_call?>&fromstatsday_sday=<?php echo $fromstatsday_sday?>&months_compare=<?php echo $months_compare?>&fromstatsmonth_sday=<?php echo $fromstatsmonth_sday?>&dsttype=<?php echo $dsttype?>&srctype=<?php echo $srctype?>&clidtype=<?php echo $clidtype?>&channel=<?php echo $channel?>&resulttype=<?php echo $resulttype?>&dst=<?php echo $dst?>&src=<?php echo $src?>&clid=<?php echo $clid?>&userfieldtype=<?php echo $userfieldtype?>&userfield=<?php echo $userfield?>&accountcodetype=<?php echo $accountcodetype?>&accountcode=<?php echo $accountcode?>&customer=<?php echo $customer?>&entercustomer=<?php echo $entercustomer?>&enterprovider=<?php echo $enterprovider?>&entertrunk=<?php echo $entertrunk?>&choose_agent=<?= $choose_agent?>" ALT="<?php echo gettext("Stat Graph");?>">
 	</center>
 	<br>
 	
 	<center>
 	<?php echo gettext("PROFIT")?> <br>
-	<IMG SRC="graph_pie.php?graphtype=2&min_call=<?php echo $min_call?>&fromstatsday_sday=<?php echo $fromstatsday_sday?>&months_compare=<?php echo $months_compare?>&fromstatsmonth_sday=<?php echo $fromstatsmonth_sday?>&dsttype=<?php echo $dsttype?>&srctype=<?php echo $srctype?>&clidtype=<?php echo $clidtype?>&channel=<?php echo $channel?>&resulttype=<?php echo $resulttype?>&dst=<?php echo $dst?>&src=<?php echo $src?>&clid=<?php echo $clid?>&userfieldtype=<?php echo $userfieldtype?>&userfield=<?php echo $userfield?>&accountcodetype=<?php echo $accountcodetype?>&accountcode=<?php echo $accountcode?>&customer=<?php echo $customer?>&entercustomer=<?php echo $entercustomer?>&enterprovider=<?php echo $enterprovider?>&entertrunk=<?php echo $entertrunk?>&choose_agent=<?= $choose_agent?>" ALT="<?php echo gettext("Stat Graph");?>">
+	<IMG SRC="graph_pie.php?graphtype=2&min_call=<?php /*-*/ echo $min_call?>&fromstatsday_sday=<?php echo $fromstatsday_sday?>&months_compare=<?php echo $months_compare?>&fromstatsmonth_sday=<?php echo $fromstatsmonth_sday?>&dsttype=<?php echo $dsttype?>&srctype=<?php echo $srctype?>&clidtype=<?php echo $clidtype?>&channel=<?php echo $channel?>&resulttype=<?php echo $resulttype?>&dst=<?php echo $dst?>&src=<?php echo $src?>&clid=<?php echo $clid?>&userfieldtype=<?php echo $userfieldtype?>&userfield=<?php echo $userfield?>&accountcodetype=<?php echo $accountcodetype?>&accountcode=<?php echo $accountcode?>&customer=<?php echo $customer?>&entercustomer=<?php echo $entercustomer?>&enterprovider=<?php echo $enterprovider?>&entertrunk=<?php echo $entertrunk?>&choose_agent=<?= $choose_agent?>" ALT="<?php echo gettext("Stat Graph");?>">
 	</center>
 	
 	<br>
 		<center>
 	<?php echo gettext("SELL")?> <br>
-	<IMG SRC="graph_pie.php?graphtype=3&min_call=<?php echo $min_call?>&fromstatsday_sday=<?php echo $fromstatsday_sday?>&months_compare=<?php echo $months_compare?>&fromstatsmonth_sday=<?php echo $fromstatsmonth_sday?>&dsttype=<?php echo $dsttype?>&srctype=<?php echo $srctype?>&clidtype=<?php echo $clidtype?>&channel=<?php echo $channel?>&resulttype=<?php echo $resulttype?>&dst=<?php echo $dst?>&src=<?php echo $src?>&clid=<?php echo $clid?>&userfieldtype=<?php echo $userfieldtype?>&userfield=<?php echo $userfield?>&accountcodetype=<?php echo $accountcodetype?>&accountcode=<?php echo $accountcode?>&customer=<?php echo $customer?>&entercustomer=<?php echo $entercustomer?>&enterprovider=<?php echo $enterprovider?>&entertrunk=<?php echo $entertrunk?>&choose_agent=<?= $choose_agent?>" ALT="<?php echo gettext("Stat Graph");?>">
+	<IMG SRC="graph_pie.php?graphtype=3&min_call=<?php /*-*/ echo $min_call?>&fromstatsday_sday=<?php echo $fromstatsday_sday?>&months_compare=<?php echo $months_compare?>&fromstatsmonth_sday=<?php echo $fromstatsmonth_sday?>&dsttype=<?php echo $dsttype?>&srctype=<?php echo $srctype?>&clidtype=<?php echo $clidtype?>&channel=<?php echo $channel?>&resulttype=<?php echo $resulttype?>&dst=<?php echo $dst?>&src=<?php echo $src?>&clid=<?php echo $clid?>&userfieldtype=<?php echo $userfieldtype?>&userfield=<?php echo $userfield?>&accountcodetype=<?php echo $accountcodetype?>&accountcode=<?php echo $accountcode?>&customer=<?php echo $customer?>&entercustomer=<?php echo $entercustomer?>&enterprovider=<?php echo $enterprovider?>&entertrunk=<?php echo $entertrunk?>&choose_agent=<?= $choose_agent?>" ALT="<?php echo gettext("Stat Graph");?>">
 	</center>
 	
 <?php  } ?>
@@ -574,4 +398,5 @@ foreach ($table_graph as $tkey => $data){
 <br><br>
 <?php
 	include("PP_footer.php");
+	
 ?>

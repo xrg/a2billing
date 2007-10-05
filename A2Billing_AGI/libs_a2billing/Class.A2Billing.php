@@ -443,7 +443,7 @@ class A2Billing {
 		$this->set_def_conf('backup','pg_dump','/usr/bin/pg_dump');
 		$this->set_def_conf('backup','mysql','/usr/bin/mysql');
 		$this->set_def_conf('backup','psql','/usr/bin/psql');
-	
+		$this->set_def_conf('backup','archive_data_x_month','3');
 		
 		// Conf for Customer Web UI
 		$this->set_def_conf('webcustomerui','customerinfo','1');
@@ -532,6 +532,7 @@ class A2Billing {
 		define ("LOGFILE_CRONT_ALARM", 			isset($this->config['log-files']['cront_alarm'])			?$this->config['log-files']['cront_alarm']:null);
 		define ("LOGFILE_CRONT_AUTOREFILL", 	isset($this->config['log-files']['cront_autorefill'])		?$this->config['log-files']['cront_autorefill']:null);
 		define ("LOGFILE_CRONT_BATCH_PROCESS", 	isset($this->config['log-files']['cront_batch_process'])	?$this->config['log-files']['cront_batch_process']:null);
+		define ("LOGFILE_CRONT_ARCHIVE_DATA", 	isset($this->config['log-files']['cront_archive_data'])	?$this->config['log-files']['cront_archive_data']:null);
 		define ("LOGFILE_CRONT_BILL_DIDUSE", 	isset($this->config['log-files']['cront_bill_diduse'])		?$this->config['log-files']['cront_bill_diduse']:null);
 		define ("LOGFILE_CRONT_SUBSCRIPTIONFEE",isset($this->config['log-files']['cront_subscriptionfee'])	?$this->config['log-files']['cront_subscriptionfee']:null);
 		define ("LOGFILE_CRONT_CURRENCY_UPDATE",isset($this->config['log-files']['cront_currency_update'])	?$this->config['log-files']['cront_currency_update']:null);
@@ -834,12 +835,12 @@ class A2Billing {
 		
 		/*$rate=$result[0][0];
 		if ($rate<=0){
-				//$prompt="prepaid-dest-blocked";
-				$prompt="prepaid-dest-unreachable";
-				continue;
+			//$prompt="prepaid-dest-blocked";
+			$prompt="prepaid-dest-unreachable";
+			continue;
 		}*/
-						
-						
+		
+		
 		// CHECKING THE TIMEOUT					
 		$res_all_calcultimeout = $RateEngine->rate_engine_all_calcultimeout($this, $this->credit);
 		
@@ -905,19 +906,19 @@ class A2Billing {
      *  @param integer $try_num
      *  @return 1 if Ok ; -1 if error
 	**/
-	function call_sip_iax_buddy($agi, &$RateEngine, $try_num){
-		$res=0;
+	function call_sip_iax_buddy($agi, &$RateEngine, $try_num)
+	{
+		$res = 0;
+		
 		if ( ($this->agiconfig['use_dnid']==1) && (!in_array ($this->dnid, $this->agiconfig['no_auth_dnid'])) && (strlen($this->dnid)>2 ))
 		{								
 			$this->destination = $this->dnid;
-		}
-		else
-		{
+		} else {
 			$res_dtmf = $agi->get_data('prepaid-sipiax-enternumber', 6000, $this->config['global']['len_aliasnumber'], '#');			
 			$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "RES DTMF : ".$res_dtmf ["result"]);
 			$this->destination = $res_dtmf ["result"];
 			
-			if ($this->destination<=0){
+			if ($this->destination<=0) {
 				return -1;
 			}
 		}
@@ -985,7 +986,7 @@ class A2Billing {
 			$dialstatus = $agi->get_variable("DIALSTATUS");
 			$dialstatus = $dialstatus['data'];
 			
-			if ($this->agiconfig['record_call'] == 1){
+			if ($this->agiconfig['record_call'] == 1) {
 				// Monitor(wav,kiki,m)					
 				$myres = $agi->exec("STOPMONITOR");
 				$this -> debug( WRITELOG, $agi, __FILE__, __LINE__, "EXEC StopMonitor (".$this->uniqueid."-".$this->cardnumber.")");
@@ -1043,7 +1044,7 @@ class A2Billing {
 		
      *  @return 1 if Ok ; -1 if error
 	**/
-	function call_did($agi, &$RateEngine, $listdestination){
+	function call_did ($agi, &$RateEngine, $listdestination){
 		$res=0;
 
 		if ($this -> CC_TESTING) $this->destination="kphone";
@@ -1066,11 +1067,10 @@ class A2Billing {
 			$this->destination = $inst_listdestination[4];
 			$this->username = $inst_listdestination[6];
 			
-			
 			// MAKE THE AUTHENTICATION TO GET ALL VALUE : CREDIT - EXPIRATION - ...
 			if ($this -> callingcard_ivr_authenticate($agi)!=0){
 				$this -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[A2Billing] DID call friend: AUTHENTICATION FAILS !!!\n");
-			}else{				
+			} else {				
 				// CHECK IF DESTINATION IS SET
 				if (strlen($inst_listdestination[4])==0) continue;
 				
@@ -2240,5 +2240,3 @@ class A2Billing {
 
 
 };
-	
-?>

@@ -25,8 +25,8 @@ $HD_Form -> init();
 getpost_ifset(array('popup_select', 'popup_formname', 'popup_fieldname', 'upd_inuse', 'upd_status', 'upd_language', 'upd_tariff', 'upd_credit', 'upd_credittype', 'upd_simultaccess', 'upd_currency', 'upd_typepaid', 'upd_creditlimit', 'upd_enableexpire', 'upd_expirationdate', 'upd_expiredays', 'upd_runservice', 'upd_runservice', 'batchupdate', 'check', 'type', 'mode', 'addcredit', 'cardnumber'));
 
 // CHECK IF REQUEST OF BATCH UPDATE
-if ($batchupdate == 1 && is_array($check)){
-
+if ($batchupdate == 1 && is_array($check)) {
+	
 	$HD_Form->prepare_list_subselection('list');
 	
 	// Array ( [upd_simultaccess] => on [upd_currency] => on )	
@@ -36,7 +36,7 @@ if ($batchupdate == 1 && is_array($check)){
 		//echo "<br>::> $ind_field -";
 		$myfield = substr($ind_field,4);
 		if ($loop_pass!=0) $SQL_UPDATE.=',';
-
+		
 		// Standard update mode
 		if (!isset($mode["$ind_field"]) || $mode["$ind_field"]==1){		
 			if (!isset($type["$ind_field"])){		
@@ -66,8 +66,8 @@ if ($batchupdate == 1 && is_array($check)){
 		$SQL_UPDATE .= ' WHERE ';
 		$SQL_UPDATE .= $HD_Form->FG_TABLE_CLAUSE;
 	}
-		
-	if (! $res = $HD_Form -> DBHandle -> Execute($SQL_UPDATE)){
+	
+	if (! $res = $HD_Form -> DBHandle -> Execute($SQL_UPDATE)) {
 		$update_msg = '<center><font color="red"><b>'.gettext('Could not perform the batch update!').'</b></font></center>';
 	} else {
 		$update_msg = '<center><font color="green"><b>'.gettext('The batch update has been successfully perform!').'</b></font></center>';
@@ -77,8 +77,8 @@ if ($batchupdate == 1 && is_array($check)){
 /********************************* END BATCH UPDATE ***********************************/
 
 
-if (($form_action == "addcredit") && ($addcredit>0 || $addcredit<0) && ($id>0 || $cardnumber>0)){
-
+if (($form_action == "addcredit") && ($addcredit>0 || $addcredit<0) && ($id>0 || $cardnumber>0)) {
+	
 	$instance_table = new Table("cc_card", "username, id");
 	
 	if ($cardnumber>0){
@@ -87,7 +87,7 @@ if (($form_action == "addcredit") && ($addcredit>0 || $addcredit<0) && ($id>0 ||
 		$list_tariff_card = $instance_table -> Get_list ($HD_Form -> DBHandle, $FG_TABLE_CLAUSE_card, null, null, null, null, null, null);			
 		if ($cardnumber == $list_tariff_card[0][0]) $id = $list_tariff_card[0][1];
 	}
-
+	
 	if ($id>0){
 		
 		$param_update .= "credit = credit + '".$addcredit."'";
@@ -206,11 +206,6 @@ if ($form_action == "list" && (!($popup_select>=1))	){
 	$list_tariff = $instance_table_tariff -> Get_list ($HD_Form -> DBHandle, $FG_TABLE_CLAUSE, "tariffgroupname", "ASC", null, null, null, null);
 	$nb_tariff = count($list_tariff);
 	
-	$instance_table_status = new Table("cc_status", "id, status");
-	$FG_TABLE_CLAUSE = "";
-	$list_status = $instance_table_status -> Get_list ($HD_Form -> DBHandle, $FG_TABLE_CLAUSE, "status", "ASC", null, null, null, null);
-	$nb_status = count($list_status);
-
 ?>
 <!-- ** ** ** ** ** Part for the Update ** ** ** ** ** -->
 <div class="toggle_hide2show">
@@ -246,9 +241,9 @@ if ($form_action == "list" && (!($popup_select>=1))	){
 			  	2)&nbsp;<?php echo gettext("STATUS");?>&nbsp;:
 				<select NAME="upd_status" size="1" class="form_input_select">
 					<?php					 
-				  	 foreach ($list_status as $recordset){ 						 
+				  	 foreach ($cardstatus_list as $key => $cur_value){ 						 
 					?>
-						<option class=input value='<?php echo $recordset[0]?>'  <?php if ($upd_status==$recordset[0]) echo 'selected="selected"'?>><?php echo $recordset[1]?></option>                        
+						<option value='<?php echo $cur_value[1] ?>' <?php if ($upd_status==$cur_value[1]) echo 'selected="selected"'?>><?php echo $cur_value[0] ?></option>                        
 					<?php } ?>
 				</select><br/>
 		  </td>
@@ -353,7 +348,7 @@ if ($form_action == "list" && (!($popup_select>=1))	){
 				</font>
 		  </td>
 		</tr>
-		<tr>$HD_Form -> DBHandle
+		<tr>
           <td align="left" class="bgcolor_001">
 		  		<input name="check[upd_enableexpire]" type="checkbox" <?php if ($check["upd_enableexpire"]=="on") echo "checked"?>>
 		  </td>

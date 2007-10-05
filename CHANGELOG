@@ -3,6 +3,74 @@
 ********************************************************************
 
 
+#### TRUNK CHANGE : UPDATE DAEMON TO USE THE DB CONF
+********************************************************************
+read conf from the DB
+
+	my $manager_host = $cfg->val('global', 'manager_host');
+	my $manager_username = $cfg->val('global', 'manager_username');
+	my $manager_secret = $cfg->val('global', 'manager_secret');
+
+
+#### TODO : CRITERIA CALLPLAN
+********************************************************************
+I added Callplan on CDR report, see revision 303, we need to add the same on the 3 pages :
+(Section Call Report)
+# Calls Compare
+# Monthly Traffic
+# Daily Load
+
+If graph we need to pass the parameter there too.
+
+
+#### TODO : CRITERIA RATECARD ID
+********************************************************************
+Same as for the CallPlan but now for the ratecard ID, normally already same in CDR :
+(Section Call Report)
+# CDR report
+# Calls Compare
+# Monthly Traffic
+# Daily Load
+
+If graph we need to pass the parameter there too.
+
+
+
+#### TODO : MOVE CAPTCHA Directory to signup directory
+********************************************************************
+lib/captcha
+due to htaccess in lib/ it s an issue on most installation, as the pictures is not accessable 
+so move 	A2Billing_UI/lib/captcha
+to 			A2Billing_UI/signup/captcha
+
+
+#### TODO : BATCH UPDATE  FOR TAG ; ROUNDING CALLTIME ; ROUNDING THRESHOLD ; ADDITIONAL BLOCK CHARGE ; ADDITIONAL BLOCK CHARGE TIME 
+********************************************************************
+Batch update for 
+TAG ; ROUNDING CALLTIME ; ROUNDING THRESHOLD ; ADDITIONAL BLOCK CHARGE ; ADDITIONAL BLOCK CHARGE TIME 
+
+
+#### IMPORT : ROUNDING CALLTIME ; ROUNDING THRESHOLD ; ADDITIONAL BLOCK CHARGE ; ADDITIONAL BLOCK CHARGE TIME 
+********************************************************************
+Add ROUNDING CALLTIME ; ROUNDING THRESHOLD ; ADDITIONAL BLOCK CHARGE ; ADDITIONAL BLOCK CHARGE TIME 
+on the import ratecard tool
+
+
+#### TODO : TAG IN RATECARD
+********************************************************************
+We need a tag field into the ratecard!
+this allow us to tag and filter some rates from a ratecard.
+For instance, if we want to tag all the proper line prefix, so that we can then
+apply batch update only for them.
+
+We can add a new field in cc_ratecard for this :
+ALTER TABLE cc_ratecad ADD COLUMN tag CHAR(50);
+- We should add a reseach by tag on "Browse Rates".
+
+
+** ADD TAG IN THE IMPORT RATECARD **
+
+
 
 #### ADDITIONAL CHARGES ON REALTIME BILLING
 ********************************************************************
@@ -40,6 +108,8 @@
 	2 time so we will apply this charge 2 time too (2 time 0.50 cents)
 
 
+* add real_sessiontime in cc_call
+
 
 #### FEATURE : CUSTOMER SERVICES FRIENDLY
 ********************************************************************
@@ -72,17 +142,6 @@ in AGI Class.A2Billing, function authentication,
 when we check card is valid or not, we still use cc_card.activated
 we need to replace this by cc_card.status
 
-
-#### TODO : TAG IN RATECARD
-********************************************************************
-We need a tag field into the ratecard!
-this allow us to tag and filter some rates from a ratecard.
-For instance, if we want to tag all the proper line prefix, so that we can then
-apply batch update only for them.
-
-We can add a new field in cc_ratecard for this :
-ALTER TABLE cc_ratecad ADD COLUMN tag CHAR(50);
-- We should add a reseach by tag on "Browse Rates".
 
 
 #### TODO : GENERATE VOUCHER & GENERATE CARD
