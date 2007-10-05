@@ -1808,21 +1808,21 @@
  *   $writetype = 0  - write to file
  */
 function write_log2($output, $writetype = 1){ // 
-		global $DNID;
-		global $CallerID;
-		global $log_file;		
-		global $BUFFER;
-		
-		
-		//verbose("BUFFER: $BUFFER");	
-		$string_log = "[".date("d/m/Y H:i:s")."]:[CallerID:$CallerID]:[DNID:$DNID]:$output";
-		if ($writetype){ // write to buffer
-			$BUFFER	= $BUFFER.$string_log."\n";
-		}else{		// write to file			
-			error_log ($BUFFER.$string_log."\n", 3, $log_file);
-			$BUFFER='';
-		}
-		//verbose("BUFFER: $BUFFER");	
+	global $DNID;
+	global $CallerID;
+	global $log_file;		
+	global $BUFFER;
+	
+	
+	//verbose("BUFFER: $BUFFER");	
+	$string_log = "[".date("d/m/Y H:i:s")."]:[CallerID:$CallerID]:[DNID:$DNID]:$output";
+	if ($writetype){ // write to buffer
+		$BUFFER	= $BUFFER.$string_log."\n";
+	}else{		// write to file			
+		error_log ($BUFFER.$string_log."\n", 3, $log_file);
+		$BUFFER='';
+	}
+	//verbose("BUFFER: $BUFFER");	
 }
 
 
@@ -1830,18 +1830,18 @@ function write_log2($output, $writetype = 1){ //
  *   Write data into the Trans file
  */
 function write_stat($output){		
-		global $stat_file;		
-		
-		$string_log = "[".date("d/m/Y H:i:s")."]:$output";
-		error_log ($string_log."\n", 3, $stat_file);		
+	global $stat_file;		
+	
+	$string_log = "[".date("d/m/Y H:i:s")."]:$output";
+	error_log ($string_log."\n", 3, $stat_file);
 }
-
 
 
 /*
  *   Write data into the Error file
  */
-function write_error($output){		
+function write_error($output)
+{		
 		global $error_file;
 		$string_log = "[".date("d/m/Y H:i:s")."]:$output";
 		error_log ($string_log."\n", 3, $error_file);
@@ -1850,19 +1850,20 @@ function write_error($output){
 /*
  *   Detect the Hangup and call the callback function
  */
-function hangup_check($agi){
-		if ($agi->response['code']==false){		
-			//my_callback();
-		}
+function hangup_check($agi)
+{
+	if ($agi->response['code']==false){		
+		//my_callback();
+	}
 }
 
 function iferrorexec($result,$callback)
 {
         /*if ($agi->response['code']==false){
-                $callback();
-        } */		
-		if ($result['result']=='-1'){  //$result['code']=='500' && 
-				$callback();
-		}		
+		$callback();
+	} */		
+	if ($result['result']=='-1'){  //$result['code']=='500' && 
+		$callback();
+	}		
 }
 ?>

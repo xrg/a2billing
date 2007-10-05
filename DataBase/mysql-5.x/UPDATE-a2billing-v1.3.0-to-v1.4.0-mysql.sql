@@ -97,7 +97,6 @@ INSERT INTO cc_config_group (group_title, group_description) VALUES ('agi-conf1'
 
 
 
-
 CREATE TABLE cc_config (
   	id 								INT NOT NULL auto_increment,
 	config_title		 			TEXT NOT NULL,
@@ -110,7 +109,7 @@ CREATE TABLE cc_config (
 	PRIMARY KEY (id)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
-INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Card Number length', 'interval_len_cardnumber', '11-15', 'Card Number length, You can define a Range e.g:10-15.', 0, 1, '10-15,11-15,12-15');
+INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Card Number length', 'interval_len_cardnumber', '10-15', 'Card Number length, You can define a Range e.g:10-15.', 0, 1, '10-15,11-15,12-15');
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Card Alias Length', 'len_aliasnumber', '15', 'Card Number Alias Length e.g: 15.', 0, 1, NULL);
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Voucher Lenght', 'len_voucher', '15', 'Voucher Number Length.', 0, 1, NULL);
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Base Currency', 'base_currency', 'usd', 'Base Currency to use for application.', 0, 1, NULL);
@@ -554,7 +553,7 @@ ALTER TABLE cc_templatemail DROP PRIMARY KEY;
 ALTER TABLE cc_templatemail ADD UNIQUE cons_cc_templatemail_id_language ( id , id_language ); 
 
 
-ALTER TABLE cc_card ADD status INT NOT NULL DEFAULT '2' AFTER activated ;
+ALTER TABLE cc_card ADD status INT NOT NULL DEFAULT '1' AFTER activated ;
 update cc_card set status = 1 where activated = 't';
 update cc_card set status = 0 where activated = 'f';
 
@@ -612,40 +611,109 @@ OPTIMIZE TABLE cc_call;
 
 
 CREATE TABLE cc_call_archive (
-    id 									bigINT (20) NOT NULL AUTO_INCREMENT,
-    sessionid 							char(40) NOT NULL,
-    uniqueid 							char(30) NOT NULL,
-    username 							char(40) NOT NULL,
-    nasipaddress 						char(30) DEFAULT NULL,
-    starttime 							timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    stoptime 							timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-    sessiontime 						INT (11) DEFAULT NULL,
-    calledstation 						char(30) DEFAULT NULL,
-    startdelay 							INT (11) DEFAULT NULL,
-    stopdelay 							INT (11) DEFAULT NULL,
-    terminatecause 						char(20) DEFAULT NULL,
-    usertariff 							char(20) DEFAULT NULL,
-    calledprovider 						char(20) DEFAULT NULL,
-    calledcountry 						char(30) DEFAULT NULL,
-    calledsub 							char(20) DEFAULT NULL,
-    calledrate 							FLOAT DEFAULT NULL,
-    sessionbill 						FLOAT DEFAULT NULL,
-    destination 						char(40) DEFAULT NULL,
-    id_tariffgroup 						INT (11) DEFAULT NULL,
-    id_tariffplan 						INT (11) DEFAULT NULL,
-    id_ratecard 						INT (11) DEFAULT NULL,
-    id_trunk 							INT (11) DEFAULT NULL,
-    sipiax 								INT (11) DEFAULT '0',
-    src 								char(40) DEFAULT NULL,
-    id_did 								INT (11) DEFAULT NULL,
-    buyrate 							DECIMAL(15,5) DEFAULT 0,
-    buycost 							DECIMAL(15,5) DEFAULT 0,
+	id 									bigINT (20) NOT NULL AUTO_INCREMENT,
+	sessionid 							char(40) NOT NULL,
+	uniqueid 							char(30) NOT NULL,
+	username 							char(40) NOT NULL,
+	nasipaddress 						char(30) DEFAULT NULL,
+	starttime 							timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	stoptime 							timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+	sessiontime 						INT (11) DEFAULT NULL,
+	calledstation 						char(30) DEFAULT NULL,
+	startdelay 							INT (11) DEFAULT NULL,
+	stopdelay 							INT (11) DEFAULT NULL,
+	terminatecause 						char(20) DEFAULT NULL,
+	usertariff 							char(20) DEFAULT NULL,
+	calledprovider 						char(20) DEFAULT NULL,
+	calledcountry 						char(30) DEFAULT NULL,
+	calledsub 							char(20) DEFAULT NULL,
+	calledrate 							FLOAT DEFAULT NULL,
+	sessionbill 						FLOAT DEFAULT NULL,
+	destination 						char(40) DEFAULT NULL,
+	id_tariffgroup 						INT (11) DEFAULT NULL,
+	id_tariffplan 						INT (11) DEFAULT NULL,
+	id_ratecard 						INT (11) DEFAULT NULL,
+	id_trunk 							INT (11) DEFAULT NULL,
+	sipiax 								INT (11) DEFAULT '0',
+	src 								char(40) DEFAULT NULL,
+	id_did 								INT (11) DEFAULT NULL,
+	buyrate 							DECIMAL(15,5) DEFAULT 0,
+	buycost 							DECIMAL(15,5) DEFAULT 0,
 	id_card_package_offer 				INT (11) DEFAULT 0,
 	real_sessiontime					INT (11) DEFAULT NULL,
-    PRIMARY KEY  (id)
+	PRIMARY KEY  (id)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
 ALTER TABLE `cc_call_archive` ADD INDEX ( `username` );
 ALTER TABLE `cc_call_archive` ADD INDEX ( `starttime` ); 
 ALTER TABLE `cc_call_archive` ADD INDEX ( `terminatecause` );
 ALTER TABLE `cc_call_archive` ADD INDEX ( `calledstation` );
+
+
+-- Areski ** Mark update
+
+ALTER TABLE cc_charge DROP COLUMN userpass;
+
+
+CREATE TABLE cc_card_archive (
+	id 								BIGINT NOT NULL,
+	creationdate 					TIMESTAMP DEFAULT  CURRENT_TIMESTAMP NOT NULL,
+	firstusedate 					TIMESTAMP,
+	expirationdate 					TIMESTAMP,
+	enableexpire 					INT DEFAULT 0,
+	expiredays 						INT DEFAULT 0,
+	username 						CHAR(50) NOT NULL,
+	useralias 						CHAR(50) NOT NULL,
+	userpass 						CHAR(50) NOT NULL,
+	uipass 							CHAR(50),
+	credit 							DECIMAL(15,5) DEFAULT 0 NOT NULL,
+	tariff 							INT DEFAULT 0,
+	id_didgroup 					INT DEFAULT 0,
+	activated 						CHAR(1) DEFAULT 'f' NOT NULL,
+	status							INT DEFAULT 1,
+	lastname 						CHAR(50),
+	firstname 						CHAR(50),
+	address 						CHAR(100),
+	city 							CHAR(40),
+	state 							CHAR(40),
+	country 						CHAR(40),
+	zipcode 						CHAR(20),
+	phone 							CHAR(20),
+	email 							CHAR(70),
+	fax 							CHAR(20),
+	inuse 							INT DEFAULT 0,
+	simultaccess 					INT DEFAULT 0,
+	currency 						CHAR(3) DEFAULT 'USD',
+	lastuse  						TIMESTAMP,
+	nbused 							INT DEFAULT 0,
+	typepaid 						INT DEFAULT 0,
+	creditlimit 					INT DEFAULT 0,
+	voipcall 						INT DEFAULT 0,
+	sip_buddy 						INT DEFAULT 0,
+	iax_buddy 						INT DEFAULT 0,
+	language 						CHAR(5) DEFAULT 'en',
+	redial 							CHAR(50),
+	runservice 						INT DEFAULT 0,
+	nbservice 						INT DEFAULT 0,
+	id_campaign						INT DEFAULT 0,
+	num_trials_done 				BIGINT DEFAULT 0,
+	callback 						CHAR(50),
+	vat 							FLOAT DEFAULT 0 NOT NULL,
+	servicelastrun 					TIMESTAMP,
+	initialbalance 					DECIMAL(15,5) DEFAULT 0 NOT NULL,
+	invoiceday 						INT DEFAULT 1,
+	autorefill 						INT DEFAULT 0,
+	loginkey 						CHAR(40),
+	activatedbyuser 				CHAR(1) DEFAULT 't' NOT NULL,
+	id_timezone 					INT DEFAULT 0,
+	tag char(50) 					collate utf8_bin default NULL,
+	template_invoice 				text collate utf8_bin,
+	template_outstanding			text collate utf8_bin,
+	mac_addr						CHAR(17) DEFAULT '00-00-00-00-00-00' NOT NULL,
+	PRIMARY KEY (id),
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_bin;
+
+
+
+ALTER TABLE `cc_card_archive` ADD INDEX ( `creationdate` );
+ALTER TABLE `cc_card_archive` ADD INDEX ( `username` );

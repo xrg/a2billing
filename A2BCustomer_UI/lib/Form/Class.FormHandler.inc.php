@@ -27,6 +27,8 @@ class FormHandler
 	var $CV_DISPLAY_FILTER_ABOVE_TABLE = true;
 	var $CV_FILTER_ABOVE_TABLE_PARAM = "?id=";
 	var $CV_FOLLOWPARAMETERS = '';
+	var $CV_DO_ARCHIVE_ALL = false;
+		
 	
 	var $CV_DISPLAY_RECORD_LIMIT = true;
 	var $CV_DISPLAY_BROWSE_PAGE = true;
@@ -84,7 +86,7 @@ class FormHandler
 	var $FG_NB_TABLE_COL=0;
 	var $FG_TOTAL_TABLE_COL=0;
 	
-	
+	 
 	/**
     * Keep the ID of the table
     * @public	-	@type string
@@ -380,7 +382,7 @@ class FormHandler
     var $FG_FK_DELETE_ALLOWED = false;
 
 	// if it is set to true and Allowed flag is true all dependent records will be deleted.
-	var $FG_FK_DELETE_OR_UPDATE = false;
+	var $FG_FK_DELETE = false;
 	
     // Foreign Key Tables
     var $FG_FK_TABLENAMES = array();
@@ -636,10 +638,10 @@ class FormHandler
 	 * @ 12. $function render
      */
 
-	function AddViewElement($displayname, $fieldname, $colpercentage, $textalign='center', $sort='sort', $char_limit = null, $lie_type = null, $lie_with = null, $lie_fieldname = null, $lie_clause = null, $lie_display = null, $myfunc = null) {
+	function AddViewElement($displayname, $fieldname, $colpercentage, $textalign='center', $sort='sort', $char_limit = null, $lie_type = null, $lie_with = null, $lie_fieldname = null, $lie_clause = null, $lie_display = null, $myfunc = null, $link_file = null) {
         	$cur = count($this->FG_TABLE_COL);
 
-		$this->FG_TABLE_COL[$cur] = array($displayname, $fieldname, $colpercentage, $textalign, $sort, $char_limit, $lie_type, $lie_with, $lie_fieldname , $lie_clause , $lie_display, $myfunc );
+		$this->FG_TABLE_COL[$cur] = array($displayname, $fieldname, $colpercentage, $textalign, $sort, $char_limit, $lie_type, $lie_with, $lie_fieldname , $lie_clause , $lie_display, $myfunc , $link_file);
 
 		$this->FG_NB_TABLE_COL = count($this->FG_TABLE_COL);
 	}
@@ -993,39 +995,6 @@ class FormHandler
 		return $sql;
   }
 
-  function do_field($sql,$fld, $simple=0){
-  		$fldtype = $fld.'type';
-
-        if (isset($_POST[$fld]) && ($_POST[$fld]!='')){
-		if (strpos($sql,'WHERE') > 0){
-                        $sql = "$sql AND ";
-                }else{
-                        $sql = "$sql WHERE ";
-                }
-		$sql = "$sql $fld";
-		$fld_escaped=$this->DBHandle->Quote($_POST[$fld]);
-		if ($simple==0){
-			if (isset ($_POST[$fldtype])){
-				
-				switch ($_POST[$fldtype]) {
-				case 1:	$sql = "$sql='".$fld_escaped."'";  break;
-				case 2: $sql = "$sql LIKE '".$fld_escaped."%'";  break;
-				case 3: $sql = "$sql LIKE '%".$fld_escaped."%'";  break;
-				case 4: $sql = "$sql LIKE '%".$fld_escaped."'";
-				}
-			}else{ 
-				$sql = "$sql LIKE '%".$fld_escaped."%'"; 
-			}
-		}else{
-			$sql = "$sql ='".$fld_escaped."'";
-		}
-	}
-	return $sql;
-  }
-
-
-
-	
 	/**
      * Function to execture the appropriate action
      * @public     	 
@@ -1068,7 +1037,6 @@ class FormHandler
 				$this->FG_SENS  = $this -> FG_TABLE_DEFAULT_SENS;
 			}
 			if ( $form_action == "list" ){
-				
 				$instance_table = new Table($this -> FG_TABLE_NAME, $this -> FG_COL_QUERY);
 
 				$this->prepare_list_subselection($form_action);
@@ -1132,7 +1100,6 @@ class FormHandler
 
 
 			if ( $form_action == "list" && $this->FG_FILTER_SEARCH_FORM){
-
 				if (isset($processed['cancelsearch']) && ($processed['cancelsearch'] == true)){
 					$_SESSION[$this->FG_FILTER_SEARCH_SESSION_NAME] = '';
 				}
@@ -1784,7 +1751,7 @@ class FormHandler
 		    $instance_table = new Table($this->FG_TABLE_NAME, $this->FG_QUERY_EDITION);
 		    if ($this->FG_DEBUG >=4 ) $instance_table->debug_st = 1 ;
         }
-		$instance_table->FK_DELETE_OR_UPDATE = $this->FG_FK_WARNONLY;
+		$instance_table->FK_DELETE = ($this->FG_FK_WARNONLY ? false : true);
 		
 		if ($processed['id']!="" || !is_null($processed['id'])){
 			$this->FG_EDITION_CLAUSE = str_replace("%id", $processed['id'], $this->FG_EDITION_CLAUSE);
@@ -1793,7 +1760,7 @@ class FormHandler
 		$this -> RESULT_QUERY = $instance_table -> Delete_table ($this->DBHandle, $this->FG_EDITION_CLAUSE, $func_table = null);
 		if($this -> FG_ENABLE_LOG == 1)
 		{
-			$this -> logger -> insertLog($_SESSION["admin_id"], 3, "A ".strtoupper($this->FG_INSTANCE_NAME)." DELETED" , "A RECORD IS DELETED, EDITION CALUSE USED IS ".$this->FG_EDITION_CLAUSE, $this->FG_TABLE_NAME, $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'], $param_update);
+			$this -> logger -> insertLog($_SESSION["admin_id"], 3, "A ".strtoupper($this->FG_INSTANCE_NAME)." DELETED" , "A RECORD IS DELETED, EDITION CLAUSE USED IS ".$this->FG_EDITION_CLAUSE, $this->FG_TABLE_NAME, $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'], $param_update);
 		}	
 		if (!$this -> RESULT_QUERY)  echo gettext("error deletion");
 		
@@ -2272,7 +2239,4 @@ class FormHandler
 		}
 	}
 
-}
-
-	
-?>
+}?>

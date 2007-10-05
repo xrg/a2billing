@@ -1,15 +1,13 @@
 <?php
 $menu_section='menu_ratecard';
 
-// Common includes
 include ("../lib/defines.php");
 include ("../lib/module.access.php");
-//include ("../lib/Class.Table.php");
 
 set_time_limit(0);
 
-if (! has_rights (ACX_RATECARD)){ 
-	   Header ("HTTP/1.0 401 Unauthorized");
+if (! has_rights (ACX_RATECARD)) {
+	Header ("HTTP/1.0 401 Unauthorized");
 	   Header ("Location: PP_error.php?c=accessdenied");
 	   die();
 }
@@ -203,8 +201,8 @@ function moveSourceDown()
 
 // -->
 </script>
-     
-	  <?php
+
+<?php
 	echo $CC_help_import_ratecard;
 ?>
 <center>

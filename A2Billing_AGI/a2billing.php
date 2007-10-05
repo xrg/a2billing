@@ -24,7 +24,7 @@ if (function_exists('pcntl_signal')) {
 
 error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
 	
-include_once (dirname(__FILE__)."/libs_a2billing/db_php_lib/Class.Table.php");
+include_once (dirname(__FILE__)."/libs_a2billing/Class.Table.php");
 include (dirname(__FILE__)."/libs_a2billing/Class.A2Billing.php");
 include (dirname(__FILE__)."/libs_a2billing/Class.RateEngine.php");
 include (dirname(__FILE__)."/libs_a2billing/phpagi_2_14/phpagi.php");
@@ -86,8 +86,7 @@ define ("DB_TYPE", isset($A2B->config["database"]['dbtype'])?$A2B->config["datab
 // if ($A2B -> CC_TESTING) $mode = 'did';
 
 //-- Print header
-$A2B -> debug( VERBOSE , $agi, __FILE__, __LINE__, 'AGI Request:');
-$A2B -> debug( VERBOSE , $agi, __FILE__, __LINE__, print_r($agi->request, true));
+$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "AGI Request:\n".print_r($agi->request, true));
 
 
 /* GET THE AGI PARAMETER */
@@ -183,7 +182,7 @@ if ($mode == 'standard'){
 			
 			// CREATE A DIFFERENT UNIQUEID FOR EACH TRY
 			if ($i>0){
-				$A2B-> uniqueid=$A2B-> uniqueid+ 1000000000 ;
+				$A2B-> uniqueid = $A2B-> uniqueid + 1000000000 ;
 			}
 			
 			
