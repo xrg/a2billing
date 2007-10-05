@@ -28,6 +28,7 @@ define ("MANAGER_HOST", isset($A2B->config['global']['manager_host'])?$A2B->conf
 define ("MANAGER_USERNAME", isset($A2B->config['global']['manager_username'])?$A2B->config['global']['manager_username']:null);
 define ("MANAGER_SECRET", isset($A2B->config['global']['manager_secret'])?$A2B->config['global']['manager_secret']:null);
 define ("SERVER_GMT", isset($A2B->config['global']['server_GMT'])?$A2B->config['global']['server_GMT']:null);
+define ("CUSTOMER_UI_URL", isset($A2B->config['global']['customer_ui_url'])?$A2B->config['global']['go_to_customer']:null);
 
 
 define ("BUDDY_SIP_FILE", isset($A2B->config['webui']['buddy_sip_file'])?$A2B->config['webui']['buddy_sip_file']:null);
@@ -257,8 +258,8 @@ function send_email_attachment($emailfrom, $emailto, $emailsubject, $emailmessag
 
 
 // A2BILLING INFO
-define ("WEBUI_DATE", 'Release : July 2007');	 
-define ("WEBUI_VERSION", 'Asterisk2Billing - Version 1.3xrg - (Break-the-world)');
+define ("WEBUI_DATE", 'Release : no date');
+define ("WEBUI_VERSION", 'Asterisk2Billing - Version 1.4/xrg - Trunk');
 // A2BILLING COPYRIGHT & CONTACT
 define ("COPYRIGHT", gettext(" This software is under GPL licence. For further information, please visit : <a href=\"http://www.asterisk2billing.org\" target=\"_blank\">asterisk2billing.org</a>"));
 define ("CCMAINTITLE", gettext("Asterisk2Billing : CallingCard & VOIP Billing system"));
@@ -285,5 +286,5 @@ if(!($restircted_url == "Public/index.php") && !($restircted_url == "signup/inde
 $log = null;
 
 //Enable Disable, list of values on page A2B_entity_config.php?form_action=ask-edit&id=1
-define("LIST_OF_VALUES",true)
+define("LIST_OF_VALUES",true);
 ?>

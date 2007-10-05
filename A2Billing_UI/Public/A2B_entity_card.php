@@ -24,13 +24,6 @@ $HD_Form -> init();
 /********************************* BATCH UPDATE ***********************************/
 getpost_ifset(array('popup_select', 'popup_formname', 'popup_fieldname', 'upd_inuse', 'upd_status', 'upd_language', 'upd_tariff', 'upd_credit', 'upd_credittype', 'upd_simultaccess', 'upd_currency', 'upd_typepaid', 'upd_creditlimit', 'upd_enableexpire', 'upd_expirationdate', 'upd_expiredays', 'upd_runservice', 'upd_runservice', 'batchupdate', 'check', 'type', 'mode', 'addcredit', 'cardnumber'));
 
-if(isset($id) && isset($description) && !is_numeric($description) && !empty($description)){
-	$field_insert = "id_cc_card, description";
-	$value_insert = "'$id', '$description'";
-	$instance_sub_table = new Table("cc_card_history", $field_insert);
-	$result_query = $instance_sub_table -> Add_table ($HD_Form -> DBHandle, $value_insert, null, null);	
-}
-
 // CHECK IF REQUEST OF BATCH UPDATE
 if ($batchupdate == 1 && is_array($check)){
 
@@ -504,11 +497,9 @@ if ($form_action=='ask-edit')
 	$list_card_info = $inst_table -> Get_list ($HD_Form -> DBHandle, $FG_TABLE_CLAUSE);			
 	$username = $list_card_info[0][0];
 	$password = base64_encode($list_card_info[0][1]);
-	
-?>
-
-		<div align="right" style="padding-right:20px;"><a href="../../A2BCustomer_UI/index.php?username=<?=$username?>&password=<?=$password?>" target="_blank">GO TO CUSTOMER ACCOUNT</a></div>
-<?php }
+	$link = CUSTOMER_UI_URL;
+	echo "<div align=\"right\" style=\"padding-right:20px;\"><a href=\"$link?username=$username&password=$password\" target=\"_blank\">GO TO CUSTOMER ACCOUNT</a></div>";
+}
 
 $HD_Form -> create_form ($form_action, $list, $id=null) ;
 

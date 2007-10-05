@@ -23,30 +23,35 @@ $value_list["2"] = array( gettext("no"), 0);
 
 
 $yesno = array();
-$QUERY =  "SELECT config_value, config_valuetype from cc_config order by id";
+$QUERY =  "SELECT config_value, config_valuetype, config_title, config_listvalues, id from cc_config order by id";
 $result = $instance_table -> SQLExec ($handle, $QUERY);
 
-foreach($result as $key => $cur_value) {
-	if($cur_value[0] == "1"){
-		$yesno[$cur_value[0]] = array('Yes',$key);
-	}else if($cur_value[0] == "0"){
-		$yesno[$cur_value[0]] = array('No', $key);						
+foreach($result as $key => $cur_value) 
+{
+	if($cur_value[1] == 0){
+		if($cur_value[0] == 1){
+			$yesno[$cur_value[0]] = array("Yes",$key);
+		}else if($cur_value[0] == "0"){
+			$yesno[$cur_value[0]] = array("No",$key);
+		}else{
+			$yesno[$cur_value[0]] = array($cur_value[0],$key);
+		}
 	}else{
-		$yesno[$cur_value[0]] = array( $cur_value[0], $key);	
+		$yesno[$cur_value[0]] = array($cur_value[0],$key);
 	}
 }
-	
 
-$HD_Form = new FormHandler("cc_config ccc, cc_config_group ccg","Configuration");
-
+$HD_Form = new FormHandler("cc_config ccc LEFT JOIN cc_config_group ccg ON ccg.id = ccc.config_group_id","Configuration");
 $HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_TABLE_ID="ccc.id";
 $HD_Form -> FG_TABLE_DEFAULT_ORDER = "config_group_id";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "ASC";
-
-$HD_Form -> FG_TABLE_CLAUSE = "ccc.config_group_id =  ccg.id";
+$HD_Form -> FG_JOIN = true;
 
 if ($groupselect != ""){
+	$HD_Form = new FormHandler("cc_config ccc ,cc_config_group ccg","Configuration");
+	$HD_Form -> FG_TABLE_ID="ccc.id";
+	$HD_Form -> FG_TABLE_CLAUSE = "ccg.id = ccc.config_group_id";
 	$HD_Form -> FG_TABLE_CLAUSE .= " AND ccc.config_group_id =  ".$groupselect;
 	$_SESSION['ss_groupselect'] = $HD_Form -> FG_TABLE_CLAUSE;
 }
@@ -56,10 +61,11 @@ if (isset($posted)){
 }
 
 if($form_action == "list"){
-		$_SESSION['ss_groupselect'] = '';
+	$_SESSION['ss_groupselect'] = '';
 }else{
 	$HD_Form -> FG_TABLE_CLAUSE = $_SESSION['ss_groupselect']; 
 }
+
 $HD_Form -> FG_EDITION_CLAUSE = " ccc.config_group_id =  ccg.id AND ccc.id = %id";
 $HD_Form -> AddViewElement(gettext("TITLE"), "config_title", "20%", "center");
 $HD_Form -> AddViewElement(gettext("KEY"), "config_key", "15%", "center");

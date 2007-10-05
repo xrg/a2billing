@@ -656,27 +656,38 @@ $HD_Form -> AddEditElement (gettext("INCUR TEMPLATE"),
 $HD_Form -> AddEditElement (gettext("CALLERID"),
 			   "callerid",
 			   '$value',
-			   "INSERT",
+			   "HAS_MANY",
 			   "",
 			   "",
 			   "",
-			   "sql",
-			   "call_tariff",
-			   "label, id",
-			   "", "", "%1 : (%2)", "", "", "cc_callerid:cid:cc_callerid:cid, cid, id_cc_card:id_cc_card = %id:id_cc_card:%3 - (%1)::othertablelinked:cli, id_cc_card:%1:id_cc_card='%1':18");
+			   "",
+			   "",
+			   "",
+			   "", "", "", "", "", "cc_callerid:cid:cid, cid, id_cc_card:id_cc_card = %id::id_cc_card");
 
 $HD_Form -> AddEditElement (gettext("CARD HISTORY"),
 			   "description",
 			   '$value',
-			   "INSERT",
+			   "HAS_MANY",
 			   "multiline",
 			   "",
 			   "",
-			   "sql",
-			   "call_tariff",
-			   "description, id",
-			   "", "", "%1 : (%2)", "", "", "cc_card_history:description:cc_card_history:description, description, id_cc_card:id_cc_card = %id:id_cc_card:%3 - (%1)::othertablelinked:cli, id_cc_card:%1:id_cc_card='%1':18");
+			   "",
+			   "",
+			   "",
+			   "", "", "", "", "", "cc_card_history:description:description,id_cc_card:id_cc_card = %id::id_cc_card");
 
+			   // cc_card_history:description:description,id_cc_card:id_cc_card = %id::id_cc_card
+			   // Above function will provid Has Many functionality
+			   // Each parameter is seperated by (:) notation
+			   // 0. HAS_MANY will allow to get one to many functionality
+			   // 1. First param is the table name
+			   // 2. Second param is the join condition coloumn
+			   // 3. Third will get all the columns (but first should be joining column)
+			   // 4. Fourth param generates the where cluase
+			   // 5. Last, Sixth param is the FK column  
+			   
+			   
 $HD_Form -> FieldEditElement ('username, useralias, uipass, credit, language, tariff, id_didgroup, '.
 'callback, status,  activatedbyuser, simultaccess, currency, runservice, autorefill, initialbalance, typepaid, creditlimit,	firstusedate, enableexpire,'.
 'expirationdate, expiredays, invoiceday, vat, lastname, firstname, email, address, city, state, country, zipcode, id_timezone, phone,'.

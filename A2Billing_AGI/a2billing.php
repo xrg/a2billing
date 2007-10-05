@@ -33,8 +33,8 @@ include (dirname(__FILE__)."/libs_a2billing/Misc.php");
 
 $charge_callback=0;
 $G_startime = time();
-$agi_date = "Release : July 2007";
-$agi_version = "Asterisk2Billing - Version 1.3.0xrg (Yellow-torn-jacket)";
+$agi_date = "Release : no date";
+$agi_version = "Asterisk2Billing - Version 1.4/xrg - Trunk";
 
 if ($argc > 1 && ($argv[1] == '--version' || $argv[1] == '-v'))
 {
@@ -69,6 +69,7 @@ if ($argc > 3 && strlen($argv[3]) > 0) $caller_areacode = $argv[3];
 
 $A2B = new A2Billing();
 $A2B -> load_conf($agi, NULL, 0, $idconfig);
+$A2B -> mode = $mode;
 
 
 
@@ -404,14 +405,18 @@ if ($mode == 'standard'){
 
 	$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, '[MODE : CALLERID-CALLBACK - '.$A2B->CallerID.']');
 	// END
-	$agi->hangup();
+	if ($A2B->agiconfig['answer_call'] == 1) {
+		$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, '[HANGUP CLI CALLBACK TRIGGER]');
+		$agi->hangup();
+	} else {
+		$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, '[CLI CALLBACK TRIGGER RINGING]');
+	}
 	
 	// MAKE THE AUTHENTICATION ACCORDING TO THE CALLERID
 	$A2B->agiconfig['cid_enable']=1;
 	$A2B->agiconfig['cid_askpincode_ifnot_callerid']=0;
 	
-	if (strlen($A2B->CallerID)>1 && is_numeric($A2B->CallerID)){
-	
+	if (strlen($A2B->CallerID)>1 && is_numeric($A2B->CallerID)) {
 		
 		/* WE START ;) */	
 		$cia_res = $A2B -> callingcard_ivr_authenticate($agi);
@@ -423,13 +428,9 @@ if ($mode == 'standard'){
 			$A2B -> agiconfig['use_dnid']=1;
 			$A2B -> agiconfig['say_timetocall']=0;
 			
-			if (substr($A2B->CallerID,0,1)=='0'){
+			// We arent removing leading zero in front of the callerID if needed this might be done over the dialplan
+			$A2B -> dnid = $A2B -> destination = $caller_areacode.$A2B->CallerID;
 			
-				$A2B -> dnid = $A2B -> destination = $caller_areacode.substr($A2B->CallerID,1);
-			}else{
-			
-				$A2B -> dnid = $A2B -> destination = $caller_areacode.$A2B->CallerID;
-			}
 			$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, '[destination: - '.$A2B->destination.']');
 			
 			// LOOKUP RATE : FIND A RATE FOR THIS DESTINATION
@@ -437,14 +438,14 @@ if ($mode == 'standard'){
 			$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, '[resfindrate: - '.$resfindrate.']');
 			
 			// IF FIND RATE
-			if ($resfindrate!=0){				
+			if ($resfindrate!=0) {
 				//$RateEngine -> debug_st	=1;
 				$res_all_calcultimeout = $RateEngine->rate_engine_all_calcultimeout($A2B, $A2B->credit);
 				//echo ("RES_ALL_CALCULTIMEOUT ::> $res_all_calcultimeout");
 				
-						if ($res_all_calcultimeout){
+				if ($res_all_calcultimeout) {
 					// MAKE THE CALL
-					if ($RateEngine -> ratecard_obj[0][34]!='-1'){
+					if ($RateEngine -> ratecard_obj[0][34]!='-1') {
 						$usetrunk = 34; 
 						$usetrunk_failover = 1;
 						$RateEngine -> usedtrunk = $RateEngine -> ratecard_obj[0][34];
@@ -458,7 +459,8 @@ if ($mode == 'standard'){
 					$tech 			= $RateEngine -> ratecard_obj[0][$usetrunk+2];
 					$ipaddress 		= $RateEngine -> ratecard_obj[0][$usetrunk+3];
 					$removeprefix 	= $RateEngine -> ratecard_obj[0][$usetrunk+4];
-					$timeout		= $RateEngine -> ratecard_obj[0]['timeout'];	
+					$timeout		= $RateEngine -> ratecard_obj[0]['timeout'];
+					$callbackrate	= $RateEngine -> ratecard_obj[0]['callbackrate'];
 					$failover_trunk	= $RateEngine -> ratecard_obj[0][40+$usetrunk_failover];
 					$addparameter	= $RateEngine -> ratecard_obj[0][42+$usetrunk_failover];
 					
@@ -502,6 +504,9 @@ if ($mode == 'standard'){
 					
 					$uniqueid = MDP_NUMERIC(5).'-'.MDP_STRING(7);
 					$variable = "CALLED=".$A2B ->destination."|MODE=CID|CBID=$uniqueid|LEG=".$A2B -> username;
+					foreach($callbackrate as $key => $value){
+						$variable .= '|'.strtoupper($key).'='.$value;
+					}
 					$status = 'PENDING';
 					$server_ip = 'localhost';
 					$num_attempt = 0;
@@ -550,7 +555,12 @@ if ($mode == 'standard'){
 	$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, '[MODE : ALL-CALLBACK - '.$A2B->CallerID.']');
 	
 	// END
-	$agi->hangup();
+	if ($A2B->agiconfig['answer_call'] == 1) {
+		$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, '[HANGUP ALL CALLBACK TRIGGER]');
+		$agi->hangup();
+	} else {
+		$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, '[ALL CALLBACK TRIGGER RINGING]');
+	}
 	
 	$A2B ->credit = 1000;
 	$A2B ->tariff = $A2B -> config["callback"]['all_callback_tariff'];
@@ -698,18 +708,12 @@ if ($mode == 'standard'){
 		$status_channel=4;
 	}
 	
-	$called_party = $agi->get_variable("CALLED");
-	$called_party = $called_party['data'];
-	$calling_party = $agi->get_variable("CALLING");
-	$calling_party = $calling_party['data'];
-	$callback_mode = $agi->get_variable("MODE");
-	$callback_mode = $callback_mode['data'];
-	$callback_tariff = $agi->get_variable("TARIFF");
-	$callback_tariff = $callback_tariff['data'];
-	$callback_uniqueid = $agi->get_variable("CBID");
-	$callback_uniqueid = $callback_uniqueid['data'];
-	$callback_leg = $agi->get_variable("LEG");
-	$callback_leg = $callback_leg['data'];
+	$called_party = $agi->get_variable("CALLED", true);
+	$calling_party = $agi->get_variable("CALLING", true);
+	$callback_mode = $agi->get_variable("MODE", true);
+	$callback_tariff = $agi->get_variable("TARIFF", true);
+	$callback_uniqueid = $agi->get_variable("CBID", true);
+	$callback_leg = $agi->get_variable("LEG", true);
 	
 	// |MODEFROM=ALL-CALLBACK|TARIFF=".$A2B ->tariff;
 	
@@ -717,6 +721,7 @@ if ($mode == 'standard'){
 		$charge_callback = 1;
 		$A2B->agiconfig['use_dnid'] = 0;
 		$A2B->agiconfig['number_try'] =1;
+		$A2B->CallerID = $called_party;
 		
 	}elseif ($callback_mode=='ALL'){  
 		$A2B->agiconfig['use_dnid'] = 0;
@@ -1007,7 +1012,11 @@ if ($charge_callback){
 
 
 // END
-$agi->hangup();
+if ($mode != 'cid-callback' && $mode != 'all-callback') {
+	$agi->hangup();
+} elseif ($A2B->agiconfig['answer_call'] == 1) {
+	$agi->hangup();
+}
 
 
 // SEND MAIL REMINDER WHEN CREDIT IS TOO LOW

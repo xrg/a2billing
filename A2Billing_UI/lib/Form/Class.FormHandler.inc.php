@@ -85,7 +85,7 @@ class FormHandler
 	var $FG_NB_TABLE_COL=0;
 	var $FG_TOTAL_TABLE_COL=0;
 	
-	
+	 
 	/**
     * Keep the ID of the table
     * @public	-	@type string
@@ -1160,7 +1160,6 @@ class FormHandler
 				$this->FG_SENS  = $this -> FG_TABLE_DEFAULT_SENS;
 			}
 			if ( $form_action == "list" ){
-				
 				$instance_table = new Table($this -> FG_TABLE_NAME, $this -> FG_COL_QUERY);
 
 				$this->prepare_list_subselection($form_action);
