@@ -131,7 +131,9 @@ function getpost_ifset($test_vars)
 /** The opposite of getpost_ifset: create an array with those post vars
 	@param arr Array of ("var name", ...)
 	@param empty_null If true, treat empty vars as null
-	@return array( var => val, ...)*/
+	@return array( var => val, ...)
+BIG NOTE: It doesn't work, because GLOBALS here may not be the same..
+	*/
 
 function putpost_arr($test_vars, $empty_null = false){
 	$ret = array();
@@ -139,10 +141,9 @@ function putpost_arr($test_vars, $empty_null = false){
 		$test_vars = array($test_vars);
 	}
 	foreach($test_vars as $test_var) {
-		global $$test_var;
-		if (isset($$test_var) && ($$test_var != null) &&
-			((!$empty_null) || $$test_var != '') )
-			$ret[$test_var] = $$test_var;
+		if (isset($GLOBALS[$test_var]) && ($GLOBALS[$test_var] != null) &&
+			((!$empty_null) || $GLOBALS[$test_var] != '') )
+			$ret[$test_var] = $GLOBALS[$test_var];
 	}
 	return $ret;
 }
