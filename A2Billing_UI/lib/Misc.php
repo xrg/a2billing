@@ -128,6 +128,17 @@ function getpost_ifset($test_vars)
 	}
 }
 
+/** Return a single variable from the post/get data */
+function getpost_single($vname)
+{
+	if (isset($_POST[$vname]))
+		return sanitize_data($_POST[$vname]);
+	elseif (isset($_GET[$vname]))
+		return sanitize_data($_GET[$vname]);
+	else
+		return null;
+}
+
 /** The opposite of getpost_ifset: create an array with those post vars
 	@param arr Array of ("var name", ...)
 	@param empty_null If true, treat empty vars as null

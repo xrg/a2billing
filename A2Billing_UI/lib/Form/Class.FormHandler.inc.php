@@ -847,6 +847,22 @@ class FormHandler{
 		}
 	}
 
+	function AddEditElement2($displayname, $fieldname, $defaultvalue, $fieldtype, $fieldproperty=null, $regexpr_nb=null, $error_message=null, $type_selectfield=null,
+		$lie_tablename=null, $lie_tablefield=null, $lie_clause=null, $listname=null, $displayformat_selectfield=null, $check_emptyvalue =null, $comment=null, $custom_query = null,
+		$displayinput_defaultselect = null, $comment_above = null, $field_enabled = true){
+		
+		if($field_enabled==true)
+		{		
+			$cur = count($this->FG_TABLE_EDITION);
+			$this->FG_TABLE_EDITION[$cur] = array ( $displayname, $fieldname, $defaultvalue, $fieldtype, $fieldproperty, $regexpr_nb, $error_message,
+							$type_selectfield, $lie_tablename, $lie_tablefield, $lie_clause, $listname, $displayformat_selectfield, $check_emptyvalue,
+							$custom_query, $displayinput_defaultselect, $comment_above);		
+			$this->FG_TABLE_COMMENT[$cur] = $comment;
+			$this->FG_TABLE_ADITION[$cur] = $this->FG_TABLE_EDITION[$cur];
+			$this->FG_NB_TABLE_ADITION = $this->FG_NB_TABLE_EDITION = count($this->FG_TABLE_EDITION);
+		}
+	}
+
 	/**
      * Sets Search form fieldnames for the view module
      * @public     
@@ -1106,8 +1122,8 @@ class FormHandler{
 
 		$processed = $this->getProcessed();  //$processed['firstname']
 
-		if ( $form_action == "list" || $form_action == "edit" || $form_action == "ask-delete" ||
-			 $form_action == "ask-edit" || $form_action == "add-content" || $form_action == "del-content" || $form_action == "ask-del-confirm"){
+		if ( in_array($form_action , array("list", "edit","ask-delete", "ask-edit", "add-content",
+			"del-content", "ask-del-confirm","object-edit"))) {
 			include_once (FSROOT."lib/Class.Table.php");
 
 			$this->FG_ORDER = $processed['order'];
@@ -1178,7 +1194,7 @@ class FormHandler{
 			}
 
 			
-			if ($this->FG_DEBUG >= 3) { echo "<br>"; print_r ($list);}			
+			if ($this->FG_DEBUG >= 3) { echo "<br>"; print_r ($list);}
 		}
 
 		return $list;
@@ -1689,6 +1705,9 @@ class FormHandler{
 		
 		for($i=0;$i<$this->FG_NB_TABLE_EDITION;$i++){ 
 			
+			if ($this->FG_TABLE_EDITION[$i][3]=='OBJECT')
+				continue; // TODO: Call Edit action for object!
+				
 			$pos = strpos($this->FG_TABLE_EDITION[$i][14], ":"); // SQL CUSTOM QUERY
 			$pos_mul = strpos($this->FG_TABLE_EDITION[$i][4], "multiple");
 			if ((!isset($this->FG_TABLE_EDITION[$i][1])) || ($this->FG_TABLE_EDITION[$i][1] == ''))
@@ -1973,6 +1992,10 @@ class FormHandler{
 		$instance_sub_table -> Delete_table ($this->DBHandle, $SPLIT_FG_DELETE_CLAUSE, $func_table = null);
 	}	
 	
+	function perform_object_edit($sub_action,$id){
+		return $this->FG_TABLE_EDITION[$sub_action][4]->PerformObjEdit($sub_action,$this->FG_TABLE_EDITION[$sub_action], $this->DBHandle);
+	}	
+
 	/**
      * Function to create the top page section
      * @public     	 
@@ -2314,16 +2337,20 @@ class FormHandler{
 			case "del-content":
 				$this->perform_del_content($sub_action,$id);
 				include('Class.FormHandler.EditForm.inc.php');
-			break;	
+			break;
+			case "object-edit":
+				$this->perform_object_edit($sub_action,$id);
+				include('Class.FormHandler.EditForm.inc.php');
+			break;
 			case "ask-edit":
 			case "edit":
 				include('Class.FormHandler.EditForm.inc.php');
 			break;
-			case "ask-add":					
+			case "ask-add":
 				include('Class.FormHandler.AddForm.inc.php');
 			break;
 			case "ask-delete":
-            case "ask-del-confirm":
+			case "ask-del-confirm":
 				if (strlen($this -> FG_ADDITIONAL_FUNCTION_BEFORE_DELETE) > 0)
 			   	$res_funct = call_user_func(array(&$this, $this->FG_ADDITIONAL_FUNCTION_BEFORE_DELETE));
 				include('Class.FormHandler.DelForm.inc.php');	   	// need ID
