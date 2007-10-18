@@ -735,7 +735,7 @@ function str_alparams($str, $parm_arr, $noffset = 0){
 			$sm=2;
 			$strp++;
 		}
-		for ($stre=$strp ; ($stre<$strlen) && ctype_alnum($str[$stre]);$stre++);
+		for ($stre=$strp ; ($stre<$strlen) && (($str[$stre] == '_' )|| ctype_alnum($str[$stre]));$stre++);
 		
 		if ($stre>$strp){
 			$pv=substr($str,$strp,$stre-$strp);
