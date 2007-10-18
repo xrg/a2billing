@@ -108,6 +108,7 @@ class FormHandler{
 	var $FG_EDITION_LINK	= '';
 	var $FG_EDITION_LINK_FARRAY = array();
 	var $FG_DELETION_LINK	= '';	
+	var $FG_DELETION_LINK_FARRAY = array();
 	var $FG_OTHER_BUTTON1_LINK	= '';
 	var $FG_OTHER_BUTTON2_LINK	= '';
 	
