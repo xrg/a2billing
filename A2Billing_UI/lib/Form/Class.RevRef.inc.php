@@ -47,6 +47,14 @@ function formRRdelete(rid,raction,rname, instance){
   if (rname != null) document.myForm.elements[rname].value = instance;
   myForm.submit();
 }
+function formRRdelete2(rid,raction,rname, instance, inst2){
+  document.myForm.form_action.value = "object-edit";
+  document.myForm.sub_action.value = rid;
+  document.myForm.elements[raction].value='delete';
+  if (rname != null) document.myForm.elements[rname].value = instance;
+  if (rname != null) document.myForm.elements[rname+'2'].value = inst2;
+  myForm.submit();
+}
 
 function formRRadd(rid,raction){
   document.myForm.form_action.value = "object-edit";
@@ -65,7 +73,10 @@ function formRRadd(rid,raction){
 	public function DispEdit($scol, $sparams, $svalue, $DBHandle = null){
 		$refname = $this->refname ;
 		$refid = $this->refid ;
-		$refkey = $this->refkey ;
+		if( $this->refkey !=NULL)
+			$refkey = $this->refkey ;
+		else
+			$refkey = $this->refid;
 		?><input type="hidden" name="<?= $sparams[5] . '_action' ?>" value="">
 		<?php
 		$QUERY = str_dbparams($DBHandle, "SELECT $refkey, $refname FROM $this->reftable ".
@@ -87,13 +98,19 @@ function formRRadd(rid,raction){
 		<tbody>
 		<?php while ($row = $res->fetchRow()){ ?>
 			<tr><td><?= htmlspecialchars($row[1]) ?></td>
+			<?php if ($this->refkey !=NULL){ ?>
 			    <td><a onClick="formRRdelete('<?= $scol ?>','<?=$sparams[5]. '_action' ?>','<?= $sparams[5] .'_del' ?>','<?= $row[0] ?>')" > <img src="../Images/icon-del.png" alt="<?= _("Remove this") ?>" /></a></td>
+			   <?php } else { ?>
+			    <td><a onClick="formRRdelete2('<?= $scol ?>','<?=$sparams[5]. '_action' ?>','<?= $sparams[5] .'_del' ?>','<?= $row[0] ?>','<?= $row[1] ?>')" > <img src="../Images/icon-del.png" alt="<?= _("Remove this") ?>" /></a></td>
 			</tr>
-		<?php } ?>
+		<?php		}
+			} ?>
 		</tbody>
 		</table>
 		<input type="hidden" name="<?= $sparams[5] . '_del' ?>" value="">
-		<?php
+		<?php if ($this->refkey ==NULL) { ?>
+		<input type="hidden" name="<?= $sparams[5] . '_del2' ?>" value="">
+		<?php }
 		}
 		
 		$this->dispAddBox($scol, $sparams, $svalue, $DBHandle);
@@ -226,7 +243,10 @@ class RevReftxt extends RevRef {
 		case 'add':
 			$QUERY = str_dbparams($DBHandle,"INSERT INTO $this->reftable ($this->refid, $this->refname) VALUES(%1, %2);",
 				array($oeid, getpost_single($sparams[5].'_new' . $this->refname)));
-			$res = $DBHandle->Execute ($QUERY);
+			if ($this->debug_st>2) {
+				echo "Query: ". htmlspecialchars($QUERY) ."<br>\n";
+				return;
+			}$res = $DBHandle->Execute ($QUERY);
 			if (! $res){
 				if ($this->debug_st) {
 					?> Query failed: <?= htmlspecialchars($QUERY) ?><br>
@@ -240,8 +260,16 @@ class RevReftxt extends RevRef {
 			}
 			break;
 		case 'delete':
-			$QUERY = str_dbparams($DBHandle,"DELETE FROM $this->reftable WHERE $this->refkey = %1 ;",
-				array(getpost_single($sparams[5].'_del')));
+			if ($this->refkey != NULL)
+				$QUERY = str_dbparams($DBHandle,"DELETE FROM $this->reftable WHERE $this->refkey = %1 ;",
+					array(getpost_single($sparams[5].'_del')));
+			else
+				$QUERY = str_dbparams($DBHandle,"DELETE FROM $this->reftable WHERE $this->refid = %1 AND $this->refname = %2 ;",
+					array(getpost_single($sparams[5].'_del'),getpost_single($sparams[5].'_del2')));
+			if ($this->debug_st>2) {
+				echo "Query: ". htmlspecialchars($QUERY) ."<br>\n";
+				return;
+			}
 			$res = $DBHandle->Execute ($QUERY);
 			if (! $res){
 				if ($this->debug_st) {
