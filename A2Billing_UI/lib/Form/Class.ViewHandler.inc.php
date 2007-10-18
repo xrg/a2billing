@@ -229,7 +229,7 @@ function openURLFilter(theLINK)
 							call_user_func($this->FG_TABLE_COL[$i][11], $record_display);
 						}else{
 							if ((isset($this->FG_TABLE_COL[$i]['edit_link'])) && $this->FG_TABLE_COL[$i]['edit_link']){
-								$tmp_link = str_params($this->FG_EDITION_LINK . arr2url($this->FG_EDITION_LINK_FARRAY),
+								$tmp_link = str_alparams($this->FG_EDITION_LINK . arr2url($this->FG_EDITION_LINK_FARRAY),
 									$list[$ligne_number]);
 								echo '<a href ="' .$tmp_link .'" title="' . $this->FG_EDIT_ALT . '">';
 							}
@@ -245,9 +245,14 @@ function openURLFilter(theLINK)
 				  	<?php if($this->FG_EDITION || $this->FG_DELETION || $this -> FG_OTHER_BUTTON1 || $this -> FG_OTHER_BUTTON2){?>
 					  <TD align="center" vAlign=top class=tableBodyRight><?php
 					   if($this->FG_EDITION){
-						?>&nbsp; <a href="<?php echo $this->FG_EDITION_LINK?><?php echo $list[$ligne_number][$this->FG_NB_TABLE_COL]?>&stitle=<?php echo $stitle?>&site_id=<?php echo $list[$ligne_number][0]?>"><img src="../Images/icon-edit.png" border="0" title="<?php echo $this->FG_EDIT_ALT?>" alt="<?php echo $this->FG_EDIT_ALT?>"></a><?php } ?>
+						$tmp_link = str_alparams($this->FG_EDITION_LINK . arr2url($this->FG_EDITION_LINK_FARRAY),
+							$list[$ligne_number]);
+
+						?>&nbsp; <a href="<?= $tmp_link ?>"><img src="../Images/icon-edit.png" border="0" title="<?php echo $this->FG_EDIT_ALT?>" alt="<?php echo $this->FG_EDIT_ALT?>"></a><?php } ?>
 					<?php if($this->FG_DELETION){
-						?>&nbsp; <a href="<?php echo $this->FG_DELETION_LINK?><?php echo $list[$ligne_number][$this->FG_NB_TABLE_COL]?>&stitle=<?php echo $stitle?>"><img src="../Images/icon-del.png" border="0" title="<?php echo $this->FG_DELETE_ALT?>" alt="<?php echo $this->FG_DELETE_ALT?>"></a><?php } ?>
+						$tmp_link = str_alparams($this->FG_DELETION_LINK . arr2url($this->FG_DELETION_LINK_FARRAY),
+							$list[$ligne_number]);
+						?>&nbsp; <a href="<?= $tmp_link ?>"><img src="../Images/icon-del.png" border="0" title="<?php echo $this->FG_DELETE_ALT?>" alt="<?php echo $this->FG_DELETE_ALT?>"></a><?php } ?>
 					<?php if($this->FG_OTHER_BUTTON1){ 
 					?> <a href="<?php
 								$new_FG_OTHER_BUTTON1_LINK = $this -> FG_OTHER_BUTTON1_LINK;

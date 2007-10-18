@@ -483,8 +483,14 @@ class FormHandler{
 		{
 			$section = $_SESSION["menu_section"];
 		}
-		$this -> FG_EDITION_LINK	= $_SERVER['PHP_SELF']."?form_action=ask-edit&".$this->FG_TABLE_ID."=";
-		$this -> FG_DELETION_LINK	= $_SERVER['PHP_SELF']."?form_action=ask-delete&".$this->FG_TABLE_ID."=";
+		if (($this->FG_DEBUG) && ($this -> FG_NB_TABLE_COL>10)){
+			echo "Huston, we have a problem!\n";
+			exit;
+		}
+		$this -> FG_EDITION_LINK	= $_SERVER['PHP_SELF']."?form_action=ask-edit&".
+			$this->FG_TABLE_ID."=%#" .$this->FG_TABLE_ID .'&';
+		$this -> FG_DELETION_LINK	= $_SERVER['PHP_SELF']."?form_action=ask-delete&".
+			$this->FG_TABLE_ID."=%#".$this->FG_TABLE_ID .'&';
 
 		$this -> FG_DELETE_ALT = gettext("Delete this ").$this -> FG_INSTANCE_NAME;
 		$this -> FG_EDIT_ALT = gettext("Edit this ").$this -> FG_INSTANCE_NAME;
