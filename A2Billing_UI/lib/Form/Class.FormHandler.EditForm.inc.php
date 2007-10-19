@@ -8,7 +8,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 
 function sendto(action, record, field_inst, instance){
   document.myForm.form_action.value = action;
-  document.myForm.sub_action.value = record;
+  if (record != null) document.myForm.sub_action.value = record;
   if (field_inst != null) document.myForm.elements[field_inst].value = instance;
   myForm.submit();
 }
@@ -233,7 +233,7 @@ function sendtolittle(direction){
 					if (strlen($this->FG_TABLE_COMMENT[$i])>0){  ?><?php  echo "<br/>".$this->FG_TABLE_COMMENT[$i];?>  <?php  } ?>
                         &nbsp; </TD>
                     </TR>
-                    <?php 					
+                    <?php
 		}// end if pos
 	}//END_FOR ?>
 
@@ -250,10 +250,6 @@ function sendtolittle(direction){
 				<a href="#" onClick="sendto('edit');" class="cssbutton_big"><IMG src="../Images/icon_arrow_orange.png">
 				<?php echo gettext("CONFIRM DATA"); ?> </a>
 				
-				<!-- 
-				<input onClick="sendto('edit');" border=0 hspace=0 id=submit3 name=submit32 src="<?php echo $this->FG_BUTTON_EDITION_SRC?>" 
-				type=image value="add-split">		
-				-->
 			</td>
 		</tr>
 	  </TABLE>
