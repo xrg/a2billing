@@ -121,6 +121,9 @@ class FormHandler{
     * @public	-	@type integer
     */
 	var $FG_LIMITE_DISPLAY=10;
+	
+	/** Least rows to display in a table. If query returns less, fill with empty rows */
+	var $FG_LEAST_ROWS = 7;
 	var $SQL_GROUP = null;
 	
 	/**

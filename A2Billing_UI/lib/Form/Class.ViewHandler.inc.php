@@ -346,7 +346,7 @@ function openURLFilter(theLINK)
 					</TR>
 				<?php
 					} //  for (ligne_number=0;ligne_number<count($list);$ligne_number++)
-					while ($ligne_number < 7){
+					while ($ligne_number < $this->FG_LEAST_ROWS){
 				?>
 					<TR bgcolor="<?php echo $this->FG_TABLE_ALTERNATE_ROW_COLOR[$ligne_number%2]?>">
 				  		<?php
