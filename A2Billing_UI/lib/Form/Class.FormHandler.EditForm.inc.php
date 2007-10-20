@@ -27,7 +27,7 @@ function sendtolittle(direction){
 			
 	<FORM action=<?= $_SERVER['PHP_SELF']?> method=post name="myForm" id="myForm">
 		<?php $this->gen_PostParams(array( form_action => 'edit', sub_action => '',
-			$this->FG_TABLE_ID => ${$this->FG_TABLE_ID} )); ?>
+			$this->FG_TABLE_ID => ${$this->FG_TABLE_ID} ),true); ?>
 <?php
 	if (!is_null($this->FG_QUERY_EDITION_HIDDEN_FIELDS) && $this->FG_QUERY_EDITION_HIDDEN_FIELDS!=""){
 		$split_hidden_fields = split(",",trim($this->FG_QUERY_EDITION_HIDDEN_FIELDS));
