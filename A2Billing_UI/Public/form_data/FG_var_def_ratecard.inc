@@ -392,7 +392,7 @@ $HD_Form -> AddEditElement(gettext("CIDGroup"),
    "sql",
    "cc_outbound_cid_group",
    "id,group_name",
-	"", "", "", "", gettext("Set the Outgoing CID Group to use for this destination, or NOT DEFINED to use the rate card trunk."), '', '<OPTION  value="-1" selected>NOT DEFINED</OPTION>');
+	"", "", "", "", gettext("Set the Outgoing CID Group to use for this destination, or NOT DEFINED to use the rate card trunk."), '', array(-1, _("NOT DEFINED")));
 
 if (ADVANCED_MODE){
 	$HD_Form -> AddEditElement(gettext("MUSICONHOLD"),
