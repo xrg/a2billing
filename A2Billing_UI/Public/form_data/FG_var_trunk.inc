@@ -1,14 +1,14 @@
 <?php
 
-getpost_ifset(array('id', 'trunkcode', 'trunkprefix', 'removeprefix', 'providertech', 'providerip', 'addparameter','failover_trunk', 'id_provider', 'popup_select'));
+getpost_ifset(array('id', 'id_trunk', 'trunkcode', 'trunkprefix', 'removeprefix', 'providertech', 'providerip', 'addparameter','failover_trunk', 'id_provider', 'popup_select'));
 
 
 $HD_Form = new FormHandler("cc_trunk","trunk");
 
 $HD_Form -> FG_DEBUG = 0;
-$HD_Form -> FG_TABLE_ID = " id_trunk";
-$HD_Form -> FG_TABLE_DEFAULT_ORDER = " id_trunk";
-$HD_Form -> FG_EDITION_CLAUSE = " id_trunk='%id' ";
+$HD_Form -> FG_TABLE_ID = "id_trunk";
+$HD_Form -> FG_TABLE_DEFAULT_ORDER = "id_trunk";
+$HD_Form -> FG_EDITION_CLAUSE = " id_trunk=%#1 ";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "ASC";
 
 // Dependent Tables
@@ -145,7 +145,7 @@ $HD_Form -> AddEditElement (gettext("FAILOVER TRUNK"),
 	array('-1',_("NOT DEFINED")));
 
 
-$HD_Form -> FieldEditElement ('id_provider, trunkcode, trunkprefix, removeprefix, providertech, providerip, addparameter, failover_trunk');
+$HD_Form -> AutoFieldEditElements ();
 
 
 if (DB_TYPE == "postgres"){

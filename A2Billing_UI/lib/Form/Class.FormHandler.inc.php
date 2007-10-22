@@ -2330,26 +2330,11 @@ class FormHandler{
 		include_once (FSROOT."lib/Class.Table.php");
 		$processed = $this->getProcessed();
 
-		if ($_GET['id']==''){
-			$id = $_POST['id'];
-			if (isset($_POST['atmenu'])) $atmenu =  $_POST['atmenu'];
-			else $atmenu = $_GET['atmenu'];
-
-			if (isset($_POST['stitle']))  $stitle = $_POST['stitle'];
-			else $stitle = $_GET['stitle'];
-			
-			if (isset($_POST['ratesort'])) $ratesort = $_POST['ratesort'];
-			else $ratesort = $_GET['ratesort'];
-			
-			if (isset($_POST['sub_action'])) $sub_action = $_POST['sub_action'];
-			else $sub_action = $_GET['sub_action'];	
-		}else{
-			$id = $_GET['id'];
-			$atmenu = $_GET['atmenu'];
-			$stitle = $_GET['stitle'];
-			$ratesort = $_GET['ratesort'];
-			$sub_action = $_GET['sub_action'];
-		}
+		${$this->FG_TABLE_ID} = getpost_single($this->FG_TABLE_ID);
+		$atmenu = getpost_single('atmenu');
+		$stitle = getpost_single('stitle');
+		$ratesort = getpost_single('ratesort');
+		$sub_action = getpost_single('sub_action');
 	
 		switch ($form_action) {
 			case "add-content":
