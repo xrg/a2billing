@@ -106,6 +106,7 @@ class FormHandler{
     * @public	-	@type string
     */
 	var $FG_EDITION_LINK	= '';
+	var $FG_EDITION_LINK_FARRAY = array();
 	var $FG_DELETION_LINK	= '';	
 	var $FG_OTHER_BUTTON1_LINK	= '';
 	var $FG_OTHER_BUTTON2_LINK	= '';
@@ -604,7 +605,7 @@ class FormHandler{
 	   @param $arr_more  An array to be added in the form ( key => data ...)
 	   @return A string like "?key1=data&key2=data..."
 	*/
-	function gen_GetParams($arr_more = NULL){
+	function gen_GetParams($arr_more = NULL,$do_amper=false){
 		$arr = $this->CV_FOLLOWPARAMETER_ARRAY;
 		if (is_array($arr_more))
 		$arr = array_merge($arr, $arr_more);
@@ -614,17 +615,22 @@ class FormHandler{
 				$str .= '&';
 			$str .= $this->CV_FOLLOWPARAMETERS;
 		}
-		if (strlen($str))
+		if (strlen($str)){
+			if ($do_amper)
+			$str = '&' . $str;
+			else
 			$str = '?' . $str;
+		}
 		return $str;
 	}
-	function gen_PostParams($arr_more = NULL){
+	function gen_PostParams($arr_more = NULL, $do_nulls=false){
 		$arr = $this->CV_FOLLOWPARAMETER_ARRAY;
 		if (is_array($arr_more))
 		$arr = array_merge($arr, $arr_more);
 		// unfortunately, it is hard to use CV_FOLLOWPARAMETERS here!
 		
-		foreach($arr as $key => $value){
+		foreach($arr as $key => $value)
+			if ($do_nulls || $value !=NULL){
 		?><input type="hidden" name="<?= $key ?>" value="<?= htmlspecialchars($value) ?>" >
 		<?php
 		}
@@ -635,6 +641,12 @@ class FormHandler{
 		if (!is_array($arr))
 			return;
 		$this->CV_FOLLOWPARAMETER_ARRAY = array_merge($this->CV_FOLLOWPARAMETER_ARRAY, $arr);
+	}
+
+	function Add_EditFParams($arr){
+		if (!is_array($arr))
+			return;
+		$this->FG_EDITION_LINK_FARRAY = array_merge($this->FG_EDITION_LINK_FARRAY, $arr);
 	}
 
 	// ----------------------------------------------

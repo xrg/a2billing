@@ -11,15 +11,6 @@ if (!function_exists("stripos")) {
 
 // ******************** END IF $topviewer *******************************
 
-// $stitle = $_GET['stitle'];
-// $ratesort = $_GET['ratesort'];
-// $current_page = $_GET['current_page'];
-// 	if (isset($_GET['order']) && ($_GET['order'] != ''))
-// 		$this->FG_ORDER = $_GET['order']; // really need ?!
-// 	if (isset($_GET['sens']) && ($_GET['sens'] != ''))
-// 		$this->FG_SENS = $_GET['sens']; // really need  ?
-// 	$this->Add_FormParams(putpost_arr('stitle','ratesort','current_page','order','sens'));
-
 
 if ((count($list)>0) && is_array($list)){
 	$ligne_number=0;
@@ -237,7 +228,14 @@ function openURLFilter(theLINK)
 						if (isset ($this->FG_TABLE_COL[$i][11]) && strlen($this->FG_TABLE_COL[$i][11])>1){
 							call_user_func($this->FG_TABLE_COL[$i][11], $record_display);
 						}else{
+							if ((isset($this->FG_TABLE_COL[$i]['edit_link'])) && $this->FG_TABLE_COL[$i]['edit_link']){
+								$tmp_link = str_params($this->FG_EDITION_LINK . arr2url($this->FG_EDITION_LINK_FARRAY),
+									$list[$ligne_number]);
+								echo '<a href ="' .$tmp_link .'" title="' . $this->FG_EDIT_ALT . '">';
+							}
 							echo stripslashes($record_display);
+							if ((isset($this->FG_TABLE_COL[$i]['edit_link'])) && $this->FG_TABLE_COL[$i]['edit_link'])
+								echo '</a>';
 						}
 						?>
 					</TD>
