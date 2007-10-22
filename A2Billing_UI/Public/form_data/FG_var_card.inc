@@ -6,6 +6,7 @@ getpost_ifset(array('id', 'username', 'useralias', 'uipass', 'credit', 'language
 'cid', 'runservice', 'firstusedate','expirationdate', 'enableexpire', 'expiredays', 'sip_buddy',
 'iax_buddy','popup_select', 'vat', 'autorefill', 'initialbalance', 'id_subscription_fee', 'mac_addr', 'cardnumberlenght_list'));
 
+require_once("../lib/Form/Class.RevRef.inc.php");
 
 $HD_Form = new FormHandler("cc_card","Card");
 
@@ -517,7 +518,7 @@ $HD_Form -> AddEditElement (gettext("STATE/PROVINCE"),
 			   gettext("Insert the state"),
 			   "" , "", "",	"", "", "" , "NO", "");
 
-$HD_Form -> AddEditElement (gettext("COUNTRY"),
+$HD_Form -> AddEditElement2 (gettext("COUNTRY"),
 			   "country",
 			   "",
 			   "SELECT",
@@ -594,26 +595,28 @@ $HD_Form -> AddEditElement (gettext("IN USE"),
 			   "", 
 			   "list" , "", "",	"", $inuse_list, "", "", gettext("Define the number of use of this cardnumber. If a non-standard stop of the application occurs it maybe that the card is in 'in-use' > 0  status. Get it back to '0' if you know there is a issue on this card.") );
 
+$cidobj = new RevReftxt();
+$cidobj->reftable='cc_callerid';
+$cidobj->refid='id_cc_card';
+$cidobj->refkey='id';
+$cidobj->refname='cid';
 
-$HD_Form -> AddEditElement (gettext("CALLERID"),
-			   "callerid",
+
+
+$HD_Form -> AddEditElement2 (gettext("CALLERID"),
+			   "id",
 			   '$value',
-			   "INSERT",
-			   "",
-			   "",
-			   "",
-			   "sql",
-			   "call_tariff",
-			   "label, id",
-			   "", "", "%1 : (%2)", "", "", "cc_callerid:cid:cc_callerid:cid, cid, id_cc_card:id_cc_card = %id:id_cc_card:%3 - (%1)::othertablelinked:cli, id_cc_card:%1:id_cc_card='%1':18");
+			   "OBJECT",
+			   $cidobj,
+			   "callerid");
 
 
 
-
-$HD_Form -> FieldEditElement ('username, useralias, uipass, credit, language, tariff, id_subscription_fee, id_didgroup, id_campaign,'.
-'callback, activated, activatedbyuser, simultaccess, currency, runservice, autorefill, initialbalance, typepaid, creditlimit,	firstusedate, enableexpire,'.
-'expirationdate, expiredays, invoiceday, vat, lastname, firstname, email, address, city, state, country, zipcode, phone,'.
-'fax, sip_buddy, iax_buddy, mac_addr, inuse');
+$HD_Form -> AutoFieldEditElements();
+// $HD_Form -> FieldEditElement ('username, useralias, uipass, credit, language, numplan, tariff, id_subscription_fee, id_didgroup, id_campaign,'.
+// 'callback, activated, activatedbyuser, simultaccess, currency, runservice, autorefill, initialbalance, typepaid, creditlimit,	firstusedate, enableexpire,'.
+// 'expirationdate, expiredays, invoiceday, vat, lastname, firstname, email, address, city, state, country, zipcode, phone,'.
+// 'fax, sip_buddy, iax_buddy, mac_addr, inuse');
 
 
 if(!isset($myusername)) $myusername='';

@@ -119,12 +119,12 @@ if ($id!="" || !is_null($id)){
 if (!isset($form_action))  $form_action="list"; //ask-add
 if (!isset($action)) $action = $form_action;
 
+// #### HEADER SECTION
+include("PP_header.php");
+RevReftxt::html_body($action);
 
 $list = $HD_Form -> perform_action($form_action);
 
-
-// #### HEADER SECTION
-include("PP_header.php");
 
 if ($popup_select){
 ?>

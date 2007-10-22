@@ -97,12 +97,11 @@ if ( $form_action == "add" || $form_action == "edit" || $form_action == "delete"
 	}
 }
 
-$list = $HD_Form -> perform_action($form_action);
-
-
-
 // #### HEADER SECTION
 include("PP_header.php");
+
+$list = $HD_Form -> perform_action($form_action);
+
 
 // #### HELP SECTION
 if ($form_action=='list'){ 

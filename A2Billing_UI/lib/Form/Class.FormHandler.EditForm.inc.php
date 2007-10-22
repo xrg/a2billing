@@ -144,6 +144,8 @@ function sendtolittle(direction){
 							$tmp2[]=array($tmp[1],$tmp[0]);
 						$select_list = $tmp2;
 					}
+					if (!is_array($select_list))
+						$select_list = array();
 					if (isset($this->FG_TABLE_EDITION[$i][15]))
 						array_unshift($select_list,$this->FG_TABLE_EDITION[$i][15]);
 					

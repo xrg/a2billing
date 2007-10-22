@@ -192,6 +192,7 @@ function gen_Combo($name, $value, $option_array,$multiple=false){
 		$opts .=' size=1 class="form_enter"';
 	?> <select name="<?= $tmp_name?>" <?=$opts ?>>
 	<?php
+		if (is_array($option_array))
 		foreach($option_array as $option){ ?>
 		<option value="<?= $option[0] ?>"<?php 
 		if (($value == $option[0]) || ($multiple && is_array($value) && in_array($option[0],$value)))

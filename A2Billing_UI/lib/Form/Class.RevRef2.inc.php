@@ -33,14 +33,14 @@ class RevRef2 {
 			}
 			echo _("No data found!");
 		}else{
-		?> <table class="FormRRt1">
+		?> <table class="FormRR2t1">
 		<thead>
 		<tr><td><?= $sparams[0] ?></td><td><?= _("Action") ?></td></tr>
 		</thead>
 		<tbody>
 		<?php while ($row = $res->fetchRow()){ ?>
 			<tr><td><?= htmlspecialchars($row[1]) ?></td>
-			    <td><a onClick="formRRdelete('<?= $scol ?>','<?=$sparams[5]. '_action' ?>','<?= $sparams[5] .'_del' ?>','<?= $row[0] ?>')" > <img src="../Images/icon-del.png" alt="<?= _("Remove this") ?>" /></a></td>
+			    <td><a onClick="formRR2delete('<?= $scol ?>','<?=$sparams[5]. '_action' ?>','<?= $sparams[5] .'_del' ?>','<?= $row[0] ?>')" > <img src="../Images/icon-del.png" alt="<?= _("Remove this") ?>" /></a></td>
 			</tr>
 		<?php } ?>
 		</tbody>
@@ -68,7 +68,7 @@ class RevRef2 {
 			}
 			gen_Combo($sparams[5]. '_add','',$add_combos);
 			 ?>
-			 <a onClick="formRRadd('<?= $scol ?>','<?=$sparams[5]. '_action' ?>')"><img src="../Images/btn_Add_94x20.png" alt="<?= _("Add this") ?>" /></a>
+			 <a onClick="formRR2add('<?= $scol ?>','<?=$sparams[5]. '_action' ?>')"><img src="../Images/btn_Add_94x20.png" alt="<?= _("Add this") ?>" /></a>
 		<?php
 		}
 		
@@ -84,14 +84,14 @@ class RevRef2 {
 			return;
 	?>
 <style>
-table.FormRRt1 {
+table.FormRR2t1 {
 	border: thin solid black;
 	color: blue;
 	width: 300;
 	font: Arial, Verdana;
 }
 
-table.FormRRt1 thead td{
+table.FormRR2t1 thead td{
 	background: gray;
 	color: white;
 	font-weight: bold;
@@ -100,7 +100,7 @@ table.FormRRt1 thead td{
 
 <script language="JavaScript" type="text/JavaScript">
 <!--
-function formRRdelete(rid,raction,rname, instance){
+function formRR2delete(rid,raction,rname, instance){
   document.myForm.form_action.value = "object-edit";
   document.myForm.sub_action.value = rid;
   document.myForm.elements[raction].value='delete';
@@ -108,7 +108,7 @@ function formRRdelete(rid,raction,rname, instance){
   myForm.submit();
 }
 
-function formRRadd(rid,raction){
+function formRR2add(rid,raction){
   document.myForm.form_action.value = "object-edit";
   document.myForm.sub_action.value = rid;
   document.myForm.elements[raction].value='add';
