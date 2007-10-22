@@ -16,13 +16,16 @@ getpost_ifset(array('inputtopvar','topsearch', 'posted', 'Period', 'frommonth', 
 
 switch ($topsearch){
 	case "topuser":
+	default:
 		$field=array('CARD ID','username');
+		if ($order == 'destination')
+			$order = 'username';
 	break;
 	case "topdestination":
 		$field=array('DESTINATION','destination');
+		if ($order == 'username')
+			$order = 'destination';
 	break;	
-	default:
-		$field=array('CARD ID','username');
 }
 
 
@@ -78,10 +81,10 @@ if ((isset($inputtopvar)) && ($inputtopvar!="") && (isset($topsearch)) && ($tops
 }
 
 if ($grouped){
-	$FG_COL_QUERY=$field[1].', sum(sessiontime) AS calltime, sum(sessionbill) as cost, sum(buycost) as buy,substring(starttime,1,10) AS day,terminatecause, count(*) as nbcall';
+	$FG_COL_QUERY=$field[1].', sum(sessiontime) AS calltime, sum(buycost) as buy, sum(sessionbill) as cost, substring(starttime,1,10) AS day,terminatecause, count(*) as nbcall';
 	$SQL_GROUP="GROUP BY ".$field[1].",day,terminatecause ";
 }else{
-	$FG_COL_QUERY=$field[1].', sum(sessiontime) AS calltime, sum(sessionbill) as cost, sum(buycost) as buy,terminatecause, count(*) as nbcall';
+	$FG_COL_QUERY=$field[1].', sum(sessiontime) AS calltime, sum(buycost) as buy, sum(sessionbill) as cost, terminatecause, count(*) as nbcall';
 	$SQL_GROUP="GROUP BY ".$field[1].",terminatecause ";
 }
 

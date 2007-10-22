@@ -1,14 +1,14 @@
 <?php
 
-getpost_ifset(array('id', 'trunkcode', 'trunkprefix', 'removeprefix', 'providertech', 'providerip', 'addparameter','failover_trunk', 'id_provider', 'popup_select', 'inuse', 'maxuse', 'status', 'if_max_use'));
+getpost_ifset(array('id', 'id_trunk', 'trunkcode', 'trunkprefix', 'removeprefix', 'providertech', 'providerip', 'addparameter','failover_trunk', 'id_provider', 'popup_select', 'inuse', 'maxuse', 'status', 'if_max_use'));
 
 
 $HD_Form = new FormHandler("cc_trunk","trunk");
 
 $HD_Form -> FG_DEBUG = 0;
-$HD_Form -> FG_TABLE_ID = " id_trunk";
-$HD_Form -> FG_TABLE_DEFAULT_ORDER = " id_trunk";
-$HD_Form -> FG_EDITION_CLAUSE = " id_trunk='%id' ";
+$HD_Form -> FG_TABLE_ID = "id_trunk";
+$HD_Form -> FG_TABLE_DEFAULT_ORDER = "id_trunk";
+$HD_Form -> FG_EDITION_CLAUSE = " id_trunk=%#1 ";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "ASC";
 
 $actived_list = array();
@@ -152,7 +152,7 @@ $HD_Form -> AddEditElement (gettext("FAILOVER TRUNK"),
 	"cc_trunk",
 	"id_trunk, trunkcode",
 	"", "", "", "", gettext("You can define an other trunk in case of failover!"), '', 
-	array('-1',_("NOT DEFINED"));
+	array('-1',_("NOT DEFINED")));
 
 $HD_Form -> AddEditElement (gettext("CURRENT CONNECTIONS"),
 	"inuse",
@@ -191,7 +191,7 @@ $HD_Form -> AddEditElement ("STATUS",
 	"list" , "", "", "", $actived_list, "%1" , "", "");
 
 
-$HD_Form -> FieldEditElement ('id_provider, trunkcode, trunkprefix, removeprefix, providertech, providerip, addparameter, failover_trunk, inuse, maxuse, if_max_use, status');
+$HD_Form -> AutoFieldEditElements();
 
 
 if (DB_TYPE == "postgres"){
@@ -225,3 +225,4 @@ $HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_ADD = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_DELETE = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
+?>

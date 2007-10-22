@@ -128,10 +128,23 @@ function getpost_ifset($test_vars)
 	}
 }
 
+/** Return a single variable from the post/get data */
+function getpost_single($vname)
+{
+	if (isset($_POST[$vname]))
+		return sanitize_data($_POST[$vname]);
+	elseif (isset($_GET[$vname]))
+		return sanitize_data($_GET[$vname]);
+	else
+		return null;
+}
+
 /** The opposite of getpost_ifset: create an array with those post vars
 	@param arr Array of ("var name", ...)
 	@param empty_null If true, treat empty vars as null
-	@return array( var => val, ...)*/
+	@return array( var => val, ...)
+BIG NOTE: It doesn't work, because GLOBALS here may not be the same..
+	*/
 
 function putpost_arr($test_vars, $empty_null = false){
 	$ret = array();
@@ -139,10 +152,9 @@ function putpost_arr($test_vars, $empty_null = false){
 		$test_vars = array($test_vars);
 	}
 	foreach($test_vars as $test_var) {
-		global $$test_var;
-		if (isset($$test_var) && ($$test_var != null) &&
-			((!$empty_null) || $$test_var != '') )
-			$ret[$test_var] = $$test_var;
+		if (isset($GLOBALS[$test_var]) && ($GLOBALS[$test_var] != null) &&
+			((!$empty_null) || $GLOBALS[$test_var] != '') )
+			$ret[$test_var] = $GLOBALS[$test_var];
 	}
 	return $ret;
 }
@@ -180,6 +192,7 @@ function gen_Combo($name, $value, $option_array,$multiple=false){
 		$opts .=' size=1 class="form_enter"';
 	?> <select name="<?= $tmp_name?>" <?=$opts ?>>
 	<?php
+		if (is_array($option_array))
 		foreach($option_array as $option){ ?>
 		<option value="<?= $option[0] ?>"<?php 
 		if (($value == $option[0]) || ($multiple && is_array($value) && in_array($option[0],$value)))
@@ -696,6 +709,66 @@ function str_dbparams($dbh, $str, $parm_arr){
 		
 	return $resstr;
 }
+
+/** Calculate arguments in a string of the form "Test %var or %id .." 
+	This function is carefully written, so that it could be used securely, for
+	example, when 'eval(string_param(" echo %&str",array( $dangerous_str)))' is called.
+	That is, we have some special prefixes:
+		%#x means the x parameter as a number, 0 if nan
+		%&x means the x parameter as a quoted string
+		%% will become '%', as will %X where X not [1-9a-z]
+	@param $str The input string
+	@param $parm_arr An array with the parameters, so %id will become $parm_arr['id']
+
+	@note The param name can contain alphanumeric, '_' . The name terminates at non-alpha.
+*/
+function str_alparams($str, $parm_arr, $noffset = 0){
+	$strlen=strlen($str);
+	$strp=0;
+	$stro=0;
+	$resstr='';
+	do{
+		$strp=strpos($str,"%",$stro);
+		if($strp===false){
+			$resstr=$resstr . substr($str,$stro);
+			break;
+		}
+		$resstr=$resstr . substr($str,$stro,$strp-$stro);
+		$strp++;
+		if ($strp>=$strlen)
+			break;
+		$sm=0;
+		if ($str[$strp] == '#'){
+			$sm=1;
+			$strp++;
+		}
+		else if ($str[$strp] =='&'){
+			$sm=2;
+			$strp++;
+		}
+		for ($stre=$strp ; ($stre<$strlen) && (($str[$stre] == '_' )|| ctype_alnum($str[$stre]));$stre++);
+		
+		if ($stre>$strp){
+			$pv=substr($str,$strp,$stre-$strp);
+			if (isset($parm_arr[$pv]))
+				$v = $parm_arr[$pv];
+			else	$v = '';
+			if ($sm==1)
+				$v = (integer) $v;
+			else if ($sm == 2)
+				$v = addslashes($v);
+			
+			$resstr= $resstr . $v;
+		}else {
+			$resstr= $resstr . $str[$strp];
+			$stre++;
+		}
+		$stro=$stre;
+	}while ($stro<$strlen);
+		
+	return $resstr;
+}
+
 
 /** For code clarity only: it will produce the string for an &lt;acronym&gt; element
 		@param acr   The acronym, the short one

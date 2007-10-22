@@ -1,4 +1,5 @@
 <?php
+require_once("../lib/Form/Class.RevRef2.inc.php");
 
 getpost_ifset(array('id', 'tariffgroupname', 'lcrtype', 'removeinterprefix', 'idtariffplan', 'idtariffplan_hidden', 'id_cc_package_offer', 'popup_select'));
 
@@ -87,7 +88,7 @@ $HD_Form -> AddEditElement (gettext("LC TYPE"),
 	"lcrtype",				
 	'$value',	
 	"SELECT",	
-	"",	
+	"label-first",	
 	"",	
 	"",
 	"list" , "", "", "", $lcrtype_list, "%1", "", "");
@@ -100,8 +101,8 @@ $HD_Form -> AddEditElement(gettext("PACKAGE"),
 	"", "", "",
 	"sql",
 	"cc_package_offer",
-	"label, id",
-	"", "", "%1", "", gettext("Set the Package offer if you wish to use one with this Call Plan"), '', '<OPTION  value="-1" selected>NO PACKAGE OFFER</OPTION>');
+	"id,label",
+	"", "", "", "", gettext("Set the Package offer if you wish to use one with this Call Plan"), '', array("-1",_("NO PACKAGE OFFER")));
 
 $HD_Form -> AddEditElement (gettext("REMOVE INTER PREFIX"),
 	"removeinterprefix",		
@@ -112,31 +113,17 @@ $HD_Form -> AddEditElement (gettext("REMOVE INTER PREFIX"),
 	gettext("Define if the international prefix will be removed to check the rate."),
 	"" , "", "" , "Yes :1, - No:0", "", "", "", gettext("Remove the international access prefix (00 or 011) before matching the dialled digits with the rate card. E.G. If the dialled digits were 0044 for a call to the UK, only 44 would be delivered."));
 
+$rcards = new RevRef2();
+$rcards->presenttable = 'cc_tariffplan';
+$rcards->presentname = 'tariffname';
 
-	
-$DBHandle_max  = DbConnect();
-$numrow = 0;
-$resmax = $DBHandle_max -> Execute("SELECT * FROM cc_tariffplan");
-if ( $resmax )
-	$numrow = $resmax -> RecordCount( );
+$rcards->assoctable = 'cc_tariffgroup_plan';
+$rcards->assocleft = 'idtariffgroup';
+$rcards->assocright = 'idtariffplan';
 
-if ($numrow>0){ 
-	$HD_Form -> AddEditElement (gettext("RATECARD"),
-		"tariffplan",	
-		'$value',	
-		"SELECT",		
-		'multiple',
-		"",		
-		"",	
-		"sql",		
-		"call_tariff",	
-		"id,label",		
-		"", "", "%1 : (%2)", "", "", "cc_tariffgroup_plan:idtariffplan:cc_tariffplan LEFT JOIN cc_tariffgroup_plan ON cc_tariffplan.id=cc_tariffgroup_plan.idtariffplan:DISTINCT cc_tariffplan.id,cc_tariffplan.tariffname : cc_tariffgroup_plan.idtariffgroup = %id:idtariffgroup:%2 - (%1)::::%1:id='%1'");		
-	
-}
-
-
-$HD_Form -> FieldEditElement ('tariffgroupname, lcrtype, id_cc_package_offer, removeinterprefix');
+$HD_Form -> AddEditElement2 (gettext("RATECARD"),
+		"id",'$value', "OBJECT", $rcards, "rcards");
+$HD_Form -> AutoFieldEditElements ();
 
 
 if (DB_TYPE == "postgres") {
@@ -146,7 +133,6 @@ if (DB_TYPE == "postgres") {
 	$HD_Form -> FG_QUERY_ADITION_HIDDEN_FIELDS = "creationdate ";
 	$HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  = "now()";	
 }
-
 
 
 $HD_Form -> FG_INTRO_TEXT_EDITION= '';

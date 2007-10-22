@@ -18,13 +18,11 @@ if (! has_rights (ACX_ADMINISTRATOR)){
 
 $HD_Form -> setDBHandler (DbConnect());
 
-// TODO init() shouldn't initialize FG_EDITION_LINK, FG_DELETION_LINK and others
-// because on this way we need to redefine here and it is not posible to do it in
 // the include file
 $HD_Form -> init();
 
-$HD_Form -> FG_EDITION_LINK= $_SERVER['PHP_SELF']."?form_action=ask-edit&groupID=$groupID&userid=";
-$HD_Form -> FG_DELETION_LINK= $_SERVER['PHP_SELF']."?form_action=ask-delete&groupID=$groupID&userid=";
+$HD_Form -> FG_EDITION_LINK= $_SERVER['PHP_SELF']."?form_action=ask-edit&groupID=$groupID&userid=%#userid&";
+$HD_Form -> FG_DELETION_LINK= $_SERVER['PHP_SELF']."?form_action=ask-delete&groupID=$groupID&userid=%#userid&";
 
 
 if (!isset($form_action))  $form_action="list"; //ask-add

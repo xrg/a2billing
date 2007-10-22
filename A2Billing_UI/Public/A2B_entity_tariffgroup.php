@@ -6,7 +6,6 @@ include ("../lib/module.access.php");
 include ("../lib/Form/Class.FormHandler.inc.php");
 include ("./form_data/FG_var_tariffgroup.inc");
 
-
 if (! has_rights (ACX_RATECARD)){ 
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");	   
@@ -29,13 +28,13 @@ if ($id!="" || !is_null($id)){
 if (!isset($form_action))  $form_action="list"; //ask-add
 if (!isset($action)) $action = $form_action;
 
+// #### HEADER SECTION
+include("PP_header.php");
+
+RevRef2::html_body($action);
 
 $list = $HD_Form -> perform_action($form_action);
 
-
-
-// #### HEADER SECTION
-include("PP_header.php");
 ?>
 	<SCRIPT LANGUAGE="javascript">
 	<!-- Begin

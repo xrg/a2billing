@@ -111,7 +111,9 @@ class FormHandler
     * @public	-	@type string
     */
 	var $FG_EDITION_LINK	= '';
+	var $FG_EDITION_LINK_FARRAY = array();
 	var $FG_DELETION_LINK	= '';	
+	var $FG_DELETION_LINK_FARRAY = array();
 	var $FG_OTHER_BUTTON1_LINK	= '';
 	var $FG_OTHER_BUTTON2_LINK	= '';
 	
@@ -127,6 +129,9 @@ class FormHandler
     * @public	-	@type integer
     */
 	var $FG_LIMITE_DISPLAY=10;
+	
+	/** Least rows to display in a table. If query returns less, fill with empty rows */
+	var $FG_LEAST_ROWS = 7;
 	var $SQL_GROUP = null;
 	
 	/**
@@ -503,8 +508,14 @@ class FormHandler
 		{
 			$section = $_SESSION["menu_section"];
 		}
-		$this -> FG_EDITION_LINK	= $_SERVER['PHP_SELF']."?form_action=ask-edit&".$this->FG_TABLE_ID."=";
-		$this -> FG_DELETION_LINK	= $_SERVER['PHP_SELF']."?form_action=ask-delete&".$this->FG_TABLE_ID."=";
+		if (($this->FG_DEBUG) && ($this -> FG_NB_TABLE_COL>10)){
+			echo "Huston, we have a problem!\n";
+			exit;
+		}
+		$this -> FG_EDITION_LINK	= $_SERVER['PHP_SELF']."?form_action=ask-edit&".
+			$this->FG_TABLE_ID."=%#" .$this->FG_TABLE_ID .'&';
+		$this -> FG_DELETION_LINK	= $_SERVER['PHP_SELF']."?form_action=ask-delete&".
+			$this->FG_TABLE_ID."=%#".$this->FG_TABLE_ID .'&';
 
  
 
@@ -627,7 +638,7 @@ class FormHandler
 	   @param $arr_more  An array to be added in the form ( key => data ...)
 	   @return A string like "?key1=data&key2=data..."
 	*/
-	function gen_GetParams($arr_more = NULL){
+	function gen_GetParams($arr_more = NULL,$do_amper=false){
 		$arr = $this->CV_FOLLOWPARAMETER_ARRAY;
 		if (is_array($arr_more))
 		$arr = array_merge($arr, $arr_more);
@@ -637,17 +648,22 @@ class FormHandler
 				$str .= '&';
 			$str .= $this->CV_FOLLOWPARAMETERS;
 		}
-		if (strlen($str))
+		if (strlen($str)){
+			if ($do_amper)
+			$str = '&' . $str;
+			else
 			$str = '?' . $str;
+		}
 		return $str;
 	}
-	function gen_PostParams($arr_more = NULL){
+	function gen_PostParams($arr_more = NULL, $do_nulls=false){
 		$arr = $this->CV_FOLLOWPARAMETER_ARRAY;
 		if (is_array($arr_more))
 		$arr = array_merge($arr, $arr_more);
 		// unfortunately, it is hard to use CV_FOLLOWPARAMETERS here!
 		
-		foreach($arr as $key => $value){
+		foreach($arr as $key => $value)
+			if ($do_nulls || $value !=NULL){
 		?><input type="hidden" name="<?= $key ?>" value="<?= htmlspecialchars($value) ?>" >
 		<?php
 		}
@@ -658,6 +674,12 @@ class FormHandler
 		if (!is_array($arr))
 			return;
 		$this->CV_FOLLOWPARAMETER_ARRAY = array_merge($this->CV_FOLLOWPARAMETER_ARRAY, $arr);
+	}
+
+	function Add_EditFParams($arr){
+		if (!is_array($arr))
+			return;
+		$this->FG_EDITION_LINK_FARRAY = array_merge($this->FG_EDITION_LINK_FARRAY, $arr);
 	}
 
 	// ----------------------------------------------
@@ -856,6 +878,22 @@ class FormHandler
 
 	function AddEditElement($displayname, $fieldname, $defaultvalue, $fieldtype, $fieldproperty, $regexpr_nb, $error_message, $type_selectfield,
 		$lie_tablename, $lie_tablefield, $lie_clause, $listname, $displayformat_selectfield, $check_emptyvalue , $comment, $custom_query = null,
+		$displayinput_defaultselect = null, $comment_above = null, $field_enabled = true){
+		
+		if($field_enabled==true)
+		{		
+			$cur = count($this->FG_TABLE_EDITION);
+			$this->FG_TABLE_EDITION[$cur] = array ( $displayname, $fieldname, $defaultvalue, $fieldtype, $fieldproperty, $regexpr_nb, $error_message,
+							$type_selectfield, $lie_tablename, $lie_tablefield, $lie_clause, $listname, $displayformat_selectfield, $check_emptyvalue,
+							$custom_query, $displayinput_defaultselect, $comment_above);		
+			$this->FG_TABLE_COMMENT[$cur] = $comment;
+			$this->FG_TABLE_ADITION[$cur] = $this->FG_TABLE_EDITION[$cur];
+			$this->FG_NB_TABLE_ADITION = $this->FG_NB_TABLE_EDITION = count($this->FG_TABLE_EDITION);
+		}
+	}
+
+	function AddEditElement2($displayname, $fieldname, $defaultvalue, $fieldtype, $fieldproperty=null, $regexpr_nb=null, $error_message=null, $type_selectfield=null,
+		$lie_tablename=null, $lie_tablefield=null, $lie_clause=null, $listname=null, $displayformat_selectfield=null, $check_emptyvalue =null, $comment=null, $custom_query = null,
 		$displayinput_defaultselect = null, $comment_above = null, $field_enabled = true){
 		
 		if($field_enabled==true)
@@ -1133,8 +1171,8 @@ function do_field($sql,$fld, $simple=0){
 
 		$processed = $this->getProcessed();  //$processed['firstname']
 
-		if ( $form_action == "list" || $form_action == "edit" || $form_action == "ask-delete" ||
-			 $form_action == "ask-edit" || $form_action == "add-content" || $form_action == "del-content" || $form_action == "ask-del-confirm"){
+		if ( in_array($form_action , array("list", "edit","ask-delete", "ask-edit", "add-content",
+			"del-content", "ask-del-confirm","object-edit"))) {
 			include_once (FSROOT."lib/Class.Table.php");
 
 			$this->FG_ORDER = $processed['order'];
@@ -1204,7 +1242,7 @@ function do_field($sql,$fld, $simple=0){
 			}
 
 			
-			if ($this->FG_DEBUG >= 3) { echo "<br>"; print_r ($list);}			
+			if ($this->FG_DEBUG >= 3) { echo "<br>"; print_r ($list);}
 		}
 
 		return $list;
@@ -1729,6 +1767,9 @@ function do_field($sql,$fld, $simple=0){
 		
 		for($i=0;$i<$this->FG_NB_TABLE_EDITION;$i++){ 
 			
+			if ($this->FG_TABLE_EDITION[$i][3]=='OBJECT')
+				continue; // TODO: Call Edit action for object!
+				
 			$pos = strpos($this->FG_TABLE_EDITION[$i][14], ":"); // SQL CUSTOM QUERY
 			$pos_mul = strpos($this->FG_TABLE_EDITION[$i][4], "multiple");
 			if ((!isset($this->FG_TABLE_EDITION[$i][1])) || ($this->FG_TABLE_EDITION[$i][1] == ''))
@@ -2019,6 +2060,10 @@ function do_field($sql,$fld, $simple=0){
 		$instance_sub_table -> Delete_table ($this->DBHandle, $SPLIT_FG_DELETE_CLAUSE, $func_table = null);
 	}	
 	
+	function perform_object_edit($sub_action,$id){
+		return $this->FG_TABLE_EDITION[$sub_action][4]->PerformObjEdit($sub_action,$this->FG_TABLE_EDITION[$sub_action], $this->DBHandle);
+	}	
+
 	/**
      * Function to create the top page section
      * @public     	 
@@ -2331,26 +2376,11 @@ function do_field($sql,$fld, $simple=0){
 		include_once (FSROOT."lib/Class.Table.php");
 		$processed = $this->getProcessed();
 
-		if ($_GET['id']==''){
-			$id = $_POST['id'];
-			if (isset($_POST['atmenu'])) $atmenu =  $_POST['atmenu'];
-			else $atmenu = $_GET['atmenu'];
-
-			if (isset($_POST['stitle']))  $stitle = $_POST['stitle'];
-			else $stitle = $_GET['stitle'];
-			
-			if (isset($_POST['ratesort'])) $ratesort = $_POST['ratesort'];
-			else $ratesort = $_GET['ratesort'];
-			
-			if (isset($_POST['sub_action'])) $sub_action = $_POST['sub_action'];
-			else $sub_action = $_GET['sub_action'];	
-		}else{
-			$id = $_GET['id'];
-			$atmenu = $_GET['atmenu'];
-			$stitle = $_GET['stitle'];
-			$ratesort = $_GET['ratesort'];
-			$sub_action = $_GET['sub_action'];
-		}
+		${$this->FG_TABLE_ID} = getpost_single($this->FG_TABLE_ID);
+		$atmenu = getpost_single('atmenu');
+		$stitle = getpost_single('stitle');
+		$ratesort = getpost_single('ratesort');
+		$sub_action = getpost_single('sub_action');
 	
 		switch ($form_action) {
 			case "add-content":
@@ -2360,16 +2390,20 @@ function do_field($sql,$fld, $simple=0){
 			case "del-content":
 				$this->perform_del_content($sub_action,$id);
 				include('Class.FormHandler.EditForm.inc.php');
-			break;	
+			break;
+			case "object-edit":
+				$this->perform_object_edit($sub_action,$id);
+				include('Class.FormHandler.EditForm.inc.php');
+			break;
 			case "ask-edit":
 			case "edit":
 				include('Class.FormHandler.EditForm.inc.php');
 			break;
-			case "ask-add":					
+			case "ask-add":
 				include('Class.FormHandler.AddForm.inc.php');
 			break;
 			case "ask-delete":
-            case "ask-del-confirm":
+			case "ask-del-confirm":
 				if (strlen($this -> FG_ADDITIONAL_FUNCTION_BEFORE_DELETE) > 0)
 			   	$res_funct = call_user_func(array(&$this, $this->FG_ADDITIONAL_FUNCTION_BEFORE_DELETE));
 				include('Class.FormHandler.DelForm.inc.php');	   	// need ID
