@@ -114,7 +114,7 @@ $HD_Form -> AddEditElement ("CURRENCY",
 			   "",
 			   "list" , "", "",	"", $currency_list, "%1", "", "" );
 
-if (strlen($callPlan_idlist) > 1)
+if (strpos($callPlan_idlist, ',') !== false)
 {
 $HD_Form -> AddEditElement (gettext("CALL PLAN"),
 			   "tariff",
@@ -243,7 +243,7 @@ $HD_Form -> AddEditElement (gettext("VERIFICATION"),
 			   gettext("Insert code from above picture"),
 			   "" , "", "",	"", "", "" , "", "", null, null, null,CAPTCHA_ENABLE);
 
-if (strlen($callPlan_idlist) > 1)
+if (strpos($callPlan_idlist, ',') !== false)
 {
 	$HD_Form -> FieldEditElement ('username, useralias, uipass, credit, language, tariff, id_didgroup, id_campaign,'.
 	'callback, activated, simultaccess, currency, runservice, typepaid, creditlimit, firstusedate, enableexpire,'.
@@ -301,7 +301,7 @@ $HD_Form -> FG_QUERY_ADITION_HIDDEN_VALUE  = "'$iax_account','$sip_account','$my
 $HD_Form -> FG_QUERY_EXTRA_HIDDED = array($maxi, $maxi2, $pass, $loginkey);
 
 
-if(strlen($callPlan_idlist) == 1)
+if (strpos($callPlan_idlist, ',') === false)
 {
 	$HD_Form ->FG_QUERY_ADITION_HIDDEN_FIELDS .= ", tariff";
 	$HD_Form ->FG_QUERY_ADITION_HIDDEN_VALUE .= ", '$mytariff'";
