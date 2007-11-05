@@ -63,6 +63,8 @@ $cardstatus_list["2"]  = array( gettext("NEW"), "2");
 $cardstatus_list["3"]  = array( gettext("WAITING-MAILCONFIRMATION"), "3");
 $cardstatus_list["4"]  = array( gettext("RESERVED"), "4");
 $cardstatus_list["5"]  = array( gettext("EXPIRED"), "5");
+$cardstatus_list["6"]  = array( gettext("SUSPENDED FOR UNDERPAYEMENT"), "6");
+$cardstatus_list["7"]  = array( gettext("SUSPENDED FOR LITIGATION"), "7");
 
 $cardstatus_list_r = array();
 $cardstatus_list_r["0"]  = array("0", gettext("CANCELLED"));
@@ -71,7 +73,8 @@ $cardstatus_list_r["2"]  = array("2", gettext("NEW"));
 $cardstatus_list_r["3"]  = array("3", gettext("WAITING-MAILCONFIRMATION"));
 $cardstatus_list_r["4"]  = array("4", gettext("RESERVED"));
 $cardstatus_list_r["5"]  = array("5", gettext("EXPIRED"));
-
+$cardstatus_list_r["6"]  = array("6", gettext("SUSPENDED FOR UNDERPAYMENT"));
+$cardstatus_list_r["7"]  = array("7", gettext("SUSPENDED FOR LITIGATION"));
 
 $cardstatus_list_acronym = array();
 $cardstatus_list_acronym["0"]  = array( gettext("<acronym title=\"CANCELLED\">".gettext("CANCEL")."</acronym>"), "0");
@@ -80,7 +83,8 @@ $cardstatus_list_acronym["2"]  = array( gettext("<acronym title=\"NEW\">".gettex
 $cardstatus_list_acronym["3"]  = array( gettext("<acronym title=\"WAITING-MAILCONFIRMATION\">".gettext("WAIT")."</acronym>"), "3");
 $cardstatus_list_acronym["4"]  = array( gettext("<acronym title=\"RESERVED\">".gettext("RESERV")."</acronym>"), "4");
 $cardstatus_list_acronym["5"]  = array( gettext("<acronym title=\"EXPIRED\">".gettext("EXPIR")."</acronym>"), "5");
-
+$cardstatus_list_acronym["6"]  = array( gettext("<acronym title=\"SUSPENDED FOR UNDERPAYMENT\">".gettext("UNDERPAY")."</acronym>"), "6");
+$cardstatus_list_acronym["7"]  = array( gettext("<acronym title=\"SUSPENDED FOR LITIGATION\">".gettext("LITIG")."</acronym>"), "7");
 
 $typepaid_list = array();
 $typepaid_list["0"]  = array( gettext("PREPAID CARD"), "0");
@@ -697,8 +701,8 @@ $HD_Form -> AddEditElement (gettext("CARD HISTORY"),
 			   // 3. Third will get all the columns (but first should be joining column)
 			   // 4. Fourth param generates the where cluase
 			   // 5. Last, Sixth param is the FK column  
-			   
-			   
+
+
 
 
 $HD_Form -> AutoFieldEditElements();
@@ -710,12 +714,9 @@ $HD_Form -> AutoFieldEditElements();
 
 if(!isset($myusername)) $myusername='';
 
-if (DB_TYPE == "postgres"){
-	$HD_Form ->FG_QUERY_ADITION_HIDDEN_FIELDS = "userpass";
-	$HD_Form ->FG_QUERY_ADITION_HIDDEN_VALUE  = "'$myusername'";
-}else{
-	$HD_Form ->FG_QUERY_ADITION_HIDDEN_FIELDS = "userpass ,creationdate ";
-	$HD_Form ->FG_QUERY_ADITION_HIDDEN_VALUE  = "'$myusername',now() ";
+if (DB_TYPE != "postgres") {
+	$HD_Form ->FG_QUERY_ADITION_HIDDEN_FIELDS = "creationdate ";
+	$HD_Form ->FG_QUERY_ADITION_HIDDEN_VALUE  = "now() ";
 }
 
 $HD_Form -> FG_FILTER_APPLY = true;

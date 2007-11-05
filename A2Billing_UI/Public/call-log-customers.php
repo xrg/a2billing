@@ -4,7 +4,7 @@ include ("../lib/defines.php");
 include ("../lib/module.access.php");
 
 
-if (! has_rights (ACX_CALL_REPORT)){ 
+if (! has_rights (ACX_CALL_REPORT)) {
 	Header ("HTTP/1.0 401 Unauthorized");
 	   Header ("Location: PP_error.php?c=accessdenied");
 	   die();
@@ -14,15 +14,13 @@ getpost_ifset(array('customer', 'entercustomer', 'enterprovider', 'entertariffgr
 
 
 
-if (($_GET[download]=="file") && $_GET[file] ) 
-{
+if (($_GET[download]=="file") && $_GET[file] ) {
 	
 	$value_de=base64_decode($_GET[file]);
 	$dl_full = MONITOR_PATH."/".$value_de;
 	$dl_name=$value_de;
 
-	if (!file_exists($dl_full))
-	{
+	if (!file_exists($dl_full)) { 
 		echo gettext("ERROR: Cannot download file ".$dl_full.", it does not exist.<br>");
 		exit();
 	}
@@ -41,7 +39,7 @@ if (($_GET[download]=="file") && $_GET[file] )
 }
 
 
-if (!isset ($current_page) || ($current_page == "")){	
+if (!isset ($current_page) || ($current_page == "")) {
 	$current_page=0; 
 }
 
@@ -52,17 +50,9 @@ $FG_DEBUG = 0;
 // The variable FG_TABLE_NAME define the table name to use
 $FG_TABLE_NAME="cc_call t1 LEFT OUTER JOIN cc_trunk t3 ON t1.id_trunk = t3.id_trunk";
 
-if ($_SESSION["is_admin"]==0){
+if ($_SESSION["is_admin"]==0) {
  	$FG_TABLE_NAME.=", cc_card t2";
 }
-
-
-// THIS VARIABLE DEFINE THE COLOR OF THE HEAD TABLE
-$FG_TABLE_HEAD_COLOR = "#D1D9E7";
-
-
-$FG_TABLE_EXTERN_COLOR = "#7F99CC"; //#CC0033 (Rouge)
-$FG_TABLE_INTERN_COLOR = "#EDF3FF"; //#FFEAFF (Rose)
 
 
 // THIS VARIABLE DEFINE THE COLOR OF THE HEAD TABLE
@@ -129,11 +119,10 @@ $FG_TOTAL_TABLE_COL = $FG_NB_TABLE_COL;
 if ($FG_DELETION || $FG_EDITION) $FG_TOTAL_TABLE_COL++;
 
 //This variable define the Title of the HTML table
-$FG_HTML_TABLE_TITLE=gettext(" - Call Logs - ");
+$FG_HTML_TABLE_TITLE = gettext(" - Call Logs - ");
 
 //This variable define the width of the HTML table
-$FG_HTML_TABLE_WIDTH="98%";
-
+$FG_HTML_TABLE_WIDTH = '98%';
 
 
 	if ($FG_DEBUG >= 3) echo "<br>Table : $FG_TABLE_NAME  	- 	Col_query : $FG_COL_QUERY";
@@ -141,12 +130,12 @@ $instance_table = new Table($FG_TABLE_NAME, $FG_COL_QUERY);
 $instance_table_graph = new Table($FG_TABLE_NAME, $FG_COL_QUERY_GRAPH);
 
 
-if ( is_null ($order) || is_null($sens) ){
+if ( is_null ($order) || is_null($sens) ) {
 	$order = $FG_TABLE_DEFAULT_ORDER;
 	$sens  = $FG_TABLE_DEFAULT_SENS;
 }
 
-if ($posted==1){
+if ($posted==1) {
 	$SQLcmd = '';
 	$SQLcmd = do_field($SQLcmd, 'src', 'src');
 	$SQLcmd = do_field($SQLcmd, 'dst', 'calledstation');
@@ -154,16 +143,16 @@ if ($posted==1){
 
 
 $date_clause='';
-if (DB_TYPE == "postgres"){		
+if (DB_TYPE == "postgres") {
 	$UNIX_TIMESTAMP = "";
-}else{
+} else {
 	$UNIX_TIMESTAMP = "UNIX_TIMESTAMP";
 }
 $lastdayofmonth = date("t", strtotime($tostatsmonth.'-01'));
-if ($Period=="Month"){
+if ($Period=="Month") {
 	if ($frommonth && isset($fromstatsmonth)) $date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) >= $UNIX_TIMESTAMP('$fromstatsmonth-01')";
 	if ($tomonth && isset($tostatsmonth)) $date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) <= $UNIX_TIMESTAMP('".$tostatsmonth."-$lastdayofmonth 23:59:59')"; 
-}else{
+} else {
 	if ($fromday && isset($fromstatsday_sday) && isset($fromstatsmonth_sday)) $date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) >= $UNIX_TIMESTAMP('$fromstatsmonth_sday-$fromstatsday_sday')";
 	if ($today && isset($tostatsday_sday) && isset($tostatsmonth_sday)) $date_clause.=" AND $UNIX_TIMESTAMP(t1.starttime) <= $UNIX_TIMESTAMP('$tostatsmonth_sday-".sprintf("%02d",intval($tostatsday_sday)/*+1*/)." 23:59:59')";
 }
@@ -172,28 +161,28 @@ if ($Period=="Month"){
   
 if (strpos($SQLcmd, 'WHERE') > 0) { 
 	$FG_TABLE_CLAUSE = substr($SQLcmd,6).$date_clause; 
-}elseif (strpos($date_clause, 'AND') > 0){
+} elseif (strpos($date_clause, 'AND') > 0) {
 	$FG_TABLE_CLAUSE = substr($date_clause,5); 
 }
 
 
-if (!isset ($FG_TABLE_CLAUSE) || strlen($FG_TABLE_CLAUSE)==0){
+if (!isset ($FG_TABLE_CLAUSE) || strlen($FG_TABLE_CLAUSE)==0) {
 	$cc_yearmonth = sprintf("%04d-%02d-%02d",date("Y"),date("n"),date("d"));
 	$FG_TABLE_CLAUSE=" $UNIX_TIMESTAMP(t1.starttime) >= $UNIX_TIMESTAMP('$cc_yearmonth')";
 }
 
 
-if (isset($customer)  &&  ($customer>0)){
+if (isset($customer)  &&  ($customer>0)) {
 	if (strlen($FG_TABLE_CLAUSE)>0) $FG_TABLE_CLAUSE.=" AND ";
 	$FG_TABLE_CLAUSE.="t1.username='$customer'";
-}else{
-	if (isset($entercustomer)  &&  ($entercustomer>0)){
+} else {
+	if (isset($entercustomer)  &&  ($entercustomer>0)) {
 		if (strlen($FG_TABLE_CLAUSE)>0) $FG_TABLE_CLAUSE.=" AND ";
 		$FG_TABLE_CLAUSE.="t1.username='$entercustomer'";
 	}
 }
-if ($_SESSION["is_admin"] == 1)
-{
+
+if ($_SESSION["is_admin"] == 1) {
 	if (isset($enterprovider) && $enterprovider > 0) {
 		if (strlen($FG_TABLE_CLAUSE) > 0) $FG_TABLE_CLAUSE .= " AND ";
 		$FG_TABLE_CLAUSE .= "t3.id_provider = '$enterprovider'";
@@ -211,8 +200,7 @@ if ($_SESSION["is_admin"] == 1)
 		$FG_TABLE_CLAUSE .= "t1.id_ratecard = '$enterratecard'";
 	}
 
-
-if ($_SESSION["is_admin"]==0){ 	
+if ($_SESSION["is_admin"]==0) {
 	if (strlen($FG_TABLE_CLAUSE)>0) $FG_TABLE_CLAUSE.=" AND ";
 	$FG_TABLE_CLAUSE.="t1.cardID=t2.IDCust AND t2.IDmanager='".$_SESSION["pr_reseller_ID"]."'";
 }
@@ -238,7 +226,7 @@ if (isset($choose_agent) && ($choose_agent != '')) {
 }
 $FG_ASR_CIC_CLAUSE = $FG_TABLE_CLAUSE;
 //To select just terminatecause=ANSWER
-if (!isset($terminatecause)){
+if (!isset($terminatecause)) {
 	$terminatecause="ANSWER";
 }
 if ($terminatecause=="ANSWER") {
@@ -258,7 +246,7 @@ $FG_EXPORT_SESSION_VAR = "pr_export_entity_call";
 // Query Preparation for the Export Functionality
 $_SESSION[$FG_EXPORT_SESSION_VAR]= "SELECT $FG_COL_QUERY FROM $FG_TABLE_NAME WHERE $FG_TABLE_CLAUSE";
 
-if (!is_null ($order) && ($order!='') && !is_null ($sens) && ($sens!='')){
+if (!is_null ($order) && ($order!='') && !is_null ($sens) && ($sens!='')) {
 	$_SESSION[$FG_EXPORT_SESSION_VAR].= " ORDER BY $order $sense";
 }
 
@@ -420,7 +408,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 						<tr>
 							<td align="left" class="fontstyle_searchoptions"><?php echo gettext("Trunk");?> :</td>
 							<td align="left" class="fontstyle_searchoptions"><INPUT TYPE="text" NAME="entertrunk" value="<?php echo $entertrunk?>" size="4" class="form_input_text">&nbsp;<a href="#" onclick="window.open('A2B_entity_trunk.php?popup_select=2&popup_formname=myForm&popup_fieldname=entertrunk' , 'TrunkSelection','scrollbars=1,width=550,height=330,top=20,left=100');"><img src="<?php echo Images_Path;?>/icon_arrow_orange.gif"></a></td>
-							<td align="left" class="fontstyle_searchoptions"><?php echo gettext("Ratecard ID");?> :</td>
+							<td align="left" class="fontstyle_searchoptions"><?php echo gettext("Rate");?> :</td>
 							<td align="left" class="fontstyle_searchoptions"><INPUT TYPE="text" NAME="enterratecard" value="<?php echo $enterratecard?>" size="4" class="form_input_text">&nbsp;<a href="#" onclick="window.open('A2B_entity_def_ratecard.php?popup_select=2&popup_formname=myForm&popup_fieldname=enterratecard' , 'RatecardSelection','scrollbars=1,width=550,height=330,top=20,left=100');"><img src="<?php echo Images_Path;?>/icon_arrow_orange.gif"></a></td>
 						</tr>
 					</table>
@@ -554,7 +542,7 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 		</tr>
 		<tr>
 			<td class="bgcolor_002" align="left">			
-				<font class="fontstyle_003">&nbsp;&nbsp;<?php echo gettext("DESTINATION");?></font>
+				<font class="fontstyle_003">&nbsp;&nbsp;<?php echo gettext("CALLEDNUMBER");?></font>
 			</td>				
 			<td class="bgcolor_003" align="left">
 			<table width="100%" border="0" cellspacing="0" cellpadding="0">

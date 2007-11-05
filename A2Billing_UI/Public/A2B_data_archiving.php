@@ -19,13 +19,6 @@ $HD_Form -> FG_DEBUG = 0;
 $HD_Form -> FG_TABLE_ID="id";
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "ASC";
 $HD_Form -> FG_FILTER_SEARCH_SESSION_NAME = 'entity_card_selection';
-$from_month = 3;
-if(DB_TYPE == "postgres"){
-	$HD_Form -> FG_TABLE_CLAUSE = "CURRENT_TIMESTAMP - interval '$from_month months' > creationdate";
-}else{
-	$HD_Form -> FG_TABLE_CLAUSE = "DATE_SUB(NOW(),INTERVAL $from_month MONTH) > creationdate";
-}
-
 
 $language_list = array();
 $language_list["0"] = array( gettext("ENGLISH"), "en");
@@ -129,17 +122,17 @@ $HD_Form -> FieldViewElement ($FG_COL_QUERY);
 $HD_Form -> CV_NO_FIELDS  = gettext("NO CUSTOMER SEARCHED!");
 $HD_Form -> FG_LIMITE_DISPLAY = 30;
 
-$HD_Form -> FG_OTHER_BUTTON1 = true;
-$HD_Form -> FG_OTHER_BUTTON1_LINK= $_SERVER['PHP_SELF']."?archive=true&id=|col0|";
-$HD_Form -> FG_OTHER_BUTTON1_IMG = Images_Path . "/bluearrow.gif";
-$HD_Form -> FG_OTHER_BUTTON1_ALT=gettext("ARCHIVE");
-
-
 $HD_Form -> FG_FILTER_SEARCH_FORM = true;
 $HD_Form -> FG_FILTER_SEARCH_TOP_TEXT = gettext('Define specific criteria to search for cards created.');
 $HD_Form -> FG_FILTER_SEARCH_1_TIME_TEXT = gettext('Creation date / Month');
 $HD_Form -> FG_FILTER_SEARCH_2_TIME_TEXT = gettext('Creation date / Day');
 $HD_Form -> FG_FILTER_SEARCH_2_TIME_FIELD = 'creationdate';
+
+$HD_Form -> FG_FILTER_SEARCH_3_TIME = true;
+$HD_Form -> FG_FILTER_SEARCH_3_TIME_TEXT = gettext('Select card older than');
+$HD_Form -> FG_FILTER_SEARCH_3_TIME_FIELD = 'creationdate';
+
+//Select card older than : 3 Months, 4 Months, 5.... 12 Months
 $HD_Form -> AddSearchElement_C1(gettext("CARDNUMBER"), 'username','usernametype');
 $HD_Form -> AddSearchElement_C1(gettext("LASTNAME"),'lastname','lastnametype');
 $HD_Form -> AddSearchElement_C1(gettext("CARDALIAS"),'useralias','useraliastype');
@@ -165,20 +158,13 @@ $nb_customer = 0;
 getpost_ifset(array('archive', 'id'));
 
 if(isset($archive) && !empty($archive)){
-	if(isset($id) && !empty($id)){
-		$condition = "id = $id";
-	}else{
-		$condition = $HD_Form -> FG_TABLE_CLAUSE;
-		if(empty($condition)){
-			$condition = 1;
-		}
-		if (strpos($condition,'WHERE') <= 0){
-		        $condition = " WHERE $condition";
-		}
-	}
-	
-archive_data($condition, "card");
-$archive_message = "The data has been successfully archived";
+	$condition = $HD_Form -> FG_TABLE_CLAUSE;
+if (strpos($condition,'WHERE') <= 0){
+        $condition = " WHERE $condition";
+}
+$rec = archive_data($condition, "card");
+if($rec > 0)
+	$archive_message = "The data has been successfully archived";
 }
 
 if (!isset($form_action))  $form_action="list"; //ask-add

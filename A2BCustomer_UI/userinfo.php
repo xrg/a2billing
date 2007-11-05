@@ -10,11 +10,10 @@ if (! has_rights (ACX_ACCESS)){
 //require (LANGUAGE_DIR.FILENAME_USERINFO);
 
 
-$DBHandle_max  = DbConnect();
-$QUERY = "SELECT  username, credit, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, lastuse, activated, currency FROM cc_card WHERE username = '".$_SESSION["pr_login"]."' AND uipass = '".$_SESSION["pr_password"]."'";
+$QUERY = "SELECT  username, credit, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, lastuse, activated, status FROM cc_card WHERE username = '".$_SESSION["pr_login"]."' AND uipass = '".$_SESSION["pr_password"]."'";
 
-
-$numrow = 0;	
+$DBHandle_max = DbConnect();
+$numrow = 0;
 $resmax = $DBHandle_max -> Execute($QUERY);
 
 if ($resmax)
@@ -28,10 +27,10 @@ else if ($FG_DEBUG>0) {
 if ($numrow == 0) exit();
 $customer_info =$resmax -> fetchRow();
 
-if( $customer_info [13] != "t" && $customer_info [13] != "1" ) {
+if($customer_info [14] != "1" ) {
 	if ($FG_DEBUG>2)
 		echo "customer info[13] = " .$customer_info [13] ."<br>\n";
-	 exit();
+	exit();
 }
 
 $customer = $_SESSION["pr_login"];

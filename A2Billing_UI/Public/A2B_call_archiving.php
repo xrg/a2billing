@@ -12,12 +12,11 @@ if (! has_rights (ACX_MISC)){
 }
 
 
-getpost_ifset(array('customer', 'entercustomer', 'enterprovider', 'entertariffgroup', 'entertrunk', 'enterratecard', 'posted', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth', 'tostatsmonth', 'fromday', 'fromstatsday_sday', 'fromstatsmonth_sday', 'today', 'tostatsday_sday', 'tostatsmonth_sday', 'dsttype', 'srctype', 'clidtype', 'channel', 'resulttype', 'stitle', 'atmenu', 'current_page', 'order', 'sens', 'dst', 'src', 'clid', 'choose_currency', 'terminatecause','archive', 'id'));
+getpost_ifset(array('customer', 'entercustomer', 'enterprovider', 'entertariffgroup', 'entertrunk', 'enterratecard', 'posted', 'Period', 'frommonth', 'fromstatsmonth', 'tomonth', 'tostatsmonth', 'fromday', 'fromstatsday_sday', 'fromstatsmonth_sday', 'today', 'tostatsday_sday', 'tostatsmonth_sday', 'month_earlier', 'dsttype', 'srctype', 'clidtype', 'channel', 'resulttype', 'stitle', 'atmenu', 'current_page', 'order', 'sens', 'dst', 'src', 'clid', 'choose_currency', 'terminatecause','archive', 'id'));
 
 if (!isset ($current_page) || ($current_page == "")){	
 	$current_page=0; 
 }
-
 $HD_Form = new FormHandler("cc_call t1 LEFT OUTER JOIN cc_trunk t3 ON t1.id_trunk = t3.id_trunk","Calls");
 
 $HD_Form -> setDBHandler (DbConnect());
@@ -50,10 +49,6 @@ $HD_Form -> AddViewElement(gettext("Cost"), "sessionbill", "10%", "center", "SOR
 $FG_COL_QUERY='id, starttime, calledstation, destination, sessiontime, username, terminatecause, sipiax, calledrate, sessionbill';
 
 $HD_Form -> FieldViewElement ($FG_COL_QUERY);
-$HD_Form -> FG_OTHER_BUTTON1 = true;
-$HD_Form -> FG_OTHER_BUTTON1_LINK= $_SERVER['PHP_SELF']."?archive=true&id=|col0|";
-$HD_Form -> FG_OTHER_BUTTON1_IMG = Images_Path . "/bluearrow.gif";
-$HD_Form -> FG_OTHER_BUTTON1_ALT=gettext("ARCHIVE");
 
 if ($posted==1){
 	$SQLcmd = '';
@@ -76,6 +71,16 @@ if ($Period=="Month"){
 	if ($fromday && isset($fromstatsday_sday) && isset($fromstatsmonth_sday)) $date_clause.=" AND $UNIX_TIMESTAMP(starttime) >= $UNIX_TIMESTAMP('$fromstatsmonth_sday-$fromstatsday_sday')";
 	if ($today && isset($tostatsday_sday) && isset($tostatsmonth_sday)) $date_clause.=" AND $UNIX_TIMESTAMP(starttime) <= $UNIX_TIMESTAMP('$tostatsmonth_sday-".sprintf("%02d",intval($tostatsday_sday)/*+1*/)." 23:59:59')";
 }
+
+if ($Period=="month_older_rad"){
+	$from_month = $month_earlier;
+	if(DB_TYPE == "postgres"){
+		$date_clause .= " AND CURRENT_TIMESTAMP - interval '$from_month months' > starttime";
+	}else{
+		$date_clause .= " AND DATE_SUB(NOW(),INTERVAL $from_month MONTH) > starttime";
+	}
+}
+
 
 
   
@@ -140,16 +145,13 @@ if($posted == 1){
 	$_SESSION['ss_calllist'] = $HD_Form -> FG_TABLE_CLAUSE;
 }
 if(isset($archive) && !empty($archive)){
-	if(isset($id) && !empty($id)){
-		$condition = "id = $id";
-	}else{
-		$condition = $_SESSION['ss_calllist'];
-	}
+	$condition = $_SESSION['ss_calllist'];
 	if (strpos($condition,'WHERE') <= 0){
 	        $condition = " WHERE $condition";
 	}
-archive_data($condition, "call");
-$archive_message = "The data has been successfully archived";
+$rec = archive_data($condition, "call");
+if($rec > 0)
+	$archive_message = "The data has been successfully archived";
 }
 
 $smarty->display('main.tpl');
@@ -325,8 +327,28 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 					}
 				?>
 				</select>
-				</td></tr></table>
+				</td></tr>
+				</table>
 			</td>
+		</tr>
+		<tr>
+    		<td align="left" class="bgcolor_002">
+				<input type="radio" name="Period" value="month_older_rad" <?php  if ($Period =="month_older_rad"){ ?>checked="checked" <?php  } ?>>
+				<font class="fontstyle_003"><?php echo gettext("Select card older than");?></font>
+			</td>
+  			<td align="left" class="bgcolor_003">
+				<table  border="0" cellspacing="0" cellpadding="0" width="100%">
+				<tr><td class="fontstyle_searchoptions">&nbsp;&nbsp;
+				<select name="month_earlier" class="form_input_select">
+					<?php
+						for ($i=3;$i<=12;$i++){
+							if ($month_earlier == $i){$selected="selected";}else{$selected="";}
+							echo '<option value="'.$i."\"$selected>".$i.' Months</option>';
+						}
+					?>
+				</select>
+				</td></tr></table>
+  			</td>
 		</tr>
 		<tr>
 			<td class="bgcolor_002" align="left">			

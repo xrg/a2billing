@@ -44,11 +44,12 @@ function get_currencies($handle = null)
 * @param $from_cur Source Currency
 * @param $to_cur Destination Currecny
 */
-function convert_currency ($currencies_list, $amount, $from_cur, $to_cur){
-	if (!is_numeric($amount) || ($amount == 0)){
+function convert_currency ($currencies_list, $amount, $from_cur, $to_cur)
+{
+	if (!is_numeric($amount) || ($amount == 0)) {
 		return 0;
 	}
-	if ($from_cur == $to_cur){
+	if ($from_cur == $to_cur) {
 		return $amount;
 	}
 	// EUR -> 1.19175 : MAD -> 0.10897		
@@ -65,7 +66,8 @@ function convert_currency ($currencies_list, $amount, $from_cur, $to_cur){
 /* 
  * sort_currencies_list
  */
-function sort_currencies_list(&$currencies_list){
+function sort_currencies_list(&$currencies_list)
+{
 	$first_array = array (strtoupper(BASE_CURRENCY), 'USD', 'EUR','GBP','AUD','HKD', 'JPY', 'NZD', 'SGD', 'TWD', 'PLN', 'SEK', 'DKK', 'CHF', 'COP', 'MXN', 'CLP');		
 	foreach ($first_array as $element_first_array){
 		if (isset($currencies_list[$element_first_array])){	
@@ -80,7 +82,8 @@ function sort_currencies_list(&$currencies_list){
 /* 
  * Write log into file 
  */
-function write_log($logfile, $output){
+function write_log($logfile, $output)
+{
 	if (strlen($logfile) > 1){
 		$string_log = "[".date("d/m/Y H:i:s")."]:[$output]\n";
 		error_log ($string_log."\n", 3, $logfile);
@@ -91,9 +94,9 @@ function write_log($logfile, $output){
 /*
  * function sanitize_data
  */
-function sanitize_data($data){
+function sanitize_data($data)
+{
 	$lowerdata = strtolower ($data);
-	//echo "----> $data ";
 	$data = str_replace('--', '', $data);	
 	$data = str_replace("'", '', $data);
 	$data = str_replace('=', '', $data);
@@ -102,7 +105,6 @@ function sanitize_data($data){
 	//$lowerdata = str_replace(' or ', '', $data);
 	if (!(strpos($lowerdata, ' or ')===FALSE)){ return false;}
 	if (!(strpos($lowerdata, 'table')===FALSE)){ return false;}
-	//echo "----> $data<br>";
 	return $data;
 }
 
@@ -947,8 +949,9 @@ function display_GMT($currDate, $number, $fulldate = 1)
  * 
  */
 
-function agi_confx_title($handle=null){
-		if (empty($handle)){
+function agi_confx_title($handle=null)
+{
+	if (empty($handle)){
 		$handle = DbConnect();
 	}
 	$instance_table = new Table();
@@ -956,21 +959,21 @@ function agi_confx_title($handle=null){
 	$QUERY =  "SELECT id,group_title,group_description from cc_config_group where group_title like '%agi-conf%' order by group_title";
 	$result = $instance_table -> SQLExec ($handle, $QUERY);
 	
-	if (is_array($result)){
+	if (is_array($result)) {
 		$num_cur = count($result);
-		for ($i=0;$i<$num_cur;$i++){
+		for ($i=0;$i<$num_cur;$i++) {
 			$config_group_id = $result[0][0];
 			$group_title[] = $result[$i][1];
 			$description = $result[0][2];
 		}
 	}
-	foreach($group_title as $value){
+	foreach($group_title as $value) {
 		$agi_number[] = (int)substr($value, -1);	
 	}
 	$len_agi_array = sizeof($agi_number);
 	$agi_conf_number = $len_agi_array + 1;
-	for($i=1; $i <= $len_agi_array; $i++){
-		if($i != $agi_number[$i - 1]){
+	for($i=1; $i <= $len_agi_array; $i++) {
+		if ($i != $agi_number[$i - 1]) {
 			$agi_conf_number = $i;
 			break;
 		}
@@ -990,7 +993,6 @@ function agi_confx_title($handle=null){
  * Operations : SELECT , INSERT
  * Tables : cc_config, cc_config_group
  */
-
 
 function add_agi_confx($handle = null)
 {
@@ -1042,7 +1044,10 @@ function delete_agi_confx($id_agi)
 	return $result;
 	
 }
-function check_translated($id, $languages){
+
+
+function check_translated($id, $languages)
+{
 	if (empty($handle)){
 		$handle = DbConnect();
 	}
@@ -1060,7 +1065,9 @@ function check_translated($id, $languages){
 	} 		
 	
 }
-function update_translation($id, $languages, $subject, $mailtext){
+
+function update_translation($id, $languages, $subject, $mailtext)
+{
 	if (empty($handle)){
 		$handle = DbConnect();
 	}
@@ -1072,7 +1079,8 @@ function update_translation($id, $languages, $subject, $mailtext){
 	return $update;
 }
 
-function insert_translation($id, $languages, $subject, $mailtext){
+function insert_translation($id, $languages, $subject, $mailtext)
+{
 	if (empty($handle)){
 		$handle = DbConnect();
 	}
@@ -1082,14 +1090,13 @@ function insert_translation($id, $languages, $subject, $mailtext){
 	$mailtype = '';			
 	$QUERY =  "SELECT fromemail,fromname,mailtype from cc_templatemail where id = $id and id_language = 'en'";
 	$result = $instance_table -> SQLExec ($handle, $QUERY);
-	if (is_array($result)){
+	if (is_array($result)) {
 		if(count($result) > 0){
 			$fromemail = $result[0][0];
 			$fromname = $result[0][1];						
 			$mailtype = $result[0][2];						
 		}
 	}
-			
 	
 	$value = "$id, '$languages', '$subject', '$mailtext', '$mailtype','$fromemail','$fromname'";
 	$func_fields = "id,id_language,subject,messagetext,mailtype,fromemail,fromname";
@@ -1099,8 +1106,9 @@ function insert_translation($id, $languages, $subject, $mailtext){
 	return $inserted;
 }
 
-function mailtemplate_latest_id(){
-		if (empty($handle)){
+function mailtemplate_latest_id()
+{
+	if (empty($handle)){
 		$handle = DbConnect();
 	}
 	$instance_table = new Table();
@@ -1113,7 +1121,6 @@ function mailtemplate_latest_id(){
 }
 
 
-
 /*
  * Function use to archive data and call records
  * Insert in cc_call_archive and cc_card_archive on seletion criteria
@@ -1124,29 +1131,41 @@ function mailtemplate_latest_id(){
  */
 
 function archive_data($condition, $entity = ""){
+	if(empty($condition)){
+		return 0;
+		exit;
+	}
 	$handle = DbConnect();
 	$instance_table = new Table();
-	if(!empty($entity)){
-		if($entity == "card"){
-			$value = "SELECT id, creationdate, firstusedate, expirationdate, enableexpire, expiredays, username, useralias, userpass, uipass, credit, tariff, id_didgroup, activated, status, lastname, firstname, address, city, state, country, zipcode, phone, email,fax, inuse, simultaccess, currency, lastuse,nbused, typepaid, creditlimit, voipcall, sip_buddy, iax_buddy, language, redial, runservice, nbservice, id_campaign, num_trials_done, callback, vat, servicelastrun, initialbalance, invoiceday,autorefill, loginkey, activatedbyuser, mac_addr, id_timezone, tag, template_invoice, template_outstanding FROM cc_card $condition";
-			$func_fields = "id, creationdate, firstusedate, expirationdate, enableexpire, expiredays, username, useralias, userpass, uipass, credit, tariff, id_didgroup, activated, status, lastname, firstname, address, city, state, country, zipcode, phone, email,fax, inuse, simultaccess, currency, lastuse,nbused, typepaid, creditlimit, voipcall, sip_buddy, iax_buddy, language, redial, runservice, nbservice, id_campaign, num_trials_done, callback, vat, servicelastrun, initialbalance, invoiceday,autorefill, loginkey, activatedbyuser, mac_addr, id_timezone, tag, template_invoice, template_outstanding";
+	if(!empty($entity)) {
+		if($entity == "card") {
+			$value = "SELECT id, creationdate, firstusedate, expirationdate, enableexpire, expiredays, username, useralias, uipass, credit, tariff, id_didgroup, activated, status, lastname, firstname, address, city, state, country, zipcode, phone, email,fax, inuse, simultaccess, currency, lastuse,nbused, typepaid, creditlimit, voipcall, sip_buddy, iax_buddy, language, redial, runservice, nbservice, id_campaign, num_trials_done, callback, vat, servicelastrun, initialbalance, invoiceday,autorefill, loginkey, activatedbyuser, mac_addr, id_timezone, tag, template_invoice, template_outstanding FROM cc_card $condition";
+			$func_fields = "id, creationdate, firstusedate, expirationdate, enableexpire, expiredays, username, useralias, uipass, credit, tariff, id_didgroup, activated, status, lastname, firstname, address, city, state, country, zipcode, phone, email,fax, inuse, simultaccess, currency, lastuse,nbused, typepaid, creditlimit, voipcall, sip_buddy, iax_buddy, language, redial, runservice, nbservice, id_campaign, num_trials_done, callback, vat, servicelastrun, initialbalance, invoiceday,autorefill, loginkey, activatedbyuser, mac_addr, id_timezone, tag, template_invoice, template_outstanding";
 			$func_table = 'cc_card_archive';
 			$id_name = "";
 			$subquery = true;
 			$result = $instance_table -> Add_table ($handle, $value, $func_fields, $func_table, $id_name,$subquery);
 			$fun_table = "cc_card";
+			if (strpos($condition,'WHERE') > 0){
+		        $condition = str_replace("WHERE", "", $condition);
+			}
+			
 			$result = $instance_table -> Delete_table ($handle, $condition, $fun_table);
-		}else if($entity == "call"){
+		} else if($entity == "call") {
 			$value = "SELECT id, sessionid,uniqueid,username,nasipaddress,starttime,stoptime,sessiontime,calledstation,startdelay,stopdelay,terminatecause,usertariff,calledprovider,calledcountry,calledsub,calledrate,sessionbill,destination,id_tariffgroup,id_tariffplan,id_ratecard,id_trunk,sipiax,src,id_did,buyrate,buycost,id_card_package_offer,real_sessiontime FROM cc_call $condition";
 			$func_fields = "id, sessionid,uniqueid,username,nasipaddress,starttime,stoptime,sessiontime,calledstation,startdelay,stopdelay,terminatecause,usertariff,calledprovider,calledcountry,calledsub,calledrate,sessionbill,destination,id_tariffgroup,id_tariffplan,id_ratecard,id_trunk,sipiax,src,id_did,buyrate,buycost,id_card_package_offer,real_sessiontime";
 			$func_table = 'cc_call_archive';
 			$id_name = "";
 			$subquery = true;
 			$result = $instance_table -> Add_table ($handle, $value, $func_fields, $func_table, $id_name,$subquery);
+			if (strpos($condition,'WHERE') > 0){
+		        $condition = str_replace("WHERE", "", $condition);
+			}
 			$fun_table = "cc_call";
 			$result = $instance_table -> Delete_table ($handle, $condition, $fun_table);
 		}
 	}
+	return 1;
 }
 
 /*
@@ -1175,4 +1194,3 @@ function do_field($sql,$fld,$dbfld){
 	}
 	return $sql;
 }
-?>

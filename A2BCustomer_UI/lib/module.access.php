@@ -12,13 +12,10 @@ If you are using $_SESSION (or $HTTP_SESSION_VARS), do not use session_register(
 $FG_DEBUG = 0;
 error_reporting(E_ALL & ~E_NOTICE);
 
-// Zone strings
 define ("MODULE_ACCESS_DOMAIN",		"CallingCard System");
 define ("MODULE_ACCESS_DENIED",		"./Access_denied.htm");
 
-
 define ("ACX_ACCESS",					1);
-
 
 
 header("Expires: Sat, Jan 01 2000 01:01:01 GMT");
@@ -34,7 +31,8 @@ if (isset($_GET["logout"]) && $_GET["logout"]=="true") {
 	die();
 }
 	
-function access_sanitize_data($data){
+function access_sanitize_data($data)
+{
 	$lowerdata = strtolower ($data);
 	$data = str_replace('--', '', $data);	
 	$data = str_replace("'", '', $data);
@@ -47,8 +45,7 @@ function access_sanitize_data($data){
 }
 
 
-function has_rights ($condition) {
+function has_rights ($condition)
+{
 	return ($_SESSION['cus_rights'] & $condition);
 }
-
-?>

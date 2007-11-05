@@ -95,17 +95,17 @@ if (!isset($action)) $action = $form_action;
 
 if (is_string ($tariffplan) && strlen(trim($tariffplan))>0){
 		list($mytariff_id, $mytariffname) = split('-:-', $tariffplan);
-		$_SESSION["mytariff_id"]= $mytariff_id;
-		$_SESSION["mytariffname"]= $mytariffname;
+	$_SESSION["mytariff_id"]= $mytariff_id;
+	$_SESSION["mytariffname"]= $mytariffname;
 		//$_SESSION["basetariffgroup"]= $basetariffgroup;
-}else{
-		$mytariff_id = $_SESSION["mytariff_id"];
-		$mytariffname = $_SESSION["mytariffname"];
-		//$basetariffgroup = $_SESSION["basetariffgroup"];
+} else {
+	$mytariff_id = $_SESSION["mytariff_id"];
+	$mytariffname = $_SESSION["mytariffname"];
+	//$basetariffgroup = $_SESSION["basetariffgroup"];
 }
 
 
-if ( ($form_action == "list") &&  ($HD_Form->FG_FILTER_SEARCH_FORM) && ($_POST['posted_search'] == 1 ) && is_numeric($mytariff_id)){
+if ( ($form_action == "list") &&  ($HD_Form->FG_FILTER_SEARCH_FORM) && ($_POST['posted_search'] == 1 ) && is_numeric($mytariff_id)) {
 	$HD_Form->FG_TABLE_CLAUSE = "idtariffplan='$mytariff_id'";
 }
 
@@ -116,14 +116,15 @@ $list = $HD_Form -> perform_action($form_action);
 include("PP_header.php");
 
 // #### HELP SECTION
-if (!$popup_select){
-if (($form_action == 'ask-add') || ($form_action == 'ask-edit')) echo $CC_help_add_rate;
-else echo $CC_help_def_ratecard;
+if (!$popup_select) {
+	if (($form_action == 'ask-add') || ($form_action == 'ask-edit')) echo $CC_help_add_rate;
+} else {
+	echo $CC_help_def_ratecard;
 }
 // DISPLAY THE UPDATE MESSAGE
 if (isset($update_msg) && strlen($update_msg)>0) echo $update_msg; 
 
-if ($popup_select){
+if ($popup_select) {
 ?>
 <SCRIPT LANGUAGE="javascript">
 <!-- Begin
@@ -133,10 +134,10 @@ function sendValue(selvalue){
 }
 // End -->
 </script>
-<?php }?>
-<?php if(!$popup_select){?>
-// #### CREATE SEARCH FORM
-if ($form_action == "list"){
+<?php 
+} 
+if(!$popup_select){
+?>
 <div class="toggle_hide2show">
 <center><a href="#" target="_self" class="toggle_menu"><img class="toggle_hide2show" src="../Images/kicons/toggle_hide2show.png" onmouseover="this.style.cursor='hand';" HEIGHT="16"> <font class="fontstyle_002"><?php echo gettext("SEARCH RATES");?> </font></a></center>
 	<div class="tohide" style="display:none;">
@@ -451,7 +452,6 @@ $HD_Form -> create_form ($form_action, $list, $id=null) ;
 
 
 // Code for the Export Functionality
-//* Query Preparation.
 $_SESSION[$HD_Form->FG_EXPORT_SESSION_VAR]= "SELECT ".$HD_Form -> FG_EXPORT_FIELD_LIST." FROM $HD_Form->FG_TABLE_NAME";
 if (strlen($HD_Form->FG_TABLE_CLAUSE)>1) 
 	$_SESSION[$HD_Form->FG_EXPORT_SESSION_VAR] .= " WHERE $HD_Form->FG_TABLE_CLAUSE ";

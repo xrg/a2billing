@@ -377,11 +377,11 @@ class RateEngine
 					$dayofweek = date("w"); // Numeric representation of the day of the week 0 (for Sunday) through 6 (for Saturday)
 					if ($dayofweek==0) $dayofweek=7;
 					if ($dayofweek < $startday) $dayofweek = $dayofweek + 7;
-					$diffday = $dayofweek < $startday;
+					$diffday = $dayofweek - $startday;
 					if ($A2B->config["database"]['dbtype'] == "postgres"){
-	 					$UNIX_TIMESTAMP = " (now() - interval '$diffday day') ";
+	 					$CLAUSE_DATE = "date_consumption >= (CURRENT_DATE - interval '$diffday day') ";
 					}else{
-						$UNIX_TIMESTAMP = " DATE_SUB(NOW(), INTERVAL $diffday DAY) ";
+						$CLAUSE_DATE = "date_consumption >= DATE_SUB(CURRENT_DATE, INTERVAL $diffday DAY) ";
 					}
 				}
 				$QUERY = "SELECT  sum(used_secondes) AS used_secondes FROM cc_card_package_offer ".
@@ -1236,10 +1236,8 @@ class RateEngine
 				else $failover_trunk = $next_failover_trunk;
 				
 			} // END FOR LOOP FAILOVER 
-			if (($this->dialstatus  == "CHANUNAVAIL") || ($this->dialstatus  == "CONGESTION")) 
-				continue;
-				
-			//# Ooh, something actually happend! 
+
+			//# Ooh, something actually happened!
 			if ($this->dialstatus  == "BUSY") {
 				$this -> real_answeredtime = $this -> answeredtime = 0;
 				$agi-> stream_file('prepaid-isbusy', '#');
@@ -1248,10 +1246,13 @@ class RateEngine
 				$agi-> stream_file('prepaid-noanswer', '#');
 			} elseif ($this->dialstatus == "CANCEL") {
 				$this -> real_answeredtime = $this -> answeredtime = 0;
+			} elseif (($this->dialstatus  == "CHANUNAVAIL") || ($this->dialstatus  == "CONGESTION")) {
+				$this -> real_answeredtime = $this -> answeredtime = 0;
+				continue;
 			} elseif ($this->dialstatus == "ANSWER") {
 				$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "-> dialstatus : ".$this->dialstatus.", answered time is ".$this->answeredtime." \n");
 			}
-			
+
 			$this->usedratecard = $k;
 			$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "[USEDRATECARD=".$this -> usedratecard."]");
 			return true;
