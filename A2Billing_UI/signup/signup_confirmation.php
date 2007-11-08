@@ -3,8 +3,8 @@ session_name("UISIGNUP");
 session_start();
 
 
-include ("../lib/defines.php");
-include ("../lib/smarty.php");
+include_once ("../lib/defines.php");
+include_once ("../lib/smarty.php");
 if (!$A2B->config["signup"]['enable_signup'])
 {
 	exit;
