@@ -2,39 +2,11 @@
 -- Copyright (c) 2006 P.Christeas <p_christeas@yahoo.com>
 --
 
-CREATE TABLE cc_agent (
-    id bigserial NOT NULL PRIMARY KEY,
-    name text NOT NULL,
-    active boolean NOT NULL DEFAULT true,
-    login VARCHAR(20) NOT NULL,
-    passwd VARCHAR(40) NOT NULL,
-    groupid integer,
-    location text,
-    datecreation timestamp without time zone DEFAULT now(),
-    "language" text DEFAULT 'en'::text,
-    tariffgroup integer REFERENCES cc_tariffgroup(id),
-    options integer NOT NULL DEFAULT 0,
-    credit NUMERIC(12,4) NOT NULL DEFAULT 0,
-    climit NUMERIC(12,4) NOT NULL DEFAULT 0,
-    currency CHARACTER(3) NOT NULL DEFAULT 'EUR',
-    locale VARCHAR(10) DEFAULT 'C',
-    commission NUMERIC(4,4),
-    vat numeric(6,3) NOT NULL DEFAULT 0,
-    banner TEXT
-    );
-
--- one way: put the agent inside the card:
--- ALTER TABLE cc_card ADD agentid bigint REFERENCES cc_agent(id) ON DELETE RESTRICT;
--- CREATE INDEX cc_card_agent_idx ON cc_card(agentid);
-
--- second way: A different table
-CREATE TABLE cc_agent_cards (
+/*CREATE TABLE cc_agent_cards (
 	card_id bigint NOT NULL PRIMARY KEY REFERENCES cc_card(id) ON DELETE CASCADE,
 	agentid bigint NOT NULL REFERENCES cc_agent(id) ON DELETE RESTRICT,
-	def boolean NOT NULL DEFAULT 'f') ;
+	def boolean NOT NULL DEFAULT 'f') ;*/
 	
-CREATE INDEX cc_agent_cards_agent ON cc_agent_cards(agentid);
-
 CREATE TABLE cc_booth (
 	id bigserial NOT NULL PRIMARY KEY,
 	name text NOT NULL,
@@ -49,10 +21,6 @@ CREATE TABLE cc_booth (
 
 );
 
-ALTER TABLE cc_currencies ADD csign VARCHAR(6);
-ALTER TABLE cc_currencies ADD sign_pre boolean DEFAULT 'f' NOT NULL;
-ALTER TABLE cc_currencies ADD cformat VARCHAR(20) DEFAULT 'FM99G999G999G990D00' NOT NULL;
-ALTER TABLE cc_currencies ADD cformat2 VARCHAR(26) DEFAULT 'FM99G999G999G990D0099' NOT NULL;
 
 -- This table will hold the transactions for the agent<->card
 -- refills. boothid is optional.

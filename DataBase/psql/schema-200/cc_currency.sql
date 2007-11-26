@@ -5,10 +5,12 @@ CREATE TABLE cc_currencies (
     name character varying(30) default '' NOT NULL,
     value numeric(12,5) default '0.00000' NOT NULL,
     lastupdate timestamp without time zone DEFAULT now(),	
-    basecurrency char(3) default 'USD' NOT NULL
+    basecurrency char(3) default 'USD' NOT NULL,
+    csign VARCHAR(6),
+    sign_pre boolean DEFAULT 'f' NOT NULL,
+    cformat VARCHAR(20) DEFAULT 'FM99G999G999G990D00' NOT NULL,
+    cformat2 VARCHAR(26) DEFAULT 'FM99G999G999G990D0099' NOT NULL
 );
-
-
 
 INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (1, 'ALL', 'Albanian Lek (ALL)', 0.00974,  'USD');
 INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (2, 'DZD', 'Algerian Dinar (DZD)', 0.01345,  'USD');
