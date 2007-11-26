@@ -11,17 +11,11 @@ CREATE TABLE cc_tariffgroup (
     package_offer bigint not null default 0
 );
 
-ALTER TABLE cc_tariffgroup RENAME id_cc_package_offer TO package_offer;
-
 CREATE TABLE cc_tariffgroup_plan (
     tgid integer NOT NULL REFERENCES cc_tariffgroup(id),
     tpid integer NOT NULL REFERENCES cc_tariffplan(id)
     PRIMARY KEY(tgid,tpid)
 );
-
-ALTER TABLE cc_tariffgroup_plan RENAME idtariffgroup TO tgid;
-ALTER TABLE cc_tariffgroup_plan RENAME idtariffplan TO tpid;
-
 
 /** neg_currency is the currency these rates are negotiated at.
 The credit at a tariffplan is stored in neg_currency units!

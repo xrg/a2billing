@@ -23,3 +23,8 @@ CREATE TABLE cc_trunk (
     provider INTEGER REFERENCES cc_provider(id)
 );
 
+
+ALTER TABLE cc_trunk ADD COLUMN inuse INT DEFAULT 0;
+ALTER TABLE cc_trunk ADD COLUMN maxuse INT DEFAULT -1;
+ALTER TABLE cc_trunk ADD COLUMN status INT DEFAULT 1;
+ALTER TABLE cc_trunk ADD COLUMN if_max_use INT DEFAULT 0;

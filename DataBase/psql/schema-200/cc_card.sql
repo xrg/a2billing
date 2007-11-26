@@ -23,20 +23,22 @@ CREATE TABLE cc_agent (
 
 CREATE TABCE cc_card_group (
     id serial NOT NULL PRIMARY KEY,
+    agentid INTEGER REFERENCES cc_agent(id) ON DELETE RESTRICT,
     simultaccess integer DEFAULT 0,
     typepaid integer DEFAULT 0,
-    def_currency character varying(3) DEFAULT 'USD'::character varying,*-*
+    tariff integer REFERENCES cc_tariffplan(id),
+    def_currency VARCHAR(3) DEFAULT 'USD'::VARCHAR,
     voipcall integer DEFAULT 0,
     vat numeric(6,3) DEFAULT 0,
     initialbalance numeric(12,4) NOT NULL DEFAULT 0,
     invoiceday integer DEFAULT 1,
+    agent_role integer
 );
 
 
 CREATE TABLE cc_card (
-    id bigserial NOT NULL PRIMARY KEY,
+    id bigserial PRIMARY KEY,
     grp integer NOT NULL REFERENCES cc_card_group(id),
-    agentid INTEGER REFERENCES cc_agent(id) ON DELETE RESTRICT,
     creationdate timestamp without time zone DEFAULT now(),
     firstusedate timestamp without time zone,
     expirationdate timestamp without time zone,
@@ -45,11 +47,10 @@ CREATE TABLE cc_card (
     username text NOT NULL UNIQUE,
     useralias text NOT NULL UNIQUE,
     userpass text NOT NULL,
-    uipass text,
+--     uipass text,
     credit numeric(12,4) NOT NULL,
-    tariff integer DEFAULT 0,
     id_didgroup integer DEFAULT 0,
-    activated boolean DEFAULT false NOT NULL,
+    status INT NOT NULL DEFAULT '1',
     lastname text,
     firstname text,
     address text,
@@ -64,7 +65,7 @@ CREATE TABLE cc_card (
     currency character varying(3) DEFAULT 'USD'::character varying,
     lastuse date DEFAULT now(),
     nbused integer DEFAULT 0,
-    creditlimit integer DEFAULT 0,*-*
+    creditlimit NUMERIC(12,4) DEFAULT 0,
     sip_buddy integer DEFAULT 0,
     iax_buddy integer DEFAULT 0,
     "language" text DEFAULT 'en'::text,
@@ -78,7 +79,34 @@ CREATE TABLE cc_card (
     autorefill integer DEFAULT 0,
     loginkey text,
     activatedbyuser boolean DEFAULT false NOT NULL,
-    id_subscription_fee INTEGER DEFAULT 0
 );
 
-CREATE INDEX cc_card_agent ON cc_card(agentid);
+CREATE INDEX cc_card_grp ON cc_card(grp);
+
+CREATE INDEX cc_card_creationdate_ind ON cc_card USING btree (creationdate);
+CREATE INDEX cc_card_username_ind ON cc_card USING btree (username);
+
+-- ALTER TABLE cc_card DROP COLUMN userpass;
+
+-- ALTER TABLE cc_card ADD COLUMN id_timezone INTEGER DEFAULT 0;
+
+
+CREATE TABLE cc_status_log (
+  id		BIGSERIAL PRIMARY KEY,
+  status 	INT NOT NULL,
+  id_cc_card INT NOT NULL,
+  updated_date TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW()
+);
+
+-- ALTER TABLE cc_card ADD COLUMN tag CHAR(50);
+
+-- ALTER TABLE cc_card ADD COLUMN template_invoice TEXT;
+-- ALTER TABLE cc_card ADD COLUMN template_outstanding TEXT;
+
+CREATE TABLE cc_card_history (
+    id 		BIGSERIAL PRIMARY KEY,
+    card 	BIGINT DEFAULT 0 NOT NULL,
+    datecreated	TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
+    description TEXT
+);
+

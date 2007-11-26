@@ -98,12 +98,7 @@ CREATE TABLE cc_invoice (
 	id_subscription_fee 				INTEGER DEFAULT 0,
 	mac_addr							VARCHAR(17) DEFAULT '00-00-00-00-00-00' NOT NULL
 );
-ALTER TABLE ONLY cc_card
-    ADD CONSTRAINT cons_cc_card_username UNIQUE (username);
-ALTER TABLE ONLY cc_card
-    ADD CONSTRAINT cons_cc_card_useralias UNIQUE (useralias);
-ALTER TABLE ONLY cc_card
-    ADD CONSTRAINT cons_cc_card_pkey PRIMARY KEY (id);FAULT NULL
+
 );
 ALTER TABLE ONLY cc_invoice
 ADD CONSTRAINT cc_invoice_pkey PRIMARY KEY (id);
@@ -116,10 +111,6 @@ ALTER TABLE cc_charge ADD COLUMN cover_from DATE;
 ALTER TABLE cc_charge ADD COLUMN cover_to 	DATE;
 
 
-ALTER TABLE cc_trunk ADD COLUMN inuse INT DEFAULT 0;
-ALTER TABLE cc_trunk ADD COLUMN maxuse INT DEFAULT -1;
-ALTER TABLE cc_trunk ADD COLUMN status INT DEFAULT 1;
-ALTER TABLE cc_trunk ADD COLUMN if_max_use INT DEFAULT 0;
 
 
 CREATE TABLE cc_card_subscription (
@@ -134,43 +125,10 @@ ALTER TABLE ONLY cc_card_subscription
 ADD CONSTRAINT cc_card_subscription_pkey PRIMARY KEY (id);
 
 
-ALTER TABLE cc_card DROP id_subscription_fee;
-ALTER TABLE cc_card ADD COLUMN id_timezone INTEGER DEFAULT 0;
-
-CREATE TABLE cc_config_group (
-  	id 								BIGSERIAL NOT NULL,
-	group_title 					CHARACTER VARYING(64) NOT NULL,	
-	group_description 				CHARACTER VARYING(255) NOT NULL
-);
-ALTER TABLE ONLY cc_config_group
-ADD CONSTRAINT cc_config_group_pkey PRIMARY KEY (id);
 
 
-INSERT INTO cc_config_group (group_title, group_description) VALUES ('global', 'This configuration group handles the global settings for application.');
-INSERT INTO cc_config_group (group_title, group_description) VALUES ('callback', 'This configuration group handles calllback settings.');
-INSERT INTO cc_config_group (group_title, group_description) VALUES ('webcustomerui', 'This configuration group handles Web Customer User Interface.');
-INSERT INTO cc_config_group (group_title, group_description) VALUES ('sip-iax-info', 'SIP & IAX client configuration information.');
-INSERT INTO cc_config_group (group_title, group_description) VALUES ('epayment_method', 'Epayment Methods Configuration.');
-INSERT INTO cc_config_group (group_title, group_description) VALUES ('signup', 'This configuration group handles the signup related settings.');
-INSERT INTO cc_config_group (group_title, group_description) VALUES ('backup', 'This configuration group handles the backup/restore related settings.');
-INSERT INTO cc_config_group (group_title, group_description) VALUES ('webui', 'This configuration group handles the WEBUI and API Configuration.');
-INSERT INTO cc_config_group (group_title, group_description) VALUES ('peer_friend', 'This configuration group define parameters for the friends creation.');
-INSERT INTO cc_config_group (group_title, group_description) VALUES ('log-files', 'This configuration group handles the Log Files Directory Paths.');
-INSERT INTO cc_config_group (group_title, group_description) VALUES ('agi-conf1', 'This configuration group handles the AGI Configuration.');
 
 
-CREATE TABLE cc_config (
-  	id 								BIGSERIAL NOT NULL,
-	config_title		 			TEXT NOT NULL,
-	config_key 					TEXT NOT NULL,
-	config_value 					TEXT NOT NULL,
-	config_description 				TEXT NOT NULL,
-	config_valuetype				INTEGER NOT NULL DEFAULT 0,	
-	config_group_id 				INTEGER NOT NULL,
-	config_listvalues				TEXT
-);
-ALTER TABLE ONLY cc_config
-ADD CONSTRAINT cc_config_pkey PRIMARY KEY (id);
 
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Card Number length', 'interval_len_cardnumber', '10-15', 'Card Number length, You can define a Range e.g:10-15.', 0, 1, '10-15,11-15,12-15');
 INSERT INTO cc_config (config_title, config_key, config_value, config_description, config_valuetype, config_group_id, config_listvalues) VALUES ('Card Alias Length', 'len_aliasnumber', '15', 'Card Number Alias Length e.g: 15.', 0, 1, NULL);
@@ -627,39 +585,14 @@ ALTER TABLE ONLY cc_templatemail
 
     
     
-ALTER TABLE ONLY cc_card ADD COLUMN status INT NOT NULL DEFAULT '1';
-update cc_card set status = 1 where activated = 't';
-update cc_card set status = 0 where activated = 'f';
-
-
-CREATE TABLE cc_status_log (
-  id		BIGSERIAL DEFAULT 0 NOT NULL,
-  status 	INT NOT NULL,
-  id_cc_card INT NOT NULL,
-  updated_date TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW()
-);
-ALTER TABLE ONLY cc_status_log
-    ADD CONSTRAINT cc_status_log_pkey PRIMARY KEY (id);
-
-
-ALTER TABLE cc_card ADD COLUMN tag CHAR(50);
 ALTER TABLE cc_ratecard ADD COLUMN rounding_calltime INT NOT NULL DEFAULT 0;
 ALTER TABLE cc_ratecard ADD COLUMN rounding_threshold INT NOT NULL DEFAULT 0;
 ALTER TABLE cc_ratecard ADD COLUMN additional_block_charge NUMERIC(15,5) NOT NULL DEFAULT 0;
 ALTER TABLE cc_ratecard ADD COLUMN additional_block_charge_time INT NOT NULL DEFAULT 0;
 ALTER TABLE cc_ratecard ADD COLUMN tag CHAR(50);
 
-ALTER TABLE cc_card ADD COLUMN template_invoice TEXT;
-ALTER TABLE cc_card ADD COLUMN template_outstanding TEXT;
 
 
-CREATE TABLE cc_card_history (
-	id 								BIGSERIAL NOT NULL,
-	id_cc_card 						BIGINT DEFAULT 0 NOT NULL,
-    datecreated						TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
-	description 					TEXT
-);
-ALTER TABLE ONLY cc_card_history    ADD CONSTRAINT cc_card_history_pkey PRIMARY KEY (id);
 
 
 ALTER TABLE cc_call ADD COLUMN real_sessiontime INTEGER;
@@ -673,9 +606,6 @@ CREATE INDEX cc_call_starttime_ind ON cc_call USING btree (starttime);
 CREATE INDEX cc_call_terminatecause_ind ON cc_call USING btree (terminatecause); 	
 CREATE INDEX cc_call_calledstation_ind ON cc_call USING btree (calledstation); 	
 
-
-CREATE INDEX cc_card_creationdate_ind ON cc_card USING btree (creationdate);
-CREATE INDEX cc_card_username_ind ON cc_card USING btree (username);
 
 
 VACUUM FULL ANALYZE;
@@ -724,7 +654,6 @@ CREATE INDEX cc_call_calledstation_ind ON cc_call_archive USING btree (calledsta
 
 
 
-ALTER TABLE cc_card DROP COLUMN userpass;
 
 
 CREATE TABLE cc_card_archive (
