@@ -36,129 +36,12 @@
 
 SET default_with_oids = true;
 
+*-*
 
-CREATE TABLE cc_campaign (
-    id bigserial NOT NULL,
-    campaign_name text NOT NULL,
-    creationdate timestamp without time zone DEFAULT now(),
-    startingdate timestamp without time zone DEFAULT now(),
-    expirationdate timestamp without time zone,
-    description text,
-    id_trunk bigint NOT NULL,	
-    secondusedreal integer DEFAULT 0,
-    nb_callmade integer DEFAULT 0,
-    enable integer DEFAULT 0 NOT NULL
-);
-
-ALTER TABLE ONLY cc_campaign
-    ADD CONSTRAINT cc_campaign_pkey PRIMARY KEY (id);
-ALTER TABLE ONLY cc_campaign
-    ADD CONSTRAINT cons_phonelistname UNIQUE (campaign_name);
-
-
-
-CREATE TABLE cc_phonelist (
-    id 							BIGSERIAL NOT NULL,
-    id_cc_campaign 				BIGINT DEFAULT 0 NOT NULL,
-    id_cc_card 					BIGINT DEFAULT 0 NOT NULL,
-    numbertodial 				TEXT NOT NULL,
-    name 						TEXT NOT NULL,
-    inuse 						INTEGER DEFAULT 0,
-    enable 						INTEGER DEFAULT 1 NOT NULL,
-    num_trials_done 			INTEGER DEFAULT 0,
-    creationdate 				TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
-    last_attempt 				TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),		
-    secondusedreal 				INTEGER DEFAULT 0,
-    additionalinfo 				TEXT NOT NULL	
-);
-
-ALTER TABLE ONLY cc_phonelist
-    ADD CONSTRAINT cc_phonelist_pkey PRIMARY KEY (id);
-	
-CREATE INDEX ind_cc_phonelist_numbertodial ON cc_phonelist USING btree (numbertodial);
-
-
-
-
-CREATE TABLE cc_didgroup (
-    id 							BIGSERIAL NOT NULL,
-    iduser 					INTEGER DEFAULT 0 NOT NULL,	
-    creationdate 				TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
-    didgroupname 				TEXT NOT NULL
-);
-
-ALTER TABLE ONLY cc_didgroup
-    ADD CONSTRAINT cc_didgroup_pkey PRIMARY KEY (id);
-
-
-
-CREATE TABLE cc_did (
-    id 							BIGSERIAL NOT NULL,
-    id_cc_didgroup 				BIGINT NOT NULL,
-    id_cc_country 				INTEGER NOT NULL,    
-    activated 					INTEGER DEFAULT 1 NOT NULL,
-    reserved 					INTEGER DEFAULT 0,
-    iduser 					BIGINT DEFAULT 0 NOT NULL,
-    did 					TEXT NOT NULL,
-    creationdate 				TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),	
-    startingdate 				TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
-    expirationdate 				TIMESTAMP WITHOUT TIME ZONE,
-    description 				TEXT,
-    secondusedreal 				INTEGER DEFAULT 0,
-    billingtype 				INTEGER DEFAULT 0,
-    fixrate 					NUMERIC(12,4) NOT NULL
-);
--- billtype: 0 = fix per month + dialoutrate, 1= fix per month, 2 = dialoutrate, 3 = free
-
-
-ALTER TABLE ONLY cc_did
-    ADD CONSTRAINT cc_did_pkey PRIMARY KEY (id);
-
-ALTER TABLE ONLY cc_did
-    ADD CONSTRAINT cons_did_cc_did UNIQUE (did);
-	
-
-
-CREATE TABLE cc_did_destination (
-    id 								BIGSERIAL NOT NULL,
-    destination 					TEXT NOT NULL,
-    priority 						INTEGER DEFAULT 0 NOT NULL,
-    id_cc_card 						BIGINT NOT NULL,
-    id_cc_did 						BIGINT NOT NULL,	
-    creationdate 					TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
-    activated 						INTEGER DEFAULT 1 NOT NULL,
-    secondusedreal 					INTEGER DEFAULT 0,
-    voip_call 						INTEGER DEFAULT 0
-);
-
-
-ALTER TABLE ONLY cc_did_destination
-    ADD CONSTRAINT cc_did_destination_pkey PRIMARY KEY (id);
 
 
 
 -- chargetype : 0 - subscription fee ; 1 - connection charge for DID setup, 2 - Montly charge for DID use, 3 - just wanted to charge you for extra, 4 - cactus renting charges, etc...
-CREATE TABLE cc_charge (
-    id 						BIGSERIAL NOT NULL,
-    id_cc_card 				BIGINT NOT NULL,
-    iduser 					INTEGER DEFAULT 0 NOT NULL,
-    creationdate timestamp without time zone DEFAULT now(),
-    amount 					NUMERIC(12,4) NOT NULL,
-    chargetype integer DEFAULT 0,
-    chargetype 				INTEGER DEFAULT 0,    
-    description 			TEXT,
-    id_cc_did 				BIGINT DEFAULT 0,
-	id_cc_subscription_fee 	BIGINT DEFAULT 0
-);
-
-ALTER TABLE ONLY cc_charge
-    ADD CONSTRAINT cc_charge_pkey PRIMARY KEY (id);
-
-
-CREATE INDEX ind_cc_charge_id_cc_card				ON cc_charge USING btree (id_cc_card);
-CREATE INDEX ind_cc_charge_id_cc_subscription_fee 	ON cc_charge USING btree (id_cc_subscription_fee);
-CREATE INDEX ind_cc_charge_creationdate 			ON cc_charge USING btree (creationdate);
-
 
 
 CREATE TABLE cc_paypal (
@@ -273,27 +156,6 @@ ALTER TABLE ONLY cc_callerid
     ADD CONSTRAINT cc_callerid_cid_key UNIQUE (cid);
 
 
-CREATE TABLE cc_ui_authen (
-    userid bigserial NOT NULL,
-    login text NOT NULL,
-    "password" text NOT NULL,
-    groupid integer,
-    perms integer,
-    confaddcust integer,
-    name text,
-    direction text,
-    zipcode text,
-    state text,
-    phone text,
-    fax text,
-    datecreation TIMESTAMP without time zone DEFAULT NOW()
-);
-
-ALTER TABLE ONLY cc_ui_authen
-    ADD CONSTRAINT cc_ui_authen_pkey PRIMARY KEY (userid);
-
-ALTER TABLE ONLY cc_ui_authen
-    ADD CONSTRAINT cons_cc_ui_authen_login_key UNIQUE(login);
 
 CREATE TABLE cc_call (
     id bigserial NOT NULL,
@@ -341,157 +203,12 @@ ALTER TABLE ONLY cc_templatemail
 
 
 
-CREATE TABLE cc_tariffgroup (
-    id serial NOT NULL,
-    iduser integer DEFAULT 0 NOT NULL,
-    idtariffplan integer DEFAULT 0 NOT NULL,
-    tariffgroupname text NOT NULL,
-    lcrtype integer DEFAULT 0 NOT NULL,
-    creationdate timestamp without time zone DEFAULT now(),
-    removeinterprefix integer DEFAULT 0 NOT NULL,
-	id_cc_package_offer bigint not null default 0
-);
 
 
 
-CREATE TABLE cc_tariffgroup_plan (
-    idtariffgroup integer NOT NULL,
-    idtariffplan integer NOT NULL
-);
 
 
 
-CREATE TABLE cc_tariffplan (
-    id serial NOT NULL,
-    iduser integer DEFAULT 0 NOT NULL,
-    tariffname text NOT NULL,
-    creationdate timestamp without time zone DEFAULT now(),
-    startingdate timestamp without time zone DEFAULT now(),
-    expirationdate timestamp without time zone,
-    description text,
-    id_trunk integer DEFAULT 0,
-    secondusedreal integer DEFAULT 0,
-    secondusedcarrier integer DEFAULT 0,
-    secondusedratecard integer DEFAULT 0,
-    reftariffplan integer DEFAULT 0,
-    idowner integer DEFAULT 0,
-    dnidprefix text NOT NULL DEFAULT 'all'::text,
-    calleridprefix text NOT NULL DEFAULT 'all'::text
-);
-
-
-
-CREATE TABLE cc_card (
-    id bigserial NOT NULL,
-    creationdate timestamp without time zone DEFAULT now(),
-    firstusedate timestamp without time zone,
-    expirationdate timestamp without time zone,
-    enableexpire integer DEFAULT 0,
-    expiredays integer DEFAULT 0,
-    username text NOT NULL,
-    useralias text NOT NULL,
-    userpass text NOT NULL,
-    uipass text,
-    credit numeric(12,4) NOT NULL,
-    tariff integer DEFAULT 0,
-    id_didgroup integer DEFAULT 0,
-    activated boolean DEFAULT false NOT NULL,
-    lastname text,
-    firstname text,
-    address text,
-    city text,
-    state text,
-    country text,
-    zipcode text,
-    phone text,
-    email text,
-    fax text,
-    inuse integer DEFAULT 0,
-    simultaccess integer DEFAULT 0,
-    currency character varying(3) DEFAULT 'USD'::character varying,
-    lastuse date DEFAULT now(),
-    nbused integer DEFAULT 0,
-    typepaid integer DEFAULT 0,
-    creditlimit integer DEFAULT 0,
-    voipcall integer DEFAULT 0,
-    sip_buddy integer DEFAULT 0,
-    iax_buddy integer DEFAULT 0,
-    "language" text DEFAULT 'en'::text,
-    redial text,
-    runservice integer DEFAULT 0,
-    nbservice integer DEFAULT 0,
-    id_campaign integer DEFAULT 0,
-    num_trials_done integer DEFAULT 0,
-    callback text,
-    vat numeric(6,3) DEFAULT 0,
-    servicelastrun timestamp without time zone,
-    initialbalance numeric(12,4) NOT NULL DEFAULT 0,
-    invoiceday integer DEFAULT 1,
-    autorefill integer DEFAULT 0,
-    loginkey text,
-    activatedbyuser boolean DEFAULT false NOT NULL,
-	id_subscription_fee INTEGER DEFAULT 0
-);
-ALTER TABLE ONLY cc_card
-    ADD CONSTRAINT cons_cc_card_username UNIQUE (username);
-ALTER TABLE ONLY cc_card
-    ADD CONSTRAINT cons_cc_card_useralias UNIQUE (useralias);
-ALTER TABLE ONLY cc_card
-    ADD CONSTRAINT cons_cc_card_pkey PRIMARY KEY (id);
-
-
-CREATE TABLE cc_ratecard (
-    id serial NOT NULL,
-    idtariffplan integer DEFAULT 0 NOT NULL,
-    dialprefix text NOT NULL,
-    destination text NOT NULL,
-    buyrate real DEFAULT 0 NOT NULL,
-    buyrateinitblock integer DEFAULT 0 NOT NULL,
-    buyrateincrement integer DEFAULT 0 NOT NULL,
-    rateinitial real DEFAULT 0 NOT NULL,
-    initblock integer DEFAULT 0 NOT NULL,
-    billingblock integer DEFAULT 0 NOT NULL,
-    connectcharge real DEFAULT 0 NOT NULL,
-    disconnectcharge real DEFAULT 0 NOT NULL,
-    stepchargea real DEFAULT 0 NOT NULL,
-    chargea real DEFAULT 0 NOT NULL,
-    timechargea integer DEFAULT 0 NOT NULL,
-    billingblocka integer DEFAULT 0 NOT NULL,
-    stepchargeb real DEFAULT 0 NOT NULL,
-    chargeb real DEFAULT 0 NOT NULL,
-    timechargeb integer DEFAULT 0 NOT NULL,
-    billingblockb integer DEFAULT 0 NOT NULL,
-    stepchargec real DEFAULT 0 NOT NULL,
-    chargec real DEFAULT 0 NOT NULL,
-    timechargec integer DEFAULT 0 NOT NULL,
-    billingblockc integer DEFAULT 0 NOT NULL,
-    startdate timestamp(0) without time zone DEFAULT now(),
-    stopdate timestamp(0) without time zone,
-    starttime integer NOT NULL DEFAULT 0,
-    endtime integer NOT NULL DEFAULT 10079,
-    id_trunk integer DEFAULT -1,	
-    musiconhold character varying(100),
-    freetimetocall_package_offer INTEGER NOT NULL DEFAULT 0,
-    id_outbound_cidgroup INTEGER NOT NULL DEFAULT -1
-);
-CREATE INDEX ind_cc_ratecard_dialprefix ON cc_ratecard USING btree (dialprefix);
-
-
-CREATE TABLE cc_trunk (
-    id_trunk serial NOT NULL,
-    trunkcode text NOT NULL,
-    trunkprefix text,
-    providertech text NOT NULL,
-    providerip text NOT NULL,
-    removeprefix text,
-    secondusedreal integer DEFAULT 0,
-    secondusedcarrier integer DEFAULT 0,
-    secondusedratecard integer DEFAULT 0,
-    creationdate timestamp(0) without time zone DEFAULT now(),
-    failover_trunk integer,
-    addparameter text,
-    id_provider integer
-);
 
 
 CREATE TABLE cc_sip_buddies (
@@ -612,8 +329,6 @@ create table cc_did_use (
 ALTER TABLE cc_did_use
 ADD CONSTRAINT cc_did_use_pkey PRIMARY KEY (id);
 
-INSERT INTO cc_ui_authen VALUES (2, 'admin', 'mypassword', 0, 65535, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2005-02-26 21:14:05.391501-05');
-INSERT INTO cc_ui_authen VALUES (1, 'root', 'myroot', 0, 65535, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2005-02-26 20:33:27.691314-05');
 
 
 INSERT INTO cc_templatemail VALUES ('signup', 'info@call-labs.com', 'Call-Labs', 'SIGNUP CONFIRMATION', '
@@ -725,47 +440,6 @@ Call Labs
 INSERT INTO cc_trunk VALUES (1, 'DEFAULT', '011', 'IAX2', 'kiki@switch-2.kiki.net', '', 0, 0, 0, '2005-03-14 01:01:36', 0, '', NULL);
 
 
-
-
-
-
-ALTER TABLE ONLY cc_card
-    ADD CONSTRAINT cons_username_cc_card UNIQUE (username);
-
-ALTER TABLE ONLY cc_card
-    ADD CONSTRAINT cons_useralias_cc_card UNIQUE (useralias);
-
-
-
-ALTER TABLE ONLY cc_call
-    ADD CONSTRAINT cc_call_pkey PRIMARY KEY (id);
-
-
-
-ALTER TABLE ONLY cc_tariffgroup
-    ADD CONSTRAINT cc_tariffgroup_pkey PRIMARY KEY (id);
-
-
-ALTER TABLE ONLY cc_tariffplan
-    ADD CONSTRAINT cc_tariffplan_pkey PRIMARY KEY (id);
-
-
-
-ALTER TABLE ONLY cc_tariffplan
-    ADD CONSTRAINT cons_iduser_tariffname UNIQUE (iduser, tariffname);
-
-
-ALTER TABLE ONLY cc_tariffgroup_plan
-    ADD CONSTRAINT pk_groupplan PRIMARY KEY (idtariffgroup, idtariffplan);
-
-
-
-ALTER TABLE ONLY cc_ratecard
-    ADD CONSTRAINT cc_ratecard_pkey PRIMARY KEY (id);
-
-
-ALTER TABLE ONLY cc_trunk
-    ADD CONSTRAINT cc_trunk_pkey PRIMARY KEY (id_trunk);
 
 ALTER TABLE ONLY cc_sip_buddies
     ADD CONSTRAINT cc_sip_buddies_pkey PRIMARY KEY (id);
@@ -1064,17 +738,6 @@ INSERT INTO cc_country VALUES (253, 'SRB' ,'381', 'Serbia, Republic of');
 INSERT INTO cc_country VALUES (254, 'CPT' ,'0', 'Clipperton Island');
 INSERT INTO cc_country VALUES (255, 'TAA' ,'0', 'Tristan da Cunha');
 
-CREATE TABLE cc_provider(
-    id bigserial NOT NULL,
-    provider_name text NOT NULL,
-    creationdate timestamp without time zone DEFAULT now(),
-    description text
-);
-
-ALTER TABLE ONLY cc_provider
-    ADD CONSTRAINT cc_provider_pkey PRIMARY KEY (id);
-ALTER TABLE ONLY cc_provider
-    ADD CONSTRAINT cons_cc_provider_name_key UNIQUE (provider_name);
 
 
 
@@ -1082,172 +745,6 @@ ALTER TABLE ONLY cc_provider
 --  cc_currencies table
 --
 
-CREATE TABLE cc_currencies (
-    id serial NOT NULL,
-    currency char(3) default '' NOT NULL,
-    name character varying(30) default '' NOT NULL,
-    value numeric(12,5) default '0.00000' NOT NULL,
-    lastupdate timestamp without time zone DEFAULT now(),	
-    basecurrency char(3) default 'USD' NOT NULL
-);
-
-
-ALTER TABLE ONLY cc_currencies
-    ADD CONSTRAINT cc_currencies_pkey PRIMARY KEY (id);
-ALTER TABLE ONLY cc_currencies
-    ADD CONSTRAINT cons_cc_currencies_currency_key UNIQUE(currency);
-
-
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (1, 'ALL', 'Albanian Lek (ALL)', 0.00974,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (2, 'DZD', 'Algerian Dinar (DZD)', 0.01345,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (3, 'XAL', 'Aluminium Ounces (XAL)', 1.08295,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (4, 'ARS', 'Argentine Peso (ARS)', 0.32455,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (5, 'AWG', 'Aruba Florin (AWG)', 0.55866,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (6, 'AUD', 'Australian Dollar (AUD)', 0.73384,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (7, 'BSD', 'Bahamian Dollar (BSD)', 1.00000,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (8, 'BHD', 'Bahraini Dinar (BHD)', 2.65322,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (9, 'BDT', 'Bangladesh Taka (BDT)', 0.01467,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (10, 'BBD', 'Barbados Dollar (BBD)', 0.50000,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (11, 'BYR', 'Belarus Ruble (BYR)', 0.00046,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (12, 'BZD', 'Belize Dollar (BZD)', 0.50569,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (13, 'BMD', 'Bermuda Dollar (BMD)', 1.00000,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (14, 'BTN', 'Bhutan Ngultrum (BTN)', 0.02186,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (15, 'BOB', 'Bolivian Boliviano (BOB)', 0.12500,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (16, 'BRL', 'Brazilian Real (BRL)', 0.46030, 'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (17, 'GBP', 'British Pound (GBP)', 1.73702,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (18, 'BND', 'Brunei Dollar (BND)', 0.61290,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (19, 'BGN', 'Bulgarian Lev (BGN)', 0.60927,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (20, 'BIF', 'Burundi Franc (BIF)', 0.00103,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (21, 'KHR', 'Cambodia Riel (KHR)', 0.00000,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (22, 'CAD', 'Canadian Dollar (CAD)', 0.86386,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (23, 'KYD', 'Cayman Islands Dollar (KYD)', 1.16496,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (24, 'XOF', 'CFA Franc (BCEAO) (XOF)', 0.00182,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (25, 'XAF', 'CFA Franc (BEAC) (XAF)', 0.00182, 'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (26, 'CLP', 'Chilean Peso (CLP)', 0.00187,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (27, 'CNY', 'Chinese Yuan (CNY)', 0.12425,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (28, 'COP', 'Colombian Peso (COP)', 0.00044,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (29, 'KMF', 'Comoros Franc (KMF)', 0.00242,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (30, 'XCP', 'Copper Ounces (XCP)', 2.16403,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (31, 'CRC', 'Costa Rica Colon (CRC)', 0.00199,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (32, 'HRK', 'Croatian Kuna (HRK)', 0.16249,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (33, 'CUP', 'Cuban Peso (CUP)', 1.00000,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (34, 'CYP', 'Cyprus Pound (CYP)', 2.07426, 'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (35, 'CZK', 'Czech Koruna (CZK)', 0.04133,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (36, 'DKK', 'Danish Krone (DKK)', 0.15982,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (37, 'DJF', 'Dijibouti Franc (DJF)', 0.00000,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (38, 'DOP', 'Dominican Peso (DOP)', 0.03035,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (39, 'XCD', 'East Caribbean Dollar (XCD)', 0.37037,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (40, 'ECS', 'Ecuador Sucre (ECS)', 0.00004,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (41, 'EGP', 'Egyptian Pound (EGP)', 0.17433,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (42, 'SVC', 'El Salvador Colon (SVC)', 0.11426,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (43, 'ERN', 'Eritrea Nakfa (ERN)', 0.00000,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (44, 'EEK', 'Estonian Kroon (EEK)', 0.07615,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (45, 'ETB', 'Ethiopian Birr (ETB)', 0.11456,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (46, 'EUR', 'Euro (EUR)', 1.19175,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (47, 'FKP', 'Falkland Islands Pound (FKP)', 0.00000,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (48, 'GMD', 'Gambian Dalasi (GMD)', 0.03515,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (49, 'GHC', 'Ghanian Cedi (GHC)', 0.00011,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (50, 'GIP', 'Gibraltar Pound (GIP)', 0.00000,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (51, 'XAU', 'Gold Ounces (XAU)', 555.55556,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (52, 'GTQ', 'Guatemala Quetzal (GTQ)', 0.13103,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (53, 'GNF', 'Guinea Franc (GNF)', 0.00022,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (54, 'HTG', 'Haiti Gourde (HTG)', 0.02387,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (55, 'HNL', 'Honduras Lempira (HNL)', 0.05292,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (56, 'HKD', 'Hong Kong Dollar (HKD)', 0.12884,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (57, 'HUF', 'Hungarian Forint (HUF)', 0.00461,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (58, 'ISK', 'Iceland Krona (ISK)', 0.01436,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (59, 'INR', 'Indian Rupee (INR)', 0.02253,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (60, 'IDR', 'Indonesian Rupiah (IDR)', 0.00011,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (61, 'IRR', 'Iran Rial (IRR)', 0.00011, 'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (62, 'ILS', 'Israeli Shekel (ILS)', 0.21192,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (63, 'JMD', 'Jamaican Dollar (JMD)', 0.01536,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (64, 'JPY', 'Japanese Yen (JPY)', 0.00849,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (65, 'JOD', 'Jordanian Dinar (JOD)', 1.41044,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (66, 'KZT', 'Kazakhstan Tenge (KZT)', 0.00773,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (67, 'KES', 'Kenyan Shilling (KES)', 0.01392,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (68, 'KRW', 'Korean Won (KRW)', 0.00102,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (69, 'KWD', 'Kuwaiti Dinar (KWD)', 3.42349,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (70, 'LAK', 'Lao Kip (LAK)', 0.00000, 'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (71, 'LVL', 'Latvian Lat (LVL)', 1.71233,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (72, 'LBP', 'Lebanese Pound (LBP)', 0.00067,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (73, 'LSL', 'Lesotho Loti (LSL)', 0.15817,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (74, 'LYD', 'Libyan Dinar (LYD)', 0.00000,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (75, 'LTL', 'Lithuanian Lita (LTL)', 0.34510, 'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (76, 'MOP', 'Macau Pataca (MOP)', 0.12509,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (77, 'MKD', 'Macedonian Denar (MKD)', 0.01945,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (78, 'MGF', 'Malagasy Franc (MGF)', 0.00011,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (79, 'MWK', 'Malawi Kwacha (MWK)', 0.00752, 'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (80, 'MYR', 'Malaysian Ringgit (MYR)', 0.26889,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (81, 'MVR', 'Maldives Rufiyaa (MVR)', 0.07813,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (82, 'MTL', 'Maltese Lira (MTL)', 2.77546,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (83, 'MRO', 'Mauritania Ougulya (MRO)', 0.00369,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (84, 'MUR', 'Mauritius Rupee (MUR)', 0.03258,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (85, 'MXN', 'Mexican Peso (MXN)', 0.09320,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (86, 'MDL', 'Moldovan Leu (MDL)', 0.07678,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (87, 'MNT', 'Mongolian Tugrik (MNT)', 0.00084,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (88, 'MAD', 'Moroccan Dirham (MAD)', 0.10897,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (89, 'MZM', 'Mozambique Metical (MZM)', 0.00004,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (90, 'NAD', 'Namibian Dollar (NAD)', 0.15817, 'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (91, 'NPR', 'Nepalese Rupee (NPR)', 0.01408, 'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (92, 'ANG', 'Neth Antilles Guilder (ANG)', 0.55866,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (93, 'TRY', 'New Turkish Lira (TRY)', 0.73621,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (94, 'NZD', 'New Zealand Dollar (NZD)', 0.65096,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (95, 'NIO', 'Nicaragua Cordoba (NIO)', 0.05828,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (96, 'NGN', 'Nigerian Naira (NGN)', 0.00777,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (97, 'NOK', 'Norwegian Krone (NOK)', 0.14867,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (98, 'OMR', 'Omani Rial (OMR)', 2.59740,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (99, 'XPF', 'Pacific Franc (XPF)', 0.00999,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (100, 'PKR', 'Pakistani Rupee (PKR)', 0.01667,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (101, 'XPD', 'Palladium Ounces (XPD)', 277.77778,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (102, 'PAB', 'Panama Balboa (PAB)', 1.00000,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (103, 'PGK', 'Papua New Guinea Kina (PGK)', 0.33125,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (104, 'PYG', 'Paraguayan Guarani (PYG)', 0.00017,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (105, 'PEN', 'Peruvian Nuevo Sol (PEN)', 0.29999,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (106, 'PHP', 'Philippine Peso (PHP)', 0.01945,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (107, 'XPT', 'Platinum Ounces (XPT)', 1000.00000,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (108, 'PLN', 'Polish Zloty (PLN)', 0.30574, 'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (109, 'QAR', 'Qatar Rial (QAR)', 0.27476,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (110, 'ROL', 'Romanian Leu (ROL)', 0.00000,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (111, 'RON', 'Romanian New Leu (RON)', 0.34074,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (112, 'RUB', 'Russian Rouble (RUB)', 0.03563,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (113, 'RWF', 'Rwanda Franc (RWF)', 0.00185,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (114, 'WST', 'Samoa Tala (WST)', 0.35492,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (115, 'STD', 'Sao Tome Dobra (STD)', 0.00000,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (116, 'SAR', 'Saudi Arabian Riyal (SAR)', 0.26665,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (117, 'SCR', 'Seychelles Rupee (SCR)', 0.18114,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (118, 'SLL', 'Sierra Leone Leone (SLL)', 0.00034,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (119, 'XAG', 'Silver Ounces (XAG)', 9.77517,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (120, 'SGD', 'Singapore Dollar (SGD)', 0.61290,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (121, 'SKK', 'Slovak Koruna (SKK)', 0.03157, 'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (122, 'SIT', 'Slovenian Tolar (SIT)', 0.00498,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (123, 'SOS', 'Somali Shilling (SOS)', 0.00000, 'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (124, 'ZAR', 'South African Rand (ZAR)', 0.15835, 'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (125, 'LKR', 'Sri Lanka Rupee (LKR)', 0.00974,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (126, 'SHP', 'St Helena Pound (SHP)', 0.00000,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (127, 'SDD', 'Sudanese Dinar (SDD)', 0.00427,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (128, 'SRG', 'Surinam Guilder (SRG)', 0.36496,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (129, 'SZL', 'Swaziland Lilageni (SZL)', 0.15817,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (130, 'SEK', 'Swedish Krona (SEK)', 0.12609,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (131, 'CHF', 'Swiss Franc (CHF)', 0.76435,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (132, 'SYP', 'Syrian Pound (SYP)', 0.00000,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (133, 'TWD', 'Taiwan Dollar (TWD)', 0.03075,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (134, 'TZS', 'Tanzanian Shilling (TZS)', 0.00083,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (135, 'THB', 'Thai Baht (THB)', 0.02546,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (136, 'TOP', 'Tonga Paanga (TOP)', 0.48244, 'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (137, 'TTD', 'Trinidad&Tobago Dollar (TTD)', 0.15863,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (138, 'TND', 'Tunisian Dinar (TND)', 0.73470,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (139, 'USD', 'U.S. Dollar (USD)', 1.00000,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (140, 'AED', 'UAE Dirham (AED)', 0.27228,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (141, 'UGX', 'Ugandan Shilling (UGX)', 0.00055, 'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (142, 'UAH', 'Ukraine Hryvnia (UAH)', 0.19755,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (143, 'UYU', 'Uruguayan New Peso (UYU)', 0.04119,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (144, 'VUV', 'Vanuatu Vatu (VUV)', 0.00870,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (145, 'VEB', 'Venezuelan Bolivar (VEB)', 0.00037,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (146, 'VND', 'Vietnam Dong (VND)', 0.00006,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (147, 'YER', 'Yemen Riyal (YER)', 0.00510,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (148, 'ZMK', 'Zambian Kwacha (ZMK)', 0.00031, 'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (149, 'ZWD', 'Zimbabwe Dollar (ZWD)', 0.00001,  'USD');
-INSERT INTO cc_currencies (id, currency, name, value, basecurrency) VALUES (150, 'GYD', 'Guyana Dollar (GYD)', 0.00527,  'USD');
 
 
 
@@ -1689,28 +1186,6 @@ ALTER TABLE ONLY cc_callback_spool
     ADD CONSTRAINT cc_callback_spool_uniqueid_key UNIQUE (uniqueid);
 
 
-CREATE TABLE cc_server_manager (
-    id 								BIGSERIAL NOT NULL,
-	id_group						INTEGER DEFAULT 1,
-    server_ip 						TEXT ,
-    manager_host 					TEXT ,
-    manager_username 				TEXT ,
-    manager_secret 					TEXT ,
-	lasttime_used		 			TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW()
-) WITH OIDS;
-ALTER TABLE ONLY cc_server_manager
-    ADD CONSTRAINT cc_server_manager_pkey PRIMARY KEY (id);
-INSERT INTO cc_server_manager (id_group, server_ip, manager_host, manager_username, manager_secret) VALUES (1, 'localhost', 'localhost', 'myasterisk', 'mycode');
-
-
-CREATE TABLE cc_server_group (
-	id								BIGSERIAL NOT NULL,
-	name							TEXT ,
-	description						TEXT
-) WITH OIDS;
-ALTER TABLE ONLY cc_server_group
-    ADD CONSTRAINT cc_server_group_pkey PRIMARY KEY (id);
-INSERT INTO cc_server_group (id, name, description) VALUES (1, 'default', 'default group of server');
 
 
 
@@ -1892,35 +1367,6 @@ INSERT INTO cc_payments_status (id,name) VALUES (3, 'Processed');
 INSERT INTO cc_payments_status (id,name) VALUES (4, 'Refunded');
 INSERT INTO cc_payments_status (id,name) VALUES (5, 'Unknown');
 
-CREATE TABLE cc_configuration (
-  cid           BIGSERIAL NOT NULL PRIMARY KEY,
-  ctitle        VARCHAR(64) NOT NULL,
-  ckey          VARCHAR(64) NOT NULL,
-  cvalue        VARCHAR(255) NOT NULL,
-  cdescription  VARCHAR(255) NOT NULL,
-  ctype         INTEGER NOT NULL DEFAULT 0,
-  use_function  VARCHAR(255) NULL,
-  set_function  VARCHAR(255) NULL
-
-);
-
-
-INSERT INTO cc_configuration (ctitle, ckey, cvalue, cdescription) VALUES ('Login Username', 'MODULE_PAYMENT_AUTHORIZENET_LOGIN', 'testing', 'The login username used for the Authorize.net service');
-INSERT INTO cc_configuration (ctitle, ckey, cvalue, cdescription) VALUES ('Transaction Key', 'MODULE_PAYMENT_AUTHORIZENET_TXNKEY', 'Test', 'Transaction Key used for encrypting TP data');
-INSERT INTO cc_configuration (ctitle, ckey, cvalue, cdescription, set_function) VALUES ('Transaction Mode', 'MODULE_PAYMENT_AUTHORIZENET_TESTMODE', 'Test', 'Transaction mode used for processing orders', 'tep_cfg_select_option(array(\'Test\', \'Production\'), ');
-INSERT INTO cc_configuration (ctitle, ckey, cvalue, cdescription, set_function) VALUES ('Transaction Method', 'MODULE_PAYMENT_AUTHORIZENET_METHOD', 'Credit Card', 'Transaction method used for processing orders', 'tep_cfg_select_option(array(\'Credit Card\', \'eCheck\'), ');
-INSERT INTO cc_configuration (ctitle, ckey, cvalue, cdescription, set_function) VALUES ('Customer Notifications', 'MODULE_PAYMENT_AUTHORIZENET_EMAIL_CUSTOMER', 'False', 'Should Authorize.Net e-mail a receipt to the customer?', 'tep_cfg_select_option(array(\'True\', \'False\'), ');
-INSERT INTO cc_configuration (ctitle, ckey, cvalue, cdescription, set_function) VALUES ('Enable Authorize.net Module', 'MODULE_PAYMENT_AUTHORIZENET_STATUS', 'True', 'Do you want to accept Authorize.net payments?', 'tep_cfg_select_option(array(\'True\', \'False\'), ');
-
-INSERT INTO cc_configuration (ctitle, ckey, cvalue, cdescription, set_function) VALUES ('Enable PayPal Module', 'MODULE_PAYMENT_PAYPAL_STATUS', 'True', 'Do you want to accept PayPal payments?','tep_cfg_select_option(array(\'True\', \'False\'), ');
-INSERT INTO cc_configuration (ctitle, ckey, cvalue, cdescription) VALUES ('E-Mail Address', 'MODULE_PAYMENT_PAYPAL_ID', 'you@yourbusiness.com', 'The e-mail address to use for the PayPal service');
-INSERT INTO cc_configuration (ctitle, ckey, cvalue, cdescription, set_function) VALUES ('Transaction Currency', 'MODULE_PAYMENT_PAYPAL_CURRENCY', 'Selected Currency', 'The currency to use for credit card transactions', 'tep_cfg_select_option(array(\'Selected Currency\',\'USD\',\'CAD\',\'EUR\',\'GBP\',\'JPY\'), ');
-
-INSERT INTO cc_configuration (ctitle, ckey, cvalue, cdescription) VALUES ('E-Mail Address', 'MODULE_PAYMENT_MONEYBOOKERS_ID', 'you@yourbusiness.com', 'The eMail address to use for the moneybookers service');
-INSERT INTO cc_configuration (ctitle, ckey, cvalue, cdescription) VALUES ('Referral ID', 'MODULE_PAYMENT_MONEYBOOKERS_REFID', '989999', 'Your personal Referral ID from moneybookers.com');
-INSERT INTO cc_configuration (ctitle, ckey, cvalue, cdescription, set_function) VALUES ('Transaction Currency', 'MODULE_PAYMENT_MONEYBOOKERS_CURRENCY', 'Selected Currency', 'The default currency for the payment transactions', 'tep_cfg_select_option(array(\'Selected Currency\',\'EUR\', \'USD\', \'GBP\', \'HKD\', \'SGD\', \'JPY\', \'CAD\', \'AUD\', \'CHF\', \'DKK\', \'SEK\', \'NOK\', \'ILS\', \'MYR\', \'NZD\', \'TWD\', \'THB\', \'CZK\', \'HUF\', \'SKK\', \'ISK\', \'INR\'), ');
-INSERT INTO cc_configuration (ctitle, ckey, cvalue, cdescription, set_function) VALUES ('Transaction Language', 'MODULE_PAYMENT_MONEYBOOKERS_LANGUAGE', 'Selected Language', 'The default language for the payment transactions', 'tep_cfg_select_option(array(\'Selected Language\',\'EN\', \'DE\', \'ES\', \'FR\'), ');
-INSERT INTO cc_configuration (ctitle, ckey, cvalue, cdescription, set_function) VALUES ('Enable moneybookers Module', 'MODULE_PAYMENT_MONEYBOOKERS_STATUS', 'True', 'Do you want to accept moneybookers payments?','tep_cfg_select_option(array(\'True\', \'False\'), ');
 
 CREATE TABLE cc_epayment_log (
     id 				BIGSERIAL NOT NULL,
@@ -1937,17 +1383,3 @@ CREATE TABLE cc_epayment_log (
 ALTER TABLE ONLY cc_epayment_log
 ADD CONSTRAINT cc_epayment_log_pkey PRIMARY KEY (id);
 
-CREATE TABLE cc_system_log (
-    id 								BIGSERIAL NOT NULL,
-    iduser 							INTEGER NOT NULL DEFAULT 0,
-    loglevel	 					INTEGER NOT NULL DEFAULT 0,
-    action			 				TEXT NOT NULL,
-    description						TEXT,    
-    data			 				TEXT,
-	tablename						CHARACTER VARYING(255),
-	pagename			 			CHARACTER VARYING(255),
-	ipaddress						CHARACTER VARYING(255),	
-	creationdate  					TIMESTAMP(0) without time zone DEFAULT NOW()   
-);
-ALTER TABLE ONLY cc_system_log
-ADD CONSTRAINT cc_system_log_pkey PRIMARY KEY (id);
