@@ -27,3 +27,4 @@ CREATE TABLE cc_a2b_server (
     lasttime_used	TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW()
 );
 
+-- "current_user"

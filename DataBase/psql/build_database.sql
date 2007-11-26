@@ -4,4 +4,4 @@
 
 SET default_with_oids = false;
 
-\i ./schema200/sch1.sql
+\i ./schema-200/*.sql
