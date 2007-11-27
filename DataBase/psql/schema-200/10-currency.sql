@@ -1,3 +1,4 @@
+\echo "Currency tables"
 
 CREATE TABLE cc_currencies (
     id serial PRIMARY KEY,

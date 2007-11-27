@@ -4,4 +4,5 @@
 
 SET default_with_oids = false;
 
-\i ./schema-200/*.sql
+\! cat ./schema-200/*.sql > all.tmp.sql
+\i all.tmp.sql

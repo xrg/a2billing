@@ -1,7 +1,7 @@
 -- Servers for a2billing:
 -- An a2billing installation could cover several asterisk boxen.
 
-INSERT INTO cc_server_manager (id_group, server_ip, manager_host, manager_username, manager_secret) VALUES (1, 'localhost', 'localhost', 'myasterisk', 'mycode');
+-- INSERT INTO cc_server_manager (id_group, server_ip, manager_host, manager_username, manager_secret) VALUES (1, 'localhost', 'localhost', 'myasterisk', 'mycode');
 
 
 CREATE TABLE cc_server_group (

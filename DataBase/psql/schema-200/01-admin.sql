@@ -1,3 +1,4 @@
+\echo Administration tables
 
 CREATE TABLE cc_ui_authen (
     userid bigserial PRIMARY KEY,
