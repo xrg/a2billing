@@ -8,7 +8,7 @@
     selling prices, buying prices etc.
 
 	_The Algorithm_
-    1. First look at the numplan and detect if the dialstring has international prefix
+    [1. First look at the numplan and detect if the dialstring has international prefix]
     2. Locate the tariffgroup -> retail plan
     3. Locate the selling rate etc. from retail plan
     4. Locate the buying plan(s), buing price
