@@ -1395,7 +1395,8 @@ class FormHandler{
 	}
 	
 	
-	function add_did_use(){
+	function add_did_use()
+	{
 		$processed = $this->getProcessed();
 		$did=$processed['did'];
 		$FG_TABLE_DID_USE_NAME = "cc_did_use";
@@ -1408,7 +1409,8 @@ class FormHandler{
 	/*
 	****End
 	*/
-	function create_sipiax_friends_reload(){
+	function create_sipiax_friends_reload()
+	{
 		$this -> create_sipiax_friends();
 		
 		
@@ -1425,17 +1427,19 @@ class FormHandler{
 			$as->disconnect();
 		}
 	}
+	
 	/**
      * Function to edit the fields
      * @public
      */
-	function create_sipiax_friends(){
+	function create_sipiax_friends()
+	{
 		global $A2B;
 		$processed = $this->getProcessed();
 		
 		$id = $this -> RESULT_QUERY; // DEFINED BEFORE FG_ADDITIONAL_FUNCTION_AFTER_ADD		
-		$sip_buddy = $processed['sip_buddy'];
-		$iax_buddy = $processed['iax_buddy'];
+		$sip_buddy = stripslashes($processed['sip_buddy']);
+		$iax_buddy = stripslashes($processed['iax_buddy']);
 		
 		// $this -> FG_QUERY_EXTRA_HIDDED - username, useralias, uipass, loginkey
 		

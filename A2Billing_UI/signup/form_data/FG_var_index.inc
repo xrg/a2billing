@@ -1,20 +1,13 @@
 <?php
 
-getpost_ifset(array('id', 'username', 'useralias', 'uipass', 'credit', 'language', 'tariff',
-                    'activated', 'simultaccess', 'currency', 'typepaid', 'creditlimit',
-                    'lastname', 'firstname', 'email', 'address', 'city', 'state', 'country',
-                    'zipcode', 'phone', 'fax', 'inuse', 'cid', 'runservice', 'firstusedate',
-                    'expirationdate', 'enableexpire', 'expiredays','captchacode'));
+getpost_ifset(array('id', 'username', 'useralias', 'uipass', 'credit', 'language', 'tariff', 'activated', 'simultaccess', 'currency', 'typepaid', 'creditlimit', 'lastname', 'firstname', 'email', 'address', 'city', 'state', 'country', 'zipcode', 'phone', 'fax', 'inuse', 'cid', 'runservice', 'firstusedate', 'expirationdate', 'enableexpire', 'expiredays','captchacode'));
 
 
 $HD_Form = new FormHandler("cc_card","User");
 $HD_Form -> FG_DEBUG = 0;
-// FAQ
 $HD_Form -> FG_TABLE_DEFAULT_SENS = "ASC";
 $HD_Form -> FG_FILTER_SEARCH_SESSION_NAME = 'entity_card_selection';
 
-
-// TODO Unify order of parameters
 
 $language_list = array();
 $language_list["0"] = array( "ENGLISH", "en");
@@ -27,8 +20,7 @@ $language_list_r["1"] = array("es", "SPANISH");
 $language_list_r["2"] = array("fr", "FRENCH");
 
 $callPlan_idlist = isset($A2B->config["signup"]['callplan_id_list'])?$A2B->config["signup"]['callplan_id_list']:null; 
-if(strlen($callPlan_idlist) == 0)
-{
+if(strlen($callPlan_idlist) == 0) {
 	exit("No Call Plan Defined.");
 }
 
@@ -37,25 +29,21 @@ $call_table = new Table("cc_tariffgroup", "tariffgroupname,id");
 $HD_Form -> setDBHandler (DbConnect());
 $callPlan_list = $call_table-> Get_list($HD_Form -> DBHandle,"id in ($callPlan_idlist)");
 
-if (!is_array($callPlan_list) && count($callPlan_list) <= 0)
-{
+if (!is_array($callPlan_list) && count($callPlan_list) <= 0) {
 	exit(gettext("No Call Plan id are defined"));
-} 
+}
+
 $flag_callplan = 0;
-if ($tariff!="" || $tariff != null)
-{
+if ($tariff!="" || $tariff != null) {
 	$callPlan_count = count($callPlan_list);	
-	for ($i=0; $i< $callPlan_count; $i++ )
-	{
-		if($callPlan_list[$i][1] == trim($tariff,"\'"))
-		{
+	for ($i=0; $i< $callPlan_count; $i++ ) {
+		if($callPlan_list[$i][1] == trim($tariff,"\'")) {
 			$flag_callplan = 1;
-		}		
+		}
 	}
-	if($flag_callplan == 0)
-	{
+	if($flag_callplan == 0) {
 		exit("Invalid Call Plan Id");	
-	}	 
+	}
 }
 
 $currency_list = array();
@@ -71,23 +59,20 @@ foreach($currencies_list as $key => $cur_value) {
 }
 
 
+$HD_Form -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE 	= false;
+$HD_Form -> CV_TEXT_TITLE_ABOVE_TABLE 			= '';
+$HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE 		= false;
+$HD_Form -> FG_LIMITE_DISPLAY 					= 10;
+if (!($popup_select>=1)) 	$HD_Form -> FG_EXPORT_CSV = true;
+if (!($popup_select>=1)) 	$HD_Form -> FG_EXPORT_XML = true;
+if (($popup_select>=1))		$HD_Form ->FG_LIMITE_DISPLAY=7;
 
-$HD_Form -> CV_DISPLAY_LINE_TITLE_ABOVE_TABLE = false;
-$HD_Form -> CV_TEXT_TITLE_ABOVE_TABLE = '';
-$HD_Form -> CV_DISPLAY_FILTER_ABOVE_TABLE = false;
-$HD_Form -> FG_LIMITE_DISPLAY = 10;
-if (!($popup_select>=1)) $HD_Form -> FG_EXPORT_CSV = true;
-if (!($popup_select>=1)) $HD_Form -> FG_EXPORT_XML = true;
+$HD_Form -> CV_FOLLOWPARAMETERS = "&popup_select=".$_GET['popup_select']."&popup_formname=".$_GET['popup_formname']."&popup_fieldname=".$_GET['popup_fieldname'];
 
-if (($popup_select>=1))	$HD_Form ->FG_LIMITE_DISPLAY=7;
-
-$HD_Form -> CV_FOLLOWPARAMETERS= "&popup_select=".$_GET['popup_select']."&popup_formname=".$_GET['popup_formname']."&popup_fieldname=".$_GET['popup_fieldname'];
-
-$maxi='';
-$maxi2='';
-$maxi3='';
-if (isset($form_action) && $form_action=="add")
-{
+$maxi	= '';
+$maxi2	= '';
+$maxi3	= '';
+if (isset($form_action) && $form_action=="add") {
 	$array_card_generated  = gen_card_with_alias();
     $maxi = $array_card_generated[0];	
     $maxi2 = $array_card_generated[1];
@@ -114,8 +99,7 @@ $HD_Form -> AddEditElement ("CURRENCY",
 			   "",
 			   "list" , "", "",	"", $currency_list, "%1", "", "" );
 
-if (strpos($callPlan_idlist, ',') !== false)
-{
+if (strpos($callPlan_idlist, ',') !== false) {
 $HD_Form -> AddEditElement (gettext("CALL PLAN"),
 			   "tariff",
 			   "",
@@ -126,7 +110,7 @@ $HD_Form -> AddEditElement (gettext("CALL PLAN"),
 			   "list" , "", "",	"", $callPlan_list, "%1", "", "" );			   
 }
 $comp_zero = $comp_date_plus='';
-if (isset($form_action) && $form_action=="ask-add"){
+if (isset($form_action) && $form_action=="ask-add") {
 	$begin_date = date("Y");
 	$begin_date_plus = date("Y")+10;
 	$end_date = date("-m-d H:i:s");
@@ -330,12 +314,9 @@ $HD_Form -> FG_TEXT_ADITION_CONFIRMATION = "<font>".gettext("Thanks for register
 $HD_Form -> FG_BUTTON_EDITION_SRC = $HD_Form -> FG_BUTTON_ADITION_SRC  = Images_Path . "/cormfirmboton.gif";
 $HD_Form -> FG_BUTTON_EDITION_BOTTOM_TEXT = $HD_Form -> FG_BUTTON_ADITION_BOTTOM_TEXT = gettext("Once you have completed the form above, click on the CONFIRM DATA button.");
 
-if(RELOAD_ASTERISK_IF_SIPIAX_CREATED)
-{
+if(RELOAD_ASTERISK_IF_SIPIAX_CREATED) {
 	$HD_Form -> FG_ADDITIONAL_FUNCTION_AFTER_ADD = 'create_sipiax_friends_reload';
-}
-else
-{
+} else {
 	$HD_Form -> FG_ADDITIONAL_FUNCTION_AFTER_ADD = 'create_sipiax_friends';
 }
 
@@ -345,4 +326,3 @@ else
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_EDIT = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
 $HD_Form -> FG_GO_LINK_AFTER_ACTION_DELETE = $_SERVER['PHP_SELF']."?atmenu=document&stitle=Document&wh=AC&id=";
 
-?>
