@@ -58,7 +58,7 @@
 	?>
 		<table cellpadding="2" cellspacing="0" border="0" width="100%">
 			<tr>			
-				<td> <img src="../lib/captcha/captcha.php" ></td>
+				<td> <img src="../signup/captcha/captcha.php" ></td>
 			</tr>			
 			<tr>
 			<td><INPUT class="form_input_text" name=<?php echo $this->FG_TABLE_ADITION[$i][1]?>  <?php echo $this->FG_TABLE_ADITION[$i][4]?> value="<?php echo $_POST[$this->FG_TABLE_ADITION[$i][1]];?>"> Enter code from above picture here.
@@ -193,13 +193,10 @@
       </TABLE>
 	  <TABLE cellspacing="0" class="editform_table8">
 		<tr>
-		 <td colspan="2" class="editform_dotted_line">&nbsp; </td>
-		</tr>
-		<tr>
 			<td width="50%" class="text_azul"><span class="tableBodyRight"><?php echo $this->FG_BUTTON_ADITION_BOTTOM_TEXT?></span></td>
 			<td width="50%" align="right" class="text">
 				<a href="#" onClick="javascript:document.myForm.submit();" class="cssbutton_big"><IMG src="<?php echo Images_Path_Main;?>/icon_arrow_orange.gif">
-				<?php echo gettext("CONFIRM DATA"); ?> </span>
+				<?php echo $this->FG_ADD_PAGE_CONFIRM_BUTTON; ?> </a>
 				<!--
 				<INPUT title="<?php echo gettext("Create a new ");?><?php echo $this->FG_INSTANCE_NAME?>" alt="<?php echo gettext("Create a new ");?> <?php echo $this->FG_INSTANCE_NAME?>" border=0 hspace=0 id=submit4 name=submit2 src="<?php echo $this->FG_BUTTON_ADITION_SRC?>" type=image>
 				-->

@@ -1,4 +1,3 @@
-
 <script language="JavaScript" src="./javascript/calonlydays.js"></script>
 <script language="JavaScript" type="text/JavaScript">
 <!--
@@ -22,9 +21,7 @@ function sendtolittle(direction){
 //-->
 </script>
 
-
 <table class="editform_table1" cellspacing="2">
-			
 	<FORM action=<?php echo $_SERVER['PHP_SELF']?> method=post name="myForm" id="myForm"> 
 		<INPUT type="hidden" name="id" value="<?php echo $id?>">
 		<INPUT type="hidden" name="form_action" value="edit">
@@ -40,40 +37,54 @@ function sendtolittle(direction){
 			echo "<INPUT type=\"hidden\" name=\"".trim($split_hidden_fields[$cur_hidden])."\" value=\"".trim($split_hidden_fields_value[$cur_hidden])."\">\n";
 		}		
 	}
-?>			  
-            <TBODY>
-<?php 
-	for($i=0;$i<$this->FG_NB_TABLE_EDITION;$i++){ 
-		$pos = strpos($this->FG_TABLE_EDITION[$i][14], ":"); // SQL CUSTOM QUERY
-		
-		
-		if (strlen($this->FG_TABLE_EDITION[$i][16])>1){
+
+	for($i=0;$i<$this->FG_NB_TABLE_EDITION;$i++) { 
+		$pos = strpos($this->FG_TABLE_EDITION[$i][14], ":"); // SQL CUSTOM QUERY		
+		if (strlen($this->FG_TABLE_EDITION[$i][16])>1) {
 			echo '<TR><TD width="%25" valign="top" bgcolor="#FEFEEE" colspan="2" class="tableBodyRight" ><i>';				
 			echo $this->FG_TABLE_EDITION[$i][16];
 			echo '</i></TD></TR>';
 		}
 		
-		if (!$pos){
-			
+		if (!$pos) {			
 ?>
-                    <TR> 
-		
+		<TR> 		
 		<?php if (!$this-> FG_fit_expression[$i]  &&  isset($this-> FG_fit_expression[$i]) ){ ?>
 			<TD width="%25" valign="middle" class="form_head_red"> 		<?php echo $this->FG_TABLE_EDITION[$i][0]?> 		</TD>  
 		  	<TD width="%75" valign="top" class="tableBodyRight" background="<?php echo Images_Path;?>/background_cells_red.gif" >
-        <?php }else{ ?>
+        <?php } else { ?>
 			<TD width="%25" valign="middle" class="form_head"> 		<?php echo $this->FG_TABLE_EDITION[$i][0]?> 		</TD>  
 			<TD width="%75" valign="top" class="tableBodyRight" background="<?php echo Images_Path;?>/background_cells.gif" >
-		<?php } ?>
-                        <?php 
+		<?php }
+		
 			if ($this->FG_DEBUG == 1) print($this->FG_TABLE_EDITION[$i][3]);
-		  		if (strtoupper ($this->FG_TABLE_EDITION[$i][3])==strtoupper ("INPUT"))
+				if(($this->FG_DISPLAY_SELECT == true) && (strlen($this->FG_SELECT_FIELDNAME)>0) && (strlen($list[0][$this->FG_SELECT_FIELDNAME])>0) && ($this->FG_CONF_VALUE_FIELDNAME == $this->FG_TABLE_EDITION[$i][1]))
+				{
+				$valuelist = explode(",", $list[0][$this->FG_SELECT_FIELDNAME]);
+				
+				?>
+					<SELECT name='<?php echo $this->FG_TABLE_EDITION[$i][1]?>' class="form_input_select">
+					<?php 
+					foreach($valuelist as $listval)
+					{
+					?>
+					<option value="<?php echo $listval;?>" <?php  if($listval == $list[0][$i]) echo " selected";?>><?php echo $listval;?></option>
+					<?php }?>
+					</select>
+				<?
+				}
+		  		elseif (strtoupper ($this->FG_TABLE_EDITION[$i][3])==strtoupper ("INPUT"))
 				{								
 					if (isset ($this->FG_TABLE_EDITION[$i][15]) && strlen($this->FG_TABLE_EDITION[$i][15])>1){				
 						$list[0][$i] = call_user_func($this->FG_TABLE_EDITION[$i][15], $list[0][$i]);
 					}			
 			  ?>
-                        <INPUT class="form_input_text" name=<?php echo $this->FG_TABLE_EDITION[$i][1]?>  <?php echo $this->FG_TABLE_EDITION[$i][4]?> value="<?php if($this->VALID_SQL_REG_EXP){ echo stripslashes($list[0][$i]); }else{ echo $_POST[$this->FG_TABLE_ADITION[$i][1]];  }?>"> 
+                        <INPUT 	
+						class="form_input_text" 
+						 <?php if(substr_count($this->FG_TABLE_EDITION[$i][4], "readonly") > 0){?>
+						 style="background-color: #CCCCCC;" 
+						 <?php }?> 
+						name=<?php echo $this->FG_TABLE_EDITION[$i][1]?>  <?php echo $this->FG_TABLE_EDITION[$i][4]?> value="<?php if($this->VALID_SQL_REG_EXP){ echo stripslashes($list[0][$i]); }else{ echo $_POST[$this->FG_TABLE_ADITION[$i][1]];  }?>"> 
                         <?php 
 				}elseif (strtoupper ($this->FG_TABLE_EDITION[$i][3])==strtoupper ("POPUPVALUE")){
 			?>
@@ -108,7 +119,16 @@ function sendtolittle(direction){
 		  		}elseif (strtoupper ($this->FG_TABLE_EDITION[$i][3])==strtoupper ("TEXTAREA"))
 				{
 			  ?>
-                     <textarea class="form_input_textarea" name=<?php echo $this->FG_TABLE_EDITION[$i][1]?>  <?php echo $this->FG_TABLE_EDITION[$i][4]?>><?php if($this->VALID_SQL_REG_EXP){ echo stripslashes($list[0][$i]); }else{ echo $_POST[$this->FG_TABLE_ADITION[$i][1]];  }?></textarea> 
+                     <textarea class="form_input_textarea" 
+					 <?php if(substr_count($this->FG_TABLE_EDITION[$i][4], "readonly") > 0){?>
+						 style="background-color: #CCCCCC;" 
+						 <?php }?> 
+					 name=<?php echo $this->FG_TABLE_EDITION[$i][1]?>  <?php echo $this->FG_TABLE_EDITION[$i][4]?>><?php if($this->VALID_SQL_REG_EXP){ echo stripslashes($list[0][$i]); }else{ echo $_POST[$this->FG_TABLE_ADITION[$i][1]];  }?></textarea> 
+				<?php	
+		  		}elseif (strtoupper ($this->FG_TABLE_EDITION[$i][3])==strtoupper ("SPAN"))
+				{
+			  ?>
+                     <span class="form_input_span" name=<?php echo $this->FG_TABLE_EDITION[$i][1]?>  <?php echo $this->FG_TABLE_EDITION[$i][4]?>><?php if($this->VALID_SQL_REG_EXP){ echo stripslashes($list[0][$i]); }else{ echo $_POST[$this->FG_TABLE_ADITION[$i][1]];  }?></span> 	 
                         <?php 	
 				}elseif (strtoupper ($this->FG_TABLE_EDITION[$i][3])==strtoupper ("SELECT"))
 				{
@@ -235,18 +255,15 @@ function sendtolittle(direction){
 								<TR class="editform_table2_td1"> 
 								<TD height=16 style="PADDING-LEFT: 5px; PADDING-RIGHT: 3px" class="form_head"> 
 								  <TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
-									<TBODY>
 									  <TR> 
 										<TD class="form_head"><?php echo $this->FG_TABLE_EDITION[$i][0]?> <?php echo gettext("LIST ");?></TD>
 									  </TR>
-									</TBODY>
 								  </TABLE></TD>
 							  </TR>
 							  <TR> 
 								<TD> <TABLE class="editform_table3" cellSpacing=0>
-									<TBODY>
 									  <TR> 
-										<TD class="editform_table3_td1" colSpan=<?php echo $this->FG_TOTAL_TABLE_COL?> ><IMG height=1 src="<?php echo Images_Path_Main;?>/clear.gif" width=1></TD>
+										<TD class="editform_table3_td1" colspan=<?php echo $this->FG_TOTAL_TABLE_COL?> ><IMG height=1 src="<?php echo Images_Path_Main;?>/clear.gif" width=1></TD>
 									  </TR>
 									  <?php
 								$SPLIT_CLAUSE = str_replace("%id", "$id", $table_split[4]);
@@ -296,9 +313,8 @@ function sendtolittle(direction){
 	}
 	?>
                                   <TR> 
-                                    <TD class=tableDivider colSpan=<?php echo $this->FG_TOTAL_TABLE_COL?>><IMG height=1 src="<?php echo Images_Path_Main;?>/clear.gif" width=1></TD>
+                                    <TD class=tableDivider colspan=<?php echo $this->FG_TOTAL_TABLE_COL?>><IMG height=1 src="<?php echo Images_Path_Main;?>/clear.gif" width=1></TD>
                                   </TR>
-                                </TBODY>
                               </TABLE></td>
                           </tr>
                           <TR class="bgcolor_016"> 
@@ -319,7 +335,7 @@ function sendtolittle(direction){
                       <TD align="center" valign="top" background="<?php echo Images_Path;?>/background_cells.gif" class="text"><br>
                         <TABLE width="300" height=50 border=0 align="center" cellPadding=0 cellSpacing=0>
                             <TR> 
-                            	<TD bgColor=#7f99cc colSpan=3 height=16 style="PADDING-LEFT: 5px; PADDING-RIGHT: 5px" class="form_head">
+                            	<TD bgColor=#7f99cc colspan=3 height=16 style="PADDING-LEFT: 5px; PADDING-RIGHT: 5px" class="form_head">
 									<TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
 										<TR> 
 											<TD class="form_head"><?php echo gettext("Add a new");?> <?php echo $this->FG_TABLE_EDITION[$i][0]?></TD>
@@ -378,44 +394,40 @@ function sendtolittle(direction){
 										</TD>
                                     </TR>
 									<TR>
-                                      <TD colSpan=2 height=4></TD>
+                                      <TD colspan=2 height=4></TD>
                                     </TR>
                                     <TR>
-                                      <TD colspan="2" align="center" vAlign="middle">
-										<input onClick="sendto('add-content','<?php echo $i?>');" title="<?php echo gettext("add new a ");?><?php echo $this->FG_TABLE_EDITION[$i][0]?>" alt="<?php echo gettext("add new a ");?><?php echo $this->FG_TABLE_EDITION[$i][0]?>" border=0 height=20 hspace=2 id=submit32 name=submit3 src="<?php echo Images_Path_Main;?>/btn_Add_94x20.gif" type=image width=94 value="add-split">
-                                      </TD>
+                                    	<TD colspan="2" align="center" vAlign="middle">
+											<a href="#" onClick="sendto('add-content','<?php echo $i?>');"> 
+											<span class="cssbutton">ADD <?php echo $this->FG_TABLE_EDITION[$i][0]?></span></a>
+										</TD>
                                     </TR>
                                 </TABLE>
 							</TD>
                             <TD class="form_head"><IMG height=1 src="<?php echo Images_Path_Main;?>/clear.gif" width=1></TD>
                             </TR>
                             <TR>
-                              <TD colSpan=3 class="form_head"><IMG height=1 src="<?php echo Images_Path_Main;?>/clear.gif" width=1></TD>
+                            	<TD colspan=3 class="form_head"><IMG height=1 src="<?php echo Images_Path_Main;?>/clear.gif" width=1></TD>
                             </TR>
-
                         </TABLE>
-
                         </TD>
                     </TR>
-
-					<?php }elseif (strtoupper ($this->FG_TABLE_EDITION[$i][3])==strtoupper ("INSERT")){
+					<?php 
+						} elseif (strtoupper ($this->FG_TABLE_EDITION[$i][3])==strtoupper ("INSERT")) {
 							$table_split = split(":",$this->FG_TABLE_EDITION[$i][14]);
 					?>
 					<TR>
 					  <!-- ******************** PARTIE EXTERN : INSERT ***************** -->
-
-                      	<TD width="122" class="form_head"><?php echo $this->FG_TABLE_EDITION[$i][0]?></TD>
-
+						<TD width="122" class="form_head"><?php echo $this->FG_TABLE_EDITION[$i][0]?></TD>
                       	<TD align="center" valign="top" background="<?php echo Images_Path;?>/background_cells.gif" class="text"><br>
-
-
+						
                         <!-- Table with list instance already inserted -->
                         <table cellspacing="0" class="editform_table2">
                           <TR bgcolor="#ffffff">
                             <TD height=16 style="PADDING-LEFT: 5px; PADDING-RIGHT: 3px" class="form_head">
                             	<TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
                                 	<TR>
-                                		<TD class="form_head"><?php echo $this->FG_TABLE_EDITION[$i][0]?><?php echo gettext("LIST");?> </TD>
+                                		<TD class="form_head"><?php echo $this->FG_TABLE_EDITION[$i][0]?>&nbsp;<?php echo gettext("LIST");?> </TD>
                                 	</TR>
                             	</TABLE>
 							</TD>
@@ -424,7 +436,7 @@ function sendtolittle(direction){
                             <TD>
 								<TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
                                 <TR>
-                                	<TD bgColor=#e1e1e1 colSpan=<?php echo $this->FG_TOTAL_TABLE_COL?> height=1><IMG height=1 src="<?php echo Images_Path_Main;?>/clear.gif" width=1></TD>
+                                	<TD bgColor=#e1e1e1 colspan=<?php echo $this->FG_TOTAL_TABLE_COL?> height=1><IMG height=1 src="<?php echo Images_Path_Main;?>/clear.gif" width=1></TD>
                                 </TR>
                                 <?php
 			$SPLIT_CLAUSE = str_replace("%id", "$id", $table_split[4]);
@@ -448,7 +460,12 @@ function sendtolittle(direction){
                                   <TR bgcolor="<?php echo $this->FG_TABLE_ALTERNATE_ROW_COLOR[$j%2]?>"  onMouseOver="bgColor='#C4FFD7'" onMouseOut="bgColor='<?php echo $this->FG_TABLE_ALTERNATE_ROW_COLOR[$j%2]?>'">
                                     <TD vAlign="top" align="<?php echo $this->FG_TABLE_COL[$i][3]?>" class="tableBody">
                                       <font face="Verdana" size="2">
-                                      <b><?php echo $split_select_list[$j][$table_split[7]]?></b> : <?php echo $split_select_list[$j][0]?>
+                                      <?php if(!empty($split_select_list[$j][$table_split[7]]))
+                                      {
+                                      ?>
+                                      <b><?php echo $split_select_list[$j][$table_split[7]]?></b> : 
+                                      <?php }?>
+                                      <?php echo $split_select_list[$j][0]?>
                                       </font> </TD>
                                     <TD align="center" vAlign="top2" class="tableBodyRight">
                                       <input onClick="sendto('del-content','<?php echo $i?>','<?php echo $table_split[1]?>','<?php echo $split_select_list[$j][1]?>');" alt="Remove this <?php echo $this->FG_TABLE_EDITION[$i][0]?>" border=0 height=11 hspace=2 id=submit33 name=submit33 src="<?php echo Images_Path_Main;?>/icon-del.gif" type=image width=33 value="add-split">
@@ -466,7 +483,7 @@ function sendtolittle(direction){
 	}
 	?>
                                   <TR> 
-                                    <TD class="tableDivider" colSpan=<?php echo $this->FG_TOTAL_TABLE_COL?>><IMG height=1 src="<?php echo Images_Path_Main;?>/clear.gif" width=1></TD>
+                                    <TD class="tableDivider" colspan=<?php echo $this->FG_TOTAL_TABLE_COL?>><IMG height=1 src="<?php echo Images_Path_Main;?>/clear.gif" width=1></TD>
                                   </TR>
                               </TABLE></td>
                           </tr>
@@ -486,7 +503,130 @@ function sendtolittle(direction){
                       <TD align="center" valign="top" background="<?php echo Images_Path;?>/background_cells.gif" class="text"><br>
                         <TABLE width="300" height=50 border=0 align="center" cellPadding=0 cellSpacing=0>
                             <TR> 
-                            	<TD bgColor=#7f99cc colSpan=3 height=16 style="PADDING-LEFT: 5px; PADDING-RIGHT: 5px" class="form_head">
+                            	<TD bgColor=#7f99cc colspan=3 height=16 style="PADDING-LEFT: 5px; PADDING-RIGHT: 5px" class="form_head">
+									<TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
+										<TR> 
+											<TD class="form_head"><?php echo gettext("Add a new");?> <?php echo $this->FG_TABLE_EDITION[$i][0]?></TD>
+										</TR>
+									</TABLE>
+								</TD>
+                            </TR>
+							
+                            <TR> 
+								<TD class="form_head"> <IMG height=1 src="<?php echo Images_Path_Main;?>/clear.gif" width=1>
+								</TD>
+								<TD class="editform_table4_td1">
+								<TABLE width="97%" border=0 align="center" cellPadding=0 cellSpacing=0>
+									<TR> 
+										<TD width="122" class="tableBody"><?php echo $this->FG_TABLE_EDITION[$i][0]?></TD>
+										<TD width="516"><div align="left"> 	
+										<?php if($this->FG_TABLE_EDITION[$i][4] == "multiline"){?>
+							  				<textarea name=<?php echo $table_split[1]?> class="form_input_text"  cols="40" rows="5"></textarea>
+										<?php }else{?>
+											<INPUT TYPE="TEXT" name=<?php echo $table_split[1]?> class="form_input_text"  size="20" maxlength="20">
+										<?php }?>
+										</TD>
+                                    </TR>
+                                    <TR> 
+										<TD colspan="2" align="center">
+											<a href="#" onClick="sendto('add-content','<?php echo $i?>');"> 
+											<span class="cssbutton">ADD <?php echo $this->FG_TABLE_EDITION[$i][0]?></span></a>
+										</TD>
+                                    </TR>
+                                    <TR> 
+                                      <TD colspan=2 height=4></TD>
+                                    </TR>
+                                    <TR> 
+                                      <TD colspan=2> <div align="right"></div></TD>
+                                    </TR>
+                                </TABLE>
+								</TD>
+								<TD class="form_head"><IMG height=1 src="<?php echo Images_Path_Main;?>/clear.gif" width=1>
+								</TD>
+                            </TR>
+                            <TR> 
+                              <TD colspan=3 class="form_head"><IMG height=1 src="<?php echo Images_Path_Main;?>/clear.gif" width=1></TD>
+                            </TR>
+                        </TABLE>
+                        <br></TD>
+                    </TR>					
+					<?php  }elseif (strtoupper ($this->FG_TABLE_EDITION[$i][3])==strtoupper ("HAS_MANY")){
+							$table_split = split(":",$this->FG_TABLE_EDITION[$i][14]);
+							$table_col = split(",", $table_split[2]);
+					?>
+					<TR>
+					  <!-- ******************** PARTIE EXTERN : HAS_MANY ***************** -->
+                      	<TD width="122" class="form_head"><?php echo $this->FG_TABLE_EDITION[$i][0]?></TD>
+                      	<TD align="center" valign="top" background="<?php echo Images_Path;?>/background_cells.gif" class="text"><br>
+                        <!-- Table with list instance already inserted -->
+                        <table cellspacing="0" class="editform_table2">
+                          <TR bgcolor="#ffffff">
+                            <TD height=16 style="PADDING-LEFT: 5px; PADDING-RIGHT: 3px" class="form_head">
+                            	<TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
+                                	<TR>
+                                		<TD class="form_head"><?php echo $this->FG_TABLE_EDITION[$i][0]?>&nbsp;<?php echo gettext("LIST");?> </TD>
+                                	</TR>
+                            	</TABLE>
+							</TD>
+                          </TR>
+                          <TR>
+                            <TD>
+								<TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
+                                <TR>
+                                	<TD bgColor=#e1e1e1 colspan=<?php echo $this->FG_TOTAL_TABLE_COL?> height=1><IMG height=1 src="<?php echo Images_Path_Main;?>/clear.gif" width=1></TD>
+                                </TR>
+                                <?php
+								$SPLIT_CLAUSE = str_replace("%id", "$id", $table_split[3]);
+								$instance_sub_table = new Table($table_split[0], $table_split[2]);
+								$split_select_list = $instance_sub_table -> Get_list ($this->DBHandle, $SPLIT_CLAUSE, null, null, null, null, null, null);
+								if (!is_array($split_select_list)){
+									$num=0;
+								}else{
+									$num = count($split_select_list);
+								}
+								if($num>0){
+								for($j=0;$j<$num;$j++){
+								?>
+                                  <TR bgcolor="<?php echo $this->FG_TABLE_ALTERNATE_ROW_COLOR[$j%2]?>"  onMouseOver="bgColor='#C4FFD7'" onMouseOut="bgColor='<?php echo $this->FG_TABLE_ALTERNATE_ROW_COLOR[$j%2]?>'">
+                                    <TD vAlign="top" align="<?php echo $this->FG_TABLE_COL[$i][3]?>" class="tableBody">
+                                      <font face="Verdana" size="2">
+                                      <?php echo $split_select_list[$j][0]?>
+                                      </font> </TD>
+                                    <TD align="center" vAlign="top2" class="tableBodyRight">
+                                      <input onClick="sendto('del-content','<?php echo $i?>','<?php echo $table_col[0]?>','<?php echo $split_select_list[$j][0]?>');" alt="Remove this <?php echo $this->FG_TABLE_EDITION[$i][0]?>" border=0 height=11 hspace=2 id=submit33 name=submit33 src="<?php echo Images_Path_Main;?>/icon-del.gif" type=image width=33 value="add-split">
+                                    </TD>
+                                  </TR>
+                                  <?php
+								  }//end_for
+								}else{
+								?>
+                                  <TR bgcolor="<?php echo $this->FG_TABLE_ALTERNATE_ROW_COLOR[$j%2]?>"  onMouseOver="bgColor='#C4FFD7'" onMouseOut="bgColor='<?php echo $this->FG_TABLE_ALTERNATE_ROW_COLOR[$j%2]?>'">
+                                    <TD colspan="2" align="<?php echo $this->FG_TABLE_COL[$i][3]?>" vAlign="top" class="tableBody">
+                                      <div align="center" class="liens">No <?php echo $this->FG_TABLE_EDITION[$i][0]?></div></TD>
+                                  </TR>
+                               <?php }?>
+                                  <TR> 
+                                    <TD class="tableDivider" colspan=<?php echo $this->FG_TOTAL_TABLE_COL?>><IMG height=1 src="<?php echo Images_Path_Main;?>/clear.gif" width=1></TD>
+                                  </TR>
+                              </TABLE></td>
+                          </tr>
+                          <TR class="bgcolor_016"> 
+                            <TD class="editform_table3_td2"> 
+                            	<TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
+                                	<TR><TD height="4" align="right"></TD></TR>
+                              	</TABLE>
+							</TD>
+                          </TR>
+                        </table><br>
+</TD>
+                    </TR>
+                    <TR>
+					  <!-- *******************   Select to ADD new instances  ****************************** -->					  
+                      <TD class="form_head">&nbsp;</TD>
+                      <TD align="center" valign="top" background="<?php echo Images_Path;?>/background_cells.gif" class="text"><br>
+                        <TABLE width="300" height=50 border=0 align="center" cellPadding=0 cellSpacing=0>
+                            <TR> 
+                            	<TD bgColor=#7f99cc colspan=3 height=16 style="PADDING-LEFT: 5px; PADDING-RIGHT: 5px" class="form_head">
 									<TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
 										<TR> 
 											<TD class="form_head"><?php echo gettext("Add a new");?> <?php echo $this->FG_TABLE_EDITION[$i][0]?></TD>
@@ -503,20 +643,24 @@ function sendtolittle(direction){
 								<TABLE width="97%" border=0 align="center" cellPadding=0 cellSpacing=0>
 									<TR> 
 										<TD width="122" class="tableBody"><?php echo $this->FG_TABLE_EDITION[$i][0]?></TD>
-										<TD width="516"><div align="center"> 				
-											<INPUT TYPE="TEXT" name=<?php echo $table_split[1]?> class="form_input_text"  size="20" maxlength="20">
+										<TD width="516"><div align="left"> 	
+										<?php if($this->FG_TABLE_EDITION[$i][4] == "multiline"){?>
+							  				<textarea name=<?php echo $table_col[0]?> class="form_input_text"  cols="40" rows="5"></textarea>
+										<?php }else{?>
+											<INPUT TYPE="TEXT" name=<?php echo $table_col[0]?> class="form_input_text"  size="20" maxlength="20">
+										<?php }?>
 										</TD>
-                                    </TR>                                    
+                                    </TR>
                                     <TR> 
 										<TD colspan="2" align="center">									  	
-											<input onClick="sendto('add-content','<?php echo $i?>');" alt="add new a <?php echo $this->FG_TABLE_EDITION[$i][0]?>" border=0 height=20 hspace=2 id=submit32 name=submit3 src="<?php echo Images_Path_Main;?>/btn_Add_94x20.gif" type=image width=94 value="add-split">
+											<a href="#" onClick="sendto('add-content','<?php echo $i; ?>');"> <span class="cssbutton">ADD <?php echo $this->FG_TABLE_EDITION[$i][0]?></span></a>
 										</TD>
                                     </TR>
-                                    <TR> 
-                                      <TD colSpan=2 height=4></TD>
+                                    <TR>
+                                      <TD colspan=2 height=4></TD>
                                     </TR>
                                     <TR> 
-                                      <TD colSpan=2> <div align="right"></div></TD>
+                                      <TD colspan=2> <div align="right"></div></TD>
                                     </TR>
                                 </TABLE>
 								</TD>
@@ -524,7 +668,7 @@ function sendtolittle(direction){
 								</TD>
                             </TR>
                             <TR> 
-                              <TD colSpan=3 class="form_head"><IMG height=1 src="<?php echo Images_Path_Main;?>/clear.gif" width=1></TD>
+                              <TD colspan=3 class="form_head"><IMG height=1 src="<?php echo Images_Path_Main;?>/clear.gif" width=1></TD>
                             </TR>
                         </TABLE>
                         <br></TD>
@@ -568,7 +712,7 @@ function sendtolittle(direction){
 			  ?>				
 			  <TABLE class="editform_table6" cellSpacing=0>
 				<TR> 
-                	<TD colSpan=3 class="editform_table6_td1">
+                	<TD colspan=3 class="editform_table6_td1">
 						<table border="0" cellpadding="0" cellspacing="0" width="100%">
 							<tr>
 								<td class="editform_table7_td1"><font > <?php echo $this->FG_TABLE_COMMENT[$i]?></font></td>
@@ -584,42 +728,39 @@ function sendtolittle(direction){
                         
  <?php 
  	foreach ($split_select_list_tariff as $select_recordset){ 
-				 $select_number++;
-				 
-				 if ($table_split[6]!="" && !is_null($table_split[6])){
-				 
-						if (is_numeric($table_split[7])){
-							$instance_sub_sub_table = new Table($table_split[8], $table_split[9]);
-							$SUB_TABLE_SPLIT_CLAUSE = str_replace("%1", $select_recordset[$table_split[7]], $table_split[11] );
-							$sub_table_split_select_list_tariff = $instance_sub_sub_table -> Get_list ($this->DBHandle, $SUB_TABLE_SPLIT_CLAUSE, null, null, null, null, null, null);
-							$select_recordset[$table_split[7]] = $sub_table_split_select_list_tariff[0][0];
-						}													 
-						 $value_display = $table_split[6];
-						 $nb_recor_k = count($select_recordset);
-						 for ($k=1;$k<=$nb_recor_k;$k++){
-							$value_display  = str_replace("%$k", $select_recordset[$k-1], $value_display );
-						 }
-				 }else{													 	
-					$value_display  = $select_recordset[0];
-				 }
-				 
-				 
-				 $checked_tariff=false;
-				 if($num>0)
-				 {
-					for($j=0;$j<$num;$j++)
-					{
-						if ($select_recordset[1]==$split_select_list[$j][1]) $checked_tariff=true;
-					}
-				 }
-
+		$select_number++;
+		
+		if ($table_split[6]!="" && !is_null($table_split[6])) {
+			
+			if (is_numeric($table_split[7])){
+				$instance_sub_sub_table = new Table($table_split[8], $table_split[9]);
+				$SUB_TABLE_SPLIT_CLAUSE = str_replace("%1", $select_recordset[$table_split[7]], $table_split[11] );
+				$sub_table_split_select_list_tariff = $instance_sub_sub_table -> Get_list ($this->DBHandle, $SUB_TABLE_SPLIT_CLAUSE, null, null, null, null, null, null);
+				$select_recordset[$table_split[7]] = $sub_table_split_select_list_tariff[0][0];
+			}													 
+			$value_display = $table_split[6];
+			$nb_recor_k = count($select_recordset);
+			for ($k=1;$k<=$nb_recor_k;$k++){
+				$value_display  = str_replace("%$k", $select_recordset[$k-1], $value_display );
+			}
+		} else {
+			$value_display  = $select_recordset[0];
+		}
+		
+		$checked_tariff=false;
+		if($num>0) {
+		for($j=0;$j<$num;$j++)
+		{
+			if ($select_recordset[1]==$split_select_list[$j][1]) $checked_tariff=true;
+		}
+	}
 ?>
 			<TR>
 				<TD class="tableBody"><input type="checkbox" name="<?php echo $table_split[0]?>[]" value="<?php echo $select_recordset[1]?>" <?php if ($checked_tariff) echo"checked";?>></TD>
 				<TD class="text_azul">&nbsp; <?php echo $value_display?></TD>
 			</TR>
 <?php }// END_FOREACH?>
-                         <TR><TD colSpan=2 height=4>
+                         <TR><TD colspan=2 height=4>
 				<span class="liens">
 					<?php
 				if (!$this-> FG_fit_expression[$i]  &&  isset($this-> FG_fit_expression[$i]) ){
@@ -633,7 +774,7 @@ function sendtolittle(direction){
                               </TD>
                             </TR>
                             <TR>
-                              <TD colSpan=3 class="form_head"><IMG height=1 src="<?php echo Images_Path_Main;?>/clear.gif" width=1></TD>
+                              <TD colspan="3" class="form_head"><IMG height=1 src="<?php echo Images_Path_Main;?>/clear.gif" width=1></TD>
                             </TR>
                         </TABLE>
 
@@ -647,19 +788,15 @@ function sendtolittle(direction){
                     <?php   	  }// end if if (strtoupper ($this->FG_TABLE_EDITION[$i][3])==strtoupper ("SELECT"))
 							}// end if pos
 			}//END_FOR ?>
-
                 </FORM>
               </TABLE>
 	  <TABLE cellspacing="0" class="editform_table8">
 		<tr>
-		 <td colspan="2" style="border-bottom: medium dotted rgb(102, 119, 102);">&nbsp; </td>
-		</tr>
-		<tr>
-			<td width="50%" class="text_azul"><span class="tableBodyRight"><?php echo $this->FG_BUTTON_EDITION_BOTTOM_TEXT?></span></td>
+			<td width="50%"><span class="tableBodyRight"><?php echo $this->FG_BUTTON_EDITION_BOTTOM_TEXT?></span></td>
 			<td width="50%" align="right" class="text">
 			
 				<a href="#" onClick="sendto('edit');" class="cssbutton_big"><IMG src="<?php echo Images_Path_Main;?>/icon_arrow_orange.gif">
-				<?php echo gettext("CONFIRM DATA"); ?> </a>
+				<?php echo $this->FG_EDIT_PAGE_CONFIRM_BUTTON; ?> </a>
 				
 				<!-- 
 				<input onClick="sendto('edit');" border=0 hspace=0 id=submit3 name=submit32 src="<?php echo $this->FG_BUTTON_EDITION_SRC?>" 

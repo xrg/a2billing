@@ -35,7 +35,6 @@ function openURLFilter(theLINK)
 	goURL = document.theFormFilter.choose_list.options[selInd].value;      
 	this.location.href = theLINK + goURL;
 }
-
 //-->
 </script>
   
@@ -47,6 +46,20 @@ function openURLFilter(theLINK)
 		  <TD class="tdstyle_002"><span>
           	  <b><?php echo $this -> CV_TEXT_TITLE_ABOVE_TABLE?></b></span>
 		  </TD>
+        </TR>
+	   <?php  } //END IF ?>
+	  <?php  IF ($this -> CV_DO_ARCHIVE_ALL){ ?>
+		<TR>
+			<FORM NAME="theFormFilter" action="<?php echo $_SERVER['PHP_SELF']?>">	
+			<input type="hidden" name="atmenu" value="<?php echo $_GET['atmenu']?>">
+			<input type="hidden" name="popup_select" value="<?php echo $_GET['popup_select']?>">
+			<input type="hidden" name="popup_formname" value="<?php echo $_GET['popup_formname']?>">
+			<input type="hidden" name="popup_fieldname" value="<?php echo $_GET['popup_fieldname']?>">
+			<input type="hidden" name="archive" value="true">
+            <td class="viewhandler_filter_td1">
+				<input type="SUBMIT" value="<?php echo gettext("Archiving All ");?>" class="form_input_button" onclick="return confirm('This action will archive the data, Are you sure?');"/>
+			</td>
+			</FORM>
         </TR>
 	   <?php  } //END IF ?>
 	   <?php  IF ($this -> CV_DISPLAY_FILTER_ABOVE_TABLE){ ?>
@@ -174,8 +187,9 @@ function openURLFilter(theLINK)
 					/**********************   select the mode to browse define the column value : lie, list, value, eval.... ************************/
 					if ($this->FG_TABLE_COL[$i][6]=="lie"){
 						$instance_sub_table = new Table($this->FG_TABLE_COL[$i][7], $this->FG_TABLE_COL[$i][8]);
-						$sub_clause = str_replace("%id", $list[$ligne_number][$i-$k], $this->FG_TABLE_COL[$i][9]);																																	
-						$select_list = $instance_sub_table -> Get_list ($this->DBHandle, $sub_clause, null, null, null, null, null, null);
+						$sub_clause = str_replace("%id", $list[$ligne_number][$i-$k], $this->FG_TABLE_COL[$i][9]);
+						
+						$select_list = $instance_sub_table -> Get_list ($this->DBHandle, $sub_clause, null, null, null, null, null, null, null, 10);
 						$field_list_sun = split(',',$this->FG_TABLE_COL[$i][8]);
 						$record_display = $this->FG_TABLE_COL[$i][10];
 								
@@ -183,7 +197,20 @@ function openURLFilter(theLINK)
 							$record_display = str_replace("%$l", $select_list[0][$l-1], $record_display);
 						}						
 						
-					}elseif ($this->FG_TABLE_COL[$i][6]=="eval"){
+					}elseif($this->FG_TABLE_COL[$i][6]=="lie_link"){
+						$instance_sub_table = new Table($this->FG_TABLE_COL[$i][7], $this->FG_TABLE_COL[$i][8]);
+						$sub_clause = str_replace("%id", $list[$ligne_number][$i-$k], $this->FG_TABLE_COL[$i][9]);
+						$select_list = $instance_sub_table -> Get_list ($this->DBHandle, $sub_clause, null, null, null, null, null, null, null, 10);
+						$field_list_sun = split(',',$this->FG_TABLE_COL[$i][8]);
+						$record_display = $this->FG_TABLE_COL[$i][10];
+						$link = $this->FG_TABLE_COL[$i][12]."?form_action=ask-edit&id=".$select_list[0][1];		
+						for ($l=1;$l<=count($field_list_sun);$l++){													
+							$val = str_replace("%$l", $select_list[0][$l-1], $record_display);
+							$record_display = "<a href='$link'>$val</a>";
+						}						
+
+					}
+					elseif ($this->FG_TABLE_COL[$i][6]=="eval"){
 						$string_to_eval = $this->FG_TABLE_COL[$i][7]; // %4-%3
 						for ($ll=0;$ll<=15;$ll++){
 							if ($list[$ligne_number][$ll]=='') $list[$ligne_number][$ll]=0;
@@ -196,6 +223,10 @@ function openURLFilter(theLINK)
 					}elseif ($this->FG_TABLE_COL[$i][6]=="list"){
 						$select_list = $this->FG_TABLE_COL[$i][7];
 						$record_display = $select_list[$list[$ligne_number][$i-$k]][0];
+					}elseif ($this->FG_TABLE_COL[$i][6]=="list-conf"){
+						$select_list = $this->FG_TABLE_COL[$i][7];
+						$key_config =  $list[$ligne_number][$i-$k + 3] - 1;
+						$record_display = $select_list[$key_config][0];
 					}elseif ($this->FG_TABLE_COL[$i][6]=="value"){
 						$record_display = $this->FG_TABLE_COL[$i][7];
 						$k++;
@@ -222,7 +253,7 @@ function openURLFilter(theLINK)
 						$list[$ligne_number][$i-$k] = $record_display;
 
 						if (isset ($this->FG_TABLE_COL[$i][11]) && strlen($this->FG_TABLE_COL[$i][11])>1){
-							call_user_func($this->FG_TABLE_COL[$i][11], $record_display);
+							print call_user_func($this->FG_TABLE_COL[$i][11], $record_display);
 						}else{
 							echo stripslashes($record_display);
 						}
@@ -351,7 +382,8 @@ function openURLFilter(theLINK)
 
 		  </TD>
         </TR>
-         <TR >
+		<?php if ($this->CV_DISPLAY_BROWSE_PAGE){ ?>
+        <TR >
           <TD height=16 style="PADDING-LEFT: 5px; PADDING-RIGHT: 3px">
 			<TABLE border=0 cellPadding=0 cellSpacing=0 width="100%">
                 <TR>
@@ -365,9 +397,11 @@ function openURLFilter(theLINK)
                   </TD>
             </TABLE></TD>
         </TR>
+		<?php  	} 	?>
 		
 		<FORM name="otherForm2" action="<?php echo $_SERVER['PHP_SELF']?>">
 		<tr><td>
+		<?php if ($this->CV_DISPLAY_RECORD_LIMIT){ ?>
 			<?php echo gettext("DISPLAY");?>
 			<input type="hidden" name="stitle" value="<?php echo $stitle?>">
 			<input type="hidden" name="atmenu" value="<?php echo $atmenu?>">
@@ -389,7 +423,7 @@ function openURLFilter(theLINK)
 			</select>
 			<input class="form_input_button"  value=" <?php echo gettext("GO");?> " type="SUBMIT">
 			&nbsp; &nbsp; &nbsp;
-			
+		<?php  	} 	?>
 		<?php if ($this->FG_EXPORT_CSV){ ?>
 		 - &nbsp; &nbsp; <a href="export_csv.php?var_export=<?php echo $this->FG_EXPORT_SESSION_VAR ?>&var_export_type=type_csv" target="_blank" ><img src="<?php echo Images_Path;?>/excel.gif" border="0" height="30"/><?php echo gettext("Export CSV");?></a>
 

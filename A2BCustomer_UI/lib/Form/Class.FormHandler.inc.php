@@ -9,16 +9,16 @@
 // ************************************************************************
 
 
-class FormHandler{
+class FormHandler
+{	
 	var $_action = '';
 	var $_vars = null;
 	var $_processed = array();
 	var $DBHandle;
 	var $VALID_SQL_REG_EXP = true;
 	var $RESULT_QUERY = false;
-
-
-
+	
+	
 	/* CONFIG THE VIEWER : CV */
 	var $CV_TOPVIEWER = '';
 	var $CV_NO_FIELDS = "THERE IS NO RECORD !";
@@ -27,6 +27,11 @@ class FormHandler{
 	var $CV_DISPLAY_FILTER_ABOVE_TABLE = true;
 	var $CV_FILTER_ABOVE_TABLE_PARAM = "?id=";
 	var $CV_FOLLOWPARAMETERS = '';
+	var $CV_DO_ARCHIVE_ALL = false;
+		
+	
+	var $CV_DISPLAY_RECORD_LIMIT = true;
+	var $CV_DISPLAY_BROWSE_PAGE = true;
 
 	var $CV_CURRENT_PAGE = 0;
 
@@ -81,7 +86,7 @@ class FormHandler{
 	var $FG_NB_TABLE_COL=0;
 	var $FG_TOTAL_TABLE_COL=0;
 	
-	
+	 
 	/**
     * Keep the ID of the table
     * @public	-	@type string
@@ -112,7 +117,10 @@ class FormHandler{
 	var $FG_OTHER_BUTTON1_IMG = '';
 	var $FG_OTHER_BUTTON2_IMG = '';
 	
-
+	var $FG_EDIT_PAGE_CONFIRM_BUTTON	= '';
+	var $FG_DELETE_PAGE_CONFIRM_BUTTON	= '';
+	var $FG_ADD_PAGE_CONFIRM_BUTTON		= '';
+	
 	/**
     * Sets the number of record to show by page
     * @public	-	@type integer
@@ -164,6 +172,16 @@ class FormHandler{
 	var $FG_FILTER_SEARCH_2_TIME = true;
 	var $FG_FILTER_SEARCH_2_TIME_TEXT = '';
 	var $FG_FILTER_SEARCH_2_TIME_FIELD = 'creationdate';
+	
+	// to display the number of months 
+	// will show the select on search with options like 
+	// Select card older than : 3 Months, 4 Months, 5.... 12 Months
+	var $FG_FILTER_SEARCH_3_TIME = false;
+	var $FG_FILTER_SEARCH_3_TIME_TEXT = '';
+	var $FG_FILTER_SEARCH_3_TIME_FIELD = 'creationdate';
+
+	
+	
 	var $FG_FILTER_SEARCH_FORM_1C = array();
 	var $FG_FILTER_SEARCH_FORM_2C = array();
 	var $FG_FILTER_SEARCH_FORM_SELECT = array();
@@ -360,7 +378,7 @@ class FormHandler{
 	var $FG_ADDITIONAL_FUNCTION_AFTER_ADD = '';
 	var $FG_ADDITIONAL_FUNCTION_BEFORE_DELETE = '';
 	var $FG_ADDITIONAL_FUNCTION_AFTER_DELETE = '';
-
+	var $FG_ADDITIONAL_FUNCTION_AFTER_EDITION = '';
 
 	var $FG_TABLE_ALTERNATE_ROW_COLOR = array();
 	
@@ -373,7 +391,7 @@ class FormHandler{
     var $FG_FK_DELETE_ALLOWED = false;
 
 	// if it is set to true and Allowed flag is true all dependent records will be deleted.
-	var $FG_FK_DELETE_OR_UPDATE = false;
+	var $FG_FK_DELETE = false;
 	
     // Foreign Key Tables
     var $FG_FK_TABLENAMES = array();
@@ -396,7 +414,15 @@ class FormHandler{
 
     // Delete Message for FK
     var $FG_FK_DELETE_MESSAGE = "Are you sure to delete all records connected to this instance.";
+	
+    //To enable Disable Selection List 
+    var $FG_DISPLAY_SELECT  = false;	
 
+    //Selection List Field Name to get from Database
+    var $FG_SELECT_FIELDNAME  = "";
+
+	//Configuration Key value Field Name
+    var $FG_CONF_VALUE_FIELDNAME  = "";
     //*****************************
     // For Pre Selected Delete
     //Pre Selected Records Count
@@ -453,7 +479,12 @@ class FormHandler{
         $this -> FG_TEXT_ADITION_CONFIRMATION = gettext("Your new")." #FG_INSTANCE_NAME# ".gettext("has been inserted. <br>");
         $this -> FG_TEXT_ERROR_DUPLICATION = gettext("You cannot choose more than one !");
 
-        $this -> FG_FK_DELETE_MESSAGE = "Are you sure to delete all records connected to this instance.";
+        $this -> FG_FK_DELETE_MESSAGE = gettext("Are you sure to delete all records connected to this instance.");
+		
+		$this -> FG_EDIT_PAGE_CONFIRM_BUTTON	= gettext("CONFIRM DATA");
+		$this -> FG_DELETE_PAGE_CONFIRM_BUTTON	= gettext('DELETE');
+		$this -> FG_ADD_PAGE_CONFIRM_BUTTON		= gettext('CONFIRM DATA');
+		
 		if($this -> FG_ENABLE_LOG == 1)
 		{
 			$this -> logger = new Logger();
@@ -482,6 +513,8 @@ class FormHandler{
 		}
 		$this -> FG_EDITION_LINK	= $_SERVER['PHP_SELF']."?form_action=ask-edit&id=";
 		$this -> FG_DELETION_LINK	= $_SERVER['PHP_SELF']."?form_action=ask-delete&id=";
+
+ 
 
 		$this -> FG_DELETE_ALT = gettext("Delete this ").$this -> FG_INSTANCE_NAME;
 		$this -> FG_EDIT_ALT = gettext("Edit this ").$this -> FG_INSTANCE_NAME;
@@ -621,10 +654,10 @@ class FormHandler{
 	 * @ 12. $function render
      */
 
-	function AddViewElement($displayname, $fieldname, $colpercentage, $textalign='center', $sort='sort', $char_limit = null, $lie_type = null, $lie_with = null, $lie_fieldname = null, $lie_clause = null, $lie_display = null, $myfunc = null) {
+	function AddViewElement($displayname, $fieldname, $colpercentage, $textalign='center', $sort='sort', $char_limit = null, $lie_type = null, $lie_with = null, $lie_fieldname = null, $lie_clause = null, $lie_display = null, $myfunc = null, $link_file = null) {
         	$cur = count($this->FG_TABLE_COL);
 
-		$this->FG_TABLE_COL[$cur] = array($displayname, $fieldname, $colpercentage, $textalign, $sort, $char_limit, $lie_type, $lie_with, $lie_fieldname , $lie_clause , $lie_display, $myfunc );
+		$this->FG_TABLE_COL[$cur] = array($displayname, $fieldname, $colpercentage, $textalign, $sort, $char_limit, $lie_type, $lie_with, $lie_fieldname , $lie_clause , $lie_display, $myfunc , $link_file);
 
 		$this->FG_NB_TABLE_COL = count($this->FG_TABLE_COL);
 	}
@@ -828,7 +861,14 @@ class FormHandler{
 	 * @ $col_query	 
      */
 	 
-	function FieldEditElement ($fieldname) {         
+	function FieldEditElement ($fieldname) {     
+		if($this->FG_DISPLAY_SELECT == true)
+		{
+			if(strlen($this->FG_SELECT_FIELDNAME)>0)
+			{
+				$fieldname.= ", ".$this->FG_SELECT_FIELDNAME;
+			}
+		}
 		$this->FG_QUERY_EDITION = $fieldname;
 		$this->FG_QUERY_ADITION = $fieldname;
 	}
@@ -968,7 +1008,7 @@ class FormHandler{
 		return $sql;
   }
 
-  function do_field($sql,$fld, $simple=0){
+function do_field($sql,$fld, $simple=0){
   		$fldtype = $fld.'type';
 
         if (isset($_POST[$fld]) && ($_POST[$fld]!='')){
@@ -996,9 +1036,6 @@ class FormHandler{
 		return $sql;
   }
 
-
-
-	
 	/**
      * Function to execture the appropriate action
      * @public     	 
@@ -1041,7 +1078,6 @@ class FormHandler{
 			}
 			
 			if ( $form_action == "list" ){
-				
 				$instance_table = new Table($this -> FG_TABLE_NAME, $this -> FG_COL_QUERY);
 	
 				$this->prepare_list_subselection($form_action);
@@ -1100,7 +1136,6 @@ class FormHandler{
 
 
 			if ( $form_action == "list" && $this->FG_FILTER_SEARCH_FORM){
-
 				if (isset($processed['cancelsearch']) && ($processed['cancelsearch'] == true)){
 					$_SESSION[$this->FG_FILTER_SEARCH_SESSION_NAME] = '';
 				}
@@ -1185,6 +1220,14 @@ class FormHandler{
 								$date_clause.=" AND $UNIX_TIMESTAMP(".$this->FG_FILTER_SEARCH_2_TIME_FIELD.") <= $UNIX_TIMESTAMP('$processed[tostatsmonth_sday]-".sprintf("%02d",intval($processed[tostatsday_sday])/*+1*/)." 23:59:59')";
 					}
 
+					if ($processed[Period]=="month_older_rad"){
+						$from_month = $processed[month_earlier];
+						if(DB_TYPE == "postgres"){
+							$date_clause .= " AND CURRENT_TIMESTAMP - interval '$from_month months' > ".$this->FG_FILTER_SEARCH_3_TIME_FIELD."";
+						}else{
+							$date_clause .= " AND DATE_SUB(NOW(),INTERVAL $from_month MONTH) > ".$this->FG_FILTER_SEARCH_3_TIME_FIELD."";
+						}
+					}
 
 					if (strpos($SQLcmd, 'WHERE') > 0) {
 						if (strlen($this->FG_TABLE_CLAUSE)>0) $this->FG_TABLE_CLAUSE .=" AND ";
@@ -1408,7 +1451,8 @@ class FormHandler{
 	/*
 	****End
 	*/
-	function create_sipiax_friends_reload(){
+	function create_sipiax_friends_reload()
+	{
 		$this -> create_sipiax_friends();
 		
 		
@@ -1425,18 +1469,36 @@ class FormHandler{
 			$as->disconnect();
 		}
 	}
+	
+	function create_status_log()
+	{
+		$processed = $this->getProcessed();
+		$status = $processed['status'];
+		if($this -> RESULT_QUERY != '')
+			$id = $this -> RESULT_QUERY; // DEFINED BEFORE FG_ADDITIONAL_FUNCTION_AFTER_ADD		
+		else
+			$id = $processed['id']; // DEFINED BEFORE FG_ADDITIONAL_FUNCTION_AFTER_ADD		
+
+		$value = "'$status','$id'";
+		$func_fields = "status,id_cc_card";
+		$func_table = 'cc_status_log';
+		$id_name = "";
+		$instance_table = new Table();
+		$inserted_id = $instance_table -> Add_table ($this->DBHandle, $value, $func_fields, $func_table, $id_name);
+	}
+	
 	/**
      * Function to edit the fields
      * @public
      */
-	function create_sipiax_friends(){
-		
+	function create_sipiax_friends()
+	{
 		global $A2B;
 		$processed = $this->getProcessed();
 		
 		$id = $this -> RESULT_QUERY; // DEFINED BEFORE FG_ADDITIONAL_FUNCTION_AFTER_ADD		
-		$sip_buddy = $processed['sip_buddy'];
-		$iax_buddy = $processed['iax_buddy'];
+		$sip_buddy = stripslashes($processed['sip_buddy']);
+		$iax_buddy = stripslashes($processed['iax_buddy']);
 		
 		// $this -> FG_QUERY_EXTRA_HIDDED - username, useralias, uipass, loginkey
 		
@@ -1609,11 +1671,14 @@ class FormHandler{
 					}
 					
 					if ($this->FG_DEBUG == 1) echo "<br>$fields_name : ".$processed[$fields_name];
-					if ($i>0) $param_update .= ", ";
+					if ($i>0 && $this->FG_TABLE_EDITION[$i][3]!= "SPAN") $param_update .= ", ";
 					if (empty($processed[$fields_name]) && strtoupper(substr($this->FG_TABLE_ADITION[$i][13],3,4))=="NULL"){
 						$param_update .= $fields_name." = NULL ";
 					}else{
-						$param_update .= $fields_name." = '".addslashes(trim($processed[$fields_name]))."' ";
+						if($this->FG_TABLE_EDITION[$i][3]!= "SPAN")
+						{
+							$param_update .= $fields_name." = '".addslashes(trim($processed[$fields_name]))."' ";
+						}
 					}
 				}
 
@@ -1677,6 +1742,9 @@ class FormHandler{
 			$this -> logger -> insertLog_Update($_SESSION["admin_id"], 3, "A ".strtoupper($this->FG_INSTANCE_NAME)." UPDATED" , "A RECORD IS UPDATED, EDITION CALUSE USED IS ".$this->FG_EDITION_CLAUSE, $this->FG_TABLE_NAME, $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'], $param_update);
 		}	
 		if ($this->FG_DEBUG == 1) echo $this -> RESULT_QUERY;
+		// CALL DEFINED FUNCTION AFTER THE ACTION ADDITION
+			if (strlen($this->FG_ADDITIONAL_FUNCTION_AFTER_EDITION)>0)
+				$res_funct = call_user_func(array(&$this, $this->FG_ADDITIONAL_FUNCTION_AFTER_EDITION)); 
 		
 		if ( ($this->VALID_SQL_REG_EXP) && (isset($this->FG_GO_LINK_AFTER_ACTION_EDIT))){				
 			if ($this->FG_DEBUG == 1)  echo gettext("<br> GOTO ; ").$this->FG_GO_LINK_AFTER_ACTION_EDIT.$processed['id'];
@@ -1714,7 +1782,7 @@ class FormHandler{
         {
 		    $instance_table = new Table($this->FG_TABLE_NAME, $this->FG_QUERY_EDITION);
         }
-		$instance_table->FK_DELETE_OR_UPDATE = $this->FG_FK_WARNONLY;
+		$instance_table->FK_DELETE = ($this->FG_FK_WARNONLY ? false : true);
 		
 		if ($processed['id']!="" || !is_null($processed['id'])){
 			$this->FG_EDITION_CLAUSE = str_replace("%id", $processed['id'], $this->FG_EDITION_CLAUSE);
@@ -1723,7 +1791,7 @@ class FormHandler{
 		$this -> RESULT_QUERY = $instance_table -> Delete_table ($this->DBHandle, $this->FG_EDITION_CLAUSE, $func_table = null);
 		if($this -> FG_ENABLE_LOG == 1)
 		{
-			$this -> logger -> insertLog($_SESSION["admin_id"], 3, "A ".strtoupper($this->FG_INSTANCE_NAME)." DELETED" , "A RECORD IS DELETED, EDITION CALUSE USED IS ".$this->FG_EDITION_CLAUSE, $this->FG_TABLE_NAME, $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'], $param_update);
+			$this -> logger -> insertLog($_SESSION["admin_id"], 3, "A ".strtoupper($this->FG_INSTANCE_NAME)." DELETED" , "A RECORD IS DELETED, EDITION CLAUSE USED IS ".$this->FG_EDITION_CLAUSE, $this->FG_TABLE_NAME, $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'], $param_update);
 		}	
 		if (!$this -> RESULT_QUERY)  echo gettext("error deletion");
 		
@@ -2202,7 +2270,4 @@ class FormHandler{
 		}
 	}
 
-}
-
-	
-?>
+}?>
