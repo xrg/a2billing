@@ -570,7 +570,7 @@ class FormHandler
      * @public
      */	
 	function def_list () {
-		
+		/*
 		$this -> tablelist['billtype']["1"]  = array( gettext("ONESHOT"), "1");
 		$this -> tablelist['billtype']["2"]  = array( gettext("PER MINUTE"), "2");
 		
@@ -616,7 +616,7 @@ class FormHandler
 		$this -> tablelist['nbcode_list']["3"]  = array( "3 ".gettext("CODES"), "3");
 		$this -> tablelist['nbcode_list']["4"]  = array( "4 ".gettext("CODES"), "4");
 		$this -> tablelist['nbcode_list']["5"]  = array( "5 ".gettext("CODES"), "5");
-		
+		*/
 	}
 
 
@@ -629,7 +629,7 @@ class FormHandler
 
 
 	function sanitize_data($data){
-		throw new Exception ('Don\'t use this!');
+// 		*-*throw new Exception ('Don\'t use this!');
 		if(is_array($data)){
 			return $data; //Need to sanatize this later
 		}
@@ -827,15 +827,6 @@ class FormHandler
 			 $this->FG_DELETE_ALT	= $alttext_delete;
 		}
 	}
-
-
-
-
-
-
-
-
-
 
 	// ----------------------------------------------
     // METHOD FOR THE EDITION

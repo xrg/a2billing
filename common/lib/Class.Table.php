@@ -140,7 +140,7 @@ class Table {
 		
 		$sql_limit ='';
 		if (!is_null ($limite) && (is_numeric($limite)) && !is_null ($current_record) && (is_numeric($current_record)) ) {
-			if (DB_TYPE == "postgres") {
+			if ( $DBHandle->dataProvider  == "postgres") {
 				$sql_limit = " LIMIT $limite OFFSET $current_record";
 			} else {
 				$sql_limit = " LIMIT $current_record,$limite";
@@ -234,7 +234,7 @@ class Table {
 		// Fix that , make PEAR complaint
 		if ($id_name!="") {
 			
-			if (DB_TYPE == "postgres") {
+			if ($DBHandle->dataProvider == "postgres") {
 				
 				$oid = $DBHandle -> Insert_ID();
 				if ($oid <= 0 || $oid==''){ 

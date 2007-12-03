@@ -8,8 +8,9 @@ if($agi_conf)
 	$groupselect = add_agi_confx();
 	unset($agi_conf);
 }
+
 $setbool = false;
-$handle = DbConnect();
+$handle = A2Billing::DBHandle();
 $instance_table = new Table();
 $QUERY =  "SELECT config_value, config_listvalues from cc_config where id = $id";
 $result = $instance_table -> SQLExec ($handle, $QUERY);

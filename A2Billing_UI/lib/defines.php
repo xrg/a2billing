@@ -13,7 +13,7 @@ if(!($restircted_url == "Public/index.php") && !($restircted_url == "signup/inde
 	$log -> insertLog($_SESSION["admin_id"], 1, "Page Visit", "User Visited the Page", '', $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'],'');
 }
 
-$FG_DEBUG=2;
+$FG_DEBUG=4;
 
 ?>
 
