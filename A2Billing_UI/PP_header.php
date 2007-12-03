@@ -1,5 +1,5 @@
 <?php 
-	include (dirname(__FILE__)."/../lib/company_info.php");
+	include ("./lib/company_info.php");
 	
 /*	define ("WEBUI_DATE", 'Release : 13 August 2006');
 	define ("WEBUI_VERSION", 'Asterisk2Billing - Version 1.2.3 (BrainCoral) - ');*/
@@ -74,7 +74,7 @@ function imgidclick(imgID,divID, imgbase, imgchange)
 <div></div>
 <?php }else{  ?>
 <div class="divleft">
-	<?php include("PP_menu.php");?>
+	<?php require("PP_menu.php");?>
 </div>
 <div class="divright">
 

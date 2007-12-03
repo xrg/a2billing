@@ -1,4 +1,4 @@
-<?php include (dirname(__FILE__)."/../lib/company_info.php"); ?>
+<?php include ("./lib/company_info.php"); ?>
 
 <html>
 

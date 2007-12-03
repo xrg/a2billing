@@ -1,7 +1,8 @@
 <?php
-include_once (dirname(__FILE__)."/Class.A2Billing.php");
-require_once('adodb/adodb.inc.php'); // AdoDB
-include_once (dirname(__FILE__)."/Class.Table.php");
+define(DIR_COMMON,dirname(__FILE__)."/common/");
+require_once (DIR_COMMON."Class.A2Billing.php");
+require_once(DIR_COMMON.'adodb/adodb.inc.php'); // AdoDB
+require_once (DIR_COMMON."Class.Table.php");
 
 $A2B = new A2Billing();
 
@@ -95,13 +96,13 @@ define ("FRIEND_DTMFMODE", isset($A2B->config['peer_friend']['dtmfmode'])?$A2B->
 
 // INCLUDE FILES
 define ("FSROOT", substr(dirname(__FILE__),0,-3));
-define ("LIBDIR", FSROOT."lib/");
+//define ("LIBDIR", FSROOT."lib/");
 
 // USE PHPMAILER
-include_once (FSROOT."lib/mail/class.phpmailer.php");
+require_once (DIR_COMMON."mail/class.phpmailer.php");
 
 // INCLUDE MISC
-include (FSROOT."lib/Misc.php");
+require (DIR_COMMON."Misc.php");
 
 
 /*
@@ -141,7 +142,7 @@ else if (isset($language))
   $_SESSION["language"] = $language;
 }
 define ("LANGUAGE",$_SESSION["language"]);
-require_once("languageSettings.php");
+require_once(DIR_COMMON."languageSettings.php");
     SetLocalLanguage($_SESSION["language"]);
  
 function DbConnect($db= NULL)
@@ -282,7 +283,7 @@ define ("RELOAD_ASTERISK_IF_SIPIAX_CREATED", isset($A2B->config["signup"]['reloa
 define ("ENABLE_LOG", 1);
 
 define ("ENABLE_LOG", 1);
-include (FSROOT."lib/Class.Logger.php");
+require (DIR_COMMON."/Class.Logger.php");
 $log = new Logger();
 include (FSROOT."lib/help.php");
 // 

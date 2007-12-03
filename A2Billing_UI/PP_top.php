@@ -1,5 +1,5 @@
 <?php
-include (dirname(__FILE__)."/../lib/defines.php");
+require_once("./lib/defines.php");
 ?>
 <html><head>
 <title>..:: :<?php echo CCMAINTITLE; ?>: ::..</title>
@@ -21,12 +21,12 @@ include (dirname(__FILE__)."/../lib/defines.php");
 
 
 #kiki {
-  //position: relative;
-  //background-color: #FFEFC7;
+  /*position: relative;*/
+  /*background-color: #FFEFC7;*/
   background-image: url(../Css/images/orangeshadet.png);
   background-repeat: repeat-x;
   background-position: 100% 100%;
-  //margin-bottom: 1em;
+  /*margin-bottom: 1em;*/
   color: #BD2A15;
   
   margin-right: 2%;  

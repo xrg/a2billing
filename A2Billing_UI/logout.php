@@ -1,6 +1,6 @@
 <?php 
-include ("../lib/defines.php");
-include ("../lib/module.access.php");
+require ("./lib/defines.php");
+require("./lib/module.access.php");
 
 
 ?>

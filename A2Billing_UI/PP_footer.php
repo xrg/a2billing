@@ -5,7 +5,7 @@
 	if (!isset($displayfooter) || $displayfooter){
 	
 	if (!isset($disp_printable) || (!$disp_printable)){
-    		include_once (dirname(__FILE__)."/../lib/company_info.php");
+    		include_once ("./lib/company_info.php");
 ?>
 
 

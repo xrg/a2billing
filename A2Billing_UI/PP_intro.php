@@ -1,5 +1,5 @@
 <?php
-	include("PP_header.php");
+	require("PP_header.php");
 ?>
 <br/><br/>
 
@@ -65,5 +65,5 @@
 	
 
 <?php
-	include("PP_footer.php");
+	require("PP_footer.php");
 ?>
