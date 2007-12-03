@@ -13,7 +13,7 @@
 -- callgroup = 1
 -- pickupgroup = 1
 
-CREATE cc_ast_users_config(
+CREATE TABLE cc_ast_users_config(
     id SERIAL PRIMARY KEY,
     cfg_name  TEXT NOT NULL UNIQUE,
     -- General:
@@ -94,7 +94,7 @@ CREATE TABLE cc_ast_instance (
     regseconds  INTEGER,
     username    VARCHAR(40),
     fullcontact VARCHAR(80),
-    regserver   VARCHAR(40)
+    regserver   VARCHAR(40),
     PRIMARY KEY(userid,srvid)
 );
 

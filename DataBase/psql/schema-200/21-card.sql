@@ -1,4 +1,5 @@
----
+--- Cards (customers) and Booths (reseller-points)
+
 CREATE TABLE cc_agent (
     id serial NOT NULL PRIMARY KEY,
     name text NOT NULL,
@@ -78,7 +79,7 @@ CREATE TABLE cc_card (
     servicelastrun timestamp without time zone,
     autorefill integer DEFAULT 0,
     loginkey text,
-    activatedbyuser boolean DEFAULT false NOT NULL,
+    activatedbyuser boolean DEFAULT false NOT NULL
 );
 
 CREATE INDEX cc_card_grp ON cc_card(grp);
@@ -89,6 +90,19 @@ CREATE INDEX cc_card_username_ind ON cc_card USING btree (username);
 -- ALTER TABLE cc_card DROP COLUMN userpass;
 
 -- ALTER TABLE cc_card ADD COLUMN id_timezone INTEGER DEFAULT 0;
+
+CREATE TABLE cc_booth (
+	id serial NOT NULL PRIMARY KEY,
+	name text NOT NULL,
+	location text,
+	agentid bigint NOT NULL REFERENCES cc_agent(id),
+	datecreation timestamp without time zone DEFAULT now(),
+	last_activation timestamp without time zone,
+	disabled boolean NOT NULL DEFAULT 'f',
+	cur_card_id bigint REFERENCES cc_card(id),
+	def_card_id bigint REFERENCES cc_card(id),
+	callerid TEXT
+);
 
 
 CREATE TABLE cc_status_log (

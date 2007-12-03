@@ -7,19 +7,6 @@
 	agentid bigint NOT NULL REFERENCES cc_agent(id) ON DELETE RESTRICT,
 	def boolean NOT NULL DEFAULT 'f') ;*/
 	
-CREATE TABLE cc_booth (
-	id bigserial NOT NULL PRIMARY KEY,
-	name text NOT NULL,
-	location text,
-	agentid bigint NOT NULL REFERENCES cc_agent(id),
-	datecreation timestamp without time zone DEFAULT now(),
-	last_activation timestamp without time zone,
-	disabled boolean NOT NULL DEFAULT 'f',
-	cur_card_id bigint REFERENCES cc_card(id),
-	def_card_id bigint REFERENCES cc_card(id),
-	callerid TEXT
-
-);
 
 
 -- This table will hold the transactions for the agent<->card
