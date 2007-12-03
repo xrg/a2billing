@@ -9,14 +9,13 @@ If you are using $_SESSION (or $HTTP_SESSION_VARS), do not use session_register(
 
 
 */
-$FG_DEBUG = 0;
 error_reporting(E_ALL & ~E_NOTICE);
 
 // Zone strings
 define ("MODULE_ACCESS_DOMAIN",		"CallingCard System");
 define ("MODULE_ACCESS_DENIED",		"./Access_denied.htm");
 
-
+// *-*
 define ("ACX_CUSTOMER",					1);
 define ("ACX_BILLING",					2);			// 1 << 1
 define ("ACX_RATECARD",					4);			// 1 << 2
@@ -45,15 +44,16 @@ if (!isset($_SESSION)) {
 
 
 if (isset($_GET["logout"]) && $_GET["logout"]=="true") {
+require_once(DIR_COMMON."Class.Logger.php");
 
-	$log = new Logger();			
+	$log = new Logger(/*new Config()*/);
 	$log -> insertLog($admin_id, 1, "USER LOGGED OUT", "User Logged out from website", '', $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'],'');
-	$log = null;   
+	$log = null;
 	session_destroy();
 	$rights=0;
 	Header ("HTTP/1.0 401 Unauthorized");
-	   Header ("Location: index.php");
-	   die();
+	Header ("Location: index.php");
+	exit();
 }
 	
 

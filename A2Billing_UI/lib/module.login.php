@@ -1,6 +1,8 @@
 <?php
 
 $FG_DEBUG=0;
+require_once(DIR_COMMON."Class.A2Billing.php");
+require_once(DIR_COMMON."Class.Logger.php");
 
 if (!isset($_SERVER['HTTPS'])){
 	if ($FG_DEBUG==0)
@@ -16,7 +18,7 @@ if ((!session_is_registered('pr_login') || !session_is_registered('pr_password')
 	
 	if ($_POST["done"]=="submit_log"){
 	
-		$DBHandle  = DbConnect();
+		$DBHandle  = A2Billing::DBHandle();
 		
 		if ($FG_DEBUG == 1) echo "<br>1. ".$_POST["pr_login"].$_POST["pr_password"];
 		$_POST["pr_login"] = access_sanitize_data($_POST["pr_login"]);
@@ -49,8 +51,8 @@ if ((!session_is_registered('pr_login') || !session_is_registered('pr_password')
 			
 			if ($return[3] == 3) $pr_reseller_ID = $return[4];
 			
-			$pr_groupID = $return[3];			
-		}		
+			$pr_groupID = $return[3];
+		}
 		
 		
 		if ($_POST["pr_login"]){

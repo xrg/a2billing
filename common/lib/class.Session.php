@@ -1,5 +1,7 @@
 <?php
 
+*-* 2go!
+
 // Load the language module
 
 //---if ($lang != "") $module_i18n_language = $lang;

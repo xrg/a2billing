@@ -1,5 +1,6 @@
 <?php
-
+require_once("Class.A2Billing.php");
+require_once("Class.Table.php");
 /*
      * File: Class.Logger.php
      *
@@ -21,10 +22,10 @@ class Logger
 	// Inserts the Log into table
 	function insertLog_Add($userID, $logLevel, $actionPerformed, $description, $tableName, $ipAddress, $pageName, $param_add_fields, $param_add_value)
 	{
-		$DB_Handle = DBConnect();
-		$table_log = new Table();		
+		$DB_Handle = A2Billing::DBHandle();
+		$table_log = new Table();
 		$pageName = basename($pageName);
-		$pageName    = array_shift(explode('?', $pageName));		
+		$pageName    = array_shift(explode('?', $pageName));
 		$description = str_replace("'", "", $description);
 		$str_submitted_fields = explode(',', $param_add_fields);
 		$str_submitted_values = explode(',', $param_add_value);
@@ -41,17 +42,17 @@ class Logger
 		$QUERY .= " VALUES('".$userID."','".$logLevel."','".$actionPerformed."','".$description."','".$tableName."','".$pageName."','".$ipAddress."','".$str_name_value_pair."')";
 		if ($this -> do_debug) echo $QUERY;
 
-		$table_log -> SQLExec($DB_Handle, $QUERY);		
+		$table_log -> SQLExec($DB_Handle, $QUERY);
 	}
 	
 	function insertLog_Update($userID, $logLevel, $actionPerformed, $description, $tableName, $ipAddress, $pageName, $param_update)
 	{
-		$DB_Handle = DBConnect();
-		$table_log = new Table();		
+		$DB_Handle = A2Billing::DBHandle();
+		$table_log = new Table();
 		$pageName = basename($pageName);
-		$pageName    = array_shift(explode('?', $pageName));		
+		$pageName    = array_shift(explode('?', $pageName));
 		$description = str_replace("'", "", $description);
-		$str_submitted_fields = explode(',', $param_update);		
+		$str_submitted_fields = explode(',', $param_update);
 		$num_records = count($str_submitted_fields);
 		for($num = 0; $num < $num_records; $num++)
 		{
@@ -66,12 +67,12 @@ class Logger
 		
 		if ($this -> do_debug) echo $QUERY;
 
-		$table_log -> SQLExec($DB_Handle, $QUERY);		
+		$table_log -> SQLExec($DB_Handle, $QUERY);
 	}	
 	function insertLog($userID, $logLevel, $actionPerformed, $description, $tableName, $ipAddress, $pageName, $data='')
 	{
-		$DB_Handle = DBConnect();
-		$table_log = new Table();		
+		$DB_Handle = A2Billing::DBHandle();
+		$table_log = new Table();
 		$pageName = basename($pageName);
 		$pageArray = explode('?', $pageName);
 		$pageName = array_shift($pageArray);
@@ -81,20 +82,19 @@ class Logger
 		$QUERY .= " VALUES('".$userID."','".$logLevel."','".$actionPerformed."','".$description."','".$tableName."','".$pageName."','".$ipAddress."','".$data."')";
 		if ($this -> do_debug) echo $QUERY;
 
-		$table_log -> SQLExec($DB_Handle, $QUERY);		
+		$table_log -> SQLExec($DB_Handle, $QUERY);
 	}
 	
 	//Funtion deleteLog
 	//Delete the log from table
 	function deleteLog($id = 0)
 	{
-		$DB_Handle = DBConnect();
+		$DB_Handle = A2Billing::DBHandle();
 		$table_log = new Table();
 		$QUERY = "DELETE FROM cc_system_log WHERE id = ".$id;		
 		if ($this -> do_debug) echo $QUERY;		
 		$table_log -> SQLExec($DB_Handle, $QUERY);
 	}
 }
-
 
 ?>
