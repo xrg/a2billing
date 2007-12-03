@@ -37,7 +37,7 @@ CREATE cc_ast_users_config(
     rtptimeout SMALLINT,
     qualify VARCHAR(7),
     -- Connection
-    port VARCHAR(5) DEFAULT ''::VARCHAR NOT NULL,
+    defport VARCHAR(5) DEFAULT ''::VARCHAR NOT NULL,
     permit VARCHAR(95),
     deny VARCHAR(95),
     mask VARCHAR(95),
@@ -59,9 +59,20 @@ CREATE TABLE cc_ast_users (
     has_iax BOOLEAN DEFAULT true NOT NULL,
     defaultip INET,
     fromuser VARCHAR(80),
-    fullcontact VARCHAR(80),
     host VARCHAR(31) DEFAULT 'dynamic' NOT NULL
 );
+
+/* FYI asterisk issues an update like:
+	UPDATE <sippeers>
+		SET ipaddr = ... , port = ... , regseconds= ...,
+		username = ... [, fullcontact= ...] [, regserver = ... ]
+	WHERE name = <peername>;
+   and, with iax:
+	UPDATE <iaxpeers>
+		SET ipaddr = ... , port = ... , regseconds= ...,
+	WHERE name = <peername>;
+   
+*/
 
 /** Create a separate table for user registrations. That table will
     only contain one server and thus allow a user to register to
@@ -73,12 +84,18 @@ CREATE TABLE cc_ast_users (
 */
 
 CREATE TABLE cc_ast_instance (
-	userid BIGINT REFERENCES cc_ast_users(id) NOT NULL,
-	srvid  INTEGER REFERENCES cc_a2b_server(id) NOT NULL,
-	dyn    BOOLEAN DEFAULT true NOT NULL,
-	ipaddr INET,
-	sipiax integer not null default 0,
-	PRIMARY KEY(userid,srvid)
+    userid BIGINT REFERENCES cc_ast_users(id) NOT NULL,
+    srvid  INTEGER REFERENCES cc_a2b_server(id) NOT NULL,
+    dyn    BOOLEAN DEFAULT true NOT NULL,
+    sipiax integer not null default 0,
+    -- Fields asterisk sends:
+    ipaddr      INET,
+    port        INTEGER,
+    regseconds  INTEGER,
+    username    VARCHAR(40),
+    fullcontact VARCHAR(80),
+    regserver   VARCHAR(40)
+    PRIMARY KEY(userid,srvid)
 );
 
 
