@@ -980,8 +980,8 @@ class RateEngine {
 			}
 				
 			if ($A2B -> agiconfig['record_call'] == 1){
-				$myres = $agi->exec("MONITOR ".$A2B->agiconfig['monitor_formatfile']."|".$A2B->uniqueid."|mb");
-				$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "EXEC MONITOR ".$A2B->agiconfig['monitor_formatfile']."|".$A2B->uniqueid."|mb");
+				$myres = $agi->exec("MixMonitor {$A2B->uniqueid}.{$A2B->agiconfig['monitor_formatfile']}|b");
+				$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "EXEC MixMonitor {$A2B->uniqueid}.{$A2B->agiconfig['monitor_formatfile']}|b");
 			}
 
 				
@@ -1043,8 +1043,8 @@ class RateEngine {
 				
 			if ($A2B -> agiconfig['record_call'] == 1){
 				// Monitor(wav,kiki,m)					
-				$myres = $agi->exec("STOPMONITOR");
-				$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "EXEC StopMonitor (".$A2B->uniqueid."-".$A2B->cardnumber.")");
+				$myres = $agi->exec("StopMixMonitor");
+				$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "EXEC StopMixMonitor (".$A2B->uniqueid."-".$A2B->cardnumber.")");
 			}
 			
 			$answeredtime = $agi->get_variable("ANSWEREDTIME");
