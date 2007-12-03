@@ -6,7 +6,7 @@
 <table align="center" width="90%" bgcolor="white" cellpadding="5" cellspacing="5" style="border-bottom: medium dotted #AA0000">
 	<tr>
 		<td width="340">
-			<img src="../Images/logoA2B-white-300.png">
+			<img src="./Images/logoA2B-white-300.png">
 			<center>A2Billing is licensed under GPL.</center>
 			<br><br>
 		</td>

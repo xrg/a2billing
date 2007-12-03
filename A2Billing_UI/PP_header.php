@@ -1,19 +1,16 @@
 <?php 
 	include ("./lib/company_info.php");
-	
-/*	define ("WEBUI_DATE", 'Release : 13 August 2006');
-	define ("WEBUI_VERSION", 'Asterisk2Billing - Version 1.2.3 (BrainCoral) - ');*/
 ?>
 <html><head>
 <title>..:: <?php echo CCMAINTITLE; ?> ::..</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-<link rel="shortcut icon" href="../Images/favicon.ico">
-<link rel="icon" href="../Images/animated_favicon1.gif" type="image/gif">
+<link rel="shortcut icon" href="./Images/favicon.ico">
+<link rel="icon" href="./Images/animated_favicon1.gif" type="image/gif">
 
-<link href="../Css/Css_Ale.css" rel="stylesheet" type="text/css">
-<link href="../Css/style-def.css" rel="stylesheet" type="text/css">
-<link href="../Css/menu.css" rel="stylesheet" type="text/css">
+<link href="./Css/Css_Ale.css" rel="stylesheet" type="text/css">
+<link href="./Css/style-def.css" rel="stylesheet" type="text/css">
+<link href="./Css/menu.css" rel="stylesheet" type="text/css">
 
 <script language="JavaScript">
 <!--
@@ -40,24 +37,24 @@ function imgidclick(imgID,divID, imgbase, imgchange)
 		if 	(document.all(divID).style.display == "none" )		
 		{		
 			document.all(divID).style.display="";			
-			document.all(imgID).src="../Css/kicons/"+imgchange;			
+			document.all(imgID).src="./Css/kicons/"+imgchange;			
 		}
 		else
 		{			
 			document.all(divID).style.display="None";			
-			document.all(imgID).src="../Css/kicons/"+imgbase;			
+			document.all(imgID).src="./Css/kicons/"+imgbase;			
 		}
 		window.event.cancelBubble=true;
 	}else{
 		if 	(document.getElementById(divID).style.display == "none" )
 		{			
 			document.getElementById(divID).style.display="";			
-			document.getElementById(imgID).src="../Css/kicons/"+imgchange;
+			document.getElementById(imgID).src="./Css/kicons/"+imgchange;
 		}
 		else
 		{			
 			document.getElementById(divID).style.display="None";
-			document.getElementById(imgID).src="../Css/kicons/"+imgbase;			
+			document.getElementById(imgID).src="./Css/kicons/"+imgbase;			
 		}
 	}
 }
@@ -66,7 +63,7 @@ function imgidclick(imgID,divID, imgbase, imgchange)
 </head>
 <body  leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
 <?php if (!isset($disp_printable) || (!$disp_printable)){ ?>
-<p class="version" align="right"><?php echo WEBUI_VERSION.WEBUI_DATE; ?></p>
+<p class="version" align="right"><?= WEBUI_VERSION. ' '. WEBUI_DATE?></p>
 <br>
 <?php } ?>
 <div border=0 width="100%">

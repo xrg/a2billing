@@ -75,20 +75,4 @@ function has_rights ($condition) {
 }
 
 
-$ACXCUSTOMER 	= has_rights (ACX_CUSTOMER);
-$ACXBILLING 	= has_rights (ACX_BILLING);
-$ACXRATECARD 	= has_rights (ACX_RATECARD);
-$ACXTRUNK		= has_rights (ACX_TRUNK); 
-$ACXDID			= has_rights (ACX_DID);
-$ACXCALLREPORT	= has_rights (ACX_CALL_REPORT);
-$ACXCRONTSERVICE= has_rights (ACX_CRONT_SERVICE);
-$ACXMISC 		= has_rights (ACX_MISC);
-$ACXADMINISTRATOR = has_rights (ACX_ADMINISTRATOR);
-$ACXFILEMANAGER = has_rights (ACX_FILE_MANAGER);
-$ACXCALLBACK	= has_rights (ACX_CALLBACK);
-$ACXOUTBOUNDCID = has_rights (ACX_OUTBOUNDCID);
-$ACXPACKAGEOFFER = has_rights (ACX_PACKAGEOFFER);
-$ACXPREDICTIVEDIALER = has_rights (ACX_PREDICTIVE_DIALER);
-$ACXINVOICING = has_rights (ACX_INVOICING);
-$ACXINVOICING2 = has_rights (ACX_INVOICING);
 ?>
