@@ -339,7 +339,7 @@ div.menu div ul {
 <table>
 <tr>
 	<td>
-		<a href="index2.php?language=english" target="_parent"><img src="../Images/flags/us.gif" border="0" title="English" alt="English"></a>
+		<a href="index2.php?language=english" target="_parent"><img src="./Images/flags/us.png" border="0" title="English" alt="English"></a>
 	</td>
 </tr>
 </table>
