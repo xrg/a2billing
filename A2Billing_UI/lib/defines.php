@@ -1,5 +1,5 @@
 <?php
-define(DIR_COMMON,"common/");
+define(DIR_COMMON,dirname(__FILE__)."/common/");
 // 
 // The system will not log for Public/index.php and 
 // signup/index.php

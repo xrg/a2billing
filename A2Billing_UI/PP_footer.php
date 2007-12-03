@@ -1,7 +1,4 @@
-<?php
-	if (isset($HD_Form->DBHandle))
-		DbDisconnect($HD_Form->DBHandle);
-	
+<?php	
 	if (!isset($displayfooter) || $displayfooter){
 	
 	if (!isset($disp_printable) || (!$disp_printable)){

@@ -18,20 +18,6 @@
 * This software is released under the terms of the GNU Lesser General Public License v2.1
 * A copy of which is available from http://www.gnu.org/copyleft/lesser.html
 *
-* @category   Database
-* @package    Table
-* @author     Arezqui Belaid <areski _atl_ gmail com>
-* @copyright  2004-2007 The A2Billing Group
-* @license    http://www.gnu.org/copyleft/lesser.html  LGPL License 2.1
-* @version    CVS: $Id:$
-* @since      File available since Release 1.0
-*
-*/
-
-
-
-
-/**
 * Class Table used to abstract Database queries and processing
 *
 * @category Database
@@ -39,7 +25,6 @@
 * @author Arezqui Belaid <areski _atl_ gmail com>
 * @copyright (C) 2004-2007 The A2Billing Group
 * @license http://www.gnu.org/copyleft/lesser.html  LGPL License 2.1
-* @version CVS: $Id:$
 * @since File available since Release 1.0
 */
 

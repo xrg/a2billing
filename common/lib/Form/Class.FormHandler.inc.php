@@ -8,6 +8,9 @@
 // 		FormHandler - PHP : Handle, Form Generator (FG)
 // ************************************************************************
 
+require_once (DIR_COMMON.'Misc.php');
+require_once (DIR_COMMON.'Class.Table.php');
+require_once (DIR_COMMON.'Class.A2Billing.php');
 
 class FormHandler
 {	
@@ -499,15 +502,11 @@ class FormHandler
 	}
 
 
-	function setDBHandler  ($DBHandle=null){
-		$this->DBHandle = $DBHandle;
-	}
-
 	/**
      * Perform the execution of some actions to prepare the form generation
      * @public     	 
      */	
-	function init () {         
+	function init () {
 		global $_SERVER;		
 		if($_GET["section"]!="")
 		{
@@ -518,8 +517,11 @@ class FormHandler
 		{
 			$section = $_SESSION["menu_section"];
 		}
+		if (isset($GLOBALS['FG_DEBUG']))
+			$this->FG_DEBUG = $GLOBALS['FG_DEBUG'];
+			
 		if (($this->FG_DEBUG) && ($this -> FG_NB_TABLE_COL>10)){
-			echo "Huston, we have a problem!\n";
+			echo "Houston, we have a problem!\n";
 			exit;
 		}
 		$this -> FG_EDITION_LINK	= $_SERVER['PHP_SELF']."?form_action=ask-edit&".
@@ -527,7 +529,7 @@ class FormHandler
 		$this -> FG_DELETION_LINK	= $_SERVER['PHP_SELF']."?form_action=ask-delete&".
 			$this->FG_TABLE_ID."=%#".$this->FG_TABLE_ID .'&';
 
- 
+ 		$this->DBHandle = A2Billing::DBHandle();
 
 		$this -> FG_DELETE_ALT = gettext("Delete this ").$this -> FG_INSTANCE_NAME;
 		$this -> FG_EDIT_ALT = gettext("Edit this ").$this -> FG_INSTANCE_NAME;
@@ -627,6 +629,7 @@ class FormHandler
 
 
 	function sanitize_data($data){
+		throw new Exception ('Don\'t use this!');
 		if(is_array($data)){
 			return $data; //Need to sanatize this later
 		}
@@ -1183,7 +1186,7 @@ function do_field($sql,$fld, $simple=0){
 
 		if ( in_array($form_action , array("list", "edit","ask-delete", "ask-edit", "add-content",
 			"del-content", "ask-del-confirm","object-edit"))) {
-			include_once (FSROOT."lib/Class.Table.php");
+			require_once (DIR_COMMON."Class.Table.php");
 
 			$this->FG_ORDER = $processed['order'];
 			$this->FG_SENS = $processed['sens'];
@@ -1398,7 +1401,7 @@ function do_field($sql,$fld, $simple=0){
      * @public     	 
      */
 	function perform_add (&$form_action){
-		include_once (FSROOT."lib/Class.Table.php");
+		require_once (DIR_COMMON."Class.Table.php");
 		$processed = $this->getProcessed();  //$processed['firstname']
 		$this->VALID_SQL_REG_EXP = true;
 		$tmp_add_fields=array();
@@ -1607,7 +1610,7 @@ function do_field($sql,$fld, $simple=0){
 		
 		
 		// RELOAD SIP & IAX CONF
-		include_once ("../lib/phpagi/phpagi-asmanager.php");
+		require_once (DIR_COMMON."phpagi/phpagi-asmanager.php");
 		
 		$as = new AGI_AsteriskManager();
 		// && CONNECTING  connect($server=NULL, $username=NULL, $secret=NULL)
@@ -1777,7 +1780,7 @@ function do_field($sql,$fld, $simple=0){
      * @public
      */
 	function perform_edit (&$form_action){
-		include_once (FSROOT."lib/Class.Table.php");
+		require_once (DIR_COMMON."Class.Table.php");
 		
 		$processed = $this->getProcessed();  //$processed['firstname']
 
@@ -1933,7 +1936,7 @@ function do_field($sql,$fld, $simple=0){
      * @public
      */
 	function perform_delete (&$form_action){
-		include_once (FSROOT."lib/Class.Table.php");
+		require_once (DIR_COMMON."Class.Table.php");
 		
 		if (strlen($this -> FG_ADDITIONAL_FUNCTION_AFTER_DELETE) > 0)
 		$res_funct = call_user_func(array(&$this, $this->FG_ADDITIONAL_FUNCTION_AFTER_DELETE));
@@ -2206,7 +2209,7 @@ function do_field($sql,$fld, $simple=0){
      */
 	 function create_select_form2(){
 	 	$processed = $this->getProcessed();
-	 	include_once (FSROOT."lib/Class.Table.php");
+	 	require_once (DIR_COMMON."Class.Table.php");
 		$instance_table_tariffname = new Table("cc_tariffplan", "id, tariffname");
 		$FG_TABLE_CLAUSE = "";
 
@@ -2263,7 +2266,7 @@ function do_field($sql,$fld, $simple=0){
 	*/
 	 function create_select_form($tablename, $title, $donull = false, $idcol = 'id' , $namecols = 'name' , $tclause = ''){
 	 	$processed = $this->getProcessed();
-	 	include_once (FSROOT."lib/Class.Table.php");
+	 	require_once (DIR_COMMON."Class.Table.php");
 		$instance_table = new Table($tablename, "$idcol, $namecols");
 		$FG_TABLE_CLAUSE = $tclause;
 
@@ -2319,7 +2322,7 @@ function do_field($sql,$fld, $simple=0){
      */
 	 function create_select_form_client($table_cluase = ""){
 	 	$processed = $this->getProcessed();
-	 	include_once (FSROOT."lib/Class.Table.php");
+	 	require_once (DIR_COMMON."Class.Table.php");
 		$instance_table_tariffname = new Table("cc_tariffplan, cc_tariffgroup_plan", "id, tariffname");
 		$FG_TABLE_CLAUSE = $table_cluase;
 
@@ -2395,7 +2398,7 @@ function do_field($sql,$fld, $simple=0){
      * @public
      */
 	function create_form ($form_action, $list, $id=null){
-		include_once (FSROOT."lib/Class.Table.php");
+		require_once (DIR_COMMON."Class.Table.php");
 		$processed = $this->getProcessed();
 
 		${$this->FG_TABLE_ID} = getpost_single($this->FG_TABLE_ID);

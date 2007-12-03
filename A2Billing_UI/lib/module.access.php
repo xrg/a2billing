@@ -74,5 +74,4 @@ function has_rights ($condition) {
 	return ($_SESSION["rights"] & $condition);
 }
 
-
 ?>

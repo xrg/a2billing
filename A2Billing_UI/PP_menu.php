@@ -310,6 +310,8 @@ div.menu div ul {
 		<div id='menu_admin'>
 		<a onclick="menu_toggle('menu_admin');"><?= _("ADMINISTRATOR");?></a>
 		<ul>
+			<li><a href="A2B_entity_config_group.php"><?= _("Config Group");?></a></li>
+			<li><a href="A2B_entity_config.php"><?= _("Config");?></a></li>
 			<li><a href="A2B_entity_user.php?groupID=0"><?= _("Show Administrator");?></a></li>
 			<li><a href="A2B_entity_user.php?form_action=ask-add&groupID=0"><?= _("Add Administrator");?></a></li>
 			<li><a href="A2B_entity_user.php?groupID=1"><?= _("Show ACL Admin");?></a></li>
