@@ -81,6 +81,11 @@ $A2B -> CC_TESTING = isset($A2B->agiconfig['debugshell']) && $A2B->agiconfig['de
 //$A2B -> CC_TESTING = true;
 
 define ("DB_TYPE", isset($A2B->config["database"]['dbtype'])?$A2B->config["database"]['dbtype']:null); 	
+define ("SMTP_SERVER", isset($A2B->config['global']['smtp_server'])?$A2B->config['global']['smtp_server']:null);
+define ("SMTP_HOST", isset($A2B->config['global']['smtp_host'])?$A2B->config['global']['smtp_host']:null);
+define ("SMTP_USERNAME", isset($A2B->config['global']['smtp_username'])?$A2B->config['global']['smtp_username']:null);
+define ("SMTP_PASSWORD", isset($A2B->config['global']['smtp_password'])?$A2B->config['global']['smtp_password']:null);
+
 	
 // TEST DID
 // if ($A2B -> CC_TESTING) $mode = 'did';
@@ -278,13 +283,13 @@ if ($mode == 'standard'){
 						$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "TRUNK - dnid : ".$A2B->dnid." (".$A2B->agiconfig['use_dnid'].")");
 					}
 				} else {
-					$res_dtmf = $agi->get_data('prepaid-sipiax-press9', 2000, 1);
+					$res_dtmf = $agi->get_data('prepaid-sipiax-press9', 4000, 1);
 					$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "RES SIP_IAX_FRIEND DTMF : ".$res_dtmf ["result"]);
 					$A2B-> sip_iax_buddy = $res_dtmf ["result"];
 				}
 			}
 			
-			if ( isset($A2B-> sip_iax_buddy) && ($A2B-> sip_iax_buddy == $A2B->agiconfig['sip_iax_pstn_direct_call_prefix'])) {
+			if ( strlen($A2B-> sip_iax_buddy) > 0 || ($A2B-> sip_iax_buddy == $A2B->agiconfig['sip_iax_pstn_direct_call_prefix'])) {
 				
 				$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, 'CALL SIP_IAX_BUDDY');
 				$cia_res = $A2B-> call_sip_iax_buddy($agi, $RateEngine,$i);
@@ -1032,28 +1037,11 @@ if (isset($send_reminder) && $send_reminder == 1 && $A2B->agiconfig['send_remind
 			$messagetext = str_replace('$password', $A2B -> cardholder_uipass, $messagetext);
 			$messagetext = str_replace('$min_credit', $A2B->agiconfig['min_credit_2call'], $messagetext);
 			
-			$em_headers  = "From: ".$fromname." <".$from.">\n";		
-			$em_headers .= "Reply-To: ".$from."\n";
-			$em_headers .= "Return-Path: ".$from."\n";
-			$em_headers .= "X-Priority: 3\n";
+			// USE PHPMAILER
+			include_once (dirname(__FILE__)."/libs_a2billing/mail/class.phpmailer.php");
 			
-			mail($A2B -> cardholder_email, $subject, $messagetext, $em_headers);
+			a2b_mail ($A2B -> cardholder_email, $subject, $messagetext, $from, $fromname);
 			
-			/* USE PHPMAILER
-			include (dirname(__FILE__)."/libs_a2billing/mail/class.phpmailer.php");
-			//  change class.phpmailer.php - hostname
-			$mail = new phpmailer();
-			$mail -> From     = $from;
-			$mail -> FromName = $fromname;
-			//$mail -> IsSendmail();
-			$mail -> IsSMTP();
-			$mail -> Subject  = $subject;
-			$mail -> Body    = $messagetext ; //$HTML;
-			//$mail -> AltBody = $messagetext;	// Plain text body (for mail clients that cannot read 	HTML)
-			//$mail -> ContentType = "multipart/alternative";
-			$mail->AddAddress($A2B -> cardholder_email);				
-			$mail->Send();
-			*/
 			$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[SEND-MAIL REMINDER]:[TO:".$A2B -> cardholder_email." - FROM:$from - SUBJECT:$subject]");
 		}
 	}

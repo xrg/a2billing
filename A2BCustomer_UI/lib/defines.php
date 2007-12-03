@@ -12,6 +12,11 @@ $A2B -> load_conf($agi, AST_CONFIG_DIR."a2billing.conf", 1);
 define ("MANAGER_HOST", isset($A2B->config['global']['manager_host'])?$A2B->config['global']['manager_host']:null);
 define ("MANAGER_USERNAME", isset($A2B->config['global']['manager_username'])?$A2B->config['global']['manager_username']:null);
 define ("MANAGER_SECRET", isset($A2B->config['global']['manager_secret'])?$A2B->config['global']['manager_secret']:null);
+define ("CUSTOMER_UI_URL", isset($A2B->config['global']['customer_ui_url'])?$A2B->config['global']['customer_ui_url']:null);
+define ("SMTP_SERVER", isset($A2B->config['global']['smtp_server'])?$A2B->config['global']['smtp_server']:null);
+define ("SMTP_HOST", isset($A2B->config['global']['smtp_host'])?$A2B->config['global']['smtp_host']:null);
+define ("SMTP_USERNAME", isset($A2B->config['global']['smtp_username'])?$A2B->config['global']['smtp_username']:null);
+define ("SMTP_PASSWORD", isset($A2B->config['global']['smtp_password'])?$A2B->config['global']['smtp_password']:null);
 // For ePayment Modules
 define('PULL_DOWN_DEFAULT', 'Please Select');
 define('TYPE_BELOW', 'Type Below');
@@ -93,6 +98,9 @@ define ("FSROOT", substr(dirname(__FILE__),0,-3));
 define ("LIBDIR", FSROOT."lib/");
 	include (FSROOT."lib/help.php");
 include (FSROOT."lib/Misc.php");
+
+// USE PHPMAILER
+include_once (FSROOT."lib/mail/class.phpmailer.php");
 
 /*
  *		GLOBAL USED VARIABLE

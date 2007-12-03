@@ -4,14 +4,13 @@ include ("./lib/module.access.php");
 include ("./lib/Form/Class.FormHandler.inc.php");
 include ("./form_data/FG_var_did.inc");
 
-if (! has_rights (ACX_ACCESS)){
+if (! has_rights (ACX_ACCESS)) {
 	Header ("HTTP/1.0 401 Unauthorized");
 	Header ("Location: PP_error.php?c=accessdenied");
 	die();
 }
 
-if (!$A2B->config["webcustomerui"]['did'])
-{
+if (!$A2B->config["webcustomerui"]['did']) {
     exit();
 }
 
@@ -71,12 +70,11 @@ if ($action_release=="confirm_release"){
 	$message .= "DELETE all DID destination: $QUERY \n\n";
 
 	$date = date("D M j G:i:s T Y", time());
-		// email header *-*
-	$em_headers  = "From: A2BILLING ALERT <a2billing_alert@localhost>\n";
-	$em_headers .= "X-Priority: 3\n";
-	if (strlen($A2B->config["webcustomerui"]['error_email'])>3)
-	mail($A2B->config["webcustomerui"]['error_email'], "[$date] Release-DID notification", $message, $em_headers);
-
+	$from     = 'a2billing_alert@localhost';
+	$fromname = 'A2BILLING ALERT';
+	$subject  = "[$date] Release-DID notification";
+	
+	a2b_mail (ADMIN_EMAIL, $subject, $messagetext, $from, $fromname);
 }
 
 /***********************************************************/

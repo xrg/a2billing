@@ -2,18 +2,33 @@
 $HD_Form = new FormHandler("cc_did_use", "DID in use");
 
 $HD_Form -> FG_DEBUG = 0;
-if (isset($filterprefix)  &&  (strlen($filterprefix)>0)){
+if ($posted){
+	
 	if (strlen($HD_Form -> FG_TABLE_CLAUSE)>0) $HD_Form -> FG_TABLE_CLAUSE.=" AND ";
-	$HD_Form -> FG_TABLE_CLAUSE.="id_did like '$filterprefix%'";
-	$HD_Form -> FG_TABLE_DEFAULT_ORDER = "reservationdate";
-	$HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
-}else
-{
+	if (isset($did) && strlen($did)>0) $HD_Form -> FG_TABLE_CLAUSE.="id_did = '$did'";
+	if ($inuse) {
+		if (strlen($HD_Form -> FG_TABLE_CLAUSE)>0) $HD_Form -> FG_TABLE_CLAUSE.=" AND ";
+		$HD_Form -> FG_TABLE_CLAUSE.=" (releasedate IS NULL OR releasedate = '0000-00-00 00:00:00') and activated=1";
+		$HD_Form -> FG_OTHER_BUTTON1 = true;
+		$HD_Form -> FG_OTHER_BUTTON1_LINK="A2B_entity_did_use.php?posted=$posted&order=$order&sens=$sens&current_page=$current_page&did=$did&inuse=$inuse&atmenu=document&stitle=Document&actionbtn=release_did&did=|col0|";
+		$HD_Form -> FG_OTHER_BUTTON1_IMG =Images_Path . "/icon-release.gif";
+		$HD_Form -> FG_OTHER_BUTTON1_ALT=gettext("Release this did");
+	} else {
+		$HD_Form -> FG_TABLE_DEFAULT_ORDER = "reservationdate";
+		$HD_Form -> FG_TABLE_DEFAULT_SENS = "DESC";
+		$HD_Form -> FG_OTHER_BUTTON1 = false;
+	}
+} else {
 	if (strlen($HD_Form -> FG_TABLE_CLAUSE)>0) $HD_Form -> FG_TABLE_CLAUSE.=" AND ";
-    $HD_Form -> FG_TABLE_CLAUSE.=" releasedate IS NULL";
+	$HD_Form -> FG_TABLE_CLAUSE.=" (releasedate IS NULL OR releasedate = '0000-00-00 00:00:00') and activated=1";
 	$HD_Form -> FG_TABLE_DEFAULT_ORDER = "id_did";
 	$HD_Form -> FG_TABLE_DEFAULT_SENS = "ASC";
+	$HD_Form -> FG_OTHER_BUTTON1 = true;
+	$HD_Form -> FG_OTHER_BUTTON1_LINK="A2B_entity_did_use.php?posted=$posted&order=$order&sens=$sens&current_page=$current_page&did=$did&inuse=$inuse&atmenu=document&stitle=Document&actionbtn=release_did&did=|col0|";
+	$HD_Form -> FG_OTHER_BUTTON1_IMG =Images_Path . "/icon-release.gif";
+	$HD_Form -> FG_OTHER_BUTTON1_ALT=gettext("Release this did");
 }
+
 
 $HD_Form -> FG_TABLE_ID="cc_did_use.id";
 
@@ -26,8 +41,8 @@ $HD_Form -> AddViewElement(gettext("DID"), "id_did", "6%", "center", "sort", "25
 $HD_Form -> AddViewElement(gettext("ID card"), "id_cc_card", "6%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("CARDNUMBER"), "id_cc_card", "6%", "center", "sort", "25", "lie", "cc_card", "username", "id='%id'", "%1");
 
-$HD_Form -> AddViewElement(gettext("RESERVATION DATE"), "reservationdate", "20%", "center", "sort", "14", "", "", "", "", "", "display_dateformat");
-$HD_Form -> AddViewElement(gettext("LIBERATION DATE"), "releasedate", "20%", "center", "sort", "14", "", "", "", "", "", "display_dateformat");
+$HD_Form -> AddViewElement(gettext("RESERVATION DATE"), "reservationdate", "20%", "center", "sort", "", "", "", "", "", "", "");
+$HD_Form -> AddViewElement(gettext("LIBERATION DATE"), "releasedate", "20%", "center", "sort", "", "", "", "", "", "", "");
 $HD_Form -> AddViewElement(gettext("ACTIVATED"), "activated", "5%", "center", "sort", "", "list", $actived_list);
 
 // added a parameter to append  FG_TABLE_ID  ( by default ) or disable 0.
