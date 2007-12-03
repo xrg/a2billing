@@ -24,7 +24,7 @@ CREATE TABLE cc_trunk (
     inuse INT DEFAULT 0,
     maxuse INT DEFAULT -1,
     status INT DEFAULT 1,
-    if_max_use INT DEFAULT 0,
+    if_max_use INT DEFAULT 0
 );
 
 

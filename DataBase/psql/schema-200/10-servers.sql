@@ -6,7 +6,7 @@
 
 CREATE TABLE cc_server_group (
 	id	SERIAL PRIMARY KEY,
-	name	TEXT ,
+	name	TEXT,
 	description	TEXT
 );
 
@@ -19,12 +19,15 @@ INSERT INTO cc_server_group (id, name, description) VALUES (1, 'default', 'defau
 
 CREATE TABLE cc_a2b_server (
     id 		SERIAL PRIMARY KEY,
-    group	INTEGER NOT NULL REFERENCES cc_server_group(id),
-    ip 		inet ,
+    grp 	INTEGER NOT NULL REFERENCES cc_server_group(id),
+    ip 		inet,
     host 	TEXT NOT NULL,
     manager_username 	TEXT ,
     manager_secret 	TEXT ,
     lasttime_used	TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW()
 );
+
+-- Perhaps not define localhost as a server here, but do it dynamically with the install
+-- script!
 
 -- "current_user"

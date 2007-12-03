@@ -21,7 +21,7 @@ CREATE TABLE cc_agent (
     );
 
 
-CREATE TABCE cc_card_group (
+CREATE TABLE cc_card_group (
     id serial NOT NULL PRIMARY KEY,
     agentid INTEGER REFERENCES cc_agent(id) ON DELETE RESTRICT,
     simultaccess integer DEFAULT 0,

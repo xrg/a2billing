@@ -16,7 +16,7 @@ The credit at a tariffplan is stored in neg_currency units!
 */
 
 CREATE TABLE cc_tariffplan (
-    id serial NOT NULL,
+    id serial NOT NULL PRIMARY KEY,
 --     iduser integer DEFAULT 0 NOT NULL,
     tariffname text NOT NULL,
     creationdate timestamp without time zone DEFAULT now(),
@@ -33,12 +33,12 @@ CREATE TABLE cc_tariffplan (
     idowner integer DEFAULT 0,
     dnidprefix text NOT NULL DEFAULT 'all'::text,
     calleridprefix text NOT NULL DEFAULT 'all'::text,
-    neg_currency integer REFERENCES cc_currency(id),
+    neg_currency integer REFERENCES cc_currencies(id),
     credit NUMERIC(12,4) NOT NULL DEFAULT 0.0
 );
 
 CREATE TABLE cc_retailplan (
-    id serial NOT NULL,
+    id serial NOT NULL PRIMARY KEY,
 --     iduser integer DEFAULT 0 NOT NULL,
     name text NOT NULL,
     creationdate timestamp without time zone DEFAULT now(),
@@ -59,7 +59,7 @@ CREATE TABLE cc_retailplan (
    could be used with different retail prices to each tariff group
  */
 CREATE TABLE cc_sellrate(
-    id serial NOT NULL,
+    id serial NOT NULL PRIMARY KEY,
     idrp INTEGER NOT NULL REFERENCES cc_retailplan(id),
     destination text NOT NULL,
     rateinitial NUMERIC(7,4) DEFAULT 0 NOT NULL,
@@ -85,14 +85,14 @@ CREATE TABLE cc_sellrate(
     endtime integer NOT NULL DEFAULT 10079,*/
 --     id_trunk integer DEFAULT -1,	
 --     musiconhold character varying(100),
-    freetimetocall_package_offer INTEGER NOT NULL DEFAULT 0,
+    freetimetocall_package_offer INTEGER NOT NULL DEFAULT 0
 --     id_outbound_cidgroup INTEGER NOT NULL DEFAULT -1
 
 );
 
 
 CREATE TABLE cc_buyrate (
-    id serial NOT NULL,
+    id serial NOT NULL PRIMARY KEY,
     idtp integer NOT NULL REFERENCES cc_tariffplan(id),
 --     dialprefix VARCHAR(12) NOT NULL,
     destination text NOT NULL,
@@ -100,19 +100,19 @@ CREATE TABLE cc_buyrate (
     buyrateinitblock integer DEFAULT 0 NOT NULL,
     buyrateincrement integer DEFAULT 0 NOT NULL,
     quality float NOT NULL DEFAULT 1.0,
-    qual_tstamp TIMESTAMP NOT NULL DEFAULT NOW
+    qual_tstamp TIMESTAMP NOT NULL DEFAULT NOW()
 );
 
 
 CREATE TABLE cc_tariffgroup_plan (
     tgid integer NOT NULL REFERENCES cc_tariffgroup(id),
-    rtid integer NOT NULL REFERENCES cc_retailplan(id)
+    rtid integer NOT NULL REFERENCES cc_retailplan(id),
     PRIMARY KEY(tgid,rtid)
 );
 
 CREATE TABLE cc_rtplan_buy (
     rtid integer NOT NULL REFERENCES cc_retailplan(id),
-    tpid INTEGER NOT NULL REFERENCES cc_tariffplan(id)
+    tpid INTEGER NOT NULL REFERENCES cc_tariffplan(id),
     PRIMARY KEY(tpid,rtid)
 );
 
