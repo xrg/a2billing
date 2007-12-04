@@ -31,7 +31,8 @@ class RateEngine {
 	var $dialstatus;
 	var $usedratecard;
 	var $webui = 1;
-	var $usedtrunk;
+	var $usedtrunk			= 0;
+	var $freetimetocall_used= 0;
 
 	/* CONSTRUCTOR */
 
@@ -373,17 +374,17 @@ class RateEngine {
 						" WHERE $CLAUSE_DATE AND id_cc_card = '".$A2B->id_card."' AND id_cc_package_offer = '$id_cc_package_offer' ";
 				
 				$pack_result = $A2B -> instance_table -> SQLExec ($A2B -> DBHandle, $QUERY);
-								
-				if (is_array($pack_result) && count($pack_result)>0){
-					$freetimetocall_used = $pack_result[0][0];
-				}else{
-					$freetimetocall_used = 0;
+				
+				if (is_array($pack_result) && count($pack_result)>0) {
+					$this->freetimetocall_used = $pack_result[0][0];
+				} else {
+					$this->freetimetocall_used = 0;
 				}
 				
-				$A2B -> write_log ('line:'.__LINE__." - PACK USED TIME : $QUERY ; RESULT -> $freetimetocall_used");
-				if ($this -> debug_st) echo ('line:'.__LINE__." - PACK USED TIME : $QUERY ; RESULT -> $freetimetocall_used");
+				$A2B -> write_log ('line:'.__LINE__." - PACK USED TIME : $QUERY ; RESULT -> $this->freetimetocall_used");
+				if ($this -> debug_st) echo ('line:'.__LINE__." - PACK USED TIME : $QUERY ; RESULT -> $this->freetimetocall_used");
 				
-				$this -> freetimetocall_left[$K] = $freetimetocall - $freetimetocall_used;
+				$this -> freetimetocall_left[$K] = $freetimetocall - $this->freetimetocall_used;
 				if ($this -> freetimetocall_left[$K] < 0) $this -> freetimetocall_left[$K] = 0;
 				
 			}
@@ -635,8 +636,8 @@ class RateEngine {
 		RATE ENGINE - CALCUL COST OF THE CALL
 		* CALCUL THE CREDIT COSUMED BY THE CALL
 	*/
-	function rate_engine_calculcost (&$A2B, $callduration, $K=0, $freetimetocall_used){
-	
+	function rate_engine_calculcost (&$A2B, $callduration, $K=0)
+	{
 		$K = $this->usedratecard;
 		$buyrate = round(abs($this -> ratecard_obj[$K][9]),4);
 		$buyrateinitblock = $this -> ratecard_obj[$K][10];
@@ -654,9 +655,9 @@ class RateEngine {
 		$stepchargec = $this -> ratecard_obj[$K][25];		$chargec = round(abs($this -> ratecard_obj[$K][26]),4);	
 		$timechargec = $this -> ratecard_obj[$K][27];		$billingblockc = $this -> ratecard_obj[$K][28];
 		
-		if (!is_numeric($freetimetocall_used)) $freetimetocall_used=0;		
-		if ($this -> debug_st)  echo "CALLDURATION: $callduration - freetimetocall_used=$freetimetocall_used\n\n";
-		$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[CC_RATE_ENGINE_CALCULCOST: K=$K - CALLDURATION:$callduration - freetimetocall_used=$freetimetocall_used]");
+		if (!is_numeric($this->freetimetocall_used))	$this->freetimetocall_used = 0;		
+		if ($this -> debug_st)  echo "CALLDURATION: $callduration - freetimetocall_used=$this->freetimetocall_used\n\n";
+		$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[CC_RATE_ENGINE_CALCULCOST: K=$K - CALLDURATION:$callduration - freetimetocall_used=$this->freetimetocall_used]");
 		
 		$cost =0;
 		$cost -= $connectcharge;
@@ -676,13 +677,17 @@ class RateEngine {
 
 		if ($this -> debug_st)  echo "1. cost: $cost\n buyratecost:$buyratecost\n";
 		
-		$callduration = $callduration - $freetimetocall_used;
+		// #### 	CALCUL SELLRATE COST   #####
+		if ($callduration < $initblock) $callduration = $initblock;
+		if ($this -> freetimetocall_left[$K] >= $callduration) {
+			$this -> freetimetocall_used = $callduration;
+		}
+		
+		$callduration = $callduration - $this->freetimetocall_used;
 		
 		// 2 KIND OF CALCULATION : PROGRESSIVE RATE & FLAT RATE
 		// IF FLAT RATE 
 		if (empty($chargea) || $chargea==0 || empty($timechargea) || $timechargea==0 ){
-		
-			if ($callduration<$initblock) $callduration=$initblock;
 			
 			if ($billingblock > 0) {	
 				$mod_sec = $callduration % $billingblock;  
@@ -803,9 +808,9 @@ class RateEngine {
 	
 	
 	/*
-		RATE ENGINE - UPDATE SYSTEM (DURATIONCALL)
-		* CALCUL THE DURATION ALLOWED FOR THE CALLER TO THIS NUMBER
-	*/
+	 * RATE ENGINE - UPDATE SYSTEM (DURATIONCALL)
+	 * Calcul the duration allowed for the caller to this number
+	 */
 	function rate_engine_updatesystem (&$A2B, &$agi, $calledstation, $doibill = 1, $didcall=0, $callback=0){
 		
 		$K = $this->usedratecard;
@@ -817,33 +822,41 @@ class RateEngine {
 		if ($A2B -> CC_TESTING){ 
 			$sessiontime = 120;
 			$dialstatus = 'ANSWERED';
-		}else{
+		} else {
 			$sessiontime = $this -> answeredtime;
 			$dialstatus = $this -> dialstatus;
 		}
 		
 		$id_card_package_offer = 0;
-		if ($sessiontime > 0){ 
+		if ($sessiontime > 0) { 
 			// HANDLE FREETIME BEFORE CALCULATE THE COST
-			$freetimetocall_used = 0;
+			$this->freetimetocall_used = 0;
 			$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "ft2c_package_offer : $freetimetocall_package_offer ; $freetimetocall ; ".$this -> freetimetocall_left[$K]);
 			if ($this -> debug_st) print_r($this -> freetimetocall_left[$K]);
 			
 			if (($freetimetocall_package_offer==1) && ($freetimetocall > 0) && ($this -> freetimetocall_left[$K] > 0)){
 				
 				if ($this -> freetimetocall_left[$K] >= $sessiontime){ 
-					$freetimetocall_used = $sessiontime;
+					$this->freetimetocall_used = $sessiontime;
 				}else{
-					$freetimetocall_used = $this -> freetimetocall_left[$K];
+					$this->freetimetocall_used = $this -> freetimetocall_left[$K];
 				}
 				
-				$QUERY_FIELS = 'id_cc_card,id_cc_package_offer,used_secondes';
-				$QUERY_VALUES = "'".$A2B -> id_card."', '$id_cc_package_offer', '$freetimetocall_used'";
+				$this -> rate_engine_calculcost ($A2B, $sessiontime, 0);
+				// rate_engine_calculcost could have change the duration of the call
+				$sessiontime = $this -> answeredtime;
+				
+				$QUERY_FIELS = 'id_cc_card, id_cc_package_offer, used_secondes';
+				$QUERY_VALUES = "'".$A2B -> id_card."', '$id_cc_package_offer', '$this->freetimetocall_used'";
 				$id_card_package_offer = $A2B -> instance_table -> Add_table ($A2B -> DBHandle, $QUERY_VALUES, $QUERY_FIELS, 'cc_card_package_offer', 'id');
 				$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, ":[ID_CARD_PACKAGE_OFFER CREATED : $id_card_package_offer]:[$QUERY_VALUES]");
+			} else {
+				
+				$this -> rate_engine_calculcost ($A2B, $sessiontime, 0);
+				
+				// rate_engine_calculcost could have change the duration of the call
+				$sessiontime = $this -> answeredtime;
 			}
-			
-			$this->rate_engine_calculcost($A2B, $sessiontime, 0, $freetimetocall_used);
 			
 		}else{
 			$sessiontime=0;
