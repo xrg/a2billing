@@ -20,37 +20,45 @@ INSERT INTO cc_ui_authen VALUES (2, 'admin', 'mypassword', 0, 65535, NULL, NULL,
 INSERT INTO cc_ui_authen VALUES (1, 'root', 'myroot', 0, 65535, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2005-02-26 20:33:27.691314-05');
 \echo Created Default admins.
 
-CREATE TABLE cc_config_group (
-    id 		SERIAL PRIMARY KEY,
-    title 	VARCHAR(64) NOT NULL UNIQUE,
-    descr 	TEXT NOT NULL
-);
+-- CREATE TABLE cc_config_group (
+--     id 		SERIAL PRIMARY KEY,
+--     title 	VARCHAR(64) NOT NULL UNIQUE,
+--     descr 	TEXT NOT NULL
+-- );
+-- 
+-- COPY cc_config_group(title,descr) FROM STDIN;
+-- global	This configuration group handles the global settings for application
+-- callback	This configuration group handles callback settings.
+-- webcustomerui	This configuration group handles Web Customer User Interface.
+-- sip-iax-info	SIP & IAX client configuration information.
+-- epayment_method	Epayment Methods Configuration.
+-- signup	This configuration group handles the signup related settings.
+-- backup	This configuration group handles the backup/restore related settings.
+-- webui	This configuration group handles the WEBUI and API Configuration.
+-- peer_friend	This configuration group define parameters for the friends creation.
+-- log-files	This configuration group handles the Log Files Directory Paths.
+-- agi-conf1	This configuration group handles the AGI Configuration.
+-- \.
 
-COPY cc_config_group(title,descr) FROM STDIN;
-global	This configuration group handles the global settings for application
-callback	This configuration group handles callback settings.
-webcustomerui	This configuration group handles Web Customer User Interface.
-sip-iax-info	SIP & IAX client configuration information.
-epayment_method	Epayment Methods Configuration.
-signup	This configuration group handles the signup related settings.
-backup	This configuration group handles the backup/restore related settings.
-webui	This configuration group handles the WEBUI and API Configuration.
-peer_friend	This configuration group define parameters for the friends creation.
-log-files	This configuration group handles the Log Files Directory Paths.
-agi-conf1	This configuration group handles the AGI Configuration.
-\.
 
+-- CREATE TABLE cc_configuration (
+--   cid           BIGSERIAL PRIMARY KEY,
+--   ctitle        VARCHAR(64) NOT NULL,
+--   ckey          VARCHAR(64) NOT NULL,
+--   cvalue        VARCHAR(255) NOT NULL,
+--   cdescription  VARCHAR(255) NOT NULL,
+--   ctype         INTEGER NOT NULL DEFAULT 0,
+--   use_function  VARCHAR(255) NULL,
+--   set_function  VARCHAR(255) NULL
+-- 
+-- );
 
-CREATE TABLE cc_configuration (
-  cid           BIGSERIAL PRIMARY KEY,
-  ctitle        VARCHAR(64) NOT NULL,
-  ckey          VARCHAR(64) NOT NULL,
-  cvalue        VARCHAR(255) NOT NULL,
-  cdescription  VARCHAR(255) NOT NULL,
-  ctype         INTEGER NOT NULL DEFAULT 0,
-  use_function  VARCHAR(255) NULL,
-  set_function  VARCHAR(255) NULL
-
+CREATE TABLE cc_sysconf (
+	id     SERIAL PRIMARY KEY,
+	grp    VARCHAR(64) NOT NULL,
+	name   VARCHAR(64) NOT NULL,
+	val    TEXT,
+	UNIQUE(grp,name)
 );
 
 

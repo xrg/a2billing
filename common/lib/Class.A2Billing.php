@@ -16,7 +16,7 @@ class A2Billing {
 	/** Returns the static config's instance.
 	   Of course, it will create one when called for the first time.
 	*/
-	public static function instance() {
+	public static function &instance() {
 		if (!self::$the_instance){
 			self::$the_instance = new self();
 			self::$the_instance->load_config();
@@ -57,13 +57,13 @@ class A2Billing {
 	
 	/** Try to obtain the database handle.
 	 If it doesn't exist, connect to the db and get it.. */
-	public static function DBHandle() {
+	public static function &DBHandle() {
 		if (! self::$the_instance)
 			self::instance();
 		return self::$the_instance->DBHandle_p();
 	}
 	
-	public function DBHandle_p(){
+	public function &DBHandle_p(){
 		if ($this->dbhandle)
 			return $this->dbhandle;
 				
