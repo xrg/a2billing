@@ -1,5 +1,6 @@
 <?php
 require("./lib/defines.php");
+require(DIR_COMMON."Misc.php");
 
 getpost_ifset(array('err_type','c'));
 
@@ -12,7 +13,7 @@ if (!isset($err_type)) {
 if($err_type == 0) {
 	$popup_select=1;
 } else {
-	require("../lib/module.access.php");
+	require("./lib/module.access.php");
 }
 
 if (!isset($c))	$c="0";
@@ -27,7 +28,11 @@ $error["ERR-0001"] 	= gettext("Invalid User Id !");
 $error["ERR-0002"] 	= gettext("No such card number found. Please check your card number!");
 
 ?>
-
+<html><head>
+<title>..:: <?= _("Error") ?> ::..</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
 <br></br><br></br>
 <table width="460" border="2" align="center" cellpadding="1" cellspacing="2" bordercolor="#eeeeff" bgcolor="#FFFFFF">
 	<tr  class="pp_error_maintable_tr1"> 
@@ -41,7 +46,7 @@ $error["ERR-0002"] 	= gettext("No such card number found. Please check your card
 		<table width="100%" border="0" cellpadding="5" cellspacing="5">		  
 		<tr> 
 			<td align="center"><br/>
-						<img src="../Css/kicons/messagebox_critical.png"> <img src="../Css/kicons/messagebox_critical.png"> <img src="../Css/kicons/system-config-rootpassword.png"> <img src="../Css/kicons/messagebox_critical.png"> <img src="../Css/kicons/messagebox_critical.png">
+						<img src="./Css/kicons/messagebox_critical.png"> <img src="./Css/kicons/messagebox_critical.png"> <img src="./Css/kicons/system-config-rootpassword.png"> <img src="./Css/kicons/messagebox_critical.png"> <img src="./Css/kicons/messagebox_critical.png">
 				<br/>
 				<b><font size="3"><?php echo $error[$c]?></font></b>
 				<br/><br/>
