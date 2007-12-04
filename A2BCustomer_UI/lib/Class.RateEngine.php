@@ -31,7 +31,8 @@ class RateEngine {
 	var $dialstatus;
 	var $usedratecard;
 	var $webui = 1;
-	var $usedtrunk;
+	var $usedtrunk			= 0;
+	var $freetimetocall_used= 0;
 
 	/* CONSTRUCTOR */
 
@@ -290,6 +291,7 @@ class RateEngine {
 	*/
 	function rate_engine_all_calcultimeout (&$A2B, $credit){
 			
+		global $agi;
 		if ($this->webui) $A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[CC_RATE_ENGINE_ALL_CALCULTIMEOUT ($credit)]");
 		if (!is_array($this -> ratecard_obj) || count($this -> ratecard_obj)==0) return false;
 		
@@ -308,7 +310,8 @@ class RateEngine {
 		* CALCUL THE DURATION ALLOWED FOR THE CALLER TO THIS NUMBER
 	*/
 	function rate_engine_calcultimeout (&$A2B, $credit, $K=0){
-		
+
+		global $agi;
 		$rateinitial = round(abs($this -> ratecard_obj[$K][12]),4);
 		$initblock = $this -> ratecard_obj[$K][13];
 		$billingblock = $this -> ratecard_obj[$K][14];	
@@ -371,17 +374,17 @@ class RateEngine {
 						" WHERE $CLAUSE_DATE AND id_cc_card = '".$A2B->id_card."' AND id_cc_package_offer = '$id_cc_package_offer' ";
 				
 				$pack_result = $A2B -> instance_table -> SQLExec ($A2B -> DBHandle, $QUERY);
-								
-				if (is_array($pack_result) && count($pack_result)>0){
-					$freetimetocall_used = $pack_result[0][0];
-				}else{
-					$freetimetocall_used = 0;
+				
+				if (is_array($pack_result) && count($pack_result)>0) {
+					$this->freetimetocall_used = $pack_result[0][0];
+				} else {
+					$this->freetimetocall_used = 0;
 				}
 				
-				$A2B -> write_log ('line:'.__LINE__." - PACK USED TIME : $QUERY ; RESULT -> $freetimetocall_used");
-				if ($this -> debug_st) echo ('line:'.__LINE__." - PACK USED TIME : $QUERY ; RESULT -> $freetimetocall_used");
+				$A2B -> write_log ('line:'.__LINE__." - PACK USED TIME : $QUERY ; RESULT -> $this->freetimetocall_used");
+				if ($this -> debug_st) echo ('line:'.__LINE__." - PACK USED TIME : $QUERY ; RESULT -> $this->freetimetocall_used");
 				
-				$this -> freetimetocall_left[$K] = $freetimetocall - $freetimetocall_used;
+				$this -> freetimetocall_left[$K] = $freetimetocall - $this->freetimetocall_used;
 				if ($this -> freetimetocall_left[$K] < 0) $this -> freetimetocall_left[$K] = 0;
 				
 			}
@@ -393,15 +396,38 @@ class RateEngine {
 		$credit -= $disconnectcharge;
 		//$credit -= ($initblock/60)*$rateinitial;
 		
+		$callback_rate = array();
+		
+		if(($A2B->mode == 'cid-callback') || ($A2B->mode == 'all-callback')){
+			$callbackrate['rateinitial']=$rateinitial;
+			$callbackrate['initblock']=$initblock;
+			$callbackrate['billingblock']=$billingblock;
+			$callbackrate['connectcharge']=$connectcharge;
+			$callbackrate['disconnectcharge']=$disconnectcharge;
+			$callbackrate['stepchargea']=$stepchargea;
+			$callbackrate['timechargea']=$timechargea;
+			$callbackrate['stepchargeb']=$stepchargeb;
+			$callbackrate['timechargeb']=$timechargeb;
+			$callbackrate['stepchargec']=$stepchargec;
+			$callbackrate['timechargec']=$timechargec;
+		}
+
+		$this -> ratecard_obj[$K]['callbackrate']=$callbackrate;
 		$this -> ratecard_obj[$K]['timeout']=0;
 		
 		// CHECK IF THE USER IS ALLOW TO CALL WITH ITS CREDIT AMOUNT
+		/*
+		Comment from Abdoulaye Siby
+		This following "if" statement used to verify the minimum credit to call can be improved.
+		This mininum credit should be calculated based on the destination, and the minimum billing block.
+		*/
 		if ($credit < $A2B->agiconfig['min_credit_2call']){
 			return "ERROR CT1";  //NO ENOUGH CREDIT TO CALL THIS NUMBER
 		}
 		
 		// if ($rateinitial==0) return "ERROR RATEINITIAL($rateinitial)";
 		$TIMEOUT = 0;
+		$answeredtime_1st_leg = 0;
 		
 		if ($rateinitial<=0){
 			$this -> ratecard_obj[$K]['timeout']= $A2B->agiconfig['maxtime_tocall_negatif_free_route']; // 90 min
@@ -409,15 +435,42 @@ class RateEngine {
 			return $TIMEOUT;
 		}
 		
+		if($A2B->mode == 'callback'){
+			$calling_party_rateinitial = $agi->get_variable('RATEINITIAL', true);
+			$calling_party_initblock = $agi->get_variable('INITBLOCK', true);
+			$calling_party_billingblock = $agi->get_variable('BILLINGBLOCK', true);
+			$calling_party_connectcharge = $agi->get_variable('CONNECTCHARGE', true);
+			$calling_party_disconnectcharge = $agi->get_variable('DISCONNECTCHARGE', true);
+			$calling_party_stepchargea = $agi->get_variable('STEPCHARGEA', true);
+			$calling_party_timechargea = $agi->get_variable('TIMECHARGEA', true);
+			$calling_party_stepchargeb = $agi->get_variable('STEPCHARGEB', true);
+			$calling_party_timechargeb = $agi->get_variable('TIMECHARGEB', true);
+			$calling_party_stepchargec = $agi->get_variable('STEPCHARGEC', true);
+			$calling_party_timechargec = $agi->get_variable('TIMECHARGEC', true);
+		}
 		
 		// 2 KIND OF CALCULATION : PROGRESSIVE RATE & FLAT RATE
 		// IF FLAT RATE 
 		if (empty($chargea) || $chargea==0 || empty($timechargea) || $timechargea==0 ){
 			
-			$num_min = $credit/$rateinitial;
+			if($A2B->mode == 'callback'){
+				/*
+				Comment from Abdoulaye Siby
+				In all-callback or cid-callback mode, the number of minutes for the call must be calculated 
+				according to the rates of both legs of the call.
+				*/
+				
+				$credit -= $calling_party_connectcharge;
+				$credit -= $calling_party_disconnectcharge;
+				$num_min = $credit/($rateinitial + $calling_party_rateinitial);
+				//I think that the answered time is in seconds
+				$answeredtime_1st_leg = intval($agi->get_variable('ANSWEREDTIME', true));
+			} else {
+				$num_min = $credit/$rateinitial;
+			}
 			
 			if ($this -> debug_st) echo "num_min:$num_min ($credit/$rateinitial)\n";			
-			$num_sec = intval($num_min * 60);
+			$num_sec = intval($num_min * 60) - $answeredtime_1st_leg;
 			if ($this -> debug_st) echo "num_sec:$num_sec \n";
 			
 			if ($billingblock > 0) {
@@ -441,7 +494,7 @@ class RateEngine {
 					return $this -> freetimetocall_left[$K];
 				}else{
 					return "ERROR CT2";		//NO ENOUGH CREDIT TO CALL THIS NUMBER
-				}				
+				}
 			}
 			if (!($chargea>0)) return "ERROR CHARGEA($chargea)";
 			$num_min = $credit/$chargea;
@@ -583,8 +636,8 @@ class RateEngine {
 		RATE ENGINE - CALCUL COST OF THE CALL
 		* CALCUL THE CREDIT COSUMED BY THE CALL
 	*/
-	function rate_engine_calculcost (&$A2B, $callduration, $K=0, $freetimetocall_used){
-	
+	function rate_engine_calculcost (&$A2B, $callduration, $K=0)
+	{
 		$K = $this->usedratecard;
 		$buyrate = round(abs($this -> ratecard_obj[$K][9]),4);
 		$buyrateinitblock = $this -> ratecard_obj[$K][10];
@@ -602,9 +655,9 @@ class RateEngine {
 		$stepchargec = $this -> ratecard_obj[$K][25];		$chargec = round(abs($this -> ratecard_obj[$K][26]),4);	
 		$timechargec = $this -> ratecard_obj[$K][27];		$billingblockc = $this -> ratecard_obj[$K][28];
 		
-		if (!is_numeric($freetimetocall_used)) $freetimetocall_used=0;		
-		if ($this -> debug_st)  echo "CALLDURATION: $callduration - freetimetocall_used=$freetimetocall_used\n\n";
-		$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[CC_RATE_ENGINE_CALCULCOST: K=$K - CALLDURATION:$callduration - freetimetocall_used=$freetimetocall_used]");
+		if (!is_numeric($this->freetimetocall_used))	$this->freetimetocall_used = 0;		
+		if ($this -> debug_st)  echo "CALLDURATION: $callduration - freetimetocall_used=$this->freetimetocall_used\n\n";
+		$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "[CC_RATE_ENGINE_CALCULCOST: K=$K - CALLDURATION:$callduration - freetimetocall_used=$this->freetimetocall_used]");
 		
 		$cost =0;
 		$cost -= $connectcharge;
@@ -624,13 +677,17 @@ class RateEngine {
 
 		if ($this -> debug_st)  echo "1. cost: $cost\n buyratecost:$buyratecost\n";
 		
-		$callduration = $callduration - $freetimetocall_used;
+		// #### 	CALCUL SELLRATE COST   #####
+		if ($callduration < $initblock) $callduration = $initblock;
+		if ($this -> freetimetocall_left[$K] >= $callduration) {
+			$this -> freetimetocall_used = $callduration;
+		}
+		
+		$callduration = $callduration - $this->freetimetocall_used;
 		
 		// 2 KIND OF CALCULATION : PROGRESSIVE RATE & FLAT RATE
 		// IF FLAT RATE 
 		if (empty($chargea) || $chargea==0 || empty($timechargea) || $timechargea==0 ){
-		
-			if ($callduration<$initblock) $callduration=$initblock;
 			
 			if ($billingblock > 0) {	
 				$mod_sec = $callduration % $billingblock;  
@@ -751,9 +808,9 @@ class RateEngine {
 	
 	
 	/*
-		RATE ENGINE - UPDATE SYSTEM (DURATIONCALL)
-		* CALCUL THE DURATION ALLOWED FOR THE CALLER TO THIS NUMBER
-	*/
+	 * RATE ENGINE - UPDATE SYSTEM (DURATIONCALL)
+	 * Calcul the duration allowed for the caller to this number
+	 */
 	function rate_engine_updatesystem (&$A2B, &$agi, $calledstation, $doibill = 1, $didcall=0, $callback=0){
 		
 		$K = $this->usedratecard;
@@ -765,33 +822,41 @@ class RateEngine {
 		if ($A2B -> CC_TESTING){ 
 			$sessiontime = 120;
 			$dialstatus = 'ANSWERED';
-		}else{
+		} else {
 			$sessiontime = $this -> answeredtime;
 			$dialstatus = $this -> dialstatus;
 		}
 		
 		$id_card_package_offer = 0;
-		if ($sessiontime > 0){ 
+		if ($sessiontime > 0) { 
 			// HANDLE FREETIME BEFORE CALCULATE THE COST
-			$freetimetocall_used = 0;
+			$this->freetimetocall_used = 0;
 			$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "ft2c_package_offer : $freetimetocall_package_offer ; $freetimetocall ; ".$this -> freetimetocall_left[$K]);
 			if ($this -> debug_st) print_r($this -> freetimetocall_left[$K]);
 			
 			if (($freetimetocall_package_offer==1) && ($freetimetocall > 0) && ($this -> freetimetocall_left[$K] > 0)){
 				
 				if ($this -> freetimetocall_left[$K] >= $sessiontime){ 
-					$freetimetocall_used = $sessiontime;
+					$this->freetimetocall_used = $sessiontime;
 				}else{
-					$freetimetocall_used = $this -> freetimetocall_left[$K];
+					$this->freetimetocall_used = $this -> freetimetocall_left[$K];
 				}
 				
-				$QUERY_FIELS = 'id_cc_card,id_cc_package_offer,used_secondes';
-				$QUERY_VALUES = "'".$A2B -> id_card."', '$id_cc_package_offer', '$freetimetocall_used'";
+				$this -> rate_engine_calculcost ($A2B, $sessiontime, 0);
+				// rate_engine_calculcost could have change the duration of the call
+				$sessiontime = $this -> answeredtime;
+				
+				$QUERY_FIELS = 'id_cc_card, id_cc_package_offer, used_secondes';
+				$QUERY_VALUES = "'".$A2B -> id_card."', '$id_cc_package_offer', '$this->freetimetocall_used'";
 				$id_card_package_offer = $A2B -> instance_table -> Add_table ($A2B -> DBHandle, $QUERY_VALUES, $QUERY_FIELS, 'cc_card_package_offer', 'id');
 				$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, ":[ID_CARD_PACKAGE_OFFER CREATED : $id_card_package_offer]:[$QUERY_VALUES]");
+			} else {
+				
+				$this -> rate_engine_calculcost ($A2B, $sessiontime, 0);
+				
+				// rate_engine_calculcost could have change the duration of the call
+				$sessiontime = $this -> answeredtime;
 			}
-			
-			$this->rate_engine_calculcost($A2B, $sessiontime, 0, $freetimetocall_used);
 			
 		}else{
 			$sessiontime=0;
@@ -947,10 +1012,9 @@ class RateEngine {
 				}else{
 					$dialstr = "$tech/$ipaddress/$prefix$destination".$dialparams;
 				}
-			}	
-				
-				
-				
+			}
+			
+			
 			//ADDITIONAL PARAMETER 			%dialingnumber%,	%cardnumber%	
 			if (strlen($addparameter)>0){
 				$addparameter = str_replace("%cardnumber%", $A2B->cardnumber, $addparameter);
@@ -973,8 +1037,7 @@ class RateEngine {
 			{
 				$QUERY = "SELECT cid FROM cc_outbound_cid_list WHERE activated = 1 AND outbound_cid_group = $cidgroupid ORDER BY RAND() LIMIT 1";	
 			}
-		
-
+			
 			$A2B->instance_table = new Table();
 			$cidresult = $A2B->instance_table -> SQLExec ($A2B -> DBHandle, $QUERY);
 			$outcid = 0;
@@ -996,7 +1059,7 @@ class RateEngine {
 				$myres = $agi->exec("StopMixMonitor");
 				$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "EXEC StopMixMonitor (".$A2B->uniqueid."-".$A2B->cardnumber.")");
 			}
-				
+			
 			$answeredtime = $agi->get_variable("ANSWEREDTIME");
 			$this->answeredtime = $answeredtime['data'];
 			$dialstatus = $agi->get_variable("DIALSTATUS");
@@ -1023,29 +1086,27 @@ class RateEngine {
 				
 				
 				if (is_array($result) && count($result)>0){
-						
+					
 					//DO SELECT WITH THE FAILOVER_TRUNKID
-						
 					$prefix		= $result[0][0];
 					$tech 		= $result[0][1];
 					$ipaddress 	= $result[0][2];
 					$removeprefix 	= $result[0][3];
 					$next_failover_trunk = $result[0][4];
-						
-						
+					
 					$pos_dialingnumber = strpos($ipaddress, '%dialingnumber%' );
 					
 					$ipaddress = str_replace("%cardnumber%", $A2B->cardnumber, $ipaddress);
 					$ipaddress = str_replace("%dialingnumber%", $prefix.$destination, $ipaddress);
 						
-					if (strncmp($destination, $removeprefix, strlen($removeprefix)) == 0) 
+					if (strncmp($destination, $removeprefix, strlen($removeprefix)) == 0){
 						$destination= substr($destination, strlen($removeprefix));
-						
-									
+					}
+					
 					$dialparams = str_replace("%timeout%", $timeout *1000, $A2B->agiconfig['dialcommand_param']);
-							
+					
 					if ($pos_dialingnumber !== false){					   
-						   $dialstr = "$tech/$ipaddress".$dialparams;
+						$dialstr = "$tech/$ipaddress".$dialparams;
 					}else{
 						if ($A2B->agiconfig['switchdialcommand'] == 1){
 							$dialstr = "$tech/$prefix$destination@$ipaddress".$dialparams;
@@ -1054,12 +1115,11 @@ class RateEngine {
 						}
 					}	
 					
-					
 					$A2B -> debug( VERBOSE | WRITELOG, $agi, __FILE__, __LINE__, "FAILOVER app_callingcard: Dialing '$dialstr' with timeout of '$timeout'.\n");
 					
 					$myres = $agi->exec("DIAL $dialstr");
 					$A2B -> debug( WRITELOG, $agi, __FILE__, __LINE__, "DIAL FAILOVER $dialstr");
-							
+					
 					$answeredtime = $agi->get_variable("ANSWEREDTIME");
 					$this->answeredtime = $answeredtime['data'];
 					$dialstatus = $agi->get_variable("DIALSTATUS");
