@@ -1,8 +1,8 @@
 <?php
-	require("PP_header.php");
-?>
-<br/><br/>
 
+class IntroPage {
+	function Render(){
+	?>
 <table align="center" width="90%" bgcolor="white" cellpadding="5" cellspacing="5" style="border-bottom: medium dotted #AA0000">
 	<tr>
 		<td width="340">
@@ -62,8 +62,11 @@
 		</span> 		</td>
 	</tr>
 </table>
+	<?php } //Render()
+};
 	
+$BODY_ELEMS=array();
+$BODY_ELEMS[]= new IntroPage();
 
-<?php
-	require("PP_footer.php");
+require("PP_page.inc.php");
 ?>
