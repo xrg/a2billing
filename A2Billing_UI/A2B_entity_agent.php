@@ -17,9 +17,9 @@ $HD_Form->init();
 
 $BODY_ELEMS[] = &$HD_Form;
 
-$HD_Form->model[] = new PKeyField(_("ID"),'id');
+$HD_Form->model[] = new PKeyFieldEH(_("ID"),'id');
 
-$HD_Form->model[] = new TextField(_("Name"),'name',_("Human readable name for the agent"),'20%');
+$HD_Form->model[] = new TextFieldEH(_("Name"),'name',_("Human readable name for the agent"),'20%');
 $HD_Form->model[] = new TextField(_("Username"),'login',_("Login name"));
 //end($HD_Form->model)->fieldname ='agent';
 

@@ -23,6 +23,7 @@ class FormHandler
 	public $model_name_s = 'Record'; ///< Singular form
 	
 	public $model_table = null; ///< the \b main table related to the model
+	private $s_modelPK = null; ///< Cached reference to the primary key column
 	
 	// appearance vars
 	public $list_class = 'cclist'; ///< class of the table used in list view
@@ -82,6 +83,7 @@ class FormHandler
 		case 'list':
 			$this->RenderList();
 			break;
+		case 'ask-edit':
 		case 'editForm':
 			$this->RenderEdit();
 			break;
@@ -104,6 +106,17 @@ class FormHandler
 	}
 	
 	// helper functions
+	/** Return a reference to the first primary key column of the model.
+	    Throw an exception if no primary key! */
+	public function getModelPK(){
+		if ($this->s_modelPK)
+			return $this->s_modelPK;
+		foreach($this->model as &$fld)
+			if($fld && ($fld instanceof PKeyField))
+			return $this->s_modelPK = &$fld;
+		
+		throw new Exception('Model doesn\'t have a primary key!');
+	}
 	/** Construct an url out of the follow parameters + some custom ones
 	   @param $arr_more  An array to be added in the form ( key => data ...)
 	   @return A string like "?key1=data&key2=data..."
@@ -141,6 +154,15 @@ class FormHandler
 		return $_SERVER['PHP_SELF']. $this->gen_GetParams($arr);
 	}
 	
+	/** Return a URL to the ask-edit page
+	    \param $arr The row of the query
+	*/
+	function askeditURL(array $arr){
+		$mod_pk= $this->getModelPK();
+		return $_SERVER['PHP_SELF'].'?'.
+			$this->prefix.'action=ask-edit&'.
+			$this->prefix.$mod_pk->fieldname.'='.rawurlencode($arr[$mod_pk->fieldname]);
+	}
 	// ---- Debuging functions..
 	
 	function dbg_DumpForm(){

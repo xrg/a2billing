@@ -364,7 +364,7 @@ function show_help($str) {
 
 	case 'server_group':
 		$icon = 'yast_multihead.png';
-		$text =gettext("Group of server define the set of servers that are going to be used by the callback system. A callback is bound to a group of server, those server will be used to dispatch the callback requests.");
+		$text =;
 		break;
 
 	case 'transaction':

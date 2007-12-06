@@ -25,4 +25,18 @@ class PKeyField extends BaseField {
 
 };
 
+/** Also hyperlink to the Edit page
+    \note This will NOT pass itself as the primary key field, but will ask
+    the form to do so. This way, the form will always decide which key to 
+    use. */
+class PKeyFieldEH extends PKeyField{
+	
+	public function DispList(array &$qrow,&$form){
+		echo '<a href="'. $form->askeditURL($qrow) . '">';
+		echo htmlspecialchars($qrow[$this->fieldname]);
+		echo '</a>';
+	}
+	
+};
+
 ?>

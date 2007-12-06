@@ -26,7 +26,7 @@ table.cclist {
 	color: #FFFFFF;
 	background-color: #7a7a7a;
 }
-.cclist thead a:visited{
+.cclist thead a{
 	color: #FFFFFF;
 }
 .cclist thead a:hover{
