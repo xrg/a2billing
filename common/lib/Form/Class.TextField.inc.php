@@ -14,6 +14,13 @@ class TextField extends BaseField{
 		echo htmlspecialchars($qrow[$this->fieldname]);
 	}
 	
+	public function DispAddEdit(&$val,&$form){
+	?><input type="text" name="<?= $this->fieldname ?>" value="<?=
+		htmlspecialchars($val);?>" />
+	<div class="descr"><?= htmlspecialchars($this->editDescr)?></div>
+	<?php
+	}
+
 };
 
 /** Text field, which will hyperlink to the Edit page */
@@ -30,7 +37,7 @@ class TextFieldEH extends TextField{
 		echo htmlspecialchars($qrow[$this->fieldname]);
 		echo '</a>';
 	}
-	
+
 };
 
 class TextAreaField extends TextField{
@@ -51,6 +58,13 @@ class TextAreaField extends TextField{
 			echo htmlspecialchars($qrow[$this->fieldname]);
 	}
 	
+	public function DispAddEdit(&$val,&$form){
+	?><textarea name="<?= $this->fieldname ?>" rows=5 cols=40><?=
+		htmlspecialchars($val);?></textarea>
+	<div class="descr"><?= htmlspecialchars($this->editDescr)?></div>
+	<?php
+	}
+
 };
 
 ?>

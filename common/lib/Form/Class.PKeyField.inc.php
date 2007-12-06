@@ -7,6 +7,7 @@ require_once("Class.BaseField.inc.php");
 class PKeyField extends BaseField {
 
 	function PKeyField($fldtitle, $fldname,$fldwidth = null){
+		$this->does_edit = false;
 		$this->fieldname = $fldname;
 		$this->fieldtitle = $fldtitle;
 		$this->listWidth = $fldwidth;
@@ -22,6 +23,12 @@ class PKeyField extends BaseField {
 			return $this->fieldexpr ." AS ". $this->fieldname;
 		return $this->fieldname;
 	}
+	
+	public function editQueryClause(&$dbhandle,&$form){
+		return str_dbparams($dbhandle,
+			"$this->fieldname = %#1",array($form->getpost_dirty($this->fieldname)));
+	}
+
 
 };
 

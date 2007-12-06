@@ -34,6 +34,23 @@ abstract class BaseField {
 	   */
 	abstract public function DispList(array &$qrow,&$form);
 	
+	/** Editing may be skipped, by default */
+	public function DispEdit(array &$qrow,&$form){
+		$this->DispAddEdit($qrow[$this->fieldname],$form);
+	}
+	
+	public function DispAdd(array &$qrow,&$form){
+		$this->DispAddEdit('',$form);
+	}
+
+	/** Alternatively, a field can have a common method for both
+	    add and edit actions.
+	    \param $val the value of the field
+	    */
+	public function DispAddEdit(&$val,&$form){
+		//stub!
+	}
+	
 	/** query expression */
 	public function listQueryField(&$dbhandle){
 		if (!$this->does_list)
@@ -43,11 +60,33 @@ abstract class BaseField {
 		return $this->fieldname;
 	}
 	
+	public function editQueryField(&$dbhandle){
+		if (!$this->does_edit)
+			return;
+		if ($this->fieldexpr)
+			return $this->fieldexpr ." AS ". $this->fieldname;
+		return $this->fieldname;
+	}
+
 	/** Add this clause to the query */
 	public function listQueryClause(&$dbhandle){
 		return null;
 	}
 	
+	public function editQueryClause(&$dbhandle,&$form){
+		return null;
+	}
+	
+	public function delQueryClause(&$dbhandle,&$form){
+		return editQueryClause($dbhandle,$form);
+	}
+	
+	public function addQueryClause(&$dbhandle,&$form){
+		return null;
+	}
+
+
+
 	/** Render the List head cell (together with 'td' element) */
 	function RenderListHead(&$form){
 		if (!$this->does_list)
@@ -106,6 +145,11 @@ abstract class BaseField {
 		$this->DispList($qrow,$form);
 		echo "</td>";
 	}
+	
+	public function RenderEditTitle(&$form){
+		echo htmlspecialchars($this->fieldtitle);
+	}
+	
 };
 
 ?>

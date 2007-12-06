@@ -31,6 +31,9 @@ class FormHandler
 	public $order = null; ///< sort field, should match some model[]->fieldname
 	public $follow_params = array(); ///< Parameters to be followed accross pages
 	
+	//running vars
+	protected $_dirty_vars=null; ///< all variables starting with 'prefix'. Set on init.
+	
 	function FormHandler($tablename=null, $inames=null, $iname=null){
 		$this->model_table = $tablename;
 		if ($inames) $this->model_name=$inames;
@@ -62,13 +65,26 @@ class FormHandler
 		if (isset($GLOBALS['FG_DEBUG']))
 			$this->FG_DEBUG = $GLOBALS['FG_DEBUG'];
 
+			// Fill a local array with dirty versions of data..
+		if (!$this_prefix)
+			$this->_dirty_vars=array_merge($_GET, $_POST);
+		else {
+			$tmp_arr = array_merge($_GET, $_POST);
+			$tlen=strlen($this->prefix);
+			$this->_dirty_vars=array();
+			// Find vars matching prefix and strip that!
+			foreach($tmp_arr as $key => $data)
+				if (strncmp($this->prefix,$key,$tlen))
+				$this->_dirty_vars[substr($key,$tlen)]=$data;
+		}
+			
 		// set action, for a start:
-		$this->action = getpost_single($this->prefix.'action');
+		$this->action = $this->getpost_single('action');
 		if ($this->action == null)
 			$this->action = 'list';
 		
-		$this->order = getpost_single($this->prefix.'order');
-		$this->sens = getpost_single($this->prefix.'sens');
+		$this->order = $this->getpost_single('order');
+		$this->sens = $this->getpost_single('sens');
 		
 	}
 
@@ -105,6 +121,14 @@ class FormHandler
 		require("RenderList.inc.php");
 	}
 	
+	protected function RenderEdit(){
+		require("RenderEdit.inc.php");
+	}
+
+	protected function RenderDel(){
+		require("RenderAskDel.inc.php");
+	}
+
 	// helper functions
 	/** Return a reference to the first primary key column of the model.
 	    Throw an exception if no primary key! */
@@ -163,6 +187,33 @@ class FormHandler
 			$this->prefix.'action=ask-edit&'.
 			$this->prefix.$mod_pk->fieldname.'='.rawurlencode($arr[$mod_pk->fieldname]);
 	}
+	
+	/// Throw away anything that could make data weird.. Sometimes too much.
+	function sanitize_data($data){
+		if(is_array($data)){
+			return $data; //Need to sanatize this later
+		}
+		$lowerdata = strtolower ($data);
+		$data = str_replace('--', '', $data);
+		$data = str_replace("'", '', $data);
+		$data = str_replace('=', '', $data);
+		$data = str_replace(';', '', $data);
+		//$lowerdata = str_replace('table', '', $lowerdata);
+		//$lowerdata = str_replace(' or ', '', $data);
+		if (!(strpos($lowerdata, ' or 1')===FALSE)){ return false;}
+		if (!(strpos($lowerdata, ' or true')===FALSE)){ return false;}
+		if (!(strpos($lowerdata, 'table')===FALSE)){ return false;}
+		return $data;
+	}
+	
+	function getpost_single($vname){
+		return sanitize_data($this->_dirty_vars[$vname]);
+	}
+	
+	function getpost_dirty($vname){
+		return $this->_dirty_vars[$vname];
+	}
+
 	// ---- Debuging functions..
 	
 	function dbg_DumpForm(){
