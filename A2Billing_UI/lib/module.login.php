@@ -26,8 +26,8 @@ if ((!session_is_registered('pr_login') || !session_is_registered('pr_password')
 		
 		$return = login ($_POST["pr_login"], $_POST["pr_password"]);
 		if ($FG_DEBUG == 1) print_r($return);
-		if ($FG_DEBUG == 1) echo "==>".$return[1];
-		if (!is_array($return) || $return[1]==0 ) {
+		if ($FG_DEBUG == 1) echo "==>".$return['perms'];
+		if (!is_array($return) || $return['perms']==0 ) {
 			if ($FG_DEBUG==0){
 				header ("HTTP/1.0 401 Unauthorized");
 				header ("Location: $unsafe_base/index.php?error=1");
@@ -35,24 +35,24 @@ if ((!session_is_registered('pr_login') || !session_is_registered('pr_password')
 			die();
 		}	
 		// if groupID egal 1, this user is a root
-		if ($return[3]==0){
-			$return = true;
+		if ($return['groupid']==0){
+			//$return = true;
 			$rights = 65535;	
 			
 			$is_admin = 1;
-			$pr_groupID = $return[3];
-			$admin_id = $return[0];
+			$pr_groupID = $return['groupid'];
+			$admin_id = $return['userid'];
 			
-		}else{				
-			$pr_reseller_ID = $return[0];
-			$rights = $return[1];
-			if ($return[3]==1) $is_admin=1;
+		}/*else{
+			$pr_reseller_ID = $return['userid'];
+			$rights = $return['perms'];
+			if ($return['groupid']==1) $is_admin=1;
 			else $is_admin=0;
 			
-			if ($return[3] == 3) $pr_reseller_ID = $return[4];
+			//if ($return['groupid'] == 3) $pr_reseller_ID = $return[4];
 			
-			$pr_groupID = $return[3];
-		}
+			$pr_groupID = $return['groupid'];
+		}*/
 		
 		
 		if ($_POST["pr_login"]){
@@ -60,7 +60,7 @@ if ((!session_is_registered('pr_login') || !session_is_registered('pr_password')
 			$pr_login = $_POST["pr_login"];
 			$pr_password = $_POST["pr_password"];
 			
-			if ($FG_DEBUG == 1) echo "<br>3. $pr_login-$pr_password-$rights-$conf_addcust";			
+			if ($FG_DEBUG == 1) echo "<br>3. $pr_login-$pr_password-$rights-$conf_addcust";
 			$_SESSION["pr_login"]=$pr_login;
 			$_SESSION["pr_password"]=$pr_password;
 			$_SESSION["rights"]=$rights;
@@ -70,7 +70,7 @@ if ((!session_is_registered('pr_login') || !session_is_registered('pr_password')
 			$_SESSION["admin_id"] = $admin_id;
 			
 			$log = new Logger();
-			$log -> insertLog($return[0], 1, "User Logged In", "User Logged in to website", '', $_SERVER['REMOTE_ADDR'], 'PP_Intro.php','');
+			$log -> insertLog($return['userid'], 1, "User Logged In", "User Logged in to website", '', $_SERVER['REMOTE_ADDR'], 'PP_Intro.php','');
 			$log = null;
 
 		}
@@ -92,10 +92,12 @@ function login ($user, $pass) {
 	if (strlen($user)>20 || strlen($pass)>20) return false;
 	$QUERY = "SELECT userid, perms, confaddcust, groupid FROM cc_ui_authen WHERE login = '".$user."' AND password = '".$pass."'";
 
+// 	error_log($QUERY);
 	$res = $DBHandle -> query($QUERY);
 
 	if (!$res) {
 		$errstr = $DBHandle->ErrorMsg();
+		error_log($errstr);
 		return (false);
 	}
 

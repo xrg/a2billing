@@ -1,4 +1,5 @@
-<?php include ("./lib/company_info.php"); 
+<?php 
+ //include ("./lib/company_info.php"); 
  // *-* move the header to a common file
 ?>
 
