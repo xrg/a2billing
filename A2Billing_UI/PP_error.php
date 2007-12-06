@@ -1,6 +1,6 @@
 <?php
 require("./lib/defines.php");
-require(DIR_COMMON."Misc.php");
+require(DIR_COMMON."Misc.inc.php");
 
 getpost_ifset(array('err_type','c'));
 

@@ -1,5 +1,5 @@
 <?php
-require_once("Class.A2Billing.php");
+require_once("Class.A2Billing.inc.php");
 require_once("Class.Table.php");
 /*
      * File: Class.Logger.php

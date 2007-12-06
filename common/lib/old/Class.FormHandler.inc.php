@@ -647,40 +647,6 @@ class FormHandler
 	}
 
 
-	/** Construct an url out of the follow parameters + some custom ones
-	   @param $arr_more  An array to be added in the form ( key => data ...)
-	   @return A string like "?key1=data&key2=data..."
-	*/
-	function gen_GetParams($arr_more = NULL,$do_amper=false){
-		$arr = $this->CV_FOLLOWPARAMETER_ARRAY;
-		if (is_array($arr_more))
-		$arr = array_merge($arr, $arr_more);
-		$str = arr2url($arr);
-		if (strlen($this->CV_FOLLOWPARAMETERS)){
-			if ($this->CV_FOLLOWPARAMETERS[0] != '&')
-				$str .= '&';
-			$str .= $this->CV_FOLLOWPARAMETERS;
-		}
-		if (strlen($str)){
-			if ($do_amper)
-			$str = '&' . $str;
-			else
-			$str = '?' . $str;
-		}
-		return $str;
-	}
-	function gen_PostParams($arr_more = NULL, $do_nulls=false){
-		$arr = $this->CV_FOLLOWPARAMETER_ARRAY;
-		if (is_array($arr_more))
-		$arr = array_merge($arr, $arr_more);
-		// unfortunately, it is hard to use CV_FOLLOWPARAMETERS here!
-		
-		foreach($arr as $key => $value)
-			if ($do_nulls || $value !=NULL){
-		?><input type="hidden" name="<?= $key ?>" value="<?= htmlspecialchars($value) ?>" >
-		<?php
-		}
-	}
 
 	/** Push those params so that links preserve them when clicked */
 	function Add_FormParams($arr){
