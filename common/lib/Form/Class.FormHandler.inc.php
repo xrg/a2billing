@@ -99,6 +99,9 @@ class FormHandler
 		case 'list':
 			$this->RenderList();
 			break;
+		case 'ask-add':
+			$this->RenderAskAdd();
+			break;
 		case 'ask-edit':
 		case 'editForm':
 			$this->RenderEdit();
@@ -127,6 +130,9 @@ class FormHandler
 
 	protected function RenderDel(){
 		require("RenderAskDel.inc.php");
+	}
+	protected function RenderAskAdd(){
+		require("RenderAskAdd.inc.php");
 	}
 
 	// helper functions
@@ -212,6 +218,10 @@ class FormHandler
 	
 	function getpost_dirty($vname){
 		return $this->_dirty_vars[$vname];
+	}
+	
+	function getAction(){
+		return $this->action;
 	}
 
 	// ---- Debuging functions..

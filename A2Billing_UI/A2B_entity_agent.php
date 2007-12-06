@@ -16,47 +16,23 @@ $HD_Form->checkRights(ACX_AGENTS);
 $HD_Form->init();
 
 $BODY_ELEMS[] = &$HD_Form;
+$BODY_ELEMS[] = new AddNewButton($HD_Form);
 
 $HD_Form->model[] = new PKeyFieldEH(_("ID"),'id');
 
-$HD_Form->model[] = new TextFieldEH(_("Name"),'name',_("Human readable name for the agent"),'20%');
+$HD_Form->model[] = new TextFieldEH(_("Name"),'name',_("Human readable name for the agent"));
 $HD_Form->model[] = new TextField(_("Username"),'login',_("Login name"));
 //end($HD_Form->model)->fieldname ='agent';
 
+$HD_Form->model[] = new IntField(gettext("OPTIONS"), "options", null, "7%");
+// $HD_Form->model[] = new RefField(_("LANGUAGE"), "language");
+$HD_Form->model[] = new FloatField(_("CREDIT"), "credit");
+$HD_Form->model[] = new FloatField(_("CLIMIT"), "climit",_("Credit limit of agent"));
+// $HD_Form->model[] = new SqlRefField(_("TARIFFG"), "tariffgroup","cc_tariffgroup", "tariffgroupname", "id='%id'");
+// $HD_Form->model[] = new RefField(_("CURRENCY").gettext("CUR"), "currency", "5%");
+// $HD_Form->model[] = new RefField(_("ACTIVATED" gettext("ACT"), "activated", "4%", $actived_list);
 
-
-
-// if ($id!="" || !is_null($id)){
-// 	$HD_Form -> FG_EDITION_CLAUSE = str_replace("%id", "$id", $HD_Form -> FG_EDITION_CLAUSE);
-// }
-
-
-// if (!isset($form_action))  $form_action="list"; //ask-add
-// if (!isset($action)) $action = $form_action;
-// 
-// 
-// $list = $HD_Form -> perform_action($form_action);
-// 
-// 
-// 
-// // #### HEADER SECTION
-// include("PP_header.php");
-// 
-// // #### HELP SECTION
-// show_help('agent_list');
-// 
-// // #### TOP SECTION PAGE
-// $HD_Form -> create_toppage ($form_action);
-// 
-// 
-// // #### CREATE FORM OR LIST
-// //$HD_Form -> CV_TOPVIEWER = "menu";
-// if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
-// 
-// $HD_Form -> create_form ($form_action, $list, $id=null) ;
-// 
-// // #### FOOTER SECTION
-// include("PP_footer.php");
+$HD_Form->model[] = new DelBtnField();
 
 
 require("PP_page.inc.php");

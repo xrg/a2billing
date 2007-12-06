@@ -8,6 +8,7 @@ class PKeyField extends BaseField {
 
 	function PKeyField($fldtitle, $fldname,$fldwidth = null){
 		$this->does_edit = false;
+		$this->does_add = false;
 		$this->fieldname = $fldname;
 		$this->fieldtitle = $fldtitle;
 		$this->listWidth = $fldwidth;

@@ -12,8 +12,8 @@ abstract class BaseField {
 	public $does_list = true; ///< Field will appear in list view
 	public $does_list_sort = true; ///< Field will be sortable in list view
 	public $does_edit = true; ///< Field will appear in edit view
-	public $does_add = false; ///< Field will appear in add view
-	public $does_del = false; ///< Field will appear in del view
+	public $does_add = true; ///< Field will appear in add view
+	public $does_del = true; ///< Field will appear in del view
 	
 	public $listWidth = null;
 	public $editDescr = null;
@@ -39,7 +39,7 @@ abstract class BaseField {
 		$this->DispAddEdit($qrow[$this->fieldname],$form);
 	}
 	
-	public function DispAdd(array &$qrow,&$form){
+	public function DispAdd(&$form){
 		$this->DispAddEdit('',$form);
 	}
 
@@ -47,7 +47,7 @@ abstract class BaseField {
 	    add and edit actions.
 	    \param $val the value of the field
 	    */
-	public function DispAddEdit(&$val,&$form){
+	public function DispAddEdit($val,&$form){
 		//stub!
 	}
 	
@@ -148,6 +148,9 @@ abstract class BaseField {
 	
 	public function RenderEditTitle(&$form){
 		echo htmlspecialchars($this->fieldtitle);
+	}
+	public function RenderAddTitle(&$form){
+		$this->RenderEditTitle($form);
 	}
 	
 };

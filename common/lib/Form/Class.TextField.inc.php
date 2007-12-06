@@ -14,7 +14,7 @@ class TextField extends BaseField{
 		echo htmlspecialchars($qrow[$this->fieldname]);
 	}
 	
-	public function DispAddEdit(&$val,&$form){
+	public function DispAddEdit($val,&$form){
 	?><input type="text" name="<?= $this->fieldname ?>" value="<?=
 		htmlspecialchars($val);?>" />
 	<div class="descr"><?= htmlspecialchars($this->editDescr)?></div>
@@ -58,7 +58,7 @@ class TextAreaField extends TextField{
 			echo htmlspecialchars($qrow[$this->fieldname]);
 	}
 	
-	public function DispAddEdit(&$val,&$form){
+	public function DispAddEdit($val,&$form){
 	?><textarea name="<?= $this->fieldname ?>" rows=5 cols=40><?=
 		htmlspecialchars($val);?></textarea>
 	<div class="descr"><?= htmlspecialchars($this->editDescr)?></div>
