@@ -14,7 +14,7 @@ if (false) {
 	$loog-> insertLog(0, 1, "TEST", "test entry!", 'aa','bb','cc');
 }
 
-if (true) {
+if (false) {
 	require_once('Class.DynConf.php');
 	$inst = DynConf::instance();
 	$inst->PrefetchGroup('general');
@@ -28,6 +28,18 @@ if (true) {
 	print_r(DynConf::GetCfg('general','test'));
 	echo "\n";
 	
+}
+
+function isnumeric($v){
+	return (preg_match('/^\-?[0-9]+$/',$v)>=1);
+}
+
+$examples=array('1','500','','ab123','20 1234','-100','12-3','--600','9823748716249876194652');
+
+foreach ($examples as $ex){
+	echo "Example \"$ex\" -> ";
+	print_r(isnumeric($ex));
+	echo "\n";
 }
 
 
