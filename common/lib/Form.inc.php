@@ -9,4 +9,5 @@ require_once("Form/Class.FormHandler.inc.php");
 
 include_once("Form/Class.PKeyField.inc.php");
 include_once("Form/Class.TextField.inc.php");
+include_once("Form/Class.OptionField.inc.php");
 ?>

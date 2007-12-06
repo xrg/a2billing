@@ -22,6 +22,9 @@ $HD_Form->model[] = new PKeyFieldEH(_("ID"),'id','5%');
 $HD_Form->model[] = new TextFieldEH(_("Name"),'name',_("Group name"));
 $HD_Form->model[] = new TextAreaField(_("Description"),'description', 35);
 
+$HD_Form->model[] = new GroupField(array(new EditBtnField(),new DelBtnField()));
+	// or .. *-* remove one of those..
+$HD_Form->model[] = new DelBtnField();
 
 require("PP_page.inc.php");
 ?>
