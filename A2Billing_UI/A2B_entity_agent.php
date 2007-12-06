@@ -9,11 +9,7 @@ include (DIR_COMMON."Class.HelpElem.inc.php");
 $menu_section='menu_agents';
 
 
-$help_elem = new HelpElem();
-//$help_elem->setIcon('vcard.png');
-$help_elem->setText(gettext("Agents, callshops. <br>List or manipulate agents, which can deliver cards to customers."));
-$BODY_ELEMS[] = &$help_elem;
-$HEADER_ELEMS[] = &$help_elem;
+HelpElem::DoHelp(gettext("Agents, callshops. <br>List or manipulate agents, which can deliver cards to customers."));
 
 $HD_Form= new FormHandler();
 $HD_Form->checkRights(ACX_AGENTS);

@@ -17,6 +17,21 @@ class HelpElem {
 		$this->text = $txt;
 	}
 	
+	/** One-stop fn to provide help
+		Only call this, and all necessary fields will be filled.
+		Note, that the position of the help section within the html page
+		will depend on the order this fn() is called.
+	*/
+	static public function DoHelp($text, $icon=null){
+		global $BODY_ELEMS;
+		global $HEADER_ELEMS;
+		$help_elem = new self();
+		//$help_elem->setIcon('vcard.png');
+		$help_elem->setText($text);
+		$HEADER_ELEMS[] = &$help_elem;
+		$BODY_ELEMS[] = &$help_elem;
+	}
+	
 	public function Render(){
 // 		if (isset($GLOBALS['FG_DEBUG']) &&$GLOBALS['FG_DEBUG'] > 1)
 // 			return;
