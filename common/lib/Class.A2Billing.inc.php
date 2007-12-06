@@ -45,6 +45,7 @@ class A2Billing {
 		if (!$this->dbhandle)
 			return false;
 		
+		$this->dbhandle->setFetchMode(ADODB_FETCH_ASSOC);
 		return true;
 	}
 	
