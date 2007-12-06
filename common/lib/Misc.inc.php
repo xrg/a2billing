@@ -714,11 +714,13 @@ function str_dbparams($dbh, $str, $parm_arr){
 			} else if ($sm ==2) {
 				if ($v == '') 
 					$v = null;
-				$v = (integer) $v;
+				
 				if ($v == null)
 					$resstr .= '0';
-				else
+				elseif (preg_match('/^\-?[0-9]+$/',$v)>=1)
 					$resstr .= $v;
+				else
+					$resstr .= '0';
 			}
 			else {
 				if ($v == null) $v = '';
