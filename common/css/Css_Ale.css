@@ -363,7 +363,7 @@ SPAN.errorText {
 .messageStackSuccess { font-family: Verdana, Arial, sans-serif; font-size: 10px; background-color: #99ff00; }
 .inputRequirement { font-family: Verdana, Arial, sans-serif; font-size: 10px; color: #ff0000; }
 
-.divleft {
+.old-divleft {
 	overflow: auto;
 	position: absolute;
 	z-index: 0;
@@ -373,12 +373,19 @@ SPAN.errorText {
 	top: 30px;
 }
 
-.divright {
+.old-divright {
 	overflow: auto;
 	position: absolute;
 	z-index: 0;
 	height: auto;
 	/*width: 825px;*/
 	left: 180px;
+	top: 30px;
+}
+
+.divleft {
+	vertical-align: top;
+	width: 10em;
+	left: 2px;
 	top: 30px;
 }

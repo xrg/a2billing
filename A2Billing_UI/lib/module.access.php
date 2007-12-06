@@ -15,23 +15,22 @@ error_reporting(E_ALL & ~E_NOTICE);
 define ("MODULE_ACCESS_DOMAIN",		"CallingCard System");
 define ("MODULE_ACCESS_DENIED",		"./Access_denied.htm");
 
-// *-*
-define ("ACX_CUSTOMER",					1);
-define ("ACX_BILLING",					2);			// 1 << 1
-define ("ACX_RATECARD",					4);			// 1 << 2
-define ("ACX_TRUNK",   					8);			// 1 << 3
-define ("ACX_CALL_REPORT",   			16);		// 1 << 4
-define ("ACX_CRONT_SERVICE",   			32);		// 1 << 5
-define ("ACX_ADMINISTRATOR",   			64);		// 1 << 6
-define ("ACX_FILE_MANAGER",   			128);		// 1 << 7
-define ("ACX_MISC",   				    256);		// 1 << 8
-define ("ACX_DID",   					512);		// 1 << 9
-define ("ACX_CALLBACK",					1024);		// 1 << 10
-define ("ACX_OUTBOUNDCID",				2048);		// 1 << 11
-define ("ACX_PACKAGEOFFER",				4096);		// 1 << 12
-define ("ACX_PREDICTIVE_DIALER",		8192);		// 1 << 13
-define ("ACX_INVOICING",			16384);		// 1 << 14
-define ("ACX_AGENTS", 				32768);		// 1 << 15
+define ("ACX_CUSTOMER",		1);
+define ("ACX_BILLING",		2);		// 1 << 1
+define ("ACX_RATECARD",		4);		// 1 << 2
+define ("ACX_TRUNK",   		8);		// 1 << 3
+define ("ACX_CALL_REPORT",   	16);		// 1 << 4
+define ("ACX_CRONT_SERVICE",   	32);		// 1 << 5
+define ("ACX_ADMINISTRATOR",   	64);		// 1 << 6
+define ("ACX_FILE_MANAGER",   	128);		// 1 << 7
+define ("ACX_MISC",   		256);		// 1 << 8
+define ("ACX_DID",   		512);		// 1 << 9
+define ("ACX_CALLBACK",		1024);		// 1 << 10
+define ("ACX_OUTBOUNDCID",	2048);		// 1 << 11
+define ("ACX_PACKAGEOFFER",	4096);		// 1 << 12
+define ("ACX_PREDICTIVE_DIALER",8192);		// 1 << 13
+define ("ACX_INVOICING",	16384);		// 1 << 14
+define ("ACX_AGENTS", 		32768);		// 1 << 15
 
 
 header("Expires: Sat, Jan 01 2000 01:01:01 GMT");
