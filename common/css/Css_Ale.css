@@ -385,7 +385,12 @@ SPAN.errorText {
 
 .divleft {
 	vertical-align: top;
-	width: 10em;
+	width: 15em;
 	left: 2px;
 	top: 30px;
+}
+
+.divright {
+	vertical-align: top;
+	height: auto;
 }

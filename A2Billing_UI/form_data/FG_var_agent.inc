@@ -3,20 +3,20 @@
 
 getpost_ifset(array('id', 'login', 'name','passwd','location','language','tariffgroup','climit'));
 
-$language_list = get_languages();
+/*$language_list = get_languages();
 $language_list_r = get_languages_r($language_list);
 
 $currency_list = array();
 $currency_list_r = array();
 $indcur=0;
-
-$currencies_list = get_currencies();
-
-foreach($currencies_list as $key => $cur_value) {
-	$currency_list[$key]  = array( $cur_value[1].' ('.$cur_value[2].')', $key);
-	$currency_list_r[$key]  = array( $key, $cur_value[1]);
-	$currency_list_key[$key][0] = $key;
-}
+*/
+// $currencies_list = get_currencies();
+// 
+// foreach($currencies_list as $key => $cur_value) {
+// 	$currency_list[$key]  = array( $cur_value[1].' ('.$cur_value[2].')', $key);
+// 	$currency_list_r[$key]  = array( $key, $cur_value[1]);
+// 	$currency_list_key[$key][0] = $key;
+// }
 
 
 $HD_Form = new FormHandler("cc_agent","Agent");
@@ -37,7 +37,6 @@ $HD_Form -> AddViewElement(gettext("ID"), "id", "5%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("NAME"), "name", "25%", "left", "sort");
 $HD_Form -> AddViewElement(gettext("USER ID"), "login", "15%", "left", "sort");
 $HD_Form -> AddViewElement(gettext("OPTIONS"), "options", "7%", "center", "sort");
-$HD_Form -> AddViewElement(gettext("LOCATION"), "location", "25%", "left", "sort");
 $HD_Form -> AddViewElement(gettext("LANGUAGE"), "language", "15%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("CREDIT"), "credit", "10%", "center", "sort");
 $HD_Form -> AddViewElement(gettext("CLIMIT"), "climit", "10%", "center", "sort");
@@ -49,7 +48,7 @@ $HD_Form -> AddViewElement("<acronym title=\"ACTIVATED\">".gettext("ACT")."</acr
 //$HD_Form -> AddViewElement(gettext("USER ID"), "activated", "25%", "center", "sort", "", "list", $actived_list);
 
 
-$HD_Form -> FieldViewElement ('id, name, login, options, location, language, credit, climit, tariffgroup, currency, active');
+$HD_Form -> FieldViewElement ('id, name, login, options, language, credit, climit, tariffgroup, currency, active');
 
 
 $HD_Form -> CV_NO_FIELDS  = gettext("THERE IS NO ".strtoupper($HD_Form->FG_INSTANCE_NAME)." CREATED!");

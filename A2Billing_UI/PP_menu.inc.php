@@ -31,28 +31,28 @@ function imgidclick(imgID,divID)
 	
 	
 	if (is_ie){			
-		if 	(document.all(divID).style.display == "none" )		
+		if 	(document.all(divID).style.display == "none" )
 		{		
-			document.all(divID).style.display="";			
-			document.all(imgID).src="../Images/minus.gif";			
+			document.all(divID).style.display="";
+			document.all(imgID).src="./Images/minus.png";
 		}
 		else
 		{			
-			document.all(divID).style.display="None";			
-			document.all(imgID).src="../Images/plus.gif";			
+			document.all(divID).style.display="None";
+			document.all(imgID).src="./Images/plus.png";
 		}
 		// Only for I.E
 		window.event.cancelBubble=true;
 	}else{
 		if 	(document.getElementById(divID).style.display == "none" )
 		{
-			document.getElementById(divID).style.display="";			
-			document.getElementById(imgID).src="../Images/minus.gif";
+			document.getElementById(divID).style.display="";
+			document.getElementById(imgID).src="./Images/minus.png";
 		}
 		else
 		{			
 			document.getElementById(divID).style.display="None";
-			document.getElementById(imgID).src="../Images/plus.gif";			
+			document.getElementById(imgID).src="./Images/plus.png";
 		}
 	}
 }

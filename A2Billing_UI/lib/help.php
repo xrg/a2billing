@@ -52,7 +52,7 @@ function show_help($str) {
 
 	case 'agent_list':
 		$icon = 'vcard.png';
-		$text =gettext("Agents, callshops. <br>List or manipulate agents, which can deliver cards to customers.");
+		$text =;
 		break;
 
 	case 'money_situation':

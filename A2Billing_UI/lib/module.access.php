@@ -43,7 +43,7 @@ if (!isset($_SESSION)) {
 
 
 if (isset($_GET["logout"]) && $_GET["logout"]=="true") {
-require_once(DIR_COMMON."Class.Logger.php");
+require_once(DIR_COMMON."Class.Logger.inc.php");
 
 	$log = new Logger(/*new Config()*/);
 	$log -> insertLog($admin_id, 1, "USER LOGGED OUT", "User Logged out from website", '', $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'],'');
