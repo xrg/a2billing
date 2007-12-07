@@ -1,11 +1,12 @@
 <?php
+require_once("Class.ElemBase.inc.php");
 
 	/** Help element
 	    Display a 'help' section on a html page
         */
 
 
-class HelpElem {
+class HelpElem extends ElemBase{
 	public $icon = 'vcard.png';
 	public $text = 'No help available!';
 	

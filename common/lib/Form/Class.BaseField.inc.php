@@ -40,7 +40,7 @@ abstract class BaseField {
 	}
 	
 	public function DispAdd(&$form){
-		$this->DispAddEdit('',$form);
+		$this->DispAddEdit($this->getDefault(),$form);
 	}
 
 	/** Alternatively, a field can have a common method for both
@@ -49,6 +49,11 @@ abstract class BaseField {
 	    */
 	public function DispAddEdit($val,&$form){
 		//stub!
+	}
+	
+	/** Return the default value (for a addition) */
+	public function getDefault() {
+		return '';
 	}
 	
 	/** query expression */

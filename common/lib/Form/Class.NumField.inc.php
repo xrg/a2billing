@@ -3,7 +3,8 @@ require_once("Class.BaseField.inc.php");
 
 /** Integer (numeric) field */
 class IntField extends BaseField{
-
+	public $def_value = 0;
+	
 	function IntField($fldtitle, $fldname, $flddescr=null, $fldwidth = null){
 		$this->fieldname = $fldname;
 		$this->fieldtitle = $fldtitle;
@@ -21,6 +22,11 @@ class IntField extends BaseField{
 	<div class="descr"><?= htmlspecialchars($this->editDescr)?></div>
 	<?php
 	}
+	
+	public function getDefault() {
+		return $this->def_value;
+	}
+
 
 };
 

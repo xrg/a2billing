@@ -2,6 +2,7 @@
 require_once("Class.BaseField.inc.php");
 
 class TextField extends BaseField{
+	public $def_value;
 
 	function TextField($fldtitle, $fldname, $flddescr=null, $fldwidth = null){
 		$this->fieldname = $fldname;
@@ -20,6 +21,11 @@ class TextField extends BaseField{
 	<div class="descr"><?= htmlspecialchars($this->editDescr)?></div>
 	<?php
 	}
+	
+	public function getDefault() {
+		return $this->def_value;
+	}
+
 
 };
 

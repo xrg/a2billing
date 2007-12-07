@@ -5,8 +5,7 @@
 	    The form is the main handler of data->html interaction.
 	*/
 
-class FormHandler
-{	
+class FormHandler extends ElemBase{
 	public $FG_DEBUG = 0;
 	protected $action = null;
 	private $rights_checked = false;
@@ -87,6 +86,27 @@ class FormHandler
 		$this->sens = $this->getpost_single('sens');
 		
 	}
+	
+	/** Perform add, edit etc.
+	    If the action fails (eg. db error), this will throw an \b exception
+	    The exception message shall be human readable, that is, will be output
+	    to the reader.
+	    
+	    \return If it returns a string, that will be the url to go after here.
+	    
+	*/
+	public function PerformAction(){
+		if (!$this->rights_checked){
+			error_log("Attempt to use FormHandler w/o rights!");
+			die();
+		}
+		switch ($this->action){
+		case 'add':
+			return $this->PerformAdd();
+		case 'edit':
+			return $this->PerformEdit();
+		}
+	}
 
 
 	/** Render the view/edit form for the HTML body */
@@ -96,6 +116,8 @@ class FormHandler
 			die();
 		}
 		switch($this->action){
+		case 'idle':
+			break;
 		case 'list':
 			$this->RenderList();
 			break;
@@ -230,6 +252,12 @@ class FormHandler
 		echo "<div><pre>\n";
 		print_r($this);
 		echo "\n</pre></div>\n";
+	}
+	
+	protected function PerformAdd(){
+	
+		
+		$this->action = 'idle';
 	}
 };
 

@@ -1,6 +1,7 @@
 <?php
+require_once("lib/common/Class.ElemBase.inc.php");
 
-class IntroPage {
+class IntroPage extends ElemBase{
 	function Render(){
 	?>
 <table align="center" width="90%" bgcolor="white" cellpadding="5" cellspacing="5" style="border-bottom: medium dotted #AA0000">
@@ -65,8 +66,8 @@ class IntroPage {
 	<?php } //Render()
 };
 	
-$BODY_ELEMS=array();
-$BODY_ELEMS[]= new IntroPage();
+$PAGE_ELEMS=array();
+$PAGE_ELEMS[]= new IntroPage();
 
 require("PP_page.inc.php");
 ?>
