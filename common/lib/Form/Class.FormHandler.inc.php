@@ -1,9 +1,12 @@
 <?php
 	// Please, include ../Form.inc.php instead!
-
 	/** Generic form
 	    The form is the main handler of data->html interaction.
 	*/
+
+abstract class FormElemBase extends ElemBase{
+	abstract function InFormRender(&$form);
+};
 
 class FormHandler extends ElemBase{
 	public $FG_DEBUG = 0;
@@ -14,6 +17,13 @@ class FormHandler extends ElemBase{
 	public $prefix = ''; 
 	
 	public $a2billing; ///< Reference to an a2billing instance
+	
+		/** Custom elements before the form. These can be search options or anything. 
+		    If they are instances of FormElemBase, they will be called with the form
+		    as a parameter, which helps a lot.
+		*/
+	public $pre_elems = array();
+	public $meta_elems = array(); ///< Same as pre_elems, but rendered after the form.
 	
 	// model-related vars
 		/** The most important var: hold one object per field to be viewed/edited */
@@ -115,6 +125,15 @@ class FormHandler extends ElemBase{
 			error_log("Attempt to use FormHandler w/o rights!");
 			die();
 		}
+		
+		foreach($this->pre_elems as $el)
+			if ($el instanceof FormElemBase)
+				$el->InFormRender($this);
+			elseif ($el instanceof ElemBase)
+				$el->Render();
+			else if ($this->FG_DEBUG)
+				print_r($el);
+				
 		switch($this->action){
 		case 'idle':
 			break;
@@ -122,6 +141,7 @@ class FormHandler extends ElemBase{
 			$this->RenderList();
 			break;
 		case 'ask-add':
+		case 'ask-add2':
 			$this->RenderAskAdd();
 			break;
 		case 'ask-edit':
@@ -139,6 +159,14 @@ class FormHandler extends ElemBase{
 		default:
 			if ($this->FG_DEBUG) echo "Cannot handle action: $this->action";
 		}
+		
+		foreach($this->meta_elems as $el)
+			if ($el instanceof FormElemBase)
+				$el->InFormRender($this);
+			elseif ($el instanceof ElemBase)
+				$el->Render();
+			else if ($this->FG_DEBUG)
+				print_r($el);
 	}
 	
 	protected function RenderList(){
@@ -255,9 +283,52 @@ class FormHandler extends ElemBase{
 	}
 	
 	protected function PerformAdd(){
-	
+		$dbg_elem = new DbgElem();
+		$dbhandle = $this->a2billing->DBHandle();
 		
-		$this->action = 'idle';
+		if ($this->FG_DEBUG>0)
+			array_unshift($this->pre_elems,$dbg_elem);
+			
+		// just build the value list..
+		$ins_data=array();
+		foreach($this->model as $fld)
+			$fld->buildInsert($ins_data,$this);
+		
+		$ins_keys = array();
+		$ins_values = array();
+		$ins_qm = array();
+		
+		foreach ($ins_data as $ins){
+			$ins_keys[] =$ins[0];
+			$ins_qm[] = '?';
+			$ins_values[] = $ins[1];
+		}
+		
+		$dbg_elem->content.= "Query: INSERT INTO ". $this->model_table ."(";
+		$dbg_elem->content.= implode(', ',$ins_keys);
+		$dbg_elem->content.= ") VALUES(". implode(',', $ins_values).");\n";
+		
+		$query = "INSERT INTO ". $this->model_table ."(" .
+			implode(', ',$ins_keys) . ") VALUES(". 
+			implode(',', $ins_qm).");";
+		
+		/* Note: up till now, no data has been quoted/sanitized. Thus, we
+		   feed it direcltly to the second part of the query. Pgsql, in particular,
+		   can handle a binary transfer of that data to the db, in a well protected
+		   manner */
+		$res = $dbhandle->Execute($query,$ins_values);
+		
+		if (!$res){
+			$this->action = 'ask-add2';
+			$this->pre_elems[] = new ErrorElem(str_params(_("Cannot create new %1, database error."),array($this->model_name_s),1));
+			$dbg_elem->content.= $dbhandle->ErrorMsg() ."\n";
+// 			throw new Exception( $err_str);
+		}else{
+			$dbg_elem->content.= ".. success: ". gettype($res) . "\n";
+			$this->pre_elems[] = new StringElem(_("New data has successfully been inserted into the database."));
+			$this->action = 'idle';
+			
+		}
 	}
 };
 

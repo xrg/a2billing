@@ -47,7 +47,7 @@ table.addForm div.descr {
 		?><tr><td class="field"><?php
 				$fld->RenderAddTitle($this);
 		?></td><td class="value"><?php
-				$fld->DispAdd($row,$this);
+				$fld->DispAdd($this);
 		?></td></tr>
 		<?php
 			}

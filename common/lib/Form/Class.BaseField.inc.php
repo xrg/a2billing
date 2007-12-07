@@ -40,7 +40,12 @@ abstract class BaseField {
 	}
 	
 	public function DispAdd(&$form){
-		$this->DispAddEdit($this->getDefault(),$form);
+		$v = '';
+		if ($form->getAction() =='ask-add2')
+			$v=$form->getpost_dirty($this->fieldname);
+		else
+			$v=$this->getDefault();
+		$this->DispAddEdit($v,$form);
 	}
 
 	/** Alternatively, a field can have a common method for both
@@ -90,6 +95,12 @@ abstract class BaseField {
 		return null;
 	}
 
+	public function buildInsert(&$ins_arr,&$form){
+		if (!$this->does_add)
+			return;
+		$ins_arr[] = array($this->fieldname,
+			$form->getpost_dirty($this->fieldname));
+	}
 
 
 	/** Render the List head cell (together with 'td' element) */
