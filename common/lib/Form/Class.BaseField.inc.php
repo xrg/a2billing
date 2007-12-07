@@ -83,9 +83,13 @@ abstract class BaseField {
 		return null;
 	}
 	
+	public function listQueryTable(&$table,&$form){
+	}
+	
 	public function editQueryClause(&$dbhandle,&$form){
 		return null;
 	}
+	
 	
 	public function delQueryClause(&$dbhandle,&$form){
 		return editQueryClause($dbhandle,$form);

@@ -19,8 +19,9 @@ class SqlRefField extends BaseField{
 	}
 
 	public function DispList(array &$qrow,&$form){
-		if ($form->FG_DEBUG>0)
-		echo "Ref:" .htmlspecialchars($qrow[$this->fieldname]);
+		echo htmlspecialchars($qrow[$this->fieldname.'_'.$this->refname]);
+		if ($form->FG_DEBUG>3)
+			echo " (Ref:" .htmlspecialchars($qrow[$this->fieldname]) .")";
 	}
 	
 	public function DispAddEdit($val,&$form){
@@ -31,6 +32,19 @@ class SqlRefField extends BaseField{
 
 	public function getDefault() {
 		return $this->def_value;
+	}
+	public function listQueryField(&$dbhandle){
+		if (!$this->does_list)
+			return;
+		return array($this->fieldname, $this->fieldname.'_'.$this->refname);
+	}
+
+	public function listQueryTable(&$table,&$form){
+		echo "List query table!";
+		$table .= ' LEFT OUTER JOIN ' .
+			str_params("( SELECT %1 AS %0_%1, %2 AS %0_%2 FROM %3) AS %0_table ".
+				"ON %0_%1 = %0",
+			    array($this->fieldname,$this->refid,$this->refname, $this->reftable));
 	}
 	
 	protected function prepare(&$dbhandle){

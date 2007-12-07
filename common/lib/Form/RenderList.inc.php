@@ -52,17 +52,23 @@ table.cclist tbody tr:hover {
 	
 	$query_fields = array();
 	$query_clauses = array();
+	$query_table = $this->model_table;
+	
 	foreach($this->model as $fld){
 		$tmp= $fld->listQueryField($dbhandle);
 		if ( is_string($tmp))
 			$query_fields[] = $tmp;
+		elseif (is_array($tmp))
+			$query_fields=array_merge($query_fields,$tmp);
 		
 		$tmp= $fld->listQueryClause($dbhandle);
 		if ( is_string($tmp))
 			$query_clauses[] = $tmp;
+			
+		$fld->listQueryTable($query_table,$form);
 	}
 	
-	if ($this->model_table == null){
+	if (!strlen($query_table)){
 		if ($this->FG_DEBUG>0)
 			echo "No table!\n";
 		return;
@@ -76,7 +82,7 @@ table.cclist tbody tr:hover {
 	}
 	
 	$QUERY .= implode(', ', $query_fields);
-	$QUERY .= ' FROM ' . $this->model_table;
+	$QUERY .= ' FROM ' . $query_table;
 	
 	if (count($query_clauses))
 		$QUERY .= ' WHERE ' . implode(' AND ', $query_clauses);
