@@ -52,6 +52,12 @@ table.addForm div.descr {
 		<?php
 			}
 	?>
+	<tr class="confirm"><td colspan=2 align="right">
+	<button type=submit>
+	<?= str_params(_("Create this %1"),array($this->model_name_s),1) ?>
+	<img src="./Images/icon_arrow_orange.png" ></input>
+	<td>
+	</tr>
 	</tbody>
 	</table> </form>
 	<?php
