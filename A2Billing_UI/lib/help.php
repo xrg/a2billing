@@ -359,7 +359,7 @@ function show_help($str) {
 
 	case 'server':
 		$icon = 'network_local.png';
-		$text =gettext("Server are used by the callback system through the asterisk manager in order to initiate the callback and outbound a call to your customers. You can add/modify the callback server here that are going to be use here. The AGI and callback mode need to be install on those machine.");
+		$text =;
 		break;
 
 	case 'server_group':

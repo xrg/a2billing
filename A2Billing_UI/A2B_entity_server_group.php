@@ -4,9 +4,7 @@ include ("./lib/module.access.php");
 include (DIR_COMMON."Form.inc.php");
 include (DIR_COMMON."Class.HelpElem.inc.php");
 
-
 $menu_section='menu_servers';
-
 
 HelpElem::DoHelp(gettext("Group of server define the set of servers that are going to be used by the callback system. A callback is bound to a group of server, those server will be used to dispatch the callback requests."),
 	'yast_multihead.png');
@@ -15,7 +13,8 @@ $HD_Form= new FormHandler('cc_server_group',_("Server Groups"),_("Server group")
 $HD_Form->checkRights(ACX_ADMINISTRATOR);
 $HD_Form->init();
 
-$BODY_ELEMS[] = &$HD_Form;
+$PAGE_ELEMS[] = &$HD_Form;
+$PAGE_ELEMS[] = new AddNewButton($HD_Form);
 
 $HD_Form->model[] = new PKeyFieldEH(_("ID"),'id','5%');
 

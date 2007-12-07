@@ -1,57 +1,36 @@
 <?php
-$menu_section='menu_callback';
-include ("../lib/defines.php");
-include ("../lib/module.access.php");
-include ("../lib/Form/Class.FormHandler.inc.php");
-include ("./form_data/FG_var_server.inc");
+include ("./lib/defines.php");
+include ("./lib/module.access.php");
+include (DIR_COMMON."Form.inc.php");
+include (DIR_COMMON."Class.HelpElem.inc.php");
+include (DIR_COMMON."Form/Class.SqlRefField.inc.php");
+
+$menu_section='menu_servers';
+
+HelpElem::DoHelp(gettext("Server are used by the callback system through the asterisk manager in order to initiate the callback and outbound a call to your customers. You can add/modify the callback server here that are going to be use here. The AGI and callback mode need to be install on those machine."),
+	'network_local.png');
+
+$HD_Form= new FormHandler('cc_a2b_server',_("Servers"),_("Server"));
+$HD_Form->checkRights(ACX_ADMINISTRATOR);
+$HD_Form->init();
+
+$PAGE_ELEMS[] = &$HD_Form;
+$PAGE_ELEMS[] = new AddNewButton($HD_Form);
+
+$HD_Form->model[] = new PKeyFieldEH(_("ID"),'id','5%');
+
+$HD_Form->model[] = new TextFieldEH(_("Host"),'host',_("Host name"));
+$HD_Form->model[] = new SqlRefField(_("Group"),'grp','cc_server_group','id','name', _("Server group"));
+
+$HD_Form->model[] = new TextField(_("IP"),'ip',_("IPv4 address of server"));
+$HD_Form->model[] = new TextField(_("Login"),'manager_username',_("Username of manager for that host"));
+//$HD_Form->model[] = new PasswdField(_("Secret"),'manager_secret','alnum'));
 
 
-if (! has_rights (ACX_CALLBACK)){ 
-	   Header ("HTTP/1.0 401 Unauthorized");
-	   Header ("Location: PP_error.php?c=accessdenied");	   
-	   die();	   
-}
+// $HD_Form->model[] = new GroupField(array(new EditBtnField(),new DelBtnField()));
+$HD_Form->model[] = new DelBtnField();
 
-/***********************************************************************************/
-
-$HD_Form -> setDBHandler (DbConnect());
-
-
-$HD_Form -> init();
-
-
-if ($id!="" || !is_null($id)){	
-	$HD_Form -> FG_EDITION_CLAUSE = str_replace("%id", "$id", $HD_Form -> FG_EDITION_CLAUSE);	
-}
-
-
-if (!isset($form_action))  $form_action="list"; //ask-add
-if (!isset($action)) $action = $form_action;
-
-
-$list = $HD_Form -> perform_action($form_action);
-
-
-
-// #### HEADER SECTION
-include('PP_header.php');
-
-// #### HELP SECTION
-show_help('server');
-
-// #### TOP SECTION PAGE
-$HD_Form -> create_toppage ($form_action);
-
-
-// #### CREATE FORM OR LIST
-//$HD_Form -> CV_TOPVIEWER = "menu";
-if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
-
-$HD_Form -> create_form ($form_action, $list, $id=null) ;
-
-// #### FOOTER SECTION
-include('PP_footer.php');
-
+require("PP_page.inc.php");
 
 
 ?>

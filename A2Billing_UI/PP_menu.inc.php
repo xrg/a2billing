@@ -211,6 +211,15 @@ div.menu div ul {
 		</ul>
 		</div>
 	<?php   }  ?>
+	<?php   if ( has_rights (ACX_ADMINISTRATOR) ){ 	?>
+		<div id='menu_servers'>
+		<a onclick="menu_toggle('menu_servers');"><?= _("SERVERS");?></a>
+		<ul>
+			<li><a href="A2B_entity_server_group.php"><?= _("Groups");?></a></li>
+			<li><a href="A2B_entity_server.php"><?= _("Servers");?></a></li>
+		</ul>
+		</div>
+	<?php  } ?>
 	<?php   if ( has_rights (ACX_TRUNK) ){ 	?>
 		<div id='menu_trunk'>
 		<a onclick="menu_toggle('menu_trunk');"><?= _("TRUNK");?></a>
