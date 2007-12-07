@@ -1,6 +1,48 @@
 <?php
+include ("./lib/defines.php");
+include ("./lib/module.access.php");
+include (DIR_COMMON."Form.inc.php");
+include (DIR_COMMON."Class.HelpElem.inc.php");
+
 $menu_section='menu_billing';
 
+HelpElem::DoHelp(gettext("Currency data are automaticaly updated from Yahoo Financial." .
+			"<br>For more information please visite the website http://finance.yahoo.com.".
+			"<br>The list below is based over your currency base :").
+			' <b>'.BASE_CURRENCY.'</b>','favorites.png');
+
+$HD_Form= new FormHandler('cc_currencies',_("Currencies"),_("Currency"));
+$HD_Form->checkRights(ACX_AGENTS);
+$HD_Form->init();
+
+$PAGE_ELEMS[] = &$HD_Form;
+//$PAGE_ELEMS[] = new AddNewButton($HD_Form);
+
+$HD_Form->model[] = new PKeyField(_("ID"),'id');
+
+$HD_Form->model[] = new TextField(_("Currency"),'currency',_("Currency code"));
+$HD_Form->model[] = new TextField(_("Name"),'name',_("Currency name"));
+$HD_Form->model[] = new FloatField(_("Value"),'value',_("Rate to base currency"));
+$HD_Form->model[] = new TextField(_("Base currency"),'basecurrency',_("Currency to which rate corresponds. Should be base currency."));
+
+$HD_Form->model[] = new TextFieldN(_("Sign"),'csign',_("Currency special symbol"));
+end($HD_Form->model)->does_list=false;
+$HD_Form->model[] = new BoolField(_("Prepend sign"),'sign_pre',_("If true, symbol prepends amount, like USD $ 1.00"));
+end($HD_Form->model)->does_list=false;
+$HD_Form->model[] = new TextField(_("Format"),'cformat',_("SQL visual format"));
+end($HD_Form->model)->does_list=false;
+$HD_Form->model[] = new TextField(_("Format 2"),'cformat2',_("SQL visual format for small amounts (eg. rates), use more precision here."));
+end($HD_Form->model)->does_list=false;
+
+$HD_Form->model[] = new EditBtnField();
+//$HD_Form->model[] = new GroupField(array(new EditBtnField(),new DelBtnField()));
+
+
+require("PP_page.inc.php");
+
+// eof !
+
+if (false){
 include ("../lib/defines.php");
 include ("../lib/module.access.php");
 include ("../lib/Form/Class.FormHandler.inc.php");
@@ -130,6 +172,6 @@ $HD_Form -> create_form ($form_action, $list, $id=null) ;
 include("PP_footer.php");
 
 
-
+} //endif(false)
 
 ?>

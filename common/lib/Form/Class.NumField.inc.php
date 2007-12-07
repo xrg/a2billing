@@ -48,4 +48,24 @@ class FloatField extends IntField{
 
 };
 
+class BoolField extends IntField{
+
+	public function DispList(array &$qrow,&$form){
+		$val = $qrow[$this->fieldname];
+		if (($val == 't') || ($val === true) || ($val == 1))
+			echo _("TRUE");
+		else
+			echo _("FALSE");
+	}
+	
+	public function DispAddEdit($val,&$form){
+	?><input type="checkbox" name="<?= $this->fieldname ?>" value="t" <?php
+		if (($val == 't') || ($val === true) || ($val == 1))
+			echo 'checked ';
+		?>/>
+	<div class="descr"><?= htmlspecialchars($this->editDescr)?></div>
+	<?php
+	}
+};
+
 ?>

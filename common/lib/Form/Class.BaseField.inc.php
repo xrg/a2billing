@@ -106,6 +106,13 @@ abstract class BaseField {
 			$form->getpost_dirty($this->fieldname));
 	}
 
+	public function buildUpdate(&$ins_arr,&$form){
+		if (!$this->does_edit)
+			return;
+		$ins_arr[] = array($this->fieldname,
+			$form->getpost_dirty($this->fieldname));
+	}
+
 
 	/** Render the List head cell (together with 'td' element) */
 	function RenderListHead(&$form){
