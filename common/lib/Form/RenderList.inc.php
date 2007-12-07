@@ -87,6 +87,14 @@ table.cclist tbody tr:hover {
 	if (count($query_clauses))
 		$QUERY .= ' WHERE ' . implode(' AND ', $query_clauses);
 	
+	if ($this->order)
+		$QUERY .= " ORDER BY $this->order";
+	if (($this->sens) && (strtolower($this->sens)=='desc'))
+		$QUERY .= " DESC";
+	if ($this->ndisp)
+		$QUERY .= " LIMIT $this->ndisp";
+	if ($this->cpage)
+		$QUERY .= " OFFSET " . ($this->cpage * $this->ndisp);
 	$QUERY .= ';';
 	
 	if ($this->FG_DEBUG>3)
@@ -140,6 +148,76 @@ table.cclist tbody tr:hover {
 		</tbody>
 	</table>
 	<?php
+			//automatically choose to use paginating..
+		if (($this->ndisp && ($res->NumRows() >=$this->ndisp)) || 
+			( isset($this->cpage) && $this->cpage>0)){
+		?>
+		<table class="paginate">
+		<tr><td align="left">
+			<form name="<?= $this->prefix ?>otherForm2" action="<?php echo $_SERVER['PHP_SELF']?>">
+			<?= _("DISPLAY")?>
+			<?= $this->gen_PostParams(array(cpage => 0)); ?>
+			
+			<select name="ndisp" size="1" class="form_input_select">
+				<option value="10" selected>10</option>
+				<option value="30">30</option>
+				<option value="50">50</option>
+				<option value="100">100</option>
+				<option value="ALL"><?= _("All") ?></option>
+			</select>
+			<input class="form_input_button"  value=" <?= _("GO");?> " type="SUBMIT">
+			</form>
+		</td>
+		<td align="right">
+		<?php
+		//$window = 8;
+		
+		$pages =10;
+		$page_var= $this->prefix.'cpage';
+		
+			//echo "<center><p>\n";
+		if ($this->cpage > 0) {
+			?>
+			<a href="<?= $url . $this->gen_GetParams( array( $page_var =>  0)) ?>" ><?= _("First")?></a>
+			<a href="<?= $url . $this->gen_GetParams( array( $page_var =>  $this->cpage - 1)) ?>" ><?= _("Prev")?></a>
+			<?php
+		}
+			
+		if (false) {
+			if ($page <= $window) { 
+				$min_page = 1; 
+				$max_page = min(2 * $window, $pages); 
+			}
+			elseif ($page > $window && $pages >= $page + $window) { 
+				$min_page = ($page - $window) + 1; 
+				$max_page = $page + $window; 
+			}
+			else { 
+				$min_page = ($page - (2 * $window - ($pages - $page))) + 1; 
+				$max_page = $pages; 
+			}
+			
+			// Make sure min_page is always at least 1
+			// and max_page is never greater than $pages
+			$min_page = max($min_page, 1);
+			$max_page = min($max_page, $pages);
+			
+			for ($i = $min_page; $i <= $max_page; $i++) {
+				$temp = $url . $this->gen_GetParams( array( $page_var => $i-1));
+				if ($i != $page) echo "<a class=\"pagenav\" href=\"{$temp}\">$i</a>\n";
+				else echo "$i\n";
+			}
+		}
+		
+		if ($this->ndisp && ($res->NumRows() >=$this->ndisp)){
+			?> <a href="<?= $url . $this->gen_GetParams( array( $page_var =>  $this->cpage+1)) ?>" ><?= _("Next")?></a>
+			<?php
+		}
+		?>
+		</td></tr>
+		<table>
+		<?php }
+
 	} // query table
 	
 ?>

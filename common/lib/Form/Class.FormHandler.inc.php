@@ -36,8 +36,10 @@ class FormHandler extends ElemBase{
 	
 	// appearance vars
 	public $list_class = 'cclist'; ///< class of the table used in list view
-	public $sens = null; ///< sort direction, null should default to ascending
-	public $order = null; ///< sort field, should match some model[]->fieldname
+	public $sens; ///< sort direction, null should default to ascending
+	public $order; ///< sort field, should match some model[]->fieldname
+	public $cpage; ///< Current page
+	public $ndisp; ///< Number of records to display
 	public $follow_params = array(); ///< Parameters to be followed accross pages
 	
 	//running vars
@@ -92,9 +94,17 @@ class FormHandler extends ElemBase{
 		if ($this->action == null)
 			$this->action = 'list';
 		
-		$this->order = $this->getpost_single('order');
-		$this->sens = $this->getpost_single('sens');
+		if ($this->order= $this->getpost_single('order'))
+			$this->addFollowParam('order',$this->order);
+		if ($this->sens = $this->getpost_single('sens'))
+			$this->addFollowParam('sens',$this->sens);
 		
+		if ($this->cpage= $this->getpost_single('cpage'))
+			$this->addFollowParam('cpage',$this->cpage);
+		if ($this->ndisp = $this->getpost_single('ndisp'))
+			$this->addFollowParam('ndisp',$this->ndisp);
+		else
+			$this->ndisp = 30;
 	}
 	
 	/** Perform add, edit etc.
@@ -272,6 +282,10 @@ class FormHandler extends ElemBase{
 	
 	function getAction(){
 		return $this->action;
+	}
+	
+	function addFollowParam($key,$var){
+		$this->follow_params[$this->prefix . $key] = $var;
 	}
 
 	// ---- Debuging functions..
