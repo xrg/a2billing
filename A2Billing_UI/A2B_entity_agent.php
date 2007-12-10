@@ -1,8 +1,9 @@
 <?php
-include ("./lib/defines.php");
-include ("./lib/module.access.php");
-include (DIR_COMMON."Form.inc.php");
-include (DIR_COMMON."Class.HelpElem.inc.php");
+require_once ("./lib/defines.php");
+require_once ("./lib/module.access.php");
+require_once (DIR_COMMON."Form.inc.php");
+require_once (DIR_COMMON."Class.HelpElem.inc.php");
+require_once (DIR_COMMON."Form/Class.SqlRefField.inc.php");
 // include ("./form_data/FG_var_agent.inc");
 // include ("./lib/help.php");
 
@@ -23,12 +24,13 @@ $HD_Form->model[] = new PKeyFieldEH(_("ID"),'id');
 $HD_Form->model[] = new TextFieldEH(_("Name"),'name',_("Human readable name for the agent"));
 $HD_Form->model[] = new TextField(_("Username"),'login',_("Login name"));
 //end($HD_Form->model)->fieldname ='agent';
+$HD_Form->model[] = new PasswdField(_("Password"),'passwd','alnum',_("Password used by agent to login into the web interface"));
 
 $HD_Form->model[] = new IntField(gettext("OPTIONS"), "options", null, "7%");
 // $HD_Form->model[] = new RefField(_("LANGUAGE"), "language");
 $HD_Form->model[] = new FloatField(_("CREDIT"), "credit");
 $HD_Form->model[] = new FloatField(_("CLIMIT"), "climit",_("Credit limit of agent"));
-// $HD_Form->model[] = new SqlRefField(_("TARIFFG"), "tariffgroup","cc_tariffgroup", "tariffgroupname", "id='%id'");
+$HD_Form->model[] = new SqlRefField(_("TARIFFG"), "tariffgroup","cc_tariffgroup", "id", "tariffgroupname");
 // $HD_Form->model[] = new RefField(_("CURRENCY").gettext("CUR"), "currency", "5%");
 
 $actived_list = array();
