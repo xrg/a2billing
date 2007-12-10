@@ -1,68 +1,34 @@
 <?php
+require_once ("./lib/defines.php");
+require_once ("./lib/module.access.php");
+require_once (DIR_COMMON."Form.inc.php");
+require_once (DIR_COMMON."Class.HelpElem.inc.php");
+//require_once (DIR_COMMON."Form/Class.SqlRefField.inc.php");
+
 $menu_section='menu_ratecard';
 
-include ("../lib/defines.php");
-include ("../lib/module.access.php");
-include ("../lib/Form/Class.FormHandler.inc.php");
-include ("./form_data/FG_var_tariffgroup.inc");
+HelpElem::DoHelp(gettext("Tariff groups define which rates will apply to each group of customers."));
 
-if (! has_rights (ACX_RATECARD)){ 
-	Header ("HTTP/1.0 401 Unauthorized");
-	Header ("Location: PP_error.php?c=accessdenied");	   
-	die();
-}
-
-getpost_ifset(array('popup_select', 'popup_formname', 'popup_fieldname'));
-
-/***********************************************************************************/
-
-$HD_Form -> setDBHandler (DbConnect());
-$HD_Form -> init();
+$HD_Form= new FormHandler('cc_tariffgroup',_("Tariff Groups"),_("Tariff group"));
+$HD_Form->checkRights(ACX_RATECARD);
+$HD_Form->init();
 
 
-if ($id!="" || !is_null($id)){	
-	$HD_Form -> FG_EDITION_CLAUSE = str_replace("%id", "$id", $HD_Form -> FG_EDITION_CLAUSE);	
-}
+$PAGE_ELEMS[] = &$HD_Form;
+$PAGE_ELEMS[] = new AddNewButton($HD_Form);
+
+$HD_Form->model[] = new PKeyFieldEH(_("ID"),'id');
+
+$HD_Form->model[] = new TextFieldEH(_("Name"),'name');
+$HD_Form->model[] = new IntField(_("LCR type"), "lcrtype", _("LCR mode") . " (deprecated?)");
+//$HD_Form->model[] = new TextField(_("xx"),'xx');
 
 
-if (!isset($form_action))  $form_action="list"; //ask-add
-if (!isset($action)) $action = $form_action;
+//RevRef2::html_body($action);
 
-// #### HEADER SECTION
-include("PP_header.php");
+$HD_Form->model[] = new DelBtnField();
 
-RevRef2::html_body($action);
 
-$list = $HD_Form -> perform_action($form_action);
+require("PP_page.inc.php");
 
 ?>
-	<SCRIPT LANGUAGE="javascript">
-	<!-- Begin
-	function sendValue(selvalue) {
-        	window.opener.document.<?php echo $popup_formname ?>.<?php echo $popup_fieldname ?>.value = selvalue;
-		window.close();
-	}
-	// End -->
-	</script>
-<?php
-
-// #### HELP SECTION
-if ($form_action=='list') { 
-	if (!$popup_select) echo $CC_help_list_tariffgroup; // *-*
-} else {
-	echo $CC_help_list_tariffgroup;
-}
-
-// #### TOP SECTION PAGE
-$HD_Form -> create_toppage ($form_action);
-
-
-// #### CREATE FORM OR LIST
-//$HD_Form -> CV_TOPVIEWER = "menu";
-if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
-
-$HD_Form -> create_form ($form_action, $list, $id=null) ;
-
-// #### FOOTER SECTION
-include("PP_footer.php");
-
