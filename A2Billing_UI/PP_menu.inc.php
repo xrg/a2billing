@@ -179,10 +179,9 @@ div.menu div ul {
 	<div id='menu_ratecard'>
 	<a onclick="menu_toggle('menu_ratecard');"><?= _("RATECARD");?></a>
 		<ul>
-			<li><a href="A2B_entity_tariffgroup.php?form_action=ask-add"><?= _("Create TariffGroup");?></a></li>
-			<li><a href="A2B_entity_tariffgroup.php?"><?= _("List TariffGroup");?></a></li>
-			<li><a href="A2B_entity_tariffplan.php"><?= _("List RateCard");?></a></li>
-			<li><a href="A2B_entity_tariffplan.php?form_action=ask-add"><?= _("Create new RateCard");?></a></li>
+			<li><a href="A2B_entity_tariffgroup.php?"><?= _("TariffGroup");?></a></li>
+			<li><a href="A2B_entity_tariffplan.php"><?= _("RateCard (buy)");?></a></li>
+			<li><a href="A2B_entity_retailplan.php"><?= _("RetailPlan (sell)");?></a></li>
 			<li><a href="A2B_entity_def_ratecard.php"><?= _("Browse Rates");?></a></li>
 			<li><a href="A2B_entity_def_ratecard.php?form_action=ask-add"><?= _("Add Rate");?></a></li>
 			<li><a href="CC_ratecard_import.php"><?= _("Import RateCard");?></a></li>
