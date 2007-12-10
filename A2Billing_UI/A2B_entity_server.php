@@ -24,7 +24,7 @@ $HD_Form->model[] = new SqlRefField(_("Group"),'grp','cc_server_group','id','nam
 
 $HD_Form->model[] = new TextField(_("IP"),'ip',_("IPv4 address of server"));
 $HD_Form->model[] = new TextField(_("Login"),'manager_username',_("Username of manager for that host"));
-$HD_Form->model[] = new PasswdField(_("Secret"),'manager_secret','alnum'));
+$HD_Form->model[] = new PasswdField(_("Secret"),'manager_secret','alnum');
 
 
 // $HD_Form->model[] = new GroupField(array(new EditBtnField(),new DelBtnField()));

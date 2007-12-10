@@ -428,7 +428,7 @@ class FormHandler extends ElemBase{
 			$this->pre_elems[] = new ErrorElem(str_params(_("Cannot update %1, record not found."),array($this->model_name_s),1));
 			$this->action = 'ask-edit2';
 		} else {
-			$dbg_elem->content.= ".. success: ".  'a' . "\n";
+			$dbg_elem->content.= "Success: UPDATE ". $dbhandle->Affected_Rows() . "\n";
 			$this->pre_elems[] = new StringElem(_("Data has successfully been updated in the database."));
 			$this->action = 'idle';
 			
