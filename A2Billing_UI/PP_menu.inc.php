@@ -217,6 +217,7 @@ div.menu div ul {
 		<ul>
 			<li><a href="A2B_entity_server_group.php"><?= _("Groups");?></a></li>
 			<li><a href="A2B_entity_server.php"><?= _("Servers");?></a></li>
+			<li><a href="A2B_entity_ast_usercfg.php"><?= _("User cfgs");?></a></li>
 		</ul>
 		</div>
 	<?php  } ?>
