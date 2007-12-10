@@ -117,6 +117,7 @@ class RevRef extends BaseField {
 			$refkey = $this->refid;
 		$DBHandle=$form->a2billing->DBHandle();
 		?><input type="hidden" name="<?= $this->fieldname . '_action' ?>" value="">
+		<div class="descr"><?= htmlspecialchars($this->editDescr)?></div>
 		<?php
 		$QUERY = str_dbparams($DBHandle, "SELECT $refkey, $refname FROM $this->reftable ".
 			"WHERE $refid = %1 ; ",array($qrow[$this->localkey]));
@@ -285,7 +286,7 @@ class RevRefTxt extends RevRef {
 		case 'add':
 			$QUERY = str_dbparams($DBHandle,"INSERT INTO $this->reftable ($this->refid, $this->refname) VALUES(%1, %2);",
 				array($oeid, getpost_single($this->fieldname.'_new' . $this->refname)));
-			$dbg_elem->content .= "Query: ". htmlspecialchars($QUERY) ."<br>\n";
+			$dbg_elem->content .= "Query: ". htmlspecialchars($QUERY) ."\n";
 			
 			$res = $DBHandle->Execute ($QUERY);
 			
@@ -303,7 +304,7 @@ class RevRefTxt extends RevRef {
 			else
 				$QUERY = str_dbparams($DBHandle,"DELETE FROM $this->reftable WHERE $this->refid = %1 AND $this->refname = %2 ;",
 					array(getpost_single($this->fieldname.'_del'),getpost_single($this->fieldname.'_del2')));
-			$dbg_elem->content .= "Query: ". htmlspecialchars($QUERY) ."<br>\n";
+			$dbg_elem->content .= "Query: ". htmlspecialchars($QUERY) ."\n";
 			
 			$res = $DBHandle->Execute ($QUERY);
 			

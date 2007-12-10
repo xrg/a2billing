@@ -4,6 +4,7 @@ require_once ("./lib/module.access.php");
 require_once (DIR_COMMON."Form.inc.php");
 require_once (DIR_COMMON."Class.HelpElem.inc.php");
 require_once (DIR_COMMON."Form/Class.TimeField.inc.php");
+require_once (DIR_COMMON."Form/Class.RevRef2.inc.php");
 
 $menu_section='menu_ratecard';
 
@@ -31,6 +32,7 @@ end($HD_Form->model)->def_value=0;
 $HD_Form->model[] = new TimeOWField(_("Period end"), "endtime", _("Time of week the rate stops apply"));
 end($HD_Form->model)->def_value=10079;
 //$HD_Form->model[] = new TextField(_("xx"),'xx');
+$HD_Form->model[] = new RevRef2(_("Buy plans"),'bplans','id','cc_rtplan_buy','rtid','tpid','cc_tariffplan','id','tariffname',_("Tables to buy from when selling through this plan."));
 
 
 //RevRef2::html_body($action);
