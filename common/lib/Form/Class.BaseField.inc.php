@@ -39,6 +39,13 @@ abstract class BaseField {
 		$this->DispAddEdit($qrow[$this->fieldname],$form);
 	}
 	
+	/** Produce the array of hidden values for an edit form.
+	    \return if needed, an array of (key => value) for the hidden field
+	*/
+	public function editHidden(array &$qrow,&$form){
+		return null;
+	}
+	
 	public function DispAdd(&$form){
 		$v = '';
 		if ($form->getAction() =='ask-add2')
@@ -95,9 +102,9 @@ abstract class BaseField {
 		return editQueryClause($dbhandle,$form);
 	}
 	
-	public function addQueryClause(&$dbhandle,&$form){
-		return null;
-	}
+// 	public function addQueryClause(&$dbhandle,&$form){
+// 		return null;
+// 	}
 
 	public function buildInsert(&$ins_arr,&$form){
 		if (!$this->does_add)

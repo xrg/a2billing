@@ -30,7 +30,12 @@ class PKeyField extends BaseField {
 			"$this->fieldname = %#1",array($form->getpost_dirty($this->fieldname)));
 	}
 
-
+	public function editHidden(array &$qrow,&$form){
+		$val = $form->getpost_dirty($this->fieldname);
+		if (preg_match('/^\-?[0-9]+$/',$val)<1)
+			return null;
+		return array ($this->fieldname => $val);
+	}
 };
 
 /** Also hyperlink to the Edit page

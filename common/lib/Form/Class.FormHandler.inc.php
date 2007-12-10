@@ -154,6 +154,7 @@ class FormHandler extends ElemBase{
 		case 'ask-add2':
 			$this->RenderAskAdd();
 			break;
+		case 'ask-edit2':
 		case 'ask-edit':
 		case 'editForm':
 			$this->RenderEdit();
@@ -305,9 +306,16 @@ class FormHandler extends ElemBase{
 			
 		// just build the value list..
 		$ins_data=array();
-		foreach($this->model as $fld)
-			$fld->buildInsert($ins_data,$this);
 		
+		try {
+			foreach($this->model as $fld)
+				$fld->buildInsert($ins_data,$this);
+		} catch (Exception $ex){
+			$this->action = 'ask-add2';
+			$this->pre_elems[] = new ErrorElem($ex->getMessage());
+			$dbg_elem->content.=  $ex->message.' ('. $ex->getCode() .")\n";
+// 			throw new Exception( $err_str);
+		}
 		$ins_keys = array();
 		$ins_values = array();
 		$ins_qm = array();
@@ -340,6 +348,88 @@ class FormHandler extends ElemBase{
 		}else{
 			$dbg_elem->content.= ".. success: ". gettype($res) . "\n";
 			$this->pre_elems[] = new StringElem(_("New data has successfully been inserted into the database."));
+			$this->action = 'idle';
+			
+		}
+	}
+
+
+	/** Format and execute the Update query */
+	protected function PerformEdit(){
+		$dbg_elem = new DbgElem();
+		$dbhandle = $this->a2billing->DBHandle();
+		
+		if ($this->FG_DEBUG>0)
+			array_unshift($this->pre_elems,$dbg_elem);
+			
+		// just build the value list..
+		$upd_data=array();
+		$upd_clauses = array();
+		try {
+			foreach($this->model as $fld){
+				$fld->buildUpdate($upd_data,$this);
+				$qc = $fld->editQueryClause($dbhandle,$this);
+				if ($qc){
+					if (is_string($qc))
+						$upd_clauses[] = $qc;
+					elseif(is_array($qc))
+						$upd_clauses = array_merge($upd_clauses,$qc);
+					else
+						throw new Exception("Why clause " . gettype($qc)." ?");
+				}
+			}
+		} catch (Exception $ex){
+			$this->action = 'ask-edit2';
+			$this->pre_elems[] = new ErrorElem($ex->getMessage());
+			$dbg_elem->content.=  $ex->getMessage().' ('. $ex->getCode() .")\n";
+// 			throw new Exception( $err_str);
+		}
+		
+		$upd_values = array();
+		
+		$query = "UPDATE " . $this->model_table . " SET ";
+		
+		$query_u = array();
+		foreach($upd_data AS $upd){
+			$query_u[] = $upd[0] ." = ? ";
+			$upd_values[] = $upd[1];
+		}
+		$query .= implode(", ", $query_u);
+		$query_dbg = $query; // format a string that contains the values, too
+		$query_dbg .= "( ". implode(', ', $upd_values) .") ";
+		
+			// Protect against a nasty update!
+		if (count($upd_clauses)<1){
+			$this->pre_elems[] = new ErrorElem("Cannot update, internal error");
+			$dbg_elem->content.= "Update: no query clauses!\n";
+		}
+		
+		$query .= ' WHERE ' . implode (' AND ', $upd_clauses) . ';';
+		$query_dbg .= ' WHERE ' . implode (' AND ', $upd_clauses) . ';';
+		
+		$dbg_elem->content .=$query_dbg . "\n";
+		
+		/* Note: up till now, no data has been quoted/sanitized. Thus, we
+		   feed it direcltly to the second part of the query. Pgsql, in particular,
+		   can handle a binary transfer of that data to the db, in a well protected
+		   manner */
+		
+		$res = $dbhandle->Execute($query,$upd_values);
+		
+		if (!$res){
+			$this->action = 'ask-edit2';
+			$this->pre_elems[] = new ErrorElem(str_params(_("Cannot update %1, database error."),array($this->model_name_s),1));
+			$dbg_elem->content.= $dbhandle->ErrorMsg() ."\n";
+// 			throw new Exception( $err_str);
+		}elseif ($dbhandle->Affected_Rows()<1){
+			// No result rows: update clause didn't match
+			$dbg_elem->content.= ".. EOF, no rows!";
+			$dbg_elem->obj = $dbhandle->Affected_Rows();
+			$this->pre_elems[] = new ErrorElem(str_params(_("Cannot update %1, record not found."),array($this->model_name_s),1));
+			$this->action = 'ask-edit2';
+		} else {
+			$dbg_elem->content.= ".. success: ".  'a' . "\n";
+			$this->pre_elems[] = new StringElem(_("Data has successfully been updated in the database."));
 			$this->action = 'idle';
 			
 		}

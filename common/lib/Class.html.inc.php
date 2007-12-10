@@ -17,11 +17,17 @@ class StringElem extends ElemBase {
 
 class DbgElem extends StringElem{
 	public $content = '';
+	public $obj = null;
 	
 	public function Render(){
 	?>
 	<div class="debug" style="border:2px solid black">
 		<?= nl2br(htmlspecialchars($this->content)) ?>
+		<?php if ($this->obj !== null) {
+			echo "\n<pre>\n";
+			print_r($this->obj);
+			echo "\n</pre>\n";
+		} ?>
 	</div>
 	<?php
 	}

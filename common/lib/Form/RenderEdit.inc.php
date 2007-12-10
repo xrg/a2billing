@@ -93,8 +93,14 @@ table.editForm div.descr {
 		$row=$res->fetchRow();
 		?>
 	<form action=<?= $_SERVER['PHP_SELF']?> method=post name="<?= $this->prefix?>Frm" id="<?= $this->prefix ?>Frm">
-	<?php $this->gen_PostParams(array( action => 'edit', sub_action => ''),true); ?>
-	<table class="editForm" cellspacing="2">
+	<?php
+		$hidden_arr = array( $this->prefix. 'action' => 'edit', $this->prefix. 'sub_action' => '');
+		foreach($this->model as $fld)
+			if ($arr2 = $fld->editHidden($row,$this))
+				$hidden_arr = array_merge($hidden_arr,$arr2);
+		$this->gen_PostParams($hidden_arr,true);
+	?>
+<table class="editForm" cellspacing="2">
 	<thead><tr><td class="field">&nbsp;</td><td class="value">&nbsp;</td></tr>
 	</thead>
 	<tbody>
@@ -109,6 +115,12 @@ table.editForm div.descr {
 		<?php
 			}
 	?>
+	<tr class="confirm"><td colspan=2 align="right">
+	<button type=submit>
+	<?= str_params(_("Update this %1"),array($this->model_name_s),1) ?>
+	<img src="./Images/icon_arrow_orange.png" ></input>
+	<td>
+	</tr>
 	</tbody>
 	</table> </form>
 	<?php

@@ -94,4 +94,38 @@ class TextFieldN extends TextField{
 	}
 };
 
+/** A password, viewable.
+    This field is merely an edit field, with a random default. The password
+    will be visible in the web ui, since it needs to be communicated to the
+    user (so far). It is not listable, though.
+*/
+class PasswdField extends TextField{
+	public $pwtype;
+	public $pwlen = 8;
+
+	function PasswdField($fldtitle, $fldname,$fldtype, $flddescr=null, $fldwidth = null){
+		$this->does_list=false;
+		$this->fieldname = $fldname;
+		$this->fieldtitle = $fldtitle;
+		$this->pwtype=$fldtype;
+		$this->listWidth = $fldwidth;
+		$this->editDescr = $flddescr;
+	}
+	
+	public function getDefault() {
+		$str = "";
+		switch ($this->pwtype){
+		case 'num':
+			for ($i=0;$i<$this->pwlen;$i++)
+				$str .= mt_rand(0,9);
+			break;
+		case 'alnum':
+		default:
+			$enc = sha1(mt_rand().mt_rand().mt_rand());
+			$str = substr($enc, 1, $this->pwlen);
+		}
+		return $str;
+	}
+};
+
 ?>
