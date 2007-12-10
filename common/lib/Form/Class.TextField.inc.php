@@ -59,7 +59,7 @@ class TextAreaField extends TextField{
 
 	public function DispList(array &$qrow,&$form){
 		if (strlen($qrow[$this->fieldname])>$this->listLimit)
-			echo substr(htmlspecialchars($qrow[$this->fieldname]), 1, $this->listLimit). '...';
+			echo substr(htmlspecialchars($qrow[$this->fieldname]), 0, $this->listLimit). '...';
 		else
 			echo htmlspecialchars($qrow[$this->fieldname]);
 	}
