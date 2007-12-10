@@ -30,6 +30,36 @@ class IntField extends BaseField{
 
 };
 
+class IntFieldN extends IntField{
+
+	function IntField($fldtitle, $fldname, $flddescr=null, $fldwidth = null){
+		$this->def_value = NULL;
+		$this->fieldname = $fldname;
+		$this->fieldtitle = $fldtitle;
+		$this->listWidth = $fldwidth;
+		$this->editDescr = $flddescr;
+	}
+
+	public function buildInsert(&$ins_arr,&$form){
+		if (!$this->does_add)
+			return;
+		$val = $form->getpost_dirty($this->fieldname);
+		if (!strlen($val) || !is_numeric($val))
+			$val = null;
+		$ins_arr[] = array($this->fieldname, $val);
+	}
+
+	public function buildUpdate(&$ins_arr,&$form){
+		if (!$this->does_edit)
+			return;
+		$val = $form->getpost_dirty($this->fieldname);
+		if (!strlen($val) || !is_numeric($val))
+			$val = null;
+		$ins_arr[] = array($this->fieldname, $val);
+	}
+
+};
+
 class FloatField extends IntField{
 
 	function FloatField($fldtitle, $fldname, $flddescr=null, $fldwidth = null){
