@@ -33,6 +33,15 @@ table.editForm div.descr {
 	font-size: 9px;
 	font-weight: normal;
 }
+
+table.editForm input {
+	background-color: #F3F4F3;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: bold;
+	color: #FF9900;
+	border: 1px solid #C1C1C1;
+}
 </style>
 
 <?php
