@@ -11,6 +11,7 @@ DELETE FROM cc_sell_prefix;
 DELETE FROM cc_buyrate;
 DELETE FROM cc_sellrate;
 DELETE FROM cc_tariffplan;
+DELETE FROM cc_retailplan;
 DELETE FROM cc_tariffgroup;
 
 ALTER TABLE cc_tariffgroup ADD COLUMN migr_oldid INTEGER;
