@@ -1,34 +1,24 @@
 <?php
 
-/** Reverse reference Edit: control a table which references the edited entry
-    We are editing table1 and have some table2 where table2.ref1 = table1.id
-    So, we present here the list of table2.name..
-    
-*/
-class RevRef {
-	var $reftable;
-	var $refname = 'name';
-	var $refid = 'rid';
-	var $refkey = 'id'; /// The (primary) key for $reftable. 
+require_once("Class.BaseField.inc.php");
+
+/** Helper class, provides the necessary javascript.. */
+class RevRefHeader extends ElemBase {
+	public $formName ='Frm';
+	//TODO: When form->prefix is used, Frm should be updated here..
 	
-	var $debug_st = 1;
-
-
-	/** Produce the necessary html code at the body.
-	    Useful for styles, scripts etc.
-	    @param $action	The form action. Sometimes, the header is only needed 
-	    		for edits etc.
-	   */
-	public function html_body($action = null){
-		if ($action == 'list')
-			return;
+	function Render(){
+	}
+	
+	// stub functions..
+	function RenderHead() {
 	?>
 <style>
 table.FormRRt1 {
 	border: thin solid black;
 	color: blue;
 	width: 300;
-	font: Arial, Verdana;
+	font-family: Arial, Verdana;
 }
 
 table.FormRRt1 thead td{
@@ -41,52 +31,103 @@ table.FormRRt1 thead td{
 <script language="JavaScript" type="text/JavaScript">
 <!--
 function formRRdelete(rid,raction,rname, instance){
-  document.myForm.form_action.value = "object-edit";
-  document.myForm.sub_action.value = rid;
-  document.myForm.elements[raction].value='delete';
-  if (rname != null) document.myForm.elements[rname].value = instance;
-  myForm.submit();
+  document.<?= $this->formName ?>.action.value = "object-edit";
+  document.<?= $this->formName ?>.sub_action.value = rid;
+  document.<?= $this->formName ?>.elements[raction].value='delete';
+  if (rname != null) document.<?= $this->formName ?>.elements[rname].value = instance;
+  <?= $this->formName ?>.submit();
 }
 function formRRdelete2(rid,raction,rname, instance, inst2){
-  document.myForm.form_action.value = "object-edit";
-  document.myForm.sub_action.value = rid;
-  document.myForm.elements[raction].value='delete';
-  if (rname != null) document.myForm.elements[rname].value = instance;
-  if (rname != null) document.myForm.elements[rname+'2'].value = inst2;
-  myForm.submit();
+  document.<?= $this->formName ?>.action.value = "object-edit";
+  document.<?= $this->formName ?>.sub_action.value = rid;
+  document.<?= $this->formName ?>.elements[raction].value='delete';
+  if (rname != null) document.<?= $this->formName ?>.elements[rname].value = instance;
+  if (rname != null) document.<?= $this->formName ?>.elements[rname+'2'].value = inst2;
+  <?= $this->formName ?>.submit();
 }
 
 function formRRadd(rid,raction){
-  document.myForm.form_action.value = "object-edit";
-  document.myForm.sub_action.value = rid;
-  document.myForm.elements[raction].value='add';
-  myForm.submit();
+  document.<?= $this->formName ?>.action.value = "object-edit";
+  document.<?= $this->formName ?>.sub_action.value = rid;
+  document.<?= $this->formName ?>.elements[raction].value='add';
+  <?= $this->formName ?>.submit();
 }
 //-->
 </script>
 	
 	<?php
 	}
+}; // end class RevRefHeader
 
-	/** params : 5= form field name 
-	*/
-	public function DispEdit($scol, $sparams, $svalue, $DBHandle = null){
+$PAGE_ELEMS[] = new RevRefHeader();
+
+/** Reverse reference Edit: control a table which references the edited entry
+    We are editing table1 and have some table2 where table2.refid = table1.localkey
+    So, we present here the list of table2.refname..
+    
+*/
+class RevRef extends BaseField {
+	public $reftable;
+	public $refname = 'name';
+	public $localkey ;
+	public $refid = 'rid';
+	public $refkey = 'id'; /// The (primary) key for $reftable. If NULL, there is *no* key!
+	
+	function RevRef($fldtitle,$fldname,$lkey,$reftable,$refid = 'rid',$refname = 'name',$flddescr = null,$refkey='id'){
+		$this->fieldname = $fldname;
+		$this->fieldtitle = $fldtitle;
+		$this->reftable = $reftable;
+		$this->localkey= $lkey;
+		$this->refid = $refid;
+		$this->refname = $refname;
+		$this->editDescr = $flddescr;
+		$this->refkey = $refkey;
+		$this->does_list = false;
+		$this->does_add = false;
+	}
+
+	public function DispList(array &$qrow,&$form){
+		// nothing to list!
+	}
+	public function listQueryField(&$dbhandle){
+		if (!$this->does_list)
+			return;
+		return $this->localkey;
+	}
+	
+	public function editQueryField(&$dbhandle){
+		if (!$this->does_edit)
+			return;
+		return $this->localkey;
+	}
+	
+	public function buildInsert(&$ins_arr,&$form){
+	}
+
+	public function buildUpdate(&$ins_arr,&$form){
+	}
+
+	public function DispEdit(array &$qrow,&$form){
+	//public function DispEdit($scol, $sparams, $svalue, $DBHandle = null){
 		$refname = $this->refname ;
 		$refid = $this->refid ;
 		if( $this->refkey !=NULL)
 			$refkey = $this->refkey ;
 		else
 			$refkey = $this->refid;
-		?><input type="hidden" name="<?= $sparams[5] . '_action' ?>" value="">
+		$DBHandle=$form->a2billing->DBHandle();
+		?><input type="hidden" name="<?= $this->fieldname . '_action' ?>" value="">
 		<?php
 		$QUERY = str_dbparams($DBHandle, "SELECT $refkey, $refname FROM $this->reftable ".
-			"WHERE $refid = %1 ; ",array($svalue));
+			"WHERE $refid = %1 ; ",array($qrow[$this->localkey]));
 			
+		if ($form->FG_DEBUG>2)
+			echo "QUERY: ".htmlspecialchars( $QUERY)."\n<br>";
 		$res = $DBHandle->Execute ($QUERY);
 		if (! $res){
-			if ($this->debug_st) {
+			if ($form->FG_DEBUG) {
 				?> Query failed: <?= htmlspecialchars($QUERY) ?><br>
-				Error: <?= $DBHanlde->ErrorMsg() ?><br>
+				Error: <?= $DBHandle->ErrorMsg() ?><br>
 				<?php
 			}
 			echo _("No data found!");
@@ -97,35 +138,32 @@ function formRRadd(rid,raction){
 		</thead>
 		<tbody>
 		<?php while ($row = $res->fetchRow()){ ?>
-			<tr><td><?= htmlspecialchars($row[1]) ?></td>
+			<tr><td><?= htmlspecialchars($row[$refname]) ?></td>
 			<?php if ($this->refkey !=NULL){ ?>
-			    <td><a onClick="formRRdelete('<?= $scol ?>','<?=$sparams[5]. '_action' ?>','<?= $sparams[5] .'_del' ?>','<?= $row[0] ?>')" > <img src="../Images/icon-del.png" alt="<?= _("Remove this") ?>" /></a></td>
+			    <td><a onClick="formRRdelete('<?= $this->fieldname ?>','<?=$this->fieldname. '_action' ?>','<?= $this->fieldname .'_del' ?>','<?= $row[$refkey] ?>')" > <img src="./Images/icon-del.png" alt="<?= _("Remove this") ?>" /></a></td>
 			   <?php } else { ?>
-			    <td><a onClick="formRRdelete2('<?= $scol ?>','<?=$sparams[5]. '_action' ?>','<?= $sparams[5] .'_del' ?>','<?= $row[0] ?>','<?= $row[1] ?>')" > <img src="../Images/icon-del.png" alt="<?= _("Remove this") ?>" /></a></td>
+			    <td><a onClick="formRRdelete2('<?= $this->fieldname ?>','<?=$this->fieldname. '_action' ?>','<?= $this->fieldname .'_del' ?>','<?= $row[$refkey] ?>','<?= $row[$refname] ?>')" > <img src="./Images/icon-del.png" alt="<?= _("Remove this") ?>" /></a></td>
 			</tr>
 		<?php		}
 			} ?>
 		</tbody>
 		</table>
-		<input type="hidden" name="<?= $sparams[5] . '_del' ?>" value="">
+		<input type="hidden" name="<?= $this->fieldname . '_del' ?>" value="">
 		<?php if ($this->refkey ==NULL) { ?>
-		<input type="hidden" name="<?= $sparams[5] . '_del2' ?>" value="">
+		<input type="hidden" name="<?= $this->fieldname . '_del2' ?>" value="">
 		<?php }
 		}
 		
-		$this->dispAddBox($scol, $sparams, $svalue, $DBHandle);
+		$this->dispAddBox($form);
 	}
 	
-
-	/** Called by the framework when we have requested an 'object-edit'
-	*/
-	public function PerformObjEdit($scol, $sparams, $DBHandle = null){
-		if ($this->debug_st)
+	public function PerformObjEdit(&$form){
+		if ($form->FG_DEBUG)
 			echo "PerformObjEdit stub!!\n";
 	}
 	
 	/** By default, no addition method is defined */
-	public function dispAddbox($scol, $sparams, $svalue, $DBHandle){
+	public function dispAddbox(&$form){
 		if ($this->debug_st)
 			echo "dispAddbox stub!!\n";
 	
@@ -142,7 +180,7 @@ function formRRadd(rid,raction){
  */
 class RevRefcmb extends RevRef {
 	
-	public function dispAddbox($scol, $sparams, $svalue, $DBHandle ){
+	public function dispAddbox(/*-*/$scol, $sparams, $svalue, $DBHandle ){
 			// Now, find those refs NOT already in the list!
 		$QUERY = "SELECT $refkey, $refname FROM $this->reftable ".
 			"WHERE $refid IS NULL;";
@@ -159,23 +197,23 @@ class RevRefcmb extends RevRef {
 			while ($row = $res->fetchRow()){
 				$add_combos[] = $row;
 			}
-			gen_Combo($sparams[5]. '_add','',$add_combos);
+			gen_Combo($this->fieldname. '_add','',$add_combos);
 			 ?>
-			 <a onClick="formRRadd('<?= $scol ?>','<?=$sparams[5]. '_action' ?>')"><img src="../Images/btn_Add_94x20.png" alt="<?= _("Add this") ?>" /></a>
+			 <a onClick="formRRadd('<?= $this->fieldname ?>','<?=$this->fieldname. '_action' ?>')"><img src="../Images/btn_Add_94x20.png" alt="<?= _("Add this") ?>" /></a>
 		<?php
 		}
 	}
 	
 	
 	public function PerformObjEdit($scol, $sparams, $DBHandle = null){
-		$oeaction = getpost_single($sparams[5].'_action');
+		$oeaction = getpost_single($this->fieldname.'_action');
 		if ($this->debug_st)
 			echo "Object edit! Action: $oeaction <br>\n";
 		$oeid = getpost_single($sparams[1]);
 		switch($oeaction){
 		case 'add':
 			$QUERY = str_dbparams($DBHandle,"UPDATE $this->reftable SET $this->refid = %1 ".
-				"WHERE $this->refkey = %2;", array($oeid, getpost_single($sparams[5].'_add')));
+				"WHERE $this->refkey = %2;", array($oeid, getpost_single($this->fieldname.'_add')));
 			$res = $DBHandle->Execute ($QUERY);
 			if (! $res){
 				if ($this->debug_st) {
@@ -191,7 +229,7 @@ class RevRefcmb extends RevRef {
 			break;
 		case 'delete':
 			$QUERY = str_dbparams($DBHandle,"UPDATE $this->reftable SET $this->refid = NULL ".
-				"WHERE $this->refkey = %1;", array(getpost_single($sparams[5].'_del')));
+				"WHERE $this->refkey = %1;", array(getpost_single($this->fieldname.'_del')));
 			$res = $DBHandle->Execute ($QUERY);
 			if (! $res){
 				if ($this->debug_st) {
@@ -218,74 +256,70 @@ class RevRefcmb extends RevRef {
  	Deleting means DELETE FROM $reftable WHERE $refkey = key;
  */
 
-class RevReftxt extends RevRef {
+class RevRefTxt extends RevRef {
 
 	var $addprops="size=40 maxlength=100";
 	var $addval="";
 	
-	public function dispAddbox($scol, $sparams, $svalue, $DBHandle){
+	public function dispAddbox(&$form){
 			// Now, find those refs NOT already in the list!
 		?>
-		<input class="form_enter" type="INPUT" name="<?=$sparams[5]. '_new'. $this->refname ?>" value="<?= $this->addval ?>" <?= $this->addprops ?> />
-		<a onClick="formRRadd('<?= $scol ?>','<?=$sparams[5]. '_action' ?>')"><img src="../Images/btn_Add_94x20.png" alt="<?= _("Add this") ?>" /></a>
+		<input class="form_enter" type="INPUT" name="<?=$this->fieldname. '_new'. $this->refname ?>" value="<?= $this->addval ?>" <?= $this->addprops ?> />
+		<a onClick="formRRadd('<?= $this->fieldname ?>','<?=$this->fieldname. '_action' ?>')"><img src="./Images/btn_Add_94x20.png" alt="<?= _("Add this") ?>" /></a>
 		<?php
 		
 	}
 
 	/** Called by the framework when we have requested an 'object-edit'
 	*/
-	public function PerformObjEdit($scol, $sparams, $DBHandle = NULL){
-		$oeaction = getpost_single($sparams[5].'_action');
-		if ($this->debug_st)
-			echo "Object edit! Action: $oeaction <br>\n";
-		$oeid = getpost_single($sparams[1]);
+	public function PerformObjEdit(&$form){
+		$DBHandle=$form->a2billing->DBHandle();
+		$oeaction = /* $form-> */ getpost_single($this->fieldname.'_action');
+		$oeid = /* $form-> */ getpost_single($this->localkey);
+		
+		$dbg_elem = new DbgElem();
+		if ($form->FG_DEBUG>0)
+			$form->pre_elems[]= &$dbg_elem;
+
 		switch($oeaction){
 		case 'add':
 			$QUERY = str_dbparams($DBHandle,"INSERT INTO $this->reftable ($this->refid, $this->refname) VALUES(%1, %2);",
-				array($oeid, getpost_single($sparams[5].'_new' . $this->refname)));
-			if ($this->debug_st>2) {
-				echo "Query: ". htmlspecialchars($QUERY) ."<br>\n";
-				return;
-			}$res = $DBHandle->Execute ($QUERY);
+				array($oeid, getpost_single($this->fieldname.'_new' . $this->refname)));
+			$dbg_elem->content .= "Query: ". htmlspecialchars($QUERY) ."<br>\n";
+			
+			$res = $DBHandle->Execute ($QUERY);
+			
 			if (! $res){
-				if ($this->debug_st) {
-					?> Query failed: <?= htmlspecialchars($QUERY) ?><br>
-					Error: <?= $DBHanlde->ErrorMsg() ?><br>
-					<?php
-				}
-				echo _("Could not add!");
+				$form->pre_elems[]= new ErrorElem(str_params(_("Cannot insert new %1"),array($this->fieldtitle),1));
+				$dbg_elem->content .= "Query failed: $DBHanlde->ErrorMsg(); \n";
 			}else{
-				if ($this->debug_st)
-					echo _("Item added!");
+				$dbg_elem->content .= "Item added!";
 			}
 			break;
 		case 'delete':
 			if ($this->refkey != NULL)
 				$QUERY = str_dbparams($DBHandle,"DELETE FROM $this->reftable WHERE $this->refkey = %1 ;",
-					array(getpost_single($sparams[5].'_del')));
+					array(getpost_single($this->fieldname.'_del')));
 			else
 				$QUERY = str_dbparams($DBHandle,"DELETE FROM $this->reftable WHERE $this->refid = %1 AND $this->refname = %2 ;",
-					array(getpost_single($sparams[5].'_del'),getpost_single($sparams[5].'_del2')));
-			if ($this->debug_st>2) {
-				echo "Query: ". htmlspecialchars($QUERY) ."<br>\n";
-				return;
-			}
+					array(getpost_single($this->fieldname.'_del'),getpost_single($this->fieldname.'_del2')));
+			$dbg_elem->content .= "Query: ". htmlspecialchars($QUERY) ."<br>\n";
+			
 			$res = $DBHandle->Execute ($QUERY);
+			
 			if (! $res){
-				if ($this->debug_st) {
-					?> Query failed: <?= htmlspecialchars($QUERY) ?><br>
-					Error: <?= $DBHanlde->ErrorMsg() ?><br>
-					<?php
-				}
-				echo _("Could not delete!");
+				$form->pre_elems[]= new ErrorElem(str_params(_("Cannot delete %1"),array($this->fieldtitle),1));
+				$dbg_elem->content .= "Query failed: $DBHanlde->ErrorMsg(); \n";
 			}else{
-				if ($this->debug_st)
-					echo _("Item deleted!");
+				$dbg_elem->content .= "Item deleted!";
 			}
+			
 			break;
 		default:
-			echo "Unknown action $oeaction";
+			$dbg_elem->content .= "Unknown action $oeaction";
 		}
+		
+		return 'ask-edit';
 	}
 };
 ?>

@@ -183,7 +183,7 @@ div.menu div ul {
 			<li><a href="A2B_entity_tariffplan.php"><?= _("RateCard (buy)");?></a></li>
 			<li><a href="A2B_entity_retailplan.php"><?= _("RetailPlan (sell)");?></a></li>
 			<li><a href="A2B_entity_def_ratecard.php"><?= _("Browse Rates");?></a></li>
-			<li><a href="A2B_entity_def_ratecard.php?form_action=ask-add"><?= _("Add Rate");?></a></li>
+			<li><a href="A2B_entity_buyrate.php"><?= _("Buy Rate");?></a></li>
 			<li><a href="CC_ratecard_import.php"><?= _("Import RateCard");?></a></li>
 			<li><a href="CC_entity_sim_ratecard.php"><?= _("Ratecard Simulator");?></a></li>
 		</ul>

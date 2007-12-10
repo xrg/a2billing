@@ -187,6 +187,13 @@ abstract class BaseField {
 		$this->RenderEditTitle($form);
 	}
 	
+	/** Called by the framework when we have requested an 'object-edit'
+	    \return The next 'action' state for the form.
+	*/
+	public function PerformObjEdit(&$form){
+		return null;
+	}
+
 };
 
 ?>

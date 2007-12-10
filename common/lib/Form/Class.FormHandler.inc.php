@@ -125,6 +125,16 @@ class FormHandler extends ElemBase{
 			return $this->PerformAdd();
 		case 'edit':
 			return $this->PerformEdit();
+		case 'object-edit':
+			$subfld=$this->getpost_single('sub_action');
+			foreach($this->model as $fld)
+				if ($fld->fieldname == $subfld){
+					$act=$fld->PerformObjEdit($this);
+					if ($act)
+						$this->action = $act;
+					break;
+				}
+			break;
 		}
 	}
 
@@ -169,6 +179,11 @@ class FormHandler extends ElemBase{
 			break;
 		default:
 			if ($this->FG_DEBUG) echo "Cannot handle action: $this->action";
+			if ($this->FG_DEBUG>2){
+				echo "<pre>\n";
+				print_r($this->_dirty_vars);
+				echo "\n</pre>\n";
+			}
 		}
 		
 		foreach($this->meta_elems as $el)
