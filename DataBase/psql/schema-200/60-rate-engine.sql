@@ -17,12 +17,20 @@
     7. Sort by cost or whatever.
 */
 
-CREATE OR REPLACE FUNCTION RateEngine(id_card BIGINT, dialstring TEXT) 
-	RETURNS SETOF something AS $$
-	
-	SELECT 
-	FROM cc_tariffgroup WHERE 
-$$ LANGUAGE SQL STRICT VOLATILE;
+-- CREATE OR REPLACE FUNCTION RateEngine(id_card BIGINT, dialstring TEXT) 
+-- 	RETURNS SETOF RECORD AS $$
+-- 	
+-- 	SELECT '1'
+-- 	FROM cc_tariffgroup WHERE true;
+-- $$ LANGUAGE SQL STRICT VOLATILE;
 
+CREATE TYPE reng_result  AS ( srid INTEGER, prefix TEXT);
+
+DROP FUNCTION IF EXISTS RateEngine2(tgid BIGINT, dialstring TEXT);
+CREATE OR REPLACE FUNCTION RateEngine2(tgid BIGINT, dialstring TEXT) 
+	RETURNS SETOF reng_result AS $$
+	
+	SELECT srid,dialprefix FROM cc_sell_prefix WHERE dialprefix = $2;
+$$ LANGUAGE SQL STRICT VOLATILE;
 
 --eof
