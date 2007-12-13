@@ -161,7 +161,7 @@ class RevRef2 extends BaseField{
 		<?php
 		}
 		
-		?><div class="descr"><?= htmlspecialchars($this->editDescr)?></div><?php
+		?><div class="descr"><?= $this->editDescr?></div><?php
 	}
 	
 

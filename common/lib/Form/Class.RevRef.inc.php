@@ -117,7 +117,7 @@ class RevRef extends BaseField {
 			$refkey = $this->refid;
 		$DBHandle=$form->a2billing->DBHandle();
 		?><input type="hidden" name="<?= $this->fieldname . '_action' ?>" value="">
-		<div class="descr"><?= htmlspecialchars($this->editDescr)?></div>
+		<div class="descr"><?= $this->editDescr?></div>
 		<?php
 		$QUERY = str_dbparams($DBHandle, "SELECT $refkey, $refname FROM $this->reftable ".
 			"WHERE $refid = %1 ; ",array($qrow[$this->localkey]));
