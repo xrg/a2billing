@@ -16,4 +16,3 @@ if(!($restircted_url == "Public/index.php") && !($restircted_url == "signup/inde
 $FG_DEBUG=4;
 
 ?>
-
