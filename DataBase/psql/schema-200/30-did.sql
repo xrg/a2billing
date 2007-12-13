@@ -23,8 +23,8 @@ CREATE TABLE cc_did (
 );
 -- billtype: 0 = fix per month + dialoutrate, 1= fix per month, 2 = dialoutrate, 3 = free
 
-ALTER TABLE cc_did RENAME id_cc_didgroup TO didgroup;
-ALTER TABLE cc_did RENAME id_cc_country TO country;
+-- ALTER TABLE cc_did RENAME id_cc_didgroup TO didgroup;
+-- ALTER TABLE cc_did RENAME id_cc_country TO country;
 	
 
 
@@ -41,5 +41,5 @@ CREATE TABLE cc_did_destination (
 );
 
 
-ALTER TABLE cc_did_destination RENAME id_cc_card TO card;
-ALTER TABLE cc_did_destination RENAME id_cc_did TO did;
+-- ALTER TABLE cc_did_destination RENAME id_cc_card TO card;
+-- ALTER TABLE cc_did_destination RENAME id_cc_did TO did;

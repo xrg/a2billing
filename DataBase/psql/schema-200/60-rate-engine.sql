@@ -24,7 +24,21 @@
 -- 	FROM cc_tariffgroup WHERE true;
 -- $$ LANGUAGE SQL STRICT VOLATILE;
 
-CREATE TYPE reng_result  AS ( srid INTEGER, prefix TEXT);
+
+-- *-* Match the data needed by cc_call, trunks, timeout..
+
+CREATE TYPE reng_result  AS ( 
+	     --- Per-call fields
+	srid BIGINT,
+	dialstring TEXT,
+	destination TEXT, /* name of destination */
+	tgid INTEGER,
+	tmout INTEGER,
+	     -- Per-trunk (buyrate) fields
+	brid BIGINT,
+	trunk BIGINT, ...
+	prefix TEXT
+	);
 
 DROP FUNCTION IF EXISTS RateEngine2(tgid BIGINT, dialstring TEXT);
 CREATE OR REPLACE FUNCTION RateEngine2(tgid BIGINT, dialstring TEXT) 
