@@ -1,6 +1,9 @@
 <?php
 require_once("lib/common/Class.ElemBase.inc.php");
 
+require_once ("lib/defines.php");
+require_once ("lib/module.access.php");
+
 class IntroPage extends ElemBase{
 	function Render(){
 	?>

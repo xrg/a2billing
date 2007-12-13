@@ -1,6 +1,6 @@
 <?php 
-	require_once ("./lib/defines.php");
-	require_once ("lib/module.access.php");
+require_once ("lib/defines.php");
+require_once ("lib/module.access.php");
 
 	//$section = "";  No, it's specified inside the container entity
 // 	if($_GET["section"]!="")
