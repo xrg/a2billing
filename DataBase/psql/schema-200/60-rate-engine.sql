@@ -25,7 +25,7 @@
 -- $$ LANGUAGE SQL STRICT VOLATILE;
 
 
--- *-* Match the data needed by cc_call, trunks, timeout..
+-- Match the data needed by cc_call, trunks, timeout..
 
 CREATE TYPE reng_result  AS ( 
 	     --- Per-call fields
@@ -36,7 +36,8 @@ CREATE TYPE reng_result  AS (
 	tmout INTEGER,
 	     -- Per-trunk (buyrate) fields
 	brid BIGINT,
-	trunk BIGINT, ...
+	trunkid INTEGER, trunkcode TEXT, trunkprefix TEXT, providertech TEXT,
+	    providerip TEXT, trunkparm TEXT, provider INTEGER, trunkfree INTEGER,
 	prefix TEXT
 	);
 
