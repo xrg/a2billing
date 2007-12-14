@@ -25,7 +25,7 @@ CREATE TABLE cc_tariffplan (
     starttime integer NOT NULL DEFAULT 0,
     endtime integer NOT NULL DEFAULT 10079,
     description text,
-    id_trunk integer DEFAULT 0,
+    trunk INTEGER REFERENCES cc_trunk(id) NOT NULL,
     secondusedreal integer DEFAULT 0,
     secondusedcarrier integer DEFAULT 0,
     secondusedratecard integer DEFAULT 0,
