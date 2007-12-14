@@ -138,8 +138,7 @@ class A2Billing {
 		$ini_cfg = parse_ini_file($fname,true);
 		if (!$ini_cfg) throw new Exception('Parse of ini file failed!');
 	}
-	
-	
+
 };
 
 ?>

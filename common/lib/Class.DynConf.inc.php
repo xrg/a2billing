@@ -1,5 +1,6 @@
 <?php
 
+require_once('Class.Config.inc.php');
 require_once('Class.A2Billing.php');
 
 /** This class holds the dynamic (DB) configuration entries
@@ -10,7 +11,7 @@ require_once('Class.A2Billing.php');
 */
 
 
-class DynConf {
+class DynConf extends ConfigGen {
 	static protected $the_instance = null;
 	protected $DBHandle;
 	protected $prepOne = null;
@@ -47,7 +48,7 @@ class DynConf {
 	*/
 	public function GetCfgVar($group, $var, $default = null,$doerror = false){
 		if (!is_string($group) || !is_string($var))
-			throw Exception('Cannot handle non-strings here!');
+			throw new Exception('Cannot handle non-strings here!');
 		if (isset($this->groups[$group]) && isset($this->groups[$group][$var]))
 			return $this->groups[$group][$var];
 		// echo "Fetching $group/$var..\n";
@@ -77,7 +78,7 @@ class DynConf {
 	*/
 	public function PrefetchGroup($group){
 		if (!is_string($group))
-			throw Exception('Cannot handle non-strings here!');
+			throw new Exception('Cannot handle non-strings here!');
 		// Hmm, if I don't check for the existance of the group, calling this
 		// function twice will update it from the db!
 		
@@ -97,6 +98,23 @@ class DynConf {
 	/** Convenience function, call GetCfgVar from any context */
 	public static function GetCfg($group, $var, $default = null,$doerr = false){
 		return self::instance()->GetCfgVar($group, $var, $default,$doerr);
+	}
+	
+	public function SetDefVar($group, $var, $default){
+		if (!is_string($group) || !is_string($var))
+			throw new Exception('Cannot handle non-strings here!');
+		if (isset($this->groups[$group]) && isset($this->groups[$group][$var]))
+			return;
+		// echo "Fetching $group/$var..\n";
+		if (!isset($this->groups[$group]))
+			$this->groups[$group]=array();
+		$res = $this->DBHandle->Execute($this->prepOne,array($group,$var));
+		if (($res) && (!$res->EOF)){
+			$row = $res->fetchRow();
+			$this->groups[$group][$var]=$row[0];
+			return;
+		}
+		$this->groups[$group][$var]=$default;
 	}
 	
 	/// For debugging only: print cached config
