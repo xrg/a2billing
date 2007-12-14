@@ -1,7 +1,7 @@
 <?php
 
 require_once('Class.Config.inc.php');
-require_once('Class.A2Billing.php');
+require_once('Class.A2Billing.inc.php');
 
 /** This class holds the dynamic (DB) configuration entries
 
@@ -57,7 +57,7 @@ class DynConf extends ConfigGen {
 		$res = $this->DBHandle->Execute($this->prepOne,array($group,$var));
 		if (($res) && (!$res->EOF)){
 			$row = $res->fetchRow();
-			$this->groups[$group][$var]=$row[0];
+			$this->groups[$group][$var]=$row['val'];
 			return $this->groups[$group][$var];
 		}
 		if (isset($GLOBALS['FG_DEBUG']) && ($GLOBALS['FG_DEBUG'] >1)){
@@ -83,14 +83,15 @@ class DynConf extends ConfigGen {
 		// function twice will update it from the db!
 		
 		$res = $this->DBHandle->Execute('SELECT name, val FROM cc_sysconf WHERE grp = ?',array($group));
-		if (!$res || $res->EOF) {
+		if (!$res)
 			throw new Exception("Cannot prefetch conf [$group]" . $this->DBHandle->ErrorMsg());
-		}
+		elseif( $res->EOF )
+			throw new Exception("Cannot prefetch conf [$group]: no rows set.");
 		if (!isset($this->groups[$group]))
 			$this->groups[$group]=array();
 		$row= null;
 		while ($row= $res->fetchRow()){
-			$this->groups[$group][$row[0]] = $row[1];
+			$this->groups[$group][$row['name']] = $row['val'];
 		}
 	}
 	
@@ -111,7 +112,7 @@ class DynConf extends ConfigGen {
 		$res = $this->DBHandle->Execute($this->prepOne,array($group,$var));
 		if (($res) && (!$res->EOF)){
 			$row = $res->fetchRow();
-			$this->groups[$group][$var]=$row[0];
+			$this->groups[$group][$var]=$row['val'];
 			return;
 		}
 		$this->groups[$group][$var]=$default;
