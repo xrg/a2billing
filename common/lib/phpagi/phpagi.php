@@ -108,7 +108,8 @@
     * @var array
     * @access public
     */
-    var $config;
+    var $_config;
+    public $config_main = 'phpagi';
 
    /**
     * Asterisk Manager
@@ -147,33 +148,30 @@
    /**
     * Constructor
     *
-    * @param string $config is the name of the config file to parse
-    * @param array $optconfig is an array of configuration vars and vals, stuffed into $this->config['phpagi']
+    * @param $config if string, the filename of a config file (ini format), if object,
+    *  an object to dynamically fetch conf from.
+    *
     */	
-    function AGI($config=NULL, $optconfig=array())
+    function AGI(&$config=NULL)
     {
       // load config
-      if(!is_null($config) && file_exists($config))
-        $this->config = parse_ini_file($config, true);
-      elseif(file_exists(DEFAULT_PHPAGI_CONFIG))
-       //--$this->config = parse_ini_file(DEFAULT_PHPAGI_CONFIG, true);
-		//-- DONT WANT HIM TO OPEN A FILE EACH TIME
+      if(is_string($config) && file_exists($config))
+        $this->_config = new IniConfig($config);
+      else if( is_object($config))
+      	$this->_config = &$config;
+      else $this->_config = new IniConfig();
 
-      // If optconfig is specified, stuff vals and vars into 'phpagi' config array.
-      foreach($optconfig as $var=>$val)
-        $this->config['phpagi'][$var] = $val;
 
       // add default values to config for uninitialized values
-      if(!isset($this->config['phpagi']['error_handler'])) $this->config['phpagi']['error_handler'] = true;
-      if(!isset($this->config['phpagi']['debug'])) $this->config['phpagi']['debug'] = false;
-      if(!isset($this->config['phpagi']['admin'])) $this->config['phpagi']['admin'] = NULL;
-      if(!isset($this->config['phpagi']['tempdir'])) $this->config['phpagi']['tempdir'] = AST_TMP_DIR;
+      $this->_config->SetDefVar($this->config_main,'debug',false);
+      $this->_config->SetDefVar($this->config_main,'admin', NULL);
+      $this->_config->SetDefVar($this->config_main,'tempdir', AST_TMP_DIR);
 
       // festival TTS config
-      if(!isset($this->config['festival']['text2wave'])) $this->config['festival']['text2wave'] = $this->which('text2wave');
+      $this->_config->SetDefVar('festival','text2wave', $this->which('text2wave'));
 
       // swift TTS config
-      if(!isset($this->config['cepstral']['swift'])) $this->config['cepstral']['swift'] = $this->which('swift');
+      $this->_config->SetDefVar('cepstral','swift', $this->which('swift'));
 
       ob_implicit_flush(true);
 
@@ -182,24 +180,30 @@
       $this->out = defined('STDOUT') ? STDOUT : fopen('php://stdout', 'w');
 
       // initialize error handler
-      if($this->config['phpagi']['error_handler'] == true)
+      if($this->GetCfgVar(NULL,'error_handler', true) == true)
       {
         set_error_handler('phpagi_error_handler');
         global $phpagi_error_handler_email;
-        $phpagi_error_handler_email = $this->config['phpagi']['admin'];
+        $phpagi_error_handler_email = $this->GetCfgVar(NULL,'admin',NULL);
         error_reporting(E_ALL);
       }
 
       // make sure temp folder exists
-      $this->make_folder($this->config['phpagi']['tempdir']);
+      $this->make_folder($this->GetCfgVar(NULL,'tempdir',AST_TMP_DIR));
 
-      // read the request
-      $str = fgets($this->in);
-      while($str != "\n")
-      {
-        $this->request[substr($str, 0, strpos($str, ':'))] = trim(substr($str, strpos($str, ':') + 1));
-        $str = fgets($this->in);
-      }
+      try{
+	// read the request
+	$str = fgets($this->in);
+	while($str && $str != "\n")
+	{
+		$this->request[substr($str, 0, strpos($str, ':'))] = trim(substr($str, strpos($str, ':') + 1));
+		$str = fgets($this->in);
+	}
+	}catch (Exception $ex){
+		$this->conlog('AGI Request read failed:');
+		$this->conlog($ex->getMessage());
+		//throw $ex;
+	}
 
       // open audio if eagi detected
       if($this->request['agi_enhanced'] == '1.0')
@@ -224,6 +228,11 @@
       $this->conlog(print_r($this->config, true));*/
     }
 
+    function GetCfgVar($grp, $var, $default = null){
+    	if (is_null($grp))
+    		$grp = $this->config_main;
+    	return $this->_config->GetCfgVar($grp,$var,$default);
+    }
    // *********************************************************************************************************
    // **                       COMMANDS                                                                      **
    // *********************************************************************************************************
@@ -1316,7 +1325,7 @@
       if($text == '') return true;
 
       $hash = md5($text);
-      $fname = $this->config['phpagi']['tempdir'] . DIRECTORY_SEPARATOR;
+      $fname = $this->GetCfgVar(NULL,'tempdir') . DIRECTORY_SEPARATOR;
       $fname .= 'text2wav_' . $hash;
 
       // create wave file
@@ -1330,7 +1339,7 @@
           fclose($fp);
         }
 
-        shell_exec("{$this->config['festival']['text2wave']} -F $frequency -o $fname.wav $fname.txt");
+        shell_exec("{$this->GetCfgVar('festival','text2wave')} -F $frequency -o $fname.wav $fname.txt");
       }
       else
       {
@@ -1343,7 +1352,7 @@
 
       // clean up old files
       $delete = time() - 2592000; // 1 month
-      foreach(glob($this->config['phpagi']['tempdir'] . DIRECTORY_SEPARATOR . 'text2wav_*') as $file)
+      foreach(glob($this->GetCfgVar(NULL,'tempdir') . DIRECTORY_SEPARATOR . 'text2wav_*') as $file)
         if(filemtime($file) < $delete)
           unlink($file);
 
@@ -1363,14 +1372,14 @@
     {
       if(!is_null($voice))
         $voice = "-n $voice";
-      elseif(isset($this->config['cepstral']['voice']))
-        $voice = "-n {$this->config['cepstral']['voice']}";
+      elseif($this->GetCfgVar('cepstral','voice',false))
+        $voice = "-n {$this->GetCfgVar('cepstral','voice')}";
 
       $text = trim($text);
       if($text == '') return true;
 
       $hash = md5($text);
-      $fname = $this->config['phpagi']['tempdir'] . DIRECTORY_SEPARATOR;
+      $fname = $this->GetCfgVar(NULL,'tempdir') . DIRECTORY_SEPARATOR;
       $fname .= 'swift_' . $hash;
 
       // create wave file
@@ -1384,7 +1393,7 @@
           fclose($fp);
         }
 
-        shell_exec("{$this->config['cepstral']['swift']} -p audio/channels=1,audio/sampling-rate=$frequency $voice -o $fname.wav -f $fname.txt");
+        shell_exec("{$this->GetCfgVar('cepstral','swift')} -p audio/channels=1,audio/sampling-rate=$frequency $voice -o $fname.wav -f $fname.txt");
       }
 
       // stream it
@@ -1392,7 +1401,7 @@
 
       // clean up old files
       $delete = time() - 2592000; // 1 month
-      foreach(glob($this->config['phpagi']['tempdir'] . DIRECTORY_SEPARATOR . 'swift_*') as $file)
+      foreach(glob($this->GetCfgVar(NULL,'tempdir') . DIRECTORY_SEPARATOR . 'swift_*') as $file)
         if(filemtime($file) < $delete)
           unlink($file);
 
@@ -1649,7 +1658,7 @@
     {
       static $busy = false;
 
-      if($this->config['phpagi']['debug'] != false)
+      if($this->GetCfgVar(NULL,'debug') != false)
       {
         if(!$busy) // no conlogs inside conlog!!!
         {
