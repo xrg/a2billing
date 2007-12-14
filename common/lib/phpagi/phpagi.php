@@ -144,6 +144,8 @@
      * Whether the channel is answered
      */
      var $is_answered = false;
+     
+     public $is_alive = false; ///< If input stream is still running.
 
    /**
     * Constructor
@@ -152,7 +154,7 @@
     *  an object to dynamically fetch conf from.
     *
     */	
-    function AGI(&$config=NULL)
+    function AGI(&$config=NULL,$defconf = 'phpagi')
     {
       // load config
       if(is_string($config) && file_exists($config))
@@ -161,6 +163,7 @@
       	$this->_config = &$config;
       else $this->_config = new IniConfig();
 
+	$this->config_main = $defconf;
 
       // add default values to config for uninitialized values
       $this->_config->SetDefVar($this->config_main,'debug',false);
@@ -179,6 +182,7 @@
       $this->in = defined('STDIN') ? STDIN : fopen('php://stdin', 'r');
       $this->out = defined('STDOUT') ? STDOUT : fopen('php://stdout', 'w');
 
+	$this->is_alive = true;
       // initialize error handler
       if($this->GetCfgVar(NULL,'error_handler', true) == true)
       {
@@ -200,9 +204,9 @@
 		$str = fgets($this->in);
 	}
 	}catch (Exception $ex){
+		$this->is_alive = false;
 		$this->conlog('AGI Request read failed:');
 		$this->conlog($ex->getMessage());
-		//throw $ex;
 	}
 
       // open audio if eagi detected
@@ -763,6 +767,15 @@
         $ret = $this->evaluate("VERBOSE \"$msg\" $level");
       }
       return $ret;
+    }
+
+    static function verbose_s($message, $level=1)
+    {
+      foreach(explode("\n", str_replace("\r\n", "\n", print_r($message, true))) as $msg)
+      {
+        @syslog(LOG_WARNING, $msg);
+        echo "VERBOSE \"$msg\" $level\n";
+      }
     }
 
    /**
@@ -1572,10 +1585,19 @@
       // command.  We read until we get a valid result or asterisk hangs up.  One offending
       // command is SEND TEXT.
       $count = 0;
-      do
-      {
-        $str = trim(fgets($this->in, 4096));
-      } while($str == '' && $count++ < $this->nlinetoread);
+      try{
+	do
+	{
+		if (!$this->is_alive)
+			break;
+		$str = trim(fgets($this->in, 4096));
+	} while($str == '' && $count++ < $this->nlinetoread);
+      } catch (Exception $ex){
+      	$broken['result'] = - $ex->getCode();
+      	$broken['data'] = $ex->getMessage();
+      	$this->is_alive = false;
+      	return $broken;
+      }
 
       if($count >= 5)
       {
