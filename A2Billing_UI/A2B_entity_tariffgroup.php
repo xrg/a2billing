@@ -3,7 +3,7 @@ require_once ("./lib/defines.php");
 require_once ("./lib/module.access.php");
 require_once (DIR_COMMON."Form.inc.php");
 require_once (DIR_COMMON."Class.HelpElem.inc.php");
-//require_once (DIR_COMMON."Form/Class.SqlRefField.inc.php");
+require_once (DIR_COMMON."Form/Class.RevRef2.inc.php");
 
 $menu_section='menu_ratecard';
 
@@ -22,6 +22,7 @@ $HD_Form->model[] = new PKeyFieldEH(_("ID"),'id');
 $HD_Form->model[] = new TextFieldEH(_("Name"),'name');
 $HD_Form->model[] = new IntField(_("LCR type"), "lcrtype", _("LCR mode") . " (deprecated?)");
 //$HD_Form->model[] = new TextField(_("xx"),'xx');
+$HD_Form->model[] = new RevRef2(_("Sell plans"),'tplans','id','cc_tariffgroup_plan','tgid','rtid','cc_retailplan','id','name',_("Customer of this group will use those selling plans."));
 
 
 //RevRef2::html_body($action);
