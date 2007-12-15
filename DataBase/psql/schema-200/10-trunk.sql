@@ -20,6 +20,7 @@ CREATE TABLE cc_trunk (
     creationdate timestamp(0) without time zone DEFAULT now(),
     failover_trunk integer /* Needed? */,
     addparameter text,
+    trunkfmt INTEGER NOT NULL DEFAULT 1,
     provider INTEGER REFERENCES cc_provider(id),
     inuse INT DEFAULT 0,
     maxuse INT DEFAULT -1,
