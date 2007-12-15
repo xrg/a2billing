@@ -144,7 +144,7 @@ function getAGIconfig($var,$default){
 function getCard(){
 	global $agi;
 	// *-*
-	return array('cardid' => 1, 'tgid' => 1);
+	return array('cardid' => 1, 'tgid' => 109);
 }
 
 // Lock the card and return remaining money
@@ -159,7 +159,40 @@ function ReleaseCard(&$card){
 }
 
 function getDialNumber(){
-	return '329486253';
+	global $agi;
+	// TODO, perform prefix manipulations etc.
+	if ($agi->request['agi_extension']=='s')
+		return $agi->request['agi_dnid'];
+	else
+		return $agi->request['agi_extension'];
+}
+
+function formatDialstring($dialnumber,$route, $card){
+	global $agi;
+	$do_param = true;
+	switch ($route['trunkfmt']){
+	case 1:
+		$str = $route['providertech'].'/'.$route['providerip'].'/%dialnumber';
+		break;
+	case 2:
+		$str = $route['providertech'].'/%dialnumber@'.$route['providerip'];
+		break;
+	case 3:
+		$str = $route['providertech'].'/'.$route['providerip'];
+		break;
+	default:
+		$agi->conlog("Unknown trunk format: ".$route['trunkfmt']);
+		return null;
+	}
+
+	if ($do_param)
+		$str .= $agi->GetCfgVar(NULL,'dialcommand_param','|60|l(%timeout)');
+	$str .= $route['trunkparam'];
+		
+	return str_alparams($str,array (dialnumber => $dialnumber, dialstring => $route['dialstring'],
+		destination => $route['destination'], trunkprefix => $route['trunkprefix'], tech => $route['providertech'],
+		providerip => $route['providerip'], prefix => $route['prefix'],
+		cardnum => $card['username'], stimeout => $route['tmout'],timeout => (1000*$route['tmout'])));
 }
 
 if ($mode == 'standard'){
@@ -194,6 +227,7 @@ if ($mode == 'standard'){
 		$QRY = str_dbparams($a2b->DBHandle(),'SELECT * FROM RateEngine2(%#1, %2, now(), %3);',
 			array($card['tgid'],$dialnumber,$card_money['base']));
 			
+		$agi->conlog($QRY);
 		$res = $a2b->DBHandle()->Execute($QRY);
 		if (!$res){
 			if(getAGIconfig('say_errors',true))
@@ -201,9 +235,10 @@ if ($mode == 'standard'){
 			ReleaseCard($card);
 			break;
 		}elseif($res->EOF){
-			$agi-> stream_file('prepaid-no-route'/*-*/, '#');
+			$agi-> stream_file('prepaid-dest-unreachable'/*-*/, '#');
 			ReleaseCard($card);
-			continue;
+			// if manual dialnum, continue.. TODO
+			break;
 		}
 		$routes = $res->GetArray();
 		
@@ -213,7 +248,15 @@ if ($mode == 'standard'){
 		
 		try {
 		foreach ($routes as $route){
-			$dialstr = 'aaaa';
+			
+			if ((strlen($route['removeprefix'])) &&(strncmp($dialnumber, $route['removeprefix'], strlen($route['removeprefix'])) == 0))
+				$dialnumber= substr($dialnumber, strlen($route['removeprefix']));
+			
+			$dialstr = formatDialstring($dialnumber,$route, $card);
+			if (!$dialstr)
+				continue;
+			$agi->conlog("Dial: $dialstr");
+			
 			$call_res= $agi->exec('Dial',$dialstr);
 			//TODO: if record, stop
 			

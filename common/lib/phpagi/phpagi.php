@@ -1599,6 +1599,8 @@
       	return $broken;
       }
 
+	if (!isset($str))
+		return $broken;
       if($count >= 5)
       {
 //        $this->conlog("evaluate error on read for $command");
