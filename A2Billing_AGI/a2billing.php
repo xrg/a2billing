@@ -28,7 +28,8 @@ function sig_handler($signo)
              throw new Exception("Term signal!",SIGTERM);
              break;
          case SIGHUP:
-             throw new Exception("Hangup signal!",SIGHUP);
+             // Better ignore it..
+             //throw new Exception("Hangup signal!",SIGHUP);
              break;
          case SIGINT:
              throw new Exception("Interrupt signal!",SIGINT);
@@ -187,12 +188,12 @@ function formatDialstring($dialnumber,$route, $card){
 
 	if ($do_param)
 		$str .= $agi->GetCfgVar(NULL,'dialcommand_param','|60|l(%timeout)');
-	$str .= $route['trunkparam'];
+	$str .= $route['trunkparm'];
 		
-	return str_alparams($str,array (dialnumber => $dialnumber, dialstring => $route['dialstring'],
-		destination => $route['destination'], trunkprefix => $route['trunkprefix'], tech => $route['providertech'],
-		providerip => $route['providerip'], prefix => $route['prefix'],
-		cardnum => $card['username'], stimeout => $route['tmout'],timeout => (1000*$route['tmout'])));
+	return str_alparams($str,array ('dialnumber' => $dialnumber, 'dialstring' => $route['dialstring'],
+		'destination' => $route['destination'], 'trunkprefix' => $route['trunkprefix'], 'tech' => $route['providertech'],
+		'providerip' => $route['providerip'], 'prefix' => $route['prefix'],
+		'cardnum' => $card['username'], 'stimeout' => $route['tmout'], 'timeout' => (1000*$route['tmout'])));
 }
 
 if ($mode == 'standard'){
@@ -203,7 +204,7 @@ if ($mode == 'standard'){
 		$agi->exec('Progress');
 		
 		// Repeat until we hangup
-	for($num_try = 0;$num_try<getAGIconfig('number_try',3);$num_try++){
+	for($num_try = 0;$num_try<getAGIconfig('number_try',1);$num_try++){
 		$card = getCard();
 		
 		if (! $card)
@@ -255,21 +256,46 @@ if ($mode == 'standard'){
 			$dialstr = formatDialstring($dialnumber,$route, $card);
 			if (!$dialstr)
 				continue;
-			$agi->conlog("Dial: $dialstr");
+			$agi->conlog("Dial '". $route['destination']. "'@". $route['trunkcode'] . " : $dialstr");
 			
 			$call_res= $agi->exec('Dial',$dialstr);
 			//TODO: if record, stop
 			
 			$answeredtime = $agi->get_variable("ANSWEREDTIME");
-			$this -> real_answeredtime = $this -> answeredtime = $answeredtime['data'];
+			if ($answeredtime['result']== 0)
+				$answeredtime['data'] =0;
 			$dialstatus = $agi->get_variable("DIALSTATUS");
-			$this -> dialstatus = $dialstatus['data'];
 			
+			$agi->conlog("Dial result: ".$dialstatus['data'].' after '. $answeredtime['data'].'sec.');
+			//$agi->conlog("After dial, answertime: ".print_r($answeredtime,true));
 			//TODO: SIP, ISDN extended status
+			
+			$can_continue = false;
+			switch ($dialstatus['data']){
+			case 'BUSY':
+			case 'ANSWERED':
+			case 'ANSWER':
+			case 'CANCEL':
+				break;
+			
+			case 'CONGESTION':
+			case 'CHANUNAVAIL':
+				$can_continue = true;
+				break;
+			case 'NOANSWER':
+				break;
+			default:
+				$agi->conlog("Unknown status: ".$dialstatus['data']);
+			}
+			
+			if (!$can_continue) //TODO: manual dialnum?
+				break;
 
 		}
 		}catch (Exception $ex){
 			// Here we handle signals received
+			$agi->conlog("Exception at dial:". $ex->getMessage());
+			@syslog("Exception at dial:". $ex->getMessage());
 			ReleaseCard($card);
 			break;
 		}
@@ -277,7 +303,7 @@ if ($mode == 'standard'){
 		ReleaseCard($card);
 	}
 	
-	if(getAGIconfig('say_goodbye',true))
+	if(getAGIconfig('say_goodbye',true) && $agi->is_alive)
 		$agi-> stream_file('prepaid-final', '#');
 	$agi->hangup();
 	exit();
