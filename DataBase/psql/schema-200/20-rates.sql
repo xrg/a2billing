@@ -31,6 +31,7 @@ CREATE TABLE cc_tariffplan (
     secondusedratecard integer DEFAULT 0,
 --     reftariffplan integer DEFAULT 0,
     idowner integer DEFAULT 0,
+    metric INTEGER NOT NULL DEFAULT 10,
     dnidprefix text NOT NULL DEFAULT 'all'::text,
     calleridprefix text NOT NULL DEFAULT 'all'::text,
     neg_currency integer REFERENCES cc_currencies(id),
@@ -47,6 +48,7 @@ CREATE TABLE cc_retailplan (
     starttime integer NOT NULL DEFAULT 0,
     endtime integer NOT NULL DEFAULT 10079,
     description text,
+    metric INTEGER NOT NULL DEFAULT 10,
     idowner integer DEFAULT 0,
     dnidprefix text NOT NULL DEFAULT 'all'::text
 /*    neg_currency integer REFERENCES cc_currency(id),

@@ -58,11 +58,11 @@ SELECT ROW( srid, dialstring, destination, tgid, tmout, brid,
 		  cc_trunk.id AS trunkid, cc_trunk.trunkcode, cc_trunk.trunkprefix, cc_trunk.providertech,
 		  cc_trunk.trunkfmt,
 		  cc_trunk.providerip, cc_trunk.addparameter AS trunkparm, cc_trunk.provider, '1'::integer AS trunkfree /*-*/,
-		  cc_buyrate.buyrate
+		  cc_buyrate.buyrate, (cc_tariffplan.metric + allsellrates.metric) AS sum_metric
 		FROM (
 		  -- Inner query: match the destination against a retail rate
 		   SELECT DISTINCT ON (cc_retailplan.id) cc_retailplan.id AS rpid,
-			cc_sellrate.id AS srid, cc_sellrate.destination,
+			cc_sellrate.id AS srid, cc_sellrate.destination, cc_retailplan.metric,
 			sell_calc_rev(cc_sellrate.*,$4) AS tmout
 			FROM cc_sellrate, cc_sell_prefix , cc_retailplan, cc_tariffgroup_plan
 			WHERE cc_sell_prefix.dialprefix = ANY(dial_exp_prefix($2))
@@ -83,7 +83,7 @@ SELECT ROW( srid, dialstring, destination, tgid, tmout, brid,
 			AND cc_tariffplan.trunk = cc_trunk.id
 		ORDER BY cc_tariffplan.id, length(cc_buy_prefix.dialprefix) DESC
 	) AS bothrates
-		ORDER BY tmout DESC, buyrate ASC
+		ORDER BY sum_metric ASC, tmout DESC, buyrate ASC
 	;
 
 $$ LANGUAGE SQL STRICT VOLATILE;
