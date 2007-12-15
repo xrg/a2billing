@@ -343,7 +343,7 @@ class FormHandler extends ElemBase{
 		
 		$dbg_elem->content.= "Query: INSERT INTO ". $this->model_table ."(";
 		$dbg_elem->content.= implode(', ',$ins_keys);
-		$dbg_elem->content.= ") VALUES(". implode(',', $ins_values).");\n";
+		$dbg_elem->content.= ") VALUES(". var_export($ins_values,true).");\n";
 		
 		$query = "INSERT INTO ". $this->model_table ."(" .
 			implode(', ',$ins_keys) . ") VALUES(". 
@@ -411,7 +411,7 @@ class FormHandler extends ElemBase{
 		}
 		$query .= implode(", ", $query_u);
 		$query_dbg = $query; // format a string that contains the values, too
-		$query_dbg .= "( ". implode(', ', $upd_values) .") ";
+		$query_dbg .= "( ". var_export($upd_values,true) .") ";
 		
 			// Protect against a nasty update!
 		if (count($upd_clauses)<1){
