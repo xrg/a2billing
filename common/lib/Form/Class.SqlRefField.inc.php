@@ -67,4 +67,31 @@ class SqlRefField extends BaseField{
 
 };
 
+class SqlRefFieldN extends SqlRefField{
+	
+	protected function prepare(&$dbhandle){
+		$this->field_values[] = array ( null, _("(none)"));
+		parent::prepare($dbhandle);
+	}
+	
+	public function buildInsert(&$ins_arr,&$form){
+		if (!$this->does_add)
+			return;
+		$val = $form->getpost_dirty($this->fieldname);
+		if (!strlen($val))
+			$val = null;
+		$ins_arr[] = array($this->fieldname, $val);
+	}
+
+	public function buildUpdate(&$ins_arr,&$form){
+		if (!$this->does_edit)
+			return;
+		$val = $form->getpost_dirty($this->fieldname);
+		if (!strlen($val))
+			$val = null;
+		$ins_arr[] = array($this->fieldname, $val);
+	}
+
+};
+
 ?>
