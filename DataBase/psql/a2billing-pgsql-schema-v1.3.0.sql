@@ -142,18 +142,6 @@ ADD CONSTRAINT cc_service_report_pkey PRIMARY KEY (id);
 
 
 
-CREATE TABLE cc_callerid (
-    id bigserial NOT NULL,
-    cid text NOT NULL,
-    id_cc_card bigint NOT NULL,
-    activated boolean DEFAULT true NOT NULL
-);
-
-ALTER TABLE ONLY cc_callerid
-    ADD CONSTRAINT cc_calleridd_pkey PRIMARY KEY (id);
-
-ALTER TABLE ONLY cc_callerid
-    ADD CONSTRAINT cc_callerid_cid_key UNIQUE (cid);
 
 
 
