@@ -147,7 +147,7 @@ function getAGIconfig($var,$default){
 */
 function getCard(){
 	global $agi;
-	switch ($agi->GetCfgVar(NULL,'auth-mode','callingcard')){
+	switch (getAGIconfig('auth-mode','callingcard')){
 	case 'callerid':
 		return getCard_clid();
 		break;
@@ -164,8 +164,11 @@ function getCard(){
 	case 'callshop':
 		return getCard_booth();
 		break;
+	case 'pin-and-clid':
+		// *-*
+		break;
 	default:
-		$agi->verbose('Unknown auth-mode: '. $agi->GetCfgVar(NULL,'auth-mode','callingcard'));
+		$agi->verbose('Unknown auth-mode: '. getAGIconfig('auth-mode','callingcard'));
 		return null;
 	}
 }
@@ -198,6 +201,47 @@ function getCard_clid(){
 function getCard_ivr(){
 	global $a2b;
 	global $agi;
+	$dbhandle =$a2b->DBHandle();
+	
+	$pin_prompt = getAGIconfig('pin-prompt',"prepaid-enter-pin-number");
+	$pin_timeout = getAGIconfig('pin-timeoute',6000);
+	$pin_maxlen = getAGIconfig('pin-maxlen',15);
+	
+	$agi->conlog('Auth-ivr: asking for PIN',4);
+	$res_dtmf = $agi->get_data($pin_prompt, $pin_timeout,$pin_maxlen);
+	
+	$agi->conlog('Auth-ivr: result' . print_r($res_dtmf,true),3);
+	if (!isset($res_dtmf['result'])){
+		$agi->conlog('No PIN entered',2);
+		$agi-> stream_file("prepaid-no-card-entered", '#');
+		return null;
+	}
+	$pinnum = $res_dtmf['result'];
+	if ((strlen($pinnum) < getAGIconfig('pin-minlen',10)) || (strlen($pinnum) > $pin_maxlen)) {
+		$agi->conlog('Invalid PIN',2);
+		$agi-> stream_file("prepaid-invalid-digits", '#');
+		return null;
+	}
+	
+	$res = $dbhandle->Execute('SELECT card.id, card_group.tariffgroup AS tgid, card.username, card.status ' .
+		'FROM cc_card_dv AS card, cc_card_group'.
+		'WHERE card.grp = cc_card_group.id ' .
+		'AND card.username = ? LIMIT 1 ;',
+		array($pinnum));
+	
+	if (!$res){
+		$agi->verbose('Cannot auth-ivr: '. $dbhandle->ErrorMsg());
+		if(getAGIconfig('say_errors',true))
+			$agi-> stream_file('allison2'/*-*/, '#');
+		return null;
+	}
+	if ($res->EOF){
+		$agi->verbose("Auth-ivr: no such username: '$pinnum' ",2);
+		$agi-> stream_file("prepaid-auth-fail",'#');
+		return null;
+	}
+	$agi->conlog('Auth-ivr: found card.',4);
+	return $res->fetchRow();
 }
 
 function getCard_booth(){
@@ -262,7 +306,7 @@ function formatDialstring($dialnumber,$route, $card){
 	}
 
 	if ($do_param)
-		$str .= $agi->GetCfgVar(NULL,'dialcommand_param','|60|l(%timeout)');
+		$str .= getAGIconfig('dialcommand_param','|60|l(%timeout)');
 	$str .= $route['trunkparm'];
 		
 	return str_alparams($str,array ('dialnumber' => $dialnumber, 'dialstring' => $route['dialstring'],
