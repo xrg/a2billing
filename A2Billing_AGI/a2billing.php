@@ -129,7 +129,7 @@ if ($argc > 2 && strlen($argv[2]) > 0 )
 		$mode = $argv[2];
 		break;
 	default:
-		echo "Unknown mode: ". $argv[2] . "\n";
+		$agi->verbose("Unknown mode: ". $argv[2] );
 	}
 
 // get the area code for the cid-callback & all-callback
@@ -141,11 +141,68 @@ function getAGIconfig($var,$default){
 	return $dynconf->GetCfgVar('agiconf'.$idconfig,$var,$default);
 }
 
-// Authorize and return an array with card data.
+/** Authorize and return an array with card data.
+    \return array() with card fields, \b NULL if not found (retry mode) 
+    or \b false if no card and cannot retry (eg. false callerid).
+*/
 function getCard(){
 	global $agi;
-	// *-*
-	return array('id' => 1, 'tgid' => 109);
+	switch ($agi->GetCfgVar(NULL,'auth-mode','callingcard')){
+	case 'callerid':
+		return getCard_clid();
+		break;
+	case 'callingcard':
+		return getCard_ivr();
+		break;
+	case 'callerid-card':
+		$card = getCard_clid();
+		if (is_array($card))
+			return $card;
+		else
+			return getCard_ivr();
+		break;
+	case 'callshop':
+		return getCard_booth();
+		break;
+	default:
+		$agi->verbose('Unknown auth-mode: '. $agi->GetCfgVar(NULL,'auth-mode','callingcard'));
+		return null;
+	}
+}
+
+function getCard_clid(){
+	global $a2b;
+	global $agi;
+	$dbhandle =$a2b->DBHandle();
+	
+	$res = $dbhandle->Execute('SELECT card.id, card_group.tariffgroup AS tgid, card.username, card.status ' .
+		'FROM cc_card_dv AS card, cc_card_group, cc_callerid '.
+		'WHERE card.grp = cc_card_group.id AND cc_callerid.cardid = card.id ' .
+		'AND cc_callerid.activated = true '.
+		'AND cc_callerid.cid = ? LIMIT 1 ;',
+		array($agi->request['agi_callerid']));
+	
+	if (!$res){
+		$agi->verbose('Cannot auth-clid: '. $dbhandle->ErrorMsg());
+		return false;
+	}
+	if ($res->EOF){
+		$agi->verbose('No entry found for auth-clid');
+		return false;
+	}
+	$agi->conlog('Auth-clid: found card for clid',4);
+	return $res->fetchRow();
+}
+
+
+function getCard_ivr(){
+	global $a2b;
+	global $agi;
+}
+
+function getCard_booth(){
+	global $a2b;
+	global $agi;
 }
 
 // Lock the card and return remaining money
@@ -153,14 +210,16 @@ function getCard(){
 function CardGetMoney(&$card){
 	global $a2b;
 	global $agi;
-	$res = $a2b->DBHandle()->Execute ('SELECT card_call_lock(?,?);',array($card['id'],BASE_CURRENCY));
+	$dbhandle =$a2b->DBHandle();
+	
+	$res = $dbhandle->Execute ('SELECT card_call_lock(?,?);',array($card['id'],BASE_CURRENCY));
 	if (!$res){
 		/*-* Parse message and play sound to user */
-		$agi->conlog('Could not lock card: '. $a2b->DBHandle()->ErrorMsg());
+		$agi->verbose('Could not lock card: '. $dbhandle->ErrorMsg());
 		return null;
 	}
 	if ($res->EOF){
-		$agi->conlog('No card from card_call_lock(), why?');
+		$agi->verbose('No card from card_call_lock(), why?');
 		return null;
 	}
 	return $res->fetchRow();
@@ -172,7 +231,7 @@ function ReleaseCard(&$card){
 	global $agi;
 	$res = $a2b->DBHandle()->Execute ('SELECT card_call_release(?);',array($card['id']));
 	if (!$res)
-		$agi->conlog('Could not release card: '. $a2b->DBHandle()->ErrorMsg());
+		$agi->verbose('Could not release card: '. $a2b->DBHandle()->ErrorMsg(),2);
 }
 
 function getDialNumber(){
@@ -198,7 +257,7 @@ function formatDialstring($dialnumber,$route, $card){
 		$str = $route['providertech'].'/'.$route['providerip'];
 		break;
 	default:
-		$agi->conlog("Unknown trunk format: ".$route['trunkfmt']);
+		$agi->verbose("Unknown trunk format: ".$route['trunkfmt'],2);
 		return null;
 	}
 
@@ -219,22 +278,31 @@ if ($mode == 'standard'){
 	else
 		$agi->exec('Progress');
 		
+	$agi->conlog('Standard mode',4);
 		// Repeat until we hangup
 	for($num_try = 0;$num_try<getAGIconfig('number_try',1);$num_try++){
 		$card = getCard();
 		
-		if (! $card)
+		if ($card === false)
+			break;
+
+		if ($card === null)
 			continue;
 		
+		//TODO: fix lang
+		if ($card->status!=1){
+			// *-* TODO!
+		}
+
 		// Here, we're authorized..
 		//TODO: set callerid
 		
-		//TODO: fix lang
 		$card_money = CardGetMoney($card);
 		//TODO: play balance, intros
 		
 		if (!$card_money || ($card_money['base'] < getAGIconfig('min_credit_2call',0.01))) {
 			// not enough money!
+			$agi->verbose('Not enough money!',2);
 			ReleaseCard($card);
 			continue;
 		}
@@ -244,20 +312,24 @@ if ($mode == 'standard'){
 		$QRY = str_dbparams($a2b->DBHandle(),'SELECT * FROM RateEngine2(%#1, %2, now(), %3);',
 			array($card['tgid'],$dialnumber,$card_money['base']));
 			
-		$agi->conlog($QRY);
+		$agi->conlog($QRY,3);
 		$res = $a2b->DBHandle()->Execute($QRY);
 		if (!$res){
+			$agi->verbose('Rate engine: query error!',2);
+			$agi->conlog($a2b->DBHandle()->ErrorMsg(),2);
 			if(getAGIconfig('say_errors',true))
 				$agi-> stream_file('allison2'/*-*/, '#');
 			ReleaseCard($card);
 			break;
 		}elseif($res->EOF){
+			$agi->verbose('Rate engine: no result.',2);
 			$agi-> stream_file('prepaid-dest-unreachable'/*-*/, '#');
 			ReleaseCard($card);
 			// if manual dialnum, continue.. TODO
 			break;
 		}
 		$routes = $res->GetArray();
+		$agi->conlog('Rate engine: found '.count($routes).' results.',3);
 		
 		// TODO: musiconhold
 		//TODO: record_call
@@ -272,7 +344,7 @@ if ($mode == 'standard'){
 			$dialstr = formatDialstring($dialnumber,$route, $card);
 			if (!$dialstr)
 				continue;
-			$agi->conlog("Dial '". $route['destination']. "'@". $route['trunkcode'] . " : $dialstr");
+			$agi->conlog("Dial '". $route['destination']. "'@". $route['trunkcode'] . " : $dialstr",3);
 			
 			$call_res= $agi->exec('Dial',$dialstr);
 			//TODO: if record, stop
@@ -282,7 +354,7 @@ if ($mode == 'standard'){
 				$answeredtime['data'] =0;
 			$dialstatus = $agi->get_variable("DIALSTATUS");
 			
-			$agi->conlog("Dial result: ".$dialstatus['data'].' after '. $answeredtime['data'].'sec.');
+			$agi->conlog("Dial result: ".$dialstatus['data'].' after '. $answeredtime['data'].'sec.',3);
 			//$agi->conlog("After dial, answertime: ".print_r($answeredtime,true));
 			//TODO: SIP, ISDN extended status
 			
@@ -301,7 +373,7 @@ if ($mode == 'standard'){
 			case 'NOANSWER':
 				break;
 			default:
-				$agi->conlog("Unknown status: ".$dialstatus['data']);
+				$agi->verbose("Unknown status: ".$dialstatus['data'],2);
 			}
 			
 			if (!$can_continue) //TODO: manual dialnum?
@@ -310,7 +382,7 @@ if ($mode == 'standard'){
 		}
 		}catch (Exception $ex){
 			// Here we handle signals received
-			$agi->conlog("Exception at dial:". $ex->getMessage());
+			$agi->verbose("Exception at dial:". $ex->getMessage());
 			@syslog("Exception at dial:". $ex->getMessage());
 			ReleaseCard($card);
 			break;
@@ -319,6 +391,8 @@ if ($mode == 'standard'){
 		ReleaseCard($card);
 	}
 	
+	$agi->conlog('Goodbye!',3);
+
 	if(getAGIconfig('say_goodbye',true) && $agi->is_alive)
 		$agi-> stream_file('prepaid-final', '#');
 	$agi->hangup();
