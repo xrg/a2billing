@@ -145,18 +145,34 @@ function getAGIconfig($var,$default){
 function getCard(){
 	global $agi;
 	// *-*
-	return array('cardid' => 1, 'tgid' => 109);
+	return array('id' => 1, 'tgid' => 109);
 }
 
 // Lock the card and return remaining money
 
 function CardGetMoney(&$card){
-	return array('base' => 2.0, 'local' => 1.8);
+	global $a2b;
+	global $agi;
+	$res = $a2b->DBHandle()->Execute ('SELECT card_call_lock(?,?);',array($card['id'],BASE_CURRENCY));
+	if (!$res){
+		/*-* Parse message and play sound to user */
+		$agi->conlog('Could not lock card: '. $a2b->DBHandle()->ErrorMsg());
+		return null;
+	}
+	if ($res->EOF){
+		$agi->conlog('No card from card_call_lock(), why?');
+		return null;
+	}
+	return $res->fetchRow();
 }
 
 //Unlock the card (decrease usage count)
 function ReleaseCard(&$card){
-	//TODO!
+	global $a2b;
+	global $agi;
+	$res = $a2b->DBHandle()->Execute ('SELECT card_call_release(?);',array($card['id']));
+	if (!$res)
+		$agi->conlog('Could not release card: '. $a2b->DBHandle()->ErrorMsg());
 }
 
 function getDialNumber(){
@@ -217,7 +233,7 @@ if ($mode == 'standard'){
 		$card_money = CardGetMoney($card);
 		//TODO: play balance, intros
 		
-		if ($card_money['base'] < getAGIconfig('min_credit_2call',0.01)){
+		if (!$card_money || ($card_money['base'] < getAGIconfig('min_credit_2call',0.01))) {
 			// not enough money!
 			ReleaseCard($card);
 			continue;

@@ -27,7 +27,7 @@ CREATE TABLE cc_card_group (
     agentid INTEGER REFERENCES cc_agent(id) ON DELETE RESTRICT,
     simultaccess integer DEFAULT 0,
     typepaid integer DEFAULT 0,
-    tariff integer REFERENCES cc_tariffplan(id),
+    tariffgroup integer REFERENCES cc_tariffgroup(id),
     def_currency VARCHAR(3) DEFAULT 'USD'::VARCHAR,
     voipcall integer DEFAULT 0,
     vat numeric(6,3) DEFAULT 0,

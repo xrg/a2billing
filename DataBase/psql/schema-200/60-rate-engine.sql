@@ -88,4 +88,45 @@ SELECT ROW( srid, dialstring, destination, tgid, tmout, brid,
 
 $$ LANGUAGE SQL STRICT VOLATILE;
 
+
+CREATE OR REPLACE FUNCTION card_call_lock(s_cardid BIGINT, s_base_curr CHARACTER(3)) RETURNS RECORD AS $$
+DECLARE
+	ret RECORD;
+	ret2 RECORD;
+BEGIN
+	SELECT (CASE WHEN typepaid = 0 THEN cc_card.credit
+		  WHEN typepaid = 1 THEN (cc_card.credit +  cc_card.creditlimit)
+		  ELSE -1.0 END ) AS ccredit,
+		cc_card.currency, cc_card.language, cc_card.status, cc_card.inuse,
+		cc_card_group.simultaccess
+		INTO ret
+		FROM cc_card, cc_card_group
+		WHERE cc_card.id = s_cardid AND cc_card.grp = cc_card_group.id;
+
+	IF NOT FOUND THEN
+		RAISE EXCEPTION 'call_lock|no-find|%|Cannot find card %.',s_cardid, s_cardid;
+	END IF;
+	
+	IF ret.status <>1 THEN
+		RAISE EXCEPTION 'call_lock|wrong-status|%|Card has status %.',ret.status, ret.status;
+	END IF;
+
+	IF (ret.simultaccess <> 0) AND (ret.inuse >= ret.simultaccess) THEN
+		RAISE EXCEPTION 'call_lock|in-use|%|Card is in use %/%.',ret.inuse, ret.inuse,ret.simultaccess;
+	END IF;
+
+		-- This query should better not fail..
+	UPDATE cc_card SET inuse = inuse + 1 , lastuse = now()
+		WHERE cc_card.id = s_cardid ;
+	SELECT ret.ccredit, format_currency(ret.ccredit, s_base_curr, ret.currency) AS local, 
+		ret.currency, ret.language, ret.inuse INTO ret2;
+	RETURN ret2;
+END;
+$$ LANGUAGE plpgsql STRICT VOLATILE;
+
+CREATE OR REPLACE FUNCTION card_call_release(s_cardid BIGINT) RETURNS void AS $$
+	UPDATE cc_card SET inuse = inuse - 1, nbused = nbused+1
+		WHERE id = $1;
+$$ LANGUAGE SQL STRICT VOLATILE;
+
 --eof
