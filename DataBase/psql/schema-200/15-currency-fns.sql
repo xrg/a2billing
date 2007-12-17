@@ -35,7 +35,7 @@ CREATE OR REPLACE FUNCTION format_currency2(money_sum NUMERIC, to_cur CHAR(3)) R
 $$ LANGUAGE SQL STABLE STRICT;
 
 
-CREATE OR REPLACE FUNCTION conv_currency_to(money_sum NUMERIC, from_cur CHAR(3)) RETURNS NUMERIC
+CREATE OR REPLACE FUNCTION conv_currency_to(money_sum NUMERIC, to_cur CHAR(3)) RETURNS NUMERIC
 	AS $$
 	SELECT  ($1 / value)
 		FROM cc_currencies
@@ -43,10 +43,26 @@ CREATE OR REPLACE FUNCTION conv_currency_to(money_sum NUMERIC, from_cur CHAR(3))
 	$$
 	LANGUAGE SQL STABLE STRICT;
 
-CREATE OR REPLACE FUNCTION conv_currency_from(money_sum NUMERIC, to_cur CHAR(3)) RETURNS NUMERIC
+CREATE OR REPLACE FUNCTION conv_currency_to(money_sum NUMERIC, to_cur INTEGER) RETURNS NUMERIC
+	AS $$
+	SELECT  ($1 / value)
+		FROM cc_currencies
+		WHERE id = $2 ;
+	$$
+	LANGUAGE SQL STABLE STRICT;
+
+CREATE OR REPLACE FUNCTION conv_currency_from(money_sum NUMERIC, from_cur CHAR(3)) RETURNS NUMERIC
 	AS $$
 	SELECT  ($1 * value)
 		FROM cc_currencies
 		WHERE currency = $2 ;
+	$$
+	LANGUAGE SQL STABLE STRICT;
+
+CREATE OR REPLACE FUNCTION conv_currency_from(money_sum NUMERIC, from_cur INTEGER) RETURNS NUMERIC
+	AS $$
+	SELECT  ($1 * value)
+		FROM cc_currencies
+		WHERE id = $2 ;
 	$$
 	LANGUAGE SQL STABLE STRICT;
