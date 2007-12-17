@@ -347,6 +347,8 @@ if ($mode == 'standard'){
 		// Here, we're authorized..
 		//TODO: set callerid
 		
+		/* We assume here that between consecutive attempts of calls, user's credit
+		   won't change! */
 		$card_money = CardGetMoney($card);
 		//TODO: play balance, intros
 		

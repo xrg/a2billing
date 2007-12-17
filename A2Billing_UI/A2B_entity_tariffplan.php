@@ -4,6 +4,7 @@ require_once ("./lib/module.access.php");
 require_once (DIR_COMMON."Form.inc.php");
 require_once (DIR_COMMON."Class.HelpElem.inc.php");
 require_once (DIR_COMMON."Form/Class.TimeField.inc.php");
+require_once (DIR_COMMON."Form/Class.SqlRefField.inc.php");
 
 $menu_section='menu_ratecard';
 
@@ -23,6 +24,8 @@ $HD_Form->model[] = new TextFieldEH(_("Name"),'tariffname');
 $HD_Form->model[] = new TextAreaField(_("Description"),'description');
 $HD_Form->model[] = new IntField(_("Metric"),'metric',_("Weight of plan, lower metrics will be preferred at the rate engine."));
 end($HD_Form->model)->def_value=10;
+$HD_Form->model[] = new SqlRefField(_("Trunk"),'trunk','cc_trunk','id','trunkcode', _("Trunk used by these rates"));
+
 $HD_Form->model[] = new DateTimeField(_("Start date"), "start_date", _("Date these rates are valid from"));
 	end($HD_Form->model)->def_date='+1 day';
 $HD_Form->model[] = new DateTimeField(_("Stop date"), "stop_date", _("Date these rates are valid until."));
