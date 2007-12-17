@@ -439,6 +439,8 @@ if ($mode == 'standard'){
 			if (!$res){
 				$agi->verbose('Cannot mark call start in db!');
 				$agi->conlog($a2b->DBHandle()->ErrorMsg(),2);
+				  // This error may mean that trunk is in use etc.
+				  // If call cannot be billed, we'd better abort it.
 				continue;
 			}elseif($res->EOF){
 				$agi->verbose('Cannot mark call start in db: EOF!');

@@ -130,4 +130,101 @@ $$ LANGUAGE SQL STRICT VOLATILE;
 
 --- TODO: insert rule to limit trunk use on cc_call insert.
 
+CREATE OR REPLACE FUNCTION call_bill() RETURNS trigger AS $$
+DECLARE
+	new_sbill NUMERIC(12,4);
+	new_bbill NUMERIC(12,4);
+BEGIN
+	IF OLD.stoptime IS NOT NULL AND NEW.stoptime IS NULL THEN
+		RAISE EXCEPTION 'Cannot re-open call!';
+	END IF;
+		-- Ignore updates on already closed calls
+	IF OLD.stoptime IS NOT NULL THEN
+		RETURN NEW;
+	END IF;
+	
+		-- Also ignore updates where sessiontime doesn't get defined
+	IF OLD.sessiontime IS NOT NULL OR NEW.sessiontime IS NULL THEN
+		RETURN NEW;
+	END IF;
+	
+	IF OLD.sessionbill IS NULL AND NEW.sessionbill IS NULL THEN
+		-- Now, fetch the session bill!
+		SELECT sell_calc_fwd(NEW.sessiontime * INTERVAL '1 sec',cc_sellrate.*) INTO new_sbill
+			FROM cc_sellrate WHERE id = COALESCE(NEW.srid, OLD.srid);
+		IF FOUND THEN
+			NEW.sessionbill := new_sbill;
+		END IF;
+	END IF;
+	IF OLD.sessionbill IS NULL AND NEW.sessionbill IS NOT NULL THEN
+		-- Update card
+		UPDATE cc_card SET credit = credit - NEW.sessionbill 
+			WHERE id = COALESCE(NEW.cardid, OLD.cardid);
+	END IF;
+	
+	IF OLD.buycost IS NULL AND NEW.buycost IS NULL THEN
+		-- Fetch the buy cost
+		SELECT buy_calc_fwd(NEW.sessiontime * INTERVAL '1 sec', cc_buyrate.*) INTO new_bbill
+			FROM cc_buyrate WHERE id = COALESCE(NEW.brid,OLD.brid);
+		IF FOUND THEN
+			NEW.buycost := new_bbill;
+		END IF;
+	END IF;
+	
+	IF OLD.buycost IS NULL AND NEW.buycost IS NOT NULL THEN
+		-- Update retailplan
+		UPDATE cc_tariffplan SET credit = credit - conv_currency_to(NEW.sessionbill, neg_currency),
+			secondusedreal = secondusedreal + NEW.sessiontime
+			FROM cc_buyrate
+			WHERE cc_tariffplan.id = COALESCE(NEW.brid,OLD.brid)
+			    AND cc_buyrate.idtp = cc_tariffplan.id;
+	END IF;
+	
+	UPDATE cc_trunk SET secondusedreal = secondusedreal + NEW.sessiontime,
+		inuse = inuse - 1
+		WHERE id = COALESCE(NEW.trunk,OLD.trunk);
+	
+	RETURN NEW;
+END;
+$$ LANGUAGE plpgsql STRICT ;
+
+CREATE OR REPLACE FUNCTION call_insert() RETURNS trigger AS $$
+DECLARE
+	t_inuse INTEGER;
+	t_maxuse INTEGER;
+	t_status INTEGER;
+BEGIN
+	IF NEW.trunk IS NULL THEN
+		RETURN NEW;
+	END IF;
+	
+	UPDATE cc_trunk SET inuse = inuse + 1
+		WHERE id = NEW.trunk 
+		RETURNING inuse, status, maxuse 
+		     INTO t_inuse, t_status, t_maxuse;
+	IF NOT FOUND THEN
+		RAISE WARNING 'In call_insert() could not locate trunk.';
+	END IF;
+	
+	IF t_status != 1 THEN
+		RAISE EXCEPTION 'Cannot use trunk: status %',t_status;
+	END IF;
+	
+	-- Don't worry: we have increased 'inuse' but will rollback if we raise exception.
+	IF t_maxuse <> -1 AND t_inuse > t_maxuse THEN
+		RAISE EXCEPTION 'Trunk % reached max use.', NEW.trunk;
+	END IF;
+	
+	RETURN NEW;
+END; $$ LANGUAGE plpgsql STRICT ;
+
+
+DROP TRIGGER IF EXISTS call_bill_trigger ON cc_call;
+CREATE TRIGGER call_bill_trigger BEFORE UPDATE ON cc_call
+	FOR EACH ROW EXECUTE PROCEDURE call_bill();
+
+DROP TRIGGER IF EXISTS call_insert_trigger ON cc_call;
+CREATE TRIGGER call_insert_trigger BEFORE INSERT ON cc_call
+	FOR EACH ROW EXECUTE PROCEDURE call_insert();
+
 --eof
