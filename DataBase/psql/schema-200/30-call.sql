@@ -28,8 +28,7 @@ CREATE TABLE cc_call (
     qval FLOAT, /* arbitrary, for statistics */
     src text,
     id_did integer,
-    buyrate numeric(15,5) DEFAULT 0,
-    buycost numeric(15,5) DEFAULT 0,
+    buycost numeric(15,5),
     id_card_package_offer integer DEFAULT 0
 );
 
