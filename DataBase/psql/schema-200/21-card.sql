@@ -37,6 +37,16 @@ CREATE TABLE cc_card_group (
     agent_role integer
 );
 
+-- removed fields:
+--     enableexpire integer DEFAULT 0,
+--     expiredays integer DEFAULT 0,
+--     id_didgroup integer DEFAULT 0,
+--     autorefill integer DEFAULT 0,
+--     activatedbyuser boolean DEFAULT false NOT NULL
+--     runservice integer DEFAULT 0,
+-- 
+--     sip_buddy integer DEFAULT 0,
+--     iax_buddy integer DEFAULT 0,
 
 CREATE TABLE cc_card (
     id bigserial PRIMARY KEY,
@@ -44,14 +54,11 @@ CREATE TABLE cc_card (
     creationdate timestamp without time zone DEFAULT now(),
     firstusedate timestamp without time zone,
     expirationdate timestamp without time zone,
-    enableexpire integer DEFAULT 0,
-    expiredays integer DEFAULT 0,
     username text NOT NULL UNIQUE,
     useralias text NOT NULL UNIQUE,
     userpass text NOT NULL,
 --     uipass text,
     credit numeric(12,4) NOT NULL,
-    id_didgroup integer DEFAULT 0,
     status INT NOT NULL DEFAULT '1',
     lastname text,
     firstname text,
@@ -68,19 +75,14 @@ CREATE TABLE cc_card (
     lastuse date DEFAULT now(),
     nbused integer DEFAULT 0,
     creditlimit NUMERIC(12,4) DEFAULT 0,
-    sip_buddy integer DEFAULT 0,
-    iax_buddy integer DEFAULT 0,
     "language" text DEFAULT 'en'::text,
     redial text,
-    runservice integer DEFAULT 0,
     nbservice integer DEFAULT 0,
     id_campaign integer DEFAULT 0,
     num_trials_done integer DEFAULT 0,
     callback text,
     servicelastrun timestamp without time zone,
-    autorefill integer DEFAULT 0,
     loginkey text,
-    activatedbyuser boolean DEFAULT false NOT NULL
 );
 
 CREATE INDEX cc_card_grp ON cc_card(grp);
