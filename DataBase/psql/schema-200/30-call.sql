@@ -59,4 +59,8 @@ CREATE AGGREGATE last_attempt(call_result) (
     sfunc = last_call_result_fn,
     stype = call_result );
 
+--Return type of card_call_lock()
+CREATE TYPE card_call_lock_t AS
+	(base NUMERIC(12,4), local NUMERIC(12,4), currency CHARACTER(3), language TEXT, inuse INTEGER);
+
 -- eof

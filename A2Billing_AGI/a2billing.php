@@ -178,7 +178,7 @@ function getCard_clid(){
 	global $agi;
 	$dbhandle =$a2b->DBHandle();
 	
-	$res = $dbhandle->Execute('SELECT card.id, card_group.tariffgroup AS tgid, card.username, card.status ' .
+	$res = $dbhandle->Execute('SELECT card.id, cc_card_group.tariffgroup AS tgid, card.username, card.status ' .
 		'FROM cc_card_dv AS card, cc_card_group, cc_callerid '.
 		'WHERE card.grp = cc_card_group.id AND cc_callerid.cardid = card.id ' .
 		'AND cc_callerid.activated = true '.
@@ -260,7 +260,7 @@ function CardGetMoney(&$card){
 	global $agi;
 	$dbhandle =$a2b->DBHandle();
 	
-	$res = $dbhandle->Execute ('SELECT card_call_lock(?,?);',array($card['id'],BASE_CURRENCY));
+	$res = $dbhandle->Execute ('SELECT * FROM card_call_lock(?,?);',array($card['id'],BASE_CURRENCY));
 	if (!$res){
 		/*-* Parse message and play sound to user */
 		$agi->verbose('Could not lock card: '. $dbhandle->ErrorMsg());
@@ -337,6 +337,8 @@ if ($mode == 'standard'){
 		if ($card === null)
 			continue;
 		
+		$agi->conlog('Card: ' . print_r($card,true),4);
+		
 		//TODO: fix lang
 		if ($card->status!=1){
 			// *-* TODO!
@@ -351,6 +353,7 @@ if ($mode == 'standard'){
 		if (!$card_money || ($card_money['base'] < getAGIconfig('min_credit_2call',0.01))) {
 			// not enough money!
 			$agi->verbose('Not enough money!',2);
+			$agi->conlog('Money: '. print_r($card_money,true),3);
 			ReleaseCard($card);
 			continue;
 		}
@@ -419,7 +422,8 @@ if ($mode == 'standard'){
 			$attempt++;
 			$call_res= $agi->exec('Dial',$dialstr);
 			//TODO: if record, stop
-			$agi->conlog('Dial result: ' . print_r($call_res,true));
+			
+			//$agi->conlog('Dial result: ' . print_r($call_res,true)); Not needed..
 			
 			$answeredtime = $agi->get_variable("ANSWEREDTIME");
 			if ($answeredtime['result']== 0)
@@ -454,7 +458,7 @@ if ($mode == 'standard'){
 					/* startdelay, stopdelay */
 				'WHERE id = ? ;',
 				array( $answeredtime['data'],$dialstatus['data'],$cause_ext,
-					$call_id));
+					$call_id['id']));
 			if (!$res){
 				$agi->verbose('Cannot mark call end in db! (will NOT bill)',0);
 				$agi->conlog($a2b->DBHandle()->ErrorMsg(),2);
