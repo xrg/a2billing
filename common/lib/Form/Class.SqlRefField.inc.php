@@ -28,6 +28,9 @@ class SqlRefField extends BaseField{
 		if (!$this->field_values)
 			$this->prepare($form->a2billing->DBHandle());
 		gen_Combo($this->fieldname,$val,$this->field_values);
+		?>
+		<div class="descr"><?= $this->editDescr?></div>
+		<?php
 	}
 
 	public function getDefault() {
@@ -52,7 +55,7 @@ class SqlRefField extends BaseField{
 		$debug = $GLOBALS['FG_DEBUG'];
 		$qry = "SELECT $this->refid,$this->refname FROM $this->reftable;";
 		if ($debug>3)
-			echo "Query: $qry\n";
+			echo "Query: $qry<br>\n";
 		$res = $dbhandle->Execute($qry);
 		if (!$res ){
 			if ($debug>1)
@@ -61,7 +64,7 @@ class SqlRefField extends BaseField{
 			while($row = $res->fetchRow())
 				$this->field_values[] = 
 					array ($row[$this->refid],$row[$this->refname]);
-		if ($debug>3)
+		if (($debug>3) && (count($this->field_values)<=20))
 			print_r($this->field_values);
 	}
 
