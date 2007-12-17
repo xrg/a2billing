@@ -20,9 +20,10 @@ class IntVolField extends IntField{
 			return;
 		$val = $form->getpost_dirty($this->fieldname);
 		$val_old = $form->getpost_dirty($this->fieldname.'_old');
-		$upd_arr[] = str_dbparams($form->a2billing->DBHandle(),
-			"$this->fieldname = %#1 + ($this->fieldname - %#2)",
-			array($val,$val_old));
+		if ($val != $val_old)
+			$upd_arr[] = str_dbparams($form->a2billing->DBHandle(),
+			    "$this->fieldname = %#1 + ($this->fieldname - %#2)",
+			     array($val,$val_old));
 	}
 
 };
@@ -43,9 +44,10 @@ class FloatVolField extends FloatField{
 			return;
 		$val = $form->getpost_dirty($this->fieldname);
 		$val_old = $form->getpost_dirty($this->fieldname.'_old');
-		$upd_arr[] = str_dbparams($form->a2billing->DBHandle(),
-			"$this->fieldname = %#1 + ($this->fieldname - %#2)",
-			array($val,$val_old));
+		if ($val != $val_old)
+			$upd_arr[] = str_dbparams($form->a2billing->DBHandle(),
+			    "$this->fieldname = %#1 + ($this->fieldname - %#2)",
+			     array($val,$val_old));
 	}
 
 };
