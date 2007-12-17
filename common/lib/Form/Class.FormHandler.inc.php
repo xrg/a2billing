@@ -405,10 +405,12 @@ class FormHandler extends ElemBase{
 		$query = "UPDATE " . $this->model_table . " SET ";
 		
 		$query_u = array();
-		foreach($upd_data AS $upd){
-			$query_u[] = $upd[0] ." = ? ";
-			$upd_values[] = $upd[1];
-		}
+		foreach($upd_data AS $upd)
+			if (is_array($upd)){
+				$query_u[] = $upd[0] ." = ? ";
+				$upd_values[] = $upd[1];
+			}elseif(is_string($upd))
+				$query_u[] = $upd;
 		$query .= implode(", ", $query_u);
 		$query_dbg = $query; // format a string that contains the values, too
 		$query_dbg .= "( ". var_export($upd_values,true) .") ";

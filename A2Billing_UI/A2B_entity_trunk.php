@@ -4,8 +4,7 @@ require_once ("./lib/module.access.php");
 require_once (DIR_COMMON."Form.inc.php");
 require_once (DIR_COMMON."Class.HelpElem.inc.php");
 require_once (DIR_COMMON."Form/Class.SqlRefField.inc.php");
-// include ("./form_data/FG_var_agent.inc");
-// include ("./lib/help.php");
+require_once (DIR_COMMON."Form/Class.VolField.inc.php");
 
 $menu_section='menu_trunk';
 
@@ -45,7 +44,7 @@ $HD_Form->model[] = new TextField(_("Provider IP"), "providerip", _("Set the IP 
 
 $HD_Form->model[] = new TextField(_("Additional parameter"), "addparameter", _("Define any additional parameters that will be used when running the Dial Command in Asterisk. Use the following tags as variables  *-* %dialingnumber%, %cardnumber%. ie 'D(ww%cardnumber%wwwwwwwwww%dialingnumber%)'"));
 
-// $HD_Form->model[] = new TextField(_("Additional parameter"), "addparam", _());
+$HD_Form->model[] = new IntVolField(_("In use"), "inuse", _("Number of calls currently through this trunk"));
 // $HD_Form->model[] = new TextField(_("Additional parameter"), "addparam", _());
 
 $HD_Form->model[] = new RefField(_("Status"), "status", $status_list,_("Allow the agent to operate"),"4%");
