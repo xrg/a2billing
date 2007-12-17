@@ -262,8 +262,26 @@ function CardGetMoney(&$card){
 	
 	$res = $dbhandle->Execute ('SELECT * FROM card_call_lock(?,?);',array($card['id'],BASE_CURRENCY));
 	if (!$res){
-		/*-* Parse message and play sound to user */
-		$agi->verbose('Could not lock card: '. $dbhandle->ErrorMsg());
+		$emsg = $dbhandle->ErrorMsg();
+		if (substr($emsg,0,17) =='ERROR:  call_lock'){
+			$msga= explode('|',$emsg);
+			$agi->verbose('Could not lock card: '. $msga[3]);
+			//$agi->conlog("Message: " . print_r($msga,true),4);
+			switch ($msga[1]){
+			case 'in-use':
+				$agi->stream_file('prepaid-card-in-use','#');
+				break;
+			case 'no-find':
+				//TODO
+				break;
+			case 'wrong-status':
+				//TODO
+				break;
+			default:
+				$agi->conlog('Unknown result from card_call_lock: ' . $msga[1],3);
+				
+			}
+		}else $agi->verbose('Could not lock card: '. $emsg );
 		return null;
 	}
 	if ($res->EOF){
@@ -340,8 +358,15 @@ if ($mode == 'standard'){
 		$agi->conlog('Card: ' . print_r($card,true),4);
 		
 		//TODO: fix lang
-		if ($card->status!=1){
-			// *-* TODO!
+		if ($card['status']!=1){
+			switch($card['status']){
+			case 5:
+				$agi->stream_file('prepaid-card-expired','#');
+				break;
+			default:
+				$agi->verbose('Card status: '.$card['status'] .', exiting.',2);
+			}
+			break;
 		}
 
 		// Here, we're authorized..
@@ -350,9 +375,11 @@ if ($mode == 'standard'){
 		/* We assume here that between consecutive attempts of calls, user's credit
 		   won't change! */
 		$card_money = CardGetMoney($card);
+		if (!$card_money)
+			continue;
 		//TODO: play balance, intros
-		
-		if (!$card_money || ($card_money['base'] < getAGIconfig('min_credit_2call',0.01))) {
+
+		if ($card_money['base'] < getAGIconfig('min_credit_2call',0.01)) {
 			// not enough money!
 			$agi->verbose('Not enough money!',2);
 			$agi->conlog('Money: '. print_r($card_money,true),3);
