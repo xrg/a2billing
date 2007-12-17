@@ -30,7 +30,7 @@ $HD_Form->model[] = new IntField(gettext("OPTIONS"), "options", null, "7%");
 // $HD_Form->model[] = new RefField(_("LANGUAGE"), "language");
 $HD_Form->model[] = new FloatField(_("CREDIT"), "credit");
 $HD_Form->model[] = new FloatField(_("CLIMIT"), "climit",_("Credit limit of agent"));
-$HD_Form->model[] = new SqlRefField(_("TARIFFG"), "tariffgroup","cc_tariffgroup", "id", "tariffgroupname");
+$HD_Form->model[] = new SqlRefField(_("TARIFFG"), "tariffgroup","cc_tariffgroup", "id", "name");
 // $HD_Form->model[] = new RefField(_("CURRENCY").gettext("CUR"), "currency", "5%");
 
 $actived_list = array();
