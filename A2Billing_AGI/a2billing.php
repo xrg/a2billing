@@ -260,7 +260,7 @@ function CardGetMoney(&$card){
 	global $agi;
 	$dbhandle =$a2b->DBHandle();
 	
-	$res = $dbhandle->Execute ('SELECT * FROM card_call_lock(?,?);',array($card['id'],BASE_CURRENCY));
+	$res = $dbhandle->Execute ('SELECT * FROM card_call_lock(?);',array($card['id']));
 	if (!$res){
 		$emsg = $dbhandle->ErrorMsg();
 		if (substr($emsg,0,17) =='ERROR:  call_lock'){

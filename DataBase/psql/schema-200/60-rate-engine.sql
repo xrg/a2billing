@@ -88,7 +88,7 @@ SELECT ROW( srid, dialstring, destination, tgid, tmout, brid,
 
 $$ LANGUAGE SQL STRICT VOLATILE;
 
-CREATE OR REPLACE FUNCTION card_call_lock(s_cardid BIGINT, s_base_curr CHARACTER(3)) RETURNS card_call_lock_t AS $$
+CREATE OR REPLACE FUNCTION card_call_lock(s_cardid BIGINT) RETURNS card_call_lock_t AS $$
 DECLARE
 	ret RECORD;
 	ret2 card_call_lock_t;
@@ -117,7 +117,7 @@ BEGIN
 		-- This query should better not fail..
 	UPDATE cc_card SET inuse = inuse + 1 , lastuse = now()
 		WHERE cc_card.id = s_cardid ;
-	SELECT ret.ccredit AS base, conv_currency(ret.ccredit, s_base_curr, ret.currency) AS local, 
+	SELECT ret.ccredit AS base, conv_currency_to(ret.ccredit, ret.currency) AS local, 
 		ret.currency, ret.language, ret.inuse INTO ret2;
 	RETURN ret2;
 END;
