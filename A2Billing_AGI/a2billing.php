@@ -203,6 +203,10 @@ function getCard_ivr(){
 	global $agi;
 	$dbhandle =$a2b->DBHandle();
 	
+		// We have to answer, so that we have returning sound.
+	if (!$agi->is_answered)
+		$agi->answer();
+
 	$pin_prompt = getAGIconfig('pin-prompt',"prepaid-enter-pin-number");
 	$pin_timeout = getAGIconfig('pin-timeoute',6000);
 	$pin_maxlen = getAGIconfig('pin-maxlen',15);
@@ -210,7 +214,7 @@ function getCard_ivr(){
 	$agi->conlog('Auth-ivr: asking for PIN',4);
 	$res_dtmf = $agi->get_data($pin_prompt, $pin_timeout,$pin_maxlen);
 	
-	$agi->conlog('Auth-ivr: result' . print_r($res_dtmf,true),3);
+	$agi->conlog('Auth-ivr: result ' . print_r($res_dtmf,true),3);
 	if (!isset($res_dtmf['result'])){
 		$agi->conlog('No PIN entered',2);
 		$agi-> stream_file("prepaid-no-card-entered", '#');
@@ -223,8 +227,8 @@ function getCard_ivr(){
 		return null;
 	}
 	
-	$res = $dbhandle->Execute('SELECT card.id, card_group.tariffgroup AS tgid, card.username, card.status ' .
-		'FROM cc_card_dv AS card, cc_card_group'.
+	$res = $dbhandle->Execute('SELECT card.id, cc_card_group.tariffgroup AS tgid, card.username, card.status ' .
+		'FROM cc_card_dv AS card, cc_card_group '.
 		'WHERE card.grp = cc_card_group.id ' .
 		'AND card.username = ? LIMIT 1 ;',
 		array($pinnum));
@@ -380,6 +384,7 @@ if ($mode == 'standard'){
 		//TODO: outbound cid
 		
 		try {
+		    $attempt = 1;
 		foreach ($routes as $route){
 			
 			if ((strlen($route['removeprefix'])) &&(strncmp($dialnumber, $route['removeprefix'], strlen($route['removeprefix'])) == 0))
@@ -388,21 +393,45 @@ if ($mode == 'standard'){
 			$dialstr = formatDialstring($dialnumber,$route, $card);
 			if (!$dialstr)
 				continue;
-			$agi->conlog("Dial '". $route['destination']. "'@". $route['trunkcode'] . " : $dialstr",3);
+				
+			$res = $a2b->DBHandle()->Execute('INSERT INTO cc_call (cardid, attempt, '.
+				'sessionid, uniqueid, nasipaddress, src, ' .
+				'calledstation, destination, '.
+				'srid, brid, tgid, trunk) '.
+				'VALUES( ?,?,?,?,?,?,?,?,?,?,?,?) RETURNING id;',
+				array($card['id'],$attempt,
+					$agi->request['agi_channel'],$agi->request['agi_uniqueid'],NULL,$card['username'],
+					$dialnumber,$route['destination'],
+					$route['srid'],$route['brid'],$route['tgid'],$route['trunkid']));
+
+			if (!$res){
+				$agi->verbose('Cannot mark call start in db!');
+				$agi->conlog($a2b->DBHandle()->ErrorMsg(),2);
+				continue;
+			}elseif($res->EOF){
+				$agi->verbose('Cannot mark call start in db: EOF!');
+				continue;
+			}
+			$call_id = $res->fetchRow();
+			$agi->conlog('Start call '. $call_id['id'],4);
 			
+			$agi->conlog("Dial '". $route['destination']. "'@". $route['trunkcode'] . " : $dialstr",3);
+			$attempt++;
 			$call_res= $agi->exec('Dial',$dialstr);
 			//TODO: if record, stop
+			$agi->conlog('Dial result: ' . print_r($call_res,true));
 			
 			$answeredtime = $agi->get_variable("ANSWEREDTIME");
 			if ($answeredtime['result']== 0)
 				$answeredtime['data'] =0;
 			$dialstatus = $agi->get_variable("DIALSTATUS");
 			
-			$agi->conlog("Dial result: ".$dialstatus['data'].' after '. $answeredtime['data'].'sec.',3);
+			$agi->conlog("Dial result: ".$dialstatus['data'].' after '. $answeredtime['data'].'sec.',2);
 			//$agi->conlog("After dial, answertime: ".print_r($answeredtime,true));
 			//TODO: SIP, ISDN extended status
 			
 			$can_continue = false;
+			$cause_ext = '';
 			switch ($dialstatus['data']){
 			case 'BUSY':
 			case 'ANSWERED':
@@ -420,6 +449,17 @@ if ($mode == 'standard'){
 				$agi->verbose("Unknown status: ".$dialstatus['data'],2);
 			}
 			
+			$res = $a2b->DBHandle()->Execute('UPDATE cc_call SET '.
+				'stoptime = now(), sessiontime = ?, tcause = ?, cause_ext =? '.
+					/* startdelay, stopdelay */
+				'WHERE id = ? ;',
+				array( $answeredtime['data'],$dialstatus['data'],$cause_ext,
+					$call_id));
+			if (!$res){
+				$agi->verbose('Cannot mark call end in db! (will NOT bill)',0);
+				$agi->conlog($a2b->DBHandle()->ErrorMsg(),2);
+			}
+		
 			if (!$can_continue) //TODO: manual dialnum?
 				break;
 

@@ -129,4 +129,6 @@ CREATE OR REPLACE FUNCTION card_call_release(s_cardid BIGINT) RETURNS void AS $$
 		WHERE id = $1;
 $$ LANGUAGE SQL STRICT VOLATILE;
 
+--- TODO: insert rule to limit trunk use on cc_call insert.
+
 --eof

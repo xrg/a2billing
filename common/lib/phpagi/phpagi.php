@@ -225,8 +225,8 @@
         if($this->audio) stream_set_blocking($this->audio, 0);
       }
 
-      $this->conlog('AGI Request:');
-      $this->conlog(print_r($this->request, true));
+      $this->conlog('AGI Request:',3);
+      $this->conlog(print_r($this->request, true),3);
 	  // DONT WANT TO READ THE INTERNAL CONFIG
       /* $this->conlog('PHPAGI internal configuration:');
       $this->conlog(print_r($this->config, true));*/
@@ -764,6 +764,7 @@
       foreach(explode("\n", str_replace("\r\n", "\n", print_r($message, true))) as $msg)
       {
         @syslog(LOG_WARNING, $msg);
+        $msg = str_replace('"',"'",$msg);
         $ret = $this->evaluate("VERBOSE \"$msg\" $level");
       }
       return $ret;
