@@ -196,4 +196,9 @@ abstract class BaseField {
 
 };
 
+function dontList(BaseField &$bf){
+	$bf->does_list = false;
+	return $bf;
+}
+
 ?>
