@@ -105,7 +105,8 @@ CREATE TABLE cc_booth (
 	cur_card_id bigint REFERENCES cc_card(id),
 	def_card_id bigint REFERENCES cc_card(id),
 	callerid TEXT,
-	peername TEXT
+	peername TEXT,
+	peerpass TEXT
 );
 
 

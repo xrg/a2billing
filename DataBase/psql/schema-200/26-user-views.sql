@@ -7,6 +7,7 @@
 
 CREATE OR REPLACE VIEW realtime_sip_peers AS
 SELECT COALESCE(cc_card.username, cc_booth.peername) AS name,
+	COALESCE(cc_card.userpass, cc_booth.peerpass) AS secret,
 	cc_ast_users.id AS realtime_id,
 	"type", "context", videosupport, fromdomain, amaflags, dtmfmode,
 	defaultip, fromuser, host,
@@ -62,6 +63,14 @@ CREATE OR REPLACE RULE realtime_sip_update_r3 AS ON UPDATE TO realtime_sip_peers
 		WHERE userid = OLD.realtime_id
 		AND srvid = ( SELECT id from cc_a2b_server WHERE db_username = current_user);
 	
+-- Remove the instance entry. TODO: wouldn't it be better to log the old ip?
+CREATE OR REPLACE RULE realtime_sip_update_rd AS ON UPDATE TO realtime_sip_peers
+	WHERE OLD.ipaddr IS NOT NULL AND (NEW.ipaddr IS NULL OR NEW.ipaddr = '0.0.0.0')
+	DO INSTEAD
+	DELETE FROM cc_ast_instance
+		WHERE userid = OLD.realtime_id
+		AND srvid = ( SELECT id from cc_a2b_server WHERE db_username = current_user);
+
 
 GRANT all ON realtime_sip_peers TO a2b_group ;
 
