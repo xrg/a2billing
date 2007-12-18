@@ -461,6 +461,10 @@ if ($mode == 'standard'){
 				$answeredtime['data'] =0;
 			$dialstatus = $agi->get_variable("DIALSTATUS");
 			
+			$dialedtime = $agi->get_variable("DIALEDTIME");
+			if ($dialedtime['result']== 0)
+				$dialedtime['data'] =0;
+				
 			$agi->conlog("Dial result: ".$dialstatus['data'].' after '. $answeredtime['data'].'sec.',2);
 			//$agi->conlog("After dial, answertime: ".print_r($answeredtime,true));
 			//TODO: SIP, ISDN extended status
@@ -485,10 +489,12 @@ if ($mode == 'standard'){
 			}
 			
 			$res = $a2b->DBHandle()->Execute('UPDATE cc_call SET '.
-				'stoptime = now(), sessiontime = ?, tcause = ?, cause_ext =? '.
-					/* startdelay, stopdelay */
+				'stoptime = now(), sessiontime = ?, tcause = ?, cause_ext =?, '.
+				'startdelay =? '.
+					/* stopdelay */
 				'WHERE id = ? ;',
 				array( $answeredtime['data'],$dialstatus['data'],$cause_ext,
+					($dialedtime['data'] - $answeredtime['data']),
 					$call_id['id']));
 			if (!$res){
 				$agi->verbose('Cannot mark call end in db! (will NOT bill)',0);
