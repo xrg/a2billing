@@ -37,7 +37,7 @@ CREATE TABLE cc_ast_users_config(
     rtptimeout SMALLINT,
     qualify VARCHAR(7),
     -- Connection
-    defport VARCHAR(5) DEFAULT ''::VARCHAR NOT NULL,
+    defport INTEGER,
     permit VARCHAR(95),
     deny VARCHAR(95),
     mask VARCHAR(95),
@@ -59,7 +59,8 @@ CREATE TABLE cc_ast_users (
     has_iax BOOLEAN DEFAULT true NOT NULL,
     defaultip INET,
     fromuser VARCHAR(80),
-    host VARCHAR(31) DEFAULT 'dynamic' NOT NULL
+    host VARCHAR(31) DEFAULT 'dynamic' NOT NULL,
+    CHECK( card_id IS NOT NULL OR booth_id IS NOT NULL)
 );
 
 /* FYI asterisk issues an update like:

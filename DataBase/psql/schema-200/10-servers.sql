@@ -22,6 +22,7 @@ CREATE TABLE cc_a2b_server (
     grp 	INTEGER NOT NULL REFERENCES cc_server_group(id),
     ip 		inet,
     host 	TEXT NOT NULL,
+    db_username NAME,
     manager_username 	TEXT ,
     manager_secret 	TEXT ,
     lasttime_used	TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW()
