@@ -7,6 +7,9 @@
 
 CREATE OR REPLACE VIEW realtime_sip_peers AS
 SELECT COALESCE(cc_card.username, cc_booth.peername) AS name,
+	(CASE WHEN cc_card.id IS NOT NULL THEN 'card:' || cc_card.id::TEXT
+		WHEN cc_booth.id IS NOT NULL THEN 'booth:' || cc_booth.id::TEXT
+		ELSE '' END) AS accountcode,
 	COALESCE(cc_card.userpass, cc_booth.peerpass) AS secret,
 	cc_ast_users.id AS realtime_id,
 	"type", "context", videosupport, fromdomain, amaflags, dtmfmode,

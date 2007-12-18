@@ -161,8 +161,8 @@ function getCard(){
 		else
 			return getCard_ivr();
 		break;
-	case 'callshop':
-		return getCard_booth();
+	case 'accountcode':
+		return getCard_acode();
 		break;
 	case 'pin-and-clid':
 		// *-*
@@ -248,9 +248,55 @@ function getCard_ivr(){
 	return $res->fetchRow();
 }
 
-function getCard_booth(){
+function getCard_acode(){
 	global $a2b;
 	global $agi;
+	$dbhandle =$a2b->DBHandle();
+		
+	if (!isset($agi->request['agi_accountcode']) || (strlen($agi->request['agi_accountcode'])<3)){
+		$agi->verbose("No accountcode for auth",2);
+		return false;
+	}
+	
+	$acodes = explode(':',$agi->request['agi_accountcode']);
+
+	switch($acodes[0]){
+	case 'card':
+		$res = $dbhandle->Execute('SELECT card.id, cc_card_group.tariffgroup AS tgid, card.username, card.status ' .
+			'FROM cc_card_dv AS card, cc_card_group '.
+			'WHERE card.grp = cc_card_group.id ' .
+			'AND card.id = ? LIMIT 1 ;',
+			array($acodes[1]));
+		break;
+	case 'booth':
+		$res = $dbhandle->Execute('SELECT card.id, cc_card_group.tariffgroup AS tgid, card.username, card.status ' .
+			'FROM cc_card_dv AS card, cc_card_group, cc_booth '.
+			'WHERE card.grp = cc_card_group.id ' .
+			'AND cc_booth.cur_card_id = card.id '.
+			'AND cc_booth.id = ? LIMIT 1 ;',
+			array($acodes[1]));
+		break;
+	default:
+		$agi->verbose('Unknown accountcode: '.$agi->request['agi_accountcode']);
+		return false;
+	}
+	
+	if (!$res){
+		$agi->verbose('Cannot auth-acode: '. $dbhandle->ErrorMsg());
+		if(getAGIconfig('say_errors',true))
+			$agi-> stream_file('allison2'/*-*/, '#');
+		return false;
+	}
+	if ($res->EOF){
+		$agi->verbose("Accountcode: no card for ".$acodes[0].": ".$acodes[1]." ",2);
+		if ($acodes[0] =='booth')
+			$agi-> stream_file("prepaid-no-card-entered",'#');
+		else
+			$agi-> stream_file("prepaid-auth-fail",'#');
+		return false;
+	}
+	$agi->conlog('Auth-acode: found card.',4);
+	return $res->fetchRow();
 }
 
 // Lock the card and return remaining money
@@ -383,6 +429,7 @@ if ($mode == 'standard'){
 			// not enough money!
 			$agi->verbose('Not enough money!',2);
 			$agi->conlog('Money: '. print_r($card_money,true),3);
+			$agi->stream_file('prepaid-no-enough-credit','#');
 			ReleaseCard($card);
 			continue;
 		}
