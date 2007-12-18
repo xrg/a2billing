@@ -457,21 +457,28 @@ if ($mode == 'standard'){
 		}
 		$routes = $res->GetArray();
 		$agi->conlog('Rate engine: found '.count($routes).' results.',3);
-		
+				
 		// TODO: musiconhold
 		//TODO: record_call
 		//TODO: outbound cid
 		
 		try {
 		    $attempt = 1;
+		    $last_prob = '';
 		foreach ($routes as $route){
-			
+			if ($route['tmout'] < getAGIconfig('min_duration_2call',30)){
+				$agi->conlog('Call will be too short: ',$route['tmout'],3);
+				$last_prob = 'min-length';
+				continue;
+			}
 			if ((strlen($route['removeprefix'])) &&(strncmp($dialnumber, $route['removeprefix'], strlen($route['removeprefix'])) == 0))
 				$dialnumber= substr($dialnumber, strlen($route['removeprefix']));
 			
 			$dialstr = formatDialstring($dialnumber,$route, $card);
-			if (!$dialstr)
+			if (!$dialstr){
+				$last_prob='no-dialstring';
 				continue;
+			}
 				
 			$res = $a2b->DBHandle()->Execute('INSERT INTO cc_call (cardid, attempt, '.
 				'sessionid, uniqueid, nasipaddress, src, ' .
@@ -488,9 +495,11 @@ if ($mode == 'standard'){
 				$agi->conlog($a2b->DBHandle()->ErrorMsg(),2);
 				  // This error may mean that trunk is in use etc.
 				  // If call cannot be billed, we'd better abort it.
+				 $last_prob='call-insert';
 				continue;
 			}elseif($res->EOF){
 				$agi->verbose('Cannot mark call start in db: EOF!');
+				$last_prob='call-insert';
 				continue;
 			}
 			$call_id = $res->fetchRow();
@@ -501,7 +510,7 @@ if ($mode == 'standard'){
 			$call_res= $agi->exec('Dial',$dialstr);
 			//TODO: if record, stop
 			
-			//$agi->conlog('Dial result: ' . print_r($call_res,true)); Not needed..
+			$hangupcause=$agi->get_variable('HANGUPCAUSE');
 			
 			$answeredtime = $agi->get_variable("ANSWEREDTIME");
 			if ($answeredtime['result']== 0)
@@ -517,7 +526,7 @@ if ($mode == 'standard'){
 			//TODO: SIP, ISDN extended status
 			
 			$can_continue = false;
-			$cause_ext = '';
+			$cause_ext = 'cause:'. $hangupcause['data'];
 			switch ($dialstatus['data']){
 			case 'BUSY':
 			case 'ANSWERED':
@@ -527,9 +536,11 @@ if ($mode == 'standard'){
 			
 			case 'CONGESTION':
 			case 'CHANUNAVAIL':
+				$last_prob='call-fail';
 				$can_continue = true;
 				break;
 			case 'NOANSWER':
+				$last_prob='no-answer';
 				break;
 			default:
 				$agi->verbose("Unknown status: ".$dialstatus['data'],2);
@@ -552,6 +563,18 @@ if ($mode == 'standard'){
 				break;
 
 		}
+			// After trying all routes, feed back the result only once.
+		
+			//TODO: set hangup cause accordingly
+			switch($last_prob){
+			case '':
+				break;
+			case 'min-length':
+				$agi->stream_file('prepaid-no-enough-credit','#');
+				break;
+			default:
+				$agi->conlog("Last problem: ",$last_prob);
+			}
 		}catch (Exception $ex){
 			// Here we handle signals received
 			$agi->verbose("Exception at dial:". $ex->getMessage());
@@ -568,10 +591,10 @@ if ($mode == 'standard'){
 	if(getAGIconfig('say_goodbye',true) && $agi->is_alive)
 		$agi-> stream_file('prepaid-final', '#');
 	$agi->hangup();
-	exit();
+	exit(0);
 
 	
 }// mode standard
 
-exit();
+//exit();
 ?>
