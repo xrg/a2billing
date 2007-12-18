@@ -9,6 +9,7 @@ CREATE TABLE cc_call (
     sessionid text NOT NULL,
     uniqueid text NOT NULL, /* NOT unique among failovers */
     cardid BIGINT REFERENCES cc_card(id),
+    srvid INTEGER REFERENCES cc_a2b_server(id),
     nasipaddress text,
     starttime TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
     stoptime TIMESTAMP WITHOUT TIME ZONE, /* if null, call is in progress */

@@ -195,6 +195,11 @@ DECLARE
 	t_maxuse INTEGER;
 	t_status INTEGER;
 BEGIN
+	IF NEW.srvid IS NULL THEN
+		SELECT id INTO NEW.srvid from cc_a2b_server 
+			WHERE db_username = current_user LIMIT 1;
+	END IF;
+	
 	IF NEW.trunk IS NULL THEN
 		RETURN NEW;
 	END IF;
