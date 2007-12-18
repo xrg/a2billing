@@ -57,7 +57,7 @@ $HD_Form->model[] = new IntFieldN(_("RTP timeout"),'rtptimeout',_("Hang up call 
 $HD_Form->model[] = new IntFieldN(_("RTP keepalive"),'rtpkeepalive',_("Send keepalive over RTP every x secs"));
 $HD_Form->model[] = new IntFieldN(_("RTP Hold timeout"),'rtpholdtimeout',_("Terminate call on hold, after x seconds of RTP inactivity"));
 
-$HD_Form->model[] = new IntFieldN(_("Qualify"),'qualify',_("Poke peer every x msec"));
+$HD_Form->model[] = new TextFieldN(_("Qualify"),'qualify',_("Poke peer every x msec"));
 
 $HD_Form->model[] = new IntFieldN(_("Port"),'defport',_("Default port"));
 $HD_Form->model[] = new TextFieldN(_("Permit"),'permit',_("IP/netmask of hosts to permit"));
