@@ -59,7 +59,7 @@ $HD_Form->model[] = new IntFieldN(_("RTP Hold timeout"),'rtpholdtimeout',_("Term
 
 $HD_Form->model[] = new IntFieldN(_("Qualify"),'qualify',_("Poke peer every x msec"));
 
-$HD_Form->model[] = new TextField(_("Port"),'defport',_("Default port"));
+$HD_Form->model[] = new IntFieldN(_("Port"),'defport',_("Default port"));
 $HD_Form->model[] = new TextFieldN(_("Permit"),'permit',_("IP/netmask of hosts to permit"));
 $HD_Form->model[] = new TextFieldN(_("Deny"),'deny',_("IP/netmask of hosts to deny"));
 
