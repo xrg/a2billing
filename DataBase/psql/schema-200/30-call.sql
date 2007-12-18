@@ -17,6 +17,7 @@ CREATE TABLE cc_call (
     startdelay INTEGER,
     stopdelay INTEGER,
     tcause TEXT, /* was: terminatecause, asterisk's DIALSTATUS */
+    hupcause INTEGER, /* From asterisk's HANGUPCAUSE, also ISDN codes */
     cause_ext TEXT, /* extended status, if available */
     attempt INTEGER, /* if failover, next call will have =2 etc. */
     srid BIGINT REFERENCES cc_sellrate(id),
@@ -44,6 +45,7 @@ CREATE TYPE call_result AS(
 	srid BIGINT,
 	brid BIGINT,
 	tcause TEXT,
+	hupcause INTEGER,
 	cause_ext TEXT,
 	trunk INTEGER);
 	

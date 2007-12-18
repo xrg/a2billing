@@ -521,12 +521,12 @@ if ($mode == 'standard'){
 			if ($dialedtime['result']== 0)
 				$dialedtime['data'] =0;
 				
-			$agi->conlog("Dial result: ".$dialstatus['data'].' after '. $answeredtime['data'].'sec.',2);
+			$agi->conlog("Dial result: ".$dialstatus['data'].'('. $hangupcause['data']. ') after '. $answeredtime['data'].'sec.',2);
 			//$agi->conlog("After dial, answertime: ".print_r($answeredtime,true));
 			//TODO: SIP, ISDN extended status
 			
 			$can_continue = false;
-			$cause_ext = 'cause:'. $hangupcause['data'];
+			$cause_ext = '';
 			switch ($dialstatus['data']){
 			case 'BUSY':
 			case 'ANSWERED':
@@ -547,11 +547,12 @@ if ($mode == 'standard'){
 			}
 			
 			$res = $a2b->DBHandle()->Execute('UPDATE cc_call SET '.
-				'stoptime = now(), sessiontime = ?, tcause = ?, cause_ext =?, '.
-				'startdelay =? '.
+				'stoptime = now(), sessiontime = ?, tcause = ?, hupcause = ?, '.
+				'cause_ext =?, startdelay =? '.
 					/* stopdelay */
 				'WHERE id = ? ;',
-				array( $answeredtime['data'],$dialstatus['data'],$cause_ext,
+				array( $answeredtime['data'],$dialstatus['data'],$hangupcause['data'],
+					$cause_ext,
 					($dialedtime['data'] - $answeredtime['data']),
 					$call_id['id']));
 			if (!$res){
