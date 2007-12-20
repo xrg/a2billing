@@ -500,7 +500,7 @@
     */
     function say_digits($digits, $escape_digits='')
     {
-	  if (PLAY_AUDIO){
+	  if ($this->GetCfgVar(NULL,'play_audio', true)){
         return $this->evaluate("SAY DIGITS $digits \"$escape_digits\"");
 	  }
     }
@@ -516,7 +516,7 @@
     */
     function say_number($number, $escape_digits='')
     {
-	  if (PLAY_AUDIO){
+	  if ($this->GetCfgVar(NULL,'play_audio', true)){
         return $this->evaluate("SAY NUMBER $number \"$escape_digits\"");
 	  }
     }
@@ -532,7 +532,7 @@
     */
     function say_phonetic($text, $escape_digits='')
     {
-	  if (PLAY_AUDIO){
+	  if ($this->GetCfgVar(NULL,'play_audio', true)){
       	return $this->evaluate("SAY PHONETIC $text \"$escape_digits\"");
 	  }
     }
@@ -548,7 +548,7 @@
     */
     function say_time($time=NULL, $escape_digits='')
     {
-	  if (PLAY_AUDIO){
+	  if ($this->GetCfgVar(NULL,'play_audio', true)){
         if(is_null($time)) $time = time();
         return $this->evaluate("SAY TIME $time \"$escape_digits\"");
 	  }
@@ -722,7 +722,7 @@
     */
     function stream_file($filename, $escape_digits='', $offset=0)
     {
-    if (!PLAY_AUDIO)
+    if (!$this->GetCfgVar(NULL,'play_audio', true))
         return;
     
       if ($this->is_answered)
@@ -761,9 +761,30 @@
     */
     function verbose($message, $level=1)
     {
+    	switch ($level){
+    	case 0:
+    		$syslvl = LOG_ERR;
+    		break;
+    	case 1:
+    		$syslvl = LOG_WARNING;
+    		break;
+    	case 2:
+    		$syslvl = LOG_NOTICE;
+    		break;
+    	case 3:
+    		$syslvl = LOG_INFO;
+    		break;
+    	case 4:
+    		$syslvl = LOG_DEBUG;
+    		break;
+    	default:
+    		//$msg .= "\n what is level $level?";
+    		$syslvl = LOG_NOTICE;
+    		break;
+    	}
       foreach(explode("\n", str_replace("\r\n", "\n", print_r($message, true))) as $msg)
       {
-        @syslog(LOG_WARNING, $msg);
+        @syslog($syslvl, $msg);
         $msg = str_replace('"',"'",$msg);
         $ret = $this->evaluate("VERBOSE \"$msg\" $level");
       }
