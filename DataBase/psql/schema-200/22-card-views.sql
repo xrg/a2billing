@@ -7,4 +7,10 @@
 */
 
 CREATE OR REPLACE VIEW cc_card_dv AS
-	SELECT * FROM cc_card;
+	SELECT cc_card.*, 
+		name AS group_name, agentid, simultaccess, typepaid, numplan,
+		tariffgroup, def_currency, voipcall, vat, initialbalance,
+		invoiceday, expiretype, expiredays, autorefill, agent_role
+	FROM cc_card, cc_card_group
+	WHERE cc_card.grp = cc_card_group.id;
+

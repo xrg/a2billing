@@ -26,6 +26,7 @@ CREATE TABLE cc_card_group (
     id serial NOT NULL PRIMARY KEY,
     name TEXT NOT NULL UNIQUE,
     agentid INTEGER REFERENCES cc_agent(id) ON DELETE RESTRICT,
+    numplan INTEGER NOT NULL DEFAULT 1,
     simultaccess integer DEFAULT 0,
     typepaid integer DEFAULT 0,
     tariffgroup integer REFERENCES cc_tariffgroup(id),
@@ -34,6 +35,9 @@ CREATE TABLE cc_card_group (
     vat numeric(6,3) DEFAULT 0,
     initialbalance numeric(12,4) NOT NULL DEFAULT 0,
     invoiceday integer DEFAULT 1,
+    expiretype INTEGER DEFAULT 0,
+    expiredays INTEGER DEFAULT 0,
+    autorefill INTEGER DEFAULT 0,
     agent_role integer
 );
 
@@ -55,7 +59,7 @@ CREATE TABLE cc_card (
     firstusedate timestamp without time zone,
     expirationdate timestamp without time zone,
     username text NOT NULL UNIQUE,
-    useralias text NOT NULL UNIQUE,
+    useralias text NOT NULL /*UNIQUE: not needed since numplan*/,
     userpass text NOT NULL,
 --     uipass text,
     credit numeric(12,4) NOT NULL,
@@ -89,6 +93,7 @@ CREATE INDEX cc_card_grp ON cc_card(grp);
 
 CREATE INDEX cc_card_creationdate_ind ON cc_card USING btree (creationdate);
 CREATE INDEX cc_card_username_ind ON cc_card USING btree (username);
+CREATE INDEX cc_card_useralias_ind ON cc_card (useralias);
 
 -- ALTER TABLE cc_card DROP COLUMN userpass;
 

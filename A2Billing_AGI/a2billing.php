@@ -178,10 +178,12 @@ function getCard_clid(){
 	global $agi;
 	$dbhandle =$a2b->DBHandle();
 	
-	$res = $dbhandle->Execute('SELECT card.id, cc_card_group.tariffgroup AS tgid, card.username, card.status ' .
-		'FROM cc_card_dv AS card, cc_card_group, cc_callerid '.
-		'WHERE card.grp = cc_card_group.id AND cc_callerid.cardid = card.id ' .
+	$res = $dbhandle->Execute('SELECT card.id, tariffgroup AS tgid, card.username, card.status ' .
+		'numplan, cc_numplan.name AS numname, peerprefix, e164prefix '.
+		'FROM cc_card_dv AS card,cc_numplan, cc_callerid '.
+		'WHERE cc_callerid.cardid = card.id ' .
 		'AND cc_callerid.activated = true '.
+		'AND cc_numplan.id = card.numplan '.
 		'AND cc_callerid.cid = ? LIMIT 1 ;',
 		array($agi->request['agi_callerid']));
 	
@@ -227,10 +229,10 @@ function getCard_ivr(){
 		return null;
 	}
 	
-	$res = $dbhandle->Execute('SELECT card.id, cc_card_group.tariffgroup AS tgid, card.username, card.status ' .
-		'FROM cc_card_dv AS card, cc_card_group '.
-		'WHERE card.grp = cc_card_group.id ' .
-		'AND card.username = ? LIMIT 1 ;',
+	$res = $dbhandle->Execute('SELECT card.id, tariffgroup AS tgid, card.username, card.status, ' .
+		'numplan, cc_numplan.name AS numname, peerprefix, e164prefix '.
+		'FROM cc_card_dv AS card, cc_numplan '.
+		'WHERE card.username = ? AND cc_numplan.id = card.numplan LIMIT 1 ;',
 		array($pinnum));
 	
 	if (!$res){
@@ -262,17 +264,18 @@ function getCard_acode(){
 
 	switch($acodes[0]){
 	case 'card':
-		$res = $dbhandle->Execute('SELECT card.id, cc_card_group.tariffgroup AS tgid, card.username, card.status ' .
-			'FROM cc_card_dv AS card, cc_card_group '.
-			'WHERE card.grp = cc_card_group.id ' .
-			'AND card.id = ? LIMIT 1 ;',
+		$res = $dbhandle->Execute('SELECT card.id, tariffgroup AS tgid, card.username, card.status, ' .
+			'numplan, cc_numplan.name AS numname, peerprefix, e164prefix '.
+			'FROM cc_card_dv AS card, cc_numplan '.
+			'WHERE card.id = ? AND cc_numplan.id = card.numplan LIMIT 1 ;',
 			array($acodes[1]));
 		break;
 	case 'booth':
-		$res = $dbhandle->Execute('SELECT card.id, cc_card_group.tariffgroup AS tgid, card.username, card.status ' .
-			'FROM cc_card_dv AS card, cc_card_group, cc_booth '.
-			'WHERE card.grp = cc_card_group.id ' .
-			'AND cc_booth.cur_card_id = card.id '.
+		$res = $dbhandle->Execute('SELECT card.id, tariffgroup AS tgid, card.username, card.status, ' .
+			'numplan, cc_numplan.name AS numname, peerprefix, e164prefix '.
+			'FROM cc_card_dv AS card, cc_numplan, cc_booth '.
+			'WHERE cc_booth.cur_card_id = card.id '.
+			'AND cc_numplan.id = card.numplan '.
 			'AND cc_booth.id = ? LIMIT 1 ;',
 			array($acodes[1]));
 		break;
@@ -346,16 +349,52 @@ function ReleaseCard(&$card){
 		$agi->verbose('Could not release card: '. $a2b->DBHandle()->ErrorMsg(),2);
 }
 
-function getDialNumber(){
-	global $agi;
-	// TODO, perform prefix manipulations etc.
-	if ($agi->request['agi_extension']=='s')
-		return $agi->request['agi_dnid'];
+/** Match and return string from prefix.
+   \param $match_empty  Succeed if $prefix is empty or fail..
+   \param $prefix the string $str must start from
+*/
+function str_match($str, $prefix, $match_empty =false) {
+	$len = strlen($prefix);
+	if ($len<1){
+		if ($match_empty)
+			return $str;
+		else
+			return false;
+	}
+	
+	if (strncmp($str,$prefix,$len)==0)
+		return substr($str,$len);
 	else
-		return $agi->request['agi_extension'];
+		return false;
 }
 
-function formatDialstring($dialnumber,$route, $card){
+function getDialNumber(&$card){
+	global $agi;
+	$ret = array();
+	// TODO, conditional
+	if ($agi->request['agi_extension']=='s')
+		$ret['str']= $agi->request['agi_dnid'];
+	else
+		$ret['str'] = $agi->request['agi_extension'];
+	
+	// TODO: ask for number, if none
+	
+	if ($ret['str'][0] == '+' ) //global e164 identifier!
+		$ret['e164'] = substr($ret['str'],1);
+	elseif (isset($card['peerprefix']) && (($tmp = str_match($ret['str'],$card['peerprefix']))!==false))
+		$ret['peer'] = $tmp;
+	elseif (isset($card['e164prefix']) && (($tmp = str_match($ret['str'],$card['e164prefix'],true))!==false))
+		$ret['e164'] = $tmp;
+	elseif (!strlen($card['peerprefix']))
+		$ret['peer']=$ret['dialprefix'];
+	else {
+		$agi->verbose("Cannot understand dial str from ".$ret['str'],2);
+		return false;
+	}
+	return $ret;
+}
+
+function formatDialstring($dialna,$route, $card){
 	global $agi;
 	$do_param = true;
 	switch ($route['trunkfmt']){
@@ -376,8 +415,11 @@ function formatDialstring($dialnumber,$route, $card){
 	if ($do_param)
 		$str .= getAGIconfig('dialcommand_param','|60|l(%timeout)');
 	$str .= $route['trunkparm'];
-		
-	return str_alparams($str,array ('dialnumber' => $dialnumber, 'dialstring' => $route['dialstring'],
+	
+	if (!isset($dialna['e164'])) $dialna['e164']='';
+	if (!isset($dialna['peer'])) $dialna['peer']='';
+	return str_alparams($str,array ('dialnumber' => $dialna['e164'], 'dialstring' => $route['dialstring'],
+		'peernumber' => $dialna['peer'], 'puredialstr' => $dialna['str'],
 		'destination' => $route['destination'], 'trunkprefix' => $route['trunkprefix'], 'tech' => $route['providertech'],
 		'providerip' => $route['providerip'], 'prefix' => $route['prefix'],
 		'cardnum' => $card['username'], 'stimeout' => $route['tmout'], 'timeout' => (1000*$route['tmout'])));
@@ -434,10 +476,22 @@ if ($mode == 'standard'){
 			continue;
 		}
 		
-		$dialnumber = getDialNumber();
+		$dialnum = getDialNumber($card);
+		if ($dialnum===false){
+			$agi->stream_file('prepaid-invalid-digits','#');
+			ReleaseCard($card);
+			continue;
+		}
+		$agi->conlog("Dial number: " . print_r($dialnum,true),4);
+		
+		$reng_str = 'unknown';
+		if (isset($dialnum['e164']))
+			$reng_str = $dialnum['e164'];
+		else if (isset($dialnum['peer']))
+			$reng_str = 'peer';
 		
 		$QRY = str_dbparams($a2b->DBHandle(),'SELECT * FROM RateEngine2(%#1, %2, now(), %3);',
-			array($card['tgid'],$dialnumber,$card_money['base']));
+			array($card['tgid'],$reng_str,$card_money['base']));
 			
 		$agi->conlog($QRY,3);
 		$res = $a2b->DBHandle()->Execute($QRY);
@@ -471,10 +525,11 @@ if ($mode == 'standard'){
 				$last_prob = 'min-length';
 				continue;
 			}
-			if ((strlen($route['removeprefix'])) &&(strncmp($dialnumber, $route['removeprefix'], strlen($route['removeprefix'])) == 0))
-				$dialnumber= substr($dialnumber, strlen($route['removeprefix']));
+// 			if (isset($route['removeprefix']) && (strlen($route['removeprefix'])) 
+// 				&&(strncmp($dialnum['e164'], $route['removeprefix'], strlen($route['removeprefix'])) == 0))
+// 				$dialnum['dial']= substr($dialnumber, strlen($route['removeprefix']));
 			
-			$dialstr = formatDialstring($dialnumber,$route, $card);
+			$dialstr = formatDialstring($dialnum,$route, $card);
 			if (!$dialstr){
 				$last_prob='no-dialstring';
 				continue;
@@ -487,7 +542,7 @@ if ($mode == 'standard'){
 				'VALUES( ?,?,?,?,?,?,?,?,?,?,?,?) RETURNING id;',
 				array($card['id'],$attempt,
 					$agi->request['agi_channel'],$agi->request['agi_uniqueid'],NULL,$card['username'],
-					$dialnumber,$route['destination'],
+					$dialnum['str'],$route['destination'],
 					$route['srid'],$route['brid'],$route['tgid'],$route['trunkid']));
 
 			if (!$res){
