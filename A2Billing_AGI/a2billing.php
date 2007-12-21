@@ -441,8 +441,14 @@ function formatDialstring_peer(&$dialna,&$route, &$card){
 			.'WHERE useralias = %1',array($dialna['peer']));
 		if (strlen($route['providertech']))
 			$qry .= str_dbparams($dbhandle,' AND dialtech = %1',array($route['providertech']));
+			
+		// If the trunk specifies an "ip", aliases among the corresponding numplan will be queried
+		// else, the numplan *must* be the same with that of the card.
+		// It would be wrong not to specify a numplan, since aliases accross them are not unique!
 		if (strlen($route['providerip']))
 			$qry .= str_dbparams($dbhandle,' AND numplan_name = %1',array($route['providerip']));
+		else
+			$qry .= str_dbparams($dbhandle,' AND numplan = %#1', array($card['numplan']));
 		break;
 	}
 	

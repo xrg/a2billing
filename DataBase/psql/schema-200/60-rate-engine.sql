@@ -36,6 +36,7 @@ CREATE TYPE reng_result  AS (
 	tmout INTEGER,
 	     -- Per-trunk (buyrate) fields
 	brid BIGINT,
+	metric INTEGER,
 	trunkid INTEGER, trunkcode TEXT, trunkprefix TEXT, providertech TEXT,
 	    trunkfmt INTEGER,
 	    providerip TEXT, trunkparm TEXT, provider INTEGER, trunkfree INTEGER,
@@ -44,11 +45,11 @@ CREATE TYPE reng_result  AS (
 
 --devel note: Please keep the indentation, it helps a lot!
 
-DROP FUNCTION IF EXISTS RateEngine2(tgid INTEGER, dialstring TEXT, TIMESTAMP WITH TIME ZONE, NUMERIC(12,4));
+-- DROP FUNCTION IF EXISTS RateEngine2(tgid INTEGER, dialstring TEXT, TIMESTAMP WITH TIME ZONE, NUMERIC(12,4));
 CREATE OR REPLACE FUNCTION RateEngine2(s_tgid INTEGER, s_dialstring TEXT, s_curtime TIMESTAMP WITH TIME ZONE, money NUMERIC(12,4)) 
 	RETURNS SETOF reng_result AS $$
     -- Final query (outmost): sort the results (buy rates+ sell ones), form result row
-SELECT ROW( srid, dialstring, destination, tgid, tmout, brid, 
+SELECT ROW( srid, dialstring, destination, tgid, tmout, brid, sum_metric,
 		trunkid, trunkcode, trunkprefix, providertech,trunkfmt, providerip, trunkparm, provider,
 		trunkfree, prefix )::reng_result
   FROM (
@@ -58,7 +59,7 @@ SELECT ROW( srid, dialstring, destination, tgid, tmout, brid,
 		  cc_trunk.id AS trunkid, cc_trunk.trunkcode, cc_trunk.trunkprefix, cc_trunk.providertech,
 		  cc_trunk.trunkfmt,
 		  cc_trunk.providerip, cc_trunk.addparameter AS trunkparm, cc_trunk.provider, '1'::integer AS trunkfree /*-*/,
-		  cc_buyrate.buyrate, (cc_tariffplan.metric + allsellrates.metric) AS sum_metric
+		  cc_buyrate.buyrate, (cc_tariffplan.metric + allsellrates.metric + cc_trunk.metric) AS sum_metric
 		FROM (
 		  -- Inner query: match the destination against a retail rate
 		   SELECT DISTINCT ON (cc_retailplan.id) cc_retailplan.id AS rpid,

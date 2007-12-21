@@ -36,9 +36,10 @@ $trunkfmt_list[] = array('6','Remote Peer: <[Tech]>/<@[IP:numplan]>');
 $HD_Form->model[] = new PKeyFieldEH(_("ID"),'id');
 $HD_Form->model[] = new TextFieldEH(_("Label"),'trunkcode',_("Human readable name for the agent"));
 $HD_Form->model[] = new SqlRefFieldN(_("Provider"), "provider","cc_provider", "id", "provider_name");
+$HD_Form->model[] = new IntVolField(_("Metric"), "metric", _("Weight of trunk in rate engine"));
 
 $HD_Form->model[] = new TextField(_("Prefix"),'trunkprefix',_("Add a prefix to the dialled digits."));
-$HD_Form->model[] = new TextField(_("Remove Prefix"),'removeprefix',_("In case of the voip provider or the gateway doesnt want a dialed prefix (can be useful with local gateway)"));
+// $HD_Form->model[] = new TextField(_("Remove Prefix"),'removeprefix',_("In case of the voip provider or the gateway doesnt want a dialed prefix (can be useful with local gateway)"));
 
 $HD_Form->model[] = new RefField(_("Format"), "trunkfmt", $trunkfmt_list,_("Select the desired format for the Dial string"));
 $HD_Form->model[] = new TextField(_("Tech"),'providertech',_("Technology used on the trunk (SIP,IAX2,ZAP,H323)"));
