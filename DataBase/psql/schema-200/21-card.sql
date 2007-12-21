@@ -134,3 +134,8 @@ CREATE TABLE cc_card_history (
     description TEXT
 );
 
+GRANT SELECT ON cc_booth TO a2b_group;
+GRANT SELECT ON cc_card TO a2b_group;
+GRANT SELECT ON cc_card_group TO a2b_group;
+
+--eof

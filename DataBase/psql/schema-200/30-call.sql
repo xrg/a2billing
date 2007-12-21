@@ -65,4 +65,6 @@ CREATE AGGREGATE last_attempt(call_result) (
 CREATE TYPE card_call_lock_t AS
 	(base NUMERIC(12,4), local NUMERIC(12,4), currency CHARACTER(3), language TEXT, inuse INTEGER);
 
+GRANT SELECT,INSERT,UPDATE ON cc_call TO a2b_group;
+GRANT SELECT,UPDATE ON cc_call_id_seq TO a2b_group;
 -- eof

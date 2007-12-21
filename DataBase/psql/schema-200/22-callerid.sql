@@ -7,4 +7,7 @@ CREATE TABLE cc_callerid (
     cardid bigint NOT NULL REFERENCES cc_card(id),
     activated boolean DEFAULT true NOT NULL
 );
+
+
+GRANT SELECT ON cc_callerid TO a2b_group;
 --eof

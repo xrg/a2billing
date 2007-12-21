@@ -31,4 +31,5 @@ CREATE TABLE cc_a2b_server (
 -- Perhaps not define localhost as a server here, but do it dynamically with the install
 -- script!
 
+GRANT SELECT ON cc_a2b_server  TO a2b_group;
 -- "current_user"

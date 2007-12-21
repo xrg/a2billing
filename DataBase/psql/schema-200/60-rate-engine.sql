@@ -86,7 +86,7 @@ SELECT ROW( srid, dialstring, destination, tgid, tmout, brid,
 		ORDER BY sum_metric ASC, tmout DESC, buyrate ASC
 	;
 
-$$ LANGUAGE SQL STRICT VOLATILE;
+$$ LANGUAGE SQL STRICT VOLATILE SECURITY DEFINER;
 
 CREATE OR REPLACE FUNCTION card_call_lock(s_cardid BIGINT) RETURNS card_call_lock_t AS $$
 DECLARE
@@ -121,12 +121,12 @@ BEGIN
 		ret.currency, ret.language, ret.inuse INTO ret2;
 	RETURN ret2;
 END;
-$$ LANGUAGE plpgsql STRICT VOLATILE;
+$$ LANGUAGE plpgsql STRICT VOLATILE SECURITY DEFINER;
 
 CREATE OR REPLACE FUNCTION card_call_release(s_cardid BIGINT) RETURNS void AS $$
 	UPDATE cc_card SET inuse = inuse - 1, nbused = nbused+1
 		WHERE id = $1;
-$$ LANGUAGE SQL STRICT VOLATILE;
+$$ LANGUAGE SQL STRICT VOLATILE SECURITY DEFINER;
 
 --- TODO: insert rule to limit trunk use on cc_call insert.
 
@@ -187,7 +187,7 @@ BEGIN
 	
 	RETURN NEW;
 END;
-$$ LANGUAGE plpgsql STRICT ;
+$$ LANGUAGE plpgsql STRICT SECURITY DEFINER;
 
 CREATE OR REPLACE FUNCTION call_insert() RETURNS trigger AS $$
 DECLARE
@@ -222,7 +222,7 @@ BEGIN
 	END IF;
 	
 	RETURN NEW;
-END; $$ LANGUAGE plpgsql STRICT ;
+END; $$ LANGUAGE plpgsql STRICT SECURITY DEFINER ;
 
 
 DROP TRIGGER IF EXISTS call_bill_trigger ON cc_call;

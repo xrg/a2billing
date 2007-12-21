@@ -14,3 +14,6 @@ CREATE OR REPLACE VIEW cc_card_dv AS
 	FROM cc_card, cc_card_group
 	WHERE cc_card.grp = cc_card_group.id;
 
+GRANT SELECT ON cc_card_dv TO a2b_group;
+
+--eof

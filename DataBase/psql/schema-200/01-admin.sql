@@ -61,6 +61,7 @@ CREATE TABLE cc_sysconf (
 	UNIQUE(grp,name)
 );
 
+GRANT SELECT ON cc_sysconf TO a2b_group ;
 
 -- INSERT INTO cc_configuration (ctitle, ckey, cvalue, cdescription) VALUES ('Login Username', 'MODULE_PAYMENT_AUTHORIZENET_LOGIN', 'testing', 'The login username used for the Authorize.net service');
 -- INSERT INTO cc_configuration (ctitle, ckey, cvalue, cdescription) VALUES ('Transaction Key', 'MODULE_PAYMENT_AUTHORIZENET_TXNKEY', 'Test', 'Transaction Key used for encrypting TP data');

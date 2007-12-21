@@ -10,4 +10,5 @@ CREATE TABLE cc_numplan (
 
 INSERT INTO cc_numplan(id,name) VALUES(1,'Default');
 
+GRANT SELECT ON cc_numplan TO a2b_group ;
 --eof

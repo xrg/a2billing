@@ -38,4 +38,5 @@ CREATE OR REPLACE VIEW cc_dialpeer_local_v AS
 -- 	  AND cc_card.grp = cc_card_group.id
 -- 	  AND ;
 
-	
+GRANT SELECT ON cc_alias2card_v TO a2b_group;
+GRANT SELECT ON cc_dialpeer_local_v TO a2b_group;
