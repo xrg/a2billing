@@ -447,7 +447,7 @@ function formatDialstring_peer(&$dialna,&$route, &$card){
 	}
 	
 	$qry .= ';';
-	$agi->conlog("Find peer from ". $qry,4);
+	//$agi->conlog("Find peer from ". $qry,4);
 
 	$res = $dbhandle->Execute($qry);
 	if (!$res){
