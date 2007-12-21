@@ -29,6 +29,9 @@ $trunkfmt_list = array();
 $trunkfmt_list[] = array('1','<Tech>/<IP>/<Number>');
 $trunkfmt_list[] = array('2','<Tech>/<Number>@<IP>');
 $trunkfmt_list[] = array('3','<Tech>/<IP>');
+$trunkfmt_list[] = array('4','Local Peer: <[Tech]>/<@[IP:numplan]>');
+$trunkfmt_list[] = array('5','Direct Peer: <[Tech]>/<@[IP:numplan]>');
+$trunkfmt_list[] = array('6','Remote Peer: <[Tech]>/<@[IP:numplan]>');
 
 $HD_Form->model[] = new PKeyFieldEH(_("ID"),'id');
 $HD_Form->model[] = new TextFieldEH(_("Label"),'trunkcode',_("Human readable name for the agent"));

@@ -91,6 +91,7 @@ if ($argc > 1 && ($argv[1] == '--test')){
 
 // create the objects
 $a2b = A2Billing::instance();
+$a2b->load_res_dbsettings('/etc/asterisk/res_pgsql.conf');
 $dynconf = DynConf::instance();
 
 if ($argc > 1 && is_numeric($argv[1]) && $argv[1] >= 0){
@@ -394,7 +395,7 @@ function getDialNumber(&$card){
 	return $ret;
 }
 
-function formatDialstring($dialna,$route, $card){
+function formatDialstring(&$dialna,&$route, &$card){
 	global $agi;
 	$do_param = true;
 	switch ($route['trunkfmt']){
@@ -406,6 +407,11 @@ function formatDialstring($dialna,$route, $card){
 		break;
 	case 3:
 		$str = $route['providertech'].'/'.$route['providerip'];
+		break;
+	case 4:		// Local peer
+	case 5:
+	case 6:
+		return formatDialstring_peer($dialna,$route,$card);
 		break;
 	default:
 		$agi->verbose("Unknown trunk format: ".$route['trunkfmt'],2);
@@ -423,6 +429,40 @@ function formatDialstring($dialna,$route, $card){
 		'destination' => $route['destination'], 'trunkprefix' => $route['trunkprefix'], 'tech' => $route['providertech'],
 		'providerip' => $route['providerip'], 'prefix' => $route['prefix'],
 		'cardnum' => $card['username'], 'stimeout' => $route['tmout'], 'timeout' => (1000*$route['tmout'])));
+}
+
+function formatDialstring_peer(&$dialna,&$route, &$card){
+	global $a2b;
+	global $agi;
+	$dbhandle = $a2b->DBHandle();
+	switch($route['trunkfmt']){
+	case 4:
+		$qry = str_dbparams($dbhandle,'SELECT dialtech|| \'/\' || dialname AS str FROM cc_dialpeer_local_v '
+			.'WHERE useralias = %1',array($dialna['peer']));
+		if (strlen($route['providertech']))
+			$qry .= str_dbparams($dbhandle,' AND dialtech = %1',array($route['providertech']));
+		if (strlen($route['providerip']))
+			$qry .= str_dbparams($dbhandle,' AND numplan_name = %1',array($route['providerip']));
+		break;
+	}
+	
+	$qry .= ';';
+	$agi->conlog("Find peer from ". $qry,4);
+
+	$res = $dbhandle->Execute($qry);
+	if (!$res){
+		$agi->verbose('Cannot dial peer: '. $dbhandle->ErrorMsg());
+		if(getAGIconfig('say_errors',true))
+			$agi-> stream_file('allison2'/*-*/, '#');
+		return false;
+	}
+	if ($res->EOF){
+		$agi->verbose("Peer dial: cannot find peer ".$dialna['peer'],2);
+		$agi-> stream_file("prepaid-dest-unreachable",'#');
+		return false;
+	}
+	$row= $res->fetchRow();
+	return $row['str'];
 }
 
 if ($mode == 'standard'){
