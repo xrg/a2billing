@@ -25,6 +25,23 @@ class A2Billing {
 		return self::$the_instance;
 	}
 	
+	public function load_res_dbsettings($fname, $dbtype = 'postgres'){
+		if (!file_exists($fname))
+			return false;
+		$newcfg= parse_ini_file($fname,true);
+		$this->ini_cfg['database']= array('dbtype' =>$dbtype);
+		if (isset($newcfg['general']['dbhost']))
+			$this->ini_cfg['database']['hostname'] = $newcfg['general']['dbhost'];
+		if (isset($newcfg['general']['dbport']))
+			$this->ini_cfg['database']['port'] = $newcfg['general']['dbport'];
+		if (isset($newcfg['general']['dbname']))
+			$this->ini_cfg['database']['dbname'] = $newcfg['general']['dbname'];
+		if (isset($newcfg['general']['dbuser']))
+			$this->ini_cfg['database']['user'] = $newcfg['general']['dbuser'];
+		if (isset($newcfg['general']['dbpass']))
+			$this->ini_cfg['database']['password'] = $newcfg['general']['dbpass'];
+	}
+	
 	/** Connect this object to the database! */
 	function DbConnect()
 	{
@@ -36,8 +53,11 @@ class A2Billing {
 			if (isset($this->ini_cfg["database"]['hostname']) && (strlen($this->ini_cfg["database"]['hostname'])>0))
 				$datasource = 'pgsql://'.$this->ini_cfg["database"]['user'].':'.$this->ini_cfg["database"]['password'].'@'.
 					$this->ini_cfg["database"]['hostname'].'/'.$this->ini_cfg["database"]['dbname'];
-			else
+			else{
 				$datasource = 'pgsql://dbname='.$this->ini_cfg["database"]['dbname'] .' user=' . $this->ini_cfg["database"]['user'];
+				if (strlen($this->ini_cfg["database"]['password']))
+					$datasource .= ' password='. $this->ini_cfg["database"]['password'];
+				}
 		}else{
 			$datasource = 'mysql://'.$this->ini_cfg['database']['user'].':'.$this->ini_cfg['database']['password'].'@'.$this->ini_cfg['database']['hostname'].'/'.$this->ini_cfg['database']['dbname'];
 		}
@@ -76,7 +96,7 @@ class A2Billing {
 		$this->set_def_conf('database','dbtype','postgres','DB_TYPE');
 
 		if (!$this->DbConnect())
-			throw Exception("Cannot connect to database!");
+			throw new Exception("Cannot connect to database!");
 		return $this->dbhandle;
 	}
 	
@@ -135,8 +155,8 @@ class A2Billing {
 		}
 		if (!file_exists($fname))
 			throw new Exception("Config file \"$fname\" doesn't exist");
-		$ini_cfg = parse_ini_file($fname,true);
-		if (!$ini_cfg) throw new Exception('Parse of ini file failed!');
+		$this->ini_cfg = parse_ini_file($fname,true);
+		if (!$this->ini_cfg) throw new Exception('Parse of ini file failed!');
 	}
 
 };
