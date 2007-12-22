@@ -156,6 +156,7 @@ class RevRef extends BaseField {
 		}
 		
 		$this->dispAddBox($form);
+		$this->dispEditDescr();
 	}
 	
 	public function PerformObjEdit(&$form){
@@ -168,6 +169,11 @@ class RevRef extends BaseField {
 		if ($this->debug_st)
 			echo "dispAddbox stub!!\n";
 	
+	}
+	protected function dispEditDescr(){
+	?>
+	<div class="descr"><?= $this->editDescr?></div>
+	<?php
 	}
 };
 
