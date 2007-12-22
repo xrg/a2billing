@@ -36,9 +36,13 @@ $trunkfmt_list[] = array('6','Remote Peer: <[Tech]>/<@[IP:numplan]>');
 $HD_Form->model[] = new PKeyFieldEH(_("ID"),'id');
 $HD_Form->model[] = new TextFieldEH(_("Label"),'trunkcode',_("Human readable name for the agent"));
 $HD_Form->model[] = new SqlRefFieldN(_("Provider"), "provider","cc_provider", "id", "provider_name");
-$HD_Form->model[] = new IntVolField(_("Metric"), "metric", _("Weight of trunk in rate engine"));
+$HD_Form->model[] = new IntField(_("Metric"), "metric", _("Weight of trunk in rate engine"));
+end($HD_Form->model)->does_add = false;
 
 $HD_Form->model[] = new TextField(_("Prefix"),'trunkprefix',_("Add a prefix to the dialled digits."));
+$HD_Form->model[] = new IntField(_("Strip Digits"), "stripdigits", _("Number of digits to strip from dialstring"));
+end($HD_Form->model)->does_add = false;
+
 // $HD_Form->model[] = new TextField(_("Remove Prefix"),'removeprefix',_("In case of the voip provider or the gateway doesnt want a dialed prefix (can be useful with local gateway)"));
 
 $HD_Form->model[] = new RefField(_("Format"), "trunkfmt", $trunkfmt_list,_("Select the desired format for the Dial string"));
@@ -49,9 +53,11 @@ $HD_Form->model[] = new TextField(_("Provider IP"), "providerip", _("Set the IP 
 $HD_Form->model[] = new TextField(_("Additional parameter"), "addparameter", _("Define any additional parameters that will be used when running the Dial Command in Asterisk. Use the following tags as variables  *-* %dialingnumber%, %cardnumber%. ie 'D(ww%cardnumber%wwwwwwwwww%dialingnumber%)'"));
 
 $HD_Form->model[] = new IntVolField(_("In use"), "inuse", _("Number of calls currently through this trunk"));
+end($HD_Form->model)->does_add = false;
 // $HD_Form->model[] = new TextField(_("Additional parameter"), "addparam", _());
 
 $HD_Form->model[] = new RefField(_("Status"), "status", $status_list,_("Allow the agent to operate"),"4%");
+end($HD_Form->model)->does_add = false;
 
 // TODO: inuse, maxuse, if_max_use (atomic!)
 

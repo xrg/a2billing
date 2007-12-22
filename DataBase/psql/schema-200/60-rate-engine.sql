@@ -38,26 +38,39 @@ CREATE TYPE reng_result  AS (
 	brid BIGINT,
 	metric INTEGER,
 	trunkid INTEGER, trunkcode TEXT, trunkprefix TEXT, providertech TEXT,
-	    trunkfmt INTEGER,
+	    trunkfmt INTEGER, stripdigits INTEGER,
 	    providerip TEXT, trunkparm TEXT, provider INTEGER, trunkfree INTEGER,
 	prefix TEXT
 	);
 
 --devel note: Please keep the indentation, it helps a lot!
 
+/** Translate (format) dialstring according to Numplan patterns */
+CREATE OR REPLACE FUNCTION NumplanMatch(s_dialstring TEXT,s_numplan INTEGER)
+	RETURNS TEXT AS $$
+	SELECT dialstr FROM (
+		SELECT repl || substr($1,length(find)+1) AS dialstr, length(find) AS len
+			FROM cc_numplan_pattern 
+			WHERE substr($1,1,length(find)) = find
+			AND nplan = $2
+		UNION SELECT $1,0 )
+	 AS foo
+	ORDER BY len DESC LIMIT 1;
+$$ LANGUAGE SQL STRICT STABLE;
+
 -- DROP FUNCTION IF EXISTS RateEngine2(tgid INTEGER, dialstring TEXT, TIMESTAMP WITH TIME ZONE, NUMERIC(12,4));
 CREATE OR REPLACE FUNCTION RateEngine2(s_tgid INTEGER, s_dialstring TEXT, s_curtime TIMESTAMP WITH TIME ZONE, money NUMERIC(12,4)) 
 	RETURNS SETOF reng_result AS $$
     -- Final query (outmost): sort the results (buy rates+ sell ones), form result row
 SELECT ROW( srid, dialstring, destination, tgid, tmout, brid, sum_metric,
-		trunkid, trunkcode, trunkprefix, providertech,trunkfmt, providerip, trunkparm, provider,
+		trunkid, trunkcode, trunkprefix, providertech,trunkfmt,stripdigits, providerip, trunkparm, provider,
 		trunkfree, prefix )::reng_result
   FROM (
   	-- Outer query: Find matching trunk and buy rates for selling rate found in inner query
 	SELECT DISTINCT ON (cc_tariffplan.id) allsellrates.*, $2 AS dialstring, $1 AS tgid,
 		  cc_buyrate.id AS brid, cc_buy_prefix.dialprefix AS prefix,
 		  cc_trunk.id AS trunkid, cc_trunk.trunkcode, cc_trunk.trunkprefix, cc_trunk.providertech,
-		  cc_trunk.trunkfmt,
+		  cc_trunk.trunkfmt, cc_trunk.stripdigits,
 		  cc_trunk.providerip, cc_trunk.addparameter AS trunkparm, cc_trunk.provider, '1'::integer AS trunkfree /*-*/,
 		  cc_buyrate.buyrate, (cc_tariffplan.metric + allsellrates.metric + cc_trunk.metric) AS sum_metric
 		FROM (
@@ -66,7 +79,7 @@ SELECT ROW( srid, dialstring, destination, tgid, tmout, brid, sum_metric,
 			cc_sellrate.id AS srid, cc_sellrate.destination, cc_retailplan.metric,
 			sell_calc_rev(cc_sellrate.*,$4) AS tmout
 			FROM cc_sellrate, cc_sell_prefix , cc_retailplan, cc_tariffgroup_plan
-			WHERE cc_sell_prefix.dialprefix = ANY(dial_exp_prefix($2))
+			WHERE cc_sell_prefix.dialprefix = ANY(dial_exp_prefix1($2))
 				AND cc_sellrate.id = cc_sell_prefix.srid
 				AND cc_retailplan.id = cc_sellrate.idrp
 				AND cc_tariffgroup_plan.tgid = $1
@@ -79,7 +92,7 @@ SELECT ROW( srid, dialstring, destination, tgid, tmout, brid, sum_metric,
 			AND cc_rtplan_buy.tpid = cc_tariffplan.id 
 			AND cc_buyrate.idtp = cc_tariffplan.id
 			AND cc_buyrate.id = cc_buy_prefix.brid
-			AND cc_buy_prefix.dialprefix = ANY(dial_exp_prefix($2))
+			AND cc_buy_prefix.dialprefix = ANY(dial_exp_prefix1($2))
 			AND ( $3 BETWEEN cc_tariffplan.start_date AND cc_tariffplan.stop_date)
 			AND cc_tariffplan.trunk = cc_trunk.id
 		ORDER BY cc_tariffplan.id, length(cc_buy_prefix.dialprefix) DESC
@@ -88,6 +101,12 @@ SELECT ROW( srid, dialstring, destination, tgid, tmout, brid, sum_metric,
 	;
 
 $$ LANGUAGE SQL STRICT VOLATILE SECURITY DEFINER;
+
+-- Helper function, do numplan match in one go..
+CREATE OR REPLACE FUNCTION RateEngine3(s_tgid INTEGER, s_dialstring TEXT, s_numplan INTEGER, s_curtime TIMESTAMP WITH TIME ZONE, money NUMERIC(12,4)) 
+	RETURNS SETOF reng_result AS $$
+	SELECT * FROM RateEngine2($1,NumplanMatch($2,$3),$4,$5);
+$$ LANGUAGE SQL STRICT VOLATILE;
 
 CREATE OR REPLACE FUNCTION card_call_lock(s_cardid BIGINT) RETURNS card_call_lock_t AS $$
 DECLARE

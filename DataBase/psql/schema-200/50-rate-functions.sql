@@ -141,6 +141,27 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql STRICT STABLE;
 
+/* Same as above, but don't expand the empty string
+   This will match at least one char */
+CREATE OR REPLACE FUNCTION dial_exp_prefix1(str TEXT) RETURNS TEXT[] AS $$
+DECLARE
+	slen INTEGER;
+	ret TEXT[];
+	i INTEGER;
+BEGIN
+	slen := char_length(str);
+	IF (slen > 13) THEN
+		slen := 13;
+	END IF;
+	
+	FOR i IN 1..slen LOOP
+		ret := array_append(ret, substr(str,1,i));
+	END LOOP;
+	
+	RETURN ret;
+END;
+$$ LANGUAGE plpgsql STRICT STABLE;
+
 /** Calculate the time,money allowed for a period of rating.
     rate: charge per 60 sec
     money: available money to spend
