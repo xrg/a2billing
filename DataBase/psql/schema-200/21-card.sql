@@ -38,7 +38,7 @@ CREATE TABLE cc_card_group (
     expiretype INTEGER DEFAULT 0,
     expiredays INTEGER DEFAULT 0,
     autorefill INTEGER DEFAULT 0,
-    agent_role integer
+    agent_role INTEGER
 );
 
 -- removed fields:
@@ -86,7 +86,7 @@ CREATE TABLE cc_card (
     num_trials_done integer DEFAULT 0,
     callback text,
     servicelastrun timestamp without time zone,
-    loginkey text,
+    loginkey text
 );
 
 CREATE INDEX cc_card_grp ON cc_card(grp);
