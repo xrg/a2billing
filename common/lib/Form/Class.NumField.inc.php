@@ -17,7 +17,7 @@ class IntField extends BaseField{
 	}
 	
 	public function DispAddEdit($val,&$form){
-	?><input type="text" name="<?= $this->fieldname ?>" value="<?=
+	?><input type="text" name="<?= $form->prefix.$this->fieldname ?>" value="<?=
 		htmlspecialchars($val);?>" />
 	<div class="descr"><?= $this->editDescr?></div>
 	<?php
@@ -70,7 +70,7 @@ class FloatField extends IntField{
 	}
 	
 	public function DispAddEdit($val,&$form){
-	?><input type="text" name="<?= $this->fieldname ?>" value="<?=
+	?><input type="text" name="<?= $form->prefix.$this->fieldname ?>" value="<?=
 		htmlspecialchars($val);?>" />
 	<div class="descr"><?= $this->editDescr?></div>
 	<?php
@@ -89,7 +89,7 @@ class BoolField extends IntField{
 	}
 	
 	public function DispAddEdit($val,&$form){
-	?><input type="checkbox" name="<?= $this->fieldname ?>" value="t" <?php
+	?><input type="checkbox" name="<?= $form->prefix.$this->fieldname ?>" value="t" <?php
 		if (($val == 't') || ($val === true) || ($val == 1))
 			echo 'checked ';
 		?>/>

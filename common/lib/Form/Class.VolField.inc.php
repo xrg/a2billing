@@ -7,9 +7,9 @@
 class IntVolField extends IntField{
 
 	public function DispAddEdit($val,&$form){
-	?><input type="hidden" name="<?= $this->fieldname .'_old' ?>" value="<?=
+	?><input type="hidden" name="<?= $form->prefix.$this->fieldname .'_old' ?>" value="<?=
 		htmlspecialchars($val);?>" />
-	<input type="text" name="<?= $this->fieldname ?>" value="<?=
+	<input type="text" name="<?= $form->prefix.$this->fieldname ?>" value="<?=
 		htmlspecialchars($val);?>" />
 	<div class="descr"><?= $this->editDescr?></div>
 	<?php
@@ -31,9 +31,9 @@ class IntVolField extends IntField{
 class FloatVolField extends FloatField{
 
 	public function DispAddEdit($val,&$form){
-	?><input type="hidden" name="<?= $this->fieldname .'_old' ?>" value="<?=
+	?><input type="hidden" name="<?= $form->prefix.$this->fieldname .'_old' ?>" value="<?=
 		htmlspecialchars($val);?>" />
-	<input type="text" name="<?= $this->fieldname ?>" value="<?=
+	<input type="text" name="<?= $form->prefix.$this->fieldname ?>" value="<?=
 		htmlspecialchars($val);?>" />
 	<div class="descr"><?= $this->editDescr?></div>
 	<?php

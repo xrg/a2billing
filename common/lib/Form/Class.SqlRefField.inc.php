@@ -27,7 +27,7 @@ class SqlRefField extends BaseField{
 	public function DispAddEdit($val,&$form){
 		if (!$this->field_values)
 			$this->prepare($form->a2billing->DBHandle());
-		gen_Combo($this->fieldname,$val,$this->field_values);
+		gen_Combo($form->prefix.$this->fieldname,$val,$this->field_values);
 		?>
 		<div class="descr"><?= $this->editDescr?></div>
 		<?php

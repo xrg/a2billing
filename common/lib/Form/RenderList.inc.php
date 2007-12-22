@@ -61,7 +61,7 @@ table.cclist tbody tr:hover {
 		elseif (is_array($tmp))
 			$query_fields=array_merge($query_fields,$tmp);
 		
-		$tmp= $fld->listQueryClause($dbhandle);
+		$tmp= $fld->listQueryClause($dbhandle,$this);
 		if ( is_string($tmp))
 			$query_clauses[] = $tmp;
 			

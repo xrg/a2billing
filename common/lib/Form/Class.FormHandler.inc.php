@@ -41,6 +41,7 @@ class FormHandler extends ElemBase{
 	public $cpage; ///< Current page
 	public $ndisp; ///< Number of records to display
 	public $follow_params = array(); ///< Parameters to be followed accross pages
+	public $always_follow_params = array(); ///< Parameters to follow even when crossing action
 	
 	//running vars
 	protected $_dirty_vars=null; ///< all variables starting with 'prefix'. Set on init.
@@ -77,7 +78,7 @@ class FormHandler extends ElemBase{
 			$this->FG_DEBUG = $GLOBALS['FG_DEBUG'];
 
 			// Fill a local array with dirty versions of data..
-		if (!$this_prefix)
+		if (!$this->prefix)
 			$this->_dirty_vars=array_merge($_GET, $_POST);
 		else {
 			$tmp_arr = array_merge($_GET, $_POST);
@@ -85,7 +86,7 @@ class FormHandler extends ElemBase{
 			$this->_dirty_vars=array();
 			// Find vars matching prefix and strip that!
 			foreach($tmp_arr as $key => $data)
-				if (strncmp($this->prefix,$key,$tlen))
+				if (strncmp($this->prefix,$key,$tlen)==0)
 				$this->_dirty_vars[substr($key,$tlen)]=$data;
 		}
 			
@@ -228,7 +229,22 @@ class FormHandler extends ElemBase{
 	   @return A string like "?key1=data&key2=data..."
 	*/
 	function gen_GetParams($arr_more = NULL,$do_amper=false){
-		$arr = $this->follow_params;
+		$arr = array_merge($this->always_follow_params,$this->follow_params);
+		if (is_array($arr_more))
+		$arr = array_merge($arr, $arr_more);
+		$str = arr2url($arr);
+		
+		if (strlen($str)){
+			if ($do_amper)
+			$str = '&' . $str;
+			else
+			$str = '?' . $str;
+		}
+		return $str;
+	}
+	
+	function gen_AllGetParams($arr_more = NULL,$do_amper=false){
+		$arr = $this->always_follow_params;
 		if (is_array($arr_more))
 		$arr = array_merge($arr, $arr_more);
 		$str = arr2url($arr);
@@ -243,7 +259,7 @@ class FormHandler extends ElemBase{
 	}
 	
 	function gen_PostParams($arr_more = NULL, $do_nulls=false){
-		$arr = $this->follow_params;
+		$arr = array_merge($this->always_follow_params,$this->follow_params);
 		if (is_array($arr_more))
 		$arr = array_merge($arr, $arr_more);
 		// unfortunately, it is hard to use CV_FOLLOWPARAMETERS here!
@@ -265,9 +281,9 @@ class FormHandler extends ElemBase{
 	*/
 	function askeditURL(array $arr){
 		$mod_pk= $this->getModelPK();
-		return $_SERVER['PHP_SELF'].'?'.
-			$this->prefix.'action=ask-edit&'.
-			$this->prefix.$mod_pk->fieldname.'='.rawurlencode($arr[$mod_pk->fieldname]);
+		return $_SERVER['PHP_SELF'].$this->gen_AllGetParams(
+			array($this->prefix.'action' => 'ask-edit',
+				$this->prefix.$mod_pk->fieldname => rawurlencode($arr[$mod_pk->fieldname])));
 	}
 	
 	/// Throw away anything that could make data weird.. Sometimes too much.
@@ -302,6 +318,12 @@ class FormHandler extends ElemBase{
 	
 	function addFollowParam($key,$var){
 		$this->follow_params[$this->prefix . $key] = $var;
+	}
+
+	function addAllFollowParam($key,$var,$append_prefix=true){
+		if ($append_prefix)
+			$key = $this->prefix . $key;
+		$this->always_follow_params[$key] = $var;
 	}
 
 	// ---- Debuging functions..

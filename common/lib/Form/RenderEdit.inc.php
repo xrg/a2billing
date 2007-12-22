@@ -103,10 +103,16 @@ table.editForm input {
 		?>
 	<form action=<?= $_SERVER['PHP_SELF']?> method=post name="<?= $this->prefix?>Frm" id="<?= $this->prefix ?>Frm">
 	<?php
-		$hidden_arr = array( $this->prefix. 'action' => 'edit', $this->prefix. 'sub_action' => '');
+		$hidden_arr = array('action' => 'edit','sub_action' => '');
 		foreach($this->model as $fld)
 			if ($arr2 = $fld->editHidden($row,$this))
 				$hidden_arr = array_merge($hidden_arr,$arr2);
+		if (strlen($this->prefix)>0){
+			$arr2= array();
+			foreach($hidden_arr as $key => $val)
+				$arr2[$this->prefix.$key] = $val;
+			$hidden_arr = $arr2;
+		}
 		$this->gen_PostParams($hidden_arr,true);
 	?>
 <table class="editForm" cellspacing="2">

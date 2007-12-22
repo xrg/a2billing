@@ -116,7 +116,7 @@ class RevRef extends BaseField {
 		else
 			$refkey = $this->refid;
 		$DBHandle=$form->a2billing->DBHandle();
-		?><input type="hidden" name="<?= $this->fieldname . '_action' ?>" value="">
+		?><input type="hidden" name="<?= $form->prefix.$this->fieldname . '_action' ?>" value="">
 		<div class="descr"><?= $this->editDescr?></div>
 		<?php
 		$QUERY = str_dbparams($DBHandle, "SELECT $refkey, $refname FROM $this->reftable ".
@@ -141,17 +141,17 @@ class RevRef extends BaseField {
 		<?php while ($row = $res->fetchRow()){ ?>
 			<tr><td><?= htmlspecialchars($row[$refname]) ?></td>
 			<?php if ($this->refkey !=NULL){ ?>
-			    <td><a onClick="formRRdelete('<?= $this->fieldname ?>','<?=$this->fieldname. '_action' ?>','<?= $this->fieldname .'_del' ?>','<?= $row[$refkey] ?>')" > <img src="./Images/icon-del.png" alt="<?= _("Remove this") ?>" /></a></td>
+			    <td><a onClick="formRRdelete('<?= $form->prefix.$this->fieldname ?>','<?= $form->prefix.$this->fieldname. '_action' ?>','<?= $form->prefix.$this->fieldname .'_del' ?>','<?= $row[$refkey] ?>')" > <img src="./Images/icon-del.png" alt="<?= _("Remove this") ?>" /></a></td>
 			   <?php } else { ?>
-			    <td><a onClick="formRRdelete2('<?= $this->fieldname ?>','<?=$this->fieldname. '_action' ?>','<?= $this->fieldname .'_del' ?>','<?= $row[$refkey] ?>','<?= $row[$refname] ?>')" > <img src="./Images/icon-del.png" alt="<?= _("Remove this") ?>" /></a></td>
+			    <td><a onClick="formRRdelete2('<?= $form->prefix.$this->fieldname ?>','<?= $form->prefix.$this->fieldname. '_action' ?>','<?= $form->prefix.$this->fieldname .'_del' ?>','<?= $row[$refkey] ?>','<?= $row[$refname] ?>')" > <img src="./Images/icon-del.png" alt="<?= _("Remove this") ?>" /></a></td>
 			</tr>
 		<?php		}
 			} ?>
 		</tbody>
 		</table>
-		<input type="hidden" name="<?= $this->fieldname . '_del' ?>" value="">
+		<input type="hidden" name="<?= $form->prefix.$this->fieldname . '_del' ?>" value="">
 		<?php if ($this->refkey ==NULL) { ?>
-		<input type="hidden" name="<?= $this->fieldname . '_del2' ?>" value="">
+		<input type="hidden" name="<?= $form->prefix.$this->fieldname . '_del2' ?>" value="">
 		<?php }
 		}
 		

@@ -108,7 +108,7 @@ class RevRef2 extends BaseField{
 		$assocleft= $this->assoctable . '.' . $this->assocleft;
 		$assocright= $this->assoctable . '.' . $this->assocright;
 		
-		?><input type="hidden" name="<?= $this->fieldname . '_action' ?>" value="">
+		?><input type="hidden" name="<?= $form->prefix.$this->fieldname . '_action' ?>" value="">
 		<?php
 		$QUERY = str_dbparams($DBHandle, "SELECT $presentid, $presentname FROM $this->presenttable, $this->assoctable ".
 			"WHERE $assocleft= %1 AND $assocright = $presentid ; ",array($qrow[$this->localkey]));
@@ -129,12 +129,12 @@ class RevRef2 extends BaseField{
 		<tbody>
 		<?php while ($row = $res->fetchRow()){ ?>
 			<tr><td><?= htmlspecialchars($row[$this->presentname]) ?></td>
-			    <td><a onClick="formRR2delete('<?= $this->fieldname ?>','<?=$this->fieldname. '_action' ?>','<?= $this->fieldname .'_del' ?>','<?= $row[$this->presentid] ?>')" > <img src="./Images/icon-del.png" alt="<?= _("Remove this") ?>" /></a></td>
+			    <td><a onClick="formRR2delete('<?= $form->prefix.$this->fieldname ?>','<?=$form->prefix.$this->fieldname. '_action' ?>','<?= $form->prefix.$this->fieldname .'_del' ?>','<?= $row[$this->presentid] ?>')" > <img src="./Images/icon-del.png" alt="<?= _("Remove this") ?>" /></a></td>
 			</tr>
 		<?php } ?>
 		</tbody>
 		</table>
-		<input type="hidden" name="<?= $this->fieldname . '_del' ?>" value="">
+		<input type="hidden" name="<?= $form->prefix.$this->fieldname . '_del' ?>" value="">
 		<?php
 		}
 		
@@ -155,9 +155,9 @@ class RevRef2 extends BaseField{
 			while ($row = $res->fetchRow()){
 				$add_combos[] = array($row[$this->presentid],$row[$this->presentname]);
 			}
-			gen_Combo($this->fieldname. '_add','',$add_combos);
+			gen_Combo($form->prefix.$this->fieldname. '_add','',$add_combos);
 			 ?>
-			 <a onClick="formRR2add('<?= $this->fieldname ?>','<?=$this->fieldname. '_action' ?>')"><img src="./Images/btn_Add_94x20.png" alt="<?= _("Add this") ?>" /></a>
+			 <a onClick="formRR2add('<?= $form->prefix.$this->fieldname ?>','<?=$form->prefix.$this->fieldname. '_action' ?>')"><img src="./Images/btn_Add_94x20.png" alt="<?= _("Add this") ?>" /></a>
 		<?php
 		}
 		
@@ -167,8 +167,8 @@ class RevRef2 extends BaseField{
 
 	public function PerformObjEdit(&$form){
 		$DBHandle=$form->a2billing->DBHandle();
-		$oeaction = /* $form-> */ getpost_single($this->fieldname.'_action');
-		$oeid = /* $form-> */ getpost_single($this->localkey);
+		$oeaction = $form->getpost_single($this->fieldname.'_action');
+		$oeid = $form->getpost_single($this->localkey);
 		
 		$dbg_elem = new DbgElem();
 		if ($form->FG_DEBUG>0)
@@ -177,7 +177,7 @@ class RevRef2 extends BaseField{
 		switch($oeaction){
 		case 'add':
 			$QUERY = str_dbparams($DBHandle,"INSERT INTO $this->assoctable ($this->assocleft, $this->assocright) VALUES(%1, %2);",
-				array($oeid, getpost_single($this->fieldname.'_add')));
+				array($oeid, $form->getpost_single($this->fieldname.'_add')));
 			$dbg_elem->content .= "Query: ". htmlspecialchars($QUERY) ."\n";
 			$res = $DBHandle->Execute ($QUERY);
 			
@@ -191,7 +191,7 @@ class RevRef2 extends BaseField{
 			
 		case 'delete':
 			$QUERY = str_dbparams($DBHandle,"DELETE FROM $this->assoctable WHERE $this->assocleft = %1 AND $this->assocright = %2;",
-				array($oeid, getpost_single($this->fieldname.'_del')));
+				array($oeid, $form->getpost_single($this->fieldname.'_del')));
 			$dbg_elem->content .= "Query: ". htmlspecialchars($QUERY) ."\n";
 			$res = $DBHandle->Execute ($QUERY);
 			if (! $res){

@@ -28,7 +28,7 @@ class RefField extends BaseField{
 	}
 	
 	public function DispAddEdit($val,&$form){
-		gen_Combo($this->fieldname,$val,$this->field_values);
+		gen_Combo($form->prefix.$this->fieldname,$val,$this->field_values);
 		?>
 		<div class="descr"><?= $this->editDescr?></div>
 		<?php
