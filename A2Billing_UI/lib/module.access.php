@@ -28,10 +28,13 @@ define ("ACX_DID",   		512);		// 1 << 9
 define ("ACX_CALLBACK",		1024);		// 1 << 10
 define ("ACX_OUTBOUNDCID",	2048);		// 1 << 11
 define ("ACX_PACKAGEOFFER",	4096);		// 1 << 12
-define ("ACX_PREDICTIVE_DIALER",8192);		// 1 << 13
+define ("ACX_PRED_DIALER",	8192);		// 1 << 13
 define ("ACX_INVOICING",	16384);		// 1 << 14
-define ("ACX_AGENTS", 		32768);		// 1 << 15
+define ("ACX_AGENTS", 		0xffff);	// 1 << 15
+define ("ACX_NUMPLAN",		0x10000);
+define ("ACX_SERVERS",		0x20000);
 
+define("ACX_ROOT",		0xFFFFF);
 
 header("Expires: Sat, Jan 01 2000 01:01:01 GMT");
 //echo "PHP_AUTH_USER : $PHP_AUTH_USER";

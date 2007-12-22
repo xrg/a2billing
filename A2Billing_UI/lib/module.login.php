@@ -37,7 +37,7 @@ if ((!session_is_registered('pr_login') || !session_is_registered('pr_password')
 		// if groupID egal 1, this user is a root
 		if ($return['groupid']==0){
 			//$return = true;
-			$rights = 65535;	
+			$rights = ACX_ROOT;	
 			
 			$is_admin = 1;
 			$pr_groupID = $return['groupid'];
