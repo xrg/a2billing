@@ -63,9 +63,9 @@ class DelBtnField extends OptionField {
 			$msg=str_params(_("Delete this %1"),array($form->model_name_s),1);
 		
 		$mod_pk= $form->getModelPK();
-		$url= $_SERVER['PHP_SELF'].'?'.
-			$form->prefix.'action=ask-del&'.
-			$form->prefix.$mod_pk->fieldname.'='.rawurlencode($qrow[$mod_pk->fieldname]);
+		$url= $_SERVER['PHP_SELF'].
+			$form->gen_AllGetParams(array($form->prefix.'action'=>'ask-del',
+			$form->prefix.$mod_pk->fieldname => $qrow[$mod_pk->fieldname]));
 	
 		echo '&nbsp;<a href="'. $url . '" title="'.$msg .'">';
 		echo '<img src="'.$this->img.'" border="0" alt="'. $msg. '">';

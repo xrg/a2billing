@@ -20,8 +20,10 @@ class AddNewButton extends ElemBase {
 			$action = getpost_single('action');
 		if ($action == 'list'){ ?>
 		<div>
-		<a href="<?= $_SERVER['PHP_SELF']?>?action=ask-add"><?= 
-			str_params(_("Add a new %1"),array($item),1) ?></a>
+		<a href="<?= $_SERVER['PHP_SELF']. 
+			$this->form->gen_AllGetParams(
+				array($this->form->prefix.'action' =>'ask-add'))
+			?>"><?= str_params(_("Add a new %1"),array($item),1) ?></a>
 		</div>
 		<?php
 		}	

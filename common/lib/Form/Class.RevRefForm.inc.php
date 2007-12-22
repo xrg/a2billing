@@ -29,6 +29,7 @@ class RevRefForm extends FormElemBase{
 		$this->Form->addAllFollowParam($form->prefix.$mod_pk->fieldname,$form->getpost_single($mod_pk->fieldname),false);
 		
 		$this->Form->model[0]->ResetValue($form->getpost_single($this->localkey));
+		$this->Form->PerformAction();
 		$this->Form->Render();
 	}
 		

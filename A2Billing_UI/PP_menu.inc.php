@@ -303,6 +303,14 @@ div.menu div ul {
 	<?php  } ?>
 
 	
+	<?php   if ( has_rights (ACX_NUMPLAN) ){ 	?>
+		<div id='menu_numplan'>
+		<a onclick="menu_toggle('menu_numplan');"><?= _("NUM PLANS");?></a>
+		<ul>
+			<li><a href="A2B_entity_numplan.php"><?= _("Plans");?></a></li>
+		</ul>
+		</div>
+	<?php  } ?>
 	
 	<?php   if ( has_rights (ACX_MISC) ){ 	?>
 		<div id='menu_misc'>

@@ -36,7 +36,16 @@ table.addForm div.descr {
 </style>
 
 	<form action=<?= $_SERVER['PHP_SELF']?> method=post name="<?= $this->prefix?>Frm" id="<?= $this->prefix ?>Frm">
-	<?php $this->gen_PostParams(array( action => 'add', sub_action => ''),true); ?>
+	<?php	$hidden_arr = array( 'action' => 'add', 'sub_action' => '');
+		if (strlen($this->prefix)>0){
+			$arr2= array();
+			foreach($hidden_arr as $key => $val)
+				$arr2[$this->prefix.$key] = $val;
+			$hidden_arr = $arr2;
+		}
+
+	$this->gen_PostParams($hidden_arr,true); 
+	?>
 	<table class="addForm" cellspacing="2">
 	<thead><tr><td class="field">&nbsp;</td><td class="value">&nbsp;</td></tr>
 	</thead>

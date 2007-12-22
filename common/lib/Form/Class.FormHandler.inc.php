@@ -385,7 +385,7 @@ class FormHandler extends ElemBase{
 		}else{
 			$dbg_elem->content.= ".. success: ". gettype($res) . "\n";
 			$this->pre_elems[] = new StringElem(_("New data has successfully been inserted into the database."));
-			$this->action = 'idle';
+			$this->action = 'list';
 			
 		}
 	}
@@ -469,7 +469,7 @@ class FormHandler extends ElemBase{
 		} else {
 			$dbg_elem->content.= "Success: UPDATE ". $dbhandle->Affected_Rows() . "\n";
 			$this->pre_elems[] = new StringElem(_("Data has successfully been updated in the database."));
-			$this->action = 'idle';
+			$this->action = 'list';
 			
 		}
 	}
