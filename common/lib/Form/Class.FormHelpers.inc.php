@@ -26,7 +26,9 @@ class AddNewButton extends ElemBase {
 			?>"><?= str_params(_("Add a new %1"),array($item),1) ?></a>
 		</div>
 		<?php
-		}	
+		}
 	}
 	
 };
+
+?>
