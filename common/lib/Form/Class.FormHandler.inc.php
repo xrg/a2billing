@@ -226,17 +226,27 @@ class FormHandler extends ElemBase{
 	}
 
 	// helper functions
-	/** Return a reference to the first primary key column of the model.
-	    Throw an exception if no primary key! */
-	public function getModelPK(){
-		if ($this->s_modelPK)
-			return $this->s_modelPK;
+	/** Return an array with primary key field/values, used eg. by edit urls.
+	    \param $qrow an array with fields/values for the corresponding db row
+	*/
+	public function getPKparams(array $qrow,$use_prefix= true){
+		$ret = array();
 		foreach($this->model as &$fld)
-			if($fld && ($fld instanceof PKeyField))
-			return $this->s_modelPK = &$fld;
-		
-		throw new Exception('Model doesn\'t have a primary key!');
+			if($fld && ($fld instanceof PKeyField)){
+				$arr2=$fld->listHidden($qrow,$this);
+				if (isset($arr2) && is_array($arr2)){
+					if ($use_prefix){
+						foreach($arr2 as $key =>$val)
+						$ret[$this->prefix.$key]=$val;
+					}else
+						$ret= array_merge($ret,$arr2);
+				}
+			}
+		if (count($ret)==0)
+			throw new Exception('Model doesn\'t have a primary key!');	
+		return $ret;
 	}
+	
 	/** Construct an url out of the follow parameters + some custom ones
 	   @param $arr_more  An array to be added in the form ( key => data ...)
 	   @return A string like "?key1=data&key2=data..."
@@ -293,10 +303,9 @@ class FormHandler extends ElemBase{
 	    \param $arr The row of the query
 	*/
 	function askeditURL(array $arr){
-		$mod_pk= $this->getModelPK();
-		return $_SERVER['PHP_SELF'].$this->gen_AllGetParams(
-			array($this->prefix.'action' => 'ask-edit',
-				$this->prefix.$mod_pk->fieldname => rawurlencode($arr[$mod_pk->fieldname])));
+		$pkparams = $this->getPKparams($arr,true);
+		$pkparams['action']='ask-edit';
+		return $_SERVER['PHP_SELF'].$this->gen_AllGetParams($pkparams);
 	}
 	
 	/// Throw away anything that could make data weird.. Sometimes too much.

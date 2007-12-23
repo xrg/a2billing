@@ -36,6 +36,13 @@ class PKeyField extends BaseField {
 			return null;
 		return array ($this->fieldname => $val);
 	}
+	
+	public function listHidden(array &$qrow,&$form){
+		$val = $qrow[$this->fieldname];
+		if (preg_match('/^\-?[0-9]+$/',$val)<1)
+			return null;
+		return array ($this->fieldname => $val);
+	}
 };
 
 /** Also hyperlink to the Edit page
@@ -50,6 +57,24 @@ class PKeyFieldEH extends PKeyField{
 		echo '</a>';
 	}
 	
+};
+
+/** A primary key that can accept any (text) data. */
+class PKeyFieldTxt extends PKeyField{
+	public function editQueryClause(&$dbhandle,&$form){
+		return str_dbparams($dbhandle,
+			"$this->fieldname = %1",array($form->getpost_dirty($this->fieldname)));
+	}
+
+	public function editHidden(array &$qrow,&$form){
+		$val = $form->getpost_dirty($this->fieldname);
+		return array ($this->fieldname => $val);
+	}
+	
+	public function listHidden(array &$qrow,&$form){
+		$val = $qrow[$this->fieldname];
+		return array ($this->fieldname => $val);
+	}
 };
 
 ?>
