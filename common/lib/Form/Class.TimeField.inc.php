@@ -5,7 +5,15 @@ require_once("Class.TextField.inc.php");
 /** Date and time (timestamp). ISO string + calendar */
 class DateTimeField extends TextField {
 	public $def_date;
+	static $sqlTimeFmt = null;
 	
+	public function detailQueryField(&$dbhandle){
+		if (DateTimeField::$sqlTimeFmt == null)
+			DateTimeField::$sqlTimeFmt= _("IYYY-MM-DD HH24:MI:SS TZ");
+		return 'to_char(' . $this->fieldname .', \''.DateTimeField::$sqlTimeFmt .
+			'\') AS ' .$this->fieldname;
+	}
+
 	public function getDefault() {
 		if($this->def_date){
 			$tstamp = strtotime($this->def_date);
