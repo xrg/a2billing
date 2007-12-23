@@ -21,7 +21,7 @@ $PAGE_ELEMS[] = &$HD_Form;
 
 $HD_Form->model[] = DontList( new PKeyFieldTxt(_("Session ID"),'sessionid'));
 $HD_Form->model[] = DontList( new PKeyFieldTxt(_("Unique ID"),'uniqueid'));
-$HD_Form->model[] = DontList(new PKeyField("",'cardid'));
+$HD_Form->model[] = DontList(new PKeyField(_("Card ID"),'cardid'));
 // nasipaddress  | text                        |
 // qval          | double precision            |
 

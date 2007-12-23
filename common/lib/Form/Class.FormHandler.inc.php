@@ -309,7 +309,7 @@ class FormHandler extends ElemBase{
 	*/
 	function askeditURL(array $arr){
 		$pkparams = $this->getPKparams($arr,true);
-		$pkparams['action']='ask-edit';
+		$pkparams[$this->prefix.'action']='ask-edit';
 		return $_SERVER['PHP_SELF'].$this->gen_AllGetParams($pkparams);
 	}
 	
