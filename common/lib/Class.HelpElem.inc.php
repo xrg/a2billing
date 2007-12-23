@@ -24,13 +24,11 @@ class HelpElem extends ElemBase{
 		will depend on the order this fn() is called.
 	*/
 	static public function DoHelp($text, $icon=null){
-		global $BODY_ELEMS;
-		global $HEADER_ELEMS;
+		global $PAGE_ELEMS;
 		$help_elem = new self();
 		//$help_elem->setIcon('vcard.png');
 		$help_elem->setText($text);
-		$HEADER_ELEMS[] = &$help_elem;
-		$BODY_ELEMS[] = &$help_elem;
+		$PAGE_ELEMS[] = &$help_elem;
 	}
 	
 	public function Render(){

@@ -5,7 +5,7 @@
   top: 1px;
   left: 1px;
   padding: 0.5em;
-  background-image: url(./kicons/help_index.gif);
+  background-image: url(./kicons/help_index.png);
   background-repeat: no-repeat;
   background-position: 100% 100%;    
   padding: 2px;
@@ -21,7 +21,7 @@
 #kiki {
   position: relative;
   background-color: #FFEFC7;
-  background-image: url(images/orangeshadet.gif);
+  background-image: url(images/orangeshadet.png);
   background-repeat: repeat-x;
   background-position: 0% 0%;
   margin-bottom: 1em;
@@ -39,7 +39,7 @@
   background-color:#E3F6FF;
   top: 1px;
   left: 1px;
-  background-image: url(images/asterisklogot_blue.gif);
+  background-image: url(images/asterisklogot_blue.png);
   background-repeat: no-repeat;
   background-position: right;  
   font-size: 9px;
@@ -159,7 +159,7 @@ img.rss {
 	margin-top: 0;
 }
 body {
-	/* background: #fff url("../images/body_back.gif") repeat-x; */
+	/* background: #fff url("../images/body_back.png") repeat-x; */
 	background: #fff url("images/bg5.jpg") repeat-x;
 	background-attachment: fixed;
 }
@@ -169,25 +169,25 @@ body {
 #nav_before {
 	line-height: 0.1;
 	font-size: 1px;
-	background: #E0E9E9 url("../images/menu_tr.gif") no-repeat top right;
+	background: #E0E9E9 url("../images/menu_tr.png") no-repeat top right;
 	margin: 0;
 	height: 9px;
 	display: block;
 	border-bottom: 1px solid #ddd;
-	content: url("images/key-point_tl.gif");
+	content: url("images/key-point_tl.png");
 }
 #nav {
-	/* background: #E0E9E9 url("../images/menu_back.gif") right repeat-y; */
+	/* background: #E0E9E9 url("../images/menu_back.png") right repeat-y; */
 }
 #nav_after {
 	display: block;
 	padding-top: 0;
 	line-height: 0.1;
 	font-size: 1px;
-	content:  url("images/key-point_bl.gif");
+	content:  url("images/key-point_bl.png");
 	margin: 0 0 0 0;	
 	height: 9px;
-	background: #E0E9E9 url("../images/menu_br.gif") scroll no-repeat bottom right ;
+	background: #E0E9E9 url("../images/menu_br.png") scroll no-repeat bottom right ;
 	border-top: 1px solid #fff;
 }
 
