@@ -100,16 +100,19 @@ class RevRef2 extends BaseField{
 
 	public function buildUpdate(&$ins_arr,&$form){
 	}
-
-	public function DispEdit(array &$qrow,&$form){
+	
+	protected function DispForm(array &$qrow,&$form, $active){
 		$DBHandle = $form->a2billing->DBHandle();
 		$presentname = $this->presenttable . '.' . $this->presentname ;
 		$presentid = $this->presenttable . '.' . $this->presentid ;
 		$assocleft= $this->assoctable . '.' . $this->assocleft;
 		$assocright= $this->assoctable . '.' . $this->assocright;
 		
+		if ($active){
 		?><input type="hidden" name="<?= $form->prefix.$this->fieldname . '_action' ?>" value="">
 		<?php
+		}
+		
 		$QUERY = str_dbparams($DBHandle, "SELECT $presentid, $presentname FROM $this->presenttable, $this->assoctable ".
 			"WHERE $assocleft= %1 AND $assocright = $presentid ; ",array($qrow[$this->localkey]));
 			
@@ -124,20 +127,28 @@ class RevRef2 extends BaseField{
 		}else{
 		?> <table class="FormRR2t1">
 		<thead>
-		<tr><td><?= $sparams[0] ?></td><td><?= _("Action") ?></td></tr>
+		<tr><td><?= $sparams[0] ?></td><?php
+		if ($active){
+			?><td><?= _("Action") ?></td></tr><?php
+		} ?>
 		</thead>
 		<tbody>
 		<?php while ($row = $res->fetchRow()){ ?>
-			<tr><td><?= htmlspecialchars($row[$this->presentname]) ?></td>
+			<tr><td><?= htmlspecialchars($row[$this->presentname]) ?></td><?php
+			if ($active) { ?>
 			    <td><a onClick="formRR2delete('<?= $form->prefix.$this->fieldname ?>','<?=$form->prefix.$this->fieldname. '_action' ?>','<?= $form->prefix.$this->fieldname .'_del' ?>','<?= $row[$this->presentid] ?>')" > <img src="./Images/icon-del.png" alt="<?= _("Remove this") ?>" /></a></td>
-			</tr>
+			<?php }
+			?></tr>
 		<?php } ?>
 		</tbody>
 		</table>
+		<?php if ($active) { ?>
 		<input type="hidden" name="<?= $form->prefix.$this->fieldname . '_del' ?>" value="">
-		<?php
+		<?php }
 		}
 		
+		if (!$active)
+			return;
 		// Now, find those refs NOT already in the list!
 		$QUERY = str_dbparams($DBHandle, "SELECT $presentid, $presentname FROM $this->presenttable ".
 			"WHERE $presentid NOT IN (SELECT $assocright FROM $this->assoctable WHERE $assocleft= %1); ",
@@ -156,7 +167,7 @@ class RevRef2 extends BaseField{
 				$add_combos[] = array($row[$this->presentid],$row[$this->presentname]);
 			}
 			gen_Combo($form->prefix.$this->fieldname. '_add','',$add_combos);
-			 ?>
+			?>
 			 <a onClick="formRR2add('<?= $form->prefix.$this->fieldname ?>','<?=$form->prefix.$this->fieldname. '_action' ?>')"><img src="./Images/btn_Add_94x20.png" alt="<?= _("Add this") ?>" /></a>
 		<?php
 		}
@@ -164,6 +175,12 @@ class RevRef2 extends BaseField{
 		?><div class="descr"><?= $this->editDescr?></div><?php
 	}
 	
+	public function DispEdit(array &$qrow,&$form){
+		return $this->DispForm($qrow,$form,true);
+	}
+	public function DispDetails(array &$qrow,&$form){
+		return $this->DispForm($qrow,$form,false);
+	}
 
 	public function PerformObjEdit(&$form){
 		$DBHandle=$form->a2billing->DBHandle();

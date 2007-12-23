@@ -54,6 +54,9 @@ abstract class BaseField {
 			$v=$this->getDefault();
 		$this->DispAddEdit($v,$form);
 	}
+	public function DispDetails(array &$qrow,&$form){
+		$this->DispList($qrow,$form);
+	}
 
 	/** Alternatively, a field can have a common method for both
 	    add and edit actions.
@@ -99,7 +102,7 @@ abstract class BaseField {
 	
 	
 	public function delQueryClause(&$dbhandle,&$form){
-		return editQueryClause($dbhandle,$form);
+		return $this->editQueryClause($dbhandle,$form);
 	}
 	
 // 	public function addQueryClause(&$dbhandle,&$form){

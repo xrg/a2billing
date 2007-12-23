@@ -126,6 +126,8 @@ class FormHandler extends ElemBase{
 			return $this->PerformAdd();
 		case 'edit':
 			return $this->PerformEdit();
+		case 'delete':
+			return $this->PerformDelete();
 		case 'object-edit':
 			$subfld=$this->getpost_single('sub_action');
 			foreach($this->model as $fld)
@@ -170,8 +172,13 @@ class FormHandler extends ElemBase{
 		case 'editForm':
 			$this->RenderEdit();
 			break;
-		case 'delForm':
-			$this->RenderDel();
+		case 'ask-del':
+			$this->RenderAskDel();
+			break;
+		case 'details':
+			$this->RenderDetails();
+			break;
+		case 'delete':
 			break;
 		case 'dump-form':
 			if (!$this->FG_DEBUG)
@@ -205,8 +212,14 @@ class FormHandler extends ElemBase{
 		require("RenderEdit.inc.php");
 	}
 
-	protected function RenderDel(){
-		require("RenderAskDel.inc.php");
+	protected function RenderAskDel(){
+		?><div class='askDel'><?= str_params(_("This %1 will be deleted!"),array($this->model_name_s),1) ?>
+		</div>
+		<?php
+		require("RenderDetails.inc.php");
+	}
+	protected function RenderDetails(){
+		require("RenderDetails.inc.php");
 	}
 	protected function RenderAskAdd(){
 		require("RenderAskAdd.inc.php");
@@ -473,6 +486,78 @@ class FormHandler extends ElemBase{
 			
 		}
 	}
+	
+		/** Format and execute the Delete query */
+	protected function PerformDelete(){
+		$dbg_elem = new DbgElem();
+		$dbhandle = $this->a2billing->DBHandle();
+		
+		if ($this->FG_DEBUG>0)
+			array_unshift($this->pre_elems,$dbg_elem);
+			
+		$del_clauses = array();
+		try {
+			foreach($this->model as $fld){
+				$qc = $fld->delQueryClause($dbhandle,$this);
+				if ($qc){
+					if (is_string($qc))
+						$del_clauses[] = $qc;
+					elseif(is_array($qc))
+						$del_clauses = array_merge($del_clauses,$qc);
+					else
+						throw new Exception("Why clause " . gettype($qc)." ?");
+				}
+			}
+		} catch (Exception $ex){
+			$this->action = 'ask-del';
+			$this->pre_elems[] = new ErrorElem($ex->getMessage());
+			$dbg_elem->content.=  $ex->getMessage().' ('. $ex->getCode() .")\n";
+// 			throw new Exception( $err_str);
+		}
+		
+		
+		$query = "DELETE FROM " . $this->model_table ;
+		
+			// Protect against a nasty update!
+		if (count($del_clauses)<1){
+			$this->pre_elems[] = new ErrorElem("Cannot delete, internal error");
+			$dbg_elem->content.= "Delete: no query clauses!\n";
+		}
+		
+		$query .= ' WHERE ' . implode (' AND ', $del_clauses) . ';';
+		
+		$dbg_elem->content .=$query . "\n";
+		
+		/* Note: up till now, no data has been quoted/sanitized. Thus, we
+		   feed it direcltly to the second part of the query. Pgsql, in particular,
+		   can handle a binary transfer of that data to the db, in a well protected
+		   manner */
+		if ($this->FG_DEBUG>4){
+			$this->action = 'ask-del';
+			$dbg_elem->content .= "Debug mode, won't delete!\n";
+			return;
+		}
+		$res = $dbhandle->Execute($query);
+		
+		if (!$res){
+			$this->action = 'ask-del';
+			$this->pre_elems[] = new ErrorElem(str_params(_("Cannot delete %1, database error."),array($this->model_name_s),1));
+			$dbg_elem->content.= $dbhandle->ErrorMsg() ."\n";
+// 			throw new Exception( $err_str);
+		}elseif ($dbhandle->Affected_Rows()<1){
+			// No result rows: update clause didn't match
+			$dbg_elem->content.= ".. EOF, no rows!";
+			$dbg_elem->obj = $dbhandle->Affected_Rows();
+			$this->pre_elems[] = new ErrorElem(str_params(_("Cannot delete %1, record not found."),array($this->model_name_s),1));
+			$this->action = 'list';
+		} else {
+			$dbg_elem->content.= "Success: DELETE ". $dbhandle->Affected_Rows() . "\n";
+			$this->pre_elems[] = new StringElem(_("Record successfully removed from the database."));
+			$this->action = 'list';
+			
+		}
+	}
+
 };
 
 ?>
