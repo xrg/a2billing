@@ -43,7 +43,6 @@ class SqlRefField extends BaseField{
 	}
 
 	public function listQueryTable(&$table,&$form){
-		echo "List query table!";
 		$table .= ' LEFT OUTER JOIN ' .
 			str_params("( SELECT %1 AS %0_%1, %2 AS %0_%2 FROM %3) AS %0_table ".
 				"ON %0_%1 = %0",
