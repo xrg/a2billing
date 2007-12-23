@@ -107,14 +107,14 @@ CREATE TABLE cc_buyrate (
 
 
 CREATE TABLE cc_tariffgroup_plan (
-    tgid integer NOT NULL REFERENCES cc_tariffgroup(id),
-    rtid integer NOT NULL REFERENCES cc_retailplan(id),
+    tgid integer NOT NULL REFERENCES cc_tariffgroup(id) ON DELETE CASCADE,
+    rtid integer NOT NULL REFERENCES cc_retailplan(id) ON DELETE CASCADE,
     PRIMARY KEY(tgid,rtid)
 );
 
 CREATE TABLE cc_rtplan_buy (
-    rtid integer NOT NULL REFERENCES cc_retailplan(id),
-    tpid INTEGER NOT NULL REFERENCES cc_tariffplan(id),
+    rtid integer NOT NULL REFERENCES cc_retailplan(id) ON DELETE CASCADE,
+    tpid INTEGER NOT NULL REFERENCES cc_tariffplan(id) ON DELETE CASCADE,
     PRIMARY KEY(tpid,rtid)
 );
 
