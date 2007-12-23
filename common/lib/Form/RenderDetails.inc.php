@@ -54,22 +54,17 @@ table.detailForm input {
 	$query_table = $this->model_table;
 	
 	foreach($this->model as $fld){
-		$tmp= $fld->listQueryField($dbhandle);
+		$tmp= $fld->detailQueryField($dbhandle);
 		if ( is_string($tmp))
 			$query_fields[] = $tmp;
 		elseif (is_array($tmp))
 			$query_fields=array_merge($query_fields,$tmp);
 		
-		$tmp= $fld->listQueryClause($dbhandle,$this);
-		if ( is_string($tmp))
-			$query_clauses[] = $tmp;
-
-		   //We use both list- and edit- clauses
-		$tmp= $fld->editQueryClause($dbhandle,$this);
+		$tmp= $fld->detailQueryClause($dbhandle,$this);
 		if ( is_string($tmp))
 			$query_clauses[] = $tmp;
 			
-		$fld->listQueryTable($query_table,$form);
+		$fld->detailQueryTable($query_table,$form);
 	}
 	
 	if (!strlen($query_table)){

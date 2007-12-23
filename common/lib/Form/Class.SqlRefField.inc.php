@@ -36,13 +36,24 @@ class SqlRefField extends BaseField{
 	public function getDefault() {
 		return $this->def_value;
 	}
+	
 	public function listQueryField(&$dbhandle){
 		if (!$this->does_list)
 			return;
+		return $this->detailQueryField($dbhandle);
+	}
+	
+	public function detailQueryField(&$dbhandle){
 		return array($this->fieldname, $this->fieldname.'_'.$this->refname);
 	}
 
 	public function listQueryTable(&$table,&$form){
+		if ($this->does_list)
+			return $this->detailQueryTable($table,$form);
+		else
+			return null;
+	}
+	public function detailQueryTable(&$table,&$form){
 		$table .= ' LEFT OUTER JOIN ' .
 			str_params("( SELECT %1 AS %0_%1, %2 AS %0_%2 FROM %3) AS %0_table ".
 				"ON %0_%1 = %0",

@@ -6,13 +6,16 @@ require_once("Class.BaseField.inc.php");
 
 class ClauseField extends BaseField {
 	protected $fieldvalue;
+	public $parentfield;
 	
-	function ClauseField($fldname,$fldvalue){
+	function ClauseField($fldname,$fldvalue,$pfield = null){
 		$this->does_edit = false;
 		$this->does_add = false;
 		$this->does_list = false;
 		$this->fieldname = $fldname;
 		$this->fieldvalue = $fldvalue;
+		if ($pfield)
+			$this->parentfield = $pfield;
 	}
 
 	public function DispList(array &$qrow,&$form){

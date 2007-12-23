@@ -89,9 +89,14 @@ class RevRef extends BaseField {
 	public function DispList(array &$qrow,&$form){
 		// nothing to list!
 	}
+	
 	public function listQueryField(&$dbhandle){
 		if (!$this->does_list)
 			return;
+		return $this->detailQueryField($dbhandle);
+	}
+	
+	public function detailQueryField(&$dbhandle){
 		return $this->localkey;
 	}
 	
