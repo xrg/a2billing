@@ -21,6 +21,7 @@ $PAGE_ELEMS[] = &$HD_Form;
 
 $HD_Form->model[] = DontList( new PKeyFieldTxt(_("Session ID"),'sessionid'));
 $HD_Form->model[] = DontList( new PKeyFieldTxt(_("Unique ID"),'uniqueid'));
+$HD_Form->model[] = DontList(new PKeyField("",'cardid'));
 // nasipaddress  | text                        |
 // qval          | double precision            |
 
@@ -55,16 +56,49 @@ $HD_Form->model[] = DontList(new TextField(_("Source"),'src'));
 $HD_Form->model[] = DontList(new SqlRefFieldN(_("Tariff group"),'tgid','cc_tariffgroup','id','name', _("Tariff group used by the rate engine.")));
 
 
-//$tmp = new RevRefForm(_("Details"),'dt','id','cc_numplan_pattern','nplan');
-// $HD_Form->meta_elems[] = $tmp;
-// 	$tmp->Form->checkRights(ACX_CALL_REPORT);
-// 	$tmp->Form->init();
-// 	$tmp->Form->model[] = new PKeyFieldEH(_("ID"),'id');
-// 	$tmp->Form->model[]= new TextField(_("Find"),'find',_('Prefix to match'));
-// 	$tmp->Form->model[]= new TextField(_("Replace"),'repl',_('String to replace the match prefix with'));
-// 	$tmp->Form->model[]= new TextFieldEH(_("Name"),'nick',_('Name of pattern'));
-// 	$tmp->Form->model[] = new DelBtnField();
-// 	$tmp->Form->meta_elems[] = new AddNewButton($tmp->Form);
+$tmp = new RevRefForm(_("Details"),'dt','sessionid','cc_call','sessionid');
+$HD_Form->meta_elems[] = $tmp;
+	$tmp->at_action = 'details';
+	$tmp->Form->checkRights(ACX_CALL_REPORT);
+	$tmp->Form->init();
+	$tmp->Form->model[] = new ClauseField('uniqueid',null,'uniqueid');
+	$tmp->Form->model[] = new ClauseField('cardid',null,'cardid');
+	
+	$tmp->Form->model[] = new IntField(_("Attempt"),'attempt');
+	end($tmp->Form->model)->fieldacr=_("At");
+	$tmp->Form->model[] = new PKeyFieldTxt(_("ID"),'id');
+
+	$tmp->Form->model[] = new DateTimeFieldDH(_("Start Time"),'starttime');
+	$tmp->Form->model[] = new DateTimeField(_("Stop Time"),'stoptime');
+	$tmp->Form->model[] = DontList(new SqlRefFieldN(_("Server"),'srvid','cc_a2b_server','id','host'));
+
+	// $tmp->Form->model[] = new TextField(_("Called station"),'calledstation');
+	$tmp->Form->model[] = DontList(new TextField(_("Destination"),'destination'));
+	$tmp->Form->model[] = new IntField(_("Duration"),'sessiontime');
+	end($tmp->Form->model)->fieldacr=_("Dur");
+	$tmp->Form->model[] = new IntField(_("Start Delay"),'startdelay');
+	end($tmp->Form->model)->fieldacr=_("SD");
+	$tmp->Form->model[] = DontList(new IntField(_("Stop Delay"),'stopdelay'));
+	end($tmp->Form->model)->fieldacr=_("TD");
+	
+	$tmp->Form->model[] = new SqlRefFieldN(_("Sell Rate"),'srid','cc_sellrate','id','destination', _("Selling rate"));
+	end($tmp->Form->model)->fieldacr=_("SRate");
+	$tmp->Form->model[] = new SqlRefFieldN(_("Buy Rate"),'brid','cc_buyrate','id','destination', _("Buying rate"));
+	end($tmp->Form->model)->fieldacr=_("BRate");
+	
+	$tmp->Form->model[] = new TextField(_("Result"),'tcause');
+	$tmp->Form->model[] = new IntField(_("ISDN Hangup Cause"),'hupcause');
+	end($tmp->Form->model)->fieldacr=_("Hu");
+	$tmp->Form->model[] = DontList(new TextField(_("Cause ext."),'cause_ext'));
+	end($tmp->Form->model)->fieldacr=_("Ce");
+	
+	$tmp->Form->model[] = DontList(new SqlRefFieldN(_("Trunk"),'trunk','cc_trunk','id','trunkcode',
+			_("Trunk used for the call")));
+	
+	$tmp->Form->model[] = new FloatField(_("Bill"),'sessionbill',_("How much the customer was charged for the call."));
+	$tmp->Form->model[] = DontList(new FloatField(_("Cost"),'buycost',_("How much we were charged for the call.")));
+	
+	$tmp->Form->model[] = DontList(new TextField(_("Source"),'src'));
 
 require("PP_page.inc.php");
 

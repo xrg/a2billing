@@ -8,27 +8,29 @@ require_once("Class.ClauseField.inc.php");
 
 class RevRefForm extends FormElemBase{
 	public $Form;
-	protected $localkey;
+	public $at_action = 'ask-edit';
 	
 	function RevRefForm($fldtitle,$fldname,$lkey,$reftable,$refid ){
-		$this->localkey = $lkey;
 		$this->Form = new FormHandler($reftable,null,$fldtitle);
 		$this->Form->prefix=$fldname;
-		$this->Form->model[0]= new ClauseField($refid,null);
+		$this->Form->model[0]= new ClauseField($refid,null,$lkey);
 	}
 	
 	function InFormRender(&$form){
-		if ($form->getAction()!= 'ask-edit')
+		if ($form->getAction()!= $this->at_action)
 			return;
 		echo "Render:". $this->Form->getpost_single('action');
 		// Update the parent form's parameters to this
 		foreach ($form->always_follow_params as $key =>$val)
 			$this->Form->addAllFollowParam($key,$val,false);
-		$mod_pk= $form->getModelPK();
-		$this->Form->addAllFollowParam($form->prefix.'action',$form->getAction(),false);
-		$this->Form->addAllFollowParam($form->prefix.$mod_pk->fieldname,$form->getpost_single($mod_pk->fieldname),false);
+		$pkarr= $form->getPKparamsU(true);
+		$pkarr[$form->prefix.'action']=$this->at_action;
+		foreach( $pkarr as $key => $val)
+			$this->Form->addAllFollowParam($key,$val,false);
 		
-		$this->Form->model[0]->ResetValue($form->getpost_single($this->localkey));
+		foreach($this->Form->model as $fld)
+			if($fld instanceof ClauseField)
+				$fld->ResetValue($form->getpost_single($fld->parentfield));
 		$this->Form->PerformAction();
 		$this->Form->Render();
 	}

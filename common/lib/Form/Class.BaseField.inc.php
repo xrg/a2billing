@@ -94,8 +94,8 @@ abstract class BaseField {
 		return null;
 	}
 	
-	public function detailQueryClause(&$dbhandle){
-		return $this->listQueryClause($dbhandle);
+	public function detailQueryClause(&$dbhandle,&$form){
+		return $this->editQueryClause($dbhandle,$form);
 	}
 	
 	public function listQueryTable(&$table,&$form){
@@ -161,7 +161,7 @@ abstract class BaseField {
 			$order_sel = true;
 		}
 		echo '<a href="';
-		echo $form->selfUrl(array( order=> $this->fieldname, sens=>$sens));
+		echo $form->selfUrl(array( $form->prefix.'order'=> $this->fieldname, $form->prefix. 'sens'=>$sens));
 		echo '">';
 		$this->RenderListHead_i($form);
 		if ($order_sel) {

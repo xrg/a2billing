@@ -56,7 +56,7 @@ class DateTimeFieldDH extends DateTimeField {
 			return parent::DispList($qrow,$form);
 		
 		$pkparams= $form->getPKparams($qrow,true);
-		$pkparams['action']='details';
+		$pkparams[$form->prefix.'action']='details';
 		$url= $_SERVER['PHP_SELF'].$form->gen_AllGetParams($pkparams);
 		echo '<a href="' .$url. '">';
 		parent::DispList($qrow,$form);

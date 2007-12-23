@@ -247,6 +247,11 @@ class FormHandler extends ElemBase{
 		return $ret;
 	}
 	
+	/** Get pkparams from those of the url */
+	public function getPKparamsU($use_prefix= true){
+		return $this->getPKparams($this->_dirty_vars,$use_prefix);
+	}
+
 	/** Construct an url out of the follow parameters + some custom ones
 	   @param $arr_more  An array to be added in the form ( key => data ...)
 	   @return A string like "?key1=data&key2=data..."
