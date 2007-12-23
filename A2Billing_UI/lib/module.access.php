@@ -44,11 +44,20 @@ if (!isset($_SESSION)) {
 	session_start();
 }
 
+$URI = $_SERVER['REQUEST_URI'];
+$restircted_url = substr($URI,-16);
+if(!($restircted_url == "PP_intro.php") && !($restircted_url == "signup/index.php") && isset($_SESSION["admin_id"])) {
+	require_once(DIR_COMMON."Class.Logger.inc.php");
+	if (!isset($log))
+		$log= new Logger(); // TODO: instance
+	$log -> insertLog($_SESSION["admin_id"], 1, "Page Visit", "User Visited the Page", '', $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'],'');
+}
+
 
 if (isset($_GET["logout"]) && $_GET["logout"]=="true") {
 require_once(DIR_COMMON."Class.Logger.inc.php");
-
-	$log = new Logger(/*new Config()*/);
+	if (!isset($log))
+		$log = new Logger(/*new Config()*/); //TODO..
 	$log -> insertLog($admin_id, 1, "USER LOGGED OUT", "User Logged out from website", '', $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'],'');
 	$log = null;
 	session_destroy();

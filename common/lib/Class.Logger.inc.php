@@ -9,6 +9,8 @@ require_once("Class.Table.php");
      *
 */	 
 
+// *-* Major rewrite needed!
+
 class Logger
 {
 	var $do_debug = 0;
