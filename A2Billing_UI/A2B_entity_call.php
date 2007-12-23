@@ -19,20 +19,22 @@ $HD_Form->init();
 
 $PAGE_ELEMS[] = &$HD_Form;
 
-$HD_Form->model[] = new PKeyFieldEH(_("Session ID"),'sessionid');
-$HD_Form->model[] = new PKeyField(_("Unique ID"),'uniqueid');
+$HD_Form->model[] = DontList( new PKeyFieldTxt(_("Session ID"),'sessionid'));
+$HD_Form->model[] = DontList( new PKeyFieldTxt(_("Unique ID"),'uniqueid'));
 // nasipaddress  | text                        |
 // qval          | double precision            |
 
-$HD_Form->model[] = new DateTimeField(_("Start Time"),'starttime');
+$HD_Form->model[] = new DateTimeFieldDH(_("Start Time"),'starttime');
 $HD_Form->model[] = DontList(new DateTimeField(_("Stop Time"),'stoptime'));
 $HD_Form->model[] = new SqlRefFieldN(_("Card"),'cardid','cc_card','id','username');
 $HD_Form->model[] = DontList(new SqlRefFieldN(_("Server"),'srvid','cc_a2b_server','id','host'));
 
-$HD_Form->model[] = new TextFieldEH(_("Called station"),'calledstation');
+$HD_Form->model[] = new TextField(_("Called station"),'calledstation');
 $HD_Form->model[] = new TextField(_("Destination"),'destination');
 $HD_Form->model[] = new IntField(_("Attempt"),'attempt');
+end($HD_Form->model)->fieldacr=_("Atm");
 $HD_Form->model[] = new IntField(_("Duration"),'sessiontime');
+end($HD_Form->model)->fieldacr=_("Dur");
 $HD_Form->model[] = DontList(new IntField(_("Start Delay"),'startdelay'));
 $HD_Form->model[] = DontList(new IntField(_("Stop Delay"),'stopdelay'));
 

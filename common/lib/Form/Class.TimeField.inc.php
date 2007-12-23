@@ -41,4 +41,20 @@ class DateTimeFieldN extends DateTimeField {
 	}
 
 };
+
+class DateTimeFieldDH extends DateTimeField {
+	public function DispList(array &$qrow,&$form){
+		if ($form->getAction()!='list')
+			return parent::DispList($qrow,$form);
+		
+		$pkparams= $form->getPKparams($qrow,true);
+		$pkparams['action']='details';
+		$url= $_SERVER['PHP_SELF'].$form->gen_AllGetParams($pkparams);
+		echo '<a href="' .$url. '">';
+		parent::DispList($qrow,$form);
+		echo '</a>';
+	}
+
+};
+
 ?>

@@ -130,7 +130,7 @@ table.detailForm input {
 	<tbody>
 	<?php
 		foreach($this->model as $fld)
-			if ($fld && $fld->does_edit){
+			if ($fld){
 		?><tr><td class="field"><?php
 				$fld->RenderEditTitle($this);
 		?></td><td class="value"><?php
