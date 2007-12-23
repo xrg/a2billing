@@ -134,7 +134,7 @@ table.detailForm input {
 		?><tr><td class="field"><?php
 				$fld->RenderEditTitle($this);
 		?></td><td class="value"><?php
-				$fld->DispDetails($row,$this);
+				$fld->DispList($row,$this);
 		?></td></tr>
 		<?php
 		}
