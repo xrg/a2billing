@@ -124,17 +124,13 @@ div.menu div ul {
 	<div id='menu_customers'>
 	<a onclick="menu_toggle('menu_customers');"><?= _("CUSTOMERS");?></a>
 	<ul>
-		<li><a href="A2B_entity_card.php"><?= _("List Customers");?></a></li>
-		<li><a href="A2B_entity_card.php?form_action=ask-add"><?= _("Create Customers");?></a></li>
-                <li><a href="CC_card_import.php"><?= _("Import Customers");?></a></li>
-		<li><a href="A2B_entity_card_multi.php"><?= _("Generate Customers");?></a></li>
-		<li><a href="A2B_entity_friend.php?atmenu=sipfriend"><?= _("List SIP-FRIEND");?></a></li>
-		<li><a href="A2B_entity_friend.php?atmenu=sipfriend&form_action=ask-add"><?= _("Create SIP-FRIEND");?></a></li>
-		<li><a href="A2B_entity_friend.php"><?= _("List IAX-FRIEND");?></a></li>
-		<li><a href="A2B_entity_friend.php?form_action=ask-add"><?= _("Create IAX-FRIEND");?></a></li>
-		<li><a href="A2B_entity_callerid.php"><?= _("List CallerID");?></a></li>
-		<li><a href="A2B_entity_speeddial.php"><?= _("List Speed Dial");?></a></li>
-		<li><a href="A2B_entity_speeddial.php?form_action=ask-add"><?= _("Create Speed Dial");?></a></li>
+		<li><a href="A2B_entity_card.php"><?= _("List");?></a></li>
+		<li><a href="Gen_cards.php"><?= _("Generate");?></a></li>
+                <li><a href="CC_card_import.php"><?= _("Import");?></a></li>
+                <li><a href="A2B_entity_card_group.php"><?= _("Groups");?></a></li>
+		<li><a href="A2B_entity_astuser.php"><?= _("VoIP users");?></a></li>
+		<li><a href="A2B_entity_callerid.php"><?= _("CallerID");?></a></li>
+		<li><a href="A2B_entity_speeddial.php"><?= _("Speed Dial");?></a></li>
 	</ul>
 	</div>
 	<?php   }  ?>
@@ -210,24 +206,16 @@ div.menu div ul {
 		</ul>
 		</div>
 	<?php   }  ?>
-	<?php   if ( has_rights (ACX_ADMINISTRATOR) ){ 	?>
 		<div id='menu_servers'>
 		<a onclick="menu_toggle('menu_servers');"><?= _("SERVERS");?></a>
 		<ul>
+	<?php   if ( has_rights (ACX_SERVERS) ){ 	?>
 			<li><a href="A2B_entity_server_group.php"><?= _("Groups");?></a></li>
 			<li><a href="A2B_entity_server.php"><?= _("Servers");?></a></li>
-			<li><a href="A2B_entity_ast_usercfg.php"><?= _("User cfgs");?></a></li>
-		</ul>
-		</div>
 	<?php  } ?>
 	<?php   if ( has_rights (ACX_TRUNK) ){ 	?>
-		<div id='menu_trunk'>
-		<a onclick="menu_toggle('menu_trunk');"><?= _("TRUNK");?></a>
-		<ul>
-			<li><a href="A2B_entity_trunk.php"><?= _("List Trunk");?></a></li>
-			<li><a href="A2B_entity_trunk.php?form_action=ask-add"><?= _("Add Trunk");?></a></li>
-			<li><a href="A2B_entity_provider.php"><?= _("List Provider");?></a></li>
-			<li><a href="A2B_entity_provider.php?form_action=ask-add"><?= _("Create Provider");?></a></li>
+			<li><a href="A2B_entity_provider.php"><?= _("Providers");?></a></li>
+			<li><a href="A2B_entity_trunk.php"><?= _("Trunks");?></a></li>
 		</ul>
 		</div>
 	<?php  } ?>
@@ -304,26 +292,27 @@ div.menu div ul {
 	<?php  } ?>
 
 	
-	<?php   if ( has_rights (ACX_NUMPLAN) ){ 	?>
-		<div id='menu_numplan'>
-		<a onclick="menu_toggle('menu_numplan');"><?= _("NUM PLANS");?></a>
+		<div id='menu_config'>
+		<a onclick="menu_toggle('menu_config');"><?= _("CONFIG");?></a>
 		<ul>
-			<li><a href="A2B_entity_numplan.php"><?= _("Plans");?></a></li>
+	<?php   if ( has_rights (ACX_NUMPLAN) ){ 	?>
+			<li><a href="A2B_entity_numplan.php"><?= _("Numbering Plans");?></a></li>
+	<?php  } ?>
+	<?php   if ( has_rights (ACX_MISC) ){ 	?>
+			<li><a href="A2B_entity_mailtemplate.php"><?= _("Mail template");?></a></li>
+	<?php  } ?>
+	<?php   if ( has_rights (ACX_ADMINISTRATOR) ){ 	?>
+			<li><a href="A2B_entity_ast_usercfg.php"><?= _("User cfgs");?></a></li>
+	<?php  } ?>
 		</ul>
 		</div>
-	<?php  } ?>
 	
-	<?php   if ( has_rights (ACX_MISC) ){ 	?>
 		<div id='menu_misc'>
 		<a onclick="menu_toggle('menu_misc');"><?= _("MISC");?></a>
 		<ul>
-			<li><a href="A2B_entity_mailtemplate.php"><?= _("Show mail template");?></a></li>
 			<li><a href="A2B_entity_mailtemplate.php?form_action=ask-add"><?= _("Create mail template");?></a></li>
-			<li><a href="A2B_entity_prefix.php"><?= _("Browse Prefix");?></a></li>
-			<li><a href="A2B_entity_prefix.php?form_action=ask-add"><?= _("Add Prefix");?></a></li>
 		</ul>
 		</div>
-	<?php  } ?>
 	<?php   if ( has_rights (ACX_ADMINISTRATOR) ){ 	?>
 		<div id='menu_admin'>
 		<a onclick="menu_toggle('menu_admin');"><?= _("ADMINISTRATOR");?></a>

@@ -4,10 +4,10 @@ require_once ("./lib/module.access.php");
 require_once (DIR_COMMON."Form.inc.php");
 require_once (DIR_COMMON."Form/Class.ActionForm.inc.php");
 require_once (DIR_COMMON."Class.HelpElem.inc.php");
-require_once (DIR_COMMON."Form/Class.RevRef.inc.php");
-require_once (DIR_COMMON."Form/Class.TimeField.inc.php");
+/*require_once (DIR_COMMON."Form/Class.RevRef.inc.php");
+require_once (DIR_COMMON."Form/Class.TimeField.inc.php");*/
 require_once (DIR_COMMON."Form/Class.SqlRefField.inc.php");
-require_once (DIR_COMMON."Form/Class.RevRefForm.inc.php");
+// require_once (DIR_COMMON."Form/Class.RevRefForm.inc.php");
 
 $menu_section='menu_customers';
 
@@ -33,7 +33,7 @@ $HD_Form->model[] = new RefField(_("Numbering"),'ser', $ser_list);
 $HD_Form->model[] = new TextField(_("Start Number"),'startn');
 end($HD_Form->model)->def_value=0;
 
-$HD_Form->model[] = new SqlRefFieldN(_("VoIP Conf"), "ucfg","cc_ast_users_config", "id", "name",_("If set, use this configuration to also generate Asterisk peers."));
+$HD_Form->model[] = new SqlRefFieldN(_("VoIP Conf"), "ucfg","cc_ast_users_config", "id", "cfg_name",_("If set, use this configuration to also generate Asterisk peers."));
 
 $HD_Form->QueryString= 'SELECT gen_cards(%#grp, %ser, %#num, %startn, %#ucfg) AS ncards;';
 
