@@ -740,6 +740,7 @@ function str_dbparams($dbh, $str, $parm_arr){
 	That is, we have some special prefixes:
 		%#x means the x parameter as a number, 0 if nan
 		%&x means the x parameter as a quoted string
+		%@x means the x parameter must be html-escaped
 		%% will become '%', as will %X where X not [1-9a-z]
 	@param $str The input string
 	@param $parm_arr An array with the parameters, so %id will become $parm_arr['id']
@@ -770,6 +771,10 @@ function str_alparams($str, $parm_arr, $noffset = 0){
 			$sm=2;
 			$strp++;
 		}
+		else if ($str[$strp] =='@'){
+			$sm=3;
+			$strp++;
+		}
 		for ($stre=$strp ; ($stre<$strlen) && (($str[$stre] == '_' )|| ctype_alnum($str[$stre]));$stre++);
 		
 		if ($stre>$strp){
@@ -779,8 +784,10 @@ function str_alparams($str, $parm_arr, $noffset = 0){
 			else	$v = '';
 			if ($sm==1)
 				$v = (integer) $v;
-			else if ($sm == 2)
+			elseif ($sm == 2)
 				$v = addslashes($v);
+			elseif ($sm == 3)
+				$v = nl2br(htmlspecialchars($v));
 			
 			$resstr= $resstr . $v;
 		}else {
@@ -793,6 +800,70 @@ function str_alparams($str, $parm_arr, $noffset = 0){
 	return $resstr;
 }
 
+
+function str_aldbparams(&$dbh,$str, $parm_arr){
+	$strlen=strlen($str);
+	$strp=0;
+	$stro=0;
+	$resstr='';
+	do{
+		$strp=strpos($str,"%",$stro);
+		if($strp===false){
+			$resstr=$resstr . substr($str,$stro);
+			break;
+		}
+		$resstr=$resstr . substr($str,$stro,$strp-$stro);
+		$strp++;
+		if ($strp>=$strlen)
+			break;
+		$sm=0;
+		if ($str[$strp] == '!'){
+			$sm=1;
+			$strp++;
+		}
+		else if ($str[$strp] =='#'){
+			$sm=2;
+			$strp++;
+		}
+		for ($stre=$strp ; ($stre<$strlen) && (($str[$stre] == '_' )|| ctype_alnum($str[$stre]));$stre++);
+		
+		if ($stre>$strp){
+			$pv=substr($str,$strp,$stre-$strp);
+			if (isset($parm_arr[$pv]))
+				$v = $parm_arr[$pv];
+			else	$v = '';
+	
+			if ($sm==1) {
+				if ($v == '') $v = null;
+				if ($v == null)
+					$resstr .= 'NULL';
+				else
+					$resstr .= $dbh->Quote($v);
+			} else if ($sm ==2) {
+				if ($v == '') 
+					$v = null;
+				
+				if ($v == null)
+					$resstr .= '0';
+				elseif (preg_match('/^\-?[0-9]+$/',$v)>=1)
+					$resstr .= $v;
+				else
+					$resstr .= '0';
+			}
+			else {
+				if ($v == null) $v = '';
+				$resstr .= $dbh->Quote($v);
+			}
+
+		}else {
+			$resstr= $resstr . $str[$strp];
+			$stre++;
+		}
+		$stro=$stre;
+	}while ($stro<$strlen);
+		
+	return $resstr;
+}
 
 /** For code clarity only: it will produce the string for an &lt;acronym&gt; element
 		@param acr   The acronym, the short one
