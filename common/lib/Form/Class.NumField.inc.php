@@ -96,6 +96,24 @@ class BoolField extends IntField{
 	<div class="descr"><?= $this->editDescr?></div>
 	<?php
 	}
+	
+	public function buildInsert(&$ins_arr,&$form){
+		if (!$this->does_add)
+			return;
+		$val = $form->getpost_dirty($this->fieldname);
+		if (!strlen($val) || ($val !='t'))
+			$val = 'f';
+		$ins_arr[] = array($this->fieldname, $val);
+	}
+
+	public function buildUpdate(&$ins_arr,&$form){
+		if (!$this->does_edit)
+			return;
+		$val = $form->getpost_dirty($this->fieldname);
+		if (!strlen($val) || ($val !='t'))
+			$val = 'f';
+		$ins_arr[] = array($this->fieldname, $val);
+	}
 };
 
 ?>
