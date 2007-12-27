@@ -28,10 +28,10 @@ $HD_Form->model[] = new SqlRefField(_("Config"), "config","cc_ast_users_config",
 
 $HD_Form->model[] = new BoolField(_("SIP"),'has_sip',_("If true, the peer will have a SIP entry"));
 $HD_Form->model[] = new BoolField(_("IAX"),'has_iax',_("If true, the peer will have a IAX2 entry"));
-$HD_Form->model[] = new TextFieldN(_("Default IP"),'defaultip',_("Default IP to ring user at."));
+$HD_Form->model[] = DontList(new TextFieldN(_("Default IP"),'defaultip',_("Default IP to ring user at.")));
 $HD_Form->model[] = new TextField(_("Host"),'host',_("Statically bind user with some IP/DNS or 'dynamic' for users that will register."));
 
-$HD_Form->model[] = new TextFieldN(_("From user"),'fromuser',_("Override user string."));
+$HD_Form->model[] = DontList( new TextFieldN(_("From user"),'fromuser',_("Override user string.")));
 
 
 $HD_Form->model[] = new DelBtnField();
