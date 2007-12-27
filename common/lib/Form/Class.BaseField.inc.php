@@ -148,6 +148,18 @@ abstract class BaseField {
 		echo "</td>\n";
 	}
 	
+	function RenderListHead_NoSort(&$form){
+		if (!$this->does_list)
+			return;
+		echo "<td";
+		if ($this->listWidth)
+			echo ' width="'.$this->listWidth .'"';
+		echo '>';
+		
+		$this->RenderListHead_i($form);
+		echo "</td>\n";
+	}
+
 	protected function RenderListHead_sort(&$form){
 		$sens = $form->sens;
 		if (!$sens) $sens = 'asc';

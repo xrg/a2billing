@@ -2,7 +2,7 @@
 require_once ("./lib/defines.php");
 require_once ("./lib/module.access.php");
 require_once (DIR_COMMON."Form.inc.php");
-require_once (DIR_COMMON."Form/Class.ActionForm.inc.php");
+require_once (DIR_COMMON."Form/Class.SqlActionForm.inc.php");
 require_once (DIR_COMMON."Class.HelpElem.inc.php");
 /*require_once (DIR_COMMON."Form/Class.RevRef.inc.php");
 require_once (DIR_COMMON."Form/Class.TimeField.inc.php");*/
@@ -14,7 +14,7 @@ $menu_section='menu_customers';
 
 // HelpElem::DoHelp(gettext("*-*"),'vcard.png');
 
-$HD_Form= new ActionForm();
+$HD_Form= new SqlActionForm();
 $HD_Form->checkRights(ACX_CUSTOMER);
 $HD_Form->init();
 

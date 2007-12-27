@@ -19,9 +19,6 @@ class ActionForm extends ElemBase {
 	public $successString;
 	public $failureString;
 	public $pre_elems = array();
-	protected $qryres;
-	public $contentString;
-	public $rowString;
 
 	function ActionForm(){
 		$this->successString= _("Action finished successfully!");
@@ -39,6 +36,13 @@ class ActionForm extends ElemBase {
 		$this->rights_checked = true;
 	}
 
+	public function verifyRights(){
+		if (!$this->rights_checked){
+			error_log("Attempt to use ActionForm w/o rights!");
+			die();
+		}
+	}
+	
 	function init($sA2Billing= null){
 		if (!$this->rights_checked){
 			error_log("Attempt to use ActionForm w/o rights!");
@@ -106,6 +110,10 @@ class ActionForm extends ElemBase {
 		echo "\n</pre></div>\n";
 	}
 	
+	function selfUrl(array $arr){
+		return $_SERVER['PHP_SELF'];
+	}
+
 	function gen_PostParams($arr = NULL, $do_nulls=false){
 		if (!is_array($arr))
 			return;
@@ -127,44 +135,9 @@ class ActionForm extends ElemBase {
 			return;
 		
 		$dbg_elem = new DbgElem();
-		$dbhandle = $this->a2billing->DBHandle();
-				
-		if ($this->FG_DEBUG>0)
-			array_unshift($this->pre_elems,$dbg_elem);
-			
-			
-		$query = str_aldbparams($dbhandle,$this->QueryString,$this->_dirty_vars);
 		
-		if (strlen($query)<1){
-			$this->pre_elems[] = new ErrorElem("Cannot update, internal error");
-			$dbg_elem->content.= "Action: no query!\n";
-		}
+		$dbg_elem->content .=  "Stub!\n";
 		
-		$dbg_elem->content .= $query . "\n";
-		
-		$res = $dbhandle->Execute($query);
-		
-		if (!$res){
-			$this->action = 'ask';
-			$this->pre_elems[] = new ErrorElem(str_params($this->failureString,array(_("database error")),1));
-			$dbg_elem->content.= $dbhandle->ErrorMsg() ."\n";
-// 			throw new Exception( $err_str);
-		}elseif ($this->expectRows && ($dbhandle->Affected_Rows()<1)){
-			// No result rows: update clause didn't match
-			$dbg_elem->content.= ".. EOF, no rows!\n";
-			$dbg_elem->content.= $dbhandle->ErrorMsg() ."\n";
-			$dbg_elem->obj = $dbhandle->Affected_Rows();
-			$this->pre_elems[] = new ErrorElem(str_params($this->failureString,array(_("no rows")),1));
-			$this->action = 'ask';
-		} else {
-			$dbg_elem->content.= "Success: Rows: ". $dbhandle->Affected_Rows() . "\n";
-			$dbg_elem->content.= $dbhandle->ErrorMsg() ."\n";
-			if (strlen($this->successString))
-				$this->pre_elems[] = new StringElem(str_params($this->successString,
-					array($dbhandle->Affected_Rows()),1));
-			$this->action = 'display';
-			$this->qryres = &$res;
-		}
 	}
 
 
@@ -272,18 +245,7 @@ table.actionForm div.descr {
 	}
 
 	function RenderContent(){
-		echo '<div class="content">'."\n";
-		if (isset($this->contentString))
-			echo $this->contentString;
-		
-		if (isset($this->rowString))
-		while($row=$this->qryres->fetchRow())
-			echo str_alparams($this->rowString,$row);
-		
-		if (isset($this->afterContentString))
-			echo $this->afterContentString;
-		
-		echo '</div>'."\n";
+		echo "Stub!\n";
 	}
 
 };
