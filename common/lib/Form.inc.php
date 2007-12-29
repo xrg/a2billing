@@ -16,4 +16,13 @@ include_once("Form/Class.TextField.inc.php");
 include_once("Form/Class.OptionField.inc.php");
 include_once("Form/Class.NumField.inc.php");
 include_once("Form/Class.RefField.inc.php");
+
+// include the standard views
+
+include_once("Form/Class.FormViews.inc.php");
+include_once("Form/Class.ListView.inc.php");
+include_once("Form/Class.AddView.inc.php");
+include_once("Form/Class.EditView.inc.php");
+include_once("Form/Class.DeleteView.inc.php");
+
 ?>
