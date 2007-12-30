@@ -31,7 +31,8 @@ CREATE TABLE cc_call (
     src text,
     id_did integer,
     buycost numeric(15,5),
-    id_card_package_offer integer DEFAULT 0
+    id_card_package_offer integer DEFAULT 0,
+    invoice_id BIGINT REFERENCES cc_invoices(id) ON DELETE SET NULL
 );
 
 
@@ -67,4 +68,8 @@ CREATE TYPE card_call_lock_t AS
 
 GRANT SELECT,INSERT,UPDATE ON cc_call TO a2b_group;
 GRANT SELECT,UPDATE ON cc_call_id_seq TO a2b_group;
+
+CREATE TRIGGER cc_call_check_invoice BEFORE UPDATE OR DELETE ON cc_call
+	FOR EACH ROW EXECUTE PROCEDURE cc_invoice_lock_f();
+
 -- eof

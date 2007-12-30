@@ -32,21 +32,6 @@ CREATE TABLE cc_phonelist (
 CREATE INDEX ind_cc_phonelist_numbertodial ON cc_phonelist USING btree (numbertodial);
 
 
-
-
-CREATE TABLE cc_charge (
-    id 			BIGSERIAL PRIMARY KEY,
-    card 		BIGINT NOT NULL,
-    iduser 		INTEGER DEFAULT 0 NOT NULL,
-    creationdate 	timestamp without time zone DEFAULT now(),
-    amount 		NUMERIC(12,4) NOT NULL,
-    chargetype 		INTEGER DEFAULT 0,
-    description 	TEXT,
-    did 		BIGINT DEFAULT 0,
-    subscription_fee 	BIGINT DEFAULT 0
-);
-
-
 -- CREATE INDEX ind_cc_charge_id_cc_card ON cc_charge USING btree (card);
 -- CREATE INDEX ind_cc_charge_id_cc_subscription_fee ON cc_charge USING btree (subscription_fee);
 -- CREATE INDEX ind_cc_charge_creationdate  ON cc_charge USING btree (creationdate);

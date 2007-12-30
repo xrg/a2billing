@@ -135,17 +135,6 @@ CREATE OR REPLACE VIEW cc_agent_calls4_v AS
 		AND sessionbill > 0.0;
 
 
-CREATE TABLE cc_numplan (
-	id serial PRIMARY KEY,
-	name VARCHAR(30) NOT NULL,
-	intlen SMALLINT NOT NULL DEFAULT 5,
-	intprefix VARCHAR(10) NOT NULL DEFAULT '55'
-);
-
-INSERT INTO cc_numplan(id,name) VALUES(1,'Default');
-
-ALTER TABLE cc_card ADD numplan INTEGER not null DEFAULT 1;
-
 
 /** Actually copy the ratecards: insert identical rates to the destination, as the source.
 */
@@ -185,10 +174,6 @@ CREATE OR REPLACE FUNCTION copy_ratecard_sell(rcid_src integer, rcid_dest intege
 	    FROM cc_ratecard AS src WHERE src.id = $1 AND cc_ratecard.id = $2;
 
 $$ LANGUAGE SQL STRICT VOLATILE;
-
-ALTER TABLE cc_call ADD invoice_id BIGINT REFERENCES cc_invoices(id) ON DELETE SET NULL;
-ALTER TABLE cc_charge ADD invoice_id BIGINT REFERENCES cc_invoices(id) ON DELETE SET NULL;
-ALTER TABLE cc_agentpay ADD invoice_id BIGINT REFERENCES cc_invoices(id) ON DELETE RESTRICT;
 
 CREATE OR REPLACE FUNCTION agent_create_invoice(s_agentid BIGINT, s_startdate TIMESTAMP, s_stopdate TIMESTAMP) 
 	RETURNS bigint AS $$
@@ -315,28 +300,6 @@ CREATE OR REPLACE VIEW cc_agent_invoices_v AS
 			ON cc_invoices.id = his.invoiceid
 		WHERE cc_agent.id = cc_invoices.agentid;
 
-CREATE OR REPLACE FUNCTION cc_invoice_lock_f() RETURNS trigger AS $$
-BEGIN
-	-- Shortcut: allow clearing of the invoice
-	IF TG_OP = 'UPDATE' THEN
-		IF NEW.invoice_id IS NULL THEN
-			RETURN NEW;
-		END IF;
-	END IF;
-	
-	IF OLD.invoice_id IS NOT NULL THEN
-		RAISE EXCEPTION 'Call is invoiced in invoice %. Cannot modify',OLD.invoice_id;
-	END IF;
-	
-	IF TG_OP = 'DELETE' THEN
-		RETURN OLD;
-	ELSE
-		RETURN NEW;
-	END IF;
-END ; $$ LANGUAGE PLPGSQL;
-
-CREATE TRIGGER cc_call_check_invoice BEFORE UPDATE OR DELETE ON cc_call
-	FOR EACH ROW EXECUTE PROCEDURE cc_invoice_lock_f();
 
 INSERT INTO cc_paytypes(id,side,preset) VALUES(gettext_ri('Manual commission credit'),1,'manual-commission');
 INSERT INTO cc_paytypes(id,side,preset) VALUES(gettext_ri('Auto commission credit'),1,'auto-commission');
