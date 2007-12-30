@@ -113,6 +113,7 @@ class FormHandler extends ElemBase{
 			$this->views['idle'] = new IdleView();
 			$this->views['list'] = new ListView();
 			$this->views['edit'] = new EditView();
+			$this->views['add'] = new AddView();
 			$this->views['ask-add'] = new AskAddView();
 			$this->views['ask-add2'] = new AskAdd2View();
 			$this->views['ask-edit2'] = new AskEdit2View();

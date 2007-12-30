@@ -420,6 +420,7 @@ class ImportAView extends FormView {
 		$this->fields = $this->askImport->mandatory;
 		$optionals= explode(':',$form->getpost_dirty('search_sources'));
 		foreach ($optionals as $opt)
+			if (!empty($opt))
 			if (!in_array($opt,$this->askImport->optional)){
 				$form->pre_elems[] = new ErrorElem(_("Error in submitted form."));
 				$dbg_elem->content .= "You tried to pass $opt as a field.\n";

@@ -35,6 +35,23 @@ $HD_Form->model[] = new RevRefTxt(_("Prefixes"),'prefx','id','cc_buy_prefix','br
 
 $HD_Form->model[] = new DelBtnField();
 
+require_once(DIR_COMMON."Form/Class.ImportView.inc.php");
+require_once(DIR_COMMON."Class.DynConf.inc.php");
+
+$HD_Form->views['ask-import'] = new AskImportView();
+$HD_Form->views['import-analyze'] = new ImportAView($HD_Form->views['ask-import']);
+$HD_Form->views['import'] = new ImportView($HD_Form->views['ask-import']);
+
+$HD_Form->views['ask-import']->common = array('idtp');
+$HD_Form->views['ask-import']->mandatory = array('prefx','destination', 'buyrate');
+$HD_Form->views['ask-import']->optional = array('buyrateinitblock','buyrateincrement');
+
+// $HD_Form->views['ask-import']->examples = array( array(_('Simple'), "importsamples.php?sample=RateCard_Simple"),
+// 					     array(_('Complex'),"importsamples.php?sample=RateCard_Complex"));
+
+$HD_Form->views['import-analyze']->allowed_mimetypes=array('text/csv');
+$HD_Form->views['ask-import']->multiple[] = 'prefx';
+$HD_Form->views['ask-import']->multi_sep = '|';
 
 require("PP_page.inc.php");
 ?>
