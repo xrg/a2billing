@@ -40,22 +40,11 @@ class IntFieldN extends IntField{
 		$this->editDescr = $flddescr;
 	}
 
-	public function buildInsert(&$ins_arr,&$form){
-		if (!$this->does_add)
-			return;
-		$val = $form->getpost_dirty($this->fieldname);
-		if (!strlen($val) || !is_numeric($val))
-			$val = null;
-		$ins_arr[] = array($this->fieldname, $val);
-	}
-
-	public function buildUpdate(&$ins_arr,&$form){
-		if (!$this->does_edit)
-			return;
-		$val = $form->getpost_dirty($this->fieldname);
-		if (!strlen($val) || !is_numeric($val))
-			$val = null;
-		$ins_arr[] = array($this->fieldname, $val);
+	public function buildValue($val,&$form){
+		if (empty($val) || !is_numeric($val))
+			return null;
+		else
+			return $val;
 	}
 
 };
@@ -97,22 +86,13 @@ class BoolField extends IntField{
 	<?php
 	}
 	
-	public function buildInsert(&$ins_arr,&$form){
-		if (!$this->does_add)
-			return;
-		$val = $form->getpost_dirty($this->fieldname);
-		if (!strlen($val) || ($val !='t'))
-			$val = 'f';
-		$ins_arr[] = array($this->fieldname, $val);
-	}
-
-	public function buildUpdate(&$ins_arr,&$form){
-		if (!$this->does_edit)
-			return;
-		$val = $form->getpost_dirty($this->fieldname);
-		if (!strlen($val) || ($val !='t'))
-			$val = 'f';
-		$ins_arr[] = array($this->fieldname, $val);
+	public function buildValue($val,&$form){
+		if (empty($val))
+			return 'f';
+		elseif (($val=='t') || ($val=='true'))
+			return 't';
+		else
+			return 'f';
 	}
 };
 

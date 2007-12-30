@@ -52,15 +52,7 @@ table.addForm div.descr {
 	</thead>
 	<tbody>
 	<?php
-		foreach($form->model as $fld)
-			if ($fld && $fld->does_add){
-		?><tr><td class="field"><?php
-				$fld->RenderAddTitle($form);
-		?></td><td class="value"><?php
-				$fld->DispAdd($form);
-		?></td></tr>
-		<?php
-			}
+		$this->RenderFields($form);
 	?>
 	<tr class="confirm"><td colspan=2 align="right">
 	<button type=submit>
@@ -72,9 +64,32 @@ table.addForm div.descr {
 	</table> </form>
 	<?php
 	}
+	
+	protected function RenderFields(&$form){
+		foreach($form->model as $fld)
+		if ($fld && $fld->does_add){
+		?><tr><td class="field"><?php
+				$fld->RenderAddTitle($form);
+		?></td><td class="value"><?php
+				$fld->DispAdd($form);
+		?></td></tr>
+		<?php
+		}
+	}
 };
 
 class AskAdd2View extends AskAddView{
+	protected function RenderFields(&$form){
+		foreach($form->model as $fld)
+		    if ($fld && $fld->does_add){
+		?><tr><td class="field"><?php
+			$fld->RenderAddTitle($form);
+		?></td><td class="value"><?php
+			$fld->DispAddEdit($form->getpost_dirty($fld->fieldname),$form);
+		?></td></tr>
+		<?php
+		}
+	}
 };
 
 class AddView extends FormView {

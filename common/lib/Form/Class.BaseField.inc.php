@@ -48,10 +48,10 @@ abstract class BaseField {
 	
 	public function DispAdd(&$form){
 		$v = '';
-		if ($form->getAction() =='ask-add2')
+/*		if ($form->getAction() =='ask-add2')
 			$v=$form->getpost_dirty($this->fieldname);
-		else
-			$v=$this->getDefault();
+		else*/
+		$v=$this->getDefault();
 		$this->DispAddEdit($v,$form);
 	}
 
@@ -117,18 +117,25 @@ abstract class BaseField {
 // 		return null;
 // 	}
 
+	/** Transform the value (unquoted) to a Insert/Update form.
+	    If wrongfuly called, may throw exception. Returning an
+	    array will skip quoting. */
+	public function buildValue($val,&$form){
+		return $val;
+	}
+	
 	public function buildInsert(&$ins_arr,&$form){
 		if (!$this->does_add)
 			return;
 		$ins_arr[] = array($this->fieldname,
-			$form->getpost_dirty($this->fieldname));
+			$this->buildValue($form->getpost_dirty($this->fieldname),$form));
 	}
 
 	public function buildUpdate(&$ins_arr,&$form){
 		if (!$this->does_edit)
 			return;
 		$ins_arr[] = array($this->fieldname,
-			$form->getpost_dirty($this->fieldname));
+			$this->buildValue($form->getpost_dirty($this->fieldname),$form));
 	}
 
 

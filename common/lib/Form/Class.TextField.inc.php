@@ -75,22 +75,11 @@ class TextAreaField extends TextField{
 
 /** Text field, allows for null values (if empty */
 class TextFieldN extends TextField{
-	public function buildInsert(&$ins_arr,&$form){
-		if (!$this->does_add)
-			return;
-		$val = $form->getpost_dirty($this->fieldname);
-		if (!strlen($val))
-			$val = null;
-		$ins_arr[] = array($this->fieldname, $val);
-	}
-
-	public function buildUpdate(&$ins_arr,&$form){
-		if (!$this->does_edit)
-			return;
-		$val = $form->getpost_dirty($this->fieldname);
-		if (!strlen($val))
-			$val = null;
-		$ins_arr[] = array($this->fieldname, $val);
+	public function buildValue($val,&$form){
+		if (empty($val))
+			return null;
+		else
+			return $val;
 	}
 };
 
