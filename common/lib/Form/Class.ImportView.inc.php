@@ -908,7 +908,11 @@ class ImportView extends FormView {
 			echo _("Import of data aborted.");
 			echo "<br>\n";
 		}
-
+		
+		unset($_SESSION[$form->prefix.'importFile']);
+		unset($_SESSION[$form->prefix.'importFields']);
+		unset($_SESSION[$form->prefix.'importRnd']);
+		@unlink($this->movedFile);
 	} // Render
 };
 
