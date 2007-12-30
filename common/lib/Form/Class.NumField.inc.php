@@ -65,6 +65,12 @@ class FloatField extends IntField{
 	<?php
 	}
 
+	public function buildValue($val,&$form){
+		if (is_numeric($val))
+			return $val;
+		return (double) str_replace(',','.',$val);
+	}
+
 };
 
 class BoolField extends IntField{
