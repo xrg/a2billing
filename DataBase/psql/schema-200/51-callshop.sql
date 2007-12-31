@@ -70,6 +70,7 @@ CREATE OR REPLACE FUNCTION cc_booth_set_card() RETURNS trigger AS $$
 		old_cur_card BIGINT;
 		new_sess_id BIGINT;
 		ptype INTEGER;
+		s_inuse INTEGER;
 	BEGIN
 		-- Remove old card first
 /*	IF TG_OP = 'UPDATE'  THEN
@@ -115,10 +116,10 @@ CREATE OR REPLACE FUNCTION cc_booth_set_card() RETURNS trigger AS $$
 				AND booth = NEW.id;
 				
 					-- Strict means bint is surely defined.
-			SELECT credit INTO STRICT money FROM cc_card
+			SELECT credit, inuse INTO STRICT money, s_inuse FROM cc_card
 					WHERE id = old_cur_card;
 			IF old_cur_card = old_def_card AND
-				money <> 0.0 THEN
+				(money <> 0.0 OR s_inuse > 0) THEN
 				RAISE EXCEPTION 'Cannot clear session % because it contains non-empty, default card %', bint, old_cur_card;
 			END IF;
 			-- If session has money, close it with 0
