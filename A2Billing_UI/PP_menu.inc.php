@@ -217,9 +217,9 @@ div.menu div ul {
 	<?php   if ( has_rights (ACX_TRUNK) ){ 	?>
 			<li><a href="A2B_entity_provider.php"><?= _("Providers");?></a></li>
 			<li><a href="A2B_entity_trunk.php"><?= _("Trunks");?></a></li>
+	<?php  } ?>
 		</ul>
 		</div>
-	<?php  } ?>
 	<?php   if ( has_rights (ACX_DID) ){ 	?>
 		<div id='menu_did'>
 		<a onclick="menu_toggle('menu_did');"><?= _("DID");?></a>
@@ -308,12 +308,6 @@ div.menu div ul {
 		</ul>
 		</div>
 	
-		<div id='menu_misc'>
-		<a onclick="menu_toggle('menu_misc');"><?= _("MISC");?></a>
-		<ul>
-			<li><a href="A2B_entity_mailtemplate.php?form_action=ask-add"><?= _("Create mail template");?></a></li>
-		</ul>
-		</div>
 	<?php   if ( has_rights (ACX_ADMINISTRATOR) ){ 	?>
 		<div id='menu_admin'>
 		<a onclick="menu_toggle('menu_admin');"><?= _("ADMINISTRATOR");?></a>
