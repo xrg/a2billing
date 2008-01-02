@@ -138,12 +138,10 @@ div.menu div ul {
 	<div id='menu_agents'>
 	<a onclick="menu_toggle('menu_agents');"><?= _("AGENTS");?></a>
 	<ul>
-		<li><a href="A2B_entity_agent.php"><?= _("List Agents");?></a></li>
-		<li><a href="A2B_entity_agent.php?form_action=ask-add"><?= _("Create Agents");?></a></li>
-		<li><a href="A2B_entity_regulars.php"><?= _("List Regulars");?></a></li>
-		<li><a href="A2B_entity_card_multia.php"><?= _("Generate Regulars");?></a></li>
+		<li><a href="A2B_entity_agent.php"><?= _("Agents");?></a></li>
 		<li><a href="A2B_entity_booths.php"><?= _("Booths");?></a></li>
-		<li><a href="A2B_entity_booths.php?form_action=ask-add"><?= _("Create Booth");?></a></li>
+		<li><a href="Gen_booths.php"><?= _("Generate Booths");?></a></li>
+		<li><a href="Callshop_booths.php"><?= _("Callshop View");?></a></li>
 		<li><a href="A2B_entity_agentpay.php?form_action=list"><?= _("List Payments");?></a></li>
 		<li><a href="A2B_entity_agentpay.php?form_action=ask-add"><?= _("Add Payment");?></a></li>
 		<li><a href="agent-money.php"><?= _("Money situation");?></a></li>

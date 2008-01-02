@@ -9,7 +9,7 @@ require_once (DIR_COMMON."Form/Class.TimeField.inc.php");*/
 require_once (DIR_COMMON."Form/Class.SqlRefField.inc.php");
 // require_once (DIR_COMMON."Form/Class.RevRefForm.inc.php");
 
-$menu_section='menu_customers';
+$menu_section='menu_agents';
 
 
 // HelpElem::DoHelp(gettext("*-*"),'vcard.png');

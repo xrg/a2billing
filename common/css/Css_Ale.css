@@ -394,3 +394,29 @@ SPAN.errorText {
 	vertical-align: top;
 	height: auto;
 }
+
+table.Booths {
+	font-family: Arial,Verdana;
+	font-size: 7px;
+	background: #FFFFFF;
+}
+
+table.Booth {
+	background: #e0e0e0; /* oeo! */
+	color: #666666;
+
+}
+
+table.Booth td {
+	background: #C0C0C0;
+}
+
+table.Booth td #credit {
+	color: #404040;
+	font-size: 9pt;
+}
+
+table.Booth td #mins {
+	color: #404040;
+	font-size: 8pt;
+}
