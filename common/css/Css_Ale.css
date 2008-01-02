@@ -420,3 +420,104 @@ table.Booth td #mins {
 	color: #404040;
 	font-size: 8pt;
 }
+
+/* Styles for callshop */
+
+table.Booth td.name {
+	font-size: 12px;
+	color: black;
+	text-align: center;
+}
+
+table.Booth td.state0 {
+	text-align: center;
+	color: white;
+	background: black;
+}
+
+table.Booth td.state1 {
+	text-align: center;
+	color: white;
+	background: yellow;
+}
+
+table.Booth td.state2 {
+	text-align: center;
+	color: white;
+	background: #0000a0;
+}
+
+table.Booth td.state3 {
+	text-align: center;
+	color: white;
+	background: blue;
+}
+table.Booth td.state4 {
+	text-align: center;
+	color: white;
+	background: green;
+}
+
+table.Booth td.state5 {
+	text-align: center;
+	color: white;
+	background: red;
+}
+
+table.Booth td.state6 {
+	text-align: center;
+	color: white;
+	background: blue;
+}
+
+table.Booth td.buttons a {
+	display: none;
+	color: black;
+	margin-right: 3px;
+}
+
+p.pay-btn {
+	text-align: right ;
+}
+
+p.pay-back-btn {
+	text-align: right ;
+}
+p.pay-back-btn a {
+	font-size: 20pt;
+	color: #008000;
+}
+p.pay-btn a {
+	font-size: 20pt;
+	color: #800000;
+}
+
+p.pay-title {
+	font-size: 20pt;
+	color: black;
+}
+
+p.pay-bb {
+	font-size: 16pt;
+	text-align: center;
+}
+p.pay-bb a{
+	color: blue;
+}
+p.pay-message {
+	font-size: 18pt;
+	text-align: center;
+	border: solid green 2px;
+}
+
+p.pfriend {
+	width: 90%;
+	text-align: right;
+}
+
+p.pfriend a {
+	border: thin solid blue;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:14px;
+	margin-top: 10px;
+}
