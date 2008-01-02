@@ -25,6 +25,11 @@
 -- $$ LANGUAGE SQL STRICT VOLATILE;
 
 
+-- Carefully drop the functions we are about to redefine
+DROP FUNCTION IF EXISTS RateEngine2(s_tgid INTEGER, s_dialstring TEXT, s_curtime TIMESTAMP WITH TIME ZONE, money NUMERIC(12,4));
+DROP FUNCTION IF EXISTS RateEngine3(s_tgid INTEGER, s_dialstring TEXT, s_numplan INTEGER, s_curtime TIMESTAMP WITH TIME ZONE, money NUMERIC(12,4));
+DROP TYPE reng_result;
+
 -- Match the data needed by cc_call, trunks, timeout..
 
 CREATE TYPE reng_result  AS ( 

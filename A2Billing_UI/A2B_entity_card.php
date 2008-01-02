@@ -41,6 +41,7 @@ $cs_list[]  = array("4", _("RESERVED"));
 $cs_list[]  = array("5", _("EXPIRED"));
 $cs_list[]  = array("6", _("UNDERPAY"));
 $cs_list[]  = array("7", _("LITIGATION"));
+$cs_list[]  = array("8", _("STOPPED"));
 
 $HD_Form->model[] = new RefField(_("Status"),'status', $cs_list);
 

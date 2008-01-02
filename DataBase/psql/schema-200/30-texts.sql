@@ -18,6 +18,7 @@ CREATE TABLE cc_texts (
 		2 agent to company
 		3 charges from agent to customer
 		4 bonuses from agent to customer
+		5 normal transactions between agent and customer
 	preset is a text field so that the php code can automatically select and
 		apply one of those charges. eg. 'print-cust-invoice'
 */
@@ -29,3 +30,10 @@ CREATE TABLE cc_paytypes (
 	preset VARCHAR(30) UNIQUE
 );
 
+INSERT INTO cc_paytypes(id,side,preset) VALUES(gettext_ri('Carry to next session'),5,'carry');
+INSERT INTO cc_paytypes(id,side,preset) VALUES(gettext_ri('Carried from previous session'),5,'carried');
+INSERT INTO cc_paytypes(id,side,preset) VALUES(gettext_ri('Pay the account'),5,'settle');
+
+INSERT INTO cc_paytypes(id,side,preset) VALUES(gettext_ri('Manual commission credit'),1,'manual-commission');
+INSERT INTO cc_paytypes(id,side,preset) VALUES(gettext_ri('Auto commission credit'),1,'auto-commission');
+INSERT INTO cc_paytypes(id,side,preset) VALUES(gettext_ri('Payment from agent'),2,'agent-pay');

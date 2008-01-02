@@ -124,4 +124,84 @@ BEGIN
 	RETURN s_num - dremain;
 END; $$ LANGUAGE PLPGSQL VOLATILE;
 
+
+/** Generate booths, corresponding cards and optionally VoIP peers
+    \param s_cardgrp The card group to use. It also defines the numplan and the agent.
+    \param s_num    Number of cards to generate
+    \param s_start  Starting number of user aliases. if empty, use MAX(useralias)
+    \param s_ucfg   If >0, generate asterisk users using that cc_ast_users_config group.
+*/
+CREATE OR REPLACE FUNCTION gen_booths(s_crdgrp INTEGER, s_num INTEGER, s_start TEXT,
+		s_ucfg INTEGER) RETURNS INTEGER AS $$
+DECLARE
+	dloop INTEGER;
+	dremain INTEGER;
+	planrow RECORD;
+	din	INTEGER;
+	dstart  BIGINT;
+	dalias  TEXT;
+	dcid	BIGINT;
+	duname  TEXT;
+	dbooth  INTEGER;
+BEGIN
+	dloop:=0;
+	dremain :=s_num;
+	
+	SELECT cc_card_group.id AS grp,agentid,numplan,uname_pattern,initiallimit,
+			def_currency,aliaslen, COALESCE(cc_agent.login,'') AS agentname
+		INTO planrow
+		FROM cc_card_group, cc_agent, cc_numplan 
+		WHERE cc_card_group.id = s_crdgrp
+		  AND cc_card_group.agentid = cc_agent.id
+		  AND cc_card_group.numplan = cc_numplan.id;
+	IF NOT FOUND THEN
+		RAISE EXCEPTION 'Card group not found or doesn''t belong to an agent!';
+	END IF;
+
+	--RAISE NOTICE 'Row: %',planrow;
+	dstart:= s_start::BIGINT;
+
+	LOOP
+		--RAISE NOTICE 'Loop %',dloop;
+		IF dloop > 100 THEN
+			RAISE EXCEPTION 'Cannot find usable name/alias';
+		END IF;
+		
+		dloop := dloop + 1;
+		din := 0;
+		
+		FOR dalias IN SELECT gen_seraliases(planrow.grp, dremain, 
+					dstart,planrow.aliaslen) LOOP
+		    	--- First, create a card
+		    INSERT INTO cc_card(grp,username,useralias,userpass,credit,status,
+		    		currency,creditlimit)
+			VALUES( planrow.grp,gen_uname(planrow.uname_pattern,planrow.agentname,dalias),
+				dalias, mkpasswd(8),0.0,2,planrow.def_currency,planrow.initiallimit)
+			RETURNING id,username INTO STRICT dcid,duname;
+
+			-- Then, a booth
+		    INSERT INTO cc_booth(name,agentid,disabled,def_card_id,peername,peerpass)
+		    	VALUES ('Booth ' || dalias, planrow.agentid,'f',dcid,duname,mkpasswd(8))
+		    	RETURNING id INTO STRICT dbooth;
+			
+		    IF s_ucfg >0  THEN
+			INSERT INTO cc_ast_users(booth_id,config) VALUES(dbooth, s_ucfg);
+			IF NOT FOUND THEN
+				RAISE EXCEPTION 'Could not create asterisk peer.';
+			END IF;
+		    END IF;
+
+		    din := din + 1;
+		END LOOP;
+		    -- RAISE NOTICE 'Din : %, dremain: %',din,dremain;
+		    dstart := dstart + dremain;
+		    dremain :=dremain - din;
+				
+		EXIT WHEN dremain <= 0 ;
+	END LOOP;
+	
+
+	RETURN s_num - dremain;
+END; $$ LANGUAGE PLPGSQL VOLATILE;
+
 --eof

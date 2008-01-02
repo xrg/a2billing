@@ -43,7 +43,7 @@ CREATE OR REPLACE RULE cc_booth_update_o AS ON UPDATE TO cc_booth_v DO INSTEAD N
 
 CREATE OR REPLACE RULE cc_booth_update2 AS ON UPDATE TO cc_booth_v 
 	WHERE NEW.state=2 AND OLD.state <> 2
-	DO INSTEAD UPDATE cc_card SET status = 0
+	DO INSTEAD UPDATE cc_card SET status = 8
 			FROM cc_agent, cc_booth 
 			WHERE cc_booth.cur_card_id= cc_card.id AND
 				cc_booth.id = OLD.id AND
@@ -141,7 +141,7 @@ CREATE OR REPLACE FUNCTION cc_booth_set_card() RETURNS trigger AS $$
 			END IF;
 			
 			-- Update the card
-			UPDATE cc_card SET status = 0 WHERE id = old_cur_card;
+			UPDATE cc_card SET status = 8 WHERE id = old_cur_card;
 		END IF;
 		
 		IF NEW.cur_card_id IS NOT NULL THEN   -- Card was attached to booth
@@ -219,8 +219,9 @@ CREATE OR REPLACE FUNCTION cc_agent_refill_it() RETURNS trigger AS $$
   	IF NEW.card_id IS NULL THEN
   		RAISE EXCEPTION 'card_id cannot be NULL';
   	END IF;
-  	PERFORM card_id FROM cc_agent_cards WHERE
-  		card_id = NEW.card_id AND agentid = NEW.agentid;
+  	PERFORM 1 FROM cc_card, cc_card_group WHERE
+  		cc_card.grp = cc_card_group.id AND
+  		cc_card.id = NEW.card_id AND agentid = NEW.agentid;
   	IF NOT FOUND THEN
   		RAISE EXCEPTION 'No such card for this agent';
   	END IF;

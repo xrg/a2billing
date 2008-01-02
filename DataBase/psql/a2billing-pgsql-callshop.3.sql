@@ -301,12 +301,6 @@ CREATE OR REPLACE VIEW cc_agent_invoices_v AS
 		WHERE cc_agent.id = cc_invoices.agentid;
 
 
-INSERT INTO cc_paytypes(id,side,preset) VALUES(gettext_ri('Manual commission credit'),1,'manual-commission');
-INSERT INTO cc_paytypes(id,side,preset) VALUES(gettext_ri('Auto commission credit'),1,'auto-commission');
-
-INSERT INTO cc_paytypes(id,side,preset) VALUES(gettext_ri('Payment from agent'),2,'agent-pay');
-
-
 CREATE OR REPLACE FUNCTION agent_manual_commission(s_inv_id BIGINT) RETURNS void AS $$
 DECLARE
 	s_inv_date TIMESTAMP;

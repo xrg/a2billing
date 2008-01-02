@@ -38,7 +38,4 @@ CREATE TABLE cc_agentpay (
     descr TEXT 
 );
 
-CREATE TRIGGER cc_apay_check_invoice BEFORE UPDATE OR DELETE ON cc_agentpay
-	FOR EACH ROW EXECUTE PROCEDURE cc_invoice_lock_f();
-
 --eof
