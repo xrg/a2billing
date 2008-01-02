@@ -3,6 +3,7 @@ require_once("lib/common/Class.ElemBase.inc.php");
 
 require_once ("lib/defines.php");
 require_once ("lib/module.access.php");
+include_once (DIR_COMMON."languageSettings.inc.php");
 
 class IntroPage extends ElemBase{
 	function Render(){
@@ -65,6 +66,15 @@ class IntroPage extends ElemBase{
 			   ARE PROVIDED WITH THIS SOFTWARE INCLUDING FITNESS FOR A PARTICULAR PURPOSE AND MERCHANTABILITY.
 		</span> 		</td>
 	</tr>
+	<tr><td>
+	<?php
+	global $language_list;
+	if (isset($language_list))
+foreach($language_list as $lang)
+	if ($lang['flag']!=null)
+	echo "	<a href=\"".$_SERVER['PHP_SELF']."?language=" .$lang['cname'] . "\" target=\"_parent\"><img src=\"Images/flags/" . $lang['flag'] . "\" border=\"0\" title=\"" . $lang['name'] ."\" alt=\"" .$lang['name']."\"></a>\n";
+?>
+	</td></tr>
 </table>
 	<?php } //Render()
 };

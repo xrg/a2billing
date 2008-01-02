@@ -1,8 +1,17 @@
 <?php 
  //include ("./lib/company_info.php"); 
  // *-* move the header to a common file
-?>
 
+require('./lib/defines.php');
+require_once(DIR_COMMON."languageSettings.inc.php");
+
+if (isset($_GET['language'])){
+	// Taken from defines.php
+	define ("LIBDIR", dirname(__FILE__)."/lib/");
+	define ("LANGUAGE",$_GET['language']);
+	SetLocalLanguage($_GET['language']);
+}
+?>
 <html>
 
 <head>
@@ -18,7 +27,7 @@
 	{
 		if(document.form.pr_login.value=="" || document.form.pr_password.value=="")
 		{
-			alert("You must enter an user and a password!");
+			alert("<?= _("You must enter an user and a password!")?>");
 			return false;
 		}
 		else
@@ -56,7 +65,7 @@
 
   	<?php if (isset($_GET["error"]) && $_GET["error"]==1) { ?>
 		<font face="Arial, Helvetica, Sans-serif" size="2" color="red">
-			<b>AUTHENTICATION REFUSED, please check your user/password!</b>
+			<b><?= _("AUTHENTICATION REFUSED, please check your user/password!") ?></b>
 		</font>
 	<?php } ?><br><br>
 
@@ -73,23 +82,28 @@
 			<tr align="center">
 				<td rowspan="3" style="padding-left: 8px; padding-right: 8px"><img src="./Images/security.png"></td>
 				<td></td>
-				<td align="left"><font size="2" face="Arial, Helvetica, Sans-Serif"><b>User:</b></font></td>
+				<td align="left"><font size="2" face="Arial, Helvetica, Sans-Serif"><b><?= _("User:")?></b></font></td>
 				<td><input class="form_enter" type="text" name="pr_login"></td>
 			</tr>
 			<tr align="center">
 				<td></td>
-				<td align="left"><font face="Arial, Helvetica, Sans-Serif" size="2"><b>Password:</b></font></td>
+				<td align="left"><font face="Arial, Helvetica, Sans-Serif" size="2"><b><?= _("Password:")?></b></font></td>
 				<td><input class="form_enter" type="password" name="pr_password"></td>
 			</tr>
 			<tr align="center">
 				<td></td>
 				<td></td>
-				<td><input type="submit" name="submit" value="LOGIN" class="form_enter"></td>
+				<td><input type="submit" name="submit" value="<?= _("LOGIN")?>" class="form_enter"></td>
 			</tr>
 			</table>
 		</td>
 	</tr>
       	</table>
+<?php
+foreach($language_list as $lang)
+	if ($lang['flag']!=null)
+	echo "	<a href=\"index.php?language=" .$lang['cname'] . "\" target=\"_parent\"><img src=\"Images/flags/" . $lang['flag'] . "\" border=\"0\" title=\"" . $lang['name'] ."\" alt=\"" .$lang['name']."\"></a>\n";
+?>
 	</form>
 </td>
 </tr>
