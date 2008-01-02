@@ -231,4 +231,9 @@ function dontList(BaseField &$bf){
 	return $bf;
 }
 
+function dontAdd(BaseField &$bf){
+	$bf->does_add = false;
+	return $bf;
+}
+
 ?>

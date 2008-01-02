@@ -7,6 +7,10 @@ class SqlRefField extends BaseField{
 	public $reftable;
 	public $refname;
 	public $refid ;
+	public $comboid;
+	public $combotable; ///< Alt table to use for the combo
+	public $combofield; ///< Alt field to use for the combo
+	public $comboclause;
 
 	function SqlRefField($fldtitle, $fldname,$reftbl, $refid = 'id', $refname = 'name', $flddescr=null, $fldwidth = null){
 		$this->fieldname = $fldname;
@@ -63,7 +67,24 @@ class SqlRefField extends BaseField{
 	protected function prepare(&$dbhandle){
 		//echo "Prepare!";
 		$debug = $GLOBALS['FG_DEBUG'];
-		$qry = "SELECT $this->refid,$this->refname FROM $this->reftable;";
+		if (!empty($this->combotable))
+			$reftable = $this->combotable;
+		else
+			$reftable = $this->reftable;
+		if (!empty($this->combofield))
+			$refname = $this->combofield . " AS " .$this->refname;
+		else
+			$refname = $this->refname;
+
+		if (!empty($this->comboid))
+			$refid = $this->comboid . " AS " .$this->refid;
+		else
+			$refid = $this->refid;
+
+		$qry = "SELECT $refid,$refname FROM $reftable";
+		if (!empty($this->comboclause))
+			$qry .= ' WHERE ' . $this->comboclause;
+		$qry .= ';';
 		if ($debug>3)
 			echo "Query: $qry<br>\n";
 		$res = $dbhandle->Execute($qry);
