@@ -29,9 +29,3 @@ CREATE TABLE cc_phonelist (
     additionalinfo TEXT NOT NULL	
 );
 	
-CREATE INDEX ind_cc_phonelist_numbertodial ON cc_phonelist USING btree (numbertodial);
-
-
--- CREATE INDEX ind_cc_charge_id_cc_card ON cc_charge USING btree (card);
--- CREATE INDEX ind_cc_charge_id_cc_subscription_fee ON cc_charge USING btree (subscription_fee);
--- CREATE INDEX ind_cc_charge_creationdate  ON cc_charge USING btree (creationdate);

@@ -18,9 +18,6 @@ CREATE TABLE cc_invoices (
     CHECK( (cardid IS NOT NULL) OR (agentid IS NOT NULL))
 );
 
-CREATE INDEX ind_cc_invoices ON cc_invoices USING btree (cover_startdate);
-
-
 CREATE TABLE cc_invoice_history (
     id BIGSERIAL PRIMARY KEY,
     invoiceid BIGINT NOT NULL,	
@@ -29,9 +26,10 @@ CREATE TABLE cc_invoice_history (
     icomment TEXT
 );
 
-CREATE INDEX ind_cc_invoice_history ON cc_invoice_history USING btree (idate);
 
 -- This trigger can be set to any item having an invoice_id field
+-- This function can stay here <50 provided nobody uses it.
+
 CREATE OR REPLACE FUNCTION cc_invoice_lock_f() RETURNS trigger AS $$
 BEGIN
 	-- Shortcut: allow clearing of the invoice

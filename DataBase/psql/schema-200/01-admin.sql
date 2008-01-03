@@ -16,8 +16,8 @@ CREATE TABLE cc_ui_authen (
     datecreation TIMESTAMP without time zone DEFAULT NOW()
 );
 
-INSERT INTO cc_ui_authen VALUES (2, 'admin', 'mypassword', 0, 65535, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2005-02-26 21:14:05.391501-05');
 INSERT INTO cc_ui_authen VALUES (1, 'root', 'myroot', 0, 65535, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2005-02-26 20:33:27.691314-05');
+INSERT INTO cc_ui_authen VALUES (2, 'admin', 'mypassword', 0, 65535, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2005-02-26 21:14:05.391501-05');
 \echo Created Default admins.
 
 -- CREATE TABLE cc_config_group (

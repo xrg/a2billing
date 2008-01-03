@@ -35,12 +35,6 @@ CREATE TABLE cc_call (
     invoice_id BIGINT REFERENCES cc_invoices(id) ON DELETE SET NULL
 );
 
-
-CREATE INDEX cc_call_card_ind ON cc_call USING btree (cardid);
-CREATE INDEX cc_call_starttime_ind ON cc_call USING btree (starttime);
--- CREATE INDEX cc_call_terminatecause_ind ON cc_call USING btree (terminatecause); 	
--- CREATE INDEX cc_call_calledstation_ind ON cc_call USING btree (calledstation); 	
-
 /* Use a composite type to aggregate over the last attempt for a call */
 CREATE TYPE call_result AS(
 	attempt INTEGER,
@@ -68,8 +62,5 @@ CREATE TYPE card_call_lock_t AS
 
 GRANT SELECT,INSERT,UPDATE ON cc_call TO a2b_group;
 GRANT SELECT,UPDATE ON cc_call_id_seq TO a2b_group;
-
-CREATE TRIGGER cc_call_check_invoice BEFORE UPDATE OR DELETE ON cc_call
-	FOR EACH ROW EXECUTE PROCEDURE cc_invoice_lock_f();
 
 -- eof

@@ -90,12 +90,6 @@ CREATE TABLE cc_card (
     loginkey text
 );
 
-CREATE INDEX cc_card_grp ON cc_card(grp);
-
-CREATE INDEX cc_card_creationdate_ind ON cc_card USING btree (creationdate);
-CREATE INDEX cc_card_username_ind ON cc_card USING btree (username);
-CREATE INDEX cc_card_useralias_ind ON cc_card (useralias);
-
 -- ALTER TABLE cc_card DROP COLUMN userpass;
 
 -- ALTER TABLE cc_card ADD COLUMN id_timezone INTEGER DEFAULT 0;

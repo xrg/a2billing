@@ -135,4 +135,3 @@ CREATE TABLE cc_sell_prefix (
 	UNIQUE(srid, dialprefix)
 );
 
--- CREATE INDEX ind_cc_ratecard_dialprefix ON cc_ratecard USING btree (dialprefix);

@@ -1,5 +1,9 @@
 -- Views for calls
 
+DROP TRIGGER IF EXISTS cc_call_check_invoice;
+CREATE TRIGGER cc_call_check_invoice BEFORE UPDATE OR DELETE ON cc_call
+	FOR EACH ROW EXECUTE PROCEDURE cc_invoice_lock_f();
+
 CREATE OR REPLACE VIEW cc_call_v AS
 SELECT sessionid, uniqueid, cardid,nasipaddress, srvid,
     starttime,stoptime,
@@ -17,3 +21,5 @@ SELECT sessionid, uniqueid, cardid,nasipaddress, srvid,
 		AVG(qval) AS qval, MAX(src) AS src, SUM(buycost) AS buycost
 	FROM cc_call
 	GROUP BY sessionid, uniqueid, cardid, srvid) AS foo ;
+
+-- TODO: rules on cc_call_v to expire cards..

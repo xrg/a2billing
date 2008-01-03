@@ -20,9 +20,6 @@ CREATE TABLE cc_card_charge (
     checked     BIGINT REFERENCES cc_ui_authen(userid)
 );
 
-CREATE TRIGGER cc_charge_check_invoice BEFORE UPDATE OR DELETE ON cc_card_charge
-	FOR EACH ROW EXECUTE PROCEDURE cc_invoice_lock_f();
-
 /** Deleted charges.
 	Since charges constitute an important money transaction, removed ones
 	should be logged, i.e. inserted here
