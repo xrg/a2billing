@@ -1,0 +1,1928 @@
+#: A2BAgent_UI/A2B_entity_agent_invoicev.php:83
+msgid "SELECT MONTH"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_agent_invoicev.php:89
+msgid "From"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_agent_invoicev.php:91
+#: A2BAgent_UI/A2B_entity_agent_invoicev.php:108
+#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:35
+msgid "January"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_agent_invoicev.php:91
+#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:35
+msgid "February"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_agent_invoicev.php:91
+#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:35
+msgid "March"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_agent_invoicev.php:91
+#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:35
+msgid "April"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_agent_invoicev.php:91
+#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:35
+msgid "May"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_agent_invoicev.php:91
+#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:35
+msgid "June"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_agent_invoicev.php:91
+#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:35
+msgid "July"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_agent_invoicev.php:91
+#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:35
+msgid "August"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_agent_invoicev.php:91
+#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:35
+msgid "September"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_agent_invoicev.php:91
+#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:35
+msgid "October"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_agent_invoicev.php:91
+#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:35
+msgid "November"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_agent_invoicev.php:91
+#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:35
+msgid "December"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_agent_invoicev.php:112
+msgid "To"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:17
+#: A2BAgent_UI/FG_var_agent_invoicev.inc:61
+msgid "UNPAID"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:18
+#: A2BAgent_UI/FG_var_agent_invoicev.inc:62
+msgid "SENT-UNPAID"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:19
+#: A2BAgent_UI/FG_var_agent_invoicev.inc:63
+msgid "SENT-PAID"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:20
+#: A2BAgent_UI/FG_var_agent_invoicev.inc:64
+msgid "PAID"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:106
+#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:109
+msgid "Cannot locate invoice."
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:123
+msgid "Name"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:126
+msgid "Address"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:130
+msgid "Invoice date"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:134
+msgid "Period from"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:138
+msgid "Period to"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:143
+msgid "Status"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:147
+msgid "Order"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:161
+msgid "Pay (in %1):"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:163
+msgid "PAY"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:171
+#: A2BAgent_UI/invoices_cust.php:781
+msgid "Printable version"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:189
+msgid "History"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:193
+msgid "At:"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:225
+msgid "Call Details"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:228
+msgid "No calls found!"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:252
+#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:332
+msgid "Date"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:252 A2BAgent_UI/invoices.php:89
+msgid "Destination"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:252 A2BAgent_UI/invoices.php:90
+#: A2BAgent_UI/invoices_cust.php:160
+msgid "Duration"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:252
+#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:332
+#: A2BAgent_UI/invoices_cust.php:162
+msgid "Charge"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:268
+#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:348
+msgid "Total:"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:307
+msgid "List of Charges"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:310
+msgid "No charges found."
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:332
+#: A2BAgent_UI/agent-money.php:141
+msgid "Type"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:332
+#: A2BAgent_UI/agent-money.php:142 A2BAgent_UI/invoices_cust.php:157
+msgid "Description"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:377
+msgid "Amount"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:380
+msgid "VAT (%1)%%"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:384
+msgid "Total"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_cards.php:60
+msgid "Fill!"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_cards.php:61
+msgid "Empty!"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_cards.php:69
+msgid "Nowhere"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_cards.php:70
+msgid ", default for "
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_cards.php:146
+msgid "Create new regular customer"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_charge.php:53
+msgid "Charge a customer"
+msgstr ""
+
+#: A2BAgent_UI/PP_error.php:7
+msgid "ERROR : ACCESS REFUSED"
+msgstr ""
+
+#: A2BAgent_UI/PP_error.php:8
+msgid ""
+"The CODE is not a VALID CODE or has been already used! Please check it and "
+"try again."
+msgstr ""
+
+#: A2BAgent_UI/PP_error.php:9
+msgid "Sorry a problem occur on our system, please try later!"
+msgstr ""
+
+#: A2BAgent_UI/PP_error.php:10
+msgid "There is an error on this page!"
+msgstr ""
+
+#: A2BAgent_UI/PP_error.php:11
+msgid "Sorry, you don t have access to this page !"
+msgstr ""
+
+#: A2BAgent_UI/PP_error.php:12
+msgid "Sorry, this page is in construction !"
+msgstr ""
+
+#: A2BAgent_UI/PP_error.php:29
+msgid "Error Page"
+msgstr ""
+
+#: A2BAgent_UI/PP_menu.php:87
+msgid "BOOTHS"
+msgstr ""
+
+#: A2BAgent_UI/PP_menu.php:90
+msgid "CUSTOMERS"
+msgstr ""
+
+#: A2BAgent_UI/PP_menu.php:93
+msgid "EDIT BOOTHS"
+msgstr ""
+
+#: A2BAgent_UI/PP_menu.php:96
+msgid "PAYMENTS"
+msgstr ""
+
+#: A2BAgent_UI/PP_menu.php:99
+msgid "REPORTS"
+msgstr ""
+
+#: A2BAgent_UI/PP_menu.php:102
+msgid "INFO PAGES"
+msgstr ""
+
+#: A2BAgent_UI/PP_menu.php:108
+msgid "PASSWORD"
+msgstr ""
+
+#: A2BAgent_UI/PP_menu.php:112
+msgid "LOGOUT"
+msgstr ""
+
+#: A2BAgent_UI/agent-money.php:140 A2BAgent_UI/invoices_cust.php:156
+msgid "Calldate"
+msgstr ""
+
+#: A2BAgent_UI/agent-money.php:144
+msgid "In"
+msgstr ""
+
+#: A2BAgent_UI/agent-money.php:145
+msgid "Out"
+msgstr ""
+
+#: A2BAgent_UI/agent-money.php:194
+msgid " - Transactions - "
+msgstr ""
+
+#: A2BAgent_UI/agent-money.php:408
+msgid "All transactions"
+msgstr ""
+
+#: A2BAgent_UI/agent-money.php:413 A2BAgent_UI/invoices.php:427
+msgid "Selection of the month"
+msgstr ""
+
+#: A2BAgent_UI/agent-money.php:418 A2BAgent_UI/agent-money.php:466
+#: A2BAgent_UI/invoices.php:432 A2BAgent_UI/invoices.php:480
+msgid "FROM"
+msgstr ""
+
+#: A2BAgent_UI/agent-money.php:438 A2BAgent_UI/agent-money.php:511
+#: A2BAgent_UI/invoices.php:452 A2BAgent_UI/invoices.php:525
+msgid "TO"
+msgstr ""
+
+#: A2BAgent_UI/agent-money.php:462 A2BAgent_UI/invoices.php:476
+msgid "Selection of the day"
+msgstr ""
+
+#: A2BAgent_UI/agent-money.php:561 A2BAgent_UI/invoices_cust.php:423
+msgid "View"
+msgstr ""
+
+#: A2BAgent_UI/agent-money.php:564 A2BAgent_UI/invoices.php:604
+#: A2BAgent_UI/invoices_cust.php:426
+msgid "Result"
+msgstr ""
+
+#: A2BAgent_UI/agent-money.php:564 A2BAgent_UI/invoices.php:604
+#: A2BAgent_UI/invoices_cust.php:426
+msgid "Minutes"
+msgstr ""
+
+#: A2BAgent_UI/agent-money.php:564 A2BAgent_UI/invoices.php:604
+#: A2BAgent_UI/invoices_cust.php:426
+msgid "Seconds"
+msgstr ""
+
+#: A2BAgent_UI/agent-money.php:567 A2BAgent_UI/invoices.php:616
+#: A2BAgent_UI/invoices_cust.php:429
+msgid "Currency"
+msgstr ""
+
+#: A2BAgent_UI/agent-money.php:580
+msgid "Mode"
+msgstr ""
+
+#: A2BAgent_UI/agent-money.php:583 A2BAgent_UI/invoices.php:613
+#: A2BAgent_UI/invoices_cust.php:445
+msgid "See Invoice in HTML"
+msgstr ""
+
+#: A2BAgent_UI/agent-money.php:584 A2BAgent_UI/invoices.php:614
+#: A2BAgent_UI/invoices_cust.php:447
+msgid "or Export PDF"
+msgstr ""
+
+#: A2BAgent_UI/agent-money.php:587
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:2042
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:2102
+#: A2BAgent_UI/invoices.php:602 A2BAgent_UI/invoices_cust.php:451
+msgid "Search"
+msgstr ""
+
+#: A2BAgent_UI/agent-money.php:600
+msgid "TRANSACTIONS DETAIL"
+msgstr ""
+
+#: A2BAgent_UI/agent-money.php:613 A2BAgent_UI/invoices.php:981
+#: A2BAgent_UI/invoices_cust.php:477
+msgid "nb"
+msgstr ""
+
+#: A2BAgent_UI/agent-money.php:627
+msgid "Carry from previous period"
+msgstr ""
+
+#: A2BAgent_UI/agent-money.php:675 A2BAgent_UI/invoices_cust.php:531
+msgid "Partial sum:"
+msgstr ""
+
+#: A2BAgent_UI/agent-money.php:682
+#: A2BAgent_UI/lib/Form/Class.FormHandler.AddForm.inc.php:126
+#: A2BAgent_UI/lib/Form/Class.FormHandler.DelForm.inc.php:145
+#: A2BAgent_UI/lib/Form/Class.FormHandler.EditForm.inc.php:181
+#: A2BAgent_UI/lib/Form/Class.FormHandler.EditForm.inc.php:378
+#: A2BAgent_UI/lib/Form/Class.FormHandler.EditForm.inc.php:649
+#: A2BAgent_UI/invoices.php:1062 A2BAgent_UI/invoices_cust.php:541
+msgid "No data found !!!"
+msgstr ""
+
+#: A2BAgent_UI/agent-money.php:696 A2BAgent_UI/invoices.php:1107
+#: A2BAgent_UI/invoices_cust.php:578
+msgid "No calls in your Selection"
+msgstr ""
+
+#: A2BAgent_UI/agent-money.php:772
+msgid "MONEY SITUATION:"
+msgstr ""
+
+#: A2BAgent_UI/agent-money.php:776
+msgid "TRANSACTIONS"
+msgstr ""
+
+#: A2BAgent_UI/agent-money.php:777
+msgid "IN/OUT"
+msgstr ""
+
+#: A2BAgent_UI/agent-money.php:779 A2BAgent_UI/invoices_cust.php:600
+msgid "TYPE"
+msgstr ""
+
+#: A2BAgent_UI/agent-money.php:780
+msgid "IN"
+msgstr ""
+
+#: A2BAgent_UI/agent-money.php:781
+msgid "OUT"
+msgstr ""
+
+#: A2BAgent_UI/agent-money.php:792
+msgid "SITUATION"
+msgstr ""
+
+#: A2BAgent_UI/agent-money.php:793 A2BAgent_UI/FG_var_agentpay.inc:28
+#: A2BAgent_UI/FG_var_charge.inc:40 A2BAgent_UI/FG_var_charge.inc:92
+msgid "DESCRIPTION"
+msgstr ""
+
+#: A2BAgent_UI/agent-money.php:793
+msgid "SUM"
+msgstr ""
+
+#: A2BAgent_UI/agent-money.php:795
+msgid "Total sum carried from previous period"
+msgstr ""
+
+#: A2BAgent_UI/agent-money.php:803
+msgid "Total sum credited to customers"
+msgstr ""
+
+#: A2BAgent_UI/agent-money.php:806
+msgid "Total sum debited from customers"
+msgstr ""
+
+#: A2BAgent_UI/agent-money.php:809
+msgid "Total potential debit from customers"
+msgstr ""
+
+#: A2BAgent_UI/agent-money.php:811
+msgid "Total calls made by customers"
+msgstr ""
+
+#: A2BAgent_UI/agent-money.php:813
+msgid "Wholesale price of calls"
+msgstr ""
+
+#: A2BAgent_UI/agent-money.php:815
+msgid "Estimated profit from calls"
+msgstr ""
+
+#: A2BAgent_UI/agent-money.php:818 A2BAgent_UI/invoices.php:838
+#: A2BAgent_UI/invoices.php:846 A2BAgent_UI/invoices.php:941
+#: A2BAgent_UI/invoices_cust.php:626 A2BAgent_UI/invoices_cust.php:719
+msgid "TOTAL"
+msgstr ""
+
+#: A2BAgent_UI/agent-money.php:820 A2BAgent_UI/invoices_cust.php:629
+msgid "includes VAT"
+msgstr ""
+
+#: A2BAgent_UI/agent-money.php:822
+msgid "CREDIT LIMIT:"
+msgstr ""
+
+#: A2BAgent_UI/agent-money.php:824
+msgid "EST. DAYS LEFT:"
+msgstr ""
+
+#: A2BAgent_UI/agent-money.php:834 A2BAgent_UI/invoices_cust.php:804
+msgid "Pay back:"
+msgstr ""
+
+#: A2BAgent_UI/agent-money.php:838 A2BAgent_UI/invoices_cust.php:824
+msgid "Pay:"
+msgstr ""
+
+#: A2BAgent_UI/lib/Class.A2Billing.php:332
+msgid "Invalid card number lenght defined in configuration."
+msgstr ""
+
+#: A2BAgent_UI/lib/Class.A2Billing.php:2101
+#: A2BAgent_UI/lib/Class.A2Billing.php:2107
+msgid "Error : Not enough credit to call !!!"
+msgstr ""
+
+#: A2BAgent_UI/lib/Class.A2Billing.php:2114
+msgid "Error : Card is not active!!!"
+msgstr ""
+
+#: A2BAgent_UI/lib/Class.A2Billing.php:2120
+msgid "Error : Card is actually in use!!!"
+msgstr ""
+
+#: A2BAgent_UI/lib/Class.A2Billing.php:2129
+#: A2BAgent_UI/lib/Class.A2Billing.php:2137
+#: A2BAgent_UI/lib/Class.A2Billing.php:2145
+msgid "Error : Card have expired!!!"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.AddForm.inc.php:182
+msgid "Create a new "
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.DelForm.inc.php:32
+msgid "Message"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.DelForm.inc.php:39
+msgid "You have "
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.DelForm.inc.php:186
+msgid "Remove this "
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.EditForm.inc.php:116
+msgid "<br> TYPE OF SELECT :"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.EditForm.inc.php:242
+msgid "LIST "
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.EditForm.inc.php:297
+msgid "No"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.EditForm.inc.php:331
+msgid "Add a new "
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.EditForm.inc.php:390
+msgid "add new a "
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.EditForm.inc.php:423
+msgid "LIST"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.EditForm.inc.php:498
+msgid "Add a new"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:426
+#: A2BAgent_UI/lib/Misc.php:214
+msgid "&lt;&lt; First"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:426
+#: A2BAgent_UI/lib/Misc.php:215
+msgid "&lt; Prev"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:427
+#: A2BAgent_UI/lib/Misc.php:216
+msgid "Next &gt;"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:427
+#: A2BAgent_UI/lib/Misc.php:217
+msgid "Last &gt;&gt;"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:443
+msgid "THERE IS NO RECORD !!!"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:444
+msgid "DIRECTORY"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:445
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:494
+msgid "Define criteria to make a precise search"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:446
+msgid "You can browse through our %1 and modify their different properties<br>"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:448
+msgid "Delete this record"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:449
+msgid "Edit this record"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:450
+msgid ""
+"The document has been created correctly. Now, you can define the different "
+"tariff that you want to associate."
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:451
+msgid ""
+"You can modify, through the following form, the different properties of your"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:452
+msgid "If you really want remove this"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:452
+msgid "Click on the delete button."
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:454
+msgid "One %1 has been deleted!"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:456
+msgid ""
+"you can add easily a new %1 .<br>Fill the following fields and confirm by "
+"clicking on the button add."
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:457
+msgid "Add a %1 now."
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:458
+msgid "Your new %1 has been inserted. <br>"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:459
+msgid "You cannot choose more than one !"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:491
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:716
+msgid "Delete"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:492
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:710
+msgid "Edit"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:515
+msgid "ONESHOT"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:516
+msgid "PER MINUTE"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:518
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:528
+msgid "IN PROCESS"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:519
+msgid "WORKING"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:520
+msgid "ISSUE"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:522
+msgid "ALRIGHT"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:523
+msgid "NOT USED"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:524
+msgid "NO ATTRIBUED"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:525
+msgid "WORK IN PROCESS"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:527
+msgid "CREATION"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:529
+msgid "IVR INTREGRATION"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:530
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:540
+msgid "CLOSE"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:532
+msgid "URGENT"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:533
+msgid "NORMAL"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:534
+msgid "LOW"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:536
+msgid "NEW"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:537
+msgid "UPDATE"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:538
+msgid "ANSWER"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:539
+msgid "ASSIGN"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:542
+msgid "INSERTED"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:543
+msgid "ENABLE"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:544
+msgid "DISABLE"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:545
+msgid "FREE"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:547
+msgid "PHONE"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:548
+msgid "SMS"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:550
+msgid "CODE VALID 1 TIME"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:552
+msgid "CODE VALID %1 TIMES"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:555
+msgid "CODE"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:556
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:557
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:558
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:559
+msgid "CODES"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:687
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:689
+msgid "You can browse through our "
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:687
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:689
+msgid " and modify their different properties<br>"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:851
+msgid "(at least 3 characters)"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:855
+msgid "(must match email structure. Example : name@domain.com)"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:859
+msgid "(at least 5 successive characters appear at the end of this string)"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:863
+msgid "(at least 4 characters)"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:867
+msgid "(number format)"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:875
+msgid "(only number with more that 8 digits)"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:879
+msgid "(at least 8 digits using . or - or the space key)"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:883
+msgid "network adress format"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:887
+msgid "at least 1 character"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:895
+msgid "(AT LEAST 2 CARACTERS)"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:899
+msgid "(NUMBER FORMAT WITH/WITHOUT DECIMAL, use '.' for decimal)"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:915
+msgid "You must write something."
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:919
+msgid "8 characters alphanumeric"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:926
+msgid "(at least 6 Alphanumeric characters)"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:1407
+msgid "This did is in use by customer id:"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:1519
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:1561
+msgid "Could not open buddy file"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:1536
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:1566
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:1578
+msgid "Impossible to write to the file"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:1725
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:1779
+msgid "<br> GOTO ; "
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:1773
+msgid "error deletion"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:1901
+msgid "ERROR_DUPLICATION"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:1986
+msgid "Done"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:2014
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:2127
+msgid "THE CURRENT RATECARD"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:2025
+msgid "R A T E C A R D"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:2031
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:2144
+msgid "Choose a ratecard"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:2069
+msgid "None"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:2138
+#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:288
+msgid "RATECARD"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:83
+msgid "From :"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:111
+msgid "To :"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:153
+#: A2BAgent_UI/invoices.php:578 A2BAgent_UI/invoices.php:591
+msgid "Exact"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:154
+#: A2BAgent_UI/invoices.php:579 A2BAgent_UI/invoices.php:592
+msgid "Begins with"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:155
+#: A2BAgent_UI/invoices.php:580 A2BAgent_UI/invoices.php:593
+msgid "Contains"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:156
+#: A2BAgent_UI/invoices.php:581 A2BAgent_UI/invoices.php:594
+msgid "Ends with"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:259
+msgid "There is"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:259
+msgid ""
+"selected, use the option below if you are willing to make a batch updated of "
+"the selected cards."
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:307
+msgid "BUYRATE"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:310
+#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:325
+#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:341
+#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:357
+#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:373
+#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:389
+#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:405
+#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:421
+msgid "Equal"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:311
+#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:326
+#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:342
+#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:358
+#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:374
+#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:390
+#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:406
+#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:422
+msgid "Add"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:312
+#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:327
+#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:343
+#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:359
+#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:375
+#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:391
+#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:407
+#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:423
+msgid "Substract"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:322
+msgid "BUYRATEINITBLOCK"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:338
+msgid "BUYRATEINCREMENT"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:354
+msgid "RATE INITIAL"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:370
+msgid "MIN DURATION"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:386
+msgid "BILLINGBLOCK"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:402
+msgid "CONNECTCHARGE"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:418
+msgid "DISCONNECTCHARGE"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:433
+msgid " BATCH UPDATE RATECARD "
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.ViewHandler.inc.php:32
+msgid "Congratulations! Your site"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.ViewHandler.inc.php:32
+msgid "has been registered."
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.ViewHandler.inc.php:46
+msgid "Currently you have registered"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.ViewHandler.inc.php:46
+msgid "sites and"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.ViewHandler.inc.php:46
+msgid "documents"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.ViewHandler.inc.php:67
+msgid "These are the sites you have registered."
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.ViewHandler.inc.php:143
+msgid "Sort"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.ViewHandler.inc.php:186
+msgid "FILTER ON "
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.ViewHandler.inc.php:203
+msgid "FILTER ON"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.ViewHandler.inc.php:216
+msgid "APPLY FILTER "
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.ViewHandler.inc.php:248
+msgid "ACTION"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.ViewHandler.inc.php:503
+msgid "DISPLAY"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.ViewHandler.inc.php:520
+msgid "GO"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.ViewHandler.inc.php:525
+msgid "Export CSV"
+msgstr ""
+
+#: A2BAgent_UI/lib/Form/Class.ViewHandler.inc.php:529
+msgid "Export XML"
+msgstr ""
+
+#: A2BAgent_UI/lib/company_info.php:2
+msgid ""
+"This software has been created by Areski under GPL licence. For futher "
+"information, feel free to contact me:"
+msgstr ""
+
+#: A2BAgent_UI/lib/company_info.php:4
+msgid ""
+" This software is under GPL licence. For further information, please visit : "
+"<a href=\"http://www.asterisk2billing.org\" target=\"_blank"
+"\">asterisk2billing.org</a>"
+msgstr ""
+
+#: A2BAgent_UI/lib/company_info.php:5
+msgid "Asterisk2Billing : CallingCard platform"
+msgstr ""
+
+#: A2BAgent_UI/lib/defines.php:199 A2BAgent_UI/invoices.php:436
+#: A2BAgent_UI/invoices.php:456 A2BAgent_UI/invoices.php:493
+#: A2BAgent_UI/invoices.php:538
+msgid "JANUARY"
+msgstr ""
+
+#: A2BAgent_UI/lib/defines.php:199 A2BAgent_UI/invoices.php:436
+#: A2BAgent_UI/invoices.php:456 A2BAgent_UI/invoices.php:493
+#: A2BAgent_UI/invoices.php:538
+msgid "FEBRUARY"
+msgstr ""
+
+#: A2BAgent_UI/lib/defines.php:199 A2BAgent_UI/invoices.php:436
+#: A2BAgent_UI/invoices.php:456 A2BAgent_UI/invoices.php:493
+#: A2BAgent_UI/invoices.php:538
+msgid "MARCH"
+msgstr ""
+
+#: A2BAgent_UI/lib/defines.php:200 A2BAgent_UI/invoices.php:436
+#: A2BAgent_UI/invoices.php:456 A2BAgent_UI/invoices.php:493
+#: A2BAgent_UI/invoices.php:538
+msgid "APRIL"
+msgstr ""
+
+#: A2BAgent_UI/lib/defines.php:200 A2BAgent_UI/invoices.php:436
+#: A2BAgent_UI/invoices.php:456 A2BAgent_UI/invoices.php:493
+#: A2BAgent_UI/invoices.php:538
+msgid "MAY"
+msgstr ""
+
+#: A2BAgent_UI/lib/defines.php:200 A2BAgent_UI/invoices.php:436
+#: A2BAgent_UI/invoices.php:456 A2BAgent_UI/invoices.php:493
+#: A2BAgent_UI/invoices.php:538
+msgid "JUNE"
+msgstr ""
+
+#: A2BAgent_UI/lib/defines.php:201 A2BAgent_UI/invoices.php:436
+#: A2BAgent_UI/invoices.php:456 A2BAgent_UI/invoices.php:493
+#: A2BAgent_UI/invoices.php:538
+msgid "JULY"
+msgstr ""
+
+#: A2BAgent_UI/lib/defines.php:201 A2BAgent_UI/invoices.php:436
+#: A2BAgent_UI/invoices.php:456 A2BAgent_UI/invoices.php:493
+#: A2BAgent_UI/invoices.php:538
+msgid "AUGUST"
+msgstr ""
+
+#: A2BAgent_UI/lib/defines.php:201 A2BAgent_UI/invoices.php:436
+#: A2BAgent_UI/invoices.php:456 A2BAgent_UI/invoices.php:493
+#: A2BAgent_UI/invoices.php:538
+msgid "SEPTEMBER"
+msgstr ""
+
+#: A2BAgent_UI/lib/defines.php:202 A2BAgent_UI/invoices.php:436
+#: A2BAgent_UI/invoices.php:456 A2BAgent_UI/invoices.php:493
+#: A2BAgent_UI/invoices.php:538
+msgid "OCTOBER"
+msgstr ""
+
+#: A2BAgent_UI/lib/defines.php:202 A2BAgent_UI/invoices.php:436
+#: A2BAgent_UI/invoices.php:456 A2BAgent_UI/invoices.php:493
+#: A2BAgent_UI/invoices.php:538
+msgid "NOVEMBER"
+msgstr ""
+
+#: A2BAgent_UI/lib/defines.php:202 A2BAgent_UI/invoices.php:436
+#: A2BAgent_UI/invoices.php:456 A2BAgent_UI/invoices.php:493
+#: A2BAgent_UI/invoices.php:538
+msgid "DECEMBER"
+msgstr ""
+
+#: A2BAgent_UI/lib/help.php:15
+msgid ""
+"From here, you can use the web based screen phone. You need microphone and "
+"speakers on your PC."
+msgstr ""
+
+#: A2BAgent_UI/lib/help.php:31
+msgid ""
+"All calls are listed below. Search by month, day or status. Additionally, "
+"you can check the rate and price."
+msgstr ""
+
+#: A2BAgent_UI/lib/help.php:48
+msgid ""
+"Simulate the calling process to discover the cost per minute of a call, and "
+"the number of minutes you can call that number with your current credit."
+msgstr ""
+
+#: A2BAgent_UI/lib/help.php:64
+msgid ""
+"On this page you will be able to change your password, You have to enter the "
+"New Password and Confirm it."
+msgstr ""
+
+#: A2BAgent_UI/lib/help.php:79
+msgid "Here you can view your ratecards"
+msgstr ""
+
+#: A2BAgent_UI/lib/help.php:94
+msgid "Here you can view your used vouchers"
+msgstr ""
+
+#: A2BAgent_UI/lib/help.php:111
+msgid ""
+"Select the country below where you would like a DID, select a DID from the "
+"list and enter the destination you would like to assign it to."
+msgstr ""
+
+#: A2BAgent_UI/lib/languageSettings.php:25
+msgid "English"
+msgstr ""
+
+#: A2BAgent_UI/lib/languageSettings.php:26
+msgid "Arabic"
+msgstr ""
+
+#: A2BAgent_UI/lib/languageSettings.php:27
+msgid "Chinese"
+msgstr ""
+
+#: A2BAgent_UI/lib/languageSettings.php:28
+msgid "French"
+msgstr ""
+
+#: A2BAgent_UI/lib/languageSettings.php:29
+msgid "German"
+msgstr ""
+
+#: A2BAgent_UI/lib/languageSettings.php:30
+msgid "Greek"
+msgstr ""
+
+#: A2BAgent_UI/lib/languageSettings.php:31
+msgid "Italian"
+msgstr ""
+
+#: A2BAgent_UI/lib/languageSettings.php:32
+msgid "Polish"
+msgstr ""
+
+#: A2BAgent_UI/lib/languageSettings.php:33
+msgid "Portuguese"
+msgstr ""
+
+#: A2BAgent_UI/lib/languageSettings.php:34
+msgid "Romanian"
+msgstr ""
+
+#: A2BAgent_UI/lib/languageSettings.php:35
+msgid "Russian"
+msgstr ""
+
+#: A2BAgent_UI/lib/languageSettings.php:36
+msgid "Spanish"
+msgstr ""
+
+#: A2BAgent_UI/lib/languageSettings.php:37
+msgid "Turkish"
+msgstr ""
+
+#: A2BAgent_UI/lib/languageSettings.php:38
+msgid "Urdu"
+msgstr ""
+
+#: A2BAgent_UI/forgotpassword.php:24
+msgid ""
+"Please wait 1 minutes before making any other request for the forgot "
+"password!"
+msgstr ""
+
+#: A2BAgent_UI/forgotpassword.php:98
+msgid "Your login information email has been sent to you."
+msgstr ""
+
+#: A2BAgent_UI/forgotpassword.php:101
+msgid "No such login exists."
+msgstr ""
+
+#: A2BAgent_UI/forgotpassword.php:104
+msgid "Invalid Action."
+msgstr ""
+
+#: A2BAgent_UI/forgotpassword.php:107
+msgid "Pleaes provide your email address to get your login information."
+msgstr ""
+
+#: A2BAgent_UI/index.php:69
+msgid "AUTHENTICATION REFUSED, please check your user/password!"
+msgstr ""
+
+#: A2BAgent_UI/index.php:73
+msgid "INACTIVE ACCOUNT, Please activate your account!"
+msgstr ""
+
+#: A2BAgent_UI/index.php:77
+msgid "BLOCKED ACCOUNT, Please contact your administrator!"
+msgstr ""
+
+#: A2BAgent_UI/index.php:86
+msgid "AUTHENTICATION"
+msgstr ""
+
+#: A2BAgent_UI/index.php:95
+msgid "User:"
+msgstr ""
+
+#: A2BAgent_UI/index.php:100
+msgid "Password:"
+msgstr ""
+
+#: A2BAgent_UI/index.php:110
+msgid "Forgot your password? Click "
+msgstr ""
+
+#: A2BAgent_UI/index.php:110
+msgid "here"
+msgstr ""
+
+#: A2BAgent_UI/info_choice.php:16
+msgid "Please choose information page:"
+msgstr ""
+
+#: A2BAgent_UI/info_choice.php:18
+msgid "Current rates"
+msgstr ""
+
+#: A2BAgent_UI/info_choice.php:19
+msgid "Usage instructions"
+msgstr ""
+
+#: A2BAgent_UI/info_choice.php:20
+msgid "Contact information"
+msgstr ""
+
+#: A2BAgent_UI/invoices.php:86
+msgid "Call date"
+msgstr ""
+
+#: A2BAgent_UI/invoices.php:87
+msgid "Source"
+msgstr ""
+
+#: A2BAgent_UI/invoices.php:88
+msgid "Called number"
+msgstr ""
+
+#: A2BAgent_UI/invoices.php:94
+msgid "Card used"
+msgstr ""
+
+#: A2BAgent_UI/invoices.php:104
+msgid "Cost"
+msgstr ""
+
+#: A2BAgent_UI/invoices.php:574 A2BAgent_UI/invoices.php:789
+#: A2BAgent_UI/FG_var_ratecard.inc:38 A2BAgent_UI/FG_var_ratecard.inc:65
+msgid "DESTINATION"
+msgstr ""
+
+#: A2BAgent_UI/invoices.php:582 A2BAgent_UI/invoices.php:595
+msgid "Is not"
+msgstr ""
+
+#: A2BAgent_UI/invoices.php:587
+msgid "SOURCE"
+msgstr ""
+
+#: A2BAgent_UI/invoices.php:669
+msgid "Phone :"
+msgstr ""
+
+#: A2BAgent_UI/invoices.php:670
+msgid "Fax  :"
+msgstr ""
+
+#: A2BAgent_UI/invoices.php:685 A2BAgent_UI/invoices_cust.php:590
+msgid "BILLING SERVICE"
+msgstr ""
+
+#: A2BAgent_UI/invoices.php:711
+msgid "EXTRA CHARGE"
+msgstr ""
+
+#: A2BAgent_UI/invoices.php:715 A2BAgent_UI/invoices.php:892
+#: A2BAgent_UI/invoices_cust.php:670 A2BAgent_UI/FG_var_agentpay.inc:25
+#: A2BAgent_UI/FG_var_charge.inc:37
+msgid "DATE"
+msgstr ""
+
+#: A2BAgent_UI/invoices.php:716
+msgid "NB CHARGE"
+msgstr ""
+
+#: A2BAgent_UI/invoices.php:717
+msgid "TOTALCOST"
+msgstr ""
+
+#: A2BAgent_UI/invoices.php:753 A2BAgent_UI/invoices.php:852
+#: A2BAgent_UI/invoices.php:954 A2BAgent_UI/invoices_cust.php:732
+msgid "VAT"
+msgstr ""
+
+#: A2BAgent_UI/invoices.php:786
+msgid "CALLS PER DESTINATION"
+msgstr ""
+
+#: A2BAgent_UI/invoices.php:790 A2BAgent_UI/invoices.php:893
+#: A2BAgent_UI/invoices_cust.php:671
+msgid "DUR"
+msgstr ""
+
+#: A2BAgent_UI/invoices.php:791 A2BAgent_UI/invoices.php:894
+#: A2BAgent_UI/invoices_cust.php:672
+msgid "GRAPHIC"
+msgstr ""
+
+#: A2BAgent_UI/invoices.php:792 A2BAgent_UI/invoices.php:895
+#: A2BAgent_UI/invoices_cust.php:673
+msgid "CALL"
+msgstr ""
+
+#: A2BAgent_UI/invoices.php:793 A2BAgent_UI/invoices.php:896
+#: A2BAgent_UI/invoices_cust.php:674
+msgid "TOTAL COST"
+msgstr ""
+
+#: A2BAgent_UI/invoices.php:864 A2BAgent_UI/invoices_cust.php:643
+msgid "BILL EVOLUTION"
+msgstr ""
+
+#: A2BAgent_UI/invoices.php:969 A2BAgent_UI/invoices_cust.php:464
+msgid "CALLS DETAIL"
+msgstr ""
+
+#: A2BAgent_UI/invoices.php:978
+msgid "Number of call"
+msgstr ""
+
+#: A2BAgent_UI/invoices.php:1078 A2BAgent_UI/invoices_cust.php:557
+msgid "TOTAL BUYCOSTS"
+msgstr ""
+
+#: A2BAgent_UI/invoices.php:1079 A2BAgent_UI/invoices_cust.php:558
+msgid "DIFFERENCE"
+msgstr ""
+
+#: A2BAgent_UI/invoices_cust.php:159
+msgid "Called Number"
+msgstr ""
+
+#: A2BAgent_UI/invoices_cust.php:161
+msgid "Credit"
+msgstr ""
+
+#: A2BAgent_UI/invoices_cust.php:411
+msgid "Select booth:"
+msgstr ""
+
+#: A2BAgent_UI/invoices_cust.php:536
+msgid "Sum:"
+msgstr ""
+
+#: A2BAgent_UI/invoices_cust.php:596
+msgid "CREDITS/CHARGES"
+msgstr ""
+
+#: A2BAgent_UI/invoices_cust.php:601 A2BAgent_UI/FG_var_booth.inc:34
+msgid "CREDIT"
+msgstr ""
+
+#: A2BAgent_UI/invoices_cust.php:602
+msgid "CHARGE"
+msgstr ""
+
+#: A2BAgent_UI/invoices_cust.php:761
+msgid "Do you want to charge the customer for one printing?"
+msgstr ""
+
+#: A2BAgent_UI/invoices_cust.php:772
+msgid "Print charge cancelled."
+msgstr ""
+
+#: A2BAgent_UI/invoices_cust.php:778
+msgid "Charge printing"
+msgstr ""
+
+#: A2BAgent_UI/invoices_cust.php:787
+msgid "Click OK if you have paid back %1 to the customer."
+msgstr ""
+
+#: A2BAgent_UI/invoices_cust.php:798
+msgid "Pay back cancelled."
+msgstr ""
+
+#: A2BAgent_UI/invoices_cust.php:808
+msgid "Click OK if you have received %1 from the customer as payment."
+msgstr ""
+
+#: A2BAgent_UI/invoices_cust.php:819
+msgid "Payment cancelled."
+msgstr ""
+
+#: A2BAgent_UI/pay.php:23
+msgid "Payment"
+msgstr ""
+
+#: A2BAgent_UI/pay.php:24
+msgid "Pay back"
+msgstr ""
+
+#: A2BAgent_UI/pay.php:49
+msgid "Paid "
+msgstr ""
+
+#: A2BAgent_UI/pay.php:50
+msgid "Paid back "
+msgstr ""
+
+#: A2BAgent_UI/pay.php:54
+msgid "Cannot pay session!"
+msgstr ""
+
+#: A2BAgent_UI/pay.php:63
+msgid "Back to booths"
+msgstr ""
+
+#: A2BAgent_UI/reports_choice.php:16
+msgid "Please choose report type:"
+msgstr ""
+
+#: A2BAgent_UI/reports_choice.php:18
+msgid "All calls"
+msgstr ""
+
+#: A2BAgent_UI/reports_choice.php:19
+msgid "Agent money situation"
+msgstr ""
+
+#: A2BAgent_UI/reports_choice.php:20
+msgid "Phone statistics"
+msgstr ""
+
+#: A2BAgent_UI/reports_choice.php:25
+msgid "Customer charges"
+msgstr ""
+
+#: A2BAgent_UI/reports_choice.php:26
+msgid "Agent payments"
+msgstr ""
+
+#: A2BAgent_UI/reports_choice.php:27
+msgid "Agent invoices"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_agent_invoicev.inc:57
+msgid "Failed"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_agent_invoicev.inc:58
+msgid "Successful"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_agent_invoicev.inc:66 A2BAgent_UI/FG_var_booth.inc:28
+#: A2BAgent_UI/FG_var_card.inc:20
+msgid "ID"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_agent_invoicev.inc:67
+msgid "INVOICEDATE"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_agent_invoicev.inc:68
+msgid "COVERSTART"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_agent_invoicev.inc:69
+msgid "COVEREND"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_agent_invoicev.inc:70
+msgid "SENTDATE"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_agent_invoicev.inc:71
+msgid "STATUS"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_agent_invoicev.inc:72
+msgid "PAYMENTSTATUS"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_agent_invoicev.inc:73 A2BAgent_UI/FG_var_agentpay.inc:26
+#: A2BAgent_UI/FG_var_charge.inc:38 A2BAgent_UI/FG_var_charge.inc:74
+msgid "AMOUNT"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_agent_invoicev.inc:80
+msgid "THERE IS NO INVOICES CREATED!"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_agentpay.inc:27 A2BAgent_UI/FG_var_charge.inc:39
+#: A2BAgent_UI/FG_var_charge.inc:83
+msgid "CHARGETYPE"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_agentpay.inc:35
+msgid "THERE ARE NO AGENT PAYMENTS YET!"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_booth.inc:12
+msgid "N/A"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_booth.inc:13
+msgid "Empty"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_booth.inc:14
+msgid "Idle"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_booth.inc:15
+msgid "Ready"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_booth.inc:16
+msgid "Active"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_booth.inc:17
+msgid "Disabled"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_booth.inc:18
+msgid "Stopped"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_booth.inc:29 A2BAgent_UI/FG_var_card.inc:22
+msgid "NAME"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_booth.inc:30
+msgid "LOCATION"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_booth.inc:32
+msgid "STATE"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_booth.inc:47
+msgid "NO BOOTHS HAVE BEEN CREATED!"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_booth.inc:49
+msgid "Booths"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_booth.inc:62
+msgid ""
+"You can modify, through the following form, the different properties of your "
+msgstr ""
+
+#: A2BAgent_UI/FG_var_card.inc:21
+msgid "CARD NUMBER"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_card.inc:23 A2BAgent_UI/FG_var_card.inc:140
+msgid "BALANCE"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_card.inc:23
+msgid "BA"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_card.inc:28
+msgid "NOW IN"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_card.inc:35
+msgid "Fill booth"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_card.inc:35
+msgid " with card "
+msgstr ""
+
+#: A2BAgent_UI/FG_var_card.inc:41
+msgid "Booth Filled"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_card.inc:43
+msgid "Cannot fill booth!"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_card.inc:48
+msgid "Empty booth "
+msgstr ""
+
+#: A2BAgent_UI/FG_var_card.inc:53
+msgid "Booth Emptied"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_card.inc:55
+msgid "Cannot empty booth! (Does it have zero balance?)"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_card.inc:67
+msgid "NO CARDS HAVE BEEN CREATED!"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_card.inc:69
+msgid "Customers"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_card.inc:83 A2BAgent_UI/FG_var_card.inc:88
+msgid "select"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_card.inc:93
+msgid "Charges"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_card.inc:98
+msgid "Pay"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_card.inc:131
+msgid "CARD NUMBER "
+msgstr ""
+
+#: A2BAgent_UI/FG_var_card.inc:137
+msgid "Insert the username"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_card.inc:146
+msgid "Insert the number of credit"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_card.inc:149
+msgid "LANGUAGE"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_card.inc:158
+msgid "LASTNAME"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_card.inc:164
+msgid "Insert the lastname of the customers"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_card.inc:167
+msgid "FIRSTNAME"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_card.inc:173
+msgid "Insert the firstname of the customers"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_card.inc:181
+msgid "EMAIL"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_card.inc:187
+msgid "Insert the email"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_card.inc:191
+msgid "ADDRESS"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_card.inc:197
+msgid "Insert the address of the customers"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_card.inc:201
+msgid "CITY"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_card.inc:207
+msgid "Insert the city"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_card.inc:211
+msgid "STATE/PROVINCE"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_card.inc:217
+msgid "Insert the state"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_card.inc:221
+msgid "COUNTRY"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_card.inc:227
+msgid "Insert the country"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_card.inc:231
+msgid "ZIP/POSTAL CODE"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_card.inc:237
+msgid "Insert the zipcode"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_card.inc:245
+msgid "Once you have completed the form above, click on the CONTINUE button."
+msgstr ""
+
+#: A2BAgent_UI/FG_var_charge.inc:36
+msgid "CARDNUMBER"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_charge.inc:46
+msgid "THERE IS NO CHARGE CREATED!"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_charge.inc:61
+msgid "ID CARD"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_charge.inc:67
+msgid "Insert the Id CardNumber"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_charge.inc:72
+msgid "Set the Card Number ID"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_charge.inc:80
+msgid "Insert the amount"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_charge.inc:81
+msgid "Amount, in "
+msgstr ""
+
+#: A2BAgent_UI/FG_var_charge.inc:98
+msgid "Insert the description"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_charge.inc:122
+msgid "Modify the properties of the charge"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_charge.inc:123
+msgid "If you really want remove this charge, click on the delete button."
+msgstr ""
+
+#: A2BAgent_UI/FG_var_charge.inc:124
+msgid ""
+"you can add easily a new charge.<br>Fill the following fields and confirm by "
+"clicking on the button add."
+msgstr ""
+
+#: A2BAgent_UI/FG_var_charge.inc:128
+msgid "Your new charge has been inserted. <br>"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_charge.inc:132
+msgid "Click 'Confirm Data' to continue"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_ratecard.inc:36
+msgid "GROUP"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_ratecard.inc:39
+msgid "PREFIX"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_ratecard.inc:40
+msgid "SR"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_ratecard.inc:41
+msgid "EXTRA"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_ratecard.inc:49
+msgid "THERE IS NO RATECARD CREATED!"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_ratecard.inc:56
+msgid "DIALPREFIX"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_ratecard.inc:62
+msgid "Insert the dialing prefix, such as for UK '44' or for US '1' "
+msgstr ""
+
+#: A2BAgent_UI/FG_var_ratecard.inc:63
+msgid "Define the destination prefix. ie, 44 for UK proper."
+msgstr ""
+
+#: A2BAgent_UI/FG_var_ratecard.inc:63
+msgid ""
+"You can use 'defaultprefix' to setup a rate by default for the destination "
+"for which you dont want to provide a specific rate.<br>"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_ratecard.inc:63
+msgid ""
+"IF YOU ADD A RATE AND NOT AN EDIT => You can also define several in the same "
+"time and range, as below: "
+msgstr ""
+
+#: A2BAgent_UI/FG_var_ratecard.inc:63
+msgid ""
+"<br>32484-32487 -> this would insert 32484, 32485, 32486, 32487 "
+"<br>32476,32477,32478 separate by comma"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_ratecard.inc:71
+msgid "Come on... Insert the destination name"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_ratecard.inc:75
+msgid "SELLING RATE"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_ratecard.inc:81
+msgid "Insert the initial rate"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_ratecard.inc:82
+msgid ""
+"Cost per minute for which you want to charge your customer. For example "
+"'0.02'"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_ratecard.inc:82
+msgid "Define the selling cost for customers..."
+msgstr ""

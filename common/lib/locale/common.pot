@@ -1,0 +1,1068 @@
+#: common/lib/Form/Class.RevRef.inc.php:139
+#: common/lib/Form/Class.RevRef2.inc.php:126
+msgid "No data found!"
+msgstr ""
+
+#: common/lib/Form/Class.RevRef.inc.php:143
+#: common/lib/Form/Class.RevRef2.inc.php:132
+msgid "Action"
+msgstr ""
+
+#: common/lib/Form/Class.RevRef.inc.php:149
+#: common/lib/Form/Class.RevRef.inc.php:151
+#: common/lib/Form/Class.RevRef2.inc.php:139
+msgid "Remove this"
+msgstr ""
+
+#: common/lib/Form/Class.RevRef.inc.php:206
+#: common/lib/Form/Class.RevRef2.inc.php:163
+msgid "No additional data found!"
+msgstr ""
+
+#: common/lib/Form/Class.RevRef.inc.php:208
+#: common/lib/Form/Class.RevRef2.inc.php:165
+msgid "Select one to add.."
+msgstr ""
+
+#: common/lib/Form/Class.RevRef.inc.php:214
+#: common/lib/Form/Class.RevRef.inc.php:280
+#: common/lib/Form/Class.RevRef2.inc.php:171
+msgid "Add this"
+msgstr ""
+
+#: common/lib/Form/Class.RevRef.inc.php:236
+msgid "Could not add!"
+msgstr ""
+
+#: common/lib/Form/Class.RevRef.inc.php:239
+msgid "Item added!"
+msgstr ""
+
+#: common/lib/Form/Class.RevRef.inc.php:252
+msgid "Could not delete!"
+msgstr ""
+
+#: common/lib/Form/Class.RevRef.inc.php:255
+msgid "Item deleted!"
+msgstr ""
+
+#: common/lib/Form/Class.RevRef.inc.php:305
+#: common/lib/Form/Class.RevRef2.inc.php:202
+msgid "Cannot insert new %1"
+msgstr ""
+
+#: common/lib/Form/Class.RevRef.inc.php:323
+#: common/lib/Form/Class.RevRef2.inc.php:215
+msgid "Cannot delete %1"
+msgstr ""
+
+#: common/lib/Form/Class.TextField.inc.php:40
+#: common/lib/Form/Class.OptionField.inc.php:47
+msgid "Edit this %1"
+msgstr ""
+
+#: common/lib/Form/Class.OptionField.inc.php:12
+msgid "Actions"
+msgstr ""
+
+#: common/lib/Form/Class.OptionField.inc.php:63
+#: common/lib/Form/Class.DeleteView.inc.php:50
+msgid "Delete this %1"
+msgstr ""
+
+#: common/lib/Form/Class.NumField.inc.php:81
+msgid "TRUE"
+msgstr ""
+
+#: common/lib/Form/Class.NumField.inc.php:83
+msgid "FALSE"
+msgstr ""
+
+#: common/lib/Form/Class.FormHelpers.inc.php:14
+msgid "item"
+msgstr ""
+
+#: common/lib/Form/Class.FormHelpers.inc.php:26
+msgid "Add a new %1"
+msgstr ""
+
+#: common/lib/Form/Class.DetailsView.inc.php:153
+#: common/lib/Form/Class.ListView.inc.php:116
+#: common/lib/Form/Class.EditView.inc.php:101
+msgid "No %1 found!"
+msgstr ""
+
+#: common/lib/Form/Class.TimeField.inc.php:12
+msgid "IYYY-MM-DD HH24:MI:SS TZ"
+msgstr ""
+
+#: common/lib/Form/Class.SqlRefField.inc.php:107
+msgid "(none)"
+msgstr ""
+
+#: common/lib/Form/Class.DeleteView.inc.php:17
+msgid "This %1 will be deleted!"
+msgstr ""
+
+#: common/lib/Form/Class.DeleteView.inc.php:119
+msgid "Cannot delete %1, database error."
+msgstr ""
+
+#: common/lib/Form/Class.DeleteView.inc.php:126
+msgid "Cannot delete %1, record not found."
+msgstr ""
+
+#: common/lib/Form/Class.DeleteView.inc.php:130
+msgid "Record successfully removed from the database."
+msgstr ""
+
+#: common/lib/Form/Class.ActionForm.inc.php:24
+msgid "Action finished successfully!"
+msgstr ""
+
+#: common/lib/Form/Class.ActionForm.inc.php:25
+msgid "Action failed: %1"
+msgstr ""
+
+#: common/lib/Form/Class.SqlActionForm.inc.php:39
+msgid "database error"
+msgstr ""
+
+#: common/lib/Form/Class.SqlActionForm.inc.php:47
+msgid "no rows"
+msgstr ""
+
+#: common/lib/Form/Class.ListView.inc.php:160
+#: common/lib/old/Class.ViewHandler.inc.php:414
+msgid "DISPLAY"
+msgstr ""
+
+#: common/lib/Form/Class.ListView.inc.php:168
+msgid "All"
+msgstr ""
+
+#: common/lib/Form/Class.ListView.inc.php:170
+#: common/lib/old/Class.ViewHandler.inc.php:423
+msgid "GO"
+msgstr ""
+
+#: common/lib/Form/Class.ListView.inc.php:183
+msgid "First"
+msgstr ""
+
+#: common/lib/Form/Class.ListView.inc.php:184
+msgid "Prev"
+msgstr ""
+
+#: common/lib/Form/Class.ListView.inc.php:215
+msgid "Next"
+msgstr ""
+
+#: common/lib/Form/Class.EditView.inc.php:137
+msgid "Update this %1"
+msgstr ""
+
+#: common/lib/Form/Class.EditView.inc.php:223
+msgid "Cannot update %1, database error."
+msgstr ""
+
+#: common/lib/Form/Class.EditView.inc.php:230
+msgid "Cannot update %1, record not found."
+msgstr ""
+
+#: common/lib/Form/Class.EditView.inc.php:234
+msgid "Data has successfully been updated in the database."
+msgstr ""
+
+#: common/lib/Form/Class.AddView.inc.php:59
+msgid "Create this %1"
+msgstr ""
+
+#: common/lib/Form/Class.AddView.inc.php:145
+msgid "Cannot create new %1, database error."
+msgstr ""
+
+#: common/lib/Form/Class.AddView.inc.php:150
+msgid "New data has successfully been inserted into the database."
+msgstr ""
+
+#: common/lib/Form/Class.ImportView.inc.php:33
+msgid "Please, you must first select a file !"
+msgstr ""
+
+#: common/lib/Form/Class.ImportView.inc.php:238
+msgid "New %1 have to be imported from a CSV file."
+msgstr ""
+
+#: common/lib/Form/Class.ImportView.inc.php:246
+msgid "Common fields"
+msgstr ""
+
+#: common/lib/Form/Class.ImportView.inc.php:256
+msgid "Mandatory fields"
+msgstr ""
+
+#: common/lib/Form/Class.ImportView.inc.php:266
+msgid "Optional fields"
+msgstr ""
+
+#: common/lib/Form/Class.ImportView.inc.php:270
+msgid "Unselected Fields..."
+msgstr ""
+
+#: common/lib/Form/Class.ImportView.inc.php:279
+msgid "Add field"
+msgstr ""
+
+#: common/lib/Form/Class.ImportView.inc.php:281
+msgid "Remove field"
+msgstr ""
+
+#: common/lib/Form/Class.ImportView.inc.php:284
+msgid "Selected Fields..."
+msgstr ""
+
+#: common/lib/Form/Class.ImportView.inc.php:289
+msgid "Move up"
+msgstr ""
+
+#: common/lib/Form/Class.ImportView.inc.php:291
+msgid "Move down"
+msgstr ""
+
+#: common/lib/Form/Class.ImportView.inc.php:302
+msgid "Upload File"
+msgstr ""
+
+#: common/lib/Form/Class.ImportView.inc.php:303
+msgid "File"
+msgstr ""
+
+#: common/lib/Form/Class.ImportView.inc.php:306
+msgid "The maximum file size is %1 KB"
+msgstr ""
+
+#: common/lib/Form/Class.ImportView.inc.php:314
+msgid "Submit"
+msgstr ""
+
+#: common/lib/Form/Class.ImportView.inc.php:316
+msgid "Import %1"
+msgstr ""
+
+#: common/lib/Form/Class.ImportView.inc.php:322
+msgid "Examples"
+msgstr ""
+
+#: common/lib/Form/Class.ImportView.inc.php:325
+msgid ""
+"Use the example below  to format the CSV file. Fields are separated by  ; "
+"or : </br>"
+msgstr ""
+
+#: common/lib/Form/Class.ImportView.inc.php:366
+msgid "File has not been posted at all!"
+msgstr ""
+
+#: common/lib/Form/Class.ImportView.inc.php:375
+msgid "File size exceeds %1 limit of the system!"
+msgstr ""
+
+#: common/lib/Form/Class.ImportView.inc.php:380
+msgid "File size exceeds %1 limit for this action!"
+msgstr ""
+
+#: common/lib/Form/Class.ImportView.inc.php:385
+msgid "The uploaded file was only partially uploaded."
+msgstr ""
+
+#: common/lib/Form/Class.ImportView.inc.php:390
+msgid "No file was uploaded."
+msgstr ""
+
+#: common/lib/Form/Class.ImportView.inc.php:395
+#: common/lib/Form/Class.ImportView.inc.php:400
+#: common/lib/Form/Class.ImportView.inc.php:405
+#: common/lib/Form/Class.ImportView.inc.php:436
+#: common/lib/Form/Class.ImportView.inc.php:446
+msgid "Internal error, could not upload."
+msgstr ""
+
+#: common/lib/Form/Class.ImportView.inc.php:412
+msgid "Cannot accept file of type %1. Allowed types are: %2."
+msgstr ""
+
+#: common/lib/Form/Class.ImportView.inc.php:425
+msgid "Error in submitted form."
+msgstr ""
+
+#: common/lib/Form/Class.ImportView.inc.php:472
+msgid "Analyzing uploaded data..."
+msgstr ""
+
+#: common/lib/Form/Class.ImportView.inc.php:479
+#: common/lib/Form/Class.ImportView.inc.php:760
+msgid "Error: Cannot open uploaded file"
+msgstr ""
+
+#: common/lib/Form/Class.ImportView.inc.php:586
+msgid "Import these %1"
+msgstr ""
+
+#: common/lib/Form/Class.ImportView.inc.php:654
+msgid "Session Error, cannot import!"
+msgstr ""
+
+#: common/lib/Form/Class.ImportView.inc.php:663
+msgid "Session Error, file vanished!"
+msgstr ""
+
+#: common/lib/Form/Class.ImportView.inc.php:673
+msgid "Session Error !"
+msgstr ""
+
+#: common/lib/Form/Class.ImportView.inc.php:687
+msgid "Importing uploaded data..."
+msgstr ""
+
+#: common/lib/Form/Class.ImportView.inc.php:817
+msgid "Database error, cannot import!"
+msgstr ""
+
+#: common/lib/Form/Class.ImportView.inc.php:827
+msgid "Database error, rows not imported!"
+msgstr ""
+
+#: common/lib/Form/Class.ImportView.inc.php:867
+msgid "Database error, secondary rows not imported!"
+msgstr ""
+
+#: common/lib/Form/Class.ImportView.inc.php:888
+#: common/lib/Form/Class.ImportView.inc.php:890
+#: common/lib/Form/Class.ImportView.inc.php:902
+#: common/lib/Form/Class.ImportView.inc.php:904
+msgid "%1 lines processed: %2 rows"
+msgstr ""
+
+#: common/lib/Form/Class.ImportView.inc.php:909
+msgid "Import of data aborted."
+msgstr ""
+
+#: common/lib/Misc.inc.php:569
+msgid "File size is greater than allowed limit."
+msgstr ""
+
+#: common/lib/Misc.inc.php:573
+msgid "You did not upload anything!"
+msgstr ""
+
+#: common/lib/Misc.inc.php:577
+msgid "Failed to upload the file, The file you uploaded may not exist on disk."
+msgstr ""
+
+#: common/lib/Misc.inc.php:583
+msgid "file type is not allowed"
+msgstr ""
+
+#: common/lib/old/Class.A2Billing.old.php:340
+msgid "Invalid card number lenght defined in configuration."
+msgstr ""
+
+#: common/lib/old/Class.A2Billing.old.php:1859
+#: common/lib/old/Class.A2Billing.old.php:1865
+msgid "Error : Not enough credit to call !!!"
+msgstr ""
+
+#: common/lib/old/Class.A2Billing.old.php:1872
+msgid "Error : Card is not active!!!"
+msgstr ""
+
+#: common/lib/old/Class.A2Billing.old.php:1878
+msgid "Error : Card is actually in use!!!"
+msgstr ""
+
+#: common/lib/old/Class.A2Billing.old.php:1887
+#: common/lib/old/Class.A2Billing.old.php:1895
+#: common/lib/old/Class.A2Billing.old.php:1903
+msgid "Error : Card have expired!!!"
+msgstr ""
+
+#: common/lib/old/Class.FormHandler.AddForm.inc.php:229
+msgid "Create a new "
+msgstr ""
+
+#: common/lib/old/Class.FormHandler.DelForm.inc.php:42
+msgid "Message"
+msgstr ""
+
+#: common/lib/old/Class.FormHandler.DelForm.inc.php:49
+msgid "You have "
+msgstr ""
+
+#: common/lib/old/Class.FormHandler.DelForm.inc.php:155
+msgid "No data found !!!"
+msgstr ""
+
+#: common/lib/old/Class.FormHandler.DelForm.inc.php:202
+msgid "Remove this "
+msgstr ""
+
+#: common/lib/old/Class.FormHandler.inc.php:475
+msgid "THERE IS NO RECORD !!!"
+msgstr ""
+
+#: common/lib/old/Class.FormHandler.inc.php:476
+msgid "DIRECTORY"
+msgstr ""
+
+#: common/lib/old/Class.FormHandler.inc.php:477
+#: common/lib/old/Class.FormHandler.inc.php:544
+msgid "Define criteria to make a precise search"
+msgstr ""
+
+#: common/lib/old/Class.FormHandler.inc.php:478
+msgid "You can browse through our"
+msgstr ""
+
+#: common/lib/old/Class.FormHandler.inc.php:478
+msgid "and modify their different properties<br>"
+msgstr ""
+
+#: common/lib/old/Class.FormHandler.inc.php:479
+msgid "Delete this record"
+msgstr ""
+
+#: common/lib/old/Class.FormHandler.inc.php:480
+msgid "Edit this record"
+msgstr ""
+
+#: common/lib/old/Class.FormHandler.inc.php:481
+msgid ""
+"The document has been created correctly. Now, you can define the different "
+"tariff that you want to associate."
+msgstr ""
+
+#: common/lib/old/Class.FormHandler.inc.php:482
+msgid ""
+"You can modify, through the following form, the different properties of your"
+msgstr ""
+
+#: common/lib/old/Class.FormHandler.inc.php:483
+msgid "If you really want remove this"
+msgstr ""
+
+#: common/lib/old/Class.FormHandler.inc.php:483
+msgid "Click on the delete button."
+msgstr ""
+
+#: common/lib/old/Class.FormHandler.inc.php:485
+msgid "One"
+msgstr ""
+
+#: common/lib/old/Class.FormHandler.inc.php:485
+msgid "has been deleted!"
+msgstr ""
+
+#: common/lib/old/Class.FormHandler.inc.php:487
+msgid "you can add easily a new"
+msgstr ""
+
+#: common/lib/old/Class.FormHandler.inc.php:487
+msgid "Fill the following fields and confirm by clicking on the button add."
+msgstr ""
+
+#: common/lib/old/Class.FormHandler.inc.php:488
+msgid "Add a"
+msgstr ""
+
+#: common/lib/old/Class.FormHandler.inc.php:488
+msgid "now."
+msgstr ""
+
+#: common/lib/old/Class.FormHandler.inc.php:489
+msgid "Your new"
+msgstr ""
+
+#: common/lib/old/Class.FormHandler.inc.php:489
+msgid "has been inserted. <br>"
+msgstr ""
+
+#: common/lib/old/Class.FormHandler.inc.php:490
+msgid "You cannot choose more than one !"
+msgstr ""
+
+#: common/lib/old/Class.FormHandler.inc.php:492
+msgid "Are you sure to delete all records connected to this instance."
+msgstr ""
+
+#: common/lib/old/Class.FormHandler.inc.php:494
+#: common/lib/old/Class.FormHandler.inc.php:496
+msgid "CONFIRM DATA"
+msgstr ""
+
+#: common/lib/old/Class.FormHandler.inc.php:495
+msgid "DELETE"
+msgstr ""
+
+#: common/lib/old/Class.FormHandler.inc.php:534
+#: common/lib/old/Class.FormHandler.inc.php:791
+msgid "Delete this "
+msgstr ""
+
+#: common/lib/old/Class.FormHandler.inc.php:535
+#: common/lib/old/Class.FormHandler.inc.php:785
+msgid "Edit this "
+msgstr ""
+
+#: common/lib/old/Class.FormHandler.inc.php:762
+#: common/lib/old/Class.FormHandler.inc.php:764
+msgid "You can browse through our "
+msgstr ""
+
+#: common/lib/old/Class.FormHandler.inc.php:762
+#: common/lib/old/Class.FormHandler.inc.php:764
+msgid " and modify their different properties<br>"
+msgstr ""
+
+#: common/lib/old/Class.FormHandler.inc.php:951
+msgid "(at least 3 characters)"
+msgstr ""
+
+#: common/lib/old/Class.FormHandler.inc.php:955
+msgid "(must match email structure. Example : name@domain.com)"
+msgstr ""
+
+#: common/lib/old/Class.FormHandler.inc.php:959
+msgid "(at least 5 successive characters appear at the end of this string)"
+msgstr ""
+
+#: common/lib/old/Class.FormHandler.inc.php:963
+msgid "(at least 4 characters)"
+msgstr ""
+
+#: common/lib/old/Class.FormHandler.inc.php:967
+msgid "(number format)"
+msgstr ""
+
+#: common/lib/old/Class.FormHandler.inc.php:975
+msgid "(only number with more that 8 digits)"
+msgstr ""
+
+#: common/lib/old/Class.FormHandler.inc.php:979
+msgid "(at least 8 digits using . or - or the space key)"
+msgstr ""
+
+#: common/lib/old/Class.FormHandler.inc.php:983
+msgid "network adress format"
+msgstr ""
+
+#: common/lib/old/Class.FormHandler.inc.php:987
+msgid "at least 1 character"
+msgstr ""
+
+#: common/lib/old/Class.FormHandler.inc.php:995
+msgid "(AT LEAST 2 CARACTERS)"
+msgstr ""
+
+#: common/lib/old/Class.FormHandler.inc.php:999
+msgid "(NUMBER FORMAT WITH/WITHOUT DECIMAL, use '.' for decimal)"
+msgstr ""
+
+#: common/lib/old/Class.FormHandler.inc.php:1015
+msgid "You must write something."
+msgstr ""
+
+#: common/lib/old/Class.FormHandler.inc.php:1019
+msgid "8 characters alphanumeric"
+msgstr ""
+
+#: common/lib/old/Class.FormHandler.inc.php:1026
+msgid "(at least 6 Alphanumeric characters)"
+msgstr ""
+
+#: common/lib/old/Class.FormHandler.inc.php:1532
+msgid "This did is in use by customer id:"
+msgstr ""
+
+#: common/lib/old/Class.FormHandler.inc.php:1663
+#: common/lib/old/Class.FormHandler.inc.php:1705
+msgid "Could not open buddy file"
+msgstr ""
+
+#: common/lib/old/Class.FormHandler.inc.php:1680
+#: common/lib/old/Class.FormHandler.inc.php:1710
+#: common/lib/old/Class.FormHandler.inc.php:1722
+msgid "Impossible to write to the file"
+msgstr ""
+
+#: common/lib/old/Class.FormHandler.inc.php:1883
+#: common/lib/old/Class.FormHandler.inc.php:1938
+msgid "<br> GOTO ; "
+msgstr ""
+
+#: common/lib/old/Class.FormHandler.inc.php:1932
+msgid "error deletion"
+msgstr ""
+
+#: common/lib/old/Class.FormHandler.inc.php:2064
+msgid "ERROR_DUPLICATION"
+msgstr ""
+
+#: common/lib/old/Class.FormHandler.inc.php:2149
+msgid "Done"
+msgstr ""
+
+#: common/lib/old/Class.FormHandler.inc.php:2177
+#: common/lib/old/Class.FormHandler.inc.php:2290
+msgid "THE CURRENT RATECARD"
+msgstr ""
+
+#: common/lib/old/Class.FormHandler.inc.php:2188
+msgid "R A T E C A R D"
+msgstr ""
+
+#: common/lib/old/Class.FormHandler.inc.php:2194
+#: common/lib/old/Class.FormHandler.inc.php:2307
+msgid "Choose a ratecard"
+msgstr ""
+
+#: common/lib/old/Class.FormHandler.inc.php:2205
+#: common/lib/old/Class.FormHandler.inc.php:2265
+#: common/lib/old/Class.SearchHandler.inc.php:265
+msgid "Search"
+msgstr ""
+
+#: common/lib/old/Class.FormHandler.inc.php:2232
+msgid "None"
+msgstr ""
+
+#: common/lib/old/Class.FormHandler.inc.php:2301
+#: common/lib/old/Class.SearchHandler.inc.php:320
+msgid "RATECARD"
+msgstr ""
+
+#: common/lib/old/Class.SearchHandler.inc.php:28
+msgid "January"
+msgstr ""
+
+#: common/lib/old/Class.SearchHandler.inc.php:28
+msgid "February"
+msgstr ""
+
+#: common/lib/old/Class.SearchHandler.inc.php:28
+msgid "March"
+msgstr ""
+
+#: common/lib/old/Class.SearchHandler.inc.php:28
+msgid "April"
+msgstr ""
+
+#: common/lib/old/Class.SearchHandler.inc.php:28
+msgid "May"
+msgstr ""
+
+#: common/lib/old/Class.SearchHandler.inc.php:28
+msgid "June"
+msgstr ""
+
+#: common/lib/old/Class.SearchHandler.inc.php:28
+msgid "July"
+msgstr ""
+
+#: common/lib/old/Class.SearchHandler.inc.php:28
+msgid "August"
+msgstr ""
+
+#: common/lib/old/Class.SearchHandler.inc.php:28
+msgid "September"
+msgstr ""
+
+#: common/lib/old/Class.SearchHandler.inc.php:28
+msgid "October"
+msgstr ""
+
+#: common/lib/old/Class.SearchHandler.inc.php:28
+msgid "November"
+msgstr ""
+
+#: common/lib/old/Class.SearchHandler.inc.php:28
+msgid "December"
+msgstr ""
+
+#: common/lib/old/Class.SearchHandler.inc.php:78
+msgid "From :"
+msgstr ""
+
+#: common/lib/old/Class.SearchHandler.inc.php:106
+msgid "To :"
+msgstr ""
+
+#: common/lib/old/Class.SearchHandler.inc.php:181
+msgid "Exact"
+msgstr ""
+
+#: common/lib/old/Class.SearchHandler.inc.php:182
+msgid "Begins with"
+msgstr ""
+
+#: common/lib/old/Class.SearchHandler.inc.php:183
+msgid "Contains"
+msgstr ""
+
+#: common/lib/old/Class.SearchHandler.inc.php:184
+msgid "Ends with"
+msgstr ""
+
+#: common/lib/old/Class.SearchHandler.inc.php:291
+msgid "There is"
+msgstr ""
+
+#: common/lib/old/Class.SearchHandler.inc.php:291
+msgid ""
+"selected, use the option below if you are willing to make a batch updated of "
+"the selected cards."
+msgstr ""
+
+#: common/lib/old/Class.SearchHandler.inc.php:339
+msgid "BUYRATE"
+msgstr ""
+
+#: common/lib/old/Class.SearchHandler.inc.php:342
+#: common/lib/old/Class.SearchHandler.inc.php:357
+#: common/lib/old/Class.SearchHandler.inc.php:373
+#: common/lib/old/Class.SearchHandler.inc.php:389
+#: common/lib/old/Class.SearchHandler.inc.php:405
+#: common/lib/old/Class.SearchHandler.inc.php:421
+#: common/lib/old/Class.SearchHandler.inc.php:437
+#: common/lib/old/Class.SearchHandler.inc.php:453
+msgid "Equal"
+msgstr ""
+
+#: common/lib/old/Class.SearchHandler.inc.php:343
+#: common/lib/old/Class.SearchHandler.inc.php:358
+#: common/lib/old/Class.SearchHandler.inc.php:374
+#: common/lib/old/Class.SearchHandler.inc.php:390
+#: common/lib/old/Class.SearchHandler.inc.php:406
+#: common/lib/old/Class.SearchHandler.inc.php:422
+#: common/lib/old/Class.SearchHandler.inc.php:438
+#: common/lib/old/Class.SearchHandler.inc.php:454
+msgid "Add"
+msgstr ""
+
+#: common/lib/old/Class.SearchHandler.inc.php:344
+#: common/lib/old/Class.SearchHandler.inc.php:359
+#: common/lib/old/Class.SearchHandler.inc.php:375
+#: common/lib/old/Class.SearchHandler.inc.php:391
+#: common/lib/old/Class.SearchHandler.inc.php:407
+#: common/lib/old/Class.SearchHandler.inc.php:423
+#: common/lib/old/Class.SearchHandler.inc.php:439
+#: common/lib/old/Class.SearchHandler.inc.php:455
+msgid "Substract"
+msgstr ""
+
+#: common/lib/old/Class.SearchHandler.inc.php:354
+msgid "BUYRATEINITBLOCK"
+msgstr ""
+
+#: common/lib/old/Class.SearchHandler.inc.php:370
+msgid "BUYRATEINCREMENT"
+msgstr ""
+
+#: common/lib/old/Class.SearchHandler.inc.php:386
+msgid "RATE INITIAL"
+msgstr ""
+
+#: common/lib/old/Class.SearchHandler.inc.php:402
+msgid "MIN DURATION"
+msgstr ""
+
+#: common/lib/old/Class.SearchHandler.inc.php:418
+msgid "BILLINGBLOCK"
+msgstr ""
+
+#: common/lib/old/Class.SearchHandler.inc.php:434
+msgid "CONNECTCHARGE"
+msgstr ""
+
+#: common/lib/old/Class.SearchHandler.inc.php:450
+msgid "DISCONNECTCHARGE"
+msgstr ""
+
+#: common/lib/old/Class.SearchHandler.inc.php:463
+msgid " BATCH UPDATE RATECARD "
+msgstr ""
+
+#: common/lib/old/Class.ViewHandler.inc.php:47
+msgid "Archiving All "
+msgstr ""
+
+#: common/lib/old/Class.ViewHandler.inc.php:60
+msgid "Sort"
+msgstr ""
+
+#: common/lib/old/Class.ViewHandler.inc.php:80
+msgid "Records"
+msgstr ""
+
+#: common/lib/old/Class.ViewHandler.inc.php:100
+msgid "FILTER ON "
+msgstr ""
+
+#: common/lib/old/Class.ViewHandler.inc.php:117
+msgid "FILTER ON"
+msgstr ""
+
+#: common/lib/old/Class.ViewHandler.inc.php:130
+msgid "APPLY FILTER "
+msgstr ""
+
+#: common/lib/old/Class.ViewHandler.inc.php:166
+msgid "ACTION"
+msgstr ""
+
+#: common/lib/old/Class.ViewHandler.inc.php:427
+msgid "Export CSV"
+msgstr ""
+
+#: common/lib/old/Class.ViewHandler.inc.php:431
+msgid "Export XML"
+msgstr ""
+
+#: common/lib/languageSettings.inc.php:25
+msgid "English"
+msgstr ""
+
+#: common/lib/languageSettings.inc.php:26
+msgid "Arabic"
+msgstr ""
+
+#: common/lib/languageSettings.inc.php:27
+msgid "Brazilian"
+msgstr ""
+
+#: common/lib/languageSettings.inc.php:28
+msgid "Chinese"
+msgstr ""
+
+#: common/lib/languageSettings.inc.php:29
+msgid "French"
+msgstr ""
+
+#: common/lib/languageSettings.inc.php:30
+msgid "German"
+msgstr ""
+
+#: common/lib/languageSettings.inc.php:31
+msgid "Greek"
+msgstr ""
+
+#: common/lib/languageSettings.inc.php:32
+msgid "Italian"
+msgstr ""
+
+#: common/lib/languageSettings.inc.php:33
+msgid "Polish"
+msgstr ""
+
+#: common/lib/languageSettings.inc.php:34
+msgid "Portuguese"
+msgstr ""
+
+#: common/lib/languageSettings.inc.php:35
+msgid "Romanian"
+msgstr ""
+
+#: common/lib/languageSettings.inc.php:36
+msgid "Russian"
+msgstr ""
+
+#: common/lib/languageSettings.inc.php:37
+msgid "Spanish"
+msgstr ""
+
+#: common/lib/languageSettings.inc.php:38
+msgid "Turkish"
+msgstr ""
+
+#: common/lib/languageSettings.inc.php:39
+msgid "Urdu"
+msgstr ""
+
+#: common/lib/Class.CallShop.inc.php:47
+msgid "Open"
+msgstr ""
+
+#: common/lib/Class.CallShop.inc.php:47
+msgid "Waiting for response"
+msgstr ""
+
+#: common/lib/Class.CallShop.inc.php:47
+msgid "Receiving"
+msgstr ""
+
+#: common/lib/Class.CallShop.inc.php:77
+msgid "Error Page"
+msgstr ""
+
+#: common/lib/Class.CallShop.inc.php:80
+msgid "Cannot locate booths"
+msgstr ""
+
+#: common/lib/Class.CallShop.inc.php:88
+msgid "No booths"
+msgstr ""
+
+#: common/lib/Class.CallShop.inc.php:91
+msgid "No booths!<br>Please ask the administrators to create you some."
+msgstr ""
+
+#: common/lib/Class.CallShop.inc.php:98
+msgid "Welcome!"
+msgstr ""
+
+#: common/lib/Class.CallShop.inc.php:114
+msgid "Credit:"
+msgstr ""
+
+#: common/lib/Class.CallShop.inc.php:116
+msgid "Start"
+msgstr ""
+
+#: common/lib/Class.CallShop.inc.php:117
+msgid "Stop"
+msgstr ""
+
+#: common/lib/Class.CallShop.inc.php:118
+msgid "Pay"
+msgstr ""
+
+#: common/lib/Class.CallShop.inc.php:119
+msgid "Enable"
+msgstr ""
+
+#: common/lib/Class.CallShop.inc.php:120
+msgid "Disable"
+msgstr ""
+
+#: common/lib/Class.CallShop.inc.php:121
+msgid "Unload"
+msgstr ""
+
+#: common/lib/Class.CallShop.inc.php:122
+msgid "One-Time"
+msgstr ""
+
+#: common/lib/Class.CallShop.inc.php:123 common/lib/BoothsXML.inc.php:36
+msgid "Empty"
+msgstr ""
+
+#: common/lib/Class.CallShop.inc.php:124
+msgid "Member"
+msgstr ""
+
+#: common/lib/Class.CallShop.inc.php:125
+msgid "New"
+msgstr ""
+
+#: common/lib/Class.CallShop.inc.php:128
+msgid "Add:"
+msgstr ""
+
+#: common/lib/Class.CallShop.inc.php:144
+msgid "Refresh"
+msgstr ""
+
+#: common/lib/Class.CallShop.inc.php:146
+msgid "Response:"
+msgstr ""
+
+#: common/lib/BoothsXML.inc.php:35
+msgid "N/A"
+msgstr ""
+
+#: common/lib/BoothsXML.inc.php:35
+msgid "Not available, no cards configured."
+msgstr ""
+
+#: common/lib/BoothsXML.inc.php:36
+msgid "No customer attached."
+msgstr ""
+
+#: common/lib/BoothsXML.inc.php:37
+msgid "Idle"
+msgstr ""
+
+#: common/lib/BoothsXML.inc.php:37
+msgid "Customer attached, inactive"
+msgstr ""
+
+#: common/lib/BoothsXML.inc.php:38
+msgid "Ready"
+msgstr ""
+
+#: common/lib/BoothsXML.inc.php:38
+msgid "Waiting for calls"
+msgstr ""
+
+#: common/lib/BoothsXML.inc.php:39
+msgid "Active"
+msgstr ""
+
+#: common/lib/BoothsXML.inc.php:39
+msgid "Calls made, charged"
+msgstr ""
+
+#: common/lib/BoothsXML.inc.php:40
+msgid "Disabled"
+msgstr ""
+
+#: common/lib/BoothsXML.inc.php:40
+msgid "Disabled by the agent"
+msgstr ""
+
+#: common/lib/BoothsXML.inc.php:41
+msgid "Stopped"
+msgstr ""
+
+#: common/lib/BoothsXML.inc.php:41
+msgid "Calls made, charged, stopped"
+msgstr ""
+
+#: common/lib/BoothsXML.inc.php:54
+msgid "Booth disabled"
+msgstr ""
+
+#: common/lib/BoothsXML.inc.php:62
+msgid "Booth stopped"
+msgstr ""
+
+#: common/lib/BoothsXML.inc.php:64 common/lib/BoothsXML.inc.php:76
+#: common/lib/BoothsXML.inc.php:88 common/lib/BoothsXML.inc.php:100
+#: common/lib/BoothsXML.inc.php:140
+msgid "Action failed:"
+msgstr ""
+
+#: common/lib/BoothsXML.inc.php:74 common/lib/BoothsXML.inc.php:86
+#: common/lib/BoothsXML.inc.php:98
+msgid "Booth started"
+msgstr ""
+
+#: common/lib/BoothsXML.inc.php:109
+msgid "Invalid sum for refill"
+msgstr ""
+
+#: common/lib/BoothsXML.inc.php:120
+msgid "Credit added to booth"
+msgstr ""
+
+#: common/lib/BoothsXML.inc.php:123
+msgid "Refill failed: do you have enough credit?"
+msgstr ""
+
+#: common/lib/BoothsXML.inc.php:138
+msgid "Booth emptied"
+msgstr ""
+
+#: common/lib/BoothsXML.inc.php:167 common/lib/BoothsXML.inc.php:175
+msgid "Database query failed!"
+msgstr ""
