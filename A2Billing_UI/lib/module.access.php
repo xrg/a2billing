@@ -107,7 +107,7 @@ require_once(DIR_COMMON."languageSettings.inc.php");
 	//define ("LANGUAGE_DIR",FSROOT."lib/languages/".LANGUAGE."/");
 
     $lang_abbr=SetLocalLanguage($_SESSION["language"]);
-    if ($FG_DEBUG >0) trigger_error("lang abbr: $lang_abbr",E_USER_NOTICE);
+    if ($FG_DEBUG >5) trigger_error("lang abbr: $lang_abbr",E_USER_NOTICE);
     
 //     if (isset($_SESSION['agent_id']) && ($_SESSION['cus_rights'] != 0) && isset($_SESSION["lang_db"]) && ($_SESSION["lang_db"]) != $lang_abbr) {
 //     	$DBconn_tmp=DbConnect();

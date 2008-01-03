@@ -78,7 +78,7 @@ function SetLocalLanguage($set_lang) {
 	textdomain($domain);
 	bind_textdomain_codeset($domain,$charEncoding);
 	define('CHARSET', $charEncoding);
-	if ($FG_DEBUG>=4)
+	if ($FG_DEBUG>5)
 		trigger_error("Locale: " . setlocale(LC_MESSAGES,0) ." : " . $slectedLanguage,E_USER_NOTICE);
 	
 	return $ret;

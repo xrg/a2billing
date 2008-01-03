@@ -17,7 +17,7 @@ function BoothsDom($action, $actb, $agent_clause = 'AND false'){
 	global $FG_DEBUG;
 	$dbhandle = &A2Billing::instance()->DBHandle();
 	// Prepare the XML DOM structure
-	$dom = new DomDocument("1.0","utf-8");
+	$dom = new DOMDocument("1.0","utf-8");
 	
 		// $_SESSION["pr_login"];
 	
