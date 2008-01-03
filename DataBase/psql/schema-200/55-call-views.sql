@@ -1,6 +1,6 @@
 -- Views for calls
 
-DROP TRIGGER IF EXISTS cc_call_check_invoice;
+DROP TRIGGER IF EXISTS cc_call_check_invoice ON cc_call;
 CREATE TRIGGER cc_call_check_invoice BEFORE UPDATE OR DELETE ON cc_call
 	FOR EACH ROW EXECUTE PROCEDURE cc_invoice_lock_f();
 

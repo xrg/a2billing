@@ -7,6 +7,10 @@ A2B_DB=a2billing
 A2B_GROUP=a2b_group
 
 for DBSCRIPT in schema-200/* ; do
+	DBNUM=$(basename $DBSCRIPT | sed 's/^\([0-9]\+\)-.*$/\1/')
+	if [ "$DBNUM" -lt 50 ] ; then
+		continue
+	fi
 	if grep 'CREATE TABLE' $DBSCRIPT > /dev/null ; then
 		echo 'Skiping'  "$DBSCRIPT"
 		continue
