@@ -19,7 +19,8 @@ $SEL_Form->model[] = new SqlRefField(_("Agent"),'agentid','cc_agent','id','name'
 $CS_Form->agentid=$SEL_Form->getpost_single('agentid');
 
 $PAGE_ELEMS[] = &$SEL_Form;
-$PAGE_ELEMS[] = &$CS_Form;
+if (!empty($CS_Form->agentid))
+	$PAGE_ELEMS[] = &$CS_Form;
 
 require("PP_page.inc.php");
 
