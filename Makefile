@@ -46,7 +46,7 @@ common/lib/locale/$(2)/LC_MESSAGES/$(1).po: common/lib/locale/$(1).pot
 	msgmerge --backup=numbered -U $$@ $$<
 
 common/lib/locale/$(2)/LC_MESSAGES/$(1).mo: common/lib/locale/$(2)/LC_MESSAGES/$(1).po common/lib/locale/$(2)/LC_MESSAGES/common.po
-	msgfmt -o $$@ $$^
+	msgcat --use-first $$^ | msgfmt -o $$@ '-'
 	
 pofiles: common/lib/locale/$(2)/LC_MESSAGES/$(1).po common/lib/locale/$(2)/LC_MESSAGES/common.po
 binaries: common/lib/locale/$(2)/LC_MESSAGES/$(1).mo
