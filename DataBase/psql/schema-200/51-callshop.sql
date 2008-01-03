@@ -12,7 +12,7 @@
 -- it on a db loaded with data.
 
 CREATE OR REPLACE VIEW cc_booth_v AS
-	SELECT cc_booth.id AS id, cc_booth.agentid AS owner,
+	SELECT cc_booth.id AS id, cc_booth.agentid,
 		cc_booth.name, cc_booth.location,
 		cc_card.credit, cc_card.currency,
 		def_card_id, cur_card_id, cc_shopsessions.starttime,
@@ -47,7 +47,7 @@ CREATE OR REPLACE RULE cc_booth_update2 AS ON UPDATE TO cc_booth_v
 			FROM cc_agent, cc_booth 
 			WHERE cc_booth.cur_card_id= cc_card.id AND
 				cc_booth.id = OLD.id AND
-				cc_booth.agentid = OLD.owner;
+				cc_booth.agentid = OLD.agentid;
 				
 CREATE OR REPLACE RULE cc_booth_update3 AS ON UPDATE TO cc_booth_v WHERE NEW.state=3 AND
 	OLD.state <> 3
@@ -55,7 +55,7 @@ CREATE OR REPLACE RULE cc_booth_update3 AS ON UPDATE TO cc_booth_v WHERE NEW.sta
 			FROM cc_agent, cc_booth 
 			WHERE cc_booth.cur_card_id= cc_card.id AND
 				cc_booth.id = OLD.id AND
-				cc_booth.agentid = OLD.owner;
+				cc_booth.agentid = OLD.agentid;
 
 -------------------------------------------------------
 ------------ Triggers ------------------
