@@ -68,7 +68,15 @@ function reqStateChanged2(){
 			resp="OK";
 			//document.getElementById("result_f").innerHTML=http_request.responseText;
 			if (parseBoothXML(http_request.responseXML))
-				req_timer=setTimeout("startRequest(\"booths.xml.php\",reqStateChanged2);",5*60*1000); 
+				req_timer=setTimeout("startBoothRequest();",5*60*1000); 
+			break;
+		case 401:
+			document.getElementById("message").innerHTML="Unauthorized! Please " +
+				"<a href=\"index.php\">Login</a> again";
+			break;
+		case 500:
+			document.getElementById("message").innerHTML=
+				"Internal error, contact administrator!";
 			break;
 		default:
 			resp="Code: " + http_request.status;
@@ -149,16 +157,16 @@ function parseBoothXML(the_xml){
 }
 
 function booth_action(booth,act) {
-	startRequest("booths.xml.php"+"?action="+act + "&actb=" + booth,reqStateChanged2);
+	startBoothRequest("action="+act + "&actb=" + booth);
 }
 
 function booth_action2(booth,act,str2,co) {
 	call_obj=co;
-	startRequest("booths.xml.php"+"?action="+act + "&actb=" + booth + str2,reqStateChanged2);
+	startBoothRequest("action="+act + "&actb=" + booth + str2);
 }
 
 function refill(booth,sum) {
-	startRequest("booths.xml.php"+"?action=refill&actb=" + booth + "&sum=" + sum,reqStateChanged2);
+	startBoothRequest("action=refill&actb=" + booth + "&sum=" + sum);
 }
 
 //eof

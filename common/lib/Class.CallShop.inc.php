@@ -12,6 +12,7 @@ require_once("Class.ElemBase.inc.php");
 class CallshopPage extends ElemBase {
 	private $rights_checked = false;
 	public $agentid = -1;
+	public $ask_agent = false;
 	public $FG_DEBUG = 0;
 	public $a2billing;
 	public $ndiv = 4;
@@ -41,16 +42,30 @@ class CallshopPage extends ElemBase {
 	}
 
 	function RenderHead() {
+		$booth_url = "booths.xml.php";
+		$booth2_url = $booth_url . '?';
+		if ($this->ask_agent){
+			$booth_url = "booths.xml.php?aid=".$this->agentid;
+			$booth2_url = $booth_url .'&';
+		}
 ?>
 <script src="javascript/callshop.js"></script>
 <script type="text/javascript">
 var global_reqStates = new Array( "Unknown","<?= _("Open"); ?>", "<?= _("Waiting for response");?>", "<?= _("Receiving")?>");
-window.onload = function() { startRequest("booths.xml.php",reqStateChanged2)};
 
 function select_regular(booth) {
 	//alert( "Select regular customer for booth " + booth );
 	window.open( "A2B_entity_cards.php?popup_select=freg&booth=" + booth);
 }
+
+function startBoothRequest(extra) {
+	var url = "<?= $booth_url?>";
+	if (extra != undefined)
+		url = "<?= $booth2_url ?>" + extra;
+		
+	startRequest(url,reqStateChanged2);
+}
+window.onload = function() { startBoothRequest()};
 </script>
 <?php
 	}
@@ -60,7 +75,7 @@ function select_regular(booth) {
 		// prepare a few variables
 		$refills = explode("|",$this->refills);
 	
-		$QUERY= "SELECT id FROM cc_booth_v WHERE def_card_id IS NOT NULL AND owner = ? ORDER BY id;";
+		$QUERY= "SELECT id FROM cc_booth_v WHERE def_card_id IS NOT NULL AND agentid = ? ORDER BY id;";
 			
 		$res = $dbhandle -> query($QUERY,$this->agentid);
 	
@@ -141,7 +156,7 @@ function select_regular(booth) {
 		}
 ?>
 <br>
-<a href='javascript:startRequest("booths.xml.php",reqStateChanged2)'><?= _("Refresh")?></a>
+<a href='javascript:startBoothRequest()'><?= _("Refresh")?></a>
 <br>
 <?= _("Response:")?> <span id='response' ></span>
 <?php

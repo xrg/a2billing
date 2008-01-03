@@ -280,4 +280,18 @@ function BoothsDom($action, $actb, $agent_clause = 'AND false'){
 	
 	return $dom;
 }
+
+function messageDom($msg,$class){
+	$dom = new DOMDocument("1.0","utf-8");
+	
+	$dom_root = $dom->createElement("root");
+	$dom->appendChild($dom_root);
+	
+	$dom_message= $dom->createElement("message");
+	$dom_root->appendChild($dom_message);
+	$dom_message->appendChild($dom->createTextNode($msg));
+	$dom_message->setAttribute("class",$class);
+
+	return $dom;
+}
 ?>
