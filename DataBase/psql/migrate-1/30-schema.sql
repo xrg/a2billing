@@ -1,6 +1,9 @@
-\set ON_ERROR_STOP
+-- Schema
 
+\echo Creating schema..
 CREATE SCHEMA a2b_old;
+
+\echo Moving tables to a2b_old schema
 
 ALTER TABLE cc_agent_cards SET SCHEMA a2b_old;
 ALTER TABLE cc_agentpay SET SCHEMA a2b_old;
@@ -33,7 +36,6 @@ ALTER TABLE cc_invoice_history SET SCHEMA a2b_old;
 ALTER TABLE cc_invoices SET SCHEMA a2b_old;
 ALTER TABLE cc_logpayment SET SCHEMA a2b_old;
 ALTER TABLE cc_logrefill SET SCHEMA a2b_old;
-ALTER TABLE cc_numplan SET SCHEMA a2b_old;
 ALTER TABLE cc_outbound_cid_group SET SCHEMA a2b_old;
 ALTER TABLE cc_outbound_cid_list SET SCHEMA a2b_old;
 ALTER TABLE cc_package_offer SET SCHEMA a2b_old;
@@ -43,7 +45,6 @@ ALTER TABLE cc_payments_status SET SCHEMA a2b_old;
 ALTER TABLE cc_paypal SET SCHEMA a2b_old;
 ALTER TABLE cc_paytypes SET SCHEMA a2b_old;
 ALTER TABLE cc_phonelist SET SCHEMA a2b_old;
-ALTER TABLE cc_pricing_scenario SET SCHEMA a2b_old;
 ALTER TABLE cc_provider SET SCHEMA a2b_old;
 ALTER TABLE cc_ratecard SET SCHEMA a2b_old;
 ALTER TABLE cc_server_group SET SCHEMA a2b_old;
@@ -54,9 +55,6 @@ ALTER TABLE cc_shopsessions SET SCHEMA a2b_old;
 ALTER TABLE cc_sip_buddies SET SCHEMA a2b_old;
 ALTER TABLE cc_speeddial SET SCHEMA a2b_old;
 ALTER TABLE cc_subscription_fee SET SCHEMA a2b_old;
-ALTER TABLE cc_target_prefix SET SCHEMA a2b_old;
-ALTER TABLE cc_targetrate SET SCHEMA a2b_old;
-ALTER TABLE cc_targetzone SET SCHEMA a2b_old;
 ALTER TABLE cc_tariffgroup_plan SET SCHEMA a2b_old;
 ALTER TABLE cc_tariffgroup SET SCHEMA a2b_old;
 ALTER TABLE cc_tariffplan SET SCHEMA a2b_old;
@@ -65,7 +63,3 @@ ALTER TABLE cc_texts SET SCHEMA a2b_old;
 ALTER TABLE cc_trunk SET SCHEMA a2b_old;
 ALTER TABLE cc_ui_authen SET SCHEMA a2b_old;
 ALTER TABLE cc_voucher SET SCHEMA a2b_old;
-
--- ALTER TABLE cc_tariffgroup RENAME id_cc_package_offer TO package_offer;
--- ALTER TABLE cc_tariffgroup_plan RENAME idtariffgroup TO tgid;
--- ALTER TABLE cc_tariffgroup_plan RENAME idtariffplan TO tpid;
