@@ -96,6 +96,10 @@ if [ "$DO_SKIP_STAGE3" != "y" ] ; then
 			-q -d $A2B_DB -f "$DBSCRIPT" || exit $?
 	done
 	
+	# Add missing texts
+	psql -U $A2B_USER  --set A2B_GROUP=$A2B_GROUP \
+		-q -d $A2B_DB -f schema-200/32-std-texts.sql || exit $?
+
 	echo "Stage 3 finished: old data migrated to new tables"
 fi
 
