@@ -24,7 +24,7 @@ CREATE TABLE cc_texts (
 */
 
 CREATE TABLE cc_paytypes (
-	id integer NOT NULL,
+	id integer NOT NULL UNIQUE,
 	side smallint NOT NULL,
 	charge NUMERIC(12,4),
 	preset VARCHAR(30) UNIQUE

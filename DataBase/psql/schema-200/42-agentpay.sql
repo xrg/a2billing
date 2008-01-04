@@ -8,7 +8,7 @@
 -- between sessions. 
 
 CREATE TABLE cc_agentrefill (
-    id BIGSERIAL NOT NULL,
+    id BIGSERIAL PRIMARY KEY,
     date TIMESTAMP WITHOUT TIME ZONE DEFAULT now() NOT NULL,
     credit numeric(12,4) NOT NULL,
     carried BOOLEAN NOT NULL DEFAULT false,
@@ -29,7 +29,7 @@ CREATE TABLE cc_shopsessions (
 
 
 CREATE TABLE cc_agentpay (
-    id BIGSERIAL NOT NULL,
+    id BIGSERIAL PRIMARY KEY,
     date TIMESTAMP WITHOUT TIME ZONE DEFAULT now() NOT NULL,
     credit NUMERIC(12,4) NOT NULL,
     pay_type INTEGER,

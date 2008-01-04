@@ -6,6 +6,7 @@
 
 CREATE TABLE cc_call (
     id bigserial PRIMARY KEY,
+    cmode VARCHAR(10) NOT NULL DEFAULT 'standard',
     sessionid text NOT NULL,
     uniqueid text NOT NULL, /* NOT unique among failovers */
     cardid BIGINT REFERENCES cc_card(id),
