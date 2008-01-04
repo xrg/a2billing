@@ -9,7 +9,7 @@ if [ ! -f "$1" ] ; then
 	exit 1
 fi
 
-createdb -O $A2B_USER -U postgres A2B_DB || exit $?
+createdb -O $A2B_USER -U postgres $A2B_DB || exit $?
 
 cat "$1" | gunzip -c | psql -q --set ON_ERROR_STOP= -U postgres $A2B_DB || exit $?
 
