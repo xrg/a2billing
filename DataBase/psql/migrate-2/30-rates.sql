@@ -55,9 +55,11 @@ INSERT INTO cc_sellrate(idrp, destination, rateinitial, initblock, billingblock,
 		WHERE a2b_old.cc_ratecard.parent_card IS NULL AND 
 		    a2b_old.cc_ratecard.idtariffplan = cc_retailplan.migr_oldid;
 
+-- Assume all old prefixes are in e164 format!
+
 \echo Migrate cc_ratecard.prefix into cc_buy_prefix (wait..)
 INSERT INTO cc_buy_prefix (brid,dialprefix)
-	SELECT DISTINCT cc_buyrate.id,CASE WHEN dialprefix = 'defaultprefix' THEN '' ELSE dialprefix END
+	SELECT DISTINCT cc_buyrate.id,CASE WHEN dialprefix = 'defaultprefix' THEN '+' ELSE  '+' || dialprefix END
 		FROM cc_buyrate,a2b_old.cc_ratecard
 		WHERE cc_buyrate.migr_oldid = a2b_old.cc_ratecard.id
 			OR cc_buyrate.migr_oldid = a2b_old.cc_ratecard.parent_card;
@@ -65,7 +67,7 @@ INSERT INTO cc_buy_prefix (brid,dialprefix)
 \echo Migrate cc_ratecard.prefix into cc_sell_prefix (wait more..)
 CREATE INDEX cc_sellrate_migr_idx ON cc_sellrate USING btree(migr_oldid);
 INSERT INTO cc_sell_prefix (srid,dialprefix)
-	SELECT DISTINCT cc_sellrate.id,CASE WHEN dialprefix = 'defaultprefix' THEN '' ELSE dialprefix END
+	SELECT DISTINCT cc_sellrate.id,CASE WHEN dialprefix = 'defaultprefix' THEN '+' ELSE '+' || dialprefix END
 		FROM cc_sellrate,a2b_old.cc_ratecard
 		WHERE cc_sellrate.migr_oldid = a2b_old.cc_ratecard.id
 			OR cc_sellrate.migr_oldid = a2b_old.cc_ratecard.parent_card;
