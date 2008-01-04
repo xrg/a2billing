@@ -104,10 +104,30 @@ INSERT INTO cc_card( id, grp, creationdate, firstusedate, expirationdate,
 
 SELECT pg_catalog.setval('cc_card_id_seq', (SELECT last_value FROM a2b_old.cc_card_id_seq));
 
+\echo Migrating booths
+
+INSERT INTO cc_booth ( id, name, location, agentid,
+		datecreation, last_activation,
+		disabled, cur_card_id, def_card_id,
+		callerid)
+	SELECT id, name, location, agentid,
+		datecreation, last_activation,
+		disabled, cur_card_id, def_card_id,
+		name
+		FROM a2b_old.cc_booth;
+
+SELECT pg_catalog.setval('cc_booth_id_seq', (SELECT last_value FROM a2b_old.cc_booth_id_seq));
+
+UPDATE cc_booth SET peername = booth.callerid, peerpass = buddy.secret
+	FROM a2b_old.cc_booth AS booth, a2b_old.cc_sip_buddies AS buddy
+		WHERE cc_booth.id = booth.id
+		  AND booth.callerid = buddy.username;
+
 \echo Please check this result to verify that all cards have been migrated:
 SELECT
 	(SELECT count(*) FROM cc_card) AS new_cards,
 	(SELECT count(*) FROM a2b_old.cc_card) AS old_cards;
 	
+
 \echo Cards migrated (I hope).
 -- eof
