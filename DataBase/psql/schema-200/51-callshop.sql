@@ -97,7 +97,7 @@ CREATE OR REPLACE FUNCTION cc_booth_set_card() RETURNS trigger AS $$
 		END IF;
 		IF NEW.agentid <> (SELECT agentid FROM cc_card, cc_card_group
 				WHERE cc_card.id = NEW.def_card_id AND cc_card_group.id = cc_card.grp
-					/* AND agent_role = 1 */ LIMIT 1) THEN
+					AND agent_role = 1  LIMIT 1) THEN
 			RAISE EXCEPTION 'Card id does not belong to agent % or not callshop one.', NEW.agentid;
 		END IF;
 	END IF;
@@ -150,7 +150,7 @@ CREATE OR REPLACE FUNCTION cc_booth_set_card() RETURNS trigger AS $$
 				NEW.agentid <> (SELECT agentid FROM cc_card, cc_card_group
 					WHERE cc_card.id = NEW.cur_card_id 
 						AND cc_card_group.id = cc_card.grp
-						/* AND agent_role = 1 */ LIMIT 1) THEN
+						/*( AND agent_role = 1 OR agent_role = 2)*/ LIMIT 1) THEN
 					RAISE EXCEPTION 'Card id does not belong to agent % or not callshop one.', NEW.agentid;
 			END IF;
 			
