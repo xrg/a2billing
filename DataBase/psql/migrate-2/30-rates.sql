@@ -57,6 +57,8 @@ INSERT INTO cc_sellrate(idrp, destination, rateinitial, initblock, billingblock,
 
 CREATE INDEX cc_sellrate_migr_idx ON cc_sellrate USING btree(migr_oldid);
 CREATE INDEX cc_buyrate_migr_idx ON cc_buyrate USING btree(migr_oldid);
+ANALYZE cc_sellrate;
+ANALYZE cc_buyrate;
 
 -- Assume all old prefixes are in e164 format!
 

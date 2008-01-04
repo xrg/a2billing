@@ -15,9 +15,9 @@ INSERT INTO cc_call ( /*id,*/ cmode, sessionid, uniqueid, cardid,
 		1, id_trunk, sessionbill, cc_call.destination, src, buycost,
 		cc_sellrate.id, cc_buyrate.id, id_tariffgroup,
 		id_did, id_card_package_offer, invoice_id
-	FROM a2b_old.cc_call LEFT JOIN cc_buyrate ON cc_buyrate.migr_oldid = id_ratecard
-		LEFT JOIN cc_sellrate ON cc_buyrate.migr_oldid = id_ratecard
-		LEFT JOIN a2b_old.cc_card ON cc_card.username = cc_call.username;
+	FROM a2b_old.cc_call LEFT JOIN a2b_old.cc_card ON cc_card.username = cc_call.username
+		LEFT JOIN cc_buyrate ON cc_buyrate.migr_oldid = id_ratecard
+		LEFT JOIN cc_sellrate ON cc_sellrate.migr_oldid = id_ratecard;
 
 \echo Calls copied to migrated table.
 
