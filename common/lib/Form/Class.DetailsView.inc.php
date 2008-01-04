@@ -59,7 +59,7 @@ table.detailForm input {
 		?>
 	<form action=<?= $_SERVER['PHP_SELF']?> method=post name="<?= $form->prefix?>Frm" id="<?= $form->prefix ?>Frm">
 	<?php
-		$hidden_arr = array('action' => $form->action, 'sub_action' => '');
+		$hidden_arr = array('action' => $form->getAction(), 'sub_action' => '');
 		foreach($form->model as $fld)
 			if ($arr2 = $fld->editHidden($row,$form))
 				$hidden_arr = array_merge($hidden_arr,$arr2);
