@@ -7,7 +7,10 @@ SELECT userid, login, "password", groupid, perms, confaddcust, name, direction, 
     state, phone, fax, datecreation FROM a2b_old.cc_ui_authen 
     WHERE userid > 2 AND login <> 'root' AND login <> 'admin';
 
-UPDATE cc_ui_authen SET "password" = olld."password" FROM a2b_old.cc_ui_authen AS olld WHERE cc_ui_authen.userid <= 2;
+UPDATE cc_ui_authen SET "password" = olld."password" 
+	FROM a2b_old.cc_ui_authen AS olld 
+	WHERE cc_ui_authen.userid <= 2
+	AND cc_ui_authen.userid = olld.userid;
 
 SELECT pg_catalog.setval('cc_ui_authen_userid_seq', (SELECT last_value FROM a2b_old.cc_ui_authen_userid_seq));
 
