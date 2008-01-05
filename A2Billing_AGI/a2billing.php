@@ -206,8 +206,10 @@ function getCard_ivr(){
 	$dbhandle =$a2b->DBHandle();
 	
 		// We have to answer, so that we have returning sound.
-	if (!$agi->is_answered)
+	if (!$agi->is_answered){
+		$agi->conlog('Auth-ivr: answer',4);
 		$agi->answer();
+		}
 
 	$pin_prompt = getAGIconfig('pin-prompt',"prepaid-enter-pin-number");
 	$pin_timeout = getAGIconfig('pin-timeoute',6000);
@@ -490,6 +492,9 @@ if ($mode == 'standard'){
 		//TODO: fix lang
 		if ($card['status']!=1){
 			switch($card['status']){
+			case 8: //disabled card in booth
+				$agi->stream_file('prepaid-no-card-entered','#');
+				break;
 			case 5:
 				$agi->stream_file('prepaid-card-expired','#');
 				break;

@@ -39,18 +39,18 @@ $HD_Form->model[] = new SqlRefFieldN(_("Provider"), "provider","cc_provider", "i
 $HD_Form->model[] = new IntField(_("Metric"), "metric", _("Weight of trunk in rate engine"));
 end($HD_Form->model)->does_add = false;
 
-$HD_Form->model[] = new TextField(_("Prefix"),'trunkprefix',_("Add a prefix to the dialled digits."));
-$HD_Form->model[] = new IntField(_("Strip Digits"), "stripdigits", _("Number of digits to strip from dialstring"));
+$HD_Form->model[] = dontList(new TextField(_("Prefix"),'trunkprefix',_("Add a prefix to the dialled digits.")));
+$HD_Form->model[] = dontList(new IntField(_("Strip Digits"), "stripdigits", _("Number of digits to strip from dialstring")));
 end($HD_Form->model)->does_add = false;
 
 // $HD_Form->model[] = new TextField(_("Remove Prefix"),'removeprefix',_("In case of the voip provider or the gateway doesnt want a dialed prefix (can be useful with local gateway)"));
 
-$HD_Form->model[] = new RefField(_("Format"), "trunkfmt", $trunkfmt_list,_("Select the desired format for the Dial string"));
+$HD_Form->model[] = dontList(new RefField(_("Format"), "trunkfmt", $trunkfmt_list,_("Select the desired format for the Dial string")));
 $HD_Form->model[] = new TextField(_("Tech"),'providertech',_("Technology used on the trunk (SIP,IAX2,ZAP,H323)"));
 $HD_Form->model[] = new TextField(_("Provider IP"), "providerip", _("Set the IP or URL of the VoIP provider. Alternatively, put in the name of a previously defined trunk in Asterisk. (MyVoiPTrunk, ZAP4G etc.) You can use the following tags to as variables: *-* %dialingnumber%, %cardnumber%. ie g2/1644787890wwwwwwwwww%dialingnumber%"));
 // end($HD_Form->model)->fieldacr =  gettext("ACT");
 
-$HD_Form->model[] = new TextField(_("Additional parameter"), "addparameter", _("Define any additional parameters that will be used when running the Dial Command in Asterisk. Use the following tags as variables  *-* %dialingnumber%, %cardnumber%. ie 'D(ww%cardnumber%wwwwwwwwww%dialingnumber%)'"));
+$HD_Form->model[] = dontList(new TextField(_("Additional parameter"), "addparameter", _("Define any additional parameters that will be used when running the Dial Command in Asterisk. Use the following tags as variables  *-* %dialingnumber%, %cardnumber%. ie 'D(ww%cardnumber%wwwwwwwwww%dialingnumber%)'")));
 
 $HD_Form->model[] = new IntVolField(_("In use"), "inuse", _("Number of calls currently through this trunk"));
 end($HD_Form->model)->does_add = false;

@@ -5,7 +5,7 @@ require_once (DIR_COMMON."Form.inc.php");
 require_once (DIR_COMMON."Class.HelpElem.inc.php");
 require_once (DIR_COMMON."Form/Class.SqlRefField.inc.php");
 
-$menu_section='menu_servers';
+$menu_section='menu_config';
 
 
 HelpElem::DoHelp(gettext("Asterisk User Configurations. <br>Asterisk users/peers are grouped into these configuration groups."));
