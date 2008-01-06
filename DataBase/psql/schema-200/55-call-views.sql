@@ -22,4 +22,3 @@ SELECT sessionid, uniqueid, cardid,nasipaddress, srvid,
 	FROM cc_call
 	GROUP BY sessionid, uniqueid, cardid, srvid) AS foo ;
 
--- TODO: rules on cc_call_v to expire cards..
