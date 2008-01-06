@@ -11,7 +11,8 @@ for DBSCRIPT in schema-200/* ; do
 	if [ "$DBNUM" -lt 50 ] ; then
 		continue
 	fi
-	if grep 'CREATE TABLE' $DBSCRIPT > /dev/null ; then
+	if (grep 'CREATE TABLE' $DBSCRIPT > /dev/null ) ||
+		( grep 'CREATE INDEX' $DBSCRIPT > /dev/null ) ; then
 		echo 'Skiping'  "$DBSCRIPT"
 		continue
 	fi
