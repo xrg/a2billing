@@ -248,4 +248,53 @@ DROP TRIGGER IF EXISTS cc_agent_refill_it ON cc_agentrefill;
 CREATE TRIGGER cc_agent_refill_it BEFORE INSERT ON cc_agentrefill
 	FOR EACH ROW EXECUTE PROCEDURE cc_agent_refill_it();
 
+
+CREATE OR REPLACE FUNCTION pay_session( sid bigint, s_sum NUMERIC(12,4), do_close boolean ) RETURNS NUMERIC
+	AS $$
+	DECLARE
+		c_sum NUMERIC;
+		agentid_p INTEGER;
+		cid bigint;
+		bid bigint;
+		ptype INTEGER;
+		cinuse INTEGER;
+	BEGIN
+		SELECT cc_card.credit, cc_card.id, booth, cc_card.inuse, agentid
+			INTO c_sum, cid, bid, cinuse, agentid_p
+			FROM cc_card, cc_shopsessions, cc_booth
+			WHERE cc_card.id = cc_shopsessions.card
+			  AND cc_booth.id = cc_shopsessions.booth
+			  AND cc_shopsessions.id = sid 
+			  AND cc_shopsessions.endtime IS NULL;
+		IF NOT FOUND THEN
+			RAISE EXCEPTION 'No such session, or not open';
+		END IF;
+		
+		IF do_close AND (cinuse > 0)  THEN
+			RAISE EXCEPTION 'It is not safe to close session, card in use!';
+		END IF;
+		
+		IF do_close AND s_sum <> c_sum THEN
+			RAISE EXCEPTION 'Cannot close session with that sum!';
+		END IF;
+		
+		IF s_sum > 0 THEN
+			SELECT id INTO STRICT ptype FROM cc_paytypes WHERE preset = 'pay-back';
+		ELSE	
+			SELECT id INTO STRICT ptype FROM cc_paytypes WHERE preset = 'settle';
+		END IF;
+		IF (s_sum <> 0) THEN
+			INSERT INTO cc_agentrefill(card_id, agentid, credit, carried, pay_type)
+				VALUES(cid, agentid_p,0-s_sum, false, ptype);
+		END IF;
+		IF do_close THEN
+			--UPDATE cc_shopsessions SET endtime = now() , state = 'Closed' WHERE
+			--	card = cid AND id = sid;
+			--UPDATE cc_card SET activated = 'f' WHERE id = cid;
+			UPDATE cc_booth SET cur_card_id = NULL WHERE id = bid;
+		END IF;
+	RETURN s_sum;
+	END; $$
+LANGUAGE plpgsql STRICT;
+
 --eof

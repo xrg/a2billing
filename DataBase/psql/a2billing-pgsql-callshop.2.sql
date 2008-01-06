@@ -169,38 +169,6 @@ CREATE OR REPLACE FUNCTION conv_currency(money_sum NUMERIC, from_cur CHAR(3), to
 	
 
 
-CREATE OR REPLACE FUNCTION pay_session( sid bigint, agentid_p bigint, do_close boolean, do_carry boolean) RETURNS NUMERIC
-	AS $$
-	DECLARE
-		ssum NUMERIC;
-		cid bigint;
-		bid bigint;
-		ptype integer;
-	BEGIN
-		*-* sth is wrong..
-		SELECT cc_card.credit, cc_card.id, cc_shopsessions.booth INTO ssum, cid, bid FROM cc_card, cc_shopsessions, cc_agent_cards
-			WHERE cc_card.id = cc_shopsessions.card AND
-				cc_agent_cards.card_id = cc_card.id AND cc_agent_cards.agentid = agentid_p AND
-				cc_shopsessions.id = sid ;
-		IF NOT FOUND THEN
-			RAISE EXCEPTION 'No such session for agent';
-		END IF;
-		IF do_carry THEN
-			SELECT id INTO ptype FROM cc_paytypes WHERE preset = 'carry';
-		ELSE	
-			SELECT id INTO ptype FROM cc_paytypes WHERE preset = 'settle';
-		END IF;
-		INSERT INTO cc_agentrefill(card_id, agentid, credit, carried, pay_type)
-			VALUES(cid, agentid_p,0-ssum, do_carry, ptype);
-		IF do_close THEN
-			--UPDATE cc_shopsessions SET endtime = now() , state = 'Closed' WHERE
-			--	card = cid AND id = sid;
-			--UPDATE cc_card SET activated = 'f' WHERE id = cid;
-			UPDATE cc_booth SET cur_card_id = NULL WHERE id = bid;
-		END IF;
-	RETURN ssum;
-	END; $$
-LANGUAGE plpgsql STRICT;
 
 -- Modified version of the pay_session() to use when crediting the new session with the sum
 -- carried from a previous use of the card
