@@ -124,6 +124,43 @@ abstract class BaseField {
 		return $val;
 	}
 	
+	/** Build the query for sums 
+	    \param sum_fns An array containing aggregate fns. for each field, null if
+	    	this field should be omitted, true if it should be grouped
+	    \param fields An array to be appended with the field expressions to sum
+	    \param table  The string of the table to query
+	    \param clauses Any clauses applying to the query
+	    \param grps   An array of the GROUP BY clauses
+	*/
+	
+	public function buildSumQuery(&$dbhandle, &$sum_fns,&$fields, &$table,
+		&$clauses, &$grps, &$form){
+		if (!$this->does_list)
+			return;
+		
+		// fields
+		if ($this->fieldexpr)
+			$fld = $this->fieldexpr;
+		else
+			$fld = $this->fieldname;
+		
+		if (isset($sum_fns[$this->fieldname]) && !is_null($sum_fns[$this->fieldname])){
+			if ($sum_fns[$this->fieldname] === true){
+				$grps[] = $this->fieldname;
+				$fields[] = "$fld AS ". $this->fieldname;
+			}
+			elseif (is_string($sum_fns[$this->fieldname]))
+				$fields[] = $sum_fns[$this->fieldname] ."($fld) AS ". $this->fieldname;
+			
+		}
+		
+		$this->listQueryTable($table,$form);
+		$tmp= $this->listQueryClause($dbhandle,$form);
+		if ( is_string($tmp))
+			$clauses[] = $tmp;
+	}
+
+	
 	public function buildInsert(&$ins_arr,&$form){
 		if (!$this->does_add)
 			return;

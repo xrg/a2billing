@@ -3,9 +3,7 @@ require_once("Class.FormViews.inc.php");
 
 class ListView extends FormView {
 
-	public function Render(&$form){
-	// For convenience, ref the dbhandle locally
-	$dbhandle = &$form->a2billing->DBHandle();
+	protected function RenderHead(){
 ?>
 <style>
 table.cclist {
@@ -48,68 +46,81 @@ table.cclist tbody tr:hover {
 }
 </style>
 <?php
-	if ($form->FG_DEBUG>3)
-		echo "List! Building query..";
-		
+	}
 	
-	$query_fields = array();
-	$query_clauses = array();
-	$query_table = $form->model_table;
-	
-	foreach($form->model as $fld){
-		$tmp= $fld->listQueryField($dbhandle);
-		if ( is_string($tmp))
-			$query_fields[] = $tmp;
-		elseif (is_array($tmp))
-			$query_fields=array_merge($query_fields,$tmp);
+	/** Builds and executes the table list query */
+	protected function performQuery(&$form,&$dbhandle){
+		if ($form->FG_DEBUG>3)
+			echo "List! Building query..";
 		
-		$tmp= $fld->listQueryClause($dbhandle,$form);
-		if ( is_string($tmp))
-			$query_clauses[] = $tmp;
+		$query_fields = array();
+		$query_clauses = array();
+		$query_table = $form->model_table;
+		
+		foreach($form->model as $fld){
+			$tmp= $fld->listQueryField($dbhandle);
+			if ( is_string($tmp))
+				$query_fields[] = $tmp;
+			elseif (is_array($tmp))
+				$query_fields=array_merge($query_fields,$tmp);
 			
-		$fld->listQueryTable($query_table,$form);
+			$tmp= $fld->listQueryClause($dbhandle,$form);
+			if ( is_string($tmp))
+				$query_clauses[] = $tmp;
+				
+			$fld->listQueryTable($query_table,$form);
+		}
+	
+		if (!strlen($query_table)){
+			if ($form->FG_DEBUG>0)
+				echo "No table!\n";
+			return;
+		}
+		
+		$QUERY = 'SELECT ';
+		if (count($query_fields)==0) {
+			if ($form->FG_DEBUG>0)
+				echo "No query fields!\n";
+			return;
+		}
+		
+		$QUERY .= implode(', ', $query_fields);
+		$QUERY .= ' FROM ' . $query_table;
+		
+		if (count($query_clauses))
+			$QUERY .= ' WHERE ' . implode(' AND ', $query_clauses);
+		
+		if ($form->order)
+			$QUERY .= " ORDER BY $form->order";
+		if (($form->sens) && (strtolower($form->sens)=='desc'))
+			$QUERY .= " DESC";
+		if ($form->ndisp)
+			$QUERY .= " LIMIT $form->ndisp";
+		if ($form->cpage)
+			$QUERY .= " OFFSET " . ($form->cpage * $form->ndisp);
+		$QUERY .= ';';
+		
+		if ($form->FG_DEBUG>3)
+			echo "QUERY: $QUERY\n<br>\n";
+		
+		// Perform the query
+		$res =$dbhandle->Execute($QUERY);
+		if (! $res){
+			if ($form->FG_DEBUG>0)
+				echo "Query Failed: ". nl2br(htmlspecialchars($dbhandle->ErrorMsg()));
+			return;
+		}
+		return $res;
 	}
 	
-	if (!strlen($query_table)){
-		if ($form->FG_DEBUG>0)
-			echo "No table!\n";
-		return;
-	}
-	
-	$QUERY = 'SELECT ';
-	if (count($query_fields)==0) {
-		if ($form->FG_DEBUG>0)
-			echo "No query fields!\n";
-		return;
-	}
-	
-	$QUERY .= implode(', ', $query_fields);
-	$QUERY .= ' FROM ' . $query_table;
-	
-	if (count($query_clauses))
-		$QUERY .= ' WHERE ' . implode(' AND ', $query_clauses);
-	
-	if ($form->order)
-		$QUERY .= " ORDER BY $form->order";
-	if (($form->sens) && (strtolower($form->sens)=='desc'))
-		$QUERY .= " DESC";
-	if ($form->ndisp)
-		$QUERY .= " LIMIT $form->ndisp";
-	if ($form->cpage)
-		$QUERY .= " OFFSET " . ($form->cpage * $form->ndisp);
-	$QUERY .= ';';
-	
-	if ($form->FG_DEBUG>3)
-		echo "QUERY: $QUERY\n<br>\n";
-	
-	// Perform the query
-	$res =$dbhandle->Execute($QUERY);
-	if (! $res){
-		if ($form->FG_DEBUG>0)
-			echo "Query Failed: ". nl2br(htmlspecialchars($dbhandle->ErrorMsg()));
-		return;
-	}
-	
+	public function Render(&$form){
+		$this->RenderHead();
+	// For convenience, ref the dbhandle locally
+	$dbhandle = &$form->a2billing->DBHandle();
+		
+	$res = $this->performQuery($form,$dbhandle);
+	if (!$res)
+		return;	
 	if ($res->EOF) /*&& cur_page==0) */ {
 		if ($form->list_no_records)
 			echo $list_no_records;
@@ -150,8 +161,15 @@ table.cclist tbody tr:hover {
 		</tbody>
 	</table>
 	<?php
+		$this->RenderPages($form,$res->NumRows());
+
+	} // query table
+
+	}
+
+	protected function RenderPages(&$form,&$numrows){
 			//automatically choose to use paginating..
-		if (($form->ndisp && ($res->NumRows() >=$form->ndisp)) || 
+		if (($form->ndisp && ($numrows >=$form->ndisp)) || 
 			( isset($form->cpage) && $form->cpage>0)){
 		?>
 		<table class="paginate">
@@ -211,7 +229,7 @@ table.cclist tbody tr:hover {
 			}
 		}
 		
-		if ($form->ndisp && ($res->NumRows() >=$form->ndisp)){
+		if ($form->ndisp && ($numrows >=$form->ndisp)){
 			?> <a href="<?= $url . $form->gen_GetParams( array( $page_var =>  $form->cpage+1)) ?>" ><?= _("Next")?></a>
 			<?php
 		}
@@ -220,8 +238,5 @@ table.cclist tbody tr:hover {
 		<table>
 		<?php }
 
-	} // query table
-
 	}
-
 };
