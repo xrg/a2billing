@@ -1,8 +1,7 @@
 --- Views related to the callshop sessions
 
-CREATE OR REPLACE VIEW cc_session_invoice AS
-		-- Calls
-	SELECT call.starttime, 'Call' AS descr, cc_shopsessions.id AS sid,
+CREATE OR REPLACE VIEW cc_session_calls AS
+	SELECT call.starttime, 'Call'::TEXT AS descr, cc_shopsessions.id AS sid,
 		cc_shopsessions.booth AS boothid,
 		call.destination AS f2,
 		call.calledstation AS cnum,
@@ -10,7 +9,11 @@ CREATE OR REPLACE VIEW cc_session_invoice AS
 		(sessiontime) AS duration
 		FROM cc_call_v AS call, cc_shopsessions 
 		WHERE call.cardid = cc_shopsessions.card
-		  AND call.starttime >= cc_shopsessions.starttime AND (cc_shopsessions.endtime IS NULL OR call.starttime <= cc_shopsessions.endtime)
+		  AND call.starttime >= cc_shopsessions.starttime AND (cc_shopsessions.endtime IS NULL OR call.starttime <= cc_shopsessions.endtime);
+
+CREATE OR REPLACE VIEW cc_session_invoice AS
+	SELECT * FROM cc_session_calls
+		-- Calls
 		-- Session start
 		-- Note: at the start, we indicate charge/credit of 0 so that SUMs always
 		-- have a non-null element
@@ -60,3 +63,13 @@ CREATE OR REPLACE VIEW cc_session_invoice AS
 		WHERE cc_shopsessions.card = charge.card AND
 			cc_shopsessions.starttime <= charge.creationdate AND
 			(cc_shopsessions.endtime IS NULL OR cc_shopsessions.endtime >= charge.creationdate);
+
+CREATE OR REPLACE VIEW cc_shopsession_status_v AS
+	SELECT (CASE WHEN ss.endtime IS NULL THEN true ELSE false END) AS is_open,
+		ss.id AS sid, cc_booth.agentid, ss.booth, ss.card, (cc_card.inuse > 0)  AS is_inuse,
+		(CASE WHEN ss.endtime IS NOT NULL THEN null ELSE cc_card.credit END) AS credit,
+		 (COALESCE(ss.endtime,now()) - ss.starttime) AS duration
+		FROM cc_shopsessions AS ss, cc_booth, cc_card 
+		WHERE cc_card.id = ss.card AND cc_booth.id = ss.booth;
+	
+--eof
