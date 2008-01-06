@@ -130,7 +130,7 @@ window.onload = function() { startBoothRequest()};
 				<tr><td id="buttons" class="buttons" colspan=2> 
 				<a href="javascript:booth_action(<?=$row['id']?>,'start');" id='button_sta' style='color:green;'><?=_("Start"); ?></a>
 				<a href="javascript:booth_action(<?=$row['id']?>,'stop');" id='button_stp' style='color:red;'><?=_("Stop"); ?></a>
-				<a href="invoices_cust.php?booth=<?=$row['id']?>&nobq=1" id='button_pay' style='color:blue;'><?=_("Pay"); ?></a>
+				<a href="invoices_cshop.php?booth=<?=$row['id']?>&nobq=1" id='button_pay' style='color:blue;'><?=_("Pay"); ?></a>
 				<a href="javascript:booth_action(<?=$row['id']?>,'enable');" id='button_en'><?=_("Enable"); ?></a>
 				<a href="javascript:booth_action(<?=$row['id']?>,'disable');" id='button_dis'><?=_("Disable"); ?></a>
 				<a href="javascript:booth_action(<?=$row['id']?>,'unload');" id='button_unl'><?=_("Unload"); ?></a>
