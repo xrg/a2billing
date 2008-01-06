@@ -44,6 +44,16 @@ class ClauseField extends BaseField {
 		$ins_arr[] = array($this->fieldname,
 			$this->fieldvalue);
 	}
+	
+	public function buildSumQuery(&$dbhandle, &$sum_fns,&$fields, &$table,
+		&$clauses, &$grps, &$form){
+		
+		$this->listQueryTable($table,$form);
+		$tmp= $this->listQueryClause($dbhandle,$form);
+		if ( is_string($tmp))
+			$clauses[] = $tmp;
+	}
+
 
 };
 
