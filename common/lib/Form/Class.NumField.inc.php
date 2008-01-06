@@ -73,6 +73,57 @@ class FloatField extends IntField{
 
 };
 
+class MoneyField extends FloatField {
+
+	public function DispAddEdit($val,&$form){
+	?><input type="text" name="<?= $form->prefix.$this->fieldname ?>" value="<?=
+		htmlspecialchars($val);?>" />&nbsp;&nbsp;<?= $form->a2billing->currency ?>
+	<div class="descr"><?= $this->editDescr?></div>
+	<?php
+	}
+	
+	public function detailQueryField(&$dbhandle){
+		if ($this->fieldexpr)
+			$fld= $this->fieldexpr;
+		else
+			$fld = $this->fieldname;
+		return "format_currency($fld, '". A2Billing::instance()->currency ."') AS " .
+			$this->fieldname;
+	}
+	
+	public function buildSumQuery(&$dbhandle, &$sum_fns,&$fields, &$table,
+		&$clauses, &$grps, &$form){
+		if (!$this->does_list)
+			return;
+		
+		// fields
+		if ($this->fieldexpr)
+			$fld = $this->fieldexpr;
+		else
+			$fld = $this->fieldname;
+		
+		if (isset($sum_fns[$this->fieldname]) && !is_null($sum_fns[$this->fieldname])){
+			if ($sum_fns[$this->fieldname] === true){
+				$grps[] = $this->fieldname;
+				$fields[] = "format_currency($fld, '".
+					$form->a2billing->currency ."') ".
+					"AS ". $this->fieldname;
+			}
+			elseif (is_string($sum_fns[$this->fieldname]))
+				$fields[] = "format_currency(".
+				$sum_fns[$this->fieldname] ."($fld), '".
+					$form->a2billing->currency ."') ".
+					"AS ". $this->fieldname;
+			
+		}
+		
+		$this->listQueryTable($table,$form);
+		$tmp= $this->listQueryClause($dbhandle,$form);
+		if ( is_string($tmp))
+			$clauses[] = $tmp;
+	}
+};
+
 class BoolField extends IntField{
 
 	public function DispList(array &$qrow,&$form){
