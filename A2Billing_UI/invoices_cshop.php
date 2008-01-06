@@ -25,7 +25,9 @@ $sess_row=false;
 		$PAGE_ELEMS[] = &$dbg_elem;
 
 	$sessqry = "SELECT is_open, sid, agentid, booth, card, is_inuse, credit, ".
-		   " ( duration >= interval '1 day') AS has_days FROM cc_shopsession_status_v ";
+		   " ( duration >= interval '1 day') AS has_days, ".
+		   str_dbparams($dbhandle," format_currency(credit,%1) AS credit_fmt ",array(A2Billing::instance()->currency)).
+		   " FROM cc_shopsession_status_v ";
 	
 	if (isset($_GET['booth']))
 		$sessqry .= str_dbparams($dbhandle,' WHERE booth = %#1 ', array($_GET['booth']));
@@ -74,8 +76,8 @@ if ($sess_row){
 	//end($HD_Form->model)->fieldname ='agent';
 	
 	$HD_Form->model[] = new IntField(_("Duration"), "duration");
-	$HD_Form->model[] = new FloatField(_("Credit"), "pos_charge");
-	$HD_Form->model[] = new FloatField(_("Charge"), "neg_charge");
+	$HD_Form->model[] = new MoneyField(_("Credit"), "pos_charge");
+	$HD_Form->model[] = new MoneyField(_("Charge"), "neg_charge");
 	
 	$HD_Form->views['list']->sum_fns= array('duration' => 'SUM', 'pos_charge' => 'SUM', 'neg_charge' => 'SUM');
 	
@@ -121,10 +123,10 @@ if ($sess_row){
 		$pay_form->action_ask = 'list';
 		$pay_form->init();
 		$PAGE_ELEMS[] = &$pay_form;
-		$pay_form->ButtonStr = str_params(_("Pay %1"),array($sess_row['credit']),1);
+		$pay_form->ButtonStr = str_params(_("Pay %1"),array($sess_row['credit_fmt']),1);
 		$pay_form->follow_params['sum'] = $sess_row['credit'];
 		$pay_form->follow_params['sid'] = $sess_row['sid'];
-		$pay_form->QueryString = str_dbparams(&$dbhandle, 'SELECT pay_session(%1, %2, true) AS money;',
+		$pay_form->QueryString = str_dbparams($dbhandle, 'SELECT pay_session(%1, %2, true) AS money;',
 			array($sess_row['sid'], $_GET['sum']));
 	}
 } //sess_row
