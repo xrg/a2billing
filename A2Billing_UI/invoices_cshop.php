@@ -9,6 +9,8 @@ require_once (DIR_COMMON."Form/Class.ClauseField.inc.php");
 require_once (DIR_COMMON."Form/Class.ListSumView.inc.php");
 require_once (DIR_COMMON."Form/Class.SumMultiView.inc.php");
 
+require_once (DIR_COMMON."Class.SqlActionElem.inc.php");
+
 $menu_section='menu_agents';
 
 //HelpElem::DoHelp(gettext("Agents, callshops. <br>List or manipulate agents, which can deliver cards to customers."));
@@ -54,7 +56,9 @@ if ($sess_row){
 	$HD_Form->checkRights(ACX_AGENTS);
 	$HD_Form->init(null,false);
 	$HD_Form->views['list'] = new ListSumView();
-	$HD_Form->views['pay'] = new IdleView();
+	$HD_Form->views['pay'] = $HD_Form->views['true'] =
+		$HD_Form->views['false'] = new IdleView();
+		
 	if ($FG_DEBUG)
 		$HD_Form->views['dump-form'] = new DbgDumpView();
 	
@@ -81,7 +85,8 @@ if ($sess_row){
 	$Sum_Form->checkRights(ACX_AGENTS);
 	$Sum_Form->init(null,false);
 	$Sum_Form->views['list'] = new SumMultiView();
-	$Sum_Form->views['pay'] = new IdleView();
+	$Sum_Form->views['pay'] = $Sum_Form->views['true'] =
+		$Sum_Form->views['false']= new IdleView();
 	if ($FG_DEBUG)
 		$Sum_Form->views['dump-form'] = new DbgDumpView();
 	
@@ -105,6 +110,23 @@ if ($sess_row){
 	$Sum_Form->views['list']->sums[] = array('title' => _("Total"),
 		'fns' => array( 'cnum' => 'COUNT',
 			'duration' => 'SUM', 'neg_charge' => 'SUM'));
+			
+	if ($sess_row['is_open'] != 't')
+		$PAGE_ELEMS[] = new StringElem(_("Session is closed"));
+	elseif ($sess_row['is_inuse'] == 't')
+		$PAGE_ELEMS[] = new StringElem(_("Card is in use, cannot close session now."));
+	else{
+		$pay_form = new SqlActionElem();
+		$pay_form->action_do = 'pay';
+		$pay_form->action_ask = 'list';
+		$pay_form->init();
+		$PAGE_ELEMS[] = &$pay_form;
+		$pay_form->ButtonStr = str_params(_("Pay %1"),array($sess_row['credit']),1);
+		$pay_form->follow_params['sum'] = $sess_row['credit'];
+		$pay_form->follow_params['sid'] = $sess_row['sid'];
+		$pay_form->QueryString = str_dbparams(&$dbhandle, 'SELECT pay_session(%1, %2, true) AS money;',
+			array($sess_row['sid'], $_GET['sum']));
+	}
 } //sess_row
 
 require("PP_page.inc.php");
