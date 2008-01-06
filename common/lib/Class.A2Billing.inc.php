@@ -12,6 +12,8 @@ class A2Billing {
 	protected static $the_instance = null;
 	protected $dbhandle = null;
 	protected $ini_cfg = null;
+			// Note: Do NOT put untrusted data into currency!
+	public $currency ; ///< The \b display currency. May be altered by the GUI.
 	
 	/** Returns the static config's instance.
 	   Of course, it will create one when called for the first time.
@@ -157,6 +159,11 @@ class A2Billing {
 			throw new Exception("Config file \"$fname\" doesn't exist");
 		$this->ini_cfg = parse_ini_file($fname,true);
 		if (!$this->ini_cfg) throw new Exception('Parse of ini file failed!');
+		$this->set_def_conf('global','base_currency',null,'BASE_CURRENCY','error');
+		if (isset($_SESSION['currency']))
+			$this->currency=$_SESSION['currency'];
+		else
+			$this->currency = $this->ini_cfg['global']['base_currency'];
 	}
 
 };
