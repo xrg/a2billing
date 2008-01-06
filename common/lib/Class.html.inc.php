@@ -16,7 +16,7 @@ class StringElem extends ElemBase {
 };
 
 class DbgElem extends StringElem{
-	public $content = '';
+	//public $content = '';
 	public $obj = null;
 	
 	public function Render(){
@@ -34,7 +34,7 @@ class DbgElem extends StringElem{
 };
 
 class ErrorElem extends StringElem{
-	public $content = '';
+	//public $content = '';
 	
 	public function Render(){
 	?>
