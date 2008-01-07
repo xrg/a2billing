@@ -7,6 +7,7 @@ class SqlRefField extends BaseField{
 	public $reftable;
 	public $refname;
 	public $refid ;
+	public $refclause;
 	public $comboid;
 	public $combotable; ///< Alt table to use for the combo
 	public $combofield; ///< Alt field to use for the combo
@@ -58,8 +59,11 @@ class SqlRefField extends BaseField{
 			return null;
 	}
 	public function detailQueryTable(&$table,&$form){
+		$rclause = '';
+		if (!empty($this->refclause))
+			$rclause = ' WHERE ' . $this->refclause;
 		$table .= ' LEFT OUTER JOIN ' .
-			str_params("( SELECT %1 AS %0_%1, %2 AS %0_%2 FROM %3) AS %0_table ".
+			str_params("( SELECT %1 AS %0_%1, %2 AS %0_%2 FROM %3 $rclause) AS %0_table ".
 				"ON %0_%1 = %0",
 			    array($this->fieldname,$this->refid,$this->refname, $this->reftable));
 	}
@@ -84,6 +88,9 @@ class SqlRefField extends BaseField{
 		$qry = "SELECT $refid,$refname FROM $reftable";
 		if (!empty($this->comboclause))
 			$qry .= ' WHERE ' . $this->comboclause;
+		elseif (!empty($this->refclause))
+			$qry .= ' WHERE ' . $this->refclause;
+		
 		$qry .= ';';
 		if ($debug>3)
 			echo "Query: $qry<br>\n";
