@@ -132,7 +132,7 @@ class A2Billing {
 			}
 		}
 		// second pass
-		if (isset($this->config[$sect][$name])) {
+		if (isset($this->ini_cfg[$sect][$name])) {
 			if($const !=null){
 			define($const,$this->ini_cfg[$sect][$name]);
 			//echo "define('$const',\$this->config[$sect][$name]);<br>\n";
