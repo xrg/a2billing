@@ -72,13 +72,12 @@ function SetLocalLanguage($set_lang) {
 	$res= setlocale(LC_ALL,$slectedLanguage, $languageEncoding);
 	if (!$res  && $FG_DEBUG)
 		error_log("Could not set locale to $slectedLanguage, $languageEncoding");
-	$domain = 'messages';
 //       bindtextdomain($domain,"./lib/locale/");
-	bindtextdomain($domain, LIBDIR . "locale/");
-	textdomain($domain);
-	bind_textdomain_codeset($domain,$charEncoding);
+	bindtextdomain(MESSAGE_DOMAIN, "lib/locale/");
+	textdomain(MESSAGE_DOMAIN);
+	bind_textdomain_codeset(MESSAGE_DOMAIN,$charEncoding);
 	define('CHARSET', $charEncoding);
-	if ($FG_DEBUG>5)
+	if ($FG_DEBUG>3)
 		trigger_error("Locale: " . setlocale(LC_MESSAGES,0) ." : " . $slectedLanguage,E_USER_NOTICE);
 	
 	return $ret;
