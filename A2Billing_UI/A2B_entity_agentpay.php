@@ -1,71 +1,38 @@
 <?php
-if ($wantinclude!=1){
-	$menu_section='menu_agents';
-	include ("../lib/defines.php");
-	include ("../lib/module.access.php");
-	include ("../lib/Form/Class.FormHandler.inc.php");
-}
+require_once ("./lib/defines.php");
+require_once ("./lib/module.access.php");
+require_once (DIR_COMMON."Form.inc.php");
+require_once (DIR_COMMON."Class.HelpElem.inc.php");
+require_once (DIR_COMMON."Form/Class.SqlRefField.inc.php");
+require_once (DIR_COMMON."Form/Class.TimeField.inc.php");
+
+$menu_section='menu_agents';
 
 
-if (! has_rights (ACX_AGENTS)){
-	   Header ("HTTP/1.0 401 Unauthorized");
-	   Header ("Location: PP_error.php?c=accessdenied");
-	   die();
-}
+HelpElem::DoHelp(gettext("Agent payments are money transactions between agents and us, the company."));
 
-include ("./form_data/FG_var_agentpay.inc");
+$HD_Form= new FormHandler('cc_agentpay',_("Payments"),_("Payment"));
+$HD_Form->checkRights(ACX_AGENTS);
+$HD_Form->init();
 
+$PAGE_ELEMS[] = &$HD_Form;
+$PAGE_ELEMS[] = new AddNewButton($HD_Form);
 
-/***********************************************************************************/
+$HD_Form->model[] = new PKeyFieldEH(_("ID"),'id');
+$HD_Form->model[] = new SqlRefField(_("Agent"), "agentid","cc_agent", "id", "login");
 
-$HD_Form_c -> setDBHandler (DbConnect());
+$HD_Form->model[] = new DateTimeField(_("Date"),'date');
+$HD_Form->model[] = new MoneyField(_("Credit"),'credit');
+$HD_Form->model[] = new SqlRefField(_("Type"), "pay_type","cc_texts", "id", "txt");
+end($HD_Form->model)->refclause = "lang = 'C'";
 
+$HD_Form->model[] = new SqlBigRefField(_("Invoice"), "invoice_id","cc_invoices", "id", "orderref");
+//end($HD_Form->model)->refclause = "agentid IS NOT NULL";
 
-$HD_Form_c -> init();
+$HD_Form->model[] = dontList( new TextAreaField(_("Description"),'descr'));
 
-
-// To fix internal links due $_SERVER["PHP_SELF"] from parent include that fakes them
-if ($wantinclude==1){
-	$HD_Form_c -> FG_EDITION_LINK = "A2B_entity_agentpay.php?form_action=ask-edit&id=%#id&";
-	$HD_Form_c -> FG_DELETION_LINK  = "A2B_entity_gentpay.php?form_action=ask-delete&id=%#id&";
-}
-
-
-if ($id!="" || !is_null($id)){	
-	$HD_Form_c -> FG_EDITION_CLAUSE = str_replace("%id", "$id", $HD_Form_c -> FG_EDITION_CLAUSE);	
-}
+$HD_Form->model[] = new DelBtnField();
 
 
-if (!isset($form_action))  $form_action="list"; //ask-add
-if (!isset($action)) $action = $form_action;
-
-
-$list = $HD_Form_c -> perform_action($form_action);
-
-
-if ($wantinclude!=1){
-	// #### HEADER SECTION
-	include("PP_header.php");
-
-	// #### HELP SECTION
-	if ($form_action=='list') echo '<br><br>'.$CC_help_list_agentpay;
-	else echo '<br><br>'.$CC_help_edit_agentpay;
-}
-
-
-// #### TOP SECTION PAGE
-$HD_Form_c -> create_toppage ($form_action);
-
-
-// #### CREATE FORM OR LIST
-//$HD_Form_c -> CV_TOPVIEWER = "menu";
-if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
-
-$HD_Form_c -> create_form ($form_action, $list, $id=null) ;
-
-if ($wantinclude!=1){
-	// #### FOOTER SECTION
-	include("PP_footer.php");
-}	
-
+require("PP_page.inc.php");
 ?>

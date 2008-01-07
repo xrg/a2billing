@@ -16,7 +16,7 @@ $HD_Form->checkRights(ACX_AGENTS);
 $HD_Form->init();
 
 $PAGE_ELEMS[] = &$HD_Form;
-$PAGE_ELEMS[] = new AddNewButton($HD_Form);
+// $PAGE_ELEMS[] = new AddNewButton($HD_Form); No, we don't open them this way!
 
 $HD_Form->model[] = new PKeyField(_("ID"),'id');
 $HD_Form->model[] = new DateTimeField(_("Start"),'starttime');
