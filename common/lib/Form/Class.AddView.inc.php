@@ -122,7 +122,10 @@ class AddView extends FormView {
 		
 		foreach ($ins_data as $ins){
 			$ins_keys[] =$ins[0];
-			$ins_qm[] = '?';
+			if (count($ins)>2)
+				$ins_qm[] = $ins[2];
+			else
+				$ins_qm[] = '?';
 			$ins_values[] = $ins[1];
 		}
 		

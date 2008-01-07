@@ -122,6 +122,35 @@ class MoneyField extends FloatField {
 		if ( is_string($tmp))
 			$clauses[] = $tmp;
 	}
+	
+	public function editQueryField(&$dbhandle){
+		if (!$this->does_edit)
+			return;
+		if ($this->fieldexpr)
+			$fld= $this->fieldexpr;
+		else
+			$fld = $this->fieldname;
+		return "conv_currency_from($fld, '". A2Billing::instance()->currency ."') AS " .
+			$this->fieldname;
+	}
+
+	public function buildInsert(&$ins_arr,&$form){
+		if (!$this->does_add)
+			return;
+		$ins_arr[] = array($this->fieldname,
+			$this->buildValue($form->getpost_dirty($this->fieldname),$form),
+			str_dbparams($form->a2billing->DBHandle(), "conv_currency_to( ?, %2)",
+				array($form->a2billing->currency)));
+	}
+
+	public function buildUpdate(&$ins_arr,&$form){
+		if (!$this->does_edit)
+			return;
+		$ins_arr[] = str_dbparams($form->a2billing->DBHandle(),
+			$this->fieldname . " = conv_currency_to( %1, %2)",
+			array($this->buildValue($form->getpost_dirty($this->fieldname),$form),
+				$form->a2billing->currency));
+	}
 };
 
 class BoolField extends IntField{
