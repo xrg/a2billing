@@ -66,9 +66,8 @@ class FloatField extends IntField{
 	}
 
 	public function buildValue($val,&$form){
-		if (is_numeric($val))
-			return $val;
-		return (double) str_replace(',','.',$val);
+		if (preg_match('/^\-?[0-9]+([,.][0-9]*)?$/',$val)>=1)
+		return str_replace(',','.',$val);
 	}
 
 };
