@@ -8,10 +8,17 @@ class DateTimeField extends TextField {
 	static $sqlTimeFmt = null;
 	
 	public function detailQueryField(&$dbhandle){
+		if (!empty($this->fieldexpr))
+			return $this->fmtContent($this->fieldexpr) . ' AS ' .$this->fieldname;
+		else
+			return $this->fmtContent($this->fieldname) . ' AS ' .$this->fieldname;
+	}
+	
+	protected function fmtContent($content){
 		if (DateTimeField::$sqlTimeFmt == null)
 			DateTimeField::$sqlTimeFmt= _("IYYY-MM-DD HH24:MI:SS TZ");
-		return 'to_char(' . $this->fieldname .', \''.DateTimeField::$sqlTimeFmt .
-			'\') AS ' .$this->fieldname;
+		return 'to_char(' . $content .', \''.DateTimeField::$sqlTimeFmt .
+			'\')';
 	}
 
 	public function getDefault() {
@@ -21,6 +28,49 @@ class DateTimeField extends TextField {
 				return date('Y-m-d H:i:s',$tstamp);
 		}
 		return $this->def_value;
+	}
+
+	public function buildSumQuery(&$dbhandle, &$sum_fns,&$fields, &$table,
+		&$clauses, &$grps, &$form){
+		if (!$this->does_list)
+			return;
+		
+		// fields
+		if ($this->fieldexpr)
+			$fld = $this->fieldexpr;
+		else
+			$fld = $this->fieldname;
+		
+		if (isset($sum_fns[$this->fieldname]) && !is_null($sum_fns[$this->fieldname])){
+			if ($sum_fns[$this->fieldname] === true){
+				if (!empty($this->fieldexpr))
+					$grps[] = $this->fieldexpr;
+				else
+					$grps[] = $this->fieldname;
+				$fields[] = $this->fmtContent($fld) . " AS ". $this->fieldname;
+			}
+			elseif (is_string($sum_fns[$this->fieldname]))
+				$fields[] = $sum_fns[$this->fieldname] ."(".
+				$this->fmtContent($fld).") AS ". $this->fieldname;
+			
+		}
+		
+		$this->listQueryTable($table,$form);
+		$tmp= $this->listQueryClause($dbhandle,$form);
+		if ( is_string($tmp))
+			$clauses[] = $tmp;
+	}
+
+};
+
+class DateField extends DateTimeField {
+	static $sqlDateFmt = null;
+	
+	protected function fmtContent($content){
+		if (DateField::$sqlDateFmt == null)
+			DateField::$sqlDateFmt= _("IYYY-MM-DD");
+		return 'to_char(' . $content .', \''.DateField::$sqlDateFmt .
+			'\')';
 	}
 
 };
