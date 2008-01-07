@@ -6,7 +6,7 @@
  *  ADD THIS SCRIPT IN A CRONTAB JOB
  *
 	crontab -e
-	0 6 * * * php /var/lib/asterisk/agi-bin/libs_a2billing/crontjob/currencies_update_yahoo.php
+	0 6 * * * php ...cronjobs/currencies_update_yahoo.php
 	
 	field	 allowed values
 	-----	 --------------
@@ -25,110 +25,161 @@ set_time_limit(0);
 error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
 //dl("pgsql.so"); // remove "extension= pgsql.so !
 
+// require("defines.php");
+require("lib/Misc.inc.php");
+require("lib/Class.A2Billing.inc.php");
+// include_once ("/../Class.Table.php");
 
-include (dirname(__FILE__)."/../Class.A2Billing.php");
-include_once (dirname(__FILE__)."/../Class.Table.php");
-include (dirname(__FILE__)."/../Misc.php");
+// define('DEBUG_CONF',1);
+$verbose = 1;
+$first_time = false;
 
+$cli_args = arguments($argv);
 
-$FG_DEBUG=0;
+function update_currency($cur, $value){
+	global $FG_DEBUG;
+	global $verbose;
+	global $dbhandle;
+	
+	if (!is_numeric($value)) {
+		if ($verbose)
+			echo "Non-numeric value $value came for currency $cur .\n";
+		return false;
+	}
+	if ($FG_DEBUG)
+		echo "Updating rate of '$cur' to $value. ";
+	$ures = $dbhandle->Execute('UPDATE cc_currencies SET value = ?, lastupdate = now() '.
+		' WHERE currency = ?;',
+			array($value,$cur));
+	if (!$ures){
+		if ($FG_DEBUG) echo "\n";
+		echo $dbhandle->ErrorMsg() ."\n";
+		return false;
+	}elseif ($dbhandle->Affected_Rows()!=1){
+		if ($verbose)
+			echo "Warning: Affected rows:". $dbhandle->Affected_Rows(). ".\n";
+		return false;
+	}
+	else {
+		if ($FG_DEBUG)
+			echo "OK.\n";
+		return true;
+	}
+}
 
+if (!empty($cli_args['debug']))
+	$FG_DEBUG=$cli_args['debug'];
+elseif(!empty($cli_args['d']))
+	$FG_DEBUG=$cli_args['d'];
 
-$A2B = new A2Billing();
+if (!empty($cli_args['verbose']))
+	$verbose=2;
+elseif(!empty($cli_args['v']))
+	$verbose=2;
 
-// SELECT THE FILES TO LOAD THE CONFIGURATION
-$A2B -> load_conf($agi, DEFAULT_A2BILLING_CONFIG, 1);	
+if (!empty($cli_args['silent']))
+	$verbose=0;
+elseif(!empty($cli_args['q']))
+	$verbose=0;
 
+if (!empty($cli_args['config']))
+	define('DEFAULT_A2BILLING_CONFIG',$cli_args['config']);
 
-// DEFINE FOR THE DATABASE CONNECTION
-define ("BASE_CURRENCY", strtoupper($A2B->config["global"]['base_currency']));
+$A2B = A2Billing::instance();
+
+if ($cli_args['first-time'])
+	$first_time=true;
 
 // get in a csv file USD to EUR and USD to CAD
 // http://finance.yahoo.com/d/quotes.csv?s=USDEUR=X+USDCAD=X&f=l1
 
+if ($verbose)
+	echo "Updating currencies for base: ". BASE_CURRENCY. "\n";
 
-$A2B -> load_conf($agi, NULL, 0, $idconfig);
-//$A2B -> log_file = $A2B -> config["log-files"]['cront_currencies_update'];
-//$A2B -> write_log("[START CURRENCY UPDATE]", 0);
-write_log(LOGFILE_CRONT_CURRENCY_UPDATE, basename(__FILE__).' line:'.__LINE__."[#### START CURRENCY UPDATE ####]");
+$dbhandle = $A2B->DBHandle();
 
-if (!$A2B -> DbConnect()){
-	echo "[Cannot connect to the database]\n";
-	write_log(LOGFILE_CRONT_CURRENCY_UPDATE, basename(__FILE__).' line:'.__LINE__."[Cannot connect to the database]");
-	exit;
-}
+// First, check the base currency!
+if (BASE_CURRENCY != strtoupper(BASE_CURRENCY))
+	die("Error: base_currency must be set in capital letters in cfg!\n");
 
+$res = $dbhandle->Execute('SELECT value FROM cc_currencies WHERE currency = ?;', BASE_CURRENCY);
 
-$instance_table = new Table();
-$A2B -> set_instance_table ($instance_table);
-
-$QUERY =  "SELECT id,currency,basecurrency FROM cc_currencies ORDER BY id";
-$result = $A2B -> instance_table -> SQLExec ($A2B->DBHandle, $QUERY);
-	
-$url = "http://finance.yahoo.com/d/quotes.csv?s=";
-
-/* result[index_result][field] */
-
-$index_base_currency = 0;
-
-if (is_array($result)){
-	$num_cur = count($result);
-	write_log(LOGFILE_CRONT_CURRENCY_UPDATE, basename(__FILE__).' line:'.__LINE__."[CURRENCIES TO UPDATE = $num_cur]", 0);
-	for ($i=0;$i<$num_cur;$i++){
-		if ($FG_DEBUG >= 1) echo $result[$i][0].' - '.$result[$i][1].' - '.$result[$i][2]."\n";
-		// Finish and add termination ? 
-		if ($i+1 == $num_cur) $url .= BASE_CURRENCY.$result[$i][1]."=X&f=l1";
-		else $url .= BASE_CURRENCY.$result[$i][1]."=X+";
+if (!$res){
+	echo $dbhandle->ErrorMsg() ."\n";
+	die();
+}elseif ($res->EOF)
+	echo "Warning: Base currency " . BASE_CURRENCY. " not found in database.\n";
+else {
+	if ($FG_DEBUG)
+		echo "Base currency located in db, nice.\n";
+	$row= $res->fetchRow();
+	if ($row['value'] != 1.00){
+		if ($first_time)
+			echo "Warning: ";
+		else	echo "Error: ";
+		echo "Base currency rate is ".$row['value']." !\n";
+		if (!$first_time)
+			die();
+		else
+			if (!update_currency(BASE_CURRENCY, 1.0))
+			die();
 		
-		// Check what is the index of BASE_CURRENCY to save it 
-		if (strcasecmp(BASE_CURRENCY, $result[$i][1]) == 0) {
-			$index_base_currency = $result[$i][0];
-		}
 	}
-	
-	// Create the script to get the currencies
-		$outarr= array();
-		$outres= -1;
-		$tmpfname=tempnam("/tmp","currencies-");
-		$CMD='wget ' . escapeshellarg($url) . ' -O ' . $tmpfname;
 
-		// exec the script
-		exec($CMD,$outarr,$outres);
-		if ($outres!=0) {
-			echo "Get currencies failed with code" . $outres . "\n";
-			exit(1);
-		}
-	
-	// get the file with the currencies to update the database
-		$currencies = file($tmpfname);
-	
-	// update database
-	foreach ($currencies as $currency){
-		
-		$currency = trim($currency);
-		
-		if (!is_numeric($currency)){ 
-			continue; 
-		}
-		$id++;
-		// if the currency is BASE_CURRENCY the set to 1
-		if ($id == $index_base_currency) $currency = 1;
-		
-		if ($currency!=0) $currency=1/$currency;
-		$QUERY="UPDATE cc_currencies SET value=".$currency;
-		
-		if (BASE_CURRENCY != $result[$i][2]){
-			$QUERY .= ", basecurrency='".BASE_CURRENCY."'";
-		}
-		$QUERY .= " , lastupdate = CURRENT_TIMESTAMP WHERE id =".$id;
-		
-			//echo $QUERY . "\n";
-		$result = $A2B -> instance_table -> SQLExec ($A2B->DBHandle, $QUERY, 0);
-		if ($FG_DEBUG >= 1) echo "$QUERY \n"; 
-		//if ($id == 5) exit;
-		}
-		unlink($tmpfname);
-	write_log(LOGFILE_CRONT_CURRENCY_UPDATE, basename(__FILE__).' line:'.__LINE__."[CURRENCIES UPDATED !!!]", 0);
 }
+
+$res = $dbhandle->Execute('SELECT id,currency FROM cc_currencies WHERE currency <> ? ;', BASE_CURRENCY);
+
+if (!$res){
+	echo $dbhandle->ErrorMsg() ."\n";
+	die();
+}elseif ($res->EOF){
+	echo "Error: no currencies in db, weird.\n";
+	exit();
+}
+
+$n=0;
+$curr_list = array();
+while ($cur_row=$res->fetchRow())
+	$curr_list[] =$cur_row['currency'];
+
+$conv_list=array();
+foreach($curr_list as $cur)
+	$conv_list[] = BASE_CURRENCY.$cur .'=X';
+	
+$url = "http://download.finance.yahoo.com/d/quotes.csv?s=";
+$url .= implode('+',$conv_list);
+$url .= '&f=sl1'; // 'sl1' means symbol+ value
+
+if ($FG_DEBUG)
+	echo "Fetch url: " . $url . "\n";
+
+$outarr= array();
+$outres= -1;
+$tmpfname=tempnam("/tmp","currencies-");
+$CMD='wget -q ' . escapeshellarg($url) . ' -O ' . $tmpfname;
+
+// exec the script
+exec($CMD,$outarr,$outres);
+if ($outres!=0) {
+	echo "Get currencies failed with code" . $outres . "\n";
+	exit(1);
+}
+if ($verbose)
+	echo "Currencies downloaded to $tmpfname \n";
+
+$fil=fopen($tmpfname,'rt');
+while($row = fgetcsv($fil,100)){
+	if (empty($row[0]) || empty($row[1]))
+		continue;
+	$cur = substr($row[0],3,3);
+	if (update_currency($cur,$row[1]))
+		$n++;
+}
+fclose($fil);
+
+unlink($tempnam);
+if ($verbose)
+	echo "Finished updating $n currencies.\n";
 
 ?>
