@@ -70,11 +70,11 @@ msgstr ""
 msgid "Delete this %1"
 msgstr ""
 
-#: common/lib/Form/Class.NumField.inc.php:81
+#: common/lib/Form/Class.NumField.inc.php:132
 msgid "TRUE"
 msgstr ""
 
-#: common/lib/Form/Class.NumField.inc.php:83
+#: common/lib/Form/Class.NumField.inc.php:134
 msgid "FALSE"
 msgstr ""
 
@@ -87,9 +87,14 @@ msgid "Add a new %1"
 msgstr ""
 
 #: common/lib/Form/Class.DetailsView.inc.php:153
-#: common/lib/Form/Class.ListView.inc.php:116
+#: common/lib/Form/Class.ListView.inc.php:127
 #: common/lib/Form/Class.EditView.inc.php:101
+#: common/lib/Form/Class.ListSumView.inc.php:70
 msgid "No %1 found!"
+msgstr ""
+
+#: common/lib/Form/Class.SelectionForm.inc.php:80
+msgid "GO!"
 msgstr ""
 
 #: common/lib/Form/Class.TimeField.inc.php:12
@@ -132,29 +137,29 @@ msgstr ""
 msgid "no rows"
 msgstr ""
 
-#: common/lib/Form/Class.ListView.inc.php:160
+#: common/lib/Form/Class.ListView.inc.php:178
 #: common/lib/old/Class.ViewHandler.inc.php:414
 msgid "DISPLAY"
 msgstr ""
 
-#: common/lib/Form/Class.ListView.inc.php:168
+#: common/lib/Form/Class.ListView.inc.php:186
 msgid "All"
 msgstr ""
 
-#: common/lib/Form/Class.ListView.inc.php:170
+#: common/lib/Form/Class.ListView.inc.php:188
 #: common/lib/old/Class.ViewHandler.inc.php:423
 msgid "GO"
 msgstr ""
 
-#: common/lib/Form/Class.ListView.inc.php:183
+#: common/lib/Form/Class.ListView.inc.php:201
 msgid "First"
 msgstr ""
 
-#: common/lib/Form/Class.ListView.inc.php:184
+#: common/lib/Form/Class.ListView.inc.php:202
 msgid "Prev"
 msgstr ""
 
-#: common/lib/Form/Class.ListView.inc.php:215
+#: common/lib/Form/Class.ListView.inc.php:233
 msgid "Next"
 msgstr ""
 
@@ -346,6 +351,14 @@ msgstr ""
 
 #: common/lib/Form/Class.ImportView.inc.php:909
 msgid "Import of data aborted."
+msgstr ""
+
+#: common/lib/Form/Class.ListSumView.inc.php:106
+msgid "SUM"
+msgstr ""
+
+#: common/lib/Form/Class.SumMultiView.inc.php:170
+msgid "No sums found!"
 msgstr ""
 
 #: common/lib/Misc.inc.php:569
@@ -888,91 +901,91 @@ msgstr ""
 msgid "Urdu"
 msgstr ""
 
-#: common/lib/Class.CallShop.inc.php:47
+#: common/lib/Class.CallShop.inc.php:54
 msgid "Open"
 msgstr ""
 
-#: common/lib/Class.CallShop.inc.php:47
+#: common/lib/Class.CallShop.inc.php:54
 msgid "Waiting for response"
 msgstr ""
 
-#: common/lib/Class.CallShop.inc.php:47
+#: common/lib/Class.CallShop.inc.php:54
 msgid "Receiving"
 msgstr ""
 
-#: common/lib/Class.CallShop.inc.php:77
+#: common/lib/Class.CallShop.inc.php:92
 msgid "Error Page"
 msgstr ""
 
-#: common/lib/Class.CallShop.inc.php:80
+#: common/lib/Class.CallShop.inc.php:95
 msgid "Cannot locate booths"
 msgstr ""
 
-#: common/lib/Class.CallShop.inc.php:88
+#: common/lib/Class.CallShop.inc.php:103
 msgid "No booths"
 msgstr ""
 
-#: common/lib/Class.CallShop.inc.php:91
+#: common/lib/Class.CallShop.inc.php:106
 msgid "No booths!<br>Please ask the administrators to create you some."
 msgstr ""
 
-#: common/lib/Class.CallShop.inc.php:98
+#: common/lib/Class.CallShop.inc.php:113
 msgid "Welcome!"
 msgstr ""
 
-#: common/lib/Class.CallShop.inc.php:114
+#: common/lib/Class.CallShop.inc.php:129
 msgid "Credit:"
 msgstr ""
 
-#: common/lib/Class.CallShop.inc.php:116
+#: common/lib/Class.CallShop.inc.php:131
 msgid "Start"
 msgstr ""
 
-#: common/lib/Class.CallShop.inc.php:117
+#: common/lib/Class.CallShop.inc.php:132
 msgid "Stop"
 msgstr ""
 
-#: common/lib/Class.CallShop.inc.php:118
+#: common/lib/Class.CallShop.inc.php:133
 msgid "Pay"
 msgstr ""
 
-#: common/lib/Class.CallShop.inc.php:119
+#: common/lib/Class.CallShop.inc.php:134
 msgid "Enable"
 msgstr ""
 
-#: common/lib/Class.CallShop.inc.php:120
+#: common/lib/Class.CallShop.inc.php:135
 msgid "Disable"
 msgstr ""
 
-#: common/lib/Class.CallShop.inc.php:121
+#: common/lib/Class.CallShop.inc.php:136
 msgid "Unload"
 msgstr ""
 
-#: common/lib/Class.CallShop.inc.php:122
+#: common/lib/Class.CallShop.inc.php:137
 msgid "One-Time"
 msgstr ""
 
-#: common/lib/Class.CallShop.inc.php:123 common/lib/BoothsXML.inc.php:36
+#: common/lib/Class.CallShop.inc.php:138 common/lib/BoothsXML.inc.php:36
 msgid "Empty"
 msgstr ""
 
-#: common/lib/Class.CallShop.inc.php:124
+#: common/lib/Class.CallShop.inc.php:139
 msgid "Member"
 msgstr ""
 
-#: common/lib/Class.CallShop.inc.php:125
+#: common/lib/Class.CallShop.inc.php:140
 msgid "New"
 msgstr ""
 
-#: common/lib/Class.CallShop.inc.php:128
+#: common/lib/Class.CallShop.inc.php:143
 msgid "Add:"
 msgstr ""
 
-#: common/lib/Class.CallShop.inc.php:144
+#: common/lib/Class.CallShop.inc.php:159
 msgid "Refresh"
 msgstr ""
 
-#: common/lib/Class.CallShop.inc.php:146
+#: common/lib/Class.CallShop.inc.php:161
 msgid "Response:"
 msgstr ""
 

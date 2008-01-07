@@ -27,6 +27,7 @@ msgstr ""
 #: A2Billing_UI/A2B_entity_server_group.php:22
 #: A2Billing_UI/A2B_entity_tariffplan.php:24 A2Billing_UI/card-history.php:44
 #: A2Billing_UI/A2B_entity_retailplan.php:24
+#: A2Billing_UI/invoices_cshop.php:73
 msgid "Description"
 msgstr ""
 
@@ -45,6 +46,7 @@ msgstr ""
 #: A2Billing_UI/agent-money.php:371 A2Billing_UI/A2B_entity_agent.php:15
 #: A2Billing_UI/A2B_entity_booths.php:25
 #: A2Billing_UI/A2B_entity_card_group.php:23
+#: A2Billing_UI/Callshop_booths.php:18
 msgid "Agent"
 msgstr ""
 
@@ -691,7 +693,8 @@ msgstr ""
 #: A2Billing_UI/call-log-customers.php:83 A2Billing_UI/graph_statbar.php:51
 #: A2Billing_UI/graph_stat.php:52 A2Billing_UI/invoices_customer.php:74
 #: A2Billing_UI/invoices.php:87 A2Billing_UI/A2B_entity_call.php:37
-#: A2Billing_UI/A2B_entity_call.php:77
+#: A2Billing_UI/A2B_entity_call.php:77 A2Billing_UI/invoices_cshop.php:78
+#: A2Billing_UI/invoices_cshop.php:103
 msgid "Duration"
 msgstr ""
 
@@ -759,6 +762,7 @@ msgstr ""
 #: A2Billing_UI/A2B_entity_invoices2_card.php:81
 #: A2Billing_UI/A2B_entity_invoices2_period.php:135
 #: A2Billing_UI/PP_menu.inc.php:241 A2Billing_UI/A2B_entity_call.php:16
+#: A2Billing_UI/invoices_cshop.php:101
 msgid "Calls"
 msgstr ""
 
@@ -781,7 +785,7 @@ msgstr ""
 #: A2Billing_UI/A2B_entity_ainvoice_detail.php:346
 #: A2Billing_UI/A2B_entity_invoice_detail.php:493
 #: A2Billing_UI/A2B_entity_invoice_detail.php:654
-#: A2Billing_UI/card-history.php:43
+#: A2Billing_UI/card-history.php:43 A2Billing_UI/invoices_cshop.php:98
 msgid "Date"
 msgstr ""
 
@@ -833,7 +837,7 @@ msgstr ""
 #: A2Billing_UI/A2B_entity_ainvoice_detail.php:398
 #: A2Billing_UI/A2B_entity_invoice_detail.php:729
 #: A2Billing_UI/invoices_customer.php:706
-#: A2Billing_UI/invoices_customer.php:1095
+#: A2Billing_UI/invoices_customer.php:1095 A2Billing_UI/invoices_cshop.php:112
 msgid "Total"
 msgstr ""
 
@@ -2099,6 +2103,7 @@ msgstr ""
 
 #: A2Billing_UI/A2B_entity_ainvoice_detail.php:266
 #: A2Billing_UI/A2B_entity_ainvoice_detail.php:346
+#: A2Billing_UI/invoices_cshop.php:80 A2Billing_UI/invoices_cshop.php:105
 msgid "Charge"
 msgstr ""
 
@@ -2411,6 +2416,7 @@ msgstr ""
 
 #: A2Billing_UI/A2B_entity_card.php:32
 #: A2Billing_UI/CC_entity_sim_ratecard.php:25
+#: A2Billing_UI/invoices_cshop.php:79
 msgid "Credit"
 msgstr ""
 
@@ -3250,6 +3256,16 @@ msgstr ""
 
 #: A2Billing_UI/A2B_entity_server.php:27
 msgid "Secret"
+msgstr ""
+
+#: A2Billing_UI/A2B_entity_server.php:28
+msgid "DB user"
+msgstr ""
+
+#: A2Billing_UI/A2B_entity_server.php:28
+msgid ""
+"The database username used by this host. This field must match the "
+"connection settings of the asterisk realtime."
 msgstr ""
 
 #: A2Billing_UI/A2B_entity_tariffgroup.php:10
@@ -4257,6 +4273,7 @@ msgid "The number we wish to dial. It will be at the card's numplan"
 msgstr ""
 
 #: A2Billing_UI/CC_entity_sim_ratecard.php:23
+#: A2Billing_UI/invoices_cshop.php:70
 msgid "Time"
 msgstr ""
 
@@ -6061,4 +6078,44 @@ msgstr ""
 
 #: A2Billing_UI/A2B_entity_astuser.php:34
 msgid "Override user string."
+msgstr ""
+
+#: A2Billing_UI/booths.xml.php:16
+msgid "Unauthorized: please log in again."
+msgstr ""
+
+#: A2Billing_UI/invoices_cshop.php:44 A2Billing_UI/invoices_cshop.php:48
+msgid "Cannot locate session!"
+msgstr ""
+
+#: A2Billing_UI/invoices_cshop.php:57
+msgid "Transactions"
+msgstr ""
+
+#: A2Billing_UI/invoices_cshop.php:57
+msgid "Transaction"
+msgstr ""
+
+#: A2Billing_UI/invoices_cshop.php:75
+msgid "Called Number"
+msgstr ""
+
+#: A2Billing_UI/invoices_cshop.php:86
+msgid "Per-date calls"
+msgstr ""
+
+#: A2Billing_UI/invoices_cshop.php:108
+msgid "Per day calls"
+msgstr ""
+
+#: A2Billing_UI/invoices_cshop.php:117
+msgid "Session is closed"
+msgstr ""
+
+#: A2Billing_UI/invoices_cshop.php:119
+msgid "Card is in use, cannot close session now."
+msgstr ""
+
+#: A2Billing_UI/invoices_cshop.php:126
+msgid "Pay %1"
 msgstr ""
