@@ -717,7 +717,7 @@ function str_dbparams($dbh, $str, $parm_arr){
 				
 				if ($v == null)
 					$resstr .= '0';
-				elseif (preg_match('/^\-?[0-9]+$/',$v)>=1)
+				elseif (preg_match('/^\-?[0-9]+([,.][0-9]*)?$/',$v)>=1)
 					$resstr .= $v;
 				else
 					$resstr .= '0';
