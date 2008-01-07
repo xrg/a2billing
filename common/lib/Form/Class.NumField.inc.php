@@ -77,7 +77,7 @@ class MoneyField extends FloatField {
 
 	public function DispAddEdit($val,&$form){
 	?><input type="text" name="<?= $form->prefix.$this->fieldname ?>" value="<?=
-		htmlspecialchars($val);?>" />&nbsp;&nbsp;<?= $form->a2billing->currency ?>
+		htmlspecialchars((float)$val);?>" />&nbsp;&nbsp;<?= $form->a2billing->currency ?>
 	<div class="descr"><?= $this->editDescr?></div>
 	<?php
 	}
