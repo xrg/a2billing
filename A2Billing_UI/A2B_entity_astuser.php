@@ -21,8 +21,8 @@ $PAGE_ELEMS[] = new AddNewButton($HD_Form);
 
 $HD_Form->model[] = new PKeyFieldEH(_("ID"),'id');
 
-$HD_Form->model[] = new TextFieldN(_("Card"),'card_id',_("Corresponding card"));
-$HD_Form->model[] = new TextFieldN(_("Booth"),'booth_id',_("Booth (if no card)"));
+$HD_Form->model[] = new SqlBigRefField(_("Card"),'card_id','cc_card','id','username',_("Corresponding card"));
+$HD_Form->model[] = new SqlBigRefField(_("Booth"),'booth_id','cc_booth','id','name',_("Booth (if no card)"));
 
 $HD_Form->model[] = new SqlRefField(_("Config"), "config","cc_ast_users_config", "id", "cfg_name");
 

@@ -117,4 +117,28 @@ class SqlRefFieldN extends SqlRefField{
 	}
 };
 
+/** Class for sql ref where the combo would have too many values.. 
+	\todo have popup window to select among the available entries.
+*/
+class SqlBigRefField extends SqlRefField{
+
+	public function DispAddEdit($val,&$form){
+		?><input type="text" name="<?= $form->prefix.$this->fieldname ?>" value="<?=
+		htmlspecialchars($val);?>" />
+		<div class="descr"><?= $this->editDescr?></div>
+		<?php
+	}
+
+	protected function prepare(&$dbhandle){
+		//stub!
+	}
+	
+	public function buildValue($val,&$form){
+		if (empty($val))
+			return null;
+		else
+			return $val;
+	}
+};
+
 ?>
