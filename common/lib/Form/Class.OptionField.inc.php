@@ -72,4 +72,29 @@ class DelBtnField extends OptionField {
 	}
 };
 
+class OtherBtnField extends OptionField {
+	public $title ='Other';
+	public $img ;
+	public $url;
+	public $extra_params;
+	
+	public function DispList(array &$qrow,&$form){
+		
+		$params= array();
+		$url = $this->url ;
+		if (!empty($this->extra_params)){
+			foreach ($this->extra_params as $key => $parm)
+				$params[$key] = $qrow[$parm];
+			$url .= arr2url($params);
+		}
+		
+		echo '&nbsp;<a href="'. $url . '">';
+		if (empty($this->img))
+			echo $this->title ;
+		else
+			echo '<img src="'.$this->img.'" border="0" alt="'. $this->title. '">';
+		echo '</a>';
+	}
+};
+
 ?>
