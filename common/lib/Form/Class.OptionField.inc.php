@@ -15,6 +15,12 @@ abstract class OptionField extends BaseField {
 	public function listQueryField(&$dbhandle){
 		return null;
 	}
+
+	public function buildInsert(&$ins_arr,&$form){
+	}
+
+	public function buildUpdate(&$ins_arr,&$form){
+	}
 };
 
 class GroupField extends OptionField {

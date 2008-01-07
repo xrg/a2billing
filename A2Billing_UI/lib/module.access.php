@@ -85,6 +85,12 @@ function has_rights ($condition) {
 	return ($_SESSION["rights"] & $condition);
 }
 
+	// Easter egg to let debug from url
+if (isset($_GET['debug']) && is_numeric($_GET['debug']))
+	$_SESSION['FG_DEBUG']= $FG_DEBUG = $_GET['debug'];
+elseif (isset($_SESSION['FG_DEBUG']))
+	$FG_DEBUG =$_SESSION['FG_DEBUG'];
+
 require_once(DIR_COMMON."languageSettings.inc.php");
 
     if (isset($_GET['language'])){
