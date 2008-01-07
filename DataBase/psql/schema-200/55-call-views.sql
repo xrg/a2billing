@@ -23,3 +23,18 @@ SELECT sessionid, uniqueid, cardid,nasipaddress, srvid,
 	FROM cc_call
 	GROUP BY sessionid, uniqueid, cardid, srvid) AS foo ;
 
+
+-- FAT NOTE: this view includes failed attempts!
+
+CREATE OR REPLACE VIEW cc_agent_calls3_v AS
+	SELECT cc_card_group.agentid, starttime, stoptime-starttime AS duration, tcause,
+		sessionbill, invoice_id,
+		substring(calledstation from '#"%#"___' for '#') || '***' AS calledstation,
+		CASE WHEN cc_agent.id IS NOT NULL THEN
+			(sessionbill * (1 -cc_agent.commission))
+			ELSE NULL END AS agentbill
+		FROM cc_call, cc_card, cc_card_group 
+			LEFT OUTER JOIN  cc_agent ON cc_agent.id = cc_card_group.agentid
+	WHERE cc_card.id = cc_call.cardid AND cc_card_group.id = cc_card.grp;
+
+--eof
