@@ -29,10 +29,10 @@ $HD_Form->model[] = dontList(new MoneyField(_("Amount"),'amount'));
 $HD_Form->model[] = dontList(new MoneyField(_("Tax"),'tax'));
 
 $HD_Form->model[] = new MoneyField(_("Total"),'total');
-$HD_Form->model[] = new IntField(_("Type"), "invoicetype" /*,"cc_texts", "id", "txt"*/);
+$HD_Form->model[] = new IntFieldN(_("Type"), "invoicetype" /*,"cc_texts", "id", "txt"*/);
 //end($HD_Form->model)->refclause = "lang = 'C'";
 
-$HD_Form->model[] = dontList(new TextField(_("Filename"), "filename"));
+$HD_Form->model[] = dontList(new TextFieldN(_("Filename"), "filename"));
 
 //$HD_Form->model[] = new SqlBigRefField(_("Invoice"), "invoice_id","cc_invoices", "id", "orderref");
 //end($HD_Form->model)->refclause = "agentid IS NOT NULL";
