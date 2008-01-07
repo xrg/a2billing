@@ -95,14 +95,15 @@ if ($sess_row){
 	$PAGE_ELEMS[] = &$Sum_Form;
 	
 	$Sum_Form->model[] = new ClauseField('sid',$sess_row['sid']);
-	$Sum_Form->model[] = new DateTimeField(_("Date"),'starttime');
+	$Sum_Form->model[] = new DateField(_("Date"),'starttime');
+	end($Sum_Form->model)->fieldexpr='date_trunc(\'day\', starttime)';
 	
 	
 	$Sum_Form->model[] = new IntField(_("Calls"),'cnum');
 	
 	$Sum_Form->model[] = new IntField(_("Duration"), "duration");
 	//$Sum_Form->model[] = new FloatField(_("Credit"), "pos_charge");
-	$Sum_Form->model[] = new FloatField(_("Charge"), "neg_charge");
+	$Sum_Form->model[] = new MoneyField(_("Charge"), "neg_charge");
 	
 	if ($sess_row['has_days'] == 't')
 		$Sum_Form->views['list']->sums[] = array('title' => _("Per day calls"),

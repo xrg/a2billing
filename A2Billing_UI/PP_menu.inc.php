@@ -142,6 +142,7 @@ div.menu div ul {
 		<li><a href="A2B_entity_booths.php"><?= _("Booths");?></a></li>
 		<li><a href="Gen_booths.php"><?= _("Generate Booths");?></a></li>
 		<li><a href="Callshop_booths.php"><?= _("Callshop View");?></a></li>
+		<li><a href="A2B_entity_sessions.php"><?= _("Sessions");?></a></li>
 		<li><a href="A2B_entity_agentpay.php?form_action=list"><?= _("List Payments");?></a></li>
 		<li><a href="A2B_entity_agentpay.php?form_action=ask-add"><?= _("Add Payment");?></a></li>
 		<li><a href="agent-money.php"><?= _("Money situation");?></a></li>
