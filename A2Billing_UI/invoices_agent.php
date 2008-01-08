@@ -58,8 +58,10 @@ $dform->meta_elems[] = $tmp;
 	$tmp->at_action = 'details';
 	$tmp->Form->checkRights(ACX_AGENTS);
 	$tmp->Form->init(null,false);
-	$tmp->Form->views['list'] = new SumMultiView();
+	$tmp->Form->views['list'] = new Multi2SumView();
+	$tmp->Form->views['list']->page_cols = 2;
 	
+	// TODO: clause field "sessionbill > 0" 
 	$tmp->Form->model[] = new DateTimeField(_("Time"),'starttime');
 	$tmp->Form->model[] = new TextField(_("Number"),'calledstation');
 	$tmp->Form->model[] = new TextField(_("Destination"),'destination');

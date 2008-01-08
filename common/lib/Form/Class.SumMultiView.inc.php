@@ -179,4 +179,113 @@ table.sumlist tbody tr:hover {
 
 };
 
+/** A multiple column (paginated), multi-sum (queries) view */
+class Multi2SumView extends SumMultiView {
+	public $page_cols = 1; ///< Number of columns to display
+	public $page_rows = 10; ///< Maximum number of rows per column/page
+	public $page_rows_first = 7;
+	public $page_rows_last = 5;
+	
+	protected function RenderTHead(&$form, &$col, &$row, &$mrows){
+		//if ( $n < $num_rows * $num_cols)
+		//	$n += $num_rows_first;
+		if ( (($col++) % $this->page_cols) == 0){
+			echo "<tr>";
+			$row++;
+		}
+		echo "<td width=\"" . (100/$this->page_cols) . "%\">";
+		if ($form->FG_DEBUG>2) echo "Col: $col/".$this->page_cols ." <br>\n";
+?>
+	<table cellPadding="2" cellSpacing="2" align='center' class="<?= $this->list_class?>">
+		<thead><tr>
+		<?php
+		if (!empty($this->titlerow) && ($row ==0)){
+			?><tr class="title"><td colspan="<?= $this->ncols?>"><?= $this->titlerow ?></td></tr>
+		<?php
+		}
+		foreach ($form->model as $fld)
+			$fld->RenderListHead($form);
+		?>
+		</tr></thead>
+		<tbody>
+		<?php
+		// Set the mrows to the appropriate value:
+		if ($row == 0)
+			$mrows= $this->page_rows_first;
+		else
+			$mrows= $this->page_rows;
+	}
+	
+	protected function RenderTFoot(&$col,&$row) {
+		echo "</tbody></table></td>";
+		if ( ($col % $this->page_cols) == 0)
+			echo "</tr>";
+		echo "\n";
+	}
+	
+	public function Render(&$form){
+		$this->RenderHead();
+	// For convenience, ref the dbhandle locally
+	$dbhandle = &$form->a2billing->DBHandle();
+		
+	if ($this->ncols ==null)
+		$this->ncols = count($form->model);
+	//	else echo str_params(_("No %1 found!"),array($form->model_name_s),1);
+		
+	// Variables that hold the table/pagination counters
+	$in_table = false;
+	$pg_row = 0;
+	$row_num = 0;
+	$col_num = 0;
+	$mrows = 10;
+	
+	echo '<table class="invoice_cols">';
+	foreach($this->sums as $summ) {
+		if (!$in_table){
+			$this->RenderTHead($form,$col_num,$pg_row, $mrows);
+			$in_table = true;
+		}
+		$res = $this->performSumQuery($summ,$form,$dbhandle);
+		if (!$res)
+			continue;
+		if (!empty($summ['title'])){
+			?><tr class="sumtitle"><td colspan="<?= $this->ncols?>"><?= $summ['title'] ?></td></tr>
+	<?php
+		}
+			
+		while ($row = $res->fetchRow()){
+			if (!$in_table){
+				$this->RenderTHead($form,$col_num,$pg_row, $mrows);
+				$in_table = true;
+			}
+			if ($row_num % 2)
+				echo '<tr class="odd">';
+			else	echo '<tr>';
+			
+			foreach ($form->model as $fld)
+				if ($fld) $fld->RenderListCell($row,$form);
+			echo "</tr>\n";
+			$row_num++;
+			
+			if (($row_num % $mrows) == 0){
+				$this->RenderTFoot($col_num, $pg_row);
+				$in_table = false;
+			}
+		}
+	}
+	
+	if ($row_num ==0){
+		?><tr><td colspan="<?= $this->ncols?>"><?= _("No sums found!") ?></td></tr>
+	<?php
+	}
+	
+	if ($in_table){
+		//close inner and outer tables
+		$this->RenderTFoot($col_num, $pg_row);
+	}
+	echo '</table>';
+	} // fn Render
+
+};
+
 ?>
