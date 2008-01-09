@@ -66,12 +66,16 @@ define CSS_template
 STYLES-$(1)-name:=$$(subst common/css-src/$(1)/,,$$(wildcard common/css-src/$(1)/*))
 STYLES-$(1)-files:=$$(foreach name,$$(STYLES-$(1)-name),$$(CODE-$(1))/css/$$(name).css)
 
-css-$(1): $$(STYLES-$(1)-files)
+css-$(1): $$(CODE-$(1))/css $$(STYLES-$(1)-files)
 
 all-css: css-$(1)
 
+$$(CODE-$(1))/css:
+	@[ ! -f $$(CODE-$(1))/css ] || ( echo "$$(CODE-$(1))/css is a file!" ; exit 1 )
+	@mkdir -p $$(CODE-$(1))/css/
+	@cd $$(CODE-$(1))/css/ ; ln -s ../../common/css/images ./
+
 $$(CODE-$(1))/css/%.css: common/css-src/$(1)/%/*.inc.css
-	@[ -d $$(CODE-$(1))/css/ ] || mkdir -p $$(CODE-$(1))/css/
 	cat $$^ > $$@
 endef
 
