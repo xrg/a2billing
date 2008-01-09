@@ -75,7 +75,9 @@ $$(CODE-$(1))/css:
 	@mkdir -p $$(CODE-$(1))/css/
 	@cd $$(CODE-$(1))/css/ ; ln -s ../../common/css/images ./
 
-$$(CODE-$(1))/css/%.css: common/css-src/$(1)/%/*.inc.css
+$$(CODE-$(1))/css/%.css: common/css-src/common/%/ common/css-src/$(1)/%/
+
+$$(CODE-$(1))/css/%.css: common/css-src/common/%/*.inc.css common/css-src/$(1)/%/*.inc.css
 	cat $$^ > $$@
 endef
 
