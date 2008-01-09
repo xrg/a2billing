@@ -1,8 +1,10 @@
 <?php
-	include("PP_header.php");
-?>
-<br/><br/><br/><br/>
+require("lib/defines.php");
+require_once(DIR_COMMON."Class.ElemBase.inc.php");
 
+class InfoContact extends ElemBase {
+	function Render(){
+	?>
 <br/>
 <table align=center width="80%" bgcolor="white" cellpadding="5" cellspacing="5" style="border-bottom: medium dotted #AA0000">
 	<tr>
@@ -13,9 +15,8 @@
 		</td>
 	</tr>
 </table>
-
-	<br/><br/><br/>
-
-<?php
-	include("PP_footer.php");
+<?php }
+};
+$PAGE_ELEMS[] = new InfoContact();
+require("PP_page.inc.php");
 ?>

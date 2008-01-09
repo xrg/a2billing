@@ -1,6 +1,7 @@
 <?php
-include ("lib/defines.php");
-include ("lib/module.access.php");
+require("lib/defines.php");
+require_once("lib/module.access.php");
+require_once(DIR_COMMON."Class.ElemBase.inc.php");
 
 if (! has_rights (ACX_ACCESS)){
       Header ("HTTP/1.0 401 Unauthorized");
@@ -8,9 +9,9 @@ if (! has_rights (ACX_ACCESS)){
       die();
 }
 
-include("PP_header.php");
-?>
-
+class RepChoice extends ElemBase {
+	function Render(){
+	?>
 <table cellpadding="0" cellspacing="1" border="0" width="30%" align="center">
 	<tr>
 	<td class="repchoice"><?= _("Please choose report type:")?></td>
@@ -29,5 +30,10 @@ include("PP_header.php");
 </table>
 
 <?php
-	include("PP_footer.php");
+	}
+};
+
+$PAGE_ELEMS[] = new RepChoice();
+require("PP_page.inc.php");
+
 ?>
