@@ -58,32 +58,32 @@ function imgidclick(imgID,divID)
 
 
 <ul id="nav">
-	<li><a href="booths.php"><strong><?php echo gettext("BOOTHS");?></strong></a></li>
+	<li><a href="booths.php"><strong><?= _("BOOTHS");?></strong></a></li>
 	<li><a href=# target=_self></a></li>	
 	
-	<li><a href="A2B_entity_cards.php?form_action=list"><strong><?php echo gettext("CUSTOMERS");?></strong></a></li>
+	<li><a href="A2B_entity_cards.php"><strong><?= _("CUSTOMERS");?></strong></a></li>
 	<li><a href=# target=_self></a></li>
 	
-	<li><a href="A2B_entity_booths.php?form_action=list"><strong><?php echo gettext("EDIT BOOTHS");?></strong></a></li>
+	<li><a href="A2B_entity_booths.php"><strong><?= _("EDIT BOOTHS");?></strong></a></li>
 	<li><a href=# target=_self></a></li>	
 	
-	<li><a href="invoices_cust.php"><strong><?php echo gettext("PAYMENTS");?></strong></a></li>
+	<li><a href="invoices_cust.php"><strong><?= _("PAYMENTS");?></strong></a></li>
 	<li><a href=# target=_self></a></li>	
 	
-	<li><a href="reports_choice.php"><strong><?php echo gettext("REPORTS");?></strong></a></li>
+	<li><a href="reports_choice.php"><strong><?= _("REPORTS");?></strong></a></li>
 	<li><a href=# target=_self></a></li>	
 
-	<li><a href="info_choice.php"><strong><?php echo gettext("INFO PAGES");?></strong></a></li>
+	<li><a href="info_choice.php"><strong><?= _("INFO PAGES");?></strong></a></li>
 	<li><a href=# target=_self></a></li>
 	
 	
-	<?php if ($A2B->config["agentcustomerui"]['password']){ ?>
+	<?php if ($A2B->ini_cfg["agentcustomerui"]['password']){ ?>
 	<li><a href=# target=_self></a></li>
-	<li><a href="A2B_entity_password.php?atmenu=password&form_action=ask-edit&stitle=Password"><strong><?= gettext("PASSWORD"); ?></strong></a></li>
+	<li><a href="A2B_entity_password.php?atmenu=password&action=ask-edit"><strong><?= gettext("PASSWORD"); ?></strong></a></li>
 	<?php  } ?>
 
 	<li><a href=# target=_self></a></li>
-	<li><a href="logout.php?logout=true" target="_parent"><font color="#DD0000"><strong><?php echo gettext("LOGOUT");?></strong></font></a></li>
+	<li><a href="logout.php?logout=true" target="_parent"><font color="#DD0000"><strong><?= _("LOGOUT");?></strong></font></a></li>
 
 </ul>
 
