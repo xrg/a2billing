@@ -90,6 +90,9 @@ $dform->meta_elems[] = $tmp;
 	
 $PAGE_ELEMS[] = &$dform;
 
-require("PP_page.inc.php");
+if (isset($_GET['printable']) && ($_GET['printable']) )
+	require("PP_print.inc.php");
+else
+	require("PP_page.inc.php");
 
 ?>
