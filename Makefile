@@ -6,7 +6,7 @@ SRC_DOMAINS=common $(DST_DOMAINS)
 UIS= A2BAgent_UI A2Billing_UI A2BCustomer_UI
 LANGS-agent=el_GR en_US es_ES fr_FR it_IT pl_PL pt_PT
 LANGS-admin=en_US pt_BR el_GR
-LANGS-customer=en_US el_GR es_ES fr_FR it_IT pl_PL pt_PT pt_BR ro_RO ru_RU tr_TR ur_PK zh_TW
+# LANGS-customer=en_US el_GR es_ES fr_FR it_IT pl_PL pt_PT pt_BR ro_RO ru_RU tr_TR ur_PK zh_TW
 LANGS-common=en_US el_GR es_ES fr_FR it_IT pl_PL pt_PT pt_BR ro_RO ru_RU tr_TR ur_PK zh_TW
 
 CODE-admin=A2Billing_UI
@@ -50,7 +50,7 @@ $(CODE-$(1))/lib/locale/$(2)/LC_MESSAGES/$(1).mo: common/lib/locale/$(2)/LC_MESS
 	msgcat --use-first $$^ | msgfmt -o $$@ '-'
 	
 pofiles: common/lib/locale/$(2)/LC_MESSAGES/$(1).po common/lib/locale/$(2)/LC_MESSAGES/common.po
-binaries: common/lib/locale/$(2)/LC_MESSAGES/$(1).mo
+binaries: $$(CODE-$(1))/lib/locale/$(2)/LC_MESSAGES/$(1).mo
 endef
 
 $(foreach clang,$(LANGS-common),$(eval $(call COMMON_template,$(clang))))
