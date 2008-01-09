@@ -35,10 +35,10 @@ class HelpElem extends ElemBase{
 		if (isset($GLOBALS['FG_DEBUG']) &&$GLOBALS['FG_DEBUG'] > 1)
 			return;
 		?>
-	<a href="#" target="_self" onclick="helpElemClick('img1000','div1000');"><img id="img1000" src="./Css/kicons/viewmag.png" onmouseover="this.style.cursor='hand';" width="16" height="16"></a>
+	<a href="#" target="_self" onclick="helpElemClick('img1000','div1000');"><img id="img1000" src="./Images/kicons/viewmag.png" onmouseover="this.style.cursor='hand';" width="16" height="16"></a>
 	<div id="div1000" style="display:visible;">
 		<div id="kiki"><div class="w1">
-			<img src="./Css/kicons/<?= $this->icon ?>" class="kikipic"/>
+			<img src="./Images/kicons/<?= $this->icon ?>" class="kikipic"/>
 			<div class="w2">
 				<?= $this->text ?>
 				<br/><br/>
@@ -77,24 +77,24 @@ function helpElemClick(imgID,divID)
 		if 	(document.all(divID).style.display == "none" )
 		{		
 			document.all(divID).style.display="";
-			document.all(imgID).src="./Css/kicons/viewmag.png";
+			document.all(imgID).src="./Images/kicons/viewmag.png";
 		}
 		else
 		{			
 			document.all(divID).style.display="None";
-			document.all(imgID).src="./Css/kicons/xmag.png";
+			document.all(imgID).src="./Images/kicons/xmag.png";
 		}
 		window.event.cancelBubble=true;
 	}else{
 		if 	(document.getElementById(divID).style.display == "none" )
 		{			
 			document.getElementById(divID).style.display="";
-			document.getElementById(imgID).src="./Css/kicons/viewmag.png";
+			document.getElementById(imgID).src="./Images/kicons/viewmag.png";
 		}
 		else
 		{			
 			document.getElementById(divID).style.display="None";
-			document.getElementById(imgID).src="./Css/kicons/xmag.png";
+			document.getElementById(imgID).src="./Images/kicons/xmag.png";
 		}
 	}
 }

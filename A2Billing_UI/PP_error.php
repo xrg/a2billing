@@ -46,7 +46,7 @@ $error["ERR-0002"] 	= gettext("No such card number found. Please check your card
 		<table width="100%" border="0" cellpadding="5" cellspacing="5">		  
 		<tr> 
 			<td align="center"><br/>
-						<img src="./Css/kicons/messagebox_critical.png"> <img src="./Css/kicons/messagebox_critical.png"> <img src="./Css/kicons/system-config-rootpassword.png"> <img src="./Css/kicons/messagebox_critical.png"> <img src="./Css/kicons/messagebox_critical.png">
+						<img src="./Images/kicons/messagebox_critical.png"> <img src="./Images/kicons/messagebox_critical.png"> <img src="./Images/kicons/system-config-rootpassword.png"> <img src="./Images/kicons/messagebox_critical.png"> <img src="./Images/kicons/messagebox_critical.png">
 				<br/>
 				<b><font size="3"><?php echo $error[$c]?></font></b>
 				<br/><br/>
