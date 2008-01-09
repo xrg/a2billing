@@ -1,7 +1,8 @@
-<?php include (dirname(__FILE__)."/lib/company_info.php");
+<?php
+include (dirname(__FILE__)."/lib/company_info.php");
 
-
-require_once("lib/languageSettings.php");
+require('./lib/defines.php');
+require_once(DIR_COMMON."languageSettings.inc.php");
 
 if (isset($_GET['language'])){
 	// Taken from defines.php

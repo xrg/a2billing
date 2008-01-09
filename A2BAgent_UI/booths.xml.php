@@ -5,25 +5,27 @@
 // We must tell the mod_php to send the correct header..
 header('Content-type: text/xml');
 
-include ("lib/defines.php");
-include ("lib/module.access.php");
-
+require_once("lib/defines.php");
+require_once("lib/module.access.php");
+require_once("lib/common/BoothsXML.inc.php");
+require_once("lib/common/Misc.inc.php");
 
 if (! has_rights (ACX_ACCESS)){ 
 	   header ("HTTP/1.0 401 Unauthorized");
-	   die();
+	   $dom = messageDom(_("Unauthorized: please log in again."),"msg_errror");
+	   echo $dom->saveXML();
+	   exit();
 }
 
-		/* Here we handle all actions to the booths!
-		   NOTE that we always use the agent id *FROM THE SESSION*
-		   as a security feature, so that a foreign agent can't mess
-		   with us */
+$aclause = 'agentid = \''. $_SESSION['agent_id'] .'\'';
+	
+	/* Here we handle all actions to the booths!
+		NOTE that we always use the agent id *FROM THE SESSION*
+		as a security feature, so that a foreign agent can't mess
+		with us */
 
-$dom = BoothsDom($_GET['action'],$_GET['actb'], 'agent = ...');
+$dom = BoothsDom($_GET['action'],$_GET['actb'], $aclause);
 // Let ONLY this line produce any output!
 echo $dom->saveXML();
-
-if ($DBHandle)
-	DbDisconnect($DBHandle);
 
 ?>

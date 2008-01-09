@@ -1,22 +1,21 @@
 <?php
-include ("lib/defines.php");
-include ("lib/module.access.php");
+require_once ("./lib/defines.php");
+require_once ("./lib/module.access.php");
+require_once (DIR_COMMON."Class.CallShop.inc.php");
+require_once (DIR_COMMON."Form/Class.SelectionForm.inc.php");
+require_once (DIR_COMMON."Form/Class.SqlRefField.inc.php");
 
-$USE_AJAX=1 ;
+$menu_section='menu_booths';
 
-include ("PP_header.php");
+$CS_Form = new CallshopPage();
+$CS_Form->checkRights(ACX_ACCESS);
+$CS_Form->init();
 
-if (! has_rights (ACX_ACCESS)){
-	   Header ("HTTP/1.0 401 Unauthorized");
-	   Header ("Location: PP_error.php?c=accessdenied");
-	   die();
-}
+// TODO: select agent!
+$CS_Form->ask_agent=false;
+$CS_Form->agentid=$_SESSION['agent_id'];
 
+$PAGE_ELEMS[] = &$CS_Form;
 
-
+require("PP_page.inc.php");
 ?>
-
-<?php
-	/** These states have to match the SQL logic */
-	
-<?php include ("PP_footer.php"); ?>
