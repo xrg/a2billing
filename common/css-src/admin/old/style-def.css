@@ -1,32 +1,5 @@
 
-a:link {
-   	font-family: Arial,Verdana;
-	color: #3399FF;
-	text-decoration: none;
-}
 
-a:visited {
-   	font-family: Arial,Verdana;
-	color: #3399FF;
-	text-decoration: none;
-}
-
-a:active {
-   	font-family: Arial,Verdana;
-	color: #3399FF;
-	text-decoration: none;
-}
-
-a:hover {
-   	font-family: Arial,Verdana;
-	color: #55AAFF;
-	text-decoration: underline;
-}
-
-table {
-	font-family: Arial,Verdana;
-	font-size: 7px;
-}
 
 .table_decoration {
 	border-collapse: collapse;

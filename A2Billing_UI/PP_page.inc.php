@@ -40,9 +40,8 @@ foreach($PAGE_ELEMS as $elem){
 <link rel="shortcut icon" href="./Images/favicon.ico">
 <link rel="icon" href="./Images/animated_favicon1.gif" type="image/gif">
 
-<link href="./Css/Css_Ale.css" rel="stylesheet" type="text/css">
-<link href="./Css/style-def.css" rel="stylesheet" type="text/css">
-<link href="./Css/menu.css" rel="stylesheet" type="text/css">
+<link href="./css/standard.css" rel="stylesheet" type="text/css">
+<link href="./css/other.css" rel="alternate stylesheet" title="<?= _("Other") ?>" type="text/css">
 
 <?php
 	foreach($PAGE_ELEMS as $elem)

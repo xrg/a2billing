@@ -1,0 +1,12 @@
+.divleft {
+	vertical-align: top;
+	width: 15em;
+	left: 2px;
+	top: 30px;
+}
+
+.divright {
+	vertical-align: top;
+	height: auto;
+	width: 100%;
+}

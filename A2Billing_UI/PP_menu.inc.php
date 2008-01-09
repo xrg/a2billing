@@ -79,44 +79,7 @@ function menu_show(sect_str){
 //-->
 </script>
 
-<style type="text/css">
-/* *-* Must go.. */
-
-div.menu div a {
-	display: block;
-	font-size: 11px;
-	padding: 2px 10px;
-	text-decoration: none;
-	background: #EDF2F2;
-	border-bottom: 1px solid #ddd;
-	border-top: 1px solid #fff;
-	border-right: 1px solid #ddd;
-
-}
-
-div.menu ul li{
-	padding: 0;
-}
-
-div.menu ul li a {
-	padding: 0px 18px 0px 20px;
-	font-size: 10px;
-	margin: 0;
-	border: none;
-/* 	height : 11px; */
-}
-
-div.menu div ul {
-	display: none;
-	position: static;
-	padding: 0;
-	margin: 0;
-	border: 0;
-}
-</style>
-
 <div id="dummydiv"></div>
-
 
 <div id="menu" class="menu" >
 	
@@ -339,11 +302,11 @@ div.menu div ul {
 </div>
 <br>
 <table>
-<tr>
+<!--<tr>
 	<td>
 		<a href="index2.php?language=english" target="_parent"><img src="./Images/flags/us.png" border="0" title="English" alt="English"></a>
 	</td>
-</tr>
+</tr>-->
 </table>
 <script>
 menu_show( '<?= $menu_section ?>',true);
