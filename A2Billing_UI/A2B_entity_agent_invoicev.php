@@ -5,6 +5,7 @@ require_once (DIR_COMMON."Form.inc.php");
 require_once (DIR_COMMON."Class.HelpElem.inc.php");
 require_once (DIR_COMMON."Form/Class.SqlRefField.inc.php");
 require_once (DIR_COMMON."Form/Class.TimeField.inc.php");
+require_once (DIR_COMMON."Form/Class.ClauseField.inc.php");
 
 $menu_section='menu_agents';
 
@@ -17,6 +18,7 @@ $HD_Form->init();
 $PAGE_ELEMS[] = &$HD_Form;
 // $PAGE_ELEMS[] = new AddNewButton($HD_Form);
 
+$HD_Form->model[] = new FreeClauseField('agentid IS NOT NULL');
 $HD_Form->model[] = new PKeyFieldEH(_("ID"),'id');
 $HD_Form->model[] = new SqlRefField(_("Agent"), "agentid","cc_agent", "id", "login");
 $HD_Form->model[] = new TextField(_("Ref"), "orderref");
