@@ -17,35 +17,244 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
 
-#: A2B_entity_cards.php:60
+#: A2BAgent_UI/A2B_entity_agent_invoicev.php:83
+msgid "SELECT MONTH"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_agent_invoicev.php:89
+#, fuzzy
+msgid "From"
+msgstr "Από:"
+
+#: A2BAgent_UI/A2B_entity_agent_invoicev.php:91
+#: A2BAgent_UI/A2B_entity_agent_invoicev.php:108
+msgid "January"
+msgstr "Ιανουάριος"
+
+#: A2BAgent_UI/A2B_entity_agent_invoicev.php:91
+msgid "February"
+msgstr "Φεβρουάριος"
+
+#: A2BAgent_UI/A2B_entity_agent_invoicev.php:91
+msgid "March"
+msgstr "Μάρτιος"
+
+#: A2BAgent_UI/A2B_entity_agent_invoicev.php:91
+msgid "April"
+msgstr "Απρίλιος"
+
+#: A2BAgent_UI/A2B_entity_agent_invoicev.php:91
+msgid "May"
+msgstr "Μάιος"
+
+#: A2BAgent_UI/A2B_entity_agent_invoicev.php:91
+msgid "June"
+msgstr "Ιούνιος"
+
+#: A2BAgent_UI/A2B_entity_agent_invoicev.php:91
+msgid "July"
+msgstr "Ιούλιος"
+
+#: A2BAgent_UI/A2B_entity_agent_invoicev.php:91
+msgid "August"
+msgstr "Αύγουστος"
+
+#: A2BAgent_UI/A2B_entity_agent_invoicev.php:91
+msgid "September"
+msgstr "Σεπτέμβριος"
+
+#: A2BAgent_UI/A2B_entity_agent_invoicev.php:91
+msgid "October"
+msgstr "Οκτώβριος"
+
+#: A2BAgent_UI/A2B_entity_agent_invoicev.php:91
+msgid "November"
+msgstr "Νοέμβριος"
+
+#: A2BAgent_UI/A2B_entity_agent_invoicev.php:91
+msgid "December"
+msgstr "Δεκέμβριος"
+
+#: A2BAgent_UI/A2B_entity_agent_invoicev.php:112
+#, fuzzy
+msgid "To"
+msgstr "Έως:"
+
+#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:17
+#: A2BAgent_UI/FG_var_agent_invoicev.inc:61
+msgid "UNPAID"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:18
+#: A2BAgent_UI/FG_var_agent_invoicev.inc:62
+msgid "SENT-UNPAID"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:19
+#: A2BAgent_UI/FG_var_agent_invoicev.inc:63
+msgid "SENT-PAID"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:20
+#: A2BAgent_UI/FG_var_agent_invoicev.inc:64
+#, fuzzy
+msgid "PAID"
+msgstr "ID"
+
+#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:106
+#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:109
+#, fuzzy
+msgid "Cannot locate invoice."
+msgstr "Δεν βρέθηκαν θάλαμοι"
+
+#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:123
+msgid "Name"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:126
+#, fuzzy
+msgid "Address"
+msgstr "Προσθήκη"
+
+#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:130
+msgid "Invoice date"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:134
+msgid "Period from"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:138
+msgid "Period to"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:143
+#, fuzzy
+msgid "Status"
+msgstr "Εκκίνηση"
+
+#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:147
+msgid "Order"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:161
+msgid "Pay (in %1):"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:163
+#, fuzzy
+msgid "PAY"
+msgstr "ΜΑΪΟΣ"
+
+#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:171
+#: A2BAgent_UI/invoices_cust.php:781
+msgid "Printable version"
+msgstr "Εκτύπωση"
+
+#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:189
+msgid "History"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:193
+msgid "At:"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:225
+msgid "Call Details"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:228
+#, fuzzy
+msgid "No calls found!"
+msgstr "Δεν βρέθηκαν δεδομένα!!!"
+
+#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:252
+#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:332
+msgid "Date"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:252 A2BAgent_UI/invoices.php:89
+msgid "Destination"
+msgstr "Προορισμός"
+
+#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:252 A2BAgent_UI/invoices.php:90
+#: A2BAgent_UI/invoices_cust.php:160
+msgid "Duration"
+msgstr "Διάρκεια"
+
+#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:252
+#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:332
+#: A2BAgent_UI/invoices_cust.php:162
+msgid "Charge"
+msgstr "Χρέωση"
+
+#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:268
+#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:348
+#, fuzzy
+msgid "Total:"
+msgstr "Έως:"
+
+#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:307
+#, fuzzy
+msgid "List of Charges"
+msgstr "Χρεώσεις σε πελάτες"
+
+#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:310
+msgid "No charges found."
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:332
+#: A2BAgent_UI/agent-money.php:141
+msgid "Type"
+msgstr "Τύπος"
+
+#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:332
+#: A2BAgent_UI/agent-money.php:142 A2BAgent_UI/invoices_cust.php:157
+msgid "Description"
+msgstr "Περιγραφή"
+
+#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:377
+#, fuzzy
+msgid "Amount"
+msgstr "Ποσόν, σε "
+
+#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:380
+msgid "VAT (%1)%%"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:384
+msgid "Total"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_cards.php:60
 msgid "Fill!"
 msgstr "Ανάλαβε!"
 
-#: A2B_entity_cards.php:61
+#: A2BAgent_UI/A2B_entity_cards.php:61
 msgid "Empty!"
 msgstr "Άδειασε!"
 
-#: A2B_entity_cards.php:69
+#: A2BAgent_UI/A2B_entity_cards.php:69
 msgid "Nowhere"
 msgstr "Πουθενά"
 
-#: A2B_entity_cards.php:70
+#: A2BAgent_UI/A2B_entity_cards.php:70
 msgid ", default for "
 msgstr ", κοινός του "
 
-#: A2B_entity_cards.php:146
+#: A2BAgent_UI/A2B_entity_cards.php:146
 msgid "Create new regular customer"
 msgstr "Εγγραφή νέου τακτικού πελάτη:"
 
-#: A2B_entity_charge.php:53
+#: A2BAgent_UI/A2B_entity_charge.php:53
 msgid "Charge a customer"
 msgstr "Νέα χρέωση σε πελάτη"
 
-#: PP_error.php:7
+#: A2BAgent_UI/PP_error.php:7
 msgid "ERROR : ACCESS REFUSED"
 msgstr "ΣΦΑΛΜΑ, Η ΠΡΟΣΒΑΣΗ ΔΕΝ ΕΠΙΤΡΕΠΕΤΑΙ"
 
-#: PP_error.php:8
+#: A2BAgent_UI/PP_error.php:8
 msgid ""
 "The CODE is not a VALID CODE or has been already used! Please check it and "
 "try again."
@@ -53,1323 +262,231 @@ msgstr ""
 "Ο ΚΩΔΙΚΟΣ δεν είναι έγκυρος ή έχει χρησιμοποιηθεί ήδη. Παρακαλώ ελέγξτε τον "
 "και προσπαθήστε πάλι."
 
-#: PP_error.php:9
+#: A2BAgent_UI/PP_error.php:9
 msgid "Sorry a problem occur on our system, please try later!"
-msgstr "Λυπούμαστε, συνέβη σφάλμα στο σύστημά μας. Παρακαλώ, δοκιμάστε αργότερα!"
+msgstr ""
+"Λυπούμαστε, συνέβη σφάλμα στο σύστημά μας. Παρακαλώ, δοκιμάστε αργότερα!"
 
-#: PP_error.php:10
+#: A2BAgent_UI/PP_error.php:10
 msgid "There is an error on this page!"
 msgstr "Υπάρχει σφάλμα στη σελίδα!"
 
-#: PP_error.php:11
+#: A2BAgent_UI/PP_error.php:11
 msgid "Sorry, you don t have access to this page !"
 msgstr "Λυπούμαστε, δεν έχετε πρόσβαση στη σελίδα!"
 
-#: PP_error.php:12
+#: A2BAgent_UI/PP_error.php:12
 msgid "Sorry, this page is in construction !"
 msgstr "Λυπούμαστε, η σελίδα αυτή είναι υπό κατασκευή!"
 
-#: PP_error.php:29 booths.php:177
+#: A2BAgent_UI/PP_error.php:29
 msgid "Error Page"
 msgstr "Σελίδα Σφάλματος"
 
-#: PP_menu.php:87
-msgid "BOOTHS"
-msgstr "ΘΑΛΑΜΟΙ"
-
-#: PP_menu.php:90
-msgid "CUSTOMERS"
-msgstr "ΠΕΛΑΤΕΣ"
-
-#: PP_menu.php:93
-msgid "EDIT BOOTHS"
-msgstr "ΔΙΟΡΘΩΣΗ ΘΑΛΑΜΩΝ "
-
-#: PP_menu.php:96
-msgid "PAYMENTS"
-msgstr "ΠΛΗΡΩΜΕΣ"
-
-#: PP_menu.php:99
-msgid "REPORTS"
-msgstr "ΑΝΑΦΟΡΕΣ"
-
-#: PP_menu.php:102
-msgid "INFO PAGES"
-msgstr "ΠΛΗΡΟΦΟΡΙΕΣ"
-
-#: PP_menu.php:108
-msgid "PASSWORD"
-msgstr "ΚΩΔΙΚΟΣ"
-
-#: PP_menu.php:112
-msgid "LOGOUT"
-msgstr "ΕΞΟΔΟΣ"
-
-#: agent-money.php:140 invoices_cust.php:156
+#: A2BAgent_UI/agent-money.php:140 A2BAgent_UI/invoices_cust.php:156
 msgid "Calldate"
 msgstr "Ημ/νία κλήσης"
 
-#: agent-money.php:141
-msgid "Type"
-msgstr "Τύπος"
-
-#: agent-money.php:142 invoices_cust.php:157
-msgid "Description"
-msgstr "Περιγραφή"
-
-#: agent-money.php:144
+#: A2BAgent_UI/agent-money.php:144
 msgid "In"
 msgstr "Έσοδα"
 
-#: agent-money.php:145
+#: A2BAgent_UI/agent-money.php:145
 msgid "Out"
 msgstr "Έξοδα"
 
-#: agent-money.php:194
+#: A2BAgent_UI/agent-money.php:194
 msgid " - Transactions - "
 msgstr "- Συναλλαγές -"
 
-#: agent-money.php:406
+#: A2BAgent_UI/agent-money.php:408
 msgid "All transactions"
 msgstr "Όλες οι συναλλαγές"
 
-#: agent-money.php:411 invoices.php:427
+#: A2BAgent_UI/agent-money.php:413 A2BAgent_UI/invoices.php:427
 msgid "Selection of the month"
 msgstr "Επιλογή του μήνα"
 
-#: agent-money.php:416 agent-money.php:464 invoices.php:432 invoices.php:480
+#: A2BAgent_UI/agent-money.php:418 A2BAgent_UI/agent-money.php:466
+#: A2BAgent_UI/invoices.php:432 A2BAgent_UI/invoices.php:480
 msgid "FROM"
 msgstr "ΑΠΟ"
 
-#: agent-money.php:436 agent-money.php:509 invoices.php:452 invoices.php:525
+#: A2BAgent_UI/agent-money.php:438 A2BAgent_UI/agent-money.php:511
+#: A2BAgent_UI/invoices.php:452 A2BAgent_UI/invoices.php:525
 msgid "TO"
 msgstr "ΕΩΣ"
 
-#: agent-money.php:460 invoices.php:476
+#: A2BAgent_UI/agent-money.php:462 A2BAgent_UI/invoices.php:476
 msgid "Selection of the day"
 msgstr "Επιλογή της ημέρας"
 
-#: agent-money.php:559 invoices_cust.php:404
+#: A2BAgent_UI/agent-money.php:561 A2BAgent_UI/invoices_cust.php:423
 msgid "View"
 msgstr "Προβολή"
 
-#: agent-money.php:562 invoices.php:604 invoices_cust.php:407
+#: A2BAgent_UI/agent-money.php:564 A2BAgent_UI/invoices.php:604
+#: A2BAgent_UI/invoices_cust.php:426
 msgid "Result"
 msgstr "Αποτέλεσμα"
 
-#: agent-money.php:562 invoices.php:604 invoices_cust.php:407
+#: A2BAgent_UI/agent-money.php:564 A2BAgent_UI/invoices.php:604
+#: A2BAgent_UI/invoices_cust.php:426
 msgid "Minutes"
 msgstr "Λεπτά"
 
-#: agent-money.php:562 invoices.php:604 invoices_cust.php:407
+#: A2BAgent_UI/agent-money.php:564 A2BAgent_UI/invoices.php:604
+#: A2BAgent_UI/invoices_cust.php:426
 msgid "Seconds"
 msgstr "Δευτερόλεπτα"
 
-#: agent-money.php:565 invoices.php:616 invoices_cust.php:410
+#: A2BAgent_UI/agent-money.php:567 A2BAgent_UI/invoices.php:616
+#: A2BAgent_UI/invoices_cust.php:429
 msgid "Currency"
 msgstr "Νόμισμα"
 
-#: agent-money.php:578
+#: A2BAgent_UI/agent-money.php:580
 msgid "Mode"
 msgstr "Κατάσταση"
 
-#: agent-money.php:581 invoices.php:613 invoices_cust.php:426
+#: A2BAgent_UI/agent-money.php:583 A2BAgent_UI/invoices.php:613
+#: A2BAgent_UI/invoices_cust.php:445
 msgid "See Invoice in HTML"
 msgstr "Προβολή Λογαριασμού ως HTML"
 
-#: agent-money.php:582 invoices.php:614 invoices_cust.php:428
+#: A2BAgent_UI/agent-money.php:584 A2BAgent_UI/invoices.php:614
+#: A2BAgent_UI/invoices_cust.php:447
 msgid "or Export PDF"
 msgstr "ή εξαγωγή σε CSV"
 
-#: agent-money.php:585 invoices.php:602 invoices_cust.php:432
+#: A2BAgent_UI/agent-money.php:587 A2BAgent_UI/invoices.php:602
+#: A2BAgent_UI/invoices_cust.php:451
 msgid "Search"
 msgstr "Αναζήτηση"
 
-#: agent-money.php:598
+#: A2BAgent_UI/agent-money.php:600
 msgid "TRANSACTIONS DETAIL"
 msgstr "ΛΕΠΤΟΜΕΡΕΙΕΣ ΣΥΝΑΛΛΑΓΩΝ"
 
-#: agent-money.php:611 invoices.php:981 invoices_cust.php:458
+#: A2BAgent_UI/agent-money.php:613 A2BAgent_UI/invoices.php:981
+#: A2BAgent_UI/invoices_cust.php:477
 msgid "nb"
 msgstr "αρ."
 
-#: agent-money.php:625
+#: A2BAgent_UI/agent-money.php:627
 msgid "Carry from previous period"
 msgstr "Υπόλοιπο από προηγούμενη περίοδο"
 
-#: agent-money.php:673 invoices_cust.php:512
+#: A2BAgent_UI/agent-money.php:675 A2BAgent_UI/invoices_cust.php:531
 msgid "Partial sum:"
 msgstr "Μερικό άθροισμα:"
 
-#: agent-money.php:680 invoices.php:1062 invoices_cust.php:522
-#: lib/Form/Class.FormHandler.AddForm.inc.php:126
-#: lib/Form/Class.FormHandler.DelForm.inc.php:145
-#: lib/Form/Class.FormHandler.EditForm.inc.php:180
-#: lib/Form/Class.FormHandler.EditForm.inc.php:377
-#: lib/Form/Class.FormHandler.EditForm.inc.php:648
+#: A2BAgent_UI/agent-money.php:682 A2BAgent_UI/invoices.php:1062
+#: A2BAgent_UI/invoices_cust.php:541
 msgid "No data found !!!"
 msgstr "Δεν βρέθηκαν δεδομένα!!!"
 
-#: agent-money.php:694 invoices.php:1107 invoices_cust.php:559
+#: A2BAgent_UI/agent-money.php:696 A2BAgent_UI/invoices.php:1107
+#: A2BAgent_UI/invoices_cust.php:578
 msgid "No calls in your Selection"
 msgstr "Καμία κλήση με την επιλογή σας"
 
-#: agent-money.php:770
+#: A2BAgent_UI/agent-money.php:772
 msgid "MONEY SITUATION:"
 msgstr "ΚΑΤΑΣΤΑΣΗ ΧΡΗΜΑΤΩΝ:"
 
-#: agent-money.php:774
+#: A2BAgent_UI/agent-money.php:776
 msgid "TRANSACTIONS"
 msgstr "ΣΥΝΑΛΛΑΓΕΣ"
 
-#: agent-money.php:775
+#: A2BAgent_UI/agent-money.php:777
 msgid "IN/OUT"
 msgstr "ΕΙΣ/ΕΞ"
 
-#: agent-money.php:777 invoices_cust.php:581
+#: A2BAgent_UI/agent-money.php:779 A2BAgent_UI/invoices_cust.php:600
 msgid "TYPE"
 msgstr "ΤΥΠΟΣ"
 
-#: agent-money.php:778
+#: A2BAgent_UI/agent-money.php:780
 msgid "IN"
 msgstr "ΕΣΟΔΑ"
 
-#: agent-money.php:779
+#: A2BAgent_UI/agent-money.php:781
 msgid "OUT"
 msgstr "ΕΞΟΔΑ"
 
-#: agent-money.php:790
+#: A2BAgent_UI/agent-money.php:792
 msgid "SITUATION"
 msgstr "ΚΑΤΑΣΤΑΣΗ"
 
-#: agent-money.php:791 FG_var_agentpay.inc:28 FG_var_charge.inc:40
-#: FG_var_charge.inc:92
+#: A2BAgent_UI/agent-money.php:793 A2BAgent_UI/FG_var_agentpay.inc:28
+#: A2BAgent_UI/FG_var_charge.inc:40 A2BAgent_UI/FG_var_charge.inc:92
 msgid "DESCRIPTION"
 msgstr "ΠΕΡΙΓΡΑΦΗ"
 
-#: agent-money.php:791
+#: A2BAgent_UI/agent-money.php:793
 msgid "SUM"
 msgstr "ΣΥΝΟΛΟ"
 
-#: agent-money.php:793
+#: A2BAgent_UI/agent-money.php:795
 msgid "Total sum carried from previous period"
 msgstr "Σύνολο από προηγούμενη περίοδο"
 
-#: agent-money.php:801
+#: A2BAgent_UI/agent-money.php:803
 msgid "Total sum credited to customers"
 msgstr "Σύνολο πιστωμένο σε πελάτες"
 
-#: agent-money.php:804
+#: A2BAgent_UI/agent-money.php:806
 msgid "Total sum debited from customers"
 msgstr "Σύνολο οφειλών από πελάτες"
 
-#: agent-money.php:807
+#: A2BAgent_UI/agent-money.php:809
 msgid "Total potential debit from customers"
 msgstr "Συνολική πιθανή οφειλή από πελάτες"
 
-#: agent-money.php:809
+#: A2BAgent_UI/agent-money.php:811
 msgid "Total calls made by customers"
 msgstr "Σύνολο κλήσεων από πελάτες"
 
-#: agent-money.php:812 invoices.php:838 invoices.php:846 invoices.php:941
-#: invoices_cust.php:607 invoices_cust.php:700
+#: A2BAgent_UI/agent-money.php:813
+msgid "Wholesale price of calls"
+msgstr ""
+
+#: A2BAgent_UI/agent-money.php:815
+msgid "Estimated profit from calls"
+msgstr ""
+
+#: A2BAgent_UI/agent-money.php:818 A2BAgent_UI/invoices.php:838
+#: A2BAgent_UI/invoices.php:846 A2BAgent_UI/invoices.php:941
+#: A2BAgent_UI/invoices_cust.php:626 A2BAgent_UI/invoices_cust.php:719
 msgid "TOTAL"
 msgstr "ΣΥΝΟΛΟ"
 
-#: agent-money.php:814 invoices_cust.php:610
+#: A2BAgent_UI/agent-money.php:820 A2BAgent_UI/invoices_cust.php:629
 msgid "includes VAT"
 msgstr "περιλαμβάνει ΦΠΑ"
 
-#: agent-money.php:816
+#: A2BAgent_UI/agent-money.php:822
 msgid "CREDIT LIMIT:"
 msgstr "ΠΙΣΤΩΤΙΚΟ ΟΡΙΟ"
 
-#: agent-money.php:818
+#: A2BAgent_UI/agent-money.php:824
 msgid "EST. DAYS LEFT:"
 msgstr "ΕΚΤ. ΥΠΟΛ. ΗΜΕΡΕΣ"
 
-#: agent-money.php:828 invoices_cust.php:785
+#: A2BAgent_UI/agent-money.php:834 A2BAgent_UI/invoices_cust.php:804
 msgid "Pay back:"
 msgstr "Επιστροφή:"
 
-#: agent-money.php:832 invoices_cust.php:805
+#: A2BAgent_UI/agent-money.php:838 A2BAgent_UI/invoices_cust.php:824
 msgid "Pay:"
 msgstr "Πληρωμή:"
 
-#: booths.php:30
-msgid "Open"
-msgstr "Ανοιχτό"
-
-#: booths.php:33
-msgid "Waiting for response"
-msgstr "Αναμονή για απόκριση"
-
-#: booths.php:36
-msgid "Receiving"
-msgstr "Λαμβάνει"
-
-#: booths.php:187
-msgid "Cannot locate booths"
-msgstr "Δεν βρέθηκαν θάλαμοι"
-
-#: booths.php:202
-msgid "No booths!<br>Please ask the administrators to create you some."
-msgstr "Κανένας θάλαμος<br>Ζητήστε από τους διαχειριστές να σας το ρυθμίσουν."
-
-#: booths.php:207
-msgid "Welcome!"
-msgstr "Καλωσήλθατε!"
-
-#: booths.php:223
-msgid "Credit:"
-msgstr "Πίστωση:"
-
-#: booths.php:225
-msgid "Start"
-msgstr "Εκκίνηση"
-
-#: booths.php:226
-msgid "Stop"
-msgstr "Διακοπή"
-
-#: booths.php:227 FG_var_card.inc:98
-msgid "Pay"
-msgstr "Πληρωμή"
-
-#: booths.php:228
-msgid "Enable"
-msgstr "Ενεργοποίηση"
-
-#: booths.php:229
-msgid "Disable"
-msgstr "Απενεργοποίηση"
-
-#: booths.php:230
-msgid "Unload"
-msgstr "Αποφόρτωση"
-
-#: booths.php:231
-msgid "One-Time"
-msgstr "Μιας-φοράς"
-
-#: booths.php:232
-msgid "Member"
-msgstr "Μέλος"
-
-#: booths.php:233
-msgid "New"
-msgstr "Νέο"
-
-#: booths.php:236
-msgid "Add:"
-msgstr "Προσθήκη:"
-
-#: booths.php:254
-msgid "Refresh"
-msgstr "Ανανέωση"
-
-#: booths.php:256
-msgid "Response:"
-msgstr "Απόκριση: "
-
-#: booths.xml.php:28 FG_var_booth.inc:12
-msgid "N/A"
-msgstr "Ν/Α"
-
-#: booths.xml.php:28
-msgid "Not available, no cards configured."
-msgstr "Δεν είναι διαθέσιμος, δεν ρυθμίστηκαν κάρτες."
-
-#: booths.xml.php:29 FG_var_booth.inc:13
-msgid "Empty"
-msgstr "Κενός"
-
-#: booths.xml.php:29
-msgid "No customer attached."
-msgstr "Δεν έχει συνδεθεί με πελάτη."
-
-#: booths.xml.php:30 FG_var_booth.inc:14
-msgid "Idle"
-msgstr "Αδρανής"
-
-#: booths.xml.php:30
-msgid "Customer attached, inactive"
-msgstr "Συνδέθηκε με πελάτη, ανενεργός"
-
-#: booths.xml.php:31 FG_var_booth.inc:15
-msgid "Ready"
-msgstr "Έτοιμος"
-
-#: booths.xml.php:31
-msgid "Waiting for calls"
-msgstr "Αναμονή για κλήσεις"
-
-#: booths.xml.php:32 FG_var_booth.inc:16
-msgid "Active"
-msgstr "Ενεργός"
-
-#: booths.xml.php:32
-msgid "Calls made, charged"
-msgstr "Έγιναν κλήσεις, χρεώθηκε"
-
-#: booths.xml.php:33 FG_var_booth.inc:17
-msgid "Disabled"
-msgstr "Απενεργοποιημένος"
-
-#: booths.xml.php:33
-msgid "Disabled by the agent"
-msgstr "Απενεργοποιημένος από τον πράκτορα"
-
-#: booths.xml.php:34 FG_var_booth.inc:18
-msgid "Stopped"
-msgstr "Σταματημένο"
-
-#: booths.xml.php:34
-msgid "Calls made, charged, stopped"
-msgstr "Έγιναν κλήσεις, χρεώθηκε, σταματημένο."
-
-#: booths.xml.php:71
-msgid "Booth stopped"
-msgstr "Το τηλέφωνο σταμάτησε"
-
-#: booths.xml.php:73 booths.xml.php:85 booths.xml.php:98 booths.xml.php:111
-msgid "Action failed:"
-msgstr "Αποτυχία ενέργειας:"
-
-#: booths.xml.php:83 booths.xml.php:96 booths.xml.php:109
-msgid "Booth started"
-msgstr "Το τηλέφωνο ξεκίνησε"
-
-#: booths.xml.php:120
-msgid "Invalid sum for refill"
-msgstr "Άκυρο ποσόν για πίστωση"
-
-#: booths.xml.php:130
-msgid "Credit added to booth"
-msgstr "Η πίστωση προστέθηκε στο τηλέφωνο"
-
-#: booths.xml.php:133
-msgid "Refill failed: do you have enough credit?"
-msgstr "Η προσθήκη απέτυχε: έχετε το απαραίτητο υπόλοιπο;"
-
-#: booths.xml.php:165
-msgid "Database query failed!"
-msgstr "Η αναζήτηση στη βάση δεδομένων απέτυχε!"
-
-#: forgotpassword.php:24
-msgid ""
-"Please wait 1 minutes before making any other request for the forgot "
-"password!"
-msgstr "Παρακαλώ περιμένετε 1 λεπτό πρίν ξανακάνετε αίτηση ανάκτησης κωδικού!"
-
-#: forgotpassword.php:98
-msgid "Your login information email has been sent to you."
-msgstr "Σας έχει αποσταλεί e-mail με τον κωδικό σας."
-
-#: forgotpassword.php:101
-msgid "No such login exists."
-msgstr "Δεν υπάρχει τέτοιος χρήστης."
-
-#: forgotpassword.php:104
-msgid "Invalid Action."
-msgstr "Άκυρη Ενέργεια."
-
-#: forgotpassword.php:107
-msgid "Pleaes provide your email address to get your login information."
-msgstr ""
-"Παρακαλώ δώστε το email σας (αυτό που έχετε δηλώσει σε εμάς) για να λάβετε "
-"σε αυτό τον κωδικό σας."
-
-#: index.php:69
-msgid "AUTHENTICATION REFUSED, please check your user/password!"
-msgstr "ΔΕΝ ΕΠΙΤΡΕΠΕΤΑΙ Η ΠΡΟΣΒΑΣΗ, παρακαλώ ελέγξτε το όνομα/κωδικό σας!"
-
-#: index.php:73
-msgid "INACTIVE ACCOUNT, Please activate your account!"
-msgstr "ΑΝΕΝΕΡΓΟΣ ΛΟΓΑΡΙΑΣΜΟΣ, Παρακαλώ ζητήστε την ενεργοποίησή του!"
-
-#: index.php:77
-msgid "BLOCKED ACCOUNT, Please contact your administrator!"
-msgstr "ΚΛΕΙΔΩΜΕΝΟΣ ΛΟΓΑΡΙΑΣΜΟΣ, Παρακαλώ επικοινωνήστε μαζί μας!"
-
-#: index.php:86
-msgid "AUTHENTICATION"
-msgstr "ΠΙΣΤΟΠΟΙΗΣΗ"
-
-#: index.php:95
-msgid "User:"
-msgstr "Χρήστης:"
-
-#: index.php:100
-msgid "Password:"
-msgstr "Κωδικός:"
-
-#: index.php:110
-msgid "Forgot your password? Click "
-msgstr "Ξεχάσατε τον κωδικό; πατήστε "
-
-#: index.php:110
-msgid "here"
-msgstr "εδώ"
-
-#: info_choice.php:16
-msgid "Please choose information page:"
-msgstr "Επιλέξτε σελίδα με πληροφορίες:"
-
-#: info_choice.php:18
-msgid "Current rates"
-msgstr "Τρέχων τιμοκατάλογος"
-
-#: info_choice.php:19
-msgid "Usage instructions"
-msgstr "Οδηγίες χρήσεως"
-
-#: info_choice.php:20
-msgid "Contact information"
-msgstr "Επικοινωνία με εμάς"
-
-#: invoices.php:86
-msgid "Call date"
-msgstr "Ημ/νία κλήσης"
-
-#: invoices.php:87
-msgid "Source"
-msgstr "Πηγή"
-
-#: invoices.php:88
-msgid "Called number"
-msgstr "Κληθείς Αριθμός"
-
-#: invoices.php:89
-msgid "Destination"
-msgstr "Προορισμός"
-
-#: invoices.php:90 invoices_cust.php:160
-msgid "Duration"
-msgstr "Διάρκεια"
-
-#: invoices.php:94
-msgid "Card used"
-msgstr "Κάρτα"
-
-#: invoices.php:104
-msgid "Cost"
-msgstr "Κόστος"
-
-#: invoices.php:436 invoices.php:456 invoices.php:493 invoices.php:538
-#: lib/defines.php:196
-msgid "JANUARY"
-msgstr "ΙΑΝΟΥΑΡΙΟΣ"
-
-#: invoices.php:436 invoices.php:456 invoices.php:493 invoices.php:538
-#: lib/defines.php:196
-msgid "FEBRUARY"
-msgstr "ΦΕΒΡΟΥΑΡΙΟΣ"
-
-#: invoices.php:436 invoices.php:456 invoices.php:493 invoices.php:538
-#: lib/defines.php:196
-msgid "MARCH"
-msgstr "ΜΑΡΤΙΟΣ"
-
-#: invoices.php:436 invoices.php:456 invoices.php:493 invoices.php:538
-#: lib/defines.php:197
-msgid "APRIL"
-msgstr "ΑΠΡΙΛΙΟΣ"
-
-#: invoices.php:436 invoices.php:456 invoices.php:493 invoices.php:538
-#: lib/defines.php:197
-msgid "MAY"
-msgstr "ΜΑΪΟΣ"
-
-#: invoices.php:436 invoices.php:456 invoices.php:493 invoices.php:538
-#: lib/defines.php:197
-msgid "JUNE"
-msgstr "ΙΟΥΝΙΟΣ"
-
-#: invoices.php:436 invoices.php:456 invoices.php:493 invoices.php:538
-#: lib/defines.php:198
-msgid "JULY"
-msgstr "ΙΟΥΛΙΟΣ"
-
-#: invoices.php:436 invoices.php:456 invoices.php:493 invoices.php:538
-#: lib/defines.php:198
-msgid "AUGUST"
-msgstr "ΑΥΓΟΥΣΤΟΣ"
-
-#: invoices.php:436 invoices.php:456 invoices.php:493 invoices.php:538
-#: lib/defines.php:198
-msgid "SEPTEMBER"
-msgstr "ΣΕΠΤΕΜΒΡΙΟΣ"
-
-#: invoices.php:436 invoices.php:456 invoices.php:493 invoices.php:538
-#: lib/defines.php:199
-msgid "OCTOBER"
-msgstr "ΟΚΤΩΒΡΙΟΣ"
-
-#: invoices.php:436 invoices.php:456 invoices.php:493 invoices.php:538
-#: lib/defines.php:199
-msgid "NOVEMBER"
-msgstr "ΝΟΕΜΒΡΙΟΣ"
-
-#: invoices.php:436 invoices.php:456 invoices.php:493 invoices.php:538
-#: lib/defines.php:199
-msgid "DECEMBER"
-msgstr "ΔΕΚΕΜΒΡΙΟΣ"
-
-#: invoices.php:574 invoices.php:789 FG_var_ratecard.inc:38
-#: FG_var_ratecard.inc:65
-msgid "DESTINATION"
-msgstr "ΠΡΟΟΡΙΣΜΟΣ"
-
-#: invoices.php:578 invoices.php:591 lib/Form/Class.SearchHandler.inc.php:153
-msgid "Exact"
-msgstr "Ακριβής"
-
-#: invoices.php:579 invoices.php:592 lib/Form/Class.SearchHandler.inc.php:154
-msgid "Begins with"
-msgstr "Αρχίζει με"
-
-#: invoices.php:580 invoices.php:593 lib/Form/Class.SearchHandler.inc.php:155
-msgid "Contains"
-msgstr "Περιέχει"
-
-#: invoices.php:581 invoices.php:594 lib/Form/Class.SearchHandler.inc.php:156
-msgid "Ends with"
-msgstr "Τελειώνει σε"
-
-#: invoices.php:582 invoices.php:595
-msgid "Is not"
-msgstr "Δεν είναι "
-
-#: invoices.php:587
-msgid "SOURCE"
-msgstr "ΠΗΓΗ"
-
-#: invoices.php:669
-msgid "Phone :"
-msgstr "Τηλέφωνο:"
-
-#: invoices.php:670
-msgid "Fax  :"
-msgstr "Φαξ  :"
-
-#: invoices.php:685 invoices_cust.php:571
-msgid "BILLING SERVICE"
-msgstr "ΛΟΓΑΡΙΑΣΜΟΣ"
-
-#: invoices.php:711
-msgid "EXTRA CHARGE"
-msgstr "ΕΞΤΡΑ ΧΡΕΩΣΗ"
-
-#: invoices.php:715 invoices.php:892 invoices_cust.php:651
-#: FG_var_agentpay.inc:25 FG_var_charge.inc:37
-msgid "DATE"
-msgstr "ΗΜ/ΝΙΑ"
-
-#: invoices.php:716
-msgid "NB CHARGE"
-msgstr "ΑΡ ΧΡΕΩΣΗΣ"
-
-#: invoices.php:717
-msgid "TOTALCOST"
-msgstr "ΣΥΝΟΛΟ ΧΡΕΩΣΗΣ"
-
-#: invoices.php:753 invoices.php:852 invoices.php:954 invoices_cust.php:713
-msgid "VAT"
-msgstr "ΦΠΑ"
-
-#: invoices.php:786
-msgid "CALLS PER DESTINATION"
-msgstr "ΚΛΗΣΕΙΣ ΑΝΑ ΠΡΟΟΡΙΣΜΟ"
-
-#: invoices.php:790 invoices.php:893 invoices_cust.php:652
-msgid "DUR"
-msgstr "ΔΙΑΡ"
-
-#: invoices.php:791 invoices.php:894 invoices_cust.php:653
-msgid "GRAPHIC"
-msgstr "ΓΡΑΦΗΜΑ"
-
-#: invoices.php:792 invoices.php:895 invoices_cust.php:654
-msgid "CALL"
-msgstr "ΚΛΗΣΗ"
-
-#: invoices.php:793 invoices.php:896 invoices_cust.php:655
-msgid "TOTAL COST"
-msgstr "ΣΥΝΟΛΟ"
-
-#: invoices.php:864 invoices_cust.php:624
-msgid "BILL EVOLUTION"
-msgstr "ΕΞΕΛΙΞΗ ΧΡΕΩΣΕΩΝ"
-
-#: invoices.php:969 invoices_cust.php:445
-msgid "CALLS DETAIL"
-msgstr "ΛΕΠΤΟΜΕΡΕΙΕΣ ΚΛΗΣΕΩΝ"
-
-#: invoices.php:978
-msgid "Number of call"
-msgstr "Αριθμός κλήσεων"
-
-#: invoices.php:1078 invoices_cust.php:538
-msgid "TOTAL BUYCOSTS"
-msgstr "ΣΥΝΟΛΟ ΚΟΣΤΟΥΣ ΑΓΟΡΑΣ"
-
-#: invoices.php:1079 invoices_cust.php:539
-msgid "DIFFERENCE"
-msgstr "ΔΙΑΦΟΡΑ"
-
-#: invoices_cust.php:159
-msgid "Called Number"
-msgstr "Κληθείς Αριθμός"
-
-#: invoices_cust.php:161
-msgid "Credit"
-msgstr "Πίστωση"
-
-#: invoices_cust.php:162
-msgid "Charge"
-msgstr "Χρέωση"
-
-#: invoices_cust.php:392
-msgid "Select booth:"
-msgstr "Επιλογή τηλεφώνου:"
-
-#: invoices_cust.php:517
-msgid "Sum:"
-msgstr "Σύνολο:"
-
-#: invoices_cust.php:577
-msgid "CREDITS/CHARGES"
-msgstr "ΠΙΣΤΩΣΕΙΣ/ΧΡΕΩΣΕΙΣ"
-
-#: invoices_cust.php:582 FG_var_booth.inc:34
-msgid "CREDIT"
-msgstr "ΠΙΣΤΩΣΗ"
-
-#: invoices_cust.php:583
-msgid "CHARGE"
-msgstr "ΧΡΕΩΣΗ"
-
-#: invoices_cust.php:742
-msgid "Do you want to charge the customer for one printing?"
-msgstr "Θέλετε να χρεώσετε τον πελάτη για μία εκτύπωση;"
-
-#: invoices_cust.php:753
-msgid "Print charge cancelled."
-msgstr "Η χρέωση εκτύπωσης ακυρώθηκε."
-
-#: invoices_cust.php:759
-msgid "Charge printing"
-msgstr "Χρέωση εκτύπωσης"
-
-#: invoices_cust.php:762
-msgid "Printable version"
-msgstr "Εκτύπωση"
-
-#: invoices_cust.php:768
-msgid "Click OK if you have paid back %1 to the customer."
-msgstr "Πατήστε ΟΚ αν έχετε δώσει πίσω %1 στον πελάτη."
-
-#: invoices_cust.php:779
-msgid "Pay back cancelled."
-msgstr "Η επιστροφή χρημάτων ακυρώθηκε."
-
-#: invoices_cust.php:789
-msgid "Click OK if you have received %1 from the customer as payment."
-msgstr "Πατήστε ΟΚ αν έχετε παραλάβει %1 από τον πελάτη για πληρωμή."
-
-#: invoices_cust.php:800
-msgid "Payment cancelled."
-msgstr "Η πληρωμή ακυρώθηκε"
-
-#: lib/Form/Class.FormHandler.AddForm.inc.php:182
-msgid "Create a new "
-msgstr "Δημιουργία νέου "
-
-#: lib/Form/Class.FormHandler.DelForm.inc.php:32
-msgid "Message"
-msgstr "Μήνυμα"
-
-#: lib/Form/Class.FormHandler.DelForm.inc.php:39
-msgid "You have "
-msgstr "Έχετε"
-
-#: lib/Form/Class.FormHandler.DelForm.inc.php:186
-msgid "Remove this "
-msgstr "Αφαίρεση αυτού"
-
-#: lib/Form/Class.FormHandler.EditForm.inc.php:116
-msgid "<br> TYPE OF SELECT :"
-msgstr "<br> ΤΥΠΟΣ ΕΠΙΛΟΓΗΣ:"
-
-#: lib/Form/Class.FormHandler.EditForm.inc.php:241
-msgid "LIST "
-msgstr "ΛΙΣΤΑ"
-
-#: lib/Form/Class.FormHandler.EditForm.inc.php:296
-msgid "No"
-msgstr "Όχι"
-
-#: lib/Form/Class.FormHandler.EditForm.inc.php:330
-msgid "Add a new "
-msgstr "Προσθήκη νέου "
-
-#: lib/Form/Class.FormHandler.EditForm.inc.php:389
-msgid "add new a "
-msgstr "προσθήκη νέου"
-
-#: lib/Form/Class.FormHandler.EditForm.inc.php:422
-msgid "LIST"
-msgstr "ΛΙΣΤΑ"
-
-#: lib/Form/Class.FormHandler.EditForm.inc.php:497
-msgid "Add a new"
-msgstr "Προσθήκη νέου"
-
-#: lib/Form/Class.FormHandler.inc.php:423
-msgid "THERE IS NO RECORD !!!"
-msgstr "ΔΕΝ ΥΠΑΡΧΕΙ ΕΓΓΡΑΦΗ!"
-
-#: lib/Form/Class.FormHandler.inc.php:424
-msgid "DIRECTORY"
-msgstr "ΚΑΤΑΛΟΓΟΣ"
-
-#: lib/Form/Class.FormHandler.inc.php:425
-msgid ""
-"You can define above some specific criterias in order to make a precised "
-"research"
-msgstr "Μπορείτε να ορίσετε κάποια κριτήρια για να κάνετε ακριβή αναζήτηση"
-
-#: lib/Form/Class.FormHandler.inc.php:426
-msgid "You can browse through our"
-msgstr "Μπορείτε να ψάξετε ανάμεσα στα"
-
-#: lib/Form/Class.FormHandler.inc.php:426
-msgid "and modify their different properties<br>"
-msgstr "και να αλλάξετε τις ιδιότητές τους<br>"
-
-#: lib/Form/Class.FormHandler.inc.php:427
-msgid "Delete this record"
-msgstr "Διαγραφή της εγγραφής"
-
-#: lib/Form/Class.FormHandler.inc.php:428
-msgid "Edit this record"
-msgstr "Επεξεργασία εγγραφής"
-
-#: lib/Form/Class.FormHandler.inc.php:429
-msgid ""
-"The document has been created correctly. Now, you can define the different "
-"tariff that you want to associate."
-msgstr ""
-"Το έγγραφο έχει δημιουργηθεί. Τώρα μπορείτε να ορίσετε τις διάφορες ταρίφες "
-"που θα του αναθέσετε."
-
-#: lib/Form/Class.FormHandler.inc.php:430
-msgid "You can modify, through the following form, the different properties of your"
-msgstr "Μπορείτε να επεξεργαστείτε, στην παρακάτω φόρμα, τις ιδιότητες του"
-
-#: lib/Form/Class.FormHandler.inc.php:431
-msgid "If you really want remove this"
-msgstr "Αν θέλετε πραγματικά να διαγράψετε το"
-
-#: lib/Form/Class.FormHandler.inc.php:431
-msgid "Click on the delete button."
-msgstr "Πατήστε στο πλήκτρο της διαγραφής."
-
-#: lib/Form/Class.FormHandler.inc.php:432
-msgid "One"
-msgstr "Ένα"
-
-#: lib/Form/Class.FormHandler.inc.php:432
-#, fuzzy
-msgid "of the %table table has been deleted. <br> (Record with the id"
-msgstr "από πίνακας πίνακας διεγραμμένο<br> Ηχογράφηση με id"
-
-#: lib/Form/Class.FormHandler.inc.php:433
-msgid "you can add easily a new"
-msgstr "μπορείτε εύκολα να προσθέσετε ένα νέο"
-
-#: lib/Form/Class.FormHandler.inc.php:433
-msgid "Fill the following fields and confirm by clicking on the button add."
-msgstr "Συμπληρώστε τα παρακάτω πεδία και επιβεβαιώστε με το πλήκτρο της προσθήκης."
-
-#: lib/Form/Class.FormHandler.inc.php:434
-msgid "Add a"
-msgstr "Προσθήκη ενός"
-
-#: lib/Form/Class.FormHandler.inc.php:434
-msgid "now."
-msgstr "τώρα."
-
-#: lib/Form/Class.FormHandler.inc.php:435
-msgid "Your new"
-msgstr "Το νέο σας"
-
-#: lib/Form/Class.FormHandler.inc.php:435
-msgid "has been inserted. <br>"
-msgstr "έχει εισαχθεί.<br>"
-
-#: lib/Form/Class.FormHandler.inc.php:436
-msgid "You cannot choose more than one !"
-msgstr "Δεν μπορείτε να επιλέξετε πάνω από ένα!"
-
-#: lib/Form/Class.FormHandler.inc.php:456
-#: lib/Form/Class.FormHandler.inc.php:667
-msgid "Delete this "
-msgstr "Διαγραφή του"
-
-#: lib/Form/Class.FormHandler.inc.php:457
-#: lib/Form/Class.FormHandler.inc.php:661
-msgid "Edit this "
-msgstr "Επεξεργασία του"
-
-#: lib/Form/Class.FormHandler.inc.php:485
-msgid "ONESHOT"
-msgstr "ΕΦΑΠΑΞ"
-
-#: lib/Form/Class.FormHandler.inc.php:486
-msgid "PER MINUTE"
-msgstr "ΑΝΑ ΛΕΠΤΟ"
-
-#: lib/Form/Class.FormHandler.inc.php:488
-#: lib/Form/Class.FormHandler.inc.php:498
-msgid "IN PROCESS"
-msgstr "ΣΕ ΕΞΕΛΙΞΗ"
-
-#: lib/Form/Class.FormHandler.inc.php:489
-msgid "WORKING"
-msgstr "ΣΕ ΛΕΙΤΟΥΡΓΙΑ"
-
-#: lib/Form/Class.FormHandler.inc.php:490
-msgid "ISSUE"
+#: A2BAgent_UI/booths.xml.php:15
+msgid "Unauthorized: please log in again."
 msgstr ""
 
-#: lib/Form/Class.FormHandler.inc.php:492
-msgid "ALRIGHT"
-msgstr ""
-
-#: lib/Form/Class.FormHandler.inc.php:493
-msgid "NOT USED"
-msgstr ""
-
-#: lib/Form/Class.FormHandler.inc.php:494
-msgid "NO ATTRIBUED"
-msgstr ""
-
-#: lib/Form/Class.FormHandler.inc.php:495
-msgid "WORK IN PROCESS"
-msgstr ""
-
-#: lib/Form/Class.FormHandler.inc.php:497
-msgid "CREATION"
-msgstr ""
-
-#: lib/Form/Class.FormHandler.inc.php:499
-msgid "IVR INTREGRATION"
-msgstr ""
-
-#: lib/Form/Class.FormHandler.inc.php:500
-#: lib/Form/Class.FormHandler.inc.php:510
-msgid "CLOSE"
-msgstr "ΚΛΕΙΣΤΟ"
-
-#: lib/Form/Class.FormHandler.inc.php:502
-msgid "URGENT"
-msgstr "ΕΠΕΙΓΟΝ"
-
-#: lib/Form/Class.FormHandler.inc.php:503
-msgid "NORMAL"
-msgstr "ΚΑΝΟΝΙΚΟ"
-
-#: lib/Form/Class.FormHandler.inc.php:504
-msgid "LOW"
-msgstr "ΧΑΜΗΛΟ"
-
-#: lib/Form/Class.FormHandler.inc.php:506
-msgid "NEW"
-msgstr "ΝΕΟ"
-
-#: lib/Form/Class.FormHandler.inc.php:507
-msgid "UPDATE"
-msgstr "ΕΝΗΜΕΡΩΣΗ"
-
-#: lib/Form/Class.FormHandler.inc.php:508
-msgid "ANSWER"
-msgstr "ΑΠΑΝΤΗΣΗ"
-
-#: lib/Form/Class.FormHandler.inc.php:509
-msgid "ASSIGN"
-msgstr "ΑΝΑΘΕΣΗ"
-
-#: lib/Form/Class.FormHandler.inc.php:512
-msgid "INSERTED"
-msgstr "ΠΡΟΣΤΕΘΗΚΕ"
-
-#: lib/Form/Class.FormHandler.inc.php:513
-msgid "ENABLE"
-msgstr "ΕΝΕΡΓΟΠΟΙΗΣΕ"
-
-#: lib/Form/Class.FormHandler.inc.php:514
-msgid "DISABLE"
-msgstr "ΑΠΕΝΕΡΓΟΠΟΙΗΣΕ"
-
-#: lib/Form/Class.FormHandler.inc.php:515
-msgid "FREE"
-msgstr "ΕΛΕΥΘΕΡΟ"
-
-#: lib/Form/Class.FormHandler.inc.php:517
-msgid "PHONE"
-msgstr "ΤΗΛΕΦΩΝΟ"
-
-#: lib/Form/Class.FormHandler.inc.php:518
-msgid "SMS"
-msgstr "SMS"
-
-#: lib/Form/Class.FormHandler.inc.php:520
-msgid "CODE VALID 1 TIME"
-msgstr "ΚΩΔΙΚΟΣ ΕΓΚΥΡΟΣ ΓΙΑ 1 ΦΟΡΑ"
-
-#: lib/Form/Class.FormHandler.inc.php:522
-msgid "CODE VALID %1 TIMES"
-msgstr "ΚΩΔΙΚΟΣ ΕΓΚΥΡΟΣ ΓΙΑ %1 ΦΟΡΕΣ"
-
-#: lib/Form/Class.FormHandler.inc.php:525
-msgid "CODE"
-msgstr "ΚΩΔΙΚΟΣ"
-
-#: lib/Form/Class.FormHandler.inc.php:526
-#: lib/Form/Class.FormHandler.inc.php:527
-#: lib/Form/Class.FormHandler.inc.php:528
-#: lib/Form/Class.FormHandler.inc.php:529
-msgid "CODES"
-msgstr "ΚΩΔΙΚΟΙ"
-
-#: lib/Form/Class.FormHandler.inc.php:638
-#: lib/Form/Class.FormHandler.inc.php:640
-#, fuzzy
-msgid "You can browse through our "
-msgstr "Εσείς "
-
-#: lib/Form/Class.FormHandler.inc.php:638
-#: lib/Form/Class.FormHandler.inc.php:640
-#, fuzzy
-msgid " and modify their different properties<br>"
-msgstr "και<br>"
-
-#: lib/Form/Class.FormHandler.inc.php:799
-msgid "(at least 3 characters)"
-msgstr "(τουλάχιστον 3 χαρακτήρες)"
-
-#: lib/Form/Class.FormHandler.inc.php:803
-msgid "(must match email structure. Example : name@domain.com)"
-msgstr "(πρέπει να φαίνεται σαν e-mail, π.χ.: name@domain.com)"
-
-#: lib/Form/Class.FormHandler.inc.php:807
-msgid "(at least 5 successive characters appear at the end of this string)"
-msgstr "(τουλάχιστον 5 διαδοχικοί χαρακτήρες εμφανίζονται στο τέλος του κειμένου)"
-
-#: lib/Form/Class.FormHandler.inc.php:811
-msgid "(at least 4 characters)"
-msgstr "(τουλάχιστον 4 χαρακτήρες)"
-
-#: lib/Form/Class.FormHandler.inc.php:815
-msgid "(number format)"
-msgstr "(αριθμητική μορφή)"
-
-#: lib/Form/Class.FormHandler.inc.php:823
-msgid "(only number with more that 8 digits)"
-msgstr "(μόνο αριθμός, με περισσότερα από 8 ψηφία)"
-
-#: lib/Form/Class.FormHandler.inc.php:827
-msgid "(at least 8 digits using . or - or the space key)"
-msgstr "(τουλάχιστον 8 ψηφία με . ή - ή το διάστημα) "
-
-#: lib/Form/Class.FormHandler.inc.php:831
-msgid "network adress format"
-msgstr "μορφή διευθύνσεων δικτύου"
-
-#: lib/Form/Class.FormHandler.inc.php:835
-msgid "at least 1 character"
-msgstr "τουλάχιστον 1 χαρακτήρας"
-
-#: lib/Form/Class.FormHandler.inc.php:843
-msgid "(AT LEAST 2 CARACTERS)"
-msgstr "(ΤΟΥΛΑΧΙΣΤΟΝ 2 ΧΑΡΑΚΤΗΡΕΣ)"
-
-#: lib/Form/Class.FormHandler.inc.php:847
-msgid "(NUMBER FORMAT WITH/WITHOUT DECIMAL, use '.' for decimal)"
-msgstr "(ΑΚΕΡΑΙΟΣ 'Η ΔΕΚΑΔΙΚΟΣ ΑΡΙΘΜΟΣ)"
-
-#: lib/Form/Class.FormHandler.inc.php:863
-msgid "You must write something."
-msgstr "Πρέπει να γράψετε κάτι."
-
-#: lib/Form/Class.FormHandler.inc.php:867
-msgid "8 characters alphanumeric"
-msgstr "8 αλφαριθμητικοί χαρακτήρες"
-
-#: lib/Form/Class.FormHandler.inc.php:1394
-#: lib/Form/Class.FormHandler.inc.php:1436
-msgid "Could not open buddy file"
-msgstr "Δεν μπορώ να ανοίξω το συμπληρωματικό αρχείο"
-
-#: lib/Form/Class.FormHandler.inc.php:1411
-#: lib/Form/Class.FormHandler.inc.php:1441
-#: lib/Form/Class.FormHandler.inc.php:1453
-msgid "Impossible to write to the file"
-msgstr "Αδύνατη η εγγραφή στο αρχείο"
-
-#: lib/Form/Class.FormHandler.inc.php:1594
-#: lib/Form/Class.FormHandler.inc.php:1641
-msgid "<br> GOTO ; "
-msgstr "<br> ΠΗΓΑΙΝΕ"
-
-#: lib/Form/Class.FormHandler.inc.php:1635
-msgid "error deletion"
-msgstr "σφάλμα στην διαγραφή"
-
-#: lib/Form/Class.FormHandler.inc.php:1735
-msgid "ERROR_DUPLICATION"
-msgstr "ΣΦΑΛΜΑ_ΕΠΑΝΕΜΦΑΝΙΣΗΣ"
-
-#: lib/Form/Class.FormHandler.inc.php:1820
-msgid "Done"
-msgstr "Έγινε"
-
-#: lib/Form/Class.FormHandler.inc.php:1846
-#: lib/Form/Class.FormHandler.inc.php:1899
-msgid "THE CURRENT RATECARD"
-msgstr "ΤΡΕΧΩΝ ΤΙΜΟΚΑΤΑΛΟΓΟΣ"
-
-#: lib/Form/Class.FormHandler.inc.php:1857
-#: lib/Form/Class.FormHandler.inc.php:1910
-msgid "R A T E C A R D"
-msgstr "ΤΙΜΟΚΑΤΑΛΟΓΟΣ"
-
-#: lib/Form/Class.FormHandler.inc.php:1863
-#: lib/Form/Class.FormHandler.inc.php:1916
-msgid "Choose a ratecard"
-msgstr "Επιλέξτε τιμοκατάλογο"
-
-#: lib/Form/Class.SearchHandler.inc.php:35
-msgid "January"
-msgstr "Ιανουάριος"
-
-#: lib/Form/Class.SearchHandler.inc.php:35
-msgid "February"
-msgstr "Φεβρουάριος"
-
-#: lib/Form/Class.SearchHandler.inc.php:35
-msgid "March"
-msgstr "Μάρτιος"
-
-#: lib/Form/Class.SearchHandler.inc.php:35
-msgid "April"
-msgstr "Απρίλιος"
-
-#: lib/Form/Class.SearchHandler.inc.php:35
-msgid "May"
-msgstr "Μάιος"
-
-#: lib/Form/Class.SearchHandler.inc.php:35
-msgid "June"
-msgstr "Ιούνιος"
-
-#: lib/Form/Class.SearchHandler.inc.php:35
-msgid "July"
-msgstr "Ιούλιος"
-
-#: lib/Form/Class.SearchHandler.inc.php:35
-msgid "August"
-msgstr "Αύγουστος"
-
-#: lib/Form/Class.SearchHandler.inc.php:35
-msgid "September"
-msgstr "Σεπτέμβριος"
-
-#: lib/Form/Class.SearchHandler.inc.php:35
-msgid "October"
-msgstr "Οκτώβριος"
-
-#: lib/Form/Class.SearchHandler.inc.php:35
-msgid "November"
-msgstr "Νοέμβριος"
-
-#: lib/Form/Class.SearchHandler.inc.php:35
-msgid "December"
-msgstr "Δεκέμβριος"
-
-#: lib/Form/Class.SearchHandler.inc.php:83
-msgid "From :"
-msgstr "Από:"
-
-#: lib/Form/Class.SearchHandler.inc.php:111
-msgid "To :"
-msgstr "Έως:"
-
-#: lib/Form/Class.SearchHandler.inc.php:259
-msgid "There is"
-msgstr "Υπάρχει"
-
-#: lib/Form/Class.SearchHandler.inc.php:259
-#, fuzzy
-msgid ""
-"selected, use the option below if you are willing to make a batch updated of "
-"the selected cards."
-msgstr "επιλογή στο a από."
-
-#: lib/Form/Class.SearchHandler.inc.php:288
-msgid "RATECARD"
-msgstr "ΤΙΜΟΚΑΤΑΛΟΓΟΣ"
-
-#: lib/Form/Class.SearchHandler.inc.php:307
-msgid "BUYRATE"
-msgstr "ΤΙΜΗ ΑΓΟΡΑΣ"
-
-#: lib/Form/Class.SearchHandler.inc.php:310
-#: lib/Form/Class.SearchHandler.inc.php:325
-#: lib/Form/Class.SearchHandler.inc.php:341
-#: lib/Form/Class.SearchHandler.inc.php:357
-#: lib/Form/Class.SearchHandler.inc.php:373
-#: lib/Form/Class.SearchHandler.inc.php:389
-#: lib/Form/Class.SearchHandler.inc.php:405
-#: lib/Form/Class.SearchHandler.inc.php:421
-msgid "Equal"
-msgstr "Ίσο"
-
-#: lib/Form/Class.SearchHandler.inc.php:311
-#: lib/Form/Class.SearchHandler.inc.php:326
-#: lib/Form/Class.SearchHandler.inc.php:342
-#: lib/Form/Class.SearchHandler.inc.php:358
-#: lib/Form/Class.SearchHandler.inc.php:374
-#: lib/Form/Class.SearchHandler.inc.php:390
-#: lib/Form/Class.SearchHandler.inc.php:406
-#: lib/Form/Class.SearchHandler.inc.php:422
-msgid "Add"
-msgstr "Προσθήκη"
-
-#: lib/Form/Class.SearchHandler.inc.php:312
-#: lib/Form/Class.SearchHandler.inc.php:327
-#: lib/Form/Class.SearchHandler.inc.php:343
-#: lib/Form/Class.SearchHandler.inc.php:359
-#: lib/Form/Class.SearchHandler.inc.php:375
-#: lib/Form/Class.SearchHandler.inc.php:391
-#: lib/Form/Class.SearchHandler.inc.php:407
-#: lib/Form/Class.SearchHandler.inc.php:423
-msgid "Substract"
-msgstr "Αφαίρεση"
-
-#: lib/Form/Class.SearchHandler.inc.php:322
-msgid "BUYRATEINITBLOCK"
-msgstr ""
-
-#: lib/Form/Class.SearchHandler.inc.php:338
-msgid "BUYRATEINCREMENT"
-msgstr ""
-
-#: lib/Form/Class.SearchHandler.inc.php:354
-msgid "RATE INITIAL"
-msgstr "ΒΑΣΙΚΗ ΧΡΕΩΣΗ"
-
-#: lib/Form/Class.SearchHandler.inc.php:370
-msgid "MIN DURATION"
-msgstr "ΕΛΑΧΙΣΤΗ ΔΙΑΡΚΕΙΑ"
-
-#: lib/Form/Class.SearchHandler.inc.php:386
-msgid "BILLINGBLOCK"
-msgstr "ΜΟΝΑΔΑ ΧΡΕΩΣΗΣ"
-
-#: lib/Form/Class.SearchHandler.inc.php:402
-msgid "CONNECTCHARGE"
-msgstr "ΤΕΛΟΣ ΣΥΝΔΕΣΗΣ"
-
-#: lib/Form/Class.SearchHandler.inc.php:418
-msgid "DISCONNECTCHARGE"
-msgstr "ΤΕΛΟΣ ΑΠΟΣΥΝΔΕΣΗΣ"
-
-#: lib/Form/Class.SearchHandler.inc.php:433
-msgid " BATCH UPDATE RATECARD "
-msgstr "ΜΑΖΙΚΗ ΑΛΛΑΓΗ ΤΙΜΟΚΑΤΑΛΟΓΟΥ "
-
-#: lib/Form/Class.ViewHandler.inc.php:32
-#, fuzzy
-msgid "Congratulations! Your site"
-msgstr "Συγχαρητήρια"
-
-#: lib/Form/Class.ViewHandler.inc.php:32
-msgid "has been registered."
-msgstr "έχει καταχωρηθεί."
-
-#: lib/Form/Class.ViewHandler.inc.php:46
-msgid "Currently you have registered"
-msgstr "Έχετε καταχωρήσει"
-
-#: lib/Form/Class.ViewHandler.inc.php:46
-#, fuzzy
-msgid "sites and"
-msgstr "και"
-
-#: lib/Form/Class.ViewHandler.inc.php:46
-msgid "documents"
-msgstr "έγγραφα"
-
-#: lib/Form/Class.ViewHandler.inc.php:67
-msgid "These are the sites you have registered."
-msgstr "Αυτές είναι οι τοποθεσίες που έχετε καταχωρήσει."
-
-#: lib/Form/Class.ViewHandler.inc.php:143
-msgid "Sort"
-msgstr "Ταξινόμηση"
-
-#: lib/Form/Class.ViewHandler.inc.php:186
-msgid "FILTER ON "
-msgstr "ΦΙΛΤΡΟ ΣΤΟ"
-
-#: lib/Form/Class.ViewHandler.inc.php:203
-msgid "FILTER ON"
-msgstr "ΦΙΛΤΡΟ ΣΤΟ"
-
-#: lib/Form/Class.ViewHandler.inc.php:216
-msgid "APPLY FILTER "
-msgstr "ΕΦΑΡΜΟΓΗ ΦΙΛΤΡΟΥ"
-
-#: lib/Form/Class.ViewHandler.inc.php:248
-msgid "ACTION"
-msgstr "ΕΝΕΡΓΕΙΑ"
-
-#: lib/Form/Class.ViewHandler.inc.php:503
-msgid "DISPLAY"
-msgstr "ΠΡΟΒΟΛΗ"
-
-#: lib/Form/Class.ViewHandler.inc.php:520
-msgid "GO"
-msgstr "ΠΗΓΑΙΝΕ"
-
-#: lib/Form/Class.ViewHandler.inc.php:525
-msgid "Export CSV"
-msgstr "Εξαγωγή CSV"
-
-#: lib/Form/Class.ViewHandler.inc.php:529
-msgid "Export XML"
-msgstr "Εξαγωγή XML"
-
-#: lib/Misc.php:122
-msgid "&lt;&lt; First"
-msgstr "&lt;&lt; Πρώτο"
-
-#: lib/Misc.php:123
-msgid "&lt; Prev"
-msgstr "&lt; Προηγούμενο"
-
-#: lib/Misc.php:124
-msgid "Next &gt;"
-msgstr "Επόμενο &gt;"
-
-#: lib/Misc.php:125
-msgid "Last &gt;&gt;"
-msgstr "Τελευταίο &gt;&gt;"
-
-#: lib/company_info.php:2
+#: A2BAgent_UI/lib/company_info.php:2
 msgid ""
 "This software has been created by Areski under GPL licence. For futher "
 "information, feel free to contact me:"
@@ -1377,7 +494,7 @@ msgstr ""
 "Το παρόν λογισμικό γράφτηκε από τον Areski με άδεια GPL. Για περισσότερες "
 "πληροφορίες, επικοινωνήστε μαζί μου:"
 
-#: lib/company_info.php:4
+#: A2BAgent_UI/lib/company_info.php:4
 msgid ""
 " This software is under GPL licence. For further information, please visit : "
 "<a href=\"http://www.asterisk2billing.org\" target=\"_blank"
@@ -1387,19 +504,19 @@ msgstr ""
 "href=\"http://www.asterisk2billing.org\" target=\"_blank\">asterisk2billing."
 "org</a>"
 
-#: lib/company_info.php:5
+#: A2BAgent_UI/lib/company_info.php:5
 msgid "Asterisk2Billing : CallingCard platform"
 msgstr "Asterisk2Billing: Πλατφόρμα για τηλεφωνικές κάρτες"
 
-#: lib/help.php:15
+#: A2BAgent_UI/lib/help.php:15
 msgid ""
 "From here, you can use the web based screen phone. You need microphone and "
 "speakers on your PC."
 msgstr ""
-"Από εδώ, μπορείτε να χρησιμοποιήσετε το εικονικό τηλέφωνο της ιστοσελίδας. Αυτό "
-"λειτουργεί αν έχετε μικρόφωνο και μεγάφωνα/ακουστικά στον Η/Υ σας."
+"Από εδώ, μπορείτε να χρησιμοποιήσετε το εικονικό τηλέφωνο της ιστοσελίδας. "
+"Αυτό λειτουργεί αν έχετε μικρόφωνο και μεγάφωνα/ακουστικά στον Η/Υ σας."
 
-#: lib/help.php:31
+#: A2BAgent_UI/lib/help.php:31
 msgid ""
 "All calls are listed below. Search by month, day or status. Additionally, "
 "you can check the rate and price."
@@ -1407,7 +524,7 @@ msgstr ""
 "Όλες σας οι κλήσεις εμφανίζονται εδώ. Δείτε τις ανά μήνα, μέρα ή κατάσταση. "
 "Μπορείτε επίσης να ελέξετε την τιμή και τη χρέωσή τους."
 
-#: lib/help.php:48
+#: A2BAgent_UI/lib/help.php:48
 msgid ""
 "Simulate the calling process to discover the cost per minute of a call, and "
 "the number of minutes you can call that number with your current credit."
@@ -1415,358 +532,793 @@ msgstr ""
 "Προσομείωση της κλήσης για να δείτε το κόστος ανά λεπτό μίας κλήσης, και τον "
 "αριθμό λεπτών που μπορείτε να καλέσετε στον αριθμό αυτό με το υπόλοιπό σας."
 
-#: lib/help.php:64
+#: A2BAgent_UI/lib/help.php:64
 msgid ""
 "On this page you will be able to change your password, You have to enter the "
 "New Password and Confirm it."
-msgstr "Σε αυτή τη σελίδα μπορείτε να αλλάξετε τον κωδικό πρόσβασής σας. Αρκεί να δώσετε το Νέο κωδικό και να τον Επιβεβαιώσετε."
+msgstr ""
+"Σε αυτή τη σελίδα μπορείτε να αλλάξετε τον κωδικό πρόσβασής σας. Αρκεί να "
+"δώσετε το Νέο κωδικό και να τον Επιβεβαιώσετε."
 
-#: lib/help.php:79
+#: A2BAgent_UI/lib/help.php:79
 msgid "Here you can view your ratecards"
 msgstr "Εδώ μπορείτε να δείτε τους τιμοκαταλόγους"
 
-#: lib/help.php:94
+#: A2BAgent_UI/lib/help.php:94
 msgid "Here you can view your used vouchers"
 msgstr ""
 
-#: lib/help.php:111
+#: A2BAgent_UI/lib/help.php:111
 #, fuzzy
 msgid ""
 "Select the country below where you would like a DID, select a DID from the "
 "list and enter the destination you would like to assign it to."
 msgstr "Επιλογή χώρα όμοιο a a λίστα και όμοιο στο στο."
 
-#: lib/languageSettings.php:25
+#: A2BAgent_UI/lib/languageSettings.php:25
 msgid "English"
 msgstr "Αγγλικά"
 
-#: lib/languageSettings.php:26
+#: A2BAgent_UI/lib/languageSettings.php:26
 msgid "Arabic"
 msgstr "Αραβικά"
 
-#: lib/languageSettings.php:27
+#: A2BAgent_UI/lib/languageSettings.php:27
 msgid "Chinese"
 msgstr "Κινέζικα"
 
-#: lib/languageSettings.php:28
+#: A2BAgent_UI/lib/languageSettings.php:28
 msgid "French"
 msgstr "Γαλλικά"
 
-#: lib/languageSettings.php:29
+#: A2BAgent_UI/lib/languageSettings.php:29
 msgid "German"
 msgstr "Γερμανικά"
 
-#: lib/languageSettings.php:30
+#: A2BAgent_UI/lib/languageSettings.php:30
 msgid "Greek"
 msgstr "Ελληνικά"
 
-#: lib/languageSettings.php:31
+#: A2BAgent_UI/lib/languageSettings.php:31
 msgid "Italian"
 msgstr "Ιταλικά"
 
-#: lib/languageSettings.php:32
+#: A2BAgent_UI/lib/languageSettings.php:32
 msgid "Polish"
 msgstr "Πολωνικά"
 
-#: lib/languageSettings.php:33
+#: A2BAgent_UI/lib/languageSettings.php:33
 msgid "Portuguese"
 msgstr "Πορτογαλικά"
 
-#: lib/languageSettings.php:34
+#: A2BAgent_UI/lib/languageSettings.php:34
 msgid "Romanian"
 msgstr "Ρουμάνικα"
 
-#: lib/languageSettings.php:35
+#: A2BAgent_UI/lib/languageSettings.php:35
 msgid "Russian"
 msgstr "Ρώσικα"
 
-#: lib/languageSettings.php:36
+#: A2BAgent_UI/lib/languageSettings.php:36
 msgid "Spanish"
 msgstr "Ισπανικά"
 
-#: lib/languageSettings.php:37
+#: A2BAgent_UI/lib/languageSettings.php:37
 msgid "Turkish"
 msgstr "Τούρκικα"
 
-#: lib/languageSettings.php:38
+#: A2BAgent_UI/lib/languageSettings.php:38
 msgid "Urdu"
 msgstr "Urdu"
 
-#: pay.php:23
+#: A2BAgent_UI/forgotpassword.php:24
+msgid ""
+"Please wait 1 minutes before making any other request for the forgot "
+"password!"
+msgstr "Παρακαλώ περιμένετε 1 λεπτό πρίν ξανακάνετε αίτηση ανάκτησης κωδικού!"
+
+#: A2BAgent_UI/forgotpassword.php:98
+msgid "Your login information email has been sent to you."
+msgstr "Σας έχει αποσταλεί e-mail με τον κωδικό σας."
+
+#: A2BAgent_UI/forgotpassword.php:101
+msgid "No such login exists."
+msgstr "Δεν υπάρχει τέτοιος χρήστης."
+
+#: A2BAgent_UI/forgotpassword.php:104
+msgid "Invalid Action."
+msgstr "Άκυρη Ενέργεια."
+
+#: A2BAgent_UI/forgotpassword.php:107
+msgid "Pleaes provide your email address to get your login information."
+msgstr ""
+"Παρακαλώ δώστε το email σας (αυτό που έχετε δηλώσει σε εμάς) για να λάβετε "
+"σε αυτό τον κωδικό σας."
+
+#: A2BAgent_UI/index.php:70
+msgid "AUTHENTICATION REFUSED, please check your user/password!"
+msgstr "ΔΕΝ ΕΠΙΤΡΕΠΕΤΑΙ Η ΠΡΟΣΒΑΣΗ, παρακαλώ ελέγξτε το όνομα/κωδικό σας!"
+
+#: A2BAgent_UI/index.php:74
+msgid "INACTIVE ACCOUNT, Please activate your account!"
+msgstr "ΑΝΕΝΕΡΓΟΣ ΛΟΓΑΡΙΑΣΜΟΣ, Παρακαλώ ζητήστε την ενεργοποίησή του!"
+
+#: A2BAgent_UI/index.php:78
+msgid "BLOCKED ACCOUNT, Please contact your administrator!"
+msgstr "ΚΛΕΙΔΩΜΕΝΟΣ ΛΟΓΑΡΙΑΣΜΟΣ, Παρακαλώ επικοινωνήστε μαζί μας!"
+
+#: A2BAgent_UI/index.php:87
+msgid "AUTHENTICATION"
+msgstr "ΠΙΣΤΟΠΟΙΗΣΗ"
+
+#: A2BAgent_UI/index.php:96
+msgid "User:"
+msgstr "Χρήστης:"
+
+#: A2BAgent_UI/index.php:101
+msgid "Password:"
+msgstr "Κωδικός:"
+
+#: A2BAgent_UI/index.php:111
+msgid "Forgot your password? Click "
+msgstr "Ξεχάσατε τον κωδικό; πατήστε "
+
+#: A2BAgent_UI/index.php:111
+msgid "here"
+msgstr "εδώ"
+
+#: A2BAgent_UI/info_choice.php:16
+msgid "Please choose information page:"
+msgstr "Επιλέξτε σελίδα με πληροφορίες:"
+
+#: A2BAgent_UI/info_choice.php:18
+msgid "Current rates"
+msgstr "Τρέχων τιμοκατάλογος"
+
+#: A2BAgent_UI/info_choice.php:19
+msgid "Usage instructions"
+msgstr "Οδηγίες χρήσεως"
+
+#: A2BAgent_UI/info_choice.php:20
+msgid "Contact information"
+msgstr "Επικοινωνία με εμάς"
+
+#: A2BAgent_UI/invoices.php:86
+msgid "Call date"
+msgstr "Ημ/νία κλήσης"
+
+#: A2BAgent_UI/invoices.php:87
+msgid "Source"
+msgstr "Πηγή"
+
+#: A2BAgent_UI/invoices.php:88
+msgid "Called number"
+msgstr "Κληθείς Αριθμός"
+
+#: A2BAgent_UI/invoices.php:94
+msgid "Card used"
+msgstr "Κάρτα"
+
+#: A2BAgent_UI/invoices.php:104
+msgid "Cost"
+msgstr "Κόστος"
+
+#: A2BAgent_UI/invoices.php:436 A2BAgent_UI/invoices.php:456
+#: A2BAgent_UI/invoices.php:493 A2BAgent_UI/invoices.php:538
+msgid "JANUARY"
+msgstr "ΙΑΝΟΥΑΡΙΟΣ"
+
+#: A2BAgent_UI/invoices.php:436 A2BAgent_UI/invoices.php:456
+#: A2BAgent_UI/invoices.php:493 A2BAgent_UI/invoices.php:538
+msgid "FEBRUARY"
+msgstr "ΦΕΒΡΟΥΑΡΙΟΣ"
+
+#: A2BAgent_UI/invoices.php:436 A2BAgent_UI/invoices.php:456
+#: A2BAgent_UI/invoices.php:493 A2BAgent_UI/invoices.php:538
+msgid "MARCH"
+msgstr "ΜΑΡΤΙΟΣ"
+
+#: A2BAgent_UI/invoices.php:436 A2BAgent_UI/invoices.php:456
+#: A2BAgent_UI/invoices.php:493 A2BAgent_UI/invoices.php:538
+msgid "APRIL"
+msgstr "ΑΠΡΙΛΙΟΣ"
+
+#: A2BAgent_UI/invoices.php:436 A2BAgent_UI/invoices.php:456
+#: A2BAgent_UI/invoices.php:493 A2BAgent_UI/invoices.php:538
+msgid "MAY"
+msgstr "ΜΑΪΟΣ"
+
+#: A2BAgent_UI/invoices.php:436 A2BAgent_UI/invoices.php:456
+#: A2BAgent_UI/invoices.php:493 A2BAgent_UI/invoices.php:538
+msgid "JUNE"
+msgstr "ΙΟΥΝΙΟΣ"
+
+#: A2BAgent_UI/invoices.php:436 A2BAgent_UI/invoices.php:456
+#: A2BAgent_UI/invoices.php:493 A2BAgent_UI/invoices.php:538
+msgid "JULY"
+msgstr "ΙΟΥΛΙΟΣ"
+
+#: A2BAgent_UI/invoices.php:436 A2BAgent_UI/invoices.php:456
+#: A2BAgent_UI/invoices.php:493 A2BAgent_UI/invoices.php:538
+msgid "AUGUST"
+msgstr "ΑΥΓΟΥΣΤΟΣ"
+
+#: A2BAgent_UI/invoices.php:436 A2BAgent_UI/invoices.php:456
+#: A2BAgent_UI/invoices.php:493 A2BAgent_UI/invoices.php:538
+msgid "SEPTEMBER"
+msgstr "ΣΕΠΤΕΜΒΡΙΟΣ"
+
+#: A2BAgent_UI/invoices.php:436 A2BAgent_UI/invoices.php:456
+#: A2BAgent_UI/invoices.php:493 A2BAgent_UI/invoices.php:538
+msgid "OCTOBER"
+msgstr "ΟΚΤΩΒΡΙΟΣ"
+
+#: A2BAgent_UI/invoices.php:436 A2BAgent_UI/invoices.php:456
+#: A2BAgent_UI/invoices.php:493 A2BAgent_UI/invoices.php:538
+msgid "NOVEMBER"
+msgstr "ΝΟΕΜΒΡΙΟΣ"
+
+#: A2BAgent_UI/invoices.php:436 A2BAgent_UI/invoices.php:456
+#: A2BAgent_UI/invoices.php:493 A2BAgent_UI/invoices.php:538
+msgid "DECEMBER"
+msgstr "ΔΕΚΕΜΒΡΙΟΣ"
+
+#: A2BAgent_UI/invoices.php:574 A2BAgent_UI/invoices.php:789
+#: A2BAgent_UI/FG_var_ratecard.inc:38 A2BAgent_UI/FG_var_ratecard.inc:65
+msgid "DESTINATION"
+msgstr "ΠΡΟΟΡΙΣΜΟΣ"
+
+#: A2BAgent_UI/invoices.php:578 A2BAgent_UI/invoices.php:591
+msgid "Exact"
+msgstr "Ακριβής"
+
+#: A2BAgent_UI/invoices.php:579 A2BAgent_UI/invoices.php:592
+msgid "Begins with"
+msgstr "Αρχίζει με"
+
+#: A2BAgent_UI/invoices.php:580 A2BAgent_UI/invoices.php:593
+msgid "Contains"
+msgstr "Περιέχει"
+
+#: A2BAgent_UI/invoices.php:581 A2BAgent_UI/invoices.php:594
+msgid "Ends with"
+msgstr "Τελειώνει σε"
+
+#: A2BAgent_UI/invoices.php:582 A2BAgent_UI/invoices.php:595
+msgid "Is not"
+msgstr "Δεν είναι "
+
+#: A2BAgent_UI/invoices.php:587
+msgid "SOURCE"
+msgstr "ΠΗΓΗ"
+
+#: A2BAgent_UI/invoices.php:669
+msgid "Phone :"
+msgstr "Τηλέφωνο:"
+
+#: A2BAgent_UI/invoices.php:670
+msgid "Fax  :"
+msgstr "Φαξ  :"
+
+#: A2BAgent_UI/invoices.php:685 A2BAgent_UI/invoices_cust.php:590
+msgid "BILLING SERVICE"
+msgstr "ΛΟΓΑΡΙΑΣΜΟΣ"
+
+#: A2BAgent_UI/invoices.php:711
+msgid "EXTRA CHARGE"
+msgstr "ΕΞΤΡΑ ΧΡΕΩΣΗ"
+
+#: A2BAgent_UI/invoices.php:715 A2BAgent_UI/invoices.php:892
+#: A2BAgent_UI/invoices_cust.php:670 A2BAgent_UI/FG_var_agentpay.inc:25
+#: A2BAgent_UI/FG_var_charge.inc:37
+msgid "DATE"
+msgstr "ΗΜ/ΝΙΑ"
+
+#: A2BAgent_UI/invoices.php:716
+msgid "NB CHARGE"
+msgstr "ΑΡ ΧΡΕΩΣΗΣ"
+
+#: A2BAgent_UI/invoices.php:717
+msgid "TOTALCOST"
+msgstr "ΣΥΝΟΛΟ ΧΡΕΩΣΗΣ"
+
+#: A2BAgent_UI/invoices.php:753 A2BAgent_UI/invoices.php:852
+#: A2BAgent_UI/invoices.php:954 A2BAgent_UI/invoices_cust.php:732
+msgid "VAT"
+msgstr "ΦΠΑ"
+
+#: A2BAgent_UI/invoices.php:786
+msgid "CALLS PER DESTINATION"
+msgstr "ΚΛΗΣΕΙΣ ΑΝΑ ΠΡΟΟΡΙΣΜΟ"
+
+#: A2BAgent_UI/invoices.php:790 A2BAgent_UI/invoices.php:893
+#: A2BAgent_UI/invoices_cust.php:671
+msgid "DUR"
+msgstr "ΔΙΑΡ"
+
+#: A2BAgent_UI/invoices.php:791 A2BAgent_UI/invoices.php:894
+#: A2BAgent_UI/invoices_cust.php:672
+msgid "GRAPHIC"
+msgstr "ΓΡΑΦΗΜΑ"
+
+#: A2BAgent_UI/invoices.php:792 A2BAgent_UI/invoices.php:895
+#: A2BAgent_UI/invoices_cust.php:673
+msgid "CALL"
+msgstr "ΚΛΗΣΗ"
+
+#: A2BAgent_UI/invoices.php:793 A2BAgent_UI/invoices.php:896
+#: A2BAgent_UI/invoices_cust.php:674
+msgid "TOTAL COST"
+msgstr "ΣΥΝΟΛΟ"
+
+#: A2BAgent_UI/invoices.php:864 A2BAgent_UI/invoices_cust.php:643
+msgid "BILL EVOLUTION"
+msgstr "ΕΞΕΛΙΞΗ ΧΡΕΩΣΕΩΝ"
+
+#: A2BAgent_UI/invoices.php:969 A2BAgent_UI/invoices_cust.php:464
+msgid "CALLS DETAIL"
+msgstr "ΛΕΠΤΟΜΕΡΕΙΕΣ ΚΛΗΣΕΩΝ"
+
+#: A2BAgent_UI/invoices.php:978
+msgid "Number of call"
+msgstr "Αριθμός κλήσεων"
+
+#: A2BAgent_UI/invoices.php:1078 A2BAgent_UI/invoices_cust.php:557
+msgid "TOTAL BUYCOSTS"
+msgstr "ΣΥΝΟΛΟ ΚΟΣΤΟΥΣ ΑΓΟΡΑΣ"
+
+#: A2BAgent_UI/invoices.php:1079 A2BAgent_UI/invoices_cust.php:558
+msgid "DIFFERENCE"
+msgstr "ΔΙΑΦΟΡΑ"
+
+#: A2BAgent_UI/invoices_cust.php:159
+msgid "Called Number"
+msgstr "Κληθείς Αριθμός"
+
+#: A2BAgent_UI/invoices_cust.php:161
+msgid "Credit"
+msgstr "Πίστωση"
+
+#: A2BAgent_UI/invoices_cust.php:411
+msgid "Select booth:"
+msgstr "Επιλογή τηλεφώνου:"
+
+#: A2BAgent_UI/invoices_cust.php:536
+msgid "Sum:"
+msgstr "Σύνολο:"
+
+#: A2BAgent_UI/invoices_cust.php:596
+msgid "CREDITS/CHARGES"
+msgstr "ΠΙΣΤΩΣΕΙΣ/ΧΡΕΩΣΕΙΣ"
+
+#: A2BAgent_UI/invoices_cust.php:601 A2BAgent_UI/FG_var_booth.inc:34
+msgid "CREDIT"
+msgstr "ΠΙΣΤΩΣΗ"
+
+#: A2BAgent_UI/invoices_cust.php:602
+msgid "CHARGE"
+msgstr "ΧΡΕΩΣΗ"
+
+#: A2BAgent_UI/invoices_cust.php:761
+msgid "Do you want to charge the customer for one printing?"
+msgstr "Θέλετε να χρεώσετε τον πελάτη για μία εκτύπωση;"
+
+#: A2BAgent_UI/invoices_cust.php:772
+msgid "Print charge cancelled."
+msgstr "Η χρέωση εκτύπωσης ακυρώθηκε."
+
+#: A2BAgent_UI/invoices_cust.php:778
+msgid "Charge printing"
+msgstr "Χρέωση εκτύπωσης"
+
+#: A2BAgent_UI/invoices_cust.php:787
+msgid "Click OK if you have paid back %1 to the customer."
+msgstr "Πατήστε ΟΚ αν έχετε δώσει πίσω %1 στον πελάτη."
+
+#: A2BAgent_UI/invoices_cust.php:798
+msgid "Pay back cancelled."
+msgstr "Η επιστροφή χρημάτων ακυρώθηκε."
+
+#: A2BAgent_UI/invoices_cust.php:808
+msgid "Click OK if you have received %1 from the customer as payment."
+msgstr "Πατήστε ΟΚ αν έχετε παραλάβει %1 από τον πελάτη για πληρωμή."
+
+#: A2BAgent_UI/invoices_cust.php:819
+msgid "Payment cancelled."
+msgstr "Η πληρωμή ακυρώθηκε"
+
+#: A2BAgent_UI/pay.php:23
 msgid "Payment"
 msgstr "Πληρωμή"
 
-#: pay.php:24
+#: A2BAgent_UI/pay.php:24
 msgid "Pay back"
 msgstr "Επιστροφή"
 
-#: pay.php:49
+#: A2BAgent_UI/pay.php:49
 msgid "Paid "
 msgstr "Πληρώθηκαν"
 
-#: pay.php:50
+#: A2BAgent_UI/pay.php:50
 msgid "Paid back "
 msgstr "Επεστράφησαν"
 
-#: pay.php:54
+#: A2BAgent_UI/pay.php:54
 msgid "Cannot pay session!"
 msgstr "Δεν μπορεί να εξοφληθεί η συναλλαγή!"
 
-#: pay.php:58
+#: A2BAgent_UI/pay.php:63
 msgid "Back to booths"
 msgstr "Πίσω στα τηλέφωνα"
 
-#: reports_choice.php:16
+#: A2BAgent_UI/reports_choice.php:16
 msgid "Please choose report type:"
 msgstr "Επιλέξτε τύπο αναφοράς:"
 
-#: reports_choice.php:18
+#: A2BAgent_UI/reports_choice.php:18
 msgid "All calls"
 msgstr "Όλες οι κλήσεις"
 
-#: reports_choice.php:19
+#: A2BAgent_UI/reports_choice.php:19
 msgid "Agent money situation"
 msgstr "Οικονομική κατάσταση μαγαζιού"
 
-#: reports_choice.php:20
+#: A2BAgent_UI/reports_choice.php:20
 msgid "Phone statistics"
 msgstr "Στατιστικά συσκευών"
 
-#: reports_choice.php:25
+#: A2BAgent_UI/reports_choice.php:25
 msgid "Customer charges"
 msgstr "Χρεώσεις σε πελάτες"
 
-#: reports_choice.php:26
+#: A2BAgent_UI/reports_choice.php:26
 msgid "Agent payments"
 msgstr "Πληρωμές του μαγαζιού"
 
-#: FG_var_agentpay.inc:26 FG_var_charge.inc:38 FG_var_charge.inc:74
-msgid "AMOUNT"
-msgstr "ΠΟΣΟΝ"
+#: A2BAgent_UI/reports_choice.php:27
+msgid "Agent invoices"
+msgstr ""
 
-#: FG_var_agentpay.inc:27 FG_var_charge.inc:39 FG_var_charge.inc:83
-msgid "CHARGETYPE"
-msgstr "ΤΥΠΟΣ ΧΡΕΩΣΗΣ"
+#: A2BAgent_UI/PP_page.inc.php:44
+#, fuzzy
+msgid "Other"
+msgstr "εδώ"
 
-#: FG_var_agentpay.inc:35
-msgid "THERE ARE NO AGENT PAYMENTS YET!"
-msgstr "ΔΕΝ ΥΠΑΡΧΟΥΝ ΠΛΗΡΩΜΕΣ ΑΚΟΜΑ!"
+#: A2BAgent_UI/PP_menu.inc.php:61
+msgid "BOOTHS"
+msgstr "ΘΑΛΑΜΟΙ"
 
-#: FG_var_booth.inc:28 FG_var_card.inc:20
+#: A2BAgent_UI/PP_menu.inc.php:64
+msgid "CUSTOMERS"
+msgstr "ΠΕΛΑΤΕΣ"
+
+#: A2BAgent_UI/PP_menu.inc.php:67
+msgid "EDIT BOOTHS"
+msgstr "ΔΙΟΡΘΩΣΗ ΘΑΛΑΜΩΝ "
+
+#: A2BAgent_UI/PP_menu.inc.php:70
+msgid "PAYMENTS"
+msgstr "ΠΛΗΡΩΜΕΣ"
+
+#: A2BAgent_UI/PP_menu.inc.php:73
+msgid "REPORTS"
+msgstr "ΑΝΑΦΟΡΕΣ"
+
+#: A2BAgent_UI/PP_menu.inc.php:76
+msgid "INFO PAGES"
+msgstr "ΠΛΗΡΟΦΟΡΙΕΣ"
+
+#: A2BAgent_UI/PP_menu.inc.php:82
+msgid "PASSWORD"
+msgstr "ΚΩΔΙΚΟΣ"
+
+#: A2BAgent_UI/PP_menu.inc.php:86
+msgid "LOGOUT"
+msgstr "ΕΞΟΔΟΣ"
+
+#: A2BAgent_UI/FG_var_agent_invoicev.inc:57
+msgid "Failed"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_agent_invoicev.inc:58
+msgid "Successful"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_agent_invoicev.inc:66 A2BAgent_UI/FG_var_booth.inc:28
+#: A2BAgent_UI/FG_var_card.inc:20
 msgid "ID"
 msgstr "ID"
 
-#: FG_var_booth.inc:29 FG_var_card.inc:22
+#: A2BAgent_UI/FG_var_agent_invoicev.inc:67
+msgid "INVOICEDATE"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_agent_invoicev.inc:68
+msgid "COVERSTART"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_agent_invoicev.inc:69
+msgid "COVEREND"
+msgstr ""
+
+#: A2BAgent_UI/FG_var_agent_invoicev.inc:70
+#, fuzzy
+msgid "SENTDATE"
+msgstr "ΚΑΤΑΣΤΑΣΗ"
+
+#: A2BAgent_UI/FG_var_agent_invoicev.inc:71
+#, fuzzy
+msgid "STATUS"
+msgstr "ΚΑΤΑΣΤΑΣΗ"
+
+#: A2BAgent_UI/FG_var_agent_invoicev.inc:72
+#, fuzzy
+msgid "PAYMENTSTATUS"
+msgstr "ΠΛΗΡΩΜΕΣ"
+
+#: A2BAgent_UI/FG_var_agent_invoicev.inc:73 A2BAgent_UI/FG_var_agentpay.inc:26
+#: A2BAgent_UI/FG_var_charge.inc:38 A2BAgent_UI/FG_var_charge.inc:74
+msgid "AMOUNT"
+msgstr "ΠΟΣΟΝ"
+
+#: A2BAgent_UI/FG_var_agent_invoicev.inc:80
+#, fuzzy
+msgid "THERE IS NO INVOICES CREATED!"
+msgstr "ΔΕΝ ΥΠΑΡΧΟΥΝ ΧΡΕΩΣΕΙΣ ΠΕΛΑΤΗ!"
+
+#: A2BAgent_UI/FG_var_agentpay.inc:27 A2BAgent_UI/FG_var_charge.inc:39
+#: A2BAgent_UI/FG_var_charge.inc:83
+msgid "CHARGETYPE"
+msgstr "ΤΥΠΟΣ ΧΡΕΩΣΗΣ"
+
+#: A2BAgent_UI/FG_var_agentpay.inc:35
+msgid "THERE ARE NO AGENT PAYMENTS YET!"
+msgstr "ΔΕΝ ΥΠΑΡΧΟΥΝ ΠΛΗΡΩΜΕΣ ΑΚΟΜΑ!"
+
+#: A2BAgent_UI/FG_var_booth.inc:12
+msgid "N/A"
+msgstr "Ν/Α"
+
+#: A2BAgent_UI/FG_var_booth.inc:13
+msgid "Empty"
+msgstr "Κενός"
+
+#: A2BAgent_UI/FG_var_booth.inc:14
+msgid "Idle"
+msgstr "Αδρανής"
+
+#: A2BAgent_UI/FG_var_booth.inc:15
+msgid "Ready"
+msgstr "Έτοιμος"
+
+#: A2BAgent_UI/FG_var_booth.inc:16
+msgid "Active"
+msgstr "Ενεργός"
+
+#: A2BAgent_UI/FG_var_booth.inc:17
+msgid "Disabled"
+msgstr "Απενεργοποιημένος"
+
+#: A2BAgent_UI/FG_var_booth.inc:18
+msgid "Stopped"
+msgstr "Σταματημένο"
+
+#: A2BAgent_UI/FG_var_booth.inc:29 A2BAgent_UI/FG_var_card.inc:22
 msgid "NAME"
 msgstr "ΕΠΩΝΥΜΟ"
 
-#: FG_var_booth.inc:30
+#: A2BAgent_UI/FG_var_booth.inc:30
 msgid "LOCATION"
 msgstr "ΤΟΠΟΘΕΣΙΑ"
 
-#: FG_var_booth.inc:32
+#: A2BAgent_UI/FG_var_booth.inc:32
 msgid "STATE"
 msgstr "ΚΑΤΑΣΤΑΣΗ"
 
-#: FG_var_booth.inc:47
+#: A2BAgent_UI/FG_var_booth.inc:47
 msgid "NO BOOTHS HAVE BEEN CREATED!"
 msgstr "ΔΕΝ ΒΡΕΘΗΚΑΝ ΤΗΛΕΦΩΝΑ!"
 
-#: FG_var_booth.inc:49
+#: A2BAgent_UI/FG_var_booth.inc:49
 msgid "Booths"
 msgstr "Τηλέφωνα"
 
-#: FG_var_booth.inc:62
-msgid "You can modify, through the following form, the different properties of your "
+#: A2BAgent_UI/FG_var_booth.inc:62
+msgid ""
+"You can modify, through the following form, the different properties of your "
 msgstr "Μπορείτε να διορθώσετε, με την παρακάτω φόρμα, τις ιδιότητες των"
 
-#: FG_var_card.inc:21
+#: A2BAgent_UI/FG_var_card.inc:21
 msgid "CARD NUMBER"
 msgstr "ΑΡΙΘΜΟΣ ΚΑΡΤΑΣ"
 
-#: FG_var_card.inc:23 FG_var_card.inc:140
+#: A2BAgent_UI/FG_var_card.inc:23 A2BAgent_UI/FG_var_card.inc:140
 msgid "BALANCE"
 msgstr "ΠΟΣΟΝ"
 
-#: FG_var_card.inc:23
+#: A2BAgent_UI/FG_var_card.inc:23
 msgid "BA"
 msgstr "ΠΟ"
 
-#: FG_var_card.inc:28
+#: A2BAgent_UI/FG_var_card.inc:28
 msgid "NOW IN"
 msgstr "ΤΩΡΑ ΣΤΟ"
 
-#: FG_var_card.inc:35
+#: A2BAgent_UI/FG_var_card.inc:35
 msgid "Fill booth"
 msgstr "Γέμισμα"
 
-#: FG_var_card.inc:35
+#: A2BAgent_UI/FG_var_card.inc:35
 msgid " with card "
 msgstr "με την κάρτα"
 
-#: FG_var_card.inc:41
+#: A2BAgent_UI/FG_var_card.inc:41
 msgid "Booth Filled"
 msgstr "Το τηλέφωνο γέμισε"
 
-#: FG_var_card.inc:43
+#: A2BAgent_UI/FG_var_card.inc:43
 msgid "Cannot fill booth!"
 msgstr "Δεν μπορεί να γεμίσει το τηλέφωνο!"
 
-#: FG_var_card.inc:48
+#: A2BAgent_UI/FG_var_card.inc:48
 msgid "Empty booth "
 msgstr "Άδειασμα τηλεφώνου"
 
-#: FG_var_card.inc:53
+#: A2BAgent_UI/FG_var_card.inc:53
 msgid "Booth Emptied"
 msgstr "Το τηλέφωνο άδειασε"
 
-#: FG_var_card.inc:55
+#: A2BAgent_UI/FG_var_card.inc:55
 msgid "Cannot empty booth! (Does it have zero balance?)"
 msgstr "Δεν μπορεί να αδειάσει το τηλέφωνο! (έχει πληρώσει; )"
 
-#: FG_var_card.inc:67
+#: A2BAgent_UI/FG_var_card.inc:67
 msgid "NO CARDS HAVE BEEN CREATED!"
 msgstr "ΔΕΝ ΒΡΕΘΗΚΑΝ ΚΑΡΤΕΣ!"
 
-#: FG_var_card.inc:69
+#: A2BAgent_UI/FG_var_card.inc:69
 msgid "Customers"
 msgstr "Πελάτες"
 
-#: FG_var_card.inc:83 FG_var_card.inc:88
+#: A2BAgent_UI/FG_var_card.inc:83 A2BAgent_UI/FG_var_card.inc:88
 msgid "select"
 msgstr "επιλογή"
 
-#: FG_var_card.inc:93
+#: A2BAgent_UI/FG_var_card.inc:93
 msgid "Charges"
 msgstr "Χρεώσεις"
 
-#: FG_var_card.inc:131
+#: A2BAgent_UI/FG_var_card.inc:98
+msgid "Pay"
+msgstr "Πληρωμή"
+
+#: A2BAgent_UI/FG_var_card.inc:131
 msgid "CARD NUMBER "
 msgstr "ΑΡΙΘΜΟΣ ΚΑΡΤΑΣ"
 
-#: FG_var_card.inc:137
+#: A2BAgent_UI/FG_var_card.inc:137
 msgid "Insert the username"
 msgstr "Εισάγετε το όνομα χρήστη"
 
-#: FG_var_card.inc:146
+#: A2BAgent_UI/FG_var_card.inc:146
 msgid "Insert the number of credit"
 msgstr "Εισάγετε το ποσόν πίστωσης"
 
-#: FG_var_card.inc:149
+#: A2BAgent_UI/FG_var_card.inc:149
 msgid "LANGUAGE"
 msgstr "ΓΛΩΣΣΑ"
 
-#: FG_var_card.inc:158
+#: A2BAgent_UI/FG_var_card.inc:158
 msgid "LASTNAME"
 msgstr "ΕΠΩΝΥΜΟ"
 
-#: FG_var_card.inc:164
+#: A2BAgent_UI/FG_var_card.inc:164
 msgid "Insert the lastname of the customers"
 msgstr "Εισάγετε εδώ το επώνυμο του πελάτη"
 
-#: FG_var_card.inc:167
+#: A2BAgent_UI/FG_var_card.inc:167
 msgid "FIRSTNAME"
 msgstr "ΟΝΟΜΑ"
 
-#: FG_var_card.inc:173
+#: A2BAgent_UI/FG_var_card.inc:173
 msgid "Insert the firstname of the customers"
 msgstr "Εισάγετε το μικρό όνομα του πελάτη"
 
-#: FG_var_card.inc:181
+#: A2BAgent_UI/FG_var_card.inc:181
 msgid "EMAIL"
 msgstr "ΗΛ.ΔΙΕΥΘΥΝΣΗ"
 
-#: FG_var_card.inc:187
+#: A2BAgent_UI/FG_var_card.inc:187
 msgid "Insert the email"
 msgstr "Εισάγετε το email"
 
-#: FG_var_card.inc:191
+#: A2BAgent_UI/FG_var_card.inc:191
 msgid "ADDRESS"
 msgstr "ΔΙΕΥΘΥΝΣΗ"
 
-#: FG_var_card.inc:197
+#: A2BAgent_UI/FG_var_card.inc:197
 msgid "Insert the address of the customers"
 msgstr "Εισάγετε την διεύθυνση του πελάτη"
 
-#: FG_var_card.inc:201
+#: A2BAgent_UI/FG_var_card.inc:201
 msgid "CITY"
 msgstr "ΠΟΛΗ"
 
-#: FG_var_card.inc:207
+#: A2BAgent_UI/FG_var_card.inc:207
 msgid "Insert the city"
 msgstr "Εισάγετε την πόλη"
 
-#: FG_var_card.inc:211
+#: A2BAgent_UI/FG_var_card.inc:211
 msgid "STATE/PROVINCE"
 msgstr "ΝΟΜΟΣ/ΕΠΑΡΧΙΑ"
 
-#: FG_var_card.inc:217
+#: A2BAgent_UI/FG_var_card.inc:217
 msgid "Insert the state"
 msgstr "Εισάγετε τον νομό"
 
-#: FG_var_card.inc:221
+#: A2BAgent_UI/FG_var_card.inc:221
 msgid "COUNTRY"
 msgstr "ΧΩΡΑ"
 
-#: FG_var_card.inc:227
+#: A2BAgent_UI/FG_var_card.inc:227
 msgid "Insert the country"
 msgstr "Εισάγετε τη χώρα"
 
-#: FG_var_card.inc:231
+#: A2BAgent_UI/FG_var_card.inc:231
 msgid "ZIP/POSTAL CODE"
 msgstr "ΤΑΧ ΚΩΔΙΚΑΣ"
 
-#: FG_var_card.inc:237
+#: A2BAgent_UI/FG_var_card.inc:237
 msgid "Insert the zipcode"
 msgstr "Εισάγετε τον ταχ. κώδικα"
 
-#: FG_var_card.inc:245
+#: A2BAgent_UI/FG_var_card.inc:245
 msgid "Once you have completed the form above, click on the CONTINUE button."
 msgstr "Όταν συμπληρώσετε τη φόρμα, πατήστε στο πλήκτρο ΣΥΝΕΧΕΙΑ"
 
-#: FG_var_charge.inc:36
+#: A2BAgent_UI/FG_var_charge.inc:36
 msgid "CARDNUMBER"
 msgstr "ΑΡΙΘΜΟΣ ΚΑΡΤΑΣ"
 
-#: FG_var_charge.inc:46
+#: A2BAgent_UI/FG_var_charge.inc:46
 msgid "THERE IS NO CHARGE CREATED!"
 msgstr "ΔΕΝ ΥΠΑΡΧΟΥΝ ΧΡΕΩΣΕΙΣ ΠΕΛΑΤΗ!"
 
-#: FG_var_charge.inc:61
+#: A2BAgent_UI/FG_var_charge.inc:61
 msgid "ID CARD"
 msgstr "ΑΡ. ΚΑΡΤΑΣ"
 
-#: FG_var_charge.inc:67
+#: A2BAgent_UI/FG_var_charge.inc:67
 msgid "Insert the Id CardNumber"
 msgstr "Εισάγετε τον αρ. κάρτας πελάτη"
 
-#: FG_var_charge.inc:72
+#: A2BAgent_UI/FG_var_charge.inc:72
 msgid "Set the Card Number ID"
 msgstr "Δώστε εδώ τον αριθμό κάρτας πελάτη"
 
-#: FG_var_charge.inc:80
+#: A2BAgent_UI/FG_var_charge.inc:80
 msgid "Insert the amount"
 msgstr "Εισάγετε το ποσόν"
 
-#: FG_var_charge.inc:81
+#: A2BAgent_UI/FG_var_charge.inc:81
 msgid "Amount, in "
 msgstr "Ποσόν, σε "
 
-#: FG_var_charge.inc:98
+#: A2BAgent_UI/FG_var_charge.inc:98
 msgid "Insert the description"
 msgstr "Εισάγετε την περιγραφή"
 
-#: FG_var_charge.inc:122
+#: A2BAgent_UI/FG_var_charge.inc:122
 msgid "Modify the properties of the charge"
 msgstr "Τροποποίηση των λεπτομερειών της συναλλαγής."
 
-#: FG_var_charge.inc:123
+#: A2BAgent_UI/FG_var_charge.inc:123
 msgid "If you really want remove this charge, click on the delete button."
 msgstr ""
 "Αν θέλετε πραγματικά να διαγράψετε τη χρέωση, πατήστε το κουμπί της "
 "Διαγραφής "
 
-#: FG_var_charge.inc:124
+#: A2BAgent_UI/FG_var_charge.inc:124
 msgid ""
 "you can add easily a new charge.<br>Fill the following fields and confirm by "
 "clicking on the button add."
@@ -1774,88 +1326,527 @@ msgstr ""
 "Για να εισάγετε μία νέα χρέωση του πελάτη, συμπληρώστε τα παρακάτω πεδία και "
 "επιβεβαιώστε με το πλήκτρο της προσθήκης."
 
-#: FG_var_charge.inc:128
+#: A2BAgent_UI/FG_var_charge.inc:128
 msgid "Your new charge has been inserted. <br>"
 msgstr "Η χρέωση έχει εισαχθεί στο σύστημα.<br>"
 
-#: FG_var_charge.inc:132
+#: A2BAgent_UI/FG_var_charge.inc:132
 msgid "Click 'Confirm Data' to continue"
 msgstr "Πατήστε εδώ για να συνεχίσετε"
 
-#: FG_var_ratecard.inc:36
+#: A2BAgent_UI/FG_var_ratecard.inc:36
 msgid "GROUP"
 msgstr "ΟΜΑΔΑ"
 
-#: FG_var_ratecard.inc:39
+#: A2BAgent_UI/FG_var_ratecard.inc:39
 msgid "PREFIX"
 msgstr "ΠΡΟΘΕΜΑ"
 
-#: FG_var_ratecard.inc:40
+#: A2BAgent_UI/FG_var_ratecard.inc:40
 msgid "SR"
 msgstr "ΤΜ"
 
-#: FG_var_ratecard.inc:41
+#: A2BAgent_UI/FG_var_ratecard.inc:41
 msgid "EXTRA"
 msgstr "ΕΦΑΠΑΞ"
 
-#: FG_var_ratecard.inc:49
+#: A2BAgent_UI/FG_var_ratecard.inc:49
 msgid "THERE IS NO RATECARD CREATED!"
 msgstr "ΔΕΝ ΥΠΑΡΧΟΥΝ ΤΙΜΕΣ!"
 
-#: FG_var_ratecard.inc:56
+#: A2BAgent_UI/FG_var_ratecard.inc:56
 msgid "DIALPREFIX"
 msgstr "ΠΡΟΘΕΜΑ ΚΛΗΣΗΣ"
 
-#: FG_var_ratecard.inc:62
+#: A2BAgent_UI/FG_var_ratecard.inc:62
 msgid "Insert the dialing prefix, such as for UK '44' or for US '1' "
 msgstr "Δώστε το πρόθεμα κλήσεις, όπως '44' για Αγγλία ή '1' για ΗΠΑ."
 
-#: FG_var_ratecard.inc:63
+#: A2BAgent_UI/FG_var_ratecard.inc:63
 msgid "Define the destination prefix. ie, 44 for UK proper."
 msgstr "Δώστε εδώ το πρόθεμα κλήσης, π.χ. 44 για Ην. Βασίλειο."
 
-#: FG_var_ratecard.inc:63
+#: A2BAgent_UI/FG_var_ratecard.inc:63
 #, fuzzy
 msgid ""
 "You can use 'defaultprefix' to setup a rate by default for the destination "
 "for which you dont want to provide a specific rate.<br>"
 msgstr "Εσείς στο a ~κατά προκαθορισμένο για για στο a<br>"
 
-#: FG_var_ratecard.inc:63
+#: A2BAgent_UI/FG_var_ratecard.inc:63
 #, fuzzy
 msgid ""
 "IF YOU ADD A RATE AND NOT AN EDIT => You can also define several in the same "
 "time and range, as below: "
 msgstr "A ΚΑΙ Εσείς in διάρκεια και "
 
-#: FG_var_ratecard.inc:63
+#: A2BAgent_UI/FG_var_ratecard.inc:63
 #, fuzzy
 msgid ""
 "<br>32484-32487 -> this would insert 32484, 32485, 32486, 32487 "
 "<br>32476,32477,32478 separate by comma"
 msgstr "<br><br> ~κατά"
 
-#: FG_var_ratecard.inc:71
+#: A2BAgent_UI/FG_var_ratecard.inc:71
 #, fuzzy
 msgid "Come on... Insert the destination name"
 msgstr "Εισαγωγή όνομα"
 
-#: FG_var_ratecard.inc:75
+#: A2BAgent_UI/FG_var_ratecard.inc:75
 msgid "SELLING RATE"
 msgstr "ΤΕΛΙΚΗ ΤΙΜΗ"
 
-#: FG_var_ratecard.inc:81
+#: A2BAgent_UI/FG_var_ratecard.inc:81
 #, fuzzy
 msgid "Insert the initial rate"
 msgstr "Εισάγετε τον νομό"
 
-#: FG_var_ratecard.inc:82
+#: A2BAgent_UI/FG_var_ratecard.inc:82
 msgid ""
 "Cost per minute for which you want to charge your customer. For example "
 "'0.02'"
 msgstr "Κόστος λεπτό για στο Για παράδειγμα"
 
-#: FG_var_ratecard.inc:82
+#: A2BAgent_UI/FG_var_ratecard.inc:82
 msgid "Define the selling cost for customers..."
 msgstr "Ορισμός της τιμής πώλησης για πελάτες..."
 
+#~ msgid "Open"
+#~ msgstr "Ανοιχτό"
+
+#~ msgid "Waiting for response"
+#~ msgstr "Αναμονή για απόκριση"
+
+#~ msgid "Receiving"
+#~ msgstr "Λαμβάνει"
+
+#~ msgid "No booths!<br>Please ask the administrators to create you some."
+#~ msgstr ""
+#~ "Κανένας θάλαμος<br>Ζητήστε από τους διαχειριστές να σας το ρυθμίσουν."
+
+#~ msgid "Welcome!"
+#~ msgstr "Καλωσήλθατε!"
+
+#~ msgid "Credit:"
+#~ msgstr "Πίστωση:"
+
+#~ msgid "Stop"
+#~ msgstr "Διακοπή"
+
+#~ msgid "Enable"
+#~ msgstr "Ενεργοποίηση"
+
+#~ msgid "Disable"
+#~ msgstr "Απενεργοποίηση"
+
+#~ msgid "Unload"
+#~ msgstr "Αποφόρτωση"
+
+#~ msgid "One-Time"
+#~ msgstr "Μιας-φοράς"
+
+#~ msgid "Member"
+#~ msgstr "Μέλος"
+
+#~ msgid "New"
+#~ msgstr "Νέο"
+
+#~ msgid "Add:"
+#~ msgstr "Προσθήκη:"
+
+#~ msgid "Refresh"
+#~ msgstr "Ανανέωση"
+
+#~ msgid "Response:"
+#~ msgstr "Απόκριση: "
+
+#~ msgid "Not available, no cards configured."
+#~ msgstr "Δεν είναι διαθέσιμος, δεν ρυθμίστηκαν κάρτες."
+
+#~ msgid "No customer attached."
+#~ msgstr "Δεν έχει συνδεθεί με πελάτη."
+
+#~ msgid "Customer attached, inactive"
+#~ msgstr "Συνδέθηκε με πελάτη, ανενεργός"
+
+#~ msgid "Waiting for calls"
+#~ msgstr "Αναμονή για κλήσεις"
+
+#~ msgid "Calls made, charged"
+#~ msgstr "Έγιναν κλήσεις, χρεώθηκε"
+
+#~ msgid "Disabled by the agent"
+#~ msgstr "Απενεργοποιημένος από τον πράκτορα"
+
+#~ msgid "Calls made, charged, stopped"
+#~ msgstr "Έγιναν κλήσεις, χρεώθηκε, σταματημένο."
+
+#~ msgid "Booth stopped"
+#~ msgstr "Το τηλέφωνο σταμάτησε"
+
+#~ msgid "Action failed:"
+#~ msgstr "Αποτυχία ενέργειας:"
+
+#~ msgid "Booth started"
+#~ msgstr "Το τηλέφωνο ξεκίνησε"
+
+#~ msgid "Invalid sum for refill"
+#~ msgstr "Άκυρο ποσόν για πίστωση"
+
+#~ msgid "Credit added to booth"
+#~ msgstr "Η πίστωση προστέθηκε στο τηλέφωνο"
+
+#~ msgid "Refill failed: do you have enough credit?"
+#~ msgstr "Η προσθήκη απέτυχε: έχετε το απαραίτητο υπόλοιπο;"
+
+#~ msgid "Database query failed!"
+#~ msgstr "Η αναζήτηση στη βάση δεδομένων απέτυχε!"
+
+#~ msgid "Create a new "
+#~ msgstr "Δημιουργία νέου "
+
+#~ msgid "Message"
+#~ msgstr "Μήνυμα"
+
+#~ msgid "You have "
+#~ msgstr "Έχετε"
+
+#~ msgid "Remove this "
+#~ msgstr "Αφαίρεση αυτού"
+
+#~ msgid "<br> TYPE OF SELECT :"
+#~ msgstr "<br> ΤΥΠΟΣ ΕΠΙΛΟΓΗΣ:"
+
+#~ msgid "LIST "
+#~ msgstr "ΛΙΣΤΑ"
+
+#~ msgid "No"
+#~ msgstr "Όχι"
+
+#~ msgid "Add a new "
+#~ msgstr "Προσθήκη νέου "
+
+#~ msgid "add new a "
+#~ msgstr "προσθήκη νέου"
+
+#~ msgid "LIST"
+#~ msgstr "ΛΙΣΤΑ"
+
+#~ msgid "Add a new"
+#~ msgstr "Προσθήκη νέου"
+
+#~ msgid "THERE IS NO RECORD !!!"
+#~ msgstr "ΔΕΝ ΥΠΑΡΧΕΙ ΕΓΓΡΑΦΗ!"
+
+#~ msgid "DIRECTORY"
+#~ msgstr "ΚΑΤΑΛΟΓΟΣ"
+
+#~ msgid ""
+#~ "You can define above some specific criterias in order to make a precised "
+#~ "research"
+#~ msgstr "Μπορείτε να ορίσετε κάποια κριτήρια για να κάνετε ακριβή αναζήτηση"
+
+#~ msgid "You can browse through our"
+#~ msgstr "Μπορείτε να ψάξετε ανάμεσα στα"
+
+#~ msgid "and modify their different properties<br>"
+#~ msgstr "και να αλλάξετε τις ιδιότητές τους<br>"
+
+#~ msgid "Delete this record"
+#~ msgstr "Διαγραφή της εγγραφής"
+
+#~ msgid "Edit this record"
+#~ msgstr "Επεξεργασία εγγραφής"
+
+#~ msgid ""
+#~ "The document has been created correctly. Now, you can define the "
+#~ "different tariff that you want to associate."
+#~ msgstr ""
+#~ "Το έγγραφο έχει δημιουργηθεί. Τώρα μπορείτε να ορίσετε τις διάφορες "
+#~ "ταρίφες που θα του αναθέσετε."
+
+#~ msgid ""
+#~ "You can modify, through the following form, the different properties of "
+#~ "your"
+#~ msgstr "Μπορείτε να επεξεργαστείτε, στην παρακάτω φόρμα, τις ιδιότητες του"
+
+#~ msgid "If you really want remove this"
+#~ msgstr "Αν θέλετε πραγματικά να διαγράψετε το"
+
+#~ msgid "Click on the delete button."
+#~ msgstr "Πατήστε στο πλήκτρο της διαγραφής."
+
+#~ msgid "One"
+#~ msgstr "Ένα"
+
+#, fuzzy
+#~ msgid "of the %table table has been deleted. <br> (Record with the id"
+#~ msgstr "από πίνακας πίνακας διεγραμμένο<br> Ηχογράφηση με id"
+
+#~ msgid "you can add easily a new"
+#~ msgstr "μπορείτε εύκολα να προσθέσετε ένα νέο"
+
+#~ msgid "Fill the following fields and confirm by clicking on the button add."
+#~ msgstr ""
+#~ "Συμπληρώστε τα παρακάτω πεδία και επιβεβαιώστε με το πλήκτρο της "
+#~ "προσθήκης."
+
+#~ msgid "Add a"
+#~ msgstr "Προσθήκη ενός"
+
+#~ msgid "now."
+#~ msgstr "τώρα."
+
+#~ msgid "Your new"
+#~ msgstr "Το νέο σας"
+
+#~ msgid "has been inserted. <br>"
+#~ msgstr "έχει εισαχθεί.<br>"
+
+#~ msgid "You cannot choose more than one !"
+#~ msgstr "Δεν μπορείτε να επιλέξετε πάνω από ένα!"
+
+#~ msgid "Delete this "
+#~ msgstr "Διαγραφή του"
+
+#~ msgid "Edit this "
+#~ msgstr "Επεξεργασία του"
+
+#~ msgid "ONESHOT"
+#~ msgstr "ΕΦΑΠΑΞ"
+
+#~ msgid "PER MINUTE"
+#~ msgstr "ΑΝΑ ΛΕΠΤΟ"
+
+#~ msgid "IN PROCESS"
+#~ msgstr "ΣΕ ΕΞΕΛΙΞΗ"
+
+#~ msgid "WORKING"
+#~ msgstr "ΣΕ ΛΕΙΤΟΥΡΓΙΑ"
+
+#~ msgid "CLOSE"
+#~ msgstr "ΚΛΕΙΣΤΟ"
+
+#~ msgid "URGENT"
+#~ msgstr "ΕΠΕΙΓΟΝ"
+
+#~ msgid "NORMAL"
+#~ msgstr "ΚΑΝΟΝΙΚΟ"
+
+#~ msgid "LOW"
+#~ msgstr "ΧΑΜΗΛΟ"
+
+#~ msgid "NEW"
+#~ msgstr "ΝΕΟ"
+
+#~ msgid "UPDATE"
+#~ msgstr "ΕΝΗΜΕΡΩΣΗ"
+
+#~ msgid "ANSWER"
+#~ msgstr "ΑΠΑΝΤΗΣΗ"
+
+#~ msgid "ASSIGN"
+#~ msgstr "ΑΝΑΘΕΣΗ"
+
+#~ msgid "INSERTED"
+#~ msgstr "ΠΡΟΣΤΕΘΗΚΕ"
+
+#~ msgid "ENABLE"
+#~ msgstr "ΕΝΕΡΓΟΠΟΙΗΣΕ"
+
+#~ msgid "DISABLE"
+#~ msgstr "ΑΠΕΝΕΡΓΟΠΟΙΗΣΕ"
+
+#~ msgid "FREE"
+#~ msgstr "ΕΛΕΥΘΕΡΟ"
+
+#~ msgid "PHONE"
+#~ msgstr "ΤΗΛΕΦΩΝΟ"
+
+#~ msgid "SMS"
+#~ msgstr "SMS"
+
+#~ msgid "CODE VALID 1 TIME"
+#~ msgstr "ΚΩΔΙΚΟΣ ΕΓΚΥΡΟΣ ΓΙΑ 1 ΦΟΡΑ"
+
+#~ msgid "CODE VALID %1 TIMES"
+#~ msgstr "ΚΩΔΙΚΟΣ ΕΓΚΥΡΟΣ ΓΙΑ %1 ΦΟΡΕΣ"
+
+#~ msgid "CODE"
+#~ msgstr "ΚΩΔΙΚΟΣ"
+
+#~ msgid "CODES"
+#~ msgstr "ΚΩΔΙΚΟΙ"
+
+#, fuzzy
+#~ msgid "You can browse through our "
+#~ msgstr "Εσείς "
+
+#, fuzzy
+#~ msgid " and modify their different properties<br>"
+#~ msgstr "και<br>"
+
+#~ msgid "(at least 3 characters)"
+#~ msgstr "(τουλάχιστον 3 χαρακτήρες)"
+
+#~ msgid "(must match email structure. Example : name@domain.com)"
+#~ msgstr "(πρέπει να φαίνεται σαν e-mail, π.χ.: name@domain.com)"
+
+#~ msgid "(at least 5 successive characters appear at the end of this string)"
+#~ msgstr ""
+#~ "(τουλάχιστον 5 διαδοχικοί χαρακτήρες εμφανίζονται στο τέλος του κειμένου)"
+
+#~ msgid "(at least 4 characters)"
+#~ msgstr "(τουλάχιστον 4 χαρακτήρες)"
+
+#~ msgid "(number format)"
+#~ msgstr "(αριθμητική μορφή)"
+
+#~ msgid "(only number with more that 8 digits)"
+#~ msgstr "(μόνο αριθμός, με περισσότερα από 8 ψηφία)"
+
+#~ msgid "(at least 8 digits using . or - or the space key)"
+#~ msgstr "(τουλάχιστον 8 ψηφία με . ή - ή το διάστημα) "
+
+#~ msgid "network adress format"
+#~ msgstr "μορφή διευθύνσεων δικτύου"
+
+#~ msgid "at least 1 character"
+#~ msgstr "τουλάχιστον 1 χαρακτήρας"
+
+#~ msgid "(AT LEAST 2 CARACTERS)"
+#~ msgstr "(ΤΟΥΛΑΧΙΣΤΟΝ 2 ΧΑΡΑΚΤΗΡΕΣ)"
+
+#~ msgid "(NUMBER FORMAT WITH/WITHOUT DECIMAL, use '.' for decimal)"
+#~ msgstr "(ΑΚΕΡΑΙΟΣ 'Η ΔΕΚΑΔΙΚΟΣ ΑΡΙΘΜΟΣ)"
+
+#~ msgid "You must write something."
+#~ msgstr "Πρέπει να γράψετε κάτι."
+
+#~ msgid "8 characters alphanumeric"
+#~ msgstr "8 αλφαριθμητικοί χαρακτήρες"
+
+#~ msgid "Could not open buddy file"
+#~ msgstr "Δεν μπορώ να ανοίξω το συμπληρωματικό αρχείο"
+
+#~ msgid "Impossible to write to the file"
+#~ msgstr "Αδύνατη η εγγραφή στο αρχείο"
+
+#~ msgid "<br> GOTO ; "
+#~ msgstr "<br> ΠΗΓΑΙΝΕ"
+
+#~ msgid "error deletion"
+#~ msgstr "σφάλμα στην διαγραφή"
+
+#~ msgid "ERROR_DUPLICATION"
+#~ msgstr "ΣΦΑΛΜΑ_ΕΠΑΝΕΜΦΑΝΙΣΗΣ"
+
+#~ msgid "Done"
+#~ msgstr "Έγινε"
+
+#~ msgid "THE CURRENT RATECARD"
+#~ msgstr "ΤΡΕΧΩΝ ΤΙΜΟΚΑΤΑΛΟΓΟΣ"
+
+#~ msgid "R A T E C A R D"
+#~ msgstr "ΤΙΜΟΚΑΤΑΛΟΓΟΣ"
+
+#~ msgid "Choose a ratecard"
+#~ msgstr "Επιλέξτε τιμοκατάλογο"
+
+#~ msgid "There is"
+#~ msgstr "Υπάρχει"
+
+#, fuzzy
+#~ msgid ""
+#~ "selected, use the option below if you are willing to make a batch updated "
+#~ "of the selected cards."
+#~ msgstr "επιλογή στο a από."
+
+#~ msgid "RATECARD"
+#~ msgstr "ΤΙΜΟΚΑΤΑΛΟΓΟΣ"
+
+#~ msgid "BUYRATE"
+#~ msgstr "ΤΙΜΗ ΑΓΟΡΑΣ"
+
+#~ msgid "Equal"
+#~ msgstr "Ίσο"
+
+#~ msgid "Substract"
+#~ msgstr "Αφαίρεση"
+
+#~ msgid "RATE INITIAL"
+#~ msgstr "ΒΑΣΙΚΗ ΧΡΕΩΣΗ"
+
+#~ msgid "MIN DURATION"
+#~ msgstr "ΕΛΑΧΙΣΤΗ ΔΙΑΡΚΕΙΑ"
+
+#~ msgid "BILLINGBLOCK"
+#~ msgstr "ΜΟΝΑΔΑ ΧΡΕΩΣΗΣ"
+
+#~ msgid "CONNECTCHARGE"
+#~ msgstr "ΤΕΛΟΣ ΣΥΝΔΕΣΗΣ"
+
+#~ msgid "DISCONNECTCHARGE"
+#~ msgstr "ΤΕΛΟΣ ΑΠΟΣΥΝΔΕΣΗΣ"
+
+#~ msgid " BATCH UPDATE RATECARD "
+#~ msgstr "ΜΑΖΙΚΗ ΑΛΛΑΓΗ ΤΙΜΟΚΑΤΑΛΟΓΟΥ "
+
+#, fuzzy
+#~ msgid "Congratulations! Your site"
+#~ msgstr "Συγχαρητήρια"
+
+#~ msgid "has been registered."
+#~ msgstr "έχει καταχωρηθεί."
+
+#~ msgid "Currently you have registered"
+#~ msgstr "Έχετε καταχωρήσει"
+
+#, fuzzy
+#~ msgid "sites and"
+#~ msgstr "και"
+
+#~ msgid "documents"
+#~ msgstr "έγγραφα"
+
+#~ msgid "These are the sites you have registered."
+#~ msgstr "Αυτές είναι οι τοποθεσίες που έχετε καταχωρήσει."
+
+#~ msgid "Sort"
+#~ msgstr "Ταξινόμηση"
+
+#~ msgid "FILTER ON "
+#~ msgstr "ΦΙΛΤΡΟ ΣΤΟ"
+
+#~ msgid "FILTER ON"
+#~ msgstr "ΦΙΛΤΡΟ ΣΤΟ"
+
+#~ msgid "APPLY FILTER "
+#~ msgstr "ΕΦΑΡΜΟΓΗ ΦΙΛΤΡΟΥ"
+
+#~ msgid "ACTION"
+#~ msgstr "ΕΝΕΡΓΕΙΑ"
+
+#~ msgid "DISPLAY"
+#~ msgstr "ΠΡΟΒΟΛΗ"
+
+#~ msgid "GO"
+#~ msgstr "ΠΗΓΑΙΝΕ"
+
+#~ msgid "Export CSV"
+#~ msgstr "Εξαγωγή CSV"
+
+#~ msgid "Export XML"
+#~ msgstr "Εξαγωγή XML"
+
+#~ msgid "&lt;&lt; First"
+#~ msgstr "&lt;&lt; Πρώτο"
+
+#~ msgid "&lt; Prev"
+#~ msgstr "&lt; Προηγούμενο"
+
+#~ msgid "Next &gt;"
+#~ msgstr "Επόμενο &gt;"
+
+#~ msgid "Last &gt;&gt;"
+#~ msgstr "Τελευταίο &gt;&gt;"

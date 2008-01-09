@@ -8,62 +8,50 @@ msgstr ""
 
 #: A2BAgent_UI/A2B_entity_agent_invoicev.php:91
 #: A2BAgent_UI/A2B_entity_agent_invoicev.php:108
-#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:35
 msgid "January"
 msgstr ""
 
 #: A2BAgent_UI/A2B_entity_agent_invoicev.php:91
-#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:35
 msgid "February"
 msgstr ""
 
 #: A2BAgent_UI/A2B_entity_agent_invoicev.php:91
-#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:35
 msgid "March"
 msgstr ""
 
 #: A2BAgent_UI/A2B_entity_agent_invoicev.php:91
-#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:35
 msgid "April"
 msgstr ""
 
 #: A2BAgent_UI/A2B_entity_agent_invoicev.php:91
-#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:35
 msgid "May"
 msgstr ""
 
 #: A2BAgent_UI/A2B_entity_agent_invoicev.php:91
-#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:35
 msgid "June"
 msgstr ""
 
 #: A2BAgent_UI/A2B_entity_agent_invoicev.php:91
-#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:35
 msgid "July"
 msgstr ""
 
 #: A2BAgent_UI/A2B_entity_agent_invoicev.php:91
-#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:35
 msgid "August"
 msgstr ""
 
 #: A2BAgent_UI/A2B_entity_agent_invoicev.php:91
-#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:35
 msgid "September"
 msgstr ""
 
 #: A2BAgent_UI/A2B_entity_agent_invoicev.php:91
-#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:35
 msgid "October"
 msgstr ""
 
 #: A2BAgent_UI/A2B_entity_agent_invoicev.php:91
-#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:35
 msgid "November"
 msgstr ""
 
 #: A2BAgent_UI/A2B_entity_agent_invoicev.php:91
-#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:35
 msgid "December"
 msgstr ""
 
@@ -262,38 +250,6 @@ msgstr ""
 msgid "Error Page"
 msgstr ""
 
-#: A2BAgent_UI/PP_menu.php:87
-msgid "BOOTHS"
-msgstr ""
-
-#: A2BAgent_UI/PP_menu.php:90
-msgid "CUSTOMERS"
-msgstr ""
-
-#: A2BAgent_UI/PP_menu.php:93
-msgid "EDIT BOOTHS"
-msgstr ""
-
-#: A2BAgent_UI/PP_menu.php:96
-msgid "PAYMENTS"
-msgstr ""
-
-#: A2BAgent_UI/PP_menu.php:99
-msgid "REPORTS"
-msgstr ""
-
-#: A2BAgent_UI/PP_menu.php:102
-msgid "INFO PAGES"
-msgstr ""
-
-#: A2BAgent_UI/PP_menu.php:108
-msgid "PASSWORD"
-msgstr ""
-
-#: A2BAgent_UI/PP_menu.php:112
-msgid "LOGOUT"
-msgstr ""
-
 #: A2BAgent_UI/agent-money.php:140 A2BAgent_UI/invoices_cust.php:156
 msgid "Calldate"
 msgstr ""
@@ -370,10 +326,8 @@ msgstr ""
 msgid "or Export PDF"
 msgstr ""
 
-#: A2BAgent_UI/agent-money.php:587
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:2042
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:2102
-#: A2BAgent_UI/invoices.php:602 A2BAgent_UI/invoices_cust.php:451
+#: A2BAgent_UI/agent-money.php:587 A2BAgent_UI/invoices.php:602
+#: A2BAgent_UI/invoices_cust.php:451
 msgid "Search"
 msgstr ""
 
@@ -394,13 +348,8 @@ msgstr ""
 msgid "Partial sum:"
 msgstr ""
 
-#: A2BAgent_UI/agent-money.php:682
-#: A2BAgent_UI/lib/Form/Class.FormHandler.AddForm.inc.php:126
-#: A2BAgent_UI/lib/Form/Class.FormHandler.DelForm.inc.php:145
-#: A2BAgent_UI/lib/Form/Class.FormHandler.EditForm.inc.php:181
-#: A2BAgent_UI/lib/Form/Class.FormHandler.EditForm.inc.php:378
-#: A2BAgent_UI/lib/Form/Class.FormHandler.EditForm.inc.php:649
-#: A2BAgent_UI/invoices.php:1062 A2BAgent_UI/invoices_cust.php:541
+#: A2BAgent_UI/agent-money.php:682 A2BAgent_UI/invoices.php:1062
+#: A2BAgent_UI/invoices_cust.php:541
 msgid "No data found !!!"
 msgstr ""
 
@@ -500,576 +449,8 @@ msgstr ""
 msgid "Pay:"
 msgstr ""
 
-#: A2BAgent_UI/lib/Class.A2Billing.php:332
-msgid "Invalid card number lenght defined in configuration."
-msgstr ""
-
-#: A2BAgent_UI/lib/Class.A2Billing.php:2101
-#: A2BAgent_UI/lib/Class.A2Billing.php:2107
-msgid "Error : Not enough credit to call !!!"
-msgstr ""
-
-#: A2BAgent_UI/lib/Class.A2Billing.php:2114
-msgid "Error : Card is not active!!!"
-msgstr ""
-
-#: A2BAgent_UI/lib/Class.A2Billing.php:2120
-msgid "Error : Card is actually in use!!!"
-msgstr ""
-
-#: A2BAgent_UI/lib/Class.A2Billing.php:2129
-#: A2BAgent_UI/lib/Class.A2Billing.php:2137
-#: A2BAgent_UI/lib/Class.A2Billing.php:2145
-msgid "Error : Card have expired!!!"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.AddForm.inc.php:182
-msgid "Create a new "
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.DelForm.inc.php:32
-msgid "Message"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.DelForm.inc.php:39
-msgid "You have "
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.DelForm.inc.php:186
-msgid "Remove this "
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.EditForm.inc.php:116
-msgid "<br> TYPE OF SELECT :"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.EditForm.inc.php:242
-msgid "LIST "
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.EditForm.inc.php:297
-msgid "No"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.EditForm.inc.php:331
-msgid "Add a new "
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.EditForm.inc.php:390
-msgid "add new a "
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.EditForm.inc.php:423
-msgid "LIST"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.EditForm.inc.php:498
-msgid "Add a new"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:426
-#: A2BAgent_UI/lib/Misc.php:214
-msgid "&lt;&lt; First"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:426
-#: A2BAgent_UI/lib/Misc.php:215
-msgid "&lt; Prev"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:427
-#: A2BAgent_UI/lib/Misc.php:216
-msgid "Next &gt;"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:427
-#: A2BAgent_UI/lib/Misc.php:217
-msgid "Last &gt;&gt;"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:443
-msgid "THERE IS NO RECORD !!!"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:444
-msgid "DIRECTORY"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:445
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:494
-msgid "Define criteria to make a precise search"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:446
-msgid "You can browse through our %1 and modify their different properties<br>"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:448
-msgid "Delete this record"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:449
-msgid "Edit this record"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:450
-msgid ""
-"The document has been created correctly. Now, you can define the different "
-"tariff that you want to associate."
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:451
-msgid ""
-"You can modify, through the following form, the different properties of your"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:452
-msgid "If you really want remove this"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:452
-msgid "Click on the delete button."
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:454
-msgid "One %1 has been deleted!"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:456
-msgid ""
-"you can add easily a new %1 .<br>Fill the following fields and confirm by "
-"clicking on the button add."
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:457
-msgid "Add a %1 now."
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:458
-msgid "Your new %1 has been inserted. <br>"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:459
-msgid "You cannot choose more than one !"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:491
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:716
-msgid "Delete"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:492
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:710
-msgid "Edit"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:515
-msgid "ONESHOT"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:516
-msgid "PER MINUTE"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:518
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:528
-msgid "IN PROCESS"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:519
-msgid "WORKING"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:520
-msgid "ISSUE"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:522
-msgid "ALRIGHT"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:523
-msgid "NOT USED"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:524
-msgid "NO ATTRIBUED"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:525
-msgid "WORK IN PROCESS"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:527
-msgid "CREATION"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:529
-msgid "IVR INTREGRATION"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:530
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:540
-msgid "CLOSE"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:532
-msgid "URGENT"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:533
-msgid "NORMAL"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:534
-msgid "LOW"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:536
-msgid "NEW"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:537
-msgid "UPDATE"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:538
-msgid "ANSWER"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:539
-msgid "ASSIGN"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:542
-msgid "INSERTED"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:543
-msgid "ENABLE"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:544
-msgid "DISABLE"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:545
-msgid "FREE"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:547
-msgid "PHONE"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:548
-msgid "SMS"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:550
-msgid "CODE VALID 1 TIME"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:552
-msgid "CODE VALID %1 TIMES"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:555
-msgid "CODE"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:556
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:557
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:558
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:559
-msgid "CODES"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:687
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:689
-msgid "You can browse through our "
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:687
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:689
-msgid " and modify their different properties<br>"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:851
-msgid "(at least 3 characters)"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:855
-msgid "(must match email structure. Example : name@domain.com)"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:859
-msgid "(at least 5 successive characters appear at the end of this string)"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:863
-msgid "(at least 4 characters)"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:867
-msgid "(number format)"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:875
-msgid "(only number with more that 8 digits)"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:879
-msgid "(at least 8 digits using . or - or the space key)"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:883
-msgid "network adress format"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:887
-msgid "at least 1 character"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:895
-msgid "(AT LEAST 2 CARACTERS)"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:899
-msgid "(NUMBER FORMAT WITH/WITHOUT DECIMAL, use '.' for decimal)"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:915
-msgid "You must write something."
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:919
-msgid "8 characters alphanumeric"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:926
-msgid "(at least 6 Alphanumeric characters)"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:1407
-msgid "This did is in use by customer id:"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:1519
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:1561
-msgid "Could not open buddy file"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:1536
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:1566
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:1578
-msgid "Impossible to write to the file"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:1725
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:1779
-msgid "<br> GOTO ; "
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:1773
-msgid "error deletion"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:1901
-msgid "ERROR_DUPLICATION"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:1986
-msgid "Done"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:2014
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:2127
-msgid "THE CURRENT RATECARD"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:2025
-msgid "R A T E C A R D"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:2031
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:2144
-msgid "Choose a ratecard"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:2069
-msgid "None"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.FormHandler.inc.php:2138
-#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:288
-msgid "RATECARD"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:83
-msgid "From :"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:111
-msgid "To :"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:153
-#: A2BAgent_UI/invoices.php:578 A2BAgent_UI/invoices.php:591
-msgid "Exact"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:154
-#: A2BAgent_UI/invoices.php:579 A2BAgent_UI/invoices.php:592
-msgid "Begins with"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:155
-#: A2BAgent_UI/invoices.php:580 A2BAgent_UI/invoices.php:593
-msgid "Contains"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:156
-#: A2BAgent_UI/invoices.php:581 A2BAgent_UI/invoices.php:594
-msgid "Ends with"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:259
-msgid "There is"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:259
-msgid ""
-"selected, use the option below if you are willing to make a batch updated of "
-"the selected cards."
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:307
-msgid "BUYRATE"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:310
-#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:325
-#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:341
-#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:357
-#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:373
-#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:389
-#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:405
-#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:421
-msgid "Equal"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:311
-#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:326
-#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:342
-#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:358
-#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:374
-#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:390
-#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:406
-#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:422
-msgid "Add"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:312
-#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:327
-#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:343
-#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:359
-#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:375
-#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:391
-#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:407
-#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:423
-msgid "Substract"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:322
-msgid "BUYRATEINITBLOCK"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:338
-msgid "BUYRATEINCREMENT"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:354
-msgid "RATE INITIAL"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:370
-msgid "MIN DURATION"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:386
-msgid "BILLINGBLOCK"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:402
-msgid "CONNECTCHARGE"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:418
-msgid "DISCONNECTCHARGE"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.SearchHandler.inc.php:433
-msgid " BATCH UPDATE RATECARD "
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.ViewHandler.inc.php:32
-msgid "Congratulations! Your site"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.ViewHandler.inc.php:32
-msgid "has been registered."
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.ViewHandler.inc.php:46
-msgid "Currently you have registered"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.ViewHandler.inc.php:46
-msgid "sites and"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.ViewHandler.inc.php:46
-msgid "documents"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.ViewHandler.inc.php:67
-msgid "These are the sites you have registered."
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.ViewHandler.inc.php:143
-msgid "Sort"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.ViewHandler.inc.php:186
-msgid "FILTER ON "
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.ViewHandler.inc.php:203
-msgid "FILTER ON"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.ViewHandler.inc.php:216
-msgid "APPLY FILTER "
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.ViewHandler.inc.php:248
-msgid "ACTION"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.ViewHandler.inc.php:503
-msgid "DISPLAY"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.ViewHandler.inc.php:520
-msgid "GO"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.ViewHandler.inc.php:525
-msgid "Export CSV"
-msgstr ""
-
-#: A2BAgent_UI/lib/Form/Class.ViewHandler.inc.php:529
-msgid "Export XML"
+#: A2BAgent_UI/booths.xml.php:15
+msgid "Unauthorized: please log in again."
 msgstr ""
 
 #: A2BAgent_UI/lib/company_info.php:2
@@ -1087,78 +468,6 @@ msgstr ""
 
 #: A2BAgent_UI/lib/company_info.php:5
 msgid "Asterisk2Billing : CallingCard platform"
-msgstr ""
-
-#: A2BAgent_UI/lib/defines.php:199 A2BAgent_UI/invoices.php:436
-#: A2BAgent_UI/invoices.php:456 A2BAgent_UI/invoices.php:493
-#: A2BAgent_UI/invoices.php:538
-msgid "JANUARY"
-msgstr ""
-
-#: A2BAgent_UI/lib/defines.php:199 A2BAgent_UI/invoices.php:436
-#: A2BAgent_UI/invoices.php:456 A2BAgent_UI/invoices.php:493
-#: A2BAgent_UI/invoices.php:538
-msgid "FEBRUARY"
-msgstr ""
-
-#: A2BAgent_UI/lib/defines.php:199 A2BAgent_UI/invoices.php:436
-#: A2BAgent_UI/invoices.php:456 A2BAgent_UI/invoices.php:493
-#: A2BAgent_UI/invoices.php:538
-msgid "MARCH"
-msgstr ""
-
-#: A2BAgent_UI/lib/defines.php:200 A2BAgent_UI/invoices.php:436
-#: A2BAgent_UI/invoices.php:456 A2BAgent_UI/invoices.php:493
-#: A2BAgent_UI/invoices.php:538
-msgid "APRIL"
-msgstr ""
-
-#: A2BAgent_UI/lib/defines.php:200 A2BAgent_UI/invoices.php:436
-#: A2BAgent_UI/invoices.php:456 A2BAgent_UI/invoices.php:493
-#: A2BAgent_UI/invoices.php:538
-msgid "MAY"
-msgstr ""
-
-#: A2BAgent_UI/lib/defines.php:200 A2BAgent_UI/invoices.php:436
-#: A2BAgent_UI/invoices.php:456 A2BAgent_UI/invoices.php:493
-#: A2BAgent_UI/invoices.php:538
-msgid "JUNE"
-msgstr ""
-
-#: A2BAgent_UI/lib/defines.php:201 A2BAgent_UI/invoices.php:436
-#: A2BAgent_UI/invoices.php:456 A2BAgent_UI/invoices.php:493
-#: A2BAgent_UI/invoices.php:538
-msgid "JULY"
-msgstr ""
-
-#: A2BAgent_UI/lib/defines.php:201 A2BAgent_UI/invoices.php:436
-#: A2BAgent_UI/invoices.php:456 A2BAgent_UI/invoices.php:493
-#: A2BAgent_UI/invoices.php:538
-msgid "AUGUST"
-msgstr ""
-
-#: A2BAgent_UI/lib/defines.php:201 A2BAgent_UI/invoices.php:436
-#: A2BAgent_UI/invoices.php:456 A2BAgent_UI/invoices.php:493
-#: A2BAgent_UI/invoices.php:538
-msgid "SEPTEMBER"
-msgstr ""
-
-#: A2BAgent_UI/lib/defines.php:202 A2BAgent_UI/invoices.php:436
-#: A2BAgent_UI/invoices.php:456 A2BAgent_UI/invoices.php:493
-#: A2BAgent_UI/invoices.php:538
-msgid "OCTOBER"
-msgstr ""
-
-#: A2BAgent_UI/lib/defines.php:202 A2BAgent_UI/invoices.php:436
-#: A2BAgent_UI/invoices.php:456 A2BAgent_UI/invoices.php:493
-#: A2BAgent_UI/invoices.php:538
-msgid "NOVEMBER"
-msgstr ""
-
-#: A2BAgent_UI/lib/defines.php:202 A2BAgent_UI/invoices.php:436
-#: A2BAgent_UI/invoices.php:456 A2BAgent_UI/invoices.php:493
-#: A2BAgent_UI/invoices.php:538
-msgid "DECEMBER"
 msgstr ""
 
 #: A2BAgent_UI/lib/help.php:15
@@ -1277,35 +586,35 @@ msgstr ""
 msgid "Pleaes provide your email address to get your login information."
 msgstr ""
 
-#: A2BAgent_UI/index.php:69
+#: A2BAgent_UI/index.php:70
 msgid "AUTHENTICATION REFUSED, please check your user/password!"
 msgstr ""
 
-#: A2BAgent_UI/index.php:73
+#: A2BAgent_UI/index.php:74
 msgid "INACTIVE ACCOUNT, Please activate your account!"
 msgstr ""
 
-#: A2BAgent_UI/index.php:77
+#: A2BAgent_UI/index.php:78
 msgid "BLOCKED ACCOUNT, Please contact your administrator!"
 msgstr ""
 
-#: A2BAgent_UI/index.php:86
+#: A2BAgent_UI/index.php:87
 msgid "AUTHENTICATION"
 msgstr ""
 
-#: A2BAgent_UI/index.php:95
+#: A2BAgent_UI/index.php:96
 msgid "User:"
 msgstr ""
 
-#: A2BAgent_UI/index.php:100
+#: A2BAgent_UI/index.php:101
 msgid "Password:"
 msgstr ""
 
-#: A2BAgent_UI/index.php:110
+#: A2BAgent_UI/index.php:111
 msgid "Forgot your password? Click "
 msgstr ""
 
-#: A2BAgent_UI/index.php:110
+#: A2BAgent_UI/index.php:111
 msgid "here"
 msgstr ""
 
@@ -1345,9 +654,85 @@ msgstr ""
 msgid "Cost"
 msgstr ""
 
+#: A2BAgent_UI/invoices.php:436 A2BAgent_UI/invoices.php:456
+#: A2BAgent_UI/invoices.php:493 A2BAgent_UI/invoices.php:538
+msgid "JANUARY"
+msgstr ""
+
+#: A2BAgent_UI/invoices.php:436 A2BAgent_UI/invoices.php:456
+#: A2BAgent_UI/invoices.php:493 A2BAgent_UI/invoices.php:538
+msgid "FEBRUARY"
+msgstr ""
+
+#: A2BAgent_UI/invoices.php:436 A2BAgent_UI/invoices.php:456
+#: A2BAgent_UI/invoices.php:493 A2BAgent_UI/invoices.php:538
+msgid "MARCH"
+msgstr ""
+
+#: A2BAgent_UI/invoices.php:436 A2BAgent_UI/invoices.php:456
+#: A2BAgent_UI/invoices.php:493 A2BAgent_UI/invoices.php:538
+msgid "APRIL"
+msgstr ""
+
+#: A2BAgent_UI/invoices.php:436 A2BAgent_UI/invoices.php:456
+#: A2BAgent_UI/invoices.php:493 A2BAgent_UI/invoices.php:538
+msgid "MAY"
+msgstr ""
+
+#: A2BAgent_UI/invoices.php:436 A2BAgent_UI/invoices.php:456
+#: A2BAgent_UI/invoices.php:493 A2BAgent_UI/invoices.php:538
+msgid "JUNE"
+msgstr ""
+
+#: A2BAgent_UI/invoices.php:436 A2BAgent_UI/invoices.php:456
+#: A2BAgent_UI/invoices.php:493 A2BAgent_UI/invoices.php:538
+msgid "JULY"
+msgstr ""
+
+#: A2BAgent_UI/invoices.php:436 A2BAgent_UI/invoices.php:456
+#: A2BAgent_UI/invoices.php:493 A2BAgent_UI/invoices.php:538
+msgid "AUGUST"
+msgstr ""
+
+#: A2BAgent_UI/invoices.php:436 A2BAgent_UI/invoices.php:456
+#: A2BAgent_UI/invoices.php:493 A2BAgent_UI/invoices.php:538
+msgid "SEPTEMBER"
+msgstr ""
+
+#: A2BAgent_UI/invoices.php:436 A2BAgent_UI/invoices.php:456
+#: A2BAgent_UI/invoices.php:493 A2BAgent_UI/invoices.php:538
+msgid "OCTOBER"
+msgstr ""
+
+#: A2BAgent_UI/invoices.php:436 A2BAgent_UI/invoices.php:456
+#: A2BAgent_UI/invoices.php:493 A2BAgent_UI/invoices.php:538
+msgid "NOVEMBER"
+msgstr ""
+
+#: A2BAgent_UI/invoices.php:436 A2BAgent_UI/invoices.php:456
+#: A2BAgent_UI/invoices.php:493 A2BAgent_UI/invoices.php:538
+msgid "DECEMBER"
+msgstr ""
+
 #: A2BAgent_UI/invoices.php:574 A2BAgent_UI/invoices.php:789
 #: A2BAgent_UI/FG_var_ratecard.inc:38 A2BAgent_UI/FG_var_ratecard.inc:65
 msgid "DESTINATION"
+msgstr ""
+
+#: A2BAgent_UI/invoices.php:578 A2BAgent_UI/invoices.php:591
+msgid "Exact"
+msgstr ""
+
+#: A2BAgent_UI/invoices.php:579 A2BAgent_UI/invoices.php:592
+msgid "Begins with"
+msgstr ""
+
+#: A2BAgent_UI/invoices.php:580 A2BAgent_UI/invoices.php:593
+msgid "Contains"
+msgstr ""
+
+#: A2BAgent_UI/invoices.php:581 A2BAgent_UI/invoices.php:594
+msgid "Ends with"
 msgstr ""
 
 #: A2BAgent_UI/invoices.php:582 A2BAgent_UI/invoices.php:595
@@ -1543,6 +928,42 @@ msgstr ""
 
 #: A2BAgent_UI/reports_choice.php:27
 msgid "Agent invoices"
+msgstr ""
+
+#: A2BAgent_UI/PP_page.inc.php:44
+msgid "Other"
+msgstr ""
+
+#: A2BAgent_UI/PP_menu.inc.php:61
+msgid "BOOTHS"
+msgstr ""
+
+#: A2BAgent_UI/PP_menu.inc.php:64
+msgid "CUSTOMERS"
+msgstr ""
+
+#: A2BAgent_UI/PP_menu.inc.php:67
+msgid "EDIT BOOTHS"
+msgstr ""
+
+#: A2BAgent_UI/PP_menu.inc.php:70
+msgid "PAYMENTS"
+msgstr ""
+
+#: A2BAgent_UI/PP_menu.inc.php:73
+msgid "REPORTS"
+msgstr ""
+
+#: A2BAgent_UI/PP_menu.inc.php:76
+msgid "INFO PAGES"
+msgstr ""
+
+#: A2BAgent_UI/PP_menu.inc.php:82
+msgid "PASSWORD"
+msgstr ""
+
+#: A2BAgent_UI/PP_menu.inc.php:86
+msgid "LOGOUT"
 msgstr ""
 
 #: A2BAgent_UI/FG_var_agent_invoicev.inc:57

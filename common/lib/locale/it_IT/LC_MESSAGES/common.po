@@ -1,131 +1,130 @@
-# translation of common.po to Ellhnika
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# A2BCustomer_UI PO File for Italian Language.
+# Copyright (C) 2006 A2BILLING
 # This file is distributed under the same license as the PACKAGE package.
+# ARESKI <areski@gmail.com>, 2006.
 #
-# P. Christeas <p_christeas@yahoo.com>, 2007, 2008.
-# P. Christeas <p_christ@hol.gr>, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: common\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-09-07 21:01+0300\n"
-"PO-Revision-Date: 2008-01-07 01:38GMT\n"
-"Last-Translator: P. Christeas <p_christeas@yahoo.com>\n"
-"Language-Team: Ellhnika <el@li.org>\n"
+"POT-Creation-Date: 2006-07-24 16:39+0500\n"
+"PO-Revision-Date: 2006-06-12 14:37+0500\n"
+"Last-Translator: ARESKI <areski@gmail.com>\n"
+"Language-Team: ARESKI <areski@gmail.com>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.4\n"
+"1.0: 2.0\n"
 
 #: common/lib/Form/Class.RevRef.inc.php:125
 #: common/lib/Form/Class.RevRef2.inc.php:112
+#, fuzzy
 msgid "No data found!"
-msgstr "Δεν βρέθηκαν δεδομένα!"
+msgstr "Nessun dato trovato!!!"
 
 #: common/lib/Form/Class.RevRef.inc.php:129
 #: common/lib/Form/Class.RevRef2.inc.php:118
 msgid "Action"
-msgstr "Ενέργεια"
+msgstr ""
 
 #: common/lib/Form/Class.RevRef.inc.php:135
 #: common/lib/Form/Class.RevRef.inc.php:137
 #: common/lib/Form/Class.RevRef2.inc.php:125
+#, fuzzy
 msgid "Remove this"
-msgstr "Αφαίρεση αυτού"
+msgstr "Elimina il numero in Rubrica veloce"
 
 #: common/lib/Form/Class.RevRef.inc.php:192
 #: common/lib/Form/Class.RevRef2.inc.php:149
+#, fuzzy
 msgid "No additional data found!"
-msgstr "Δεν βρέθηκαν συμπληρωματικά δεδομένα!"
+msgstr "Nessun dato trovato!!!"
 
 #: common/lib/Form/Class.RevRef.inc.php:194
 #: common/lib/Form/Class.RevRef2.inc.php:151
+#, fuzzy
 msgid "Select one to add.."
-msgstr "Επιλέξτε ένα για να προσθέσετε.."
+msgstr "Selezione giorno"
 
 #: common/lib/Form/Class.RevRef.inc.php:200
 #: common/lib/Form/Class.RevRef.inc.php:266
 #: common/lib/Form/Class.RevRef2.inc.php:157
 msgid "Add this"
-msgstr "Προσθήκη αυτού"
+msgstr ""
 
 #: common/lib/Form/Class.RevRef.inc.php:222
-#, fuzzy
 msgid "Could not add!"
-msgstr "όχι!"
+msgstr ""
 
 #: common/lib/Form/Class.RevRef.inc.php:225
-#, fuzzy
 msgid "Item added!"
-msgstr "Αντικείμενο!"
+msgstr ""
 
 #: common/lib/Form/Class.RevRef.inc.php:238
-#, fuzzy
 msgid "Could not delete!"
-msgstr "όχι!"
+msgstr ""
 
 #: common/lib/Form/Class.RevRef.inc.php:241
-#, fuzzy
 msgid "Item deleted!"
-msgstr "Αντικείμενο διεγραμμένο!"
+msgstr ""
 
 #: common/lib/Form/Class.RevRef.inc.php:291
 #: common/lib/Form/Class.RevRef2.inc.php:188
-#, fuzzy
 msgid "Cannot insert new %1"
-msgstr "νέο 1"
+msgstr ""
 
 #: common/lib/Form/Class.RevRef.inc.php:309
 #: common/lib/Form/Class.RevRef2.inc.php:201
-#, fuzzy
 msgid "Cannot delete %1"
-msgstr "1"
+msgstr ""
 
 #: common/lib/Form/Class.TextField.inc.php:40
 #: common/lib/Form/Class.OptionField.inc.php:53
 msgid "Edit this %1"
-msgstr "Επεξεργασία του %1"
+msgstr ""
 
 #: common/lib/Form/Class.OptionField.inc.php:12
 msgid "Actions"
-msgstr "Ενέργειες"
+msgstr ""
 
 #: common/lib/Form/Class.OptionField.inc.php:69
 #: common/lib/Form/Class.DeleteView.inc.php:50
+#, fuzzy
 msgid "Delete this %1"
-msgstr "Διαγραφή του %1"
+msgstr "Elimina"
 
 #: common/lib/Form/Class.NumField.inc.php:160
 msgid "TRUE"
-msgstr "ΑΛΗΘΕΣ"
+msgstr ""
 
 #: common/lib/Form/Class.NumField.inc.php:162
+#, fuzzy
 msgid "FALSE"
-msgstr "ΨΕΥΔΕΣ"
+msgstr "CHIAMATE"
 
 #: common/lib/Form/Class.FormHelpers.inc.php:14
 msgid "item"
-msgstr "στοιχείο"
+msgstr ""
 
 #: common/lib/Form/Class.FormHelpers.inc.php:26
 msgid "Add a new %1"
-msgstr "Προσθήκη νέου %1"
+msgstr ""
 
 #: common/lib/Form/Class.DetailsView.inc.php:112
 #: common/lib/Form/Class.ListView.inc.php:85
 #: common/lib/Form/Class.EditView.inc.php:61
 #: common/lib/Form/Class.ListSumView.inc.php:70
+#, fuzzy
 msgid "No %1 found!"
-msgstr "Δεν βρέθηκε %1!"
+msgstr "Nessun dato trovato!!!"
 
 #: common/lib/Form/Class.SelectionForm.inc.php:80
 #, fuzzy
 msgid "GO!"
-msgstr "ΠΗΓΑΙΝΕ"
+msgstr "Vai"
 
 #: common/lib/Form/Class.TimeField.inc.php:19
 msgid "IYYY-MM-DD HH24:MI:SS TZ"
-msgstr "DD/MM/IYYY HH24:MI:SS TZ"
+msgstr ""
 
 #: common/lib/Form/Class.TimeField.inc.php:71
 msgid "IYYY-MM-DD"
@@ -133,107 +132,105 @@ msgstr ""
 
 #: common/lib/Form/Class.SqlRefField.inc.php:114
 msgid "(none)"
-msgstr "(κανένα)"
+msgstr ""
 
 #: common/lib/Form/Class.DeleteView.inc.php:17
 msgid "This %1 will be deleted!"
-msgstr "Το %1 θα διαγραφεί!"
+msgstr ""
 
 #: common/lib/Form/Class.DeleteView.inc.php:119
 msgid "Cannot delete %1, database error."
-msgstr "Δεν μπορώ να διαγράψω το %1, σφάλμα στη βάση."
+msgstr ""
 
 #: common/lib/Form/Class.DeleteView.inc.php:126
 msgid "Cannot delete %1, record not found."
-msgstr "Δεν μπορώ να διαγράψω το %1 γιατί δεν βρέθηκε."
+msgstr ""
 
 #: common/lib/Form/Class.DeleteView.inc.php:130
 msgid "Record successfully removed from the database."
-msgstr "Η εγγραφή διαγράφηκε από τη βάση δεδομένων."
+msgstr ""
 
 #: common/lib/Form/Class.ActionForm.inc.php:24
 msgid "Action finished successfully!"
-msgstr "Η ενέργεια ολοκληρώθηκε!"
+msgstr ""
 
 #: common/lib/Form/Class.ActionForm.inc.php:25
 msgid "Action failed: %1"
-msgstr "Η ενέργεια απέτυχε: %1"
+msgstr ""
 
 #: common/lib/Form/Class.SqlActionForm.inc.php:39
 msgid "database error"
-msgstr "σφάλμα στη βάση δεδομένων"
+msgstr ""
 
 #: common/lib/Form/Class.SqlActionForm.inc.php:47
 msgid "no rows"
-msgstr "καμία εγγραφή"
+msgstr ""
 
 #: common/lib/Form/Class.ListView.inc.php:136
 #: common/lib/old/Class.ViewHandler.inc.php:414
 msgid "DISPLAY"
-msgstr "ΑΠΕΙΚΟΝΙΣΗ"
+msgstr "Visualizza"
 
 #: common/lib/Form/Class.ListView.inc.php:144
 msgid "All"
-msgstr "Όλα"
+msgstr ""
 
 #: common/lib/Form/Class.ListView.inc.php:146
 #: common/lib/old/Class.ViewHandler.inc.php:423
 msgid "GO"
-msgstr "ΠΗΓΑΙΝΕ"
+msgstr "Vai"
 
 #: common/lib/Form/Class.ListView.inc.php:159
 msgid "First"
-msgstr "Πρώτο"
+msgstr ""
 
 #: common/lib/Form/Class.ListView.inc.php:160
 msgid "Prev"
-msgstr "Προηγ."
+msgstr ""
 
 #: common/lib/Form/Class.ListView.inc.php:191
 msgid "Next"
-msgstr "Επόμενο"
+msgstr ""
 
 #: common/lib/Form/Class.EditView.inc.php:97
 msgid "Update this %1"
-msgstr "Ενημέρωση του %1"
+msgstr ""
 
 #: common/lib/Form/Class.EditView.inc.php:183
 msgid "Cannot update %1, database error."
-msgstr "Δεν ενημερώθηκε το %1, σφάλμα στη βάση δεδομένων."
+msgstr ""
 
 #: common/lib/Form/Class.EditView.inc.php:190
 msgid "Cannot update %1, record not found."
-msgstr "Δεν ενημερώθηκε το %1, η εγγραφή δε βρέθηκε."
+msgstr ""
 
 #: common/lib/Form/Class.EditView.inc.php:194
 msgid "Data has successfully been updated in the database."
-msgstr "Τα δεδομένα ενημερώθηκαν στη βάση δεδομένων."
+msgstr ""
 
 #: common/lib/Form/Class.AddView.inc.php:29
 msgid "Create this %1"
-msgstr "Δημιουργία ενός %1"
+msgstr ""
 
 #: common/lib/Form/Class.AddView.inc.php:118
-#, fuzzy
 msgid "Cannot create new %1, database error."
-msgstr "νέο βάση δεδομένων σφάλμα."
+msgstr ""
 
 #: common/lib/Form/Class.AddView.inc.php:123
-#, fuzzy
 msgid "New data has successfully been inserted into the database."
-msgstr "Νέο βάση δεδομένων."
+msgstr ""
 
 #: common/lib/Form/Class.ImportView.inc.php:33
 msgid "Please, you must first select a file !"
-msgstr "Παρακαλώ, πρέπει πρώτα να επιλέξετε ένα αρχείο!"
+msgstr ""
 
 #: common/lib/Form/Class.ImportView.inc.php:189
 msgid "New %1 have to be imported from a CSV file."
-msgstr "Τα νέα %1 θα εισαχθούν από αρχείο CSV."
+msgstr ""
 
 #: common/lib/Form/Class.ImportView.inc.php:197
 msgid "Common fields"
-msgstr "Κοινά πεδία"
+msgstr ""
 
 #: common/lib/Form/Class.ImportView.inc.php:207
 msgid "Mandatory fields"
@@ -241,86 +238,81 @@ msgstr ""
 
 #: common/lib/Form/Class.ImportView.inc.php:217
 msgid "Optional fields"
-msgstr "Προαιρετικά πεδία"
+msgstr ""
 
 #: common/lib/Form/Class.ImportView.inc.php:221
 msgid "Unselected Fields..."
-msgstr "Αποεπιλεγμένα Πεδία."
+msgstr ""
 
 #: common/lib/Form/Class.ImportView.inc.php:230
 msgid "Add field"
-msgstr "Προσθήκη πεδίου"
+msgstr ""
 
 #: common/lib/Form/Class.ImportView.inc.php:232
 msgid "Remove field"
-msgstr "Αφαίρεση πεδίου"
+msgstr ""
 
 #: common/lib/Form/Class.ImportView.inc.php:235
 msgid "Selected Fields..."
-msgstr "Επιλεγμένα Πεδία..."
+msgstr ""
 
 #: common/lib/Form/Class.ImportView.inc.php:240
 msgid "Move up"
-msgstr "Μετακίνηση πάνω"
+msgstr ""
 
 #: common/lib/Form/Class.ImportView.inc.php:242
 msgid "Move down"
-msgstr "Μετακίνηση κάτω"
+msgstr ""
 
 #: common/lib/Form/Class.ImportView.inc.php:253
 msgid "Upload File"
-msgstr "Ανέβασμα Αρχείου"
+msgstr ""
 
 #: common/lib/Form/Class.ImportView.inc.php:254
 msgid "File"
-msgstr "Αρχείο"
+msgstr ""
 
 #: common/lib/Form/Class.ImportView.inc.php:257
 msgid "The maximum file size is %1 KB"
-msgstr "Το μέγιστο μέγεθος αρχείου είναι %1 KB"
+msgstr ""
 
 #: common/lib/Form/Class.ImportView.inc.php:265
 msgid "Submit"
-msgstr "Υποβολή"
+msgstr ""
 
 #: common/lib/Form/Class.ImportView.inc.php:267
 msgid "Import %1"
-msgstr "Εισαγωγή του %1"
+msgstr ""
 
 #: common/lib/Form/Class.ImportView.inc.php:273
 msgid "Examples"
-msgstr "Παραδείγματα"
+msgstr ""
 
 #: common/lib/Form/Class.ImportView.inc.php:276
-#, fuzzy
 msgid ""
 "Use the example below  to format the CSV file. Fields are separated by  ; "
 "or : </br>"
-msgstr "Χρήση παράδειγμα στο CSV αρχείο Πεδία ~κατά ή</br>"
+msgstr ""
 
 #: common/lib/Form/Class.ImportView.inc.php:317
-#, fuzzy
 msgid "File has not been posted at all!"
-msgstr "Αρχείο όχι σε όλα!"
+msgstr ""
 
 #: common/lib/Form/Class.ImportView.inc.php:326
-#, fuzzy
 msgid "File size exceeds %1 limit of the system!"
-msgstr "Αρχείο μέγεθος όριο/περιορίζω από!"
+msgstr ""
 
 #: common/lib/Form/Class.ImportView.inc.php:331
-#, fuzzy
 msgid "File size exceeds %1 limit for this action!"
-msgstr "Αρχείο μέγεθος όριο/περιορίζω για!"
+msgstr ""
 
 #: common/lib/Form/Class.ImportView.inc.php:336
-#, fuzzy
 msgid "The uploaded file was only partially uploaded."
-msgstr "αρχείο."
+msgstr ""
 
 #: common/lib/Form/Class.ImportView.inc.php:341
 msgid "No file was uploaded."
-msgstr "Δεν ανέβηκε κανένα αρχείο."
+msgstr ""
 
 #: common/lib/Form/Class.ImportView.inc.php:346
 #: common/lib/Form/Class.ImportView.inc.php:351
@@ -328,15 +320,15 @@ msgstr "Δεν ανέβηκε κανένα αρχείο."
 #: common/lib/Form/Class.ImportView.inc.php:387
 #: common/lib/Form/Class.ImportView.inc.php:397
 msgid "Internal error, could not upload."
-msgstr "Εσωτερικό σφάλμα, δεν ανέβηκαν τα δεδομένα."
+msgstr ""
 
 #: common/lib/Form/Class.ImportView.inc.php:363
 msgid "Cannot accept file of type %1. Allowed types are: %2."
-msgstr "Δεν επιτρέπεται αρχείο τύπου %1. Επιτρεπόμενοι τύποι είναι: %2."
+msgstr ""
 
 #: common/lib/Form/Class.ImportView.inc.php:376
 msgid "Error in submitted form."
-msgstr "Σφάλμα στη φόρμα."
+msgstr ""
 
 #: common/lib/Form/Class.ImportView.inc.php:423
 msgid "Analyzing uploaded data..."
@@ -344,61 +336,51 @@ msgstr ""
 
 #: common/lib/Form/Class.ImportView.inc.php:430
 #: common/lib/Form/Class.ImportView.inc.php:711
-#, fuzzy
 msgid "Error: Cannot open uploaded file"
-msgstr "Σφάλμα αρχείο"
+msgstr ""
 
 #: common/lib/Form/Class.ImportView.inc.php:537
-#, fuzzy
 msgid "Import these %1"
-msgstr "Εισαγωγή 1"
+msgstr ""
 
 #: common/lib/Form/Class.ImportView.inc.php:605
-#, fuzzy
 msgid "Session Error, cannot import!"
-msgstr "Σύνοδος Σφάλμα!"
+msgstr ""
 
 #: common/lib/Form/Class.ImportView.inc.php:614
-#, fuzzy
 msgid "Session Error, file vanished!"
-msgstr "Σύνοδος Σφάλμα αρχείο!"
+msgstr ""
 
 #: common/lib/Form/Class.ImportView.inc.php:624
-#, fuzzy
 msgid "Session Error !"
-msgstr "Σύνοδος Σφάλμα!"
+msgstr ""
 
 #: common/lib/Form/Class.ImportView.inc.php:638
 msgid "Importing uploaded data..."
 msgstr ""
 
 #: common/lib/Form/Class.ImportView.inc.php:768
-#, fuzzy
 msgid "Database error, cannot import!"
-msgstr "Βάση δεδομένων σφάλμα!"
+msgstr ""
 
 #: common/lib/Form/Class.ImportView.inc.php:778
-#, fuzzy
 msgid "Database error, rows not imported!"
-msgstr "Βάση δεδομένων σφάλμα γραμμές όχι!"
+msgstr ""
 
 #: common/lib/Form/Class.ImportView.inc.php:818
-#, fuzzy
 msgid "Database error, secondary rows not imported!"
-msgstr "Βάση δεδομένων σφάλμα γραμμές όχι!"
+msgstr ""
 
 #: common/lib/Form/Class.ImportView.inc.php:839
 #: common/lib/Form/Class.ImportView.inc.php:841
 #: common/lib/Form/Class.ImportView.inc.php:853
 #: common/lib/Form/Class.ImportView.inc.php:855
-#, fuzzy
 msgid "%1 lines processed: %2 rows"
-msgstr "γραμμές"
+msgstr ""
 
 #: common/lib/Form/Class.ImportView.inc.php:860
-#, fuzzy
 msgid "Import of data aborted."
-msgstr "Εισαγωγή από."
+msgstr ""
 
 #: common/lib/Form/Class.ListSumView.inc.php:106
 msgid "SUM"
@@ -408,185 +390,155 @@ msgstr ""
 #: common/lib/Form/Class.SumMultiView.inc.php:236
 #, fuzzy
 msgid "No sums found!"
-msgstr "Δεν βρέθηκε %1!"
+msgstr "Nessun dato trovato!!!"
 
 #: common/lib/Misc.inc.php:569
-#, fuzzy
 msgid "File size is greater than allowed limit."
-msgstr "Αρχείο μέγεθος είναι μεγαλύτερο όριο/περιορίζω."
+msgstr ""
 
 #: common/lib/Misc.inc.php:573
-#, fuzzy
 msgid "You did not upload anything!"
-msgstr "Εσείς όχι!"
+msgstr ""
 
 #: common/lib/Misc.inc.php:577
-#, fuzzy
 msgid "Failed to upload the file, The file you uploaded may not exist on disk."
-msgstr "Απέτυχε στο αρχείο αρχείο Μάιος όχι δίσκος."
+msgstr ""
 
 #: common/lib/Misc.inc.php:583
-#, fuzzy
 msgid "file type is not allowed"
-msgstr "αρχείο είδος είναι όχι"
+msgstr ""
 
 #: common/lib/old/Class.A2Billing.old.php:340
-#, fuzzy
 msgid "Invalid card number lenght defined in configuration."
-msgstr "Λάθος μήκος κάρτας ορισμένο στις ρυθμίσεις."
+msgstr ""
 
 #: common/lib/old/Class.A2Billing.old.php:1859
 #: common/lib/old/Class.A2Billing.old.php:1865
-#, fuzzy
 msgid "Error : Not enough credit to call !!!"
-msgstr "Σφάλμα: Δεν υπάρχει πίστωση για την κλήση!!"
+msgstr ""
 
 #: common/lib/old/Class.A2Billing.old.php:1872
-#, fuzzy
 msgid "Error : Card is not active!!!"
-msgstr "Σφάλμα: Η κάρτα δεν είναι ενεργή!!"
+msgstr ""
 
 #: common/lib/old/Class.A2Billing.old.php:1878
-#, fuzzy
 msgid "Error : Card is actually in use!!!"
-msgstr "Σφάλμα: Η κάρτα είναι σε χρήση!!"
+msgstr ""
 
 #: common/lib/old/Class.A2Billing.old.php:1887
 #: common/lib/old/Class.A2Billing.old.php:1895
 #: common/lib/old/Class.A2Billing.old.php:1903
-#, fuzzy
 msgid "Error : Card have expired!!!"
-msgstr "Σφάλμα: Η κάρτα έχει λήξει!!"
+msgstr ""
 
 #: common/lib/old/Class.FormHandler.AddForm.inc.php:229
-#, fuzzy
 msgid "Create a new "
-msgstr "Δημιουργία νέου "
+msgstr ""
 
 #: common/lib/old/Class.FormHandler.DelForm.inc.php:42
 msgid "Message"
-msgstr "Μήνυμα"
+msgstr ""
 
 #: common/lib/old/Class.FormHandler.DelForm.inc.php:49
 msgid "You have "
-msgstr "Έχετε"
+msgstr ""
 
 #: common/lib/old/Class.FormHandler.DelForm.inc.php:155
 msgid "No data found !!!"
-msgstr "Δεν βρέθηκαν δεδομένα!!!"
+msgstr "Nessun dato trovato!!!"
 
 #: common/lib/old/Class.FormHandler.DelForm.inc.php:202
 msgid "Remove this "
-msgstr "Αφαίρεση αυτού"
+msgstr ""
 
 #: common/lib/old/Class.FormHandler.inc.php:475
 msgid "THERE IS NO RECORD !!!"
-msgstr "ΔΕΝ ΥΠΑΡΧΕΙ ΕΓΓΡΑΦΗ!"
+msgstr ""
 
 #: common/lib/old/Class.FormHandler.inc.php:476
 msgid "DIRECTORY"
-msgstr "ΚΑΤΑΛΟΓΟΣ"
+msgstr ""
 
 #: common/lib/old/Class.FormHandler.inc.php:477
 #: common/lib/old/Class.FormHandler.inc.php:544
 msgid "Define criteria to make a precise search"
-msgstr "Μπορείτε να ορίσετε κάποια κριτήρια για να κάνετε ακριβή αναζήτηση"
+msgstr ""
 
 #: common/lib/old/Class.FormHandler.inc.php:478
-#, fuzzy
 msgid "You can browse through our"
-msgstr "Μπορείτε να ψάξετε ανάμεσα στα"
+msgstr ""
 
 #: common/lib/old/Class.FormHandler.inc.php:478
-#, fuzzy
 msgid "and modify their different properties<br>"
-msgstr "και να αλλάξετε τις ιδιότητές τους<br>"
+msgstr ""
 
 #: common/lib/old/Class.FormHandler.inc.php:479
-#, fuzzy
 msgid "Delete this record"
-msgstr "Διαγραφή της εγγραφής"
+msgstr ""
 
 #: common/lib/old/Class.FormHandler.inc.php:480
-#, fuzzy
 msgid "Edit this record"
-msgstr "Επεξεργασία εγγραφής"
+msgstr ""
 
 #: common/lib/old/Class.FormHandler.inc.php:481
-#, fuzzy
 msgid ""
 "The document has been created correctly. Now, you can define the different "
 "tariff that you want to associate."
 msgstr ""
-"Το έγγραφο έχει δημιουργηθεί. Τώρα μπορείτε να ορίσετε τις διάφορες ταρίφες "
-"που θα του αναθέσετε."
 
 #: common/lib/old/Class.FormHandler.inc.php:482
-#, fuzzy
 msgid ""
 "You can modify, through the following form, the different properties of your"
-msgstr "Μπορείτε να επεξεργαστείτε, στην παρακάτω φόρμα, τις ιδιότητες του"
+msgstr ""
 
 #: common/lib/old/Class.FormHandler.inc.php:483
-#, fuzzy
 msgid "If you really want remove this"
-msgstr "Αν θέλετε πραγματικά να διαγράψετε το"
+msgstr ""
 
 #: common/lib/old/Class.FormHandler.inc.php:483
-#, fuzzy
 msgid "Click on the delete button."
-msgstr "Πατήστε στο πλήκτρο της διαγραφής."
+msgstr ""
 
 #: common/lib/old/Class.FormHandler.inc.php:485
-#, fuzzy
 msgid "One"
-msgstr "Ένα"
+msgstr ""
 
 #: common/lib/old/Class.FormHandler.inc.php:485
 #, fuzzy
 msgid "has been deleted!"
-msgstr "διεγραμμένο!"
+msgstr "è stata processata, Abbiamo aggiunto"
 
 #: common/lib/old/Class.FormHandler.inc.php:487
-#, fuzzy
 msgid "you can add easily a new"
-msgstr "μπορείτε εύκολα να προσθέσετε ένα νέο"
+msgstr ""
 
 #: common/lib/old/Class.FormHandler.inc.php:487
-#, fuzzy
 msgid "Fill the following fields and confirm by clicking on the button add."
 msgstr ""
-"Συμπληρώστε τα παρακάτω πεδία και επιβεβαιώστε με το πλήκτρο της προσθήκης."
 
 #: common/lib/old/Class.FormHandler.inc.php:488
-#, fuzzy
 msgid "Add a"
-msgstr "Προσθήκη ενός"
+msgstr ""
 
 #: common/lib/old/Class.FormHandler.inc.php:488
-#, fuzzy
 msgid "now."
-msgstr "τώρα."
+msgstr ""
 
 #: common/lib/old/Class.FormHandler.inc.php:489
-#, fuzzy
 msgid "Your new"
-msgstr "Το νέο σας"
+msgstr ""
 
 #: common/lib/old/Class.FormHandler.inc.php:489
-#, fuzzy
 msgid "has been inserted. <br>"
-msgstr "έχει εισαχθεί.<br>"
+msgstr ""
 
 #: common/lib/old/Class.FormHandler.inc.php:490
-#, fuzzy
 msgid "You cannot choose more than one !"
-msgstr "Δεν μπορείτε να επιλέξετε πάνω από ένα!"
+msgstr ""
 
 #: common/lib/old/Class.FormHandler.inc.php:492
-#, fuzzy
 msgid "Are you sure to delete all records connected to this instance."
-msgstr "στο όλα συνδέθηκε στο."
+msgstr ""
 
 #: common/lib/old/Class.FormHandler.inc.php:494
 #: common/lib/old/Class.FormHandler.inc.php:496
@@ -594,267 +546,231 @@ msgid "CONFIRM DATA"
 msgstr ""
 
 #: common/lib/old/Class.FormHandler.inc.php:495
-#, fuzzy
 msgid "DELETE"
-msgstr "ΗΜ/ΝΙΑ"
+msgstr ""
 
 #: common/lib/old/Class.FormHandler.inc.php:534
 #: common/lib/old/Class.FormHandler.inc.php:791
-#, fuzzy
 msgid "Delete this "
-msgstr "Διαγραφή του"
+msgstr ""
 
 #: common/lib/old/Class.FormHandler.inc.php:535
 #: common/lib/old/Class.FormHandler.inc.php:785
-#, fuzzy
 msgid "Edit this "
-msgstr "Επεξεργασία του"
+msgstr ""
 
 #: common/lib/old/Class.FormHandler.inc.php:762
 #: common/lib/old/Class.FormHandler.inc.php:764
-#, fuzzy
 msgid "You can browse through our "
-msgstr "Μπορείτε να περιηγηθείτε ανάμεσα στα "
+msgstr ""
 
 #: common/lib/old/Class.FormHandler.inc.php:762
 #: common/lib/old/Class.FormHandler.inc.php:764
-#, fuzzy
 msgid " and modify their different properties<br>"
-msgstr "και<br>"
+msgstr ""
 
 #: common/lib/old/Class.FormHandler.inc.php:951
-#, fuzzy
 msgid "(at least 3 characters)"
-msgstr "(τουλάχιστον 3 χαρακτήρες)"
+msgstr ""
 
 #: common/lib/old/Class.FormHandler.inc.php:955
-#, fuzzy
 msgid "(must match email structure. Example : name@domain.com)"
-msgstr "(πρέπει να φαίνεται σαν e-mail, π.χ.: name@domain.com)"
+msgstr ""
 
 #: common/lib/old/Class.FormHandler.inc.php:959
-#, fuzzy
 msgid "(at least 5 successive characters appear at the end of this string)"
 msgstr ""
-"(τουλάχιστον 5 διαδοχικοί χαρακτήρες εμφανίζονται στο τέλος του κειμένου)"
 
 #: common/lib/old/Class.FormHandler.inc.php:963
-#, fuzzy
 msgid "(at least 4 characters)"
-msgstr "(τουλάχιστον 4 χαρακτήρες)"
+msgstr ""
 
 #: common/lib/old/Class.FormHandler.inc.php:967
-#, fuzzy
 msgid "(number format)"
-msgstr "(αριθμητική μορφή)"
+msgstr ""
 
 #: common/lib/old/Class.FormHandler.inc.php:975
-#, fuzzy
 msgid "(only number with more that 8 digits)"
-msgstr "(μόνο αριθμός, με περισσότερα από 8 ψηφία)"
+msgstr ""
 
 #: common/lib/old/Class.FormHandler.inc.php:979
-#, fuzzy
 msgid "(at least 8 digits using . or - or the space key)"
-msgstr "(τουλάχιστον 8 ψηφία με . ή - ή το διάστημα) "
+msgstr ""
 
 #: common/lib/old/Class.FormHandler.inc.php:983
-#, fuzzy
 msgid "network adress format"
-msgstr "μορφή διευθύνσεων δικτύου"
+msgstr ""
 
 #: common/lib/old/Class.FormHandler.inc.php:987
-#, fuzzy
 msgid "at least 1 character"
-msgstr "τουλάχιστον 1 χαρακτήρας"
+msgstr ""
 
 #: common/lib/old/Class.FormHandler.inc.php:995
-#, fuzzy
 msgid "(AT LEAST 2 CARACTERS)"
-msgstr "(ΤΟΥΛΑΧΙΣΤΟΝ 2 ΧΑΡΑΚΤΗΡΕΣ)"
+msgstr ""
 
 #: common/lib/old/Class.FormHandler.inc.php:999
-#, fuzzy
 msgid "(NUMBER FORMAT WITH/WITHOUT DECIMAL, use '.' for decimal)"
-msgstr "(ΑΚΕΡΑΙΟΣ 'Η ΔΕΚΑΔΙΚΟΣ ΑΡΙΘΜΟΣ)"
+msgstr ""
 
 #: common/lib/old/Class.FormHandler.inc.php:1015
-#, fuzzy
 msgid "You must write something."
-msgstr "Πρέπει να γράψετε κάτι."
+msgstr ""
 
 #: common/lib/old/Class.FormHandler.inc.php:1019
-#, fuzzy
 msgid "8 characters alphanumeric"
-msgstr "8 αλφαριθμητικοί χαρακτήρες"
+msgstr ""
 
 #: common/lib/old/Class.FormHandler.inc.php:1026
-#, fuzzy
 msgid "(at least 6 Alphanumeric characters)"
-msgstr "(τουλάχιστον 6 αλφαριθμητικοί χαρακτήρες)"
+msgstr ""
 
 #: common/lib/old/Class.FormHandler.inc.php:1532
-#, fuzzy
 msgid "This did is in use by customer id:"
-msgstr "Αυτό το DID είναι σε χρήση από τον πελάτη:"
+msgstr ""
 
 #: common/lib/old/Class.FormHandler.inc.php:1663
 #: common/lib/old/Class.FormHandler.inc.php:1705
 msgid "Could not open buddy file"
-msgstr "Δεν μπορώ να ανοίξω το συμπληρωματικό αρχείο"
+msgstr ""
 
 #: common/lib/old/Class.FormHandler.inc.php:1680
 #: common/lib/old/Class.FormHandler.inc.php:1710
 #: common/lib/old/Class.FormHandler.inc.php:1722
 msgid "Impossible to write to the file"
-msgstr "Αδύνατη η εγγραφή στο αρχείο"
+msgstr ""
 
 #: common/lib/old/Class.FormHandler.inc.php:1883
 #: common/lib/old/Class.FormHandler.inc.php:1938
-#, fuzzy
 msgid "<br> GOTO ; "
-msgstr "<br> ΠΗΓΑΙΝΕ"
+msgstr ""
 
 #: common/lib/old/Class.FormHandler.inc.php:1932
-#, fuzzy
 msgid "error deletion"
-msgstr "σφάλμα στην διαγραφή"
+msgstr ""
 
 #: common/lib/old/Class.FormHandler.inc.php:2064
-#, fuzzy
 msgid "ERROR_DUPLICATION"
-msgstr "ΣΦΑΛΜΑ_ΕΠΑΝΕΜΦΑΝΙΣΗΣ"
+msgstr ""
 
 #: common/lib/old/Class.FormHandler.inc.php:2149
-#, fuzzy
 msgid "Done"
-msgstr "Έγινε"
+msgstr ""
 
 #: common/lib/old/Class.FormHandler.inc.php:2177
 #: common/lib/old/Class.FormHandler.inc.php:2290
-#, fuzzy
 msgid "THE CURRENT RATECARD"
-msgstr "ΤΡΕΧΩΝ ΤΙΜΟΚΑΤΑΛΟΓΟΣ"
+msgstr "TARIFFA ATTUALE"
 
 #: common/lib/old/Class.FormHandler.inc.php:2188
-#, fuzzy
 msgid "R A T E C A R D"
-msgstr "ΤΙΜΟΚΑΤΑΛΟΓΟΣ"
+msgstr "R A T E C A R D"
 
 #: common/lib/old/Class.FormHandler.inc.php:2194
 #: common/lib/old/Class.FormHandler.inc.php:2307
-#, fuzzy
 msgid "Choose a ratecard"
-msgstr "Επιλέξτε τιμοκατάλογο"
+msgstr "Seleziona una Tariffa"
 
 #: common/lib/old/Class.FormHandler.inc.php:2205
 #: common/lib/old/Class.FormHandler.inc.php:2265
 #: common/lib/old/Class.SearchHandler.inc.php:265
-#, fuzzy
 msgid "Search"
-msgstr "Αναζήτηση"
+msgstr "Cerca"
 
 #: common/lib/old/Class.FormHandler.inc.php:2232
-#, fuzzy
 msgid "None"
-msgstr "Κανένα"
+msgstr ""
 
 #: common/lib/old/Class.FormHandler.inc.php:2301
 #: common/lib/old/Class.SearchHandler.inc.php:320
-#, fuzzy
 msgid "RATECARD"
-msgstr "ΤΙΜΟΚΑΤΑΛΟΓΟΣ"
+msgstr "TARIFFA"
 
 #: common/lib/old/Class.SearchHandler.inc.php:28
 msgid "January"
-msgstr "Ιανουάριος"
+msgstr ""
 
 #: common/lib/old/Class.SearchHandler.inc.php:28
 msgid "February"
-msgstr "Φεβρουάριος"
+msgstr ""
 
 #: common/lib/old/Class.SearchHandler.inc.php:28
 msgid "March"
-msgstr "Μάρτιος"
+msgstr ""
 
 #: common/lib/old/Class.SearchHandler.inc.php:28
 msgid "April"
-msgstr "Απρίλιος"
+msgstr ""
 
 #: common/lib/old/Class.SearchHandler.inc.php:28
 msgid "May"
-msgstr "Μάιος"
+msgstr ""
 
 #: common/lib/old/Class.SearchHandler.inc.php:28
 msgid "June"
-msgstr "Ιούνιος"
+msgstr ""
 
 #: common/lib/old/Class.SearchHandler.inc.php:28
 msgid "July"
-msgstr "Ιούλιος"
+msgstr ""
 
 #: common/lib/old/Class.SearchHandler.inc.php:28
 msgid "August"
-msgstr "Αύγουστος"
+msgstr ""
 
 #: common/lib/old/Class.SearchHandler.inc.php:28
 msgid "September"
-msgstr "Σεπτέμβριος"
+msgstr ""
 
 #: common/lib/old/Class.SearchHandler.inc.php:28
 msgid "October"
-msgstr "Οκτώβριος"
+msgstr ""
 
 #: common/lib/old/Class.SearchHandler.inc.php:28
 msgid "November"
-msgstr "Νοέμβριος"
+msgstr ""
 
 #: common/lib/old/Class.SearchHandler.inc.php:28
 msgid "December"
-msgstr "Δεκέμβριος"
+msgstr ""
 
 #: common/lib/old/Class.SearchHandler.inc.php:78
 msgid "From :"
-msgstr "Από:"
+msgstr ""
 
 #: common/lib/old/Class.SearchHandler.inc.php:106
 msgid "To :"
-msgstr "Έως:"
+msgstr ""
 
 #: common/lib/old/Class.SearchHandler.inc.php:181
 msgid "Exact"
-msgstr "Ακριβής"
+msgstr "Esatto"
 
 #: common/lib/old/Class.SearchHandler.inc.php:182
 msgid "Begins with"
-msgstr "Αρχίζει με"
+msgstr "Inizia per"
 
 #: common/lib/old/Class.SearchHandler.inc.php:183
-#, fuzzy
 msgid "Contains"
-msgstr "Περιέχει"
+msgstr "Contiene"
 
 #: common/lib/old/Class.SearchHandler.inc.php:184
-#, fuzzy
 msgid "Ends with"
-msgstr "Τελειώνει σε"
+msgstr "Finisce per"
 
 #: common/lib/old/Class.SearchHandler.inc.php:291
-#, fuzzy
 msgid "There is"
-msgstr "Υπάρχει"
+msgstr ""
 
 #: common/lib/old/Class.SearchHandler.inc.php:291
-#, fuzzy
 msgid ""
 "selected, use the option below if you are willing to make a batch updated of "
 "the selected cards."
-msgstr "επιλογή στο a από."
+msgstr ""
 
 #: common/lib/old/Class.SearchHandler.inc.php:339
-#, fuzzy
 msgid "BUYRATE"
-msgstr "ΤΙΜΗ ΑΓΟΡΑΣ"
+msgstr ""
 
 #: common/lib/old/Class.SearchHandler.inc.php:342
 #: common/lib/old/Class.SearchHandler.inc.php:357
@@ -865,7 +781,7 @@ msgstr "ΤΙΜΗ ΑΓΟΡΑΣ"
 #: common/lib/old/Class.SearchHandler.inc.php:437
 #: common/lib/old/Class.SearchHandler.inc.php:453
 msgid "Equal"
-msgstr "Ίσο"
+msgstr ""
 
 #: common/lib/old/Class.SearchHandler.inc.php:343
 #: common/lib/old/Class.SearchHandler.inc.php:358
@@ -876,7 +792,7 @@ msgstr "Ίσο"
 #: common/lib/old/Class.SearchHandler.inc.php:438
 #: common/lib/old/Class.SearchHandler.inc.php:454
 msgid "Add"
-msgstr "Προσθήκη"
+msgstr ""
 
 #: common/lib/old/Class.SearchHandler.inc.php:344
 #: common/lib/old/Class.SearchHandler.inc.php:359
@@ -886,9 +802,8 @@ msgstr "Προσθήκη"
 #: common/lib/old/Class.SearchHandler.inc.php:423
 #: common/lib/old/Class.SearchHandler.inc.php:439
 #: common/lib/old/Class.SearchHandler.inc.php:455
-#, fuzzy
 msgid "Substract"
-msgstr "Αφαίρεση"
+msgstr ""
 
 #: common/lib/old/Class.SearchHandler.inc.php:354
 msgid "BUYRATEINITBLOCK"
@@ -899,310 +814,739 @@ msgid "BUYRATEINCREMENT"
 msgstr ""
 
 #: common/lib/old/Class.SearchHandler.inc.php:386
-#, fuzzy
 msgid "RATE INITIAL"
-msgstr "ΒΑΣΙΚΗ ΧΡΕΩΣΗ"
+msgstr ""
 
 #: common/lib/old/Class.SearchHandler.inc.php:402
-#, fuzzy
 msgid "MIN DURATION"
-msgstr "ΕΛΑΧΙΣΤΗ ΔΙΑΡΚΕΙΑ"
+msgstr ""
 
 #: common/lib/old/Class.SearchHandler.inc.php:418
-#, fuzzy
 msgid "BILLINGBLOCK"
-msgstr "ΜΟΝΑΔΑ ΧΡΕΩΣΗΣ"
+msgstr ""
 
 #: common/lib/old/Class.SearchHandler.inc.php:434
 #, fuzzy
 msgid "CONNECTCHARGE"
-msgstr "ΤΕΛΟΣ ΣΥΝΔΕΣΗΣ"
+msgstr "PREZZO EXTRA"
 
 #: common/lib/old/Class.SearchHandler.inc.php:450
-#, fuzzy
 msgid "DISCONNECTCHARGE"
-msgstr "ΤΕΛΟΣ ΑΠΟΣΥΝΔΕΣΗΣ"
+msgstr ""
 
 #: common/lib/old/Class.SearchHandler.inc.php:463
 #, fuzzy
 msgid " BATCH UPDATE RATECARD "
-msgstr "ΜΑΖΙΚΗ ΑΛΛΑΓΗ ΤΙΜΟΚΑΤΑΛΟΓΟΥ "
+msgstr "TARIFFA ATTUALE"
 
 #: common/lib/old/Class.ViewHandler.inc.php:47
-#, fuzzy
 msgid "Archiving All "
-msgstr "Αρχειοθέτηση Όλα "
+msgstr ""
 
 #: common/lib/old/Class.ViewHandler.inc.php:60
-#, fuzzy
 msgid "Sort"
-msgstr "Ταξινόμηση"
+msgstr ""
 
 #: common/lib/old/Class.ViewHandler.inc.php:80
 #, fuzzy
 msgid "Records"
-msgstr "Εγγραφές"
+msgstr "Secondi"
 
 #: common/lib/old/Class.ViewHandler.inc.php:100
-#, fuzzy
 msgid "FILTER ON "
-msgstr "ΦΙΛΤΡΟ ΣΤΟ"
+msgstr ""
 
 #: common/lib/old/Class.ViewHandler.inc.php:117
 msgid "FILTER ON"
-msgstr "ΦΙΛΤΡΟ ΣΤΟ"
+msgstr ""
 
 #: common/lib/old/Class.ViewHandler.inc.php:130
 msgid "APPLY FILTER "
-msgstr "ΕΦΑΡΜΟΓΗ ΦΙΛΤΡΟΥ"
+msgstr ""
 
 #: common/lib/old/Class.ViewHandler.inc.php:166
 msgid "ACTION"
-msgstr "ΕΝΕΡΓΕΙΑ"
+msgstr "AZIONE"
 
 #: common/lib/old/Class.ViewHandler.inc.php:427
 msgid "Export CSV"
-msgstr "Εξαγωγή CSV"
+msgstr ""
 
 #: common/lib/old/Class.ViewHandler.inc.php:431
 msgid "Export XML"
-msgstr "Εξαγωγή XML"
+msgstr ""
 
 #: common/lib/languageSettings.inc.php:25
 msgid "English"
-msgstr "Αγγλικά"
+msgstr ""
 
 #: common/lib/languageSettings.inc.php:26
 msgid "Arabic"
-msgstr "Αραβικά"
+msgstr ""
 
 #: common/lib/languageSettings.inc.php:27
 msgid "Brazilian"
-msgstr "Βραζιλιάνικη"
+msgstr ""
 
 #: common/lib/languageSettings.inc.php:28
 msgid "Chinese"
-msgstr "Κινέζικα"
+msgstr ""
 
 #: common/lib/languageSettings.inc.php:29
 msgid "French"
-msgstr "Γαλλική"
+msgstr ""
 
 #: common/lib/languageSettings.inc.php:30
 msgid "German"
-msgstr "Γερμανική"
+msgstr ""
 
 #: common/lib/languageSettings.inc.php:31
 msgid "Greek"
-msgstr "Ελληνική"
+msgstr ""
 
 #: common/lib/languageSettings.inc.php:32
 msgid "Italian"
-msgstr "Ιταλικά"
+msgstr ""
 
 #: common/lib/languageSettings.inc.php:33
 msgid "Polish"
-msgstr "Πολωνική"
+msgstr ""
 
 #: common/lib/languageSettings.inc.php:34
 msgid "Portuguese"
-msgstr "Πορτογαλικά"
+msgstr ""
 
 #: common/lib/languageSettings.inc.php:35
 msgid "Romanian"
-msgstr "Ρουμανική"
+msgstr ""
 
 #: common/lib/languageSettings.inc.php:36
 msgid "Russian"
-msgstr "Ρωσική"
+msgstr ""
 
 #: common/lib/languageSettings.inc.php:37
 msgid "Spanish"
-msgstr "Ισπανικά"
+msgstr ""
 
 #: common/lib/languageSettings.inc.php:38
 msgid "Turkish"
-msgstr "Τουρκική"
+msgstr ""
 
 #: common/lib/languageSettings.inc.php:39
 msgid "Urdu"
-msgstr "Urdu"
+msgstr ""
 
 #: common/lib/Class.CallShop.inc.php:54
 msgid "Open"
-msgstr "Άνοιγμα"
+msgstr ""
 
 #: common/lib/Class.CallShop.inc.php:54
 msgid "Waiting for response"
-msgstr "Αναμονή για απόκριση"
+msgstr ""
 
 #: common/lib/Class.CallShop.inc.php:54
 msgid "Receiving"
-msgstr "Λήψη"
+msgstr ""
 
 #: common/lib/Class.CallShop.inc.php:92
 msgid "Error Page"
-msgstr "Σελίδα Σφάλματος"
+msgstr ""
 
 #: common/lib/Class.CallShop.inc.php:95
 msgid "Cannot locate booths"
-msgstr "Δεν βρέθηκαν θάλαμοι"
+msgstr ""
 
 #: common/lib/Class.CallShop.inc.php:103
 msgid "No booths"
-msgstr "Κανένας θάλαμος"
+msgstr ""
 
 #: common/lib/Class.CallShop.inc.php:106
 msgid "No booths!<br>Please ask the administrators to create you some."
-msgstr "Κανένας θάλαμος<br>Ζητήστε από τους διαχειριστές να σας το ρυθμίσουν."
+msgstr ""
 
 #: common/lib/Class.CallShop.inc.php:113
 msgid "Welcome!"
-msgstr "Καλωσήλθατε!"
+msgstr ""
 
 #: common/lib/Class.CallShop.inc.php:129
 msgid "Credit:"
-msgstr "Πίστωση:"
+msgstr ""
 
 #: common/lib/Class.CallShop.inc.php:131
 msgid "Start"
-msgstr "Εκκίνηση"
+msgstr ""
 
 #: common/lib/Class.CallShop.inc.php:132
 msgid "Stop"
-msgstr "Διακοπή"
+msgstr ""
 
 #: common/lib/Class.CallShop.inc.php:133
 msgid "Pay"
-msgstr "Πληρωμή"
+msgstr ""
 
 #: common/lib/Class.CallShop.inc.php:134
 msgid "Enable"
-msgstr "Ενεργοποίηση"
+msgstr ""
 
 #: common/lib/Class.CallShop.inc.php:135
 msgid "Disable"
-msgstr "Απενεργοποίηση"
+msgstr ""
 
 #: common/lib/Class.CallShop.inc.php:136
 msgid "Unload"
-msgstr "Αποφόρτωση"
+msgstr ""
 
 #: common/lib/Class.CallShop.inc.php:137
 msgid "One-Time"
-msgstr "Μιας-φοράς"
+msgstr ""
 
 #: common/lib/Class.CallShop.inc.php:138 common/lib/BoothsXML.inc.php:36
 msgid "Empty"
-msgstr "Κενό"
+msgstr ""
 
 #: common/lib/Class.CallShop.inc.php:139
 msgid "Member"
-msgstr "Μέλος"
+msgstr ""
 
 #: common/lib/Class.CallShop.inc.php:140
 msgid "New"
-msgstr "Νέο"
+msgstr ""
 
 #: common/lib/Class.CallShop.inc.php:143
 msgid "Add:"
-msgstr "Προσθήκη:"
+msgstr ""
 
 #: common/lib/Class.CallShop.inc.php:159
 msgid "Refresh"
-msgstr "Ανανέωση"
+msgstr ""
 
 #: common/lib/Class.CallShop.inc.php:161
 msgid "Response:"
-msgstr "Απόκριση: "
+msgstr ""
 
 #: common/lib/BoothsXML.inc.php:35
 msgid "N/A"
-msgstr "N/A"
+msgstr ""
 
 #: common/lib/BoothsXML.inc.php:35
 msgid "Not available, no cards configured."
-msgstr "Δεν είναι διαθέσιμος, δεν ρυθμίστηκαν κάρτες."
+msgstr ""
 
 #: common/lib/BoothsXML.inc.php:36
 msgid "No customer attached."
-msgstr "Δεν έχει συνδεθεί με πελάτη."
+msgstr ""
 
 #: common/lib/BoothsXML.inc.php:37
 msgid "Idle"
-msgstr "Αδρανής"
+msgstr ""
 
 #: common/lib/BoothsXML.inc.php:37
 msgid "Customer attached, inactive"
-msgstr "Συνδέθηκε με πελάτη, ανενεργός"
+msgstr ""
 
 #: common/lib/BoothsXML.inc.php:38
 msgid "Ready"
-msgstr "Έτοιμο"
+msgstr ""
 
 #: common/lib/BoothsXML.inc.php:38
 msgid "Waiting for calls"
-msgstr "Αναμονή για κλήσεις"
+msgstr ""
 
 #: common/lib/BoothsXML.inc.php:39
 msgid "Active"
-msgstr "Ενεργό"
+msgstr ""
 
 #: common/lib/BoothsXML.inc.php:39
 msgid "Calls made, charged"
-msgstr "Έγιναν κλήσεις, χρεώθηκε"
+msgstr ""
 
 #: common/lib/BoothsXML.inc.php:40
 msgid "Disabled"
-msgstr "Απενεργοποιημένο"
+msgstr ""
 
 #: common/lib/BoothsXML.inc.php:40
 msgid "Disabled by the agent"
-msgstr "Απενεργοποιημένος από τον πράκτορα"
+msgstr ""
 
 #: common/lib/BoothsXML.inc.php:41
 msgid "Stopped"
-msgstr "Διακόπηκε"
+msgstr ""
 
 #: common/lib/BoothsXML.inc.php:41
 msgid "Calls made, charged, stopped"
-msgstr "Έγιναν κλήσεις, χρεώθηκε, σταματημένο."
+msgstr ""
 
 #: common/lib/BoothsXML.inc.php:54
 msgid "Booth disabled"
-msgstr "Θάλαμος απενεργοποιήθηκε"
+msgstr ""
 
 #: common/lib/BoothsXML.inc.php:62
 msgid "Booth stopped"
-msgstr "Θάλαμος σταμάτησε"
+msgstr ""
 
 #: common/lib/BoothsXML.inc.php:64 common/lib/BoothsXML.inc.php:76
 #: common/lib/BoothsXML.inc.php:88 common/lib/BoothsXML.inc.php:100
 #: common/lib/BoothsXML.inc.php:140
 msgid "Action failed:"
-msgstr "Αποτυχία ενέργειας:"
+msgstr ""
 
 #: common/lib/BoothsXML.inc.php:74 common/lib/BoothsXML.inc.php:86
 #: common/lib/BoothsXML.inc.php:98
 msgid "Booth started"
-msgstr "Ο θάλαμος ξεκίνησε"
+msgstr ""
 
 #: common/lib/BoothsXML.inc.php:109
 msgid "Invalid sum for refill"
-msgstr "Άκυρο ποσόν για πίστωση"
+msgstr ""
 
 #: common/lib/BoothsXML.inc.php:120
 msgid "Credit added to booth"
-msgstr "Η πίστωση προστέθηκε στο τηλέφωνο"
+msgstr ""
 
 #: common/lib/BoothsXML.inc.php:123
 msgid "Refill failed: do you have enough credit?"
-msgstr "Η προσθήκη απέτυχε: έχετε το απαραίτητο υπόλοιπο;"
+msgstr ""
 
 #: common/lib/BoothsXML.inc.php:138
 msgid "Booth emptied"
-msgstr "Ο θάλαμος άδειασε"
+msgstr ""
 
 #: common/lib/BoothsXML.inc.php:167 common/lib/BoothsXML.inc.php:175
 msgid "Database query failed!"
-msgstr "Η αναζήτηση στη βάση απέτυχε!"
+msgstr ""
+
+#~ msgid "LAST NAME"
+#~ msgstr "COGNOME"
+
+#~ msgid "FIRST NAME"
+#~ msgstr "NOME"
+
+#~ msgid "EMAIL"
+#~ msgstr "EMAIL"
+
+#~ msgid "PHONE"
+#~ msgstr "TELEFONO"
+
+#~ msgid "FAX"
+#~ msgstr "FAX"
+
+#~ msgid "ADDRESS"
+#~ msgstr "INDIRIZZO"
+
+#~ msgid "ZIP CODE"
+#~ msgstr "CODICE POSTALE"
+
+#~ msgid "CITY"
+#~ msgstr "CITTÀ"
+
+#~ msgid "STATE"
+#~ msgstr "REGIONE"
+
+#~ msgid "COUNTRY"
+#~ msgstr "PAESE"
+
+#~ msgid "CARD NUMBER"
+#~ msgstr "NUMERO CARTA"
+
+#~ msgid "BALANCE REMAINING"
+#~ msgstr "SALDO RESTANTE"
+
+#~ msgid "Click below to buy<br>credit for"
+#~ msgstr "Fai click qui per acquistare"
+
+#~ msgid ""
+#~ "The fee from $5 is $0.45, from $10 is $0.59, from $20 is $0.88, from $40 "
+#~ "is $1.46. <br><b>Paypal Fee Calculator"
+#~ msgstr ""
+#~ "La tassa per $5 è di $0.45, per $10 è $0.59, per $20 è $0.88, per $40 "
+#~ "è $1.46. <br><b>Calcolatore tasse Paypal"
+
+#~ msgid "The Voucher"
+#~ msgstr "La ricevuta"
+
+#~ msgid "credit on your account!"
+#~ msgstr " credito al tuo account!"
+
+#~ msgid "This Voucher doesn't exist !"
+#~ msgstr "Questa ricevuta non esiste!"
+
+#~ msgid "VOUCHER"
+#~ msgstr "RICEVUTE"
+
+#~ msgid "USE VOUCHER"
+#~ msgstr "UTILIZZA RICEVUTE"
+
+#~ msgid "Account/Phone"
+#~ msgstr "Account/Telefono"
+
+#~ msgid "SIP WEB-PHONE"
+#~ msgstr "SIP WEB-PHONE"
+
+#~ msgid "&nbsp;NO SIP ACCOUNT&nbsp;"
+#~ msgstr "&nbsp;NESSUN ACCOUNT SIP&nbsp;"
+
+#~ msgid "Click to start SIP WebPhone"
+#~ msgstr "Fai click per aprire il WebPhone SIP"
+
+#~ msgid "IAX WEB-PHONE"
+#~ msgstr "IAX WEB-PHONE"
+
+#~ msgid "NO IAX ACCOUNT"
+#~ msgstr "&nbsp;NESSUN ACCOUNT IAX&nbsp;"
+
+#~ msgid "START IAX PHONE"
+#~ msgstr "Fai click per aprire il WebPhone SIP"
+
+#~ msgid ""
+#~ "Cannot connect to the asterisk manager!<br>Please check the manager "
+#~ "configuration..."
+#~ msgstr ""
+#~ "Impossibile connettersi al manager di Asterisk!<br>Prego controllare la "
+#~ "configurazione del manager..."
+
+#~ msgid ""
+#~ "<font face='Arial, Helvetica, sans-serif' size='2' color='red'><b>Error : "
+#~ "You don t have enough credit to call you back !!!</b></font><br>"
+#~ msgstr ""
+#~ "<font face='Arial, Helvetica, sans-serif' size='2' color='red'><b>Errore: "
+#~ "Credito insufficiente per effettuare la chiamata!!!</b></font><br>"
+
+#~ msgid ""
+#~ "<font face='Arial, Helvetica, sans-serif' size='2' color='red'><b>Error : "
+#~ "There is no route to call back your phonenumber !!!</b></font><br>"
+#~ msgstr ""
+#~ "<font face='Arial, Helvetica, sans-serif' size='2' color='red'><b>Errore: "
+#~ "Nessuna rotta definita per effettuare la chiamata di CallBack!!!</b></"
+#~ "font><br>"
+
+#~ msgid ""
+#~ "<font face='Arial, Helvetica, sans-serif' size='2' color='red'><b>Error : "
+#~ "You have to specify your phonenumber and the number you wish to call !!!</"
+#~ "b></font><br>"
+#~ msgstr ""
+#~ "<font face='Arial, Helvetica, sans-serif' size='2' color='red'><b>Errore: "
+#~ "bisogna specificare il proprio numero di telefono e il numero di telefono "
+#~ "da chiamare!!!</b></font><br>"
+
+#~ msgid "Remove this DID DESTINATION"
+#~ msgstr "Elimina questa Destinazione"
+
+#~ msgid "Calldate"
+#~ msgstr "Data chiamata"
+
+#~ msgid "CardNumber"
+#~ msgstr "Numero chiamato"
+
+#~ msgid "Destination"
+#~ msgstr "Destinazione"
+
+#~ msgid "Duration"
+#~ msgstr "Durata"
+
+#~ msgid "Cardused"
+#~ msgstr "Carta usata"
+
+#~ msgid "terminate cause"
+#~ msgstr "Causa terminazione"
+
+#~ msgid "Calltype"
+#~ msgstr "Tipo chiamata"
+
+#~ msgid "InitalRate"
+#~ msgstr "Tariffa iniziale"
+
+#~ msgid "Cost"
+#~ msgstr "Costo"
+
+#~ msgid "Call Logs"
+#~ msgstr "Dettaglio Chiamate"
+
+#~ msgid "Selection of the month"
+#~ msgstr "Selezione mese"
+
+#~ msgid "FROM"
+#~ msgstr "Da"
+
+#~ msgid "JANUARY"
+#~ msgstr "Gennaio"
+
+#~ msgid "FEBRUARY"
+#~ msgstr "Febbraio"
+
+#~ msgid "MARCH"
+#~ msgstr "Marzo"
+
+#~ msgid "APRIL"
+#~ msgstr "Abrile"
+
+#~ msgid "MAY"
+#~ msgstr "Maggio"
+
+#~ msgid "JUNE"
+#~ msgstr "Giugno"
+
+#~ msgid "JULY"
+#~ msgstr "Luglio"
+
+#~ msgid "AUGUST"
+#~ msgstr "Agosto"
+
+#~ msgid "SEPTEMBER"
+#~ msgstr "Settembre"
+
+#~ msgid "OCTOBER"
+#~ msgstr "Ottobre"
+
+#~ msgid "NOVEMBER"
+#~ msgstr "Novembre"
+
+#~ msgid "DECEMBER"
+#~ msgstr "Dicembre"
+
+#~ msgid "TO"
+#~ msgstr "A"
+
+#~ msgid "DESTINATION"
+#~ msgstr "Destinazione"
+
+#~ msgid "End with"
+#~ msgstr "Finisce per"
+
+#~ msgid "Result"
+#~ msgstr "Risultato"
+
+#~ msgid "Minutes"
+#~ msgstr "Minuti"
+
+#~ msgid "Currency"
+#~ msgstr "Valuta"
+
+#~ msgid "Number of Calls"
+#~ msgstr "Numero di chiamate"
+
+#~ msgid "PREVIOUS"
+#~ msgstr "Precedente"
+
+#~ msgid "NEXT"
+#~ msgstr "Seguente"
+
+#~ msgid "Total Cost"
+#~ msgstr "COSTO TOTALE"
+
+#~ msgid "Total"
+#~ msgstr "TOTALE"
+
+#~ msgid "CALLING CARD MINUTES"
+#~ msgstr "MINUTI CARTA"
+
+#~ msgid "Date"
+#~ msgstr "DATA"
+
+#~ msgid "DURATION"
+#~ msgstr "DURATA"
+
+#~ msgid "GRAPHIC"
+#~ msgstr "GRAFICO"
+
+#~ msgid "<acronym title='AVERAGE CONNECTION TIME'>ACT</acronym>"
+#~ msgstr "<acronym title='TEMPO MEDIO CONNESSIONE'>ACT</acronym>"
+
+#~ msgid "TOTAL COST"
+#~ msgstr "COSTO TOTALE"
+
+#~ msgid "Export PDF file"
+#~ msgstr "Esporta file in PDF"
+
+#~ msgid "Export CSV file"
+#~ msgstr "Esporta file in CSV"
+
+#~ msgid "No calls in your selection"
+#~ msgstr "ssuna chiamata nella selezione corrente!"
+
+#~ msgid "Source"
+#~ msgstr "Origine"
+
+#~ msgid "Callednumber"
+#~ msgstr "Numero chiamato"
+
+#~ msgid "Is not"
+#~ msgstr "Non contiene"
+
+#~ msgid "SOURCE"
+#~ msgstr "Origine"
+
+#~ msgid "See Invoice in HTML"
+#~ msgstr "Visualizza in HTML"
+
+#~ msgid "or Export PDF"
+#~ msgstr "o esporta PDF"
+
+#~ msgid "B I L L I N G &nbsp;&nbsp;S E R V I C E"
+#~ msgstr "FATTURAZIONE DEL SERVIZIO"
+
+#~ msgid "DATE"
+#~ msgstr "DATA"
+
+#~ msgid "CALLS PER DESTINATION"
+#~ msgstr "CHIAMATE PER DESTINAZIONE"
+
+#~ msgid "DUR"
+#~ msgstr "DUR"
+
+#~ msgid "CALL"
+#~ msgstr "CHIAMATA"
+
+#~ msgid "TOTAL"
+#~ msgstr "TOTALE"
+
+#~ msgid "B I L L&nbsp;&nbsp;E V O L U T I O N"
+#~ msgstr "EVOLUZIONE DEL CONTO"
+
+#~ msgid "C A L L S &nbsp;&nbsp;  D E T A I L"
+#~ msgstr "DETTAGLIO CHIAMATE"
+
+#~ msgid "Number of call"
+#~ msgstr "Numero di chiamate"
+
+#~ msgid "nb"
+#~ msgstr "num"
+
+#~ msgid "No calls in your Selection"
+#~ msgstr "Nessuna chiamata nella selezione corrente"
+
+#~ msgid "Enter the number which you wish to assign to the code here"
+#~ msgstr ""
+#~ "Digitare il numero di telefono da assegnare al codice Rubrica Veloce"
+
+#~ msgid "ASSIGN NUMBER TO SPEEDDIAL"
+#~ msgstr "ASSEGNA UN NUMERO A UNA VOCE DI RUBRICA VELOCE"
+
+#~ msgid ""
+#~ "<font face='Arial, Helvetica, sans-serif' size='2' color='red'><b>Error : "
+#~ "The system cannot call you back, please inform the administrator  !!!</"
+#~ "b></font><br>"
+#~ msgstr ""
+#~ "<font face='Arial, Helvetica, sans-serif' size='2' color='red'><b>Errore: "
+#~ "Il sistema non può effettuae chiamate callback, prego contattare "
+#~ "l'amministratore!!!"
+
+#~ msgid ""
+#~ "You can initiate the predictive dialer by clicking on the Place call "
+#~ "button!"
+#~ msgstr "Puoi iniziare il Predective-Dialer facendo click sul pulsante!"
+
+#~ msgid "Your PhoneNumber / Location"
+#~ msgstr "Il numero di telefono/Località"
+
+#~ msgid "Click here to place 10 calls"
+#~ msgstr "Fai click qui per effettuare 10 chiamate"
+
+#~ msgid ""
+#~ "Click here to see the last called persons and the current connect call"
+#~ msgstr "Fai click qui per visualizzare ultima chiamata/chiamata corrente"
+
+#~ msgid "NO"
+#~ msgstr "Non esiste"
+
+#~ msgid "REGISTERED"
+#~ msgstr "REGISTRATO"
+
+#~ msgid "INSERT a new"
+#~ msgstr "Inserisci nuovo"
+
+#~ msgid "PHONELIST"
+#~ msgstr "LISTA NUMERI DI TELEFONO"
+
+#~ msgid "You wish to insert a new"
+#~ msgstr "Se desideri inserirne uno nuovo"
+
+#~ msgid "Click on Add button"
+#~ msgstr "fai click sul pulsante"
+
+#~ msgid "Insert a new"
+#~ msgstr "Inserisci nuovo"
+
+#~ msgid "Yes"
+#~ msgstr "Si"
+
+#~ msgid "ACTIVATED"
+#~ msgstr "ATTIVATO"
+
+#~ msgid "DID"
+#~ msgstr "SELEZIONE PASSANTE"
+
+#~ msgid "PRIORITY"
+#~ msgstr "Priorità"
+
+#~ msgid "USED MINUTE"
+#~ msgstr "MINUTI USATI"
+
+#~ msgid "NAME"
+#~ msgstr "Nome"
+
+#~ msgid "CREDIT"
+#~ msgstr "CREDITO"
+
+#~ msgid "ACCOUNT INFO"
+#~ msgstr "INFORMAZIONI"
+
+#~ msgid "CALL HISTORY"
+#~ msgstr "STORICO CHIAMATE"
+
+#~ msgid "INVOICES"
+#~ msgstr "FATTURE"
+
+#~ msgid "SPEED DIAL"
+#~ msgstr "RUBRICA VELOCE"
+
+#~ msgid "CALLBACK"
+#~ msgstr "CALLBACK"
+
+#~ msgid "PRED-DIALER"
+#~ msgstr "PRED-DIALER"
+
+#~ msgid "WEB-PHONE"
+#~ msgstr "TELEFONO WEB"
+
+#~ msgid "LOGOUT"
+#~ msgstr "USCITA"
+
+#~ msgid "Buy New DID"
+#~ msgstr "Acquista una nuova Selezione Passante"
+
+#~ msgid "Add Phone Number to your DID"
+#~ msgstr "Aggiungi un nuovo numero di telefono alla tua Selezione Passante"
+
+#~ msgid "Select Country"
+#~ msgstr "Seleziona Paese"
+
+#~ msgid "Country Code - Area Code - Number"
+#~ msgstr "Codice Paese - Codice Area - Numero"
+
+#~ msgid "VOIP CALL : "
+#~ msgstr "Chiamata VoIP: "
+
+#~ msgid "ASSIGN NUMBER TO DID"
+#~ msgstr "ASSEGNA NUMERO SELEZIONE PASSANTE"
+
+#~ msgid "ERROR : ACCESS REFUSED"
+#~ msgstr "ERRORE : ACCESSO RIFIUTATO"
+
+#~ msgid ""
+#~ "The CODE is not a VALID CODE or has been already used! Please check it "
+#~ "and try again."
+#~ msgstr ""
+#~ "Il CODICE non è valido oppure è già utilizzato! Prego reinserire di "
+#~ "nuovo."
+
+#~ msgid "Sorry a problem occur on our system, please try later!"
+#~ msgstr "Spiacente, errore di sistema, prego riprovare più tardi!"
+
+#~ msgid "There is an error on this page!"
+#~ msgstr "Errore di pagina!"
+
+#~ msgid "Sorry, you don t have access to this page !"
+#~ msgstr "Spiacente, accesso non consentito!"
+
+#~ msgid "Sorry, this page is in construction !"
+#~ msgstr "Spiacente, questa pagina è in costruzione!"

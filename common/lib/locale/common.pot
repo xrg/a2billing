@@ -1,63 +1,63 @@
-#: common/lib/Form/Class.RevRef.inc.php:139
-#: common/lib/Form/Class.RevRef2.inc.php:126
+#: common/lib/Form/Class.RevRef.inc.php:125
+#: common/lib/Form/Class.RevRef2.inc.php:112
 msgid "No data found!"
 msgstr ""
 
-#: common/lib/Form/Class.RevRef.inc.php:143
-#: common/lib/Form/Class.RevRef2.inc.php:132
+#: common/lib/Form/Class.RevRef.inc.php:129
+#: common/lib/Form/Class.RevRef2.inc.php:118
 msgid "Action"
 msgstr ""
 
-#: common/lib/Form/Class.RevRef.inc.php:149
-#: common/lib/Form/Class.RevRef.inc.php:151
-#: common/lib/Form/Class.RevRef2.inc.php:139
+#: common/lib/Form/Class.RevRef.inc.php:135
+#: common/lib/Form/Class.RevRef.inc.php:137
+#: common/lib/Form/Class.RevRef2.inc.php:125
 msgid "Remove this"
 msgstr ""
 
-#: common/lib/Form/Class.RevRef.inc.php:206
-#: common/lib/Form/Class.RevRef2.inc.php:163
+#: common/lib/Form/Class.RevRef.inc.php:192
+#: common/lib/Form/Class.RevRef2.inc.php:149
 msgid "No additional data found!"
 msgstr ""
 
-#: common/lib/Form/Class.RevRef.inc.php:208
-#: common/lib/Form/Class.RevRef2.inc.php:165
+#: common/lib/Form/Class.RevRef.inc.php:194
+#: common/lib/Form/Class.RevRef2.inc.php:151
 msgid "Select one to add.."
 msgstr ""
 
-#: common/lib/Form/Class.RevRef.inc.php:214
-#: common/lib/Form/Class.RevRef.inc.php:280
-#: common/lib/Form/Class.RevRef2.inc.php:171
+#: common/lib/Form/Class.RevRef.inc.php:200
+#: common/lib/Form/Class.RevRef.inc.php:266
+#: common/lib/Form/Class.RevRef2.inc.php:157
 msgid "Add this"
 msgstr ""
 
-#: common/lib/Form/Class.RevRef.inc.php:236
+#: common/lib/Form/Class.RevRef.inc.php:222
 msgid "Could not add!"
 msgstr ""
 
-#: common/lib/Form/Class.RevRef.inc.php:239
+#: common/lib/Form/Class.RevRef.inc.php:225
 msgid "Item added!"
 msgstr ""
 
-#: common/lib/Form/Class.RevRef.inc.php:252
+#: common/lib/Form/Class.RevRef.inc.php:238
 msgid "Could not delete!"
 msgstr ""
 
-#: common/lib/Form/Class.RevRef.inc.php:255
+#: common/lib/Form/Class.RevRef.inc.php:241
 msgid "Item deleted!"
 msgstr ""
 
-#: common/lib/Form/Class.RevRef.inc.php:305
-#: common/lib/Form/Class.RevRef2.inc.php:202
+#: common/lib/Form/Class.RevRef.inc.php:291
+#: common/lib/Form/Class.RevRef2.inc.php:188
 msgid "Cannot insert new %1"
 msgstr ""
 
-#: common/lib/Form/Class.RevRef.inc.php:323
-#: common/lib/Form/Class.RevRef2.inc.php:215
+#: common/lib/Form/Class.RevRef.inc.php:309
+#: common/lib/Form/Class.RevRef2.inc.php:201
 msgid "Cannot delete %1"
 msgstr ""
 
 #: common/lib/Form/Class.TextField.inc.php:40
-#: common/lib/Form/Class.OptionField.inc.php:47
+#: common/lib/Form/Class.OptionField.inc.php:53
 msgid "Edit this %1"
 msgstr ""
 
@@ -65,16 +65,16 @@ msgstr ""
 msgid "Actions"
 msgstr ""
 
-#: common/lib/Form/Class.OptionField.inc.php:63
+#: common/lib/Form/Class.OptionField.inc.php:69
 #: common/lib/Form/Class.DeleteView.inc.php:50
 msgid "Delete this %1"
 msgstr ""
 
-#: common/lib/Form/Class.NumField.inc.php:132
+#: common/lib/Form/Class.NumField.inc.php:160
 msgid "TRUE"
 msgstr ""
 
-#: common/lib/Form/Class.NumField.inc.php:134
+#: common/lib/Form/Class.NumField.inc.php:162
 msgid "FALSE"
 msgstr ""
 
@@ -86,9 +86,9 @@ msgstr ""
 msgid "Add a new %1"
 msgstr ""
 
-#: common/lib/Form/Class.DetailsView.inc.php:153
-#: common/lib/Form/Class.ListView.inc.php:127
-#: common/lib/Form/Class.EditView.inc.php:101
+#: common/lib/Form/Class.DetailsView.inc.php:112
+#: common/lib/Form/Class.ListView.inc.php:85
+#: common/lib/Form/Class.EditView.inc.php:61
 #: common/lib/Form/Class.ListSumView.inc.php:70
 msgid "No %1 found!"
 msgstr ""
@@ -97,11 +97,15 @@ msgstr ""
 msgid "GO!"
 msgstr ""
 
-#: common/lib/Form/Class.TimeField.inc.php:12
+#: common/lib/Form/Class.TimeField.inc.php:19
 msgid "IYYY-MM-DD HH24:MI:SS TZ"
 msgstr ""
 
-#: common/lib/Form/Class.SqlRefField.inc.php:107
+#: common/lib/Form/Class.TimeField.inc.php:71
+msgid "IYYY-MM-DD"
+msgstr ""
+
+#: common/lib/Form/Class.SqlRefField.inc.php:114
 msgid "(none)"
 msgstr ""
 
@@ -137,57 +141,57 @@ msgstr ""
 msgid "no rows"
 msgstr ""
 
-#: common/lib/Form/Class.ListView.inc.php:178
+#: common/lib/Form/Class.ListView.inc.php:136
 #: common/lib/old/Class.ViewHandler.inc.php:414
 msgid "DISPLAY"
 msgstr ""
 
-#: common/lib/Form/Class.ListView.inc.php:186
+#: common/lib/Form/Class.ListView.inc.php:144
 msgid "All"
 msgstr ""
 
-#: common/lib/Form/Class.ListView.inc.php:188
+#: common/lib/Form/Class.ListView.inc.php:146
 #: common/lib/old/Class.ViewHandler.inc.php:423
 msgid "GO"
 msgstr ""
 
-#: common/lib/Form/Class.ListView.inc.php:201
+#: common/lib/Form/Class.ListView.inc.php:159
 msgid "First"
 msgstr ""
 
-#: common/lib/Form/Class.ListView.inc.php:202
+#: common/lib/Form/Class.ListView.inc.php:160
 msgid "Prev"
 msgstr ""
 
-#: common/lib/Form/Class.ListView.inc.php:233
+#: common/lib/Form/Class.ListView.inc.php:191
 msgid "Next"
 msgstr ""
 
-#: common/lib/Form/Class.EditView.inc.php:137
+#: common/lib/Form/Class.EditView.inc.php:97
 msgid "Update this %1"
 msgstr ""
 
-#: common/lib/Form/Class.EditView.inc.php:223
+#: common/lib/Form/Class.EditView.inc.php:183
 msgid "Cannot update %1, database error."
 msgstr ""
 
-#: common/lib/Form/Class.EditView.inc.php:230
+#: common/lib/Form/Class.EditView.inc.php:190
 msgid "Cannot update %1, record not found."
 msgstr ""
 
-#: common/lib/Form/Class.EditView.inc.php:234
+#: common/lib/Form/Class.EditView.inc.php:194
 msgid "Data has successfully been updated in the database."
 msgstr ""
 
-#: common/lib/Form/Class.AddView.inc.php:59
+#: common/lib/Form/Class.AddView.inc.php:29
 msgid "Create this %1"
 msgstr ""
 
-#: common/lib/Form/Class.AddView.inc.php:145
+#: common/lib/Form/Class.AddView.inc.php:118
 msgid "Cannot create new %1, database error."
 msgstr ""
 
-#: common/lib/Form/Class.AddView.inc.php:150
+#: common/lib/Form/Class.AddView.inc.php:123
 msgid "New data has successfully been inserted into the database."
 msgstr ""
 
@@ -195,161 +199,161 @@ msgstr ""
 msgid "Please, you must first select a file !"
 msgstr ""
 
-#: common/lib/Form/Class.ImportView.inc.php:238
+#: common/lib/Form/Class.ImportView.inc.php:189
 msgid "New %1 have to be imported from a CSV file."
 msgstr ""
 
-#: common/lib/Form/Class.ImportView.inc.php:246
+#: common/lib/Form/Class.ImportView.inc.php:197
 msgid "Common fields"
 msgstr ""
 
-#: common/lib/Form/Class.ImportView.inc.php:256
+#: common/lib/Form/Class.ImportView.inc.php:207
 msgid "Mandatory fields"
 msgstr ""
 
-#: common/lib/Form/Class.ImportView.inc.php:266
+#: common/lib/Form/Class.ImportView.inc.php:217
 msgid "Optional fields"
 msgstr ""
 
-#: common/lib/Form/Class.ImportView.inc.php:270
+#: common/lib/Form/Class.ImportView.inc.php:221
 msgid "Unselected Fields..."
 msgstr ""
 
-#: common/lib/Form/Class.ImportView.inc.php:279
+#: common/lib/Form/Class.ImportView.inc.php:230
 msgid "Add field"
 msgstr ""
 
-#: common/lib/Form/Class.ImportView.inc.php:281
+#: common/lib/Form/Class.ImportView.inc.php:232
 msgid "Remove field"
 msgstr ""
 
-#: common/lib/Form/Class.ImportView.inc.php:284
+#: common/lib/Form/Class.ImportView.inc.php:235
 msgid "Selected Fields..."
 msgstr ""
 
-#: common/lib/Form/Class.ImportView.inc.php:289
+#: common/lib/Form/Class.ImportView.inc.php:240
 msgid "Move up"
 msgstr ""
 
-#: common/lib/Form/Class.ImportView.inc.php:291
+#: common/lib/Form/Class.ImportView.inc.php:242
 msgid "Move down"
 msgstr ""
 
-#: common/lib/Form/Class.ImportView.inc.php:302
+#: common/lib/Form/Class.ImportView.inc.php:253
 msgid "Upload File"
 msgstr ""
 
-#: common/lib/Form/Class.ImportView.inc.php:303
+#: common/lib/Form/Class.ImportView.inc.php:254
 msgid "File"
 msgstr ""
 
-#: common/lib/Form/Class.ImportView.inc.php:306
+#: common/lib/Form/Class.ImportView.inc.php:257
 msgid "The maximum file size is %1 KB"
 msgstr ""
 
-#: common/lib/Form/Class.ImportView.inc.php:314
+#: common/lib/Form/Class.ImportView.inc.php:265
 msgid "Submit"
 msgstr ""
 
-#: common/lib/Form/Class.ImportView.inc.php:316
+#: common/lib/Form/Class.ImportView.inc.php:267
 msgid "Import %1"
 msgstr ""
 
-#: common/lib/Form/Class.ImportView.inc.php:322
+#: common/lib/Form/Class.ImportView.inc.php:273
 msgid "Examples"
 msgstr ""
 
-#: common/lib/Form/Class.ImportView.inc.php:325
+#: common/lib/Form/Class.ImportView.inc.php:276
 msgid ""
 "Use the example below  to format the CSV file. Fields are separated by  ; "
 "or : </br>"
 msgstr ""
 
-#: common/lib/Form/Class.ImportView.inc.php:366
+#: common/lib/Form/Class.ImportView.inc.php:317
 msgid "File has not been posted at all!"
 msgstr ""
 
-#: common/lib/Form/Class.ImportView.inc.php:375
+#: common/lib/Form/Class.ImportView.inc.php:326
 msgid "File size exceeds %1 limit of the system!"
 msgstr ""
 
-#: common/lib/Form/Class.ImportView.inc.php:380
+#: common/lib/Form/Class.ImportView.inc.php:331
 msgid "File size exceeds %1 limit for this action!"
 msgstr ""
 
-#: common/lib/Form/Class.ImportView.inc.php:385
+#: common/lib/Form/Class.ImportView.inc.php:336
 msgid "The uploaded file was only partially uploaded."
 msgstr ""
 
-#: common/lib/Form/Class.ImportView.inc.php:390
+#: common/lib/Form/Class.ImportView.inc.php:341
 msgid "No file was uploaded."
 msgstr ""
 
-#: common/lib/Form/Class.ImportView.inc.php:395
-#: common/lib/Form/Class.ImportView.inc.php:400
-#: common/lib/Form/Class.ImportView.inc.php:405
-#: common/lib/Form/Class.ImportView.inc.php:436
-#: common/lib/Form/Class.ImportView.inc.php:446
+#: common/lib/Form/Class.ImportView.inc.php:346
+#: common/lib/Form/Class.ImportView.inc.php:351
+#: common/lib/Form/Class.ImportView.inc.php:356
+#: common/lib/Form/Class.ImportView.inc.php:387
+#: common/lib/Form/Class.ImportView.inc.php:397
 msgid "Internal error, could not upload."
 msgstr ""
 
-#: common/lib/Form/Class.ImportView.inc.php:412
+#: common/lib/Form/Class.ImportView.inc.php:363
 msgid "Cannot accept file of type %1. Allowed types are: %2."
 msgstr ""
 
-#: common/lib/Form/Class.ImportView.inc.php:425
+#: common/lib/Form/Class.ImportView.inc.php:376
 msgid "Error in submitted form."
 msgstr ""
 
-#: common/lib/Form/Class.ImportView.inc.php:472
+#: common/lib/Form/Class.ImportView.inc.php:423
 msgid "Analyzing uploaded data..."
 msgstr ""
 
-#: common/lib/Form/Class.ImportView.inc.php:479
-#: common/lib/Form/Class.ImportView.inc.php:760
+#: common/lib/Form/Class.ImportView.inc.php:430
+#: common/lib/Form/Class.ImportView.inc.php:711
 msgid "Error: Cannot open uploaded file"
 msgstr ""
 
-#: common/lib/Form/Class.ImportView.inc.php:586
+#: common/lib/Form/Class.ImportView.inc.php:537
 msgid "Import these %1"
 msgstr ""
 
-#: common/lib/Form/Class.ImportView.inc.php:654
+#: common/lib/Form/Class.ImportView.inc.php:605
 msgid "Session Error, cannot import!"
 msgstr ""
 
-#: common/lib/Form/Class.ImportView.inc.php:663
+#: common/lib/Form/Class.ImportView.inc.php:614
 msgid "Session Error, file vanished!"
 msgstr ""
 
-#: common/lib/Form/Class.ImportView.inc.php:673
+#: common/lib/Form/Class.ImportView.inc.php:624
 msgid "Session Error !"
 msgstr ""
 
-#: common/lib/Form/Class.ImportView.inc.php:687
+#: common/lib/Form/Class.ImportView.inc.php:638
 msgid "Importing uploaded data..."
 msgstr ""
 
-#: common/lib/Form/Class.ImportView.inc.php:817
+#: common/lib/Form/Class.ImportView.inc.php:768
 msgid "Database error, cannot import!"
 msgstr ""
 
-#: common/lib/Form/Class.ImportView.inc.php:827
+#: common/lib/Form/Class.ImportView.inc.php:778
 msgid "Database error, rows not imported!"
 msgstr ""
 
-#: common/lib/Form/Class.ImportView.inc.php:867
+#: common/lib/Form/Class.ImportView.inc.php:818
 msgid "Database error, secondary rows not imported!"
 msgstr ""
 
-#: common/lib/Form/Class.ImportView.inc.php:888
-#: common/lib/Form/Class.ImportView.inc.php:890
-#: common/lib/Form/Class.ImportView.inc.php:902
-#: common/lib/Form/Class.ImportView.inc.php:904
+#: common/lib/Form/Class.ImportView.inc.php:839
+#: common/lib/Form/Class.ImportView.inc.php:841
+#: common/lib/Form/Class.ImportView.inc.php:853
+#: common/lib/Form/Class.ImportView.inc.php:855
 msgid "%1 lines processed: %2 rows"
 msgstr ""
 
-#: common/lib/Form/Class.ImportView.inc.php:909
+#: common/lib/Form/Class.ImportView.inc.php:860
 msgid "Import of data aborted."
 msgstr ""
 
@@ -357,7 +361,8 @@ msgstr ""
 msgid "SUM"
 msgstr ""
 
-#: common/lib/Form/Class.SumMultiView.inc.php:170
+#: common/lib/Form/Class.SumMultiView.inc.php:128
+#: common/lib/Form/Class.SumMultiView.inc.php:236
 msgid "No sums found!"
 msgstr ""
 
