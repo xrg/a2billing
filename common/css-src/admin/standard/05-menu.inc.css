@@ -1,3 +1,6 @@
+div.menu {
+	font-family: verdana, arial, sans-serif;
+}
 div.menu div a {
 	display: block;
 	font-size: 11px;

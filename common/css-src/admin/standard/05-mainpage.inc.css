@@ -1,6 +1,6 @@
 .divleft {
 	vertical-align: top;
-	width: 15em;
+	width: 20em;
 	left: 2px;
 	top: 30px;
 }
@@ -8,5 +8,5 @@
 .divright {
 	vertical-align: top;
 	height: auto;
-	width: 100%;
+	width: auto;
 }
