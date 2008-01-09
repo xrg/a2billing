@@ -3,47 +3,6 @@ require_once("Class.FormViews.inc.php");
 
 class DetailsView extends FormView {
 	function RenderStyle(){
-	?>
-<style>
-table.detailForm {
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 11px;
-	font-weight: bold;
-	width: 90%;
-}
-table.detailForm thead {
-	text-transform: uppercase;
-	color: #FFFFFF;
-	background-color: #7a7a7a;
-}
-table.detailForm thead .field {
-	width: 25%;
-}
-table.detailForm thead .value {
-	width: 75%;
-}
-
-table.detailForm tbody .field {
-	text-transform: uppercase;
-	color: #FFFFFF;
-	background-color: #9a9a9a;
-}
-table.detailForm div.descr {
-	font-size: 9px;
-	font-weight: normal;
-}
-
-table.detailForm input {
-	background-color: #F3F4F3;
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 11px;
-	font-weight: bold;
-	color: #FF9900;
-	border: 1px solid #C1C1C1;
-}
-</style>
-
-<?php
 	}
 
 	public function Render(&$form){

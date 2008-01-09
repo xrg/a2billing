@@ -177,36 +177,6 @@ class ActionForm extends ElemBase {
 	
 	protected function RenderAsk(){
 ?>
-<style>
-table.actionForm {
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 11px;
-	font-weight: bold;
-	width: 90%;
-}
-table.actionForm thead {
-	text-transform: uppercase;
-	color: #FFFFFF;
-	background-color: #7a7a7a;
-}
-table.actionForm thead .field {
-	width: 25%;
-}
-table.actionForm thead .value {
-	width: 75%;
-}
-
-table.actionForm tbody .field {
-	text-transform: uppercase;
-	color: #FFFFFF;
-	background-color: #9a9a9a;
-}
-table.actionForm div.descr {
-	font-size: 9px;
-	font-weight: normal;
-}
-</style>
-
 	<form action=<?= $_SERVER['PHP_SELF']?> method=post name="<?= $this->prefix?>Frm" id="<?= $this->prefix ?>Frm">
 	<?php	$hidden_arr = array( 'action' => 'true', 'sub_action' => '');
 		if (strlen($this->prefix)>0){

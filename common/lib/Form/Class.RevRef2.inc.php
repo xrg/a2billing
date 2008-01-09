@@ -12,20 +12,6 @@ class RevRef2Header extends ElemBase {
 	// stub functions..
 	function RenderHead() {
 	?>
-<style>
-table.FormRR2t1 {
-	border: thin solid black;
-	color: blue;
-	width: 300;
-	font: Arial, Verdana;
-}
-
-table.FormRR2t1 thead td{
-	background: gray;
-	color: white;
-	font-weight: bold;
-}
-</style>
 
 <script language="JavaScript" type="text/JavaScript">
 <!--

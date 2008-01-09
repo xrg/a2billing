@@ -173,55 +173,6 @@ function moveSourceDown(tform)
 // -->
 </script>
 
-<style>
-table.importForm {
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 11px;
-	font-weight: bold;
-	width: 90%;
-}
-table.importForm thead {
-	text-transform: uppercase;
-	color: #FFFFFF;
-	background-color: #7a7a7a;
-}
-table.importForm thead .field {
-	width: 25%;
-}
-table.importForm thead .value {
-	width: 75%;
-}
-
-table.importForm tbody .field {
-	text-transform: uppercase;
-	color: #FFFFFF;
-	background-color: #9a9a9a;
-}
-table.importForm tbody .title {
-	text-transform: uppercase;
-	color: #FFFFFF;
-	background-color: #6a6a6a;
-}
-
-table.importForm div.descr {
-	font-size: 9px;
-	font-weight: normal;
-}
-
-table.importForm input {
-	background-color: #F3F4F3;
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 11px;
-	font-weight: bold;
-	color: #FF9900;
-	border: 1px solid #C1C1C1;
-}
-
-table.importForm input.btnsubmit {
-	font-size: 200%;
-}
-</style>
-
 <?php
 	} //end function
 	

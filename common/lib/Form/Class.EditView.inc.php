@@ -6,47 +6,7 @@ class AskEditView extends FormView {
 	public function Render(&$form){
 	// For convenience, ref the dbhandle locally
 	$dbhandle = &$form->a2billing->DBHandle();
-?>
-<style>
-table.editForm {
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 11px;
-	font-weight: bold;
-	width: 90%;
-}
-table.editForm thead {
-	text-transform: uppercase;
-	color: #FFFFFF;
-	background-color: #7a7a7a;
-}
-table.editForm thead .field {
-	width: 25%;
-}
-table.editForm thead .value {
-	width: 75%;
-}
-
-table.editForm tbody .field {
-	text-transform: uppercase;
-	color: #FFFFFF;
-	background-color: #9a9a9a;
-}
-table.editForm div.descr {
-	font-size: 9px;
-	font-weight: normal;
-}
-
-table.editForm input {
-	background-color: #F3F4F3;
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 11px;
-	font-weight: bold;
-	color: #FF9900;
-	border: 1px solid #C1C1C1;
-}
-</style>
-
-<?php
+	
 	if ($form->FG_DEBUG>3)
 		echo "List! Building query..";
 		

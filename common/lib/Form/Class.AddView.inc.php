@@ -6,36 +6,6 @@ class AskAddView extends FormView {
 	public function Render(&$form){
 	$dbhandle = &$form->a2billing->DBHandle();
 ?>
-<style>
-table.addForm {
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 11px;
-	font-weight: bold;
-	width: 90%;
-}
-table.addForm thead {
-	text-transform: uppercase;
-	color: #FFFFFF;
-	background-color: #7a7a7a;
-}
-table.addForm thead .field {
-	width: 25%;
-}
-table.addForm thead .value {
-	width: 75%;
-}
-
-table.addForm tbody .field {
-	text-transform: uppercase;
-	color: #FFFFFF;
-	background-color: #9a9a9a;
-}
-table.addForm div.descr {
-	font-size: 9px;
-	font-weight: normal;
-}
-</style>
-
 	<form action=<?= $_SERVER['PHP_SELF']?> method=post name="<?= $form->prefix?>Frm" id="<?= $form->prefix ?>Frm">
 	<?php	$hidden_arr = array( 'action' => 'add', 'sub_action' => '');
 		if (strlen($form->prefix)>0){

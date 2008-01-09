@@ -4,48 +4,6 @@ require_once("Class.FormViews.inc.php");
 class ListView extends FormView {
 
 	protected function RenderHead(){
-?>
-<style>
-table.cclist {
-	width: 95%;
-	border-bottom: #ffab12 0px solid; 
-	border-left: #e1e1e1 0px solid; 
-	border-right: #e1e1e1 1px solid; 
-	border-top: #e1e1e1 0px solid; 
-	padding-bottom: 4px; 
-	padding-left: 4px; 
-	padding-right: 4px; 
-	padding-top: 4px;	
-	font-size: 10px;
-}
-.cclist thead {
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 11px;
-	font-weight: bold;
-	text-transform: uppercase;
-	color: #FFFFFF;
-	background-color: #7a7a7a;
-}
-.cclist thead a{
-	color: #FFFFFF;
-}
-.cclist thead a:hover{
-	color: #FFFFFF;
-}
-
-table.cclist tbody tr{
-	background-color: #F2F2F2;
-}
-
-table.cclist tbody .odd{
-	background-color: #E0E0E0;
-}
-
-table.cclist tbody tr:hover {
-	background-color: #FFDEA6;
-}
-</style>
-<?php
 	}
 	
 	/** Builds and executes the table list query */
