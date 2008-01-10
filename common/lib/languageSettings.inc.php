@@ -70,14 +70,14 @@ function SetLocalLanguage($set_lang) {
 	putenv("LANG=".$slectedLanguage);
 	putenv("LANGUAGE=".$slectedLanguage);
 	$res= setlocale(LC_ALL,$slectedLanguage, $languageEncoding);
-	if (!$res  && $FG_DEBUG)
+	if (!$res  && ($FG_DEBUG > 1))
 		error_log("Could not set locale to $slectedLanguage, $languageEncoding");
 //       bindtextdomain($domain,"./lib/locale/");
 	bindtextdomain(MESSAGE_DOMAIN, "lib/locale/");
 	textdomain(MESSAGE_DOMAIN);
 	bind_textdomain_codeset(MESSAGE_DOMAIN,$charEncoding);
 	define('CHARSET', $charEncoding);
-	if ($FG_DEBUG>3)
+	if ($FG_DEBUG>4)
 		trigger_error("Locale: " . setlocale(LC_MESSAGES,0) ." : " . $slectedLanguage,E_USER_NOTICE);
 	
 	return $ret;
