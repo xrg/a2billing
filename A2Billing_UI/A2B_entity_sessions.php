@@ -5,6 +5,8 @@ require_once (DIR_COMMON."Form.inc.php");
 require_once (DIR_COMMON."Class.HelpElem.inc.php");
 require_once (DIR_COMMON."Form/Class.SqlRefField.inc.php");
 require_once (DIR_COMMON."Form/Class.TimeField.inc.php");
+require_once (DIR_COMMON."Form/Class.SelectionForm.inc.php");
+require_once (DIR_COMMON."Form/Class.ClauseField.inc.php");
 
 $menu_section='menu_agents';
 
@@ -15,7 +17,6 @@ $HD_Form= new FormHandler('cc_shopsessions',_("Sessions"),_("Session"));
 $HD_Form->checkRights(ACX_AGENTS);
 $HD_Form->init();
 
-$PAGE_ELEMS[] = &$HD_Form;
 // $PAGE_ELEMS[] = new AddNewButton($HD_Form); No, we don't open them this way!
 
 $HD_Form->model[] = new PKeyField(_("ID"),'id');
@@ -35,6 +36,30 @@ $HD_Form->model[] = &$detbtn;
 
 //$HD_Form->model[] = new DelBtnField();
 
+$SEL_Form = new SelectionForm();
+$SEL_Form->init();
+$SEL_Form->model[] = new SqlRefField(_("Agent"),'agentid','cc_agent','id','name');
+	end($SEL_Form->model)->does_add = false;
+	end($SEL_Form->model)->fieldexpr = '(SELECT agentid FROM cc_booth WHERE cc_booth.id = booth)';
+$SEL_Form->model[] = new DateTimeField(_("Period from"),'date_from');
+	end($SEL_Form->model)->does_add = false;
+	end($SEL_Form->model)->def_date = '00:00 last month';
+	end($SEL_Form->model)->fieldexpr = 'starttime';
+$SEL_Form->model[] = new DateTimeField(_("Period to"),'date_to');
+	end($SEL_Form->model)->does_add = false;
+	end($SEL_Form->model)->def_date = 'now';
+	end($SEL_Form->model)->fieldexpr = 'starttime';
+$SEL_Form->search_exprs['date_from'] = '>=';
+$SEL_Form->search_exprs['date_to'] = '<=';
+//$CS_Form->agentid=$SEL_Form->getpost_single('agentid');
+
+$PAGE_ELEMS[] = &$SEL_Form;
+$PAGE_ELEMS[] = &$HD_Form;
+
+$clauses = $SEL_Form->buildClauses();
+// 	$PAGE_ELEMS[] = new DbgElem(print_r($clauses,true));
+foreach ($clauses as $clause)
+	$HD_Form->model[] = new FreeClauseField($clause);
 
 require("PP_page.inc.php");
 
