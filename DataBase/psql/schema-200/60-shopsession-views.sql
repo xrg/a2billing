@@ -71,5 +71,5 @@ CREATE OR REPLACE VIEW cc_shopsession_status_v AS
 		 (COALESCE(ss.endtime,now()) - ss.starttime) AS duration
 		FROM cc_shopsessions AS ss, cc_booth, cc_card 
 		WHERE cc_card.id = ss.card AND cc_booth.id = ss.booth;
-	
+
 --eof
