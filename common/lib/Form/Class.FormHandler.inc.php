@@ -42,6 +42,9 @@ class FormHandler extends ElemBase{
 	public $order; ///< sort field, should match some model[]->fieldname
 	public $cpage; ///< Current page
 	public $ndisp; ///< Number of records to display
+	public $default_order;
+	public $default_sens;
+	
 	public $follow_params = array(); ///< Parameters to be followed accross pages
 	public $always_follow_params = array(); ///< Parameters to follow even when crossing action
 	
@@ -99,8 +102,10 @@ class FormHandler extends ElemBase{
 		
 		if ($this->order= $this->getpost_single('order'))
 			$this->addFollowParam('order',$this->order);
+		else $this->order = $this->default_order;
 		if ($this->sens = $this->getpost_single('sens'))
 			$this->addFollowParam('sens',$this->sens);
+		else $this->sens = $this->default_sens;
 		
 		if ($this->cpage= $this->getpost_single('cpage'))
 			$this->addFollowParam('cpage',$this->cpage);
