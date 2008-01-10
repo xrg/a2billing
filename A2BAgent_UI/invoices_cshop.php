@@ -56,7 +56,7 @@ $sess_row=false;
 }
 
 if ($sess_row)
-	AgentSessionInvoice($sess_row);
+	AgentSessionInvoice($sess_row,ACX_ACCESS);
 
 require("PP_page.inc.php");
 

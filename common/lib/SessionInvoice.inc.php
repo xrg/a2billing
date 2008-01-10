@@ -1,11 +1,12 @@
 <?php
 /** One function that sets up page elems for an agent-session invoice */
 
-function AgentSessionInvoice($sess_row){
+function AgentSessionInvoice($sess_row,$rights){
 	global $PAGE_ELEMS;
 	global $FG_DEBUG;
+	$dbhandle=A2Billing::DBHandle();
 	$HD_Form= new FormHandler('cc_session_invoice',_("Transactions"),_("Transaction"));
-	$HD_Form->checkRights(ACX_ACCESS);
+	$HD_Form->checkRights($rights);
 	$HD_Form->init(null,false);
 	$HD_Form->views['list'] = new ListSumView();
 	$HD_Form->views['pay'] = $HD_Form->views['true'] =
@@ -34,7 +35,7 @@ function AgentSessionInvoice($sess_row){
 	
 	// Per date calls..
 	$Sum_Form= new FormHandler('cc_session_calls',_("Per-date calls"));
-	$Sum_Form->checkRights(ACX_ACCESS);
+	$Sum_Form->checkRights($rights);
 	$Sum_Form->init(null,false);
 	$Sum_Form->views['list'] = new SumMultiView();
 	$Sum_Form->views['pay'] = $Sum_Form->views['true'] =
