@@ -151,6 +151,8 @@ abstract class BaseField {
 			}
 			elseif (is_string($sum_fns[$this->fieldname]))
 				$fields[] = $sum_fns[$this->fieldname] ."($fld) AS ". $this->fieldname;
+			elseif (is_array($sum_fns[$this->fieldname]))
+				$fields[] = str_dbparams($dbhandle, '%1 AS '.$this->fieldname,$sum_fns[$this->fieldname]);
 			
 		}
 		

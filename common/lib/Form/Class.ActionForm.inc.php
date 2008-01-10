@@ -8,7 +8,8 @@ class ActionForm extends ElemBase {
 	private $rights_checked = false;
 		/** prefix all url vars with this, so that multiple forms can co-exist
 		in the same html page! */
-	public $prefix = ''; 
+	public $prefix = '';
+	protected $action;
 	
 	public $a2billing; ///< Reference to an a2billing instance
 		
@@ -102,6 +103,10 @@ class ActionForm extends ElemBase {
 	
 	function getAction(){
 		return $this->action;
+	}
+	
+	function setAction($act){
+		$this->action = $act;
 	}
 	
 	function dbg_DumpForm(){

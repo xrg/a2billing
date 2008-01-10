@@ -58,7 +58,8 @@ class SumMultiView extends FormView {
 		if (count($query_clauses))
 			$QUERY .= ' WHERE ' . implode(' AND ', $query_clauses);
 		
-		if (!empty($query_grps))
+		if (!empty($query_grps) && 
+			(!isset($summ['group']) || ($summ['group'] != false)) )
 			$QUERY .= ' GROUP BY ' . implode(', ', $query_grps);
 
 		$QUERY .= ';';
