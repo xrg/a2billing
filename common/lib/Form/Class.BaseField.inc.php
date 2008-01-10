@@ -302,5 +302,9 @@ function dontAdd(BaseField &$bf){
 	$bf->does_add = false;
 	return $bf;
 }
+function dontEdit(BaseField &$bf){
+	$bf->does_edit = false;
+	return $bf;
+}
 
 ?>

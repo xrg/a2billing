@@ -46,6 +46,20 @@ class TextFieldEH extends TextField{
 
 };
 
+/** Another variation: one that doesn't add-edit, but is displayed as a static
+   label */
+class TextRoFieldEH extends TextFieldEH{
+	public function DispAddEdit($val,&$form){
+		echo htmlspecialchars($val);
+	}
+	public function buildInsert(&$ins_arr,&$form){
+	}
+
+	public function buildUpdate(&$ins_arr,&$form){
+	}
+
+};
+
 class TextAreaField extends TextField{
 	public $listLimit;
 
