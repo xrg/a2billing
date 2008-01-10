@@ -7,7 +7,7 @@ CREATE OR REPLACE VIEW cc_session_calls AS
 		call.calledstation AS cnum,
 		NULL :: numeric AS pos_charge, sessionbill :: numeric AS neg_charge,
 		(sessiontime) AS duration
-		FROM cc_call_v AS call, cc_shopsessions 
+		FROM cc_call2_v AS call, cc_shopsessions 
 		WHERE call.cardid = cc_shopsessions.card
 		  AND call.starttime >= cc_shopsessions.starttime AND (cc_shopsessions.endtime IS NULL OR call.starttime <= cc_shopsessions.endtime);
 
