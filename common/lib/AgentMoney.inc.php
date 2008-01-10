@@ -52,6 +52,8 @@ function AgentMoney($agentid,&$sel_form,$intl, $rights){
 
 	$PAGE_ELEMS[] = &$Totals;
 	$Totals->expectRows = true;
+	$Totals->listclass = 'total';
+	$Totals->headerString = _("Agent Totals");
 	
 	$cardsqr = "SELECT SUM(CASE WHEN credit > 0.0 THEN credit ELSE NULL END) AS pos_credit,
 			SUM(CASE WHEN credit < 0.0 THEN (0.0 - credit) ELSE NULL END) AS neg_credit,

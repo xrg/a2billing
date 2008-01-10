@@ -76,6 +76,7 @@ class SqlActionForm extends ActionForm {
 class SqlTableActionForm extends SqlActionForm {
 	public $noRowsString;
 	public $rmodel = array();
+	public $listclass = 'actlist';
 	
 	function RenderContent(){
 		echo '<div class="content">'."\n";
@@ -85,7 +86,7 @@ class SqlTableActionForm extends SqlActionForm {
 			if (isset($this->noRowsString))
 				echo $this->noRowsString;
 		}else { ?>
-	<TABLE cellPadding="2" cellSpacing="2" align='center' class='actlist'>
+	<TABLE cellPadding="2" cellSpacing="2" align='center' class="<?= $this->listclass ?>">
 		<thead><tr>
 		<?php
 		foreach ($this->rmodel as $fld)
@@ -123,4 +124,59 @@ class SqlTableActionForm extends SqlActionForm {
 	}
 
 };
+
+/** Vertical enumeration, in "details" style */
+class SqlDetailsActionForm extends SqlTableActionForm {
+	function RenderContent(){
+		echo '<div class="content">'."\n";
+		if (isset($this->contentString))
+			echo $this->contentString;
+		if ($this->qryres->EOF){
+			if (isset($this->noRowsString))
+				echo $this->noRowsString;
+		}else { ?>
+	<table cellPadding="2" cellSpacing="2" align='center' class="<?= $this->listclass ?>">
+	<?php if (!empty($this->headerString)) {
+	?><thead><tr><td colspan=2><?php
+		echo $this->headerString;
+	?></td></tr></thead>
+	<?php }
+	?> <tbody>
+		<?php
+		$row_num = 0;
+		while ($row = $this->qryres->fetchRow()){
+			foreach($this->rmodel as $fld){
+			if ($row_num %2 ==1) 
+				$cls= 'class="odd"';
+			else	$cls = '';
+			?><tr <?= $cls ?>><td class="field"><?php
+				$fld->RenderEditTitle($this);
+			?></td><td class="value"><?php
+				$fld->DispList($row,$this);
+			?></td></tr>
+			<?php
+			$row_num++;
+			}
+		}
+		?>
+		</tbody>
+	</table>
+	<?php
+		}
+		
+		if (isset($this->afterContentString))
+			echo $this->afterContentString;
+		
+		echo '</div>'."\n";
+	}
+};
+
+// 		<thead><tr>
+// 		<?php
+// 
+// 		foreach ($this->rmodel as $fld)
+// 			$fld->RenderListHead_NoSort($this);
+// 		? >
+// 		</tr></thead>
+
 ?>

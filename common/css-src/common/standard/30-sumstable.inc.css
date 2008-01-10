@@ -1,0 +1,57 @@
+table.total {
+	/*background-color: ; */
+	width: 70%;
+	border: none;
+}
+
+table.total thead {
+	text-align: center;
+	background-color: #600101;
+	font-weight: bold;
+	color: white;
+}
+
+table.total .noth td {
+	text-align: center;
+	background-color: #b72222;
+	color: white;
+	font-weight: bold;
+}
+
+table.total tbody td.field {
+	text-align: left;
+	background-color: #FFE59F;
+	padding-left: 1em;
+	color: black;
+	font-family: Arial,Verdana;
+	font-weight: bold;
+	font-size: 9pt;
+}
+table.total tbody td.value {
+	text-align: center;
+	background-color: #E2E8EF;
+	color: black;
+	font-family: Arial,Verdana;
+	font-weight: normal;
+	font-size: 9pt;
+}
+
+table.total tbody tr.odd td.field {
+	background-color: #FFE17D;
+	color: black;
+}
+
+table.total tbody tr.odd td.value {
+	text-align: center;
+	background-color: #D2D8ED;
+	color: black;
+}
+
+
+table.total td.total {
+	text-align: center;
+	background-color: #BA5151;
+	color: white;
+	font-family: Arial,Verdana;
+	font-weight: bold;
+}
