@@ -29,6 +29,8 @@ require_once(DIR_COMMON."Class.A2Billing.inc.php");
 require_once(DIR_COMMON."languageSettings.inc.php");
 
 function UseLanguage(){
+	global $language_list;
+	global $FG_DEBUG;
     if (isset($_GET['language'])){
     	if ($FG_DEBUG >0) echo "<!-- lang explicitly set to ".$_GET['language'] ."-->\n";
       $_SESSION["language"] = $_GET['language'];
