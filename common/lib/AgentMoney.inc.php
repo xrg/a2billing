@@ -8,11 +8,7 @@ function AgentMoney($agentid,&$sel_form,$intl, $rights){
 	global $PAGE_ELEMS;
 	global $FG_DEBUG;
 	$dbhandle = A2Billing::DBHandle();
-	if($intl)
-		$view_name = 'cc_agent_money_vi';
-	else
-		$view_name = 'cc_agent_money_v';
-	$HD_Form= new FormHandler($view_name,_("Transactions"),_("Transaction"));
+	$HD_Form= new FormHandler('cc_agent_money_v',_("Transactions"),_("Transaction"));
 	$HD_Form->checkRights($rights);
 	$HD_Form->init(null,false);
 	$HD_Form->views['list'] = new SumMultiView();
@@ -34,12 +30,16 @@ function AgentMoney($agentid,&$sel_form,$intl, $rights){
 	if (isset($clauses['date_to']))
 		$HD_Form->model[] = new FreeClauseField($clauses['date_to']);
 	$HD_Form->model[] = new DateTimeField(_("Date"),'date');
-// 	if ($intl)
 	
 	$HD_Form->model[] = new TextField(_("Type"),'pay_type');
-	end($HD_Form->model)->fieldexpr = 'gettexti(pay_type,\'C\')';
+	if ($intl)
+		end($HD_Form->model)->fieldexpr = 'gettexti(pay_type,\''. getenv('LANG').'\')';
+	else
+		end($HD_Form->model)->fieldexpr = 'gettexti(pay_type,\'C\')';
 	
 	$HD_Form->model[] = new TextField(_("Description"),'descr');
+	if ($intl)
+		end($HD_Form->model)->fieldexpr = 'gettext(descr,\''. getenv('LANG').'\')';
 	$HD_Form->model[] = new MoneyField(_("In"),'pos_credit');
 	$HD_Form->model[] = new MoneyField(_("Out"),'neg_credit');
 	$HD_Form->model[] = new MoneyField(_("Sum"),'credit');
@@ -59,7 +59,7 @@ function AgentMoney($agentid,&$sel_form,$intl, $rights){
 	$Totals->setAction('true');
 
 	$PAGE_ELEMS[] = &$Totals;
-	$Totals->expectRows = true;
+	$Totals->expectRows = false;
 	$Totals->listclass = 'total';
 	$Totals->headerString = _("Agent Totals");
 	
