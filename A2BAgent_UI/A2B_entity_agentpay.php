@@ -1,58 +1,37 @@
 <?php
-if ($wantinclude!=1){
-	require("./lib/defines.php");
-	require("./lib/module.access.php");
-	require("./lib/Form/Class.FormHandler.inc.php");
-}
+require_once ("./lib/defines.php");
+require_once ("./lib/module.access.php");
+require_once (DIR_COMMON."Form.inc.php");
+require_once (DIR_COMMON."Class.HelpElem.inc.php");
+require_once (DIR_COMMON."Form/Class.ClauseField.inc.php");
+require_once (DIR_COMMON."Form/Class.TimeField.inc.php");
+require_once (DIR_COMMON."Form/Class.SqlRefField.inc.php");
+
+$menu_section='menu_reports';
 
 
-if (! has_rights (ACX_ACCESS)){
-	   Header ("HTTP/1.0 401 Unauthorized");
-	   Header ("Location: PP_error.php?c=accessdenied");
-	   die();
-}
+HelpElem::DoHelp(gettext("Agent payments are money transactions between agents and the phone company."));
 
-include ("./FG_var_agentpay.inc");
+$HD_Form= new FormHandler('cc_agentpay',_("Payments"),_("Payment"));
+$HD_Form->checkRights(ACX_ACCESS);
+$HD_Form->init(null,false);
+$HD_Form->views['list']=new ListView();
+$HD_Form->views['details'] = new DetailsView();
 
+$PAGE_ELEMS[] = &$HD_Form;
 
-$HD_Form_c -> init();
+$HD_Form->model[] = new PKeyField(_("ID"),'id');
+$HD_Form->model[] = new ClauseField('agentid',$_SESSION['agent_id']);
 
+$HD_Form->model[] = new DateTimeFieldDH(_("Date"),'date');
+$HD_Form->model[] = new MoneyField(_("Credit"),'credit');
+$HD_Form->model[] = new TextField(_("Type"), "pay_type");
+end($HD_Form->model)->fieldexpr = "gettexti(pay_type,'".getenv('LANG') ."')";
 
-if ($id!="" || !is_null($id)){	
-	$HD_Form_c -> FG_EDITION_CLAUSE = str_replace("%id", "$id", $HD_Form_c -> FG_EDITION_CLAUSE);	
-}
+$HD_Form->model[] = dontList(new SqlBigRefField(_("Invoice"), "invoice_id","cc_invoices", "id", "orderref"));
+//end($HD_Form->model)->refclause = "agentid IS NOT NULL";
 
+$HD_Form->model[] = dontList( new TextAreaField(_("Description"),'descr'));
 
-if (!isset($form_action))  $form_action="list"; //ask-add
-if (!isset($action)) $action = $form_action;
-
-
-$list = $HD_Form_c -> perform_action($form_action);
-
-
-if ($wantinclude!=1){
-	// #### HEADER SECTION
-	include("PP_header.php");
-
-	// #### HELP SECTION
-	if ($form_action=='list') echo '<br><br>'.$CC_help_list_agentpay;
-	else echo '<br><br>'.$CC_help_edit_agentpay;
-}
-
-
-// #### TOP SECTION PAGE
-$HD_Form_c -> create_toppage ($form_action);
-
-
-// #### CREATE FORM OR LIST
-//$HD_Form_c -> CV_TOPVIEWER = "menu";
-if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
-
-$HD_Form_c -> create_form ($form_action, $list, $id=null) ;
-
-if ($wantinclude!=1){
-	// #### FOOTER SECTION
-	include("PP_footer.php");
-}	
-
+require("PP_page.inc.php");
 ?>
