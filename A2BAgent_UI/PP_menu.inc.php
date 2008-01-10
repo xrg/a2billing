@@ -67,7 +67,7 @@ function imgidclick(imgID,divID)
 	<li><a href="A2B_entity_booths.php"><strong><?= _("EDIT BOOTHS");?></strong></a></li>
 	<li><a href=# target=_self></a></li>	
 	
-	<li><a href="invoices_cust.php"><strong><?= _("PAYMENTS");?></strong></a></li>
+	<li><a href="invoices_cshop.php"><strong><?= _("PAYMENTS");?></strong></a></li>
 	<li><a href=# target=_self></a></li>	
 	
 	<li><a href="reports_choice.php"><strong><?= _("REPORTS");?></strong></a></li>
