@@ -19,7 +19,7 @@ function AgentMoney($agentid,&$sel_form,$intl, $rights){
 		$HD_Form->views['dump-form'] = new DbgDumpView();
 	
 	$clauses = $sel_form->buildClauses();
-		$PAGE_ELEMS[] = new DbgElem(print_r($clauses,true));
+	// $PAGE_ELEMS[] = new DbgElem(print_r($clauses,true));
 
 	$PAGE_ELEMS[] = &$HD_Form;
 	
