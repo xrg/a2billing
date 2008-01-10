@@ -161,7 +161,7 @@ a:hover {
 body {
 	color: #000000; 
 	font-family: Verdana,Arial,Tahoma,Helvetica,sans-serif; 
-	font-size: 11px; 
+	font-size: 9px; 
 	margin: 0px;
 	/* background: #fff url("../images/body_back.png") repeat-x; */
 	background: #fff url("images/bg5.jpg") repeat-x;
@@ -177,7 +177,6 @@ body {
 
 table {
 	font-family: Arial,Verdana;
-	font-size: 7px;
 }
 
 /*a:link { color: #039; }
