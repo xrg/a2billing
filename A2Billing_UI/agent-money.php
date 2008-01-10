@@ -13,6 +13,14 @@ $menu_section = 'menu_agents';
 $SEL_Form = new SelectionForm();
 $SEL_Form->init();
 $SEL_Form->model[] = new SqlRefField(_("Agent"),'agentid','cc_agent','id','name');
+$SEL_Form->model[] = new DateTimeField(_("Period from"),'date_from');
+	end($SEL_Form->model)->does_add = false;
+	end($SEL_Form->model)->fieldexpr = 'date';
+$SEL_Form->model[] = new DateTimeField(_("Period to"),'date_to');
+	end($SEL_Form->model)->does_add = false;
+	end($SEL_Form->model)->fieldexpr = 'date';
+$SEL_Form->search_exprs['date_from'] = '>=';
+$SEL_Form->search_exprs['date_to'] = '<=';
 //$CS_Form->agentid=$SEL_Form->getpost_single('agentid');
 
 $PAGE_ELEMS[] = &$SEL_Form;

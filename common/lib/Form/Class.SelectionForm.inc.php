@@ -10,6 +10,7 @@ class SelectionForm extends ElemBase {
 	public $model = array();
 	public $a2billing;
 	protected $_dirty_vars=null; ///< all variables starting with 'prefix'. Set on init.
+	public $search_exprs = array(); ///< an array with comparison operators for the fields
 
 	function init($sA2Billing= null, $stdActions=true){
 		if ($sA2Billing)
@@ -43,6 +44,27 @@ class SelectionForm extends ElemBase {
 
 	public function PerformAction(){
 	}
+	
+	/** Returns an array, indexed by the fieldname, with search clauses */
+	public function buildClauses($search_exprs = null){
+		$dbhan = $this->a2billing->DBHandle_p();
+		
+		if ($search_exprs != null)
+			$sexes = $search_exprs;
+		else $sexes = $this->search_exprs;
+		$retc = array();
+		foreach ($this->model as $fld){
+			if ((!$fld->does_add) && 
+				(!isset($this->_dirty_vars['use_'.$fld->fieldname]) ||
+					$this->_dirty_vars['use_'.$fld->fieldname] != 't'))
+			continue;
+			$cls = $fld->buildSearchClause($dbhan,$this,$sexes);
+			if (!empty($cls))
+				$retc[$fld->fieldname] = $cls;
+		}
+		
+		return $retc;
+	}
 
 	public function Render(){
 	?>
@@ -65,11 +87,19 @@ class SelectionForm extends ElemBase {
 	</thead>
 	<tbody>
 	<?php
-		foreach($this->model as $fld)
-			if ($fld){
+		foreach($this->model as $fld){
 		?><tr><td class="field"><?php
 				$fld->RenderEditTitle($form);
 		?></td><td class="value"><?php
+			if (!$fld->does_add){
+		?><input type="checkbox" name="<?= $this->prefix.'use_'.$fld->fieldname ?>" value="t" <?php
+		if (empty($this->_dirty_vars['use_'.$fld->fieldname]))
+			$val = false;
+		else $val =$this->_dirty_vars['use_'.$fld->fieldname];
+		if (($val == 't') || ($val === true) || ($val == 1))
+			echo 'checked ';
+		?>/> <?php
+			}
 				$fld->DispEdit($this->_dirty_vars,$this);
 		?></td></tr>
 		<?php

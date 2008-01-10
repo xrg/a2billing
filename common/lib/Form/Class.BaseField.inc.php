@@ -176,6 +176,36 @@ abstract class BaseField {
 		$ins_arr[] = array($this->fieldname,
 			$this->buildValue($form->getpost_dirty($this->fieldname),$form));
 	}
+	
+	public function buildSearchClause(&$dbhandle,$form, $search_exprs){
+		$val = $this->buildValue($form->getpost_dirty($this->fieldname));
+		if (empty($this->fieldexpr))
+			$fldex = $this->fieldname;
+		else
+			$fldex = $this->fieldexpr;
+		if (is_array($search_exprs) && (isset($search_exprs[$this->fieldname])))
+			$sex =$search_exprs[$this->fieldname];
+		else
+			$sex = '='; //what's on *your* mind?
+			
+		if ($val == null)
+			switch($sex) {
+				// Assume NULL -> 0 ..
+			case '<>':
+			case '!=':
+			case '>':
+				return $fldex .' IS NOT NULL';
+			case '<':
+				return 'false';
+			case '>=':
+				return 'true';
+			case '=':
+			case '<=':
+			default:
+				return $fldex .' IS NULL';
+			}
+		else return str_dbparams($dbhandle,"$fldex $sex %1",array($val));
+	}
 
 
 	/** Render the List head cell (together with 'td' element) */

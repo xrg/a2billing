@@ -22,9 +22,17 @@ function AgentMoney($agentid,&$sel_form,$intl, $rights){
 	if ($FG_DEBUG)
 		$HD_Form->views['dump-form'] = new DbgDumpView();
 	
+	$clauses = $sel_form->buildClauses();
+		$PAGE_ELEMS[] = new DbgElem(print_r($clauses,true));
+
 	$PAGE_ELEMS[] = &$HD_Form;
 	
+	
 	$HD_Form->model[] = new ClauseField('agentid',$agentid);
+	if (isset($clauses['date_from']))
+		$HD_Form->model[] = new FreeClauseField($clauses['date_from']);
+	if (isset($clauses['date_to']))
+		$HD_Form->model[] = new FreeClauseField($clauses['date_to']);
 	$HD_Form->model[] = new DateTimeField(_("Date"),'date');
 // 	if ($intl)
 	
@@ -55,6 +63,11 @@ function AgentMoney($agentid,&$sel_form,$intl, $rights){
 	$Totals->listclass = 'total';
 	$Totals->headerString = _("Agent Totals");
 	
+	$dc2 = '';
+	if (isset($clauses['date_from']))
+		$dc2 .= ' AND ' . str_replace('date ', 'starttime ',$clauses['date_from']);
+	if (isset($clauses['date_to']))
+		$dc2 .= ' AND ' . str_replace('date ', 'starttime ',$clauses['date_to']);
 	$cardsqr = "SELECT SUM(CASE WHEN credit > 0.0 THEN credit ELSE NULL END) AS pos_credit,
 			SUM(CASE WHEN credit < 0.0 THEN (0.0 - credit) ELSE NULL END) AS neg_credit,
 			SUM(creditlimit) AS climit
