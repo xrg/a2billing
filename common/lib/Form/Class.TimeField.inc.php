@@ -22,7 +22,7 @@ class DateTimeField extends TextField {
 	}
 
 	public function getDefault() {
-		if($this->def_date){
+		if(!empty($this->def_date)){
 			$tstamp = strtotime($this->def_date);
 			if ($tstamp !== false)
 				return date('Y-m-d H:i:s',$tstamp);

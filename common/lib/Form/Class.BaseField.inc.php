@@ -47,11 +47,9 @@ abstract class BaseField {
 	}
 	
 	public function DispAdd(&$form){
-		$v = '';
-/*		if ($form->getAction() =='ask-add2')
-			$v=$form->getpost_dirty($this->fieldname);
-		else*/
-		$v=$this->getDefault();
+		$v = $form->getpost_dirty($this->fieldname);
+		if (!isset($v))
+			$v=$this->getDefault();
 		$this->DispAddEdit($v,$form);
 	}
 

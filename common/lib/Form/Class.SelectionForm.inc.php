@@ -100,7 +100,7 @@ class SelectionForm extends ElemBase {
 			echo 'checked ';
 		?>/> <?php
 			}
-				$fld->DispEdit($this->_dirty_vars,$this);
+				$fld->DispAdd($this);
 		?></td></tr>
 		<?php
 			}
