@@ -3,6 +3,7 @@ require_once("Class.ListView.inc.php");
 
 class ListSumView extends ListView {
 	public $sum_fns = array();
+	public $ncols = null;
 
 	protected function performSumQuery(&$form,&$dbhandle){
 		if ($form->FG_DEBUG>3)
@@ -71,6 +72,10 @@ class ListSumView extends ListView {
 	} else {
 		$sum_res = $this->performSumQuery($form,$dbhandle);
 		// now, DO render the table!
+		if ($this->ncols ==null)
+			$this->ncols = count($form->model);
+		if ($this->sum_title == null)
+			$this->sum_title = _("Sum");
 		?>
 	<TABLE cellPadding="2" cellSpacing="2" align='center' class="<?= $form->list_class?>">
 		<thead><tr>
@@ -84,7 +89,7 @@ class ListSumView extends ListView {
 		$row_num = 0;
 		while ($row = $res->fetchRow()){
 			if ($form->FG_DEBUG > 4) {
-				echo '<tr><td colspan = 3>';
+				echo '<tr><td colspan = '.$this->ncols .'>';
 				print_r($row);
 				echo '</td></tr>';
 			}
@@ -103,7 +108,7 @@ class ListSumView extends ListView {
 			else	echo '<tr></tr>';
 		
 		?>
-			<tr> <td colspan=3 ><?= _("SUM")?></td></tr>
+			<tr class="sum"><td colspan="<?= $this->ncols ?>" ><?= $this->sum_title ?></td></tr>
 		<?php
 		if ($sum_res)
 			while ($row = $sum_res->fetchRow()){

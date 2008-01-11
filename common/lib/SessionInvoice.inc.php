@@ -18,15 +18,18 @@ function AgentSessionInvoice($sess_row,$rights){
 	$PAGE_ELEMS[] = &$HD_Form;
 	
 	$HD_Form->model[] = new ClauseField('sid',$sess_row['sid']);
-	$HD_Form->model[] = new DateTimeField(_("Time"),'starttime');
+	$HD_Form->model[] = new DateTimeField(_("Date"),'starttime');
 	
 	
 	$HD_Form->model[] = new TextField(_("Description"),'descr');
+		end($HD_Form->model)->fieldacr = _("Descr");
 	$HD_Form->model[] = new TextField("",'f2');
 	$HD_Form->model[] = new TextField(_("Called Number"),'cnum');
+		end($HD_Form->model)->fieldacr = _("C. Num");
 	//end($HD_Form->model)->fieldname ='agent';
 	
-	$HD_Form->model[] = new IntField(_("Duration"), "duration");
+	$HD_Form->model[] = new SecondsField(_("Duration"), "duration");
+		end($HD_Form->model)->fieldacr = _("Dur");
 	$HD_Form->model[] = new MoneyField(_("Credit"), "pos_charge");
 	$HD_Form->model[] = new MoneyField(_("Charge"), "neg_charge");
 	
@@ -52,7 +55,7 @@ function AgentSessionInvoice($sess_row,$rights){
 	
 	$Sum_Form->model[] = new IntField(_("Calls"),'cnum');
 	
-	$Sum_Form->model[] = new IntField(_("Duration"), "duration");
+	$Sum_Form->model[] = new SecondsField(_("Duration"), "duration");
 	//$Sum_Form->model[] = new FloatField(_("Credit"), "pos_charge");
 	$Sum_Form->model[] = new MoneyField(_("Charge"), "neg_charge");
 	
