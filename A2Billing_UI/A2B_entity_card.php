@@ -6,6 +6,9 @@ require_once (DIR_COMMON."Class.HelpElem.inc.php");
 require_once (DIR_COMMON."Form/Class.SqlRefField.inc.php");
 require_once (DIR_COMMON."Form/Class.VolField.inc.php");
 require_once (DIR_COMMON."Form/Class.TimeField.inc.php");
+require_once (DIR_COMMON."Form/Class.ClauseField.inc.php");
+require_once (DIR_COMMON."Form/Class.TextSearchField.inc.php");
+require_once (DIR_COMMON."Form/Class.SelectionForm.inc.php");
 
 $menu_section='menu_customers';
 
@@ -16,9 +19,6 @@ HelpElem::DoHelp(gettext("Customers are listed below by card number. Each row co
 $HD_Form= new FormHandler('cc_card',_("Customers"),_("Customer"));
 $HD_Form->checkRights(ACX_CUSTOMER);
 $HD_Form->init();
-
-$PAGE_ELEMS[] = &$HD_Form;
-$PAGE_ELEMS[] = new AddNewButton($HD_Form);
 
 $HD_Form->model[] = new PKeyFieldEH(_("ID"),'id');
 
@@ -103,6 +103,21 @@ $HD_Form->model[] = dontList(new DateTimeFieldN(_("Last service"), "servicelastr
 
 $HD_Form->model[] = new DelBtnField();
 
+$SEL_Form = new SelectionForm();
+$SEL_Form->init();
+// todo: search in use
+$SEL_Form->model[] = new TextSearchField(_("Card number"),'username');
+$SEL_Form->model[] = dontAdd(new SqlRefField(_("Group"), "grp","cc_card_group", "id", "name"));
+$SEL_Form->model[] = dontAdd(new RefField(_("Status"),'status', $cs_list));
+$SEL_Form->model[] = new TextSearchField(_("Last Name"),'lastname');
+
+$PAGE_ELEMS[] = &$SEL_Form;
+$PAGE_ELEMS[] = &$HD_Form;
+$PAGE_ELEMS[] = new AddNewButton($HD_Form);
+
+$clauses= $SEL_Form->buildClauses();
+foreach($clauses as $cla)
+	$HD_Form->model[] = new FreeClauseField($cla);
 
 require("PP_page.inc.php");
 
