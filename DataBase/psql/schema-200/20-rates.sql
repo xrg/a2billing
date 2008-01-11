@@ -5,6 +5,7 @@ CREATE TABLE cc_tariffgroup (
     iduser integer DEFAULT 0 NOT NULL,
 --     idtariffplan integer DEFAULT 0 NOT NULL,
     name text NOT NULL UNIQUE,
+    pubname text NOT NULL DEFAULT '',
     lcrtype integer DEFAULT 0 NOT NULL,
 --     creationdate timestamp without time zone DEFAULT now(),
 --     removeinterprefix integer DEFAULT 0 NOT NULL,

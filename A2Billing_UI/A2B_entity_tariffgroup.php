@@ -20,6 +20,9 @@ $PAGE_ELEMS[] = new AddNewButton($HD_Form);
 $HD_Form->model[] = new PKeyFieldEH(_("ID"),'id');
 
 $HD_Form->model[] = new TextFieldEH(_("Name"),'name');
+$HD_Form->model[] = new TextField(_("Public Name"),'pubname',_("Public name is displayed to customers, agents. You may want it to be different than the internal name above."));
+end($HD_Form->model)->fieldacr= _("P Name");
+
 $HD_Form->model[] = new IntField(_("LCR type"), "lcrtype", _("LCR mode") . " (deprecated?)");
 //$HD_Form->model[] = new TextField(_("xx"),'xx');
 $HD_Form->model[] = new RevRef2(_("Sell plans"),'tplans','id','cc_tariffgroup_plan','tgid','rtid','cc_retailplan','id','name',_("Customer of this group will use those selling plans."));

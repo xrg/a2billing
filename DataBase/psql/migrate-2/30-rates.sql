@@ -8,11 +8,11 @@ ALTER TABLE cc_retailplan ADD COLUMN migr_oldid INTEGER;
 ALTER TABLE cc_buyrate ADD COLUMN migr_oldid BIGINT;
 ALTER TABLE cc_sellrate ADD COLUMN migr_oldid BIGINT;
 
-INSERT INTO cc_tariffgroup (id,iduser,name,lcrtype,package_offer)
-	SELECT id,iduser,tariffgroupname, lcrtype, id_cc_package_offer
+INSERT INTO cc_tariffgroup (id,iduser,name,lcrtype,package_offer, pubname)
+	SELECT id,iduser,tariffgroupname, lcrtype, id_cc_package_offer, 'Standard'
 		FROM a2b_old.cc_tariffgroup;
 
-SELECT pg_catalog.setval('cc_tariffplan_id_seq', (SELECT last_value FROM a2b_old.cc_tariffplan_id_seq));
+SELECT pg_catalog.setval('cc_tariffgroup_id_seq', (SELECT last_value FROM a2b_old.cc_tariffgroup_id_seq));
 
 INSERT INTO cc_tariffplan( tariffname, creationdate, start_date, stop_date,
 			description, trunk,
