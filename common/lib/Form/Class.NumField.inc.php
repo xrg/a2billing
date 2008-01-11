@@ -181,4 +181,18 @@ class BoolField extends IntField{
 	}
 };
 
+/** Displays integer seconds in time format */
+class SecondsField extends IntField{
+	public function DispList(array &$qrow,&$form){
+		$val = $qrow[$this->fieldname];
+		if (empty($val) || !is_numeric($val))
+			echo _("0 sec");
+		else{
+			echo sprintf("%d:%02d s",intval($val / 60),intval($val%60));
+		}
+		//echo htmlspecialchars($qrow[$this->fieldname]);
+	}
+
+};
+
 ?>
