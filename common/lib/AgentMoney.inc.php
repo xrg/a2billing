@@ -62,6 +62,7 @@ function AgentMoney($agentid,&$sel_form,$intl, $rights){
 	$Totals->expectRows = false;
 	$Totals->listclass = 'total';
 	$Totals->headerString = _("Agent Totals");
+	$Totals->successString = null;
 	
 	$dc2 = '';
 	if (isset($clauses['date_from']))
