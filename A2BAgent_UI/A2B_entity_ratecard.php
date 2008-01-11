@@ -6,10 +6,16 @@ require_once (DIR_COMMON."Class.HelpElem.inc.php");
 require_once (DIR_COMMON."Form/Class.ClauseField.inc.php");
 require_once (DIR_COMMON."Form/Class.TimeField.inc.php");
 require_once (DIR_COMMON."Form/Class.SqlRefField.inc.php");
+require_once (DIR_COMMON."Form/Class.TextSearchField.inc.php");
+require_once (DIR_COMMON."Form/Class.SelectionForm.inc.php");
 
 $menu_section='menu_info';
 
 HelpElem::DoHelp(_("These are the selling rates to each destination"));
+
+$SEL_Form = new SelectionForm();
+$SEL_Form->init();
+$SEL_Form->model[] = new TextSearchField(_("Destination"),'destination');
 
 $HD_Form= new FormHandler('cc_agent_current_rates_v',_("Rates"),_("Rate"));
 $HD_Form->checkRights(ACX_ACCESS);
@@ -17,10 +23,15 @@ $HD_Form->init(null,false);
 $HD_Form->views['list']=new ListView();
 //$HD_Form->views['details'] = new DetailsView();
 
+$PAGE_ELEMS[] = &$SEL_Form;
 $PAGE_ELEMS[] = &$HD_Form;
 
 //$HD_Form->model[] = new PKeyField(_("ID"),'id');
 $HD_Form->model[] = new ClauseField('agentid',$_SESSION['agent_id']);
+
+$clauses= $SEL_Form->buildClauses();
+foreach($clauses as $cla)
+	$HD_Form->model[] = new FreeClauseField($cla);
 
 $HD_Form->model[] = new TextField(_("Destination"), "destination");
 
