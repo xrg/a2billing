@@ -38,8 +38,8 @@ class TextSearchField extends TextField {
 		$this->DispAdd($form);
 	}
 
-	public function buildSearchClause(&$dbhandle,$form, $search_exprs){
-		$val = $this->buildValue($form->getpost_dirty($this->fieldname));
+	public function buildSearchClause(&$dbhandle,&$form, $search_exprs){
+		$val = $this->buildValue($form->getpost_dirty($this->fieldname),$form);
 		$mo_val = $form->getpost_dirty('use_'.$this->fieldname);
 		if (empty($mo_val))
 			$mo_val = 'no';
