@@ -51,4 +51,22 @@ SELECT credit, climit, AVG(totaltime) as avg_time,
 	GROUP BY agentid, credit, climit  ;
 $$ LANGUAGE SQL STABLE STRICT;
 
+CREATE OR REPLACE VIEW cc_agent_rates_v AS
+	SELECT cc_card_group.agentid,
+		cc_tariffgroup.id AS tg_id, cc_tariffgroup.pubname AS tg_name, 
+		cc_retailplan.id AS tp_id, cc_retailplan.name AS tp_name,
+		cc_retailplan.start_date AS tp_start, cc_retailplan.stop_date AS tp_end,
+		cc_sellrate.id AS rc_id,
+		cc_sellrate.destination, cc_sellrate.rateinitial,
+		(cc_sellrate.connectcharge + cc_sellrate.disconnectcharge) AS charge_once,
+		cc_sellrate.billingblock
+	FROM cc_sellrate, cc_retailplan, cc_card_group, cc_tariffgroup_plan, cc_tariffgroup
+	WHERE cc_sellrate.idrp = cc_retailplan.id AND cc_tariffgroup_plan.rtid = cc_retailplan.id
+	  AND cc_tariffgroup_plan.tgid = cc_tariffgroup.id
+	  AND cc_card_group.tariffgroup = cc_tariffgroup.id;
+
+CREATE OR REPLACE VIEW cc_agent_current_rates_v AS
+	SELECT DISTINCT agentid, tg_name, destination, rateinitial, charge_once, billingblock
+		FROM cc_agent_rates_v 
+		WHERE tp_start <= now() AND tp_end > now();
 --eof

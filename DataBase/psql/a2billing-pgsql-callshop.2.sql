@@ -234,19 +234,6 @@ CREATE OR REPLACE FUNCTION fmt_date( date TIMESTAMP) RETURNS TEXT AS $$
 	SELECT to_char($1, 'DD/MM/YYYY HH24:MM');
 	$$ LANGUAGE SQL IMMUTABLE STRICT;
 	
-CREATE OR REPLACE VIEW cc_tariffrates_v AS SELECT cc_tariffgroup.id AS tg_id, cc_tariffgroup.tariffgroupname AS tg_name, 
-	cc_tariffplan.id AS tp_id, cc_tariffplan.tariffname AS tp_name,
-	cc_tariffplan.startingdate AS tp_start, cc_tariffplan.expirationdate AS tp_end,
-	cc_ratecard.id AS rc_id,
-	cc_ratecard.dialprefix, cc_ratecard.destination, cc_ratecard.rateinitial, 
-	(cc_ratecard.connectcharge + cc_ratecard.disconnectcharge) AS charge_once,
-	cc_ratecard.billingblock
-
-	FROM cc_tariffgroup, cc_tariffgroup_plan, cc_tariffplan, cc_ratecard
-	
-	WHERE cc_tariffgroup.id = cc_tariffgroup_plan.idtariffgroup AND
-		cc_tariffplan.id = cc_tariffgroup_plan.idtariffplan AND
-		cc_ratecard.idtariffplan = cc_tariffplan.id;
 
 --------------------
 
