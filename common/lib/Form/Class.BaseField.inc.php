@@ -61,6 +61,22 @@ abstract class BaseField {
 		//stub!
 	}
 	
+	/** Display this as a search form element
+	   By default, in search forms, the does_add flag controlls whether
+	   this field is optional */
+	public function DispSearch(&$form){
+		if (!$this->does_add){
+		?><input type="checkbox" name="<?= $form->prefix.'use_'.$this->fieldname ?>" value="t" <?php
+		$val = $form->getpost_dirty('use_'.$this->fieldname);
+		if (empty($val))
+			$val = false;
+		if (($val == 't') || ($val === true) || ($val == 1))
+			echo 'checked ';
+		?>/> <?php
+		}
+		$this->DispAdd($form);
+	}
+	
 	/** Return the default value (for a addition) */
 	public function getDefault() {
 		return '';
@@ -176,7 +192,7 @@ abstract class BaseField {
 	}
 	
 	public function buildSearchClause(&$dbhandle,$form, $search_exprs){
-		$val = $this->buildValue($form->getpost_dirty($this->fieldname));
+		$val = $this->buildValue($form->getpost_dirty($this->fieldname),$form);
 		if (empty($this->fieldexpr))
 			$fldex = $this->fieldname;
 		else

@@ -91,16 +91,7 @@ class SelectionForm extends ElemBase {
 		?><tr><td class="field"><?php
 				$fld->RenderEditTitle($form);
 		?></td><td class="value"><?php
-			if (!$fld->does_add){
-		?><input type="checkbox" name="<?= $this->prefix.'use_'.$fld->fieldname ?>" value="t" <?php
-		if (empty($this->_dirty_vars['use_'.$fld->fieldname]))
-			$val = false;
-		else $val =$this->_dirty_vars['use_'.$fld->fieldname];
-		if (($val == 't') || ($val === true) || ($val == 1))
-			echo 'checked ';
-		?>/> <?php
-			}
-				$fld->DispAdd($this);
+				$fld->DispSearch($this);
 		?></td></tr>
 		<?php
 			}
