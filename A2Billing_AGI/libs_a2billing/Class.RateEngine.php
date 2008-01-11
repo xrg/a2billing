@@ -396,7 +396,7 @@ class RateEngine {
 		$credit -= $disconnectcharge;
 		//$credit -= ($initblock/60)*$rateinitial;
 		
-		$callback_rate = array();
+		$callbackrate = array();
 		
 		if(($A2B->mode == 'cid-callback') || ($A2B->mode == 'all-callback')){
 			$callbackrate['rateinitial']=$rateinitial;
