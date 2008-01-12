@@ -19,7 +19,7 @@ SELECT COALESCE(cc_card.username, cc_booth.peername) AS name,
 	rtpkeepalive, rtpholdtimeout, rtptimeout,
 	qualify,
 	permit, deny, mask,
-	allow, disallow,
+	disallow, allow,
 	cancallforward, musiconhold, setvar,
 	ipaddr, COALESCE(port, defport) AS port, regseconds,
 	cc_ast_instance.username, fullcontact, regserver
