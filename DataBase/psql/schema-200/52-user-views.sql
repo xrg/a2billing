@@ -27,6 +27,7 @@ SELECT COALESCE(cc_card.username, cc_booth.peername) AS name,
 	FROM cc_ast_users_config, cc_ast_users
 		LEFT JOIN cc_ast_instance ON (cc_ast_instance.userid = cc_ast_users.id 
 			AND cc_ast_instance.sipiax = 1
+			AND cc_ast_instance.dyn = true
 			AND cc_ast_instance.srvid = ( SELECT id from cc_a2b_server 
 				WHERE db_username = current_user))
 		LEFT JOIN cc_card ON (cc_ast_users.card_id = cc_card.id)
@@ -64,6 +65,7 @@ CREATE OR REPLACE RULE realtime_sip_update_r3 AS ON UPDATE TO realtime_sip_peers
 	UPDATE cc_ast_instance SET ipaddr = NEW.ipaddr, port = NEW.port, regseconds = NEW.regseconds,
 			username = NEW.username, fullcontact = NEW.fullcontact, regserver = NEW.regserver
 		WHERE userid = OLD.realtime_id
+		  AND dyn = true
 		AND srvid = ( SELECT id from cc_a2b_server WHERE db_username = current_user);
 	
 -- Remove the instance entry. TODO: wouldn't it be better to log the old ip?
@@ -72,6 +74,7 @@ CREATE OR REPLACE RULE realtime_sip_update_rd AS ON UPDATE TO realtime_sip_peers
 	DO INSTEAD
 	DELETE FROM cc_ast_instance
 		WHERE userid = OLD.realtime_id
+		  AND dyn = true
 		AND srvid = ( SELECT id from cc_a2b_server WHERE db_username = current_user);
 
 
