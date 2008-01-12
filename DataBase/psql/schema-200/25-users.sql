@@ -96,7 +96,7 @@ CREATE TABLE cc_ast_instance (
     username    VARCHAR(40),
     fullcontact VARCHAR(80),
     regserver   VARCHAR(40),
-    PRIMARY KEY(userid,srvid)
+    PRIMARY KEY(userid,srvid,sipiax)
 );
 
 

@@ -6,7 +6,7 @@ require_once (DIR_COMMON."Class.HelpElem.inc.php");
 require_once (DIR_COMMON."Form/Class.SqlRefField.inc.php");
 require_once (DIR_COMMON."Form/Class.VolField.inc.php");
 
-$menu_section='menu_trunk';
+$menu_section='menu_servers';
 
 
 HelpElem::DoHelp(gettext("Trunks are used to terminate the call!<br>" .
