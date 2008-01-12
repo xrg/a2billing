@@ -5,13 +5,14 @@ CREATE TRIGGER cc_call_check_invoice BEFORE UPDATE OR DELETE ON cc_call
 	FOR EACH ROW EXECUTE PROCEDURE cc_invoice_lock_f();
 
 CREATE OR REPLACE VIEW cc_call_v AS
-SELECT sessionid, uniqueid, cardid,nasipaddress, srvid,
+SELECT sessionid, uniqueid, cardid,nasipaddress, srvid, cmode,
     starttime,stoptime,
     sessiontime,calledstation,
     startdelay,stopdelay, attempt(la),srid(la),brid(la),tcause(la),hupcause(la),
     cause_ext(la),trunk(la),
     sessionbill,destination,tgid, qval, src, buycost, invoice_id
     FROM (SELECT sessionid, uniqueid, cardid, srvid,
+    		MAX(cmode) AS cmode,
 		MAX(nasipaddress) AS nasipaddress,
 		MIN(starttime) AS starttime, MAX(stoptime) AS stoptime,
 		SUM(sessiontime) AS sessiontime, MIN(calledstation) AS calledstation,
@@ -25,13 +26,13 @@ SELECT sessionid, uniqueid, cardid,nasipaddress, srvid,
 
 
 CREATE OR REPLACE VIEW cc_call2_v AS
-SELECT sessionid, uniqueid, cardid,nasipaddress, srvid,
+SELECT sessionid, uniqueid, cardid,nasipaddress, srvid, cmode,
     starttime,stoptime,
     sessiontime,substring(calledstation from '#"%#"___' for '#') || '***' AS calledstation,
     startdelay,stopdelay, attempt(la),srid(la),brid(la),tcause(la),hupcause(la),
     cause_ext(la),trunk(la),
     sessionbill,destination,tgid, qval, src, buycost, invoice_id
-    FROM (SELECT sessionid, uniqueid, cardid, srvid,
+    FROM (SELECT sessionid, uniqueid, cardid, srvid, MAX(cmode) AS cmode,
 		MAX(nasipaddress) AS nasipaddress,
 		MIN(starttime) AS starttime, MAX(stoptime) AS stoptime,
 		SUM(sessiontime) AS sessiontime, MIN(calledstation) AS calledstation,
