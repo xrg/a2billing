@@ -5,19 +5,31 @@ require_once (DIR_COMMON."Form.inc.php");
 require_once (DIR_COMMON."Class.HelpElem.inc.php");
 require_once (DIR_COMMON."Form/Class.SqlRefField.inc.php");
 require_once (DIR_COMMON."Form/Class.RevRef.inc.php");
+require_once (DIR_COMMON."Form/Class.TextSearchField.inc.php");
+require_once (DIR_COMMON."Form/Class.ClauseField.inc.php");
+require_once (DIR_COMMON."Form/Class.SelectionForm.inc.php");
 $menu_section='menu_ratecard';
 
 HelpElem::DoHelp(gettext("Buy rates are the prices paid to the provider for some destination."));
+
+$SEL_Form = new SelectionForm();
+$SEL_Form->init();
+$SEL_Form->model[] = new TextSearchField(_("Destination"),'destination');
+$SEL_Form->model[] = new SqlRefField(_("Plan"),'idtp','cc_tariffplan','id','tariffname', _("Buy plan"));
+	end($SEL_Form->model)->does_add = false;
 
 $HD_Form= new FormHandler('cc_buyrate',_("Buy rates"),_("Buy rate"));
 $HD_Form->checkRights(ACX_RATECARD);
 $HD_Form->init();
 
-
+$PAGE_ELEMS[] = &$SEL_Form;
 $PAGE_ELEMS[] = &$HD_Form;
 $PAGE_ELEMS[] = new AddNewButton($HD_Form);
 
 $HD_Form->model[] = new PKeyFieldEH(_("ID"),'id');
+$clauses= $SEL_Form->buildClauses();
+foreach($clauses as $cla)
+	$HD_Form->model[] = new FreeClauseField($cla);
 
 $HD_Form->model[] = new TextFieldEH(_("Destination"),'destination');
 $HD_Form->model[] = new SqlRefField(_("Plan"),'idtp','cc_tariffplan','id','tariffname', _("Tariff plan"));

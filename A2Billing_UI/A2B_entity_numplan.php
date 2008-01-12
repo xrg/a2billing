@@ -6,7 +6,7 @@ require_once (DIR_COMMON."Class.HelpElem.inc.php");
 require_once (DIR_COMMON."Form/Class.RevRef.inc.php");
 require_once (DIR_COMMON."Form/Class.RevRefForm.inc.php");
 
-$menu_section='menu_numplan';
+$menu_section='menu_config';
 
 
 HelpElem::DoHelp(gettext("Numbering plans define the way a customer dials numbers. " .
