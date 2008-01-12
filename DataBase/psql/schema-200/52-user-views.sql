@@ -4,6 +4,16 @@
 -- The use of views actually helps prevent * from updating the wrong
 -- fields.
 
+CREATE OR REPLACE VIEW cc_ast_users_v AS
+	SELECT cc_ast_users.*,
+	(CASE WHEN cc_card.id IS NOT NULL THEN 'Card:' || cc_card.username
+		WHEN cc_booth.id IS NOT NULL THEN 'Booth:' || cc_booth.name
+		ELSE '' END) AS name
+	FROM cc_ast_users
+		LEFT JOIN cc_card ON (cc_ast_users.card_id = cc_card.id)
+		LEFT JOIN cc_booth ON (cc_ast_users.booth_id = cc_booth.id)
+	;
+	
 
 CREATE OR REPLACE VIEW realtime_sip_peers AS
 SELECT COALESCE(cc_card.username, cc_booth.peername) AS name,

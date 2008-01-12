@@ -78,6 +78,26 @@ class DelBtnField extends OptionField {
 	}
 };
 
+class DetailsBtnField extends OptionField {
+	public $message = null;
+	public $img = './Images/icon-viewdetails.png';
+	
+	public function DispList(array &$qrow,&$form){
+		if ($this->message)
+			$msg=$this->message;
+		else
+			$msg=str_params(_("Details of %1"),array($form->model_name_s),1);
+		
+		$pkparams= $form->getPKparams($qrow,true);
+		$pkparams[$form->prefix.'action']='details';
+		$url= $_SERVER['PHP_SELF'].$form->gen_AllGetParams($pkparams);
+	
+		echo '&nbsp;<a href="'. $url . '" title="'.$msg .'">';
+		echo '<img src="'.$this->img.'" border="0" alt="'. $msg. '">';
+		echo '</a>';
+	}
+};
+
 class OtherBtnField extends OptionField {
 	public $title ='Other';
 	public $img ;
