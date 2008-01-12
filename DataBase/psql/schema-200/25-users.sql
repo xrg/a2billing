@@ -90,12 +90,13 @@ CREATE TABLE cc_ast_instance (
     dyn    BOOLEAN DEFAULT true NOT NULL,
     sipiax integer not null default 0,
     -- Fields asterisk sends:
-    ipaddr      INET,
+    ipaddr      VARCHAR(16),
     port        INTEGER,
     regseconds  INTEGER,
     username    VARCHAR(40),
     fullcontact VARCHAR(80),
     regserver   VARCHAR(40),
+    useragent   TEXT,
     PRIMARY KEY(userid,srvid,sipiax)
 );
 

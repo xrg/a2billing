@@ -21,8 +21,8 @@ SELECT COALESCE(cc_card.username, cc_booth.peername) AS name,
 	permit, deny, mask,
 	disallow, allow,
 	cancallforward, musiconhold, setvar,
-	ipaddr, COALESCE(port, defport) AS port, regseconds,
-	cc_ast_instance.username, fullcontact, regserver
+	ipaddr , COALESCE(port, defport) AS port, regseconds,
+	cc_ast_instance.username, COALESCE(fullcontact,'')::varchar(80) AS fullcontact, regserver, useragent
 	
 	FROM cc_ast_users_config, cc_ast_users
 		LEFT JOIN cc_ast_instance ON (cc_ast_instance.userid = cc_ast_users.id 
@@ -52,25 +52,27 @@ CREATE OR REPLACE RULE realtime_sip_update_rn AS ON UPDATE TO realtime_sip_peers
 
 -- First case: registration of a sip peer: insert the instance
 CREATE OR REPLACE RULE realtime_sip_update_ri AS ON UPDATE TO realtime_sip_peers
-	WHERE OLD.ipaddr IS NULL AND NEW.ipaddr IS NOT NULL
+	WHERE OLD.ipaddr IS NULL AND NEW.ipaddr IS NOT NULL AND NEW.ipaddr <> ''
 	DO INSTEAD
 	INSERT INTO cc_ast_instance(userid, srvid, dyn,sipiax,ipaddr,port, regseconds,
-			username, fullcontact, regserver)
+			username, fullcontact, regserver, useragent)
 		VALUES(NEW.realtime_id, ( SELECT id from cc_a2b_server WHERE db_username = current_user),
-			true,1,NEW.ipaddr,NEW.port,NEW.regseconds,NEW.username,NEW.fullcontact,NEW.regserver);
+			true,1,NEW.ipaddr,NEW.port,NEW.regseconds,NEW.username,NEW.fullcontact,NEW.regserver, NEW.useragent);
 
 CREATE OR REPLACE RULE realtime_sip_update_r3 AS ON UPDATE TO realtime_sip_peers
-	WHERE OLD.ipaddr IS NOT NULL AND NEW.ipaddr IS NOT NULL
+	WHERE OLD.ipaddr IS NOT NULL AND NEW.ipaddr IS NOT NULL AND NEW.ipaddr != ''
 	DO INSTEAD
 	UPDATE cc_ast_instance SET ipaddr = NEW.ipaddr, port = NEW.port, regseconds = NEW.regseconds,
-			username = NEW.username, fullcontact = NEW.fullcontact, regserver = NEW.regserver
+			username = NEW.username, fullcontact = NEW.fullcontact, regserver = NEW.regserver,
+			useragent = NEW.useragent
 		WHERE userid = OLD.realtime_id
 		  AND dyn = true
 		AND srvid = ( SELECT id from cc_a2b_server WHERE db_username = current_user);
 	
 -- Remove the instance entry. TODO: wouldn't it be better to log the old ip?
 CREATE OR REPLACE RULE realtime_sip_update_rd AS ON UPDATE TO realtime_sip_peers
-	WHERE OLD.ipaddr IS NOT NULL AND (NEW.ipaddr IS NULL OR NEW.ipaddr = '0.0.0.0')
+	WHERE OLD.ipaddr IS NOT NULL AND (NEW.ipaddr IS NULL OR NEW.ipaddr = '0.0.0.0'
+		OR NEW.ipaddr = '')
 	DO INSTEAD
 	DELETE FROM cc_ast_instance
 		WHERE userid = OLD.realtime_id
