@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: common\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-09-07 21:01+0300\n"
-"PO-Revision-Date: 2008-01-07 01:38GMT\n"
+"PO-Revision-Date: 2008-01-13 16:15GMT\n"
 "Last-Translator: P. Christeas <p_christeas@yahoo.com>\n"
 "Language-Team: Ellhnika <el@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -50,36 +50,30 @@ msgid "Add this"
 msgstr "Προσθήκη αυτού"
 
 #: common/lib/Form/Class.RevRef.inc.php:222
-#, fuzzy
 msgid "Could not add!"
-msgstr "όχι!"
+msgstr "Δεν προστέθηκε!"
 
 #: common/lib/Form/Class.RevRef.inc.php:225
-#, fuzzy
 msgid "Item added!"
-msgstr "Αντικείμενο!"
+msgstr "Προστέθηκε!"
 
 #: common/lib/Form/Class.RevRef.inc.php:238
-#, fuzzy
 msgid "Could not delete!"
-msgstr "όχι!"
+msgstr "Δεν διαγράφηκε!"
 
 #: common/lib/Form/Class.RevRef.inc.php:241
-#, fuzzy
 msgid "Item deleted!"
-msgstr "Αντικείμενο διεγραμμένο!"
+msgstr "Το στοιχείο διαγράφηκε!"
 
 #: common/lib/Form/Class.RevRef.inc.php:291
 #: common/lib/Form/Class.RevRef2.inc.php:188
-#, fuzzy
 msgid "Cannot insert new %1"
-msgstr "νέο 1"
+msgstr "Δεν μπορεί να προστεθεί %1"
 
 #: common/lib/Form/Class.RevRef.inc.php:309
 #: common/lib/Form/Class.RevRef2.inc.php:201
-#, fuzzy
 msgid "Cannot delete %1"
-msgstr "1"
+msgstr "Δεν μπορεί να διαγραφεί %1"
 
 #: common/lib/Form/Class.TextField.inc.php:40
 #: common/lib/Form/Class.OptionField.inc.php:53
@@ -97,7 +91,7 @@ msgstr "Διαγραφή του %1"
 
 #: common/lib/Form/Class.OptionField.inc.php:89
 msgid "Details of %1"
-msgstr ""
+msgstr "Λεπτομέρειες %1"
 
 #: common/lib/Form/Class.NumField.inc.php:160
 msgid "TRUE"
@@ -109,7 +103,7 @@ msgstr "ΨΕΥΔΕΣ"
 
 #: common/lib/Form/Class.NumField.inc.php:189
 msgid "0 sec"
-msgstr ""
+msgstr "0 δευ."
 
 #: common/lib/Form/Class.FormHelpers.inc.php:14
 msgid "item"
@@ -127,9 +121,8 @@ msgid "No %1 found!"
 msgstr "Δεν βρέθηκε %1!"
 
 #: common/lib/Form/Class.SelectionForm.inc.php:101
-#, fuzzy
 msgid "GO!"
-msgstr "ΠΗΓΑΙΝΕ"
+msgstr "ΠΗΓΑΙΝΕ!"
 
 #: common/lib/Form/Class.TimeField.inc.php:19
 msgid "IYYY-MM-DD HH24:MI:SS TZ"
@@ -137,7 +130,7 @@ msgstr "DD/MM/IYYY HH24:MI:SS TZ"
 
 #: common/lib/Form/Class.TimeField.inc.php:71
 msgid "IYYY-MM-DD"
-msgstr ""
+msgstr "DD/MM/IYYY"
 
 #: common/lib/Form/Class.SqlRefField.inc.php:114
 msgid "(none)"
@@ -220,14 +213,12 @@ msgid "Create this %1"
 msgstr "Δημιουργία ενός %1"
 
 #: common/lib/Form/Class.AddView.inc.php:118
-#, fuzzy
 msgid "Cannot create new %1, database error."
-msgstr "νέο βάση δεδομένων σφάλμα."
+msgstr "Δεν εισάγεται %1, σφάλμα στη βάση."
 
 #: common/lib/Form/Class.AddView.inc.php:123
-#, fuzzy
 msgid "New data has successfully been inserted into the database."
-msgstr "Νέο βάση δεδομένων."
+msgstr "Τα στοιχεία προστέθηκαν στη βάση δεδομένων."
 
 #: common/lib/Form/Class.ImportView.inc.php:33
 msgid "Please, you must first select a file !"
@@ -243,7 +234,7 @@ msgstr "Κοινά πεδία"
 
 #: common/lib/Form/Class.ImportView.inc.php:207
 msgid "Mandatory fields"
-msgstr ""
+msgstr "Υποχρεωτικά πεδία"
 
 #: common/lib/Form/Class.ImportView.inc.php:217
 msgid "Optional fields"
@@ -305,24 +296,20 @@ msgid ""
 msgstr "Χρήση παράδειγμα στο CSV αρχείο Πεδία ~κατά ή</br>"
 
 #: common/lib/Form/Class.ImportView.inc.php:317
-#, fuzzy
 msgid "File has not been posted at all!"
-msgstr "Αρχείο όχι σε όλα!"
+msgstr "Το αρχείο δεν ήρθε καθόλου!"
 
 #: common/lib/Form/Class.ImportView.inc.php:326
-#, fuzzy
 msgid "File size exceeds %1 limit of the system!"
-msgstr "Αρχείο μέγεθος όριο/περιορίζω από!"
+msgstr "Το αρχείο έχει μέγεθος μεγαλύτερο από το %1, το όριο του συστήματος!"
 
 #: common/lib/Form/Class.ImportView.inc.php:331
-#, fuzzy
 msgid "File size exceeds %1 limit for this action!"
-msgstr "Αρχείο μέγεθος όριο/περιορίζω για!"
+msgstr "Το μέγεθος του αρχείου υπερβαίνει τα %1 που επιτρέπονται γι αυτή την ενέργεια."
 
 #: common/lib/Form/Class.ImportView.inc.php:336
-#, fuzzy
 msgid "The uploaded file was only partially uploaded."
-msgstr "αρχείο."
+msgstr "Το αρχείο δεν έφτασε ολόκληρο."
 
 #: common/lib/Form/Class.ImportView.inc.php:341
 msgid "No file was uploaded."
@@ -346,116 +333,97 @@ msgstr "Σφάλμα στη φόρμα."
 
 #: common/lib/Form/Class.ImportView.inc.php:423
 msgid "Analyzing uploaded data..."
-msgstr ""
+msgstr "Τα δεδομένα αναλύονται..."
 
 #: common/lib/Form/Class.ImportView.inc.php:430
 #: common/lib/Form/Class.ImportView.inc.php:711
-#, fuzzy
 msgid "Error: Cannot open uploaded file"
-msgstr "Σφάλμα αρχείο"
+msgstr "Σφάλμα: δεν ανοίγει το αρχείο."
 
 #: common/lib/Form/Class.ImportView.inc.php:537
-#, fuzzy
 msgid "Import these %1"
-msgstr "Εισαγωγή 1"
+msgstr "Εισαγωγή %1"
 
 #: common/lib/Form/Class.ImportView.inc.php:605
-#, fuzzy
 msgid "Session Error, cannot import!"
-msgstr "Σύνοδος Σφάλμα!"
+msgstr "Σφάλμα Σύνόδου, δεν εισάγονται στοιχεία!"
 
 #: common/lib/Form/Class.ImportView.inc.php:614
-#, fuzzy
 msgid "Session Error, file vanished!"
-msgstr "Σύνοδος Σφάλμα αρχείο!"
+msgstr "Σφάλμα Συνόδου: το αρχείο λείπει!"
 
 #: common/lib/Form/Class.ImportView.inc.php:624
-#, fuzzy
 msgid "Session Error !"
-msgstr "Σύνοδος Σφάλμα!"
+msgstr "Σφάλμα Συνόδου!"
 
 #: common/lib/Form/Class.ImportView.inc.php:638
 msgid "Importing uploaded data..."
-msgstr ""
+msgstr "Τα δεδομένα εισάγονται..."
 
 #: common/lib/Form/Class.ImportView.inc.php:768
-#, fuzzy
 msgid "Database error, cannot import!"
-msgstr "Βάση δεδομένων σφάλμα!"
+msgstr "Σφάλμα στη βάση δεδομένων!"
 
 #: common/lib/Form/Class.ImportView.inc.php:778
-#, fuzzy
 msgid "Database error, rows not imported!"
-msgstr "Βάση δεδομένων σφάλμα γραμμές όχι!"
+msgstr "Σφάλμα στη βάση δεδομένων: δεν εισήχθηκαν γραμμές!"
 
 #: common/lib/Form/Class.ImportView.inc.php:818
-#, fuzzy
 msgid "Database error, secondary rows not imported!"
-msgstr "Βάση δεδομένων σφάλμα γραμμές όχι!"
+msgstr "Σφάλμα στη βάση δεδομένων: δεν εισήχθηκαν συμπληρωματικές γραμμές!"
 
 #: common/lib/Form/Class.ImportView.inc.php:839
 #: common/lib/Form/Class.ImportView.inc.php:841
 #: common/lib/Form/Class.ImportView.inc.php:853
 #: common/lib/Form/Class.ImportView.inc.php:855
-#, fuzzy
 msgid "%1 lines processed: %2 rows"
-msgstr "γραμμές"
+msgstr "Επεξεργάσθηκαν %1 γραμμές από το αρχείο: %2 εγγραφές."
 
 #: common/lib/Form/Class.ImportView.inc.php:860
-#, fuzzy
 msgid "Import of data aborted."
-msgstr "Εισαγωγή από."
+msgstr "Η εισαγωγή δεδομένων ακυρώθηκε."
 
 #: common/lib/Form/Class.ListSumView.inc.php:78
 #: common/lib/AgentMoney.inc.php:45
-#, fuzzy
 msgid "Sum"
-msgstr "Υποβολή"
+msgstr "Άθροισμα"
 
 #: common/lib/Form/Class.SumMultiView.inc.php:129
 #: common/lib/Form/Class.SumMultiView.inc.php:237
-#, fuzzy
 msgid "No sums found!"
-msgstr "Δεν βρέθηκε %1!"
+msgstr "Δεν βρέθηκαν αθροίσματα!"
 
 #: common/lib/Form/Class.TextSearchField.inc.php:21
 msgid "Ignore"
-msgstr ""
+msgstr "Αγνόησε"
 
 #: common/lib/Form/Class.TextSearchField.inc.php:24
-#, fuzzy
 msgid "Starts with"
-msgstr "Εκκίνηση"
+msgstr "Αρχίζει από"
 
 #: common/lib/Form/Class.TextSearchField.inc.php:27
-#, fuzzy
 msgid "Equals"
-msgstr "Ίσο"
+msgstr "Ισούται"
 
 #: common/lib/Form/Class.TextSearchField.inc.php:30
-#, fuzzy
 msgid "Contains"
 msgstr "Περιέχει"
 
 #: common/lib/Form/Class.TextSearchField.inc.php:33
-#, fuzzy
 msgid "Ends in"
 msgstr "Τελειώνει σε"
 
 #: common/lib/Misc.inc.php:569
-#, fuzzy
 msgid "File size is greater than allowed limit."
-msgstr "Αρχείο μέγεθος είναι μεγαλύτερο όριο/περιορίζω."
+msgstr "Το μέγεθος του αρχείου είναι μεγαλύτερο από το όριο."
 
 #: common/lib/Misc.inc.php:573
-#, fuzzy
 msgid "You did not upload anything!"
-msgstr "Εσείς όχι!"
+msgstr ""
 
 #: common/lib/Misc.inc.php:577
-#, fuzzy
 msgid "Failed to upload the file, The file you uploaded may not exist on disk."
-msgstr "Απέτυχε στο αρχείο αρχείο Μάιος όχι δίσκος."
+msgstr ""
 
 #: common/lib/Misc.inc.php:583
 #, fuzzy
@@ -702,146 +670,141 @@ msgid "Database query failed!"
 msgstr "Η αναζήτηση στη βάση απέτυχε!"
 
 #: common/lib/SessionInvoice.inc.php:8 common/lib/AgentMoney.inc.php:11
-#, fuzzy
 msgid "Transactions"
-msgstr "Ενέργειες"
+msgstr "Συναλλαγές"
 
 #: common/lib/SessionInvoice.inc.php:8 common/lib/AgentMoney.inc.php:11
 msgid "Transaction"
-msgstr ""
+msgstr "Συναλλαγή"
 
 #: common/lib/SessionInvoice.inc.php:21 common/lib/SessionInvoice.inc.php:52
 #: common/lib/AgentMoney.inc.php:32
 msgid "Date"
-msgstr ""
+msgstr "Ημερομηνία"
 
 #: common/lib/SessionInvoice.inc.php:24 common/lib/AgentMoney.inc.php:40
 msgid "Description"
-msgstr ""
+msgstr "Περιγραφή"
 
 #: common/lib/SessionInvoice.inc.php:25
-#, fuzzy
 msgid "Descr"
-msgstr "Δεκέμβριος"
+msgstr "Περιγρ."
 
 #: common/lib/SessionInvoice.inc.php:27
 msgid "Called Number"
-msgstr ""
+msgstr "Κληθείς Αριθμός"
 
 #: common/lib/SessionInvoice.inc.php:28
 msgid "C. Num"
-msgstr ""
+msgstr "Κλ. Αρ."
 
 #: common/lib/SessionInvoice.inc.php:31 common/lib/SessionInvoice.inc.php:58
 msgid "Duration"
-msgstr ""
+msgstr "Διάρκεια"
 
 #: common/lib/SessionInvoice.inc.php:32
 msgid "Dur"
-msgstr ""
+msgstr "Διαρ."
 
 #: common/lib/SessionInvoice.inc.php:33
-#, fuzzy
 msgid "Credit"
-msgstr "Πίστωση:"
+msgstr "Πίστωση"
 
 #: common/lib/SessionInvoice.inc.php:34 common/lib/SessionInvoice.inc.php:60
 msgid "Charge"
-msgstr ""
+msgstr "Χρέωση"
 
 #: common/lib/SessionInvoice.inc.php:40
 msgid "Per-date calls"
-msgstr ""
+msgstr "Κλήσεις ανά ημέρα"
 
 #: common/lib/SessionInvoice.inc.php:56
 msgid "Calls"
-msgstr ""
+msgstr "Κλήσεις"
 
 #: common/lib/SessionInvoice.inc.php:63
 msgid "Per day calls"
-msgstr ""
+msgstr "Κλήσεις ανά ημέρα"
 
 #: common/lib/SessionInvoice.inc.php:67
 msgid "Total"
-msgstr ""
+msgstr "Σύνολο"
 
 #: common/lib/SessionInvoice.inc.php:72
 msgid "Session is closed"
-msgstr ""
+msgstr "Η σύνοδος έκλεισε"
 
 #: common/lib/SessionInvoice.inc.php:74
 msgid "Card is in use, cannot close session now."
-msgstr ""
+msgstr "Η κάρτα είναι σε χρήση, δεν μπορεί να τερματιστεί η συνεδρία."
 
 #: common/lib/SessionInvoice.inc.php:81
-#, fuzzy
 msgid "Pay %1"
-msgstr "Πληρωμή"
+msgstr "Πλήρωσε %1"
 
 #: common/lib/AgentMoney.inc.php:34
 msgid "Type"
-msgstr ""
+msgstr "Τύπος"
 
 #: common/lib/AgentMoney.inc.php:43
 msgid "In"
-msgstr ""
+msgstr "Μέσα"
 
 #: common/lib/AgentMoney.inc.php:44
 msgid "Out"
-msgstr ""
+msgstr "Έξω"
 
 #: common/lib/AgentMoney.inc.php:50
 msgid "Totals"
-msgstr ""
+msgstr "Σύνολα"
 
 #: common/lib/AgentMoney.inc.php:53
 msgid "Sum Total"
-msgstr ""
+msgstr "Συνολικό Άθροισμα"
 
 #: common/lib/AgentMoney.inc.php:64
 msgid "Agent Totals"
-msgstr ""
+msgstr "Σύνολα Μαγαζιού"
 
 #: common/lib/AgentMoney.inc.php:95
 msgid "Totals could not be calculated!"
-msgstr ""
+msgstr "Τα σύνολα δεν μπόρεσαν να υπολογιστούν!"
 
 #: common/lib/AgentMoney.inc.php:96
 msgid "Total sum credited to customers"
-msgstr ""
+msgstr "Σύνολο πιστωμένο σε πελάτες"
 
 #: common/lib/AgentMoney.inc.php:97
 msgid "Total sum debited from customers"
-msgstr ""
+msgstr "Σύνολο οφειλών από πελάτες"
 
 #: common/lib/AgentMoney.inc.php:98
 msgid "Total potential debit from customers"
-msgstr ""
+msgstr "Συνολική πιθανή οφειλή από πελάτες"
 
 #: common/lib/AgentMoney.inc.php:99
 msgid "Total calls made by customers"
-msgstr ""
+msgstr "Σύνολο κλήσεων από πελάτες"
 
 #: common/lib/AgentMoney.inc.php:100
 msgid "Wholesale price of calls"
-msgstr ""
+msgstr "Χονδρική τιμή κλήσεων"
 
 #: common/lib/AgentMoney.inc.php:101
 msgid "Estimated profit from calls"
-msgstr ""
+msgstr "Εκτιμώμενο κέρδος από κλήσεις"
 
 #: common/lib/AgentMoney.inc.php:102
 msgid "Outstanding balance"
-msgstr ""
+msgstr "Λογιστικό υπόλοιπο"
 
 #: common/lib/AgentMoney.inc.php:103
-#, fuzzy
 msgid "Credit Limit"
-msgstr "Πίστωση:"
+msgstr "Πιστωτικό όριο"
 
 #: common/lib/AgentMoney.inc.php:104
 msgid "Estimated Days left"
-msgstr ""
+msgstr "Εκτιμώμενο υπόλοιπο σε ημέρες"
 
 #, fuzzy
 #~ msgid "Invalid card number lenght defined in configuration."
@@ -1215,3 +1178,4 @@ msgstr ""
 
 #~ msgid "Export XML"
 #~ msgstr "Εξαγωγή XML"
+

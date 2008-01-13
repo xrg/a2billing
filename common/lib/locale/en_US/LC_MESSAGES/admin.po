@@ -37,383 +37,6 @@ msgstr ""
 msgid "Period to"
 msgstr ""
 
-#: A2Billing_UI/lib/help.php:11 A2Billing_UI/A2B_entity_card.php:16
-msgid ""
-"Customers are listed below by card number. Each row corresponds to one "
-"customer, along with information such as their call plan, credit remaining, "
-"etc.</br>"
-msgstr ""
-
-#: A2Billing_UI/lib/help.php:17
-msgid ""
-"Top up cards on this screen by selecting or typing in the card number "
-"directly, and enter the amount of credit to apply, then click ADD to confirm."
-msgstr ""
-
-#: A2Billing_UI/lib/help.php:22
-msgid ""
-"Create and edit the properties of each customer. Click <b>CONFIRM DATA</b> "
-"at the bottom of the page to save changes."
-msgstr ""
-
-#: A2Billing_UI/lib/help.php:27
-msgid ""
-"Bulk create cards and customers in a single step. <br> Set the properties of "
-"the batch such as initial credit, card type and currency, then click on the "
-"GENERATE CARDS button to create the batch."
-msgstr ""
-
-#: A2Billing_UI/lib/help.php:32
-msgid ""
-"SIP and IAX friend will create a SIP or IAX entry on the Asterisk server, so "
-"that a customer can set up a SIP or IAX client to connect directly to the "
-"asterisk server without the need to enter an account and pin each time a "
-"call is made. When done, click on the CONFIRM DATA button, then click reload "
-"to apply the changes on the Asterisk server.</br>"
-msgstr ""
-
-#: A2Billing_UI/lib/help.php:38
-msgid "Click reload to commit changes to Asterisk"
-msgstr ""
-
-#: A2Billing_UI/lib/help.php:43
-msgid "Each SIP/IAX client is identified by a number of paremeters.</br></br>"
-msgstr ""
-
-#: A2Billing_UI/lib/help.php:50
-msgid ""
-"Set the caller ID so that the customer calling in is authenticated on the "
-"basis of the callerID rather than with account number"
-msgstr ""
-
-#: A2Billing_UI/lib/help.php:60
-msgid ""
-"This screen shows refills and payments made against each account, along with "
-"the current credit on each card. The initial amount of credit applied to the "
-"card is not included. The amount owing is calculated by subtracting payments "
-"from refills"
-msgstr ""
-
-#: A2Billing_UI/lib/help.php:65
-msgid ""
-"Payment history - The section below allows you to add payments against a "
-"customer. Note that this does not change the balance on the card. Click "
-"refill under customer list to top-up a card."
-msgstr ""
-
-#: A2Billing_UI/lib/help.php:70
-msgid "Paypal History - The section below shows all paypal receipts."
-msgstr ""
-
-#: A2Billing_UI/lib/help.php:76
-msgid "Add payments to a customer's account!"
-msgstr ""
-
-#: A2Billing_UI/lib/help.php:81
-msgid ""
-"List of Call Plans, a Call Plan is a collection of rate cards, click edit to "
-"add ratecards to the Call Plan"
-msgstr ""
-
-#: A2Billing_UI/lib/help.php:86
-msgid "A Call Plan is a collection of ratecards."
-msgstr ""
-
-#: A2Billing_UI/lib/help.php:94
-msgid ""
-"List ratecards that have been created!<br>Ensure that the rate card is added "
-"into the call plan under 'List Ratecard'"
-msgstr ""
-
-#: A2Billing_UI/lib/help.php:99
-msgid "Set the properties and attributes of the ratecard <br/>"
-msgstr ""
-
-#: A2Billing_UI/lib/help.php:107
-msgid ""
-"Please select a ratecard and click on search to browse the different rates/"
-"dialing prefix of the selected ratecard."
-msgstr ""
-
-#: A2Billing_UI/lib/help.php:112
-msgid ""
-"Please select a calling card, enter the number you wish to call and press "
-"the \"SIMULATE\" button."
-msgstr ""
-
-#: A2Billing_UI/lib/help.php:117
-msgid ""
-"Please fill in the fields below to set up the rate for each destination."
-msgstr ""
-
-#: A2Billing_UI/lib/help.php:122
-msgid "This section is a utility to import ratecards from a CSV file.<br>"
-msgstr ""
-
-#: A2Billing_UI/lib/help.php:128
-msgid "This is the second step of the import ratecard! "
-msgstr ""
-
-#: A2Billing_UI/lib/help.php:136
-msgid "Ratecard comfirmation page. "
-msgstr ""
-
-#: A2Billing_UI/lib/help.php:142
-msgid "Trunk List<br/>Trunks can be modified by clicking the edit button"
-msgstr ""
-
-#: A2Billing_UI/lib/help.php:147
-msgid ""
-"System log help you to keep track and event all event happening in your "
-"application. Log Level are the Importance Levels for the Events which are "
-"logged. '1' is lowest level and '3' is highest level. 1 if for Login, "
-"Logout, Page Visit, 2 if for Add, Import, Export. and 3 is for update and "
-"Delete."
-msgstr ""
-
-#: A2Billing_UI/lib/help.php:152 A2Billing_UI/A2B_entity_trunk.php:12
-msgid "Trunks are used to terminate the call!<br>"
-msgstr ""
-
-#: A2Billing_UI/lib/help.php:159
-msgid ""
-"Administrator list who have access to the calling card administrative "
-"interface."
-msgstr ""
-
-#: A2Billing_UI/lib/help.php:164
-msgid "Edit administrator."
-msgstr ""
-
-#: A2Billing_UI/lib/help.php:169
-msgid "Listed below are the vouchers created on the system,.<br/>"
-msgstr ""
-
-#: A2Billing_UI/lib/help.php:175
-msgid ""
-"Create a single voucher, defining such properties as credit, tag, currency "
-"etc, click confirm when finished. <br/> The customer applies voucher credit "
-"to their card via the customer interface or via an IVR menu."
-msgstr ""
-
-#: A2Billing_UI/lib/help.php:180
-msgid ""
-"Bulk generate a batch of vouchers, defining such properties as credit and "
-"currency etc, click Generate Vouchers when finished.<br/>The customer "
-"applies voucher credit to their card via the customer interface. "
-msgstr ""
-
-#: A2Billing_UI/lib/help.php:185
-msgid "Re-occuring services that decrement a card at timed intervals."
-msgstr ""
-
-#: A2Billing_UI/lib/help.php:190
-msgid "Utility to apply a scheduled action on the card.<br>"
-msgstr ""
-
-#: A2Billing_UI/lib/help.php:196
-msgid ""
-"CID Group list. CID can be chosen by customers through the customer "
-"interface."
-msgstr ""
-
-#: A2Billing_UI/lib/help.php:201
-msgid ""
-"Outbound CID list. CID can be added by customers through the customer "
-"interface."
-msgstr ""
-
-#: A2Billing_UI/lib/help.php:206
-msgid ""
-"CID group offers customers a group of CID numbers which can be selected for "
-"a ratecard for outgoing calls"
-msgstr ""
-
-#: A2Billing_UI/lib/help.php:211
-msgid ""
-"Outbound CID offers customers a number which will be selected randomly for a "
-"ratecard for outgoing calls"
-msgstr ""
-
-#: A2Billing_UI/lib/help.php:216 A2Billing_UI/A2B_currencies.php:9
-msgid "Currency data are automaticaly updated from Yahoo Financial."
-msgstr ""
-
-#: A2Billing_UI/lib/help.php:224
-msgid ""
-"DID (or DDI) Group list. DID can be chosen by customers through the customer "
-"interface."
-msgstr ""
-
-#: A2Billing_UI/lib/help.php:229
-msgid ""
-"DID group offers customers a group of DID numbers which can be selected by "
-"the customer"
-msgstr ""
-
-#: A2Billing_UI/lib/help.php:234
-msgid "DID number list with destinations."
-msgstr ""
-
-#: A2Billing_UI/lib/help.php:239
-msgid ""
-"DID can be assigned to a card to re-route calls to a SIP/IAX client or a "
-"PSTN number. The Priority sets the order in which the calls are to be routed "
-"to allow for failover or follow-me."
-msgstr ""
-
-#: A2Billing_UI/lib/help.php:244
-msgid ""
-"List the DIDs currently in use with the card id and their destination number "
-"<br/> You can use the search option to show the usage of a given DID or all "
-"DIDs"
-msgstr ""
-
-#: A2Billing_UI/lib/help.php:249
-msgid ""
-"Releasing DID put it in free stat and the user will not be monthly charged "
-"any more.."
-msgstr ""
-
-#: A2Billing_UI/lib/help.php:254
-msgid ""
-"Extra Charges are to allow the billing of one-off or re-occurring monthly "
-"charges. These may be used as setup or service charges, etc..."
-msgstr ""
-
-#: A2Billing_UI/lib/help.php:260
-msgid "DID list and billing list. "
-msgstr ""
-
-#: A2Billing_UI/lib/help.php:266
-msgid ""
-"The MISC module allow new customers to register automatically and use the "
-"system immediately."
-msgstr ""
-
-#: A2Billing_UI/lib/help.php:267
-msgid ""
-" Click here <a target=\"_blank\" href=\"../signup/\"><b>Signup Pages</b></a> "
-"to access the signup page."
-msgstr ""
-
-#: A2Billing_UI/lib/help.php:268
-msgid ""
-" A mail is automatically sent when a new signup is completed. Configure the "
-"mail template below.<br>"
-msgstr ""
-
-#: A2Billing_UI/lib/help.php:269
-msgid ""
-"A Reminder email can be sent (see a2billing.conf) to customers having low "
-"credit."
-msgstr ""
-
-#: A2Billing_UI/lib/help.php:274
-msgid "This section will allow you to create and edit campaign. <br>"
-msgstr ""
-
-#: A2Billing_UI/lib/help.php:281
-msgid ""
-"Phonelist are all the phone numbers attached to a campaign. You can add, "
-"remove and edit the phone numbers."
-msgstr ""
-
-#: A2Billing_UI/lib/help.php:286
-msgid ""
-"This section will allow you to create and edit VOIP Providers for reporting "
-"purposes. "
-msgstr ""
-
-#: A2Billing_UI/lib/help.php:292
-msgid ""
-"This section will allow you to restore or download an existing database "
-"backup. "
-msgstr ""
-
-#: A2Billing_UI/lib/help.php:301
-msgid "This section will allow you to backup an existing database context. "
-msgstr ""
-
-#: A2Billing_UI/lib/help.php:308
-msgid ""
-"This section will allow you to define the E-Commerce Production Setting."
-msgstr ""
-
-#: A2Billing_UI/lib/help.php:314
-msgid ""
-"This section allows you to define the Speed dials for the customer. <br>"
-msgstr ""
-
-#: A2Billing_UI/lib/help.php:315
-msgid ""
-"A Speed Dial will be entered on the IVR in order to make a shortcut to their "
-"preferred dialed phone number."
-msgstr ""
-
-#: A2Billing_UI/lib/help.php:320
-msgid "Prefix list with destinations."
-msgstr ""
-
-#: A2Billing_UI/lib/help.php:325
-msgid "Prefixe can be assigned to a Ratecard"
-msgstr ""
-
-#: A2Billing_UI/lib/help.php:330
-msgid "Utility to apply a scheduled monitor on trunks.<br>"
-msgstr ""
-
-#: A2Billing_UI/lib/help.php:331
-msgid ""
-"For example if you want to monitor ASR (answer seize ratio) or ALOC (average "
-"length of call) everyday on each single trunk, it can be defined here, the "
-"different parameters below will define the rules to apply the alarm."
-msgstr ""
-
-#: A2Billing_UI/lib/help.php:336
-msgid "Alarms that monitors trunks at timed intervals."
-msgstr ""
-
-#: A2Billing_UI/lib/help.php:341
-msgid ""
-"Browse for log file.<br> Use to locate the log file on a remote Web server."
-"<br>It can generate combined reports for all logs. This tool can be use for "
-"extraction and presentation of information from various logfiles."
-msgstr ""
-
-#: A2Billing_UI/lib/help.php:346
-msgid ""
-"Callback will offer you an easy way to connect any phone to our Asterisk "
-"platform."
-msgstr ""
-
-#: A2Billing_UI/lib/help.php:352
-msgid "PACKAGES SYSTEM - FREE MINUTES, etc..."
-msgstr ""
-
-#: A2Billing_UI/lib/help.php:357
-msgid ""
-"SUBSCRITION FEE - You can bill in a monthly, weekly or anytime period the "
-"user for being subscribed on your service. The fee amount is defined here "
-"and the period through the cront configuration."
-msgstr ""
-
-#: A2Billing_UI/lib/help.php:372
-msgid ""
-"You can view all the transactions proceed through the different epayment "
-"system configured (Paypal, MoneyBookers, etc...). "
-msgstr ""
-
-#: A2Billing_UI/lib/help.php:377
-msgid ""
-"You can configure your epayment method here. It helps you to enable or "
-"disable the payment method. You can define the currency settings."
-msgstr ""
-
-#: A2Billing_UI/lib/help.php:382
-msgid "Epayment methods help you to collect payments from your customers."
-msgstr ""
-
 #: A2Billing_UI/lib/invoice.php:23
 #: A2Billing_UI/A2B_entity_invoice_detail_pdf.php:29
 #: A2Billing_UI/A2B_entity_invoice_detail.php:29
@@ -1339,6 +962,10 @@ msgstr ""
 #: A2Billing_UI/A2B_call_archiving.php:453
 #: A2Billing_UI/A2B_data_archiving.php:212
 msgid "Customer Archiving"
+msgstr ""
+
+#: A2Billing_UI/A2B_currencies.php:9
+msgid "Currency data are automaticaly updated from Yahoo Financial."
 msgstr ""
 
 #: A2Billing_UI/A2B_currencies.php:14
@@ -2322,6 +1949,13 @@ msgstr ""
 
 #: A2Billing_UI/A2B_entity_card_multi.php:362
 msgid "Choose a Reseller"
+msgstr ""
+
+#: A2Billing_UI/A2B_entity_card.php:16
+msgid ""
+"Customers are listed below by card number. Each row corresponds to one "
+"customer, along with information such as their call plan, credit remaining, "
+"etc.</br>"
 msgstr ""
 
 #: A2Billing_UI/A2B_entity_card.php:19
@@ -3397,6 +3031,10 @@ msgstr ""
 
 #: A2Billing_UI/A2B_entity_texts.php:163
 msgid "Submit changes"
+msgstr ""
+
+#: A2Billing_UI/A2B_entity_trunk.php:12
+msgid "Trunks are used to terminate the call!<br>"
 msgstr ""
 
 #: A2Billing_UI/A2B_entity_trunk.php:17 A2Billing_UI/PP_menu.inc.php:181

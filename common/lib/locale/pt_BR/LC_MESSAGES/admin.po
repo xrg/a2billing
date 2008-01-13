@@ -43,507 +43,6 @@ msgstr ""
 msgid "Period to"
 msgstr ""
 
-#: A2Billing_UI/lib/help.php:11 A2Billing_UI/A2B_entity_card.php:16
-msgid ""
-"Customers are listed below by card number. Each row corresponds to one "
-"customer, along with information such as their call plan, credit remaining, "
-"etc.</br>"
-msgstr ""
-"Os clientes estão listados abaixo pelo número de cartão. Cada coluna "
-"corresponde a um cliente, junto informações como seu grupo de tarifa, "
-"crédito restante, etc.</br>"
-
-#: A2Billing_UI/lib/help.php:17
-msgid ""
-"Top up cards on this screen by selecting or typing in the card number "
-"directly, and enter the amount of credit to apply, then click ADD to confirm."
-msgstr ""
-"Recarregue cartões nesta tela selecionando ou digitando diretamente o número "
-"do cartão, coloque aquantia de crédito a ser aplicada, então clique em "
-"ADICIONAR para confirmar."
-
-#: A2Billing_UI/lib/help.php:22
-msgid ""
-"Create and edit the properties of each customer. Click <b>CONFIRM DATA</b> "
-"at the bottom of the page to save changes."
-msgstr ""
-"Crie e edite as propriedades de cada cliente. Clique em <b>CONFIRMAR DADOS</"
-"b> no fim da página para salvar as alterações."
-
-#: A2Billing_UI/lib/help.php:27
-msgid ""
-"Bulk create cards and customers in a single step. <br> Set the properties of "
-"the batch such as initial credit, card type and currency, then click on the "
-"GENERATE CARDS button to create the batch."
-msgstr ""
-"Crie cartões e clientes em lote em um único passo. <br> Defina as "
-"propriedades do lote como crédito inicial,tipo e moeda do cartão, e então "
-"clique no botão GERAR CARTÕES para criar o lote."
-
-#: A2Billing_UI/lib/help.php:32
-msgid ""
-"SIP and IAX friend will create a SIP or IAX entry on the Asterisk server, so "
-"that a customer can set up a SIP or IAX client to connect directly to the "
-"asterisk server without the need to enter an account and pin each time a "
-"call is made. When done, click on the CONFIRM DATA button, then click reload "
-"to apply the changes on the Asterisk server.</br>"
-msgstr ""
-"SIP e IAX friend criarão uma entrada SIP ou IAX no servidor Asterisk, de "
-"modo que o cliente possa configurar uma conta SIP ou IAX em seu cliente de "
-"conexão para poder conectar diretamente ao servidor asterisk sem precisar "
-"colocar um código ou pin toda hora que fizer uma ligação. Quando feito isso "
-"clique no botão CONFIRMAR DADOS, então clique em recarregar para aplicar as "
-"alterações feitas no servidor Asterisk.</br>"
-
-#: A2Billing_UI/lib/help.php:38
-msgid "Click reload to commit changes to Asterisk"
-msgstr "Clique em recarregar para gravar as mudanças no Asterisk"
-
-#: A2Billing_UI/lib/help.php:43
-msgid "Each SIP/IAX client is identified by a number of paremeters.</br></br>"
-msgstr ""
-"Cada cliente SIP/IAX é identificado por um número de parâmetros.</br></br>"
-
-#: A2Billing_UI/lib/help.php:50
-msgid ""
-"Set the caller ID so that the customer calling in is authenticated on the "
-"basis of the callerID rather than with account number"
-msgstr ""
-"Configure o identificador de chamadas de modo que, ao ligar, o cliente seja "
-"autenticado a partir do número no identificador de chamadas, ao invés de ser "
-"identificado pelo número da conta"
-
-#: A2Billing_UI/lib/help.php:60
-msgid ""
-"This screen shows refills and payments made against each account, along with "
-"the current credit on each card. The initial amount of credit applied to the "
-"card is not included. The amount owing is calculated by subtracting payments "
-"from refills"
-msgstr ""
-"Esta tela mostra os reenchimentos e pagamentos feitos de acordo com cada "
-"conta, junto com o crédito atual de cada cartão. A quantidade inicial de "
-"crédito aplicada ao cartão não é incluída. A quantidade que resta é "
-"calculada subtraindo os pagamentos dos reenchimentos."
-
-#: A2Billing_UI/lib/help.php:65
-msgid ""
-"Payment history - The section below allows you to add payments against a "
-"customer. Note that this does not change the balance on the card. Click "
-"refill under customer list to top-up a card."
-msgstr ""
-"Histórico de pagamento - A seção abaixo permite que você adicione pagamentos "
-"a um cliente. Note que isto não muda o saldo do cartão. Clique em recarregar "
-"na lista de clientes para recarregar um cartão."
-
-#: A2Billing_UI/lib/help.php:70
-msgid "Paypal History - The section below shows all paypal receipts."
-msgstr ""
-"Histórico do Pagamento - A seção abaixo mostra todos os recibos do paypal."
-
-#: A2Billing_UI/lib/help.php:76
-msgid "Add payments to a customer's account!"
-msgstr "Adicionar pagamentos Ã  conta de cliente!"
-
-#: A2Billing_UI/lib/help.php:81
-msgid ""
-"List of Call Plans, a Call Plan is a collection of rate cards, click edit to "
-"add ratecards to the Call Plan"
-msgstr ""
-"Lista dos Planos de Ligações, um Plano de Ligação é uma coleção de "
-"ratecards, clique em editar para adicionar ratecards ao Plano de Ligação"
-
-#: A2Billing_UI/lib/help.php:86
-msgid "A Call Plan is a collection of ratecards."
-msgstr "Um Plano de Ligações é uma coleção de ratecards."
-
-#: A2Billing_UI/lib/help.php:94
-msgid ""
-"List ratecards that have been created!<br>Ensure that the rate card is added "
-"into the call plan under 'List Ratecard'"
-msgstr ""
-"Listar os cartões que foram criados!<br>Esteja certo de que o ratecard foi "
-"adicionado no plano de ligação. Clique em 'Listar Ratecard' para verificar"
-
-#: A2Billing_UI/lib/help.php:99
-#, fuzzy
-msgid "Set the properties and attributes of the ratecard <br/>"
-msgstr "Definir as propriedades e atributos do ratecard"
-
-#: A2Billing_UI/lib/help.php:107
-msgid ""
-"Please select a ratecard and click on search to browse the different rates/"
-"dialing prefix of the selected ratecard."
-msgstr ""
-"Por favor selecione um ratecard e clique em pesquisar para navegar pelas "
-"diferentes taxas/prefixos de discagem do ratecard selecionado."
-
-#: A2Billing_UI/lib/help.php:112
-msgid ""
-"Please select a calling card, enter the number you wish to call and press "
-"the \"SIMULATE\" button."
-msgstr ""
-"Por favor selecione o cartão que fará a ligação, entre com o número que "
-"deseja ligar e pressione o botão \"SIMULAR\"."
-
-#: A2Billing_UI/lib/help.php:117
-msgid ""
-"Please fill in the fields below to set up the rate for each destination."
-msgstr ""
-"Preencher por favor os campos abaixo para definir a taxa para cada destino."
-
-#: A2Billing_UI/lib/help.php:122
-msgid "This section is a utility to import ratecards from a CSV file.<br>"
-msgstr ""
-"Esta seção é uma utilidade para importar ratecards de um arquivo CSV.<br>"
-
-#: A2Billing_UI/lib/help.php:128
-#, fuzzy
-msgid "This is the second step of the import ratecard! "
-msgstr "Esta é a segunda etapa de importação do ratecard! <br>"
-
-#: A2Billing_UI/lib/help.php:136
-#, fuzzy
-msgid "Ratecard comfirmation page. "
-msgstr "Página de confirmação do ratecard. <br>"
-
-#: A2Billing_UI/lib/help.php:142
-#, fuzzy
-msgid "Trunk List<br/>Trunks can be modified by clicking the edit button"
-msgstr "Os Troncos podem ser modificados clicando no botão editar"
-
-#: A2Billing_UI/lib/help.php:147
-msgid ""
-"System log help you to keep track and event all event happening in your "
-"application. Log Level are the Importance Levels for the Events which are "
-"logged. '1' is lowest level and '3' is highest level. 1 if for Login, "
-"Logout, Page Visit, 2 if for Add, Import, Export. and 3 is for update and "
-"Delete."
-msgstr ""
-"O log do sistema ajuda você a manter todos os registros e eventos que "
-"acontecem em sua aplicação. O nível do log tem importantes níveis para os "
-"eventos que são registrados. '1' é o menor nível e '3' é o maior nível. 1 é "
-"usado para registrar Login - Logout - Páginas Visitadas, 2 para Adicionar - "
-"Importar - Exportar e 3 para Atualizar e Deletar."
-
-#: A2Billing_UI/lib/help.php:152 A2Billing_UI/A2B_entity_trunk.php:12
-msgid "Trunks are used to terminate the call!<br>"
-msgstr "Os Troncos são usados para terminar uma ligação!<br>"
-
-#: A2Billing_UI/lib/help.php:159
-msgid ""
-"Administrator list who have access to the calling card administrative "
-"interface."
-msgstr ""
-"Lista de administradores que tem acesso à interface administrativa dos "
-"cartões."
-
-#: A2Billing_UI/lib/help.php:164
-#, fuzzy
-msgid "Edit administrator."
-msgstr "Adicionar administrador."
-
-#: A2Billing_UI/lib/help.php:169
-msgid "Listed below are the vouchers created on the system,.<br/>"
-msgstr "Listado abaixo estão os vouchers criados no sistema,.<br/>"
-
-#: A2Billing_UI/lib/help.php:175
-msgid ""
-"Create a single voucher, defining such properties as credit, tag, currency "
-"etc, click confirm when finished. <br/> The customer applies voucher credit "
-"to their card via the customer interface or via an IVR menu."
-msgstr ""
-"Crie um simples voucher, definindo propriedades como crédito, identificação, "
-"moeda, etc. Clique em confirmar quando terminar. <br/>O cliente utilizará o "
-"crédito do voucher em seu cartão através da interface do cliente ou através "
-"do menu da URA."
-
-#: A2Billing_UI/lib/help.php:180
-msgid ""
-"Bulk generate a batch of vouchers, defining such properties as credit and "
-"currency etc, click Generate Vouchers when finished.<br/>The customer "
-"applies voucher credit to their card via the customer interface. "
-msgstr ""
-"Gere vouchers em lote, definindo propriedades como crédito, moeda, etc. "
-"Clique em Gerar Vouchers quando terminar.<br/>O cliente utilizará o crédito "
-"do voucher em seu cartão através da interface do cliente."
-
-#: A2Billing_UI/lib/help.php:185
-msgid "Re-occuring services that decrement a card at timed intervals."
-msgstr ""
-"Serviços recorrentes que farão um decréscimo no cartão em intervalos de "
-"tempo."
-
-#: A2Billing_UI/lib/help.php:190
-msgid "Utility to apply a scheduled action on the card.<br>"
-msgstr "Utilitário para aplicar uma ação agendada no cartão.<br>"
-
-#: A2Billing_UI/lib/help.php:196
-msgid ""
-"CID Group list. CID can be chosen by customers through the customer "
-"interface."
-msgstr ""
-"Lista dos Grupos de CID (Identificador de Chamadas). O CID pode ser "
-"escolhido pelos clientes através da interface do cliente."
-
-#: A2Billing_UI/lib/help.php:201
-msgid ""
-"Outbound CID list. CID can be added by customers through the customer "
-"interface."
-msgstr ""
-"Lista de CID (Identificador de Chamadas) de saída. O CID pode ser adicionado "
-"pelos clientes através da interface do cliente."
-
-#: A2Billing_UI/lib/help.php:206
-msgid ""
-"CID group offers customers a group of CID numbers which can be selected for "
-"a ratecard for outgoing calls"
-msgstr ""
-"O grupo de CID (Identificador de Chamadas) oferece aos clientes um grupo de "
-"números de CID que podem ser selecionados pelo ratecard para as ligações que "
-"são feitas."
-
-#: A2Billing_UI/lib/help.php:211
-msgid ""
-"Outbound CID offers customers a number which will be selected randomly for a "
-"ratecard for outgoing calls"
-msgstr ""
-"O CID (Identificador de Chamadas) de saída oferece aos clientes um número "
-"que será selecionado de forma randômica para um ratecard para as ligações "
-"que são feitas"
-
-#: A2Billing_UI/lib/help.php:216 A2Billing_UI/A2B_currencies.php:9
-msgid "Currency data are automaticaly updated from Yahoo Financial."
-msgstr ""
-"Dados da moeda são automaticamente atualizados a partir do Yahoo Finanças."
-
-#: A2Billing_UI/lib/help.php:224
-msgid ""
-"DID (or DDI) Group list. DID can be chosen by customers through the customer "
-"interface."
-msgstr ""
-"Lista de grupo DID (ou DDI). o DID pode ser escolhido pelos clientes através "
-"da interface do cliente."
-
-#: A2Billing_UI/lib/help.php:229
-msgid ""
-"DID group offers customers a group of DID numbers which can be selected by "
-"the customer"
-msgstr ""
-"O grupo de DID oferece aos clientes um grupo de números DID que podem ser "
-"selecionados pelo cliente"
-
-#: A2Billing_UI/lib/help.php:234
-msgid "DID number list with destinations."
-msgstr "Lista de números DID com destinos."
-
-#: A2Billing_UI/lib/help.php:239
-msgid ""
-"DID can be assigned to a card to re-route calls to a SIP/IAX client or a "
-"PSTN number. The Priority sets the order in which the calls are to be routed "
-"to allow for failover or follow-me."
-msgstr ""
-"O DID pode ser atribuído a um cartão para redistribuir chamadas para um "
-"cliente SIP/IAX ou para um número PSTN. A prioridade define a ordem em que "
-"as chamadas devem ser distribuídas para permitir o failover ou o siga-me."
-
-#: A2Billing_UI/lib/help.php:244
-msgid ""
-"List the DIDs currently in use with the card id and their destination number "
-"<br/> You can use the search option to show the usage of a given DID or all "
-"DIDs"
-msgstr ""
-"Lista do DIDs atualmente em uso com o id do cartão e seu número de destino "
-"<br/> Você pode usar a opção de pesquisa  para mostrar uso de um DID "
-"informado ou todos "
-
-#: A2Billing_UI/lib/help.php:249
-msgid ""
-"Releasing DID put it in free stat and the user will not be monthly charged "
-"any more.."
-msgstr ""
-"Liberando o DID, coloque ele em estado livre e o usuário não será mais "
-"cobrado com taxa extra mensalmente."
-
-#: A2Billing_UI/lib/help.php:254
-msgid ""
-"Extra Charges are to allow the billing of one-off or re-occurring monthly "
-"charges. These may be used as setup or service charges, etc..."
-msgstr ""
-"Taxas extras irão permitir a cobrança de taxas mensais únicas ou "
-"recorrentes. Elas podem ser utilizadas como em configurações ou serviços "
-"extras, etc..."
-
-#: A2Billing_UI/lib/help.php:260
-msgid "DID list and billing list. "
-msgstr "Lista de DID e lista de tarifação. "
-
-#: A2Billing_UI/lib/help.php:266
-msgid ""
-"The MISC module allow new customers to register automatically and use the "
-"system immediately."
-msgstr ""
-"O módulo 'OUTROS' permite novos clientes se registrarem automaticamente e "
-"usar o sistema imediatamente."
-
-#: A2Billing_UI/lib/help.php:267
-msgid ""
-" Click here <a target=\"_blank\" href=\"../signup/\"><b>Signup Pages</b></a> "
-"to access the signup page."
-msgstr ""
-" Clique aqui <a target=\"_blank\" href=\"../signup/\"><b>Página de Registro</"
-"b></a> para acessar a página."
-
-#: A2Billing_UI/lib/help.php:268
-msgid ""
-" A mail is automatically sent when a new signup is completed. Configure the "
-"mail template below.<br>"
-msgstr ""
-" Um email é automaticamente enviado quando um novo registro é completado. "
-"Configure o modelo de email abaixo.<br>"
-
-#: A2Billing_UI/lib/help.php:269
-msgid ""
-"A Reminder email can be sent (see a2billing.conf) to customers having low "
-"credit."
-msgstr ""
-"Um email de lembrete pode ser enviado (veja no a2billing.conf) para os "
-"clientes com baixo crédito."
-
-#: A2Billing_UI/lib/help.php:274
-#, fuzzy
-msgid "This section will allow you to create and edit campaign. <br>"
-msgstr "Esta seção permitirá você criar e editar uma campanha. "
-
-#: A2Billing_UI/lib/help.php:281
-msgid ""
-"Phonelist are all the phone numbers attached to a campaign. You can add, "
-"remove and edit the phone numbers."
-msgstr ""
-"Lista de telefone tem todos os números vinculados a esta campanha. Você pode "
-"adicionar, remover ou editar os números de telefone."
-
-#: A2Billing_UI/lib/help.php:286
-msgid ""
-"This section will allow you to create and edit VOIP Providers for reporting "
-"purposes. "
-msgstr ""
-"Esta seção permitirá que você crie e edite Provedores VOIP para listar "
-"finalidades."
-
-#: A2Billing_UI/lib/help.php:292
-msgid ""
-"This section will allow you to restore or download an existing database "
-"backup. "
-msgstr ""
-"Esta seção permitirá que você restaure ou faça o download de um backup de "
-"uma base de dados existente. "
-
-#: A2Billing_UI/lib/help.php:301
-msgid "This section will allow you to backup an existing database context. "
-msgstr ""
-"Esta seção permitirá você fazer o backup do contexto de uma base de dados "
-"existente. "
-
-#: A2Billing_UI/lib/help.php:308
-msgid ""
-"This section will allow you to define the E-Commerce Production Setting."
-msgstr ""
-"Esta seção permitirá você definir as Configurações de Produção do E-Commerce."
-
-#: A2Billing_UI/lib/help.php:314
-msgid ""
-"This section allows you to define the Speed dials for the customer. <br>"
-msgstr ""
-"Esta seção permite você definir a Discagem Rápida para os clientes. <br>"
-
-#: A2Billing_UI/lib/help.php:315
-msgid ""
-"A Speed Dial will be entered on the IVR in order to make a shortcut to their "
-"preferred dialed phone number."
-msgstr ""
-"Uma Discagem Rápida será colocada na URA a fim fazer um atalho para seu "
-"número de telefone discado preferido."
-
-#: A2Billing_UI/lib/help.php:320
-msgid "Prefix list with destinations."
-msgstr "Lista de prefixo com destinos."
-
-#: A2Billing_UI/lib/help.php:325
-msgid "Prefixe can be assigned to a Ratecard"
-msgstr "O prefixo pode ser atribuído a um Ratecard"
-
-#: A2Billing_UI/lib/help.php:330
-msgid "Utility to apply a scheduled monitor on trunks.<br>"
-msgstr "Utilitário para aplicar um monitor agendado nos troncos.<br>"
-
-#: A2Billing_UI/lib/help.php:331
-msgid ""
-"For example if you want to monitor ASR (answer seize ratio) or ALOC (average "
-"length of call) everyday on each single trunk, it can be defined here, the "
-"different parameters below will define the rules to apply the alarm."
-msgstr ""
-"Por exemplo, se você quer monitorar  ASR (tentativas de chamadas) ou ALOC "
-"(tamanho médio da ligação) todos os dias em cada único tronco, isto pode "
-"definido aqui, os diferentes parâmetros abaixo definirão as regras para "
-"aplicar o alarme."
-
-#: A2Billing_UI/lib/help.php:336
-msgid "Alarms that monitors trunks at timed intervals."
-msgstr "Alarmes que monitoram os troncos em intervalos programados."
-
-#: A2Billing_UI/lib/help.php:341
-msgid ""
-"Browse for log file.<br> Use to locate the log file on a remote Web server."
-"<br>It can generate combined reports for all logs. This tool can be use for "
-"extraction and presentation of information from various logfiles."
-msgstr ""
-"Navegue pelo arquivo de log.<br> Encontre o arquivo de log no servidor Web "
-"remoto.<br>Gere relatórios combinados de todos os logs. Esta ferramenta pode "
-"ser usada para extração e apresentação de informações de vários arquivos de "
-"log."
-
-#: A2Billing_UI/lib/help.php:346
-msgid ""
-"Callback will offer you an easy way to connect any phone to our Asterisk "
-"platform."
-msgstr ""
-
-#: A2Billing_UI/lib/help.php:352
-msgid "PACKAGES SYSTEM - FREE MINUTES, etc..."
-msgstr "SISTEMA DE PACOTES - MINUTOS GRÁTIS, etc..."
-
-#: A2Billing_UI/lib/help.php:357
-msgid ""
-"SUBSCRITION FEE - You can bill in a monthly, weekly or anytime period the "
-"user for being subscribed on your service. The fee amount is defined here "
-"and the period through the cront configuration."
-msgstr ""
-"TAXA DE ASSINATURA - Você pode faturar mensalmente, semanalmente ou a "
-"qualquer hora por estar assinando o seu serviço. A quantia da taxa é "
-"definida aqui e o período através da configuração do cront."
-
-#: A2Billing_UI/lib/help.php:372
-msgid ""
-"You can view all the transactions proceed through the different epayment "
-"system configured (Paypal, MoneyBookers, etc...). "
-msgstr ""
-"Você pode ver todas as transações através dos diferentes sistemas de "
-"epayment configurados (Paypal, MoneyBookers, etc...). "
-
-#: A2Billing_UI/lib/help.php:377
-msgid ""
-"You can configure your epayment method here. It helps you to enable or "
-"disable the payment method. You can define the currency settings."
-msgstr ""
-"Você pode configurar seu método do epayment aqui. Isto ajuda você habilitar "
-"ou desabilitar o método de pagamento. Você pode definir as configurações da "
-"moeda."
-
-#: A2Billing_UI/lib/help.php:382
-msgid "Epayment methods help you to collect payments from your customers."
-msgstr ""
-"Os métodos de Epayment ajudam você a coletar pagamentos de seus clientes."
-
 #: A2Billing_UI/lib/invoice.php:23
 #: A2Billing_UI/A2B_entity_invoice_detail_pdf.php:29
 #: A2Billing_UI/A2B_entity_invoice_detail.php:29
@@ -1473,6 +972,11 @@ msgstr ""
 #, fuzzy
 msgid "Customer Archiving"
 msgstr "Clientes"
+
+#: A2Billing_UI/A2B_currencies.php:9
+msgid "Currency data are automaticaly updated from Yahoo Financial."
+msgstr ""
+"Dados da moeda são automaticamente atualizados a partir do Yahoo Finanças."
 
 #: A2Billing_UI/A2B_currencies.php:14
 #, fuzzy
@@ -2528,6 +2032,16 @@ msgstr "Taxa"
 #: A2Billing_UI/A2B_entity_card_multi.php:362
 msgid "Choose a Reseller"
 msgstr "Escolha um Revendedor"
+
+#: A2Billing_UI/A2B_entity_card.php:16
+msgid ""
+"Customers are listed below by card number. Each row corresponds to one "
+"customer, along with information such as their call plan, credit remaining, "
+"etc.</br>"
+msgstr ""
+"Os clientes estão listados abaixo pelo número de cartão. Cada coluna "
+"corresponde a um cliente, junto informações como seu grupo de tarifa, "
+"crédito restante, etc.</br>"
 
 #: A2Billing_UI/A2B_entity_card.php:19
 #, fuzzy
@@ -3694,6 +3208,10 @@ msgstr "Insira o idioma"
 #: A2Billing_UI/A2B_entity_texts.php:163
 msgid "Submit changes"
 msgstr ""
+
+#: A2Billing_UI/A2B_entity_trunk.php:12
+msgid "Trunks are used to terminate the call!<br>"
+msgstr "Os Troncos são usados para terminar uma ligação!<br>"
 
 #: A2Billing_UI/A2B_entity_trunk.php:17 A2Billing_UI/PP_menu.inc.php:181
 #, fuzzy
@@ -6776,6 +6294,426 @@ msgstr ""
 #, fuzzy
 msgid "User Agent"
 msgstr "Centavos"
+
+#~ msgid ""
+#~ "Top up cards on this screen by selecting or typing in the card number "
+#~ "directly, and enter the amount of credit to apply, then click ADD to "
+#~ "confirm."
+#~ msgstr ""
+#~ "Recarregue cartões nesta tela selecionando ou digitando diretamente o "
+#~ "número do cartão, coloque aquantia de crédito a ser aplicada, então "
+#~ "clique em ADICIONAR para confirmar."
+
+#~ msgid ""
+#~ "Create and edit the properties of each customer. Click <b>CONFIRM DATA</"
+#~ "b> at the bottom of the page to save changes."
+#~ msgstr ""
+#~ "Crie e edite as propriedades de cada cliente. Clique em <b>CONFIRMAR "
+#~ "DADOS</b> no fim da página para salvar as alterações."
+
+#~ msgid ""
+#~ "Bulk create cards and customers in a single step. <br> Set the properties "
+#~ "of the batch such as initial credit, card type and currency, then click "
+#~ "on the GENERATE CARDS button to create the batch."
+#~ msgstr ""
+#~ "Crie cartões e clientes em lote em um único passo. <br> Defina as "
+#~ "propriedades do lote como crédito inicial,tipo e moeda do cartão, e então "
+#~ "clique no botão GERAR CARTÕES para criar o lote."
+
+#~ msgid ""
+#~ "SIP and IAX friend will create a SIP or IAX entry on the Asterisk server, "
+#~ "so that a customer can set up a SIP or IAX client to connect directly to "
+#~ "the asterisk server without the need to enter an account and pin each "
+#~ "time a call is made. When done, click on the CONFIRM DATA button, then "
+#~ "click reload to apply the changes on the Asterisk server.</br>"
+#~ msgstr ""
+#~ "SIP e IAX friend criarão uma entrada SIP ou IAX no servidor Asterisk, de "
+#~ "modo que o cliente possa configurar uma conta SIP ou IAX em seu cliente "
+#~ "de conexão para poder conectar diretamente ao servidor asterisk sem "
+#~ "precisar colocar um código ou pin toda hora que fizer uma ligação. Quando "
+#~ "feito isso clique no botão CONFIRMAR DADOS, então clique em recarregar "
+#~ "para aplicar as alterações feitas no servidor Asterisk.</br>"
+
+#~ msgid "Click reload to commit changes to Asterisk"
+#~ msgstr "Clique em recarregar para gravar as mudanças no Asterisk"
+
+#~ msgid ""
+#~ "Each SIP/IAX client is identified by a number of paremeters.</br></br>"
+#~ msgstr ""
+#~ "Cada cliente SIP/IAX é identificado por um número de parâmetros.</br></br>"
+
+#~ msgid ""
+#~ "Set the caller ID so that the customer calling in is authenticated on the "
+#~ "basis of the callerID rather than with account number"
+#~ msgstr ""
+#~ "Configure o identificador de chamadas de modo que, ao ligar, o cliente "
+#~ "seja autenticado a partir do número no identificador de chamadas, ao "
+#~ "invés de ser identificado pelo número da conta"
+
+#~ msgid ""
+#~ "This screen shows refills and payments made against each account, along "
+#~ "with the current credit on each card. The initial amount of credit "
+#~ "applied to the card is not included. The amount owing is calculated by "
+#~ "subtracting payments from refills"
+#~ msgstr ""
+#~ "Esta tela mostra os reenchimentos e pagamentos feitos de acordo com cada "
+#~ "conta, junto com o crédito atual de cada cartão. A quantidade inicial de "
+#~ "crédito aplicada ao cartão não é incluída. A quantidade que resta é "
+#~ "calculada subtraindo os pagamentos dos reenchimentos."
+
+#~ msgid ""
+#~ "Payment history - The section below allows you to add payments against a "
+#~ "customer. Note that this does not change the balance on the card. Click "
+#~ "refill under customer list to top-up a card."
+#~ msgstr ""
+#~ "Histórico de pagamento - A seção abaixo permite que você adicione "
+#~ "pagamentos a um cliente. Note que isto não muda o saldo do cartão. Clique "
+#~ "em recarregar na lista de clientes para recarregar um cartão."
+
+#~ msgid "Paypal History - The section below shows all paypal receipts."
+#~ msgstr ""
+#~ "Histórico do Pagamento - A seção abaixo mostra todos os recibos do paypal."
+
+#~ msgid "Add payments to a customer's account!"
+#~ msgstr "Adicionar pagamentos Ã  conta de cliente!"
+
+#~ msgid ""
+#~ "List of Call Plans, a Call Plan is a collection of rate cards, click edit "
+#~ "to add ratecards to the Call Plan"
+#~ msgstr ""
+#~ "Lista dos Planos de Ligações, um Plano de Ligação é uma coleção de "
+#~ "ratecards, clique em editar para adicionar ratecards ao Plano de Ligação"
+
+#~ msgid "A Call Plan is a collection of ratecards."
+#~ msgstr "Um Plano de Ligações é uma coleção de ratecards."
+
+#~ msgid ""
+#~ "List ratecards that have been created!<br>Ensure that the rate card is "
+#~ "added into the call plan under 'List Ratecard'"
+#~ msgstr ""
+#~ "Listar os cartões que foram criados!<br>Esteja certo de que o ratecard "
+#~ "foi adicionado no plano de ligação. Clique em 'Listar Ratecard' para "
+#~ "verificar"
+
+#, fuzzy
+#~ msgid "Set the properties and attributes of the ratecard <br/>"
+#~ msgstr "Definir as propriedades e atributos do ratecard"
+
+#~ msgid ""
+#~ "Please select a ratecard and click on search to browse the different "
+#~ "rates/dialing prefix of the selected ratecard."
+#~ msgstr ""
+#~ "Por favor selecione um ratecard e clique em pesquisar para navegar pelas "
+#~ "diferentes taxas/prefixos de discagem do ratecard selecionado."
+
+#~ msgid ""
+#~ "Please select a calling card, enter the number you wish to call and press "
+#~ "the \"SIMULATE\" button."
+#~ msgstr ""
+#~ "Por favor selecione o cartão que fará a ligação, entre com o número que "
+#~ "deseja ligar e pressione o botão \"SIMULAR\"."
+
+#~ msgid ""
+#~ "Please fill in the fields below to set up the rate for each destination."
+#~ msgstr ""
+#~ "Preencher por favor os campos abaixo para definir a taxa para cada "
+#~ "destino."
+
+#~ msgid "This section is a utility to import ratecards from a CSV file.<br>"
+#~ msgstr ""
+#~ "Esta seção é uma utilidade para importar ratecards de um arquivo CSV.<br>"
+
+#, fuzzy
+#~ msgid "This is the second step of the import ratecard! "
+#~ msgstr "Esta é a segunda etapa de importação do ratecard! <br>"
+
+#, fuzzy
+#~ msgid "Ratecard comfirmation page. "
+#~ msgstr "Página de confirmação do ratecard. <br>"
+
+#, fuzzy
+#~ msgid "Trunk List<br/>Trunks can be modified by clicking the edit button"
+#~ msgstr "Os Troncos podem ser modificados clicando no botão editar"
+
+#~ msgid ""
+#~ "System log help you to keep track and event all event happening in your "
+#~ "application. Log Level are the Importance Levels for the Events which are "
+#~ "logged. '1' is lowest level and '3' is highest level. 1 if for Login, "
+#~ "Logout, Page Visit, 2 if for Add, Import, Export. and 3 is for update and "
+#~ "Delete."
+#~ msgstr ""
+#~ "O log do sistema ajuda você a manter todos os registros e eventos que "
+#~ "acontecem em sua aplicação. O nível do log tem importantes níveis para os "
+#~ "eventos que são registrados. '1' é o menor nível e '3' é o maior nível. 1 "
+#~ "é usado para registrar Login - Logout - Páginas Visitadas, 2 para "
+#~ "Adicionar - Importar - Exportar e 3 para Atualizar e Deletar."
+
+#~ msgid ""
+#~ "Administrator list who have access to the calling card administrative "
+#~ "interface."
+#~ msgstr ""
+#~ "Lista de administradores que tem acesso à interface administrativa dos "
+#~ "cartões."
+
+#, fuzzy
+#~ msgid "Edit administrator."
+#~ msgstr "Adicionar administrador."
+
+#~ msgid "Listed below are the vouchers created on the system,.<br/>"
+#~ msgstr "Listado abaixo estão os vouchers criados no sistema,.<br/>"
+
+#~ msgid ""
+#~ "Create a single voucher, defining such properties as credit, tag, "
+#~ "currency etc, click confirm when finished. <br/> The customer applies "
+#~ "voucher credit to their card via the customer interface or via an IVR "
+#~ "menu."
+#~ msgstr ""
+#~ "Crie um simples voucher, definindo propriedades como crédito, "
+#~ "identificação, moeda, etc. Clique em confirmar quando terminar. <br/>O "
+#~ "cliente utilizará o crédito do voucher em seu cartão através da interface "
+#~ "do cliente ou através do menu da URA."
+
+#~ msgid ""
+#~ "Bulk generate a batch of vouchers, defining such properties as credit and "
+#~ "currency etc, click Generate Vouchers when finished.<br/>The customer "
+#~ "applies voucher credit to their card via the customer interface. "
+#~ msgstr ""
+#~ "Gere vouchers em lote, definindo propriedades como crédito, moeda, etc. "
+#~ "Clique em Gerar Vouchers quando terminar.<br/>O cliente utilizará o "
+#~ "crédito do voucher em seu cartão através da interface do cliente."
+
+#~ msgid "Re-occuring services that decrement a card at timed intervals."
+#~ msgstr ""
+#~ "Serviços recorrentes que farão um decréscimo no cartão em intervalos de "
+#~ "tempo."
+
+#~ msgid "Utility to apply a scheduled action on the card.<br>"
+#~ msgstr "Utilitário para aplicar uma ação agendada no cartão.<br>"
+
+#~ msgid ""
+#~ "CID Group list. CID can be chosen by customers through the customer "
+#~ "interface."
+#~ msgstr ""
+#~ "Lista dos Grupos de CID (Identificador de Chamadas). O CID pode ser "
+#~ "escolhido pelos clientes através da interface do cliente."
+
+#~ msgid ""
+#~ "Outbound CID list. CID can be added by customers through the customer "
+#~ "interface."
+#~ msgstr ""
+#~ "Lista de CID (Identificador de Chamadas) de saída. O CID pode ser "
+#~ "adicionado pelos clientes através da interface do cliente."
+
+#~ msgid ""
+#~ "CID group offers customers a group of CID numbers which can be selected "
+#~ "for a ratecard for outgoing calls"
+#~ msgstr ""
+#~ "O grupo de CID (Identificador de Chamadas) oferece aos clientes um grupo "
+#~ "de números de CID que podem ser selecionados pelo ratecard para as "
+#~ "ligações que são feitas."
+
+#~ msgid ""
+#~ "Outbound CID offers customers a number which will be selected randomly "
+#~ "for a ratecard for outgoing calls"
+#~ msgstr ""
+#~ "O CID (Identificador de Chamadas) de saída oferece aos clientes um número "
+#~ "que será selecionado de forma randômica para um ratecard para as ligações "
+#~ "que são feitas"
+
+#~ msgid ""
+#~ "DID (or DDI) Group list. DID can be chosen by customers through the "
+#~ "customer interface."
+#~ msgstr ""
+#~ "Lista de grupo DID (ou DDI). o DID pode ser escolhido pelos clientes "
+#~ "através da interface do cliente."
+
+#~ msgid ""
+#~ "DID group offers customers a group of DID numbers which can be selected "
+#~ "by the customer"
+#~ msgstr ""
+#~ "O grupo de DID oferece aos clientes um grupo de números DID que podem ser "
+#~ "selecionados pelo cliente"
+
+#~ msgid "DID number list with destinations."
+#~ msgstr "Lista de números DID com destinos."
+
+#~ msgid ""
+#~ "DID can be assigned to a card to re-route calls to a SIP/IAX client or a "
+#~ "PSTN number. The Priority sets the order in which the calls are to be "
+#~ "routed to allow for failover or follow-me."
+#~ msgstr ""
+#~ "O DID pode ser atribuído a um cartão para redistribuir chamadas para um "
+#~ "cliente SIP/IAX ou para um número PSTN. A prioridade define a ordem em "
+#~ "que as chamadas devem ser distribuídas para permitir o failover ou o siga-"
+#~ "me."
+
+#~ msgid ""
+#~ "List the DIDs currently in use with the card id and their destination "
+#~ "number <br/> You can use the search option to show the usage of a given "
+#~ "DID or all DIDs"
+#~ msgstr ""
+#~ "Lista do DIDs atualmente em uso com o id do cartão e seu número de "
+#~ "destino <br/> Você pode usar a opção de pesquisa  para mostrar uso de um "
+#~ "DID informado ou todos "
+
+#~ msgid ""
+#~ "Releasing DID put it in free stat and the user will not be monthly "
+#~ "charged any more.."
+#~ msgstr ""
+#~ "Liberando o DID, coloque ele em estado livre e o usuário não será mais "
+#~ "cobrado com taxa extra mensalmente."
+
+#~ msgid ""
+#~ "Extra Charges are to allow the billing of one-off or re-occurring monthly "
+#~ "charges. These may be used as setup or service charges, etc..."
+#~ msgstr ""
+#~ "Taxas extras irão permitir a cobrança de taxas mensais únicas ou "
+#~ "recorrentes. Elas podem ser utilizadas como em configurações ou serviços "
+#~ "extras, etc..."
+
+#~ msgid "DID list and billing list. "
+#~ msgstr "Lista de DID e lista de tarifação. "
+
+#~ msgid ""
+#~ "The MISC module allow new customers to register automatically and use the "
+#~ "system immediately."
+#~ msgstr ""
+#~ "O módulo 'OUTROS' permite novos clientes se registrarem automaticamente e "
+#~ "usar o sistema imediatamente."
+
+#~ msgid ""
+#~ " Click here <a target=\"_blank\" href=\"../signup/\"><b>Signup Pages</b></"
+#~ "a> to access the signup page."
+#~ msgstr ""
+#~ " Clique aqui <a target=\"_blank\" href=\"../signup/\"><b>Página de "
+#~ "Registro</b></a> para acessar a página."
+
+#~ msgid ""
+#~ " A mail is automatically sent when a new signup is completed. Configure "
+#~ "the mail template below.<br>"
+#~ msgstr ""
+#~ " Um email é automaticamente enviado quando um novo registro é completado. "
+#~ "Configure o modelo de email abaixo.<br>"
+
+#~ msgid ""
+#~ "A Reminder email can be sent (see a2billing.conf) to customers having low "
+#~ "credit."
+#~ msgstr ""
+#~ "Um email de lembrete pode ser enviado (veja no a2billing.conf) para os "
+#~ "clientes com baixo crédito."
+
+#, fuzzy
+#~ msgid "This section will allow you to create and edit campaign. <br>"
+#~ msgstr "Esta seção permitirá você criar e editar uma campanha. "
+
+#~ msgid ""
+#~ "Phonelist are all the phone numbers attached to a campaign. You can add, "
+#~ "remove and edit the phone numbers."
+#~ msgstr ""
+#~ "Lista de telefone tem todos os números vinculados a esta campanha. Você "
+#~ "pode adicionar, remover ou editar os números de telefone."
+
+#~ msgid ""
+#~ "This section will allow you to create and edit VOIP Providers for "
+#~ "reporting purposes. "
+#~ msgstr ""
+#~ "Esta seção permitirá que você crie e edite Provedores VOIP para listar "
+#~ "finalidades."
+
+#~ msgid ""
+#~ "This section will allow you to restore or download an existing database "
+#~ "backup. "
+#~ msgstr ""
+#~ "Esta seção permitirá que você restaure ou faça o download de um backup de "
+#~ "uma base de dados existente. "
+
+#~ msgid "This section will allow you to backup an existing database context. "
+#~ msgstr ""
+#~ "Esta seção permitirá você fazer o backup do contexto de uma base de dados "
+#~ "existente. "
+
+#~ msgid ""
+#~ "This section will allow you to define the E-Commerce Production Setting."
+#~ msgstr ""
+#~ "Esta seção permitirá você definir as Configurações de Produção do E-"
+#~ "Commerce."
+
+#~ msgid ""
+#~ "This section allows you to define the Speed dials for the customer. <br>"
+#~ msgstr ""
+#~ "Esta seção permite você definir a Discagem Rápida para os clientes. <br>"
+
+#~ msgid ""
+#~ "A Speed Dial will be entered on the IVR in order to make a shortcut to "
+#~ "their preferred dialed phone number."
+#~ msgstr ""
+#~ "Uma Discagem Rápida será colocada na URA a fim fazer um atalho para seu "
+#~ "número de telefone discado preferido."
+
+#~ msgid "Prefix list with destinations."
+#~ msgstr "Lista de prefixo com destinos."
+
+#~ msgid "Prefixe can be assigned to a Ratecard"
+#~ msgstr "O prefixo pode ser atribuído a um Ratecard"
+
+#~ msgid "Utility to apply a scheduled monitor on trunks.<br>"
+#~ msgstr "Utilitário para aplicar um monitor agendado nos troncos.<br>"
+
+#~ msgid ""
+#~ "For example if you want to monitor ASR (answer seize ratio) or ALOC "
+#~ "(average length of call) everyday on each single trunk, it can be defined "
+#~ "here, the different parameters below will define the rules to apply the "
+#~ "alarm."
+#~ msgstr ""
+#~ "Por exemplo, se você quer monitorar  ASR (tentativas de chamadas) ou ALOC "
+#~ "(tamanho médio da ligação) todos os dias em cada único tronco, isto pode "
+#~ "definido aqui, os diferentes parâmetros abaixo definirão as regras para "
+#~ "aplicar o alarme."
+
+#~ msgid "Alarms that monitors trunks at timed intervals."
+#~ msgstr "Alarmes que monitoram os troncos em intervalos programados."
+
+#~ msgid ""
+#~ "Browse for log file.<br> Use to locate the log file on a remote Web "
+#~ "server.<br>It can generate combined reports for all logs. This tool can "
+#~ "be use for extraction and presentation of information from various "
+#~ "logfiles."
+#~ msgstr ""
+#~ "Navegue pelo arquivo de log.<br> Encontre o arquivo de log no servidor "
+#~ "Web remoto.<br>Gere relatórios combinados de todos os logs. Esta "
+#~ "ferramenta pode ser usada para extração e apresentação de informações de "
+#~ "vários arquivos de log."
+
+#~ msgid "PACKAGES SYSTEM - FREE MINUTES, etc..."
+#~ msgstr "SISTEMA DE PACOTES - MINUTOS GRÁTIS, etc..."
+
+#~ msgid ""
+#~ "SUBSCRITION FEE - You can bill in a monthly, weekly or anytime period the "
+#~ "user for being subscribed on your service. The fee amount is defined here "
+#~ "and the period through the cront configuration."
+#~ msgstr ""
+#~ "TAXA DE ASSINATURA - Você pode faturar mensalmente, semanalmente ou a "
+#~ "qualquer hora por estar assinando o seu serviço. A quantia da taxa é "
+#~ "definida aqui e o período através da configuração do cront."
+
+#~ msgid ""
+#~ "You can view all the transactions proceed through the different epayment "
+#~ "system configured (Paypal, MoneyBookers, etc...). "
+#~ msgstr ""
+#~ "Você pode ver todas as transações através dos diferentes sistemas de "
+#~ "epayment configurados (Paypal, MoneyBookers, etc...). "
+
+#~ msgid ""
+#~ "You can configure your epayment method here. It helps you to enable or "
+#~ "disable the payment method. You can define the currency settings."
+#~ msgstr ""
+#~ "Você pode configurar seu método do epayment aqui. Isto ajuda você "
+#~ "habilitar ou desabilitar o método de pagamento. Você pode definir as "
+#~ "configurações da moeda."
+
+#~ msgid "Epayment methods help you to collect payments from your customers."
+#~ msgstr ""
+#~ "Os métodos de Epayment ajudam você a coletar pagamentos de seus clientes."
 
 #, fuzzy
 #~ msgid " - Transactions - "
