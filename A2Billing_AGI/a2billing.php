@@ -91,7 +91,10 @@ if ($argc > 1 && ($argv[1] == '--test')){
 
 // create the objects
 $a2b = A2Billing::instance();
-$a2b->load_res_dbsettings('/etc/asterisk/res_pgsql.conf');
+if(!$a2b->load_res_dbsettings('/etc/asterisk/res_pgsql.conf')){
+	@syslog("Cannot fetch settings from res_pgsql.conf");
+	exit(2);
+}
 $dynconf = DynConf::instance();
 
 if ($argc > 1 && is_numeric($argv[1]) && $argv[1] >= 0){

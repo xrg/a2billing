@@ -221,8 +221,16 @@ DECLARE
 	t_status INTEGER;
 BEGIN
 	IF NEW.srvid IS NULL THEN
+		-- Much scorchery in here: since this function is SECURITY DEFINER
+		-- the effective uid is changed to the owner. Still, session_user
+		-- should remain set to the calling username.
 		SELECT id INTO NEW.srvid from cc_a2b_server 
-			WHERE db_username = current_user LIMIT 1;
+			WHERE db_username = session_user LIMIT 1;
+		IF NOT FOUND THEN
+			RAISE WARNING 'No server found for uname % at %',session_user, COALESCE(inet_client_addr()::TEXT,'unix');
+		END IF;
+		-- INSERT INTO cc_a2b_server(grp,ip,host,db_username)
+		-- 	VALUES(1,inet_client_addr(),inet_client_addr(),session_user);
 	END IF;
 	
 	IF NEW.trunk IS NULL THEN

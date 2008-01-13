@@ -31,6 +31,8 @@ class A2Billing {
 		if (!file_exists($fname))
 			return false;
 		$newcfg= parse_ini_file($fname,true);
+		if(empty($newcfg))
+			return false;
 		$this->ini_cfg['database']= array('dbtype' =>$dbtype);
 		if (isset($newcfg['general']['dbhost']))
 			$this->ini_cfg['database']['hostname'] = $newcfg['general']['dbhost'];
@@ -42,6 +44,7 @@ class A2Billing {
 			$this->ini_cfg['database']['user'] = $newcfg['general']['dbuser'];
 		if (isset($newcfg['general']['dbpass']))
 			$this->ini_cfg['database']['password'] = $newcfg['general']['dbpass'];
+		return true;
 	}
 	
 	/** Connect this object to the database! */
@@ -63,6 +66,7 @@ class A2Billing {
 		}else{
 			$datasource = 'mysql://'.$this->ini_cfg['database']['user'].':'.$this->ini_cfg['database']['password'].'@'.$this->ini_cfg['database']['hostname'].'/'.$this->ini_cfg['database']['dbname'];
 		}
+		//echo "Datasource: $datasource \n";
 		$this->dbhandle = NewADOConnection($datasource);
 		if (!$this->dbhandle)
 			return false;
