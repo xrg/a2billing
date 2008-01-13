@@ -92,6 +92,10 @@ msgstr ""
 msgid "Delete this %1"
 msgstr "Supprimer"
 
+#: common/lib/Form/Class.OptionField.inc.php:89
+msgid "Details of %1"
+msgstr ""
+
 #: common/lib/Form/Class.NumField.inc.php:160
 msgid "TRUE"
 msgstr ""
@@ -100,6 +104,10 @@ msgstr ""
 #, fuzzy
 msgid "FALSE"
 msgstr "APPELS"
+
+#: common/lib/Form/Class.NumField.inc.php:189
+msgid "0 sec"
+msgstr ""
 
 #: common/lib/Form/Class.FormHelpers.inc.php:14
 msgid "item"
@@ -112,12 +120,12 @@ msgstr ""
 #: common/lib/Form/Class.DetailsView.inc.php:112
 #: common/lib/Form/Class.ListView.inc.php:85
 #: common/lib/Form/Class.EditView.inc.php:61
-#: common/lib/Form/Class.ListSumView.inc.php:70
+#: common/lib/Form/Class.ListSumView.inc.php:71
 #, fuzzy
 msgid "No %1 found!"
 msgstr "Aucune données trouvées !!!"
 
-#: common/lib/Form/Class.SelectionForm.inc.php:80
+#: common/lib/Form/Class.SelectionForm.inc.php:101
 #, fuzzy
 msgid "GO!"
 msgstr "GO"
@@ -150,11 +158,11 @@ msgstr ""
 msgid "Record successfully removed from the database."
 msgstr ""
 
-#: common/lib/Form/Class.ActionForm.inc.php:24
+#: common/lib/Form/Class.ActionForm.inc.php:25
 msgid "Action finished successfully!"
 msgstr ""
 
-#: common/lib/Form/Class.ActionForm.inc.php:25
+#: common/lib/Form/Class.ActionForm.inc.php:26
 msgid "Action failed: %1"
 msgstr ""
 
@@ -167,7 +175,6 @@ msgid "no rows"
 msgstr ""
 
 #: common/lib/Form/Class.ListView.inc.php:136
-#: common/lib/old/Class.ViewHandler.inc.php:414
 msgid "DISPLAY"
 msgstr "AFFICHER"
 
@@ -176,7 +183,6 @@ msgid "All"
 msgstr ""
 
 #: common/lib/Form/Class.ListView.inc.php:146
-#: common/lib/old/Class.ViewHandler.inc.php:423
 msgid "GO"
 msgstr "GO"
 
@@ -382,15 +388,38 @@ msgstr ""
 msgid "Import of data aborted."
 msgstr ""
 
-#: common/lib/Form/Class.ListSumView.inc.php:106
-msgid "SUM"
+#: common/lib/Form/Class.ListSumView.inc.php:78
+#: common/lib/AgentMoney.inc.php:45
+msgid "Sum"
 msgstr ""
 
-#: common/lib/Form/Class.SumMultiView.inc.php:128
-#: common/lib/Form/Class.SumMultiView.inc.php:236
+#: common/lib/Form/Class.SumMultiView.inc.php:129
+#: common/lib/Form/Class.SumMultiView.inc.php:237
 #, fuzzy
 msgid "No sums found!"
 msgstr "Aucune données trouvées !!!"
+
+#: common/lib/Form/Class.TextSearchField.inc.php:21
+msgid "Ignore"
+msgstr ""
+
+#: common/lib/Form/Class.TextSearchField.inc.php:24
+#, fuzzy
+msgid "Starts with"
+msgstr "Ends with"
+
+#: common/lib/Form/Class.TextSearchField.inc.php:27
+msgid "Equals"
+msgstr ""
+
+#: common/lib/Form/Class.TextSearchField.inc.php:30
+msgid "Contains"
+msgstr "Contient"
+
+#: common/lib/Form/Class.TextSearchField.inc.php:33
+#, fuzzy
+msgid "Ends in"
+msgstr "Ends with"
 
 #: common/lib/Misc.inc.php:569
 msgid "File size is greater than allowed limit."
@@ -406,474 +435,6 @@ msgstr ""
 
 #: common/lib/Misc.inc.php:583
 msgid "file type is not allowed"
-msgstr ""
-
-#: common/lib/old/Class.A2Billing.old.php:340
-msgid "Invalid card number lenght defined in configuration."
-msgstr ""
-
-#: common/lib/old/Class.A2Billing.old.php:1859
-#: common/lib/old/Class.A2Billing.old.php:1865
-msgid "Error : Not enough credit to call !!!"
-msgstr ""
-
-#: common/lib/old/Class.A2Billing.old.php:1872
-msgid "Error : Card is not active!!!"
-msgstr ""
-
-#: common/lib/old/Class.A2Billing.old.php:1878
-msgid "Error : Card is actually in use!!!"
-msgstr ""
-
-#: common/lib/old/Class.A2Billing.old.php:1887
-#: common/lib/old/Class.A2Billing.old.php:1895
-#: common/lib/old/Class.A2Billing.old.php:1903
-msgid "Error : Card have expired!!!"
-msgstr ""
-
-#: common/lib/old/Class.FormHandler.AddForm.inc.php:229
-msgid "Create a new "
-msgstr ""
-
-#: common/lib/old/Class.FormHandler.DelForm.inc.php:42
-msgid "Message"
-msgstr ""
-
-#: common/lib/old/Class.FormHandler.DelForm.inc.php:49
-msgid "You have "
-msgstr ""
-
-#: common/lib/old/Class.FormHandler.DelForm.inc.php:155
-msgid "No data found !!!"
-msgstr "Aucune données trouvées !!!"
-
-#: common/lib/old/Class.FormHandler.DelForm.inc.php:202
-msgid "Remove this "
-msgstr ""
-
-#: common/lib/old/Class.FormHandler.inc.php:475
-msgid "THERE IS NO RECORD !!!"
-msgstr ""
-
-#: common/lib/old/Class.FormHandler.inc.php:476
-msgid "DIRECTORY"
-msgstr ""
-
-#: common/lib/old/Class.FormHandler.inc.php:477
-#: common/lib/old/Class.FormHandler.inc.php:544
-msgid "Define criteria to make a precise search"
-msgstr ""
-
-#: common/lib/old/Class.FormHandler.inc.php:478
-msgid "You can browse through our"
-msgstr ""
-
-#: common/lib/old/Class.FormHandler.inc.php:478
-msgid "and modify their different properties<br>"
-msgstr ""
-
-#: common/lib/old/Class.FormHandler.inc.php:479
-msgid "Delete this record"
-msgstr ""
-
-#: common/lib/old/Class.FormHandler.inc.php:480
-msgid "Edit this record"
-msgstr ""
-
-#: common/lib/old/Class.FormHandler.inc.php:481
-msgid ""
-"The document has been created correctly. Now, you can define the different "
-"tariff that you want to associate."
-msgstr ""
-
-#: common/lib/old/Class.FormHandler.inc.php:482
-msgid ""
-"You can modify, through the following form, the different properties of your"
-msgstr ""
-
-#: common/lib/old/Class.FormHandler.inc.php:483
-msgid "If you really want remove this"
-msgstr ""
-
-#: common/lib/old/Class.FormHandler.inc.php:483
-msgid "Click on the delete button."
-msgstr ""
-
-#: common/lib/old/Class.FormHandler.inc.php:485
-msgid "One"
-msgstr ""
-
-#: common/lib/old/Class.FormHandler.inc.php:485
-#, fuzzy
-msgid "has been deleted!"
-msgstr "a été utilisé, nous avons ajouté"
-
-#: common/lib/old/Class.FormHandler.inc.php:487
-msgid "you can add easily a new"
-msgstr ""
-
-#: common/lib/old/Class.FormHandler.inc.php:487
-msgid "Fill the following fields and confirm by clicking on the button add."
-msgstr ""
-
-#: common/lib/old/Class.FormHandler.inc.php:488
-msgid "Add a"
-msgstr ""
-
-#: common/lib/old/Class.FormHandler.inc.php:488
-msgid "now."
-msgstr ""
-
-#: common/lib/old/Class.FormHandler.inc.php:489
-msgid "Your new"
-msgstr ""
-
-#: common/lib/old/Class.FormHandler.inc.php:489
-msgid "has been inserted. <br>"
-msgstr ""
-
-#: common/lib/old/Class.FormHandler.inc.php:490
-msgid "You cannot choose more than one !"
-msgstr ""
-
-#: common/lib/old/Class.FormHandler.inc.php:492
-msgid "Are you sure to delete all records connected to this instance."
-msgstr ""
-
-#: common/lib/old/Class.FormHandler.inc.php:494
-#: common/lib/old/Class.FormHandler.inc.php:496
-msgid "CONFIRM DATA"
-msgstr ""
-
-#: common/lib/old/Class.FormHandler.inc.php:495
-msgid "DELETE"
-msgstr ""
-
-#: common/lib/old/Class.FormHandler.inc.php:534
-#: common/lib/old/Class.FormHandler.inc.php:791
-msgid "Delete this "
-msgstr ""
-
-#: common/lib/old/Class.FormHandler.inc.php:535
-#: common/lib/old/Class.FormHandler.inc.php:785
-msgid "Edit this "
-msgstr ""
-
-#: common/lib/old/Class.FormHandler.inc.php:762
-#: common/lib/old/Class.FormHandler.inc.php:764
-msgid "You can browse through our "
-msgstr ""
-
-#: common/lib/old/Class.FormHandler.inc.php:762
-#: common/lib/old/Class.FormHandler.inc.php:764
-msgid " and modify their different properties<br>"
-msgstr ""
-
-#: common/lib/old/Class.FormHandler.inc.php:951
-msgid "(at least 3 characters)"
-msgstr ""
-
-#: common/lib/old/Class.FormHandler.inc.php:955
-msgid "(must match email structure. Example : name@domain.com)"
-msgstr ""
-
-#: common/lib/old/Class.FormHandler.inc.php:959
-msgid "(at least 5 successive characters appear at the end of this string)"
-msgstr ""
-
-#: common/lib/old/Class.FormHandler.inc.php:963
-msgid "(at least 4 characters)"
-msgstr ""
-
-#: common/lib/old/Class.FormHandler.inc.php:967
-msgid "(number format)"
-msgstr ""
-
-#: common/lib/old/Class.FormHandler.inc.php:975
-msgid "(only number with more that 8 digits)"
-msgstr ""
-
-#: common/lib/old/Class.FormHandler.inc.php:979
-msgid "(at least 8 digits using . or - or the space key)"
-msgstr ""
-
-#: common/lib/old/Class.FormHandler.inc.php:983
-msgid "network adress format"
-msgstr ""
-
-#: common/lib/old/Class.FormHandler.inc.php:987
-msgid "at least 1 character"
-msgstr ""
-
-#: common/lib/old/Class.FormHandler.inc.php:995
-msgid "(AT LEAST 2 CARACTERS)"
-msgstr ""
-
-#: common/lib/old/Class.FormHandler.inc.php:999
-msgid "(NUMBER FORMAT WITH/WITHOUT DECIMAL, use '.' for decimal)"
-msgstr ""
-
-#: common/lib/old/Class.FormHandler.inc.php:1015
-msgid "You must write something."
-msgstr ""
-
-#: common/lib/old/Class.FormHandler.inc.php:1019
-msgid "8 characters alphanumeric"
-msgstr ""
-
-#: common/lib/old/Class.FormHandler.inc.php:1026
-msgid "(at least 6 Alphanumeric characters)"
-msgstr ""
-
-#: common/lib/old/Class.FormHandler.inc.php:1532
-msgid "This did is in use by customer id:"
-msgstr ""
-
-#: common/lib/old/Class.FormHandler.inc.php:1663
-#: common/lib/old/Class.FormHandler.inc.php:1705
-msgid "Could not open buddy file"
-msgstr ""
-
-#: common/lib/old/Class.FormHandler.inc.php:1680
-#: common/lib/old/Class.FormHandler.inc.php:1710
-#: common/lib/old/Class.FormHandler.inc.php:1722
-msgid "Impossible to write to the file"
-msgstr ""
-
-#: common/lib/old/Class.FormHandler.inc.php:1883
-#: common/lib/old/Class.FormHandler.inc.php:1938
-msgid "<br> GOTO ; "
-msgstr ""
-
-#: common/lib/old/Class.FormHandler.inc.php:1932
-msgid "error deletion"
-msgstr ""
-
-#: common/lib/old/Class.FormHandler.inc.php:2064
-msgid "ERROR_DUPLICATION"
-msgstr ""
-
-#: common/lib/old/Class.FormHandler.inc.php:2149
-msgid "Done"
-msgstr ""
-
-#: common/lib/old/Class.FormHandler.inc.php:2177
-#: common/lib/old/Class.FormHandler.inc.php:2290
-msgid "THE CURRENT RATECARD"
-msgstr "THE CURRENT RATECARD"
-
-#: common/lib/old/Class.FormHandler.inc.php:2188
-msgid "R A T E C A R D"
-msgstr "R A T E C A R D"
-
-#: common/lib/old/Class.FormHandler.inc.php:2194
-#: common/lib/old/Class.FormHandler.inc.php:2307
-msgid "Choose a ratecard"
-msgstr "Choose a ratecard"
-
-#: common/lib/old/Class.FormHandler.inc.php:2205
-#: common/lib/old/Class.FormHandler.inc.php:2265
-#: common/lib/old/Class.SearchHandler.inc.php:265
-msgid "Search"
-msgstr "Recherche"
-
-#: common/lib/old/Class.FormHandler.inc.php:2232
-msgid "None"
-msgstr ""
-
-#: common/lib/old/Class.FormHandler.inc.php:2301
-#: common/lib/old/Class.SearchHandler.inc.php:320
-msgid "RATECARD"
-msgstr "RATECARD"
-
-#: common/lib/old/Class.SearchHandler.inc.php:28
-msgid "January"
-msgstr ""
-
-#: common/lib/old/Class.SearchHandler.inc.php:28
-msgid "February"
-msgstr ""
-
-#: common/lib/old/Class.SearchHandler.inc.php:28
-msgid "March"
-msgstr ""
-
-#: common/lib/old/Class.SearchHandler.inc.php:28
-msgid "April"
-msgstr ""
-
-#: common/lib/old/Class.SearchHandler.inc.php:28
-msgid "May"
-msgstr ""
-
-#: common/lib/old/Class.SearchHandler.inc.php:28
-msgid "June"
-msgstr ""
-
-#: common/lib/old/Class.SearchHandler.inc.php:28
-msgid "July"
-msgstr ""
-
-#: common/lib/old/Class.SearchHandler.inc.php:28
-msgid "August"
-msgstr ""
-
-#: common/lib/old/Class.SearchHandler.inc.php:28
-msgid "September"
-msgstr ""
-
-#: common/lib/old/Class.SearchHandler.inc.php:28
-msgid "October"
-msgstr ""
-
-#: common/lib/old/Class.SearchHandler.inc.php:28
-msgid "November"
-msgstr ""
-
-#: common/lib/old/Class.SearchHandler.inc.php:28
-msgid "December"
-msgstr ""
-
-#: common/lib/old/Class.SearchHandler.inc.php:78
-msgid "From :"
-msgstr ""
-
-#: common/lib/old/Class.SearchHandler.inc.php:106
-msgid "To :"
-msgstr ""
-
-#: common/lib/old/Class.SearchHandler.inc.php:181
-msgid "Exact"
-msgstr "Exacte"
-
-#: common/lib/old/Class.SearchHandler.inc.php:182
-msgid "Begins with"
-msgstr "Commence par"
-
-#: common/lib/old/Class.SearchHandler.inc.php:183
-msgid "Contains"
-msgstr "Contient"
-
-#: common/lib/old/Class.SearchHandler.inc.php:184
-msgid "Ends with"
-msgstr "Ends with"
-
-#: common/lib/old/Class.SearchHandler.inc.php:291
-msgid "There is"
-msgstr ""
-
-#: common/lib/old/Class.SearchHandler.inc.php:291
-msgid ""
-"selected, use the option below if you are willing to make a batch updated of "
-"the selected cards."
-msgstr ""
-
-#: common/lib/old/Class.SearchHandler.inc.php:339
-msgid "BUYRATE"
-msgstr ""
-
-#: common/lib/old/Class.SearchHandler.inc.php:342
-#: common/lib/old/Class.SearchHandler.inc.php:357
-#: common/lib/old/Class.SearchHandler.inc.php:373
-#: common/lib/old/Class.SearchHandler.inc.php:389
-#: common/lib/old/Class.SearchHandler.inc.php:405
-#: common/lib/old/Class.SearchHandler.inc.php:421
-#: common/lib/old/Class.SearchHandler.inc.php:437
-#: common/lib/old/Class.SearchHandler.inc.php:453
-msgid "Equal"
-msgstr ""
-
-#: common/lib/old/Class.SearchHandler.inc.php:343
-#: common/lib/old/Class.SearchHandler.inc.php:358
-#: common/lib/old/Class.SearchHandler.inc.php:374
-#: common/lib/old/Class.SearchHandler.inc.php:390
-#: common/lib/old/Class.SearchHandler.inc.php:406
-#: common/lib/old/Class.SearchHandler.inc.php:422
-#: common/lib/old/Class.SearchHandler.inc.php:438
-#: common/lib/old/Class.SearchHandler.inc.php:454
-msgid "Add"
-msgstr ""
-
-#: common/lib/old/Class.SearchHandler.inc.php:344
-#: common/lib/old/Class.SearchHandler.inc.php:359
-#: common/lib/old/Class.SearchHandler.inc.php:375
-#: common/lib/old/Class.SearchHandler.inc.php:391
-#: common/lib/old/Class.SearchHandler.inc.php:407
-#: common/lib/old/Class.SearchHandler.inc.php:423
-#: common/lib/old/Class.SearchHandler.inc.php:439
-#: common/lib/old/Class.SearchHandler.inc.php:455
-msgid "Substract"
-msgstr ""
-
-#: common/lib/old/Class.SearchHandler.inc.php:354
-msgid "BUYRATEINITBLOCK"
-msgstr ""
-
-#: common/lib/old/Class.SearchHandler.inc.php:370
-msgid "BUYRATEINCREMENT"
-msgstr ""
-
-#: common/lib/old/Class.SearchHandler.inc.php:386
-msgid "RATE INITIAL"
-msgstr ""
-
-#: common/lib/old/Class.SearchHandler.inc.php:402
-msgid "MIN DURATION"
-msgstr ""
-
-#: common/lib/old/Class.SearchHandler.inc.php:418
-msgid "BILLINGBLOCK"
-msgstr ""
-
-#: common/lib/old/Class.SearchHandler.inc.php:434
-#, fuzzy
-msgid "CONNECTCHARGE"
-msgstr "EXTRA CHARGE"
-
-#: common/lib/old/Class.SearchHandler.inc.php:450
-msgid "DISCONNECTCHARGE"
-msgstr ""
-
-#: common/lib/old/Class.SearchHandler.inc.php:463
-#, fuzzy
-msgid " BATCH UPDATE RATECARD "
-msgstr "THE CURRENT RATECARD"
-
-#: common/lib/old/Class.ViewHandler.inc.php:47
-msgid "Archiving All "
-msgstr ""
-
-#: common/lib/old/Class.ViewHandler.inc.php:60
-msgid "Sort"
-msgstr ""
-
-#: common/lib/old/Class.ViewHandler.inc.php:80
-#, fuzzy
-msgid "Records"
-msgstr "Secondes"
-
-#: common/lib/old/Class.ViewHandler.inc.php:100
-msgid "FILTER ON "
-msgstr ""
-
-#: common/lib/old/Class.ViewHandler.inc.php:117
-msgid "FILTER ON"
-msgstr ""
-
-#: common/lib/old/Class.ViewHandler.inc.php:130
-msgid "APPLY FILTER "
-msgstr ""
-
-#: common/lib/old/Class.ViewHandler.inc.php:166
-msgid "ACTION"
-msgstr "ACTION"
-
-#: common/lib/old/Class.ViewHandler.inc.php:427
-msgid "Export CSV"
-msgstr ""
-
-#: common/lib/old/Class.ViewHandler.inc.php:431
-msgid "Export XML"
 msgstr ""
 
 #: common/lib/languageSettings.inc.php:25
@@ -1115,6 +676,194 @@ msgstr ""
 msgid "Database query failed!"
 msgstr ""
 
+#: common/lib/SessionInvoice.inc.php:8 common/lib/AgentMoney.inc.php:11
+#, fuzzy
+msgid "Transactions"
+msgstr "Durée"
+
+#: common/lib/SessionInvoice.inc.php:8 common/lib/AgentMoney.inc.php:11
+#, fuzzy
+msgid "Transaction"
+msgstr "Durée"
+
+#: common/lib/SessionInvoice.inc.php:21 common/lib/SessionInvoice.inc.php:52
+#: common/lib/AgentMoney.inc.php:32
+msgid "Date"
+msgstr "DATE"
+
+#: common/lib/SessionInvoice.inc.php:24 common/lib/AgentMoney.inc.php:40
+#, fuzzy
+msgid "Description"
+msgstr "Destinantion"
+
+#: common/lib/SessionInvoice.inc.php:25
+msgid "Descr"
+msgstr ""
+
+#: common/lib/SessionInvoice.inc.php:27
+#, fuzzy
+msgid "Called Number"
+msgstr "CalledNumber"
+
+#: common/lib/SessionInvoice.inc.php:28
+msgid "C. Num"
+msgstr ""
+
+#: common/lib/SessionInvoice.inc.php:31 common/lib/SessionInvoice.inc.php:58
+msgid "Duration"
+msgstr "Durée"
+
+#: common/lib/SessionInvoice.inc.php:32
+msgid "Dur"
+msgstr ""
+
+#: common/lib/SessionInvoice.inc.php:33
+msgid "Credit"
+msgstr ""
+
+#: common/lib/SessionInvoice.inc.php:34 common/lib/SessionInvoice.inc.php:60
+msgid "Charge"
+msgstr ""
+
+#: common/lib/SessionInvoice.inc.php:40
+#, fuzzy
+msgid "Per-date calls"
+msgstr "Cause"
+
+#: common/lib/SessionInvoice.inc.php:56
+#, fuzzy
+msgid "Calls"
+msgstr "DateAppel"
+
+#: common/lib/SessionInvoice.inc.php:63
+msgid "Per day calls"
+msgstr ""
+
+#: common/lib/SessionInvoice.inc.php:67
+msgid "Total"
+msgstr "TOTAL"
+
+#: common/lib/SessionInvoice.inc.php:72
+msgid "Session is closed"
+msgstr ""
+
+#: common/lib/SessionInvoice.inc.php:74
+msgid "Card is in use, cannot close session now."
+msgstr ""
+
+#: common/lib/SessionInvoice.inc.php:81
+msgid "Pay %1"
+msgstr ""
+
+#: common/lib/AgentMoney.inc.php:34
+msgid "Type"
+msgstr ""
+
+#: common/lib/AgentMoney.inc.php:43
+msgid "In"
+msgstr ""
+
+#: common/lib/AgentMoney.inc.php:44
+msgid "Out"
+msgstr ""
+
+#: common/lib/AgentMoney.inc.php:50
+#, fuzzy
+msgid "Totals"
+msgstr "TOTAL"
+
+#: common/lib/AgentMoney.inc.php:53
+#, fuzzy
+msgid "Sum Total"
+msgstr "TOTAL"
+
+#: common/lib/AgentMoney.inc.php:64
+msgid "Agent Totals"
+msgstr ""
+
+#: common/lib/AgentMoney.inc.php:95
+msgid "Totals could not be calculated!"
+msgstr ""
+
+#: common/lib/AgentMoney.inc.php:96
+msgid "Total sum credited to customers"
+msgstr ""
+
+#: common/lib/AgentMoney.inc.php:97
+msgid "Total sum debited from customers"
+msgstr ""
+
+#: common/lib/AgentMoney.inc.php:98
+msgid "Total potential debit from customers"
+msgstr ""
+
+#: common/lib/AgentMoney.inc.php:99
+msgid "Total calls made by customers"
+msgstr ""
+
+#: common/lib/AgentMoney.inc.php:100
+msgid "Wholesale price of calls"
+msgstr ""
+
+#: common/lib/AgentMoney.inc.php:101
+msgid "Estimated profit from calls"
+msgstr ""
+
+#: common/lib/AgentMoney.inc.php:102
+msgid "Outstanding balance"
+msgstr ""
+
+#: common/lib/AgentMoney.inc.php:103
+msgid "Credit Limit"
+msgstr ""
+
+#: common/lib/AgentMoney.inc.php:104
+msgid "Estimated Days left"
+msgstr ""
+
+#~ msgid "No data found !!!"
+#~ msgstr "Aucune données trouvées !!!"
+
+#, fuzzy
+#~ msgid "has been deleted!"
+#~ msgstr "a été utilisé, nous avons ajouté"
+
+#~ msgid "THE CURRENT RATECARD"
+#~ msgstr "THE CURRENT RATECARD"
+
+#~ msgid "R A T E C A R D"
+#~ msgstr "R A T E C A R D"
+
+#~ msgid "Choose a ratecard"
+#~ msgstr "Choose a ratecard"
+
+#~ msgid "Search"
+#~ msgstr "Recherche"
+
+#~ msgid "RATECARD"
+#~ msgstr "RATECARD"
+
+#~ msgid "Exact"
+#~ msgstr "Exacte"
+
+#~ msgid "Begins with"
+#~ msgstr "Commence par"
+
+#, fuzzy
+#~ msgid "CONNECTCHARGE"
+#~ msgstr "EXTRA CHARGE"
+
+#, fuzzy
+#~ msgid " BATCH UPDATE RATECARD "
+#~ msgstr "THE CURRENT RATECARD"
+
+#, fuzzy
+#~ msgid "Records"
+#~ msgstr "Secondes"
+
+#~ msgid "ACTION"
+#~ msgstr "ACTION"
+
 #~ msgid "LAST NAME"
 #~ msgstr "NOM"
 
@@ -1233,23 +982,11 @@ msgstr ""
 #~ msgid "Remove this DID DESTINATION"
 #~ msgstr "Supprimer la DESTINATION DID "
 
-#~ msgid "Calldate"
-#~ msgstr "DateAppel"
-
 #~ msgid "CardNumber"
 #~ msgstr "NuméroAppelé"
 
-#~ msgid "Destination"
-#~ msgstr "Destinantion"
-
-#~ msgid "Duration"
-#~ msgstr "Durée"
-
 #~ msgid "Cardused"
 #~ msgstr "CarteUtilisée"
-
-#~ msgid "terminate cause"
-#~ msgstr "Cause"
 
 #~ msgid "Calltype"
 #~ msgstr "TypeCall"
@@ -1332,14 +1069,8 @@ msgstr ""
 #~ msgid "Total Cost"
 #~ msgstr "COUT TOTAL"
 
-#~ msgid "Total"
-#~ msgstr "TOTAL"
-
 #~ msgid "CALLING CARD MINUTES"
 #~ msgstr "MINUTES CALLINGCARD"
-
-#~ msgid "Date"
-#~ msgstr "DATE"
 
 #~ msgid "DURATION"
 #~ msgstr "DURÉE"
@@ -1364,9 +1095,6 @@ msgstr ""
 
 #~ msgid "Source"
 #~ msgstr "Source"
-
-#~ msgid "Callednumber"
-#~ msgstr "CalledNumber"
 
 #~ msgid "Is not"
 #~ msgstr "Is Not"

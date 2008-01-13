@@ -15,230 +15,431 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "1.0: 2.0\n"
 
-#: A2BAgent_UI/A2B_entity_agent_invoicev.php:83
-msgid "SELECT MONTH"
+#: A2BAgent_UI/A2B_entity_agent_invoicev.php:14
+msgid "Invoices"
 msgstr ""
 
-#: A2BAgent_UI/A2B_entity_agent_invoicev.php:89
-msgid "From"
+#: A2BAgent_UI/A2B_entity_agent_invoicev.php:14
+#: A2BAgent_UI/A2B_entity_agentpay.php:31 A2BAgent_UI/A2B_entity_charge.php:40
+#: A2BAgent_UI/sessions.php:38
+msgid "Invoice"
 msgstr ""
 
-#: A2BAgent_UI/A2B_entity_agent_invoicev.php:91
-#: A2BAgent_UI/A2B_entity_agent_invoicev.php:108
-msgid "January"
+#: A2BAgent_UI/A2B_entity_agent_invoicev.php:24
+#: A2BAgent_UI/A2B_entity_agentpay.php:23 A2BAgent_UI/A2B_entity_booths.php:23
+#: A2BAgent_UI/A2B_entity_cards.php:21 A2BAgent_UI/A2B_entity_charge.php:27
+#: A2BAgent_UI/invoices_agent.php:26 A2BAgent_UI/sessions.php:26
+#, fuzzy
+msgid "ID"
+msgstr "DID"
+
+#: A2BAgent_UI/A2B_entity_agent_invoicev.php:25
+#: A2BAgent_UI/invoices_agent.php:28
+msgid "Ref"
 msgstr ""
 
-#: A2BAgent_UI/A2B_entity_agent_invoicev.php:91
-msgid "February"
+#: A2BAgent_UI/A2B_entity_agent_invoicev.php:27 A2BAgent_UI/sessions.php:29
+msgid "Start"
 msgstr ""
 
-#: A2BAgent_UI/A2B_entity_agent_invoicev.php:91
-msgid "March"
+#: A2BAgent_UI/A2B_entity_agent_invoicev.php:28
+msgid "Finish"
 msgstr ""
 
-#: A2BAgent_UI/A2B_entity_agent_invoicev.php:91
-msgid "April"
+#: A2BAgent_UI/A2B_entity_agent_invoicev.php:29
+msgid "Created"
 msgstr ""
 
-#: A2BAgent_UI/A2B_entity_agent_invoicev.php:91
-msgid "May"
+#: A2BAgent_UI/A2B_entity_agent_invoicev.php:29
+#: A2BAgent_UI/invoices_agent.php:32
+msgid "Date this invoice was registered"
 msgstr ""
 
-#: A2BAgent_UI/A2B_entity_agent_invoicev.php:91
-msgid "June"
+#: A2BAgent_UI/A2B_entity_agent_invoicev.php:31
+#: A2BAgent_UI/A2B_entity_charge.php:36 A2BAgent_UI/invoices_agent.php:34
+msgid "Amount"
 msgstr ""
 
-#: A2BAgent_UI/A2B_entity_agent_invoicev.php:91
-msgid "July"
+#: A2BAgent_UI/A2B_entity_agent_invoicev.php:32
+#: A2BAgent_UI/invoices_agent.php:35
+msgid "Tax"
 msgstr ""
 
-#: A2BAgent_UI/A2B_entity_agent_invoicev.php:91
-msgid "August"
+#: A2BAgent_UI/A2B_entity_agent_invoicev.php:34
+#: A2BAgent_UI/invoices_agent.php:37 A2BAgent_UI/invoices_agent.php:87
+msgid "Total"
+msgstr "TOTAL"
+
+#: A2BAgent_UI/A2B_entity_agent_invoicev.php:46
+#: A2BAgent_UI/invoices_agent.php:50
+msgid "Unpaid"
 msgstr ""
 
-#: A2BAgent_UI/A2B_entity_agent_invoicev.php:91
-msgid "September"
+#: A2BAgent_UI/A2B_entity_agent_invoicev.php:47
+#: A2BAgent_UI/invoices_agent.php:51
+msgid "Sent-unpaid"
 msgstr ""
 
-#: A2BAgent_UI/A2B_entity_agent_invoicev.php:91
-msgid "October"
+#: A2BAgent_UI/A2B_entity_agent_invoicev.php:48
+#: A2BAgent_UI/invoices_agent.php:52
+msgid "Sent-paid"
 msgstr ""
 
-#: A2BAgent_UI/A2B_entity_agent_invoicev.php:91
-msgid "November"
+#: A2BAgent_UI/A2B_entity_agent_invoicev.php:49
+#: A2BAgent_UI/invoices_agent.php:53
+msgid "Paid"
 msgstr ""
 
-#: A2BAgent_UI/A2B_entity_agent_invoicev.php:91
-msgid "December"
-msgstr ""
-
-#: A2BAgent_UI/A2B_entity_agent_invoicev.php:112
-msgid "To"
-msgstr ""
-
-#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:17
-#: A2BAgent_UI/FG_var_agent_invoicev.inc:61
-msgid "UNPAID"
-msgstr ""
-
-#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:18
-#: A2BAgent_UI/FG_var_agent_invoicev.inc:62
-msgid "SENT-UNPAID"
-msgstr ""
-
-#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:19
-#: A2BAgent_UI/FG_var_agent_invoicev.inc:63
-msgid "SENT-PAID"
-msgstr ""
-
-#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:20
-#: A2BAgent_UI/FG_var_agent_invoicev.inc:64
-msgid "PAID"
-msgstr ""
-
-#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:106
-#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:109
-msgid "Cannot locate invoice."
-msgstr ""
-
-#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:123
-msgid "Name"
-msgstr ""
-
-#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:126
-msgid "Address"
-msgstr ""
-
-#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:130
-msgid "Invoice date"
-msgstr ""
-
-#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:134
-msgid "Period from"
-msgstr ""
-
-#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:138
-msgid "Period to"
-msgstr ""
-
-#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:143
+#: A2BAgent_UI/A2B_entity_agent_invoicev.php:51
+#: A2BAgent_UI/A2B_entity_cards.php:42 A2BAgent_UI/invoices_agent.php:55
 msgid "Status"
 msgstr ""
 
-#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:147
-msgid "Order"
+#: A2BAgent_UI/A2B_entity_agent_invoicev.php:54
+msgid "View"
 msgstr ""
 
-#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:161
-msgid "Pay (in %1):"
+#: A2BAgent_UI/A2B_entity_agentpay.php:13
+msgid ""
+"Agent payments are money transactions between agents and the phone company."
 msgstr ""
 
-#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:163
-#, fuzzy
-msgid "PAY"
-msgstr "Mai"
-
-#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:171
-#: A2BAgent_UI/invoices_cust.php:781
-msgid "Printable version"
+#: A2BAgent_UI/A2B_entity_agentpay.php:15
+msgid "Payments"
 msgstr ""
 
-#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:189
-msgid "History"
+#: A2BAgent_UI/A2B_entity_agentpay.php:15 A2BAgent_UI/pay.php:23
+msgid "Payment"
 msgstr ""
 
-#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:193
-msgid "At:"
-msgstr ""
-
-#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:225
-msgid "Call Details"
-msgstr ""
-
-#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:228
-#, fuzzy
-msgid "No calls found!"
-msgstr "Aucune données trouvées !!!"
-
-#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:252
-#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:332
+#: A2BAgent_UI/A2B_entity_agentpay.php:26 A2BAgent_UI/A2B_entity_charge.php:30
 msgid "Date"
 msgstr "DATE"
 
-#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:252 A2BAgent_UI/invoices.php:89
-msgid "Destination"
-msgstr "Destinantion"
-
-#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:252 A2BAgent_UI/invoices.php:90
-#: A2BAgent_UI/invoices_cust.php:160
-msgid "Duration"
-msgstr "Durée"
-
-#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:252
-#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:332
-#: A2BAgent_UI/invoices_cust.php:162
-msgid "Charge"
+#: A2BAgent_UI/A2B_entity_agentpay.php:27 A2BAgent_UI/A2B_entity_booths.php:39
+#: A2BAgent_UI/A2B_entity_cards.php:43
+msgid "Credit"
 msgstr ""
 
-#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:268
-#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:348
-#, fuzzy
-msgid "Total:"
-msgstr "TOTAL"
-
-#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:307
-msgid "List of Charges"
-msgstr ""
-
-#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:310
-msgid "No charges found."
-msgstr ""
-
-#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:332
-#: A2BAgent_UI/agent-money.php:141
+#: A2BAgent_UI/A2B_entity_agentpay.php:28 A2BAgent_UI/A2B_entity_charge.php:31
 msgid "Type"
 msgstr ""
 
-#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:332
-#: A2BAgent_UI/agent-money.php:142 A2BAgent_UI/invoices_cust.php:157
+#: A2BAgent_UI/A2B_entity_agentpay.php:34 A2BAgent_UI/A2B_entity_charge.php:38
 #, fuzzy
 msgid "Description"
 msgstr "Destinantion"
 
-#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:377
-msgid "Amount"
+#: A2BAgent_UI/A2B_entity_booths.php:13
+msgid ""
+"Booths are the physical phones where a customer can enter and make calls."
 msgstr ""
 
-#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:380
-msgid "VAT (%1)%%"
+#: A2BAgent_UI/A2B_entity_booths.php:15
+msgid "Booths"
 msgstr ""
 
-#: A2BAgent_UI/A2B_entity_ainvoice_detail.php:384
-msgid "Total"
-msgstr "TOTAL"
-
-#: A2BAgent_UI/A2B_entity_cards.php:60
-msgid "Fill!"
+#: A2BAgent_UI/A2B_entity_booths.php:15 A2BAgent_UI/sessions.php:34
+msgid "Booth"
 msgstr ""
 
-#: A2BAgent_UI/A2B_entity_cards.php:61
-msgid "Empty!"
+#: A2BAgent_UI/A2B_entity_booths.php:26
+msgid "Name"
 msgstr ""
 
-#: A2BAgent_UI/A2B_entity_cards.php:69
-msgid "Nowhere"
+#: A2BAgent_UI/A2B_entity_booths.php:27
+#, fuzzy
+msgid "Location"
+msgstr "Durée"
+
+#: A2BAgent_UI/A2B_entity_booths.php:30
+msgid "N/A"
 msgstr ""
 
-#: A2BAgent_UI/A2B_entity_cards.php:70
-msgid ", default for "
+#: A2BAgent_UI/A2B_entity_booths.php:31
+msgid "Empty"
 msgstr ""
 
-#: A2BAgent_UI/A2B_entity_cards.php:146
-msgid "Create new regular customer"
+#: A2BAgent_UI/A2B_entity_booths.php:32
+msgid "Idle"
 msgstr ""
 
-#: A2BAgent_UI/A2B_entity_charge.php:53
-msgid "Charge a customer"
+#: A2BAgent_UI/A2B_entity_booths.php:33
+msgid "Ready"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_booths.php:34
+msgid "Active"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_booths.php:35
+msgid "Disabled"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_booths.php:36
+msgid "Stopped"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_booths.php:38 A2BAgent_UI/A2B_entity_cards.php:48
+#: A2BAgent_UI/sessions.php:32
+#, fuzzy
+msgid "State"
+msgstr "DATE"
+
+#: A2BAgent_UI/A2B_entity_booths.php:39
+msgid "Money now in the card inside the booth."
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_cards.php:13
+msgid "Customers represent the accounts that get charged for calls."
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_cards.php:15
+#, fuzzy
+msgid "Cards"
+msgstr "CarteUtilisée"
+
+#: A2BAgent_UI/A2B_entity_cards.php:15 A2BAgent_UI/A2B_entity_charge.php:29
+#: A2BAgent_UI/sessions.php:35
+#, fuzzy
+msgid "Card"
+msgstr "CarteUtilisée"
+
+#: A2BAgent_UI/A2B_entity_cards.php:25
+#, fuzzy
+msgid "Card number"
+msgstr "CalledNumber"
+
+#: A2BAgent_UI/A2B_entity_cards.php:25
+msgid "Card username. Also the PIN for callingcards"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_cards.php:26
+#, fuzzy
+msgid "Card alias"
+msgstr "CarteUtilisée"
+
+#: A2BAgent_UI/A2B_entity_cards.php:26
+msgid "Alias, also the internal number"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_cards.php:28
+msgid "First name"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_cards.php:29
+msgid "Last name"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_cards.php:32
+#, fuzzy
+msgid "CANCELLED"
+msgstr "CALL"
+
+#: A2BAgent_UI/A2B_entity_cards.php:33
+#, fuzzy
+msgid "ACTIVE"
+msgstr "ACTIVÉ"
+
+#: A2BAgent_UI/A2B_entity_cards.php:34
+msgid "NEW"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_cards.php:35
+msgid "MAIL-WAIT"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_cards.php:36
+#, fuzzy
+msgid "RESERVED"
+msgstr "REGISTERED"
+
+#: A2BAgent_UI/A2B_entity_cards.php:37
+msgid "EXPIRED"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_cards.php:38
+msgid "UNDERPAY"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_cards.php:39
+#, fuzzy
+msgid "LITIGATION"
+msgstr "DURÉE"
+
+#: A2BAgent_UI/A2B_entity_cards.php:40
+msgid "STOPPED"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_cards.php:43
+msgid "Money now in the card. Positive is credit, negative owes us."
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_cards.php:45
+msgid "Address"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_cards.php:47
+msgid "City"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_cards.php:50
+msgid "Country"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_cards.php:51
+msgid "Zipcode"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_cards.php:53
+msgid "Phone"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_cards.php:54
+msgid "email"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_cards.php:55
+msgid "Fax"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_cards.php:57
+msgid "In use"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_cards.php:59
+msgid "Currency"
+msgstr "Monnaie"
+
+#: A2BAgent_UI/A2B_entity_cards.php:59
+msgid "This currency affects the invoice and the audible balance information."
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_charge.php:13
+msgid ""
+"Charges are money transactions apart from calls. They are used to indicate "
+"that the customer should pay or receive extra money."
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_charge.php:15
+msgid "Charges"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_charge.php:15 A2BAgent_UI/A2B_entity_ratecard.php:39
+msgid "Charge"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_charge.php:36
+msgid ""
+"Positive charge is when the customer should pay more. Negative means the "
+"customer gets refunded."
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_ratecard.php:14
+msgid "These are the selling rates to each destination"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_ratecard.php:18
+#: A2BAgent_UI/A2B_entity_ratecard.php:36 A2BAgent_UI/invoices_agent.php:68
+msgid "Destination"
+msgstr "Destinantion"
+
+#: A2BAgent_UI/A2B_entity_ratecard.php:20
+#, fuzzy
+msgid "Rates"
+msgstr "DATE"
+
+#: A2BAgent_UI/A2B_entity_ratecard.php:20
+#: A2BAgent_UI/A2B_entity_ratecard.php:38
+#, fuzzy
+msgid "Rate"
+msgstr "DATE"
+
+#: A2BAgent_UI/A2B_entity_ratecard.php:40
+msgid "Block"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_ratecard.php:41
+msgid "Tariff"
+msgstr ""
+
+#: A2BAgent_UI/invoices_agent.php:20
+#, fuzzy
+msgid "Transactions"
+msgstr "Durée"
+
+#: A2BAgent_UI/invoices_agent.php:20
+#, fuzzy
+msgid "Transaction"
+msgstr "Durée"
+
+#: A2BAgent_UI/invoices_agent.php:30
+msgid "Period begin"
+msgstr ""
+
+#: A2BAgent_UI/invoices_agent.php:31
+msgid "Period end"
+msgstr ""
+
+#: A2BAgent_UI/invoices_agent.php:32
+msgid "Invoice date"
+msgstr ""
+
+#: A2BAgent_UI/invoices_agent.php:57
+msgid "calls"
+msgstr ""
+
+#: A2BAgent_UI/invoices_agent.php:66
+msgid "Time"
+msgstr ""
+
+#: A2BAgent_UI/invoices_agent.php:67
+#, fuzzy
+msgid "Number"
+msgstr "CalledNumber"
+
+#: A2BAgent_UI/invoices_agent.php:69
+msgid "Duration"
+msgstr "Durée"
+
+#: A2BAgent_UI/invoices_agent.php:70
+msgid "Dur"
+msgstr ""
+
+#: A2BAgent_UI/invoices_agent.php:72
+msgid "Bill"
+msgstr ""
+
+#: A2BAgent_UI/invoices_agent.php:81
+#, fuzzy
+msgid "Sum per destination"
+msgstr "Destinantion"
+
+#: A2BAgent_UI/sessions.php:14
+msgid ""
+"Callshop essions. Each session starts when the customer enters a booth and "
+"ends when he leaves (preferably having paid the account)."
+msgstr ""
+
+#: A2BAgent_UI/sessions.php:16
+#, fuzzy
+msgid "Sessions"
+msgstr "Secondes"
+
+#: A2BAgent_UI/sessions.php:16
+msgid "Session"
+msgstr ""
+
+#: A2BAgent_UI/sessions.php:30
+msgid "End"
+msgstr ""
+
+#: A2BAgent_UI/sessions.php:47 A2BAgent_UI/agent-money.php:15
+msgid "Period from"
+msgstr ""
+
+#: A2BAgent_UI/sessions.php:51 A2BAgent_UI/agent-money.php:20
+msgid "Period to"
 msgstr ""
 
 #: A2BAgent_UI/PP_error.php:7
@@ -271,210 +472,6 @@ msgstr "Sorry, this page is in construction !"
 
 #: A2BAgent_UI/PP_error.php:29
 msgid "Error Page"
-msgstr ""
-
-#: A2BAgent_UI/agent-money.php:140 A2BAgent_UI/invoices_cust.php:156
-msgid "Calldate"
-msgstr "DateAppel"
-
-#: A2BAgent_UI/agent-money.php:144
-msgid "In"
-msgstr ""
-
-#: A2BAgent_UI/agent-money.php:145
-msgid "Out"
-msgstr ""
-
-#: A2BAgent_UI/agent-money.php:194
-msgid " - Transactions - "
-msgstr ""
-
-#: A2BAgent_UI/agent-money.php:408
-msgid "All transactions"
-msgstr ""
-
-#: A2BAgent_UI/agent-money.php:413 A2BAgent_UI/invoices.php:427
-msgid "Selection of the month"
-msgstr "Selection du mois"
-
-#: A2BAgent_UI/agent-money.php:418 A2BAgent_UI/agent-money.php:466
-#: A2BAgent_UI/invoices.php:432 A2BAgent_UI/invoices.php:480
-msgid "FROM"
-msgstr "de"
-
-#: A2BAgent_UI/agent-money.php:438 A2BAgent_UI/agent-money.php:511
-#: A2BAgent_UI/invoices.php:452 A2BAgent_UI/invoices.php:525
-msgid "TO"
-msgstr "à"
-
-#: A2BAgent_UI/agent-money.php:462 A2BAgent_UI/invoices.php:476
-msgid "Selection of the day"
-msgstr "Selection du jour"
-
-#: A2BAgent_UI/agent-money.php:561 A2BAgent_UI/invoices_cust.php:423
-msgid "View"
-msgstr ""
-
-#: A2BAgent_UI/agent-money.php:564 A2BAgent_UI/invoices.php:604
-#: A2BAgent_UI/invoices_cust.php:426
-msgid "Result"
-msgstr "Résultat"
-
-#: A2BAgent_UI/agent-money.php:564 A2BAgent_UI/invoices.php:604
-#: A2BAgent_UI/invoices_cust.php:426
-msgid "Minutes"
-msgstr "Minutes"
-
-#: A2BAgent_UI/agent-money.php:564 A2BAgent_UI/invoices.php:604
-#: A2BAgent_UI/invoices_cust.php:426
-msgid "Seconds"
-msgstr "Secondes"
-
-#: A2BAgent_UI/agent-money.php:567 A2BAgent_UI/invoices.php:616
-#: A2BAgent_UI/invoices_cust.php:429
-msgid "Currency"
-msgstr "Monnaie"
-
-#: A2BAgent_UI/agent-money.php:580
-msgid "Mode"
-msgstr ""
-
-#: A2BAgent_UI/agent-money.php:583 A2BAgent_UI/invoices.php:613
-#: A2BAgent_UI/invoices_cust.php:445
-msgid "See Invoice in HTML"
-msgstr "See Invoice in HTML"
-
-#: A2BAgent_UI/agent-money.php:584 A2BAgent_UI/invoices.php:614
-#: A2BAgent_UI/invoices_cust.php:447
-msgid "or Export PDF"
-msgstr "or Export PDF"
-
-#: A2BAgent_UI/agent-money.php:587 A2BAgent_UI/invoices.php:602
-#: A2BAgent_UI/invoices_cust.php:451
-msgid "Search"
-msgstr "Recherche"
-
-#: A2BAgent_UI/agent-money.php:600
-msgid "TRANSACTIONS DETAIL"
-msgstr ""
-
-#: A2BAgent_UI/agent-money.php:613 A2BAgent_UI/invoices.php:981
-#: A2BAgent_UI/invoices_cust.php:477
-msgid "nb"
-msgstr "nb"
-
-#: A2BAgent_UI/agent-money.php:627
-msgid "Carry from previous period"
-msgstr ""
-
-#: A2BAgent_UI/agent-money.php:675 A2BAgent_UI/invoices_cust.php:531
-msgid "Partial sum:"
-msgstr ""
-
-#: A2BAgent_UI/agent-money.php:682 A2BAgent_UI/invoices.php:1062
-#: A2BAgent_UI/invoices_cust.php:541
-msgid "No data found !!!"
-msgstr "Aucune données trouvées !!!"
-
-#: A2BAgent_UI/agent-money.php:696 A2BAgent_UI/invoices.php:1107
-#: A2BAgent_UI/invoices_cust.php:578
-msgid "No calls in your Selection"
-msgstr "No calls in your selection"
-
-#: A2BAgent_UI/agent-money.php:772
-msgid "MONEY SITUATION:"
-msgstr ""
-
-#: A2BAgent_UI/agent-money.php:776
-#, fuzzy
-msgid "TRANSACTIONS"
-msgstr "ACTION"
-
-#: A2BAgent_UI/agent-money.php:777
-msgid "IN/OUT"
-msgstr ""
-
-#: A2BAgent_UI/agent-money.php:779 A2BAgent_UI/invoices_cust.php:600
-msgid "TYPE"
-msgstr ""
-
-#: A2BAgent_UI/agent-money.php:780
-msgid "IN"
-msgstr ""
-
-#: A2BAgent_UI/agent-money.php:781
-#, fuzzy
-msgid "OUT"
-msgstr "QUITTER"
-
-#: A2BAgent_UI/agent-money.php:792
-#, fuzzy
-msgid "SITUATION"
-msgstr "DURÉE"
-
-#: A2BAgent_UI/agent-money.php:793 A2BAgent_UI/FG_var_agentpay.inc:28
-#: A2BAgent_UI/FG_var_charge.inc:40 A2BAgent_UI/FG_var_charge.inc:92
-#, fuzzy
-msgid "DESCRIPTION"
-msgstr "DESTINATION"
-
-#: A2BAgent_UI/agent-money.php:793
-msgid "SUM"
-msgstr ""
-
-#: A2BAgent_UI/agent-money.php:795
-msgid "Total sum carried from previous period"
-msgstr ""
-
-#: A2BAgent_UI/agent-money.php:803
-msgid "Total sum credited to customers"
-msgstr ""
-
-#: A2BAgent_UI/agent-money.php:806
-msgid "Total sum debited from customers"
-msgstr ""
-
-#: A2BAgent_UI/agent-money.php:809
-msgid "Total potential debit from customers"
-msgstr ""
-
-#: A2BAgent_UI/agent-money.php:811
-msgid "Total calls made by customers"
-msgstr ""
-
-#: A2BAgent_UI/agent-money.php:813
-msgid "Wholesale price of calls"
-msgstr ""
-
-#: A2BAgent_UI/agent-money.php:815
-msgid "Estimated profit from calls"
-msgstr ""
-
-#: A2BAgent_UI/agent-money.php:818 A2BAgent_UI/invoices.php:838
-#: A2BAgent_UI/invoices.php:846 A2BAgent_UI/invoices.php:941
-#: A2BAgent_UI/invoices_cust.php:626 A2BAgent_UI/invoices_cust.php:719
-msgid "TOTAL"
-msgstr "TOTAL"
-
-#: A2BAgent_UI/agent-money.php:820 A2BAgent_UI/invoices_cust.php:629
-msgid "includes VAT"
-msgstr ""
-
-#: A2BAgent_UI/agent-money.php:822
-#, fuzzy
-msgid "CREDIT LIMIT:"
-msgstr "CREDIT"
-
-#: A2BAgent_UI/agent-money.php:824
-msgid "EST. DAYS LEFT:"
-msgstr ""
-
-#: A2BAgent_UI/agent-money.php:834 A2BAgent_UI/invoices_cust.php:804
-msgid "Pay back:"
-msgstr ""
-
-#: A2BAgent_UI/agent-money.php:838 A2BAgent_UI/invoices_cust.php:824
-msgid "Pay:"
 msgstr ""
 
 #: A2BAgent_UI/booths.xml.php:15
@@ -536,62 +533,6 @@ msgid ""
 "list and enter the destination you would like to assign it to."
 msgstr ""
 
-#: A2BAgent_UI/lib/languageSettings.php:25
-msgid "English"
-msgstr ""
-
-#: A2BAgent_UI/lib/languageSettings.php:26
-msgid "Arabic"
-msgstr ""
-
-#: A2BAgent_UI/lib/languageSettings.php:27
-msgid "Chinese"
-msgstr ""
-
-#: A2BAgent_UI/lib/languageSettings.php:28
-msgid "French"
-msgstr ""
-
-#: A2BAgent_UI/lib/languageSettings.php:29
-msgid "German"
-msgstr ""
-
-#: A2BAgent_UI/lib/languageSettings.php:30
-msgid "Greek"
-msgstr ""
-
-#: A2BAgent_UI/lib/languageSettings.php:31
-msgid "Italian"
-msgstr ""
-
-#: A2BAgent_UI/lib/languageSettings.php:32
-msgid "Polish"
-msgstr ""
-
-#: A2BAgent_UI/lib/languageSettings.php:33
-msgid "Portuguese"
-msgstr ""
-
-#: A2BAgent_UI/lib/languageSettings.php:34
-msgid "Romanian"
-msgstr ""
-
-#: A2BAgent_UI/lib/languageSettings.php:35
-msgid "Russian"
-msgstr ""
-
-#: A2BAgent_UI/lib/languageSettings.php:36
-msgid "Spanish"
-msgstr ""
-
-#: A2BAgent_UI/lib/languageSettings.php:37
-msgid "Turkish"
-msgstr ""
-
-#: A2BAgent_UI/lib/languageSettings.php:38
-msgid "Urdu"
-msgstr ""
-
 #: A2BAgent_UI/forgotpassword.php:24
 msgid ""
 "Please wait 1 minutes before making any other request for the forgot "
@@ -647,275 +588,20 @@ msgstr ""
 msgid "here"
 msgstr ""
 
-#: A2BAgent_UI/info_choice.php:16
+#: A2BAgent_UI/info_choice.php:17
 msgid "Please choose information page:"
 msgstr ""
 
-#: A2BAgent_UI/info_choice.php:18
+#: A2BAgent_UI/info_choice.php:19
 msgid "Current rates"
 msgstr ""
 
-#: A2BAgent_UI/info_choice.php:19
+#: A2BAgent_UI/info_choice.php:20
 msgid "Usage instructions"
 msgstr ""
 
-#: A2BAgent_UI/info_choice.php:20
+#: A2BAgent_UI/info_choice.php:21
 msgid "Contact information"
-msgstr ""
-
-#: A2BAgent_UI/invoices.php:86
-#, fuzzy
-msgid "Call date"
-msgstr "DateAppel"
-
-#: A2BAgent_UI/invoices.php:87
-msgid "Source"
-msgstr "Source"
-
-#: A2BAgent_UI/invoices.php:88
-#, fuzzy
-msgid "Called number"
-msgstr "CalledNumber"
-
-#: A2BAgent_UI/invoices.php:94
-#, fuzzy
-msgid "Card used"
-msgstr "CarteUtilisée"
-
-#: A2BAgent_UI/invoices.php:104
-msgid "Cost"
-msgstr "Coût"
-
-#: A2BAgent_UI/invoices.php:436 A2BAgent_UI/invoices.php:456
-#: A2BAgent_UI/invoices.php:493 A2BAgent_UI/invoices.php:538
-msgid "JANUARY"
-msgstr "Janvier"
-
-#: A2BAgent_UI/invoices.php:436 A2BAgent_UI/invoices.php:456
-#: A2BAgent_UI/invoices.php:493 A2BAgent_UI/invoices.php:538
-msgid "FEBRUARY"
-msgstr "Février"
-
-#: A2BAgent_UI/invoices.php:436 A2BAgent_UI/invoices.php:456
-#: A2BAgent_UI/invoices.php:493 A2BAgent_UI/invoices.php:538
-msgid "MARCH"
-msgstr "Mars"
-
-#: A2BAgent_UI/invoices.php:436 A2BAgent_UI/invoices.php:456
-#: A2BAgent_UI/invoices.php:493 A2BAgent_UI/invoices.php:538
-msgid "APRIL"
-msgstr "Avril"
-
-#: A2BAgent_UI/invoices.php:436 A2BAgent_UI/invoices.php:456
-#: A2BAgent_UI/invoices.php:493 A2BAgent_UI/invoices.php:538
-msgid "MAY"
-msgstr "Mai"
-
-#: A2BAgent_UI/invoices.php:436 A2BAgent_UI/invoices.php:456
-#: A2BAgent_UI/invoices.php:493 A2BAgent_UI/invoices.php:538
-msgid "JUNE"
-msgstr "Juin"
-
-#: A2BAgent_UI/invoices.php:436 A2BAgent_UI/invoices.php:456
-#: A2BAgent_UI/invoices.php:493 A2BAgent_UI/invoices.php:538
-msgid "JULY"
-msgstr "Juiller"
-
-#: A2BAgent_UI/invoices.php:436 A2BAgent_UI/invoices.php:456
-#: A2BAgent_UI/invoices.php:493 A2BAgent_UI/invoices.php:538
-msgid "AUGUST"
-msgstr "Août"
-
-#: A2BAgent_UI/invoices.php:436 A2BAgent_UI/invoices.php:456
-#: A2BAgent_UI/invoices.php:493 A2BAgent_UI/invoices.php:538
-msgid "SEPTEMBER"
-msgstr "Septembre"
-
-#: A2BAgent_UI/invoices.php:436 A2BAgent_UI/invoices.php:456
-#: A2BAgent_UI/invoices.php:493 A2BAgent_UI/invoices.php:538
-msgid "OCTOBER"
-msgstr "Octobre"
-
-#: A2BAgent_UI/invoices.php:436 A2BAgent_UI/invoices.php:456
-#: A2BAgent_UI/invoices.php:493 A2BAgent_UI/invoices.php:538
-msgid "NOVEMBER"
-msgstr "Novembre"
-
-#: A2BAgent_UI/invoices.php:436 A2BAgent_UI/invoices.php:456
-#: A2BAgent_UI/invoices.php:493 A2BAgent_UI/invoices.php:538
-msgid "DECEMBER"
-msgstr "Decembre"
-
-#: A2BAgent_UI/invoices.php:574 A2BAgent_UI/invoices.php:789
-#: A2BAgent_UI/FG_var_ratecard.inc:38 A2BAgent_UI/FG_var_ratecard.inc:65
-msgid "DESTINATION"
-msgstr "DESTINATION"
-
-#: A2BAgent_UI/invoices.php:578 A2BAgent_UI/invoices.php:591
-msgid "Exact"
-msgstr "Exacte"
-
-#: A2BAgent_UI/invoices.php:579 A2BAgent_UI/invoices.php:592
-msgid "Begins with"
-msgstr "Commence par"
-
-#: A2BAgent_UI/invoices.php:580 A2BAgent_UI/invoices.php:593
-msgid "Contains"
-msgstr "Contient"
-
-#: A2BAgent_UI/invoices.php:581 A2BAgent_UI/invoices.php:594
-msgid "Ends with"
-msgstr "Ends with"
-
-#: A2BAgent_UI/invoices.php:582 A2BAgent_UI/invoices.php:595
-msgid "Is not"
-msgstr "Is Not"
-
-#: A2BAgent_UI/invoices.php:587
-msgid "SOURCE"
-msgstr "SOURCE"
-
-#: A2BAgent_UI/invoices.php:669
-msgid "Phone :"
-msgstr ""
-
-#: A2BAgent_UI/invoices.php:670
-msgid "Fax  :"
-msgstr ""
-
-#: A2BAgent_UI/invoices.php:685 A2BAgent_UI/invoices_cust.php:590
-msgid "BILLING SERVICE"
-msgstr ""
-
-#: A2BAgent_UI/invoices.php:711
-msgid "EXTRA CHARGE"
-msgstr "EXTRA CHARGE"
-
-#: A2BAgent_UI/invoices.php:715 A2BAgent_UI/invoices.php:892
-#: A2BAgent_UI/invoices_cust.php:670 A2BAgent_UI/FG_var_agentpay.inc:25
-#: A2BAgent_UI/FG_var_charge.inc:37
-msgid "DATE"
-msgstr "DATE"
-
-#: A2BAgent_UI/invoices.php:716
-msgid "NB CHARGE"
-msgstr ""
-
-#: A2BAgent_UI/invoices.php:717
-msgid "TOTALCOST"
-msgstr ""
-
-#: A2BAgent_UI/invoices.php:753 A2BAgent_UI/invoices.php:852
-#: A2BAgent_UI/invoices.php:954 A2BAgent_UI/invoices_cust.php:732
-msgid "VAT"
-msgstr ""
-
-#: A2BAgent_UI/invoices.php:786
-msgid "CALLS PER DESTINATION"
-msgstr "CALLS PER DESTINATION"
-
-#: A2BAgent_UI/invoices.php:790 A2BAgent_UI/invoices.php:893
-#: A2BAgent_UI/invoices_cust.php:671
-msgid "DUR"
-msgstr "DUR"
-
-#: A2BAgent_UI/invoices.php:791 A2BAgent_UI/invoices.php:894
-#: A2BAgent_UI/invoices_cust.php:672
-msgid "GRAPHIC"
-msgstr "GRAPHIQUE"
-
-#: A2BAgent_UI/invoices.php:792 A2BAgent_UI/invoices.php:895
-#: A2BAgent_UI/invoices_cust.php:673
-msgid "CALL"
-msgstr "CALL"
-
-#: A2BAgent_UI/invoices.php:793 A2BAgent_UI/invoices.php:896
-#: A2BAgent_UI/invoices_cust.php:674
-msgid "TOTAL COST"
-msgstr "COUT TOTAL"
-
-#: A2BAgent_UI/invoices.php:864 A2BAgent_UI/invoices_cust.php:643
-msgid "BILL EVOLUTION"
-msgstr ""
-
-#: A2BAgent_UI/invoices.php:969 A2BAgent_UI/invoices_cust.php:464
-#, fuzzy
-msgid "CALLS DETAIL"
-msgstr "CALLS PER DESTINATION"
-
-#: A2BAgent_UI/invoices.php:978
-msgid "Number of call"
-msgstr "Number of call"
-
-#: A2BAgent_UI/invoices.php:1078 A2BAgent_UI/invoices_cust.php:557
-msgid "TOTAL BUYCOSTS"
-msgstr ""
-
-#: A2BAgent_UI/invoices.php:1079 A2BAgent_UI/invoices_cust.php:558
-msgid "DIFFERENCE"
-msgstr ""
-
-#: A2BAgent_UI/invoices_cust.php:159
-#, fuzzy
-msgid "Called Number"
-msgstr "CalledNumber"
-
-#: A2BAgent_UI/invoices_cust.php:161
-msgid "Credit"
-msgstr ""
-
-#: A2BAgent_UI/invoices_cust.php:411
-#, fuzzy
-msgid "Select booth:"
-msgstr "Selectionnez un pays"
-
-#: A2BAgent_UI/invoices_cust.php:536
-msgid "Sum:"
-msgstr ""
-
-#: A2BAgent_UI/invoices_cust.php:596
-msgid "CREDITS/CHARGES"
-msgstr ""
-
-#: A2BAgent_UI/invoices_cust.php:601 A2BAgent_UI/FG_var_booth.inc:34
-msgid "CREDIT"
-msgstr "CREDIT"
-
-#: A2BAgent_UI/invoices_cust.php:602
-#, fuzzy
-msgid "CHARGE"
-msgstr "EXTRA CHARGE"
-
-#: A2BAgent_UI/invoices_cust.php:761
-msgid "Do you want to charge the customer for one printing?"
-msgstr ""
-
-#: A2BAgent_UI/invoices_cust.php:772
-msgid "Print charge cancelled."
-msgstr ""
-
-#: A2BAgent_UI/invoices_cust.php:778
-msgid "Charge printing"
-msgstr ""
-
-#: A2BAgent_UI/invoices_cust.php:787
-msgid "Click OK if you have paid back %1 to the customer."
-msgstr ""
-
-#: A2BAgent_UI/invoices_cust.php:798
-msgid "Pay back cancelled."
-msgstr ""
-
-#: A2BAgent_UI/invoices_cust.php:808
-msgid "Click OK if you have received %1 from the customer as payment."
-msgstr ""
-
-#: A2BAgent_UI/invoices_cust.php:819
-msgid "Payment cancelled."
-msgstr ""
-
-#: A2BAgent_UI/pay.php:23
-msgid "Payment"
 msgstr ""
 
 #: A2BAgent_UI/pay.php:24
@@ -938,31 +624,31 @@ msgstr ""
 msgid "Back to booths"
 msgstr ""
 
-#: A2BAgent_UI/reports_choice.php:16
+#: A2BAgent_UI/reports_choice.php:17
 msgid "Please choose report type:"
 msgstr ""
 
-#: A2BAgent_UI/reports_choice.php:18
-msgid "All calls"
-msgstr ""
-
 #: A2BAgent_UI/reports_choice.php:19
-msgid "Agent money situation"
+msgid "All sessions"
 msgstr ""
 
 #: A2BAgent_UI/reports_choice.php:20
+msgid "Agent money situation"
+msgstr ""
+
+#: A2BAgent_UI/reports_choice.php:21
 msgid "Phone statistics"
 msgstr ""
 
-#: A2BAgent_UI/reports_choice.php:25
+#: A2BAgent_UI/reports_choice.php:26
 msgid "Customer charges"
 msgstr ""
 
-#: A2BAgent_UI/reports_choice.php:26
+#: A2BAgent_UI/reports_choice.php:27
 msgid "Agent payments"
 msgstr ""
 
-#: A2BAgent_UI/reports_choice.php:27
+#: A2BAgent_UI/reports_choice.php:28
 msgid "Agent invoices"
 msgstr ""
 
@@ -1003,405 +689,271 @@ msgstr ""
 msgid "LOGOUT"
 msgstr "QUITTER"
 
-#: A2BAgent_UI/FG_var_agent_invoicev.inc:57
-msgid "Failed"
+#: A2BAgent_UI/invoices_cshop.php:46 A2BAgent_UI/invoices_cshop.php:50
+msgid "Cannot locate session!"
 msgstr ""
 
-#: A2BAgent_UI/FG_var_agent_invoicev.inc:58
-msgid "Successful"
-msgstr ""
-
-#: A2BAgent_UI/FG_var_agent_invoicev.inc:66 A2BAgent_UI/FG_var_booth.inc:28
-#: A2BAgent_UI/FG_var_card.inc:20
 #, fuzzy
-msgid "ID"
-msgstr "DID"
+#~ msgid "PAY"
+#~ msgstr "Mai"
 
-#: A2BAgent_UI/FG_var_agent_invoicev.inc:67
 #, fuzzy
-msgid "INVOICEDATE"
-msgstr "FACTURES"
+#~ msgid "No calls found!"
+#~ msgstr "Aucune données trouvées !!!"
 
-#: A2BAgent_UI/FG_var_agent_invoicev.inc:68
-msgid "COVERSTART"
-msgstr ""
-
-#: A2BAgent_UI/FG_var_agent_invoicev.inc:69
-msgid "COVEREND"
-msgstr ""
-
-#: A2BAgent_UI/FG_var_agent_invoicev.inc:70
 #, fuzzy
-msgid "SENTDATE"
-msgstr "ETAT"
+#~ msgid "Total:"
+#~ msgstr "TOTAL"
 
-#: A2BAgent_UI/FG_var_agent_invoicev.inc:71
+#~ msgid "Calldate"
+#~ msgstr "DateAppel"
+
+#~ msgid "Selection of the month"
+#~ msgstr "Selection du mois"
+
+#~ msgid "FROM"
+#~ msgstr "de"
+
+#~ msgid "TO"
+#~ msgstr "à"
+
+#~ msgid "Selection of the day"
+#~ msgstr "Selection du jour"
+
+#~ msgid "Result"
+#~ msgstr "Résultat"
+
+#~ msgid "Minutes"
+#~ msgstr "Minutes"
+
+#~ msgid "See Invoice in HTML"
+#~ msgstr "See Invoice in HTML"
+
+#~ msgid "or Export PDF"
+#~ msgstr "or Export PDF"
+
+#~ msgid "Search"
+#~ msgstr "Recherche"
+
+#~ msgid "nb"
+#~ msgstr "nb"
+
+#~ msgid "No data found !!!"
+#~ msgstr "Aucune données trouvées !!!"
+
+#~ msgid "No calls in your Selection"
+#~ msgstr "No calls in your selection"
+
 #, fuzzy
-msgid "STATUS"
-msgstr "ETAT"
+#~ msgid "TRANSACTIONS"
+#~ msgstr "ACTION"
 
-#: A2BAgent_UI/FG_var_agent_invoicev.inc:72
-msgid "PAYMENTSTATUS"
-msgstr ""
-
-#: A2BAgent_UI/FG_var_agent_invoicev.inc:73 A2BAgent_UI/FG_var_agentpay.inc:26
-#: A2BAgent_UI/FG_var_charge.inc:38 A2BAgent_UI/FG_var_charge.inc:74
 #, fuzzy
-msgid "AMOUNT"
-msgstr "PAYS"
+#~ msgid "OUT"
+#~ msgstr "QUITTER"
 
-#: A2BAgent_UI/FG_var_agent_invoicev.inc:80
-msgid "THERE IS NO INVOICES CREATED!"
-msgstr ""
-
-#: A2BAgent_UI/FG_var_agentpay.inc:27 A2BAgent_UI/FG_var_charge.inc:39
-#: A2BAgent_UI/FG_var_charge.inc:83
-msgid "CHARGETYPE"
-msgstr ""
-
-#: A2BAgent_UI/FG_var_agentpay.inc:35
-msgid "THERE ARE NO AGENT PAYMENTS YET!"
-msgstr ""
-
-#: A2BAgent_UI/FG_var_booth.inc:12
-msgid "N/A"
-msgstr ""
-
-#: A2BAgent_UI/FG_var_booth.inc:13
-msgid "Empty"
-msgstr ""
-
-#: A2BAgent_UI/FG_var_booth.inc:14
-msgid "Idle"
-msgstr ""
-
-#: A2BAgent_UI/FG_var_booth.inc:15
-msgid "Ready"
-msgstr ""
-
-#: A2BAgent_UI/FG_var_booth.inc:16
-msgid "Active"
-msgstr ""
-
-#: A2BAgent_UI/FG_var_booth.inc:17
-msgid "Disabled"
-msgstr ""
-
-#: A2BAgent_UI/FG_var_booth.inc:18
-msgid "Stopped"
-msgstr ""
-
-#: A2BAgent_UI/FG_var_booth.inc:29 A2BAgent_UI/FG_var_card.inc:22
-msgid "NAME"
-msgstr "NAME"
-
-#: A2BAgent_UI/FG_var_booth.inc:30
 #, fuzzy
-msgid "LOCATION"
-msgstr "ACTION"
+#~ msgid "DESCRIPTION"
+#~ msgstr "DESTINATION"
 
-#: A2BAgent_UI/FG_var_booth.inc:32
-msgid "STATE"
-msgstr "ETAT"
+#~ msgid "TOTAL"
+#~ msgstr "TOTAL"
 
-#: A2BAgent_UI/FG_var_booth.inc:47
-msgid "NO BOOTHS HAVE BEEN CREATED!"
-msgstr ""
-
-#: A2BAgent_UI/FG_var_booth.inc:49
-msgid "Booths"
-msgstr ""
-
-#: A2BAgent_UI/FG_var_booth.inc:62
-msgid ""
-"You can modify, through the following form, the different properties of your "
-msgstr ""
-
-#: A2BAgent_UI/FG_var_card.inc:21
-msgid "CARD NUMBER"
-msgstr "NUMERO DE CARTE"
-
-#: A2BAgent_UI/FG_var_card.inc:23 A2BAgent_UI/FG_var_card.inc:140
-msgid "BALANCE"
-msgstr ""
-
-#: A2BAgent_UI/FG_var_card.inc:23
-msgid "BA"
-msgstr ""
-
-#: A2BAgent_UI/FG_var_card.inc:28
-msgid "NOW IN"
-msgstr ""
-
-#: A2BAgent_UI/FG_var_card.inc:35
-msgid "Fill booth"
-msgstr ""
-
-#: A2BAgent_UI/FG_var_card.inc:35
-msgid " with card "
-msgstr ""
-
-#: A2BAgent_UI/FG_var_card.inc:41
-msgid "Booth Filled"
-msgstr ""
-
-#: A2BAgent_UI/FG_var_card.inc:43
-msgid "Cannot fill booth!"
-msgstr ""
-
-#: A2BAgent_UI/FG_var_card.inc:48
-msgid "Empty booth "
-msgstr ""
-
-#: A2BAgent_UI/FG_var_card.inc:53
-msgid "Booth Emptied"
-msgstr ""
-
-#: A2BAgent_UI/FG_var_card.inc:55
-msgid "Cannot empty booth! (Does it have zero balance?)"
-msgstr ""
-
-#: A2BAgent_UI/FG_var_card.inc:67
-msgid "NO CARDS HAVE BEEN CREATED!"
-msgstr ""
-
-#: A2BAgent_UI/FG_var_card.inc:69
-msgid "Customers"
-msgstr ""
-
-#: A2BAgent_UI/FG_var_card.inc:83 A2BAgent_UI/FG_var_card.inc:88
 #, fuzzy
-msgid "select"
-msgstr "Supprimer"
+#~ msgid "CREDIT LIMIT:"
+#~ msgstr "CREDIT"
 
-#: A2BAgent_UI/FG_var_card.inc:93
-msgid "Charges"
-msgstr ""
-
-#: A2BAgent_UI/FG_var_card.inc:98
-msgid "Pay"
-msgstr ""
-
-#: A2BAgent_UI/FG_var_card.inc:131
 #, fuzzy
-msgid "CARD NUMBER "
-msgstr "NUMERO DE CARTE"
+#~ msgid "Call date"
+#~ msgstr "DateAppel"
 
-#: A2BAgent_UI/FG_var_card.inc:137
+#~ msgid "Source"
+#~ msgstr "Source"
+
+#~ msgid "Cost"
+#~ msgstr "Coût"
+
+#~ msgid "JANUARY"
+#~ msgstr "Janvier"
+
+#~ msgid "FEBRUARY"
+#~ msgstr "Février"
+
+#~ msgid "MARCH"
+#~ msgstr "Mars"
+
+#~ msgid "APRIL"
+#~ msgstr "Avril"
+
+#~ msgid "MAY"
+#~ msgstr "Mai"
+
+#~ msgid "JUNE"
+#~ msgstr "Juin"
+
+#~ msgid "JULY"
+#~ msgstr "Juiller"
+
+#~ msgid "AUGUST"
+#~ msgstr "Août"
+
+#~ msgid "SEPTEMBER"
+#~ msgstr "Septembre"
+
+#~ msgid "OCTOBER"
+#~ msgstr "Octobre"
+
+#~ msgid "NOVEMBER"
+#~ msgstr "Novembre"
+
+#~ msgid "DECEMBER"
+#~ msgstr "Decembre"
+
+#~ msgid "DESTINATION"
+#~ msgstr "DESTINATION"
+
+#~ msgid "Exact"
+#~ msgstr "Exacte"
+
+#~ msgid "Begins with"
+#~ msgstr "Commence par"
+
+#~ msgid "Contains"
+#~ msgstr "Contient"
+
+#~ msgid "Ends with"
+#~ msgstr "Ends with"
+
+#~ msgid "Is not"
+#~ msgstr "Is Not"
+
+#~ msgid "SOURCE"
+#~ msgstr "SOURCE"
+
+#~ msgid "EXTRA CHARGE"
+#~ msgstr "EXTRA CHARGE"
+
+#~ msgid "DATE"
+#~ msgstr "DATE"
+
+#~ msgid "CALLS PER DESTINATION"
+#~ msgstr "CALLS PER DESTINATION"
+
+#~ msgid "DUR"
+#~ msgstr "DUR"
+
+#~ msgid "GRAPHIC"
+#~ msgstr "GRAPHIQUE"
+
+#~ msgid "TOTAL COST"
+#~ msgstr "COUT TOTAL"
+
 #, fuzzy
-msgid "Insert the username"
-msgstr "Insert a new"
+#~ msgid "CALLS DETAIL"
+#~ msgstr "CALLS PER DESTINATION"
 
-#: A2BAgent_UI/FG_var_card.inc:146
-msgid "Insert the number of credit"
-msgstr ""
+#~ msgid "Number of call"
+#~ msgstr "Number of call"
 
-#: A2BAgent_UI/FG_var_card.inc:149
-msgid "LANGUAGE"
-msgstr ""
-
-#: A2BAgent_UI/FG_var_card.inc:158
 #, fuzzy
-msgid "LASTNAME"
-msgstr "NOM"
+#~ msgid "Select booth:"
+#~ msgstr "Selectionnez un pays"
 
-#: A2BAgent_UI/FG_var_card.inc:164
-msgid "Insert the lastname of the customers"
-msgstr ""
+#~ msgid "CREDIT"
+#~ msgstr "CREDIT"
 
-#: A2BAgent_UI/FG_var_card.inc:167
-msgid "FIRSTNAME"
-msgstr ""
-
-#: A2BAgent_UI/FG_var_card.inc:173
-msgid "Insert the firstname of the customers"
-msgstr ""
-
-#: A2BAgent_UI/FG_var_card.inc:181
-msgid "EMAIL"
-msgstr "EMAIL"
-
-#: A2BAgent_UI/FG_var_card.inc:187
 #, fuzzy
-msgid "Insert the email"
-msgstr "Insert a new"
+#~ msgid "CHARGE"
+#~ msgstr "EXTRA CHARGE"
 
-#: A2BAgent_UI/FG_var_card.inc:191
-msgid "ADDRESS"
-msgstr "ADRESSE"
-
-#: A2BAgent_UI/FG_var_card.inc:197
-msgid "Insert the address of the customers"
-msgstr ""
-
-#: A2BAgent_UI/FG_var_card.inc:201
-msgid "CITY"
-msgstr "VILLE"
-
-#: A2BAgent_UI/FG_var_card.inc:207
-msgid "Insert the city"
-msgstr ""
-
-#: A2BAgent_UI/FG_var_card.inc:211
-msgid "STATE/PROVINCE"
-msgstr ""
-
-#: A2BAgent_UI/FG_var_card.inc:217
 #, fuzzy
-msgid "Insert the state"
-msgstr "Insert a new"
+#~ msgid "INVOICEDATE"
+#~ msgstr "FACTURES"
 
-#: A2BAgent_UI/FG_var_card.inc:221
-msgid "COUNTRY"
-msgstr "PAYS"
-
-#: A2BAgent_UI/FG_var_card.inc:227
 #, fuzzy
-msgid "Insert the country"
-msgstr "Insert a new"
+#~ msgid "SENTDATE"
+#~ msgstr "ETAT"
 
-#: A2BAgent_UI/FG_var_card.inc:231
 #, fuzzy
-msgid "ZIP/POSTAL CODE"
-msgstr "CODEPOSTAL"
+#~ msgid "STATUS"
+#~ msgstr "ETAT"
 
-#: A2BAgent_UI/FG_var_card.inc:237
-msgid "Insert the zipcode"
-msgstr ""
-
-#: A2BAgent_UI/FG_var_card.inc:245
-msgid "Once you have completed the form above, click on the CONTINUE button."
-msgstr ""
-
-#: A2BAgent_UI/FG_var_charge.inc:36
-msgid "CARDNUMBER"
-msgstr ""
-
-#: A2BAgent_UI/FG_var_charge.inc:46
-msgid "THERE IS NO CHARGE CREATED!"
-msgstr ""
-
-#: A2BAgent_UI/FG_var_charge.inc:61
-msgid "ID CARD"
-msgstr ""
-
-#: A2BAgent_UI/FG_var_charge.inc:67
-msgid "Insert the Id CardNumber"
-msgstr ""
-
-#: A2BAgent_UI/FG_var_charge.inc:72
 #, fuzzy
-msgid "Set the Card Number ID"
-msgstr "NuméroAppelé"
+#~ msgid "AMOUNT"
+#~ msgstr "PAYS"
 
-#: A2BAgent_UI/FG_var_charge.inc:80
+#~ msgid "NAME"
+#~ msgstr "NAME"
+
 #, fuzzy
-msgid "Insert the amount"
-msgstr "Insert a new"
+#~ msgid "LOCATION"
+#~ msgstr "ACTION"
 
-#: A2BAgent_UI/FG_var_charge.inc:81
-msgid "Amount, in "
-msgstr ""
+#~ msgid "STATE"
+#~ msgstr "ETAT"
 
-#: A2BAgent_UI/FG_var_charge.inc:98
-msgid "Insert the description"
-msgstr ""
+#~ msgid "CARD NUMBER"
+#~ msgstr "NUMERO DE CARTE"
 
-#: A2BAgent_UI/FG_var_charge.inc:122
-msgid "Modify the properties of the charge"
-msgstr ""
-
-#: A2BAgent_UI/FG_var_charge.inc:123
-msgid "If you really want remove this charge, click on the delete button."
-msgstr ""
-
-#: A2BAgent_UI/FG_var_charge.inc:124
-msgid ""
-"you can add easily a new charge.<br>Fill the following fields and confirm by "
-"clicking on the button add."
-msgstr ""
-
-#: A2BAgent_UI/FG_var_charge.inc:128
-msgid "Your new charge has been inserted. <br>"
-msgstr ""
-
-#: A2BAgent_UI/FG_var_charge.inc:132
-msgid "Click 'Confirm Data' to continue"
-msgstr ""
-
-#: A2BAgent_UI/FG_var_ratecard.inc:36
-msgid "GROUP"
-msgstr ""
-
-#: A2BAgent_UI/FG_var_ratecard.inc:39
-msgid "PREFIX"
-msgstr ""
-
-#: A2BAgent_UI/FG_var_ratecard.inc:40
-msgid "SR"
-msgstr ""
-
-#: A2BAgent_UI/FG_var_ratecard.inc:41
 #, fuzzy
-msgid "EXTRA"
-msgstr "Suivant"
+#~ msgid "select"
+#~ msgstr "Supprimer"
 
-#: A2BAgent_UI/FG_var_ratecard.inc:49
 #, fuzzy
-msgid "THERE IS NO RATECARD CREATED!"
-msgstr "THE CURRENT RATECARD"
+#~ msgid "CARD NUMBER "
+#~ msgstr "NUMERO DE CARTE"
 
-#: A2BAgent_UI/FG_var_ratecard.inc:56
-msgid "DIALPREFIX"
-msgstr ""
+#, fuzzy
+#~ msgid "Insert the username"
+#~ msgstr "Insert a new"
 
-#: A2BAgent_UI/FG_var_ratecard.inc:62
-msgid "Insert the dialing prefix, such as for UK '44' or for US '1' "
-msgstr ""
+#, fuzzy
+#~ msgid "LASTNAME"
+#~ msgstr "NOM"
 
-#: A2BAgent_UI/FG_var_ratecard.inc:63
-msgid "Define the destination prefix. ie, 44 for UK proper."
-msgstr ""
+#~ msgid "EMAIL"
+#~ msgstr "EMAIL"
 
-#: A2BAgent_UI/FG_var_ratecard.inc:63
-msgid ""
-"You can use 'defaultprefix' to setup a rate by default for the destination "
-"for which you dont want to provide a specific rate.<br>"
-msgstr ""
+#, fuzzy
+#~ msgid "Insert the email"
+#~ msgstr "Insert a new"
 
-#: A2BAgent_UI/FG_var_ratecard.inc:63
-msgid ""
-"IF YOU ADD A RATE AND NOT AN EDIT => You can also define several in the same "
-"time and range, as below: "
-msgstr ""
+#~ msgid "ADDRESS"
+#~ msgstr "ADRESSE"
 
-#: A2BAgent_UI/FG_var_ratecard.inc:63
-msgid ""
-"<br>32484-32487 -> this would insert 32484, 32485, 32486, 32487 "
-"<br>32476,32477,32478 separate by comma"
-msgstr ""
+#~ msgid "CITY"
+#~ msgstr "VILLE"
 
-#: A2BAgent_UI/FG_var_ratecard.inc:71
-msgid "Come on... Insert the destination name"
-msgstr ""
+#, fuzzy
+#~ msgid "Insert the state"
+#~ msgstr "Insert a new"
 
-#: A2BAgent_UI/FG_var_ratecard.inc:75
-msgid "SELLING RATE"
-msgstr ""
+#~ msgid "COUNTRY"
+#~ msgstr "PAYS"
 
-#: A2BAgent_UI/FG_var_ratecard.inc:81
-msgid "Insert the initial rate"
-msgstr ""
+#, fuzzy
+#~ msgid "Insert the country"
+#~ msgstr "Insert a new"
 
-#: A2BAgent_UI/FG_var_ratecard.inc:82
-msgid ""
-"Cost per minute for which you want to charge your customer. For example "
-"'0.02'"
-msgstr ""
+#, fuzzy
+#~ msgid "ZIP/POSTAL CODE"
+#~ msgstr "CODEPOSTAL"
 
-#: A2BAgent_UI/FG_var_ratecard.inc:82
-msgid "Define the selling cost for customers..."
-msgstr ""
+#, fuzzy
+#~ msgid "Set the Card Number ID"
+#~ msgstr "NuméroAppelé"
+
+#, fuzzy
+#~ msgid "Insert the amount"
+#~ msgstr "Insert a new"
+
+#, fuzzy
+#~ msgid "EXTRA"
+#~ msgstr "Suivant"
+
+#, fuzzy
+#~ msgid "THERE IS NO RATECARD CREATED!"
+#~ msgstr "THE CURRENT RATECARD"
 
 #~ msgid "FIRST NAME"
 #~ msgstr "PRENOM"
@@ -1596,9 +1148,6 @@ msgstr ""
 #~ msgid "NO"
 #~ msgstr "NO"
 
-#~ msgid "REGISTERED"
-#~ msgstr "REGISTERED"
-
 #~ msgid "INSERT a new"
 #~ msgstr "INSERT a new"
 
@@ -1613,9 +1162,6 @@ msgstr ""
 
 #~ msgid "Yes"
 #~ msgstr "Oui"
-
-#~ msgid "ACTIVATED"
-#~ msgstr "ACTIVÉ"
 
 #~ msgid "PRIORITY"
 #~ msgstr "PRIORITÉ"
