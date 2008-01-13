@@ -7,7 +7,7 @@ require_once (DIR_COMMON."Form/Class.SqlRefField.inc.php");
 require_once (DIR_COMMON."Form/Class.TimeField.inc.php");
 require_once (DIR_COMMON."Form/Class.ClauseField.inc.php");
 
-$menu_section='menu_agents';
+$menu_section='menu_invoicing';
 
 HelpElem::DoHelp(gettext("Invoices for agents"));
 
