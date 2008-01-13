@@ -83,7 +83,7 @@ if (isset($_GET['language'])){
 	<table style="border: 1px solid #C1C1C1">
 	<tr>
 		<td class="form_enter" align="center">
-			<img src="images/icon_arrow_orange.gif" width="15" height="15">
+			<img src="images/icon_arrow_orange.png" width="15" height="15">
 			<font size="3" color="red" ><b><?= _("AUTHENTICATION"); ?></b></font>
 		</td>
 	</tr>

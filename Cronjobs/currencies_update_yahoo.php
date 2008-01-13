@@ -178,7 +178,7 @@ while($row = fgetcsv($fil,100)){
 }
 fclose($fil);
 
-unlink($tempnam);
+unlink($tmpfname);
 if ($verbose)
 	echo "Finished updating $n currencies.\n";
 
