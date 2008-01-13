@@ -7,7 +7,7 @@ class ListSumView extends ListView {
 
 	protected function performSumQuery(&$form,&$dbhandle){
 		if ($form->FG_DEBUG>3)
-			echo "<br> ListSum! Building Sum query..";
+			echo "<div class=\"debug\"> ListSum! Building Sum query..</div>";
 		
 		$query_fields = array();
 		$query_clauses = array();
@@ -45,7 +45,7 @@ class ListSumView extends ListView {
 		$QUERY .= ';';
 		
 		if ($form->FG_DEBUG>3)
-			echo "SUM QUERY: $QUERY\n<br>\n";
+			echo "<div class=\"debug\">SUM QUERY: $QUERY\n</div>\n";
 		
 		// Perform the query
 		$res =$dbhandle->Execute($QUERY);

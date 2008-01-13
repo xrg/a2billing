@@ -9,7 +9,7 @@ class ListView extends FormView {
 	/** Builds and executes the table list query */
 	protected function performQuery(&$form,&$dbhandle){
 		if ($form->FG_DEBUG>3)
-			echo "List! Building query..";
+			echo "<div class='debug'>List! Building query..</div>";
 		
 		$query_fields = array();
 		$query_clauses = array();
@@ -59,7 +59,7 @@ class ListView extends FormView {
 		$QUERY .= ';';
 		
 		if ($form->FG_DEBUG>3)
-			echo "QUERY: $QUERY\n<br>\n";
+			echo "<div class=\"debug\">QUERY: $QUERY\n</div>\n";
 		
 		// Perform the query
 		$res =$dbhandle->Execute($QUERY);
@@ -98,7 +98,7 @@ class ListView extends FormView {
 		$row_num = 0;
 		while ($row = $res->fetchRow()){
 			if ($form->FG_DEBUG > 4) {
-				echo '<tr><td colspan = 3>';
+				echo '<tr class="debug"><td colspan = 3>';
 				print_r($row);
 				echo '</td></tr>';
 			}
