@@ -825,7 +825,14 @@ WHERE (c2.relname=\'%s\' or c2.relname=lower(\'%s\'))';
 		 }
 		 return 0;
 	}
-
+	
+	function NoticeMsg() 
+	{
+		if (!empty($this->_connectionID))
+			return @pg_last_notice($this->_connectionID);
+		else return null;
+	}
+	
 	// returns true or false
 	function _close()
 	{

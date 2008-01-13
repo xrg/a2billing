@@ -1,6 +1,6 @@
 #!/usr/bin/php
 <?php
-define("DEFAULT_A2BILLING_CONFIG", '../../a2billing.conf');
+define("DEFAULT_A2BILLING_CONFIG", '../../a2billing.conf.testing');
 // echo  DEFAULT_A2BILLING_CONFIG;
 // echo "\n";
 $FG_DEBUG=2;
@@ -35,14 +35,27 @@ function isnumeric($v){
 	return (preg_match('/^\-?[0-9]+([,.][0-9]*)?$/',$v)>=1);
 }
 
-$examples=array('1','500','','ab123','20 1234','-100','12-3','--600','9823748716249876194652',
-	'1.0','500,2','','ab,123','20, 1234','-100.0','12.3','-600.','98.23748716249876194652');
-
-foreach ($examples as $ex){
-	echo "Example \"$ex\" -> ";
-	print_r(isnumeric($ex));
-	echo "\n";
+if (false) {
+	$examples=array('1','500','','ab123','20 1234','-100','12-3','--600','9823748716249876194652',
+		'1.0','500,2','','ab,123','20, 1234','-100.0','12.3','-600.','98.23748716249876194652');
+	
+	foreach ($examples as $ex){
+		echo "Example \"$ex\" -> ";
+		print_r(isnumeric($ex));
+		echo "\n";
+	}
 }
 
+if (true){
+	require_once('Class.A2Billing.inc.php');
+	$dbh=A2Billing::DBHandle();
+	
+		// Execute a query with some results and some warnings..
+	$res = $dbh->Execute('SELECT * from RateEngine2(1,\'+7831222\',now(),-1);');
+	echo "Msg:" . print_r($dbh->ErrorMsg(),true) . "\n";
+	echo "Msg 2:" . print_r($dbh->NoticeMsg(),true) . "\n";
+	print_r($res->GetAll());
+	//print_r($dbh);
+}
 
 ?>

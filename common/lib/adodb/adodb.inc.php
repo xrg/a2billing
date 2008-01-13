@@ -1051,7 +1051,11 @@
 		else return '';
 	}
 	
-	
+	function NoticeMsg() 
+	{
+		return null;
+	}
+
 	/**
 	 * @return the last error number. Normally 0 means no error.
 	 */

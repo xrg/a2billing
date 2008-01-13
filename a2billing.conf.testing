@@ -1,0 +1,21 @@
+;
+; config file for the A2Billing Callingcard platform
+;
+
+
+; Global Database Setup - select the database type and authentication as required.
+
+[global]
+; You MUST define that, or else system won't work!
+base_currency = EUR
+
+[database]
+hostname = localhost
+port = 5432
+user = a2billing
+;password = a2billing
+dbname = a2billing
+dbtype = postgres
+;dbtype = mysql
+
+
