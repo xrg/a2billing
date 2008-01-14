@@ -638,6 +638,7 @@ class RateEngine {
 	*/
 	function rate_engine_calculcost (&$A2B, $callduration, $K=0)
 	{
+		global $agi;
 		$K = $this->usedratecard;
 		$buyrate = round(abs($this -> ratecard_obj[$K][9]),4);
 		$buyrateinitblock = $this -> ratecard_obj[$K][10];
