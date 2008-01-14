@@ -206,8 +206,8 @@ BEGIN
 	
 	IF OLD.buycost IS NULL AND NEW.buycost IS NOT NULL THEN
 		-- Update retailplan
-		UPDATE cc_tariffplan SET credit = credit - ( CASE WHEN neg_currency IS NULL THEN NEW.sessionbill
-				ELSE conv_currency_to(NEW.sessionbill, neg_currency) END),
+		UPDATE cc_tariffplan SET credit = credit - ( CASE WHEN neg_currency IS NULL THEN NEW.buycost
+				ELSE conv_currency_to(NEW.buycost, neg_currency) END),
 			secondusedreal = secondusedreal + NEW.sessiontime
 			FROM cc_buyrate
 			WHERE cc_buyrate.id = COALESCE(NEW.brid,OLD.brid)
