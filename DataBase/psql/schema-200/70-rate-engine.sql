@@ -180,12 +180,17 @@ BEGIN
 			FROM cc_sellrate WHERE id = COALESCE(NEW.srid, OLD.srid);
 		IF FOUND THEN
 			NEW.sessionbill := new_sbill;
+		ELSE
+			RAISE WARNING 'Cannot find sellrate to bill call!';
 		END IF;
 	END IF;
 	IF OLD.sessionbill IS NULL AND NEW.sessionbill IS NOT NULL THEN
 		-- Update card
 		UPDATE cc_card SET credit = credit - NEW.sessionbill 
 			WHERE id = COALESCE(NEW.cardid, OLD.cardid);
+		IF NOT FOUND THEN
+			RAISE WARNING 'Cannot locate card to update credit!';
+		END IF;
 	END IF;
 	
 	IF OLD.buycost IS NULL AND NEW.buycost IS NULL THEN
@@ -194,22 +199,31 @@ BEGIN
 			FROM cc_buyrate WHERE id = COALESCE(NEW.brid,OLD.brid);
 		IF FOUND THEN
 			NEW.buycost := new_bbill;
+		ELSE
+			RAISE WARNING 'Cannot find buyrate to bill call!';
 		END IF;
 	END IF;
 	
 	IF OLD.buycost IS NULL AND NEW.buycost IS NOT NULL THEN
 		-- Update retailplan
-		UPDATE cc_tariffplan SET credit = credit - conv_currency_to(NEW.sessionbill, neg_currency),
+		UPDATE cc_tariffplan SET credit = credit - ( CASE WHEN neg_currency IS NULL THEN NEW.sessionbill
+				ELSE conv_currency_to(NEW.sessionbill, neg_currency) END),
 			secondusedreal = secondusedreal + NEW.sessiontime
 			FROM cc_buyrate
-			WHERE cc_tariffplan.id = COALESCE(NEW.brid,OLD.brid)
+			WHERE cc_buyrate.id = COALESCE(NEW.brid,OLD.brid)
 			    AND cc_buyrate.idtp = cc_tariffplan.id;
+		IF NOT FOUND THEN
+			RAISE WARNING 'Cannot update tariffplan with new credit, seconds!';
+		END IF;
 	END IF;
 	
 	UPDATE cc_trunk SET secondusedreal = secondusedreal + NEW.sessiontime,
 		inuse = inuse - 1
 		WHERE id = COALESCE(NEW.trunk,OLD.trunk);
-	
+	IF NOT FOUND THEN
+		RAISE WARNING 'Cannot update trunk after call!';
+	END IF;
+
 	RETURN NEW;
 END;
 $$ LANGUAGE plpgsql STRICT SECURITY DEFINER;
