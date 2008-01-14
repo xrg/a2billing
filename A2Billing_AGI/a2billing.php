@@ -283,6 +283,39 @@ function getCard_acode(){
 			'AND cc_booth.id = ? LIMIT 1 ;',
 			array($acodes[1]));
 		break;
+	case 'remote-agent':
+			//used by remote hosts 
+		$agid = $acodes[1];
+		$anivar = $agi->get_variable('CALLERID(ANI)');
+		if ($anivar['result'] ==0) {
+			$agi->verbose('No ANI set for remote-agent auth');
+			return false;
+		}
+		// TODO: after this, we MUST reset ANI to the proper value, or else
+		// we may leak it to the provider!
+		
+		$acodes = explode(':',$anivar['data']);
+		switch ($acodes[0]){
+		case 'card':
+			$res = $dbhandle->Execute('SELECT card.id, tariffgroup AS tgid, card.username, card.status, ' .
+				'card.numplan '.
+				'FROM cc_card_dv AS card '.
+				'WHERE card.id = ? AND agentid = ? LIMIT 1 ;',
+				array($acodes[1],$agid));
+			break;
+		case 'booth':
+			$res = $dbhandle->Execute('SELECT card.id, tariffgroup AS tgid, card.username, card.status, ' .
+				'card.numplan '.
+				'FROM cc_card_dv AS card, cc_booth '.
+				'WHERE cc_booth.cur_card_id = card.id '.
+				'AND cc_booth.id = ? AND cc_booth.agentid = ? LIMIT 1 ;',
+				array($acodes[1],$agid));
+			break;
+		default:
+			$agi->verbose('Unknown accountcode at remote: '.$anivar['data']);
+			return false;
+		}
+		break;
 	default:
 		$agi->verbose('Unknown accountcode: '.$agi->request['agi_accountcode']);
 		return false;
