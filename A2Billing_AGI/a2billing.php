@@ -314,6 +314,9 @@ function CardGetMoney(&$card){
 	$dbhandle =$a2b->DBHandle();
 	
 	$res = $dbhandle->Execute ('SELECT * FROM card_call_lock(?);',array($card['id']));
+	if ($notice = $a2b->DBHandle()->NoticeMsg())
+		$agi->verbose('DB:' . $notice,2);
+	
 	if (!$res){
 		$emsg = $dbhandle->ErrorMsg();
 		if (substr($emsg,0,17) =='ERROR:  call_lock'){
@@ -539,6 +542,10 @@ if ($mode == 'standard'){
 			
 		$agi->conlog($QRY,3);
 		$res = $a2b->DBHandle()->Execute($QRY);
+			// If the rate engine has anything to Notice/Warn, display that..
+		if ($notice = $a2b->DBHandle()->NoticeMsg())
+			$agi->verbose('DB:' . $notice,2);
+			
 		if (!$res){
 			$agi->verbose('Rate engine: query error!',2);
 			$agi->conlog($a2b->DBHandle()->ErrorMsg(),2);
@@ -576,15 +583,18 @@ if ($mode == 'standard'){
 				continue;
 			}
 				
-			$res = $a2b->DBHandle()->Execute('INSERT INTO cc_call (cardid, attempt, '.
+			$res = $a2b->DBHandle()->Execute('INSERT INTO cc_call (cardid, attempt, cmode, '.
 				'sessionid, uniqueid, nasipaddress, src, ' .
 				'calledstation, destination, '.
 				'srid, brid, tgid, trunk) '.
 				'VALUES( ?,?,?,?,?,?,?,?,?,?,?,?) RETURNING id;',
-				array($card['id'],$attempt,
+				array($card['id'],$attempt, 'standard',
 					$agi->request['agi_channel'],$agi->request['agi_uniqueid'],NULL,$card['username'],
 					$dialnum,$route['destination'],
 					$route['srid'],$route['brid'],$route['tgid'],$route['trunkid']));
+			
+			if ($notice = $a2b->DBHandle()->NoticeMsg())
+				$agi->verbose('DB:' . $notice,2);
 
 			if (!$res){
 				$agi->verbose('Cannot mark call start in db!');
@@ -651,6 +661,10 @@ if ($mode == 'standard'){
 					$cause_ext,
 					($dialedtime['data'] - $answeredtime['data']),
 					$call_id['id']));
+			
+			if ($notice = $a2b->DBHandle()->NoticeMsg())
+				$agi->verbose('DB:' . $notice,2);
+
 			if (!$res){
 				$agi->verbose('Cannot mark call end in db! (will NOT bill)',0);
 				$agi->conlog($a2b->DBHandle()->ErrorMsg(),2);
