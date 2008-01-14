@@ -59,7 +59,8 @@ end($HD_Form->model)->does_add = false;
 $HD_Form->model[] = new RefField(_("Status"), "status", $status_list,_("Allow the agent to operate"),"4%");
 end($HD_Form->model)->does_add = false;
 
-// TODO: inuse, maxuse, if_max_use (atomic!)
+$HD_Form->model[] = new SecVolField(_("Seconds used"), "secondusedreal", _("Duration of calls through trunk."));
+	end($HD_Form->model)->fieldacr=_("Used");
 
 $HD_Form->model[] = new DelBtnField();
 
