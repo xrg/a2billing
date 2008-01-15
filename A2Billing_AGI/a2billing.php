@@ -453,7 +453,7 @@ function formatDialstring($dialn,&$route, &$card){
 		$dialnum = $route['trunkprefix'] . $dialnum;
 
 	if ($do_param)
-		$str .= getAGIconfig('dialcommand_param','|60|l(%timeout)');
+		$str .= getAGIconfig('dialcommand_param','|60|il(%timeout)');
 	$str .= $route['trunkparm'];
 	
 	return str_alparams($str,array ('dialnum' => $dialnum, 'dialnumber' => $dialn, 'dialstring' => $route['dialstring'],

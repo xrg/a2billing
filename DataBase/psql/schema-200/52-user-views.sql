@@ -171,4 +171,19 @@ BEGIN
 		    AND cc_ast_users.has_iax = true AND do_iax = true;
 END; $$ LANGUAGE plpgsql STRICT VOLATILE;
 
+
+CREATE OR REPLACE VIEW static_dplan_v AS
+	SELECT cc_a2b_server.id AS srvid, cc_a2b_server.grp AS srvgrp,
+		cc_a2b_server.host AS srv_host,
+		COALESCE(cc_booth.peername, cc_card.username) AS peername,
+		cc_numplan.id AS nplan, cc_numplan.name AS npname,
+		cc_card.useralias, cc_ast_instance.sipiax
+	  FROM cc_a2b_server, cc_ast_instance, cc_ast_users
+		LEFT JOIN cc_booth ON (cc_ast_users.booth_id = cc_booth.id)
+		LEFT JOIN cc_card ON (cc_booth.def_card_id = cc_card.id OR cc_ast_users.card_id = cc_card.id)
+	  	FULL JOIN cc_card_group ON (cc_card.grp = cc_card_group.id)
+	  	FULL JOIN cc_numplan ON (cc_card_group.numplan = cc_numplan.id)
+	  WHERE cc_ast_instance.srvid = cc_a2b_server.id AND cc_ast_instance.userid = cc_ast_users.id
+	    AND cc_ast_instance.dyn = false
+	ORDER BY cc_numplan.id, cc_card.useralias;
 --eof
