@@ -620,7 +620,7 @@ if ($mode == 'standard'){
 				'sessionid, uniqueid, nasipaddress, src, ' .
 				'calledstation, destination, '.
 				'srid, brid, tgid, trunk) '.
-				'VALUES( ?,?,?,?,?,?,?,?,?,?,?,?) RETURNING id;',
+				'VALUES( ?,?,?,?,?,?,?,?,?,?,?,?,?) RETURNING id;',
 				array($card['id'],$attempt, 'standard',
 					$agi->request['agi_channel'],$agi->request['agi_uniqueid'],NULL,$card['username'],
 					$dialnum,$route['destination'],
