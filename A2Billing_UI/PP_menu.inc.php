@@ -175,6 +175,7 @@ function menu_show(sect_str){
 			<li><a href="A2B_entity_server_group.php"><?= _("Groups");?></a></li>
 			<li><a href="A2B_entity_server.php"><?= _("Servers");?></a></li>
 			<li><a href="Gen_peer_cfgs.php"><?= _("Gen. Configs");?></a></li>
+			<li><a href="Gen_peer_dplans.php"><?= _("Gen. Peer Dial");?></a></li>
 	<?php  } ?>
 	<?php   if ( has_rights (ACX_TRUNK) ){ 	?>
 			<li><a href="A2B_entity_provider.php"><?= _("Providers");?></a></li>
