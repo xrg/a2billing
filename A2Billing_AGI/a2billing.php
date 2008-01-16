@@ -169,8 +169,8 @@ function getCard(){
 		return getCard_acode();
 		break;
 	case 'pin-and-clid':
-		// *-*
-		break;
+		// TODO
+		// break;
 	default:
 		$agi->verbose('Unknown auth-mode: '. getAGIconfig('auth-mode','callingcard'));
 		return null;
