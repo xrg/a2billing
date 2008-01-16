@@ -472,10 +472,12 @@ function formatDialstring_peer($dialn,&$route, &$card){
 	else
 		$dialnum=$route['dialstring'];
 	
+	$bind_str ='%dialtech/%dialname';
 	switch($route['trunkfmt']){
 	case 4:
-		$qry = str_dbparams($dbhandle,'SELECT dialtech|| \'/\' || dialname AS str FROM cc_dialpeer_local_v '
+		$qry = str_dbparams($dbhandle,'SELECT dialtech, dialname FROM cc_dialpeer_local_v '
 			.'WHERE useralias = %1',array($dialnum));
+		$bind_str ='%dialtech/%dialname';
 		if (strlen($route['providertech']))
 			$qry .= str_dbparams($dbhandle,' AND dialtech = %1',array($route['providertech']));
 			
@@ -487,11 +489,20 @@ function formatDialstring_peer($dialn,&$route, &$card){
 		else
 			$qry .= str_dbparams($dbhandle,' AND numplan = %#1', array($card['numplan']));
 		break;
+	case 6:
+			// hardcode search into same numplan!
+		$qry = str_dbparams($dbhandle,'SELECT * FROM cc_dialpeer_remote_v '
+			.'WHERE useralias = %1 AND numplan = %#2',array($dialnum,$card['numplan']));
+		
+		$bind_str = $route['providertech'] .'/' . $route['providerip'];
+		break;
 	}
 	
 	$qry .= ';';
 	//$agi->conlog("Find peer from ". $qry,4);
 
+	if (!$bind_str)
+		return false;
 	$res = $dbhandle->Execute($qry);
 	if (!$res){
 		$agi->verbose('Cannot dial peer: '. $dbhandle->ErrorMsg());
@@ -501,11 +512,11 @@ function formatDialstring_peer($dialn,&$route, &$card){
 	}
 	if ($res->EOF){
 		$agi->verbose("Peer dial: cannot find peer ".$dialnum,2);
-		$agi-> stream_file("prepaid-dest-unreachable",'#');
-		return false;
+		//$agi-> stream_file("prepaid-dest-unreachable",'#');
+		return null;
 	}
 	$row= $res->fetchRow();
-	return $row['str'];
+	return str_alparams($bind_str,$row);
 }
 
 if ($mode == 'standard'){
@@ -611,7 +622,10 @@ if ($mode == 'standard'){
 			}
 			
 			$dialstr = formatDialstring($dialnum,$route, $card);
-			if (!$dialstr){
+			if ($dialstr === null){
+				$last_prob='unreachable';
+				continue;
+			}elseif (!$dialstr){
 				$last_prob='no-dialstring';
 				continue;
 			}
@@ -668,9 +682,12 @@ if ($mode == 'standard'){
 			$cause_ext = '';
 			switch ($dialstatus['data']){
 			case 'BUSY':
+				$last_prob='busy';
+				break;
 			case 'ANSWERED':
 			case 'ANSWER':
 			case 'CANCEL':
+				$last_prob='';
 				break;
 			
 			case 'CONGESTION':
@@ -715,6 +732,9 @@ if ($mode == 'standard'){
 				break;
 			case 'min-length':
 				$agi->stream_file('prepaid-no-enough-credit','#');
+				break;
+			case 'unreachable':
+				$agi->stream_file('prepaid-dest-unreachable','#');
 				break;
 			default:
 				$agi->conlog("Last problem: ",$last_prob);

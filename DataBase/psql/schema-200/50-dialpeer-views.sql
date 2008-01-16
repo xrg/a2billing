@@ -13,7 +13,8 @@ CREATE OR REPLACE VIEW cc_alias2card_v AS
 		WHEN cc_ast_users.booth_id IS NOT NULL AND cc_booth.def_card_id IS NOT NULL THEN 'booth-def'
 		WHEN cc_ast_users.booth_id IS NOT NULL THEN 'booth' END AS match_mode,
 	cc_card.id AS card_id, cc_card.useralias, cc_card.grp AS card_grp,COALESCE(cc_booth.peername, cc_card.username) AS dialname,
-	CASE WHEN sipiax = 1 THEN 'SIP'::TEXT WHEN sipiax = 2 THEN 'IAX2'::TEXT ELSE 'NONE'::TEXT END AS dialtech
+	CASE WHEN sipiax = 1 THEN 'SIP'::TEXT WHEN sipiax = 2 THEN 'IAX2'::TEXT ELSE 'NONE'::TEXT END AS dialtech,
+	CASE WHEN dyn = false THEN true ELSE ( regseconds > EXTRACT ('epoch' FROM now())) END AS active
 	FROM cc_ast_instance,cc_ast_users LEFT JOIN cc_booth ON cc_ast_users.booth_id = cc_booth.id,
 		cc_card
 	WHERE cc_ast_instance.userid = cc_ast_users.id
@@ -24,9 +25,22 @@ CREATE OR REPLACE VIEW cc_dialpeer_local_v AS
 	FROM cc_alias2card_v, cc_card_group, cc_a2b_server, cc_numplan
 	WHERE cc_alias2card_v.card_grp = cc_card_group.id
 	  AND cc_alias2card_v.srvid = cc_a2b_server.id
-	  AND cc_a2b_server.db_username = current_user
+	  AND cc_a2b_server.db_username = session_user
+	  AND active = true
 	  AND cc_numplan.id = cc_card_group.numplan;
--- 
+ 
+ 
+ CREATE OR REPLACE VIEW cc_dialpeer_remote_v AS
+	SELECT cc_alias2card_v.*, cc_card_group.numplan, cc_numplan.name AS numplan_name,
+		cc_a2b_server.host AS srv_host
+	FROM cc_alias2card_v, cc_card_group, cc_a2b_server, cc_numplan
+	WHERE cc_alias2card_v.card_grp = cc_card_group.id
+	  AND cc_alias2card_v.srvid = cc_a2b_server.id
+	  AND cc_a2b_server.db_username <> session_user
+	  AND active = true
+	  AND cc_numplan.id = cc_card_group.numplan;
+
+ 
 -- 
 -- CREATE OR REPLACE VIEW cc_dialpeer_localbooth_v AS
 -- 	SELECT cc_booth.peername AS dialip, CASE WHEN sipiax = 1 THEN 'SIP'::TEXT
@@ -40,3 +54,4 @@ CREATE OR REPLACE VIEW cc_dialpeer_local_v AS
 
 GRANT SELECT ON cc_alias2card_v TO a2b_group;
 GRANT SELECT ON cc_dialpeer_local_v TO a2b_group;
+GRANT SELECT ON cc_dialpeer_remote_v TO a2b_group;
