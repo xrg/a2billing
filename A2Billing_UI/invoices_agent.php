@@ -3,7 +3,7 @@ require_once ("./lib/defines.php");
 require_once ("./lib/module.access.php");
 require_once (DIR_COMMON."Form.inc.php");
 // require_once (DIR_COMMON."Class.HelpElem.inc.php");
-// require_once (DIR_COMMON."Form/Class.SqlRefField.inc.php");
+require_once (DIR_COMMON."Form/Class.SqlRefField.inc.php");
 require_once (DIR_COMMON."Form/Class.TimeField.inc.php");
 require_once (DIR_COMMON."Form/Class.ClauseField.inc.php");
 require_once (DIR_COMMON."Form/Class.ListSumView.inc.php");
@@ -87,7 +87,23 @@ $dform->meta_elems[] = $tmp;
 		'fns' => array( 'calledstation' => 'COUNT',
 			'sessiontime' => 'SUM', 'sessionbill' => 'SUM'));
 	
-	
+$hform= new FormHandler('cc_agent');
+$hform->checkRights(ACX_AGENTS);
+$hform->init(null,false);
+$hform->setAction('details');
+$hform->views['details'] = new DetailsView();
+
+$hform->model[] = new FreeClauseField(str_dbparams(A2Billing::DBHandle(),
+		'id = (SELECT agentid FROM cc_invoices WHERE id = %#1)',
+		array($dform->getpost_dirty('id'))));
+//$hform->model[] = new PKeyField(_("ID"),'id');
+$hform->model[] = new TextField(_("Name"), "name");
+$hform->model[] = new TextField(_("Address"), "location");
+//$hform->model[] = new TextField(_("Name"), "name");
+
+$hform->model[] = new SqlRefField(_("Tariff Plan"), "tariffgroup","cc_tariffgroup", "id", "pubname");
+
+$PAGE_ELEMS[] = &$hform;	
 $PAGE_ELEMS[] = &$dform;
 
 if (isset($_GET['printable']) && ($_GET['printable']) )
