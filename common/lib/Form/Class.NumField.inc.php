@@ -92,6 +92,10 @@ class MoneyField extends FloatField {
 	<?php
 	}
 	
+	public function DispList(array &$qrow,&$form){
+		echo htmlspecialchars($qrow[$this->fieldname]);
+	}
+	
 	public function detailQueryField(&$dbhandle){
 		if ($this->fieldexpr)
 			$fld= $this->fieldexpr;
