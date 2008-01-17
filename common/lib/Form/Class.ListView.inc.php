@@ -48,10 +48,11 @@ class ListView extends FormView {
 		if (count($query_clauses))
 			$QUERY .= ' WHERE ' . implode(' AND ', $query_clauses);
 		
-		if ($form->order)
+		if ($form->order){
 			$QUERY .= " ORDER BY $form->order";
-		if (($form->sens) && (strtolower($form->sens)=='desc'))
-			$QUERY .= " DESC";
+			if (($form->sens) && (strtolower($form->sens)=='desc'))
+				$QUERY .= " DESC";
+		}
 		if ($form->ndisp)
 			$QUERY .= " LIMIT $form->ndisp";
 		if ($form->cpage)
