@@ -64,6 +64,11 @@ class FloatField extends IntField{
 	<div class="descr"><?= $this->editDescr?></div>
 	<?php
 	}
+	
+	public function DispList(array &$qrow,&$form){
+		echo htmlspecialchars(round($qrow[$this->fieldname],5));
+	}
+	
 
 	public function buildValue($val,&$form){
 		if (preg_match('/^\-?[0-9]+([,.][0-9]*)?$/',$val)>=1)
