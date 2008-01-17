@@ -52,6 +52,9 @@ class SumMultiView extends FormView {
 			return;
 		}
 		
+		if (isset($summ['clauses']))
+			$query_clauses = array_merge($query_clauses,$summ['clauses']);
+
 		$QUERY .= implode(', ', $query_fields);
 		$QUERY .= ' FROM ' . $query_table;
 		
@@ -61,7 +64,35 @@ class SumMultiView extends FormView {
 		if (!empty($query_grps) && 
 			(!isset($summ['group']) || ($summ['group'] != false)) )
 			$QUERY .= ' GROUP BY ' . implode(', ', $query_grps);
-
+		
+			//Try to see if we can order
+		if (!empty($form->order)){
+			if (empty($query_grps) || in_array($form->order,$query_grps))
+				 $ordert =$form->order;
+			else {
+				// search again for expressions
+				foreach ($form->model as $fld)
+					if ($fld->fieldname == $form->order){
+						if (in_array($fld->fieldexpr,$query_grps))
+							$ordert = $fld->fieldexpr;
+						break;
+					}
+			}
+		}
+		elseif (!empty($summ['order']))
+			$ordert = $summ['order'];
+		else
+			$ordert = null;
+		
+		if(!empty($ordert)){
+			$QUERY .= " ORDER BY $ordert";
+			if (!empty($form->sens)){
+				if (strtolower($form->sens)=='desc')
+					$QUERY .= " DESC";
+			} elseif (!empty($summ['sens']) && (strtolower($summ['sens'])=='desc'))
+				$QUERY .= " DESC";
+		}
+		
 		$QUERY .= ';';
 		
 		if ($form->FG_DEBUG>3)
