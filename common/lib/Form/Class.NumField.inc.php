@@ -77,6 +77,12 @@ class FloatField extends IntField{
 
 };
 
+class PercentField extends FloatField {
+	public function DispList(array &$qrow,&$form){
+		echo htmlspecialchars(round($qrow[$this->fieldname]*100.0,2))."%";
+	}
+};
+
 class MoneyField extends FloatField {
 
 	public function DispAddEdit($val,&$form){
