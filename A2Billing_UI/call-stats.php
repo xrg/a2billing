@@ -88,6 +88,12 @@ $sform->views['sums']->sums[] = array('title' => _("Per destination calls"),
 		'sessionbill' => 'SUM', 'buycost' => 'SUM'),
 	'order' => 'COUNT(uniqueid)', 'sens' => 'DESC');
 
+$sform->views['sums']->sums[] = array('title' => _("Total"),
+	'fns' => array( 'uniqueid' => 'COUNT',
+		'sessiontime' => 'SUM', 'asr' => '', 'aloc' => 'AVG',
+		'sessionbill' => 'SUM', 'buycost' => 'SUM'),
+	'order' => 'COUNT(uniqueid)', 'sens' => 'DESC');
+
 $PAGE_ELEMS[] = &$sform;
 
 require("PP_page.inc.php");
