@@ -38,10 +38,6 @@ $SEL_Form->model[] =dontAdd(new SqlRefFieldN(_("Server"),'srvid','cc_a2b_server'
 $SEL_Form->model[] = dontAdd(new SqlRefFieldN(_("Trunk"),'trunk','cc_trunk','id','trunkcode',
 		 _("Trunk used for the call")));
 
-$HD_Form= new FormHandler('cc_sellrate',_("Sell rates"),_("Sell rate"));
-$HD_Form->checkRights(ACX_RATECARD);
-$HD_Form->init();
-
 $PAGE_ELEMS[] = &$SEL_Form;
 
 // HelpElem::DoHelp(gettext("*-*"),'vcard.png');
