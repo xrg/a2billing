@@ -86,14 +86,14 @@ foreach ($list as $recordset) {
 	if ($FG_DEBUG == 1) echo "<br># $username, $lastname, $firstname, $email, $uipass, $credit, $cardalias #</br>";
 
 	$messagetext = str_replace('$name', $lastname, $messagetext);
-	//$message = str_replace('$username', $form->getValue('username'), $messagetext);
 	$messagetext = str_replace('$card_gen', $username, $messagetext);
 	$messagetext = str_replace('$password', $uipass, $messagetext);
 	$messagetext = str_replace('$cardalias', $cardalias, $messagetext);
 	$messagetext = str_replace('$cardalias', $cardalias, $messagetext);
 	$messagetext = str_replace('=$loginkey', "=$loginkey", $messagetext);
 	$messagetext = str_replace('$loginkey', "=$loginkey", $messagetext);
-
+	$messagetext = str_replace('$email', "$email", $messagetext);
+	
 	$em_headers  = "From: ".$fromname." <".$from.">\n";
 	$em_headers .= "Reply-To: ".$from."\n";
 	$em_headers .= "Return-Path: ".$from."\n";
