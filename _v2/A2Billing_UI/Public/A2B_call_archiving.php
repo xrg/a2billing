@@ -2,7 +2,7 @@
 include_once(dirname(__FILE__) . "/../lib/admin.defines.php");
 include ("../lib/Form/Class.FormHandler.inc.php");
 include_once(dirname(__FILE__) . "/../lib/admin.module.access.php");
-include ("../lib/smarty.php");
+include ("../lib/admin.smarty.php");
 
 
 if (! has_rights (ACX_MISC)){ 

@@ -14,7 +14,7 @@ if($err_type == 0) {
 } else {
 	include ("../lib/admin.module.access.php");
 }
-include ("../lib/smarty.php");
+include ("../lib/admin.smarty.php");
 
 $smarty->display('main.tpl');
 

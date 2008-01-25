@@ -2,7 +2,7 @@
 include ("../lib/admin.defines.php");
 include ("../lib/admin.module.access.php");
 include ("../lib/Class.RateEngine.php");	
-include ("../lib/smarty.php");
+include ("../lib/admin.smarty.php");
 
 
 if (! has_rights (ACX_RATECARD)) {

@@ -2,7 +2,7 @@
 include ("../lib/admin.defines.php");
 include ("../lib/admin.module.access.php");
 include ("../lib/Form/Class.FormHandler.inc.php");
-include ("../lib/smarty.php");
+include ("../lib/admin.smarty.php");
 include ("../lib/invoice.php");
 
 if (! has_rights (ACX_INVOICING)){ 

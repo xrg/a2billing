@@ -239,7 +239,7 @@ define ("EMAILCONTACT", "areski@gmail.com");
 define ("COPYRIGHT", gettext(" This software is under GPL licence. For further information, please visit : <a href=\"http://www.asterisk2billing.org\" target=\"_blank\">asterisk2billing.org</a>"));
 define ("CCMAINTITLE", gettext("Asterisk2Billing : CallingCard & VOIP Billing system"));
 
-include (FSROOT."lib/help.php");
+include ("help.php");
 
 define ("ENABLE_LOG", 0);
 ?>

@@ -3,7 +3,7 @@ include ("../lib/admin.defines.php");
 include ("../lib/admin.module.access.php");
 include ("../lib/Form/Class.FormHandler.inc.php");
 include ("./form_data/FG_var_prefix.inc");
-include ("../lib/smarty.php");
+include ("../lib/admin.smarty.php");
 
 
 if (! has_rights (ACX_MISC)){
