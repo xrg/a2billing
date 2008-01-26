@@ -62,6 +62,19 @@ gettexts:
 	@echo
 	@echo "Please note that you may need to *restart* the httpd to let new texts appear"
 
+#  A template for a specific domain/style sheet.
+#  Args: $1: domain, $2 style
+define CSS2_template
+
+# $$(CODE-$(1))/css/$(2).css: common/css-src/common/$(2)/ common/css-src/$(1)/$(2)/
+
+$$(CODE-$(1))/css/$(2).css: common/css-src/common/$(2)/*.inc.css common/css-src/$(1)/$(2)/*.inc.css
+	cat $$^ > $$@
+
+clear-css: $$(CODE-$(1))/css/$(2).css
+
+endef
+
 define CSS_template
 STYLES-$(1)-name:=$$(subst common/css-src/$(1)/,,$$(wildcard common/css-src/$(1)/*))
 STYLES-$(1)-files:=$$(foreach name,$$(STYLES-$(1)-name),$$(CODE-$(1))/css/$$(name).css)
@@ -75,16 +88,17 @@ $$(CODE-$(1))/css:
 	@mkdir -p $$(CODE-$(1))/css/
 	@cd $$(CODE-$(1))/css/ ; ln -s ../../common/css/images ./
 
-$$(CODE-$(1))/css/%.css: common/css-src/common/%/ common/css-src/$(1)/%/
+$$(foreach style,$$(STYLES-$(1)-name),$$(eval $$(call CSS2_template,$(1),$$(style))))
 
-$$(CODE-$(1))/css/%.css: common/css-src/common/%/*.inc.css common/css-src/$(1)/%/*.inc.css
-	cat $$^ > $$@
 endef
 
 $(foreach uii,$(DST_DOMAINS),$(eval $(call CSS_template,$(uii))))
 
+clear-css:
+	rm -f $^
+
 list-css:
-	echo $(STYLES-admin-files)
+	echo $(STYLES-admin-name)
 	#echo $(STYLES-admin)
 
 FORCE: ;
