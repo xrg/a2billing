@@ -92,7 +92,7 @@ if ($argc > 1 && ($argv[1] == '--test')){
 // create the objects
 $a2b = A2Billing::instance();
 if(!$a2b->load_res_dbsettings('/etc/asterisk/res_pgsql.conf')){
-	@syslog("Cannot fetch settings from res_pgsql.conf");
+	@syslog(LOG_ERR,"Cannot fetch settings from res_pgsql.conf");
 	exit(2);
 }
 $dynconf = DynConf::instance();
