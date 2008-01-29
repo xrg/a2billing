@@ -5,6 +5,7 @@ require_once (DIR_COMMON."Form.inc.php");
 require_once (DIR_COMMON."Class.HelpElem.inc.php");
 require_once (DIR_COMMON."Form/Class.TimeField.inc.php");
 require_once (DIR_COMMON."Form/Class.SqlRefField.inc.php");
+require_once (DIR_COMMON."Form/Class.VolField.inc.php");
 
 $menu_section='menu_ratecard';
 
@@ -31,14 +32,19 @@ $HD_Form->model[] = new DateTimeField(_("Start date"), "start_date", _("Date the
 $HD_Form->model[] = new DateTimeField(_("Stop date"), "stop_date", _("Date these rates are valid until."));
 	end($HD_Form->model)->def_date='+1 month 1 day';
 
-$HD_Form->model[] = new TimeOWField(_("Period begin"), "starttime", _("Time of week the rate starts to apply"));
+$HD_Form->model[] = dontList(new TimeOWField(_("Period begin"), "starttime", _("Time of week the rate starts to apply")));
 end($HD_Form->model)->def_value=0;
-$HD_Form->model[] = new TimeOWField(_("Period end"), "endtime", _("Time of week the rate stops apply"));
+$HD_Form->model[] = dontList(new TimeOWField(_("Period end"), "endtime", _("Time of week the rate stops apply")));
 end($HD_Form->model)->def_value=10079;
+
 //$HD_Form->model[] = new TextField(_("xx"),'xx');
+$HD_Form->model[] = new SecVolField(_("Seconds used"), "secondusedreal", _("Duration of calls through trunk."));
+	end($HD_Form->model)->fieldacr=_("Used");
 
+$HD_Form->model[] = dontList(new SqlRefFieldN(_("Negotiation Currency"),'neg_currency','cc_currencies','currency','name', _("The currency credit is at. Whenever a call is made, the plan is charged with an amount at that currency.")));
 
-//RevRef2::html_body($action);
+$HD_Form->model[] = new FloatVolField(_("Credit"),'credit',_("Money remaining in deal with provider."));
+
 
 $HD_Form->model[] = new DelBtnField();
 
