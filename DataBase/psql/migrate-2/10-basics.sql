@@ -25,7 +25,8 @@ SELECT pg_catalog.setval('cc_server_group_id_seq', (SELECT last_value FROM a2b_o
 
 INSERT INTO cc_a2b_server(id,grp,ip,
 		host,manager_username,manager_secret,lasttime_used)
-	SELECT id, id_group, CASE WHEN server_ip = 'default' THEN '127.0.0.1' ELSE server_ip :: INET END, 
+	SELECT id, id_group, CASE WHEN server_ip = 'default' THEN '127.0.0.1' 
+		WHEN server_ip LIKE '%.%.%.%' THEN server_ip ::INET ELSE '0.0.0.0' :: INET END, 
 		manager_host, manager_username, manager_secret, lasttime_used
 	FROM a2b_old.cc_server_manager;
 

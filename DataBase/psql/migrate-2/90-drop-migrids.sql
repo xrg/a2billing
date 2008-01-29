@@ -1,7 +1,7 @@
 ---
 
 -- Until others are ok
-ERROR;
+-- ERROR;
 
 \echo Dropping the migration id columns
 -- ALTER TABLE cc_tariffgroup DROP COLUMN migr_oldid;

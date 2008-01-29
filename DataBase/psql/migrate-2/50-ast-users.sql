@@ -82,6 +82,7 @@ INSERT INTO cc_ast_users (card_id, config, has_sip, has_iax, defaultip, fromuser
 	SELECT id_cc_card, config.id, false, true, char2inet(defaultip), fromuser, host
 	FROM a2b_old.cc_iax_buddies, cc_ast_users_config AS config
 	WHERE config.cfg_name LIKE 'Config IAX %'
+		AND id_cc_card > 0
 		AND cc_iax_buddies."type" IS NOT DISTINCT FROM config."type"
 		AND cc_iax_buddies."context" IS NOT DISTINCT FROM config."context"
 		AND cc_iax_buddies.fromdomain IS NOT DISTINCT FROM config.fromdomain

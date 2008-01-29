@@ -3,7 +3,7 @@
 \echo Drop v1.3 views
 
 DROP VIEW IF EXISTS cc_agent_calls3_v;
-DROP VIEW IF EXISTS cc_agent_calls_v;
+DROP VIEW IF EXISTS cc_agent_calls_v CASCADE;
 DROP VIEW IF EXISTS cc_agent_daycalls_v;
 DROP VIEW IF EXISTS cc_agent_invoices_v;
 DROP VIEW IF EXISTS cc_agent_money_v;
