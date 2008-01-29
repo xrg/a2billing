@@ -16,7 +16,7 @@ class DateTimeField extends TextField {
 	
 	protected function fmtContent($content){
 		if (DateTimeField::$sqlTimeFmt == null)
-			DateTimeField::$sqlTimeFmt= _("IYYY-MM-DD HH24:MI:SS TZ");
+			DateTimeField::$sqlTimeFmt= _("YYYY-MM-DD HH24:MI:SS TZ");
 		return 'to_char(' . $content .', \''.DateTimeField::$sqlTimeFmt .
 			'\')';
 	}
@@ -68,7 +68,7 @@ class DateField extends DateTimeField {
 	
 	protected function fmtContent($content){
 		if (DateField::$sqlDateFmt == null)
-			DateField::$sqlDateFmt= _("IYYY-MM-DD");
+			DateField::$sqlDateFmt= _("YYYY-MM-DD");
 		return 'to_char(' . $content .', \''.DateField::$sqlDateFmt .
 			'\')';
 	}
