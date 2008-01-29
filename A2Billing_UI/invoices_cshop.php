@@ -55,7 +55,8 @@ $sess_row=false;
 }
 
 if ($sess_row)
-	AgentSessionInvoice($sess_row,ACX_AGENTS);
+	AgentSessionInvoice($sess_row,ACX_AGENTS,'Callshop_booths.php?sel_agentid=' .intval($sess_row['agentid']));
+
 
 require("PP_page.inc.php");
 

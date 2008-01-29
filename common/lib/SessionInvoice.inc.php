@@ -1,7 +1,7 @@
 <?php
 /** One function that sets up page elems for an agent-session invoice */
 
-function AgentSessionInvoice($sess_row,$rights){
+function AgentSessionInvoice($sess_row,$rights,$booth_page){
 	global $PAGE_ELEMS;
 	global $FG_DEBUG;
 	$dbhandle=A2Billing::DBHandle();
@@ -78,11 +78,21 @@ function AgentSessionInvoice($sess_row,$rights){
 		$pay_form->action_ask = 'list';
 		$pay_form->init();
 		$PAGE_ELEMS[] = &$pay_form;
-		$pay_form->ButtonStr = str_params(_("Pay %1"),array($sess_row['credit_fmt']),1);
+		if ($sess_row['credit'] > 0 ){
+			$pay_form->ButtonStr = str_params(_("Pay back %1"),array($sess_row['credit_fmt']),1);
+			$pay_form->elem_success=new StringElem(_("Sesion paid back!"));
+		}else {
+			$pay_form->ButtonStr = str_params(_("Pay %1"),array($sess_row['credit_fmt']),1);
+			$pay_form->elem_success=new StringElem(_("Sesion paid!"));
+		}
 		$pay_form->follow_params['sum'] = $sess_row['credit'];
 		$pay_form->follow_params['sid'] = $sess_row['sid'];
 		$pay_form->QueryString = str_dbparams($dbhandle, 'SELECT pay_session(%1, %2, true) AS money;',
 			array($sess_row['sid'], $_GET['sum']));
+		$pay_form->elem_fail=new StringElem(_("Session could not be paid!"));
+		
+		$pay_form->elem_success->content .= "\n<br><a href=\"$booth_page\">" .
+			_("Back to booths")."</a>";
 	}
 }
 ?>
