@@ -2,9 +2,10 @@
 
 -- They are called last, so that all data has been inserted beforehand
 
--- CREATE INDEX ind_cc_ratecard_dialprefix ON cc_ratecard USING btree (dialprefix);
 CREATE INDEX cc_call_card_ind ON cc_call USING btree (cardid);
 CREATE INDEX cc_call_starttime_ind ON cc_call USING btree (starttime);
+CREATE INDEX cc_call_sid_ind ON cc_call USING btree (sessionid);
+CREATE INDEX cc_call_uid_ind ON cc_call USING btree (uniqueid);
 -- CREATE INDEX cc_call_terminatecause_ind ON cc_call USING btree (terminatecause); 	
 -- CREATE INDEX cc_call_calledstation_ind ON cc_call USING btree (calledstation); 	
 
@@ -18,6 +19,9 @@ CREATE INDEX ind_cc_invoices ON cc_invoices USING btree (cover_startdate);
 CREATE INDEX ind_cc_invoice_history ON cc_invoice_history USING btree (idate);
 
 CREATE INDEX ind_cc_phonelist_numbertodial ON cc_phonelist USING btree (numbertodial);
+
+CREATE INDEX ind_cc_buy_dialprefix ON cc_buy_prefix USING btree (dialprefix);
+CREATE INDEX ind_cc_sell_dialprefix ON cc_sell_prefix USING btree (dialprefix);
 
 
 -- CREATE INDEX ind_cc_charge_id_cc_card ON cc_charge USING btree (card);
