@@ -438,6 +438,8 @@ function formatDialstring($dialn,&$route, &$card){
 	case 4:		// Local peer
 	case 5:
 	case 6:
+	case 7:
+	case 8:
 		return formatDialstring_peer($dialn,$route,$card);
 		break;
 	default:
@@ -496,6 +498,23 @@ function formatDialstring_peer($dialn,&$route, &$card){
 		
 		$bind_str = $route['providertech'] .'/' . $route['providerip'];
 		break;
+	case 7:
+		$dnum = explode('-',$dialnum);
+		$qry = str_dbparams($dbhandle,'SELECT dialtech, dialname FROM cc_dialpeer_local_v '
+			.'WHERE useralias = %2 AND numplan = %#1 ',$dnum);
+		$bind_str ='%dialtech/%dialname';
+		
+		$agi->verbose("Query: $qry",3);
+		break;
+	case 8:
+		$dnum = explode('-',$dialnum);
+		$qry = str_dbparams($dbhandle,'SELECT * FROM cc_dialpeer_remote_v '
+			.'WHERE useralias = %2 AND numplan = %#1',$dnum);
+		
+		$agi->verbose("Query: $qry",3);
+		$bind_str = $route['providertech'] .'/' . $route['providerip'];
+		break;
+	
 	}
 	
 	$qry .= ';';
