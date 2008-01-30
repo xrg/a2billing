@@ -153,7 +153,7 @@ class MoneyField extends FloatField {
 			return;
 		$ins_arr[] = array($this->fieldname,
 			$this->buildValue($form->getpost_dirty($this->fieldname),$form),
-			str_dbparams($form->a2billing->DBHandle(), "conv_currency_to( ?, %2)",
+			str_dbparams($form->a2billing->DBHandle(), "conv_currency_to( ?, %1)",
 				array($form->a2billing->currency)));
 	}
 

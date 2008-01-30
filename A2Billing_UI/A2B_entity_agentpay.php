@@ -22,6 +22,8 @@ $HD_Form->model[] = new PKeyFieldEH(_("ID"),'id');
 $HD_Form->model[] = new SqlRefField(_("Agent"), "agentid","cc_agent", "id", "login");
 
 $HD_Form->model[] = new DateTimeField(_("Date"),'date');
+	end($HD_Form->model)->def_date='now';
+
 $HD_Form->model[] = new MoneyField(_("Credit"),'credit');
 $HD_Form->model[] = new SqlRefField(_("Type"), "pay_type","cc_texts", "id", "txt");
 end($HD_Form->model)->refclause = "lang = 'C'";
