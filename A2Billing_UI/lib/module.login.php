@@ -43,16 +43,18 @@ if ((!session_is_registered('pr_login') || !session_is_registered('pr_password')
 			$pr_groupID = $return['groupid'];
 			$admin_id = $return['userid'];
 			
-		}/*else{
+		}else{
 			$pr_reseller_ID = $return['userid'];
 			$rights = $return['perms'];
-			if ($return['groupid']==1) $is_admin=1;
-			else $is_admin=0;
+			if ($return['groupid']==1)
+				$is_admin=1;
+			else
+				$is_admin=0;
 			
 			//if ($return['groupid'] == 3) $pr_reseller_ID = $return[4];
 			
 			$pr_groupID = $return['groupid'];
-		}*/
+		}
 		
 		
 		if ($_POST["pr_login"]){
