@@ -11,6 +11,7 @@ class SelectionForm extends ElemBase {
 	public $a2billing;
 	protected $_dirty_vars=null; ///< all variables starting with 'prefix'. Set on init.
 	public $search_exprs = array(); ///< an array with comparison operators for the fields
+	protected $enabled = true;
 
 	function init($sA2Billing= null, $stdActions=true){
 		if ($sA2Billing)
@@ -45,6 +46,10 @@ class SelectionForm extends ElemBase {
 	public function PerformAction(){
 	}
 	
+	public function enable($en = true){
+		$this->enabled = $en;
+	}
+	
 	/** Returns an array, indexed by the fieldname, with search clauses */
 	public function buildClauses($search_exprs = null){
 		$dbhan = $this->a2billing->DBHandle_p();
@@ -67,6 +72,8 @@ class SelectionForm extends ElemBase {
 	}
 
 	public function Render(){
+		if (!$this->enabled)
+			return;
 	?>
 	<form action=<?= $_SERVER['PHP_SELF']?> method=get name="<?= $this->prefix?>Sel" id="<?= $form->prefix ?>Sel">
 	<?php

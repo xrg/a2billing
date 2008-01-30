@@ -19,7 +19,6 @@ class RevRefForm extends FormElemBase{
 	function InFormRender(&$form){
 		if ($form->getAction()!= $this->at_action)
 			return;
-		echo "Render:". $this->Form->getpost_single('action');
 		// Update the parent form's parameters to this
 		foreach ($form->always_follow_params as $key =>$val)
 			$this->Form->addAllFollowParam($key,$val,false);

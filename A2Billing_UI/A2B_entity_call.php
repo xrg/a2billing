@@ -51,6 +51,8 @@ $HD_Form->init();
 
 $PAGE_ELEMS[] = &$HD_Form;
 
+$SEL_Form->enable($HD_Form->getAction() == 'list');
+
 $HD_Form->model[] = DontList( new PKeyFieldTxt(_("Session ID"),'sessionid'));
 $HD_Form->model[] = DontList( new PKeyFieldTxt(_("Unique ID"),'uniqueid'));
 $HD_Form->model[] = DontList(new PKeyField(_("Card ID"),'cardid'));
