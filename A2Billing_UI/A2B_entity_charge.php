@@ -1,71 +1,44 @@
 <?php
-if ($wantinclude!=1){
-	$menu_section='menu_billing';
+require_once ("./lib/defines.php");
+require_once ("./lib/module.access.php");
+require_once (DIR_COMMON."Form.inc.php");
+require_once (DIR_COMMON."Class.HelpElem.inc.php");
+require_once (DIR_COMMON."Form/Class.SqlRefField.inc.php");
+require_once (DIR_COMMON."Form/Class.VolField.inc.php");
+require_once (DIR_COMMON."Form/Class.TimeField.inc.php");
+require_once (DIR_COMMON."Form/Class.ClauseField.inc.php");
 
-	include ("../lib/defines.php");
-	include ("../lib/module.access.php");
-	include ("../lib/Form/Class.FormHandler.inc.php");
-}
+$menu_section='menu_billing';
 
-if (! has_rights (ACX_BILLING)){ 
-	Header ("HTTP/1.0 401 Unauthorized");
-	Header ("Location: PP_error.php?c=accessdenied");	   
-	die();	   
-}
+HelpElem::DoHelp(_("Charges are money transactions apart from calls. They are used to indicate that the customer should pay or receive extra money."));
 
+$HD_Form= new FormHandler('cc_card_charge',_("Charges"),_("Charge"));
+$HD_Form->checkRights(ACX_BILLING);
+$HD_Form->init();
 
-include ("./form_data/FG_var_charge.inc");
+$PAGE_ELEMS[] = &$HD_Form;
 
+$HD_Form->model[] = new PKeyFieldEH(_("ID"),'id');
+$HD_Form->model[] = new SqlBigRefField(_("Card"), "card","cc_card", "id", "username");
+$HD_Form->model[] = new DateTimeFieldDH(_("Date"),'creationdate');
+	end($HD_Form->model)->def_date='now';
+//$HD_Form->model[] = dontList(new SqlRefField(_("User"), "iduser","cc_ui_authen", "userid", "name"));
+$HD_Form->model[] = dontList(new SqlRefFieldN(_("Agent"), "agentid","cc_agent", "id", "login"));
+$HD_Form->model[] = dontList(new BoolField(_("From Agent"), "from_agent",_("If checked, this charge was input by the agent, else by an admin.")));
+$HD_Form->model[] = dontList(new SqlRefFieldN(_("Checked"), "checked","cc_ui_authen", "userid", "name",_("The user that accepted this charge")));
+$HD_Form->model[] = new SqlRefFieldN(_("Type"), "chargetype","cc_texts", "id", "txt");
+$lng = getenv('LANG');
+if (empty($lng) || ($lng == 'en_US')) $lng = 'C';
+end($HD_Form->model)->refclause = "lang = '$lng'";
 
-/***********************************************************************************/
+$HD_Form->model[] = new MoneyField(_("Amount"),'amount',_("Positive charge is when the customer should pay more. Negative means the customer gets refunded."));
+$HD_Form->model[] = dontList(new TextAreaField(_("Description"),'description'));
+$HD_Form->model[] = new SqlBigRefField(_("Invoice"), "invoice_id","cc_invoices", "id", "orderref");
 
-$HD_Form_c -> setDBHandler (DbConnect());
+$HD_Form->model[] = new DelBtnField();
 
+$PAGE_ELEMS[] = new AddNewButton($HD_Form);
 
-$HD_Form_c -> init();
-
-
-// To fix internal links due $_SERVER["PHP_SELF"] from parent include that fakes them
-if ($wantinclude==1){
-	$HD_Form_c -> FG_EDITION_LINK = "A2B_entity_charge.php?form_action=ask-edit&id=%#id&";
-	$HD_Form_c -> FG_DELETION_LINK  = "A2B_entity_charge.php?form_action=ask-delete&id=%#id&";
-}
-
-
-if ($id!="" || !is_null($id)){	
-	$HD_Form_c -> FG_EDITION_CLAUSE = str_replace("%id", "$id", $HD_Form_c -> FG_EDITION_CLAUSE);	
-}
-
-
-if (!isset($form_action))  $form_action="list"; //ask-add
-if (!isset($action)) $action = $form_action;
-
-
-$list = $HD_Form_c -> perform_action($form_action);
-
-
-if ($wantinclude!=1){
-	// #### HEADER SECTION
-	include("PP_header.php");
-
-	// #### HELP SECTION
-	echo $CC_help_edit_charge;
-}
-
-
-// #### TOP SECTION PAGE
-$HD_Form_c -> create_toppage ($form_action);
-
-
-// #### CREATE FORM OR LIST
-//$HD_Form_c -> CV_TOPVIEWER = "menu";
-if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
-
-$HD_Form_c -> create_form ($form_action, $list, $id=null) ;
-
-if ($wantinclude!=1){
-	// #### FOOTER SECTION
-	include("PP_footer.php");
-}	
+require("PP_page.inc.php");
 
 ?>

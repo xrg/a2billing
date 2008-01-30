@@ -25,7 +25,8 @@ CREATE TABLE cc_card_charge (
 	should be logged, i.e. inserted here
 */
 CREATE TABLE cc_card_charge_bk (
-    id_cc_card bigint NOT NULL,
+    id  BIGSERIAL PRIMARY KEY,
+    card bigint NOT NULL,
     iduser integer DEFAULT 0 NOT NULL,
     creationdate timestamp without time zone,
     deletiondate timestamp WITHOUT time zone DEFAULT now(),
