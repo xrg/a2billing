@@ -22,6 +22,8 @@ $HD_Form= new FormHandler('cc_buyrate',_("Buy rates"),_("Buy rate"));
 $HD_Form->checkRights(ACX_RATECARD);
 $HD_Form->init();
 
+$SEL_Form->enable($HD_Form->getAction() == 'list');
+
 $PAGE_ELEMS[] = &$SEL_Form;
 $PAGE_ELEMS[] = &$HD_Form;
 $PAGE_ELEMS[] = new AddNewButton($HD_Form);
