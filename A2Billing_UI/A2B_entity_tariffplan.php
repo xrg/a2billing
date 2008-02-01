@@ -41,7 +41,7 @@ end($HD_Form->model)->def_value=10079;
 $HD_Form->model[] = new SecVolField(_("Seconds used"), "secondusedreal", _("Duration of calls through trunk."));
 	end($HD_Form->model)->fieldacr=_("Used");
 
-$HD_Form->model[] = dontList(new SqlRefFieldN(_("Negotiation Currency"),'neg_currency','cc_currencies','currency','name', _("The currency credit is at. Whenever a call is made, the plan is charged with an amount at that currency.")));
+$HD_Form->model[] = dontList(new SqlRefFieldN(_("Negotiation Currency"),'neg_currency','cc_currencies','id','name', _("The currency credit is at. Whenever a call is made, the plan is charged with an amount at that currency.")));
 
 $HD_Form->model[] = new FloatVolField(_("Credit"),'credit',_("Money remaining in deal with provider."));
 
