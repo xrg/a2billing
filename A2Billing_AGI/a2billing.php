@@ -716,6 +716,7 @@ if ($mode == 'standard'){
 				break;
 			case 'NOANSWER':
 				$last_prob='no-answer';
+				$can_continue = true;
 				break;
 			default:
 				$agi->verbose("Unknown status: ".$dialstatus['data'],2);
