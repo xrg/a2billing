@@ -26,6 +26,8 @@ $PAGE_ELEMS[] = &$SEL_Form;
 $PAGE_ELEMS[] = &$HD_Form;
 $PAGE_ELEMS[] = new AddNewButton($HD_Form);
 
+$SEL_Form->enable($HD_Form->getAction() == 'list');
+
 $clauses= $SEL_Form->buildClauses();
 foreach($clauses as $cla)
 	$HD_Form->model[] = new FreeClauseField($cla);
@@ -37,10 +39,13 @@ $HD_Form->model[] = new SqlRefField(_("Plan"),'idrp','cc_retailplan','id','name'
 
 $HD_Form->model[] = new FloatField(_("Rate"),'rateinitial',_("End rate, per minute"));
 $HD_Form->model[] = new IntField(_("Init Block"),'initblock',_("Set the minimum duration charged to the customer. (i.e. 30 secs)"));
+	end($HD_Form->model)->fieldacr = _("IBLK");
 $HD_Form->model[] = new IntField(_("Increment"),'billingblock',_("Set the billing increment, in seconds (billing block)"));
+	end($HD_Form->model)->fieldacr = _("Incr");
 
 $HD_Form->model[] = new FloatField(_("Connect charge"),'connectcharge',_("Fixed fee applied upon connection"));
-$HD_Form->model[] = new FloatField(_("Disconnect charge"),'disconnectcharge',_("Fixed fee applied <u>after the customer hangs up an answered call</u>"));
+	end($HD_Form->model)->fieldacr = _("CChr");
+$HD_Form->model[] = dontList(new FloatField(_("Disconnect charge"),'disconnectcharge',_("Fixed fee applied <u>after the customer hangs up an answered call</u>")));
 
 $HD_Form->model[] = new FloatField(_("Step A"),'stepchargea',_("Fee charged at beginning of period A"));
 $HD_Form->model[] = new FloatField(_("Charge A"),'chargea',_("Charge (per minute) of period A"));

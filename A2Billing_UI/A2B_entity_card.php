@@ -105,6 +105,8 @@ $HD_Form->model[] = new DelBtnField();
 
 $SEL_Form = new SelectionForm();
 $SEL_Form->init();
+$SEL_Form->enable($HD_Form->getAction() == 'list');
+
 // todo: search in use
 $SEL_Form->model[] = new TextSearchField(_("Card number"),'username');
 $SEL_Form->model[] = dontAdd(new SqlRefField(_("Group"), "grp","cc_card_group", "id", "name"));
