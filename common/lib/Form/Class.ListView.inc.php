@@ -2,6 +2,7 @@
 require_once("Class.FormViews.inc.php");
 
 class ListView extends FormView {
+	protected $count_query = null;
 
 	protected function RenderHead(){
 	}
@@ -13,6 +14,7 @@ class ListView extends FormView {
 		
 		$query_fields = array();
 		$query_clauses = array();
+		$query_pkeyfld = null;
 		$query_table = $form->model_table;
 		
 		foreach($form->model as $fld){
@@ -22,6 +24,9 @@ class ListView extends FormView {
 			elseif (is_array($tmp))
 				$query_fields=array_merge($query_fields,$tmp);
 			
+			if (empty($query_pkfld) && ($fld instanceof PKeyField))
+				$query_pkfld = $fld->fieldname;
+
 			$tmp= $fld->listQueryClause($dbhandle,$form);
 			if ( is_string($tmp))
 				$query_clauses[] = $tmp;
@@ -59,6 +64,14 @@ class ListView extends FormView {
 			$QUERY .= " OFFSET " . ($form->cpage * $form->ndisp);
 		$QUERY .= ';';
 		
+		if (empty($query_pkfld))
+			$this->count_query = null;
+		else{
+			$this->count_query = "SELECT COUNT($query_pkfld) as coun FROM ".$form->model_table;
+			if (count($query_clauses))
+				$QUERY .= ' WHERE ' . implode(' AND ', $query_clauses);
+		}
+			
 		if ($form->FG_DEBUG>3)
 			echo "<div class=\"debug\">QUERY: $QUERY\n</div>\n";
 		
@@ -130,11 +143,37 @@ class ListView extends FormView {
 			//automatically choose to use paginating..
 		if (($form->ndisp && ($numrows >=$form->ndisp)) || 
 			( isset($form->cpage) && $form->cpage>0)){
+			
+			$res_count = null;
+			if (!empty($this->count_query)) {
+				$dbhandle = $form->a2billing->DBHandle();
+				if ($form->FG_DEBUG>3)
+					echo "<div class=\"debug\">Count Query: " .$this->count_query . "\n</div>\n";
+				$tmpres= $dbhandle->Execute($this->count_query);
+				if (!$tmpres){
+					if ($form->FG_DEBUG){
+					?>
+				<div class="debug"> Cannot count:<?= $dbhandle->ErrorMsg() ?></div>
+					<?php
+					}
+				}elseif($tmpres->EOF){
+					if ($form->FG_DEBUG)
+						echo "<div class=\"debug\">Count Query: empty result </div>\n";
+				}
+				else{
+					$tmprow= $tmpres->fetchRow();
+					$res_count= $tmprow['coun'];
+				}
+				
+			}
 		?>
 		<table class="paginate">
 		<tr><td align="left">
 			<form name="<?= $form->prefix ?>otherForm2" action="<?php echo $_SERVER['PHP_SELF']?>">
-			<?= _("DISPLAY")?>
+			<?php if (!empty($res_count))
+				echo str_params(_("%1 Rows,"),array($res_count),1);
+			?>
+			<?= _("Display")?>
 			<?= $form->gen_PostParams(array(cpage => 0)); ?>
 			
 			<select name="ndisp" size="1" class="form_input_select">
@@ -149,9 +188,7 @@ class ListView extends FormView {
 		</td>
 		<td align="right">
 		<?php
-		//$window = 8;
 		
-		$pages =10;
 		$page_var= $form->prefix.'cpage';
 		
 			//echo "<center><p>\n";
@@ -162,29 +199,33 @@ class ListView extends FormView {
 			<?php
 		}
 			
-		if (false) {
+		if (! empty($res_count)) {
+			$page = $form->cpage;
+			$pages = ceil($res_count / $form->ndisp);
+			$window = 5;
+			
 			if ($page <= $window) { 
-				$min_page = 1; 
-				$max_page = min(2 * $window, $pages); 
+				$min_page = 0; 
+				$max_page = min(2 * $window, $pages);
 			}
-			elseif ($page > $window && $pages >= $page + $window) { 
-				$min_page = ($page - $window) + 1; 
-				$max_page = $page + $window; 
+			elseif ($page > $window && $pages > $page + $window) { 
+				$min_page = ($page - $window);
+				$max_page = $page + $window;
 			}
 			else { 
-				$min_page = ($page - (2 * $window - ($pages - $page))) + 1; 
-				$max_page = $pages; 
+				$min_page = ($page - (2 * $window - ($pages - $page)));
+				$max_page = $pages -1;
 			}
 			
 			// Make sure min_page is always at least 1
 			// and max_page is never greater than $pages
-			$min_page = max($min_page, 1);
-			$max_page = min($max_page, $pages);
+			$min_page = max($min_page, 0);
+			$max_page = min($max_page, $pages -1);
 			
 			for ($i = $min_page; $i <= $max_page; $i++) {
-				$temp = $url . $form->gen_GetParams( array( $page_var => $i-1));
-				if ($i != $page) echo "<a class=\"pagenav\" href=\"{$temp}\">$i</a>\n";
-				else echo "$i\n";
+				$temp = $url . $form->gen_GetParams( array( $page_var => $i));
+				if ($i != $page) echo "<a class=\"pagenav\" href=\"$temp\">".($i+1)."</a>\n";
+				else echo "" .($i+1) ."\n";
 			}
 		}
 		
