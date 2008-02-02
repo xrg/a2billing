@@ -14,6 +14,8 @@ HelpElem::DoHelp(gettext("Invoices for agents"));
 
 $HD_Form= new FormHandler('cc_invoices',_("Invoices"),_("Invoice"));
 $HD_Form->checkRights(ACX_AGENTS);
+$HD_Form->default_order = 'id';
+$HD_Form->default_sens = 'DESC';
 $HD_Form->init();
 
 $PAGE_ELEMS[] = &$HD_Form;
