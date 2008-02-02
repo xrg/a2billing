@@ -69,7 +69,7 @@ class ListView extends FormView {
 		else{
 			$this->count_query = "SELECT COUNT($query_pkfld) as coun FROM ".$form->model_table;
 			if (count($query_clauses))
-				$QUERY .= ' WHERE ' . implode(' AND ', $query_clauses);
+				$count_query .= ' WHERE ' . implode(' AND ', $query_clauses);
 		}
 			
 		if ($form->FG_DEBUG>3)
