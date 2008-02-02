@@ -21,7 +21,7 @@ $PAGE_ELEMS[] = new AddNewButton($HD_Form);
 $HD_Form->model[] = new PKeyFieldEH(_("ID"),'id');
 $HD_Form->model[] = new TextFieldEH(_("Name"),'name',_("Human readable name for the booth"));
 
-$HD_Form->model[] = new TextAreaField(_("Location"),'location',_("Helps us remember where the booth is."));
+$HD_Form->model[] = new TextAreaField(_("Location"),'location',30,_("Helps us remember where the booth is."));
 $HD_Form->model[] = new SqlRefField(_("Agent"),'agentid','cc_agent','id','name', _("Agent the booth belongs to"));
 
 $HD_Form->model[] = dontList( new DateTimeField(_("Creation"),'datecreation',_("When the booth was created.")));
@@ -30,6 +30,7 @@ $HD_Form->model[] = dontAdd( new BoolField(_("Disabled"),'disabled',_("If true, 
 
 $HD_Form->model[] = dontList( dontAdd( new IntFieldN(_("Default card"),'def_card_id',_("Default card. Must exist for booth to be usable."))));
 $HD_Form->model[] = dontAdd( new IntFieldN(_("Current card"),'cur_card_id',_("Current card making calls in booth.")));
+	end($HD_Form->model)->fieldacr = _("CurC");
 
 $HD_Form->model[] = dontList( new TextField(_("Caller ID"),'callerid',_("*-*")));
 $HD_Form->model[] = new TextField(_("Peer Name"),'peername',_("Asterisk peer name for authentication"));

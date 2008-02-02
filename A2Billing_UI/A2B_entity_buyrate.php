@@ -38,10 +38,12 @@ $HD_Form->model[] = new SqlRefField(_("Plan"),'idtp','cc_tariffplan','id','tarif
 
 $HD_Form->model[] = new FloatField(_("Rate"),'buyrate',_("Price paid to carrier, per minute"));
 $HD_Form->model[] = new IntField(_("Init Block"),'buyrateinitblock',_("Set the minimum duration charged by the carrier. (i.e. 30 secs)"));
+	end($HD_Form->model)->fieldacr = _("IBlk");
 $HD_Form->model[] = new IntField(_("Increment"),'buyrateincrement',_("Set the billing increment, in seconds (billing block), that the carrier applies. (ie 30 secs)"));
-
+	end($HD_Form->model)->fieldacr = _("Incr");
 $HD_Form->model[] = new FloatField(_("Quality"),'quality',"");
-end($HD_Form->model)->does_add=false;
+	end($HD_Form->model)->does_add=false;
+	end($HD_Form->model)->fieldacr = _("Qual");
 
 $HD_Form->model[] = new RevRefTxt(_("Prefixes"),'prefx','id','cc_buy_prefix','brid','dialprefix',_("Dial prefixes covered by this rate."));
 
