@@ -6,6 +6,7 @@ require_once (DIR_COMMON."Class.HelpElem.inc.php");
 require_once (DIR_COMMON."Form/Class.SqlRefField.inc.php");
 require_once (DIR_COMMON."Form/Class.TimeField.inc.php");
 require_once (DIR_COMMON."Form/Class.ClauseField.inc.php");
+require_once (DIR_COMMON."Form/Class.HiddenField.inc.php");
 
 $menu_section='menu_invoicing';
 
@@ -48,13 +49,19 @@ $ilist[]  = array('2',_('Sent-paid'));
 $ilist[]  = array('3',_('Paid'));
 
 $HD_Form->model[] = new RefField(_("Status"),'payment_status', $ilist);
+$HD_Form->model[] = new HiddenField(NULL,'total_t','conv_currency_from(total,\'' .A2Billing::instance()->currency. '\')');
 
 $detBtn = new OtherBtnField();
 $detBtn->title=_("View");
 $detBtn->url = "invoices_agent.php?";
 $detBtn->extra_params=array('id' =>'id');
 
-$HD_Form->model[] = new GroupField(array( $detBtn, new DelBtnField()));
+$obf = new OtherBtnField();
+	$obf->title = _("Pay");
+	$obf->url = "A2B_entity_agentpay.php?action=ask-add&";
+	$obf->extra_params = array( 'invoice_id' => 'id', 'agentid' =>'agentid' , 'credit' => 'total_t');
+
+$HD_Form->model[] = new GroupField(array( $detBtn, $obf, new DelBtnField()));
 
 
 require("PP_page.inc.php");

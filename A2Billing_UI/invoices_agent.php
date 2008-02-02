@@ -52,7 +52,7 @@ $ilist[]  = array('2',_('Sent-paid'));
 $ilist[]  = array('3',_('Paid'));
 
 $dform->model[] = new RefField(_("Status"),'payment_status', $ilist);
-
+	
 $tmp = new RevRefForm(_("calls"),'call','id','cc_call_v','invoice_id');
 $dform->meta_elems[] = $tmp;
 	$tmp->at_action = 'details';

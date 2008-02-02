@@ -6,6 +6,14 @@ BEGIN
 	IF NOT FOUND THEN
 		RAISE EXCEPTION 'Failed to update agent''s credit';
 	END IF;
+	IF NEW.invoice_id IS NOT NULL THEN
+		UPDATE cc_invoices SET payment_status = (CASE WHEN payment_status = 0 THEN 3 
+			WHEN payment_status = 1 THEN 2 ELSE payment_status END), payment_date = NEW.date
+			WHERE id = NEW.invoice_id AND agentid = NEW.agentid;
+		IF NOT FOUND THEN
+			RAISE WARNING 'Invoice specified, but couldn''t be marked as paid.';
+		END IF;
+	END IF;
 	RETURN NEW;
 END ; $$ LANGUAGE plpgsql STRICT;
 
