@@ -190,7 +190,7 @@ function arr2url ($arr) {
 		return;
 	$rar = array();
 	foreach($arr as $key => $value) {
-		if ($value == null)
+		if ($value === null)
 			continue;
 		if (is_array($value)){
 			foreach($value as $arr_val)
