@@ -38,6 +38,7 @@ CREATE TABLE cc_call_v (
 CREATE INDEX cc_call_v_starttime_ind ON cc_call_v USING btree (starttime);
 CREATE INDEX cc_call_v_sid_ind ON cc_call_v USING btree (sessionid);
 CREATE INDEX cc_call_v_uid_ind ON cc_call_v USING btree (uniqueid);
+CREATE INDEX cc_call_v_cid_ind ON cc_call_v USING btree (cardid);
 
 -- I don't think they are needed, cc_call_v is manipulated by the triggers..
 -- GRANT SELECT,INSERT,UPDATE ON cc_call TO a2b_group;
