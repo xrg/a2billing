@@ -1,6 +1,5 @@
 <?php 
- //include ("./lib/company_info.php"); 
- // *-* move the header to a common file
+include ("./lib/company_info.php"); 
 
 require('./lib/defines.php');
 require_once(DIR_COMMON."languageSettings.inc.php");

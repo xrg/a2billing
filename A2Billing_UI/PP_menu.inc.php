@@ -83,6 +83,9 @@ function menu_show(sect_str){
 
 <div id="menu" class="menu" >
 	
+	<div>
+		<a href="PP_intro.php"><?= _("HOME") ?></a>
+	</div>
 	<?php   if ( has_rights (ACX_CUSTOMER) ){ 	?>
 	<div id='menu_customers'>
 	<a onclick="menu_toggle('menu_customers');"><?= _("CUSTOMERS");?></a>
@@ -108,7 +111,6 @@ function menu_show(sect_str){
 		<li><a href="A2B_entity_sessions.php"><?= _("Sessions");?></a></li>
 		<li><a href="A2B_entity_agentpay.php"><?= _("Payments");?></a></li>
 		<li><a href="agent-money.php"><?= _("Money situation");?></a></li>
-		<li><a href="CC_entity_sim_callshop.php"><?= _("Callshop Simulator");?></a></li>
 	</ul>
 	</div>
 	<?php   }  ?>
@@ -116,6 +118,7 @@ function menu_show(sect_str){
 	<div id='menu_billing'>
 	<a onclick="menu_toggle('menu_billing');"><?= _("BILLING");?></a>
 	<ul>
+		<li><a href="A2B_currencies.php"><?= _("Currency Table");?></a></li>
 		<li><a href="A2B_entity_payment_configuration.php"><?= _("View Payment Methods") ?></a></li>
                 <li><a href="A2B_entity_transactions.php"><?= _("View Transactions"); ?></a></li>
 		<li><a href="A2B_entity_moneysituation.php"><?= _("View money situation");?></a></li>
@@ -124,7 +127,6 @@ function menu_show(sect_str){
 		<li><a href="A2B_entity_voucher.php"><?= _("List Voucher");?></a></li>
 		<li><a href="A2B_entity_voucher.php?form_action=ask-add"><?= _("Create Voucher");?></a></li>
 		<li><a href="A2B_entity_voucher_multi.php"><?= _("Generate Vouchers");?></a></li>
-		<li><a href="A2B_currencies.php"><?= _("Currency Table");?></a></li>
 		<li><a href="A2B_entity_charge.php?form_action=list"><?= _("List Charge");?></a></li>
 		<li><a href="A2B_entity_charge.php?form_action=ask-add"><?= _("Add Charge");?></a></li>
 		<li><a href="A2B_entity_ecommerce.php"><?= _("List E-Product");?></a></li>
@@ -152,7 +154,6 @@ function menu_show(sect_str){
 	<a onclick="menu_toggle('menu_pkgoffer');"><?= _("PACKAGE OFFER");?></a>
 		<ul>
 			<li><a href="A2B_entity_package.php"><?= _("List Offer Package");?></a></li>
-			<li><a href="A2B_entity_package.php?form_action=ask-add"><?= _("Add Offer Package");?></a></li>
 			<li><a href="A2B_detail_package.php"><?= _("Details Package");?></a></li>
 		</ul>
 		</div>
@@ -161,9 +162,7 @@ function menu_show(sect_str){
 		<div id='menu_obcid'>
 		<a onclick="menu_toggle('menu_obcid');"><?= _("OUTBOUND CID");?></a>
 		<ul>
-			<li><a href="A2B_entity_outbound_cidgroup.php?form_action=ask-add"><?= _("Create CIDGroup");?></a></li>
 			<li><a href="A2B_entity_outbound_cidgroup.php"><?= _("List CIDGroup");?></a></li>
-			<li><a href="A2B_entity_outbound_cid.php?form_action=ask-add"><?= _("Add CID");?></a></li>
 			<li><a href="A2B_entity_outbound_cid.php"><?= _("List CID's");?></a></li>
 		</ul>
 		</div>
@@ -219,11 +218,11 @@ function menu_show(sect_str){
 		<ul>
 			<li><a href="A2B_entity_view_invoice.php"><?= _("Card Invoices");?></a></li>
 			<li><a href="A2B_entity_agent_invoicev.php"><?= _("Agent Invoices");?></a></li>
-			<li><a href="A2B_entity_create_invoice.php"><?= _("Create Invoices");?></a></li>
+			<!--<li><a href="A2B_entity_create_invoice.php"><?= _("Create Invoices");?></a></li>
 			<li><a href="invoices.php?nodisplay=1"><?= _("Invoice");?></a></li>
 			<li><a href="invoices_customer.php?nodisplay=1"><?= _("Invoices Customer");?></a></li>
 			<li><a href="A2B_entity_invoices.php?invoicetype=billed"><?= _("View Billed Invoices");?></a></li>
-			<li><a href="A2B_entity_invoices.php?invoicetype=unbilled"><?= _("View UnBilled Invoices");?></a></li>
+			<li><a href="A2B_entity_invoices.php?invoicetype=unbilled"><?= _("View UnBilled Invoices");?></a></li>-->
 		</ul>
 		</div>
 	<?php  } ?>

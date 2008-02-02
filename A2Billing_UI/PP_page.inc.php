@@ -49,7 +49,7 @@ foreach($PAGE_ELEMS as $elem){
 ?>
 </head>
 <body  leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
-<p class="version" align="right">v2.0 alpha - Dec 2007</p>
+<p class="version" align="right">v2.0 beta - Jan 2008</p>
 <br>
 <table>
 <tr><td class="divleft">
