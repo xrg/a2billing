@@ -15,6 +15,8 @@ HelpElem::DoHelp(gettext("Callshop essions. Each session starts when the custome
 
 $HD_Form= new FormHandler('cc_shopsessions',_("Sessions"),_("Session"));
 $HD_Form->checkRights(ACX_AGENTS);
+$HD_Form->default_order='starttime';
+$HD_Form->default_sens='DESC';
 $HD_Form->init();
 
 // $PAGE_ELEMS[] = new AddNewButton($HD_Form); No, we don't open them this way!
