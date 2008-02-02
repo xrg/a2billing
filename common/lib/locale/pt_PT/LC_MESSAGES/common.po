@@ -16,144 +16,222 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "1.0: 2.0\n"
 
-#: common/lib/Form/Class.RevRef.inc.php:125
-#: common/lib/Form/Class.RevRef2.inc.php:112
+#: common/lib/AgentMoney.inc.php:11 common/lib/SessionInvoice.inc.php:8
 #, fuzzy
-msgid "No data found!"
-msgstr "Nenhum arquivo encontrado !!!"
-
-#: common/lib/Form/Class.RevRef.inc.php:129
-#: common/lib/Form/Class.RevRef2.inc.php:118
-#, fuzzy
-msgid "Action"
-msgstr "Ativado"
-
-#: common/lib/Form/Class.RevRef.inc.php:135
-#: common/lib/Form/Class.RevRef.inc.php:137
-#: common/lib/Form/Class.RevRef2.inc.php:125
-#, fuzzy
-msgid "Remove this"
-msgstr "Remova este "
-
-#: common/lib/Form/Class.RevRef.inc.php:192
-#: common/lib/Form/Class.RevRef2.inc.php:149
-#, fuzzy
-msgid "No additional data found!"
-msgstr "Nenhum arquivo encontrado !!!"
-
-#: common/lib/Form/Class.RevRef.inc.php:194
-#: common/lib/Form/Class.RevRef2.inc.php:151
-#, fuzzy
-msgid "Select one to add.."
-msgstr "Selecione o dia"
-
-#: common/lib/Form/Class.RevRef.inc.php:200
-#: common/lib/Form/Class.RevRef.inc.php:266
-#: common/lib/Form/Class.RevRef2.inc.php:157
-#, fuzzy
-msgid "Add this"
-msgstr "Editar este"
-
-#: common/lib/Form/Class.RevRef.inc.php:222
-#, fuzzy
-msgid "Could not add!"
-msgstr "Não foi possível abrir lista de contatos"
-
-#: common/lib/Form/Class.RevRef.inc.php:225
-msgid "Item added!"
-msgstr ""
-
-#: common/lib/Form/Class.RevRef.inc.php:238
-#, fuzzy
-msgid "Could not delete!"
-msgstr "Não foi possível abrir lista de contatos"
-
-#: common/lib/Form/Class.RevRef.inc.php:241
-msgid "Item deleted!"
-msgstr ""
-
-#: common/lib/Form/Class.RevRef.inc.php:291
-#: common/lib/Form/Class.RevRef2.inc.php:188
-msgid "Cannot insert new %1"
-msgstr ""
-
-#: common/lib/Form/Class.RevRef.inc.php:309
-#: common/lib/Form/Class.RevRef2.inc.php:201
-msgid "Cannot delete %1"
-msgstr ""
-
-#: common/lib/Form/Class.TextField.inc.php:40
-#: common/lib/Form/Class.OptionField.inc.php:53
-#, fuzzy
-msgid "Edit this %1"
-msgstr "Editar este"
-
-#: common/lib/Form/Class.OptionField.inc.php:12
-#, fuzzy
-msgid "Actions"
+msgid "Transactions"
 msgstr "Opções"
 
-#: common/lib/Form/Class.OptionField.inc.php:69
-#: common/lib/Form/Class.DeleteView.inc.php:50
+#: common/lib/AgentMoney.inc.php:11 common/lib/SessionInvoice.inc.php:8
 #, fuzzy
-msgid "Delete this %1"
+msgid "Transaction"
+msgstr "Duração"
+
+#: common/lib/AgentMoney.inc.php:32 common/lib/SessionInvoice.inc.php:21
+#: common/lib/SessionInvoice.inc.php:52
+msgid "Date"
+msgstr "Data"
+
+#: common/lib/AgentMoney.inc.php:34
+msgid "Type"
+msgstr ""
+
+#: common/lib/AgentMoney.inc.php:40 common/lib/SessionInvoice.inc.php:24
+#, fuzzy
+msgid "Description"
+msgstr "Destino"
+
+#: common/lib/AgentMoney.inc.php:43
+msgid "In"
+msgstr ""
+
+#: common/lib/AgentMoney.inc.php:44
+msgid "Out"
+msgstr ""
+
+#: common/lib/AgentMoney.inc.php:45
+#: common/lib/Form/Class.ListSumView.inc.php:78
+msgid "Sum"
+msgstr ""
+
+#: common/lib/AgentMoney.inc.php:50
+#, fuzzy
+msgid "Totals"
+msgstr "Total"
+
+#: common/lib/AgentMoney.inc.php:53
+#, fuzzy
+msgid "Sum Total"
+msgstr "Total"
+
+#: common/lib/AgentMoney.inc.php:64
+msgid "Agent Totals"
+msgstr ""
+
+#: common/lib/AgentMoney.inc.php:95
+msgid "Totals could not be calculated!"
+msgstr ""
+
+#: common/lib/AgentMoney.inc.php:96
+msgid "Total sum credited to customers"
+msgstr ""
+
+#: common/lib/AgentMoney.inc.php:97
+msgid "Total sum debited from customers"
+msgstr ""
+
+#: common/lib/AgentMoney.inc.php:98
+msgid "Total potential debit from customers"
+msgstr ""
+
+#: common/lib/AgentMoney.inc.php:99
+msgid "Total calls made by customers"
+msgstr ""
+
+#: common/lib/AgentMoney.inc.php:100
+msgid "Wholesale price of calls"
+msgstr ""
+
+#: common/lib/AgentMoney.inc.php:101
+msgid "Estimated profit from calls"
+msgstr ""
+
+#: common/lib/AgentMoney.inc.php:102
+msgid "Outstanding balance"
+msgstr ""
+
+#: common/lib/AgentMoney.inc.php:103
+msgid "Credit Limit"
+msgstr ""
+
+#: common/lib/AgentMoney.inc.php:104
+msgid "Estimated Days left"
+msgstr ""
+
+#: common/lib/BoothsXML.inc.php:35
+msgid "N/A"
+msgstr ""
+
+#: common/lib/BoothsXML.inc.php:35
+msgid "Not available, no cards configured."
+msgstr ""
+
+#: common/lib/BoothsXML.inc.php:36 common/lib/Class.CallShop.inc.php:138
+msgid "Empty"
+msgstr ""
+
+#: common/lib/BoothsXML.inc.php:36
+msgid "No customer attached."
+msgstr ""
+
+#: common/lib/BoothsXML.inc.php:37
+msgid "Idle"
+msgstr ""
+
+#: common/lib/BoothsXML.inc.php:37
+msgid "Customer attached, inactive"
+msgstr ""
+
+#: common/lib/BoothsXML.inc.php:38
+msgid "Ready"
+msgstr ""
+
+#: common/lib/BoothsXML.inc.php:38
+msgid "Waiting for calls"
+msgstr ""
+
+#: common/lib/BoothsXML.inc.php:39
+msgid "Active"
+msgstr "Ativado"
+
+#: common/lib/BoothsXML.inc.php:39
+msgid "Calls made, charged"
+msgstr ""
+
+#: common/lib/BoothsXML.inc.php:40
+msgid "Disabled"
+msgstr ""
+
+#: common/lib/BoothsXML.inc.php:40
+msgid "Disabled by the agent"
+msgstr ""
+
+#: common/lib/BoothsXML.inc.php:41
+msgid "Stopped"
+msgstr ""
+
+#: common/lib/BoothsXML.inc.php:41
+msgid "Calls made, charged, stopped"
+msgstr ""
+
+#: common/lib/BoothsXML.inc.php:54
+msgid "Booth disabled"
+msgstr ""
+
+#: common/lib/BoothsXML.inc.php:62
+msgid "Booth stopped"
+msgstr ""
+
+#: common/lib/BoothsXML.inc.php:64 common/lib/BoothsXML.inc.php:76
+#: common/lib/BoothsXML.inc.php:88 common/lib/BoothsXML.inc.php:100
+#: common/lib/BoothsXML.inc.php:140
+msgid "Action failed:"
+msgstr ""
+
+#: common/lib/BoothsXML.inc.php:74 common/lib/BoothsXML.inc.php:86
+#: common/lib/BoothsXML.inc.php:98
+msgid "Booth started"
+msgstr ""
+
+#: common/lib/BoothsXML.inc.php:109
+msgid "Invalid sum for refill"
+msgstr ""
+
+#: common/lib/BoothsXML.inc.php:120
+msgid "Credit added to booth"
+msgstr ""
+
+#: common/lib/BoothsXML.inc.php:123
+msgid "Refill failed: do you have enough credit?"
+msgstr ""
+
+#: common/lib/BoothsXML.inc.php:138
+msgid "Booth emptied"
+msgstr ""
+
+#: common/lib/BoothsXML.inc.php:167 common/lib/BoothsXML.inc.php:175
+msgid "Database query failed!"
+msgstr ""
+
+#: common/lib/Form/Class.ActionForm.inc.php:25
+msgid "Action finished successfully!"
+msgstr ""
+
+#: common/lib/Form/Class.ActionForm.inc.php:26
+msgid "Action failed: %1"
+msgstr ""
+
+#: common/lib/Form/Class.AddView.inc.php:29
+#, fuzzy
+msgid "Create this %1"
 msgstr "Deletar este"
 
-#: common/lib/Form/Class.OptionField.inc.php:89
-msgid "Details of %1"
+#: common/lib/Form/Class.AddView.inc.php:118
+msgid "Cannot create new %1, database error."
 msgstr ""
 
-#: common/lib/Form/Class.NumField.inc.php:160
-msgid "TRUE"
-msgstr ""
-
-#: common/lib/Form/Class.NumField.inc.php:162
-#, fuzzy
-msgid "FALSE"
-msgstr "LIGAÇÕES"
-
-#: common/lib/Form/Class.NumField.inc.php:189
-#, fuzzy
-msgid "0 sec"
-msgstr "sec"
-
-#: common/lib/Form/Class.FormHelpers.inc.php:14
-msgid "item"
-msgstr ""
-
-#: common/lib/Form/Class.FormHelpers.inc.php:26
-#, fuzzy
-msgid "Add a new %1"
-msgstr "Adicionar um novo"
-
-#: common/lib/Form/Class.DetailsView.inc.php:112
-#: common/lib/Form/Class.ListView.inc.php:85
-#: common/lib/Form/Class.EditView.inc.php:61
-#: common/lib/Form/Class.ListSumView.inc.php:71
-#, fuzzy
-msgid "No %1 found!"
-msgstr "Nenhum arquivo encontrado !!!"
-
-#: common/lib/Form/Class.SelectionForm.inc.php:101
-#, fuzzy
-msgid "GO!"
-msgstr "VA"
-
-#: common/lib/Form/Class.TimeField.inc.php:19
-msgid "IYYY-MM-DD HH24:MI:SS TZ"
-msgstr ""
-
-#: common/lib/Form/Class.TimeField.inc.php:71
-msgid "IYYY-MM-DD"
-msgstr ""
-
-#: common/lib/Form/Class.SqlRefField.inc.php:114
-msgid "(none)"
+#: common/lib/Form/Class.AddView.inc.php:123
+msgid "New data has successfully been inserted into the database."
 msgstr ""
 
 #: common/lib/Form/Class.DeleteView.inc.php:17
 msgid "This %1 will be deleted!"
 msgstr ""
+
+#: common/lib/Form/Class.DeleteView.inc.php:50
+#: common/lib/Form/Class.OptionField.inc.php:69
+#, fuzzy
+msgid "Delete this %1"
+msgstr "Deletar este"
 
 #: common/lib/Form/Class.DeleteView.inc.php:119
 msgid "Cannot delete %1, database error."
@@ -167,46 +245,13 @@ msgstr ""
 msgid "Record successfully removed from the database."
 msgstr ""
 
-#: common/lib/Form/Class.ActionForm.inc.php:25
-msgid "Action finished successfully!"
-msgstr ""
-
-#: common/lib/Form/Class.ActionForm.inc.php:26
-msgid "Action failed: %1"
-msgstr ""
-
-#: common/lib/Form/Class.SqlActionForm.inc.php:39
-msgid "database error"
-msgstr ""
-
-#: common/lib/Form/Class.SqlActionForm.inc.php:47
-msgid "no rows"
-msgstr ""
-
-#: common/lib/Form/Class.ListView.inc.php:136
-msgid "DISPLAY"
-msgstr "MOSTRAR"
-
-#: common/lib/Form/Class.ListView.inc.php:144
-msgid "All"
-msgstr ""
-
-#: common/lib/Form/Class.ListView.inc.php:146
-msgid "GO"
-msgstr "VA"
-
-#: common/lib/Form/Class.ListView.inc.php:159
-msgid "First"
-msgstr ""
-
-#: common/lib/Form/Class.ListView.inc.php:160
+#: common/lib/Form/Class.DetailsView.inc.php:112
+#: common/lib/Form/Class.EditView.inc.php:61
+#: common/lib/Form/Class.ListSumView.inc.php:71
+#: common/lib/Form/Class.ListView.inc.php:86
 #, fuzzy
-msgid "Prev"
-msgstr "Anterior"
-
-#: common/lib/Form/Class.ListView.inc.php:191
-msgid "Next"
-msgstr "Proximo"
+msgid "No %1 found!"
+msgstr "Nenhum arquivo encontrado !!!"
 
 #: common/lib/Form/Class.EditView.inc.php:97
 #, fuzzy
@@ -225,18 +270,14 @@ msgstr ""
 msgid "Data has successfully been updated in the database."
 msgstr ""
 
-#: common/lib/Form/Class.AddView.inc.php:29
+#: common/lib/Form/Class.FormHelpers.inc.php:14
+msgid "item"
+msgstr ""
+
+#: common/lib/Form/Class.FormHelpers.inc.php:26
 #, fuzzy
-msgid "Create this %1"
-msgstr "Deletar este"
-
-#: common/lib/Form/Class.AddView.inc.php:118
-msgid "Cannot create new %1, database error."
-msgstr ""
-
-#: common/lib/Form/Class.AddView.inc.php:123
-msgid "New data has successfully been inserted into the database."
-msgstr ""
+msgid "Add a new %1"
+msgstr "Adicionar um novo"
 
 #: common/lib/Form/Class.ImportView.inc.php:33
 msgid "Please, you must first select a file !"
@@ -403,16 +444,157 @@ msgstr ""
 msgid "Import of data aborted."
 msgstr ""
 
-#: common/lib/Form/Class.ListSumView.inc.php:78
-#: common/lib/AgentMoney.inc.php:45
-msgid "Sum"
+#: common/lib/Form/Class.ListView.inc.php:137
+msgid "DISPLAY"
+msgstr "MOSTRAR"
+
+#: common/lib/Form/Class.ListView.inc.php:145
+msgid "All"
 msgstr ""
 
-#: common/lib/Form/Class.SumMultiView.inc.php:129
-#: common/lib/Form/Class.SumMultiView.inc.php:237
+#: common/lib/Form/Class.ListView.inc.php:147
+msgid "GO"
+msgstr "VA"
+
+#: common/lib/Form/Class.ListView.inc.php:160
+msgid "First"
+msgstr ""
+
+#: common/lib/Form/Class.ListView.inc.php:161
+#, fuzzy
+msgid "Prev"
+msgstr "Anterior"
+
+#: common/lib/Form/Class.ListView.inc.php:192
+msgid "Next"
+msgstr "Proximo"
+
+#: common/lib/Form/Class.NumField.inc.php:175
+msgid "TRUE"
+msgstr ""
+
+#: common/lib/Form/Class.NumField.inc.php:177
+#, fuzzy
+msgid "FALSE"
+msgstr "LIGAÇÕES"
+
+#: common/lib/Form/Class.NumField.inc.php:204
+#: common/lib/Form/Class.VolField.inc.php:36
+#, fuzzy
+msgid "0 sec"
+msgstr "sec"
+
+#: common/lib/Form/Class.SumMultiView.inc.php:160
+#: common/lib/Form/Class.SumMultiView.inc.php:268
 #, fuzzy
 msgid "No sums found!"
 msgstr "Nenhum arquivo encontrado !!!"
+
+#: common/lib/Form/Class.OptionField.inc.php:12
+#, fuzzy
+msgid "Actions"
+msgstr "Opções"
+
+#: common/lib/Form/Class.OptionField.inc.php:53
+#: common/lib/Form/Class.TextField.inc.php:40
+#, fuzzy
+msgid "Edit this %1"
+msgstr "Editar este"
+
+#: common/lib/Form/Class.OptionField.inc.php:89
+msgid "Details of %1"
+msgstr ""
+
+#: common/lib/Form/Class.RevRef.inc.php:125
+#: common/lib/Form/Class.RevRef2.inc.php:112
+#, fuzzy
+msgid "No data found!"
+msgstr "Nenhum arquivo encontrado !!!"
+
+#: common/lib/Form/Class.RevRef.inc.php:129
+#: common/lib/Form/Class.RevRef2.inc.php:118
+#, fuzzy
+msgid "Action"
+msgstr "Ativado"
+
+#: common/lib/Form/Class.RevRef.inc.php:135
+#: common/lib/Form/Class.RevRef.inc.php:137
+#: common/lib/Form/Class.RevRef2.inc.php:125
+#, fuzzy
+msgid "Remove this"
+msgstr "Remova este "
+
+#: common/lib/Form/Class.RevRef.inc.php:192
+#: common/lib/Form/Class.RevRef2.inc.php:149
+#, fuzzy
+msgid "No additional data found!"
+msgstr "Nenhum arquivo encontrado !!!"
+
+#: common/lib/Form/Class.RevRef.inc.php:194
+#: common/lib/Form/Class.RevRef2.inc.php:151
+#, fuzzy
+msgid "Select one to add.."
+msgstr "Selecione o dia"
+
+#: common/lib/Form/Class.RevRef.inc.php:200
+#: common/lib/Form/Class.RevRef.inc.php:266
+#: common/lib/Form/Class.RevRef2.inc.php:157
+#, fuzzy
+msgid "Add this"
+msgstr "Editar este"
+
+#: common/lib/Form/Class.RevRef.inc.php:222
+#, fuzzy
+msgid "Could not add!"
+msgstr "Não foi possível abrir lista de contatos"
+
+#: common/lib/Form/Class.RevRef.inc.php:225
+msgid "Item added!"
+msgstr ""
+
+#: common/lib/Form/Class.RevRef.inc.php:238
+#, fuzzy
+msgid "Could not delete!"
+msgstr "Não foi possível abrir lista de contatos"
+
+#: common/lib/Form/Class.RevRef.inc.php:241
+msgid "Item deleted!"
+msgstr ""
+
+#: common/lib/Form/Class.RevRef.inc.php:291
+#: common/lib/Form/Class.RevRef2.inc.php:188
+msgid "Cannot insert new %1"
+msgstr ""
+
+#: common/lib/Form/Class.RevRef.inc.php:309
+#: common/lib/Form/Class.RevRef2.inc.php:201
+msgid "Cannot delete %1"
+msgstr ""
+
+#: common/lib/Form/Class.SelectionForm.inc.php:108
+#, fuzzy
+msgid "GO!"
+msgstr "VA"
+
+#: common/lib/Form/Class.SqlActionForm.inc.php:39
+msgid "database error"
+msgstr ""
+
+#: common/lib/Form/Class.SqlActionForm.inc.php:47
+msgid "no rows"
+msgstr ""
+
+#: common/lib/Form/Class.SqlRefField.inc.php:114
+msgid "(none)"
+msgstr ""
+
+#: common/lib/Form/Class.TimeField.inc.php:19
+msgid "YYYY-MM-DD HH24:MI:SS TZ"
+msgstr ""
+
+#: common/lib/Form/Class.TimeField.inc.php:71
+msgid "YYYY-MM-DD"
+msgstr ""
 
 #: common/lib/Form/Class.TextSearchField.inc.php:21
 msgid "Ignore"
@@ -435,82 +617,6 @@ msgstr "Contem"
 #, fuzzy
 msgid "Ends in"
 msgstr "Termina com"
-
-#: common/lib/Misc.inc.php:569
-msgid "File size is greater than allowed limit."
-msgstr ""
-
-#: common/lib/Misc.inc.php:573
-msgid "You did not upload anything!"
-msgstr ""
-
-#: common/lib/Misc.inc.php:577
-msgid "Failed to upload the file, The file you uploaded may not exist on disk."
-msgstr ""
-
-#: common/lib/Misc.inc.php:583
-msgid "file type is not allowed"
-msgstr ""
-
-#: common/lib/languageSettings.inc.php:25
-msgid "English"
-msgstr ""
-
-#: common/lib/languageSettings.inc.php:26
-msgid "Arabic"
-msgstr ""
-
-#: common/lib/languageSettings.inc.php:27
-msgid "Brazilian"
-msgstr ""
-
-#: common/lib/languageSettings.inc.php:28
-msgid "Chinese"
-msgstr ""
-
-#: common/lib/languageSettings.inc.php:29
-msgid "French"
-msgstr ""
-
-#: common/lib/languageSettings.inc.php:30
-msgid "German"
-msgstr ""
-
-#: common/lib/languageSettings.inc.php:31
-msgid "Greek"
-msgstr ""
-
-#: common/lib/languageSettings.inc.php:32
-msgid "Italian"
-msgstr ""
-
-#: common/lib/languageSettings.inc.php:33
-msgid "Polish"
-msgstr ""
-
-#: common/lib/languageSettings.inc.php:34
-msgid "Portuguese"
-msgstr ""
-
-#: common/lib/languageSettings.inc.php:35
-msgid "Romanian"
-msgstr ""
-
-#: common/lib/languageSettings.inc.php:36
-msgid "Russian"
-msgstr ""
-
-#: common/lib/languageSettings.inc.php:37
-msgid "Spanish"
-msgstr ""
-
-#: common/lib/languageSettings.inc.php:38
-msgid "Turkish"
-msgstr ""
-
-#: common/lib/languageSettings.inc.php:39
-msgid "Urdu"
-msgstr ""
 
 #: common/lib/Class.CallShop.inc.php:54
 msgid "Open"
@@ -578,10 +684,6 @@ msgstr ""
 msgid "One-Time"
 msgstr ""
 
-#: common/lib/Class.CallShop.inc.php:138 common/lib/BoothsXML.inc.php:36
-msgid "Empty"
-msgstr ""
-
 #: common/lib/Class.CallShop.inc.php:139
 #, fuzzy
 msgid "Member"
@@ -604,116 +706,21 @@ msgstr ""
 msgid "Response:"
 msgstr ""
 
-#: common/lib/BoothsXML.inc.php:35
-msgid "N/A"
+#: common/lib/Misc.inc.php:569
+msgid "File size is greater than allowed limit."
 msgstr ""
 
-#: common/lib/BoothsXML.inc.php:35
-msgid "Not available, no cards configured."
+#: common/lib/Misc.inc.php:573
+msgid "You did not upload anything!"
 msgstr ""
 
-#: common/lib/BoothsXML.inc.php:36
-msgid "No customer attached."
+#: common/lib/Misc.inc.php:577
+msgid "Failed to upload the file, The file you uploaded may not exist on disk."
 msgstr ""
 
-#: common/lib/BoothsXML.inc.php:37
-msgid "Idle"
+#: common/lib/Misc.inc.php:583
+msgid "file type is not allowed"
 msgstr ""
-
-#: common/lib/BoothsXML.inc.php:37
-msgid "Customer attached, inactive"
-msgstr ""
-
-#: common/lib/BoothsXML.inc.php:38
-msgid "Ready"
-msgstr ""
-
-#: common/lib/BoothsXML.inc.php:38
-msgid "Waiting for calls"
-msgstr ""
-
-#: common/lib/BoothsXML.inc.php:39
-msgid "Active"
-msgstr "Ativado"
-
-#: common/lib/BoothsXML.inc.php:39
-msgid "Calls made, charged"
-msgstr ""
-
-#: common/lib/BoothsXML.inc.php:40
-msgid "Disabled"
-msgstr ""
-
-#: common/lib/BoothsXML.inc.php:40
-msgid "Disabled by the agent"
-msgstr ""
-
-#: common/lib/BoothsXML.inc.php:41
-msgid "Stopped"
-msgstr ""
-
-#: common/lib/BoothsXML.inc.php:41
-msgid "Calls made, charged, stopped"
-msgstr ""
-
-#: common/lib/BoothsXML.inc.php:54
-msgid "Booth disabled"
-msgstr ""
-
-#: common/lib/BoothsXML.inc.php:62
-msgid "Booth stopped"
-msgstr ""
-
-#: common/lib/BoothsXML.inc.php:64 common/lib/BoothsXML.inc.php:76
-#: common/lib/BoothsXML.inc.php:88 common/lib/BoothsXML.inc.php:100
-#: common/lib/BoothsXML.inc.php:140
-msgid "Action failed:"
-msgstr ""
-
-#: common/lib/BoothsXML.inc.php:74 common/lib/BoothsXML.inc.php:86
-#: common/lib/BoothsXML.inc.php:98
-msgid "Booth started"
-msgstr ""
-
-#: common/lib/BoothsXML.inc.php:109
-msgid "Invalid sum for refill"
-msgstr ""
-
-#: common/lib/BoothsXML.inc.php:120
-msgid "Credit added to booth"
-msgstr ""
-
-#: common/lib/BoothsXML.inc.php:123
-msgid "Refill failed: do you have enough credit?"
-msgstr ""
-
-#: common/lib/BoothsXML.inc.php:138
-msgid "Booth emptied"
-msgstr ""
-
-#: common/lib/BoothsXML.inc.php:167 common/lib/BoothsXML.inc.php:175
-msgid "Database query failed!"
-msgstr ""
-
-#: common/lib/SessionInvoice.inc.php:8 common/lib/AgentMoney.inc.php:11
-#, fuzzy
-msgid "Transactions"
-msgstr "Opções"
-
-#: common/lib/SessionInvoice.inc.php:8 common/lib/AgentMoney.inc.php:11
-#, fuzzy
-msgid "Transaction"
-msgstr "Duração"
-
-#: common/lib/SessionInvoice.inc.php:21 common/lib/SessionInvoice.inc.php:52
-#: common/lib/AgentMoney.inc.php:32
-msgid "Date"
-msgstr "Data"
-
-#: common/lib/SessionInvoice.inc.php:24 common/lib/AgentMoney.inc.php:40
-#, fuzzy
-msgid "Description"
-msgstr "Destino"
 
 #: common/lib/SessionInvoice.inc.php:25
 #, fuzzy
@@ -771,75 +778,91 @@ msgstr ""
 msgid "Card is in use, cannot close session now."
 msgstr ""
 
-#: common/lib/SessionInvoice.inc.php:81
+#: common/lib/SessionInvoice.inc.php:82
+#, fuzzy
+msgid "Pay back %1"
+msgstr "Maio"
+
+#: common/lib/SessionInvoice.inc.php:83
+msgid "Sesion paid back!"
+msgstr ""
+
+#: common/lib/SessionInvoice.inc.php:85
 #, fuzzy
 msgid "Pay %1"
 msgstr "Maio"
 
-#: common/lib/AgentMoney.inc.php:34
-msgid "Type"
+#: common/lib/SessionInvoice.inc.php:86
+msgid "Sesion paid!"
 msgstr ""
 
-#: common/lib/AgentMoney.inc.php:43
-msgid "In"
-msgstr ""
-
-#: common/lib/AgentMoney.inc.php:44
-msgid "Out"
-msgstr ""
-
-#: common/lib/AgentMoney.inc.php:50
+#: common/lib/SessionInvoice.inc.php:92
 #, fuzzy
-msgid "Totals"
-msgstr "Total"
+msgid "Session could not be paid!"
+msgstr "Não foi possível abrir lista de contatos"
 
-#: common/lib/AgentMoney.inc.php:53
-#, fuzzy
-msgid "Sum Total"
-msgstr "Total"
-
-#: common/lib/AgentMoney.inc.php:64
-msgid "Agent Totals"
+#: common/lib/SessionInvoice.inc.php:95
+msgid "Back to booths"
 msgstr ""
 
-#: common/lib/AgentMoney.inc.php:95
-msgid "Totals could not be calculated!"
+#: common/lib/languageSettings.inc.php:25
+msgid "English"
 msgstr ""
 
-#: common/lib/AgentMoney.inc.php:96
-msgid "Total sum credited to customers"
+#: common/lib/languageSettings.inc.php:26
+msgid "Arabic"
 msgstr ""
 
-#: common/lib/AgentMoney.inc.php:97
-msgid "Total sum debited from customers"
+#: common/lib/languageSettings.inc.php:27
+msgid "Brazilian"
 msgstr ""
 
-#: common/lib/AgentMoney.inc.php:98
-msgid "Total potential debit from customers"
+#: common/lib/languageSettings.inc.php:28
+msgid "Chinese"
 msgstr ""
 
-#: common/lib/AgentMoney.inc.php:99
-msgid "Total calls made by customers"
+#: common/lib/languageSettings.inc.php:29
+msgid "French"
 msgstr ""
 
-#: common/lib/AgentMoney.inc.php:100
-msgid "Wholesale price of calls"
+#: common/lib/languageSettings.inc.php:30
+msgid "German"
 msgstr ""
 
-#: common/lib/AgentMoney.inc.php:101
-msgid "Estimated profit from calls"
+#: common/lib/languageSettings.inc.php:31
+msgid "Greek"
 msgstr ""
 
-#: common/lib/AgentMoney.inc.php:102
-msgid "Outstanding balance"
+#: common/lib/languageSettings.inc.php:32
+msgid "Italian"
 msgstr ""
 
-#: common/lib/AgentMoney.inc.php:103
-msgid "Credit Limit"
+#: common/lib/languageSettings.inc.php:33
+msgid "Polish"
 msgstr ""
 
-#: common/lib/AgentMoney.inc.php:104
-msgid "Estimated Days left"
+#: common/lib/languageSettings.inc.php:34
+msgid "Portuguese"
+msgstr ""
+
+#: common/lib/languageSettings.inc.php:35
+msgid "Romanian"
+msgstr ""
+
+#: common/lib/languageSettings.inc.php:36
+msgid "Russian"
+msgstr ""
+
+#: common/lib/languageSettings.inc.php:37
+msgid "Spanish"
+msgstr ""
+
+#: common/lib/languageSettings.inc.php:38
+msgid "Turkish"
+msgstr ""
+
+#: common/lib/languageSettings.inc.php:39
+msgid "Urdu"
 msgstr ""
 
 #, fuzzy

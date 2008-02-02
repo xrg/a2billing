@@ -363,6 +363,157 @@ msgstr ""
 msgid "Tariff"
 msgstr ""
 
+#: A2BAgent_UI/PP_error.php:7
+msgid "ERROR : ACCESS REFUSED"
+msgstr "ERRORE : ACCESSO RIFIUTATO"
+
+#: A2BAgent_UI/PP_error.php:8
+msgid ""
+"The CODE is not a VALID CODE or has been already used! Please check it and "
+"try again."
+msgstr ""
+"Il CODICE non è valido oppure è già utilizzato! Prego reinserire di nuovo."
+
+#: A2BAgent_UI/PP_error.php:9
+msgid "Sorry a problem occur on our system, please try later!"
+msgstr "Spiacente, errore di sistema, prego riprovare più tardi!"
+
+#: A2BAgent_UI/PP_error.php:10
+msgid "There is an error on this page!"
+msgstr "Errore di pagina!"
+
+#: A2BAgent_UI/PP_error.php:11
+msgid "Sorry, you don t have access to this page !"
+msgstr "Spiacente, accesso non consentito!"
+
+#: A2BAgent_UI/PP_error.php:12
+msgid "Sorry, this page is in construction !"
+msgstr "Spiacente, questa pagina è in costruzione!"
+
+#: A2BAgent_UI/PP_error.php:29
+msgid "Error Page"
+msgstr ""
+
+#: A2BAgent_UI/PP_menu.inc.php:61
+msgid "BOOTHS"
+msgstr ""
+
+#: A2BAgent_UI/PP_menu.inc.php:64
+#, fuzzy
+msgid "CUSTOMERS"
+msgstr "Ottobre"
+
+#: A2BAgent_UI/PP_menu.inc.php:67
+msgid "EDIT BOOTHS"
+msgstr ""
+
+#: A2BAgent_UI/PP_menu.inc.php:70
+msgid "PAYMENTS"
+msgstr ""
+
+#: A2BAgent_UI/PP_menu.inc.php:73
+msgid "REPORTS"
+msgstr ""
+
+#: A2BAgent_UI/PP_menu.inc.php:76
+msgid "INFO PAGES"
+msgstr ""
+
+#: A2BAgent_UI/PP_menu.inc.php:82
+msgid "PASSWORD"
+msgstr ""
+
+#: A2BAgent_UI/PP_menu.inc.php:86
+msgid "LOGOUT"
+msgstr "USCITA"
+
+#: A2BAgent_UI/PP_page.inc.php:44
+msgid "Other"
+msgstr ""
+
+#: A2BAgent_UI/agent-money.php:15 A2BAgent_UI/sessions.php:47
+msgid "Period from"
+msgstr ""
+
+#: A2BAgent_UI/agent-money.php:20 A2BAgent_UI/sessions.php:51
+msgid "Period to"
+msgstr ""
+
+#: A2BAgent_UI/booths.xml.php:15
+msgid "Unauthorized: please log in again."
+msgstr ""
+
+#: A2BAgent_UI/index.php:70
+msgid "AUTHENTICATION REFUSED, please check your user/password!"
+msgstr ""
+
+#: A2BAgent_UI/index.php:74
+msgid "INACTIVE ACCOUNT, Please activate your account!"
+msgstr ""
+
+#: A2BAgent_UI/index.php:78
+msgid "BLOCKED ACCOUNT, Please contact your administrator!"
+msgstr ""
+
+#: A2BAgent_UI/index.php:87
+#, fuzzy
+msgid "AUTHENTICATION"
+msgstr "Destinazione"
+
+#: A2BAgent_UI/index.php:96
+msgid "User:"
+msgstr ""
+
+#: A2BAgent_UI/index.php:101
+msgid "Password:"
+msgstr ""
+
+#: A2BAgent_UI/index.php:111
+msgid "Forgot your password? Click "
+msgstr ""
+
+#: A2BAgent_UI/index.php:111
+msgid "here"
+msgstr ""
+
+#: A2BAgent_UI/forgotpassword.php:24
+msgid ""
+"Please wait 1 minutes before making any other request for the forgot "
+"password!"
+msgstr ""
+
+#: A2BAgent_UI/forgotpassword.php:98
+msgid "Your login information email has been sent to you."
+msgstr ""
+
+#: A2BAgent_UI/forgotpassword.php:101
+msgid "No such login exists."
+msgstr ""
+
+#: A2BAgent_UI/forgotpassword.php:104
+msgid "Invalid Action."
+msgstr ""
+
+#: A2BAgent_UI/forgotpassword.php:107
+msgid "Pleaes provide your email address to get your login information."
+msgstr ""
+
+#: A2BAgent_UI/info_choice.php:17
+msgid "Please choose information page:"
+msgstr ""
+
+#: A2BAgent_UI/info_choice.php:19
+msgid "Current rates"
+msgstr ""
+
+#: A2BAgent_UI/info_choice.php:20
+msgid "Usage instructions"
+msgstr ""
+
+#: A2BAgent_UI/info_choice.php:21
+msgid "Contact information"
+msgstr ""
+
 #: A2BAgent_UI/invoices_agent.php:20
 #, fuzzy
 msgid "Transactions"
@@ -415,66 +566,8 @@ msgstr ""
 msgid "Sum per destination"
 msgstr "Destinazione"
 
-#: A2BAgent_UI/sessions.php:14
-msgid ""
-"Callshop essions. Each session starts when the customer enters a booth and "
-"ends when he leaves (preferably having paid the account)."
-msgstr ""
-
-#: A2BAgent_UI/sessions.php:16
-#, fuzzy
-msgid "Sessions"
-msgstr "Secondi"
-
-#: A2BAgent_UI/sessions.php:16
-msgid "Session"
-msgstr ""
-
-#: A2BAgent_UI/sessions.php:30
-msgid "End"
-msgstr ""
-
-#: A2BAgent_UI/sessions.php:47 A2BAgent_UI/agent-money.php:15
-msgid "Period from"
-msgstr ""
-
-#: A2BAgent_UI/sessions.php:51 A2BAgent_UI/agent-money.php:20
-msgid "Period to"
-msgstr ""
-
-#: A2BAgent_UI/PP_error.php:7
-msgid "ERROR : ACCESS REFUSED"
-msgstr "ERRORE : ACCESSO RIFIUTATO"
-
-#: A2BAgent_UI/PP_error.php:8
-msgid ""
-"The CODE is not a VALID CODE or has been already used! Please check it and "
-"try again."
-msgstr ""
-"Il CODICE non è valido oppure è già utilizzato! Prego reinserire di nuovo."
-
-#: A2BAgent_UI/PP_error.php:9
-msgid "Sorry a problem occur on our system, please try later!"
-msgstr "Spiacente, errore di sistema, prego riprovare più tardi!"
-
-#: A2BAgent_UI/PP_error.php:10
-msgid "There is an error on this page!"
-msgstr "Errore di pagina!"
-
-#: A2BAgent_UI/PP_error.php:11
-msgid "Sorry, you don t have access to this page !"
-msgstr "Spiacente, accesso non consentito!"
-
-#: A2BAgent_UI/PP_error.php:12
-msgid "Sorry, this page is in construction !"
-msgstr "Spiacente, questa pagina è in costruzione!"
-
-#: A2BAgent_UI/PP_error.php:29
-msgid "Error Page"
-msgstr ""
-
-#: A2BAgent_UI/booths.xml.php:15
-msgid "Unauthorized: please log in again."
+#: A2BAgent_UI/invoices_cshop.php:46 A2BAgent_UI/invoices_cshop.php:50
+msgid "Cannot locate session!"
 msgstr ""
 
 #: A2BAgent_UI/lib/company_info.php:2
@@ -532,77 +625,6 @@ msgid ""
 "list and enter the destination you would like to assign it to."
 msgstr ""
 
-#: A2BAgent_UI/forgotpassword.php:24
-msgid ""
-"Please wait 1 minutes before making any other request for the forgot "
-"password!"
-msgstr ""
-
-#: A2BAgent_UI/forgotpassword.php:98
-msgid "Your login information email has been sent to you."
-msgstr ""
-
-#: A2BAgent_UI/forgotpassword.php:101
-msgid "No such login exists."
-msgstr ""
-
-#: A2BAgent_UI/forgotpassword.php:104
-msgid "Invalid Action."
-msgstr ""
-
-#: A2BAgent_UI/forgotpassword.php:107
-msgid "Pleaes provide your email address to get your login information."
-msgstr ""
-
-#: A2BAgent_UI/index.php:70
-msgid "AUTHENTICATION REFUSED, please check your user/password!"
-msgstr ""
-
-#: A2BAgent_UI/index.php:74
-msgid "INACTIVE ACCOUNT, Please activate your account!"
-msgstr ""
-
-#: A2BAgent_UI/index.php:78
-msgid "BLOCKED ACCOUNT, Please contact your administrator!"
-msgstr ""
-
-#: A2BAgent_UI/index.php:87
-#, fuzzy
-msgid "AUTHENTICATION"
-msgstr "Destinazione"
-
-#: A2BAgent_UI/index.php:96
-msgid "User:"
-msgstr ""
-
-#: A2BAgent_UI/index.php:101
-msgid "Password:"
-msgstr ""
-
-#: A2BAgent_UI/index.php:111
-msgid "Forgot your password? Click "
-msgstr ""
-
-#: A2BAgent_UI/index.php:111
-msgid "here"
-msgstr ""
-
-#: A2BAgent_UI/info_choice.php:17
-msgid "Please choose information page:"
-msgstr ""
-
-#: A2BAgent_UI/info_choice.php:19
-msgid "Current rates"
-msgstr ""
-
-#: A2BAgent_UI/info_choice.php:20
-msgid "Usage instructions"
-msgstr ""
-
-#: A2BAgent_UI/info_choice.php:21
-msgid "Contact information"
-msgstr ""
-
 #: A2BAgent_UI/pay.php:24
 msgid "Pay back"
 msgstr ""
@@ -651,45 +673,23 @@ msgstr ""
 msgid "Agent invoices"
 msgstr ""
 
-#: A2BAgent_UI/PP_page.inc.php:44
-msgid "Other"
+#: A2BAgent_UI/sessions.php:14
+msgid ""
+"Callshop essions. Each session starts when the customer enters a booth and "
+"ends when he leaves (preferably having paid the account)."
 msgstr ""
 
-#: A2BAgent_UI/PP_menu.inc.php:61
-msgid "BOOTHS"
-msgstr ""
-
-#: A2BAgent_UI/PP_menu.inc.php:64
+#: A2BAgent_UI/sessions.php:16
 #, fuzzy
-msgid "CUSTOMERS"
-msgstr "Ottobre"
+msgid "Sessions"
+msgstr "Secondi"
 
-#: A2BAgent_UI/PP_menu.inc.php:67
-msgid "EDIT BOOTHS"
+#: A2BAgent_UI/sessions.php:16
+msgid "Session"
 msgstr ""
 
-#: A2BAgent_UI/PP_menu.inc.php:70
-msgid "PAYMENTS"
-msgstr ""
-
-#: A2BAgent_UI/PP_menu.inc.php:73
-msgid "REPORTS"
-msgstr ""
-
-#: A2BAgent_UI/PP_menu.inc.php:76
-msgid "INFO PAGES"
-msgstr ""
-
-#: A2BAgent_UI/PP_menu.inc.php:82
-msgid "PASSWORD"
-msgstr ""
-
-#: A2BAgent_UI/PP_menu.inc.php:86
-msgid "LOGOUT"
-msgstr "USCITA"
-
-#: A2BAgent_UI/invoices_cshop.php:46 A2BAgent_UI/invoices_cshop.php:50
-msgid "Cannot locate session!"
+#: A2BAgent_UI/sessions.php:30
+msgid "End"
 msgstr ""
 
 #, fuzzy

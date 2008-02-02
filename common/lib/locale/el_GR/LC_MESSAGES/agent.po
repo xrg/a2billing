@@ -101,8 +101,11 @@ msgid "View"
 msgstr "Προβολή"
 
 #: A2BAgent_UI/A2B_entity_agentpay.php:13
-msgid "Agent payments are money transactions between agents and the phone company."
-msgstr "Στις πληρωμές του μαγαζιού βλέπετε τις συναλλαγές ανάμεσα στο μαγαζί και την τηλ. εταιρία."
+msgid ""
+"Agent payments are money transactions between agents and the phone company."
+msgstr ""
+"Στις πληρωμές του μαγαζιού βλέπετε τις συναλλαγές ανάμεσα στο μαγαζί και την "
+"τηλ. εταιρία."
 
 #: A2BAgent_UI/A2B_entity_agentpay.php:15
 msgid "Payments"
@@ -130,7 +133,8 @@ msgid "Description"
 msgstr "Περιγραφή"
 
 #: A2BAgent_UI/A2B_entity_booths.php:13
-msgid "Booths are the physical phones where a customer can enter and make calls."
+msgid ""
+"Booths are the physical phones where a customer can enter and make calls."
 msgstr "Οι θάλαμοι είναι τα τηλέφωνα όπου μπορεί να κάνει κλήσεις ο πελάτης."
 
 #: A2BAgent_UI/A2B_entity_booths.php:15
@@ -307,7 +311,9 @@ msgstr "Το νόμισμα φαίνεται στο λογαριασμό και 
 msgid ""
 "Charges are money transactions apart from calls. They are used to indicate "
 "that the customer should pay or receive extra money."
-msgstr "Οι χρεώσεις είναι οι συναλλαγές πέρα από τις κλήσεις. Δείχνουν πότε ο χρήστης οφείλει ή δικαιούται επιπλέον χρήματα."
+msgstr ""
+"Οι χρεώσεις είναι οι συναλλαγές πέρα από τις κλήσεις. Δείχνουν πότε ο "
+"χρήστης οφείλει ή δικαιούται επιπλέον χρήματα."
 
 #: A2BAgent_UI/A2B_entity_charge.php:15
 msgid "Charges"
@@ -321,7 +327,9 @@ msgstr "Χρέωση"
 msgid ""
 "Positive charge is when the customer should pay more. Negative means the "
 "customer gets refunded."
-msgstr "Θετική χρέωση είναι όταν ο πελάτης πρέπει να πληρώσει παραπάνω. Αρνητική είναι όταν πρέπει να πάρει πίσω χρήματα."
+msgstr ""
+"Θετική χρέωση είναι όταν ο πελάτης πρέπει να πληρώσει παραπάνω. Αρνητική "
+"είναι όταν πρέπει να πάρει πίσω χρήματα."
 
 #: A2BAgent_UI/A2B_entity_ratecard.php:14
 msgid "These are the selling rates to each destination"
@@ -348,6 +356,159 @@ msgstr "Χρέωση ανά"
 #: A2BAgent_UI/A2B_entity_ratecard.php:41
 msgid "Tariff"
 msgstr "Τιμολόγιο"
+
+#: A2BAgent_UI/PP_error.php:7
+msgid "ERROR : ACCESS REFUSED"
+msgstr "ΣΦΑΛΜΑ, Η ΠΡΟΣΒΑΣΗ ΔΕΝ ΕΠΙΤΡΕΠΕΤΑΙ"
+
+#: A2BAgent_UI/PP_error.php:8
+msgid ""
+"The CODE is not a VALID CODE or has been already used! Please check it and "
+"try again."
+msgstr ""
+"Ο ΚΩΔΙΚΟΣ δεν είναι έγκυρος ή έχει χρησιμοποιηθεί ήδη. Παρακαλώ ελέγξτε τον "
+"και προσπαθήστε πάλι."
+
+#: A2BAgent_UI/PP_error.php:9
+msgid "Sorry a problem occur on our system, please try later!"
+msgstr ""
+"Λυπούμαστε, συνέβη σφάλμα στο σύστημά μας. Παρακαλώ, δοκιμάστε αργότερα!"
+
+#: A2BAgent_UI/PP_error.php:10
+msgid "There is an error on this page!"
+msgstr "Υπάρχει σφάλμα στη σελίδα!"
+
+#: A2BAgent_UI/PP_error.php:11
+msgid "Sorry, you don t have access to this page !"
+msgstr "Λυπούμαστε, δεν έχετε πρόσβαση στη σελίδα!"
+
+#: A2BAgent_UI/PP_error.php:12
+msgid "Sorry, this page is in construction !"
+msgstr "Λυπούμαστε, η σελίδα αυτή είναι υπό κατασκευή!"
+
+#: A2BAgent_UI/PP_error.php:29
+msgid "Error Page"
+msgstr "Σελίδα Σφάλματος"
+
+#: A2BAgent_UI/PP_menu.inc.php:61
+msgid "BOOTHS"
+msgstr "ΘΑΛΑΜΟΙ"
+
+#: A2BAgent_UI/PP_menu.inc.php:64
+msgid "CUSTOMERS"
+msgstr "ΠΕΛΑΤΕΣ"
+
+#: A2BAgent_UI/PP_menu.inc.php:67
+msgid "EDIT BOOTHS"
+msgstr "ΔΙΟΡΘΩΣΗ ΘΑΛΑΜΩΝ "
+
+#: A2BAgent_UI/PP_menu.inc.php:70
+msgid "PAYMENTS"
+msgstr "ΠΛΗΡΩΜΕΣ"
+
+#: A2BAgent_UI/PP_menu.inc.php:73
+msgid "REPORTS"
+msgstr "ΑΝΑΦΟΡΕΣ"
+
+#: A2BAgent_UI/PP_menu.inc.php:76
+msgid "INFO PAGES"
+msgstr "ΠΛΗΡΟΦΟΡΙΕΣ"
+
+#: A2BAgent_UI/PP_menu.inc.php:82
+msgid "PASSWORD"
+msgstr "ΚΩΔΙΚΟΣ"
+
+#: A2BAgent_UI/PP_menu.inc.php:86
+msgid "LOGOUT"
+msgstr "ΕΞΟΔΟΣ"
+
+#: A2BAgent_UI/PP_page.inc.php:44
+msgid "Other"
+msgstr "Άλλο"
+
+#: A2BAgent_UI/agent-money.php:15 A2BAgent_UI/sessions.php:47
+msgid "Period from"
+msgstr "Περίοδος από"
+
+#: A2BAgent_UI/agent-money.php:20 A2BAgent_UI/sessions.php:51
+msgid "Period to"
+msgstr "Περίοδος εως"
+
+#: A2BAgent_UI/booths.xml.php:15
+msgid "Unauthorized: please log in again."
+msgstr "Άρνηση πρόσβασης. Παρακαλώ ξανακάντε login."
+
+#: A2BAgent_UI/index.php:70
+msgid "AUTHENTICATION REFUSED, please check your user/password!"
+msgstr "ΔΕΝ ΕΠΙΤΡΕΠΕΤΑΙ Η ΠΡΟΣΒΑΣΗ, παρακαλώ ελέγξτε το όνομα/κωδικό σας!"
+
+#: A2BAgent_UI/index.php:74
+msgid "INACTIVE ACCOUNT, Please activate your account!"
+msgstr "ΑΝΕΝΕΡΓΟΣ ΛΟΓΑΡΙΑΣΜΟΣ, Παρακαλώ ζητήστε την ενεργοποίησή του!"
+
+#: A2BAgent_UI/index.php:78
+msgid "BLOCKED ACCOUNT, Please contact your administrator!"
+msgstr "ΚΛΕΙΔΩΜΕΝΟΣ ΛΟΓΑΡΙΑΣΜΟΣ, Παρακαλώ επικοινωνήστε μαζί μας!"
+
+#: A2BAgent_UI/index.php:87
+msgid "AUTHENTICATION"
+msgstr "ΠΙΣΤΟΠΟΙΗΣΗ"
+
+#: A2BAgent_UI/index.php:96
+msgid "User:"
+msgstr "Χρήστης:"
+
+#: A2BAgent_UI/index.php:101
+msgid "Password:"
+msgstr "Κωδικός:"
+
+#: A2BAgent_UI/index.php:111
+msgid "Forgot your password? Click "
+msgstr "Ξεχάσατε τον κωδικό; πατήστε "
+
+#: A2BAgent_UI/index.php:111
+msgid "here"
+msgstr "εδώ"
+
+#: A2BAgent_UI/forgotpassword.php:24
+msgid ""
+"Please wait 1 minutes before making any other request for the forgot "
+"password!"
+msgstr "Παρακαλώ περιμένετε 1 λεπτό πρίν ξανακάνετε αίτηση ανάκτησης κωδικού!"
+
+#: A2BAgent_UI/forgotpassword.php:98
+msgid "Your login information email has been sent to you."
+msgstr "Σας έχει αποσταλεί e-mail με τον κωδικό σας."
+
+#: A2BAgent_UI/forgotpassword.php:101
+msgid "No such login exists."
+msgstr "Δεν υπάρχει τέτοιος χρήστης."
+
+#: A2BAgent_UI/forgotpassword.php:104
+msgid "Invalid Action."
+msgstr "Άκυρη Ενέργεια."
+
+#: A2BAgent_UI/forgotpassword.php:107
+msgid "Pleaes provide your email address to get your login information."
+msgstr ""
+"Παρακαλώ δώστε το email σας (αυτό που έχετε δηλώσει σε εμάς) για να λάβετε "
+"σε αυτό τον κωδικό σας."
+
+#: A2BAgent_UI/info_choice.php:17
+msgid "Please choose information page:"
+msgstr "Επιλέξτε σελίδα με πληροφορίες:"
+
+#: A2BAgent_UI/info_choice.php:19
+msgid "Current rates"
+msgstr "Τρέχων τιμοκατάλογος"
+
+#: A2BAgent_UI/info_choice.php:20
+msgid "Usage instructions"
+msgstr "Οδηγίες χρήσεως"
+
+#: A2BAgent_UI/info_choice.php:21
+msgid "Contact information"
+msgstr "Επικοινωνία με εμάς"
 
 #: A2BAgent_UI/invoices_agent.php:20
 msgid "Transactions"
@@ -397,67 +558,9 @@ msgstr "Λογ/μός"
 msgid "Sum per destination"
 msgstr "Άθροισμα ανά προορισμό"
 
-#: A2BAgent_UI/sessions.php:14
-msgid ""
-"Callshop essions. Each session starts when the customer enters a booth and "
-"ends when he leaves (preferably having paid the account)."
-msgstr "Συνεδρίες. Κάθε μια ξεκινάει όταν ο πελάτης έρχεται στο θάλαμο και τελειώνει όταν ο πελάτης φεύγει από το μαγαζί (έχοντας εξοφλήσει το λογαριασμό)."
-
-#: A2BAgent_UI/sessions.php:16
-msgid "Sessions"
-msgstr "Συνεδρίες"
-
-#: A2BAgent_UI/sessions.php:16
-msgid "Session"
-msgstr "Σύνοδος"
-
-#: A2BAgent_UI/sessions.php:30
-msgid "End"
-msgstr "Τέλος"
-
-#: A2BAgent_UI/sessions.php:47 A2BAgent_UI/agent-money.php:15
-msgid "Period from"
-msgstr "Περίοδος από"
-
-#: A2BAgent_UI/sessions.php:51 A2BAgent_UI/agent-money.php:20
-msgid "Period to"
-msgstr "Περίοδος εως"
-
-#: A2BAgent_UI/PP_error.php:7
-msgid "ERROR : ACCESS REFUSED"
-msgstr "ΣΦΑΛΜΑ, Η ΠΡΟΣΒΑΣΗ ΔΕΝ ΕΠΙΤΡΕΠΕΤΑΙ"
-
-#: A2BAgent_UI/PP_error.php:8
-msgid ""
-"The CODE is not a VALID CODE or has been already used! Please check it and "
-"try again."
-msgstr ""
-"Ο ΚΩΔΙΚΟΣ δεν είναι έγκυρος ή έχει χρησιμοποιηθεί ήδη. Παρακαλώ ελέγξτε τον "
-"και προσπαθήστε πάλι."
-
-#: A2BAgent_UI/PP_error.php:9
-msgid "Sorry a problem occur on our system, please try later!"
-msgstr "Λυπούμαστε, συνέβη σφάλμα στο σύστημά μας. Παρακαλώ, δοκιμάστε αργότερα!"
-
-#: A2BAgent_UI/PP_error.php:10
-msgid "There is an error on this page!"
-msgstr "Υπάρχει σφάλμα στη σελίδα!"
-
-#: A2BAgent_UI/PP_error.php:11
-msgid "Sorry, you don t have access to this page !"
-msgstr "Λυπούμαστε, δεν έχετε πρόσβαση στη σελίδα!"
-
-#: A2BAgent_UI/PP_error.php:12
-msgid "Sorry, this page is in construction !"
-msgstr "Λυπούμαστε, η σελίδα αυτή είναι υπό κατασκευή!"
-
-#: A2BAgent_UI/PP_error.php:29
-msgid "Error Page"
-msgstr "Σελίδα Σφάλματος"
-
-#: A2BAgent_UI/booths.xml.php:15
-msgid "Unauthorized: please log in again."
-msgstr "Άρνηση πρόσβασης. Παρακαλώ ξανακάντε login."
+#: A2BAgent_UI/invoices_cshop.php:46 A2BAgent_UI/invoices_cshop.php:50
+msgid "Cannot locate session!"
+msgstr "Δεν βρέθηκε η συνεδρία!"
 
 #: A2BAgent_UI/lib/company_info.php:2
 msgid ""
@@ -528,78 +631,6 @@ msgid ""
 "list and enter the destination you would like to assign it to."
 msgstr ";Επιλογή χώρα όμοιο a a λίστα και όμοιο στο στο."
 
-#: A2BAgent_UI/forgotpassword.php:24
-msgid ""
-"Please wait 1 minutes before making any other request for the forgot "
-"password!"
-msgstr "Παρακαλώ περιμένετε 1 λεπτό πρίν ξανακάνετε αίτηση ανάκτησης κωδικού!"
-
-#: A2BAgent_UI/forgotpassword.php:98
-msgid "Your login information email has been sent to you."
-msgstr "Σας έχει αποσταλεί e-mail με τον κωδικό σας."
-
-#: A2BAgent_UI/forgotpassword.php:101
-msgid "No such login exists."
-msgstr "Δεν υπάρχει τέτοιος χρήστης."
-
-#: A2BAgent_UI/forgotpassword.php:104
-msgid "Invalid Action."
-msgstr "Άκυρη Ενέργεια."
-
-#: A2BAgent_UI/forgotpassword.php:107
-msgid "Pleaes provide your email address to get your login information."
-msgstr ""
-"Παρακαλώ δώστε το email σας (αυτό που έχετε δηλώσει σε εμάς) για να λάβετε "
-"σε αυτό τον κωδικό σας."
-
-#: A2BAgent_UI/index.php:70
-msgid "AUTHENTICATION REFUSED, please check your user/password!"
-msgstr "ΔΕΝ ΕΠΙΤΡΕΠΕΤΑΙ Η ΠΡΟΣΒΑΣΗ, παρακαλώ ελέγξτε το όνομα/κωδικό σας!"
-
-#: A2BAgent_UI/index.php:74
-msgid "INACTIVE ACCOUNT, Please activate your account!"
-msgstr "ΑΝΕΝΕΡΓΟΣ ΛΟΓΑΡΙΑΣΜΟΣ, Παρακαλώ ζητήστε την ενεργοποίησή του!"
-
-#: A2BAgent_UI/index.php:78
-msgid "BLOCKED ACCOUNT, Please contact your administrator!"
-msgstr "ΚΛΕΙΔΩΜΕΝΟΣ ΛΟΓΑΡΙΑΣΜΟΣ, Παρακαλώ επικοινωνήστε μαζί μας!"
-
-#: A2BAgent_UI/index.php:87
-msgid "AUTHENTICATION"
-msgstr "ΠΙΣΤΟΠΟΙΗΣΗ"
-
-#: A2BAgent_UI/index.php:96
-msgid "User:"
-msgstr "Χρήστης:"
-
-#: A2BAgent_UI/index.php:101
-msgid "Password:"
-msgstr "Κωδικός:"
-
-#: A2BAgent_UI/index.php:111
-msgid "Forgot your password? Click "
-msgstr "Ξεχάσατε τον κωδικό; πατήστε "
-
-#: A2BAgent_UI/index.php:111
-msgid "here"
-msgstr "εδώ"
-
-#: A2BAgent_UI/info_choice.php:17
-msgid "Please choose information page:"
-msgstr "Επιλέξτε σελίδα με πληροφορίες:"
-
-#: A2BAgent_UI/info_choice.php:19
-msgid "Current rates"
-msgstr "Τρέχων τιμοκατάλογος"
-
-#: A2BAgent_UI/info_choice.php:20
-msgid "Usage instructions"
-msgstr "Οδηγίες χρήσεως"
-
-#: A2BAgent_UI/info_choice.php:21
-msgid "Contact information"
-msgstr "Επικοινωνία με εμάς"
-
 #: A2BAgent_UI/pay.php:24
 msgid "Pay back"
 msgstr "Επιστροφή"
@@ -648,43 +679,22 @@ msgstr "Πληρωμές του μαγαζιού"
 msgid "Agent invoices"
 msgstr "Λογαριασμοί μαγαζιού"
 
-#: A2BAgent_UI/PP_page.inc.php:44
-msgid "Other"
-msgstr "Άλλο"
+#: A2BAgent_UI/sessions.php:14
+msgid ""
+"Callshop essions. Each session starts when the customer enters a booth and "
+"ends when he leaves (preferably having paid the account)."
+msgstr ""
+"Συνεδρίες. Κάθε μια ξεκινάει όταν ο πελάτης έρχεται στο θάλαμο και τελειώνει "
+"όταν ο πελάτης φεύγει από το μαγαζί (έχοντας εξοφλήσει το λογαριασμό)."
 
-#: A2BAgent_UI/PP_menu.inc.php:61
-msgid "BOOTHS"
-msgstr "ΘΑΛΑΜΟΙ"
+#: A2BAgent_UI/sessions.php:16
+msgid "Sessions"
+msgstr "Συνεδρίες"
 
-#: A2BAgent_UI/PP_menu.inc.php:64
-msgid "CUSTOMERS"
-msgstr "ΠΕΛΑΤΕΣ"
+#: A2BAgent_UI/sessions.php:16
+msgid "Session"
+msgstr "Σύνοδος"
 
-#: A2BAgent_UI/PP_menu.inc.php:67
-msgid "EDIT BOOTHS"
-msgstr "ΔΙΟΡΘΩΣΗ ΘΑΛΑΜΩΝ "
-
-#: A2BAgent_UI/PP_menu.inc.php:70
-msgid "PAYMENTS"
-msgstr "ΠΛΗΡΩΜΕΣ"
-
-#: A2BAgent_UI/PP_menu.inc.php:73
-msgid "REPORTS"
-msgstr "ΑΝΑΦΟΡΕΣ"
-
-#: A2BAgent_UI/PP_menu.inc.php:76
-msgid "INFO PAGES"
-msgstr "ΠΛΗΡΟΦΟΡΙΕΣ"
-
-#: A2BAgent_UI/PP_menu.inc.php:82
-msgid "PASSWORD"
-msgstr "ΚΩΔΙΚΟΣ"
-
-#: A2BAgent_UI/PP_menu.inc.php:86
-msgid "LOGOUT"
-msgstr "ΕΞΟΔΟΣ"
-
-#: A2BAgent_UI/invoices_cshop.php:46 A2BAgent_UI/invoices_cshop.php:50
-msgid "Cannot locate session!"
-msgstr "Δεν βρέθηκε η συνεδρία!"
-
+#: A2BAgent_UI/sessions.php:30
+msgid "End"
+msgstr "Τέλος"
