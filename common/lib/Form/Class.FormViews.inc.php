@@ -5,6 +5,9 @@ abstract class FormView {
 	function PerformAction(&$form){
 	}
 	abstract function Render(&$form);
+	public function RenderGraph(&$form,&$graph){
+		return false;
+	}
 };
 
 class IdleView extends FormView {

@@ -1,5 +1,6 @@
 <?php
 //require_once("Class.ElemBase.inc.php");
+require_once("Class.ClauseField.inc.php");
 
 /** Selection form
 */
@@ -48,6 +49,31 @@ class SelectionForm extends ElemBase {
 	
 	public function enable($en = true){
 		$this->enabled = $en;
+	}
+	
+	/** Append the clauses to a form.
+	   \param $fparams If true, also set the form to follow the parameters of the 
+	   select form
+	 */
+	public function appendClauses(&$form,$fparams = true){
+		$clauses= $this->buildClauses();
+		foreach($clauses as $cla)
+			$form->model[] = new FreeClauseField($cla);
+		
+		if ($fparams){
+			foreach ($this->model as $fld){
+				if ((!$fld->does_add) && 
+					(!isset($this->_dirty_vars['use_'.$fld->fieldname]) ||
+						$this->_dirty_vars['use_'.$fld->fieldname] != 't'))
+				continue;
+				// We assume here that the only selection vars for fld are
+				// 'name', 'use_name' ..
+				if (isset($this->_dirty_vars['use_'.$fld->fieldname]))
+					$form->addAllFollowParam($this->prefix.'use_'.$fld->fieldname,$this->_dirty_vars['use_'.$fld->fieldname],false);
+				if (!empty($this->_dirty_vars[$fld->fieldname]))
+					$form->addAllFollowParam($this->prefix.$fld->fieldname,$this->_dirty_vars[$fld->fieldname],false);
+			}
+		}
 	}
 	
 	/** Returns an array, indexed by the fieldname, with search clauses */

@@ -11,12 +11,13 @@ class SumMultiView extends FormView {
 	public $titlerow; ///< A row spanning all columns, used for title
 	public $ncols = null;   ///< Numer of columns for titles, used as colspan
 	public $sums = array();
+	public $plots = array();
 	
 	
 	protected function RenderHead(){
 	}
 	
-	protected function performSumQuery($summ,$form,$dbhandle){
+	protected function performSumQuery(&$summ,&$form,&$dbhandle){
 		if ($form->FG_DEBUG)
 			echo "<tr class=\"debug\"><td colspan=\"".$this->ncols ."\">";
 		if ($form->FG_DEBUG>3)
@@ -93,6 +94,8 @@ class SumMultiView extends FormView {
 				$QUERY .= " DESC";
 		}
 		
+		if (!empty($summ['limit']))
+			$QUERY .= ' LIMIT '.$summ['limit'];
 		$QUERY .= ';';
 		
 		if ($form->FG_DEBUG>3)
@@ -165,6 +168,54 @@ class SumMultiView extends FormView {
 	</table>
 	<?php
 
+	}
+	
+	public function RenderGraph(&$form,&$graph){
+		$gmode= $form->getpost_single('graph');
+		
+		$graph->SetScale("textlin");
+		$graph->yaxis->scale->SetGrace(3);
+
+		if ($form->FG_DEBUG>1)
+			echo "RenderGraph!\n";
+		
+		$dbhandle = &$form->a2billing->DBHandle();
+		$tsum = $this->plots[$gmode];
+		
+		if (!$tsum)
+			return false;
+		
+		$graph->title->Set($tsum->title);
+		$res = $this->performSumQuery($tsum,$form,$dbhandle);
+		
+		switch($tsum['type']){
+		case 'bar':
+			$xdata = array();
+			$ydata = array();
+			$xkey = $tsum['x'];
+			$ykey = $tsum['y'];
+			while ($row = $res->fetchRow()){
+				$xdata[] = $row[$xkey];
+				$ydata[] = $row[$ykey];
+			}
+			$graph->xaxis->SetTickLabels($xdata);
+			$bplot = new BarPlot($ydata);
+			$graph->Add($bplot);
+			if ($form->FG_DEBUG>2){
+				echo "X data: ";
+				print_r($xdata);
+				echo "\n Y data: ";
+				print_r($ydata);
+			}
+			if ($form->FG_DEBUG>1)
+				echo "Added Bar plot";
+			break;
+
+		default:
+			if ($form->FG_DEBUG>1)
+			echo "Unknown graph type: ".$tsum['type'] . "\n";
+		}
+		return true;
 	}
 
 };

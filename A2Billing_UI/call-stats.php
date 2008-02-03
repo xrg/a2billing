@@ -8,7 +8,7 @@ require_once (DIR_COMMON."Form/Class.TimeField.inc.php");
 require_once (DIR_COMMON."Form/Class.SqlRefField.inc.php");
 require_once (DIR_COMMON."Form/Class.RevRefForm.inc.php");
 require_once (DIR_COMMON."Form/Class.TextSearchField.inc.php");
-require_once (DIR_COMMON."Form/Class.ClauseField.inc.php");
+// require_once (DIR_COMMON."Form/Class.ClauseField.inc.php");
 require_once (DIR_COMMON."Form/Class.SelectionForm.inc.php");
 require_once (DIR_COMMON."Form/Class.SumMultiView.inc.php");
 
@@ -46,14 +46,13 @@ $PAGE_ELEMS[] = &$SEL_Form;
 $sform= new FormHandler('cc_call_v',_("Calls"),_("Call"));
 $sform->checkRights(ACX_CALL_REPORT);
 $sform->init(null,false);
-$sform->setAction('sums');
 $sform->views['sums'] = new SumMultiView();
+$sform->setAction('sums');
+
 if ($FG_DEBUG)
 	$sform->views['dump-form'] = new DbgDumpView();
 
-$clauses= $SEL_Form->buildClauses();
-foreach($clauses as $cla)
-	$sform->model[] = new FreeClauseField($cla);
+$SEL_Form->appendClauses($sform);
 
 $sform->model[] = new DateField(_("Date"),'starttime');
 	end($sform->model)->fieldexpr='date_trunc(\'day\', starttime)';
@@ -81,6 +80,7 @@ $sform->views['sums']->sums[] = array('title' => _("Per day calls"),
 		'sessiontime' => 'SUM', 'asr' => '', 'aloc' => 'AVG',
 		'sessionbill' => 'SUM', 'buycost' => 'SUM'),
 	'order' => 'starttime', 'sens' => 'DESC');
+	
 
 $sform->views['sums']->sums[] = array('title' => _("Per destination calls"),
 	'fns' => array( 'destination' =>true, 'uniqueid' => 'COUNT',
@@ -94,8 +94,19 @@ $sform->views['sums']->sums[] = array('title' => _("Total"),
 		'sessionbill' => 'SUM', 'buycost' => 'SUM'),
 	'order' => 'COUNT(uniqueid)', 'sens' => 'DESC');
 
+$sform->views['sums']->plots['day']= array('title' => _("Per day calls"),
+	'type' => 'bar', 'limit' => 10,
+	x => 'starttime', y => 'sessiontime',
+	'fns' => array( 'starttime' =>true, 'sessiontime' => 'SUM'),
+	'order' => 'starttime', 'sens' => 'DESC');
+
 $PAGE_ELEMS[] = &$sform;
 
-require("PP_page.inc.php");
+$PAGE_ELEMS[] = $sform->GraphUrl('day');
+
+if (!empty($_GET['graph']))
+	require("PP_graph.inc.php");
+else
+	require("PP_page.inc.php");
 
 ?>

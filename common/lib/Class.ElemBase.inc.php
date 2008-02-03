@@ -16,6 +16,10 @@ abstract class ElemBase {
 	function PerformAction(){
 	}
 	
+	function RenderGraph(&$graph){
+		return false;
+	}
+	
 };
 
 

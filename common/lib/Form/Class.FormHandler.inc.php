@@ -186,7 +186,23 @@ class FormHandler extends ElemBase{
 				print_r($el);
 	}
 	
-	
+	public function RenderGraph(&$graph){
+		if (!$this->rights_checked){
+			error_log("Attempt to use FormHandler w/o rights!");
+			die();
+		}
+		
+		if (isset($this->views[$this->action]))
+			if ($this->views[$this->action]->RenderGraph($this,$graph))
+				return true;
+		else{
+			if ($old_dbg)
+				$graph->AddText(new Text( "Cannot handle action: $this->action"));
+		}
+		
+		return false;
+	}
+
 	// helper functions
 	/** Return an array with primary key field/values, used eg. by edit urls.
 	    \param $qrow an array with fields/values for the corresponding db row
@@ -275,6 +291,19 @@ class FormHandler extends ElemBase{
 		return $_SERVER['PHP_SELF'].$this->gen_AllGetParams($pkparams);
 	}
 	
+	/** Generate a page element calling the graph for one of the sums
+	  \param $ind a key referencing sums[$ind]
+	  \param $type The type of the graph
+	  */
+	function GraphUrl($grph, $alt = null){
+		$img_url=$this->selfUrl(array('graph' => $grph));
+		if ($title)
+			$tmp_title = $alt;
+		else
+			$tmp_title = _("Graph");
+		return new StringElem("<img src=\"$img_url\" alt=\"$tmp_title\"");
+	}
+
 	/// Throw away anything that could make data weird.. Sometimes too much.
 	function sanitize_data($data){
 		if(is_array($data)){
