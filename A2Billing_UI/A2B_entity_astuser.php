@@ -32,6 +32,10 @@ $HD_Form->model[] = DontList(new TextFieldN(_("Default IP"),'defaultip',_("Defau
 $HD_Form->model[] = new TextField(_("Host"),'host',_("Statically bind user with some IP/DNS or 'dynamic' for users that will register."));
 	end($HD_Form->model)->def_value='dynamic';
 
+$HD_Form->model[] = new TextFieldN(_("Name B"),'peernameb',_("Override asterisk username, so that a second device can be registered"));
+$HD_Form->model[] = dontList(new TextFieldN(_("Secret B"),'secretb',_("Override asterisk secret from card/booth, so that a second device can be registered")));
+$HD_Form->model[] = dontList(new TextFieldN(_("Callerid B"),'callerid',_("Override callerid.")));
+
 $HD_Form->model[] = DontList( new TextFieldN(_("From user"),'fromuser',_("Override user string.")));
 
 

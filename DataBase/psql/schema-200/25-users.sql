@@ -60,6 +60,9 @@ CREATE TABLE cc_ast_users (
     defaultip INET,
     fromuser VARCHAR(80),
     host VARCHAR(31) DEFAULT 'dynamic' NOT NULL,
+    peernameb TEXT,
+    secretb   TEXT,
+    callerid  TEXT,
     CHECK( card_id IS NOT NULL OR booth_id IS NOT NULL)
 );
 

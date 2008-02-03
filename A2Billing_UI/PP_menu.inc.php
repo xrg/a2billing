@@ -95,6 +95,7 @@ function menu_show(sect_str){
                 <li><a href="CC_card_import.php"><?= _("Import");?></a></li>
                 <li><a href="A2B_entity_card_group.php"><?= _("Groups");?></a></li>
 		<li><a href="A2B_entity_astuser.php"><?= _("VoIP users");?></a></li>
+		<li><a href="A2B_entity_instance.php"><?= _("VoIP regs");?></a></li>
 		<li><a href="A2B_entity_callerid.php"><?= _("CallerID");?></a></li>
 		<li><a href="A2B_entity_speeddial.php"><?= _("Speed Dial");?></a></li>
 	</ul>

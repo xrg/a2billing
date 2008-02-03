@@ -16,11 +16,13 @@ CREATE OR REPLACE VIEW cc_ast_users_v AS
 	
 
 CREATE OR REPLACE VIEW realtime_sip_peers AS
-SELECT COALESCE(cc_card.username, cc_booth.peername) AS name,
+SELECT COALESCE(cc_ast_users.peernameb,cc_card.username, cc_booth.peername) AS name,
 	(CASE WHEN cc_card.id IS NOT NULL THEN 'card:' || cc_card.id::TEXT
 		WHEN cc_booth.id IS NOT NULL THEN 'booth:' || cc_booth.id::TEXT
 		ELSE '' END) AS accountcode,
-	COALESCE(cc_card.userpass, cc_booth.peerpass) AS secret,
+	COALESCE(cc_ast_users.secretb,cc_card.userpass, cc_booth.peerpass) AS secret,
+	'"' || COALESCE(cc_ast_users.callerid,( COALESCE(substr(cc_card.firstname,1,1)||'. ', '') || cc_card.lastname),
+		cc_booth.callerid, cc_booth.name) || '" < >' AS callerid,
 	cc_ast_users.id AS realtime_id,
 	"type", "context", videosupport, fromdomain, amaflags, dtmfmode,
 	defaultip, fromuser, host,
@@ -62,7 +64,7 @@ CREATE OR REPLACE RULE realtime_sip_update_rn AS ON UPDATE TO realtime_sip_peers
 
 -- First case: registration of a sip peer: insert the instance
 CREATE OR REPLACE RULE realtime_sip_update_ri AS ON UPDATE TO realtime_sip_peers
-	WHERE OLD.ipaddr IS NULL AND NEW.ipaddr IS NOT NULL AND NEW.ipaddr <> ''
+	WHERE OLD.ipaddr IS NULL AND NULLIF(NEW.ipaddr,'') IS NOT NULL
 	DO INSTEAD
 	INSERT INTO cc_ast_instance(userid, srvid, dyn,sipiax,ipaddr,port, regseconds,
 			username, fullcontact, regserver, useragent)
@@ -70,7 +72,7 @@ CREATE OR REPLACE RULE realtime_sip_update_ri AS ON UPDATE TO realtime_sip_peers
 			true,1,NEW.ipaddr,NEW.port,NEW.regseconds,NEW.username,NEW.fullcontact,NEW.regserver, NEW.useragent);
 
 CREATE OR REPLACE RULE realtime_sip_update_r3 AS ON UPDATE TO realtime_sip_peers
-	WHERE OLD.ipaddr IS NOT NULL AND NEW.ipaddr IS NOT NULL AND NEW.ipaddr != ''
+	WHERE OLD.ipaddr IS NOT NULL AND NULLIF(NEW.ipaddr,'') IS NOT NULL
 	DO INSTEAD
 	UPDATE cc_ast_instance SET ipaddr = NEW.ipaddr, port = NEW.port, regseconds = NEW.regseconds,
 			username = NEW.username, fullcontact = NEW.fullcontact, regserver = NEW.regserver,
@@ -81,8 +83,7 @@ CREATE OR REPLACE RULE realtime_sip_update_r3 AS ON UPDATE TO realtime_sip_peers
 	
 -- Remove the instance entry. TODO: wouldn't it be better to log the old ip?
 CREATE OR REPLACE RULE realtime_sip_update_rd AS ON UPDATE TO realtime_sip_peers
-	WHERE OLD.ipaddr IS NOT NULL AND (NEW.ipaddr IS NULL OR NEW.ipaddr = '0.0.0.0'
-		OR NEW.ipaddr = '')
+	WHERE OLD.ipaddr IS NOT NULL AND NULLIF(NEW.ipaddr,'') IS NULL
 	DO INSTEAD
 	DELETE FROM cc_ast_instance
 		WHERE userid = OLD.realtime_id
@@ -94,11 +95,13 @@ GRANT all ON realtime_sip_peers TO a2b_group ;
 
 CREATE OR REPLACE VIEW static_sip_peers AS
 SELECT cc_ast_instance.srvid,
-	COALESCE(cc_card.username, cc_booth.peername) AS name,
+	COALESCE(cc_ast_users.peernameb,cc_card.username, cc_booth.peername) AS name,
 	(CASE WHEN cc_card.id IS NOT NULL THEN 'card:' || cc_card.id::TEXT
 		WHEN cc_booth.id IS NOT NULL THEN 'booth:' || cc_booth.id::TEXT
 		ELSE '' END) AS accountcode,
-	COALESCE(cc_card.userpass, cc_booth.peerpass) AS secret,
+	COALESCE(cc_ast_users.secretb,cc_card.userpass, cc_booth.peerpass) AS secret,
+	'"' || COALESCE(cc_ast_users.callerid,( COALESCE(substr(cc_card.firstname,1,1)||'. ', '') || cc_card.lastname),
+		cc_booth.callerid, cc_booth.name) || '" < >' AS callerid,
 	cc_ast_users.id AS realtime_id,
 	"type", "context", videosupport, fromdomain, amaflags, dtmfmode,
 	defaultip, fromuser, host,

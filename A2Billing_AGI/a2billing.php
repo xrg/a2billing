@@ -534,8 +534,12 @@ function formatDialstring_peer($dialn,&$route, &$card){
 		//$agi-> stream_file("prepaid-dest-unreachable",'#');
 		return null;
 	}
-	$row= $res->fetchRow();
-	return str_alparams($bind_str,$row);
+	// Feature! If more than one registrations exist, call all of them in
+	// parallel!
+	$peer_rows = array();
+	while( $row= $res->fetchRow())
+		$peer_rows[] =str_alparams($bind_str,$row);
+	return implode('&',$peer_rows);
 }
 
 if ($mode == 'standard'){

@@ -25,7 +25,7 @@ $HD_Form->model[] = new BoolField(_("Dynamic"), dyn);
 	end($HD_Form->model)->def_value=false;
 	end($HD_Form->model)->does_list=false;
 	end($HD_Form->model)->does_edit=false;
-	end($HD_Form->model)->does_add=false;
+//	end($HD_Form->model)->does_add=false;
 	
 $HD_Form->model[] = new SqlBigRefField(_("User"), "userid","cc_ast_users_v", "id", "name");
 
