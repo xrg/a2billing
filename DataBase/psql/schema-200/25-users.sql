@@ -36,6 +36,11 @@ CREATE TABLE cc_ast_users_config(
     rtpholdtimeout SMALLINT,
     rtptimeout SMALLINT,
     qualify VARCHAR(7),
+    -- IAX2:
+    iax_xfer VARCHAR(10),
+    iax_auth VARCHAR(10) NOT NULL DEFAULT 'md5',
+    jitterbuffer VARCHAR(7),
+       -- TODO: codecpriority, sendani, peercontext, /sourceaddress/, adsi
     -- Connection
     defport INTEGER,
     permit VARCHAR(95),

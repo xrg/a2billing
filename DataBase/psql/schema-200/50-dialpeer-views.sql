@@ -6,7 +6,9 @@
    each mode
 */
 
-/* However, it is nice to associate useraliases with cc_card in one go.. */
+/* However, it is nice to associate useraliases with cc_card in one go..
+   NOTE: regseconds is used differently at SIP and IAX channels. At SIP, it 
+   holds epoch(now()+expire) while at IAX holds epoch(now()) until IAX expires. */
 CREATE OR REPLACE VIEW cc_alias2card_v AS
     SELECT cc_ast_instance.*, CASE WHEN cc_ast_users.card_id IS NOT NULL THEN 'card' 
 	WHEN cc_ast_users.booth_id IS NOT NULL AND cc_booth.cur_card_id IS NOT NULL THEN 'booth-card'
@@ -14,7 +16,8 @@ CREATE OR REPLACE VIEW cc_alias2card_v AS
 		WHEN cc_ast_users.booth_id IS NOT NULL THEN 'booth' END AS match_mode,
 	cc_card.id AS card_id, cc_card.useralias, cc_card.grp AS card_grp,COALESCE(cc_ast_users.peernameb,cc_booth.peername, cc_card.username) AS dialname,
 	CASE WHEN sipiax = 1 THEN 'SIP'::TEXT WHEN sipiax = 2 THEN 'IAX2'::TEXT ELSE 'NONE'::TEXT END AS dialtech,
-	CASE WHEN dyn = false THEN true ELSE ( regseconds > EXTRACT ('epoch' FROM now())) END AS active
+	CASE WHEN dyn = false THEN true WHEN sipiax = 2 AND (regseconds >0) THEN true
+		ELSE ( regseconds > EXTRACT ('epoch' FROM now())) END AS active
 	FROM cc_ast_instance,cc_ast_users LEFT JOIN cc_booth ON cc_ast_users.booth_id = cc_booth.id,
 		cc_card
 	WHERE cc_ast_instance.userid = cc_ast_users.id

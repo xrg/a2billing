@@ -42,20 +42,13 @@ SELECT COALESCE(cc_ast_users.peernameb,cc_card.username, cc_booth.peername) AS n
 			AND cc_ast_instance.dyn = true
 			AND cc_ast_instance.srvid = ( SELECT id from cc_a2b_server 
 				WHERE db_username = current_user))
-		LEFT JOIN cc_card ON (cc_ast_users.card_id = cc_card.id)
+		LEFT JOIN cc_card ON (cc_ast_users.card_id = cc_card.id AND cc_card.status <> 0)
 		LEFT JOIN cc_booth ON (cc_ast_users.booth_id = cc_booth.id)
 	
 	WHERE cc_ast_users_config.id = cc_ast_users.config
 		AND cc_ast_users.has_sip = true
-		
 	;
 	
--- TODO: Disabled peers!
-
-
--- LEFT OUTER JOIN cc_ast_instance ON cau.id = cc_ast_instance.userid
-
-
 --- Now, define update rules for the views. That way, asterisk will be
 -- able to update *only some* of the information, such as where the user
 -- is actually registered.
@@ -125,6 +118,87 @@ SELECT cc_ast_instance.srvid,
 		AND cc_ast_users.has_sip = true
 	;
 
+------------------------
+------ IAX2 realtime
+------------------------
+-- IAX supported vars @ 1.4.17: context permit deny setvar allow disallow trunk auth
+-- encryption transfer codecpriority jitterbuffer forcejitterbuffer dbsecret secret
+-- callerid fullname cid_number accountcode mohintepret mohsuggest language amaflags
+-- inkeys maxauthreq adsi mailbox outkey
+-- host defaultip sourceaddress permit deny mask context regexten peercontext port
+-- sendani
+-- qualify qualifysmoothing qualifyfreqok qualifyfreqnotok timezone
+
+CREATE OR REPLACE VIEW realtime_iax_peers AS
+SELECT COALESCE(cc_ast_users.peernameb,cc_card.username, cc_booth.peername) AS name,
+	(CASE WHEN cc_card.id IS NOT NULL THEN 'card:' || cc_card.id::TEXT
+		WHEN cc_booth.id IS NOT NULL THEN 'booth:' || cc_booth.id::TEXT
+		ELSE '' END) AS accountcode,
+	iax_auth AS auth,
+	COALESCE(cc_ast_users.secretb,cc_card.userpass, cc_booth.peerpass) AS secret,
+	'"' || COALESCE(cc_ast_users.callerid,( COALESCE(substr(cc_card.firstname,1,1)||'. ', '') || cc_card.lastname),
+		cc_booth.callerid, cc_booth.name) || '" < >' AS callerid,
+	cc_ast_users.id AS realtime_id,
+	"type", "context", amaflags,
+	defaultip, host,
+	iax_xfer AS transfer,
+	qualify, jitterbuffer,
+	permit, deny, mask,
+	disallow, allow,
+	musiconhold AS mohsuggest, setvar,
+	ipaddr , COALESCE(port, defport) AS port, regseconds,
+	COALESCE(cc_ast_instance.username,cc_ast_users.peernameb,cc_card.username, cc_booth.peername) AS username
+	
+	FROM cc_ast_users_config, cc_ast_users
+		LEFT JOIN cc_ast_instance ON (cc_ast_instance.userid = cc_ast_users.id 
+			AND cc_ast_instance.sipiax = 2
+			AND cc_ast_instance.dyn = true
+			AND cc_ast_instance.srvid = ( SELECT id from cc_a2b_server 
+				WHERE db_username = current_user))
+		LEFT JOIN cc_card ON (cc_ast_users.card_id = cc_card.id AND cc_card.status <> 0)
+		LEFT JOIN cc_booth ON (cc_ast_users.booth_id = cc_booth.id)
+	
+	WHERE cc_ast_users_config.id = cc_ast_users.config
+		AND cc_ast_users.has_iax = true
+	;
+
+--  TODO: inkeys, outkey for encryption, auth.
+
+CREATE OR REPLACE RULE realtime_iax_update_rn AS ON UPDATE TO realtime_iax_peers
+	DO INSTEAD NOTHING;
+
+-- First case: registration of a sip peer: insert the instance
+CREATE OR REPLACE RULE realtime_iax_update_ri AS ON UPDATE TO realtime_iax_peers
+	WHERE OLD.ipaddr IS NULL AND NULLIF(NEW.ipaddr,'') IS NOT NULL
+	DO INSTEAD
+	INSERT INTO cc_ast_instance(userid, srvid, dyn,sipiax,ipaddr,port, regseconds, username)
+		VALUES(NEW.realtime_id, ( SELECT id from cc_a2b_server WHERE db_username = current_user),
+			true,2,NEW.ipaddr,NEW.port,NEW.regseconds,COALESCE(NEW.username,NEW.name,OLD.name));
+
+CREATE OR REPLACE RULE realtime_iax_update_r3 AS ON UPDATE TO realtime_iax_peers
+	WHERE OLD.ipaddr IS NOT NULL AND NULLIF(NEW.ipaddr,'') IS NOT NULL
+	DO INSTEAD
+	UPDATE cc_ast_instance SET ipaddr = NEW.ipaddr, port = NEW.port, regseconds = NEW.regseconds,
+			username = COALESCE(NEW.username,OLD.username,NEW.name,OLD.name)
+		WHERE userid = OLD.realtime_id
+		  AND dyn = true
+		AND srvid = ( SELECT id from cc_a2b_server WHERE db_username = current_user);
+	
+-- Remove the instance entry. TODO: wouldn't it be better to log the old ip?
+CREATE OR REPLACE RULE realtime_iax_update_rd AS ON UPDATE TO realtime_iax_peers
+	WHERE OLD.ipaddr IS NOT NULL AND NULLIF(NEW.ipaddr,'') IS NULL
+	DO INSTEAD
+	DELETE FROM cc_ast_instance
+		WHERE userid = OLD.realtime_id
+		  AND dyn = true
+		AND srvid = ( SELECT id from cc_a2b_server WHERE db_username = current_user);
+
+
+GRANT all ON realtime_iax_peers TO a2b_group ;
+
+-------- Static
+
+--  This also creates IAX peers!
 CREATE OR REPLACE FUNCTION sip_create_static_peers(s_card_grp INTEGER, s_srvid INTEGER,
 	do_sip BOOLEAN, do_iax BOOLEAN) RETURNS void AS $$
 BEGIN
@@ -142,6 +216,7 @@ BEGIN
 		    AND cc_ast_users.has_iax = true AND do_iax = true;
 END; $$ LANGUAGE plpgsql STRICT VOLATILE;
 
+-- This also updates IAX peers!
 CREATE OR REPLACE FUNCTION sip_update_static_peers(s_agentid INTEGER, s_srvid INTEGER,
 	do_sip BOOLEAN, do_iax BOOLEAN) RETURNS void AS $$
 BEGIN

@@ -27,6 +27,9 @@ $arr_nat = array (array(null,_('Default')), array ('yes', _("Yes")), array ('no'
 $arr_canreinvite = array (array(null,_('Default')), array ('yes', _("Yes")), array ('no',_('No')),
 	array ('nonat','No NAT'), array('update','Update'));
 
+$arr_ixfer = array (array(null,_('Default')), array ('yes', _("Yes")), array('mediaonly',_('Media only')), array ('no',_('No')));
+$arr_iauth = array (array ('md5', _("MD5")), array ('plaintext',_('Plain text')), array ('rsa',_('RSA keys')));
+
 $PAGE_ELEMS[] = &$HD_Form;
 $PAGE_ELEMS[] = new AddNewButton($HD_Form);
 
@@ -49,6 +52,10 @@ $HD_Form->model[] = new RefField(_("Progress Inband"), "progressinband", $arr_yn
 $HD_Form->model[] = new IntFieldN(_("Incoming limit"),'incominglimit',_("Incoming calls limit"));
 $HD_Form->model[] = new IntFieldN(_("Outgoing limit"),'outgoinglimit',_("Outgoing calls limit"));
 $HD_Form->model[] = new RefField(_("NAT"), "nat", $arr_nat,_("NAT support"));
+
+$HD_Form->model[] = new RefField(_("IAX Auth"), "iax_auth", $arr_iauth,_("Authentication method over IAX2. 'rsa' needs inkeys/outkey"));
+$HD_Form->model[] = new RefField(_("IAX Transfer"), "iax_xfer", $arr_ixfer,_("Allow native IAX2 transfers. Choosing 'yes' will circumvent billing!"));
+$HD_Form->model[] = new RefField(_("Jitter buffer"),'jitterbuffer',$arr_yesnoN,_("IAX2 jitter buffer"));
 
 $HD_Form->model[] = new RefField(_("Canreinvite"), "canreinvite", $arr_canreinvite,_("Attempt to bridge the media path"));
 $HD_Form->model[] = new TextFieldN(_("Insecure"),'insecure');
