@@ -53,7 +53,7 @@ $ilist[]  = array('3',_('Paid'));
 
 $dform->model[] = new RefField(_("Status"),'payment_status', $ilist);
 
-$tmp = new RevRefForm(_("calls"),'call','id','cc_call_v','invoice_id');
+$tmp = new RevRefForm(_("calls"),'call','id','cc_call2_v','invoice_id');
 $dform->meta_elems[] = $tmp;
 	$tmp->at_action = 'details';
 	$tmp->Form->checkRights(ACX_INVOICING);
@@ -61,11 +61,12 @@ $dform->meta_elems[] = $tmp;
 	$tmp->Form->views['list'] = new Multi2SumView();
 	$tmp->Form->views['list']->page_cols = 2;
 	
-	// TODO: clause field "sessionbill > 0" 
+	$tmp->Form->model[] = new FreeClauseField("sessionbill IS NOT NULL");
+	$tmp->Form->model[] = new FreeClauseField("sessiontime > 0");
 	$tmp->Form->model[] = new DateTimeField(_("Time"),'starttime');
 	$tmp->Form->model[] = new TextField(_("Number"),'calledstation');
 	$tmp->Form->model[] = new TextField(_("Destination"),'destination');
-	$tmp->Form->model[] = new IntField(_("Duration"),'sessiontime');
+	$tmp->Form->model[] = new SecondsField(_("Duration"),'sessiontime');
 	end($tmp->Form->model)->fieldacr=_("Dur");
 	//$tmp->Form->model[] = new PKeyFieldTxt(_("ID"),'id');
 	$tmp->Form->model[] = new MoneyField(_("Bill"),'sessionbill');
