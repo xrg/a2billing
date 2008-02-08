@@ -43,12 +43,14 @@ class SqlActionForm extends ActionForm {
 			// No result rows: update clause didn't match
 			$dbg_elem->content.= ".. EOF, no rows!\n";
 			$dbg_elem->content.= $dbhandle->ErrorMsg() ."\n";
+			$dbg_elem->content.= $dbhandle->NoticeMsg() ."\n";
 			$dbg_elem->obj = $dbhandle->Affected_Rows();
 			$this->pre_elems[] = new ErrorElem(str_params($this->failureString,array(_("no rows")),1));
 			$this->action = 'ask';
 		} else {
 			$dbg_elem->content.= "Success: Rows: ". $dbhandle->Affected_Rows() . "\n";
 			$dbg_elem->content.= $dbhandle->ErrorMsg() ."\n";
+			$dbg_elem->content.= $dbhandle->NoticeMsg() ."\n";
 			if (strlen($this->successString))
 				$this->pre_elems[] = new StringElem(str_params($this->successString,
 					array($dbhandle->Affected_Rows()),1));
