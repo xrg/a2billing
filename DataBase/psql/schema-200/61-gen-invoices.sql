@@ -75,7 +75,7 @@ BEGIN
 	sum_tax :=(sum_calls*agent_vat)/(100.0 + agent_vat);
 
 	UPDATE cc_invoices SET amount = sum_amount, tax = sum_tax, total =sum_amount + sum_tax,
-		payment_status = (CASE WHEN sum_total = 0.0 THEN 3 ELSE 0 END)
+		payment_status = (CASE WHEN COALESCE((sum_amount + sum_tax),0.0) = 0.0 THEN 3 ELSE 0 END)
 		WHERE id = ret_id;
 	RETURN ret_id;
 END; $$ LANGUAGE PLPGSQL STRICT VOLATILE;
