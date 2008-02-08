@@ -223,7 +223,7 @@ class SumMultiView extends FormView {
 /** A multiple column (paginated), multi-sum (queries) view */
 class Multi2SumView extends SumMultiView {
 	public $page_cols = 1; ///< Number of columns to display
-	public $page_rows = 10; ///< Maximum number of rows per column/page
+	public $page_rows = 20; ///< Maximum number of rows per column/page
 	public $page_rows_first = 7;
 	public $page_rows_last = 5;
 	

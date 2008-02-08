@@ -47,8 +47,8 @@ SELECT sessionid, uniqueid, cardid,nasipaddress, srvid, cmode,
 -- FAT NOTE: this view includes failed attempts!
 
 CREATE OR REPLACE VIEW cc_agent_calls3_v AS
-	SELECT cc_card_group.agentid, starttime, stoptime-starttime AS duration, tcause,
-		sessionbill, invoice_id,
+	SELECT cc_card_group.agentid, starttime, sessiontime, tcause,
+		sessionbill, invoice_id, destination,
 		substring(calledstation from '#"%#"___' for '#') || '***' AS calledstation,
 		CASE WHEN cc_agent.id IS NOT NULL THEN
 			(sessionbill * (1 -cc_agent.commission))

@@ -53,7 +53,7 @@ $ilist[]  = array('3',_('Paid'));
 
 $dform->model[] = new RefField(_("Status"),'payment_status', $ilist);
 	
-$tmp = new RevRefForm(_("calls"),'call','id','cc_call_v','invoice_id');
+$tmp = new RevRefForm(_("calls"),'call','id','cc_agent_calls3_v','invoice_id');
 $dform->meta_elems[] = $tmp;
 	$tmp->at_action = 'details';
 	$tmp->Form->checkRights(ACX_AGENTS);
@@ -61,31 +61,31 @@ $dform->meta_elems[] = $tmp;
 	$tmp->Form->views['list'] = new Multi2SumView();
 	$tmp->Form->views['list']->page_cols = 2;
 	
-	// TODO: clause field "sessionbill > 0" 
+	$tmp->Form->model[] = new FreeClauseField("agentbill IS NOT NULL");
 	$tmp->Form->model[] = new DateTimeField(_("Time"),'starttime');
 	$tmp->Form->model[] = new TextField(_("Number"),'calledstation');
 	$tmp->Form->model[] = new TextField(_("Destination"),'destination');
-	$tmp->Form->model[] = new IntField(_("Duration"),'sessiontime');
+	$tmp->Form->model[] = new SecondsField(_("Duration"),'sessiontime');
 	end($tmp->Form->model)->fieldacr=_("Dur");
 	//$tmp->Form->model[] = new PKeyFieldTxt(_("ID"),'id');
-	$tmp->Form->model[] = new MoneyField(_("Bill"),'sessionbill');
+	$tmp->Form->model[] = new MoneyField(_("Bill"),'agentbill');
 
 		//one non-summed group
 	$tmp->Form->views['list']->sums[] =array( 'fns' => array( 'starttime' => true,
 			'calledstation' => true,
 			'destination' => true,
-			'sessiontime' => true, 'sessionbill' => true));
+			'sessiontime' => true, 'agentbill' => true));
 
 		//Per day/destination
 	$tmp->Form->views['list']->sums[] =array( 'title' => _("Sum per destination"),
 		'fns' => array( 'starttime' => false,
 				'destination' => true,
 				'sessiontime' => 'SUM', 
-				'sessionbill' => 'SUM'));
+				'agentbill' => 'SUM'));
 
 	$tmp->Form->views['list']->sums[] =array('title' => _("Total"),
 		'fns' => array( 'calledstation' => 'COUNT',
-			'sessiontime' => 'SUM', 'sessionbill' => 'SUM'));
+			'sessiontime' => 'SUM', 'agentbill' => 'SUM'));
 	
 $hform= new FormHandler('cc_agent');
 $hform->checkRights(ACX_AGENTS);
