@@ -13,6 +13,8 @@ $menu_section='menu_reports';
 
 $HD_Form= new FormHandler('cc_invoices',_("Invoices"),_("Invoice"));
 $HD_Form->checkRights(ACX_ACCESS);
+$HD_Form->default_order = 'id';
+$HD_Form->default_sens = 'DESC';
 $HD_Form->init(null,false);
 $HD_Form->views['list']=new ListView();
 $HD_Form->views['details'] = new DetailsView();

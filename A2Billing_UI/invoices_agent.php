@@ -12,7 +12,7 @@ require_once (DIR_COMMON."Form/Class.RevRefForm.inc.php");
 
 require_once (DIR_COMMON."Class.SqlActionElem.inc.php");
 
-$menu_section='menu_agents';
+$menu_section='menu_invoicing';
 
 // NOTE: for agents, we MUST put an agent clause in each (sub)form 
 
@@ -62,19 +62,27 @@ $dform->meta_elems[] = $tmp;
 	$tmp->Form->views['list']->page_cols = 2;
 	
 	$tmp->Form->model[] = new FreeClauseField("agentbill IS NOT NULL");
-	$tmp->Form->model[] = new DateTimeField(_("Time"),'starttime');
-	$tmp->Form->model[] = new TextField(_("Number"),'calledstation');
+	$tmp->Form->model[] = new DateField(_("Date"),'starttime');
+		end($tmp->Form->model)->fieldexpr = "date_trunc('day',starttime)";
+	//$tmp->Form->model[] = new TextField(_("Number"),'calledstation');
 	$tmp->Form->model[] = new TextField(_("Destination"),'destination');
 	$tmp->Form->model[] = new SecondsField(_("Duration"),'sessiontime');
 	end($tmp->Form->model)->fieldacr=_("Dur");
 	//$tmp->Form->model[] = new PKeyFieldTxt(_("ID"),'id');
 	$tmp->Form->model[] = new MoneyField(_("Bill"),'agentbill');
 
-		//one non-summed group
+	/*	//one non-summed group
 	$tmp->Form->views['list']->sums[] =array( 'fns' => array( 'starttime' => true,
 			'calledstation' => true,
 			'destination' => true,
-			'sessiontime' => true, 'agentbill' => true));
+			'sessiontime' => true, 'agentbill' => true)); */
+			
+		// sum per day/destination
+	$tmp->Form->views['list']->sums[] =array( 'fns' => array( 'starttime' => true,
+		'calledstation' => true,
+		'destination' => true,
+		'sessiontime' => 'SUM', 'agentbill' => 'SUM'));
+
 
 		//Per day/destination
 	$tmp->Form->views['list']->sums[] =array( 'title' => _("Sum per destination"),
