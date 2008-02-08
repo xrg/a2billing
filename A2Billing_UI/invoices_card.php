@@ -75,14 +75,16 @@ $dform->meta_elems[] = $tmp;
 	$tmp->Form->views['list']->sums[] =array( 'fns' => array( 'starttime' => true,
 			'calledstation' => true,
 			'destination' => true,
-			'sessiontime' => true, 'sessionbill' => true));
+			'sessiontime' => true, 'sessionbill' => true),
+		'order' => 'starttime');
 
 		//Per day/destination
 	$tmp->Form->views['list']->sums[] =array( 'title' => _("Sum per destination"),
 		'fns' => array( 'starttime' => false,
 				'destination' => true,
 				'sessiontime' => 'SUM', 
-				'sessionbill' => 'SUM'));
+				'sessionbill' => 'SUM'),
+		'order' => 'sessiontime', 'sens' => 'DESC');
 
 	$tmp->Form->views['list']->sums[] =array('title' => _("Total"),
 		'fns' => array( 'calledstation' => 'COUNT',
