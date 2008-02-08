@@ -102,7 +102,9 @@ BEGIN
 	
 	RAISE NOTICE 'First date: %',s_time;
 	s_trunc := CASE WHEN s_intv = interval '1 year' THEN 'year'
-		WHEN s_intv = interval '1 month' THEN 'month' 
+		WHEN s_intv = interval '3 months' THEN 'quarter'
+		WHEN s_intv = interval '1 month' THEN 'month'
+		WHEN s_intv = interval '1 week' THEN 'week'
 		WHEN s_intv = interval '1 day' THEN 'day' ELSE 'month' END;
 	LOOP
 		e_time := date_trunc(s_trunc, s_time + s_intv) - interval '0.01 sec';
@@ -193,7 +195,7 @@ BEGIN
 	sum_tax :=(sum_calls*card_vat)/(100.0 + card_vat);
 
 	UPDATE cc_invoices SET amount = sum_amount, tax = sum_tax, total =sum_amount + sum_tax,
-		payment_status = (CASE WHEN sum_total = 0.0 THEN 3 ELSE 0 END)
+		payment_status = (CASE WHEN COALESCE((sum_amount + sum_tax),0) = 0.0 THEN 3 ELSE 0 END)
 		WHERE id = ret_id;
 	RETURN ret_id;
 END; $$ LANGUAGE PLPGSQL STRICT VOLATILE;
@@ -218,7 +220,9 @@ BEGIN
 	
 	RAISE NOTICE 'First date: %',s_time;
 	s_trunc := CASE WHEN s_intv = interval '1 year' THEN 'year'
-		WHEN s_intv = interval '1 month' THEN 'month' 
+		WHEN s_intv = interval '3 months' THEN 'quarter'
+		WHEN s_intv = interval '1 month' THEN 'month'
+		WHEN s_intv = interval '1 week' THEN 'week'
 		WHEN s_intv = interval '1 day' THEN 'day' ELSE 'month' END;
 	LOOP
 		e_time := date_trunc(s_trunc, s_time + s_intv) - interval '0.01 sec';
