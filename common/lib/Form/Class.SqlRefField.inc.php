@@ -62,11 +62,50 @@ class SqlRefField extends BaseField{
 		$rclause = '';
 		if (!empty($this->refclause))
 			$rclause = ' WHERE ' . $this->refclause;
+		if ($this->fieldexpr)
+			$fld = $this->fieldexpr;
+		else
+			$fld = $this->fieldname;
+		
 		$table .= ' LEFT OUTER JOIN ' .
 			str_params("( SELECT %1 AS %0_%1, %2 AS %0_%2 FROM %3 $rclause) AS %0_table ".
-				"ON %0_%1 = %0",
-			    array($this->fieldname,$this->refid,$this->refname, $this->reftable));
+				"ON %0_%1 = %4",
+			    array($this->fieldname,$this->refid,$this->refname, $this->reftable, $fld));
 	}
+	
+	public function buildSumQuery(&$dbhandle, &$sum_fns,&$fields, &$table,
+		&$clauses, &$grps, &$form){
+		if (!$this->does_list)
+			return;
+		
+		// fields
+		if ($this->fieldexpr)
+			$fld = $this->fieldexpr;
+		else
+			$fld = $this->fieldname;
+		
+		if (isset($sum_fns[$this->fieldname]) && !is_null($sum_fns[$this->fieldname])){
+			if ($sum_fns[$this->fieldname] === true){
+				$grps[] = $this->fieldname;
+				$fields[] = "$fld AS ". $this->fieldname;
+				$fields[] = $this->fieldname.'_'.$this->refname;
+				$grps[] = $this->fieldname.'_'.$this->refname;
+				
+			}
+			// TODO: how do we aggregate on refs?
+			elseif (is_string($sum_fns[$this->fieldname]))
+				$fields[] = $sum_fns[$this->fieldname] ."($fld) AS ". $this->fieldname;
+			elseif (is_array($sum_fns[$this->fieldname]))
+				$fields[] = str_dbparams($dbhandle, '%1 AS '.$this->fieldname,$sum_fns[$this->fieldname]);
+			
+			$this->listQueryTable($table,$form);
+			$tmp= $this->listQueryClause($dbhandle,$form);
+			if ( is_string($tmp))
+				$clauses[] = $tmp;
+		}
+		
+	}
+
 	
 	protected function prepare(&$dbhandle){
 		//echo "Prepare!";

@@ -71,7 +71,7 @@ $sform->views['sums']->sums[] = array('title' => _("Per group calls"),
 	'fns' => array( 'uniqueid' => 'COUNT',
 		'starttime' => 'MIN', 'endtime' => 'MAX',
 		'sessiontime' => 'SUM', 'sessionbill' => 'SUM', 'buycost' => 'SUM',
-		'grp_name' => true, 'agentid_name' => true),
+		'grp_name' => true, 'agentid' => true),
 	'order' => 'cc_card_group.name');
 	
 $sform->views['sums']->sums[] = array('title' => _("Total"),
