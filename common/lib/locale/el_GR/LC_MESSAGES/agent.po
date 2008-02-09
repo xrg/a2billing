@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: agent\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-02-22 17:22+0200\n"
-"PO-Revision-Date: 2008-01-13 16:32GMT\n"
+"PO-Revision-Date: 2008-02-09 11:30GMT\n"
 "Last-Translator: P. Christeas <p_christeas@yahoo.com>\n"
 "Language-Team: Ellhnika <el@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -27,82 +27,81 @@ msgstr "Τιμολόγια"
 msgid "Invoice"
 msgstr "Τιμολόγιο"
 
-#: A2BAgent_UI/A2B_entity_agent_invoicev.php:24
+#: A2BAgent_UI/A2B_entity_agent_invoicev.php:26
 #: A2BAgent_UI/A2B_entity_agentpay.php:23 A2BAgent_UI/A2B_entity_booths.php:23
 #: A2BAgent_UI/A2B_entity_cards.php:21 A2BAgent_UI/A2B_entity_charge.php:27
 #: A2BAgent_UI/invoices_agent.php:26 A2BAgent_UI/sessions.php:26
 msgid "ID"
 msgstr "ID"
 
-#: A2BAgent_UI/A2B_entity_agent_invoicev.php:25
+#: A2BAgent_UI/A2B_entity_agent_invoicev.php:27
 #: A2BAgent_UI/invoices_agent.php:28
 msgid "Ref"
 msgstr "Κωδ"
 
-#: A2BAgent_UI/A2B_entity_agent_invoicev.php:27 A2BAgent_UI/sessions.php:29
+#: A2BAgent_UI/A2B_entity_agent_invoicev.php:29 A2BAgent_UI/sessions.php:29
 msgid "Start"
 msgstr "Εκκίνηση"
 
-#: A2BAgent_UI/A2B_entity_agent_invoicev.php:28
+#: A2BAgent_UI/A2B_entity_agent_invoicev.php:30
 msgid "Finish"
 msgstr "Τέλος"
 
-#: A2BAgent_UI/A2B_entity_agent_invoicev.php:29
+#: A2BAgent_UI/A2B_entity_agent_invoicev.php:31
 msgid "Created"
 msgstr "Δημιουργήθηκε"
 
-#: A2BAgent_UI/A2B_entity_agent_invoicev.php:29
+#: A2BAgent_UI/A2B_entity_agent_invoicev.php:31
 #: A2BAgent_UI/invoices_agent.php:32
 msgid "Date this invoice was registered"
 msgstr "Ημερομηνία έκδοσης τιμολογίου"
 
-#: A2BAgent_UI/A2B_entity_agent_invoicev.php:31
+#: A2BAgent_UI/A2B_entity_agent_invoicev.php:33
 #: A2BAgent_UI/A2B_entity_charge.php:36 A2BAgent_UI/invoices_agent.php:34
 msgid "Amount"
 msgstr "Ποσό"
 
-#: A2BAgent_UI/A2B_entity_agent_invoicev.php:32
+#: A2BAgent_UI/A2B_entity_agent_invoicev.php:34
 #: A2BAgent_UI/invoices_agent.php:35
 msgid "Tax"
 msgstr "Φόρος"
 
-#: A2BAgent_UI/A2B_entity_agent_invoicev.php:34
-#: A2BAgent_UI/invoices_agent.php:37 A2BAgent_UI/invoices_agent.php:87
+#: A2BAgent_UI/A2B_entity_agent_invoicev.php:36
+#: A2BAgent_UI/invoices_agent.php:37 A2BAgent_UI/invoices_agent.php:97
 msgid "Total"
 msgstr "Σύνολο"
 
-#: A2BAgent_UI/A2B_entity_agent_invoicev.php:46
+#: A2BAgent_UI/A2B_entity_agent_invoicev.php:48
 #: A2BAgent_UI/invoices_agent.php:50
 msgid "Unpaid"
 msgstr "Απλήρωτο"
 
-#: A2BAgent_UI/A2B_entity_agent_invoicev.php:47
+#: A2BAgent_UI/A2B_entity_agent_invoicev.php:49
 #: A2BAgent_UI/invoices_agent.php:51
 msgid "Sent-unpaid"
 msgstr "Απεσταλμένο, απλήρωτο"
 
-#: A2BAgent_UI/A2B_entity_agent_invoicev.php:48
+#: A2BAgent_UI/A2B_entity_agent_invoicev.php:50
 #: A2BAgent_UI/invoices_agent.php:52
 msgid "Sent-paid"
 msgstr "Απεσταλμένο, πληρωμένο"
 
-#: A2BAgent_UI/A2B_entity_agent_invoicev.php:49
+#: A2BAgent_UI/A2B_entity_agent_invoicev.php:51
 #: A2BAgent_UI/invoices_agent.php:53
 msgid "Paid"
 msgstr "Πληρωμένο"
 
-#: A2BAgent_UI/A2B_entity_agent_invoicev.php:51
+#: A2BAgent_UI/A2B_entity_agent_invoicev.php:53
 #: A2BAgent_UI/A2B_entity_cards.php:42 A2BAgent_UI/invoices_agent.php:55
 msgid "Status"
 msgstr "Κατάσταση"
 
-#: A2BAgent_UI/A2B_entity_agent_invoicev.php:54
+#: A2BAgent_UI/A2B_entity_agent_invoicev.php:56
 msgid "View"
 msgstr "Προβολή"
 
 #: A2BAgent_UI/A2B_entity_agentpay.php:13
-msgid ""
-"Agent payments are money transactions between agents and the phone company."
+msgid "Agent payments are money transactions between agents and the phone company."
 msgstr ""
 "Στις πληρωμές του μαγαζιού βλέπετε τις συναλλαγές ανάμεσα στο μαγαζί και την "
 "τηλ. εταιρία."
@@ -116,6 +115,7 @@ msgid "Payment"
 msgstr "Πληρωμή"
 
 #: A2BAgent_UI/A2B_entity_agentpay.php:26 A2BAgent_UI/A2B_entity_charge.php:30
+#: A2BAgent_UI/invoices_agent.php:66
 msgid "Date"
 msgstr "Ημερομηνία"
 
@@ -133,8 +133,7 @@ msgid "Description"
 msgstr "Περιγραφή"
 
 #: A2BAgent_UI/A2B_entity_booths.php:13
-msgid ""
-"Booths are the physical phones where a customer can enter and make calls."
+msgid "Booths are the physical phones where a customer can enter and make calls."
 msgstr "Οι θάλαμοι είναι τα τηλέφωνα όπου μπορεί να κάνει κλήσεις ο πελάτης."
 
 #: A2BAgent_UI/A2B_entity_booths.php:15
@@ -241,7 +240,7 @@ msgstr "ΝΕΟ"
 
 #: A2BAgent_UI/A2B_entity_cards.php:35
 msgid "MAIL-WAIT"
-msgstr ""
+msgstr "ΑΝΑΜΟΝΗ-ΜΗΝΥΜΑΤΟΣ"
 
 #: A2BAgent_UI/A2B_entity_cards.php:36
 msgid "RESERVED"
@@ -336,7 +335,7 @@ msgid "These are the selling rates to each destination"
 msgstr "Αυτές είναι οι τιμές χρέωσης ανά προορισμό."
 
 #: A2BAgent_UI/A2B_entity_ratecard.php:18
-#: A2BAgent_UI/A2B_entity_ratecard.php:36 A2BAgent_UI/invoices_agent.php:68
+#: A2BAgent_UI/A2B_entity_ratecard.php:36 A2BAgent_UI/invoices_agent.php:69
 msgid "Destination"
 msgstr "Προορισμός"
 
@@ -371,8 +370,7 @@ msgstr ""
 
 #: A2BAgent_UI/PP_error.php:9
 msgid "Sorry a problem occur on our system, please try later!"
-msgstr ""
-"Λυπούμαστε, συνέβη σφάλμα στο σύστημά μας. Παρακαλώ, δοκιμάστε αργότερα!"
+msgstr "Λυπούμαστε, συνέβη σφάλμα στο σύστημά μας. Παρακαλώ, δοκιμάστε αργότερα!"
 
 #: A2BAgent_UI/PP_error.php:10
 msgid "There is an error on this page!"
@@ -534,27 +532,19 @@ msgstr "Ημ/νία έκδοσης"
 msgid "calls"
 msgstr "κλήσεις"
 
-#: A2BAgent_UI/invoices_agent.php:66
-msgid "Time"
-msgstr "Χρόνος"
-
-#: A2BAgent_UI/invoices_agent.php:67
-msgid "Number"
-msgstr "Αριθμός"
-
-#: A2BAgent_UI/invoices_agent.php:69
+#: A2BAgent_UI/invoices_agent.php:70
 msgid "Duration"
 msgstr "Διάρκεια"
 
-#: A2BAgent_UI/invoices_agent.php:70
+#: A2BAgent_UI/invoices_agent.php:71
 msgid "Dur"
 msgstr "Διαρ."
 
-#: A2BAgent_UI/invoices_agent.php:72
+#: A2BAgent_UI/invoices_agent.php:73
 msgid "Bill"
 msgstr "Λογ/μός"
 
-#: A2BAgent_UI/invoices_agent.php:81
+#: A2BAgent_UI/invoices_agent.php:90
 msgid "Sum per destination"
 msgstr "Άθροισμα ανά προορισμό"
 
@@ -698,3 +688,10 @@ msgstr "Σύνοδος"
 #: A2BAgent_UI/sessions.php:30
 msgid "End"
 msgstr "Τέλος"
+
+#~ msgid "Time"
+#~ msgstr "Χρόνος"
+
+#~ msgid "Number"
+#~ msgstr "Αριθμός"
+

@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: common\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-09-07 21:01+0300\n"
-"PO-Revision-Date: 2008-01-13 16:15GMT\n"
+"PO-Revision-Date: 2008-02-09 11:29GMT\n"
 "Last-Translator: P. Christeas <p_christeas@yahoo.com>\n"
 "Language-Team: Ellhnika <el@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -565,12 +565,10 @@ msgid "(none)"
 msgstr "(κανένα)"
 
 #: common/lib/Form/Class.TimeField.inc.php:19
-#, fuzzy
 msgid "YYYY-MM-DD HH24:MI:SS TZ"
 msgstr "DD/MM/IYYY HH24:MI:SS TZ"
 
 #: common/lib/Form/Class.TimeField.inc.php:71
-#, fuzzy
 msgid "YYYY-MM-DD"
 msgstr "DD/MM/IYYY"
 
@@ -684,16 +682,15 @@ msgstr "Το μέγεθος του αρχείου είναι μεγαλύτερ�
 
 #: common/lib/Misc.inc.php:573
 msgid "You did not upload anything!"
-msgstr ""
+msgstr "Δεν στείλατε τίποτα!"
 
 #: common/lib/Misc.inc.php:577
 msgid "Failed to upload the file, The file you uploaded may not exist on disk."
-msgstr ""
+msgstr "Σφάλμα, το ανεβασμένο αρχείο δεν βρίσκεται στο δίσκο."
 
 #: common/lib/Misc.inc.php:583
-#, fuzzy
 msgid "file type is not allowed"
-msgstr "αρχείο είδος είναι όχι"
+msgstr "αρχεία τέτοιου τύπου δεν επιτρέπονται"
 
 #: common/lib/SessionInvoice.inc.php:25
 msgid "Descr"
@@ -748,32 +745,28 @@ msgid "Card is in use, cannot close session now."
 msgstr "Η κάρτα είναι σε χρήση, δεν μπορεί να τερματιστεί η συνεδρία."
 
 #: common/lib/SessionInvoice.inc.php:82
-#, fuzzy
 msgid "Pay back %1"
-msgstr "Πλήρωσε %1"
+msgstr "Ρέστα %1"
 
 #: common/lib/SessionInvoice.inc.php:83
 msgid "Sesion paid back!"
-msgstr ""
+msgstr "Δόθηκαν ρέστα!"
 
 #: common/lib/SessionInvoice.inc.php:85
 msgid "Pay %1"
 msgstr "Πλήρωσε %1"
 
 #: common/lib/SessionInvoice.inc.php:86
-#, fuzzy
 msgid "Sesion paid!"
-msgstr "Η σύνοδος έκλεισε"
+msgstr "Έγινε πληρωμή!"
 
 #: common/lib/SessionInvoice.inc.php:92
-#, fuzzy
 msgid "Session could not be paid!"
-msgstr "Τα σύνολα δεν μπόρεσαν να υπολογιστούν!"
+msgstr "Η πληρωμή δεν έγινε!"
 
 #: common/lib/SessionInvoice.inc.php:95
-#, fuzzy
 msgid "Back to booths"
-msgstr "Κανένας θάλαμος"
+msgstr "Πίσω στους θαλάμους"
 
 #: common/lib/languageSettings.inc.php:25
 msgid "English"
@@ -1207,3 +1200,4 @@ msgstr "Urdu"
 
 #~ msgid "Export XML"
 #~ msgstr "Εξαγωγή XML"
+

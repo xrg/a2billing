@@ -8,76 +8,76 @@ msgstr ""
 msgid "Invoice"
 msgstr ""
 
-#: A2BAgent_UI/A2B_entity_agent_invoicev.php:24
+#: A2BAgent_UI/A2B_entity_agent_invoicev.php:26
 #: A2BAgent_UI/A2B_entity_agentpay.php:23 A2BAgent_UI/A2B_entity_booths.php:23
 #: A2BAgent_UI/A2B_entity_cards.php:21 A2BAgent_UI/A2B_entity_charge.php:27
 #: A2BAgent_UI/invoices_agent.php:26 A2BAgent_UI/sessions.php:26
 msgid "ID"
 msgstr ""
 
-#: A2BAgent_UI/A2B_entity_agent_invoicev.php:25
+#: A2BAgent_UI/A2B_entity_agent_invoicev.php:27
 #: A2BAgent_UI/invoices_agent.php:28
 msgid "Ref"
 msgstr ""
 
-#: A2BAgent_UI/A2B_entity_agent_invoicev.php:27 A2BAgent_UI/sessions.php:29
+#: A2BAgent_UI/A2B_entity_agent_invoicev.php:29 A2BAgent_UI/sessions.php:29
 msgid "Start"
 msgstr ""
 
-#: A2BAgent_UI/A2B_entity_agent_invoicev.php:28
+#: A2BAgent_UI/A2B_entity_agent_invoicev.php:30
 msgid "Finish"
 msgstr ""
 
-#: A2BAgent_UI/A2B_entity_agent_invoicev.php:29
+#: A2BAgent_UI/A2B_entity_agent_invoicev.php:31
 msgid "Created"
 msgstr ""
 
-#: A2BAgent_UI/A2B_entity_agent_invoicev.php:29
+#: A2BAgent_UI/A2B_entity_agent_invoicev.php:31
 #: A2BAgent_UI/invoices_agent.php:32
 msgid "Date this invoice was registered"
 msgstr ""
 
-#: A2BAgent_UI/A2B_entity_agent_invoicev.php:31
+#: A2BAgent_UI/A2B_entity_agent_invoicev.php:33
 #: A2BAgent_UI/A2B_entity_charge.php:36 A2BAgent_UI/invoices_agent.php:34
 msgid "Amount"
 msgstr ""
 
-#: A2BAgent_UI/A2B_entity_agent_invoicev.php:32
+#: A2BAgent_UI/A2B_entity_agent_invoicev.php:34
 #: A2BAgent_UI/invoices_agent.php:35
 msgid "Tax"
 msgstr ""
 
-#: A2BAgent_UI/A2B_entity_agent_invoicev.php:34
-#: A2BAgent_UI/invoices_agent.php:37 A2BAgent_UI/invoices_agent.php:87
+#: A2BAgent_UI/A2B_entity_agent_invoicev.php:36
+#: A2BAgent_UI/invoices_agent.php:37 A2BAgent_UI/invoices_agent.php:97
 msgid "Total"
 msgstr ""
 
-#: A2BAgent_UI/A2B_entity_agent_invoicev.php:46
+#: A2BAgent_UI/A2B_entity_agent_invoicev.php:48
 #: A2BAgent_UI/invoices_agent.php:50
 msgid "Unpaid"
 msgstr ""
 
-#: A2BAgent_UI/A2B_entity_agent_invoicev.php:47
+#: A2BAgent_UI/A2B_entity_agent_invoicev.php:49
 #: A2BAgent_UI/invoices_agent.php:51
 msgid "Sent-unpaid"
 msgstr ""
 
-#: A2BAgent_UI/A2B_entity_agent_invoicev.php:48
+#: A2BAgent_UI/A2B_entity_agent_invoicev.php:50
 #: A2BAgent_UI/invoices_agent.php:52
 msgid "Sent-paid"
 msgstr ""
 
-#: A2BAgent_UI/A2B_entity_agent_invoicev.php:49
+#: A2BAgent_UI/A2B_entity_agent_invoicev.php:51
 #: A2BAgent_UI/invoices_agent.php:53
 msgid "Paid"
 msgstr ""
 
-#: A2BAgent_UI/A2B_entity_agent_invoicev.php:51
+#: A2BAgent_UI/A2B_entity_agent_invoicev.php:53
 #: A2BAgent_UI/A2B_entity_cards.php:42 A2BAgent_UI/invoices_agent.php:55
 msgid "Status"
 msgstr ""
 
-#: A2BAgent_UI/A2B_entity_agent_invoicev.php:54
+#: A2BAgent_UI/A2B_entity_agent_invoicev.php:56
 msgid "View"
 msgstr ""
 
@@ -95,6 +95,7 @@ msgid "Payment"
 msgstr ""
 
 #: A2BAgent_UI/A2B_entity_agentpay.php:26 A2BAgent_UI/A2B_entity_charge.php:30
+#: A2BAgent_UI/invoices_agent.php:66
 msgid "Date"
 msgstr ""
 
@@ -311,7 +312,7 @@ msgid "These are the selling rates to each destination"
 msgstr ""
 
 #: A2BAgent_UI/A2B_entity_ratecard.php:18
-#: A2BAgent_UI/A2B_entity_ratecard.php:36 A2BAgent_UI/invoices_agent.php:68
+#: A2BAgent_UI/A2B_entity_ratecard.php:36 A2BAgent_UI/invoices_agent.php:69
 msgid "Destination"
 msgstr ""
 
@@ -504,27 +505,19 @@ msgstr ""
 msgid "calls"
 msgstr ""
 
-#: A2BAgent_UI/invoices_agent.php:66
-msgid "Time"
-msgstr ""
-
-#: A2BAgent_UI/invoices_agent.php:67
-msgid "Number"
-msgstr ""
-
-#: A2BAgent_UI/invoices_agent.php:69
+#: A2BAgent_UI/invoices_agent.php:70
 msgid "Duration"
 msgstr ""
 
-#: A2BAgent_UI/invoices_agent.php:70
+#: A2BAgent_UI/invoices_agent.php:71
 msgid "Dur"
 msgstr ""
 
-#: A2BAgent_UI/invoices_agent.php:72
+#: A2BAgent_UI/invoices_agent.php:73
 msgid "Bill"
 msgstr ""
 
-#: A2BAgent_UI/invoices_agent.php:81
+#: A2BAgent_UI/invoices_agent.php:90
 msgid "Sum per destination"
 msgstr ""
 
