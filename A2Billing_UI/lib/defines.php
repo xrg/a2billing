@@ -7,4 +7,5 @@ define('DIR_COMMON',dirname(__FILE__)."/common/");
 $FG_DEBUG=4;
 
 define ('MESSAGE_DOMAIN','admin');
+define('TTF_DIR','/usr/share/fonts/TTF/'); // Mandriva dir for ttf fonts.
 ?>

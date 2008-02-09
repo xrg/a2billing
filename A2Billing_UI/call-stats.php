@@ -79,7 +79,7 @@ $sform->views['sums']->sums[] = array('title' => _("Per day calls"),
 	'fns' => array( 'starttime' =>true, 'uniqueid' => 'COUNT',
 		'sessiontime' => 'SUM', 'asr' => '', 'aloc' => 'AVG',
 		'sessionbill' => 'SUM', 'buycost' => 'SUM'),
-	'order' => 'starttime', 'sens' => 'DESC');
+	'order' => 'date_trunc(\'day\',starttime)', 'sens' => 'DESC');
 	
 
 $sform->views['sums']->sums[] = array('title' => _("Per destination calls"),
@@ -97,8 +97,9 @@ $sform->views['sums']->sums[] = array('title' => _("Total"),
 $sform->views['sums']->plots['day']= array('title' => _("Per day calls"),
 	'type' => 'bar', 'limit' => 10,
 	x => 'starttime', y => 'sessiontime',
+	xlabelangle => -45,
 	'fns' => array( 'starttime' =>true, 'sessiontime' => 'SUM'),
-	'order' => 'starttime', 'sens' => 'DESC');
+	'order' => 'date_trunc(\'day\',starttime)');
 
 $PAGE_ELEMS[] = &$sform;
 

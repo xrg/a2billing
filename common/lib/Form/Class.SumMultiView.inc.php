@@ -198,6 +198,15 @@ class SumMultiView extends FormView {
 				$xdata[] = $row[$xkey];
 				$ydata[] = $row[$ykey];
 			}
+			if (! empty($tsum['xlabelangle'])){
+				$graph->xaxis->SetLabelAngle($tsum['xlabelangle']);
+				if ($tsum['xlabelangle']<0)
+					$graph->xaxis->SetLabelAlign('left');
+			}
+			if (! empty($tsum['xlabelfont']))
+				$graph->xaxis->SetFont($tsum['xlabelfont']);
+			else
+				$graph->xaxis->SetFont(FF_VERA);
 			$graph->xaxis->SetTickLabels($xdata);
 			$bplot = new BarPlot($ydata);
 			$graph->Add($bplot);
