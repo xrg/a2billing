@@ -15,7 +15,7 @@ CODE-customer=A2BCustomer_UI
 CODE-signup=Signup
 CODE-common=common
 
-all: pofiles binaries
+all: pofiles binaries all-css
 
 test:
 	@echo Src domains: $(SRC_DOMAINS:%=common/lib/locale/%.pot)
