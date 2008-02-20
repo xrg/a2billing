@@ -12,6 +12,7 @@ class SqlRefField extends BaseField{
 	public $combotable; ///< Alt table to use for the combo
 	public $combofield; ///< Alt field to use for the combo
 	public $comboclause;
+	public $comboorder; ///< Order for the combo box, SQL expression
 
 	function SqlRefField($fldtitle, $fldname,$reftbl, $refid = 'id', $refname = 'name', $flddescr=null, $fldwidth = null){
 		$this->fieldname = $fldname;
@@ -130,6 +131,9 @@ class SqlRefField extends BaseField{
 		elseif (!empty($this->refclause))
 			$qry .= ' WHERE ' . $this->refclause;
 		
+		if (!empty($this->comboorder))
+			$qry .= ' ORDER BY ' . $this->comboorder;
+
 		$qry .= ';';
 		if ($debug>3)
 			echo "Query: $qry<br>\n";

@@ -79,7 +79,8 @@ class FloatField extends IntField{
 
 class PercentField extends FloatField {
 	public function DispList(array &$qrow,&$form){
-		echo htmlspecialchars(round($qrow[$this->fieldname]*100.0,2))."%";
+		if ($qrow[$this->fieldname] !== NULL)
+			echo htmlspecialchars(round($qrow[$this->fieldname]*100.0,2))."%";
 	}
 };
 
@@ -164,6 +165,49 @@ class MoneyField extends FloatField {
 			$this->fieldname . " = conv_currency_to( %1, %2)",
 			array($this->buildValue($form->getpost_dirty($this->fieldname),$form),
 				$form->a2billing->currency));
+	}
+};
+
+class MoneyField2 extends MoneyField {
+	public function detailQueryField(&$dbhandle){
+		if ($this->fieldexpr)
+			$fld= $this->fieldexpr;
+		else
+			$fld = $this->fieldname;
+		return "format_currency2($fld, '". A2Billing::instance()->currency ."') AS " .
+			$this->fieldname;
+	}
+	
+	public function buildSumQuery(&$dbhandle, &$sum_fns,&$fields, &$table,
+		&$clauses, &$grps, &$form){
+		if (!$this->does_list)
+			return;
+		
+		// fields
+		if ($this->fieldexpr)
+			$fld = $this->fieldexpr;
+		else
+			$fld = $this->fieldname;
+		
+		if (isset($sum_fns[$this->fieldname]) && !is_null($sum_fns[$this->fieldname])){
+			if ($sum_fns[$this->fieldname] === true){
+				$grps[] = $this->fieldname;
+				$fields[] = "format_currency2($fld, '".
+					$form->a2billing->currency ."') ".
+					"AS ". $this->fieldname;
+			}
+			elseif (is_string($sum_fns[$this->fieldname]))
+				$fields[] = "format_currency2(".
+				$sum_fns[$this->fieldname] ."($fld), '".
+					$form->a2billing->currency ."') ".
+					"AS ". $this->fieldname;
+			
+		}
+		
+		$this->listQueryTable($table,$form);
+		$tmp= $this->listQueryClause($dbhandle,$form);
+		if ( is_string($tmp))
+			$clauses[] = $tmp;
 	}
 };
 
