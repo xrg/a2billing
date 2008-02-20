@@ -46,6 +46,29 @@ class TextFieldEH extends TextField{
 
 };
 
+/** Text field, which will hyperlink to the Details page */
+class TextFieldDH extends TextField{
+	public $message = null;
+	
+	public function DispList(array &$qrow,&$form){
+		if ($this->message)
+			$msg=$this->message;
+		else
+			$msg=str_params(_("Details of this %1"),array($form->model_name_s),1);
+			
+			if ($form->getAction()!='list')
+			return parent::DispList($qrow,$form);
+		
+		$pkparams= $form->getPKparams($qrow,true);
+		$pkparams[$form->prefix.'action']='details';
+		$url= $_SERVER['PHP_SELF'].$form->gen_AllGetParams($pkparams);
+		echo '<a href="' .$url. '" title="'.$msg .'">';
+		parent::DispList($qrow,$form);
+		echo '</a>';
+	}
+
+};
+
 /** Another variation: one that doesn't add-edit, but is displayed as a static
    label */
 class TextRoFieldEH extends TextFieldEH{
