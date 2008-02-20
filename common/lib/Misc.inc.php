@@ -937,6 +937,9 @@ function sql_encodeArray($DBHandle,$arr_data){
 		$tmp_arr[] = (string) $data;
 	else
 		$tmp_arr[] = $DBHandle->Quote($data);
+	if (!count($tmp_arr))
+		return 'NULL';
+
 	return 'ARRAY[' . implode(', ', $tmp_arr) . ']';
 }
 

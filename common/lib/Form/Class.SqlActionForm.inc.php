@@ -63,6 +63,12 @@ class SqlActionForm extends ActionForm {
 		echo '<div class="content">'."\n";
 		if (isset($this->contentString))
 			echo $this->contentString;
+		if (!empty($this->successScript)){ ?>
+	<script language="JavaScript" type="text/JavaScript">
+	<?= $this->successScript ?>
+	</script>
+	<?php
+		}
 		
 		if (isset($this->rowString))
 		while($row=$this->qryres->fetchRow())
