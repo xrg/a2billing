@@ -106,7 +106,7 @@ class RevRef2 extends BaseField{
 		if (! $res){
 			if ($form->FG_DEBUG) {
 				?> Query failed: <?= htmlspecialchars($QUERY) ?><br>
-				Error: <?= $DBHanlde->ErrorMsg() ?><br>
+				Error: <?= $DBHandle->ErrorMsg() ?><br>
 				<?php
 			}
 			echo _("No data found!");
@@ -143,7 +143,7 @@ class RevRef2 extends BaseField{
 		if (! $res){
 			if ($form->FG_DEBUG) {
 				?> Query failed: <?= htmlspecialchars($QUERY) ?><br>
-				Error: <?= $DBHanlde->ErrorMsg() ?><br>
+				Error: <?= $DBHandle->ErrorMsg() ?><br>
 				<?php
 			}
 			echo _("No additional data found!");
@@ -186,7 +186,7 @@ class RevRef2 extends BaseField{
 			
 			if (! $res){
 				$form->pre_elems[]= new ErrorElem(str_params(_("Cannot insert new %1"),array($this->fieldtitle),1));
-				$dbg_elem->content .= "Query failed: $DBHanlde->ErrorMsg(); \n";
+				$dbg_elem->content .= "Query failed:". $DBHandle->ErrorMsg() ."\n";
 			}else{
 				$dbg_elem->content .= "Item added!";
 			}
@@ -199,7 +199,7 @@ class RevRef2 extends BaseField{
 			$res = $DBHandle->Execute ($QUERY);
 			if (! $res){
 				$form->pre_elems[]= new ErrorElem(str_params(_("Cannot delete %1"),array($this->fieldtitle),1));
-				$dbg_elem->content .= "Query failed: $DBHanlde->ErrorMsg(); \n";
+				$dbg_elem->content .= "Query failed: " .$DBHandle->ErrorMsg() ." \n";
 			}else{
 				$dbg_elem->content .= "Item deleted!";
 			}
