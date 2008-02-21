@@ -77,4 +77,32 @@ class PKeyFieldTxt extends PKeyField{
 	}
 };
 
+/** Primary key, with arbitrary hyperlink */
+class PKeyFieldH2 extends PKeyField {
+	public $href;
+	public $message;
+
+	function PKeyFieldH2($fldtitle, $fldname,$hr,$msg){
+		$this->does_edit = false;
+		$this->does_add = false;
+		$this->fieldname = $fldname;
+		$this->fieldtitle = $fldtitle;
+		$this->href = $hr;
+		$this->message = $msg;
+	}
+
+	public function DispList(array &$qrow,&$form){
+		if (empty($this->href))
+			return parent::DispList($qrow,$form);
+		
+		$msg ='';
+		if (!empty($this->message))
+			$msg = ' title="' . htmlspecialchars($this->message) . '"';
+		$href = str_alparams($this->href, $qrow);
+		echo '<a href="' .$href.'"'.$msg .'>';
+		parent::DispList($qrow,$form);
+		echo '</a>';
+	}
+
+};
 ?>
