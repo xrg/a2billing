@@ -9,11 +9,12 @@ table.FormRR2t1 thead td{
 	background: gray;
 	color: white;
 	font-weight: bold;
+	font-size: 90%;
 }
 
 table.FormRRt1 {
 	border: thin solid black;
-	color: blue;
+	color: #000080;
 	width: 300;
 	font-family: Arial, Verdana;
 }
@@ -22,4 +23,5 @@ table.FormRRt1 thead td{
 	background: gray;
 	color: white;
 	font-weight: bold;
+	font-size: 90%;
 }
