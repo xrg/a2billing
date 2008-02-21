@@ -13,6 +13,12 @@ class SqlRefField extends BaseField{
 	public $combofield; ///< Alt field to use for the combo
 	public $comboclause;
 	public $comboorder; ///< Order for the combo box, SQL expression
+	public $list_ref = false ; ///< If true, ref will be visible in list
+	public $detail_ref = false;
+	public $refexpr;
+	public $list_url;
+	public $detail_url;
+
 
 	function SqlRefField($fldtitle, $fldname,$reftbl, $refid = 'id', $refname = 'name', $flddescr=null, $fldwidth = null){
 		$this->fieldname = $fldname;
@@ -25,9 +31,21 @@ class SqlRefField extends BaseField{
 	}
 
 	public function DispList(array &$qrow,&$form){
+		$act = $form->getAction();
+		$url=null;
+		if (($act == 'list') && $this->list_url)
+			$url = str_alparams($this->list_url,$qrow);
+		elseif (($act == 'details') && $this->detail_url)
+			$url = str_alparams($this->detail_url,$qrow);
+		if ($url)
+			echo '<a href="'.$url .'" >';
 		echo htmlspecialchars($qrow[$this->fieldname.'_'.$this->refname]);
-		if ($form->FG_DEBUG>3)
+		if ( ($this->list_ref && $act == 'list') || ($this->detail_ref && $act == 'details'))
+			echo " (" .htmlspecialchars($qrow[$this->fieldname]) .")";
+		else if ($form->FG_DEBUG>3)
 			echo " (Ref:" .htmlspecialchars($qrow[$this->fieldname]) .")";
+		if ($url)
+			echo '</a>';
 	}
 	
 	public function DispAddEdit($val,&$form){
@@ -68,10 +86,14 @@ class SqlRefField extends BaseField{
 		else
 			$fld = $this->fieldname;
 		
+		if ($this->refexpr)
+			$refname = $this->refexpr;
+		else
+			$refname = $this->refname;
 		$table .= ' LEFT OUTER JOIN ' .
-			str_params("( SELECT %1 AS %0_%1, %2 AS %0_%2 FROM %3 $rclause) AS %0_table ".
+			str_params("( SELECT %1 AS %0_%1, %5 AS %0_%2 FROM %3 $rclause) AS %0_table ".
 				"ON %0_%1 = %4",
-			    array($this->fieldname,$this->refid,$this->refname, $this->reftable, $fld));
+			    array($this->fieldname,$this->refid,$this->refname, $this->reftable, $fld, $refname));
 	}
 	
 	public function buildSumQuery(&$dbhandle, &$sum_fns,&$fields, &$table,
@@ -148,7 +170,12 @@ class SqlRefField extends BaseField{
 		if (($debug>3) && (count($this->field_values)<=20))
 			print_r($this->field_values);
 	}
-
+	
+	/** Set the urls so that details will point to the referring entity */
+	function SetRefEntity($fname){
+		$this->detail_url = $fname .'?action=details&' . $this->refid .'=%' .
+			$this->fieldname ;
+	}
 };
 
 class SqlRefFieldN extends SqlRefField{
