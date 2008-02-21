@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: common\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-09-07 21:01+0300\n"
-"PO-Revision-Date: 2008-02-09 11:29GMT\n"
+"PO-Revision-Date: 2008-02-21 12:09GMT\n"
 "Last-Translator: P. Christeas <p_christeas@yahoo.com>\n"
 "Language-Team: Ellhnika <el@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -339,11 +339,10 @@ msgid "Examples"
 msgstr "Παραδείγματα"
 
 #: common/lib/Form/Class.ImportView.inc.php:276
-#, fuzzy
 msgid ""
 "Use the example below  to format the CSV file. Fields are separated by  ; "
 "or : </br>"
-msgstr "Χρήση παράδειγμα στο CSV αρχείο Πεδία ~κατά ή</br>"
+msgstr ""
 
 #: common/lib/Form/Class.ImportView.inc.php:317
 msgid "File has not been posted at all!"

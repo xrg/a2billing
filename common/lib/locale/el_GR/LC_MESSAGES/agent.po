@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: agent\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-02-22 17:22+0200\n"
-"PO-Revision-Date: 2008-02-09 11:30GMT\n"
+"PO-Revision-Date: 2008-02-21 12:08GMT\n"
 "Last-Translator: P. Christeas <p_christeas@yahoo.com>\n"
 "Language-Team: Ellhnika <el@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -615,11 +615,10 @@ msgid "Here you can view your used vouchers"
 msgstr ""
 
 #: A2BAgent_UI/lib/help.php:111
-#, fuzzy
 msgid ""
 "Select the country below where you would like a DID, select a DID from the "
 "list and enter the destination you would like to assign it to."
-msgstr ";Επιλογή χώρα όμοιο a a λίστα και όμοιο στο στο."
+msgstr ""
 
 #: A2BAgent_UI/pay.php:24
 msgid "Pay back"
