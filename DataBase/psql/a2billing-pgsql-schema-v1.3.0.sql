@@ -178,16 +178,6 @@ CREATE TABLE cc_call (
 );
 
 
-CREATE TABLE cc_templatemail (
-    mailtype text,
-    fromemail text,
-    fromname text,
-    subject text,
-    messagetext text,
-    messagehtml text
-);
-ALTER TABLE ONLY cc_templatemail
-    ADD CONSTRAINT cons_cc_templatemail_mailtype UNIQUE (mailtype);
 
 
 
