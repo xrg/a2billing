@@ -158,7 +158,7 @@ class phpmailer
      *  @type string
      */
 
-    var $Host       = "localhost";		    
+    var $Host       = "localhost";
 
 
     /**

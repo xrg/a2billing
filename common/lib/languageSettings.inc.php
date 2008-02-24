@@ -48,6 +48,15 @@ function get_sel_languages() {
 	return $ret;
 }
 
+function get_locales($all = true) {
+	global $language_list;
+	$ret = array(array('C',_("English (C)")));
+	foreach($language_list as $lang)
+		if ($all || $lang['sela'])
+		$ret[] = array($lang['locale'],$lang['name']);
+	return $ret;
+}
+
 function SetLocalLanguage($set_lang) {
 	$slectedLanguage = "en_US";
 	$languageEncoding = "en_US.iso88591";
