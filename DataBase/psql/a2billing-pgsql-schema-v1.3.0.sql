@@ -1105,34 +1105,6 @@ INSERT INTO cc_prefix (destination,prefixe,id_cc_country) VALUES ('Zimbabwe','26
 
 
 
-CREATE TABLE cc_alarm (
-    id bigserial NOT NULL,
-    name text NOT NULL,
-    periode integer NOT NULL DEFAULT 1,
-    type integer NOT NULL DEFAULT 1,
-    maxvalue numeric NOT NULL,
-    minvalue numeric NOT NULL DEFAULT -1,
-    id_trunk integer,
-    status integer NOT NULL DEFAULT 0,
-    numberofrun integer NOT NULL DEFAULT 0,
-    numberofalarm integer NOT NULL DEFAULT 0,    
-    datecreate timestamp without time zone DEFAULT now(),
-    datelastrun timestamp without time zone DEFAULT now(),
-    emailreport text
-);
-ALTER TABLE ONLY cc_alarm
-    ADD CONSTRAINT cc_alarm_pkey PRIMARY KEY (id);
-
-CREATE TABLE cc_alarm_report (
-    id bigserial NOT NULL,
-    cc_alarm_id BIGINT NOT NULL,
-    calculatedvalue numeric NOT NULL,
-    daterun timestamp without time zone DEFAULT now()
-);
-ALTER TABLE ONLY cc_alarm_report
-    ADD CONSTRAINT cc_alarm_report_pkey PRIMARY KEY (id);
-
-
 CREATE TABLE cc_callback_spool (
     id 	bigserial NOT NULL,
     uniqueid text,
@@ -1164,28 +1136,6 @@ ALTER TABLE ONLY cc_callback_spool
     ADD CONSTRAINT cc_callback_spool_uniqueid_key UNIQUE (uniqueid);
 
 
-
-
-
-CREATE TABLE cc_invoices (
-    id bigserial NOT NULL,
-    cardid bigint NOT NULL,
-    orderref text,
-    invoicecreated_date timestamp without time zone DEFAULT now(),
-    cover_startdate timestamp without time zone,
-    cover_enddate timestamp without time zone,
-    amount numeric(15,5) DEFAULT 0,
-    tax numeric(15,5) DEFAULT 0,
-    total numeric(15,5) DEFAULT 0,
-    invoicetype integer,
-    filename text,
-	payment_date   TIMESTAMP WITHOUT TIME ZONE,
-	payment_status INTEGER DEFAULT 0
-) WITH OIDS;
-
-ALTER TABLE ONLY cc_invoices
-    ADD CONSTRAINT cc_invoices_pkey PRIMARY KEY (id);
-CREATE INDEX ind_cc_invoices ON cc_invoices USING btree (cover_startdate);
 
 
 CREATE TABLE cc_invoice_history (

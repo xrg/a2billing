@@ -1,63 +1,41 @@
 <?php
+require_once ("./lib/defines.php");
+require_once ("./lib/module.access.php");
+require_once (DIR_COMMON."Form.inc.php");
+require_once (DIR_COMMON."Class.HelpElem.inc.php");
+require_once (DIR_COMMON."Form/Class.SqlRefField.inc.php");
+
 $menu_section='menu_cront';
-include ("../lib/defines.php");
-include ("../lib/module.access.php");
-include ("../lib/Form/Class.FormHandler.inc.php");
-include ("./form_data/FG_var_alarm.inc");
+HelpElem::DoHelp(_("Alarms are various (periodical) checks on the system."));
 
+$HD_Form= new FormHandler('cc_alarm',_("Alarms"),_("Alarm"));
+$HD_Form->checkRights(ACX_CRONT_SERVICE);
+$HD_Form->init();
 
-if (! has_rights (ACX_CRONT_SERVICE)) {
-	Header ("HTTP/1.0 401 Unauthorized");
-	Header ("Location: PP_error.php?c=accessdenied");	   
-	die();	   
-}
+$astatus = array();
+$astatus[] = array(0,_("Inactive"));
+$astatus[] = array(1,_("Active"));
+$astatus[] = array(2,_("Suspended"));
+// $astatus[] = array(3,_(""));
 
+$atypes = array();
+$atypes[] = array('test',_("Test"));
+//$atypes[] = array('',_("New, halt"));
 
+$PAGE_ELEMS[] = &$HD_Form;
+$PAGE_ELEMS[] = new AddNewButton($HD_Form);
 
-/***********************************************************************************/
-$HD_Form -> setDBHandler (DbConnect());
+$HD_Form->model[] = new PKeyFieldEH(_("ID"),'id');
+$HD_Form->model[] = new TextFieldEH(_("Name"),'name');
+$HD_Form->model[] = new TextField(_("Period"),'period');
+$HD_Form->model[] = new RefField(_("Type"),'atype', $atypes);
+$HD_Form->model[] = new TextField(_("Subtype"),'asubtype');
+$HD_Form->model[] = new RefField(_("State"),'status', $astatus);
+$HD_Form->model[] = dontList(new TextField(_("Mail"),'tomail',_("Send mail there if needed.")));
+$HD_Form->model[] = dontList(new TextAreaField(_("Parameters"),'aparams',_("Parameters to the alarm engine.")));
 
+$HD_Form->model[] = new DelBtnField();
 
-$HD_Form -> init();
-
-
-if ($id!="" || !is_null($id)){	
-	$HD_Form -> FG_EDITION_CLAUSE = str_replace("%id", "$id", $HD_Form -> FG_EDITION_CLAUSE);	
-}
-
-
-if (!isset($form_action))  $form_action="list"; //ask-add
-if (!isset($action)) $action = $form_action;
-
-
-$list = $HD_Form -> perform_action($form_action);
-
-
-
-// #### HEADER SECTION
-include("PP_header.php");
-
-
-// #### HELP SECTION
-if ($form_action == 'ask-add') echo $CC_help_edit_alarm;
-else echo $CC_help_list_alarm;
-
-
-
-// #### TOP SECTION PAGE
-$HD_Form -> create_toppage ($form_action);
-
-
-// #### CREATE FORM OR LIST
-//$HD_Form -> CV_TOPVIEWER = "menu";
-if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
-
-$HD_Form -> create_form ($form_action, $list, $id=null) ;
-
-// #### FOOTER SECTION
-include("PP_footer.php");
-
-
-
+require("PP_page.inc.php");
 
 ?>
