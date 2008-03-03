@@ -21,7 +21,8 @@ $PAGE_ELEMS[] = new AddNewButton($HD_Form);
 
 $HD_Form->model[] = new PKeyFieldEH(_("ID"),'id');
 $HD_Form->model[] = new SqlRefField(_("Alarm"),'alid','cc_alarm','id','name');
-$HD_Form->model[] = dontAdd(new DateTimeField(_("Date"), "tstamp", _("Creation/process date")));
+$HD_Form->model[] = dontAdd(dontList(new DateTimeField(_("Creation"), "tcreate", _("Creation date"))));
+$HD_Form->model[] = dontAdd(new DateTimeField(_("Modify"), "tmodify", _("Last modification date")));
 
 $mstates = array();
 $mstates[] = array(0,_("Unknown"));

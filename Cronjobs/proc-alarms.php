@@ -9,6 +9,7 @@ error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
 
 require("lib/Misc.inc.php");
 require("lib/Class.A2Billing.inc.php");
+require("lib/Class.Alarm.inc.php");
 
 $verbose = 1;
 $dry_run = false;
@@ -59,7 +60,8 @@ function processAlarm(array $row){
 		echo "Alarm \"$almclass\" not found.\n";
 		return false;
 	}
-	$alarm_classes[$almclass]->ProcessAlarm($row);
+	$instance = new AlmInstance($alarm_classes[$almclass],$row);
+	$alarm_classes[$almclass]->ProcessAlarm($instance);
 	return true;
 }
 
@@ -93,8 +95,8 @@ if (!empty($proc_periods)){
 if (true){
 	if ($verbose)
 		echo "Processing alarms on request.\n";
-	$qry = "SELECT cc_alarm.*, cc_alarm_run.tstamp, cc_alarm_run.status AS ar_status, ".
-		"cc_alarm_run.id AS ar_id, cc_alarm_run.params AS ar_params ".
+	$qry = "SELECT cc_alarm.*, cc_alarm_run.tcreate, cc_alarm_run.status AS ar_status, ".
+		"cc_alarm_run.id AS ar_id, cc_alarm_run.params AS ar_params, cc_alarm_run.dataid ".
 		"FROM cc_alarm, cc_alarm_run ".
 		"WHERE cc_alarm_run.status = 10 AND cc_alarm.id = cc_alarm_run.alid ;";
 	if ($verbose>2)

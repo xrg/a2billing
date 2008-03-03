@@ -1,10 +1,9 @@
 <?php
-class A2BAlarm {
-};
 
 class TestAlarm extends A2BAlarm {
-	function ProcessAlarm($dbrow){
-		echo "Process " .$dbrow['name']." !\n";
+	function ProcessAlarm(AlmInstance $inst){
+		echo "Process " .$inst->name." !\n";
+		$inst->Save();
 	}
 };
 
