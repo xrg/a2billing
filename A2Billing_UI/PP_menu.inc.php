@@ -266,6 +266,7 @@ function menu_show(sect_str){
 			<li><a href="A2B_entity_mailtemplate.php"><?= _("Mail template");?></a></li>
 	<?php  } ?>
 	<?php   if ( has_rights (ACX_ADMINISTRATOR) ){ 	?>
+			<li><a href="A2B_entity_mails.php"><?= _("Mails");?></a></li>
 			<li><a href="A2B_entity_ast_usercfg.php"><?= _("User cfgs");?></a></li>
 	<?php  } ?>
 		</ul>
