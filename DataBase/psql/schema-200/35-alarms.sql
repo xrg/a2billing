@@ -36,7 +36,9 @@ CREATE TABLE cc_alarm (
 CREATE TABLE cc_alarm_run (
     id bigserial PRIMARY KEY,
     alid INTEGER NOT NULL REFERENCES cc_alarm(id),
-    tstamp TIMESTAMP NOT NULL DEFAULT now(),
+    dataid BIGINT,  -- references *any* relevant tables id.
+    tcreate TIMESTAMP NOT NULL DEFAULT now(),
+    tmodify TIMESTAMP NOT NULL DEFAULT now(),
     status INTEGER NOT NULL DEFAULT 1,
     params TEXT
 );

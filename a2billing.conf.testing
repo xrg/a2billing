@@ -10,7 +10,7 @@
 base_currency = EUR
 
 [database]
-hostname = localhost
+;hostname = localhost
 port = 5432
 user = a2billing
 ;password = a2billing
