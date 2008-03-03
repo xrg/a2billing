@@ -32,7 +32,8 @@ CREATE TABLE cc_mailings (
     state INTEGER NOT NULL DEFAULT 1,
     tomail TEXT NOT NULL,
     args  TEXT,
-    icomments TEXT
+    icomments TEXT,
+    iuser NAME
 );
 
 --eof

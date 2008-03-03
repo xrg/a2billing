@@ -14,10 +14,11 @@ BEGIN
 		RETURN NULL;
 	END IF;
 	
-	INSERT INTO cc_mailings(tmail_id, tomail, args) VALUES( tmpl_id, p_tomail, p_params)
+	INSERT INTO cc_mailings(tmail_id, tomail, args, iuser)
+		VALUES( tmpl_id, p_tomail, p_params, session_user)
 		RETURNING id INTO ml_id;
 	RETURN ml_id;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL VOLATILE SECURITY DEFINER;
 
 -- eof
