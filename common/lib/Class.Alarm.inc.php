@@ -19,6 +19,7 @@ class AlmInstance {
 			$this->ar_id = $dbrow['ar_id'];
 			$this->alm_subtype = $dbrow['asubtype'];
 			$this->name = $dbrow['name'];
+			$this->tomail = $dbrow['tomail'];
 			$this->ar_status= $dbrow['ar_status'];
 			parse_str($dbrow['aparams'], $this->alm_params);
 			parse_str($dbrow['ar_params'], $this->ar_params);
@@ -73,10 +74,26 @@ abstract class A2BAlarm {
 
 	abstract public function ProcessAlarm(AlmInstance $inst);
 	
-	public function sendMail($templ,$tomail,$params){
-		// todo
+	public function sendMail($templ,$tomail,$locale,$params){
+		global $verbose;
+		$dbhandle = A2Billing::DBHandle();
+		if ($verbose>2)
+			echo "Sending $templ mail to $tomail\n";
+		$res = $dbhandle->Execute("SELECT create_mail(?, ?, ?, ?);",
+			array($templ, $tomail, $locale,arr2url( $params)));
+		if (!$res){
+			echo "Cannot mark mail: ";
+			echo $dbhandle->ErrorMsg() ."\n";
+		}elseif($res->EOF){
+			echo "Cannot send mail, no template?\n";
+		}
+		
+		$this->mail_flag=true;
 	}
 	
+	public function sendSysMail($templ,$inst,$params){
+		return $this->sendMail($templ,$inst->tomail, 'C',$params);
+	}
 	
 };
 

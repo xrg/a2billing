@@ -20,6 +20,7 @@ $astatus[] = array(2,_("Suspended"));
 
 $atypes = array();
 $atypes[] = array('test',_("Test"));
+$atypes[] = array('agent-credit',_("Agents Credit"));
 //$atypes[] = array('',_("New, halt"));
 
 $PAGE_ELEMS[] = &$HD_Form;

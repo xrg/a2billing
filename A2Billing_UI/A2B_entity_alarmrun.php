@@ -30,6 +30,7 @@ $mstates[] = array(1,_("Run"));
 $mstates[] = array(2,_("Failed to run"));
 $mstates[] = array(3,_("Raised Error"));
 $mstates[] = array(10,_("Request to run"));
+$mstates[] = array(12,_("Auto-ceased"));
 
 $HD_Form->model[] = new RefField(_("Status"),'status', $mstates);
 	end($HD_Form->model)->def_value=10;
