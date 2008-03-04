@@ -1,5 +1,5 @@
 <?php 
-require ("./lib/defines.php");
+require ("./lib/admin.defines.php");
 require("./lib/module.access.php");
 
 
