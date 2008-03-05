@@ -23,7 +23,7 @@ function a2b_mail ($to, $subject, $mail_content, $from = 'root@localhost', $from
 	$mail -> AltBody = $mail_content;  // Plain text body (for mail clients that cannot read 	HTML)
 	// if ContentType = multipart/alternative -> HTML will be send
 	$mail -> ContentType = $contenttype;
-	$mail -> AddAddress ($to);				
+	$mail -> AddAddress ($to);
 	$mail -> Send();
 }
 

@@ -233,8 +233,8 @@ function menu_show(sect_str){
 			<li><a href="A2B_entity_autorefill.php"><?= _("AutoRefill Report");?></a></li>
 			<li><a href="A2B_entity_service.php"><?= _("List Recurring Service");?></a></li>
 			<li><a href="A2B_entity_service.php?form_action=ask-add"><?= _("Add Recurring Service");?></a></li>
-			<li><a href="A2B_entity_alarm.php"><?= _("List Alarm");?></a></li>
-			<li><a href="A2B_entity_alarm.php?form_action=ask-add"><?= _("Add Alarm");?></a></li>
+			<li><a href="A2B_entity_alarm.php"><?= _("Alarms");?></a></li>
+			<li><a href="A2B_entity_alarmrun.php"><?= _("Alarm Data");?></a></li>
 			<li><a href="A2B_entity_subscription.php"><?= _("List Subscription");?></a></li>
 			<li><a href="A2B_entity_subscription.php?form_action=ask-add"><?= _("Add Subscription");?></a></li>
 		</ul>
@@ -284,6 +284,7 @@ function menu_show(sect_str){
 			<li><a href="A2B_entity_restore.php"><?= _("Database Restore");?></a></li>
 			<li><a href="A2B_entity_texts.php"><?= _("Localized texts");?></a></li>
 			<li><a href="A2B_logfile.php"><?= _("Watch Log files"); ?></a></li>
+			<li><a href="A2B_entity_mails.php"><?= _("Mails");?></a></li>
 			<li><a href="A2B_entity_log_viewer.php"><?= _("System Log");?></a></li>
 		</ul>
 		</div>

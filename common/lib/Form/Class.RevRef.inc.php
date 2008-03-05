@@ -73,7 +73,11 @@ class RevRef extends BaseField {
 	}
 
 	public function DispList(array &$qrow,&$form){
-		// nothing to list!
+		if ($form->getAction()=='details')
+			return $this->DispForm($qrow,$form,false);
+	}
+	public function DispEdit(array &$qrow,&$form){
+		return $this->DispForm($qrow,$form,true);
 	}
 	
 	public function listQueryField(&$dbhandle){
@@ -98,7 +102,7 @@ class RevRef extends BaseField {
 	public function buildUpdate(&$ins_arr,&$form){
 	}
 
-	public function DispEdit(array &$qrow,&$form){
+	public function DispForm(array &$qrow,&$form,$active){
 	//public function DispEdit($scol, $sparams, $svalue, $DBHandle = null){
 		$refname = $this->refname ;
 		$refid = $this->refid ;
@@ -108,7 +112,6 @@ class RevRef extends BaseField {
 			$refkey = $this->refid;
 		$DBHandle=$form->a2billing->DBHandle();
 		?><input type="hidden" name="<?= $form->prefix.$this->fieldname . '_action' ?>" value="">
-		<div class="descr"><?= $this->editDescr?></div>
 		<?php
 		$QUERY = str_dbparams($DBHandle, "SELECT $refkey, $refname FROM $this->reftable ".
 			"WHERE $refid = %1 ; ",array($qrow[$this->localkey]));
@@ -126,27 +129,36 @@ class RevRef extends BaseField {
 		}else{
 		?> <table class="FormRRt1">
 		<thead>
-		<tr><td><?= $sparams[0] ?></td><td><?= _("Action") ?></td></tr>
+		<tr><td><?= $this->fieldtitle ?></td> <?php 
+			if ($active) {
+			?><td><?= _("Action") ?></td><?php 
+			}
+		?></tr>
 		</thead>
 		<tbody>
 		<?php while ($row = $res->fetchRow()){ ?>
 			<tr><td><?= htmlspecialchars($row[$refname]) ?></td>
-			<?php if ($this->refkey !=NULL){ ?>
+			<?php if ($active) { 
+				if ($this->refkey !=NULL){ ?>
 			    <td><a onClick="formRRdelete('<?= $form->prefix.$this->fieldname ?>','<?= $form->prefix.$this->fieldname. '_action' ?>','<?= $form->prefix.$this->fieldname .'_del' ?>','<?= $row[$refkey] ?>')" > <img src="./Images/icon-del.png" alt="<?= _("Remove this") ?>" /></a></td>
 			   <?php } else { ?>
 			    <td><a onClick="formRRdelete2('<?= $form->prefix.$this->fieldname ?>','<?= $form->prefix.$this->fieldname. '_action' ?>','<?= $form->prefix.$this->fieldname .'_del' ?>','<?= $row[$refkey] ?>','<?= $row[$refname] ?>')" > <img src="./Images/icon-del.png" alt="<?= _("Remove this") ?>" /></a></td>
 			</tr>
 		<?php		}
+			     }
 			} ?>
 		</tbody>
 		</table>
+		<?php if ($active) { ?>
 		<input type="hidden" name="<?= $form->prefix.$this->fieldname . '_del' ?>" value="">
-		<?php if ($this->refkey ==NULL) { ?>
+		<?php 	if ($this->refkey ==NULL) { ?>
 		<input type="hidden" name="<?= $form->prefix.$this->fieldname . '_del2' ?>" value="">
-		<?php }
+		<?php 	  }
+			}
 		}
 		
-		$this->dispAddBox($form);
+		if ($active)
+			$this->dispAddBox($form);
 		$this->dispEditDescr();
 	}
 	

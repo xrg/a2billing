@@ -67,9 +67,10 @@ class RevRef2 extends BaseField{
 	}
 
 	public function DispList(array &$qrow,&$form){
-		// nothing to list!
+		if ($form->getAction()=='details')
+			return $this->DispForm($qrow,$form,false);
 	}
-	public function listQueryField(&$dbhandle){
+	public function detailQueryField(&$dbhandle){
 		if (!$this->does_list)
 			return;
 		return $this->localkey;
@@ -113,7 +114,7 @@ class RevRef2 extends BaseField{
 		}else{
 		?> <table class="FormRR2t1">
 		<thead>
-		<tr><td><?= $sparams[0] ?></td><?php
+		<tr><td><?= $this->fieldtitle ?></td><?php
 		if ($active){
 			?><td><?= _("Action") ?></td></tr><?php
 		} ?>
@@ -163,9 +164,6 @@ class RevRef2 extends BaseField{
 	
 	public function DispEdit(array &$qrow,&$form){
 		return $this->DispForm($qrow,$form,true);
-	}
-	public function DispDetails(array &$qrow,&$form){
-		return $this->DispForm($qrow,$form,false);
 	}
 
 	public function PerformObjEdit(&$form){

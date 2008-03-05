@@ -46,7 +46,7 @@ if (false) {
 	}
 }
 
-if (true){
+if (false){
 	require_once('Class.A2Billing.inc.php');
 	$dbh=A2Billing::DBHandle();
 	
@@ -56,6 +56,12 @@ if (true){
 	echo "Msg 2:" . print_r($dbh->NoticeMsg(),true) . "\n";
 	print_r($res->GetAll());
 	//print_r($dbh);
+}
+
+if (true) {
+	require_once('Class.A2Billing.inc.php');
+	$dbh=A2Billing::DBHandle();
+	print_r($dbh);
 }
 
 ?>
