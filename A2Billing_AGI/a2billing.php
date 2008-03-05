@@ -17,6 +17,9 @@
  *
  ****************************************************************************/
 
+/* Dev's note: use "conlog()" for debug-only messages, "verbose()" for things that
+  will always output. */
+
 declare(ticks = 1);
 
 function sig_handler($signo)
@@ -572,13 +575,13 @@ function dialSpecial($dialnum,$route, $card,$last_prob,$agi){
 			$agi->verbose('Cannot query peer: '. $dbhandle->ErrorMsg());
 			return false;
 		}else if ($res->EOF){
-			// $agi->verbose("Query: $qry",4);
+			$agi->conlog("Query: $qry",5);
 			$agi->verbose("Peer email: cannot find peer ".$dialnum,2);
 			return false;
 		}
 		$row= $res->fetchRow();
 		if (empty($row['email'])){
-			$agi->verbose("User at $dialnum, has no email, skipping.",3);
+			$agi->conlog("User at $dialnum, has no email, skipping.",3);
 			return true;
 		}
 		if (empty($route['providerip']))
@@ -592,14 +595,14 @@ function dialSpecial($dialnum,$route, $card,$last_prob,$agi){
 		$res = $dbhandle->Execute( "SELECT create_mail(?,?,?,?);",
 			array($tmpl,$row['email'],$row['locale'], arr2url($params)));
 		if (!$res){
-			$agi->verbose('Cannot create mail: '. $dbhandle->ErrorMsg());
+			$agi->verbose('Cannot create mail: '. $dbhandle->ErrorMsg(),2);
 			return false;
 		}
 		$str = $dbhandle->NoticeMsg();
 		if ($str)
 			$agi->verbose($str,3);
 		// FIXME: how well should the email be quoted before fed to the AGI?
-		$agi->verbose("Mail notification queued for ". str_replace("\n",'',$row['email']));
+		$agi->conlog("Mail notification queued for ". str_replace("\n",'',$row['email']));
 		return true;
 	default:
 		$agi->verbose("Cannot dial special with format ".$route['trunkfmt'],3);
