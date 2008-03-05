@@ -566,17 +566,17 @@ function dialSpecial($dialnum,$route, $card,$last_prob,$agi){
 	$dialn = null;
 	switch ($route['trunkfmt']){
 	case 10:
-		$dialn = array($dialnum,$card['numplan']);
+		$dialn = array($card['numplan'],$dialnum);
 	case 11:
 		if (!$dialn){ // case 11
 			$dialn = explode('-',$dialnum);
-			if ($dnum[0] == 'L')
-				$dnum[0]=$card['numplan'];
+			if ($dialn[0] == 'L')
+				$dialn[0]=$card['numplan'];
 		}
 		//todo: locale field!
 		$qry = str_dbparams($dbhandle,"SELECT email, 'C' AS locale FROM cc_card, cc_card_group
-			WHERE cc_card.grp = cc_card_group.id AND cc_card_group.numplan = %#2
-			  AND cc_card.useralias = %1 AND cc_card.status =1;", $dialn);
+			WHERE cc_card.grp = cc_card_group.id AND cc_card_group.numplan = %#1
+			  AND cc_card.useralias = %2 AND cc_card.status =1;", $dialn);
 		$res = $dbhandle->Execute($qry);
 		if (!$res){
 			$agi->verbose('Cannot query peer: '. $dbhandle->ErrorMsg());
