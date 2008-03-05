@@ -513,7 +513,7 @@ function formatDialstring_peer($dialn,&$route, &$card){
 			.'WHERE useralias = %2 AND numplan = %#1 ',$dnum);
 		$bind_str ='%dialtech/%dialname';
 		
-		$agi->verbose("Query: $qry",3);
+		$agi->conlog("Query: $qry",3);
 		break;
 	case 8:
 		$dnum = explode('-',$dialnum);
@@ -522,7 +522,7 @@ function formatDialstring_peer($dialn,&$route, &$card){
 		$qry = str_dbparams($dbhandle,'SELECT * FROM cc_dialpeer_remote_v '
 			.'WHERE useralias = %2 AND numplan = %#1',$dnum);
 		
-		$agi->verbose("Query: $qry",3);
+		$agi->conlog("Query: $qry",3);
 		$bind_str = $route['providertech'] .'/' . $route['providerip'];
 		break;
 	
