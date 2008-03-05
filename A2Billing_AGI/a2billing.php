@@ -507,6 +507,8 @@ function formatDialstring_peer($dialn,&$route, &$card){
 		break;
 	case 7:
 		$dnum = explode('-',$dialnum);
+		if ($dnum[0] == 'L')
+			$dnum[0]=$card['numplan'];
 		$qry = str_dbparams($dbhandle,'SELECT dialtech, dialname FROM cc_dialpeer_local_v '
 			.'WHERE useralias = %2 AND numplan = %#1 ',$dnum);
 		$bind_str ='%dialtech/%dialname';
@@ -515,6 +517,8 @@ function formatDialstring_peer($dialn,&$route, &$card){
 		break;
 	case 8:
 		$dnum = explode('-',$dialnum);
+		if ($dnum[0] == 'L')
+			$dnum[0]=$card['numplan'];
 		$qry = str_dbparams($dbhandle,'SELECT * FROM cc_dialpeer_remote_v '
 			.'WHERE useralias = %2 AND numplan = %#1',$dnum);
 		
@@ -564,8 +568,11 @@ function dialSpecial($dialnum,$route, $card,$last_prob,$agi){
 	case 10:
 		$dialn = array($dialnum,$card['numplan']);
 	case 11:
-		if (!$dialn) // case 11
+		if (!$dialn){ // case 11
 			$dialn = explode('-',$dialnum);
+			if ($dnum[0] == 'L')
+				$dnum[0]=$card['numplan'];
+		}
 		//todo: locale field!
 		$qry = str_dbparams($dbhandle,"SELECT email, 'C' AS locale FROM cc_card, cc_card_group
 			WHERE cc_card.grp = cc_card_group.id AND cc_card_group.numplan = %#2
