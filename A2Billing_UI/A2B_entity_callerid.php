@@ -19,8 +19,8 @@ $PAGE_ELEMS[] = new AddNewButton($HD_Form);
 
 $HD_Form->model[] = new PKeyFieldEH(_("ID"),'id');
 $HD_Form->model[] = new TextFieldEH(_("Caller ID"),'cid',_("Insert the CallerID"));
-$HD_Form->model[] = new TextFieldEH(_("Card ID"),'cardid',_("Insert the CardID"));
-$HD_Form->model[] = dontAdd(dontEdit(new SqlRefField(_("CardNumber"), "cardid","cc_card", "id", "username")));
+//$HD_Form->model[] = new TextFieldEH(_("Card ID"),'cardid',_("Insert the CardID"));
+$HD_Form->model[] = new SqlBigRefFieldEH(_("CardNumber"), "cardid","cc_card", "id", "username");
 
 $actived_list = array();
 $actived_list[] = array('t',gettext("Active"));
@@ -30,7 +30,6 @@ $HD_Form->model[] = new RefField(_("ACTIVATED"), "activated", $actived_list,_("A
 
 
 $HD_Form->model[] = new DelBtnField();
-
 
 require("PP_page.inc.php");
 

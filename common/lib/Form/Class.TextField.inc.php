@@ -43,7 +43,6 @@ class TextFieldEH extends TextField{
 		echo htmlspecialchars($qrow[$this->fieldname]);
 		echo '</a>';
 	}
-
 };
 
 /** Text field, which will hyperlink to the Details page */
