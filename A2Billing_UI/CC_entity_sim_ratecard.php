@@ -53,6 +53,9 @@ end($HD_Form->rmodel)->fieldacr=_('Tf');
 $HD_Form->rmodel[] = new TextField(_('Matched Prefix'),'prefix') ;
 end($HD_Form->rmodel)->fieldacr=_('Pr');
 
+$HD_Form->rmodel[] = new TextField(_('Clid Pattern'),'clidreplace') ;
+end($HD_Form->rmodel)->fieldacr=_('CLID');
+
 require("PP_page.inc.php");
 
 ?>
