@@ -56,11 +56,15 @@ if ($cli_args['daemon']){
 				echo "Mail sending failed.\n";
 		}
 		if ($notify_mode){
-			pg_wait_notify($dbh->_connectionID, 300000);
+			if (pg_wait_notify($dbh->_connectionID, 300000) ===false){
+				// TODO: check more thoroughly
+				echo "Wait failed, db connection broken?\n";
+				break;
+			}
 			if (($nots=pg_get_notify($dbh->_connectionID)) !==false)
 				if ($verbose>2)
 					print_r($nots);
-			//break;
+				//break;
 		}else
 			sleep(300);
 	}
