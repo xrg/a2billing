@@ -261,6 +261,7 @@ function menu_show(sect_str){
 		<ul>
 	<?php   if ( has_rights (ACX_NUMPLAN) ){ 	?>
 			<li><a href="A2B_entity_numplan.php"><?= _("Numbering Plans");?></a></li>
+			<li><a href="A2B_entity_re_numplan.php"><?= _("Reverse NPlans");?></a></li>
 	<?php  } ?>
 	<?php   if ( has_rights (ACX_MISC) ){ 	?>
 			<li><a href="A2B_entity_mailtemplate.php"><?= _("Mail template");?></a></li>
