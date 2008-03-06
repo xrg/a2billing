@@ -21,4 +21,12 @@ BEGIN
 END;
 $$ LANGUAGE PLPGSQL VOLATILE SECURITY DEFINER;
 
+CREATE OR REPLACE RULE mail_notify_create AS ON INSERT TO cc_mailings /*WHERE state = 1*/
+	DO ALSO NOTIFY mail_pending;
+
+-- Restriction: Pg doesn't allow WHERE clauses with NOTIFY actions in rules.
+-- CREATE OR REPLACE RULE mail_notify_update AS ON UPDATE TO cc_mailings 
+-- 	WHERE NEW.state = 1 OR NEW.state = 5
+-- 	DO ALSO NOTIFY mail_pending;
+
 -- eof
