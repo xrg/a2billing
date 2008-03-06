@@ -19,8 +19,9 @@ $PAGE_ELEMS[] = new AddNewButton($HD_Form);
 
 $HD_Form->model[] = new PKeyFieldEH(_("ID"),'id');
 $HD_Form->model[] = new TextFieldEH(_("Caller ID"),'cid',_("Insert the CallerID"));
-$HD_Form->model[] = new TextFieldEH(_("Card ID"),'cardid',_("Insert the CardID"));
-$HD_Form->model[] = dontAdd(dontEdit(new SqlRefField(_("CardNumber"), "cardid","cc_card", "id", "username")));
+$HD_Form->model[] = new SqlBigRefField(_("CardNumber"), "cardid","cc_card", "id", "username");
+	end($HD_Form->model)->SetRefEntity("A2B_entity_card.php");
+	end($HD_Form->model)->SetRefEntityL("A2B_entity_card.php");
 
 $actived_list = array();
 $actived_list[] = array('t',gettext("Active"));
