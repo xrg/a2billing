@@ -219,8 +219,7 @@ if (isset($choose_agent) && ($choose_agent != '')) {
 		break;
 	}
 
-// if ($_SESSION["is_admin"]==0)
-{ /*-*/ 	
+if (true) { /*-*/ 	
 	if (strlen($FG_TABLE_CLAUSE)>0) $FG_TABLE_CLAUSE.=" AND ";
 	$FG_TABLE_CLAUSE.=$tmp_agent_clause;
 }

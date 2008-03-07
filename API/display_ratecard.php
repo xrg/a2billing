@@ -290,9 +290,9 @@ function Search(Source){
 			<?php echo gettext("select the first letter of the country you are looking for");?><br>
 			<?php for ($i=65;$i<=90;$i++) {
  				$x = chr($i);
- 				echo "<a href=\"http://$page_url?letter=$x&stitle=$stitle&current_page=$current_page&order=$order&sens=$sens&posted=$posted&choose_currency=$choose_currency&search=$search&choose_country=$choose_country&css_url=$css_url&page_url=$page_url\">$x</a>";
+ 				if ($merge_form){		
  					echo "<a href=\"$page_url?letter=$x&stitle=$stitle&current_page=$current_page&order=$order&sens=$sens&posted=$posted&choose_currency=$choose_currency&searchpre=$searchpre&choose_country=$choose_country&css_url=$css_url&page_url=$page_url\">$x</a> ";
-				}else{
+				} else {
 					echo "<a href=\"$page_url?letter=$x&stitle=$stitle&current_page=$current_page&order=$order&sens=$sens&posted=$posted&choose_currency=$choose_currency&css_url=$css_url&page_url=$page_url\">$x</a> ";
 				}
 			}?></font>
