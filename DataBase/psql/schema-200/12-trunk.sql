@@ -23,6 +23,7 @@ CREATE TABLE cc_trunk (
     addparameter text,
     trunkfmt INTEGER NOT NULL DEFAULT 1,
     provider INTEGER REFERENCES cc_provider(id),
+    rnplan  INTEGER REFERENCES cc_re_numplan(id),
     inuse INT DEFAULT 0,
     maxuse INT DEFAULT -1,
     status INT DEFAULT 1,

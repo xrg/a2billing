@@ -176,6 +176,10 @@ class SqlRefField extends BaseField{
 		$this->detail_url = $fname .'?action=details&' . $this->refid .'=%' .
 			$this->fieldname ;
 	}
+	function SetRefEntityL($fname){
+		$this->list_url = $fname .'?action=details&' . $this->refid .'=%' .
+			$this->fieldname ;
+	}
 };
 
 class SqlRefFieldN extends SqlRefField{
