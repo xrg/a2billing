@@ -185,10 +185,10 @@ function getCard_clid(){
 	global $agi;
 	$dbhandle =$a2b->DBHandle();
 	
-	$res = $dbhandle->Execute('SELECT card.id, tariffgroup AS tgid, card.username, card.status ' .
-		'card.numplan, card.useralias'.
+	$res = $dbhandle->Execute('SELECT card.id, tariffgroup AS tgid, card.username, card.status, ' .
+		'card.numplan, card.useralias '.
 		'FROM cc_card_dv AS card, cc_callerid '.
-		'WHERE cc_callerid.cardid = card.id ' .
+		'WHERE cc_callerid.cardid = card.id '.
 		'AND cc_callerid.activated = true '.
 		'AND cc_callerid.cid = ? LIMIT 1 ;',
 		array($agi->request['agi_callerid']));
@@ -684,7 +684,7 @@ if ($mode == 'standard'){
 			
 		$agi->conlog($QRY,3);
 		$res = $a2b->DBHandle()->Execute($QRY);
-			// If the rate engine has anything to Notice/Warn, display that..
+		// If the rate engine has anything to Notice/Warn, display that..
 		if ($notice = $a2b->DBHandle()->NoticeMsg())
 			$agi->verbose('DB:' . $notice,2);
 			
