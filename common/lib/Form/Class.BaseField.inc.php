@@ -7,6 +7,7 @@ abstract class BaseField {
 	public $fieldname;
 	public $fieldexpr = null; ///< if set, use this expression in select
 	public $fieldtitle; ///< The user-visible title of the field.
+	public $fieldedittitle; // title of the field for edition or addition action
 	public $fieldacr = null;   ///< An acronym, to be used in list table
 	
 	public $does_list = true; ///< Field will appear in list view
@@ -294,7 +295,10 @@ abstract class BaseField {
 	}
 	
 	public function RenderEditTitle(&$form){
-		echo htmlspecialchars($this->fieldtitle);
+		if ($this->fieldedittitle)
+			echo htmlspecialchars($this->fieldedittitle);
+		else
+			echo htmlspecialchars($this->fieldtitle);
 	}
 	public function RenderAddTitle(&$form){
 		$this->RenderEditTitle($form);

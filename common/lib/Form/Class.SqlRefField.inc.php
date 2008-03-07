@@ -180,6 +180,11 @@ class SqlRefField extends BaseField{
 		$this->list_url = $fname .'?action=details&' . $this->refid .'=%' .
 			$this->fieldname ;
 	}
+	
+	/** Set the title field name for edition or adition */
+	function SetEditTitle($titlename){
+		$this->fieldedittitle = $titlename;
+	}
 };
 
 class SqlRefFieldN extends SqlRefField{
