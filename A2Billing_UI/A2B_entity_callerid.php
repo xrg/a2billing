@@ -22,6 +22,7 @@ $HD_Form->model[] = new TextFieldEH(_("Caller ID"),'cid',_("Insert the CallerID"
 $HD_Form->model[] = new SqlBigRefField(_("CardNumber"), "cardid","cc_card", "id", "username");
 	end($HD_Form->model)->SetRefEntity("A2B_entity_card.php");
 	end($HD_Form->model)->SetRefEntityL("A2B_entity_card.php");
+	end($HD_Form->model)->SetEditTitle("Card ID");
 
 $actived_list = array();
 $actived_list[] = array('t',gettext("Active"));
