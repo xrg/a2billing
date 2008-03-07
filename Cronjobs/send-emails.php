@@ -26,9 +26,54 @@ else if (!empty($cli_args['silent']) || !empty($cli_args['q']))
 if (!empty($cli_args['config']))
 	define('DEFAULT_A2BILLING_CONFIG',$cli_args['config']);
 
-if (Send_Mails($verbose,$dry_run))
-	exit(0);
-else
-	exit(1);
+if ($cli_args['daemon']){
+	$dbh = A2Billing::DBHandle(); // this instantiates things
+	$do_loop = true;
+	$notify_mode = function_exists('pg_wait_notify');
+	if ($verbose>2){
+		if ($notify_mode)
+			echo "Notify (async) mode.\n";
+		else
+			echo "Poll (sync) mode.\n";
+	}
+	if ($notify_mode){
+		$res = $dbh->Execute("LISTEN mail_pending;");
+		if (!$res){
+			if ($verbose>1)
+				echo $dbh->ErrorMsg();
+			if ($verbose)
+				echo "Cannot setup notify listener. Polling.\n";
+			$notify_mode=false;
+		}
+	}
+	
+	while ($do_loop){
+		if ($verbose>2)
+			echo "Mailer awaken.\n";
 
+		if (!Send_Mails($verbose,$dry_run)){
+			if ($verbose>1)
+				echo "Mail sending failed.\n";
+		}
+		if ($notify_mode){
+			if (pg_wait_notify($dbh->_connectionID, 300000) ===false){
+				// TODO: check more thoroughly
+				echo "Wait failed, db connection broken?\n";
+				break;
+			}
+			if (($nots=pg_get_notify($dbh->_connectionID)) !==false)
+				if ($verbose>2)
+					print_r($nots);
+				//break;
+		}else
+			sleep(300);
+	}
+
+}else {
+	// just run once
+	if (Send_Mails($verbose,$dry_run))
+		exit(0);
+	else
+		exit(1);
+}
 ?>

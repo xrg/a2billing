@@ -1,63 +1,39 @@
 <?php
+require_once ("./lib/defines.php");
+require_once ("./lib/module.access.php");
+require_once (DIR_COMMON."Form.inc.php");
+require_once (DIR_COMMON."Class.HelpElem.inc.php");
+require_once (DIR_COMMON."Form/Class.SqlRefField.inc.php");
+
 $menu_section='menu_customers';
-include ("../lib/defines.php");
-include ("../lib/module.access.php");
-include ("../lib/Form/Class.FormHandler.inc.php");
-include ("./form_data/FG_var_callerid.inc");
+
+  
+HelpElem::DoHelp(gettext("CallerID <br> Set the caller ID so that the customer calling in is authenticated on the basis of the callerID rather than with account number."));
+
+$HD_Form= new FormHandler('cc_callerid',_("CallerIDs"),_("CallerID"));
+$HD_Form->checkRights(ACX_CUSTOMER);
+$HD_Form->init();
+
+$PAGE_ELEMS[] = &$HD_Form;
+$PAGE_ELEMS[] = new AddNewButton($HD_Form);
+
+$HD_Form->model[] = new PKeyFieldEH(_("ID"),'id');
+$HD_Form->model[] = new TextFieldEH(_("Caller ID"),'cid',_("Insert the CallerID"));
+$HD_Form->model[] = new SqlBigRefField(_("CardNumber"), "cardid","cc_card", "id", "username");
+	end($HD_Form->model)->SetRefEntity("A2B_entity_card.php");
+	end($HD_Form->model)->SetRefEntityL("A2B_entity_card.php");
+
+$actived_list = array();
+$actived_list[] = array('t',gettext("Active"));
+$actived_list[] = array('f',gettext("Inactive"));
+
+$HD_Form->model[] = new RefField(_("ACTIVATED"), "activated", $actived_list,_("Allow the callerID to operate"),"4%");
 
 
-
-if (! has_rights (ACX_CUSTOMER)){
-	   Header ("HTTP/1.0 401 Unauthorized");
-	   Header ("Location: PP_error.php?c=accessdenied");
-	   die();
-}
+$HD_Form->model[] = new DelBtnField();
 
 
-
-/***********************************************************************************/
-
-$HD_Form -> setDBHandler (DbConnect());
-
-
-$HD_Form -> init();
-
-
-if ($id!="" || !is_null($id)){
-	$HD_Form -> FG_EDITION_CLAUSE = str_replace("%id", "$id", $HD_Form -> FG_EDITION_CLAUSE);
-}
-
-
-if (!isset($form_action))  $form_action="list"; //ask-add
-if (!isset($action)) $action = $form_action;
-
-
-$list = $HD_Form -> perform_action($form_action);
-
-
-
-// #### HEADER SECTION
-include("PP_header.php");
-
-// #### HELP SECTION
-echo $CC_help_callerid_list;
-
-
-
-// #### TOP SECTION PAGE
-$HD_Form -> create_toppage ($form_action);
-
-
-// #### CREATE FORM OR LIST
-//$HD_Form -> CV_TOPVIEWER = "menu";
-if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
-
-$HD_Form -> create_form ($form_action, $list, $id=null) ;
-
-// #### FOOTER SECTION
-include("PP_footer.php");
-
-
-
+require("PP_page.inc.php");
 
 ?>
+

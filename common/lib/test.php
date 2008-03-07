@@ -58,10 +58,19 @@ if (false){
 	//print_r($dbh);
 }
 
-if (true) {
+if (false) {
 	require_once('Class.A2Billing.inc.php');
 	$dbh=A2Billing::DBHandle();
 	print_r($dbh);
+}
+
+if (true){
+	require_once('Class.A2Billing.inc.php');
+	$dbh=A2Billing::DBHandle();
+	echo "Connected!\n";
+	$dbh->Execute("LISTEN test;");
+	pg_wait_notify($dbh->_connectionID, 30000);
+	echo "Done!\n";
 }
 
 ?>

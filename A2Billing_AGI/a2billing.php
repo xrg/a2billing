@@ -186,7 +186,7 @@ function getCard_clid(){
 	$dbhandle =$a2b->DBHandle();
 	
 	$res = $dbhandle->Execute('SELECT card.id, tariffgroup AS tgid, card.username, card.status ' .
-		'card.numplan'.
+		'card.numplan, card.useralias'.
 		'FROM cc_card_dv AS card, cc_callerid '.
 		'WHERE cc_callerid.cardid = card.id ' .
 		'AND cc_callerid.activated = true '.
@@ -238,7 +238,7 @@ function getCard_ivr(){
 	}
 	
 	$res = $dbhandle->Execute('SELECT card.id, tariffgroup AS tgid, card.username, card.status, ' .
-		'card.numplan '.
+		'card.numplan, card.useralias '.
 		'FROM cc_card_dv AS card'.
 		'WHERE card.username = ? LIMIT 1 ;',
 		array($pinnum));
@@ -273,14 +273,14 @@ function getCard_acode(){
 	switch($acodes[0]){
 	case 'card':
 		$res = $dbhandle->Execute('SELECT card.id, tariffgroup AS tgid, card.username, card.status, ' .
-			'card.numplan '.
+			'card.numplan, card.useralias '.
 			'FROM cc_card_dv AS card '.
 			'WHERE card.id = ? LIMIT 1 ;',
 			array($acodes[1]));
 		break;
 	case 'booth':
 		$res = $dbhandle->Execute('SELECT card.id, tariffgroup AS tgid, card.username, card.status, ' .
-			'card.numplan '.
+			'card.numplan, card_useralias '.
 			'FROM cc_card_dv AS card, cc_booth '.
 			'WHERE cc_booth.cur_card_id = card.id '.
 			'AND cc_booth.id = ? LIMIT 1 ;',
@@ -301,14 +301,14 @@ function getCard_acode(){
 		switch ($acodes[0]){
 		case 'card':
 			$res = $dbhandle->Execute('SELECT card.id, tariffgroup AS tgid, card.username, card.status, ' .
-				'card.numplan '.
+				'card.numplan, card.useralias '.
 				'FROM cc_card_dv AS card '.
 				'WHERE card.id = ? AND agentid = ? LIMIT 1 ;',
 				array($acodes[1],$agid));
 			break;
 		case 'booth':
 			$res = $dbhandle->Execute('SELECT card.id, tariffgroup AS tgid, card.username, card.status, ' .
-				'card.numplan '.
+				'card.numplan, card.useralias '.
 				'FROM cc_card_dv AS card, cc_booth '.
 				'WHERE cc_booth.cur_card_id = card.id '.
 				'AND cc_booth.id = ? AND cc_booth.agentid = ? LIMIT 1 ;',
@@ -513,7 +513,7 @@ function formatDialstring_peer($dialn,&$route, &$card){
 			.'WHERE useralias = %2 AND numplan = %#1 ',$dnum);
 		$bind_str ='%dialtech/%dialname';
 		
-		$agi->verbose("Query: $qry",3);
+		$agi->conlog("Query: $qry",3);
 		break;
 	case 8:
 		$dnum = explode('-',$dialnum);
@@ -522,7 +522,7 @@ function formatDialstring_peer($dialn,&$route, &$card){
 		$qry = str_dbparams($dbhandle,'SELECT * FROM cc_dialpeer_remote_v '
 			.'WHERE useralias = %2 AND numplan = %#1',$dnum);
 		
-		$agi->verbose("Query: $qry",3);
+		$agi->conlog("Query: $qry",3);
 		$bind_str = $route['providertech'] .'/' . $route['providerip'];
 		break;
 	
@@ -566,17 +566,17 @@ function dialSpecial($dialnum,$route, $card,$last_prob,$agi){
 	$dialn = null;
 	switch ($route['trunkfmt']){
 	case 10:
-		$dialn = array($dialnum,$card['numplan']);
+		$dialn = array($card['numplan'],$dialnum);
 	case 11:
 		if (!$dialn){ // case 11
 			$dialn = explode('-',$dialnum);
-			if ($dnum[0] == 'L')
-				$dnum[0]=$card['numplan'];
+			if ($dialn[0] == 'L')
+				$dialn[0]=$card['numplan'];
 		}
 		//todo: locale field!
 		$qry = str_dbparams($dbhandle,"SELECT email, 'C' AS locale FROM cc_card, cc_card_group
-			WHERE cc_card.grp = cc_card_group.id AND cc_card_group.numplan = %#2
-			  AND cc_card.useralias = %1 AND cc_card.status =1;", $dialn);
+			WHERE cc_card.grp = cc_card_group.id AND cc_card_group.numplan = %#1
+			  AND cc_card.useralias = %2 AND cc_card.status =1;", $dialn);
 		$res = $dbhandle->Execute($qry);
 		if (!$res){
 			$agi->verbose('Cannot query peer: '. $dbhandle->ErrorMsg());
@@ -654,7 +654,6 @@ if ($mode == 'standard'){
 		}
 
 		// Here, we're authorized..
-		//TODO: set callerid
 		
 		/* We assume here that between consecutive attempts of calls, user's credit
 		   won't change! */
@@ -733,6 +732,20 @@ if ($mode == 'standard'){
 				else
 					continue;
 			}
+			
+			// Callerid
+			if ($route['clidreplace']!== NULL){
+				$new_clid = str_alparams($route['clidreplace'],
+					array( useralias =>$card['useralias'],
+						nplan => $card['numplan'],
+						callernum => $agi->request['agi_callerid']));
+			}else
+				$new_clid = $agi->request['agi_callerid'];
+			
+				// we always reset the clid, because the previous rate
+				// engine may have changed it.
+			$agi->conlog("Setting clid to : $new_clid",3);
+			$agi->set_variable('CALLERID(num)',$new_clid);
 				
 			$res = $a2b->DBHandle()->Execute('INSERT INTO cc_call (cardid, attempt, cmode, '.
 				'sessionid, uniqueid, nasipaddress, src, ' .
