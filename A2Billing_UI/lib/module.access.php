@@ -94,19 +94,23 @@ elseif (isset($_SESSION['FG_DEBUG']))
 
 require_once(DIR_COMMON."languageSettings.inc.php");
 
-    if (isset($_GET['language'])){
+	// Note: we override only on GET requests! The one that comes
+	// from the login is a POST and should be discarded in favour
+	// of the db value.
+
+    if (isset($_GET['language'])){ 
     	if ($FG_DEBUG >0) echo "<!-- lang explicitly set to ".$_GET['language'] ."-->\n";
       $_SESSION["language"] = $_GET['language'];
     }
-    elseif (!isset($_SESSION["language"]))
-    { // we have to find a lang to use..
-    	if(isset($_SESSION["lang_db"])){
+    elseif(isset($_SESSION["lang_db"])){
     		foreach($language_list as $lang)
     		if ($lang['abbrev'] == $_SESSION["lang_db"])
     			$_SESSION["language"] = $lang['cname'];
     		if ($FG_DEBUG >0) trigger_error("Lang Selected by db: ". $_SESSION["language"], E_USER_NOTICE);
-    	}else
-        	$_SESSION["language"]='english';
+    }
+    elseif (!isset($_SESSION["language"]))
+    {
+    	$_SESSION["language"]=negot_language('english');
     }
 
     define ("LANGUAGE",$_SESSION["language"]);

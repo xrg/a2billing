@@ -35,7 +35,7 @@ foreach($PAGE_ELEMS as $elem){
 ?>
 <html><head>
 <title>..:: Asterisk2Billing : CallingCard platform ::..</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=<?= CHARSET ?>">
 
 <link rel="shortcut icon" href="./Images/favicon.ico">
 <link rel="icon" href="./Images/animated_favicon1.gif" type="image/gif">
