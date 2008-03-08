@@ -1,14 +1,4 @@
 <?php
-/*
-  $Id: paypal.php,v 1.39 2003/01/29 19:57:15 hpdl Exp $
-
-  osCommerce, Open Source E-Commerce Solutions
-  http://www.oscommerce.com
-
-  Copyright (c) 2003 osCommerce
-
-  Released under the GNU General Public License
-*/
 
   include("../lib/epayment/includes/methods/paypal.php");
   class paypal {

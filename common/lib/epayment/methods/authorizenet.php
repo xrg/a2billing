@@ -1,14 +1,4 @@
 <?php
-/*
-  $Id: authorizenet.php,v 1.48 2003/04/10 21:42:30 project3000 Exp $
-
-  osCommerce, Open Source E-Commerce Solutions
-  http://www.oscommerce.com
-
-  Copyright (c) 2003 osCommerce
-
-  Released under the GNU General Public License
-*/
 
   include("../lib/epayment/includes/methods/authorizenet.php");
 
