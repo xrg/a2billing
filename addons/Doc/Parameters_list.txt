@@ -1,0 +1,29 @@
+
+
+
+agiconf 
+----------------
+	debug 						1  
+	auth-mode					accountcode		( accountcode ; callingcard ; callerid ; callerid-card ; pin-and-clid ; pin-and-clid) 
+	dialcommand_param			|35|iRL(%timeout:60500:30000)
+	
+	early_answer				0
+	number_try					1
+	min_credit_2call			0
+	speeddial_prefix			*
+	say_errors					1
+	pin-prompt					prepaid-enter-pin-number
+	pin-timeoute				6000
+	pin-maxlen					15
+	pin-minlen					10
+	dial_with_extension_dnid	1
+	min_duration_2call			30
+	say_goodbye					1
+
+
+	dial_with_dnid_extension	0
+	
+	destination-prompt			prepaid-enter-dest
+	destination-timeoute		6000
+	destination-maxlen			30
+	
