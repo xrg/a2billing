@@ -21,7 +21,7 @@ agiconf
 	say_goodbye					1
 
 
-	dial_with_dnid_extension	0
+	use_dnid					0
 	
 	destination-prompt			prepaid-enter-dest
 	destination-timeoute		6000
