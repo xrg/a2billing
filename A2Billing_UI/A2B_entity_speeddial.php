@@ -1,61 +1,44 @@
 <?php
+require_once ("./lib/defines.php");
+require_once ("./lib/module.access.php");
+require_once (DIR_COMMON."Form.inc.php");
+require_once (DIR_COMMON."Class.HelpElem.inc.php");
+require_once (DIR_COMMON."Form/Class.SqlRefField.inc.php");
+require_once (DIR_COMMON."Form/Class.SqlRefField.inc.php");
+require_once (DIR_COMMON."Form/Class.TimeField.inc.php");
+
 $menu_section='menu_customers';
-include ("../lib/defines.php");
-include ("../lib/module.access.php");
-include ("../lib/Form/Class.FormHandler.inc.php");
-include ("./form_data/FG_var_speeddial.inc");
 
-if (! has_rights (ACX_CUSTOMER)){ 
-	   Header ("HTTP/1.0 401 Unauthorized");
-	   Header ("Location: PP_error.php?c=accessdenied");	   
-	   die();	   
-}
+  
+HelpElem::DoHelp(gettext("Speed Dial <br> This section allows you to define the Speed dials for the customer. A Speed Dial will be entered on the IVR in order to make a shortcut to their preferred dialed phone number."));
 
 
+$HD_Form= new FormHandler('speeddials',_("SpeedDials"),_("SpeedDial"));
+$HD_Form->checkRights(ACX_CUSTOMER);
+$HD_Form->init();
 
-/***********************************************************************************/
-
-$HD_Form -> setDBHandler (DbConnect());
-
-
-$HD_Form -> init();
-
-
-if ($id!="" || !is_null($id)){	
-	$HD_Form -> FG_EDITION_CLAUSE = str_replace("%id", "$id", $HD_Form -> FG_EDITION_CLAUSE);	
-}
+$PAGE_ELEMS[] = &$HD_Form;
+$PAGE_ELEMS[] = new AddNewButton($HD_Form);
 
 
-if (!isset($form_action))  $form_action="list"; //ask-add
-if (!isset($action)) $action = $form_action;
+$HD_Form->model[] = new PKeyFieldEH(_("ID"),'id');
+$HD_Form->model[] = new TextFieldEH(_("SpeedDial"),'speeddial');
+$HD_Form->model[] = new TextFieldEH(_("Phone Number"),'phone',_("Enter the phone number for the speed dial."));
+$HD_Form->model[] = new TextFieldEH(_("Name"),'name',_("Enter the name or label that will identify this speed dial."));
 
 
-$list = $HD_Form -> perform_action($form_action);
+$HD_Form->model[] = new SqlBigRefField(_("CardNumber"), "card_id","cc_card", "id", "username");
+	end($HD_Form->model)->SetRefEntity("A2B_entity_card.php");
+	end($HD_Form->model)->SetRefEntityL("A2B_entity_card.php");
+	end($HD_Form->model)->SetEditTitle(_("Card ID"));
+	
+$HD_Form->model[] = dontAdd(dontEdit(new DateTimeField(_("Creation date"), "creationdate", _("Date the card was created (entered into this system)"))));
 
 
 
-// #### HEADER SECTION
-include("PP_header.php");
-
-// #### HELP SECTION
-echo $CC_help_speeddial;
+$HD_Form->model[] = new DelBtnField();
 
 
-
-// #### TOP SECTION PAGE
-$HD_Form -> create_toppage ($form_action);
-
-
-// #### CREATE FORM OR LIST
-//$HD_Form -> CV_TOPVIEWER = "menu";
-if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
-
-$HD_Form -> create_form ($form_action, $list, $id=null) ;
-
-// #### FOOTER SECTION
-include("PP_footer.php");
-
-
-
+require("PP_page.inc.php");
 
 ?>
