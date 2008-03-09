@@ -230,6 +230,11 @@ BEGIN
 		RAISE EXCEPTION 'Card group not found!';
 	END IF;
 
+	PERFORM id FROM cc_card WHERE status = 3 AND email = s_email;
+	IF FOUND THEN
+		RAISE EXCEPTION 'err-exists: User already tried to sign up with that email';
+	END IF;
+	
 	--RAISE NOTICE 'Row: %',planrow;
 	LOOP
 		--RAISE NOTICE 'Loop %',dloop;
@@ -240,11 +245,12 @@ BEGIN
 		dloop := dloop + 1;
 
 		INSERT INTO cc_card(grp,username,useralias,userpass,credit,status,
-			currency,creditlimit,
+			currency,creditlimit, loginkey,
 			firstname, lastname, email , address , city , 
 			state , country , zipcode , "language" )
 		SELECT planrow.grp,gen_uname(planrow.uname_pattern,planrow.agentname,foo.alias),
 			foo.alias, mkpasswd(8),0.0,3,planrow.def_currency,planrow.initiallimit,
+			mkpasswd(16),
 			s_firstname, s_lastname, s_email, s_address, s_city,
 			s_state, s_country, s_zipcode, s_lang
 			FROM ( SELECT gen_rndaliases(planrow.grp, 1, 

@@ -35,9 +35,9 @@ $HD_Form->QueryString= 'SELECT create_mail( \'' .DynConf::GetCfg(SIGNUP_CFG,'mai
 		'email, \''.getenv('LANG') ."', replace(replace(".
 		"'firstname=' || firstname || '&lastname=' || lastname || '&loginkey=' || loginkey ||" .
 		"'&username=' || username || '&userpass=' || userpass ".
-		",' ','%%20'), E'\\n','%%0A') ) ".
+		",' ','%%20'), E'\\n','%%0A') ) AS mailid ".
 	", email" .
-		"\n FROM gen_card_signup(" . DynConf::GetCfg(SIGNUP_CFG,'card_group','0',true) . ', '.
+		" FROM gen_card_signup(" . DynConf::GetCfg(SIGNUP_CFG,'card_group','0',true) . ', '.
 			DynConf::GetCfg(SIGNUP_CFG,'voip_group','NULL') .
 			', %firstname, %lastname, %email, %address, %city, %state, %country, %zipcode, %lang);' ;
 //'SELECT gen_cards(%#grp, %ser, %#num, %startn, %#ucfg) AS ncards;';
