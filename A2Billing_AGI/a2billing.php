@@ -69,6 +69,8 @@ $G_startime = time();
 $agi_date = "Release : you'd wish";
 $agi_version = "Asterisk2Billing - Version v200/xrg - Alpha";
 $conf_file = NULL;
+$card_locked = false;
+$card_authenticate = false;
 
 if ($argc > 1 && ($argv[1] == '--version' || $argv[1] == '-V'))
 {
@@ -239,7 +241,7 @@ function getCard_ivr(){
 	
 	$res = $dbhandle->Execute('SELECT card.id, tariffgroup AS tgid, card.username, card.status, ' .
 		'card.numplan, card.useralias '.
-		'FROM cc_card_dv AS card'.
+		'FROM cc_card_dv AS card '.
 		'WHERE card.username = ? LIMIT 1 ;',
 		array($pinnum));
 	
@@ -257,6 +259,7 @@ function getCard_ivr(){
 	$agi->conlog('Auth-ivr: found card.',4);
 	return $res->fetchRow();
 }
+
 
 function getCard_acode(){
 	global $a2b;
@@ -411,16 +414,39 @@ function str_match($str, $prefix, $match_empty =false) {
 		return false;
 }
 
-function getDialNumber(&$card){
+function getDestination(){
+	global $a2b;
 	global $agi;
 	
-	// TODO, conditional
-	if ($agi->request['agi_extension']=='s')
-		return $agi->request['agi_dnid'];
-	else
-		return $agi->request['agi_extension'];
+	$destination_prompt = getAGIconfig('destination-prompt',"prepaid-enter-dest");
+	$destination_timeout = getAGIconfig('destination-timeoute',6000);
+	$destination_maxlen = getAGIconfig('destination-maxlen',30);
 	
-	// TODO: ask for number, if none
+	$agi->conlog('GetDestination: asking for Destination',4);
+	$res_dtmf = $agi->get_data($destination_prompt, $destination_timeout, $destination_maxlen);
+	
+	$agi->conlog('GetDestination: result ' . print_r($res_dtmf,true),3);
+	if (!isset($res_dtmf['result'])){
+		$agi->conlog('No Destination entered',2);
+		// $agi-> stream_file("prepaid-invalid-digits", '#');
+		return false;
+	}
+	
+	return $res_dtmf['result'];
+}
+
+function getDialNumber(&$card, $num_try){
+	global $agi;
+	
+	if (getAGIconfig('dial_with_extension_dnid',true) && ($num_try==0)){
+		// TODO, conditional
+		if ($agi->request['agi_extension']=='s')
+			return $agi->request['agi_dnid'];
+		else
+			return $agi->request['agi_extension'];
+	} else {
+		return getDestination();
+	}
 	
 	return false;
 }
@@ -628,7 +654,16 @@ if ($mode == 'standard'){
 	$agi->conlog('Standard mode',4);
 		// Repeat until we hangup
 	for($num_try = 0;$num_try<getAGIconfig('number_try',1);$num_try++){
-		$card = getCard();
+		
+		// RELEASE CARD IF LOCKED
+		if ($card_locked) {
+			ReleaseCard($card);
+			$card_locked = false;
+		}
+		
+		if (!$card_authenticate) 
+			$card = getCard();
+		
 		
 		if ($card === false)
 			break;
@@ -656,28 +691,39 @@ if ($mode == 'standard'){
 		// Here, we're authorized..
 		
 		/* We assume here that between consecutive attempts of calls, user's credit
-		   won't change! */
+		   won't change! - we lock the card here */
 		$card_money = CardGetMoney($card);
 		if (!$card_money)
 			continue;
 		//TODO: play balance, intros
-
+		
+		// The card is correctly authenticate and locked, we will authenticate again only if requested
+		$card_locked = true;
+		$card_authenticate = true;
+		
 		if ($card_money['base'] < getAGIconfig('min_credit_2call',0.01)) {
 			// not enough money!
 			$agi->verbose('Not enough money!',2);
 			$agi->conlog('Money: '. print_r($card_money,true),3);
 			$agi->stream_file('prepaid-no-enough-credit','#');
-			ReleaseCard($card);
+			$card_authenticate = false;
 			continue;
 		}
 		
-		$dialnum = getDialNumber($card);
+		$dialnum = getDialNumber($card, $num_try);
 		if ($dialnum===false){
 			$agi->stream_file('prepaid-invalid-digits','#');
-			ReleaseCard($card);
 			continue;
 		}
 		$agi->conlog("Dial number: ". $dialnum,4);
+		/*
+		if (($sp_prefix=getAGIconfig('speeddial_prefix',NULL))!=NULL){
+			if (strncmp($dialnum,$sp_prefix,strlen($sp_prefix))==0){
+				// translate the speed dial.
+				$qry = str_dbparams($dbhandle ,"...", array(substr($dialnum,strlen($sp_prefix))));
+			                   ...
+			}
+		}*/
 
 		$QRY = str_dbparams($a2b->DBHandle(),'SELECT * FROM RateEngine3(%#1, %2, %#3, now(), %4);',
 			array($card['tgid'],$dialnum,$card['numplan'],$card_money['base']));
@@ -693,21 +739,18 @@ if ($mode == 'standard'){
 			$agi->conlog($a2b->DBHandle()->ErrorMsg(),2);
 			if(getAGIconfig('say_errors',true))
 				$agi-> stream_file('allison2'/*-*/, '#');
-			ReleaseCard($card);
 			break;
 		}elseif($res->EOF){
 			$agi->verbose('Rate engine: no result.',2);
-			$agi-> stream_file('prepaid-dest-unreachable'/*-*/, '#');
-			ReleaseCard($card);
-			// if manual dialnum, continue.. TODO
-			break;
+			$agi-> stream_file('prepaid-dest-unreachable', '#');
+			continue;
 		}
 		$routes = $res->GetArray();
 		$agi->conlog('Rate engine: found '.count($routes).' results.',3);
 				
 		// TODO: musiconhold
-		//TODO: record_call
-		//TODO: outbound cid
+		// TODO: record_call
+		// TODO: outbound cid
 		
 		try {
 		    $attempt = 1;
@@ -790,7 +833,7 @@ if ($mode == 'standard'){
 			$dialedtime = $agi->get_variable("DIALEDTIME");
 			if ($dialedtime['result']== 0)
 				$dialedtime['data'] =0;
-				
+			
 			$agi->conlog("Dial result: ".$dialstatus['data'].'('. $hangupcause['data']. ') after '. $answeredtime['data'].'sec.',2);
 			//$agi->conlog("After dial, answertime: ".print_r($answeredtime,true));
 			//TODO: SIP, ISDN extended status
@@ -861,12 +904,12 @@ if ($mode == 'standard'){
 			// Here we handle signals received
 			$agi->verbose("Exception at dial:". $ex->getMessage());
 			@syslog("Exception at dial:". $ex->getMessage());
-			ReleaseCard($card);
 			break;
 		}
 		
-		ReleaseCard($card);
 	}
+	
+	if ($card_locked) ReleaseCard($card);
 	
 	$agi->conlog('Goodbye!',3);
 
