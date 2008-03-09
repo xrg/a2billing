@@ -414,38 +414,47 @@ function str_match($str, $prefix, $match_empty =false) {
 		return false;
 }
 
-function getDestination(){
-	global $a2b;
+function getDialNumber(&$card){
 	global $agi;
 	
-	$destination_prompt = getAGIconfig('destination-prompt',"prepaid-enter-dest");
-	$destination_timeout = getAGIconfig('destination-timeoute',6000);
-	$destination_maxlen = getAGIconfig('destination-maxlen',30);
-	
-	$agi->conlog('GetDestination: asking for Destination',4);
-	$res_dtmf = $agi->get_data($destination_prompt, $destination_timeout, $destination_maxlen);
-	
-	$agi->conlog('GetDestination: result ' . print_r($res_dtmf,true),3);
-	if (!isset($res_dtmf['result'])){
-		$agi->conlog('No Destination entered',2);
-		// $agi-> stream_file("prepaid-invalid-digits", '#');
-		return false;
-	}
-	
-	return $res_dtmf['result'];
-}
-
-function getDialNumber(&$card, $num_try){
-	global $agi;
-	
-	if (getAGIconfig('dial_with_extension_dnid',true) && ($num_try==0)){
+	if (getAGIconfig('dial_with_extension_dnid',true)){
 		// TODO, conditional
 		if ($agi->request['agi_extension']=='s')
 			return $agi->request['agi_dnid'];
 		else
 			return $agi->request['agi_extension'];
 	} else {
-		return getDestination();
+		if (!$agi->is_answered){
+			$agi->conlog('Auth-ivr: answer',4);
+			$agi->answer();
+		}
+
+		$num_try = getAGIconfig('destination-tries',3);
+		$dprompt = getAGIconfig('destination-prompt',"prepaid-enter-dest");
+		$dtimeout = getAGIconfig('destination-timeoute',6000);
+		$dmaxlen = getAGIconfig('destination-maxlen',30);
+		$dminlen = getAGIconfig('destination-minlen',3);
+		
+		$agi->conlog('GetDestination: asking for Destination, up to '. $num_try . ' tries.',4);
+		for ($i = 0; $i < $num_try; $i++) {
+			$res_dtmf = $agi->get_data($dprompt, $dtimeout, $dmaxlen);
+			
+			// TODO: bail out only on some results
+			
+			$agi->conlog('GetDestination: result ' . print_r($res_dtmf,true),3);
+			if (!isset($res_dtmf['result'])){
+				$agi->conlog('No Destination entered',2);
+				// $agi-> stream_file("prepaid-invalid-digits", '#');
+				return false;
+			}
+			if (strlen($res_dtmf['result'])< $dminlen) {
+				$agi-> stream_file("prepaid-invalid-digits", '#');
+			}
+			else
+				return $res_dtmf['result'];
+		}
+		
+		$agi->verbose('No right destination entered through DTMF.',3);
 	}
 	
 	return false;
@@ -710,7 +719,7 @@ if ($mode == 'standard'){
 			continue;
 		}
 		
-		$dialnum = getDialNumber($card, $num_try);
+		$dialnum = getDialNumber($card);
 		if ($dialnum===false){
 			$agi->stream_file('prepaid-invalid-digits','#');
 			continue;
