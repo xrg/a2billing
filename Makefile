@@ -44,7 +44,9 @@ endef
 
 define UI_template
 common/lib/locale/$(2)/LC_MESSAGES/$(1).po: common/lib/locale/$(1).pot
-	msgmerge -U $$@ $$<
+	if [ ! -f $$@ ] ; then \
+		msginit --no-translator -o $$@ -i $$< -l $(2) ; \
+	else msgmerge -U $$@ $$< ; fi
 
 $(CODE-$(1))/lib/locale/$(2)/LC_MESSAGES/$(1).mo: common/lib/locale/$(2)/LC_MESSAGES/$(1).po common/lib/locale/$(2)/LC_MESSAGES/common.po
 	@if [ ! -d $(CODE-$(1))/lib/locale/$(2)/LC_MESSAGES/ ] ; then mkdir -p $(CODE-$(1))/lib/locale/$(2)/LC_MESSAGES/ ; fi
