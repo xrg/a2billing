@@ -2,6 +2,13 @@
 require_once("lib/defines.php");
 require_once("lib/module.access.php");
 
+if (!isset($_SERVER['HTTPS'])){
+	$safe_base="https://".$_SERVER['SERVER_NAME'] . $_SERVER['PHP_SELF'];
+	header ("Location: $safe_base");
+	exit();
+}
+
+
 ?> <html> <body> <?php
 echo "Index!<br>";
 

@@ -1,6 +1,14 @@
 <?php
+require_once(DIR_COMMON."Class.A2Billing.inc.php");
+require_once(DIR_COMMON.'Class.DynConf.inc.php');
 
 error_reporting(E_ALL & ~E_NOTICE);
+if (!DynConf::GetCfg(SIGNUP_CFG,'enable',false)){
+	@syslog(LOG_ERR,"Somebody tried to access Signup on ".$_SERVER['PHP_SELF']." but you don't have this enabled.");
+	Header ("HTTP/1.0 401 Unauthorized");
+	exit();
+}
+
 header("Expires: Sat, Jan 01 2000 01:01:01 GMT");
 
 if (!isset($_SESSION)) {

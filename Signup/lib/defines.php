@@ -14,4 +14,6 @@ define ('MESSAGE_DOMAIN','signup');
 define ("COPYRIGHT", gettext(" This software is under GPL licence. For further information, please visit : <a href=\"http://www.asterisk2billing.org\" target=\"_blank\">asterisk2billing.org</a>"));
 define ("CCMAINTITLE", gettext("Asterisk2Billing : CallingCard platform"));	
 
+// Override this to enable multiple signup configs.
+define ("SIGNUP_CFG",'signup');
 ?>
