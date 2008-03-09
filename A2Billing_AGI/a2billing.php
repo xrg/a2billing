@@ -69,8 +69,6 @@ $G_startime = time();
 $agi_date = "Release : you'd wish";
 $agi_version = "Asterisk2Billing - Version v200/xrg - Alpha";
 $conf_file = NULL;
-$card_locked = false;
-$card_authenticate = false;
 
 if ($argc > 1 && ($argv[1] == '--version' || $argv[1] == '-V'))
 {
@@ -383,6 +381,8 @@ function CardGetMoney(&$card){
 		$agi->verbose('No card from card_call_lock(), why?');
 		return null;
 	}
+	
+	$card['locked']=true;
 	return $res->fetchRow();
 }
 
@@ -393,6 +393,7 @@ function ReleaseCard(&$card){
 	$res = $a2b->DBHandle()->Execute ('SELECT card_call_release(?);',array($card['id']));
 	if (!$res)
 		$agi->verbose('Could not release card: '. $a2b->DBHandle()->ErrorMsg(),2);
+	$card['locked']=false;
 }
 
 /** Match and return string from prefix.
@@ -417,7 +418,7 @@ function str_match($str, $prefix, $match_empty =false) {
 function getDialNumber(&$card){
 	global $agi;
 	
-	if (getAGIconfig('dial_with_extension_dnid',true)){
+	if (getAGIconfig('use_dnid',true)){
 		// TODO, conditional
 		if ($agi->request['agi_extension']=='s')
 			return $agi->request['agi_dnid'];
@@ -662,17 +663,13 @@ if ($mode == 'standard'){
 		
 	$agi->conlog('Standard mode',4);
 		// Repeat until we hangup
+	$card=null;
+	
 	for($num_try = 0;$num_try<getAGIconfig('number_try',1);$num_try++){
-		
-		// RELEASE CARD IF LOCKED
-		if ($card_locked) {
-			ReleaseCard($card);
-			$card_locked = false;
-		}
-		
-		if (!$card_authenticate) 
+		if (!$card)
 			$card = getCard();
-		
+		else if (!empty($card['locked']))
+			ReleaseCard($card);
 		
 		if ($card === false)
 			break;
@@ -706,16 +703,14 @@ if ($mode == 'standard'){
 			continue;
 		//TODO: play balance, intros
 		
-		// The card is correctly authenticate and locked, we will authenticate again only if requested
-		$card_locked = true;
-		$card_authenticate = true;
 		
 		if ($card_money['base'] < getAGIconfig('min_credit_2call',0.01)) {
 			// not enough money!
 			$agi->verbose('Not enough money!',2);
 			$agi->conlog('Money: '. print_r($card_money,true),3);
 			$agi->stream_file('prepaid-no-enough-credit','#');
-			$card_authenticate = false;
+			ReleaseCard($card);
+			$card=null;
 			continue;
 		}
 		
@@ -768,6 +763,8 @@ if ($mode == 'standard'){
 			$agi->conlog($a2b->DBHandle()->ErrorMsg(),2);
 			if(getAGIconfig('say_errors',true))
 				$agi-> stream_file('allison2'/*-*/, '#');
+			ReleaseCard($card);
+			$card=null;
 			break;
 		}elseif($res->EOF){
 			$agi->verbose('Rate engine: no result.',2);
@@ -933,12 +930,15 @@ if ($mode == 'standard'){
 			// Here we handle signals received
 			$agi->verbose("Exception at dial:". $ex->getMessage());
 			@syslog("Exception at dial:". $ex->getMessage());
+			ReleaseCard($card);
+			$card=null;
 			break;
 		}
 		
 	}
 	
-	if ($card_locked) ReleaseCard($card);
+	if ($card && !empty($card['locked']))
+		ReleaseCard($card);
 	
 	$agi->conlog('Goodbye!',3);
 
