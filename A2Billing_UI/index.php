@@ -4,12 +4,19 @@ include ("./lib/company_info.php");
 require('./lib/defines.php');
 require_once(DIR_COMMON."languageSettings.inc.php");
 
-if (isset($_GET['language'])){
+if (isset($_GET['language']))
+	$tmp_language = $_GET['language'];
+elseif (isset($_POST['language']))
+	$tmp_language = $_POST['language'];
+else
+	$tmp_language = negot_language('english');
+
+{
 	// Taken from defines.php
 	define ("LIBDIR", dirname(__FILE__)."/lib/");
-	define ("LANGUAGE",$_GET['language']);
-	SetLocalLanguage($_GET['language']);
+	SetLocalLanguage($tmp_language);
 }
+
 ?>
 <html>
 
@@ -17,7 +24,7 @@ if (isset($_GET['language'])){
 <link rel="shortcut icon" href="./Images/favicon.ico">
 <link rel="icon" href="./Images/animated_favicon1.gif" type="image/gif">
 <title>..:: <?php echo CCMAINTITLE; ?> ::..</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=<?= CHARSET ?>">
 <link href="./Css/menu.css" rel="stylesheet" type="text/css">
 
 <script LANGUAGE="JavaScript">
@@ -61,6 +68,7 @@ if (isset($_GET['language'])){
 ?>
 	<form name="form" method="POST" action="<?= $safe_url ?>" onsubmit="return test()">
 	<input type="hidden" name="done" value="submit_log">
+	<input type="hidden" name="language" value="<?= $tmp_language?>">
 
   	<?php if (isset($_GET["error"]) && $_GET["error"]==1) { ?>
 		<font face="Arial, Helvetica, Sans-serif" size="2" color="red">

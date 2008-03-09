@@ -1,7 +1,24 @@
 <?php
-session_name("UISIGNUP");
-session_start();
+require_once("lib/defines.php");
+require_once("lib/module.access.php");
 
+if (!isset($_SERVER['HTTPS'])){
+	$safe_base="https://".$_SERVER['SERVER_NAME'] . $_SERVER['PHP_SELF'];
+	header ("Location: $safe_base");
+	exit();
+}
+
+
+?> <html> <body> <?php
+echo "Index!<br>";
+
+echo "Language:" . LANGUAGE ."<br>\n";
+
+
+?> </body> </html>  <?php
+
+/////////////////////////////////////
+if (false) {
 include ("../lib/defines.php");
 include ("../lib/module.access.php");
 include ("../lib/Form/Class.FormHandler.inc.php");
@@ -60,4 +77,5 @@ $HD_Form -> create_form ($form_action, $list, $id=null);
 
 // #### FOOTER SECTION
 // include("PP_footer.php");
+}
 ?>

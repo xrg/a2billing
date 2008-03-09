@@ -35,7 +35,7 @@ foreach($PAGE_ELEMS as $elem){
 ?>
 <html><head>
 <title>..:: Asterisk2Billing : CallingCard platform ::..</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=<?= CHARSET ?>">
 
 <link href="./css/print.css" rel="stylesheet" type="text/css">
 
