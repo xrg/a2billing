@@ -28,13 +28,17 @@ $HD_Form->model[] = new TextField(_("Postal code"),'zipcode');
 // language
 // captcha
 
+/* The signup->mail actions are defined here, into this ugly query, so that
+   one different signup "mode" could call those SQL functions differently and
+   alter this logic */
 $HD_Form->QueryString= 'SELECT create_mail( \'' .DynConf::GetCfg(SIGNUP_CFG,'mail_template','signup') . '\','.
 		'email, \''.getenv('LANG') ."', replace(replace(".
 		"'firstname=' || firstname || '&lastname=' || lastname || '&loginkey=' || loginkey ||" .
 		"'&username=' || username || '&userpass=' || userpass ".
 		",' ','%%20'), E'\\n','%%0A') ) ".
 	", email" .
-		"\n FROM gen_card_signup(" . DynConf::GetCfg(SIGNUP_CFG,'card_group','0',true) .
+		"\n FROM gen_card_signup(" . DynConf::GetCfg(SIGNUP_CFG,'card_group','0',true) . ', '.
+			DynConf::GetCfg(SIGNUP_CFG,'voip_group','NULL') .
 			', %firstname, %lastname, %email, %address, %city, %state, %country, %zipcode, %lang);' ;
 //'SELECT gen_cards(%#grp, %ser, %#num, %startn, %#ucfg) AS ncards;';
 
