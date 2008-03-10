@@ -18,6 +18,9 @@ class AskImportView extends FormView {
 	public $distinct = true;
 	public $multi_sep = '|';
 	public $delimiter = ';';
+	public $csvmode = true; ///< Defines some behaviour, like optional fields.
+	public $fmtcomment;	///< The text describing the import format.
+	public $bodyfield;	///< For mail mode, the body field
 
 	function RenderHead(){
 	?>
@@ -179,6 +182,18 @@ function moveSourceDown(tform)
 	function Render(&$form){
 		$this->RenderHead();
 		
+		if (empty($this->fmtcomment) &&($this->csvmode)){
+			$this->fmtcomment = str_params( _("Use the example below to format the CSV file. Fields are separated by '%1' , </br>".
+			    ". and , are used for decimal format."),
+			    array($this->delimiter),1);
+		}
+		if ($this->csvmode)
+			$impMsg= str_params(_("New %1 have to be imported from a CSV file."),
+				array($form->model_name),1);
+		else
+			$impMsg= str_params(_("New %1 have to be imported from a file."),
+				array($form->model_name),1);
+		
 		$fldIndex = array();
 		foreach ($form->model as $key => $fld)
 			if ($fld->fieldname)
@@ -186,37 +201,40 @@ function moveSourceDown(tform)
 		
 		$formname = $form->prefix .'Imp' ;
 		?>
-	<div class='impMsg'><?= str_params(_("New %1 have to be imported from a CSV file."),
-		array($form->model_name),1);?>
+	<div class='impMsg'><?= $impMsg ?>
 	</div>
 	
 	<table cellspacing="2" align="center" class="importForm">
 	<form name="<?= $formname ?>" enctype="multipart/form-data" action="<?= $_SERVER['PHP_SELF']?>" method="post" onsubmit="return importValidate(this)">
 	<input type="hidden" name="action" value="import-analyze">
 	<?php if (count($this->common)){ ?>
-		<tr> <td colspan="2" align=center class='title'> <?= _("Common fields");?></td></tr>
+		<tr> <td colspan="3" align=center class='title'> <?= _("Common fields");?></td></tr>
 	<?php		foreach($this->common as $fldname) {
 				$fld = &$form->model[$fldIndex[$fldname]];
 	?><tr><td class='field'><?php $fld->RenderAddTitle($form) ?></td>
-		<td class='value'><?php $fld->DispAdd($form);?> </td>
+		<td colspan="2" class='value'><?php $fld->DispAdd($form);?> </td>
 	</tr>
 	<?php		}
 		}
 		
 		if (count($this->mandatory)){ ?>
-		<tr> <td colspan="2" align=center class='title'> <?= _("Mandatory fields");?></td></tr>
+		<tr> <td colspan="3" align=center class='title'> <?= _("Mandatory fields");?></td></tr>
 	<?php		foreach($this->mandatory as $fldname) {
+				if ((!$this->csvmode) && $fldname == $this->bodyfield)
+					continue;
 				$fld = &$form->model[$fldIndex[$fldname]];
 		?><tr><td class='field'><?php $fld->RenderAddTitle($form) ?></td>
+		<td class='value'><?php if (!$this->csvmode) echo ucfirst($fldname); ?></td>
 		<td class='value'><div class="descr"><?= $fld->editDescr?></div></td>
 	</tr>
 	<?php		}
 		}
 		
 		if (count($this->optional)){ ?>
-		<tr> <td colspan="2" align=center class='title'> <?= _("Optional fields");?>
-		<input name="search_sources" value="" type="hidden"></td></tr>
-		<tr><td colspan=2 align=center>
+		<tr> <td colspan="3" align=center class='title'> <?= _("Optional fields");?></td></tr>
+		<?php	if ($this->csvmode) { ?>
+		<tr><td colspan="3" align=center>
+			<input name="search_sources" value="" type="hidden">
 			<table><tbody><tr>
 			<td><?php echo gettext("Unselected Fields...");?><br>
 				<select name="unselected_search_sources" multiple="multiple" size="<?= count($this->optional)?>" width="50" onchange="deselectHeaders(document.forms['<?= $formname?>'])">
@@ -245,14 +263,22 @@ function moveSourceDown(tform)
 			</tr>
 			</tbody></table>
 		</td></tr>
-		<?php
+		<?php }else  { //non-csvmode
+			foreach($this->optional as $fldname) {
+				$fld = &$form->model[$fldIndex[$fldname]];
+		?><tr><td class='field'><?php $fld->RenderAddTitle($form) ?></td>
+		<td class='value'><?php if (!$this->csvmode) echo ucfirst($fldname); ?></td>
+		<td class='value'><div class="descr"><?= $fld->editDescr?></div></td>
+	</tr>
+	<?php			}
+			}
 		}
 		
 		?>
-                
-		<tr> <td colspan="2" align=center class='title'> <?= _("Upload File");?></td></tr>
+
+		<tr> <td colspan="3" align=center class='title'> <?= _("Upload File");?></td></tr>
 		<tr> <td class="field"><?= _("File") ?></td>
-			<td class="value"> 
+			<td colspan="2" class="value"> 
 			<p align="center"><span class="textcomment"> 
 			<?= str_params(_("The maximum file size is %1 KB"),
 					array($my_max_file_size / 1024),1) ?>
@@ -263,25 +289,24 @@ function moveSourceDown(tform)
 			</p>
 		</td> </tr>
 		<tr><td class="field"><?= _("Submit")?></td>
-		    <td class='value' align='right'>
+		    <td class='value' colspan="2" align='right'>
 			<input type="submit" value="<?= str_params(_("Import %1"),array($form->model_name),1) ?>" class="btnsubmit" >
 		    </td></tr>
 	
 			<?php if (count($this->examples)) {
 		?>
-		<tr> <td colspan="2" align="center">&nbsp; </td> </tr>
-		<tr> <td colspan="2" align=center class='title'> <?= _("Examples");?></td></tr>
-		<tr> <td colspan="2"> 
-                    <div align="center"><span class="textcomment"> 
-			<?= _("Use the example below  to format the CSV file. Fields are separated by  ; or : </br>".
-			    ". and , are used for decimal format.");?>
+		<tr> <td colspan="3" align="center">&nbsp; </td> </tr>
+		<tr> <td colspan="3" align=center class='title'> <?= _("Examples");?></td></tr>
+		<tr> <td colspan="3"> 
+                    <div align="center"><span class="textcomment">
+			<?= $this->fmtcomment ?>
 			   </span>
 			<br/>
 			<?php foreach ($this->examples as $exmpl){ ?>
 				<a href="<?= $exmpl[1]?>" target="superframe"><?= $exmpl[0] ?></a> -
 			<?php  } ?>
 		    </div>
-			<iframe name="superframe" src="<?= $this->examples[0][1]?>" bgcolor="white" width=500 height=80 marginWidth=10 marginHeight=10  frameBorder=1  scrolling=yes>
+			<iframe name="superframe" src="<?= $this->examples[0][1]?>" bgcolor="white" width=500 height=120 marginWidth=10 marginHeight=10  frameBorder=1  scrolling="auto">
 			</iframe>
 		</td> </tr>
 		<?php  } ?>
