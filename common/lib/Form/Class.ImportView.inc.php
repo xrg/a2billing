@@ -394,16 +394,18 @@ class ImportAView extends FormView {
 		
 			//Now, check the given fields
 		$this->fields = $this->askImport->mandatory;
-		$optionals= explode(':',$form->getpost_dirty('search_sources'));
-		foreach ($optionals as $opt)
-			if (!empty($opt))
-			if (!in_array($opt,$this->askImport->optional)){
-				$form->pre_elems[] = new ErrorElem(_("Error in submitted form."));
-				$dbg_elem->content .= "You tried to pass $opt as a field.\n";
-				$form->setAction('ask-import');
-				return;
-			}else
-				$this->fields[] = $opt;
+		if($this->askImport->csvmode){
+			$optionals= explode(':',$form->getpost_dirty('search_sources'));
+			foreach ($optionals as $opt)
+				if (!empty($opt))
+				if (!in_array($opt,$this->askImport->optional)){
+					$form->pre_elems[] = new ErrorElem(_("Error in submitted form."));
+					$dbg_elem->content .= "You tried to pass $opt as a field.\n";
+					$form->setAction('ask-import');
+					return;
+				}else
+					$this->fields[] = $opt;
+		}
 		
 		$tmpdir = DynConf::GetCfg('global','upload_tmpdir','/tmp');
 		$tmpname = str_replace('/','-',basename($fil['name']));
@@ -609,6 +611,169 @@ class ImportAView extends FormView {
 	}
 };
 
+/** Import a file in mail-like format */
+class ImportMailAView extends ImportAView {
+	public $comment_char = '#';
+	public $delim_line = '-------- Mail --------';
+	
+	public function Render(&$form){
+		?><div class='impA-progress' name="<?= $form->prefix?>iprogress">
+			<?= _("Analyzing uploaded data...") ?>
+		<div>
+		
+		<?php
+		$fp = fopen($this->movedFile,  "r");
+		if (!$fp){
+			?><div class="error">
+				<?= _("Error: Cannot open uploaded file") ?>
+			</div>
+			<?php
+			return;
+		}
+		
+		$all_fields = array();
+		foreach ($this->askImport->mandatory as $fld)
+			$all_fields[ucfirst($fld)] = $fld;
+		
+		foreach ($this->askImport->optional as $fld)
+			$all_fields[ucfirst($fld)] = $fld;
+		
+		// echo nl2br(print_r($fields2,true));
+		$nrows = 0;
+		$commentc = $this->comment_char;
+		$comment_len = strlen($this->comment_char);
+		//$multi_sep = $this->askImport->multi_sep;
+		$max_rows = 10; //TODO
+		$bodyfld=$this->askImport->bodyfield;
+		if (empty($bodyfld))
+			$bodyfld="message";
+				
+		if (!feof($fp)){	// only one, not "while"
+			$temail=array();
+			// Sub-loop: get headers
+			while (!feof($fp)){
+				$line =fgets($fp);
+				if (! $line)
+					break;
+				$line2=trim($line); // but also leave $line intact
+				if (substr($line2,0,$comment_len)== $commentc)
+					continue;
+				if (($pos=strpos($line2,':'))===false)
+					break;
+				$fld = substr($line2,0,$pos);
+				if (!isset($all_fields[$fld])){
+					if ($form->FG_DEBUG>1)
+						echo "Skipping tag \"$fld\"<br>\n";
+					continue;
+				}
+				$temail[$all_fields[$fld]] = substr($line2,$pos+1);
+			}
+			
+				// skip the first line of the message, if it's whitespace
+			if ($line && trim($line)=="")
+				$line="";
+			
+			$temail[$bodyfld] = "";
+			// Second loop: message body
+			do{
+				if ($line == '')
+					continue;
+				if ($line == $this->delim_line."\n")
+					break;
+				$temail[$bodyfld] .=$line;
+			
+			}while (($line = fgets($fp))!==false);
+			
+			if ($form->FG_DEBUG>2)
+				echo "Got one mail!\n";
+			
+			$this->RenderMail($temail,$form);
+		}
+		?>
+		
+	<form action=<?= $_SERVER['PHP_SELF']?> method=post name="<?= $form->prefix?>Imp" id="<?= $form->prefix ?>Imp">
+	<?php	// The uploaded file should never be revealed to the client. Thus, we keep that
+		// in _SESSION.
+		$_SESSION[$form->prefix.'importFile'] = $this->movedFile;
+			// Also, protect against multiple uploads in the same session
+		$str ='';
+		for ($i=0;$i<6;$i++)
+			$str .= mt_rand(0,9);
+		$_SESSION[$form->prefix.'importRnd'] = $str;
+		
+		$hidden_arr = array( 'action' => 'import', 'sub_action' => '', 'rnd' => $str);
+		foreach ($this->askImport->common as $co)
+			$hidden_arr[$co] = $form->getpost_dirty($co);
+
+		if (strlen($form->prefix)>0){
+			$arr2= array();
+			foreach($hidden_arr as $key => $val)
+				$arr2[$form->prefix.$key] = $val;
+			$hidden_arr = $arr2;
+		}
+
+		$form->gen_PostParams($hidden_arr,true); 
+		?>
+		<button type=submit>
+		<?= str_params(_("Import these %1"),array($form->model_name),1) ?>
+		<img src="./Images/icon_arrow_orange.png" ></button>
+		</form>
+		<?php
+		
+		fclose($fp);
+	}
+	
+	public function RenderMail($temail,$form){
+		$fldIndex = array();
+		foreach ($form->model as $key => $fld)
+			if ($fld->fieldname)
+				$fldIndex[$fld->fieldname]=$key;
+		
+		$bodyfld=$this->askImport->bodyfield;
+		if (empty($bodyfld))
+			$bodyfld="message";
+
+		?>
+		<table cellspacing="2" align="center" class="importMailForm">
+		<tbody>
+		<tr><td colspan="3" align=center class='title'>&nbsp;&nbsp;</td><tr>
+		<?php 
+			foreach($this->askImport->mandatory as $fld){
+				if ($fld == $bodyfld)
+					continue;
+			?>
+		<tr><td class="field"><?php
+				$form->model[$fldIndex[$fld]]->RenderAddTitle($form);
+		?></td><td class="value"><?php
+				if(isset($temail[$fld]))
+					echo htmlspecialchars($temail[$fld]);
+		?></td></tr>
+		<?php
+			}
+		?>
+		<tr><td class="field">&nbsp;</td><td class= "value">&nbsp;</td></tr>
+		<?php
+			foreach($this->askImport->optional as $fld){
+				if ($fld == $bodyfld)
+					continue;
+			?>
+		<tr><td class="field"><?php
+				$form->model[$fldIndex[$fld]]->RenderAddTitle($form);
+		?></td><td class="value"><?php
+				if(isset($temail[$fld]))
+					$form->model[$fldIndex[$fld]]->DispList($temail,$form);
+		?></td></tr>
+		<?php
+			}
+		?>
+		<tr><td colspan="3" align=center class='title'><?= $form->model[$fldIndex[$bodyfld]]->fieldtitle ?></td></tr>
+		<tr><td class="message" colspan="2">
+		<?= nl2br(htmlspecialchars($temail[$bodyfld])) ?>
+		</td></tr></tbody>
+		</table>
+		<?
+	}
+};
 /** This class performs the SQL import */
 class ImportView extends FormView {
 	protected $askImport;
