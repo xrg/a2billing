@@ -774,25 +774,6 @@ ALTER TABLE ONLY cc_ecommerce_product
 --
 
 
-CREATE TABLE cc_speeddial (
-    id bigserial NOT NULL,
-    id_cc_card bigint DEFAULT 0 NOT NULL,	
-    phone text NOT NULL,
-    name text NOT NULL,
-    speeddial integer DEFAULT 0,
-    creationdate timestamp without time zone DEFAULT now()
-);
-
-
-ALTER TABLE ONLY cc_speeddial
-    ADD CONSTRAINT cc_speeddial_pkey PRIMARY KEY (id);
-
-
-ALTER TABLE ONLY cc_speeddial
-    ADD CONSTRAINT cons_cc_speeddial_pkey UNIQUE (id_cc_card, speeddial);
-
-
-
 
 -- Auto Refill Report Table	
 
