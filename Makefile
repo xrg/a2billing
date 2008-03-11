@@ -7,7 +7,7 @@ UIS= A2BAgent_UI A2Billing_UI A2BCustomer_UI Signup
 LANGS-agent=el_GR en_US es_ES fr_FR it_IT pl_PL pt_PT
 LANGS-admin=en_US pt_BR el_GR
 LANGS-signup=el_GR en_US es_ES fr_FR it_IT pl_PL pt_PT
-# LANGS-customer=en_US el_GR es_ES fr_FR it_IT pl_PL pt_PT pt_BR ro_RO ru_RU tr_TR ur_PK zh_TW
+LANGS-customer=en_US el_GR es_ES fr_FR it_IT pl_PL pt_PT pt_BR ro_RO ru_RU tr_TR ur_PK zh_TW
 LANGS-common=en_US el_GR es_ES fr_FR it_IT pl_PL pt_PT pt_BR ro_RO ru_RU tr_TR ur_PK zh_TW
 
 CODE-admin=A2Billing_UI
