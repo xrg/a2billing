@@ -53,7 +53,7 @@ foreach($PAGE_ELEMS as $elem){
 <br>
 <table>
 <tr><td class="divleft">
-	<?php //require("PP_menu.inc.php");?>
+	<?php include("PP_menu.inc.php");?>
 	</td>
 <td class="divright">
 	<?php

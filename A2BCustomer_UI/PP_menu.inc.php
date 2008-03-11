@@ -1,19 +1,164 @@
 <?php
-include_once("lib/defines.php");
-include_once("lib/module.access.php");
-include_once(dirname(__FILE__)."/lib/company_info.php");
+require_once ("lib/defines.php");
+require_once ("lib/module.access.php");
 
-if (! has_rights (ACX_ACCESS)){ 
-	   Header ("HTTP/1.0 401 Unauthorized");
-	   Header ("Location: PP_error.php?c=accessdenied");
-	   die();
+$cfg = DynConf::instance();
+?>
+<script language="JavaScript">
+<!--
+var mywin
+var prevdiv="dummydiv"
+function imgidclick(imgID,divID)
+{
+
+	var agt=navigator.userAgent.toLowerCase();
+    // *** BROWSER VERSION ***
+    // Note: On IE5, these return 4, so use is_ie5up to detect IE5.
+    var is_major = parseInt(navigator.appVersion);
+    var is_minor = parseFloat(navigator.appVersion);
+
+    // Note: Opera and WebTV spoof Navigator.  We do strict client detection.
+    // If you want to allow spoofing, take out the tests for opera and webtv.
+    var is_nav  = ((agt.indexOf('mozilla')!=-1) && (agt.indexOf('spoofer')==-1)
+                && (agt.indexOf('compatible') == -1) && (agt.indexOf('opera')==-1)
+                && (agt.indexOf('webtv')==-1) && (agt.indexOf('hotjava')==-1));
+	var is_ie     = ((agt.indexOf("msie") != -1) && (agt.indexOf("opera") == -1));
+	
+	
+	if (is_ie){			
+		if 	(document.all(divID).style.display == "none" )
+		{		
+			document.all(divID).style.display="";
+			document.all(imgID).src="./Images/minus.png";
+		}
+		else
+		{			
+			document.all(divID).style.display="None";
+			document.all(imgID).src="./Images/plus.png";
+		}
+		// Only for I.E
+		window.event.cancelBubble=true;
+	}else{
+		if 	(document.getElementById(divID).style.display == "none" )
+		{
+			document.getElementById(divID).style.display="";
+			document.getElementById(imgID).src="./Images/minus.png";
+		}
+		else
+		{			
+			document.getElementById(divID).style.display="None";
+			document.getElementById(imgID).src="./Images/plus.png";
+		}
+	}
 }
 
-//require (LANGUAGE_DIR.FILENAME_PP_MENU);
+function menu_toggle(sect_str){
+	//elmnt.parent.style.visibility="hidden";
+	//alert(elmnt.style.visibility);
+	var sect=document.getElementById(sect_str);
+	var dom_ul=sect.getElementsByTagName("ul")[0];
+	if (dom_ul.style.display=="inline")
+		dom_ul.style.display="none";
+	else
+		dom_ul.style.display="inline";
+}
 
-$templatemail = 0;
-$displayservice = 1;
+function menu_show(sect_str){
+	//elmnt.parent.style.visibility="hidden";
+	//alert(elmnt.style.visibility);
+	var sect=document.getElementById(sect_str);
+	var dom_ul=sect.getElementsByTagName("ul")[0];
+	dom_ul.style.display="inline";
+}
 
+//-->
+</script>
+
+<div id="dummydiv"></div>
+
+<div id="menu" class="menu" >
+	
+	<div>
+		<a href="userinfo.php"><?= _("ACCOUNT INFO") ?></a>
+	</div>
+	<?php if ($cfg->GetCfgVar(CUSTOMER_CFG,'menu_sipiax',false)){ ?>
+	<div>
+		<a href="A2B_entity_sipiax_info.php?"><?= _("SIP/IAX INFO"); ?></a>
+	</div>
+	<?php }
+		if($cfg->GetCfgVar(CUSTOMER_CFG,'menu_cdr',true)){ ?>
+	<div>
+		<a href="call-history.php"><?= _("CALL HISTORY");?></a>
+	</div>
+	<?php }
+		if($cfg->GetCfgVar(CUSTOMER_CFG,'menu_voucher',false)){ ?>
+	<div>
+		<a href="A2B_entity_voucher.php"><?= _("VOUCHER");?></a>
+	</div>
+	<?php }
+		if($cfg->GetCfgVar(CUSTOMER_CFG,'menu_invoices',true)){ ?>
+	<div id='menu_invoices'>
+	<a onclick="menu_toggle('menu_invoices');"><?= _("INVOICES");?></a>
+	<ul>
+		<li><a href="A2B_entity_call_details.php"><?= _("Invoice Details");?></a></li>
+		<li><a href="A2B_entity_view_invoice.php"><?= _("View Invoices");?></a></li>
+		<li><a href="invoices_customer.php"><?= _("Current Invoice");?></a></li> 
+	</ul>
+	</div>
+	<?php }
+		if($cfg->GetCfgVar(CUSTOMER_CFG,'menu_did',false)){ ?>
+	<div>
+		<a href="A2B_entity_did.php"><?= _("DID");?></a>
+	</div>
+	<?php }
+		if($cfg->GetCfgVar(CUSTOMER_CFG,'menu_speeddial',true)){ ?>
+	<div>
+		<a href="A2B_entity_speeddial.php"><?= _("SPEED DIAL");?></a>
+	</div>
+	<?php }
+		if($cfg->GetCfgVar(CUSTOMER_CFG,'menu_ratecard',true)){ ?>
+	<div>
+		<a href="A2B_entity_ratecard.php"><?= _("RATECARD");?></a>
+	</div>
+	<?php }
+		if($cfg->GetCfgVar(CUSTOMER_CFG,'menu_simulator',true)){ ?>
+	<div>
+		<a href="simulator.php"><?= _("SIMULATOR");?></a>
+	</div>
+	<?php }
+		if($cfg->GetCfgVar(CUSTOMER_CFG,'menu_callback',false)){ ?>
+	<div>
+		<a href="callback.php"><?= _("CALLBACK");?></a>
+	</div>
+	<?php }
+		if($cfg->GetCfgVar(CUSTOMER_CFG,'menu_webphone',false)){ ?>
+	<div>
+		<a href="webphone.php"><?= _("WEB-PHONE");?></a>
+	</div>
+	<?php }
+		if($cfg->GetCfgVar(CUSTOMER_CFG,'menu_callerid',false)){ ?>
+	<div>
+		<a href="A2B_entity_callerid.php"><?= _("CALLER ID");?></a>
+	</div>
+	<?php }
+		if($cfg->GetCfgVar(CUSTOMER_CFG,'menu_password',false)){ ?>
+	<div>
+	<a href="A2B_entity_password.php?action=ask-edit"><?= _("PASSWORD");?></a>
+	</div>
+	<?php }
+	?>
+	<div><a style="color: #DD0000; font-weight: bold;" href="logout.php?logout=true" target="_top"><?= gettext("LOGOUT");?></a></div>
+
+</div>
+<script>
+menu_show( '<?= $menu_section ?>',true);
+</script>
+
+<?php
+
+unset($cfg); // don't pass it further to PHP scripts ..
+
+if (false) {
 ?>
 <script language="JavaScript">
 <!--
@@ -93,13 +238,10 @@ div.menu div ul {
 	
        <div><a href="userinfo.php?"><?= _("ACCOUNT INFO");?></a></div>
 <?php if ($A2B->config['webcustomerui']['sipiaxinfo']==1) { ?>
-	<div><a href="A2B_entity_sipiax_info.php?"><?= _("SIP/IAX INFO");?></a></div>
 <?php }
 if ($A2B->config['webcustomerui']['cdr']==1) { ?>
-	<div><a href="call-history.php"><?= _("CALL HISTORY");?></a></div>
 <?php }
 if ($A2B->config['webcustomerui']['voucher']==1) { ?>
-       <div><a href="A2B_entity_voucher.php?form_action=list"><?= _("VOUCHER");?></a></div>
 <?php }
 if ($A2B->config['webcustomerui']['invoice']==1) { ?>
 	<div id='menu_invoices'>
@@ -164,3 +306,5 @@ if ($A2B->config['webcustomerui']['password']==1) { ?>
 	</td>
 </tr>
 </table>
+<?php } // if false..
+?>
