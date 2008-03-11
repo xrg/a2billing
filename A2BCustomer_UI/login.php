@@ -67,6 +67,8 @@ if (!session_is_registered('pr_login') || !session_is_registered('pr_password') 
 		$_SESSION['pr_status'] = $return['status'];
 		$_SESSION['card_id'] = $return['id'];
 		$_SESSION['lang_db'] = $return['language'];
+		$_SESSION['card_grp'] = $return['grp'];
+		$_SESSION['currency'] = $return['currency'];
 
 	}else{
 		$_SESSION["cus_rights"]=0;
@@ -104,7 +106,7 @@ function login ($user, $pass) {
 	if (($cgrp = DynConf::GetCfg(CUSTOMER_CFG,'cardgroup_only',null))!=null)
 		$group_clause = ' AND grp = %#3';
 
-	$QUERY = str_dbparams($DBHandle,"SELECT id, username, status, currency, language
+	$QUERY = str_dbparams($DBHandle,"SELECT id, username, status, currency, grp, language
 		 FROM cc_card WHERE ($nameclause) AND userpass = %2 $group_clause ;" ,
 		 array($user,$pass,$cgrp));
 	$res = $DBHandle -> Execute($QUERY);
