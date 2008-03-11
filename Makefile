@@ -39,7 +39,9 @@ endef
 
 define COMMON_template
 common/lib/locale/$(1)/LC_MESSAGES/common.po: common/lib/locale/common.pot
-	msgmerge -U $$@ $$<
+	if [ ! -f $$@ ] ; then \
+		msginit --no-translator -o $$@ -i $$< -l $(1) ; \
+	else msgmerge -U $$@ $$< ; fi
 endef
 
 define UI_template
