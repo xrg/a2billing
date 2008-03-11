@@ -57,6 +57,40 @@ function get_locales($all = true) {
 	return $ret;
 }
 
+function negot_language($def_lang){
+	global $language_list;
+	if (!isset($_SERVER['HTTP_ACCEPT_LANGUAGE']))
+		return $def_lang;
+	
+	$langs= explode(',',$_SERVER['HTTP_ACCEPT_LANGUAGE']);
+	
+	$cur_lang = $def_lang;
+	$cur_q = 0.0;
+	
+	foreach($langs as $lang){
+		$langa = explode(';', $lang);
+		$langq=1.0;
+		if ((isset($langa[1])) && (substr($langa[1],0,2)== "q="))
+			$langq=(float)substr($langa[1],2);
+		//echo "Found supported lang \"".$langa[0]."\", q= ".$langq ."<br>\n";
+		
+		if ($cur_q >= $langq)
+			continue;
+		
+		foreach($language_list as $langl)
+		    if ($langl['flag'])
+			if (($langl['abbrev'] == $langa[0]) ||
+			    ($langl['locale'] == $langa[0]) ||
+			    (substr($langl['locale'],0,2) == $langa[0])) {
+				$cur_lang=$langl['cname'];
+				$cur_q = $langq;
+				break;
+			}
+	}
+	
+	return $cur_lang;
+}
+
 function SetLocalLanguage($set_lang) {
 	$slectedLanguage = "en_US";
 	$languageEncoding = "en_US.iso88591";

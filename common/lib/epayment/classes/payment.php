@@ -10,10 +10,10 @@
   Released under the GNU General Public License
 */
         
-  class payment {
+Class payment {
     var $modules, $selected_module;
 
-// class constructor
+	// class constructor
     function payment($module = '') {
       global $payment, $language, $PHP_SELF;
 
@@ -49,16 +49,13 @@
 
         for ($i=0, $n=sizeof($include_modules); $i<$n; $i++) {
 
-          //include(DIR_WS_LANGUAGES . $language . '/modules/payment/' . $include_modules[$i]['file']);
-          include('../lib/epayment/methods/' . $include_modules[$i]['file']);
-
+          include(dirname(__FILE__).'/../methods/' . $include_modules[$i]['file']);
           $GLOBALS[$include_modules[$i]['class']] = new $include_modules[$i]['class'];
         }
 
-// if there is only one payment method, select it as default because in
-// checkout_confirmation.php the $payment variable is being assigned the
-// $_POST['payment'] value which will be empty (no radio button selection possible)
-
+		// if there is only one payment method, select it as default because in
+		// checkout_confirmation.php the $payment variable is being assigned the
+		// $_POST['payment'] value which will be empty (no radio button selection possible)
 
         if ( (count($this-> modules) == 1) && (!isset($GLOBALS[$payment]) || (isset($GLOBALS[$payment]) && !is_object($GLOBALS[$payment]))) ) {
           $payment = $include_modules[0]['class'];

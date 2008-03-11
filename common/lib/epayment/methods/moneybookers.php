@@ -1,14 +1,5 @@
 <?php
-/*
-  $Id: moneybookers.php,v 2.0 2004/04/20 12:00:00 by Templatefactory.info
 
-  osCommerce, Open Source E-Commerce Solutions
-  http://www.oscommerce.com
-
-  Copyright (c) 2002 osCommerce
-
-  Released under the GNU General Public License
-*/
   include("../lib/epayment/includes/methods/moneybookers.php");
   class moneybookers {
     var $code, $title, $description, $enabled;
