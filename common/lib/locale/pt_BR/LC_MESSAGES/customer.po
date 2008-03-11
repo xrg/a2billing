@@ -3019,3 +3019,12 @@ msgstr ""
 #: .././checkout_amount.php:119
 msgid "Paypal Fee Calculator"
 msgstr "Calculador de taxas do PayPal"
+
+#: .././lib/help.php:74
+msgid ""
+"Configuration information for SIP and IAX Client. You can simply copy and "
+"paste it in your configuration files and can do neccessory modifications."
+msgstr ""
+"Informação de configuração para Clientes SIP e IAX. Você pode simplesmente "
+"copiar e colar isto no seu arquivo de configuração e fazer as modificações "
+"necessárias."
