@@ -1,16 +1,83 @@
 <?php
-include ("lib/defines.php");
-include ("lib/module.access.php");
+require_once ("./lib/defines.php");
+require_once ("./lib/module.access.php");
+require_once (DIR_COMMON."Form.inc.php");
+require_once (DIR_COMMON."Class.HelpElem.inc.php");
+require_once (DIR_COMMON."Form/Class.RevRef.inc.php");
+require_once (DIR_COMMON."Form/Class.TimeField.inc.php");
+require_once (DIR_COMMON."Form/Class.SqlRefField.inc.php");
+require_once (DIR_COMMON."Form/Class.RevRefForm.inc.php");
+require_once (DIR_COMMON."Form/Class.TextSearchField.inc.php");
+require_once (DIR_COMMON."Form/Class.ClauseField.inc.php");
+require_once (DIR_COMMON."Form/Class.SelectionForm.inc.php");
+
+if (!DynConf::GetCfg(CUSTOMER_CFG,'menu_cdr',true)) exit();
+
+$SEL_Form = new SelectionForm();
+$SEL_Form->init();
+$SEL_Form->model[] = new DateTimeField(_("Period from"),'date_from');
+	end($SEL_Form->model)->does_add = false;
+	end($SEL_Form->model)->def_date = '00:00 last month';
+	end($SEL_Form->model)->fieldexpr = 'starttime';
+$SEL_Form->model[] = new DateTimeField(_("Period to"),'date_to');
+	end($SEL_Form->model)->does_add = false;
+	end($SEL_Form->model)->def_date = 'now';
+	end($SEL_Form->model)->fieldexpr = 'starttime';
+
+/*$SEL_Form->model[] = new SqlRefFieldN(_("Agent"),'agentid','cc_agent','id','name');
+	end($SEL_Form->model)->does_add = false;*/
+
+$SEL_Form->search_exprs['date_from'] = '>=';
+$SEL_Form->search_exprs['date_to'] = '<=';
+
+$SEL_Form->model[] = new TextSearchField(_("Destination"),'destination');
+$SEL_Form->model[] = new TextSearchField(_("Called number"),'calledstation');
+
+$PAGE_ELEMS[] = &$SEL_Form;
+
+HelpElem::DoHelp(_("Calls you have made *-* ..."),'vcard.png');
+
+$HD_Form= new FormHandler('cc_call2_v',_("Calls"),_("Call"));
+$HD_Form->checkRights(ACX_ACCESS);
+$HD_Form->default_order='starttime';
+$HD_Form->default_sens='DESC';
+
+$HD_Form->init(null,false); // beware!
+$HD_Form->views['list']= new ListView();
+$HD_Form->views['details']= new DetailsView();
+
+$PAGE_ELEMS[] = &$HD_Form;
+
+$SEL_Form->enable($HD_Form->getAction() == 'list');
+
+$HD_Form->model[]=new ClauseField("cardid",$_SESSION['card_id']);
+$HD_Form->model[] = DontList( new PKeyFieldTxt(_("Session ID"),'sessionid'));
+$HD_Form->model[] = DontList( new PKeyFieldTxt(_("Unique ID"),'uniqueid'));
+$HD_Form->model[] = DontList(new PKeyField(_("Card ID"),'cardid'));
+
+$SEL_Form->appendClauses($HD_Form);
 
 
-if (! has_rights (ACX_ACCESS)) { 
-	Header ("HTTP/1.0 401 Unauthorized");
-	Header ("Location: PP_error.php?c=accessdenied");	   
-	die();
-}
+$HD_Form->model[] = new DateTimeFieldDH(_("Start Time"),'starttime');
+$HD_Form->model[] = new TextField(_("Mode"),'cmode');
+$HD_Form->model[] = DontList(new DateTimeField(_("Stop Time"),'stoptime'));
 
-if (!$A2B->config["webcustomerui"]['cdr']) exit();
+$HD_Form->model[] = new TextField(_("Called station"),'calledstation');
+$HD_Form->model[] = new TextField(_("Destination"),'destination');
+	//end($HD_Form->model)->fieldexpr=
+$HD_Form->model[] = new IntField(_("Duration"),'sessiontime');
+end($HD_Form->model)->fieldacr=_("Dur");
 
+$HD_Form->model[] = new TextField(_("Result"),'tcause');
+
+$HD_Form->model[] = new MoneyField(_("Bill"),'sessionbill',_("The amount you have been charged for the call."));
+
+// do we? $HD_Form->model[] = DontList(new SqlRefFieldN(_("Tariff group"),'tgid','cc_tariffgroup','id','name', _("Tariff group used by the rate engine.")));
+
+require("PP_page.inc.php");
+
+
+if (false) {
 $QUERY = "SELECT  username, credit, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, lastuse, activated, status FROM cc_card WHERE username = '".$_SESSION["pr_login"]."' AND uipass = '".$_SESSION["pr_password"]."'";
 
 
@@ -744,4 +811,5 @@ foreach ($list_total_day as $data){
 
 <?php
 	include("PP_footer.php");
+	}
 ?>
