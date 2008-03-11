@@ -11,7 +11,7 @@ $User_Form= new FormHandler("cc_card");
 $User_Form->checkRights(ACX_ACCESS);
 $User_Form->init(null,false);
 $User_Form->views['list']=new DetailsView();
-
+// $User_Form->views['list']->table_class="user-info";
 
 $User_Form->model[]=new ClauseField("id",$_SESSION['card_id']);
 
