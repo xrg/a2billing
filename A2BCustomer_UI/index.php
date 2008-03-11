@@ -100,15 +100,16 @@ tr.failed-login {
 	if (!empty($_GET['error'])){
 			?><tr align="center" class="failed-login"><td colspan=4><?php
 		switch($_GET['error']){
-		case 1:
+		case 1: // db res not found
 			echo _("AUTHENTICATION REFUSED, please check your user/password!");
 			break;
 		case 2:
 			echo _("INACTIVE ACCOUNT, Please activate your account!");
 			break;
-		case 3:
+		case -4:
 			echo _("BLOCKED ACCOUNT, Please contact your administrator!");
 			break;
+		// TODO: write more here, values are negatives of cc_card.status
 		default:
 			echo _("INVALID ACCOUNT, Please contact your administrator!");
 		}	

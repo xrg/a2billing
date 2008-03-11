@@ -36,15 +36,13 @@ if (!session_is_registered('pr_login') || !session_is_registered('pr_password') 
 	!session_is_registered('cus_rights') || 
 	(isset($_POST["done"]) && $_POST["done"]=="submit_log") ){
 
-	if ($FG_DEBUG > 1) echo "<br>0. HERE WE ARE";
+	if ($FG_DEBUG > 1) echo "Login attempt:<br>";
 
 	if ($_POST["done"]=="submit_log"){
 
-		if ($FG_DEBUG == 1) echo "<br>1. ".$_POST["pr_login"].$_POST["pr_password"];
-		$_POST["pr_login"] = access_sanitize_data($_POST["pr_login"]);
-		$_POST["pr_password"] = access_sanitize_data($_POST["pr_password"]);
-
-		$return = login ($_POST["pr_login"], $_POST["pr_password"]);
+		$return = login( access_sanitize_data($_POST["pr_login"]),
+				access_sanitize_data($_POST["pr_password"]));
+		
 		if ($FG_DEBUG >= 1)
 			echo "Return from login(): ". print_r($return,true)."<br>\n";
 		
@@ -55,35 +53,20 @@ if (!session_is_registered('pr_login') || !session_is_registered('pr_password') 
 			header ("HTTP/1.0 401 Unauthorized");
 			if ($FG_DEBUG)
 				die(); //early, leave messages on page.
+			$err=4;
 			if(is_int($return))
-			{
-				if($return == -1)
-					Header ("Location: $unsafe_base/index.php?error=3");
-				else
-					Header ("Location: $unsafe_base/index.php?error=2");
-        		}
-			else
-			{
-				Header ("Location: $unsafe_base/index.php?error=1");
-			}
+				$err=$return;
+			Header ("Location: $unsafe_base/index.php?error=$err");
 			die();
 		}
 
 		$cus_rights = 1;
 
-		if ($_POST["pr_login"]){
-			$pr_login = $return[0]; //$_POST["pr_login"];
-			$pr_password = $_POST["pr_password"];
-
-			if ($FG_DEBUG == 1) echo "<br>3. $pr_login-$pr_password-$cus_rights";
-			$_SESSION["pr_login"]=$pr_login;
-			$_SESSION["pr_password"]=$pr_password;
-			$_SESSION["cus_rights"]=$cus_rights;
-			$_SESSION["card_id"]=$return[3];
-			$_SESSION["id_didgroup"]=$return[4];
-			$_SESSION["tariff"]=$return[5];
-			$_SESSION["vat"]=$return[6];
-		}
+		$_SESSION["cus_rights"]=1;
+		$_SESSION['pr_login'] = $return['username'];
+		$_SESSION['pr_status'] = $return['status'];
+		$_SESSION['card_id'] = $return['id'];
+		$_SESSION['lang_db'] = $return['language'];
 
 	}else{
 		$_SESSION["cus_rights"]=0;
@@ -103,32 +86,54 @@ function login ($user, $pass) {
 	if (strlen($user)==0 || strlen($user)>=50 || strlen($pass)==0 || strlen($pass)>=50)
 		return false;
 
-	$QUERY = str_dbparams($DBHandle,"SELECT username, credit, activated, id, id_didgroup, tariff, vat, activatedbyuser FROM cc_card WHERE (email = %1 OR useralias = %1) AND uipass = %2" , array($user,$pass));
+	$nameclause ="";
+	if (DynConf::GetCfg(CUSTOMER_CFG,'username_login',true))
+		$nameclause = "username = %1";
+	
+	if (DynConf::GetCfg(CUSTOMER_CFG,'useralias_login',false)){
+		if (!empty($nameclause))
+			$nameclause .= ' OR ';
+		$nameclause .= "useralias = %1";
+	}
+	
+	if (DynConf::GetCfg(CUSTOMER_CFG,'email_login',false)){
+		if (!empty($nameclause))
+			$nameclause .= ' OR ';
+		$nameclause .= "email = %1";
+	}
+	if (($cgrp = DynConf::GetCfg(CUSTOMER_CFG,'cardgroup_only',null))!=null)
+		$group_clause = ' AND grp = %#3';
+
+	$QUERY = str_dbparams($DBHandle,"SELECT id, username, status, currency, language
+		 FROM cc_card WHERE ($nameclause) AND userpass = %2 $group_clause ;" ,
+		 array($user,$pass,$cgrp));
 	$res = $DBHandle -> Execute($QUERY);
 
 	if (!$res) {
 		$errstr = $DBHandle->ErrorMsg();
 		if ($FG_DEBUG)
 			echo $errstr."<br>\n";
-		return (false);
+		return 4;
 	}
 	if ($res->EOF){
 		// no such user!
-		return false;
+		if ($FG_DEBUG>1)
+			echo "Query: $QUERY <br>";
+		return 1;
 	}
 
-	$row [] =$res -> fetchRow();
+	$row =$res -> fetchRow();
 
-	if( $row [0][2] != "t" && $row [0][2] != "1" ) {
-		return -1;
-	}
+	if ($row['status'] != 1)
+		return 0- intval( $row['status']);
 	
-    if( ACTIVATEDBYUSER==1 && $row [0][7] != "t" && $row [0][7] != "1" ) {
-		return -2;
-	}
+//     if( ACTIVATEDBYUSER==1 && $row [0][7] != "t" && $row [0][7] != "1" ) {
+// 		return -2;
+// 	}
 
-	return ($row[0]);
+	return ($row);
 }
+
 //include (dirname(__FILE__)."/../lib/company_info.php");
 
 header ("Location: $unsafe_base/index2.php");
