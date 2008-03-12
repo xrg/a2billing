@@ -10,7 +10,7 @@ agiconf
 	early_answer				0
 	number_try					1
 	min_credit_2call			0
-	speeddial_prefix			*
+	speeddial_prefix			*		(if null/dont exit this will not enable the speeddial prefix)
 	say_errors					1
 	pin-prompt					prepaid-enter-pin-number
 	pin-timeoute				6000
@@ -19,6 +19,7 @@ agiconf
 	dial_with_extension_dnid	1
 	min_duration_2call			30
 	say_goodbye					1
+	
 
 
 	use_dnid					0
@@ -26,4 +27,6 @@ agiconf
 	destination-prompt			prepaid-enter-dest
 	destination-timeoute		6000
 	destination-maxlen			30
+	destination-minlen			1
+	destination-tries			3
 	

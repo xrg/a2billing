@@ -69,8 +69,6 @@ $G_startime = time();
 $agi_date = "Release : you'd wish";
 $agi_version = "Asterisk2Billing - Version v200/xrg - Alpha";
 $conf_file = NULL;
-$card_locked = false;
-$card_authenticate = false;
 
 if ($argc > 1 && ($argv[1] == '--version' || $argv[1] == '-V'))
 {
@@ -383,6 +381,8 @@ function CardGetMoney(&$card){
 		$agi->verbose('No card from card_call_lock(), why?');
 		return null;
 	}
+	
+	$card['locked']=true;
 	return $res->fetchRow();
 }
 
@@ -393,6 +393,7 @@ function ReleaseCard(&$card){
 	$res = $a2b->DBHandle()->Execute ('SELECT card_call_release(?);',array($card['id']));
 	if (!$res)
 		$agi->verbose('Could not release card: '. $a2b->DBHandle()->ErrorMsg(),2);
+	$card['locked']=false;
 }
 
 /** Match and return string from prefix.
@@ -414,41 +415,83 @@ function str_match($str, $prefix, $match_empty =false) {
 		return false;
 }
 
-function getDestination(){
-	global $a2b;
-	global $agi;
-	
-	$destination_prompt = getAGIconfig('destination-prompt',"prepaid-enter-dest");
-	$destination_timeout = getAGIconfig('destination-timeoute',6000);
-	$destination_maxlen = getAGIconfig('destination-maxlen',30);
-	
-	$agi->conlog('GetDestination: asking for Destination',4);
-	$res_dtmf = $agi->get_data($destination_prompt, $destination_timeout, $destination_maxlen);
-	
-	$agi->conlog('GetDestination: result ' . print_r($res_dtmf,true),3);
-	if (!isset($res_dtmf['result'])){
-		$agi->conlog('No Destination entered',2);
-		// $agi-> stream_file("prepaid-invalid-digits", '#');
-		return false;
-	}
-	
-	return $res_dtmf['result'];
-}
-
 function getDialNumber(&$card, $num_try){
 	global $agi;
 	
-	if (getAGIconfig('use_dnid',true) && ($num_try==0)){
+	if (getAGIconfig('use_dnid',true) && ($num_try==1)){
 		// TODO, conditional
 		if ($agi->request['agi_extension']=='s')
 			return $agi->request['agi_dnid'];
 		else
 			return $agi->request['agi_extension'];
 	} else {
-		return getDestination();
+		if (!$agi->is_answered){
+			$agi->conlog('Auth-ivr: answer',4);
+			$agi->answer();
+		}
+
+		$num_try = getAGIconfig('destination-tries',3);
+		$dprompt = getAGIconfig('destination-prompt',"prepaid-enter-dest");
+		$dtimeout = getAGIconfig('destination-timeoute',6000);
+		$dmaxlen = getAGIconfig('destination-maxlen',30);
+		$dminlen = getAGIconfig('destination-minlen',1);
+		
+		$agi->conlog('GetDestination: asking for Destination, up to '. $num_try . ' tries.',4);
+		for ($i = 0; $i < $num_try; $i++) {
+			$res_dtmf = $agi->get_data($dprompt, $dtimeout, $dmaxlen);
+			
+			// TODO: bail out only on some results
+			
+			$agi->conlog('GetDestination: result ' . print_r($res_dtmf,true),3);
+			if (!isset($res_dtmf['result'])){
+				$agi->conlog('No Destination entered',2);
+				// $agi-> stream_file("prepaid-invalid-digits", '#');
+				return false;
+			}
+			if (strlen($res_dtmf['result'])< $dminlen) {
+				$agi-> stream_file("prepaid-invalid-digits", '#');
+			}
+			else
+				return $res_dtmf['result'];
+		}
+		
+		$agi->verbose('No right destination entered through DTMF.',3);
 	}
 	
 	return false;
+}
+
+function getSpeedDial ($card, &$dialnum){
+	global $a2b;
+	global $agi;
+	
+	// SPEED DIAL HANDLER
+	if (($sp_prefix=getAGIconfig('speeddial_prefix',NULL))!=NULL) {
+		if (strncmp($dialnum,$sp_prefix,strlen($sp_prefix))==0) {
+			// translate the speed dial.
+			$QRY = str_dbparams ($a2b->DBHandle() ,"SELECT phone, name FROM speeddials WHERE card_id = %#1 AND speeddial = %2", 
+								array($card['id'], substr($dialnum,strlen($sp_prefix))));
+		    $agi->conlog($QRY,3);
+			$res = $a2b->DBHandle()->Execute($QRY);
+			
+			// If the rate engine has anything to Notice/Warn, display that..
+			if ($notice = $a2b->DBHandle()->NoticeMsg())
+				$agi->verbose('DB:' . $notice,2);
+				
+			if (!$res) {
+				$agi->verbose('Speed Dial: query error!',2);
+				$agi->conlog($a2b->DBHandle()->ErrorMsg(),2);
+				if(getAGIconfig('say_errors',true))
+					$agi-> stream_file('allison2'/*-*/, '#');
+				break;
+			} elseif ($res->EOF) {
+				$agi->verbose('Speed Dial: no result.',2);
+			}
+			$arr_speeddial = $res->fetchRow();
+			$agi->conlog('Speed Dial : found '.$arr_speeddial['phone'],4);
+			$dialnum = $arr_speeddial['phone'];
+		}
+	}
 }
 
 function formatDialstring($dialn,&$route, &$card){
@@ -652,52 +695,56 @@ if ($mode == 'standard'){
 		$agi->exec('Progress');
 		
 	$agi->conlog('Standard mode',4);
-	
-	
-	$card = getCard();
-	if ($card === false)
-		break;
-	if ($card === null)
-		continue;
-	$agi->conlog('Card: ' . print_r($card,true),4);
-	
-	//TODO: fix lang
-	if ($card['status']!=1){
-		switch($card['status']){
-		case 8: //disabled card in booth
-			$agi->stream_file('prepaid-no-card-entered','#');
-			break;
-		case 5:
-			$agi->stream_file('prepaid-card-expired','#');
-			break;
-		default:
-			$agi->verbose('Card status: '.$card['status'] .', exiting.',2);
-		}
-		break;
-	}
-	
+		// Repeat until we hangup
+	$card=null;
 	
 	for($num_try = 0;$num_try<getAGIconfig('number_try',1);$num_try++){
+		if (!$card)
+			$card = getCard();
+		else if (!empty($card['locked']))
+			ReleaseCard($card);
 		
-		/* We lock the card here */
-		if (!$card_locked) {
-			$card_money = CardGetMoney($card);
-			
-			if (!$card_money)
-				break;	
+		if ($card === false)
+			break;
+
+		if ($card === null)
+			continue;
+		
+		$agi->conlog('Card: ' . print_r($card,true),4);
+		
+		//TODO: fix lang
+		if ($card['status']!=1){
+			switch($card['status']){
+			case 8: //disabled card in booth
+				$agi->stream_file('prepaid-no-card-entered','#');
+				break;
+			case 5:
+				$agi->stream_file('prepaid-card-expired','#');
+				break;
+			default:
+				$agi->verbose('Card status: '.$card['status'] .', exiting.',2);
+			}
+			break;
 		}
+
+		// Here, we're authorized..
 		
+		/* We assume here that between consecutive attempts of calls, user's credit
+		   won't change! - we lock the card here */
+		$card_money = CardGetMoney($card);
+		if (!$card_money)
+			continue;
 		//TODO: play balance, intros
 		
-		// The card is correctly authenticate and locked
-		$card_locked = true;
 		
 		if ($card_money['base'] < getAGIconfig('min_credit_2call',0.01)) {
 			// not enough money!
 			$agi->verbose('Not enough money!',2);
 			$agi->conlog('Money: '. print_r($card_money,true),3);
 			$agi->stream_file('prepaid-no-enough-credit','#');
-			break;
+			ReleaseCard($card);
+			$card=null;
+			continue;
 		}
 		
 		$dialnum = getDialNumber($card, $num_try);
@@ -707,34 +754,9 @@ if ($mode == 'standard'){
 		}
 		$agi->conlog("Dial number: ". $dialnum,4);
 		
-		// SPEED DIAL HANDLER
-		if (($sp_prefix=getAGIconfig('speeddial_prefix',NULL))!=NULL){
-			if (strncmp($dialnum,$sp_prefix,strlen($sp_prefix))==0){
-				// translate the speed dial.
-				$QRY = str_dbparams ($a2b->DBHandle() ,"SELECT phone, name FROM speeddials WHERE card_id = %#1 AND speeddial = %2", 
-									array($card['id'], substr($dialnum,strlen($sp_prefix))));
-			    $agi->conlog($QRY,3);
-				$res = $a2b->DBHandle()->Execute($QRY);
-				
-				// If the rate engine has anything to Notice/Warn, display that..
-				if ($notice = $a2b->DBHandle()->NoticeMsg())
-					$agi->verbose('DB:' . $notice,2);
-					
-				if (!$res){
-					$agi->verbose('Speed Dial: query error!',2);
-					$agi->conlog($a2b->DBHandle()->ErrorMsg(),2);
-					if(getAGIconfig('say_errors',true))
-						$agi-> stream_file('allison2'/*-*/, '#');
-					break;
-				}elseif($res->EOF){
-					$agi->verbose('Speed Dial: no result.',2);
-				}
-				$arr_speeddial = $res->fetchRow();
-				$agi->conlog('Speed Dial : found '.$arr_speeddial['phone'],4);
-				$dialnum = $arr_speeddial['phone'];
-			}
-		}
-
+		// CHECK SPEEDDIAL
+		getSpeedDial ($card, &$dialnum);
+		
 		$QRY = str_dbparams($a2b->DBHandle(),'SELECT * FROM RateEngine3(%#1, %2, %#3, now(), %4);',
 			array($card['tgid'],$dialnum,$card['numplan'],$card_money['base']));
 			
@@ -749,6 +771,8 @@ if ($mode == 'standard'){
 			$agi->conlog($a2b->DBHandle()->ErrorMsg(),2);
 			if(getAGIconfig('say_errors',true))
 				$agi-> stream_file('allison2'/*-*/, '#');
+			ReleaseCard($card);
+			$card=null;
 			break;
 		}elseif($res->EOF){
 			$agi->verbose('Rate engine: no result.',2);
@@ -765,136 +789,136 @@ if ($mode == 'standard'){
 		try {
 		    $attempt = 1;
 		    $last_prob = '';
-			foreach ($routes as $route){
-				if ($route['tmout'] < getAGIconfig('min_duration_2call',30)){
-					$agi->conlog('Call will be too short: ',$route['tmout'],3);
-					$last_prob = 'min-length';
-					continue;
-				}
-				
-				$dialstr = formatDialstring($dialnum,$route, $card);
-				if ($dialstr === null){
-					$last_prob='unreachable';
-					continue;
-				}elseif (!$dialstr){
-					$last_prob='no-dialstring';
-					continue;
-				}elseif($dialstr ===true){
-					if (dialSpecial($dialnum,$route, $card,$last_prob,$agi))
-						break;
-					else
-						continue;
-				}
-				
-				// Callerid
-				if ($route['clidreplace']!== NULL){
-					$new_clid = str_alparams($route['clidreplace'],
-						array( useralias =>$card['useralias'],
-							nplan => $card['numplan'],
-							callernum => $agi->request['agi_callerid']));
-				}else
-					$new_clid = $agi->request['agi_callerid'];
-				
-					// we always reset the clid, because the previous rate
-					// engine may have changed it.
-				$agi->conlog("Setting clid to : $new_clid",3);
-				$agi->set_variable('CALLERID(num)',$new_clid);
-					
-				$res = $a2b->DBHandle()->Execute('INSERT INTO cc_call (cardid, attempt, cmode, '.
-					'sessionid, uniqueid, nasipaddress, src, ' .
-					'calledstation, destination, '.
-					'srid, brid, tgid, trunk) '.
-					'VALUES( ?,?,?,?,?,?,?,?,?,?,?,?,?) RETURNING id;',
-					array($card['id'],$attempt, 'standard',
-						$agi->request['agi_channel'],$agi->request['agi_uniqueid'],NULL,$card['username'],
-						$dialnum,$route['destination'],
-						$route['srid'],$route['brid'],$route['tgid'],$route['trunkid']));
-				
-				if ($notice = $a2b->DBHandle()->NoticeMsg())
-					$agi->verbose('DB:' . $notice,2);
-	
-				if (!$res){
-					$agi->verbose('Cannot mark call start in db!');
-					$agi->conlog($a2b->DBHandle()->ErrorMsg(),2);
-					  // This error may mean that trunk is in use etc.
-					  // If call cannot be billed, we'd better abort it.
-					 $last_prob='call-insert';
-					continue;
-				}elseif($res->EOF){
-					$agi->verbose('Cannot mark call start in db: EOF!');
-					$last_prob='call-insert';
-					continue;
-				}
-				$call_id = $res->fetchRow();
-				$agi->conlog('Start call '. $call_id['id'],4);
-				
-				$agi->conlog("Dial '". $route['destination']. "'@". $route['trunkcode'] . " : $dialstr",3);
-				$attempt++;
-				$call_res= $agi->exec('Dial',$dialstr);
-				//TODO: if record, stop
-				
-				$hangupcause=$agi->get_variable('HANGUPCAUSE');
-				
-				$answeredtime = $agi->get_variable("ANSWEREDTIME");
-				if ($answeredtime['result']== 0)
-					$answeredtime['data'] =0;
-				$dialstatus = $agi->get_variable("DIALSTATUS");
-				
-				$dialedtime = $agi->get_variable("DIALEDTIME");
-				if ($dialedtime['result']== 0)
-					$dialedtime['data'] =0;
-				
-				$agi->conlog("Dial result: ".$dialstatus['data'].'('. $hangupcause['data']. ') after '. $answeredtime['data'].'sec.',2);
-				//$agi->conlog("After dial, answertime: ".print_r($answeredtime,true));
-				//TODO: SIP, ISDN extended status
-				
-				$can_continue = false;
-				$cause_ext = '';
-				switch ($dialstatus['data']){
-				case 'BUSY':
-					$last_prob='busy';
-					break;
-				case 'ANSWERED':
-				case 'ANSWER':
-				case 'CANCEL':
-					$last_prob='';
-					break;
-				
-				case 'CONGESTION':
-				case 'CHANUNAVAIL':
-					$last_prob='call-fail';
-					$can_continue = true;
-					break;
-				case 'NOANSWER':
-					$last_prob='no-answer';
-					$can_continue = true;
-					break;
-				default:
-					$agi->verbose("Unknown status: ".$dialstatus['data'],2);
-				}
-				
-				$res = $a2b->DBHandle()->Execute('UPDATE cc_call SET '.
-					'stoptime = now(), sessiontime = ?, tcause = ?, hupcause = ?, '.
-					'cause_ext =?, startdelay =? '.
-						/* stopdelay */
-					'WHERE id = ? ;',
-					array( $answeredtime['data'],$dialstatus['data'],$hangupcause['data'],
-						$cause_ext,
-						($dialedtime['data'] - $answeredtime['data']),
-						$call_id['id']));
-				
-				if ($notice = $a2b->DBHandle()->NoticeMsg())
-					$agi->verbose('DB:' . $notice,2);
-	
-				if (!$res){
-					$agi->verbose('Cannot mark call end in db! (will NOT bill)',0);
-					$agi->conlog($a2b->DBHandle()->ErrorMsg(),2);
-				}
-			
-				if (!$can_continue) //TODO: manual dialnum?
-					break;
-	
+		foreach ($routes as $route){
+			if ($route['tmout'] < getAGIconfig('min_duration_2call',30)){
+				$agi->conlog('Call will be too short: ',$route['tmout'],3);
+				$last_prob = 'min-length';
+				continue;
 			}
+			
+			$dialstr = formatDialstring($dialnum,$route, $card);
+			if ($dialstr === null){
+				$last_prob='unreachable';
+				continue;
+			}elseif (!$dialstr){
+				$last_prob='no-dialstring';
+				continue;
+			}elseif($dialstr ===true){
+				if (dialSpecial($dialnum,$route, $card,$last_prob,$agi))
+					break;
+				else
+					continue;
+			}
+			
+			// Callerid
+			if ($route['clidreplace']!== NULL){
+				$new_clid = str_alparams($route['clidreplace'],
+					array( useralias =>$card['useralias'],
+						nplan => $card['numplan'],
+						callernum => $agi->request['agi_callerid']));
+			}else
+				$new_clid = $agi->request['agi_callerid'];
+			
+				// we always reset the clid, because the previous rate
+				// engine may have changed it.
+			$agi->conlog("Setting clid to : $new_clid",3);
+			$agi->set_variable('CALLERID(num)',$new_clid);
+				
+			$res = $a2b->DBHandle()->Execute('INSERT INTO cc_call (cardid, attempt, cmode, '.
+				'sessionid, uniqueid, nasipaddress, src, ' .
+				'calledstation, destination, '.
+				'srid, brid, tgid, trunk) '.
+				'VALUES( ?,?,?,?,?,?,?,?,?,?,?,?,?) RETURNING id;',
+				array($card['id'],$attempt, 'standard',
+					$agi->request['agi_channel'],$agi->request['agi_uniqueid'],NULL,$card['username'],
+					$dialnum,$route['destination'],
+					$route['srid'],$route['brid'],$route['tgid'],$route['trunkid']));
+			
+			if ($notice = $a2b->DBHandle()->NoticeMsg())
+				$agi->verbose('DB:' . $notice,2);
+
+			if (!$res){
+				$agi->verbose('Cannot mark call start in db!');
+				$agi->conlog($a2b->DBHandle()->ErrorMsg(),2);
+				  // This error may mean that trunk is in use etc.
+				  // If call cannot be billed, we'd better abort it.
+				 $last_prob='call-insert';
+				continue;
+			}elseif($res->EOF){
+				$agi->verbose('Cannot mark call start in db: EOF!');
+				$last_prob='call-insert';
+				continue;
+			}
+			$call_id = $res->fetchRow();
+			$agi->conlog('Start call '. $call_id['id'],4);
+			
+			$agi->conlog("Dial '". $route['destination']. "'@". $route['trunkcode'] . " : $dialstr",3);
+			$attempt++;
+			$call_res= $agi->exec('Dial',$dialstr);
+			//TODO: if record, stop
+			
+			$hangupcause=$agi->get_variable('HANGUPCAUSE');
+			
+			$answeredtime = $agi->get_variable("ANSWEREDTIME");
+			if ($answeredtime['result']== 0)
+				$answeredtime['data'] =0;
+			$dialstatus = $agi->get_variable("DIALSTATUS");
+			
+			$dialedtime = $agi->get_variable("DIALEDTIME");
+			if ($dialedtime['result']== 0)
+				$dialedtime['data'] =0;
+			
+			$agi->conlog("Dial result: ".$dialstatus['data'].'('. $hangupcause['data']. ') after '. $answeredtime['data'].'sec.',2);
+			//$agi->conlog("After dial, answertime: ".print_r($answeredtime,true));
+			//TODO: SIP, ISDN extended status
+			
+			$can_continue = false;
+			$cause_ext = '';
+			switch ($dialstatus['data']){
+			case 'BUSY':
+				$last_prob='busy';
+				break;
+			case 'ANSWERED':
+			case 'ANSWER':
+			case 'CANCEL':
+				$last_prob='';
+				break;
+			
+			case 'CONGESTION':
+			case 'CHANUNAVAIL':
+				$last_prob='call-fail';
+				$can_continue = true;
+				break;
+			case 'NOANSWER':
+				$last_prob='no-answer';
+				$can_continue = true;
+				break;
+			default:
+				$agi->verbose("Unknown status: ".$dialstatus['data'],2);
+			}
+			
+			$res = $a2b->DBHandle()->Execute('UPDATE cc_call SET '.
+				'stoptime = now(), sessiontime = ?, tcause = ?, hupcause = ?, '.
+				'cause_ext =?, startdelay =? '.
+					/* stopdelay */
+				'WHERE id = ? ;',
+				array( $answeredtime['data'],$dialstatus['data'],$hangupcause['data'],
+					$cause_ext,
+					($dialedtime['data'] - $answeredtime['data']),
+					$call_id['id']));
+			
+			if ($notice = $a2b->DBHandle()->NoticeMsg())
+				$agi->verbose('DB:' . $notice,2);
+
+			if (!$res){
+				$agi->verbose('Cannot mark call end in db! (will NOT bill)',0);
+				$agi->conlog($a2b->DBHandle()->ErrorMsg(),2);
+			}
+		
+			if (!$can_continue) //TODO: manual dialnum?
+				break;
+
+		}
 			// After trying all routes, feed back the result only once.
 		
 			//TODO: set hangup cause accordingly
@@ -914,16 +938,15 @@ if ($mode == 'standard'){
 			// Here we handle signals received
 			$agi->verbose("Exception at dial:". $ex->getMessage());
 			@syslog("Exception at dial:". $ex->getMessage());
+			ReleaseCard($card);
+			$card=null;
 			break;
 		}
 		
 	}
 	
-	// RELEASE CARD
-	if ($card_locked) {
-		$agi->conlog("Release Card ", 4);
-		ReleaseCard($card);	
-	}
+	if ($card && !empty($card['locked']))
+		ReleaseCard($card);
 	
 	$agi->conlog('Goodbye!',3);
 
