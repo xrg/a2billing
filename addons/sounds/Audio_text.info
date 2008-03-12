@@ -63,9 +63,10 @@ prepaid-euros									euros
 ; Voucher
 prepaid-account_refill							your account has been refill of 
 prepaid-refill_card_with_voucher				if you want to refill your card with a voucher, please type 8 now
-prepaid-unknow_used_currencie					sorry unknow used currency
 prepaid-voucher_does_not_exist					the voucher does not exist
 prepaid-voucher_enter_number					please enter the voucher number and press the pound key
+prepaid-no-voucher-entered						no voucher has been entered
+prepaid-invalid-voucher							the voucher you entered is invalid
 
 ; Callback
 prepaid-callback_intro							Your call is now being connected, Please hold
