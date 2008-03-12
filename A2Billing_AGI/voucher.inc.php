@@ -14,29 +14,28 @@ function getVoucher ($card){
 	
 	$agi->conlog('Voucher refill with card',4);
 	
-	$voucher_prompt_enter = getAGIconfig('voucher-prompt-enter', 'prepaid-voucher_enter_number');
-	$voucher_timeout = getAGIconfig('voucher-timeoute', 8000);
-	$voucher_maxlen = getAGIconfig('voucher-maxlen', 15);
-	$voucher_minlen = getAGIconfig('voucher-minlen', 5);
-	$voucher_prompt = getAGIconfig('voucher-prompt', 'prepaid-voucher_enter_number');
-	$voucher_prompt_doesnt_exist = getAGIconfig('voucher-prompt-doesnt-exist', 'prepaid-voucher_does_not_exist');
-	$voucher_prompt_account_refill = getAGIconfig('voucher-prompt-account-refill', 'prepaid-account_refill');
-	$voucher_prompt_no_voucher_entered = getAGIconfig('voucher-prompt-no-voucher-entered', 'prepaid-no-voucher-entered');
-	$voucher_prompt_invalid_voucher = getAGIconfig('voucher-prompt-invalid-voucher', 'prepaid-invalid-voucher');
+	$vtimeout = getAGIconfig('voucher-timeoute', 8000);
+	$vmaxlen = getAGIconfig('voucher-maxlen', 15);
+	$vminlen = getAGIconfig('voucher-minlen', 5);
+	$vprompt = getAGIconfig('voucher-prompt', 'prepaid-voucher_enter_number');
+	$vprompt_nexist = getAGIconfig('voucher-prompt-nexist', 'prepaid-voucher_does_not_exist');
+	$vprompt_refill = getAGIconfig('voucher-prompt-refill', 'prepaid-account_refill');
+	$vprompt_no_entered = getAGIconfig('voucher-prompt-no-entered', 'prepaid-no-voucher-entered');
+	$vprompt_invalid = getAGIconfig('voucher-prompt-invalid', 'prepaid-invalid-voucher');
 	
 	$agi->conlog('Voucher-ivr: asking for Voucher',4);
-	$res_dtmf = $agi->get_data($voucher_prompt, $voucher_timeout, $voucher_maxlen);
+	$res_dtmf = $agi->get_data($vprompt, $vtimeout, $vmaxlen);
 	
 	$agi->conlog('Voucher-ivr: result ' . print_r($res_dtmf,true),3);
 	if (!isset($res_dtmf['result'])){
 		$agi->conlog('No Voucher entered',2);
-		$agi-> stream_file($voucher_prompt_no_voucher_entered, '#');
+		$agi-> stream_file($vprompt_no_entered, '#');
 		return null;
 	}
 	$vouchernum = $res_dtmf['result'];
-	if ((strlen($vouchernum) < $voucher_minlen) || (strlen($vouchernum) > $voucher_maxlen)) {
+	if ((strlen($vouchernum) < $vminlen) || (strlen($vouchernum) > $vmaxlen)) {
 		$agi->conlog('Invalid Voucher',2);
-		$agi-> stream_file($voucher_prompt_invalid_voucher, '#');
+		$agi-> stream_file($vprompt_invalid, '#');
 		return null;
 	}
 	
@@ -87,7 +86,7 @@ function getVoucher ($card){
 	}
 	
 	$agi->conlog('Voucher used. Amount of credit added : ' . $row['card_use_voucher'], 3);
-	$agi-> stream_file($voucher_prompt_account_refill, '#');
+	$agi-> stream_file($vprompt_refill, '#');
 	
 	// TODO : play the Amount of credit added
 	
