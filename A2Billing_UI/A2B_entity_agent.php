@@ -34,8 +34,8 @@ $HD_Form->model[] = new SqlRefField(_("TARIFFG"), "tariffgroup","cc_tariffgroup"
 // $HD_Form->model[] = new RefField(_("CURRENCY").gettext("CUR"), "currency", "5%");
 
 $actived_list = array();
-$actived_list[] = array('t',gettext("Active"));
-$actived_list[] = array('f',gettext("Inactive"));
+$actived_list[] = array('t',_("Active"));
+$actived_list[] = array('f',_("Inactive"));
 
 $HD_Form->model[] = new RefField(_("ACTIVATED"), "active", $actived_list,_("Allow the agent to operate"),"4%");
 end($HD_Form->model)->fieldacr =  gettext("ACT");
