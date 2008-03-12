@@ -415,10 +415,10 @@ function str_match($str, $prefix, $match_empty =false) {
 		return false;
 }
 
-function getDialNumber(&$card){
+function getDialNumber(&$card, $num_try){
 	global $agi;
 	
-	if (getAGIconfig('use_dnid',true)){
+	if (getAGIconfig('use_dnid',true) && ($num_try==1)){
 		// TODO, conditional
 		if ($agi->request['agi_extension']=='s')
 			return $agi->request['agi_dnid'];
@@ -434,7 +434,7 @@ function getDialNumber(&$card){
 		$dprompt = getAGIconfig('destination-prompt',"prepaid-enter-dest");
 		$dtimeout = getAGIconfig('destination-timeoute',6000);
 		$dmaxlen = getAGIconfig('destination-maxlen',30);
-		$dminlen = getAGIconfig('destination-minlen',3);
+		$dminlen = getAGIconfig('destination-minlen',1);
 		
 		$agi->conlog('GetDestination: asking for Destination, up to '. $num_try . ' tries.',4);
 		for ($i = 0; $i < $num_try; $i++) {
@@ -459,6 +459,39 @@ function getDialNumber(&$card){
 	}
 	
 	return false;
+}
+
+function getSpeedDial ($card, &$dialnum){
+	global $a2b;
+	global $agi;
+	
+	// SPEED DIAL HANDLER
+	if (($sp_prefix=getAGIconfig('speeddial_prefix',NULL))!=NULL) {
+		if (strncmp($dialnum,$sp_prefix,strlen($sp_prefix))==0) {
+			// translate the speed dial.
+			$QRY = str_dbparams ($a2b->DBHandle() ,"SELECT phone, name FROM speeddials WHERE card_id = %#1 AND speeddial = %2", 
+								array($card['id'], substr($dialnum,strlen($sp_prefix))));
+		    $agi->conlog($QRY,3);
+			$res = $a2b->DBHandle()->Execute($QRY);
+			
+			// If the rate engine has anything to Notice/Warn, display that..
+			if ($notice = $a2b->DBHandle()->NoticeMsg())
+				$agi->verbose('DB:' . $notice,2);
+				
+			if (!$res) {
+				$agi->verbose('Speed Dial: query error!',2);
+				$agi->conlog($a2b->DBHandle()->ErrorMsg(),2);
+				if(getAGIconfig('say_errors',true))
+					$agi-> stream_file('allison2'/*-*/, '#');
+				break;
+			} elseif ($res->EOF) {
+				$agi->verbose('Speed Dial: no result.',2);
+			}
+			$arr_speeddial = $res->fetchRow();
+			$agi->conlog('Speed Dial : found '.$arr_speeddial['phone'],4);
+			$dialnum = $arr_speeddial['phone'];
+		}
+	}
 }
 
 function formatDialstring($dialn,&$route, &$card){
@@ -714,41 +747,16 @@ if ($mode == 'standard'){
 			continue;
 		}
 		
-		$dialnum = getDialNumber($card);
+		$dialnum = getDialNumber($card, $num_try);
 		if ($dialnum===false){
 			$agi->stream_file('prepaid-invalid-digits','#');
 			continue;
 		}
 		$agi->conlog("Dial number: ". $dialnum,4);
 		
-		// SPEED DIAL HANDLER
-		if (($sp_prefix=getAGIconfig('speeddial_prefix',NULL))!=NULL){
-			if (strncmp($dialnum,$sp_prefix,strlen($sp_prefix))==0){
-				// translate the speed dial.
-				$QRY = str_dbparams ($a2b->DBHandle() ,"SELECT phone, name FROM speeddials WHERE card_id = %#1 AND speeddial = %2", 
-									array($card['id'], substr($dialnum,strlen($sp_prefix))));
-			    $agi->conlog($QRY,3);
-				$res = $a2b->DBHandle()->Execute($QRY);
-				
-				// If the rate engine has anything to Notice/Warn, display that..
-				if ($notice = $a2b->DBHandle()->NoticeMsg())
-					$agi->verbose('DB:' . $notice,2);
-					
-				if (!$res){
-					$agi->verbose('Speed Dial: query error!',2);
-					$agi->conlog($a2b->DBHandle()->ErrorMsg(),2);
-					if(getAGIconfig('say_errors',true))
-						$agi-> stream_file('allison2'/*-*/, '#');
-					break;
-				}elseif($res->EOF){
-					$agi->verbose('Speed Dial: no result.',2);
-				}
-				$arr_speeddial = $res->fetchRow();
-				$agi->conlog('Speed Dial : found '.$arr_speeddial['phone'],4);
-				$dialnum = $arr_speeddial['phone'];
-			}
-		}
-
+		// CHECK SPEEDDIAL
+		getSpeedDial ($card, &$dialnum);
+		
 		$QRY = str_dbparams($a2b->DBHandle(),'SELECT * FROM RateEngine3(%#1, %2, %#3, now(), %4);',
 			array($card['tgid'],$dialnum,$card['numplan'],$card_money['base']));
 			
