@@ -40,6 +40,8 @@ $HD_Form->model[] = new PKeyFieldEH(_("ID"),'id');
 $HD_Form->model[] = new TextFieldEH(_("Voucher"),'voucher');
 $HD_Form->model[] = new TextFieldEH(_("Tag"),'tag',_("Enter the tag."));
 $HD_Form->model[] = new FloatVolField(_("Credit"),'credit',_("Money in the voucher. Positive is credit."));
+$HD_Form->model[] = new SqlRefFieldN(_("Currency"),'currency','cc_currencies','currency','name', _("Default currency for this voucher."));
+
 
 $HD_Form->model[] = new SqlBigRefField(_("CardNumber"), "card_id","cc_card", "id", "username");
 	end($HD_Form->model)->SetRefEntity("A2B_entity_card.php");
@@ -48,8 +50,9 @@ $HD_Form->model[] = new SqlBigRefField(_("CardNumber"), "card_id","cc_card", "id
 
 $HD_Form->model[] = dontAdd(dontEdit(new DateTimeField(_("Creation Date"), "creationdate", _("Date the voucher was created (entered into this system)"))));
 $HD_Form->model[] = dontAdd(dontEdit(new DateTimeField(_("Used Date"), "usedate", _("Date the voucher has been used."))));
-$HD_Form->model[] = new DateTimeField(_("EXPIRY DATE"), "expirationdate", _("Date the voucher will expire."));
-
+$HD_Form->model[] = new DateTimeFieldN(_("EXPIRY DATE"), "expirationdate", _("Date the voucher will expire."));
+	end($HD_Form->model)->def_date='+6 month 1 day';
+	
 $actived_list = array();
 $actived_list[] = array('t',_("Active"));
 $actived_list[] = array('f',_("Inactive"));
