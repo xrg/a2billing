@@ -3,10 +3,15 @@
     Copyright(C) P. Christeas, Areski, 2007-8
 */
 
-function getDialNumber(&$card, $num_try){
+/** Retrieve the Dial number for standard calls
+    \param $first_try Boolean. if true, we can use first-time-only methods,
+    	like dnid.
+*/
+
+function getDialNumber(&$card, $first_try){
 	global $agi;
 	
-	if (getAGIconfig('use_dnid',true) && ($num_try==1)){
+	if (getAGIconfig('use_dnid',true) && $first_try){
 		// TODO, conditional
 		if ($agi->request['agi_extension']=='s')
 			return $agi->request['agi_dnid'];

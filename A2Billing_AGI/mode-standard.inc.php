@@ -62,7 +62,7 @@ for($num_try = 0;$num_try<getAGIconfig('number_try',1);$num_try++){
 		continue;
 	}
 	
-	$dialnum = getDialNumber($card, $num_try);
+	$dialnum = getDialNumber($card, ($num_try==0));
 	if ($dialnum===false){
 		$agi->stream_file('prepaid-invalid-digits','#');
 		continue;
