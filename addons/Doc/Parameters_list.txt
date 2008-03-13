@@ -30,3 +30,15 @@ agiconf
 	destination-minlen			1
 	destination-tries			3
 	
+
+	voucher-timeoute			8000
+	voucher-maxlen				15
+	voucher-minlen				5
+	voucher-prompt				prepaid-voucher_enter_number
+	voucher-prompt-nexist		prepaid-voucher_does_not_exist
+	voucher-prompt-refill		prepaid-account_refill
+	voucher-prompt-no-entered	prepaid-no-voucher-entered
+	voucher-prompt-invalid		prepaid-invalid-voucher
+	
+	
+	
