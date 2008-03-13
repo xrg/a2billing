@@ -74,6 +74,17 @@ $SEL_Form->appendClauses($HD_Form);
 $PAGE_ELEMS[] = &$SEL_Form;
 $PAGE_ELEMS[] = &$HD_Form;
 $PAGE_ELEMS[] = new AddNewButton($HD_Form);
+$PAGE_ELEMS[] = new AddExportButton($HD_Form);
+
+/*
+// Code here for adding the fields in the Export File
+$HD_Form -> FieldExportElement(CARD_EXPORT_FIELD_LIST);
+if (!($popup_select>=1)) $HD_Form -> FG_EXPORT_CSV = true;
+if (!($popup_select>=1)) $HD_Form -> FG_EXPORT_XML = true;
+$HD_Form -> FG_EXPORT_SESSION_VAR = "pr_export_entity_card";
+
+- make 
+*/
 
 if($HD_Form->getAction()=='exportLT')
 	require("PP_LaTeX.inc.php");
