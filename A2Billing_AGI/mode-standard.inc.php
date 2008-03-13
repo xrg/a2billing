@@ -14,8 +14,14 @@ $card=null;
 	
 	// Repeat until we hangup
 for($num_try = 0;$num_try<getAGIconfig('number_try',1);$num_try++){
-	if (!$card)
+	if (!$agi->is_alive)
+		break;
+
+	if (!$card){
 		$card = getCard();
+		$agi->conlog('Got card: ' . print_r($card,true),4);
+	}
+	
 	else if (!empty($card['locked']))
 		ReleaseCard($card);
 	
@@ -24,8 +30,6 @@ for($num_try = 0;$num_try<getAGIconfig('number_try',1);$num_try++){
 
 	if ($card === null)
 		continue;
-	
-	$agi->conlog('Card: ' . print_r($card,true),4);
 	
 	//TODO: fix lang
 	if ($card['status']!=1){
@@ -138,6 +142,11 @@ for($num_try = 0;$num_try<getAGIconfig('number_try',1);$num_try++){
 			// engine may have changed it.
 		$agi->conlog("Setting clid to : $new_clid",3);
 		$agi->set_variable('CALLERID(num)',$new_clid);
+		
+		if ($num_try==0)
+			$uniqueid=$agi->request['agi_uniqueid'];
+		else
+			$uniqueid=$agi->request['agi_uniqueid'].'-'.$num_try;
 			
 		$res = $a2b->DBHandle()->Execute('INSERT INTO cc_call (cardid, attempt, cmode, '.
 			'sessionid, uniqueid, nasipaddress, src, ' .
@@ -145,7 +154,7 @@ for($num_try = 0;$num_try<getAGIconfig('number_try',1);$num_try++){
 			'srid, brid, tgid, trunk) '.
 			'VALUES( ?,?,?,?,?,?,?,?,?,?,?,?,?) RETURNING id;',
 			array($card['id'],$attempt, 'standard',
-				$agi->request['agi_channel'],$agi->request['agi_uniqueid'],NULL,$card['username'],
+				$agi->request['agi_channel'],$uniqueid,NULL,$card['username'],
 				$dialnum,$route['destination'],
 				$route['srid'],$route['brid'],$route['tgid'],$route['trunkid']));
 		

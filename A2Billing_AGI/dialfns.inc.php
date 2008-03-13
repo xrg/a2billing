@@ -34,9 +34,11 @@ function getDialNumber(&$card, $first_try){
 			$res_dtmf = $agi->get_data($dprompt, $dtimeout, $dmaxlen);
 			
 			// TODO: bail out only on some results
+			// NOTE: data='timeout' may happen when ivr times out, but still
+			// have a valid number
 			
 			$agi->conlog('GetDestination: result ' . print_r($res_dtmf,true),3);
-			if (!isset($res_dtmf['result'])){
+			if (!isset($res_dtmf['result']) || ($res_dtmf['result']== -1)){
 				$agi->conlog('No Destination entered',2);
 				// $agi-> stream_file("prepaid-invalid-digits", '#');
 				return false;
