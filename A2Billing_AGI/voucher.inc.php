@@ -69,7 +69,7 @@ function getVoucher ($card){
 			}
 		}else $agi->verbose('Could not use voucher : '. $emsg );
 		
-		$agi-> stream_file($voucher_prompt_invalid_voucher, '#');
+		$agi-> stream_file($vprompt_invalid, '#');
 		return null;
 	}
 	if ($res->EOF){
