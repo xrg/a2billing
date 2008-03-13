@@ -124,6 +124,7 @@ $agi = new AGI($dynconf,'agiconf'.$idconfig);
 if (!$agi->is_alive)
 	exit();
 
+$mode = 'standard';
 // get the running mode -> DeadAGI(a2billing.php|1|voucher)
 if ($argc > 2 && strlen($argv[2]) > 0 )
 	switch ($argv[2]) {
