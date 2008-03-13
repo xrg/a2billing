@@ -6,23 +6,11 @@ require_once (DIR_COMMON."Class.HelpElem.inc.php");
 require_once (DIR_COMMON."Form/Class.SqlRefField.inc.php");
 require_once (DIR_COMMON."Form/Class.VolField.inc.php");
 require_once (DIR_COMMON."Form/Class.TimeField.inc.php");
+require_once (DIR_COMMON."Form/Class.ClauseField.inc.php");
+require_once (DIR_COMMON."Form/Class.TextSearchField.inc.php");
+require_once (DIR_COMMON."Form/Class.SelectionForm.inc.php");
 
 $menu_section='menu_billing';
-
-/*
- *   id bigserial NOT NULL,
-  creationdate timestamp DEFAULT now(),
-  usedate timestamp,
-  expirationdate timestamp,
-  voucher text NOT NULL,
-  card_id int8,
-  tag text,
-  credit numeric(12,4) NOT NULL,
-  activated bool NOT NULL DEFAULT true,
-  used int4 DEFAULT 0,
-  currency varchar(3) DEFAULT 'USD'::character varying,
-
- */
 
 
 HelpElem::DoHelp(gettext("Vouchers, Create a single voucher, defining such properties as credit, tag, currency etc, click confirm when finished. " .
@@ -32,11 +20,13 @@ $HD_Form= new FormHandler('vouchers',_("Vouchers"),_("Voucher"));
 $HD_Form->checkRights(ACX_BILLING);
 $HD_Form->init();
 
-$PAGE_ELEMS[] = &$HD_Form;
-$PAGE_ELEMS[] = new AddNewButton($HD_Form);
+
+
+
+
+
 
 $HD_Form->model[] = new PKeyFieldEH(_("Id"),'id');
-
 $HD_Form->model[] = new TextFieldEH(_("Voucher"),'voucher');
 $HD_Form->model[] = new TextFieldEH(_("Tag"),'tag',_("Enter the tag."));
 $HD_Form->model[] = new SqlRefField(_("Card group"),'card_grp','cc_card_group','id','name', _("Cards in this group will be able to use the voucher. Also set the currency here!"));
@@ -63,13 +53,33 @@ $actived_list[] = array('f',_("Inactive"));
 $HD_Form->model[] = new RefField(_("Activated"), "activated", $actived_list,_("Enable or disable the voucher"),"4%");
 end($HD_Form->model)->fieldacr =  gettext("ACT");
 
-// $yes_no_list = array();
-// $yes_no_list[] = array('1',_("Yes"));
-// $yes_no_list[] = array('0',_("No"));
-// 
-// $HD_Form->model[] = new RefField(_("USED"), "used", $yes_no_list);
-
 $HD_Form->model[] = new DelBtnField();
+
+
+
+// SEARCH SECTION
+$SEL_Form = new SelectionForm();
+$SEL_Form->init();
+$SEL_Form->enable($HD_Form->getAction() == 'list');
+
+// todo: search in use
+$SEL_Form->model[] = new TextSearchField(_("Voucher"),'voucher');
+$SEL_Form->model[] = new TextSearchField(_("Tag"),'tag');
+$SEL_Form->model[] = dontAdd(new SqlRefField(_("Group"), "card_grp","cc_card_group", "id", "name"));
+//$SEL_Form->model[] = dontAdd(new RefField(_("Status"),'status', $cs_list));
+$SEL_Form->model[] = dontAdd(new RefField(_("Activated"), "activated", $actived_list,_("Enable or disable the voucher"),"4%"));
+$SEL_Form->model[] = new TextSearchField(_("Last Name"),'lastname');
+
+
+$clauses= $SEL_Form->buildClauses();
+foreach($clauses as $cla)
+	$HD_Form->model[] = new FreeClauseField($cla);
+
+
+// BUILD PAGE ELEMENTS
+$PAGE_ELEMS[] = &$SEL_Form;
+$PAGE_ELEMS[] = &$HD_Form;
+$PAGE_ELEMS[] = new AddNewButton($HD_Form);
 
 
 require("PP_page.inc.php");
