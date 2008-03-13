@@ -88,8 +88,8 @@ $HD_Form->model[] = DontList(new TextField(_("Cause ext."),'cause_ext'));
 $HD_Form->model[] = DontList(new SqlRefFieldN(_("Trunk"),'trunk','cc_trunk','id','trunkcode',
 		 _("Trunk used for the call")));
 
-$HD_Form->model[] = new FloatField(_("Bill"),'sessionbill',_("How much the customer was charged for the call."));
-$HD_Form->model[] = DontList(new FloatField(_("Cost"),'buycost',_("How much we were charged for the call.")));
+$HD_Form->model[] = new MoneyField(_("Bill"),'sessionbill',_("How much the customer was charged for the call."));
+$HD_Form->model[] = DontList(new MoneyField(_("Cost"),'buycost',_("How much we were charged for the call.")));
 
 $HD_Form->model[] = DontList(new TextField(_("Source"),'src'));
 $HD_Form->model[] = DontList(new SqlRefFieldN(_("Tariff group"),'tgid','cc_tariffgroup','id','name', _("Tariff group used by the rate engine.")));
@@ -134,8 +134,8 @@ $HD_Form->meta_elems[] = $tmp;
 	$tmp->Form->model[] = DontList(new SqlRefFieldN(_("Trunk"),'trunk','cc_trunk','id','trunkcode',
 			_("Trunk used for the call")));
 	
-	$tmp->Form->model[] = new FloatField(_("Bill"),'sessionbill',_("How much the customer was charged for the call."));
-	$tmp->Form->model[] = DontList(new FloatField(_("Cost"),'buycost',_("How much we were charged for the call.")));
+	$tmp->Form->model[] = new MoneyField(_("Bill"),'sessionbill',_("How much the customer was charged for the call."));
+	$tmp->Form->model[] = DontList(new MoneyField(_("Cost"),'buycost',_("How much we were charged for the call.")));
 	
 	$tmp->Form->model[] = DontList(new TextField(_("Source"),'src'));
 
