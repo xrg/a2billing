@@ -131,6 +131,14 @@ abstract class BaseField {
 // 	public function addQueryClause(&$dbhandle,&$form){
 // 		return null;
 // 	}
+	/** Correctly get the order expression for this field.
+	    Override this in formatted fields that need other ordering */
+	public function getOrder(&$form){
+		if ($this->fieldexpr)
+			return $this->fieldexpr;
+		else
+			return $this->fieldname;
+	}
 
 	/** Transform the value (unquoted) to a Insert/Update form.
 	    If wrongfuly called, may throw exception. Returning an

@@ -35,40 +35,39 @@ $HD_Form->init();
 $PAGE_ELEMS[] = &$HD_Form;
 $PAGE_ELEMS[] = new AddNewButton($HD_Form);
 
-$HD_Form->model[] = new PKeyFieldEH(_("ID"),'id');
+$HD_Form->model[] = new PKeyFieldEH(_("Id"),'id');
 
 $HD_Form->model[] = new TextFieldEH(_("Voucher"),'voucher');
 $HD_Form->model[] = new TextFieldEH(_("Tag"),'tag',_("Enter the tag."));
-$HD_Form->model[] = new FloatVolField(_("Credit"),'credit',_("Money in the voucher. Positive is credit."));
-$HD_Form->model[] = new SqlRefFieldN(_("Currency"),'currency','cc_currencies','currency','name', _("Default currency for this voucher."));
+$HD_Form->model[] = new SqlRefField(_("Card group"),'card_grp','cc_card_group','id','name', _("Cards in this group will be able to use the voucher. Also set the currency here!"));
+	/*end($HD_Form->model)->refexpr =*/ 
+	end($HD_Form->model)->combofield = "name || COALESCE( ' (' || def_currency || ')', '')" ;
+$HD_Form->model[] = new FloatField(_("Credit"),'credit',_("Money in the voucher. Positive is credit. It is in group's currency!"));
+// $HD_Form->model[] = new SqlRefFieldN(_("Currency"),'currency','cc_currencies','currency','name', _("Default currency for this voucher."));
 
 
-$HD_Form->model[] = new SqlBigRefField(_("CardNumber"), "card_id","cc_card", "id", "username");
+$HD_Form->model[] = new SqlBigRefField(_("Card Number"), "card_id","cc_card", "id", "username");
 	end($HD_Form->model)->SetRefEntity("A2B_entity_card.php");
 	end($HD_Form->model)->SetRefEntityL("A2B_entity_card.php");
 	end($HD_Form->model)->SetEditTitle(_("Card ID"));
 
 $HD_Form->model[] = dontAdd(dontEdit(new DateTimeField(_("Creation Date"), "creationdate", _("Date the voucher was created (entered into this system)"))));
 $HD_Form->model[] = dontAdd(dontEdit(new DateTimeField(_("Used Date"), "usedate", _("Date the voucher has been used."))));
-$HD_Form->model[] = new DateTimeFieldN(_("EXPIRY DATE"), "expirationdate", _("Date the voucher will expire."));
+$HD_Form->model[] = new DateTimeFieldN(_("Expiry date"), "expirationdate", _("Date the voucher will expire."));
 	end($HD_Form->model)->def_date='+6 month 1 day';
 	
 $actived_list = array();
 $actived_list[] = array('t',_("Active"));
 $actived_list[] = array('f',_("Inactive"));
 
-$HD_Form->model[] = new RefField(_("ACTIVATED"), "activated", $actived_list,_("Enable or disable the voucher"),"4%");
+$HD_Form->model[] = new RefField(_("Activated"), "activated", $actived_list,_("Enable or disable the voucher"),"4%");
 end($HD_Form->model)->fieldacr =  gettext("ACT");
 
-$yes_no_list = array();
-$yes_no_list[] = array('1',_("Yes"));
-$yes_no_list[] = array('0',_("No"));
-
-$HD_Form->model[] = new RefField(_("USED"), "used", $yes_no_list);
-
-
-
-
+// $yes_no_list = array();
+// $yes_no_list[] = array('1',_("Yes"));
+// $yes_no_list[] = array('0',_("No"));
+// 
+// $HD_Form->model[] = new RefField(_("USED"), "used", $yes_no_list);
 
 $HD_Form->model[] = new DelBtnField();
 

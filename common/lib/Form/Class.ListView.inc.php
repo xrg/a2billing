@@ -53,8 +53,14 @@ class ListView extends FormView {
 		if (count($query_clauses))
 			$QUERY .= ' WHERE ' . implode(' AND ', $query_clauses);
 		
-		if ($form->order){
-			$QUERY .= " ORDER BY $form->order";
+		if ($form->order ){
+			$formorder=$form->order;
+			foreach($form->model as $fld)
+				if($fld->fieldname == $form->order){
+					$formorder= $fld->getOrder($form);
+					break;
+				}
+			$QUERY .= " ORDER BY $formorder";
 			if (($form->sens) && (strtolower($form->sens)=='desc'))
 				$QUERY .= " DESC";
 		}
