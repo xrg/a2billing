@@ -10,6 +10,7 @@ require_once (DIR_COMMON."Form/Class.ClauseField.inc.php");
 require_once (DIR_COMMON."Form/Class.TextSearchField.inc.php");
 require_once (DIR_COMMON."Form/Class.SelectionForm.inc.php");
 require_once (DIR_COMMON."Form/Class.ListTeXView.inc.php");
+require_once (DIR_COMMON."Form/Class.ListCsvView.inc.php");
 
 $menu_section='menu_billing';
 
@@ -21,6 +22,7 @@ $HD_Form= new FormHandler('vouchers',_("Vouchers"),_("Voucher"));
 $HD_Form->checkRights(ACX_BILLING);
 $HD_Form->init();
 $HD_Form->views['exportLT'] =new ListTeXView();
+$HD_Form->views['exportCSV'] =new ListCsvView();
 
 $HD_Form->model[] = new PKeyFieldEH(_("Id"),'id');
 $HD_Form->model[] = new TextFieldEH(_("Voucher"),'voucher');
@@ -75,6 +77,9 @@ $PAGE_ELEMS[] = new AddNewButton($HD_Form);
 
 if($HD_Form->getAction()=='exportLT')
 	require("PP_LaTeX.inc.php");
+elseif($HD_Form->getAction()=='exportCSV')
+	require("PP_ExportCSV.inc.php");
+
 else
 	require("PP_page.inc.php");
 
