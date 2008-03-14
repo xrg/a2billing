@@ -112,10 +112,10 @@ CREATE TABLE cc_booth (
 
 
 CREATE TABLE cc_status_log (
-  id		BIGSERIAL PRIMARY KEY,
-  status 	INT NOT NULL,
-  id_cc_card INT NOT NULL,
-  updated_date TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW()
+	id		BIGSERIAL PRIMARY KEY,
+	status 	INT NOT NULL,
+	id_cc_card INT NOT NULL,
+	updated_date TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW()
 );
 
 -- ALTER TABLE cc_card ADD COLUMN tag CHAR(50);
@@ -123,15 +123,29 @@ CREATE TABLE cc_status_log (
 -- ALTER TABLE cc_card ADD COLUMN template_invoice TEXT;
 -- ALTER TABLE cc_card ADD COLUMN template_outstanding TEXT;
 
-CREATE TABLE cc_card_history (
-    id 		BIGSERIAL PRIMARY KEY,
-    card 	BIGINT DEFAULT 0 NOT NULL,
-    datecreated	TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
-    description TEXT
+
+CREATE TABLE card_histories (
+	id 				BIGSERIAL PRIMARY KEY,
+	card_id 		BIGINT DEFAULT 0 NOT NULL,
+	datecreation	TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
+	description 	TEXT
+);
+
+
+
+CREATE TABLE speeddials (
+	id 				BIGSERIAL NOT NULL,
+	card_id 		INT8 NOT NULL DEFAULT 0 REFERENCES cc_card(id),
+	phone 			TEXT NOT NULL,
+	name 			TEXT NOT NULL,
+	speeddial 		INT4 DEFAULT 0,
+	creationdate 	TIMESTAMP DEFAULT now()
 );
 
 GRANT SELECT ON cc_booth TO a2b_group;
 GRANT SELECT ON cc_card TO a2b_group;
 GRANT SELECT ON cc_card_group TO a2b_group;
+GRANT SELECT ON cc_card_history TO a2b_group;
+GRANT SELECT ON speeddials TO a2b_group;
 
 --eof

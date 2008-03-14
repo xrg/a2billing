@@ -110,6 +110,27 @@ if [ "$DO_SKIP_STAGE4" != "y" ] ; then
 	echo "Stage 4 finished: dropped old tables!"
 fi
 
+if true ; then
+	echo "Stage 5."
+	for DBSCRIPT in schema-200/* ; do
+		DBNUM=$(basename $DBSCRIPT | sed 's/^\([0-9]\+\)-.*$/\1/')
+		if [ "$DBNUM" -lt 50 ] ; then
+			continue
+		fi
+		if (grep 'CREATE TABLE' $DBSCRIPT > /dev/null ) ||
+			( grep 'CREATE INDEX' $DBSCRIPT > /dev/null ) ; then
+			echo 'Skiping'  "$DBSCRIPT"
+			continue
+		fi
+		echo  'Invoking' "$DBSCRIPT"
+	
+		psql -U $A2B_USER --set ON_ERROR_STOP= --set A2B_GROUP=$A2B_GROUP \
+			-d $A2B_DB -f "$DBSCRIPT" || exit $?
+	done
+	
+	echo "Stage 5 finished: added db scripts for v200"
+fi
+
 echo
 echo "Your database should now be ready for v200!"
 #eof

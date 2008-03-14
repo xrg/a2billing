@@ -27,7 +27,7 @@ end($HD_Form->model)->def_value=10;
 $HD_Form->model[] = new DateTimeField(_("Start date"), "start_date", _("Date these rates are valid from"));
 	end($HD_Form->model)->def_date='+1 day';
 $HD_Form->model[] = new DateTimeField(_("Stop date"), "stop_date", _("Date these rates are valid until."));
-	end($HD_Form->model)->def_date='+1 month 1 day';
+	end($HD_Form->model)->def_date='+6 month 1 day';
 
 $HD_Form->model[] = new TimeOWField(_("Period begin"), "starttime", _("Time of week the rate starts to apply"));
 end($HD_Form->model)->def_value=0;

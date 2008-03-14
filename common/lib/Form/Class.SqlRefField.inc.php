@@ -48,6 +48,10 @@ class SqlRefField extends BaseField{
 			echo '</a>';
 	}
 	
+	public function renderSpecial(array &$qrow,&$form,$rmode){
+		return $qrow[$this->fieldname.'_'.$this->refname];
+	}
+	
 	public function DispAddEdit($val,&$form){
 		if (!$this->field_values)
 			$this->prepare($form->a2billing->DBHandle());

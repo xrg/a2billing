@@ -11,6 +11,13 @@ abstract class ElemBase {
 
 	}
 	
+	function RenderHeadSpecial($rmode) {
+
+	}
+	
+	public function RenderSpecial($rmode) {
+	}
+
 	/** Called \b before any html is produced. It can so return a string,
 	    url, that will redirect to another page */
 	function PerformAction(){
