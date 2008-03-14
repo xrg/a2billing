@@ -84,16 +84,9 @@ if (!is_null ($HD_Form->FG_ORDER) && ($HD_Form->FG_ORDER!='') && !is_null ($HD_F
 	$_SESSION[$HD_Form->FG_EXPORT_SESSION_VAR].= " ORDER BY $HD_Form->FG_ORDER $HD_Form->FG_SENS";
  */
 //
-// echo $SEL_Form->getAction();
+
 $clauses = $SEL_Form->buildClauses();
-/*
-if (empty ($clauses) ){
-	$clauses = $_SESSION[basename(__FILE__).'_clauses'];
-} elseif (!empty ($clauses)) {
-	$_SESSION[basename(__FILE__).'_clauses'] = $clauses;
-}
-*/
-print_r ($clauses);
+
 foreach($clauses as $cla)
 	$HD_Form->model[] = new FreeClauseField($cla);
 

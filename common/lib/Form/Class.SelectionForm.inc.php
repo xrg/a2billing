@@ -111,16 +111,12 @@ class SelectionForm extends ElemBase {
 		
 		foreach ($this->model as $fld){
 			if (!$fld->does_add){
-				echo 'use_'.$fld->fieldname."<br>";
-				echo $fld->fieldname."<br>";
-				echo 'dirty:'.$this->_dirty_vars['use_'.$fld->fieldname]."<br>";
 				if (!is_null($_SESSION[$session_prefix.$fld->fieldname])) 
 					$this->_dirty_vars[$fld->fieldname] = $_SESSION[$session_prefix.$fld->fieldname];
 				if (!is_null($_SESSION[$session_prefix.'use_'.$fld->fieldname]))
 					$this->_dirty_vars['use_'.$fld->fieldname] = $_SESSION[$session_prefix.'use_'.$fld->fieldname];
 			}else{
 				if ($fld->does_add) {
-					echo $fld->fieldname."<br>";
 					if (!is_null($_SESSION[$session_prefix.$fld->fieldname])) 
 						$this->_dirty_vars[$fld->fieldname] = $_SESSION[$session_prefix.$fld->fieldname];
 				}
