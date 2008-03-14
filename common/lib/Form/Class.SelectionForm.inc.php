@@ -110,17 +110,12 @@ class SelectionForm extends ElemBase {
 	public function loadSession(){
 		
 		foreach ($this->model as $fld){
-			if (!$fld->does_add){
-				if (!is_null($_SESSION[$session_prefix.$fld->fieldname])) 
-					$this->_dirty_vars[$fld->fieldname] = $_SESSION[$session_prefix.$fld->fieldname];
-				if (!is_null($_SESSION[$session_prefix.'use_'.$fld->fieldname]))
-					$this->_dirty_vars['use_'.$fld->fieldname] = $_SESSION[$session_prefix.'use_'.$fld->fieldname];
-			}else{
-				if ($fld->does_add) {
-					if (!is_null($_SESSION[$session_prefix.$fld->fieldname])) 
-						$this->_dirty_vars[$fld->fieldname] = $_SESSION[$session_prefix.$fld->fieldname];
-				}
-			}
+			
+			if (!is_null($_SESSION[$session_prefix.$fld->fieldname])) 
+				$this->_dirty_vars[$fld->fieldname] = $_SESSION[$session_prefix.$fld->fieldname];
+			if (!is_null($_SESSION[$session_prefix.'use_'.$fld->fieldname]))
+				$this->_dirty_vars['use_'.$fld->fieldname] = $_SESSION[$session_prefix.'use_'.$fld->fieldname];
+			
 			continue;			
 		}
 	}
@@ -128,17 +123,23 @@ class SelectionForm extends ElemBase {
 	public function saveSession(){
 		
 		foreach ($this->model as $fld){
-			if (!$fld->does_add) {
-				if (!is_null($this->_dirty_vars[$fld->fieldname])) 
-					$_SESSION[$session_prefix.$fld->fieldname] = $this->_dirty_vars[$fld->fieldname];
-				if (!is_null($this->_dirty_vars['use_'.$fld->fieldname])) 
-					$_SESSION[$session_prefix.'use_'.$fld->fieldname] = $this->_dirty_vars['use_'.$fld->fieldname];
-			} else {
-				if ($fld->does_add) {
-					if (!is_null($this->_dirty_vars[$fld->fieldname]))
-						$_SESSION[$session_prefix.$fld->fieldname] = $this->_dirty_vars[$fld->fieldname];
-				}
-			}
+			
+			if (!is_null($this->_dirty_vars[$fld->fieldname])) 
+				$_SESSION[$session_prefix.$fld->fieldname] = $this->_dirty_vars[$fld->fieldname];
+			if (!is_null($this->_dirty_vars['use_'.$fld->fieldname])) 
+				$_SESSION[$session_prefix.'use_'.$fld->fieldname] = $this->_dirty_vars['use_'.$fld->fieldname];
+			
+			continue;			
+		}
+	}
+	
+	public function deleteSession(){
+		
+		foreach ($this->model as $fld){
+			
+			$_SESSION[$session_prefix.$fld->fieldname] = null;
+			$_SESSION[$session_prefix.'use_'.$fld->fieldname] = null;
+			
 			continue;			
 		}
 	}
