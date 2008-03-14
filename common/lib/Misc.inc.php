@@ -1308,4 +1308,42 @@ function arguments($argv) {
   return $_ARG;
 }
 
+
+
+/*
+ * Function to perform test for dev and retrieve quickly information some information... 
+ * TODO : Add more checks and outputs
+ */
+function info_variable ($var)
+{
+	echo "Variable Type : " . gettype($var).'<br>';
+	
+	if (isset ($var)) echo "Variable Isset : Ok <br>";
+	else{
+		echo "Variable Isset : Ok <br>";
+		return false;
+	}
+	
+	if (is_array($var)) {
+		echo "is_array : OK <br>";	
+		echo "count ".count($var).'<br>';
+	} else {
+		echo "is_array : NO <br>";
+	}
+	
+	if (empty($var)){
+		echo "empty OK <br>";
+		return false;
+	} else {
+		echo "empty : NO <br>";
+	}
+	if (is_string($var)){
+		echo "is_string OK ($var) <br>";
+	} else {
+		echo "is_string : NO <br>";
+	}
+	return true;
+}
+
+
 ?>
