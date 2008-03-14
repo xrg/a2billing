@@ -59,7 +59,8 @@ $HD_Form->model[] = new DelBtnField();
 
 // SEARCH SECTION
 $SEL_Form = new SelectionForm();
-$SEL_Form->init();
+$SEL_Form->init(null, null, basename(__FILE__));
+$SEL_Form->setSessionPrefix(basename(__FILE__));
 $SEL_Form->enable($HD_Form->getAction() == 'list');
 
 // todo: search in use
@@ -70,8 +71,29 @@ $SEL_Form->model[] = dontAdd(new SqlRefField(_("Group"), "card_grp","cc_card_gro
 $SEL_Form->model[] = dontAdd(new RefField(_("Activated"), "activated", $actived_list,_("Enable or disable the voucher"),"4%"));
 $SEL_Form->model[] = new TextSearchField(_("Last Name"),'lastname');
 
+$SEL_Form->saveSession();
+$SEL_Form->loadSession();
 
-$clauses= $SEL_Form->buildClauses();
+/*
+ * // Code for the Export Functionality
+//* Query Preparation.
+$_SESSION[$HD_Form->FG_EXPORT_SESSION_VAR]= "SELECT ".$HD_Form -> FG_EXPORT_FIELD_LIST." FROM $HD_Form->FG_TABLE_NAME";
+if (strlen($HD_Form->FG_TABLE_CLAUSE)>1) 
+	$_SESSION[$HD_Form->FG_EXPORT_SESSION_VAR] .= " WHERE $HD_Form->FG_TABLE_CLAUSE ";
+if (!is_null ($HD_Form->FG_ORDER) && ($HD_Form->FG_ORDER!='') && !is_null ($HD_Form->FG_SENS) && ($HD_Form->FG_SENS!='')) 
+	$_SESSION[$HD_Form->FG_EXPORT_SESSION_VAR].= " ORDER BY $HD_Form->FG_ORDER $HD_Form->FG_SENS";
+ */
+//
+// echo $SEL_Form->getAction();
+$clauses = $SEL_Form->buildClauses();
+/*
+if (empty ($clauses) ){
+	$clauses = $_SESSION[basename(__FILE__).'_clauses'];
+} elseif (!empty ($clauses)) {
+	$_SESSION[basename(__FILE__).'_clauses'] = $clauses;
+}
+*/
+print_r ($clauses);
 foreach($clauses as $cla)
 	$HD_Form->model[] = new FreeClauseField($cla);
 
@@ -108,5 +130,6 @@ if (!is_null ($HD_Form->FG_ORDER) && ($HD_Form->FG_ORDER!='') && !is_null ($HD_F
 
 
  */
+
 
 ?>

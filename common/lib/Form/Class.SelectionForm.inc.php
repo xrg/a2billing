@@ -13,7 +13,8 @@ class SelectionForm extends ElemBase {
 	protected $_dirty_vars=null; ///< all variables starting with 'prefix'. Set on init.
 	public $search_exprs = array(); ///< an array with comparison operators for the fields
 	protected $enabled = true;
-
+	public $session_prefix = 'session_';
+	
 	function init($sA2Billing= null, $stdActions=true){
 		if ($sA2Billing)
 			$this->a2billing= &$sA2Billing;
@@ -35,7 +36,9 @@ class SelectionForm extends ElemBase {
 				if (strncmp($this->prefix,$key,$tlen)==0)
 				$this->_dirty_vars[substr($key,$tlen)]=$data;
 		}
+		
 	}
+	
 	function getpost_single($vname){
 		return sanitize_data($this->_dirty_vars[$vname]);
 	}
@@ -95,6 +98,53 @@ class SelectionForm extends ElemBase {
 		}
 		
 		return $retc;
+	}
+	
+	
+	public function setSessionPrefix ($prefix){
+		
+		if (!empty($prefix)) $this -> session_prefix = $prefix;
+		
+	}
+	
+	public function loadSession(){
+		
+		foreach ($this->model as $fld){
+			if (!$fld->does_add){
+				echo 'use_'.$fld->fieldname."<br>";
+				echo $fld->fieldname."<br>";
+				echo 'dirty:'.$this->_dirty_vars['use_'.$fld->fieldname]."<br>";
+				if (!is_null($_SESSION[$session_prefix.$fld->fieldname])) 
+					$this->_dirty_vars[$fld->fieldname] = $_SESSION[$session_prefix.$fld->fieldname];
+				if (!is_null($_SESSION[$session_prefix.'use_'.$fld->fieldname]))
+					$this->_dirty_vars['use_'.$fld->fieldname] = $_SESSION[$session_prefix.'use_'.$fld->fieldname];
+			}else{
+				if ($fld->does_add) {
+					echo $fld->fieldname."<br>";
+					if (!is_null($_SESSION[$session_prefix.$fld->fieldname])) 
+						$this->_dirty_vars[$fld->fieldname] = $_SESSION[$session_prefix.$fld->fieldname];
+				}
+			}
+			continue;			
+		}
+	}
+	
+	public function saveSession(){
+		
+		foreach ($this->model as $fld){
+			if (!$fld->does_add) {
+				if (!is_null($this->_dirty_vars[$fld->fieldname])) 
+					$_SESSION[$session_prefix.$fld->fieldname] = $this->_dirty_vars[$fld->fieldname];
+				if (!is_null($this->_dirty_vars['use_'.$fld->fieldname])) 
+					$_SESSION[$session_prefix.'use_'.$fld->fieldname] = $this->_dirty_vars['use_'.$fld->fieldname];
+			} else {
+				if ($fld->does_add) {
+					if (!is_null($this->_dirty_vars[$fld->fieldname]))
+						$_SESSION[$session_prefix.$fld->fieldname] = $this->_dirty_vars[$fld->fieldname];
+				}
+			}
+			continue;			
+		}
 	}
 
 	public function Render(){
