@@ -20,12 +20,6 @@ $HD_Form= new FormHandler('vouchers',_("Vouchers"),_("Voucher"));
 $HD_Form->checkRights(ACX_BILLING);
 $HD_Form->init();
 
-
-
-
-
-
-
 $HD_Form->model[] = new PKeyFieldEH(_("Id"),'id');
 $HD_Form->model[] = new TextFieldEH(_("Voucher"),'voucher');
 $HD_Form->model[] = new TextFieldEH(_("Tag"),'tag',_("Enter the tag."));
@@ -70,11 +64,7 @@ $SEL_Form->model[] = dontAdd(new SqlRefField(_("Group"), "card_grp","cc_card_gro
 $SEL_Form->model[] = dontAdd(new RefField(_("Activated"), "activated", $actived_list,_("Enable or disable the voucher"),"4%"));
 $SEL_Form->model[] = new TextSearchField(_("Last Name"),'lastname');
 
-
-$clauses= $SEL_Form->buildClauses();
-foreach($clauses as $cla)
-	$HD_Form->model[] = new FreeClauseField($cla);
-
+$SEL_Form->appendClauses($HD_Form);
 
 // BUILD PAGE ELEMENTS
 $PAGE_ELEMS[] = &$SEL_Form;

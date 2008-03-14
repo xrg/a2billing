@@ -58,10 +58,8 @@ $HD_Form->model[] = DontList( new PKeyFieldTxt(_("Unique ID"),'uniqueid'));
 $HD_Form->model[] = DontList(new PKeyField(_("Card ID"),'cardid'));
 // nasipaddress  | text                        |
 // qval          | double precision            |
-$clauses= $SEL_Form->buildClauses();
-foreach($clauses as $cla)
-	$HD_Form->model[] = new FreeClauseField($cla);
 
+$SEL_Form->appendClauses($HD_Form);
 
 $HD_Form->model[] = new DateTimeFieldDH(_("Start Time"),'starttime');
 $HD_Form->model[] = new TextField(_("Mode"),'cmode');
