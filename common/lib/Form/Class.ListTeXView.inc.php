@@ -5,7 +5,7 @@
 
 class ListTeXView extends ListView {
 
-public function RenderSpecial($rmode,&$form){
+public function RenderSpecial($rmode,&$form, &$robj){
 	if ($rmode!='LaTeX') return;
 	
 	$dbhandle = &$form->a2billing->DBHandle();
@@ -39,7 +39,7 @@ public function RenderSpecial($rmode,&$form){
 			$renrow=array();
 			foreach ($form->model as $fld)
 				if($fld->does_list)
-					$renrow[]= $fld->renderSpecial($row,$form,$rmode);
+					$renrow[]= $fld->renderSpecial($row,$form,$rmode,$robj);
 			echo implode(' & ', $renrow); //todo: escape
 			echo "\\\\ \n";
 		}

@@ -11,11 +11,11 @@ abstract class ElemBase {
 
 	}
 	
-	function RenderHeadSpecial($rmode) {
+	function RenderHeadSpecial($rmode, &$robj) {
 
 	}
 	
-	public function RenderSpecial($rmode) {
+	public function RenderSpecial($rmode, &$robj) {
 	}
 
 	/** Called \b before any html is produced. It can so return a string,

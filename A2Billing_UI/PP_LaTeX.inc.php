@@ -37,7 +37,8 @@ header('Content-type: text/x-latex');
 \begin{document}
 % A2Billing version v2.0 beta - Mar 2008
 <?php
+	$robj = null;
 	foreach($PAGE_ELEMS as $elem)
-		$elem->RenderSpecial('LaTeX');
+		$elem->RenderSpecial('LaTeX',$robj);
 	?>
 \end{document}
