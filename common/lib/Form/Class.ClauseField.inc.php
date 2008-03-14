@@ -21,7 +21,7 @@ class ClauseField extends BaseField {
 	public function DispList(array &$qrow,&$form){
 	}
 
-	public function renderSpecial(array &$qrow,&$form,$rmode){
+	public function renderSpecial(array &$qrow,&$form,$rmode, &$robj){
 	}
 	
 	public function listQueryClause(&$dbhandle,&$form){
@@ -71,7 +71,7 @@ class FreeClauseField extends BaseField {
 
 	public function DispList(array &$qrow,&$form){
 	}
-	public function renderSpecial(array &$qrow,&$form,$rmode){
+	public function renderSpecial(array &$qrow,&$form,$rmode, &$robj){
 	}
 	
 	public function listQueryClause(&$dbhandle,&$form){

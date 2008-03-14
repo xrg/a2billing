@@ -31,4 +31,32 @@ class AddNewButton extends ElemBase {
 	
 };
 
+
+	/** Export button */
+
+class AddExportButton extends ElemBase {
+	protected $url = null;
+	protected $enabled = false;
+	protected $caption;
+	
+	function AddExportButton(&$form,$caption,$eaction='export'){
+		if ($form->getAction()=='list')
+			$this->enabled = true;
+			
+// 		$this->form = &$form;
+		$this->caption = $caption;
+		$this->url=$form->selfUrl(array(action => $eaction, ndisp => 'all'));
+	}
+
+	function Render(){
+		if (!$this->enabled)
+			return;
+		?>
+	<div>
+		<a target="_blank" href="<?= $this->url?>"><?= $this->caption ?></a>
+	</div>
+	<?php
+	}
+	
+};
 ?>

@@ -64,7 +64,7 @@ class ListView extends FormView {
 			if (($form->sens) && (strtolower($form->sens)=='desc'))
 				$QUERY .= " DESC";
 		}
-		if ($form->ndisp)
+		if (($form->ndisp) && ($form->ndisp != 'all'))
 			$QUERY .= " LIMIT $form->ndisp";
 		if ($form->cpage)
 			$QUERY .= " OFFSET " . ($form->cpage * $form->ndisp);

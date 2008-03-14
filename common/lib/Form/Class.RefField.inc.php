@@ -26,7 +26,7 @@ class RefField extends BaseField{
 		if ($form->FG_DEBUG>0)
 			echo "Unknown val: " .$val ;
 	}
-	public function renderSpecial(array &$qrow,&$form,$rmode){
+	public function renderSpecial(array &$qrow,&$form,$rmode, &$robj){
 		$val = $qrow[$this->fieldname];
 		foreach ($this->field_values as $fval)
 			if($fval[0] == $val){

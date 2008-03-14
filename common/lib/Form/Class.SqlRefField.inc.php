@@ -48,7 +48,7 @@ class SqlRefField extends BaseField{
 			echo '</a>';
 	}
 	
-	public function renderSpecial(array &$qrow,&$form,$rmode){
+	public function renderSpecial(array &$qrow,&$form,$rmode, &$robj){
 		return $qrow[$this->fieldname.'_'.$this->refname];
 	}
 	

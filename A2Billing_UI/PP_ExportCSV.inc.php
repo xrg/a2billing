@@ -27,18 +27,15 @@ foreach($PAGE_ELEMS as $elem){
 	}
 }
 
-header('Content-type: text/x-latex');
+header('Content-type: text/x-csv');
 ?>
-\document{article}
 <?php
 	foreach($PAGE_ELEMS as $elem)
-		$elem->RenderHeadSpecial('LaTeX');
+		$elem->RenderHeadSpecial('csv');
 ?>
-\begin{document}
-% A2Billing version v2.0 beta - Mar 2008
+# A2Billing version v2.0 beta - Mar 2008
 <?php
 	$robj = null;
 	foreach($PAGE_ELEMS as $elem)
-		$elem->RenderSpecial('LaTeX',$robj);
-	?>
-\end{document}
+		$elem->RenderSpecial('csv',$robj);
+?>

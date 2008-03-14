@@ -70,6 +70,10 @@ class RevRef2 extends BaseField{
 		if ($form->getAction()=='details')
 			return $this->DispForm($qrow,$form,false);
 	}
+	public function renderSpecial(array &$qrow,&$form,$rmode, &$robj){
+		// Todo: sth like the values in an array..
+	}
+
 	public function detailQueryField(&$dbhandle){
 		if (!$this->does_list)
 			return;

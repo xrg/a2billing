@@ -40,7 +40,7 @@ abstract class BaseField {
 	   \param $form The form
 	   \param $rmode the rendering mode
 	   */
-	abstract public function renderSpecial(array &$qrow,&$form,$rmode);
+	abstract public function renderSpecial(array &$qrow,&$form,$rmode, &$robj);
 
 	/** Editing may be skipped, by default */
 	public function DispEdit(array &$qrow,&$form){

@@ -15,7 +15,7 @@ class IntField extends BaseField{
 	public function DispList(array &$qrow,&$form){
 		echo htmlspecialchars($qrow[$this->fieldname]);
 	}
-	public function renderSpecial(array &$qrow,&$form,$rmode){
+	public function renderSpecial(array &$qrow,&$form,$rmode, &$robj){
 		return $qrow[$this->fieldname];
 	}
 	
