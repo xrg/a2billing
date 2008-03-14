@@ -35,6 +35,13 @@ abstract class BaseField {
 	   */
 	abstract public function DispList(array &$qrow,&$form);
 	
+	/** Echo the (formatted) representation of the field, in special render mode
+	   \param $qrow An array(fieldname=> val, ...) resulting from the sql query
+	   \param $form The form
+	   \param $rmode the rendering mode
+	   */
+	abstract public function renderSpecial(array &$qrow,&$form,$rmode);
+
 	/** Editing may be skipped, by default */
 	public function DispEdit(array &$qrow,&$form){
 		$this->DispAddEdit($qrow[$this->fieldname],$form);

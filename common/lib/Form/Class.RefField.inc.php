@@ -26,6 +26,16 @@ class RefField extends BaseField{
 		if ($form->FG_DEBUG>0)
 			echo "Unknown val: " .$val ;
 	}
+	public function renderSpecial(array &$qrow,&$form,$rmode){
+		$val = $qrow[$this->fieldname];
+		foreach ($this->field_values as $fval)
+			if($fval[0] == $val){
+			return $fval[1];
+		}
+		
+		if ($form->FG_DEBUG>0)
+			return "Unknown val: " .$val ;
+	}
 	
 	public function DispAddEdit($val,&$form){
 		gen_Combo($form->prefix.$this->fieldname,$val,$this->field_values);
