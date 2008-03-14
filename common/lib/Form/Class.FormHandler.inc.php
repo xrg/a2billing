@@ -203,6 +203,39 @@ class FormHandler extends ElemBase{
 		return false;
 	}
 
+	/** Render the view/edit form for the HTML body */
+	public function RenderSpecial($rmode){
+		if (!$this->rights_checked){
+			error_log("Attempt to use FormHandler w/o rights!");
+			die();
+		}
+		
+/*		foreach($this->pre_elems as $el)
+			if ($el instanceof FormElemBase)
+				$el->InFormRender($this);
+			elseif ($el instanceof ElemBase)
+				$el->Render();
+			else if ($this->FG_DEBUG)
+				print_r($el);*/
+				
+		if (isset($this->views[$this->action]))
+			$this->views[$this->action]->RenderSpecial($rmode,$this);
+		else{
+			if ($this->FG_DEBUG) echo "Cannot handle action: $this->action";
+			if ($this->FG_DEBUG>2){
+				print_r($this->_dirty_vars);
+			}
+		}
+		
+/*		foreach($this->meta_elems as $el)
+			if ($el instanceof FormElemBase)
+				$el->InFormRender($this);
+			elseif ($el instanceof ElemBase)
+				$el->Render();
+			else if ($this->FG_DEBUG)
+				print_r($el);*/
+	}
+
 	// helper functions
 	/** Return an array with primary key field/values, used eg. by edit urls.
 	    \param $qrow an array with fields/values for the corresponding db row

@@ -8,8 +8,8 @@ class ListView extends FormView {
 	}
 	
 	/** Builds and executes the table list query */
-	protected function performQuery(&$form,&$dbhandle){
-		if ($form->FG_DEBUG>3)
+	protected function performQuery(&$form,&$dbhandle,$rmode=null){
+		if ($form->FG_DEBUG>3 && !$rmode)
 			echo "<div class='debug'>List! Building query..</div>";
 		
 		$query_fields = array();
@@ -78,7 +78,7 @@ class ListView extends FormView {
 				$this->count_query .= ' WHERE ' . implode(' AND ', $query_clauses);
 		}
 			
-		if ($form->FG_DEBUG>3)
+		if ($form->FG_DEBUG>3 && !$rmode)
 			echo "<div class=\"debug\">QUERY: $QUERY\n</div>\n";
 		
 		// Perform the query

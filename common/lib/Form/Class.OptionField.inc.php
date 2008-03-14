@@ -16,6 +16,9 @@ abstract class OptionField extends BaseField {
 		return null;
 	}
 
+	public function renderSpecial(array &$qrow,&$form,$rmode, &$robj){
+	}
+	
 	public function buildInsert(&$ins_arr,&$form){
 	}
 

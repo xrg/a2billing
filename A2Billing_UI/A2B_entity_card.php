@@ -117,9 +117,7 @@ $PAGE_ELEMS[] = &$SEL_Form;
 $PAGE_ELEMS[] = &$HD_Form;
 $PAGE_ELEMS[] = new AddNewButton($HD_Form);
 
-$clauses= $SEL_Form->buildClauses();
-foreach($clauses as $cla)
-	$HD_Form->model[] = new FreeClauseField($cla);
+$SEL_Form->appendClauses($HD_Form);
 
 require("PP_page.inc.php");
 

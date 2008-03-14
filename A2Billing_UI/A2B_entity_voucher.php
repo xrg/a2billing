@@ -9,6 +9,8 @@ require_once (DIR_COMMON."Form/Class.TimeField.inc.php");
 require_once (DIR_COMMON."Form/Class.ClauseField.inc.php");
 require_once (DIR_COMMON."Form/Class.TextSearchField.inc.php");
 require_once (DIR_COMMON."Form/Class.SelectionForm.inc.php");
+require_once (DIR_COMMON."Form/Class.ListTeXView.inc.php");
+require_once (DIR_COMMON."Form/Class.ListCsvView.inc.php");
 
 $menu_section='menu_billing';
 
@@ -19,12 +21,8 @@ HelpElem::DoHelp(gettext("Vouchers, Create a single voucher, defining such prope
 $HD_Form= new FormHandler('vouchers',_("Vouchers"),_("Voucher"));
 $HD_Form->checkRights(ACX_BILLING);
 $HD_Form->init();
-
-
-
-
-
-
+$HD_Form->views['exportLT'] =new ListTeXView();
+$HD_Form->views['exportCSV'] =new ListCsvView();
 
 $HD_Form->model[] = new PKeyFieldEH(_("Id"),'id');
 $HD_Form->model[] = new TextFieldEH(_("Voucher"),'voucher');
@@ -59,7 +57,7 @@ $HD_Form->model[] = new DelBtnField();
 
 // SEARCH SECTION
 $SEL_Form = new SelectionForm();
-$SEL_Form->init(null, null, basename(__FILE__));
+$SEL_Form->init();
 $SEL_Form->setSessionPrefix(basename(__FILE__));
 $SEL_Form->enable($HD_Form->getAction() == 'list');
 
@@ -83,8 +81,6 @@ if (strlen($HD_Form->FG_TABLE_CLAUSE)>1)
 if (!is_null ($HD_Form->FG_ORDER) && ($HD_Form->FG_ORDER!='') && !is_null ($HD_Form->FG_SENS) && ($HD_Form->FG_SENS!='')) 
 	$_SESSION[$HD_Form->FG_EXPORT_SESSION_VAR].= " ORDER BY $HD_Form->FG_ORDER $HD_Form->FG_SENS";
  */
-//
-
 $clauses = $SEL_Form->buildClauses();
 
 foreach($clauses as $cla)
@@ -95,20 +91,14 @@ foreach($clauses as $cla)
 $PAGE_ELEMS[] = &$SEL_Form;
 $PAGE_ELEMS[] = &$HD_Form;
 $PAGE_ELEMS[] = new AddNewButton($HD_Form);
-$PAGE_ELEMS[] = new AddExportButton($HD_Form);
 
-/*
-// Code here for adding the fields in the Export File
-$HD_Form -> FieldExportElement(CARD_EXPORT_FIELD_LIST);
-if (!($popup_select>=1)) $HD_Form -> FG_EXPORT_CSV = true;
-if (!($popup_select>=1)) $HD_Form -> FG_EXPORT_XML = true;
-$HD_Form -> FG_EXPORT_SESSION_VAR = "pr_export_entity_card";
+if($HD_Form->getAction()=='exportLT')
+	require("PP_LaTeX.inc.php");
+elseif($HD_Form->getAction()=='exportCSV')
+	require("PP_ExportCSV.inc.php");
 
-- make 
-*/
-
-
-require("PP_page.inc.php");
+else
+	require("PP_page.inc.php");
 
 
 /*
@@ -123,6 +113,5 @@ if (!is_null ($HD_Form->FG_ORDER) && ($HD_Form->FG_ORDER!='') && !is_null ($HD_F
 
 
  */
-
 
 ?>
