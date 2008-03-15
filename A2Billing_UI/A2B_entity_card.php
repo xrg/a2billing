@@ -31,6 +31,7 @@ $HD_Form->model[] = dontList(new TextField(_("Card pass"),'userpass',_("PIN")));
 
 $HD_Form->model[] = new FloatVolField(_("Credit"),'credit',_("Money now in the card. Positive is credit, negative owes us."));
 $HD_Form->model[] = new FloatVolField(_("Credit Limit"),'creditlimit',_("Maximum (negative) credit this card can reach, if postpaid."));
+	end($HD_Form->model)->fieldacr = _("CLim");
 
 $cs_list = array();
 $cs_list[]  = array("0", _("CANCELLED"));
