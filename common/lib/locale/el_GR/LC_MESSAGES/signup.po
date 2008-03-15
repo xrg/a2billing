@@ -1,207 +1,259 @@
+# translation of signup.po to Ellhnika
+# P. Christeas <p_christeas@yahoo.com>, 2008.
+msgid ""
+msgstr ""
+"Project-Id-Version: signup\n"
+"Last-Translator: P. Christeas <p_christeas@yahoo.com>\n"
+"Language-Team: Ellhnika <el@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"PO-Revision-Date: 2008-03-09 14:29GMT\n"
+"X-Generator: KBabel 1.11.4\n"
+
 #: Signup/lib/defines.php:14
 msgid ""
 " This software is under GPL licence. For further information, please visit : "
 "<a href=\"http://www.asterisk2billing.org\" target=\"_blank"
 "\">asterisk2billing.org</a>"
 msgstr ""
+"Το παρόν λογισμικό έχει άδεια GPL. Για περισσότερες πληροφορίες δείτε στο <a "
+"href=\"http://www.asterisk2billing.org\" target=\"_blank\">asterisk2billing."
+"org</a>"
 
 #: Signup/lib/defines.php:15
 msgid "Asterisk2Billing : CallingCard platform"
-msgstr ""
+msgstr "Asterisk2Billing: Πλατφόρμα για τηλεφωνικές κάρτες"
 
 #: Signup/activate.php:10
+#, fuzzy
 msgid ""
 "Sorry the activation has been sent already, please wait 1 minute before "
 "making any other try !"
-msgstr ""
+msgstr "Λυπάμαι απεσταλμένο λεπτό κάθε άλλο!"
 
 #: Signup/activate.php:88
+#, fuzzy
 msgid "Welcome! Your account has been successfully activated. Thank you!"
-msgstr ""
+msgstr "Καλώς ήλθατε!"
 
 #: Signup/activate.php:92 Signup/signup_confirmation.php:149
+#, fuzzy
 msgid "Thank you for registering with us !"
-msgstr ""
+msgstr "για με!"
 
 #: Signup/activate.php:93 Signup/signup_confirmation.php:150
+#, fuzzy
 msgid "An email confirming your information has been sent to"
-msgstr ""
+msgstr "email πληροφορίες απεσταλμένο στο"
 
 #: Signup/activate.php:95 Signup/signup_confirmation.php:152
+#, fuzzy
 msgid "Your cardnumber is "
-msgstr ""
+msgstr "είναι "
 
 #: Signup/activate.php:96 Signup/signup_confirmation.php:153
+#, fuzzy
 msgid "To login to your account :"
-msgstr ""
+msgstr "Προς στο:"
 
 #: Signup/activate.php:97 Signup/signup_confirmation.php:154
+#, fuzzy
 msgid "Your card alias (login) is "
-msgstr ""
+msgstr "είναι "
 
 #: Signup/activate.php:98 Signup/signup_confirmation.php:155
 #: Signup/form_data/FG_var_index.inc:325
+#, fuzzy
 msgid "Your password is "
-msgstr ""
+msgstr "κωδικός πρόσβασης είναι "
 
 #: Signup/activate.php:102
+#, fuzzy
 msgid "Follow the link to access your account : "
-msgstr ""
+msgstr "Ακολούθησε σύνδεσμος στο "
 
 #: Signup/activate.php:129
+#, fuzzy
 msgid "Your account is already activated."
-msgstr ""
+msgstr "είναι."
 
 #: Signup/activate.php:133
+#, fuzzy
 msgid ""
 "Your account cannot be activated please contact <br> the website "
 "administrator or retry later."
-msgstr ""
+msgstr "<br> ή."
 
 #: Signup/index.php:20
 msgid "First Name"
-msgstr ""
+msgstr "Όνομα"
 
 #: Signup/index.php:21
 msgid "Last Name"
-msgstr ""
+msgstr "Επώνυμο"
 
 #: Signup/index.php:22
 msgid "E-mail"
-msgstr ""
+msgstr "η-μαίλ"
 
 #: Signup/index.php:23
 msgid "Address"
-msgstr ""
+msgstr "Διεύθυνση"
 
 #: Signup/index.php:24
 msgid "City"
-msgstr ""
+msgstr "Πόλη"
 
 #: Signup/index.php:25
 msgid "State"
-msgstr ""
+msgstr "Επαρχία"
 
 #: Signup/index.php:26
 msgid "Country"
-msgstr ""
+msgstr "Χώρα"
 
 #: Signup/index.php:27
 msgid "Postal code"
-msgstr ""
+msgstr "Ταχυδρομικός κώδικας"
 
 #: Signup/index.php:46
 msgid "Sign up!"
-msgstr ""
+msgstr "Εγγραφή!"
 
 #: Signup/index.php:49
 #, php-format
 msgid ""
 "Thank you for signing up.<br>An email has been sent to %email for "
 "confirmation!<br>"
-msgstr ""
+msgstr "Σας ευχαριστούμε για την εγγραφή σας.<br> Έχει αποσταλλεί email στο %email για επικύρωση της εγγραφής.<br>"
 
 #: Signup/signup_confirmation.php:13
+#, fuzzy
 msgid ""
 "Sorry the confirmation email has been sent already, multi-signup are not "
 "authorized! Please wait 2 minutes before making any other signup!"
-msgstr ""
+msgstr "Λυπάμαι email απεσταλμένο όχι λεπτά κάθε άλλο!"
 
 #: Signup/signup_confirmation.php:18
+#, fuzzy
 msgid "Error : No User Created."
-msgstr ""
+msgstr "Σφάλμα Όχι Χρήστης Δημιουργήθηκε."
 
 #: Signup/signup_confirmation.php:58
+#, fuzzy
 msgid "Error : No email Template Found"
-msgstr ""
+msgstr "Σφάλμα Όχι email Πρότυπο"
 
 #: Signup/signup_confirmation.php:81
+#, fuzzy
 msgid "Error : No such user found in database"
-msgstr ""
+msgstr "Σφάλμα Όχι σε βάση δεδομένων"
 
 #: Signup/signup_confirmation.php:145
 msgid "SIGNUP CONFIRMATION"
 msgstr ""
 
 #: Signup/signup_confirmation.php:158
+#, fuzzy
 msgid "thank you for registering with us!"
-msgstr ""
+msgstr "για με!"
 
 #: Signup/signup_confirmation.php:159
+#, fuzzy
 msgid "An activation email has been sent to"
-msgstr ""
+msgstr "email απεσταλμένο στο"
 
 #: Signup/form_data/FG_var_index.inc:26
+#, fuzzy
 msgid "No Call Plan id are defined"
-msgstr ""
+msgstr "Όχι Κλήση Σχέδιο id"
 
 #: Signup/form_data/FG_var_index.inc:87
+#, fuzzy
 msgid "LANGUAGE"
-msgstr ""
+msgstr "ΓΛΩΣΣΑ"
 
 #: Signup/form_data/FG_var_index.inc:104
+#, fuzzy
 msgid "CALL PLAN"
-msgstr ""
+msgstr "ΚΛΗΣΗ"
 
 #: Signup/form_data/FG_var_index.inc:123
+#, fuzzy
 msgid "LASTNAME"
-msgstr ""
+msgstr "ΕΠΩΝΥΜΟ"
 
 #: Signup/form_data/FG_var_index.inc:129
+#, fuzzy
 msgid "Insert your lastname"
-msgstr ""
+msgstr "Εισαγωγή"
 
 #: Signup/form_data/FG_var_index.inc:132
+#, fuzzy
 msgid "FIRSTNAME"
-msgstr ""
+msgstr "ΟΝΟΜΑ"
 
 #: Signup/form_data/FG_var_index.inc:138
+#, fuzzy
 msgid "Insert your firstname"
-msgstr ""
+msgstr "Εισαγωγή"
 
 #: Signup/form_data/FG_var_index.inc:142
+#, fuzzy
 msgid "EMAIL"
-msgstr ""
+msgstr "ΗΛ.ΔΙΕΥΘΥΝΣΗ"
 
 #: Signup/form_data/FG_var_index.inc:148
+#, fuzzy
 msgid "Insert your email"
-msgstr ""
+msgstr "Εισαγωγή email"
 
 #: Signup/form_data/FG_var_index.inc:152
+#, fuzzy
 msgid "ADDRESS"
-msgstr ""
+msgstr "ΔΙΕΥΘΥΝΣΗ"
 
 #: Signup/form_data/FG_var_index.inc:158
+#, fuzzy
 msgid "Insert your address"
-msgstr ""
+msgstr "Εισαγωγή διεύθυνση"
 
 #: Signup/form_data/FG_var_index.inc:162
+#, fuzzy
 msgid "CITY"
-msgstr ""
+msgstr "ΠΟΛΗ"
 
 #: Signup/form_data/FG_var_index.inc:168
+#, fuzzy
 msgid "Insert your city"
-msgstr ""
+msgstr "Εισαγωγή"
 
 #: Signup/form_data/FG_var_index.inc:172
+#, fuzzy
 msgid "STATE/PROVINCE"
-msgstr ""
+msgstr "ΝΟΜΟΣ/ΕΠΑΡΧΙΑ"
 
 #: Signup/form_data/FG_var_index.inc:178
+#, fuzzy
 msgid "Insert your state"
-msgstr ""
+msgstr "Εισαγωγή κατάσταση"
 
 #: Signup/form_data/FG_var_index.inc:182
+#, fuzzy
 msgid "COUNTRY"
-msgstr ""
+msgstr "ΧΩΡΑ"
 
 #: Signup/form_data/FG_var_index.inc:193
+#, fuzzy
 msgid "ZIP/POSTAL CODE"
-msgstr ""
+msgstr "ΤΑΧ ΚΩΔΙΚΑΣ"
 
 #: Signup/form_data/FG_var_index.inc:199
+#, fuzzy
 msgid "Insert your zipcode"
-msgstr ""
+msgstr "Εισαγωγή"
 
 #: Signup/form_data/FG_var_index.inc:212
 msgid "TIMEZONE"
@@ -212,49 +264,58 @@ msgid "PHONENUMBER"
 msgstr ""
 
 #: Signup/form_data/FG_var_index.inc:225
+#, fuzzy
 msgid "Insert your phone number"
-msgstr ""
+msgstr "Εισαγωγή"
 
 #: Signup/form_data/FG_var_index.inc:229
+#, fuzzy
 msgid "FAXNUMBER"
-msgstr ""
+msgstr "ΑΡ. ΦΑΞ"
 
 #: Signup/form_data/FG_var_index.inc:235
+#, fuzzy
 msgid "Insert your fax number"
-msgstr ""
+msgstr "Εισαγωγή του αριθμού φαξ"
 
 #: Signup/form_data/FG_var_index.inc:238
+#, fuzzy
 msgid "VERIFICATION"
-msgstr ""
+msgstr "ΕΠΙΒΕΒΑΙΩΣΗ"
 
 #: Signup/form_data/FG_var_index.inc:244
+#, fuzzy
 msgid "Insert code from above picture"
-msgstr ""
+msgstr "Εισαγωγή από"
 
 #: Signup/form_data/FG_var_index.inc:319
-msgid ""
-"You can modify, through the following form, the different properties of your "
-msgstr ""
+#, fuzzy
+msgid "You can modify, through the following form, the different properties of your "
+msgstr "Μπορείτε να διορθώσετε, με την παρακάτω φόρμα, τις ιδιότητες των"
 
 #: Signup/form_data/FG_var_index.inc:320
 msgid "If you really want remove this "
 msgstr ""
 
 #: Signup/form_data/FG_var_index.inc:321
+#, fuzzy
 msgid "you can add easily a new "
-msgstr ""
+msgstr "a νέο "
 
 #: Signup/form_data/FG_var_index.inc:325
+#, fuzzy
 msgid ""
 "Thanks for registering with us.<br>A email with your information has been "
 "sent to your account "
-msgstr ""
+msgstr "για με<br> A email με απεσταλμένο στο "
 
 #: Signup/form_data/FG_var_index.inc:325
+#, fuzzy
 msgid "Your card number is "
-msgstr ""
+msgstr "είναι "
 
 #: Signup/form_data/FG_var_index.inc:329
-msgid ""
-"Once you have completed the form above, click on the CONFIRM DATA button."
-msgstr ""
+#, fuzzy
+msgid "Once you have completed the form above, click on the CONFIRM DATA button."
+msgstr "συμπληρώθηκε κλικ."
+

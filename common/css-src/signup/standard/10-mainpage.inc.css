@@ -1,0 +1,8 @@
+div.companytitle {
+	margin-top: 2em;
+	width: 50%;
+	font-size: 14px;
+	text-align: center;
+	padding: 10px;
+	border: solid blue 2px;
+}

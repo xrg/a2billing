@@ -1,12 +1,37 @@
 <?php
-include ("lib/defines.php");
-include ("lib/module.access.php");
+require("lib/defines.php");
+require("lib/module.access.php");
+require_once (DIR_COMMON."Form.inc.php");
+//require_once (DIR_COMMON."Form/Class.SqlActionForm.inc.php");
+require_once (DIR_COMMON."Form/Class.TimeField.inc.php");
+require_once (DIR_COMMON."Form/Class.ClauseField.inc.php");
 
-if (! has_rights (ACX_ACCESS)){ 
-	Header ("HTTP/1.0 401 Unauthorized");
-	   Header ("Location: PP_error.php?c=accessdenied");
-	   die();
-}
+
+$User_Form= new FormHandler("cc_card");
+$User_Form->checkRights(ACX_ACCESS);
+$User_Form->init(null,false);
+$User_Form->views['list']=new DetailsView();
+// $User_Form->views['list']->table_class="user-info";
+
+$User_Form->model[]=new ClauseField("id",$_SESSION['card_id']);
+
+$User_Form->model[] = new TextField(_('First name'),'firstname') ;
+$User_Form->model[] = new TextField(_('Last name'),'lastname') ;
+$User_Form->model[] = new MoneyField(_('Credit'),'credit') ;
+$User_Form->model[] = new DateField(_('Last used'),'lastuse') ;
+
+
+$User_Form->submitString = _("Calculate!");
+
+$User_Form->edit_no_records =  _("Database error: your details cannot be found!");
+
+
+$PAGE_ELEMS[] = &$User_Form;
+
+
+require("PP_page.inc.php");
+
+if (false) {
 //require (LANGUAGE_DIR.FILENAME_USERINFO);
 
 
@@ -156,4 +181,5 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
 <?php } ?>
 <?php
 	include("PP_footer.php");
+}
 ?>

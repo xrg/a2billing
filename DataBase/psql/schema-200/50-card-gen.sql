@@ -204,4 +204,72 @@ BEGIN
 	RETURN s_num - dremain;
 END; $$ LANGUAGE PLPGSQL VOLATILE;
 
+/** Generate signed-up cards and optionally VoIP peers
+    \param s_cardgrp The card group to use. It also defines the numplan.
+    \param s_ucfg   If >0, generate asterisk users using that cc_ast_users_config group.
+*/
+CREATE OR REPLACE FUNCTION gen_card_signup(s_crdgrp INTEGER, s_ucfg INTEGER,
+	s_firstname TEXT, s_lastname TEXT, s_email TEXT, s_address TEXT, s_city TEXT, 
+	s_state TEXT, s_country TEXT, s_zipcode TEXT, s_lang TEXT ) RETURNS cc_card AS $$
+DECLARE
+	dloop INTEGER;
+	planrow RECORD;
+	din	INTEGER;
+	dcard	cc_card;
+BEGIN
+	dloop:=0;
+	
+	SELECT cc_card_group.id AS grp,agentid,numplan,uname_pattern,initiallimit,
+			def_currency,aliaslen, COALESCE(cc_agent.login,'') AS agentname
+		INTO planrow
+		FROM cc_card_group LEFT JOIN cc_agent ON cc_card_group.agentid = cc_agent.id ,
+			cc_numplan 
+		WHERE cc_card_group.id = s_crdgrp
+		  AND cc_card_group.numplan = cc_numplan.id;
+	IF NOT FOUND THEN
+		RAISE EXCEPTION 'Card group not found!';
+	END IF;
+
+	PERFORM id FROM cc_card WHERE status = 3 AND email = s_email;
+	IF FOUND THEN
+		RAISE EXCEPTION 'err-exists: User already tried to sign up with that email';
+	END IF;
+	
+	--RAISE NOTICE 'Row: %',planrow;
+	LOOP
+		--RAISE NOTICE 'Loop %',dloop;
+		IF dloop > 100 THEN
+			RAISE EXCEPTION 'Cannot find usable name/alias';
+		END IF;
+		
+		dloop := dloop + 1;
+
+		INSERT INTO cc_card(grp,username,useralias,userpass,credit,status,
+			currency,creditlimit, loginkey,
+			firstname, lastname, email , address , city , 
+			state , country , zipcode , "language" )
+		SELECT planrow.grp,gen_uname(planrow.uname_pattern,planrow.agentname,foo.alias),
+			foo.alias, mkpasswd(8),0.0,3,planrow.def_currency,planrow.initiallimit,
+			mkpasswd(16),
+			s_firstname, s_lastname, s_email, s_address, s_city,
+			s_state, s_country, s_zipcode, s_lang
+			FROM ( SELECT gen_rndaliases(planrow.grp, 1, 
+				0,planrow.aliaslen) AS alias) AS foo
+			RETURNING * INTO dcard;
+		
+		GET DIAGNOSTICS din = ROW_COUNT;
+		
+		EXIT WHEN din > 0 ;
+	END LOOP;
+	
+	-- now() is atomic within this function, so it would be safe to select those cards
+	-- by their creation time.
+	IF s_ucfg IS NOT NULL AND s_ucfg >0  THEN
+		INSERT INTO cc_ast_users(card_id,config) 
+			VALUES(dcard.id, s_ucfg);
+	END IF;
+
+	RETURN dcard;
+END; $$ LANGUAGE PLPGSQL VOLATILE;
+
 --eof
