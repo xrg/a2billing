@@ -1,5 +1,7 @@
 <?php
 
+*-* // deprecated file!
+
 function show_help($str) {
 
 	switch ($str) {

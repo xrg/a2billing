@@ -1,3 +1,21 @@
+# A2BCustomer_UI PO File.
+# Copyright (C) 2006 A2BILLING
+# This file is distributed under the same license as the PACKAGE package.
+# ARESKI <areski@gmail.com>, 2006.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2007-05-15 11:45+0500\n"
+"PO-Revision-Date: 2006-06-12 14:37+0500\n"
+"Last-Translator: ARESKI <areski@gmail.com>\n"
+"Language-Team: ARESKI <areski@gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"1.0: 2.0\n"
+
 #: A2BCustomer_UI/lib/defines.php:14 A2BCustomer_UI/lib/defines-old.php:203
 msgid ""
 "This software has been created by Areski under GPL licence. For futher "
@@ -54,30 +72,40 @@ msgid "Enter your voucher number to top up your card."
 msgstr ""
 
 #: A2BCustomer_UI/lib/help.php:38
+#, fuzzy
 msgid ""
 "Select the country below where you would like a DID, select a DID from the "
 "list and enter the destination you would like to assign it to."
 msgstr ""
+"Select below the country where to find a DID and then select a DID and enter "
+"the destination you would like to assign to it."
 
 #: A2BCustomer_UI/lib/help.php:42
+#, fuzzy
 msgid "Personal information. <br>"
-msgstr ""
+msgstr "Insert a new"
 
 #: A2BCustomer_UI/lib/defines-old.php:23
 msgid "The expiry date entered for the credit card is invalid."
 msgstr ""
 
 #: A2BCustomer_UI/lib/defines-old.php:23
+#, fuzzy
 msgid "Please check the date and try again."
 msgstr ""
+"Не могу подключиться к asterisk manager'у!<br>Пожалуйста проверьте настройки "
+"manager'а..."
 
 #: A2BCustomer_UI/lib/defines-old.php:24
 msgid "The credit card number entered is invalid."
 msgstr ""
 
 #: A2BCustomer_UI/lib/defines-old.php:24
+#, fuzzy
 msgid "Please check the number and try again."
 msgstr ""
+"Не могу подключиться к asterisk manager'у!<br>Пожалуйста проверьте настройки "
+"manager'а..."
 
 #: A2BCustomer_UI/lib/defines-old.php:25
 msgid "The first four digits of the number entered are"
@@ -139,12 +167,14 @@ msgid "Credit Card Type"
 msgstr ""
 
 #: A2BCustomer_UI/lib/defines-old.php:42
+#, fuzzy
 msgid "Credit Card Owner"
-msgstr ""
+msgstr "Создать"
 
 #: A2BCustomer_UI/lib/defines-old.php:43
+#, fuzzy
 msgid "Credit Card Number"
-msgstr ""
+msgstr "Номер Карты"
 
 #: A2BCustomer_UI/lib/defines-old.php:44
 msgid "Credit Card Expiry Date"
@@ -175,8 +205,9 @@ msgid "Credit Card Owner:"
 msgstr ""
 
 #: A2BCustomer_UI/lib/defines-old.php:54
+#, fuzzy
 msgid "Credit Card Number:"
-msgstr ""
+msgstr "Номер Карты"
 
 #: A2BCustomer_UI/lib/defines-old.php:55
 msgid "Credit Card Expiry Date:"
@@ -209,51 +240,52 @@ msgstr ""
 #: A2BCustomer_UI/A2B_entity_view_invoice.php:91
 #: A2BCustomer_UI/A2B_entity_view_invoice.php:108
 msgid "January"
-msgstr ""
+msgstr "Январь"
 
 #: A2BCustomer_UI/A2B_entity_view_invoice.php:91
 msgid "February"
-msgstr ""
+msgstr "Февраль"
 
 #: A2BCustomer_UI/A2B_entity_view_invoice.php:91
+#, fuzzy
 msgid "March"
-msgstr ""
+msgstr "Март"
 
 #: A2BCustomer_UI/A2B_entity_view_invoice.php:91
 msgid "April"
-msgstr ""
+msgstr "Апрель"
 
 #: A2BCustomer_UI/A2B_entity_view_invoice.php:91
 msgid "May"
-msgstr ""
+msgstr "Май"
 
 #: A2BCustomer_UI/A2B_entity_view_invoice.php:91
 msgid "June"
-msgstr ""
+msgstr "Июнь"
 
 #: A2BCustomer_UI/A2B_entity_view_invoice.php:91
 msgid "July"
-msgstr ""
+msgstr "Июль"
 
 #: A2BCustomer_UI/A2B_entity_view_invoice.php:91
 msgid "August"
-msgstr ""
+msgstr "Август"
 
 #: A2BCustomer_UI/A2B_entity_view_invoice.php:91
 msgid "September"
-msgstr ""
+msgstr "Сентябрь"
 
 #: A2BCustomer_UI/A2B_entity_view_invoice.php:91
 msgid "October"
-msgstr ""
+msgstr "Октябрь"
 
 #: A2BCustomer_UI/A2B_entity_view_invoice.php:91
 msgid "November"
-msgstr ""
+msgstr "Ноябрь"
 
 #: A2BCustomer_UI/A2B_entity_view_invoice.php:91
 msgid "December"
-msgstr ""
+msgstr "Декабрь"
 
 #: A2BCustomer_UI/A2B_entity_view_invoice.php:112
 msgid "To"
@@ -276,8 +308,9 @@ msgid "Last used"
 msgstr ""
 
 #: A2BCustomer_UI/userinfo.php:24
+#, fuzzy
 msgid "Calculate!"
-msgstr ""
+msgstr "Дата"
 
 #: A2BCustomer_UI/userinfo.php:26
 msgid "Database error: your details cannot be found!"
@@ -285,54 +318,54 @@ msgstr ""
 
 #: A2BCustomer_UI/userinfo.php:93
 msgid "LAST NAME"
-msgstr ""
+msgstr "ФАМИЛИЯ"
 
 #: A2BCustomer_UI/userinfo.php:94
 msgid "FIRST NAME"
-msgstr ""
+msgstr "ИМЯ"
 
 #: A2BCustomer_UI/userinfo.php:95
 #: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:172
 msgid "EMAIL"
-msgstr ""
+msgstr "EMAIL"
 
 #: A2BCustomer_UI/userinfo.php:96
 #: A2BCustomer_UI/form_data/FG_var_speeddial.inc:27
 #: A2BCustomer_UI/form_data/FG_var_speeddial.inc:80
 msgid "PHONE"
-msgstr ""
+msgstr "ТЕЛЕФОН"
 
 #: A2BCustomer_UI/userinfo.php:97
 #: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:240
 msgid "FAX"
-msgstr ""
+msgstr "FAX"
 
 #: A2BCustomer_UI/userinfo.php:100
 #: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:194
 #: A2BCustomer_UI/form_data/FG_var_card.inc:32
 msgid "ADDRESS"
-msgstr ""
+msgstr "АДРЕС"
 
 #: A2BCustomer_UI/userinfo.php:101
 msgid "ZIP CODE"
-msgstr ""
+msgstr "ZIP КОД"
 
 #: A2BCustomer_UI/userinfo.php:102
 #: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:206
 #: A2BCustomer_UI/form_data/FG_var_card.inc:42
 msgid "CITY"
-msgstr ""
+msgstr "ГОРОД"
 
 #: A2BCustomer_UI/userinfo.php:103
 msgid "STATE"
-msgstr ""
+msgstr "ШТАТ"
 
 #: A2BCustomer_UI/userinfo.php:104
 #: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:250
 #: A2BCustomer_UI/form_data/FG_var_did.inc:46
 #: A2BCustomer_UI/form_data/FG_var_card.inc:62
 msgid "COUNTRY"
-msgstr ""
+msgstr "СТРАНА"
 
 #: A2BCustomer_UI/userinfo.php:112
 msgid "EDIT PERSONAL INFORMATION"
@@ -340,15 +373,16 @@ msgstr ""
 
 #: A2BCustomer_UI/userinfo.php:127
 msgid "CARD NUMBER"
-msgstr ""
+msgstr "НОМЕР КАРТЫ"
 
 #: A2BCustomer_UI/userinfo.php:131
 msgid "BALANCE REMAINING"
-msgstr ""
+msgstr "БАЛАНС"
 
 #: A2BCustomer_UI/userinfo.php:154
+#, fuzzy
 msgid "Click below to buy credit : "
-msgstr ""
+msgstr "Нажмите для покупки <br>кредитов на"
 
 #: A2BCustomer_UI/checkout_success.php:22
 msgid "Message"
@@ -383,8 +417,9 @@ msgid "Your transaction was successful."
 msgstr ""
 
 #: A2BCustomer_UI/PP_page.inc.php:44
+#, fuzzy
 msgid "Other"
-msgstr ""
+msgstr "Октябрь"
 
 #: A2BCustomer_UI/A2B_entity_sipiax_info.php:27
 msgid "IAX Config"
@@ -403,16 +438,18 @@ msgid "sip.conf"
 msgstr ""
 
 #: A2BCustomer_UI/A2B_entity_sipiax_info.php:57
+#, fuzzy
 msgid "CARD"
-msgstr ""
+msgstr "CALL"
 
 #: A2BCustomer_UI/A2B_entity_sipiax_info.php:61
 msgid "CONFIGURATION TYPE"
 msgstr ""
 
 #: A2BCustomer_UI/A2B_entity_sipiax_info.php:64
+#, fuzzy
 msgid "IAX"
-msgstr ""
+msgstr "FAX"
 
 #: A2BCustomer_UI/A2B_entity_sipiax_info.php:65
 msgid "SIP"
@@ -429,48 +466,52 @@ msgstr ""
 #: A2BCustomer_UI/CC_entity_phonelist.php:241
 #: A2BCustomer_UI/predictivedialer.php:308
 msgid "Previous"
-msgstr ""
+msgstr "Назад"
 
 #: A2BCustomer_UI/CC_entity_phonelist.php:246
 #: A2BCustomer_UI/A2B_entity_did.php:439
 msgid "Next"
-msgstr ""
+msgstr "Дальше"
 
 #: A2BCustomer_UI/CC_entity_phonelist.php:265
 #: A2BCustomer_UI/A2B_entity_did.php:424
 #: A2BCustomer_UI/predictivedialer.php:332
 msgid "NO"
-msgstr ""
+msgstr "НЕТ"
 
 #: A2BCustomer_UI/CC_entity_phonelist.php:265
 #: A2BCustomer_UI/predictivedialer.php:332
 msgid "REGISTERED"
-msgstr ""
+msgstr "ЗАРЕГИСТРИРОВАН"
 
 #: A2BCustomer_UI/CC_entity_phonelist.php:287
 #: A2BCustomer_UI/predictivedialer.php:371
 msgid "Insert a new"
-msgstr ""
+msgstr "Добавить"
 
 #: A2BCustomer_UI/CC_entity_phonelist.php:297
+#, fuzzy
 msgid "If you wish to insert a new"
-msgstr ""
+msgstr "Хотите добавить новый"
 
 #: A2BCustomer_UI/CC_entity_phonelist.php:297
+#, fuzzy
 msgid "click on the Add button"
-msgstr ""
+msgstr "Нажмите кнопку Добавить"
 
 #: A2BCustomer_UI/CC_entity_phonelist.php:302
+#, fuzzy
 msgid "Information about the insertion"
-msgstr ""
+msgstr "Информация"
 
 #: A2BCustomer_UI/A2B_entity_speeddial.php:59
 msgid "Enter the number which you wish to assign to the code here"
-msgstr ""
+msgstr "Введите здесь номер для быстрого набора"
 
 #: A2BCustomer_UI/A2B_entity_speeddial.php:64
+#, fuzzy
 msgid "Speed Dial code"
-msgstr ""
+msgstr "Код быстрого набора"
 
 #: A2BCustomer_UI/A2B_entity_speeddial.php:74
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:45
@@ -484,7 +525,7 @@ msgstr ""
 #: A2BCustomer_UI/A2B_entity_call_details.php:82
 #: A2BCustomer_UI/A2B_entity_call_details.php:619
 msgid "Destination"
-msgstr ""
+msgstr "Номер телефона"
 
 #: A2BCustomer_UI/A2B_entity_speeddial.php:76
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:295
@@ -494,11 +535,11 @@ msgstr ""
 #: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:336
 #: A2BCustomer_UI/A2B_entity_call_details.php:591
 msgid "Name"
-msgstr ""
+msgstr "Имя"
 
 #: A2BCustomer_UI/A2B_entity_speeddial.php:80
 msgid "ASSIGN NUMBER TO SPEEDDIAL"
-msgstr ""
+msgstr "ДОБАВИТЬ"
 
 #: A2BCustomer_UI/forgotpassword.php:19
 msgid ""
@@ -559,7 +600,7 @@ msgstr ""
 #: A2BCustomer_UI/call-history.php:65
 #: A2BCustomer_UI/A2B_entity_call_details.php:79
 msgid "Calldate"
-msgstr ""
+msgstr "Дата"
 
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:43
 #: A2BCustomer_UI/invoices_customer.php:57
@@ -568,7 +609,7 @@ msgstr ""
 #: A2BCustomer_UI/call-history.php:66
 #: A2BCustomer_UI/A2B_entity_call_details.php:80
 msgid "Source"
-msgstr ""
+msgstr "Source"
 
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:44
 #: A2BCustomer_UI/invoices_customer.php:58
@@ -576,7 +617,7 @@ msgstr ""
 #: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:57
 #: A2BCustomer_UI/A2B_entity_call_details.php:81
 msgid "Callednumber"
-msgstr ""
+msgstr "Куда"
 
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:46
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:344
@@ -593,7 +634,7 @@ msgstr ""
 #: A2BCustomer_UI/A2B_entity_call_details.php:620
 #: A2BCustomer_UI/A2B_entity_call_details.php:709
 msgid "Duration"
-msgstr ""
+msgstr "Длительность"
 
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:48
 #: A2BCustomer_UI/invoices_customer.php:65
@@ -602,7 +643,7 @@ msgstr ""
 #: A2BCustomer_UI/call-history.php:74
 #: A2BCustomer_UI/A2B_entity_call_details.php:90
 msgid "Cost"
-msgstr ""
+msgstr "Стоимость звонка"
 
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:299
 #: A2BCustomer_UI/invoices_customer.php:313
@@ -610,8 +651,9 @@ msgstr ""
 #: A2BCustomer_UI/A2B_entity_call_details_pdf.php:319
 #: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:340
 #: A2BCustomer_UI/A2B_entity_call_details.php:595
+#, fuzzy
 msgid "Card Number"
-msgstr ""
+msgstr "Номер Карты"
 
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:306
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:311
@@ -619,18 +661,21 @@ msgstr ""
 #: A2BCustomer_UI/invoices_customer.php:722
 #: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:347
 #: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:352
+#, fuzzy
 msgid "From Date"
-msgstr ""
+msgstr "Дата"
 
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:315
 #: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:356
+#, fuzzy
 msgid "To Date"
-msgstr ""
+msgstr "Дата"
 
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:339
 #: A2BCustomer_UI/A2B_entity_call_details.php:615
+#, fuzzy
 msgid "Calls by Destination"
-msgstr ""
+msgstr "Номер телефона"
 
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:345
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:434
@@ -647,8 +692,9 @@ msgstr ""
 #: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:467
 #: A2BCustomer_UI/A2B_entity_call_details.php:622
 #: A2BCustomer_UI/A2B_entity_call_details.php:711
+#, fuzzy
 msgid "Calls"
-msgstr ""
+msgstr "Статистика звонков"
 
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:347
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:436
@@ -662,8 +708,9 @@ msgstr ""
 #: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:635
 #: A2BCustomer_UI/A2B_entity_call_details.php:623
 #: A2BCustomer_UI/A2B_entity_call_details.php:712
+#, fuzzy
 msgid "Amount"
-msgstr ""
+msgstr "ИТОГО"
 
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:396
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:486
@@ -685,12 +732,13 @@ msgstr ""
 #: A2BCustomer_UI/A2B_entity_call_details.php:672
 #: A2BCustomer_UI/A2B_entity_call_details.php:762
 msgid "TOTAL"
-msgstr ""
+msgstr "ИТОГО"
 
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:429
 #: A2BCustomer_UI/A2B_entity_call_details.php:705
+#, fuzzy
 msgid "Calls by Date"
-msgstr ""
+msgstr "Дата"
 
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:432
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:594
@@ -700,7 +748,7 @@ msgstr ""
 #: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:632
 #: A2BCustomer_UI/A2B_entity_call_details.php:708
 msgid "Date"
-msgstr ""
+msgstr "Дата"
 
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:515
 #: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:555
@@ -717,20 +765,22 @@ msgstr ""
 #: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:559
 #: A2BCustomer_UI/form_data/FG_var_did.inc:42
 msgid "DID"
-msgstr ""
+msgstr "DID"
 
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:520
 #: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:560
+#, fuzzy
 msgid "Country"
-msgstr ""
+msgstr "Выбирите Страну"
 
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:521
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:596
 #: A2BCustomer_UI/card-history.php:45
 #: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:561
 #: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:634
+#, fuzzy
 msgid "Description"
-msgstr ""
+msgstr "Номер телефона"
 
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:591
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:623
@@ -758,15 +808,16 @@ msgstr ""
 
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:619
 #: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:658
+#, fuzzy
 msgid "Subscription Fee"
-msgstr ""
+msgstr "Номер телефона"
 
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:668
 #: A2BCustomer_UI/invoices_customer.php:658
 #: A2BCustomer_UI/invoices_customer.php:1034
 #: A2BCustomer_UI/A2B_entity_call_details.php:783
 msgid "Total"
-msgstr ""
+msgstr "ИТОГО"
 
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:671
 #: A2BCustomer_UI/invoices_customer.php:661
@@ -783,8 +834,9 @@ msgstr ""
 #: A2BCustomer_UI/A2B_entity_call_details_pdf.php:523
 #: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:711
 #: A2BCustomer_UI/A2B_entity_call_details.php:791
+#, fuzzy
 msgid "Grand Total"
-msgstr ""
+msgstr "ИТОГО"
 
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:687
 #: A2BCustomer_UI/invoices_customer.php:672
@@ -807,15 +859,16 @@ msgstr ""
 
 #: A2BCustomer_UI/card-history.php:174 A2BCustomer_UI/call-history.php:260
 #: A2BCustomer_UI/A2B_entity_call_details.php:308
+#, fuzzy
 msgid "SELECT BY MONTH"
-msgstr ""
+msgstr "БЫСТРЫЙ НАБОР"
 
 #: A2BCustomer_UI/card-history.php:180 A2BCustomer_UI/card-history.php:231
 #: A2BCustomer_UI/call-history.php:266 A2BCustomer_UI/call-history.php:317
 #: A2BCustomer_UI/A2B_entity_call_details.php:314
 #: A2BCustomer_UI/A2B_entity_call_details.php:363
 msgid "FROM"
-msgstr ""
+msgstr "С"
 
 #: A2BCustomer_UI/card-history.php:184 A2BCustomer_UI/card-history.php:205
 #: A2BCustomer_UI/card-history.php:244 A2BCustomer_UI/card-history.php:272
@@ -826,7 +879,7 @@ msgstr ""
 #: A2BCustomer_UI/A2B_entity_call_details.php:376
 #: A2BCustomer_UI/A2B_entity_call_details.php:421
 msgid "JANUARY"
-msgstr ""
+msgstr "ЯНВАРЬ"
 
 #: A2BCustomer_UI/card-history.php:184 A2BCustomer_UI/card-history.php:205
 #: A2BCustomer_UI/card-history.php:244 A2BCustomer_UI/card-history.php:272
@@ -837,7 +890,7 @@ msgstr ""
 #: A2BCustomer_UI/A2B_entity_call_details.php:376
 #: A2BCustomer_UI/A2B_entity_call_details.php:421
 msgid "FEBRUARY"
-msgstr ""
+msgstr "ФЕВРАЛЬ"
 
 #: A2BCustomer_UI/card-history.php:184 A2BCustomer_UI/card-history.php:205
 #: A2BCustomer_UI/card-history.php:244 A2BCustomer_UI/card-history.php:272
@@ -848,7 +901,7 @@ msgstr ""
 #: A2BCustomer_UI/A2B_entity_call_details.php:376
 #: A2BCustomer_UI/A2B_entity_call_details.php:421
 msgid "MARCH"
-msgstr ""
+msgstr "МАРТ"
 
 #: A2BCustomer_UI/card-history.php:184 A2BCustomer_UI/card-history.php:205
 #: A2BCustomer_UI/card-history.php:244 A2BCustomer_UI/card-history.php:272
@@ -859,7 +912,7 @@ msgstr ""
 #: A2BCustomer_UI/A2B_entity_call_details.php:376
 #: A2BCustomer_UI/A2B_entity_call_details.php:421
 msgid "APRIL"
-msgstr ""
+msgstr "АПРЕЛЬ"
 
 #: A2BCustomer_UI/card-history.php:184 A2BCustomer_UI/card-history.php:205
 #: A2BCustomer_UI/card-history.php:244 A2BCustomer_UI/card-history.php:272
@@ -870,7 +923,7 @@ msgstr ""
 #: A2BCustomer_UI/A2B_entity_call_details.php:376
 #: A2BCustomer_UI/A2B_entity_call_details.php:421
 msgid "MAY"
-msgstr ""
+msgstr "МАЙ"
 
 #: A2BCustomer_UI/card-history.php:184 A2BCustomer_UI/card-history.php:205
 #: A2BCustomer_UI/card-history.php:244 A2BCustomer_UI/card-history.php:272
@@ -881,7 +934,7 @@ msgstr ""
 #: A2BCustomer_UI/A2B_entity_call_details.php:376
 #: A2BCustomer_UI/A2B_entity_call_details.php:421
 msgid "JUNE"
-msgstr ""
+msgstr "ИЮНЬ"
 
 #: A2BCustomer_UI/card-history.php:184 A2BCustomer_UI/card-history.php:205
 #: A2BCustomer_UI/card-history.php:244 A2BCustomer_UI/card-history.php:272
@@ -892,7 +945,7 @@ msgstr ""
 #: A2BCustomer_UI/A2B_entity_call_details.php:376
 #: A2BCustomer_UI/A2B_entity_call_details.php:421
 msgid "JULY"
-msgstr ""
+msgstr "ИЮЛЬ"
 
 #: A2BCustomer_UI/card-history.php:184 A2BCustomer_UI/card-history.php:205
 #: A2BCustomer_UI/card-history.php:244 A2BCustomer_UI/card-history.php:272
@@ -903,7 +956,7 @@ msgstr ""
 #: A2BCustomer_UI/A2B_entity_call_details.php:376
 #: A2BCustomer_UI/A2B_entity_call_details.php:421
 msgid "AUGUST"
-msgstr ""
+msgstr "АВГУСТ"
 
 #: A2BCustomer_UI/card-history.php:184 A2BCustomer_UI/card-history.php:205
 #: A2BCustomer_UI/card-history.php:244 A2BCustomer_UI/card-history.php:272
@@ -914,7 +967,7 @@ msgstr ""
 #: A2BCustomer_UI/A2B_entity_call_details.php:376
 #: A2BCustomer_UI/A2B_entity_call_details.php:421
 msgid "SEPTEMBER"
-msgstr ""
+msgstr "СЕНТЯБРЬ"
 
 #: A2BCustomer_UI/card-history.php:184 A2BCustomer_UI/card-history.php:205
 #: A2BCustomer_UI/card-history.php:244 A2BCustomer_UI/card-history.php:272
@@ -925,7 +978,7 @@ msgstr ""
 #: A2BCustomer_UI/A2B_entity_call_details.php:376
 #: A2BCustomer_UI/A2B_entity_call_details.php:421
 msgid "OCTOBER"
-msgstr ""
+msgstr "ОКТЯБРЬ"
 
 #: A2BCustomer_UI/card-history.php:184 A2BCustomer_UI/card-history.php:205
 #: A2BCustomer_UI/card-history.php:244 A2BCustomer_UI/card-history.php:272
@@ -936,7 +989,7 @@ msgstr ""
 #: A2BCustomer_UI/A2B_entity_call_details.php:376
 #: A2BCustomer_UI/A2B_entity_call_details.php:421
 msgid "NOVEMBER"
-msgstr ""
+msgstr "НОЯБРЬ"
 
 #: A2BCustomer_UI/card-history.php:184 A2BCustomer_UI/card-history.php:205
 #: A2BCustomer_UI/card-history.php:244 A2BCustomer_UI/card-history.php:272
@@ -947,26 +1000,27 @@ msgstr ""
 #: A2BCustomer_UI/A2B_entity_call_details.php:376
 #: A2BCustomer_UI/A2B_entity_call_details.php:421
 msgid "DECEMBER"
-msgstr ""
+msgstr "ДЕКАБРЬ"
 
 #: A2BCustomer_UI/card-history.php:200 A2BCustomer_UI/card-history.php:259
 #: A2BCustomer_UI/call-history.php:286 A2BCustomer_UI/call-history.php:345
 #: A2BCustomer_UI/A2B_entity_call_details.php:334
 #: A2BCustomer_UI/A2B_entity_call_details.php:408
 msgid "TO"
-msgstr ""
+msgstr "ПО"
 
 #: A2BCustomer_UI/card-history.php:226 A2BCustomer_UI/call-history.php:312
 #: A2BCustomer_UI/A2B_entity_call_details.php:358
+#, fuzzy
 msgid "SELECT BY DAY"
-msgstr ""
+msgstr "БЫСТРЫЙ НАБОР"
 
 #: A2BCustomer_UI/card-history.php:293
 #: A2BCustomer_UI/invoices_customer.php:277
 #: A2BCustomer_UI/call-history.php:437
 #: A2BCustomer_UI/A2B_entity_call_details.php:544
 msgid "Search"
-msgstr ""
+msgstr "Поиск"
 
 #: A2BCustomer_UI/card-history.php:385
 #: A2BCustomer_UI/CC_entity_edit_did_destination.php:373
@@ -985,27 +1039,31 @@ msgstr ""
 #: A2BCustomer_UI/A2B_entity_call_details.php:892
 #: A2BCustomer_UI/A2B_entity_call_details.php:992
 msgid "No data found !!!"
-msgstr ""
+msgstr "Ничего не найдено !!!"
 
 #: A2BCustomer_UI/simulator.php:56
 msgid "Error card !!!"
-msgstr ""
+msgstr "Неправильная карта"
 
 #: A2BCustomer_UI/simulator.php:145
+#, fuzzy
 msgid "Call"
-msgstr ""
+msgstr "Статистика звонков"
 
 #: A2BCustomer_UI/simulator.php:145
+#, fuzzy
 msgid "Simulator"
-msgstr ""
+msgstr "Симулятор Звонков"
 
 #: A2BCustomer_UI/simulator.php:151
+#, fuzzy
 msgid "Enter the number you wish to call"
-msgstr ""
+msgstr "Enter the number which you wish to assign to the code here"
 
 #: A2BCustomer_UI/simulator.php:156
+#, fuzzy
 msgid "YOUR BALANCE"
-msgstr ""
+msgstr "Ваш Баланс"
 
 #: A2BCustomer_UI/simulator.php:192
 msgid "Simulator found a rate for your destination"
@@ -1013,7 +1071,7 @@ msgstr ""
 
 #: A2BCustomer_UI/simulator.php:198
 msgid "We found several destinations:"
-msgstr ""
+msgstr "Найдено несколько направлений"
 
 #: A2BCustomer_UI/simulator.php:209 A2BCustomer_UI/invoices_customer.php:404
 #: A2BCustomer_UI/invoices_customer.php:800
@@ -1025,36 +1083,37 @@ msgstr ""
 #: A2BCustomer_UI/form_data/FG_var_did.inc:41
 #: A2BCustomer_UI/form_data/FG_var_did.inc:69
 msgid "DESTINATION"
-msgstr ""
+msgstr "НАПРАВЛЕНИЕ"
 
 #: A2BCustomer_UI/simulator.php:214
 msgid "CallTime available"
-msgstr ""
+msgstr "Время доступное для разговора"
 
 #: A2BCustomer_UI/simulator.php:216 A2BCustomer_UI/invoices_customer.php:239
 #: A2BCustomer_UI/call-history.php:410
 #: A2BCustomer_UI/A2B_entity_call_details.php:494
 msgid "Minutes"
-msgstr ""
+msgstr "Минуты"
 
 #: A2BCustomer_UI/simulator.php:262
 msgid "The number, you have entered, is not correct!"
-msgstr ""
+msgstr "Введен неправильный номер"
 
 #: A2BCustomer_UI/CC_entity_edit_did_destination.php:202
 msgid "error deletion"
-msgstr ""
+msgstr "ошибка удаления"
 
 #: A2BCustomer_UI/CC_entity_edit_did_destination.php:531
 msgid "Add a new "
-msgstr ""
+msgstr "Добавить"
 
 #: A2BCustomer_UI/CC_entity_edit_did_destination.php:646
 #: A2BCustomer_UI/CC_entity_edit_did_destination.php:841
 #: A2BCustomer_UI/CC_entity_edit_speeddial.php:528
 #: A2BCustomer_UI/CC_entity_edit_speeddial.php:697
+#, fuzzy
 msgid "LIST"
-msgstr ""
+msgstr "СПИСОК"
 
 #: A2BCustomer_UI/CC_entity_edit_did_destination.php:705
 #: A2BCustomer_UI/form_data/FG_var_callerid.inc:17
@@ -1068,39 +1127,43 @@ msgid "Add a new"
 msgstr ""
 
 #: A2BCustomer_UI/CC_entity_edit_did_destination.php:1116
+#, fuzzy
 msgid "Deletion confirmation"
-msgstr ""
+msgstr "Номер телефона"
 
 #: A2BCustomer_UI/CC_entity_edit_did_destination.php:1211
 msgid "Remove this DID DESTINATION"
-msgstr ""
+msgstr "Удалить это DID НАПРАВЛЕНИЕ"
 
 #: A2BCustomer_UI/CC_entity_edit_did_destination.php:1211
 #: A2BCustomer_UI/CC_entity_edit_speeddial.php:1025
 msgid "Delete"
-msgstr ""
+msgstr "Удалить"
 
 #: A2BCustomer_UI/CC_entity_edit_did_destination.php:1236
+#, fuzzy
 msgid "Deletion"
-msgstr ""
+msgstr "Удаление"
 
 #: A2BCustomer_UI/CC_entity_edit_did_destination.php:1238
 #: A2BCustomer_UI/CC_entity_edit_speeddial.php:1044
 msgid "New"
-msgstr ""
+msgstr "Создать новое"
 
 #: A2BCustomer_UI/CC_entity_edit_did_destination.php:1238
 #: A2BCustomer_UI/CC_entity_edit_speeddial.php:1044
+#, fuzzy
 msgid "Inserted"
-msgstr ""
+msgstr "Довавить новое"
 
 #: A2BCustomer_UI/invoices_customer.php:24
 msgid "ERROR: Cannot download file"
 msgstr ""
 
 #: A2BCustomer_UI/invoices_customer.php:24
+#, fuzzy
 msgid "it does not exist"
-msgstr ""
+msgstr "Такой Ваучер не существует !"
 
 #: A2BCustomer_UI/invoices_customer.php:63
 #: A2BCustomer_UI/A2B_entity_call_details_pdf.php:72
@@ -1108,13 +1171,14 @@ msgstr ""
 #: A2BCustomer_UI/call-history.php:70
 #: A2BCustomer_UI/A2B_entity_call_details.php:87
 msgid "Cardused"
-msgstr ""
+msgstr "Карта"
 
 #: A2BCustomer_UI/invoices_customer.php:231
 #: A2BCustomer_UI/call-history.php:390
 #: A2BCustomer_UI/A2B_entity_call_details.php:484
+#, fuzzy
 msgid "OPTIONS"
-msgstr ""
+msgstr "ДЕЙСТВИЕ"
 
 #: A2BCustomer_UI/invoices_customer.php:236
 #: A2BCustomer_UI/A2B_entity_call_details.php:491
@@ -1125,7 +1189,7 @@ msgstr ""
 #: A2BCustomer_UI/call-history.php:410
 #: A2BCustomer_UI/A2B_entity_call_details.php:494
 msgid "Seconds"
-msgstr ""
+msgstr "Секунды"
 
 #: A2BCustomer_UI/invoices_customer.php:244
 #: A2BCustomer_UI/A2B_entity_call_details.php:499
@@ -1135,12 +1199,12 @@ msgstr ""
 #: A2BCustomer_UI/invoices_customer.php:247
 #: A2BCustomer_UI/A2B_entity_call_details.php:502
 msgid "See Invoice in HTML"
-msgstr ""
+msgstr "Показать счет в HTML"
 
 #: A2BCustomer_UI/invoices_customer.php:248
 #: A2BCustomer_UI/A2B_entity_call_details.php:503
 msgid "or Export PDF"
-msgstr ""
+msgstr "или Экспортировать в PDF"
 
 #: A2BCustomer_UI/invoices_customer.php:253
 #: A2BCustomer_UI/call-history.php:415
@@ -1158,72 +1222,77 @@ msgstr ""
 #: A2BCustomer_UI/invoices_customer.php:745
 #: A2BCustomer_UI/call-history.php:672
 msgid "DATE"
-msgstr ""
+msgstr "ДАТА"
 
 #: A2BCustomer_UI/invoices_customer.php:348
+#, fuzzy
 msgid "DESCRIPTION"
-msgstr ""
+msgstr "НАПРАВЛЕНИЕ"
 
 #: A2BCustomer_UI/invoices_customer.php:349
 #: A2BCustomer_UI/invoices_customer.php:408
 #: A2BCustomer_UI/invoices_customer.php:503
 #: A2BCustomer_UI/invoices_customer.php:803
 #: A2BCustomer_UI/invoices_customer.php:890
+#, fuzzy
 msgid "TOTALCOST"
-msgstr ""
+msgstr "ИТОГО"
 
 #: A2BCustomer_UI/invoices_customer.php:371
 #: A2BCustomer_UI/invoices_customer.php:746
+#, fuzzy
 msgid "NB CHARGE"
-msgstr ""
+msgstr "НАДБАВКА"
 
 #: A2BCustomer_UI/invoices_customer.php:401
 #: A2BCustomer_UI/invoices_customer.php:796
 msgid "CALLS PER DESTINATION"
-msgstr ""
+msgstr "ЗВОНКИ ПО НАПРАВЛЕНИЯМ"
 
 #: A2BCustomer_UI/invoices_customer.php:405
 #: A2BCustomer_UI/invoices_customer.php:500
 msgid "DUR"
-msgstr ""
+msgstr "ДЛИТ"
 
 #: A2BCustomer_UI/invoices_customer.php:406
 #: A2BCustomer_UI/invoices_customer.php:501
 #: A2BCustomer_UI/call-history.php:674
 msgid "GRAPHIC"
-msgstr ""
+msgstr "ГРАФИК"
 
 #: A2BCustomer_UI/invoices_customer.php:407
 #: A2BCustomer_UI/invoices_customer.php:502
 #: A2BCustomer_UI/invoices_customer.php:802
 #: A2BCustomer_UI/invoices_customer.php:889
 msgid "CALL"
-msgstr ""
+msgstr "ЗВОНОК"
 
 #: A2BCustomer_UI/invoices_customer.php:496
 #: A2BCustomer_UI/invoices_customer.php:883
+#, fuzzy
 msgid "CALLS PER DAY"
-msgstr ""
+msgstr "ЗВОНКИ ПО НАПРАВЛЕНИЯМ"
 
 #: A2BCustomer_UI/invoices_customer.php:568
 #: A2BCustomer_UI/invoices_customer.php:956
 msgid "Number of call"
-msgstr ""
+msgstr "Колличество звонков"
 
 #: A2BCustomer_UI/invoices_customer.php:747
 #: A2BCustomer_UI/form_data/FG_var_view_invoice.inc:63
+#, fuzzy
 msgid "AMOUNT"
-msgstr ""
+msgstr "СТРАНА"
 
 #: A2BCustomer_UI/invoices_customer.php:801
 #: A2BCustomer_UI/invoices_customer.php:888
 #: A2BCustomer_UI/call-history.php:673
 msgid "DURATION"
-msgstr ""
+msgstr "ДЛИТЕЛЬНОСТЬ"
 
 #: A2BCustomer_UI/invoices_customer.php:960
 msgid "nb"
-msgstr ""
+msgstr "nb"
 
 #: A2BCustomer_UI/CC_entity_edit_speeddial.php:621
 msgid "Voip Station"
@@ -1231,11 +1300,12 @@ msgstr ""
 
 #: A2BCustomer_UI/CC_entity_edit_speeddial.php:1025
 msgid "Remove this Speed Dial"
-msgstr ""
+msgstr "Удалить этот Быстрый Набор"
 
 #: A2BCustomer_UI/CC_entity_edit_speeddial.php:1042
+#, fuzzy
 msgid "Deletetion"
-msgstr ""
+msgstr "Удаление"
 
 #: A2BCustomer_UI/A2B_entity_card.php:54
 msgid "Your personal information is updated successfully."
@@ -1247,13 +1317,15 @@ msgid "Payment Method"
 msgstr ""
 
 #: A2BCustomer_UI/checkout_amount.php:76
+#, fuzzy
 msgid "Please enter the order amount"
-msgstr ""
+msgstr "на ваш счет!"
 
 #: A2BCustomer_UI/checkout_amount.php:83
 #: A2BCustomer_UI/checkout_confirmation.php:91
+#, fuzzy
 msgid "Total Amount"
-msgstr ""
+msgstr "ИТОГО"
 
 #: A2BCustomer_UI/checkout_amount.php:104
 #: A2BCustomer_UI/checkout_confirmation.php:102
@@ -1261,10 +1333,13 @@ msgid "Please click button to confirm your order"
 msgstr ""
 
 #: A2BCustomer_UI/checkout_amount.php:119
+#, fuzzy
 msgid ""
 "The fee from $5 is $0.45, from $10 is $0.59, from $20 is $0.88, from $40 is "
 "$1.46."
 msgstr ""
+"Процент с $5 - $0.45, с $10 - $0.59, с $20 - $0.88, с $40 is $1.46. "
+"<br><b>Процентный калькулятор PayPal"
 
 #: A2BCustomer_UI/checkout_amount.php:119
 msgid "Paypal Fee Calculator"
@@ -1279,8 +1354,9 @@ msgid "If you really want release this DID , Click on the release button."
 msgstr ""
 
 #: A2BCustomer_UI/A2B_entity_did.php:98
+#, fuzzy
 msgid "Release the DID "
-msgstr ""
+msgstr "Insert a new"
 
 #: A2BCustomer_UI/A2B_entity_did.php:140
 msgid "The following Destinaton-DID has been added:"
@@ -1288,11 +1364,11 @@ msgstr ""
 
 #: A2BCustomer_UI/A2B_entity_did.php:364
 msgid "Buy New DID"
-msgstr ""
+msgstr "Купить DID"
 
 #: A2BCustomer_UI/A2B_entity_did.php:364
 msgid "Add Phone Number to your DID"
-msgstr ""
+msgstr "Добавить номер телефона к DID"
 
 #: A2BCustomer_UI/A2B_entity_did.php:364
 msgid "Release DID"
@@ -1300,11 +1376,12 @@ msgstr ""
 
 #: A2BCustomer_UI/A2B_entity_did.php:381
 msgid "Select Country"
-msgstr ""
+msgstr "Выбирите Страну"
 
 #: A2BCustomer_UI/A2B_entity_did.php:395
+#, fuzzy
 msgid "Select Virtual Phone Number"
-msgstr ""
+msgstr "Выбирите Виртуальный Номер Телефона"
 
 #: A2BCustomer_UI/A2B_entity_did.php:409
 msgid "Ring To Number "
@@ -1312,35 +1389,41 @@ msgstr ""
 
 #: A2BCustomer_UI/A2B_entity_did.php:420
 msgid "Country Code - Area Code - Number"
-msgstr ""
+msgstr "Код Страны - Код Области - Номер"
 
 #: A2BCustomer_UI/A2B_entity_did.php:424
 msgid "VOIP CALL : "
-msgstr ""
+msgstr "VOIP ЗВОНОК : "
 
 #: A2BCustomer_UI/A2B_entity_did.php:424
 #: A2BCustomer_UI/form_data/FG_var_callerid.inc:16
 msgid "Yes"
-msgstr ""
+msgstr "Да"
 
 #: A2BCustomer_UI/A2B_entity_did.php:426
 msgid "Ring To destination "
-msgstr ""
+msgstr "Позвонить "
 
 #: A2BCustomer_UI/A2B_entity_did.php:429
+#, fuzzy
 msgid ""
 "Enter the phone number you wish to call, or the SIP/IAX client to reach  "
 "(ie: 347894999 or SIP/jeremy@182.212.1.45). In order to call a VoIP number, "
 "you will need to enable voip_call"
 msgstr ""
+"Введите здесь номер по которому хотите позвонить или SIP/IAX/H323 "
+"пользователя (напримет: 347894999 or SIP/jeremy@182.212.1.45). Чтобы "
+"позвонить SIP/IAX/H323 пользователю, нужно включить the voip_call  "
+"(voip_call = Yes)"
 
 #: A2BCustomer_UI/A2B_entity_did.php:433
 msgid "If you release the did you will not be monthly charged any more."
 msgstr ""
 
 #: A2BCustomer_UI/A2B_entity_did.php:441
+#, fuzzy
 msgid "Add phone number"
-msgstr ""
+msgstr "Your PhoneNumber / Location"
 
 #: A2BCustomer_UI/A2B_entity_did.php:443 A2BCustomer_UI/A2B_entity_did.php:472
 #: A2BCustomer_UI/A2B_entity_did.php:493
@@ -1356,12 +1439,14 @@ msgid "A monthly fee of "
 msgstr ""
 
 #: A2BCustomer_UI/A2B_entity_did.php:464
+#, fuzzy
 msgid " will be carrie out from your acount"
-msgstr ""
+msgstr "на ваш счет!"
 
 #: A2BCustomer_UI/A2B_entity_did.php:469
+#, fuzzy
 msgid "Prev"
-msgstr ""
+msgstr "Назад"
 
 #: A2BCustomer_UI/A2B_entity_did.php:483
 msgid "The purchase of the DID is done "
@@ -1376,24 +1461,28 @@ msgid " is lower than Fixerate of the DID  "
 msgstr ""
 
 #: A2BCustomer_UI/A2B_entity_did.php:484
+#, fuzzy
 msgid "Please reload your account "
-msgstr ""
+msgstr "на ваш счет!"
 
 #: A2BCustomer_UI/A2B_entity_callerid.php:75
+#, fuzzy
 msgid "CALLER ID :"
-msgstr ""
+msgstr "НОМЕР"
 
 #: A2BCustomer_UI/A2B_entity_callerid.php:79
+#, fuzzy
 msgid "ADD NEW CALLERID"
-msgstr ""
+msgstr "ДОБАВИТЬ НОВЫЙ НОМЕР"
 
 #: A2BCustomer_UI/A2B_entity_call_details_pdf.php:300
 msgid "Call Details for Card Number"
 msgstr ""
 
 #: A2BCustomer_UI/A2B_entity_call_details_pdf.php:308
+#, fuzzy
 msgid "Calls Details"
-msgstr ""
+msgstr "Номер телефона"
 
 #: A2BCustomer_UI/A2B_entity_call_details_pdf.php:323
 #: A2BCustomer_UI/A2B_entity_call_details.php:599
@@ -1402,28 +1491,33 @@ msgstr ""
 
 #: A2BCustomer_UI/A2B_entity_call_details_pdf.php:337
 #: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:363
+#, fuzzy
 msgid "By Destination"
-msgstr ""
+msgstr "Номер телефона"
 
 #: A2BCustomer_UI/A2B_entity_call_details_pdf.php:436
 #: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:461
+#, fuzzy
 msgid "By Date"
-msgstr ""
+msgstr "Дата"
 
 #: A2BCustomer_UI/A2B_entity_call_details_pdf.php:536
 #: A2BCustomer_UI/A2B_entity_call_details.php:800
 #: A2BCustomer_UI/A2B_entity_call_details.php:907
+#, fuzzy
 msgid "No of Calls"
-msgstr ""
+msgstr "Колличество Звонков"
 
 #: A2BCustomer_UI/A2B_entity_call_details_pdf.php:539
 #: A2BCustomer_UI/A2B_entity_call_details_pdf.php:639
+#, fuzzy
 msgid "Sr"
-msgstr ""
+msgstr "Source"
 
 #: A2BCustomer_UI/A2B_entity_call_details_pdf.php:636
+#, fuzzy
 msgid "No of DID Calls"
-msgstr ""
+msgstr "Колличество Звонков"
 
 #: A2BCustomer_UI/A2B_entity_voucher.php:39
 msgid "System Error : No currency table complete !!!"
@@ -1431,32 +1525,32 @@ msgstr ""
 
 #: A2BCustomer_UI/A2B_entity_voucher.php:50
 msgid "The Voucher"
-msgstr ""
+msgstr "Ваучер"
 
 #: A2BCustomer_UI/A2B_entity_voucher.php:50
 msgid "has been used, We added"
-msgstr ""
+msgstr "принят, добавленно"
 
 #: A2BCustomer_UI/A2B_entity_voucher.php:50
 msgid "credit on your account!"
-msgstr ""
+msgstr "на ваш счет!"
 
 #: A2BCustomer_UI/A2B_entity_voucher.php:55
 msgid "This Voucher doesn't exist !"
-msgstr ""
+msgstr "Такой Ваучер не существует !"
 
 #: A2BCustomer_UI/A2B_entity_voucher.php:106 A2BCustomer_UI/PP_menu.php:102
 #: A2BCustomer_UI/form_data/FG_var_voucher.inc:14
 msgid "VOUCHER"
-msgstr ""
+msgstr "ВАУЧЕР"
 
 #: A2BCustomer_UI/A2B_entity_voucher.php:111
 msgid "USE VOUCHER"
-msgstr ""
+msgstr "ИСПОЛЬЗОВАТЬ ВАУЧЕР"
 
 #: A2BCustomer_UI/PP_menu.php:94
 msgid "ACCOUNT INFO"
-msgstr ""
+msgstr "ИНФОРМАЦИЯ О СЧЕТЕ"
 
 #: A2BCustomer_UI/PP_menu.php:96
 msgid "SIP/IAX INFO"
@@ -1464,43 +1558,44 @@ msgstr ""
 
 #: A2BCustomer_UI/PP_menu.php:99
 msgid "CALL HISTORY"
-msgstr ""
+msgstr "ИСТОРИЯ ЗВОНКОВ"
 
 #: A2BCustomer_UI/PP_menu.php:106
 msgid "INVOICES"
-msgstr ""
+msgstr "СЧЕТА"
 
 #: A2BCustomer_UI/PP_menu.php:109
 msgid "View Invoices"
 msgstr ""
 
 #: A2BCustomer_UI/PP_menu.php:110
+#, fuzzy
 msgid "Current Invoice"
-msgstr ""
+msgstr "Валюта"
 
 #: A2BCustomer_UI/PP_menu.php:118
 msgid "SPEED DIAL"
-msgstr ""
+msgstr "БЫСТРЫЙ НАБОР"
 
 #: A2BCustomer_UI/PP_menu.php:121
 msgid "RATECARD"
-msgstr ""
+msgstr "RATECARD"
 
 #: A2BCustomer_UI/PP_menu.php:124
 msgid "SIMULATOR"
-msgstr ""
+msgstr "СИМУЛЯТОР"
 
 #: A2BCustomer_UI/PP_menu.php:127
 msgid "CALLBACK"
-msgstr ""
+msgstr "ОБРАТНЫЙ ЗВОНОК"
 
 #: A2BCustomer_UI/PP_menu.php:130
 msgid "WEB-PHONE"
-msgstr ""
+msgstr "WEB-PHONE"
 
 #: A2BCustomer_UI/PP_menu.php:133
 msgid "ADD CALLER ID"
-msgstr ""
+msgstr "ДОБАВИТЬ CALLER ID"
 
 #: A2BCustomer_UI/PP_menu.php:136
 msgid "PASSWORD"
@@ -1508,15 +1603,17 @@ msgstr ""
 
 #: A2BCustomer_UI/PP_menu.php:138
 msgid "LOGOUT"
-msgstr ""
+msgstr "Выход"
 
 #: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:24
+#, fuzzy
 msgid "Unbilled Invoice Details for Card Number"
-msgstr ""
+msgstr "Номер Карты"
 
 #: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:29
+#, fuzzy
 msgid "Billed Invoice Details for Card Number"
-msgstr ""
+msgstr "Номер Карты"
 
 #: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:426
 #: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:528
@@ -1544,27 +1641,34 @@ msgid "Error : There is no route to call back your phonenumber!"
 msgstr ""
 
 #: A2BCustomer_UI/callback.php:222
+#, fuzzy
 msgid ""
 "Error : You have to specify your phonenumber and the number you wish to call!"
 msgstr ""
+"Вы можете сделать обратный звонок указав свой номер телефона и номер по "
+"которому хотите позвонить"
 
 #: A2BCustomer_UI/callback.php:236
 msgid ""
 "You can initiate the callback by entering your phonenumber and the number "
 "you wish to call!"
 msgstr ""
+"Вы можете сделать обратный звонок указав свой номер телефона и номер по "
+"которому хотите позвонить"
 
 #: A2BCustomer_UI/callback.php:244
+#, fuzzy
 msgid "Your PhoneNumber"
-msgstr ""
+msgstr "Ваш номер телефона / Нахождение"
 
 #: A2BCustomer_UI/callback.php:247
 msgid "The number you wish to call"
-msgstr ""
+msgstr "Кому звонить"
 
 #: A2BCustomer_UI/callback.php:252
+#, fuzzy
 msgid "Click here to Place Call"
-msgstr ""
+msgstr "Нажмите чтобы сделать 10 звонков"
 
 #: A2BCustomer_UI/A2B_entity_password.php:47
 msgid "No value in New Password entered"
@@ -1607,8 +1711,9 @@ msgid "Save"
 msgstr ""
 
 #: A2BCustomer_UI/index.php:76
+#, fuzzy
 msgid "AUTHENTICATION"
-msgstr ""
+msgstr "НАПРАВЛЕНИЕ"
 
 #: A2BCustomer_UI/index.php:85
 msgid "User:"
@@ -1643,12 +1748,14 @@ msgid "No Such Customer exists."
 msgstr ""
 
 #: A2BCustomer_UI/call-history.php:67
+#, fuzzy
 msgid "PhoneNumber"
-msgstr ""
+msgstr "Ваш номер телефона / Нахождение"
 
 #: A2BCustomer_UI/call-history.php:71
+#, fuzzy
 msgid "Terminate Cause"
-msgstr ""
+msgstr "причина завершения"
 
 #: A2BCustomer_UI/call-history.php:71
 msgid "TC"
@@ -1656,37 +1763,37 @@ msgstr ""
 
 #: A2BCustomer_UI/call-history.php:72
 msgid "Calltype"
-msgstr ""
+msgstr "Тип звонка"
 
 #: A2BCustomer_UI/call-history.php:73
 msgid "InitalRate"
-msgstr ""
+msgstr "Стоимисть минуты"
 
 #: A2BCustomer_UI/call-history.php:100
 msgid "Call Logs"
-msgstr ""
+msgstr "Статистика звонков"
 
 #: A2BCustomer_UI/call-history.php:382
 #: A2BCustomer_UI/A2B_entity_call_details.php:462
 #: A2BCustomer_UI/A2B_entity_call_details.php:476
 msgid "Exact"
-msgstr ""
+msgstr "Точно"
 
 #: A2BCustomer_UI/call-history.php:383
 #: A2BCustomer_UI/A2B_entity_call_details.php:463
 #: A2BCustomer_UI/A2B_entity_call_details.php:477
 msgid "Begins with"
-msgstr ""
+msgstr "Начинаестя с"
 
 #: A2BCustomer_UI/call-history.php:384
 #: A2BCustomer_UI/A2B_entity_call_details.php:464
 #: A2BCustomer_UI/A2B_entity_call_details.php:478
 msgid "Contains"
-msgstr ""
+msgstr "Содержит"
 
 #: A2BCustomer_UI/call-history.php:385
 msgid "End with"
-msgstr ""
+msgstr "Заканчивается на"
 
 #: A2BCustomer_UI/call-history.php:395
 #: A2BCustomer_UI/A2B_entity_call_details.php:508
@@ -1696,12 +1803,12 @@ msgstr ""
 #: A2BCustomer_UI/call-history.php:398
 #: A2BCustomer_UI/A2B_entity_call_details.php:511
 msgid "Answered Calls"
-msgstr ""
+msgstr "Отвеченные Вызовы"
 
 #: A2BCustomer_UI/call-history.php:400
 #: A2BCustomer_UI/A2B_entity_call_details.php:513
 msgid "All Calls"
-msgstr ""
+msgstr "Все Вызовы"
 
 #: A2BCustomer_UI/call-history.php:407
 msgid "RESUTL"
@@ -1709,31 +1816,32 @@ msgstr ""
 
 #: A2BCustomer_UI/call-history.php:446
 msgid "Number of Calls"
-msgstr ""
+msgstr "Колличество Звонков"
 
 #: A2BCustomer_UI/call-history.php:596
 msgid "PREVIOUS"
-msgstr ""
+msgstr "НАЗАД"
 
 #: A2BCustomer_UI/call-history.php:602 A2BCustomer_UI/predictivedialer.php:313
 msgid "NEXT"
-msgstr ""
+msgstr "ДАЛЬШЕ"
 
 #: A2BCustomer_UI/call-history.php:618
 msgid "Total Cost"
-msgstr ""
+msgstr "ИТОГО"
 
 #: A2BCustomer_UI/call-history.php:657
+#, fuzzy
 msgid "SUMMARY"
-msgstr ""
+msgstr "МАЙ"
 
 #: A2BCustomer_UI/call-history.php:669
 msgid "CALLING CARD MINUTES"
-msgstr ""
+msgstr "Колличество времени"
 
 #: A2BCustomer_UI/call-history.php:675
 msgid "CALLS"
-msgstr ""
+msgstr "ЗВОНКИ"
 
 #: A2BCustomer_UI/call-history.php:676
 msgid "AVERAGE LENGTH OF CALL"
@@ -1745,11 +1853,11 @@ msgstr ""
 
 #: A2BCustomer_UI/call-history.php:677
 msgid "TOTAL COST"
-msgstr ""
+msgstr "ИТОГО"
 
 #: A2BCustomer_UI/call-history.php:741
 msgid "No calls in your selection"
-msgstr ""
+msgstr "Нет подходящих звонков"
 
 #: A2BCustomer_UI/checkout_confirmation.php:45
 msgid "No Transaction ID found"
@@ -1761,110 +1869,127 @@ msgstr ""
 
 #: A2BCustomer_UI/PP_error.php:7
 msgid "ERROR : ACCESS REFUSED"
-msgstr ""
+msgstr "ERROR : В ДОСТУПЕ ОТКАЗАНО"
 
 #: A2BCustomer_UI/PP_error.php:8
 msgid "Sorry a problem occur on our system, please try later!"
-msgstr ""
+msgstr "Ошибка системы, попробуйте позже!"
 
 #: A2BCustomer_UI/PP_error.php:9
 msgid "There is an error on this page!"
-msgstr ""
+msgstr "Обибка на странице!"
 
 #: A2BCustomer_UI/PP_error.php:10
 msgid "Sorry, you don t have access to this page !"
-msgstr ""
+msgstr "У Вас нет доступа на эту страницу!"
 
 #: A2BCustomer_UI/PP_error.php:11
 msgid "Sorry, this page is in construction !"
-msgstr ""
+msgstr "Страница на реконструкции !"
 
 #: A2BCustomer_UI/PP_error.php:27
 msgid "Error Page"
 msgstr ""
 
 #: A2BCustomer_UI/PP_error.php:42
+#, fuzzy
 msgid "Click here to login again."
-msgstr ""
+msgstr "Нажмите чтобы сделать 10 звонков"
 
 #: A2BCustomer_UI/A2B_entity_ratecard.php:70
+#, fuzzy
 msgid "NONE"
-msgstr ""
+msgstr "НЕТ"
 
 #: A2BCustomer_UI/predictivedialer.php:66
+#, fuzzy
 msgid ""
 "Error : The system cannot call you back, please inform the administrator"
 msgstr ""
+"<font face='Arial, Helvetica, sans-serif' size='2' color='red'><b>Error : "
+"Система не может перезвонить, пожалуйста, свяжитесь с администратором  !!!</"
+"b></font><br>"
 
 #: A2BCustomer_UI/predictivedialer.php:76
+#, fuzzy
 msgid "Cannot connect to the asterisk manager!"
 msgstr ""
+"Не могу подключиться к asterisk manager'у!<br>Пожалуйста проверьте настройки "
+"manager'а..."
 
 #: A2BCustomer_UI/predictivedialer.php:76
+#, fuzzy
 msgid "Please check the manager configuration..."
 msgstr ""
+"Не могу подключиться к asterisk manager'у!<br>Пожалуйста проверьте настройки "
+"manager'а..."
 
 #: A2BCustomer_UI/predictivedialer.php:81
+#, fuzzy
 msgid ""
 "Error : You have to specify your phonenumber and the number you wish to call"
 msgstr ""
+"Вы можете сделать обратный звонок указав свой номер телефона и номер по "
+"которому хотите позвонить"
 
 #: A2BCustomer_UI/predictivedialer.php:137
 msgid ""
 "You can initiate the predictive dialer by clicking on the Place call button!"
 msgstr ""
+"You can initiate the predictive dialer by clicking on the Place call button!"
 
 #: A2BCustomer_UI/predictivedialer.php:148
 msgid "Your PhoneNumber / Location"
-msgstr ""
+msgstr "Ваш Номер Телефона / Местоположение"
 
 #: A2BCustomer_UI/predictivedialer.php:154
 msgid "Click here to place 10 calls"
-msgstr ""
+msgstr "Нажмите чтобы сделать 10 звонков"
 
 #: A2BCustomer_UI/predictivedialer.php:162
 msgid "Click here to see the last called persons and the current connect call"
-msgstr ""
+msgstr "Нажмите чтобы увидить последние вызовы и текущий вызов"
 
 #: A2BCustomer_UI/predictivedialer.php:354
 msgid "INSERT a new"
-msgstr ""
+msgstr "Добавить"
 
 #: A2BCustomer_UI/predictivedialer.php:354
 #: A2BCustomer_UI/predictivedialer.php:365
 #: A2BCustomer_UI/predictivedialer.php:371
 msgid "PHONELIST"
-msgstr ""
+msgstr "Список Номеров"
 
 #: A2BCustomer_UI/predictivedialer.php:365
 msgid "You wish to insert a new"
-msgstr ""
+msgstr "Хотите добавить новый"
 
 #: A2BCustomer_UI/predictivedialer.php:365
 msgid "Click on Add button"
-msgstr ""
+msgstr "Нажмите кнопку Добавить"
 
 #: A2BCustomer_UI/A2B_entity_call_details.php:465
 #: A2BCustomer_UI/A2B_entity_call_details.php:479
 msgid "Ends with"
-msgstr ""
+msgstr "Заканчивается на"
 
 #: A2BCustomer_UI/A2B_entity_call_details.php:466
 #: A2BCustomer_UI/A2B_entity_call_details.php:480
 msgid "Is not"
-msgstr ""
+msgstr "Не содержит"
 
 #: A2BCustomer_UI/A2B_entity_call_details.php:471
 msgid "SOURCE"
-msgstr ""
+msgstr "Источник"
 
 #: A2BCustomer_UI/A2B_entity_call_details.php:582
 msgid "Call Details"
 msgstr ""
 
 #: A2BCustomer_UI/A2B_entity_call_details.php:907
+#, fuzzy
 msgid "DID Calls"
-msgstr ""
+msgstr "Статистика звонков"
 
 #: A2BCustomer_UI/webphone.php:23
 msgid "ERROR TO LOAD PEER!"
@@ -1872,50 +1997,52 @@ msgstr ""
 
 #: A2BCustomer_UI/webphone.php:48
 msgid "Account/Phone"
-msgstr ""
+msgstr "Аккаунт/Телефон"
 
 #: A2BCustomer_UI/webphone.php:63
 msgid "SIP WEB-PHONE"
-msgstr ""
+msgstr "SIP WEB-PHONE"
 
 #: A2BCustomer_UI/webphone.php:69
+#, fuzzy
 msgid "NO SIP ACCOUNT"
-msgstr ""
+msgstr "У ВАС НЕТ IAX АККАУНТА"
 
 #: A2BCustomer_UI/webphone.php:71
 msgid "Click to start SIP WebPhone"
-msgstr ""
+msgstr "Нажмите для запуска SIP WebPhone"
 
 #: A2BCustomer_UI/webphone.php:91
 msgid "IAX WEB-PHONE"
-msgstr ""
+msgstr "IAX WEB-PHONE"
 
 #: A2BCustomer_UI/webphone.php:97
 msgid "NO IAX ACCOUNT"
-msgstr ""
+msgstr "У ВАС НЕТ IAX АККАУНТА"
 
 #: A2BCustomer_UI/webphone.php:99
 msgid "START IAX PHONE"
-msgstr ""
+msgstr "ЗАПУСТИТЬ IAX ТЕЛЕФОН"
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:98
 msgid "Information about edition"
-msgstr ""
+msgstr "Информация"
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:118
 #: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:110
 msgid "You can browse through our "
-msgstr ""
+msgstr "Вы можете просмотреть"
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:122
 #: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:114
+#, fuzzy
 msgid "Delete this "
-msgstr ""
+msgstr "Удалить"
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:123
 #: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:115
 msgid "Edit this "
-msgstr ""
+msgstr "Редактировать"
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:152
 #: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:38
@@ -1923,69 +2050,80 @@ msgstr ""
 #: A2BCustomer_UI/form_data/FG_var_speeddial.inc:28
 #: A2BCustomer_UI/form_data/FG_var_speeddial.inc:70
 msgid "NAME"
-msgstr ""
+msgstr "ИМЯ"
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:158
+#, fuzzy
 msgid "Insert the user Name"
-msgstr ""
+msgstr "Добавьте Имя"
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:162
 #: A2BCustomer_UI/form_data/FG_var_card.inc:22
+#, fuzzy
 msgid "FIRSTNAME"
-msgstr ""
+msgstr "ИМЯ"
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:168
+#, fuzzy
 msgid "Insert the firstname"
-msgstr ""
+msgstr "Добавьте Имя"
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:178
 msgid "Insert the email address of the webmaster"
-msgstr ""
+msgstr "Добавьте email webmaster'а"
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:183
+#, fuzzy
 msgid "COMPANY"
-msgstr ""
+msgstr "КОМПАНИЯ"
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:189
+#, fuzzy
 msgid "Insert the name of your company"
-msgstr ""
+msgstr "Добавьте название компании"
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:200
+#, fuzzy
 msgid "Insert the Addresse"
-msgstr ""
+msgstr "Добавить новый Адрес"
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:212
+#, fuzzy
 msgid "Insert the City"
-msgstr ""
+msgstr "Добавить новый Город"
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:219
+#, fuzzy
 msgid "ZIPCODE"
-msgstr ""
+msgstr "ZIP КОД"
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:225
 #: A2BCustomer_UI/form_data/FG_var_card.inc:79
+#, fuzzy
 msgid "Insert the zipcode"
-msgstr ""
+msgstr "Добавить новый zip код"
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:236
+#, fuzzy
 msgid "Insert the webmaster Phonenumber"
-msgstr ""
+msgstr "Добавить новый"
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:246
+#, fuzzy
 msgid "Insert the webmaster Fax number"
-msgstr ""
+msgstr "Добавить новый"
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:263
 msgid "NEWSLETTERS"
-msgstr ""
+msgstr "Рассылка новостей"
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:269
 msgid "Choose if the user will receive the newsletters"
-msgstr ""
+msgstr "Выберете будет ли позвователь получать новости"
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:272
 msgid "I acknowledge to receive informations."
-msgstr ""
+msgstr "Я согласен получать новости"
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:296
 msgid "Webmaster\\'s lounge"
@@ -1998,6 +2136,10 @@ msgid ""
 "name. <p><br>Check the correctness of your postal address, so that you will "
 "receive the cheques used to pay your commissions."
 msgstr ""
+"Ваша персональная информация которую вы предоставили когда подписывались на "
+"Phone2Enter. <br> Вы можете изменять все, кроме Вашего имени и фамилии. "
+"<p><br>Праверьте правильность Вашего почтового адреса, чтобы вы могли "
+"получать счета."
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:306
 #: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:293
@@ -2013,12 +2155,14 @@ msgstr ""
 #: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:315
 #: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:302
 #: A2BCustomer_UI/form_data/FG_var_view_invoice.inc:93
+#, fuzzy
 msgid "you can add easily a new "
-msgstr ""
+msgstr "You wish to insert a new"
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:366
+#, fuzzy
 msgid "You can insert easily new "
-msgstr ""
+msgstr "You wish to insert a new"
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:371
 msgid ""
@@ -2033,56 +2177,68 @@ msgid "Your new "
 msgstr ""
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:37
+#, fuzzy
 msgid "PHONENUMBER"
-msgstr ""
+msgstr "NOVEMBER"
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:39
+#, fuzzy
 msgid "LAST ATTEMPT"
-msgstr ""
+msgstr "LAST NAME"
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:40
+#, fuzzy
 msgid "CONNECTED TO"
-msgstr ""
+msgstr "EXTRA CHARGE"
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:41
 msgid "NUM TRIALS"
 msgstr ""
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:42
+#, fuzzy
 msgid "CALLED MINUTE"
-msgstr ""
+msgstr "USED MINUTE"
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:105
+#, fuzzy
 msgid "- PHONELIST List -"
-msgstr ""
+msgstr "PHONELIST"
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:149
+#, fuzzy
 msgid "Phone Number"
-msgstr ""
+msgstr "Ваш номер телефона / Нахождение"
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:155
+#, fuzzy
 msgid "Insert the phonenumber"
-msgstr ""
+msgstr "Добавить новый номер"
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:157
+#, fuzzy
 msgid "Enter here the phonenumber you want to call"
-msgstr ""
+msgstr "Enter the number which you wish to assign to the code here"
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:160
+#, fuzzy
 msgid "CAMPAIGN"
-msgstr ""
+msgstr "КОМПАНИЯ"
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:179
+#, fuzzy
 msgid "Insert the name "
-msgstr ""
+msgstr "Добавить имя"
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:194
+#, fuzzy
 msgid "LAST ATTEMPT DATE"
-msgstr ""
+msgstr "LAST NAME"
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:200
+#, fuzzy
 msgid "Insert the last attempt date"
-msgstr ""
+msgstr "Insert a new"
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:202
 msgid ""
@@ -2091,8 +2247,9 @@ msgid ""
 msgstr ""
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:207
+#, fuzzy
 msgid "ENABLE"
-msgstr ""
+msgstr "NAME"
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:213
 msgid "Choose if this phonenumber would be enable or not"
@@ -2103,30 +2260,35 @@ msgid "ADDITIONALINFO"
 msgstr ""
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:225
+#, fuzzy
 msgid "Insert additional information"
-msgstr ""
+msgstr "Insert a new"
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:232
+#, fuzzy
 msgid "INUSE"
-msgstr ""
+msgstr "REGISTERED"
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:238
+#, fuzzy
 msgid "Choose the status of this phonenumber"
-msgstr ""
+msgstr "Добавить новый номер"
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:285
 #: A2BCustomer_UI/form_data/FG_var_view_invoice.inc:91
+#, fuzzy
 msgid ""
 "You can modify, through the following form, the different properties of your "
-msgstr ""
+msgstr "и редактировать"
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:346
 msgid "The destination has been created correctly."
 msgstr ""
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:359
+#, fuzzy
 msgid "Add a NEW "
-msgstr ""
+msgstr "Добавить"
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:372
 msgid "Setup those values to create the new "
@@ -2138,7 +2300,7 @@ msgstr ""
 
 #: A2BCustomer_UI/form_data/FG_var_ratecard.inc:35
 msgid "PREFIX"
-msgstr ""
+msgstr "ПРЕФИКС"
 
 #: A2BCustomer_UI/form_data/FG_var_ratecard.inc:36
 msgid "SR"
@@ -2147,12 +2309,14 @@ msgstr ""
 #: A2BCustomer_UI/form_data/FG_var_ratecard.inc:42
 #: A2BCustomer_UI/form_data/FG_var_view_invoice.inc:69
 #: A2BCustomer_UI/form_data/FG_var_voucher.inc:23
+#, fuzzy
 msgid "THERE IS NO "
-msgstr ""
+msgstr "THERE IS NO"
 
 #: A2BCustomer_UI/form_data/FG_var_ratecard.inc:49
+#, fuzzy
 msgid "DIALPREFIX"
-msgstr ""
+msgstr "FILTER ON PREFIX"
 
 #: A2BCustomer_UI/form_data/FG_var_ratecard.inc:55
 msgid "Insert the dialing prefix, such as for UK '44' or for US '1' "
@@ -2181,8 +2345,9 @@ msgid ""
 msgstr ""
 
 #: A2BCustomer_UI/form_data/FG_var_ratecard.inc:64
+#, fuzzy
 msgid "Come on... Insert the destination name"
-msgstr ""
+msgstr "Insert a new"
 
 #: A2BCustomer_UI/form_data/FG_var_ratecard.inc:65
 msgid ""
@@ -2195,8 +2360,9 @@ msgid "SELLING RATE"
 msgstr ""
 
 #: A2BCustomer_UI/form_data/FG_var_ratecard.inc:74
+#, fuzzy
 msgid "Insert the initial rate"
-msgstr ""
+msgstr "Insert a new"
 
 #: A2BCustomer_UI/form_data/FG_var_ratecard.inc:75
 msgid ""
@@ -2210,28 +2376,33 @@ msgstr ""
 
 #: A2BCustomer_UI/form_data/FG_var_speeddial.inc:26
 #: A2BCustomer_UI/form_data/FG_var_speeddial.inc:60
+#, fuzzy
 msgid "SPEEDDIAL"
-msgstr ""
+msgstr "БЫСТРЫЙ НАБОР"
 
 #: A2BCustomer_UI/form_data/FG_var_speeddial.inc:37
+#, fuzzy
 msgid "THERE ARE NO "
-msgstr ""
+msgstr "THERE IS NO"
 
 #: A2BCustomer_UI/form_data/FG_var_speeddial.inc:76
+#, fuzzy
 msgid "Insert the name"
-msgstr ""
+msgstr "Добавить имя"
 
 #: A2BCustomer_UI/form_data/FG_var_speeddial.inc:77
 msgid "Enter here the name/label that will identify this speed dial"
 msgstr ""
 
 #: A2BCustomer_UI/form_data/FG_var_speeddial.inc:86
+#, fuzzy
 msgid "Insert the phone"
-msgstr ""
+msgstr "Insert a new"
 
 #: A2BCustomer_UI/form_data/FG_var_speeddial.inc:87
+#, fuzzy
 msgid "Enter here the phonenumber you want to call for this speed dial"
-msgstr ""
+msgstr "Enter the number which you wish to assign to the code here"
 
 #: A2BCustomer_UI/form_data/FG_var_speeddial.inc:112
 #: A2BCustomer_UI/form_data/FG_var_callerid.inc:102
@@ -2248,8 +2419,9 @@ msgstr ""
 #: A2BCustomer_UI/form_data/FG_var_speeddial.inc:113
 #: A2BCustomer_UI/form_data/FG_var_callerid.inc:103
 #: A2BCustomer_UI/form_data/FG_var_did.inc:133
+#, fuzzy
 msgid "click on the delete button."
-msgstr ""
+msgstr "Click on Add button"
 
 #: A2BCustomer_UI/form_data/FG_var_speeddial.inc:114
 #: A2BCustomer_UI/form_data/FG_var_callerid.inc:104
@@ -2273,8 +2445,9 @@ msgstr ""
 #: A2BCustomer_UI/form_data/FG_var_speeddial.inc:121
 #: A2BCustomer_UI/form_data/FG_var_callerid.inc:112
 #: A2BCustomer_UI/form_data/FG_var_did.inc:138
+#, fuzzy
 msgid "has been inserted."
-msgstr ""
+msgstr "зарегистрирован"
 
 #: A2BCustomer_UI/form_data/FG_var_speeddial.inc:125
 #: A2BCustomer_UI/form_data/FG_var_view_invoice.inc:110
@@ -2284,40 +2457,46 @@ msgstr ""
 #: A2BCustomer_UI/form_data/FG_var_callerid.inc:12
 #: A2BCustomer_UI/form_data/FG_var_did.inc:18
 #: A2BCustomer_UI/form_data/FG_var_did.inc:39
+#, fuzzy
 msgid "Active"
-msgstr ""
+msgstr "Date"
 
 #: A2BCustomer_UI/form_data/FG_var_callerid.inc:13
 #: A2BCustomer_UI/form_data/FG_var_did.inc:19
 #: A2BCustomer_UI/form_data/FG_var_did.inc:39
+#, fuzzy
 msgid "Inactive"
-msgstr ""
+msgstr "Date"
 
 #: A2BCustomer_UI/form_data/FG_var_callerid.inc:20
 #: A2BCustomer_UI/form_data/FG_var_callerid.inc:53
+#, fuzzy
 msgid "CALLERID"
-msgstr ""
+msgstr "CALL"
 
 #: A2BCustomer_UI/form_data/FG_var_callerid.inc:21
 #: A2BCustomer_UI/form_data/FG_var_view_invoice.inc:57
+#, fuzzy
 msgid "CARDNUMBER"
-msgstr ""
+msgstr "НОМЕР КАРТЫ"
 
 #: A2BCustomer_UI/form_data/FG_var_callerid.inc:22
 #: A2BCustomer_UI/form_data/FG_var_callerid.inc:63
 #: A2BCustomer_UI/form_data/FG_var_did.inc:43
 #: A2BCustomer_UI/form_data/FG_var_did.inc:90
 msgid "ACTIVATED"
-msgstr ""
+msgstr "АКТИВИРОВАН"
 
 #: A2BCustomer_UI/form_data/FG_var_callerid.inc:28
 #: A2BCustomer_UI/form_data/FG_var_did.inc:60
+#, fuzzy
 msgid "THERE IS NO"
-msgstr ""
+msgstr "THERE IS NO"
 
 #: A2BCustomer_UI/form_data/FG_var_callerid.inc:59
+#, fuzzy
 msgid "Insert the CallerID"
-msgstr ""
+msgstr "Insert a new"
 
 #: A2BCustomer_UI/form_data/FG_var_callerid.inc:69
 #: A2BCustomer_UI/form_data/FG_var_did.inc:96
@@ -2373,26 +2552,33 @@ msgstr ""
 #: A2BCustomer_UI/form_data/FG_var_did.inc:44
 #: A2BCustomer_UI/form_data/FG_var_did.inc:99
 msgid "PRIORITY"
-msgstr ""
+msgstr "ПРИОРИТЕТ"
 
 #: A2BCustomer_UI/form_data/FG_var_did.inc:45
 msgid "USED MINUTE"
-msgstr ""
+msgstr "USED MINUTE"
 
 #: A2BCustomer_UI/form_data/FG_var_did.inc:60
+#, fuzzy
 msgid "CREATED!"
-msgstr ""
+msgstr "СОЗДАН!"
 
 #: A2BCustomer_UI/form_data/FG_var_did.inc:76
+#, fuzzy
 msgid ""
 "Enter here the phonenumber you want to call or the SIP/IAX/H323 peer to "
 "reach (ie: 347894999 or SIP/jeremy@182.212.1.45). To call SIP/IAX/H323 peer, "
 "you need to enable the voip_call bellow (voip_call = Yes) "
 msgstr ""
+"Введите здесь номер по которому хотите позвонить или SIP/IAX/H323 "
+"пользователя (напримет: 347894999 or SIP/jeremy@182.212.1.45). Чтобы "
+"позвонить SIP/IAX/H323 пользователю, нужно включить the voip_call  "
+"(voip_call = Yes)"
 
 #: A2BCustomer_UI/form_data/FG_var_did.inc:109
+#, fuzzy
 msgid "VOIP_CALL"
-msgstr ""
+msgstr "VOIP CALL : "
 
 #: A2BCustomer_UI/form_data/FG_var_did.inc:115
 msgid ""
@@ -2413,12 +2599,14 @@ msgid "Successful"
 msgstr ""
 
 #: A2BCustomer_UI/form_data/FG_var_view_invoice.inc:56
+#, fuzzy
 msgid "ID"
-msgstr ""
+msgstr "DID"
 
 #: A2BCustomer_UI/form_data/FG_var_view_invoice.inc:58
+#, fuzzy
 msgid "INVOICEDATE"
-msgstr ""
+msgstr "СЧЕТА"
 
 #: A2BCustomer_UI/form_data/FG_var_view_invoice.inc:59
 msgid "COVERSTART"
@@ -2429,12 +2617,14 @@ msgid "COVEREND"
 msgstr ""
 
 #: A2BCustomer_UI/form_data/FG_var_view_invoice.inc:61
+#, fuzzy
 msgid "SENTDATE"
-msgstr ""
+msgstr "ШТАТ"
 
 #: A2BCustomer_UI/form_data/FG_var_view_invoice.inc:106
+#, fuzzy
 msgid "Add a "
-msgstr ""
+msgstr "Добавить"
 
 #: A2BCustomer_UI/form_data/FG_var_view_invoice.inc:107
 msgid "has been inserted. <br>"
@@ -2442,59 +2632,70 @@ msgstr ""
 
 #: A2BCustomer_UI/form_data/FG_var_voucher.inc:15
 msgid "CREDIT"
-msgstr ""
+msgstr "КРЕДИТ"
 
 #: A2BCustomer_UI/form_data/FG_var_card.inc:13
+#, fuzzy
 msgid "LASTNAME"
-msgstr ""
+msgstr "ФАМИЛИЯ"
 
 #: A2BCustomer_UI/form_data/FG_var_card.inc:19
+#, fuzzy
 msgid "Insert the lastname of the customers"
-msgstr ""
+msgstr "Добавьте название компании"
 
 #: A2BCustomer_UI/form_data/FG_var_card.inc:28
+#, fuzzy
 msgid "Insert the firstname of the customers"
-msgstr ""
+msgstr "Добавьте Имя"
 
 #: A2BCustomer_UI/form_data/FG_var_card.inc:38
+#, fuzzy
 msgid "Insert the address of the customers"
-msgstr ""
+msgstr "Добавьте email webmaster'а"
 
 #: A2BCustomer_UI/form_data/FG_var_card.inc:48
+#, fuzzy
 msgid "Insert the city"
-msgstr ""
+msgstr "Добавить новый Город"
 
 #: A2BCustomer_UI/form_data/FG_var_card.inc:52
 msgid "STATE/PROVINCE"
 msgstr ""
 
 #: A2BCustomer_UI/form_data/FG_var_card.inc:58
+#, fuzzy
 msgid "Insert the state"
-msgstr ""
+msgstr "Добавить имя"
 
 #: A2BCustomer_UI/form_data/FG_var_card.inc:73
+#, fuzzy
 msgid "ZIP/POSTAL CODE"
-msgstr ""
+msgstr "ZIP КОД"
 
 #: A2BCustomer_UI/form_data/FG_var_card.inc:82
 msgid "TIMEZONE"
 msgstr ""
 
 #: A2BCustomer_UI/form_data/FG_var_card.inc:92
+#, fuzzy
 msgid "PHONE NUMBER"
-msgstr ""
+msgstr "NOVEMBER"
 
 #: A2BCustomer_UI/form_data/FG_var_card.inc:98
+#, fuzzy
 msgid "Insert the phone number of the customers"
-msgstr ""
+msgstr "Добавить новый номер"
 
 #: A2BCustomer_UI/form_data/FG_var_card.inc:102
+#, fuzzy
 msgid "FAX NUMBER"
-msgstr ""
+msgstr "НОМЕР КАРТЫ"
 
 #: A2BCustomer_UI/form_data/FG_var_card.inc:108
+#, fuzzy
 msgid "Insert the fax number of the customers"
-msgstr ""
+msgstr "Добавьте email webmaster'а"
 
 #: A2BCustomer_UI/form_data/FG_var_card.inc:114
 msgid "you can add easily update your information clicking on the button."
@@ -2503,3 +2704,363 @@ msgstr ""
 #: A2BCustomer_UI/form_data/FG_var_card.inc:117
 msgid "Your record has been updated."
 msgstr ""
+
+#, fuzzy
+#~ msgid "Previous Balance"
+#~ msgstr "Назад"
+
+#, fuzzy
+#~ msgid "Make payments - it's fast, free and secure!"
+#~ msgstr "Делайте оплату с PayPal - быстро, дешево и безопасно"
+
+#~ msgid "CardNumber"
+#~ msgstr "Номер Карты"
+
+#, fuzzy
+#~ msgid "INVOICE CUSTOMER"
+#~ msgstr "СЧЕТА"
+
+#, fuzzy
+#~ msgid "BUYRATE"
+#~ msgstr "DATE"
+
+#, fuzzy
+#~ msgid "MIN DURATION"
+#~ msgstr "DURATION"
+
+#, fuzzy
+#~ msgid "CONNECTCHARGE"
+#~ msgstr "EXTRA CHARGE"
+
+#, fuzzy
+#~ msgid "DISCONNECTCHARGE"
+#~ msgstr "EXTRA CHARGE"
+
+#, fuzzy
+#~ msgid " BATCH UPDATE RATECARD "
+#~ msgstr "ТЕКУЩИЙ ТАРИФНЫЙ ПЛАН"
+
+#, fuzzy
+#~ msgid "THERE IS NO RECORD !!!"
+#~ msgstr "THERE IS NO"
+
+#, fuzzy
+#~ msgid "DIRECTORY"
+#~ msgstr "DIDCOUNTRY"
+
+#, fuzzy
+#~ msgid "Click on the delete button."
+#~ msgstr "Click on Add button"
+
+#, fuzzy
+#~ msgid "has been deleted!"
+#~ msgstr "зарегистрирован"
+
+#, fuzzy
+#~ msgid "ONESHOT"
+#~ msgstr "PHONELIST"
+
+#, fuzzy
+#~ msgid "PER MINUTE"
+#~ msgstr "USED MINUTE"
+
+#, fuzzy
+#~ msgid "IN PROCESS"
+#~ msgstr "INVOICES"
+
+#, fuzzy
+#~ msgid "CREATION"
+#~ msgstr "DURATION"
+
+#, fuzzy
+#~ msgid "CLOSE"
+#~ msgstr "CALLS"
+
+#, fuzzy
+#~ msgid "UPDATE"
+#~ msgstr "DATE"
+
+#~ msgid "ANSWER"
+#~ msgstr "Ответ"
+
+#, fuzzy
+#~ msgid "INSERTED"
+#~ msgstr "REGISTERED"
+
+#, fuzzy
+#~ msgid "CODE"
+#~ msgstr "ZIP CODE"
+
+#, fuzzy
+#~ msgid "CODES"
+#~ msgstr "ZIP CODE"
+
+#~ msgid " and modify their different properties<br>"
+#~ msgstr "и редактировать"
+
+#, fuzzy
+#~ msgid ", click on the delete button."
+#~ msgstr "Click on Add button"
+
+#~ msgid "THE CURRENT RATECARD"
+#~ msgstr "ТЕКУЩИЙ ТАРИФНЫЙ ПЛАН"
+
+#~ msgid "R A T E C A R D"
+#~ msgstr "Т А Р И Ф Н Ы Й  П Л А Н"
+
+#~ msgid "Choose a ratecard"
+#~ msgstr "Выбирите тарифный план"
+
+#~ msgid "LIST "
+#~ msgstr "СПИСОК"
+
+#, fuzzy
+#~ msgid "Sort"
+#~ msgstr "Source"
+
+#, fuzzy
+#~ msgid "Records"
+#~ msgstr "Секунды"
+
+#, fuzzy
+#~ msgid "FILTER ON "
+#~ msgstr "FILTER ON PREFIX"
+
+#, fuzzy
+#~ msgid "FILTER ON"
+#~ msgstr "FILTER ON PREFIX"
+
+#, fuzzy
+#~ msgid "APPLY FILTER "
+#~ msgstr "APPLY FILTER"
+
+#~ msgid "ACTION"
+#~ msgstr "ДЕЙСТВИЕ"
+
+#~ msgid "DISPLAY"
+#~ msgstr "ПОКАЗАТЬ"
+
+#~ msgid "GO"
+#~ msgstr "ВПЕРЕД"
+
+#, fuzzy
+#~ msgid "Export CSV"
+#~ msgstr "Экспортировать в CSV"
+
+#, fuzzy
+#~ msgid "Export XML"
+#~ msgstr "or Export PDF"
+
+#~ msgid "Remove this "
+#~ msgstr "Удалить "
+
+#~ msgid "Create a new "
+#~ msgstr "Создать"
+
+#, fuzzy
+#~ msgid "Error : Card is not active!!!"
+#~ msgstr "Неправильная карта"
+
+#, fuzzy
+#~ msgid "Error : Card have expired!!!"
+#~ msgstr "Неправильная карта"
+
+#, fuzzy
+#~ msgid "SELECT DAY"
+#~ msgstr "БЫСТРЫЙ НАБОР"
+
+#~ msgid "Phone :"
+#~ msgstr "Телефон"
+
+#~ msgid "Fax  :"
+#~ msgstr "Факс"
+
+#~ msgid "B I L L I N G &nbsp;&nbsp;S E R V I C E"
+#~ msgstr "Б И Л Л И Н Г &nbsp;&nbsp;С Е Р В И С"
+
+#~ msgid "EXTRA CHARGE"
+#~ msgstr "НАДБАВКА"
+
+#~ msgid "B I L L&nbsp;&nbsp;E V O L U T I O N"
+#~ msgstr "B I L L&nbsp;&nbsp;E V O L U T I O N"
+
+#, fuzzy
+#~ msgid "C A L L S"
+#~ msgstr "ЗВОНКИ"
+
+#, fuzzy
+#~ msgid "TOTAL COSTS"
+#~ msgstr "ИТОГО"
+
+#, fuzzy
+#~ msgid "TOTAL BUYCOSTS"
+#~ msgstr "ИТОГО"
+
+#~ msgid "Export PDF file"
+#~ msgstr "Экспорт в PDF"
+
+#~ msgid "Export CSV file"
+#~ msgstr "Экспорт в CSV"
+
+#~ msgid "No calls in your Selection"
+#~ msgstr "Нет звонков соответствующих Вашему запросу"
+
+#~ msgid " CREATED!"
+#~ msgstr "СОЗДАН!"
+
+#, fuzzy
+#~ msgid "Insert the email"
+#~ msgstr "Добавить новый Город"
+
+#, fuzzy
+#~ msgid "Insert the country"
+#~ msgstr "Добавить новый Город"
+
+#, fuzzy
+#~ msgid "Disactive"
+#~ msgstr "Date"
+
+#, fuzzy
+#~ msgid " has been inserted. <br>"
+#~ msgstr "зарегистрирован"
+
+#, fuzzy
+#~ msgid "Call Cost"
+#~ msgstr "Статистика звонков"
+
+#, fuzzy
+#~ msgid "No DID Calls Available"
+#~ msgstr "Время доступное для разговора"
+
+#, fuzzy
+#~ msgid "ACT"
+#~ msgstr "ДЕЙСТВИЕ"
+
+#, fuzzy
+#~ msgid "No DID Calls data available"
+#~ msgstr "Время доступное для разговора"
+
+#~ msgid ""
+#~ "<font face='Arial, Helvetica, sans-serif' size='2' color='red'><b>Error : "
+#~ "You don t have enough credit to call you back !!!</b></font><br>"
+#~ msgstr ""
+#~ "<font face='Arial, Helvetica, sans-serif' size='2' color='red'><b>Error : "
+#~ "На Вашем счету недостаточно средств для обратного звонка !!!</b></"
+#~ "font><br>"
+
+#~ msgid ""
+#~ "<font face='Arial, Helvetica, sans-serif' size='2' color='red'><b>Error : "
+#~ "There is no route to call back your phonenumber !!!</b></font><br>"
+#~ msgstr ""
+#~ "<font face='Arial, Helvetica, sans-serif' size='2' color='red'><b>Error : "
+#~ "Не задан маршрут !!!</b></font><br>"
+
+#~ msgid ""
+#~ "<font face='Arial, Helvetica, sans-serif' size='2' color='red'><b>Error : "
+#~ "You have to specify your phonenumber and the number you wish to call !!!</"
+#~ "b></font><br>"
+#~ msgstr ""
+#~ "<font face='Arial, Helvetica, sans-serif' size='2' color='red'><b>Error : "
+#~ "Вы должны указат свой номер телефона и номер по которому хотите "
+#~ "позвонить !!!</b></font><br>"
+
+#, fuzzy
+#~ msgid "has been registered."
+#~ msgstr "зарегистрирован"
+
+#, fuzzy
+#~ msgid "No DID Calls data available."
+#~ msgstr "Время доступное для разговора"
+
+#~ msgid "<acronym title='AVERAGE CONNECTION TIME'>ACT</acronym>"
+#~ msgstr "<acronym title='СРЕДНЕЕ ВРЕМЯ СОЕДИНЕНИЙ'>ACT</acronym>"
+
+#~ msgid "&nbsp;NO SIP ACCOUNT&nbsp;"
+#~ msgstr "&nbsp;У ВАС НЕТ SIP АККАУНТА&nbsp;"
+
+#~ msgid "C A L L S &nbsp;&nbsp;  D E T A I L"
+#~ msgstr "C A L L S &nbsp;&nbsp;  D E T A I L"
+
+#~ msgid "Congrats, the simulator found a destination for this number!"
+#~ msgstr "Поздравляю, симулятор нашел направление для этого номера"
+
+#, fuzzy
+#~ msgid "DESTINATION : #"
+#~ msgstr "НАПРАВЛЕНИЕ"
+
+#, fuzzy
+#~ msgid "minutes"
+#~ msgstr "Минут"
+
+#, fuzzy
+#~ msgid "Reset"
+#~ msgstr "Результат"
+
+#~ msgid "Selection of the month"
+#~ msgstr "По месяцам"
+
+#~ msgid "Selection of the day"
+#~ msgstr "По дням"
+
+#~ msgid "Options"
+#~ msgstr "Опции"
+
+#~ msgid "Show: "
+#~ msgstr "Показать"
+
+#~ msgid "Result"
+#~ msgstr "Результат"
+
+#~ msgid "PRED-DIALER"
+#~ msgstr "PRED-DIALER"
+
+#~ msgid ""
+#~ "The CODE is not a VALID CODE or has been already used! Please check it "
+#~ "and try again."
+#~ msgstr "Код неправильный, или уже искользован!."
+
+#, fuzzy
+#~ msgid "TODAS"
+#~ msgstr "Итого"
+
+#~ msgid "min"
+#~ msgstr "мин"
+
+#~ msgid "sec"
+#~ msgstr "сек"
+
+#~ msgid ""
+#~ "Several Phonenumber can be assign to the same DID and the priority will "
+#~ "define which phone will be ring in a first place."
+#~ msgstr ""
+#~ "Каждому DID можно назначить несколько номеров а приоритет будет "
+#~ "опредилять какой номер будет звонить первым."
+
+#~ msgid "EDIT"
+#~ msgstr "РЕДАКТИРОВАТЬ"
+
+#~ msgid "Edit this DID DESTINATION"
+#~ msgstr "Редактировать DID НАПРАВЛЕНИЕ"
+
+#~ msgid "DELETE"
+#~ msgstr "УДАЛИТЬ"
+
+#~ msgid "FILTER ON PREFIX"
+#~ msgstr "ФИЛЬТРОВАТЬ ПО ПРЕФИКСУ"
+
+#~ msgid "APPLY FILTER"
+#~ msgstr "ПРИМЕНИТЬ ФИЛЬТР"
+
+#~ msgid "REGISTERD"
+#~ msgstr "ЗАРЕГИСТРИРОВАН"
+
+#~ msgid "NO VOUCHER HAS BEEN USED!"
+#~ msgstr "Ваучеры не использовались!"
+
+#~ msgid ""
+#~ "From here you can (if allowed by admin) use your account from the web "
+#~ "(WEBPHONE). <br> This requires that your computer have a microphone and "
+#~ "headphones/speakers."
+#~ msgstr ""
+#~ "Здесь Вы можете (если разрешено администратором) звонить через WEB "
+#~ "телефон. <br> Для этого нужен микрофон или наушники/микрофон."

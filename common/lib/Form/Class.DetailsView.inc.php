@@ -2,6 +2,8 @@
 require_once("Class.FormViews.inc.php");
 
 class DetailsView extends FormView {
+	public $table_class="detailForm";
+
 	function RenderStyle(){
 	}
 
@@ -30,7 +32,7 @@ class DetailsView extends FormView {
 		}
 		$form->gen_PostParams($hidden_arr,true);
 	?>
-<table class="detailForm" cellspacing="2">
+<table class="<?= $this->table_class ?>" cellspacing="2">
 	<thead><tr><td class="field">&nbsp;</td><td class="value">&nbsp;</td></tr>
 	</thead>
 	<tbody>
