@@ -8,7 +8,7 @@ include_once (DIR_COMMON."languageSettings.inc.php");
 class IntroPage extends ElemBase{
 	function Render(){
 	?>
-<table align="center" width="90%" bgcolor="white" cellpadding="5" cellspacing="5" style="border-bottom: medium dotted #AA0000">
+<table align="center" width="90%" cellpadding="5" cellspacing="5" style="border-bottom: medium dotted #AA0000">
 	<tr>
 		<td width="340">
 			<img src="./Images/logoA2B-white-300.png">

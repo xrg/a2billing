@@ -124,8 +124,7 @@ $FG_HTML_TABLE_TITLE = gettext(" - Call Logs - ");
 //This variable define the width of the HTML table
 $FG_HTML_TABLE_WIDTH = '98%';
 
-
-	if ($FG_DEBUG >= 3) echo "<br>Table : $FG_TABLE_NAME  	- 	Col_query : $FG_COL_QUERY";
+if ($FG_DEBUG >= 3) echo "<br>Table : $FG_TABLE_NAME  	- 	Col_query : $FG_COL_QUERY";
 $instance_table = new Table($FG_TABLE_NAME, $FG_COL_QUERY);
 $instance_table_graph = new Table($FG_TABLE_NAME, $FG_COL_QUERY_GRAPH);
 
@@ -199,6 +198,7 @@ if ($_SESSION["is_admin"] == 1) {
 		if (strlen($FG_TABLE_CLAUSE) > 0) $FG_TABLE_CLAUSE .= " AND ";
 		$FG_TABLE_CLAUSE .= "t1.id_ratecard = '$enterratecard'";
 	}
+}
 
 if ($_SESSION["is_admin"]==0) {
 	if (strlen($FG_TABLE_CLAUSE)>0) $FG_TABLE_CLAUSE.=" AND ";
@@ -218,7 +218,7 @@ if (isset($choose_agent) && ($choose_agent != '')) {
 			array((integer)$choose_agent ));
 		break;
 	}
-
+}
 if (true) { /*-*/ 	
 	if (strlen($FG_TABLE_CLAUSE)>0) $FG_TABLE_CLAUSE.=" AND ";
 	$FG_TABLE_CLAUSE.=$tmp_agent_clause;
@@ -348,10 +348,6 @@ if ($FG_DEBUG >= 3) echo "<br>Nb_record_max : $nb_record_max";
 $instance_table_customer = new Table("cc_card", "id,  username, lastname");
 
 $FG_TABLE_CLAUSE = "";
-if ($_SESSION["is_admin"]==0){ 	
-	$FG_TABLE_CLAUSE =" IDmanager='".$_SESSION["pr_reseller_ID"]."'";	
-}
-
 
 $list_customer = $instance_table_customer -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, "id", "ASC", null, null, null, null);
 
@@ -817,30 +813,6 @@ function MM_openBrWindow(theURL,winName,features) { //v2.0
             </TABLE></TD>
         </TR>
       </table>
-
-<?php  if (is_array($list) && count($list)>0 && 3==4){ ?>
-<!-- ************** TOTAL SECTION ************* -->
-			<br/>
-			<div style="padding-right: 15px;">
-			<table cellpadding="1" bgcolor="#000000" cellspacing="1" width="<?php if ($_SESSION["is_admin"]==1){ ?>450<?php }else{?>200<?php }?>" align="right">
-				<tbody>
-                <tr class="form_head">
-				   <td width="33%" align="center" class="tableBodyRight" bgcolor="#600101" style="padding: 5px;"><strong><?php echo gettext("TOTAL COSTS");?></strong></td>
-				   <?php if ($_SESSION["is_admin"]==1){ ?><td width="33%" align="center" class="tableBodyRight" bgcolor="#600101" style="padding: 5px;"><strong><?php echo gettext("TOTAL BUYCOSTS");?></strong></td><?php }?>
-				   <?php if ($_SESSION["is_admin"]==1){ ?><td width="33%" align="center" class="tableBodyRight" bgcolor="#600101" style="padding: 5px;"><strong><?php echo gettext("DIFFERENCE");?></strong></td><?php }?>
-                </tr>
-				<tr>
-				  <td valign="top" align="center" class="tableBody" bgcolor="white"><b><?php echo $total_cost[0][0]?></b></td>
-				  <?php if ($_SESSION["is_admin"]==1){ ?><td valign="top" align="center" class="tableBody" bgcolor="#66FF66"><b><?php echo $total_cost[0][1]?></b></td><?php }?>
-				  <?php if ($_SESSION["is_admin"]==1){ ?><td valign="top" align="center" class="tableBody" bgcolor="#FF6666"><b><?php echo $total_cost[0][0]-$total_cost[0][1]?></b></td><?php }?>
-
-				</tr>
-			</table>
-			</div>
-			<br/><br/>
-					
-<!-- ************** TOTAL SECTION ************* -->
-<?php  } ?>
 
 <!-- ** ** ** ** ** Part to display the GRAPHIC ** ** ** ** ** -->
 <br>
