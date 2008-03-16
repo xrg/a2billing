@@ -41,3 +41,11 @@ table.detailForm input {
 	color: #FF9900;
 	border: 1px solid #C1C1C1;
 }
+
+table.detailsMc {
+	width: 100%;
+}
+
+table.detailsMc tr{
+	vertical-align: top;
+}

@@ -7,16 +7,7 @@ class DetailsView extends FormView {
 	function RenderStyle(){
 	}
 
-	public function Render(&$form){
-		$this->RenderStyle();
-		
-		$res= $this->PerformQuery($form);
-		
-		if (!$res)
-			return;
-	
-		// do the table..
-		$row=$res->fetchRow();
+	protected function RenderFormHead($row,&$form){
 		?>
 	<form action=<?= $_SERVER['PHP_SELF']?> method=post name="<?= $form->prefix?>Frm" id="<?= $form->prefix ?>Frm">
 	<?php
@@ -31,7 +22,20 @@ class DetailsView extends FormView {
 			$hidden_arr = $arr2;
 		}
 		$form->gen_PostParams($hidden_arr,true);
-	?>
+	}
+	
+	public function Render(&$form){
+		$this->RenderStyle();
+		
+		$res= $this->PerformQuery($form);
+		
+		if (!$res)
+			return;
+	
+		// do the table..
+		$row=$res->fetchRow();
+		$this->RenderFormHead($row,$form);
+		?>
 <table class="<?= $this->table_class ?>" cellspacing="2">
 	<thead><tr><td class="field">&nbsp;</td><td class="value">&nbsp;</td></tr>
 	</thead>
@@ -129,20 +133,7 @@ class Details2cView extends DetailsView {
 	
 		// do the table..
 		$row=$res->fetchRow();
-		?>
-	<form action=<?= $_SERVER['PHP_SELF']?> method=post name="<?= $form->prefix?>Frm" id="<?= $form->prefix ?>Frm">
-	<?php
-		$hidden_arr = array('action' => $form->getAction(), 'sub_action' => '');
-		foreach($form->model as $fld)
-			if ($arr2 = $fld->editHidden($row,$form))
-				$hidden_arr = array_merge($hidden_arr,$arr2);
-		if (strlen($form->prefix)>0){
-			$arr2= array();
-			foreach($hidden_arr as $key => $val)
-				$arr2[$form->prefix.$key] = $val;
-			$hidden_arr = $arr2;
-		}
-		$form->gen_PostParams($hidden_arr,true);
+		$this->RenderFormHead($row,$form);
 	?>
 <table class="<?= $this->table_class ?>" cellspacing="2">
 	<thead><tr><td class="field2c">&nbsp;</td><td class="value2c">&nbsp;</td>
@@ -165,6 +156,61 @@ class Details2cView extends DetailsView {
 	?>
 	</tbody>
 	</table> </form>
+	<?php
+	}
+};
+
+/** A Multi-column detail view */
+class DetailsMcView extends DetailsView {
+	public $ncols=2;
+	
+	public function Render(&$form){
+		$this->RenderStyle();
+		
+		$res= $this->PerformQuery($form);
+		
+		if (!$res)
+			return;
+	
+		// do the table..
+		$row=$res->fetchRow();
+		$this->RenderFormHead($row,$form);
+		
+		$r=0;
+		$nrow= (count($form->model) + $this->ncols -1)/$this->ncols;
+		
+		// echo "N. Rows: $nrow<br>";
+	?>
+	<table class="detailsMc" cellspacing=0>
+	<tr><?php
+		//$col=0;
+		foreach($form->model as $fld)
+			if ($fld){
+				if(($r % $nrow) ==0) { ?>
+<td>
+<table class="<?= $this->table_class ?>" cellspacing="2">
+	<thead><tr><td class="field">&nbsp;</td><td class="value">&nbsp;</td></tr>
+	</thead>
+	<tbody>
+	<?php
+				}
+		?>
+		<tr><td class="field"><?php
+				$fld->RenderEditTitle($form);
+		?></td><td class="value"><?php
+				$fld->DispList($row,$form);
+		?></td></tr>
+<?php
+		$r++;
+			if(($r % $nrow) ==0) { ?>
+	</tbody>
+</table></td>
+<?php
+			}
+		}
+	?>
+</tr></table>
+	</form>
 	<?php
 	}
 };
