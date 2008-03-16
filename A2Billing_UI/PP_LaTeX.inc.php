@@ -31,8 +31,9 @@ header('Content-type: text/x-latex');
 ?>
 \document{article}
 <?php
+	$robj = null;
 	foreach($PAGE_ELEMS as $elem)
-		$elem->RenderHeadSpecial('LaTeX');
+		$elem->RenderHeadSpecial('LaTeX',$robj);
 ?>
 \begin{document}
 % A2Billing version v2.0 beta - Mar 2008

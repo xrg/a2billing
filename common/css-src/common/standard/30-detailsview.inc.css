@@ -16,6 +16,13 @@ table.detailForm thead .value {
 	width: 75%;
 }
 
+table.detailForm thead .field2c {
+	width: 15%;
+}
+table.detailForm thead .value2c {
+	width: 35%;
+}
+
 table.detailForm tbody .field {
 	text-transform: uppercase;
 	color: #FFFFFF;
@@ -33,4 +40,12 @@ table.detailForm input {
 	font-weight: bold;
 	color: #FF9900;
 	border: 1px solid #C1C1C1;
+}
+
+table.detailsMc {
+	width: 100%;
+}
+
+table.detailsMc tr{
+	vertical-align: top;
 }
