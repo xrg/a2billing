@@ -13,6 +13,7 @@ HelpElem::DoHelp(gettext("Currency data are automaticaly updated from Yahoo Fina
 
 $HD_Form= new FormHandler('cc_currencies',_("Currencies"),_("Currency"));
 $HD_Form->checkRights(ACX_AGENTS);
+$HD_Form->default_order='id';
 $HD_Form->init();
 
 $PAGE_ELEMS[] = &$HD_Form;
@@ -23,7 +24,6 @@ $HD_Form->model[] = new PKeyField(_("ID"),'id');
 $HD_Form->model[] = new TextField(_("Currency"),'currency',_("Currency code"));
 $HD_Form->model[] = new TextField(_("Name"),'name',_("Currency name"));
 $HD_Form->model[] = new FloatField(_("Value"),'value',_("Rate to base currency"));
-$HD_Form->model[] = new TextField(_("Base currency"),'basecurrency',_("Currency to which rate corresponds. Should be base currency."));
 
 $HD_Form->model[] = new TextFieldN(_("Sign"),'csign',_("Currency special symbol"));
 end($HD_Form->model)->does_list=false;
