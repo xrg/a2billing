@@ -231,4 +231,52 @@ class SqlBigRefField extends SqlRefField{
 	}
 };
 
+/** Class for sql ref where the combo would have too many values.. 
+	\todo have popup window to select among the available entries.
+*/
+class SqlRefFieldToolTip extends SqlBigRefField{
+	public $caption_tooltip = null;
+	public $width_tooltip = 500;
+	public $tooltip_url = null;
+	
+	public function DispList(array &$qrow,&$form){
+		$act = $form->getAction();
+		$url=null;
+		$url_tooltip=null;
+		if (($act == 'list') && $this->list_url)
+			$url = str_alparams($this->list_url,$qrow);
+		elseif (($act == 'details') && $this->detail_url)
+			$url = str_alparams($this->detail_url,$qrow);
+		if ($url)
+			echo '<a href="'.$url .'" >';
+		echo htmlspecialchars($qrow[$this->fieldname.'_'.$this->refname]);
+		if ( ($this->list_ref && $act == 'list') || ($this->detail_ref && $act == 'details'))
+			echo " (" .htmlspecialchars($qrow[$this->fieldname]) .")";
+		else if ($form->FG_DEBUG>3)
+			echo " (Ref:" .htmlspecialchars($qrow[$this->fieldname]) .")";
+		if ($url)
+			echo '</a>';
+		if (($act == 'list') && $this->list_url)
+			$url_tooltip = str_alparams($this->tooltip_url,$qrow);
+		echo ' <a href="'.$url_tooltip .'&width='.$this->width_tooltip.'" ';
+		echo ' class="jTip" id="'.$this->fieldname.'" name="'.$this->caption_tooltip.'"><b>?</b></a>';
+	}
+	
+	/** Set the caption name for the tooltip */
+	function SetCaptionTooltip ($caption){
+		$this->caption_tooltip = $caption;
+	}
+	
+	/** Set the width for the tooltip */
+	function SetWidthTooltip ($width){
+		$this->width_tooltip = $width;
+	}
+	
+	/** Set the urls so that details will point to the referring entity */
+	function SetRefTooltip($fname){
+		$this->tooltip_url = $fname .'?action=tooltip&' . $this->refid .'=%' .
+			$this->fieldname ;
+	}
+};
+
 ?>

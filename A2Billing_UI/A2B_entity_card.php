@@ -102,7 +102,8 @@ $HD_Form->model[] = dontList(new DateTimeFieldN(_("Last service"), "servicelastr
 // $HD_Form->model[] = new RefField(_("ACTIVATED"), "active", $actived_list,_("Allow the agent to operate"),"4%");
 // end($HD_Form->model)->fieldacr =  gettext("ACT");
 
-$HD_Form->model[] = new DelBtnField();
+if ($HD_Form->getAction()!='tooltip')
+	$HD_Form->model[] = new DelBtnField();
 
 $SEL_Form = new SelectionForm();
 $SEL_Form->init();
@@ -120,6 +121,10 @@ $PAGE_ELEMS[] = new AddNewButton($HD_Form);
 
 $SEL_Form->appendClauses($HD_Form);
 
-require("PP_page.inc.php");
+if($HD_Form->getAction()=='tooltip')
+	require("PP_print.inc.php");
+	
+else
+	require("PP_page.inc.php");
 
 ?>
