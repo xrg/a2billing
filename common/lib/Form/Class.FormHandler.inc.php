@@ -125,7 +125,6 @@ class FormHandler extends ElemBase{
 			$this->views['ask-edit'] = new AskEditView();
 			$this->views['ask-del'] = new AskDelView();
 			$this->views['details'] = new DetailsView();
-			$this->views['tooltip'] = new DetailsView();
 			$this->views['delete'] = new DeleteView();
 			$this->views['object-edit'] = new ObjEditView();
 			if ($this->FG_DEBUG)

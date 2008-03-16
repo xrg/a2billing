@@ -16,6 +16,13 @@ table.detailForm thead .value {
 	width: 75%;
 }
 
+table.detailForm thead .field2c {
+	width: 15%;
+}
+table.detailForm thead .value2c {
+	width: 35%;
+}
+
 table.detailForm tbody .field {
 	text-transform: uppercase;
 	color: #FFFFFF;

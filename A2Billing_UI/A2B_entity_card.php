@@ -20,6 +20,8 @@ $HD_Form= new FormHandler('cc_card',_("Customers"),_("Customer"));
 $HD_Form->checkRights(ACX_CUSTOMER);
 $HD_Form->init();
 
+$HD_Form->views['tooltip'] = new Details2cView();
+
 $HD_Form->model[] = new PKeyFieldEH(_("ID"),'id');
 
 $HD_Form->model[] = new TextFieldEH(_("Card number"),'username',_('Card username. Also the PIN for callingcards'));

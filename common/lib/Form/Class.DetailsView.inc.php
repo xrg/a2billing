@@ -117,4 +117,55 @@ class DetailsView extends FormView {
 	}
 };
 
+/** A two-column detail view */
+class Details2cView extends DetailsView {
+	public function Render(&$form){
+		$this->RenderStyle();
+		
+		$res= $this->PerformQuery($form);
+		
+		if (!$res)
+			return;
+	
+		// do the table..
+		$row=$res->fetchRow();
+		?>
+	<form action=<?= $_SERVER['PHP_SELF']?> method=post name="<?= $form->prefix?>Frm" id="<?= $form->prefix ?>Frm">
+	<?php
+		$hidden_arr = array('action' => $form->getAction(), 'sub_action' => '');
+		foreach($form->model as $fld)
+			if ($arr2 = $fld->editHidden($row,$form))
+				$hidden_arr = array_merge($hidden_arr,$arr2);
+		if (strlen($form->prefix)>0){
+			$arr2= array();
+			foreach($hidden_arr as $key => $val)
+				$arr2[$form->prefix.$key] = $val;
+			$hidden_arr = $arr2;
+		}
+		$form->gen_PostParams($hidden_arr,true);
+	?>
+<table class="<?= $this->table_class ?>" cellspacing="2">
+	<thead><tr><td class="field2c">&nbsp;</td><td class="value2c">&nbsp;</td>
+	<td class="field2c">&nbsp;</td><td class="value2c">&nbsp;</td></tr>
+	</thead>
+	<tbody>
+	<?php
+		$a=0;
+		foreach($form->model as $fld)
+			if ($fld){
+			if (($a % 2) == 0) echo '<tr>';
+		?><td class="field"><?php
+				$fld->RenderEditTitle($form);
+		?></td><td class="value"><?php
+				$fld->DispList($row,$form);
+		?></td><?php
+			if (($a++ %2) ==1) echo "</tr>\n";
+				else echo "\n";
+		}
+	?>
+	</tbody>
+	</table> </form>
+	<?php
+	}
+};
 ?>
