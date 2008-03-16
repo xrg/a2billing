@@ -27,10 +27,13 @@ $HD_Form->model[] = new TextFieldEH(_("Phone Number"),'phone',_("Enter the phone
 $HD_Form->model[] = new TextFieldEH(_("Name"),'name',_("Enter the name or label that will identify this speed dial."));
 
 
-$HD_Form->model[] = new SqlBigRefField(_("CardNumber"), "card_id","cc_card", "id", "username");
+//$HD_Form->model[] = new SqlBigRefField(_("CardNumber"), "card_id","cc_card", "id", "username");
+$HD_Form->model[] = new SqlRefFieldToolTip(_("CardNumber"), "card_id","cc_card", "id", "username");
 	end($HD_Form->model)->SetRefEntity("A2B_entity_card.php");
 	end($HD_Form->model)->SetRefEntityL("A2B_entity_card.php");
 	end($HD_Form->model)->SetEditTitle(_("Card ID"));
+	end($HD_Form->model)->SetCaptionTooltip(_("Information about the card holder :"));
+	end($HD_Form->model)->SetRefTooltip("A2B_entity_card.php");
 	
 $HD_Form->model[] = dontAdd(dontEdit(new DateTimeField(_("Creation date"), "creationdate", _("Date the card was created (entered into this system)"))));
 

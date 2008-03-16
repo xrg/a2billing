@@ -43,7 +43,16 @@ foreach($PAGE_ELEMS as $elem){
 <link href="./css/standard.css" rel="stylesheet" type="text/css">
 <link href="./css/other.css" rel="alternate stylesheet" title="<?= _("Other") ?>" type="text/css">
 
+<script type="text/javascript" src="./javascript/jquery/jquery.js"></script>
+<script type="text/javascript" src="./javascript/jquery/handler_jquery.js"></script>
+<script type="text/javascript" src="./javascript/jquery/jtip.js"></script>
 <?php
+
+if ($debug_jquery){
+	echo '<script type="text/javascript" src="./javascript/jquery/jquery.debug.js"></script>'.
+		 '<script type="text/javascript" src="./javascript/jquery/ilogger.js"></script>';
+}
+
 	foreach($PAGE_ELEMS as $elem)
 		$elem->RenderHead();
 ?>
