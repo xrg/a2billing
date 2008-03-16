@@ -27,7 +27,8 @@ $HD_Form->model[] = new TextField(_("Card alias"),'useralias',_("Alias, also the
 
 $HD_Form->model[] = new SqlRefField(_("Group"), "grp","cc_card_group", "id", "name");
 
-$HD_Form->model[] = dontList(new TextField(_("Card pass"),'userpass',_("PIN")));
+if ($HD_Form->getAction()!='tooltip')
+	$HD_Form->model[] = dontList(new TextField(_("Card pass"),'userpass',_("PIN")));
 
 $HD_Form->model[] = new FloatVolField(_("Credit"),'credit',_("Money now in the card. Positive is credit, negative owes us."));
 $HD_Form->model[] = new FloatVolField(_("Credit Limit"),'creditlimit',_("Maximum (negative) credit this card can reach, if postpaid."));
@@ -46,29 +47,33 @@ $cs_list[]  = array("8", _("STOPPED"));
 
 $HD_Form->model[] = new RefField(_("Status"),'status', $cs_list);
 
-$HD_Form->model[] = dontAdd(dontList(new DateTimeField(_("Creation date"), "creationdate", _("Date the card was created (entered into this system)"))));
-$HD_Form->model[] = dontAdd(dontList(new DateTimeFieldN(_("First use"), "firstusedate", _("Date the card made its first call"))));
-$HD_Form->model[] = dontAdd(dontList(new DateTimeFieldN(_("Last use"), "lastuse", _("Date the card was last used"))));
-$HD_Form->model[] = dontAdd(dontList(new DateTimeFieldN(_("Expire date"), "expirationdate", _("Date the card should expire"))));
+if ($HD_Form->getAction()!='tooltip'){
+	$HD_Form->model[] = dontAdd(dontList(new DateTimeField(_("Creation date"), "creationdate", _("Date the card was created (entered into this system)"))));
+	$HD_Form->model[] = dontAdd(dontList(new DateTimeFieldN(_("First use"), "firstusedate", _("Date the card made its first call"))));
+	$HD_Form->model[] = dontAdd(dontList(new DateTimeFieldN(_("Last use"), "lastuse", _("Date the card was last used"))));
+	$HD_Form->model[] = dontAdd(dontList(new DateTimeFieldN(_("Expire date"), "expirationdate", _("Date the card should expire"))));
+}
 
 $HD_Form->model[] = new TextFieldN(_("First name"),'firstname');
 $HD_Form->model[] = new TextFieldN(_("Last name"),'lastname');
 
-$HD_Form->model[] = dontList(new TextAreaField(_("Address"),'address'));
+if ($HD_Form->getAction()!='tooltip'){
+	$HD_Form->model[] = dontList(new TextAreaField(_("Address"),'address'));
+	
+	$HD_Form->model[] = dontList(new TextFieldN(_("City"),'city'));
+	$HD_Form->model[] = dontList(new TextFieldN(_("State"),'state'));
+	
+	$HD_Form->model[] = dontList(new TextFieldN(_("Country"),'country'));
+	$HD_Form->model[] = dontList(new TextFieldN(_("Zipcode"),'zipcode'));
 
-$HD_Form->model[] = dontList(new TextFieldN(_("City"),'city'));
-$HD_Form->model[] = dontList(new TextFieldN(_("State"),'state'));
-
-$HD_Form->model[] = dontList(new TextFieldN(_("Country"),'country'));
-$HD_Form->model[] = dontList(new TextFieldN(_("Zipcode"),'zipcode'));
-
-$HD_Form->model[] = dontList(new TextFieldN(_("Phone"),'phone'));
-$HD_Form->model[] = dontList(new TextFieldN(_("email"),'email'));
-$HD_Form->model[] = dontList(new TextFieldN(_("Fax"),'fax'));
-
-$HD_Form->model[] = dontAdd(new IntVolField(_("In use"),'inuse'));
-
-$HD_Form->model[] = dontList(new SqlRefFieldN(_("Currency"),'currency','cc_currencies','currency','name', _("Default currency for new cards in this group. This can later change per card.")));
+	$HD_Form->model[] = dontList(new TextFieldN(_("Phone"),'phone'));
+	$HD_Form->model[] = dontList(new TextFieldN(_("email"),'email'));
+	$HD_Form->model[] = dontList(new TextFieldN(_("Fax"),'fax'));
+	
+	$HD_Form->model[] = dontAdd(new IntVolField(_("In use"),'inuse'));
+	
+	$HD_Form->model[] = dontList(new SqlRefFieldN(_("Currency"),'currency','cc_currencies','currency','name', _("Default currency for new cards in this group. This can later change per card.")));
+}
 
 $HD_Form->model[] = dontAdd(dontList(new IntVolField(_("Times used"),'nbused',_("Total times the card has been used"))));
 
@@ -122,8 +127,7 @@ $PAGE_ELEMS[] = new AddNewButton($HD_Form);
 $SEL_Form->appendClauses($HD_Form);
 
 if($HD_Form->getAction()=='tooltip')
-	require("PP_print.inc.php");
-	
+	require("PP_bare_page.inc.php");
 else
 	require("PP_page.inc.php");
 

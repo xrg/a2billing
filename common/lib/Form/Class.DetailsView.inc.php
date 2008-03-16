@@ -55,7 +55,7 @@ class DetailsView extends FormView {
 	function PerformQuery(&$form){
 		$dbhandle = &$form->a2billing->DBHandle();
 		if ($form->FG_DEBUG>3)
-			echo "Details! Building query..";
+			echo "<div class=\"debug\">Details! Building query..</div>";
 			
 		
 		$query_fields = array();
@@ -78,14 +78,14 @@ class DetailsView extends FormView {
 		
 		if (!strlen($query_table)){
 			if ($form->FG_DEBUG>0)
-				echo "No table!\n";
+				echo "<div class=\"debug\">No table!</div>\n";
 			return;
 		}
 		
 		$QUERY = 'SELECT ';
 		if (count($query_fields)==0) {
 			if ($form->FG_DEBUG>0)
-				echo "No query fields!\n";
+				echo "<div class=\"debug\">No query fields!</div>\n";
 			return;
 		}
 		
@@ -98,13 +98,13 @@ class DetailsView extends FormView {
 		$QUERY .= ' LIMIT 1;'; // we can only edit one record at a time!
 		
 		if ($form->FG_DEBUG>3)
-			echo "QUERY: $QUERY\n<br>\n";
+			echo "<div class=\"debug\">QUERY: $QUERY</div>\n";
 		
 		// Perform the query
 		$res =$dbhandle->Execute($QUERY);
 		if (! $res){
 			if ($form->FG_DEBUG>0)
-				echo "Query Failed: ". nl2br(htmlspecialchars($dbhandle->ErrorMsg()));
+				echo "<div class=\"debug\">Query Failed: ". nl2br(htmlspecialchars($dbhandle->ErrorMsg()))."</div>";
 			return;
 		}
 		
