@@ -2,7 +2,7 @@
 
 CREATE TABLE provision_group (
 	id SERIAL PRIMARY KEY,
-	categ TEXT NOT NULL UNIQUE,
+	categ TEXT NOT NULL,
 	model VARCHAR(40) NOT NULL,
 	name TEXT NOT NULL,
 	sub_name TEXT,

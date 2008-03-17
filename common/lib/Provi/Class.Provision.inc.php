@@ -9,6 +9,10 @@ abstract class ProviEngine {
 	abstract public function Init(array $args);
 	
 	abstract public function genContent(&$outstream);
+	
+	protected function out($level,$str){
+		fwrite(STDERR,$str."\n");
+	}
 };
 
 ?>

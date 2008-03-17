@@ -6,7 +6,7 @@ $res= STDOUT;
 
 $gen = new AsteriskIniProvi();
 
-$gen->Init(array());
+$gen->Init(array(cardid => 3, categ=>'sip-peer'));
 
 $gen->genContent($res);
 

@@ -40,7 +40,8 @@ $HD_Form->meta_elems[] = $tmp;
 	$tmp->Form->model[]= new TextFieldEH(_("Name"),'name',_('Name of setting'));
 	$tmp->Form->model[]= new TextField(_("Sub Name"),'sub_name',_('Second part of setting name'));
 	$tmp->Form->model[]= new TextField(_("Value"),'valuef',_('Value, pattern of setting'));
-	$tmp->Form->model[] = dontAdd(new IntField(_("Metric"),'metric',_("By adjusting the metrics, order of the generated fields can be enforced.")));
+	$tmp->Form->model[] = new IntField(_("Metric"),'metric',_("By adjusting the metrics, order of the generated fields can be enforced."));
+		end($tmp->Form->model)->def_value= 10;
 	$tmp->Form->model[] = new DelBtnField();
 	$tmp->Form->meta_elems[] = new AddNewButton($tmp->Form);
 
