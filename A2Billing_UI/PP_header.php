@@ -1,8 +1,8 @@
 <?php 
-	include ("./lib/company_info.php");
+require_once ("./lib/defines.php");
 ?>
 <html><head>
-<title>..:: <?php echo CCMAINTITLE; ?> ::..</title>
+<title><?php echo CCMAINTITLE; ?></title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
 <link rel="shortcut icon" href="./Images/favicon.ico">

@@ -16,6 +16,9 @@ abstract class BaseField {
 	public $does_add = true; ///< Field will appear in add view
 	public $does_del = true; ///< Field will appear in del view
 	
+	public $add_tab = false;
+	public $tablabel= null;
+	
 	public $listWidth = null;
 	public $editDescr = null;
 	
@@ -325,7 +328,16 @@ abstract class BaseField {
 	public function PerformObjEdit(&$form){
 		return null;
 	}
-
+	
+	// Set if you want to create a new tab from this element
+	function addTab(){
+		$this->add_tab = true;
+	}
+	
+	// Set the label of the new Tab
+	function SetTabLabel($label){
+		$this->tablabel= $label;
+	}
 };
 
 function dontList(BaseField &$bf){
@@ -337,6 +349,7 @@ function dontAdd(BaseField &$bf){
 	$bf->does_add = false;
 	return $bf;
 }
+
 function dontEdit(BaseField &$bf){
 	$bf->does_edit = false;
 	return $bf;

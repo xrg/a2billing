@@ -1,4 +1,5 @@
 <?php
+
 require_once("Class.FormViews.inc.php");
 
 class DetailsView extends FormView {
@@ -8,7 +9,7 @@ class DetailsView extends FormView {
 	}
 
 	protected function RenderFormHead($row,&$form){
-		?>
+		?>		
 	<form action=<?= $_SERVER['PHP_SELF']?> method=post name="<?= $form->prefix?>Frm" id="<?= $form->prefix ?>Frm">
 	<?php
 		$hidden_arr = array('action' => $form->getAction(), 'sub_action' => '');
@@ -178,8 +179,8 @@ class DetailsMcView extends DetailsView {
 		
 		$r=0;
 		$nrow= (count($form->model) + $this->ncols -1)/$this->ncols;
-		
-		// echo "N. Rows: $nrow<br>";
+		$wcol = intval (100 / $this->ncols);
+		echo "N. Rows: $nrow<br>";
 	?>
 	<table class="detailsMc" cellspacing=0>
 	<tr><?php
@@ -187,7 +188,7 @@ class DetailsMcView extends DetailsView {
 		foreach($form->model as $fld)
 			if ($fld){
 				if(($r % $nrow) ==0) { ?>
-<td>
+<td width="<?= $wcol ?>%">
 <table class="<?= $this->table_class ?>" cellspacing="2">
 	<thead><tr><td class="field">&nbsp;</td><td class="value">&nbsp;</td></tr>
 	</thead>

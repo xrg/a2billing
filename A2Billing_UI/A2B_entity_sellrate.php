@@ -70,7 +70,8 @@ $HD_Form->model[] = new RevRefTxt(_("Prefixes"),'prefx','id','cc_sell_prefix','s
 
 //RevRef2::html_body($action);
 
-$HD_Form->model[] = new DelBtnField();
+if ($HD_Form->getAction()!='tooltip')
+	$HD_Form->model[] = new DelBtnField();
 
 	// Add import functionality to the entity
 require_once(DIR_COMMON."Form/Class.ImportView.inc.php");
