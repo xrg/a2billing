@@ -35,6 +35,13 @@ abstract class BaseField {
 	   */
 	abstract public function DispList(array &$qrow,&$form);
 	
+	/** Echo the (formatted) representation of the field, in special render mode
+	   \param $qrow An array(fieldname=> val, ...) resulting from the sql query
+	   \param $form The form
+	   \param $rmode the rendering mode
+	   */
+	abstract public function renderSpecial(array &$qrow,&$form,$rmode, &$robj);
+
 	/** Editing may be skipped, by default */
 	public function DispEdit(array &$qrow,&$form){
 		$this->DispAddEdit($qrow[$this->fieldname],$form);
@@ -131,6 +138,14 @@ abstract class BaseField {
 // 	public function addQueryClause(&$dbhandle,&$form){
 // 		return null;
 // 	}
+	/** Correctly get the order expression for this field.
+	    Override this in formatted fields that need other ordering */
+	public function getOrder(&$form){
+		if ($this->fieldexpr)
+			return $this->fieldexpr;
+		else
+			return $this->fieldname;
+	}
 
 	/** Transform the value (unquoted) to a Insert/Update form.
 	    If wrongfuly called, may throw exception. Returning an

@@ -17,213 +17,78 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
 
-#: common/lib/AgentMoney.inc.php:11 common/lib/SessionInvoice.inc.php:8
-msgid "Transactions"
-msgstr "Συναλλαγές"
+#: common/lib/Misc.inc.php:569
+msgid "File size is greater than allowed limit."
+msgstr "Το μέγεθος του αρχείου είναι μεγαλύτερο από το όριο."
 
-#: common/lib/AgentMoney.inc.php:11 common/lib/SessionInvoice.inc.php:8
-msgid "Transaction"
-msgstr "Συναλλαγή"
+#: common/lib/Misc.inc.php:573
+msgid "You did not upload anything!"
+msgstr "Δεν στείλατε τίποτα!"
 
-#: common/lib/AgentMoney.inc.php:32 common/lib/SessionInvoice.inc.php:21
-#: common/lib/SessionInvoice.inc.php:52
-msgid "Date"
-msgstr "Ημερομηνία"
+#: common/lib/Misc.inc.php:577
+msgid "Failed to upload the file, The file you uploaded may not exist on disk."
+msgstr "Σφάλμα, το ανεβασμένο αρχείο δεν βρίσκεται στο δίσκο."
 
-#: common/lib/AgentMoney.inc.php:34
-msgid "Type"
-msgstr "Τύπος"
+#: common/lib/Misc.inc.php:583
+msgid "file type is not allowed"
+msgstr "αρχεία τέτοιου τύπου δεν επιτρέπονται"
 
-#: common/lib/AgentMoney.inc.php:40 common/lib/SessionInvoice.inc.php:24
-msgid "Description"
-msgstr "Περιγραφή"
+#: common/lib/Form/Class.FormHelpers.inc.php:14
+msgid "item"
+msgstr "στοιχείο"
 
-#: common/lib/AgentMoney.inc.php:43
-msgid "In"
-msgstr "Μέσα"
+#: common/lib/Form/Class.FormHelpers.inc.php:26
+msgid "Add a new %1"
+msgstr "Προσθήκη νέου %1"
 
-#: common/lib/AgentMoney.inc.php:44
-msgid "Out"
-msgstr "Έξω"
+#: common/lib/Form/Class.ListView.inc.php:105
+#: common/lib/Form/Class.ListCsvView.inc.php:19
+#: common/lib/Form/Class.ListSumView.inc.php:71
+#: common/lib/Form/Class.DetailsView.inc.php:118
+#: common/lib/Form/Class.ListTeXView.inc.php:19
+#: common/lib/Form/Class.EditView.inc.php:61
+msgid "No %1 found!"
+msgstr "Δεν βρέθηκε %1!"
 
-#: common/lib/AgentMoney.inc.php:45
+#: common/lib/Form/Class.ListView.inc.php:180
+msgid "%1 Rows,"
+msgstr ""
+
+#: common/lib/Form/Class.ListView.inc.php:182
+msgid "Display"
+msgstr ""
+
+#: common/lib/Form/Class.ListView.inc.php:190
+msgid "All"
+msgstr "Όλα"
+
+#: common/lib/Form/Class.ListView.inc.php:192
+msgid "GO"
+msgstr "ΠΗΓΑΙΝΕ"
+
+#: common/lib/Form/Class.ListView.inc.php:203
+msgid "First"
+msgstr "Πρώτο"
+
+#: common/lib/Form/Class.ListView.inc.php:204
+msgid "Prev"
+msgstr "Προηγ."
+
+#: common/lib/Form/Class.ListView.inc.php:239
+msgid "Next"
+msgstr "Επόμενο"
+
 #: common/lib/Form/Class.ListSumView.inc.php:78
+#: common/lib/AgentMoney.inc.php:45
 msgid "Sum"
 msgstr "Άθροισμα"
-
-#: common/lib/AgentMoney.inc.php:50
-msgid "Totals"
-msgstr "Σύνολα"
-
-#: common/lib/AgentMoney.inc.php:53
-msgid "Sum Total"
-msgstr "Συνολικό Άθροισμα"
-
-#: common/lib/AgentMoney.inc.php:64
-msgid "Agent Totals"
-msgstr "Σύνολα Μαγαζιού"
-
-#: common/lib/AgentMoney.inc.php:95
-msgid "Totals could not be calculated!"
-msgstr "Τα σύνολα δεν μπόρεσαν να υπολογιστούν!"
-
-#: common/lib/AgentMoney.inc.php:96
-msgid "Total sum credited to customers"
-msgstr "Σύνολο πιστωμένο σε πελάτες"
-
-#: common/lib/AgentMoney.inc.php:97
-msgid "Total sum debited from customers"
-msgstr "Σύνολο οφειλών από πελάτες"
-
-#: common/lib/AgentMoney.inc.php:98
-msgid "Total potential debit from customers"
-msgstr "Συνολική πιθανή οφειλή από πελάτες"
-
-#: common/lib/AgentMoney.inc.php:99
-msgid "Total calls made by customers"
-msgstr "Σύνολο κλήσεων από πελάτες"
-
-#: common/lib/AgentMoney.inc.php:100
-msgid "Wholesale price of calls"
-msgstr "Χονδρική τιμή κλήσεων"
-
-#: common/lib/AgentMoney.inc.php:101
-msgid "Estimated profit from calls"
-msgstr "Εκτιμώμενο κέρδος από κλήσεις"
-
-#: common/lib/AgentMoney.inc.php:102
-msgid "Outstanding balance"
-msgstr "Λογιστικό υπόλοιπο"
-
-#: common/lib/AgentMoney.inc.php:103
-msgid "Credit Limit"
-msgstr "Πιστωτικό όριο"
-
-#: common/lib/AgentMoney.inc.php:104
-msgid "Estimated Days left"
-msgstr "Εκτιμώμενο υπόλοιπο σε ημέρες"
-
-#: common/lib/BoothsXML.inc.php:35
-msgid "N/A"
-msgstr "N/A"
-
-#: common/lib/BoothsXML.inc.php:35
-msgid "Not available, no cards configured."
-msgstr "Δεν είναι διαθέσιμος, δεν ρυθμίστηκαν κάρτες."
-
-#: common/lib/BoothsXML.inc.php:36 common/lib/Class.CallShop.inc.php:138
-msgid "Empty"
-msgstr "Κενό"
-
-#: common/lib/BoothsXML.inc.php:36
-msgid "No customer attached."
-msgstr "Δεν έχει συνδεθεί με πελάτη."
-
-#: common/lib/BoothsXML.inc.php:37
-msgid "Idle"
-msgstr "Αδρανής"
-
-#: common/lib/BoothsXML.inc.php:37
-msgid "Customer attached, inactive"
-msgstr "Συνδέθηκε με πελάτη, ανενεργός"
-
-#: common/lib/BoothsXML.inc.php:38
-msgid "Ready"
-msgstr "Έτοιμο"
-
-#: common/lib/BoothsXML.inc.php:38
-msgid "Waiting for calls"
-msgstr "Αναμονή για κλήσεις"
-
-#: common/lib/BoothsXML.inc.php:39
-msgid "Active"
-msgstr "Ενεργό"
-
-#: common/lib/BoothsXML.inc.php:39
-msgid "Calls made, charged"
-msgstr "Έγιναν κλήσεις, χρεώθηκε"
-
-#: common/lib/BoothsXML.inc.php:40
-msgid "Disabled"
-msgstr "Απενεργοποιημένο"
-
-#: common/lib/BoothsXML.inc.php:40
-msgid "Disabled by the agent"
-msgstr "Απενεργοποιημένος από τον πράκτορα"
-
-#: common/lib/BoothsXML.inc.php:41
-msgid "Stopped"
-msgstr "Διακόπηκε"
-
-#: common/lib/BoothsXML.inc.php:41
-msgid "Calls made, charged, stopped"
-msgstr "Έγιναν κλήσεις, χρεώθηκε, σταματημένο."
-
-#: common/lib/BoothsXML.inc.php:54
-msgid "Booth disabled"
-msgstr "Θάλαμος απενεργοποιήθηκε"
-
-#: common/lib/BoothsXML.inc.php:62
-msgid "Booth stopped"
-msgstr "Θάλαμος σταμάτησε"
-
-#: common/lib/BoothsXML.inc.php:64 common/lib/BoothsXML.inc.php:76
-#: common/lib/BoothsXML.inc.php:88 common/lib/BoothsXML.inc.php:100
-#: common/lib/BoothsXML.inc.php:140
-msgid "Action failed:"
-msgstr "Αποτυχία ενέργειας:"
-
-#: common/lib/BoothsXML.inc.php:74 common/lib/BoothsXML.inc.php:86
-#: common/lib/BoothsXML.inc.php:98
-msgid "Booth started"
-msgstr "Ο θάλαμος ξεκίνησε"
-
-#: common/lib/BoothsXML.inc.php:109
-msgid "Invalid sum for refill"
-msgstr "Άκυρο ποσόν για πίστωση"
-
-#: common/lib/BoothsXML.inc.php:120
-msgid "Credit added to booth"
-msgstr "Η πίστωση προστέθηκε στο τηλέφωνο"
-
-#: common/lib/BoothsXML.inc.php:123
-msgid "Refill failed: do you have enough credit?"
-msgstr "Η προσθήκη απέτυχε: έχετε το απαραίτητο υπόλοιπο;"
-
-#: common/lib/BoothsXML.inc.php:138
-msgid "Booth emptied"
-msgstr "Ο θάλαμος άδειασε"
-
-#: common/lib/BoothsXML.inc.php:167 common/lib/BoothsXML.inc.php:175
-msgid "Database query failed!"
-msgstr "Η αναζήτηση στη βάση απέτυχε!"
-
-#: common/lib/Form/Class.ActionForm.inc.php:25
-msgid "Action finished successfully!"
-msgstr "Η ενέργεια ολοκληρώθηκε!"
-
-#: common/lib/Form/Class.ActionForm.inc.php:26
-msgid "Action failed: %1"
-msgstr "Η ενέργεια απέτυχε: %1"
-
-#: common/lib/Form/Class.AddView.inc.php:29
-msgid "Create this %1"
-msgstr "Δημιουργία ενός %1"
-
-#: common/lib/Form/Class.AddView.inc.php:118
-msgid "Cannot create new %1, database error."
-msgstr "Δεν εισάγεται %1, σφάλμα στη βάση."
-
-#: common/lib/Form/Class.AddView.inc.php:123
-msgid "New data has successfully been inserted into the database."
-msgstr "Τα στοιχεία προστέθηκαν στη βάση δεδομένων."
 
 #: common/lib/Form/Class.DeleteView.inc.php:17
 msgid "This %1 will be deleted!"
 msgstr "Το %1 θα διαγραφεί!"
 
 #: common/lib/Form/Class.DeleteView.inc.php:50
-#: common/lib/Form/Class.OptionField.inc.php:69
+#: common/lib/Form/Class.OptionField.inc.php:72
 msgid "Delete this %1"
 msgstr "Διαγραφή του %1"
 
@@ -239,36 +104,127 @@ msgstr "Δεν μπορώ να διαγράψω το %1 γιατί δεν βρέ
 msgid "Record successfully removed from the database."
 msgstr "Η εγγραφή διαγράφηκε από τη βάση δεδομένων."
 
-#: common/lib/Form/Class.DetailsView.inc.php:112
-#: common/lib/Form/Class.EditView.inc.php:61
-#: common/lib/Form/Class.ListSumView.inc.php:71
-#: common/lib/Form/Class.ListView.inc.php:86
-msgid "No %1 found!"
-msgstr "Δεν βρέθηκε %1!"
+#: common/lib/Form/Class.TextField.inc.php:43
+#: common/lib/Form/Class.OptionField.inc.php:56
+msgid "Edit this %1"
+msgstr "Επεξεργασία του %1"
 
-#: common/lib/Form/Class.EditView.inc.php:97
-msgid "Update this %1"
-msgstr "Ενημέρωση του %1"
+#: common/lib/Form/Class.TextField.inc.php:60
+#, fuzzy
+msgid "Details of this %1"
+msgstr "Λεπτομέρειες %1"
 
-#: common/lib/Form/Class.EditView.inc.php:183
-msgid "Cannot update %1, database error."
-msgstr "Δεν ενημερώθηκε το %1, σφάλμα στη βάση δεδομένων."
+#: common/lib/Form/Class.SumMultiView.inc.php:163
+#: common/lib/Form/Class.SumMultiView.inc.php:328
+msgid "No sums found!"
+msgstr "Δεν βρέθηκαν αθροίσματα!"
 
-#: common/lib/Form/Class.EditView.inc.php:190
-msgid "Cannot update %1, record not found."
-msgstr "Δεν ενημερώθηκε το %1, η εγγραφή δε βρέθηκε."
+#: common/lib/Form/Class.TimeField.inc.php:19
+msgid "YYYY-MM-DD HH24:MI:SS TZ"
+msgstr "DD/MM/IYYY HH24:MI:SS TZ"
 
-#: common/lib/Form/Class.EditView.inc.php:194
-msgid "Data has successfully been updated in the database."
-msgstr "Τα δεδομένα ενημερώθηκαν στη βάση δεδομένων."
+#: common/lib/Form/Class.TimeField.inc.php:78
+msgid "YYYY-MM-DD"
+msgstr "DD/MM/IYYY"
 
-#: common/lib/Form/Class.FormHelpers.inc.php:14
-msgid "item"
-msgstr "στοιχείο"
+#: common/lib/Form/Class.NumField.inc.php:230
+msgid "TRUE"
+msgstr "ΑΛΗΘΕΣ"
 
-#: common/lib/Form/Class.FormHelpers.inc.php:26
-msgid "Add a new %1"
-msgstr "Προσθήκη νέου %1"
+#: common/lib/Form/Class.NumField.inc.php:232
+msgid "FALSE"
+msgstr "ΨΕΥΔΕΣ"
+
+#: common/lib/Form/Class.NumField.inc.php:259
+#: common/lib/Form/Class.VolField.inc.php:36
+msgid "0 sec"
+msgstr "0 δευ."
+
+#: common/lib/Form/Class.AddView.inc.php:29
+msgid "Create this %1"
+msgstr "Δημιουργία ενός %1"
+
+#: common/lib/Form/Class.AddView.inc.php:118
+msgid "Cannot create new %1, database error."
+msgstr "Δεν εισάγεται %1, σφάλμα στη βάση."
+
+#: common/lib/Form/Class.AddView.inc.php:123
+msgid "New data has successfully been inserted into the database."
+msgstr "Τα στοιχεία προστέθηκαν στη βάση δεδομένων."
+
+#: common/lib/Form/Class.ActionForm.inc.php:25
+msgid "Action finished successfully!"
+msgstr "Η ενέργεια ολοκληρώθηκε!"
+
+#: common/lib/Form/Class.ActionForm.inc.php:26
+msgid "Action failed: %1"
+msgstr "Η ενέργεια απέτυχε: %1"
+
+#: common/lib/Form/Class.RevRef.inc.php:132
+#: common/lib/Form/Class.RevRef2.inc.php:117
+msgid "No data found!"
+msgstr "Δεν βρέθηκαν δεδομένα!"
+
+#: common/lib/Form/Class.RevRef.inc.php:138
+#: common/lib/Form/Class.RevRef2.inc.php:123
+msgid "Action"
+msgstr "Ενέργεια"
+
+#: common/lib/Form/Class.RevRef.inc.php:147
+#: common/lib/Form/Class.RevRef.inc.php:149
+#: common/lib/Form/Class.RevRef2.inc.php:130
+msgid "Remove this"
+msgstr "Αφαίρεση αυτού"
+
+#: common/lib/Form/Class.RevRef.inc.php:208
+#: common/lib/Form/Class.RevRef2.inc.php:154
+msgid "No additional data found!"
+msgstr "Δεν βρέθηκαν συμπληρωματικά δεδομένα!"
+
+#: common/lib/Form/Class.RevRef.inc.php:210
+#: common/lib/Form/Class.RevRef2.inc.php:156
+msgid "Select one to add.."
+msgstr "Επιλέξτε ένα για να προσθέσετε.."
+
+#: common/lib/Form/Class.RevRef.inc.php:216
+#: common/lib/Form/Class.RevRef.inc.php:282
+#: common/lib/Form/Class.RevRef2.inc.php:162
+msgid "Add this"
+msgstr "Προσθήκη αυτού"
+
+#: common/lib/Form/Class.RevRef.inc.php:238
+msgid "Could not add!"
+msgstr "Δεν προστέθηκε!"
+
+#: common/lib/Form/Class.RevRef.inc.php:241
+msgid "Item added!"
+msgstr "Προστέθηκε!"
+
+#: common/lib/Form/Class.RevRef.inc.php:254
+msgid "Could not delete!"
+msgstr "Δεν διαγράφηκε!"
+
+#: common/lib/Form/Class.RevRef.inc.php:257
+msgid "Item deleted!"
+msgstr "Το στοιχείο διαγράφηκε!"
+
+#: common/lib/Form/Class.RevRef.inc.php:307
+#: common/lib/Form/Class.RevRef2.inc.php:190
+msgid "Cannot insert new %1"
+msgstr "Δεν μπορεί να προστεθεί %1"
+
+#: common/lib/Form/Class.RevRef.inc.php:325
+#: common/lib/Form/Class.RevRef2.inc.php:203
+msgid "Cannot delete %1"
+msgstr "Δεν μπορεί να διαγραφεί %1"
+
+#: common/lib/Form/Class.SqlActionForm.inc.php:39
+msgid "database error"
+msgstr "σφάλμα στη βάση δεδομένων"
+
+#: common/lib/Form/Class.SqlActionForm.inc.php:48
+msgid "no rows"
+msgstr "καμία εγγραφή"
 
 #: common/lib/Form/Class.ImportView.inc.php:33
 msgid "Please, you must first select a file !"
@@ -434,142 +390,25 @@ msgstr "Επεξεργάσθηκαν %1 γραμμές από το αρχείο:
 msgid "Import of data aborted."
 msgstr "Η εισαγωγή δεδομένων ακυρώθηκε."
 
-#: common/lib/Form/Class.ListView.inc.php:137
-msgid "DISPLAY"
-msgstr "ΑΠΕΙΚΟΝΙΣΗ"
+#: common/lib/Form/Class.SelectionForm.inc.php:134
+msgid "GO!"
+msgstr "ΠΗΓΑΙΝΕ!"
 
-#: common/lib/Form/Class.ListView.inc.php:145
-msgid "All"
-msgstr "Όλα"
-
-#: common/lib/Form/Class.ListView.inc.php:147
-msgid "GO"
-msgstr "ΠΗΓΑΙΝΕ"
-
-#: common/lib/Form/Class.ListView.inc.php:160
-msgid "First"
-msgstr "Πρώτο"
-
-#: common/lib/Form/Class.ListView.inc.php:161
-msgid "Prev"
-msgstr "Προηγ."
-
-#: common/lib/Form/Class.ListView.inc.php:192
-msgid "Next"
-msgstr "Επόμενο"
-
-#: common/lib/Form/Class.NumField.inc.php:175
-msgid "TRUE"
-msgstr "ΑΛΗΘΕΣ"
-
-#: common/lib/Form/Class.NumField.inc.php:177
-msgid "FALSE"
-msgstr "ΨΕΥΔΕΣ"
-
-#: common/lib/Form/Class.NumField.inc.php:204
-#: common/lib/Form/Class.VolField.inc.php:36
-msgid "0 sec"
-msgstr "0 δευ."
-
-#: common/lib/Form/Class.SumMultiView.inc.php:160
-#: common/lib/Form/Class.SumMultiView.inc.php:268
-msgid "No sums found!"
-msgstr "Δεν βρέθηκαν αθροίσματα!"
+#: common/lib/Form/Class.SqlRefField.inc.php:197
+msgid "(none)"
+msgstr "(κανένα)"
 
 #: common/lib/Form/Class.OptionField.inc.php:12
 msgid "Actions"
 msgstr "Ενέργειες"
 
-#: common/lib/Form/Class.OptionField.inc.php:53
-#: common/lib/Form/Class.TextField.inc.php:40
-msgid "Edit this %1"
-msgstr "Επεξεργασία του %1"
-
-#: common/lib/Form/Class.OptionField.inc.php:89
+#: common/lib/Form/Class.OptionField.inc.php:92
 msgid "Details of %1"
 msgstr "Λεπτομέρειες %1"
 
-#: common/lib/Form/Class.RevRef.inc.php:125
-#: common/lib/Form/Class.RevRef2.inc.php:112
-msgid "No data found!"
-msgstr "Δεν βρέθηκαν δεδομένα!"
-
-#: common/lib/Form/Class.RevRef.inc.php:129
-#: common/lib/Form/Class.RevRef2.inc.php:118
-msgid "Action"
-msgstr "Ενέργεια"
-
-#: common/lib/Form/Class.RevRef.inc.php:135
-#: common/lib/Form/Class.RevRef.inc.php:137
-#: common/lib/Form/Class.RevRef2.inc.php:125
-msgid "Remove this"
-msgstr "Αφαίρεση αυτού"
-
-#: common/lib/Form/Class.RevRef.inc.php:192
-#: common/lib/Form/Class.RevRef2.inc.php:149
-msgid "No additional data found!"
-msgstr "Δεν βρέθηκαν συμπληρωματικά δεδομένα!"
-
-#: common/lib/Form/Class.RevRef.inc.php:194
-#: common/lib/Form/Class.RevRef2.inc.php:151
-msgid "Select one to add.."
-msgstr "Επιλέξτε ένα για να προσθέσετε.."
-
-#: common/lib/Form/Class.RevRef.inc.php:200
-#: common/lib/Form/Class.RevRef.inc.php:266
-#: common/lib/Form/Class.RevRef2.inc.php:157
-msgid "Add this"
-msgstr "Προσθήκη αυτού"
-
-#: common/lib/Form/Class.RevRef.inc.php:222
-msgid "Could not add!"
-msgstr "Δεν προστέθηκε!"
-
-#: common/lib/Form/Class.RevRef.inc.php:225
-msgid "Item added!"
-msgstr "Προστέθηκε!"
-
-#: common/lib/Form/Class.RevRef.inc.php:238
-msgid "Could not delete!"
-msgstr "Δεν διαγράφηκε!"
-
-#: common/lib/Form/Class.RevRef.inc.php:241
-msgid "Item deleted!"
-msgstr "Το στοιχείο διαγράφηκε!"
-
-#: common/lib/Form/Class.RevRef.inc.php:291
-#: common/lib/Form/Class.RevRef2.inc.php:188
-msgid "Cannot insert new %1"
-msgstr "Δεν μπορεί να προστεθεί %1"
-
-#: common/lib/Form/Class.RevRef.inc.php:309
-#: common/lib/Form/Class.RevRef2.inc.php:201
-msgid "Cannot delete %1"
-msgstr "Δεν μπορεί να διαγραφεί %1"
-
-#: common/lib/Form/Class.SelectionForm.inc.php:108
-msgid "GO!"
-msgstr "ΠΗΓΑΙΝΕ!"
-
-#: common/lib/Form/Class.SqlActionForm.inc.php:39
-msgid "database error"
-msgstr "σφάλμα στη βάση δεδομένων"
-
-#: common/lib/Form/Class.SqlActionForm.inc.php:47
-msgid "no rows"
-msgstr "καμία εγγραφή"
-
-#: common/lib/Form/Class.SqlRefField.inc.php:114
-msgid "(none)"
-msgstr "(κανένα)"
-
-#: common/lib/Form/Class.TimeField.inc.php:19
-msgid "YYYY-MM-DD HH24:MI:SS TZ"
-msgstr "DD/MM/IYYY HH24:MI:SS TZ"
-
-#: common/lib/Form/Class.TimeField.inc.php:71
-msgid "YYYY-MM-DD"
-msgstr "DD/MM/IYYY"
+#: common/lib/Form/Class.FormHandler.inc.php:336
+msgid "Graph"
+msgstr ""
 
 #: common/lib/Form/Class.TextSearchField.inc.php:21
 msgid "Ignore"
@@ -591,105 +430,103 @@ msgstr "Περιέχει"
 msgid "Ends in"
 msgstr "Τελειώνει σε"
 
-#: common/lib/Class.CallShop.inc.php:54
-msgid "Open"
-msgstr "Άνοιγμα"
+#: common/lib/Form/Class.EditView.inc.php:97
+msgid "Update this %1"
+msgstr "Ενημέρωση του %1"
 
-#: common/lib/Class.CallShop.inc.php:54
-msgid "Waiting for response"
-msgstr "Αναμονή για απόκριση"
+#: common/lib/Form/Class.EditView.inc.php:183
+msgid "Cannot update %1, database error."
+msgstr "Δεν ενημερώθηκε το %1, σφάλμα στη βάση δεδομένων."
 
-#: common/lib/Class.CallShop.inc.php:54
-msgid "Receiving"
-msgstr "Λήψη"
+#: common/lib/Form/Class.EditView.inc.php:190
+msgid "Cannot update %1, record not found."
+msgstr "Δεν ενημερώθηκε το %1, η εγγραφή δε βρέθηκε."
 
-#: common/lib/Class.CallShop.inc.php:92
-msgid "Error Page"
-msgstr "Σελίδα Σφάλματος"
+#: common/lib/Form/Class.EditView.inc.php:194
+msgid "Data has successfully been updated in the database."
+msgstr "Τα δεδομένα ενημερώθηκαν στη βάση δεδομένων."
 
-#: common/lib/Class.CallShop.inc.php:95
-msgid "Cannot locate booths"
-msgstr "Δεν βρέθηκαν θάλαμοι"
+#: common/lib/languageSettings.inc.php:25
+msgid "English"
+msgstr "Αγγλικά"
 
-#: common/lib/Class.CallShop.inc.php:103
-msgid "No booths"
-msgstr "Κανένας θάλαμος"
+#: common/lib/languageSettings.inc.php:26
+msgid "Arabic"
+msgstr "Αραβικά"
 
-#: common/lib/Class.CallShop.inc.php:106
-msgid "No booths!<br>Please ask the administrators to create you some."
-msgstr "Κανένας θάλαμος<br>Ζητήστε από τους διαχειριστές να σας το ρυθμίσουν."
+#: common/lib/languageSettings.inc.php:27
+msgid "Brazilian"
+msgstr "Βραζιλιάνικη"
 
-#: common/lib/Class.CallShop.inc.php:113
-msgid "Welcome!"
-msgstr "Καλωσήλθατε!"
+#: common/lib/languageSettings.inc.php:28
+msgid "Chinese"
+msgstr "Κινέζικα"
 
-#: common/lib/Class.CallShop.inc.php:129
-msgid "Credit:"
-msgstr "Πίστωση:"
+#: common/lib/languageSettings.inc.php:29
+msgid "French"
+msgstr "Γαλλική"
 
-#: common/lib/Class.CallShop.inc.php:131
-msgid "Start"
-msgstr "Εκκίνηση"
+#: common/lib/languageSettings.inc.php:30
+msgid "German"
+msgstr "Γερμανική"
 
-#: common/lib/Class.CallShop.inc.php:132
-msgid "Stop"
-msgstr "Διακοπή"
+#: common/lib/languageSettings.inc.php:31
+msgid "Greek"
+msgstr "Ελληνική"
 
-#: common/lib/Class.CallShop.inc.php:133
-msgid "Pay"
-msgstr "Πληρωμή"
+#: common/lib/languageSettings.inc.php:32
+msgid "Italian"
+msgstr "Ιταλικά"
 
-#: common/lib/Class.CallShop.inc.php:134
-msgid "Enable"
-msgstr "Ενεργοποίηση"
+#: common/lib/languageSettings.inc.php:33
+msgid "Polish"
+msgstr "Πολωνική"
 
-#: common/lib/Class.CallShop.inc.php:135
-msgid "Disable"
-msgstr "Απενεργοποίηση"
+#: common/lib/languageSettings.inc.php:34
+msgid "Portuguese"
+msgstr "Πορτογαλικά"
 
-#: common/lib/Class.CallShop.inc.php:136
-msgid "Unload"
-msgstr "Αποφόρτωση"
+#: common/lib/languageSettings.inc.php:35
+msgid "Romanian"
+msgstr "Ρουμανική"
 
-#: common/lib/Class.CallShop.inc.php:137
-msgid "One-Time"
-msgstr "Μιας-φοράς"
+#: common/lib/languageSettings.inc.php:36
+msgid "Russian"
+msgstr "Ρωσική"
 
-#: common/lib/Class.CallShop.inc.php:139
-msgid "Member"
-msgstr "Μέλος"
+#: common/lib/languageSettings.inc.php:37
+msgid "Spanish"
+msgstr "Ισπανικά"
 
-#: common/lib/Class.CallShop.inc.php:140
-msgid "New"
-msgstr "Νέο"
+#: common/lib/languageSettings.inc.php:38
+msgid "Turkish"
+msgstr "Τουρκική"
 
-#: common/lib/Class.CallShop.inc.php:143
-msgid "Add:"
-msgstr "Προσθήκη:"
+#: common/lib/languageSettings.inc.php:39
+msgid "Urdu"
+msgstr "Urdu"
 
-#: common/lib/Class.CallShop.inc.php:159
-msgid "Refresh"
-msgstr "Ανανέωση"
+#: common/lib/languageSettings.inc.php:53
+#, fuzzy
+msgid "English (C)"
+msgstr "Αγγλικά"
 
-#: common/lib/Class.CallShop.inc.php:161
-msgid "Response:"
-msgstr "Απόκριση: "
+#: common/lib/SessionInvoice.inc.php:8 common/lib/AgentMoney.inc.php:11
+msgid "Transactions"
+msgstr "Συναλλαγές"
 
-#: common/lib/Misc.inc.php:569
-msgid "File size is greater than allowed limit."
-msgstr "Το μέγεθος του αρχείου είναι μεγαλύτερο από το όριο."
+#: common/lib/SessionInvoice.inc.php:8 common/lib/AgentMoney.inc.php:11
+msgid "Transaction"
+msgstr "Συναλλαγή"
 
-#: common/lib/Misc.inc.php:573
-msgid "You did not upload anything!"
-msgstr "Δεν στείλατε τίποτα!"
+#: common/lib/SessionInvoice.inc.php:21 common/lib/SessionInvoice.inc.php:52
+#: common/lib/AgentMoney.inc.php:32
+msgid "Date"
+msgstr "Ημερομηνία"
 
-#: common/lib/Misc.inc.php:577
-msgid "Failed to upload the file, The file you uploaded may not exist on disk."
-msgstr "Σφάλμα, το ανεβασμένο αρχείο δεν βρίσκεται στο δίσκο."
-
-#: common/lib/Misc.inc.php:583
-msgid "file type is not allowed"
-msgstr "αρχεία τέτοιου τύπου δεν επιτρέπονται"
+#: common/lib/SessionInvoice.inc.php:24 common/lib/AgentMoney.inc.php:40
+msgid "Description"
+msgstr "Περιγραφή"
 
 #: common/lib/SessionInvoice.inc.php:25
 msgid "Descr"
@@ -767,65 +604,251 @@ msgstr "Η πληρωμή δεν έγινε!"
 msgid "Back to booths"
 msgstr "Πίσω στους θαλάμους"
 
-#: common/lib/languageSettings.inc.php:25
-msgid "English"
-msgstr "Αγγλικά"
+#: common/lib/AgentMoney.inc.php:34
+msgid "Type"
+msgstr "Τύπος"
 
-#: common/lib/languageSettings.inc.php:26
-msgid "Arabic"
-msgstr "Αραβικά"
+#: common/lib/AgentMoney.inc.php:43
+msgid "In"
+msgstr "Μέσα"
 
-#: common/lib/languageSettings.inc.php:27
-msgid "Brazilian"
-msgstr "Βραζιλιάνικη"
+#: common/lib/AgentMoney.inc.php:44
+msgid "Out"
+msgstr "Έξω"
 
-#: common/lib/languageSettings.inc.php:28
-msgid "Chinese"
-msgstr "Κινέζικα"
+#: common/lib/AgentMoney.inc.php:50
+msgid "Totals"
+msgstr "Σύνολα"
 
-#: common/lib/languageSettings.inc.php:29
-msgid "French"
-msgstr "Γαλλική"
+#: common/lib/AgentMoney.inc.php:53
+msgid "Sum Total"
+msgstr "Συνολικό Άθροισμα"
 
-#: common/lib/languageSettings.inc.php:30
-msgid "German"
-msgstr "Γερμανική"
+#: common/lib/AgentMoney.inc.php:64
+msgid "Agent Totals"
+msgstr "Σύνολα Μαγαζιού"
 
-#: common/lib/languageSettings.inc.php:31
-msgid "Greek"
-msgstr "Ελληνική"
+#: common/lib/AgentMoney.inc.php:95
+msgid "Totals could not be calculated!"
+msgstr "Τα σύνολα δεν μπόρεσαν να υπολογιστούν!"
 
-#: common/lib/languageSettings.inc.php:32
-msgid "Italian"
-msgstr "Ιταλικά"
+#: common/lib/AgentMoney.inc.php:96
+msgid "Total sum credited to customers"
+msgstr "Σύνολο πιστωμένο σε πελάτες"
 
-#: common/lib/languageSettings.inc.php:33
-msgid "Polish"
-msgstr "Πολωνική"
+#: common/lib/AgentMoney.inc.php:97
+msgid "Total sum debited from customers"
+msgstr "Σύνολο οφειλών από πελάτες"
 
-#: common/lib/languageSettings.inc.php:34
-msgid "Portuguese"
-msgstr "Πορτογαλικά"
+#: common/lib/AgentMoney.inc.php:98
+msgid "Total potential debit from customers"
+msgstr "Συνολική πιθανή οφειλή από πελάτες"
 
-#: common/lib/languageSettings.inc.php:35
-msgid "Romanian"
-msgstr "Ρουμανική"
+#: common/lib/AgentMoney.inc.php:99
+msgid "Total calls made by customers"
+msgstr "Σύνολο κλήσεων από πελάτες"
 
-#: common/lib/languageSettings.inc.php:36
-msgid "Russian"
-msgstr "Ρωσική"
+#: common/lib/AgentMoney.inc.php:100
+msgid "Wholesale price of calls"
+msgstr "Χονδρική τιμή κλήσεων"
 
-#: common/lib/languageSettings.inc.php:37
-msgid "Spanish"
-msgstr "Ισπανικά"
+#: common/lib/AgentMoney.inc.php:101
+msgid "Estimated profit from calls"
+msgstr "Εκτιμώμενο κέρδος από κλήσεις"
 
-#: common/lib/languageSettings.inc.php:38
-msgid "Turkish"
-msgstr "Τουρκική"
+#: common/lib/AgentMoney.inc.php:102
+msgid "Outstanding balance"
+msgstr "Λογιστικό υπόλοιπο"
 
-#: common/lib/languageSettings.inc.php:39
-msgid "Urdu"
-msgstr "Urdu"
+#: common/lib/AgentMoney.inc.php:103
+msgid "Credit Limit"
+msgstr "Πιστωτικό όριο"
+
+#: common/lib/AgentMoney.inc.php:104
+msgid "Estimated Days left"
+msgstr "Εκτιμώμενο υπόλοιπο σε ημέρες"
+
+#: common/lib/Class.CallShop.inc.php:54
+msgid "Open"
+msgstr "Άνοιγμα"
+
+#: common/lib/Class.CallShop.inc.php:54
+msgid "Waiting for response"
+msgstr "Αναμονή για απόκριση"
+
+#: common/lib/Class.CallShop.inc.php:54
+msgid "Receiving"
+msgstr "Λήψη"
+
+#: common/lib/Class.CallShop.inc.php:92
+msgid "Error Page"
+msgstr "Σελίδα Σφάλματος"
+
+#: common/lib/Class.CallShop.inc.php:95
+msgid "Cannot locate booths"
+msgstr "Δεν βρέθηκαν θάλαμοι"
+
+#: common/lib/Class.CallShop.inc.php:103
+msgid "No booths"
+msgstr "Κανένας θάλαμος"
+
+#: common/lib/Class.CallShop.inc.php:106
+msgid "No booths!<br>Please ask the administrators to create you some."
+msgstr "Κανένας θάλαμος<br>Ζητήστε από τους διαχειριστές να σας το ρυθμίσουν."
+
+#: common/lib/Class.CallShop.inc.php:113
+msgid "Welcome!"
+msgstr "Καλωσήλθατε!"
+
+#: common/lib/Class.CallShop.inc.php:129
+msgid "Credit:"
+msgstr "Πίστωση:"
+
+#: common/lib/Class.CallShop.inc.php:131
+msgid "Start"
+msgstr "Εκκίνηση"
+
+#: common/lib/Class.CallShop.inc.php:132
+msgid "Stop"
+msgstr "Διακοπή"
+
+#: common/lib/Class.CallShop.inc.php:133
+msgid "Pay"
+msgstr "Πληρωμή"
+
+#: common/lib/Class.CallShop.inc.php:134
+msgid "Enable"
+msgstr "Ενεργοποίηση"
+
+#: common/lib/Class.CallShop.inc.php:135
+msgid "Disable"
+msgstr "Απενεργοποίηση"
+
+#: common/lib/Class.CallShop.inc.php:136
+msgid "Unload"
+msgstr "Αποφόρτωση"
+
+#: common/lib/Class.CallShop.inc.php:137
+msgid "One-Time"
+msgstr "Μιας-φοράς"
+
+#: common/lib/Class.CallShop.inc.php:138 common/lib/BoothsXML.inc.php:36
+msgid "Empty"
+msgstr "Κενό"
+
+#: common/lib/Class.CallShop.inc.php:139
+msgid "Member"
+msgstr "Μέλος"
+
+#: common/lib/Class.CallShop.inc.php:140
+msgid "New"
+msgstr "Νέο"
+
+#: common/lib/Class.CallShop.inc.php:143
+msgid "Add:"
+msgstr "Προσθήκη:"
+
+#: common/lib/Class.CallShop.inc.php:159
+msgid "Refresh"
+msgstr "Ανανέωση"
+
+#: common/lib/Class.CallShop.inc.php:161
+msgid "Response:"
+msgstr "Απόκριση: "
+
+#: common/lib/BoothsXML.inc.php:35
+msgid "N/A"
+msgstr "N/A"
+
+#: common/lib/BoothsXML.inc.php:35
+msgid "Not available, no cards configured."
+msgstr "Δεν είναι διαθέσιμος, δεν ρυθμίστηκαν κάρτες."
+
+#: common/lib/BoothsXML.inc.php:36
+msgid "No customer attached."
+msgstr "Δεν έχει συνδεθεί με πελάτη."
+
+#: common/lib/BoothsXML.inc.php:37
+msgid "Idle"
+msgstr "Αδρανής"
+
+#: common/lib/BoothsXML.inc.php:37
+msgid "Customer attached, inactive"
+msgstr "Συνδέθηκε με πελάτη, ανενεργός"
+
+#: common/lib/BoothsXML.inc.php:38
+msgid "Ready"
+msgstr "Έτοιμο"
+
+#: common/lib/BoothsXML.inc.php:38
+msgid "Waiting for calls"
+msgstr "Αναμονή για κλήσεις"
+
+#: common/lib/BoothsXML.inc.php:39
+msgid "Active"
+msgstr "Ενεργό"
+
+#: common/lib/BoothsXML.inc.php:39
+msgid "Calls made, charged"
+msgstr "Έγιναν κλήσεις, χρεώθηκε"
+
+#: common/lib/BoothsXML.inc.php:40
+msgid "Disabled"
+msgstr "Απενεργοποιημένο"
+
+#: common/lib/BoothsXML.inc.php:40
+msgid "Disabled by the agent"
+msgstr "Απενεργοποιημένος από τον πράκτορα"
+
+#: common/lib/BoothsXML.inc.php:41
+msgid "Stopped"
+msgstr "Διακόπηκε"
+
+#: common/lib/BoothsXML.inc.php:41
+msgid "Calls made, charged, stopped"
+msgstr "Έγιναν κλήσεις, χρεώθηκε, σταματημένο."
+
+#: common/lib/BoothsXML.inc.php:54
+msgid "Booth disabled"
+msgstr "Θάλαμος απενεργοποιήθηκε"
+
+#: common/lib/BoothsXML.inc.php:62
+msgid "Booth stopped"
+msgstr "Θάλαμος σταμάτησε"
+
+#: common/lib/BoothsXML.inc.php:64 common/lib/BoothsXML.inc.php:76
+#: common/lib/BoothsXML.inc.php:88 common/lib/BoothsXML.inc.php:100
+#: common/lib/BoothsXML.inc.php:140
+msgid "Action failed:"
+msgstr "Αποτυχία ενέργειας:"
+
+#: common/lib/BoothsXML.inc.php:74 common/lib/BoothsXML.inc.php:86
+#: common/lib/BoothsXML.inc.php:98
+msgid "Booth started"
+msgstr "Ο θάλαμος ξεκίνησε"
+
+#: common/lib/BoothsXML.inc.php:109
+msgid "Invalid sum for refill"
+msgstr "Άκυρο ποσόν για πίστωση"
+
+#: common/lib/BoothsXML.inc.php:120
+msgid "Credit added to booth"
+msgstr "Η πίστωση προστέθηκε στο τηλέφωνο"
+
+#: common/lib/BoothsXML.inc.php:123
+msgid "Refill failed: do you have enough credit?"
+msgstr "Η προσθήκη απέτυχε: έχετε το απαραίτητο υπόλοιπο;"
+
+#: common/lib/BoothsXML.inc.php:138
+msgid "Booth emptied"
+msgstr "Ο θάλαμος άδειασε"
+
+#: common/lib/BoothsXML.inc.php:167 common/lib/BoothsXML.inc.php:175
+msgid "Database query failed!"
+msgstr "Η αναζήτηση στη βάση απέτυχε!"
+
+#~ msgid "DISPLAY"
+#~ msgstr "ΑΠΕΙΚΟΝΙΣΗ"
 
 #, fuzzy
 #~ msgid "Invalid card number lenght defined in configuration."
@@ -1199,4 +1222,3 @@ msgstr "Urdu"
 
 #~ msgid "Export XML"
 #~ msgstr "Εξαγωγή XML"
-

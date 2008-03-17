@@ -39,7 +39,7 @@ class SqlActionForm extends ActionForm {
 			$this->pre_elems[] = new ErrorElem(str_params($this->failureString,array(_("database error")),1));
 			$dbg_elem->content.= $dbhandle->ErrorMsg() ."\n";
 // 			throw new Exception( $err_str);
-		}elseif ($this->expectRows && ($dbhandle->Affected_Rows()<1)){
+		}elseif ($this->expectRows && $res->EOF && ($dbhandle->Affected_Rows()<1)){
 			// No result rows: update clause didn't match
 			$dbg_elem->content.= ".. EOF, no rows!\n";
 			$dbg_elem->content.= $dbhandle->ErrorMsg() ."\n";
@@ -93,7 +93,9 @@ class SqlTableActionForm extends SqlActionForm {
 		if ($this->qryres->EOF){
 			if (isset($this->noRowsString))
 				echo $this->noRowsString;
-		}else { ?>
+		}else {
+			$this->action = 'list';
+		?>
 	<TABLE cellPadding="2" cellSpacing="2" align='center' class="<?= $this->listclass ?>">
 		<thead><tr>
 		<?php

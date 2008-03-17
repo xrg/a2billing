@@ -76,6 +76,10 @@ class RevRef extends BaseField {
 		if ($form->getAction()=='details')
 			return $this->DispForm($qrow,$form,false);
 	}
+	public function renderSpecial(array &$qrow,&$form,$rmode, &$robj){
+		//Todo: sth. like the values in an array..
+	}
+
 	public function DispEdit(array &$qrow,&$form){
 		return $this->DispForm($qrow,$form,true);
 	}

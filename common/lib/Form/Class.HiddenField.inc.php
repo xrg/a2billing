@@ -17,7 +17,9 @@ class HiddenField extends BaseField {
 
 	public function DispList(array &$qrow,&$form){
 	}
-
+	public function renderSpecial(array &$qrow,&$form,$rmode, &$robj){
+	}
+	
 	/// Reimplement: the key may not be listed, but is always queried
 	public function listQueryField(&$dbhandle){
 		return $this->detailQueryField($dbhandle);

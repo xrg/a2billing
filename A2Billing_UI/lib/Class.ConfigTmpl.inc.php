@@ -7,7 +7,7 @@ class ConfigGroupTmpl {
 	public $mandatory = true;
 	public $items = array();
 
-	ConfigGroupTmpl($name, $descr, $mand = true){
+	function ConfigGroupTmpl($name, $descr, $mand = true){
 		$this->name = $name;
 		$this->description = $descr;
 		$this->mandatory = $mand;
@@ -21,7 +21,7 @@ class ConfigVarTmpl {
 	public $vtype;
 	public $mandatory = false;
 	
-	ConfigVarTmpl($name, $descr,$def=null, $typ ='string', $mand = true){
+	function ConfigVarTmpl($name, $descr,$def=null, $typ ='string', $mand = true){
 		$this->name = $name;
 		$this->description = $descr;
 		$this->def_val = $def;

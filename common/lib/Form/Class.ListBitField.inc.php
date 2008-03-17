@@ -18,6 +18,10 @@ class ListBitField extends BaseField {
 		$val = $qrow[$this->fieldname];
 		echo htmlspecialchars($val[1]);
 	}
+	public function renderSpecial(array &$qrow,&$form,$rmode, &$robj){
+		$val = $qrow[$this->fieldname];
+		return ($val[1]);
+	}
 	
 	public function DispAddEdit($val,&$form){
 		$tmp_int = (integer)$val;

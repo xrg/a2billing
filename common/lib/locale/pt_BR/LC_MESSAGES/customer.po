@@ -1,0 +1,3106 @@
+# A2BCustomer_UI Portuguese (Brazilian) translation
+# Copyright (C) 2007, Carlos Alberto Cesario <carloscesario@gmail.com>
+#
+# This file is distributed under the same license as the Asterisk2Billing package.
+#
+# Thanks to Maurício Collares, Felipe Neuwald, Danilo Chilene
+#
+# Por favor, caso encontrem algum erro, me desculpem. Por favor me avise
+# ou faça a devida correção.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Asterisk2Billing-1.3\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2007-08-06 08:17-0300\n"
+"PO-Revision-Date: 2007-07-23 17:05-0300\n"
+"Last-Translator: Caros Alberto Cesario <carloscesario@gmail.com>\n"
+"Language-Team: Carlos Alberto Cesario <carloscesario@gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"1.0: 2.0\n"
+
+#: A2BCustomer_UI/lib/defines.php:14 A2BCustomer_UI/lib/defines-old.php:203
+msgid ""
+"This software has been created by Areski under GPL licence. For futher "
+"information, feel free to contact me:"
+msgstr ""
+"Este software foi criado por Areski sob a licença GPL. Para maiores "
+"informações, sinta-se livre em me contatar:"
+
+#: A2BCustomer_UI/lib/defines.php:16 A2BCustomer_UI/lib/defines-old.php:205
+msgid ""
+" This software is under GPL licence. For further information, please visit : "
+"<a href=\"http://www.asterisk2billing.org\" target=\"_blank"
+"\">asterisk2billing.org</a>"
+msgstr ""
+"Este software está sob a licença GPL. Para maiores informações, por favor "
+"visite : <a href=\"http://www.asterisk2billing.org\" target=\"_blank"
+"\">asterisk2billing.org</a>"
+
+#: A2BCustomer_UI/lib/defines.php:17
+#, fuzzy
+msgid "Asterisk2Billing : CallingCard platform"
+msgstr "Asterisk2Billing : CallingCard & Sistema de Tarifação VOIP"
+
+#: A2BCustomer_UI/lib/help.php:10
+msgid ""
+"From here, you can use the web based screen phone. You need microphone and "
+"speakers on your PC."
+msgstr ""
+"Aqui você pode usar o web-phone. Você precisa de um microfone e caixas de "
+"som no seu PC."
+
+#: A2BCustomer_UI/lib/help.php:14
+msgid ""
+"All calls are listed below. Search by month, day or status. Additionally, "
+"you can check the rate and price."
+msgstr ""
+"Todas as ligações estão listadas abaixo. Procure pelo mês, dia ou status. "
+"Adicionalmente, você pode verificar a taxa e o preço."
+
+#: A2BCustomer_UI/lib/help.php:18
+msgid ""
+"Simulate the calling process to discover the cost per minute of a call, and "
+"the number of minutes you can call that number with your current credit."
+msgstr ""
+"Simule um processo de ligação para descobrir o custo por minuto da ligação e "
+"o número de minutos que você pode falar com seu crédito atual."
+
+#: A2BCustomer_UI/lib/help.php:22
+msgid ""
+"Configuration information for SIP and IAX Client. You can simply copy and "
+"paste it in your configuration files and can do neccessory modifications."
+msgstr ""
+"Informação de configuração para Clientes SIP e IAX. Você pode simplesmente "
+"copiar e colar isto no seu arquivo de configuração e fazer as modificações "
+"necessárias."
+
+#: A2BCustomer_UI/lib/help.php:26
+msgid ""
+"On this page you will be able to change your password, You have to enter the "
+"New Password and Confirm it."
+msgstr ""
+"Nesta página você mudará sua senha. Você tem que colocar sua Nova Senha e "
+"Confirmar isto."
+
+#: A2BCustomer_UI/lib/help.php:30
+msgid "Here you can view your ratecards"
+msgstr "Aqui você pode ver seus ratecards"
+
+#: A2BCustomer_UI/lib/help.php:34
+msgid "Enter your voucher number to top up your card."
+msgstr "Coloque número do seu voucher para carregar seu cartão."
+
+#: A2BCustomer_UI/lib/help.php:38
+msgid ""
+"Select the country below where you would like a DID, select a DID from the "
+"list and enter the destination you would like to assign it to."
+msgstr ""
+"Selecione o país abaixo de onde você gostaria de um DID, selecione um DID da "
+"lista e coloque o destino que você gostaria de o atribuir ele."
+
+#: A2BCustomer_UI/lib/help.php:42
+#, fuzzy
+msgid "Personal information. <br>"
+msgstr "Informações pessoais."
+
+#: A2BCustomer_UI/lib/defines-old.php:23
+msgid "The expiry date entered for the credit card is invalid."
+msgstr "A data de expiração do cartão de crédito é inválida."
+
+#: A2BCustomer_UI/lib/defines-old.php:23
+msgid "Please check the date and try again."
+msgstr "Por favor verifique a data e tente novamente."
+
+#: A2BCustomer_UI/lib/defines-old.php:24
+msgid "The credit card number entered is invalid."
+msgstr "O número do cartão de crédito é inválido."
+
+#: A2BCustomer_UI/lib/defines-old.php:24
+msgid "Please check the number and try again."
+msgstr "Por favor verifique o número do cartão e tente novamente."
+
+#: A2BCustomer_UI/lib/defines-old.php:25
+msgid "The first four digits of the number entered are"
+msgstr "Os quatro primeiros dígitos do cartão são"
+
+#: A2BCustomer_UI/lib/defines-old.php:25
+msgid "If that number is correct, we do not accept that type of credit card."
+msgstr ""
+"Se o número estiver correto, nós não aceitamos este tipo de cartão de "
+"crédito."
+
+#: A2BCustomer_UI/lib/defines-old.php:25
+msgid "If it is wrong, please try again."
+msgstr "Se isto estiver errado, por favor tente novamente."
+
+#: A2BCustomer_UI/lib/defines-old.php:32
+msgid "Errors have occured during the process of your form."
+msgstr "Erros ocorreram durante o processamento do seu formulário."
+
+#: A2BCustomer_UI/lib/defines-old.php:32
+msgid "Please make the following corrections:\\n\\n"
+msgstr "Por favor faça as seguintes correções:\\n\\n"
+
+#: A2BCustomer_UI/lib/defines-old.php:33
+msgid "* The 'Review Text' must have at least"
+msgstr "* O 'Texto de Revisão' deve ter pelo menos"
+
+#: A2BCustomer_UI/lib/defines-old.php:33 A2BCustomer_UI/lib/defines-old.php:45
+#: A2BCustomer_UI/lib/defines-old.php:46 A2BCustomer_UI/lib/defines-old.php:59
+msgid "characters"
+msgstr "caracteres"
+
+#: A2BCustomer_UI/lib/defines-old.php:34
+msgid "You must rate the product for your review."
+msgstr "Você deve avaliar o produto para sua revisão."
+
+#: A2BCustomer_UI/lib/defines-old.php:35 A2BCustomer_UI/lib/defines-old.php:37
+msgid "Please select a payment method for your order."
+msgstr "Por favor selecione o método de pagamento de sua ordem."
+
+#: A2BCustomer_UI/lib/defines-old.php:36
+msgid ""
+"This form has already been submitted. Please press Ok and wait for this "
+"process to be completed."
+msgstr ""
+"Este formulário já foi enviado. Por favor clique em OK e aguarde para este "
+"processo ser completado."
+
+#: A2BCustomer_UI/lib/defines-old.php:39
+msgid "Credit Card"
+msgstr "Cartão de crédito"
+
+#: A2BCustomer_UI/lib/defines-old.php:40 A2BCustomer_UI/lib/defines-old.php:50
+msgid "Credit Card Test Info"
+msgstr "Teste de informação do cartão de crédito"
+
+#: A2BCustomer_UI/lib/defines-old.php:40 A2BCustomer_UI/lib/defines-old.php:50
+msgid "Expiry: Any"
+msgstr "Expirar: Alguns"
+
+#: A2BCustomer_UI/lib/defines-old.php:41
+msgid "Credit Card Type"
+msgstr "Tipo do cartão de crédito"
+
+#: A2BCustomer_UI/lib/defines-old.php:42
+msgid "Credit Card Owner"
+msgstr "Dono do cartão de crédito"
+
+#: A2BCustomer_UI/lib/defines-old.php:43
+msgid "Credit Card Number"
+msgstr "Número do cartão de crédito"
+
+#: A2BCustomer_UI/lib/defines-old.php:44
+msgid "Credit Card Expiry Date"
+msgstr "Data de expiração do cartão de crédito"
+
+#: A2BCustomer_UI/lib/defines-old.php:45 A2BCustomer_UI/lib/defines-old.php:58
+msgid "* The owner's name of the credit card must be at least"
+msgstr "* O nome do dono do cartão de crédito deve ter pelo menos"
+
+#: A2BCustomer_UI/lib/defines-old.php:46 A2BCustomer_UI/lib/defines-old.php:59
+msgid "* The credit card number must be at least"
+msgstr "* O número do cartão de crédito deve ter pelo menos"
+
+#: A2BCustomer_UI/lib/defines-old.php:47
+msgid "Credit Card Error!"
+msgstr "Erro no cartão de crédito!"
+
+#: A2BCustomer_UI/lib/defines-old.php:51
+msgid "There has been an error processing your credit card"
+msgstr "Há um erro no processamento do seu cartão de crédito"
+
+#: A2BCustomer_UI/lib/defines-old.php:52
+msgid "Please check your credit card details!"
+msgstr "Por favor verifique os detalhes do seu cartão de crédito!"
+
+#: A2BCustomer_UI/lib/defines-old.php:53
+msgid "Credit Card Owner:"
+msgstr "Dono do cartão de crédito:"
+
+#: A2BCustomer_UI/lib/defines-old.php:54
+msgid "Credit Card Number:"
+msgstr "Número do cartão de crédito:"
+
+#: A2BCustomer_UI/lib/defines-old.php:55
+msgid "Credit Card Expiry Date:"
+msgstr "Data de expiração do cartão de crédito:"
+
+#: A2BCustomer_UI/lib/defines-old.php:56
+msgid "Credit Card Checknumber:"
+msgstr "Número de verificação do cartão de crédito:"
+
+#: A2BCustomer_UI/lib/defines-old.php:57
+msgid "(located at the back of the credit card)"
+msgstr "(localizado na parte de trás do cartão de crédito)"
+
+#: A2BCustomer_UI/lib/defines-old.php:58
+msgid "characters."
+msgstr "caracteres."
+
+#: A2BCustomer_UI/lib/defines-old.php:206
+msgid "Asterisk2Billing : CallingCard & VOIP Billing system"
+msgstr "Asterisk2Billing : CallingCard & Sistema de Tarifação VOIP"
+
+#: A2BCustomer_UI/A2B_entity_view_invoice.php:83
+msgid "SELECT MONTH"
+msgstr "SELECIONE O MÊS"
+
+#: A2BCustomer_UI/A2B_entity_view_invoice.php:89
+msgid "From"
+msgstr "De"
+
+#: A2BCustomer_UI/A2B_entity_view_invoice.php:91
+#: A2BCustomer_UI/A2B_entity_view_invoice.php:108
+msgid "January"
+msgstr "Janeiro"
+
+#: A2BCustomer_UI/A2B_entity_view_invoice.php:91
+msgid "February"
+msgstr "Fevereiro"
+
+#: A2BCustomer_UI/A2B_entity_view_invoice.php:91
+msgid "March"
+msgstr "Março"
+
+#: A2BCustomer_UI/A2B_entity_view_invoice.php:91
+msgid "April"
+msgstr "Abril"
+
+#: A2BCustomer_UI/A2B_entity_view_invoice.php:91
+msgid "May"
+msgstr "Maio"
+
+#: A2BCustomer_UI/A2B_entity_view_invoice.php:91
+msgid "June"
+msgstr "Junho"
+
+#: A2BCustomer_UI/A2B_entity_view_invoice.php:91
+msgid "July"
+msgstr "Julho"
+
+#: A2BCustomer_UI/A2B_entity_view_invoice.php:91
+msgid "August"
+msgstr "Agosto"
+
+#: A2BCustomer_UI/A2B_entity_view_invoice.php:91
+msgid "September"
+msgstr "Setembro"
+
+#: A2BCustomer_UI/A2B_entity_view_invoice.php:91
+msgid "October"
+msgstr "Outubro"
+
+#: A2BCustomer_UI/A2B_entity_view_invoice.php:91
+msgid "November"
+msgstr "Novembro"
+
+#: A2BCustomer_UI/A2B_entity_view_invoice.php:91
+msgid "December"
+msgstr "Dezembro"
+
+#: A2BCustomer_UI/A2B_entity_view_invoice.php:112
+msgid "To"
+msgstr "Até"
+
+#: A2BCustomer_UI/userinfo.php:18
+msgid "First name"
+msgstr ""
+
+#: A2BCustomer_UI/userinfo.php:19
+msgid "Last name"
+msgstr ""
+
+#: A2BCustomer_UI/userinfo.php:20
+#, fuzzy
+msgid "Credit"
+msgstr "Cartão de crédito"
+
+#: A2BCustomer_UI/userinfo.php:21
+msgid "Last used"
+msgstr ""
+
+#: A2BCustomer_UI/userinfo.php:24 A2BCustomer_UI/simulator.php:34
+#, fuzzy
+msgid "Calculate!"
+msgstr "Data da ligação"
+
+#: A2BCustomer_UI/userinfo.php:26
+msgid "Database error: your details cannot be found!"
+msgstr ""
+
+#: A2BCustomer_UI/userinfo.php:93
+msgid "LAST NAME"
+msgstr "SOBRENOME"
+
+#: A2BCustomer_UI/userinfo.php:94
+msgid "FIRST NAME"
+msgstr "PRIMEIRO NOME"
+
+#: A2BCustomer_UI/userinfo.php:95
+#: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:172
+msgid "EMAIL"
+msgstr "EMAIL"
+
+#: A2BCustomer_UI/userinfo.php:96
+#: A2BCustomer_UI/form_data/FG_var_speeddial.inc:27
+#: A2BCustomer_UI/form_data/FG_var_speeddial.inc:80
+msgid "PHONE"
+msgstr "TELEFONE"
+
+#: A2BCustomer_UI/userinfo.php:97
+#: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:240
+msgid "FAX"
+msgstr "FAX"
+
+#: A2BCustomer_UI/userinfo.php:100
+#: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:194
+#: A2BCustomer_UI/form_data/FG_var_card.inc:32
+msgid "ADDRESS"
+msgstr "ENDEREÇO"
+
+#: A2BCustomer_UI/userinfo.php:101
+msgid "ZIP CODE"
+msgstr "CEP"
+
+#: A2BCustomer_UI/userinfo.php:102
+#: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:206
+#: A2BCustomer_UI/form_data/FG_var_card.inc:42
+msgid "CITY"
+msgstr "CIDADE"
+
+#: A2BCustomer_UI/userinfo.php:103
+msgid "STATE"
+msgstr "ESTADO"
+
+#: A2BCustomer_UI/userinfo.php:104
+#: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:250
+#: A2BCustomer_UI/form_data/FG_var_did.inc:46
+#: A2BCustomer_UI/form_data/FG_var_card.inc:62
+msgid "COUNTRY"
+msgstr "PAÍS"
+
+#: A2BCustomer_UI/userinfo.php:112
+msgid "EDIT PERSONAL INFORMATION"
+msgstr "EDITAR INFORMAÇÕES PESSOAIS"
+
+#: A2BCustomer_UI/userinfo.php:127
+msgid "CARD NUMBER"
+msgstr "NÚMERO DO CARTÃO"
+
+#: A2BCustomer_UI/userinfo.php:131
+msgid "BALANCE REMAINING"
+msgstr "SALDO RESTANTE"
+
+#: A2BCustomer_UI/userinfo.php:154
+msgid "Click below to buy credit : "
+msgstr "Clique abaixo para comprar créditos : "
+
+#: A2BCustomer_UI/checkout_success.php:22
+msgid "Message"
+msgstr "Mensagem"
+
+#: A2BCustomer_UI/checkout_success.php:30
+msgid "Thank you for your purchase"
+msgstr "Obrigado pela sua compra"
+
+#: A2BCustomer_UI/checkout_success.php:37
+msgid ""
+"We are sorry your transaction is failed. Please try later or check your "
+"provided information."
+msgstr ""
+"Sentimos muito, mais sua transação falhou. Por favor tente mais tarde ou "
+"verifique suas informações fornecidas."
+
+#: A2BCustomer_UI/checkout_success.php:41
+msgid ""
+"We are sorry your transaction is denied. Please try later or check your "
+"provided information."
+msgstr ""
+"Sentimos muito, mais sua transação foi negada. Por favor tente mais tarde ou "
+"verifique suas informações fornecidas."
+
+#: A2BCustomer_UI/checkout_success.php:45
+msgid "We are sorry your transaction is pending."
+msgstr "Sentimos muito, mais sua transação está pendente."
+
+#: A2BCustomer_UI/checkout_success.php:49
+msgid "Your transaction is in progress."
+msgstr "Sua transação está em progresso."
+
+#: A2BCustomer_UI/checkout_success.php:53
+msgid "Your transaction was successful."
+msgstr "Sua transação teve sucesso."
+
+#: A2BCustomer_UI/PP_page.inc.php:44
+#, fuzzy
+msgid "Other"
+msgstr "Outubro"
+
+#: A2BCustomer_UI/A2B_entity_sipiax_info.php:27
+msgid "IAX Config"
+msgstr "Configuração IAX"
+
+#: A2BCustomer_UI/A2B_entity_sipiax_info.php:28
+msgid "iax.conf"
+msgstr "iax.conf"
+
+#: A2BCustomer_UI/A2B_entity_sipiax_info.php:32
+msgid "SIP Config"
+msgstr "Configuração SIP"
+
+#: A2BCustomer_UI/A2B_entity_sipiax_info.php:33
+msgid "sip.conf"
+msgstr "sip.conf"
+
+#: A2BCustomer_UI/A2B_entity_sipiax_info.php:57
+msgid "CARD"
+msgstr "CARTÃO"
+
+#: A2BCustomer_UI/A2B_entity_sipiax_info.php:61
+msgid "CONFIGURATION TYPE"
+msgstr "TIPO DE CONFIGURAÇÃO"
+
+#: A2BCustomer_UI/A2B_entity_sipiax_info.php:64
+msgid "IAX"
+msgstr "IAX"
+
+#: A2BCustomer_UI/A2B_entity_sipiax_info.php:65
+msgid "SIP"
+msgstr "SIP"
+
+#: A2BCustomer_UI/A2B_entity_sipiax_info.php:84
+msgid "Copy and past this into your "
+msgstr "Copiar e colar isto no seu "
+
+#: A2BCustomer_UI/A2B_entity_sipiax_info.php:131
+msgid "The peer is not defined, please contact your Administrator!"
+msgstr "O \"peer\" não está definido, por favor contate seu Administrador!"
+
+#: A2BCustomer_UI/CC_entity_phonelist.php:241
+#: A2BCustomer_UI/predictivedialer.php:308
+msgid "Previous"
+msgstr "Anterior"
+
+#: A2BCustomer_UI/CC_entity_phonelist.php:246
+#: A2BCustomer_UI/A2B_entity_did.php:439
+msgid "Next"
+msgstr "Próximo"
+
+#: A2BCustomer_UI/CC_entity_phonelist.php:265
+#: A2BCustomer_UI/A2B_entity_did.php:424
+#: A2BCustomer_UI/predictivedialer.php:332
+msgid "NO"
+msgstr "NÃO"
+
+#: A2BCustomer_UI/CC_entity_phonelist.php:265
+#: A2BCustomer_UI/predictivedialer.php:332
+msgid "REGISTERED"
+msgstr "REGISTRADO"
+
+#: A2BCustomer_UI/CC_entity_phonelist.php:287
+#: A2BCustomer_UI/predictivedialer.php:371
+msgid "Insert a new"
+msgstr "Insira um novo"
+
+#: A2BCustomer_UI/CC_entity_phonelist.php:297
+msgid "If you wish to insert a new"
+msgstr "Você deseja inserir um novo"
+
+#: A2BCustomer_UI/CC_entity_phonelist.php:297
+msgid "click on the Add button"
+msgstr "clique no botão Adicionar"
+
+#: A2BCustomer_UI/CC_entity_phonelist.php:302
+msgid "Information about the insertion"
+msgstr "Informação sobre a inserção"
+
+#: A2BCustomer_UI/A2B_entity_speeddial.php:59
+msgid "Enter the number which you wish to assign to the code here"
+msgstr "Entre com o número que você deseja atribuir ao código aqui"
+
+#: A2BCustomer_UI/A2B_entity_speeddial.php:64
+msgid "Speed Dial code"
+msgstr "Código de Discagem Rápida"
+
+#: A2BCustomer_UI/A2B_entity_speeddial.php:74
+#: A2BCustomer_UI/A2B_entity_invoice_detail.php:45
+#: A2BCustomer_UI/A2B_entity_invoice_detail.php:343
+#: A2BCustomer_UI/simulator.php:40 A2BCustomer_UI/invoices_customer.php:59
+#: A2BCustomer_UI/A2B_entity_call_details_pdf.php:68
+#: A2BCustomer_UI/A2B_entity_call_details_pdf.php:341
+#: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:58
+#: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:367
+#: A2BCustomer_UI/call-history.php:33 A2BCustomer_UI/call-history.php:66
+#: A2BCustomer_UI/call-history.php:135
+#: A2BCustomer_UI/A2B_entity_call_details.php:82
+#: A2BCustomer_UI/A2B_entity_call_details.php:619
+msgid "Destination"
+msgstr "Destino"
+
+#: A2BCustomer_UI/A2B_entity_speeddial.php:76
+#: A2BCustomer_UI/A2B_entity_invoice_detail.php:295
+#: A2BCustomer_UI/invoices_customer.php:309
+#: A2BCustomer_UI/invoices_customer.php:714
+#: A2BCustomer_UI/A2B_entity_call_details_pdf.php:315
+#: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:336
+#: A2BCustomer_UI/A2B_entity_call_details.php:591
+msgid "Name"
+msgstr "Nome"
+
+#: A2BCustomer_UI/A2B_entity_speeddial.php:80
+msgid "ASSIGN NUMBER TO SPEEDDIAL"
+msgstr "ATRIBUIR UM NÚMERO À DISCAGEM RÁPIDA"
+
+#: A2BCustomer_UI/forgotpassword.php:19
+msgid ""
+"Please wait 1 minutes before making any other request for the forgot "
+"password!"
+msgstr ""
+"Por favor aguarde 1 minuto antes de fazer qualquer outro pedido para senha "
+"esquecida!"
+
+#: A2BCustomer_UI/forgotpassword.php:84
+msgid "Your login information email has been sent to you."
+msgstr "Sua informação de login foi enviada para você."
+
+#: A2BCustomer_UI/forgotpassword.php:87
+msgid "No such login exists."
+msgstr "Nenhum login existente."
+
+#: A2BCustomer_UI/forgotpassword.php:90
+msgid "Invalid Action."
+msgstr "Ação Inválida."
+
+#: A2BCustomer_UI/forgotpassword.php:93
+#, fuzzy
+msgid "Please provide your email address to get your login information."
+msgstr ""
+"Por favor forneça seu endereço de email para pegar sua informação de login."
+
+#: A2BCustomer_UI/forgotpassword.php:116
+msgid "You must enter an email address!"
+msgstr "Você deve colocar um endereço de email!"
+
+#: A2BCustomer_UI/forgotpassword.php:150 A2BCustomer_UI/index.php:104
+msgid "AUTHENTICATION REFUSED, please check your user/password!"
+msgstr "AUTENTICAÇÃO RECUSADA,por favor verifique seu usuário/senha!"
+
+#: A2BCustomer_UI/forgotpassword.php:158
+msgid "Forgot your password?"
+msgstr "Esqueceu sua senha?"
+
+#: A2BCustomer_UI/forgotpassword.php:167
+msgid "Email"
+msgstr "Email"
+
+#: A2BCustomer_UI/forgotpassword.php:173
+msgid "SUBMIT"
+msgstr "ENVIAR"
+
+#: A2BCustomer_UI/A2B_entity_invoice_detail.php:21
+#: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:23
+msgid "Unbilled Details"
+msgstr "Detalhes não faturados"
+
+#: A2BCustomer_UI/A2B_entity_invoice_detail.php:23
+#: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:28
+msgid "Billed Details"
+msgstr "Detalhes faturados"
+
+#: A2BCustomer_UI/A2B_entity_invoice_detail.php:42
+#: A2BCustomer_UI/invoices_customer.php:56
+#: A2BCustomer_UI/A2B_entity_call_details_pdf.php:65
+#: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:55
+#: A2BCustomer_UI/call-history.php:132
+#: A2BCustomer_UI/A2B_entity_call_details.php:79
+msgid "Calldate"
+msgstr "Data da ligação"
+
+#: A2BCustomer_UI/A2B_entity_invoice_detail.php:43
+#: A2BCustomer_UI/invoices_customer.php:57
+#: A2BCustomer_UI/A2B_entity_call_details_pdf.php:66
+#: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:56
+#: A2BCustomer_UI/call-history.php:133
+#: A2BCustomer_UI/A2B_entity_call_details.php:80
+msgid "Source"
+msgstr "Pesquisa"
+
+#: A2BCustomer_UI/A2B_entity_invoice_detail.php:44
+#: A2BCustomer_UI/invoices_customer.php:58
+#: A2BCustomer_UI/A2B_entity_call_details_pdf.php:67
+#: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:57
+#: A2BCustomer_UI/A2B_entity_call_details.php:81
+msgid "Callednumber"
+msgstr "Número chamado"
+
+#: A2BCustomer_UI/A2B_entity_invoice_detail.php:46
+#: A2BCustomer_UI/A2B_entity_invoice_detail.php:344
+#: A2BCustomer_UI/A2B_entity_invoice_detail.php:433
+#: A2BCustomer_UI/invoices_customer.php:60
+#: A2BCustomer_UI/A2B_entity_call_details_pdf.php:69
+#: A2BCustomer_UI/A2B_entity_call_details_pdf.php:342
+#: A2BCustomer_UI/A2B_entity_call_details_pdf.php:440
+#: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:59
+#: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:368
+#: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:465
+#: A2BCustomer_UI/call-history.php:68 A2BCustomer_UI/call-history.php:136
+#: A2BCustomer_UI/A2B_entity_call_details.php:83
+#: A2BCustomer_UI/A2B_entity_call_details.php:620
+#: A2BCustomer_UI/A2B_entity_call_details.php:709
+msgid "Duration"
+msgstr "Duração"
+
+#: A2BCustomer_UI/A2B_entity_invoice_detail.php:48
+#: A2BCustomer_UI/invoices_customer.php:65
+#: A2BCustomer_UI/A2B_entity_call_details_pdf.php:75
+#: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:65
+#: A2BCustomer_UI/call-history.php:141
+#: A2BCustomer_UI/A2B_entity_call_details.php:90
+msgid "Cost"
+msgstr "Custo"
+
+#: A2BCustomer_UI/A2B_entity_invoice_detail.php:299
+#: A2BCustomer_UI/invoices_customer.php:313
+#: A2BCustomer_UI/invoices_customer.php:718
+#: A2BCustomer_UI/A2B_entity_call_details_pdf.php:319
+#: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:340
+#: A2BCustomer_UI/A2B_entity_call_details.php:595
+msgid "Card Number"
+msgstr "Número do Cartão"
+
+#: A2BCustomer_UI/A2B_entity_invoice_detail.php:306
+#: A2BCustomer_UI/A2B_entity_invoice_detail.php:311
+#: A2BCustomer_UI/invoices_customer.php:317
+#: A2BCustomer_UI/invoices_customer.php:722
+#: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:347
+#: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:352
+msgid "From Date"
+msgstr "Da data"
+
+#: A2BCustomer_UI/A2B_entity_invoice_detail.php:315
+#: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:356
+msgid "To Date"
+msgstr "Até a Data"
+
+#: A2BCustomer_UI/A2B_entity_invoice_detail.php:339
+#: A2BCustomer_UI/A2B_entity_call_details.php:615
+msgid "Calls by Destination"
+msgstr "Ligações por Destino"
+
+#: A2BCustomer_UI/A2B_entity_invoice_detail.php:345
+#: A2BCustomer_UI/A2B_entity_invoice_detail.php:434
+#: A2BCustomer_UI/A2B_entity_call_details.php:621
+#: A2BCustomer_UI/A2B_entity_call_details.php:710
+msgid "Graphic"
+msgstr "Gráfico"
+
+#: A2BCustomer_UI/A2B_entity_invoice_detail.php:346
+#: A2BCustomer_UI/A2B_entity_invoice_detail.php:435
+#: A2BCustomer_UI/A2B_entity_call_details_pdf.php:344
+#: A2BCustomer_UI/A2B_entity_call_details_pdf.php:442
+#: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:370
+#: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:467
+#: A2BCustomer_UI/call-history.php:40
+#: A2BCustomer_UI/A2B_entity_call_details.php:622
+#: A2BCustomer_UI/A2B_entity_call_details.php:711
+msgid "Calls"
+msgstr "Ligações"
+
+#: A2BCustomer_UI/A2B_entity_invoice_detail.php:347
+#: A2BCustomer_UI/A2B_entity_invoice_detail.php:436
+#: A2BCustomer_UI/A2B_entity_invoice_detail.php:522
+#: A2BCustomer_UI/A2B_entity_invoice_detail.php:597
+#: A2BCustomer_UI/A2B_entity_call_details_pdf.php:345
+#: A2BCustomer_UI/A2B_entity_call_details_pdf.php:443
+#: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:371
+#: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:468
+#: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:562
+#: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:635
+#: A2BCustomer_UI/A2B_entity_call_details.php:623
+#: A2BCustomer_UI/A2B_entity_call_details.php:712
+msgid "Amount"
+msgstr "Quantia"
+
+#: A2BCustomer_UI/A2B_entity_invoice_detail.php:396
+#: A2BCustomer_UI/A2B_entity_invoice_detail.php:486
+#: A2BCustomer_UI/A2B_entity_invoice_detail.php:553
+#: A2BCustomer_UI/A2B_entity_invoice_detail.php:641
+#: A2BCustomer_UI/invoices_customer.php:370
+#: A2BCustomer_UI/invoices_customer.php:459
+#: A2BCustomer_UI/invoices_customer.php:552
+#: A2BCustomer_UI/invoices_customer.php:766
+#: A2BCustomer_UI/invoices_customer.php:849
+#: A2BCustomer_UI/invoices_customer.php:935
+#: A2BCustomer_UI/A2B_entity_call_details_pdf.php:393
+#: A2BCustomer_UI/A2B_entity_call_details_pdf.php:493
+#: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:419
+#: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:518
+#: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:591
+#: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:681
+#: A2BCustomer_UI/call-history.php:794
+#: A2BCustomer_UI/A2B_entity_call_details.php:672
+#: A2BCustomer_UI/A2B_entity_call_details.php:762
+msgid "TOTAL"
+msgstr "TOTAL"
+
+#: A2BCustomer_UI/A2B_entity_invoice_detail.php:429
+#: A2BCustomer_UI/A2B_entity_call_details.php:705
+msgid "Calls by Date"
+msgstr "Ligações por Data"
+
+#: A2BCustomer_UI/A2B_entity_invoice_detail.php:432
+#: A2BCustomer_UI/A2B_entity_invoice_detail.php:594
+#: A2BCustomer_UI/card-history.php:44
+#: A2BCustomer_UI/A2B_entity_call_details_pdf.php:439
+#: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:464
+#: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:632
+#: A2BCustomer_UI/A2B_entity_call_details.php:708
+msgid "Date"
+msgstr "Data"
+
+#: A2BCustomer_UI/A2B_entity_invoice_detail.php:515
+#: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:555
+msgid "DID Billing"
+msgstr "Faturamento do DID"
+
+#: A2BCustomer_UI/A2B_entity_invoice_detail.php:518
+#: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:558
+msgid "Charge Date"
+msgstr "Data da taxa"
+
+#: A2BCustomer_UI/A2B_entity_invoice_detail.php:519
+#: A2BCustomer_UI/PP_menu.inc.php:111 A2BCustomer_UI/PP_menu.inc.php:257
+#: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:559
+#: A2BCustomer_UI/form_data/FG_var_did.inc:42
+msgid "DID"
+msgstr "DID"
+
+#: A2BCustomer_UI/A2B_entity_invoice_detail.php:520
+#: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:560
+msgid "Country"
+msgstr "País"
+
+#: A2BCustomer_UI/A2B_entity_invoice_detail.php:521
+#: A2BCustomer_UI/A2B_entity_invoice_detail.php:596
+#: A2BCustomer_UI/card-history.php:45
+#: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:561
+#: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:634
+msgid "Description"
+msgstr "Descrição"
+
+#: A2BCustomer_UI/A2B_entity_invoice_detail.php:591
+#: A2BCustomer_UI/A2B_entity_invoice_detail.php:623
+#: A2BCustomer_UI/invoices_customer.php:344
+#: A2BCustomer_UI/invoices_customer.php:741
+#: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:629
+#: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:662
+msgid "Extra Charges"
+msgstr "Taxas Extras"
+
+#: A2BCustomer_UI/A2B_entity_invoice_detail.php:595
+#: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:633
+msgid "Type"
+msgstr "Tipo"
+
+#: A2BCustomer_UI/A2B_entity_invoice_detail.php:611
+#: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:650
+msgid "Setup Charges"
+msgstr "Configurar taxas"
+
+#: A2BCustomer_UI/A2B_entity_invoice_detail.php:615
+#: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:654
+msgid "DID Montly Use"
+msgstr "Uso mensal do DID"
+
+#: A2BCustomer_UI/A2B_entity_invoice_detail.php:619
+#: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:658
+msgid "Subscription Fee"
+msgstr "Taxa da assinatura"
+
+#: A2BCustomer_UI/A2B_entity_invoice_detail.php:668
+#: A2BCustomer_UI/invoices_customer.php:658
+#: A2BCustomer_UI/invoices_customer.php:1034
+#: A2BCustomer_UI/A2B_entity_call_details.php:783
+msgid "Total"
+msgstr "Total"
+
+#: A2BCustomer_UI/A2B_entity_invoice_detail.php:671
+#: A2BCustomer_UI/invoices_customer.php:661
+#: A2BCustomer_UI/invoices_customer.php:1037
+#: A2BCustomer_UI/A2B_entity_call_details_pdf.php:515
+#: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:703
+#: A2BCustomer_UI/A2B_entity_call_details.php:786
+msgid "VAT"
+msgstr "IVA"
+
+#: A2BCustomer_UI/A2B_entity_invoice_detail.php:676
+#: A2BCustomer_UI/invoices_customer.php:666
+#: A2BCustomer_UI/invoices_customer.php:1042
+#: A2BCustomer_UI/A2B_entity_call_details_pdf.php:523
+#: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:711
+#: A2BCustomer_UI/A2B_entity_call_details.php:791
+msgid "Grand Total"
+msgstr "Total Geral"
+
+#: A2BCustomer_UI/A2B_entity_invoice_detail.php:687
+#: A2BCustomer_UI/invoices_customer.php:672
+#: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:723
+msgid "Status"
+msgstr "Status"
+
+#: A2BCustomer_UI/A2B_entity_invoice_detail.php:696
+#: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:733
+msgid "Connected"
+msgstr "Conectado"
+
+#: A2BCustomer_UI/A2B_entity_invoice_detail.php:697
+msgid "DisConnected"
+msgstr "DesConectado"
+
+#: A2BCustomer_UI/card-history.php:69
+msgid "Card History"
+msgstr ""
+
+#: A2BCustomer_UI/card-history.php:174 A2BCustomer_UI/call-history.php:327
+#: A2BCustomer_UI/A2B_entity_call_details.php:308
+msgid "SELECT BY MONTH"
+msgstr "SELECIONAR PELO MÊS"
+
+#: A2BCustomer_UI/card-history.php:180 A2BCustomer_UI/card-history.php:231
+#: A2BCustomer_UI/call-history.php:333 A2BCustomer_UI/call-history.php:384
+#: A2BCustomer_UI/A2B_entity_call_details.php:314
+#: A2BCustomer_UI/A2B_entity_call_details.php:363
+msgid "FROM"
+msgstr "DE"
+
+#: A2BCustomer_UI/card-history.php:184 A2BCustomer_UI/card-history.php:205
+#: A2BCustomer_UI/card-history.php:244 A2BCustomer_UI/card-history.php:272
+#: A2BCustomer_UI/call-history.php:337 A2BCustomer_UI/call-history.php:358
+#: A2BCustomer_UI/call-history.php:397 A2BCustomer_UI/call-history.php:425
+#: A2BCustomer_UI/A2B_entity_call_details.php:318
+#: A2BCustomer_UI/A2B_entity_call_details.php:338
+#: A2BCustomer_UI/A2B_entity_call_details.php:376
+#: A2BCustomer_UI/A2B_entity_call_details.php:421
+msgid "JANUARY"
+msgstr "JANEIRO"
+
+#: A2BCustomer_UI/card-history.php:184 A2BCustomer_UI/card-history.php:205
+#: A2BCustomer_UI/card-history.php:244 A2BCustomer_UI/card-history.php:272
+#: A2BCustomer_UI/call-history.php:337 A2BCustomer_UI/call-history.php:358
+#: A2BCustomer_UI/call-history.php:397 A2BCustomer_UI/call-history.php:425
+#: A2BCustomer_UI/A2B_entity_call_details.php:318
+#: A2BCustomer_UI/A2B_entity_call_details.php:338
+#: A2BCustomer_UI/A2B_entity_call_details.php:376
+#: A2BCustomer_UI/A2B_entity_call_details.php:421
+msgid "FEBRUARY"
+msgstr "FEVEREIRO"
+
+#: A2BCustomer_UI/card-history.php:184 A2BCustomer_UI/card-history.php:205
+#: A2BCustomer_UI/card-history.php:244 A2BCustomer_UI/card-history.php:272
+#: A2BCustomer_UI/call-history.php:337 A2BCustomer_UI/call-history.php:358
+#: A2BCustomer_UI/call-history.php:397 A2BCustomer_UI/call-history.php:425
+#: A2BCustomer_UI/A2B_entity_call_details.php:318
+#: A2BCustomer_UI/A2B_entity_call_details.php:338
+#: A2BCustomer_UI/A2B_entity_call_details.php:376
+#: A2BCustomer_UI/A2B_entity_call_details.php:421
+msgid "MARCH"
+msgstr "MARÇO"
+
+#: A2BCustomer_UI/card-history.php:184 A2BCustomer_UI/card-history.php:205
+#: A2BCustomer_UI/card-history.php:244 A2BCustomer_UI/card-history.php:272
+#: A2BCustomer_UI/call-history.php:337 A2BCustomer_UI/call-history.php:358
+#: A2BCustomer_UI/call-history.php:397 A2BCustomer_UI/call-history.php:425
+#: A2BCustomer_UI/A2B_entity_call_details.php:318
+#: A2BCustomer_UI/A2B_entity_call_details.php:338
+#: A2BCustomer_UI/A2B_entity_call_details.php:376
+#: A2BCustomer_UI/A2B_entity_call_details.php:421
+msgid "APRIL"
+msgstr "ABRIL"
+
+#: A2BCustomer_UI/card-history.php:184 A2BCustomer_UI/card-history.php:205
+#: A2BCustomer_UI/card-history.php:244 A2BCustomer_UI/card-history.php:272
+#: A2BCustomer_UI/call-history.php:337 A2BCustomer_UI/call-history.php:358
+#: A2BCustomer_UI/call-history.php:397 A2BCustomer_UI/call-history.php:425
+#: A2BCustomer_UI/A2B_entity_call_details.php:318
+#: A2BCustomer_UI/A2B_entity_call_details.php:338
+#: A2BCustomer_UI/A2B_entity_call_details.php:376
+#: A2BCustomer_UI/A2B_entity_call_details.php:421
+msgid "MAY"
+msgstr "MAIO"
+
+#: A2BCustomer_UI/card-history.php:184 A2BCustomer_UI/card-history.php:205
+#: A2BCustomer_UI/card-history.php:244 A2BCustomer_UI/card-history.php:272
+#: A2BCustomer_UI/call-history.php:337 A2BCustomer_UI/call-history.php:358
+#: A2BCustomer_UI/call-history.php:397 A2BCustomer_UI/call-history.php:425
+#: A2BCustomer_UI/A2B_entity_call_details.php:318
+#: A2BCustomer_UI/A2B_entity_call_details.php:338
+#: A2BCustomer_UI/A2B_entity_call_details.php:376
+#: A2BCustomer_UI/A2B_entity_call_details.php:421
+msgid "JUNE"
+msgstr "JUNHO"
+
+#: A2BCustomer_UI/card-history.php:184 A2BCustomer_UI/card-history.php:205
+#: A2BCustomer_UI/card-history.php:244 A2BCustomer_UI/card-history.php:272
+#: A2BCustomer_UI/call-history.php:337 A2BCustomer_UI/call-history.php:358
+#: A2BCustomer_UI/call-history.php:397 A2BCustomer_UI/call-history.php:425
+#: A2BCustomer_UI/A2B_entity_call_details.php:318
+#: A2BCustomer_UI/A2B_entity_call_details.php:338
+#: A2BCustomer_UI/A2B_entity_call_details.php:376
+#: A2BCustomer_UI/A2B_entity_call_details.php:421
+msgid "JULY"
+msgstr "JULHO"
+
+#: A2BCustomer_UI/card-history.php:184 A2BCustomer_UI/card-history.php:205
+#: A2BCustomer_UI/card-history.php:244 A2BCustomer_UI/card-history.php:272
+#: A2BCustomer_UI/call-history.php:337 A2BCustomer_UI/call-history.php:358
+#: A2BCustomer_UI/call-history.php:397 A2BCustomer_UI/call-history.php:425
+#: A2BCustomer_UI/A2B_entity_call_details.php:318
+#: A2BCustomer_UI/A2B_entity_call_details.php:338
+#: A2BCustomer_UI/A2B_entity_call_details.php:376
+#: A2BCustomer_UI/A2B_entity_call_details.php:421
+msgid "AUGUST"
+msgstr "AGOSTO"
+
+#: A2BCustomer_UI/card-history.php:184 A2BCustomer_UI/card-history.php:205
+#: A2BCustomer_UI/card-history.php:244 A2BCustomer_UI/card-history.php:272
+#: A2BCustomer_UI/call-history.php:337 A2BCustomer_UI/call-history.php:358
+#: A2BCustomer_UI/call-history.php:397 A2BCustomer_UI/call-history.php:425
+#: A2BCustomer_UI/A2B_entity_call_details.php:318
+#: A2BCustomer_UI/A2B_entity_call_details.php:338
+#: A2BCustomer_UI/A2B_entity_call_details.php:376
+#: A2BCustomer_UI/A2B_entity_call_details.php:421
+msgid "SEPTEMBER"
+msgstr "SETEMBRO"
+
+#: A2BCustomer_UI/card-history.php:184 A2BCustomer_UI/card-history.php:205
+#: A2BCustomer_UI/card-history.php:244 A2BCustomer_UI/card-history.php:272
+#: A2BCustomer_UI/call-history.php:337 A2BCustomer_UI/call-history.php:358
+#: A2BCustomer_UI/call-history.php:397 A2BCustomer_UI/call-history.php:425
+#: A2BCustomer_UI/A2B_entity_call_details.php:318
+#: A2BCustomer_UI/A2B_entity_call_details.php:338
+#: A2BCustomer_UI/A2B_entity_call_details.php:376
+#: A2BCustomer_UI/A2B_entity_call_details.php:421
+msgid "OCTOBER"
+msgstr "OUTUBRO"
+
+#: A2BCustomer_UI/card-history.php:184 A2BCustomer_UI/card-history.php:205
+#: A2BCustomer_UI/card-history.php:244 A2BCustomer_UI/card-history.php:272
+#: A2BCustomer_UI/call-history.php:337 A2BCustomer_UI/call-history.php:358
+#: A2BCustomer_UI/call-history.php:397 A2BCustomer_UI/call-history.php:425
+#: A2BCustomer_UI/A2B_entity_call_details.php:318
+#: A2BCustomer_UI/A2B_entity_call_details.php:338
+#: A2BCustomer_UI/A2B_entity_call_details.php:376
+#: A2BCustomer_UI/A2B_entity_call_details.php:421
+msgid "NOVEMBER"
+msgstr "NOVEMBRO"
+
+#: A2BCustomer_UI/card-history.php:184 A2BCustomer_UI/card-history.php:205
+#: A2BCustomer_UI/card-history.php:244 A2BCustomer_UI/card-history.php:272
+#: A2BCustomer_UI/call-history.php:337 A2BCustomer_UI/call-history.php:358
+#: A2BCustomer_UI/call-history.php:397 A2BCustomer_UI/call-history.php:425
+#: A2BCustomer_UI/A2B_entity_call_details.php:318
+#: A2BCustomer_UI/A2B_entity_call_details.php:338
+#: A2BCustomer_UI/A2B_entity_call_details.php:376
+#: A2BCustomer_UI/A2B_entity_call_details.php:421
+msgid "DECEMBER"
+msgstr "DEZEMBRO"
+
+#: A2BCustomer_UI/card-history.php:200 A2BCustomer_UI/card-history.php:259
+#: A2BCustomer_UI/call-history.php:353 A2BCustomer_UI/call-history.php:412
+#: A2BCustomer_UI/A2B_entity_call_details.php:334
+#: A2BCustomer_UI/A2B_entity_call_details.php:408
+msgid "TO"
+msgstr "ATÉ"
+
+#: A2BCustomer_UI/card-history.php:226 A2BCustomer_UI/call-history.php:379
+#: A2BCustomer_UI/A2B_entity_call_details.php:358
+msgid "SELECT BY DAY"
+msgstr "SELECIONAR PELO DIA"
+
+#: A2BCustomer_UI/card-history.php:293
+#: A2BCustomer_UI/invoices_customer.php:277
+#: A2BCustomer_UI/call-history.php:504
+#: A2BCustomer_UI/A2B_entity_call_details.php:544
+msgid "Search"
+msgstr "Pesquisar"
+
+#: A2BCustomer_UI/card-history.php:385
+#: A2BCustomer_UI/CC_entity_edit_did_destination.php:373
+#: A2BCustomer_UI/CC_entity_edit_did_destination.php:592
+#: A2BCustomer_UI/CC_entity_edit_did_destination.php:910
+#: A2BCustomer_UI/CC_entity_edit_did_destination.php:1032
+#: A2BCustomer_UI/CC_entity_edit_did_destination.php:1196
+#: A2BCustomer_UI/invoices_customer.php:650
+#: A2BCustomer_UI/CC_entity_edit_speeddial.php:262
+#: A2BCustomer_UI/CC_entity_edit_speeddial.php:472
+#: A2BCustomer_UI/CC_entity_edit_speeddial.php:764
+#: A2BCustomer_UI/CC_entity_edit_speeddial.php:1010
+#: A2BCustomer_UI/A2B_entity_call_details_pdf.php:626
+#: A2BCustomer_UI/A2B_entity_call_details_pdf.php:725
+#: A2BCustomer_UI/call-history.php:638
+#: A2BCustomer_UI/A2B_entity_call_details.php:892
+#: A2BCustomer_UI/A2B_entity_call_details.php:992
+msgid "No data found !!!"
+msgstr "Dados não encontrados !!!"
+
+#: A2BCustomer_UI/simulator.php:15
+msgid "Here you can simulate a phone call and see how much it would cost"
+msgstr ""
+
+#: A2BCustomer_UI/simulator.php:23 A2BCustomer_UI/simulator.php:39
+#: A2BCustomer_UI/form_data/FG_var_did.inc:31
+msgid "Dial"
+msgstr "Discar"
+
+#: A2BCustomer_UI/simulator.php:23
+#, fuzzy
+msgid "The number you wish to dial."
+msgstr "O número que deseja ligar"
+
+#: A2BCustomer_UI/simulator.php:36
+#, fuzzy
+msgid "No rates/destinations found!"
+msgstr "Nenhum ID da transação encontrado"
+
+#: A2BCustomer_UI/simulator.php:41
+msgid "Max call duration"
+msgstr ""
+
+#: A2BCustomer_UI/simulator.php:42
+msgid "Tm"
+msgstr ""
+
+#: A2BCustomer_UI/simulator.php:44
+msgid "Rate/min"
+msgstr ""
+
+#: A2BCustomer_UI/PP_menu.inc.php:82 A2BCustomer_UI/PP_menu.inc.php:239
+msgid "ACCOUNT INFO"
+msgstr "INFORMAÇÃO DA CONTA"
+
+#: A2BCustomer_UI/PP_menu.inc.php:86
+msgid "SIP/IAX INFO"
+msgstr "INFORMAÇÃO SIP/IAX"
+
+#: A2BCustomer_UI/PP_menu.inc.php:91
+msgid "CALL HISTORY"
+msgstr "HISTÓRICO DE LIGAÇÕES"
+
+#: A2BCustomer_UI/PP_menu.inc.php:96 A2BCustomer_UI/A2B_entity_voucher.php:106
+#: A2BCustomer_UI/form_data/FG_var_voucher.inc:14
+msgid "VOUCHER"
+msgstr "VOUCHER"
+
+#: A2BCustomer_UI/PP_menu.inc.php:101 A2BCustomer_UI/PP_menu.inc.php:248
+msgid "INVOICES"
+msgstr "FATURAS"
+
+#: A2BCustomer_UI/PP_menu.inc.php:103 A2BCustomer_UI/PP_menu.inc.php:250
+#: A2BCustomer_UI/invoices_customer.php:300
+#: A2BCustomer_UI/invoices_customer.php:704
+msgid "Invoice Details"
+msgstr "Detalhes da Fatura"
+
+#: A2BCustomer_UI/PP_menu.inc.php:104 A2BCustomer_UI/PP_menu.inc.php:251
+msgid "View Invoices"
+msgstr "Ver Faturas"
+
+#: A2BCustomer_UI/PP_menu.inc.php:105 A2BCustomer_UI/PP_menu.inc.php:252
+msgid "Current Invoice"
+msgstr "Fatura Atual"
+
+#: A2BCustomer_UI/PP_menu.inc.php:116 A2BCustomer_UI/PP_menu.inc.php:260
+msgid "SPEED DIAL"
+msgstr "DISCAGEM RÁPIDA"
+
+#: A2BCustomer_UI/PP_menu.inc.php:121 A2BCustomer_UI/PP_menu.inc.php:263
+msgid "RATECARD"
+msgstr "RATECARD"
+
+#: A2BCustomer_UI/PP_menu.inc.php:126 A2BCustomer_UI/PP_menu.inc.php:266
+msgid "SIMULATOR"
+msgstr "SIMULADOR"
+
+#: A2BCustomer_UI/PP_menu.inc.php:131 A2BCustomer_UI/PP_menu.inc.php:269
+msgid "CALLBACK"
+msgstr "CALLBACK"
+
+#: A2BCustomer_UI/PP_menu.inc.php:136 A2BCustomer_UI/PP_menu.inc.php:272
+msgid "WEB-PHONE"
+msgstr "WEB-PHONE"
+
+#: A2BCustomer_UI/PP_menu.inc.php:141
+#, fuzzy
+msgid "CALLER ID"
+msgstr "IDENTIFICADOR DE CHAMADAS"
+
+#: A2BCustomer_UI/PP_menu.inc.php:146 A2BCustomer_UI/PP_menu.inc.php:278
+msgid "PASSWORD"
+msgstr "SENHA"
+
+#: A2BCustomer_UI/PP_menu.inc.php:150 A2BCustomer_UI/PP_menu.inc.php:280
+msgid "LOGOUT"
+msgstr "LOGOUT"
+
+#: A2BCustomer_UI/PP_menu.inc.php:275
+msgid "ADD CALLER ID"
+msgstr "ADICIONAR CALLER ID"
+
+#: A2BCustomer_UI/CC_entity_edit_did_destination.php:202
+msgid "error deletion"
+msgstr "erro ao deletar"
+
+#: A2BCustomer_UI/CC_entity_edit_did_destination.php:531
+msgid "Add a new "
+msgstr "Adicionar um novo"
+
+#: A2BCustomer_UI/CC_entity_edit_did_destination.php:646
+#: A2BCustomer_UI/CC_entity_edit_did_destination.php:841
+#: A2BCustomer_UI/CC_entity_edit_speeddial.php:528
+#: A2BCustomer_UI/CC_entity_edit_speeddial.php:697
+msgid "LIST"
+msgstr "LISTAR"
+
+#: A2BCustomer_UI/CC_entity_edit_did_destination.php:705
+#: A2BCustomer_UI/form_data/FG_var_callerid.inc:17
+msgid "No"
+msgstr "Não"
+
+#: A2BCustomer_UI/CC_entity_edit_did_destination.php:739
+#: A2BCustomer_UI/CC_entity_edit_speeddial.php:416
+#: A2BCustomer_UI/CC_entity_edit_speeddial.php:606
+msgid "Add a new"
+msgstr "Adicionar um novo"
+
+#: A2BCustomer_UI/CC_entity_edit_did_destination.php:1116
+msgid "Deletion confirmation"
+msgstr "Confirmação de deleção"
+
+#: A2BCustomer_UI/CC_entity_edit_did_destination.php:1211
+msgid "Remove this DID DESTINATION"
+msgstr "Remover este DID DE DESTINO"
+
+#: A2BCustomer_UI/CC_entity_edit_did_destination.php:1211
+#: A2BCustomer_UI/CC_entity_edit_speeddial.php:1025
+msgid "Delete"
+msgstr "Deletar"
+
+#: A2BCustomer_UI/CC_entity_edit_did_destination.php:1236
+msgid "Deletion"
+msgstr "Deleção"
+
+#: A2BCustomer_UI/CC_entity_edit_did_destination.php:1238
+#: A2BCustomer_UI/CC_entity_edit_speeddial.php:1044
+msgid "New"
+msgstr "Novo"
+
+#: A2BCustomer_UI/CC_entity_edit_did_destination.php:1238
+#: A2BCustomer_UI/CC_entity_edit_speeddial.php:1044
+msgid "Inserted"
+msgstr "Inserido"
+
+#: A2BCustomer_UI/invoices_customer.php:24
+msgid "ERROR: Cannot download file"
+msgstr "ERRO: Não pode ser feito o download do arquivo"
+
+#: A2BCustomer_UI/invoices_customer.php:24
+msgid "it does not exist"
+msgstr "isto não existe"
+
+#: A2BCustomer_UI/invoices_customer.php:63
+#: A2BCustomer_UI/A2B_entity_call_details_pdf.php:72
+#: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:62
+#: A2BCustomer_UI/call-history.php:137
+#: A2BCustomer_UI/A2B_entity_call_details.php:87
+msgid "Cardused"
+msgstr "Cartão usado"
+
+#: A2BCustomer_UI/invoices_customer.php:231
+#: A2BCustomer_UI/call-history.php:457
+#: A2BCustomer_UI/A2B_entity_call_details.php:484
+msgid "OPTIONS"
+msgstr "OPÇÕES"
+
+#: A2BCustomer_UI/invoices_customer.php:236
+#: A2BCustomer_UI/A2B_entity_call_details.php:491
+msgid "RESULT"
+msgstr "RESULTADO"
+
+#: A2BCustomer_UI/invoices_customer.php:239
+#: A2BCustomer_UI/call-history.php:477
+#: A2BCustomer_UI/A2B_entity_call_details.php:494
+msgid "Minutes"
+msgstr "Minutos"
+
+#: A2BCustomer_UI/invoices_customer.php:239
+#: A2BCustomer_UI/call-history.php:477
+#: A2BCustomer_UI/A2B_entity_call_details.php:494
+msgid "Seconds"
+msgstr "Segundos"
+
+#: A2BCustomer_UI/invoices_customer.php:244
+#: A2BCustomer_UI/A2B_entity_call_details.php:499
+msgid "EXPORT FORMAT"
+msgstr "EXPORTAR NO FORMATO"
+
+#: A2BCustomer_UI/invoices_customer.php:247
+#: A2BCustomer_UI/A2B_entity_call_details.php:502
+msgid "See Invoice in HTML"
+msgstr "Ver Fatura em HTML"
+
+#: A2BCustomer_UI/invoices_customer.php:248
+#: A2BCustomer_UI/A2B_entity_call_details.php:503
+msgid "or Export PDF"
+msgstr "ou exportar para PDF"
+
+#: A2BCustomer_UI/invoices_customer.php:253
+#: A2BCustomer_UI/call-history.php:482
+#: A2BCustomer_UI/A2B_entity_call_details.php:520
+msgid "CURRENCY"
+msgstr "MOEDA"
+
+#: A2BCustomer_UI/invoices_customer.php:347
+#: A2BCustomer_UI/invoices_customer.php:499
+#: A2BCustomer_UI/invoices_customer.php:745
+#: A2BCustomer_UI/call-history.php:739
+msgid "DATE"
+msgstr "DATA"
+
+#: A2BCustomer_UI/invoices_customer.php:348
+#, fuzzy
+msgid "DESCRIPTION"
+msgstr "DESTINO"
+
+#: A2BCustomer_UI/invoices_customer.php:349
+#: A2BCustomer_UI/invoices_customer.php:408
+#: A2BCustomer_UI/invoices_customer.php:503
+#: A2BCustomer_UI/invoices_customer.php:803
+#: A2BCustomer_UI/invoices_customer.php:890
+msgid "TOTALCOST"
+msgstr "CUSTO TOTAL"
+
+#: A2BCustomer_UI/invoices_customer.php:371
+#: A2BCustomer_UI/invoices_customer.php:746
+msgid "NB CHARGE"
+msgstr "NUM. DE TAXAS"
+
+#: A2BCustomer_UI/invoices_customer.php:401
+#: A2BCustomer_UI/invoices_customer.php:796
+msgid "CALLS PER DESTINATION"
+msgstr "LIGAÇÕES POR DESTINO"
+
+#: A2BCustomer_UI/invoices_customer.php:404
+#: A2BCustomer_UI/invoices_customer.php:800
+#: A2BCustomer_UI/invoices_customer.php:887
+#: A2BCustomer_UI/call-history.php:444
+#: A2BCustomer_UI/A2B_entity_call_details.php:457
+#: A2BCustomer_UI/form_data/FG_var_ratecard.inc:34
+#: A2BCustomer_UI/form_data/FG_var_ratecard.inc:58
+#: A2BCustomer_UI/form_data/FG_var_did.inc:41
+#: A2BCustomer_UI/form_data/FG_var_did.inc:69
+msgid "DESTINATION"
+msgstr "DESTINO"
+
+#: A2BCustomer_UI/invoices_customer.php:405
+#: A2BCustomer_UI/invoices_customer.php:500
+msgid "DUR"
+msgstr "DUR"
+
+#: A2BCustomer_UI/invoices_customer.php:406
+#: A2BCustomer_UI/invoices_customer.php:501
+#: A2BCustomer_UI/call-history.php:741
+msgid "GRAPHIC"
+msgstr "GRÁFICO"
+
+#: A2BCustomer_UI/invoices_customer.php:407
+#: A2BCustomer_UI/invoices_customer.php:502
+#: A2BCustomer_UI/invoices_customer.php:802
+#: A2BCustomer_UI/invoices_customer.php:889
+msgid "CALL"
+msgstr "LIGAÇÃO"
+
+#: A2BCustomer_UI/invoices_customer.php:496
+#: A2BCustomer_UI/invoices_customer.php:883
+msgid "CALLS PER DAY"
+msgstr "LIGAÇÕES POR DIA"
+
+#: A2BCustomer_UI/invoices_customer.php:568
+#: A2BCustomer_UI/invoices_customer.php:956
+msgid "Number of call"
+msgstr "Número de ligações"
+
+#: A2BCustomer_UI/invoices_customer.php:747
+#: A2BCustomer_UI/form_data/FG_var_view_invoice.inc:63
+msgid "AMOUNT"
+msgstr "QUANTIA"
+
+#: A2BCustomer_UI/invoices_customer.php:801
+#: A2BCustomer_UI/invoices_customer.php:888
+#: A2BCustomer_UI/call-history.php:740
+msgid "DURATION"
+msgstr "DURAÇÃO"
+
+#: A2BCustomer_UI/invoices_customer.php:960
+msgid "nb"
+msgstr "num"
+
+#: A2BCustomer_UI/CC_entity_edit_speeddial.php:621
+msgid "Voip Station"
+msgstr "Estação voip"
+
+#: A2BCustomer_UI/CC_entity_edit_speeddial.php:1025
+msgid "Remove this Speed Dial"
+msgstr "Remover esta Discagem Rápida"
+
+#: A2BCustomer_UI/CC_entity_edit_speeddial.php:1042
+msgid "Deletetion"
+msgstr "Deleção"
+
+#: A2BCustomer_UI/A2B_entity_card.php:54
+msgid "Your personal information is updated successfully."
+msgstr "Suas informações pessoais foram atualizadas com sucesso."
+
+#: A2BCustomer_UI/checkout_amount.php:62
+#: A2BCustomer_UI/checkout_confirmation.php:87
+msgid "Payment Method"
+msgstr "Método de pagamento"
+
+#: A2BCustomer_UI/checkout_amount.php:76
+msgid "Please enter the order amount"
+msgstr "Por favor entre com a quantia da ordem de pagamento"
+
+#: A2BCustomer_UI/checkout_amount.php:83
+#: A2BCustomer_UI/checkout_confirmation.php:91
+msgid "Total Amount"
+msgstr "Quantia Total"
+
+#: A2BCustomer_UI/checkout_amount.php:104
+#: A2BCustomer_UI/checkout_confirmation.php:102
+msgid "Please click button to confirm your order"
+msgstr "Por favor clique no botão para confirmar sua ordem de pagamento"
+
+#: A2BCustomer_UI/checkout_amount.php:119
+msgid ""
+"The fee from $5 is $0.45, from $10 is $0.59, from $20 is $0.88, from $40 is "
+"$1.46."
+msgstr ""
+"A taxa para $5 é $0.45, para $10 é $0.59, para $20 é $0.88, para $40 é $1.46."
+
+#: A2BCustomer_UI/checkout_amount.php:119
+msgid "Paypal Fee Calculator"
+msgstr "Calculador de taxas do PayPal"
+
+#: A2BCustomer_UI/A2B_entity_did.php:54
+msgid "The following Destinaton-DID has been relesed:"
+msgstr "O seguinte DID de Destino foi liberado:"
+
+#: A2BCustomer_UI/A2B_entity_did.php:91
+msgid "If you really want release this DID , Click on the release button."
+msgstr "Se você quer realmente liberar este DID, clique no botão \"release\"."
+
+#: A2BCustomer_UI/A2B_entity_did.php:98
+msgid "Release the DID "
+msgstr "Liberar o DID "
+
+#: A2BCustomer_UI/A2B_entity_did.php:140
+msgid "The following Destinaton-DID has been added:"
+msgstr "O seguinte DID de Destino foi adicionado:"
+
+#: A2BCustomer_UI/A2B_entity_did.php:364
+msgid "Buy New DID"
+msgstr "Comprar um novo DID"
+
+#: A2BCustomer_UI/A2B_entity_did.php:364
+msgid "Add Phone Number to your DID"
+msgstr "Adicionar um número de telefone para o seu DID"
+
+#: A2BCustomer_UI/A2B_entity_did.php:364
+msgid "Release DID"
+msgstr "Liberar o DID"
+
+#: A2BCustomer_UI/A2B_entity_did.php:381
+msgid "Select Country"
+msgstr "Selecione o País"
+
+#: A2BCustomer_UI/A2B_entity_did.php:395
+msgid "Select Virtual Phone Number"
+msgstr "Selecione um número virtual"
+
+#: A2BCustomer_UI/A2B_entity_did.php:409
+msgid "Ring To Number "
+msgstr "Tocar no número "
+
+#: A2BCustomer_UI/A2B_entity_did.php:420
+msgid "Country Code - Area Code - Number"
+msgstr "Código do Pais - DDD - Número"
+
+#: A2BCustomer_UI/A2B_entity_did.php:424
+msgid "VOIP CALL : "
+msgstr "LIGAÇÃO VOIP : "
+
+#: A2BCustomer_UI/A2B_entity_did.php:424
+#: A2BCustomer_UI/form_data/FG_var_callerid.inc:16
+msgid "Yes"
+msgstr "Sim"
+
+#: A2BCustomer_UI/A2B_entity_did.php:426
+msgid "Ring To destination "
+msgstr "Tocar no destino "
+
+#: A2BCustomer_UI/A2B_entity_did.php:429
+msgid ""
+"Enter the phone number you wish to call, or the SIP/IAX client to reach  "
+"(ie: 347894999 or SIP/jeremy@182.212.1.45). In order to call a VoIP number, "
+"you will need to enable voip_call"
+msgstr ""
+"Entre com o número de telefone que deseja ligar, ou o cliente VOIP. (ex: "
+"347894999 ou SIP/jeremy@182.212.1.45). Se for uma ligação VoIP, será "
+"necessário habilitar o voip_call"
+
+#: A2BCustomer_UI/A2B_entity_did.php:433
+msgid "If you release the did you will not be monthly charged any more."
+msgstr ""
+"Se você liberar o did você não será mais cobrado com taxa extra mensalmente."
+
+#: A2BCustomer_UI/A2B_entity_did.php:441
+msgid "Add phone number"
+msgstr "Adicionar um número de telefone"
+
+#: A2BCustomer_UI/A2B_entity_did.php:443 A2BCustomer_UI/A2B_entity_did.php:472
+#: A2BCustomer_UI/A2B_entity_did.php:493
+msgid "Ok"
+msgstr "OK"
+
+#: A2BCustomer_UI/A2B_entity_did.php:459
+msgid "Confirm the purchase of the DID "
+msgstr "Confirmar a compra do DID "
+
+#: A2BCustomer_UI/A2B_entity_did.php:464
+msgid "A monthly fee of "
+msgstr "Uma taxa mensal de "
+
+#: A2BCustomer_UI/A2B_entity_did.php:464
+msgid " will be carrie out from your acount"
+msgstr " será debitado da sua conta"
+
+#: A2BCustomer_UI/A2B_entity_did.php:469
+msgid "Prev"
+msgstr "Anterior"
+
+#: A2BCustomer_UI/A2B_entity_did.php:483
+msgid "The purchase of the DID is done "
+msgstr "A compra do DID está efetuada "
+
+#: A2BCustomer_UI/A2B_entity_did.php:484
+msgid "The purchase of the DID cant be done, your credit of  "
+msgstr "A compra do DID não pode ser feita, seu crédito é de "
+
+#: A2BCustomer_UI/A2B_entity_did.php:484
+msgid " is lower than Fixerate of the DID  "
+msgstr " é menor do que a taxa do DID "
+
+#: A2BCustomer_UI/A2B_entity_did.php:484
+msgid "Please reload your account "
+msgstr "Por favor atualize sua conta "
+
+#: A2BCustomer_UI/A2B_entity_callerid.php:75
+msgid "CALLER ID :"
+msgstr "IDENTIFICADOR DE CHAMADAS :"
+
+#: A2BCustomer_UI/A2B_entity_callerid.php:79
+msgid "ADD NEW CALLERID"
+msgstr "ADICIONAR NOVO IDENTIFICADOR DE CHAMADAS"
+
+#: A2BCustomer_UI/A2B_entity_call_details_pdf.php:300
+msgid "Call Details for Card Number"
+msgstr "Detalhes das ligações do cartão número"
+
+#: A2BCustomer_UI/A2B_entity_call_details_pdf.php:308
+msgid "Calls Details"
+msgstr "Destinos das Ligações"
+
+#: A2BCustomer_UI/A2B_entity_call_details_pdf.php:323
+#: A2BCustomer_UI/A2B_entity_call_details.php:599
+msgid "As of Date"
+msgstr "Até a Data"
+
+#: A2BCustomer_UI/A2B_entity_call_details_pdf.php:337
+#: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:363
+msgid "By Destination"
+msgstr "Pelo Destino"
+
+#: A2BCustomer_UI/A2B_entity_call_details_pdf.php:436
+#: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:461
+msgid "By Date"
+msgstr "Pela Data"
+
+#: A2BCustomer_UI/A2B_entity_call_details_pdf.php:536
+#: A2BCustomer_UI/A2B_entity_call_details.php:800
+#: A2BCustomer_UI/A2B_entity_call_details.php:907
+msgid "No of Calls"
+msgstr "Nenhuma das Ligações"
+
+#: A2BCustomer_UI/A2B_entity_call_details_pdf.php:539
+#: A2BCustomer_UI/A2B_entity_call_details_pdf.php:639
+msgid "Sr"
+msgstr "Sr"
+
+#: A2BCustomer_UI/A2B_entity_call_details_pdf.php:636
+msgid "No of DID Calls"
+msgstr "Nenhuma ligação do DID"
+
+#: A2BCustomer_UI/A2B_entity_voucher.php:39
+msgid "System Error : No currency table complete !!!"
+msgstr "Erro no Sistema : Tabela de moedas não completa !!!"
+
+#: A2BCustomer_UI/A2B_entity_voucher.php:50
+msgid "The Voucher"
+msgstr "O Voucher"
+
+#: A2BCustomer_UI/A2B_entity_voucher.php:50
+msgid "has been used, We added"
+msgstr "foi usado, nós adicionamos"
+
+#: A2BCustomer_UI/A2B_entity_voucher.php:50
+msgid "credit on your account!"
+msgstr "créditos em sua conta!"
+
+#: A2BCustomer_UI/A2B_entity_voucher.php:55
+msgid "This Voucher doesn't exist !"
+msgstr "Este Voucher não existe !"
+
+#: A2BCustomer_UI/A2B_entity_voucher.php:111
+msgid "USE VOUCHER"
+msgstr "USAR O VOUCHER"
+
+#: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:24
+msgid "Unbilled Invoice Details for Card Number"
+msgstr "Detalhes das Faturas não Faturadas do Cartão Número"
+
+#: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:29
+msgid "Billed Invoice Details for Card Number"
+msgstr "Detalhes das Faturas Faturadas do Cartão Número"
+
+#: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:426
+#: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:528
+msgid "None!!!"
+msgstr "Nenhuma!!!"
+
+#: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:734
+msgid "Disconnected"
+msgstr "Desconectado"
+
+#: A2BCustomer_UI/callback.php:142
+msgid "Cannot insert the callback request in the spool!"
+msgstr "Não foi possível inserir a requisição do callback na fila!"
+
+#: A2BCustomer_UI/callback.php:144
+msgid "Your callback request has been queued correctly!"
+msgstr "Seu pedido de callback foi corretamente enviado para a fila!"
+
+#: A2BCustomer_UI/callback.php:212
+msgid "Error : You don t have enough credit to call you back!"
+msgstr "Erro : você não tem crédito o bastante para fazer o callback!"
+
+#: A2BCustomer_UI/callback.php:215
+msgid "Error : There is no route to call back your phonenumber!"
+msgstr "Erro : Não há rota para o callback do seu número de telefone!"
+
+#: A2BCustomer_UI/callback.php:222
+msgid ""
+"Error : You have to specify your phonenumber and the number you wish to call!"
+msgstr ""
+"Erro : Você tem que especificar seu número de telefone e o número que você "
+"deseja ligar!"
+
+#: A2BCustomer_UI/callback.php:236
+msgid ""
+"You can initiate the callback by entering your phonenumber and the number "
+"you wish to call!"
+msgstr ""
+"Você pode iniciar o callback digitando o seu número de telefone e o número "
+"que você deseja ligar"
+
+#: A2BCustomer_UI/callback.php:244
+msgid "Your PhoneNumber"
+msgstr "Seu número de telefone"
+
+#: A2BCustomer_UI/callback.php:247
+msgid "The number you wish to call"
+msgstr "O número que deseja ligar"
+
+#: A2BCustomer_UI/callback.php:252
+msgid "Click here to Place Call"
+msgstr "Clique aqui para fazer a ligação"
+
+#: A2BCustomer_UI/A2B_entity_password.php:47
+msgid "No value in New Password entered"
+msgstr "Nenhum valor inserido na Nova Senha"
+
+#: A2BCustomer_UI/A2B_entity_password.php:53
+msgid "No Value in Confirm New Password entered"
+msgstr "Nenhum valor inserido na Confirmação da Nova Senha"
+
+#: A2BCustomer_UI/A2B_entity_password.php:59
+msgid "Password length should be greater than or equal to 5"
+msgstr "O tamanho da senha deve ser maior ou igual a 5"
+
+#: A2BCustomer_UI/A2B_entity_password.php:65
+msgid "Value mismatch, New Password should be equal to Confirm New Password"
+msgstr ""
+"Valores diferentes, a Nova Senha deve ser igual à Confirmação da Nova Senha"
+
+#: A2BCustomer_UI/A2B_entity_password.php:81
+msgid "Your password is updated successfully."
+msgstr "Sua senha foi atualizada com sucesso."
+
+#: A2BCustomer_UI/A2B_entity_password.php:88
+msgid "System is failed to update your password."
+msgstr "O sistema falhou ao atualizar sua senha."
+
+#: A2BCustomer_UI/A2B_entity_password.php:99
+msgid "Change Password"
+msgstr "Alterar Senha"
+
+#: A2BCustomer_UI/A2B_entity_password.php:105
+msgid "New Password"
+msgstr "Nova Senha"
+
+#: A2BCustomer_UI/A2B_entity_password.php:109
+msgid "Confirm Password"
+msgstr "Confirmar Senha"
+
+#: A2BCustomer_UI/A2B_entity_password.php:116
+msgid "Save"
+msgstr "Salvar"
+
+#: A2BCustomer_UI/index.php:76
+#, fuzzy
+msgid "AUTHENTICATION"
+msgstr "DESTINO"
+
+#: A2BCustomer_UI/index.php:85
+msgid "User:"
+msgstr ""
+
+#: A2BCustomer_UI/index.php:90
+#, fuzzy
+msgid "Password:"
+msgstr "Nova Senha"
+
+#: A2BCustomer_UI/index.php:107
+msgid "INACTIVE ACCOUNT, Please activate your account!"
+msgstr ""
+
+#: A2BCustomer_UI/index.php:110
+#, fuzzy
+msgid "BLOCKED ACCOUNT, Please contact your administrator!"
+msgstr "O \"peer\" não está definido, por favor contate seu Administrador!"
+
+#: A2BCustomer_UI/index.php:114
+#, fuzzy
+msgid "INVALID ACCOUNT, Please contact your administrator!"
+msgstr "O \"peer\" não está definido, por favor contate seu Administrador!"
+
+#: A2BCustomer_UI/index.php:120
+#, fuzzy
+msgid "Forgot your password? Click "
+msgstr "Esqueceu sua senha?"
+
+#: A2BCustomer_UI/index.php:120
+#, fuzzy
+msgid "here"
+msgstr "Há"
+
+#: A2BCustomer_UI/checkout_process.php:198
+msgid "No Such Customer exists."
+msgstr "Este cliente não exite."
+
+#: A2BCustomer_UI/call-history.php:18
+msgid "Period from"
+msgstr ""
+
+#: A2BCustomer_UI/call-history.php:22
+msgid "Period to"
+msgstr ""
+
+#: A2BCustomer_UI/call-history.php:34
+#, fuzzy
+msgid "Called number"
+msgstr "Número chamado"
+
+#: A2BCustomer_UI/call-history.php:38
+msgid "Calls you have made *-* ..."
+msgstr ""
+
+#: A2BCustomer_UI/call-history.php:40
+msgid "Call"
+msgstr "Ligações"
+
+#: A2BCustomer_UI/call-history.php:54
+msgid "Session ID"
+msgstr ""
+
+#: A2BCustomer_UI/call-history.php:55
+msgid "Unique ID"
+msgstr ""
+
+#: A2BCustomer_UI/call-history.php:56
+msgid "Card ID"
+msgstr ""
+
+#: A2BCustomer_UI/call-history.php:61
+msgid "Start Time"
+msgstr ""
+
+#: A2BCustomer_UI/call-history.php:62
+msgid "Mode"
+msgstr ""
+
+#: A2BCustomer_UI/call-history.php:63
+msgid "Stop Time"
+msgstr ""
+
+#: A2BCustomer_UI/call-history.php:65
+#, fuzzy
+msgid "Called station"
+msgstr "Ligações por Destino"
+
+#: A2BCustomer_UI/call-history.php:69
+msgid "Dur"
+msgstr ""
+
+#: A2BCustomer_UI/call-history.php:71
+msgid "Result"
+msgstr ""
+
+#: A2BCustomer_UI/call-history.php:73
+msgid "Bill"
+msgstr ""
+
+#: A2BCustomer_UI/call-history.php:73
+#, fuzzy
+msgid "The amount you have been charged for the call."
+msgstr "O destino foi criado corretamente."
+
+#: A2BCustomer_UI/call-history.php:134
+#, fuzzy
+msgid "PhoneNumber"
+msgstr "Número de Telefone"
+
+#: A2BCustomer_UI/call-history.php:138
+msgid "Terminate Cause"
+msgstr "Causa do Término"
+
+#: A2BCustomer_UI/call-history.php:138
+msgid "TC"
+msgstr "TC"
+
+#: A2BCustomer_UI/call-history.php:139
+msgid "Calltype"
+msgstr "Tipo de ligação"
+
+#: A2BCustomer_UI/call-history.php:140
+msgid "InitalRate"
+msgstr "Taxa Inicial"
+
+#: A2BCustomer_UI/call-history.php:167
+msgid "Call Logs"
+msgstr "Histórico das Ligações"
+
+#: A2BCustomer_UI/call-history.php:449
+#: A2BCustomer_UI/A2B_entity_call_details.php:462
+#: A2BCustomer_UI/A2B_entity_call_details.php:476
+msgid "Exact"
+msgstr "Exato"
+
+#: A2BCustomer_UI/call-history.php:450
+#: A2BCustomer_UI/A2B_entity_call_details.php:463
+#: A2BCustomer_UI/A2B_entity_call_details.php:477
+msgid "Begins with"
+msgstr "Começa com"
+
+#: A2BCustomer_UI/call-history.php:451
+#: A2BCustomer_UI/A2B_entity_call_details.php:464
+#: A2BCustomer_UI/A2B_entity_call_details.php:478
+msgid "Contains"
+msgstr "Contêm"
+
+#: A2BCustomer_UI/call-history.php:452
+msgid "End with"
+msgstr "Termina com"
+
+#: A2BCustomer_UI/call-history.php:462
+#: A2BCustomer_UI/A2B_entity_call_details.php:508
+msgid "SHOW"
+msgstr "MOSTRAR"
+
+#: A2BCustomer_UI/call-history.php:465
+#: A2BCustomer_UI/A2B_entity_call_details.php:511
+msgid "Answered Calls"
+msgstr "Ligações Atendidas"
+
+#: A2BCustomer_UI/call-history.php:467
+#: A2BCustomer_UI/A2B_entity_call_details.php:513
+msgid "All Calls"
+msgstr "Todas as Ligações"
+
+#: A2BCustomer_UI/call-history.php:474
+msgid "RESUTL"
+msgstr "RESULTADO"
+
+#: A2BCustomer_UI/call-history.php:513
+msgid "Number of Calls"
+msgstr "Número de ligações"
+
+#: A2BCustomer_UI/call-history.php:663
+msgid "PREVIOUS"
+msgstr "ANTERIOR"
+
+#: A2BCustomer_UI/call-history.php:669 A2BCustomer_UI/predictivedialer.php:313
+msgid "NEXT"
+msgstr "PRÓXIMO"
+
+#: A2BCustomer_UI/call-history.php:685
+msgid "Total Cost"
+msgstr "Custo Total"
+
+#: A2BCustomer_UI/call-history.php:724
+msgid "SUMMARY"
+msgstr "SUMÁRIO"
+
+#: A2BCustomer_UI/call-history.php:736
+msgid "CALLING CARD MINUTES"
+msgstr "MINUTOS USADOS DO CARTÃO"
+
+#: A2BCustomer_UI/call-history.php:742
+msgid "CALLS"
+msgstr "LIGAÇÕES"
+
+#: A2BCustomer_UI/call-history.php:743
+msgid "AVERAGE LENGTH OF CALL"
+msgstr "TAMANHO MÉDIO DA LIGAÇÃO"
+
+#: A2BCustomer_UI/call-history.php:743
+msgid "ALOC"
+msgstr "ALOC"
+
+#: A2BCustomer_UI/call-history.php:744
+msgid "TOTAL COST"
+msgstr "CUSTO TOTAL"
+
+#: A2BCustomer_UI/call-history.php:808
+msgid "No calls in your selection"
+msgstr "Nenhuma ligação na sua seleção"
+
+#: A2BCustomer_UI/checkout_confirmation.php:45
+msgid "No Transaction ID found"
+msgstr "Nenhum ID da transação encontrado"
+
+#: A2BCustomer_UI/checkout_confirmation.php:80
+msgid "Please confirm your order"
+msgstr "Por favor confirme sua ordem de pagamento"
+
+#: A2BCustomer_UI/PP_error.php:7
+msgid "ERROR : ACCESS REFUSED"
+msgstr "ERROR : ACESSO NEGADO"
+
+#: A2BCustomer_UI/PP_error.php:8
+msgid "Sorry a problem occur on our system, please try later!"
+msgstr ""
+"Desculpe, um problema ocorreu em nosso sistema, por favor tente mais tarde!"
+
+#: A2BCustomer_UI/PP_error.php:9
+msgid "There is an error on this page!"
+msgstr "Há um erro nesta página!"
+
+#: A2BCustomer_UI/PP_error.php:10
+msgid "Sorry, you don t have access to this page !"
+msgstr "Desculpe, você não tem acesso a esta pagina !"
+
+#: A2BCustomer_UI/PP_error.php:11
+msgid "Sorry, this page is in construction !"
+msgstr "Desculpe, esta página está em construção !"
+
+#: A2BCustomer_UI/PP_error.php:27
+msgid "Error Page"
+msgstr "Error Page"
+
+#: A2BCustomer_UI/PP_error.php:42
+#, fuzzy
+msgid "Click here to login again."
+msgstr "Clique aqui para fazer a ligação"
+
+#: A2BCustomer_UI/A2B_entity_ratecard.php:70
+msgid "NONE"
+msgstr "NENHUM"
+
+#: A2BCustomer_UI/predictivedialer.php:66
+msgid ""
+"Error : The system cannot call you back, please inform the administrator"
+msgstr ""
+"Erro : O sistema não pode fazer o callback, por favor informe o administrador"
+
+#: A2BCustomer_UI/predictivedialer.php:76
+msgid "Cannot connect to the asterisk manager!"
+msgstr "Não foi possível conectar ao gerenciador do asterisk!"
+
+#: A2BCustomer_UI/predictivedialer.php:76
+msgid "Please check the manager configuration..."
+msgstr "Por favor verifique a configuração do gerenciador..."
+
+#: A2BCustomer_UI/predictivedialer.php:81
+msgid ""
+"Error : You have to specify your phonenumber and the number you wish to call"
+msgstr ""
+"Erro : Você tem que especificar seu número de telefone e o número que você "
+"deseja ligar"
+
+#: A2BCustomer_UI/predictivedialer.php:137
+msgid ""
+"You can initiate the predictive dialer by clicking on the Place call button!"
+msgstr ""
+"Você pode iniciar a discagem preditiva clicando no botão para Fazer a "
+"Ligação!"
+
+#: A2BCustomer_UI/predictivedialer.php:148
+msgid "Your PhoneNumber / Location"
+msgstr "Seu Número de Telefone / Localização"
+
+#: A2BCustomer_UI/predictivedialer.php:154
+msgid "Click here to place 10 calls"
+msgstr "Clique aqui para fazer 10 ligações"
+
+#: A2BCustomer_UI/predictivedialer.php:162
+msgid "Click here to see the last called persons and the current connect call"
+msgstr "Clique aqui para ver a última pessoa chamada e as ligações atuais"
+
+#: A2BCustomer_UI/predictivedialer.php:354
+msgid "INSERT a new"
+msgstr "INSERIR um novo"
+
+#: A2BCustomer_UI/predictivedialer.php:354
+#: A2BCustomer_UI/predictivedialer.php:365
+#: A2BCustomer_UI/predictivedialer.php:371
+msgid "PHONELIST"
+msgstr "LISTA DE TELEFONES"
+
+#: A2BCustomer_UI/predictivedialer.php:365
+msgid "You wish to insert a new"
+msgstr "Você deseja inserir um novo"
+
+#: A2BCustomer_UI/predictivedialer.php:365
+msgid "Click on Add button"
+msgstr "Clique no botão Adicionar"
+
+#: A2BCustomer_UI/A2B_entity_call_details.php:465
+#: A2BCustomer_UI/A2B_entity_call_details.php:479
+msgid "Ends with"
+msgstr "Termina com"
+
+#: A2BCustomer_UI/A2B_entity_call_details.php:466
+#: A2BCustomer_UI/A2B_entity_call_details.php:480
+msgid "Is not"
+msgstr "Não é"
+
+#: A2BCustomer_UI/A2B_entity_call_details.php:471
+msgid "SOURCE"
+msgstr "PESQUISAR"
+
+#: A2BCustomer_UI/A2B_entity_call_details.php:582
+msgid "Call Details"
+msgstr "Detalhes da Ligações"
+
+#: A2BCustomer_UI/A2B_entity_call_details.php:907
+msgid "DID Calls"
+msgstr "Ligações DID"
+
+#: A2BCustomer_UI/webphone.php:23
+msgid "ERROR TO LOAD PEER!"
+msgstr "ERRO AO CARREGAR O \"PEER\"!"
+
+#: A2BCustomer_UI/webphone.php:48
+msgid "Account/Phone"
+msgstr "Conta/Telefone"
+
+#: A2BCustomer_UI/webphone.php:63
+msgid "SIP WEB-PHONE"
+msgstr "SIP WEB-PHONE"
+
+#: A2BCustomer_UI/webphone.php:69
+msgid "NO SIP ACCOUNT"
+msgstr "NENHUMA CONTA SIP"
+
+#: A2BCustomer_UI/webphone.php:71
+msgid "Click to start SIP WebPhone"
+msgstr "Clique para iniciar o SIP WebPhone"
+
+#: A2BCustomer_UI/webphone.php:91
+msgid "IAX WEB-PHONE"
+msgstr "IAX WEB-PHONE"
+
+#: A2BCustomer_UI/webphone.php:97
+msgid "NO IAX ACCOUNT"
+msgstr "NENHUMA CONTA IAX"
+
+#: A2BCustomer_UI/webphone.php:99
+msgid "START IAX PHONE"
+msgstr "INICIAR O IAX PHONE"
+
+#: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:98
+msgid "Information about edition"
+msgstr "Informação sobre a edição"
+
+#: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:118
+#: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:110
+msgid "You can browse through our "
+msgstr "Você pode navegar através do nosso "
+
+#: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:122
+#: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:114
+msgid "Delete this "
+msgstr "Deletar este "
+
+#: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:123
+#: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:115
+msgid "Edit this "
+msgstr "Editar este "
+
+#: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:152
+#: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:38
+#: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:173
+#: A2BCustomer_UI/form_data/FG_var_speeddial.inc:28
+#: A2BCustomer_UI/form_data/FG_var_speeddial.inc:70
+msgid "NAME"
+msgstr "NOME"
+
+#: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:158
+msgid "Insert the user Name"
+msgstr "Insira o nome do usuário"
+
+#: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:162
+#: A2BCustomer_UI/form_data/FG_var_card.inc:22
+msgid "FIRSTNAME"
+msgstr "PRIMEIRO NOME"
+
+#: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:168
+msgid "Insert the firstname"
+msgstr "Insira o primeiro nome"
+
+#: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:178
+msgid "Insert the email address of the webmaster"
+msgstr "Insira o endereço de email do webmaster"
+
+#: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:183
+msgid "COMPANY"
+msgstr "EMPRESA"
+
+#: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:189
+msgid "Insert the name of your company"
+msgstr "Insira o nome da sua empresa"
+
+#: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:200
+msgid "Insert the Addresse"
+msgstr "Insira o endereço"
+
+#: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:212
+msgid "Insert the City"
+msgstr "Insira a cidade"
+
+#: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:219
+msgid "ZIPCODE"
+msgstr "CEP"
+
+#: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:225
+#: A2BCustomer_UI/form_data/FG_var_card.inc:79
+msgid "Insert the zipcode"
+msgstr "Insira o CEP"
+
+#: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:236
+msgid "Insert the webmaster Phonenumber"
+msgstr "Insira o número do telefone do webmaster"
+
+#: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:246
+msgid "Insert the webmaster Fax number"
+msgstr "Insira o número do fax do webmaster"
+
+#: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:263
+msgid "NEWSLETTERS"
+msgstr "NEWSLETTER"
+
+#: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:269
+msgid "Choose if the user will receive the newsletters"
+msgstr "Escolha se o usuário receberá as newsletters"
+
+#: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:272
+msgid "I acknowledge to receive informations."
+msgstr "Eu aceito receber informações."
+
+#: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:296
+#, fuzzy
+msgid "Webmaster\\'s lounge"
+msgstr "Espaço dos Webmasters"
+
+#: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:296
+msgid ""
+"Here are the personal data that you entered when you subscribed to "
+"Phone2Enter. <br>You can modify them, except your first name and your last "
+"name. <p><br>Check the correctness of your postal address, so that you will "
+"receive the cheques used to pay your commissions."
+msgstr ""
+"Aqui estão os dados pessoais que você colocou quando assinou o Phone2Enter. "
+"<br>Você pode modificá-los, exceto seu primeiro nome e seu sobrenome. "
+"<p><br>Verifique a exatidão de seu endereço postal, de modo que você receba "
+"os cheques usados pagar suas comissões."
+
+#: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:306
+#: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:293
+#: A2BCustomer_UI/form_data/FG_var_view_invoice.inc:92
+msgid "If you really want remove this "
+msgstr "Se você realmente quer remover isto "
+
+#: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:308
+#: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:295
+msgid "One "
+msgstr "Um "
+
+#: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:315
+#: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:302
+#: A2BCustomer_UI/form_data/FG_var_view_invoice.inc:93
+msgid "you can add easily a new "
+msgstr "você pode facilmente adicionar um novo "
+
+#: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:366
+msgid "You can insert easily new "
+msgstr "Você pode inserir facilmente um novo "
+
+#: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:371
+msgid ""
+"Once you have completed the form above, you'll be able to choose the BILLING "
+"PACK that best fits your content and your customers. Click on the *CONTINUE* "
+"when ready."
+msgstr ""
+"Uma vez terminado o formulário acima, escolha o PACOTE de TARIFAS que melhor "
+"ajusta à você e aos seus clientes. Clique em *CONTINUAR* quando pronto."
+
+#: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:375
+#: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:361
+msgid "Your new "
+msgstr "Seu novo "
+
+#: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:37
+msgid "PHONENUMBER"
+msgstr "NÚMERO DE TELEFONE"
+
+#: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:39
+msgid "LAST ATTEMPT"
+msgstr "ÚLTIMA TENTATIVA"
+
+#: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:40
+msgid "CONNECTED TO"
+msgstr "CONECTADO À"
+
+#: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:41
+msgid "NUM TRIALS"
+msgstr "NUM DE TENTATIVAS"
+
+#: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:42
+msgid "CALLED MINUTE"
+msgstr "MINUTOS FALADOS"
+
+#: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:105
+msgid "- PHONELIST List -"
+msgstr " - Listar NÚMEROS DE TELEFONES - "
+
+#: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:149
+msgid "Phone Number"
+msgstr "Número de Telefone"
+
+#: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:155
+msgid "Insert the phonenumber"
+msgstr "Insira o o número do telefone"
+
+#: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:157
+msgid "Enter here the phonenumber you want to call"
+msgstr "Entre com o número que você quer ligar"
+
+#: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:160
+msgid "CAMPAIGN"
+msgstr "CAMPANHA"
+
+#: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:179
+msgid "Insert the name "
+msgstr "Insira o nome "
+
+#: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:194
+msgid "LAST ATTEMPT DATE"
+msgstr "DATA DA ÚLTIMA TENTATIVA"
+
+#: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:200
+msgid "Insert the last attempt date"
+msgstr "Insira a data da última tentativa"
+
+#: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:202
+msgid ""
+"please respect the format YYYY-MM-DD HH:MM:SS. For instance, '2004-12-31 "
+"00:00:00'"
+msgstr ""
+"Por favor respeite o formato YYYY-MM-DD HH:MM:SS. Por exemplo, '2004-12-31 "
+"00:00:00'"
+
+#: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:207
+msgid "ENABLE"
+msgstr "HABILITAR"
+
+#: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:213
+msgid "Choose if this phonenumber would be enable or not"
+msgstr "Escolha se este número de telefone estará habilitado ou não"
+
+#: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:219
+msgid "ADDITIONALINFO"
+msgstr "INFORMAÇÕES ADICIONAIS"
+
+#: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:225
+msgid "Insert additional information"
+msgstr "Insira informações adicionais"
+
+#: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:232
+msgid "INUSE"
+msgstr "EM USO"
+
+#: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:238
+msgid "Choose the status of this phonenumber"
+msgstr "Escolha o status deste número de telefone"
+
+#: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:285
+#: A2BCustomer_UI/form_data/FG_var_view_invoice.inc:91
+msgid ""
+"You can modify, through the following form, the different properties of your "
+msgstr ""
+"Você pode modificar, através do seguinte formulário, as diferentes "
+"propriedades do seu "
+
+#: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:346
+msgid "The destination has been created correctly."
+msgstr "O destino foi criado corretamente."
+
+#: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:359
+msgid "Add a NEW "
+msgstr "Add um NOVO "
+
+#: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:372
+msgid "Setup those values to create the new "
+msgstr "Configure estes valores para criar um novo "
+
+#: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:378
+msgid "Made your change to edit the current "
+msgstr "Faça suas mudanças para editar o atual "
+
+#: A2BCustomer_UI/form_data/FG_var_ratecard.inc:35
+msgid "PREFIX"
+msgstr "PREFIXO"
+
+#: A2BCustomer_UI/form_data/FG_var_ratecard.inc:36
+msgid "SR"
+msgstr "SR"
+
+#: A2BCustomer_UI/form_data/FG_var_ratecard.inc:42
+#: A2BCustomer_UI/form_data/FG_var_view_invoice.inc:69
+#: A2BCustomer_UI/form_data/FG_var_voucher.inc:23
+msgid "THERE IS NO "
+msgstr "NÃO HÁ "
+
+#: A2BCustomer_UI/form_data/FG_var_ratecard.inc:49
+msgid "DIALPREFIX"
+msgstr "PREFIXO DE DISCAGEM"
+
+#: A2BCustomer_UI/form_data/FG_var_ratecard.inc:55
+msgid "Insert the dialing prefix, such as for UK '44' or for US '1' "
+msgstr ""
+"Insira o prefixo de discagem, como para o Reino Unido '44' ou para US '1' "
+
+#: A2BCustomer_UI/form_data/FG_var_ratecard.inc:56
+msgid "Define the destination prefix. ie, 44 for UK proper."
+msgstr "Defina o prefixo para o destino, ex: 44 para o Reino Unido."
+
+#: A2BCustomer_UI/form_data/FG_var_ratecard.inc:56
+msgid ""
+"You can use 'defaultprefix' to setup a rate by default for the destination "
+"for which you dont want to provide a specific rate.<br>"
+msgstr ""
+"Você pode usar 'defaultprefix' para configurar uma tarifa padrão para os "
+"destinos que você não deseja cobrar uma taxa especifica.<br>"
+
+#: A2BCustomer_UI/form_data/FG_var_ratecard.inc:56
+msgid ""
+"IF YOU ADD A RATE AND NOT AN EDIT => You can also define several in the same "
+"time and range, as below: "
+msgstr ""
+"SE VOCÊ ADICIONAR UMA TAXA, NÃO VALE PARA O MODO EDITAR => Você pode também "
+"definir um intervalo, como abaixo: "
+
+#: A2BCustomer_UI/form_data/FG_var_ratecard.inc:56
+msgid ""
+"<br>32484-32487 -> this would insert 32484, 32485, 32486, 32487 "
+"<br>32476,32477,32478 separate by comma"
+msgstr ""
+"<br>32484-32487 -> isto adicionará 32484, 32485, 32486, 32487 "
+"<br>32476,32477,32478 separado por vírgula"
+
+#: A2BCustomer_UI/form_data/FG_var_ratecard.inc:64
+msgid "Come on... Insert the destination name"
+msgstr "Insira o nome do destino"
+
+#: A2BCustomer_UI/form_data/FG_var_ratecard.inc:65
+msgid ""
+"Name for this call destination, for example : UK, Belgium Landline, Spain "
+"Mobile Telefonica, ..."
+msgstr ""
+"Nome para o destino desta ligação, por exemplo : Reino Unido, Bélgica, "
+"Espanha Telefônica Móvel, ..."
+
+#: A2BCustomer_UI/form_data/FG_var_ratecard.inc:68
+msgid "SELLING RATE"
+msgstr "TAXA DE VENDA"
+
+#: A2BCustomer_UI/form_data/FG_var_ratecard.inc:74
+msgid "Insert the initial rate"
+msgstr "Insira a taxa inicial"
+
+#: A2BCustomer_UI/form_data/FG_var_ratecard.inc:75
+msgid ""
+"Cost per minute for which you want to charge your customer. For example "
+"'0.02'"
+msgstr ""
+"Custo por minuto que você quer cobrar de seu cliente. Por exemplo '0.02'"
+
+#: A2BCustomer_UI/form_data/FG_var_ratecard.inc:75
+msgid "Define the selling cost for customers..."
+msgstr "Defina o custo de venda para os clientes..."
+
+#: A2BCustomer_UI/form_data/FG_var_speeddial.inc:26
+#: A2BCustomer_UI/form_data/FG_var_speeddial.inc:60
+msgid "SPEEDDIAL"
+msgstr "DISCAGEM RÁPIDA"
+
+#: A2BCustomer_UI/form_data/FG_var_speeddial.inc:37
+msgid "THERE ARE NO "
+msgstr "NÃO HÁ "
+
+#: A2BCustomer_UI/form_data/FG_var_speeddial.inc:76
+msgid "Insert the name"
+msgstr "Insira o nome"
+
+#: A2BCustomer_UI/form_data/FG_var_speeddial.inc:77
+msgid "Enter here the name/label that will identify this speed dial"
+msgstr "Entre com o nome/etiqueta que identificará esta discagem rápida."
+
+#: A2BCustomer_UI/form_data/FG_var_speeddial.inc:86
+msgid "Insert the phone"
+msgstr "Insira o telefone"
+
+#: A2BCustomer_UI/form_data/FG_var_speeddial.inc:87
+msgid "Enter here the phonenumber you want to call for this speed dial"
+msgstr ""
+"Entre com o número de telefone que você quer para esta discagem rápida."
+
+#: A2BCustomer_UI/form_data/FG_var_speeddial.inc:112
+#: A2BCustomer_UI/form_data/FG_var_callerid.inc:102
+msgid ""
+"You can modify, through the following form, the different properties of your"
+msgstr ""
+"Você pode modificar, através do seguinte formulário, as diferentes "
+"propriedades do seu"
+
+#: A2BCustomer_UI/form_data/FG_var_speeddial.inc:113
+#: A2BCustomer_UI/form_data/FG_var_callerid.inc:103
+#: A2BCustomer_UI/form_data/FG_var_did.inc:133
+msgid "If you really want remove this"
+msgstr "Se você quer realmente remover isto"
+
+#: A2BCustomer_UI/form_data/FG_var_speeddial.inc:113
+#: A2BCustomer_UI/form_data/FG_var_callerid.inc:103
+#: A2BCustomer_UI/form_data/FG_var_did.inc:133
+msgid "click on the delete button."
+msgstr "clique no botão delete."
+
+#: A2BCustomer_UI/form_data/FG_var_speeddial.inc:114
+#: A2BCustomer_UI/form_data/FG_var_callerid.inc:104
+#: A2BCustomer_UI/form_data/FG_var_did.inc:134
+msgid "you can add easily a new"
+msgstr "você pode facilmente adicionar um novo"
+
+#: A2BCustomer_UI/form_data/FG_var_speeddial.inc:114
+#: A2BCustomer_UI/form_data/FG_var_callerid.inc:104
+#: A2BCustomer_UI/form_data/FG_var_did.inc:134
+msgid "Fill the following fields and confirm by clicking on the button add."
+msgstr "Preencha os seguintes campos e confirme clicando no botão adicionar."
+
+#: A2BCustomer_UI/form_data/FG_var_speeddial.inc:121
+#: A2BCustomer_UI/form_data/FG_var_callerid.inc:112
+#: A2BCustomer_UI/form_data/FG_var_did.inc:138
+#: A2BCustomer_UI/form_data/FG_var_view_invoice.inc:107
+msgid "Your new"
+msgstr "Seu novo"
+
+#: A2BCustomer_UI/form_data/FG_var_speeddial.inc:121
+#: A2BCustomer_UI/form_data/FG_var_callerid.inc:112
+#: A2BCustomer_UI/form_data/FG_var_did.inc:138
+msgid "has been inserted."
+msgstr "foi inserido."
+
+#: A2BCustomer_UI/form_data/FG_var_speeddial.inc:125
+#: A2BCustomer_UI/form_data/FG_var_view_invoice.inc:110
+msgid "Once you have completed the form above, click on the CONTINUE button."
+msgstr "Uma vez terminado o formulário acima, clique no botão CONTINUAR."
+
+#: A2BCustomer_UI/form_data/FG_var_callerid.inc:12
+#: A2BCustomer_UI/form_data/FG_var_did.inc:18
+#: A2BCustomer_UI/form_data/FG_var_did.inc:39
+msgid "Active"
+msgstr "Ativado"
+
+#: A2BCustomer_UI/form_data/FG_var_callerid.inc:13
+#: A2BCustomer_UI/form_data/FG_var_did.inc:19
+#: A2BCustomer_UI/form_data/FG_var_did.inc:39
+msgid "Inactive"
+msgstr "Inativo"
+
+#: A2BCustomer_UI/form_data/FG_var_callerid.inc:20
+#: A2BCustomer_UI/form_data/FG_var_callerid.inc:53
+msgid "CALLERID"
+msgstr "IDENTIFICADOR DE CHAMADAS"
+
+#: A2BCustomer_UI/form_data/FG_var_callerid.inc:21
+#: A2BCustomer_UI/form_data/FG_var_view_invoice.inc:57
+msgid "CARDNUMBER"
+msgstr "NÚMERO DO CARTÃO"
+
+#: A2BCustomer_UI/form_data/FG_var_callerid.inc:22
+#: A2BCustomer_UI/form_data/FG_var_callerid.inc:63
+#: A2BCustomer_UI/form_data/FG_var_did.inc:43
+#: A2BCustomer_UI/form_data/FG_var_did.inc:90
+msgid "ACTIVATED"
+msgstr "ATIVADO"
+
+#: A2BCustomer_UI/form_data/FG_var_callerid.inc:28
+#: A2BCustomer_UI/form_data/FG_var_did.inc:60
+msgid "THERE IS NO"
+msgstr "NÃO HÁ"
+
+#: A2BCustomer_UI/form_data/FG_var_callerid.inc:59
+msgid "Insert the CallerID"
+msgstr "Insira o Identificador de Chamadas"
+
+#: A2BCustomer_UI/form_data/FG_var_callerid.inc:69
+#: A2BCustomer_UI/form_data/FG_var_did.inc:96
+msgid "Choose if you want to activate this card"
+msgstr "Escolha se você quer ativar este cartão"
+
+#: A2BCustomer_UI/form_data/FG_var_callerid.inc:111
+msgid ""
+"You can add your home phone number below to allow you to call in and use "
+"your Calling Card Services with out having to enter your Calling Card every "
+"time you call in."
+msgstr ""
+"Você pode adicionar seu número de telefone abaixo, para permitir que você "
+"receba ligações e use seu Serviço de Cartão sem ter que colocar seu número "
+"de cartão cada vez que você receber ligações."
+
+#: A2BCustomer_UI/form_data/FG_var_callerid.inc:111
+msgid ""
+"You can also add your Soft Phone number (The number you used to log into "
+"this Website) and be able to make calls with out having to enter your "
+"Calling Card information."
+msgstr ""
+"Você pode também adicionar seu número de telefone - Softphone (O número que "
+"você usou para logar neste Site) e fazer ligações sem ter que colocar a "
+"informação do seu cartão."
+
+#: A2BCustomer_UI/form_data/FG_var_callerid.inc:116
+msgid "Made your change to edit this callerid."
+msgstr "Faça suas alterações para editar esse identificador de chamadas."
+
+#: A2BCustomer_UI/form_data/FG_var_did.inc:22
+msgid "Fix per month + dialoutrate"
+msgstr "Fixar por mês + taxa de discagem"
+
+#: A2BCustomer_UI/form_data/FG_var_did.inc:23
+msgid "Fix per month"
+msgstr "Fixar por mês"
+
+#: A2BCustomer_UI/form_data/FG_var_did.inc:24
+msgid "Only dialout rate"
+msgstr "Somente taxa de discagem"
+
+#: A2BCustomer_UI/form_data/FG_var_did.inc:29
+msgid "Fix+Dial"
+msgstr "Fixar+Discar"
+
+#: A2BCustomer_UI/form_data/FG_var_did.inc:30
+msgid "Fix"
+msgstr "Fixar"
+
+#: A2BCustomer_UI/form_data/FG_var_did.inc:32
+msgid "Free"
+msgstr "Grátis"
+
+#: A2BCustomer_UI/form_data/FG_var_did.inc:44
+#: A2BCustomer_UI/form_data/FG_var_did.inc:99
+msgid "PRIORITY"
+msgstr "PRIORIDADE"
+
+#: A2BCustomer_UI/form_data/FG_var_did.inc:45
+msgid "USED MINUTE"
+msgstr "MINUTOS USADOS"
+
+#: A2BCustomer_UI/form_data/FG_var_did.inc:60
+msgid "CREATED!"
+msgstr "CRIADO!"
+
+#: A2BCustomer_UI/form_data/FG_var_did.inc:76
+msgid ""
+"Enter here the phonenumber you want to call or the SIP/IAX/H323 peer to "
+"reach (ie: 347894999 or SIP/jeremy@182.212.1.45). To call SIP/IAX/H323 peer, "
+"you need to enable the voip_call bellow (voip_call = Yes) "
+msgstr ""
+"Coloque aqui o número que você deseja ligar ou o SIP/IAX/H323 peer(Ex: "
+"347894999 ou SIP/jeremy@182.212.1.45). Para ligar SIP/IAX/H323 peer, você "
+"precisa  habilitar o voip_call abaixo (voip_call = Sim)"
+
+#: A2BCustomer_UI/form_data/FG_var_did.inc:109
+msgid "VOIP_CALL"
+msgstr "VOIP_CALL"
+
+#: A2BCustomer_UI/form_data/FG_var_did.inc:115
+msgid ""
+"Choose if you want to not use the trunk and let the asterisk call directly "
+"the destination (ie, Destination : SIP/jeremy@182.212.1.45)"
+msgstr ""
+"Escolha se você não quer usar o tronco e deixe o asterisk ligar diretamente "
+"para o destino (ex: Destino : SIP/jeremy@182.212.1.45)"
+
+#: A2BCustomer_UI/form_data/FG_var_did.inc:142
+#, fuzzy
+msgid "Setup those values to create or edit the "
+msgstr "Configure esses valores para criar o novo"
+
+#: A2BCustomer_UI/form_data/FG_var_view_invoice.inc:53
+msgid "Failed"
+msgstr "Falha"
+
+#: A2BCustomer_UI/form_data/FG_var_view_invoice.inc:54
+msgid "Successful"
+msgstr "Sucesso"
+
+#: A2BCustomer_UI/form_data/FG_var_view_invoice.inc:56
+msgid "ID"
+msgstr "ID"
+
+#: A2BCustomer_UI/form_data/FG_var_view_invoice.inc:58
+msgid "INVOICEDATE"
+msgstr "DATA DA FATURA"
+
+#: A2BCustomer_UI/form_data/FG_var_view_invoice.inc:59
+msgid "COVERSTART"
+msgstr "INÍCIO DA COBERTURA"
+
+#: A2BCustomer_UI/form_data/FG_var_view_invoice.inc:60
+msgid "COVEREND"
+msgstr "FIM DA COBERTURA"
+
+#: A2BCustomer_UI/form_data/FG_var_view_invoice.inc:61
+msgid "SENTDATE"
+msgstr "DATA DE ENVIO"
+
+#: A2BCustomer_UI/form_data/FG_var_view_invoice.inc:106
+msgid "Add a "
+msgstr "Adicionar um "
+
+#: A2BCustomer_UI/form_data/FG_var_view_invoice.inc:107
+msgid "has been inserted. <br>"
+msgstr "foi inserido. <br>"
+
+#: A2BCustomer_UI/form_data/FG_var_voucher.inc:15
+msgid "CREDIT"
+msgstr "CRÉDITO"
+
+#: A2BCustomer_UI/form_data/FG_var_card.inc:13
+msgid "LASTNAME"
+msgstr "SOBRENOME"
+
+#: A2BCustomer_UI/form_data/FG_var_card.inc:19
+msgid "Insert the lastname of the customers"
+msgstr "Insira sobrenome do cliente"
+
+#: A2BCustomer_UI/form_data/FG_var_card.inc:28
+msgid "Insert the firstname of the customers"
+msgstr "Insira o primeiro nome do cliente"
+
+#: A2BCustomer_UI/form_data/FG_var_card.inc:38
+msgid "Insert the address of the customers"
+msgstr "Insira o endereço do cliente"
+
+#: A2BCustomer_UI/form_data/FG_var_card.inc:48
+msgid "Insert the city"
+msgstr "Insira a cidade"
+
+#: A2BCustomer_UI/form_data/FG_var_card.inc:52
+msgid "STATE/PROVINCE"
+msgstr "ESTADO/PROVÍNCIA"
+
+#: A2BCustomer_UI/form_data/FG_var_card.inc:58
+msgid "Insert the state"
+msgstr "Insira o estado"
+
+#: A2BCustomer_UI/form_data/FG_var_card.inc:73
+msgid "ZIP/POSTAL CODE"
+msgstr "CEP"
+
+#: A2BCustomer_UI/form_data/FG_var_card.inc:82
+msgid "TIMEZONE"
+msgstr ""
+
+#: A2BCustomer_UI/form_data/FG_var_card.inc:92
+msgid "PHONE NUMBER"
+msgstr "NÚMERO DO TELEFONE"
+
+#: A2BCustomer_UI/form_data/FG_var_card.inc:98
+msgid "Insert the phone number of the customers"
+msgstr "Insira o número do telefone do cliente"
+
+#: A2BCustomer_UI/form_data/FG_var_card.inc:102
+msgid "FAX NUMBER"
+msgstr "NÚMERO DO FAX"
+
+#: A2BCustomer_UI/form_data/FG_var_card.inc:108
+msgid "Insert the fax number of the customers"
+msgstr "Insira o número do fax do cliente"
+
+#: A2BCustomer_UI/form_data/FG_var_card.inc:114
+msgid "you can add easily update your information clicking on the button."
+msgstr "você pode facilmente atualizar suas informações clicando no botão."
+
+#: A2BCustomer_UI/form_data/FG_var_card.inc:117
+msgid "Your record has been updated."
+msgstr "Seu registro foi atualizado."
+
+#~ msgid "Error card !!!"
+#~ msgstr "Erro no cartão !!!"
+
+#~ msgid "Simulator"
+#~ msgstr "Simulador"
+
+#~ msgid "Enter the number you wish to call"
+#~ msgstr "Entre com o número que você  deseja ligar"
+
+#~ msgid "YOUR BALANCE"
+#~ msgstr "SEU SALDO"
+
+#~ msgid "Simulator found a rate for your destination"
+#~ msgstr "O simulador encontrou uma taxa para seu destino"
+
+#~ msgid "We found several destinations:"
+#~ msgstr "Nós encontramos diversos destinos"
+
+#~ msgid "CallTime available"
+#~ msgstr "Tempo de ligação disponível"
+
+#~ msgid "The number, you have entered, is not correct!"
+#~ msgstr "O número que você digitou está incorreto!"
+
+#~ msgid "THERE IS NO RECORD !!!"
+#~ msgstr "NÃO HÁ REGISTRO !!!"
+
+#~ msgid "DIRECTORY"
+#~ msgstr "DIRETÓRIO"
+
+#~ msgid "Define criteria to make a precise search"
+#~ msgstr "Defina o critério para uma pesquisa precisa"
+
+#~ msgid "You can browse through our"
+#~ msgstr "Você pode navegar através do nosso"
+
+#~ msgid "and modify their different properties<br>"
+#~ msgstr "e modificar suas diferentes propriedades<br>"
+
+#~ msgid "Delete this record"
+#~ msgstr "Deletar este registro"
+
+#~ msgid "Edit this record"
+#~ msgstr "Editar este registro"
+
+#~ msgid ""
+#~ "The document has been created correctly. Now, you can define the "
+#~ "different tariff that you want to associate."
+#~ msgstr ""
+#~ "O documento foi criado corretamente. Agora, você pode definir as "
+#~ "diferentes tarifas que você quer associar."
+
+#~ msgid "Click on the delete button."
+#~ msgstr "Clique no botão delete."
+
+#~ msgid "One"
+#~ msgstr "Um"
+
+#~ msgid "has been deleted!"
+#~ msgstr "foi deletado!"
+
+#~ msgid "Add a"
+#~ msgstr "Adicionar um"
+
+#~ msgid "now."
+#~ msgstr "agora."
+
+#~ msgid "You cannot choose more than one !"
+#~ msgstr "Você não pode escolher mais que um !"
+
+#~ msgid "ONESHOT"
+#~ msgstr "CUSTO FIXO"
+
+#~ msgid "PER MINUTE"
+#~ msgstr "POR MINUTO"
+
+#~ msgid "IN PROCESS"
+#~ msgstr "EM PROCESSO"
+
+#~ msgid "WORKING"
+#~ msgstr "TRABALHANDO"
+
+#~ msgid "ISSUE"
+#~ msgstr "ERRO"
+
+#~ msgid "ALRIGHT"
+#~ msgstr "TUDO CERTO"
+
+#~ msgid "NOT USED"
+#~ msgstr "NÃO USADO"
+
+#~ msgid "NO ATTRIBUED"
+#~ msgstr "NÃO ATRIBUÍDO"
+
+#~ msgid "WORK IN PROCESS"
+#~ msgstr "TRABALHANDO"
+
+#~ msgid "CREATION"
+#~ msgstr "CRIAÇÃO"
+
+#~ msgid "IVR INTREGRATION"
+#~ msgstr "INTEGRAÇÃO DE URA"
+
+#~ msgid "CLOSE"
+#~ msgstr "FECHAR"
+
+#~ msgid "URGENT"
+#~ msgstr "URGENTE"
+
+#~ msgid "NORMAL"
+#~ msgstr "NORMAL"
+
+#~ msgid "LOW"
+#~ msgstr "BAIXO"
+
+#~ msgid "NEW"
+#~ msgstr "NOVO"
+
+#~ msgid "UPDATE"
+#~ msgstr "ATUALIZAR"
+
+#~ msgid "ANSWER"
+#~ msgstr "ATENDER"
+
+#~ msgid "ASSIGN"
+#~ msgstr "ATRIBUIR"
+
+#~ msgid "INSERTED"
+#~ msgstr "INSERIDO"
+
+#~ msgid "DISABLE"
+#~ msgstr "DESABILITAR"
+
+#~ msgid "FREE"
+#~ msgstr "GRÁTIS"
+
+#~ msgid "SMS"
+#~ msgstr "SMS"
+
+#~ msgid "CODE VALID 1 TIME"
+#~ msgstr "CÓDIGO VÁLIDO 1 VEZ"
+
+#~ msgid "CODE VALID 2 TIMES"
+#~ msgstr "CÓDIGO VÁLIDO 2 VEZES"
+
+#~ msgid "CODE VALID 3 TIMES"
+#~ msgstr "CÓDIGO VÁLIDO 3 VEZES"
+
+#~ msgid "CODE VALID 4 TIMES"
+#~ msgstr "CÓDIGO VÁLIDO 4 VEZES"
+
+#~ msgid "CODE VALID 5 TIMES"
+#~ msgstr "CÓDIGO VÁLIDO 5 VEZES"
+
+#~ msgid "CODE VALID 6 TIMES"
+#~ msgstr "CÓDIGO VÁLIDO 6 VEZES"
+
+#~ msgid "CODE VALID 7 TIMES"
+#~ msgstr "CÓDIGO VÁLIDO 7 VEZES"
+
+#~ msgid "CODE VALID 8 TIMES"
+#~ msgstr "CÓDIGO VÁLIDO 8 VEZES"
+
+#~ msgid "CODE VALID 9 TIMES"
+#~ msgstr "CÓDIGO VÁLIDO 9 VEZES"
+
+#~ msgid "CODE VALID 10 TIMES"
+#~ msgstr "CÓDIGO VÁLIDO 10 VEZES"
+
+#~ msgid "CODE"
+#~ msgstr "CÓDIGO"
+
+#~ msgid "CODES"
+#~ msgstr "CÓDIGOS"
+
+#~ msgid " and modify their different properties<br>"
+#~ msgstr "e modificar suas diferentes propriedades<br>"
+
+#~ msgid "(at least 3 characters)"
+#~ msgstr "(pelo menos 3 caracteres)"
+
+#~ msgid "(must match email structure. Example : name@domain.com)"
+#~ msgstr "(deve conter a estrutura de email. Exemplo: nome@domínio.com)"
+
+#~ msgid "(at least 5 successive characters appear at the end of this string)"
+#~ msgstr "(pelo menos 5 caracteres sucessivos aparecem no fim desta string)"
+
+#~ msgid "(at least 4 characters)"
+#~ msgstr "(pelo menos 4 caracteres)"
+
+#~ msgid "(number format)"
+#~ msgstr "(formato de número)"
+
+#~ msgid "(only number with more that 8 digits)"
+#~ msgstr "(somente números com mais de 8 dígitos)"
+
+#~ msgid "(at least 8 digits using . or - or the space key)"
+#~ msgstr "(pelo menos 8 dígitos usando . ou - ou tecla de espaço)"
+
+#~ msgid "network adress format"
+#~ msgstr "formato de endereço de rede"
+
+#~ msgid "at least 1 character"
+#~ msgstr "pelo menos 1 caracter"
+
+#~ msgid "(AT LEAST 2 CARACTERS)"
+#~ msgstr "(PELO MENOS 2 CARACTERES)"
+
+#~ msgid "(NUMBER FORMAT WITH/WITHOUT DECIMAL, use '.' for decimal)"
+#~ msgstr "(FORMATO DE NÚMERO COM/SEM CASA DECIMAL, use '.' para casa decimal)"
+
+#~ msgid "You must write something."
+#~ msgstr "Você deve escrever alguma coisa."
+
+#~ msgid "8 characters alphanumeric"
+#~ msgstr "8 caracteres alfanuméricos"
+
+#~ msgid "(at least 6 Alphanumeric characters)"
+#~ msgstr "(pelo menos 6 caracteres alfanuméricos)"
+
+#~ msgid "This did is in use by customer id:"
+#~ msgstr "Este DID está em uso pelo cliente id:"
+
+#~ msgid "Could not open buddy file"
+#~ msgstr "Não foi possível abrir o arquivo de contatos"
+
+#~ msgid "Impossible to write to the file"
+#~ msgstr "Impossível escrever no arquivo"
+
+#~ msgid "<br> GOTO ; "
+#~ msgstr "<br> IR PARA ; "
+
+#~ msgid "ERROR_DUPLICATION"
+#~ msgstr "ERRO_NA_DUPLICAÇÃO"
+
+#~ msgid "Done"
+#~ msgstr "Feito"
+
+#~ msgid "THE CURRENT RATECARD"
+#~ msgstr "O RATECARD ATUAL"
+
+#~ msgid "R A T E C A R D"
+#~ msgstr "R A T E C A R D"
+
+#~ msgid "Choose a ratecard"
+#~ msgstr "Escolha um ratecard"
+
+#~ msgid "From :"
+#~ msgstr "De :"
+
+#~ msgid "To :"
+#~ msgstr "Para :"
+
+#~ msgid ""
+#~ "selected, use the option below if you are willing to make a batch updated "
+#~ "of the selected cards."
+#~ msgstr ""
+#~ "selecionado, usar a opção abaixo se você está disposto fazer uma "
+#~ "atualização em lote dos cartões selecionados."
+
+#~ msgid "BUYRATE"
+#~ msgstr "VALOR DA COMPRA"
+
+#~ msgid "Equal"
+#~ msgstr "Igual"
+
+#~ msgid "Add"
+#~ msgstr "Adicionar"
+
+#~ msgid "Substract"
+#~ msgstr "Subtrair"
+
+#~ msgid "BUYRATEINITBLOCK"
+#~ msgstr "TEMPO PAGO PELA CHAMADA"
+
+#~ msgid "BUYRATEINCREMENT"
+#~ msgstr "BLOCO DE SEGS A PAGAR"
+
+#~ msgid "RATE INITIAL"
+#~ msgstr "TAXA INICIAL"
+
+#~ msgid "MIN DURATION"
+#~ msgstr "MIN DURAÇÃO"
+
+#~ msgid "BILLINGBLOCK"
+#~ msgstr "TEMPO PARA TARIFAÇÃO"
+
+#~ msgid "CONNECTCHARGE"
+#~ msgstr "TAXA DE CONEXÃO"
+
+#~ msgid "DISCONNECTCHARGE"
+#~ msgstr "TAXA DE DESCONEXÃO"
+
+#~ msgid " BATCH UPDATE RATECARD "
+#~ msgstr " ATUALIZAR RATECARD EM LOTE "
+
+#~ msgid "You have "
+#~ msgstr "Você tem "
+
+#~ msgid "Remove this "
+#~ msgstr "Remover este "
+
+#~ msgid "Sort"
+#~ msgstr "Ordenar"
+
+#~ msgid "Records"
+#~ msgstr "Registros"
+
+#~ msgid "FILTER ON "
+#~ msgstr "FILTRO PELO "
+
+#~ msgid "FILTER ON"
+#~ msgstr "FILTRO PELO"
+
+#~ msgid "APPLY FILTER "
+#~ msgstr "APLICAR FILTRO "
+
+#~ msgid "ACTION"
+#~ msgstr "AÇÃO"
+
+#~ msgid "DISPLAY"
+#~ msgstr "MOSTRAR"
+
+#~ msgid "GO"
+#~ msgstr "IR"
+
+#~ msgid "Export CSV"
+#~ msgstr "Exportar CSV"
+
+#~ msgid "Export XML"
+#~ msgstr "Exportar XML"
+
+#~ msgid "<br> TYPE DE SELECT :"
+#~ msgstr "<br> TIPO DE SELEÇÃO :"
+
+#~ msgid "LIST "
+#~ msgstr "LISTAR "
+
+#~ msgid "add new a "
+#~ msgstr "adicionar um novo "
+
+#~ msgid "CONFIRM DATA"
+#~ msgstr "CONFIRMAR DADOS"
+
+#~ msgid "Create a new "
+#~ msgstr "Criar um novo "
+
+#~ msgid "File size is greater than allowed limit."
+#~ msgstr "O tamanho do arquivo é maior do que o permitido."
+
+#~ msgid "You did not upload anything!"
+#~ msgstr "Você não fez o upload de nada!"
+
+#~ msgid ""
+#~ "Failed to upload the file, The file you uploaded may not exist on disk."
+#~ msgstr ""
+#~ "Falha ao fazer o upload do arquivo. O arquivo que você fez upload pode "
+#~ "não existir no disco."
+
+#~ msgid "file type is not allowed"
+#~ msgstr "tipo de arquivo não permitido"
+
+#~ msgid "Invalid card number lenght defined in configuration."
+#~ msgstr "Tamanho do número do cartão inválido definido na configuração."
+
+#~ msgid "Error : Authentication Failed !!!"
+#~ msgstr "Erro : Autenticação falhou !!!"
+
+#~ msgid "Error : Not enough credit to call !!!"
+#~ msgstr "Erro : Não há crédito o bastante para ligar !!!"
+
+#~ msgid "Error : Card is not active!!!"
+#~ msgstr "Erro : Cartão não está ativo!!!"
+
+#~ msgid "Error : Card is actually in use!!!"
+#~ msgstr "Erro : Cartão atualmente em uso!!!"
+
+#~ msgid "Error : Card have expired!!!"
+#~ msgstr "Erro : O cartão expirou!!!"
+
+#~ msgid "You can update your personal information here."
+#~ msgstr "Você pode atualizar suas informações pessoais aqui."
+
+#~ msgid ""
+#~ "Configuration information for SIP and IAX Client. You can simply copy and "
+#~ "paste it in your configuration files and can do neccessary modifications."
+#~ msgstr ""
+#~ "Informação de configuração para Clientes SIP e IAX. Você pode "
+#~ "simplesmente copiar e colar isto no seu arquivo de configuração e fazer "
+#~ "as modificações necessárias."
+
+#~ msgid ""
+#~ "WARNING !  <br> after confirmation, the release of the did will be done "
+#~ "immediately and you will not be monthly charged any more."
+#~ msgstr ""
+#~ "AVISO ! <br> após a confirmação, a liberação do did será feita "
+#~ "imediatamente e você não será mais cobrado (taxa extra) mensalmente."
+
+#~ msgid "Disactive"
+#~ msgstr "Desativado"
+
+#~ msgid "Invoices"
+#~ msgstr "Faturas"
+
+#~ msgid "Billed Summary"
+#~ msgstr "Sumário dos faturados"
+
+#~ msgid "UnBilled Summary"
+#~ msgstr "Sumário dos não faturados"
+
+#~ msgid "UnBilled Details"
+#~ msgstr "Detalhes não faturados"
+
+#~ msgid "CardNumber"
+#~ msgstr "Número do Cartão"

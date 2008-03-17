@@ -43,7 +43,7 @@ CREATE OR REPLACE FUNCTION cc_calc_daysleft(agentid bigint, curtime timestamp wi
 	out avg_charges NUMERIC(12,4), OUT days_left NUMERIC ) AS $$
 SELECT credit, climit, AVG(totaltime) as avg_time,
 	AVG(charges) AS avg_charges, 
-	trunc((cc_agent.credit +cc_agent.climit) / AVG(charges)) 
+	trunc((cc_agent.credit +cc_agent.climit) / NULLIF(AVG(charges),0.0)) 
 	FROM cc_agent_daycalls_v, cc_agent 
 	WHERE cc_agent_daycalls_v.agentid = cc_agent.id
 		AND cc_agent.id = $1 AND cc_agent_daycalls_v.day <= $2 AND

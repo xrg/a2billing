@@ -27,6 +27,7 @@ $HD_Form->model[] = new SqlRefField(_("Agent"),'agentid','cc_agent','id','name',
 $HD_Form->model[] = dontList( new DateTimeField(_("Creation"),'datecreation',_("When the booth was created.")));
 
 $HD_Form->model[] = dontAdd( new BoolField(_("Disabled"),'disabled',_("If true, booth is unusable. eg. broken")));
+	end($HD_Form->model)->fieldacr = _("Dis");
 
 $HD_Form->model[] = dontList( dontAdd( new IntFieldN(_("Default card"),'def_card_id',_("Default card. Must exist for booth to be usable."))));
 $HD_Form->model[] = dontAdd( new IntFieldN(_("Current card"),'cur_card_id',_("Current card making calls in booth.")));

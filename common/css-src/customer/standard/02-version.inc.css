@@ -1,0 +1,23 @@
+.version {
+ font-family: geneva, verdana, arial, sans-serif; 
+ font-weight: normal;
+ font-size: 10px;
+ line-height: 5px;
+ margin: 4px 10px;
+ color: #565C56;
+ }
+
+.liens {
+	font-size: 10px;
+	font-weight: bolder;	
+	color: #cc0033;
+}
+
+.w1 {
+	font-family: geneva, verdana, arial, sans-serif; 
+	font-weight: normal;
+	font-size: 10px;
+	line-height: 5px;
+	margin: 4px 10px;
+	color: #565C56;
+}

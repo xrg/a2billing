@@ -1,275 +1,53 @@
 <?php
-include ("lib/defines.php");
-include ("lib/module.access.php");
-include ("lib/Class.RateEngine.php");	
+require_once ("./lib/defines.php");
+require_once ("./lib/module.access.php");
+require_once (DIR_COMMON."Form.inc.php");
+require_once (DIR_COMMON."Form/Class.SqlActionForm.inc.php");
+require_once (DIR_COMMON."Class.HelpElem.inc.php");
+/*require_once (DIR_COMMON."Form/Class.RevRef.inc.php");*/
+require_once (DIR_COMMON."Form/Class.TimeField.inc.php");
+require_once (DIR_COMMON."Form/Class.SqlRefField.inc.php");
 
-if (! has_rights (ACX_ACCESS)){ 
-	Header ("HTTP/1.0 401 Unauthorized");
-	   Header ("Location: PP_error.php?c=accessdenied");
-	   die();
-}
-
-if (!$A2B->config["webcustomerui"]['simulator']) exit;
-
-$QUERY = "SELECT  username, credit, lastname, firstname, address, city, state, country, zipcode, phone, email, fax, lastuse, activated, status, id, tariff FROM cc_card WHERE username = '".$_SESSION["pr_login"]."' AND uipass = '".$_SESSION["pr_password"]."'";
-
-$DBHandle_max = DbConnect();
-$numrow = 0;
-$resmax = $DBHandle_max -> Execute($QUERY);
-if ($resmax)
-	$numrow = $resmax -> RecordCount();
-
-if ($numrow == 0) exit();
-$customer_info =$resmax -> fetchRow();
-
-if($customer_info [14] != "1" ) {
+$menu_section='menu_simulator';
+if(!DynConf::GetCfg(CUSTOMER_CFG,'menu_simulator',true))
 	exit();
-}
 
+HelpElem::DoHelp(_("Here you can simulate a phone call and see how much it would cost"),'vcard.png');
 
-getpost_ifset(array('posted', 'tariffplan', 'balance', 'id_cc_card', 'called'));
-$id_cc_card = $customer_info[15];
-$tariffplan = $customer_info[16];
-$balance = $customer_info[1];
+$HD_Form= new SqlTableActionForm();
+$HD_Form->checkRights(ACX_ACCESS);
+$HD_Form->init();
 
-$FG_DEBUG = 0;
-$DBHandle  = DbConnect();
+$PAGE_ELEMS[] = &$HD_Form;
 
-if ($called  && $id_cc_card){
-		
-		$calling=ereg_replace("^\+","011",$called);	
-		$calling=ereg_replace("[^0-9]","",$calling);	
-		$calling=ereg_replace("^01100","011",$calling);	
-		$calling=ereg_replace("^00","011",$calling);	
-		$calling=ereg_replace("^0111","1",$calling);
-		
-		if ( strlen($calling)>2 && is_numeric($calling)){
-				
-				$A2B -> DBHandle = DbConnect();
-				$instance_table = new Table();
-				$A2B -> set_instance_table ($instance_table);
-				$num = 0;				
-				$resmax = $A2B -> DBHandle -> Execute("SELECT username, tariff FROM cc_card where id='$customer_info[15]'");
-				if ($resmax) 
-					$num = $resmax -> RecordCount();
+$HD_Form->model[] = new TextField(_("Dial"),'dialstring',_("The number you wish to dial."));
 
-				if ($num==0){ echo gettext("Error card !!!"); exit();}
+$HD_Form->QueryString= str_dbparams(A2Billing::DBHandle(), 'SELECT re.*, %%dialstring AS init_dial, cc_sellrate.rateinitial,
+	format_currency(sell_calc_fwd(INTERVAL \'5 min\', cc_sellrate.*)/5.0, %3) AS rate5min
+	FROM (SELECT * FROM RateEngine3((SELECT tariffgroup FROM cc_card_group WHERE id = %#1), ' .
+		'%%dialstring, (SELECT numplan FROM cc_card_group WHERE id = %#1), now(), 
+		(SELECT credit FROM cc_card WHERE id = %#2)) LIMIT 1) AS re, cc_sellrate
+		WHERE cc_sellrate.id = re.srid ;',
+		array($_SESSION['card_grp'],$_SESSION['card_id'], $_SESSION['currency'])) ;
 
-				for($i=0;$i<$num;$i++)
-					{
-						$row[] =$resmax -> fetchRow();
-					}
+$HD_Form->expectRows = true;
+$HD_Form->submitString = _("Calculate!");
+$HD_Form->successString =  '';
+$HD_Form->noRowsString =  _("No rates/destinations found!");
+//$HD_Form->contentString = 'Generated:<br>';
 
-				$A2B -> cardnumber = $row[0][0] ;
-				$A2B -> credit = $balance;
-				if ($FG_DEBUG == 1) echo "cardnumber = ".$row[0][0] ." - balance=$balance<br>";
+$HD_Form->rmodel[] = new TextField(_('Dial'),'init_dial') ;
+$HD_Form->rmodel[] = new TextField(_('Destination'),'destination') ;
+$HD_Form->rmodel[] = new SecondsField(_('Max call duration'),'tmout') ;
+end($HD_Form->rmodel)->fieldacr=_('Tm');
 
-				if ($A2B -> callingcard_ivr_authenticate_light ($error_msg)){
-					if ($FG_DEBUG == 1) $RateEngine -> debug_st = 1;
+$HD_Form->rmodel[] = new IntField(_('Rate/min'),'rate5min') ;
 
-					$RateEngine = new RateEngine();
-					$RateEngine -> webui = 1;
-					// LOOKUP RATE : FIND A RATE FOR THIS DESTINATION
+// $HD_Form->rmodel[] = new TextField(_('Matched Prefix'),'prefix') ;
+// end($HD_Form->rmodel)->fieldacr=_('Pr');
 
+// $HD_Form->rmodel[] = new TextField(_('Clid Pattern'),'clidreplace') ;
+// end($HD_Form->rmodel)->fieldacr=_('CLID');
 
-					$A2B ->agiconfig['accountcode'] = $A2B -> cardnumber ;
-					$A2B ->agiconfig['use_dnid']=1;
-					$A2B ->agiconfig['say_timetocall']=0;
-					$A2B ->dnid = $A2B ->destination = $calling;
-					if ($A2B->removeinterprefix) $A2B->destination = $A2B -> apply_rules ($A2B->destination);
-
-					$resfindrate = $RateEngine->rate_engine_findrates($A2B, $A2B->destination, $row[0][1]);
-					if ($FG_DEBUG == 1) echo "resfindrate=$resfindrate";
-					
-					// IF FIND RATE
-					if ($resfindrate!=0){	
-						$res_all_calcultimeout = $RateEngine->rate_engine_all_calcultimeout($A2B, $A2B->credit);
-						if ($FG_DEBUG == 1) print_r($RateEngine->ratecard_obj);
-					}
-					
-
-				}
-
-		}
-}
-
-/**************************************************************/
-
-$instance_table_tariffname = new Table("cc_tariffplan", "id, tariffname");
-
-$FG_TABLE_CLAUSE = "";
-
-$list_tariffname = $instance_table_tariffname  -> Get_list ($DBHandle, $FG_TABLE_CLAUSE, "tariffname", "ASC", null, null, null, null);
-
-$nb_tariffname = count($list_tariffname);
-/*************************************************************/
-?>
-<?php
-	include("PP_header.php");
-// #### HELP SECTION
-show_help('simulator_rateengine');
-
-?>
-
-<script language="JavaScript" type="text/JavaScript">
-<!--
-function MM_openBrWindow(theURL,winName,features) { //v2.0
-  window.open(theURL,winName,features);
-}
-
-function openURL(theLINK)
-{
-	
-	// grab index number of the selected option
-	selInd = document.theForm.choose_list.selectedIndex;
-	if(selInd==''){alert('Please, select a tariff'); return false;}
-	// get value of the selected option
-	goURL = document.theForm.choose_list.options[selInd].value;
-	  
-	definecredit = document.theForm.definecredit.value;
-	// redirect browser to the grabbed value (hopefully a URL)	  
-	self.location.href = theLINK + goURL + "&definecredit="+definecredit ; //+ "&opt="+opt;
-}
-//-->
-</script>
-<center>
-	<?php echo $error_msg; ?>
-</center>
-
-<br>
-
-	  <br>
-	  <table width="<?php echo $FG_HTML_TABLE_WIDTH?>" border="0" align="center" cellpadding="0" cellspacing="0">
-		
-		<TR> 
-          <TD style="border-bottom: medium dotted #8888CC" colspan="2"> <B><?php echo gettext("Call")." - ".gettext("Simulator");?></B></TD>
-        </TR>
-	<FORM NAME="theFormFilter" action="<?php echo $PHP_SELF?>" >
-	<tr>
-            <td height="31" bgcolor="#8888CC" style="padding-left: 5px; padding-right: 3px;">
-			<br>
-			<font class="fontstyle_008"><?php echo gettext("Enter the number you wish to call");?>&nbsp;:</font>
-			<INPUT type="text" name="called" value="<?php echo $called;?>">
-			<br>
-			<?php if (false){ ?>
-			<br>
-			<font color="white"><b><?php echo gettext("YOUR BALANCE");?>&nbsp;:</b></font>
-			<INPUT type="text" name="balance" value="<?php if (!isset($balance)) echo "10"; else echo $balance; ?>" >
-			<?php } ?>
-
-			<br>
-			<br>
-
-			</td>
-			<td height="31" bgcolor="#8888CC" style="padding-left: 5px; padding-right: 3px;">
-			<span class="bar-search">
-				<input type="image"  name="image16" align="top" border="0" src="images/button-search.png" />
-			</span></td>
-        </tr>
-
-	</FORM>
-	<TR>
-          <TD style="border-bottom: medium dotted #8888CC"  colspan="2"><br></TD>
-        </TR>
-	  </table>
-
-
-<?php if ( (is_array($RateEngine->ratecard_obj)) && (!empty($RateEngine->ratecard_obj)) ){
-
-if ($FG_DEBUG == 1) print_r($RateEngine->ratecard_obj);
-
-
-
-$arr_ratecard=array('idtariffgroup', 'cc_tariffgroup_plan.idtariffplan', 'tariffname', 'Destination Number', 'cc_ratecard.id' , 'dialprefix', 'destination', 'buyrate', 'buyrateinitblock', 'buyrateincrement', 'Cost per minute', 'initblock', 'billingblock', 'connectcharge', 'disconnectcharge', 'stepchargea', 'chargea', 'timechargea', 'billingblocka', 'stepchargeb', 'chargeb', 'timechargeb', 'billingblockb', 'stepchargec', 'chargec', 'timechargec', 'billingblockc', 'tp_id_trunk', 'tp_trunk', 'providertech', 'tp_providerip', 'tp_removeprefix');
-
-$FG_TABLE_ALTERNATE_ROW_COLOR[0]='#CDC9C9';
-$FG_TABLE_ALTERNATE_ROW_COLOR[1]='#EEE9E9';
-?>
- <br>
-	  <table width="65%" border="0" align="center" cellpadding="0" cellspacing="0">
-		
-		<TR> 
-          <TD style="border-bottom: medium dotted #FF4444" colspan="2"> <B><font color="red" size="3"><?php echo gettext("Simulator found a rate for your destination");?></font></B></TD>
-        </TR>
-
-		<?php if (count($RateEngine->ratecard_obj)>1){ ?>
-		<TR>
-          <td height="15" bgcolor="#5555CC" style="padding-left: 5px; padding-right: 3px;" colspan="2">
-			<b><?php echo gettext("We found several destinations:");?></b></td>
-        </TR>
-		<?php } ?>
-		<?php for($j=0;$j<count($RateEngine->ratecard_obj);$j++){ ?>
-			<TR>
-          	<td height="15" bgcolor="" style="padding-left: 5px; padding-right: 3px;" colspan="2">
-
-			</td>
-        	</TR>
-			<TR>
-          	<td height="15" bgcolor="#55CC55" style="padding-left: 5px; padding-right: 3px;" colspan="2">
-					<b><?php echo gettext("DESTINATION");?>&nbsp;:#<?php echo $j+1;?></b>
-			</td>
-        	</TR>
-			<tr>
-				<td height="15" bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[1]?>" style="padding-left: 5px; padding-right: 3px;">
-						<font color="blue"><b><a href="did.php"><img src="images/icons/user.png" alt="a " name="image2" width="16" height="16" border="0" align="texttop" id="image2" /></a><?php echo gettext("CallTime available");?></b></font>				</td>
-				<td height="15" bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[1]?>" style="padding-left: 5px; padding-right: 3px;">
-						<font color="blue"><i><?php echo display_minute($RateEngine->ratecard_obj[$j]['timeout']);?> <?php echo gettext("Minutes");?> </i></font>
-				</td>
-			
-			</tr>
-			
-			
-			
-			
-			
-			<p>			<p>			<p>
-						
-			<tr>			
-				<td height="15" bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[0]?>" style="padding-left: 5px; padding-right: 3px;"><b><a href="did.php"><img src="images/icons/globe1.png" alt="a " name="image2" width="16" height="16" border="0" align="texttop" id="image2" /></a><a href="simulador.php"></a><?php echo $arr_ratecard[3];?></b>				</td>
-				<td height="15" bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[0]?>" style="padding-left: 5px; padding-right: 3px;">
-						<i><?php echo $RateEngine->ratecard_obj[$j][5];?></i>
-				</td>
-			</tr>
-			<tr>			
-				<td height="15" bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[1]?>" style="padding-left: 5px; padding-right: 3px;">
-						<b><a href="simulador.php"><img src="images/icons/query.png" alt="a " name="image2" width="16" height="16" border="0" align="texttop" id="image2" /></a><?php echo $arr_ratecard[10];?></b>				</td>
-				<td height="15" bgcolor="<?php echo $FG_TABLE_ALTERNATE_ROW_COLOR[1]?>" style="padding-left: 5px; padding-right: 3px;">
-						<i><?php echo "?*-*" . $RateEngine->ratecard_obj[$j][12] ;?></i>
-				</td>
-			</tr>
-						
-			<p> <p> <p>
-			
-			
-			
-	
-			
-		<?php } ?>
-		
-		
-
-		
-	<TR>
-          <TD style="border-bottom: medium dotted #8888CC"  colspan="2"><br></TD>
-        </TR>
-	  </table>
-        <?php  } ?>
-      <div align="center">
-
-        <?php  if (count($RateEngine->ratecard_obj)==0) {
-		if  ($called){
-		?>
-        <span style="font-weight: bold">	<img src="Css/kicons/button_cancel.png" alt="a" width="32" height="32" /><?php echo gettext("The number, you have entered, is not correct!");?>  </span>
-        <?php  } ?>
-        <?php  } ?>
-        
-        
-        <br>
-        <br>
-      </div>
-        <br>
-        <br>
-      
-<?php
-	include("PP_footer.php");
+require("PP_page.inc.php");
 ?>

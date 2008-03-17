@@ -2,19 +2,12 @@
 require_once("Class.FormViews.inc.php");
 
 class DetailsView extends FormView {
+	public $table_class="detailForm";
+
 	function RenderStyle(){
 	}
 
-	public function Render(&$form){
-		$this->RenderStyle();
-		
-		$res= $this->PerformQuery($form);
-		
-		if (!$res)
-			return;
-	
-		// do the table..
-		$row=$res->fetchRow();
+	protected function RenderFormHead($row,&$form){
 		?>
 	<form action=<?= $_SERVER['PHP_SELF']?> method=post name="<?= $form->prefix?>Frm" id="<?= $form->prefix ?>Frm">
 	<?php
@@ -29,8 +22,21 @@ class DetailsView extends FormView {
 			$hidden_arr = $arr2;
 		}
 		$form->gen_PostParams($hidden_arr,true);
-	?>
-<table class="detailForm" cellspacing="2">
+	}
+	
+	public function Render(&$form){
+		$this->RenderStyle();
+		
+		$res= $this->PerformQuery($form);
+		
+		if (!$res)
+			return;
+	
+		// do the table..
+		$row=$res->fetchRow();
+		$this->RenderFormHead($row,$form);
+		?>
+<table class="<?= $this->table_class ?>" cellspacing="2">
 	<thead><tr><td class="field">&nbsp;</td><td class="value">&nbsp;</td></tr>
 	</thead>
 	<tbody>
@@ -53,7 +59,7 @@ class DetailsView extends FormView {
 	function PerformQuery(&$form){
 		$dbhandle = &$form->a2billing->DBHandle();
 		if ($form->FG_DEBUG>3)
-			echo "Details! Building query..";
+			echo "<div class=\"debug\">Details! Building query..</div>";
 			
 		
 		$query_fields = array();
@@ -76,14 +82,14 @@ class DetailsView extends FormView {
 		
 		if (!strlen($query_table)){
 			if ($form->FG_DEBUG>0)
-				echo "No table!\n";
+				echo "<div class=\"debug\">No table!</div>\n";
 			return;
 		}
 		
 		$QUERY = 'SELECT ';
 		if (count($query_fields)==0) {
 			if ($form->FG_DEBUG>0)
-				echo "No query fields!\n";
+				echo "<div class=\"debug\">No query fields!</div>\n";
 			return;
 		}
 		
@@ -96,13 +102,13 @@ class DetailsView extends FormView {
 		$QUERY .= ' LIMIT 1;'; // we can only edit one record at a time!
 		
 		if ($form->FG_DEBUG>3)
-			echo "QUERY: $QUERY\n<br>\n";
+			echo "<div class=\"debug\">QUERY: $QUERY</div>\n";
 		
 		// Perform the query
 		$res =$dbhandle->Execute($QUERY);
 		if (! $res){
 			if ($form->FG_DEBUG>0)
-				echo "Query Failed: ". nl2br(htmlspecialchars($dbhandle->ErrorMsg()));
+				echo "<div class=\"debug\">Query Failed: ". nl2br(htmlspecialchars($dbhandle->ErrorMsg()))."</div>";
 			return;
 		}
 		
@@ -115,4 +121,97 @@ class DetailsView extends FormView {
 	}
 };
 
+/** A two-column detail view */
+class Details2cView extends DetailsView {
+	public function Render(&$form){
+		$this->RenderStyle();
+		
+		$res= $this->PerformQuery($form);
+		
+		if (!$res)
+			return;
+	
+		// do the table..
+		$row=$res->fetchRow();
+		$this->RenderFormHead($row,$form);
+	?>
+<table class="<?= $this->table_class ?>" cellspacing="2">
+	<thead><tr><td class="field2c">&nbsp;</td><td class="value2c">&nbsp;</td>
+	<td class="field2c">&nbsp;</td><td class="value2c">&nbsp;</td></tr>
+	</thead>
+	<tbody>
+	<?php
+		$a=0;
+		foreach($form->model as $fld)
+			if ($fld){
+			if (($a % 2) == 0) echo '<tr>';
+		?><td class="field"><?php
+				$fld->RenderEditTitle($form);
+		?></td><td class="value"><?php
+				$fld->DispList($row,$form);
+		?></td><?php
+			if (($a++ %2) ==1) echo "</tr>\n";
+				else echo "\n";
+		}
+	?>
+	</tbody>
+	</table> </form>
+	<?php
+	}
+};
+
+/** A Multi-column detail view */
+class DetailsMcView extends DetailsView {
+	public $ncols=2;
+	
+	public function Render(&$form){
+		$this->RenderStyle();
+		
+		$res= $this->PerformQuery($form);
+		
+		if (!$res)
+			return;
+	
+		// do the table..
+		$row=$res->fetchRow();
+		$this->RenderFormHead($row,$form);
+		
+		$r=0;
+		$nrow= (count($form->model) + $this->ncols -1)/$this->ncols;
+		$wcol = intval (100 / $this->ncols);
+		echo "N. Rows: $nrow<br>";
+	?>
+	<table class="detailsMc" cellspacing=0>
+	<tr><?php
+		//$col=0;
+		foreach($form->model as $fld)
+			if ($fld){
+				if(($r % $nrow) ==0) { ?>
+<td width="<?= $wcol ?>%">
+<table class="<?= $this->table_class ?>" cellspacing="2">
+	<thead><tr><td class="field">&nbsp;</td><td class="value">&nbsp;</td></tr>
+	</thead>
+	<tbody>
+	<?php
+				}
+		?>
+		<tr><td class="field"><?php
+				$fld->RenderEditTitle($form);
+		?></td><td class="value"><?php
+				$fld->DispList($row,$form);
+		?></td></tr>
+<?php
+		$r++;
+			if(($r % $nrow) ==0) { ?>
+	</tbody>
+</table></td>
+<?php
+			}
+		}
+	?>
+</tr></table>
+	</form>
+	<?php
+	}
+};
 ?>

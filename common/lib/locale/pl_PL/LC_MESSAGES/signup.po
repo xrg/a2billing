@@ -1,0 +1,271 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: asterisk 2billing\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ASCII\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
+
+#: Signup/lib/defines.php:14
+msgid ""
+" This software is under GPL licence. For further information, please visit : "
+"<a href=\"http://www.asterisk2billing.org\" target=\"_blank"
+"\">asterisk2billing.org</a>"
+msgstr ""
+
+#: Signup/lib/defines.php:15
+msgid "Asterisk2Billing : CallingCard platform"
+msgstr ""
+
+#: Signup/activate.php:10
+msgid ""
+"Sorry the activation has been sent already, please wait 1 minute before "
+"making any other try !"
+msgstr ""
+
+#: Signup/activate.php:88
+msgid "Welcome! Your account has been successfully activated. Thank you!"
+msgstr ""
+
+#: Signup/activate.php:92 Signup/signup_confirmation.php:149
+msgid "Thank you for registering with us !"
+msgstr ""
+
+#: Signup/activate.php:93 Signup/signup_confirmation.php:150
+msgid "An email confirming your information has been sent to"
+msgstr ""
+
+#: Signup/activate.php:95 Signup/signup_confirmation.php:152
+msgid "Your cardnumber is "
+msgstr ""
+
+#: Signup/activate.php:96 Signup/signup_confirmation.php:153
+msgid "To login to your account :"
+msgstr ""
+
+#: Signup/activate.php:97 Signup/signup_confirmation.php:154
+msgid "Your card alias (login) is "
+msgstr ""
+
+#: Signup/activate.php:98 Signup/signup_confirmation.php:155
+#: Signup/form_data/FG_var_index.inc:325
+msgid "Your password is "
+msgstr ""
+
+#: Signup/activate.php:102
+msgid "Follow the link to access your account : "
+msgstr ""
+
+#: Signup/activate.php:129
+msgid "Your account is already activated."
+msgstr ""
+
+#: Signup/activate.php:133
+msgid ""
+"Your account cannot be activated please contact <br> the website "
+"administrator or retry later."
+msgstr ""
+
+#: Signup/index.php:20
+msgid "First Name"
+msgstr ""
+
+#: Signup/index.php:21
+msgid "Last Name"
+msgstr ""
+
+#: Signup/index.php:22
+msgid "E-mail"
+msgstr ""
+
+#: Signup/index.php:23
+msgid "Address"
+msgstr ""
+
+#: Signup/index.php:24
+msgid "City"
+msgstr ""
+
+#: Signup/index.php:25
+msgid "State"
+msgstr ""
+
+#: Signup/index.php:26
+msgid "Country"
+msgstr ""
+
+#: Signup/index.php:27
+msgid "Postal code"
+msgstr ""
+
+#: Signup/index.php:46
+msgid "Sign up!"
+msgstr ""
+
+#: Signup/index.php:49
+#, php-format
+msgid ""
+"Thank you for signing up.<br>An email has been sent to %email for "
+"confirmation!<br>"
+msgstr ""
+
+#: Signup/signup_confirmation.php:13
+msgid ""
+"Sorry the confirmation email has been sent already, multi-signup are not "
+"authorized! Please wait 2 minutes before making any other signup!"
+msgstr ""
+
+#: Signup/signup_confirmation.php:18
+msgid "Error : No User Created."
+msgstr ""
+
+#: Signup/signup_confirmation.php:58
+msgid "Error : No email Template Found"
+msgstr ""
+
+#: Signup/signup_confirmation.php:81
+msgid "Error : No such user found in database"
+msgstr ""
+
+#: Signup/signup_confirmation.php:145
+msgid "SIGNUP CONFIRMATION"
+msgstr ""
+
+#: Signup/signup_confirmation.php:158
+msgid "thank you for registering with us!"
+msgstr ""
+
+#: Signup/signup_confirmation.php:159
+msgid "An activation email has been sent to"
+msgstr ""
+
+#: Signup/form_data/FG_var_index.inc:26
+msgid "No Call Plan id are defined"
+msgstr ""
+
+#: Signup/form_data/FG_var_index.inc:87
+msgid "LANGUAGE"
+msgstr ""
+
+#: Signup/form_data/FG_var_index.inc:104
+msgid "CALL PLAN"
+msgstr ""
+
+#: Signup/form_data/FG_var_index.inc:123
+msgid "LASTNAME"
+msgstr ""
+
+#: Signup/form_data/FG_var_index.inc:129
+msgid "Insert your lastname"
+msgstr ""
+
+#: Signup/form_data/FG_var_index.inc:132
+msgid "FIRSTNAME"
+msgstr ""
+
+#: Signup/form_data/FG_var_index.inc:138
+msgid "Insert your firstname"
+msgstr ""
+
+#: Signup/form_data/FG_var_index.inc:142
+msgid "EMAIL"
+msgstr ""
+
+#: Signup/form_data/FG_var_index.inc:148
+msgid "Insert your email"
+msgstr ""
+
+#: Signup/form_data/FG_var_index.inc:152
+msgid "ADDRESS"
+msgstr ""
+
+#: Signup/form_data/FG_var_index.inc:158
+msgid "Insert your address"
+msgstr ""
+
+#: Signup/form_data/FG_var_index.inc:162
+msgid "CITY"
+msgstr ""
+
+#: Signup/form_data/FG_var_index.inc:168
+msgid "Insert your city"
+msgstr ""
+
+#: Signup/form_data/FG_var_index.inc:172
+msgid "STATE/PROVINCE"
+msgstr ""
+
+#: Signup/form_data/FG_var_index.inc:178
+msgid "Insert your state"
+msgstr ""
+
+#: Signup/form_data/FG_var_index.inc:182
+msgid "COUNTRY"
+msgstr ""
+
+#: Signup/form_data/FG_var_index.inc:193
+msgid "ZIP/POSTAL CODE"
+msgstr ""
+
+#: Signup/form_data/FG_var_index.inc:199
+msgid "Insert your zipcode"
+msgstr ""
+
+#: Signup/form_data/FG_var_index.inc:212
+msgid "TIMEZONE"
+msgstr ""
+
+#: Signup/form_data/FG_var_index.inc:219
+msgid "PHONENUMBER"
+msgstr ""
+
+#: Signup/form_data/FG_var_index.inc:225
+msgid "Insert your phone number"
+msgstr ""
+
+#: Signup/form_data/FG_var_index.inc:229
+msgid "FAXNUMBER"
+msgstr ""
+
+#: Signup/form_data/FG_var_index.inc:235
+msgid "Insert your fax number"
+msgstr ""
+
+#: Signup/form_data/FG_var_index.inc:238
+msgid "VERIFICATION"
+msgstr ""
+
+#: Signup/form_data/FG_var_index.inc:244
+msgid "Insert code from above picture"
+msgstr ""
+
+#: Signup/form_data/FG_var_index.inc:319
+msgid ""
+"You can modify, through the following form, the different properties of your "
+msgstr ""
+
+#: Signup/form_data/FG_var_index.inc:320
+msgid "If you really want remove this "
+msgstr ""
+
+#: Signup/form_data/FG_var_index.inc:321
+msgid "you can add easily a new "
+msgstr ""
+
+#: Signup/form_data/FG_var_index.inc:325
+msgid ""
+"Thanks for registering with us.<br>A email with your information has been "
+"sent to your account "
+msgstr ""
+
+#: Signup/form_data/FG_var_index.inc:325
+msgid "Your card number is "
+msgstr ""
+
+#: Signup/form_data/FG_var_index.inc:329
+msgid ""
+"Once you have completed the form above, click on the CONFIRM DATA button."
+msgstr ""

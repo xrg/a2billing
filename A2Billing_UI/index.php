@@ -1,6 +1,4 @@
-<?php 
-include ("./lib/company_info.php"); 
-
+<?php
 require('./lib/defines.php');
 require_once(DIR_COMMON."languageSettings.inc.php");
 
@@ -23,7 +21,7 @@ else
 <head>
 <link rel="shortcut icon" href="./Images/favicon.ico">
 <link rel="icon" href="./Images/animated_favicon1.gif" type="image/gif">
-<title>..:: <?php echo CCMAINTITLE; ?> ::..</title>
+<title><?php echo CCMAINTITLE; ?></title>
 <meta http-equiv="Content-Type" content="text/html; charset=<?= CHARSET ?>">
 <link href="./Css/menu.css" rel="stylesheet" type="text/css">
 

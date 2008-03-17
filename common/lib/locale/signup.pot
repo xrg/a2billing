@@ -1,3 +1,14 @@
+#: Signup/lib/defines.php:14
+msgid ""
+" This software is under GPL licence. For further information, please visit : "
+"<a href=\"http://www.asterisk2billing.org\" target=\"_blank"
+"\">asterisk2billing.org</a>"
+msgstr ""
+
+#: Signup/lib/defines.php:15
+msgid "Asterisk2Billing : CallingCard platform"
+msgstr ""
+
 #: Signup/activate.php:10
 msgid ""
 "Sorry the activation has been sent already, please wait 1 minute before "
@@ -45,6 +56,49 @@ msgstr ""
 msgid ""
 "Your account cannot be activated please contact <br> the website "
 "administrator or retry later."
+msgstr ""
+
+#: Signup/index.php:20
+msgid "First Name"
+msgstr ""
+
+#: Signup/index.php:21
+msgid "Last Name"
+msgstr ""
+
+#: Signup/index.php:22
+msgid "E-mail"
+msgstr ""
+
+#: Signup/index.php:23
+msgid "Address"
+msgstr ""
+
+#: Signup/index.php:24
+msgid "City"
+msgstr ""
+
+#: Signup/index.php:25
+msgid "State"
+msgstr ""
+
+#: Signup/index.php:26
+msgid "Country"
+msgstr ""
+
+#: Signup/index.php:27
+msgid "Postal code"
+msgstr ""
+
+#: Signup/index.php:46
+msgid "Sign up!"
+msgstr ""
+
+#: Signup/index.php:49
+#, php-format
+msgid ""
+"Thank you for signing up.<br>An email has been sent to %email for "
+"confirmation!<br>"
 msgstr ""
 
 #: Signup/signup_confirmation.php:13

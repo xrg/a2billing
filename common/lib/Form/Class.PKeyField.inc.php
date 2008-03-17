@@ -17,6 +17,9 @@ class PKeyField extends BaseField {
 	public function DispList(array &$qrow,&$form){
 		echo htmlspecialchars($qrow[$this->fieldname]);
 	}
+	public function renderSpecial(array &$qrow,&$form,$rmode, &$robj){
+		return $qrow[$this->fieldname];
+	}
 
 	/// Reimplement: the key may not be listed, but is always queried
 	public function listQueryField(&$dbhandle){
