@@ -13,6 +13,8 @@ HelpElem::DoHelp(gettext("Agent payments are money transactions between agents a
 
 $HD_Form= new FormHandler('cc_agentpay',_("Payments"),_("Payment"));
 $HD_Form->checkRights(ACX_AGENTS);
+$HD_Form->default_order='id';
+$HD_Form->default_sens='DESC';
 $HD_Form->init();
 
 $PAGE_ELEMS[] = &$HD_Form;

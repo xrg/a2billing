@@ -6,12 +6,11 @@ require_once (DIR_COMMON."Class.HelpElem.inc.php");
 require_once (DIR_COMMON."Form/Class.SqlRefField.inc.php");
 require_once (DIR_COMMON."Form/Class.SqlRefField.inc.php");
 require_once (DIR_COMMON."Form/Class.TimeField.inc.php");
+require_once (DIR_COMMON."Class.JQuery.inc.php");
 
 $menu_section='menu_customers';
 
-  
 HelpElem::DoHelp(gettext("Speed Dial <br> This section allows you to define the Speed dials for the customer. A Speed Dial will be entered on the IVR in order to make a shortcut to their preferred dialed phone number."));
-
 
 $HD_Form= new FormHandler('speeddials',_("SpeedDials"),_("SpeedDial"));
 $HD_Form->checkRights(ACX_CUSTOMER);
@@ -37,11 +36,7 @@ $HD_Form->model[] = new SqlRefFieldToolTip(_("CardNumber"), "card_id","cc_card",
 	
 $HD_Form->model[] = dontAdd(dontEdit(new DateTimeField(_("Creation date"), "creationdate", _("Date the card was created (entered into this system)"))));
 
-
-
 $HD_Form->model[] = new DelBtnField();
 
-
 require("PP_page.inc.php");
-
 ?>

@@ -256,10 +256,11 @@ class SqlRefFieldToolTip extends SqlBigRefField{
 			echo " (Ref:" .htmlspecialchars($qrow[$this->fieldname]) .")";
 		if ($url)
 			echo '</a>';
-		if (($act == 'list') && $this->list_url)
+		if (($act == 'list') && $this->tooltip_url){
 			$url_tooltip = str_alparams($this->tooltip_url,$qrow);
-		echo ' <a href="'.$url_tooltip .'&width='.$this->width_tooltip.'" ';
-		echo ' class="jTip" id="'.$this->fieldname.'" name="'.$this->caption_tooltip.'"><b>?</b></a>';
+			echo ' <a href="'.$url_tooltip .'&width='.$this->width_tooltip.'" ';
+			echo ' class="jTip" id="'.$this->fieldname.'" name="'.$this->caption_tooltip.'"><b>?</b></a>';
+		}
 	}
 	
 	/** Set the caption name for the tooltip */
@@ -276,71 +277,6 @@ class SqlRefFieldToolTip extends SqlBigRefField{
 	function SetRefTooltip($fname){
 		$this->tooltip_url = $fname .'?action=tooltip&' . $this->refid .'=%' .
 			$this->fieldname ;
-	}
-};
-
-/** Class for sql ref where will hyperlink to the Edit page */
-class SqlRefFieldEH extends SqlRefField{
-	public $message = null;
-	
-	public function DispList(array &$qrow,&$form){
-		$act = $form->getAction();
-		$url=null;
-		$msg=null;
-		if ($this->message)
-			$msg=$this->message;
-		else
-			$msg=str_params(_("Edit this %1"),array($form->model_name_s),1);
-			
-		if (($act == 'list') && $this->list_url){
-			$url = str_alparams($this->list_url,$qrow);
-		} elseif (($act == 'details') && $this->detail_url) {
-			$url = str_alparams($this->detail_url,$qrow);
-		}
-		
-		if (!$url) $url = $form->askeditURL($qrow);
-		
-		echo '<a href="'.$url . '" title="'.$msg .'">';
-		
-		echo htmlspecialchars($qrow[$this->fieldname.'_'.$this->refname]);
-		if ( ($this->list_ref && $act == 'list') || ($this->detail_ref && $act == 'details'))
-			echo " (" .htmlspecialchars($qrow[$this->fieldname]) .")";
-		else if ($form->FG_DEBUG>3)
-			echo " (Ref:" .htmlspecialchars($qrow[$this->fieldname]) .")";
-		
-		echo '</a>';
-	}
-};
-
-class SqlBigRefFieldEH extends SqlBigRefField{
-	public $message = null;
-	
-	public function DispList(array &$qrow,&$form){
-		$act = $form->getAction();
-		$url=null;
-		$msg=null;
-		if ($this->message)
-			$msg=$this->message;
-		else
-			$msg=str_params(_("Edit this %1"),array($form->model_name_s),1);
-			
-		if (($act == 'list') && $this->list_url){
-			$url = str_alparams($this->list_url,$qrow);
-		} elseif (($act == 'details') && $this->detail_url) {
-			$url = str_alparams($this->detail_url,$qrow);
-		}
-		
-		if (!$url) $url = $form->askeditURL($qrow);
-		
-		echo '<a href="'.$url . '" title="'.$msg .'">';
-		
-		echo htmlspecialchars($qrow[$this->fieldname.'_'.$this->refname]);
-		if ( ($this->list_ref && $act == 'list') || ($this->detail_ref && $act == 'details'))
-			echo " (" .htmlspecialchars($qrow[$this->fieldname]) .")";
-		else if ($form->FG_DEBUG>3)
-			echo " (Ref:" .htmlspecialchars($qrow[$this->fieldname]) .")";
-		
-		echo '</a>';
 	}
 };
 
