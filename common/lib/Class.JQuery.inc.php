@@ -4,7 +4,7 @@
 class JQueryHeaderElem extends ElemBase {
 	
 	public function Render(){
-	echo "<div>Jquery elem!</div>";
+		//echo "<div>Jquery elem!</div>";
 	}
 
 	public function RenderHead() {

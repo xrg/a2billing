@@ -168,6 +168,7 @@ class ActionForm extends ElemBase {
 			$this->RenderAsk();
 			break;
 		case 'display':
+		case 'list':
 			$this->RenderContent();
 			break;
 		default:

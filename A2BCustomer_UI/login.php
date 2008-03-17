@@ -6,7 +6,7 @@ $server= $_SERVER['SERVER_NAME'];
 $self_uri=$_SERVER['PHP_SELF'];
 $unsafe_base="http://".$server . dirname($self_uri);
 
-$FG_DEBUG=2;
+$FG_DEBUG=0;
 
 function access_sanitize_data($data)
 {

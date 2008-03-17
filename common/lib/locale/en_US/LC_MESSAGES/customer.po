@@ -304,7 +304,7 @@ msgstr ""
 msgid "Last used"
 msgstr ""
 
-#: A2BCustomer_UI/userinfo.php:24
+#: A2BCustomer_UI/userinfo.php:24 A2BCustomer_UI/simulator.php:34
 #, fuzzy
 msgid "Calculate!"
 msgstr "Calldate"
@@ -510,12 +510,13 @@ msgstr "Speed Dial Code"
 #: A2BCustomer_UI/A2B_entity_speeddial.php:74
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:45
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:343
-#: A2BCustomer_UI/invoices_customer.php:59
+#: A2BCustomer_UI/simulator.php:40 A2BCustomer_UI/invoices_customer.php:59
 #: A2BCustomer_UI/A2B_entity_call_details_pdf.php:68
 #: A2BCustomer_UI/A2B_entity_call_details_pdf.php:341
 #: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:58
 #: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:367
-#: A2BCustomer_UI/call-history.php:68
+#: A2BCustomer_UI/call-history.php:33 A2BCustomer_UI/call-history.php:66
+#: A2BCustomer_UI/call-history.php:135
 #: A2BCustomer_UI/A2B_entity_call_details.php:82
 #: A2BCustomer_UI/A2B_entity_call_details.php:619
 msgid "Destination"
@@ -591,7 +592,7 @@ msgstr ""
 #: A2BCustomer_UI/invoices_customer.php:56
 #: A2BCustomer_UI/A2B_entity_call_details_pdf.php:65
 #: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:55
-#: A2BCustomer_UI/call-history.php:65
+#: A2BCustomer_UI/call-history.php:132
 #: A2BCustomer_UI/A2B_entity_call_details.php:79
 msgid "Calldate"
 msgstr "Calldate"
@@ -600,7 +601,7 @@ msgstr "Calldate"
 #: A2BCustomer_UI/invoices_customer.php:57
 #: A2BCustomer_UI/A2B_entity_call_details_pdf.php:66
 #: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:56
-#: A2BCustomer_UI/call-history.php:66
+#: A2BCustomer_UI/call-history.php:133
 #: A2BCustomer_UI/A2B_entity_call_details.php:80
 msgid "Source"
 msgstr "Source"
@@ -623,7 +624,7 @@ msgstr "Callednumber"
 #: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:59
 #: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:368
 #: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:465
-#: A2BCustomer_UI/call-history.php:69
+#: A2BCustomer_UI/call-history.php:68 A2BCustomer_UI/call-history.php:136
 #: A2BCustomer_UI/A2B_entity_call_details.php:83
 #: A2BCustomer_UI/A2B_entity_call_details.php:620
 #: A2BCustomer_UI/A2B_entity_call_details.php:709
@@ -634,7 +635,7 @@ msgstr "Duration"
 #: A2BCustomer_UI/invoices_customer.php:65
 #: A2BCustomer_UI/A2B_entity_call_details_pdf.php:75
 #: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:65
-#: A2BCustomer_UI/call-history.php:74
+#: A2BCustomer_UI/call-history.php:141
 #: A2BCustomer_UI/A2B_entity_call_details.php:90
 msgid "Cost"
 msgstr "Cost"
@@ -684,6 +685,7 @@ msgstr ""
 #: A2BCustomer_UI/A2B_entity_call_details_pdf.php:442
 #: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:370
 #: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:467
+#: A2BCustomer_UI/call-history.php:40
 #: A2BCustomer_UI/A2B_entity_call_details.php:622
 #: A2BCustomer_UI/A2B_entity_call_details.php:711
 #, fuzzy
@@ -722,7 +724,7 @@ msgstr "Total Cost"
 #: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:518
 #: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:591
 #: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:681
-#: A2BCustomer_UI/call-history.php:727
+#: A2BCustomer_UI/call-history.php:794
 #: A2BCustomer_UI/A2B_entity_call_details.php:672
 #: A2BCustomer_UI/A2B_entity_call_details.php:762
 msgid "TOTAL"
@@ -755,7 +757,7 @@ msgid "Charge Date"
 msgstr ""
 
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:519
-#: A2BCustomer_UI/PP_menu.php:115
+#: A2BCustomer_UI/PP_menu.inc.php:111 A2BCustomer_UI/PP_menu.inc.php:257
 #: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:559
 #: A2BCustomer_UI/form_data/FG_var_did.inc:42
 msgid "DID"
@@ -851,14 +853,14 @@ msgstr ""
 msgid "Card History"
 msgstr ""
 
-#: A2BCustomer_UI/card-history.php:174 A2BCustomer_UI/call-history.php:260
+#: A2BCustomer_UI/card-history.php:174 A2BCustomer_UI/call-history.php:327
 #: A2BCustomer_UI/A2B_entity_call_details.php:308
 #, fuzzy
 msgid "SELECT BY MONTH"
 msgstr "SPEED DIAL"
 
 #: A2BCustomer_UI/card-history.php:180 A2BCustomer_UI/card-history.php:231
-#: A2BCustomer_UI/call-history.php:266 A2BCustomer_UI/call-history.php:317
+#: A2BCustomer_UI/call-history.php:333 A2BCustomer_UI/call-history.php:384
 #: A2BCustomer_UI/A2B_entity_call_details.php:314
 #: A2BCustomer_UI/A2B_entity_call_details.php:363
 msgid "FROM"
@@ -866,8 +868,8 @@ msgstr "FROM"
 
 #: A2BCustomer_UI/card-history.php:184 A2BCustomer_UI/card-history.php:205
 #: A2BCustomer_UI/card-history.php:244 A2BCustomer_UI/card-history.php:272
-#: A2BCustomer_UI/call-history.php:270 A2BCustomer_UI/call-history.php:291
-#: A2BCustomer_UI/call-history.php:330 A2BCustomer_UI/call-history.php:358
+#: A2BCustomer_UI/call-history.php:337 A2BCustomer_UI/call-history.php:358
+#: A2BCustomer_UI/call-history.php:397 A2BCustomer_UI/call-history.php:425
 #: A2BCustomer_UI/A2B_entity_call_details.php:318
 #: A2BCustomer_UI/A2B_entity_call_details.php:338
 #: A2BCustomer_UI/A2B_entity_call_details.php:376
@@ -877,8 +879,8 @@ msgstr "JANUARY"
 
 #: A2BCustomer_UI/card-history.php:184 A2BCustomer_UI/card-history.php:205
 #: A2BCustomer_UI/card-history.php:244 A2BCustomer_UI/card-history.php:272
-#: A2BCustomer_UI/call-history.php:270 A2BCustomer_UI/call-history.php:291
-#: A2BCustomer_UI/call-history.php:330 A2BCustomer_UI/call-history.php:358
+#: A2BCustomer_UI/call-history.php:337 A2BCustomer_UI/call-history.php:358
+#: A2BCustomer_UI/call-history.php:397 A2BCustomer_UI/call-history.php:425
 #: A2BCustomer_UI/A2B_entity_call_details.php:318
 #: A2BCustomer_UI/A2B_entity_call_details.php:338
 #: A2BCustomer_UI/A2B_entity_call_details.php:376
@@ -888,8 +890,8 @@ msgstr "FEBRUARY"
 
 #: A2BCustomer_UI/card-history.php:184 A2BCustomer_UI/card-history.php:205
 #: A2BCustomer_UI/card-history.php:244 A2BCustomer_UI/card-history.php:272
-#: A2BCustomer_UI/call-history.php:270 A2BCustomer_UI/call-history.php:291
-#: A2BCustomer_UI/call-history.php:330 A2BCustomer_UI/call-history.php:358
+#: A2BCustomer_UI/call-history.php:337 A2BCustomer_UI/call-history.php:358
+#: A2BCustomer_UI/call-history.php:397 A2BCustomer_UI/call-history.php:425
 #: A2BCustomer_UI/A2B_entity_call_details.php:318
 #: A2BCustomer_UI/A2B_entity_call_details.php:338
 #: A2BCustomer_UI/A2B_entity_call_details.php:376
@@ -899,8 +901,8 @@ msgstr "MARCH"
 
 #: A2BCustomer_UI/card-history.php:184 A2BCustomer_UI/card-history.php:205
 #: A2BCustomer_UI/card-history.php:244 A2BCustomer_UI/card-history.php:272
-#: A2BCustomer_UI/call-history.php:270 A2BCustomer_UI/call-history.php:291
-#: A2BCustomer_UI/call-history.php:330 A2BCustomer_UI/call-history.php:358
+#: A2BCustomer_UI/call-history.php:337 A2BCustomer_UI/call-history.php:358
+#: A2BCustomer_UI/call-history.php:397 A2BCustomer_UI/call-history.php:425
 #: A2BCustomer_UI/A2B_entity_call_details.php:318
 #: A2BCustomer_UI/A2B_entity_call_details.php:338
 #: A2BCustomer_UI/A2B_entity_call_details.php:376
@@ -910,8 +912,8 @@ msgstr "APRIL"
 
 #: A2BCustomer_UI/card-history.php:184 A2BCustomer_UI/card-history.php:205
 #: A2BCustomer_UI/card-history.php:244 A2BCustomer_UI/card-history.php:272
-#: A2BCustomer_UI/call-history.php:270 A2BCustomer_UI/call-history.php:291
-#: A2BCustomer_UI/call-history.php:330 A2BCustomer_UI/call-history.php:358
+#: A2BCustomer_UI/call-history.php:337 A2BCustomer_UI/call-history.php:358
+#: A2BCustomer_UI/call-history.php:397 A2BCustomer_UI/call-history.php:425
 #: A2BCustomer_UI/A2B_entity_call_details.php:318
 #: A2BCustomer_UI/A2B_entity_call_details.php:338
 #: A2BCustomer_UI/A2B_entity_call_details.php:376
@@ -921,8 +923,8 @@ msgstr "MAY"
 
 #: A2BCustomer_UI/card-history.php:184 A2BCustomer_UI/card-history.php:205
 #: A2BCustomer_UI/card-history.php:244 A2BCustomer_UI/card-history.php:272
-#: A2BCustomer_UI/call-history.php:270 A2BCustomer_UI/call-history.php:291
-#: A2BCustomer_UI/call-history.php:330 A2BCustomer_UI/call-history.php:358
+#: A2BCustomer_UI/call-history.php:337 A2BCustomer_UI/call-history.php:358
+#: A2BCustomer_UI/call-history.php:397 A2BCustomer_UI/call-history.php:425
 #: A2BCustomer_UI/A2B_entity_call_details.php:318
 #: A2BCustomer_UI/A2B_entity_call_details.php:338
 #: A2BCustomer_UI/A2B_entity_call_details.php:376
@@ -932,8 +934,8 @@ msgstr "JUNE"
 
 #: A2BCustomer_UI/card-history.php:184 A2BCustomer_UI/card-history.php:205
 #: A2BCustomer_UI/card-history.php:244 A2BCustomer_UI/card-history.php:272
-#: A2BCustomer_UI/call-history.php:270 A2BCustomer_UI/call-history.php:291
-#: A2BCustomer_UI/call-history.php:330 A2BCustomer_UI/call-history.php:358
+#: A2BCustomer_UI/call-history.php:337 A2BCustomer_UI/call-history.php:358
+#: A2BCustomer_UI/call-history.php:397 A2BCustomer_UI/call-history.php:425
 #: A2BCustomer_UI/A2B_entity_call_details.php:318
 #: A2BCustomer_UI/A2B_entity_call_details.php:338
 #: A2BCustomer_UI/A2B_entity_call_details.php:376
@@ -943,8 +945,8 @@ msgstr "JULY"
 
 #: A2BCustomer_UI/card-history.php:184 A2BCustomer_UI/card-history.php:205
 #: A2BCustomer_UI/card-history.php:244 A2BCustomer_UI/card-history.php:272
-#: A2BCustomer_UI/call-history.php:270 A2BCustomer_UI/call-history.php:291
-#: A2BCustomer_UI/call-history.php:330 A2BCustomer_UI/call-history.php:358
+#: A2BCustomer_UI/call-history.php:337 A2BCustomer_UI/call-history.php:358
+#: A2BCustomer_UI/call-history.php:397 A2BCustomer_UI/call-history.php:425
 #: A2BCustomer_UI/A2B_entity_call_details.php:318
 #: A2BCustomer_UI/A2B_entity_call_details.php:338
 #: A2BCustomer_UI/A2B_entity_call_details.php:376
@@ -954,8 +956,8 @@ msgstr "AUGUST"
 
 #: A2BCustomer_UI/card-history.php:184 A2BCustomer_UI/card-history.php:205
 #: A2BCustomer_UI/card-history.php:244 A2BCustomer_UI/card-history.php:272
-#: A2BCustomer_UI/call-history.php:270 A2BCustomer_UI/call-history.php:291
-#: A2BCustomer_UI/call-history.php:330 A2BCustomer_UI/call-history.php:358
+#: A2BCustomer_UI/call-history.php:337 A2BCustomer_UI/call-history.php:358
+#: A2BCustomer_UI/call-history.php:397 A2BCustomer_UI/call-history.php:425
 #: A2BCustomer_UI/A2B_entity_call_details.php:318
 #: A2BCustomer_UI/A2B_entity_call_details.php:338
 #: A2BCustomer_UI/A2B_entity_call_details.php:376
@@ -965,8 +967,8 @@ msgstr "SEPTEMBER"
 
 #: A2BCustomer_UI/card-history.php:184 A2BCustomer_UI/card-history.php:205
 #: A2BCustomer_UI/card-history.php:244 A2BCustomer_UI/card-history.php:272
-#: A2BCustomer_UI/call-history.php:270 A2BCustomer_UI/call-history.php:291
-#: A2BCustomer_UI/call-history.php:330 A2BCustomer_UI/call-history.php:358
+#: A2BCustomer_UI/call-history.php:337 A2BCustomer_UI/call-history.php:358
+#: A2BCustomer_UI/call-history.php:397 A2BCustomer_UI/call-history.php:425
 #: A2BCustomer_UI/A2B_entity_call_details.php:318
 #: A2BCustomer_UI/A2B_entity_call_details.php:338
 #: A2BCustomer_UI/A2B_entity_call_details.php:376
@@ -976,8 +978,8 @@ msgstr "OCTOBER"
 
 #: A2BCustomer_UI/card-history.php:184 A2BCustomer_UI/card-history.php:205
 #: A2BCustomer_UI/card-history.php:244 A2BCustomer_UI/card-history.php:272
-#: A2BCustomer_UI/call-history.php:270 A2BCustomer_UI/call-history.php:291
-#: A2BCustomer_UI/call-history.php:330 A2BCustomer_UI/call-history.php:358
+#: A2BCustomer_UI/call-history.php:337 A2BCustomer_UI/call-history.php:358
+#: A2BCustomer_UI/call-history.php:397 A2BCustomer_UI/call-history.php:425
 #: A2BCustomer_UI/A2B_entity_call_details.php:318
 #: A2BCustomer_UI/A2B_entity_call_details.php:338
 #: A2BCustomer_UI/A2B_entity_call_details.php:376
@@ -987,8 +989,8 @@ msgstr "NOVEMBER"
 
 #: A2BCustomer_UI/card-history.php:184 A2BCustomer_UI/card-history.php:205
 #: A2BCustomer_UI/card-history.php:244 A2BCustomer_UI/card-history.php:272
-#: A2BCustomer_UI/call-history.php:270 A2BCustomer_UI/call-history.php:291
-#: A2BCustomer_UI/call-history.php:330 A2BCustomer_UI/call-history.php:358
+#: A2BCustomer_UI/call-history.php:337 A2BCustomer_UI/call-history.php:358
+#: A2BCustomer_UI/call-history.php:397 A2BCustomer_UI/call-history.php:425
 #: A2BCustomer_UI/A2B_entity_call_details.php:318
 #: A2BCustomer_UI/A2B_entity_call_details.php:338
 #: A2BCustomer_UI/A2B_entity_call_details.php:376
@@ -997,13 +999,13 @@ msgid "DECEMBER"
 msgstr "DECEMBER"
 
 #: A2BCustomer_UI/card-history.php:200 A2BCustomer_UI/card-history.php:259
-#: A2BCustomer_UI/call-history.php:286 A2BCustomer_UI/call-history.php:345
+#: A2BCustomer_UI/call-history.php:353 A2BCustomer_UI/call-history.php:412
 #: A2BCustomer_UI/A2B_entity_call_details.php:334
 #: A2BCustomer_UI/A2B_entity_call_details.php:408
 msgid "TO"
 msgstr "TO"
 
-#: A2BCustomer_UI/card-history.php:226 A2BCustomer_UI/call-history.php:312
+#: A2BCustomer_UI/card-history.php:226 A2BCustomer_UI/call-history.php:379
 #: A2BCustomer_UI/A2B_entity_call_details.php:358
 #, fuzzy
 msgid "SELECT BY DAY"
@@ -1011,7 +1013,7 @@ msgstr "SPEED DIAL"
 
 #: A2BCustomer_UI/card-history.php:293
 #: A2BCustomer_UI/invoices_customer.php:277
-#: A2BCustomer_UI/call-history.php:437
+#: A2BCustomer_UI/call-history.php:504
 #: A2BCustomer_UI/A2B_entity_call_details.php:544
 msgid "Search"
 msgstr "Search"
@@ -1029,66 +1031,112 @@ msgstr "Search"
 #: A2BCustomer_UI/CC_entity_edit_speeddial.php:1010
 #: A2BCustomer_UI/A2B_entity_call_details_pdf.php:626
 #: A2BCustomer_UI/A2B_entity_call_details_pdf.php:725
-#: A2BCustomer_UI/call-history.php:571
+#: A2BCustomer_UI/call-history.php:638
 #: A2BCustomer_UI/A2B_entity_call_details.php:892
 #: A2BCustomer_UI/A2B_entity_call_details.php:992
 msgid "No data found !!!"
 msgstr "No data found !!!"
 
-#: A2BCustomer_UI/simulator.php:56
-msgid "Error card !!!"
+#: A2BCustomer_UI/simulator.php:15
+msgid "Here you can simulate a phone call and see how much it would cost"
 msgstr ""
 
-#: A2BCustomer_UI/simulator.php:145
-#, fuzzy
-msgid "Call"
-msgstr "Call Logs"
-
-#: A2BCustomer_UI/simulator.php:145
-msgid "Simulator"
+#: A2BCustomer_UI/simulator.php:23 A2BCustomer_UI/simulator.php:39
+#: A2BCustomer_UI/form_data/FG_var_did.inc:31
+msgid "Dial"
 msgstr ""
 
-#: A2BCustomer_UI/simulator.php:151
+#: A2BCustomer_UI/simulator.php:23
 #, fuzzy
-msgid "Enter the number you wish to call"
+msgid "The number you wish to dial."
 msgstr "Enter the number you wish to call :"
 
-#: A2BCustomer_UI/simulator.php:156
-msgid "YOUR BALANCE"
+#: A2BCustomer_UI/simulator.php:36
+msgid "No rates/destinations found!"
 msgstr ""
 
-#: A2BCustomer_UI/simulator.php:192
-msgid "Simulator found a rate for your destination"
+#: A2BCustomer_UI/simulator.php:41
+msgid "Max call duration"
 msgstr ""
 
-#: A2BCustomer_UI/simulator.php:198
-msgid "We found several destinations:"
+#: A2BCustomer_UI/simulator.php:42
+msgid "Tm"
 msgstr ""
 
-#: A2BCustomer_UI/simulator.php:209 A2BCustomer_UI/invoices_customer.php:404
-#: A2BCustomer_UI/invoices_customer.php:800
-#: A2BCustomer_UI/invoices_customer.php:887
-#: A2BCustomer_UI/call-history.php:377
-#: A2BCustomer_UI/A2B_entity_call_details.php:457
-#: A2BCustomer_UI/form_data/FG_var_ratecard.inc:34
-#: A2BCustomer_UI/form_data/FG_var_ratecard.inc:58
-#: A2BCustomer_UI/form_data/FG_var_did.inc:41
-#: A2BCustomer_UI/form_data/FG_var_did.inc:69
-msgid "DESTINATION"
-msgstr "DESTINATION"
-
-#: A2BCustomer_UI/simulator.php:214
-msgid "CallTime available"
+#: A2BCustomer_UI/simulator.php:44
+msgid "Rate/min"
 msgstr ""
 
-#: A2BCustomer_UI/simulator.php:216 A2BCustomer_UI/invoices_customer.php:239
-#: A2BCustomer_UI/call-history.php:410
-#: A2BCustomer_UI/A2B_entity_call_details.php:494
-msgid "Minutes"
-msgstr "Minutes"
+#: A2BCustomer_UI/PP_menu.inc.php:82 A2BCustomer_UI/PP_menu.inc.php:239
+msgid "ACCOUNT INFO"
+msgstr "ACCOUNT INFO"
 
-#: A2BCustomer_UI/simulator.php:262
-msgid "The number, you have entered, is not correct!"
+#: A2BCustomer_UI/PP_menu.inc.php:86
+msgid "SIP/IAX INFO"
+msgstr ""
+
+#: A2BCustomer_UI/PP_menu.inc.php:91
+msgid "CALL HISTORY"
+msgstr "CALL HISTORY"
+
+#: A2BCustomer_UI/PP_menu.inc.php:96 A2BCustomer_UI/A2B_entity_voucher.php:106
+#: A2BCustomer_UI/form_data/FG_var_voucher.inc:14
+msgid "VOUCHER"
+msgstr "VOUCHER"
+
+#: A2BCustomer_UI/PP_menu.inc.php:101 A2BCustomer_UI/PP_menu.inc.php:248
+msgid "INVOICES"
+msgstr "INVOICES"
+
+#: A2BCustomer_UI/PP_menu.inc.php:103 A2BCustomer_UI/PP_menu.inc.php:250
+#: A2BCustomer_UI/invoices_customer.php:300
+#: A2BCustomer_UI/invoices_customer.php:704
+msgid "Invoice Details"
+msgstr ""
+
+#: A2BCustomer_UI/PP_menu.inc.php:104 A2BCustomer_UI/PP_menu.inc.php:251
+msgid "View Invoices"
+msgstr ""
+
+#: A2BCustomer_UI/PP_menu.inc.php:105 A2BCustomer_UI/PP_menu.inc.php:252
+msgid "Current Invoice"
+msgstr ""
+
+#: A2BCustomer_UI/PP_menu.inc.php:116 A2BCustomer_UI/PP_menu.inc.php:260
+msgid "SPEED DIAL"
+msgstr "SPEED DIAL"
+
+#: A2BCustomer_UI/PP_menu.inc.php:121 A2BCustomer_UI/PP_menu.inc.php:263
+msgid "RATECARD"
+msgstr "RATECARD"
+
+#: A2BCustomer_UI/PP_menu.inc.php:126 A2BCustomer_UI/PP_menu.inc.php:266
+msgid "SIMULATOR"
+msgstr ""
+
+#: A2BCustomer_UI/PP_menu.inc.php:131 A2BCustomer_UI/PP_menu.inc.php:269
+msgid "CALLBACK"
+msgstr "CALLBACK"
+
+#: A2BCustomer_UI/PP_menu.inc.php:136 A2BCustomer_UI/PP_menu.inc.php:272
+msgid "WEB-PHONE"
+msgstr "WEB-PHONE"
+
+#: A2BCustomer_UI/PP_menu.inc.php:141
+#, fuzzy
+msgid "CALLER ID"
+msgstr "CALLERID"
+
+#: A2BCustomer_UI/PP_menu.inc.php:146 A2BCustomer_UI/PP_menu.inc.php:278
+msgid "PASSWORD"
+msgstr ""
+
+#: A2BCustomer_UI/PP_menu.inc.php:150 A2BCustomer_UI/PP_menu.inc.php:280
+msgid "LOGOUT"
+msgstr "LOGOUT"
+
+#: A2BCustomer_UI/PP_menu.inc.php:275
+msgid "ADD CALLER ID"
 msgstr ""
 
 #: A2BCustomer_UI/CC_entity_edit_did_destination.php:202
@@ -1158,13 +1206,13 @@ msgstr "This Voucher doesn't exist !"
 #: A2BCustomer_UI/invoices_customer.php:63
 #: A2BCustomer_UI/A2B_entity_call_details_pdf.php:72
 #: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:62
-#: A2BCustomer_UI/call-history.php:70
+#: A2BCustomer_UI/call-history.php:137
 #: A2BCustomer_UI/A2B_entity_call_details.php:87
 msgid "Cardused"
 msgstr "Cardused"
 
 #: A2BCustomer_UI/invoices_customer.php:231
-#: A2BCustomer_UI/call-history.php:390
+#: A2BCustomer_UI/call-history.php:457
 #: A2BCustomer_UI/A2B_entity_call_details.php:484
 #, fuzzy
 msgid "OPTIONS"
@@ -1176,7 +1224,13 @@ msgid "RESULT"
 msgstr ""
 
 #: A2BCustomer_UI/invoices_customer.php:239
-#: A2BCustomer_UI/call-history.php:410
+#: A2BCustomer_UI/call-history.php:477
+#: A2BCustomer_UI/A2B_entity_call_details.php:494
+msgid "Minutes"
+msgstr "Minutes"
+
+#: A2BCustomer_UI/invoices_customer.php:239
+#: A2BCustomer_UI/call-history.php:477
 #: A2BCustomer_UI/A2B_entity_call_details.php:494
 msgid "Seconds"
 msgstr "Seconds"
@@ -1197,20 +1251,15 @@ msgid "or Export PDF"
 msgstr "or Export PDF"
 
 #: A2BCustomer_UI/invoices_customer.php:253
-#: A2BCustomer_UI/call-history.php:415
+#: A2BCustomer_UI/call-history.php:482
 #: A2BCustomer_UI/A2B_entity_call_details.php:520
 msgid "CURRENCY"
-msgstr ""
-
-#: A2BCustomer_UI/invoices_customer.php:300
-#: A2BCustomer_UI/invoices_customer.php:704 A2BCustomer_UI/PP_menu.php:108
-msgid "Invoice Details"
 msgstr ""
 
 #: A2BCustomer_UI/invoices_customer.php:347
 #: A2BCustomer_UI/invoices_customer.php:499
 #: A2BCustomer_UI/invoices_customer.php:745
-#: A2BCustomer_UI/call-history.php:672
+#: A2BCustomer_UI/call-history.php:739
 msgid "DATE"
 msgstr "DATE"
 
@@ -1237,6 +1286,18 @@ msgstr "NB CHARGE"
 msgid "CALLS PER DESTINATION"
 msgstr "CALLS PER DESTINATION"
 
+#: A2BCustomer_UI/invoices_customer.php:404
+#: A2BCustomer_UI/invoices_customer.php:800
+#: A2BCustomer_UI/invoices_customer.php:887
+#: A2BCustomer_UI/call-history.php:444
+#: A2BCustomer_UI/A2B_entity_call_details.php:457
+#: A2BCustomer_UI/form_data/FG_var_ratecard.inc:34
+#: A2BCustomer_UI/form_data/FG_var_ratecard.inc:58
+#: A2BCustomer_UI/form_data/FG_var_did.inc:41
+#: A2BCustomer_UI/form_data/FG_var_did.inc:69
+msgid "DESTINATION"
+msgstr "DESTINATION"
+
 #: A2BCustomer_UI/invoices_customer.php:405
 #: A2BCustomer_UI/invoices_customer.php:500
 msgid "DUR"
@@ -1244,7 +1305,7 @@ msgstr "DUR"
 
 #: A2BCustomer_UI/invoices_customer.php:406
 #: A2BCustomer_UI/invoices_customer.php:501
-#: A2BCustomer_UI/call-history.php:674
+#: A2BCustomer_UI/call-history.php:741
 msgid "GRAPHIC"
 msgstr "GRAPHIC"
 
@@ -1274,7 +1335,7 @@ msgstr "COUNTRY"
 
 #: A2BCustomer_UI/invoices_customer.php:801
 #: A2BCustomer_UI/invoices_customer.php:888
-#: A2BCustomer_UI/call-history.php:673
+#: A2BCustomer_UI/call-history.php:740
 msgid "DURATION"
 msgstr "DURATION"
 
@@ -1520,70 +1581,9 @@ msgstr "credit on your account!"
 msgid "This Voucher doesn't exist !"
 msgstr "This Voucher doesn't exist !"
 
-#: A2BCustomer_UI/A2B_entity_voucher.php:106 A2BCustomer_UI/PP_menu.php:102
-#: A2BCustomer_UI/form_data/FG_var_voucher.inc:14
-msgid "VOUCHER"
-msgstr "VOUCHER"
-
 #: A2BCustomer_UI/A2B_entity_voucher.php:111
 msgid "USE VOUCHER"
 msgstr "USE VOUCHER"
-
-#: A2BCustomer_UI/PP_menu.php:94
-msgid "ACCOUNT INFO"
-msgstr "ACCOUNT INFO"
-
-#: A2BCustomer_UI/PP_menu.php:96
-msgid "SIP/IAX INFO"
-msgstr ""
-
-#: A2BCustomer_UI/PP_menu.php:99
-msgid "CALL HISTORY"
-msgstr "CALL HISTORY"
-
-#: A2BCustomer_UI/PP_menu.php:106
-msgid "INVOICES"
-msgstr "INVOICES"
-
-#: A2BCustomer_UI/PP_menu.php:109
-msgid "View Invoices"
-msgstr ""
-
-#: A2BCustomer_UI/PP_menu.php:110
-msgid "Current Invoice"
-msgstr ""
-
-#: A2BCustomer_UI/PP_menu.php:118
-msgid "SPEED DIAL"
-msgstr "SPEED DIAL"
-
-#: A2BCustomer_UI/PP_menu.php:121
-msgid "RATECARD"
-msgstr "RATECARD"
-
-#: A2BCustomer_UI/PP_menu.php:124
-msgid "SIMULATOR"
-msgstr ""
-
-#: A2BCustomer_UI/PP_menu.php:127
-msgid "CALLBACK"
-msgstr "CALLBACK"
-
-#: A2BCustomer_UI/PP_menu.php:130
-msgid "WEB-PHONE"
-msgstr "WEB-PHONE"
-
-#: A2BCustomer_UI/PP_menu.php:133
-msgid "ADD CALLER ID"
-msgstr ""
-
-#: A2BCustomer_UI/PP_menu.php:136
-msgid "PASSWORD"
-msgstr ""
-
-#: A2BCustomer_UI/PP_menu.php:138
-msgid "LOGOUT"
-msgstr "LOGOUT"
 
 #: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:24
 #, fuzzy
@@ -1724,115 +1724,182 @@ msgstr ""
 msgid "No Such Customer exists."
 msgstr ""
 
-#: A2BCustomer_UI/call-history.php:67
+#: A2BCustomer_UI/call-history.php:18
+msgid "Period from"
+msgstr ""
+
+#: A2BCustomer_UI/call-history.php:22
+msgid "Period to"
+msgstr ""
+
+#: A2BCustomer_UI/call-history.php:34
+#, fuzzy
+msgid "Called number"
+msgstr "Callednumber"
+
+#: A2BCustomer_UI/call-history.php:38
+msgid "Calls you have made *-* ..."
+msgstr ""
+
+#: A2BCustomer_UI/call-history.php:40
+#, fuzzy
+msgid "Call"
+msgstr "Call Logs"
+
+#: A2BCustomer_UI/call-history.php:54
+msgid "Session ID"
+msgstr ""
+
+#: A2BCustomer_UI/call-history.php:55
+msgid "Unique ID"
+msgstr ""
+
+#: A2BCustomer_UI/call-history.php:56
+msgid "Card ID"
+msgstr ""
+
+#: A2BCustomer_UI/call-history.php:61
+msgid "Start Time"
+msgstr ""
+
+#: A2BCustomer_UI/call-history.php:62
+msgid "Mode"
+msgstr ""
+
+#: A2BCustomer_UI/call-history.php:63
+msgid "Stop Time"
+msgstr ""
+
+#: A2BCustomer_UI/call-history.php:65
+#, fuzzy
+msgid "Called station"
+msgstr "Destination"
+
+#: A2BCustomer_UI/call-history.php:69
+msgid "Dur"
+msgstr ""
+
+#: A2BCustomer_UI/call-history.php:71
+msgid "Result"
+msgstr ""
+
+#: A2BCustomer_UI/call-history.php:73
+msgid "Bill"
+msgstr ""
+
+#: A2BCustomer_UI/call-history.php:73
+msgid "The amount you have been charged for the call."
+msgstr ""
+
+#: A2BCustomer_UI/call-history.php:134
 #, fuzzy
 msgid "PhoneNumber"
 msgstr "Your PhoneNumber"
 
-#: A2BCustomer_UI/call-history.php:71
+#: A2BCustomer_UI/call-history.php:138
 #, fuzzy
 msgid "Terminate Cause"
 msgstr "terminate cause"
 
-#: A2BCustomer_UI/call-history.php:71
+#: A2BCustomer_UI/call-history.php:138
 msgid "TC"
 msgstr ""
 
-#: A2BCustomer_UI/call-history.php:72
+#: A2BCustomer_UI/call-history.php:139
 msgid "Calltype"
 msgstr "Calltype"
 
-#: A2BCustomer_UI/call-history.php:73
+#: A2BCustomer_UI/call-history.php:140
 msgid "InitalRate"
 msgstr "InitalRate"
 
-#: A2BCustomer_UI/call-history.php:100
+#: A2BCustomer_UI/call-history.php:167
 msgid "Call Logs"
 msgstr "Call Logs"
 
-#: A2BCustomer_UI/call-history.php:382
+#: A2BCustomer_UI/call-history.php:449
 #: A2BCustomer_UI/A2B_entity_call_details.php:462
 #: A2BCustomer_UI/A2B_entity_call_details.php:476
 msgid "Exact"
 msgstr "Exact"
 
-#: A2BCustomer_UI/call-history.php:383
+#: A2BCustomer_UI/call-history.php:450
 #: A2BCustomer_UI/A2B_entity_call_details.php:463
 #: A2BCustomer_UI/A2B_entity_call_details.php:477
 msgid "Begins with"
 msgstr "Begins with"
 
-#: A2BCustomer_UI/call-history.php:384
+#: A2BCustomer_UI/call-history.php:451
 #: A2BCustomer_UI/A2B_entity_call_details.php:464
 #: A2BCustomer_UI/A2B_entity_call_details.php:478
 msgid "Contains"
 msgstr "Contains"
 
-#: A2BCustomer_UI/call-history.php:385
+#: A2BCustomer_UI/call-history.php:452
 msgid "End with"
 msgstr "End with"
 
-#: A2BCustomer_UI/call-history.php:395
+#: A2BCustomer_UI/call-history.php:462
 #: A2BCustomer_UI/A2B_entity_call_details.php:508
 msgid "SHOW"
 msgstr ""
 
-#: A2BCustomer_UI/call-history.php:398
+#: A2BCustomer_UI/call-history.php:465
 #: A2BCustomer_UI/A2B_entity_call_details.php:511
 msgid "Answered Calls"
 msgstr ""
 
-#: A2BCustomer_UI/call-history.php:400
+#: A2BCustomer_UI/call-history.php:467
 #: A2BCustomer_UI/A2B_entity_call_details.php:513
 msgid "All Calls"
 msgstr ""
 
-#: A2BCustomer_UI/call-history.php:407
+#: A2BCustomer_UI/call-history.php:474
 msgid "RESUTL"
 msgstr ""
 
-#: A2BCustomer_UI/call-history.php:446
+#: A2BCustomer_UI/call-history.php:513
 msgid "Number of Calls"
 msgstr "Number of Calls"
 
-#: A2BCustomer_UI/call-history.php:596
+#: A2BCustomer_UI/call-history.php:663
 msgid "PREVIOUS"
 msgstr "PREVIOUS"
 
-#: A2BCustomer_UI/call-history.php:602 A2BCustomer_UI/predictivedialer.php:313
+#: A2BCustomer_UI/call-history.php:669 A2BCustomer_UI/predictivedialer.php:313
 msgid "NEXT"
 msgstr "NEXT"
 
-#: A2BCustomer_UI/call-history.php:618
+#: A2BCustomer_UI/call-history.php:685
 msgid "Total Cost"
 msgstr "Total Cost"
 
-#: A2BCustomer_UI/call-history.php:657
+#: A2BCustomer_UI/call-history.php:724
 #, fuzzy
 msgid "SUMMARY"
 msgstr "MAY"
 
-#: A2BCustomer_UI/call-history.php:669
+#: A2BCustomer_UI/call-history.php:736
 msgid "CALLING CARD MINUTES"
 msgstr "CALLING CARD MINUTES"
 
-#: A2BCustomer_UI/call-history.php:675
+#: A2BCustomer_UI/call-history.php:742
 msgid "CALLS"
 msgstr "CALLS"
 
-#: A2BCustomer_UI/call-history.php:676
+#: A2BCustomer_UI/call-history.php:743
 msgid "AVERAGE LENGTH OF CALL"
 msgstr ""
 
-#: A2BCustomer_UI/call-history.php:676
+#: A2BCustomer_UI/call-history.php:743
 msgid "ALOC"
 msgstr ""
 
-#: A2BCustomer_UI/call-history.php:677
+#: A2BCustomer_UI/call-history.php:744
 msgid "TOTAL COST"
 msgstr "TOTAL COST"
 
-#: A2BCustomer_UI/call-history.php:741
+#: A2BCustomer_UI/call-history.php:808
 msgid "No calls in your selection"
 msgstr "No calls in your selection"
 
@@ -2480,10 +2547,6 @@ msgstr ""
 
 #: A2BCustomer_UI/form_data/FG_var_did.inc:30
 msgid "Fix"
-msgstr ""
-
-#: A2BCustomer_UI/form_data/FG_var_did.inc:31
-msgid "Dial"
 msgstr ""
 
 #: A2BCustomer_UI/form_data/FG_var_did.inc:32
