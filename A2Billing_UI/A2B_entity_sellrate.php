@@ -21,6 +21,7 @@ $SEL_Form->model[] = new SqlRefField(_("Plan"),'idrp','cc_retailplan','id','name
 $HD_Form= new FormHandler('cc_sellrate',_("Sell rates"),_("Sell rate"));
 $HD_Form->checkRights(ACX_RATECARD);
 $HD_Form->init();
+$HD_Form->views['tooltip'] = new DetailsMcView();
 
 $PAGE_ELEMS[] = &$SEL_Form;
 $PAGE_ELEMS[] = &$HD_Form;
@@ -93,5 +94,8 @@ $HD_Form->views['import-analyze']->allowed_mimetypes=array('text/csv');
 $HD_Form->views['ask-import']->multiple[] = 'prefx';
 $HD_Form->views['ask-import']->multi_sep = '|';
 
-require("PP_page.inc.php");
+if($HD_Form->getAction()=='tooltip')
+	require("PP_bare_page.inc.php");
+else
+	require("PP_page.inc.php");
 ?>

@@ -7,6 +7,7 @@ require_once (DIR_COMMON."Class.HelpElem.inc.php");
 /*require_once (DIR_COMMON."Form/Class.RevRef.inc.php");*/
 require_once (DIR_COMMON."Form/Class.TimeField.inc.php");
 require_once (DIR_COMMON."Form/Class.SqlRefField.inc.php");
+require_once (DIR_COMMON."Class.JQuery.inc.php");
 
 $menu_section='menu_ratecard';
 
@@ -25,8 +26,15 @@ $HD_Form->model[] = new DateTimeField(_("Time"),'curtime',_("The date/time the c
 $HD_Form->model[] = new FloatField(_("Credit"),'money',_("Credit the customer will have for that call. Used to calculate the timeout"));
 	end($HD_Form->model)->def_value=10.0;
 
-$HD_Form->QueryString= 'SELECT * FROM RateEngine3((SELECT tariffgroup FROM cc_card_group WHERE id = %#grp), ' .
-	'%dialstring, (SELECT numplan FROM cc_card_group WHERE id = %#grp), %curtime, %money);' ;
+/* Note: the secondary tables (sellrate, buyrate) *must* be queried inline, in the fields clause,
+ (rather than the tables clause), because we have to preserve the order of Re3 rows. */
+$HD_Form->QueryString= 'SELECT re3.*, (SELECT destination FROM cc_buyrate WHERE id = re3.brid) AS brid_destination,
+		(SELECT destination FROM cc_sellrate WHERE id = re3.srid) AS srid_destination
+	FROM RateEngine3((SELECT tariffgroup FROM cc_card_group WHERE id = %#grp), 
+		%dialstring, (SELECT numplan FROM cc_card_group WHERE id = %#grp), %curtime, %money) AS re3 ;' ;
+// Wrong one: FROM ...,
+// 	   cc_buyrate, cc_sellrate
+// 	WHERE cc_buyrate.id = re3.brid AND cc_sellrate.id = re3.srid ;' ;
 
 $HD_Form->expectRows = true;
 $HD_Form->submitString = _("Calculate!");
@@ -35,18 +43,31 @@ $HD_Form->noRowsString =  _("No rates/destinations found!");
 //$HD_Form->contentString = 'Generated:<br>';
 $HD_Form->rmodel[] = new TextField(_('Dial'),'dialstring') ;
 $HD_Form->rmodel[] = new TextField(_('Destination'),'destination') ;
-$HD_Form->rmodel[] = new IntField(_('Timeout'),'tmout') ;
+$HD_Form->rmodel[] = new SecondsField(_('Timeout'),'tmout') ;
 end($HD_Form->rmodel)->fieldacr=_('Tm');
 
-$HD_Form->rmodel[] = new IntField(_('Sell'),'srid') ;
-$HD_Form->rmodel[] = new IntField(_('Timeout'),'tmout') ;
+$HD_Form->rmodel[] = new SqlRefFieldToolTip(_('Sell'),'srid','cc_sellrate','id','destination');
+	end($HD_Form->rmodel)->SetRefEntity("A2B_entity_sellrate.php");
+	end($HD_Form->rmodel)->SetRefEntityL("A2B_entity_sellrate.php");
+	end($HD_Form->rmodel)->SetCaptionTooltip(_("Information about the sell rate:"));
+	end($HD_Form->rmodel)->SetRefTooltip("A2B_entity_sellrate.php");
 
 $HD_Form->rmodel[] = new IntField(_('Metric'),'metric') ;
 end($HD_Form->rmodel)->fieldacr=_('M');
-$HD_Form->rmodel[] = new IntField(_('Buy'),'brid') ;
+$HD_Form->rmodel[] = new SqlRefFieldToolTip(_('Buy'),'brid','cc_buyrate','id','destination');
+	end($HD_Form->rmodel)->SetRefEntity("A2B_entity_buyrate.php");
+	end($HD_Form->rmodel)->SetRefEntityL("A2B_entity_buyrate.php");
+	end($HD_Form->rmodel)->SetCaptionTooltip(_("Information about the buy rate:"));
+	end($HD_Form->rmodel)->SetRefTooltip("A2B_entity_buyrate.php");
 
 $HD_Form->rmodel[] = new TextField(_('Trunk'),'trunkcode') ;
+// $HD_Form->rmodel[] = new SqlRefFieldToolTip(_('Trunk'),'trunk','cc_buyrate','id','destination');
 end($HD_Form->rmodel)->fieldacr=_('TR');
+// 	end($HD_Form->rmodel)->SetRefEntity("A2B_entity_buyrate.php");
+// 	end($HD_Form->rmodel)->SetRefEntityL("A2B_entity_buyrate.php");
+// 	end($HD_Form->rmodel)->SetCaptionTooltip(_("Information about the buy rate:"));
+// 	end($HD_Form->rmodel)->SetRefTooltip("A2B_entity_buyrate.php");
+
 $HD_Form->rmodel[] = new IntField(_('Trunk Free'),'trunkfree') ;
 end($HD_Form->rmodel)->fieldacr=_('Tf');
 

@@ -93,7 +93,9 @@ class SqlTableActionForm extends SqlActionForm {
 		if ($this->qryres->EOF){
 			if (isset($this->noRowsString))
 				echo $this->noRowsString;
-		}else { ?>
+		}else {
+			$this->action = 'list';
+		?>
 	<TABLE cellPadding="2" cellSpacing="2" align='center' class="<?= $this->listclass ?>">
 		<thead><tr>
 		<?php
