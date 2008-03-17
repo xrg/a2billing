@@ -27,6 +27,7 @@ table.detailForm tbody .field {
 	text-transform: uppercase;
 	color: #FFFFFF;
 	background-color: #9a9a9a;
+	white-space: nowrap;
 }
 table.detailForm div.descr {
 	font-size: 9px;
