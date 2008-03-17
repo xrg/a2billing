@@ -51,7 +51,8 @@ $HD_Form->model[] = new FloatField(_("Quality"),'quality',"");
 
 //RevRef2::html_body($action);
 
-$HD_Form->model[] = new DelBtnField();
+if ($HD_Form->getAction()!='tooltip')
+	$HD_Form->model[] = new DelBtnField();
 
 require_once(DIR_COMMON."Form/Class.ImportView.inc.php");
 require_once(DIR_COMMON."Class.DynConf.inc.php");
