@@ -34,7 +34,7 @@ foreach($PAGE_ELEMS as $elem){
 
 ?>
 <html><head>
-<title>..:: Asterisk2Billing : CallingCard platform ::..</title>
+<title><?php echo CCMAINTITLE; ?></title>
 <meta http-equiv="Content-Type" content="text/html; charset=<?= CHARSET ?>">
 
 <link rel="shortcut icon" href="./Images/favicon.ico">
