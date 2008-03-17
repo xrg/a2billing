@@ -1,4 +1,5 @@
 <?php
+
 require_once("Class.FormViews.inc.php");
 
 class DetailsView extends FormView {
@@ -8,7 +9,7 @@ class DetailsView extends FormView {
 	}
 
 	protected function RenderFormHead($row,&$form){
-		?>
+		?>		
 	<form action=<?= $_SERVER['PHP_SELF']?> method=post name="<?= $form->prefix?>Frm" id="<?= $form->prefix ?>Frm">
 	<?php
 		$hidden_arr = array('action' => $form->getAction(), 'sub_action' => '');
