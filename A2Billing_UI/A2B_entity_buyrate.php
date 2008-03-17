@@ -21,6 +21,7 @@ $SEL_Form->model[] = new SqlRefField(_("Plan"),'idtp','cc_tariffplan','id','tari
 $HD_Form= new FormHandler('cc_buyrate',_("Buy rates"),_("Buy rate"));
 $HD_Form->checkRights(ACX_RATECARD);
 $HD_Form->init();
+$HD_Form->views['tooltip'] = new DetailsMcView();
 
 $SEL_Form->enable($HD_Form->getAction() == 'list');
 
@@ -45,7 +46,8 @@ $HD_Form->model[] = new FloatField(_("Quality"),'quality',"");
 	end($HD_Form->model)->does_add=false;
 	end($HD_Form->model)->fieldacr = _("Qual");
 
-$HD_Form->model[] = new RevRefTxt(_("Prefixes"),'prefx','id','cc_buy_prefix','brid','dialprefix',_("Dial prefixes covered by this rate."));
+//if ($HD_Form->getAction()!='tooltip') not needed, RevRef only work on 'details' !
+	$HD_Form->model[] = new RevRefTxt(_("Prefixes"),'prefx','id','cc_buy_prefix','brid','dialprefix',_("Dial prefixes covered by this rate."));
 
 //RevRef2::html_body($action);
 
@@ -69,5 +71,8 @@ $HD_Form->views['import-analyze']->allowed_mimetypes=array('text/csv');
 $HD_Form->views['ask-import']->multiple[] = 'prefx';
 $HD_Form->views['ask-import']->multi_sep = '|';
 
-require("PP_page.inc.php");
+if($HD_Form->getAction()=='tooltip')
+	require("PP_bare_page.inc.php");
+else
+	require("PP_page.inc.php");
 ?>

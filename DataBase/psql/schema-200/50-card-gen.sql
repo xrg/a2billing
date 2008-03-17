@@ -272,4 +272,20 @@ BEGIN
 	RETURN dcard;
 END; $$ LANGUAGE PLPGSQL VOLATILE;
 
+CREATE OR REPLACE FUNCTION card_signup_activate(s_crdgrp INTEGER, s_username TEXT, s_loginkey TEXT) RETURNS cc_card AS $$
+DECLARE
+	r_card cc_card;
+BEGIN
+	UPDATE cc_card SET status= 1
+		WHERE status = 3 AND username = s_username AND grp = s_crdgrp 
+		  AND loginkey = s_loginkey
+		RETURNING cc_card.* INTO r_card;
+	
+	IF NOT FOUND THEN
+		RAISE EXCEPTION 'signup_activate: Card not found, or not in right state. Please check.';
+	END IF;
+	
+	RETURN r_card;
+END; $$ LANGUAGE PLPGSQL STRICT VOLATILE;
+
 --eof

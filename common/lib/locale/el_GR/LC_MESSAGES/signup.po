@@ -3,13 +3,13 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: signup\n"
+"PO-Revision-Date: 2008-03-09 14:29GMT\n"
 "Last-Translator: P. Christeas <p_christeas@yahoo.com>\n"
 "Language-Team: Ellhnika <el@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"PO-Revision-Date: 2008-03-09 14:29GMT\n"
 "X-Generator: KBabel 1.11.4\n"
 
 #: Signup/lib/defines.php:14
@@ -127,7 +127,9 @@ msgstr "Εγγραφή!"
 msgid ""
 "Thank you for signing up.<br>An email has been sent to %email for "
 "confirmation!<br>"
-msgstr "Σας ευχαριστούμε για την εγγραφή σας.<br> Έχει αποσταλλεί email στο %email για επικύρωση της εγγραφής.<br>"
+msgstr ""
+"Σας ευχαριστούμε για την εγγραφή σας.<br> Έχει αποσταλλεί email στο %email "
+"για επικύρωση της εγγραφής.<br>"
 
 #: Signup/signup_confirmation.php:13
 #, fuzzy
@@ -290,7 +292,8 @@ msgstr "Εισαγωγή από"
 
 #: Signup/form_data/FG_var_index.inc:319
 #, fuzzy
-msgid "You can modify, through the following form, the different properties of your "
+msgid ""
+"You can modify, through the following form, the different properties of your "
 msgstr "Μπορείτε να διορθώσετε, με την παρακάτω φόρμα, τις ιδιότητες των"
 
 #: Signup/form_data/FG_var_index.inc:320
@@ -316,6 +319,6 @@ msgstr "είναι "
 
 #: Signup/form_data/FG_var_index.inc:329
 #, fuzzy
-msgid "Once you have completed the form above, click on the CONFIRM DATA button."
+msgid ""
+"Once you have completed the form above, click on the CONFIRM DATA button."
 msgstr "συμπληρώθηκε κλικ."
-

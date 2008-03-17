@@ -26,3 +26,12 @@ table.actionForm div.descr {
 	font-size: 9px;
 	font-weight: normal;
 }
+
+table.actionForm tbody .value {
+	text-align: left;
+}
+
+table.actionForm tbody .value input {
+	color: orange;
+	border: thin solid gray;
+}
