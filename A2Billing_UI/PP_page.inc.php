@@ -34,7 +34,7 @@ foreach($PAGE_ELEMS as $elem){
 
 ?>
 <html><head>
-<title>..:: Asterisk2Billing : CallingCard platform ::..</title>
+<title><?php echo CCMAINTITLE; ?></title>
 <meta http-equiv="Content-Type" content="text/html; charset=<?= CHARSET ?>">
 
 <link rel="shortcut icon" href="./Images/favicon.ico">
@@ -49,7 +49,7 @@ foreach($PAGE_ELEMS as $elem){
 ?>
 </head>
 <body  leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
-<p class="version" align="right">v2.0 beta - Jan 2008</p>
+<p class="version" align="right"><?php echo RELEASE_INFO; ?></p>
 <br>
 <table>
 <tr><td class="divleft">
@@ -63,8 +63,7 @@ foreach($PAGE_ELEMS as $elem){
 	</td>
 </tr>
 <tr><td>&nbsp;</td>
-    <td><div class="w1">This software is under GPL licence. For further information, 
-    please visit : <a href="http://www.asterisk2billing.org" target="_blank">asterisk2billing.org</a>
+    <td><div class="w1"><?php echo COPYRIGHT; ?></div>
     </td>
 </tr>
 </body>
