@@ -180,7 +180,7 @@ class DetailsMcView extends DetailsView {
 		$r=0;
 		$nrow= (count($form->model) + $this->ncols -1)/$this->ncols;
 		$wcol = intval (100 / $this->ncols);
-		echo "N. Rows: $nrow<br>";
+		//echo "N. Rows: $nrow<br>";
 	?>
 	<table class="detailsMc" cellspacing=0>
 	<tr><?php
