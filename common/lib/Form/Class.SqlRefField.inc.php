@@ -259,7 +259,7 @@ class SqlRefFieldToolTip extends SqlBigRefField{
 		if (($act == 'list') && $this->tooltip_url){
 			$url_tooltip = str_alparams($this->tooltip_url,$qrow);
 			echo ' <a href="'.$url_tooltip .'&width='.$this->width_tooltip.'" ';
-			echo ' class="jTip" id="'.$this->fieldname.'" name="'.$this->caption_tooltip.'"><b>?</b></a>';
+			echo ' class="jTip" id="'.$this->fieldname.'_'.$qrow[$this->refid].'" name="'.$this->caption_tooltip.'"><b>?</b></a>';
 		}
 	}
 	
