@@ -51,7 +51,7 @@ foreach($PAGE_ELEMS as $elem){
 <body  leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
 <p class="version" align="right"><?php echo RELEASE_INFO; ?></p>
 <br>
-<table>
+<table width="100%">
 <tr><td class="divleft">
 	<?php require("PP_menu.inc.php");?>
 	</td>

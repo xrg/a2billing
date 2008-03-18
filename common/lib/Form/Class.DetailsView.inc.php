@@ -44,12 +44,17 @@ class DetailsView extends FormView {
 	<?php
 		foreach($form->model as $fld)
 			if ($fld){
+			if ($fld instanceof TabField){ ?>
+		<tr><td class="tabField" colspan=2><?= $fld->caption ?></td></tr>
+<?php
+			}else {
 		?><tr><td class="field"><?php
 				$fld->RenderEditTitle($form);
 		?></td><td class="value"><?php
 				$fld->DispList($row,$form);
 		?></td></tr>
 		<?php
+			}
 		}
 	?>
 	</tbody>
@@ -179,7 +184,8 @@ class DetailsMcView extends DetailsView {
 		
 		$r=0;
 		$nrow= (count($form->model) + $this->ncols -1)/$this->ncols;
-		$wcol = intval (100 / $this->ncols);
+		//$wcol = intval (100 / $this->ncols). '%';
+		$wcol= 'auto';
 		//echo "N. Rows: $nrow<br>";
 	?>
 	<table class="detailsMc" cellspacing=0>
@@ -188,7 +194,7 @@ class DetailsMcView extends DetailsView {
 		foreach($form->model as $fld)
 			if ($fld){
 				if(($r % $nrow) ==0) { ?>
-<td width="<?= $wcol ?>%">
+<td width="<?= $wcol ?>">
 <table class="<?= $this->table_class ?>" cellspacing="2">
 	<thead><tr><td class="field">&nbsp;</td><td class="value">&nbsp;</td></tr>
 	</thead>
