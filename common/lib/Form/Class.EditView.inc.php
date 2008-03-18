@@ -2,112 +2,6 @@
 require_once("Class.FormViews.inc.php");
 
 class AskEditView extends FormView {
-
-	public function Render(&$form){
-	// For convenience, ref the dbhandle locally
-	$dbhandle = &$form->a2billing->DBHandle();
-	
-	if ($form->FG_DEBUG>3)
-		echo "List! Building query..";
-		
-	
-	$query_fields = array();
-	$query_clauses = array();
-	foreach($form->model as $fld){
-		$tmp= $fld->editQueryField($dbhandle);
-		if ( is_string($tmp))
-			$query_fields[] = $tmp;
-		
-		$tmp= $fld->editQueryClause($dbhandle,$form);
-		if ( is_string($tmp))
-			$query_clauses[] = $tmp;
-	}
-	
-	if ($form->model_table == null){
-		if ($form->FG_DEBUG>0)
-			echo "No table!\n";
-		return;
-	}
-	
-	$QUERY = 'SELECT ';
-	if (count($query_fields)==0) {
-		if ($form->FG_DEBUG>0)
-			echo "No query fields!\n";
-		return;
-	}
-	
-	$QUERY .= implode(', ', $query_fields);
-	$QUERY .= ' FROM ' . $form->model_table;
-	
-	if (count($query_clauses))
-		$QUERY .= ' WHERE ' . implode(' AND ', $query_clauses);
-	
-	$QUERY .= ' LIMIT 1;'; // we can only edit one record at a time!
-	
-	if ($form->FG_DEBUG>3)
-		echo "QUERY: $QUERY\n<br>\n";
-	
-	// Perform the query
-	$res =$dbhandle->Execute($QUERY);
-	if (! $res){
-		if ($form->FG_DEBUG>0)
-			echo "Query Failed: ". nl2br(htmlspecialchars($dbhandle->ErrorMsg()));
-		return;
-	}
-	
-	if ($res->EOF) /*&& cur_page==0) */ {
-		if ($form->edit_no_records)
-			echo $edit_no_records;
-		else echo str_params(_("No %1 found!"),array($form->model_name_s),1);
-	} else {
-		// do the table..
-		$row=$res->fetchRow();
-		?>
-	<form action=<?= $_SERVER['PHP_SELF']?> method=post name="<?= $form->prefix?>Frm" id="<?= $form->prefix ?>Frm">
-	<?php
-		$hidden_arr = array('action' => 'edit','sub_action' => '');
-		foreach($form->model as $fld)
-			if ($arr2 = $fld->editHidden($row,$form))
-				$hidden_arr = array_merge($hidden_arr,$arr2);
-		if (strlen($form->prefix)>0){
-			$arr2= array();
-			foreach($hidden_arr as $key => $val)
-				$arr2[$form->prefix.$key] = $val;
-			$hidden_arr = $arr2;
-		}
-		$form->gen_PostParams($hidden_arr,true);
-	?>
-<table class="editForm" cellspacing="2">
-	<thead><tr><td class="field">&nbsp;</td><td class="value">&nbsp;</td></tr>
-	</thead>
-	<tbody>
-	<?php
-		foreach($form->model as $fld)
-			if ($fld && $fld->does_edit){
-		?><tr><td class="field"><?php
-				$fld->RenderEditTitle($form);
-		?></td><td class="value"><?php
-				$fld->DispEdit($row,$form);
-		?></td></tr>
-		<?php
-			}
-	?>
-	<tr class="confirm"><td colspan=2 align="right">
-	<button type=submit>
-	<?= str_params(_("Update this %1"),array($form->model_name_s),1) ?>
-	<img src="./Images/icon_arrow_orange.png" ></input>
-	<td>
-	</tr>
-	</tbody>
-	</table> </form>
-	<?php
-	}
-}
-};
-
-
-
-class AskEditTabsView extends FormView {
 	protected $nb_fragment = 0;
 	 
 	public function Render(&$form){
@@ -185,10 +79,10 @@ class AskEditTabsView extends FormView {
 		$form->gen_PostParams($hidden_arr,true);
 		
 		foreach($form->model as $fld)
-			if ($fld && $fld->add_tab){
+			if ($fld instanceof TabField){
 				$this->nb_fragment++;
 				if ($this->nb_fragment==1) echo "\n<div id=\"rotate\"> <ul>\n";
-				echo '<li><a href="#fragment-'.$this->nb_fragment.'"><span>'.$fld->tablabel."</span></a></li>\n";
+				echo '<li><a href="#fragment-'.$this->nb_fragment.'"><span>'.$fld->caption."</span></a></li>\n";
 			}
 		if ($this->nb_fragment > 0) echo "</ul>\n";
 
@@ -196,28 +90,12 @@ class AskEditTabsView extends FormView {
 		$this->nb_fragment = 0;
 		$loopmodel = 0;
 		foreach($form->model as $fld){
-			if ($fld && $fld->add_tab){
+			
+			if ($fld instanceof TabField){
 				$this->nb_fragment++;
-				if ($this->nb_fragment > 1){
-					?>
-					<tr class="confirm"><td colspan=2 align="right">
-					<button type=submit>
-					<?= str_params(_("Update this %1"),array($form->model_name_s),1) ?>
-					<img src="./Images/icon_arrow_orange.png" ></input>
-					<td>
-					</tr>
-					</tbody></table></div>
-					<?php
-				}
-				echo '<div id="fragment-'.$this->nb_fragment.'">';
-				if ($this->nb_fragment > 1){
-					?>
-					<table class="editForm" cellspacing="2">
-						<thead><tr><td class="field">&nbsp;</td><td class="value">&nbsp;</td></tr></thead>
-						<tbody>
-					<?php
-				}
+				$fld->DispTab($row, $form, $this->nb_fragment);
 			}
+			
 			if ($loopmodel == 0){
 				?>
 				<table class="editForm" cellspacing="2">
@@ -250,6 +128,7 @@ class AskEditTabsView extends FormView {
 	}
 }
 };
+
 
 class AskEdit2View extends AskEditView {
 };
