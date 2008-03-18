@@ -1,7 +1,5 @@
 <?php
 require_once("Class.Provision.inc.php");
-require_once("./lib/Class.A2Billing.inc.php");
-require_once("./lib/Misc.inc.php");
 
 class AsteriskIniProvi extends ProviEngine {
 	protected $grpres;
@@ -50,7 +48,7 @@ class AsteriskIniProvi extends ProviEngine {
 	}
 	
 	public function genContent(&$outstream){
-		fwrite($outstream,"Test!\n");
+		fwrite($outstream,"; Generated content\n\n");
 		
 		while($crd=$this->itemres->fetchRow())
 		foreach($this->grprows as $grp){
