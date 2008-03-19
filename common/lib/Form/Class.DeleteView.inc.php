@@ -6,19 +6,18 @@ class AskDelView extends DetailsView {
 	
 	public function Render(&$form){
 		$this->RenderStyle();
-		
 		$res= $this->PerformQuery($form);
 		
 		if (!$res)
 			return;
-	
+		
 		// do the table..
 		$row=$res->fetchRow();
 		?>
 		<div class='askDel'><?= str_params(_("This %1 will be deleted!"),array($form->model_name_s),1) ?>
 		</div>
-	<form action=<?= $_SERVER['PHP_SELF']?> method=post name="<?= $form->prefix?>Frm" id="<?= $form->prefix ?>Frm">
-	<?php
+		<form action=<?= $_SERVER['PHP_SELF']?> method=post name="<?= $form->prefix?>Frm" id="<?= $form->prefix ?>Frm">
+		<?php
 		$hidden_arr = array('action' => 'delete','sub_action' => '');
 		foreach($form->model as $fld)
 			if ($arr2 = $fld->editHidden($row,$form))
@@ -37,13 +36,11 @@ class AskDelView extends DetailsView {
 				if ($this->nb_fragment==1) echo "\n<div id=\"rotate\"> <ul>\n";
 				echo '<li><a href="#fragment-'.$this->nb_fragment.'"><span>'.$fld->caption."</span></a></li>\n";
 			}
-		
 		if ($this->nb_fragment > 0) echo "</ul>\n";
-	
-	
+		
 		$this->nb_fragment = 0;
 		$loopmodel = 0;
-		foreach($form->model as $fld){ 
+		foreach($form->model as $fld){
 			if ($fld instanceof TabField){
 				$this->nb_fragment++;
 				$fld->DispTab($row, $form, $this->nb_fragment);
@@ -51,20 +48,20 @@ class AskDelView extends DetailsView {
 			if ($loopmodel == 0){
 				?>
 				<table class="detailForm" cellspacing="2">
-					<thead><tr><td class="field">&nbsp;</td><td class="value">&nbsp;</td></tr></thead>
-					<tbody>
+				<thead><tr><td class="field">&nbsp;</td><td class="value">&nbsp;</td></tr></thead>
+				<tbody>
 				<?php
 			}
 			$loopmodel++;
 		
 			if ($fld && !($fld instanceof OptionField)){
-		?><tr><td class="field"><?php
-				$fld->RenderEditTitle($form);
-		?></td><td class="value"><?php
-				$fld->DispList($row,$form);
-		?></td></tr>
-		<?php
-		}
+				?><tr><td class="field"><?php
+						$fld->RenderEditTitle($form);
+				?></td><td class="value"><?php
+						$fld->DispList($row,$form);
+				?></td></tr>
+				<?php
+			}
 		}
 	?>
 	<tr class="confirm"><td colspan=2 align="right">
