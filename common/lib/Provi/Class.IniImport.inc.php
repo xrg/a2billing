@@ -109,7 +109,7 @@ class ConfigIniImport extends GenericIniImport {
 				array($tokens[1].'%'));
 			$this->out(LOG_DEBUG,$qry);
 			$rows=$this->dbhandle->GetAll($qry);
-			if(!$rows){
+			if($rows===false){
 				$this->out(LOG_ERR,$this->dbhandle->ErrorMsg());
 				throw new Exception('Cannot query database');
 			}
