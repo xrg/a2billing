@@ -2,7 +2,8 @@
 require_once("Class.DetailsView.inc.php");
 
 class AskDelView extends DetailsView {
-
+	protected $nb_fragment = 0;
+	
 	public function Render(&$form){
 		$this->RenderStyle();
 		
@@ -29,13 +30,33 @@ class AskDelView extends DetailsView {
 			$hidden_arr = $arr2;
 		}
 		$form->gen_PostParams($hidden_arr,true);
-	?>
-<table class="detailForm" cellspacing="2">
-	<thead><tr><td class="field">&nbsp;</td><td class="value">&nbsp;</td></tr>
-	</thead>
-	<tbody>
-	<?php
+		
 		foreach($form->model as $fld)
+			if ($fld instanceof TabField){
+				$this->nb_fragment++;
+				if ($this->nb_fragment==1) echo "\n<div id=\"rotate\"> <ul>\n";
+				echo '<li><a href="#fragment-'.$this->nb_fragment.'"><span>'.$fld->caption."</span></a></li>\n";
+			}
+		
+		if ($this->nb_fragment > 0) echo "</ul>\n";
+	
+	
+		$this->nb_fragment = 0;
+		$loopmodel = 0;
+		foreach($form->model as $fld){ 
+			if ($fld instanceof TabField){
+				$this->nb_fragment++;
+				$fld->DispTab($row, $form, $this->nb_fragment);
+			}
+			if ($loopmodel == 0){
+				?>
+				<table class="detailForm" cellspacing="2">
+					<thead><tr><td class="field">&nbsp;</td><td class="value">&nbsp;</td></tr></thead>
+					<tbody>
+				<?php
+			}
+			$loopmodel++;
+		
 			if ($fld){
 		?><tr><td class="field"><?php
 				$fld->RenderEditTitle($form);
@@ -43,6 +64,7 @@ class AskDelView extends DetailsView {
 				$fld->DispList($row,$form);
 		?></td></tr>
 		<?php
+		}
 		}
 	?>
 	<tr class="confirm"><td colspan=2 align="right">
@@ -54,6 +76,7 @@ class AskDelView extends DetailsView {
 	</tbody>
 	</table> </form>
 	<?php
+	if ($this->nb_fragment > 0) echo '</div></div>';
 	}
 };
 
