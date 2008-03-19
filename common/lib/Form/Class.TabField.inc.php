@@ -61,16 +61,27 @@ class TabField extends BaseField {
 		//stub!
 	}
 	
-	/** Produce the separator with Tabs
+	/** Select the rigth separator for Tabs : edit, add or delete View
 	*/
 	public function DispTab($val,&$form, $id_fragment){
+		if ($form->getAction()=='ask-del')
+			$this->DispTabDel($val,$form, $id_fragment);
+		elseif ($form->getAction()=='ask-edit')
+			$this->DispTabEdit($val,$form, $id_fragment);
+		else
+			$this->DispTabAdd($val,$form, $id_fragment);
+	}
+	
+	/** Produce the separator with Tabs for Edit View
+	*/
+	public function DispTabEdit($val,&$form, $id_fragment){
 		
 		if ($id_fragment > 1){
 			?>
 			<tr class="confirm"><td colspan=2 align="right">
 			<button type=submit>
 			<?= str_params(_("Update this %1"),array($form->model_name_s),1) ?>
-			<img src="./Images/icon_arrow_orange.png" ></input>
+			<img src="./Images/icon_arrow_orange.png" ></button>
 			<td>
 			</tr>
 			</tbody></table></div>
@@ -80,6 +91,56 @@ class TabField extends BaseField {
 		if ($id_fragment > 1){
 			?>
 			<table class="editForm" cellspacing="2">
+				<thead><tr><td class="field">&nbsp;</td><td class="value">&nbsp;</td></tr></thead>
+				<tbody>
+			<?php
+		}
+	}
+	
+	/** Produce the separator with Tabs for Add View
+	*/
+	public function DispTabAdd($val,&$form, $id_fragment){
+		
+		if ($id_fragment > 1){
+			?>
+			<tr class="confirm"><td colspan=2 align="right">
+			<button type=submit>
+			<?= str_params(_("Create this %1"),array($form->model_name_s),1) ?>
+			<img src="./Images/icon_arrow_orange.png" ></button>
+			<td>
+			</tr>
+			</tbody></table></div>
+			<?php
+		}
+		echo '<div id="fragment-'.$id_fragment.'">';
+		if ($id_fragment > 1){
+			?>
+			<table class="addForm" cellspacing="2">
+				<thead><tr><td class="field">&nbsp;</td><td class="value">&nbsp;</td></tr></thead>
+				<tbody>
+			<?php
+		}
+	}
+	
+	/** Produce the separator with Tabs for Del View
+	*/
+	public function DispTabDel($val,&$form, $id_fragment){
+		
+		if ($id_fragment > 1){
+			?>
+			<tr class="confirm"><td colspan=2 align="right">
+			<button type=submit>
+			<?= str_params(_("Delete this %1"),array($form->model_name_s),1) ?>
+			<img src="./Images/icon_arrow_orange.png" ></button>
+			<td>
+			</tr>
+			</tbody></table></div>
+			<?php
+		}
+		echo '<div id="fragment-'.$id_fragment.'">';
+		if ($id_fragment > 1){
+			?>
+			<table class="detailForm" cellspacing="2">
 				<thead><tr><td class="field">&nbsp;</td><td class="value">&nbsp;</td></tr></thead>
 				<tbody>
 			<?php
