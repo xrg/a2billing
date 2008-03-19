@@ -39,7 +39,7 @@ if (!$res){
 	exit(2);
 }
 
-$gen = new ProviIniImport();
+$gen = new ConfigIniImport();
 
 $gen->Init(array(categ=>'ini-test'));
 
