@@ -264,6 +264,7 @@ function menu_show(sect_str){
 	<?php  } ?>
 	<?php   if ( has_rights (ACX_ADMINISTRATOR) ){ 	?>
 			<li><a href="A2B_entity_ast_usercfg.php"><?= _("User cfgs");?></a></li>
+			<li><a href="A2B_entity_provision.php"><?= _("Provisioning");?></a></li>
 	<?php  } ?>
 		</ul>
 		</div>

@@ -18,6 +18,9 @@ class AskImportView extends FormView {
 	public $distinct = true;
 	public $multi_sep = '|';
 	public $delimiter = ';';
+	public $csvmode = true; ///< Defines some behaviour, like optional fields.
+	public $fmtcomment;	///< The text describing the import format.
+	public $bodyfield;	///< For mail mode, the body field
 
 	function RenderHead(){
 	?>
@@ -179,6 +182,18 @@ function moveSourceDown(tform)
 	function Render(&$form){
 		$this->RenderHead();
 		
+		if (empty($this->fmtcomment) &&($this->csvmode)){
+			$this->fmtcomment = str_params( _("Use the example below to format the CSV file. Fields are separated by '%1' , </br>".
+			    ". and , are used for decimal format."),
+			    array($this->delimiter),1);
+		}
+		if ($this->csvmode)
+			$impMsg= str_params(_("New %1 have to be imported from a CSV file."),
+				array($form->model_name),1);
+		else
+			$impMsg= str_params(_("New %1 have to be imported from a file."),
+				array($form->model_name),1);
+		
 		$fldIndex = array();
 		foreach ($form->model as $key => $fld)
 			if ($fld->fieldname)
@@ -186,37 +201,40 @@ function moveSourceDown(tform)
 		
 		$formname = $form->prefix .'Imp' ;
 		?>
-	<div class='impMsg'><?= str_params(_("New %1 have to be imported from a CSV file."),
-		array($form->model_name),1);?>
+	<div class='impMsg'><?= $impMsg ?>
 	</div>
 	
 	<table cellspacing="2" align="center" class="importForm">
 	<form name="<?= $formname ?>" enctype="multipart/form-data" action="<?= $_SERVER['PHP_SELF']?>" method="post" onsubmit="return importValidate(this)">
 	<input type="hidden" name="action" value="import-analyze">
 	<?php if (count($this->common)){ ?>
-		<tr> <td colspan="2" align=center class='title'> <?= _("Common fields");?></td></tr>
+		<tr> <td colspan="3" align=center class='title'> <?= _("Common fields");?></td></tr>
 	<?php		foreach($this->common as $fldname) {
 				$fld = &$form->model[$fldIndex[$fldname]];
 	?><tr><td class='field'><?php $fld->RenderAddTitle($form) ?></td>
-		<td class='value'><?php $fld->DispAdd($form);?> </td>
+		<td colspan="2" class='value'><?php $fld->DispAdd($form);?> </td>
 	</tr>
 	<?php		}
 		}
 		
 		if (count($this->mandatory)){ ?>
-		<tr> <td colspan="2" align=center class='title'> <?= _("Mandatory fields");?></td></tr>
+		<tr> <td colspan="3" align=center class='title'> <?= _("Mandatory fields");?></td></tr>
 	<?php		foreach($this->mandatory as $fldname) {
+				if ((!$this->csvmode) && $fldname == $this->bodyfield)
+					continue;
 				$fld = &$form->model[$fldIndex[$fldname]];
 		?><tr><td class='field'><?php $fld->RenderAddTitle($form) ?></td>
+		<td class='value'><?php if (!$this->csvmode) echo ucfirst($fldname); ?></td>
 		<td class='value'><div class="descr"><?= $fld->editDescr?></div></td>
 	</tr>
 	<?php		}
 		}
 		
 		if (count($this->optional)){ ?>
-		<tr> <td colspan="2" align=center class='title'> <?= _("Optional fields");?>
-		<input name="search_sources" value="" type="hidden"></td></tr>
-		<tr><td colspan=2 align=center>
+		<tr> <td colspan="3" align=center class='title'> <?= _("Optional fields");?></td></tr>
+		<?php	if ($this->csvmode) { ?>
+		<tr><td colspan="3" align=center>
+			<input name="search_sources" value="" type="hidden">
 			<table><tbody><tr>
 			<td><?php echo gettext("Unselected Fields...");?><br>
 				<select name="unselected_search_sources" multiple="multiple" size="<?= count($this->optional)?>" width="50" onchange="deselectHeaders(document.forms['<?= $formname?>'])">
@@ -245,14 +263,22 @@ function moveSourceDown(tform)
 			</tr>
 			</tbody></table>
 		</td></tr>
-		<?php
+		<?php }else  { //non-csvmode
+			foreach($this->optional as $fldname) {
+				$fld = &$form->model[$fldIndex[$fldname]];
+		?><tr><td class='field'><?php $fld->RenderAddTitle($form) ?></td>
+		<td class='value'><?php if (!$this->csvmode) echo ucfirst($fldname); ?></td>
+		<td class='value'><div class="descr"><?= $fld->editDescr?></div></td>
+	</tr>
+	<?php			}
+			}
 		}
 		
 		?>
-                
-		<tr> <td colspan="2" align=center class='title'> <?= _("Upload File");?></td></tr>
+
+		<tr> <td colspan="3" align=center class='title'> <?= _("Upload File");?></td></tr>
 		<tr> <td class="field"><?= _("File") ?></td>
-			<td class="value"> 
+			<td colspan="2" class="value"> 
 			<p align="center"><span class="textcomment"> 
 			<?= str_params(_("The maximum file size is %1 KB"),
 					array($my_max_file_size / 1024),1) ?>
@@ -263,25 +289,24 @@ function moveSourceDown(tform)
 			</p>
 		</td> </tr>
 		<tr><td class="field"><?= _("Submit")?></td>
-		    <td class='value' align='right'>
+		    <td class='value' colspan="2" align='right'>
 			<input type="submit" value="<?= str_params(_("Import %1"),array($form->model_name),1) ?>" class="btnsubmit" >
 		    </td></tr>
 	
 			<?php if (count($this->examples)) {
 		?>
-		<tr> <td colspan="2" align="center">&nbsp; </td> </tr>
-		<tr> <td colspan="2" align=center class='title'> <?= _("Examples");?></td></tr>
-		<tr> <td colspan="2"> 
-                    <div align="center"><span class="textcomment"> 
-			<?= _("Use the example below  to format the CSV file. Fields are separated by  ; or : </br>".
-			    ". and , are used for decimal format.");?>
+		<tr> <td colspan="3" align="center">&nbsp; </td> </tr>
+		<tr> <td colspan="3" align=center class='title'> <?= _("Examples");?></td></tr>
+		<tr> <td colspan="3"> 
+                    <div align="center"><span class="textcomment">
+			<?= $this->fmtcomment ?>
 			   </span>
 			<br/>
 			<?php foreach ($this->examples as $exmpl){ ?>
 				<a href="<?= $exmpl[1]?>" target="superframe"><?= $exmpl[0] ?></a> -
 			<?php  } ?>
 		    </div>
-			<iframe name="superframe" src="<?= $this->examples[0][1]?>" bgcolor="white" width=500 height=80 marginWidth=10 marginHeight=10  frameBorder=1  scrolling=yes>
+			<iframe name="superframe" src="<?= $this->examples[0][1]?>" bgcolor="white" width=500 height=120 marginWidth=10 marginHeight=10  frameBorder=1  scrolling="auto">
 			</iframe>
 		</td> </tr>
 		<?php  } ?>
@@ -369,16 +394,18 @@ class ImportAView extends FormView {
 		
 			//Now, check the given fields
 		$this->fields = $this->askImport->mandatory;
-		$optionals= explode(':',$form->getpost_dirty('search_sources'));
-		foreach ($optionals as $opt)
-			if (!empty($opt))
-			if (!in_array($opt,$this->askImport->optional)){
-				$form->pre_elems[] = new ErrorElem(_("Error in submitted form."));
-				$dbg_elem->content .= "You tried to pass $opt as a field.\n";
-				$form->setAction('ask-import');
-				return;
-			}else
-				$this->fields[] = $opt;
+		if($this->askImport->csvmode){
+			$optionals= explode(':',$form->getpost_dirty('search_sources'));
+			foreach ($optionals as $opt)
+				if (!empty($opt))
+				if (!in_array($opt,$this->askImport->optional)){
+					$form->pre_elems[] = new ErrorElem(_("Error in submitted form."));
+					$dbg_elem->content .= "You tried to pass $opt as a field.\n";
+					$form->setAction('ask-import');
+					return;
+				}else
+					$this->fields[] = $opt;
+		}
 		
 		$tmpdir = DynConf::GetCfg('global','upload_tmpdir','/tmp');
 		$tmpname = str_replace('/','-',basename($fil['name']));
@@ -584,6 +611,169 @@ class ImportAView extends FormView {
 	}
 };
 
+/** Import a file in mail-like format */
+class ImportMailAView extends ImportAView {
+	public $comment_char = '#';
+	public $delim_line = '-------- Mail --------';
+	
+	public function Render(&$form){
+		?><div class='impA-progress' name="<?= $form->prefix?>iprogress">
+			<?= _("Analyzing uploaded data...") ?>
+		<div>
+		
+		<?php
+		$fp = fopen($this->movedFile,  "r");
+		if (!$fp){
+			?><div class="error">
+				<?= _("Error: Cannot open uploaded file") ?>
+			</div>
+			<?php
+			return;
+		}
+		
+		$all_fields = array();
+		foreach ($this->askImport->mandatory as $fld)
+			$all_fields[ucfirst($fld)] = $fld;
+		
+		foreach ($this->askImport->optional as $fld)
+			$all_fields[ucfirst($fld)] = $fld;
+		
+		// echo nl2br(print_r($fields2,true));
+		$nrows = 0;
+		$commentc = $this->comment_char;
+		$comment_len = strlen($this->comment_char);
+		//$multi_sep = $this->askImport->multi_sep;
+		$max_rows = 10; //TODO
+		$bodyfld=$this->askImport->bodyfield;
+		if (empty($bodyfld))
+			$bodyfld="message";
+				
+		if (!feof($fp)){	// only one, not "while"
+			$temail=array();
+			// Sub-loop: get headers
+			while (!feof($fp)){
+				$line =fgets($fp);
+				if (! $line)
+					break;
+				$line2=trim($line); // but also leave $line intact
+				if (substr($line2,0,$comment_len)== $commentc)
+					continue;
+				if (($pos=strpos($line2,':'))===false)
+					break;
+				$fld = substr($line2,0,$pos);
+				if (!isset($all_fields[$fld])){
+					if ($form->FG_DEBUG>1)
+						echo "Skipping tag \"$fld\"<br>\n";
+					continue;
+				}
+				$temail[$all_fields[$fld]] = substr($line2,$pos+1);
+			}
+			
+				// skip the first line of the message, if it's whitespace
+			if ($line && trim($line)=="")
+				$line="";
+			
+			$temail[$bodyfld] = "";
+			// Second loop: message body
+			do{
+				if ($line == '')
+					continue;
+				if ($line == $this->delim_line."\n")
+					break;
+				$temail[$bodyfld] .=$line;
+			
+			}while (($line = fgets($fp))!==false);
+			
+			if ($form->FG_DEBUG>2)
+				echo "Got one mail!\n";
+			
+			$this->RenderMail($temail,$form);
+		}
+		?>
+		
+	<form action=<?= $_SERVER['PHP_SELF']?> method=post name="<?= $form->prefix?>Imp" id="<?= $form->prefix ?>Imp">
+	<?php	// The uploaded file should never be revealed to the client. Thus, we keep that
+		// in _SESSION.
+		$_SESSION[$form->prefix.'importFile'] = $this->movedFile;
+			// Also, protect against multiple uploads in the same session
+		$str ='';
+		for ($i=0;$i<6;$i++)
+			$str .= mt_rand(0,9);
+		$_SESSION[$form->prefix.'importRnd'] = $str;
+		
+		$hidden_arr = array( 'action' => 'import', 'sub_action' => '', 'rnd' => $str);
+		foreach ($this->askImport->common as $co)
+			$hidden_arr[$co] = $form->getpost_dirty($co);
+
+		if (strlen($form->prefix)>0){
+			$arr2= array();
+			foreach($hidden_arr as $key => $val)
+				$arr2[$form->prefix.$key] = $val;
+			$hidden_arr = $arr2;
+		}
+
+		$form->gen_PostParams($hidden_arr,true); 
+		?>
+		<button type=submit>
+		<?= str_params(_("Import these %1"),array($form->model_name),1) ?>
+		<img src="./Images/icon_arrow_orange.png" ></button>
+		</form>
+		<?php
+		
+		fclose($fp);
+	}
+	
+	public function RenderMail($temail,$form){
+		$fldIndex = array();
+		foreach ($form->model as $key => $fld)
+			if ($fld->fieldname)
+				$fldIndex[$fld->fieldname]=$key;
+		
+		$bodyfld=$this->askImport->bodyfield;
+		if (empty($bodyfld))
+			$bodyfld="message";
+
+		?>
+		<table cellspacing="2" align="center" class="importMailForm">
+		<tbody>
+		<tr><td colspan="3" align=center class='title'>&nbsp;&nbsp;</td><tr>
+		<?php 
+			foreach($this->askImport->mandatory as $fld){
+				if ($fld == $bodyfld)
+					continue;
+			?>
+		<tr><td class="field"><?php
+				$form->model[$fldIndex[$fld]]->RenderAddTitle($form);
+		?></td><td class="value"><?php
+				if(isset($temail[$fld]))
+					echo htmlspecialchars($temail[$fld]);
+		?></td></tr>
+		<?php
+			}
+		?>
+		<tr><td class="field">&nbsp;</td><td class= "value">&nbsp;</td></tr>
+		<?php
+			foreach($this->askImport->optional as $fld){
+				if ($fld == $bodyfld)
+					continue;
+			?>
+		<tr><td class="field"><?php
+				$form->model[$fldIndex[$fld]]->RenderAddTitle($form);
+		?></td><td class="value"><?php
+				if(isset($temail[$fld]))
+					$form->model[$fldIndex[$fld]]->DispList($temail,$form);
+		?></td></tr>
+		<?php
+			}
+		?>
+		<tr><td colspan="3" align=center class='title'><?= $form->model[$fldIndex[$bodyfld]]->fieldtitle ?></td></tr>
+		<tr><td class="message" colspan="2">
+		<?= nl2br(htmlspecialchars($temail[$bodyfld])) ?>
+		</td></tr></tbody>
+		</table>
+		<?
+	}
+};
 /** This class performs the SQL import */
 class ImportView extends FormView {
 	protected $askImport;
