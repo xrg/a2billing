@@ -3,20 +3,20 @@ require_once("Class.FormViews.inc.php");
 
 class AskAddView extends FormView {
 	protected $nb_fragment = 0;
-
+	
 	public function Render(&$form){
-	$dbhandle = &$form->a2billing->DBHandle();
+		$dbhandle = &$form->a2billing->DBHandle();
 	?>
 	<form action=<?= $_SERVER['PHP_SELF']?> method=post name="<?= $form->prefix?>Frm" id="<?= $form->prefix ?>Frm">
-	<?php	$hidden_arr = array( 'action' => 'add', 'sub_action' => '');
-		if (strlen($form->prefix)>0){
-			$arr2= array();
-			foreach($hidden_arr as $key => $val)
-				$arr2[$form->prefix.$key] = $val;
-			$hidden_arr = $arr2;
-		}
-
-	$form->gen_PostParams($hidden_arr,true); 
+	<?php		$hidden_arr = array( 'action' => 'add', 'sub_action' => '');
+			if (strlen($form->prefix)>0){
+				$arr2= array();
+				foreach($hidden_arr as $key => $val)
+					$arr2[$form->prefix.$key] = $val;
+				$hidden_arr = $arr2;
+			}
+	
+		$form->gen_PostParams($hidden_arr,true);
 	
 		foreach($form->model as $fld)
 			if ($fld instanceof TabField){
@@ -38,23 +38,23 @@ class AskAddView extends FormView {
 				}
 				
 				if ($loopmodel == 0){
-	?>
-	<table class="addForm" cellspacing="2">
-						<thead><tr><td class="field">&nbsp;</td><td class="value">&nbsp;</td></tr></thead>
-	<tbody>
-	<?php
-	}
-				$loopmodel++;
-	
-		if ($fld && $fld->does_add){
-		?><tr><td class="field"><?php
-				$fld->RenderAddTitle($form);
-		?></td><td class="value"><?php
-				$fld->DispAdd($form);
-		?></td></tr>
+					?>
+		<table class="addForm" cellspacing="2">
+			<thead><tr><td class="field">&nbsp;</td><td class="value">&nbsp;</td></tr></thead>
+			<tbody>
 		<?php
-		}
-	}
+				}
+				$loopmodel++;
+				
+				if ($fld && $fld->does_add){
+			?><tr><td class="field"><?php
+					$fld->RenderAddTitle($form);
+			?></td><td class="value"><?php
+					$fld->DispAdd($form);
+			?></td></tr>
+		<?php
+				}
+			}
 		?>
 		<tr class="confirm"><td colspan=2 align="right">
 		<button type=submit>
