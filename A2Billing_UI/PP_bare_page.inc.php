@@ -32,6 +32,8 @@ foreach($PAGE_ELEMS as $elem){
 	}
 }
 
+$PAGE_BARE=true;
+
 ?>
 <html><head>
 <title><?php echo CCMAINTITLE; ?></title>
@@ -49,7 +51,7 @@ foreach($PAGE_ELEMS as $elem){
 ?>
 </head>
 <body  leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
-<table>
+<table width="100%">
 <tr>
 <td class="divright">
 <?php

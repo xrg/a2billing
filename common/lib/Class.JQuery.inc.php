@@ -8,6 +8,8 @@ class JQueryHeaderElem extends ElemBase {
 	}
 
 	public function RenderHead() {
+		if (isset($GLOBALS['PAGE_BARE']) && $GLOBALS['PAGE_BARE'])
+			return;
 	?>
 
 <script type="text/javascript" src="./javascript/jquery/jquery-1.2.3.pack.js"></script>

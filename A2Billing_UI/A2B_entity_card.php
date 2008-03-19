@@ -9,6 +9,7 @@ require_once (DIR_COMMON."Form/Class.TimeField.inc.php");
 require_once (DIR_COMMON."Form/Class.ClauseField.inc.php");
 require_once (DIR_COMMON."Form/Class.TextSearchField.inc.php");
 require_once (DIR_COMMON."Form/Class.SelectionForm.inc.php");
+require_once (DIR_COMMON."Form/Class.TabField.inc.php");
 require_once (DIR_COMMON."Class.JQuery.inc.php");
 
 $menu_section='menu_customers';
@@ -22,15 +23,11 @@ $HD_Form->checkRights(ACX_CUSTOMER);
 $HD_Form->init();
 
 $HD_Form->views['tooltip'] = new DetailsMcView();
-$HD_Form->views['ask-edit'] = new AskEditTabsView();
 
+$HD_Form->model[] = new TabField(_("Card information"));
 $HD_Form->model[] = new PKeyFieldEH(_("ID"),'id');
-	end($HD_Form->model)->addTab();
-	end($HD_Form->model)->SetTabLabel(_("Card information"));
 $HD_Form->model[] = new TextFieldEH(_("Card number"),'username',_('Card username. Also the PIN for callingcards'));
-
 $HD_Form->model[] = new TextField(_("Card alias"),'useralias',_("Alias, also the number  *-*"));
-
 $HD_Form->model[] = new SqlRefField(_("Group"), "grp","cc_card_group", "id", "name");
 
 if ($HD_Form->getAction()!='tooltip')
@@ -60,9 +57,8 @@ if ($HD_Form->getAction()!='tooltip'){
 	$HD_Form->model[] = dontAdd(dontList(new DateTimeFieldN(_("Expire date"), "expirationdate", _("Date the card should expire"))));
 }
 
+$HD_Form->model[] = new TabField(_("Personal information"));
 $HD_Form->model[] = new TextFieldN(_("First name"),'firstname');
-	end($HD_Form->model)->addTab();
-	end($HD_Form->model)->SetTabLabel(_("Personal information"));
 $HD_Form->model[] = new TextFieldN(_("Last name"),'lastname');
 
 if ($HD_Form->getAction()!='tooltip'){
@@ -78,9 +74,8 @@ if ($HD_Form->getAction()!='tooltip'){
 	$HD_Form->model[] = dontList(new TextFieldN(_("email"),'email'));
 	$HD_Form->model[] = dontList(new TextFieldN(_("Fax"),'fax'));
 	
+	$HD_Form->model[] = new TabField(_("Extra Parameters"));
 	$HD_Form->model[] = dontAdd(new IntVolField(_("In use"),'inuse'));
-		end($HD_Form->model)->addTab();
-		end($HD_Form->model)->SetTabLabel(_("Extra Parameters"));
 	
 	$HD_Form->model[] = dontList(new SqlRefFieldN(_("Currency"),'currency','cc_currencies','currency','name', _("Default currency for new cards in this group. This can later change per card.")));
 }

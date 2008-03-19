@@ -34,6 +34,8 @@ class HelpElem extends ElemBase{
 	public function Render(){
 		if (isset($GLOBALS['FG_DEBUG']) &&$GLOBALS['FG_DEBUG'] > 1)
 			return;
+		if (isset($GLOBALS['PAGE_BARE']) && $GLOBALS['PAGE_BARE'])
+			return;
 		?>
 	<a href="#" target="_self" onclick="helpElemClick('img1000','div1000');"><img id="img1000" src="./Images/kicons/viewmag.png" onmouseover="this.style.cursor='hand';" width="16" height="16"></a>
 	<div id="div1000" style="display:visible;">
