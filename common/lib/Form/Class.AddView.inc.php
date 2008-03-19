@@ -2,10 +2,11 @@
 require_once("Class.FormViews.inc.php");
 
 class AskAddView extends FormView {
+	protected $nb_fragment = 0;
 
 	public function Render(&$form){
 	$dbhandle = &$form->a2billing->DBHandle();
-?>
+	?>
 	<form action=<?= $_SERVER['PHP_SELF']?> method=post name="<?= $form->prefix?>Frm" id="<?= $form->prefix ?>Frm">
 	<?php	$hidden_arr = array( 'action' => 'add', 'sub_action' => '');
 		if (strlen($form->prefix)>0){
@@ -16,27 +17,35 @@ class AskAddView extends FormView {
 		}
 
 	$form->gen_PostParams($hidden_arr,true); 
+	
+		foreach($form->model as $fld)
+			if ($fld instanceof TabField){
+				$this->nb_fragment++;
+				if ($this->nb_fragment==1) echo "\n<div id=\"rotate\"> <ul>\n";
+				echo '<li><a href="#fragment-'.$this->nb_fragment.'"><span>'.$fld->caption."</span></a></li>\n";
+			}
+		
+		if ($this->nb_fragment > 0) echo "</ul>\n";
+	
+	
+		$this->nb_fragment = 0;
+		$loopmodel = 0;
+		foreach($form->model as $fld){ 
+		
+				if ($fld instanceof TabField){
+					$this->nb_fragment++;
+					$fld->DispTab($row, $form, $this->nb_fragment);
+				}
+				
+				if ($loopmodel == 0){
 	?>
 	<table class="addForm" cellspacing="2">
-	<thead><tr><td class="field">&nbsp;</td><td class="value">&nbsp;</td></tr>
-	</thead>
+						<thead><tr><td class="field">&nbsp;</td><td class="value">&nbsp;</td></tr></thead>
 	<tbody>
 	<?php
-		$this->RenderFields($form);
-	?>
-	<tr class="confirm"><td colspan=2 align="right">
-	<button type=submit>
-	<?= str_params(_("Create this %1"),array($form->model_name_s),1) ?>
-	<img src="./Images/icon_arrow_orange.png" ></button>
-	<td>
-	</tr>
-	</tbody>
-	</table> </form>
-	<?php
 	}
+				$loopmodel++;
 	
-	protected function RenderFields(&$form){
-		foreach($form->model as $fld)
 		if ($fld && $fld->does_add){
 		?><tr><td class="field"><?php
 				$fld->RenderAddTitle($form);
@@ -45,6 +54,18 @@ class AskAddView extends FormView {
 		?></td></tr>
 		<?php
 		}
+	}
+		?>
+		<tr class="confirm"><td colspan=2 align="right">
+		<button type=submit>
+		<?= str_params(_("Create this %1"),array($form->model_name_s),1) ?>
+		<img src="./Images/icon_arrow_orange.png" ></button>
+		<td>
+		</tr>
+		</tbody>
+		</table> </form>
+		<?php
+		if ($this->nb_fragment > 0) echo '</div></div>';
 	}
 };
 
