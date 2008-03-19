@@ -57,7 +57,7 @@ class AskDelView extends DetailsView {
 			}
 			$loopmodel++;
 		
-			if ($fld){
+			if ($fld && !($fld instanceof OptionField)){
 		?><tr><td class="field"><?php
 				$fld->RenderEditTitle($form);
 		?></td><td class="value"><?php
