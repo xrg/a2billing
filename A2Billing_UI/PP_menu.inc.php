@@ -126,7 +126,7 @@ function menu_show(sect_str){
 		<li><a href="A2B_entity_moneysituation.php"><?= _("Money situation");?></a></li>
 		<li><a href="A2B_entity_payment.php"><?= _("Payments");?></a></li>
 		<li><a href="A2B_entity_voucher.php"><?= _("Vouchers");?></a></li>
-		<li><a href="A2B_entity_voucher_multi.php"><?= _("Generate Vouchers");?></a></li>
+		<li><a href="Gen_vouchers.php"><?= _("Generate Vouchers");?></a></li>
 		<li><a href="A2B_entity_charge.php"><?= _("Charges");?></a></li>
 		<li><a href="A2B_entity_ecommerce.php"><?= _("E-Products");?></a></li>
 	</ul>
