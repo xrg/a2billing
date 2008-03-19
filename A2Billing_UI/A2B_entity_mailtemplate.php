@@ -26,5 +26,23 @@ $HD_Form->model[] = dontList(new TextAreaField(_("Default args."),'defargs',_("D
 
 $HD_Form->model[] = new DelBtnField();
 
+require_once(DIR_COMMON."Form/Class.ImportView.inc.php");
+require_once(DIR_COMMON."Class.DynConf.inc.php");
+
+$HD_Form->views['ask-import'] = new AskImportView();
+$HD_Form->views['import-analyze'] = new ImportMailAView($HD_Form->views['ask-import']);
+// $HD_Form->views['import'] = new ImportView($HD_Form->views['ask-import']);
+
+//$HD_Form->views['ask-import']->common = array('idrp');
+$HD_Form->views['ask-import']->csvmode = false;
+$HD_Form->views['ask-import']->mandatory = array('mtype','lang', 'fromemail','subject','message');
+$HD_Form->views['ask-import']->optional = array('fromname','defargs');
+$HD_Form->views['ask-import']->bodyfield = 'message';
+
+// $HD_Form->views['ask-import']->examples = array( array(_('Simple'), "importsamples.php?sample=RateCard_Simple"),
+// 					     array(_('Complex'),"importsamples.php?sample=RateCard_Complex"));
+
+$HD_Form->views['import-analyze']->allowed_mimetypes=array('text/plain','application/octet-stream');
+
 require("PP_page.inc.php");
 ?>
