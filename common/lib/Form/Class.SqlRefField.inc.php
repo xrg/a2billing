@@ -238,6 +238,7 @@ class SqlRefFieldToolTip extends SqlBigRefField{
 	public $caption_tooltip = null;
 	public $width_tooltip = 400;
 	public $tooltip_url = null;
+	protected $tooltip_id = 0; ///< Internal state variable holding a seq id.
 	
 	public function DispList(array &$qrow,&$form){
 		$act = $form->getAction();
@@ -259,7 +260,7 @@ class SqlRefFieldToolTip extends SqlBigRefField{
 		if (($act == 'list') && $this->tooltip_url){
 			$url_tooltip = str_alparams($this->tooltip_url,$qrow);
 			echo ' <a href="'.$url_tooltip .'&width='.$this->width_tooltip.'" ';
-			echo ' class="jTip" id="'.$this->fieldname.'_'.$qrow[$this->fieldname].'" name="'.$this->caption_tooltip.'"><b>?</b></a>';
+			echo ' class="jTip" id="'.$this->fieldname.'_'.($this->tooltip_id++).'" name="'.$this->caption_tooltip.'"><b>?</b></a>';
 		}
 	}
 	
