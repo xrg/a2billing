@@ -29,6 +29,15 @@ table.detailForm tbody .field {
 	background-color: #9a9a9a;
 	white-space: nowrap;
 }
+
+table.detailForm tbody .tabField {
+	text-transform: uppercase;
+	padding-left: 2em;
+	padding-top: 2px;
+	color: #FFFFFF;
+	background-color: #7a7a7a;
+}
+
 table.detailForm div.descr {
 	font-size: 9px;
 	font-weight: normal;
@@ -49,4 +58,9 @@ table.detailsMc {
 
 table.detailsMc tr{
 	vertical-align: top;
+}
+
+table.detailsMc table.detailForm {
+	/* in this case, use the full width */
+	width: 100%;
 }
