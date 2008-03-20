@@ -72,7 +72,8 @@ class SqlRefField extends BaseField{
 	}
 	
 	public function detailQueryField(&$dbhandle){
-		return array($this->fieldname, $this->fieldname.'_'.$this->refname);
+		return array(parent::detailQueryField($dbhandle),
+			$this->fieldname.'_'.$this->refname);
 	}
 
 	public function listQueryTable(&$table,&$form){

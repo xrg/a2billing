@@ -34,6 +34,9 @@ $SEL_Form->search_exprs['date_to'] = '<=';
 
 $SEL_Form->model[] = new TextSearchField(_("Destination"),'destination');
 $SEL_Form->model[] = new TextSearchField(_("Called number"),'calledstation');
+$SEL_Form->model[] =dontAdd(new SqlRefFieldN(_("Agent"),'agid','cc_agent','id','name'));
+	end($SEL_Form->model)->fieldexpr='(SELECT agentid FROM cc_card,cc_card_group
+		WHERE cc_card.grp = cc_card_group.id AND cc_card.id = cc_call_v.cardid)';
 /*$SEL_Form->model[] = new SqlRefField(_("Plan"),'idrp','cc_retailplan','id','name', _("Retail plan"));
 	end($SEL_Form->model)->does_add = false;*/
 $SEL_Form->model[] =dontAdd(new SqlRefFieldN(_("Server"),'srvid','cc_a2b_server','id','host'));
@@ -67,6 +70,9 @@ $HD_Form->model[] = new DateTimeFieldDH(_("Start Time"),'starttime');
 $HD_Form->model[] = new TextField(_("Mode"),'cmode');
 $HD_Form->model[] = DontList(new DateTimeField(_("Stop Time"),'stoptime'));
 $HD_Form->model[] = new SqlRefFieldN(_("Card"),'cardid','cc_card','id','username');
+$HD_Form->model[] =new SqlRefFieldN(_("Agent"),'agid','cc_agent','id','login');
+	end($HD_Form->model)->fieldexpr='(SELECT agentid FROM cc_card,cc_card_group
+		WHERE cc_card.grp = cc_card_group.id AND cc_card.id = cc_call_v.cardid)';
 $HD_Form->model[] = DontList(new SqlRefFieldN(_("Server"),'srvid','cc_a2b_server','id','host'));
 
 $HD_Form->model[] = new TextField(_("Called station"),'calledstation');
