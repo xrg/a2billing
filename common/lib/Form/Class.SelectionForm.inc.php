@@ -12,6 +12,10 @@ class SelectionForm extends ElemBase {
 	public $a2billing;
 	protected $_dirty_vars=null; ///< all variables starting with 'prefix'. Set on init.
 	public $search_exprs = array(); ///< an array with comparison operators for the fields
+		/** If set, it will produce a clause \b only when _GET/_POST arrays are empty
+		    It can be either a string used directly SQL expression or an array, 
+		    with a list of the \e model fields which will be queried for default vals */
+	public $fallbackClause;
 	protected $enabled = true;
 
 	function init($sA2Billing= null, $stdActions=true){
@@ -84,6 +88,28 @@ class SelectionForm extends ElemBase {
 			$sexes = $search_exprs;
 		else $sexes = $this->search_exprs;
 		$retc = array();
+		$dvars= $this->_dirty_vars;
+		$dvars2=null;
+		
+		if (empty($dvars)){
+			if (is_string($this->fallbackClause)){
+				$retc[]=$this->fallbackClause;
+				return $retc;
+			}elseif (is_array($this->fallbackClause)){
+				$dvars2=array();
+				foreach($this->fallbackClause as $fbc)
+				  foreach($this->model as $fld)
+				     if($fbc==$fld->fieldname){
+				     	if(!$fld->does_add)
+				     		$dvars2['use_'.$fbc]='t';
+				     	$dvars2[$fbc]=$fld->getDefault();
+				     }
+				     //Store back the generated array into dirty
+				     // vars so that calls to getpost_dirty() will
+				     // return its values.
+				$this->_dirty_vars=$dvars2;
+			}
+		}
 		foreach ($this->model as $fld){
 			if ((!$fld->does_add) && 
 				(!isset($this->_dirty_vars['use_'.$fld->fieldname]) ||
@@ -94,6 +120,9 @@ class SelectionForm extends ElemBase {
 				$retc[$fld->fieldname] = $cls;
 		}
 		
+			// Restore the original (empty? ) _dirty_vars.
+		if (!empty($dvars2))
+			$this->_dirty_vars=$dvars;
 		return $retc;
 	}
 

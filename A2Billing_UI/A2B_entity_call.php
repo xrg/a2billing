@@ -24,6 +24,8 @@ $SEL_Form->model[] = new DateTimeField(_("Period to"),'date_to');
 	end($SEL_Form->model)->def_date = 'now';
 	end($SEL_Form->model)->fieldexpr = 'starttime';
 
+$SEL_Form->fallbackClause=array('date_from');
+
 /*$SEL_Form->model[] = new SqlRefFieldN(_("Agent"),'agentid','cc_agent','id','name');
 	end($SEL_Form->model)->does_add = false;*/
 
