@@ -37,6 +37,7 @@ $SEL_Form->model[] = new TextSearchField(_("Called number"),'calledstation');
 $SEL_Form->model[] =dontAdd(new SqlRefFieldN(_("Agent"),'agid','cc_agent','id','name'));
 	end($SEL_Form->model)->fieldexpr='(SELECT agentid FROM cc_card,cc_card_group
 		WHERE cc_card.grp = cc_card_group.id AND cc_card.id = cc_call_v.cardid)';
+	end($SEL_Form->model)->combofield="name || ' ('|| login || ')'";
 /*$SEL_Form->model[] = new SqlRefField(_("Plan"),'idrp','cc_retailplan','id','name', _("Retail plan"));
 	end($SEL_Form->model)->does_add = false;*/
 $SEL_Form->model[] =dontAdd(new SqlRefFieldN(_("Server"),'srvid','cc_a2b_server','id','host'));
