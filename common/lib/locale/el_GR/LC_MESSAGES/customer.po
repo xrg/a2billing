@@ -1,18 +1,24 @@
+# translation of customer.po to Ellhnika
+# P. Christeas <p_christeas@yahoo.com>, 2008.
 msgid ""
 msgstr ""
-"Project-Id-Version: asterisk 2billing\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"Project-Id-Version: customer\n"
+"Last-Translator: P. Christeas <p_christeas@yahoo.com>\n"
+"Language-Team: Ellhnika <el@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-7\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"PO-Revision-Date: 2008-03-20 14:12GMT\n"
+"X-Generator: KBabel 1.11.4\n"
 
 #: A2BCustomer_UI/lib/defines.php:14 A2BCustomer_UI/lib/defines-old.php:203
 msgid ""
 "This software has been created by Areski under GPL licence. For futher "
 "information, feel free to contact me:"
 msgstr ""
+"Το παρόν λογισμικό γράφτηκε από τον Areski με άδεια GPL. Για περισσότερες "
+"πληροφορίες, επικοινωνήστε μαζί μου:"
 
 #: A2BCustomer_UI/lib/defines.php:16 A2BCustomer_UI/lib/defines-old.php:205
 msgid ""
@@ -20,297 +26,367 @@ msgid ""
 "<a href=\"http://www.asterisk2billing.org\" target=\"_blank"
 "\">asterisk2billing.org</a>"
 msgstr ""
+"Το παρόν λογισμικό έχει άδεια GPL. Για περισσότερες πληροφορίες δείτε στο <a "
+"href=\"http://www.asterisk2billing.org\" target=\"_blank\">asterisk2billing."
+"org</a>"
 
 #: A2BCustomer_UI/lib/defines.php:17
 msgid "Asterisk2Billing : CallingCard platform"
-msgstr ""
+msgstr "Asterisk2Billing: Πλατφόρμα για τηλεφωνικές κάρτες"
 
 #: A2BCustomer_UI/lib/help.php:10
 msgid ""
 "From here, you can use the web based screen phone. You need microphone and "
 "speakers on your PC."
 msgstr ""
+"Από εδώ, μπορείτε να χρησιμοποιήσετε το εικονικό τηλέφωνο της ιστοσελίδας. Αυτό "
+"λειτουργεί αν έχετε μικρόφωνο και μεγάφωνα/ακουστικά στον Η/Υ σας."
 
 #: A2BCustomer_UI/lib/help.php:14
 msgid ""
 "All calls are listed below. Search by month, day or status. Additionally, "
 "you can check the rate and price."
 msgstr ""
+"Όλες σας οι κλήσεις εμφανίζονται εδώ. Δείτε τις ανά μήνα, μέρα ή κατάσταση. "
+"Μπορείτε επίσης να ελέξετε την τιμή και τη χρέωσή τους."
 
 #: A2BCustomer_UI/lib/help.php:18
 msgid ""
 "Simulate the calling process to discover the cost per minute of a call, and "
 "the number of minutes you can call that number with your current credit."
 msgstr ""
+"Προσομείωση της κλήσης για να δείτε το κόστος ανά λεπτό μίας κλήσης, και τον "
+"αριθμό λεπτών που μπορείτε να καλέσετε στον αριθμό αυτό με το υπόλοιπό σας."
 
 #: A2BCustomer_UI/lib/help.php:22
+#, fuzzy
 msgid ""
 "Configuration information for SIP and IAX Client. You can simply copy and "
 "paste it in your configuration files and can do neccessory modifications."
-msgstr ""
+msgstr "Ρυθμίσεις πληροφορίες για SIP και IAX Πελάτης Εσείς αντιγραφή και σε και."
 
 #: A2BCustomer_UI/lib/help.php:26
 msgid ""
 "On this page you will be able to change your password, You have to enter the "
 "New Password and Confirm it."
-msgstr ""
+msgstr "Σε αυτή τη σελίδα μπορείτε να αλλάξετε τον κωδικό πρόσβασής σας. Αρκεί να δώσετε το Νέο κωδικό και να τον Επιβεβαιώσετε."
 
 #: A2BCustomer_UI/lib/help.php:30
 msgid "Here you can view your ratecards"
-msgstr ""
+msgstr "Εδώ μπορείτε να δείτε τους τιμοκαταλόγους"
 
 #: A2BCustomer_UI/lib/help.php:34
+#, fuzzy
 msgid "Enter your voucher number to top up your card."
-msgstr ""
+msgstr "Εισαγωγή στο πάνω."
 
 #: A2BCustomer_UI/lib/help.php:38
+#, fuzzy
 msgid ""
 "Select the country below where you would like a DID, select a DID from the "
 "list and enter the destination you would like to assign it to."
-msgstr ""
+msgstr ";Επιλογή χώρα όμοιο a a λίστα και όμοιο στο στο."
 
 #: A2BCustomer_UI/lib/help.php:42
+#, fuzzy
 msgid "Personal information. <br>"
-msgstr ""
+msgstr "Προσωπικό πληροφορίες<br>"
 
 #: A2BCustomer_UI/lib/defines-old.php:23
+#, fuzzy
 msgid "The expiry date entered for the credit card is invalid."
-msgstr ""
+msgstr "ημερομηνία για πίστωση είναι μη έγκυρο."
 
 #: A2BCustomer_UI/lib/defines-old.php:23
+#, fuzzy
 msgid "Please check the date and try again."
 msgstr ""
+"Cannot connect to the asterisk manager!<br>Please check the manager "
+"configuration..."
 
 #: A2BCustomer_UI/lib/defines-old.php:24
+#, fuzzy
 msgid "The credit card number entered is invalid."
-msgstr ""
+msgstr "πίστωση είναι μη έγκυρο."
 
 #: A2BCustomer_UI/lib/defines-old.php:24
+#, fuzzy
 msgid "Please check the number and try again."
-msgstr ""
+msgstr "Έλεγχος και."
 
 #: A2BCustomer_UI/lib/defines-old.php:25
+#, fuzzy
 msgid "The first four digits of the number entered are"
-msgstr ""
+msgstr "πρώτο τέσσερα από"
 
 #: A2BCustomer_UI/lib/defines-old.php:25
+#, fuzzy
 msgid "If that number is correct, we do not accept that type of credit card."
-msgstr ""
+msgstr "είναι σωστό όχι είδος από πίστωση."
 
 #: A2BCustomer_UI/lib/defines-old.php:25
+#, fuzzy
 msgid "If it is wrong, please try again."
-msgstr ""
+msgstr "είναι λάθος."
 
 #: A2BCustomer_UI/lib/defines-old.php:32
+#, fuzzy
 msgid "Errors have occured during the process of your form."
-msgstr ""
+msgstr "Σφάλματα από."
 
 #: A2BCustomer_UI/lib/defines-old.php:32
+#, fuzzy
 msgid "Please make the following corrections:\\n\\n"
-msgstr ""
+msgstr "n n"
 
 #: A2BCustomer_UI/lib/defines-old.php:33
+#, fuzzy
 msgid "* The 'Review Text' must have at least"
-msgstr ""
+msgstr "Κείμενο σε"
 
 #: A2BCustomer_UI/lib/defines-old.php:33 A2BCustomer_UI/lib/defines-old.php:45
 #: A2BCustomer_UI/lib/defines-old.php:46 A2BCustomer_UI/lib/defines-old.php:59
+#, fuzzy
 msgid "characters"
-msgstr ""
+msgstr "χαρακτήρες"
 
 #: A2BCustomer_UI/lib/defines-old.php:34
+#, fuzzy
 msgid "You must rate the product for your review."
-msgstr ""
+msgstr "Εσείς προϊόν για."
 
 #: A2BCustomer_UI/lib/defines-old.php:35 A2BCustomer_UI/lib/defines-old.php:37
+#, fuzzy
 msgid "Please select a payment method for your order."
-msgstr ""
+msgstr "επιλογή a για."
 
 #: A2BCustomer_UI/lib/defines-old.php:36
+#, fuzzy
 msgid ""
 "This form has already been submitted. Please press Ok and wait for this "
 "process to be completed."
-msgstr ""
+msgstr "Εντάξει και για στο συμπληρώθηκε."
 
 #: A2BCustomer_UI/lib/defines-old.php:39
+#, fuzzy
 msgid "Credit Card"
-msgstr ""
+msgstr "Πιστωτική Κάρτα"
 
 #: A2BCustomer_UI/lib/defines-old.php:40 A2BCustomer_UI/lib/defines-old.php:50
+#, fuzzy
 msgid "Credit Card Test Info"
-msgstr ""
+msgstr "Πίστωση Κάρτα Έλεγχος Πληροφορίες"
 
 #: A2BCustomer_UI/lib/defines-old.php:40 A2BCustomer_UI/lib/defines-old.php:50
+#, fuzzy
 msgid "Expiry: Any"
-msgstr ""
+msgstr "Οποιοδήποτε"
 
 #: A2BCustomer_UI/lib/defines-old.php:41
+#, fuzzy
 msgid "Credit Card Type"
-msgstr ""
+msgstr "Πίστωση Κάρτα Τύπος"
 
 #: A2BCustomer_UI/lib/defines-old.php:42
+#, fuzzy
 msgid "Credit Card Owner"
-msgstr ""
+msgstr "Πίστωση Κάρτα Ιδιοκτήτης"
 
 #: A2BCustomer_UI/lib/defines-old.php:43
+#, fuzzy
 msgid "Credit Card Number"
-msgstr ""
+msgstr "Πίστωση Κάρτα Αριθμός"
 
 #: A2BCustomer_UI/lib/defines-old.php:44
+#, fuzzy
 msgid "Credit Card Expiry Date"
-msgstr ""
+msgstr "Πίστωση Κάρτα Ημερομηνία"
 
 #: A2BCustomer_UI/lib/defines-old.php:45 A2BCustomer_UI/lib/defines-old.php:58
+#, fuzzy
 msgid "* The owner's name of the credit card must be at least"
-msgstr ""
+msgstr "ιδιοκτήτης s όνομα από πίστωση σε"
 
 #: A2BCustomer_UI/lib/defines-old.php:46 A2BCustomer_UI/lib/defines-old.php:59
+#, fuzzy
 msgid "* The credit card number must be at least"
-msgstr ""
+msgstr "πίστωση σε"
 
 #: A2BCustomer_UI/lib/defines-old.php:47
+#, fuzzy
 msgid "Credit Card Error!"
-msgstr ""
+msgstr "Πίστωση Κάρτα Σφάλμα!"
 
 #: A2BCustomer_UI/lib/defines-old.php:51
+#, fuzzy
 msgid "There has been an error processing your credit card"
-msgstr ""
+msgstr "σφάλμα πίστωση"
 
 #: A2BCustomer_UI/lib/defines-old.php:52
+#, fuzzy
 msgid "Please check your credit card details!"
-msgstr ""
+msgstr "Έλεγχος πίστωση!"
 
 #: A2BCustomer_UI/lib/defines-old.php:53
+#, fuzzy
 msgid "Credit Card Owner:"
-msgstr ""
+msgstr "Πίστωση Κάρτα Ιδιοκτήτης:"
 
 #: A2BCustomer_UI/lib/defines-old.php:54
+#, fuzzy
 msgid "Credit Card Number:"
-msgstr ""
+msgstr "Πίστωση Κάρτα Αριθμός:"
 
 #: A2BCustomer_UI/lib/defines-old.php:55
+#, fuzzy
 msgid "Credit Card Expiry Date:"
-msgstr ""
+msgstr "Πίστωση Κάρτα Ημερομηνία:"
 
 #: A2BCustomer_UI/lib/defines-old.php:56
+#, fuzzy
 msgid "Credit Card Checknumber:"
-msgstr ""
+msgstr "Πίστωση Κάρτα:"
 
 #: A2BCustomer_UI/lib/defines-old.php:57
+#, fuzzy
 msgid "(located at the back of the credit card)"
-msgstr ""
+msgstr "σε από πίστωση"
 
 #: A2BCustomer_UI/lib/defines-old.php:58
+#, fuzzy
 msgid "characters."
-msgstr ""
+msgstr "χαρακτήρες."
 
 #: A2BCustomer_UI/lib/defines-old.php:206
 msgid "Asterisk2Billing : CallingCard & VOIP Billing system"
 msgstr ""
 
 #: A2BCustomer_UI/A2B_entity_view_invoice.php:83
+#, fuzzy
 msgid "SELECT MONTH"
-msgstr ""
+msgstr "ΕΠΙΛΕΞΤΕ ΜΗΝΑ"
 
 #: A2BCustomer_UI/A2B_entity_view_invoice.php:89
+#, fuzzy
 msgid "From"
-msgstr ""
+msgstr "Από"
 
 #: A2BCustomer_UI/A2B_entity_view_invoice.php:91
 #: A2BCustomer_UI/A2B_entity_view_invoice.php:108
 msgid "January"
-msgstr ""
+msgstr "Ιανουάριος"
 
 #: A2BCustomer_UI/A2B_entity_view_invoice.php:91
+#, fuzzy
 msgid "February"
-msgstr ""
+msgstr "Φεβρουάριος"
 
 #: A2BCustomer_UI/A2B_entity_view_invoice.php:91
+#, fuzzy
 msgid "March"
-msgstr ""
+msgstr "Μάρτιος"
 
 #: A2BCustomer_UI/A2B_entity_view_invoice.php:91
+#, fuzzy
 msgid "April"
-msgstr ""
+msgstr "Απρίλιος"
 
 #: A2BCustomer_UI/A2B_entity_view_invoice.php:91
+#, fuzzy
 msgid "May"
-msgstr ""
+msgstr "Μάιος"
 
 #: A2BCustomer_UI/A2B_entity_view_invoice.php:91
+#, fuzzy
 msgid "June"
-msgstr ""
+msgstr "Ιούνιος"
 
 #: A2BCustomer_UI/A2B_entity_view_invoice.php:91
+#, fuzzy
 msgid "July"
-msgstr ""
+msgstr "Ιούλιος"
 
 #: A2BCustomer_UI/A2B_entity_view_invoice.php:91
+#, fuzzy
 msgid "August"
-msgstr ""
+msgstr "Αύγουστος"
 
 #: A2BCustomer_UI/A2B_entity_view_invoice.php:91
+#, fuzzy
 msgid "September"
-msgstr ""
+msgstr "Σεπτέμβριος"
 
 #: A2BCustomer_UI/A2B_entity_view_invoice.php:91
+#, fuzzy
 msgid "October"
-msgstr ""
+msgstr "Οκτώβριος"
 
 #: A2BCustomer_UI/A2B_entity_view_invoice.php:91
+#, fuzzy
 msgid "November"
-msgstr ""
+msgstr "Νοέμβριος"
 
 #: A2BCustomer_UI/A2B_entity_view_invoice.php:91
+#, fuzzy
 msgid "December"
-msgstr ""
+msgstr "Δεκέμβριος"
 
 #: A2BCustomer_UI/A2B_entity_view_invoice.php:112
+#, fuzzy
 msgid "To"
-msgstr ""
+msgstr "Προς"
 
 #: A2BCustomer_UI/userinfo.php:18
+#, fuzzy
 msgid "First name"
-msgstr ""
+msgstr "Όνομα"
 
 #: A2BCustomer_UI/userinfo.php:19
+#, fuzzy
 msgid "Last name"
-msgstr ""
+msgstr "Επώνυμο"
 
 #: A2BCustomer_UI/userinfo.php:20
+#, fuzzy
 msgid "Credit"
-msgstr ""
+msgstr "Πίστωση"
 
 #: A2BCustomer_UI/userinfo.php:21
+#, fuzzy
 msgid "Last used"
-msgstr ""
+msgstr "Τελευταίο"
 
 #: A2BCustomer_UI/userinfo.php:24 A2BCustomer_UI/simulator.php:34
+#, fuzzy
 msgid "Calculate!"
-msgstr ""
+msgstr "Υπολογισμός!"
 
 #: A2BCustomer_UI/userinfo.php:26
+#, fuzzy
 msgid "Database error: your details cannot be found!"
-msgstr ""
+msgstr "Βάση δεδομένων σφάλμα!"
 
 #: A2BCustomer_UI/userinfo.php:93
+#, fuzzy
 msgid "LAST NAME"
-msgstr ""
+msgstr "APELLIDOS"
 
 #: A2BCustomer_UI/userinfo.php:94
+#, fuzzy
 msgid "FIRST NAME"
-msgstr ""
+msgstr "ΟΝΟΜΑ"
 
 #: A2BCustomer_UI/userinfo.php:95
 #: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:172
+#, fuzzy
 msgid "EMAIL"
-msgstr ""
+msgstr "ΗΛ.ΔΙΕΥΘΥΝΣΗ"
 
 #: A2BCustomer_UI/userinfo.php:96
 #: A2BCustomer_UI/form_data/FG_var_speeddial.inc:27
 #: A2BCustomer_UI/form_data/FG_var_speeddial.inc:80
 msgid "PHONE"
-msgstr ""
+msgstr "ΤΗΛΕΦΩΝΟ"
 
 #: A2BCustomer_UI/userinfo.php:97
 #: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:240
@@ -320,73 +396,88 @@ msgstr ""
 #: A2BCustomer_UI/userinfo.php:100
 #: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:194
 #: A2BCustomer_UI/form_data/FG_var_card.inc:32
+#, fuzzy
 msgid "ADDRESS"
-msgstr ""
+msgstr "ΔΙΕΥΘΥΝΣΗ"
 
 #: A2BCustomer_UI/userinfo.php:101
+#, fuzzy
 msgid "ZIP CODE"
-msgstr ""
+msgstr "ΚΩΔΙΚΟΣ"
 
 #: A2BCustomer_UI/userinfo.php:102
 #: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:206
 #: A2BCustomer_UI/form_data/FG_var_card.inc:42
+#, fuzzy
 msgid "CITY"
-msgstr ""
+msgstr "ΠΟΛΗ"
 
 #: A2BCustomer_UI/userinfo.php:103
+#, fuzzy
 msgid "STATE"
-msgstr ""
+msgstr "ΚΑΤΑΣΤΑΣΗ"
 
 #: A2BCustomer_UI/userinfo.php:104
 #: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:250
 #: A2BCustomer_UI/form_data/FG_var_did.inc:46
 #: A2BCustomer_UI/form_data/FG_var_card.inc:62
+#, fuzzy
 msgid "COUNTRY"
-msgstr ""
+msgstr "ΧΩΡΑ"
 
 #: A2BCustomer_UI/userinfo.php:112
+#, fuzzy
 msgid "EDIT PERSONAL INFORMATION"
-msgstr ""
+msgstr "ΠΡΟΣΩΠΙΚΟ"
 
 #: A2BCustomer_UI/userinfo.php:127
+#, fuzzy
 msgid "CARD NUMBER"
-msgstr ""
+msgstr "ΑΡΙΘΜΟΣ ΚΑΡΤΑΣ"
 
 #: A2BCustomer_UI/userinfo.php:131
+#, fuzzy
 msgid "BALANCE REMAINING"
-msgstr ""
+msgstr "ΠΟΣΟΝ"
 
 #: A2BCustomer_UI/userinfo.php:154
+#, fuzzy
 msgid "Click below to buy credit : "
-msgstr ""
+msgstr "στο πίστωση "
 
 #: A2BCustomer_UI/checkout_success.php:22
+#, fuzzy
 msgid "Message"
-msgstr ""
+msgstr "Μήνυμα"
 
 #: A2BCustomer_UI/checkout_success.php:30
+#, fuzzy
 msgid "Thank you for your purchase"
-msgstr ""
+msgstr "για"
 
 #: A2BCustomer_UI/checkout_success.php:37
+#, fuzzy
 msgid ""
 "We are sorry your transaction is failed. Please try later or check your "
 "provided information."
-msgstr ""
+msgstr "Τε(τάρτη) είναι ή Έλεγχος πληροφορίες."
 
 #: A2BCustomer_UI/checkout_success.php:41
+#, fuzzy
 msgid ""
 "We are sorry your transaction is denied. Please try later or check your "
 "provided information."
-msgstr ""
+msgstr "Τε(τάρτη) είναι ή Έλεγχος πληροφορίες."
 
 #: A2BCustomer_UI/checkout_success.php:45
+#, fuzzy
 msgid "We are sorry your transaction is pending."
-msgstr ""
+msgstr "Τε(τάρτη) είναι."
 
 #: A2BCustomer_UI/checkout_success.php:49
+#, fuzzy
 msgid "Your transaction is in progress."
-msgstr ""
+msgstr "είναι σε."
 
 #: A2BCustomer_UI/checkout_success.php:53
 msgid "Your transaction was successful."
@@ -394,57 +485,64 @@ msgstr ""
 
 #: A2BCustomer_UI/PP_page.inc.php:44
 msgid "Other"
-msgstr ""
+msgstr "Άλλο"
 
 #: A2BCustomer_UI/A2B_entity_sipiax_info.php:27
 msgid "IAX Config"
-msgstr ""
+msgstr "IAX Ρύθμιση"
 
 #: A2BCustomer_UI/A2B_entity_sipiax_info.php:28
 msgid "iax.conf"
-msgstr ""
+msgstr "iax.conf"
 
 #: A2BCustomer_UI/A2B_entity_sipiax_info.php:32
 msgid "SIP Config"
-msgstr ""
+msgstr "SIP Ρύθμιση"
 
 #: A2BCustomer_UI/A2B_entity_sipiax_info.php:33
 msgid "sip.conf"
-msgstr ""
+msgstr "sip.conf"
 
 #: A2BCustomer_UI/A2B_entity_sipiax_info.php:57
 msgid "CARD"
 msgstr ""
 
 #: A2BCustomer_UI/A2B_entity_sipiax_info.php:61
+#, fuzzy
 msgid "CONFIGURATION TYPE"
-msgstr ""
+msgstr "ΤΥΠΟΣ"
 
 #: A2BCustomer_UI/A2B_entity_sipiax_info.php:64
+#, fuzzy
 msgid "IAX"
-msgstr ""
+msgstr "IAX"
 
 #: A2BCustomer_UI/A2B_entity_sipiax_info.php:65
+#, fuzzy
 msgid "SIP"
-msgstr ""
+msgstr "SIP"
 
 #: A2BCustomer_UI/A2B_entity_sipiax_info.php:84
+#, fuzzy
 msgid "Copy and past this into your "
-msgstr ""
+msgstr "Αντιγραφή και "
 
 #: A2BCustomer_UI/A2B_entity_sipiax_info.php:131
+#, fuzzy
 msgid "The peer is not defined, please contact your Administrator!"
-msgstr ""
+msgstr "είναι όχι!"
 
 #: A2BCustomer_UI/CC_entity_phonelist.php:241
 #: A2BCustomer_UI/predictivedialer.php:308
+#, fuzzy
 msgid "Previous"
-msgstr ""
+msgstr "Προηγούμενο"
 
 #: A2BCustomer_UI/CC_entity_phonelist.php:246
 #: A2BCustomer_UI/A2B_entity_did.php:439
+#, fuzzy
 msgid "Next"
-msgstr ""
+msgstr "Επόμενο"
 
 #: A2BCustomer_UI/CC_entity_phonelist.php:265
 #: A2BCustomer_UI/A2B_entity_did.php:424
@@ -459,28 +557,34 @@ msgstr ""
 
 #: A2BCustomer_UI/CC_entity_phonelist.php:287
 #: A2BCustomer_UI/predictivedialer.php:371
+#, fuzzy
 msgid "Insert a new"
-msgstr ""
+msgstr "Εισαγωγή a νέο"
 
 #: A2BCustomer_UI/CC_entity_phonelist.php:297
+#, fuzzy
 msgid "If you wish to insert a new"
-msgstr ""
+msgstr "στο a νέο"
 
 #: A2BCustomer_UI/CC_entity_phonelist.php:297
+#, fuzzy
 msgid "click on the Add button"
-msgstr ""
+msgstr "κλικ Προσθήκη"
 
 #: A2BCustomer_UI/CC_entity_phonelist.php:302
+#, fuzzy
 msgid "Information about the insertion"
-msgstr ""
+msgstr "Πληροφορίες"
 
 #: A2BCustomer_UI/A2B_entity_speeddial.php:59
+#, fuzzy
 msgid "Enter the number which you wish to assign to the code here"
-msgstr ""
+msgstr "Εισαγωγή στο στο εδώ"
 
 #: A2BCustomer_UI/A2B_entity_speeddial.php:64
+#, fuzzy
 msgid "Speed Dial code"
-msgstr ""
+msgstr "Ταχύτητα Κλήση"
 
 #: A2BCustomer_UI/A2B_entity_speeddial.php:74
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:45
@@ -494,8 +598,9 @@ msgstr ""
 #: A2BCustomer_UI/call-history.php:135
 #: A2BCustomer_UI/A2B_entity_call_details.php:82
 #: A2BCustomer_UI/A2B_entity_call_details.php:619
+#, fuzzy
 msgid "Destination"
-msgstr ""
+msgstr "Προορισμός"
 
 #: A2BCustomer_UI/A2B_entity_speeddial.php:76
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:295
@@ -504,50 +609,57 @@ msgstr ""
 #: A2BCustomer_UI/A2B_entity_call_details_pdf.php:315
 #: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:336
 #: A2BCustomer_UI/A2B_entity_call_details.php:591
+#, fuzzy
 msgid "Name"
-msgstr ""
+msgstr "Όνομα"
 
 #: A2BCustomer_UI/A2B_entity_speeddial.php:80
+#, fuzzy
 msgid "ASSIGN NUMBER TO SPEEDDIAL"
-msgstr ""
+msgstr "ΑΝΑΘΕΣΗ NUMBER ΕΩΣ"
 
 #: A2BCustomer_UI/forgotpassword.php:19
+#, fuzzy
 msgid ""
 "Please wait 1 minutes before making any other request for the forgot "
 "password!"
-msgstr ""
+msgstr "Παρακαλώ περιμένετε 1 λεπτό πρίν ξανακάνετε αίτηση ανάκτησης κωδικού!"
 
 #: A2BCustomer_UI/forgotpassword.php:84
+#, fuzzy
 msgid "Your login information email has been sent to you."
-msgstr ""
+msgstr "Σας έχει αποσταλεί e-mail με τον κωδικό σας."
 
 #: A2BCustomer_UI/forgotpassword.php:87
 msgid "No such login exists."
-msgstr ""
+msgstr "Δεν υπάρχει τέτοιος χρήστης."
 
 #: A2BCustomer_UI/forgotpassword.php:90
 msgid "Invalid Action."
-msgstr ""
+msgstr "Άκυρη Ενέργεια."
 
 #: A2BCustomer_UI/forgotpassword.php:93
+#, fuzzy
 msgid "Please provide your email address to get your login information."
-msgstr ""
+msgstr "email διεύθυνση στο λήψη πληροφορίες."
 
 #: A2BCustomer_UI/forgotpassword.php:116
+#, fuzzy
 msgid "You must enter an email address!"
-msgstr ""
+msgstr "Εσείς email διεύθυνση!"
 
 #: A2BCustomer_UI/forgotpassword.php:150 A2BCustomer_UI/index.php:104
 msgid "AUTHENTICATION REFUSED, please check your user/password!"
-msgstr ""
+msgstr "ΔΕΝ ΕΠΙΤΡΕΠΕΤΑΙ Η ΠΡΟΣΒΑΣΗ, παρακαλώ ελέγξτε το όνομα/κωδικό σας!"
 
 #: A2BCustomer_UI/forgotpassword.php:158
+#, fuzzy
 msgid "Forgot your password?"
-msgstr ""
+msgstr "κωδικός πρόσβασης?"
 
 #: A2BCustomer_UI/forgotpassword.php:167
 msgid "Email"
-msgstr ""
+msgstr "Email"
 
 #: A2BCustomer_UI/forgotpassword.php:173
 msgid "SUBMIT"
@@ -555,13 +667,15 @@ msgstr ""
 
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:21
 #: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:23
+#, fuzzy
 msgid "Unbilled Details"
-msgstr ""
+msgstr "Λεπτομέρειες μή-τιμολογημένων"
 
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:23
 #: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:28
+#, fuzzy
 msgid "Billed Details"
-msgstr ""
+msgstr "Λεπτομέρειες"
 
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:42
 #: A2BCustomer_UI/invoices_customer.php:56
@@ -569,8 +683,9 @@ msgstr ""
 #: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:55
 #: A2BCustomer_UI/call-history.php:132
 #: A2BCustomer_UI/A2B_entity_call_details.php:79
+#, fuzzy
 msgid "Calldate"
-msgstr ""
+msgstr "Ημ/νία κλήσης"
 
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:43
 #: A2BCustomer_UI/invoices_customer.php:57
@@ -579,7 +694,7 @@ msgstr ""
 #: A2BCustomer_UI/call-history.php:133
 #: A2BCustomer_UI/A2B_entity_call_details.php:80
 msgid "Source"
-msgstr ""
+msgstr "Πηγή"
 
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:44
 #: A2BCustomer_UI/invoices_customer.php:58
@@ -604,7 +719,7 @@ msgstr ""
 #: A2BCustomer_UI/A2B_entity_call_details.php:620
 #: A2BCustomer_UI/A2B_entity_call_details.php:709
 msgid "Duration"
-msgstr ""
+msgstr "Διάρκεια"
 
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:48
 #: A2BCustomer_UI/invoices_customer.php:65
@@ -613,7 +728,7 @@ msgstr ""
 #: A2BCustomer_UI/call-history.php:141
 #: A2BCustomer_UI/A2B_entity_call_details.php:90
 msgid "Cost"
-msgstr ""
+msgstr "Κόστος"
 
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:299
 #: A2BCustomer_UI/invoices_customer.php:313
@@ -622,7 +737,7 @@ msgstr ""
 #: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:340
 #: A2BCustomer_UI/A2B_entity_call_details.php:595
 msgid "Card Number"
-msgstr ""
+msgstr "Αριθμός Κάρτας"
 
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:306
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:311
@@ -631,24 +746,25 @@ msgstr ""
 #: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:347
 #: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:352
 msgid "From Date"
-msgstr ""
+msgstr "Από Ημερομηνία"
 
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:315
 #: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:356
 msgid "To Date"
-msgstr ""
+msgstr "Εως Ημερομηνία"
 
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:339
 #: A2BCustomer_UI/A2B_entity_call_details.php:615
+#, fuzzy
 msgid "Calls by Destination"
-msgstr ""
+msgstr "Κλήσεις ~κατά Προορισμός"
 
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:345
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:434
 #: A2BCustomer_UI/A2B_entity_call_details.php:621
 #: A2BCustomer_UI/A2B_entity_call_details.php:710
 msgid "Graphic"
-msgstr ""
+msgstr "Γράφημα"
 
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:346
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:435
@@ -660,7 +776,7 @@ msgstr ""
 #: A2BCustomer_UI/A2B_entity_call_details.php:622
 #: A2BCustomer_UI/A2B_entity_call_details.php:711
 msgid "Calls"
-msgstr ""
+msgstr "Κλήσεις"
 
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:347
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:436
@@ -675,7 +791,7 @@ msgstr ""
 #: A2BCustomer_UI/A2B_entity_call_details.php:623
 #: A2BCustomer_UI/A2B_entity_call_details.php:712
 msgid "Amount"
-msgstr ""
+msgstr "Ποσό"
 
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:396
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:486
@@ -696,13 +812,15 @@ msgstr ""
 #: A2BCustomer_UI/call-history.php:794
 #: A2BCustomer_UI/A2B_entity_call_details.php:672
 #: A2BCustomer_UI/A2B_entity_call_details.php:762
+#, fuzzy
 msgid "TOTAL"
-msgstr ""
+msgstr "ΣΥΝΟΛΟ"
 
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:429
 #: A2BCustomer_UI/A2B_entity_call_details.php:705
+#, fuzzy
 msgid "Calls by Date"
-msgstr ""
+msgstr "Κλήσεις ~κατά Ημερομηνία"
 
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:432
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:594
@@ -711,38 +829,44 @@ msgstr ""
 #: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:464
 #: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:632
 #: A2BCustomer_UI/A2B_entity_call_details.php:708
+#, fuzzy
 msgid "Date"
-msgstr ""
+msgstr "Ημερομηνία"
 
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:515
 #: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:555
+#, fuzzy
 msgid "DID Billing"
-msgstr ""
+msgstr "DID"
 
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:518
 #: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:558
+#, fuzzy
 msgid "Charge Date"
-msgstr ""
+msgstr "Ημερομηνία Χρέωσης"
 
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:519
 #: A2BCustomer_UI/PP_menu.inc.php:111 A2BCustomer_UI/PP_menu.inc.php:257
 #: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:559
 #: A2BCustomer_UI/form_data/FG_var_did.inc:42
+#, fuzzy
 msgid "DID"
-msgstr ""
+msgstr "DID"
 
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:520
 #: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:560
+#, fuzzy
 msgid "Country"
-msgstr ""
+msgstr "Χώρα"
 
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:521
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:596
 #: A2BCustomer_UI/card-history.php:45
 #: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:561
 #: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:634
+#, fuzzy
 msgid "Description"
-msgstr ""
+msgstr "Περιγραφή"
 
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:591
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:623
@@ -750,35 +874,41 @@ msgstr ""
 #: A2BCustomer_UI/invoices_customer.php:741
 #: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:629
 #: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:662
+#, fuzzy
 msgid "Extra Charges"
-msgstr ""
+msgstr "Επιπρόσθετες Χρεώσεις"
 
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:595
 #: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:633
+#, fuzzy
 msgid "Type"
-msgstr ""
+msgstr "Τύπος"
 
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:611
 #: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:650
+#, fuzzy
 msgid "Setup Charges"
-msgstr ""
+msgstr "Χρεώσεις Εγκατάστασης"
 
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:615
 #: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:654
+#, fuzzy
 msgid "DID Montly Use"
-msgstr ""
+msgstr "Μηνιαία χρήση DID"
 
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:619
 #: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:658
+#, fuzzy
 msgid "Subscription Fee"
-msgstr ""
+msgstr "Εγγραφή"
 
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:668
 #: A2BCustomer_UI/invoices_customer.php:658
 #: A2BCustomer_UI/invoices_customer.php:1034
 #: A2BCustomer_UI/A2B_entity_call_details.php:783
+#, fuzzy
 msgid "Total"
-msgstr ""
+msgstr "Σύνολο"
 
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:671
 #: A2BCustomer_UI/invoices_customer.php:661
@@ -786,8 +916,9 @@ msgstr ""
 #: A2BCustomer_UI/A2B_entity_call_details_pdf.php:515
 #: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:703
 #: A2BCustomer_UI/A2B_entity_call_details.php:786
+#, fuzzy
 msgid "VAT"
-msgstr ""
+msgstr "ΦΠΑ"
 
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:676
 #: A2BCustomer_UI/invoices_customer.php:666
@@ -795,39 +926,45 @@ msgstr ""
 #: A2BCustomer_UI/A2B_entity_call_details_pdf.php:523
 #: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:711
 #: A2BCustomer_UI/A2B_entity_call_details.php:791
+#, fuzzy
 msgid "Grand Total"
-msgstr ""
+msgstr "Καθολικό Σύνολο"
 
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:687
 #: A2BCustomer_UI/invoices_customer.php:672
 #: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:723
+#, fuzzy
 msgid "Status"
-msgstr ""
+msgstr "Κατάσταση"
 
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:696
 #: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:733
+#, fuzzy
 msgid "Connected"
-msgstr ""
+msgstr "Συνδέθηκε"
 
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:697
 msgid "DisConnected"
 msgstr ""
 
 #: A2BCustomer_UI/card-history.php:69
+#, fuzzy
 msgid "Card History"
-msgstr ""
+msgstr "Κάρτα Ιστορικό"
 
 #: A2BCustomer_UI/card-history.php:174 A2BCustomer_UI/call-history.php:327
 #: A2BCustomer_UI/A2B_entity_call_details.php:308
+#, fuzzy
 msgid "SELECT BY MONTH"
-msgstr ""
+msgstr "ΜΗΝΑΣ"
 
 #: A2BCustomer_UI/card-history.php:180 A2BCustomer_UI/card-history.php:231
 #: A2BCustomer_UI/call-history.php:333 A2BCustomer_UI/call-history.php:384
 #: A2BCustomer_UI/A2B_entity_call_details.php:314
 #: A2BCustomer_UI/A2B_entity_call_details.php:363
+#, fuzzy
 msgid "FROM"
-msgstr ""
+msgstr "ΑΠΟ"
 
 #: A2BCustomer_UI/card-history.php:184 A2BCustomer_UI/card-history.php:205
 #: A2BCustomer_UI/card-history.php:244 A2BCustomer_UI/card-history.php:272
@@ -837,8 +974,9 @@ msgstr ""
 #: A2BCustomer_UI/A2B_entity_call_details.php:338
 #: A2BCustomer_UI/A2B_entity_call_details.php:376
 #: A2BCustomer_UI/A2B_entity_call_details.php:421
+#, fuzzy
 msgid "JANUARY"
-msgstr ""
+msgstr "ΙΑΝΟΥΑΡΙΟΣ"
 
 #: A2BCustomer_UI/card-history.php:184 A2BCustomer_UI/card-history.php:205
 #: A2BCustomer_UI/card-history.php:244 A2BCustomer_UI/card-history.php:272
@@ -848,8 +986,9 @@ msgstr ""
 #: A2BCustomer_UI/A2B_entity_call_details.php:338
 #: A2BCustomer_UI/A2B_entity_call_details.php:376
 #: A2BCustomer_UI/A2B_entity_call_details.php:421
+#, fuzzy
 msgid "FEBRUARY"
-msgstr ""
+msgstr "ΦΕΒΡΟΥΑΡΙΟΣ"
 
 #: A2BCustomer_UI/card-history.php:184 A2BCustomer_UI/card-history.php:205
 #: A2BCustomer_UI/card-history.php:244 A2BCustomer_UI/card-history.php:272
@@ -859,8 +998,9 @@ msgstr ""
 #: A2BCustomer_UI/A2B_entity_call_details.php:338
 #: A2BCustomer_UI/A2B_entity_call_details.php:376
 #: A2BCustomer_UI/A2B_entity_call_details.php:421
+#, fuzzy
 msgid "MARCH"
-msgstr ""
+msgstr "ΜΑΡΤΙΟΣ"
 
 #: A2BCustomer_UI/card-history.php:184 A2BCustomer_UI/card-history.php:205
 #: A2BCustomer_UI/card-history.php:244 A2BCustomer_UI/card-history.php:272
@@ -870,8 +1010,9 @@ msgstr ""
 #: A2BCustomer_UI/A2B_entity_call_details.php:338
 #: A2BCustomer_UI/A2B_entity_call_details.php:376
 #: A2BCustomer_UI/A2B_entity_call_details.php:421
+#, fuzzy
 msgid "APRIL"
-msgstr ""
+msgstr "ΑΠΡΙΛΙΟΣ"
 
 #: A2BCustomer_UI/card-history.php:184 A2BCustomer_UI/card-history.php:205
 #: A2BCustomer_UI/card-history.php:244 A2BCustomer_UI/card-history.php:272
@@ -881,8 +1022,9 @@ msgstr ""
 #: A2BCustomer_UI/A2B_entity_call_details.php:338
 #: A2BCustomer_UI/A2B_entity_call_details.php:376
 #: A2BCustomer_UI/A2B_entity_call_details.php:421
+#, fuzzy
 msgid "MAY"
-msgstr ""
+msgstr "ΜΑΪΟΣ"
 
 #: A2BCustomer_UI/card-history.php:184 A2BCustomer_UI/card-history.php:205
 #: A2BCustomer_UI/card-history.php:244 A2BCustomer_UI/card-history.php:272
@@ -892,8 +1034,9 @@ msgstr ""
 #: A2BCustomer_UI/A2B_entity_call_details.php:338
 #: A2BCustomer_UI/A2B_entity_call_details.php:376
 #: A2BCustomer_UI/A2B_entity_call_details.php:421
+#, fuzzy
 msgid "JUNE"
-msgstr ""
+msgstr "ΙΟΥΝΙΟΣ"
 
 #: A2BCustomer_UI/card-history.php:184 A2BCustomer_UI/card-history.php:205
 #: A2BCustomer_UI/card-history.php:244 A2BCustomer_UI/card-history.php:272
@@ -903,8 +1046,9 @@ msgstr ""
 #: A2BCustomer_UI/A2B_entity_call_details.php:338
 #: A2BCustomer_UI/A2B_entity_call_details.php:376
 #: A2BCustomer_UI/A2B_entity_call_details.php:421
+#, fuzzy
 msgid "JULY"
-msgstr ""
+msgstr "ΙΟΥΛΙΟΣ"
 
 #: A2BCustomer_UI/card-history.php:184 A2BCustomer_UI/card-history.php:205
 #: A2BCustomer_UI/card-history.php:244 A2BCustomer_UI/card-history.php:272
@@ -914,8 +1058,9 @@ msgstr ""
 #: A2BCustomer_UI/A2B_entity_call_details.php:338
 #: A2BCustomer_UI/A2B_entity_call_details.php:376
 #: A2BCustomer_UI/A2B_entity_call_details.php:421
+#, fuzzy
 msgid "AUGUST"
-msgstr ""
+msgstr "ΑΥΓΟΥΣΤΟΣ"
 
 #: A2BCustomer_UI/card-history.php:184 A2BCustomer_UI/card-history.php:205
 #: A2BCustomer_UI/card-history.php:244 A2BCustomer_UI/card-history.php:272
@@ -925,8 +1070,9 @@ msgstr ""
 #: A2BCustomer_UI/A2B_entity_call_details.php:338
 #: A2BCustomer_UI/A2B_entity_call_details.php:376
 #: A2BCustomer_UI/A2B_entity_call_details.php:421
+#, fuzzy
 msgid "SEPTEMBER"
-msgstr ""
+msgstr "ΣΕΠΤΕΜΒΡΙΟΣ"
 
 #: A2BCustomer_UI/card-history.php:184 A2BCustomer_UI/card-history.php:205
 #: A2BCustomer_UI/card-history.php:244 A2BCustomer_UI/card-history.php:272
@@ -936,8 +1082,9 @@ msgstr ""
 #: A2BCustomer_UI/A2B_entity_call_details.php:338
 #: A2BCustomer_UI/A2B_entity_call_details.php:376
 #: A2BCustomer_UI/A2B_entity_call_details.php:421
+#, fuzzy
 msgid "OCTOBER"
-msgstr ""
+msgstr "ΟΚΤΩΒΡΙΟΣ"
 
 #: A2BCustomer_UI/card-history.php:184 A2BCustomer_UI/card-history.php:205
 #: A2BCustomer_UI/card-history.php:244 A2BCustomer_UI/card-history.php:272
@@ -947,8 +1094,9 @@ msgstr ""
 #: A2BCustomer_UI/A2B_entity_call_details.php:338
 #: A2BCustomer_UI/A2B_entity_call_details.php:376
 #: A2BCustomer_UI/A2B_entity_call_details.php:421
+#, fuzzy
 msgid "NOVEMBER"
-msgstr ""
+msgstr "ΝΟΕΜΒΡΙΟΣ"
 
 #: A2BCustomer_UI/card-history.php:184 A2BCustomer_UI/card-history.php:205
 #: A2BCustomer_UI/card-history.php:244 A2BCustomer_UI/card-history.php:272
@@ -958,15 +1106,17 @@ msgstr ""
 #: A2BCustomer_UI/A2B_entity_call_details.php:338
 #: A2BCustomer_UI/A2B_entity_call_details.php:376
 #: A2BCustomer_UI/A2B_entity_call_details.php:421
+#, fuzzy
 msgid "DECEMBER"
-msgstr ""
+msgstr "ΔΕΚΕΜΒΡΙΟΣ"
 
 #: A2BCustomer_UI/card-history.php:200 A2BCustomer_UI/card-history.php:259
 #: A2BCustomer_UI/call-history.php:353 A2BCustomer_UI/call-history.php:412
 #: A2BCustomer_UI/A2B_entity_call_details.php:334
 #: A2BCustomer_UI/A2B_entity_call_details.php:408
+#, fuzzy
 msgid "TO"
-msgstr ""
+msgstr "ΕΩΣ"
 
 #: A2BCustomer_UI/card-history.php:226 A2BCustomer_UI/call-history.php:379
 #: A2BCustomer_UI/A2B_entity_call_details.php:358
@@ -977,8 +1127,9 @@ msgstr ""
 #: A2BCustomer_UI/invoices_customer.php:277
 #: A2BCustomer_UI/call-history.php:504
 #: A2BCustomer_UI/A2B_entity_call_details.php:544
+#, fuzzy
 msgid "Search"
-msgstr ""
+msgstr "Αναζήτηση"
 
 #: A2BCustomer_UI/card-history.php:385
 #: A2BCustomer_UI/CC_entity_edit_did_destination.php:373
@@ -996,49 +1147,58 @@ msgstr ""
 #: A2BCustomer_UI/call-history.php:638
 #: A2BCustomer_UI/A2B_entity_call_details.php:892
 #: A2BCustomer_UI/A2B_entity_call_details.php:992
+#, fuzzy
 msgid "No data found !!!"
-msgstr ""
+msgstr "Δεν βρέθηκαν δεδομένα!!!"
 
 #: A2BCustomer_UI/simulator.php:15
+#, fuzzy
 msgid "Here you can simulate a phone call and see how much it would cost"
-msgstr ""
+msgstr "a και"
 
 #: A2BCustomer_UI/simulator.php:23 A2BCustomer_UI/simulator.php:39
 #: A2BCustomer_UI/form_data/FG_var_did.inc:31
+#, fuzzy
 msgid "Dial"
-msgstr ""
+msgstr "Κλήση"
 
 #: A2BCustomer_UI/simulator.php:23
+#, fuzzy
 msgid "The number you wish to dial."
-msgstr ""
+msgstr "στο."
 
 #: A2BCustomer_UI/simulator.php:36
+#, fuzzy
 msgid "No rates/destinations found!"
-msgstr ""
+msgstr "Όχι!"
 
 #: A2BCustomer_UI/simulator.php:41
+#, fuzzy
 msgid "Max call duration"
-msgstr ""
+msgstr "Μέγιστο διάρκεια"
 
 #: A2BCustomer_UI/simulator.php:42
 msgid "Tm"
 msgstr ""
 
 #: A2BCustomer_UI/simulator.php:44
+#, fuzzy
 msgid "Rate/min"
-msgstr ""
+msgstr "Επιτόκιο λεπτά"
 
 #: A2BCustomer_UI/PP_menu.inc.php:82 A2BCustomer_UI/PP_menu.inc.php:239
 msgid "ACCOUNT INFO"
 msgstr ""
 
 #: A2BCustomer_UI/PP_menu.inc.php:86
+#, fuzzy
 msgid "SIP/IAX INFO"
-msgstr ""
+msgstr "SIP IAX"
 
 #: A2BCustomer_UI/PP_menu.inc.php:91
+#, fuzzy
 msgid "CALL HISTORY"
-msgstr ""
+msgstr "ΚΛΗΣΕΙΣ"
 
 #: A2BCustomer_UI/PP_menu.inc.php:96 A2BCustomer_UI/A2B_entity_voucher.php:106
 #: A2BCustomer_UI/form_data/FG_var_voucher.inc:14
@@ -1052,91 +1212,109 @@ msgstr ""
 #: A2BCustomer_UI/PP_menu.inc.php:103 A2BCustomer_UI/PP_menu.inc.php:250
 #: A2BCustomer_UI/invoices_customer.php:300
 #: A2BCustomer_UI/invoices_customer.php:704
+#, fuzzy
 msgid "Invoice Details"
-msgstr ""
+msgstr "Λεπτομέρειες Λογαριασμού"
 
 #: A2BCustomer_UI/PP_menu.inc.php:104 A2BCustomer_UI/PP_menu.inc.php:251
+#, fuzzy
 msgid "View Invoices"
-msgstr ""
+msgstr "Προβολή Λογαριασμών"
 
 #: A2BCustomer_UI/PP_menu.inc.php:105 A2BCustomer_UI/PP_menu.inc.php:252
+#, fuzzy
 msgid "Current Invoice"
-msgstr ""
+msgstr "Τρέχων Λογαριασμός"
 
 #: A2BCustomer_UI/PP_menu.inc.php:116 A2BCustomer_UI/PP_menu.inc.php:260
+#, fuzzy
 msgid "SPEED DIAL"
-msgstr ""
+msgstr "ΤΑΧΕΙΑ ΚΛΗΣΗ"
 
 #: A2BCustomer_UI/PP_menu.inc.php:121 A2BCustomer_UI/PP_menu.inc.php:263
+#, fuzzy
 msgid "RATECARD"
-msgstr ""
+msgstr "ΤΙΜΟΚΑΤΑΛΟΓΟΣ"
 
 #: A2BCustomer_UI/PP_menu.inc.php:126 A2BCustomer_UI/PP_menu.inc.php:266
+#, fuzzy
 msgid "SIMULATOR"
-msgstr ""
+msgstr "ΠΡΟΣΟΜΟΙΩΤΗΣ"
 
 #: A2BCustomer_UI/PP_menu.inc.php:131 A2BCustomer_UI/PP_menu.inc.php:269
 msgid "CALLBACK"
 msgstr ""
 
 #: A2BCustomer_UI/PP_menu.inc.php:136 A2BCustomer_UI/PP_menu.inc.php:272
+#, fuzzy
 msgid "WEB-PHONE"
-msgstr ""
+msgstr "ΙΣΤΟΣ ΤΗΛΕΦΩΝΟ"
 
 #: A2BCustomer_UI/PP_menu.inc.php:141
+#, fuzzy
 msgid "CALLER ID"
-msgstr ""
+msgstr "ID"
 
 #: A2BCustomer_UI/PP_menu.inc.php:146 A2BCustomer_UI/PP_menu.inc.php:278
+#, fuzzy
 msgid "PASSWORD"
-msgstr ""
+msgstr "ΚΩΔΙΚΟΣ"
 
 #: A2BCustomer_UI/PP_menu.inc.php:150 A2BCustomer_UI/PP_menu.inc.php:280
+#, fuzzy
 msgid "LOGOUT"
-msgstr ""
+msgstr "ΕΞΟΔΟΣ"
 
 #: A2BCustomer_UI/PP_menu.inc.php:275
+#, fuzzy
 msgid "ADD CALLER ID"
-msgstr ""
+msgstr "ID"
 
 #: A2BCustomer_UI/CC_entity_edit_did_destination.php:202
+#, fuzzy
 msgid "error deletion"
-msgstr ""
+msgstr "σφάλμα στην διαγραφή"
 
 #: A2BCustomer_UI/CC_entity_edit_did_destination.php:531
+#, fuzzy
 msgid "Add a new "
-msgstr ""
+msgstr "Προσθήκη νέου "
 
 #: A2BCustomer_UI/CC_entity_edit_did_destination.php:646
 #: A2BCustomer_UI/CC_entity_edit_did_destination.php:841
 #: A2BCustomer_UI/CC_entity_edit_speeddial.php:528
 #: A2BCustomer_UI/CC_entity_edit_speeddial.php:697
+#, fuzzy
 msgid "LIST"
-msgstr ""
+msgstr "ΛΙΣΤΑ"
 
 #: A2BCustomer_UI/CC_entity_edit_did_destination.php:705
 #: A2BCustomer_UI/form_data/FG_var_callerid.inc:17
+#, fuzzy
 msgid "No"
-msgstr ""
+msgstr "Όχι"
 
 #: A2BCustomer_UI/CC_entity_edit_did_destination.php:739
 #: A2BCustomer_UI/CC_entity_edit_speeddial.php:416
 #: A2BCustomer_UI/CC_entity_edit_speeddial.php:606
+#, fuzzy
 msgid "Add a new"
-msgstr ""
+msgstr "Προσθήκη νέου"
 
 #: A2BCustomer_UI/CC_entity_edit_did_destination.php:1116
 msgid "Deletion confirmation"
 msgstr ""
 
 #: A2BCustomer_UI/CC_entity_edit_did_destination.php:1211
+#, fuzzy
 msgid "Remove this DID DESTINATION"
-msgstr ""
+msgstr "Αφαίρεση DID ΠΡΟΟΡΙΣΜΟΣ"
 
 #: A2BCustomer_UI/CC_entity_edit_did_destination.php:1211
 #: A2BCustomer_UI/CC_entity_edit_speeddial.php:1025
+#, fuzzy
 msgid "Delete"
-msgstr ""
+msgstr "Διαγραφή"
 
 #: A2BCustomer_UI/CC_entity_edit_did_destination.php:1236
 msgid "Deletion"
@@ -1144,8 +1322,9 @@ msgstr ""
 
 #: A2BCustomer_UI/CC_entity_edit_did_destination.php:1238
 #: A2BCustomer_UI/CC_entity_edit_speeddial.php:1044
+#, fuzzy
 msgid "New"
-msgstr ""
+msgstr "Νέο"
 
 #: A2BCustomer_UI/CC_entity_edit_did_destination.php:1238
 #: A2BCustomer_UI/CC_entity_edit_speeddial.php:1044
@@ -1153,12 +1332,14 @@ msgid "Inserted"
 msgstr ""
 
 #: A2BCustomer_UI/invoices_customer.php:24
+#, fuzzy
 msgid "ERROR: Cannot download file"
-msgstr ""
+msgstr "ΣΦΑΛΜΑ αρχείο"
 
 #: A2BCustomer_UI/invoices_customer.php:24
+#, fuzzy
 msgid "it does not exist"
-msgstr ""
+msgstr "This Voucher doesn't exist !"
 
 #: A2BCustomer_UI/invoices_customer.php:63
 #: A2BCustomer_UI/A2B_entity_call_details_pdf.php:72
@@ -1171,25 +1352,29 @@ msgstr ""
 #: A2BCustomer_UI/invoices_customer.php:231
 #: A2BCustomer_UI/call-history.php:457
 #: A2BCustomer_UI/A2B_entity_call_details.php:484
+#, fuzzy
 msgid "OPTIONS"
-msgstr ""
+msgstr "ΕΠΙΛΟΓΕΣ"
 
 #: A2BCustomer_UI/invoices_customer.php:236
 #: A2BCustomer_UI/A2B_entity_call_details.php:491
+#, fuzzy
 msgid "RESULT"
-msgstr ""
+msgstr "ΑΠΟΤΕΛΕΣΜΑ"
 
 #: A2BCustomer_UI/invoices_customer.php:239
 #: A2BCustomer_UI/call-history.php:477
 #: A2BCustomer_UI/A2B_entity_call_details.php:494
+#, fuzzy
 msgid "Minutes"
-msgstr ""
+msgstr "Λεπτά"
 
 #: A2BCustomer_UI/invoices_customer.php:239
 #: A2BCustomer_UI/call-history.php:477
 #: A2BCustomer_UI/A2B_entity_call_details.php:494
+#, fuzzy
 msgid "Seconds"
-msgstr ""
+msgstr "Δευτερόλεπτα"
 
 #: A2BCustomer_UI/invoices_customer.php:244
 #: A2BCustomer_UI/A2B_entity_call_details.php:499
@@ -1198,48 +1383,56 @@ msgstr ""
 
 #: A2BCustomer_UI/invoices_customer.php:247
 #: A2BCustomer_UI/A2B_entity_call_details.php:502
+#, fuzzy
 msgid "See Invoice in HTML"
-msgstr ""
+msgstr "Προβολή Λογαριασμού ως HTML"
 
 #: A2BCustomer_UI/invoices_customer.php:248
 #: A2BCustomer_UI/A2B_entity_call_details.php:503
+#, fuzzy
 msgid "or Export PDF"
-msgstr ""
+msgstr "ή εξαγωγή σε CSV"
 
 #: A2BCustomer_UI/invoices_customer.php:253
 #: A2BCustomer_UI/call-history.php:482
 #: A2BCustomer_UI/A2B_entity_call_details.php:520
+#, fuzzy
 msgid "CURRENCY"
-msgstr ""
+msgstr "ΝΟΜΙΣΜΑ"
 
 #: A2BCustomer_UI/invoices_customer.php:347
 #: A2BCustomer_UI/invoices_customer.php:499
 #: A2BCustomer_UI/invoices_customer.php:745
 #: A2BCustomer_UI/call-history.php:739
+#, fuzzy
 msgid "DATE"
-msgstr ""
+msgstr "ΗΜ/ΝΙΑ"
 
 #: A2BCustomer_UI/invoices_customer.php:348
+#, fuzzy
 msgid "DESCRIPTION"
-msgstr ""
+msgstr "ΠΕΡΙΓΡΑΦΗ"
 
 #: A2BCustomer_UI/invoices_customer.php:349
 #: A2BCustomer_UI/invoices_customer.php:408
 #: A2BCustomer_UI/invoices_customer.php:503
 #: A2BCustomer_UI/invoices_customer.php:803
 #: A2BCustomer_UI/invoices_customer.php:890
+#, fuzzy
 msgid "TOTALCOST"
-msgstr ""
+msgstr "ΣΥΝΟΛΟ ΧΡΕΩΣΗΣ"
 
 #: A2BCustomer_UI/invoices_customer.php:371
 #: A2BCustomer_UI/invoices_customer.php:746
+#, fuzzy
 msgid "NB CHARGE"
-msgstr ""
+msgstr "ΑΡ ΧΡΕΩΣΗΣ"
 
 #: A2BCustomer_UI/invoices_customer.php:401
 #: A2BCustomer_UI/invoices_customer.php:796
+#, fuzzy
 msgid "CALLS PER DESTINATION"
-msgstr ""
+msgstr "ΚΛΗΣΕΙΣ ΑΝΑ ΠΡΟΟΡΙΣΜΟ"
 
 #: A2BCustomer_UI/invoices_customer.php:404
 #: A2BCustomer_UI/invoices_customer.php:800
@@ -1250,26 +1443,30 @@ msgstr ""
 #: A2BCustomer_UI/form_data/FG_var_ratecard.inc:58
 #: A2BCustomer_UI/form_data/FG_var_did.inc:41
 #: A2BCustomer_UI/form_data/FG_var_did.inc:69
+#, fuzzy
 msgid "DESTINATION"
-msgstr ""
+msgstr "ΠΡΟΟΡΙΣΜΟΣ"
 
 #: A2BCustomer_UI/invoices_customer.php:405
 #: A2BCustomer_UI/invoices_customer.php:500
+#, fuzzy
 msgid "DUR"
-msgstr ""
+msgstr "ΔΙΑΡ"
 
 #: A2BCustomer_UI/invoices_customer.php:406
 #: A2BCustomer_UI/invoices_customer.php:501
 #: A2BCustomer_UI/call-history.php:741
+#, fuzzy
 msgid "GRAPHIC"
-msgstr ""
+msgstr "ΓΡΑΦΗΜΑ"
 
 #: A2BCustomer_UI/invoices_customer.php:407
 #: A2BCustomer_UI/invoices_customer.php:502
 #: A2BCustomer_UI/invoices_customer.php:802
 #: A2BCustomer_UI/invoices_customer.php:889
+#, fuzzy
 msgid "CALL"
-msgstr ""
+msgstr "ΚΛΗΣΗ"
 
 #: A2BCustomer_UI/invoices_customer.php:496
 #: A2BCustomer_UI/invoices_customer.php:883
@@ -1278,44 +1475,52 @@ msgstr ""
 
 #: A2BCustomer_UI/invoices_customer.php:568
 #: A2BCustomer_UI/invoices_customer.php:956
+#, fuzzy
 msgid "Number of call"
-msgstr ""
+msgstr "Αριθμός κλήσεων"
 
 #: A2BCustomer_UI/invoices_customer.php:747
 #: A2BCustomer_UI/form_data/FG_var_view_invoice.inc:63
+#, fuzzy
 msgid "AMOUNT"
-msgstr ""
+msgstr "ΠΟΣΟΝ"
 
 #: A2BCustomer_UI/invoices_customer.php:801
 #: A2BCustomer_UI/invoices_customer.php:888
 #: A2BCustomer_UI/call-history.php:740
+#, fuzzy
 msgid "DURATION"
-msgstr ""
+msgstr "ΔΙΑΡΚΕΙΑ"
 
 #: A2BCustomer_UI/invoices_customer.php:960
+#, fuzzy
 msgid "nb"
-msgstr ""
+msgstr "αρ."
 
 #: A2BCustomer_UI/CC_entity_edit_speeddial.php:621
+#, fuzzy
 msgid "Voip Station"
-msgstr ""
+msgstr "Σταθμός"
 
 #: A2BCustomer_UI/CC_entity_edit_speeddial.php:1025
+#, fuzzy
 msgid "Remove this Speed Dial"
-msgstr ""
+msgstr "Αφαίρεση Ταχύτητα Κλήση"
 
 #: A2BCustomer_UI/CC_entity_edit_speeddial.php:1042
 msgid "Deletetion"
 msgstr ""
 
 #: A2BCustomer_UI/A2B_entity_card.php:54
+#, fuzzy
 msgid "Your personal information is updated successfully."
-msgstr ""
+msgstr "πληροφορίες είναι."
 
 #: A2BCustomer_UI/checkout_amount.php:62
 #: A2BCustomer_UI/checkout_confirmation.php:87
+#, fuzzy
 msgid "Payment Method"
-msgstr ""
+msgstr "Μέθοδος Πληρωμής"
 
 #: A2BCustomer_UI/checkout_amount.php:76
 msgid "Please enter the order amount"
@@ -1323,169 +1528,206 @@ msgstr ""
 
 #: A2BCustomer_UI/checkout_amount.php:83
 #: A2BCustomer_UI/checkout_confirmation.php:91
+#, fuzzy
 msgid "Total Amount"
-msgstr ""
+msgstr "Σύνολο Ποσό"
 
 #: A2BCustomer_UI/checkout_amount.php:104
 #: A2BCustomer_UI/checkout_confirmation.php:102
+#, fuzzy
 msgid "Please click button to confirm your order"
-msgstr ""
+msgstr "κλικ στο"
 
 #: A2BCustomer_UI/checkout_amount.php:119
+#, fuzzy
 msgid ""
 "The fee from $5 is $0.45, from $10 is $0.59, from $20 is $0.88, from $40 is "
 "$1.46."
-msgstr ""
+msgstr "από είναι από είναι από είναι από είναι."
 
 #: A2BCustomer_UI/checkout_amount.php:119
+#, fuzzy
 msgid "Paypal Fee Calculator"
-msgstr ""
+msgstr "Αριθμομηχανή"
 
 #: A2BCustomer_UI/A2B_entity_did.php:54
+#, fuzzy
 msgid "The following Destinaton-DID has been relesed:"
-msgstr ""
+msgstr "DID:"
 
 #: A2BCustomer_UI/A2B_entity_did.php:91
+#, fuzzy
 msgid "If you really want release this DID , Click on the release button."
-msgstr ""
+msgstr "DID."
 
 #: A2BCustomer_UI/A2B_entity_did.php:98
+#, fuzzy
 msgid "Release the DID "
-msgstr ""
+msgstr "Κυκλοφορία DID "
 
 #: A2BCustomer_UI/A2B_entity_did.php:140
+#, fuzzy
 msgid "The following Destinaton-DID has been added:"
-msgstr ""
+msgstr "DID:"
 
 #: A2BCustomer_UI/A2B_entity_did.php:364
+#, fuzzy
 msgid "Buy New DID"
-msgstr ""
+msgstr "Νέο DID"
 
 #: A2BCustomer_UI/A2B_entity_did.php:364
+#, fuzzy
 msgid "Add Phone Number to your DID"
-msgstr ""
+msgstr "Προσθήκη Τηλέφωνο Αριθμός στο DID"
 
 #: A2BCustomer_UI/A2B_entity_did.php:364
+#, fuzzy
 msgid "Release DID"
-msgstr ""
+msgstr "Κυκλοφορία DID"
 
 #: A2BCustomer_UI/A2B_entity_did.php:381
+#, fuzzy
 msgid "Select Country"
-msgstr ""
+msgstr "Επιλέξτε χώρα"
 
 #: A2BCustomer_UI/A2B_entity_did.php:395
+#, fuzzy
 msgid "Select Virtual Phone Number"
-msgstr ""
+msgstr "Επιλογή Εικονικό Τηλέφωνο Αριθμός"
 
 #: A2BCustomer_UI/A2B_entity_did.php:409
+#, fuzzy
 msgid "Ring To Number "
-msgstr ""
+msgstr "Να καλείται ο αριθμός"
 
 #: A2BCustomer_UI/A2B_entity_did.php:420
+#, fuzzy
 msgid "Country Code - Area Code - Number"
-msgstr ""
+msgstr "Χώρα Κώδικας Περιοχή Κώδικας Αριθμός"
 
 #: A2BCustomer_UI/A2B_entity_did.php:424
+#, fuzzy
 msgid "VOIP CALL : "
-msgstr ""
+msgstr "ΚΛΗΣΗ VOIP : "
 
 #: A2BCustomer_UI/A2B_entity_did.php:424
 #: A2BCustomer_UI/form_data/FG_var_callerid.inc:16
+#, fuzzy
 msgid "Yes"
-msgstr ""
+msgstr "Ναι"
 
 #: A2BCustomer_UI/A2B_entity_did.php:426
+#, fuzzy
 msgid "Ring To destination "
-msgstr ""
+msgstr "Κλήση στον προορισμό"
 
 #: A2BCustomer_UI/A2B_entity_did.php:429
+#, fuzzy
 msgid ""
 "Enter the phone number you wish to call, or the SIP/IAX client to reach  "
 "(ie: 347894999 or SIP/jeremy@182.212.1.45). In order to call a VoIP number, "
 "you will need to enable voip_call"
-msgstr ""
+msgstr "Εισαγωγή στο ή SIP IAX στο ή SIPjeremy@182.212.1.45 Μέσα στο a στο"
 
 #: A2BCustomer_UI/A2B_entity_did.php:433
+#, fuzzy
 msgid "If you release the did you will not be monthly charged any more."
-msgstr ""
+msgstr "όχι κάθε."
 
 #: A2BCustomer_UI/A2B_entity_did.php:441
+#, fuzzy
 msgid "Add phone number"
-msgstr ""
+msgstr "Προσθήκη"
 
 #: A2BCustomer_UI/A2B_entity_did.php:443 A2BCustomer_UI/A2B_entity_did.php:472
 #: A2BCustomer_UI/A2B_entity_did.php:493
+#, fuzzy
 msgid "Ok"
-msgstr ""
+msgstr "Εντάξει"
 
 #: A2BCustomer_UI/A2B_entity_did.php:459
+#, fuzzy
 msgid "Confirm the purchase of the DID "
-msgstr ""
+msgstr "Επιβεβαίωση από DID "
 
 #: A2BCustomer_UI/A2B_entity_did.php:464
+#, fuzzy
 msgid "A monthly fee of "
-msgstr ""
+msgstr "A από "
 
 #: A2BCustomer_UI/A2B_entity_did.php:464
+#, fuzzy
 msgid " will be carrie out from your acount"
-msgstr ""
+msgstr "από"
 
 #: A2BCustomer_UI/A2B_entity_did.php:469
+#, fuzzy
 msgid "Prev"
-msgstr ""
+msgstr "Προηγ."
 
 #: A2BCustomer_UI/A2B_entity_did.php:483
+#, fuzzy
 msgid "The purchase of the DID is done "
-msgstr ""
+msgstr "από DID είναι έτοιμο "
 
 #: A2BCustomer_UI/A2B_entity_did.php:484
+#, fuzzy
 msgid "The purchase of the DID cant be done, your credit of  "
-msgstr ""
+msgstr "από DID έτοιμο πίστωση από "
 
 #: A2BCustomer_UI/A2B_entity_did.php:484
+#, fuzzy
 msgid " is lower than Fixerate of the DID  "
-msgstr ""
+msgstr "είναι από DID "
 
 #: A2BCustomer_UI/A2B_entity_did.php:484
 msgid "Please reload your account "
 msgstr ""
 
 #: A2BCustomer_UI/A2B_entity_callerid.php:75
+#, fuzzy
 msgid "CALLER ID :"
-msgstr ""
+msgstr "ID:"
 
 #: A2BCustomer_UI/A2B_entity_callerid.php:79
+#, fuzzy
 msgid "ADD NEW CALLERID"
-msgstr ""
+msgstr "ΝΕΟ"
 
 #: A2BCustomer_UI/A2B_entity_call_details_pdf.php:300
+#, fuzzy
 msgid "Call Details for Card Number"
-msgstr ""
+msgstr "Κλήση Λεπτομέρειες για Κάρτα Αριθμός"
 
 #: A2BCustomer_UI/A2B_entity_call_details_pdf.php:308
+#, fuzzy
 msgid "Calls Details"
-msgstr ""
+msgstr "Κλήσεις Λεπτομέρειες"
 
 #: A2BCustomer_UI/A2B_entity_call_details_pdf.php:323
 #: A2BCustomer_UI/A2B_entity_call_details.php:599
+#, fuzzy
 msgid "As of Date"
-msgstr ""
+msgstr "από Ημερομηνία"
 
 #: A2BCustomer_UI/A2B_entity_call_details_pdf.php:337
 #: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:363
+#, fuzzy
 msgid "By Destination"
-msgstr ""
+msgstr "Κατά Προορισμό"
 
 #: A2BCustomer_UI/A2B_entity_call_details_pdf.php:436
 #: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:461
+#, fuzzy
 msgid "By Date"
-msgstr ""
+msgstr "Κατά Ημερομηνία"
 
 #: A2BCustomer_UI/A2B_entity_call_details_pdf.php:536
 #: A2BCustomer_UI/A2B_entity_call_details.php:800
 #: A2BCustomer_UI/A2B_entity_call_details.php:907
+#, fuzzy
 msgid "No of Calls"
-msgstr ""
+msgstr "Όχι από Κλήσεις"
 
 #: A2BCustomer_UI/A2B_entity_call_details_pdf.php:539
 #: A2BCustomer_UI/A2B_entity_call_details_pdf.php:639
@@ -1493,236 +1735,286 @@ msgid "Sr"
 msgstr ""
 
 #: A2BCustomer_UI/A2B_entity_call_details_pdf.php:636
+#, fuzzy
 msgid "No of DID Calls"
-msgstr ""
+msgstr "Όχι από DID Κλήσεις"
 
 #: A2BCustomer_UI/A2B_entity_voucher.php:39
+#, fuzzy
 msgid "System Error : No currency table complete !!!"
-msgstr ""
+msgstr "Σύστημα Σφάλμα Όχι πίνακας Ολοκληρωμένο!"
 
 #: A2BCustomer_UI/A2B_entity_voucher.php:50
 msgid "The Voucher"
 msgstr ""
 
 #: A2BCustomer_UI/A2B_entity_voucher.php:50
+#, fuzzy
 msgid "has been used, We added"
-msgstr ""
+msgstr "Τε(τάρτη)"
 
 #: A2BCustomer_UI/A2B_entity_voucher.php:50
+#, fuzzy
 msgid "credit on your account!"
-msgstr ""
+msgstr "πίστωση!"
 
 #: A2BCustomer_UI/A2B_entity_voucher.php:55
+#, fuzzy
 msgid "This Voucher doesn't exist !"
-msgstr ""
+msgstr "t!"
 
 #: A2BCustomer_UI/A2B_entity_voucher.php:111
 msgid "USE VOUCHER"
 msgstr ""
 
 #: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:24
+#, fuzzy
 msgid "Unbilled Invoice Details for Card Number"
-msgstr ""
+msgstr "Τιμολόγιο Λεπτομέρειες για Κάρτα Αριθμός"
 
 #: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:29
+#, fuzzy
 msgid "Billed Invoice Details for Card Number"
-msgstr ""
+msgstr "Τιμολόγιο Λεπτομέρειες για Κάρτα Αριθμός"
 
 #: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:426
 #: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:528
+#, fuzzy
 msgid "None!!!"
-msgstr ""
+msgstr "Κανένα!"
 
 #: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:734
+#, fuzzy
 msgid "Disconnected"
-msgstr ""
+msgstr "Αποσυνδεδεμένος"
 
 #: A2BCustomer_UI/callback.php:142
+#, fuzzy
 msgid "Cannot insert the callback request in the spool!"
-msgstr ""
+msgstr "σε Παροχέτευση/Τροφοδοσία!"
 
 #: A2BCustomer_UI/callback.php:144
+#, fuzzy
 msgid "Your callback request has been queued correctly!"
-msgstr ""
+msgstr "σε αναμονή!"
 
 #: A2BCustomer_UI/callback.php:212
+#, fuzzy
 msgid "Error : You don t have enough credit to call you back!"
-msgstr ""
+msgstr "Σφάλμα Εσείς t πίστωση στο!"
 
 #: A2BCustomer_UI/callback.php:215
+#, fuzzy
 msgid "Error : There is no route to call back your phonenumber!"
-msgstr ""
+msgstr "Σφάλμα είναι όχι route στο!"
 
 #: A2BCustomer_UI/callback.php:222
-msgid ""
-"Error : You have to specify your phonenumber and the number you wish to call!"
-msgstr ""
+#, fuzzy
+msgid "Error : You have to specify your phonenumber and the number you wish to call!"
+msgstr "Σφάλμα Εσείς στο και στο!"
 
 #: A2BCustomer_UI/callback.php:236
+#, fuzzy
 msgid ""
 "You can initiate the callback by entering your phonenumber and the number "
 "you wish to call!"
-msgstr ""
+msgstr "Εσείς ~κατά και στο!"
 
 #: A2BCustomer_UI/callback.php:244
 msgid "Your PhoneNumber"
 msgstr ""
 
 #: A2BCustomer_UI/callback.php:247
+#, fuzzy
 msgid "The number you wish to call"
-msgstr ""
+msgstr "στο"
 
 #: A2BCustomer_UI/callback.php:252
+#, fuzzy
 msgid "Click here to Place Call"
-msgstr ""
+msgstr "εδώ στο Τοποθέτηση Κλήση"
 
 #: A2BCustomer_UI/A2B_entity_password.php:47
+#, fuzzy
 msgid "No value in New Password entered"
-msgstr ""
+msgstr "Όχι τιμή σε Νέο Κωδικός πρόσβασης"
 
 #: A2BCustomer_UI/A2B_entity_password.php:53
+#, fuzzy
 msgid "No Value in Confirm New Password entered"
-msgstr ""
+msgstr "Όχι Τιμή σε Επιβεβαίωση Νέο Κωδικός πρόσβασης"
 
 #: A2BCustomer_UI/A2B_entity_password.php:59
+#, fuzzy
 msgid "Password length should be greater than or equal to 5"
-msgstr ""
+msgstr "Κωδικός πρόσβασης μήκος μεγαλύτερο ή στο 5"
 
 #: A2BCustomer_UI/A2B_entity_password.php:65
+#, fuzzy
 msgid "Value mismatch, New Password should be equal to Confirm New Password"
-msgstr ""
+msgstr "Τιμή Νέο Κωδικός πρόσβασης στο Επιβεβαίωση Νέο Κωδικός πρόσβασης"
 
 #: A2BCustomer_UI/A2B_entity_password.php:81
+#, fuzzy
 msgid "Your password is updated successfully."
-msgstr ""
+msgstr "κωδικός πρόσβασης είναι."
 
 #: A2BCustomer_UI/A2B_entity_password.php:88
+#, fuzzy
 msgid "System is failed to update your password."
-msgstr ""
+msgstr "Σύστημα είναι στο ενημέρωση κωδικός πρόσβασης."
 
 #: A2BCustomer_UI/A2B_entity_password.php:99
+#, fuzzy
 msgid "Change Password"
-msgstr ""
+msgstr "Αλλαγή Κωδικού Πρόσβασης"
 
 #: A2BCustomer_UI/A2B_entity_password.php:105
+#, fuzzy
 msgid "New Password"
-msgstr ""
+msgstr "Νέο Κωδικός πρόσβασης"
 
 #: A2BCustomer_UI/A2B_entity_password.php:109
+#, fuzzy
 msgid "Confirm Password"
-msgstr ""
+msgstr "Επιβεβαίωση Κωδικού"
 
 #: A2BCustomer_UI/A2B_entity_password.php:116
+#, fuzzy
 msgid "Save"
-msgstr ""
+msgstr "Αποθήκευση"
 
 #: A2BCustomer_UI/index.php:76
+#, fuzzy
 msgid "AUTHENTICATION"
-msgstr ""
+msgstr "ΠΙΣΤΟΠΟΙΗΣΗ"
 
 #: A2BCustomer_UI/index.php:85
+#, fuzzy
 msgid "User:"
-msgstr ""
+msgstr "Χρήστης:"
 
 #: A2BCustomer_UI/index.php:90
+#, fuzzy
 msgid "Password:"
-msgstr ""
+msgstr "Κωδικός πρόσβασης:"
 
 #: A2BCustomer_UI/index.php:107
+#, fuzzy
 msgid "INACTIVE ACCOUNT, Please activate your account!"
-msgstr ""
+msgstr "ΑΝΕΝΕΡΓΟΣ ΛΟΓΑΡΙΑΣΜΟΣ, Παρακαλώ ζητήστε την ενεργοποίησή του!"
 
 #: A2BCustomer_UI/index.php:110
+#, fuzzy
 msgid "BLOCKED ACCOUNT, Please contact your administrator!"
-msgstr ""
+msgstr "ΚΛΕΙΔΩΜΕΝΟΣ ΛΟΓΑΡΙΑΣΜΟΣ, Παρακαλώ επικοινωνήστε μαζί μας!"
 
 #: A2BCustomer_UI/index.php:114
 msgid "INVALID ACCOUNT, Please contact your administrator!"
 msgstr ""
 
 #: A2BCustomer_UI/index.php:120
+#, fuzzy
 msgid "Forgot your password? Click "
-msgstr ""
+msgstr "Ξεχάσατε τον κωδικό; πατήστε "
 
 #: A2BCustomer_UI/index.php:120
+#, fuzzy
 msgid "here"
-msgstr ""
+msgstr "εδώ"
 
 #: A2BCustomer_UI/checkout_process.php:198
+#, fuzzy
 msgid "No Such Customer exists."
-msgstr ""
+msgstr "Όχι Πελάτης."
 
 #: A2BCustomer_UI/call-history.php:18
+#, fuzzy
 msgid "Period from"
-msgstr ""
+msgstr "Περίοδος από"
 
 #: A2BCustomer_UI/call-history.php:22
+#, fuzzy
 msgid "Period to"
-msgstr ""
+msgstr "Περίοδος εως"
 
 #: A2BCustomer_UI/call-history.php:34
+#, fuzzy
 msgid "Called number"
-msgstr ""
+msgstr "Κληθείς Αριθμός"
 
 #: A2BCustomer_UI/call-history.php:38
+#, fuzzy
 msgid "Calls you have made *-* ..."
-msgstr ""
+msgstr "Κλήσεις."
 
 #: A2BCustomer_UI/call-history.php:40
+#, fuzzy
 msgid "Call"
-msgstr ""
+msgstr "Κλήση"
 
 #: A2BCustomer_UI/call-history.php:54
+#, fuzzy
 msgid "Session ID"
-msgstr ""
+msgstr "Ταυτότητα συνεδρίας"
 
 #: A2BCustomer_UI/call-history.php:55
+#, fuzzy
 msgid "Unique ID"
-msgstr ""
+msgstr "Μοναδικός-ή-ό ID"
 
 #: A2BCustomer_UI/call-history.php:56
+#, fuzzy
 msgid "Card ID"
-msgstr ""
+msgstr "Κάρτα ID"
 
 #: A2BCustomer_UI/call-history.php:61
+#, fuzzy
 msgid "Start Time"
-msgstr ""
+msgstr "Χρόνος έναρξης"
 
 #: A2BCustomer_UI/call-history.php:62
+#, fuzzy
 msgid "Mode"
-msgstr ""
+msgstr "Κατάσταση"
 
 #: A2BCustomer_UI/call-history.php:63
+#, fuzzy
 msgid "Stop Time"
-msgstr ""
+msgstr "Διακοπή Χρόνος"
 
 #: A2BCustomer_UI/call-history.php:65
 msgid "Called station"
 msgstr ""
 
 #: A2BCustomer_UI/call-history.php:69
+#, fuzzy
 msgid "Dur"
-msgstr ""
+msgstr "Διαρ."
 
 #: A2BCustomer_UI/call-history.php:71
+#, fuzzy
 msgid "Result"
-msgstr ""
+msgstr "Αποτέλεσμα"
 
 #: A2BCustomer_UI/call-history.php:73
+#, fuzzy
 msgid "Bill"
-msgstr ""
+msgstr "Λογ/μός"
 
 #: A2BCustomer_UI/call-history.php:73
+#, fuzzy
 msgid "The amount you have been charged for the call."
-msgstr ""
+msgstr "για."
 
 #: A2BCustomer_UI/call-history.php:134
 msgid "PhoneNumber"
 msgstr ""
 
 #: A2BCustomer_UI/call-history.php:138
+#, fuzzy
 msgid "Terminate Cause"
-msgstr ""
+msgstr "Τερματισμός"
 
 #: A2BCustomer_UI/call-history.php:138
 msgid "TC"
@@ -1737,30 +2029,35 @@ msgid "InitalRate"
 msgstr ""
 
 #: A2BCustomer_UI/call-history.php:167
+#, fuzzy
 msgid "Call Logs"
-msgstr ""
+msgstr "Κλήση"
 
 #: A2BCustomer_UI/call-history.php:449
 #: A2BCustomer_UI/A2B_entity_call_details.php:462
 #: A2BCustomer_UI/A2B_entity_call_details.php:476
+#, fuzzy
 msgid "Exact"
-msgstr ""
+msgstr "Ακριβής"
 
 #: A2BCustomer_UI/call-history.php:450
 #: A2BCustomer_UI/A2B_entity_call_details.php:463
 #: A2BCustomer_UI/A2B_entity_call_details.php:477
+#, fuzzy
 msgid "Begins with"
-msgstr ""
+msgstr "Αρχίζει με"
 
 #: A2BCustomer_UI/call-history.php:451
 #: A2BCustomer_UI/A2B_entity_call_details.php:464
 #: A2BCustomer_UI/A2B_entity_call_details.php:478
+#, fuzzy
 msgid "Contains"
-msgstr ""
+msgstr "Περιέχει"
 
 #: A2BCustomer_UI/call-history.php:452
+#, fuzzy
 msgid "End with"
-msgstr ""
+msgstr "Τέλος με"
 
 #: A2BCustomer_UI/call-history.php:462
 #: A2BCustomer_UI/A2B_entity_call_details.php:508
@@ -1769,21 +2066,24 @@ msgstr ""
 
 #: A2BCustomer_UI/call-history.php:465
 #: A2BCustomer_UI/A2B_entity_call_details.php:511
+#, fuzzy
 msgid "Answered Calls"
-msgstr ""
+msgstr "Κλήσεις"
 
 #: A2BCustomer_UI/call-history.php:467
 #: A2BCustomer_UI/A2B_entity_call_details.php:513
+#, fuzzy
 msgid "All Calls"
-msgstr ""
+msgstr "Όλες οι Κλήσεις"
 
 #: A2BCustomer_UI/call-history.php:474
 msgid "RESUTL"
 msgstr ""
 
 #: A2BCustomer_UI/call-history.php:513
+#, fuzzy
 msgid "Number of Calls"
-msgstr ""
+msgstr "Αριθμός κλήσεων"
 
 #: A2BCustomer_UI/call-history.php:663
 msgid "PREVIOUS"
@@ -1794,8 +2094,9 @@ msgid "NEXT"
 msgstr ""
 
 #: A2BCustomer_UI/call-history.php:685
+#, fuzzy
 msgid "Total Cost"
-msgstr ""
+msgstr "Σύνολο Κόστος"
 
 #: A2BCustomer_UI/call-history.php:724
 msgid "SUMMARY"
@@ -1810,99 +2111,118 @@ msgid "CALLS"
 msgstr ""
 
 #: A2BCustomer_UI/call-history.php:743
+#, fuzzy
 msgid "AVERAGE LENGTH OF CALL"
-msgstr ""
+msgstr "ΚΛΗΣΗ"
 
 #: A2BCustomer_UI/call-history.php:743
+#, fuzzy
 msgid "ALOC"
-msgstr ""
+msgstr "ALOC"
 
 #: A2BCustomer_UI/call-history.php:744
+#, fuzzy
 msgid "TOTAL COST"
-msgstr ""
+msgstr "ΣΥΝΟΛΟ"
 
 #: A2BCustomer_UI/call-history.php:808
+#, fuzzy
 msgid "No calls in your selection"
-msgstr ""
+msgstr "Όχι in"
 
 #: A2BCustomer_UI/checkout_confirmation.php:45
+#, fuzzy
 msgid "No Transaction ID found"
-msgstr ""
+msgstr "Όχι Συναλλαγή ID"
 
 #: A2BCustomer_UI/checkout_confirmation.php:80
 msgid "Please confirm your order"
 msgstr ""
 
 #: A2BCustomer_UI/PP_error.php:7
+#, fuzzy
 msgid "ERROR : ACCESS REFUSED"
-msgstr ""
+msgstr "ΣΦΑΛΜΑ, Η ΠΡΟΣΒΑΣΗ ΔΕΝ ΕΠΙΤΡΕΠΕΤΑΙ"
 
 #: A2BCustomer_UI/PP_error.php:8
+#, fuzzy
 msgid "Sorry a problem occur on our system, please try later!"
-msgstr ""
+msgstr "Λυπούμαστε, συνέβη σφάλμα στο σύστημά μας. Παρακαλώ, δοκιμάστε αργότερα!"
 
 #: A2BCustomer_UI/PP_error.php:9
+#, fuzzy
 msgid "There is an error on this page!"
-msgstr ""
+msgstr "Υπάρχει σφάλμα στη σελίδα!"
 
 #: A2BCustomer_UI/PP_error.php:10
+#, fuzzy
 msgid "Sorry, you don t have access to this page !"
-msgstr ""
+msgstr "Λυπούμαστε, δεν έχετε πρόσβαση στη σελίδα!"
 
 #: A2BCustomer_UI/PP_error.php:11
+#, fuzzy
 msgid "Sorry, this page is in construction !"
-msgstr ""
+msgstr "Λυπούμαστε, η σελίδα αυτή είναι υπό κατασκευή!"
 
 #: A2BCustomer_UI/PP_error.php:27
+#, fuzzy
 msgid "Error Page"
-msgstr ""
+msgstr "Σελίδα Σφάλματος"
 
 #: A2BCustomer_UI/PP_error.php:42
+#, fuzzy
 msgid "Click here to login again."
-msgstr ""
+msgstr "εδώ στο."
 
 #: A2BCustomer_UI/A2B_entity_ratecard.php:70
+#, fuzzy
 msgid "NONE"
-msgstr ""
+msgstr "ΚΑΝΕΝΑ"
 
 #: A2BCustomer_UI/predictivedialer.php:66
-msgid ""
-"Error : The system cannot call you back, please inform the administrator"
-msgstr ""
+#, fuzzy
+msgid "Error : The system cannot call you back, please inform the administrator"
+msgstr "Σφάλμα"
 
 #: A2BCustomer_UI/predictivedialer.php:76
+#, fuzzy
 msgid "Cannot connect to the asterisk manager!"
-msgstr ""
+msgstr "σύνδεση στο!"
 
 #: A2BCustomer_UI/predictivedialer.php:76
+#, fuzzy
 msgid "Please check the manager configuration..."
-msgstr ""
+msgstr "Έλεγχος."
 
 #: A2BCustomer_UI/predictivedialer.php:81
-msgid ""
-"Error : You have to specify your phonenumber and the number you wish to call"
-msgstr ""
+#, fuzzy
+msgid "Error : You have to specify your phonenumber and the number you wish to call"
+msgstr "Σφάλμα Εσείς στο και στο"
 
 #: A2BCustomer_UI/predictivedialer.php:137
-msgid ""
-"You can initiate the predictive dialer by clicking on the Place call button!"
-msgstr ""
+#, fuzzy
+msgid "You can initiate the predictive dialer by clicking on the Place call button!"
+msgstr "Εσείς ~κατά Τοποθέτηση!"
 
 #: A2BCustomer_UI/predictivedialer.php:148
+#, fuzzy
 msgid "Your PhoneNumber / Location"
-msgstr ""
+msgstr "Τοποθεσία"
 
 #: A2BCustomer_UI/predictivedialer.php:154
+#, fuzzy
 msgid "Click here to place 10 calls"
-msgstr ""
+msgstr "εδώ στο κλήσεις"
 
 #: A2BCustomer_UI/predictivedialer.php:162
+#, fuzzy
 msgid "Click here to see the last called persons and the current connect call"
-msgstr ""
+msgstr "εδώ στο τελευταίο και σύνδεση"
 
 #: A2BCustomer_UI/predictivedialer.php:354
+#, fuzzy
 msgid "INSERT a new"
-msgstr ""
+msgstr "a νέο"
 
 #: A2BCustomer_UI/predictivedialer.php:354
 #: A2BCustomer_UI/predictivedialer.php:365
@@ -1911,126 +2231,153 @@ msgid "PHONELIST"
 msgstr ""
 
 #: A2BCustomer_UI/predictivedialer.php:365
+#, fuzzy
 msgid "You wish to insert a new"
-msgstr ""
+msgstr "Εσείς στο a νέο"
 
 #: A2BCustomer_UI/predictivedialer.php:365
+#, fuzzy
 msgid "Click on Add button"
-msgstr ""
+msgstr "Προσθήκη"
 
 #: A2BCustomer_UI/A2B_entity_call_details.php:465
 #: A2BCustomer_UI/A2B_entity_call_details.php:479
+#, fuzzy
 msgid "Ends with"
-msgstr ""
+msgstr "Τελειώνει σε"
 
 #: A2BCustomer_UI/A2B_entity_call_details.php:466
 #: A2BCustomer_UI/A2B_entity_call_details.php:480
+#, fuzzy
 msgid "Is not"
-msgstr ""
+msgstr "Δεν είναι "
 
 #: A2BCustomer_UI/A2B_entity_call_details.php:471
+#, fuzzy
 msgid "SOURCE"
-msgstr ""
+msgstr "ΠΗΓΗ"
 
 #: A2BCustomer_UI/A2B_entity_call_details.php:582
+#, fuzzy
 msgid "Call Details"
-msgstr ""
+msgstr "Λεπτομέρειες Κλήσεων"
 
 #: A2BCustomer_UI/A2B_entity_call_details.php:907
+#, fuzzy
 msgid "DID Calls"
-msgstr ""
+msgstr "DID Κλήσεις"
 
 #: A2BCustomer_UI/webphone.php:23
+#, fuzzy
 msgid "ERROR TO LOAD PEER!"
-msgstr ""
+msgstr "ΣΦΑΛΜΑ ΕΩΣ!"
 
 #: A2BCustomer_UI/webphone.php:48
+#, fuzzy
 msgid "Account/Phone"
-msgstr ""
+msgstr "Λογαριασμός Τηλέφωνο"
 
 #: A2BCustomer_UI/webphone.php:63
+#, fuzzy
 msgid "SIP WEB-PHONE"
-msgstr ""
+msgstr "SIP ΙΣΤΟΣ ΤΗΛΕΦΩΝΟ"
 
 #: A2BCustomer_UI/webphone.php:69
+#, fuzzy
 msgid "NO SIP ACCOUNT"
-msgstr ""
+msgstr "SIP"
 
 #: A2BCustomer_UI/webphone.php:71
+#, fuzzy
 msgid "Click to start SIP WebPhone"
-msgstr ""
+msgstr "στο SIP"
 
 #: A2BCustomer_UI/webphone.php:91
+#, fuzzy
 msgid "IAX WEB-PHONE"
-msgstr ""
+msgstr "IAX ΙΣΤΟΣ ΤΗΛΕΦΩΝΟ"
 
 #: A2BCustomer_UI/webphone.php:97
+#, fuzzy
 msgid "NO IAX ACCOUNT"
-msgstr ""
+msgstr "IAX"
 
 #: A2BCustomer_UI/webphone.php:99
+#, fuzzy
 msgid "START IAX PHONE"
-msgstr ""
+msgstr "IAX ΤΗΛΕΦΩΝΟ"
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:98
+#, fuzzy
 msgid "Information about edition"
-msgstr ""
+msgstr "Πληροφορίες"
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:118
 #: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:110
+#, fuzzy
 msgid "You can browse through our "
-msgstr ""
+msgstr "Μπορείτε να περιηγηθείτε ανάμεσα στα "
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:122
 #: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:114
+#, fuzzy
 msgid "Delete this "
-msgstr ""
+msgstr "Διαγραφή του"
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:123
 #: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:115
+#, fuzzy
 msgid "Edit this "
-msgstr ""
+msgstr "Επεξεργασία του"
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:152
 #: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:38
 #: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:173
 #: A2BCustomer_UI/form_data/FG_var_speeddial.inc:28
 #: A2BCustomer_UI/form_data/FG_var_speeddial.inc:70
+#, fuzzy
 msgid "NAME"
-msgstr ""
+msgstr "ΟΝΟΜΑ"
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:158
+#, fuzzy
 msgid "Insert the user Name"
-msgstr ""
+msgstr "Εισαγωγή Όνομα"
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:162
 #: A2BCustomer_UI/form_data/FG_var_card.inc:22
+#, fuzzy
 msgid "FIRSTNAME"
-msgstr ""
+msgstr "ΟΝΟΜΑ"
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:168
+#, fuzzy
 msgid "Insert the firstname"
-msgstr ""
+msgstr "Εισαγωγή"
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:178
+#, fuzzy
 msgid "Insert the email address of the webmaster"
-msgstr ""
+msgstr "Εισαγωγή email διεύθυνση από"
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:183
 msgid "COMPANY"
 msgstr ""
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:189
+#, fuzzy
 msgid "Insert the name of your company"
-msgstr ""
+msgstr "Εισαγωγή όνομα από"
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:200
+#, fuzzy
 msgid "Insert the Addresse"
-msgstr ""
+msgstr "Εισαγωγή"
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:212
+#, fuzzy
 msgid "Insert the City"
-msgstr ""
+msgstr "Εισαγωγή Πόλη"
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:219
 msgid "ZIPCODE"
@@ -2038,40 +2385,47 @@ msgstr ""
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:225
 #: A2BCustomer_UI/form_data/FG_var_card.inc:79
+#, fuzzy
 msgid "Insert the zipcode"
-msgstr ""
+msgstr "Εισάγετε τον ταχ. κώδικα"
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:236
+#, fuzzy
 msgid "Insert the webmaster Phonenumber"
-msgstr ""
+msgstr "Εισαγωγή"
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:246
+#, fuzzy
 msgid "Insert the webmaster Fax number"
-msgstr ""
+msgstr "Εισαγωγή Φαξ"
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:263
 msgid "NEWSLETTERS"
 msgstr ""
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:269
+#, fuzzy
 msgid "Choose if the user will receive the newsletters"
-msgstr ""
+msgstr "Επιλογή"
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:272
+#, fuzzy
 msgid "I acknowledge to receive informations."
-msgstr ""
+msgstr "I στο."
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:296
+#, fuzzy
 msgid "Webmaster\\'s lounge"
-msgstr ""
+msgstr "Διαχειριστής ιστοχώρου s"
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:296
+#, fuzzy
 msgid ""
 "Here are the personal data that you entered when you subscribed to "
 "Phone2Enter. <br>You can modify them, except your first name and your last "
 "name. <p><br>Check the correctness of your postal address, so that you will "
 "receive the cheques used to pay your commissions."
-msgstr ""
+msgstr "στο<br> Εσείς πρώτο όνομα και τελευταίο όνομα<p><br> Έλεγχος από διεύθυνση στο."
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:306
 #: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:293
@@ -2081,30 +2435,35 @@ msgstr ""
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:308
 #: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:295
+#, fuzzy
 msgid "One "
-msgstr ""
+msgstr "Ένα "
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:315
 #: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:302
 #: A2BCustomer_UI/form_data/FG_var_view_invoice.inc:93
+#, fuzzy
 msgid "you can add easily a new "
-msgstr ""
+msgstr "a νέο "
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:366
+#, fuzzy
 msgid "You can insert easily new "
-msgstr ""
+msgstr "Εσείς νέο "
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:371
+#, fuzzy
 msgid ""
 "Once you have completed the form above, you'll be able to choose the BILLING "
 "PACK that best fits your content and your customers. Click on the *CONTINUE* "
 "when ready."
-msgstr ""
+msgstr "συμπληρώθηκε στο και."
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:375
 #: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:361
+#, fuzzy
 msgid "Your new "
-msgstr ""
+msgstr "νέο "
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:37
 msgid "PHONENUMBER"
@@ -2115,8 +2474,9 @@ msgid "LAST ATTEMPT"
 msgstr ""
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:40
+#, fuzzy
 msgid "CONNECTED TO"
-msgstr ""
+msgstr "ΕΩΣ"
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:41
 msgid "NUM TRIALS"
@@ -2127,96 +2487,115 @@ msgid "CALLED MINUTE"
 msgstr ""
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:105
+#, fuzzy
 msgid "- PHONELIST List -"
-msgstr ""
+msgstr "Λίστα"
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:149
+#, fuzzy
 msgid "Phone Number"
-msgstr ""
+msgstr "Τηλέφωνο Αριθμός"
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:155
+#, fuzzy
 msgid "Insert the phonenumber"
-msgstr ""
+msgstr "Εισαγωγή"
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:157
+#, fuzzy
 msgid "Enter here the phonenumber you want to call"
-msgstr ""
+msgstr "Εισαγωγή εδώ στο"
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:160
 msgid "CAMPAIGN"
 msgstr ""
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:179
+#, fuzzy
 msgid "Insert the name "
-msgstr ""
+msgstr "Εισαγωγή όνομα "
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:194
+#, fuzzy
 msgid "LAST ATTEMPT DATE"
-msgstr ""
+msgstr "ΗΜ/ΝΙΑ"
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:200
+#, fuzzy
 msgid "Insert the last attempt date"
-msgstr ""
+msgstr "Εισαγωγή τελευταίο ημερομηνία"
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:202
+#, fuzzy
 msgid ""
 "please respect the format YYYY-MM-DD HH:MM:SS. For instance, '2004-12-31 "
 "00:00:00'"
-msgstr ""
+msgstr "ΧΧΧΧ ΗΗ ΩΩ ΔΔ Για"
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:207
+#, fuzzy
 msgid "ENABLE"
-msgstr ""
+msgstr "ΕΝΕΡΓΟΠΟΙΗΣΕ"
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:213
+#, fuzzy
 msgid "Choose if this phonenumber would be enable or not"
-msgstr ""
+msgstr "Επιλογή ή όχι"
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:219
 msgid "ADDITIONALINFO"
 msgstr ""
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:225
+#, fuzzy
 msgid "Insert additional information"
-msgstr ""
+msgstr "Εισαγωγή πληροφορίες"
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:232
+#, fuzzy
 msgid "INUSE"
-msgstr ""
+msgstr "ΣΕ ΧΡΗΣΗ"
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:238
+#, fuzzy
 msgid "Choose the status of this phonenumber"
-msgstr ""
+msgstr "Επιλογή κατάσταση από"
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:285
 #: A2BCustomer_UI/form_data/FG_var_view_invoice.inc:91
-msgid ""
-"You can modify, through the following form, the different properties of your "
-msgstr ""
+#, fuzzy
+msgid "You can modify, through the following form, the different properties of your "
+msgstr "Μπορείτε να διορθώσετε, με την παρακάτω φόρμα, τις ιδιότητες των"
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:346
+#, fuzzy
 msgid "The destination has been created correctly."
-msgstr ""
+msgstr "προορισμός."
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:359
+#, fuzzy
 msgid "Add a NEW "
-msgstr ""
+msgstr "Προσθήκη a ΝΕΟ "
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:372
+#, fuzzy
 msgid "Setup those values to create the new "
-msgstr ""
+msgstr "Εγκατάσταση στο νέο "
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:378
+#, fuzzy
 msgid "Made your change to edit the current "
-msgstr ""
+msgstr "αλλαγή στο "
 
 #: A2BCustomer_UI/form_data/FG_var_ratecard.inc:35
+#, fuzzy
 msgid "PREFIX"
-msgstr ""
+msgstr "ΠΡΟΘΕΜΑ"
 
 #: A2BCustomer_UI/form_data/FG_var_ratecard.inc:36
+#, fuzzy
 msgid "SR"
-msgstr ""
+msgstr "ΤΜ"
 
 #: A2BCustomer_UI/form_data/FG_var_ratecard.inc:42
 #: A2BCustomer_UI/form_data/FG_var_view_invoice.inc:69
@@ -2225,62 +2604,74 @@ msgid "THERE IS NO "
 msgstr ""
 
 #: A2BCustomer_UI/form_data/FG_var_ratecard.inc:49
+#, fuzzy
 msgid "DIALPREFIX"
-msgstr ""
+msgstr "ΠΡΟΘΕΜΑ ΚΛΗΣΗΣ"
 
 #: A2BCustomer_UI/form_data/FG_var_ratecard.inc:55
+#, fuzzy
 msgid "Insert the dialing prefix, such as for UK '44' or for US '1' "
-msgstr ""
+msgstr "Δώστε το πρόθεμα κλήσεις, όπως '44' για Αγγλία ή '1' για ΗΠΑ."
 
 #: A2BCustomer_UI/form_data/FG_var_ratecard.inc:56
+#, fuzzy
 msgid "Define the destination prefix. ie, 44 for UK proper."
-msgstr ""
+msgstr "Δώστε εδώ το πρόθεμα κλήσης, π.χ. 44 για Ην. Βασίλειο."
 
 #: A2BCustomer_UI/form_data/FG_var_ratecard.inc:56
+#, fuzzy
 msgid ""
 "You can use 'defaultprefix' to setup a rate by default for the destination "
 "for which you dont want to provide a specific rate.<br>"
-msgstr ""
+msgstr "Εσείς στο a ~κατά προκαθορισμένο για προορισμός για στο a<br>"
 
 #: A2BCustomer_UI/form_data/FG_var_ratecard.inc:56
+#, fuzzy
 msgid ""
 "IF YOU ADD A RATE AND NOT AN EDIT => You can also define several in the same "
 "time and range, as below: "
-msgstr ""
+msgstr "A ΚΑΙ ΟΧΙ Εσείς σε διάρκεια και "
 
 #: A2BCustomer_UI/form_data/FG_var_ratecard.inc:56
+#, fuzzy
 msgid ""
 "<br>32484-32487 -> this would insert 32484, 32485, 32486, 32487 "
 "<br>32476,32477,32478 separate by comma"
-msgstr ""
+msgstr "<br><br> ~κατά"
 
 #: A2BCustomer_UI/form_data/FG_var_ratecard.inc:64
+#, fuzzy
 msgid "Come on... Insert the destination name"
-msgstr ""
+msgstr "Εισαγωγή προορισμός όνομα"
 
 #: A2BCustomer_UI/form_data/FG_var_ratecard.inc:65
+#, fuzzy
 msgid ""
 "Name for this call destination, for example : UK, Belgium Landline, Spain "
 "Mobile Telefonica, ..."
-msgstr ""
+msgstr "Όνομα για προορισμός για παράδειγμα Βέλγιο Ισπανία."
 
 #: A2BCustomer_UI/form_data/FG_var_ratecard.inc:68
+#, fuzzy
 msgid "SELLING RATE"
-msgstr ""
+msgstr "ΤΕΛΙΚΗ ΤΙΜΗ"
 
 #: A2BCustomer_UI/form_data/FG_var_ratecard.inc:74
+#, fuzzy
 msgid "Insert the initial rate"
-msgstr ""
+msgstr "Εισαγωγή"
 
 #: A2BCustomer_UI/form_data/FG_var_ratecard.inc:75
+#, fuzzy
 msgid ""
 "Cost per minute for which you want to charge your customer. For example "
 "'0.02'"
-msgstr ""
+msgstr "Κόστος λεπτό για στο Για παράδειγμα"
 
 #: A2BCustomer_UI/form_data/FG_var_ratecard.inc:75
+#, fuzzy
 msgid "Define the selling cost for customers..."
-msgstr ""
+msgstr "Ορισμός της τιμής πώλησης για πελάτες..."
 
 #: A2BCustomer_UI/form_data/FG_var_speeddial.inc:26
 #: A2BCustomer_UI/form_data/FG_var_speeddial.inc:60
@@ -2292,57 +2683,66 @@ msgid "THERE ARE NO "
 msgstr ""
 
 #: A2BCustomer_UI/form_data/FG_var_speeddial.inc:76
+#, fuzzy
 msgid "Insert the name"
-msgstr ""
+msgstr "Εισαγωγή όνομα"
 
 #: A2BCustomer_UI/form_data/FG_var_speeddial.inc:77
+#, fuzzy
 msgid "Enter here the name/label that will identify this speed dial"
-msgstr ""
+msgstr "Εισαγωγή εδώ όνομα ετικέτα"
 
 #: A2BCustomer_UI/form_data/FG_var_speeddial.inc:86
+#, fuzzy
 msgid "Insert the phone"
-msgstr ""
+msgstr "Εισαγωγή"
 
 #: A2BCustomer_UI/form_data/FG_var_speeddial.inc:87
+#, fuzzy
 msgid "Enter here the phonenumber you want to call for this speed dial"
-msgstr ""
+msgstr "Εισαγωγή εδώ στο για"
 
 #: A2BCustomer_UI/form_data/FG_var_speeddial.inc:112
 #: A2BCustomer_UI/form_data/FG_var_callerid.inc:102
-msgid ""
-"You can modify, through the following form, the different properties of your"
-msgstr ""
+#, fuzzy
+msgid "You can modify, through the following form, the different properties of your"
+msgstr "Μπορείτε να επεξεργαστείτε, στην παρακάτω φόρμα, τις ιδιότητες του"
 
 #: A2BCustomer_UI/form_data/FG_var_speeddial.inc:113
 #: A2BCustomer_UI/form_data/FG_var_callerid.inc:103
 #: A2BCustomer_UI/form_data/FG_var_did.inc:133
+#, fuzzy
 msgid "If you really want remove this"
-msgstr ""
+msgstr "Αν θέλετε πραγματικά να διαγράψετε το"
 
 #: A2BCustomer_UI/form_data/FG_var_speeddial.inc:113
 #: A2BCustomer_UI/form_data/FG_var_callerid.inc:103
 #: A2BCustomer_UI/form_data/FG_var_did.inc:133
+#, fuzzy
 msgid "click on the delete button."
-msgstr ""
+msgstr "κλικ."
 
 #: A2BCustomer_UI/form_data/FG_var_speeddial.inc:114
 #: A2BCustomer_UI/form_data/FG_var_callerid.inc:104
 #: A2BCustomer_UI/form_data/FG_var_did.inc:134
+#, fuzzy
 msgid "you can add easily a new"
-msgstr ""
+msgstr "μπορείτε εύκολα να προσθέσετε ένα νέο"
 
 #: A2BCustomer_UI/form_data/FG_var_speeddial.inc:114
 #: A2BCustomer_UI/form_data/FG_var_callerid.inc:104
 #: A2BCustomer_UI/form_data/FG_var_did.inc:134
+#, fuzzy
 msgid "Fill the following fields and confirm by clicking on the button add."
-msgstr ""
+msgstr "Συμπληρώστε τα παρακάτω πεδία και επιβεβαιώστε με το πλήκτρο της προσθήκης."
 
 #: A2BCustomer_UI/form_data/FG_var_speeddial.inc:121
 #: A2BCustomer_UI/form_data/FG_var_callerid.inc:112
 #: A2BCustomer_UI/form_data/FG_var_did.inc:138
 #: A2BCustomer_UI/form_data/FG_var_view_invoice.inc:107
+#, fuzzy
 msgid "Your new"
-msgstr ""
+msgstr "Το νέο σας"
 
 #: A2BCustomer_UI/form_data/FG_var_speeddial.inc:121
 #: A2BCustomer_UI/form_data/FG_var_callerid.inc:112
@@ -2352,20 +2752,23 @@ msgstr ""
 
 #: A2BCustomer_UI/form_data/FG_var_speeddial.inc:125
 #: A2BCustomer_UI/form_data/FG_var_view_invoice.inc:110
+#, fuzzy
 msgid "Once you have completed the form above, click on the CONTINUE button."
-msgstr ""
+msgstr "Όταν συμπληρώσετε τη φόρμα, πατήστε στο πλήκτρο ΣΥΝΕΧΕΙΑ"
 
 #: A2BCustomer_UI/form_data/FG_var_callerid.inc:12
 #: A2BCustomer_UI/form_data/FG_var_did.inc:18
 #: A2BCustomer_UI/form_data/FG_var_did.inc:39
+#, fuzzy
 msgid "Active"
-msgstr ""
+msgstr "Ενεργό"
 
 #: A2BCustomer_UI/form_data/FG_var_callerid.inc:13
 #: A2BCustomer_UI/form_data/FG_var_did.inc:19
 #: A2BCustomer_UI/form_data/FG_var_did.inc:39
+#, fuzzy
 msgid "Inactive"
-msgstr ""
+msgstr "Ανενεργό"
 
 #: A2BCustomer_UI/form_data/FG_var_callerid.inc:20
 #: A2BCustomer_UI/form_data/FG_var_callerid.inc:53
@@ -2374,15 +2777,17 @@ msgstr ""
 
 #: A2BCustomer_UI/form_data/FG_var_callerid.inc:21
 #: A2BCustomer_UI/form_data/FG_var_view_invoice.inc:57
+#, fuzzy
 msgid "CARDNUMBER"
-msgstr ""
+msgstr "ΑΡΙΘΜΟΣ ΚΑΡΤΑΣ"
 
 #: A2BCustomer_UI/form_data/FG_var_callerid.inc:22
 #: A2BCustomer_UI/form_data/FG_var_callerid.inc:63
 #: A2BCustomer_UI/form_data/FG_var_did.inc:43
 #: A2BCustomer_UI/form_data/FG_var_did.inc:90
+#, fuzzy
 msgid "ACTIVATED"
-msgstr ""
+msgstr "ΕΝΕΡΓΟΣ"
 
 #: A2BCustomer_UI/form_data/FG_var_callerid.inc:28
 #: A2BCustomer_UI/form_data/FG_var_did.inc:60
@@ -2390,31 +2795,36 @@ msgid "THERE IS NO"
 msgstr ""
 
 #: A2BCustomer_UI/form_data/FG_var_callerid.inc:59
+#, fuzzy
 msgid "Insert the CallerID"
-msgstr ""
+msgstr "Εισαγωγή"
 
 #: A2BCustomer_UI/form_data/FG_var_callerid.inc:69
 #: A2BCustomer_UI/form_data/FG_var_did.inc:96
+#, fuzzy
 msgid "Choose if you want to activate this card"
-msgstr ""
+msgstr "Επιλογή στο"
 
 #: A2BCustomer_UI/form_data/FG_var_callerid.inc:111
+#, fuzzy
 msgid ""
 "You can add your home phone number below to allow you to call in and use "
 "your Calling Card Services with out having to enter your Calling Card every "
 "time you call in."
-msgstr ""
+msgstr "Εσείς στο στο σε και Κάρτα Υπηρεσίες με στο Κάρτα κάθε διάρκεια σε."
 
 #: A2BCustomer_UI/form_data/FG_var_callerid.inc:111
+#, fuzzy
 msgid ""
 "You can also add your Soft Phone number (The number you used to log into "
 "this Website) and be able to make calls with out having to enter your "
 "Calling Card information."
-msgstr ""
+msgstr "Εσείς Soft Τηλέφωνο στο log Ιστοσελίδα και στο κλήσεις με στο Κάρτα πληροφορίες."
 
 #: A2BCustomer_UI/form_data/FG_var_callerid.inc:116
+#, fuzzy
 msgid "Made your change to edit this callerid."
-msgstr ""
+msgstr "αλλαγή στο."
 
 #: A2BCustomer_UI/form_data/FG_var_did.inc:22
 msgid "Fix per month + dialoutrate"
@@ -2429,16 +2839,18 @@ msgid "Only dialout rate"
 msgstr ""
 
 #: A2BCustomer_UI/form_data/FG_var_did.inc:29
+#, fuzzy
 msgid "Fix+Dial"
-msgstr ""
+msgstr "Κλήση"
 
 #: A2BCustomer_UI/form_data/FG_var_did.inc:30
 msgid "Fix"
 msgstr ""
 
 #: A2BCustomer_UI/form_data/FG_var_did.inc:32
+#, fuzzy
 msgid "Free"
-msgstr ""
+msgstr "Ελεύθερος"
 
 #: A2BCustomer_UI/form_data/FG_var_did.inc:44
 #: A2BCustomer_UI/form_data/FG_var_did.inc:99
@@ -2446,130 +2858,159 @@ msgid "PRIORITY"
 msgstr ""
 
 #: A2BCustomer_UI/form_data/FG_var_did.inc:45
+#, fuzzy
 msgid "USED MINUTE"
-msgstr ""
+msgstr "ΧΡΗΣΗ"
 
 #: A2BCustomer_UI/form_data/FG_var_did.inc:60
 msgid "CREATED!"
 msgstr ""
 
 #: A2BCustomer_UI/form_data/FG_var_did.inc:76
+#, fuzzy
 msgid ""
 "Enter here the phonenumber you want to call or the SIP/IAX/H323 peer to "
 "reach (ie: 347894999 or SIP/jeremy@182.212.1.45). To call SIP/IAX/H323 peer, "
 "you need to enable the voip_call bellow (voip_call = Yes) "
-msgstr ""
+msgstr "Εισαγωγή εδώ στο ή SIP IAX στο ή SIPjeremy@182.212.1.45 Προς SIP IAX στο Ναι "
 
 #: A2BCustomer_UI/form_data/FG_var_did.inc:109
+#, fuzzy
 msgid "VOIP_CALL"
-msgstr ""
+msgstr "ΚΛΗΣΗ"
 
 #: A2BCustomer_UI/form_data/FG_var_did.inc:115
+#, fuzzy
 msgid ""
 "Choose if you want to not use the trunk and let the asterisk call directly "
 "the destination (ie, Destination : SIP/jeremy@182.212.1.45)"
-msgstr ""
+msgstr "Επιλογή στο όχι και προορισμός Προορισμός SIPjeremy@182.212.1.45"
 
 #: A2BCustomer_UI/form_data/FG_var_did.inc:142
+#, fuzzy
 msgid "Setup those values to create or edit the "
-msgstr ""
+msgstr "Εγκατάσταση στο ή "
 
 #: A2BCustomer_UI/form_data/FG_var_view_invoice.inc:53
+#, fuzzy
 msgid "Failed"
-msgstr ""
+msgstr "Απέτυχε"
 
 #: A2BCustomer_UI/form_data/FG_var_view_invoice.inc:54
+#, fuzzy
 msgid "Successful"
-msgstr ""
+msgstr "Επιτυχής"
 
 #: A2BCustomer_UI/form_data/FG_var_view_invoice.inc:56
+#, fuzzy
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #: A2BCustomer_UI/form_data/FG_var_view_invoice.inc:58
+#, fuzzy
 msgid "INVOICEDATE"
-msgstr ""
+msgstr "ΗΜΝΙΑ ΛΟΓ/ΜΟΥ"
 
 #: A2BCustomer_UI/form_data/FG_var_view_invoice.inc:59
+#, fuzzy
 msgid "COVERSTART"
-msgstr ""
+msgstr "ΠΕΡ. ΑΠΟ"
 
 #: A2BCustomer_UI/form_data/FG_var_view_invoice.inc:60
+#, fuzzy
 msgid "COVEREND"
-msgstr ""
+msgstr "ΠΕΡ. ΕΩΣ"
 
 #: A2BCustomer_UI/form_data/FG_var_view_invoice.inc:61
 msgid "SENTDATE"
 msgstr ""
 
 #: A2BCustomer_UI/form_data/FG_var_view_invoice.inc:106
+#, fuzzy
 msgid "Add a "
-msgstr ""
+msgstr "Προσθήκη a "
 
 #: A2BCustomer_UI/form_data/FG_var_view_invoice.inc:107
+#, fuzzy
 msgid "has been inserted. <br>"
-msgstr ""
+msgstr "έχει εισαχθεί.<br>"
 
 #: A2BCustomer_UI/form_data/FG_var_voucher.inc:15
+#, fuzzy
 msgid "CREDIT"
-msgstr ""
+msgstr "ΠΙΣΤΩΣΗ"
 
 #: A2BCustomer_UI/form_data/FG_var_card.inc:13
+#, fuzzy
 msgid "LASTNAME"
-msgstr ""
+msgstr "ΕΠΩΝΥΜΟ"
 
 #: A2BCustomer_UI/form_data/FG_var_card.inc:19
+#, fuzzy
 msgid "Insert the lastname of the customers"
-msgstr ""
+msgstr "Εισάγετε εδώ το επώνυμο του πελάτη"
 
 #: A2BCustomer_UI/form_data/FG_var_card.inc:28
+#, fuzzy
 msgid "Insert the firstname of the customers"
-msgstr ""
+msgstr "Εισάγετε το μικρό όνομα του πελάτη"
 
 #: A2BCustomer_UI/form_data/FG_var_card.inc:38
+#, fuzzy
 msgid "Insert the address of the customers"
-msgstr ""
+msgstr "Εισάγετε την διεύθυνση του πελάτη"
 
 #: A2BCustomer_UI/form_data/FG_var_card.inc:48
+#, fuzzy
 msgid "Insert the city"
-msgstr ""
+msgstr "Εισάγετε την πόλη"
 
 #: A2BCustomer_UI/form_data/FG_var_card.inc:52
+#, fuzzy
 msgid "STATE/PROVINCE"
-msgstr ""
+msgstr "ΝΟΜΟΣ/ΕΠΑΡΧΙΑ"
 
 #: A2BCustomer_UI/form_data/FG_var_card.inc:58
+#, fuzzy
 msgid "Insert the state"
-msgstr ""
+msgstr "Εισάγετε τον νομό"
 
 #: A2BCustomer_UI/form_data/FG_var_card.inc:73
+#, fuzzy
 msgid "ZIP/POSTAL CODE"
-msgstr ""
+msgstr "ΤΑΧ ΚΩΔΙΚΑΣ"
 
 #: A2BCustomer_UI/form_data/FG_var_card.inc:82
 msgid "TIMEZONE"
 msgstr ""
 
 #: A2BCustomer_UI/form_data/FG_var_card.inc:92
+#, fuzzy
 msgid "PHONE NUMBER"
-msgstr ""
+msgstr "ΤΗΛΕΦΩΝΟ NUMBER"
 
 #: A2BCustomer_UI/form_data/FG_var_card.inc:98
+#, fuzzy
 msgid "Insert the phone number of the customers"
-msgstr ""
+msgstr "Εισαγωγή από"
 
 #: A2BCustomer_UI/form_data/FG_var_card.inc:102
+#, fuzzy
 msgid "FAX NUMBER"
-msgstr ""
+msgstr "NUMBER"
 
 #: A2BCustomer_UI/form_data/FG_var_card.inc:108
+#, fuzzy
 msgid "Insert the fax number of the customers"
-msgstr ""
+msgstr "Εισαγωγή φαξ από"
 
 #: A2BCustomer_UI/form_data/FG_var_card.inc:114
+#, fuzzy
 msgid "you can add easily update your information clicking on the button."
-msgstr ""
+msgstr "ενημέρωση πληροφορίες."
 
 #: A2BCustomer_UI/form_data/FG_var_card.inc:117
+#, fuzzy
 msgid "Your record has been updated."
-msgstr ""
+msgstr "εγγραφή."
+

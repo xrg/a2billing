@@ -20,15 +20,15 @@ msgid "Invoices"
 msgstr ""
 
 #: A2BAgent_UI/A2B_entity_agent_invoicev.php:14
-#: A2BAgent_UI/A2B_entity_agentpay.php:31 A2BAgent_UI/A2B_entity_charge.php:40
-#: A2BAgent_UI/sessions.php:38
+#: A2BAgent_UI/A2B_entity_charge.php:40 A2BAgent_UI/sessions.php:38
+#: A2BAgent_UI/A2B_entity_agentpay.php:31
 msgid "Invoice"
 msgstr ""
 
 #: A2BAgent_UI/A2B_entity_agent_invoicev.php:26
-#: A2BAgent_UI/A2B_entity_agentpay.php:23 A2BAgent_UI/A2B_entity_booths.php:23
-#: A2BAgent_UI/A2B_entity_cards.php:21 A2BAgent_UI/A2B_entity_charge.php:27
-#: A2BAgent_UI/invoices_agent.php:26 A2BAgent_UI/sessions.php:26
+#: A2BAgent_UI/A2B_entity_charge.php:27 A2BAgent_UI/A2B_entity_cards.php:21
+#: A2BAgent_UI/sessions.php:26 A2BAgent_UI/A2B_entity_booths.php:23
+#: A2BAgent_UI/invoices_agent.php:26 A2BAgent_UI/A2B_entity_agentpay.php:23
 #, fuzzy
 msgid "ID"
 msgstr "DID"
@@ -99,96 +99,133 @@ msgstr ""
 msgid "View"
 msgstr ""
 
-#: A2BAgent_UI/A2B_entity_agentpay.php:13
+#: A2BAgent_UI/lib/help.php:15
 msgid ""
-"Agent payments are money transactions between agents and the phone company."
+"From here, you can use the web based screen phone. You need microphone and "
+"speakers on your PC."
 msgstr ""
 
-#: A2BAgent_UI/A2B_entity_agentpay.php:15
-msgid "Payments"
+#: A2BAgent_UI/lib/help.php:31
+msgid ""
+"All calls are listed below. Search by month, day or status. Additionally, "
+"you can check the rate and price."
 msgstr ""
 
-#: A2BAgent_UI/A2B_entity_agentpay.php:15 A2BAgent_UI/pay.php:23
-msgid "Payment"
+#: A2BAgent_UI/lib/help.php:48
+msgid ""
+"Simulate the calling process to discover the cost per minute of a call, and "
+"the number of minutes you can call that number with your current credit."
 msgstr ""
 
-#: A2BAgent_UI/A2B_entity_agentpay.php:26 A2BAgent_UI/A2B_entity_charge.php:30
-#: A2BAgent_UI/invoices_agent.php:66
+#: A2BAgent_UI/lib/help.php:64
+msgid ""
+"On this page you will be able to change your password, You have to enter the "
+"New Password and Confirm it."
+msgstr ""
+
+#: A2BAgent_UI/lib/help.php:79
+msgid "Here you can view your ratecards"
+msgstr ""
+
+#: A2BAgent_UI/lib/help.php:94
+msgid "Here you can view your used vouchers"
+msgstr ""
+
+#: A2BAgent_UI/lib/help.php:111
+msgid ""
+"Select the country below where you would like a DID, select a DID from the "
+"list and enter the destination you would like to assign it to."
+msgstr ""
+
+#: A2BAgent_UI/lib/company_info.php:2
+msgid ""
+"This software has been created by Areski under GPL licence. For futher "
+"information, feel free to contact me:"
+msgstr ""
+
+#: A2BAgent_UI/lib/company_info.php:4
+msgid ""
+" This software is under GPL licence. For further information, please visit : "
+"<a href=\"http://www.asterisk2billing.org\" target=\"_blank"
+"\">asterisk2billing.org</a>"
+msgstr ""
+
+#: A2BAgent_UI/lib/company_info.php:5
+msgid "Asterisk2Billing : CallingCard platform"
+msgstr ""
+
+#: A2BAgent_UI/agent-money.php:15 A2BAgent_UI/sessions.php:47
+msgid "Period from"
+msgstr ""
+
+#: A2BAgent_UI/agent-money.php:20 A2BAgent_UI/sessions.php:51
+msgid "Period to"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_charge.php:13
+msgid ""
+"Charges are money transactions apart from calls. They are used to indicate "
+"that the customer should pay or receive extra money."
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_charge.php:15
+msgid "Charges"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_charge.php:15 A2BAgent_UI/A2B_entity_ratecard.php:39
+msgid "Charge"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_charge.php:29 A2BAgent_UI/A2B_entity_cards.php:15
+#: A2BAgent_UI/sessions.php:35
+#, fuzzy
+msgid "Card"
+msgstr "Tarjeta Usada"
+
+#: A2BAgent_UI/A2B_entity_charge.php:30 A2BAgent_UI/invoices_agent.php:66
+#: A2BAgent_UI/A2B_entity_agentpay.php:26
 msgid "Date"
 msgstr "FECHA"
 
-#: A2BAgent_UI/A2B_entity_agentpay.php:27 A2BAgent_UI/A2B_entity_booths.php:39
-#: A2BAgent_UI/A2B_entity_cards.php:43
-msgid "Credit"
-msgstr ""
-
-#: A2BAgent_UI/A2B_entity_agentpay.php:28 A2BAgent_UI/A2B_entity_charge.php:31
+#: A2BAgent_UI/A2B_entity_charge.php:31 A2BAgent_UI/A2B_entity_agentpay.php:28
 msgid "Type"
 msgstr ""
 
-#: A2BAgent_UI/A2B_entity_agentpay.php:34 A2BAgent_UI/A2B_entity_charge.php:38
+#: A2BAgent_UI/A2B_entity_charge.php:36
+msgid ""
+"Positive charge is when the customer should pay more. Negative means the "
+"customer gets refunded."
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_charge.php:38 A2BAgent_UI/A2B_entity_agentpay.php:34
 #, fuzzy
 msgid "Description"
 msgstr "Destinaci&oacute;n"
 
-#: A2BAgent_UI/A2B_entity_booths.php:13
+#: A2BAgent_UI/PP_page.inc.php:44
+msgid "Other"
+msgstr ""
+
+#: A2BAgent_UI/forgotpassword.php:24
 msgid ""
-"Booths are the physical phones where a customer can enter and make calls."
+"Please wait 1 minutes before making any other request for the forgot "
+"password!"
 msgstr ""
 
-#: A2BAgent_UI/A2B_entity_booths.php:15
-msgid "Booths"
+#: A2BAgent_UI/forgotpassword.php:98
+msgid "Your login information email has been sent to you."
 msgstr ""
 
-#: A2BAgent_UI/A2B_entity_booths.php:15 A2BAgent_UI/sessions.php:34
-msgid "Booth"
+#: A2BAgent_UI/forgotpassword.php:101
+msgid "No such login exists."
 msgstr ""
 
-#: A2BAgent_UI/A2B_entity_booths.php:26
-msgid "Name"
+#: A2BAgent_UI/forgotpassword.php:104
+msgid "Invalid Action."
 msgstr ""
 
-#: A2BAgent_UI/A2B_entity_booths.php:27
-#, fuzzy
-msgid "Location"
-msgstr "Duraci&oacute;n"
-
-#: A2BAgent_UI/A2B_entity_booths.php:30
-msgid "N/A"
-msgstr ""
-
-#: A2BAgent_UI/A2B_entity_booths.php:31
-msgid "Empty"
-msgstr ""
-
-#: A2BAgent_UI/A2B_entity_booths.php:32
-msgid "Idle"
-msgstr ""
-
-#: A2BAgent_UI/A2B_entity_booths.php:33
-msgid "Ready"
-msgstr ""
-
-#: A2BAgent_UI/A2B_entity_booths.php:34
-msgid "Active"
-msgstr ""
-
-#: A2BAgent_UI/A2B_entity_booths.php:35
-msgid "Disabled"
-msgstr ""
-
-#: A2BAgent_UI/A2B_entity_booths.php:36
-msgid "Stopped"
-msgstr ""
-
-#: A2BAgent_UI/A2B_entity_booths.php:38 A2BAgent_UI/A2B_entity_cards.php:48
-#: A2BAgent_UI/sessions.php:32
-#, fuzzy
-msgid "State"
-msgstr "FECHA"
-
-#: A2BAgent_UI/A2B_entity_booths.php:39
-msgid "Money now in the card inside the booth."
+#: A2BAgent_UI/forgotpassword.php:107
+msgid "Pleaes provide your email address to get your login information."
 msgstr ""
 
 #: A2BAgent_UI/A2B_entity_cards.php:13
@@ -198,12 +235,6 @@ msgstr ""
 #: A2BAgent_UI/A2B_entity_cards.php:15
 #, fuzzy
 msgid "Cards"
-msgstr "Tarjeta Usada"
-
-#: A2BAgent_UI/A2B_entity_cards.php:15 A2BAgent_UI/A2B_entity_charge.php:29
-#: A2BAgent_UI/sessions.php:35
-#, fuzzy
-msgid "Card"
 msgstr "Tarjeta Usada"
 
 #: A2BAgent_UI/A2B_entity_cards.php:25
@@ -272,6 +303,11 @@ msgstr "DURACION"
 msgid "STOPPED"
 msgstr ""
 
+#: A2BAgent_UI/A2B_entity_cards.php:43 A2BAgent_UI/A2B_entity_booths.php:39
+#: A2BAgent_UI/A2B_entity_agentpay.php:27
+msgid "Credit"
+msgstr ""
+
 #: A2BAgent_UI/A2B_entity_cards.php:43
 msgid "Money now in the card. Positive is credit, negative owes us."
 msgstr ""
@@ -283,6 +319,12 @@ msgstr ""
 #: A2BAgent_UI/A2B_entity_cards.php:47
 msgid "City"
 msgstr ""
+
+#: A2BAgent_UI/A2B_entity_cards.php:48 A2BAgent_UI/sessions.php:32
+#: A2BAgent_UI/A2B_entity_booths.php:38
+#, fuzzy
+msgid "State"
+msgstr "FECHA"
 
 #: A2BAgent_UI/A2B_entity_cards.php:50
 msgid "Country"
@@ -316,84 +358,81 @@ msgstr "Moneda"
 msgid "This currency affects the invoice and the audible balance information."
 msgstr ""
 
-#: A2BAgent_UI/A2B_entity_charge.php:13
+#: A2BAgent_UI/invoices_cshop.php:46 A2BAgent_UI/invoices_cshop.php:50
+msgid "Cannot locate session!"
+msgstr ""
+
+#: A2BAgent_UI/sessions.php:14
 msgid ""
-"Charges are money transactions apart from calls. They are used to indicate "
-"that the customer should pay or receive extra money."
+"Callshop essions. Each session starts when the customer enters a booth and "
+"ends when he leaves (preferably having paid the account)."
 msgstr ""
 
-#: A2BAgent_UI/A2B_entity_charge.php:15
-msgid "Charges"
-msgstr ""
-
-#: A2BAgent_UI/A2B_entity_charge.php:15 A2BAgent_UI/A2B_entity_ratecard.php:39
-msgid "Charge"
-msgstr ""
-
-#: A2BAgent_UI/A2B_entity_charge.php:36
-msgid ""
-"Positive charge is when the customer should pay more. Negative means the "
-"customer gets refunded."
-msgstr ""
-
-#: A2BAgent_UI/A2B_entity_ratecard.php:14
-msgid "These are the selling rates to each destination"
-msgstr ""
-
-#: A2BAgent_UI/A2B_entity_ratecard.php:18
-#: A2BAgent_UI/A2B_entity_ratecard.php:36 A2BAgent_UI/invoices_agent.php:69
-msgid "Destination"
-msgstr "Destinaci&oacute;n"
-
-#: A2BAgent_UI/A2B_entity_ratecard.php:20
+#: A2BAgent_UI/sessions.php:16
 #, fuzzy
-msgid "Rates"
-msgstr "FECHA"
+msgid "Sessions"
+msgstr "Segundos"
 
-#: A2BAgent_UI/A2B_entity_ratecard.php:20
-#: A2BAgent_UI/A2B_entity_ratecard.php:38
-#, fuzzy
-msgid "Rate"
-msgstr "FECHA"
-
-#: A2BAgent_UI/A2B_entity_ratecard.php:40
-msgid "Block"
+#: A2BAgent_UI/sessions.php:16
+msgid "Session"
 msgstr ""
 
-#: A2BAgent_UI/A2B_entity_ratecard.php:41
-msgid "Tariff"
+#: A2BAgent_UI/sessions.php:30
+msgid "End"
 msgstr ""
 
-#: A2BAgent_UI/PP_error.php:7
-msgid "ERROR : ACCESS REFUSED"
-msgstr "ERROR : ACCESO RECHAZADO"
+#: A2BAgent_UI/sessions.php:34 A2BAgent_UI/A2B_entity_booths.php:15
+msgid "Booth"
+msgstr ""
 
-#: A2BAgent_UI/PP_error.php:8
+#: A2BAgent_UI/A2B_entity_booths.php:13
 msgid ""
-"The CODE is not a VALID CODE or has been already used! Please check it and "
-"try again."
+"Booths are the physical phones where a customer can enter and make calls."
 msgstr ""
-"El CODIGO no es VALIDO o ha sido usado ya ! Por favor intentelo de nuevo."
 
-#: A2BAgent_UI/PP_error.php:9
-msgid "Sorry a problem occur on our system, please try later!"
+#: A2BAgent_UI/A2B_entity_booths.php:15
+msgid "Booths"
 msgstr ""
-"Perdone, ocurrio un error en nuestro sistema, Por favor intentelo mas tarde !"
 
-#: A2BAgent_UI/PP_error.php:10
-msgid "There is an error on this page!"
-msgstr "Hay un error en esta p&aacute;gina!"
+#: A2BAgent_UI/A2B_entity_booths.php:26
+msgid "Name"
+msgstr ""
 
-#: A2BAgent_UI/PP_error.php:11
-msgid "Sorry, you don t have access to this page !"
-msgstr "Perdone, usted no tiene acceso a esta p&aacute;gina !"
+#: A2BAgent_UI/A2B_entity_booths.php:27
+#, fuzzy
+msgid "Location"
+msgstr "Duraci&oacute;n"
 
-#: A2BAgent_UI/PP_error.php:12
-msgid "Sorry, this page is in construction !"
-msgstr "Perdone, esta p&aacute;gina est&aacute; en construcci&oacute;n !"
+#: A2BAgent_UI/A2B_entity_booths.php:30
+msgid "N/A"
+msgstr ""
 
-#: A2BAgent_UI/PP_error.php:29
-msgid "Error Page"
+#: A2BAgent_UI/A2B_entity_booths.php:31
+msgid "Empty"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_booths.php:32
+msgid "Idle"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_booths.php:33
+msgid "Ready"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_booths.php:34
+msgid "Active"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_booths.php:35
+msgid "Disabled"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_booths.php:36
+msgid "Stopped"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_booths.php:39
+msgid "Money now in the card inside the booth."
 msgstr ""
 
 #: A2BAgent_UI/PP_menu.inc.php:61
@@ -429,193 +468,8 @@ msgstr ""
 msgid "LOGOUT"
 msgstr "SALIR"
 
-#: A2BAgent_UI/PP_page.inc.php:44
-msgid "Other"
-msgstr ""
-
-#: A2BAgent_UI/agent-money.php:15 A2BAgent_UI/sessions.php:47
-msgid "Period from"
-msgstr ""
-
-#: A2BAgent_UI/agent-money.php:20 A2BAgent_UI/sessions.php:51
-msgid "Period to"
-msgstr ""
-
-#: A2BAgent_UI/booths.xml.php:15
-msgid "Unauthorized: please log in again."
-msgstr ""
-
-#: A2BAgent_UI/index.php:70
-msgid "AUTHENTICATION REFUSED, please check your user/password!"
-msgstr ""
-
-#: A2BAgent_UI/index.php:74
-msgid "INACTIVE ACCOUNT, Please activate your account!"
-msgstr ""
-
-#: A2BAgent_UI/index.php:78
-msgid "BLOCKED ACCOUNT, Please contact your administrator!"
-msgstr ""
-
-#: A2BAgent_UI/index.php:87
-#, fuzzy
-msgid "AUTHENTICATION"
-msgstr "DESTINACION"
-
-#: A2BAgent_UI/index.php:96
-msgid "User:"
-msgstr ""
-
-#: A2BAgent_UI/index.php:101
-msgid "Password:"
-msgstr ""
-
-#: A2BAgent_UI/index.php:111
-msgid "Forgot your password? Click "
-msgstr ""
-
-#: A2BAgent_UI/index.php:111
-msgid "here"
-msgstr ""
-
-#: A2BAgent_UI/forgotpassword.php:24
-msgid ""
-"Please wait 1 minutes before making any other request for the forgot "
-"password!"
-msgstr ""
-
-#: A2BAgent_UI/forgotpassword.php:98
-msgid "Your login information email has been sent to you."
-msgstr ""
-
-#: A2BAgent_UI/forgotpassword.php:101
-msgid "No such login exists."
-msgstr ""
-
-#: A2BAgent_UI/forgotpassword.php:104
-msgid "Invalid Action."
-msgstr ""
-
-#: A2BAgent_UI/forgotpassword.php:107
-msgid "Pleaes provide your email address to get your login information."
-msgstr ""
-
-#: A2BAgent_UI/info_choice.php:17
-msgid "Please choose information page:"
-msgstr ""
-
-#: A2BAgent_UI/info_choice.php:19
-msgid "Current rates"
-msgstr ""
-
-#: A2BAgent_UI/info_choice.php:20
-msgid "Usage instructions"
-msgstr ""
-
-#: A2BAgent_UI/info_choice.php:21
-msgid "Contact information"
-msgstr ""
-
-#: A2BAgent_UI/invoices_agent.php:20
-#, fuzzy
-msgid "Transactions"
-msgstr "Duraci&oacute;n"
-
-#: A2BAgent_UI/invoices_agent.php:20
-#, fuzzy
-msgid "Transaction"
-msgstr "Duraci&oacute;n"
-
-#: A2BAgent_UI/invoices_agent.php:30
-msgid "Period begin"
-msgstr ""
-
-#: A2BAgent_UI/invoices_agent.php:31
-msgid "Period end"
-msgstr ""
-
-#: A2BAgent_UI/invoices_agent.php:32
-msgid "Invoice date"
-msgstr ""
-
-#: A2BAgent_UI/invoices_agent.php:57
-msgid "calls"
-msgstr ""
-
-#: A2BAgent_UI/invoices_agent.php:70
-msgid "Duration"
-msgstr "Duraci&oacute;n"
-
-#: A2BAgent_UI/invoices_agent.php:71
-msgid "Dur"
-msgstr ""
-
-#: A2BAgent_UI/invoices_agent.php:73
-msgid "Bill"
-msgstr ""
-
-#: A2BAgent_UI/invoices_agent.php:90
-#, fuzzy
-msgid "Sum per destination"
-msgstr "Destinaci&oacute;n"
-
-#: A2BAgent_UI/invoices_cshop.php:46 A2BAgent_UI/invoices_cshop.php:50
-msgid "Cannot locate session!"
-msgstr ""
-
-#: A2BAgent_UI/lib/company_info.php:2
-msgid ""
-"This software has been created by Areski under GPL licence. For futher "
-"information, feel free to contact me:"
-msgstr ""
-
-#: A2BAgent_UI/lib/company_info.php:4
-msgid ""
-" This software is under GPL licence. For further information, please visit : "
-"<a href=\"http://www.asterisk2billing.org\" target=\"_blank"
-"\">asterisk2billing.org</a>"
-msgstr ""
-
-#: A2BAgent_UI/lib/company_info.php:5
-msgid "Asterisk2Billing : CallingCard platform"
-msgstr ""
-
-#: A2BAgent_UI/lib/help.php:15
-msgid ""
-"From here, you can use the web based screen phone. You need microphone and "
-"speakers on your PC."
-msgstr ""
-
-#: A2BAgent_UI/lib/help.php:31
-msgid ""
-"All calls are listed below. Search by month, day or status. Additionally, "
-"you can check the rate and price."
-msgstr ""
-
-#: A2BAgent_UI/lib/help.php:48
-msgid ""
-"Simulate the calling process to discover the cost per minute of a call, and "
-"the number of minutes you can call that number with your current credit."
-msgstr ""
-
-#: A2BAgent_UI/lib/help.php:64
-msgid ""
-"On this page you will be able to change your password, You have to enter the "
-"New Password and Confirm it."
-msgstr ""
-
-#: A2BAgent_UI/lib/help.php:79
-msgid "Here you can view your ratecards"
-msgstr ""
-
-#: A2BAgent_UI/lib/help.php:94
-msgid "Here you can view your used vouchers"
-msgstr ""
-
-#: A2BAgent_UI/lib/help.php:111
-msgid ""
-"Select the country below where you would like a DID, select a DID from the "
-"list and enter the destination you would like to assign it to."
+#: A2BAgent_UI/pay.php:23 A2BAgent_UI/A2B_entity_agentpay.php:15
+msgid "Payment"
 msgstr ""
 
 #: A2BAgent_UI/pay.php:24
@@ -666,23 +520,169 @@ msgstr ""
 msgid "Agent invoices"
 msgstr ""
 
-#: A2BAgent_UI/sessions.php:14
-msgid ""
-"Callshop essions. Each session starts when the customer enters a booth and "
-"ends when he leaves (preferably having paid the account)."
-msgstr ""
-
-#: A2BAgent_UI/sessions.php:16
+#: A2BAgent_UI/invoices_agent.php:20
 #, fuzzy
-msgid "Sessions"
-msgstr "Segundos"
+msgid "Transactions"
+msgstr "Duraci&oacute;n"
 
-#: A2BAgent_UI/sessions.php:16
-msgid "Session"
+#: A2BAgent_UI/invoices_agent.php:20
+#, fuzzy
+msgid "Transaction"
+msgstr "Duraci&oacute;n"
+
+#: A2BAgent_UI/invoices_agent.php:30
+msgid "Period begin"
 msgstr ""
 
-#: A2BAgent_UI/sessions.php:30
-msgid "End"
+#: A2BAgent_UI/invoices_agent.php:31
+msgid "Period end"
+msgstr ""
+
+#: A2BAgent_UI/invoices_agent.php:32
+msgid "Invoice date"
+msgstr ""
+
+#: A2BAgent_UI/invoices_agent.php:57
+msgid "calls"
+msgstr ""
+
+#: A2BAgent_UI/invoices_agent.php:69 A2BAgent_UI/A2B_entity_ratecard.php:18
+#: A2BAgent_UI/A2B_entity_ratecard.php:36
+msgid "Destination"
+msgstr "Destinaci&oacute;n"
+
+#: A2BAgent_UI/invoices_agent.php:70
+msgid "Duration"
+msgstr "Duraci&oacute;n"
+
+#: A2BAgent_UI/invoices_agent.php:71
+msgid "Dur"
+msgstr ""
+
+#: A2BAgent_UI/invoices_agent.php:73
+msgid "Bill"
+msgstr ""
+
+#: A2BAgent_UI/invoices_agent.php:90
+#, fuzzy
+msgid "Sum per destination"
+msgstr "Destinaci&oacute;n"
+
+#: A2BAgent_UI/A2B_entity_agentpay.php:13
+msgid ""
+"Agent payments are money transactions between agents and the phone company."
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_agentpay.php:15
+msgid "Payments"
+msgstr ""
+
+#: A2BAgent_UI/index.php:70
+msgid "AUTHENTICATION REFUSED, please check your user/password!"
+msgstr ""
+
+#: A2BAgent_UI/index.php:74
+msgid "INACTIVE ACCOUNT, Please activate your account!"
+msgstr ""
+
+#: A2BAgent_UI/index.php:78
+msgid "BLOCKED ACCOUNT, Please contact your administrator!"
+msgstr ""
+
+#: A2BAgent_UI/index.php:87
+#, fuzzy
+msgid "AUTHENTICATION"
+msgstr "DESTINACION"
+
+#: A2BAgent_UI/index.php:96
+msgid "User:"
+msgstr ""
+
+#: A2BAgent_UI/index.php:101
+msgid "Password:"
+msgstr ""
+
+#: A2BAgent_UI/index.php:111
+msgid "Forgot your password? Click "
+msgstr ""
+
+#: A2BAgent_UI/index.php:111
+msgid "here"
+msgstr ""
+
+#: A2BAgent_UI/info_choice.php:17
+msgid "Please choose information page:"
+msgstr ""
+
+#: A2BAgent_UI/info_choice.php:19
+msgid "Current rates"
+msgstr ""
+
+#: A2BAgent_UI/info_choice.php:20
+msgid "Usage instructions"
+msgstr ""
+
+#: A2BAgent_UI/info_choice.php:21
+msgid "Contact information"
+msgstr ""
+
+#: A2BAgent_UI/PP_error.php:7
+msgid "ERROR : ACCESS REFUSED"
+msgstr "ERROR : ACCESO RECHAZADO"
+
+#: A2BAgent_UI/PP_error.php:8
+msgid ""
+"The CODE is not a VALID CODE or has been already used! Please check it and "
+"try again."
+msgstr ""
+"El CODIGO no es VALIDO o ha sido usado ya ! Por favor intentelo de nuevo."
+
+#: A2BAgent_UI/PP_error.php:9
+msgid "Sorry a problem occur on our system, please try later!"
+msgstr ""
+"Perdone, ocurrio un error en nuestro sistema, Por favor intentelo mas tarde !"
+
+#: A2BAgent_UI/PP_error.php:10
+msgid "There is an error on this page!"
+msgstr "Hay un error en esta p&aacute;gina!"
+
+#: A2BAgent_UI/PP_error.php:11
+msgid "Sorry, you don t have access to this page !"
+msgstr "Perdone, usted no tiene acceso a esta p&aacute;gina !"
+
+#: A2BAgent_UI/PP_error.php:12
+msgid "Sorry, this page is in construction !"
+msgstr "Perdone, esta p&aacute;gina est&aacute; en construcci&oacute;n !"
+
+#: A2BAgent_UI/PP_error.php:29
+msgid "Error Page"
+msgstr ""
+
+#: A2BAgent_UI/booths.xml.php:15
+msgid "Unauthorized: please log in again."
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_ratecard.php:14
+msgid "These are the selling rates to each destination"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_ratecard.php:20
+#, fuzzy
+msgid "Rates"
+msgstr "FECHA"
+
+#: A2BAgent_UI/A2B_entity_ratecard.php:20
+#: A2BAgent_UI/A2B_entity_ratecard.php:38
+#, fuzzy
+msgid "Rate"
+msgstr "FECHA"
+
+#: A2BAgent_UI/A2B_entity_ratecard.php:40
+msgid "Block"
+msgstr ""
+
+#: A2BAgent_UI/A2B_entity_ratecard.php:41
+msgid "Tariff"
 msgstr ""
 
 #, fuzzy

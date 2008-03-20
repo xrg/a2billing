@@ -22,15 +22,15 @@ msgid "Invoices"
 msgstr "Τιμολόγια"
 
 #: A2BAgent_UI/A2B_entity_agent_invoicev.php:14
-#: A2BAgent_UI/A2B_entity_agentpay.php:31 A2BAgent_UI/A2B_entity_charge.php:40
-#: A2BAgent_UI/sessions.php:38
+#: A2BAgent_UI/A2B_entity_charge.php:40 A2BAgent_UI/sessions.php:38
+#: A2BAgent_UI/A2B_entity_agentpay.php:31
 msgid "Invoice"
 msgstr "Τιμολόγιο"
 
 #: A2BAgent_UI/A2B_entity_agent_invoicev.php:26
-#: A2BAgent_UI/A2B_entity_agentpay.php:23 A2BAgent_UI/A2B_entity_booths.php:23
-#: A2BAgent_UI/A2B_entity_cards.php:21 A2BAgent_UI/A2B_entity_charge.php:27
-#: A2BAgent_UI/invoices_agent.php:26 A2BAgent_UI/sessions.php:26
+#: A2BAgent_UI/A2B_entity_charge.php:27 A2BAgent_UI/A2B_entity_cards.php:21
+#: A2BAgent_UI/sessions.php:26 A2BAgent_UI/A2B_entity_booths.php:23
+#: A2BAgent_UI/invoices_agent.php:26 A2BAgent_UI/A2B_entity_agentpay.php:23
 msgid "ID"
 msgstr "ID"
 
@@ -100,94 +100,151 @@ msgstr "Κατάσταση"
 msgid "View"
 msgstr "Προβολή"
 
-#: A2BAgent_UI/A2B_entity_agentpay.php:13
-msgid "Agent payments are money transactions between agents and the phone company."
+#: A2BAgent_UI/lib/help.php:15
+msgid ""
+"From here, you can use the web based screen phone. You need microphone and "
+"speakers on your PC."
 msgstr ""
-"Στις πληρωμές του μαγαζιού βλέπετε τις συναλλαγές ανάμεσα στο μαγαζί και την "
-"τηλ. εταιρία."
+"Από εδώ, μπορείτε να χρησιμοποιήσετε το εικονικό τηλέφωνο της ιστοσελίδας. "
+"Αυτό λειτουργεί αν έχετε μικρόφωνο και μεγάφωνα/ακουστικά στον Η/Υ σας."
 
-#: A2BAgent_UI/A2B_entity_agentpay.php:15
-msgid "Payments"
-msgstr "Πληρωμές"
+#: A2BAgent_UI/lib/help.php:31
+msgid ""
+"All calls are listed below. Search by month, day or status. Additionally, "
+"you can check the rate and price."
+msgstr ""
+"Όλες σας οι κλήσεις εμφανίζονται εδώ. Δείτε τις ανά μήνα, μέρα ή κατάσταση. "
+"Μπορείτε επίσης να ελέξετε την τιμή και τη χρέωσή τους."
 
-#: A2BAgent_UI/A2B_entity_agentpay.php:15 A2BAgent_UI/pay.php:23
-msgid "Payment"
-msgstr "Πληρωμή"
+#: A2BAgent_UI/lib/help.php:48
+msgid ""
+"Simulate the calling process to discover the cost per minute of a call, and "
+"the number of minutes you can call that number with your current credit."
+msgstr ""
+"Προσομείωση της κλήσης για να δείτε το κόστος ανά λεπτό μίας κλήσης, και τον "
+"αριθμό λεπτών που μπορείτε να καλέσετε στον αριθμό αυτό με το υπόλοιπό σας."
 
-#: A2BAgent_UI/A2B_entity_agentpay.php:26 A2BAgent_UI/A2B_entity_charge.php:30
-#: A2BAgent_UI/invoices_agent.php:66
+#: A2BAgent_UI/lib/help.php:64
+msgid ""
+"On this page you will be able to change your password, You have to enter the "
+"New Password and Confirm it."
+msgstr ""
+"Σε αυτή τη σελίδα μπορείτε να αλλάξετε τον κωδικό πρόσβασής σας. Αρκεί να "
+"δώσετε το Νέο κωδικό και να τον Επιβεβαιώσετε."
+
+#: A2BAgent_UI/lib/help.php:79
+msgid "Here you can view your ratecards"
+msgstr "Εδώ μπορείτε να δείτε τους τιμοκαταλόγους"
+
+#: A2BAgent_UI/lib/help.php:94
+msgid "Here you can view your used vouchers"
+msgstr ""
+
+#: A2BAgent_UI/lib/help.php:111
+msgid ""
+"Select the country below where you would like a DID, select a DID from the "
+"list and enter the destination you would like to assign it to."
+msgstr ""
+
+#: A2BAgent_UI/lib/company_info.php:2
+msgid ""
+"This software has been created by Areski under GPL licence. For futher "
+"information, feel free to contact me:"
+msgstr ""
+"Το παρόν λογισμικό γράφτηκε από τον Areski με άδεια GPL. Για περισσότερες "
+"πληροφορίες, επικοινωνήστε μαζί μου:"
+
+#: A2BAgent_UI/lib/company_info.php:4
+msgid ""
+" This software is under GPL licence. For further information, please visit : "
+"<a href=\"http://www.asterisk2billing.org\" target=\"_blank"
+"\">asterisk2billing.org</a>"
+msgstr ""
+"Το παρόν λογισμικό έχει άδεια GPL. Για περισσότερες πληροφορίες δείτε στο <a "
+"href=\"http://www.asterisk2billing.org\" target=\"_blank\">asterisk2billing."
+"org</a>"
+
+#: A2BAgent_UI/lib/company_info.php:5
+msgid "Asterisk2Billing : CallingCard platform"
+msgstr "Asterisk2Billing: Πλατφόρμα για τηλεφωνικές κάρτες"
+
+#: A2BAgent_UI/agent-money.php:15 A2BAgent_UI/sessions.php:47
+msgid "Period from"
+msgstr "Περίοδος από"
+
+#: A2BAgent_UI/agent-money.php:20 A2BAgent_UI/sessions.php:51
+msgid "Period to"
+msgstr "Περίοδος εως"
+
+#: A2BAgent_UI/A2B_entity_charge.php:13
+msgid ""
+"Charges are money transactions apart from calls. They are used to indicate "
+"that the customer should pay or receive extra money."
+msgstr ""
+"Οι χρεώσεις είναι οι συναλλαγές πέρα από τις κλήσεις. Δείχνουν πότε ο "
+"χρήστης οφείλει ή δικαιούται επιπλέον χρήματα."
+
+#: A2BAgent_UI/A2B_entity_charge.php:15
+msgid "Charges"
+msgstr "Χρεώσεις"
+
+#: A2BAgent_UI/A2B_entity_charge.php:15 A2BAgent_UI/A2B_entity_ratecard.php:39
+msgid "Charge"
+msgstr "Χρέωση"
+
+#: A2BAgent_UI/A2B_entity_charge.php:29 A2BAgent_UI/A2B_entity_cards.php:15
+#: A2BAgent_UI/sessions.php:35
+msgid "Card"
+msgstr "Κάρτα"
+
+#: A2BAgent_UI/A2B_entity_charge.php:30 A2BAgent_UI/invoices_agent.php:66
+#: A2BAgent_UI/A2B_entity_agentpay.php:26
 msgid "Date"
 msgstr "Ημερομηνία"
 
-#: A2BAgent_UI/A2B_entity_agentpay.php:27 A2BAgent_UI/A2B_entity_booths.php:39
-#: A2BAgent_UI/A2B_entity_cards.php:43
-msgid "Credit"
-msgstr "Πίστωση"
-
-#: A2BAgent_UI/A2B_entity_agentpay.php:28 A2BAgent_UI/A2B_entity_charge.php:31
+#: A2BAgent_UI/A2B_entity_charge.php:31 A2BAgent_UI/A2B_entity_agentpay.php:28
 msgid "Type"
 msgstr "Τύπος"
 
-#: A2BAgent_UI/A2B_entity_agentpay.php:34 A2BAgent_UI/A2B_entity_charge.php:38
+#: A2BAgent_UI/A2B_entity_charge.php:36
+msgid ""
+"Positive charge is when the customer should pay more. Negative means the "
+"customer gets refunded."
+msgstr ""
+"Θετική χρέωση είναι όταν ο πελάτης πρέπει να πληρώσει παραπάνω. Αρνητική "
+"είναι όταν πρέπει να πάρει πίσω χρήματα."
+
+#: A2BAgent_UI/A2B_entity_charge.php:38 A2BAgent_UI/A2B_entity_agentpay.php:34
 msgid "Description"
 msgstr "Περιγραφή"
 
-#: A2BAgent_UI/A2B_entity_booths.php:13
-msgid "Booths are the physical phones where a customer can enter and make calls."
-msgstr "Οι θάλαμοι είναι τα τηλέφωνα όπου μπορεί να κάνει κλήσεις ο πελάτης."
+#: A2BAgent_UI/PP_page.inc.php:44
+msgid "Other"
+msgstr "Άλλο"
 
-#: A2BAgent_UI/A2B_entity_booths.php:15
-msgid "Booths"
-msgstr "Τηλέφωνα"
+#: A2BAgent_UI/forgotpassword.php:24
+msgid ""
+"Please wait 1 minutes before making any other request for the forgot "
+"password!"
+msgstr "Παρακαλώ περιμένετε 1 λεπτό πρίν ξανακάνετε αίτηση ανάκτησης κωδικού!"
 
-#: A2BAgent_UI/A2B_entity_booths.php:15 A2BAgent_UI/sessions.php:34
-msgid "Booth"
-msgstr "Θάλαμοι"
+#: A2BAgent_UI/forgotpassword.php:98
+msgid "Your login information email has been sent to you."
+msgstr "Σας έχει αποσταλεί e-mail με τον κωδικό σας."
 
-#: A2BAgent_UI/A2B_entity_booths.php:26
-msgid "Name"
-msgstr "Όνομα"
+#: A2BAgent_UI/forgotpassword.php:101
+msgid "No such login exists."
+msgstr "Δεν υπάρχει τέτοιος χρήστης."
 
-#: A2BAgent_UI/A2B_entity_booths.php:27
-msgid "Location"
-msgstr "Τοποθεσία"
+#: A2BAgent_UI/forgotpassword.php:104
+msgid "Invalid Action."
+msgstr "Άκυρη Ενέργεια."
 
-#: A2BAgent_UI/A2B_entity_booths.php:30
-msgid "N/A"
-msgstr "Ν/Α"
-
-#: A2BAgent_UI/A2B_entity_booths.php:31
-msgid "Empty"
-msgstr "Κενός"
-
-#: A2BAgent_UI/A2B_entity_booths.php:32
-msgid "Idle"
-msgstr "Αδρανής"
-
-#: A2BAgent_UI/A2B_entity_booths.php:33
-msgid "Ready"
-msgstr "Έτοιμος"
-
-#: A2BAgent_UI/A2B_entity_booths.php:34
-msgid "Active"
-msgstr "Ενεργός"
-
-#: A2BAgent_UI/A2B_entity_booths.php:35
-msgid "Disabled"
-msgstr "Απενεργοποιημένος"
-
-#: A2BAgent_UI/A2B_entity_booths.php:36
-msgid "Stopped"
-msgstr "Σταματημένο"
-
-#: A2BAgent_UI/A2B_entity_booths.php:38 A2BAgent_UI/A2B_entity_cards.php:48
-#: A2BAgent_UI/sessions.php:32
-msgid "State"
-msgstr "Κατάσταση"
-
-#: A2BAgent_UI/A2B_entity_booths.php:39
-msgid "Money now in the card inside the booth."
-msgstr "Χρήματα στην κάρτα του θαλάμου."
+#: A2BAgent_UI/forgotpassword.php:107
+msgid "Pleaes provide your email address to get your login information."
+msgstr ""
+"Παρακαλώ δώστε το email σας (αυτό που έχετε δηλώσει σε εμάς) για να λάβετε "
+"σε αυτό τον κωδικό σας."
 
 #: A2BAgent_UI/A2B_entity_cards.php:13
 msgid "Customers represent the accounts that get charged for calls."
@@ -196,11 +253,6 @@ msgstr "Οι πελάτες είναι αυτοί που έχουν λογαρι
 #: A2BAgent_UI/A2B_entity_cards.php:15
 msgid "Cards"
 msgstr "Κάρτες"
-
-#: A2BAgent_UI/A2B_entity_cards.php:15 A2BAgent_UI/A2B_entity_charge.php:29
-#: A2BAgent_UI/sessions.php:35
-msgid "Card"
-msgstr "Κάρτα"
 
 #: A2BAgent_UI/A2B_entity_cards.php:25
 msgid "Card number"
@@ -262,6 +314,11 @@ msgstr "ΥΠΟ ΕΞΕΤΑΣΗ"
 msgid "STOPPED"
 msgstr "ΣΤΑΜΑΤΗΜΕΝΗ"
 
+#: A2BAgent_UI/A2B_entity_cards.php:43 A2BAgent_UI/A2B_entity_booths.php:39
+#: A2BAgent_UI/A2B_entity_agentpay.php:27
+msgid "Credit"
+msgstr "Πίστωση"
+
 #: A2BAgent_UI/A2B_entity_cards.php:43
 msgid "Money now in the card. Positive is credit, negative owes us."
 msgstr "Χρήματα στην κάρτα.Θετικό σημαίνει πίστωση, αρνητικό χρωστάει σε εμάς."
@@ -273,6 +330,11 @@ msgstr "Διεύθυνση"
 #: A2BAgent_UI/A2B_entity_cards.php:47
 msgid "City"
 msgstr "Πόλη"
+
+#: A2BAgent_UI/A2B_entity_cards.php:48 A2BAgent_UI/sessions.php:32
+#: A2BAgent_UI/A2B_entity_booths.php:38
+msgid "State"
+msgstr "Κατάσταση"
 
 #: A2BAgent_UI/A2B_entity_cards.php:50
 msgid "Country"
@@ -306,87 +368,82 @@ msgstr "Νόμισμα"
 msgid "This currency affects the invoice and the audible balance information."
 msgstr "Το νόμισμα φαίνεται στο λογαριασμό και στα ηχητικά μηνύματα."
 
-#: A2BAgent_UI/A2B_entity_charge.php:13
+#: A2BAgent_UI/invoices_cshop.php:46 A2BAgent_UI/invoices_cshop.php:50
+msgid "Cannot locate session!"
+msgstr "Δεν βρέθηκε η συνεδρία!"
+
+#: A2BAgent_UI/sessions.php:14
 msgid ""
-"Charges are money transactions apart from calls. They are used to indicate "
-"that the customer should pay or receive extra money."
+"Callshop essions. Each session starts when the customer enters a booth and "
+"ends when he leaves (preferably having paid the account)."
 msgstr ""
-"Οι χρεώσεις είναι οι συναλλαγές πέρα από τις κλήσεις. Δείχνουν πότε ο "
-"χρήστης οφείλει ή δικαιούται επιπλέον χρήματα."
+"Συνεδρίες. Κάθε μια ξεκινάει όταν ο πελάτης έρχεται στο θάλαμο και τελειώνει "
+"όταν ο πελάτης φεύγει από το μαγαζί (έχοντας εξοφλήσει το λογαριασμό)."
 
-#: A2BAgent_UI/A2B_entity_charge.php:15
-msgid "Charges"
-msgstr "Χρεώσεις"
+#: A2BAgent_UI/sessions.php:16
+msgid "Sessions"
+msgstr "Συνεδρίες"
 
-#: A2BAgent_UI/A2B_entity_charge.php:15 A2BAgent_UI/A2B_entity_ratecard.php:39
-msgid "Charge"
-msgstr "Χρέωση"
+#: A2BAgent_UI/sessions.php:16
+msgid "Session"
+msgstr "Σύνοδος"
 
-#: A2BAgent_UI/A2B_entity_charge.php:36
+#: A2BAgent_UI/sessions.php:30
+msgid "End"
+msgstr "Τέλος"
+
+#: A2BAgent_UI/sessions.php:34 A2BAgent_UI/A2B_entity_booths.php:15
+msgid "Booth"
+msgstr "Θάλαμοι"
+
+#: A2BAgent_UI/A2B_entity_booths.php:13
 msgid ""
-"Positive charge is when the customer should pay more. Negative means the "
-"customer gets refunded."
-msgstr ""
-"Θετική χρέωση είναι όταν ο πελάτης πρέπει να πληρώσει παραπάνω. Αρνητική "
-"είναι όταν πρέπει να πάρει πίσω χρήματα."
+"Booths are the physical phones where a customer can enter and make calls."
+msgstr "Οι θάλαμοι είναι τα τηλέφωνα όπου μπορεί να κάνει κλήσεις ο πελάτης."
 
-#: A2BAgent_UI/A2B_entity_ratecard.php:14
-msgid "These are the selling rates to each destination"
-msgstr "Αυτές είναι οι τιμές χρέωσης ανά προορισμό."
+#: A2BAgent_UI/A2B_entity_booths.php:15
+msgid "Booths"
+msgstr "Τηλέφωνα"
 
-#: A2BAgent_UI/A2B_entity_ratecard.php:18
-#: A2BAgent_UI/A2B_entity_ratecard.php:36 A2BAgent_UI/invoices_agent.php:69
-msgid "Destination"
-msgstr "Προορισμός"
+#: A2BAgent_UI/A2B_entity_booths.php:26
+msgid "Name"
+msgstr "Όνομα"
 
-#: A2BAgent_UI/A2B_entity_ratecard.php:20
-msgid "Rates"
-msgstr "Τιμές"
+#: A2BAgent_UI/A2B_entity_booths.php:27
+msgid "Location"
+msgstr "Τοποθεσία"
 
-#: A2BAgent_UI/A2B_entity_ratecard.php:20
-#: A2BAgent_UI/A2B_entity_ratecard.php:38
-msgid "Rate"
-msgstr "Τιμή"
+#: A2BAgent_UI/A2B_entity_booths.php:30
+msgid "N/A"
+msgstr "Ν/Α"
 
-#: A2BAgent_UI/A2B_entity_ratecard.php:40
-msgid "Block"
-msgstr "Χρέωση ανά"
+#: A2BAgent_UI/A2B_entity_booths.php:31
+msgid "Empty"
+msgstr "Κενός"
 
-#: A2BAgent_UI/A2B_entity_ratecard.php:41
-msgid "Tariff"
-msgstr "Τιμολόγιο"
+#: A2BAgent_UI/A2B_entity_booths.php:32
+msgid "Idle"
+msgstr "Αδρανής"
 
-#: A2BAgent_UI/PP_error.php:7
-msgid "ERROR : ACCESS REFUSED"
-msgstr "ΣΦΑΛΜΑ, Η ΠΡΟΣΒΑΣΗ ΔΕΝ ΕΠΙΤΡΕΠΕΤΑΙ"
+#: A2BAgent_UI/A2B_entity_booths.php:33
+msgid "Ready"
+msgstr "Έτοιμος"
 
-#: A2BAgent_UI/PP_error.php:8
-msgid ""
-"The CODE is not a VALID CODE or has been already used! Please check it and "
-"try again."
-msgstr ""
-"Ο ΚΩΔΙΚΟΣ δεν είναι έγκυρος ή έχει χρησιμοποιηθεί ήδη. Παρακαλώ ελέγξτε τον "
-"και προσπαθήστε πάλι."
+#: A2BAgent_UI/A2B_entity_booths.php:34
+msgid "Active"
+msgstr "Ενεργός"
 
-#: A2BAgent_UI/PP_error.php:9
-msgid "Sorry a problem occur on our system, please try later!"
-msgstr "Λυπούμαστε, συνέβη σφάλμα στο σύστημά μας. Παρακαλώ, δοκιμάστε αργότερα!"
+#: A2BAgent_UI/A2B_entity_booths.php:35
+msgid "Disabled"
+msgstr "Απενεργοποιημένος"
 
-#: A2BAgent_UI/PP_error.php:10
-msgid "There is an error on this page!"
-msgstr "Υπάρχει σφάλμα στη σελίδα!"
+#: A2BAgent_UI/A2B_entity_booths.php:36
+msgid "Stopped"
+msgstr "Σταματημένο"
 
-#: A2BAgent_UI/PP_error.php:11
-msgid "Sorry, you don t have access to this page !"
-msgstr "Λυπούμαστε, δεν έχετε πρόσβαση στη σελίδα!"
-
-#: A2BAgent_UI/PP_error.php:12
-msgid "Sorry, this page is in construction !"
-msgstr "Λυπούμαστε, η σελίδα αυτή είναι υπό κατασκευή!"
-
-#: A2BAgent_UI/PP_error.php:29
-msgid "Error Page"
-msgstr "Σελίδα Σφάλματος"
+#: A2BAgent_UI/A2B_entity_booths.php:39
+msgid "Money now in the card inside the booth."
+msgstr "Χρήματα στην κάρτα του θαλάμου."
 
 #: A2BAgent_UI/PP_menu.inc.php:61
 msgid "BOOTHS"
@@ -420,205 +477,9 @@ msgstr "ΚΩΔΙΚΟΣ"
 msgid "LOGOUT"
 msgstr "ΕΞΟΔΟΣ"
 
-#: A2BAgent_UI/PP_page.inc.php:44
-msgid "Other"
-msgstr "Άλλο"
-
-#: A2BAgent_UI/agent-money.php:15 A2BAgent_UI/sessions.php:47
-msgid "Period from"
-msgstr "Περίοδος από"
-
-#: A2BAgent_UI/agent-money.php:20 A2BAgent_UI/sessions.php:51
-msgid "Period to"
-msgstr "Περίοδος εως"
-
-#: A2BAgent_UI/booths.xml.php:15
-msgid "Unauthorized: please log in again."
-msgstr "Άρνηση πρόσβασης. Παρακαλώ ξανακάντε login."
-
-#: A2BAgent_UI/index.php:70
-msgid "AUTHENTICATION REFUSED, please check your user/password!"
-msgstr "ΔΕΝ ΕΠΙΤΡΕΠΕΤΑΙ Η ΠΡΟΣΒΑΣΗ, παρακαλώ ελέγξτε το όνομα/κωδικό σας!"
-
-#: A2BAgent_UI/index.php:74
-msgid "INACTIVE ACCOUNT, Please activate your account!"
-msgstr "ΑΝΕΝΕΡΓΟΣ ΛΟΓΑΡΙΑΣΜΟΣ, Παρακαλώ ζητήστε την ενεργοποίησή του!"
-
-#: A2BAgent_UI/index.php:78
-msgid "BLOCKED ACCOUNT, Please contact your administrator!"
-msgstr "ΚΛΕΙΔΩΜΕΝΟΣ ΛΟΓΑΡΙΑΣΜΟΣ, Παρακαλώ επικοινωνήστε μαζί μας!"
-
-#: A2BAgent_UI/index.php:87
-msgid "AUTHENTICATION"
-msgstr "ΠΙΣΤΟΠΟΙΗΣΗ"
-
-#: A2BAgent_UI/index.php:96
-msgid "User:"
-msgstr "Χρήστης:"
-
-#: A2BAgent_UI/index.php:101
-msgid "Password:"
-msgstr "Κωδικός:"
-
-#: A2BAgent_UI/index.php:111
-msgid "Forgot your password? Click "
-msgstr "Ξεχάσατε τον κωδικό; πατήστε "
-
-#: A2BAgent_UI/index.php:111
-msgid "here"
-msgstr "εδώ"
-
-#: A2BAgent_UI/forgotpassword.php:24
-msgid ""
-"Please wait 1 minutes before making any other request for the forgot "
-"password!"
-msgstr "Παρακαλώ περιμένετε 1 λεπτό πρίν ξανακάνετε αίτηση ανάκτησης κωδικού!"
-
-#: A2BAgent_UI/forgotpassword.php:98
-msgid "Your login information email has been sent to you."
-msgstr "Σας έχει αποσταλεί e-mail με τον κωδικό σας."
-
-#: A2BAgent_UI/forgotpassword.php:101
-msgid "No such login exists."
-msgstr "Δεν υπάρχει τέτοιος χρήστης."
-
-#: A2BAgent_UI/forgotpassword.php:104
-msgid "Invalid Action."
-msgstr "Άκυρη Ενέργεια."
-
-#: A2BAgent_UI/forgotpassword.php:107
-msgid "Pleaes provide your email address to get your login information."
-msgstr ""
-"Παρακαλώ δώστε το email σας (αυτό που έχετε δηλώσει σε εμάς) για να λάβετε "
-"σε αυτό τον κωδικό σας."
-
-#: A2BAgent_UI/info_choice.php:17
-msgid "Please choose information page:"
-msgstr "Επιλέξτε σελίδα με πληροφορίες:"
-
-#: A2BAgent_UI/info_choice.php:19
-msgid "Current rates"
-msgstr "Τρέχων τιμοκατάλογος"
-
-#: A2BAgent_UI/info_choice.php:20
-msgid "Usage instructions"
-msgstr "Οδηγίες χρήσεως"
-
-#: A2BAgent_UI/info_choice.php:21
-msgid "Contact information"
-msgstr "Επικοινωνία με εμάς"
-
-#: A2BAgent_UI/invoices_agent.php:20
-msgid "Transactions"
-msgstr "Συναλλαγές"
-
-#: A2BAgent_UI/invoices_agent.php:20
-msgid "Transaction"
-msgstr "Συναλλαγή"
-
-#: A2BAgent_UI/invoices_agent.php:30
-msgid "Period begin"
-msgstr "Περίοδος από"
-
-#: A2BAgent_UI/invoices_agent.php:31
-msgid "Period end"
-msgstr "Περίοδος εως"
-
-#: A2BAgent_UI/invoices_agent.php:32
-msgid "Invoice date"
-msgstr "Ημ/νία έκδοσης"
-
-#: A2BAgent_UI/invoices_agent.php:57
-msgid "calls"
-msgstr "κλήσεις"
-
-#: A2BAgent_UI/invoices_agent.php:70
-msgid "Duration"
-msgstr "Διάρκεια"
-
-#: A2BAgent_UI/invoices_agent.php:71
-msgid "Dur"
-msgstr "Διαρ."
-
-#: A2BAgent_UI/invoices_agent.php:73
-msgid "Bill"
-msgstr "Λογ/μός"
-
-#: A2BAgent_UI/invoices_agent.php:90
-msgid "Sum per destination"
-msgstr "Άθροισμα ανά προορισμό"
-
-#: A2BAgent_UI/invoices_cshop.php:46 A2BAgent_UI/invoices_cshop.php:50
-msgid "Cannot locate session!"
-msgstr "Δεν βρέθηκε η συνεδρία!"
-
-#: A2BAgent_UI/lib/company_info.php:2
-msgid ""
-"This software has been created by Areski under GPL licence. For futher "
-"information, feel free to contact me:"
-msgstr ""
-"Το παρόν λογισμικό γράφτηκε από τον Areski με άδεια GPL. Για περισσότερες "
-"πληροφορίες, επικοινωνήστε μαζί μου:"
-
-#: A2BAgent_UI/lib/company_info.php:4
-msgid ""
-" This software is under GPL licence. For further information, please visit : "
-"<a href=\"http://www.asterisk2billing.org\" target=\"_blank"
-"\">asterisk2billing.org</a>"
-msgstr ""
-"Το παρόν λογισμικό έχει άδεια GPL. Για περισσότερες πληροφορίες δείτε στο <a "
-"href=\"http://www.asterisk2billing.org\" target=\"_blank\">asterisk2billing."
-"org</a>"
-
-#: A2BAgent_UI/lib/company_info.php:5
-msgid "Asterisk2Billing : CallingCard platform"
-msgstr "Asterisk2Billing: Πλατφόρμα για τηλεφωνικές κάρτες"
-
-#: A2BAgent_UI/lib/help.php:15
-msgid ""
-"From here, you can use the web based screen phone. You need microphone and "
-"speakers on your PC."
-msgstr ""
-"Από εδώ, μπορείτε να χρησιμοποιήσετε το εικονικό τηλέφωνο της ιστοσελίδας. "
-"Αυτό λειτουργεί αν έχετε μικρόφωνο και μεγάφωνα/ακουστικά στον Η/Υ σας."
-
-#: A2BAgent_UI/lib/help.php:31
-msgid ""
-"All calls are listed below. Search by month, day or status. Additionally, "
-"you can check the rate and price."
-msgstr ""
-"Όλες σας οι κλήσεις εμφανίζονται εδώ. Δείτε τις ανά μήνα, μέρα ή κατάσταση. "
-"Μπορείτε επίσης να ελέξετε την τιμή και τη χρέωσή τους."
-
-#: A2BAgent_UI/lib/help.php:48
-msgid ""
-"Simulate the calling process to discover the cost per minute of a call, and "
-"the number of minutes you can call that number with your current credit."
-msgstr ""
-"Προσομείωση της κλήσης για να δείτε το κόστος ανά λεπτό μίας κλήσης, και τον "
-"αριθμό λεπτών που μπορείτε να καλέσετε στον αριθμό αυτό με το υπόλοιπό σας."
-
-#: A2BAgent_UI/lib/help.php:64
-msgid ""
-"On this page you will be able to change your password, You have to enter the "
-"New Password and Confirm it."
-msgstr ""
-"Σε αυτή τη σελίδα μπορείτε να αλλάξετε τον κωδικό πρόσβασής σας. Αρκεί να "
-"δώσετε το Νέο κωδικό και να τον Επιβεβαιώσετε."
-
-#: A2BAgent_UI/lib/help.php:79
-msgid "Here you can view your ratecards"
-msgstr "Εδώ μπορείτε να δείτε τους τιμοκαταλόγους"
-
-#: A2BAgent_UI/lib/help.php:94
-msgid "Here you can view your used vouchers"
-msgstr ""
-
-#: A2BAgent_UI/lib/help.php:111
-msgid ""
-"Select the country below where you would like a DID, select a DID from the "
-"list and enter the destination you would like to assign it to."
-msgstr ""
+#: A2BAgent_UI/pay.php:23 A2BAgent_UI/A2B_entity_agentpay.php:15
+msgid "Payment"
+msgstr "Πληρωμή"
 
 #: A2BAgent_UI/pay.php:24
 msgid "Pay back"
@@ -668,29 +529,170 @@ msgstr "Πληρωμές του μαγαζιού"
 msgid "Agent invoices"
 msgstr "Λογαριασμοί μαγαζιού"
 
-#: A2BAgent_UI/sessions.php:14
+#: A2BAgent_UI/invoices_agent.php:20
+msgid "Transactions"
+msgstr "Συναλλαγές"
+
+#: A2BAgent_UI/invoices_agent.php:20
+msgid "Transaction"
+msgstr "Συναλλαγή"
+
+#: A2BAgent_UI/invoices_agent.php:30
+msgid "Period begin"
+msgstr "Περίοδος από"
+
+#: A2BAgent_UI/invoices_agent.php:31
+msgid "Period end"
+msgstr "Περίοδος εως"
+
+#: A2BAgent_UI/invoices_agent.php:32
+msgid "Invoice date"
+msgstr "Ημ/νία έκδοσης"
+
+#: A2BAgent_UI/invoices_agent.php:57
+msgid "calls"
+msgstr "κλήσεις"
+
+#: A2BAgent_UI/invoices_agent.php:69 A2BAgent_UI/A2B_entity_ratecard.php:18
+#: A2BAgent_UI/A2B_entity_ratecard.php:36
+msgid "Destination"
+msgstr "Προορισμός"
+
+#: A2BAgent_UI/invoices_agent.php:70
+msgid "Duration"
+msgstr "Διάρκεια"
+
+#: A2BAgent_UI/invoices_agent.php:71
+msgid "Dur"
+msgstr "Διαρ."
+
+#: A2BAgent_UI/invoices_agent.php:73
+msgid "Bill"
+msgstr "Λογ/μός"
+
+#: A2BAgent_UI/invoices_agent.php:90
+msgid "Sum per destination"
+msgstr "Άθροισμα ανά προορισμό"
+
+#: A2BAgent_UI/A2B_entity_agentpay.php:13
 msgid ""
-"Callshop essions. Each session starts when the customer enters a booth and "
-"ends when he leaves (preferably having paid the account)."
+"Agent payments are money transactions between agents and the phone company."
 msgstr ""
-"Συνεδρίες. Κάθε μια ξεκινάει όταν ο πελάτης έρχεται στο θάλαμο και τελειώνει "
-"όταν ο πελάτης φεύγει από το μαγαζί (έχοντας εξοφλήσει το λογαριασμό)."
+"Στις πληρωμές του μαγαζιού βλέπετε τις συναλλαγές ανάμεσα στο μαγαζί και την "
+"τηλ. εταιρία."
 
-#: A2BAgent_UI/sessions.php:16
-msgid "Sessions"
-msgstr "Συνεδρίες"
+#: A2BAgent_UI/A2B_entity_agentpay.php:15
+msgid "Payments"
+msgstr "Πληρωμές"
 
-#: A2BAgent_UI/sessions.php:16
-msgid "Session"
-msgstr "Σύνοδος"
+#: A2BAgent_UI/index.php:70
+msgid "AUTHENTICATION REFUSED, please check your user/password!"
+msgstr "ΔΕΝ ΕΠΙΤΡΕΠΕΤΑΙ Η ΠΡΟΣΒΑΣΗ, παρακαλώ ελέγξτε το όνομα/κωδικό σας!"
 
-#: A2BAgent_UI/sessions.php:30
-msgid "End"
-msgstr "Τέλος"
+#: A2BAgent_UI/index.php:74
+msgid "INACTIVE ACCOUNT, Please activate your account!"
+msgstr "ΑΝΕΝΕΡΓΟΣ ΛΟΓΑΡΙΑΣΜΟΣ, Παρακαλώ ζητήστε την ενεργοποίησή του!"
+
+#: A2BAgent_UI/index.php:78
+msgid "BLOCKED ACCOUNT, Please contact your administrator!"
+msgstr "ΚΛΕΙΔΩΜΕΝΟΣ ΛΟΓΑΡΙΑΣΜΟΣ, Παρακαλώ επικοινωνήστε μαζί μας!"
+
+#: A2BAgent_UI/index.php:87
+msgid "AUTHENTICATION"
+msgstr "ΠΙΣΤΟΠΟΙΗΣΗ"
+
+#: A2BAgent_UI/index.php:96
+msgid "User:"
+msgstr "Χρήστης:"
+
+#: A2BAgent_UI/index.php:101
+msgid "Password:"
+msgstr "Κωδικός:"
+
+#: A2BAgent_UI/index.php:111
+msgid "Forgot your password? Click "
+msgstr "Ξεχάσατε τον κωδικό; πατήστε "
+
+#: A2BAgent_UI/index.php:111
+msgid "here"
+msgstr "εδώ"
+
+#: A2BAgent_UI/info_choice.php:17
+msgid "Please choose information page:"
+msgstr "Επιλέξτε σελίδα με πληροφορίες:"
+
+#: A2BAgent_UI/info_choice.php:19
+msgid "Current rates"
+msgstr "Τρέχων τιμοκατάλογος"
+
+#: A2BAgent_UI/info_choice.php:20
+msgid "Usage instructions"
+msgstr "Οδηγίες χρήσεως"
+
+#: A2BAgent_UI/info_choice.php:21
+msgid "Contact information"
+msgstr "Επικοινωνία με εμάς"
+
+#: A2BAgent_UI/PP_error.php:7
+msgid "ERROR : ACCESS REFUSED"
+msgstr "ΣΦΑΛΜΑ, Η ΠΡΟΣΒΑΣΗ ΔΕΝ ΕΠΙΤΡΕΠΕΤΑΙ"
+
+#: A2BAgent_UI/PP_error.php:8
+msgid ""
+"The CODE is not a VALID CODE or has been already used! Please check it and "
+"try again."
+msgstr ""
+"Ο ΚΩΔΙΚΟΣ δεν είναι έγκυρος ή έχει χρησιμοποιηθεί ήδη. Παρακαλώ ελέγξτε τον "
+"και προσπαθήστε πάλι."
+
+#: A2BAgent_UI/PP_error.php:9
+msgid "Sorry a problem occur on our system, please try later!"
+msgstr ""
+"Λυπούμαστε, συνέβη σφάλμα στο σύστημά μας. Παρακαλώ, δοκιμάστε αργότερα!"
+
+#: A2BAgent_UI/PP_error.php:10
+msgid "There is an error on this page!"
+msgstr "Υπάρχει σφάλμα στη σελίδα!"
+
+#: A2BAgent_UI/PP_error.php:11
+msgid "Sorry, you don t have access to this page !"
+msgstr "Λυπούμαστε, δεν έχετε πρόσβαση στη σελίδα!"
+
+#: A2BAgent_UI/PP_error.php:12
+msgid "Sorry, this page is in construction !"
+msgstr "Λυπούμαστε, η σελίδα αυτή είναι υπό κατασκευή!"
+
+#: A2BAgent_UI/PP_error.php:29
+msgid "Error Page"
+msgstr "Σελίδα Σφάλματος"
+
+#: A2BAgent_UI/booths.xml.php:15
+msgid "Unauthorized: please log in again."
+msgstr "Άρνηση πρόσβασης. Παρακαλώ ξανακάντε login."
+
+#: A2BAgent_UI/A2B_entity_ratecard.php:14
+msgid "These are the selling rates to each destination"
+msgstr "Αυτές είναι οι τιμές χρέωσης ανά προορισμό."
+
+#: A2BAgent_UI/A2B_entity_ratecard.php:20
+msgid "Rates"
+msgstr "Τιμές"
+
+#: A2BAgent_UI/A2B_entity_ratecard.php:20
+#: A2BAgent_UI/A2B_entity_ratecard.php:38
+msgid "Rate"
+msgstr "Τιμή"
+
+#: A2BAgent_UI/A2B_entity_ratecard.php:40
+msgid "Block"
+msgstr "Χρέωση ανά"
+
+#: A2BAgent_UI/A2B_entity_ratecard.php:41
+msgid "Tariff"
+msgstr "Τιμολόγιο"
 
 #~ msgid "Time"
 #~ msgstr "Χρόνος"
 
 #~ msgid "Number"
 #~ msgstr "Αριθμός"
-
