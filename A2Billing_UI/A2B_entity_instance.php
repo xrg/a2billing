@@ -38,7 +38,7 @@ $HD_Form->model[] = new RefField(_("Mode"), "sipiax", $sipiax_list);
 
 $HD_Form->model[] = new TextFieldN(_("IP"),'ipaddr');
 $HD_Form->model[] = dontList(new IntFieldN(_("Port"),'port'));
-$HD_Form->model[] = dontList(new IntFieldN(_("Reg. Seconds"),'regseconds',_("The timestamp the registration expires"))); //TODO: epochfield!
+$HD_Form->model[] = dontList(new EpochFieldN(_("Reg. Seconds"),'regseconds',_("The timestamp the registration expires"))); //TODO: epochfield!
 
 $HD_Form->model[] = dontList( new TextFieldN(_("Contact"),'fullcontact'));
 $HD_Form->model[] = dontList( new TextFieldN(_("Reg. server"),'regserver',_("The name of the server which registered it, as defined in asterisk.conf")));
