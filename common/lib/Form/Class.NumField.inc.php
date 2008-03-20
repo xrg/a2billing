@@ -265,4 +265,23 @@ class SecondsField extends IntField{
 
 };
 
+/** A number (=epoch) translated into a human date */
+class EpochField extends IntField {
+	public function DispList(array &$qrow,&$form){
+		$val = $qrow[$this->fieldname];
+		if (empty($val) || !is_numeric($val))
+			return;
+		echo date(_("Y-m-d H:i:s T"),$val);
+	}
+};
+
+class EpochFieldN extends EpochField {
+	public function buildValue($val,&$form){
+		if (empty($val) || !is_numeric($val))
+			return null;
+		else
+			return $val;
+	}
+};
+
 ?>
