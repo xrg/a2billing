@@ -18,7 +18,7 @@ $SEL_Form = new SelectionForm();
 $SEL_Form->init();
 $SEL_Form->model[] = new DateTimeField(_("Period from"),'date_from');
 	end($SEL_Form->model)->does_add = false;
-	end($SEL_Form->model)->def_date = '00:00 - 10 days';
+	end($SEL_Form->model)->def_date = '00:00 - 9 days';
 	end($SEL_Form->model)->fieldexpr = 'starttime';
 $SEL_Form->model[] = new DateTimeField(_("Period to"),'date_to');
 	end($SEL_Form->model)->does_add = false;
