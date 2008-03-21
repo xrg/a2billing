@@ -116,6 +116,13 @@ $sform->views['sums']->plots['day']= array('title' => _("Per day calls"),
 	'fns' => array( 'starttime' =>true, 'sessiontime' => 'SUM'),
 	'order' => 'date_trunc(\'day\',starttime)');
 
+$sform->views['sums']->plots['day2']= array('title' => _("Per day calls"),
+	'type' => 'abar', 'limit' => 10,
+	x => 'starttime', x2 => 'agid', x2t => agid_login, y => 'sessiontime',
+	xlabelangle => -45,
+	'fns' => array( 'starttime' =>true, agid=>true, 'sessiontime' => 'SUM'),
+	'order' => 'date_trunc(\'day\',starttime), sessiontime DESC');
+
 $PAGE_ELEMS[] = &$sform;
 
 $PAGE_ELEMS[] = $sform->GraphUrl('day');

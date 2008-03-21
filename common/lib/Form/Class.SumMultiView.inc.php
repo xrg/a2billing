@@ -219,6 +219,86 @@ class SumMultiView extends FormView {
 			if ($form->FG_DEBUG>1)
 				echo "Added Bar plot";
 			break;
+		case 'abar':
+	/*		$graph->legend->SetColor('navy');
+			$graph->legend->SetFillColor('gray@0.8');
+			$graph->legend->SetLineWeight(1);
+			//$graph->legend->SetFont(FF_ARIAL,FS_BOLD,8);
+			$graph->legend->SetShadow('gray@0.4',3);
+			$graph->legend->SetAbsPos(15,130,'right','bottom');*/
+			//$graph->legend->SetFont(FF_VERA);
+			
+			$xdata = array();
+			$ydata = array();
+			$yleg =array(); //holds the labels for y axises
+			$xkey = $tsum['x'];
+			$x2key = $tsum['x2'];
+			if (!empty($tsum['x2t']))
+				$x2t=$tsum['x2t'];
+			else
+				$x2t=$x2key;
+			$ykey = $tsum['y'];
+			while ($row = $res->fetchRow()){
+				// assume first order is by x-value
+				if (empty($xdata) || (end($xdata) != $row[$xkey]))
+					$xdata[] = $row[$xkey];
+				// and assume second order is the x2 key..
+				if (!isset($ydata[$row[$x2key]]))
+					$ydata[$row[$x2key]]=array();
+				
+				end($xdata); // move pointer to end
+				$ydata[$row[$x2key]][key($xdata)] = $row[$ykey];
+				$yleg[$row[$x2key]] = $row[$x2t];
+			}
+			
+			// Now, fill with zeroes all other vars..
+			foreach($ydata as &$yd)
+				foreach($xdata as $xk => $xv)
+				if (!isset($yd[$xk]))
+					$yd[$xk]=0;
+				
+			
+			if (! empty($tsum['xlabelangle'])){
+				$graph->xaxis->SetLabelAngle($tsum['xlabelangle']);
+				if ($tsum['xlabelangle']<0)
+					$graph->xaxis->SetLabelAlign('left');
+			}
+			if (! empty($tsum['xlabelfont']))
+				$graph->xaxis->SetFont($tsum['xlabelfont']);
+			else
+				$graph->xaxis->SetFont(FF_VERA);
+			$graph->xaxis->SetTickLabels($xdata);
+			$accplots=array();
+			
+			$colors=array();
+			$colors[]="yellow@0.3";
+			$colors[]="purple@0.3";
+			$colors[]="green@0.3";
+			$colors[]="blue@0.3";
+			$colors[]="red@0.3";
+
+			$i=0;
+			foreach($ydata as $yk => $ycol){
+				$accplots[]= new BarPlot($ycol);
+				end($accplots)->SetFillColor($colors[$i++]);
+				if (!empty($yleg[$yk]))
+					end($accplots)->SetLegend($yleg[$yk]);
+				else
+					end($accplots)->SetLegend(_("(none)"));
+			}
+			
+			$bplot = new AccBarPlot($accplots);
+			$graph->Add($bplot);
+			if ($form->FG_DEBUG>2){
+				echo "X data: ";
+				print_r($xdata);
+				echo "\n Y data: ";
+				print_r($ydata);
+			}
+
+			if ($form->FG_DEBUG>1)
+				echo "Added Bar plot";
+			break;
 
 		default:
 			if ($form->FG_DEBUG>1)
