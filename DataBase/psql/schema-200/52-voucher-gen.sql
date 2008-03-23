@@ -85,9 +85,6 @@ $BODY$
 					WHERE vouchers.card_grp = $1 );
 $BODY$
   LANGUAGE 'sql' VOLATILE STRICT;
-ALTER FUNCTION gen_vouchers(s_crdgrp int4, s_num int4, s_start int8, s_len int4) OWNER TO a2billing;
-
-
 
 
 -- Function: gen_rndvouchers(s_crdgrp int4, s_num int4, s_start int8, s_len int4)
@@ -103,6 +100,5 @@ $BODY$
 					WHERE vouchers.card_grp = $1 );
 $BODY$
   LANGUAGE 'sql' VOLATILE STRICT;
-ALTER FUNCTION gen_rndvouchers(s_crdgrp int4, s_num int4, s_start int8, s_len int4) OWNER TO a2billing;
 
 
