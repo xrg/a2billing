@@ -28,6 +28,10 @@ $mstates[] = array(3,_("Sent"));
 $mstates[] = array(4,_("Failed"));
 $mstates[] = array(5,_("Waiting resend"));
 
+$mstates[] = array(11,_("New (special)"));
+$mstates[] = array(13,_("Sent (special)"));
+$mstates[] = array(14,_("Failed (special)"));
+
 $HD_Form->model[] = new RefField(_("State"),'state', $mstates);
 
 $HD_Form->model[] = dontList(new TextAreaField(_("Args"),'args'));
