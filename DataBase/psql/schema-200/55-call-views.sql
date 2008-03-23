@@ -64,7 +64,7 @@ BEGIN
 		starttime = LEAST(starttime,NEW.starttime),stoptime = (CASE WHEN NEW.stoptime IS NULL THEN NULL ELSE GREATEST(stoptime,NEW.stoptime) END),
 		sessiontime = sessiontime + NEW.sessiontime,
 		startdelay = startdelay + NEW.startdelay, stopdelay = stopdelay + NEW.stopdelay,
-		attempt = NEW.attempt, srid = NEW.srid, brid = NEW.srid, tcause = NEW.tcause, hupcause = NEW.hupcause,
+		attempt = NEW.attempt, srid = NEW.srid, brid = NEW.brid, tcause = NEW.tcause, hupcause = NEW.hupcause,
 		cause_ext = NEW.cause_ext, trunk = NEW.trunk,
     		sessionbill = sessionbill + NEW.sessionbill,
     		buycost = buycost + NEW.buycost, invoice_id = COALESCE(invoice_id, NEW.invoice_id)
@@ -110,7 +110,7 @@ BEGIN
 		sessiontime = d_diff(sessiontime,NEW.sessiontime,OLD.sessiontime),
 		startdelay =  d_diff(startdelay,NEW.startdelay,OLD.startdelay),
 		stopdelay = d_diff(stopdelay,NEW.stopdelay,OLD.stopdelay),
-		srid = NEW.srid, brid = NEW.srid, tcause = NEW.tcause, hupcause = NEW.hupcause,
+		srid = NEW.srid, brid = NEW.brid, tcause = NEW.tcause, hupcause = NEW.hupcause,
 		cause_ext = NEW.cause_ext, trunk = NEW.trunk,
     		sessionbill = d_diff(sessionbill,NEW.sessionbill,OLD.sessionbill),destination = NEW.destination,
     		buycost = d_diff(buycost,NEW.buycost,OLD.buycost), invoice_id = NEW.invoice_id
