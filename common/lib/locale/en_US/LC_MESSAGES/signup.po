@@ -22,7 +22,7 @@ msgstr ""
 msgid "Asterisk2Billing : CallingCard platform"
 msgstr "Asterisk2Billing : CallingCard platform"
 
-#: Signup/activate.php:10
+#: Signup/activate.php:14
 msgid ""
 "Sorry the activation has been sent already, please wait 1 minute before "
 "making any other try !"
@@ -30,50 +30,27 @@ msgstr ""
 "Sorry the activation has been sent already, please wait 1 minute before "
 "making any other try !"
 
-#: Signup/activate.php:88
-msgid "Welcome! Your account has been successfully activated. Thank you!"
-msgstr "Welcome! Your account has been successfully activated. Thank you!"
+#: Signup/activate.php:28
+#, fuzzy
+msgid "User Name"
+msgstr "Last Name"
 
-#: Signup/activate.php:92 Signup/signup_confirmation.php:149
-msgid "Thank you for registering with us !"
-msgstr "Thank you for registering with us !"
-
-#: Signup/activate.php:93 Signup/signup_confirmation.php:150
-msgid "An email confirming your information has been sent to"
-msgstr "An email confirming your information has been sent to"
-
-#: Signup/activate.php:95 Signup/signup_confirmation.php:152
-msgid "Your cardnumber is "
-msgstr "Your cardnumber is "
-
-#: Signup/activate.php:96 Signup/signup_confirmation.php:153
-msgid "To login to your account :"
-msgstr "To login to your account :"
-
-#: Signup/activate.php:97 Signup/signup_confirmation.php:154
-msgid "Your card alias (login) is "
-msgstr "Your card alias (login) is "
-
-#: Signup/activate.php:98 Signup/signup_confirmation.php:155
-#: Signup/form_data/FG_var_index.inc:325
-msgid "Your password is "
-msgstr "Your password is "
-
-#: Signup/activate.php:102
-msgid "Follow the link to access your account : "
-msgstr "Follow the link to access your account : "
-
-#: Signup/activate.php:129
-msgid "Your account is already activated."
-msgstr "Your account is already activated."
-
-#: Signup/activate.php:133
-msgid ""
-"Your account cannot be activated please contact <br> the website "
-"administrator or retry later."
+#: Signup/activate.php:29
+msgid "Activation key"
 msgstr ""
-"Your account cannot be activated please contact <br> the website "
-"administrator or retry later."
+
+#: Signup/activate.php:44
+msgid "Activate!"
+msgstr ""
+
+#: Signup/activate.php:47
+#, fuzzy, php-format
+msgid ""
+"Thank you for signing up.<br>An email has been sent to %email with details "
+"about using our services!<br>"
+msgstr ""
+"Thank you for signing up.<br>An email has been sent to %email for "
+"confirmation!<br>"
 
 #: Signup/index.php:20
 msgid "First Name"
@@ -120,166 +97,164 @@ msgstr ""
 "Thank you for signing up.<br>An email has been sent to %email for "
 "confirmation!<br>"
 
-#: Signup/signup_confirmation.php:13
-msgid ""
-"Sorry the confirmation email has been sent already, multi-signup are not "
-"authorized! Please wait 2 minutes before making any other signup!"
-msgstr ""
-"Sorry the confirmation email has been sent already, multi-signup are not "
-"authorized! Please wait 2 minutes before making any other signup!"
+#~ msgid "Welcome! Your account has been successfully activated. Thank you!"
+#~ msgstr "Welcome! Your account has been successfully activated. Thank you!"
 
-#: Signup/signup_confirmation.php:18
-msgid "Error : No User Created."
-msgstr "Error : No User Created."
+#~ msgid "Thank you for registering with us !"
+#~ msgstr "Thank you for registering with us !"
 
-#: Signup/signup_confirmation.php:58
-msgid "Error : No email Template Found"
-msgstr "Error : No email Template Found"
+#~ msgid "An email confirming your information has been sent to"
+#~ msgstr "An email confirming your information has been sent to"
 
-#: Signup/signup_confirmation.php:81
-msgid "Error : No such user found in database"
-msgstr "Error : No such user found in database"
+#~ msgid "Your cardnumber is "
+#~ msgstr "Your cardnumber is "
 
-#: Signup/signup_confirmation.php:145
-msgid "SIGNUP CONFIRMATION"
-msgstr "SIGNUP CONFIRMATION"
+#~ msgid "To login to your account :"
+#~ msgstr "To login to your account :"
 
-#: Signup/signup_confirmation.php:158
-msgid "thank you for registering with us!"
-msgstr "thank you for registering with us!"
+#~ msgid "Your card alias (login) is "
+#~ msgstr "Your card alias (login) is "
 
-#: Signup/signup_confirmation.php:159
-msgid "An activation email has been sent to"
-msgstr "An activation email has been sent to"
+#~ msgid "Your password is "
+#~ msgstr "Your password is "
 
-#: Signup/form_data/FG_var_index.inc:26
-msgid "No Call Plan id are defined"
-msgstr "No Call Plan id are defined"
+#~ msgid "Follow the link to access your account : "
+#~ msgstr "Follow the link to access your account : "
 
-#: Signup/form_data/FG_var_index.inc:87
-msgid "LANGUAGE"
-msgstr "LANGUAGE"
+#~ msgid "Your account is already activated."
+#~ msgstr "Your account is already activated."
 
-#: Signup/form_data/FG_var_index.inc:104
-msgid "CALL PLAN"
-msgstr "CALL PLAN"
+#~ msgid ""
+#~ "Your account cannot be activated please contact <br> the website "
+#~ "administrator or retry later."
+#~ msgstr ""
+#~ "Your account cannot be activated please contact <br> the website "
+#~ "administrator or retry later."
 
-#: Signup/form_data/FG_var_index.inc:123
-msgid "LASTNAME"
-msgstr "LASTNAME"
+#~ msgid ""
+#~ "Sorry the confirmation email has been sent already, multi-signup are not "
+#~ "authorized! Please wait 2 minutes before making any other signup!"
+#~ msgstr ""
+#~ "Sorry the confirmation email has been sent already, multi-signup are not "
+#~ "authorized! Please wait 2 minutes before making any other signup!"
 
-#: Signup/form_data/FG_var_index.inc:129
-msgid "Insert your lastname"
-msgstr "Insert your lastname"
+#~ msgid "Error : No User Created."
+#~ msgstr "Error : No User Created."
 
-#: Signup/form_data/FG_var_index.inc:132
-msgid "FIRSTNAME"
-msgstr "FIRSTNAME"
+#~ msgid "Error : No email Template Found"
+#~ msgstr "Error : No email Template Found"
 
-#: Signup/form_data/FG_var_index.inc:138
-msgid "Insert your firstname"
-msgstr "Insert your firstname"
+#~ msgid "Error : No such user found in database"
+#~ msgstr "Error : No such user found in database"
 
-#: Signup/form_data/FG_var_index.inc:142
-msgid "EMAIL"
-msgstr "EMAIL"
+#~ msgid "SIGNUP CONFIRMATION"
+#~ msgstr "SIGNUP CONFIRMATION"
 
-#: Signup/form_data/FG_var_index.inc:148
-msgid "Insert your email"
-msgstr "Insert your email"
+#~ msgid "thank you for registering with us!"
+#~ msgstr "thank you for registering with us!"
 
-#: Signup/form_data/FG_var_index.inc:152
-msgid "ADDRESS"
-msgstr "ADDRESS"
+#~ msgid "An activation email has been sent to"
+#~ msgstr "An activation email has been sent to"
 
-#: Signup/form_data/FG_var_index.inc:158
-msgid "Insert your address"
-msgstr "Insert your address"
+#~ msgid "No Call Plan id are defined"
+#~ msgstr "No Call Plan id are defined"
 
-#: Signup/form_data/FG_var_index.inc:162
-msgid "CITY"
-msgstr "CITY"
+#~ msgid "LANGUAGE"
+#~ msgstr "LANGUAGE"
 
-#: Signup/form_data/FG_var_index.inc:168
-msgid "Insert your city"
-msgstr "Insert your city"
+#~ msgid "CALL PLAN"
+#~ msgstr "CALL PLAN"
 
-#: Signup/form_data/FG_var_index.inc:172
-msgid "STATE/PROVINCE"
-msgstr "STATE/PROVINCE"
+#~ msgid "LASTNAME"
+#~ msgstr "LASTNAME"
 
-#: Signup/form_data/FG_var_index.inc:178
-msgid "Insert your state"
-msgstr "Insert your state"
+#~ msgid "Insert your lastname"
+#~ msgstr "Insert your lastname"
 
-#: Signup/form_data/FG_var_index.inc:182
-msgid "COUNTRY"
-msgstr "COUNTRY"
+#~ msgid "FIRSTNAME"
+#~ msgstr "FIRSTNAME"
 
-#: Signup/form_data/FG_var_index.inc:193
-msgid "ZIP/POSTAL CODE"
-msgstr "ZIP/POSTAL CODE"
+#~ msgid "Insert your firstname"
+#~ msgstr "Insert your firstname"
 
-#: Signup/form_data/FG_var_index.inc:199
-msgid "Insert your zipcode"
-msgstr "Insert your zipcode"
+#~ msgid "EMAIL"
+#~ msgstr "EMAIL"
 
-#: Signup/form_data/FG_var_index.inc:212
-msgid "TIMEZONE"
-msgstr "TIMEZONE"
+#~ msgid "Insert your email"
+#~ msgstr "Insert your email"
 
-#: Signup/form_data/FG_var_index.inc:219
-msgid "PHONENUMBER"
-msgstr "PHONENUMBER"
+#~ msgid "ADDRESS"
+#~ msgstr "ADDRESS"
 
-#: Signup/form_data/FG_var_index.inc:225
-msgid "Insert your phone number"
-msgstr "Insert your phone number"
+#~ msgid "Insert your address"
+#~ msgstr "Insert your address"
 
-#: Signup/form_data/FG_var_index.inc:229
-msgid "FAXNUMBER"
-msgstr "FAXNUMBER"
+#~ msgid "CITY"
+#~ msgstr "CITY"
 
-#: Signup/form_data/FG_var_index.inc:235
-msgid "Insert your fax number"
-msgstr "Insert your fax number"
+#~ msgid "Insert your city"
+#~ msgstr "Insert your city"
 
-#: Signup/form_data/FG_var_index.inc:238
-msgid "VERIFICATION"
-msgstr "VERIFICATION"
+#~ msgid "STATE/PROVINCE"
+#~ msgstr "STATE/PROVINCE"
 
-#: Signup/form_data/FG_var_index.inc:244
-msgid "Insert code from above picture"
-msgstr "Insert code from above picture"
+#~ msgid "Insert your state"
+#~ msgstr "Insert your state"
 
-#: Signup/form_data/FG_var_index.inc:319
-msgid ""
-"You can modify, through the following form, the different properties of your "
-msgstr ""
-"You can modify, through the following form, the different properties of your "
+#~ msgid "COUNTRY"
+#~ msgstr "COUNTRY"
 
-#: Signup/form_data/FG_var_index.inc:320
-msgid "If you really want remove this "
-msgstr "If you really want remove this "
+#~ msgid "ZIP/POSTAL CODE"
+#~ msgstr "ZIP/POSTAL CODE"
 
-#: Signup/form_data/FG_var_index.inc:321
-msgid "you can add easily a new "
-msgstr "you can add easily a new "
+#~ msgid "Insert your zipcode"
+#~ msgstr "Insert your zipcode"
 
-#: Signup/form_data/FG_var_index.inc:325
-msgid ""
-"Thanks for registering with us.<br>A email with your information has been "
-"sent to your account "
-msgstr ""
-"Thanks for registering with us.<br>A email with your information has been "
-"sent to your account "
+#~ msgid "TIMEZONE"
+#~ msgstr "TIMEZONE"
 
-#: Signup/form_data/FG_var_index.inc:325
-msgid "Your card number is "
-msgstr "Your card number is "
+#~ msgid "PHONENUMBER"
+#~ msgstr "PHONENUMBER"
 
-#: Signup/form_data/FG_var_index.inc:329
-msgid ""
-"Once you have completed the form above, click on the CONFIRM DATA button."
-msgstr ""
-"Once you have completed the form above, click on the CONFIRM DATA button."
+#~ msgid "Insert your phone number"
+#~ msgstr "Insert your phone number"
+
+#~ msgid "FAXNUMBER"
+#~ msgstr "FAXNUMBER"
+
+#~ msgid "Insert your fax number"
+#~ msgstr "Insert your fax number"
+
+#~ msgid "VERIFICATION"
+#~ msgstr "VERIFICATION"
+
+#~ msgid "Insert code from above picture"
+#~ msgstr "Insert code from above picture"
+
+#~ msgid ""
+#~ "You can modify, through the following form, the different properties of "
+#~ "your "
+#~ msgstr ""
+#~ "You can modify, through the following form, the different properties of "
+#~ "your "
+
+#~ msgid "If you really want remove this "
+#~ msgstr "If you really want remove this "
+
+#~ msgid "you can add easily a new "
+#~ msgstr "you can add easily a new "
+
+#~ msgid ""
+#~ "Thanks for registering with us.<br>A email with your information has been "
+#~ "sent to your account "
+#~ msgstr ""
+#~ "Thanks for registering with us.<br>A email with your information has been "
+#~ "sent to your account "
+
+#~ msgid "Your card number is "
+#~ msgstr "Your card number is "
+
+#~ msgid ""
+#~ "Once you have completed the form above, click on the CONFIRM DATA button."
+#~ msgstr ""
+#~ "Once you have completed the form above, click on the CONFIRM DATA button."
