@@ -3,16 +3,16 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: customer\n"
+"PO-Revision-Date: 2008-03-23 11:34GMT\n"
 "Last-Translator: P. Christeas <p_christeas@yahoo.com>\n"
 "Language-Team: Ellhnika <el@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"PO-Revision-Date: 2008-03-20 14:12GMT\n"
 "X-Generator: KBabel 1.11.4\n"
 
-#: A2BCustomer_UI/lib/defines.php:14 A2BCustomer_UI/lib/defines-old.php:203
+#: A2BCustomer_UI/lib/defines.php:14
 msgid ""
 "This software has been created by Areski under GPL licence. For futher "
 "information, feel free to contact me:"
@@ -20,7 +20,7 @@ msgstr ""
 "Το παρόν λογισμικό γράφτηκε από τον Areski με άδεια GPL. Για περισσότερες "
 "πληροφορίες, επικοινωνήστε μαζί μου:"
 
-#: A2BCustomer_UI/lib/defines.php:16 A2BCustomer_UI/lib/defines-old.php:205
+#: A2BCustomer_UI/lib/defines.php:16
 msgid ""
 " This software is under GPL licence. For further information, please visit : "
 "<a href=\"http://www.asterisk2billing.org\" target=\"_blank"
@@ -39,8 +39,8 @@ msgid ""
 "From here, you can use the web based screen phone. You need microphone and "
 "speakers on your PC."
 msgstr ""
-"Από εδώ, μπορείτε να χρησιμοποιήσετε το εικονικό τηλέφωνο της ιστοσελίδας. Αυτό "
-"λειτουργεί αν έχετε μικρόφωνο και μεγάφωνα/ακουστικά στον Η/Υ σας."
+"Από εδώ, μπορείτε να χρησιμοποιήσετε το εικονικό τηλέφωνο της ιστοσελίδας. "
+"Αυτό λειτουργεί αν έχετε μικρόφωνο και μεγάφωνα/ακουστικά στον Η/Υ σας."
 
 #: A2BCustomer_UI/lib/help.php:14
 msgid ""
@@ -69,7 +69,9 @@ msgstr "Ρυθμίσεις πληροφορίες για SIP και IAX Πελά
 msgid ""
 "On this page you will be able to change your password, You have to enter the "
 "New Password and Confirm it."
-msgstr "Σε αυτή τη σελίδα μπορείτε να αλλάξετε τον κωδικό πρόσβασής σας. Αρκεί να δώσετε το Νέο κωδικό και να τον Επιβεβαιώσετε."
+msgstr ""
+"Σε αυτή τη σελίδα μπορείτε να αλλάξετε τον κωδικό πρόσβασής σας. Αρκεί να "
+"δώσετε το Νέο κωδικό και να τον Επιβεβαιώσετε."
 
 #: A2BCustomer_UI/lib/help.php:30
 msgid "Here you can view your ratecards"
@@ -91,175 +93,6 @@ msgstr ";Επιλογή χώρα όμοιο a a λίστα και όμοιο σ�
 #, fuzzy
 msgid "Personal information. <br>"
 msgstr "Προσωπικό πληροφορίες<br>"
-
-#: A2BCustomer_UI/lib/defines-old.php:23
-#, fuzzy
-msgid "The expiry date entered for the credit card is invalid."
-msgstr "ημερομηνία για πίστωση είναι μη έγκυρο."
-
-#: A2BCustomer_UI/lib/defines-old.php:23
-#, fuzzy
-msgid "Please check the date and try again."
-msgstr ""
-"Cannot connect to the asterisk manager!<br>Please check the manager "
-"configuration..."
-
-#: A2BCustomer_UI/lib/defines-old.php:24
-#, fuzzy
-msgid "The credit card number entered is invalid."
-msgstr "πίστωση είναι μη έγκυρο."
-
-#: A2BCustomer_UI/lib/defines-old.php:24
-#, fuzzy
-msgid "Please check the number and try again."
-msgstr "Έλεγχος και."
-
-#: A2BCustomer_UI/lib/defines-old.php:25
-#, fuzzy
-msgid "The first four digits of the number entered are"
-msgstr "πρώτο τέσσερα από"
-
-#: A2BCustomer_UI/lib/defines-old.php:25
-#, fuzzy
-msgid "If that number is correct, we do not accept that type of credit card."
-msgstr "είναι σωστό όχι είδος από πίστωση."
-
-#: A2BCustomer_UI/lib/defines-old.php:25
-#, fuzzy
-msgid "If it is wrong, please try again."
-msgstr "είναι λάθος."
-
-#: A2BCustomer_UI/lib/defines-old.php:32
-#, fuzzy
-msgid "Errors have occured during the process of your form."
-msgstr "Σφάλματα από."
-
-#: A2BCustomer_UI/lib/defines-old.php:32
-#, fuzzy
-msgid "Please make the following corrections:\\n\\n"
-msgstr "n n"
-
-#: A2BCustomer_UI/lib/defines-old.php:33
-#, fuzzy
-msgid "* The 'Review Text' must have at least"
-msgstr "Κείμενο σε"
-
-#: A2BCustomer_UI/lib/defines-old.php:33 A2BCustomer_UI/lib/defines-old.php:45
-#: A2BCustomer_UI/lib/defines-old.php:46 A2BCustomer_UI/lib/defines-old.php:59
-#, fuzzy
-msgid "characters"
-msgstr "χαρακτήρες"
-
-#: A2BCustomer_UI/lib/defines-old.php:34
-#, fuzzy
-msgid "You must rate the product for your review."
-msgstr "Εσείς προϊόν για."
-
-#: A2BCustomer_UI/lib/defines-old.php:35 A2BCustomer_UI/lib/defines-old.php:37
-#, fuzzy
-msgid "Please select a payment method for your order."
-msgstr "επιλογή a για."
-
-#: A2BCustomer_UI/lib/defines-old.php:36
-#, fuzzy
-msgid ""
-"This form has already been submitted. Please press Ok and wait for this "
-"process to be completed."
-msgstr "Εντάξει και για στο συμπληρώθηκε."
-
-#: A2BCustomer_UI/lib/defines-old.php:39
-#, fuzzy
-msgid "Credit Card"
-msgstr "Πιστωτική Κάρτα"
-
-#: A2BCustomer_UI/lib/defines-old.php:40 A2BCustomer_UI/lib/defines-old.php:50
-#, fuzzy
-msgid "Credit Card Test Info"
-msgstr "Πίστωση Κάρτα Έλεγχος Πληροφορίες"
-
-#: A2BCustomer_UI/lib/defines-old.php:40 A2BCustomer_UI/lib/defines-old.php:50
-#, fuzzy
-msgid "Expiry: Any"
-msgstr "Οποιοδήποτε"
-
-#: A2BCustomer_UI/lib/defines-old.php:41
-#, fuzzy
-msgid "Credit Card Type"
-msgstr "Πίστωση Κάρτα Τύπος"
-
-#: A2BCustomer_UI/lib/defines-old.php:42
-#, fuzzy
-msgid "Credit Card Owner"
-msgstr "Πίστωση Κάρτα Ιδιοκτήτης"
-
-#: A2BCustomer_UI/lib/defines-old.php:43
-#, fuzzy
-msgid "Credit Card Number"
-msgstr "Πίστωση Κάρτα Αριθμός"
-
-#: A2BCustomer_UI/lib/defines-old.php:44
-#, fuzzy
-msgid "Credit Card Expiry Date"
-msgstr "Πίστωση Κάρτα Ημερομηνία"
-
-#: A2BCustomer_UI/lib/defines-old.php:45 A2BCustomer_UI/lib/defines-old.php:58
-#, fuzzy
-msgid "* The owner's name of the credit card must be at least"
-msgstr "ιδιοκτήτης s όνομα από πίστωση σε"
-
-#: A2BCustomer_UI/lib/defines-old.php:46 A2BCustomer_UI/lib/defines-old.php:59
-#, fuzzy
-msgid "* The credit card number must be at least"
-msgstr "πίστωση σε"
-
-#: A2BCustomer_UI/lib/defines-old.php:47
-#, fuzzy
-msgid "Credit Card Error!"
-msgstr "Πίστωση Κάρτα Σφάλμα!"
-
-#: A2BCustomer_UI/lib/defines-old.php:51
-#, fuzzy
-msgid "There has been an error processing your credit card"
-msgstr "σφάλμα πίστωση"
-
-#: A2BCustomer_UI/lib/defines-old.php:52
-#, fuzzy
-msgid "Please check your credit card details!"
-msgstr "Έλεγχος πίστωση!"
-
-#: A2BCustomer_UI/lib/defines-old.php:53
-#, fuzzy
-msgid "Credit Card Owner:"
-msgstr "Πίστωση Κάρτα Ιδιοκτήτης:"
-
-#: A2BCustomer_UI/lib/defines-old.php:54
-#, fuzzy
-msgid "Credit Card Number:"
-msgstr "Πίστωση Κάρτα Αριθμός:"
-
-#: A2BCustomer_UI/lib/defines-old.php:55
-#, fuzzy
-msgid "Credit Card Expiry Date:"
-msgstr "Πίστωση Κάρτα Ημερομηνία:"
-
-#: A2BCustomer_UI/lib/defines-old.php:56
-#, fuzzy
-msgid "Credit Card Checknumber:"
-msgstr "Πίστωση Κάρτα:"
-
-#: A2BCustomer_UI/lib/defines-old.php:57
-#, fuzzy
-msgid "(located at the back of the credit card)"
-msgstr "σε από πίστωση"
-
-#: A2BCustomer_UI/lib/defines-old.php:58
-#, fuzzy
-msgid "characters."
-msgstr "χαρακτήρες."
-
-#: A2BCustomer_UI/lib/defines-old.php:206
-msgid "Asterisk2Billing : CallingCard & VOIP Billing system"
-msgstr ""
 
 #: A2BCustomer_UI/A2B_entity_view_invoice.php:83
 #, fuzzy
@@ -337,34 +170,28 @@ msgid "To"
 msgstr "Προς"
 
 #: A2BCustomer_UI/userinfo.php:18
-#, fuzzy
 msgid "First name"
 msgstr "Όνομα"
 
 #: A2BCustomer_UI/userinfo.php:19
-#, fuzzy
 msgid "Last name"
 msgstr "Επώνυμο"
 
 #: A2BCustomer_UI/userinfo.php:20
-#, fuzzy
 msgid "Credit"
 msgstr "Πίστωση"
 
 #: A2BCustomer_UI/userinfo.php:21
-#, fuzzy
 msgid "Last used"
-msgstr "Τελευταίο"
+msgstr "Τελευταία χρήση"
 
 #: A2BCustomer_UI/userinfo.php:24 A2BCustomer_UI/simulator.php:34
-#, fuzzy
 msgid "Calculate!"
-msgstr "Υπολογισμός!"
+msgstr "Υπολόγισε!"
 
 #: A2BCustomer_UI/userinfo.php:26
-#, fuzzy
 msgid "Database error: your details cannot be found!"
-msgstr "Βάση δεδομένων σφάλμα!"
+msgstr "Σφάλμα στη βάση δεδομένων: οι πληροφορίες σας δεν μπορούν να βρεθούν!"
 
 #: A2BCustomer_UI/userinfo.php:93
 #, fuzzy
@@ -487,60 +314,27 @@ msgstr ""
 msgid "Other"
 msgstr "Άλλο"
 
-#: A2BCustomer_UI/A2B_entity_sipiax_info.php:27
-msgid "IAX Config"
-msgstr "IAX Ρύθμιση"
+#: A2BCustomer_UI/A2B_entity_sipiax_info.php:15
+msgid ""
+"Here you can get example settings you can use in your devices. Select the "
+"kind of device (phone) you have and settings will appear."
+msgstr "Εδώ μπορείτε να δείτε τυπικές ρυθμίσεις για τις συσκευές σας. Επιλέξτε τον τύπο συσκευής (τηλεφώνου) και θα δείτε τις ρυθμίσεις."
 
-#: A2BCustomer_UI/A2B_entity_sipiax_info.php:28
-msgid "iax.conf"
-msgstr "iax.conf"
+#: A2BCustomer_UI/A2B_entity_sipiax_info.php:18
+msgid "Asterisk sip friend"
+msgstr "Asterisk sip friend"
 
-#: A2BCustomer_UI/A2B_entity_sipiax_info.php:32
-msgid "SIP Config"
-msgstr "SIP Ρύθμιση"
-
-#: A2BCustomer_UI/A2B_entity_sipiax_info.php:33
-msgid "sip.conf"
-msgstr "sip.conf"
-
-#: A2BCustomer_UI/A2B_entity_sipiax_info.php:57
-msgid "CARD"
-msgstr ""
-
-#: A2BCustomer_UI/A2B_entity_sipiax_info.php:61
-#, fuzzy
-msgid "CONFIGURATION TYPE"
-msgstr "ΤΥΠΟΣ"
-
-#: A2BCustomer_UI/A2B_entity_sipiax_info.php:64
-#, fuzzy
-msgid "IAX"
-msgstr "IAX"
-
-#: A2BCustomer_UI/A2B_entity_sipiax_info.php:65
-#, fuzzy
-msgid "SIP"
-msgstr "SIP"
-
-#: A2BCustomer_UI/A2B_entity_sipiax_info.php:84
-#, fuzzy
-msgid "Copy and past this into your "
-msgstr "Αντιγραφή και "
-
-#: A2BCustomer_UI/A2B_entity_sipiax_info.php:131
-#, fuzzy
-msgid "The peer is not defined, please contact your Administrator!"
-msgstr "είναι όχι!"
+#: A2BCustomer_UI/A2B_entity_sipiax_info.php:19
+msgid "Asterisk iax friend"
+msgstr "Asterisk iax friend"
 
 #: A2BCustomer_UI/CC_entity_phonelist.php:241
 #: A2BCustomer_UI/predictivedialer.php:308
-#, fuzzy
 msgid "Previous"
 msgstr "Προηγούμενο"
 
 #: A2BCustomer_UI/CC_entity_phonelist.php:246
 #: A2BCustomer_UI/A2B_entity_did.php:439
-#, fuzzy
 msgid "Next"
 msgstr "Επόμενο"
 
@@ -598,7 +392,6 @@ msgstr "Ταχύτητα Κλήση"
 #: A2BCustomer_UI/call-history.php:135
 #: A2BCustomer_UI/A2B_entity_call_details.php:82
 #: A2BCustomer_UI/A2B_entity_call_details.php:619
-#, fuzzy
 msgid "Destination"
 msgstr "Προορισμός"
 
@@ -609,7 +402,6 @@ msgstr "Προορισμός"
 #: A2BCustomer_UI/A2B_entity_call_details_pdf.php:315
 #: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:336
 #: A2BCustomer_UI/A2B_entity_call_details.php:591
-#, fuzzy
 msgid "Name"
 msgstr "Όνομα"
 
@@ -1969,43 +1761,36 @@ msgid "Card ID"
 msgstr "Κάρτα ID"
 
 #: A2BCustomer_UI/call-history.php:61
-#, fuzzy
 msgid "Start Time"
 msgstr "Χρόνος έναρξης"
 
 #: A2BCustomer_UI/call-history.php:62
-#, fuzzy
 msgid "Mode"
 msgstr "Κατάσταση"
 
 #: A2BCustomer_UI/call-history.php:63
-#, fuzzy
 msgid "Stop Time"
-msgstr "Διακοπή Χρόνος"
+msgstr "Χρόνος λήξης"
 
 #: A2BCustomer_UI/call-history.php:65
 msgid "Called station"
-msgstr ""
+msgstr "Κληθείς αριθμός"
 
 #: A2BCustomer_UI/call-history.php:69
-#, fuzzy
 msgid "Dur"
 msgstr "Διαρ."
 
 #: A2BCustomer_UI/call-history.php:71
-#, fuzzy
 msgid "Result"
 msgstr "Αποτέλεσμα"
 
 #: A2BCustomer_UI/call-history.php:73
-#, fuzzy
 msgid "Bill"
 msgstr "Λογ/μός"
 
 #: A2BCustomer_UI/call-history.php:73
-#, fuzzy
 msgid "The amount you have been charged for the call."
-msgstr "για."
+msgstr "Το ποσόν που χρεωθήκατε για την κλήση."
 
 #: A2BCustomer_UI/call-history.php:134
 msgid "PhoneNumber"
@@ -2036,28 +1821,24 @@ msgstr "Κλήση"
 #: A2BCustomer_UI/call-history.php:449
 #: A2BCustomer_UI/A2B_entity_call_details.php:462
 #: A2BCustomer_UI/A2B_entity_call_details.php:476
-#, fuzzy
 msgid "Exact"
 msgstr "Ακριβής"
 
 #: A2BCustomer_UI/call-history.php:450
 #: A2BCustomer_UI/A2B_entity_call_details.php:463
 #: A2BCustomer_UI/A2B_entity_call_details.php:477
-#, fuzzy
 msgid "Begins with"
 msgstr "Αρχίζει με"
 
 #: A2BCustomer_UI/call-history.php:451
 #: A2BCustomer_UI/A2B_entity_call_details.php:464
 #: A2BCustomer_UI/A2B_entity_call_details.php:478
-#, fuzzy
 msgid "Contains"
 msgstr "Περιέχει"
 
 #: A2BCustomer_UI/call-history.php:452
-#, fuzzy
 msgid "End with"
-msgstr "Τέλος με"
+msgstr "Λήγει σε"
 
 #: A2BCustomer_UI/call-history.php:462
 #: A2BCustomer_UI/A2B_entity_call_details.php:508
@@ -2066,9 +1847,8 @@ msgstr ""
 
 #: A2BCustomer_UI/call-history.php:465
 #: A2BCustomer_UI/A2B_entity_call_details.php:511
-#, fuzzy
 msgid "Answered Calls"
-msgstr "Κλήσεις"
+msgstr "Απαντημένες Κλήσεις"
 
 #: A2BCustomer_UI/call-history.php:467
 #: A2BCustomer_UI/A2B_entity_call_details.php:513
@@ -2425,7 +2205,9 @@ msgid ""
 "Phone2Enter. <br>You can modify them, except your first name and your last "
 "name. <p><br>Check the correctness of your postal address, so that you will "
 "receive the cheques used to pay your commissions."
-msgstr "στο<br> Εσείς πρώτο όνομα και τελευταίο όνομα<p><br> Έλεγχος από διεύθυνση στο."
+msgstr ""
+"στο<br> Εσείς πρώτο όνομα και τελευταίο όνομα<p><br> Έλεγχος από διεύθυνση "
+"στο."
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_base.inc:306
 #: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:293
@@ -2819,7 +2601,9 @@ msgid ""
 "You can also add your Soft Phone number (The number you used to log into "
 "this Website) and be able to make calls with out having to enter your "
 "Calling Card information."
-msgstr "Εσείς Soft Τηλέφωνο στο log Ιστοσελίδα και στο κλήσεις με στο Κάρτα πληροφορίες."
+msgstr ""
+"Εσείς Soft Τηλέφωνο στο log Ιστοσελίδα και στο κλήσεις με στο Κάρτα "
+"πληροφορίες."
 
 #: A2BCustomer_UI/form_data/FG_var_callerid.inc:116
 #, fuzzy
@@ -3013,4 +2797,169 @@ msgstr "ενημέρωση πληροφορίες."
 #, fuzzy
 msgid "Your record has been updated."
 msgstr "εγγραφή."
+
+#, fuzzy
+#~ msgid "The expiry date entered for the credit card is invalid."
+#~ msgstr "ημερομηνία για πίστωση είναι μη έγκυρο."
+
+#, fuzzy
+#~ msgid "Please check the date and try again."
+#~ msgstr ""
+#~ "Cannot connect to the asterisk manager!<br>Please check the manager "
+#~ "configuration..."
+
+#, fuzzy
+#~ msgid "The credit card number entered is invalid."
+#~ msgstr "πίστωση είναι μη έγκυρο."
+
+#, fuzzy
+#~ msgid "Please check the number and try again."
+#~ msgstr "Έλεγχος και."
+
+#, fuzzy
+#~ msgid "The first four digits of the number entered are"
+#~ msgstr "πρώτο τέσσερα από"
+
+#, fuzzy
+#~ msgid ""
+#~ "If that number is correct, we do not accept that type of credit card."
+#~ msgstr "είναι σωστό όχι είδος από πίστωση."
+
+#, fuzzy
+#~ msgid "If it is wrong, please try again."
+#~ msgstr "είναι λάθος."
+
+#, fuzzy
+#~ msgid "Errors have occured during the process of your form."
+#~ msgstr "Σφάλματα από."
+
+#, fuzzy
+#~ msgid "Please make the following corrections:\\n\\n"
+#~ msgstr "n n"
+
+#, fuzzy
+#~ msgid "* The 'Review Text' must have at least"
+#~ msgstr "Κείμενο σε"
+
+#, fuzzy
+#~ msgid "characters"
+#~ msgstr "χαρακτήρες"
+
+#, fuzzy
+#~ msgid "You must rate the product for your review."
+#~ msgstr "Εσείς προϊόν για."
+
+#, fuzzy
+#~ msgid "Please select a payment method for your order."
+#~ msgstr "επιλογή a για."
+
+#, fuzzy
+#~ msgid ""
+#~ "This form has already been submitted. Please press Ok and wait for this "
+#~ "process to be completed."
+#~ msgstr "Εντάξει και για στο συμπληρώθηκε."
+
+#, fuzzy
+#~ msgid "Credit Card"
+#~ msgstr "Πιστωτική Κάρτα"
+
+#, fuzzy
+#~ msgid "Credit Card Test Info"
+#~ msgstr "Πίστωση Κάρτα Έλεγχος Πληροφορίες"
+
+#, fuzzy
+#~ msgid "Expiry: Any"
+#~ msgstr "Οποιοδήποτε"
+
+#, fuzzy
+#~ msgid "Credit Card Type"
+#~ msgstr "Πίστωση Κάρτα Τύπος"
+
+#, fuzzy
+#~ msgid "Credit Card Owner"
+#~ msgstr "Πίστωση Κάρτα Ιδιοκτήτης"
+
+#, fuzzy
+#~ msgid "Credit Card Number"
+#~ msgstr "Πίστωση Κάρτα Αριθμός"
+
+#, fuzzy
+#~ msgid "Credit Card Expiry Date"
+#~ msgstr "Πίστωση Κάρτα Ημερομηνία"
+
+#, fuzzy
+#~ msgid "* The owner's name of the credit card must be at least"
+#~ msgstr "ιδιοκτήτης s όνομα από πίστωση σε"
+
+#, fuzzy
+#~ msgid "* The credit card number must be at least"
+#~ msgstr "πίστωση σε"
+
+#, fuzzy
+#~ msgid "Credit Card Error!"
+#~ msgstr "Πίστωση Κάρτα Σφάλμα!"
+
+#, fuzzy
+#~ msgid "There has been an error processing your credit card"
+#~ msgstr "σφάλμα πίστωση"
+
+#, fuzzy
+#~ msgid "Please check your credit card details!"
+#~ msgstr "Έλεγχος πίστωση!"
+
+#, fuzzy
+#~ msgid "Credit Card Owner:"
+#~ msgstr "Πίστωση Κάρτα Ιδιοκτήτης:"
+
+#, fuzzy
+#~ msgid "Credit Card Number:"
+#~ msgstr "Πίστωση Κάρτα Αριθμός:"
+
+#, fuzzy
+#~ msgid "Credit Card Expiry Date:"
+#~ msgstr "Πίστωση Κάρτα Ημερομηνία:"
+
+#, fuzzy
+#~ msgid "Credit Card Checknumber:"
+#~ msgstr "Πίστωση Κάρτα:"
+
+#, fuzzy
+#~ msgid "(located at the back of the credit card)"
+#~ msgstr "σε από πίστωση"
+
+#, fuzzy
+#~ msgid "characters."
+#~ msgstr "χαρακτήρες."
+
+#~ msgid "IAX Config"
+#~ msgstr "IAX Ρύθμιση"
+
+#~ msgid "iax.conf"
+#~ msgstr "iax.conf"
+
+#~ msgid "SIP Config"
+#~ msgstr "SIP Ρύθμιση"
+
+#~ msgid "sip.conf"
+#~ msgstr "sip.conf"
+
+#, fuzzy
+#~ msgid "CONFIGURATION TYPE"
+#~ msgstr "ΤΥΠΟΣ"
+
+#, fuzzy
+#~ msgid "IAX"
+#~ msgstr "IAX"
+
+#, fuzzy
+#~ msgid "SIP"
+#~ msgstr "SIP"
+
+#, fuzzy
+#~ msgid "Copy and past this into your "
+#~ msgstr "Αντιγραφή και "
+
+#, fuzzy
+#~ msgid "The peer is not defined, please contact your Administrator!"
+#~ msgstr "είναι όχι!"
 

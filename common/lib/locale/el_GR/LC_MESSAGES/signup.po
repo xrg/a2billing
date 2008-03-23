@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: signup\n"
-"PO-Revision-Date: 2008-03-09 14:29GMT\n"
+"PO-Revision-Date: 2008-03-23 11:28GMT\n"
 "Last-Translator: P. Christeas <p_christeas@yahoo.com>\n"
 "Language-Team: Ellhnika <el@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -27,21 +27,18 @@ msgid "Asterisk2Billing : CallingCard platform"
 msgstr "Asterisk2Billing: Πλατφόρμα για τηλεφωνικές κάρτες"
 
 #: Signup/activate.php:10
-#, fuzzy
 msgid ""
 "Sorry the activation has been sent already, please wait 1 minute before "
 "making any other try !"
-msgstr "Λυπάμαι απεσταλμένο λεπτό κάθε άλλο!"
+msgstr "Λυπάμαι, το μήνυμα ενεργοποίησης έχει αποσταλλεί ήδη. Παρακαλώ περιμένετε 1 λεπτό αν θέλετε να ξαναπροσπαθήσετε."
 
 #: Signup/activate.php:88
-#, fuzzy
 msgid "Welcome! Your account has been successfully activated. Thank you!"
-msgstr "Καλώς ήλθατε!"
+msgstr "Καλώς ήλθατε! Ο λογαριασμός σας έχει ενεργοποιηθεί, ευχαριστούμε!"
 
 #: Signup/activate.php:92 Signup/signup_confirmation.php:149
-#, fuzzy
 msgid "Thank you for registering with us !"
-msgstr "για με!"
+msgstr "Ευχαριστούμε που γραφτήκατε στην υπηρεσία μας!"
 
 #: Signup/activate.php:93 Signup/signup_confirmation.php:150
 #, fuzzy
@@ -292,8 +289,7 @@ msgstr "Εισαγωγή από"
 
 #: Signup/form_data/FG_var_index.inc:319
 #, fuzzy
-msgid ""
-"You can modify, through the following form, the different properties of your "
+msgid "You can modify, through the following form, the different properties of your "
 msgstr "Μπορείτε να διορθώσετε, με την παρακάτω φόρμα, τις ιδιότητες των"
 
 #: Signup/form_data/FG_var_index.inc:320
@@ -319,6 +315,6 @@ msgstr "είναι "
 
 #: Signup/form_data/FG_var_index.inc:329
 #, fuzzy
-msgid ""
-"Once you have completed the form above, click on the CONFIRM DATA button."
+msgid "Once you have completed the form above, click on the CONFIRM DATA button."
 msgstr "συμπληρώθηκε κλικ."
+

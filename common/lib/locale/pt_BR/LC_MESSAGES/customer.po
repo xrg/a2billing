@@ -21,7 +21,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "1.0: 2.0\n"
 
-#: A2BCustomer_UI/lib/defines.php:14 A2BCustomer_UI/lib/defines-old.php:203
+#: A2BCustomer_UI/lib/defines.php:14
 msgid ""
 "This software has been created by Areski under GPL licence. For futher "
 "information, feel free to contact me:"
@@ -29,7 +29,7 @@ msgstr ""
 "Este software foi criado por Areski sob a licença GPL. Para maiores "
 "informações, sinta-se livre em me contatar:"
 
-#: A2BCustomer_UI/lib/defines.php:16 A2BCustomer_UI/lib/defines-old.php:205
+#: A2BCustomer_UI/lib/defines.php:16
 msgid ""
 " This software is under GPL licence. For further information, please visit : "
 "<a href=\"http://www.asterisk2billing.org\" target=\"_blank"
@@ -105,145 +105,6 @@ msgstr ""
 #, fuzzy
 msgid "Personal information. <br>"
 msgstr "Informações pessoais."
-
-#: A2BCustomer_UI/lib/defines-old.php:23
-msgid "The expiry date entered for the credit card is invalid."
-msgstr "A data de expiração do cartão de crédito é inválida."
-
-#: A2BCustomer_UI/lib/defines-old.php:23
-msgid "Please check the date and try again."
-msgstr "Por favor verifique a data e tente novamente."
-
-#: A2BCustomer_UI/lib/defines-old.php:24
-msgid "The credit card number entered is invalid."
-msgstr "O número do cartão de crédito é inválido."
-
-#: A2BCustomer_UI/lib/defines-old.php:24
-msgid "Please check the number and try again."
-msgstr "Por favor verifique o número do cartão e tente novamente."
-
-#: A2BCustomer_UI/lib/defines-old.php:25
-msgid "The first four digits of the number entered are"
-msgstr "Os quatro primeiros dígitos do cartão são"
-
-#: A2BCustomer_UI/lib/defines-old.php:25
-msgid "If that number is correct, we do not accept that type of credit card."
-msgstr ""
-"Se o número estiver correto, nós não aceitamos este tipo de cartão de "
-"crédito."
-
-#: A2BCustomer_UI/lib/defines-old.php:25
-msgid "If it is wrong, please try again."
-msgstr "Se isto estiver errado, por favor tente novamente."
-
-#: A2BCustomer_UI/lib/defines-old.php:32
-msgid "Errors have occured during the process of your form."
-msgstr "Erros ocorreram durante o processamento do seu formulário."
-
-#: A2BCustomer_UI/lib/defines-old.php:32
-msgid "Please make the following corrections:\\n\\n"
-msgstr "Por favor faça as seguintes correções:\\n\\n"
-
-#: A2BCustomer_UI/lib/defines-old.php:33
-msgid "* The 'Review Text' must have at least"
-msgstr "* O 'Texto de Revisão' deve ter pelo menos"
-
-#: A2BCustomer_UI/lib/defines-old.php:33 A2BCustomer_UI/lib/defines-old.php:45
-#: A2BCustomer_UI/lib/defines-old.php:46 A2BCustomer_UI/lib/defines-old.php:59
-msgid "characters"
-msgstr "caracteres"
-
-#: A2BCustomer_UI/lib/defines-old.php:34
-msgid "You must rate the product for your review."
-msgstr "Você deve avaliar o produto para sua revisão."
-
-#: A2BCustomer_UI/lib/defines-old.php:35 A2BCustomer_UI/lib/defines-old.php:37
-msgid "Please select a payment method for your order."
-msgstr "Por favor selecione o método de pagamento de sua ordem."
-
-#: A2BCustomer_UI/lib/defines-old.php:36
-msgid ""
-"This form has already been submitted. Please press Ok and wait for this "
-"process to be completed."
-msgstr ""
-"Este formulário já foi enviado. Por favor clique em OK e aguarde para este "
-"processo ser completado."
-
-#: A2BCustomer_UI/lib/defines-old.php:39
-msgid "Credit Card"
-msgstr "Cartão de crédito"
-
-#: A2BCustomer_UI/lib/defines-old.php:40 A2BCustomer_UI/lib/defines-old.php:50
-msgid "Credit Card Test Info"
-msgstr "Teste de informação do cartão de crédito"
-
-#: A2BCustomer_UI/lib/defines-old.php:40 A2BCustomer_UI/lib/defines-old.php:50
-msgid "Expiry: Any"
-msgstr "Expirar: Alguns"
-
-#: A2BCustomer_UI/lib/defines-old.php:41
-msgid "Credit Card Type"
-msgstr "Tipo do cartão de crédito"
-
-#: A2BCustomer_UI/lib/defines-old.php:42
-msgid "Credit Card Owner"
-msgstr "Dono do cartão de crédito"
-
-#: A2BCustomer_UI/lib/defines-old.php:43
-msgid "Credit Card Number"
-msgstr "Número do cartão de crédito"
-
-#: A2BCustomer_UI/lib/defines-old.php:44
-msgid "Credit Card Expiry Date"
-msgstr "Data de expiração do cartão de crédito"
-
-#: A2BCustomer_UI/lib/defines-old.php:45 A2BCustomer_UI/lib/defines-old.php:58
-msgid "* The owner's name of the credit card must be at least"
-msgstr "* O nome do dono do cartão de crédito deve ter pelo menos"
-
-#: A2BCustomer_UI/lib/defines-old.php:46 A2BCustomer_UI/lib/defines-old.php:59
-msgid "* The credit card number must be at least"
-msgstr "* O número do cartão de crédito deve ter pelo menos"
-
-#: A2BCustomer_UI/lib/defines-old.php:47
-msgid "Credit Card Error!"
-msgstr "Erro no cartão de crédito!"
-
-#: A2BCustomer_UI/lib/defines-old.php:51
-msgid "There has been an error processing your credit card"
-msgstr "Há um erro no processamento do seu cartão de crédito"
-
-#: A2BCustomer_UI/lib/defines-old.php:52
-msgid "Please check your credit card details!"
-msgstr "Por favor verifique os detalhes do seu cartão de crédito!"
-
-#: A2BCustomer_UI/lib/defines-old.php:53
-msgid "Credit Card Owner:"
-msgstr "Dono do cartão de crédito:"
-
-#: A2BCustomer_UI/lib/defines-old.php:54
-msgid "Credit Card Number:"
-msgstr "Número do cartão de crédito:"
-
-#: A2BCustomer_UI/lib/defines-old.php:55
-msgid "Credit Card Expiry Date:"
-msgstr "Data de expiração do cartão de crédito:"
-
-#: A2BCustomer_UI/lib/defines-old.php:56
-msgid "Credit Card Checknumber:"
-msgstr "Número de verificação do cartão de crédito:"
-
-#: A2BCustomer_UI/lib/defines-old.php:57
-msgid "(located at the back of the credit card)"
-msgstr "(localizado na parte de trás do cartão de crédito)"
-
-#: A2BCustomer_UI/lib/defines-old.php:58
-msgid "characters."
-msgstr "caracteres."
-
-#: A2BCustomer_UI/lib/defines-old.php:206
-msgid "Asterisk2Billing : CallingCard & VOIP Billing system"
-msgstr "Asterisk2Billing : CallingCard & Sistema de Tarifação VOIP"
 
 #: A2BCustomer_UI/A2B_entity_view_invoice.php:83
 msgid "SELECT MONTH"
@@ -440,45 +301,19 @@ msgstr "Sua transação teve sucesso."
 msgid "Other"
 msgstr "Outubro"
 
-#: A2BCustomer_UI/A2B_entity_sipiax_info.php:27
-msgid "IAX Config"
-msgstr "Configuração IAX"
+#: A2BCustomer_UI/A2B_entity_sipiax_info.php:15
+msgid ""
+"Here you can get example settings you can use in your devices. Select the "
+"kind of device (phone) you have and settings will appear."
+msgstr ""
 
-#: A2BCustomer_UI/A2B_entity_sipiax_info.php:28
-msgid "iax.conf"
-msgstr "iax.conf"
+#: A2BCustomer_UI/A2B_entity_sipiax_info.php:18
+msgid "Asterisk sip friend"
+msgstr ""
 
-#: A2BCustomer_UI/A2B_entity_sipiax_info.php:32
-msgid "SIP Config"
-msgstr "Configuração SIP"
-
-#: A2BCustomer_UI/A2B_entity_sipiax_info.php:33
-msgid "sip.conf"
-msgstr "sip.conf"
-
-#: A2BCustomer_UI/A2B_entity_sipiax_info.php:57
-msgid "CARD"
-msgstr "CARTÃO"
-
-#: A2BCustomer_UI/A2B_entity_sipiax_info.php:61
-msgid "CONFIGURATION TYPE"
-msgstr "TIPO DE CONFIGURAÇÃO"
-
-#: A2BCustomer_UI/A2B_entity_sipiax_info.php:64
-msgid "IAX"
-msgstr "IAX"
-
-#: A2BCustomer_UI/A2B_entity_sipiax_info.php:65
-msgid "SIP"
-msgstr "SIP"
-
-#: A2BCustomer_UI/A2B_entity_sipiax_info.php:84
-msgid "Copy and past this into your "
-msgstr "Copiar e colar isto no seu "
-
-#: A2BCustomer_UI/A2B_entity_sipiax_info.php:131
-msgid "The peer is not defined, please contact your Administrator!"
-msgstr "O \"peer\" não está definido, por favor contate seu Administrador!"
+#: A2BCustomer_UI/A2B_entity_sipiax_info.php:19
+msgid "Asterisk iax friend"
+msgstr ""
 
 #: A2BCustomer_UI/CC_entity_phonelist.php:241
 #: A2BCustomer_UI/predictivedialer.php:308
@@ -2688,6 +2523,142 @@ msgstr "você pode facilmente atualizar suas informações clicando no botão."
 #: A2BCustomer_UI/form_data/FG_var_card.inc:117
 msgid "Your record has been updated."
 msgstr "Seu registro foi atualizado."
+
+#~ msgid "The expiry date entered for the credit card is invalid."
+#~ msgstr "A data de expiração do cartão de crédito é inválida."
+
+#~ msgid "Please check the date and try again."
+#~ msgstr "Por favor verifique a data e tente novamente."
+
+#~ msgid "The credit card number entered is invalid."
+#~ msgstr "O número do cartão de crédito é inválido."
+
+#~ msgid "Please check the number and try again."
+#~ msgstr "Por favor verifique o número do cartão e tente novamente."
+
+#~ msgid "The first four digits of the number entered are"
+#~ msgstr "Os quatro primeiros dígitos do cartão são"
+
+#~ msgid ""
+#~ "If that number is correct, we do not accept that type of credit card."
+#~ msgstr ""
+#~ "Se o número estiver correto, nós não aceitamos este tipo de cartão de "
+#~ "crédito."
+
+#~ msgid "If it is wrong, please try again."
+#~ msgstr "Se isto estiver errado, por favor tente novamente."
+
+#~ msgid "Errors have occured during the process of your form."
+#~ msgstr "Erros ocorreram durante o processamento do seu formulário."
+
+#~ msgid "Please make the following corrections:\\n\\n"
+#~ msgstr "Por favor faça as seguintes correções:\\n\\n"
+
+#~ msgid "* The 'Review Text' must have at least"
+#~ msgstr "* O 'Texto de Revisão' deve ter pelo menos"
+
+#~ msgid "characters"
+#~ msgstr "caracteres"
+
+#~ msgid "You must rate the product for your review."
+#~ msgstr "Você deve avaliar o produto para sua revisão."
+
+#~ msgid "Please select a payment method for your order."
+#~ msgstr "Por favor selecione o método de pagamento de sua ordem."
+
+#~ msgid ""
+#~ "This form has already been submitted. Please press Ok and wait for this "
+#~ "process to be completed."
+#~ msgstr ""
+#~ "Este formulário já foi enviado. Por favor clique em OK e aguarde para "
+#~ "este processo ser completado."
+
+#~ msgid "Credit Card"
+#~ msgstr "Cartão de crédito"
+
+#~ msgid "Credit Card Test Info"
+#~ msgstr "Teste de informação do cartão de crédito"
+
+#~ msgid "Expiry: Any"
+#~ msgstr "Expirar: Alguns"
+
+#~ msgid "Credit Card Type"
+#~ msgstr "Tipo do cartão de crédito"
+
+#~ msgid "Credit Card Owner"
+#~ msgstr "Dono do cartão de crédito"
+
+#~ msgid "Credit Card Number"
+#~ msgstr "Número do cartão de crédito"
+
+#~ msgid "Credit Card Expiry Date"
+#~ msgstr "Data de expiração do cartão de crédito"
+
+#~ msgid "* The owner's name of the credit card must be at least"
+#~ msgstr "* O nome do dono do cartão de crédito deve ter pelo menos"
+
+#~ msgid "* The credit card number must be at least"
+#~ msgstr "* O número do cartão de crédito deve ter pelo menos"
+
+#~ msgid "Credit Card Error!"
+#~ msgstr "Erro no cartão de crédito!"
+
+#~ msgid "There has been an error processing your credit card"
+#~ msgstr "Há um erro no processamento do seu cartão de crédito"
+
+#~ msgid "Please check your credit card details!"
+#~ msgstr "Por favor verifique os detalhes do seu cartão de crédito!"
+
+#~ msgid "Credit Card Owner:"
+#~ msgstr "Dono do cartão de crédito:"
+
+#~ msgid "Credit Card Number:"
+#~ msgstr "Número do cartão de crédito:"
+
+#~ msgid "Credit Card Expiry Date:"
+#~ msgstr "Data de expiração do cartão de crédito:"
+
+#~ msgid "Credit Card Checknumber:"
+#~ msgstr "Número de verificação do cartão de crédito:"
+
+#~ msgid "(located at the back of the credit card)"
+#~ msgstr "(localizado na parte de trás do cartão de crédito)"
+
+#~ msgid "characters."
+#~ msgstr "caracteres."
+
+#~ msgid "Asterisk2Billing : CallingCard & VOIP Billing system"
+#~ msgstr "Asterisk2Billing : CallingCard & Sistema de Tarifação VOIP"
+
+#~ msgid "IAX Config"
+#~ msgstr "Configuração IAX"
+
+#~ msgid "iax.conf"
+#~ msgstr "iax.conf"
+
+#~ msgid "SIP Config"
+#~ msgstr "Configuração SIP"
+
+#~ msgid "sip.conf"
+#~ msgstr "sip.conf"
+
+#~ msgid "CARD"
+#~ msgstr "CARTÃO"
+
+#~ msgid "CONFIGURATION TYPE"
+#~ msgstr "TIPO DE CONFIGURAÇÃO"
+
+#~ msgid "IAX"
+#~ msgstr "IAX"
+
+#~ msgid "SIP"
+#~ msgstr "SIP"
+
+#~ msgid "Copy and past this into your "
+#~ msgstr "Copiar e colar isto no seu "
+
+#~ msgid "The peer is not defined, please contact your Administrator!"
+#~ msgstr "O \"peer\" não está definido, por favor contate seu Administrador!"
 
 #~ msgid "Error card !!!"
 #~ msgstr "Erro no cartão !!!"

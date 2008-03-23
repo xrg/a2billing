@@ -96,8 +96,13 @@ msgid "Details of this %1"
 msgstr ""
 
 #: common/lib/Form/Class.SumMultiView.inc.php:163
-#: common/lib/Form/Class.SumMultiView.inc.php:328
+#: common/lib/Form/Class.SumMultiView.inc.php:408
 msgid "No sums found!"
+msgstr ""
+
+#: common/lib/Form/Class.SumMultiView.inc.php:287
+#: common/lib/Form/Class.SqlRefField.inc.php:198
+msgid "(none)"
 msgstr ""
 
 #: common/lib/Form/Class.TimeField.inc.php:19
@@ -381,12 +386,8 @@ msgstr ""
 msgid "Import of data aborted."
 msgstr ""
 
-#: common/lib/Form/Class.SelectionForm.inc.php:134
+#: common/lib/Form/Class.SelectionForm.inc.php:163
 msgid "GO!"
-msgstr ""
-
-#: common/lib/Form/Class.SqlRefField.inc.php:197
-msgid "(none)"
 msgstr ""
 
 #: common/lib/Form/Class.OptionField.inc.php:12

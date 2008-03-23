@@ -15,7 +15,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "1.0: 2.0\n"
 
-#: A2BCustomer_UI/lib/defines.php:14 A2BCustomer_UI/lib/defines-old.php:203
+#: A2BCustomer_UI/lib/defines.php:14
 msgid ""
 "This software has been created by Areski under GPL licence. For futher "
 "information, feel free to contact me:"
@@ -23,7 +23,7 @@ msgstr ""
 "Questo software &egrave; stato creato da Areski e distribuito sotto la "
 "licenza GPL. Per maggiori informazioni, contattarmi pure:"
 
-#: A2BCustomer_UI/lib/defines.php:16 A2BCustomer_UI/lib/defines-old.php:205
+#: A2BCustomer_UI/lib/defines.php:16
 msgid ""
 " This software is under GPL licence. For further information, please visit : "
 "<a href=\"http://www.asterisk2billing.org\" target=\"_blank"
@@ -88,150 +88,6 @@ msgstr ""
 #: A2BCustomer_UI/lib/help.php:42
 msgid "Personal information. <br>"
 msgstr ""
-
-#: A2BCustomer_UI/lib/defines-old.php:23
-msgid "The expiry date entered for the credit card is invalid."
-msgstr ""
-
-#: A2BCustomer_UI/lib/defines-old.php:23
-#, fuzzy
-msgid "Please check the date and try again."
-msgstr ""
-"Impossibile connettersi al manager di Asterisk!<br>Prego controllare la "
-"configurazione del manager..."
-
-#: A2BCustomer_UI/lib/defines-old.php:24
-msgid "The credit card number entered is invalid."
-msgstr ""
-
-#: A2BCustomer_UI/lib/defines-old.php:24
-#, fuzzy
-msgid "Please check the number and try again."
-msgstr ""
-"Impossibile connettersi al manager di Asterisk!<br>Prego controllare la "
-"configurazione del manager..."
-
-#: A2BCustomer_UI/lib/defines-old.php:25
-msgid "The first four digits of the number entered are"
-msgstr ""
-
-#: A2BCustomer_UI/lib/defines-old.php:25
-msgid "If that number is correct, we do not accept that type of credit card."
-msgstr ""
-
-#: A2BCustomer_UI/lib/defines-old.php:25
-msgid "If it is wrong, please try again."
-msgstr ""
-
-#: A2BCustomer_UI/lib/defines-old.php:32
-msgid "Errors have occured during the process of your form."
-msgstr ""
-
-#: A2BCustomer_UI/lib/defines-old.php:32
-msgid "Please make the following corrections:\\n\\n"
-msgstr ""
-
-#: A2BCustomer_UI/lib/defines-old.php:33
-msgid "* The 'Review Text' must have at least"
-msgstr ""
-
-#: A2BCustomer_UI/lib/defines-old.php:33 A2BCustomer_UI/lib/defines-old.php:45
-#: A2BCustomer_UI/lib/defines-old.php:46 A2BCustomer_UI/lib/defines-old.php:59
-msgid "characters"
-msgstr ""
-
-#: A2BCustomer_UI/lib/defines-old.php:34
-msgid "You must rate the product for your review."
-msgstr ""
-
-#: A2BCustomer_UI/lib/defines-old.php:35 A2BCustomer_UI/lib/defines-old.php:37
-msgid "Please select a payment method for your order."
-msgstr ""
-
-#: A2BCustomer_UI/lib/defines-old.php:36
-msgid ""
-"This form has already been submitted. Please press Ok and wait for this "
-"process to be completed."
-msgstr ""
-
-#: A2BCustomer_UI/lib/defines-old.php:39
-msgid "Credit Card"
-msgstr ""
-
-#: A2BCustomer_UI/lib/defines-old.php:40 A2BCustomer_UI/lib/defines-old.php:50
-msgid "Credit Card Test Info"
-msgstr ""
-
-#: A2BCustomer_UI/lib/defines-old.php:40 A2BCustomer_UI/lib/defines-old.php:50
-msgid "Expiry: Any"
-msgstr ""
-
-#: A2BCustomer_UI/lib/defines-old.php:41
-msgid "Credit Card Type"
-msgstr ""
-
-#: A2BCustomer_UI/lib/defines-old.php:42
-msgid "Credit Card Owner"
-msgstr ""
-
-#: A2BCustomer_UI/lib/defines-old.php:43
-#, fuzzy
-msgid "Credit Card Number"
-msgstr "Numero chiamato"
-
-#: A2BCustomer_UI/lib/defines-old.php:44
-msgid "Credit Card Expiry Date"
-msgstr ""
-
-#: A2BCustomer_UI/lib/defines-old.php:45 A2BCustomer_UI/lib/defines-old.php:58
-msgid "* The owner's name of the credit card must be at least"
-msgstr ""
-
-#: A2BCustomer_UI/lib/defines-old.php:46 A2BCustomer_UI/lib/defines-old.php:59
-msgid "* The credit card number must be at least"
-msgstr ""
-
-#: A2BCustomer_UI/lib/defines-old.php:47
-msgid "Credit Card Error!"
-msgstr ""
-
-#: A2BCustomer_UI/lib/defines-old.php:51
-msgid "There has been an error processing your credit card"
-msgstr ""
-
-#: A2BCustomer_UI/lib/defines-old.php:52
-msgid "Please check your credit card details!"
-msgstr ""
-
-#: A2BCustomer_UI/lib/defines-old.php:53
-msgid "Credit Card Owner:"
-msgstr ""
-
-#: A2BCustomer_UI/lib/defines-old.php:54
-#, fuzzy
-msgid "Credit Card Number:"
-msgstr "Numero chiamato"
-
-#: A2BCustomer_UI/lib/defines-old.php:55
-msgid "Credit Card Expiry Date:"
-msgstr ""
-
-#: A2BCustomer_UI/lib/defines-old.php:56
-msgid "Credit Card Checknumber:"
-msgstr ""
-
-#: A2BCustomer_UI/lib/defines-old.php:57
-msgid "(located at the back of the credit card)"
-msgstr ""
-
-#: A2BCustomer_UI/lib/defines-old.php:58
-msgid "characters."
-msgstr ""
-
-#: A2BCustomer_UI/lib/defines-old.php:206
-#, fuzzy
-msgid "Asterisk2Billing : CallingCard & VOIP Billing system"
-msgstr "Asterisk2Billing : piattaforma di CallingCard"
 
 #: A2BCustomer_UI/A2B_entity_view_invoice.php:83
 msgid "SELECT MONTH"
@@ -424,46 +280,18 @@ msgstr ""
 msgid "Other"
 msgstr "Ottobre"
 
-#: A2BCustomer_UI/A2B_entity_sipiax_info.php:27
-msgid "IAX Config"
+#: A2BCustomer_UI/A2B_entity_sipiax_info.php:15
+msgid ""
+"Here you can get example settings you can use in your devices. Select the "
+"kind of device (phone) you have and settings will appear."
 msgstr ""
 
-#: A2BCustomer_UI/A2B_entity_sipiax_info.php:28
-msgid "iax.conf"
+#: A2BCustomer_UI/A2B_entity_sipiax_info.php:18
+msgid "Asterisk sip friend"
 msgstr ""
 
-#: A2BCustomer_UI/A2B_entity_sipiax_info.php:32
-msgid "SIP Config"
-msgstr "Configurazione SIP"
-
-#: A2BCustomer_UI/A2B_entity_sipiax_info.php:33
-msgid "sip.conf"
-msgstr ""
-
-#: A2BCustomer_UI/A2B_entity_sipiax_info.php:57
-#, fuzzy
-msgid "CARD"
-msgstr "CHIAMATA"
-
-#: A2BCustomer_UI/A2B_entity_sipiax_info.php:61
-msgid "CONFIGURATION TYPE"
-msgstr "TIPO DI CONFIGURAZIONE"
-
-#: A2BCustomer_UI/A2B_entity_sipiax_info.php:64
-#, fuzzy
-msgid "IAX"
-msgstr "FAX"
-
-#: A2BCustomer_UI/A2B_entity_sipiax_info.php:65
-msgid "SIP"
-msgstr ""
-
-#: A2BCustomer_UI/A2B_entity_sipiax_info.php:84
-msgid "Copy and past this into your "
-msgstr ""
-
-#: A2BCustomer_UI/A2B_entity_sipiax_info.php:131
-msgid "The peer is not defined, please contact your Administrator!"
+#: A2BCustomer_UI/A2B_entity_sipiax_info.php:19
+msgid "Asterisk iax friend"
 msgstr ""
 
 #: A2BCustomer_UI/CC_entity_phonelist.php:241
@@ -2700,6 +2528,44 @@ msgstr ""
 #: A2BCustomer_UI/form_data/FG_var_card.inc:117
 msgid "Your record has been updated."
 msgstr ""
+
+#, fuzzy
+#~ msgid "Please check the date and try again."
+#~ msgstr ""
+#~ "Impossibile connettersi al manager di Asterisk!<br>Prego controllare la "
+#~ "configurazione del manager..."
+
+#, fuzzy
+#~ msgid "Please check the number and try again."
+#~ msgstr ""
+#~ "Impossibile connettersi al manager di Asterisk!<br>Prego controllare la "
+#~ "configurazione del manager..."
+
+#, fuzzy
+#~ msgid "Credit Card Number"
+#~ msgstr "Numero chiamato"
+
+#, fuzzy
+#~ msgid "Credit Card Number:"
+#~ msgstr "Numero chiamato"
+
+#, fuzzy
+#~ msgid "Asterisk2Billing : CallingCard & VOIP Billing system"
+#~ msgstr "Asterisk2Billing : piattaforma di CallingCard"
+
+#~ msgid "SIP Config"
+#~ msgstr "Configurazione SIP"
+
+#, fuzzy
+#~ msgid "CARD"
+#~ msgstr "CHIAMATA"
+
+#~ msgid "CONFIGURATION TYPE"
+#~ msgstr "TIPO DI CONFIGURAZIONE"
+
+#, fuzzy
+#~ msgid "IAX"
+#~ msgstr "FAX"
 
 #~ msgid "Simulator"
 #~ msgstr "Simulatore"
