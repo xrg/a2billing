@@ -1,61 +1,63 @@
 <?php
+require_once ("./lib/defines.php");
+require_once ("./lib/module.access.php");
+require_once (DIR_COMMON."Form.inc.php");
+require_once (DIR_COMMON."Form/Class.SqlRefField.inc.php");
+require_once (DIR_COMMON."Form/Class.VolField.inc.php");
+require_once (DIR_COMMON."Form/Class.TimeField.inc.php");
+
+require_once (DIR_COMMON."Class.HelpElem.inc.php");
+
 $menu_section='menu_did';
-include ("../lib/defines.php");
-include ("../lib/module.access.php");
-include ("../lib/Form/Class.FormHandler.inc.php");
-include ("./form_data/FG_var_did.inc");
+HelpElem::DoHelp(_("DID batches contain the settings of ranges of DIDs."));
+
+$HD_Form= new FormHandler('did_batch',_("DID Batches"),_("DID batch"));
+$HD_Form->checkRights(ACX_DID);
+$HD_Form->init();
 
 
-if (! has_rights (ACX_DID)){
-	   Header ("HTTP/1.0 401 Unauthorized");
-	   Header ("Location: PP_error.php?c=accessdenied");
-	   die();
+$PAGE_ELEMS[] = &$HD_Form;
+$PAGE_ELEMS[] = new AddNewButton($HD_Form);
 
-}
+$HD_Form->model[] = new PKeyFieldEH(_("ID"),'id');
 
-/***********************************************************************************/
+$HD_Form->model[] = new TextFieldEH(_("Name"),'name');
+$HD_Form->model[] = new TextField(_("Public Name"),'pname',_("Public name is displayed to customers, agents. You may want it to be different than the internal name above."));
+	end($HD_Form->model)->fieldacr= _("P Name");
 
-$HD_Form -> setDBHandler (DbConnect());
+$cs_list = array();
+$cs_list[]  = array("0", _("Inactive"));
+$cs_list[]  = array("1", _("Active"));
+//$cs_list[]  = array("2", _("..."));
+$SEL_Form->model[] = dontAdd(new RefField(_("Status"),'status', $cs_list));
 
+$dmode_list = array();
+$dmode_list[] = array('1',_('Public DID'));
+$dmode_list[] = array('2',_('Trunk head'));
+//$dmode_list[] = array('3','<Tech>/<IP>');
 
-$HD_Form -> init();
+$HD_Form->model[] = dontList(new RefField(_("Mode"), "dmode", $dmode_list,_("Select the operation mode.")));
 
+$HD_Form->model[] = new SqlRefFieldN(_("Provider"), "provider","cc_provider", "id", "provider_name");
 
-if ($id!="" || !is_null($id)){
-	$HD_Form -> FG_EDITION_CLAUSE = str_replace("%id", "$id", $HD_Form -> FG_EDITION_CLAUSE);
-}
+$HD_Form->model[] = new TextField(_("Dial Head"),'dialhead',_("The first, common digits of the DID range."));
+$HD_Form->model[] = dontList(new TextField(_("Dial Add"),'dialadd',_("Add these digits.")));
+$HD_Form->model[] = dontList(new IntField(_("Dial Len"),'diallen',_("Length of remaining digits in DID.")));
 
+$HD_Form->model[] = dontAdd(dontList(new DateTimeField(_("Creation date"), "creationdate", _("Date the card was created (entered into this system)"))));
+$HD_Form->model[] = dontAdd(dontList(new DateTimeFieldN(_("Expire date"), "expiredate", _("Date the card should expire"))));
 
-if (!isset($form_action))  $form_action="list"; //ask-add
-if (!isset($action)) $action = $form_action;
+$HD_Form->model[] = new SqlRefField(_("Buy plan"), "idtp","cc_tariffplan", "id", "tariffname",_("This defines the rules for rating the DID usage."));
 
+$HD_Form->model[] = dontList(new IntField(_("Flags"),'flags',_("Mode-specific flags.")));
 
-$list = $HD_Form -> perform_action($form_action);
+$HD_Form->model[] = new SecVolField(_("Seconds used"), "secondsused", _("Duration of calls through DID batch."));
+	end($HD_Form->model)->fieldacr=_("Used");
 
+// $HD_Form->model[] = dontList(new SqlRefFieldN(_("CLID Rules"), "rnplan","cc_re_numplan", "id", "name"));
 
+$HD_Form->model[] = new DelBtnField();
 
-// #### HEADER SECTION
-include("PP_header.php");
-
-// #### HELP SECTION
-if ($form_action=='list') echo $CC_help_list_did;
-else echo $CC_help_edit_did;
-
-
-// #### TOP SECTION PAGE
-$HD_Form -> create_toppage ($form_action);
-
-
-// #### CREATE FORM OR LIST
-//$HD_Form -> CV_TOPVIEWER = "menu";
-if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
-
-$HD_Form -> create_form ($form_action, $list, $id=null) ;
-
-// #### FOOTER SECTION
-include("PP_footer.php");
-
-
-
+require("PP_page.inc.php");
 
 ?>

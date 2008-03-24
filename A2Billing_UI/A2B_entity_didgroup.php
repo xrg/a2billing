@@ -1,62 +1,34 @@
 <?php
+require_once ("./lib/defines.php");
+require_once ("./lib/module.access.php");
+require_once (DIR_COMMON."Form.inc.php");
+require_once (DIR_COMMON."Class.HelpElem.inc.php");
+require_once (DIR_COMMON."Form/Class.RevRef2.inc.php");
+
 $menu_section='menu_did';
-include ("../lib/defines.php");
-include ("../lib/module.access.php");
-include ("../lib/Form/Class.FormHandler.inc.php");
-include ("./form_data/FG_var_didgroup.inc");
+
+HelpElem::DoHelp(_("DID groups allow a group of customers to use incoming calls."));
+
+$HD_Form= new FormHandler('cc_didgroup',_("DID Groups"),_("DID group"));
+$HD_Form->checkRights(ACX_DID);
+$HD_Form->init();
 
 
-if (! has_rights (ACX_DID)){ 
-	   Header ("HTTP/1.0 401 Unauthorized");
-	   Header ("Location: PP_error.php?c=accessdenied");	   
-	   die();	   
-}
+$PAGE_ELEMS[] = &$HD_Form;
+$PAGE_ELEMS[] = new AddNewButton($HD_Form);
+
+$HD_Form->model[] = new PKeyFieldEH(_("ID"),'id');
+
+$HD_Form->model[] = new TextFieldEH(_("Name"),'name');
+$HD_Form->model[] = new TextField(_("Code"),'code',_("Code matched against the source (trunk) that delivers the DID."));
+
+$HD_Form->model[] = new RevRef2(_("Batches"),'bts','id','did_group_batch','btid','dbid','did_batch','id','name',_("These DID batches will be available and/or matched against the incoming DIDs."));
+
+//$HD_Form->model[] = new TextField(_("xx"),'xx');
+$HD_Form->model[] = new RevRef2(_("Sell plans"),'tplans','id','did_group_sell','btid','rtid','cc_retailplan','id','name',_("Calls on this DID will use that retail plan to get billed."));
 
 
+$HD_Form->model[] = new DelBtnField();
 
-/***********************************************************************************/
-
-$HD_Form -> setDBHandler (DbConnect());
-
-
-$HD_Form -> init();
-
-
-if ($id!="" || !is_null($id)){	
-	$HD_Form -> FG_EDITION_CLAUSE = str_replace("%id", "$id", $HD_Form -> FG_EDITION_CLAUSE);	
-}
-
-
-if (!isset($form_action))  $form_action="list"; //ask-add
-if (!isset($action)) $action = $form_action;
-
-
-$list = $HD_Form -> perform_action($form_action);
-
-
-
-// #### HEADER SECTION
-include("PP_header.php");
-
-// #### HELP SECTION
-if ($form_action=='list') echo $CC_help_list_didgroup;
-else echo $CC_help_edit_didgroup;
-
-
-// #### TOP SECTION PAGE
-$HD_Form -> create_toppage ($form_action);
-
-
-// #### CREATE FORM OR LIST
-//$HD_Form -> CV_TOPVIEWER = "menu";
-if (strlen($_GET["menu"])>0) $_SESSION["menu"] = $_GET["menu"];
-
-$HD_Form -> create_form ($form_action, $list, $id=null) ;
-
-// #### FOOTER SECTION
-include("PP_footer.php");
-
-
-
-
+require("PP_page.inc.php");
 ?>

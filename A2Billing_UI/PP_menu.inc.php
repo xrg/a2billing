@@ -184,10 +184,9 @@ function menu_show(sect_str){
 		<div id='menu_did'>
 		<a onclick="menu_toggle('menu_did');"><?= _("DID");?></a>
 		<ul>
-			<li><a href="A2B_entity_didgroup.php?"><?= _("List DID Group");?></a>
-			<li><a href="A2B_entity_didgroup.php?form_action=ask-add"><?= _("Add DID Group");?></a></li>
-			<li><a href="A2B_entity_did.php?"><?= _("List DID");?></a></li>
-			<li><a href="A2B_entity_did.php?form_action=ask-add"><?= _("Add DID");?></a></li>
+			<li><a href="A2B_entity_didgroup.php"><?= _("DID Group");?></a>
+			<li><a href="A2B_entity_did.php"><?= _("DID Batch");?></a></li>
+			
 			<li><a href="A2B_entity_did_import.php?"><?= _("Import DID");?></a></li>
 			<li><a href="A2B_entity_did_destination.php"><?= _("List Destination");?></a></li>
 			<li><a href="A2B_entity_did_destination.php?form_action=ask-add"><?= _("Add Destination");?></a></li>
