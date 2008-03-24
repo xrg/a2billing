@@ -115,6 +115,11 @@ for($num_try = 0;$num_try<getAGIconfig('number_try',1);$num_try++){
 			continue;
 		}
 		
+		if ($route['tmout'] > getAGIconfig('max_call_duration',604800)){
+			$route['tmout'] = getAGIconfig('max_call_duration',604800);
+			$agi->conlog('Call truncated to: ',$route['tmout'],3);
+		}
+
 		$dialstr = formatDialstring($dialnum,$route, $card);
 		if ($dialstr === null){
 			$last_prob='unreachable';
