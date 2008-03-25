@@ -65,11 +65,12 @@ if ((!session_is_registered('pr_login') || !session_is_registered('pr_password')
 			if ($FG_DEBUG == 1) echo "<br>3. $pr_login-$pr_password-$rights-$conf_addcust";
 			$_SESSION["pr_login"]=$pr_login;
 			$_SESSION["pr_password"]=$pr_password;
+			$_SESSION['pr_userid']=$return['userid'];
 			$_SESSION["rights"]=$rights;
-			$_SESSION["is_admin"]=$is_admin;	
-			$_SESSION["pr_reseller_ID"]=$pr_reseller_ID;
+			$_SESSION["is_admin"]=$is_admin;
+			//$_SESSION["pr_reseller_ID"]=$pr_reseller_ID;
 			$_SESSION["pr_groupID"]=$pr_groupID;
-			$_SESSION["admin_id"] = $admin_id;
+			$_SESSION["admin_id"] = $admin_id; // *-* must go..
 			$_SESSION['readonly'] = (($return['readonly'] == 't') ||
 							($return['readonly'] == '1')) ;
 			
