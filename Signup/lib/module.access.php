@@ -19,6 +19,9 @@ if (!isset($_SESSION)) {
 function has_rights ($condition) {	
 	return ($condition == 1);
 }
+function session_readonly(){
+	return false;
+}
 
 require_once(DIR_COMMON."languageSettings.inc.php");
 

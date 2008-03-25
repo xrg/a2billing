@@ -86,6 +86,10 @@ function has_rights ($condition) {
 	return ($_SESSION["rights"] & $condition);
 }
 
+function session_readonly(){
+	return ($_SESSION['readonly'] == true);
+}
+
 	// Easter egg to let debug from url
 if (isset($_GET['debug']) && is_numeric($_GET['debug']))
 	$_SESSION['FG_DEBUG']= $FG_DEBUG = $_GET['debug'];

@@ -155,6 +155,47 @@ class PasswdField extends TextField{
 		}
 		return $str;
 	}
+	
+	public function DispList(array &$qrow,&$form){
+		if (session_readonly())
+			return;
+		return parent::DispList($qrow,$form);
+	}
+	
+	public function DispAddEdit($val,&$form){
+		if (session_readonly())
+			return;
+		return parent::DispAddEdit($val,$form);
+	}
+	public function buildInsert(&$ins_arr,&$form){
+		if (session_readonly())
+			return;
+		return parent::buildInsert($ins_arr,$form);
+	}
+
+	public function buildUpdate(&$ins_arr,&$form){
+		if (session_readonly())
+			return;
+		return parent::buildUpdate($ins_arr,$form);
+	}
+
+	public function renderSpecial(array &$qrow,&$form,$rmode, &$robj){
+		if (session_readonly())
+			return;
+		return parent::renderSpecial($qrow,$form,$rmode, $robj);
+	}
+	
+	public function detailQueryField(&$dbhandle){
+		if (session_readonly())
+			return;
+		return parent::detailQueryField($dbhandle);
+	}
+	
+	public function editQueryField(&$dbhandle){
+		if (session_readonly())
+			return;
+		return parent::editQueryField($dbhandle);
+	}
 };
 
 ?>

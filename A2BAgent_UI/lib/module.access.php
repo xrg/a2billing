@@ -76,4 +76,8 @@ if( session_is_registered('pr_login'))
 function has_rights ($condition) {
 	return ($_SESSION['cus_rights'] & $condition);
 }
+function session_readonly(){
+	return false;
+}
+
 ?>

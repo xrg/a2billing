@@ -70,6 +70,8 @@ if ((!session_is_registered('pr_login') || !session_is_registered('pr_password')
 			$_SESSION["pr_reseller_ID"]=$pr_reseller_ID;
 			$_SESSION["pr_groupID"]=$pr_groupID;
 			$_SESSION["admin_id"] = $admin_id;
+			$_SESSION['readonly'] = (($return['readonly'] == 't') ||
+							($return['readonly'] == '1')) ;
 			
 			$log = new Logger();
 			$log -> insertLog($return['userid'], 1, "User Logged In", "User Logged in to website", '', $_SERVER['REMOTE_ADDR'], 'PP_Intro.php','');
@@ -92,7 +94,7 @@ function login ($user, $pass) {
 	global $DBHandle;
 	
 	if (strlen($user)>20 || strlen($pass)>20) return false;
-	$QUERY = "SELECT userid, perms, confaddcust, groupid FROM cc_ui_authen WHERE login = '".$user."' AND password = '".$pass."'";
+	$QUERY = "SELECT userid, perms, confaddcust, groupid, readonly FROM cc_ui_authen WHERE login = '".$user."' AND password = '".$pass."'";
 
 // 	error_log($QUERY);
 	$res = $DBHandle -> query($QUERY);

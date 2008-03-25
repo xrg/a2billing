@@ -44,6 +44,10 @@ function has_rights ($condition)
 	return ($_SESSION['cus_rights'] & $condition);
 }
 
+function session_readonly(){
+	return false;
+}
+
 require_once(DIR_COMMON."languageSettings.inc.php");
 
     if (isset($_GET['language'])){

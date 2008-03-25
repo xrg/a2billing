@@ -6,6 +6,7 @@ CREATE TABLE cc_ui_authen (
     "password" text NOT NULL,
     groupid integer,
     perms integer,
+    readonly boolean NOT NULL DEFAULT false,
     confaddcust integer,
     name text,
     direction text,
@@ -16,8 +17,10 @@ CREATE TABLE cc_ui_authen (
     datecreation TIMESTAMP without time zone DEFAULT NOW()
 );
 
-INSERT INTO cc_ui_authen VALUES (1, 'root', 'myroot', 0, 65535, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2005-02-26 20:33:27.691314-05');
-INSERT INTO cc_ui_authen VALUES (2, 'admin', 'mypassword', 0, 65535, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2005-02-26 21:14:05.391501-05');
+INSERT INTO cc_ui_authen (id,login,"password",groupid,perms) VALUES (1, 'root', 'myroot', 0, 65535);
+INSERT INTO cc_ui_authen (id,login,"password",groupid,perms) VALUES (2, 'admin', 'mypassword', 0, 65535);
+SELECT pg_catalog.setval('cc_ui_authen_userid_seq', 3);
+
 \echo Created Default admins.
 
 -- CREATE TABLE cc_config_group (

@@ -31,7 +31,7 @@ $HD_Form->model[] = new TextField(_("Card alias"),'useralias',_("Alias, also the
 $HD_Form->model[] = new SqlRefField(_("Group"), "grp","cc_card_group", "id", "name");
 
 if ($HD_Form->getAction()!='tooltip')
-	$HD_Form->model[] = dontList(new TextField(_("Card pass"),'userpass',_("PIN")));
+	$HD_Form->model[] = dontList(new PasswdField(_("Card pass"),'userpass','alnum',_("PIN")));
 
 $HD_Form->model[] = new FloatVolField(_("Credit"),'credit',_("Money now in the card. Positive is credit, negative owes us."));
 $HD_Form->model[] = new FloatVolField(_("Credit Limit"),'creditlimit',_("Maximum (negative) credit this card can reach, if postpaid."));

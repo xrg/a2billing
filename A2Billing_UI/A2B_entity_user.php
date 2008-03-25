@@ -19,7 +19,7 @@ $PAGE_ELEMS[] = new AddNewButton($HD_Form);
 
 $HD_Form->model[] = new PKeyFieldEH(_("ID"),'userid','5%');
 $HD_Form->model[] = new TextFieldEH(_("Login"),'login');
-$HD_Form->model[] = dontList(new PasswdField(_("Password"),'password'));
+$HD_Form->model[] = dontList(new PasswdField(_("Password"),'password','alnum'));
 $HD_Form->model[] = new TextField(_("Name"),'name');
 $HD_Form->model[] = new IntField(_("Group"),'groupid');
 
@@ -45,6 +45,7 @@ $right_list[] = array( ACX_PRICING, _("Pricing"));
 
 
 $HD_Form->model[] = dontList( new ListBitField(_("Permissions"),'perms',$right_list));
+$HD_Form->model[] = dontList(dontAdd(new BoolField(_("Read Only"),'readonly')));
 $HD_Form->model[] = new TextField(_("Direction"),'direction');
 
 

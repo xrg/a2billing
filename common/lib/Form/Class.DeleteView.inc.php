@@ -127,6 +127,14 @@ class DeleteView extends FormView {
 		   feed it direcltly to the second part of the query. Pgsql, in particular,
 		   can handle a binary transfer of that data to the db, in a well protected
 		   manner */
+		if (session_readonly()){
+			$dbg_elem->content.= "Read-only: query not performed.\n";
+			$form->pre_elems[] = new StringElem(_("Read only. No data has been altered."));
+			$form->setAction('list');
+			return;
+			
+		}
+
 		if ($form->FG_DEBUG>4){
 			$form->setAction('ask-del');
 			$dbg_elem->content .= "Debug mode, won't delete!\n";

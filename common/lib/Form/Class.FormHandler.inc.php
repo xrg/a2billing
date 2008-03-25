@@ -117,16 +117,18 @@ class FormHandler extends ElemBase{
 		if ($stdActions){
 			$this->views['idle'] = new IdleView();
 			$this->views['list'] = new ListView();
-			$this->views['edit'] = new EditView();
-			$this->views['add'] = new AddView();
+			if (!session_readonly()){
+				$this->views['edit'] = new EditView();
+				$this->views['add'] = new AddView();
+				$this->views['delete'] = new DeleteView();
+				$this->views['object-edit'] = new ObjEditView();
+			}
 			$this->views['ask-add'] = new AskAddView();
 			$this->views['ask-add2'] = new AskAdd2View();
 			$this->views['ask-edit2'] = new AskEdit2View();
 			$this->views['ask-edit'] = new AskEditView();
 			$this->views['ask-del'] = new AskDelView();
 			$this->views['details'] = new DetailsView();
-			$this->views['delete'] = new DeleteView();
-			$this->views['object-edit'] = new ObjEditView();
 			if ($this->FG_DEBUG)
 				$this->views['dump-form'] = new DbgDumpView();
 		}
