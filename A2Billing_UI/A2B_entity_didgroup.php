@@ -4,6 +4,7 @@ require_once ("./lib/module.access.php");
 require_once (DIR_COMMON."Form.inc.php");
 require_once (DIR_COMMON."Class.HelpElem.inc.php");
 require_once (DIR_COMMON."Form/Class.RevRef2.inc.php");
+require_once (DIR_COMMON."Form/Class.SqlRefField.inc.php");
 
 $menu_section='menu_did';
 
@@ -24,9 +25,8 @@ $HD_Form->model[] = new TextField(_("Code"),'code',_("Code matched against the s
 
 $HD_Form->model[] = new RevRef2(_("Batches"),'bts','id','did_group_batch','btid','dbid','did_batch','id','name',_("These DID batches will be available and/or matched against the incoming DIDs."));
 
-//$HD_Form->model[] = new TextField(_("xx"),'xx');
-$HD_Form->model[] = new RevRef2(_("Sell plans"),'tplans','id','did_group_sell','btid','rtid','cc_retailplan','id','name',_("Calls on this DID will use that retail plan to get billed."));
-
+$HD_Form->model[] = new SqlRefField(_("Sell Tariff group"),'tgid','cc_tariffgroup','id','name',_("Tariff group which will define final retail prices and route availability."));
+	end($HD_Form->model)->fieldacr = _("Sell");
 
 $HD_Form->model[] = new DelBtnField();
 

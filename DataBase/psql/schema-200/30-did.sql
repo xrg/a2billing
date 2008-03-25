@@ -5,7 +5,8 @@
 CREATE TABLE cc_didgroup (
     id  	BIGSERIAL NOT NULL PRIMARY KEY,
     name TEXT NOT NULL,
-   code TEXT NOT NULL DEFAULT '' -- lets the did be matched against the trunk it comes from
+   code TEXT NOT NULL DEFAULT '', -- lets the did be matched against the trunk it comes from
+   tgid INTEGER REFERENCES cc_tariffgroup(id)
 );
 
 
@@ -16,6 +17,7 @@ CREATE TABLE did_batch(
 	pname TEXT,  -- Name, visible to customers
 	dmode INTEGER NOT NULL,  -- dmode controls the behaviour of the DID
 	status INTEGER DEFAULT 1,
+	metric INTEGER NOT NULL DEFAULT 10,
 	provider INTEGER REFERENCES cc_provider(id),
 	creationdate TIMESTAMP NOT NULL DEFAULT NOW(),
 	expiredate   TIMESTAMP,
@@ -24,6 +26,7 @@ CREATE TABLE did_batch(
 	dialhead     TEXT NOT NULL,
 		/* Add these digits in some modes (eg. for useralias ) */
 	dialadd      TEXT NOT NULL DEFAULT '',
+	dialfld2     TEXT,
 		/* optionally, length of remaining digits */
 	diallen	     INTEGER,
 		/* The numplan */
@@ -58,14 +61,15 @@ CREATE TABLE did_group_batch (
     PRIMARY KEY(btid,dbid)
 );
 
--- Define selling rules for DIDs.
--- The rate engine functions will be called against the destination of 
--- the did engine.
--- In fact, the sell plan here can suggest allowed/denied destinations
-CREATE TABLE did_group_sell (
-    btid INTEGER NOT NULL REFERENCES cc_didgroup(id) ON DELETE CASCADE,
-    rtid integer NOT NULL REFERENCES cc_retailplan(id) ON DELETE CASCADE,
-    PRIMARY KEY(btid,rtid)
-);
+-- moved into a dedicated tariffgroup..
+-- -- Define selling rules for DIDs.
+-- -- The rate engine functions will be called against the destination of 
+-- -- the did engine.
+-- -- In fact, the sell plan here can suggest allowed/denied destinations
+-- CREATE TABLE did_group_sell (
+--     btid INTEGER NOT NULL REFERENCES cc_didgroup(id) ON DELETE CASCADE,
+--     rtid integer NOT NULL REFERENCES cc_retailplan(id) ON DELETE CASCADE,
+--     PRIMARY KEY(btid,rtid)
+-- );
 
 --eof

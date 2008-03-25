@@ -29,7 +29,7 @@ $cs_list = array();
 $cs_list[]  = array("0", _("Inactive"));
 $cs_list[]  = array("1", _("Active"));
 //$cs_list[]  = array("2", _("..."));
-$SEL_Form->model[] = dontAdd(new RefField(_("Status"),'status', $cs_list));
+$HD_Form->model[] = dontAdd(new RefField(_("Status"),'status', $cs_list));
 
 $dmode_list = array();
 $dmode_list[] = array('1',_('Public DID'));
@@ -39,15 +39,20 @@ $dmode_list[] = array('2',_('Trunk head'));
 $HD_Form->model[] = dontList(new RefField(_("Mode"), "dmode", $dmode_list,_("Select the operation mode.")));
 
 $HD_Form->model[] = new SqlRefFieldN(_("Provider"), "provider","cc_provider", "id", "provider_name");
+$HD_Form->model[] = new IntField(_("Metric"), "metric", _("Weight of trunk in rate engine"));
+	end($HD_Form->model)->does_add = false;
 
 $HD_Form->model[] = new TextField(_("Dial Head"),'dialhead',_("The first, common digits of the DID range."));
 $HD_Form->model[] = dontList(new TextField(_("Dial Add"),'dialadd',_("Add these digits.")));
+$HD_Form->model[] = dontList(new TextField(_("Dial Fld2"),'dialfld2'));
 $HD_Form->model[] = dontList(new IntField(_("Dial Len"),'diallen',_("Length of remaining digits in DID.")));
 
 $HD_Form->model[] = dontAdd(dontList(new DateTimeField(_("Creation date"), "creationdate", _("Date the card was created (entered into this system)"))));
 $HD_Form->model[] = dontAdd(dontList(new DateTimeFieldN(_("Expire date"), "expiredate", _("Date the card should expire"))));
 
 $HD_Form->model[] = new SqlRefField(_("Buy plan"), "idtp","cc_tariffplan", "id", "tariffname",_("This defines the rules for rating the DID usage."));
+$HD_Form->model[] = new SqlRefFieldN(_("Numbering plan"),'nplan','cc_numplan','id','name', _("Numbering plan"));
+	end($HD_Form->model)->fieldacr = _("Nplan");
 
 $HD_Form->model[] = dontList(new IntField(_("Flags"),'flags',_("Mode-specific flags.")));
 
