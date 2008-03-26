@@ -106,6 +106,9 @@ list-css:
 	echo $(STYLES-admin-name)
 	#echo $(STYLES-admin)
 
+progdocs:
+	cat addons/contrib/a2billing-doxygen | doxygen - 
+
 FORCE: ;
 .SILENT: messages test common/lib/locale/%.pot
 #eof
