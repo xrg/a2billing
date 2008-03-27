@@ -182,6 +182,9 @@ case 'standard':
 case 'voucher':
 	require("mode-voucher.inc.php");
 	break;
+case 'did':
+	require("mode-did.inc.php");
+	break;
 default:
 	@syslog(LOG_ERR,"A2Billing AGI: cannot handle mode $mode");
 	$agi->verbose("Cannot handle mode $mode",1);
