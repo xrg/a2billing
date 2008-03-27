@@ -178,15 +178,15 @@ BEGIN
 		RETURN;
 	END IF;
 	
-	IF rate = 0 THEN
+	IF rate <= 0 THEN
 		plustime := maxblock ;
 		minusmoney := 0;
 		RETURN;
 	END IF;
 	
-	IF rate < 0 THEN
+/*	IF rate < 0 THEN
 		RAISE EXCEPTION 'Cannot compute negative rate.';
-	END IF;
+	END IF;*/
 	
 	-- Compute maximum time
 	plustime := floor(60.0*money/rate);
