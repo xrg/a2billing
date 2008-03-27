@@ -1,147 +1,70 @@
 <?php
+require_once ("./lib/defines.php");
+require_once ("./lib/module.access.php");
+require_once (DIR_COMMON."Form.inc.php");
+require_once (DIR_COMMON."Class.HelpElem.inc.php");
+require_once (DIR_COMMON."Form/Class.SqlRefField.inc.php");
+require_once (DIR_COMMON."Form/Class.TimeField.inc.php");
+require_once (DIR_COMMON."Form/Class.ClauseField.inc.php");
+require_once (DIR_COMMON."Form/Class.TextSearchField.inc.php");
+require_once (DIR_COMMON."Form/Class.SelectionForm.inc.php");
+
 $menu_section='menu_admin';
-include ("../lib/defines.php");
-include ("../lib/module.access.php");
-include ("../lib/Form/Class.FormHandler.inc.php");
+
+HelpElem::DoHelp(_("Log entries of the system"),'vcard.png');
+
+$SEL_Form = new SelectionForm();
+$SEL_Form->init();
+$SEL_Form->model[] = new DateTimeField(_("Period from"),'date_from');
+	end($SEL_Form->model)->does_add = false;
+	end($SEL_Form->model)->def_date = '00:00 last month';
+	end($SEL_Form->model)->fieldexpr = 'creationdate';
+$SEL_Form->model[] = new DateTimeField(_("Period to"),'date_to');
+	end($SEL_Form->model)->does_add = false;
+	end($SEL_Form->model)->def_date = 'now';
+	end($SEL_Form->model)->fieldexpr = 'creationdate';
+$SEL_Form->search_exprs['date_from'] = '>=';
+$SEL_Form->search_exprs['date_to'] = '<=';
+$SEL_Form->fallbackClause=array('date_from');
+
+$SEL_Form->model[] =dontAdd(new SqlRefFieldN(_("User"),'iduser','cc_ui_authen','userid','login', _("User of the interface.")));
+
+$SEL_Form->model[] = new TextSearchField(_("Action"),'action');
+$SEL_Form->model[] = new TextSearchField(_("Data"),'data');
+$SEL_Form->model[] = new TextSearchField(_("Table"),'tablename');
+$SEL_Form->model[] = new TextSearchField(_("Page"),'pagename');
+$SEL_Form->model[] = new TextSearchField(_("IP Address"),'ipaddress');
+$SEL_Form->model[] = dontAdd(new IntField(_("Level"),'loglevel'));
+
+/*$SEL_Form->model[] = new SqlRefField(_("Plan"),'idrp','cc_retailplan','id','name', _("Retail plan"));
+	end($SEL_Form->model)->does_add = false;*/
 
 
-if (! has_rights (ACX_ADMINISTRATOR)){ 
-	Header ("HTTP/1.0 401 Unauthorized");
-	   Header ("Location: PP_error.php?c=accessdenied");
-	   die();
-}
+$HD_Form= new FormHandler('cc_system_log',_("Logs"),_("Log"));
+$HD_Form->checkRights(ACX_ADMINISTRATOR);
+$HD_Form->default_order='creationdate';
+$HD_Form->default_sens='DESC';
+$HD_Form->init(null,false);
+$HD_Form->views['list'] = new ListView();
+$HD_Form->views['details'] = new DetailsView();
 
-getpost_ifset(array('nb', 'view_log', 'filter'));
+$PAGE_ELEMS[] = &$HD_Form;
+// put the selection form *below* the table!
+$PAGE_ELEMS[] = &$SEL_Form;
 
-include ('PP_header.php');
-// #### HELP SECTION
-show_help('logfile');
-?>
-<br>
+$HD_Form->model[] = new PKeyField(_("ID"),'id');
+$HD_Form->model[] = new DateTimeFieldDH(_("Date"), "creationdate");
+$HD_Form->model[] = new SqlRefFieldN(_("User"),'iduser','cc_ui_authen','userid','login', _("User of the interface."));
+$HD_Form->model[] = new IntField(_("Level"),'loglevel');
 
-<center>
-<?php
+$HD_Form->model[] = new TextField(_("Action"),'action');
+$HD_Form->model[] = new TextFieldN(_("Description"),'description');
+$HD_Form->model[] = dontList(new TextFieldN(_("Data"),'data'));
+$HD_Form->model[] = dontList(new TextFieldN(_("Table Name"),'tablename'));
+$HD_Form->model[] = new TextFieldN(_("Page Name"),'pagename');
+$HD_Form->model[] = new TextFieldN(_("IP Addr"),'ipaddress');
 
-function array2drop_down($name, $currentvalue, $arr_value){
-	echo '<SELECT name="'.$name.'" class="form_enter">';
-		if (is_array($arr_value) && count($arr_value)>=1){
-			foreach ($arr_value as $ind => $value){
-				if ($ind!=$currentvalue){
-					echo '<option value="'.$ind.'">'.$value.'</option>';
-				}else{
-					echo '<option value="'.$ind.'" selected="selected">'.$value.'</option>';
-				}
-			}
-		}
-	echo '</SELECT>';
-}
+$SEL_Form->appendClauses($HD_Form);
 
-/*
-$directory = '/var/log/asterisk/agi/';
-$d = dir($directory);
-
-while(false!==($entry=$d->read()))
-{
-	if(is_file($directory.$entry) && $entry!='.' && $entry!='..')
-		$arr_log[] = $directory.$entry;
-}
-$d->close();
-sort($arr_log);
-*/
-
-//$arr_log[0] = '/var/log/asterisk/a2billing-daemon-callback.log';
-//$arr_log[1] = '/var/log/asterisk/a2billing-webcallback.log';
-
-
-//$directory = '/var/log/asterisk/';
-$directory = '/var/log/asterisk/';
-$d = @dir($directory);
-
-if ($d == null) {
-	echo _("Directory $directory cannot be opened!");
-}else{
-while(false!==($entry=$d->read()))
-{
-	if(is_file($directory.$entry) && $entry!='.' && $entry!='..')
-		$arr_log[] = $directory.$entry;
-}
-$d->close();
-}
-
-foreach($A2B->config["log-files"] as $log_file){
-	if (strlen(trim($log_file))>1){
-		$arr_log[] = $log_file;
-	}	
-}
-sort($arr_log);
-
-$arr_nb = array(25=>25, 50=>50, 100=>100, 250=>250, 500=>500, 1000=>1000, 2500=>2500);
-$nb = $nb?$nb:50;
-?>
-
-<form method="get">
-<?php echo gettext("Browse log file")?>&nbsp; : <?=array2drop_down('view_log', $view_log, $arr_log)?> - 
-<?= array2drop_down('nb', $nb, $arr_nb)?>
-
-<?php echo gettext("Filter")?> : <input class="form_enter" name="filter" size="20" maxlength="30" value="<?php echo $filter; ?>">
-
-<input class="form_enter" style="border: 2px outset rgb(204, 51, 0);" value=" Submit Query " type="submit">
-</form>
-<hr/>
-</center>
-<?php
-echo $_GET['view_log']."<hr>";
-
-if(isset($_GET['view_log']))
-{
-	$f = $arr_log[$_GET['view_log']];
-	$arr = stat($f);
-	echo '<title>'.$f.'</title>';
-	echo '<font size="3"><pre>';
-	//echo '<a href="view-source:'.WEBROOT.'/log/'.$f.'" target="_new">'.$f.'</a> ['.compute_size($arr['size']).'] last modified: '.date('r', $arr['mtime'])."\n\n";
-	echo '<b><a href="view-source:'.WEBROOT.'/log/'.$f.'" target="_new">'.$f.'</a> ['.($arr['size']).'] last modified: '.date('r', $arr['mtime'])."</b>\n\n";
-
-	$arr = file($f);
-	$arr = array_reverse($arr);
-	$i = 0;
-	foreach($arr as $k=>$v)
-	{
-		$v = trim($v);
-		if(!empty($v))
-		{
-			$i++;			
-			if (strlen($filter)>0){
-				$pos1 = stripos($v, $filter);
-				if ($pos1 !== false) {
-					$arr_tmp[] = $v;
-				}
-			}else{
-				$arr_tmp[] = $v;
-			}			
-			//echo $v."\n";
-		}
-		if($i>=$nb) break;
-	}
-	$arr_tmp = array_reverse($arr_tmp);
-	foreach($arr_tmp as $v)
-		echo $v."\n";
-	//debug($arr_tmp);
-	/*
-	$fp = fopen($arr_log[$_GET['view_log']], 'r');
-	while(!feof($fp))
-	{
-		$line = fgets($fp);
-		$line = trim($line);
-		if(!empty($line)) echo $line."\n";
-		
-	}
-	fclose($fp);
-	*/
-	echo '</pre></font>';
-}
-
-
-// #### FOOTER SECTION
-include('PP_footer.php');
-
+require("PP_page.inc.php");
 ?>
