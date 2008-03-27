@@ -223,11 +223,13 @@ BEGIN
 		END IF;
 	END IF;
 	
-	UPDATE cc_trunk SET secondusedreal = secondusedreal + NEW.sessiontime,
-		inuse = inuse - 1
-		WHERE id = COALESCE(NEW.trunk,OLD.trunk);
-	IF NOT FOUND THEN
-		RAISE WARNING 'Cannot update trunk after call!';
+	IF COALESCE(NEW.trunk,OLD.trunk) IS NOT NULL THEN
+		UPDATE cc_trunk SET secondusedreal = secondusedreal + NEW.sessiontime,
+			inuse = inuse - 1
+			WHERE id = COALESCE(NEW.trunk,OLD.trunk);
+		IF NOT FOUND THEN
+			RAISE WARNING 'Cannot update trunk after call!';
+		END IF;
 	END IF;
 
 	RETURN NEW;

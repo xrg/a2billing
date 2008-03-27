@@ -10,6 +10,85 @@ function getDIDCard($didrow){
 		numplan => $didrow['nplan'], useralias => $didrow['useralias']);
 }
 
+/** Mark the 1st-leg call */
+function insertCall1($dbh, $card,$did_extension,array $didrow, $last_time,$uniqueid, $agi,$route){
+	$res = $dbh->Execute('INSERT INTO cc_call (cardid, attempt, cmode, '.
+		'sessionid, uniqueid, nasipaddress, src, ' .
+		'calledstation, destination, '.
+		'srid, brid, tgid, starttime) '.
+		'VALUES( ?,?,?,?,?,?,?,?,?,?,?,?,?) RETURNING id;',
+		array($card['id'],0, 'did',
+			$agi->request['agi_channel'],$uniqueid,NULL,$agi->request['agi_callerid'],
+			$did_extension,$route['destination'],
+			NULL,$didrow['brid2'],$didrow['tgid'],$last_time));
+	if ($notice = $dbh->NoticeMsg())
+		$agi->verbose('DB:' . $notice,2);
+
+	if (!$res){
+		$agi->verbose('Cannot mark 1st-l call start in db!');
+		$agi->conlog($dbh->ErrorMsg(),2);
+		return false;
+	}elseif($res->EOF){
+		$agi->verbose('Cannot mark 1st-l call start in db: EOF!');
+		return false;
+	}
+	$last_call= $res->fetchRow();
+	$last_call['tcause']=NULL;
+	$last_call['hupcause']=NULL;
+	$last_call['cause_ext']=NULL;
+	$last_call['anstime']=0;
+	$last_call['dialtime']=0;
+	return $last_call;
+}
+
+function releaseCall1($dbh,&$last_call){
+	global $agi;
+	if (isset($last_call['stoptime']))
+		return;
+		//try to encode the termination cause..
+	if ($last_call['tcause']==NULL)
+		switch($last_call['cause_ext']){
+		case NULL:
+			$last_call['tcause']='UNKNOWN';
+			//$last_call['hupcause']=1;
+			break;
+		case 'no-money-':
+			$last_call['tcause']='UNKNOWN';
+			//$last_call['hupcause']=1;
+			break;
+		default:
+			$agi->conlog("Cannot parse last_prob = \"".$last_call['cause_ext']."\" into proper termination cause.",3);
+			$last_call['tcause']='UNKNOWN';
+			//$last_call['hupcause']=1;
+			break;
+		}
+
+	$res = $dbh->Execute('UPDATE cc_call SET '.
+		'stoptime = now(), sessiontime = ?, tcause = ?, hupcause = ?, '.
+		'cause_ext =?, startdelay =? '.
+			/* stopdelay */
+		'WHERE id = ? RETURNING stoptime;',
+		array( $last_call['anstime'],$last_call['tcause'],$last_call['hupcause'],
+			$last_call['cause_ext'],
+			($last_call['dialtime'] - $last_call['anstime']),
+			$last_call['id']));
+	
+	if ($notice = $dbh->NoticeMsg())
+		$agi->verbose('DB:' . $notice,2);
+
+	if (!$res){
+		$agi->verbose('Cannot mark call end in db! (will NOT bill)',0);
+		$agi->conlog($dbh->ErrorMsg(),2);
+		return;
+	}
+	if ($res->EOF){
+		$agi->verbose('Call cannot find 1st-l call to release',2);
+		return;
+	}
+	$row=$res->fetchRow();
+	$last_call['stoptime']=$row['stoptime'];
+}
+
 if (getAGIconfig('early_answer',false))
 	$agi->answer();
 else
@@ -25,7 +104,8 @@ $agi->conlog('DID mode, ext: '.$did_extension .'@'.$did_code,4);
 $card=null;
 
 $QRY = str_dbparams($a2b->DBHandle(),'SELECT id(card) AS card_id, tgid, username(card), status(card) AS card_status, ' .
-		'nplan, useralias(card), dialstring, dgid, brid2, buyrate2 '.
+		'nplan, useralias(card), dialstring, dgid, brid2, buyrate2, '.
+		' now() AS start_time '.
 		' FROM DIDEngine(%1, %2, now());',
 	array($did_extension,$did_code));
 	
@@ -50,15 +130,12 @@ if (!$didres){
 }
 
 $num_try=-1; // in a symmetric way, num_try will index the DID rows
+$last_call= null; //mark the time the last attempt ended
 
 /* The first level loop: iterate over DID engine results.
    It is /very/ hard to directly feed those results in the RateEngine, 
    because SETOF fns() cannot be fed into function arguments in SQL AFAIK */
 while ($didrow = $didres->fetchRow()){
-
-	// TODO: insert an attempt #0 call for the first leg here.
-	// At early answer the start time should be the AGI starttime.
-	
 	$num_try++;
 	$agi->conlog(print_r($didrow['card'],true),4);
 	$card= getDIDCard($didrow);
@@ -68,6 +145,27 @@ while ($didrow = $didres->fetchRow()){
 
 	if ($card === null)
 		continue;
+	
+	if($last_call){
+		if (empty($last_call['cause_ext']))
+			$last_call['cause_ext']= $last_prob;
+		releaseCall1($a2b->DBHandle(),$last_call);
+	}
+	
+	if ($num_try==0)
+		$uniqueid=$agi->request['agi_uniqueid'];
+	else
+		$uniqueid=$agi->request['agi_uniqueid'].'-'.$num_try;
+
+	// Insert an attempt #0 call for the first leg here.
+	// At early answer the start time should be the AGI starttime.
+	$last_call=insertCall1($a2b->DBHandle(), $card,$did_extension, $didrow,
+		($last_call)? $last_call['stoptime']:$didrow['start_time'],
+		$uniqueid, $agi,$route);
+	if ($last_call===false){
+		$last_prob='call-insert';
+		continue;
+	}
 	
 	//TODO: fix lang
 	if ($card['status']!=1){
@@ -82,13 +180,14 @@ while ($didrow = $didres->fetchRow()){
 			$last_prob = 'card-status';
 			$agi->verbose('Card status: '.$card['status'] .', exiting.',2);
 		}
-		break;
+		continue;
 	}
 	
 	$card_money = CardGetMoney($card);
 	if (!$card_money){
 		ReleaseCard($card);
 		$card=null;
+		$last_prob='no-money';
 		continue;
 	}
 	
@@ -100,6 +199,7 @@ while ($didrow = $didres->fetchRow()){
 		//$agi->stream_file('prepaid-no-enough-credit','#');
 		ReleaseCard($card);
 		$card=null;
+		$last_prob='no-min-credit';
 		continue;
 	}
 
@@ -119,10 +219,12 @@ while ($didrow = $didres->fetchRow()){
 			$agi-> stream_file('allison2'/*-*/, '#');
 		ReleaseCard($card);
 		$card=null;
+		$last_prob='rateengine-fail';
 		break;
 	}elseif($res->EOF){
 		$agi->verbose('Rate engine: no result.',2);
 		$agi-> stream_file('prepaid-dest-unreachable', '#');
+		$last_prob='rateengine-norows';
 		continue;
 	}
 	$routes = $res->GetArray();
@@ -170,12 +272,7 @@ while ($didrow = $didres->fetchRow()){
 			// engine may have changed it.
 		$agi->conlog("Setting clid to : $new_clid",3);
 		$agi->set_variable('CALLERID(num)',$new_clid);
-		
-		if ($num_try==0)
-			$uniqueid=$agi->request['agi_uniqueid'];
-		else
-			$uniqueid=$agi->request['agi_uniqueid'].'-'.$num_try;
-			
+					
 		$res = $a2b->DBHandle()->Execute('INSERT INTO cc_call (cardid, attempt, cmode, '.
 			'sessionid, uniqueid, nasipaddress, src, ' .
 			'calledstation, destination, '.
@@ -249,6 +346,16 @@ while ($didrow = $didres->fetchRow()){
 			$agi->verbose("Unknown status: ".$dialstatus['data'],2);
 		}
 		
+		// store them in last_call
+		$last_call['tcause']=$dialstatus['data'];
+		$last_call['hupcause']=$hangupcause['data'];
+		$last_call['cause_ext']=$last_prob;
+		if ($last_call['anstime']==0)
+			$last_call['anstime']=$answeredtime['data'];
+		else
+			$last_call['anstime']+=$dialedtime['data'];
+		$last_call['dialtime']+=$dialedtime['data'];
+		
 		$res = $a2b->DBHandle()->Execute('UPDATE cc_call SET '.
 			'stoptime = now(), sessiontime = ?, tcause = ?, hupcause = ?, '.
 			'cause_ext =?, startdelay =? '.
@@ -289,6 +396,12 @@ if ($last_prob)
 
 if ($card && !empty($card['locked']))
 	ReleaseCard($card);
+
+if($last_call){
+	if (empty($last_call['cause_ext']))
+		$last_call['cause_ext']= $last_prob;
+	releaseCall1($a2b->DBHandle(),$last_call);
+}
 
 $agi->conlog('Goodbye!',3);
 
