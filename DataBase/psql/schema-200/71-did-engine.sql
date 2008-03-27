@@ -57,9 +57,9 @@ BEGIN
 	   	END IF;
 	   	
 	   	RAISE NOTICE 'Searching for useralias % in numplan %..',p_drem, p_dbatch.nplan;
-	   	FOR p_card IN SELECT cc_card.* FROM cc_card, cc_card_group
-	   		WHERE cc_card.grp = cc_card_group.id AND cc_card_group.numplan = p_dbatch.nplan
-	   		  AND cc_card.useralias = p_drem LOOP
+	   	FOR p_card IN SELECT * FROM cc_card_dv
+	   		WHERE cc_card_dv.numplan = p_dbatch.nplan
+	   		  AND cc_card_dv.useralias = p_drem LOOP
 			
 			-- Automatically format the target string by appending dialfld2 and useralias
 	   		SELECT p_card AS card, p_dbatch.nplan, p_dbatch.dialfld2 ||p_drem AS dialstring,
