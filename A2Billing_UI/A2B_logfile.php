@@ -51,6 +51,7 @@ $HD_Form->views['details'] = new DetailsView();
 $PAGE_ELEMS[] = &$HD_Form;
 // put the selection form *below* the table!
 $PAGE_ELEMS[] = &$SEL_Form;
+$SEL_Form->enable($HD_Form->getAction() == 'list');
 
 $HD_Form->model[] = new PKeyField(_("ID"),'id');
 $HD_Form->model[] = new DateTimeFieldDH(_("Date"), "creationdate");
