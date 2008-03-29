@@ -17,6 +17,7 @@ prepaid-zero-balance							sorry, you have zero credit
 prepaid-card-expired							sorry, your card is expired
 prepaid-no-enough-credit						sorry, you dont have enough credit to call this number
 prepaid-no-enough-credit-stop					sorry, you dont have enough credit
+prepaid-no-enough-credit-make-call				sorry, you dont have enough credit to make a call
 prepaid-card-in-use								this card number is already used!
 
 prepaid-you-have								you have
@@ -91,6 +92,7 @@ prepaid-zero-balance							désolé, votre crédit est nul...
 prepaid-card-expired							désolé, votre carte a expiré...
 prepaid-no-enough-credit						désolé, vous n'avez pas assez de crédit pour appeller ce numéro.
 prepaid-no-enough-credit-stop					désolé, vous n'avez pas assez de crédit...
+prepaid-no-enough-credit-make-call				désolé, vous n'avez pas assez de crédit pour effectuer un appel.
 prepaid-card-in-use								Cette carte est déjà en cours d'utilisation
 
 prepaid-you-have								vous avez
@@ -162,6 +164,8 @@ prepaid-card-expired							Lo sentimos, su tarjeta ha caducado
 prepaid-no-enough-credit                        Lo sentimos, no tiene suficientes créditos para esta llamada
 
 prepaid-no-enough-credit-stop                   Lo sentimos, no tiene suficientes créditos
+
+prepaid-no-enough-credit-make-call				Lo sentimos, no tiene suficientes créditos para hacer una llamada
 
 prepaid-card-in-use		                       	¡Su tarjeta está siendo utilizada en este momento!
 

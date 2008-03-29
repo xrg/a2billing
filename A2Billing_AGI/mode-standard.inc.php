@@ -60,7 +60,7 @@ for($num_try = 0;$num_try<getAGIconfig('number_try',1);$num_try++){
 		// not enough money!
 		$agi->verbose('Not enough money!',2);
 		$agi->conlog('Money: '. print_r($card_money,true),3);
-		$agi->stream_file('prepaid-no-enough-credit','#');
+		$agi->stream_file('prepaid-no-enough-credit-make-call','#');
 		ReleaseCard($card);
 		$card=null;
 		continue;
