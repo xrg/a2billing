@@ -56,6 +56,7 @@ $HD_Form->model[] = new TextField(_("Provider IP"), "providerip", _("Set the IP 
 // end($HD_Form->model)->fieldacr =  gettext("ACT");
 
 $HD_Form->model[] = dontList(new TextField(_("Additional parameter"), "addparameter", _("Define any additional parameters that will be used when running the Dial Command in Asterisk. Use the following tags as variables  *-* %dialingnumber%, %cardnumber%. ie 'D(ww%cardnumber%wwwwwwwwww%dialingnumber%)'")));
+$HD_Form->model[] = dontList(new TextFieldN(_("Feature"),'feature',_("If set, only cards subscribed to this feature will be able to use the trunk.")));
 
 $HD_Form->model[] = dontList(new SqlRefFieldN(_("CLID Rules"), "rnplan","cc_re_numplan", "id", "name"));
 
