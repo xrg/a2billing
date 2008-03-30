@@ -46,6 +46,7 @@ CREATE TYPE reng_result  AS (
 	trunkid INTEGER, trunkcode TEXT, trunkprefix TEXT, providertech TEXT,
 	    trunkfmt INTEGER, stripdigits INTEGER,
 	    providerip TEXT, trunkparm TEXT, provider INTEGER, trunkfree INTEGER,
+	    trunkfeat TEXT,
 	    clidreplace TEXT,
 	prefix TEXT
 	);
@@ -71,7 +72,7 @@ CREATE OR REPLACE FUNCTION RateEngine2(s_tgid INTEGER, s_dialstring TEXT, s_nump
     -- Final query (outmost): sort the results (buy rates+ sell ones), form result row
 SELECT ROW( srid, dialstring, destination, tgid, tmout, brid, sum_metric,
 		trunkid, trunkcode, trunkprefix, providertech,trunkfmt,stripdigits, providerip, trunkparm, provider,
-		trunkfree, clidreplace, prefix )::reng_result
+		trunkfree, trunkfeat, clidreplace, prefix )::reng_result
   FROM (
   	-- Outer query: Find matching trunk and buy rates for selling rate found in inner query
 	SELECT DISTINCT ON (cc_tariffplan.id) allsellrates.*, $2 AS dialstring, $1 AS tgid,
@@ -79,6 +80,7 @@ SELECT ROW( srid, dialstring, destination, tgid, tmout, brid, sum_metric,
 		  cc_trunk.id AS trunkid, cc_trunk.trunkcode, cc_trunk.trunkprefix, cc_trunk.providertech,
 		  cc_trunk.trunkfmt, cc_trunk.stripdigits, cc_re_numplan_pattern.repl AS clidreplace,
 		  cc_trunk.providerip, cc_trunk.addparameter AS trunkparm, cc_trunk.provider, '1'::integer AS trunkfree /*-*/,
+		  cc_trunk.feature AS trunkfeat,
 		  cc_buyrate.buyrate, (cc_tariffplan.metric + allsellrates.metric + cc_trunk.metric) AS sum_metric
 		FROM (
 		  -- Inner query: match the destination against a retail rate

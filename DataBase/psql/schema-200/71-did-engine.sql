@@ -5,7 +5,7 @@ DROP FUNCTION IF EXISTS DIDEngine(s_dialstring TEXT, s_code TEXT, s_curtime TIME
 DROP TYPE IF EXISTS dideng_result;
 
 CREATE TYPE dideng_result  AS ( 
-	card cc_card,
+	card cc_card_dv,
 	nplan  INTEGER, -- discovered numplan
 	     --- Per-call fields
 	dialstring TEXT,
@@ -21,7 +21,7 @@ CREATE OR REPLACE FUNCTION DIDEngine(s_dialstring TEXT, s_code TEXT, s_curtime T
 	RETURNS SETOF dideng_result AS $$
 DECLARE
 	p_dbatch RECORD;
-	p_card cc_card;
+	p_card cc_card_dv;
 	p_drem  TEXT;
 	p_brid2 INTEGER;
 	p_brate2 NUMERIC;
@@ -61,11 +61,13 @@ BEGIN
 	   		WHERE cc_card_dv.numplan = p_dbatch.nplan
 	   		  AND cc_card_dv.useralias = p_drem LOOP
 			
+			p_card :=p_card_r; -- first fields are the card
 			-- Automatically format the target string by appending dialfld2 and useralias
-	   		SELECT p_card AS card, p_dbatch.nplan, p_dbatch.dialfld2 ||p_drem AS dialstring,
-	   				p_dbatch.tgid, p_dbatch.dgid,
-	   				p_brid2 AS brid2, p_brate2 AS buyrate2, p_dbatch.metric
-	   			INTO STRICT p_res;
+	   		SELECT p_card AS card,
+	   			p_dbatch.nplan, p_dbatch.dialfld2 ||p_drem AS dialstring,
+				p_dbatch.tgid, p_dbatch.dgid,
+				p_brid2 AS brid2, p_brate2 AS buyrate2, p_dbatch.metric
+	   		    INTO STRICT p_res;
 	   		RETURN NEXT p_res;
 	   	END LOOP;
 	   	IF NOT FOUND THEN
