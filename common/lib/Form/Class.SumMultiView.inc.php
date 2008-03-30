@@ -184,9 +184,24 @@ class SumMultiView extends FormView {
 		
 		if (!$tsum)
 			return false;
-		
-		$graph->title->Set($tsum->title);
+		//print_r ($tsum);
+		$graph->title->Set($tsum[title]);
 		$res = $this->performSumQuery($tsum,$form,$dbhandle);
+		
+		if (! empty($tsum['subtitles'])){
+			$graph->tabtitle->Set($tsum['subtitles']);
+			$graph->tabtitle->SetWidth(TABTITLE_WIDTHFULL);
+		}
+		
+		if (! empty($tsum['backgroundgradient']) && $tsum['backgroundgradient'])
+			$graph->SetBackgroundGradient('#FFFFFF','#CDDEFF:0.8',GRAD_HOR,BGRAD_PLOT);
+		
+		if (! empty($tsum['rowcolor']) && $tsum['rowcolor']){
+			$graph->ygrid->SetFill(true,'#EFEFEF@0.5','#CDDEFF@0.5');
+			$graph->xgrid->SetColor('gray@0.5');
+			$graph->ygrid->SetColor('gray@0.5');
+		}
+		
 		
 		switch($tsum['type']){
 		case 'bar':
@@ -206,7 +221,8 @@ class SumMultiView extends FormView {
 			if (! empty($tsum['xlabelfont']))
 				$graph->xaxis->SetFont($tsum['xlabelfont']);
 			else
-				$graph->xaxis->SetFont(FF_VERA);
+				$graph->xaxis->SetFont(FF_VERA);				
+			
 			$graph->xaxis->SetTickLabels($xdata);
 			$bplot = new BarPlot($ydata);
 			$graph->Add($bplot);
