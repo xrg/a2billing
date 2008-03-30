@@ -129,6 +129,7 @@ function menu_show(sect_str){
 		<li><a href="Gen_vouchers.php"><?= _("Generate Vouchers");?></a></li>
 		<li><a href="A2B_entity_charge.php"><?= _("Charges");?></a></li>
 		<li><a href="A2B_entity_ecommerce.php"><?= _("E-Products");?></a></li>
+		<li><a href="A2B_entity_subscription.php"><?= _("Subscriptions");?></a></li>
 	</ul>
 	</div>
 	<?php   }  ?>
@@ -230,8 +231,6 @@ function menu_show(sect_str){
 			<li><a href="A2B_entity_service.php?form_action=ask-add"><?= _("Add Recurring Service");?></a></li>
 			<li><a href="A2B_entity_alarm.php"><?= _("Alarms");?></a></li>
 			<li><a href="A2B_entity_alarmrun.php"><?= _("Alarm Data");?></a></li>
-			<li><a href="A2B_entity_subscription.php"><?= _("List Subscription");?></a></li>
-			<li><a href="A2B_entity_subscription.php?form_action=ask-add"><?= _("Add Subscription");?></a></li>
 		</ul>
 		</div>
 
@@ -260,6 +259,7 @@ function menu_show(sect_str){
 	<?php  } ?>
 	<?php   if ( has_rights (ACX_MISC) ){ 	?>
 			<li><a href="A2B_entity_mailtemplate.php"><?= _("Mail template");?></a></li>
+			<li><a href="A2B_entity_subscrtem.php"><?= _("Subscribe template");?></a></li>
 	<?php  } ?>
 	<?php   if ( has_rights (ACX_ADMINISTRATOR) ){ 	?>
 			<li><a href="A2B_entity_ast_usercfg.php"><?= _("User cfgs");?></a></li>

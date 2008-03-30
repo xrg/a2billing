@@ -120,11 +120,16 @@ class AddView extends FormView {
 			$ins_values[] = $ins[1];
 		}
 		
-		$dbg_elem->content.= "Query: INSERT INTO ". $form->model_table ."(";
+		if (substr($form->model_table,0,5)=='ONLY ')
+			$mtable=substr($form->model_table,5);
+		else
+			$mtable=$form->model_table;
+		
+		$dbg_elem->content.= "Query: INSERT INTO ". $mtable ."(";
 		$dbg_elem->content.= implode(', ',$ins_keys);
 		$dbg_elem->content.= ") VALUES(". var_export($ins_values,true).");\n";
 		
-		$query = "INSERT INTO ". $form->model_table ."(" .
+		$query = "INSERT INTO ". $mtable ."(" .
 			implode(', ',$ins_keys) . ") VALUES(". 
 			implode(',', $ins_qm).");";
 		

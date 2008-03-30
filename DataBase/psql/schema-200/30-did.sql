@@ -41,17 +41,14 @@ CREATE TABLE did_batch(
 
 
 CREATE TABLE did_reservation (
-    id 		BIGSERIAL NOT NULL PRIMARY KEY,
-    batch	INTEGER NOT NULL REFERENCES did_batch(id),
+    batch 	INTEGER NOT NULL REFERENCES did_batch(id),
     did 	TEXT NOT NULL,
-    card 	BIGINT NOT NULL REFERENCES cc_card(id),
- --    did 	BIGINT NOT NULL REFERENCES cc_did(id),	
-    creationdate TIMESTAMP DEFAULT NOW(),
-    expiredate	TIMESTAMP,
-    status 	INTEGER DEFAULT 1 NOT NULL,
     secondused 	INTEGER DEFAULT 0,
-    target	TEXT -- may be null for auto matching.
-);
+    target 	TEXT, -- may be null for auto matching.
+    	-- This constraint will prevent did_reservation from ref'ing an inherited templ.
+    CONSTRAINT did_reservation_template_fkey 
+    	FOREIGN KEY (template) REFERENCES subscription_template(id)
+) INHERITS (card_subscription);
 
 
 -- Associate did groups with batches
