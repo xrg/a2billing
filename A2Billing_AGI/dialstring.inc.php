@@ -3,9 +3,9 @@
     Copyright(C) P. Christeas, Areski, 2007-8
 */
 
-function formatDialstring($dialn,&$route, &$card){
+function formatDialstring($dialn,&$route, &$card,$do_param = true){
 	global $agi;
-	$do_param = true;
+
 	switch ($route['trunkfmt']){
 	case 1:
 		$str = $route['providertech'].'/'.$route['providerip'].'/%dialnum';
@@ -21,8 +21,9 @@ function formatDialstring($dialn,&$route, &$card){
 	case 6:
 	case 7:
 	case 8:
-		return formatDialstring_peer($dialn,$route,$card);
+		return formatDialstring_peer($dialn,$route,$card, $do_param);
 		break;
+	case 9:
 	case 10:
 	case 11:
 	case 12:
@@ -40,16 +41,17 @@ function formatDialstring($dialn,&$route, &$card){
 		$dialnum = $route['trunkprefix'] . $dialnum;
 
 	if ($do_param)
-		$str .= getAGIconfig('dialcommand_param','|60|iL(%timeout)');
-	$str .= $route['trunkparm'];
+		$str .= getAGIconfig('dialcommand_param','|60|iL(%timeout)%param');
 	
-	return str_alparams($str,array ('dialnum' => $dialnum, 'dialnumber' => $dialn, 'dialstring' => $route['dialstring'],
+	$str=str_alparams($str,array ('dialnum' => $dialnum, 'dialnumber' => $dialn, 'dialstring' => $route['dialstring'],
 		'destination' => $route['destination'], 'trunkprefix' => $route['trunkprefix'], 'tech' => $route['providertech'],
-		'providerip' => $route['providerip'], 'prefix' => $route['prefix'],
+		'providerip' => $route['providerip'], 'prefix' => $route['prefix'],param=>$route['trunkparm'],
 		'cardnum' => $card['username'], 'stimeout' => $route['tmout'], 'timeout' => (1000*$route['tmout'])));
+		
+	return $str;
 }
 
-function formatDialstring_peer($dialn,&$route, &$card){
+function formatDialstring_peer($dialn,&$route, &$card,$do_param = true){
 	global $a2b;
 	global $agi;
 	$dbhandle = $a2b->DBHandle();
@@ -128,7 +130,18 @@ function formatDialstring_peer($dialn,&$route, &$card){
 	$peer_rows = array();
 	while( $row= $res->fetchRow())
 		$peer_rows[] =str_alparams($bind_str,$row);
-	return implode('&',$peer_rows);
+	
+	$str='';
+	if ($do_param){
+		$str = getAGIconfig('dialcommand_param','|60|iL(%timeout)%param');
+		$str = str_alparams($str,array ('dialnum' => $dialnum, 'dialnumber' => $dialn, 'dialstring' => $route['dialstring'],
+		'destination' => $route['destination'], 'trunkprefix' => $route['trunkprefix'], 'tech' => $route['providertech'],
+		'providerip' => $route['providerip'], 'prefix' => $route['prefix'], param => $route['trunkparm'],
+		'cardnum' => $card['username'], 'stimeout' => $route['tmout'], 'timeout' => (1000*$route['tmout'])));
+
+	}
+	
+	return implode('&',$peer_rows).$str;
 }
 
 ?>
