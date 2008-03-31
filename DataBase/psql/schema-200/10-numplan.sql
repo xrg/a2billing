@@ -12,7 +12,7 @@ CREATE TABLE cc_numplan_pattern (
 	id SERIAL PRIMARY KEY,
 	nplan INTEGER NOT NULL REFERENCES cc_numplan(id),
 	find  VARCHAR(6) NOT NULL,
-	repl  VARCHAR(8) NOT NULL DEFAULT '',
+	repl  TEXT NOT NULL DEFAULT '',
 	nick  TEXT NOT NULL DEFAULT ''
 );
 

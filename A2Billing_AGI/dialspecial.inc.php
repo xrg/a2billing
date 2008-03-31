@@ -4,7 +4,7 @@
 */
 
 /** Special dial modes, like VoiceMail etc */
-function dialSpecial($dialnum,$route, $card,$last_prob,$agi){
+function dialSpecial($dialnum,$route, $card,$card_money,&$last_prob,$agi){
 	global $a2b;
 	$dbhandle =$a2b->DBHandle();
 	
@@ -15,6 +15,10 @@ function dialSpecial($dialnum,$route, $card,$last_prob,$agi){
 
 	$dialn = null;
 	switch ($route['trunkfmt']){
+	case 9: // Group dial
+		require_once("groupdial.inc.php");
+		return groupDial($dialnum,$route, $card,$card_money,$last_prob,$agi);
+		break; // group 
 	case 10:
 		$dialn = array($card['numplan'],$dialnum);
 	case 11:

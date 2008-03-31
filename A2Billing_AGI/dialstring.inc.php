@@ -45,7 +45,7 @@ function formatDialstring($dialn,&$route, &$card,$do_param = true){
 	
 	$str=str_alparams($str,array ('dialnum' => $dialnum, 'dialnumber' => $dialn, 'dialstring' => $route['dialstring'],
 		'destination' => $route['destination'], 'trunkprefix' => $route['trunkprefix'], 'tech' => $route['providertech'],
-		'providerip' => $route['providerip'], 'prefix' => $route['prefix'],param=>$route['trunkparm'],
+		'providerip' => $route['providerip'], 'prefix' => $route['prefix'],'param' =>$route['trunkparm'],
 		'cardnum' => $card['username'], 'stimeout' => $route['tmout'], 'timeout' => (1000*$route['tmout'])));
 		
 	return $str;

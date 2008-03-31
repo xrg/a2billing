@@ -34,9 +34,11 @@ $trunkfmt_list[] = array('5','Direct Peer: <[Tech]>/<@[IP:numplan]>');
 $trunkfmt_list[] = array('6','Remote Peer: <[Tech]>/<@[IP:numplan]>');
 $trunkfmt_list[] = array('7','Local Peer, cross Numplan');
 $trunkfmt_list[] = array('8','Remote Peer, cross Numplan');
+$trunkfmt_list[] = array('9','Group destination');
 
 $trunkfmt_list[] = array('10','Email to local peer');
 $trunkfmt_list[] = array('11','Email to cross numplan peer');
+
 
 $HD_Form->model[] = new PKeyFieldEH(_("ID"),'id');
 $HD_Form->model[] = new TextFieldEH(_("Label"),'trunkcode',_("Human readable name for the agent"));

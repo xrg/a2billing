@@ -64,13 +64,20 @@ if (false) {
 	print_r($dbh);
 }
 
-if (true){
+if (false){
 	require_once('Class.A2Billing.inc.php');
 	$dbh=A2Billing::DBHandle();
 	echo "Connected!\n";
 	$dbh->Execute("LISTEN test;");
 	pg_wait_notify($dbh->_connectionID, 30000);
 	echo "Done!\n";
+}
+
+if(true){
+	require("../A2Billing_AGI/groupdial.inc.php");
+	echo "Result:";
+	print_r(groupstr_analyze($argv[1]));
+	echo "\n";
 }
 
 ?>

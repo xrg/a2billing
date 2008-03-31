@@ -148,7 +148,7 @@ for($num_try = 0;$num_try<getAGIconfig('number_try',1);$num_try++){
 			$last_prob='no-dialstring';
 			continue;
 		}elseif($dialstr ===true){
-			if (dialSpecial($dialnum,$route, $card,$last_prob,$agi))
+			if (dialSpecial($dialnum,$route, $card,$card_money,$last_prob,$agi))
 				break;
 			else
 				continue;
