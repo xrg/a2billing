@@ -41,7 +41,7 @@ function getCard_clid(){
 	$dbhandle =$a2b->DBHandle();
 	
 	$res = $dbhandle->Execute('SELECT card.id, tariffgroup AS tgid, card.username, card.status, ' .
-		'card.numplan, card.useralias '.
+		'card.numplan, card.useralias, card.features '.
 		'FROM cc_card_dv AS card, cc_callerid '.
 		'WHERE cc_callerid.cardid = card.id '.
 		'AND cc_callerid.activated = true '.
@@ -93,7 +93,7 @@ function getCard_ivr(){
 	}
 	
 	$res = $dbhandle->Execute('SELECT card.id, tariffgroup AS tgid, card.username, card.status, ' .
-		'card.numplan, card.useralias '.
+		'card.numplan, card.useralias, card.features '.
 		'FROM cc_card_dv AS card '.
 		'WHERE card.username = ? LIMIT 1 ;',
 		array($pinnum));
@@ -129,14 +129,14 @@ function getCard_acode(){
 	switch($acodes[0]){
 	case 'card':
 		$res = $dbhandle->Execute('SELECT card.id, tariffgroup AS tgid, card.username, card.status, ' .
-			'card.numplan, card.useralias '.
+			'card.numplan, card.useralias, card.features '.
 			'FROM cc_card_dv AS card '.
 			'WHERE card.id = ? LIMIT 1 ;',
 			array($acodes[1]));
 		break;
 	case 'booth':
 		$res = $dbhandle->Execute('SELECT card.id, tariffgroup AS tgid, card.username, card.status, ' .
-			'card.numplan, card_useralias '.
+			'card.numplan, card_useralias, card.features '.
 			'FROM cc_card_dv AS card, cc_booth '.
 			'WHERE cc_booth.cur_card_id = card.id '.
 			'AND cc_booth.id = ? LIMIT 1 ;',
@@ -157,14 +157,14 @@ function getCard_acode(){
 		switch ($acodes[0]){
 		case 'card':
 			$res = $dbhandle->Execute('SELECT card.id, tariffgroup AS tgid, card.username, card.status, ' .
-				'card.numplan, card.useralias '.
+				'card.numplan, card.useralias, card.features '.
 				'FROM cc_card_dv AS card '.
 				'WHERE card.id = ? AND agentid = ? LIMIT 1 ;',
 				array($acodes[1],$agid));
 			break;
 		case 'booth':
 			$res = $dbhandle->Execute('SELECT card.id, tariffgroup AS tgid, card.username, card.status, ' .
-				'card.numplan, card.useralias '.
+				'card.numplan, card.useralias, card.features '.
 				'FROM cc_card_dv AS card, cc_booth '.
 				'WHERE cc_booth.cur_card_id = card.id '.
 				'AND cc_booth.id = ? AND cc_booth.agentid = ? LIMIT 1 ;',

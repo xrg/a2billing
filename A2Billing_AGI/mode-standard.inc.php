@@ -119,6 +119,22 @@ for($num_try = 0;$num_try<getAGIconfig('number_try',1);$num_try++){
 			$route['tmout'] = getAGIconfig('max_call_duration',604800);
 			$agi->conlog('Call truncated to: ',$route['tmout'],3);
 		}
+		// Check if trunk needs a feature subscription
+		if(!empty($route['trunkfeat'])){
+				// This field comes as a string, convert to array..
+			if (!empty($card['features']) && !is_array($card['features']))
+				$card['features']= sql_decodeArray($card['features']);
+				
+			if (empty($card['features']) || !in_array($route['trunkfeat'],$card['features'])){
+				if (empty($last_prob))
+					$last_prob='no-feature';
+				$agi->conlog("Call is missing feature \"".$route['trunkfeat']."\", skipping route.",3);
+				$agi->conlog("Features: ".print_r($card['features'],true),4);
+				continue;
+			}
+			// feature found!
+			$agi->conlog('Call using feature: '.$route['trunkfeat'],4);
+		}
 
 		$dialstr = formatDialstring($dialnum,$route, $card);
 		if ($dialstr === null){

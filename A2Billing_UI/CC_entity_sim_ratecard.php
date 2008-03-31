@@ -70,6 +70,7 @@ end($HD_Form->rmodel)->fieldacr=_('TR');
 
 $HD_Form->rmodel[] = new IntField(_('Trunk Free'),'trunkfree') ;
 end($HD_Form->rmodel)->fieldacr=_('Tf');
+$HD_Form->rmodel[] = new TextField(_('Feature'),'trunkfeat') ;
 
 $HD_Form->rmodel[] = new TextField(_('Matched Prefix'),'prefix') ;
 end($HD_Form->rmodel)->fieldacr=_('Pr');
