@@ -11,6 +11,7 @@ require_once (DIR_COMMON."Form/Class.TextSearchField.inc.php");
 // require_once (DIR_COMMON."Form/Class.ClauseField.inc.php");
 require_once (DIR_COMMON."Form/Class.SelectionForm.inc.php");
 require_once (DIR_COMMON."Form/Class.SumMultiView.inc.php");
+require_once (DIR_COMMON."Form/Class.ElemGraph.inc.php");
 
 $menu_section='menu_creport';
 
@@ -127,9 +128,38 @@ $sform->views['sums']->plots['day2']= array('title' => _("Per day calls"),
 	'fns' => array( 'starttime' =>true, agid=>true, 'sessiontime' => 'SUM'),
 	'order' => 'date_trunc(\'day\',starttime), sessiontime DESC');
 
+$sform->views['sums']->plots['pie']= array('title' => _("Per day calls"),
+	'type' => 'pie', 'limit' => 10,
+	x => 'starttime', y => 'sessiontime', ylabel => 'sec',
+	xlabelangle => -45,
+	subtitles => 'Statistic : Sum of Session time ',
+	rowcolor => true, backgroundgradient => true, 
+	'fns' => array( 'starttime' =>true, 'sessiontime' => 'SUM'),
+	'order' => 'date_trunc(\'day\',starttime)');
+
 $PAGE_ELEMS[] = &$sform;
 
-$PAGE_ELEMS[] = $sform->GraphUrl('day');
+$PAGE_ELEMS[] = $sform->GraphUrl('graph');
+
+$graph = new ElemGraph();
+$graph->styles = array('title' => _("Per day calls"),
+						'type' => 'bar', 
+						xlabelangle => -45,
+						subtitles => 'Statistic : Sum of Session time ',
+						rowcolor => true, backgroundgradient => true);
+//  type = sum - select
+$graph->plots = array('type' => 'sums', 
+						'gfetch' => array ('limit' => 10, x => 'starttime', y => 'sessiontime'), 
+						'data' => array('title' => _("Per day calls"),
+									'fns' => array( 'starttime' =>true, 'uniqueid' => 'COUNT',
+										'sessiontime' => 'SUM', 'asr' => '', 'aloc' => 'AVG',
+										'sessionbill' => 'SUM', 'buycost' => 'SUM'),
+									'order' => 'date_trunc(\'day\',starttime)', 'sens' => 'DESC')
+						);
+$PAGE_ELEMS[] = $graph;
+
+// Perhaps need to create an object Plot to feed the graph
+
 
 if (!empty($_GET['graph']))
 	require("PP_graph.inc.php");

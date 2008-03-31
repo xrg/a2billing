@@ -170,7 +170,34 @@ class SumMultiView extends FormView {
 
 	}
 	
-	public function RenderGraph(&$form,&$graph){
+	// change tsum by something else
+	public function GetPlot(&$form, $gmode, $gfetch){
+		
+		$dbhandle = &$form->a2billing->DBHandle();
+		
+		$xdata = array();
+		$ydata = array();
+		$xkey = $gfetch['x'];
+		$ykey = $gfetch['y'];
+		
+		$row_num = 0;
+		foreach($this->sums as $summ) {
+			$res = $this->performSumQuery($summ,$form,$dbhandle);
+			if (!$res)
+				continue;
+				
+			while ($row = $res->fetchRow()){
+				$xdata[] = $row[$xkey];
+				$ydata[] = $row[$ykey];
+			}
+		}
+		
+		// build an object Plot
+		// add xdata, ydata1, ydata2,... legend..
+		return array('xdata' => $xdata, 'ydata' => $ydata); 
+	}
+		
+	public function RenderGraph2(&$form,&$graph){
 		$gmode= $form->getpost_single('graph');
 		
 		$graph->SetScale("textlin");
