@@ -5,8 +5,9 @@ abstract class FormView {
 	function PerformAction(&$form){
 	}
 	abstract function Render(&$form);
-	public function RenderGraph(&$form,&$graph){
-		return false;
+	public function RenderSpecial($rmode,&$form, &$robj){
+	}
+	public function RenderHeadSpecial($rmode,&$form, &$robj){
 	}
 };
 

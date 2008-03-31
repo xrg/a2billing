@@ -1,13 +1,103 @@
 <?php
+require_once(DIR_COMMON."jpgraph_lib/jpgraph.php");
 
-class ElemGraph extends ElemBase {
-	public $sums = array();
+/** This class collects data from other ElemBase objects through
+    their RenderSpecial().
+   */
+abstract class DataObj{
+	public $code;
+	public function DataObj($co){
+		$this->code=$co;
+	}
+	abstract function debug($str);
+	
+};
+
+/** Intermediate class for data that only has 2 dimensions */
+abstract class DataObjXY extends DataObj{
+	abstract function PlotXY($x,$y);
+};
+
+/** Debug version of parent, dumps the data */
+class DataObjXY_d extends DataObjXY {
+	public function PlotXY($x,$y){
+		echo "x=$x, y=$y <br>\n";
+	}
+	public function debug($str){
+		echo "$str<br>\n";
+	}
+};
+
+class DataObjXYp extends DataObjXY {
+	public $xdata=array();
+	public $ydata=array();
+	
+	public function PlotXY($x,$y){
+		$this->xdata[]=$x;
+		$this->ydata[]=$y;
+	}
+	public function debug($str){
+	}
+};
+
+/** A view that renders itself into a graph.
+   This view will call some other view of the form, in order to fetch
+   the data from it (using its RenderSpecial).
+*/
+class GraphView extends FormView {
+	public $view;
+	public $code;
+	public $params;
+	
+	function GraphView($vi,$co,$pa){
+		$this->view=$vi;
+		$this->code=$co;
+		$this->params=$pa;
+	}
+	
+	public function RenderSpecial($rmode,&$form, &$robj){
+		throw new Exception("Stub (which graph?) !");
+	}
+
+	/** For debugging purposes, this function simulates the 
+	  graph procedure but only renders the results into html text */
+	function Render(&$form){
+		if(!$form->FG_DEBUG)
+			return true;
+		?>
+	<div class="debug">
+	Here we are: debugging FormDataView
+	<br>
+		<?php
+			$graph=null;
+			$this->RenderSpecial('create-graph',$form,$graph);
+			if ($graph instanceof Graph)
+				echo "Created a graph object <br>\n";
+			unset($graph);
+			echo "Using view ".$this->view.", code=".$this->code." <br>\n";
+			if (!isset($form->views[$this->view])){
+				echo "View doesn't exist!!\n";
+				echo "</div>";
+				return false;
+			}
+		?>
+		</div>
+		<div class="debug">
+		<?php
+			$dobj=new DataObjXY_d($this->code);
+			$form->views[$this->view]->RenderSpecial('get-data',$form,$dobj);
+		?>
+		</div>
+	<?php
+	}
+
+/*	public $sums = array();
 	public $plots = array();
 	public $styles = array();
 	public $graphtype = null;
 	protected $graph = null;
 	
-	
+/ -*
 	public function RenderHeadGraph(){
 			
 		switch($this->styles[type]){
@@ -125,7 +215,7 @@ class ElemGraph extends ElemBase {
 			$this->graph->legend->SetLineWeight(1);
 			//$this->graph->legend->SetFont(FF_ARIAL,FS_BOLD,8);
 			$this->graph->legend->SetShadow('gray@0.4',3);
-			$this->graph->legend->SetAbsPos(15,130,'right','bottom');*/
+			$this->graph->legend->SetAbsPos(15,130,'right','bottom');* /
 			//$this->graph->legend->SetFont(FF_VERA);
 			
 			$xdata = array();
@@ -212,7 +302,28 @@ class ElemGraph extends ElemBase {
 		
 		return true;
 	}
+*/
 
 };
 
-?>
+require_once(DIR_COMMON."jpgraph_lib/jpgraph_bar.php");
+class BarView extends GraphView {
+
+	public function RenderSpecial($rmode,&$form, &$robj){
+		if ($rmode=='create-graph'){
+			$robj = new Graph();
+			$robj->SetScale("textlin");
+			$robj->yaxis->scale->SetGrace(3);
+		}
+		elseif ($rmode=='graph'){
+			$data = new DataObjXYp($this->code);
+			$form->views[$this->view]->RenderSpecial('get-data',$form,$data);
+			
+			$robj->xaxis->SetTickLabels($data->xdata);
+			$bplot = new BarPlot($data->ydata);
+			$robj->Add($bplot);
+		}
+	}
+
+};
+

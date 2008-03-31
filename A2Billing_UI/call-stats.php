@@ -54,7 +54,8 @@ $sform= new FormHandler('cc_call_v',_("Calls"),_("Call"));
 $sform->checkRights(ACX_CALL_REPORT);
 $sform->init(null,false);
 $sform->views['sums'] = new SumMultiView();
-$sform->setAction('sums');
+if ($sform->getAction()=='list')
+	$sform->setAction('sums');
 
 if ($FG_DEBUG)
 	$sform->views['dump-form'] = new DbgDumpView();
@@ -112,51 +113,52 @@ $sform->views['sums']->sums[] = array('title' => _("Total"),
 
 $sform->views['sums']->plots['day']= array('title' => _("Per day calls"),
 	'type' => 'bar', 'limit' => 10,
+	ylegend => _('Sum of Session time '),
 	x => 'starttime', y => 'sessiontime',
-	xlabelangle => -45,
-	subtitles => 'Statistic : Sum of Session time ',
-	rowcolor => true, backgroundgradient => true, 
 	'fns' => array( 'starttime' =>true, 'sessiontime' => 'SUM'),
 	'order' => 'date_trunc(\'day\',starttime)');
 
-$sform->views['sums']->plots['day2']= array('title' => _("Per day calls"),
-	'type' => 'abar', 'limit' => 10,
-	x => 'starttime', x2 => 'agid', x2t => agid_login, y => 'sessiontime',
-	xlabelangle => -45,
-	subtitles => 'Statistic : Sum of Session time ',
-	rowcolor => true, backgroundgradient => true,
-	'fns' => array( 'starttime' =>true, agid=>true, 'sessiontime' => 'SUM'),
-	'order' => 'date_trunc(\'day\',starttime), sessiontime DESC');
+$sform->views['day-bar'] = new BarView('sums','day',array(xlabelangle => -45,
+		rowcolor => true, backgroundgradient => true ));
 
-$sform->views['sums']->plots['pie']= array('title' => _("Per day calls"),
-	'type' => 'pie', 'limit' => 10,
-	x => 'starttime', y => 'sessiontime', ylabel => 'sec',
-	xlabelangle => -45,
-	subtitles => 'Statistic : Sum of Session time ',
-	rowcolor => true, backgroundgradient => true, 
-	'fns' => array( 'starttime' =>true, 'sessiontime' => 'SUM'),
-	'order' => 'date_trunc(\'day\',starttime)');
+// $sform->views['sums']->plots['day2']= array('title' => _("Per day calls"),
+// 	'type' => 'abar', 'limit' => 10,
+// 	x => 'starttime', x2 => 'agid', x2t => agid_login, y => 'sessiontime',
+// 	xlabelangle => -45,
+// 	subtitles => 'Statistic : Sum of Session time ',
+// 	rowcolor => true, backgroundgradient => true,
+// 	'fns' => array( 'starttime' =>true, agid=>true, 'sessiontime' => 'SUM'),
+// 	'order' => 'date_trunc(\'day\',starttime), sessiontime DESC');
+// 
+// $sform->views['sums']->plots['pie']= array('title' => _("Per day calls"),
+// 	'type' => 'pie', 'limit' => 10,
+// 	x => 'starttime', y => 'sessiontime', ylabel => 'sec',
+// 	xlabelangle => -45,
+// 	subtitles => 'Statistic : Sum of Session time ',
+// 	rowcolor => true, backgroundgradient => true, 
+// 	'fns' => array( 'starttime' =>true, 'sessiontime' => 'SUM'),
+// 	'order' => 'date_trunc(\'day\',starttime)');
 
 $PAGE_ELEMS[] = &$sform;
 
-$PAGE_ELEMS[] = $sform->GraphUrl('graph');
+$PAGE_ELEMS[] = $sform->GraphUrl('day-bar');
 
-$graph = new ElemGraph();
-$graph->styles = array('title' => _("Per day calls"),
-						'type' => 'bar', 
-						xlabelangle => -45,
-						subtitles => 'Statistic : Sum of Session time ',
-						rowcolor => true, backgroundgradient => true);
-//  type = sum - select
-$graph->plots = array('type' => 'sums', 
-						'gfetch' => array ('limit' => 10, x => 'starttime', y => 'sessiontime'), 
-						'data' => array('title' => _("Per day calls"),
-									'fns' => array( 'starttime' =>true, 'uniqueid' => 'COUNT',
-										'sessiontime' => 'SUM', 'asr' => '', 'aloc' => 'AVG',
-										'sessionbill' => 'SUM', 'buycost' => 'SUM'),
-									'order' => 'date_trunc(\'day\',starttime)', 'sens' => 'DESC')
-						);
-$PAGE_ELEMS[] = $graph;
+// $graph = new ElemGraph();
+// $graph->styles = array('title' => _("Per day calls"),
+// 	'type' => 'bar', 
+// 	xlabelangle => -45,
+// 	subtitles => 'Statistic : Sum of Session time ',
+// 		rowcolor => true, backgroundgradient => true);
+// //  type = sum - select
+// $graph->plots = array('type' => 'sums', 
+// 	'gfetch' => array ('limit' => 10, x => 'starttime', y => 'sessiontime'), 
+// 	'data' => array('title' => _("Per day calls"),
+// 				'fns' => array( 'starttime' =>true, 'uniqueid' => 'COUNT',
+// 					'sessiontime' => 'SUM', 'asr' => '', 'aloc' => 'AVG',
+// 					'sessionbill' => 'SUM', 'buycost' => 'SUM'),
+// 				'order' => 'date_trunc(\'day\',starttime)', 'sens' => 'DESC')
+// 						);
+// $PAGE_ELEMS[] = $graph;
 
 // Perhaps need to create an object Plot to feed the graph
 

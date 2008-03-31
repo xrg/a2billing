@@ -17,14 +17,14 @@ class SumMultiView extends FormView {
 	protected function RenderHead(){
 	}
 	
-	protected function performSumQuery(&$summ,&$form,&$dbhandle){
-		if ($form->FG_DEBUG)
+	protected function performSumQuery(&$summ,&$form,&$dbhandle,$is_html=false){
+		if ($form->FG_DEBUG && $is_html)
 			echo "<tr class=\"debug\"><td colspan=\"".$this->ncols ."\">";
-		if ($form->FG_DEBUG>3)
+		if ($form->FG_DEBUG>3 && $is_html)
 			echo "ListSum! Building Sum query..";
 		
 		if (empty($summ['fns'])){
-			if ($form->FG_DEBUG>0)
+			if ($form->FG_DEBUG>0 && $is_html)
 				echo "No sum functions!</td></tr>\n";
 			return;
 		}
@@ -41,14 +41,14 @@ class SumMultiView extends FormView {
 		}
 	
 		if (!strlen($query_table)){
-			if ($form->FG_DEBUG>0)
+			if ($form->FG_DEBUG>0 && $is_html)
 				echo "No sum table!</td></tr>\n";
 			return;
 		}
 		
 		$QUERY = 'SELECT ';
 		if (count($query_fields)==0) {
-			if ($form->FG_DEBUG>0)
+			if ($form->FG_DEBUG>0 && $is_html)
 				echo "No sum query fields!</td></tr>\n";
 			return;
 		}
@@ -98,17 +98,17 @@ class SumMultiView extends FormView {
 			$QUERY .= ' LIMIT '.$summ['limit'];
 		$QUERY .= ';';
 		
-		if ($form->FG_DEBUG>3)
+		if ($form->FG_DEBUG>3 && $is_html)
 			echo "<br>SUM QUERY: $QUERY\n<br>\n";
 		
 		// Perform the query
 		$res =$dbhandle->Execute($QUERY);
 		if (! $res){
-			if ($form->FG_DEBUG>0)
+			if ($form->FG_DEBUG>0 && $is_html)
 				echo "Query Failed: ". nl2br(htmlspecialchars($dbhandle->ErrorMsg())) ."</td></tr>";
 			return;
 		}
-		if ($form->FG_DEBUG)
+		if ($form->FG_DEBUG && $is_html)
 			echo "</td></tr>";
 		return $res;
 
@@ -140,7 +140,7 @@ class SumMultiView extends FormView {
 		<?php
 		$row_num = 0;
 		foreach($this->sums as $summ) {
-			$res = $this->performSumQuery($summ,$form,$dbhandle);
+			$res = $this->performSumQuery($summ,$form,$dbhandle,true);
 			if (!$res)
 				continue;
 			if (!empty($summ['title'])){
@@ -170,38 +170,37 @@ class SumMultiView extends FormView {
 
 	}
 	
-	// change tsum by something else
-	public function GetPlot(&$form, $gmode, $gfetch){
+	public function RenderSpecial($rmode,&$form,&$robj){
+		if ($rmode!='get-data')
+			return;
+		if ($robj instanceof DataObjXY){
+			$dbhandle = &$form->a2billing->DBHandle();
+			$plot = $this->plots[$robj->code];
+			if (empty($plot))
+				throw new Exception("Unknown plot");
+			$xkey = $plot['x'];
+			$ykey = $plot['y'];
 		
-		$dbhandle = &$form->a2billing->DBHandle();
-		
-		$xdata = array();
-		$ydata = array();
-		$xkey = $gfetch['x'];
-		$ykey = $gfetch['y'];
-		
-		$row_num = 0;
-		foreach($this->sums as $summ) {
-			$res = $this->performSumQuery($summ,$form,$dbhandle);
-			if (!$res)
-				continue;
-				
-			while ($row = $res->fetchRow()){
-				$xdata[] = $row[$xkey];
-				$ydata[] = $row[$ykey];
+			$row_num = 0;
+			$res = $this->performSumQuery($plot,$form,$dbhandle,false);
+			if (!$res){
+				$robj->debug("Could not perform query!");
+				return false;
 			}
+					
+			while ($row = $res->fetchRow())
+				$robj->PlotXY($row[$xkey],$row[$ykey]);
+		
+		}
+		else {
+			throw new Exception("Unknown object to get data to..");
 		}
 		
-		// build an object Plot
-		// add xdata, ydata1, ydata2,... legend..
-		return array('xdata' => $xdata, 'ydata' => $ydata); 
 	}
 		
 	public function RenderGraph2(&$form,&$graph){
 		$gmode= $form->getpost_single('graph');
 		
-		$graph->SetScale("textlin");
-		$graph->yaxis->scale->SetGrace(3);
 
 		if ($form->FG_DEBUG>1)
 			echo "RenderGraph!\n";

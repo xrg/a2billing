@@ -188,25 +188,8 @@ class FormHandler extends ElemBase{
 				print_r($el);
 	}
 	
-	public function RenderGraph(&$graph){
-		if (!$this->rights_checked){
-			error_log("Attempt to use FormHandler w/o rights!");
-			die();
-		}
-		
-		if (isset($this->views[$this->action]))
-			if ($this->views[$this->action]->RenderGraph($this,$graph))
-				return true;
-		else{
-			if ($old_dbg)
-				$graph->AddText(new Text( "Cannot handle action: $this->action"));
-		}
-		
-		return false;
-	}
-
 	/** Render the view/edit form for the HTML body */
-	public function RenderSpecial($rmode){
+	public function RenderSpecial($rmode,&$robj){
 		if (!$this->rights_checked){
 			error_log("Attempt to use FormHandler w/o rights!");
 			die();
@@ -221,7 +204,7 @@ class FormHandler extends ElemBase{
 				print_r($el);*/
 				
 		if (isset($this->views[$this->action]))
-			$this->views[$this->action]->RenderSpecial($rmode,$this);
+			$this->views[$this->action]->RenderSpecial($rmode,$this,$robj);
 		else{
 			if ($this->FG_DEBUG) echo "Cannot handle action: $this->action";
 			if ($this->FG_DEBUG>2){
@@ -236,6 +219,14 @@ class FormHandler extends ElemBase{
 				$el->Render();
 			else if ($this->FG_DEBUG)
 				print_r($el);*/
+	}
+	public function RenderHeadSpecial($rmode,&$robj){
+		if (!$this->rights_checked){
+			error_log("Attempt to use FormHandler w/o rights!");
+			die();
+		}
+		if (isset($this->views[$this->action]))
+			$this->views[$this->action]->RenderHeadSpecial($rmode,$this,$robj);		
 	}
 
 	// helper functions
@@ -331,12 +322,12 @@ class FormHandler extends ElemBase{
 	  \param $type The type of the graph
 	  */
 	function GraphUrl($grph, $alt = null){
-		$img_url=$this->selfUrl(array('graph' => $grph));
+		$img_url=$this->selfUrl(array('graph' =>'t','action' => $grph));
 		if ($title)
 			$tmp_title = $alt;
 		else
 			$tmp_title = _("Graph");
-		return new StringElem("<img src=\"$img_url\" alt=\"$tmp_title\"");
+		return new StringElem("<img src=\"$img_url\" alt=\"$tmp_title\">");
 	}
 
 	/// Throw away anything that could make data weird.. Sometimes too much.
