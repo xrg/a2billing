@@ -280,6 +280,18 @@ class SqlRefFieldToolTip extends SqlBigRefField{
 		$this->tooltip_url = $fname .'?action=tooltip&' . $this->refid .'=%' .
 			$this->fieldname ;
 	}
+	/** Convenience function that calls SetRef{Tooltip,Entity,EntityL} */
+	function SetRefTooltip3($fname,$caption){
+		if ($fname){
+			$this->SetRefEntity($fname);
+			$this->SetRefEntityL($fname);
+			$this->SetRefToolTip($fname);
+		}
+		if($caption)
+			$this->SetCaptionTooltip($caption);
+	}
+	
+
 };
 
 ?>
