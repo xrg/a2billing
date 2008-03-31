@@ -61,7 +61,6 @@ BEGIN
 	   		WHERE cc_card_dv.numplan = p_dbatch.nplan
 	   		  AND cc_card_dv.useralias = p_drem LOOP
 			
-			p_card :=p_card_r; -- first fields are the card
 			-- Automatically format the target string by appending dialfld2 and useralias
 	   		SELECT p_card AS card,
 	   			p_dbatch.nplan, p_dbatch.dialfld2 ||p_drem AS dialstring,

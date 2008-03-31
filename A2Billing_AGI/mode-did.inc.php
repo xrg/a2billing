@@ -7,7 +7,8 @@
 function getDIDCard($didrow){
 	return array( id => $didrow['card_id'],tgid =>$didrow['tgid'],
 		username =>$didrow['username'], status=> $didrow['card_status'],
-		numplan => $didrow['nplan'], useralias => $didrow['useralias']);
+		numplan => $didrow['nplan'], useralias => $didrow['useralias'],
+		features =>$didrow['features']);
 }
 
 /** Mark the 1st-leg call */
@@ -104,7 +105,7 @@ $agi->conlog('DID mode, ext: '.$did_extension .'@'.$did_code,4);
 $card=null;
 
 $QRY = str_dbparams($a2b->DBHandle(),'SELECT id(card) AS card_id, tgid, username(card), status(card) AS card_status, ' .
-		'nplan, useralias(card), dialstring, dgid, brid2, buyrate2, '.
+		'nplan, useralias(card), features(card), dialstring, dgid, brid2, buyrate2, '.
 		' now() AS start_time '.
 		' FROM DIDEngine(%1, %2, now());',
 	array($did_extension,$did_code));
@@ -243,6 +244,23 @@ while ($didrow = $didres->fetchRow()){
 		if ($route['tmout'] > getAGIconfig('max_did_duration',604800)){
 			$route['tmout'] = getAGIconfig('max_did_duration',604800);
 			$agi->conlog('Call truncated to: ',$route['tmout'],3);
+		}
+
+			// Check if trunk needs a feature subscription
+		if(!empty($route['trunkfeat'])){
+				// This field comes as a string, convert to array..
+			if (!empty($card['features']) && !is_array($card['features']))
+				$card['features']= sql_decodeArray($card['features']);
+				
+			if (empty($card['features']) || !in_array($route['trunkfeat'],$card['features'])){
+				if (empty($last_prob))
+					$last_prob='no-feature';
+				$agi->conlog("Call is missing feature \"".$route['trunkfeat']."\", skipping route.",3);
+				$agi->conlog("Features: ".print_r($card['features'],true),4);
+				continue;
+			}
+			// feature found!
+			$agi->conlog('Call using feature: '.$route['trunkfeat'],4);
 		}
 
 		$dialstr = formatDialstring($didrow['dialstring'],$route, $card);
