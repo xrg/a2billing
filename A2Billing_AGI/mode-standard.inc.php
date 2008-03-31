@@ -11,6 +11,7 @@ else
 	
 $agi->conlog('Standard mode',4);
 $card=null;
+$played_nec=false;
 	
 	// Repeat until we hangup
 for($num_try = 0;$num_try<getAGIconfig('number_try',1);$num_try++){
@@ -60,11 +61,14 @@ for($num_try = 0;$num_try<getAGIconfig('number_try',1);$num_try++){
 		// not enough money!
 		$agi->verbose('Not enough money!',2);
 		$agi->conlog('Money: '. print_r($card_money,true),3);
-		$agi->stream_file('prepaid-no-enough-credit-make-call','#');
+		if(!$played_nec)
+			$agi->stream_file('prepaid-no-enough-credit-make-call','#');
+		$played_nec=true;
 		ReleaseCard($card);
 		$card=null;
 		continue;
 	}
+	$played_nec=false;
 	
 	$dialnum = getDialNumber($card, ($num_try==0));
 	if ($dialnum===false){
