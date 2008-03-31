@@ -136,7 +136,7 @@ function getCard_acode(){
 		break;
 	case 'booth':
 		$res = $dbhandle->Execute('SELECT card.id, tariffgroup AS tgid, card.username, card.status, ' .
-			'card.numplan, card_useralias, card.features '.
+			'card.numplan, card.useralias, card.features '.
 			'FROM cc_card_dv AS card, cc_booth '.
 			'WHERE cc_booth.cur_card_id = card.id '.
 			'AND cc_booth.id = ? LIMIT 1 ;',
