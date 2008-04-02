@@ -250,6 +250,15 @@ function menu_show(sect_str){
 		</div>
 	<?php  } ?>
 
+	<?php   if ( has_rights (ACX_QUEUES) ){ 	?>
+		<div id='menu_queues'>
+		<a onclick="menu_toggle('menu_queues');"><?= _("QUEUES");?></a>
+		<ul>
+			<li><a href="A2B_entity_ast_queue.php"><?= _("Configuration");?></a></li>
+			<li><a href="A2B_entity_server.php?form_action=ask-add"><?= _("Add Server");?></a></li>
+		</ul>
+		</div>
+	<?php  } ?>
 	
 		<div id='menu_config'>
 		<a onclick="menu_toggle('menu_config');"><?= _("CONFIG");?></a>
