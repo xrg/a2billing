@@ -8,6 +8,7 @@ require_once("lib/phpagi/phpagi-asmanager.php");
 set_time_limit(0);
 error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
 
+$dbh=null;
 $verbose = 1;
 $dry_run = false;
 
@@ -43,6 +44,7 @@ function dump_handler($event, $parameters, $server, $port)
 
 
 function handle_handler($event, $parameters, $server, $port){
+	global $dbh;
 	$parm1=$parm2=$parm3='';
 	switch($event){
 	case 'queuememberstatus':
@@ -89,9 +91,21 @@ function handle_handler($event, $parameters, $server, $port){
 		return;
 	}
 	
-	log_queue($parameters['Uniqueid'],$parameters['Queue'],$parameters['MemberName'],
-		$action,$parm1,$parm2,$parm3);
-
+	$res = $dbh->Execute('INSERT INTO queue_log(time, callid, queuename, agent, event, parm1, parm2, parm3) '.
+		'VALUES(?,?,?,?, ?,?,?,?);',
+		array( time(), $parameters['Uniqueid'],$parameters['Queue'],$parameters['MemberName'],
+		$action,$parm1,$parm2,$parm3));
+	if (!$res){
+		echo $dbh->ErrorMsg() ."\n";
+		die();
+	}elseif ($dbh->Affected_Rows()!=1) {
+		if ($verbose>1)
+			echo "Could not insert log.\n";
+	}else{
+		if ($verbose>2)
+			echo "Log inserted.\n";
+	}
+	
 }
 // // Get the periods
 // $files = $cli_args['input'];
@@ -110,6 +124,8 @@ function handle_handler($event, $parameters, $server, $port){
 $host='localhost';
 $uname='a2billing';
 $password='a2bman';
+
+$dbh = A2Billing::DBHandle();
 
 $as = new AGI_AsteriskManager();
 $as->nolog=true;

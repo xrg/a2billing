@@ -54,6 +54,22 @@ CREATE TABLE ast_queue_log (
 	parm3 TEXT
 );
 
+CREATE TABLE ast_queue_callers (
+	id BIGSERIAL PRIMARY KEY,
+	queue INTEGER NOT NULL REFERENCES ast_queue(id),
+	callerid TEXT,
+	uniqueid TEXT NOT NULL,
+	status VARCHAR(20) NOT NULL,
+	hupcause TEXT,
+	ts_join TIMESTAMP,
+	ts_connect TIMESTAMP,
+	ts_end    TIMESTAMP,
+	holdtime INTEGER,
+	talktime INTEGER,
+	brchannel TEXT,
+	agent	TEXT
+);
+
 -- CREATE TABLE queue_member_table (
 -- 	uniqueid SERIAL PRIMARY KEY,
 -- 	membername VARCHAR(40),
