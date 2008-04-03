@@ -70,6 +70,15 @@ CREATE TABLE ast_queue_callers (
 	agent	TEXT
 );
 
+CREATE TABLE ast_queue_member (
+	id  BIGSERIAL PRIMARY KEY,
+	que INTEGER NOT NULL REFERENCES ast_queue(id),
+	usr BIGINT NOT NULL REFERENCES cc_ast_users(id),
+	penalty INTEGER DEFAULT 1,
+	paused BOOLEAN DEFAULT false,
+	UNIQUE(que,usr)
+);
+
 -- CREATE TABLE queue_member_table (
 -- 	uniqueid SERIAL PRIMARY KEY,
 -- 	membername VARCHAR(40),
