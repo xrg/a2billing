@@ -63,7 +63,7 @@ BEGIN
 		WHERE uniqueid = NEW.callid
 			AND queue = (SELECT id FROM ast_queue WHERE name = NEW.queuename);
 	IF NOT FOUND THEN
-		RAISE WARNING 'Cannot find existing queue call %',NEW.callid;
+		RAISE WARNING 'Cannot find existing queue call % for %',NEW.callid, NEW.event;
 		RETURN NEW;
 	END IF;
 

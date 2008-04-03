@@ -49,8 +49,9 @@ function handle_handler($event, $parameters, $server, $port){
 	switch($event){
 	case 'queuememberstatus':
 	case 'leave':
+	case 'agentcalled':
 		//ignore it.
-		break;
+		return;
 	case 'join':
 		$action='ENTERQUEUE';
 		$parm1= $parameters['Url'];
@@ -95,6 +96,8 @@ function handle_handler($event, $parameters, $server, $port){
 		'VALUES(?,?,?,?, ?,?,?,?);',
 		array( time(), $parameters['Uniqueid'],$parameters['Queue'],$parameters['MemberName'],
 		$action,$parm1,$parm2,$parm3));
+	if ($str = $dbh->NoticeMsg())
+		echo "$str \n";
 	if (!$res){
 		echo $dbh->ErrorMsg() ."\n";
 		die();
