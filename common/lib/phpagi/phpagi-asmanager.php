@@ -88,6 +88,9 @@
     */
     var $event_handlers;
 
+	/** Suppress the logs
+	*/
+	var $nolog=false;
    /**
     * Constructor
     *
@@ -725,6 +728,8 @@
     */
     function log($message, $level=1)
     {
+    	if($this->nolog)
+    		return;
       if($this->pagi != false)
         $this->pagi->conlog($message, $level);
       else

@@ -42,6 +42,18 @@ CREATE TABLE ast_queue (
 	setinterfacevar BOOLEAN
 );
 
+CREATE TABLE ast_queue_log (
+	id BIGSERIAL PRIMARY KEY,
+	tstamp TIMESTAMP NOT NULL DEFAULT now(),
+	callid TEXT,
+	queuename TEXT,
+	agent TEXT,
+	event TEXT,
+	parm1 TEXT,
+	parm2 TEXT,
+	parm3 TEXT
+);
+
 -- CREATE TABLE queue_member_table (
 -- 	uniqueid SERIAL PRIMARY KEY,
 -- 	membername VARCHAR(40),
