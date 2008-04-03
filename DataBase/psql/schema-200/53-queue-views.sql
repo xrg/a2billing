@@ -20,6 +20,11 @@ CREATE OR REPLACE VIEW realtime_queue_members AS
 	      -- AND (dyn = false OR ( (sipiax = 2 AND regseconds > 0) OR
 	      --		(sipiax = 1 AND regseconds > EXTRACT ('epoch' FROM now()))))
 	-- Remote peers? AGI ones?
+	
+	UNION SELECT 820182 AS uniqueid, 'The test' AS membername,
+		ast_queue.name AS queue_name, 'Local/s@sim-agent' AS interface, 
+		2 AS penalty, false AS paused
+		FROM ast_queue
 	;
 
 

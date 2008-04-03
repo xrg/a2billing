@@ -12,10 +12,13 @@ base_currency = EUR
 [database]
 ;hostname = localhost
 port = 5432
-user = a2billing
+user = a2b_localhost
 ;password = a2billing
 dbname = a2billing
 dbtype = postgres
 ;dbtype = mysql
 
-
+[manager]
+host=localhost
+user=a2billing
+secret=a2bman
