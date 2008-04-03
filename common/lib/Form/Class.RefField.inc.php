@@ -50,4 +50,13 @@ class RefField extends BaseField{
 
 };
 
+class RefFieldN extends RefField{
+	public function buildValue($val,&$form){
+		if (empty($val))
+			return null;
+		else
+			return $val;
+	}
+};
+
 ?>
