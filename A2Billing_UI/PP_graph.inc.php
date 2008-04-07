@@ -17,11 +17,11 @@ else if ($FG_DEBUG)
 // First pass: create graph
 $graph=null;
 foreach ($PAGE_ELEMS as $pe)
-	$pe->RenderSpecial('create-graph',$graph);
+		$pe->RenderSpecial('create-graph',$graph);
 
 // Second pass, fill graph
 foreach ($PAGE_ELEMS as $pe)
-	$pe->RenderSpecial('graph',$graph);
+		$pe->RenderSpecial('graph',$graph);
 
 $graph->stroke();
 ?>

@@ -38,6 +38,12 @@ class DataObjXYp extends DataObjXY {
 	}
 	public function debug($str){
 	}
+	
+	public function Add_YtoX($separator = " : ", $end_x = ''){
+		for ($i=0 ; $i < count($this->xdata); $i++){
+			$this->xdata[$i] .= $separator . $this->ydata[$i] . $end_x;
+		}
+	}
 };
 
 /** A view that renders itself into a graph.
@@ -55,8 +61,48 @@ class GraphView extends FormView {
 		$this->params=$pa;
 	}
 	
+	public function RenderHeaderGraph (&$form, &$robj){
+	}
+	
+	
+	public function RenderGraph (&$form, &$robj){
+		// For debugging purposes
+		$data = new DataObjXYp($this->code);
+		print_r ($data);
+	}
+	
 	public function RenderSpecial($rmode,&$form, &$robj){
-		throw new Exception("Stub (which graph?) !");
+		if ($rmode=='create-graph'){
+			$this -> RenderHeaderGraph($form, $robj);
+			$this -> RenderHeadSpecial($form, $robj);
+		}
+		elseif ($rmode=='graph'){
+			$this -> RenderGraph($form, $robj);
+		}
+	}
+	
+	public function RenderHeadSpecial(&$form, &$robj){
+		
+		//print_r ($this->params);
+		if (!$this->params['setframe'])
+			$robj->SetFrame(false);
+		
+		if (! empty($this->params['title']))
+			$robj->title->Set($this->params['title']);
+		
+		if (! empty($this->params['subtitles'])){
+			$robj->tabtitle->Set($this->params['subtitles']);
+			$robj->tabtitle->SetWidth(TABTITLE_WIDTHFULL);
+		}
+		
+		if ($this->params['backgroundgradient'])
+			$robj->SetBackgroundGradient('#FFFFFF','#CDDEFF:1.1',GRAD_HOR,BGRAD_PLOT);
+		
+		if ($this->params['rowcolor']){
+			$robj->ygrid->SetFill(true,'#EFEFEF@0.5','#CDDEFF@0.5');
+			$robj->xgrid->SetColor('gray@0.5');
+			$robj->ygrid->SetColor('gray@0.5');
+		}
 	}
 
 	/** For debugging purposes, this function simulates the 
@@ -306,24 +352,113 @@ class GraphView extends FormView {
 
 };
 
-require_once(DIR_COMMON."jpgraph_lib/jpgraph_bar.php");
-class BarView extends GraphView {
+class LineView extends GraphView {
 
-	public function RenderSpecial($rmode,&$form, &$robj){
-		if ($rmode=='create-graph'){
-			$robj = new Graph();
-			$robj->SetScale("textlin");
-			$robj->yaxis->scale->SetGrace(3);
+	public function RenderHeaderGraph (&$form, &$robj){
+		
+		require_once(DIR_COMMON."jpgraph_lib/jpgraph_line.php");
+		
+		$robj = new Graph($this->params['width'],$this->params['height'],"auto");
+		$robj->SetScale("textlin");
+		$robj->yaxis->scale->SetGrace(3);
+		$robj->SetMargin(40,40,45,90);
+		
+	}
+	
+	public function RenderGraph (&$form, &$robj){
+		
+		$data = new DataObjXYp($this->code);
+		$form->views[$this->view]->RenderSpecial('get-data',$form,$data);
+		
+		if (! empty($this->params['xlabelangle'])){
+			$robj->xaxis->SetLabelAngle($this->params['xlabelangle']);
+			if ($this->params['xlabelangle']<0)
+				$robj->xaxis->SetLabelAlign('left');
 		}
-		elseif ($rmode=='graph'){
-			$data = new DataObjXYp($this->code);
-			$form->views[$this->view]->RenderSpecial('get-data',$form,$data);
-			
-			$robj->xaxis->SetTickLabels($data->xdata);
-			$bplot = new BarPlot($data->ydata);
-			$robj->Add($bplot);
-		}
+		if (! empty($this->params['xlabelfont']))
+			$robj->xaxis->SetFont($this->params['xlabelfont']);
+		else
+			$robj->xaxis->SetFont(FF_VERA);
+		
+		$robj->xaxis->SetTickLabels($data->xdata);
+		$lineplot = new LinePlot($data->ydata);
+		$lineplot->SetFillColor('gray@0.3');
+		$lineplot ->SetColor("blue");
+		$robj->Add($lineplot);	
 	}
 
 };
 
+class BarView extends GraphView {
+
+	public function RenderHeaderGraph (&$form, &$robj){
+		
+		require_once(DIR_COMMON."jpgraph_lib/jpgraph_bar.php");
+		
+		$robj = new Graph($this->params['width'],$this->params['height'],"auto");
+		$robj->SetScale("textlin");
+		$robj->yaxis->scale->SetGrace(3);
+		$robj->SetMargin(40,40,45,90);
+	}
+	
+	public function RenderGraph (&$form, &$robj){
+		
+		$data = new DataObjXYp($this->code);
+		$form->views[$this->view]->RenderSpecial('get-data',$form,$data);
+		
+		if (! empty($this->params['xlabelangle'])){
+			$robj->xaxis->SetLabelAngle($this->params['xlabelangle']);
+			if ($this->params['xlabelangle']<0)
+				$robj->xaxis->SetLabelAlign('left');
+		}
+		if (! empty($this->params['xlabelfont']))
+			$robj->xaxis->SetFont($this->params['xlabelfont']);
+		else
+			$robj->xaxis->SetFont(FF_VERA);
+		
+		$robj->xaxis->SetTickLabels($data->xdata);
+		$bplot = new BarPlot($data->ydata);
+		$robj->Add($bplot);
+	}
+
+};
+
+
+class PieView extends GraphView {
+
+	public function RenderHeaderGraph (&$form, &$robj){
+		
+		require_once(DIR_COMMON."jpgraph_lib/jpgraph_pie.php");
+		require_once(DIR_COMMON."jpgraph_lib/jpgraph_pie3d.php");
+		
+		$robj = new PieGraph($this->params['width'],$this->params['height'],"auto");
+		$robj->SetScale("textlin");
+		$robj->yaxis->scale->SetGrace(3);
+		
+	}
+	
+	public function RenderGraph (&$form, &$robj){
+		
+		$data = new DataObjXYp($this->code);
+		$form->views[$this->view]->RenderSpecial('get-data',$form,$data);
+		$data->Add_YtoX(" : ", ' seconds');
+		
+		/*while ($row = $res->fetchRow()){
+			$xdata[] = $row[$xkey].' : '.$row[$ykey].' '.$tsum['ylabel'];
+			$ydata[] = $row[$ykey];
+		}
+		
+		if (! empty($tsum['xlabelfont']))
+			$robj->xaxis->SetFont($tsum['xlabelfont']);
+		else
+			$robj->xaxis->SetFont(FF_VERA);				
+		*/
+		$pieplot = new PiePlot3D($data->ydata);
+		$pieplot->ExplodeSlice(2);
+		$pieplot->SetCenter(0.35);
+		$pieplot->SetLegends(array_reverse($data->xdata));
+		
+		$robj->Add($pieplot);
+			
+	}
+};
