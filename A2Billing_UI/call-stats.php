@@ -118,20 +118,11 @@ $sform->views['sums']->plots['day']= array('title' => _("Per day calls"),
 	'fns' => array( 'starttime' =>true, 'sessiontime' => 'SUM'),
 	'order' => 'date_trunc(\'day\',starttime)');
 
-$sform->views['day-bar'] = new BarView('sums','day',
-								array(title => 'my bar graph', subtitles => 'Statistic : Sum of Session time',
-								width => 500, height => 300, xlabelangle => -45, 
-								rowcolor => true, backgroundgradient => true, setframe => false ));
+$sform->views['day-bar'] = new BarView('sums','day', array());
 
-$sform->views['day-pie'] = new PieView('sums','day',
-								array(title => 'my pie graph',
-								width => 600, height => 400, xlabelangle => -45, 
-								rowcolor => true, backgroundgradient => true, setframe => false ));
-								
-$sform->views['day-line'] = new LineView('sums','day',
-								array(title => 'my line graph', subtitles => 'Statistic : Sum of Session time',
-								width => 600, height => 400, xlabelangle => -45, 
-								rowcolor => true, backgroundgradient => true, setframe => false ));
+$sform->views['day-pie'] = new PieView('sums','day', array());
+	
+$sform->views['day-line'] = new LineView('sums','day', array());
 
 // $sform->views['sums']->plots['day2']= array('title' => _("Per day calls"),
 // 	'type' => 'abar', 'limit' => 10,

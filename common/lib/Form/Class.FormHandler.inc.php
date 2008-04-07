@@ -327,7 +327,7 @@ class FormHandler extends ElemBase{
 			$tmp_title = $alt;
 		else
 			$tmp_title = _("Graph");
-		return new StringElem("<img src=\"$img_url\" alt=\"$tmp_title\">");
+		return new StringElem("<div class=\"graph_img\"><img src=\"$img_url\" alt=\"$tmp_title\"></div>");
 	}
 
 	/// Throw away anything that could make data weird.. Sometimes too much.

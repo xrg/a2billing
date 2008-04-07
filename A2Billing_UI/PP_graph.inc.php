@@ -14,14 +14,17 @@ else if ($FG_DEBUG)
 			die();
 		}
 
+$GRAPH_STYLES[0] = array( width => 500, height => 300, xlabelangle => -45,
+	rowcolor => true, backgroundgradient => true, setframe => false);
+
 // First pass: create graph
 $graph=null;
 foreach ($PAGE_ELEMS as $pe)
-		$pe->RenderSpecial('create-graph',$graph);
+	$pe->RenderSpecial('create-graph',$graph);
 
 // Second pass, fill graph
 foreach ($PAGE_ELEMS as $pe)
-		$pe->RenderSpecial('graph',$graph);
+	$pe->RenderSpecial('graph',$graph);
 
 $graph->stroke();
 ?>

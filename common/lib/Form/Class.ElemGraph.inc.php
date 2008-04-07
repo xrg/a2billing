@@ -53,12 +53,17 @@ class DataObjXYp extends DataObjXY {
 class GraphView extends FormView {
 	public $view;
 	public $code;
-	public $params;
+	//public $params;
+		/** This will hold every style-related info. At first, the array
+		is initted with some dummy default data, and then it will be overriden
+		by setting the style of the graph */
+	public $styles;
 	
-	function GraphView($vi,$co,$pa){
+	function GraphView($vi,$co,$pa = array(),$sty=null){
 		$this->view=$vi;
 		$this->code=$co;
-		$this->params=$pa;
+		$this->parms=$pa;
+		$this->gr_sty=$sty;
 	}
 	
 	public function RenderHeaderGraph (&$form, &$robj){
@@ -71,7 +76,33 @@ class GraphView extends FormView {
 		print_r ($data);
 	}
 	
+	/** Compute the stylesheet for this object. 
+	    Unfortunately this has to be called later than the initializer, because
+	    default GRAPH_STYLES are defined in PP_graph.inc.php, much later than $this.
+	*/
+	protected function apply_styles(){
+		if (!empty($this->styles))
+			return ; // already set, nothing to do.
+			
+		global $GRAPH_STYLES;
+
+		$defaults = array( width => 200, height => 200, xlabelangle => 0,
+			rowcolor => false, backgroundgradient => false, setframe => true,
+			colors =>array('red','blue','green','magenta','yellow') );
+		
+		if (($this->gr_sty) && isset($GRAPH_STYLES[$this->gr_sty]))
+			$sty2=$GRAPH_STYLES[$this->gr_sty];
+		elseif (empty($sty) && isset($GRAPH_STYLES[0]))
+			$sty2=$GRAPH_STYLES[0];
+		else	$sty2=array();
+		
+		$this->styles=array_merge($defaults,$sty2,$this->parms);
+		//unset($this->parms);
+	}
+	
 	public function RenderSpecial($rmode,&$form, &$robj){
+		$this->apply_styles();
+
 		if ($rmode=='create-graph'){
 			$this -> RenderHeaderGraph($form, $robj);
 			$this -> RenderHeadSpecial($form, $robj);
@@ -83,22 +114,23 @@ class GraphView extends FormView {
 	
 	public function RenderHeadSpecial(&$form, &$robj){
 		
-		//print_r ($this->params);
-		if (!$this->params['setframe'])
+		//print_r ($this->styles);
+		
+		if (!$this->styles['setframe'])
 			$robj->SetFrame(false);
 		
-		if (! empty($this->params['title']))
-			$robj->title->Set($this->params['title']);
+		if (! empty($this->styles['title']))
+			$robj->title->Set($this->styles['title']);
 		
-		if (! empty($this->params['subtitles'])){
-			$robj->tabtitle->Set($this->params['subtitles']);
+		if (! empty($this->styles['subtitles'])){
+			$robj->tabtitle->Set($this->styles['subtitles']);
 			$robj->tabtitle->SetWidth(TABTITLE_WIDTHFULL);
 		}
 		
-		if ($this->params['backgroundgradient'])
+		if ($this->styles['backgroundgradient'])
 			$robj->SetBackgroundGradient('#FFFFFF','#CDDEFF:1.1',GRAD_HOR,BGRAD_PLOT);
 		
-		if ($this->params['rowcolor']){
+		if ($this->styles['rowcolor']){
 			$robj->ygrid->SetFill(true,'#EFEFEF@0.5','#CDDEFF@0.5');
 			$robj->xgrid->SetColor('gray@0.5');
 			$robj->ygrid->SetColor('gray@0.5');
@@ -127,6 +159,10 @@ class GraphView extends FormView {
 				return false;
 			}
 		?>
+		</div>
+		<div class="debug">
+			Style:
+			<?= nl2br(htmlspecialchars(print_r($this->styles,true))) ?>
 		</div>
 		<div class="debug">
 		<?php
@@ -358,7 +394,7 @@ class LineView extends GraphView {
 		
 		require_once(DIR_COMMON."jpgraph_lib/jpgraph_line.php");
 		
-		$robj = new Graph($this->params['width'],$this->params['height'],"auto");
+		$robj = new Graph($this->styles['width'],$this->styles['height'],"auto");
 		$robj->SetScale("textlin");
 		$robj->yaxis->scale->SetGrace(3);
 		$robj->SetMargin(40,40,45,90);
@@ -370,13 +406,13 @@ class LineView extends GraphView {
 		$data = new DataObjXYp($this->code);
 		$form->views[$this->view]->RenderSpecial('get-data',$form,$data);
 		
-		if (! empty($this->params['xlabelangle'])){
-			$robj->xaxis->SetLabelAngle($this->params['xlabelangle']);
-			if ($this->params['xlabelangle']<0)
+		if (! empty($this->styles['xlabelangle'])){
+			$robj->xaxis->SetLabelAngle($this->styles['xlabelangle']);
+			if ($this->styles['xlabelangle']<0)
 				$robj->xaxis->SetLabelAlign('left');
 		}
-		if (! empty($this->params['xlabelfont']))
-			$robj->xaxis->SetFont($this->params['xlabelfont']);
+		if (! empty($this->styles['xlabelfont']))
+			$robj->xaxis->SetFont($this->styles['xlabelfont']);
 		else
 			$robj->xaxis->SetFont(FF_VERA);
 		
@@ -395,7 +431,7 @@ class BarView extends GraphView {
 		
 		require_once(DIR_COMMON."jpgraph_lib/jpgraph_bar.php");
 		
-		$robj = new Graph($this->params['width'],$this->params['height'],"auto");
+		$robj = new Graph($this->styles['width'],$this->styles['height'],"auto");
 		$robj->SetScale("textlin");
 		$robj->yaxis->scale->SetGrace(3);
 		$robj->SetMargin(40,40,45,90);
@@ -406,13 +442,13 @@ class BarView extends GraphView {
 		$data = new DataObjXYp($this->code);
 		$form->views[$this->view]->RenderSpecial('get-data',$form,$data);
 		
-		if (! empty($this->params['xlabelangle'])){
-			$robj->xaxis->SetLabelAngle($this->params['xlabelangle']);
-			if ($this->params['xlabelangle']<0)
+		if (! empty($this->styles['xlabelangle'])){
+			$robj->xaxis->SetLabelAngle($this->styles['xlabelangle']);
+			if ($this->styles['xlabelangle']<0)
 				$robj->xaxis->SetLabelAlign('left');
 		}
-		if (! empty($this->params['xlabelfont']))
-			$robj->xaxis->SetFont($this->params['xlabelfont']);
+		if (! empty($this->styles['xlabelfont']))
+			$robj->xaxis->SetFont($this->styles['xlabelfont']);
 		else
 			$robj->xaxis->SetFont(FF_VERA);
 		
@@ -431,7 +467,7 @@ class PieView extends GraphView {
 		require_once(DIR_COMMON."jpgraph_lib/jpgraph_pie.php");
 		require_once(DIR_COMMON."jpgraph_lib/jpgraph_pie3d.php");
 		
-		$robj = new PieGraph($this->params['width'],$this->params['height'],"auto");
+		$robj = new PieGraph($this->styles['width'],$this->styles['height'],"auto");
 		$robj->SetScale("textlin");
 		$robj->yaxis->scale->SetGrace(3);
 		
@@ -441,7 +477,7 @@ class PieView extends GraphView {
 		
 		$data = new DataObjXYp($this->code);
 		$form->views[$this->view]->RenderSpecial('get-data',$form,$data);
-		$data->Add_YtoX(" : ", ' seconds');
+		$data->Add_YtoX(" : ", ' seconds'); // *-* i18n, try to get it from different DataObj..
 		
 		/*while ($row = $res->fetchRow()){
 			$xdata[] = $row[$xkey].' : '.$row[$ykey].' '.$tsum['ylabel'];
@@ -451,7 +487,7 @@ class PieView extends GraphView {
 		if (! empty($tsum['xlabelfont']))
 			$robj->xaxis->SetFont($tsum['xlabelfont']);
 		else
-			$robj->xaxis->SetFont(FF_VERA);				
+			$robj->xaxis->SetFont(FF_VERA);
 		*/
 		$pieplot = new PiePlot3D($data->ydata);
 		$pieplot->ExplodeSlice(2);
@@ -459,6 +495,6 @@ class PieView extends GraphView {
 		$pieplot->SetLegends(array_reverse($data->xdata));
 		
 		$robj->Add($pieplot);
-			
+
 	}
 };
