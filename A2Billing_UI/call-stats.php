@@ -118,9 +118,15 @@ $sform->views['sums']->plots['day']= array('title' => _("Per day calls"),
 	'fns' => array( 'starttime' =>true, 'sessiontime' => 'SUM'),
 	'order' => 'date_trunc(\'day\',starttime)');
 
+$sform->views['sums']->plots['dest'] = array('title' => _("Per destination calls"),
+	x=>'destination', y=> 'sessiontime', 'limit' => 20,
+	'fns' => array( 'destination' =>true, 'sessiontime' => 'SUM' ),
+	'order' => 'COUNT(uniqueid)', 'sens' => 'DESC');
+
+
 $sform->views['day-bar'] = new BarView('sums','day', array());
 
-$sform->views['day-pie'] = new PieView('sums','day', array());
+$sform->views['dest-pie'] = new PieView('sums','dest', array());
 	
 $sform->views['day-line'] = new LineView('sums','day', array());
 
@@ -145,7 +151,7 @@ $sform->views['day-line'] = new LineView('sums','day', array());
 $PAGE_ELEMS[] = &$sform;
 
 $PAGE_ELEMS[] = $sform->GraphUrl('day-bar');
-$PAGE_ELEMS[] = $sform->GraphUrl('day-pie');
+$PAGE_ELEMS[] = $sform->GraphUrl('dest-pie');
 $PAGE_ELEMS[] = $sform->GraphUrl('day-line');
 
 // $graph = new ElemGraph();
