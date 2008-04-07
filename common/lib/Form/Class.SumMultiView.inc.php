@@ -17,11 +17,11 @@ class SumMultiView extends FormView {
 	protected function RenderHead(){
 	}
 	
-	protected function performSumQuery(&$summ,&$form,&$dbhandle,$is_html=false){
+	protected function performSumQuery(&$summ,&$form,&$dbhandle,$is_html=false,$need_raw=false){
 		if ($form->FG_DEBUG && $is_html)
 			echo "<tr class=\"debug\"><td colspan=\"".$this->ncols ."\">";
 		if ($form->FG_DEBUG>3 && $is_html)
-			echo "ListSum! Building Sum query..";
+			echo "SumMultiView! Building Sum query..";
 		
 		if (empty($summ['fns'])){
 			if ($form->FG_DEBUG>0 && $is_html)
@@ -30,13 +30,15 @@ class SumMultiView extends FormView {
 		}
 
 		$query_fields = array();
+		$query_outerfields = array();
 		$query_clauses = array();
 		$query_grps = array();
 		$query_table = $form->model_table;
+		$query_outertable = '';
 		
 		foreach($form->model as $fld){
 			$fld->buildSumQuery($dbhandle, $summ['fns'],
-				$query_fields,$query_table,
+				$query_fields,$query_outerfields,$query_table,$query_outertable,
 				$query_clauses, $query_grps,$form);
 		}
 	
@@ -96,6 +98,33 @@ class SumMultiView extends FormView {
 		
 		if (!empty($summ['limit']))
 			$QUERY .= ' LIMIT '.$summ['limit'];
+			
+		$needouter=false;
+		if(!empty($query_outertable))
+			$needouter=true;
+		else{
+			foreach($query_outerfields as $qof)
+				if (!is_string($qof)){
+					$needouter=true;
+					break;
+				}
+		}
+		
+		if ($needouter){
+			$qf2=array();
+			foreach ($query_outerfields as $qof)
+				if (is_string($qof))
+					$qf2[]=$qof;
+				elseif (is_array($qof)){
+					if ($need_raw)
+						$qf2[]=$qof[1]. ' AS '.$qof[1] .'_raw';
+					$qf2[]=$qof[0].' AS '.$qof[1];
+				}
+			$QUERY = 'SELECT '.implode(', ', $qf2). ' FROM '.
+				'('.$QUERY .') AS innerfoo '.$query_outertable;
+		}
+		
+		
 		$QUERY .= ';';
 		
 		if ($form->FG_DEBUG>3 && $is_html)

@@ -156,17 +156,20 @@ abstract class BaseField {
 	public function buildValue($val,&$form){
 		return $val;
 	}
-	
+		
 	/** Build the query for sums 
 	    \param sum_fns An array containing aggregate fns. for each field, null if
 	    	this field should be omitted, true if it should be grouped
 	    \param fields An array to be appended with the field expressions to sum
+	    \param fields_out Fields for the outer query. Should at least contain the
+			names of $fields, or array entries with ($fieldname, $format_expr)
 	    \param table  The string of the table to query
+	    \param table_out some additional terms to append to the table of the \b outer query
 	    \param clauses Any clauses applying to the query
 	    \param grps   An array of the GROUP BY clauses
 	*/
 	
-	public function buildSumQuery(&$dbhandle, &$sum_fns,&$fields, &$table,
+	public function buildSumQuery(&$dbhandle, &$sum_fns,&$fields,&$fields_out, &$table,&$table_out,
 		&$clauses, &$grps, &$form){
 		if (!$this->does_list)
 			return;
@@ -186,7 +189,8 @@ abstract class BaseField {
 				$fields[] = $sum_fns[$this->fieldname] ."($fld) AS ". $this->fieldname;
 			elseif (is_array($sum_fns[$this->fieldname]))
 				$fields[] = str_dbparams($dbhandle, '%1 AS '.$this->fieldname,$sum_fns[$this->fieldname]);
-			
+
+			$fields_out[] = $this->fieldname;
 		}
 		
 		$this->listQueryTable($table,$form);

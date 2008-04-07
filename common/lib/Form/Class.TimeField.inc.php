@@ -30,7 +30,7 @@ class DateTimeField extends TextField {
 		return $this->def_value;
 	}
 
-	public function buildSumQuery(&$dbhandle, &$sum_fns,&$fields, &$table,
+	public function buildSumQuery(&$dbhandle, &$sum_fns,&$fields,&$fields_out, &$table,&$table_out,
 		&$clauses, &$grps, &$form){
 		if (!$this->does_list)
 			return;
@@ -47,11 +47,14 @@ class DateTimeField extends TextField {
 					$grps[] = $this->fieldexpr;
 				else
 					$grps[] = $this->fieldname;
-				$fields[] = $this->fmtContent($fld) . " AS ". $this->fieldname;
+				$fields[] = $fld . " AS ". $this->fieldname;
 			}
 			elseif (is_string($sum_fns[$this->fieldname]))
-				$fields[] = $sum_fns[$this->fieldname] ."(".
-				$this->fmtContent($fld).") AS ". $this->fieldname;
+				$fields[] = $sum_fns[$this->fieldname] .$fld. 
+					" AS ". $this->fieldname;
+						
+			$fields_out[] = array($this->fmtContent($this->fieldname), 
+				$this->fieldname);
 			
 		}
 		
@@ -59,13 +62,6 @@ class DateTimeField extends TextField {
 		$tmp= $this->listQueryClause($dbhandle,$form);
 		if ( is_string($tmp))
 			$clauses[] = $tmp;
-	}
-
-	public function getOrder(&$form){
-		if ($this->fieldexpr)
-			return $this->fieldexpr;
-		else
-			return $form->model_table.'.'.$this->fieldname;
 	}
 
 };
