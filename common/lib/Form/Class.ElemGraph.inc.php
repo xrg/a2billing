@@ -53,16 +53,16 @@ class DataObjXYp extends DataObjXY {
 class GraphView extends FormView {
 	public $view;
 	public $code;
-	//public $params;
+	public $parms = array();
 		/** This will hold every style-related info. At first, the array
 		is initted with some dummy default data, and then it will be overriden
 		by setting the style of the graph */
 	public $styles;
+	public $gr_sty;
 	
-	function GraphView($vi,$co,$pa = array(),$sty=null){
+	function GraphView($vi, $co, $sty=null){
 		$this->view=$vi;
 		$this->code=$co;
-		$this->parms=$pa;
 		$this->gr_sty=$sty;
 	}
 	
@@ -86,18 +86,17 @@ class GraphView extends FormView {
 			
 		global $GRAPH_STYLES;
 
-		$defaults = array( width => 200, height => 200, xlabelangle => 0,
+		$defaults = array( width => 300, height => 300, xlabelangle => 0,
 			rowcolor => false, backgroundgradient => false, setframe => true,
 			colors =>array('red','blue','green','magenta','yellow') );
 		
 		if (($this->gr_sty) && isset($GRAPH_STYLES[$this->gr_sty]))
 			$sty2=$GRAPH_STYLES[$this->gr_sty];
-		elseif (empty($sty) && isset($GRAPH_STYLES[0]))
+		elseif (empty($this->gr_sty) && isset($GRAPH_STYLES[0]))
 			$sty2=$GRAPH_STYLES[0];
 		else	$sty2=array();
 		
 		$this->styles=array_merge($defaults,$sty2,$this->parms);
-		//unset($this->parms);
 	}
 	
 	public function RenderSpecial($rmode,&$form, &$robj){
@@ -128,13 +127,38 @@ class GraphView extends FormView {
 		}
 		
 		if ($this->styles['backgroundgradient'])
-			$robj->SetBackgroundGradient('#FFFFFF','#CDDEFF:1.1',GRAD_HOR,BGRAD_PLOT);
+			if ($this->styles['backgroundgradient']['show'])
+				if (is_array($this->styles['backgroundgradient']['params']) && count($this->styles['backgroundgradient']['params'])==4){
+					$robj->SetBackgroundGradient($this->styles['backgroundgradient']['params'][0],
+												 $this->styles['backgroundgradient']['params'][1],
+												 $this->styles['backgroundgradient']['params'][2],
+												 $this->styles['backgroundgradient']['params'][3]);
+				}
 		
-		if ($this->styles['rowcolor']){
-			$robj->ygrid->SetFill(true,'#EFEFEF@0.5','#CDDEFF@0.5');
-			$robj->xgrid->SetColor('gray@0.5');
-			$robj->ygrid->SetColor('gray@0.5');
-		}
+		if ($this->styles['xgrid'])
+			if ($this->styles['xgrid']['show'])
+				if (is_array($this->styles['xgrid']['params'])){
+					if (is_array($this->styles['xgrid']['params']['fill']))
+						$robj->xgrid->SetFill(true, $this->styles['xgrid']['params']['fill'][0], $this->styles['xgrid']['params']['fill'][1]);
+					if (!empty($this->styles['xgrid']['params']['color']))
+						$robj->xgrid->SetColor($this->styles['xgrid']['params']['color']);
+					if (!empty($this->styles['xgrid']['params']['linestyle']))
+						$robj->xgrid->SetLineStyle($this->styles['xgrid']['params']['linestyle']);
+					$robj->xgrid->Show(true);
+				} 
+		if ($this->styles['ygrid'])
+			if ($this->styles['ygrid']['show'])
+				if (is_array($this->styles['ygrid']['params'])){
+					//echo "sssssssss";
+					if (is_array($this->styles['ygrid']['params']['fill']))
+						$robj->ygrid->SetFill(true, $this->styles['ygrid']['params']['fill'][0], $this->styles['ygrid']['params']['fill'][1]);
+					if (!empty($this->styles['ygrid']['params']['color']))
+						$robj->ygrid->SetColor($this->styles['ygrid']['params']['color']);
+					if (!empty($this->styles['ygrid']['params']['linestyle']))
+						$robj->ygrid->SetLineStyle($this->styles['ygrid']['params']['linestyle']);
+					$robj->ygrid->Show(true);
+				}
+		
 	}
 
 	/** For debugging purposes, this function simulates the 
