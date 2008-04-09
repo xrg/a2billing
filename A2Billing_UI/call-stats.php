@@ -123,12 +123,9 @@ $sform->views['sums']->plots['dest'] = array('title' => _("Per destination calls
 	'fns' => array( 'destination' =>true, 'sessiontime' => 'SUM' ),
 	'order' => 'COUNT(uniqueid)', 'sens' => 'DESC');
 
-
-$sform->views['day-bar'] = new BarView('sums','day', 'style-pie');
-
-$sform->views['dest-pie'] = new PieView('sums','dest', 'style-chart');
-	
-$sform->views['day-line'] = new LineView('sums','day', 'style-chart');
+$sform->views['day-bar'] = new BarView('sums','day', 'style-ex2');
+$sform->views['dest-pie'] = new PieView('sums','dest', 'style-ex1');
+$sform->views['day-line'] = new LineView('sums','day', 'style-ex1');
 
 
 $PAGE_ELEMS[] = &$sform;

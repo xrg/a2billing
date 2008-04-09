@@ -86,8 +86,10 @@ class GraphView extends FormView {
 			
 		global $GRAPH_STYLES;
 
-		$defaults = array( width => 300, height => 300, xlabelangle => 0,
-			rowcolor => false, backgroundgradient => false, setframe => true,
+		$defaults = array( width => 500, height => 300, 
+			setscale => 'textlin', xsetgrace => 3, ysetgrace => 3, 
+			setframe => true, margin => array('35', '35', '15', '35'),
+			rowcolor => false, backgroundgradient => false,
 			colors =>array('red','blue','green','magenta','yellow') );
 		
 		if (($this->gr_sty) && isset($GRAPH_STYLES[$this->gr_sty]))
@@ -97,6 +99,7 @@ class GraphView extends FormView {
 		else	$sty2=array();
 		
 		$this->styles=array_merge($defaults,$sty2,$this->parms);
+		
 	}
 	
 	public function RenderSpecial($rmode,&$form, &$robj){
@@ -115,12 +118,19 @@ class GraphView extends FormView {
 		
 		//print_r ($this->styles);
 		
+		if (!empty($this->styles['setscale']))
+			$robj->SetScale($this->styles['setscale']);
+		
+		if (is_array($this->styles['margin']) && count($this->styles['margin'])==4)
+			$robj->SetMargin($this->styles['margin'][0],$this->styles['margin'][1],$this->styles['margin'][2],$this->styles['margin'][3]);
+		
 		if (!$this->styles['setframe'])
 			$robj->SetFrame(false);
 		
 		if (! empty($this->styles['title']))
 			$robj->title->Set($this->styles['title']);
 		
+		// ?????????? CHANGE this is data
 		if (! empty($this->styles['subtitles'])){
 			$robj->tabtitle->Set($this->styles['subtitles']);
 			$robj->tabtitle->SetWidth(TABTITLE_WIDTHFULL);
@@ -135,27 +145,32 @@ class GraphView extends FormView {
 												 $this->styles['backgroundgradient']['params'][3]);
 				}
 		
-		if ($this->styles['xgrid'])
-			if ($this->styles['xgrid']['show'])
-				if (is_array($this->styles['xgrid']['params'])){
-					if (is_array($this->styles['xgrid']['params']['fill']))
-						$robj->xgrid->SetFill(true, $this->styles['xgrid']['params']['fill'][0], $this->styles['xgrid']['params']['fill'][1]);
-					if (!empty($this->styles['xgrid']['params']['color']))
-						$robj->xgrid->SetColor($this->styles['xgrid']['params']['color']);
-					if (!empty($this->styles['xgrid']['params']['linestyle']))
-						$robj->xgrid->SetLineStyle($this->styles['xgrid']['params']['linestyle']);
+		if (!empty($this->styles['chart-options']['xsetgrace']))
+			$robj->yaxis->scale->SetGrace($this->styles['chart-options']['xsetgrace']);
+		
+		if (!empty($this->styles['chart-options']['ysetgrace']))
+			$robj->yaxis->scale->SetGrace($this->styles['chart-options']['ysetgrace']);
+		
+		if ($this->styles['chart-options']['xgrid'])
+			if ($this->styles['chart-options']['xgrid']['show'])
+				if (is_array($this->styles['chart-options']['xgrid']['params'])){
+					if (is_array($this->styles['chart-options']['xgrid']['params']['fill']))
+						$robj->xgrid->SetFill(true, $this->styles['chart-options']['xgrid']['params']['fill'][0], $this->styles['chart-options']['xgrid']['params']['fill'][1]);
+					if (!empty($this->styles['chart-options']['xgrid']['params']['color']))
+						$robj->xgrid->SetColor($this->styles['chart-options']['xgrid']['params']['color']);
+					if (!empty($this->styles['chart-options']['xgrid']['params']['linestyle']))
+						$robj->xgrid->SetLineStyle($this->styles['chart-options']['xgrid']['params']['linestyle']);
 					$robj->xgrid->Show(true);
 				} 
-		if ($this->styles['ygrid'])
-			if ($this->styles['ygrid']['show'])
-				if (is_array($this->styles['ygrid']['params'])){
-					//echo "sssssssss";
-					if (is_array($this->styles['ygrid']['params']['fill']))
-						$robj->ygrid->SetFill(true, $this->styles['ygrid']['params']['fill'][0], $this->styles['ygrid']['params']['fill'][1]);
-					if (!empty($this->styles['ygrid']['params']['color']))
-						$robj->ygrid->SetColor($this->styles['ygrid']['params']['color']);
-					if (!empty($this->styles['ygrid']['params']['linestyle']))
-						$robj->ygrid->SetLineStyle($this->styles['ygrid']['params']['linestyle']);
+		if ($this->styles['chart-options']['ygrid'])
+			if ($this->styles['chart-options']['ygrid']['show'])
+				if (is_array($this->styles['chart-options']['ygrid']['params'])){
+					if (is_array($this->styles['chart-options']['ygrid']['params']['fill']))
+						$robj->ygrid->SetFill(true, $this->styles['chart-options']['ygrid']['params']['fill'][0], $this->styles['chart-options']['ygrid']['params']['fill'][1]);
+					if (!empty($this->styles['chart-options']['ygrid']['params']['color']))
+						$robj->ygrid->SetColor($this->styles['chart-options']['ygrid']['params']['color']);
+					if (!empty($this->styles['chart-options']['ygrid']['params']['linestyle']))
+						$robj->ygrid->SetLineStyle($this->styles['chart-options']['ygrid']['params']['linestyle']);
 					$robj->ygrid->Show(true);
 				}
 		
@@ -415,14 +430,8 @@ class GraphView extends FormView {
 class LineView extends GraphView {
 
 	public function RenderHeaderGraph (&$form, &$robj){
-		
 		require_once(DIR_COMMON."jpgraph_lib/jpgraph_line.php");
-		
 		$robj = new Graph($this->styles['width'],$this->styles['height'],"auto");
-		$robj->SetScale("textlin");
-		$robj->yaxis->scale->SetGrace(3);
-		$robj->SetMargin(40,40,45,90);
-		
 	}
 	
 	public function RenderGraph (&$form, &$robj){
@@ -430,13 +439,14 @@ class LineView extends GraphView {
 		$data = new DataObjXYp($this->code);
 		$form->views[$this->view]->RenderSpecial('get-data',$form,$data);
 		
-		if (! empty($this->styles['xlabelangle'])){
-			$robj->xaxis->SetLabelAngle($this->styles['xlabelangle']);
-			if ($this->styles['xlabelangle']<0)
+		if (! empty($this->styles['chart-options']['xlabelangle'])){
+			$robj->xaxis->SetLabelAngle($this->styles['chart-options']['xlabelangle']);
+			if ($this->styles['chart-options']['xlabelangle']<0)
 				$robj->xaxis->SetLabelAlign('left');
 		}
-		if (! empty($this->styles['xlabelfont']))
-			$robj->xaxis->SetFont($this->styles['xlabelfont']);
+		
+		if (! empty($this->styles['chart-options']['xlabelfont']))
+			$robj->xaxis->SetFont($this->styles['chart-options']['xlabelfont']);
 		else
 			$robj->xaxis->SetFont(FF_VERA);
 		
@@ -452,13 +462,8 @@ class LineView extends GraphView {
 class BarView extends GraphView {
 
 	public function RenderHeaderGraph (&$form, &$robj){
-		
 		require_once(DIR_COMMON."jpgraph_lib/jpgraph_bar.php");
-		
 		$robj = new Graph($this->styles['width'],$this->styles['height'],"auto");
-		$robj->SetScale("textlin");
-		$robj->yaxis->scale->SetGrace(3);
-		$robj->SetMargin(40,40,45,90);
 	}
 	
 	public function RenderGraph (&$form, &$robj){
@@ -466,13 +471,14 @@ class BarView extends GraphView {
 		$data = new DataObjXYp($this->code);
 		$form->views[$this->view]->RenderSpecial('get-data',$form,$data);
 		
-		if (! empty($this->styles['xlabelangle'])){
-			$robj->xaxis->SetLabelAngle($this->styles['xlabelangle']);
-			if ($this->styles['xlabelangle']<0)
+		if (! empty($this->styles['chart-options']['xlabelangle'])){
+			$robj->xaxis->SetLabelAngle($this->styles['chart-options']['xlabelangle']);
+			if ($this->styles['chart-options']['xlabelangle']<0)
 				$robj->xaxis->SetLabelAlign('left');
 		}
-		if (! empty($this->styles['xlabelfont']))
-			$robj->xaxis->SetFont($this->styles['xlabelfont']);
+		
+		if (! empty($this->styles['chart-options']['xlabelfont']))
+			$robj->xaxis->SetFont($this->styles['chart-options']['xlabelfont']);
 		else
 			$robj->xaxis->SetFont(FF_VERA);
 		
@@ -487,14 +493,9 @@ class BarView extends GraphView {
 class PieView extends GraphView {
 
 	public function RenderHeaderGraph (&$form, &$robj){
-		
 		require_once(DIR_COMMON."jpgraph_lib/jpgraph_pie.php");
 		require_once(DIR_COMMON."jpgraph_lib/jpgraph_pie3d.php");
-		
 		$robj = new PieGraph($this->styles['width'],$this->styles['height'],"auto");
-		$robj->SetScale("textlin");
-		$robj->yaxis->scale->SetGrace(3);
-		
 	}
 	
 	public function RenderGraph (&$form, &$robj){
@@ -514,8 +515,13 @@ class PieView extends GraphView {
 			$robj->xaxis->SetFont(FF_VERA);
 		*/
 		$pieplot = new PiePlot3D($data->ydata);
-		$pieplot->ExplodeSlice(2);
-		$pieplot->SetCenter(0.35);
+		
+		if (is_array($this->styles['pie-options'])){
+			if (! empty($this->styles['pie-options']['explodeslice']))
+				$pieplot->ExplodeSlice($this->styles['pie-options']['explodeslice']);
+			if (! empty($this->styles['pie-options']['setcenter']))
+				$pieplot->SetCenter($this->styles['pie-options']['setcenter']);
+		}
 		$pieplot->SetLegends(array_reverse($data->xdata));
 		
 		$robj->Add($pieplot);
