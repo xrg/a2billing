@@ -22,7 +22,10 @@ $GRAPH_STYLES['style-ex1'] = array(
 						ygrid => array (
 							show => true, color => 'gray@0.5', linestyle => 'dashed',
 							params=> array( fill => array('#FFFFFF@0.5','#CDDEFF:1.1') ) )
-	));
+						),
+	'plot-options' => array (
+						setfillcolor => 'gray@0.3', setcolor=>'blue'),
+	);
 
 $GRAPH_STYLES['style-ex2'] = array( width => 600, height => 350, xlabelangle => -45,
 	rowcolor => true, 

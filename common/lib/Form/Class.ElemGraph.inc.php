@@ -451,10 +451,15 @@ class LineView extends GraphView {
 			$robj->xaxis->SetFont(FF_VERA);
 		
 		$robj->xaxis->SetTickLabels($data->xdata);
-		$lineplot = new LinePlot($data->ydata);
-		$lineplot->SetFillColor('gray@0.3');
-		$lineplot ->SetColor("blue");
-		$robj->Add($lineplot);	
+		
+		$plot = new LinePlot($data->ydata);
+		
+		if (! empty($this->styles['plot-options']['setfillcolor']))
+			$plot->SetFillColor($this->styles['plot-options']['setfillcolor']);
+		if (! empty($this->styles['plot-options']['setcolor']))
+			$plot ->SetColor($this->styles['plot-options']['setcolor']);
+		
+		$robj->Add($plot);	
 	}
 
 };
@@ -483,8 +488,16 @@ class BarView extends GraphView {
 			$robj->xaxis->SetFont(FF_VERA);
 		
 		$robj->xaxis->SetTickLabels($data->xdata);
-		$bplot = new BarPlot($data->ydata);
-		$robj->Add($bplot);
+		
+		$plot = new BarPlot($data->ydata);
+		
+		print_r ($this->styles['plot-options']);
+		if (! empty($this->styles['plot-options']['setfillcolor']))
+			$plot->SetFillColor($this->styles['plot-options']['setfillcolor']);
+		if (! empty($this->styles['plot-options']['setcolor']))
+			$plot ->SetColor($this->styles['plot-options']['setcolor']);
+		
+		$robj->Add($plot);
 	}
 
 };
