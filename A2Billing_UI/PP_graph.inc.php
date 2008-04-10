@@ -25,6 +25,8 @@ $GRAPH_STYLES['style-ex1'] = array(
 						),
 	'plot-options' => array (
 						setfillcolor => 'gray@0.3', setcolor=>'blue'),
+	'accumplot-options' => array (
+						color => array ('yellow@0.3', 'purple@0.3', 'green@0.3', 'blue@0.3', 'red@0.3'))
 	);
 
 $GRAPH_STYLES['style-ex2'] = array( width => 600, height => 350, xlabelangle => -45,

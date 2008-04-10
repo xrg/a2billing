@@ -145,7 +145,9 @@ class GraphView extends FormView {
 			setscale => 'textlin', xsetgrace => 3, ysetgrace => 3, 
 			setframe => true, margin => array('35', '35', '15', '35'),
 			rowcolor => false, backgroundgradient => false,
-			colors =>array('red','blue','green','magenta','yellow') );
+			colors =>array('red','blue','green','magenta','yellow'),
+			'accumplot-options' => array (
+						color => array ('yellow@0.3', 'purple@0.3', 'green@0.3', 'blue@0.3', 'red@0.3')));
 		
 		if (($this->gr_sty) && isset($GRAPH_STYLES[$this->gr_sty]))
 			$sty2=$GRAPH_STYLES[$this->gr_sty];
@@ -369,18 +371,11 @@ class AccumBarView extends GraphView {
 		
 		$robj->xaxis->SetTickLabels($data->xdata);
 		
-		// Style acc_plot
-		$colors=array();
-		$colors[]="yellow@0.3";
-		$colors[]="purple@0.3";
-		$colors[]="green@0.3";
-		$colors[]="blue@0.3";
-		$colors[]="red@0.3";
-		
 		$i=0; 
 		foreach($data->yzdata as $ykey => $ycol){
 			$accplots[]= new BarPlot($ycol);
-			end($accplots)->SetFillColor($colors[$i++]);
+			if (is_array($this->styles['accumplot-options']['color']))
+				end($accplots)->SetFillColor($this->styles['accumplot-options']['color'][$i++]);
 			if (!empty($obj_leg->legend[$ykey]))
 				end($accplots)->SetLegend($obj_leg->legend[$ykey]);
 			else
