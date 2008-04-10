@@ -111,7 +111,7 @@ $sform->views['sums']->sums[] = array('title' => _("Total"),
 		'sessionbill' => 'SUM', 'buycost' => 'SUM'),
 	'order' => 'COUNT(uniqueid)', 'sens' => 'DESC');
 
-$sform->views['sums']->plots['day']= array('title' => _("Per day calls"),
+$sform->views['sums']->plots['day']= array('title' => _("Per day calls"), 'subtitles' => _("Sum of Session time"),
 	'type' => 'bar', 'limit' => 10,
 	ylegend => _('Sum of Session time '),
 	x => 'starttime', y => 'sessiontime',
@@ -119,7 +119,7 @@ $sform->views['sums']->plots['day']= array('title' => _("Per day calls"),
 	'order' => 'date_trunc(\'day\',starttime)');
 
 $sform->views['sums']->plots['dest'] = array('title' => _("Per destination calls"),
-	x=>'destination', y=> 'sessiontime', 'limit' => 20,
+	x=>'destination', y=> 'sessiontime', ylabel => _(" seconds"), 'limit' => 20,
 	'fns' => array( 'destination' =>true, 'sessiontime' => 'SUM' ),
 	'order' => 'COUNT(uniqueid)', 'sens' => 'DESC');
 

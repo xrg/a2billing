@@ -39,9 +39,12 @@ class DataObjXYp extends DataObjXY {
 	public function debug($str){
 	}
 	
-	public function Add_YtoX($separator = " : ", $end_x = ''){
+	public function xdata_add_suffix($suffix, $sep = ''){
 		for ($i=0 ; $i < count($this->xdata); $i++){
-			$this->xdata[$i] .= $separator . $this->ydata[$i] . $end_x;
+			if (is_array($suffix))
+				$this->xdata[$i] .= $sep . $suffix[$i];
+			else
+				$this->xdata[$i] .= $sep . $suffix;
 		}
 	}
 };
@@ -127,12 +130,11 @@ class GraphView extends FormView {
 		if (!$this->styles['setframe'])
 			$robj->SetFrame(false);
 		
-		if (! empty($this->styles['title']))
-			$robj->title->Set($this->styles['title']);
+		if (! empty($form->views[$this->view]->plots[$this->code]['title']))
+			$robj->title->Set($form->views[$this->view]->plots[$this->code]['title']);
 		
-		// ?????????? CHANGE this is data
-		if (! empty($this->styles['subtitles'])){
-			$robj->tabtitle->Set($this->styles['subtitles']);
+		if (! empty($form->views[$this->view]->plots[$this->code]['subtitles'])){
+			$robj->tabtitle->Set($form->views[$this->view]->plots[$this->code]['subtitles']);
 			$robj->tabtitle->SetWidth(TABTITLE_WIDTHFULL);
 		}
 		
@@ -515,18 +517,10 @@ class PieView extends GraphView {
 		
 		$data = new DataObjXYp($this->code);
 		$form->views[$this->view]->RenderSpecial('get-data',$form,$data);
-		$data->Add_YtoX(" : ", ' seconds'); // *-* i18n, try to get it from different DataObj..
 		
-		/*while ($row = $res->fetchRow()){
-			$xdata[] = $row[$xkey].' : '.$row[$ykey].' '.$tsum['ylabel'];
-			$ydata[] = $row[$ykey];
-		}
+		$data->xdata_add_suffix ($data->ydata, ' : ');
+		$data->xdata_add_suffix ($form->views[$this->view]->plots[$this->code]['ylabel']);
 		
-		if (! empty($tsum['xlabelfont']))
-			$robj->xaxis->SetFont($tsum['xlabelfont']);
-		else
-			$robj->xaxis->SetFont(FF_VERA);
-		*/
 		$pieplot = new PiePlot3D($data->ydata);
 		
 		if (is_array($this->styles['pie-options'])){
