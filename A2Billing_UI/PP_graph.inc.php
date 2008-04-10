@@ -13,24 +13,24 @@ $GRAPH_STYLES['style-ex1'] = array(
 	backgroundgradient => array (show=>true, params=> array('#FFFFFF','#CDDEFF:1.1',GRAD_HOR,BGRAD_MARGIN)),
 	
 	'pie-options' => array (
-						explodeslice => 1, setcenter=>0.4),
+		explodeslice => 1, setcenter=>0.4),
 	'chart-options' => array (
-						xsetgrace => 3, ysetgrace => 3, xlabelangle => -35, 
-						xgrid => array (
-							show => true, color => 'gray@0.5', linestyle => 'dashed',
-							params=> array( fill => array('#FFFFFF@0.5','#CDDEFF@0.7') ) ),
-						ygrid => array (
-							show => true, color => 'gray@0.5', linestyle => 'dashed',
-							params=> array( fill => array('#FFFFFF@0.5','#CDDEFF:1.1') ) )
-						),
+		xsetgrace => 3, ysetgrace => 3, xlabelangle => -35, 
+		xgrid => array (
+			show => true, color => 'gray@0.5', linestyle => 'dashed',
+			params=> array( fill => array('#FFFFFF@0.5','#CDDEFF@0.7') ) ),
+		ygrid => array (
+			show => true, color => 'gray@0.5', linestyle => 'dashed',
+			params=> array( fill => array('#FFFFFF@0.5','#CDDEFF:1.1') ) )
+		),
 	'plot-options' => array (
-						setfillcolor => 'gray@0.3', setcolor=>'blue'),
+		setfillcolor => 'gray@0.3', setcolor=>'blue'),
 	'accumplot-options' => array (
-						color => array ('yellow@0.3', 'purple@0.3', 'green@0.3', 'blue@0.3', 'red@0.3'))
+		color => array ('yellow@0.3', 'purple@0.3', 'green@0.3', 'blue@0.3', 'red@0.3'))
 	);
 
 $GRAPH_STYLES['style-ex2'] = array( width => 600, height => 350, xlabelangle => -45,
-	rowcolor => true, 
+	rowcolor => true,
 	backgroundgradient_params => array ('#FFFFFF','#CDDEFF:1.1',GRAD_VER,BGRAD_PLOT),
 	setframe => false);
 
