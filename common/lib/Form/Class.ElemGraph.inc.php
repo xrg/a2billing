@@ -142,9 +142,9 @@ class GraphView extends FormView {
 			if ($this->styles['backgroundgradient']['show'])
 				if (is_array($this->styles['backgroundgradient']['params']) && count($this->styles['backgroundgradient']['params'])==4){
 					$robj->SetBackgroundGradient($this->styles['backgroundgradient']['params'][0],
-												 $this->styles['backgroundgradient']['params'][1],
-												 $this->styles['backgroundgradient']['params'][2],
-												 $this->styles['backgroundgradient']['params'][3]);
+						$this->styles['backgroundgradient']['params'][1],
+						$this->styles['backgroundgradient']['params'][2],
+						$this->styles['backgroundgradient']['params'][3]);
 				}
 		
 		if (!empty($this->styles['chart-options']['xsetgrace']))
