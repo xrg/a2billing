@@ -42,7 +42,9 @@ $dbhandle = $A2B->DBHandle();
 $back_days = 15;
 $amount_cdr = 100;
 $cdr_per_day = intval($amount_cdr / $back_days);
-
+$cardid = 3;
+$destination = 'Italy';
+$calledstation = '397821933244';
 
 for ($i=1 ; $i <= $back_days; $i++){
 	echo "Day : $i...\n";
@@ -60,8 +62,8 @@ for ($i=1 ; $i <= $back_days; $i++){
 		
 		$qry .= "INSERT INTO cc_call (cmode, sessionid, uniqueid, cardid, srvid, nasipaddress, starttime, stoptime, sessiontime, calledstation, startdelay, " .
 				"stopdelay,tcause, hupcause, cause_ext, attempt, srid, sessionbill, destination, brid, tgid, trunk, qval, src, id_did, buycost, " .
-				"id_card_package_offer, invoice_id) VALUES ('standard', 'IAX2/areskiax-3', '$uniqueid', 1, 1, NULL, '$startdate_toinsert', '$enddate_toinsert', " .
-				"$sessiontime, '32458', 2, NULL, 'ANSWER', 16, '', 1, 1, 1.2000, 'Belgium ', 2, 1, 1, NULL, '1856254697', NULL, 0.40000, 0, NULL);\n\n";
+				"id_card_package_offer, invoice_id) VALUES ('standard', 'IAX2/areskiax-3', '$uniqueid', $cardid, 1, NULL, '$startdate_toinsert', '$enddate_toinsert', " .
+				"$sessiontime, '$calledstation', 2, NULL, 'ANSWER', 16, '', 1, 1, 1.2000, '$destination', 2, 1, 1, NULL, '1856254697', NULL, 0.40000, 0, NULL);\n\n";
 		
 	}
 }

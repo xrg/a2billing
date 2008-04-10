@@ -199,7 +199,7 @@ class SumMultiView extends FormView {
 
 	}
 	
-	public function RenderSpecial($rmode,&$form,&$robj){
+	public function RenderSpecial($rmode,&$form,&$robj,&$robj_leg=null){
 		if ($rmode!='get-data')
 			return;
 		if ($robj instanceof DataObjXY){
@@ -209,17 +209,48 @@ class SumMultiView extends FormView {
 				throw new Exception("Unknown plot");
 			$xkey = $plot['x'];
 			$ykey = $plot['y'];
-		
+			
 			$row_num = 0;
 			$res = $this->performSumQuery($plot,$form,$dbhandle,false);
 			if (!$res){
 				$robj->debug("Could not perform query!");
 				return false;
 			}
-					
-			while ($row = $res->fetchRow())
+			
+			while ($row = $res->fetchRow()){
 				$robj->PlotXY($row[$xkey],$row[$ykey]);
-		
+			}
+		}
+		elseif ($robj instanceof DataObjXYZ){
+			$dbhandle = &$form->a2billing->DBHandle();
+			$plot = $this->plots[$robj->code];
+			if (empty($plot))
+				throw new Exception("Unknown plot");
+			
+			$xdata = array();
+			$ydata = array();
+			
+			$xkey = $plot['x'];
+			$ykey = $plot['y'];
+			$x2key = $plot['x2'];
+			if (!empty($plot['x2t']))
+				$x2t=$plot['x2t'];
+			else
+				$x2t=$x2key;
+			
+			$row_num = 0;
+			$res = $this->performSumQuery($plot,$form,$dbhandle,false);
+			if (!$res) {
+				$robj->debug("Could not perform query!");
+				return false;
+			}
+			
+			while ($row = $res->fetchRow()){
+				$robj->PlotXYZ($row[$xkey], $row[$ykey], $row[$x2key]);
+				
+				if ($robj_leg instanceof DataLegend)
+					$robj_leg->Addlegend($row[$x2key], $row[$x2t]);
+			}
 		}
 		else {
 			throw new Exception("Unknown object to get data to..");

@@ -13,9 +13,24 @@ abstract class DataObj{
 	
 };
 
-/** Intermediate class for data that only has 2 dimensions */
+class DataLegend {
+	public $legend=array();
+	
+	public function Addlegend($ind, $value){
+		$this->legend[$ind]=$value;
+	}
+	public function debug($str){
+	}
+};
+
+/** Intermediate class for data that only has 2 or 3 dimensions */
+
 abstract class DataObjXY extends DataObj{
 	abstract function PlotXY($x,$y);
+};
+
+abstract class DataObjXYZ extends DataObj{
+	abstract function PlotXYZ($x, $y, $z);
 };
 
 /** Debug version of parent, dumps the data */
@@ -36,6 +51,43 @@ class DataObjXYp extends DataObjXY {
 		$this->xdata[]=$x;
 		$this->ydata[]=$y;
 	}
+	public function debug($str){
+	}
+	
+	public function xdata_add_suffix($suffix, $sep = ''){
+		for ($i=0 ; $i < count($this->xdata); $i++){
+			if (is_array($suffix))
+				$this->xdata[$i] .= $sep . $suffix[$i];
+			else
+				$this->xdata[$i] .= $sep . $suffix;
+		}
+	}
+};
+
+class DataObjXYZp extends DataObjXYZ {
+	public $xdata=array();
+	public $yzdata=array();
+	public $zdata=array();
+	
+	public function PlotXYZ_($x, $y, $z){
+		$this->xdata[]=$x;
+		$this->yzdata[$z][]=$y;
+	}
+	public function PlotXYZ($x, $y, $z){
+		if (empty($this->xdata) || (end($this->xdata) != $x))
+			$this->xdata[] = $x; // $xkey = starttime
+		if (!isset($this->yzdata[$z]))
+			$this->yzdata[$z]=array();
+		
+		end($this->xdata);
+		$this->yzdata[$z][key($this->xdata)] = $y;
+		// print_r($this->yzdata);
+		foreach ($this->yzdata as $zkey => $yzdata){
+			if (!isset($this->yzdata[$zkey][key($this->xdata)]))
+				$this->yzdata[$zkey][key($this->xdata)] = 0;
+		} 
+	}
+			
 	public function debug($str){
 	}
 	
@@ -344,20 +396,20 @@ class GraphView extends FormView {
 			$xdata = array();
 			$ydata = array();
 			$yleg =array(); //holds the labels for y axises
-			$xkey = $tsum['x'];
-			$x2key = $tsum['x2'];
+			$xkey = $tsum['x']; // starttime
+			$x2key = $tsum['x2']; // agid
 			if (!empty($tsum['x2t']))
-				$x2t=$tsum['x2t'];
+				$x2t=$tsum['x2t']; //agid_login
 			else
 				$x2t=$x2key;
-			$ykey = $tsum['y'];
+			$ykey = $tsum['y']; // sessiontime
 			while ($row = $res->fetchRow()){
 				// assume first order is by x-value
 				if (empty($xdata) || (end($xdata) != $row[$xkey]))
-					$xdata[] = $row[$xkey];
+					$xdata[] = $row[$xkey]; // $xkey = starttime
 				// and assume second order is the x2 key..
 				if (!isset($ydata[$row[$x2key]]))
-					$ydata[$row[$x2key]]=array();
+					$ydata[$row[$x2key]]=array(); // $x2key = agid
 				
 				end($xdata); // move pointer to end
 				$ydata[$row[$x2key]][key($xdata)] = $row[$ykey];
@@ -493,7 +545,6 @@ class BarView extends GraphView {
 		
 		$plot = new BarPlot($data->ydata);
 		
-		print_r ($this->styles['plot-options']);
 		if (! empty($this->styles['plot-options']['setfillcolor']))
 			$plot->SetFillColor($this->styles['plot-options']['setfillcolor']);
 		if (! empty($this->styles['plot-options']['setcolor']))
@@ -504,6 +555,62 @@ class BarView extends GraphView {
 
 };
 
+// accumulated bar plots
+class AccumBarView extends GraphView {
+
+	public function RenderHeaderGraph (&$form, &$robj){
+		require_once(DIR_COMMON."jpgraph_lib/jpgraph_bar.php");
+		$robj = new Graph($this->styles['width'],$this->styles['height'],"auto");
+	}
+	
+	public function RenderGraph (&$form, &$robj){
+		
+		$obj_leg = new DataLegend();
+		$data = new DataObjXYZp($this->code);
+		$form->views[$this->view]->RenderSpecial('get-data', $form, $data, $obj_leg);
+		
+		if (! empty($this->styles['chart-options']['xlabelangle'])){
+			$robj->xaxis->SetLabelAngle($this->styles['chart-options']['xlabelangle']);
+			if ($this->styles['chart-options']['xlabelangle']<0)
+				$robj->xaxis->SetLabelAlign('left');
+		}
+		
+		if (! empty($this->styles['chart-options']['xlabelfont']))
+			$robj->xaxis->SetFont($this->styles['chart-options']['xlabelfont']);
+		else
+			$robj->xaxis->SetFont(FF_VERA);
+		
+		$robj->xaxis->SetTickLabels($data->xdata);
+		
+		// Style acc_plot
+		$colors=array();
+		$colors[]="yellow@0.3";
+		$colors[]="purple@0.3";
+		$colors[]="green@0.3";
+		$colors[]="blue@0.3";
+		$colors[]="red@0.3";
+		
+		$i=0; 
+		foreach($data->yzdata as $ykey => $ycol){
+			$accplots[]= new BarPlot($ycol);
+			end($accplots)->SetFillColor($colors[$i++]);
+			if (!empty($obj_leg->legend[$ykey]))
+				end($accplots)->SetLegend($obj_leg->legend[$ykey]);
+			else
+				end($accplots)->SetLegend(_("(none)"));
+		}
+		
+		$plot = new AccBarPlot($accplots);
+		
+		if (! empty($this->styles['plot-options']['setfillcolor']))
+			$plot->SetFillColor($this->styles['plot-options']['setfillcolor']);
+		if (! empty($this->styles['plot-options']['setcolor']))
+			$plot ->SetColor($this->styles['plot-options']['setcolor']);
+		
+		$robj->Add($plot);
+	}
+
+};
 
 class PieView extends GraphView {
 
