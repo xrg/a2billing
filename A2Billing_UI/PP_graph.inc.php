@@ -4,13 +4,13 @@
 
 
 $GRAPH_STYLES[0] = array( width => 400, height => 250, xlabelangle => -45,
-	rowcolor => false, backgroundgradient => false, setframe => false);
+	rowcolor => false, bggradient => false, setframe => false);
 
 $GRAPH_STYLES['style-ex1'] = array( 
 	width => 500, height => 300, 
 	setscale => 'textlin', 
 	setframe => false, margin => array('35', '35', '15', '55'),
-	backgroundgradient => array (show=>true, params=> array('#FFFFFF','#CDDEFF:1.1',GRAD_HOR,BGRAD_MARGIN)),
+	bggradient => array (show=>true, params=> array('#FFFFFF','#CDDEFF:1.1',GRAD_HOR,BGRAD_MARGIN)),
 	
 	'pie-options' => array (
 		explodeslice => 1, setcenter=>0.4),
@@ -31,7 +31,7 @@ $GRAPH_STYLES['style-ex1'] = array(
 
 $GRAPH_STYLES['style-ex2'] = array( width => 600, height => 350, xlabelangle => -45,
 	rowcolor => true,
-	backgroundgradient_params => array ('#FFFFFF','#CDDEFF:1.1',GRAD_VER,BGRAD_PLOT),
+	bggradient_params => array ('#FFFFFF','#CDDEFF:1.1',GRAD_VER,BGRAD_PLOT),
 	setframe => false);
 
 

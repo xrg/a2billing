@@ -144,7 +144,7 @@ class GraphView extends FormView {
 		$defaults = array( width => 500, height => 300, 
 			setscale => 'textlin', xsetgrace => 3, ysetgrace => 3, 
 			setframe => true, margin => array('35', '35', '15', '35'),
-			rowcolor => false, backgroundgradient => false,
+			rowcolor => false, bggradient => false,
 			colors =>array('red','blue','green','magenta','yellow'),
 			'accumplot-options' => array (
 						color => array ('yellow@0.3', 'purple@0.3', 'green@0.3', 'blue@0.3', 'red@0.3')));
@@ -192,13 +192,13 @@ class GraphView extends FormView {
 			$robj->tabtitle->SetWidth(TABTITLE_WIDTHFULL);
 		}
 		
-		if ($this->styles['backgroundgradient'])
-			if ($this->styles['backgroundgradient']['show'])
-				if (is_array($this->styles['backgroundgradient']['params']) && count($this->styles['backgroundgradient']['params'])==4){
-					$robj->SetBackgroundGradient($this->styles['backgroundgradient']['params'][0],
-						$this->styles['backgroundgradient']['params'][1],
-						$this->styles['backgroundgradient']['params'][2],
-						$this->styles['backgroundgradient']['params'][3]);
+		if ($this->styles['bggradient'])
+			if ($this->styles['bggradient']['show'])
+				if (is_array($this->styles['bggradient']['params']) && count($this->styles['bggradient']['params'])==4){
+					$robj->SetBackgroundGradient($this->styles['bggradient']['params'][0],
+						$this->styles['bggradient']['params'][1],
+						$this->styles['bggradient']['params'][2],
+						$this->styles['bggradient']['params'][3]);
 				}
 		
 		if (!empty($this->styles['chart-options']['xsetgrace']))
