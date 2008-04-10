@@ -119,7 +119,7 @@ $sform->views['sums']->plots['day']= array('title' => _("Per day calls"), 'subti
 	'order' => 'date_trunc(\'day\',starttime)');
 
 $sform->views['sums']->plots['dest'] = array('title' => _("Per destination calls"),
-	x=>'destination', y=> 'sessiontime', ylabel => _(" seconds"), 'limit' => 20,
+	x=>'destination', y=> 'sessiontime', 'limit' => 20,
 	'fns' => array( 'destination' =>true, 'sessiontime' => 'SUM' ),
 	'order' => 'COUNT(uniqueid)', 'sens' => 'DESC');
 

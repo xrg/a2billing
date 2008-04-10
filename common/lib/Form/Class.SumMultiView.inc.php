@@ -199,29 +199,35 @@ class SumMultiView extends FormView {
 
 	}
 	
-	public function RenderSpecial($rmode,&$form,&$robj,&$robj_leg=null){
+	public function RenderSpecial($rmode,&$form,&$robj){
 		if ($rmode!='get-data')
 			return;
-		if ($robj instanceof DataObjXY){
+		if ($robj instanceof DataObj){
 			$dbhandle = &$form->a2billing->DBHandle();
 			$plot = $this->plots[$robj->code];
 			if (empty($plot))
 				throw new Exception("Unknown plot");
-			$xkey = $plot['x'];
-			$ykey = $plot['y'];
 			
 			$row_num = 0;
-			$res = $this->performSumQuery($plot,$form,$dbhandle,false);
+			$res = $this->performSumQuery($plot,$form,$dbhandle,false,$robj->NeedRaw());
 			if (!$res){
 				$robj->debug("Could not perform query!");
 				return false;
 			}
+
+			// Store the names of fields into an array
+			$resfs=array();
+			for($i=0;$i<$res->FieldCount();$i++)
+				$resfs[] = $res->FetchField($i)->name;
+			
+			$robj->prepare($plot,$resfs);
+			//at the first row, we think a little more..
 			
 			while ($row = $res->fetchRow()){
-				$robj->PlotXY($row[$xkey],$row[$ykey]);
+				$robj->PlotRow($row);
 			}
 		}
-		elseif ($robj instanceof DataObjXYZ){
+		/* elseif ($robj instanceof DataObjXYZ){
 			$dbhandle = &$form->a2billing->DBHandle();
 			$plot = $this->plots[$robj->code];
 			if (empty($plot))
@@ -251,7 +257,7 @@ class SumMultiView extends FormView {
 				if ($robj_leg instanceof DataLegend)
 					$robj_leg->Addlegend($row[$x2key], $row[$x2t]);
 			}
-		}
+		} */
 		else {
 			throw new Exception("Unknown object to get data to..");
 		}

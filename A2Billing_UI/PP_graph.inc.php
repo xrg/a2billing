@@ -29,7 +29,8 @@ $GRAPH_STYLES['style-ex1'] = array(
 		color => array ('yellow@0.3', 'purple@0.3', 'green@0.3', 'blue@0.3', 'red@0.3'))
 	);
 
-$GRAPH_STYLES['style-ex2'] = array( width => 600, height => 350, xlabelangle => -45,
+$GRAPH_STYLES['style-ex2'] = array( width => 600, height => 350, 
+	'chart-options' => array (xlabelangle => -45 ),
 	rowcolor => true,
 	bggradient_params => array ('#FFFFFF','#CDDEFF:1.1',GRAD_VER,BGRAD_PLOT),
 	setframe => false);

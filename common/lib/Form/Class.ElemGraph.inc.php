@@ -11,94 +11,160 @@ abstract class DataObj{
 	}
 	abstract function debug($str);
 	
-};
-
-class DataLegend {
-	public $legend=array();
+	/** Get the data from that (db) row into the object.
+	   This is a generic way to parse a query result into
+	   the internal arrays of this structure. */
+	abstract function PlotRow(array $row);
 	
-	public function Addlegend($ind, $value){
-		$this->legend[$ind]=$value;
+	/** Returns if the fetch query should feed this with raw data, too */
+	public function NeedRaw() {
+		return false;
 	}
-	public function debug($str){
-	}
+	
+	/** Initialize some internal structures according to plot, query rows 
+	    \param plot an array with plot settings. 'x', 'y' will be used
+	    \param res the provided query fields. An array with string names
+	            of each query row field.
+	  */
+	abstract function prepare(array $plot, array $resfs);
+	
 };
 
 /** Intermediate class for data that only has 2 or 3 dimensions */
-
 abstract class DataObjXY extends DataObj{
-	abstract function PlotXY($x,$y);
+	protected $xkey;
+	protected $xrkey;
+	protected $ykey;
+	protected $yrkey;
+
+	public function prepare(array $plot, array $resfs){
+		$this->xrkey = $this->xkey = $plot['x'];
+		$this->yrkey = $this->ykey = $plot['y'];
+		
+		if (empty($this->xkey) || empty($this->ykey))
+			throw new Exception('Cannot locate x/y keys in plot settings');
+		if (!in_array($this->xkey,$resfs))
+			throw new Exception('Query row doesn\'t have x data');
+		if (!in_array($this->ykey,$resfs))
+			throw new Exception('Query row doesn\'t have y data');
+		
+		if (in_array($this->xkey.'_raw',$resfs))
+			$this->xrkey=$this->xkey.'_raw';
+		if (in_array($this->ykey.'_raw',$resfs))
+			$this->yrkey=$this->ykey.'_raw';
+	}
 };
 
-abstract class DataObjXYZ extends DataObj{
-	abstract function PlotXYZ($x, $y, $z);
+abstract class DataObjX2Y extends DataObj{
+	protected $xkey;
+	protected $xrkey;
+	protected $ykey;
+	protected $yrkey;
+	protected $x2key;
+	protected $x2rkey;
+	
+
+	public function prepare(array $plot, array $resfs){
+		$this->xrkey = $this->xkey = $plot['x'];
+		$this->yrkey = $this->ykey = $plot['y'];
+		$this->x2rkey = $this->x2key = $plot['x2'];
+		if (isset($plot['x2t']))
+			$this->x2key=$plot['x2t'];
+		
+		if (empty($this->xkey) || empty($this->x2key)|| empty($this->ykey))
+			throw new Exception('Cannot locate x/y keys in plot settings');
+		if (!in_array($this->xkey,$resfs))
+			throw new Exception('Query row doesn\'t have x data');
+		if (!in_array($this->ykey,$resfs))
+			throw new Exception('Query row doesn\'t have y data');
+		
+		if (in_array($this->xkey.'_raw',$resfs))
+			$this->xrkey=$this->xkey.'_raw';
+		if (in_array($this->ykey.'_raw',$resfs))
+			$this->yrkey=$this->ykey.'_raw';
+	}
 };
 
 /** Debug version of parent, dumps the data */
 class DataObjXY_d extends DataObjXY {
-	public function PlotXY($x,$y){
-		echo "x=$x, y=$y <br>\n";
+	public function PlotRow(array $row){
+		echo 'x='.htmlspecialchars($row[$this->xkey]).
+		    ', y='.htmlspecialchars($row[$this->ykey])." <br>\n";
 	}
 	public function debug($str){
 		echo "$str<br>\n";
 	}
 };
 
-class DataObjXYp extends DataObjXY {
-	public $xdata=array();
-	public $ydata=array();
-	
-	public function PlotXY($x,$y){
-		$this->xdata[]=$x;
-		$this->ydata[]=$y;
+/** Debug version of parent, dumps the data */
+class DataObjX2Y_d extends DataObjX2Y {
+	public function PlotRow(array $row){
+		echo 'x='.htmlspecialchars($row[$this->xkey]).
+		     ', x2='.htmlspecialchars($row[$this->x2key]).
+		    ', y='.htmlspecialchars($row[$this->ykey])." <br>\n";
 	}
 	public function debug($str){
-	}
-	
-	public function xdata_add_suffix($suffix, $sep = ''){
-		for ($i=0 ; $i < count($this->xdata); $i++){
-			if (is_array($suffix))
-				$this->xdata[$i] .= $sep . $suffix[$i];
-			else
-				$this->xdata[$i] .= $sep . $suffix;
-		}
+		echo "$str<br>\n";
 	}
 };
 
-class DataObjXYZp extends DataObjXYZ {
+
+class DataObjXYp extends DataObjXY {
 	public $xdata=array();
-	public $yzdata=array();
-	public $zdata=array();
+	public $xrdata=array();
+	public $ydata=array();
+	public $yrdata=array();
 	
-	public function PlotXYZ_($x, $y, $z){
-		$this->xdata[]=$x;
-		$this->yzdata[$z][]=$y;
+	public function NeedRaw() {
+		return true;
 	}
-	public function PlotXYZ($x, $y, $z){
-		if (empty($this->xdata) || (end($this->xdata) != $x))
-			$this->xdata[] = $x; // $xkey = starttime
-		if (!isset($this->yzdata[$z]))
-			$this->yzdata[$z]=array();
+
+	public function PlotRow(array $row){
+		$this->xdata[]=$row[$this->xkey];
+		$this->ydata[]=$row[$this->ykey];
+		$this->xrdata[]=$row[$this->xrkey];
+		$this->yrdata[]=$row[$this->yrkey];
+	}
+	public function debug($str){
+	}
+};
+
+/** A data object which holds sets of y-data in x2 groups
+*/
+class DataObjX2Yp extends DataObjX2Y {
+	public $xdata=array();
+	public $xrdata=array();
+	public $yzdata=array();
+	public $x2data=array(); // assoc x2r ->x2 title
 		
+	public function NeedRaw() {
+		return true;
+	}
+
+	public function PlotRow(array $row){
+		
+		if (empty($this->xrdata) || (end($this->xrdata) != $row[$this->xrkey])){
+			$this->xrdata[] = $row[$this->xrkey];
+			$this->xdata[] = $row[$this->xkey];
+		}
+		if (!isset($this->yzdata[$row[$this->x2rkey]])){
+			$this->yzdata[$row[$this->x2rkey]]=array();
+			$this->x2data[$row[$this->x2rkey]]=$row[$this->x2key];
+		}
+	
 		end($this->xdata);
-		$this->yzdata[$z][key($this->xdata)] = $y;
-		// print_r($this->yzdata);
+		$this->yzdata[$row[$this->x2rkey]][key($this->xdata)] = $row[$this->yrkey];
+
 		foreach ($this->yzdata as $zkey => $yzdata){
 			if (!isset($this->yzdata[$zkey][key($this->xdata)]))
 				$this->yzdata[$zkey][key($this->xdata)] = 0;
-		} 
+		}
+
 	}
-			
+
 	public function debug($str){
 	}
 	
-	public function xdata_add_suffix($suffix, $sep = ''){
-		for ($i=0 ; $i < count($this->xdata); $i++){
-			if (is_array($suffix))
-				$this->xdata[$i] .= $sep . $suffix[$i];
-			else
-				$this->xdata[$i] .= $sep . $suffix;
-		}
-	}
 };
 
 /** A view that renders itself into a graph.
@@ -147,9 +213,9 @@ class GraphView extends FormView {
 			rowcolor => false, bggradient => false,
 			colors =>array('red','blue','green','magenta','yellow'),
 			'accumplot-options' => array (
-						color => array ('yellow@0.3', 'purple@0.3', 'green@0.3', 'blue@0.3', 'red@0.3')));
+				color => array ('yellow@0.3', 'purple@0.3', 'green@0.3', 'blue@0.3', 'red@0.3')));
 		
-		if (($this->gr_sty) && isset($GRAPH_STYLES[$this->gr_sty]))
+		if (!empty($this->gr_sty) && isset($GRAPH_STYLES[$this->gr_sty]))
 			$sty2=$GRAPH_STYLES[$this->gr_sty];
 		elseif (empty($this->gr_sty) && isset($GRAPH_STYLES[0]))
 			$sty2=$GRAPH_STYLES[0];
@@ -237,6 +303,7 @@ class GraphView extends FormView {
 	function Render(&$form){
 		if(!$form->FG_DEBUG)
 			return true;
+		$this->apply_styles();
 		?>
 	<div class="debug">
 	Here we are: debugging FormDataView
@@ -261,7 +328,10 @@ class GraphView extends FormView {
 		</div>
 		<div class="debug">
 		<?php
-			$dobj=new DataObjXY_d($this->code);
+			if ($this instanceof AccumBarView)
+				$dobj=new DataObjX2Y_d($this->code);
+			else
+				$dobj=new DataObjXY_d($this->code);
 			$form->views[$this->view]->RenderSpecial('get-data',$form,$dobj);
 		?>
 		</div>
@@ -295,14 +365,15 @@ class LineView extends GraphView {
 		
 		$robj->xaxis->SetTickLabels($data->xdata);
 		
-		$plot = new LinePlot($data->ydata);
+		$plot = new LinePlot($data->yrdata);
+		// TODO: use ydata for y-labels
 		
 		if (! empty($this->styles['plot-options']['setfillcolor']))
 			$plot->SetFillColor($this->styles['plot-options']['setfillcolor']);
 		if (! empty($this->styles['plot-options']['setcolor']))
 			$plot ->SetColor($this->styles['plot-options']['setcolor']);
 		
-		$robj->Add($plot);	
+		$robj->Add($plot);
 	}
 
 };
@@ -332,7 +403,8 @@ class BarView extends GraphView {
 		
 		$robj->xaxis->SetTickLabels($data->xdata);
 		
-		$plot = new BarPlot($data->ydata);
+		$plot = new BarPlot($data->yrdata);
+		// TODO: use ydata for labels
 		
 		if (! empty($this->styles['plot-options']['setfillcolor']))
 			$plot->SetFillColor($this->styles['plot-options']['setfillcolor']);
@@ -354,9 +426,8 @@ class AccumBarView extends GraphView {
 	
 	public function RenderGraph (&$form, &$robj){
 		
-		$obj_leg = new DataLegend();
-		$data = new DataObjXYZp($this->code);
-		$form->views[$this->view]->RenderSpecial('get-data', $form, $data, $obj_leg);
+		$data = new DataObjX2Yp($this->code);
+		$form->views[$this->view]->RenderSpecial('get-data', $form, $data);
 		
 		if (! empty($this->styles['chart-options']['xlabelangle'])){
 			$robj->xaxis->SetLabelAngle($this->styles['chart-options']['xlabelangle']);
@@ -407,10 +478,7 @@ class PieView extends GraphView {
 		$data = new DataObjXYp($this->code);
 		$form->views[$this->view]->RenderSpecial('get-data',$form,$data);
 		
-		$data->xdata_add_suffix ($data->ydata, ' : ');
-		$data->xdata_add_suffix ($form->views[$this->view]->plots[$this->code]['ylabel']);
-		
-		$pieplot = new PiePlot3D($data->ydata);
+		$pieplot = new PiePlot3D($data->yrdata);
 		
 		if (is_array($this->styles['pie-options'])){
 			if (! empty($this->styles['pie-options']['explodeslice']))
