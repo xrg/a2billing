@@ -3,24 +3,22 @@
 // File:	JPGRAPH_SCATTER.PHP
 // Description: Scatter (and impuls) plot extension for JpGraph
 // Created: 	2001-02-11
-// Author:	Johan Persson (johanp@aditus.nu)
-// Ver:		$Id: jpgraph_scatter.php,v 1.31.2.2 2004/03/27 12:19:36 aditus Exp $
+// Ver:		$Id: jpgraph_scatter.php 957 2007-12-01 14:00:29Z ljp $
 //
-// License:	This code is released under QPL
-// Copyright (C) 2001,2002 Johan Persson
+// Copyright (c) Aditus Consulting. All rights reserved.
 //========================================================================
 */
-require_once ('jpgraph_plotmark.inc');
+require_once ('jpgraph_plotmark.inc.php');
 
 //===================================================
 // CLASS FieldArrow
 // Description: Draw an arrow at (x,y) with angle a
 //===================================================
 class FieldArrow {
-    var $iSize=10;  // Length in pixels for  arrow
-    var $iArrowSize = 2;
-    var $iColor='black';
-    var $isizespec = array(
+    public $iColor='black';
+    public $iSize=10;  // Length in pixels for  arrow
+    public $iArrowSize = 2;
+    private $isizespec = array(
 	array(2,1),array(3,2),array(4,3),array(6,4),array(7,4),array(8,5),array(10,6),array(12,7),array(16,8),array(20,10));
     function FieldArrow() {
     }
@@ -35,8 +33,12 @@ class FieldArrow {
     }
 
     function Stroke($aImg,$x,$y,$a) {
+	// First rotate the center coordinates
+	list($x,$y) = $aImg->Rotate($x,$y);
+
 	$old_origin = $aImg->SetCenter($x,$y);
-	$old_a = $aImg->SetAngle(-$a);
+	$old_a = $aImg->a;
+	$aImg->SetAngle(-$a+$old_a);
 
 	$dx = round($this->iSize/2);
 	$c = array($x-$dx,$y,$x+$dx,$y);
@@ -59,13 +61,15 @@ class FieldArrow {
 // Description: Render a field plot
 //===================================================
 class FieldPlot extends Plot {
-    var $iAngles;
-    var $iCallback='';
+    public $arrow = '';
+    private $iAngles = array();
+    private $iCallback = '';
+    
     function FieldPlot($datay,$datax,$angles) {
 	if( (count($datax) != count($datay)) )
-	    JpGraphError::Raise("Fieldplots must have equal number of X and Y points.");
+	    JpGraphError::RaiseL(20001);//("Fieldplots must have equal number of X and Y points.");
 	if( (count($datax) != count($angles)) )
-	    JpGraphError::Raise("Fieldplots must have an angle specified for each X and Y points.");
+	    JpGraphError::RaiseL(20002);//("Fieldplots must have an angle specified for each X and Y points.");
 	
 	$this->iAngles = $angles;
 
@@ -80,7 +84,7 @@ class FieldPlot extends Plot {
 	$this->iCallback = $aFunc;
     }
 
-    function Stroke(&$img,&$xscale,&$yscale) {
+    function Stroke($img,$xscale,$yscale) {
 
 	// Remeber base color and size
 	$bc = $this->arrow->iColor;
@@ -99,7 +103,6 @@ class FieldPlot extends Plot {
 		if( $cc  == "" ) $cc = $bc;
 		if( $cs  == "" ) $cs = $bs;
 		if( $cas == "" ) $cas = $bas;
-		//echo "f=$f, cc=$cc, cs=$cs, cas=$cas<br>";
 		$this->arrow->SetColor($cc);	    
 		$this->arrow->SetSize($cs,$cas);
 	    }
@@ -113,10 +116,10 @@ class FieldPlot extends Plot {
     }
 	
     // Framework function
-    function Legend(&$aGraph) {
+    function Legend($aGraph) {
 	if( $this->legend != "" ) {
 	    $aGraph->legend->Add($this->legend,$this->mark->fill_color,$this->mark,0,
-				 $this->legendcsimtarget,$this->legendcsimalt);
+				 $this->legendcsimtarget,$this->legendcsimalt,$this->legendcsimwintarget);
 	}
     }	
 }
@@ -126,13 +129,14 @@ class FieldPlot extends Plot {
 // Description: Render X and Y plots
 //===================================================
 class ScatterPlot extends Plot {
-    var $impuls = false;
-    var $linkpoints = false, $linkpointweight=1, $linkpointcolor="black";
+    public $mark = '';
+    private $impuls = false;
+    private $linkpoints = false, $linkpointweight=1, $linkpointcolor="black";
 //---------------
 // CONSTRUCTOR
     function ScatterPlot($datay,$datax=false) {
 	if( (count($datax) != count($datay)) && is_array($datax))
-	    JpGraphError::Raise("Scatterplot must have equal number of X and Y points.");
+	    JpGraphError::RaiseL(20003);//("Scatterplot must have equal number of X and Y points.");
 	$this->Plot($datay,$datax);
 	$this->mark = new PlotMark();
 	$this->mark->SetType(MARK_SQUARE);
@@ -154,7 +158,7 @@ class ScatterPlot extends Plot {
 	$this->linkpointweight=$aWeight;
     }
 
-    function Stroke(&$img,&$xscale,&$yscale) {
+    function Stroke($img,$xscale,$yscale) {
 
 	$ymin=$yscale->scale_abs[0];
 	if( $yscale->scale[0] < 0 )
@@ -166,7 +170,7 @@ class ScatterPlot extends Plot {
 	for( $i=0; $i<$this->numpoints; ++$i ) {
 
 	    // Skip null values
-	    if( $this->coords[0][$i]==="" )
+	    if( $this->coords[0][$i]==='' || $this->coords[0][$i]==='-' || $this->coords[0][$i]==='x')
 		continue;
 
 	    if( isset($this->coords[1]) )
@@ -189,7 +193,12 @@ class ScatterPlot extends Plot {
 	    }
 	
 	    if( !empty($this->csimtargets[$i]) ) {
-	        $this->mark->SetCSIMTarget($this->csimtargets[$i]);
+		if( !empty($this->csimwintargets[$i]) ) {
+		    $this->mark->SetCSIMTarget($this->csimtargets[$i],$this->csimwintargets[$i]);
+		}
+		else {
+		    $this->mark->SetCSIMTarget($this->csimtargets[$i]);
+		}
 	        $this->mark->SetCSIMAlt($this->csimalts[$i]);
 	    }
 	    
@@ -211,10 +220,10 @@ class ScatterPlot extends Plot {
     }
 	
     // Framework function
-    function Legend(&$aGraph) {
+    function Legend($aGraph) {
 	if( $this->legend != "" ) {
 	    $aGraph->legend->Add($this->legend,$this->mark->fill_color,$this->mark,0,
-				 $this->legendcsimtarget,$this->legendcsimalt);
+				 $this->legendcsimtarget,$this->legendcsimalt,$this->legendcsimwintarget);
 	}
     }	
 } // Class

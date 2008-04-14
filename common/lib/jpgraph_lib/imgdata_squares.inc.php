@@ -3,23 +3,21 @@
 // File:	IMGDATA_SQUARES.INC
 // Description:	Base64 encoded images for squares
 // Created: 	2003-03-20
-// Author:	Johan Persson (johanp@aditus.nu)
-// Ver:		$Id: imgdata_squares.inc,v 1.1 2003/03/23 13:37:37 aditus Exp $
+// Ver:		$Id: imgdata_squares.inc.php 860 2007-03-23 19:16:19Z ljp $
 //
-// License:	This code is released under QPL 1.0 
-// Copyright (C) 2003 Johan Persson 
+// Copyright (c) Aditus Consulting. All rights reserved.
 //========================================================================
 
 class ImgData_Squares extends ImgData {
-    var $name = 'Squares';
-    var $an = array(MARK_IMG_SQUARE =>'imgdata');
+    protected $name = 'Squares';
+    protected $an = array(MARK_IMG_SQUARE =>'imgdata');
     
-    var $colors = array('bluegreen','blue','green', 
+    protected $colors = array('bluegreen','blue','green', 
 			'lightblue','orange','purple','red','yellow');
-    var $index  = array('bluegreen' =>2,'blue'=>5,'green'=>6, 
+    protected $index  = array('bluegreen' =>2,'blue'=>5,'green'=>6, 
 			'lightblue'=>0,'orange'=>7,'purple'=>4,'red'=>3,'yellow'=>1);
-    var $maxidx = 7 ;
-    var $imgdata ;
+    protected $maxidx = 7 ;
+    protected $imgdata ;
 
     function ImgData_Squares () {
 //==========================================================

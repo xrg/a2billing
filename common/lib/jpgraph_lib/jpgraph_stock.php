@@ -3,11 +3,9 @@
 // File: 	JPGRAPH_STOCK.PHP
 // Description:	Stock plot extension for JpGraph
 // Created: 	2003-01-27
-// Author:	Johan Persson (johanp@aditus.nu)
-// Ver:		$Id: jpgraph_stock.php,v 1.5.2.2 2004/12/11 14:41:54 aditus Exp $
+// Ver:		$Id: jpgraph_stock.php 957 2007-12-01 14:00:29Z ljp $
 //
-// License:	This code is released under QPL
-// Copyright (C) 2003 Johan Persson
+// Copyright (c) Aditus Consulting. All rights reserved.
 //========================================================================
 */
 
@@ -15,15 +13,16 @@
 // CLASS StockPlot
 //===================================================
 class StockPlot extends Plot {
-    var $iTupleSize = 4;
-    var $iWidth=9;
-    var $iEndLines=1;
-    var $iStockColor1='white',$iStockColor2='darkred',$iStockColor3='darkred';
+    protected $iTupleSize = 4;
+    private $iWidth=9;
+    private $iEndLines=1;
+    private $iStockColor1='white',$iStockColor2='darkred',$iStockColor3='darkred';
 //---------------
 // CONSTRUCTOR
-    function StockPlot(&$datay,$datax=false) {
+    function StockPlot($datay,$datax=false) {
 	if( count($datay) % $this->iTupleSize ) {
-	    JpGraphError::Raise('Data values for Stock charts must contain an even multiple of '.$this->iTupleSize.' data points.');
+	    JpGraphError::RaiseL(21001,$this->iTupleSize);
+//('Data values for Stock charts must contain an even multiple of '.$this->iTupleSize.' data points.');
 	}
 	$this->Plot($datay,$datax);
 	$this->numpoints /= $this->iTupleSize;
@@ -48,7 +47,7 @@ class StockPlot extends Plot {
     }
 
     // Gets called before any axis are stroked
-    function PreStrokeAdjust(&$graph) {
+    function PreStrokeAdjust($graph) {
 	if( $this->center ) {
 	    $a=0.5; $b=0.5;
 	    $this->numpoints++;
@@ -65,7 +64,8 @@ class StockPlot extends Plot {
 	if( $this->center ) $n--;
 	if( isset($this->coords[1]) ) {
 	    if( count($this->coords[1])!=$n )
-		JpGraphError::Raise("Number of X and Y points are not equal. Number of X-points:".count($this->coords[1])." Number of Y-points:$numpoints");
+		JpGraphError::RaiseL(2003,count($this->coords[1]),$n);
+//("Number of X and Y points are not equal. Number of X-points:".count($this->coords[1])." Number of Y-points:$numpoints");
 	    else
 		$exist_x = true;
 	}
@@ -140,9 +140,9 @@ class StockPlot extends Plot {
 		$this->csimareas .= ' href="'.$this->csimtargets[$i].'"';
 		if( !empty($this->csimalts[$i]) ) {
 		    $sval=$this->csimalts[$i];
-		    $this->csimareas .= " alt=\"$sval\" title=\"$sval\" ";
+		    $this->csimareas .= " title=\"$sval\" alt=\"$sval\" ";
 		}
-		$this->csimareas.= ">\n";
+		$this->csimareas.= "  />\n";
 	    }
 	}			
 	return true;
@@ -157,7 +157,7 @@ class StockPlot extends Plot {
 // CLASS BoxPlot
 //===================================================
 class BoxPlot extends StockPlot {
-    var $iPColor='black',$iNColor='white';
+    private $iPColor='black',$iNColor='white';
     function BoxPlot($datay,$datax=false) {
 	$this->iTupleSize=5;
 	parent::StockPlot($datay,$datax);
