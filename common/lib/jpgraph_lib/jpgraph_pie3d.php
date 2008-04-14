@@ -3,11 +3,9 @@
 // File:	JPGRAPH_PIE3D.PHP
 // Description: 3D Pie plot extension for JpGraph
 // Created: 	2001-03-24
-// Author:	Johan Persson (johanp@aditus.nu)
-// Ver:		$Id: jpgraph_pie3d.php,v 1.46.2.5 2004/06/19 12:22:04 aditus Exp $
+// Ver:		$Id: jpgraph_pie3d.php 956 2007-11-17 13:19:20Z ljp $
 //
-// License:	This code is released under QPL
-// Copyright (C) 2001,2002 Johan Persson
+// Copyright (c) Aditus Consulting. All rights reserved.
 //========================================================================
 */
 
@@ -17,14 +15,14 @@
 // angle between 20 and 70 degrees.
 //===================================================
 class PiePlot3D extends PiePlot {
-    var $labelhintcolor="red",$showlabelhint=true;
-    var $angle=50;	
-    var $edgecolor="", $edgeweight=1;
-    var $iThickness=false;
+    private $labelhintcolor="red",$showlabelhint=true;
+    private $angle=50;	
+    private $edgecolor="", $edgeweight=1;
+    private $iThickness=false;
 	
 //---------------
 // CONSTRUCTOR
-    function PiePlot3d(&$data) {
+    function PiePlot3d($data) {
 	$this->radius = 0.5;
 	$this->data = $data;
 	$this->title = new Text("");
@@ -39,40 +37,48 @@ class PiePlot3D extends PiePlot {
 	
     // Set label arrays
     function SetLegends($aLegend) {
-	$this->legends = array_reverse($aLegend);
+	$this->legends = array_reverse(array_slice($aLegend,0,count($this->data)));
     }
 
     function SetSliceColors($aColors) {
 	$this->setslicecolors = $aColors;
     }
 
-    function Legend(&$aGraph) {
+    function Legend($aGraph) {
 	parent::Legend($aGraph);
 	$aGraph->legend->txtcol = array_reverse($aGraph->legend->txtcol);
     }
 
-    function SetCSIMTargets($targets,$alts=null) {
-	$this->csimtargets = $targets;
-	$this->csimalts = $alts;
+    function SetCSIMTargets($aTargets,$aAlts='',$aWinTargets='') {
+	$this->csimtargets = $aTargets;
+	$this->csimwintargets = $aWinTargets;
+	$this->csimalts = $aAlts;
     }
 
     // Should the slices be separated by a line? If color is specified as "" no line
     // will be used to separate pie slices.
-    function SetEdge($aColor,$aWeight=1) {
+    function SetEdge($aColor='black',$aWeight=1) {
 	$this->edgecolor = $aColor;
 	$this->edgeweight = $aWeight;
+    }
+
+    // Dummy function to make Pie3D behave in a similair way to 2D
+    function ShowBorder($exterior=true,$interior=true) {
+	JpGraphError::RaiseL(14001);
+//('Pie3D::ShowBorder() . Deprecated function. Use Pie3D::SetEdge() to control the edges around slices.');
     }
 
     // Specify projection angle for 3D in degrees
     // Must be between 20 and 70 degrees
     function SetAngle($a) {
 	if( $a<5 || $a>90 )
-	    JpGraphError::Raise("PiePlot3D::SetAngle() 3D Pie projection angle must be between 5 and 85 degrees.");
+	    JpGraphError::RaiseL(14002);
+//("PiePlot3D::SetAngle() 3D Pie projection angle must be between 5 and 85 degrees.");
 	else
 	    $this->angle = $a;
     }
 
-    function AddSliceToCSIM($i,$xc,$yc,$height,$width,$thick,$sa,$ea) {  //Slice number, ellipse centre (x,y), height, width, start angle, end angle
+    function Add3DSliceToCSIM($i,$xc,$yc,$height,$width,$thick,$sa,$ea) {  //Slice number, ellipse centre (x,y), height, width, start angle, end angle
 
 	$sa *= M_PI/180;
 	$ea *= M_PI/180;
@@ -114,12 +120,21 @@ class PiePlot3D extends PiePlot {
 	}
 	$coords.= ", $xp, $yp";
 	$alt='';
-	if( !empty($this->csimalts[$i]) ) {										
-	    $tmp=sprintf($this->csimalts[$i],$this->data[$i]);
-	    $alt="alt=\"$tmp\" title=\"$tmp\"";
+
+	if( !empty($this->csimtargets[$i]) ) {
+	    $this->csimareas .= "<area shape=\"poly\" coords=\"$coords\" href=\"".$this->csimtargets[$i]."\"";
+	
+	    if( !empty($this->csimwintargets[$i]) ) {
+		$this->csimareas .= " target=\"".$this->csimwintargets[$i]."\" "; 
+	    }
+	    
+	    if( !empty($this->csimalts[$i]) ) {										
+		$tmp=sprintf($this->csimalts[$i],$this->data[$i]);
+		$this->csimareas .= "alt=\"$tmp\" title=\"$tmp\" ";
+	    }
+	    $this->csimareas .=  " />\n";
 	}
-	if( !empty($this->csimtargets[$i]) )
-	    $this->csimareas .= "<area shape=\"poly\" coords=\"$coords\" href=\"".$this->csimtargets[$i]."\" $alt>\n";
+
     }
 
     function SetLabels($aLabels,$aLblPosAdj="auto") {
@@ -176,7 +191,7 @@ class PiePlot3D extends PiePlot {
 	// pie ellipse. Hence, no slice will cross 90 or 270
 	// point.
 	if( ($sa < 90 && $ea > 90) || ( ($sa > 90 && $sa < 270) && $ea > 270) ) {
-	    JpGraphError::Raise('Internal assertion failed. Pie3D::Pie3DSlice');
+	    JpGraphError::RaiseL(14003);//('Internal assertion failed. Pie3D::Pie3DSlice');
 	    exit(1);
 	}
 
@@ -379,7 +394,7 @@ class PiePlot3D extends PiePlot {
 
     function SetStartAngle($aStart) {
 	if( $aStart < 0 || $aStart > 360 ) {
-	    JpGraphError::Raise('Slice start angle must be between 0 and 360 degrees.');
+	    JpGraphError::RaiseL(14004);//('Slice start angle must be between 0 and 360 degrees.');
 	}
 	$this->startangle = $aStart;
     }
@@ -573,7 +588,8 @@ class PiePlot3D extends PiePlot {
 		$j=0;
 	    }
 	    if( $cnt > $n ) {
-		JpGraphError::Raise("Pie3D Internal error (#1). Trying to wrap twice when looking for start index");
+		JpGraphError::RaiseL(14005);
+//("Pie3D Internal error (#1). Trying to wrap twice when looking for start index");
 	    }
 	    ++$cnt;
 	}
@@ -599,7 +615,8 @@ class PiePlot3D extends PiePlot {
 	    $j++;
 	    if( $j >= $n ) $j=0;
 	    if( $cnt > $n ) {
-		JpGraphError::Raise("Pie3D Internal Error: Z-Sorting algorithm for 3D Pies is not working properly (2). Trying to wrap twice while stroking.");
+		JpGraphError::RaiseL(14006);
+//("Pie3D Internal Error: Z-Sorting algorithm for 3D Pies is not working properly (2). Trying to wrap twice while stroking.");
 	    }
 	    ++$cnt;
 	}
@@ -619,7 +636,8 @@ class PiePlot3D extends PiePlot {
 			      $z,$adjcolors[$j],$shadow);
 	    $j--;
 	    if( $cnt > $n ) {
-		JpGraphError::Raise("Pie3D Internal Error: Z-Sorting algorithm for 3D Pies is not working properly (2). Trying to wrap twice while stroking.");
+		JpGraphError::RaiseL(14006);
+//("Pie3D Internal Error: Z-Sorting algorithm for 3D Pies is not working properly (2). Trying to wrap twice while stroking.");
 	    }
 	    if($j<0) $j=$n-1;
 	    $cnt++;
@@ -637,13 +655,15 @@ class PiePlot3D extends PiePlot {
 
 	if( $aaoption !== 1 ) {
 	    // Now print possible labels and add csim
-	    $img->SetFont($this->value->ff,$this->value->fs);
+	    $this->value->ApplyFont($img);
 	    $margin = $img->GetFontHeight()/2 + $this->value->margin ;
 	    for($i=0; $i < count($data); ++$i ) {
 		$la = $labeldata[$i][0];
-		$x = $labeldata[$i][1] + cos($la*M_PI/180)*($d+$margin);
-		$y = $labeldata[$i][2] - sin($la*M_PI/180)*($h+$margin);
-		if( $la > 180 && $la < 360 ) $y += $z;
+		$x = $labeldata[$i][1] + cos($la*M_PI/180)*($d+$margin)*$this->ilabelposadj;
+		$y = $labeldata[$i][2] - sin($la*M_PI/180)*($h+$margin)*$this->ilabelposadj;
+		if( $this->ilabelposadj >= 1.0 ) {
+		    if( $la > 180 && $la < 360 ) $y += $z;
+		}
 		if( $this->labeltype == 0 ) {
 		    if( $sum > 0 )
 			$l = 100*$data[$i]/$sum;
@@ -661,7 +681,7 @@ class PiePlot3D extends PiePlot {
 
 		$this->StrokeLabels($l,$img,$labeldata[$i][0]*M_PI/180,$x,$y,$z);
 	    
-		$this->AddSliceToCSIM($i,$labeldata[$i][1],$labeldata[$i][2],$h*2,$d*2,$z,
+		$this->Add3DSliceToCSIM($i,$labeldata[$i][1],$labeldata[$i][2],$h*2,$d*2,$z,
 				      $originalangles[$i][0],$originalangles[$i][1]);
 	    }	
 	}
@@ -802,8 +822,7 @@ class PiePlot3D extends PiePlot {
 
 	// Add a sanity check for width
 	if( $width < 1 ) { 
-	    JpGraphError::Raise("Width for 3D Pie is 0. Specify a size > 0");
-	    exit();
+	    JpGraphError::RaiseL(14007);//("Width for 3D Pie is 0. Specify a size > 0");
 	}
 
 	// Establish a thickness. By default the thickness is a fifth of the
@@ -840,7 +859,7 @@ class PiePlot3D extends PiePlot {
 
 	// Adjust title position
 	if( $aaoption != 1 ) {
-	    $this->title->Pos($xc,$yc-$this->title->GetFontHeight($img)-$width/2-$this->title->margin,			      "center","bottom");
+	    $this->title->SetPos($xc,$yc-$this->title->GetFontHeight($img)-$width/2-$this->title->margin,			      "center","bottom");
 	    $this->title->Stroke($img);
 	}
     }
@@ -858,7 +877,7 @@ class PiePlot3D extends PiePlot {
 	// that intersects with the extension of the corresponding axis. The code looks a little
 	// bit messy but this is really the only way of having a reasonable position of the
 	// axis titles.
-	$img->SetFont($this->value->ff,$this->value->fs,$this->value->fsize);
+	$this->value->ApplyFont($img);
 	$h=$img->GetTextHeight($label);
 	// For numeric values the format of the display value
 	// must be taken into account

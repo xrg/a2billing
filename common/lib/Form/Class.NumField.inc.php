@@ -109,7 +109,7 @@ class MoneyField extends FloatField {
 			$this->fieldname;
 	}
 	
-	public function buildSumQuery(&$dbhandle, &$sum_fns,&$fields, &$table,
+	public function buildSumQuery(&$dbhandle, &$sum_fns,&$fields,&$fields_out, &$table,&$table_out,
 		&$clauses, &$grps, &$form){
 		if (!$this->does_list)
 			return;
@@ -123,15 +123,13 @@ class MoneyField extends FloatField {
 		if (isset($sum_fns[$this->fieldname]) && !is_null($sum_fns[$this->fieldname])){
 			if ($sum_fns[$this->fieldname] === true){
 				$grps[] = $this->fieldname;
-				$fields[] = "format_currency($fld, '".
-					$form->a2billing->currency ."') ".
-					"AS ". $this->fieldname;
+				$fields[] = "$fld AS ". $this->fieldname;
 			}
 			elseif (is_string($sum_fns[$this->fieldname]))
-				$fields[] = "format_currency(".
-				$sum_fns[$this->fieldname] ."($fld), '".
-					$form->a2billing->currency ."') ".
-					"AS ". $this->fieldname;
+				$fields[] = $sum_fns[$this->fieldname] ."($fld) AS ". $this->fieldname;
+			
+			$fields_out[] = array("format_currency($this->fieldname, '".
+				$form->a2billing->currency ."')", $this->fieldname);
 			
 		}
 		
@@ -169,13 +167,6 @@ class MoneyField extends FloatField {
 			array($this->buildValue($form->getpost_dirty($this->fieldname),$form),
 				$form->a2billing->currency));
 	}
-	
-	public function getOrder(&$form){
-		if ($this->fieldexpr)
-			return $this->fieldexpr;
-		else
-			return $form->model_table.'.'.$this->fieldname;
-	}
 
 };
 
@@ -189,7 +180,7 @@ class MoneyField2 extends MoneyField {
 			$this->fieldname;
 	}
 	
-	public function buildSumQuery(&$dbhandle, &$sum_fns,&$fields, &$table,
+	public function buildSumQuery(&$dbhandle, &$sum_fns,&$fields, &$fields_out, &$table,&$table_out,
 		&$clauses, &$grps, &$form){
 		if (!$this->does_list)
 			return;
@@ -203,15 +194,13 @@ class MoneyField2 extends MoneyField {
 		if (isset($sum_fns[$this->fieldname]) && !is_null($sum_fns[$this->fieldname])){
 			if ($sum_fns[$this->fieldname] === true){
 				$grps[] = $this->fieldname;
-				$fields[] = "format_currency2($fld, '".
-					$form->a2billing->currency ."') ".
-					"AS ". $this->fieldname;
+				$fields[] = "$fld AS ". $this->fieldname;
 			}
 			elseif (is_string($sum_fns[$this->fieldname]))
-				$fields[] = "format_currency2(".
-				$sum_fns[$this->fieldname] ."($fld), '".
-					$form->a2billing->currency ."') ".
-					"AS ". $this->fieldname;
+				$fields[] = $sum_fns[$this->fieldname] ."($fld) AS ". $this->fieldname;
+			
+			$fields_out[] = array("format_currency2($this->fieldname, '".
+				$form->a2billing->currency ."')", $this->fieldname);
 			
 		}
 		

@@ -10,13 +10,15 @@ class ListSumView extends ListView {
 			echo "<div class=\"debug\"> ListSum! Building Sum query..</div>";
 		
 		$query_fields = array();
+		$query_outerfields = array();
 		$query_clauses = array();
 		$query_grps = array();
 		$query_table = $form->model_table;
+		$query_outertable ='';
 		
 		foreach($form->model as $fld){
 			$fld->buildSumQuery($dbhandle, $this->sum_fns,
-				$query_fields,$query_table,
+				$query_fields,$query_outerfields,$query_table,$query_outertable,
 				$query_clauses, $query_grps,$form);
 		}
 	
@@ -41,6 +43,31 @@ class ListSumView extends ListView {
 		
 		if (!empty($query_grps))
 			$QUERY .= ' GROUP BY ' . implode(', ', $query_grps);
+
+		$needouter=false;
+		if(!empty($query_outertable))
+			$needouter=true;
+		else{
+			foreach($query_outerfields as $qof)
+				if (!is_string($qof)){
+					$needouter=true;
+					break;
+				}
+		}
+		
+		if ($needouter){
+			$qf2=array();
+			foreach ($query_outerfields as $qof)
+				if (is_string($qof))
+					$qf2[]=$qof;
+				elseif (is_array($qof)){
+					// if ($need_raw)
+					//	$qf2[]=$qof[1]. ' AS '.$qof[1] .'_raw';
+					$qf2[]=$qof[0].' AS '.$qof[1];
+				}
+			$QUERY = 'SELECT '.implode(', ', $qf2). ' FROM '.
+				'('.$QUERY .') AS innerfoo '.$query_outertable;
+		}
 
 		$QUERY .= ';';
 		

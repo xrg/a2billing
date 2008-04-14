@@ -3,16 +3,15 @@
 // File:	JPGRAPH_ANTISPAM.PHP
 // Description:	Genarate anti-spam challenge
 // Created: 	2004-10-07
-// Author:	Johan Persson (johanp@aditus.nu)
-// Ver:		$Id$
+// Ver:		$Id: jpgraph_antispam.php 808 2006-11-28 19:10:40Z ljp $
 //
-// License:	This code is released under QPL 1.0
-// Copyright (C) 2004 Johan Persson
+// Copyright (c) Aditus Consulting. All rights reserved.
 //========================================================================
 
 class HandDigits {
-    var $chars = array();
-    var $iHeight=30, $iWidth=30;
+    public $chars = array();
+    public $iHeight=30, $iWidth=30;
+
     function HandDigits() {
 
 //==========================================================
@@ -546,12 +545,16 @@ $this->chars['q'][1]=
 
 class AntiSpam {
 
-    var $iData='';
-    var $iDD=null;
+    private $iData='';
+    private $iDD=null;
 
     function AntiSpam($aData='') {
 	$this->iData = $aData;
 	$this->iDD = new HandDigits();	
+    }
+
+    function Set($aData) {
+	$this->iData = $aData;
     }
 
     function Rand($aLen) {

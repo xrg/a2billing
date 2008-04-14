@@ -11,33 +11,160 @@ abstract class DataObj{
 	}
 	abstract function debug($str);
 	
+	/** Get the data from that (db) row into the object.
+	   This is a generic way to parse a query result into
+	   the internal arrays of this structure. */
+	abstract function PlotRow(array $row);
+	
+	/** Returns if the fetch query should feed this with raw data, too */
+	public function NeedRaw() {
+		return false;
+	}
+	
+	/** Initialize some internal structures according to plot, query rows 
+	    \param plot an array with plot settings. 'x', 'y' will be used
+	    \param res the provided query fields. An array with string names
+	            of each query row field.
+	  */
+	abstract function prepare(array $plot, array $resfs);
+	
 };
 
-/** Intermediate class for data that only has 2 dimensions */
+/** Intermediate class for data that only has 2 or 3 dimensions */
 abstract class DataObjXY extends DataObj{
-	abstract function PlotXY($x,$y);
+	protected $xkey;
+	protected $xrkey;
+	protected $ykey;
+	protected $yrkey;
+
+	public function prepare(array $plot, array $resfs){
+		$this->xrkey = $this->xkey = $plot['x'];
+		$this->yrkey = $this->ykey = $plot['y'];
+		
+		if (empty($this->xkey) || empty($this->ykey))
+			throw new Exception('Cannot locate x/y keys in plot settings');
+		if (!in_array($this->xkey,$resfs))
+			throw new Exception('Query row doesn\'t have x data');
+		if (!in_array($this->ykey,$resfs))
+			throw new Exception('Query row doesn\'t have y data');
+		
+		if (in_array($this->xkey.'_raw',$resfs))
+			$this->xrkey=$this->xkey.'_raw';
+		if (in_array($this->ykey.'_raw',$resfs))
+			$this->yrkey=$this->ykey.'_raw';
+	}
+};
+
+abstract class DataObjX2Y extends DataObj{
+	protected $xkey;
+	protected $xrkey;
+	protected $ykey;
+	protected $yrkey;
+	protected $x2key;
+	protected $x2rkey;
+	
+
+	public function prepare(array $plot, array $resfs){
+		$this->xrkey = $this->xkey = $plot['x'];
+		$this->yrkey = $this->ykey = $plot['y'];
+		$this->x2rkey = $this->x2key = $plot['x2'];
+		if (isset($plot['x2t']))
+			$this->x2key=$plot['x2t'];
+		
+		if (empty($this->xkey) || empty($this->x2key)|| empty($this->ykey))
+			throw new Exception('Cannot locate x/y keys in plot settings');
+		if (!in_array($this->xkey,$resfs))
+			throw new Exception('Query row doesn\'t have x data');
+		if (!in_array($this->ykey,$resfs))
+			throw new Exception('Query row doesn\'t have y data');
+		
+		if (in_array($this->xkey.'_raw',$resfs))
+			$this->xrkey=$this->xkey.'_raw';
+		if (in_array($this->ykey.'_raw',$resfs))
+			$this->yrkey=$this->ykey.'_raw';
+	}
 };
 
 /** Debug version of parent, dumps the data */
 class DataObjXY_d extends DataObjXY {
-	public function PlotXY($x,$y){
-		echo "x=$x, y=$y <br>\n";
+	public function PlotRow(array $row){
+		echo 'x='.htmlspecialchars($row[$this->xkey]).
+		    ', y='.htmlspecialchars($row[$this->ykey])." <br>\n";
 	}
 	public function debug($str){
 		echo "$str<br>\n";
 	}
 };
 
+/** Debug version of parent, dumps the data */
+class DataObjX2Y_d extends DataObjX2Y {
+	public function PlotRow(array $row){
+		echo 'x='.htmlspecialchars($row[$this->xkey]).
+		     ', x2='.htmlspecialchars($row[$this->x2key]).
+		    ', y='.htmlspecialchars($row[$this->ykey])." <br>\n";
+	}
+	public function debug($str){
+		echo "$str<br>\n";
+	}
+};
+
+
 class DataObjXYp extends DataObjXY {
 	public $xdata=array();
+	public $xrdata=array();
 	public $ydata=array();
+	public $yrdata=array();
 	
-	public function PlotXY($x,$y){
-		$this->xdata[]=$x;
-		$this->ydata[]=$y;
+	public function NeedRaw() {
+		return true;
+	}
+
+	public function PlotRow(array $row){
+		$this->xdata[]=$row[$this->xkey];
+		$this->ydata[]=$row[$this->ykey];
+		$this->xrdata[]=$row[$this->xrkey];
+		$this->yrdata[]=$row[$this->yrkey];
 	}
 	public function debug($str){
 	}
+};
+
+/** A data object which holds sets of y-data in x2 groups
+*/
+class DataObjX2Yp extends DataObjX2Y {
+	public $xdata=array();
+	public $xrdata=array();
+	public $yzdata=array();
+	public $x2data=array(); // assoc x2r ->x2 title
+		
+	public function NeedRaw() {
+		return true;
+	}
+
+	public function PlotRow(array $row){
+		
+		if (empty($this->xrdata) || (end($this->xrdata) != $row[$this->xrkey])){
+			$this->xrdata[] = $row[$this->xrkey];
+			$this->xdata[] = $row[$this->xkey];
+		}
+		if (!isset($this->yzdata[$row[$this->x2rkey]])){
+			$this->yzdata[$row[$this->x2rkey]]=array();
+			$this->x2data[$row[$this->x2rkey]]=$row[$this->x2key];
+		}
+	
+		end($this->xdata);
+		$this->yzdata[$row[$this->x2rkey]][key($this->xdata)] = $row[$this->yrkey];
+
+		foreach ($this->yzdata as $zkey => $yzdata){
+			if (!isset($this->yzdata[$zkey][key($this->xdata)]))
+				$this->yzdata[$zkey][key($this->xdata)] = 0;
+		}
+
+	}
+
+	public function debug($str){
+	}
+	
 };
 
 /** A view that renders itself into a graph.
@@ -47,16 +174,128 @@ class DataObjXYp extends DataObjXY {
 class GraphView extends FormView {
 	public $view;
 	public $code;
-	public $params;
+	public $parms = array();
+		/** This will hold every style-related info. At first, the array
+		is initted with some dummy default data, and then it will be overriden
+		by setting the style of the graph */
+	public $styles;
+	public $gr_sty;
 	
-	function GraphView($vi,$co,$pa){
+	function GraphView($vi, $co, $sty=null){
 		$this->view=$vi;
 		$this->code=$co;
-		$this->params=$pa;
+		$this->gr_sty=$sty;
+	}
+	
+	public function RenderHeaderGraph (&$form, &$robj){
+	}
+	
+	
+	public function RenderGraph (&$form, &$robj){
+		// For debugging purposes
+		$data = new DataObjXYp($this->code);
+		print_r ($data);
+	}
+	
+	/** Compute the stylesheet for this object. 
+	    Unfortunately this has to be called later than the initializer, because
+	    default GRAPH_STYLES are defined in PP_graph.inc.php, much later than $this.
+	*/
+	protected function apply_styles(){
+		if (!empty($this->styles))
+			return ; // already set, nothing to do.
+			
+		global $GRAPH_STYLES;
+
+		$defaults = array( width => 500, height => 300, 
+			setscale => 'textlin', xsetgrace => 3, ysetgrace => 3, 
+			setframe => true, margin => array('35', '35', '15', '35'),
+			rowcolor => false, bggradient => false,
+			colors =>array('red','blue','green','magenta','yellow'),
+			'accumplot-options' => array (
+				color => array ('yellow@0.3', 'purple@0.3', 'green@0.3', 'blue@0.3', 'red@0.3')));
+		
+		if (!empty($this->gr_sty) && isset($GRAPH_STYLES[$this->gr_sty]))
+			$sty2=$GRAPH_STYLES[$this->gr_sty];
+		elseif (empty($this->gr_sty) && isset($GRAPH_STYLES[0]))
+			$sty2=$GRAPH_STYLES[0];
+		else	$sty2=array();
+		
+		$this->styles=array_merge($defaults,$sty2,$this->parms);
+		
 	}
 	
 	public function RenderSpecial($rmode,&$form, &$robj){
-		throw new Exception("Stub (which graph?) !");
+		$this->apply_styles();
+
+		if ($rmode=='create-graph'){
+			$this -> RenderHeaderGraph($form, $robj);
+			$this -> RenderHeadSpecial($form, $robj);
+		}
+		elseif ($rmode=='graph'){
+			$this -> RenderGraph($form, $robj);
+		}
+	}
+	
+	public function RenderHeadSpecial(&$form, &$robj){
+		
+		//print_r ($this->styles);
+		
+		if (!empty($this->styles['setscale']))
+			$robj->SetScale($this->styles['setscale']);
+		
+		if (is_array($this->styles['margin']) && count($this->styles['margin'])==4)
+			$robj->SetMargin($this->styles['margin'][0],$this->styles['margin'][1],$this->styles['margin'][2],$this->styles['margin'][3]);
+		
+		if (!$this->styles['setframe'])
+			$robj->SetFrame(false);
+		
+		if (! empty($form->views[$this->view]->plots[$this->code]['title']))
+			$robj->title->Set($form->views[$this->view]->plots[$this->code]['title']);
+		
+		if (! empty($form->views[$this->view]->plots[$this->code]['subtitles'])){
+			$robj->tabtitle->Set($form->views[$this->view]->plots[$this->code]['subtitles']);
+			$robj->tabtitle->SetWidth(TABTITLE_WIDTHFULL);
+		}
+		
+		if ($this->styles['bggradient'])
+			if ($this->styles['bggradient']['show'])
+				if (is_array($this->styles['bggradient']['params']) && count($this->styles['bggradient']['params'])==4){
+					$robj->SetBackgroundGradient($this->styles['bggradient']['params'][0],
+						$this->styles['bggradient']['params'][1],
+						$this->styles['bggradient']['params'][2],
+						$this->styles['bggradient']['params'][3]);
+				}
+		
+		if (!empty($this->styles['chart-options']['xsetgrace']))
+			$robj->yaxis->scale->SetGrace($this->styles['chart-options']['xsetgrace']);
+		
+		if (!empty($this->styles['chart-options']['ysetgrace']))
+			$robj->yaxis->scale->SetGrace($this->styles['chart-options']['ysetgrace']);
+		
+		if ($this->styles['chart-options']['xgrid'])
+			if ($this->styles['chart-options']['xgrid']['show'])
+				if (is_array($this->styles['chart-options']['xgrid']['params'])){
+					if (is_array($this->styles['chart-options']['xgrid']['params']['fill']))
+						$robj->xgrid->SetFill(true, $this->styles['chart-options']['xgrid']['params']['fill'][0], $this->styles['chart-options']['xgrid']['params']['fill'][1]);
+					if (!empty($this->styles['chart-options']['xgrid']['params']['color']))
+						$robj->xgrid->SetColor($this->styles['chart-options']['xgrid']['params']['color']);
+					if (!empty($this->styles['chart-options']['xgrid']['params']['linestyle']))
+						$robj->xgrid->SetLineStyle($this->styles['chart-options']['xgrid']['params']['linestyle']);
+					$robj->xgrid->Show(true);
+				} 
+		if ($this->styles['chart-options']['ygrid'])
+			if ($this->styles['chart-options']['ygrid']['show'])
+				if (is_array($this->styles['chart-options']['ygrid']['params'])){
+					if (is_array($this->styles['chart-options']['ygrid']['params']['fill']))
+						$robj->ygrid->SetFill(true, $this->styles['chart-options']['ygrid']['params']['fill'][0], $this->styles['chart-options']['ygrid']['params']['fill'][1]);
+					if (!empty($this->styles['chart-options']['ygrid']['params']['color']))
+						$robj->ygrid->SetColor($this->styles['chart-options']['ygrid']['params']['color']);
+					if (!empty($this->styles['chart-options']['ygrid']['params']['linestyle']))
+						$robj->ygrid->SetLineStyle($this->styles['chart-options']['ygrid']['params']['linestyle']);
+					$robj->ygrid->Show(true);
+				}
+		
 	}
 
 	/** For debugging purposes, this function simulates the 
@@ -64,6 +303,7 @@ class GraphView extends FormView {
 	function Render(&$form){
 		if(!$form->FG_DEBUG)
 			return true;
+		$this->apply_styles();
 		?>
 	<div class="debug">
 	Here we are: debugging FormDataView
@@ -83,247 +323,172 @@ class GraphView extends FormView {
 		?>
 		</div>
 		<div class="debug">
+			Style:
+			<?= nl2br(htmlspecialchars(print_r($this->styles,true))) ?>
+		</div>
+		<div class="debug">
 		<?php
-			$dobj=new DataObjXY_d($this->code);
+			if ($this instanceof AccumBarView)
+				$dobj=new DataObjX2Y_d($this->code);
+			else
+				$dobj=new DataObjXY_d($this->code);
 			$form->views[$this->view]->RenderSpecial('get-data',$form,$dobj);
 		?>
 		</div>
 	<?php
 	}
 
-/*	public $sums = array();
-	public $plots = array();
-	public $styles = array();
-	public $graphtype = null;
-	protected $graph = null;
-	
-/ -*
-	public function RenderHeadGraph(){
-			
-		switch($this->styles[type]){
-		case 'pie':
-			require_once(DIR_COMMON."jpgraph_lib/jpgraph_pie.php");
-			require_once(DIR_COMMON."jpgraph_lib/jpgraph_pie3d.php");
-			$this->graph = new PieGraph(600,450,"auto");
-			break;
-		default:
-			require_once(DIR_COMMON."jpgraph_lib/jpgraph_line.php");
-			require_once(DIR_COMMON."jpgraph_lib/jpgraph_bar.php");
-			$this->graph = new Graph(600,450);
-		}
-		
-		$this->graph->SetMargin(40,40,45,90);
-		$this->graph->SetFrame(false);
-		$this->graph->SetScale("textlin");
-		$this->graph->yaxis->scale->SetGrace(3);
-		
-		if ($form->FG_DEBUG > 1)
-			echo "RenderGraph!\n";
+};
+
+class LineView extends GraphView {
+
+	public function RenderHeaderGraph (&$form, &$robj){
+		require_once(DIR_COMMON."jpgraph_lib/jpgraph_line.php");
+		$robj = new Graph($this->styles['width'],$this->styles['height'],"auto");
 	}
 	
-	
-	public function Render(){
-	}
-	
-	
-	public function RenderGraph(&$form){
+	public function RenderGraph (&$form, &$robj){
 		
-		$gmode= $form->getpost_single('graph');
-		$this->graphtype = $this->styles[type];
+		$data = new DataObjXYp($this->code);
+		$form->views[$this->view]->RenderSpecial('get-data',$form,$data);
 		
-		if ($this->plots[type]=='sums'){
-			$sum_objt = new SumMultiView();
-			$sum_objt->sums[] = $this->plots[data];
-			$this->plot = $sum_objt->GetPlot(&$form, 'day', $this->plots[gfetch]);			
+		if (! empty($this->styles['chart-options']['xlabelangle'])){
+			$robj->xaxis->SetLabelAngle($this->styles['chart-options']['xlabelangle']);
+			if ($this->styles['chart-options']['xlabelangle']<0)
+				$robj->xaxis->SetLabelAlign('left');
 		}
 		
-		$this->graph->title->Set($this->styles[title]);
-		
-		if (! empty($this->styles['subtitles'])){
-			$this->graph->tabtitle->Set($this->styles['subtitles']);
-			$this->graph->tabtitle->SetWidth(TABTITLE_WIDTHFULL);
-		}
-		
-		if (! empty($this->styles['backgroundgradient']) && $this->styles['backgroundgradient'])
-			$this->graph->SetBackgroundGradient('#FFFFFF','#CDDEFF:0.8',GRAD_HOR,BGRAD_PLOT);
-		
-		if (! empty($this->styles['rowcolor']) && $this->styles['rowcolor']){
-			$this->graph->ygrid->SetFill(true,'#EFEFEF@0.5','#CDDEFF@0.5');
-			$this->graph->xgrid->SetColor('gray@0.5');
-			$this->graph->ygrid->SetColor('gray@0.5');
-		}
-		
-		switch($this->styles[type]){
-		case 'bar':
-			
-			if (! empty($this->styles['xlabelangle'])){
-				$this->graph->xaxis->SetLabelAngle($this->styles['xlabelangle']);
-				if ($this->styles['xlabelangle']<0)
-					$this->graph->xaxis->SetLabelAlign('left');
-			}
-			if (! empty($this->styles['xlabelfont']))
-				$this->graph->xaxis->SetFont($this->styles['xlabelfont']);
-			else
-				$this->graph->xaxis->SetFont(FF_VERA);				
-			
-			$this->graph->xaxis->SetTickLabels($this->plot['xdata']);
-			$bplot = new BarPlot($this->plot['ydata']);
-			$this->graph->Add($bplot);
-			if ($form->FG_DEBUG>2){
-				echo "X data: ";
-				print_r($this->plot['xdata']);
-				echo "\n Y data: ";
-				print_r($this->plot['ydata']);
-			}
-			if ($form->FG_DEBUG>1)
-				echo "Added Bar plot";
-			break;
-			
-		case 'pie':
-			$xdata = array();
-			$ydata = array();
-			$xkey = $tsum['x'];
-			$ykey = $tsum['y'];
-			while ($row = $res->fetchRow()){
-				$xdata[] = $row[$xkey].' : '.$row[$ykey].' '.$tsum['ylabel'];
-				$ydata[] = $row[$ykey];
-			}
-			
-			if (! empty($tsum['xlabelfont']))
-				$this->graph->xaxis->SetFont($tsum['xlabelfont']);
-			else
-				$this->graph->xaxis->SetFont(FF_VERA);				
-			
-			$pieplot = new PiePlot3D($ydata);
-			$pieplot->ExplodeSlice(2);
-			$pieplot->SetCenter(0.35);
-			$pieplot->SetLegends(array_reverse($xdata));
-			
-			$this->graph->Add($pieplot);
-			if ($form->FG_DEBUG>2){
-				echo "X data: ";
-				print_r($xdata);
-				echo "\n Y data: ";
-				print_r($ydata);
-			}
-			if ($form->FG_DEBUG>1)
-				echo "Added Pie plot";
-			break;
-		case 'abar':
-	/*		$this->graph->legend->SetColor('navy');
-			$this->graph->legend->SetFillColor('gray@0.8');
-			$this->graph->legend->SetLineWeight(1);
-			//$this->graph->legend->SetFont(FF_ARIAL,FS_BOLD,8);
-			$this->graph->legend->SetShadow('gray@0.4',3);
-			$this->graph->legend->SetAbsPos(15,130,'right','bottom');* /
-			//$this->graph->legend->SetFont(FF_VERA);
-			
-			$xdata = array();
-			$ydata = array();
-			$yleg =array(); //holds the labels for y axises
-			$xkey = $tsum['x'];
-			$x2key = $tsum['x2'];
-			if (!empty($tsum['x2t']))
-				$x2t=$tsum['x2t'];
-			else
-				$x2t=$x2key;
-			$ykey = $tsum['y'];
-			while ($row = $res->fetchRow()){
-				// assume first order is by x-value
-				if (empty($xdata) || (end($xdata) != $row[$xkey]))
-					$xdata[] = $row[$xkey];
-				// and assume second order is the x2 key..
-				if (!isset($ydata[$row[$x2key]]))
-					$ydata[$row[$x2key]]=array();
-				
-				end($xdata); // move pointer to end
-				$ydata[$row[$x2key]][key($xdata)] = $row[$ykey];
-				$yleg[$row[$x2key]] = $row[$x2t];
-			}
-			
-			// Now, fill with zeroes all other vars..
-			foreach($ydata as &$yd)
-				foreach($xdata as $xk => $xv)
-				if (!isset($yd[$xk]))
-					$yd[$xk]=0;
-				
-			
-			if (! empty($tsum['xlabelangle'])){
-				$this->graph->xaxis->SetLabelAngle($tsum['xlabelangle']);
-				if ($tsum['xlabelangle']<0)
-					$this->graph->xaxis->SetLabelAlign('left');
-			}
-			if (! empty($tsum['xlabelfont']))
-				$this->graph->xaxis->SetFont($tsum['xlabelfont']);
-			else
-				$this->graph->xaxis->SetFont(FF_VERA);
-			$this->graph->xaxis->SetTickLabels($xdata);
-			$accplots=array();
-			
-			$colors=array();
-			$colors[]="yellow@0.3";
-			$colors[]="purple@0.3";
-			$colors[]="green@0.3";
-			$colors[]="blue@0.3";
-			$colors[]="red@0.3";
-
-			$i=0;
-			foreach($ydata as $yk => $ycol){
-				$accplots[]= new BarPlot($ycol);
-				end($accplots)->SetFillColor($colors[$i++]);
-				if (!empty($yleg[$yk]))
-					end($accplots)->SetLegend($yleg[$yk]);
-				else
-					end($accplots)->SetLegend(_("(none)"));
-			}
-			
-			$bplot = new AccBarPlot($accplots);
-			$this->graph->Add($bplot);
-			if ($form->FG_DEBUG>2){
-				echo "X data: ";
-				print_r($xdata);
-				echo "\n Y data: ";
-				print_r($ydata);
-			}
-
-			if ($form->FG_DEBUG>1)
-				echo "Added Bar plot";
-			break;
-
-		default:
-			if ($form->FG_DEBUG>1)
-			echo "Unknown graph type: ".$tsum['type'] . "\n";
-		}
-		
-		if ($FG_DEBUG)
-			echo "Stroke!";
+		if (! empty($this->styles['chart-options']['xlabelfont']))
+			$robj->xaxis->SetFont($this->styles['chart-options']['xlabelfont']);
 		else
-			$this->graph->Stroke();
+			$robj->xaxis->SetFont(FF_VERA);
 		
-		return true;
+		$robj->xaxis->SetTickLabels($data->xdata);
+		
+		$plot = new LinePlot($data->yrdata);
+		// TODO: use ydata for y-labels
+		
+		if (! empty($this->styles['plot-options']['setfillcolor']))
+			$plot->SetFillColor($this->styles['plot-options']['setfillcolor']);
+		if (! empty($this->styles['plot-options']['setcolor']))
+			$plot ->SetColor($this->styles['plot-options']['setcolor']);
+		
+		$robj->Add($plot);
 	}
-*/
 
 };
 
-require_once(DIR_COMMON."jpgraph_lib/jpgraph_bar.php");
 class BarView extends GraphView {
 
-	public function RenderSpecial($rmode,&$form, &$robj){
-		if ($rmode=='create-graph'){
-			$robj = new Graph();
-			$robj->SetScale("textlin");
-			$robj->yaxis->scale->SetGrace(3);
+	public function RenderHeaderGraph (&$form, &$robj){
+		require_once(DIR_COMMON."jpgraph_lib/jpgraph_bar.php");
+		$robj = new Graph($this->styles['width'],$this->styles['height'],"auto");
+	}
+	
+	public function RenderGraph (&$form, &$robj){
+		
+		$data = new DataObjXYp($this->code);
+		$form->views[$this->view]->RenderSpecial('get-data',$form,$data);
+		
+		if (! empty($this->styles['chart-options']['xlabelangle'])){
+			$robj->xaxis->SetLabelAngle($this->styles['chart-options']['xlabelangle']);
+			if ($this->styles['chart-options']['xlabelangle']<0)
+				$robj->xaxis->SetLabelAlign('left');
 		}
-		elseif ($rmode=='graph'){
-			$data = new DataObjXYp($this->code);
-			$form->views[$this->view]->RenderSpecial('get-data',$form,$data);
-			
-			$robj->xaxis->SetTickLabels($data->xdata);
-			$bplot = new BarPlot($data->ydata);
-			$robj->Add($bplot);
-		}
+		
+		if (! empty($this->styles['chart-options']['xlabelfont']))
+			$robj->xaxis->SetFont($this->styles['chart-options']['xlabelfont']);
+		else
+			$robj->xaxis->SetFont(FF_VERA);
+		
+		$robj->xaxis->SetTickLabels($data->xdata);
+		
+		$plot = new BarPlot($data->yrdata);
+		// TODO: use ydata for labels
+		
+		if (! empty($this->styles['plot-options']['setfillcolor']))
+			$plot->SetFillColor($this->styles['plot-options']['setfillcolor']);
+		if (! empty($this->styles['plot-options']['setcolor']))
+			$plot ->SetColor($this->styles['plot-options']['setcolor']);
+		
+		$robj->Add($plot);
 	}
 
 };
 
+// accumulated bar plots
+class AccumBarView extends GraphView {
+
+	public function RenderHeaderGraph (&$form, &$robj){
+		require_once(DIR_COMMON."jpgraph_lib/jpgraph_bar.php");
+		$robj = new Graph($this->styles['width'],$this->styles['height'],"auto");
+	}
+	
+	public function RenderGraph (&$form, &$robj){
+		
+		$data = new DataObjX2Yp($this->code);
+		$form->views[$this->view]->RenderSpecial('get-data', $form, $data);
+		
+		if (! empty($this->styles['chart-options']['xlabelangle'])){
+			$robj->xaxis->SetLabelAngle($this->styles['chart-options']['xlabelangle']);
+			if ($this->styles['chart-options']['xlabelangle']<0)
+				$robj->xaxis->SetLabelAlign('left');
+		}
+		
+		if (! empty($this->styles['chart-options']['xlabelfont']))
+			$robj->xaxis->SetFont($this->styles['chart-options']['xlabelfont']);
+		else
+			$robj->xaxis->SetFont(FF_VERA);
+		
+		$robj->xaxis->SetTickLabels($data->xdata);
+		
+		$i=0; 
+		foreach($data->yzdata as $ykey => $ycol){
+			$accplots[]= new BarPlot($ycol);
+			if (is_array($this->styles['accumplot-options']['color']))
+				end($accplots)->SetFillColor($this->styles['accumplot-options']['color'][$i++]);
+			if (!empty($obj_leg->legend[$ykey]))
+				end($accplots)->SetLegend($obj_leg->legend[$ykey]);
+			else
+				end($accplots)->SetLegend(_("(none)"));
+		}
+		
+		$plot = new AccBarPlot($accplots);
+		
+		if (! empty($this->styles['plot-options']['setfillcolor']))
+			$plot->SetFillColor($this->styles['plot-options']['setfillcolor']);
+		if (! empty($this->styles['plot-options']['setcolor']))
+			$plot ->SetColor($this->styles['plot-options']['setcolor']);
+		
+		$robj->Add($plot);
+	}
+
+};
+
+class PieView extends GraphView {
+
+	public function RenderHeaderGraph (&$form, &$robj){
+		require_once(DIR_COMMON."jpgraph_lib/jpgraph_pie.php");
+		require_once(DIR_COMMON."jpgraph_lib/jpgraph_pie3d.php");
+		$robj = new PieGraph($this->styles['width'],$this->styles['height'],"auto");
+	}
+	
+	public function RenderGraph (&$form, &$robj){
+		
+		$data = new DataObjXYp($this->code);
+		$form->views[$this->view]->RenderSpecial('get-data',$form,$data);
+		
+		$pieplot = new PiePlot3D($data->yrdata);
+		
+		if (is_array($this->styles['pie-options'])){
+			if (! empty($this->styles['pie-options']['explodeslice']))
+				$pieplot->ExplodeSlice($this->styles['pie-options']['explodeslice']);
+			if (! empty($this->styles['pie-options']['setcenter']))
+				$pieplot->SetCenter($this->styles['pie-options']['setcenter']);
+		}
+		$pieplot->SetLegends(array_reverse($data->xdata));
+		
+		$robj->Add($pieplot);
+
+	}
+};

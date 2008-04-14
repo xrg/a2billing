@@ -17,11 +17,11 @@ class SumMultiView extends FormView {
 	protected function RenderHead(){
 	}
 	
-	protected function performSumQuery(&$summ,&$form,&$dbhandle,$is_html=false){
+	protected function performSumQuery(&$summ,&$form,&$dbhandle,$is_html=false,$need_raw=false){
 		if ($form->FG_DEBUG && $is_html)
 			echo "<tr class=\"debug\"><td colspan=\"".$this->ncols ."\">";
 		if ($form->FG_DEBUG>3 && $is_html)
-			echo "ListSum! Building Sum query..";
+			echo "SumMultiView! Building Sum query..";
 		
 		if (empty($summ['fns'])){
 			if ($form->FG_DEBUG>0 && $is_html)
@@ -30,13 +30,15 @@ class SumMultiView extends FormView {
 		}
 
 		$query_fields = array();
+		$query_outerfields = array();
 		$query_clauses = array();
 		$query_grps = array();
 		$query_table = $form->model_table;
+		$query_outertable = '';
 		
 		foreach($form->model as $fld){
 			$fld->buildSumQuery($dbhandle, $summ['fns'],
-				$query_fields,$query_table,
+				$query_fields,$query_outerfields,$query_table,$query_outertable,
 				$query_clauses, $query_grps,$form);
 		}
 	
@@ -96,6 +98,33 @@ class SumMultiView extends FormView {
 		
 		if (!empty($summ['limit']))
 			$QUERY .= ' LIMIT '.$summ['limit'];
+			
+		$needouter=false;
+		if(!empty($query_outertable))
+			$needouter=true;
+		else{
+			foreach($query_outerfields as $qof)
+				if (!is_string($qof)){
+					$needouter=true;
+					break;
+				}
+		}
+		
+		if ($needouter){
+			$qf2=array();
+			foreach ($query_outerfields as $qof)
+				if (is_string($qof))
+					$qf2[]=$qof;
+				elseif (is_array($qof)){
+					if ($need_raw)
+						$qf2[]=$qof[1]. ' AS '.$qof[1] .'_raw';
+					$qf2[]=$qof[0].' AS '.$qof[1];
+				}
+			$QUERY = 'SELECT '.implode(', ', $qf2). ' FROM '.
+				'('.$QUERY .') AS innerfoo '.$query_outertable;
+		}
+		
+		
 		$QUERY .= ';';
 		
 		if ($form->FG_DEBUG>3 && $is_html)
@@ -173,25 +202,62 @@ class SumMultiView extends FormView {
 	public function RenderSpecial($rmode,&$form,&$robj){
 		if ($rmode!='get-data')
 			return;
-		if ($robj instanceof DataObjXY){
+		if ($robj instanceof DataObj){
 			$dbhandle = &$form->a2billing->DBHandle();
 			$plot = $this->plots[$robj->code];
 			if (empty($plot))
 				throw new Exception("Unknown plot");
-			$xkey = $plot['x'];
-			$ykey = $plot['y'];
-		
+			
 			$row_num = 0;
-			$res = $this->performSumQuery($plot,$form,$dbhandle,false);
+			$res = $this->performSumQuery($plot,$form,$dbhandle,false,$robj->NeedRaw());
 			if (!$res){
 				$robj->debug("Could not perform query!");
 				return false;
 			}
-					
-			while ($row = $res->fetchRow())
-				$robj->PlotXY($row[$xkey],$row[$ykey]);
-		
+
+			// Store the names of fields into an array
+			$resfs=array();
+			for($i=0;$i<$res->FieldCount();$i++)
+				$resfs[] = $res->FetchField($i)->name;
+			
+			$robj->prepare($plot,$resfs);
+			//at the first row, we think a little more..
+			
+			while ($row = $res->fetchRow()){
+				$robj->PlotRow($row);
+			}
 		}
+		/* elseif ($robj instanceof DataObjXYZ){
+			$dbhandle = &$form->a2billing->DBHandle();
+			$plot = $this->plots[$robj->code];
+			if (empty($plot))
+				throw new Exception("Unknown plot");
+			
+			$xdata = array();
+			$ydata = array();
+			
+			$xkey = $plot['x'];
+			$ykey = $plot['y'];
+			$x2key = $plot['x2'];
+			if (!empty($plot['x2t']))
+				$x2t=$plot['x2t'];
+			else
+				$x2t=$x2key;
+			
+			$row_num = 0;
+			$res = $this->performSumQuery($plot,$form,$dbhandle,false);
+			if (!$res) {
+				$robj->debug("Could not perform query!");
+				return false;
+			}
+			
+			while ($row = $res->fetchRow()){
+				$robj->PlotXYZ($row[$xkey], $row[$ykey], $row[$x2key]);
+				
+				if ($robj_leg instanceof DataLegend)
+					$robj_leg->Addlegend($row[$x2key], $row[$x2t]);
+			}
+		} */
 		else {
 			throw new Exception("Unknown object to get data to..");
 		}

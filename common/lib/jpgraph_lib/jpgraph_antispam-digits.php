@@ -3,16 +3,15 @@
 // File:	JPGRAPH_ANTISPAM.PHP
 // Description:	Genarate anti-spam challenge
 // Created: 	2004-10-07
-// Author:	Johan Persson (johanp@aditus.nu)
-// Ver:		$Id$
+// Ver:		$Id: jpgraph_antispam-digits.php 781 2006-10-08 08:07:47Z ljp $
 //
-// License:	This code is released under QPL 1.0
-// Copyright (C) 2004 Johan Persson
+// Copyright (c) Aditus Consulting. All rights reserved.
 //========================================================================
 
 class HandDigits {
-    var $digits_thumb30x30 = array();
-    var $iHeight=30, $iWidth=30;
+    public $digits = array();
+    public $iHeight=30, $iWidth=30;
+
     function HandDigits() {
 //==========================================================
 // d6-small.jpg

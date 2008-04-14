@@ -111,57 +111,34 @@ $sform->views['sums']->sums[] = array('title' => _("Total"),
 		'sessionbill' => 'SUM', 'buycost' => 'SUM'),
 	'order' => 'COUNT(uniqueid)', 'sens' => 'DESC');
 
-$sform->views['sums']->plots['day']= array('title' => _("Per day calls"),
+$sform->views['sums']->plots['day']= array('title' => _("Per day calls"), 'subtitles' => _("Sum of Session time"),
 	'type' => 'bar', 'limit' => 10,
 	ylegend => _('Sum of Session time '),
 	x => 'starttime', y => 'sessiontime',
 	'fns' => array( 'starttime' =>true, 'sessiontime' => 'SUM'),
 	'order' => 'date_trunc(\'day\',starttime)');
 
-$sform->views['day-bar'] = new BarView('sums','day',array(xlabelangle => -45,
-		rowcolor => true, backgroundgradient => true ));
+$sform->views['sums']->plots['dest'] = array('title' => _("Per destination calls"),
+	x=>'destination', y=> 'sessiontime', 'limit' => 20,
+	'fns' => array( 'destination' =>true, 'sessiontime' => 'SUM' ),
+	'order' => 'COUNT(uniqueid)', 'sens' => 'DESC');
 
-// $sform->views['sums']->plots['day2']= array('title' => _("Per day calls"),
-// 	'type' => 'abar', 'limit' => 10,
-// 	x => 'starttime', x2 => 'agid', x2t => agid_login, y => 'sessiontime',
-// 	xlabelangle => -45,
-// 	subtitles => 'Statistic : Sum of Session time ',
-// 	rowcolor => true, backgroundgradient => true,
-// 	'fns' => array( 'starttime' =>true, agid=>true, 'sessiontime' => 'SUM'),
-// 	'order' => 'date_trunc(\'day\',starttime), sessiontime DESC');
-// 
-// $sform->views['sums']->plots['pie']= array('title' => _("Per day calls"),
-// 	'type' => 'pie', 'limit' => 10,
-// 	x => 'starttime', y => 'sessiontime', ylabel => 'sec',
-// 	xlabelangle => -45,
-// 	subtitles => 'Statistic : Sum of Session time ',
-// 	rowcolor => true, backgroundgradient => true, 
-// 	'fns' => array( 'starttime' =>true, 'sessiontime' => 'SUM'),
-// 	'order' => 'date_trunc(\'day\',starttime)');
+$sform->views['sums']->plots['day2']= array('title' => _("Per day calls"),
+ 	'type' => 'abar', 'limit' => 10,
+ 	x => 'starttime', x2 => 'agid', x2t => 'agid_login', y => 'sessiontime',
+ 	'fns' => array( 'starttime' =>true, 'agid'=>true, 'sessiontime' => 'SUM'),
+ 	'order' => 'date_trunc(\'day\',starttime), sessiontime DESC');
+
+
+$sform->views['day-bar'] = new BarView('sums','day', 'style-ex2');
+$sform->views['dest-pie'] = new PieView('sums','dest', 'style-ex1');
+$sform->views['day-line'] = new LineView('sums','day', 'style-ex1');
+$sform->views['day-line2'] = new AccumBarView('sums','day2', 'style-ex1');
 
 $PAGE_ELEMS[] = &$sform;
-
 $PAGE_ELEMS[] = $sform->GraphUrl('day-bar');
-
-// $graph = new ElemGraph();
-// $graph->styles = array('title' => _("Per day calls"),
-// 	'type' => 'bar', 
-// 	xlabelangle => -45,
-// 	subtitles => 'Statistic : Sum of Session time ',
-// 		rowcolor => true, backgroundgradient => true);
-// //  type = sum - select
-// $graph->plots = array('type' => 'sums', 
-// 	'gfetch' => array ('limit' => 10, x => 'starttime', y => 'sessiontime'), 
-// 	'data' => array('title' => _("Per day calls"),
-// 				'fns' => array( 'starttime' =>true, 'uniqueid' => 'COUNT',
-// 					'sessiontime' => 'SUM', 'asr' => '', 'aloc' => 'AVG',
-// 					'sessionbill' => 'SUM', 'buycost' => 'SUM'),
-// 				'order' => 'date_trunc(\'day\',starttime)', 'sens' => 'DESC')
-// 						);
-// $PAGE_ELEMS[] = $graph;
-
-// Perhaps need to create an object Plot to feed the graph
-
+$PAGE_ELEMS[] = $sform->GraphUrl('dest-pie');
+$PAGE_ELEMS[] = $sform->GraphUrl('day-line2');
 
 if (!empty($_GET['graph']))
 	require("PP_graph.inc.php");
