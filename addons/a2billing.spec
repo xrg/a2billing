@@ -1,7 +1,7 @@
 # Asterisk 2 Billing software
 %define git_repodir /home/panos/Δουλειά/MinMax/a2b/
 %define git_repo asterisk2billing
-%define git_head v200-tmp
+%define git_head v200-rpm
 
 %define name a2billing
 %define version 2.0.0
@@ -119,8 +119,15 @@ install -d %{buildroot}%{_localstatedir}/asterisk/agi-bin
 install -d %{buildroot}%{_localstatedir}/asterisk/agi-bin/libs_a2billing
 install -d %{buildroot}%{_localstatedir}/asterisk/agi-bin/libs_a2billing/adodb
 cp -LR  A2Billing_AGI/*.php %{buildroot}%{_localstatedir}/asterisk/agi-bin/
-cp -LR  A2Billing_AGI/libs_a2billing/*.php %{buildroot}%{_localstatedir}/asterisk/agi-bin/libs_a2billing
+
+# selectively install only the required php classes:
+install A2Billing_AGI/libs_a2billing/Class.A2Billing.inc.php \
+	A2Billing_AGI/libs_a2billing/index.php \
+		%{buildroot}%{_localstatedir}/asterisk/agi-bin/libs_a2billing/
+
 cp -LR  A2Billing_AGI/libs_a2billing/adodb/*.php %{buildroot}%{_localstatedir}/asterisk/agi-bin/libs_a2billing/adodb/
+install -d %{buildroot}%{_localstatedir}/asterisk/sounds
+cp -LR  addons/sounds/* %{buildroot}%{_localstatedir}/asterisk/sounds
 
 cp -LR  DataBase/psql/* %{buildroot}%{_datadir}/a2billing/Database
 
@@ -146,6 +153,7 @@ cp -LR  DataBase/psql/* %{buildroot}%{_datadir}/a2billing/Database
 %files AGI
 %defattr(-,asterisk,root)
 %{_localstatedir}/asterisk/agi-bin/
+%{_localstatedir}/asterisk/sounds/
 
 %files dbadmin
 %defattr(-,asterisk,root)
