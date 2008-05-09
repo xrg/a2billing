@@ -24,6 +24,7 @@ Requires(postun): rpm-helper
 Requires(post): rpm-helper
 Requires(preun): rpm-helper
 
+Requires:	%{name}-config
 Requires:	%{name}-admin
 Requires:	%{name}-customer
 Requires:	%{name}-AGI
@@ -39,6 +40,15 @@ raising it to a full telephony + billing platform.
 
 This is a metapackage that contains all necessary elements
 to run a2billing on a single server.
+
+%package config
+Summary:	Common configuration file for A2Billing
+Group:		System/Servers
+
+%description config
+This package contains the configuration file, common to
+all other a2billing sub-packages. Install this one and
+modify it to suit your needs.
 
 
 %package admin
@@ -118,6 +128,8 @@ Additionally, maintenance tasks can be performed from that host.
 #remove some libs that shouldn't go to a production system
 rm -rf common/lib/adodb/tests
 rm -rf common/lib/adodb/contrib
+
+install -D a2billing.conf %{buildroot}%{_sysconfdir}/asterisk/a2billing.conf
 install -d %{buildroot}%{_datadir}/a2billing
 install -d %{buildroot}%{_datadir}/a2billing/a2badmin
 install -d %{buildroot}%{_datadir}/a2billing/customer
@@ -125,6 +137,7 @@ install -d %{buildroot}%{_datadir}/a2billing/agent
 install -d %{buildroot}%{_datadir}/a2billing/signup
 install -d %{buildroot}%{_datadir}/a2billing/Database
 
+install LICENSE FEATURES_LIST %{buildroot}%{_datadir}/a2billing
 cp -LR  A2Billing_UI/* %{buildroot}%{_datadir}/a2billing/a2badmin
 cp -LR  A2BCustomer_UI/* %{buildroot}%{_datadir}/a2billing/customer
 cp -LR  A2BAgent_UI/* %{buildroot}%{_datadir}/a2billing/agent
@@ -193,6 +206,12 @@ EOF
 
 %files
 %defattr(-,root,root)
+
+%files config
+%doc %{_datadir}/a2billing/LICENSE 
+%doc %{_datadir}/a2billing/FEATURES_LIST
+#this is wrong: /etc/asterisk may not be o+x
+%attr(0640,asterisk,apache) %config(noreplace) %{_sysconfdir}/asterisk/a2billing.conf
 
 %files admin
 %defattr(-,root,root)
