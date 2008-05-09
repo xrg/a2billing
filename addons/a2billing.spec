@@ -73,6 +73,17 @@ Requires:	apache-mod_php >= 5.2.1
 Callshop (agent) web-interface.
 
 
+%package signup
+Summary:	Signup web interface
+Group:		System/Servers
+Requires:	apache-base >= 2.2.4
+Requires:	apache-mod_ssl
+Requires:	apache-mod_php >= 5.2.1
+
+
+%description signup
+Web signup pages for Asterisk2Billing.
+
 %package AGI
 Summary:	Asterisk interface
 Group:		System/Servers
@@ -102,6 +113,8 @@ Additionally, maintenance tasks can be performed from that host.
 %make
 
 %install
+[ -n "%{buildroot}" -a "%{buildroot}" != / ] && rm -rf %{buildroot}
+
 #remove some libs that shouldn't go to a production system
 rm -rf common/lib/adodb/tests
 rm -rf common/lib/adodb/contrib
@@ -109,11 +122,13 @@ install -d %{buildroot}%{_datadir}/a2billing
 install -d %{buildroot}%{_datadir}/a2billing/a2badmin
 install -d %{buildroot}%{_datadir}/a2billing/customer
 install -d %{buildroot}%{_datadir}/a2billing/agent
+install -d %{buildroot}%{_datadir}/a2billing/signup
 install -d %{buildroot}%{_datadir}/a2billing/Database
 
 cp -LR  A2Billing_UI/* %{buildroot}%{_datadir}/a2billing/a2badmin
 cp -LR  A2BCustomer_UI/* %{buildroot}%{_datadir}/a2billing/customer
 cp -LR  A2BAgent_UI/* %{buildroot}%{_datadir}/a2billing/agent
+cp -LR  Signup/* %{buildroot}%{_datadir}/a2billing/signup
 
 install -d %{buildroot}%{_localstatedir}/asterisk/agi-bin
 install -d %{buildroot}%{_localstatedir}/asterisk/agi-bin/libs_a2billing
@@ -131,6 +146,47 @@ cp -LR  addons/sounds/* %{buildroot}%{_localstatedir}/asterisk/sounds
 
 cp -LR  DataBase/psql/* %{buildroot}%{_datadir}/a2billing/Database
 
+install -d %{buildroot}%{_sysconfdir}/http/conf/webapps.d
+cat '-' > %{buildroot}%{_sysconfdir}/http/conf/webapps.d/10_a2bagent.conf << EOF
+Alias /agent "%{_datadir}/a2billing/agent"
+<Directory "%{_datadir}/a2billing/agent" >
+    Options Indexes MultiViews 
+    #-FollowSymlinks
+    Order deny,allow
+    Allow from all
+</Directory>
+EOF
+
+cat '-' > %{buildroot}%{_sysconfdir}/http/conf/webapps.d/10_a2badmin.conf << EOF
+Alias /a2badmin "/koina/home/panosl/www/admin"
+<Directory "/koina/home/panosl/www/admin" >
+    Options Indexes MultiViews FollowSymlinks
+    Order deny,allow
+    Allow from all
+#    Allow from 127.0.0.1
+</Directory>
+EOF
+
+cat '-' > %{buildroot}%{_sysconfdir}/http/conf/webapps.d/10_a2bcustomer.conf << EOF
+Alias /customer  "/koina/home/panosl/www/customer"
+<Directory "/koina/home/panosl/www/customer" >
+    Options Indexes MultiViews FollowSymlinks
+    Order deny,allow
+    Deny from all
+    Allow from all
+</Directory>
+EOF
+
+cat '-' > %{buildroot}%{_sysconfdir}/http/conf/webapps.d/10_a2bsignup.conf << EOF
+Alias /signup   "/koina/home/panosl/www/signup"
+<Directory "/koina/home/panosl/www/signup" >
+    Options Indexes MultiViews FollowSymlinks
+    Order deny,allow
+    Deny from all
+    Allow from all
+</Directory>
+EOF
+
 
 %clean
 [ -n "%{buildroot}" -a "%{buildroot}" != / ] && rm -rf %{buildroot}
@@ -141,14 +197,22 @@ cp -LR  DataBase/psql/* %{buildroot}%{_datadir}/a2billing/Database
 %files admin
 %defattr(-,root,root)
 %{_datadir}/a2billing/a2badmin
+%config(noreplace) %{_sysconfdir}/http/conf/webapps.d/10_a2badmin.conf
 
 %files customer
 %defattr(-,root,root)
 %{_datadir}/a2billing/customer
+%config(noreplace) %{_sysconfdir}/http/conf/webapps.d/10_a2bcustomer.conf
 
 %files agent
 %defattr(-,root,root)
 %{_datadir}/a2billing/agent
+%config(noreplace) %{_sysconfdir}/http/conf/webapps.d/10_a2bagent.conf
+
+%files signup
+%defattr(-,root,root)
+%{_datadir}/a2billing/signup
+%config(noreplace) %{_sysconfdir}/http/conf/webapps.d/10_a2bsignup.conf
 
 %files AGI
 %defattr(-,asterisk,root)
