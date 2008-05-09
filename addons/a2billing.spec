@@ -158,8 +158,8 @@ Alias /agent "%{_datadir}/a2billing/agent"
 EOF
 
 cat '-' > %{buildroot}%{_sysconfdir}/http/conf/webapps.d/10_a2badmin.conf << EOF
-Alias /a2badmin "/koina/home/panosl/www/admin"
-<Directory "/koina/home/panosl/www/admin" >
+Alias /a2badmin "%{_datadir}/a2billing/admin"
+<Directory "%{_datadir}/a2billing/admin" >
     Options Indexes MultiViews FollowSymlinks
     Order deny,allow
     Allow from all
@@ -168,8 +168,8 @@ Alias /a2badmin "/koina/home/panosl/www/admin"
 EOF
 
 cat '-' > %{buildroot}%{_sysconfdir}/http/conf/webapps.d/10_a2bcustomer.conf << EOF
-Alias /customer  "/koina/home/panosl/www/customer"
-<Directory "/koina/home/panosl/www/customer" >
+Alias /customer  "%{_datadir}/a2billing/customer"
+<Directory "%{_datadir}/a2billing/customer" >
     Options Indexes MultiViews FollowSymlinks
     Order deny,allow
     Deny from all
@@ -178,8 +178,8 @@ Alias /customer  "/koina/home/panosl/www/customer"
 EOF
 
 cat '-' > %{buildroot}%{_sysconfdir}/http/conf/webapps.d/10_a2bsignup.conf << EOF
-Alias /signup   "/koina/home/panosl/www/signup"
-<Directory "/koina/home/panosl/www/signup" >
+Alias /signup   "%{_datadir}/a2billing/signup"
+<Directory "%{_datadir}/a2billing/signup" >
     Options Indexes MultiViews FollowSymlinks
     Order deny,allow
     Deny from all
