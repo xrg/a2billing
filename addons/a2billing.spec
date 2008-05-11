@@ -211,7 +211,7 @@ EOF
 %doc %{_datadir}/a2billing/LICENSE 
 %doc %{_datadir}/a2billing/FEATURES_LIST
 #this is wrong: /etc/asterisk may not be o+x
-%attr(0640,asterisk,apache) %config(noreplace) %{_sysconfdir}/asterisk/a2billing.conf
+%attr(0640,asterisk,apache) %config(noreplace) %{_sysconfdir}/a2billing.conf
 
 %files admin
 %defattr(-,root,root)
