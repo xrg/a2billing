@@ -62,6 +62,12 @@ Requires:	apache-mod_php >= 5.2.1
 %description admin
 The administrator web-interface to a2billing.
 
+%post admin
+%_post_webapp
+
+%postun admin
+%_postun_webapp
+
 %package customer
 Summary:	Customer web interface
 Group:		System/Servers
@@ -73,6 +79,12 @@ Requires:	apache-mod_php >= 5.2.1
 %description customer
 The web-interface for retail customers
 
+%post customer
+%_post_webapp
+
+%postun customer
+%_postun_webapp
+
 %package agent
 Summary:	Agent web interface
 Group:		System/Servers
@@ -81,6 +93,11 @@ Requires:	apache-base >= 2.2.4
 Requires:	apache-mod_ssl
 Requires:	apache-mod_php >= 5.2.1
 
+%post agent
+%_post_webapp
+
+%postun agent
+%_postun_webapp
 
 %description agent
 Callshop (agent) web-interface.
@@ -94,6 +111,11 @@ Requires:	apache-base >= 2.2.4
 Requires:	apache-mod_ssl
 Requires:	apache-mod_php >= 5.2.1
 
+%post signup
+%_post_webapp
+
+%postun signup
+%_postun_webapp
 
 %description signup
 Web signup pages for Asterisk2Billing.
