@@ -6,7 +6,10 @@ A2B_GROUP=a2b_group
 
 createdb -O $A2B_USER -E UTF8 -U postgres $A2B_DB || exit $?
 
-psql -U postgres -d $A2B_DB --set ON_ERROR_STOP= -c 'CREATE LANGUAGE plpgsql;' || exit $?
+psql -U postgres -d $A2B_DB --set ON_ERROR_STOP= -c 'CREATE LANGUAGE plpgsql;' || \
+	ERR_CODE=$? ; \
+	echo "Cannot use plpgsql. Do you have the language module installed?" ;\
+	exit $ERR_CODE
 
 DO_TBLONLY=
 if [ "$1" == '--schema-only' ] ; then
