@@ -25,9 +25,9 @@ Requires(post): rpm-helper
 Requires(preun): rpm-helper
 
 Requires:	%{name}-config
-Requires:	%{name}-admin
-Requires:	%{name}-customer
-Requires:	%{name}-AGI
+Requires:	%{name}-admin == %{version}-%{release}
+Requires:	%{name}-customer == %{version}-%{release}
+Requires:	%{name}-AGI == %{version}-%{release}
 
 Requires:	postgresql >= 8.2.5
 Requires:	php-pgsql
@@ -54,6 +54,7 @@ modify it to suit your needs.
 %package admin
 Summary:	Administrator web interface
 Group:		System/Servers
+Requires:	%{name}-config
 Requires:	apache-base >= 2.2.4
 Requires:	apache-mod_ssl
 Requires:	apache-mod_php >= 5.2.1
@@ -64,6 +65,7 @@ The administrator web-interface to a2billing.
 %package customer
 Summary:	Customer web interface
 Group:		System/Servers
+Requires:	%{name}-config
 Requires:	apache-base >= 2.2.4
 Requires:	apache-mod_ssl
 Requires:	apache-mod_php >= 5.2.1
@@ -74,6 +76,7 @@ The web-interface for retail customers
 %package agent
 Summary:	Agent web interface
 Group:		System/Servers
+Requires:	%{name}-config
 Requires:	apache-base >= 2.2.4
 Requires:	apache-mod_ssl
 Requires:	apache-mod_php >= 5.2.1
@@ -86,6 +89,7 @@ Callshop (agent) web-interface.
 %package signup
 Summary:	Signup web interface
 Group:		System/Servers
+Requires:	%{name}-config
 Requires:	apache-base >= 2.2.4
 Requires:	apache-mod_ssl
 Requires:	apache-mod_php >= 5.2.1
@@ -97,6 +101,7 @@ Web signup pages for Asterisk2Billing.
 %package AGI
 Summary:	Asterisk interface
 Group:		System/Servers
+Requires:	%{name}-config
 Requires:	asterisk >= 1.4.19
 Requires:	php-pcntl
 
@@ -106,6 +111,7 @@ This package provides the necessary files for an asterisk server.
 %package dbadmin
 Summary:	Database files and scripts
 Group:		System/Servers
+# Requires:	%{name}-config
 Requires:	cron
 
 %description dbadmin
@@ -127,9 +133,12 @@ Additionally, maintenance tasks can be performed from that host.
 
 #remove some libs that shouldn't go to a production system
 rm -rf common/lib/adodb/tests
+rm -rf common/lib/adodb/pear
+rm -f common/lib/adodb/adodb-pear.inc.php
+rm -f common/lib/adodb/adodb-errorpear.inc.php
 rm -rf common/lib/adodb/contrib
 
-install -D a2billing.conf %{buildroot}%{_sysconfdir}/asterisk/a2billing.conf
+install -D a2billing.conf %{buildroot}%{_sysconfdir}/a2billing.conf
 install -d %{buildroot}%{_datadir}/a2billing
 install -d %{buildroot}%{_datadir}/a2billing/a2badmin
 install -d %{buildroot}%{_datadir}/a2billing/customer
