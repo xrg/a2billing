@@ -7,7 +7,7 @@ PG_ROOT=postgres
 
 if ! (psql -qt -U $PG_ROOT -c "SELECT usename FROM pg_user WHERE usename = '$A2B_USER';" | \
 	grep $A2B_USER > /dev/null) ; then
-	if ! createuser -U $PG_ROOT -l $A2B_USER < /dev/null ; then
+	if ! createuser -U $PG_ROOT -S -D -R -l $A2B_USER < /dev/null ; then
 		echo "Failed to create user $A2B_USER"
 		exit 1
 	fi
@@ -40,10 +40,11 @@ fi
 
 if ! (psql -qt -U $PG_ROOT -c "SELECT lanname FROM pg_language WHERE lanname = 'plpgsql';" | \
 	grep 'plpgsql' > /dev/null) ; then
-	psql -U $PG_ROOT -d $A2B_DB --set ON_ERROR_STOP= -c 'CREATE LANGUAGE plpgsql;' || \
-		ERR_CODE=$? ; \
-		echo "Cannot use plpgsql. Do you have the language module installed?" ;\
-		exit $ERR_CODE
+	if ! psql -U $PG_ROOT -d $A2B_DB --set ON_ERROR_STOP= -c 'CREATE LANGUAGE plpgsql;' ; then
+		ERR_CODE=$?
+		echo "Cannot use plpgsql. Do you have the language module installed?"
+		exit 2
+	fi
 fi
 
 DO_TBLONLY=
