@@ -134,13 +134,19 @@ This package provides the necessary files for an asterisk server.
 Summary:	Database files and scripts
 Group:		System/Servers
 # Requires:	%{name}-config
-Requires:	cron
+Requires:	cron-daemon
 
 %description dbadmin
 Install this package into some machine that is client to the
 database. Then, the database for %{name} can be built from that
 host.
 Additionally, maintenance tasks can be performed from that host.
+
+%post dbadmin
+%{_datadir}/a2billing/Database/build_database.sh
+
+%postun dbadmin
+#TODO: backup the database here..
 
 %prep
 %git_get_source
@@ -162,14 +168,14 @@ rm -rf common/lib/adodb/contrib
 
 install -D a2billing.conf %{buildroot}%{_sysconfdir}/a2billing.conf
 install -d %{buildroot}%{_datadir}/a2billing
-install -d %{buildroot}%{_datadir}/a2billing/a2badmin
+install -d %{buildroot}%{_datadir}/a2billing/admin
 install -d %{buildroot}%{_datadir}/a2billing/customer
 install -d %{buildroot}%{_datadir}/a2billing/agent
 install -d %{buildroot}%{_datadir}/a2billing/signup
 install -d %{buildroot}%{_datadir}/a2billing/Database
 
 install LICENSE FEATURES_LIST %{buildroot}%{_datadir}/a2billing
-cp -LR  A2Billing_UI/* %{buildroot}%{_datadir}/a2billing/a2badmin
+cp -LR  A2Billing_UI/* %{buildroot}%{_datadir}/a2billing/admin
 cp -LR  A2BCustomer_UI/* %{buildroot}%{_datadir}/a2billing/customer
 cp -LR  A2BAgent_UI/* %{buildroot}%{_datadir}/a2billing/agent
 cp -LR  Signup/* %{buildroot}%{_datadir}/a2billing/signup
@@ -190,8 +196,8 @@ cp -LR  addons/sounds/* %{buildroot}%{_localstatedir}/asterisk/sounds
 
 cp -LR  DataBase/psql/* %{buildroot}%{_datadir}/a2billing/Database
 
-install -d %{buildroot}%{_sysconfdir}/http/conf/webapps.d
-cat '-' > %{buildroot}%{_sysconfdir}/http/conf/webapps.d/10_a2bagent.conf << EOF
+install -d %{buildroot}%{_webappconfdir}
+cat '-' > %{buildroot}%{_webappconfdir}/10_a2bagent.conf << EOF
 Alias /agent "%{_datadir}/a2billing/agent"
 <Directory "%{_datadir}/a2billing/agent" >
     Options Indexes MultiViews 
@@ -201,7 +207,7 @@ Alias /agent "%{_datadir}/a2billing/agent"
 </Directory>
 EOF
 
-cat '-' > %{buildroot}%{_sysconfdir}/http/conf/webapps.d/10_a2badmin.conf << EOF
+cat '-' > %{buildroot}%{_webappconfdir}/10_a2badmin.conf << EOF
 Alias /a2badmin "%{_datadir}/a2billing/admin"
 <Directory "%{_datadir}/a2billing/admin" >
     Options Indexes MultiViews FollowSymlinks
@@ -211,7 +217,7 @@ Alias /a2badmin "%{_datadir}/a2billing/admin"
 </Directory>
 EOF
 
-cat '-' > %{buildroot}%{_sysconfdir}/http/conf/webapps.d/10_a2bcustomer.conf << EOF
+cat '-' > %{buildroot}%{_webappconfdir}/10_a2bcustomer.conf << EOF
 Alias /customer  "%{_datadir}/a2billing/customer"
 <Directory "%{_datadir}/a2billing/customer" >
     Options Indexes MultiViews FollowSymlinks
@@ -221,7 +227,7 @@ Alias /customer  "%{_datadir}/a2billing/customer"
 </Directory>
 EOF
 
-cat '-' > %{buildroot}%{_sysconfdir}/http/conf/webapps.d/10_a2bsignup.conf << EOF
+cat '-' > %{buildroot}%{_webappconfdir}/10_a2bsignup.conf << EOF
 Alias /signup   "%{_datadir}/a2billing/signup"
 <Directory "%{_datadir}/a2billing/signup" >
     Options Indexes MultiViews FollowSymlinks
@@ -246,23 +252,23 @@ EOF
 
 %files admin
 %defattr(-,root,root)
-%{_datadir}/a2billing/a2badmin
-%config(noreplace) %{_sysconfdir}/http/conf/webapps.d/10_a2badmin.conf
+%{_datadir}/a2billing/admin
+%config(noreplace) %{_webappconfdir}/10_a2badmin.conf
 
 %files customer
 %defattr(-,root,root)
 %{_datadir}/a2billing/customer
-%config(noreplace) %{_sysconfdir}/http/conf/webapps.d/10_a2bcustomer.conf
+%config(noreplace) %{_webappconfdir}/10_a2bcustomer.conf
 
 %files agent
 %defattr(-,root,root)
 %{_datadir}/a2billing/agent
-%config(noreplace) %{_sysconfdir}/http/conf/webapps.d/10_a2bagent.conf
+%config(noreplace) %{_webappconfdir}/10_a2bagent.conf
 
 %files signup
 %defattr(-,root,root)
 %{_datadir}/a2billing/signup
-%config(noreplace) %{_sysconfdir}/http/conf/webapps.d/10_a2bsignup.conf
+%config(noreplace) %{_webappconfdir}/10_a2bsignup.conf
 
 %files AGI
 %defattr(-,asterisk,root)
