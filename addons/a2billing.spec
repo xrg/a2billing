@@ -143,7 +143,10 @@ host.
 Additionally, maintenance tasks can be performed from that host.
 
 %post dbadmin
-%{_datadir}/a2billing/Database/build_database.sh
+# the script must be run in the appropriate dir.
+pushd %{_datadir}/a2billing/Database/
+./build_database.sh
+popd
 
 %postun dbadmin
 #TODO: backup the database here..
@@ -183,14 +186,19 @@ cp -LR  Signup/* %{buildroot}%{_datadir}/a2billing/signup
 install -d %{buildroot}%{_localstatedir}/asterisk/agi-bin
 install -d %{buildroot}%{_localstatedir}/asterisk/agi-bin/libs_a2billing
 install -d %{buildroot}%{_localstatedir}/asterisk/agi-bin/libs_a2billing/adodb
+install -d %{buildroot}%{_localstatedir}/asterisk/agi-bin/libs_a2billing/phpagi
 cp -LR  A2Billing_AGI/*.php %{buildroot}%{_localstatedir}/asterisk/agi-bin/
 
 # selectively install only the required php classes:
 install A2Billing_AGI/libs_a2billing/Class.A2Billing.inc.php \
+	A2Billing_AGI/libs_a2billing/Class.Config.inc.php \
+	A2Billing_AGI/libs_a2billing/Class.DynConf.inc.php \
+	A2Billing_AGI/libs_a2billing/Misc.inc.php \
 	A2Billing_AGI/libs_a2billing/index.php \
 		%{buildroot}%{_localstatedir}/asterisk/agi-bin/libs_a2billing/
 
 cp -LR  A2Billing_AGI/libs_a2billing/adodb/*.php %{buildroot}%{_localstatedir}/asterisk/agi-bin/libs_a2billing/adodb/
+cp -LR  A2Billing_AGI/libs_a2billing/phpagi/*.php %{buildroot}%{_localstatedir}/asterisk/agi-bin/libs_a2billing/phpagi/
 install -d %{buildroot}%{_localstatedir}/asterisk/sounds
 cp -LR  addons/sounds/* %{buildroot}%{_localstatedir}/asterisk/sounds
 
