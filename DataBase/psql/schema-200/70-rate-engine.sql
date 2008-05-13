@@ -187,7 +187,8 @@ BEGIN
 	END IF;
 	
 	IF OLD.sessionbill IS NULL AND NEW.sessionbill IS NULL 
-		AND NEW.tcause = 'ANSWER' OR NEW.tcause = 'ANSWERED' THEN
+		AND ( NEW.tcause = 'ANSWER' OR NEW.tcause = 'ANSWERED'
+			OR  NEW.tcause = 'SUCCESS') THEN
 		-- Now, fetch the session bill!
 		SELECT sell_calc_fwd(NEW.sessiontime * INTERVAL '1 sec',cc_sellrate.*) INTO new_sbill
 			FROM cc_sellrate WHERE id = COALESCE(NEW.srid, OLD.srid);
