@@ -27,6 +27,8 @@ function formatDialstring($dialn,&$route, &$card,$do_param = true){
 	case 10:
 	case 11:
 	case 12:
+	case 13:
+	case 14:
 		return true;
 	default:
 		$agi->verbose("Unknown trunk format: ".$route['trunkfmt'],2);

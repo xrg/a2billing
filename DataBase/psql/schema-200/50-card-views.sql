@@ -10,7 +10,8 @@ CREATE OR REPLACE VIEW cc_card_features AS
 	SELECT cs.card AS card_id, into_array(sft.feature) AS features
 	    FROM card_subscription AS cs, subscription_feature_templ AS sft 
 	    WHERE cs.template = sft.id
-		AND cs.status=1 AND cs.activedate <= now() AND cs.expiredate > now()
+		AND cs.status=1 AND cs.activedate <= now() 
+		AND (cs.expiredate IS NULL OR cs.expiredate > now())
 	    GROUP BY cs.card;
 
 CREATE OR REPLACE VIEW cc_card_dv AS

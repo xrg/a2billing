@@ -34,6 +34,7 @@ SELECT COALESCE(cc_ast_users.peernameb,cc_card.username, cc_booth.peername) AS n
 	disallow, allow,
 	cancallforward, musiconhold, setvar,
 	ipaddr , COALESCE(port, defport) AS port, regseconds,
+	cc_card.username AS mailbox,
 	cc_ast_instance.username, COALESCE(fullcontact,'')::varchar(80) AS fullcontact, regserver, useragent
 	
 	FROM cc_ast_users_config, cc_ast_users
@@ -106,6 +107,7 @@ SELECT cc_ast_instance.srvid,
 	disallow, allow,
 	cancallforward, musiconhold, setvar,
 	ipaddr, COALESCE(port, defport) AS port, regseconds,
+	cc_card.username AS mailbox,
 	cc_ast_instance.username, fullcontact, regserver
 	
 	FROM cc_ast_users_config, cc_ast_users
@@ -147,6 +149,7 @@ SELECT COALESCE(cc_ast_users.peernameb,cc_card.username, cc_booth.peername) AS n
 	disallow, allow,
 	musiconhold AS mohsuggest, setvar,
 	ipaddr , COALESCE(port, defport) AS port, regseconds,
+	cc_card.username AS mailbox,
 	COALESCE(cc_ast_instance.username,cc_ast_users.peernameb,cc_card.username, cc_booth.peername) AS username
 	
 	FROM cc_ast_users_config, cc_ast_users
