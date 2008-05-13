@@ -234,6 +234,7 @@ while ($didrow = $didres->fetchRow()){
 	try {
 		$attempt = 1;
 		$last_prob = '';
+		$special_only = false;
 	foreach ($routes as $route){
 		if ($route['tmout'] < getAGIconfig('min_duration_2did',30)){
 			$agi->conlog('Call will be too short: ',$route['tmout'],3);
@@ -264,6 +265,9 @@ while ($didrow = $didres->fetchRow()){
 		}
 
 		$dialstr = formatDialstring($didrow['dialstring'],$route, $card);
+		if ($special_only && ($dialstr !==true))
+			continue;
+
 		if ($dialstr === null){
 			$last_prob='unreachable';
 			continue;
@@ -271,7 +275,7 @@ while ($didrow = $didres->fetchRow()){
 			$last_prob='no-dialstring';
 			continue;
 		}elseif($dialstr ===true){
-			if (dialSpecial($dialnum,$route, $card,$last_prob,$agi))
+			if (dialSpecial($dialnum,$route, $card,$last_prob,$agi,$attempt))
 				break;
 			else
 				continue;
@@ -339,29 +343,33 @@ while ($didrow = $didres->fetchRow()){
 		//$agi->conlog("After dial, answertime: ".print_r($answeredtime,true));
 		//TODO: SIP, ISDN extended status
 		
-		$can_continue = false;
+		$can_continue = true;
 		$cause_ext = '';
 		switch ($dialstatus['data']){
 		case 'BUSY':
 			$last_prob='busy';
+			$special_only=true;
 			break;
 		case 'ANSWERED':
 		case 'ANSWER':
-		case 'CANCEL':
+			$can_continue=false;
 			$last_prob='';
 			break;
-		
+		case 'CANCEL':
+			$special_only=true;
+			$last_prob='cancel';
+			break;
+
 		case 'CONGESTION':
 		case 'CHANUNAVAIL':
 			$last_prob='call-fail';
-			$can_continue = true;
 			break;
 		case 'NOANSWER':
 			$last_prob='no-answer';
-			$can_continue = true;
 			break;
 		default:
 			$agi->verbose("Unknown status: ".$dialstatus['data'],2);
+			$special_only=true;
 		}
 		
 		// store them in last_call
