@@ -64,6 +64,13 @@ class DateTimeField extends TextField {
 			$clauses[] = $tmp;
 	}
 
+	public function getOrder(&$form){
+		if ($this->fieldexpr)
+			return $this->fieldexpr;
+		else
+			return $form->model_table.'.'.$this->fieldname;
+	}
+
 };
 
 class DateField extends DateTimeField {
