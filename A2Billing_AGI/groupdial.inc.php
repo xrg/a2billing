@@ -121,6 +121,11 @@ function groupDial($dialnum,$route, $card,$card_money,&$last_prob,$agi){
 
 	//$agi->conlog("Group dialing routes: ".print_r($all_routes,true),4);
 	
+	if (empty($all_routes)){
+		$last_prob='call-fail';
+		return false;
+	}
+
 	// Now, iterate over all the routes to find some useful stuff
 	$agg_route=array();
 	$agg_strs= array();
