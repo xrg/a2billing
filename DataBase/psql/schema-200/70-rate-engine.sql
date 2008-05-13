@@ -161,6 +161,11 @@ CREATE OR REPLACE FUNCTION card_call_release(s_cardid BIGINT) RETURNS void AS $$
 		WHERE id = $1;
 $$ LANGUAGE SQL STRICT VOLATILE SECURITY DEFINER;
 
+CREATE OR REPLACE FUNCTION card_activate(s_cardid BIGINT) RETURNS void AS $$
+	UPDATE cc_card SET status = 1, firstusedate = now()
+		WHERE id = $1 AND status = 2;
+$$ LANGUAGE SQL STRICT VOLATILE SECURITY DEFINER;
+
 --- TODO: insert rule to limit trunk use on cc_call insert.
 
 CREATE OR REPLACE FUNCTION call_bill() RETURNS trigger AS $$
