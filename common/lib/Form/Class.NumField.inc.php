@@ -167,6 +167,13 @@ class MoneyField extends FloatField {
 			array($this->buildValue($form->getpost_dirty($this->fieldname),$form),
 				$form->a2billing->currency));
 	}
+	
+	public function getOrder(&$form){
+		if ($this->fieldexpr)
+			return $this->fieldexpr;
+		else
+			return $form->model_table.'.'.$this->fieldname;
+	}
 
 };
 
