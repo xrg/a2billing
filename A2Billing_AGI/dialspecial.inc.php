@@ -70,6 +70,10 @@ function dialSpecial($dialnum,$route, $card,$card_money,&$last_prob,$agi, $attem
 	case 12: // local voicemail
 		$dialn = array($card['numplan'],$dialnum);
 	case 13: // cross-nplan voicemail
+			// We obviously cannot get any voicemail if the caller has
+			// hung up.
+		if ($last_prob =='cancel')
+			return false;
 		if (!$dialn){ // case 11
 			$dialn = explode('-',$dialnum);
 			if ($dialn[0] == 'L')
