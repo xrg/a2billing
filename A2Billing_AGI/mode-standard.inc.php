@@ -33,7 +33,29 @@ for($num_try = 0;$num_try<getAGIconfig('number_try',1);$num_try++){
 		continue;
 	
 	//TODO: fix lang
-	if ($card['status']!=1){
+	if ($card['status']==2){
+		//if a new card, *only in standard mode*, activate it
+		if(getAGIconfig('activate_on_call',true)){
+			$QRY = str_dbparams($a2b->DBHandle(),'SELECT card_activate(%#1);',
+				array($card['id']));
+				
+			$agi->conlog($QRY,3);
+			$res = $a2b->DBHandle()->Execute($QRY);
+				
+			if (!$res){
+				$agi->verbose('Activate card: query error!',2);
+				$agi->conlog($a2b->DBHandle()->ErrorMsg(),2);
+				if(getAGIconfig('say_errors',true))
+					$agi-> stream_file('allison2'/*-*/, '#');
+				$card=null;
+				break;
+			}
+		} else {
+			$agi->stream_file('prepaid-no-card-entered','#');
+			$card=null;
+			break;
+		}
+	}else if ($card['status']!=1){
 		switch($card['status']){
 		case 8: //disabled card in booth
 			$agi->stream_file('prepaid-no-card-entered','#');
@@ -112,6 +134,7 @@ for($num_try = 0;$num_try<getAGIconfig('number_try',1);$num_try++){
 	try {
 		$attempt = 1;
 		$last_prob = '';
+		$special_only = false;
 	foreach ($routes as $route){
 		if ($route['tmout'] < getAGIconfig('min_duration_2call',30)){
 			$agi->conlog('Call will be too short: ',$route['tmout'],3);
@@ -150,10 +173,14 @@ for($num_try = 0;$num_try<getAGIconfig('number_try',1);$num_try++){
 		}elseif($dialstr ===true){
 			if (dialSpecial($dialnum,$route, $card,$card_money,$last_prob,$agi))
 				break;
+			else if ($special_only)
+				break;
 			else
 				continue;
 		}
 		
+		if ($special_only)
+			break;
 		// Callerid
 		if ($route['clidreplace']!== NULL){
 			$new_clid = str_alparams($route['clidreplace'],
@@ -221,29 +248,33 @@ for($num_try = 0;$num_try<getAGIconfig('number_try',1);$num_try++){
 		//$agi->conlog("After dial, answertime: ".print_r($answeredtime,true));
 		//TODO: SIP, ISDN extended status
 		
-		$can_continue = false;
+		$can_continue = true;
 		$cause_ext = '';
 		switch ($dialstatus['data']){
 		case 'BUSY':
 			$last_prob='busy';
+			$special_only=true;
 			break;
 		case 'ANSWERED':
 		case 'ANSWER':
-		case 'CANCEL':
+			$can_continue=false;
 			$last_prob='';
+			break;
+		case 'CANCEL':
+			$special_only=true;
+			$last_prob='cancel';
 			break;
 		
 		case 'CONGESTION':
 		case 'CHANUNAVAIL':
 			$last_prob='call-fail';
-			$can_continue = true;
 			break;
 		case 'NOANSWER':
 			$last_prob='no-answer';
-			$can_continue = true;
 			break;
 		default:
 			$agi->verbose("Unknown status: ".$dialstatus['data'],2);
+			$special_only=true;
 		}
 		
 		$res = $a2b->DBHandle()->Execute('UPDATE cc_call SET '.
