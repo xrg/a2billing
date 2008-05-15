@@ -3,7 +3,7 @@
 CREATE OR REPLACE FUNCTION gen_seraliases(s_crdgrp INTEGER, s_num INTEGER, s_start BIGINT, s_len INTEGER)
 	RETURNS SETOF TEXT AS $$
 	SELECT foo.ser
-		FROM ( SELECT lpad(generate_series($3,$3+$2-1),$4,'0') AS ser) AS foo
+		FROM ( SELECT lpad(generate_series($3,$3+$2-1)::TEXT,$4,'0') AS ser) AS foo
 		WHERE foo.ser NOT IN ( SELECT useralias FROM cc_card, 
 					cc_card_group AS g1,
 					cc_card_group AS g2

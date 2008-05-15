@@ -17,8 +17,8 @@ CREATE TABLE cc_ui_authen (
     datecreation TIMESTAMP without time zone DEFAULT NOW()
 );
 
-INSERT INTO cc_ui_authen (id,login,"password",groupid,perms) VALUES (1, 'root', 'myroot', 0, 65535);
-INSERT INTO cc_ui_authen (id,login,"password",groupid,perms) VALUES (2, 'admin', 'mypassword', 0, 65535);
+INSERT INTO cc_ui_authen (userid,login,"password",groupid,perms) VALUES (1, 'root', 'myroot', 0, 65535);
+INSERT INTO cc_ui_authen (userid,login,"password",groupid,perms) VALUES (2, 'admin', 'mypassword', 0, 65535);
 SELECT pg_catalog.setval('cc_ui_authen_userid_seq', 3);
 
 \echo Created Default admins.
