@@ -68,6 +68,8 @@ CREATE TABLE cc_ast_users (
     peernameb TEXT,
     secretb   TEXT,
     callerid  TEXT,
+    devmodel  TEXT, /* Expected device model, as in provision */
+    macaddr   TEXT, /* MAC address of device */
     CHECK( card_id IS NOT NULL OR booth_id IS NOT NULL)
 );
 

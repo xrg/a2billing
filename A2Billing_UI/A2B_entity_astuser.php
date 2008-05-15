@@ -38,7 +38,8 @@ if (! session_readonly())
 $HD_Form->model[] = dontList(new TextFieldN(_("Callerid B"),'callerid',_("Override callerid.")));
 
 $HD_Form->model[] = DontList( new TextFieldN(_("From user"),'fromuser',_("Override user string.")));
-
+$HD_Form->model[] = DontList( new TextFieldN(_("Device Model"),'devmodel',_("Provision model of device.")));
+$HD_Form->model[] = DontList( new TextFieldN(_("MAC"),'macaddr',_("MAC address of provisioned device.")));
 
 $HD_Form->model[] = new DelBtnField();
 
