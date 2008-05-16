@@ -27,6 +27,7 @@ $HD_Form->model[] = new TextField(_("Name"),'name',_('Name of group'));
 $HD_Form->model[] = new TextField(_("Sub Name"),'sub_name',_('Second part of name'));
 //$HD_Form->model[] = new SqlRefFieldN(_("Alias Length"),'agentid','cc_agent','id','name', _("If cards belong to an agent."));
 $HD_Form->model[] = dontList(dontAdd( new IntField(_("Metric"),'metric',_("By adjusting the metrics, order of the generated groups can be enforced."))));
+$HD_Form->model[] = dontList(dontAdd( new IntField(_("Options"),'options',_("Option flags for group."))));
 
 //$HD_Form->model[] = new RevRefTxt(_("Patterns"),'pat','id','cc_numplan_pattern','nplan','nick',_("Dial patterns for this plan."));
 
@@ -42,6 +43,7 @@ $HD_Form->meta_elems[] = $tmp;
 	$tmp->Form->model[]= new TextField(_("Value"),'valuef',_('Value, pattern of setting'));
 	$tmp->Form->model[] = new IntField(_("Metric"),'metric',_("By adjusting the metrics, order of the generated fields can be enforced."));
 		end($tmp->Form->model)->def_value= 10;
+	$tmp->Form->model[] = dontList(dontAdd( new IntField(_("Options"),'options')));
 	$tmp->Form->model[] = new DelBtnField();
 	$tmp->Form->meta_elems[] = new AddNewButton($tmp->Form);
 

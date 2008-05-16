@@ -55,10 +55,10 @@ class SpaXmlImport extends XmlImport {
 	/** Inserts some provisioning group 
 	   \return the id of the inserted record
 	  */
-	protected function getGroup( $confname, $name, $subname= NULL){
-		$qry = str_dbparams($this->dbhandle,'INSERT INTO provision_group(categ,model,name, sub_name) '.
-			'VALUES(%1,%2,%3,%!4) RETURNING id; ',
-			array('spa-conf',$confname,$name, $subname));
+	protected function getGroup2( $confname, $name, $subname= NULL, $opts){
+		$qry = str_dbparams($this->dbhandle,'INSERT INTO provision_group(categ,model,name, sub_name, options) '.
+			'VALUES(%1,%2,%3,%!4,%#5) RETURNING id; ',
+			array('spa-conf',$confname,$name, $subname, $opts));
 			
 		$res= $this->dbhandle->Execute($qry);
 		if(!$res){
@@ -74,12 +74,11 @@ class SpaXmlImport extends XmlImport {
 	protected function importContent(DomDocument $doc) {
 		$elem = $doc->documentElement;
 		$grpid=NULL;
-		if ($elem->tagName != 'flat-profile'){
+		if ($elem->tagName != 'spa-profile'){
 			$this->out(LOG_ERR,'Invalid root element');
 			return false;
 		}
 		$child = $elem->firstChild;
-		$insqry = 'INSERT INTO provisions(grp_id, name, valuef) VALUES( ?, ?, ?);';
 		while ($child !== NULL){
 			switch($child->nodeType){
 			case XML_TEXT_NODE:
@@ -93,18 +92,74 @@ class SpaXmlImport extends XmlImport {
 					break;
 				if (preg_match('/Title:/',$txt)>0)
 					break;
-				$this->out(LOG_DEBUG,"Got section: ". $txt);
-				$grpid=$this->getGroup($this->args['confname'],'Spa conf',$txt);
+				$this->out(LOG_DEBUG,"Got comment:". $child->data);
 				break;
 			case XML_ELEMENT_NODE:
 					// Create a 'generic' group, if none.
-				if ($grpid ===NULL)
-					$grpid=$this->getGroup($this->args['confname'],'Spa conf','');
-
+				if (!$this->getGroup($child))
+					return false;
+				break;
+			
+			default:
+				$this->out(LOG_ERR,'Unknown node type: '. $child->nodeType);
+				return false;
+			}
+			$child=$child->nextSibling;
+		}
+		
+		return true;
+	}
+	
+	protected function getGroup (DOMElement $elem) {
+		$num = false;
+		switch ($elem->tagName){
+		case 'Numbered':
+			$num = true;
+		case 'Unnumbered':
+			if ($num)
+				$opts = 1;
+			else
+				$opts = 0;
+			$grpid=$this->getGroup2($this->args['confname'],'Spa conf',$elem->getAttribute('name'), $opts);
+			if (!$this->parseGrpElem($elem,$grpid))
+				return false;
+			break;
+		default:
+			$this->out(LOG_ERR,'Unknown element: '. $elem->tagName);
+			return false;
+		}
+		return true;
+	}
+	
+	protected function parseGrpElem(DOMElement &$elem, $grpid){
+	
+		$child = $elem->firstChild;
+		$insqry = 'INSERT INTO provisions(grp_id, name, valuef, options) VALUES( ?, ?, ?, ?);';
+		while ($child !== NULL){
+			switch($child->nodeType){
+			case XML_TEXT_NODE:
+				$val = trim($child->nodeValue);
+				if (!empty($val))
+				$this->out(LOG_DEBUG,"Got text: ".print_r($child->nodeValue,true));
+				break;
+			case XML_COMMENT_NODE:
+				$txt=trim($child->data);
+				if (preg_match('/options:/',$txt)>0)
+					break;
+				$this->out(LOG_DEBUG,"Got comment:". $child->data);
+				break;
+			case XML_ELEMENT_NODE:
 				$this->out(LOG_DEBUG,"Got elem: ".$child->tagName .
 					'= ' . trim($child->textContent));
+				$opts = 0;
+				
+				if ($child->getAttribute('ua')=='rw')
+					$opts |= 1;
+				if ($child->hasAttribute('fo'))
+					$opts |= 2;
+
 				$res = $this->dbhandle->Execute($insqry,
-					array($grpid,$child->tagName,trim($child->textContent)));
+					array($grpid,$child->tagName,trim($child->textContent),$opts));
 				if (!$res){
 					$this->out(LOG_ERR,$this->dbhandle->ErrorMsg());
 					throw new Exception('Cannot insert into database.');
@@ -119,8 +174,8 @@ class SpaXmlImport extends XmlImport {
 			}
 			$child=$child->nextSibling;
 		}
-		
 		return true;
+
 	}
 };
 ?>

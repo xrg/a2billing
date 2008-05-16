@@ -41,6 +41,7 @@ $HD_Form->model[] = DontList( new TextFieldN(_("From user"),'fromuser',_("Overri
 $HD_Form->model[] = DontList( new TextFieldN(_("Device Model"),'devmodel',_("Provision model of device.")));
 $HD_Form->model[] = DontList( new TextFieldN(_("MAC"),'macaddr',_("MAC address of provisioned device.")));
 $HD_Form->model[] = DontList( new TextField(_("D Secret"),'devsecret',_("Device secret, provision safety.")));
+$HD_Form->model[] = DontList( new IntFieldN(_("Provision Num"),'provi_num',_("Provision configuration number")));
 
 $HD_Form->model[] = new DelBtnField();
 
