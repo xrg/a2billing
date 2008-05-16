@@ -52,15 +52,13 @@ class SpaXmlImport extends XmlImport {
 		$this->dbhandle = A2Billing::DBHandle();
 	}
 
-	protected function importContent(DomDocument $doc) {
-		$elem = $doc->documentElement;
-		if ($elem->tagName != 'flat-profile'){
-			$this->out(LOG_ERR,'Invalid root element');
-			return false;
-		}
-		$qry = str_dbparams($this->dbhandle,'INSERT INTO provision_group(categ,model,name) '.
-			'VALUES(%1,%2,%3) RETURNING id; ',
-			array('spa-conf',$this->args['confname'],'Spa conf'));
+	/** Inserts some provisioning group 
+	   \return the id of the inserted record
+	  */
+	protected function getGroup( $confname, $name, $subname= NULL){
+		$qry = str_dbparams($this->dbhandle,'INSERT INTO provision_group(categ,model,name, sub_name) '.
+			'VALUES(%1,%2,%3,%!4) RETURNING id; ',
+			array('spa-conf',$confname,$name, $subname));
 			
 		$res= $this->dbhandle->Execute($qry);
 		if(!$res){
@@ -70,8 +68,16 @@ class SpaXmlImport extends XmlImport {
 			$this->out(LOG_ERR,"No rows inserted!");
 		}
 		$row= $res->fetchRow();
-		$grpid=$row['id'];
-
+		return $row['id'];
+	}
+	
+	protected function importContent(DomDocument $doc) {
+		$elem = $doc->documentElement;
+		$grpid=NULL;
+		if ($elem->tagName != 'flat-profile'){
+			$this->out(LOG_ERR,'Invalid root element');
+			return false;
+		}
 		$child = $elem->firstChild;
 		$insqry = 'INSERT INTO provisions(grp_id, name, valuef) VALUES( ?, ?, ?);';
 		while ($child !== NULL){
@@ -82,8 +88,19 @@ class SpaXmlImport extends XmlImport {
 				$this->out(LOG_DEBUG,"Got text: ".print_r($child->nodeValue,true));
 				break;
 			case XML_COMMENT_NODE:
+				$txt=trim($child->data);
+				if (preg_match('/options:/',$txt)>0)
+					break;
+				if (preg_match('/Title:/',$txt)>0)
+					break;
+				$this->out(LOG_DEBUG,"Got section: ". $txt);
+				$grpid=$this->getGroup($this->args['confname'],'Spa conf',$txt);
 				break;
 			case XML_ELEMENT_NODE:
+					// Create a 'generic' group, if none.
+				if ($grpid ===NULL)
+					$grpid=$this->getGroup($this->args['confname'],'Spa conf','');
+
 				$this->out(LOG_DEBUG,"Got elem: ".$child->tagName .
 					'= ' . trim($child->textContent));
 				$res = $this->dbhandle->Execute($insqry,

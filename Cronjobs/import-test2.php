@@ -45,7 +45,7 @@ if (!$res){
 
 $gen = new SpaXmlImport();
 
-$gen->Init(array(name=>$confname));
+$gen->Init(array(confname=>$confname));
 
 $gen->parseContent($res);
 
