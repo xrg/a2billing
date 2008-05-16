@@ -12,7 +12,7 @@ class SpaXmlProvi extends ProviEngine {
 	}
 
 	public function getMimeType(){
-		return 'text/plain';
+		return 'text/xml';
 	}
 	
 	public function Init(array $args){
@@ -22,8 +22,10 @@ class SpaXmlProvi extends ProviEngine {
 		
 		$qry = str_dbparams($dbhandle,'SELECT cc_card.*, cc_ast_users.devmodel '.
 			' FROM cc_card, cc_ast_users '.
-			' WHERE cc_ast_users.card_id = cc_card.id AND cc_ast_users.macaddr = %1;',
-			array($args['mac']));
+			' WHERE cc_ast_users.card_id = cc_card.id 
+			  AND cc_ast_users.macaddr = %1
+			  AND cc_ast_users.devsecret = %2;',
+			array($args['mac'], $args['sec']));
 			
 		$this->out(LOG_DEBUG,"Query: $qry");
 		$res= $dbhandle->Execute($qry);
@@ -55,7 +57,7 @@ class SpaXmlProvi extends ProviEngine {
 	}
 	
 	public function genContent(&$outstream){
-		fwrite($outstream, '<flat-profile>\n');
+		fwrite($outstream, "<flat-profile>\n");
 		fwrite($outstream,"\t<!-- Generated content -->\n\n");
 		
 		$crd=$this->cardinfo;

@@ -70,6 +70,7 @@ CREATE TABLE cc_ast_users (
     callerid  TEXT,
     devmodel  TEXT, /* Expected device model, as in provision */
     macaddr   TEXT, /* MAC address of device */
+    devsecret TEXT NOT NULL DEFAULT '', /* Device secret */
     CHECK( card_id IS NOT NULL OR booth_id IS NOT NULL)
 );
 
