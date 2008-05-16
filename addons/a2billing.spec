@@ -1,7 +1,7 @@
 # Asterisk 2 Billing software
 %define git_repodir /home/panos/Δουλειά/MinMax/a2b/
 %define git_repo asterisk2billing
-%define git_head v200-rpm
+%define git_head v200-templates
 
 %define name a2billing
 %define version 2.0.0
@@ -120,6 +120,25 @@ Requires:	apache-mod_php >= 5.2.1
 %description signup
 Web signup pages for Asterisk2Billing.
 
+%package provision
+Summary:	Provisioning server for a2b
+Group:		System/Servers
+Requires:	%{name}-config
+Requires:	apache-base >= 2.2.4
+Requires:	apache-mod_ssl
+Requires:	apache-mod_php >= 5.2.1
+
+%post provision
+%_post_webapp
+
+%postun provision
+%_postun_webapp
+
+%description provision
+Asterisk2Billing provisioning server. This package must be installed
+on the web server that will offer provisioning configurations to 
+devices.
+
 %package AGI
 Summary:	Asterisk interface
 Group:		System/Servers
@@ -176,12 +195,14 @@ install -d %{buildroot}%{_datadir}/a2billing/customer
 install -d %{buildroot}%{_datadir}/a2billing/agent
 install -d %{buildroot}%{_datadir}/a2billing/signup
 install -d %{buildroot}%{_datadir}/a2billing/Database
+install -d %{buildroot}%{_datadir}/a2billing/provi
 
 install LICENSE FEATURES_LIST %{buildroot}%{_datadir}/a2billing
 cp -LR  A2Billing_UI/* %{buildroot}%{_datadir}/a2billing/admin
 cp -LR  A2BCustomer_UI/* %{buildroot}%{_datadir}/a2billing/customer
 cp -LR  A2BAgent_UI/* %{buildroot}%{_datadir}/a2billing/agent
 cp -LR  Signup/* %{buildroot}%{_datadir}/a2billing/signup
+cp -LR  Provision/* %{buildroot}%{_datadir}/a2billing/provi
 
 install -d %{buildroot}%{_localstatedir}/asterisk/agi-bin
 install -d %{buildroot}%{_localstatedir}/asterisk/agi-bin/libs_a2billing
@@ -245,6 +266,18 @@ Alias /signup   "%{_datadir}/a2billing/signup"
 </Directory>
 EOF
 
+cat '-' > %{buildroot}%{_webappconfdir}/10_a2bprovi.conf << EOF
+Alias /agent "%{_datadir}/a2billing/provi"
+<Directory "%{_datadir}/a2billing/provi" >
+    Options -Indexes MultiViews 
+    #-FollowSymlinks
+    Order deny,allow
+    Deny from all
+    Allow from 127.0.0.1
+    # Explicitly only allow trusted networks
+    # Allow 192.168.0.
+</Directory>
+EOF
 
 %clean
 [ -n "%{buildroot}" -a "%{buildroot}" != / ] && rm -rf %{buildroot}
@@ -277,6 +310,11 @@ EOF
 %defattr(-,root,root)
 %{_datadir}/a2billing/signup
 %config(noreplace) %{_webappconfdir}/10_a2bsignup.conf
+
+%files provision
+%defattr(-,root,root)
+%{_datadir}/a2billing/provi
+%config(noreplace) %{_webappconfdir}/10_a2bprovi.conf
 
 %files AGI
 %defattr(-,asterisk,root)
