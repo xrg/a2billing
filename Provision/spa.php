@@ -16,7 +16,7 @@ $dbg_elem = new DbgElem();
 $gen = new SpaXmlProvi();
 $gen->dbg_elem=&$dbg_elem;
 
-if (!$gen->Init(array(mac => $_GET['m'], sec=> $_GET['s']))){
+if (!$gen->Init(array(mac => $_GET['m'], sec=> $_GET['s'], firsttime=>$_GET['firsttime']))){
 	Header ("HTTP/1.0 401 Unauthorized");
 	echo "Unauthorized!";
 	die();

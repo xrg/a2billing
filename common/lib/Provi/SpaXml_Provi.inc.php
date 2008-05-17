@@ -5,6 +5,7 @@ class SpaXmlProvi extends ProviEngine {
 	protected $grprows;
 	protected $cardres;
 	protected $dbhandle;
+	protected $args ;
 	protected $confname='spa-conf';
 	
 	//protected $args=array();
@@ -18,6 +19,7 @@ class SpaXmlProvi extends ProviEngine {
 	
 	public function Init(array $args){
 		$dbhandle = $this->dbhandle;
+		$this->args = $args;
 		//We have to fetch all group rows in one go, because
 		// we are going to re-use them.
 		
