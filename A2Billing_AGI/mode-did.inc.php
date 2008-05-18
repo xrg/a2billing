@@ -105,7 +105,7 @@ $agi->conlog('DID mode, ext: '.$did_extension .'@'.$did_code,4);
 $card=null;
 
 $QRY = str_dbparams($a2b->DBHandle(),'SELECT id(card) AS card_id, tgid, username(card), status(card) AS card_status, ' .
-		'nplan, useralias(card), features(card), dialstring, dgid, brid2, buyrate2, alert_info, '.
+		'nplan, rnplan, useralias(card), features(card), dialstring, dgid, brid2, buyrate2, alert_info, '.
 		' now() AS start_time '.
 		' FROM DIDEngine(%1, %2, now());',
 	array($did_extension,$did_code));
@@ -231,6 +231,35 @@ while ($didrow = $didres->fetchRow()){
 	$routes = $res->GetArray();
 	$agi->conlog('Rate engine: found '.count($routes).' results.',3);
 
+	// now, try to reverse translate the CLID we (may) have.
+	$did_clidreplace=NULL;
+	if ($didrow['rnplan']){
+		$QRY = str_dbparams($a2b->DBHandle(), 'SELECT repl,alert_info FROM cc_re_numplan_pattern 
+			WHERE cc_re_numplan_pattern.nplan = %#1
+			  AND ( cc_re_numplan_pattern.fplan IS NULL OR cc_re_numplan_pattern.fplan = %#2)
+			  AND ( %3 LIKE cc_re_numplan_pattern.find || \'%%\')
+			ORDER BY length(find) DESC  LIMIT 1;',
+			  array($didrow['rnplan'],$didrow['nplan'],$agi->request['agi_callerid']));
+		
+		$agi->conlog($QRY,3);
+		$res = $a2b->DBHandle()->Execute($QRY);
+		// If the rate engine has anything to Notice/Warn, display that..
+		if ($notice = $a2b->DBHandle()->NoticeMsg())
+			$agi->verbose('DB:' . $notice,2);
+			
+		if (!$res){
+			$agi->verbose('CLID query: query error!',2);
+			$agi->conlog($a2b->DBHandle()->ErrorMsg(),2);
+			if(getAGIconfig('say_errors',true))
+				$agi-> stream_file('allison2'/*-*/, '#');
+		}elseif($res->EOF){
+			$agi->verbose('CLID query: no result.',2);
+		}else {
+			$did_clidreplace = $res->fetchRow();
+			$agi->conlog('CLID query:  '.print_r($did_clidreplace,true),3);
+		}
+	}
+
 	try {
 		$attempt = 1;
 		$last_prob = '';
@@ -282,8 +311,8 @@ while ($didrow = $didres->fetchRow()){
 		}
 		
 		// Callerid
-		if ($route['clidreplace']!== NULL){ // *-* from route or did batch?
-			$new_clid = str_alparams($route['clidreplace'],
+		if ($did_clidreplace !== NULL){
+			$new_clid = str_alparams($did_clidreplace['repl'],
 				array( useralias =>$card['useralias'],
 					nplan => $card['numplan'],
 					callernum => $agi->request['agi_callerid']));
@@ -323,7 +352,10 @@ while ($didrow = $didres->fetchRow()){
 		$call_id = $res->fetchRow();
 		$agi->conlog('Start call '. $call_id['id'],4);
 		
-		if (!empty($didrow['alert_info'])){
+		if ($did_clidreplace && !empty($did_clidreplace['alert_info'])){
+			$agi->conlog('Setting DID rn alert to :'. $did_clidreplace['alert_info'],4);
+			$agi->exec('SIPAddHeader','Alert-Info:'.$did_clidreplace['alert_info']);
+		}else if (!empty($didrow['alert_info'])){
 			$agi->conlog('Setting DID alert to :'. $didrow['alert_info']);
 			$agi->exec('SIPAddHeader','Alert-Info:'.$didrow['alert_info']);
 		}elseif (!empty($route['alert_info'])){

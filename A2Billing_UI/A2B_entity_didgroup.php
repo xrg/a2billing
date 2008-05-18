@@ -28,6 +28,7 @@ $HD_Form->model[] = new RevRef2(_("Batches"),'bts','id','did_group_batch','btid'
 $HD_Form->model[] = new SqlRefField(_("Sell Tariff group"),'tgid','cc_tariffgroup','id','name',_("Tariff group which will define final retail prices and route availability."));
 	end($HD_Form->model)->fieldacr = _("Sell");
 
+$HD_Form->model[] = dontList(new SqlRefFieldN(_("CLID Rules"), "rnplan","cc_re_numplan", "id", "name",_("Reverse translating rules for incoming CLID")));
 $HD_Form->model[] = DontList(new TextFieldN(_("Ring style"),'alert_info',_("Selects the ring pattern to use on the phone being dialled.")));
 
 $HD_Form->model[] = new DelBtnField();
