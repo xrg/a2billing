@@ -72,6 +72,8 @@ CREATE TABLE cc_ast_users (
     macaddr   TEXT, /* MAC address of device */
     devsecret TEXT NOT NULL DEFAULT '', /* Device secret */
     provi_num INTEGER,
+    provi_name TEXT, /* Some name, like the display one */
+    provi_date TIMESTAMP, /* Last time the phone has been provisioned */
     CHECK( card_id IS NOT NULL OR booth_id IS NOT NULL)
 );
 
