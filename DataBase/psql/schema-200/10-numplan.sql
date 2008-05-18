@@ -30,7 +30,8 @@ CREATE TABLE cc_re_numplan_pattern (
 	find  VARCHAR(10) NOT NULL,
 -- 	oclid INTEGER NOT NULL REFERENCES cc_outbound_cgroup(id),
 	repl  TEXT NOT NULL DEFAULT '',
-	nick  TEXT NOT NULL DEFAULT ''
+	nick  TEXT NOT NULL DEFAULT '',
+	alert_info TEXT  -- Ring pattern
 );
 
 

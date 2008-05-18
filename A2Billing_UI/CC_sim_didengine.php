@@ -31,7 +31,8 @@ $HD_Form->QueryString= 'SELECT de.*, username(de.card) AS crd_username, id(de.ca
 	(SELECT name FROM cc_didgroup WHERE id = de.dgid) AS dgid_name,
 	(SELECT name FROM cc_tariffgroup WHERE id = de.tgid) AS tgid_name,
 	(SELECT name FROM cc_numplan WHERE id = de.nplan) AS nplan_name,
-	(SELECT destination FROM cc_buyrate WHERE id = de.brid2) AS brid2_destination
+	(SELECT destination FROM cc_buyrate WHERE id = de.brid2) AS brid2_destination,
+	alert_info
 	FROM DIDEngine(%didstring,%didcode,%curtime) AS de;' ;
 // Wrong one: FROM ...,
 // 	   cc_buyrate, cc_sellrate
@@ -60,6 +61,9 @@ $HD_Form->rmodel[] = new SqlRefField(_('DID Group'),'dgid','cc_didgroup','id','n
 
 $HD_Form->rmodel[] = new SqlRefField(_('Tariff Group'),'tgid','cc_tariffgroup','id','name');
 	end($HD_Form->rmodel)->fieldacr=_("TGrp");
+
+$HD_Form->rmodel[] = new TextField(_('Ring style'),'alert_info') ;
+	end($HD_Form->rmodel)->fieldacr=_("Ring");
 
 // $HD_Form->rmodel[] = new TextField(_('Destination'),'destination') ;
 // $HD_Form->rmodel[] = new SecondsField(_('Timeout'),'tmout') ;
