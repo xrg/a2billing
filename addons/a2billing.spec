@@ -55,6 +55,8 @@ modify it to suit your needs.
 Summary:	Administrator web interface
 Group:		System/Servers
 Requires:	%{name}-config
+Requires:	php-pgsql
+Requires:	php-gettext
 Requires:	apache-base >= 2.2.4
 Requires:	apache-mod_ssl
 Requires:	apache-mod_php >= 5.2.1
@@ -72,6 +74,8 @@ The administrator web-interface to a2billing.
 Summary:	Customer web interface
 Group:		System/Servers
 Requires:	%{name}-config
+Requires:	php-pgsql
+Requires:	php-gettext
 Requires:	apache-base >= 2.2.4
 Requires:	apache-mod_ssl
 Requires:	apache-mod_php >= 5.2.1
@@ -89,6 +93,8 @@ The web-interface for retail customers
 Summary:	Agent web interface
 Group:		System/Servers
 Requires:	%{name}-config
+Requires:	php-pgsql
+Requires:	php-gettext
 Requires:	apache-base >= 2.2.4
 Requires:	apache-mod_ssl
 Requires:	apache-mod_php >= 5.2.1
@@ -107,6 +113,8 @@ Callshop (agent) web-interface.
 Summary:	Signup web interface
 Group:		System/Servers
 Requires:	%{name}-config
+Requires:	php-pgsql
+Requires:	php-gettext
 Requires:	apache-base >= 2.2.4
 Requires:	apache-mod_ssl
 Requires:	apache-mod_php >= 5.2.1
@@ -124,6 +132,8 @@ Web signup pages for Asterisk2Billing.
 Summary:	Provisioning server for a2b
 Group:		System/Servers
 Requires:	%{name}-config
+Requires:	php-pgsql
+Requires:	php-gettext
 Requires:	apache-base >= 2.2.4
 Requires:	apache-mod_ssl
 Requires:	apache-mod_php >= 5.2.1
@@ -143,6 +153,7 @@ devices.
 Summary:	Asterisk interface
 Group:		System/Servers
 Requires:	%{name}-config
+Requires:	php-pgsql
 Requires:	asterisk >= 1.4.19
 Requires:	php-pcntl
 
@@ -154,6 +165,8 @@ Summary:	Database files and scripts
 Group:		System/Servers
 # Requires:	%{name}-config
 Requires:	cron-daemon
+Requires:	postgresql >= 8.2.5
+Requires:	php-pgsql
 
 %description dbadmin
 Install this package into some machine that is client to the
