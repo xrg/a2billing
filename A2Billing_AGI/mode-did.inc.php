@@ -234,7 +234,8 @@ while ($didrow = $didres->fetchRow()){
 	// now, try to reverse translate the CLID we (may) have.
 	$did_clidreplace=NULL;
 	if ($didrow['rnplan']){
-		$QRY = str_dbparams($a2b->DBHandle(), 'SELECT repl,alert_info FROM cc_re_numplan_pattern 
+		$QRY = str_dbparams($a2b->DBHandle(), 'SELECT repl,find,length(find) AS find_len,alert_info
+			FROM cc_re_numplan_pattern
 			WHERE cc_re_numplan_pattern.nplan = %#1
 			  AND ( cc_re_numplan_pattern.fplan IS NULL OR cc_re_numplan_pattern.fplan = %#2)
 			  AND ( %3 LIKE cc_re_numplan_pattern.find || \'%%\')
@@ -315,7 +316,8 @@ while ($didrow = $didres->fetchRow()){
 			$new_clid = str_alparams($did_clidreplace['repl'],
 				array( useralias =>$card['useralias'],
 					nplan => $card['numplan'],
-					callernum => $agi->request['agi_callerid']));
+					callernum => $agi->request['agi_callerid'],
+					callern => substr($agi->request['agi_callerid'],$did_clidreplace['find_len'])));
 		}else
 			$new_clid = $agi->request['agi_callerid'];
 		
