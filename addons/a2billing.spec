@@ -220,6 +220,8 @@ cp -LR  Provision/* %{buildroot}%{_datadir}/a2billing/provi
 install -d %{buildroot}%{_localstatedir}/asterisk/agi-bin
 install -d %{buildroot}%{_localstatedir}/asterisk/agi-bin/libs_a2billing
 install -d %{buildroot}%{_localstatedir}/asterisk/agi-bin/libs_a2billing/adodb
+install -d %{buildroot}%{_localstatedir}/asterisk/agi-bin/libs_a2billing/adodb/drivers
+install -d %{buildroot}%{_localstatedir}/asterisk/agi-bin/libs_a2billing/adodb/session
 install -d %{buildroot}%{_localstatedir}/asterisk/agi-bin/libs_a2billing/phpagi
 cp -LR  A2Billing_AGI/*.php %{buildroot}%{_localstatedir}/asterisk/agi-bin/
 
@@ -232,6 +234,8 @@ install A2Billing_AGI/libs_a2billing/Class.A2Billing.inc.php \
 		%{buildroot}%{_localstatedir}/asterisk/agi-bin/libs_a2billing/
 
 cp -LR  A2Billing_AGI/libs_a2billing/adodb/*.php %{buildroot}%{_localstatedir}/asterisk/agi-bin/libs_a2billing/adodb/
+cp -LR  A2Billing_AGI/libs_a2billing/adodb/drivers/*.php %{buildroot}%{_localstatedir}/asterisk/agi-bin/libs_a2billing/adodb/drivers/
+cp -LR  A2Billing_AGI/libs_a2billing/adodb/session/*.php %{buildroot}%{_localstatedir}/asterisk/agi-bin/libs_a2billing/adodb/session/
 cp -LR  A2Billing_AGI/libs_a2billing/phpagi/*.php %{buildroot}%{_localstatedir}/asterisk/agi-bin/libs_a2billing/phpagi/
 install -d %{buildroot}%{_localstatedir}/asterisk/sounds
 cp -LR  addons/sounds/* %{buildroot}%{_localstatedir}/asterisk/sounds
@@ -280,7 +284,7 @@ Alias /signup   "%{_datadir}/a2billing/signup"
 EOF
 
 cat '-' > %{buildroot}%{_webappconfdir}/10_a2bprovi.conf << EOF
-Alias /agent "%{_datadir}/a2billing/provi"
+Alias /provi "%{_datadir}/a2billing/provi"
 <Directory "%{_datadir}/a2billing/provi" >
     Options -Indexes MultiViews 
     #-FollowSymlinks
@@ -288,7 +292,7 @@ Alias /agent "%{_datadir}/a2billing/provi"
     Deny from all
     Allow from 127.0.0.1
     # Explicitly only allow trusted networks
-    # Allow 192.168.0.
+    # Allow from 192.168.0.
 </Directory>
 EOF
 
@@ -331,7 +335,7 @@ EOF
 
 %files AGI
 %defattr(-,asterisk,root)
-%{_localstatedir}/asterisk/agi-bin/
+%attr(0750,root,asterisk) %{_localstatedir}/asterisk/agi-bin/
 %{_localstatedir}/asterisk/sounds/
 
 %files dbadmin
