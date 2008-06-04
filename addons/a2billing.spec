@@ -57,6 +57,7 @@ Group:		System/Servers
 Requires:	%{name}-config
 Requires:	php-pgsql
 Requires:	php-gettext
+Requires:	php-gd
 Requires:	apache-base >= 2.2.4
 Requires:	apache-mod_ssl
 Requires:	apache-mod_php >= 5.2.1
@@ -310,21 +311,25 @@ EOF
 
 %files admin
 %defattr(-,root,root)
+%config %{_datadir}/a2billing/admin/lib/defines.php
 %{_datadir}/a2billing/admin
 %config(noreplace) %{_webappconfdir}/10_a2badmin.conf
 
 %files customer
 %defattr(-,root,root)
+%config %{_datadir}/a2billing/customer/lib/defines.php
 %{_datadir}/a2billing/customer
 %config(noreplace) %{_webappconfdir}/10_a2bcustomer.conf
 
 %files agent
 %defattr(-,root,root)
+%config %{_datadir}/a2billing/agent/lib/defines.php
 %{_datadir}/a2billing/agent
 %config(noreplace) %{_webappconfdir}/10_a2bagent.conf
 
 %files signup
 %defattr(-,root,root)
+%config %{_datadir}/a2billing/signup/lib/defines.php
 %{_datadir}/a2billing/signup
 %config(noreplace) %{_webappconfdir}/10_a2bsignup.conf
 
