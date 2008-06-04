@@ -72,6 +72,36 @@ BEGIN
 	   	IF NOT FOUND THEN
 	   		RAISE NOTICE 'No card found by useralias!';
 	   	END IF;
+	   ELSIF p_dbatch.dmode = 3 THEN /* Charge one, dial other */
+	   	p_drem := p_dbatch.dialadd || p_drem;
+	   		-- Locate buy cost of DID
+	   	SELECT cc_buyrate.id, buyrate  INTO p_brid2, p_brate2  FROM cc_buyrate, cc_buy_prefix
+	   		WHERE cc_buyrate.idtp = p_dbatch.idtp AND cc_buyrate.id = cc_buy_prefix.brid
+	   		  AND cc_buy_prefix.dialprefix = ANY (dial_exp_prefix(p_drem))
+	   		  ORDER BY length(cc_buy_prefix.dialprefix) DESC LIMIT 1
+	   		  /*AND cc_buyrate.start_date ...*/ ;
+	   	IF NOT FOUND THEN
+	   		RAISE WARNING 'Cannot match DID buy rate';
+	   		CONTINUE;
+	   	END IF;
+	   	
+	   	RAISE NOTICE 'Searching for useralias % in numplan %..',p_drem, p_dbatch.nplan;
+	   	FOR p_card IN SELECT * FROM cc_card_dv
+	   		WHERE cc_card_dv.numplan = p_dbatch.nplan
+	   		  AND cc_card_dv.useralias = p_drem LOOP
+			
+			-- Automatically format the target string by appending dialfld2 and useralias
+	   		SELECT p_card AS card,
+	   			p_dbatch.nplan, p_dbatch.rnplan, p_dbatch.alert_info,
+	   			p_dbatch.dialfld2 AS dialstring,
+				p_dbatch.tgid, p_dbatch.dgid,
+				p_brid2 AS brid2, p_brate2 AS buyrate2, p_dbatch.metric
+	   		    INTO STRICT p_res;
+	   		RETURN NEXT p_res;
+	   	END LOOP;
+	   	IF NOT FOUND THEN
+	   		RAISE NOTICE 'No card found by useralias!';
+	   	END IF;
 	   ELSE
 	   	RAISE WARNING 'Unknown batch mode %',p_dbatch.dmode;
 	   END IF;
