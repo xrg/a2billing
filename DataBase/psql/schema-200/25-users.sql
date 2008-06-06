@@ -49,6 +49,9 @@ CREATE TABLE cc_ast_users_config(
     -- Codecs:
     allow VARCHAR(100),
     disallow VARCHAR(100),
+    -- Call pickup:
+    callgroup VARCHAR(100),
+    pickupgroup VARCHAR(100),
     -- Other:
     cancallforward VARCHAR(3),
     musiconhold VARCHAR(100),
@@ -68,6 +71,9 @@ CREATE TABLE cc_ast_users (
     peernameb TEXT,
     secretb   TEXT,
     callerid  TEXT,
+    -- Call pickup:
+    callgroup VARCHAR(100),
+    pickupgroup VARCHAR(100),
     CHECK( card_id IS NOT NULL OR booth_id IS NOT NULL)
 );
 
