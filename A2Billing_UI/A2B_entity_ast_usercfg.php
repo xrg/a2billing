@@ -70,6 +70,9 @@ $HD_Form->model[] = new IntFieldN(_("Port"),'defport',_("Default port"));
 $HD_Form->model[] = new TextFieldN(_("Permit"),'permit',_("IP/netmask of hosts to permit"));
 $HD_Form->model[] = new TextFieldN(_("Deny"),'deny',_("IP/netmask of hosts to deny"));
 
+$HD_Form->model[] = new TextFieldN(_("Call group"),'callgroup',_("When this device is called, set the call group so that others can pick it up."));
+$HD_Form->model[] = new TextFieldN(_("Pickup group"),'pickupgroup',_("Allow this device to pick up calls made to those groups."));
+
 $HD_Form->model[] = new RefField(_("Call FWD"), "cancallforward", $arr_yesnoN,_("Allow user to forward calls"));
 $HD_Form->model[] = new TextFieldN(_("MOH"),'musiconhold',_("Music on hold class"));
 $HD_Form->model[] = new TextFieldN(_("Set var"),'setvar',_("Set some custom var"));
