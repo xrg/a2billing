@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: common\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-09-07 21:01+0300\n"
-"PO-Revision-Date: 2008-02-21 12:09GMT\n"
+"PO-Revision-Date: 2008-06-08 22:46GMT\n"
 "Last-Translator: P. Christeas <p_christeas@yahoo.com>\n"
 "Language-Team: Ellhnika <el@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -33,6 +33,12 @@ msgstr "Σφάλμα, το ανεβασμένο αρχείο δεν βρίσκε
 msgid "file type is not allowed"
 msgstr "αρχεία τέτοιου τύπου δεν επιτρέπονται"
 
+#: common/lib/Form/Class.ElemGraph.inc.php:453
+#: common/lib/Form/Class.SumMultiView.inc.php:395
+#: common/lib/Form/Class.SqlRefField.inc.php:211
+msgid "(none)"
+msgstr "(κανένα)"
+
 #: common/lib/Form/Class.FormHelpers.inc.php:14
 msgid "item"
 msgstr "στοιχείο"
@@ -43,7 +49,7 @@ msgstr "Προσθήκη νέου %1"
 
 #: common/lib/Form/Class.ListView.inc.php:105
 #: common/lib/Form/Class.ListCsvView.inc.php:19
-#: common/lib/Form/Class.ListSumView.inc.php:71
+#: common/lib/Form/Class.ListSumView.inc.php:98
 #: common/lib/Form/Class.DetailsView.inc.php:124
 #: common/lib/Form/Class.ListTeXView.inc.php:19
 #: common/lib/Form/Class.EditView.inc.php:62
@@ -52,11 +58,11 @@ msgstr "Δεν βρέθηκε %1!"
 
 #: common/lib/Form/Class.ListView.inc.php:180
 msgid "%1 Rows,"
-msgstr ""
+msgstr "%1 Σειρές,"
 
 #: common/lib/Form/Class.ListView.inc.php:182
 msgid "Display"
-msgstr ""
+msgstr "Εμφάνισε"
 
 #: common/lib/Form/Class.ListView.inc.php:190
 msgid "All"
@@ -78,7 +84,7 @@ msgstr "Προηγ."
 msgid "Next"
 msgstr "Επόμενο"
 
-#: common/lib/Form/Class.ListSumView.inc.php:78
+#: common/lib/Form/Class.ListSumView.inc.php:105
 #: common/lib/AgentMoney.inc.php:45
 msgid "Sum"
 msgstr "Άθροισμα"
@@ -93,15 +99,21 @@ msgstr "Το %1 θα διαγραφεί!"
 msgid "Delete this %1"
 msgstr "Διαγραφή του %1"
 
-#: common/lib/Form/Class.DeleteView.inc.php:139
+#: common/lib/Form/Class.DeleteView.inc.php:132
+#: common/lib/Form/Class.AddView.inc.php:142
+#: common/lib/Form/Class.EditView.inc.php:205
+msgid "Read only. No data has been altered."
+msgstr "Μόνο ανάγνωση. Τα δεδομένα δεν άλλαξαν."
+
+#: common/lib/Form/Class.DeleteView.inc.php:147
 msgid "Cannot delete %1, database error."
 msgstr "Δεν μπορώ να διαγράψω το %1, σφάλμα στη βάση."
 
-#: common/lib/Form/Class.DeleteView.inc.php:146
+#: common/lib/Form/Class.DeleteView.inc.php:154
 msgid "Cannot delete %1, record not found."
 msgstr "Δεν μπορώ να διαγράψω το %1 γιατί δεν βρέθηκε."
 
-#: common/lib/Form/Class.DeleteView.inc.php:150
+#: common/lib/Form/Class.DeleteView.inc.php:158
 msgid "Record successfully removed from the database."
 msgstr "Η εγγραφή διαγράφηκε από τη βάση δεδομένων."
 
@@ -111,55 +123,49 @@ msgid "Edit this %1"
 msgstr "Επεξεργασία του %1"
 
 #: common/lib/Form/Class.TextField.inc.php:60
-#, fuzzy
 msgid "Details of this %1"
-msgstr "Λεπτομέρειες %1"
+msgstr "Λεπτομέρειες του %1"
 
-#: common/lib/Form/Class.SumMultiView.inc.php:163
-#: common/lib/Form/Class.SumMultiView.inc.php:408
+#: common/lib/Form/Class.SumMultiView.inc.php:192
+#: common/lib/Form/Class.SumMultiView.inc.php:516
 msgid "No sums found!"
 msgstr "Δεν βρέθηκαν αθροίσματα!"
-
-#: common/lib/Form/Class.SumMultiView.inc.php:287
-#: common/lib/Form/Class.SqlRefField.inc.php:198
-msgid "(none)"
-msgstr "(κανένα)"
 
 #: common/lib/Form/Class.TimeField.inc.php:19
 msgid "YYYY-MM-DD HH24:MI:SS TZ"
 msgstr "DD/MM/IYYY HH24:MI:SS TZ"
 
-#: common/lib/Form/Class.TimeField.inc.php:78
+#: common/lib/Form/Class.TimeField.inc.php:81
 msgid "YYYY-MM-DD"
 msgstr "DD/MM/IYYY"
 
-#: common/lib/Form/Class.NumField.inc.php:230
+#: common/lib/Form/Class.NumField.inc.php:226
 msgid "TRUE"
 msgstr "ΑΛΗΘΕΣ"
 
-#: common/lib/Form/Class.NumField.inc.php:232
+#: common/lib/Form/Class.NumField.inc.php:228
 msgid "FALSE"
 msgstr "ΨΕΥΔΕΣ"
 
-#: common/lib/Form/Class.NumField.inc.php:259
+#: common/lib/Form/Class.NumField.inc.php:255
 #: common/lib/Form/Class.VolField.inc.php:36
 msgid "0 sec"
 msgstr "0 δευ."
 
-#: common/lib/Form/Class.NumField.inc.php:274
+#: common/lib/Form/Class.NumField.inc.php:270
 msgid "Y-m-d H:i:s T"
-msgstr ""
+msgstr "d/m/Y H:i:s T"
 
 #: common/lib/Form/Class.AddView.inc.php:61
 #: common/lib/Form/Class.TabField.inc.php:108
 msgid "Create this %1"
 msgstr "Δημιουργία ενός %1"
 
-#: common/lib/Form/Class.AddView.inc.php:139
+#: common/lib/Form/Class.AddView.inc.php:152
 msgid "Cannot create new %1, database error."
 msgstr "Δεν εισάγεται %1, σφάλμα στη βάση."
 
-#: common/lib/Form/Class.AddView.inc.php:144
+#: common/lib/Form/Class.AddView.inc.php:157
 msgid "New data has successfully been inserted into the database."
 msgstr "Τα στοιχεία προστέθηκαν στη βάση δεδομένων."
 
@@ -421,9 +427,9 @@ msgstr "Ενέργειες"
 msgid "Details of %1"
 msgstr "Λεπτομέρειες %1"
 
-#: common/lib/Form/Class.FormHandler.inc.php:336
+#: common/lib/Form/Class.FormHandler.inc.php:329
 msgid "Graph"
-msgstr ""
+msgstr "Γράφημα"
 
 #: common/lib/Form/Class.TextSearchField.inc.php:21
 msgid "Ignore"
@@ -450,15 +456,15 @@ msgstr "Τελειώνει σε"
 msgid "Update this %1"
 msgstr "Ενημέρωση του %1"
 
-#: common/lib/Form/Class.EditView.inc.php:208
+#: common/lib/Form/Class.EditView.inc.php:215
 msgid "Cannot update %1, database error."
 msgstr "Δεν ενημερώθηκε το %1, σφάλμα στη βάση δεδομένων."
 
-#: common/lib/Form/Class.EditView.inc.php:215
+#: common/lib/Form/Class.EditView.inc.php:222
 msgid "Cannot update %1, record not found."
 msgstr "Δεν ενημερώθηκε το %1, η εγγραφή δε βρέθηκε."
 
-#: common/lib/Form/Class.EditView.inc.php:219
+#: common/lib/Form/Class.EditView.inc.php:226
 msgid "Data has successfully been updated in the database."
 msgstr "Τα δεδομένα ενημερώθηκαν στη βάση δεδομένων."
 
@@ -469,7 +475,7 @@ msgstr "Τύπος"
 
 #: common/lib/Provi/Class.ProvisionActionForm.inc.php:38
 msgid "Invalid type!"
-msgstr ""
+msgstr "Λάθος τύπος!"
 
 #: common/lib/Provi/Class.ProvisionActionForm.inc.php:93
 msgid "Here is your example %1:"
@@ -536,9 +542,8 @@ msgid "Urdu"
 msgstr "Urdu"
 
 #: common/lib/languageSettings.inc.php:53
-#, fuzzy
 msgid "English (C)"
-msgstr "Αγγλικά"
+msgstr "Αγγλικά (C)"
 
 #: common/lib/SessionInvoice.inc.php:8 common/lib/AgentMoney.inc.php:11
 msgid "Transactions"
@@ -1247,3 +1252,4 @@ msgstr "Η αναζήτηση στη βάση απέτυχε!"
 
 #~ msgid "Export XML"
 #~ msgstr "Εξαγωγή XML"
+

@@ -83,21 +83,21 @@ msgstr "Clique aqui para recarregar o Servidor do Asterisk"
 msgid "Asterisk has been reload!"
 msgstr "O Asterisk foi recarregado!"
 
-#: A2Billing_UI/call-stats.php:19 A2Billing_UI/agent-money.php:16
+#: A2Billing_UI/call-stats.php:20 A2Billing_UI/agent-money.php:16
 #: A2Billing_UI/A2B_entity_sessions.php:46 A2Billing_UI/call-unbilled.php:19
-#: A2Billing_UI/A2B_entity_call.php:18
+#: A2Billing_UI/A2B_logfile.php:18 A2Billing_UI/A2B_entity_call.php:18
 #: A2Billing_UI/A2B_entity_ainvoice_detail.php:148
 msgid "Period from"
 msgstr ""
 
-#: A2Billing_UI/call-stats.php:23 A2Billing_UI/agent-money.php:21
+#: A2Billing_UI/call-stats.php:24 A2Billing_UI/agent-money.php:21
 #: A2Billing_UI/A2B_entity_sessions.php:50 A2Billing_UI/call-unbilled.php:23
-#: A2Billing_UI/A2B_entity_call.php:22
+#: A2Billing_UI/A2B_logfile.php:22 A2Billing_UI/A2B_entity_call.php:22
 #: A2Billing_UI/A2B_entity_ainvoice_detail.php:152
 msgid "Period to"
 msgstr ""
 
-#: A2Billing_UI/call-stats.php:34 A2Billing_UI/call-stats.php:59
+#: A2Billing_UI/call-stats.php:36 A2Billing_UI/call-stats.php:67
 #: A2Billing_UI/lib/invoice.php:82 A2Billing_UI/lib/invoice.php:357
 #: A2Billing_UI/graph_statbar.php:47 A2Billing_UI/call-daily-load.php:68
 #: A2Billing_UI/A2B_entity_invoice_detail.php:88
@@ -106,8 +106,8 @@ msgstr ""
 #: A2Billing_UI/invoices_customer.php:73
 #: A2Billing_UI/A2B_entity_sellrate.php:17
 #: A2Billing_UI/A2B_entity_sellrate.php:38
-#: A2Billing_UI/call-log-customers.php:82 A2Billing_UI/A2B_entity_call.php:33
-#: A2Billing_UI/A2B_entity_call.php:71 A2Billing_UI/A2B_entity_call.php:113
+#: A2Billing_UI/call-log-customers.php:82 A2Billing_UI/A2B_entity_call.php:35
+#: A2Billing_UI/A2B_entity_call.php:80 A2Billing_UI/A2B_entity_call.php:122
 #: A2Billing_UI/A2B_entity_buyrate.php:17
 #: A2Billing_UI/A2B_entity_buyrate.php:37 A2Billing_UI/invoices_agent.php:68
 #: A2Billing_UI/graph_stat.php:48
@@ -117,21 +117,35 @@ msgstr ""
 msgid "Destination"
 msgstr "Destino"
 
-#: A2Billing_UI/call-stats.php:35 A2Billing_UI/A2B_entity_call.php:34
+#: A2Billing_UI/call-stats.php:37 A2Billing_UI/A2B_entity_call.php:36
 #, fuzzy
 msgid "Called number"
 msgstr "NúmeroChamado"
 
-#: A2Billing_UI/call-stats.php:38 A2Billing_UI/A2B_entity_server.php:13
-#: A2Billing_UI/A2B_entity_call.php:37 A2Billing_UI/A2B_entity_call.php:68
-#: A2Billing_UI/A2B_entity_call.php:110
+#: A2Billing_UI/call-stats.php:40 A2Billing_UI/call-stats.php:69
+#: A2Billing_UI/A2B_entity_agent_invoicev.php:26
+#: A2Billing_UI/A2B_entity_session_problems.php:29
+#: A2Billing_UI/agent-money.php:15 A2Billing_UI/A2B_entity_charge.php:26
+#: A2Billing_UI/A2B_entity_sessions.php:43 A2Billing_UI/call-unbilled.php:28
+#: A2Billing_UI/call-unbilled.php:67 A2Billing_UI/A2B_entity_card_group.php:23
+#: A2Billing_UI/A2B_entity_booths.php:25 A2Billing_UI/A2B_entity_agent.php:15
+#: A2Billing_UI/A2B_entity_call.php:37 A2Billing_UI/A2B_entity_call.php:74
+#: A2Billing_UI/A2B_entity_agentpay.php:24 A2Billing_UI/Callshop_booths.php:18
+#: A2Billing_UI/Gen_invoice_agent.php:27
+#, fuzzy
+msgid "Agent"
+msgstr "Centavos"
+
+#: A2Billing_UI/call-stats.php:45 A2Billing_UI/A2B_entity_server.php:13
+#: A2Billing_UI/A2B_entity_call.php:43 A2Billing_UI/A2B_entity_call.php:77
+#: A2Billing_UI/A2B_entity_call.php:119
 #: A2Billing_UI/A2B_entity_instance.php:23
 #: A2Billing_UI/A2B_entity_instance.php:54
 #, fuzzy
 msgid "Server"
 msgstr "Adicionar Servidor"
 
-#: A2Billing_UI/call-stats.php:39 A2Billing_UI/A2B_entity_user.php:29
+#: A2Billing_UI/call-stats.php:46 A2Billing_UI/A2B_entity_user.php:29
 #: A2Billing_UI/call-daily-load.php:295
 #: A2Billing_UI/CC_entity_sim_ratecard.php:63
 #: A2Billing_UI/A2B_entity_trunk.php:17 A2Billing_UI/call-comp.php:298
@@ -139,20 +153,20 @@ msgstr "Adicionar Servidor"
 #: A2Billing_UI/call-log-customers.php:85
 #: A2Billing_UI/call-log-customers.php:404
 #: A2Billing_UI/A2B_entity_invoices2_sales.php:334
-#: A2Billing_UI/A2B_entity_call.php:38 A2Billing_UI/A2B_entity_call.php:86
-#: A2Billing_UI/A2B_entity_call.php:132 A2Billing_UI/invoices.php:386
+#: A2Billing_UI/A2B_entity_call.php:44 A2Billing_UI/A2B_entity_call.php:95
+#: A2Billing_UI/A2B_entity_call.php:141 A2Billing_UI/invoices.php:386
 #: A2Billing_UI/call-last-month.php:254
 #: A2Billing_UI/A2B_call_archiving.php:200
 msgid "Trunk"
 msgstr "Tronco"
 
-#: A2Billing_UI/call-stats.php:40 A2Billing_UI/A2B_entity_call.php:39
-#: A2Billing_UI/A2B_entity_call.php:87 A2Billing_UI/A2B_entity_call.php:133
+#: A2Billing_UI/call-stats.php:47 A2Billing_UI/A2B_entity_call.php:45
+#: A2Billing_UI/A2B_entity_call.php:96 A2Billing_UI/A2B_entity_call.php:142
 #, fuzzy
 msgid "Trunk used for the call"
 msgstr "Identificador de chamada para usar nesta ligação"
 
-#: A2Billing_UI/call-stats.php:46 A2Billing_UI/call-stats.php:62
+#: A2Billing_UI/call-stats.php:53 A2Billing_UI/call-stats.php:73
 #: A2Billing_UI/lib/A2B_invoice.php:434 A2Billing_UI/lib/invoice.php:360
 #: A2Billing_UI/lib/invoice.php:447 A2Billing_UI/call-unbilled.php:38
 #: A2Billing_UI/call-unbilled.php:56
@@ -160,33 +174,33 @@ msgstr "Identificador de chamada para usar nesta ligação"
 #: A2Billing_UI/A2B_entity_invoice_detail.php:409
 #: A2Billing_UI/A2B_entity_invoice_detail.php:496
 #: A2Billing_UI/A2B_entity_invoices2_card.php:81
-#: A2Billing_UI/PP_menu.inc.php:203 A2Billing_UI/A2B_entity_call.php:45
+#: A2Billing_UI/PP_menu.inc.php:204 A2Billing_UI/A2B_entity_call.php:51
 #: A2Billing_UI/A2B_entity_invoices2_period.php:135
 msgid "Calls"
 msgstr "Ligações"
 
-#: A2Billing_UI/call-stats.php:46 A2Billing_UI/call-unbilled.php:38
-#: A2Billing_UI/A2B_entity_call.php:45
+#: A2Billing_UI/call-stats.php:53 A2Billing_UI/call-unbilled.php:38
+#: A2Billing_UI/A2B_entity_call.php:51
 #, fuzzy
 msgid "Call"
 msgstr "Ligações"
 
-#: A2Billing_UI/call-stats.php:57 A2Billing_UI/lib/invoice.php:444
+#: A2Billing_UI/call-stats.php:65 A2Billing_UI/lib/invoice.php:444
 #: A2Billing_UI/lib/invoice.php:596 A2Billing_UI/A2B_entity_charge.php:23
 #: A2Billing_UI/A2B_entity_invoice_detail.php:493
 #: A2Billing_UI/A2B_entity_invoice_detail.php:654
-#: A2Billing_UI/card-history.php:43 A2Billing_UI/invoices_agent.php:65
-#: A2Billing_UI/A2B_entity_agentpay.php:26
+#: A2Billing_UI/card-history.php:43 A2Billing_UI/A2B_logfile.php:57
+#: A2Billing_UI/invoices_agent.php:65 A2Billing_UI/A2B_entity_agentpay.php:26
 #: A2Billing_UI/A2B_entity_ainvoice_detail.php:266
 #: A2Billing_UI/A2B_entity_ainvoice_detail.php:346
 msgid "Date"
 msgstr "Data"
 
-#: A2Billing_UI/call-stats.php:60
+#: A2Billing_UI/call-stats.php:68
 msgid "Dest"
 msgstr ""
 
-#: A2Billing_UI/call-stats.php:64 A2Billing_UI/lib/invoice.php:83
+#: A2Billing_UI/call-stats.php:75 A2Billing_UI/lib/invoice.php:83
 #: A2Billing_UI/lib/invoice.php:358 A2Billing_UI/lib/invoice.php:445
 #: A2Billing_UI/graph_statbar.php:51 A2Billing_UI/call-count-reporting.php:73
 #: A2Billing_UI/call-daily-load.php:72 A2Billing_UI/call-unbilled.php:58
@@ -194,8 +208,8 @@ msgstr ""
 #: A2Billing_UI/A2B_entity_invoice_detail.php:407
 #: A2Billing_UI/A2B_entity_invoice_detail.php:494
 #: A2Billing_UI/call-comp.php:69 A2Billing_UI/invoices_customer.php:74
-#: A2Billing_UI/call-log-customers.php:83 A2Billing_UI/A2B_entity_call.php:74
-#: A2Billing_UI/A2B_entity_call.php:114 A2Billing_UI/invoices_agent.php:69
+#: A2Billing_UI/call-log-customers.php:83 A2Billing_UI/A2B_entity_call.php:83
+#: A2Billing_UI/A2B_entity_call.php:123 A2Billing_UI/invoices_agent.php:69
 #: A2Billing_UI/graph_stat.php:52
 #: A2Billing_UI/A2B_entity_ainvoice_detail.php:266
 #: A2Billing_UI/invoices_card.php:69 A2Billing_UI/invoices.php:87
@@ -203,51 +217,57 @@ msgstr ""
 msgid "Duration"
 msgstr "Duração"
 
-#: A2Billing_UI/call-stats.php:66
+#: A2Billing_UI/call-stats.php:77
 #, fuzzy
 msgid "Answer to Seizure Ratio"
 msgstr "Insira a direção"
 
-#: A2Billing_UI/call-stats.php:67 A2Billing_UI/call-log-customers.php:864
+#: A2Billing_UI/call-stats.php:78 A2Billing_UI/call-log-customers.php:864
 msgid "ASR"
 msgstr "ASR"
 
-#: A2Billing_UI/call-stats.php:70
+#: A2Billing_UI/call-stats.php:81
 msgid "Average Length of Calls"
 msgstr ""
 
-#: A2Billing_UI/call-stats.php:71 A2Billing_UI/call-log-customers.php:863
+#: A2Billing_UI/call-stats.php:82 A2Billing_UI/call-log-customers.php:863
 msgid "ALOC"
 msgstr "ALOC"
 
-#: A2Billing_UI/call-stats.php:75 A2Billing_UI/call-unbilled.php:62
-#: A2Billing_UI/A2B_entity_call.php:89 A2Billing_UI/A2B_entity_call.php:135
+#: A2Billing_UI/call-stats.php:86 A2Billing_UI/call-unbilled.php:62
+#: A2Billing_UI/A2B_entity_call.php:98 A2Billing_UI/A2B_entity_call.php:144
 #: A2Billing_UI/invoices_agent.php:72 A2Billing_UI/invoices_card.php:72
 #, fuzzy
 msgid "Bill"
 msgstr "Reenchimento"
 
-#: A2Billing_UI/call-stats.php:76 A2Billing_UI/lib/invoice.php:88
+#: A2Billing_UI/call-stats.php:87 A2Billing_UI/lib/invoice.php:88
 #: A2Billing_UI/graph_statbar.php:65 A2Billing_UI/call-daily-load.php:86
 #: A2Billing_UI/call-unbilled.php:63
 #: A2Billing_UI/A2B_entity_invoice_detail.php:95 A2Billing_UI/call-comp.php:83
-#: A2Billing_UI/invoices_customer.php:80 A2Billing_UI/A2B_entity_call.php:90
-#: A2Billing_UI/A2B_entity_call.php:136 A2Billing_UI/graph_stat.php:66
+#: A2Billing_UI/invoices_customer.php:80 A2Billing_UI/A2B_entity_call.php:99
+#: A2Billing_UI/A2B_entity_call.php:145 A2Billing_UI/graph_stat.php:66
 #: A2Billing_UI/invoices.php:95 A2Billing_UI/call-last-month.php:51
 #: A2Billing_UI/A2B_call_archiving.php:47
 msgid "Cost"
 msgstr "Custo"
 
-#: A2Billing_UI/call-stats.php:78 A2Billing_UI/call-stats.php:97
+#: A2Billing_UI/call-stats.php:89 A2Billing_UI/call-stats.php:114
+#: A2Billing_UI/call-stats.php:126
 msgid "Per day calls"
 msgstr ""
 
-#: A2Billing_UI/call-stats.php:85
+#: A2Billing_UI/call-stats.php:96 A2Billing_UI/call-stats.php:121
 #, fuzzy
 msgid "Per destination calls"
 msgstr "destino"
 
-#: A2Billing_UI/call-stats.php:91
+#: A2Billing_UI/call-stats.php:102
+#, fuzzy
+msgid "Per agent calls"
+msgstr "Número de ligações"
+
+#: A2Billing_UI/call-stats.php:108
 #: A2Billing_UI/A2B_entity_agent_invoicev.php:36
 #: A2Billing_UI/lib/invoice.php:670
 #: A2Billing_UI/A2B_entity_view_invoice.php:35
@@ -260,6 +280,14 @@ msgstr "destino"
 #: A2Billing_UI/invoices_card.php:36 A2Billing_UI/invoices_card.php:89
 msgid "Total"
 msgstr "Total"
+
+#: A2Billing_UI/call-stats.php:114
+msgid "Sum of Session time"
+msgstr ""
+
+#: A2Billing_UI/call-stats.php:116
+msgid "Sum of Session time "
+msgstr ""
 
 #: A2Billing_UI/A2B_entity_agent_invoicev.php:13
 #, fuzzy
@@ -290,42 +318,35 @@ msgstr "Fatura"
 #: A2Billing_UI/A2B_entity_provider.php:20
 #: A2Billing_UI/A2B_entity_sessions.php:24
 #: A2Billing_UI/A2B_entity_alarmrun.php:22
+#: A2Billing_UI/A2B_entity_subscrtem.php:53
 #: A2Billing_UI/A2B_entity_numplan.php:22
 #: A2Billing_UI/A2B_entity_numplan.php:36
+#: A2Billing_UI/A2B_entity_didgroup.php:21
 #: A2Billing_UI/A2B_entity_card_group.php:20
-#: A2Billing_UI/A2B_entity_booths.php:21 A2Billing_UI/A2B_entity_trunk.php:41
+#: A2Billing_UI/A2B_entity_booths.php:21 A2Billing_UI/A2B_entity_trunk.php:47
 #: A2Billing_UI/A2B_entity_alarm.php:29
 #: A2Billing_UI/A2B_entity_tariffplan.php:22
 #: A2Billing_UI/A2B_entity_card.php:28 A2Billing_UI/A2B_entity_sellrate.php:36
 #: A2Billing_UI/A2B_entity_retailplan.php:21
+#: A2Billing_UI/A2B_entity_did.php:22 A2Billing_UI/A2B_logfile.php:56
 #: A2Billing_UI/A2B_entity_callerid.php:20
+#: A2Billing_UI/A2B_entity_subscription.php:22
 #: A2Billing_UI/A2B_entity_server_group.php:19
-#: A2Billing_UI/A2B_entity_agent.php:22 A2Billing_UI/A2B_entity_call.php:106
-#: A2Billing_UI/A2B_entity_buyrate.php:32 A2Billing_UI/invoices_agent.php:26
-#: A2Billing_UI/A2B_entity_agentpay.php:23
+#: A2Billing_UI/A2B_entity_agent.php:22 A2Billing_UI/A2B_entity_call.php:115
+#: A2Billing_UI/A2B_entity_buyrate.php:32
+#: A2Billing_UI/A2B_entity_did_destination.php:22
+#: A2Billing_UI/invoices_agent.php:26 A2Billing_UI/A2B_entity_agentpay.php:23
 #: A2Billing_UI/A2B_entity_tariffgroup.php:20
 #: A2Billing_UI/invoices_card.php:26 A2Billing_UI/A2B_entity_mails.php:19
 #: A2Billing_UI/A2B_data_archiving.php:107
 #: A2Billing_UI/A2B_call_archiving.php:38 A2Billing_UI/A2B_currencies.php:22
 #: A2Billing_UI/A2B_entity_ast_usercfg.php:36
 #: A2Billing_UI/A2B_entity_config.php:20
-#: A2Billing_UI/A2B_entity_provision.php:21
-#: A2Billing_UI/A2B_entity_provision.php:39
+#: A2Billing_UI/A2B_entity_provision.php:22
+#: A2Billing_UI/A2B_entity_provision.php:43
 #: A2Billing_UI/A2B_entity_mailtemplate.php:18
 msgid "ID"
 msgstr "ID"
-
-#: A2Billing_UI/A2B_entity_agent_invoicev.php:26
-#: A2Billing_UI/A2B_entity_session_problems.php:29
-#: A2Billing_UI/agent-money.php:15 A2Billing_UI/A2B_entity_charge.php:26
-#: A2Billing_UI/A2B_entity_sessions.php:43 A2Billing_UI/call-unbilled.php:28
-#: A2Billing_UI/call-unbilled.php:67 A2Billing_UI/A2B_entity_card_group.php:23
-#: A2Billing_UI/A2B_entity_booths.php:25 A2Billing_UI/A2B_entity_agent.php:15
-#: A2Billing_UI/A2B_entity_agentpay.php:24 A2Billing_UI/Callshop_booths.php:18
-#: A2Billing_UI/Gen_invoice_agent.php:27
-#, fuzzy
-msgid "Agent"
-msgstr "Centavos"
 
 #: A2Billing_UI/A2B_entity_agent_invoicev.php:27
 #: A2Billing_UI/A2B_entity_view_invoice.php:26
@@ -432,8 +453,11 @@ msgstr "Falhou"
 #: A2Billing_UI/A2B_entity_alarmrun.php:35
 #: A2Billing_UI/A2B_entity_invoice_detail.php:370
 #: A2Billing_UI/A2B_entity_invoice_detail.php:746
-#: A2Billing_UI/A2B_entity_trunk.php:66 A2Billing_UI/invoices_customer.php:720
+#: A2Billing_UI/A2B_entity_trunk.php:73 A2Billing_UI/invoices_customer.php:720
 #: A2Billing_UI/A2B_entity_card.php:51 A2Billing_UI/A2B_entity_card.php:125
+#: A2Billing_UI/A2B_entity_did.php:32
+#: A2Billing_UI/A2B_entity_subscription.php:31
+#: A2Billing_UI/A2B_entity_did_destination.php:35
 #: A2Billing_UI/invoices_agent.php:54
 #: A2Billing_UI/A2B_entity_ainvoice_detail.php:157
 #: A2Billing_UI/invoices_card.php:54
@@ -864,8 +888,8 @@ msgstr "DataDaLigação"
 #: A2Billing_UI/lib/invoice.php:80
 #: A2Billing_UI/A2B_entity_invoice_detail.php:86
 #: A2Billing_UI/invoices_customer.php:71
-#: A2Billing_UI/call-log-customers.php:80 A2Billing_UI/A2B_entity_call.php:92
-#: A2Billing_UI/A2B_entity_call.php:138 A2Billing_UI/invoices.php:84
+#: A2Billing_UI/call-log-customers.php:80 A2Billing_UI/A2B_entity_call.php:101
+#: A2Billing_UI/A2B_entity_call.php:147 A2Billing_UI/invoices.php:84
 msgid "Source"
 msgstr "Origem"
 
@@ -885,15 +909,18 @@ msgstr "CartãoUsado"
 #: A2Billing_UI/A2B_entity_user.php:23
 #: A2Billing_UI/A2B_entity_speeddial.php:26
 #: A2Billing_UI/A2B_entity_provider.php:22
+#: A2Billing_UI/A2B_entity_subscrtem.php:55
 #: A2Billing_UI/A2B_entity_numplan.php:24
 #: A2Billing_UI/A2B_entity_numplan.php:39
 #: A2Billing_UI/A2B_entity_invoice_detail.php:346
+#: A2Billing_UI/A2B_entity_didgroup.php:23
 #: A2Billing_UI/A2B_entity_card_group.php:22
 #: A2Billing_UI/A2B_entity_booths.php:22
 #: A2Billing_UI/invoices_customer.php:370
 #: A2Billing_UI/invoices_customer.php:781 A2Billing_UI/A2B_entity_alarm.php:30
 #: A2Billing_UI/A2B_entity_tariffplan.php:24
 #: A2Billing_UI/A2B_entity_retailplan.php:23
+#: A2Billing_UI/A2B_entity_did.php:24
 #: A2Billing_UI/A2B_entity_server_group.php:21
 #: A2Billing_UI/A2B_entity_agent.php:24 A2Billing_UI/invoices_agent.php:110
 #: A2Billing_UI/A2B_entity_ainvoice_detail.php:137
@@ -901,8 +928,8 @@ msgstr "CartãoUsado"
 #: A2Billing_UI/A2B_currencies.php:25
 #: A2Billing_UI/A2B_entity_ast_usercfg.php:38
 #: A2Billing_UI/A2B_entity_config.php:22
-#: A2Billing_UI/A2B_entity_provision.php:26
-#: A2Billing_UI/A2B_entity_provision.php:40
+#: A2Billing_UI/A2B_entity_provision.php:27
+#: A2Billing_UI/A2B_entity_provision.php:44
 msgid "Name"
 msgstr "Nome"
 
@@ -966,9 +993,10 @@ msgstr "Faturamento do DID"
 msgid "Charge Date"
 msgstr "Data da taxa"
 
-#: A2Billing_UI/lib/invoice.php:529
+#: A2Billing_UI/lib/invoice.php:529 A2Billing_UI/CC_sim_didengine.php:22
 #: A2Billing_UI/A2B_entity_invoice_detail.php:580
-#: A2Billing_UI/PP_menu.inc.php:185 A2Billing_UI/A2B_entity_did_import.php:259
+#: A2Billing_UI/PP_menu.inc.php:187 A2Billing_UI/A2B_entity_did_import.php:259
+#: A2Billing_UI/A2B_entity_did_destination.php:24
 msgid "DID"
 msgstr "DID"
 
@@ -986,7 +1014,7 @@ msgstr "País"
 #: A2Billing_UI/A2B_entity_invoice_detail.php:582
 #: A2Billing_UI/A2B_entity_invoice_detail.php:656
 #: A2Billing_UI/card-history.php:44 A2Billing_UI/A2B_entity_tariffplan.php:25
-#: A2Billing_UI/A2B_entity_retailplan.php:24
+#: A2Billing_UI/A2B_entity_retailplan.php:24 A2Billing_UI/A2B_logfile.php:62
 #: A2Billing_UI/A2B_entity_server_group.php:22
 #: A2Billing_UI/A2B_entity_agentpay.php:36
 #: A2Billing_UI/A2B_entity_ainvoice_detail.php:346
@@ -1102,16 +1130,19 @@ msgid "Problem"
 msgstr ""
 
 #: A2Billing_UI/A2B_entity_session_problems.php:26
-#: A2Billing_UI/A2B_entity_call.php:64 A2Billing_UI/A2B_entity_call.php:108
+#: A2Billing_UI/A2B_entity_call.php:70 A2Billing_UI/A2B_entity_call.php:117
 #, fuzzy
 msgid "Start Time"
 msgstr "hora de início"
 
 #: A2Billing_UI/A2B_entity_session_problems.php:28
 #: A2Billing_UI/A2B_entity_view_invoice.php:25
-#: A2Billing_UI/A2B_entity_charge.php:22
+#: A2Billing_UI/A2B_entity_charge.php:22 A2Billing_UI/CC_sim_didengine.php:53
 #: A2Billing_UI/A2B_entity_astuser.php:24
-#: A2Billing_UI/A2B_entity_sessions.php:31 A2Billing_UI/A2B_entity_call.php:67
+#: A2Billing_UI/A2B_entity_sessions.php:31
+#: A2Billing_UI/A2B_entity_subscription.php:24
+#: A2Billing_UI/A2B_entity_call.php:73
+#: A2Billing_UI/A2B_entity_did_destination.php:27
 #, fuzzy
 msgid "Card"
 msgstr "1 Cartão"
@@ -1142,7 +1173,7 @@ msgstr ""
 
 #: A2Billing_UI/A2B_entity_config_generate_confirm.php:80
 #: A2Billing_UI/A2B_currencies.php:26 A2Billing_UI/A2B_entity_config.php:24
-#: A2Billing_UI/A2B_entity_provision.php:42
+#: A2Billing_UI/A2B_entity_provision.php:46
 msgid "Value"
 msgstr ""
 
@@ -1195,7 +1226,7 @@ msgstr "TRONCO"
 
 #: A2Billing_UI/A2B_entity_def_ratecard.php:205
 #: A2Billing_UI/A2B_entity_def_ratecard.php:440
-#: A2Billing_UI/PP_menu.inc.php:137
+#: A2Billing_UI/PP_menu.inc.php:138
 msgid "RATECARD"
 msgstr "RATECARD"
 
@@ -1399,7 +1430,7 @@ msgstr ""
 #: A2Billing_UI/A2B_entity_re_numplan.php:24
 #: A2Billing_UI/A2B_entity_numplan.php:24
 #: A2Billing_UI/A2B_entity_card_group.php:22
-#: A2Billing_UI/A2B_entity_provision.php:26
+#: A2Billing_UI/A2B_entity_provision.php:27
 #, fuzzy
 msgid "Name of group"
 msgstr "Nome do backup"
@@ -1454,6 +1485,18 @@ msgstr ""
 #, fuzzy
 msgid "Name of pattern"
 msgstr "Nome do backup"
+
+#: A2Billing_UI/A2B_entity_re_numplan.php:40
+#: A2Billing_UI/CC_sim_didengine.php:65
+#: A2Billing_UI/A2B_entity_didgroup.php:32
+msgid "Ring style"
+msgstr ""
+
+#: A2Billing_UI/A2B_entity_re_numplan.php:40
+#: A2Billing_UI/A2B_entity_didgroup.php:32
+#, fuzzy
+msgid "Selects the ring pattern to use on the phone being dialled."
+msgstr "Selecione o intervalo de horas para ver os detalhes"
 
 #: A2Billing_UI/A2B_entity_charge.php:13
 msgid ""
@@ -1654,7 +1697,7 @@ msgstr ""
 "máquinas."
 
 #: A2Billing_UI/A2B_entity_server.php:13 A2Billing_UI/A2B_entity_user.php:43
-#: A2Billing_UI/PP_menu.inc.php:173
+#: A2Billing_UI/PP_menu.inc.php:175
 #, fuzzy
 msgid "Servers"
 msgstr "Adicionar Servidor"
@@ -1709,6 +1752,112 @@ msgid ""
 "The database username used by this host. This field must match the "
 "connection settings of the asterisk realtime."
 msgstr ""
+
+#: A2Billing_UI/CC_sim_didengine.php:14
+msgid ""
+"Simulate DID engine behaviour: this page will assist you in debugging which "
+"number will be called when some DID call comes in."
+msgstr ""
+
+#: A2Billing_UI/CC_sim_didengine.php:22
+msgid "Put here the string asterisk would deliver to the DID engine."
+msgstr ""
+
+#: A2Billing_UI/CC_sim_didengine.php:23
+msgid "Cod"
+msgstr ""
+
+#: A2Billing_UI/CC_sim_didengine.php:23
+msgid ""
+"If you are using 'codes' to differentiate DIDs, put here the code by which "
+"the AGI would be called."
+msgstr ""
+
+#: A2Billing_UI/CC_sim_didengine.php:24
+#: A2Billing_UI/CC_entity_sim_ratecard.php:24
+#: A2Billing_UI/invoices_card.php:66
+msgid "Time"
+msgstr ""
+
+#: A2Billing_UI/CC_sim_didengine.php:24
+#: A2Billing_UI/CC_entity_sim_ratecard.php:24
+msgid ""
+"The date/time the call is supposed to take place. This helps us predict "
+"tomorrow's rates"
+msgstr ""
+
+#: A2Billing_UI/CC_sim_didengine.php:47
+#: A2Billing_UI/CC_entity_sim_ratecard.php:40
+#, fuzzy
+msgid "Calculate!"
+msgstr "DataDaLigação"
+
+#: A2Billing_UI/CC_sim_didengine.php:49
+#, fuzzy
+msgid "No DIDs found!"
+msgstr "Nenhuma chamada hoje"
+
+#: A2Billing_UI/CC_sim_didengine.php:52
+#: A2Billing_UI/CC_entity_sim_ratecard.php:23
+#: A2Billing_UI/CC_entity_sim_ratecard.php:44
+msgid "Dial"
+msgstr "Discar"
+
+#: A2Billing_UI/CC_sim_didengine.php:54 A2Billing_UI/CC_sim_didengine.php:75
+#: A2Billing_UI/CC_entity_sim_ratecard.php:60
+msgid "Information about the buy rate:"
+msgstr ""
+
+#: A2Billing_UI/CC_sim_didengine.php:56 A2Billing_UI/A2B_entity_numplan.php:15
+msgid "Numplan"
+msgstr ""
+
+#: A2Billing_UI/CC_sim_didengine.php:59 A2Billing_UI/PP_menu.inc.php:189
+#, fuzzy
+msgid "DID Group"
+msgstr "Adicionar Grupo de DID"
+
+#: A2Billing_UI/CC_sim_didengine.php:60
+#, fuzzy
+msgid "DGrp"
+msgstr "Grupo de CID"
+
+#: A2Billing_UI/CC_sim_didengine.php:62
+#, fuzzy
+msgid "Tariff Group"
+msgstr "Grupo de CID"
+
+#: A2Billing_UI/CC_sim_didengine.php:63
+#, fuzzy
+msgid "TGrp"
+msgstr "Grupo de CID"
+
+#: A2Billing_UI/CC_sim_didengine.php:66
+msgid "Ring"
+msgstr ""
+
+#: A2Billing_UI/CC_sim_didengine.php:72
+#: A2Billing_UI/CC_entity_sim_ratecard.php:55
+#: A2Billing_UI/A2B_entity_trunk.php:50
+#: A2Billing_UI/A2B_entity_tariffplan.php:26
+#: A2Billing_UI/A2B_entity_retailplan.php:25
+#: A2Billing_UI/A2B_entity_did.php:43 A2Billing_UI/A2B_entity_provision.php:30
+#: A2Billing_UI/A2B_entity_provision.php:47
+msgid "Metric"
+msgstr ""
+
+#: A2Billing_UI/CC_sim_didengine.php:73
+#: A2Billing_UI/CC_entity_sim_ratecard.php:56
+#, fuzzy
+msgid "M"
+msgstr "MU"
+
+#: A2Billing_UI/CC_sim_didengine.php:74
+#: A2Billing_UI/call-count-reporting.php:74
+#: A2Billing_UI/CC_entity_sim_ratecard.php:57
+#: A2Billing_UI/call-log-customers.php:88
+msgid "Buy"
+msgstr "Compra"
 
 #: A2Billing_UI/CC_phonelist_import_analyse.php:20
 msgid "No campaign defined !"
@@ -1933,6 +2082,11 @@ msgstr "Segundos"
 
 #: A2Billing_UI/A2B_entity_user.php:48
 #, fuzzy
+msgid "Read Only"
+msgstr "re-discar"
+
+#: A2Billing_UI/A2B_entity_user.php:49
+#, fuzzy
 msgid "Direction"
 msgstr "Duração"
 
@@ -1995,13 +2149,8 @@ msgstr "DURAÇÃO MÁX PARA A CHAMADA"
 msgid "seconds"
 msgstr "Segundos"
 
-#: A2Billing_UI/call-count-reporting.php:74
-#: A2Billing_UI/CC_entity_sim_ratecard.php:57
-#: A2Billing_UI/call-log-customers.php:88
-msgid "Buy"
-msgstr "Compra"
-
 #: A2Billing_UI/call-count-reporting.php:75
+#: A2Billing_UI/A2B_entity_didgroup.php:29
 #: A2Billing_UI/CC_entity_sim_ratecard.php:49
 #: A2Billing_UI/call-log-customers.php:89
 msgid "Sell"
@@ -2242,8 +2391,8 @@ msgstr "Plano de Ligações"
 
 #: A2Billing_UI/call-daily-load.php:291
 #: A2Billing_UI/A2B_entity_provider.php:12
-#: A2Billing_UI/A2B_entity_trunk.php:43 A2Billing_UI/call-comp.php:294
-#: A2Billing_UI/call-log-customers.php:400
+#: A2Billing_UI/A2B_entity_trunk.php:49 A2Billing_UI/call-comp.php:294
+#: A2Billing_UI/A2B_entity_did.php:42 A2Billing_UI/call-log-customers.php:400
 #: A2Billing_UI/A2B_entity_invoices2_sales.php:332
 #: A2Billing_UI/invoices.php:384 A2Billing_UI/call-last-month.php:250
 #: A2Billing_UI/A2B_call_archiving.php:196
@@ -2375,8 +2524,8 @@ msgstr ""
 msgid "Users"
 msgstr "segs"
 
-#: A2Billing_UI/A2B_entity_astuser.php:15
-#: A2Billing_UI/A2B_entity_instance.php:30
+#: A2Billing_UI/A2B_entity_astuser.php:15 A2Billing_UI/A2B_logfile.php:30
+#: A2Billing_UI/A2B_logfile.php:58 A2Billing_UI/A2B_entity_instance.php:30
 msgid "User"
 msgstr ""
 
@@ -2442,34 +2591,110 @@ msgstr "Nome "
 msgid "Override asterisk username, so that a second device can be registered"
 msgstr ""
 
-#: A2Billing_UI/A2B_entity_astuser.php:36
+#: A2Billing_UI/A2B_entity_astuser.php:37
 #, fuzzy
 msgid "Secret B"
 msgstr "crédito"
 
-#: A2Billing_UI/A2B_entity_astuser.php:36
+#: A2Billing_UI/A2B_entity_astuser.php:37
 msgid ""
 "Override asterisk secret from card/booth, so that a second device can be "
 "registered"
 msgstr ""
 
-#: A2Billing_UI/A2B_entity_astuser.php:37
+#: A2Billing_UI/A2B_entity_astuser.php:38
 #, fuzzy
 msgid "Callerid B"
 msgstr "Listar CallerID"
 
-#: A2Billing_UI/A2B_entity_astuser.php:37
+#: A2Billing_UI/A2B_entity_astuser.php:38
 #, fuzzy
 msgid "Override callerid."
 msgstr "Insira o identificador de chamadas"
 
-#: A2Billing_UI/A2B_entity_astuser.php:39
+#: A2Billing_UI/A2B_entity_astuser.php:40
 #, fuzzy
 msgid "From user"
 msgstr "De :"
 
-#: A2Billing_UI/A2B_entity_astuser.php:39
+#: A2Billing_UI/A2B_entity_astuser.php:40
 msgid "Override user string."
+msgstr ""
+
+#: A2Billing_UI/A2B_entity_astuser.php:42
+#: A2Billing_UI/A2B_entity_ast_usercfg.php:73
+#, fuzzy
+msgid "Call group"
+msgstr "Tipo do cartão"
+
+#: A2Billing_UI/A2B_entity_astuser.php:42
+#: A2Billing_UI/A2B_entity_ast_usercfg.php:73
+msgid ""
+"When this device is called, set the call group so that others can pick it up."
+msgstr ""
+
+#: A2Billing_UI/A2B_entity_astuser.php:43
+#: A2Billing_UI/A2B_entity_ast_usercfg.php:74
+msgid "Pickup group"
+msgstr ""
+
+#: A2Billing_UI/A2B_entity_astuser.php:43
+#: A2Billing_UI/A2B_entity_ast_usercfg.php:74
+msgid "Allow this device to pick up calls made to those groups."
+msgstr ""
+
+#: A2Billing_UI/A2B_entity_astuser.php:45
+msgid "Device Model"
+msgstr ""
+
+#: A2Billing_UI/A2B_entity_astuser.php:45
+msgid "Provision model of device."
+msgstr ""
+
+#: A2Billing_UI/A2B_entity_astuser.php:46
+#, fuzzy
+msgid "MAC"
+msgstr "ACT"
+
+#: A2Billing_UI/A2B_entity_astuser.php:46
+msgid "MAC address of provisioned device."
+msgstr ""
+
+#: A2Billing_UI/A2B_entity_astuser.php:47
+#, fuzzy
+msgid "D Secret"
+msgstr "crédito"
+
+#: A2Billing_UI/A2B_entity_astuser.php:47
+msgid "Device secret, provision safety."
+msgstr ""
+
+#: A2Billing_UI/A2B_entity_astuser.php:48
+#, fuzzy
+msgid "Provision Name"
+msgstr "Segundos"
+
+#: A2Billing_UI/A2B_entity_astuser.php:48
+msgid "Provisioned name (display text)"
+msgstr ""
+
+#: A2Billing_UI/A2B_entity_astuser.php:50
+#, fuzzy
+msgid "Provision Num"
+msgstr "Adicionar Grupo de Servidores"
+
+#: A2Billing_UI/A2B_entity_astuser.php:50
+#, fuzzy
+msgid "Provision configuration number"
+msgstr "Confirmação de Pagamento"
+
+#: A2Billing_UI/A2B_entity_astuser.php:51
+#, fuzzy
+msgid "Last provisioned"
+msgstr "Executar serviço"
+
+#: A2Billing_UI/A2B_entity_astuser.php:51
+msgid "Last provision timestamp"
 msgstr ""
 
 #: A2Billing_UI/A2B_entity_speeddial.php:13
@@ -2511,7 +2736,7 @@ msgstr "Número do cartão"
 #: A2Billing_UI/A2B_entity_speeddial.php:33
 #: A2Billing_UI/A2B_entity_invoices2_bill.php:150
 #: A2Billing_UI/A2B_entity_callerid.php:25
-#: A2Billing_UI/A2B_entity_voucher.php:40 A2Billing_UI/A2B_entity_call.php:58
+#: A2Billing_UI/A2B_entity_voucher.php:40 A2Billing_UI/A2B_entity_call.php:64
 #, fuzzy
 msgid "Card ID"
 msgstr "Tipo do cartão"
@@ -2522,12 +2747,15 @@ msgstr ""
 
 #: A2Billing_UI/A2B_entity_speeddial.php:37
 #: A2Billing_UI/A2B_entity_alarmrun.php:24 A2Billing_UI/A2B_entity_card.php:54
+#: A2Billing_UI/A2B_entity_did.php:51
+#: A2Billing_UI/A2B_entity_subscription.php:34
+#: A2Billing_UI/A2B_entity_did_destination.php:38
 #, fuzzy
 msgid "Creation date"
 msgstr "data de criação"
 
 #: A2Billing_UI/A2B_entity_speeddial.php:37
-#: A2Billing_UI/A2B_entity_card.php:54
+#: A2Billing_UI/A2B_entity_card.php:54 A2Billing_UI/A2B_entity_did.php:51
 msgid "Date the card was created (entered into this system)"
 msgstr ""
 
@@ -2536,7 +2764,7 @@ msgstr ""
 msgid "Providers are the companies that offer us trunks."
 msgstr "Um provedor é a companhia/pessoa que o fornece com uma terminação."
 
-#: A2Billing_UI/A2B_entity_provider.php:12 A2Billing_UI/PP_menu.inc.php:178
+#: A2Billing_UI/A2B_entity_provider.php:12 A2Billing_UI/PP_menu.inc.php:180
 #, fuzzy
 msgid "Providers"
 msgstr "Provedor"
@@ -2562,18 +2790,19 @@ msgstr ""
 
 #: A2Billing_UI/A2B_entity_sessions.php:28
 #: A2Billing_UI/A2B_entity_alarm.php:34 A2Billing_UI/A2B_entity_card.php:68
-#: A2Billing_UI/invoices_card.php:111 A2Billing_UI/A2B_entity_mails.php:31
+#: A2Billing_UI/invoices_card.php:111 A2Billing_UI/A2B_entity_mails.php:35
 #, fuzzy
 msgid "State"
 msgstr "estado"
 
-#: A2Billing_UI/A2B_entity_sessions.php:34 A2Billing_UI/A2B_entity_call.php:96
+#: A2Billing_UI/A2B_entity_sessions.php:34
+#: A2Billing_UI/A2B_entity_call.php:105
 #, fuzzy
 msgid "Details"
 msgstr "Detalhe"
 
-#: A2Billing_UI/call-unbilled.php:59 A2Billing_UI/A2B_entity_call.php:75
-#: A2Billing_UI/A2B_entity_call.php:115 A2Billing_UI/invoices_agent.php:70
+#: A2Billing_UI/call-unbilled.php:59 A2Billing_UI/A2B_entity_call.php:84
+#: A2Billing_UI/A2B_entity_call.php:124 A2Billing_UI/invoices_agent.php:70
 #: A2Billing_UI/invoices_card.php:70
 msgid "Dur"
 msgstr ""
@@ -2650,7 +2879,7 @@ msgstr "TOTAL À PAGAR"
 msgid "Data from run or pending alarms."
 msgstr ""
 
-#: A2Billing_UI/A2B_entity_alarmrun.php:13 A2Billing_UI/PP_menu.inc.php:233
+#: A2Billing_UI/A2B_entity_alarmrun.php:13 A2Billing_UI/PP_menu.inc.php:234
 #, fuzzy
 msgid "Alarm Data"
 msgstr "Da Data"
@@ -2934,12 +3163,92 @@ msgstr "Exemplo Complexo"
 msgid "Simple Sample"
 msgstr "Exemplo Simples"
 
-#: A2Billing_UI/A2B_entity_numplan.php:12
-msgid "Numbering plans define the way a customer dials numbers. "
+#: A2Billing_UI/A2B_entity_subscrtem.php:13
+msgid "Templates for subscription services."
 msgstr ""
 
-#: A2Billing_UI/A2B_entity_numplan.php:15
-msgid "Numplan"
+#: A2Billing_UI/A2B_entity_subscrtem.php:18
+msgid "All"
+msgstr ""
+
+#: A2Billing_UI/A2B_entity_subscrtem.php:19
+#, fuzzy
+msgid "Generic only"
+msgstr "re-discar"
+
+#: A2Billing_UI/A2B_entity_subscrtem.php:20
+msgid "Features"
+msgstr ""
+
+#: A2Billing_UI/A2B_entity_subscrtem.php:24
+#: A2Billing_UI/A2B_entity_provision.php:24
+#, fuzzy
+msgid "Category"
+msgstr "Tipo do cartão"
+
+#: A2Billing_UI/A2B_entity_subscrtem.php:24
+#, fuzzy
+msgid "Select the category of templates."
+msgstr "Insira o número de tentativas"
+
+#: A2Billing_UI/A2B_entity_subscrtem.php:27
+#: A2Billing_UI/A2B_entity_mailtemplate.php:11
+#, fuzzy
+msgid "Templates"
+msgstr "modelo2"
+
+#: A2Billing_UI/A2B_entity_subscrtem.php:27
+#: A2Billing_UI/A2B_entity_did_destination.php:28
+#: A2Billing_UI/A2B_entity_mailtemplate.php:11
+#, fuzzy
+msgid "Template"
+msgstr "modelo2"
+
+#: A2Billing_UI/A2B_entity_subscrtem.php:55
+#, fuzzy
+msgid "Internal name"
+msgstr "Insira o nome"
+
+#: A2Billing_UI/A2B_entity_subscrtem.php:56 A2Billing_UI/A2B_entity_did.php:25
+#: A2Billing_UI/A2B_entity_tariffgroup.php:23
+#, fuzzy
+msgid "Public Name"
+msgstr "Nome do arquivo"
+
+#: A2Billing_UI/A2B_entity_subscrtem.php:56 A2Billing_UI/A2B_entity_did.php:25
+#: A2Billing_UI/A2B_entity_tariffgroup.php:23
+msgid ""
+"Public name is displayed to customers, agents. You may want it to be "
+"different than the internal name above."
+msgstr ""
+
+#: A2Billing_UI/A2B_entity_subscrtem.php:57 A2Billing_UI/A2B_entity_did.php:26
+#: A2Billing_UI/A2B_entity_tariffgroup.php:24
+#, fuzzy
+msgid "P Name"
+msgstr "Nome"
+
+#: A2Billing_UI/A2B_entity_subscrtem.php:59
+#, fuzzy
+msgid "Invoiced"
+msgstr "Fatura"
+
+#: A2Billing_UI/A2B_entity_subscrtem.php:59
+msgid "If this subscription will be listed in customer's invoice."
+msgstr ""
+
+#: A2Billing_UI/A2B_entity_subscrtem.php:69
+#: A2Billing_UI/CC_entity_sim_ratecard.php:73
+#: A2Billing_UI/A2B_entity_trunk.php:65
+msgid "Feature"
+msgstr ""
+
+#: A2Billing_UI/A2B_entity_subscrtem.php:69
+msgid "The feature code this subscription provides."
+msgstr ""
+
+#: A2Billing_UI/A2B_entity_numplan.php:12
+msgid "Numbering plans define the way a customer dials numbers. "
 msgstr ""
 
 #: A2Billing_UI/A2B_entity_numplan.php:26
@@ -3120,6 +3429,57 @@ msgstr "SELECIONE O DIA"
 #: A2Billing_UI/A2B_entity_invoices_billed.php:86
 msgid "Search"
 msgstr "Pesquisa"
+
+#: A2Billing_UI/A2B_entity_didgroup.php:11
+msgid "DID groups allow a group of customers to use incoming calls."
+msgstr ""
+
+#: A2Billing_UI/A2B_entity_didgroup.php:13
+#, fuzzy
+msgid "DID Groups"
+msgstr "Adicionar Grupo de DID"
+
+#: A2Billing_UI/A2B_entity_didgroup.php:13
+#, fuzzy
+msgid "DID group"
+msgstr "Adicionar Grupo de DID"
+
+#: A2Billing_UI/A2B_entity_didgroup.php:24
+msgid "Code"
+msgstr ""
+
+#: A2Billing_UI/A2B_entity_didgroup.php:24
+msgid "Code matched against the source (trunk) that delivers the DID."
+msgstr ""
+
+#: A2Billing_UI/A2B_entity_didgroup.php:26
+#, fuzzy
+msgid "Batches"
+msgstr "Pela Data"
+
+#: A2Billing_UI/A2B_entity_didgroup.php:26
+msgid ""
+"These DID batches will be available and/or matched against the incoming DIDs."
+msgstr ""
+
+#: A2Billing_UI/A2B_entity_didgroup.php:28
+#, fuzzy
+msgid "Sell Tariff group"
+msgstr "Adicionar Grupo de Servidores"
+
+#: A2Billing_UI/A2B_entity_didgroup.php:28
+msgid ""
+"Tariff group which will define final retail prices and route availability."
+msgstr ""
+
+#: A2Billing_UI/A2B_entity_didgroup.php:31
+#: A2Billing_UI/A2B_entity_trunk.php:67
+msgid "CLID Rules"
+msgstr ""
+
+#: A2Billing_UI/A2B_entity_didgroup.php:31
+msgid "Reverse translating rules for incoming CLID"
+msgstr ""
 
 #: A2Billing_UI/invoices_cshop.php:45 A2Billing_UI/invoices_cshop.php:49
 msgid "Cannot locate session!"
@@ -3365,23 +3725,7 @@ msgid "The call is made using a card of this group."
 msgstr ""
 
 #: A2Billing_UI/CC_entity_sim_ratecard.php:23
-#: A2Billing_UI/CC_entity_sim_ratecard.php:44
-msgid "Dial"
-msgstr "Discar"
-
-#: A2Billing_UI/CC_entity_sim_ratecard.php:23
 msgid "The number we wish to dial. It will be at the card's numplan"
-msgstr ""
-
-#: A2Billing_UI/CC_entity_sim_ratecard.php:24
-#: A2Billing_UI/invoices_card.php:66
-msgid "Time"
-msgstr ""
-
-#: A2Billing_UI/CC_entity_sim_ratecard.php:24
-msgid ""
-"The date/time the call is supposed to take place. This helps us predict "
-"tomorrow's rates"
 msgstr ""
 
 #: A2Billing_UI/CC_entity_sim_ratecard.php:26 A2Billing_UI/Gen_vouchers.php:42
@@ -3395,11 +3739,6 @@ msgstr "Crédito"
 msgid ""
 "Credit the customer will have for that call. Used to calculate the timeout"
 msgstr ""
-
-#: A2Billing_UI/CC_entity_sim_ratecard.php:40
-#, fuzzy
-msgid "Calculate!"
-msgstr "DataDaLigação"
 
 #: A2Billing_UI/CC_entity_sim_ratecard.php:42
 #, fuzzy
@@ -3419,24 +3758,6 @@ msgstr ""
 msgid "Information about the sell rate:"
 msgstr ""
 
-#: A2Billing_UI/CC_entity_sim_ratecard.php:55
-#: A2Billing_UI/A2B_entity_trunk.php:44
-#: A2Billing_UI/A2B_entity_tariffplan.php:26
-#: A2Billing_UI/A2B_entity_retailplan.php:25
-#: A2Billing_UI/A2B_entity_provision.php:29
-#: A2Billing_UI/A2B_entity_provision.php:43
-msgid "Metric"
-msgstr ""
-
-#: A2Billing_UI/CC_entity_sim_ratecard.php:56
-#, fuzzy
-msgid "M"
-msgstr "MU"
-
-#: A2Billing_UI/CC_entity_sim_ratecard.php:60
-msgid "Information about the buy rate:"
-msgstr ""
-
 #: A2Billing_UI/CC_entity_sim_ratecard.php:65
 msgid "TR"
 msgstr ""
@@ -3450,21 +3771,21 @@ msgstr "Tronco"
 msgid "Tf"
 msgstr ""
 
-#: A2Billing_UI/CC_entity_sim_ratecard.php:74
+#: A2Billing_UI/CC_entity_sim_ratecard.php:75
 #, fuzzy
 msgid "Matched Prefix"
 msgstr "Adicionar Prefixo"
 
-#: A2Billing_UI/CC_entity_sim_ratecard.php:75
+#: A2Billing_UI/CC_entity_sim_ratecard.php:76
 msgid "Pr"
 msgstr ""
 
-#: A2Billing_UI/CC_entity_sim_ratecard.php:77
+#: A2Billing_UI/CC_entity_sim_ratecard.php:78
 #, fuzzy
 msgid "Clid Pattern"
 msgstr "DataDaLigação"
 
-#: A2Billing_UI/CC_entity_sim_ratecard.php:78
+#: A2Billing_UI/CC_entity_sim_ratecard.php:79
 #, fuzzy
 msgid "CLID"
 msgstr "Identificador de chamadas (CallerID)"
@@ -3537,10 +3858,12 @@ msgid "If cards belong to an agent."
 msgstr ""
 
 #: A2Billing_UI/A2B_entity_card_group.php:24
+#: A2Billing_UI/A2B_entity_did.php:55
 msgid "Numbering plan"
 msgstr ""
 
 #: A2Billing_UI/A2B_entity_card_group.php:25
+#: A2Billing_UI/A2B_entity_did.php:56
 #, fuzzy
 msgid "Nplan"
 msgstr "Plano de Ligações"
@@ -3581,7 +3904,7 @@ msgid "Pay type"
 msgstr "Tipo do cartão"
 
 #: A2Billing_UI/A2B_entity_card_group.php:37
-#: A2Billing_UI/A2B_entity_call.php:93
+#: A2Billing_UI/A2B_entity_call.php:102
 #: A2Billing_UI/A2B_entity_tariffgroup.php:12
 msgid "Tariff group"
 msgstr ""
@@ -3735,78 +4058,82 @@ msgstr "O Asterisk foi recarregado!"
 msgid "Trunks are used to terminate the call!<br>"
 msgstr "Os Troncos são usados para terminar uma ligação!<br>"
 
-#: A2Billing_UI/A2B_entity_trunk.php:17 A2Billing_UI/PP_menu.inc.php:179
+#: A2Billing_UI/A2B_entity_trunk.php:17 A2Billing_UI/PP_menu.inc.php:181
 #, fuzzy
 msgid "Trunks"
 msgstr "Tronco"
 
 #: A2Billing_UI/A2B_entity_trunk.php:25 A2Billing_UI/A2B_entity_alarm.php:17
-#: A2Billing_UI/A2B_entity_callerid.php:28
+#: A2Billing_UI/A2B_entity_did.php:30 A2Billing_UI/A2B_entity_callerid.php:28
+#: A2Billing_UI/A2B_entity_subscription.php:29
 #: A2Billing_UI/A2B_entity_agent.php:37 A2Billing_UI/A2B_entity_voucher.php:48
+#: A2Billing_UI/A2B_entity_did_destination.php:33
 msgid "Active"
 msgstr "Ativado"
 
 #: A2Billing_UI/A2B_entity_trunk.php:26 A2Billing_UI/A2B_entity_alarm.php:16
-#: A2Billing_UI/A2B_entity_callerid.php:29
+#: A2Billing_UI/A2B_entity_did.php:29 A2Billing_UI/A2B_entity_callerid.php:29
+#: A2Billing_UI/A2B_entity_subscription.php:28
 #: A2Billing_UI/A2B_entity_agent.php:38 A2Billing_UI/A2B_entity_voucher.php:49
+#: A2Billing_UI/A2B_entity_did_destination.php:32
 msgid "Inactive"
 msgstr "Desativado"
 
-#: A2Billing_UI/A2B_entity_trunk.php:42
+#: A2Billing_UI/A2B_entity_trunk.php:48
 msgid "Label"
 msgstr ""
 
-#: A2Billing_UI/A2B_entity_trunk.php:42 A2Billing_UI/A2B_entity_agent.php:24
+#: A2Billing_UI/A2B_entity_trunk.php:48 A2Billing_UI/A2B_entity_agent.php:24
 #, fuzzy
 msgid "Human readable name for the agent"
 msgstr "Nome único e amigável para o tronco"
 
-#: A2Billing_UI/A2B_entity_trunk.php:44
+#: A2Billing_UI/A2B_entity_trunk.php:50 A2Billing_UI/A2B_entity_did.php:43
 msgid "Weight of trunk in rate engine"
 msgstr ""
 
-#: A2Billing_UI/A2B_entity_trunk.php:47
+#: A2Billing_UI/A2B_entity_trunk.php:53
 msgid "Prefix"
 msgstr "Prefixo"
 
-#: A2Billing_UI/A2B_entity_trunk.php:47
+#: A2Billing_UI/A2B_entity_trunk.php:53
 msgid "Add a prefix to the dialled digits."
 msgstr "Adicionar um prefixo aos dígitos discados."
 
-#: A2Billing_UI/A2B_entity_trunk.php:48
+#: A2Billing_UI/A2B_entity_trunk.php:54
 #, fuzzy
 msgid "Strip Digits"
 msgstr "Dígitos"
 
-#: A2Billing_UI/A2B_entity_trunk.php:48
+#: A2Billing_UI/A2B_entity_trunk.php:54
 #, fuzzy
 msgid "Number of digits to strip from dialstring"
 msgstr "Número de dias para comparar"
 
-#: A2Billing_UI/A2B_entity_trunk.php:53 A2Billing_UI/A2B_currencies.php:32
+#: A2Billing_UI/A2B_entity_trunk.php:59 A2Billing_UI/A2B_currencies.php:32
 #, fuzzy
 msgid "Format"
 msgstr "Da Data"
 
-#: A2Billing_UI/A2B_entity_trunk.php:53
+#: A2Billing_UI/A2B_entity_trunk.php:59
 msgid "Select the desired format for the Dial string"
 msgstr ""
 
-#: A2Billing_UI/A2B_entity_trunk.php:54
+#: A2Billing_UI/A2B_entity_trunk.php:60
 #, fuzzy
 msgid "Tech"
 msgstr "Pesquisa"
 
-#: A2Billing_UI/A2B_entity_trunk.php:54
+#: A2Billing_UI/A2B_entity_trunk.php:60
 msgid "Technology used on the trunk (SIP,IAX2,ZAP,H323)"
 msgstr "Tecnologia usada no tronco (SIP,IAX,ZAP,H323)"
 
-#: A2Billing_UI/A2B_entity_trunk.php:55
+#: A2Billing_UI/A2B_entity_trunk.php:61
 #, fuzzy
 msgid "Provider IP"
 msgstr "Provedor"
 
-#: A2Billing_UI/A2B_entity_trunk.php:55
+#: A2Billing_UI/A2B_entity_trunk.php:61
 #, fuzzy
 msgid ""
 "Set the IP or URL of the VoIP provider. Alternatively, put in the name of a "
@@ -3819,12 +4146,12 @@ msgstr ""
 "pode usar as seguintes identificações como as variáveis: %dialingnumber%, %"
 "cardnumber%, ex: g2/1644787890wwwwwwwwww%dialingnumber%"
 
-#: A2Billing_UI/A2B_entity_trunk.php:58
+#: A2Billing_UI/A2B_entity_trunk.php:64
 #, fuzzy
 msgid "Additional parameter"
 msgstr "Insira os parâmetros adicionais"
 
-#: A2Billing_UI/A2B_entity_trunk.php:58
+#: A2Billing_UI/A2B_entity_trunk.php:64
 #, fuzzy
 msgid ""
 "Define any additional parameters that will be used when running the Dial "
@@ -3836,38 +4163,43 @@ msgstr ""
 "dialingnumber%, %cardnumber%, ex: 'D(ww%cardnumber%wwwwwwwwww%dialingnumber"
 "%)'"
 
-#: A2Billing_UI/A2B_entity_trunk.php:60
-msgid "CLID Rules"
+#: A2Billing_UI/A2B_entity_trunk.php:65
+msgid ""
+"If set, only cards subscribed to this feature will be able to use the trunk."
 msgstr ""
 
-#: A2Billing_UI/A2B_entity_trunk.php:62 A2Billing_UI/A2B_entity_card.php:78
+#: A2Billing_UI/A2B_entity_trunk.php:69 A2Billing_UI/A2B_entity_card.php:78
 #, fuzzy
 msgid "In use"
 msgstr "em_uso"
 
-#: A2Billing_UI/A2B_entity_trunk.php:62
+#: A2Billing_UI/A2B_entity_trunk.php:69
 #, fuzzy
 msgid "Number of calls currently through this trunk"
 msgstr "Número de ligações por horas"
 
-#: A2Billing_UI/A2B_entity_trunk.php:66 A2Billing_UI/A2B_entity_agent.php:40
+#: A2Billing_UI/A2B_entity_trunk.php:73 A2Billing_UI/A2B_entity_agent.php:40
 msgid "Allow the agent to operate"
 msgstr ""
 
-#: A2Billing_UI/A2B_entity_trunk.php:69
+#: A2Billing_UI/A2B_entity_trunk.php:76
 #: A2Billing_UI/A2B_entity_tariffplan.php:41
+#: A2Billing_UI/A2B_entity_did.php:60
+#: A2Billing_UI/A2B_entity_did_destination.php:45
 #, fuzzy
 msgid "Seconds used"
 msgstr "Segundos"
 
-#: A2Billing_UI/A2B_entity_trunk.php:69
+#: A2Billing_UI/A2B_entity_trunk.php:76
 #: A2Billing_UI/A2B_entity_tariffplan.php:41
 #, fuzzy
 msgid "Duration of calls through trunk."
 msgstr "Número de ligações por horas"
 
-#: A2Billing_UI/A2B_entity_trunk.php:70
+#: A2Billing_UI/A2B_entity_trunk.php:77
 #: A2Billing_UI/A2B_entity_tariffplan.php:42
+#: A2Billing_UI/A2B_entity_did.php:61
+#: A2Billing_UI/A2B_entity_did_destination.php:46
 #, fuzzy
 msgid "Used"
 msgstr "CartãoUsado"
@@ -3938,7 +4270,7 @@ msgstr "Gerar Vouchers"
 msgid "Import"
 msgstr "Importar DID"
 
-#: A2Billing_UI/PP_menu.inc.php:96 A2Billing_UI/PP_menu.inc.php:172
+#: A2Billing_UI/PP_menu.inc.php:96 A2Billing_UI/PP_menu.inc.php:174
 #, fuzzy
 msgid "Groups"
 msgstr "Grupo de CID"
@@ -4026,253 +4358,248 @@ msgstr "Gerar Vouchers"
 msgid "E-Products"
 msgstr "Adicionar E-Produtos"
 
-#: A2Billing_UI/PP_menu.inc.php:139
+#: A2Billing_UI/PP_menu.inc.php:132
+#: A2Billing_UI/A2B_entity_subscription.php:14
+#, fuzzy
+msgid "Subscriptions"
+msgstr "Taxa da assinatura"
+
+#: A2Billing_UI/PP_menu.inc.php:140
 msgid "TariffGroup"
 msgstr ""
 
-#: A2Billing_UI/PP_menu.inc.php:140
+#: A2Billing_UI/PP_menu.inc.php:141
 msgid "RateCard (buy)"
 msgstr ""
 
-#: A2Billing_UI/PP_menu.inc.php:141
+#: A2Billing_UI/PP_menu.inc.php:142
 msgid "RetailPlan (sell)"
 msgstr ""
 
-#: A2Billing_UI/PP_menu.inc.php:142 A2Billing_UI/A2B_entity_call.php:80
-#: A2Billing_UI/A2B_entity_call.php:123
+#: A2Billing_UI/PP_menu.inc.php:143 A2Billing_UI/A2B_entity_call.php:89
+#: A2Billing_UI/A2B_entity_call.php:132
 #, fuzzy
 msgid "Buy Rate"
 msgstr "Pela Data"
 
-#: A2Billing_UI/PP_menu.inc.php:143 A2Billing_UI/A2B_entity_call.php:79
-#: A2Billing_UI/A2B_entity_call.php:121
+#: A2Billing_UI/PP_menu.inc.php:144 A2Billing_UI/A2B_entity_call.php:88
+#: A2Billing_UI/A2B_entity_call.php:130
 #, fuzzy
 msgid "Sell Rate"
 msgstr "Venda"
 
-#: A2Billing_UI/PP_menu.inc.php:144
+#: A2Billing_UI/PP_menu.inc.php:145
 #, fuzzy
 msgid "Import Buy Rates"
 msgstr "Importar RateCard"
 
-#: A2Billing_UI/PP_menu.inc.php:145
+#: A2Billing_UI/PP_menu.inc.php:146
 #, fuzzy
 msgid "Import Sell Rates"
 msgstr "Importar RateCard"
 
-#: A2Billing_UI/PP_menu.inc.php:146
+#: A2Billing_UI/PP_menu.inc.php:147
 msgid "Ratecard Simulator"
 msgstr "Simulador de RateCard"
 
-#: A2Billing_UI/PP_menu.inc.php:152
+#: A2Billing_UI/PP_menu.inc.php:148
+msgid "DID Engine Simulator"
+msgstr ""
+
+#: A2Billing_UI/PP_menu.inc.php:154
 msgid "PACKAGE OFFER"
 msgstr "PACOTE DE OFERTAS"
 
-#: A2Billing_UI/PP_menu.inc.php:154
+#: A2Billing_UI/PP_menu.inc.php:156
 msgid "List Offer Package"
 msgstr "Listar Pacotes de Ofertas"
 
-#: A2Billing_UI/PP_menu.inc.php:155
+#: A2Billing_UI/PP_menu.inc.php:157
 msgid "Details Package"
 msgstr "Detalhes do Pacote"
 
-#: A2Billing_UI/PP_menu.inc.php:161
+#: A2Billing_UI/PP_menu.inc.php:163
 msgid "OUTBOUND CID"
 msgstr "CID DE LIGAÇÕES <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EFETUADAS"
 
-#: A2Billing_UI/PP_menu.inc.php:163
+#: A2Billing_UI/PP_menu.inc.php:165
 msgid "List CIDGroup"
 msgstr "Listar Grupos de CID"
 
-#: A2Billing_UI/PP_menu.inc.php:164
+#: A2Billing_UI/PP_menu.inc.php:166
 msgid "List CID's"
 msgstr "Listar CID's"
 
-#: A2Billing_UI/PP_menu.inc.php:169
+#: A2Billing_UI/PP_menu.inc.php:171
 #, fuzzy
 msgid "SERVERS"
 msgstr "IP DO SERVIDOR"
 
-#: A2Billing_UI/PP_menu.inc.php:174
+#: A2Billing_UI/PP_menu.inc.php:176
 msgid "Gen. Configs"
 msgstr ""
 
-#: A2Billing_UI/PP_menu.inc.php:175
+#: A2Billing_UI/PP_menu.inc.php:177
 msgid "Gen. Peer Dial"
 msgstr ""
 
-#: A2Billing_UI/PP_menu.inc.php:187
-msgid "List DID Group"
-msgstr "Lista de Grupos de DID"
-
-#: A2Billing_UI/PP_menu.inc.php:188
-msgid "Add DID Group"
-msgstr "Adicionar Grupo de DID"
-
-#: A2Billing_UI/PP_menu.inc.php:189
-msgid "List DID"
-msgstr "Listar DID"
-
 #: A2Billing_UI/PP_menu.inc.php:190
-msgid "Add DID"
-msgstr "Adicionar DID"
+msgid "DID Batch"
+msgstr ""
 
-#: A2Billing_UI/PP_menu.inc.php:191
+#: A2Billing_UI/PP_menu.inc.php:192
 msgid "Import DID"
 msgstr "Importar DID"
 
-#: A2Billing_UI/PP_menu.inc.php:192
+#: A2Billing_UI/PP_menu.inc.php:193
 msgid "List Destination"
 msgstr "Listar destino"
 
-#: A2Billing_UI/PP_menu.inc.php:193
+#: A2Billing_UI/PP_menu.inc.php:194
 msgid "Add Destination"
 msgstr "Adicionar Destino"
 
-#: A2Billing_UI/PP_menu.inc.php:194
+#: A2Billing_UI/PP_menu.inc.php:195
 #, fuzzy
 msgid "DID BILLING"
 msgstr "TARIFAÇÃO"
 
-#: A2Billing_UI/PP_menu.inc.php:195
+#: A2Billing_UI/PP_menu.inc.php:196
 #, fuzzy
 msgid "DID use"
 msgstr "Utilização do DID"
 
-#: A2Billing_UI/PP_menu.inc.php:201
+#: A2Billing_UI/PP_menu.inc.php:202
 msgid "CALL REPORT"
 msgstr "RELATÓRIO DE<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIGAÇÕES"
 
-#: A2Billing_UI/PP_menu.inc.php:204
+#: A2Billing_UI/PP_menu.inc.php:205
 #, fuzzy
 msgid "Statistics"
 msgstr "Status"
 
-#: A2Billing_UI/PP_menu.inc.php:205
+#: A2Billing_UI/PP_menu.inc.php:206
 msgid "CDR Report"
 msgstr "Relatório de CDR"
 
-#: A2Billing_UI/PP_menu.inc.php:206
+#: A2Billing_UI/PP_menu.inc.php:207
 msgid "Calls Compare"
 msgstr "Comparar Ligações"
 
-#: A2Billing_UI/PP_menu.inc.php:207
+#: A2Billing_UI/PP_menu.inc.php:208
 msgid "Monthly Traffic"
 msgstr "Tráfego Mensal"
 
-#: A2Billing_UI/PP_menu.inc.php:208
+#: A2Billing_UI/PP_menu.inc.php:209
 msgid "Daily Load"
 msgstr "Carga Diária"
 
-#: A2Billing_UI/PP_menu.inc.php:209
+#: A2Billing_UI/PP_menu.inc.php:210
 msgid "Report"
 msgstr "Relatório"
 
-#: A2Billing_UI/PP_menu.inc.php:215
+#: A2Billing_UI/PP_menu.inc.php:216
 #, fuzzy
 msgid "INVOICING"
 msgstr "FATURAS"
 
-#: A2Billing_UI/PP_menu.inc.php:217
+#: A2Billing_UI/PP_menu.inc.php:218
 #, fuzzy
 msgid "Card Invoices"
 msgstr "Criar Faturas"
 
-#: A2Billing_UI/PP_menu.inc.php:218
+#: A2Billing_UI/PP_menu.inc.php:219
 #, fuzzy
 msgid "Agent Invoices"
 msgstr "Criar Faturas"
 
-#: A2Billing_UI/PP_menu.inc.php:219
+#: A2Billing_UI/PP_menu.inc.php:220
 #, fuzzy
 msgid "Create Card Inv."
 msgstr "Criar um novo"
 
-#: A2Billing_UI/PP_menu.inc.php:220
+#: A2Billing_UI/PP_menu.inc.php:221
 #, fuzzy
 msgid "Create Agent Inv."
 msgstr "Criar Faturas"
 
-#: A2Billing_UI/PP_menu.inc.php:221
+#: A2Billing_UI/PP_menu.inc.php:222
 #, fuzzy
 msgid "Unbilled calls"
 msgstr "Detalhes não faturados"
 
-#: A2Billing_UI/PP_menu.inc.php:227
+#: A2Billing_UI/PP_menu.inc.php:228
 #, fuzzy
 msgid "CRON SERVICE"
 msgstr "SERVIÇO CRONT"
 
-#: A2Billing_UI/PP_menu.inc.php:229
+#: A2Billing_UI/PP_menu.inc.php:230
 msgid "AutoRefill Report"
 msgstr "Relatório de Auto Reenchimento"
 
-#: A2Billing_UI/PP_menu.inc.php:230
+#: A2Billing_UI/PP_menu.inc.php:231
 msgid "List Recurring Service"
 msgstr "Listar Serviço Recorrente"
 
-#: A2Billing_UI/PP_menu.inc.php:231
+#: A2Billing_UI/PP_menu.inc.php:232
 msgid "Add Recurring Service"
 msgstr "Adicionar Serviço Recorrente"
 
-#: A2Billing_UI/PP_menu.inc.php:232 A2Billing_UI/A2B_entity_alarm.php:11
+#: A2Billing_UI/PP_menu.inc.php:233 A2Billing_UI/A2B_entity_alarm.php:11
 #, fuzzy
 msgid "Alarms"
 msgstr "Adicionar Alarme"
 
-#: A2Billing_UI/PP_menu.inc.php:234
-msgid "List Subscription"
-msgstr "Listar Assinaturas"
-
-#: A2Billing_UI/PP_menu.inc.php:235
-msgid "Add Subscription"
-msgstr "Adicionar Assinatura"
-
-#: A2Billing_UI/PP_menu.inc.php:242
+#: A2Billing_UI/PP_menu.inc.php:241
 msgid "CALLBACK"
 msgstr "CALLBACK"
 
-#: A2Billing_UI/PP_menu.inc.php:244
+#: A2Billing_UI/PP_menu.inc.php:243
 msgid "Show Callbacks"
 msgstr "Ver Callbacks"
 
-#: A2Billing_UI/PP_menu.inc.php:245
+#: A2Billing_UI/PP_menu.inc.php:244
 msgid "Add new Callback"
 msgstr "Adicionar novo Callback"
 
-#: A2Billing_UI/PP_menu.inc.php:246
+#: A2Billing_UI/PP_menu.inc.php:245
 msgid "Show Server Group"
 msgstr "Mostrar Grupo de Servidores"
 
-#: A2Billing_UI/PP_menu.inc.php:247
+#: A2Billing_UI/PP_menu.inc.php:246
 msgid "Add Server Group"
 msgstr "Adicionar Grupo de Servidores"
 
-#: A2Billing_UI/PP_menu.inc.php:248
+#: A2Billing_UI/PP_menu.inc.php:247
 msgid "Show Server"
 msgstr "Mostrar Servidor"
 
-#: A2Billing_UI/PP_menu.inc.php:249
+#: A2Billing_UI/PP_menu.inc.php:248
 msgid "Add Server"
 msgstr "Adicionar Servidor"
 
-#: A2Billing_UI/PP_menu.inc.php:256
+#: A2Billing_UI/PP_menu.inc.php:255
 #, fuzzy
 msgid "CONFIG"
 msgstr "CONFIGURAÇÃO"
 
-#: A2Billing_UI/PP_menu.inc.php:259
+#: A2Billing_UI/PP_menu.inc.php:258
 msgid "Numbering Plans"
 msgstr ""
 
-#: A2Billing_UI/PP_menu.inc.php:260
+#: A2Billing_UI/PP_menu.inc.php:259
 #, fuzzy
 msgid "Reverse NPlans"
 msgstr "Plano de Ligações"
 
-#: A2Billing_UI/PP_menu.inc.php:263
+#: A2Billing_UI/PP_menu.inc.php:262
 #, fuzzy
 msgid "Mail template"
+msgstr "Ver Modelo de Email"
+
+#: A2Billing_UI/PP_menu.inc.php:263
+#, fuzzy
+msgid "Subscribe template"
 msgstr "Ver Modelo de Email"
 
 #: A2Billing_UI/PP_menu.inc.php:266
@@ -4673,6 +5000,8 @@ msgid "Enter the DID id"
 msgstr "Entre com o ID do DID"
 
 #: A2Billing_UI/A2B_entity_did_use.php:108
+#: A2Billing_UI/A2B_entity_provision.php:31
+#: A2Billing_UI/A2B_entity_provision.php:49
 msgid "Options"
 msgstr "Opções"
 
@@ -4957,12 +5286,14 @@ msgstr "último_uso"
 msgid "Date the card was last used"
 msgstr "Defina o ID do número do cartão para usar."
 
-#: A2Billing_UI/A2B_entity_card.php:57
+#: A2Billing_UI/A2B_entity_card.php:57 A2Billing_UI/A2B_entity_did.php:52
+#: A2Billing_UI/A2B_entity_subscription.php:38
+#: A2Billing_UI/A2B_entity_did_destination.php:42
 #, fuzzy
 msgid "Expire date"
 msgstr "Data da expiração"
 
-#: A2Billing_UI/A2B_entity_card.php:57
+#: A2Billing_UI/A2B_entity_card.php:57 A2Billing_UI/A2B_entity_did.php:52
 msgid "Date the card should expire"
 msgstr ""
 
@@ -5235,6 +5566,101 @@ msgstr ""
 msgid "Tables to buy from when selling through this plan."
 msgstr ""
 
+#: A2Billing_UI/A2B_entity_did.php:12
+msgid "DID batches contain the settings of ranges of DIDs."
+msgstr ""
+
+#: A2Billing_UI/A2B_entity_did.php:14
+msgid "DID Batches"
+msgstr ""
+
+#: A2Billing_UI/A2B_entity_did.php:14
+msgid "DID batch"
+msgstr ""
+
+#: A2Billing_UI/A2B_entity_did.php:35
+#, fuzzy
+msgid "Public DID"
+msgstr "Nome do arquivo"
+
+#: A2Billing_UI/A2B_entity_did.php:36
+#, fuzzy
+msgid "Trunk head"
+msgstr "Tronco"
+
+#: A2Billing_UI/A2B_entity_did.php:37
+#, fuzzy
+msgid "Charge one, dial other"
+msgstr "Data da taxa"
+
+#: A2Billing_UI/A2B_entity_did.php:40 A2Billing_UI/A2B_entity_call.php:71
+#: A2Billing_UI/A2B_entity_instance.php:21
+#: A2Billing_UI/A2B_entity_instance.php:37
+#: A2Billing_UI/A2B_entity_instance.php:61
+msgid "Mode"
+msgstr ""
+
+#: A2Billing_UI/A2B_entity_did.php:40
+#, fuzzy
+msgid "Select the operation mode."
+msgstr "Insira a data da expiração"
+
+#: A2Billing_UI/A2B_entity_did.php:46
+#, fuzzy
+msgid "Dial Head"
+msgstr "Discar"
+
+#: A2Billing_UI/A2B_entity_did.php:46
+msgid "The first, common digits of the DID range."
+msgstr ""
+
+#: A2Billing_UI/A2B_entity_did.php:47
+#, fuzzy
+msgid "Dial Add"
+msgstr "Discar"
+
+#: A2Billing_UI/A2B_entity_did.php:47
+#, fuzzy
+msgid "Add these digits."
+msgstr "Adicionar um prefixo aos dígitos discados."
+
+#: A2Billing_UI/A2B_entity_did.php:48
+#, fuzzy
+msgid "Dial Fld2"
+msgstr "Discar"
+
+#: A2Billing_UI/A2B_entity_did.php:49
+#, fuzzy
+msgid "Dial Len"
+msgstr "Discar"
+
+#: A2Billing_UI/A2B_entity_did.php:49
+msgid "Length of remaining digits in DID."
+msgstr ""
+
+#: A2Billing_UI/A2B_entity_did.php:54 A2Billing_UI/A2B_entity_buyrate.php:18
+#, fuzzy
+msgid "Buy plan"
+msgstr "Pela Data"
+
+#: A2Billing_UI/A2B_entity_did.php:54
+msgid "This defines the rules for rating the DID usage."
+msgstr ""
+
+#: A2Billing_UI/A2B_entity_did.php:58
+msgid "Flags"
+msgstr ""
+
+#: A2Billing_UI/A2B_entity_did.php:58
+msgid "Mode-specific flags."
+msgstr ""
+
+#: A2Billing_UI/A2B_entity_did.php:60
+#: A2Billing_UI/A2B_entity_did_destination.php:45
+#, fuzzy
+msgid "Duration of calls through DID batch."
+msgstr "Número de ligações por horas"
+
 #: A2Billing_UI/call-log-customers.php:86
 msgid "Terminate Cause"
 msgstr "Causa do término"
@@ -5350,13 +5776,69 @@ msgstr "Exportar CSV"
 msgid "Export XML"
 msgstr "Exportar XML"
 
-#: A2Billing_UI/A2B_logfile.php:83
-msgid "Browse log file"
-msgstr "Navegar no arquivo de log"
+#: A2Billing_UI/A2B_logfile.php:14
+msgid "Log entries of the system"
+msgstr ""
 
-#: A2Billing_UI/A2B_logfile.php:86
-msgid "Filter"
-msgstr "Filtro"
+#: A2Billing_UI/A2B_logfile.php:30 A2Billing_UI/A2B_logfile.php:58
+#, fuzzy
+msgid "User of the interface."
+msgstr "Insira o \"insecure\""
+
+#: A2Billing_UI/A2B_logfile.php:32 A2Billing_UI/A2B_logfile.php:61
+#, fuzzy
+msgid "Action"
+msgstr "ação"
+
+#: A2Billing_UI/A2B_logfile.php:33 A2Billing_UI/A2B_logfile.php:63
+#, fuzzy
+msgid "Data"
+msgstr "Data"
+
+#: A2Billing_UI/A2B_logfile.php:34
+#, fuzzy
+msgid "Table"
+msgstr "Discar"
+
+#: A2Billing_UI/A2B_logfile.php:35
+#, fuzzy
+msgid "Page"
+msgstr "taxa a"
+
+#: A2Billing_UI/A2B_logfile.php:36
+#, fuzzy
+msgid "IP Address"
+msgstr "endereço"
+
+#: A2Billing_UI/A2B_logfile.php:37 A2Billing_UI/A2B_logfile.php:59
+#, fuzzy
+msgid "Level"
+msgstr "Novembro"
+
+#: A2Billing_UI/A2B_logfile.php:43
+#, fuzzy
+msgid "Logs"
+msgstr "loginkey"
+
+#: A2Billing_UI/A2B_logfile.php:43
+#, fuzzy
+msgid "Log"
+msgstr "loginkey"
+
+#: A2Billing_UI/A2B_logfile.php:64
+#, fuzzy
+msgid "Table Name"
+msgstr "Nome do arquivo"
+
+#: A2Billing_UI/A2B_logfile.php:65
+#, fuzzy
+msgid "Page Name"
+msgstr "Nome"
+
+#: A2Billing_UI/A2B_logfile.php:66
+#, fuzzy
+msgid "IP Addr"
+msgstr "Contato SIP"
 
 #: A2Billing_UI/A2B_entity_callerid.php:11
 #, fuzzy
@@ -5384,6 +5866,61 @@ msgstr "ATIVADO"
 
 #: A2Billing_UI/A2B_entity_callerid.php:31
 msgid "Allow the callerID to operate"
+msgstr ""
+
+#: A2Billing_UI/A2B_entity_subscription.php:12
+msgid ""
+"Subscriptions are customers (cards) being attached to a recurring fee or "
+"special service."
+msgstr ""
+
+#: A2Billing_UI/A2B_entity_subscription.php:14
+#, fuzzy
+msgid "Subscription"
+msgstr "Taxa da assinatura"
+
+#: A2Billing_UI/A2B_entity_subscription.php:25
+#, fuzzy
+msgid "Kind"
+msgstr "Falhou"
+
+#: A2Billing_UI/A2B_entity_subscription.php:34
+#: A2Billing_UI/A2B_entity_did_destination.php:38
+#, fuzzy
+msgid "Date the subscription was registered"
+msgstr "Defina o ID do número do cartão para usar."
+
+#: A2Billing_UI/A2B_entity_subscription.php:35
+#: A2Billing_UI/A2B_entity_did_destination.php:39
+#, fuzzy
+msgid "Creat"
+msgstr "Data da taxa"
+
+#: A2Billing_UI/A2B_entity_subscription.php:36
+#: A2Billing_UI/A2B_entity_did_destination.php:40
+#, fuzzy
+msgid "Activation date"
+msgstr "data de criação"
+
+#: A2Billing_UI/A2B_entity_subscription.php:36
+#: A2Billing_UI/A2B_entity_did_destination.php:40
+msgid "Date it becomes active"
+msgstr ""
+
+#: A2Billing_UI/A2B_entity_subscription.php:37
+#: A2Billing_UI/A2B_entity_did_destination.php:41
+#, fuzzy
+msgid "Activ"
+msgstr "Ativado"
+
+#: A2Billing_UI/A2B_entity_subscription.php:38
+#: A2Billing_UI/A2B_entity_did_destination.php:42
+msgid "After this date it is no longer charged or used."
+msgstr ""
+
+#: A2Billing_UI/A2B_entity_subscription.php:39
+#: A2Billing_UI/A2B_entity_did_destination.php:43
+msgid "Exp."
 msgstr ""
 
 #: A2Billing_UI/A2B_entity_server_group.php:9
@@ -5549,119 +6086,108 @@ msgstr "TAXA A"
 msgid "Count Charges"
 msgstr "Taxa extra"
 
-#: A2Billing_UI/A2B_entity_call.php:56
+#: A2Billing_UI/A2B_entity_call.php:62
 msgid "Session ID"
 msgstr ""
 
-#: A2Billing_UI/A2B_entity_call.php:57
+#: A2Billing_UI/A2B_entity_call.php:63
 msgid "Unique ID"
 msgstr ""
 
-#: A2Billing_UI/A2B_entity_call.php:65 A2Billing_UI/A2B_entity_instance.php:21
-#: A2Billing_UI/A2B_entity_instance.php:37
-#: A2Billing_UI/A2B_entity_instance.php:61
-msgid "Mode"
-msgstr ""
-
-#: A2Billing_UI/A2B_entity_call.php:66 A2Billing_UI/A2B_entity_call.php:109
+#: A2Billing_UI/A2B_entity_call.php:72 A2Billing_UI/A2B_entity_call.php:118
 msgid "Stop Time"
 msgstr ""
 
-#: A2Billing_UI/A2B_entity_call.php:70
+#: A2Billing_UI/A2B_entity_call.php:79
 #, fuzzy
 msgid "Called station"
 msgstr "Ligações pelo destino"
 
-#: A2Billing_UI/A2B_entity_call.php:72 A2Billing_UI/A2B_entity_call.php:104
+#: A2Billing_UI/A2B_entity_call.php:81 A2Billing_UI/A2B_entity_call.php:113
 #, fuzzy
 msgid "Attempt"
 msgstr "modelo1"
 
-#: A2Billing_UI/A2B_entity_call.php:73
+#: A2Billing_UI/A2B_entity_call.php:82
 msgid "Atm"
 msgstr ""
 
-#: A2Billing_UI/A2B_entity_call.php:76 A2Billing_UI/A2B_entity_call.php:116
+#: A2Billing_UI/A2B_entity_call.php:85 A2Billing_UI/A2B_entity_call.php:125
 #, fuzzy
 msgid "Start Delay"
 msgstr "Data / Dia de início"
 
-#: A2Billing_UI/A2B_entity_call.php:77 A2Billing_UI/A2B_entity_call.php:118
+#: A2Billing_UI/A2B_entity_call.php:86 A2Billing_UI/A2B_entity_call.php:127
 msgid "Stop Delay"
 msgstr ""
 
-#: A2Billing_UI/A2B_entity_call.php:79 A2Billing_UI/A2B_entity_call.php:121
+#: A2Billing_UI/A2B_entity_call.php:88 A2Billing_UI/A2B_entity_call.php:130
 #, fuzzy
 msgid "Selling rate"
 msgstr "tipo_de_tarifação"
 
-#: A2Billing_UI/A2B_entity_call.php:80 A2Billing_UI/A2B_entity_call.php:123
+#: A2Billing_UI/A2B_entity_call.php:89 A2Billing_UI/A2B_entity_call.php:132
 #, fuzzy
 msgid "Buying rate"
 msgstr "Pela Data"
 
-#: A2Billing_UI/A2B_entity_call.php:82 A2Billing_UI/A2B_entity_call.php:126
+#: A2Billing_UI/A2B_entity_call.php:91 A2Billing_UI/A2B_entity_call.php:135
 msgid "Result"
 msgstr ""
 
-#: A2Billing_UI/A2B_entity_call.php:83 A2Billing_UI/A2B_entity_call.php:127
+#: A2Billing_UI/A2B_entity_call.php:92 A2Billing_UI/A2B_entity_call.php:136
 msgid "ISDN Hangup Cause"
 msgstr ""
 
-#: A2Billing_UI/A2B_entity_call.php:84 A2Billing_UI/A2B_entity_call.php:129
+#: A2Billing_UI/A2B_entity_call.php:93 A2Billing_UI/A2B_entity_call.php:138
 msgid "Cause ext."
 msgstr ""
 
-#: A2Billing_UI/A2B_entity_call.php:89 A2Billing_UI/A2B_entity_call.php:135
+#: A2Billing_UI/A2B_entity_call.php:98 A2Billing_UI/A2B_entity_call.php:144
 msgid "How much the customer was charged for the call."
 msgstr ""
 
-#: A2Billing_UI/A2B_entity_call.php:90 A2Billing_UI/A2B_entity_call.php:136
+#: A2Billing_UI/A2B_entity_call.php:99 A2Billing_UI/A2B_entity_call.php:145
 msgid "How much we were charged for the call."
 msgstr ""
 
-#: A2Billing_UI/A2B_entity_call.php:93
+#: A2Billing_UI/A2B_entity_call.php:102
 msgid "Tariff group used by the rate engine."
 msgstr ""
 
-#: A2Billing_UI/A2B_entity_call.php:105
+#: A2Billing_UI/A2B_entity_call.php:114
 msgid "At"
 msgstr ""
 
-#: A2Billing_UI/A2B_entity_call.php:117
+#: A2Billing_UI/A2B_entity_call.php:126
 msgid "SD"
 msgstr ""
 
-#: A2Billing_UI/A2B_entity_call.php:119
+#: A2Billing_UI/A2B_entity_call.php:128
 msgid "TD"
 msgstr ""
 
-#: A2Billing_UI/A2B_entity_call.php:122
+#: A2Billing_UI/A2B_entity_call.php:131
 #, fuzzy
 msgid "SRate"
 msgstr "Data"
 
-#: A2Billing_UI/A2B_entity_call.php:124
+#: A2Billing_UI/A2B_entity_call.php:133
 #, fuzzy
 msgid "BRate"
 msgstr "Pela Data"
 
-#: A2Billing_UI/A2B_entity_call.php:128
+#: A2Billing_UI/A2B_entity_call.php:137
 msgid "Hu"
 msgstr ""
 
-#: A2Billing_UI/A2B_entity_call.php:130
+#: A2Billing_UI/A2B_entity_call.php:139
 msgid "Ce"
 msgstr ""
 
 #: A2Billing_UI/A2B_entity_buyrate.php:13
 msgid "Buy rates are the prices paid to the provider for some destination."
 msgstr ""
-
-#: A2Billing_UI/A2B_entity_buyrate.php:18
-#, fuzzy
-msgid "Buy plan"
-msgstr "Pela Data"
 
 #: A2Billing_UI/A2B_entity_buyrate.php:21
 #, fuzzy
@@ -5880,6 +6406,40 @@ msgstr "Congratulações!!! Email enviado com sucesso para"
 #: A2Billing_UI/A2B_entity_invoice_detail_pdf.php:84
 msgid "Sorry!!! Email sending failed to"
 msgstr "Desculpe!!! Falha ao enviar o email para"
+
+#: A2Billing_UI/A2B_entity_did_destination.php:12
+msgid "DID reservations are DID numbers explicitly attached to customers."
+msgstr ""
+
+#: A2Billing_UI/A2B_entity_did_destination.php:14
+#, fuzzy
+msgid "Reservations"
+msgstr "Duração Real"
+
+#: A2Billing_UI/A2B_entity_did_destination.php:14
+#, fuzzy
+msgid "Reservation"
+msgstr "Duração Real"
+
+#: A2Billing_UI/A2B_entity_did_destination.php:24
+msgid "The last digits of the DID (after the batch head)."
+msgstr ""
+
+#: A2Billing_UI/A2B_entity_did_destination.php:25
+#, fuzzy
+msgid "Target"
+msgstr "taxa a"
+
+#: A2Billing_UI/A2B_entity_did_destination.php:25
+msgid ""
+"The number to call for that DID. Use internal format or leave blank for peer "
+"search."
+msgstr ""
+
+#: A2Billing_UI/A2B_entity_did_destination.php:29
+#, fuzzy
+msgid "Batch"
+msgstr "meses"
 
 #: A2Billing_UI/invoices_agent.php:20 A2Billing_UI/invoices_card.php:20
 #, fuzzy
@@ -6166,22 +6726,6 @@ msgstr ""
 msgid "Tariff Groups"
 msgstr ""
 
-#: A2Billing_UI/A2B_entity_tariffgroup.php:23
-#, fuzzy
-msgid "Public Name"
-msgstr "Nome do arquivo"
-
-#: A2Billing_UI/A2B_entity_tariffgroup.php:23
-msgid ""
-"Public name is displayed to customers, agents. You may want it to be "
-"different than the internal name above."
-msgstr ""
-
-#: A2Billing_UI/A2B_entity_tariffgroup.php:24
-#, fuzzy
-msgid "P Name"
-msgstr "Nome"
-
 #: A2Billing_UI/A2B_entity_tariffgroup.php:26
 #, fuzzy
 msgid "LCR type"
@@ -6416,17 +6960,29 @@ msgstr "Filtro"
 msgid "Waiting resend"
 msgstr ""
 
+#: A2Billing_UI/A2B_entity_mails.php:31
+msgid "New (special)"
+msgstr ""
+
+#: A2Billing_UI/A2B_entity_mails.php:32
+msgid "Sent (special)"
+msgstr ""
+
 #: A2Billing_UI/A2B_entity_mails.php:33
+msgid "Failed (special)"
+msgstr ""
+
+#: A2Billing_UI/A2B_entity_mails.php:37
 #, fuzzy
 msgid "Args"
 msgstr "Agosto"
 
-#: A2Billing_UI/A2B_entity_mails.php:34
+#: A2Billing_UI/A2B_entity_mails.php:38
 #, fuzzy
 msgid "Comments"
 msgstr "Centavos"
 
-#: A2Billing_UI/A2B_entity_mails.php:34
+#: A2Billing_UI/A2B_entity_mails.php:38
 msgid "Machine comments, for internal use."
 msgstr ""
 
@@ -7069,30 +7625,30 @@ msgstr ""
 msgid "IP/netmask of hosts to deny"
 msgstr ""
 
-#: A2Billing_UI/A2B_entity_ast_usercfg.php:73
+#: A2Billing_UI/A2B_entity_ast_usercfg.php:76
 #, fuzzy
 msgid "Call FWD"
 msgstr "Ligações"
 
-#: A2Billing_UI/A2B_entity_ast_usercfg.php:73
+#: A2Billing_UI/A2B_entity_ast_usercfg.php:76
 msgid "Allow user to forward calls"
 msgstr ""
 
-#: A2Billing_UI/A2B_entity_ast_usercfg.php:74
+#: A2Billing_UI/A2B_entity_ast_usercfg.php:77
 msgid "MOH"
 msgstr ""
 
-#: A2Billing_UI/A2B_entity_ast_usercfg.php:74
+#: A2Billing_UI/A2B_entity_ast_usercfg.php:77
 #, fuzzy
 msgid "Music on hold class"
 msgstr "Música de Espera"
 
-#: A2Billing_UI/A2B_entity_ast_usercfg.php:75
+#: A2Billing_UI/A2B_entity_ast_usercfg.php:78
 #, fuzzy
 msgid "Set var"
 msgstr "Pesquisa"
 
-#: A2Billing_UI/A2B_entity_ast_usercfg.php:75
+#: A2Billing_UI/A2B_entity_ast_usercfg.php:78
 msgid "Set some custom var"
 msgstr ""
 
@@ -7106,72 +7662,80 @@ msgstr "Confirmação de Pagamento"
 msgid "Configs"
 msgstr "Contém"
 
-#: A2Billing_UI/A2B_entity_provision.php:12
+#: A2Billing_UI/A2B_entity_provision.php:13
 msgid ""
 "Provisions are rules that define how a settings (provisioning) script will "
 "be generated."
 msgstr ""
 
-#: A2Billing_UI/A2B_entity_provision.php:14
+#: A2Billing_UI/A2B_entity_provision.php:15
 #, fuzzy
 msgid "Provision Groups"
 msgstr "Adicionar Grupo de Servidores"
 
-#: A2Billing_UI/A2B_entity_provision.php:14
+#: A2Billing_UI/A2B_entity_provision.php:15
 msgid "Provision Group"
 msgstr ""
 
-#: A2Billing_UI/A2B_entity_provision.php:23
-#, fuzzy
-msgid "Category"
-msgstr "Tipo do cartão"
-
-#: A2Billing_UI/A2B_entity_provision.php:23
+#: A2Billing_UI/A2B_entity_provision.php:24
 msgid "Category, the \"file\" which will be generated."
 msgstr ""
 
-#: A2Billing_UI/A2B_entity_provision.php:24
+#: A2Billing_UI/A2B_entity_provision.php:25
 msgid "Model"
 msgstr ""
 
-#: A2Billing_UI/A2B_entity_provision.php:24
+#: A2Billing_UI/A2B_entity_provision.php:25
 #, fuzzy
 msgid "Engine used to generate the file."
 msgstr "Erro: Falha ao abrir o arquivo."
 
-#: A2Billing_UI/A2B_entity_provision.php:27
-#: A2Billing_UI/A2B_entity_provision.php:41
+#: A2Billing_UI/A2B_entity_provision.php:28
+#: A2Billing_UI/A2B_entity_provision.php:45
 #, fuzzy
 msgid "Sub Name"
 msgstr "Nome do arquivo"
 
-#: A2Billing_UI/A2B_entity_provision.php:27
+#: A2Billing_UI/A2B_entity_provision.php:28
 msgid "Second part of name"
 msgstr ""
 
-#: A2Billing_UI/A2B_entity_provision.php:29
+#: A2Billing_UI/A2B_entity_provision.php:30
 msgid ""
 "By adjusting the metrics, order of the generated groups can be enforced."
 msgstr ""
 
-#: A2Billing_UI/A2B_entity_provision.php:35
+#: A2Billing_UI/A2B_entity_provision.php:31
+msgid "Option flags for group."
+msgstr ""
+
+#: A2Billing_UI/A2B_entity_provision.php:33
+#, fuzzy
+msgid "Last changed"
+msgstr "Listar Taxa Extra"
+
+#: A2Billing_UI/A2B_entity_provision.php:33
+msgid "Last change of group data. May determine whether a provision is needed."
+msgstr ""
+
+#: A2Billing_UI/A2B_entity_provision.php:39
 msgid "Rule"
 msgstr ""
 
-#: A2Billing_UI/A2B_entity_provision.php:40
+#: A2Billing_UI/A2B_entity_provision.php:44
 #, fuzzy
 msgid "Name of setting"
 msgstr "Nome do backup"
 
-#: A2Billing_UI/A2B_entity_provision.php:41
+#: A2Billing_UI/A2B_entity_provision.php:45
 msgid "Second part of setting name"
 msgstr ""
 
-#: A2Billing_UI/A2B_entity_provision.php:42
+#: A2Billing_UI/A2B_entity_provision.php:46
 msgid "Value, pattern of setting"
 msgstr ""
 
-#: A2Billing_UI/A2B_entity_provision.php:43
+#: A2Billing_UI/A2B_entity_provision.php:47
 msgid ""
 "By adjusting the metrics, order of the generated fields can be enforced."
 msgstr ""
@@ -7254,16 +7818,6 @@ msgstr "Centavos"
 msgid "Mail templates are preset messages to be sent on alerts etc."
 msgstr ""
 
-#: A2Billing_UI/A2B_entity_mailtemplate.php:11
-#, fuzzy
-msgid "Templates"
-msgstr "modelo2"
-
-#: A2Billing_UI/A2B_entity_mailtemplate.php:11
-#, fuzzy
-msgid "Template"
-msgstr "modelo2"
-
 #: A2Billing_UI/A2B_entity_mailtemplate.php:20
 msgid "Lang"
 msgstr ""
@@ -7299,6 +7853,27 @@ msgstr "ID DO CARTÃO"
 msgid "Default values for arguments, in URL parameter format."
 msgstr ""
 
+#~ msgid "List DID Group"
+#~ msgstr "Lista de Grupos de DID"
+
+#~ msgid "List DID"
+#~ msgstr "Listar DID"
+
+#~ msgid "Add DID"
+#~ msgstr "Adicionar DID"
+
+#~ msgid "List Subscription"
+#~ msgstr "Listar Assinaturas"
+
+#~ msgid "Add Subscription"
+#~ msgstr "Adicionar Assinatura"
+
+#~ msgid "Browse log file"
+#~ msgstr "Navegar no arquivo de log"
+
+#~ msgid "Filter"
+#~ msgstr "Filtro"
+
 #~ msgid "View Payment Methods"
 #~ msgstr "Ver Métodos de Pagamentos"
 
@@ -7319,9 +7894,6 @@ msgstr ""
 
 #~ msgid "Create Voucher"
 #~ msgstr "Criar Voucher"
-
-#~ msgid "List Charge"
-#~ msgstr "Listar Taxa Extra"
 
 #~ msgid "Add Charge"
 #~ msgstr "Adicionar Taxa Extra"
@@ -8635,9 +9207,6 @@ msgstr ""
 #~ msgid "NO SPEED DIALS HAVE BEEN CREATED!"
 #~ msgstr "NENHUMA DISCAGEM RÁPIDA FOI CRIADA!"
 
-#~ msgid "Insert the name"
-#~ msgstr "Insira o nome"
-
 #~ msgid "Insert the phone"
 #~ msgstr "Insira o telefone"
 
@@ -8712,9 +9281,6 @@ msgstr ""
 
 #~ msgid "NUMBER ATTEMPTS"
 #~ msgstr "NÚMERO DE TENTATIVAS"
-
-#~ msgid "Insert the number of attempts"
-#~ msgstr "Insira o número de tentativas"
 
 #~ msgid "MANAGER RESULT"
 #~ msgstr "GERENCIADOR DE RESULTADOS"
@@ -8901,9 +9467,6 @@ msgstr ""
 
 #~ msgid "EXPIRATION DATE"
 #~ msgstr "DATA DA EXPIRAÇÃO"
-
-#~ msgid "Insert the expiration date"
-#~ msgstr "Insira a data da expiração"
 
 #~ msgid ""
 #~ "Please respect the format YYYY-MM-DD HH:MM:SS. For instance, '2004-12-31 "
@@ -9543,9 +10106,6 @@ msgstr ""
 
 #~ msgid "NO CARDS HAVE BEEN CREATED!"
 #~ msgstr "NÃO HÁ CARTÕES CRIADOS!"
-
-#~ msgid "SIP buddy"
-#~ msgstr "Contato SIP"
 
 #~ msgid "IAX buddy"
 #~ msgstr "Contato IAX"
@@ -10287,9 +10847,6 @@ msgstr ""
 #~ msgid "INSECURE"
 #~ msgstr "INSECURE"
 
-#~ msgid "Insert the insecure"
-#~ msgstr "Insira o \"insecure\""
-
 #~ msgid "MAILBOX"
 #~ msgstr "CAIXA POSTAL"
 
@@ -10637,9 +11194,6 @@ msgstr ""
 
 #~ msgid "Nb Call"
 #~ msgstr "Num. de Ligações"
-
-#~ msgid "RealDuration"
-#~ msgstr "Duração Real"
 
 #~ msgid "REVENUE"
 #~ msgstr "RENDIMENTO"

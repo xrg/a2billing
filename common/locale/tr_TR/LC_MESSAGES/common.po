@@ -24,6 +24,12 @@ msgstr ""
 msgid "file type is not allowed"
 msgstr ""
 
+#: common/lib/Form/Class.ElemGraph.inc.php:453
+#: common/lib/Form/Class.SumMultiView.inc.php:395
+#: common/lib/Form/Class.SqlRefField.inc.php:211
+msgid "(none)"
+msgstr ""
+
 #: common/lib/Form/Class.FormHelpers.inc.php:14
 msgid "item"
 msgstr ""
@@ -34,7 +40,7 @@ msgstr ""
 
 #: common/lib/Form/Class.ListView.inc.php:105
 #: common/lib/Form/Class.ListCsvView.inc.php:19
-#: common/lib/Form/Class.ListSumView.inc.php:71
+#: common/lib/Form/Class.ListSumView.inc.php:98
 #: common/lib/Form/Class.DetailsView.inc.php:124
 #: common/lib/Form/Class.ListTeXView.inc.php:19
 #: common/lib/Form/Class.EditView.inc.php:62
@@ -69,7 +75,7 @@ msgstr ""
 msgid "Next"
 msgstr ""
 
-#: common/lib/Form/Class.ListSumView.inc.php:78
+#: common/lib/Form/Class.ListSumView.inc.php:105
 #: common/lib/AgentMoney.inc.php:45
 msgid "Sum"
 msgstr ""
@@ -84,15 +90,21 @@ msgstr ""
 msgid "Delete this %1"
 msgstr ""
 
-#: common/lib/Form/Class.DeleteView.inc.php:139
+#: common/lib/Form/Class.DeleteView.inc.php:132
+#: common/lib/Form/Class.AddView.inc.php:142
+#: common/lib/Form/Class.EditView.inc.php:205
+msgid "Read only. No data has been altered."
+msgstr ""
+
+#: common/lib/Form/Class.DeleteView.inc.php:147
 msgid "Cannot delete %1, database error."
 msgstr ""
 
-#: common/lib/Form/Class.DeleteView.inc.php:146
+#: common/lib/Form/Class.DeleteView.inc.php:154
 msgid "Cannot delete %1, record not found."
 msgstr ""
 
-#: common/lib/Form/Class.DeleteView.inc.php:150
+#: common/lib/Form/Class.DeleteView.inc.php:158
 msgid "Record successfully removed from the database."
 msgstr ""
 
@@ -105,38 +117,33 @@ msgstr ""
 msgid "Details of this %1"
 msgstr ""
 
-#: common/lib/Form/Class.SumMultiView.inc.php:163
-#: common/lib/Form/Class.SumMultiView.inc.php:408
+#: common/lib/Form/Class.SumMultiView.inc.php:192
+#: common/lib/Form/Class.SumMultiView.inc.php:516
 msgid "No sums found!"
-msgstr ""
-
-#: common/lib/Form/Class.SumMultiView.inc.php:287
-#: common/lib/Form/Class.SqlRefField.inc.php:198
-msgid "(none)"
 msgstr ""
 
 #: common/lib/Form/Class.TimeField.inc.php:19
 msgid "YYYY-MM-DD HH24:MI:SS TZ"
 msgstr ""
 
-#: common/lib/Form/Class.TimeField.inc.php:78
+#: common/lib/Form/Class.TimeField.inc.php:81
 msgid "YYYY-MM-DD"
 msgstr ""
 
-#: common/lib/Form/Class.NumField.inc.php:230
+#: common/lib/Form/Class.NumField.inc.php:226
 msgid "TRUE"
 msgstr ""
 
-#: common/lib/Form/Class.NumField.inc.php:232
+#: common/lib/Form/Class.NumField.inc.php:228
 msgid "FALSE"
 msgstr ""
 
-#: common/lib/Form/Class.NumField.inc.php:259
+#: common/lib/Form/Class.NumField.inc.php:255
 #: common/lib/Form/Class.VolField.inc.php:36
 msgid "0 sec"
 msgstr ""
 
-#: common/lib/Form/Class.NumField.inc.php:274
+#: common/lib/Form/Class.NumField.inc.php:270
 msgid "Y-m-d H:i:s T"
 msgstr ""
 
@@ -145,11 +152,11 @@ msgstr ""
 msgid "Create this %1"
 msgstr ""
 
-#: common/lib/Form/Class.AddView.inc.php:139
+#: common/lib/Form/Class.AddView.inc.php:152
 msgid "Cannot create new %1, database error."
 msgstr ""
 
-#: common/lib/Form/Class.AddView.inc.php:144
+#: common/lib/Form/Class.AddView.inc.php:157
 msgid "New data has successfully been inserted into the database."
 msgstr ""
 
@@ -408,7 +415,7 @@ msgstr ""
 msgid "Details of %1"
 msgstr ""
 
-#: common/lib/Form/Class.FormHandler.inc.php:336
+#: common/lib/Form/Class.FormHandler.inc.php:329
 msgid "Graph"
 msgstr ""
 
@@ -437,15 +444,15 @@ msgstr ""
 msgid "Update this %1"
 msgstr ""
 
-#: common/lib/Form/Class.EditView.inc.php:208
+#: common/lib/Form/Class.EditView.inc.php:215
 msgid "Cannot update %1, database error."
 msgstr ""
 
-#: common/lib/Form/Class.EditView.inc.php:215
+#: common/lib/Form/Class.EditView.inc.php:222
 msgid "Cannot update %1, record not found."
 msgstr ""
 
-#: common/lib/Form/Class.EditView.inc.php:219
+#: common/lib/Form/Class.EditView.inc.php:226
 msgid "Data has successfully been updated in the database."
 msgstr ""
 

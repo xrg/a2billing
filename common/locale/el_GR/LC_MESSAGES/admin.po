@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: admin\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-09-07 21:01+0300\n"
-"PO-Revision-Date: 2008-02-21 12:31GMT\n"
+"PO-Revision-Date: 2008-06-08 23:16GMT\n"
 "Last-Translator: P. Christeas <p_christeas@yahoo.com>\n"
 "Language-Team: Ellhnika <el@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -46,8 +46,7 @@ msgstr "<p style='color: red'> Όχι<br></p>"
 
 #: A2Billing_UI/CC_generate_friend_file.php:131
 #, fuzzy
-msgid ""
-"<p style='color: blue'>Agent config files: %#1 of %#2 files created.</p>"
+msgid "<p style='color: blue'>Agent config files: %#1 of %#2 files created.</p>"
 msgstr "<p style='color: blue'> Μαγαζί από</p>"
 
 #: A2Billing_UI/CC_generate_friend_file.php:143
@@ -86,21 +85,21 @@ msgstr "εδώ στο Εξυπηρετητής"
 msgid "Asterisk has been reload!"
 msgstr ""
 
-#: A2Billing_UI/call-stats.php:19 A2Billing_UI/agent-money.php:16
+#: A2Billing_UI/call-stats.php:20 A2Billing_UI/agent-money.php:16
 #: A2Billing_UI/A2B_entity_sessions.php:46 A2Billing_UI/call-unbilled.php:19
-#: A2Billing_UI/A2B_entity_call.php:18
+#: A2Billing_UI/A2B_logfile.php:18 A2Billing_UI/A2B_entity_call.php:18
 #: A2Billing_UI/A2B_entity_ainvoice_detail.php:148
 msgid "Period from"
 msgstr "Περίοδος"
 
-#: A2Billing_UI/call-stats.php:23 A2Billing_UI/agent-money.php:21
+#: A2Billing_UI/call-stats.php:24 A2Billing_UI/agent-money.php:21
 #: A2Billing_UI/A2B_entity_sessions.php:50 A2Billing_UI/call-unbilled.php:23
-#: A2Billing_UI/A2B_entity_call.php:22
+#: A2Billing_UI/A2B_logfile.php:22 A2Billing_UI/A2B_entity_call.php:22
 #: A2Billing_UI/A2B_entity_ainvoice_detail.php:152
 msgid "Period to"
 msgstr "Περίοδος εως"
 
-#: A2Billing_UI/call-stats.php:34 A2Billing_UI/call-stats.php:59
+#: A2Billing_UI/call-stats.php:36 A2Billing_UI/call-stats.php:67
 #: A2Billing_UI/lib/invoice.php:82 A2Billing_UI/lib/invoice.php:357
 #: A2Billing_UI/graph_statbar.php:47 A2Billing_UI/call-daily-load.php:68
 #: A2Billing_UI/A2B_entity_invoice_detail.php:88
@@ -109,8 +108,8 @@ msgstr "Περίοδος εως"
 #: A2Billing_UI/invoices_customer.php:73
 #: A2Billing_UI/A2B_entity_sellrate.php:17
 #: A2Billing_UI/A2B_entity_sellrate.php:38
-#: A2Billing_UI/call-log-customers.php:82 A2Billing_UI/A2B_entity_call.php:33
-#: A2Billing_UI/A2B_entity_call.php:71 A2Billing_UI/A2B_entity_call.php:113
+#: A2Billing_UI/call-log-customers.php:82 A2Billing_UI/A2B_entity_call.php:35
+#: A2Billing_UI/A2B_entity_call.php:80 A2Billing_UI/A2B_entity_call.php:122
 #: A2Billing_UI/A2B_entity_buyrate.php:17
 #: A2Billing_UI/A2B_entity_buyrate.php:37 A2Billing_UI/invoices_agent.php:68
 #: A2Billing_UI/graph_stat.php:48
@@ -120,19 +119,32 @@ msgstr "Περίοδος εως"
 msgid "Destination"
 msgstr "Προορισμός"
 
-#: A2Billing_UI/call-stats.php:35 A2Billing_UI/A2B_entity_call.php:34
+#: A2Billing_UI/call-stats.php:37 A2Billing_UI/A2B_entity_call.php:36
 msgid "Called number"
 msgstr "Κληθείς Αριθμός"
 
-#: A2Billing_UI/call-stats.php:38 A2Billing_UI/A2B_entity_server.php:13
-#: A2Billing_UI/A2B_entity_call.php:37 A2Billing_UI/A2B_entity_call.php:68
-#: A2Billing_UI/A2B_entity_call.php:110
+#: A2Billing_UI/call-stats.php:40 A2Billing_UI/call-stats.php:69
+#: A2Billing_UI/A2B_entity_agent_invoicev.php:26
+#: A2Billing_UI/A2B_entity_session_problems.php:29
+#: A2Billing_UI/agent-money.php:15 A2Billing_UI/A2B_entity_charge.php:26
+#: A2Billing_UI/A2B_entity_sessions.php:43 A2Billing_UI/call-unbilled.php:28
+#: A2Billing_UI/call-unbilled.php:67 A2Billing_UI/A2B_entity_card_group.php:23
+#: A2Billing_UI/A2B_entity_booths.php:25 A2Billing_UI/A2B_entity_agent.php:15
+#: A2Billing_UI/A2B_entity_call.php:37 A2Billing_UI/A2B_entity_call.php:74
+#: A2Billing_UI/A2B_entity_agentpay.php:24 A2Billing_UI/Callshop_booths.php:18
+#: A2Billing_UI/Gen_invoice_agent.php:27
+msgid "Agent"
+msgstr "Πράκτορας"
+
+#: A2Billing_UI/call-stats.php:45 A2Billing_UI/A2B_entity_server.php:13
+#: A2Billing_UI/A2B_entity_call.php:43 A2Billing_UI/A2B_entity_call.php:77
+#: A2Billing_UI/A2B_entity_call.php:119
 #: A2Billing_UI/A2B_entity_instance.php:23
 #: A2Billing_UI/A2B_entity_instance.php:54
 msgid "Server"
 msgstr "Εξυπηρετητής"
 
-#: A2Billing_UI/call-stats.php:39 A2Billing_UI/A2B_entity_user.php:29
+#: A2Billing_UI/call-stats.php:46 A2Billing_UI/A2B_entity_user.php:29
 #: A2Billing_UI/call-daily-load.php:295
 #: A2Billing_UI/CC_entity_sim_ratecard.php:63
 #: A2Billing_UI/A2B_entity_trunk.php:17 A2Billing_UI/call-comp.php:298
@@ -140,20 +152,19 @@ msgstr "Εξυπηρετητής"
 #: A2Billing_UI/call-log-customers.php:85
 #: A2Billing_UI/call-log-customers.php:404
 #: A2Billing_UI/A2B_entity_invoices2_sales.php:334
-#: A2Billing_UI/A2B_entity_call.php:38 A2Billing_UI/A2B_entity_call.php:86
-#: A2Billing_UI/A2B_entity_call.php:132 A2Billing_UI/invoices.php:386
+#: A2Billing_UI/A2B_entity_call.php:44 A2Billing_UI/A2B_entity_call.php:95
+#: A2Billing_UI/A2B_entity_call.php:141 A2Billing_UI/invoices.php:386
 #: A2Billing_UI/call-last-month.php:254
 #: A2Billing_UI/A2B_call_archiving.php:200
 msgid "Trunk"
 msgstr "Κορμός"
 
-#: A2Billing_UI/call-stats.php:40 A2Billing_UI/A2B_entity_call.php:39
-#: A2Billing_UI/A2B_entity_call.php:87 A2Billing_UI/A2B_entity_call.php:133
-#, fuzzy
+#: A2Billing_UI/call-stats.php:47 A2Billing_UI/A2B_entity_call.php:45
+#: A2Billing_UI/A2B_entity_call.php:96 A2Billing_UI/A2B_entity_call.php:142
 msgid "Trunk used for the call"
-msgstr "Κορμός για"
+msgstr "Κορμός της κλήσης"
 
-#: A2Billing_UI/call-stats.php:46 A2Billing_UI/call-stats.php:62
+#: A2Billing_UI/call-stats.php:53 A2Billing_UI/call-stats.php:73
 #: A2Billing_UI/lib/A2B_invoice.php:434 A2Billing_UI/lib/invoice.php:360
 #: A2Billing_UI/lib/invoice.php:447 A2Billing_UI/call-unbilled.php:38
 #: A2Billing_UI/call-unbilled.php:56
@@ -161,32 +172,32 @@ msgstr "Κορμός για"
 #: A2Billing_UI/A2B_entity_invoice_detail.php:409
 #: A2Billing_UI/A2B_entity_invoice_detail.php:496
 #: A2Billing_UI/A2B_entity_invoices2_card.php:81
-#: A2Billing_UI/PP_menu.inc.php:203 A2Billing_UI/A2B_entity_call.php:45
+#: A2Billing_UI/PP_menu.inc.php:204 A2Billing_UI/A2B_entity_call.php:51
 #: A2Billing_UI/A2B_entity_invoices2_period.php:135
 msgid "Calls"
 msgstr "Κλήσεις"
 
-#: A2Billing_UI/call-stats.php:46 A2Billing_UI/call-unbilled.php:38
-#: A2Billing_UI/A2B_entity_call.php:45
+#: A2Billing_UI/call-stats.php:53 A2Billing_UI/call-unbilled.php:38
+#: A2Billing_UI/A2B_entity_call.php:51
 msgid "Call"
 msgstr "Κλήση"
 
-#: A2Billing_UI/call-stats.php:57 A2Billing_UI/lib/invoice.php:444
+#: A2Billing_UI/call-stats.php:65 A2Billing_UI/lib/invoice.php:444
 #: A2Billing_UI/lib/invoice.php:596 A2Billing_UI/A2B_entity_charge.php:23
 #: A2Billing_UI/A2B_entity_invoice_detail.php:493
 #: A2Billing_UI/A2B_entity_invoice_detail.php:654
-#: A2Billing_UI/card-history.php:43 A2Billing_UI/invoices_agent.php:65
-#: A2Billing_UI/A2B_entity_agentpay.php:26
+#: A2Billing_UI/card-history.php:43 A2Billing_UI/A2B_logfile.php:57
+#: A2Billing_UI/invoices_agent.php:65 A2Billing_UI/A2B_entity_agentpay.php:26
 #: A2Billing_UI/A2B_entity_ainvoice_detail.php:266
 #: A2Billing_UI/A2B_entity_ainvoice_detail.php:346
 msgid "Date"
 msgstr "Ημερομηνία"
 
-#: A2Billing_UI/call-stats.php:60
+#: A2Billing_UI/call-stats.php:68
 msgid "Dest"
 msgstr "Προορ"
 
-#: A2Billing_UI/call-stats.php:64 A2Billing_UI/lib/invoice.php:83
+#: A2Billing_UI/call-stats.php:75 A2Billing_UI/lib/invoice.php:83
 #: A2Billing_UI/lib/invoice.php:358 A2Billing_UI/lib/invoice.php:445
 #: A2Billing_UI/graph_statbar.php:51 A2Billing_UI/call-count-reporting.php:73
 #: A2Billing_UI/call-daily-load.php:72 A2Billing_UI/call-unbilled.php:58
@@ -194,8 +205,8 @@ msgstr "Προορ"
 #: A2Billing_UI/A2B_entity_invoice_detail.php:407
 #: A2Billing_UI/A2B_entity_invoice_detail.php:494
 #: A2Billing_UI/call-comp.php:69 A2Billing_UI/invoices_customer.php:74
-#: A2Billing_UI/call-log-customers.php:83 A2Billing_UI/A2B_entity_call.php:74
-#: A2Billing_UI/A2B_entity_call.php:114 A2Billing_UI/invoices_agent.php:69
+#: A2Billing_UI/call-log-customers.php:83 A2Billing_UI/A2B_entity_call.php:83
+#: A2Billing_UI/A2B_entity_call.php:123 A2Billing_UI/invoices_agent.php:69
 #: A2Billing_UI/graph_stat.php:52
 #: A2Billing_UI/A2B_entity_ainvoice_detail.php:266
 #: A2Billing_UI/invoices_card.php:69 A2Billing_UI/invoices.php:87
@@ -203,48 +214,53 @@ msgstr "Προορ"
 msgid "Duration"
 msgstr "Διάρκεια"
 
-#: A2Billing_UI/call-stats.php:66
+#: A2Billing_UI/call-stats.php:77
 msgid "Answer to Seizure Ratio"
 msgstr "Λόγος Απαντημένων Κλήσεων"
 
-#: A2Billing_UI/call-stats.php:67 A2Billing_UI/call-log-customers.php:864
+#: A2Billing_UI/call-stats.php:78 A2Billing_UI/call-log-customers.php:864
 msgid "ASR"
 msgstr "ASR"
 
-#: A2Billing_UI/call-stats.php:70
+#: A2Billing_UI/call-stats.php:81
 msgid "Average Length of Calls"
 msgstr "Μέση διάρκεια Κλήσεων"
 
-#: A2Billing_UI/call-stats.php:71 A2Billing_UI/call-log-customers.php:863
+#: A2Billing_UI/call-stats.php:82 A2Billing_UI/call-log-customers.php:863
 msgid "ALOC"
 msgstr "ALOC"
 
-#: A2Billing_UI/call-stats.php:75 A2Billing_UI/call-unbilled.php:62
-#: A2Billing_UI/A2B_entity_call.php:89 A2Billing_UI/A2B_entity_call.php:135
+#: A2Billing_UI/call-stats.php:86 A2Billing_UI/call-unbilled.php:62
+#: A2Billing_UI/A2B_entity_call.php:98 A2Billing_UI/A2B_entity_call.php:144
 #: A2Billing_UI/invoices_agent.php:72 A2Billing_UI/invoices_card.php:72
 msgid "Bill"
 msgstr "Λογ/μός"
 
-#: A2Billing_UI/call-stats.php:76 A2Billing_UI/lib/invoice.php:88
+#: A2Billing_UI/call-stats.php:87 A2Billing_UI/lib/invoice.php:88
 #: A2Billing_UI/graph_statbar.php:65 A2Billing_UI/call-daily-load.php:86
 #: A2Billing_UI/call-unbilled.php:63
 #: A2Billing_UI/A2B_entity_invoice_detail.php:95 A2Billing_UI/call-comp.php:83
-#: A2Billing_UI/invoices_customer.php:80 A2Billing_UI/A2B_entity_call.php:90
-#: A2Billing_UI/A2B_entity_call.php:136 A2Billing_UI/graph_stat.php:66
+#: A2Billing_UI/invoices_customer.php:80 A2Billing_UI/A2B_entity_call.php:99
+#: A2Billing_UI/A2B_entity_call.php:145 A2Billing_UI/graph_stat.php:66
 #: A2Billing_UI/invoices.php:95 A2Billing_UI/call-last-month.php:51
 #: A2Billing_UI/A2B_call_archiving.php:47
 msgid "Cost"
 msgstr "Κόστος"
 
-#: A2Billing_UI/call-stats.php:78 A2Billing_UI/call-stats.php:97
+#: A2Billing_UI/call-stats.php:89 A2Billing_UI/call-stats.php:114
+#: A2Billing_UI/call-stats.php:126
 msgid "Per day calls"
 msgstr "Κλήσεις ανά ημέρα"
 
-#: A2Billing_UI/call-stats.php:85
+#: A2Billing_UI/call-stats.php:96 A2Billing_UI/call-stats.php:121
 msgid "Per destination calls"
 msgstr "Κλήσεις ανά προορισμό"
 
-#: A2Billing_UI/call-stats.php:91
+#: A2Billing_UI/call-stats.php:102
+msgid "Per agent calls"
+msgstr "Κλήσεις ανά μαγαζί"
+
+#: A2Billing_UI/call-stats.php:108
 #: A2Billing_UI/A2B_entity_agent_invoicev.php:36
 #: A2Billing_UI/lib/invoice.php:670
 #: A2Billing_UI/A2B_entity_view_invoice.php:35
@@ -257,6 +273,14 @@ msgstr "Κλήσεις ανά προορισμό"
 #: A2Billing_UI/invoices_card.php:36 A2Billing_UI/invoices_card.php:89
 msgid "Total"
 msgstr "Σύνολο"
+
+#: A2Billing_UI/call-stats.php:114
+msgid "Sum of Session time"
+msgstr "Σύνολο Χρόνου Συνεδρίας"
+
+#: A2Billing_UI/call-stats.php:116
+msgid "Sum of Session time "
+msgstr "Σύνολο Χρόνου Συνεδρίας"
 
 #: A2Billing_UI/A2B_entity_agent_invoicev.php:13
 msgid "Invoices for agents"
@@ -286,41 +310,35 @@ msgstr "Τιμολόγιο"
 #: A2Billing_UI/A2B_entity_provider.php:20
 #: A2Billing_UI/A2B_entity_sessions.php:24
 #: A2Billing_UI/A2B_entity_alarmrun.php:22
+#: A2Billing_UI/A2B_entity_subscrtem.php:53
 #: A2Billing_UI/A2B_entity_numplan.php:22
 #: A2Billing_UI/A2B_entity_numplan.php:36
+#: A2Billing_UI/A2B_entity_didgroup.php:21
 #: A2Billing_UI/A2B_entity_card_group.php:20
-#: A2Billing_UI/A2B_entity_booths.php:21 A2Billing_UI/A2B_entity_trunk.php:41
+#: A2Billing_UI/A2B_entity_booths.php:21 A2Billing_UI/A2B_entity_trunk.php:47
 #: A2Billing_UI/A2B_entity_alarm.php:29
 #: A2Billing_UI/A2B_entity_tariffplan.php:22
 #: A2Billing_UI/A2B_entity_card.php:28 A2Billing_UI/A2B_entity_sellrate.php:36
 #: A2Billing_UI/A2B_entity_retailplan.php:21
+#: A2Billing_UI/A2B_entity_did.php:22 A2Billing_UI/A2B_logfile.php:56
 #: A2Billing_UI/A2B_entity_callerid.php:20
+#: A2Billing_UI/A2B_entity_subscription.php:22
 #: A2Billing_UI/A2B_entity_server_group.php:19
-#: A2Billing_UI/A2B_entity_agent.php:22 A2Billing_UI/A2B_entity_call.php:106
-#: A2Billing_UI/A2B_entity_buyrate.php:32 A2Billing_UI/invoices_agent.php:26
-#: A2Billing_UI/A2B_entity_agentpay.php:23
+#: A2Billing_UI/A2B_entity_agent.php:22 A2Billing_UI/A2B_entity_call.php:115
+#: A2Billing_UI/A2B_entity_buyrate.php:32
+#: A2Billing_UI/A2B_entity_did_destination.php:22
+#: A2Billing_UI/invoices_agent.php:26 A2Billing_UI/A2B_entity_agentpay.php:23
 #: A2Billing_UI/A2B_entity_tariffgroup.php:20
 #: A2Billing_UI/invoices_card.php:26 A2Billing_UI/A2B_entity_mails.php:19
 #: A2Billing_UI/A2B_data_archiving.php:107
 #: A2Billing_UI/A2B_call_archiving.php:38 A2Billing_UI/A2B_currencies.php:22
 #: A2Billing_UI/A2B_entity_ast_usercfg.php:36
 #: A2Billing_UI/A2B_entity_config.php:20
-#: A2Billing_UI/A2B_entity_provision.php:21
-#: A2Billing_UI/A2B_entity_provision.php:39
+#: A2Billing_UI/A2B_entity_provision.php:22
+#: A2Billing_UI/A2B_entity_provision.php:43
 #: A2Billing_UI/A2B_entity_mailtemplate.php:18
 msgid "ID"
 msgstr "ID"
-
-#: A2Billing_UI/A2B_entity_agent_invoicev.php:26
-#: A2Billing_UI/A2B_entity_session_problems.php:29
-#: A2Billing_UI/agent-money.php:15 A2Billing_UI/A2B_entity_charge.php:26
-#: A2Billing_UI/A2B_entity_sessions.php:43 A2Billing_UI/call-unbilled.php:28
-#: A2Billing_UI/call-unbilled.php:67 A2Billing_UI/A2B_entity_card_group.php:23
-#: A2Billing_UI/A2B_entity_booths.php:25 A2Billing_UI/A2B_entity_agent.php:15
-#: A2Billing_UI/A2B_entity_agentpay.php:24 A2Billing_UI/Callshop_booths.php:18
-#: A2Billing_UI/Gen_invoice_agent.php:27
-msgid "Agent"
-msgstr "Πράκτορας"
 
 #: A2Billing_UI/A2B_entity_agent_invoicev.php:27
 #: A2Billing_UI/A2B_entity_view_invoice.php:26
@@ -420,8 +438,11 @@ msgstr "Πληρωμένο"
 #: A2Billing_UI/A2B_entity_alarmrun.php:35
 #: A2Billing_UI/A2B_entity_invoice_detail.php:370
 #: A2Billing_UI/A2B_entity_invoice_detail.php:746
-#: A2Billing_UI/A2B_entity_trunk.php:66 A2Billing_UI/invoices_customer.php:720
+#: A2Billing_UI/A2B_entity_trunk.php:73 A2Billing_UI/invoices_customer.php:720
 #: A2Billing_UI/A2B_entity_card.php:51 A2Billing_UI/A2B_entity_card.php:125
+#: A2Billing_UI/A2B_entity_did.php:32
+#: A2Billing_UI/A2B_entity_subscription.php:31
+#: A2Billing_UI/A2B_entity_did_destination.php:35
 #: A2Billing_UI/invoices_agent.php:54
 #: A2Billing_UI/A2B_entity_ainvoice_detail.php:157
 #: A2Billing_UI/invoices_card.php:54
@@ -778,13 +799,12 @@ msgstr ""
 "org</a>"
 
 #: A2Billing_UI/lib/defines.php:17
-#, fuzzy
 msgid "..:: Asterisk2Billing : CallingCard platform ::.."
 msgstr "Asterisk2Billing: Πλατφόρμα για τηλεφωνικές κάρτες"
 
 #: A2Billing_UI/lib/defines.php:18
 msgid "v2.0 beta - d wish"
-msgstr ""
+msgstr "v2.0 beta - θά'θελες.."
 
 #: A2Billing_UI/lib/A2B_invoice.php:5
 msgid "Connection charge for DID setup"
@@ -799,9 +819,8 @@ msgid "Subscription fee"
 msgstr "Πάγιο συνδρομής"
 
 #: A2Billing_UI/lib/A2B_invoice.php:8
-#, fuzzy
 msgid "Extra charge"
-msgstr "Επιπρόσθετα"
+msgstr "Πρόσθετες χρεώσεις"
 
 #: A2Billing_UI/lib/A2B_invoice.php:9
 msgid "Product Purchase"
@@ -857,8 +876,8 @@ msgstr "Ημ/νία κλήσης"
 #: A2Billing_UI/lib/invoice.php:80
 #: A2Billing_UI/A2B_entity_invoice_detail.php:86
 #: A2Billing_UI/invoices_customer.php:71
-#: A2Billing_UI/call-log-customers.php:80 A2Billing_UI/A2B_entity_call.php:92
-#: A2Billing_UI/A2B_entity_call.php:138 A2Billing_UI/invoices.php:84
+#: A2Billing_UI/call-log-customers.php:80 A2Billing_UI/A2B_entity_call.php:101
+#: A2Billing_UI/A2B_entity_call.php:147 A2Billing_UI/invoices.php:84
 msgid "Source"
 msgstr "Πηγή"
 
@@ -878,15 +897,18 @@ msgstr ""
 #: A2Billing_UI/A2B_entity_user.php:23
 #: A2Billing_UI/A2B_entity_speeddial.php:26
 #: A2Billing_UI/A2B_entity_provider.php:22
+#: A2Billing_UI/A2B_entity_subscrtem.php:55
 #: A2Billing_UI/A2B_entity_numplan.php:24
 #: A2Billing_UI/A2B_entity_numplan.php:39
 #: A2Billing_UI/A2B_entity_invoice_detail.php:346
+#: A2Billing_UI/A2B_entity_didgroup.php:23
 #: A2Billing_UI/A2B_entity_card_group.php:22
 #: A2Billing_UI/A2B_entity_booths.php:22
 #: A2Billing_UI/invoices_customer.php:370
 #: A2Billing_UI/invoices_customer.php:781 A2Billing_UI/A2B_entity_alarm.php:30
 #: A2Billing_UI/A2B_entity_tariffplan.php:24
 #: A2Billing_UI/A2B_entity_retailplan.php:23
+#: A2Billing_UI/A2B_entity_did.php:24
 #: A2Billing_UI/A2B_entity_server_group.php:21
 #: A2Billing_UI/A2B_entity_agent.php:24 A2Billing_UI/invoices_agent.php:110
 #: A2Billing_UI/A2B_entity_ainvoice_detail.php:137
@@ -894,8 +916,8 @@ msgstr ""
 #: A2Billing_UI/A2B_currencies.php:25
 #: A2Billing_UI/A2B_entity_ast_usercfg.php:38
 #: A2Billing_UI/A2B_entity_config.php:22
-#: A2Billing_UI/A2B_entity_provision.php:26
-#: A2Billing_UI/A2B_entity_provision.php:40
+#: A2Billing_UI/A2B_entity_provision.php:27
+#: A2Billing_UI/A2B_entity_provision.php:44
 msgid "Name"
 msgstr "Όνομα"
 
@@ -960,9 +982,10 @@ msgstr "DID"
 msgid "Charge Date"
 msgstr "Ημερομηνία Χρέωσης"
 
-#: A2Billing_UI/lib/invoice.php:529
+#: A2Billing_UI/lib/invoice.php:529 A2Billing_UI/CC_sim_didengine.php:22
 #: A2Billing_UI/A2B_entity_invoice_detail.php:580
-#: A2Billing_UI/PP_menu.inc.php:185 A2Billing_UI/A2B_entity_did_import.php:259
+#: A2Billing_UI/PP_menu.inc.php:187 A2Billing_UI/A2B_entity_did_import.php:259
+#: A2Billing_UI/A2B_entity_did_destination.php:24
 msgid "DID"
 msgstr "DID"
 
@@ -980,7 +1003,7 @@ msgstr "Χώρα"
 #: A2Billing_UI/A2B_entity_invoice_detail.php:582
 #: A2Billing_UI/A2B_entity_invoice_detail.php:656
 #: A2Billing_UI/card-history.php:44 A2Billing_UI/A2B_entity_tariffplan.php:25
-#: A2Billing_UI/A2B_entity_retailplan.php:24
+#: A2Billing_UI/A2B_entity_retailplan.php:24 A2Billing_UI/A2B_logfile.php:62
 #: A2Billing_UI/A2B_entity_server_group.php:22
 #: A2Billing_UI/A2B_entity_agentpay.php:36
 #: A2Billing_UI/A2B_entity_ainvoice_detail.php:346
@@ -1066,9 +1089,8 @@ msgstr ""
 #: A2Billing_UI/graph_statbar.php:55 A2Billing_UI/call-daily-load.php:76
 #: A2Billing_UI/call-comp.php:73 A2Billing_UI/graph_stat.php:56
 #: A2Billing_UI/call-last-month.php:49 A2Billing_UI/A2B_call_archiving.php:45
-#, fuzzy
 msgid "IAX/SIP"
-msgstr "IAX SIP"
+msgstr "IAX/SIP"
 
 #: A2Billing_UI/graph_statbar.php:64 A2Billing_UI/call-daily-load.php:85
 #: A2Billing_UI/call-comp.php:82 A2Billing_UI/graph_stat.php:65
@@ -1101,15 +1123,18 @@ msgid "Problem"
 msgstr "Πρόβλημα"
 
 #: A2Billing_UI/A2B_entity_session_problems.php:26
-#: A2Billing_UI/A2B_entity_call.php:64 A2Billing_UI/A2B_entity_call.php:108
+#: A2Billing_UI/A2B_entity_call.php:70 A2Billing_UI/A2B_entity_call.php:117
 msgid "Start Time"
 msgstr "Ώρα έναρξης"
 
 #: A2Billing_UI/A2B_entity_session_problems.php:28
 #: A2Billing_UI/A2B_entity_view_invoice.php:25
-#: A2Billing_UI/A2B_entity_charge.php:22
+#: A2Billing_UI/A2B_entity_charge.php:22 A2Billing_UI/CC_sim_didengine.php:53
 #: A2Billing_UI/A2B_entity_astuser.php:24
-#: A2Billing_UI/A2B_entity_sessions.php:31 A2Billing_UI/A2B_entity_call.php:67
+#: A2Billing_UI/A2B_entity_sessions.php:31
+#: A2Billing_UI/A2B_entity_subscription.php:24
+#: A2Billing_UI/A2B_entity_call.php:73
+#: A2Billing_UI/A2B_entity_did_destination.php:27
 msgid "Card"
 msgstr "Κάρτα"
 
@@ -1138,7 +1163,7 @@ msgstr "Πλήκτρο"
 
 #: A2Billing_UI/A2B_entity_config_generate_confirm.php:80
 #: A2Billing_UI/A2B_currencies.php:26 A2Billing_UI/A2B_entity_config.php:24
-#: A2Billing_UI/A2B_entity_provision.php:42
+#: A2Billing_UI/A2B_entity_provision.php:46
 msgid "Value"
 msgstr "Τιμή"
 
@@ -1192,7 +1217,7 @@ msgstr ""
 
 #: A2Billing_UI/A2B_entity_def_ratecard.php:205
 #: A2Billing_UI/A2B_entity_def_ratecard.php:440
-#: A2Billing_UI/PP_menu.inc.php:137
+#: A2Billing_UI/PP_menu.inc.php:138
 msgid "RATECARD"
 msgstr "ΤΙΜΟΚΑΤΑΛΟΓΟΣ"
 
@@ -1394,54 +1419,49 @@ msgid "Line that has not been inserted!"
 msgstr "Γραμμή όχι!"
 
 #: A2Billing_UI/A2B_entity_re_numplan.php:13
+#, fuzzy
 msgid ""
 "Reverse numplans are sets of rules that define the callerid of our customers "
 "on an outgoing call."
-msgstr ""
+msgstr "Αντιστροφή από από."
 
 #: A2Billing_UI/A2B_entity_re_numplan.php:15
-#, fuzzy
 msgid "Reverse Numplans"
-msgstr "Σχέδια αριθμοδότησης"
+msgstr "Ανάστροφη Αριθμοδότηση"
 
 #: A2Billing_UI/A2B_entity_re_numplan.php:15
-#, fuzzy
 msgid "Reverse Numplan"
-msgstr "Σχέδιο"
+msgstr "Σχέδιο Ανάστροφης αριθμοδότησης"
 
 #: A2Billing_UI/A2B_entity_re_numplan.php:24
 #: A2Billing_UI/A2B_entity_numplan.php:24
 #: A2Billing_UI/A2B_entity_card_group.php:22
-#: A2Billing_UI/A2B_entity_provision.php:26
-#, fuzzy
+#: A2Billing_UI/A2B_entity_provision.php:27
 msgid "Name of group"
-msgstr "Όνομα από ομάδα"
+msgstr "Όνομα ομάδας"
 
 #: A2Billing_UI/A2B_entity_re_numplan.php:28
 #: A2Billing_UI/A2B_entity_numplan.php:32
 #: A2Billing_UI/A2B_entity_card_group.php:26
-#, fuzzy
 msgid "Pattern"
 msgstr "Μοτίβο"
 
 #: A2Billing_UI/A2B_entity_re_numplan.php:33
 msgid "Forward numplan"
-msgstr ""
+msgstr "Ευθεία αριθμοδότηση"
 
 #: A2Billing_UI/A2B_entity_re_numplan.php:33
 msgid ""
 "If set, this pattern will only apply to calls originating from cards in that "
 "numplan."
-msgstr ""
+msgstr "Αν οριστεί, το μοτίβο αυτό θα ισχύει μόνο για κλήσεις που εκκινούνται σε αυτό το σχέδιο αριθμοδότησης."
 
 #: A2Billing_UI/A2B_entity_re_numplan.php:34
-#, fuzzy
 msgid "F Nplan"
-msgstr "Προσθήκη"
+msgstr "Ε. Σχέδιο"
 
 #: A2Billing_UI/A2B_entity_re_numplan.php:35
 #: A2Billing_UI/A2B_entity_numplan.php:37
-#, fuzzy
 msgid "Find"
 msgstr "Εύρεση"
 
@@ -1449,7 +1469,7 @@ msgstr "Εύρεση"
 msgid ""
 "Prefix of outgoing number to match. This will match the <b>translated</b> "
 "string by the forward numplan."
-msgstr ""
+msgstr "Πρόθεμα εξερχόμενου αριθμού. Αυτό θα ταιριάξει το <b>μορφοποιημένο</b> κειμενίδιο κλήσης του σχεδίου αριθμοδότησης."
 
 #: A2Billing_UI/A2B_entity_re_numplan.php:36
 #: A2Billing_UI/A2B_entity_numplan.php:38
@@ -1460,13 +1480,23 @@ msgstr "Αντικατάσταση"
 msgid ""
 "String to replace the match prefix with. It may include special strings like "
 "%useralias, %nplan etc. See manual."
-msgstr ""
+msgstr "Κειμενίδιο αντικατάστασης. Επιτρέπεται να περιέχει εκφράσεις όπως %useralias, %nplan κλπ. Βλ. εγχειρίδιο."
 
 #: A2Billing_UI/A2B_entity_re_numplan.php:37
 #: A2Billing_UI/A2B_entity_numplan.php:39
-#, fuzzy
 msgid "Name of pattern"
-msgstr "Όνομα από μοτίβο"
+msgstr "Όνομα μοτίβου"
+
+#: A2Billing_UI/A2B_entity_re_numplan.php:40
+#: A2Billing_UI/CC_sim_didengine.php:65
+#: A2Billing_UI/A2B_entity_didgroup.php:32
+msgid "Ring style"
+msgstr "Τύπος κουδουνισμού"
+
+#: A2Billing_UI/A2B_entity_re_numplan.php:40
+#: A2Billing_UI/A2B_entity_didgroup.php:32
+msgid "Selects the ring pattern to use on the phone being dialled."
+msgstr "Επιλέξτε τον τύπο κουδουνισμού που θα χρησιμοποιηθεί στο κληθέντα."
 
 #: A2Billing_UI/A2B_entity_charge.php:13
 msgid ""
@@ -1495,18 +1525,16 @@ msgid "From Agent"
 msgstr "Από Πράκτορα"
 
 #: A2Billing_UI/A2B_entity_charge.php:27
-#, fuzzy
 msgid "If checked, this charge was input by the agent, else by an admin."
-msgstr "~κατά ~κατά."
+msgstr "Αν επιλεγεί, η χρέωση αυτή καταχωρήθηκε από τον πράκτορα, αν όχι, από διαχειριστή."
 
 #: A2Billing_UI/A2B_entity_charge.php:28
-#, fuzzy
 msgid "Checked"
-msgstr "Συνδέθηκε"
+msgstr "Ελέγχθηκε"
 
 #: A2Billing_UI/A2B_entity_charge.php:28
 msgid "The user that accepted this charge"
-msgstr ""
+msgstr "Ο διαχρειριστής που επιβεβαίωσε τη χρέωση."
 
 #: A2Billing_UI/A2B_entity_charge.php:34
 msgid ""
@@ -1539,9 +1567,8 @@ msgid "Could not open buddy file"
 msgstr "Δεν μπορώ να ανοίξω το συμπληρωματικό αρχείο"
 
 #: A2Billing_UI/Gen_peer_cfgs.php:123 A2Billing_UI/Gen_peer_dplans.php:86
-#, fuzzy
 msgid "Cannot write to file!"
-msgstr "στο αρχείο!"
+msgstr "Δεν γίνεται εγγραφή στο αρχείο!"
 
 #: A2Billing_UI/Gen_peer_cfgs.php:148 A2Billing_UI/Gen_peer_dplans.php:135
 msgid "Success!"
@@ -1555,14 +1582,12 @@ msgid ""
 msgstr "για."
 
 #: A2Billing_UI/Gen_peer_cfgs.php:169 A2Billing_UI/Gen_peer_dplans.php:156
-#, fuzzy
 msgid "Server Group"
-msgstr "Εξυπηρετητής Ομάδα"
+msgstr "Ομάδα Εξυπηρετητών"
 
 #: A2Billing_UI/Gen_peer_cfgs.php:169 A2Billing_UI/Gen_peer_dplans.php:156
-#, fuzzy
 msgid "Generate configs for all servers in group."
-msgstr "Δημιουργία για όλα σε ομάδα."
+msgstr "Δημιουργία αρχείων ρυθμίσεων για όλους τους εξυπηρετητές της ομάδας."
 
 #: A2Billing_UI/Gen_peer_cfgs.php:170
 #, fuzzy
@@ -1606,9 +1631,8 @@ msgstr "Χρήση IAX"
 #: A2Billing_UI/Gen_cards.php:23 A2Billing_UI/Gen_invoice_card.php:27
 #: A2Billing_UI/CC_entity_sim_ratecard.php:22 A2Billing_UI/Gen_vouchers.php:20
 #: A2Billing_UI/Gen_booths.php:23
-#, fuzzy
 msgid "Card Group"
-msgstr "Κάρτα Ομάδα"
+msgstr "Ομάδα Κάρτών"
 
 #: A2Billing_UI/Gen_cards.php:23 A2Billing_UI/Gen_booths.php:23
 #, fuzzy
@@ -1666,12 +1690,10 @@ msgid ""
 "to initiate the callback and outbound a call to your customers. You can add/"
 "modify the callback server here that are going to be use here. The AGI and "
 "callback mode need to be install on those machine."
-msgstr ""
-"Εξυπηρετητής ~κατά σε στο και a στο Εσείς εδώ στο εδώ και κατάσταση στο "
-"εγκατάσταση."
+msgstr "Εξυπηρετητής ~κατά σε στο και a στο Εσείς εδώ στο εδώ και κατάσταση στο εγκατάσταση."
 
 #: A2Billing_UI/A2B_entity_server.php:13 A2Billing_UI/A2B_entity_user.php:43
-#: A2Billing_UI/PP_menu.inc.php:173
+#: A2Billing_UI/PP_menu.inc.php:175
 msgid "Servers"
 msgstr "Εξυπηρετητές"
 
@@ -1711,9 +1733,8 @@ msgid "Username of manager for that host"
 msgstr "Όνομα χρήστη από για Κόμβος"
 
 #: A2Billing_UI/A2B_entity_server.php:27
-#, fuzzy
 msgid "Secret"
-msgstr "Μυστικό"
+msgstr "Κωδικός"
 
 #: A2Billing_UI/A2B_entity_server.php:28
 #, fuzzy
@@ -1726,6 +1747,121 @@ msgid ""
 "The database username used by this host. This field must match the "
 "connection settings of the asterisk realtime."
 msgstr "βάση δεδομένων όνομα χρήστη ~κατά Κόμβος Ταιριάζω από."
+
+#: A2Billing_UI/CC_sim_didengine.php:14
+#, fuzzy
+msgid ""
+"Simulate DID engine behaviour: this page will assist you in debugging which "
+"number will be called when some DID call comes in."
+msgstr "Προσομείωση DID σελίδα σε μερικές DID σε."
+
+#: A2Billing_UI/CC_sim_didengine.php:22
+#, fuzzy
+msgid "Put here the string asterisk would deliver to the DID engine."
+msgstr "εδώ συμβολοσειρά στο DID."
+
+#: A2Billing_UI/CC_sim_didengine.php:23
+msgid "Cod"
+msgstr ""
+
+#: A2Billing_UI/CC_sim_didengine.php:23
+#, fuzzy
+msgid ""
+"If you are using 'codes' to differentiate DIDs, put here the code by which "
+"the AGI would be called."
+msgstr "στο εδώ ~κατά."
+
+#: A2Billing_UI/CC_sim_didengine.php:24
+#: A2Billing_UI/CC_entity_sim_ratecard.php:24
+#: A2Billing_UI/invoices_card.php:66
+#, fuzzy
+msgid "Time"
+msgstr "Χρόνος"
+
+#: A2Billing_UI/CC_sim_didengine.php:24
+#: A2Billing_UI/CC_entity_sim_ratecard.php:24
+#, fuzzy
+msgid ""
+"The date/time the call is supposed to take place. This helps us predict "
+"tomorrow's rates"
+msgstr "ημερομηνία διάρκεια είναι στο αύριο s"
+
+#: A2Billing_UI/CC_sim_didengine.php:47
+#: A2Billing_UI/CC_entity_sim_ratecard.php:40
+#, fuzzy
+msgid "Calculate!"
+msgstr "Υπολόγισε!"
+
+#: A2Billing_UI/CC_sim_didengine.php:49
+#, fuzzy
+msgid "No DIDs found!"
+msgstr "Όχι!"
+
+#: A2Billing_UI/CC_sim_didengine.php:52
+#: A2Billing_UI/CC_entity_sim_ratecard.php:23
+#: A2Billing_UI/CC_entity_sim_ratecard.php:44
+#, fuzzy
+msgid "Dial"
+msgstr "Κλήση"
+
+#: A2Billing_UI/CC_sim_didengine.php:54 A2Billing_UI/CC_sim_didengine.php:75
+#: A2Billing_UI/CC_entity_sim_ratecard.php:60
+#, fuzzy
+msgid "Information about the buy rate:"
+msgstr "Πληροφορίες:"
+
+#: A2Billing_UI/CC_sim_didengine.php:56 A2Billing_UI/A2B_entity_numplan.php:15
+msgid "Numplan"
+msgstr "Σχέδιο"
+
+#: A2Billing_UI/CC_sim_didengine.php:59 A2Billing_UI/PP_menu.inc.php:189
+#, fuzzy
+msgid "DID Group"
+msgstr "DID Ομάδα"
+
+#: A2Billing_UI/CC_sim_didengine.php:60
+#, fuzzy
+msgid "DGrp"
+msgstr "Ομάδα"
+
+#: A2Billing_UI/CC_sim_didengine.php:62
+#, fuzzy
+msgid "Tariff Group"
+msgstr "Τιμολόγιο Ομάδα"
+
+#: A2Billing_UI/CC_sim_didengine.php:63
+#, fuzzy
+msgid "TGrp"
+msgstr "Ομάδα"
+
+#: A2Billing_UI/CC_sim_didengine.php:66
+#, fuzzy
+msgid "Ring"
+msgstr "Δαχτυλίδι"
+
+#: A2Billing_UI/CC_sim_didengine.php:72
+#: A2Billing_UI/CC_entity_sim_ratecard.php:55
+#: A2Billing_UI/A2B_entity_trunk.php:50
+#: A2Billing_UI/A2B_entity_tariffplan.php:26
+#: A2Billing_UI/A2B_entity_retailplan.php:25
+#: A2Billing_UI/A2B_entity_did.php:43 A2Billing_UI/A2B_entity_provision.php:30
+#: A2Billing_UI/A2B_entity_provision.php:47
+#, fuzzy
+msgid "Metric"
+msgstr "Μετρική"
+
+#: A2Billing_UI/CC_sim_didengine.php:73
+#: A2Billing_UI/CC_entity_sim_ratecard.php:56
+#, fuzzy
+msgid "M"
+msgstr "M"
+
+#: A2Billing_UI/CC_sim_didengine.php:74
+#: A2Billing_UI/call-count-reporting.php:74
+#: A2Billing_UI/CC_entity_sim_ratecard.php:57
+#: A2Billing_UI/call-log-customers.php:88
+msgid "Buy"
+msgstr ""
 
 #: A2Billing_UI/CC_phonelist_import_analyse.php:20
 #, fuzzy
@@ -1965,6 +2101,11 @@ msgstr "Δικαιώματα"
 
 #: A2Billing_UI/A2B_entity_user.php:48
 #, fuzzy
+msgid "Read Only"
+msgstr "Μόνο για ανάγνωση"
+
+#: A2Billing_UI/A2B_entity_user.php:49
+#, fuzzy
 msgid "Direction"
 msgstr "Κατεύθυνση"
 
@@ -2038,13 +2179,8 @@ msgstr "ΔΙΑΡΚΕΙΑ ΚΛΗΣΗ"
 msgid "seconds"
 msgstr "δευτερόλεπτα"
 
-#: A2Billing_UI/call-count-reporting.php:74
-#: A2Billing_UI/CC_entity_sim_ratecard.php:57
-#: A2Billing_UI/call-log-customers.php:88
-msgid "Buy"
-msgstr ""
-
 #: A2Billing_UI/call-count-reporting.php:75
+#: A2Billing_UI/A2B_entity_didgroup.php:29
 #: A2Billing_UI/CC_entity_sim_ratecard.php:49
 #: A2Billing_UI/call-log-customers.php:89
 msgid "Sell"
@@ -2095,7 +2231,7 @@ msgstr ""
 #: A2Billing_UI/A2B_call_archiving.php:393
 #, fuzzy
 msgid "Answered Calls"
-msgstr "Κλήσεις"
+msgstr "Απαντημένες Κλήσεις"
 
 #: A2Billing_UI/call-count-reporting.php:417
 #: A2Billing_UI/call-log-customers.php:602
@@ -2254,8 +2390,7 @@ msgstr ""
 
 #: A2Billing_UI/CC_phonelist_import.php:252
 #, fuzzy
-msgid ""
-"Use the example below to format the CSV file. Fields are separated by ; or :"
+msgid "Use the example below to format the CSV file. Fields are separated by ; or :"
 msgstr "Χρήση παράδειγμα στο CSV αρχείο Πεδία ~κατά ή:"
 
 #: A2Billing_UI/CC_phonelist_import.php:253
@@ -2303,8 +2438,8 @@ msgstr "Κλήση Σχέδιο"
 
 #: A2Billing_UI/call-daily-load.php:291
 #: A2Billing_UI/A2B_entity_provider.php:12
-#: A2Billing_UI/A2B_entity_trunk.php:43 A2Billing_UI/call-comp.php:294
-#: A2Billing_UI/call-log-customers.php:400
+#: A2Billing_UI/A2B_entity_trunk.php:49 A2Billing_UI/call-comp.php:294
+#: A2Billing_UI/A2B_entity_did.php:42 A2Billing_UI/call-log-customers.php:400
 #: A2Billing_UI/A2B_entity_invoices2_sales.php:332
 #: A2Billing_UI/invoices.php:384 A2Billing_UI/call-last-month.php:250
 #: A2Billing_UI/A2B_call_archiving.php:196
@@ -2440,8 +2575,8 @@ msgstr "SIP IAX για."
 msgid "Users"
 msgstr "Χρήστες"
 
-#: A2Billing_UI/A2B_entity_astuser.php:15
-#: A2Billing_UI/A2B_entity_instance.php:30
+#: A2Billing_UI/A2B_entity_astuser.php:15 A2Billing_UI/A2B_logfile.php:30
+#: A2Billing_UI/A2B_logfile.php:58 A2Billing_UI/A2B_entity_instance.php:30
 msgid "User"
 msgstr "Χρήστης"
 
@@ -2507,33 +2642,116 @@ msgstr "Όνομα B"
 msgid "Override asterisk username, so that a second device can be registered"
 msgstr "Δεύτερο όνομα χρήστη, για να καταχωρείται δεύτερη συσκευή."
 
-#: A2Billing_UI/A2B_entity_astuser.php:36
+#: A2Billing_UI/A2B_entity_astuser.php:37
 msgid "Secret B"
 msgstr "Κωδικός B"
 
-#: A2Billing_UI/A2B_entity_astuser.php:36
+#: A2Billing_UI/A2B_entity_astuser.php:37
 msgid ""
 "Override asterisk secret from card/booth, so that a second device can be "
 "registered"
 msgstr "Δεύτερος κωδικός που θα χρησιμοποιεί η δεύτερη συσκευή."
 
-#: A2Billing_UI/A2B_entity_astuser.php:37
+#: A2Billing_UI/A2B_entity_astuser.php:38
 msgid "Callerid B"
 msgstr "Callerid B"
 
-#: A2Billing_UI/A2B_entity_astuser.php:37
+#: A2Billing_UI/A2B_entity_astuser.php:38
 #, fuzzy
 msgid "Override callerid."
 msgstr "συμβολοσειρά."
 
-#: A2Billing_UI/A2B_entity_astuser.php:39
+#: A2Billing_UI/A2B_entity_astuser.php:40
 msgid "From user"
 msgstr "Από χρήστη"
 
-#: A2Billing_UI/A2B_entity_astuser.php:39
+#: A2Billing_UI/A2B_entity_astuser.php:40
 #, fuzzy
 msgid "Override user string."
 msgstr "συμβολοσειρά."
+
+#: A2Billing_UI/A2B_entity_astuser.php:42
+#: A2Billing_UI/A2B_entity_ast_usercfg.php:73
+#, fuzzy
+msgid "Call group"
+msgstr "Κλήση ομάδα"
+
+#: A2Billing_UI/A2B_entity_astuser.php:42
+#: A2Billing_UI/A2B_entity_ast_usercfg.php:73
+msgid "When this device is called, set the call group so that others can pick it up."
+msgstr "Όταν κληθεί αυτή η συσκευή, η ομάδα ορίζει ποιοί μπορούν να σηκώσουν την κλήση."
+
+#: A2Billing_UI/A2B_entity_astuser.php:43
+#: A2Billing_UI/A2B_entity_ast_usercfg.php:74
+#, fuzzy
+msgid "Pickup group"
+msgstr "ομάδα"
+
+#: A2Billing_UI/A2B_entity_astuser.php:43
+#: A2Billing_UI/A2B_entity_ast_usercfg.php:74
+#, fuzzy
+msgid "Allow this device to pick up calls made to those groups."
+msgstr "Επιτρέπονται συσκευή στο πάνω κλήσεις στο."
+
+#: A2Billing_UI/A2B_entity_astuser.php:45
+#, fuzzy
+msgid "Device Model"
+msgstr "Συσκευή Μοντέλο"
+
+#: A2Billing_UI/A2B_entity_astuser.php:45
+#, fuzzy
+msgid "Provision model of device."
+msgstr "Ρήτρα από συσκευή."
+
+#: A2Billing_UI/A2B_entity_astuser.php:46
+#, fuzzy
+msgid "MAC"
+msgstr "MAC"
+
+#: A2Billing_UI/A2B_entity_astuser.php:46
+#, fuzzy
+msgid "MAC address of provisioned device."
+msgstr "MAC διεύθυνση από συσκευή."
+
+#: A2Billing_UI/A2B_entity_astuser.php:47
+#, fuzzy
+msgid "D Secret"
+msgstr "D Μυστικό"
+
+#: A2Billing_UI/A2B_entity_astuser.php:47
+#, fuzzy
+msgid "Device secret, provision safety."
+msgstr "Συσκευή μυστικό."
+
+#: A2Billing_UI/A2B_entity_astuser.php:48
+#, fuzzy
+msgid "Provision Name"
+msgstr "Ρήτρα Όνομα"
+
+#: A2Billing_UI/A2B_entity_astuser.php:48
+#, fuzzy
+msgid "Provisioned name (display text)"
+msgstr "όνομα κείμενο"
+
+#: A2Billing_UI/A2B_entity_astuser.php:50
+#, fuzzy
+msgid "Provision Num"
+msgstr "Ρήτρα"
+
+#: A2Billing_UI/A2B_entity_astuser.php:50
+#, fuzzy
+msgid "Provision configuration number"
+msgstr "Ρήτρα"
+
+#: A2Billing_UI/A2B_entity_astuser.php:51
+#, fuzzy
+msgid "Last provisioned"
+msgstr "Τελευταίο"
+
+#: A2Billing_UI/A2B_entity_astuser.php:51
+#, fuzzy
+msgid "Last provision timestamp"
+msgstr "Τελευταίο"
 
 #: A2Billing_UI/A2B_entity_speeddial.php:13
 #, fuzzy
@@ -2541,7 +2759,7 @@ msgid ""
 "Speed Dial <br> This section allows you to define the Speed dials for the "
 "customer. A Speed Dial will be entered on the IVR in order to make a "
 "shortcut to their preferred dialed phone number."
-msgstr "A Ταχύτητα Κλήση σε στο a στο."
+msgstr "Ταχύτητα Κλήση<br> τμήμα στο Ταχύτητα για A Ταχύτητα Κλήση σε στο a στο."
 
 #: A2Billing_UI/A2B_entity_speeddial.php:15
 #, fuzzy
@@ -2557,11 +2775,12 @@ msgstr "Ταχείες Κλήσεις"
 #: A2Billing_UI/A2B_entity_speeddial.php:25
 #, fuzzy
 msgid "Enter the phone number for the speed dial."
-msgstr "νέο."
+msgstr "Εισαγωγή για."
 
 #: A2Billing_UI/A2B_entity_speeddial.php:26
+#, fuzzy
 msgid "Enter the name or label that will identify this speed dial."
-msgstr ""
+msgstr "Εισαγωγή όνομα ή ετικέτα."
 
 #: A2Billing_UI/A2B_entity_speeddial.php:30
 #: A2Billing_UI/A2B_entity_callerid.php:22
@@ -2572,22 +2791,26 @@ msgstr "Αριθμός Κάρτας"
 #: A2Billing_UI/A2B_entity_speeddial.php:33
 #: A2Billing_UI/A2B_entity_invoices2_bill.php:150
 #: A2Billing_UI/A2B_entity_callerid.php:25
-#: A2Billing_UI/A2B_entity_voucher.php:40 A2Billing_UI/A2B_entity_call.php:58
+#: A2Billing_UI/A2B_entity_voucher.php:40 A2Billing_UI/A2B_entity_call.php:64
 #, fuzzy
 msgid "Card ID"
 msgstr "Κάρτα ID"
 
 #: A2Billing_UI/A2B_entity_speeddial.php:34
+#, fuzzy
 msgid "Information about the card holder :"
-msgstr ""
+msgstr "Πληροφορίες:"
 
 #: A2Billing_UI/A2B_entity_speeddial.php:37
 #: A2Billing_UI/A2B_entity_alarmrun.php:24 A2Billing_UI/A2B_entity_card.php:54
+#: A2Billing_UI/A2B_entity_did.php:51
+#: A2Billing_UI/A2B_entity_subscription.php:34
+#: A2Billing_UI/A2B_entity_did_destination.php:38
 msgid "Creation date"
 msgstr "Ημερομηνία δημιουργίας"
 
 #: A2Billing_UI/A2B_entity_speeddial.php:37
-#: A2Billing_UI/A2B_entity_card.php:54
+#: A2Billing_UI/A2B_entity_card.php:54 A2Billing_UI/A2B_entity_did.php:51
 #, fuzzy
 msgid "Date the card was created (entered into this system)"
 msgstr "Ημερομηνία"
@@ -2597,7 +2820,7 @@ msgstr "Ημερομηνία"
 msgid "Providers are the companies that offer us trunks."
 msgstr "Προμηθευτές."
 
-#: A2Billing_UI/A2B_entity_provider.php:12 A2Billing_UI/PP_menu.inc.php:178
+#: A2Billing_UI/A2B_entity_provider.php:12 A2Billing_UI/PP_menu.inc.php:180
 msgid "Providers"
 msgstr "Προμηθευτές"
 
@@ -2606,9 +2829,7 @@ msgstr "Προμηθευτές"
 msgid ""
 "Callshop essions. Each session starts when the customer enters a booth and "
 "ends when he leaves (preferably having paid the account)."
-msgstr ""
-"Συνεδρίες. Κάθε μια ξεκινάει όταν ο πελάτης έρχεται στο θάλαμο και τελειώνει "
-"όταν ο πελάτης φεύγει από το μαγαζί (έχοντας εξοφλήσει το λογαριασμό)."
+msgstr "Συνεδρίες. Κάθε μια ξεκινάει όταν ο πελάτης έρχεται στο θάλαμο και τελειώνει όταν ο πελάτης φεύγει από το μαγαζί (έχοντας εξοφλήσει το λογαριασμό)."
 
 #: A2Billing_UI/A2B_entity_sessions.php:16 A2Billing_UI/PP_menu.inc.php:112
 #, fuzzy
@@ -2627,16 +2848,17 @@ msgstr "Τέλος"
 
 #: A2Billing_UI/A2B_entity_sessions.php:28
 #: A2Billing_UI/A2B_entity_alarm.php:34 A2Billing_UI/A2B_entity_card.php:68
-#: A2Billing_UI/invoices_card.php:111 A2Billing_UI/A2B_entity_mails.php:31
+#: A2Billing_UI/invoices_card.php:111 A2Billing_UI/A2B_entity_mails.php:35
 msgid "State"
 msgstr "Κατάσταση"
 
-#: A2Billing_UI/A2B_entity_sessions.php:34 A2Billing_UI/A2B_entity_call.php:96
+#: A2Billing_UI/A2B_entity_sessions.php:34
+#: A2Billing_UI/A2B_entity_call.php:105
 msgid "Details"
 msgstr "Λεπτομέρειες"
 
-#: A2Billing_UI/call-unbilled.php:59 A2Billing_UI/A2B_entity_call.php:75
-#: A2Billing_UI/A2B_entity_call.php:115 A2Billing_UI/invoices_agent.php:70
+#: A2Billing_UI/call-unbilled.php:59 A2Billing_UI/A2B_entity_call.php:84
+#: A2Billing_UI/A2B_entity_call.php:124 A2Billing_UI/invoices_agent.php:70
 #: A2Billing_UI/invoices_card.php:70
 msgid "Dur"
 msgstr "Διαρ."
@@ -2713,19 +2935,20 @@ msgid "TOTAL TOPAY"
 msgstr "ΣΥΝΟΛΟ"
 
 #: A2Billing_UI/A2B_entity_alarmrun.php:11
+#, fuzzy
 msgid "Data from run or pending alarms."
-msgstr ""
+msgstr "Δεδομένα από ή."
 
-#: A2Billing_UI/A2B_entity_alarmrun.php:13 A2Billing_UI/PP_menu.inc.php:233
+#: A2Billing_UI/A2B_entity_alarmrun.php:13 A2Billing_UI/PP_menu.inc.php:234
 #, fuzzy
 msgid "Alarm Data"
-msgstr "Από Ημερομηνία"
+msgstr "Ειδοποίηση Δεδομένα"
 
 #: A2Billing_UI/A2B_entity_alarmrun.php:23
 #: A2Billing_UI/A2B_entity_alarm.php:11
 #, fuzzy
 msgid "Alarm"
-msgstr "Προσθήκη Ειδοποίηση"
+msgstr "Ειδοποίηση"
 
 #: A2Billing_UI/A2B_entity_alarmrun.php:24
 #: A2Billing_UI/A2B_entity_booths.php:27
@@ -2736,44 +2959,48 @@ msgstr "Δημιουργία"
 #: A2Billing_UI/A2B_entity_alarmrun.php:25
 #, fuzzy
 msgid "Modify"
-msgstr "Κατάσταση"
+msgstr "Τροποποίηση"
 
 #: A2Billing_UI/A2B_entity_alarmrun.php:25
+#, fuzzy
 msgid "Last modification date"
-msgstr ""
+msgstr "Τελευταίο ημερομηνία"
 
 #: A2Billing_UI/A2B_entity_alarmrun.php:28
 #, fuzzy
 msgid "Unknown"
-msgstr "Άγνωστο:"
+msgstr "Άγνωστο"
 
 #: A2Billing_UI/A2B_entity_alarmrun.php:29
 #, fuzzy
 msgid "Run"
-msgstr "Αποζημίωση"
+msgstr "Εκτέλεση"
 
 #: A2Billing_UI/A2B_entity_alarmrun.php:30
+#, fuzzy
 msgid "Failed to run"
-msgstr ""
+msgstr "Απέτυχε στο"
 
 #: A2Billing_UI/A2B_entity_alarmrun.php:31
 #, fuzzy
 msgid "Raised Error"
-msgstr "σφάλμα στη βάση δεδομένων"
+msgstr "Σφάλμα"
 
 #: A2Billing_UI/A2B_entity_alarmrun.php:32
+#, fuzzy
 msgid "Request to run"
-msgstr ""
+msgstr "Ζήτηση στο"
 
 #: A2Billing_UI/A2B_entity_alarmrun.php:33
+#, fuzzy
 msgid "Auto-ceased"
-msgstr ""
+msgstr "Αυτόματο"
 
 #: A2Billing_UI/A2B_entity_alarmrun.php:38
 #: A2Billing_UI/A2B_entity_alarm.php:36
 #, fuzzy
 msgid "Parameters"
-msgstr "Πληρωμές"
+msgstr "Παράμετροι"
 
 #: A2Billing_UI/CC_card_import.php:204
 #, fuzzy
@@ -3015,14 +3242,97 @@ msgstr "Σύνθετο Δείγμα"
 msgid "Simple Sample"
 msgstr "Απλή Δείγμα"
 
+#: A2Billing_UI/A2B_entity_subscrtem.php:13
+#, fuzzy
+msgid "Templates for subscription services."
+msgstr "Πρότυπα για."
+
+#: A2Billing_UI/A2B_entity_subscrtem.php:18
+#, fuzzy
+msgid "All"
+msgstr "Όλα"
+
+#: A2Billing_UI/A2B_entity_subscrtem.php:19
+#, fuzzy
+msgid "Generic only"
+msgstr "Γενικό"
+
+#: A2Billing_UI/A2B_entity_subscrtem.php:20
+#, fuzzy
+msgid "Features"
+msgstr "Χαρακτηριστικά"
+
+#: A2Billing_UI/A2B_entity_subscrtem.php:24
+#: A2Billing_UI/A2B_entity_provision.php:24
+#, fuzzy
+msgid "Category"
+msgstr "Κατηγορία"
+
+#: A2Billing_UI/A2B_entity_subscrtem.php:24
+#, fuzzy
+msgid "Select the category of templates."
+msgstr "Επιλογή από."
+
+#: A2Billing_UI/A2B_entity_subscrtem.php:27
+#: A2Billing_UI/A2B_entity_mailtemplate.php:11
+#, fuzzy
+msgid "Templates"
+msgstr "Πρότυπα"
+
+#: A2Billing_UI/A2B_entity_subscrtem.php:27
+#: A2Billing_UI/A2B_entity_did_destination.php:28
+#: A2Billing_UI/A2B_entity_mailtemplate.php:11
+#, fuzzy
+msgid "Template"
+msgstr "Πρότυπο"
+
+#: A2Billing_UI/A2B_entity_subscrtem.php:55
+msgid "Internal name"
+msgstr "Εσωτερικό όνομα"
+
+#: A2Billing_UI/A2B_entity_subscrtem.php:56 A2Billing_UI/A2B_entity_did.php:25
+#: A2Billing_UI/A2B_entity_tariffgroup.php:23
+msgid "Public Name"
+msgstr "Δημόσιο Όνομα"
+
+#: A2Billing_UI/A2B_entity_subscrtem.php:56 A2Billing_UI/A2B_entity_did.php:25
+#: A2Billing_UI/A2B_entity_tariffgroup.php:23
+#, fuzzy
+msgid ""
+"Public name is displayed to customers, agents. You may want it to be "
+"different than the internal name above."
+msgstr "Δημόσιο όνομα είναι στο Εσείς Μάιος στο όνομα."
+
+#: A2Billing_UI/A2B_entity_subscrtem.php:57 A2Billing_UI/A2B_entity_did.php:26
+#: A2Billing_UI/A2B_entity_tariffgroup.php:24
+msgid "P Name"
+msgstr "Δ.Όνομα"
+
+#: A2Billing_UI/A2B_entity_subscrtem.php:59
+msgid "Invoiced"
+msgstr "Τιμολόγημένο"
+
+#: A2Billing_UI/A2B_entity_subscrtem.php:59
+#, fuzzy
+msgid "If this subscription will be listed in customer's invoice."
+msgstr "σε s."
+
+#: A2Billing_UI/A2B_entity_subscrtem.php:69
+#: A2Billing_UI/CC_entity_sim_ratecard.php:73
+#: A2Billing_UI/A2B_entity_trunk.php:65
+#, fuzzy
+msgid "Feature"
+msgstr "Χαρακτηριστικό"
+
+#: A2Billing_UI/A2B_entity_subscrtem.php:69
+#, fuzzy
+msgid "The feature code this subscription provides."
+msgstr "παρέχει."
+
 #: A2Billing_UI/A2B_entity_numplan.php:12
 #, fuzzy
 msgid "Numbering plans define the way a customer dials numbers. "
 msgstr "Αρίθμηση a "
-
-#: A2Billing_UI/A2B_entity_numplan.php:15
-msgid "Numplan"
-msgstr "Σχέδιο"
 
 #: A2Billing_UI/A2B_entity_numplan.php:26
 msgid "Alias length"
@@ -3214,6 +3524,62 @@ msgstr ""
 #: A2Billing_UI/A2B_entity_invoices_billed.php:86
 msgid "Search"
 msgstr "Αναζήτηση"
+
+#: A2Billing_UI/A2B_entity_didgroup.php:11
+#, fuzzy
+msgid "DID groups allow a group of customers to use incoming calls."
+msgstr "DID a ομάδα από στο κλήσεις."
+
+#: A2Billing_UI/A2B_entity_didgroup.php:13
+#, fuzzy
+msgid "DID Groups"
+msgstr "DID Ομάδες"
+
+#: A2Billing_UI/A2B_entity_didgroup.php:13
+#, fuzzy
+msgid "DID group"
+msgstr "DID ομάδα"
+
+#: A2Billing_UI/A2B_entity_didgroup.php:24
+#, fuzzy
+msgid "Code"
+msgstr "Κώδικας"
+
+#: A2Billing_UI/A2B_entity_didgroup.php:24
+#, fuzzy
+msgid "Code matched against the source (trunk) that delivers the DID."
+msgstr "Κώδικας πηγαίος κώδικας DID."
+
+#: A2Billing_UI/A2B_entity_didgroup.php:26
+#, fuzzy
+msgid "Batches"
+msgstr "Επιτόκιο"
+
+#: A2Billing_UI/A2B_entity_didgroup.php:26
+#, fuzzy
+msgid "These DID batches will be available and/or matched against the incoming DIDs."
+msgstr "DID διαθέσιμα και ή."
+
+#: A2Billing_UI/A2B_entity_didgroup.php:28
+#, fuzzy
+msgid "Sell Tariff group"
+msgstr "Τιμολόγιο ομάδα"
+
+#: A2Billing_UI/A2B_entity_didgroup.php:28
+#, fuzzy
+msgid "Tariff group which will define final retail prices and route availability."
+msgstr "Τιμολόγιο ομάδα τελικό και route."
+
+#: A2Billing_UI/A2B_entity_didgroup.php:31
+#: A2Billing_UI/A2B_entity_trunk.php:67
+#, fuzzy
+msgid "CLID Rules"
+msgstr "Κανόνες"
+
+#: A2Billing_UI/A2B_entity_didgroup.php:31
+#, fuzzy
+msgid "Reverse translating rules for incoming CLID"
+msgstr "Αντιστροφή για"
 
 #: A2Billing_UI/invoices_cshop.php:45 A2Billing_UI/invoices_cshop.php:49
 #, fuzzy
@@ -3466,28 +3832,9 @@ msgid "The call is made using a card of this group."
 msgstr "είναι a από ομάδα."
 
 #: A2Billing_UI/CC_entity_sim_ratecard.php:23
-#: A2Billing_UI/CC_entity_sim_ratecard.php:44
-#, fuzzy
-msgid "Dial"
-msgstr "Κλήση"
-
-#: A2Billing_UI/CC_entity_sim_ratecard.php:23
 #, fuzzy
 msgid "The number we wish to dial. It will be at the card's numplan"
 msgstr "στο σε s"
-
-#: A2Billing_UI/CC_entity_sim_ratecard.php:24
-#: A2Billing_UI/invoices_card.php:66
-#, fuzzy
-msgid "Time"
-msgstr "Χρόνος"
-
-#: A2Billing_UI/CC_entity_sim_ratecard.php:24
-#, fuzzy
-msgid ""
-"The date/time the call is supposed to take place. This helps us predict "
-"tomorrow's rates"
-msgstr "ημερομηνία διάρκεια είναι στο αύριο s"
 
 #: A2Billing_UI/CC_entity_sim_ratecard.php:26 A2Billing_UI/Gen_vouchers.php:42
 #: A2Billing_UI/A2B_entity_tariffplan.php:46
@@ -3498,14 +3845,8 @@ msgstr "Πίστωση"
 
 #: A2Billing_UI/CC_entity_sim_ratecard.php:26
 #, fuzzy
-msgid ""
-"Credit the customer will have for that call. Used to calculate the timeout"
+msgid "Credit the customer will have for that call. Used to calculate the timeout"
 msgstr "Πίστωση για Σε χρήση στο λήξη χρόνου"
-
-#: A2Billing_UI/CC_entity_sim_ratecard.php:40
-#, fuzzy
-msgid "Calculate!"
-msgstr "Υπολογισμός!"
 
 #: A2Billing_UI/CC_entity_sim_ratecard.php:42
 #, fuzzy
@@ -3523,27 +3864,9 @@ msgid "Tm"
 msgstr "Χρόνος"
 
 #: A2Billing_UI/CC_entity_sim_ratecard.php:52
+#, fuzzy
 msgid "Information about the sell rate:"
-msgstr ""
-
-#: A2Billing_UI/CC_entity_sim_ratecard.php:55
-#: A2Billing_UI/A2B_entity_trunk.php:44
-#: A2Billing_UI/A2B_entity_tariffplan.php:26
-#: A2Billing_UI/A2B_entity_retailplan.php:25
-#: A2Billing_UI/A2B_entity_provision.php:29
-#: A2Billing_UI/A2B_entity_provision.php:43
-#, fuzzy
-msgid "Metric"
-msgstr "Μετρική"
-
-#: A2Billing_UI/CC_entity_sim_ratecard.php:56
-#, fuzzy
-msgid "M"
-msgstr "M"
-
-#: A2Billing_UI/CC_entity_sim_ratecard.php:60
-msgid "Information about the buy rate:"
-msgstr ""
+msgstr "Πληροφορίες:"
 
 #: A2Billing_UI/CC_entity_sim_ratecard.php:65
 msgid "TR"
@@ -3558,21 +3881,21 @@ msgstr "Κορμός Ελεύθερος"
 msgid "Tf"
 msgstr ""
 
-#: A2Billing_UI/CC_entity_sim_ratecard.php:74
+#: A2Billing_UI/CC_entity_sim_ratecard.php:75
 #, fuzzy
 msgid "Matched Prefix"
 msgstr "Πρόθεμα"
 
-#: A2Billing_UI/CC_entity_sim_ratecard.php:75
+#: A2Billing_UI/CC_entity_sim_ratecard.php:76
 msgid "Pr"
 msgstr ""
 
-#: A2Billing_UI/CC_entity_sim_ratecard.php:77
+#: A2Billing_UI/CC_entity_sim_ratecard.php:78
 #, fuzzy
 msgid "Clid Pattern"
 msgstr "Μοτίβο"
 
-#: A2Billing_UI/CC_entity_sim_ratecard.php:78
+#: A2Billing_UI/CC_entity_sim_ratecard.php:79
 #, fuzzy
 msgid "CLID"
 msgstr "ID"
@@ -3651,11 +3974,13 @@ msgid "If cards belong to an agent."
 msgstr "στο."
 
 #: A2Billing_UI/A2B_entity_card_group.php:24
+#: A2Billing_UI/A2B_entity_did.php:55
 #, fuzzy
 msgid "Numbering plan"
 msgstr "Αρίθμηση"
 
 #: A2Billing_UI/A2B_entity_card_group.php:25
+#: A2Billing_UI/A2B_entity_did.php:56
 #, fuzzy
 msgid "Nplan"
 msgstr "Προσθήκη"
@@ -3699,7 +4024,7 @@ msgid "Pay type"
 msgstr "Πληρωμή είδος"
 
 #: A2Billing_UI/A2B_entity_card_group.php:37
-#: A2Billing_UI/A2B_entity_call.php:93
+#: A2Billing_UI/A2B_entity_call.php:102
 #: A2Billing_UI/A2B_entity_tariffgroup.php:12
 #, fuzzy
 msgid "Tariff group"
@@ -3720,8 +4045,7 @@ msgstr "Νόμισμα"
 #: A2Billing_UI/A2B_entity_card_group.php:40
 #: A2Billing_UI/A2B_entity_card.php:80
 #, fuzzy
-msgid ""
-"Default currency for new cards in this group. This can later change per card."
+msgid "Default currency for new cards in this group. This can later change per card."
 msgstr "Εξ ορισμού για νέο σε ομάδα αλλαγή."
 
 #: A2Billing_UI/A2B_entity_card_group.php:41
@@ -3835,9 +4159,8 @@ msgid "*-*"
 msgstr ""
 
 #: A2Billing_UI/A2B_entity_booths.php:37
-#, fuzzy
 msgid "Peer Name"
-msgstr "Peer Name"
+msgstr "Όνομα Peer"
 
 #: A2Billing_UI/A2B_entity_booths.php:37
 msgid "Asterisk peer name for authentication"
@@ -3858,82 +4181,77 @@ msgstr "μυστικό για"
 msgid "Trunks are used to terminate the call!<br>"
 msgstr "στο<br>"
 
-#: A2Billing_UI/A2B_entity_trunk.php:17 A2Billing_UI/PP_menu.inc.php:179
+#: A2Billing_UI/A2B_entity_trunk.php:17 A2Billing_UI/PP_menu.inc.php:181
 #, fuzzy
 msgid "Trunks"
 msgstr "Προσθήκη"
 
 #: A2Billing_UI/A2B_entity_trunk.php:25 A2Billing_UI/A2B_entity_alarm.php:17
-#: A2Billing_UI/A2B_entity_callerid.php:28
+#: A2Billing_UI/A2B_entity_did.php:30 A2Billing_UI/A2B_entity_callerid.php:28
+#: A2Billing_UI/A2B_entity_subscription.php:29
 #: A2Billing_UI/A2B_entity_agent.php:37 A2Billing_UI/A2B_entity_voucher.php:48
+#: A2Billing_UI/A2B_entity_did_destination.php:33
 msgid "Active"
 msgstr "Ενεργό"
 
 #: A2Billing_UI/A2B_entity_trunk.php:26 A2Billing_UI/A2B_entity_alarm.php:16
-#: A2Billing_UI/A2B_entity_callerid.php:29
+#: A2Billing_UI/A2B_entity_did.php:29 A2Billing_UI/A2B_entity_callerid.php:29
+#: A2Billing_UI/A2B_entity_subscription.php:28
 #: A2Billing_UI/A2B_entity_agent.php:38 A2Billing_UI/A2B_entity_voucher.php:49
+#: A2Billing_UI/A2B_entity_did_destination.php:32
 msgid "Inactive"
 msgstr "Ανενεργό"
 
-#: A2Billing_UI/A2B_entity_trunk.php:42
+#: A2Billing_UI/A2B_entity_trunk.php:48
 #, fuzzy
 msgid "Label"
 msgstr "Ετικέτα"
 
-#: A2Billing_UI/A2B_entity_trunk.php:42 A2Billing_UI/A2B_entity_agent.php:24
+#: A2Billing_UI/A2B_entity_trunk.php:48 A2Billing_UI/A2B_entity_agent.php:24
 msgid "Human readable name for the agent"
 msgstr "Ανθρώπινο όνομα για τον πράκτορα"
 
-#: A2Billing_UI/A2B_entity_trunk.php:44
-#, fuzzy
+#: A2Billing_UI/A2B_entity_trunk.php:50 A2Billing_UI/A2B_entity_did.php:43
 msgid "Weight of trunk in rate engine"
-msgstr "Βάρος από σε"
+msgstr "Βάρύτητα του κορμού στην μηχανή τιμών."
 
-#: A2Billing_UI/A2B_entity_trunk.php:47
-#, fuzzy
+#: A2Billing_UI/A2B_entity_trunk.php:53
 msgid "Prefix"
 msgstr "Πρόθεμα"
 
-#: A2Billing_UI/A2B_entity_trunk.php:47
-#, fuzzy
+#: A2Billing_UI/A2B_entity_trunk.php:53
 msgid "Add a prefix to the dialled digits."
-msgstr "Προσθήκη a στο."
+msgstr "Προσθήκη προθέματος στα κληθέντα ψηφία."
 
-#: A2Billing_UI/A2B_entity_trunk.php:48
-#, fuzzy
+#: A2Billing_UI/A2B_entity_trunk.php:54
 msgid "Strip Digits"
-msgstr "Αφαίρεση Ψηφία"
+msgstr "Αφαίρεση Ψηφίων"
 
-#: A2Billing_UI/A2B_entity_trunk.php:48
-#, fuzzy
+#: A2Billing_UI/A2B_entity_trunk.php:54
 msgid "Number of digits to strip from dialstring"
-msgstr "Αριθμός από στο από"
+msgstr "Αριθμός ψηφίων που θα αφαιρεθούν από τον κληθέντα αριθμό."
 
-#: A2Billing_UI/A2B_entity_trunk.php:53 A2Billing_UI/A2B_currencies.php:32
+#: A2Billing_UI/A2B_entity_trunk.php:59 A2Billing_UI/A2B_currencies.php:32
 msgid "Format"
 msgstr "Μορφή"
 
-#: A2Billing_UI/A2B_entity_trunk.php:53
-#, fuzzy
+#: A2Billing_UI/A2B_entity_trunk.php:59
 msgid "Select the desired format for the Dial string"
-msgstr "Επιλογή για Κλήση συμβολοσειρά"
+msgstr "Επιλέξτε την μορφή του κειμενιδίου που θα κληθεί."
 
-#: A2Billing_UI/A2B_entity_trunk.php:54
-#, fuzzy
+#: A2Billing_UI/A2B_entity_trunk.php:60
 msgid "Tech"
-msgstr "Αναζήτηση"
+msgstr "Τεχν."
 
-#: A2Billing_UI/A2B_entity_trunk.php:54
-#, fuzzy
+#: A2Billing_UI/A2B_entity_trunk.php:60
 msgid "Technology used on the trunk (SIP,IAX2,ZAP,H323)"
-msgstr "SIP"
+msgstr "Τεχνολογία του κορμού (SIP,IAX2,ZAP,H323)"
 
-#: A2Billing_UI/A2B_entity_trunk.php:55
-#, fuzzy
+#: A2Billing_UI/A2B_entity_trunk.php:61
 msgid "Provider IP"
 msgstr "Πάροχος IP"
 
-#: A2Billing_UI/A2B_entity_trunk.php:55
+#: A2Billing_UI/A2B_entity_trunk.php:61
 #, fuzzy
 msgid ""
 "Set the IP or URL of the VoIP provider. Alternatively, put in the name of a "
@@ -3942,12 +4260,11 @@ msgid ""
 "g2/1644787890wwwwwwwwww%dialingnumber%"
 msgstr "IP ή URL από σε όνομα από a σε Εσείς στο"
 
-#: A2Billing_UI/A2B_entity_trunk.php:58
-#, fuzzy
+#: A2Billing_UI/A2B_entity_trunk.php:64
 msgid "Additional parameter"
-msgstr "παράμετρος"
+msgstr "Πρόσθετη παράμετρος"
 
-#: A2Billing_UI/A2B_entity_trunk.php:58
+#: A2Billing_UI/A2B_entity_trunk.php:64
 #, fuzzy
 msgid ""
 "Define any additional parameters that will be used when running the Dial "
@@ -3955,45 +4272,44 @@ msgid ""
 "%, %cardnumber%. ie 'D(ww%cardnumber%wwwwwwwwww%dialingnumber%)'"
 msgstr "Ορισμός κάθε Κλήση Εντολή σε Χρήση D"
 
-#: A2Billing_UI/A2B_entity_trunk.php:60
-msgid "CLID Rules"
-msgstr ""
+#: A2Billing_UI/A2B_entity_trunk.php:65
+msgid "If set, only cards subscribed to this feature will be able to use the trunk."
+msgstr "Αν τεθεί, μόνο εγγεγραμμένοι συνδρομητές στην υπηρεσία θα μπορέσουν να χρησιμοποιήσουν τον κορμό αυτό."
 
-#: A2Billing_UI/A2B_entity_trunk.php:62 A2Billing_UI/A2B_entity_card.php:78
+#: A2Billing_UI/A2B_entity_trunk.php:69 A2Billing_UI/A2B_entity_card.php:78
 msgid "In use"
 msgstr "Σε χρήση"
 
-#: A2Billing_UI/A2B_entity_trunk.php:62
-#, fuzzy
+#: A2Billing_UI/A2B_entity_trunk.php:69
 msgid "Number of calls currently through this trunk"
-msgstr "Αριθμός από κλήσεις"
+msgstr "Αριθμός από κλήσεις που γίνονται τώρα στον κορμό"
 
-#: A2Billing_UI/A2B_entity_trunk.php:66 A2Billing_UI/A2B_entity_agent.php:40
+#: A2Billing_UI/A2B_entity_trunk.php:73 A2Billing_UI/A2B_entity_agent.php:40
 msgid "Allow the agent to operate"
 msgstr "Επιτρέπεται στον πράκτορα να λειτουργεί"
 
-#: A2Billing_UI/A2B_entity_trunk.php:69
+#: A2Billing_UI/A2B_entity_trunk.php:76
 #: A2Billing_UI/A2B_entity_tariffplan.php:41
-#, fuzzy
+#: A2Billing_UI/A2B_entity_did.php:60
+#: A2Billing_UI/A2B_entity_did_destination.php:45
 msgid "Seconds used"
-msgstr "Δευτερόλεπτα"
+msgstr "Κληθείς χρόνος"
 
-#: A2Billing_UI/A2B_entity_trunk.php:69
+#: A2Billing_UI/A2B_entity_trunk.php:76
 #: A2Billing_UI/A2B_entity_tariffplan.php:41
-#, fuzzy
 msgid "Duration of calls through trunk."
-msgstr "Διάρκεια από κλήσεις."
+msgstr "Διάρκεια κλήσεων μέσω αυτού του κορμού."
 
-#: A2Billing_UI/A2B_entity_trunk.php:70
+#: A2Billing_UI/A2B_entity_trunk.php:77
 #: A2Billing_UI/A2B_entity_tariffplan.php:42
-#, fuzzy
+#: A2Billing_UI/A2B_entity_did.php:61
+#: A2Billing_UI/A2B_entity_did_destination.php:46
 msgid "Used"
 msgstr "Σε χρήση"
 
 #: A2Billing_UI/A2B_entity_payment_settings.php:26
-#, fuzzy
 msgid "Record updated successfully"
-msgstr "Ηχογράφηση"
+msgstr "Η εγγραφή άλλαξε επιτυχώς."
 
 #: A2Billing_UI/A2B_entity_payment_settings.php:35
 #, fuzzy
@@ -4005,27 +4321,22 @@ msgid "CONFIGURATION"
 msgstr ""
 
 #: A2Billing_UI/A2B_entity_texts.php:30
-#, fuzzy
 msgid "Untranslated"
 msgstr "Αμετάφραστα"
 
 #: A2Billing_UI/A2B_entity_texts.php:33
-#, fuzzy
 msgid "Normal"
 msgstr "Κανονικό"
 
 #: A2Billing_UI/A2B_entity_texts.php:36
-#, fuzzy
 msgid "Auto-input"
 msgstr "Αυτόματο"
 
 #: A2Billing_UI/A2B_entity_texts.php:39
-#, fuzzy
 msgid "Fuzzy"
 msgstr "Ασαφή"
 
 #: A2Billing_UI/A2B_entity_texts.php:42
-#, fuzzy
 msgid "Translated"
 msgstr "Μεταφρασμένα"
 
@@ -4034,18 +4345,16 @@ msgid "LANGUAGE"
 msgstr "ΓΛΩΣΣΑ"
 
 #: A2Billing_UI/A2B_entity_texts.php:112
-#, fuzzy
 msgid "Choose the language"
-msgstr "Επιλογή"
+msgstr "Επιλογή γλώσσας"
 
 #: A2Billing_UI/A2B_entity_texts.php:163
-#, fuzzy
 msgid "Submit changes"
-msgstr "Υποβολή"
+msgstr "Υποβολή αλλαγών"
 
 #: A2Billing_UI/PP_menu.inc.php:87
 msgid "HOME"
-msgstr ""
+msgstr "ΑΡΧΙΚΗ"
 
 #: A2Billing_UI/PP_menu.inc.php:93
 msgid "List"
@@ -4059,7 +4368,7 @@ msgstr "Δημιουργία"
 msgid "Import"
 msgstr "Εισαγωγή"
 
-#: A2Billing_UI/PP_menu.inc.php:96 A2Billing_UI/PP_menu.inc.php:172
+#: A2Billing_UI/PP_menu.inc.php:96 A2Billing_UI/PP_menu.inc.php:174
 msgid "Groups"
 msgstr "Ομάδες"
 
@@ -4068,14 +4377,12 @@ msgid "VoIP users"
 msgstr "Χρήστες VoIP"
 
 #: A2Billing_UI/PP_menu.inc.php:98
-#, fuzzy
 msgid "VoIP regs"
-msgstr "Χρήστες VoIP"
+msgstr "Εγγραφές VoIP"
 
 #: A2Billing_UI/PP_menu.inc.php:99 A2Billing_UI/A2B_entity_callerid.php:13
-#, fuzzy
 msgid "CallerID"
-msgstr "Λίστα"
+msgstr "CallerID"
 
 #: A2Billing_UI/PP_menu.inc.php:100
 msgid "Speed Dial"
@@ -4083,7 +4390,7 @@ msgstr "Ταχείες Κλήσεις"
 
 #: A2Billing_UI/PP_menu.inc.php:106
 msgid "AGENTS"
-msgstr ""
+msgstr "ΠΡΑΚΤΟΡΕΣ"
 
 #: A2Billing_UI/PP_menu.inc.php:110
 msgid "Generate Booths"
@@ -4094,9 +4401,8 @@ msgid "Callshop View"
 msgstr "Προβολή Μαγαζιού"
 
 #: A2Billing_UI/PP_menu.inc.php:113
-#, fuzzy
 msgid "Session Problems"
-msgstr "Σύνοδος Προβλήματα"
+msgstr "Προβλήματα Συνόδων"
 
 #: A2Billing_UI/PP_menu.inc.php:114 A2Billing_UI/PP_menu.inc.php:127
 #: A2Billing_UI/A2B_entity_agentpay.php:14
@@ -4104,9 +4410,8 @@ msgid "Payments"
 msgstr "Πληρωμές"
 
 #: A2Billing_UI/PP_menu.inc.php:115 A2Billing_UI/PP_menu.inc.php:126
-#, fuzzy
 msgid "Money situation"
-msgstr "Χρήματα"
+msgstr "Οικον. Κατάσταση"
 
 #: A2Billing_UI/PP_menu.inc.php:121
 msgid "BILLING"
@@ -4120,7 +4425,7 @@ msgstr "Νόμισμα Πίνακας"
 #: A2Billing_UI/PP_menu.inc.php:124
 #, fuzzy
 msgid "Payment Methods"
-msgstr "Προβολή Πληρωμή"
+msgstr "Πληρωμή"
 
 #: A2Billing_UI/PP_menu.inc.php:125 A2Billing_UI/invoices_agent.php:20
 #: A2Billing_UI/invoices_card.php:20
@@ -4138,287 +4443,274 @@ msgid "Generate Vouchers"
 msgstr "Δημιουργία"
 
 #: A2Billing_UI/PP_menu.inc.php:131
-#, fuzzy
 msgid "E-Products"
-msgstr "Προσθήκη Α Προϊόν"
+msgstr "Η-Προϊόντα"
 
-#: A2Billing_UI/PP_menu.inc.php:139
-#, fuzzy
-msgid "TariffGroup"
-msgstr "Ομάδα"
+#: A2Billing_UI/PP_menu.inc.php:132
+#: A2Billing_UI/A2B_entity_subscription.php:14
+msgid "Subscriptions"
+msgstr "Συνδρομές"
 
 #: A2Billing_UI/PP_menu.inc.php:140
+msgid "TariffGroup"
+msgstr "Ομάδα Χρέωσης"
+
+#: A2Billing_UI/PP_menu.inc.php:141
 msgid "RateCard (buy)"
 msgstr ""
 
-#: A2Billing_UI/PP_menu.inc.php:141
+#: A2Billing_UI/PP_menu.inc.php:142
 msgid "RetailPlan (sell)"
 msgstr ""
 
-#: A2Billing_UI/PP_menu.inc.php:142 A2Billing_UI/A2B_entity_call.php:80
-#: A2Billing_UI/A2B_entity_call.php:123
+#: A2Billing_UI/PP_menu.inc.php:143 A2Billing_UI/A2B_entity_call.php:89
+#: A2Billing_UI/A2B_entity_call.php:132
 #, fuzzy
 msgid "Buy Rate"
 msgstr "Επιτόκιο"
 
-#: A2Billing_UI/PP_menu.inc.php:143 A2Billing_UI/A2B_entity_call.php:79
-#: A2Billing_UI/A2B_entity_call.php:121
+#: A2Billing_UI/PP_menu.inc.php:144 A2Billing_UI/A2B_entity_call.php:88
+#: A2Billing_UI/A2B_entity_call.php:130
 #, fuzzy
 msgid "Sell Rate"
 msgstr "Επιτόκιο"
 
-#: A2Billing_UI/PP_menu.inc.php:144
+#: A2Billing_UI/PP_menu.inc.php:145
 #, fuzzy
 msgid "Import Buy Rates"
 msgstr "Εισαγωγή Βαθμολογίες"
 
-#: A2Billing_UI/PP_menu.inc.php:145
+#: A2Billing_UI/PP_menu.inc.php:146
 #, fuzzy
 msgid "Import Sell Rates"
 msgstr "Εισαγωγή Βαθμολογίες"
 
-#: A2Billing_UI/PP_menu.inc.php:146
+#: A2Billing_UI/PP_menu.inc.php:147
 msgid "Ratecard Simulator"
-msgstr ""
+msgstr "Προσομοιωτής χρεώσεων"
 
-#: A2Billing_UI/PP_menu.inc.php:152
+#: A2Billing_UI/PP_menu.inc.php:148
+msgid "DID Engine Simulator"
+msgstr "Προσομοιωτής DID"
+
+#: A2Billing_UI/PP_menu.inc.php:154
 #, fuzzy
 msgid "PACKAGE OFFER"
 msgstr "ΠΑΚΕΤΟ"
 
-#: A2Billing_UI/PP_menu.inc.php:154
+#: A2Billing_UI/PP_menu.inc.php:156
 #, fuzzy
 msgid "List Offer Package"
 msgstr "Λίστα Πακέτο"
 
-#: A2Billing_UI/PP_menu.inc.php:155
+#: A2Billing_UI/PP_menu.inc.php:157
 #, fuzzy
 msgid "Details Package"
 msgstr "Λεπτομέρειες Πακέτο"
 
-#: A2Billing_UI/PP_menu.inc.php:161
+#: A2Billing_UI/PP_menu.inc.php:163
 msgid "OUTBOUND CID"
 msgstr ""
 
-#: A2Billing_UI/PP_menu.inc.php:163
+#: A2Billing_UI/PP_menu.inc.php:165
 #, fuzzy
 msgid "List CIDGroup"
 msgstr "Λίστα"
 
-#: A2Billing_UI/PP_menu.inc.php:164
+#: A2Billing_UI/PP_menu.inc.php:166
 #, fuzzy
 msgid "List CID's"
 msgstr "Λίστα s"
 
-#: A2Billing_UI/PP_menu.inc.php:169
+#: A2Billing_UI/PP_menu.inc.php:171
 #, fuzzy
 msgid "SERVERS"
 msgstr "IP"
 
-#: A2Billing_UI/PP_menu.inc.php:174
+#: A2Billing_UI/PP_menu.inc.php:176
 #, fuzzy
 msgid "Gen. Configs"
 msgstr "Ρύθμιση"
 
-#: A2Billing_UI/PP_menu.inc.php:175
+#: A2Billing_UI/PP_menu.inc.php:177
 #, fuzzy
 msgid "Gen. Peer Dial"
 msgstr "Υπολογιστής Κλήση"
 
-#: A2Billing_UI/PP_menu.inc.php:187
-#, fuzzy
-msgid "List DID Group"
-msgstr "Λίστα DID Ομάδα"
-
-#: A2Billing_UI/PP_menu.inc.php:188
-#, fuzzy
-msgid "Add DID Group"
-msgstr "Προσθήκη DID Ομάδα"
-
-#: A2Billing_UI/PP_menu.inc.php:189
-#, fuzzy
-msgid "List DID"
-msgstr "Λίστα DID"
-
 #: A2Billing_UI/PP_menu.inc.php:190
 #, fuzzy
-msgid "Add DID"
-msgstr "Προσθήκη DID"
+msgid "DID Batch"
+msgstr "DID"
 
-#: A2Billing_UI/PP_menu.inc.php:191
+#: A2Billing_UI/PP_menu.inc.php:192
 #, fuzzy
 msgid "Import DID"
 msgstr "Εισαγωγή DID"
 
-#: A2Billing_UI/PP_menu.inc.php:192
+#: A2Billing_UI/PP_menu.inc.php:193
 #, fuzzy
 msgid "List Destination"
 msgstr "Λίστα Προορισμός"
 
-#: A2Billing_UI/PP_menu.inc.php:193
+#: A2Billing_UI/PP_menu.inc.php:194
 #, fuzzy
 msgid "Add Destination"
 msgstr "Προσθήκη Προορισμός"
 
-#: A2Billing_UI/PP_menu.inc.php:194
+#: A2Billing_UI/PP_menu.inc.php:195
 #, fuzzy
 msgid "DID BILLING"
 msgstr "DID"
 
-#: A2Billing_UI/PP_menu.inc.php:195
+#: A2Billing_UI/PP_menu.inc.php:196
 #, fuzzy
 msgid "DID use"
 msgstr "DID"
 
-#: A2Billing_UI/PP_menu.inc.php:201
+#: A2Billing_UI/PP_menu.inc.php:202
 #, fuzzy
 msgid "CALL REPORT"
 msgstr "ΚΛΗΣΗ"
 
-#: A2Billing_UI/PP_menu.inc.php:204
+#: A2Billing_UI/PP_menu.inc.php:205
 #, fuzzy
 msgid "Statistics"
 msgstr "Στατιστικά"
 
-#: A2Billing_UI/PP_menu.inc.php:205
+#: A2Billing_UI/PP_menu.inc.php:206
 #, fuzzy
 msgid "CDR Report"
 msgstr "Αναφορά"
 
-#: A2Billing_UI/PP_menu.inc.php:206
+#: A2Billing_UI/PP_menu.inc.php:207
 #, fuzzy
 msgid "Calls Compare"
 msgstr "Κλήσεις Σύγκριση"
 
-#: A2Billing_UI/PP_menu.inc.php:207
+#: A2Billing_UI/PP_menu.inc.php:208
 #, fuzzy
 msgid "Monthly Traffic"
 msgstr "Μηνιαία"
 
-#: A2Billing_UI/PP_menu.inc.php:208
+#: A2Billing_UI/PP_menu.inc.php:209
 #, fuzzy
 msgid "Daily Load"
 msgstr "Καθημερινά Φόρτωμα"
 
-#: A2Billing_UI/PP_menu.inc.php:209
+#: A2Billing_UI/PP_menu.inc.php:210
 #, fuzzy
 msgid "Report"
 msgstr "Αναφορά"
 
-#: A2Billing_UI/PP_menu.inc.php:215
+#: A2Billing_UI/PP_menu.inc.php:216
 msgid "INVOICING"
 msgstr ""
 
-#: A2Billing_UI/PP_menu.inc.php:217
+#: A2Billing_UI/PP_menu.inc.php:218
 #, fuzzy
 msgid "Card Invoices"
 msgstr "Κάρτα Τιμολόγια"
 
-#: A2Billing_UI/PP_menu.inc.php:218
+#: A2Billing_UI/PP_menu.inc.php:219
 #, fuzzy
 msgid "Agent Invoices"
 msgstr "Μαγαζί Τιμολόγια"
 
-#: A2Billing_UI/PP_menu.inc.php:219
+#: A2Billing_UI/PP_menu.inc.php:220
 #, fuzzy
 msgid "Create Card Inv."
 msgstr "Δημιουργία Κάρτα."
 
-#: A2Billing_UI/PP_menu.inc.php:220
+#: A2Billing_UI/PP_menu.inc.php:221
 #, fuzzy
 msgid "Create Agent Inv."
 msgstr "Δημιουργία Μαγαζί."
 
-#: A2Billing_UI/PP_menu.inc.php:221
+#: A2Billing_UI/PP_menu.inc.php:222
 #, fuzzy
 msgid "Unbilled calls"
 msgstr "κλήσεις"
 
-#: A2Billing_UI/PP_menu.inc.php:227
+#: A2Billing_UI/PP_menu.inc.php:228
 msgid "CRON SERVICE"
 msgstr ""
 
-#: A2Billing_UI/PP_menu.inc.php:229
+#: A2Billing_UI/PP_menu.inc.php:230
 #, fuzzy
 msgid "AutoRefill Report"
 msgstr "Αναφορά"
 
-#: A2Billing_UI/PP_menu.inc.php:230
+#: A2Billing_UI/PP_menu.inc.php:231
 #, fuzzy
 msgid "List Recurring Service"
 msgstr "Λίστα Υπηρεσία"
 
-#: A2Billing_UI/PP_menu.inc.php:231
+#: A2Billing_UI/PP_menu.inc.php:232
 #, fuzzy
 msgid "Add Recurring Service"
 msgstr "Προσθήκη Υπηρεσία"
 
-#: A2Billing_UI/PP_menu.inc.php:232 A2Billing_UI/A2B_entity_alarm.php:11
+#: A2Billing_UI/PP_menu.inc.php:233 A2Billing_UI/A2B_entity_alarm.php:11
 #, fuzzy
 msgid "Alarms"
-msgstr "Προσθήκη Ειδοποίηση"
+msgstr "Συναγερμοί"
 
-#: A2Billing_UI/PP_menu.inc.php:234
-#, fuzzy
-msgid "List Subscription"
-msgstr "Λίστα Εγγραφή"
-
-#: A2Billing_UI/PP_menu.inc.php:235
-#, fuzzy
-msgid "Add Subscription"
-msgstr "Προσθήκη Εγγραφή"
-
-#: A2Billing_UI/PP_menu.inc.php:242
+#: A2Billing_UI/PP_menu.inc.php:241
 msgid "CALLBACK"
 msgstr ""
 
-#: A2Billing_UI/PP_menu.inc.php:244
+#: A2Billing_UI/PP_menu.inc.php:243
 #, fuzzy
 msgid "Show Callbacks"
 msgstr "Εμφάνιση"
 
-#: A2Billing_UI/PP_menu.inc.php:245
+#: A2Billing_UI/PP_menu.inc.php:244
 #, fuzzy
 msgid "Add new Callback"
 msgstr "Προσθήκη νέο Επανάκληση"
 
-#: A2Billing_UI/PP_menu.inc.php:246
+#: A2Billing_UI/PP_menu.inc.php:245
 #, fuzzy
 msgid "Show Server Group"
 msgstr "Εμφάνιση Εξυπηρετητής Ομάδα"
 
-#: A2Billing_UI/PP_menu.inc.php:247
+#: A2Billing_UI/PP_menu.inc.php:246
 #, fuzzy
 msgid "Add Server Group"
 msgstr "Προσθήκη Εξυπηρετητής Ομάδα"
 
-#: A2Billing_UI/PP_menu.inc.php:248
+#: A2Billing_UI/PP_menu.inc.php:247
 #, fuzzy
 msgid "Show Server"
 msgstr "Εμφάνιση Εξυπηρετητής"
 
-#: A2Billing_UI/PP_menu.inc.php:249
+#: A2Billing_UI/PP_menu.inc.php:248
 #, fuzzy
 msgid "Add Server"
 msgstr "Προσθήκη Εξυπηρετητής"
 
-#: A2Billing_UI/PP_menu.inc.php:256
+#: A2Billing_UI/PP_menu.inc.php:255
 msgid "CONFIG"
 msgstr ""
 
-#: A2Billing_UI/PP_menu.inc.php:259
+#: A2Billing_UI/PP_menu.inc.php:258
 msgid "Numbering Plans"
 msgstr "Σχέδια Αρίθμοδότησης"
 
-#: A2Billing_UI/PP_menu.inc.php:260
+#: A2Billing_UI/PP_menu.inc.php:259
 #, fuzzy
 msgid "Reverse NPlans"
-msgstr "Κλήση Σχέδιο"
+msgstr "Αντιστροφή"
 
-#: A2Billing_UI/PP_menu.inc.php:263
+#: A2Billing_UI/PP_menu.inc.php:262
 #, fuzzy
 msgid "Mail template"
 msgstr "Ταχυδρομείο"
+
+#: A2Billing_UI/PP_menu.inc.php:263
+#, fuzzy
+msgid "Subscribe template"
+msgstr "Εγγραφή συνδρομητή"
 
 #: A2Billing_UI/PP_menu.inc.php:266
 msgid "User cfgs"
@@ -4688,7 +4980,7 @@ msgstr ""
 msgid ""
 "Card group used for the generated vouchers. Will also define the currency, "
 "if exists."
-msgstr "Κάρτα ομάδα για και."
+msgstr "Κάρτα ομάδα για."
 
 #: A2Billing_UI/Gen_vouchers.php:27
 #, fuzzy
@@ -4698,7 +4990,7 @@ msgstr "Ενεργό"
 #: A2Billing_UI/Gen_vouchers.php:28
 #, fuzzy
 msgid "Voucher disabled"
-msgstr "Λίστα"
+msgstr "ανενεργό"
 
 #: A2Billing_UI/Gen_vouchers.php:30
 #, fuzzy
@@ -4708,27 +5000,28 @@ msgstr "Μέτρηση από"
 #: A2Billing_UI/Gen_vouchers.php:37
 #, fuzzy
 msgid "Voucher Length"
-msgstr "Λίστα"
+msgstr "Διάρκεια"
 
 #: A2Billing_UI/Gen_vouchers.php:42 A2Billing_UI/A2B_entity_voucher.php:33
 #, fuzzy
 msgid "Money in the voucher. Positive is credit. It is in group's currency!"
-msgstr "Χρήματα στην κάρτα.Θετικό σημαίνει πίστωση, αρνητικό χρωστάει σε εμάς."
+msgstr "Χρήματα σε Θετικό είναι πίστωση είναι σε ομάδα s!"
 
 #: A2Billing_UI/Gen_vouchers.php:45
 #, fuzzy
 msgid "Activate"
-msgstr "Ενεργό"
+msgstr "Ενεργοποίηση"
 
 #: A2Billing_UI/Gen_vouchers.php:45 A2Billing_UI/A2B_entity_voucher.php:51
 #: A2Billing_UI/A2B_entity_voucher.php:68
+#, fuzzy
 msgid "Enable or disable the voucher"
-msgstr ""
+msgstr "Ενεργοποίηση ή"
 
 #: A2Billing_UI/Gen_vouchers.php:51
 #, fuzzy
 msgid "Generate Vouchers!"
-msgstr "Δημιουργία"
+msgstr "Δημιουργία!"
 
 #: A2Billing_UI/Gen_vouchers.php:53
 #, fuzzy
@@ -4861,6 +5154,8 @@ msgid "Enter the DID id"
 msgstr "Εισαγωγή DID id"
 
 #: A2Billing_UI/A2B_entity_did_use.php:108
+#: A2Billing_UI/A2B_entity_provision.php:31
+#: A2Billing_UI/A2B_entity_provision.php:49
 msgid "Options"
 msgstr "Επιλογές"
 
@@ -4879,44 +5174,48 @@ msgid "All Dids"
 msgstr "Όλα"
 
 #: A2Billing_UI/A2B_entity_alarm.php:9
+#, fuzzy
 msgid "Alarms are various (periodical) checks on the system."
-msgstr ""
+msgstr "Συναγερμοί."
 
 #: A2Billing_UI/A2B_entity_alarm.php:18
+#, fuzzy
 msgid "Suspended"
-msgstr ""
+msgstr "Προσωρινά σταματημένο"
 
 #: A2Billing_UI/A2B_entity_alarm.php:22
 #, fuzzy
 msgid "Test"
-msgstr "Προορ"
+msgstr "Έλεγχος"
 
 #: A2Billing_UI/A2B_entity_alarm.php:23
 #, fuzzy
 msgid "Agents Credit"
-msgstr "Μαγαζί id"
+msgstr "Πράκτορες Πίστωση"
 
 #: A2Billing_UI/A2B_entity_alarm.php:33
+#, fuzzy
 msgid "Subtype"
-msgstr ""
+msgstr "Υποκατηγορία"
 
 #: A2Billing_UI/A2B_entity_alarm.php:35 A2Billing_UI/A2B_entity_mails.php:12
 #, fuzzy
 msgid "Mail"
-msgstr "email"
+msgstr "Ταχυδρομείο"
 
 #: A2Billing_UI/A2B_entity_alarm.php:35
+#, fuzzy
 msgid "Send mail there if needed."
-msgstr ""
+msgstr "Αποστολή."
 
 #: A2Billing_UI/A2B_entity_alarm.php:36
+#, fuzzy
 msgid "Parameters to the alarm engine."
-msgstr ""
+msgstr "Παράμετροι στο."
 
 #: A2Billing_UI/A2B_entity_tariffplan.php:12
 #, fuzzy
-msgid ""
-"Tariff plan is the table of <b>Buying</b> rates, as given by our providers."
+msgid "Tariff plan is the table of <b>Buying</b> rates, as given by our providers."
 msgstr "Τιμολόγιο είναι πίνακας από<b></b> ~κατά."
 
 #: A2Billing_UI/A2B_entity_tariffplan.php:14
@@ -5041,7 +5340,7 @@ msgstr "Πελάτης"
 #: A2Billing_UI/A2B_entity_card.php:27
 #, fuzzy
 msgid "Card information"
-msgstr "Ρύθμιση"
+msgstr "Κάρτα πληροφορίες"
 
 #: A2Billing_UI/A2B_entity_card.php:29 A2Billing_UI/A2B_entity_card.php:123
 msgid "Card number"
@@ -5153,19 +5452,22 @@ msgstr "Τελευταίο"
 msgid "Date the card was last used"
 msgstr "Ημερομηνία τελευταίο"
 
-#: A2Billing_UI/A2B_entity_card.php:57
+#: A2Billing_UI/A2B_entity_card.php:57 A2Billing_UI/A2B_entity_did.php:52
+#: A2Billing_UI/A2B_entity_subscription.php:38
+#: A2Billing_UI/A2B_entity_did_destination.php:42
 #, fuzzy
 msgid "Expire date"
 msgstr "Λήξη ημερομηνία"
 
-#: A2Billing_UI/A2B_entity_card.php:57
+#: A2Billing_UI/A2B_entity_card.php:57 A2Billing_UI/A2B_entity_did.php:52
 #, fuzzy
 msgid "Date the card should expire"
 msgstr "Ημερομηνία"
 
 #: A2Billing_UI/A2B_entity_card.php:60
+#, fuzzy
 msgid "Personal information"
-msgstr ""
+msgstr "Προσωπικό πληροφορίες"
 
 #: A2Billing_UI/A2B_entity_card.php:61 A2Billing_UI/invoices_card.php:105
 msgid "First name"
@@ -5200,7 +5502,7 @@ msgstr "Φαξ"
 #: A2Billing_UI/A2B_entity_card.php:77
 #, fuzzy
 msgid "Extra Parameters"
-msgstr "Πληρωμές"
+msgstr "Επιπρόσθετα Παράμετροι"
 
 #: A2Billing_UI/A2B_entity_card.php:83
 #, fuzzy
@@ -5415,8 +5717,7 @@ msgstr "Σύνθετος, Περίπλοκος, Πολύπλοκος"
 
 #: A2Billing_UI/A2B_entity_retailplan.php:11
 #, fuzzy
-msgid ""
-"Retail plan is the table of <b>Selling</b> rates offered to our customers"
+msgid "Retail plan is the table of <b>Selling</b> rates offered to our customers"
 msgstr "είναι πίνακας από<b></b> στο"
 
 #: A2Billing_UI/A2B_entity_retailplan.php:13
@@ -5433,6 +5734,109 @@ msgstr "Λίστα"
 #, fuzzy
 msgid "Tables to buy from when selling through this plan."
 msgstr "Πίνακες στο από."
+
+#: A2Billing_UI/A2B_entity_did.php:12
+#, fuzzy
+msgid "DID batches contain the settings of ranges of DIDs."
+msgstr "DID από από."
+
+#: A2Billing_UI/A2B_entity_did.php:14
+#, fuzzy
+msgid "DID Batches"
+msgstr "DID"
+
+#: A2Billing_UI/A2B_entity_did.php:14
+#, fuzzy
+msgid "DID batch"
+msgstr "DID"
+
+#: A2Billing_UI/A2B_entity_did.php:35
+#, fuzzy
+msgid "Public DID"
+msgstr "Δημόσιο DID"
+
+#: A2Billing_UI/A2B_entity_did.php:36
+#, fuzzy
+msgid "Trunk head"
+msgstr "Κορμός"
+
+#: A2Billing_UI/A2B_entity_did.php:37
+#, fuzzy
+msgid "Charge one, dial other"
+msgstr "Χρέωση άλλο"
+
+#: A2Billing_UI/A2B_entity_did.php:40 A2Billing_UI/A2B_entity_call.php:71
+#: A2Billing_UI/A2B_entity_instance.php:21
+#: A2Billing_UI/A2B_entity_instance.php:37
+#: A2Billing_UI/A2B_entity_instance.php:61
+msgid "Mode"
+msgstr "Κατάσταση"
+
+#: A2Billing_UI/A2B_entity_did.php:40
+#, fuzzy
+msgid "Select the operation mode."
+msgstr "Επιλογή κατάσταση."
+
+#: A2Billing_UI/A2B_entity_did.php:46
+#, fuzzy
+msgid "Dial Head"
+msgstr "Κλήση"
+
+#: A2Billing_UI/A2B_entity_did.php:46
+#, fuzzy
+msgid "The first, common digits of the DID range."
+msgstr "πρώτο από DID."
+
+#: A2Billing_UI/A2B_entity_did.php:47
+#, fuzzy
+msgid "Dial Add"
+msgstr "Κλήση Προσθήκη"
+
+#: A2Billing_UI/A2B_entity_did.php:47
+#, fuzzy
+msgid "Add these digits."
+msgstr "Προσθήκη."
+
+#: A2Billing_UI/A2B_entity_did.php:48
+#, fuzzy
+msgid "Dial Fld2"
+msgstr "Κλήση"
+
+#: A2Billing_UI/A2B_entity_did.php:49
+#, fuzzy
+msgid "Dial Len"
+msgstr "Κλήση"
+
+#: A2Billing_UI/A2B_entity_did.php:49
+#, fuzzy
+msgid "Length of remaining digits in DID."
+msgstr "Διάρκεια από σε DID."
+
+#: A2Billing_UI/A2B_entity_did.php:54 A2Billing_UI/A2B_entity_buyrate.php:18
+#, fuzzy
+msgid "Buy plan"
+msgstr "Λίστα"
+
+#: A2Billing_UI/A2B_entity_did.php:54
+#, fuzzy
+msgid "This defines the rules for rating the DID usage."
+msgstr "για DID."
+
+#: A2Billing_UI/A2B_entity_did.php:58
+#, fuzzy
+msgid "Flags"
+msgstr "Διακόπτες"
+
+#: A2Billing_UI/A2B_entity_did.php:58
+#, fuzzy
+msgid "Mode-specific flags."
+msgstr "Κατάσταση σημαίες."
+
+#: A2Billing_UI/A2B_entity_did.php:60
+#: A2Billing_UI/A2B_entity_did_destination.php:45
+#, fuzzy
+msgid "Duration of calls through DID batch."
+msgstr "Διάρκεια από κλήσεις DID."
 
 #: A2Billing_UI/call-log-customers.php:86
 #, fuzzy
@@ -5559,22 +5963,77 @@ msgstr "Εξαγωγή CSV"
 msgid "Export XML"
 msgstr "Εξαγωγή XML"
 
-#: A2Billing_UI/A2B_logfile.php:83
+#: A2Billing_UI/A2B_logfile.php:14
 #, fuzzy
-msgid "Browse log file"
-msgstr "Ανάγνωση καταγραφής"
+msgid "Log entries of the system"
+msgstr "Κατέγραψε από"
 
-#: A2Billing_UI/A2B_logfile.php:86
+#: A2Billing_UI/A2B_logfile.php:30 A2Billing_UI/A2B_logfile.php:58
 #, fuzzy
-msgid "Filter"
-msgstr "Φίλτρο"
+msgid "User of the interface."
+msgstr "Χρήστης από."
+
+#: A2Billing_UI/A2B_logfile.php:32 A2Billing_UI/A2B_logfile.php:61
+#, fuzzy
+msgid "Action"
+msgstr "Ενέργεια"
+
+#: A2Billing_UI/A2B_logfile.php:33 A2Billing_UI/A2B_logfile.php:63
+#, fuzzy
+msgid "Data"
+msgstr "Δεδομένα"
+
+#: A2Billing_UI/A2B_logfile.php:34
+#, fuzzy
+msgid "Table"
+msgstr "Πίνακας"
+
+#: A2Billing_UI/A2B_logfile.php:35
+#, fuzzy
+msgid "Page"
+msgstr "Σελίδα"
+
+#: A2Billing_UI/A2B_logfile.php:36
+#, fuzzy
+msgid "IP Address"
+msgstr "Διεύθυνση IP"
+
+#: A2Billing_UI/A2B_logfile.php:37 A2Billing_UI/A2B_logfile.php:59
+#, fuzzy
+msgid "Level"
+msgstr "Επίπεδο"
+
+#: A2Billing_UI/A2B_logfile.php:43
+#, fuzzy
+msgid "Logs"
+msgstr "Σύνδεση"
+
+#: A2Billing_UI/A2B_logfile.php:43
+#, fuzzy
+msgid "Log"
+msgstr "Κατέγραψε"
+
+#: A2Billing_UI/A2B_logfile.php:64
+#, fuzzy
+msgid "Table Name"
+msgstr "Όνομα Πίνακα"
+
+#: A2Billing_UI/A2B_logfile.php:65
+#, fuzzy
+msgid "Page Name"
+msgstr "Σελίδα Όνομα"
+
+#: A2Billing_UI/A2B_logfile.php:66
+#, fuzzy
+msgid "IP Addr"
+msgstr "IP"
 
 #: A2Billing_UI/A2B_entity_callerid.php:11
 #, fuzzy
 msgid ""
 "CallerID <br> Set the caller ID so that the customer calling in is "
 "authenticated on the basis of the callerID rather than with account number."
-msgstr "ID σε είναι από με"
+msgstr "CallerID<br> ID σε είναι από με."
 
 #: A2Billing_UI/A2B_entity_callerid.php:13
 #, fuzzy
@@ -5584,7 +6043,7 @@ msgstr "Λίστα"
 #: A2Billing_UI/A2B_entity_callerid.php:21
 #, fuzzy
 msgid "Insert the CallerID"
-msgstr "Εισαγωγή ID"
+msgstr "Εισαγωγή CallerID"
 
 #: A2Billing_UI/A2B_entity_callerid.php:31
 #: A2Billing_UI/A2B_entity_agent.php:40
@@ -5594,7 +6053,65 @@ msgstr "ΕΝΕΡΓΟΣ"
 #: A2Billing_UI/A2B_entity_callerid.php:31
 #, fuzzy
 msgid "Allow the callerID to operate"
-msgstr "Επιτρέπεται στον πράκτορα να λειτουργεί"
+msgstr "Επιτρέπονται στο"
+
+#: A2Billing_UI/A2B_entity_subscription.php:12
+#, fuzzy
+msgid ""
+"Subscriptions are customers (cards) being attached to a recurring fee or "
+"special service."
+msgstr "επισύναψη στο a ή."
+
+#: A2Billing_UI/A2B_entity_subscription.php:14
+#, fuzzy
+msgid "Subscription"
+msgstr "Εγγραφή"
+
+#: A2Billing_UI/A2B_entity_subscription.php:25
+#, fuzzy
+msgid "Kind"
+msgstr "Είδος"
+
+#: A2Billing_UI/A2B_entity_subscription.php:34
+#: A2Billing_UI/A2B_entity_did_destination.php:38
+#, fuzzy
+msgid "Date the subscription was registered"
+msgstr "Ημερομηνία"
+
+#: A2Billing_UI/A2B_entity_subscription.php:35
+#: A2Billing_UI/A2B_entity_did_destination.php:39
+#, fuzzy
+msgid "Creat"
+msgstr "Δημιουργήθηκε"
+
+#: A2Billing_UI/A2B_entity_subscription.php:36
+#: A2Billing_UI/A2B_entity_did_destination.php:40
+#, fuzzy
+msgid "Activation date"
+msgstr "Ενεργοποίηση ημερομηνία"
+
+#: A2Billing_UI/A2B_entity_subscription.php:36
+#: A2Billing_UI/A2B_entity_did_destination.php:40
+#, fuzzy
+msgid "Date it becomes active"
+msgstr "Ημερομηνία"
+
+#: A2Billing_UI/A2B_entity_subscription.php:37
+#: A2Billing_UI/A2B_entity_did_destination.php:41
+#, fuzzy
+msgid "Activ"
+msgstr "Ενεργό"
+
+#: A2Billing_UI/A2B_entity_subscription.php:38
+#: A2Billing_UI/A2B_entity_did_destination.php:42
+#, fuzzy
+msgid "After this date it is no longer charged or used."
+msgstr "Μετά ημερομηνία είναι όχι ή."
+
+#: A2Billing_UI/A2B_entity_subscription.php:39
+#: A2Billing_UI/A2B_entity_did_destination.php:43
+msgid "Exp."
+msgstr ""
 
 #: A2Billing_UI/A2B_entity_server_group.php:9
 #, fuzzy
@@ -5633,8 +6150,7 @@ msgstr "Όνομα εισόδου"
 
 #: A2Billing_UI/A2B_entity_agent.php:27
 msgid "Password used by agent to login into the web interface"
-msgstr ""
-"Κωδικός πρόσβασης που χρησιμοποιείται για να μπεί ο πράκτορας στην ιστοσελίδα"
+msgstr "Κωδικός πρόσβασης που χρησιμοποιείται για να μπεί ο πράκτορας στην ιστοσελίδα"
 
 #: A2Billing_UI/A2B_entity_agent.php:31 A2Billing_UI/A2B_mass_mail.php:53
 #: A2Billing_UI/A2B_data_archiving.php:142
@@ -5658,8 +6174,7 @@ msgstr ""
 msgid ""
 "Vouchers, Create a single voucher, defining such properties as credit, tag, "
 "currency etc, click confirm when finished. "
-msgstr ""
-"Δημιουργία a single πίστωση ετικέτα κλικ ολοκληρώθηκε<br/> πίστωση στο ή."
+msgstr "Δημιουργία a single πίστωση ετικέτα κλικ ολοκληρώθηκε "
 
 #: A2Billing_UI/A2B_entity_voucher.php:21
 #: A2Billing_UI/A2B_entity_voucher.php:28
@@ -5669,19 +6184,21 @@ msgid "Voucher"
 msgstr "Λίστα"
 
 #: A2Billing_UI/A2B_entity_voucher.php:27
+#, fuzzy
 msgid "Id"
-msgstr ""
+msgstr "Id"
 
 #: A2Billing_UI/A2B_entity_voucher.php:29
 #, fuzzy
 msgid "Enter the tag."
-msgstr "Εισαγωγή ID"
+msgstr "Εισαγωγή ετικέτα."
 
 #: A2Billing_UI/A2B_entity_voucher.php:30
+#, fuzzy
 msgid ""
 "Cards in this group will be able to use the voucher. Also set the currency "
 "here!"
-msgstr ""
+msgstr "Χαρτιά σε ομάδα στο εδώ!"
 
 #: A2Billing_UI/A2B_entity_voucher.php:42
 #, fuzzy
@@ -5696,33 +6213,33 @@ msgstr "Ημερομηνία"
 #: A2Billing_UI/A2B_entity_voucher.php:43
 #, fuzzy
 msgid "Used Date"
-msgstr "Όνομα χρήστη"
+msgstr "Σε χρήση Ημερομηνία"
 
 #: A2Billing_UI/A2B_entity_voucher.php:43
 #, fuzzy
 msgid "Date the voucher has been used."
-msgstr "Σύνολο"
+msgstr "Ημερομηνία."
 
 #: A2Billing_UI/A2B_entity_voucher.php:44
 #, fuzzy
 msgid "Expiry date"
-msgstr "Λήξη ημερομηνία"
+msgstr "ημερομηνία"
 
 #: A2Billing_UI/A2B_entity_voucher.php:44
 #, fuzzy
 msgid "Date the voucher will expire."
-msgstr "Ημερομηνία"
+msgstr "Ημερομηνία."
 
 #: A2Billing_UI/A2B_entity_voucher.php:51
 #: A2Billing_UI/A2B_entity_voucher.php:68
 #, fuzzy
 msgid "Activated"
-msgstr "Ενεργό"
+msgstr "Ενεργοποιημένο"
 
 #: A2Billing_UI/A2B_entity_voucher.php:78
 #, fuzzy
 msgid "Export LaTeX"
-msgstr "Εξαγωγή XML"
+msgstr "Εξαγωγή LaTeX"
 
 #: A2Billing_UI/A2B_entity_invoices2_sales.php:162
 #: A2Billing_UI/invoices.php:402
@@ -5756,110 +6273,104 @@ msgstr "ΧΡΕΩΣΗ A"
 msgid "Count Charges"
 msgstr "Μέτρηση Χρεώσεις"
 
-#: A2Billing_UI/A2B_entity_call.php:56
+#: A2Billing_UI/A2B_entity_call.php:62
 #, fuzzy
 msgid "Session ID"
 msgstr "Ταυτότητα συνεδρίας"
 
-#: A2Billing_UI/A2B_entity_call.php:57
+#: A2Billing_UI/A2B_entity_call.php:63
 #, fuzzy
 msgid "Unique ID"
 msgstr "Μοναδικός-ή-ό ID"
 
-#: A2Billing_UI/A2B_entity_call.php:65 A2Billing_UI/A2B_entity_instance.php:21
-#: A2Billing_UI/A2B_entity_instance.php:37
-#: A2Billing_UI/A2B_entity_instance.php:61
-msgid "Mode"
-msgstr "Κατάσταση"
-
-#: A2Billing_UI/A2B_entity_call.php:66 A2Billing_UI/A2B_entity_call.php:109
+#: A2Billing_UI/A2B_entity_call.php:72 A2Billing_UI/A2B_entity_call.php:118
 #, fuzzy
 msgid "Stop Time"
-msgstr "Διακοπή Χρόνος"
+msgstr "Χρόνος λήξης"
 
-#: A2Billing_UI/A2B_entity_call.php:70
+#: A2Billing_UI/A2B_entity_call.php:79
 #, fuzzy
 msgid "Called station"
-msgstr "~κατά Προορισμός"
+msgstr "Κληθείς αριθμός"
 
-#: A2Billing_UI/A2B_entity_call.php:72 A2Billing_UI/A2B_entity_call.php:104
+#: A2Billing_UI/A2B_entity_call.php:81 A2Billing_UI/A2B_entity_call.php:113
 msgid "Attempt"
 msgstr "Προσπάθεια"
 
-#: A2Billing_UI/A2B_entity_call.php:73
+#: A2Billing_UI/A2B_entity_call.php:82
 msgid "Atm"
 msgstr "ΑρΠ"
 
-#: A2Billing_UI/A2B_entity_call.php:76 A2Billing_UI/A2B_entity_call.php:116
+#: A2Billing_UI/A2B_entity_call.php:85 A2Billing_UI/A2B_entity_call.php:125
 msgid "Start Delay"
 msgstr "Καθυστέρηση Εκκίνησης"
 
-#: A2Billing_UI/A2B_entity_call.php:77 A2Billing_UI/A2B_entity_call.php:118
+#: A2Billing_UI/A2B_entity_call.php:86 A2Billing_UI/A2B_entity_call.php:127
 msgid "Stop Delay"
 msgstr "Καθυστέρηση Διακοπής"
 
-#: A2Billing_UI/A2B_entity_call.php:79 A2Billing_UI/A2B_entity_call.php:121
+#: A2Billing_UI/A2B_entity_call.php:88 A2Billing_UI/A2B_entity_call.php:130
 #, fuzzy
 msgid "Selling rate"
 msgstr "Επιτόκιο"
 
-#: A2Billing_UI/A2B_entity_call.php:80 A2Billing_UI/A2B_entity_call.php:123
+#: A2Billing_UI/A2B_entity_call.php:89 A2Billing_UI/A2B_entity_call.php:132
 #, fuzzy
 msgid "Buying rate"
 msgstr "Επιτόκιο"
 
-#: A2Billing_UI/A2B_entity_call.php:82 A2Billing_UI/A2B_entity_call.php:126
+#: A2Billing_UI/A2B_entity_call.php:91 A2Billing_UI/A2B_entity_call.php:135
 msgid "Result"
 msgstr "Αποτέλεσμα"
 
-#: A2Billing_UI/A2B_entity_call.php:83 A2Billing_UI/A2B_entity_call.php:127
+#: A2Billing_UI/A2B_entity_call.php:92 A2Billing_UI/A2B_entity_call.php:136
 msgid "ISDN Hangup Cause"
 msgstr "ISDN Κωδικός τερματισμού"
 
-#: A2Billing_UI/A2B_entity_call.php:84 A2Billing_UI/A2B_entity_call.php:129
+#: A2Billing_UI/A2B_entity_call.php:93 A2Billing_UI/A2B_entity_call.php:138
 msgid "Cause ext."
 msgstr ""
 
-#: A2Billing_UI/A2B_entity_call.php:89 A2Billing_UI/A2B_entity_call.php:135
+#: A2Billing_UI/A2B_entity_call.php:98 A2Billing_UI/A2B_entity_call.php:144
 msgid "How much the customer was charged for the call."
 msgstr "Πόσο χρεώθηκε ο πελάτης για την κλήση"
 
-#: A2Billing_UI/A2B_entity_call.php:90 A2Billing_UI/A2B_entity_call.php:136
+#: A2Billing_UI/A2B_entity_call.php:99 A2Billing_UI/A2B_entity_call.php:145
 msgid "How much we were charged for the call."
 msgstr "Πόσο θα πληρώσει η εταιρία για την κλήση."
 
-#: A2Billing_UI/A2B_entity_call.php:93
+#: A2Billing_UI/A2B_entity_call.php:102
 #, fuzzy
 msgid "Tariff group used by the rate engine."
 msgstr "Τιμολόγιο ομάδα ~κατά."
 
-#: A2Billing_UI/A2B_entity_call.php:105
+#: A2Billing_UI/A2B_entity_call.php:114
 msgid "At"
 msgstr ""
 
-#: A2Billing_UI/A2B_entity_call.php:117
+#: A2Billing_UI/A2B_entity_call.php:126
 msgid "SD"
 msgstr ""
 
-#: A2Billing_UI/A2B_entity_call.php:119
+#: A2Billing_UI/A2B_entity_call.php:128
 msgid "TD"
 msgstr ""
 
-#: A2Billing_UI/A2B_entity_call.php:122
+#: A2Billing_UI/A2B_entity_call.php:131
 #, fuzzy
 msgid "SRate"
 msgstr "Επιτόκιο"
 
-#: A2Billing_UI/A2B_entity_call.php:124
+#: A2Billing_UI/A2B_entity_call.php:133
 #, fuzzy
 msgid "BRate"
 msgstr "Επιτόκιο"
 
-#: A2Billing_UI/A2B_entity_call.php:128
+#: A2Billing_UI/A2B_entity_call.php:137
 msgid "Hu"
 msgstr ""
 
-#: A2Billing_UI/A2B_entity_call.php:130
+#: A2Billing_UI/A2B_entity_call.php:139
 msgid "Ce"
 msgstr ""
 
@@ -5867,11 +6378,6 @@ msgstr ""
 #, fuzzy
 msgid "Buy rates are the prices paid to the provider for some destination."
 msgstr "στο για μερικές προορισμός."
-
-#: A2Billing_UI/A2B_entity_buyrate.php:18
-#, fuzzy
-msgid "Buy plan"
-msgstr "Λίστα"
 
 #: A2Billing_UI/A2B_entity_buyrate.php:21
 #, fuzzy
@@ -6110,6 +6616,43 @@ msgstr "Συγχαρητήρια Email απεσταλμένο στο"
 msgid "Sorry!!! Email sending failed to"
 msgstr "Λυπάμαι Email στο"
 
+#: A2Billing_UI/A2B_entity_did_destination.php:12
+#, fuzzy
+msgid "DID reservations are DID numbers explicitly attached to customers."
+msgstr "DID DID επισύναψη στο."
+
+#: A2Billing_UI/A2B_entity_did_destination.php:14
+#, fuzzy
+msgid "Reservations"
+msgstr "Προορισμός"
+
+#: A2Billing_UI/A2B_entity_did_destination.php:14
+#, fuzzy
+msgid "Reservation"
+msgstr "Προορισμός"
+
+#: A2Billing_UI/A2B_entity_did_destination.php:24
+#, fuzzy
+msgid "The last digits of the DID (after the batch head)."
+msgstr "τελευταίο από DID."
+
+#: A2Billing_UI/A2B_entity_did_destination.php:25
+#, fuzzy
+msgid "Target"
+msgstr "Στόχος/Προορισμός"
+
+#: A2Billing_UI/A2B_entity_did_destination.php:25
+#, fuzzy
+msgid ""
+"The number to call for that DID. Use internal format or leave blank for peer "
+"search."
+msgstr "στο για DID Χρήση ή για."
+
+#: A2Billing_UI/A2B_entity_did_destination.php:29
+#, fuzzy
+msgid "Batch"
+msgstr "Μάρτιος"
+
 #: A2Billing_UI/invoices_agent.php:20 A2Billing_UI/invoices_card.php:20
 msgid "Transaction"
 msgstr "Συναλαγή"
@@ -6134,8 +6677,7 @@ msgid "Tariff Plan"
 msgstr "Τιμολόγιο Σχέδιο"
 
 #: A2Billing_UI/A2B_entity_agentpay.php:12
-msgid ""
-"Agent payments are money transactions between agents and us, the company."
+msgid "Agent payments are money transactions between agents and us, the company."
 msgstr ""
 "Οι πληρωμές των πρακτόρων είναι οικονομικές συναλλαγές ανάμεσα σε αυτούς και "
 "εμάς, την εταιρία."
@@ -6408,23 +6950,6 @@ msgstr "Τιμολόγιο στο ομάδα από."
 msgid "Tariff Groups"
 msgstr "Τιμολόγιο Ομάδες"
 
-#: A2Billing_UI/A2B_entity_tariffgroup.php:23
-#, fuzzy
-msgid "Public Name"
-msgstr "Δημόσιο Όνομα"
-
-#: A2Billing_UI/A2B_entity_tariffgroup.php:23
-#, fuzzy
-msgid ""
-"Public name is displayed to customers, agents. You may want it to be "
-"different than the internal name above."
-msgstr "Δημόσιο όνομα είναι στο Εσείς Μάιος στο όνομα."
-
-#: A2Billing_UI/A2B_entity_tariffgroup.php:24
-#, fuzzy
-msgid "P Name"
-msgstr "Όνομα"
-
 #: A2Billing_UI/A2B_entity_tariffgroup.php:26
 #, fuzzy
 msgid "LCR type"
@@ -6638,48 +7163,69 @@ msgid "Local number"
 msgstr "Τοπικό"
 
 #: A2Billing_UI/A2B_entity_mails.php:10
+#, fuzzy
 msgid "Mails sent or queued."
-msgstr ""
+msgstr "απεσταλμένο ή σε αναμονή."
 
 #: A2Billing_UI/A2B_entity_mails.php:20
+#, fuzzy
 msgid "Name and mail of recepient"
-msgstr ""
+msgstr "Όνομα και από"
 
 #: A2Billing_UI/A2B_entity_mails.php:25
+#, fuzzy
 msgid "New, unsent"
-msgstr ""
+msgstr "Νέο"
 
 #: A2Billing_UI/A2B_entity_mails.php:26
+#, fuzzy
 msgid "New, halt"
-msgstr ""
+msgstr "Νέο"
 
 #: A2Billing_UI/A2B_entity_mails.php:27
 #, fuzzy
 msgid "Sent"
-msgstr "Πράκτορας"
+msgstr "Απεσταλμένα"
 
 #: A2Billing_UI/A2B_entity_mails.php:28
 #, fuzzy
 msgid "Failed"
-msgstr "Φίλτρο"
+msgstr "Απέτυχε"
 
 #: A2Billing_UI/A2B_entity_mails.php:29
+#, fuzzy
 msgid "Waiting resend"
-msgstr ""
+msgstr "Αναμονή"
+
+#: A2Billing_UI/A2B_entity_mails.php:31
+#, fuzzy
+msgid "New (special)"
+msgstr "Νέο"
+
+#: A2Billing_UI/A2B_entity_mails.php:32
+#, fuzzy
+msgid "Sent (special)"
+msgstr "Απεσταλμένα"
 
 #: A2Billing_UI/A2B_entity_mails.php:33
+#, fuzzy
+msgid "Failed (special)"
+msgstr "Απέτυχε"
+
+#: A2Billing_UI/A2B_entity_mails.php:37
 #, fuzzy
 msgid "Args"
 msgstr "Αύγουστος"
 
-#: A2Billing_UI/A2B_entity_mails.php:34
+#: A2Billing_UI/A2B_entity_mails.php:38
 #, fuzzy
 msgid "Comments"
-msgstr "Περιέχει"
+msgstr "Σχόλια"
 
-#: A2Billing_UI/A2B_entity_mails.php:34
+#: A2Billing_UI/A2B_entity_mails.php:38
+#, fuzzy
 msgid "Machine comments, for internal use."
-msgstr ""
+msgstr "Μηχανή για."
 
 #: A2Billing_UI/invoices.php:674
 #, fuzzy
@@ -6875,8 +7421,7 @@ msgstr "ΣΦΑΛΜΑ, Η ΠΡΟΣΒΑΣΗ ΔΕΝ ΕΠΙΤΡΕΠΕΤΑΙ"
 #: A2Billing_UI/PP_error.php:23
 #, fuzzy
 msgid "Sorry a problem occur on our system, please try later!"
-msgstr ""
-"Λυπούμαστε, συνέβη σφάλμα στο σύστημά μας. Παρακαλώ, δοκιμάστε αργότερα!"
+msgstr "Λυπούμαστε, συνέβη σφάλμα στο σύστημά μας. Παρακαλώ, δοκιμάστε αργότερα!"
 
 #: A2Billing_UI/PP_error.php:24
 #, fuzzy
@@ -6954,8 +7499,7 @@ msgstr "Σε πρόθεμα"
 
 #: A2Billing_UI/A2B_currencies.php:30
 msgid "If true, symbol prepends amount, like USD $ 1.00"
-msgstr ""
-"Αν επιλεγεί, το σύμβολο θα εμφανίζεται ως πρόθεμα του ποσού, π.χ. EUR € 1.00"
+msgstr "Αν επιλεγεί, το σύμβολο θα εμφανίζεται ως πρόθεμα του ποσού, π.χ. EUR € 1.00"
 
 #: A2Billing_UI/A2B_currencies.php:32
 msgid "SQL visual format"
@@ -6966,8 +7510,7 @@ msgid "Format 2"
 msgstr "Μορφή 2"
 
 #: A2Billing_UI/A2B_currencies.php:34
-msgid ""
-"SQL visual format for small amounts (eg. rates), use more precision here."
+msgid "SQL visual format for small amounts (eg. rates), use more precision here."
 msgstr ""
 "Μορφοποίηση, με κανόνες SQL για λεπτομερή ποσά: δώστε μεγαλύτερη ακρίβεια "
 "εδώ."
@@ -7290,8 +7833,7 @@ msgstr "Χρονικό όριο RTP"
 
 #: A2Billing_UI/A2B_entity_ast_usercfg.php:63
 msgid "Hang up call if x seconds of RTP inactivity"
-msgstr ""
-"Τερματισμός κλήσης μετά από χ δευτερόλεπτα όπου το RTP έχει σταματήσει."
+msgstr "Τερματισμός κλήσης μετά από χ δευτερόλεπτα όπου το RTP έχει σταματήσει."
 
 #: A2Billing_UI/A2B_entity_ast_usercfg.php:64
 msgid "RTP keepalive"
@@ -7344,30 +7886,30 @@ msgstr "Deny"
 msgid "IP/netmask of hosts to deny"
 msgstr "IP/netmask of hosts to deny"
 
-#: A2Billing_UI/A2B_entity_ast_usercfg.php:73
+#: A2Billing_UI/A2B_entity_ast_usercfg.php:76
 msgid "Call FWD"
 msgstr "Call FWD"
 
-#: A2Billing_UI/A2B_entity_ast_usercfg.php:73
+#: A2Billing_UI/A2B_entity_ast_usercfg.php:76
 #, fuzzy
 msgid "Allow user to forward calls"
 msgstr "Επιτρέπονται στο κλήσεις"
 
-#: A2Billing_UI/A2B_entity_ast_usercfg.php:74
+#: A2Billing_UI/A2B_entity_ast_usercfg.php:77
 msgid "MOH"
 msgstr ""
 
-#: A2Billing_UI/A2B_entity_ast_usercfg.php:74
+#: A2Billing_UI/A2B_entity_ast_usercfg.php:77
 #, fuzzy
 msgid "Music on hold class"
 msgstr "Μουσική τάξη"
 
-#: A2Billing_UI/A2B_entity_ast_usercfg.php:75
+#: A2Billing_UI/A2B_entity_ast_usercfg.php:78
 #, fuzzy
 msgid "Set var"
 msgstr "Μεταβλητή"
 
-#: A2Billing_UI/A2B_entity_ast_usercfg.php:75
+#: A2Billing_UI/A2B_entity_ast_usercfg.php:78
 msgid "Set some custom var"
 msgstr "Οποιαδήποτε ειδική μεταβλητή."
 
@@ -7381,87 +7923,84 @@ msgstr "Ρυθμίσεις"
 msgid "Configs"
 msgstr "Ρύθμιση"
 
-#: A2Billing_UI/A2B_entity_provision.php:12
+#: A2Billing_UI/A2B_entity_provision.php:13
 msgid ""
 "Provisions are rules that define how a settings (provisioning) script will "
 "be generated."
-msgstr ""
+msgstr "Οι παροχές είναι κανόνες που ορίζουν σύνολα ρυθμίσεων (provisioning) που θα δημιουργηθούν."
 
-#: A2Billing_UI/A2B_entity_provision.php:14
-#, fuzzy
+#: A2Billing_UI/A2B_entity_provision.php:15
 msgid "Provision Groups"
-msgstr "Εξυπηρετητής Ομάδες"
+msgstr "Ομάδες Παροχών"
 
-#: A2Billing_UI/A2B_entity_provision.php:14
+#: A2Billing_UI/A2B_entity_provision.php:15
 msgid "Provision Group"
-msgstr ""
+msgstr "Ομάδα Παροχών"
 
-#: A2Billing_UI/A2B_entity_provision.php:23
-#, fuzzy
-msgid "Category"
-msgstr "Κάρτα Ιστορικό"
-
-#: A2Billing_UI/A2B_entity_provision.php:23
+#: A2Billing_UI/A2B_entity_provision.php:24
 msgid "Category, the \"file\" which will be generated."
-msgstr ""
+msgstr "Κατηγορία, το \"αρχείο\" που θα παραχθεί."
 
-#: A2Billing_UI/A2B_entity_provision.php:24
-#, fuzzy
+#: A2Billing_UI/A2B_entity_provision.php:25
 msgid "Model"
-msgstr "Κατάσταση"
+msgstr "Μοντέλο"
 
-#: A2Billing_UI/A2B_entity_provision.php:24
-#, fuzzy
+#: A2Billing_UI/A2B_entity_provision.php:25
 msgid "Engine used to generate the file."
-msgstr "Σφάλμα Απέτυχε στο αρχείο."
+msgstr "Μηχανή που θα χρησιμοποιηθεί για την παραγωγή των ρυθμίσεων."
 
-#: A2Billing_UI/A2B_entity_provision.php:27
-#: A2Billing_UI/A2B_entity_provision.php:41
-#, fuzzy
+#: A2Billing_UI/A2B_entity_provision.php:28
+#: A2Billing_UI/A2B_entity_provision.php:45
 msgid "Sub Name"
-msgstr "Δημόσιο Όνομα"
+msgstr "Υπό-Όνομα"
 
-#: A2Billing_UI/A2B_entity_provision.php:27
+#: A2Billing_UI/A2B_entity_provision.php:28
 msgid "Second part of name"
-msgstr ""
+msgstr "Δεύτερο τμήμα του ονόματος"
 
-#: A2Billing_UI/A2B_entity_provision.php:29
-msgid ""
-"By adjusting the metrics, order of the generated groups can be enforced."
-msgstr ""
+#: A2Billing_UI/A2B_entity_provision.php:30
+msgid "By adjusting the metrics, order of the generated groups can be enforced."
+msgstr "Με τα μετρικά μπορεί να οριστεί η σειρά των παραγόμενων παραμέτρων."
 
-#: A2Billing_UI/A2B_entity_provision.php:35
-#, fuzzy
+#: A2Billing_UI/A2B_entity_provision.php:31
+msgid "Option flags for group."
+msgstr "Επιλογές της ομάδας."
+
+#: A2Billing_UI/A2B_entity_provision.php:33
+msgid "Last changed"
+msgstr "Τελευταία αλλαγή."
+
+#: A2Billing_UI/A2B_entity_provision.php:33
+msgid "Last change of group data. May determine whether a provision is needed."
+msgstr "Τελευταίο αλλαγή δεδομένων. Ανά περίπτωση, μπορεί να καθορίσει αν χρειάζεται να γίνει παροχή."
+
+#: A2Billing_UI/A2B_entity_provision.php:39
 msgid "Rule"
-msgstr "Ρόλος"
+msgstr "Κανόνας"
 
-#: A2Billing_UI/A2B_entity_provision.php:40
-#, fuzzy
+#: A2Billing_UI/A2B_entity_provision.php:44
 msgid "Name of setting"
-msgstr "Όνομα από μοτίβο"
+msgstr "Όνομα ρύθμισης"
 
-#: A2Billing_UI/A2B_entity_provision.php:41
+#: A2Billing_UI/A2B_entity_provision.php:45
 msgid "Second part of setting name"
-msgstr ""
+msgstr "Δεύτερο τμήμα ονόματος"
 
-#: A2Billing_UI/A2B_entity_provision.php:42
+#: A2Billing_UI/A2B_entity_provision.php:46
 msgid "Value, pattern of setting"
-msgstr ""
+msgstr "Τιμή, μοτίβο ρύθμισης"
 
-#: A2Billing_UI/A2B_entity_provision.php:43
-msgid ""
-"By adjusting the metrics, order of the generated fields can be enforced."
-msgstr ""
+#: A2Billing_UI/A2B_entity_provision.php:47
+msgid "By adjusting the metrics, order of the generated fields can be enforced."
+msgstr "Με τα μετρικά, η σειρά των παραγόμενων πεδίων μπορεί να καθοριστεί."
 
 #: A2Billing_UI/A2B_trunk_report.php:303
-#, fuzzy
 msgid "Select Time"
-msgstr "Επιλογή Χρόνος"
+msgstr "Επιλογή Χρόνου"
 
 #: A2Billing_UI/A2B_trunk_report.php:317 A2Billing_UI/A2B_trunk_report.php:325
-#, fuzzy
 msgid "Select Trunk"
-msgstr "Επιλογή Κορμός"
+msgstr "Επιλογή Κορμού"
 
 #: A2Billing_UI/A2B_entity_instance.php:13
 #, fuzzy
@@ -7471,24 +8010,20 @@ msgid ""
 msgstr "από σε σε."
 
 #: A2Billing_UI/A2B_entity_instance.php:15
-#, fuzzy
 msgid "Instances"
-msgstr "Αντίγραφα"
+msgstr "Στιγμιότυπα"
 
 #: A2Billing_UI/A2B_entity_instance.php:15
-#, fuzzy
 msgid "Instance"
-msgstr "Στιγμή, Στιγμιότυπο"
+msgstr "Στιγμιότυπο"
 
 #: A2Billing_UI/A2B_entity_instance.php:19
-#, fuzzy
 msgid "UserID"
-msgstr "Χρήστης"
+msgstr "ID Χρήστη"
 
 #: A2Billing_UI/A2B_entity_instance.php:20
-#, fuzzy
 msgid "ServerID"
-msgstr "Προσθήκη Εξυπηρετητής"
+msgstr "ID Εξυπηρετητή"
 
 #: A2Billing_UI/A2B_entity_instance.php:24
 #: A2Billing_UI/A2B_entity_instance.php:59
@@ -7500,13 +8035,12 @@ msgid "User Name"
 msgstr "Όνομα χρήστη"
 
 #: A2Billing_UI/A2B_entity_instance.php:41
-#, fuzzy
 msgid "Reg. Seconds"
-msgstr "Δευτερόλεπτα"
+msgstr "Στ. Δευτερόλεπτα"
 
 #: A2Billing_UI/A2B_entity_instance.php:41
 msgid "The timestamp the registration expires"
-msgstr ""
+msgstr "Η στιγμή που λήγει η εγγραφή."
 
 #: A2Billing_UI/A2B_entity_instance.php:43
 msgid "Contact"
@@ -7517,9 +8051,8 @@ msgid "Reg. server"
 msgstr "Εξυπηρετητής"
 
 #: A2Billing_UI/A2B_entity_instance.php:44
-#, fuzzy
 msgid "The name of the server which registered it, as defined in asterisk.conf"
-msgstr "όνομα από σε"
+msgstr "Το όνομα του εξυπηρετητή όπου έγινε η εγγραφή, όπως αυτό δίνεται στο asterisk.conf."
 
 #: A2Billing_UI/A2B_entity_instance.php:46
 #: A2Billing_UI/A2B_entity_instance.php:64
@@ -7527,18 +8060,9 @@ msgid "User Agent"
 msgstr "User Agent"
 
 #: A2Billing_UI/A2B_entity_mailtemplate.php:9
+#, fuzzy
 msgid "Mail templates are preset messages to be sent on alerts etc."
-msgstr ""
-
-#: A2Billing_UI/A2B_entity_mailtemplate.php:11
-#, fuzzy
-msgid "Templates"
-msgstr "Ταχυδρομείο"
-
-#: A2Billing_UI/A2B_entity_mailtemplate.php:11
-#, fuzzy
-msgid "Template"
-msgstr "Αντικατάσταση"
+msgstr "Ταχυδρομείο μηνύματα στο απεσταλμένο."
 
 #: A2Billing_UI/A2B_entity_mailtemplate.php:20
 msgid "Lang"
@@ -7547,33 +8071,64 @@ msgstr ""
 #: A2Billing_UI/A2B_entity_mailtemplate.php:21
 #, fuzzy
 msgid "From Name"
-msgstr "Από Ημερομηνία"
+msgstr "Από Όνομα"
 
 #: A2Billing_UI/A2B_entity_mailtemplate.php:21
+#, fuzzy
 msgid "Human name of sender"
-msgstr ""
+msgstr "Άνθρωπος όνομα από αποστολέας"
 
 #: A2Billing_UI/A2B_entity_mailtemplate.php:22
 msgid "Email of sender"
-msgstr ""
+msgstr "Email αποστολέα"
 
 #: A2Billing_UI/A2B_entity_mailtemplate.php:23
 #, fuzzy
 msgid "Subject"
-msgstr "Αφαίρεση"
+msgstr "Θέμα"
 
 #: A2Billing_UI/A2B_entity_mailtemplate.php:24
+#, fuzzy
 msgid "The message, arguments are %-quoted"
-msgstr ""
+msgstr "παράμετροι"
 
 #: A2Billing_UI/A2B_entity_mailtemplate.php:25
 #, fuzzy
 msgid "Default args."
-msgstr "Εξ ορισμού"
+msgstr "Εξ ορισμού."
 
 #: A2Billing_UI/A2B_entity_mailtemplate.php:25
+#, fuzzy
 msgid "Default values for arguments, in URL parameter format."
-msgstr ""
+msgstr "Εξ ορισμού για παράμετροι σε URL παράμετρος."
+
+#, fuzzy
+#~ msgid "List DID Group"
+#~ msgstr "Λίστα DID Ομάδα"
+
+#, fuzzy
+#~ msgid "List DID"
+#~ msgstr "Λίστα DID"
+
+#, fuzzy
+#~ msgid "Add DID"
+#~ msgstr "Προσθήκη DID"
+
+#, fuzzy
+#~ msgid "List Subscription"
+#~ msgstr "Λίστα Εγγραφή"
+
+#, fuzzy
+#~ msgid "Add Subscription"
+#~ msgstr "Προσθήκη Εγγραφή"
+
+#, fuzzy
+#~ msgid "Browse log file"
+#~ msgstr "Ανάγνωση καταγραφής"
+
+#, fuzzy
+#~ msgid "Filter"
+#~ msgstr "Φίλτρο"
 
 #, fuzzy
 #~ msgid "View Transactions"
@@ -7594,10 +8149,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "Create Voucher"
 #~ msgstr "Δημιουργία"
-
-#, fuzzy
-#~ msgid "List Charge"
-#~ msgstr "Λίστα Χρέωση"
 
 #, fuzzy
 #~ msgid "Add Charge"
@@ -8116,3 +8667,4 @@ msgstr ""
 #, fuzzy
 #~ msgid "Pay %1"
 #~ msgstr "Πληρωμή in:"
+

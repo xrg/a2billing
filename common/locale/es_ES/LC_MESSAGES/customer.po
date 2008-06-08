@@ -584,7 +584,6 @@ msgstr "Fecha de Llamada"
 
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:432
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:594
-#: A2BCustomer_UI/card-history.php:44
 #: A2BCustomer_UI/A2B_entity_call_details_pdf.php:439
 #: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:464
 #: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:632
@@ -617,7 +616,6 @@ msgstr "Elige Un País"
 
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:521
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:596
-#: A2BCustomer_UI/card-history.php:45
 #: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:561
 #: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:634
 #, fuzzy
@@ -694,194 +692,6 @@ msgstr ""
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:697
 msgid "DisConnected"
 msgstr ""
-
-#: A2BCustomer_UI/card-history.php:69
-msgid "Card History"
-msgstr ""
-
-#: A2BCustomer_UI/card-history.php:174 A2BCustomer_UI/call-history.php:327
-#: A2BCustomer_UI/A2B_entity_call_details.php:308
-#, fuzzy
-msgid "SELECT BY MONTH"
-msgstr "DISCADO RAPIDO"
-
-#: A2BCustomer_UI/card-history.php:180 A2BCustomer_UI/card-history.php:231
-#: A2BCustomer_UI/call-history.php:333 A2BCustomer_UI/call-history.php:384
-#: A2BCustomer_UI/A2B_entity_call_details.php:314
-#: A2BCustomer_UI/A2B_entity_call_details.php:363
-msgid "FROM"
-msgstr "Desde"
-
-#: A2BCustomer_UI/card-history.php:184 A2BCustomer_UI/card-history.php:205
-#: A2BCustomer_UI/card-history.php:244 A2BCustomer_UI/card-history.php:272
-#: A2BCustomer_UI/call-history.php:337 A2BCustomer_UI/call-history.php:358
-#: A2BCustomer_UI/call-history.php:397 A2BCustomer_UI/call-history.php:425
-#: A2BCustomer_UI/A2B_entity_call_details.php:318
-#: A2BCustomer_UI/A2B_entity_call_details.php:338
-#: A2BCustomer_UI/A2B_entity_call_details.php:376
-#: A2BCustomer_UI/A2B_entity_call_details.php:421
-msgid "JANUARY"
-msgstr "Enero"
-
-#: A2BCustomer_UI/card-history.php:184 A2BCustomer_UI/card-history.php:205
-#: A2BCustomer_UI/card-history.php:244 A2BCustomer_UI/card-history.php:272
-#: A2BCustomer_UI/call-history.php:337 A2BCustomer_UI/call-history.php:358
-#: A2BCustomer_UI/call-history.php:397 A2BCustomer_UI/call-history.php:425
-#: A2BCustomer_UI/A2B_entity_call_details.php:318
-#: A2BCustomer_UI/A2B_entity_call_details.php:338
-#: A2BCustomer_UI/A2B_entity_call_details.php:376
-#: A2BCustomer_UI/A2B_entity_call_details.php:421
-msgid "FEBRUARY"
-msgstr "Febrero"
-
-#: A2BCustomer_UI/card-history.php:184 A2BCustomer_UI/card-history.php:205
-#: A2BCustomer_UI/card-history.php:244 A2BCustomer_UI/card-history.php:272
-#: A2BCustomer_UI/call-history.php:337 A2BCustomer_UI/call-history.php:358
-#: A2BCustomer_UI/call-history.php:397 A2BCustomer_UI/call-history.php:425
-#: A2BCustomer_UI/A2B_entity_call_details.php:318
-#: A2BCustomer_UI/A2B_entity_call_details.php:338
-#: A2BCustomer_UI/A2B_entity_call_details.php:376
-#: A2BCustomer_UI/A2B_entity_call_details.php:421
-msgid "MARCH"
-msgstr "Marzo"
-
-#: A2BCustomer_UI/card-history.php:184 A2BCustomer_UI/card-history.php:205
-#: A2BCustomer_UI/card-history.php:244 A2BCustomer_UI/card-history.php:272
-#: A2BCustomer_UI/call-history.php:337 A2BCustomer_UI/call-history.php:358
-#: A2BCustomer_UI/call-history.php:397 A2BCustomer_UI/call-history.php:425
-#: A2BCustomer_UI/A2B_entity_call_details.php:318
-#: A2BCustomer_UI/A2B_entity_call_details.php:338
-#: A2BCustomer_UI/A2B_entity_call_details.php:376
-#: A2BCustomer_UI/A2B_entity_call_details.php:421
-msgid "APRIL"
-msgstr "Abril"
-
-#: A2BCustomer_UI/card-history.php:184 A2BCustomer_UI/card-history.php:205
-#: A2BCustomer_UI/card-history.php:244 A2BCustomer_UI/card-history.php:272
-#: A2BCustomer_UI/call-history.php:337 A2BCustomer_UI/call-history.php:358
-#: A2BCustomer_UI/call-history.php:397 A2BCustomer_UI/call-history.php:425
-#: A2BCustomer_UI/A2B_entity_call_details.php:318
-#: A2BCustomer_UI/A2B_entity_call_details.php:338
-#: A2BCustomer_UI/A2B_entity_call_details.php:376
-#: A2BCustomer_UI/A2B_entity_call_details.php:421
-msgid "MAY"
-msgstr "Mayo"
-
-#: A2BCustomer_UI/card-history.php:184 A2BCustomer_UI/card-history.php:205
-#: A2BCustomer_UI/card-history.php:244 A2BCustomer_UI/card-history.php:272
-#: A2BCustomer_UI/call-history.php:337 A2BCustomer_UI/call-history.php:358
-#: A2BCustomer_UI/call-history.php:397 A2BCustomer_UI/call-history.php:425
-#: A2BCustomer_UI/A2B_entity_call_details.php:318
-#: A2BCustomer_UI/A2B_entity_call_details.php:338
-#: A2BCustomer_UI/A2B_entity_call_details.php:376
-#: A2BCustomer_UI/A2B_entity_call_details.php:421
-msgid "JUNE"
-msgstr "Junio"
-
-#: A2BCustomer_UI/card-history.php:184 A2BCustomer_UI/card-history.php:205
-#: A2BCustomer_UI/card-history.php:244 A2BCustomer_UI/card-history.php:272
-#: A2BCustomer_UI/call-history.php:337 A2BCustomer_UI/call-history.php:358
-#: A2BCustomer_UI/call-history.php:397 A2BCustomer_UI/call-history.php:425
-#: A2BCustomer_UI/A2B_entity_call_details.php:318
-#: A2BCustomer_UI/A2B_entity_call_details.php:338
-#: A2BCustomer_UI/A2B_entity_call_details.php:376
-#: A2BCustomer_UI/A2B_entity_call_details.php:421
-msgid "JULY"
-msgstr "Julio"
-
-#: A2BCustomer_UI/card-history.php:184 A2BCustomer_UI/card-history.php:205
-#: A2BCustomer_UI/card-history.php:244 A2BCustomer_UI/card-history.php:272
-#: A2BCustomer_UI/call-history.php:337 A2BCustomer_UI/call-history.php:358
-#: A2BCustomer_UI/call-history.php:397 A2BCustomer_UI/call-history.php:425
-#: A2BCustomer_UI/A2B_entity_call_details.php:318
-#: A2BCustomer_UI/A2B_entity_call_details.php:338
-#: A2BCustomer_UI/A2B_entity_call_details.php:376
-#: A2BCustomer_UI/A2B_entity_call_details.php:421
-msgid "AUGUST"
-msgstr "Agosto"
-
-#: A2BCustomer_UI/card-history.php:184 A2BCustomer_UI/card-history.php:205
-#: A2BCustomer_UI/card-history.php:244 A2BCustomer_UI/card-history.php:272
-#: A2BCustomer_UI/call-history.php:337 A2BCustomer_UI/call-history.php:358
-#: A2BCustomer_UI/call-history.php:397 A2BCustomer_UI/call-history.php:425
-#: A2BCustomer_UI/A2B_entity_call_details.php:318
-#: A2BCustomer_UI/A2B_entity_call_details.php:338
-#: A2BCustomer_UI/A2B_entity_call_details.php:376
-#: A2BCustomer_UI/A2B_entity_call_details.php:421
-msgid "SEPTEMBER"
-msgstr "Septiembre"
-
-#: A2BCustomer_UI/card-history.php:184 A2BCustomer_UI/card-history.php:205
-#: A2BCustomer_UI/card-history.php:244 A2BCustomer_UI/card-history.php:272
-#: A2BCustomer_UI/call-history.php:337 A2BCustomer_UI/call-history.php:358
-#: A2BCustomer_UI/call-history.php:397 A2BCustomer_UI/call-history.php:425
-#: A2BCustomer_UI/A2B_entity_call_details.php:318
-#: A2BCustomer_UI/A2B_entity_call_details.php:338
-#: A2BCustomer_UI/A2B_entity_call_details.php:376
-#: A2BCustomer_UI/A2B_entity_call_details.php:421
-msgid "OCTOBER"
-msgstr "Octubre"
-
-#: A2BCustomer_UI/card-history.php:184 A2BCustomer_UI/card-history.php:205
-#: A2BCustomer_UI/card-history.php:244 A2BCustomer_UI/card-history.php:272
-#: A2BCustomer_UI/call-history.php:337 A2BCustomer_UI/call-history.php:358
-#: A2BCustomer_UI/call-history.php:397 A2BCustomer_UI/call-history.php:425
-#: A2BCustomer_UI/A2B_entity_call_details.php:318
-#: A2BCustomer_UI/A2B_entity_call_details.php:338
-#: A2BCustomer_UI/A2B_entity_call_details.php:376
-#: A2BCustomer_UI/A2B_entity_call_details.php:421
-msgid "NOVEMBER"
-msgstr "Noviembre"
-
-#: A2BCustomer_UI/card-history.php:184 A2BCustomer_UI/card-history.php:205
-#: A2BCustomer_UI/card-history.php:244 A2BCustomer_UI/card-history.php:272
-#: A2BCustomer_UI/call-history.php:337 A2BCustomer_UI/call-history.php:358
-#: A2BCustomer_UI/call-history.php:397 A2BCustomer_UI/call-history.php:425
-#: A2BCustomer_UI/A2B_entity_call_details.php:318
-#: A2BCustomer_UI/A2B_entity_call_details.php:338
-#: A2BCustomer_UI/A2B_entity_call_details.php:376
-#: A2BCustomer_UI/A2B_entity_call_details.php:421
-msgid "DECEMBER"
-msgstr "Diciembre"
-
-#: A2BCustomer_UI/card-history.php:200 A2BCustomer_UI/card-history.php:259
-#: A2BCustomer_UI/call-history.php:353 A2BCustomer_UI/call-history.php:412
-#: A2BCustomer_UI/A2B_entity_call_details.php:334
-#: A2BCustomer_UI/A2B_entity_call_details.php:408
-msgid "TO"
-msgstr "Hasta"
-
-#: A2BCustomer_UI/card-history.php:226 A2BCustomer_UI/call-history.php:379
-#: A2BCustomer_UI/A2B_entity_call_details.php:358
-#, fuzzy
-msgid "SELECT BY DAY"
-msgstr "DISCADO RAPIDO"
-
-#: A2BCustomer_UI/card-history.php:293
-#: A2BCustomer_UI/invoices_customer.php:277
-#: A2BCustomer_UI/call-history.php:504
-#: A2BCustomer_UI/A2B_entity_call_details.php:544
-msgid "Search"
-msgstr "Buscar"
-
-#: A2BCustomer_UI/card-history.php:385
-#: A2BCustomer_UI/CC_entity_edit_did_destination.php:373
-#: A2BCustomer_UI/CC_entity_edit_did_destination.php:592
-#: A2BCustomer_UI/CC_entity_edit_did_destination.php:910
-#: A2BCustomer_UI/CC_entity_edit_did_destination.php:1032
-#: A2BCustomer_UI/CC_entity_edit_did_destination.php:1196
-#: A2BCustomer_UI/invoices_customer.php:650
-#: A2BCustomer_UI/CC_entity_edit_speeddial.php:262
-#: A2BCustomer_UI/CC_entity_edit_speeddial.php:472
-#: A2BCustomer_UI/CC_entity_edit_speeddial.php:764
-#: A2BCustomer_UI/CC_entity_edit_speeddial.php:1010
-#: A2BCustomer_UI/A2B_entity_call_details_pdf.php:626
-#: A2BCustomer_UI/A2B_entity_call_details_pdf.php:725
-#: A2BCustomer_UI/call-history.php:638
-#: A2BCustomer_UI/A2B_entity_call_details.php:892
-#: A2BCustomer_UI/A2B_entity_call_details.php:992
-msgid "No data found !!!"
-msgstr "No se encontraron resultados !!!"
 
 #: A2BCustomer_UI/simulator.php:15
 msgid "Here you can simulate a phone call and see how much it would cost"
@@ -989,6 +799,24 @@ msgstr "AGREGAR IDENTIFICADOR DE LLAMADAS"
 #: A2BCustomer_UI/CC_entity_edit_did_destination.php:202
 msgid "error deletion"
 msgstr "Error en la eliminación"
+
+#: A2BCustomer_UI/CC_entity_edit_did_destination.php:373
+#: A2BCustomer_UI/CC_entity_edit_did_destination.php:592
+#: A2BCustomer_UI/CC_entity_edit_did_destination.php:910
+#: A2BCustomer_UI/CC_entity_edit_did_destination.php:1032
+#: A2BCustomer_UI/CC_entity_edit_did_destination.php:1196
+#: A2BCustomer_UI/invoices_customer.php:650
+#: A2BCustomer_UI/CC_entity_edit_speeddial.php:262
+#: A2BCustomer_UI/CC_entity_edit_speeddial.php:472
+#: A2BCustomer_UI/CC_entity_edit_speeddial.php:764
+#: A2BCustomer_UI/CC_entity_edit_speeddial.php:1010
+#: A2BCustomer_UI/A2B_entity_call_details_pdf.php:626
+#: A2BCustomer_UI/A2B_entity_call_details_pdf.php:725
+#: A2BCustomer_UI/call-history.php:638
+#: A2BCustomer_UI/A2B_entity_call_details.php:892
+#: A2BCustomer_UI/A2B_entity_call_details.php:992
+msgid "No data found !!!"
+msgstr "No se encontraron resultados !!!"
 
 #: A2BCustomer_UI/CC_entity_edit_did_destination.php:531
 msgid "Add a new "
@@ -1103,6 +931,12 @@ msgstr "o Exportar PDF"
 msgid "CURRENCY"
 msgstr ""
 
+#: A2BCustomer_UI/invoices_customer.php:277
+#: A2BCustomer_UI/call-history.php:504
+#: A2BCustomer_UI/A2B_entity_call_details.php:544
+msgid "Search"
+msgstr "Buscar"
+
 #: A2BCustomer_UI/invoices_customer.php:347
 #: A2BCustomer_UI/invoices_customer.php:499
 #: A2BCustomer_UI/invoices_customer.php:745
@@ -1205,40 +1039,6 @@ msgstr "Eliminación"
 
 #: A2BCustomer_UI/A2B_entity_card.php:54
 msgid "Your personal information is updated successfully."
-msgstr ""
-
-#: A2BCustomer_UI/checkout_amount.php:62
-#: A2BCustomer_UI/checkout_confirmation.php:87
-msgid "Payment Method"
-msgstr ""
-
-#: A2BCustomer_UI/checkout_amount.php:76
-#, fuzzy
-msgid "Please enter the order amount"
-msgstr " créditos a tu cuenta !"
-
-#: A2BCustomer_UI/checkout_amount.php:83
-#: A2BCustomer_UI/checkout_confirmation.php:91
-#, fuzzy
-msgid "Total Amount"
-msgstr "COSTOS TOTALES"
-
-#: A2BCustomer_UI/checkout_amount.php:104
-#: A2BCustomer_UI/checkout_confirmation.php:102
-msgid "Please click button to confirm your order"
-msgstr ""
-
-#: A2BCustomer_UI/checkout_amount.php:119
-#, fuzzy
-msgid ""
-"The fee from $5 is $0.45, from $10 is $0.59, from $20 is $0.88, from $40 is "
-"$1.46."
-msgstr ""
-"Los honorarios desde $5 es $0.45, desde $10 es $0.59, desde $20 es $0.88, "
-"desde $40 es $1.46. <br><b>Calculador de Honorarios Paypal"
-
-#: A2BCustomer_UI/checkout_amount.php:119
-msgid "Paypal Fee Calculator"
 msgstr ""
 
 #: A2BCustomer_UI/A2B_entity_did.php:54
@@ -1668,6 +1468,138 @@ msgstr "Precio Inicial"
 msgid "Call Logs"
 msgstr "Detalle de Llamadas"
 
+#: A2BCustomer_UI/call-history.php:327
+#: A2BCustomer_UI/A2B_entity_call_details.php:308
+#, fuzzy
+msgid "SELECT BY MONTH"
+msgstr "DISCADO RAPIDO"
+
+#: A2BCustomer_UI/call-history.php:333 A2BCustomer_UI/call-history.php:384
+#: A2BCustomer_UI/A2B_entity_call_details.php:314
+#: A2BCustomer_UI/A2B_entity_call_details.php:363
+msgid "FROM"
+msgstr "Desde"
+
+#: A2BCustomer_UI/call-history.php:337 A2BCustomer_UI/call-history.php:358
+#: A2BCustomer_UI/call-history.php:397 A2BCustomer_UI/call-history.php:425
+#: A2BCustomer_UI/A2B_entity_call_details.php:318
+#: A2BCustomer_UI/A2B_entity_call_details.php:338
+#: A2BCustomer_UI/A2B_entity_call_details.php:376
+#: A2BCustomer_UI/A2B_entity_call_details.php:421
+msgid "JANUARY"
+msgstr "Enero"
+
+#: A2BCustomer_UI/call-history.php:337 A2BCustomer_UI/call-history.php:358
+#: A2BCustomer_UI/call-history.php:397 A2BCustomer_UI/call-history.php:425
+#: A2BCustomer_UI/A2B_entity_call_details.php:318
+#: A2BCustomer_UI/A2B_entity_call_details.php:338
+#: A2BCustomer_UI/A2B_entity_call_details.php:376
+#: A2BCustomer_UI/A2B_entity_call_details.php:421
+msgid "FEBRUARY"
+msgstr "Febrero"
+
+#: A2BCustomer_UI/call-history.php:337 A2BCustomer_UI/call-history.php:358
+#: A2BCustomer_UI/call-history.php:397 A2BCustomer_UI/call-history.php:425
+#: A2BCustomer_UI/A2B_entity_call_details.php:318
+#: A2BCustomer_UI/A2B_entity_call_details.php:338
+#: A2BCustomer_UI/A2B_entity_call_details.php:376
+#: A2BCustomer_UI/A2B_entity_call_details.php:421
+msgid "MARCH"
+msgstr "Marzo"
+
+#: A2BCustomer_UI/call-history.php:337 A2BCustomer_UI/call-history.php:358
+#: A2BCustomer_UI/call-history.php:397 A2BCustomer_UI/call-history.php:425
+#: A2BCustomer_UI/A2B_entity_call_details.php:318
+#: A2BCustomer_UI/A2B_entity_call_details.php:338
+#: A2BCustomer_UI/A2B_entity_call_details.php:376
+#: A2BCustomer_UI/A2B_entity_call_details.php:421
+msgid "APRIL"
+msgstr "Abril"
+
+#: A2BCustomer_UI/call-history.php:337 A2BCustomer_UI/call-history.php:358
+#: A2BCustomer_UI/call-history.php:397 A2BCustomer_UI/call-history.php:425
+#: A2BCustomer_UI/A2B_entity_call_details.php:318
+#: A2BCustomer_UI/A2B_entity_call_details.php:338
+#: A2BCustomer_UI/A2B_entity_call_details.php:376
+#: A2BCustomer_UI/A2B_entity_call_details.php:421
+msgid "MAY"
+msgstr "Mayo"
+
+#: A2BCustomer_UI/call-history.php:337 A2BCustomer_UI/call-history.php:358
+#: A2BCustomer_UI/call-history.php:397 A2BCustomer_UI/call-history.php:425
+#: A2BCustomer_UI/A2B_entity_call_details.php:318
+#: A2BCustomer_UI/A2B_entity_call_details.php:338
+#: A2BCustomer_UI/A2B_entity_call_details.php:376
+#: A2BCustomer_UI/A2B_entity_call_details.php:421
+msgid "JUNE"
+msgstr "Junio"
+
+#: A2BCustomer_UI/call-history.php:337 A2BCustomer_UI/call-history.php:358
+#: A2BCustomer_UI/call-history.php:397 A2BCustomer_UI/call-history.php:425
+#: A2BCustomer_UI/A2B_entity_call_details.php:318
+#: A2BCustomer_UI/A2B_entity_call_details.php:338
+#: A2BCustomer_UI/A2B_entity_call_details.php:376
+#: A2BCustomer_UI/A2B_entity_call_details.php:421
+msgid "JULY"
+msgstr "Julio"
+
+#: A2BCustomer_UI/call-history.php:337 A2BCustomer_UI/call-history.php:358
+#: A2BCustomer_UI/call-history.php:397 A2BCustomer_UI/call-history.php:425
+#: A2BCustomer_UI/A2B_entity_call_details.php:318
+#: A2BCustomer_UI/A2B_entity_call_details.php:338
+#: A2BCustomer_UI/A2B_entity_call_details.php:376
+#: A2BCustomer_UI/A2B_entity_call_details.php:421
+msgid "AUGUST"
+msgstr "Agosto"
+
+#: A2BCustomer_UI/call-history.php:337 A2BCustomer_UI/call-history.php:358
+#: A2BCustomer_UI/call-history.php:397 A2BCustomer_UI/call-history.php:425
+#: A2BCustomer_UI/A2B_entity_call_details.php:318
+#: A2BCustomer_UI/A2B_entity_call_details.php:338
+#: A2BCustomer_UI/A2B_entity_call_details.php:376
+#: A2BCustomer_UI/A2B_entity_call_details.php:421
+msgid "SEPTEMBER"
+msgstr "Septiembre"
+
+#: A2BCustomer_UI/call-history.php:337 A2BCustomer_UI/call-history.php:358
+#: A2BCustomer_UI/call-history.php:397 A2BCustomer_UI/call-history.php:425
+#: A2BCustomer_UI/A2B_entity_call_details.php:318
+#: A2BCustomer_UI/A2B_entity_call_details.php:338
+#: A2BCustomer_UI/A2B_entity_call_details.php:376
+#: A2BCustomer_UI/A2B_entity_call_details.php:421
+msgid "OCTOBER"
+msgstr "Octubre"
+
+#: A2BCustomer_UI/call-history.php:337 A2BCustomer_UI/call-history.php:358
+#: A2BCustomer_UI/call-history.php:397 A2BCustomer_UI/call-history.php:425
+#: A2BCustomer_UI/A2B_entity_call_details.php:318
+#: A2BCustomer_UI/A2B_entity_call_details.php:338
+#: A2BCustomer_UI/A2B_entity_call_details.php:376
+#: A2BCustomer_UI/A2B_entity_call_details.php:421
+msgid "NOVEMBER"
+msgstr "Noviembre"
+
+#: A2BCustomer_UI/call-history.php:337 A2BCustomer_UI/call-history.php:358
+#: A2BCustomer_UI/call-history.php:397 A2BCustomer_UI/call-history.php:425
+#: A2BCustomer_UI/A2B_entity_call_details.php:318
+#: A2BCustomer_UI/A2B_entity_call_details.php:338
+#: A2BCustomer_UI/A2B_entity_call_details.php:376
+#: A2BCustomer_UI/A2B_entity_call_details.php:421
+msgid "DECEMBER"
+msgstr "Diciembre"
+
+#: A2BCustomer_UI/call-history.php:353 A2BCustomer_UI/call-history.php:412
+#: A2BCustomer_UI/A2B_entity_call_details.php:334
+#: A2BCustomer_UI/A2B_entity_call_details.php:408
+msgid "TO"
+msgstr "Hasta"
+
+#: A2BCustomer_UI/call-history.php:379
+#: A2BCustomer_UI/A2B_entity_call_details.php:358
+#, fuzzy
+msgid "SELECT BY DAY"
+msgstr "DISCADO RAPIDO"
+
 #: A2BCustomer_UI/call-history.php:449
 #: A2BCustomer_UI/A2B_entity_call_details.php:462
 #: A2BCustomer_UI/A2B_entity_call_details.php:476
@@ -1760,6 +1692,19 @@ msgstr ""
 
 #: A2BCustomer_UI/checkout_confirmation.php:80
 msgid "Please confirm your order"
+msgstr ""
+
+#: A2BCustomer_UI/checkout_confirmation.php:87
+msgid "Payment Method"
+msgstr ""
+
+#: A2BCustomer_UI/checkout_confirmation.php:91
+#, fuzzy
+msgid "Total Amount"
+msgstr "COSTOS TOTALES"
+
+#: A2BCustomer_UI/checkout_confirmation.php:102
+msgid "Please click button to confirm your order"
 msgstr ""
 
 #: A2BCustomer_UI/PP_error.php:7
@@ -2588,6 +2533,18 @@ msgstr ""
 #: A2BCustomer_UI/form_data/FG_var_card.inc:117
 msgid "Your record has been updated."
 msgstr ""
+
+#, fuzzy
+#~ msgid "Please enter the order amount"
+#~ msgstr " créditos a tu cuenta !"
+
+#, fuzzy
+#~ msgid ""
+#~ "The fee from $5 is $0.45, from $10 is $0.59, from $20 is $0.88, from $40 "
+#~ "is $1.46."
+#~ msgstr ""
+#~ "Los honorarios desde $5 es $0.45, desde $10 es $0.59, desde $20 es $0.88, "
+#~ "desde $40 es $1.46. <br><b>Calculador de Honorarios Paypal"
 
 #, fuzzy
 #~ msgid "Please check the date and try again."

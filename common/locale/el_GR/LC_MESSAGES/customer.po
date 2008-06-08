@@ -63,7 +63,8 @@ msgstr ""
 msgid ""
 "Configuration information for SIP and IAX Client. You can simply copy and "
 "paste it in your configuration files and can do neccessory modifications."
-msgstr "Ρυθμίσεις πληροφορίες για SIP και IAX Πελάτης Εσείς αντιγραφή και σε και."
+msgstr ""
+"Ρυθμίσεις πληροφορίες για SIP και IAX Πελάτης Εσείς αντιγραφή και σε και."
 
 #: A2BCustomer_UI/lib/help.php:26
 msgid ""
@@ -318,7 +319,9 @@ msgstr "Άλλο"
 msgid ""
 "Here you can get example settings you can use in your devices. Select the "
 "kind of device (phone) you have and settings will appear."
-msgstr "Εδώ μπορείτε να δείτε τυπικές ρυθμίσεις για τις συσκευές σας. Επιλέξτε τον τύπο συσκευής (τηλεφώνου) και θα δείτε τις ρυθμίσεις."
+msgstr ""
+"Εδώ μπορείτε να δείτε τυπικές ρυθμίσεις για τις συσκευές σας. Επιλέξτε τον "
+"τύπο συσκευής (τηλεφώνου) και θα δείτε τις ρυθμίσεις."
 
 #: A2BCustomer_UI/A2B_entity_sipiax_info.php:18
 msgid "Asterisk sip friend"
@@ -616,7 +619,6 @@ msgstr "Κλήσεις ~κατά Ημερομηνία"
 
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:432
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:594
-#: A2BCustomer_UI/card-history.php:44
 #: A2BCustomer_UI/A2B_entity_call_details_pdf.php:439
 #: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:464
 #: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:632
@@ -653,7 +655,6 @@ msgstr "Χώρα"
 
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:521
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:596
-#: A2BCustomer_UI/card-history.php:45
 #: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:561
 #: A2BCustomer_UI/A2B_entity_invoice_detail_pdf.php:634
 #, fuzzy
@@ -738,210 +739,6 @@ msgstr "Συνδέθηκε"
 #: A2BCustomer_UI/A2B_entity_invoice_detail.php:697
 msgid "DisConnected"
 msgstr ""
-
-#: A2BCustomer_UI/card-history.php:69
-#, fuzzy
-msgid "Card History"
-msgstr "Κάρτα Ιστορικό"
-
-#: A2BCustomer_UI/card-history.php:174 A2BCustomer_UI/call-history.php:327
-#: A2BCustomer_UI/A2B_entity_call_details.php:308
-#, fuzzy
-msgid "SELECT BY MONTH"
-msgstr "ΜΗΝΑΣ"
-
-#: A2BCustomer_UI/card-history.php:180 A2BCustomer_UI/card-history.php:231
-#: A2BCustomer_UI/call-history.php:333 A2BCustomer_UI/call-history.php:384
-#: A2BCustomer_UI/A2B_entity_call_details.php:314
-#: A2BCustomer_UI/A2B_entity_call_details.php:363
-#, fuzzy
-msgid "FROM"
-msgstr "ΑΠΟ"
-
-#: A2BCustomer_UI/card-history.php:184 A2BCustomer_UI/card-history.php:205
-#: A2BCustomer_UI/card-history.php:244 A2BCustomer_UI/card-history.php:272
-#: A2BCustomer_UI/call-history.php:337 A2BCustomer_UI/call-history.php:358
-#: A2BCustomer_UI/call-history.php:397 A2BCustomer_UI/call-history.php:425
-#: A2BCustomer_UI/A2B_entity_call_details.php:318
-#: A2BCustomer_UI/A2B_entity_call_details.php:338
-#: A2BCustomer_UI/A2B_entity_call_details.php:376
-#: A2BCustomer_UI/A2B_entity_call_details.php:421
-#, fuzzy
-msgid "JANUARY"
-msgstr "ΙΑΝΟΥΑΡΙΟΣ"
-
-#: A2BCustomer_UI/card-history.php:184 A2BCustomer_UI/card-history.php:205
-#: A2BCustomer_UI/card-history.php:244 A2BCustomer_UI/card-history.php:272
-#: A2BCustomer_UI/call-history.php:337 A2BCustomer_UI/call-history.php:358
-#: A2BCustomer_UI/call-history.php:397 A2BCustomer_UI/call-history.php:425
-#: A2BCustomer_UI/A2B_entity_call_details.php:318
-#: A2BCustomer_UI/A2B_entity_call_details.php:338
-#: A2BCustomer_UI/A2B_entity_call_details.php:376
-#: A2BCustomer_UI/A2B_entity_call_details.php:421
-#, fuzzy
-msgid "FEBRUARY"
-msgstr "ΦΕΒΡΟΥΑΡΙΟΣ"
-
-#: A2BCustomer_UI/card-history.php:184 A2BCustomer_UI/card-history.php:205
-#: A2BCustomer_UI/card-history.php:244 A2BCustomer_UI/card-history.php:272
-#: A2BCustomer_UI/call-history.php:337 A2BCustomer_UI/call-history.php:358
-#: A2BCustomer_UI/call-history.php:397 A2BCustomer_UI/call-history.php:425
-#: A2BCustomer_UI/A2B_entity_call_details.php:318
-#: A2BCustomer_UI/A2B_entity_call_details.php:338
-#: A2BCustomer_UI/A2B_entity_call_details.php:376
-#: A2BCustomer_UI/A2B_entity_call_details.php:421
-#, fuzzy
-msgid "MARCH"
-msgstr "ΜΑΡΤΙΟΣ"
-
-#: A2BCustomer_UI/card-history.php:184 A2BCustomer_UI/card-history.php:205
-#: A2BCustomer_UI/card-history.php:244 A2BCustomer_UI/card-history.php:272
-#: A2BCustomer_UI/call-history.php:337 A2BCustomer_UI/call-history.php:358
-#: A2BCustomer_UI/call-history.php:397 A2BCustomer_UI/call-history.php:425
-#: A2BCustomer_UI/A2B_entity_call_details.php:318
-#: A2BCustomer_UI/A2B_entity_call_details.php:338
-#: A2BCustomer_UI/A2B_entity_call_details.php:376
-#: A2BCustomer_UI/A2B_entity_call_details.php:421
-#, fuzzy
-msgid "APRIL"
-msgstr "ΑΠΡΙΛΙΟΣ"
-
-#: A2BCustomer_UI/card-history.php:184 A2BCustomer_UI/card-history.php:205
-#: A2BCustomer_UI/card-history.php:244 A2BCustomer_UI/card-history.php:272
-#: A2BCustomer_UI/call-history.php:337 A2BCustomer_UI/call-history.php:358
-#: A2BCustomer_UI/call-history.php:397 A2BCustomer_UI/call-history.php:425
-#: A2BCustomer_UI/A2B_entity_call_details.php:318
-#: A2BCustomer_UI/A2B_entity_call_details.php:338
-#: A2BCustomer_UI/A2B_entity_call_details.php:376
-#: A2BCustomer_UI/A2B_entity_call_details.php:421
-#, fuzzy
-msgid "MAY"
-msgstr "ΜΑΪΟΣ"
-
-#: A2BCustomer_UI/card-history.php:184 A2BCustomer_UI/card-history.php:205
-#: A2BCustomer_UI/card-history.php:244 A2BCustomer_UI/card-history.php:272
-#: A2BCustomer_UI/call-history.php:337 A2BCustomer_UI/call-history.php:358
-#: A2BCustomer_UI/call-history.php:397 A2BCustomer_UI/call-history.php:425
-#: A2BCustomer_UI/A2B_entity_call_details.php:318
-#: A2BCustomer_UI/A2B_entity_call_details.php:338
-#: A2BCustomer_UI/A2B_entity_call_details.php:376
-#: A2BCustomer_UI/A2B_entity_call_details.php:421
-#, fuzzy
-msgid "JUNE"
-msgstr "ΙΟΥΝΙΟΣ"
-
-#: A2BCustomer_UI/card-history.php:184 A2BCustomer_UI/card-history.php:205
-#: A2BCustomer_UI/card-history.php:244 A2BCustomer_UI/card-history.php:272
-#: A2BCustomer_UI/call-history.php:337 A2BCustomer_UI/call-history.php:358
-#: A2BCustomer_UI/call-history.php:397 A2BCustomer_UI/call-history.php:425
-#: A2BCustomer_UI/A2B_entity_call_details.php:318
-#: A2BCustomer_UI/A2B_entity_call_details.php:338
-#: A2BCustomer_UI/A2B_entity_call_details.php:376
-#: A2BCustomer_UI/A2B_entity_call_details.php:421
-#, fuzzy
-msgid "JULY"
-msgstr "ΙΟΥΛΙΟΣ"
-
-#: A2BCustomer_UI/card-history.php:184 A2BCustomer_UI/card-history.php:205
-#: A2BCustomer_UI/card-history.php:244 A2BCustomer_UI/card-history.php:272
-#: A2BCustomer_UI/call-history.php:337 A2BCustomer_UI/call-history.php:358
-#: A2BCustomer_UI/call-history.php:397 A2BCustomer_UI/call-history.php:425
-#: A2BCustomer_UI/A2B_entity_call_details.php:318
-#: A2BCustomer_UI/A2B_entity_call_details.php:338
-#: A2BCustomer_UI/A2B_entity_call_details.php:376
-#: A2BCustomer_UI/A2B_entity_call_details.php:421
-#, fuzzy
-msgid "AUGUST"
-msgstr "ΑΥΓΟΥΣΤΟΣ"
-
-#: A2BCustomer_UI/card-history.php:184 A2BCustomer_UI/card-history.php:205
-#: A2BCustomer_UI/card-history.php:244 A2BCustomer_UI/card-history.php:272
-#: A2BCustomer_UI/call-history.php:337 A2BCustomer_UI/call-history.php:358
-#: A2BCustomer_UI/call-history.php:397 A2BCustomer_UI/call-history.php:425
-#: A2BCustomer_UI/A2B_entity_call_details.php:318
-#: A2BCustomer_UI/A2B_entity_call_details.php:338
-#: A2BCustomer_UI/A2B_entity_call_details.php:376
-#: A2BCustomer_UI/A2B_entity_call_details.php:421
-#, fuzzy
-msgid "SEPTEMBER"
-msgstr "ΣΕΠΤΕΜΒΡΙΟΣ"
-
-#: A2BCustomer_UI/card-history.php:184 A2BCustomer_UI/card-history.php:205
-#: A2BCustomer_UI/card-history.php:244 A2BCustomer_UI/card-history.php:272
-#: A2BCustomer_UI/call-history.php:337 A2BCustomer_UI/call-history.php:358
-#: A2BCustomer_UI/call-history.php:397 A2BCustomer_UI/call-history.php:425
-#: A2BCustomer_UI/A2B_entity_call_details.php:318
-#: A2BCustomer_UI/A2B_entity_call_details.php:338
-#: A2BCustomer_UI/A2B_entity_call_details.php:376
-#: A2BCustomer_UI/A2B_entity_call_details.php:421
-#, fuzzy
-msgid "OCTOBER"
-msgstr "ΟΚΤΩΒΡΙΟΣ"
-
-#: A2BCustomer_UI/card-history.php:184 A2BCustomer_UI/card-history.php:205
-#: A2BCustomer_UI/card-history.php:244 A2BCustomer_UI/card-history.php:272
-#: A2BCustomer_UI/call-history.php:337 A2BCustomer_UI/call-history.php:358
-#: A2BCustomer_UI/call-history.php:397 A2BCustomer_UI/call-history.php:425
-#: A2BCustomer_UI/A2B_entity_call_details.php:318
-#: A2BCustomer_UI/A2B_entity_call_details.php:338
-#: A2BCustomer_UI/A2B_entity_call_details.php:376
-#: A2BCustomer_UI/A2B_entity_call_details.php:421
-#, fuzzy
-msgid "NOVEMBER"
-msgstr "ΝΟΕΜΒΡΙΟΣ"
-
-#: A2BCustomer_UI/card-history.php:184 A2BCustomer_UI/card-history.php:205
-#: A2BCustomer_UI/card-history.php:244 A2BCustomer_UI/card-history.php:272
-#: A2BCustomer_UI/call-history.php:337 A2BCustomer_UI/call-history.php:358
-#: A2BCustomer_UI/call-history.php:397 A2BCustomer_UI/call-history.php:425
-#: A2BCustomer_UI/A2B_entity_call_details.php:318
-#: A2BCustomer_UI/A2B_entity_call_details.php:338
-#: A2BCustomer_UI/A2B_entity_call_details.php:376
-#: A2BCustomer_UI/A2B_entity_call_details.php:421
-#, fuzzy
-msgid "DECEMBER"
-msgstr "ΔΕΚΕΜΒΡΙΟΣ"
-
-#: A2BCustomer_UI/card-history.php:200 A2BCustomer_UI/card-history.php:259
-#: A2BCustomer_UI/call-history.php:353 A2BCustomer_UI/call-history.php:412
-#: A2BCustomer_UI/A2B_entity_call_details.php:334
-#: A2BCustomer_UI/A2B_entity_call_details.php:408
-#, fuzzy
-msgid "TO"
-msgstr "ΕΩΣ"
-
-#: A2BCustomer_UI/card-history.php:226 A2BCustomer_UI/call-history.php:379
-#: A2BCustomer_UI/A2B_entity_call_details.php:358
-msgid "SELECT BY DAY"
-msgstr ""
-
-#: A2BCustomer_UI/card-history.php:293
-#: A2BCustomer_UI/invoices_customer.php:277
-#: A2BCustomer_UI/call-history.php:504
-#: A2BCustomer_UI/A2B_entity_call_details.php:544
-#, fuzzy
-msgid "Search"
-msgstr "Αναζήτηση"
-
-#: A2BCustomer_UI/card-history.php:385
-#: A2BCustomer_UI/CC_entity_edit_did_destination.php:373
-#: A2BCustomer_UI/CC_entity_edit_did_destination.php:592
-#: A2BCustomer_UI/CC_entity_edit_did_destination.php:910
-#: A2BCustomer_UI/CC_entity_edit_did_destination.php:1032
-#: A2BCustomer_UI/CC_entity_edit_did_destination.php:1196
-#: A2BCustomer_UI/invoices_customer.php:650
-#: A2BCustomer_UI/CC_entity_edit_speeddial.php:262
-#: A2BCustomer_UI/CC_entity_edit_speeddial.php:472
-#: A2BCustomer_UI/CC_entity_edit_speeddial.php:764
-#: A2BCustomer_UI/CC_entity_edit_speeddial.php:1010
-#: A2BCustomer_UI/A2B_entity_call_details_pdf.php:626
-#: A2BCustomer_UI/A2B_entity_call_details_pdf.php:725
-#: A2BCustomer_UI/call-history.php:638
-#: A2BCustomer_UI/A2B_entity_call_details.php:892
-#: A2BCustomer_UI/A2B_entity_call_details.php:992
-#, fuzzy
-msgid "No data found !!!"
-msgstr "Δεν βρέθηκαν δεδομένα!!!"
 
 #: A2BCustomer_UI/simulator.php:15
 #, fuzzy
@@ -1066,6 +863,25 @@ msgstr "ID"
 #, fuzzy
 msgid "error deletion"
 msgstr "σφάλμα στην διαγραφή"
+
+#: A2BCustomer_UI/CC_entity_edit_did_destination.php:373
+#: A2BCustomer_UI/CC_entity_edit_did_destination.php:592
+#: A2BCustomer_UI/CC_entity_edit_did_destination.php:910
+#: A2BCustomer_UI/CC_entity_edit_did_destination.php:1032
+#: A2BCustomer_UI/CC_entity_edit_did_destination.php:1196
+#: A2BCustomer_UI/invoices_customer.php:650
+#: A2BCustomer_UI/CC_entity_edit_speeddial.php:262
+#: A2BCustomer_UI/CC_entity_edit_speeddial.php:472
+#: A2BCustomer_UI/CC_entity_edit_speeddial.php:764
+#: A2BCustomer_UI/CC_entity_edit_speeddial.php:1010
+#: A2BCustomer_UI/A2B_entity_call_details_pdf.php:626
+#: A2BCustomer_UI/A2B_entity_call_details_pdf.php:725
+#: A2BCustomer_UI/call-history.php:638
+#: A2BCustomer_UI/A2B_entity_call_details.php:892
+#: A2BCustomer_UI/A2B_entity_call_details.php:992
+#, fuzzy
+msgid "No data found !!!"
+msgstr "Δεν βρέθηκαν δεδομένα!!!"
 
 #: A2BCustomer_UI/CC_entity_edit_did_destination.php:531
 #, fuzzy
@@ -1192,6 +1008,13 @@ msgstr "ή εξαγωγή σε CSV"
 msgid "CURRENCY"
 msgstr "ΝΟΜΙΣΜΑ"
 
+#: A2BCustomer_UI/invoices_customer.php:277
+#: A2BCustomer_UI/call-history.php:504
+#: A2BCustomer_UI/A2B_entity_call_details.php:544
+#, fuzzy
+msgid "Search"
+msgstr "Αναζήτηση"
+
 #: A2BCustomer_UI/invoices_customer.php:347
 #: A2BCustomer_UI/invoices_customer.php:499
 #: A2BCustomer_UI/invoices_customer.php:745
@@ -1307,40 +1130,6 @@ msgstr ""
 #, fuzzy
 msgid "Your personal information is updated successfully."
 msgstr "πληροφορίες είναι."
-
-#: A2BCustomer_UI/checkout_amount.php:62
-#: A2BCustomer_UI/checkout_confirmation.php:87
-#, fuzzy
-msgid "Payment Method"
-msgstr "Μέθοδος Πληρωμής"
-
-#: A2BCustomer_UI/checkout_amount.php:76
-msgid "Please enter the order amount"
-msgstr ""
-
-#: A2BCustomer_UI/checkout_amount.php:83
-#: A2BCustomer_UI/checkout_confirmation.php:91
-#, fuzzy
-msgid "Total Amount"
-msgstr "Σύνολο Ποσό"
-
-#: A2BCustomer_UI/checkout_amount.php:104
-#: A2BCustomer_UI/checkout_confirmation.php:102
-#, fuzzy
-msgid "Please click button to confirm your order"
-msgstr "κλικ στο"
-
-#: A2BCustomer_UI/checkout_amount.php:119
-#, fuzzy
-msgid ""
-"The fee from $5 is $0.45, from $10 is $0.59, from $20 is $0.88, from $40 is "
-"$1.46."
-msgstr "από είναι από είναι από είναι από είναι."
-
-#: A2BCustomer_UI/checkout_amount.php:119
-#, fuzzy
-msgid "Paypal Fee Calculator"
-msgstr "Αριθμομηχανή"
 
 #: A2BCustomer_UI/A2B_entity_did.php:54
 #, fuzzy
@@ -1602,7 +1391,8 @@ msgstr "Σφάλμα είναι όχι route στο!"
 
 #: A2BCustomer_UI/callback.php:222
 #, fuzzy
-msgid "Error : You have to specify your phonenumber and the number you wish to call!"
+msgid ""
+"Error : You have to specify your phonenumber and the number you wish to call!"
 msgstr "Σφάλμα Εσείς στο και στο!"
 
 #: A2BCustomer_UI/callback.php:236
@@ -1818,6 +1608,151 @@ msgstr ""
 msgid "Call Logs"
 msgstr "Κλήση"
 
+#: A2BCustomer_UI/call-history.php:327
+#: A2BCustomer_UI/A2B_entity_call_details.php:308
+#, fuzzy
+msgid "SELECT BY MONTH"
+msgstr "ΜΗΝΑΣ"
+
+#: A2BCustomer_UI/call-history.php:333 A2BCustomer_UI/call-history.php:384
+#: A2BCustomer_UI/A2B_entity_call_details.php:314
+#: A2BCustomer_UI/A2B_entity_call_details.php:363
+#, fuzzy
+msgid "FROM"
+msgstr "ΑΠΟ"
+
+#: A2BCustomer_UI/call-history.php:337 A2BCustomer_UI/call-history.php:358
+#: A2BCustomer_UI/call-history.php:397 A2BCustomer_UI/call-history.php:425
+#: A2BCustomer_UI/A2B_entity_call_details.php:318
+#: A2BCustomer_UI/A2B_entity_call_details.php:338
+#: A2BCustomer_UI/A2B_entity_call_details.php:376
+#: A2BCustomer_UI/A2B_entity_call_details.php:421
+#, fuzzy
+msgid "JANUARY"
+msgstr "ΙΑΝΟΥΑΡΙΟΣ"
+
+#: A2BCustomer_UI/call-history.php:337 A2BCustomer_UI/call-history.php:358
+#: A2BCustomer_UI/call-history.php:397 A2BCustomer_UI/call-history.php:425
+#: A2BCustomer_UI/A2B_entity_call_details.php:318
+#: A2BCustomer_UI/A2B_entity_call_details.php:338
+#: A2BCustomer_UI/A2B_entity_call_details.php:376
+#: A2BCustomer_UI/A2B_entity_call_details.php:421
+#, fuzzy
+msgid "FEBRUARY"
+msgstr "ΦΕΒΡΟΥΑΡΙΟΣ"
+
+#: A2BCustomer_UI/call-history.php:337 A2BCustomer_UI/call-history.php:358
+#: A2BCustomer_UI/call-history.php:397 A2BCustomer_UI/call-history.php:425
+#: A2BCustomer_UI/A2B_entity_call_details.php:318
+#: A2BCustomer_UI/A2B_entity_call_details.php:338
+#: A2BCustomer_UI/A2B_entity_call_details.php:376
+#: A2BCustomer_UI/A2B_entity_call_details.php:421
+#, fuzzy
+msgid "MARCH"
+msgstr "ΜΑΡΤΙΟΣ"
+
+#: A2BCustomer_UI/call-history.php:337 A2BCustomer_UI/call-history.php:358
+#: A2BCustomer_UI/call-history.php:397 A2BCustomer_UI/call-history.php:425
+#: A2BCustomer_UI/A2B_entity_call_details.php:318
+#: A2BCustomer_UI/A2B_entity_call_details.php:338
+#: A2BCustomer_UI/A2B_entity_call_details.php:376
+#: A2BCustomer_UI/A2B_entity_call_details.php:421
+#, fuzzy
+msgid "APRIL"
+msgstr "ΑΠΡΙΛΙΟΣ"
+
+#: A2BCustomer_UI/call-history.php:337 A2BCustomer_UI/call-history.php:358
+#: A2BCustomer_UI/call-history.php:397 A2BCustomer_UI/call-history.php:425
+#: A2BCustomer_UI/A2B_entity_call_details.php:318
+#: A2BCustomer_UI/A2B_entity_call_details.php:338
+#: A2BCustomer_UI/A2B_entity_call_details.php:376
+#: A2BCustomer_UI/A2B_entity_call_details.php:421
+#, fuzzy
+msgid "MAY"
+msgstr "ΜΑΪΟΣ"
+
+#: A2BCustomer_UI/call-history.php:337 A2BCustomer_UI/call-history.php:358
+#: A2BCustomer_UI/call-history.php:397 A2BCustomer_UI/call-history.php:425
+#: A2BCustomer_UI/A2B_entity_call_details.php:318
+#: A2BCustomer_UI/A2B_entity_call_details.php:338
+#: A2BCustomer_UI/A2B_entity_call_details.php:376
+#: A2BCustomer_UI/A2B_entity_call_details.php:421
+#, fuzzy
+msgid "JUNE"
+msgstr "ΙΟΥΝΙΟΣ"
+
+#: A2BCustomer_UI/call-history.php:337 A2BCustomer_UI/call-history.php:358
+#: A2BCustomer_UI/call-history.php:397 A2BCustomer_UI/call-history.php:425
+#: A2BCustomer_UI/A2B_entity_call_details.php:318
+#: A2BCustomer_UI/A2B_entity_call_details.php:338
+#: A2BCustomer_UI/A2B_entity_call_details.php:376
+#: A2BCustomer_UI/A2B_entity_call_details.php:421
+#, fuzzy
+msgid "JULY"
+msgstr "ΙΟΥΛΙΟΣ"
+
+#: A2BCustomer_UI/call-history.php:337 A2BCustomer_UI/call-history.php:358
+#: A2BCustomer_UI/call-history.php:397 A2BCustomer_UI/call-history.php:425
+#: A2BCustomer_UI/A2B_entity_call_details.php:318
+#: A2BCustomer_UI/A2B_entity_call_details.php:338
+#: A2BCustomer_UI/A2B_entity_call_details.php:376
+#: A2BCustomer_UI/A2B_entity_call_details.php:421
+#, fuzzy
+msgid "AUGUST"
+msgstr "ΑΥΓΟΥΣΤΟΣ"
+
+#: A2BCustomer_UI/call-history.php:337 A2BCustomer_UI/call-history.php:358
+#: A2BCustomer_UI/call-history.php:397 A2BCustomer_UI/call-history.php:425
+#: A2BCustomer_UI/A2B_entity_call_details.php:318
+#: A2BCustomer_UI/A2B_entity_call_details.php:338
+#: A2BCustomer_UI/A2B_entity_call_details.php:376
+#: A2BCustomer_UI/A2B_entity_call_details.php:421
+#, fuzzy
+msgid "SEPTEMBER"
+msgstr "ΣΕΠΤΕΜΒΡΙΟΣ"
+
+#: A2BCustomer_UI/call-history.php:337 A2BCustomer_UI/call-history.php:358
+#: A2BCustomer_UI/call-history.php:397 A2BCustomer_UI/call-history.php:425
+#: A2BCustomer_UI/A2B_entity_call_details.php:318
+#: A2BCustomer_UI/A2B_entity_call_details.php:338
+#: A2BCustomer_UI/A2B_entity_call_details.php:376
+#: A2BCustomer_UI/A2B_entity_call_details.php:421
+#, fuzzy
+msgid "OCTOBER"
+msgstr "ΟΚΤΩΒΡΙΟΣ"
+
+#: A2BCustomer_UI/call-history.php:337 A2BCustomer_UI/call-history.php:358
+#: A2BCustomer_UI/call-history.php:397 A2BCustomer_UI/call-history.php:425
+#: A2BCustomer_UI/A2B_entity_call_details.php:318
+#: A2BCustomer_UI/A2B_entity_call_details.php:338
+#: A2BCustomer_UI/A2B_entity_call_details.php:376
+#: A2BCustomer_UI/A2B_entity_call_details.php:421
+#, fuzzy
+msgid "NOVEMBER"
+msgstr "ΝΟΕΜΒΡΙΟΣ"
+
+#: A2BCustomer_UI/call-history.php:337 A2BCustomer_UI/call-history.php:358
+#: A2BCustomer_UI/call-history.php:397 A2BCustomer_UI/call-history.php:425
+#: A2BCustomer_UI/A2B_entity_call_details.php:318
+#: A2BCustomer_UI/A2B_entity_call_details.php:338
+#: A2BCustomer_UI/A2B_entity_call_details.php:376
+#: A2BCustomer_UI/A2B_entity_call_details.php:421
+#, fuzzy
+msgid "DECEMBER"
+msgstr "ΔΕΚΕΜΒΡΙΟΣ"
+
+#: A2BCustomer_UI/call-history.php:353 A2BCustomer_UI/call-history.php:412
+#: A2BCustomer_UI/A2B_entity_call_details.php:334
+#: A2BCustomer_UI/A2B_entity_call_details.php:408
+#, fuzzy
+msgid "TO"
+msgstr "ΕΩΣ"
+
+#: A2BCustomer_UI/call-history.php:379
+#: A2BCustomer_UI/A2B_entity_call_details.php:358
+msgid "SELECT BY DAY"
+msgstr ""
+
 #: A2BCustomer_UI/call-history.php:449
 #: A2BCustomer_UI/A2B_entity_call_details.php:462
 #: A2BCustomer_UI/A2B_entity_call_details.php:476
@@ -1919,6 +1854,21 @@ msgstr "Όχι Συναλλαγή ID"
 msgid "Please confirm your order"
 msgstr ""
 
+#: A2BCustomer_UI/checkout_confirmation.php:87
+#, fuzzy
+msgid "Payment Method"
+msgstr "Μέθοδος Πληρωμής"
+
+#: A2BCustomer_UI/checkout_confirmation.php:91
+#, fuzzy
+msgid "Total Amount"
+msgstr "Σύνολο Ποσό"
+
+#: A2BCustomer_UI/checkout_confirmation.php:102
+#, fuzzy
+msgid "Please click button to confirm your order"
+msgstr "κλικ στο"
+
 #: A2BCustomer_UI/PP_error.php:7
 #, fuzzy
 msgid "ERROR : ACCESS REFUSED"
@@ -1927,7 +1877,8 @@ msgstr "ΣΦΑΛΜΑ, Η ΠΡΟΣΒΑΣΗ ΔΕΝ ΕΠΙΤΡΕΠΕΤΑΙ"
 #: A2BCustomer_UI/PP_error.php:8
 #, fuzzy
 msgid "Sorry a problem occur on our system, please try later!"
-msgstr "Λυπούμαστε, συνέβη σφάλμα στο σύστημά μας. Παρακαλώ, δοκιμάστε αργότερα!"
+msgstr ""
+"Λυπούμαστε, συνέβη σφάλμα στο σύστημά μας. Παρακαλώ, δοκιμάστε αργότερα!"
 
 #: A2BCustomer_UI/PP_error.php:9
 #, fuzzy
@@ -1961,7 +1912,8 @@ msgstr "ΚΑΝΕΝΑ"
 
 #: A2BCustomer_UI/predictivedialer.php:66
 #, fuzzy
-msgid "Error : The system cannot call you back, please inform the administrator"
+msgid ""
+"Error : The system cannot call you back, please inform the administrator"
 msgstr "Σφάλμα"
 
 #: A2BCustomer_UI/predictivedialer.php:76
@@ -1976,12 +1928,14 @@ msgstr "Έλεγχος."
 
 #: A2BCustomer_UI/predictivedialer.php:81
 #, fuzzy
-msgid "Error : You have to specify your phonenumber and the number you wish to call"
+msgid ""
+"Error : You have to specify your phonenumber and the number you wish to call"
 msgstr "Σφάλμα Εσείς στο και στο"
 
 #: A2BCustomer_UI/predictivedialer.php:137
 #, fuzzy
-msgid "You can initiate the predictive dialer by clicking on the Place call button!"
+msgid ""
+"You can initiate the predictive dialer by clicking on the Place call button!"
 msgstr "Εσείς ~κατά Τοποθέτηση!"
 
 #: A2BCustomer_UI/predictivedialer.php:148
@@ -2346,7 +2300,8 @@ msgstr "Επιλογή κατάσταση από"
 #: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:285
 #: A2BCustomer_UI/form_data/FG_var_view_invoice.inc:91
 #, fuzzy
-msgid "You can modify, through the following form, the different properties of your "
+msgid ""
+"You can modify, through the following form, the different properties of your "
 msgstr "Μπορείτε να διορθώσετε, με την παρακάτω φόρμα, τις ιδιότητες των"
 
 #: A2BCustomer_UI/frontoffice_data/CC_var_phonelist.inc:346
@@ -2487,7 +2442,8 @@ msgstr "Εισαγωγή εδώ στο για"
 #: A2BCustomer_UI/form_data/FG_var_speeddial.inc:112
 #: A2BCustomer_UI/form_data/FG_var_callerid.inc:102
 #, fuzzy
-msgid "You can modify, through the following form, the different properties of your"
+msgid ""
+"You can modify, through the following form, the different properties of your"
 msgstr "Μπορείτε να επεξεργαστείτε, στην παρακάτω φόρμα, τις ιδιότητες του"
 
 #: A2BCustomer_UI/form_data/FG_var_speeddial.inc:113
@@ -2516,7 +2472,8 @@ msgstr "μπορείτε εύκολα να προσθέσετε ένα νέο"
 #: A2BCustomer_UI/form_data/FG_var_did.inc:134
 #, fuzzy
 msgid "Fill the following fields and confirm by clicking on the button add."
-msgstr "Συμπληρώστε τα παρακάτω πεδία και επιβεβαιώστε με το πλήκτρο της προσθήκης."
+msgstr ""
+"Συμπληρώστε τα παρακάτω πεδία και επιβεβαιώστε με το πλήκτρο της προσθήκης."
 
 #: A2BCustomer_UI/form_data/FG_var_speeddial.inc:121
 #: A2BCustomer_UI/form_data/FG_var_callerid.inc:112
@@ -2656,7 +2613,8 @@ msgid ""
 "Enter here the phonenumber you want to call or the SIP/IAX/H323 peer to "
 "reach (ie: 347894999 or SIP/jeremy@182.212.1.45). To call SIP/IAX/H323 peer, "
 "you need to enable the voip_call bellow (voip_call = Yes) "
-msgstr "Εισαγωγή εδώ στο ή SIP IAX στο ή SIPjeremy@182.212.1.45 Προς SIP IAX στο Ναι "
+msgstr ""
+"Εισαγωγή εδώ στο ή SIP IAX στο ή SIPjeremy@182.212.1.45 Προς SIP IAX στο Ναι "
 
 #: A2BCustomer_UI/form_data/FG_var_did.inc:109
 #, fuzzy
@@ -2797,6 +2755,20 @@ msgstr "ενημέρωση πληροφορίες."
 #, fuzzy
 msgid "Your record has been updated."
 msgstr "εγγραφή."
+
+#, fuzzy
+#~ msgid "Card History"
+#~ msgstr "Κάρτα Ιστορικό"
+
+#, fuzzy
+#~ msgid ""
+#~ "The fee from $5 is $0.45, from $10 is $0.59, from $20 is $0.88, from $40 "
+#~ "is $1.46."
+#~ msgstr "από είναι από είναι από είναι από είναι."
+
+#, fuzzy
+#~ msgid "Paypal Fee Calculator"
+#~ msgstr "Αριθμομηχανή"
 
 #, fuzzy
 #~ msgid "The expiry date entered for the credit card is invalid."
@@ -2962,4 +2934,3 @@ msgstr "εγγραφή."
 #, fuzzy
 #~ msgid "The peer is not defined, please contact your Administrator!"
 #~ msgstr "είναι όχι!"
-
