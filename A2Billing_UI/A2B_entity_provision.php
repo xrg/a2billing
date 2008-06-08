@@ -5,6 +5,7 @@ require_once (DIR_COMMON."Form.inc.php");
 require_once (DIR_COMMON."Class.HelpElem.inc.php");
 require_once (DIR_COMMON."Form/Class.RevRef.inc.php");
 require_once (DIR_COMMON."Form/Class.RevRefForm.inc.php");
+require_once (DIR_COMMON."Form/Class.TimeField.inc.php");
 
 $menu_section='menu_config';
 
@@ -28,6 +29,8 @@ $HD_Form->model[] = new TextField(_("Sub Name"),'sub_name',_('Second part of nam
 //$HD_Form->model[] = new SqlRefFieldN(_("Alias Length"),'agentid','cc_agent','id','name', _("If cards belong to an agent."));
 $HD_Form->model[] = dontList(dontAdd( new IntField(_("Metric"),'metric',_("By adjusting the metrics, order of the generated groups can be enforced."))));
 $HD_Form->model[] = dontList(dontAdd( new IntField(_("Options"),'options',_("Option flags for group."))));
+
+$HD_Form->model[] = dontList( new DateTimeFieldN(_("Last changed"),'mtime',_("Last change of group data. May determine whether a provision is needed.")));
 
 //$HD_Form->model[] = new RevRefTxt(_("Patterns"),'pat','id','cc_numplan_pattern','nplan','nick',_("Dial patterns for this plan."));
 

@@ -7,6 +7,8 @@ CREATE TABLE provision_group (
 	name TEXT NOT NULL,
 	sub_name TEXT,
 	args	TEXT,
+	
+	mtime  TIMESTAMP default now(),
 
 	options INTEGER NOT NULL DEFAULT 0,
 	metric  INTEGER NOT NULL DEFAULT 10

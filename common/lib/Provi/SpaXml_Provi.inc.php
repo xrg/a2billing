@@ -25,7 +25,7 @@ class SpaXmlProvi extends ProviEngine {
 		
 		$qry = str_dbparams($dbhandle,'SELECT DISTINCT cc_card.*, cc_ast_users.devmodel, '.
 			' cc_ast_users.devsecret, cc_ast_users.callerid, cc_ast_users.defaultip, '.
-			' cc_ast_users.provi_name, cc_ast_users.provi_num, '.
+			' cc_ast_users.provi_name, cc_ast_users.provi_num, cc_ast_users.provi_date, '.
 			' COALESCE(cc_ast_users.peernameb, cc_card.username) AS ext_name, '.
 			' COALESCE(cc_ast_users.secretb,cc_card.userpass) AS ext_password, ' .
 			' to_char(now(), \'HH24/MI\') AS localtime, to_char(now(), \'MM/DD\') AS localdate '.
@@ -85,16 +85,24 @@ class SpaXmlProvi extends ProviEngine {
 		
 		$unquery= "SELECT DISTINCT * FROM provision_group ".
 			" WHERE categ = %2 " .
-			" AND model = %1 AND options = 0 ;";
+			" AND model = %1 AND options = 0";
 			
 		$numquery= "SELECT DISTINCT * FROM provision_group ".
 			" WHERE categ = %2 " .
-			" AND model = %1 AND options = 1 ;";
+			" AND model = %1 AND options = 1";
+			
+		if (! $this->args['firsttime']) {
+			$unquery .= ' AND ( mtime IS NULL OR %!3 IS NULL OR mtime > %!3 )';
+			$numquery .= ' AND ( mtime IS NULL OR %!3 IS NULL OR mtime > %!3 )';
+		}
+		
+		$unquery .= ';' ;
+		$numquery .= ';' ;
 
 		while ($cardrow = $this->cardres->fetchRow()){
 			// find the unnumbered parameters:
 			if (!$passed_gen){
-				$qry = str_dbparams($dbhandle,$unquery,array($cardrow['devmodel'],$this->confname));
+				$qry = str_dbparams($dbhandle,$unquery,array($cardrow['devmodel'],$this->confname, $cardrow['provi_date']));
 				$this->out(LOG_DEBUG,"Query: $qry");
 				$gres=$dbhandle->Execute($qry);
 				if (!$gres){
@@ -123,7 +131,7 @@ class SpaXmlProvi extends ProviEngine {
 			}
 			
 			// Query again for numbered groups:
-			$qry = str_dbparams($dbhandle,$numquery,array($cardrow['devmodel'],$this->confname));
+			$qry = str_dbparams($dbhandle,$numquery,array($cardrow['devmodel'],$this->confname, $cardrow['provi_date']));
 			$this->out(LOG_DEBUG,"Query: $qry");
 			$gres=$dbhandle->Execute($qry);
 			if (!$gres){
@@ -159,7 +167,21 @@ class SpaXmlProvi extends ProviEngine {
 		}
 		
 		fwrite($outstream,"\n</flat-profile>\n");
-	}
+	
+		$qry = str_dbparams($dbhandle,'UPDATE cc_ast_users SET provi_date = now() '.
+			' WHERE cc_ast_users.macaddr = %1
+			  AND cc_ast_users.devsecret = %2
+			  AND EXISTS (SELECT 1 FROM provision_group WHERE categ = %3 
+			  		AND model = cc_ast_users.devmodel) ;',
+			array($this->args['mac'], $this->args['sec'],$this->confname));
+		
+		$this->out(LOG_DEBUG,"Query: $qry");	
+		$res=$this->dbhandle->Execute($qry);
+		if (!$res){
+			$this->out(LOG_ERR,$this->dbhandle->ErrorMsg());
+			$this->out(LOG_ERR,"Cannot Update provisioned device.");
+		}
+}
 
 };
 
