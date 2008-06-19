@@ -305,7 +305,7 @@ while ($didrow = $didres->fetchRow()){
 			$last_prob='no-dialstring';
 			continue;
 		}elseif($dialstr ===true){
-			if (dialSpecial($dialnum,$route, $card,$last_prob,$agi,$attempt))
+			if (dialSpecial($dialnum,$route, $card,$card_money,$last_prob,$agi,$attempt))
 				break;
 			else
 				continue;

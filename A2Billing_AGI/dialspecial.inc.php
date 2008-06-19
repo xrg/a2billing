@@ -103,6 +103,7 @@ function dialSpecial($dialnum,$route, $card,$card_money,&$last_prob,$agi, $attem
 			$mopts='b';
 		else
 			$mopts='u';
+		$mopts .= $route['trunkparm'];  // usually, the 's'
 		$uniqueid=$agi->request['agi_uniqueid']; // . $attempt;
 		
 		$res = $a2b->DBHandle()->Execute('INSERT INTO cc_call (cardid, attempt, cmode, '.
