@@ -271,6 +271,7 @@ function menu_show(sect_str){
 	<?php   if ( has_rights (ACX_MISC) ){ 	?>
 			<li><a href="A2B_entity_mailtemplate.php"><?= _("Mail template");?></a></li>
 			<li><a href="A2B_entity_subscrtem.php"><?= _("Subscribe template");?></a></li>
+			<li><a href="A2B_entity_timepers.php"><?= _("Time Periods");?></a></li>
 	<?php  } ?>
 	<?php   if ( has_rights (ACX_ADMINISTRATOR) ){ 	?>
 			<li><a href="A2B_entity_ast_usercfg.php"><?= _("User cfgs");?></a></li>
@@ -293,6 +294,7 @@ function menu_show(sect_str){
 			<li><a href="A2B_entity_texts.php"><?= _("Localized texts");?></a></li>
 			<li><a href="A2B_logfile.php"><?= _("Watch Log files"); ?></a></li>
 			<li><a href="A2B_entity_mails.php"><?= _("Mails");?></a></li>
+			<li><a href="A2B_entity_timepcache.php"><?= _("Time Period Cache");?></a></li>
 			<li><a href="A2B_entity_log_viewer.php"><?= _("System Log");?></a></li>
 		</ul>
 		</div>
