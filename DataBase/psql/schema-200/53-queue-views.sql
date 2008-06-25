@@ -8,23 +8,27 @@ CREATE OR REPLACE VIEW realtime_queue_members AS
 	SELECT ast_queue_member.id AS uniqueid, 
 		COALESCE(cc_card.firstname,'') || COALESCE(' ' || cc_card.lastname,'') AS membername,
 		ast_queue.name AS queue_name, 
-		(CASE WHEN sipiax = 1 THEN 'SIP'::TEXT WHEN sipiax = 2 THEN 'IAX2'::TEXT ELSE 'NONE'::TEXT END) ||
-		'/' || COALESCE(cc_ast_users.peernameb,cc_card.username) AS interface,
+		(CASE WHEN mode = 2 THEN parm ELSE (CASE WHEN sipiax = 1 THEN 'SIP'::TEXT 
+			WHEN sipiax = 2 THEN 'IAX2'::TEXT ELSE 'NONE'::TEXT END) ||
+		'/' || COALESCE(cc_ast_users.peernameb,cc_card.username) END) AS interface,
 		ast_queue_member.penalty, ast_queue_member.paused
 	    FROM ast_queue_member,ast_queue,cc_ast_users, cc_ast_instance, cc_card
 	    WHERE ast_queue_member.que = ast_queue.id
 	      AND ast_queue_member.usr = cc_ast_users.id
 	      AND cc_ast_instance.userid = cc_ast_users.id
 	      AND cc_card.id = cc_ast_users.card_id
+	      AND (mode = 1 OR mode = 2 )
+	      AND ( tperiod IS NULL OR time_period_active(tperiod, now()))
 	      -- uncomment below to only allow active peers to appear..
 	      -- AND (dyn = false OR ( (sipiax = 2 AND regseconds > 0) OR
 	      --		(sipiax = 1 AND regseconds > EXTRACT ('epoch' FROM now()))))
 	-- Remote peers? AGI ones?
 	
-	UNION SELECT 820182 AS uniqueid, 'The test' AS membername,
+	/*UNION SELECT 820182 AS uniqueid, 'The test' AS membername,
 		ast_queue.name AS queue_name, 'Local/s@sim-agent' AS interface, 
 		2 AS penalty, false AS paused
 		FROM ast_queue
+	*/
 	;
 
 

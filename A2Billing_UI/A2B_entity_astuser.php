@@ -6,6 +6,7 @@ require_once (DIR_COMMON."Class.HelpElem.inc.php");
 require_once (DIR_COMMON."Form/Class.SqlRefField.inc.php");
 require_once (DIR_COMMON."Form/Class.VolField.inc.php");
 require_once (DIR_COMMON."Form/Class.TimeField.inc.php");
+require_once (DIR_COMMON."Class.JQuery.inc.php");
 
 $menu_section='menu_customers';
 
@@ -15,6 +16,7 @@ HelpElem::DoHelp(_("Asterisk users are the entries that provide SIP/IAX peers fo
 $HD_Form= new FormHandler('cc_ast_users',_("Users"),_("User"));
 $HD_Form->checkRights(ACX_CUSTOMER);
 $HD_Form->init();
+$HD_Form->views['tooltip'] = new DetailsMcView();
 
 $PAGE_ELEMS[] = &$HD_Form;
 $PAGE_ELEMS[] = new AddNewButton($HD_Form);
@@ -53,6 +55,9 @@ $HD_Form->model[] = DontList( new DateTimeFieldN(_("Last provisioned"),'provi_da
 $HD_Form->model[] = new DelBtnField();
 
 
-require("PP_page.inc.php");
+if($HD_Form->getAction()=='tooltip')
+	require("PP_bare_page.inc.php");
+else
+	require("PP_page.inc.php");
 
 ?>

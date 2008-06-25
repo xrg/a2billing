@@ -74,9 +74,12 @@ CREATE TABLE ast_queue_member (
 	id  BIGSERIAL PRIMARY KEY,
 	que INTEGER NOT NULL REFERENCES ast_queue(id),
 	usr BIGINT NOT NULL REFERENCES cc_ast_users(id),
+	mode INTEGER NOT NULL DEFAULT 1,
 	penalty INTEGER DEFAULT 1,
 	paused BOOLEAN DEFAULT false,
-	UNIQUE(que,usr)
+	tperiod TEXT,
+	parm    TEXT,
+	UNIQUE(que,usr,mode)
 );
 
 -- CREATE TABLE queue_member_table (
