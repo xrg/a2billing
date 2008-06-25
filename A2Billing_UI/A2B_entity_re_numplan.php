@@ -37,6 +37,7 @@ $HD_Form->meta_elems[] = $tmp;
 	$tmp->Form->model[]= new TextFieldEH(_("Name"),'nick',_('Name of pattern'));
 	//$tmp->Form->model[] = new SqlRefField(_("Out CLID Group"),'oclid','cc_outbound_cgroup','id','name');
 	//	end($tmp->Form->model)->fieldacr = _("OC GRP");
+	$tmp->Form->model[] = DontList(new TextFieldN(_("Ring style"),'alert_info',_("Selects the ring pattern to use on the phone being dialled.")));
 
 	$tmp->Form->model[] = new DelBtnField();
 	$tmp->Form->meta_elems[] = new AddNewButton($tmp->Form);

@@ -6,7 +6,9 @@ CREATE TABLE cc_didgroup (
     id  	BIGSERIAL NOT NULL PRIMARY KEY,
     name TEXT NOT NULL,
    code TEXT NOT NULL DEFAULT '', -- lets the did be matched against the trunk it comes from
-   tgid INTEGER REFERENCES cc_tariffgroup(id)
+   tgid INTEGER REFERENCES cc_tariffgroup(id),
+   rnplan INTEGER REFERENCES cc_re_numplan(id),
+   alert_info TEXT  -- Ring pattern
 );
 
 

@@ -19,12 +19,12 @@ CODE-common=common
 all: pofiles binaries all-css
 
 test:
-	@echo Src domains: $(SRC_DOMAINS:%=common/lib/locale/%.pot)
+	@echo Src domains: $(SRC_DOMAINS:%=common/locale/%.pot)
 
-messages: $(SRC_DOMAINS:%=common/lib/locale/%.pot)
+messages: $(SRC_DOMAINS:%=common/locale/%.pot)
 
 define DOMAIN_template
-common/lib/locale/$(1).files: FORCE
+common/locale/$(1).files: FORCE
 	@find $$(CODE-$(1)) -name '*.php' > $$@.tmp
 	@find $$(CODE-$(1)) -name '*.inc' >> $$@.tmp
 	@if [ -f $$@ ] && diff -q $$@ $$@.tmp > /dev/null ; then \
@@ -32,29 +32,29 @@ common/lib/locale/$(1).files: FORCE
 		else mv -f $$@.tmp $$@ ; \
 		fi
 
-common/lib/locale/$(1).pot: common/lib/locale/$(1).files
-	@[ -d common/lib/locale/ ] || mkdir -p common/lib/locale/
-	@xgettext --omit-header -o $$@ -L PHP -f common/lib/locale/$(1).files
+common/locale/$(1).pot: common/locale/$(1).files
+	@[ -d common/locale/ ] || mkdir -p common/locale/
+	@xgettext --omit-header -o $$@ -L PHP -f common/locale/$(1).files
 endef
 
 define COMMON_template
-common/lib/locale/$(1)/LC_MESSAGES/common.po: common/lib/locale/common.pot
+common/locale/$(1)/LC_MESSAGES/common.po: common/locale/common.pot
 	if [ ! -f $$@ ] ; then \
 		msginit --no-translator -o $$@ -i $$< -l $(1) ; \
 	else msgmerge -U $$@ $$< ; fi
 endef
 
 define UI_template
-common/lib/locale/$(2)/LC_MESSAGES/$(1).po: common/lib/locale/$(1).pot
+common/locale/$(2)/LC_MESSAGES/$(1).po: common/locale/$(1).pot
 	if [ ! -f $$@ ] ; then \
 		msginit --no-translator -o $$@ -i $$< -l $(2) ; \
 	else msgmerge -U $$@ $$< ; fi
 
-$(CODE-$(1))/lib/locale/$(2)/LC_MESSAGES/$(1).mo: common/lib/locale/$(2)/LC_MESSAGES/$(1).po common/lib/locale/$(2)/LC_MESSAGES/common.po
+$(CODE-$(1))/lib/locale/$(2)/LC_MESSAGES/$(1).mo: common/locale/$(2)/LC_MESSAGES/$(1).po common/locale/$(2)/LC_MESSAGES/common.po
 	@if [ ! -d $(CODE-$(1))/lib/locale/$(2)/LC_MESSAGES/ ] ; then mkdir -p $(CODE-$(1))/lib/locale/$(2)/LC_MESSAGES/ ; fi
 	msgcat --use-first $$^ | msgfmt -o $$@ '-'
 	
-pofiles: common/lib/locale/$(2)/LC_MESSAGES/$(1).po common/lib/locale/$(2)/LC_MESSAGES/common.po
+pofiles: common/locale/$(2)/LC_MESSAGES/$(1).po common/locale/$(2)/LC_MESSAGES/common.po
 binaries: $$(CODE-$(1))/lib/locale/$(2)/LC_MESSAGES/$(1).mo
 endef
 
@@ -110,5 +110,5 @@ progdocs:
 	cat addons/contrib/a2billing-doxygen | doxygen - 
 
 FORCE: ;
-.SILENT: messages test common/lib/locale/%.pot
+.SILENT: messages test common/locale/%.pot
 #eof

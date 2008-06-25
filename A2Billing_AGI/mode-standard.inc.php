@@ -164,6 +164,9 @@ for($num_try = 0;$num_try<getAGIconfig('number_try',1);$num_try++){
 		}
 
 		$dialstr = formatDialstring($dialnum,$route, $card);
+		if ($special_only && ($dialstr !==true))
+			continue;
+		
 		if ($dialstr === null){
 			$last_prob='unreachable';
 			continue;
@@ -171,7 +174,7 @@ for($num_try = 0;$num_try<getAGIconfig('number_try',1);$num_try++){
 			$last_prob='no-dialstring';
 			continue;
 		}elseif($dialstr ===true){
-			if (dialSpecial($dialnum,$route, $card,$card_money,$last_prob,$agi))
+			if (dialSpecial($dialnum,$route, $card,$card_money,$last_prob,$agi,$attempt))
 				break;
 			else if ($special_only)
 				break;
@@ -226,6 +229,12 @@ for($num_try = 0;$num_try<getAGIconfig('number_try',1);$num_try++){
 			continue;
 		}
 		$call_id = $res->fetchRow();
+		
+		if (!empty($route['alert_info'])){
+			//$agi->conlog('Setting alert to :'. $route['alert_info']);
+			$agi->exec('SIPAddHeader','Alert-Info:'.$route['alert_info']);
+		}
+			
 		$agi->conlog('Start call '. $call_id['id'],4);
 		
 		$agi->conlog("Dial '". $route['destination']. "'@". $route['trunkcode'] . " : $dialstr",3);

@@ -39,6 +39,16 @@ $HD_Form->model[] = dontList(new TextFieldN(_("Callerid B"),'callerid',_("Overri
 
 $HD_Form->model[] = DontList( new TextFieldN(_("From user"),'fromuser',_("Override user string.")));
 
+$HD_Form->model[] = DontList(new TextFieldN(_("Call group"),'callgroup',_("When this device is called, set the call group so that others can pick it up.")));
+$HD_Form->model[] = DontList(new TextFieldN(_("Pickup group"),'pickupgroup',_("Allow this device to pick up calls made to those groups.")));
+
+$HD_Form->model[] = DontList( new TextFieldN(_("Device Model"),'devmodel',_("Provision model of device.")));
+$HD_Form->model[] = DontList( new TextFieldN(_("MAC"),'macaddr',_("MAC address of provisioned device.")));
+$HD_Form->model[] = DontList( new TextField(_("D Secret"),'devsecret',_("Device secret, provision safety.")));
+$HD_Form->model[] = DontList( new IntFieldN(_("Provision Name"),'provi_name',_("Provisioned name (display text)")));
+
+$HD_Form->model[] = DontList( new IntFieldN(_("Provision Num"),'provi_num',_("Provision configuration number")));
+$HD_Form->model[] = DontList( new DateTimeFieldN(_("Last provisioned"),'provi_date',_("Last provision timestamp")));
 
 $HD_Form->model[] = new DelBtnField();
 

@@ -34,6 +34,7 @@ $HD_Form->model[] = dontAdd(new RefField(_("Status"),'status', $cs_list));
 $dmode_list = array();
 $dmode_list[] = array('1',_('Public DID'));
 $dmode_list[] = array('2',_('Trunk head'));
+$dmode_list[] = array('3',_('Charge one, dial other'));
 //$dmode_list[] = array('3','<Tech>/<IP>');
 
 $HD_Form->model[] = dontList(new RefField(_("Mode"), "dmode", $dmode_list,_("Select the operation mode.")));
