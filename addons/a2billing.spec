@@ -5,7 +5,7 @@
 
 %define name a2billing
 %define version 2.0.0
-%define release pre3
+%define release pre3-q
 
 Name:		%{name}
 Version:	%{version}
