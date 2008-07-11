@@ -7,6 +7,9 @@
 %define version 2.0.0
 %define release pre4
 
+%undefine __find_provides
+%undefine __find_requires
+
 Name:		%{name}
 Version:	%{version}
 Release:	%{release}
@@ -24,10 +27,11 @@ Requires(postun): rpm-helper
 Requires(post): rpm-helper
 Requires(preun): rpm-helper
 
-Requires:	%{name}-common
+Requires:	%{name}-common == %{version}-%{release}
 Requires:	%{name}-admin == %{version}-%{release}
 Requires:	%{name}-customer == %{version}-%{release}
 Requires:	%{name}-AGI == %{version}-%{release}
+Requires:	%{name}-scripts == %{version}-%{release}
 
 Requires:	postgresql >= 8.2.5
 Requires:	php-pgsql
@@ -46,9 +50,9 @@ Summary:	Common configuration file for A2Billing
 Group:		System/Servers
 Obsoletes:	%{name}-config
 # this is a workaround broken requires for the other packages
-Provides:	pear(lib/common/BoothsXML.inc.php)
-Provides:	pear(lib/common/Class.ElemBase.inc.php)
-Provides:	pear(lib/common/Misc.inc.php)
+#Provides:	pear(lib/common/BoothsXML.inc.php)
+#Provides:	pear(lib/common/Class.ElemBase.inc.php)
+#Provides:	pear(lib/common/Misc.inc.php)
 #Provides:	
 
 %description common
@@ -68,8 +72,8 @@ Requires:	apache-mod_ssl
 Requires:	apache-mod_php >= 5.2.1
 #dirty hack: mark missing files as if they were here
 # TODO: remove them!
-Provides:	pear(PP_header.php)
-Provides:	pear(PP_footer.php)
+#Provides:	pear(PP_header.php)
+#Provides:	pear(PP_footer.php)
 
 %description admin
 The administrator web-interface to a2billing.
@@ -174,7 +178,7 @@ This package provides the necessary files for an asterisk server.
 Summary:	Database files and scripts
 Group:		System/Servers
 # Requires:	%{name}-config
-Requires:	cron-daemon
+# Requires:	cron-daemon
 Requires:	postgresql >= 8.2.5
 Requires:	php-pgsql
 
@@ -182,7 +186,8 @@ Requires:	php-pgsql
 Install this package into some machine that is client to the
 database. Then, the database for %{name} can be built from that
 host.
-Additionally, maintenance tasks can be performed from that host.
+Some volatile objects at the database (such as views, rules and
+triggers) can be also restored from this package.
 
 %post dbadmin
 # the script must be run in the appropriate dir.
@@ -192,6 +197,21 @@ popd
 
 %postun dbadmin
 #TODO: backup the database here..
+
+%package scripts
+Summary:	Scripts for monitoring, maintenance
+Group:		System/Servers
+Requires:	%{name}-common
+Requires:	php-pgsql
+Requires:	asterisk >= 1.4.19
+Requires:	php-pcntl
+Requires:	cron-daemon
+
+%description scripts
+These scripts perform everyday maintenance tasks on the a2billing database.
+They are also responsible of sending emails and calculating alarms. Install
+them on the 'housekeeping' server and configure them to run at the desired
+intervals.
 
 %prep
 %git_get_source
@@ -219,6 +239,7 @@ install -d %{buildroot}%{_datadir}/a2billing/agent
 install -d %{buildroot}%{_datadir}/a2billing/signup
 install -d %{buildroot}%{_datadir}/a2billing/Database
 install -d %{buildroot}%{_datadir}/a2billing/provi
+install -d %{buildroot}%{_datadir}/a2billing/scripts
 
 install -d %{buildroot}%{_datadir}/a2billing/common/Images
 install -d %{buildroot}%{_datadir}/a2billing/common/javascript
@@ -233,6 +254,7 @@ cp -R  Provision/* %{buildroot}%{_datadir}/a2billing/provi
 cp -R  common/Images/* %{buildroot}%{_datadir}/a2billing/common/Images
 cp -R  common/javascript/* %{buildroot}%{_datadir}/a2billing/common/javascript
 cp -R  common/lib/* %{buildroot}%{_datadir}/a2billing/common/lib
+cp -R  Cronjobs/* %{buildroot}%{_datadir}/a2billing/scripts
 
 install -d %{buildroot}%{_localstatedir}/asterisk/agi-bin
 install -d %{buildroot}%{_localstatedir}/asterisk/agi-bin/libs_a2billing
@@ -363,5 +385,9 @@ EOF
 %files dbadmin
 %defattr(-,asterisk,root)
 %{_datadir}/a2billing/Database
+
+%files scripts
+%defattr(-,root,root)
+%{_datadir}/a2billing/scripts
 
 # %verifyscript ... 
