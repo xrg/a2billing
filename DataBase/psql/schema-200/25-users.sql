@@ -118,6 +118,7 @@ CREATE TABLE cc_ast_instance (
     fullcontact VARCHAR(80),
     regserver   VARCHAR(40),
     useragent   TEXT,
+    reg_state	INTEGER NOT NULL DEFAULT 0,	
     PRIMARY KEY(userid,srvid,sipiax)
 );
 

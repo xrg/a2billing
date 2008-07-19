@@ -1,0 +1,8 @@
+[settings]
+sippeers=>pgsql,a2billing,realtime16_sip_peers
+sippregs=>pgsql,a2billing,realtime16_sip_regs
+iaxpeers=>pgsql,a2billing,realtime_iax_peers
+voicemail=>pgsql,a2billing,realtime_voicemail
+;extensions => odbc,asterisk
+;queues => pgsql,a2billing,realtime_queues
+;queue_members => pgsql,a2billing,realtime_queue_members
