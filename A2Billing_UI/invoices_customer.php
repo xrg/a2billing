@@ -336,7 +336,7 @@ if($exporttype!="pdf"){
 <br><br>
 <?php  
 }else{
-   require('pdf-invoices/html2pdf/html2fpdf.php');
+ //-   require('pdf-invoices/html2pdf/html2fpdf.php');
    ob_start();
 
 } ?>
