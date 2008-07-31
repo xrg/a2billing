@@ -5,7 +5,7 @@
 
 %define name a2billing
 %define version 2.0.0
-%define release pre4
+%define release pre4q
 
 %undefine __find_provides
 %undefine __find_requires
