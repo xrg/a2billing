@@ -89,9 +89,9 @@ class Mailer_Multipart extends Mailer_EmailBody {
    Portions derived from class.phpmailer.
 */
 class Mailer {
-	public $subject_charset;
 	public $priority          = 3; ///< Email priority (1 = High, 3 = Normal, 5 = low)
 
+	protected $subject;
 	protected $from; ///< The "from" field, one line, already encoded.
 	protected $to = array(); ///< Holds all "To" addresses.
 	protected $cc = array(); ///< Holds all "CC" addresses.
@@ -142,7 +142,18 @@ class Mailer {
 		return "$name2 <$mail>";
 	}
 	
+	/** Append some address array to the header */
+	public function addr_append($type, $addr) {
+		$ret = '';
+		if (!empty($type))
+			$ret = $type.": ";
+		if (is_array($addr))
+			$ret .= implode(", ", $addr);
+		elseif (is_string($addr))
+			$ret .= $addr;
 	
+		return $ret;
+	}
 
 	/** Assembles message headers.  Returns a string if successful
 	or false if unsuccessful.
@@ -166,6 +177,7 @@ class Mailer {
 	
 		$header[] = sprintf("X-Priority: %d", $this->priority);
 		$header[] = sprintf("X-Mailer: Mail System ");
+		
 		//$header[] = sprintf("Return-Path: %s", $this -> Sender);
 			//print_r ($header);
 	
@@ -247,11 +259,29 @@ if (0) {
 	/** Print the mail in plaintext in standard output
 	   used for debugging */
 	public function PrintMail(){
+		echo $this->addr_append("To",$this->to) ."\r\n";
+		echo "Subject: ".$this->subject."\r\n";
 		echo join("\r\n",$this->create_headers());
 		echo "\r\n";
 		if ( ! ($this->body instanceof Mailer_EmailBody))
 			throw new Exception("Invalid object as email body");
 		echo $this->body->create_body($this->printline);
+	}
+
+	/** Send the mail 
+	    \note this function will return nothing. On error, it will
+	          throw an exception
+	*/
+	public function SendMail(){
+		$to_hdr = $this->addr_append("",$this->to);
+		$headers= join("\r\n",$this->create_headers(false));
+		echo "\r\n";
+		if ( ! ($this->body instanceof Mailer_EmailBody))
+			throw new Exception("Invalid object as email body");
+		$msg = $this->body->create_body($this->printline);
+		
+		if (!mail($to_hdr,$this->subject, $msg,$headers))
+			throw new Exception("Send mail failed");
 	}
 
 	/** Encodes attachment in requested format.
@@ -319,6 +349,18 @@ if (0) {
 	/** Sets the From: field */
 	public function setFrom($name, $mail) {
 		$this->from = $this->fmt_address($name,$mail);
+	}
+
+	/** Sets the To: field */
+	public function setTo($name, $mail) {
+		$this->to[] = $this->fmt_address($name,$mail);
+	}
+
+	public function setSubject($text,$encoding = null) {
+		if ($encoding)
+			$this->subject="=?".$encoding."?b?".base64_encode($text)."?=";
+		else
+			$this->subject = $text;
 	}
 
 };
