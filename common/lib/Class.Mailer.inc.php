@@ -16,17 +16,42 @@ class Mailer_TextBody extends Mailer_EmailBody {
 	
 	
 	public function create_body() {
-		echo "Content-Transfer-Encoding: 8bit\r\n".
+		$ret= "Content-Transfer-Encoding: 8bit\r\n".
 		     "Content-Type: text/plain; charset = \"".$this->charset."\"\r\n";
-		echo "\r\n\r\n";
+		$ret.= "\r\n\r\n";
 		$str = str_replace("\r\n", "\n", $this->text);
         	$str = str_replace("\r", "\n", $str);
         	$str = str_replace("\n", "\r\n", $str);
-		echo $str;
-		echo "\r\n\r\n";
+		$ret.= $str;
+		$ret.= "\r\n\r\n";
+		return $ret;
 	}
 
 };
+
+class Mailer_Multipart extends Mailer_EmailBody {
+	protected $parts = array();
+	
+	public function create_body() {
+		if (empty($this->parts))
+			throw new Exception("Empty multipart body.");
+		
+		$boundary = "_b" . md5(uniqid(time()));
+		$ret = "Content-Type: Multipart/Mixed;\r\n";
+		$ret .= "\tboundary=\"Boundary-=$boundary\"\r\n";
+		
+		foreach ($this->parts as $part){
+			//if (! $part instanceof Mailer_EmailBody)
+			//	throw new Exception("Wrong class in multipart body");
+			
+			$ret .= $part->create_body();
+			$ret .= "\r\n--Boundary-=".$this->boundary."\r\n";
+		}
+		return $ret;
+
+	}
+};
+
 /*
 	/**Sets the Encoding of the message. Options for this are "8bit" (default),
 	   "7bit", "binary", "base64", and "quoted-printable". * /
@@ -81,52 +106,76 @@ class Mailer {
 	public $body ; ///< The email body, must be class Mailer_EmailBody .
 
 
-    /** Returns the proper RFC 822 formatted date. Returns string.
-     * @returns string
-     */
-    function rfc_date() {
-        $tz = date("Z");
-        $tzs = ($tz < 0) ? "-" : "+";
-        $tz = abs($tz);
-        $tz = ($tz/3600)*100 + ($tz%3600)/60;
-        $date = sprintf("%s %s%04d", date("D, j M Y H:i:s"), $tzs, $tz);
-        return $date;
-    }
+	/** Returns the proper RFC 822 formatted date. Returns string.
+	* @returns string
+	*/
+	function rfc_date() {
+		$tz = date("Z");
+		$tzs = ($tz < 0) ? "-" : "+";
+		$tz = abs($tz);
+		$tz = ($tz/3600)*100 + ($tz%3600)/60;
+		$date = sprintf("%s %s%04d", date("D, j M Y H:i:s"), $tzs, $tz);
+		return $date;
+	}
 
-   /** Assembles message headers.  Returns a string if successful
-      or false if unsuccessful.
-      @returns array of string headers
-     */
-    protected function create_headers() {
-        $header = array();
-        $header[] = sprintf("Date: %s", $this->rfc_date());
 
-	//TODO: fix encoding!
-        $header[] = "From: ". $this->from;
-        if(!empty($this->cc))
-            $header[] = $this->addr_append("Cc", $this->cc);
+	/** Encode an e-mail address like "$name" <$email> ..
+	   This will also quote-printable encode any non-latin
+	   characters
+	*/
+	static public function fmt_address($name, $mail, $encoding = 'UTF-8'){
+		if ($encoding != 'iso-8859-1'){
+			if (($name2 = Mailer::encode_qp($name))!=$name)
+				$name2="=?".$encoding."?Q?".$name2."?=";
+		}
+		return "$name2 <$mail>";
+	}
+	
+	/** Encode an e-mail address like "$name" <$email> ..
+	   This will also base64 encode any non-latin
+	   characters
+	*/
+	static public function fmt_address64($name, $mail, $encoding= 'UTF-8'){
+		if ($encoding != 'iso-8859-1'){
+			$name2="=?".$encoding."?b?".base64_encode($name)."?=";
+		}
+		return "$name2 <$mail>";
+	}
+	
+	
 
-        // sendmail and mail() extract Bcc from the header before sending
-        if(!empty($this->bcc))
-            $header[] = $this->addr_append("Bcc", $this->bcc);
-
-        if(!empty($this->reply_to))
-            $header[] = $this->addr_append("Reply-to", $this->reply_to);
-
-        
-
-        $header[] = sprintf("X-Priority: %d", $this->priority);
-        $header[] = sprintf("X-Mailer: Mail System ");
-	//$header[] = sprintf("Return-Path: %s", $this -> Sender);
-		//print_r ($header);
-
-        // Add custom headers
-        foreach ($this->custom_headers as $ch)
-        	$header[] = $ch;
-        
-        $header[] = "MIME-Version: 1.0";
-        return $header;
-    }
+	/** Assembles message headers.  Returns a string if successful
+	or false if unsuccessful.
+	@returns array of string headers
+	*/
+	protected function create_headers() {
+		$header = array();
+		$header[] = sprintf("Date: %s", $this->rfc_date());
+	
+		//TODO: fix encoding!
+		$header[] = "From: ". $this->from;
+		if(!empty($this->cc))
+			$header[] = $this->addr_append("Cc", $this->cc);
+	
+		// sendmail and mail() extract Bcc from the header before sending
+		if(!empty($this->bcc))
+			$header[] = $this->addr_append("Bcc", $this->bcc);
+	
+		if(!empty($this->reply_to))
+			$header[] = $this->addr_append("Reply-to", $this->reply_to);
+	
+		$header[] = sprintf("X-Priority: %d", $this->priority);
+		$header[] = sprintf("X-Mailer: Mail System ");
+		//$header[] = sprintf("Return-Path: %s", $this -> Sender);
+			//print_r ($header);
+	
+		// Add custom headers
+		foreach ($this->custom_headers as $ch)
+			$header[] = $ch;
+		
+		$header[] = "MIME-Version: 1.0";
+		return $header;
+	}
 
     /**
      * Assembles the message body.  Returns a string if successful
@@ -136,7 +185,7 @@ class Mailer {
      */
     function create_body() {
         // wordwrap the message body if set
-        if($this->dp_Wrap)
+        if($this->do_Wrap)
             $this->Body = wordwrap($this->Body,78,"\r\n");
 
         // If content type is multipart/alternative set body like this:
@@ -220,6 +269,7 @@ if (0) {
 	/** Encodes string to requested format.
 	* @returns string
 	*/
+	/*
 	protected function encode_string ($str, $encoding = "base64") {
 		switch(strtolower($encoding)) {
 		case "base64":
@@ -246,14 +296,13 @@ if (0) {
 		}
 		return($encoded);
 	}
+	*/
 
 	/** Encode string to quoted-printable.
 	*/
-	protected function encode_qp ($str) {
-		$encoded = $this->fix_eol($str);
-		if (substr($encoded, -2) != "\r\n")
-		$encoded .= "\r\n";
+	static public function encode_qp ($str) {
 	
+		$encoded = $str;
 		// Replace every high ascii, control and = characters
 		$encoded = preg_replace("/([\001-\010\013\014\016-\037\075\177-\377])/e",
 			"'='.sprintf('%02X', ord('\\1'))", $encoded);
@@ -262,12 +311,15 @@ if (0) {
 			"'='.sprintf('%02X', ord('\\1')).'\r\n'", $encoded);
 	
 		// Maximum line length of 76 characters before CRLF (74 + space + '=')
-		$encoded = wordwrap($encoded, 74, "\r\n");
+		//$encoded = wordwrap($encoded, 74, "\r\n");
 	
 		return $encoded;
 	}
 	
-
+	/** Sets the From: field */
+	public function setFrom($name, $mail) {
+		$this->from = $this->fmt_address($name,$mail);
+	}
 
 };
 
