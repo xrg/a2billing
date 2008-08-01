@@ -1,6 +1,7 @@
 <?php
 require_once("Class.A2Billing.inc.php");
 require_once("Misc.inc.php");
+require_once("Class.Mailer.inc.php");
 
 function update_mailing(&$dbhandle,$id,$is_sent, $dbg){
 	if ($is_sent)
@@ -45,6 +46,7 @@ function Send_Mails($dbg = 1,$dry = false){
 		return true;
 	}
 
+	try {
 	while ($row = $res->fetchRow()){
 		if ($dbg>2)
 			echo "Sending ". $row['mtype'] ." to " . $row['tomail'] ."\n";
@@ -53,20 +55,9 @@ function Send_Mails($dbg = 1,$dry = false){
 				echo "No recepient specified!\n";
 			continue;
 		}
-		
-		$to_hdr = $row['tomail'];
-		
-		// Format "From:" header
-		$headers=array();
-		if (!empty($row['fromemail'])){
-			$str ='From: ';
-			if (!empty($row['fromname']))
-				$str .= $row['fromname'] . ' <';
-			$str .= $row['fromemail'];
-			if (!empty($row['fromname']))
-				$str .= '>';
-			$headers[] = $str;
-		}
+		$mai = new Mailer();
+		$mai->setTo('', $row['tomail']);
+		$mai->setFrom($row['fromname'] ,$row['fromemail']);
 		
 		// Format parameters
 		$defargs = array();
@@ -81,30 +72,33 @@ function Send_Mails($dbg = 1,$dry = false){
 			echo "\n";
 		}
 		
-		$msg=str_alparams($row['message'],$args);
-		$subject = str_alparams($row['subject'],$args);
+		$mai->setSubject(str_alparams($row['subject'],$args),"UTF-8");
+		$mai->body=new Mailer_TextBody(str_alparams($row['message'],$args));
 		
 		if ($dry){
-		echo implode("\n", $headers) . "\n";
-		echo "To: $to_hdr\n";
-		echo "Subject: $subject\n\n";
-		echo $msg;
-		echo "\n\n";
-		continue;
+			$mai->PrintMail();
+			continue;
 		}
 		
-		// Here, a real mail is sent..
-		if ($dbg >2)
-			echo "Sending mail..";
-		if(@mail($to_hdr,$subject,$msg,implode("\r\n",$headers))){
+		try {
+			if ($dbg >2)
+				echo "Sending mail..";
+			$mai->SendMail();
 			if ($dbg>2)
 				echo " done.\n";
 			update_mailing($dbhandle,$row['id'],true,$dbg);
-		}else {
+		}
+		catch (Exception $ex){
 			if ($dbg>2)
 				echo " failed.\n";
 			update_mailing($dbhandle,$row['id'],false,$dbg);
+			throw $ex;
+		
 		}
+	}
+	}catch (Exception $ex) {
+		if ($dbg>1)
+			echo "Exception: ". $ex->getMessage();
 	}
 	return true;
 }
