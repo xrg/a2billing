@@ -4,6 +4,11 @@
 */
 abstract class Mailer_EmailBody {
 	abstract public function create_body();
+	/** Create any additional headers that should be added to the
+	    main mail */
+	public function create_headers() {
+		return array();
+	}
 };
 
 class Mailer_TextBody extends Mailer_EmailBody {
@@ -14,10 +19,13 @@ class Mailer_TextBody extends Mailer_EmailBody {
 		$this->text = $text;
 	}
 	
+	public function create_headers() {
+		return array("Content-Transfer-Encoding: 8bit",
+			"Content-Type: text/plain; charset = \"".$this->charset."\"");
+	}
 	
 	public function create_body() {
-		$ret= "Content-Transfer-Encoding: 8bit\r\n".
-		     "Content-Type: text/plain; charset = \"".$this->charset."\"\r\n";
+		$ret= '' ;
 		$ret.= "\r\n\r\n";
 		$str = str_replace("\r\n", "\n", $this->text);
         	$str = str_replace("\r", "\n", $str);
@@ -31,18 +39,31 @@ class Mailer_TextBody extends Mailer_EmailBody {
 
 class Mailer_Multipart extends Mailer_EmailBody {
 	protected $parts = array();
+	private $boundary;
 	
+	private function set_boundary() {
+		if(!empty($this->boundary))
+			return;
+		$this->boundary = "_b" . md5(uniqid(time()));
+	}
+	
+	public function create_headers() {
+		$this->set_boundary();
+		return array( "Content-Type: Multipart/Mixed;\r\n" .
+			"\tboundary=\"Boundary-=".$this->boundary."\"");
+
+	}
 	public function create_body() {
+		$this->set_boundary();
 		if (empty($this->parts))
 			throw new Exception("Empty multipart body.");
 		
-		$boundary = "_b" . md5(uniqid(time()));
-		$ret = "Content-Type: Multipart/Mixed;\r\n";
-		$ret .= "\tboundary=\"Boundary-=$boundary\"\r\n";
-		
+		$ret= '';
 		foreach ($this->parts as $part){
 			//if (! $part instanceof Mailer_EmailBody)
 			//	throw new Exception("Wrong class in multipart body");
+			$hdrs = $part->create_headers();
+			$ret .= join("\r\n",$hdrs). "\r\n";
 			
 			$ret .= $part->create_body();
 			$ret .= "\r\n--Boundary-=".$this->boundary."\r\n";
@@ -124,6 +145,8 @@ class Mailer {
 	   characters
 	*/
 	static public function fmt_address($name, $mail, $encoding = 'UTF-8'){
+		if (empty($name))
+			return $mail;
 		if ($encoding != 'iso-8859-1'){
 			if (($name2 = Mailer::encode_qp($name))!=$name)
 				$name2="=?".$encoding."?Q?".$name2."?=";
@@ -136,6 +159,8 @@ class Mailer {
 	   characters
 	*/
 	static public function fmt_address64($name, $mail, $encoding= 'UTF-8'){
+		if (empty($name))
+			return $mail;
 		if ($encoding != 'iso-8859-1'){
 			$name2="=?".$encoding."?b?".base64_encode($name)."?=";
 		}
@@ -186,6 +211,10 @@ class Mailer {
 			$header[] = $ch;
 		
 		$header[] = "MIME-Version: 1.0";
+		$hdrs = $this->body->create_headers();
+		foreach ($hdrs as $ch)
+			$header[] = $ch;
+		
 		return $header;
 	}
 
