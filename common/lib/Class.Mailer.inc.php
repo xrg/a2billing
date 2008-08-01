@@ -39,9 +39,9 @@ class Mailer_TextBody extends Mailer_EmailBody {
 
 class Mailer_Multipart extends Mailer_EmailBody {
 	protected $parts = array();
-	private $boundary;
+	protected $boundary;
 	
-	private function set_boundary() {
+	protected function set_boundary() {
 		if(!empty($this->boundary))
 			return;
 		$this->boundary = "_b" . md5(uniqid(time()));
@@ -53,6 +53,14 @@ class Mailer_Multipart extends Mailer_EmailBody {
 			"\tboundary=\"Boundary-=".$this->boundary."\"");
 
 	}
+	
+	/** Adds the part into the multipart structure */
+	public function addPart($part) {
+		if (! $part instanceof Mailer_EmailBody)
+			throw new Exception("Wrong class for multipart item");
+		$this->parts[] = $part;
+	}
+	
 	public function create_body() {
 		$this->set_boundary();
 		if (empty($this->parts))
@@ -71,6 +79,44 @@ class Mailer_Multipart extends Mailer_EmailBody {
 		return $ret;
 
 	}
+};
+
+class Mailer_MultipartAlt extends Mailer_Multipart {
+	
+	protected function set_boundary() {
+		if(!empty($this->boundary))
+			return;
+		$this->boundary = "_m" . md5(uniqid(time()));
+	}
+	
+	public function create_headers() {
+		$this->set_boundary();
+		return array( "Content-Type: Multipart/Alternative;\r\n" .
+			"\tboundary=\"Boundary-=".$this->boundary."\"");
+
+	}
+};
+
+class Mailer_HtmlBody extends Mailer_EmailBody {
+	public $text = "";
+	public $charset="UTF-8";
+	
+	function Mailer_HtmlBody($text){
+		$this->text = $text;
+	}
+	
+	public function create_headers() {
+		return array("Content-Transfer-Encoding: 8bit",
+			"Content-Type: text/html; charset = \"".$this->charset."\"");
+	}
+	
+	public function create_body() {
+		$ret= '' ;
+		$ret.= $this->text;
+		$ret.= "\r\n\r\n";
+		return $ret;
+	}
+
 };
 
 /*
