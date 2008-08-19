@@ -170,6 +170,7 @@ Requires:	%{name}-common
 Requires:	php-pgsql
 Requires:	asterisk >= 1.4.19
 Requires:	php-pcntl
+Requires:	php-cli
 
 %description AGI
 This package provides the necessary files for an asterisk server.
