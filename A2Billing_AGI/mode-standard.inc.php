@@ -188,6 +188,20 @@ for($num_try = 0;$num_try<getAGIconfig('number_try',1);$num_try++){
 					callernum => $agi->request['agi_callerid']));
 		}else
 			$new_clid = $agi->request['agi_callerid'];
+			
+		if ($route['trunkfmt'] == 15) { // Auto-answer feature for SIP
+			if ($route['providertech'] == 'SIP'){
+				$tmp_add_head=getAGIconfig('auto_answer_'.$route['trunkid'],'Call-Info: answer-after=0');
+				
+					//Hack: agi->exec doesn't like spaces, so we include the string into quotes
+				if (strpos($tmp_add_head,' ') !==FALSE)
+					$tmp_add_head='"'.$tmp_add_head.'"';
+				if (!empty($tmp_add_head))
+					$agi->exec('SIPAddHeader',$tmp_add_head);
+			}
+			else
+				$agi->verbose("Don't know how to auto answer: ".$dialstr,3);
+		}
 		
 			// we always reset the clid, because the previous rate
 			// engine may have changed it.
