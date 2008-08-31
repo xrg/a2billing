@@ -21,6 +21,7 @@ function formatDialstring($dialn,&$route, &$card,$do_param = true){
 	case 6:
 	case 7:
 	case 8:
+	case 15:
 		return formatDialstring_peer($dialn,$route,$card, $do_param);
 		break;
 	case 9:
@@ -88,11 +89,14 @@ function formatDialstring_peer($dialn,&$route, &$card,$do_param = true){
 		$bind_str = $route['providertech'] .'/' . $route['providerip'];
 		break;
 	case 7:
+	case 15:
 		$dnum = explode('-',$dialnum);
 		if ($dnum[0] == 'L')
 			$dnum[0]=$card['numplan'];
 		$qry = str_dbparams($dbhandle,'SELECT dialtech, dialname FROM cc_dialpeer_local_v '
 			.'WHERE useralias = %2 AND numplan = %#1 ',$dnum);
+		if (strlen($route['providertech']))
+			$qry .= str_dbparams($dbhandle,' AND dialtech = %1',array($route['providertech']));
 		$bind_str ='%dialtech/%dialname';
 		
 		$agi->conlog("Query: $qry",3);

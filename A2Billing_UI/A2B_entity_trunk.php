@@ -42,6 +42,7 @@ $trunkfmt_list[] = array('11','Email to cross numplan peer');
 $trunkfmt_list[] = array('12','Voicemail to local peer');
 $trunkfmt_list[] = array('13','Voicemail to cross numplan peer');
 $trunkfmt_list[] = array('14','Voicemail Main');
+$trunkfmt_list[] = array('15','Local Peer, auto answer');
 
 
 $HD_Form->model[] = new PKeyFieldEH(_("ID"),'id');
