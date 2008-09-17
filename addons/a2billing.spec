@@ -4,8 +4,8 @@
 %define git_head v200-queues
 
 %define name a2billing
-%define version 2.0.0
-%define release pre4q
+%define version %{git_get_ver}
+%define release %{git_get_rel}q
 
 %undefine __find_provides
 %undefine __find_requires
@@ -189,6 +189,10 @@ database. Then, the database for %{name} can be built from that
 host.
 Some volatile objects at the database (such as views, rules and
 triggers) can be also restored from this package.
+
+Caveat: the post-install scripts of this package may fail if the
+database is not on the local server. In that case, please read
+the instructions and re-run the database scripts.
 
 %post dbadmin
 # the script must be run in the appropriate dir.
