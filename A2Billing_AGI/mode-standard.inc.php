@@ -259,7 +259,7 @@ for($num_try = 0;$num_try<getAGIconfig('number_try',1);$num_try++){
 		$hangupcause=$agi->get_variable('HANGUPCAUSE');
 		
 		$answeredtime = $agi->get_variable("ANSWEREDTIME");
-		if ($answeredtime['result']== 0)
+		if (($answeredtime['result']== 0) || empty($answeredtime['data']))
 			$answeredtime['data'] =0;
 		$dialstatus = $agi->get_variable("DIALSTATUS");
 		
