@@ -26,6 +26,7 @@ class SpaXmlProvi extends ProviEngine {
 		$qry = str_dbparams($dbhandle,'SELECT DISTINCT cc_card.*, cc_ast_users.devmodel, '.
 			' cc_ast_users.devsecret, cc_ast_users.callerid, cc_ast_users.defaultip, '.
 			' cc_ast_users.provi_name, cc_ast_users.provi_num, cc_ast_users.provi_date, '.
+			' (cc_ast_users.provi_num ::INTEGER + 5059) AS sip_num, ' .
 			' COALESCE(cc_ast_users.peernameb, cc_card.username) AS ext_name, '.
 			' COALESCE(cc_ast_users.secretb,cc_card.userpass) AS ext_password, ' .
 			' to_char(now(), \'HH24/MI\') AS localtime, to_char(now(), \'MM/DD\') AS localdate '.
