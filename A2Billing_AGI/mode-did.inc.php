@@ -331,7 +331,7 @@ while ($didrow = $didres->fetchRow()){
 		$hangupcause=$agi->get_variable('HANGUPCAUSE');
 		
 		$answeredtime = $agi->get_variable("ANSWEREDTIME");
-		if ($answeredtime['result']== 0)
+		if (($answeredtime['result']== 0) || empty($answeredtime['data']))
 			$answeredtime['data'] =0;
 		$dialstatus = $agi->get_variable("DIALSTATUS");
 		
