@@ -16,7 +16,7 @@ CREATE TABLE provision_group (
 
 CREATE TABLE provisions (
 	id BIGSERIAL PRIMARY KEY,
-	grp_id INTEGER NOT NULL REFERENCES provision_group(id),
+	grp_id INTEGER NOT NULL REFERENCES provision_group(id) ON DELETE CASCADE,
 	name	TEXT NOT NULL,
 	sub_name TEXT,
 	valuef	TEXT,
