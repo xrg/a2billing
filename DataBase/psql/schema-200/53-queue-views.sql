@@ -3,6 +3,11 @@
 CREATE OR REPLACE VIEW realtime_queues AS
 	SELECT * FROM ast_queue;
 
+/** Queue modes:
+    1: auto local peer, based on cc_ast_instance
+    2: manual, parm=<interface string>
+*/
+
 CREATE OR REPLACE VIEW realtime_queue_members AS
 	-- First, select all local instances
 	SELECT ast_queue_member.id AS uniqueid, 
