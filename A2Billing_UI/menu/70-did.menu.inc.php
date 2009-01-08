@@ -11,6 +11,7 @@
 			<li><a href="A2B_entity_did_destination.php?form_action=ask-add"><?= _("Add Destination");?></a></li>
 			<li><a href="A2B_entity_did_billing.php"><?= _("DID BILLING");?></a></li>
 			<li><a href="A2B_entity_did_use.php"><?= _("DID use");?></a></li>
+			<li><a href="A2B_entity_did_phonebook.php"><?= _("DID phonebook");?></a></li>
 		</ul>
 		</div>
 	<?php  }

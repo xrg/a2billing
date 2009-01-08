@@ -60,6 +60,30 @@ CREATE TABLE did_group_batch (
     PRIMARY KEY(btid,dbid)
 );
 
+CREATE TABLE did_phonebook(
+    id  SERIAL PRIMARY KEY,
+    name  TEXT NOT NULL,
+    code  VARCHAR(64),
+    rnplan INTEGER REFERENCES cc_re_numplan(id),
+    card_group INTEGER REFERENCES cc_card_group(id),
+    cardid    BIGINT REFERENCES cc_card(id)
+);
+
+CREATE INDEX did_phonebook_rnplan_index ON did_phonebook(rnplan_pat);
+CREATE INDEX did_phonebook_cgroup_index ON did_phonebook(card_group);
+CREATE INDEX did_phonebook_cardid_index ON did_phonebook(cardid);
+
+CREATE TABLE did_pb_entry(
+	id BIGSERIAL PRIMARY KEY,
+	pb   INTEGER REFERENCES did_phonebook(id) NOT NULL,
+	dnum VARCHAR(64) NOT NULL,
+	name TEXT NOT NULL
+);
+
+CREATE INDEX did_phonebook_entry_index ON did_pb_entry(pb,dnum);
+
+GRANT SELECT ON did_phonebook TO a2b_group;
+GRANT SELECT ON did_pb_entry TO a2b_group;
 -- moved into a dedicated tariffgroup..
 -- -- Define selling rules for DIDs.
 -- -- The rate engine functions will be called against the destination of 

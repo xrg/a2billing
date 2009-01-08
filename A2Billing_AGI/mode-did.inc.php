@@ -57,6 +57,7 @@ function releaseCall1($dbh,&$last_call){
 			$last_call['tcause']='UNKNOWN';
 			//$last_call['hupcause']=1;
 			break;
+		// TODO: case 'unreachable':
 		default:
 			$agi->conlog("Cannot parse last_prob = \"".$last_call['cause_ext']."\" into proper termination cause.",3);
 			$last_call['tcause']='UNKNOWN';
@@ -260,6 +261,37 @@ while ($didrow = $didres->fetchRow()){
 			$agi->conlog('CLID query:  '.print_r($did_clidreplace,true),3);
 		}
 	}
+	if (empty($agi->request['agi_calleridname'])|| true || (preg_match('/\^+?[0-9]*$/',$agi->request['agi_calleridname'])>=1)) {
+		$QRY = str_dbparams($a2b->DBHandle(), 'SELECT did_pb_entry.name
+			FROM did_pb_entry, did_phonebook, cc_card
+			WHERE did_pb_entry.pb = did_phonebook.id
+				AND ( did_phonebook.rnplan IS NULL OR did_phonebook.rnplan = %#1)
+				AND ( did_phonebook.card_group IS NULL OR did_phonebook.card_group = cc_card.grp)
+				AND ( did_phonebook.cardid IS NULL OR did_phonebook.cardid = %#3)
+				AND cc_card.id = %#3
+				AND did_pb_entry.dnum = %!4;',
+			   array($didrow['rnplan'], null, $card['id'],$agi->request['agi_callerid']));
+		
+		$agi->conlog($QRY,3);
+		$res = $a2b->DBHandle()->Execute($QRY);
+		// If the rate engine has anything to Notice/Warn, display that..
+		if ($notice = $a2b->DBHandle()->NoticeMsg())
+			$agi->verbose('DB:' . $notice,2);
+			
+		if (!$res){
+			$agi->verbose('CLID pb query: query error!',2);
+			$agi->conlog($a2b->DBHandle()->ErrorMsg(),2);
+			if(getAGIconfig('say_errors',true))
+				$agi-> stream_file('allison2'/*-*/, '#');
+		}elseif($res->EOF){
+			$agi->verbose('CLID pb query: no result.',2);
+		}else {
+			$cldrow=$res->fetchRow();
+			$did_clidname = $cldrow['name'];
+			$agi->conlog('CLID query:  '.print_r($cldrow,true),3);
+		}
+	}else
+		$did_clidname = $agi->request['agi_calleridname'];
 
 	try {
 		$attempt = 1;
@@ -323,7 +355,9 @@ while ($didrow = $didres->fetchRow()){
 		
 			// we always reset the clid, because the previous rate
 			// engine may have changed it.
-		$agi->conlog("Setting clid to : $new_clid",3);
+		$agi->conlog("Setting clid to : \"$did_clidname\" <$new_clid>",3);
+		if ($did_clidname != $agi->request['agi_calleridname'])
+			$agi->set_variable('CALLERID(name)',$did_clidname);
 		$agi->set_variable('CALLERID(num)',$new_clid);
 					
 		$res = $a2b->DBHandle()->Execute('INSERT INTO cc_call (cardid, attempt, cmode, '.

@@ -4,7 +4,6 @@ require_once ("./lib/module.access.php");
 require_once (DIR_COMMON."Form.inc.php");
 require_once (DIR_COMMON."Class.HelpElem.inc.php");
 require_once (DIR_COMMON."Form/Class.SqlRefField.inc.php");
-require_once (DIR_COMMON."Form/Class.SqlRefField.inc.php");
 require_once (DIR_COMMON."Form/Class.TimeField.inc.php");
 require_once (DIR_COMMON."Class.JQuery.inc.php");
 
