@@ -22,6 +22,7 @@ $HD_Form->model[] = new TextFieldEH(_("Login"),'login');
 $HD_Form->model[] = dontList(new PasswdField(_("Password"),'password','alnum'));
 $HD_Form->model[] = new TextField(_("Name"),'name');
 $HD_Form->model[] = new IntField(_("Group"),'groupid');
+default -> !=0 
 
 $right_list[] = array( ACX_CUSTOMER, _("Customers"));
 $right_list[] = array( ACX_BILLING, _("Billing"));
@@ -42,6 +43,7 @@ $right_list[] = array( ACX_AGENTS, _("Agents"));
 $right_list[] = array( ACX_NUMPLAN, _("Numplans"));
 $right_list[] = array( ACX_SERVERS, _("Servers"));
 $right_list[] = array( ACX_PRICING, _("Pricing"));
+$right_list[] = array( ACX_QUEUES, _("Queues"));
 
 
 $HD_Form->model[] = dontList( new ListBitField(_("Permissions"),'perms',$right_list));
