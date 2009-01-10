@@ -25,7 +25,7 @@ class SyslogImport extends ImportEngine {
 		$this->out(LOG_DEBUG,"Found msg:". $this->cur_par);
 	}
 	
-	protected function reg_par(){
+	protected function reg_par($date, $host){
 		$this->cur_par = "";
 	}
 	protected function reg_content($str){
@@ -79,7 +79,7 @@ class SyslogImport extends ImportEngine {
 
 class SensorsLogImport extends SyslogImport{
 	public $args;
-	public $cur_header;
+	protected $hosts_cache= array();
 	
 	function SensorsLogImport(){
 		$this->fascility = "sensord";
@@ -90,17 +90,34 @@ class SensorsLogImport extends SyslogImport{
 			throw new Exception("Please provide db in args!");
 		$this->dbh = $args['db'];
 	}
-	
+	function db_fetchone($qry,$parms = NULL){
+		if ($parms)
+			$res= $this->dbh->Execute(str_dbparams($this->dbh,$qry,$parms));
+		else
+			$res = $this->dbh->Execute($qry);
+		
+		if (!$res){
+			$this->out(LOG_ERR,"Qry failed: $qry (".implode(', ',$parms).')');
+			$this->out(LOG_ERR,$this->dbh->ErrorMsg());
+			throw new Exception("Query failed: $qry");
+		}
+		$row =$res->FetchRow();
+		if (!$row)
+			throw new Exception("Query: \"$qry\": No results");
+		return $row;
+	}
 	protected function find_host($host){
-		return $host;
+		if (!isset($this->hosts_cache[$host]))
+			$hosts_cache[$host] = $this->db_fetchone("SELECT * FROM nm_system WHERE code = %1;",array($host));
+		return $hosts_cache[$host]['id'];
 	}
 	protected function reg_msg(){
 		$this->out(LOG_DEBUG,"Found msg:". print_r($this->cur_par,True));
 	}
 	
-	protected function reg_par(){
-		$this->cur_par = array('date'=>$this->last_date, 
-			'sys' => $this->find_host($this->last_host),
+	protected function reg_par($date,$host){
+		$this->cur_par = array('date'=>$date, 
+			'sys' => $this->find_host($host),
 			'chip'=> null, 'adapter'=>null, 'sensors'=> array());
 	}
 	protected function reg_content($str){

@@ -8,12 +8,12 @@ require('lib/adodb/adodb.inc.php');
 require("logimport.php");
 
 function getDB(){
-	$dbhandle = NewADOConnection("pgsql://dbname=nmtest");
+	$dbhandle = NewADOConnection("pgsql://dbname=nmtest host=localhost");
 	if (!$dbhandle)
 		throw new Exception("Cannot connect to db!");
-		return false;
 	
 	$dbhandle->setFetchMode(ADODB_FETCH_ASSOC);
+	return $dbhandle;
 }
 
 $verbose = 1;
