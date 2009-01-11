@@ -1,4 +1,4 @@
-#!/usr/bin/php -q
+#!/usr/bin/php
 <?php
 set_time_limit(0);
 error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
@@ -42,6 +42,7 @@ foreach ($cli_args['input'] as $fname){
 		continue;
 	}
 	$simp->parseContent($fil);
+	//$simp->print_cache();
 	fclose($fil);
 }
 ?>

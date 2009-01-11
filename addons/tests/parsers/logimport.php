@@ -1,6 +1,9 @@
 <?php
 require_once("lib/Provi/Class.Import.inc.php");
 
+class NoDataException extends Exception {
+};
+
 class SyslogImport extends ImportEngine {
 	protected $dbh;
 	protected $fascility;
@@ -57,7 +60,8 @@ class SyslogImport extends ImportEngine {
 				if ($tokens[3] != $this->fascility)
 					continue;
 				if (($tokens[1] != $this->last_date) || ($tokens[2] != $this->last_host)){
-					$this->reg_msg($this->cur_par);
+					if ($this->cur_par)
+						$this->reg_msg();
 					$this->reg_par($tokens[1], $tokens[2]);
 					$this->last_date=$tokens[1];
 					$this->last_host=$tokens[2];
@@ -71,24 +75,139 @@ class SyslogImport extends ImportEngine {
 			$this->reg_msg();
 		}catch (Exception $ex){
 			$this->out(LOG_ERR,$ex->getMessage());
+			throw $ex;
 			return false;
 		}
 		return true;
 	}
 };
 
+abstract class NMCache{
+	protected $cache= array();
+	protected $myid;
+	protected $simp;
+	protected $par;
+	
+	public function NMCache($myid, $par){
+		$this->myid=$myid;
+		$this->simp=$par->simp;
+		$this->par=$par;
+		
+	}
+	
+	public function child($name){
+		if(isset($this->cache[$name]))
+			return $this->cache[$name];
+		try {
+			$res = $this->findChild($name);
+			$this->cache[$name]=$res;
+			return $res;
+		}catch (NoDataException $ex){
+			$res = $this->buildChild($name);
+			$this->cache[$name]=$res;
+			return $res;
+		}
+	}
+	
+	abstract protected function findChild($name);
+	abstract protected function buildChild($name);
+	
+};
+
+class HostsCache extends NMCache{
+	
+	public function HostsCache($simp){
+		$this->myid=0;
+		$this->simp=$simp;
+		$this->par=null;
+		
+	}
+
+	protected function findChild($name){
+		$r=$this->simp->db_fetchone("SELECT id FROM nm_system WHERE code = %1;",
+			array($name));
+		return new SystemCache( $r['id'],$this);
+	}
+	
+	protected function buildChild($name){
+		throw new Exception("Cannot insert host into db!");
+	}
+};
+
+
+class SystemCache extends NMCache{
+	
+	protected function findChild($name){
+		$r=$this->simp->db_fetchone("SELECT id FROM nm_attr_named 
+			WHERE sysid = %1 AND par_id IS NULL AND name = %2;",
+			array($this->myid,$name));
+		return new ChipCache( $r['id'],$this);
+	}
+	
+	protected function buildChild($name){
+		$r=$this->simp->db_fetchone("INSERT INTO nm_attr_named(sysid,clsid,atype,name) 
+			VALUES(%1,1,'group',%2) RETURNING id;",
+			array($this->myid,$name));
+		return new ChipCache( $r['id'],$this);
+	}
+};
+
+class ChipCache extends NMCache{
+	
+	protected function findChild($name){
+		$r=$this->simp->db_fetchone("SELECT id FROM nm_attr_named 
+			WHERE sysid = %1 AND par_id = %3 AND name = %2 AND atype = 'icreate';",
+			array($this->par->myid,$name,$this->myid));
+		return new SensorCache( $r['id'],$this);
+	}
+	
+	protected function buildChild($name){
+		$r=$this->simp->db_fetchone("INSERT INTO nm_attr_named(sysid,clsid,atype,name,par_id) 
+			VALUES(%1,1,'icreate',%2,%3) RETURNING id;",
+			array($this->par->myid,$name,$this->myid));
+		return new SensorCache( $r['id'],$this);
+	}
+};
+
+class SensorCache extends NMCache{
+	protected $num=0;
+	
+	protected function findChild($name){
+		throw new Exception("Nothing to find here");
+	}
+	
+	protected function buildChild($name){
+		throw new Exception("Nothing to build here");
+	}
+	
+	public function regVal($date,$value){
+		$res= $this->simp->db_fetchone("INSERT INTO nm_attr_float(sysid,clsid,atype,par_id,value) 
+			VALUES(%1,1,'value',%2,%3) RETURNING id;",
+			array($this->par->par->myid,$this->myid,$value));
+	}
+	
+};
+	
+
 class SensorsLogImport extends SyslogImport{
 	public $args;
-	protected $hosts_cache= array();
+	protected $hosts_cache;
 	
 	function SensorsLogImport(){
 		$this->fascility = "sensord";
+	}
+	function print_cache(){
+		$this->out(LOG_DEBUG,print_r($this->hosts_cache,true));
+	}
+	public function out($lvl,$str){
+		parent::out($lvl,$str);
 	}
 	public function Init(array $args){
 		parent::Init($args);
 		if (!isset($args['db']))
 			throw new Exception("Please provide db in args!");
 		$this->dbh = $args['db'];
+		$this->hosts_cache= new HostsCache($this);
 	}
 	function db_fetchone($qry,$parms = NULL){
 		if ($parms)
@@ -103,21 +222,25 @@ class SensorsLogImport extends SyslogImport{
 		}
 		$row =$res->FetchRow();
 		if (!$row)
-			throw new Exception("Query: \"$qry\": No results");
+			throw new NoDataException("Query: \"$qry\": No results");
 		return $row;
 	}
-	protected function find_host($host){
-		if (!isset($this->hosts_cache[$host]))
-			$hosts_cache[$host] = $this->db_fetchone("SELECT * FROM nm_system WHERE code = %1;",array($host));
-		return $hosts_cache[$host]['id'];
-	}
 	protected function reg_msg(){
-		$this->out(LOG_DEBUG,"Found msg:". print_r($this->cur_par,True));
+		//Locate the chip:
+		foreach ($this->cur_par['sensors'] as $key => $sens){
+			//print_r($this->cur_par);
+			$sobj = $this->cur_par['sys']->child($this->cur_par['chip']) ->
+				child($key);
+			//print_r($sobj);
+			//echo "\n";
+			$sobj->regVal($this->cur_par['date'],$sens);
+		}
+		
 	}
 	
 	protected function reg_par($date,$host){
 		$this->cur_par = array('date'=>$date, 
-			'sys' => $this->find_host($host),
+			'sys' => $this->hosts_cache->child($host),
 			'chip'=> null, 'adapter'=>null, 'sensors'=> array());
 	}
 	protected function reg_content($str){
