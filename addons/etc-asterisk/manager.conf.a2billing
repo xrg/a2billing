@@ -1,0 +1,9 @@
+; A2Billing manager user
+
+; add this section to your manager.conf file
+[a2billing]
+secret=some-super-secret
+deny=0.0.0.0/0.0.0.0
+permit=127.0.0.1/255.255.255.255
+read = system,call,log,verbose,command,agent,user,config
+;write = system,call,log,verbose,command,agent,user,config
