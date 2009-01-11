@@ -69,7 +69,7 @@ CREATE TABLE did_phonebook(
     cardid    BIGINT REFERENCES cc_card(id)
 );
 
-CREATE INDEX did_phonebook_rnplan_index ON did_phonebook(rnplan_pat);
+CREATE INDEX did_phonebook_rnplan_index ON did_phonebook(rnplan);
 CREATE INDEX did_phonebook_cgroup_index ON did_phonebook(card_group);
 CREATE INDEX did_phonebook_cardid_index ON did_phonebook(cardid);
 
