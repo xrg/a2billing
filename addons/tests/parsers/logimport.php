@@ -263,6 +263,18 @@ class SensorsLogImport extends SyslogImport{
 			$this->cur_par['chip']=$toks[1];
 		elseif (preg_match('/^Adapter: (.+)$/',$str,$toks)>0)
 			$this->cur_par['adapter']=$toks[1];
+		elseif (preg_match('/^ +(VCore [0-9]+): (\S+) V (\(.*\))?$/',$str,$toks)>0)
+			$this->cur_par['sensors'][$toks[1]]=$toks[2];
+		elseif (preg_match('/^ +([+-]\S+V): (\S+) V (\(.*\))?$/',$str,$toks)>0)
+			$this->cur_par['sensors'][$toks[1]]=$toks[2];
+		elseif (preg_match('/^ +(\S+ Fan): (\S+) RPM( \(.*\))?$/',$str,$toks)>0)
+			$this->cur_par['sensors'][$toks[1]]=$toks[2];
+		elseif (preg_match('/^ +(\S+ Temp): (\S+) C( \(.*\))?$/',$str,$toks)>0)
+			$this->cur_par['sensors'][$toks[1]]=$toks[2];
+		elseif (preg_match('/^ +(\S+ Temp \(AMD\)): (\S+) C( \(.*\))?$/',$str,$toks)>0)
+			$this->cur_par['sensors'][$toks[1]]=$toks[2];
+		elseif (preg_match('/^ +(\S+ Temp \(Intel\)): (\S+) C( \(.*\))?$/',$str,$toks)>0)
+			$this->cur_par['sensors'][$toks[1]]=$toks[2];
 		elseif (preg_match('/^ +-(.+)$/',$str,$toks)>0)
 			return True;
 		elseif (preg_match('/^ +(\S+): (\S+)$/',$str,$toks)>0)
