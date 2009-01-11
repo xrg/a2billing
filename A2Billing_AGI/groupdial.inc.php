@@ -199,7 +199,7 @@ function groupDial($dialnum,$route, $card,$card_money,&$last_prob,$agi){
 		$hangupcause=$agi->get_variable('HANGUPCAUSE');
 		
 		$answeredtime = $agi->get_variable("ANSWEREDTIME");
-		if ($answeredtime['result']== 0)
+		if (empty($answeredtime['data']) || $answeredtime['result']== 0)
 			$answeredtime['data'] =0;
 		$dialstatus = $agi->get_variable("DIALSTATUS");
 		
@@ -210,7 +210,7 @@ function groupDial($dialnum,$route, $card,$card_money,&$last_prob,$agi){
 			// We are special, we need to learn who answered here!
 		$dialedpeer = $agi->get_variable("DIALEDPEERNUMBER");
 		
-		$agi->conlog("Dial result: ".$dialstatus['data'].'@'.$dialedpeer['data'].
+		$agi->conlog("Group result: ".$dialstatus['data'].'@'.$dialedpeer['data'].
 			'('. $hangupcause['data']. ') after '. $answeredtime['data'].'sec.',2);
 		//$agi->conlog("After dial, answertime: ".print_r($answeredtime,true));
 		//TODO: SIP, ISDN extended status
