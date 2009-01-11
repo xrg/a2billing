@@ -11,6 +11,7 @@ error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
 $dbh=null;
 $verbose = 1;
 $dry_run = false;
+$manager_section='manager'; // a [manager] section should be in a2billing.conf
 
 $cli_args = arguments($argv);
 
@@ -23,6 +24,12 @@ else if (!empty($cli_args['verbose']) || !empty($cli_args['v']))
 	$verbose=2;
 else if (!empty($cli_args['silent']) || !empty($cli_args['q']))
 	$verbose=0;
+
+if (!empty($cli_args['manager']))
+	$manager_section=$cli_args['manager'];
+else if (!empty($cli_args['m']))
+	$manager_section=$cli_args['m'];
+
 
 if (!empty($cli_args['config']))
 	define('DEFAULT_A2BILLING_CONFIG',$cli_args['config']);
@@ -124,45 +131,64 @@ function handle_handler($event, $parameters, $server, $port){
 // 	exit(2);
 // }
 
-$host='localhost';
-$uname='a2billing';
-$password='a2bman';
+define('DEBUG_CONF',1);
 
-$dbh = A2Billing::DBHandle();
+$host=A2Billing::instance()->set_def_conf($manager_section,'host','localhost');
+$uname=A2Billing::instance()->set_def_conf($manager_section,'username','a2billing');
+$password=A2Billing::instance()->set_def_conf($manager_section,'secret','');
 
-$as = new AGI_AsteriskManager();
-$as->nolog=true;
-// && CONNECTING  connect($server=NULL, $username=NULL, $secret=NULL)
-$res = $as->connect($host, $uname, $password);
+if ($verbose>2)
+	echo "Starting manager-eventd.\n";
 
-if (!$res) {
-	$err_msg .= str_params( _("Cannot connect to asterisk manager @%1<br>Please check manager configuration..."),
-		array($host),1);
-	echo $err_str;
-
-	//return false;
-	exit();
-}
-//$res = $as->Ping();
-$as->Events('agent,call');
-$as-> add_event_handler('Join',handle_handler);
-$as-> add_event_handler('Leave',idle_handler);
-$as-> add_event_handler('QueueCallerAbandon',handle_handler);
-$as-> add_event_handler('AgentCalled',handle_handler);
-$as-> add_event_handler('AgentDump',handle_handler);
-$as-> add_event_handler('AgentConnect',handle_handler);
-$as-> add_event_handler('AgentComplete',handle_handler);
-$as-> add_event_handler('QueueMemberRemoved',handle_handler);
-$as-> add_event_handler('QueueMemberAdded',handle_handler);
-$as-> add_event_handler('QueueMemberPaused',handle_handler);
-$as-> add_event_handler('QueueMemberStatus',idle_handler);
-
-$as-> add_event_handler('*',idle_handler);
-
-while($res=$as->send_request('WaitEvent'))
-	echo "WaitEvent: ".$res['Response']."\n";
-
-echo $err_msg;
+$num_tries=0;
+while ($num_tries<10){
+	$num_tries++;
+	$dbh = A2Billing::DBHandle();
+	if (!$dbh){
+		echo "Cannot connect to database, exiting..";
+		break;
+	}
+	
+	$as = new AGI_AsteriskManager();
+	
+	if ($verbose<2)
+		$as->nolog=true;
+	else
+		$as->debug=true;
+	// && CONNECTING  connect($server=NULL, $username=NULL, $secret=NULL)
+	$res = $as->connect($host, $uname, $password);
+	
+	if (!$res) {
+		echo str_params( _("Cannot connect to asterisk manager @%1. Please check manager configuration...\n"),
+			array($host),1);
+		sleep(60);
+		continue;
+	}
+	if ($verbose>2)
+		echo "Connected to asterisk.\n";
+	
+	//$res = $as->Ping();
+	$as->Events('agent,call');
+	$as-> add_event_handler('Join',handle_handler);
+	$as-> add_event_handler('Leave',idle_handler);
+	$as-> add_event_handler('QueueCallerAbandon',handle_handler);
+	$as-> add_event_handler('AgentCalled',handle_handler);
+	$as-> add_event_handler('AgentDump',handle_handler);
+	$as-> add_event_handler('AgentConnect',handle_handler);
+	$as-> add_event_handler('AgentComplete',handle_handler);
+	$as-> add_event_handler('QueueMemberRemoved',handle_handler);
+	$as-> add_event_handler('QueueMemberAdded',handle_handler);
+	$as-> add_event_handler('QueueMemberPaused',handle_handler);
+	$as-> add_event_handler('QueueMemberStatus',idle_handler);
+	
+	$as-> add_event_handler('*',idle_handler);
+	
+	while($res=$as->send_request('WaitEvent'))
+		if ($verbose>1)
+			echo "WaitEvent: ".$res['Response']."\n";
+	if ($verbose>2)
+		echo "After WaitEvent loop. Connection broken?\n";
+	}
 
 /* But why should we make our manager events look like the ast_queue_log ones?
   .. Stay tuned!
