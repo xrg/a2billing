@@ -130,7 +130,7 @@ class HostsCache extends NMCache{
 	}
 	
 	protected function buildChild($name){
-		throw new Exception("Cannot insert host into db!");
+		throw new Exception("Cannot insert host \"$name\" into db!");
 	}
 };
 

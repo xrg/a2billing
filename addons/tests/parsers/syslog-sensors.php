@@ -43,6 +43,7 @@ foreach ($cli_args['input'] as $fname){
 	}
 	$dbhandle->Execute("BEGIN;");
 	$simp->parseContent($fil);
+	$simp->out(LOG_DEBUG,"Did commit");
 	$dbhandle->Execute("COMMIT;");
 	//$simp->print_cache();
 	fclose($fil);
