@@ -153,7 +153,7 @@ while ($num_tries<10){
 	
 	if ($verbose<2)
 		$as->nolog=true;
-	else
+	else if ($verbose > 3)
 		$as->debug=true;
 	// && CONNECTING  connect($server=NULL, $username=NULL, $secret=NULL)
 	$res = $as->connect($host, $uname, $password);

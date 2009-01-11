@@ -284,7 +284,8 @@ class TimeOutException extends Exception{
       // read the header
       try {
       	$str = $this->fgetl();
-      	$this->log("Header: $str");
+      	if ($this->debug)
+      		$this->log("Header: $str");
       }
       catch(Exception $ex) {
       	 $this->log("Asterisk Manager header not received.");
