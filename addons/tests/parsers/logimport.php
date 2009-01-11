@@ -124,7 +124,7 @@ class HostsCache extends NMCache{
 	}
 
 	protected function findChild($name){
-		$r=$this->simp->db_fetchone("SELECT id FROM nm_system WHERE code = %1;",
+		$r=$this->simp->db_fetchone("SELECT id FROM nm.system WHERE code = %1;",
 			array($name));
 		return new SystemCache( $r['id'],$this);
 	}
@@ -138,14 +138,14 @@ class HostsCache extends NMCache{
 class SystemCache extends NMCache{
 	
 	protected function findChild($name){
-		$r=$this->simp->db_fetchone("SELECT id FROM nm_attr_named 
+		$r=$this->simp->db_fetchone("SELECT id FROM nm.attr_node 
 			WHERE sysid = %1 AND par_id IS NULL AND name = %2;",
 			array($this->myid,$name));
 		return new ChipCache( $r['id'],$this);
 	}
 	
 	protected function buildChild($name){
-		$r=$this->simp->db_fetchone("INSERT INTO nm_attr_named(sysid,clsid,atype,name) 
+		$r=$this->simp->db_fetchone("INSERT INTO nm.attr_node(sysid,clsid,atype,name) 
 			VALUES(%1,1,'group',%2) RETURNING id;",
 			array($this->myid,$name));
 		return new ChipCache( $r['id'],$this);
@@ -155,14 +155,14 @@ class SystemCache extends NMCache{
 class ChipCache extends NMCache{
 	
 	protected function findChild($name){
-		$r=$this->simp->db_fetchone("SELECT id FROM nm_attr_named 
+		$r=$this->simp->db_fetchone("SELECT id FROM nm.attr_node 
 			WHERE sysid = %1 AND par_id = %3 AND name = %2 AND atype = 'icreate';",
 			array($this->par->myid,$name,$this->myid));
 		return new SensorCache( $r['id'],$this);
 	}
 	
 	protected function buildChild($name){
-		$r=$this->simp->db_fetchone("INSERT INTO nm_attr_named(sysid,clsid,atype,name,par_id) 
+		$r=$this->simp->db_fetchone("INSERT INTO nm.attr_node(sysid,clsid,atype,name,par_id) 
 			VALUES(%1,1,'icreate',%2,%3) RETURNING id;",
 			array($this->par->myid,$name,$this->myid));
 		return new SensorCache( $r['id'],$this);
@@ -181,9 +181,9 @@ class SensorCache extends NMCache{
 	}
 	
 	public function regVal($date,$value){
-		$res= $this->simp->db_fetchone("INSERT INTO nm_attr_float(sysid,clsid,atype,par_id,value) 
-			VALUES(%1,1,'value',%2,%3) RETURNING id;",
-			array($this->par->par->myid,$this->myid,$value));
+		$res= $this->simp->db_fetchone("INSERT INTO nm.attr_float(par_id,tstamp,value) 
+			VALUES(%1,%2,%3) RETURNING id;",
+			array($this->myid,$date,$value));
 	}
 	
 };
@@ -208,6 +208,7 @@ class SensorsLogImport extends SyslogImport{
 			throw new Exception("Please provide db in args!");
 		$this->dbh = $args['db'];
 		$this->hosts_cache= new HostsCache($this);
+		setlocale(LC_TIME,'C');
 	}
 	function db_fetchone($qry,$parms = NULL){
 		if ($parms)
@@ -239,7 +240,19 @@ class SensorsLogImport extends SyslogImport{
 	}
 	
 	protected function reg_par($date,$host){
-		$this->cur_par = array('date'=>$date, 
+		$datea = strptime($date,'%b %e %T');
+		// Guess the year:
+		$cur_time = getdate();
+		$datea['tm_year']=$cur_time['year'];
+		$datea['tm_mon']+=1;
+		$datea['tm_yday']+=1;
+		if ($datea['tm_yday']>$cur_time['yday'])
+			$datea['tm_year']-=1;
+		$date2=sprintf('%d-%02d-%02d %d:%d:%d',$datea['tm_year'],$datea['tm_mon'],$datea['tm_mday'],
+			$datea['tm_hour'],$datea['tm_min'],$datea['tm_sec']);
+		$this->out(LOG_DEBUG,"Date $date: $date2");
+		//throw new Exception("end here");
+		$this->cur_par = array('date'=>$date2,
 			'sys' => $this->hosts_cache->child($host),
 			'chip'=> null, 'adapter'=>null, 'sensors'=> array());
 	}

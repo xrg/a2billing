@@ -41,7 +41,9 @@ foreach ($cli_args['input'] as $fname){
 		echo "Could not open $fname\n";
 		continue;
 	}
+	$dbhandle->Execute("BEGIN;");
 	$simp->parseContent($fil);
+	$dbhandle->Execute("COMMIT;");
 	//$simp->print_cache();
 	fclose($fil);
 }
