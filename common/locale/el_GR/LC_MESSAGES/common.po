@@ -52,11 +52,11 @@ msgstr "Δεν βρέθηκε %1!"
 
 #: common/lib/Form/Class.ListView.inc.php:180
 msgid "%1 Rows,"
-msgstr ""
+msgstr "%1 Σειρές,"
 
 #: common/lib/Form/Class.ListView.inc.php:182
 msgid "Display"
-msgstr ""
+msgstr "Εμφάνισε"
 
 #: common/lib/Form/Class.ListView.inc.php:190
 msgid "All"
@@ -111,9 +111,8 @@ msgid "Edit this %1"
 msgstr "Επεξεργασία του %1"
 
 #: common/lib/Form/Class.TextField.inc.php:60
-#, fuzzy
 msgid "Details of this %1"
-msgstr "Λεπτομέρειες %1"
+msgstr "Λεπτομέρειες του %1"
 
 #: common/lib/Form/Class.SumMultiView.inc.php:163
 #: common/lib/Form/Class.SumMultiView.inc.php:408
@@ -146,9 +145,9 @@ msgstr "ΨΕΥΔΕΣ"
 msgid "0 sec"
 msgstr "0 δευ."
 
-#: common/lib/Form/Class.NumField.inc.php:274
+#: common/lib/Form/Class.NumField.inc.php:270
 msgid "Y-m-d H:i:s T"
-msgstr ""
+msgstr "d/m/Y H:i:s T"
 
 #: common/lib/Form/Class.AddView.inc.php:61
 #: common/lib/Form/Class.TabField.inc.php:108
@@ -421,9 +420,9 @@ msgstr "Ενέργειες"
 msgid "Details of %1"
 msgstr "Λεπτομέρειες %1"
 
-#: common/lib/Form/Class.FormHandler.inc.php:336
+#: common/lib/Form/Class.FormHandler.inc.php:329
 msgid "Graph"
-msgstr ""
+msgstr "Γράφημα"
 
 #: common/lib/Form/Class.TextSearchField.inc.php:21
 msgid "Ignore"
@@ -469,7 +468,7 @@ msgstr "Τύπος"
 
 #: common/lib/Provi/Class.ProvisionActionForm.inc.php:38
 msgid "Invalid type!"
-msgstr ""
+msgstr "Λάθος τύπος!"
 
 #: common/lib/Provi/Class.ProvisionActionForm.inc.php:93
 msgid "Here is your example %1:"
@@ -536,9 +535,8 @@ msgid "Urdu"
 msgstr "Urdu"
 
 #: common/lib/languageSettings.inc.php:53
-#, fuzzy
 msgid "English (C)"
-msgstr "Αγγλικά"
+msgstr "Αγγλικά (C)"
 
 #: common/lib/SessionInvoice.inc.php:8 common/lib/AgentMoney.inc.php:11
 msgid "Transactions"
@@ -871,6 +869,12 @@ msgstr "Ο θάλαμος άδειασε"
 #: common/lib/BoothsXML.inc.php:167 common/lib/BoothsXML.inc.php:175
 msgid "Database query failed!"
 msgstr "Η αναζήτηση στη βάση απέτυχε!"
+
+#: common/lib/Form/Class.DeleteView.inc.php:132
+#: common/lib/Form/Class.AddView.inc.php:142
+#: common/lib/Form/Class.EditView.inc.php:205
+msgid "Read only. No data has been altered."
+msgstr "Μόνο ανάγνωση. Τα δεδομένα δεν άλλαξαν."
 
 #~ msgid "DISPLAY"
 #~ msgstr "ΑΠΕΙΚΟΝΙΣΗ"
