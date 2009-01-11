@@ -248,7 +248,7 @@ class SensorsLogImport extends SyslogImport{
 		$datea['tm_yday']+=1;
 		if ($datea['tm_yday']>$cur_time['yday'])
 			$datea['tm_year']-=1;
-		$date2=sprintf('%d-%02d-%02d %d:%d:%d',$datea['tm_year'],$datea['tm_mon'],$datea['tm_mday'],
+		$date2=sprintf('%d-%02d-%02d %02d:%02d:%02d',$datea['tm_year'],$datea['tm_mon'],$datea['tm_mday'],
 			$datea['tm_hour'],$datea['tm_min'],$datea['tm_sec']);
 		$this->out(LOG_DEBUG,"Date $date: $date2");
 		//throw new Exception("end here");
