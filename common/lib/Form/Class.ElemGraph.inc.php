@@ -348,6 +348,7 @@ class LineView extends GraphView {
 	public function RenderHeaderGraph (&$form, &$robj){
 		require_once(DIR_COMMON."jpgraph_lib/jpgraph_line.php");
 		$robj = new Graph($this->styles['width'],$this->styles['height'],"auto");
+		$robj->legend->SetFont(FF_DEJAVU);
 	}
 	
 	public function RenderGraph (&$form, &$robj){
@@ -386,6 +387,7 @@ class BarView extends GraphView {
 	public function RenderHeaderGraph (&$form, &$robj){
 		require_once(DIR_COMMON."jpgraph_lib/jpgraph_bar.php");
 		$robj = new Graph($this->styles['width'],$this->styles['height'],"auto");
+		$robj->legend->SetFont(FF_DEJAVU);
 	}
 	
 	public function RenderGraph (&$form, &$robj){
@@ -425,6 +427,7 @@ class AccumBarView extends GraphView {
 	public function RenderHeaderGraph (&$form, &$robj){
 		require_once(DIR_COMMON."jpgraph_lib/jpgraph_bar.php");
 		$robj = new Graph($this->styles['width'],$this->styles['height'],"auto");
+		$robj->legend->SetFont(FF_DEJAVU);
 	}
 	
 	public function RenderGraph (&$form, &$robj){
@@ -474,6 +477,7 @@ class PieView extends GraphView {
 		require_once(DIR_COMMON."jpgraph_lib/jpgraph_pie.php");
 		require_once(DIR_COMMON."jpgraph_lib/jpgraph_pie3d.php");
 		$robj = new PieGraph($this->styles['width'],$this->styles['height'],"auto");
+		$robj->legend->SetFont(FF_DEJAVU);
 	}
 	
 	public function RenderGraph (&$form, &$robj){
