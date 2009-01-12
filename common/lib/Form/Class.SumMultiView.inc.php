@@ -313,7 +313,7 @@ class SumMultiView extends FormView {
 			if (! empty($tsum['xlabelfont']))
 				$graph->xaxis->SetFont($tsum['xlabelfont']);
 			else
-				$graph->xaxis->SetFont(FF_VERA);				
+				$graph->xaxis->SetFont(FF_DEJAVU);
 			
 			$graph->xaxis->SetTickLabels($xdata);
 			$bplot = new BarPlot($ydata);
@@ -334,7 +334,7 @@ class SumMultiView extends FormView {
 			//$graph->legend->SetFont(FF_ARIAL,FS_BOLD,8);
 			$graph->legend->SetShadow('gray@0.4',3);
 			$graph->legend->SetAbsPos(15,130,'right','bottom');*/
-			//$graph->legend->SetFont(FF_VERA);
+			//$graph->legend->SetFont(FF_DEJAVU);
 			
 			$xdata = array();
 			$ydata = array();
@@ -374,7 +374,7 @@ class SumMultiView extends FormView {
 			if (! empty($tsum['xlabelfont']))
 				$graph->xaxis->SetFont($tsum['xlabelfont']);
 			else
-				$graph->xaxis->SetFont(FF_VERA);
+				$graph->xaxis->SetFont(FF_DEJAVU);
 			$graph->xaxis->SetTickLabels($xdata);
 			$accplots=array();
 			

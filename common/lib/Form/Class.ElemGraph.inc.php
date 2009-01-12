@@ -250,12 +250,15 @@ class GraphView extends FormView {
 		if (!$this->styles['setframe'])
 			$robj->SetFrame(false);
 		
-		if (! empty($form->views[$this->view]->plots[$this->code]['title']))
+		if (! empty($form->views[$this->view]->plots[$this->code]['title'])){
 			$robj->title->Set($form->views[$this->view]->plots[$this->code]['title']);
+			$robj->title->SetFont(FF_DEJAVU);
+		}
 		
 		if (! empty($form->views[$this->view]->plots[$this->code]['subtitles'])){
 			$robj->tabtitle->Set($form->views[$this->view]->plots[$this->code]['subtitles']);
 			$robj->tabtitle->SetWidth(TABTITLE_WIDTHFULL);
+			$robj->tabtitle->SetFont(FF_DEJAVU);
 		}
 		
 		if ($this->styles['bggradient'])
@@ -361,7 +364,7 @@ class LineView extends GraphView {
 		if (! empty($this->styles['chart-options']['xlabelfont']))
 			$robj->xaxis->SetFont($this->styles['chart-options']['xlabelfont']);
 		else
-			$robj->xaxis->SetFont(FF_VERA);
+			$robj->xaxis->SetFont(FF_DEJAVU);
 		
 		$robj->xaxis->SetTickLabels($data->xdata);
 		
@@ -399,7 +402,7 @@ class BarView extends GraphView {
 		if (! empty($this->styles['chart-options']['xlabelfont']))
 			$robj->xaxis->SetFont($this->styles['chart-options']['xlabelfont']);
 		else
-			$robj->xaxis->SetFont(FF_VERA);
+			$robj->xaxis->SetFont(FF_DEJAVU);
 		
 		$robj->xaxis->SetTickLabels($data->xdata);
 		
@@ -438,7 +441,7 @@ class AccumBarView extends GraphView {
 		if (! empty($this->styles['chart-options']['xlabelfont']))
 			$robj->xaxis->SetFont($this->styles['chart-options']['xlabelfont']);
 		else
-			$robj->xaxis->SetFont(FF_VERA);
+			$robj->xaxis->SetFont(FF_DEJAVU);
 		
 		$robj->xaxis->SetTickLabels($data->xdata);
 		
