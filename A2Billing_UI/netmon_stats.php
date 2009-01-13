@@ -13,7 +13,7 @@ require_once (DIR_COMMON."Form/Class.SelectionForm.inc.php");
 require_once (DIR_COMMON."Form/Class.SumMultiView.inc.php");
 require_once (DIR_COMMON."Form/Class.ElemGraph.inc.php");
 
-$menu_section='menu_creport';
+$menu_section='menu_netmon';
 
 // Init the class early, so that ACL message appears here.
 $sform= new FormHandler('nm.attr_float',_("Values"),_("Value"));
