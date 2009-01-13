@@ -17,15 +17,13 @@ class SumMultiView extends FormView {
 	protected function RenderHead(){
 	}
 	
-	protected function performSumQuery(&$summ,&$form,&$dbhandle,$is_html=false,$need_raw=false){
-		if ($form->FG_DEBUG && $is_html)
-			echo "<tr class=\"debug\"><td colspan=\"".$this->ncols ."\">";
-		if ($form->FG_DEBUG>3 && $is_html)
-			echo "SumMultiView! Building Sum query..";
+	protected function performSumQuery(&$summ,&$form,&$dbhandle,&$robj){
+		$robj->debug("ncols:" .$this->ncols);
+		if ($form->FG_DEBUG>3)
+			$robj->debug("SumMultiView! Building Sum query..");
 		
 		if (empty($summ['fns'])){
-			if ($form->FG_DEBUG>0 && $is_html)
-				echo "No sum functions!</td></tr>\n";
+			$robj->debug("No sum functions!");
 			return;
 		}
 
@@ -35,6 +33,7 @@ class SumMultiView extends FormView {
 		$query_grps = array();
 		$query_table = $form->model_table;
 		$query_outertable = '';
+		$need_raw = $robj->NeedRaw();
 		
 		foreach($form->model as $fld){
 			$fld->buildSumQuery($dbhandle, $summ['fns'],
@@ -43,15 +42,13 @@ class SumMultiView extends FormView {
 		}
 	
 		if (!strlen($query_table)){
-			if ($form->FG_DEBUG>0 && $is_html)
-				echo "No sum table!</td></tr>\n";
+			$robj->debug("No sum table!");
 			return;
 		}
 		
 		$QUERY = 'SELECT ';
 		if (count($query_fields)==0) {
-			if ($form->FG_DEBUG>0 && $is_html)
-				echo "No sum query fields!</td></tr>\n";
+			$robj->debug("No sum query fields!");
 			return;
 		}
 		
@@ -127,26 +124,24 @@ class SumMultiView extends FormView {
 		
 		$QUERY .= ';';
 		
-		if ($form->FG_DEBUG>3 && $is_html)
-			echo "<br>SUM QUERY: $QUERY\n<br>\n";
+		if ($form->FG_DEBUG>3)
+			$robj->debug("SUM QUERY: $QUERY");
 		
 		// Perform the query
 		$res =$dbhandle->Execute($QUERY);
 		if (! $res){
-			if ($form->FG_DEBUG>0 && $is_html)
-				echo "Query Failed: ". nl2br(htmlspecialchars($dbhandle->ErrorMsg())) ."</td></tr>";
+			$robj->debug("Query Failed: ". nl2br(htmlspecialchars($dbhandle->ErrorMsg())));
 			return;
 		}
-		if ($form->FG_DEBUG && $is_html)
-			echo "</td></tr>";
 		return $res;
 
 	}
 	
 	public function Render(&$form){
 		$this->RenderHead();
-	// For convenience, ref the dbhandle locally
-	$dbhandle = &$form->a2billing->DBHandle();
+		
+		// For convenience, ref the dbhandle locally
+		$dbhandle = &$form->a2billing->DBHandle();
 		
 		if ($this->ncols ==null)
 			$this->ncols = count($form->model);
@@ -209,7 +204,7 @@ class SumMultiView extends FormView {
 				throw new Exception("Unknown plot");
 			
 			$row_num = 0;
-			$res = $this->performSumQuery($plot,$form,$dbhandle,false,$robj->NeedRaw());
+			$res = $this->performSumQuery($plot,$form,$dbhandle,$robj);
 			if (!$res){
 				$robj->debug("Could not perform query!");
 				return false;
