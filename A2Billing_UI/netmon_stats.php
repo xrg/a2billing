@@ -109,7 +109,7 @@ $sform->views['sums']->plots['line']= array('title' => _("Per day values"), /*'s
 
 
 
-$sform->views['lineplot'] = new Line2View('sums','line', 'style-ex1');
+$sform->views['lineplot'] = new Line2View('sums','line', 'style-nm1');
 
 $PAGE_ELEMS[] = &$sform;
 $PAGE_ELEMS[] = $sform->GraphUrl('lineplot');
@@ -126,6 +126,28 @@ class JP2Err extends JpGraphErrObject {
 };
 JpGraphError::Install("JP2Err");
 */
+
+$GRAPH_STYLES['style-nm1'] = array( 
+	width => 500, height => 300, 
+	setscale => 'textlin', 
+	setframe => false, margin => array('35', '35', '15', '55'),
+	bggradient => array (show=>true, params=> array('#FFFFFF','#CDDEFF:1.1',GRAD_HOR,BGRAD_MARGIN)),
+	
+	'chart-options' => array (
+		xsetgrace => 3, ysetgrace => 3, xlabelangle => -35, 
+		xgrid => array (
+			show => true, color => 'gray@0.5', linestyle => 'dashed',
+			params=> array( fill => array('#FFFFFF@0.5','#CDDEFF@0.7') ) ),
+		ygrid => array (
+			show => true, color => 'gray@0.5', linestyle => 'dashed',
+			params=> array( fill => array('#FFFFFF@0.5','#CDDEFF:1.1') ) )
+		),
+	'plot-options' => array (
+		setfillcolor => 'gray@0.3',
+		linecolors => array('black@0.5','#801010','red@0.5')
+		)
+	);
+
 
 if (!empty($_GET['graph']))
 	require("PP_graph.inc.php");
