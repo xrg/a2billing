@@ -1,6 +1,23 @@
 <?php
 require_once("Class.FormViews.inc.php");
 
+class DummyRObj {
+	public $dbg=0;
+	
+	public function DummyRobj($dbg){
+		$this->dbg=$dbg;
+	}
+	
+	public function debug($str){
+		if ($this->dbg)
+			echo $str."<br>\n";
+	}
+	
+	public function NeedRaw(){
+		return false;
+	}
+};
+
 /** This is a collection of sums, in the same page:
     Use it to display various statistics per-something from a model.
     each group of sums contains one element of display information..
@@ -164,7 +181,8 @@ class SumMultiView extends FormView {
 		<?php
 		$row_num = 0;
 		foreach($this->sums as $summ) {
-			$res = $this->performSumQuery($summ,$form,$dbhandle,true);
+			$dro=new DummyRObj($form->FG_DEBUG);
+			$res = $this->performSumQuery($summ,$form,$dbhandle, $dro);
 			if (!$res)
 				continue;
 			if (!empty($summ['title'])){
@@ -273,7 +291,8 @@ class SumMultiView extends FormView {
 			return false;
 		//print_r ($tsum);
 		$graph->title->Set($tsum[title]);
-		$res = $this->performSumQuery($tsum,$form,$dbhandle);
+		$dro=new DummyRObj($form->FG_DEBUG);
+		$res = $this->performSumQuery($tsum,$form,$dbhandle,$dro);
 		
 		if (! empty($tsum['subtitles'])){
 			$graph->tabtitle->Set($tsum['subtitles']);
@@ -478,7 +497,8 @@ class Multi2SumView extends SumMultiView {
 			$this->RenderTHead($form,$col_num,$pg_row, $mrows);
 			$in_table = true;
 		}
-		$res = $this->performSumQuery($summ,$form,$dbhandle);
+		$dro=new DummyRObj($form->FG_DEBUG);
+		$res = $this->performSumQuery($summ,$form,$dbhandle,$dro);
 		if (!$res)
 			continue;
 		if (!empty($summ['title'])){
