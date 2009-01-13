@@ -143,6 +143,29 @@ class SumMultiView extends FormView {
 		
 		if ($form->FG_DEBUG>3)
 			$robj->debug("SUM QUERY: $QUERY");
+			
+		if (!empty($this->queryreplace)){
+			$rrep=false;
+			if (isset($this->queryreplace['query'])){
+				$REPQRY=str_alparams($this->queryreplace['query'],
+					array(clauses => implode(' AND ', $query_clauses),
+					fields => implode(', ', $query_fields),
+					grps => $query_grps,
+					table => $query_table));
+				if ($form->FG_DEBUG>3)
+					$robj->debug("REP QUERY: $REPQRY");
+				$resRep=$dbhandle->Execute($REPQRY);
+				if (! $resRep)
+					$robj->debug("RepQuery Failed: ". nl2br(htmlspecialchars($dbhandle->ErrorMsg())));
+				else
+					$rrep = $resRep->fetchRow();	
+			}
+			if (!$rrep)
+				$rrep = $this->queryreplace['default'];
+			$QUERY = str_aldbparams($dbhandle,$QUERY,$rrep);
+			if ($form->FG_DEBUG>3)
+				$robj->debug("SUM QUERY after rep: $QUERY");
+		}
 		
 		// Perform the query
 		$res =$dbhandle->Execute($QUERY);
