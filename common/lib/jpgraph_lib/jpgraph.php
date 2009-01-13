@@ -2138,7 +2138,7 @@ class Graph {
 	    $this->xscale->ticks->SupressFirst(false);    
 
 	    // Now draw the bottom X-axis
-	    $this->xaxis->SetPos('min');
+	    $this->xaxis->SetPos('auto');
 	    $this->xaxis->SetLabelSide(SIDE_DOWN);
 	    $this->xaxis->scale->ticks->SetSide($bottompos);
 	    $this->xaxis->Stroke($this->yscale,$aStrokeLabels);
@@ -3797,13 +3797,23 @@ class Axis extends AxisPrototype {
     }
 	
     // Stroke the axis.
-    function Stroke($aOtherAxisScale,$aStrokeLabels=true) {		
-	if( $this->hide ) return;		
+    function Stroke($aOtherAxisScale,$aStrokeLabels=true) {
+	if( $this->hide ) return;
 	if( is_numeric($this->pos) ) {
 	    $pos=$aOtherAxisScale->Translate($this->pos);
 	}
-	else {	// Default to minimum of other scale if pos not set		
-	    if( ($aOtherAxisScale->GetMinVal() >= 0 && $this->pos==false) || $this->pos=="min" ) {
+	else {	// Default to minimum of other scale if pos not set
+	    if( $this->pos =='auto'){
+		if ($aOtherAxisScale->GetMinVal() >= 0)
+			$pos=floor($aOtherAxisScale->scale_abs[0]);
+		elseif($aOtherAxisScale->GetMaxVal() < 0)
+			$pos=ceil($aOtherAxisScale->scale_abs[1]);
+		else{
+			$this->pos=0;
+			$pos=$aOtherAxisScale->Translate(0);
+		}
+	    }
+	    elseif( ($aOtherAxisScale->GetMinVal() >= 0 && $this->pos==false) || $this->pos=="min" ) {
 		$pos = $aOtherAxisScale->scale_abs[0];
 	    }
 	    elseif($this->pos == "max") {
