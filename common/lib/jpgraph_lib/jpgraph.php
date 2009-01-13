@@ -2135,7 +2135,7 @@ class Graph {
 	    // Y-axis in case the positon hasn't been set by the user.
 	    // However, if we use a box we always want the first value
 	    // displayed so we make sure it will be displayed.
-	    $this->xscale->ticks->SupressFirst(false);    
+	    $this->xscale->ticks->SupressFirst(false); 
 
 	    // Now draw the bottom X-axis
 	    $this->xaxis->SetPos('auto');

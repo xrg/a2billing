@@ -489,6 +489,7 @@ class Line2View extends GraphView {
 		$data = new DataObjXYmp($this->code);
 		$form->views[$this->view]->RenderSpecial('get-data',$form,$data);
 		
+		$robj->xaxis->SetPos('auto');
 		if (! empty($this->styles['chart-options']['xlabelangle'])){
 			$robj->xaxis->SetLabelAngle($this->styles['chart-options']['xlabelangle']);
 			if ($this->styles['chart-options']['xlabelangle']<0)
