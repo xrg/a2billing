@@ -60,7 +60,7 @@ if ($FG_DEBUG)
 $SEL_Form->appendClauses($sform);
 
 $sform->model[] = new DateTimeField(_("Date"),'tstamp');
-	end($sform->model)->fieldexpr='date_trunc(\'hour\', tstamp)';
+	end($sform->model)->fieldexpr='date_trunc(%trunc, tstamp)';
 
 $sform->model[] = new FloatField(_("Value"),'value');
 // repeat the columns, so that we use other aggregates
@@ -103,13 +103,14 @@ $sform->views['sums']->sums[] = array('title' => _("Total"),
 */
 
 $sform->views['sums']->plots['line']= array('title' => _("Per day values"), /*'subtitles' => _("Sum of Session time"),*/
-	'type' => 'line', 'limit' => 100,
+	'type' => 'line', 'limit' => 1000,
 	ylegend => _('Value'),
 	x => 'tstamp', yr => array('value','value_min','value_max'),
 	'fns' => array( 'tstamp' =>true, 'value' => 'AVG', 'value_min' => 'MIN', 'value_max' => 'MAX'),
-	'order' => 'date_trunc(\'hour\',tstamp)');
+	'order' => 'date_trunc(%trunc,tstamp)');
 
-
+$sform->views['sums']->queryreplace=array('query'=> "SELECT date_findtrunc(100,MIN(tstamp),MAX(tstamp)) AS trunc FROM %table WHERE %clauses;",
+	'defaults' =>array('trunc' => 'hour'));
 
 $sform->views['lineplot'] = new Line2View('sums','line', 'style-nm1');
 
