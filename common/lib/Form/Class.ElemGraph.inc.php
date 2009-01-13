@@ -211,6 +211,7 @@ class GraphView extends FormView {
 			setscale => 'textlin', xsetgrace => 3, ysetgrace => 3, 
 			setframe => true, margin => array('35', '35', '15', '35'),
 			rowcolor => false, bggradient => false,
+			maxxticks => 20,
 			colors =>array('red','blue','green','magenta','yellow'),
 			'accumplot-options' => array (
 				color => array ('yellow@0.3', 'purple@0.3', 'green@0.3', 'blue@0.3', 'red@0.3')));
@@ -368,6 +369,8 @@ class LineView extends GraphView {
 			$robj->xaxis->SetFont(FF_DEJAVU);
 		
 		$robj->xaxis->SetTickLabels($data->xdata);
+		if (count($data->xdata)> $this->styles['maxxticks']+5)
+			$robj->xaxis->SetTextTickInterval(count($data->xdata)/$this->styles['maxxticks']);
 		
 		$plot = new LinePlot($data->yrdata);
 		// TODO: use ydata for y-labels
