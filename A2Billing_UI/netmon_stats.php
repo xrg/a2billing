@@ -42,11 +42,13 @@ $SEL_Form->search_exprs['date_to'] = '<=';
 $SEL_Form->model[] = new SqlRefField(_("Node"),"par_id", "nm.attr_node", "id","name");
 	end($SEL_Form->model)->combofield="id|| '. ' || name";
 
-$PAGE_ELEMS[] = &$SEL_Form;
+if($sform->getAction()!='printing')
+	$PAGE_ELEMS[] = &$SEL_Form;
 
 // HelpElem::DoHelp(gettext("*-*"),'vcard.png');
 
 $sform->views['idle'] = new IdleView();
+$sform->views['printing'] = new IdleView();
 if ($sform->getAction()=='list')
 	$sform->setAction('idle');
 
@@ -151,6 +153,8 @@ $GRAPH_STYLES['style-nm1'] = array(
 
 if (!empty($_GET['graph']))
 	require("PP_graph.inc.php");
+else if($sform->getAction()=='printing')
+	require("PP_bare_page.inc.php");
 else
 	require("PP_page.inc.php");
 
