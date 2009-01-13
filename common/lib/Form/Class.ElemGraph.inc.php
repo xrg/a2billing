@@ -363,10 +363,19 @@ class LineView extends GraphView {
 				$robj->xaxis->SetLabelAlign('left');
 		}
 		
-		if (! empty($this->styles['chart-options']['xlabelfont']))
-			$robj->xaxis->SetFont($this->styles['chart-options']['xlabelfont']);
-		else
-			$robj->xaxis->SetFont(FF_DEJAVU);
+		{
+			$font=$this->styles['chart-options']['xlabelfont'];
+			if (empty($font))
+				$font = FF_DEJAVU;
+			$fontstyle= $this->styles['chart-options']['xlabelfontstyle'];
+			if (empty($fontstyle))
+				$fontstyle = FS_NORMAL;
+			$fontsize= $this->styles['chart-options']['xlabelfontsize'];
+			if (empty($fontsize))
+				$fontsize = 8;
+		
+			$robj->xaxis->SetFont($font,$fontstyle,$fontsize);
+		}
 		
 		$robj->xaxis->SetTickLabels($data->xdata);
 		if (count($data->xdata)> $this->styles['maxxticks']+5)
