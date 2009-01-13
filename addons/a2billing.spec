@@ -246,6 +246,8 @@ install -d %{buildroot}%{_datadir}/a2billing/Database
 install -d %{buildroot}%{_datadir}/a2billing/provi
 install -d %{buildroot}%{_datadir}/a2billing/scripts
 
+install -D addons/a2billing-initd.sh %{buildroot}%{_sysconfdir}/init.d/a2billing-daemons
+
 install -d %{buildroot}%{_datadir}/a2billing/common/Images
 install -d %{buildroot}%{_datadir}/a2billing/common/javascript
 install -d %{buildroot}%{_datadir}/a2billing/common/lib
@@ -394,5 +396,6 @@ EOF
 %files scripts
 %defattr(-,root,root)
 %{_datadir}/a2billing/scripts
+%{_sysconfdir}/init.d/a2billing-daemons
 
 # %verifyscript ... 

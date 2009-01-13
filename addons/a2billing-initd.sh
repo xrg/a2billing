@@ -3,7 +3,7 @@
 # Startup script for the DNS caching server
 
 ### BEGIN INIT INFO
-# Provides: a2billing-emaild
+# Provides: a2billing-daemons
 # Required-Start: $network
 # Required-Stop: $network
 # Default-Start: 3 4 5
@@ -17,8 +17,6 @@
 #
 # chkconfig: 2345 99 01
 # description: This script starts the a2billing daemons
-# proce*-*ssname: dnsmasq
-# pid*-*file: /var/run/dnsmasq.pid
 #
 
 # Source function library.
