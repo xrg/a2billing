@@ -129,6 +129,34 @@ class DataObjXYp extends DataObjXY {
 	}
 };
 
+/** Class for data that only has many Y columns on one X */
+abstract class DataObjXYm extends DataObj{
+	protected $xkey;
+	protected $xrkey;
+	protected $ykeys;
+	protected $yrkeys;
+
+	public function prepare(array $plot, array $resfs){
+		$this->xrkey = $this->xkey = $plot['x'];
+		$this->yrkeys = $this->ykeys = $plot['yr'];
+		
+		if (empty($this->xkey) || empty($this->ykeys))
+			throw new Exception('Cannot locate x/y keys in plot settings');
+		if (!in_array($this->xkey,$resfs))
+			throw new Exception('Query row doesn\'t have x data');
+		if (in_array($this->xkey.'_raw',$resfs))
+			$this->xrkey=$this->xkey.'_raw';
+			
+		foreach ($this->ykeys as $n => $key){
+			if (!in_array($key,$resfs))
+				throw new Exception('Query row doesn\'t have y data for '.$key);
+			
+			if (in_array($key.'_raw',$resfs))
+				$this->yrkeys[$n]=$key.'_raw';
+		}
+	}
+};
+
 /** A data object which holds sets of y-data in x2 groups
 */
 class DataObjX2Yp extends DataObjX2Y {
@@ -165,6 +193,57 @@ class DataObjX2Yp extends DataObjX2Y {
 	public function debug($str){
 	}
 	
+};
+
+class DataObjXYmp extends DataObjXYm {
+	public $xdata=array();
+	public $xrdata=array();
+	public $ydata=null;
+	public $yrdata=null;
+	
+	public function NeedRaw() {
+		return true;
+	}
+
+	public function PlotRow(array $row){
+		$this->xdata[]=$row[$this->xkey];
+		$this->xrdata[]=$row[$this->xrkey];
+		
+		if ($this->ydata==null){
+			$this->ydata=array();
+			$this->yrdata=array();
+			foreach($this->ykeys as $n => $key){
+				$this->ydata[$n]=array();
+				$this->yrdata[$n]=array();
+			}
+		}
+		
+		foreach($this->ykeys as $n => $key){
+			$this->ydata[$n][]=$row[$key];
+			$this->yrdata[$n][]=$row[$this->yrkeys[$n]];
+		}
+	}
+	public function debug($str){
+	}
+};
+
+class DataObjXYm_d extends DataObjXYm {
+	private $first_row=false;
+	public function PlotRow(array $row){
+		/*if (!$this->first_row){
+			echo " Ykeys: ".print_r($this->ykeys,true) .
+				", yrkeys=". print_r($this->yrkeys,true) ."<br>\n";
+			$this->first_row=true;
+		}*/
+		
+		echo 'x='.htmlspecialchars($row[$this->xkey]);
+		foreach($this->ykeys as $n => $key)
+			echo ", y".$n."=" . htmlspecialchars($row[$key]);
+		echo " <br>\n";
+	}
+	public function debug($str){
+		echo "$str<br>\n";
+	}
 };
 
 /** A view that renders itself into a graph.
@@ -334,10 +413,13 @@ class GraphView extends FormView {
 		<?php
 			if ($this instanceof AccumBarView)
 				$dobj=new DataObjX2Y_d($this->code);
+			else if ($this instanceof Line2View)
+				$dobj=new DataObjXYm_d($this->code);
 			else
 				$dobj=new DataObjXY_d($this->code);
 			$form->views[$this->view]->RenderSpecial('get-data',$form,$dobj);
 		?>
+		Render end.
 		</div>
 	<?php
 	}
@@ -390,6 +472,69 @@ class LineView extends GraphView {
 			$plot ->SetColor($this->styles['plot-options']['setcolor']);
 		
 		$robj->Add($plot);
+	}
+
+};
+
+/** Multiple lines in one graph */
+class Line2View extends GraphView {
+
+	public function RenderHeaderGraph (&$form, &$robj){
+		require_once(DIR_COMMON."jpgraph_lib/jpgraph_line.php");
+		$robj = new Graph($this->styles['width'],$this->styles['height'],"auto");
+		$robj->legend->SetFont(FF_DEJAVU);
+	}
+	
+	public function RenderGraph (&$form, &$robj){
+		$data = new DataObjXYmp($this->code);
+		$form->views[$this->view]->RenderSpecial('get-data',$form,$data);
+		
+		if (! empty($this->styles['chart-options']['xlabelangle'])){
+			$robj->xaxis->SetLabelAngle($this->styles['chart-options']['xlabelangle']);
+			if ($this->styles['chart-options']['xlabelangle']<0)
+				$robj->xaxis->SetLabelAlign('left');
+		}
+		
+		{
+			$font=$this->styles['chart-options']['xlabelfont'];
+			if (empty($font))
+				$font = FF_DEJAVU;
+			$fontstyle= $this->styles['chart-options']['xlabelfontstyle'];
+			if (empty($fontstyle))
+				$fontstyle = FS_NORMAL;
+			$fontsize= $this->styles['chart-options']['xlabelfontsize'];
+			if (empty($fontsize))
+				$fontsize = 8;
+		
+			$robj->xaxis->SetFont($font,$fontstyle,$fontsize);
+		}
+		
+		$robj->xaxis->SetTickLabels($data->xdata);
+		if (count($data->xdata)> $this->styles['maxxticks']+5)
+			$robj->xaxis->SetTextTickInterval(count($data->xdata)/$this->styles['maxxticks']);
+		
+		$fillcols= $this->styles['plot-options']['setfillcolors'];
+		if (! empty($fillcols))
+			$fillcols=array();
+			
+		$colors=$this->styles['plot-options']['setcolor'];
+		if (! empty($colors))
+			$colors=array();
+		
+		$bplots=array();
+		$yrkeys=$form->views[$this->view]->plots[$this->code]['yr'];
+		foreach ($yrkeys as $n => $key){
+			$bplots[] = new LinePlot($data->yrdata[$n]/*,$data->xrdata*/);
+			// TODO: use ydata for y-labels
+			if(!empty($fillcols[$n]))
+				end($bplots)->SetFillColor($fillcols[$n]);
+			if(!empty($fillcols[$n]))
+				end($bplots)->SetColor($colors[$n]);
+			//TODO: legend
+			
+			$robj->Add(end($bplots));
+		}
+
 	}
 
 };

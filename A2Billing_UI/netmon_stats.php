@@ -61,6 +61,11 @@ $sform->model[] = new DateTimeField(_("Date"),'tstamp');
 	end($sform->model)->fieldexpr='date_trunc(\'hour\', tstamp)';
 
 $sform->model[] = new FloatField(_("Value"),'value');
+// repeat the columns, so that we use other aggregates
+$sform->model[] = new FloatField(_("Value"),'value_min');
+	end($sform->model)->fieldexpr='value';
+$sform->model[] = new FloatField(_("Value"),'value_max');
+	end($sform->model)->fieldexpr='value';
 
 
 /*$sform->model[] = new SecondsField(_("Average Length of Calls"), "aloc");
@@ -98,16 +103,27 @@ $sform->views['sums']->sums[] = array('title' => _("Total"),
 $sform->views['sums']->plots['line']= array('title' => _("Per day values"), /*'subtitles' => _("Sum of Session time"),*/
 	'type' => 'line', 'limit' => 100,
 	ylegend => _('Value'),
-	x => 'tstamp', y => 'value',
-	'fns' => array( 'tstamp' =>true, 'value' => 'AVG'),
+	x => 'tstamp', yr => array('value','value_min','value_max'),
+	'fns' => array( 'tstamp' =>true, 'value' => 'AVG', 'value_min' => 'MIN', 'value_max' => 'MAX'),
 	'order' => 'date_trunc(\'hour\',tstamp)');
 
 
 
-$sform->views['lineplot'] = new LineView('sums','line', 'style-ex1');
+$sform->views['lineplot'] = new Line2View('sums','line', 'style-ex1');
 
 $PAGE_ELEMS[] = &$sform;
 $PAGE_ELEMS[] = $sform->GraphUrl('lineplot');
+
+require_once(DIR_COMMON."jpgraph_lib/jpgraph_line.php");
+class JP2Err extends JpGraphErrObject {
+    function Raise($aMsg,$aHalt=true) {
+	$aMsg = $this->iTitle.' '.$aMsg;
+	error_log($aMsg);
+	throw new Exception("JPGraph error");
+    }
+};
+JpGraphError::Install("JP2Err");
+
 
 if (!empty($_GET['graph']))
 	require("PP_graph.inc.php");
