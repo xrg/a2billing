@@ -1,11 +1,11 @@
 # Asterisk 2 Billing software
 %define git_repodir /home/panos/Δουλειά/MinMax/a2b/
 %define git_repo asterisk2billing
-%define git_head v200-queues
+%define git_head v200-nmmodule
 
 %define name a2billing
-%define version %{git_get_ver}
-%define release %{git_get_rel}q
+%define version %{git_get_ver}nm
+%define release %{git_get_rel}
 
 %undefine __find_provides
 %undefine __find_requires
