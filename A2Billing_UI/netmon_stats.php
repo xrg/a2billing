@@ -114,6 +114,8 @@ $sform->views['lineplot'] = new Line2View('sums','line', 'style-ex1');
 $PAGE_ELEMS[] = &$sform;
 $PAGE_ELEMS[] = $sform->GraphUrl('lineplot');
 
+/*
+	Debug with exceptions, so that we locate the faluty code.
 require_once(DIR_COMMON."jpgraph_lib/jpgraph_line.php");
 class JP2Err extends JpGraphErrObject {
     function Raise($aMsg,$aHalt=true) {
@@ -123,7 +125,7 @@ class JP2Err extends JpGraphErrObject {
     }
 };
 JpGraphError::Install("JP2Err");
-
+*/
 
 if (!empty($_GET['graph']))
 	require("PP_graph.inc.php");
