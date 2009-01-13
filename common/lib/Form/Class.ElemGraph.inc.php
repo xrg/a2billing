@@ -513,12 +513,12 @@ class Line2View extends GraphView {
 		if (count($data->xdata)> $this->styles['maxxticks']+5)
 			$robj->xaxis->SetTextTickInterval(count($data->xdata)/$this->styles['maxxticks']);
 		
-		$fillcols= $this->styles['plot-options']['setfillcolors'];
-		if (! empty($fillcols))
+		$fillcols= $this->styles['plot-options']['fillcolors'];
+		if (empty($fillcols))
 			$fillcols=array();
 			
-		$colors=$this->styles['plot-options']['setcolor'];
-		if (! empty($colors))
+		$colors=$this->styles['plot-options']['linecolors'];
+		if (empty($colors))
 			$colors=array();
 		
 		$bplots=array();
@@ -528,7 +528,7 @@ class Line2View extends GraphView {
 			// TODO: use ydata for y-labels
 			if(!empty($fillcols[$n]))
 				end($bplots)->SetFillColor($fillcols[$n]);
-			if(!empty($fillcols[$n]))
+			if(!empty($colors[$n]))
 				end($bplots)->SetColor($colors[$n]);
 			//TODO: legend
 			
