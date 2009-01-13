@@ -40,7 +40,7 @@ $SEL_Form->search_exprs['date_to'] = '<=';
 
 //$SEL_Form->model[] = new SqlRefField(_("System"),'sysid','nm.system','id','name');
 $SEL_Form->model[] = new SqlRefField(_("Node"),"par_id", "nm.attr_node", "id","name");
-	end($SEL_Form->model)->combofield="id|| '. ' || name";
+	end($SEL_Form->model)->combofield="nm.full_name_attr(id)";
 
 if($sform->getAction()!='printing')
 	$PAGE_ELEMS[] = &$SEL_Form;
@@ -103,13 +103,13 @@ $sform->views['sums']->sums[] = array('title' => _("Total"),
 */
 
 $sform->views['sums']->plots['line']= array('title' => _("Per day values"), /*'subtitles' => _("Sum of Session time"),*/
-	'type' => 'line', 'limit' => 1000,
+	'type' => 'line', 'limit' => 2000,
 	ylegend => _('Value'),
 	x => 'tstamp', yr => array('value','value_min','value_max'),
 	'fns' => array( 'tstamp' =>true, 'value' => 'AVG', 'value_min' => 'MIN', 'value_max' => 'MAX'),
 	'order' => 'date_trunc(%trunc,tstamp)');
 
-$sform->views['sums']->queryreplace=array('query'=> "SELECT date_findtrunc(100,MIN(tstamp),MAX(tstamp)) AS trunc FROM %table WHERE %clauses;",
+$sform->views['sums']->queryreplace=array('query'=> "SELECT date_findtrunc(60,MIN(tstamp),MAX(tstamp)) AS trunc FROM %table WHERE %clauses;",
 	'defaults' =>array('trunc' => 'hour'));
 
 $sform->views['lineplot'] = new Line2View('sums','line', 'style-nm1');
