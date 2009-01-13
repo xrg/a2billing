@@ -133,11 +133,11 @@ msgstr "Δεν βρέθηκαν αθροίσματα!"
 
 #: common/lib/Form/Class.TimeField.inc.php:19
 msgid "YYYY-MM-DD HH24:MI:SS TZ"
-msgstr "DD/MM/IYYY HH24:MI:SS TZ"
+msgstr "DD/MM/YYYY HH24:MI:SS TZ"
 
 #: common/lib/Form/Class.TimeField.inc.php:81
 msgid "YYYY-MM-DD"
-msgstr "DD/MM/IYYY"
+msgstr "DD/MM/YYYY"
 
 #: common/lib/Form/Class.NumField.inc.php:226
 msgid "TRUE"

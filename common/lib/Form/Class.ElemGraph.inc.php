@@ -250,12 +250,15 @@ class GraphView extends FormView {
 		if (!$this->styles['setframe'])
 			$robj->SetFrame(false);
 		
-		if (! empty($form->views[$this->view]->plots[$this->code]['title']))
+		if (! empty($form->views[$this->view]->plots[$this->code]['title'])){
 			$robj->title->Set($form->views[$this->view]->plots[$this->code]['title']);
+			$robj->title->SetFont(FF_DEJAVU);
+		}
 		
 		if (! empty($form->views[$this->view]->plots[$this->code]['subtitles'])){
 			$robj->tabtitle->Set($form->views[$this->view]->plots[$this->code]['subtitles']);
 			$robj->tabtitle->SetWidth(TABTITLE_WIDTHFULL);
+			$robj->tabtitle->SetFont(FF_DEJAVU);
 		}
 		
 		if ($this->styles['bggradient'])
@@ -345,6 +348,7 @@ class LineView extends GraphView {
 	public function RenderHeaderGraph (&$form, &$robj){
 		require_once(DIR_COMMON."jpgraph_lib/jpgraph_line.php");
 		$robj = new Graph($this->styles['width'],$this->styles['height'],"auto");
+		$robj->legend->SetFont(FF_DEJAVU);
 	}
 	
 	public function RenderGraph (&$form, &$robj){
@@ -361,7 +365,7 @@ class LineView extends GraphView {
 		if (! empty($this->styles['chart-options']['xlabelfont']))
 			$robj->xaxis->SetFont($this->styles['chart-options']['xlabelfont']);
 		else
-			$robj->xaxis->SetFont(FF_VERA);
+			$robj->xaxis->SetFont(FF_DEJAVU);
 		
 		$robj->xaxis->SetTickLabels($data->xdata);
 		
@@ -383,6 +387,7 @@ class BarView extends GraphView {
 	public function RenderHeaderGraph (&$form, &$robj){
 		require_once(DIR_COMMON."jpgraph_lib/jpgraph_bar.php");
 		$robj = new Graph($this->styles['width'],$this->styles['height'],"auto");
+		$robj->legend->SetFont(FF_DEJAVU);
 	}
 	
 	public function RenderGraph (&$form, &$robj){
@@ -399,7 +404,7 @@ class BarView extends GraphView {
 		if (! empty($this->styles['chart-options']['xlabelfont']))
 			$robj->xaxis->SetFont($this->styles['chart-options']['xlabelfont']);
 		else
-			$robj->xaxis->SetFont(FF_VERA);
+			$robj->xaxis->SetFont(FF_DEJAVU);
 		
 		$robj->xaxis->SetTickLabels($data->xdata);
 		
@@ -422,6 +427,7 @@ class AccumBarView extends GraphView {
 	public function RenderHeaderGraph (&$form, &$robj){
 		require_once(DIR_COMMON."jpgraph_lib/jpgraph_bar.php");
 		$robj = new Graph($this->styles['width'],$this->styles['height'],"auto");
+		$robj->legend->SetFont(FF_DEJAVU);
 	}
 	
 	public function RenderGraph (&$form, &$robj){
@@ -438,7 +444,7 @@ class AccumBarView extends GraphView {
 		if (! empty($this->styles['chart-options']['xlabelfont']))
 			$robj->xaxis->SetFont($this->styles['chart-options']['xlabelfont']);
 		else
-			$robj->xaxis->SetFont(FF_VERA);
+			$robj->xaxis->SetFont(FF_DEJAVU);
 		
 		$robj->xaxis->SetTickLabels($data->xdata);
 		
@@ -471,6 +477,7 @@ class PieView extends GraphView {
 		require_once(DIR_COMMON."jpgraph_lib/jpgraph_pie.php");
 		require_once(DIR_COMMON."jpgraph_lib/jpgraph_pie3d.php");
 		$robj = new PieGraph($this->styles['width'],$this->styles['height'],"auto");
+		$robj->legend->SetFont(FF_DEJAVU);
 	}
 	
 	public function RenderGraph (&$form, &$robj){

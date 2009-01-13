@@ -23,6 +23,14 @@ DEFINE("FF_VERA",18);
 DEFINE("FF_VERAMONO",19);
 DEFINE("FF_VERASERIF",20);
 
+DEFINE("FF_DEJAVU",21);
+DEFINE("FF_DEJAVUMONO",22);
+DEFINE("FF_DEJAVUSERIF",23);
+
+DEFINE("FF_LIBER",24);
+DEFINE("FF_LIBERMONO",25);
+DEFINE("FF_LIBERSERIF",26);
+
 // Chinese font
 DEFINE("FF_SIMSUN",30);
 DEFINE("FF_CHINESE",31);
@@ -236,6 +244,32 @@ class TTF {
 				  FS_BOLD	=>'VeraSeBd.ttf', 
 				  FS_ITALIC	=>'', 
 				  FS_BOLDITALIC	=>'' ) ,
+
+	    FF_DEJAVU =>    array(FS_NORMAL	=>'dejavu/DejaVuSans.ttf',
+				FS_BOLD		=>'dejavu/DejaVuSansBold.ttf',
+				FS_ITALIC	=>'dejavu/DejaVuSans-Oblique.ttf',
+				FS_BOLDITALIC	=>'dejavu/DejaVuSans-BoldOblique.ttf' ),
+	    FF_DEJAVUMONO	=> array(FS_NORMAL	=>'dejavu/DejaVuMono.ttf', 
+				 FS_BOLD	=>'dejavu/DejaVuMono-Bold.ttf', 
+				 FS_ITALIC	=>'dejavu/DejaVuMono-Oblique.ttf', 
+				 FS_BOLDITALIC	=>'dejavu/DejaVuMono-BoldOblique.ttf' ),
+	    FF_DEJAVUSERIF=> array(FS_NORMAL	=>'dejavu/DejaVuSerif.ttf', 
+				  FS_BOLD	=>'dejavu/DejaVuSerif-Bold.ttf', 
+				  FS_ITALIC	=>'dejavu/DejaVuSerif-Italic.ttf', 
+				  FS_BOLDITALIC	=>'dejavu/DejaVuSerif-BoldItalic.ttf' ) ,
+
+	    FF_LIBER =>    array(FS_NORMAL	=>'liberation/LiberationSans-Regular.ttf',
+				FS_BOLD		=>'liberation/LiberationSans-Bold.ttf',
+				FS_ITALIC	=>'liberation/LiberationSans-Italic.ttf',
+				FS_BOLDITALIC	=>'liberation/LiberationSans-BoldItalic.ttf' ),
+	    FF_LIBERMONO => array(FS_NORMAL	=>'liberation/LiberationMono-Regular.ttf', 
+				 FS_BOLD	=>'liberation/LiberationMono-NBold.ttf', 
+				 FS_ITALIC	=>'liberation/LiberationMono-Italic.ttf', 
+				 FS_BOLDITALIC	=>'liberation/LiberationMono-BoldItalic.ttf' ),
+	    FF_LIBERSERIF=> array(FS_NORMAL	=>'liberation/LiberationSerif-Regular.ttf', 
+				  FS_BOLD	=>'liberation/LiberationSerif-Bold.ttf',
+				  FS_ITALIC	=>'liberation/LiberationSerif-Italic.ttf',
+				  FS_BOLDITALIC	=>'liberation/LiberationSerif-BoldItalic.ttf' ) ,
 
 	    /* Chinese fonts */
 	    FF_SIMSUN 	=>  array(FS_NORMAL	=>'simsun.ttc',  

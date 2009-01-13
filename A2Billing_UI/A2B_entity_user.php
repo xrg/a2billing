@@ -22,7 +22,7 @@ $HD_Form->model[] = new TextFieldEH(_("Login"),'login');
 $HD_Form->model[] = dontList(new PasswdField(_("Password"),'password','alnum'));
 $HD_Form->model[] = new TextField(_("Name"),'name');
 $HD_Form->model[] = new IntField(_("Group"),'groupid');
-default -> !=0 
+	end($HD_Form->model)->def_value = 1; 
 
 $right_list[] = array( ACX_CUSTOMER, _("Customers"));
 $right_list[] = array( ACX_BILLING, _("Billing"));

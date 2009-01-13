@@ -7,6 +7,7 @@
 function dialSpecial($dialnum,$route, $card,$card_money,&$last_prob,$agi, $attempt){
 	global $a2b;
 	global $mode;
+	global $did_clidname;
 	$dbhandle =$a2b->DBHandle();
 	
 	if($route['stripdigits']>0)
@@ -52,7 +53,11 @@ function dialSpecial($dialnum,$route, $card,$card_money,&$last_prob,$agi, $attem
 			$tmpl=$route['providerip'];
 			// TODO: put more data in params..
 			// TODO: do NOT issue callerid, when callingpres prohibits is. It is bad !
-		$params = array( clid => $agi->request['agi_callerid'], clname=> $agi->request['agi_calleridname'],
+		if (!empty($did_clidname))
+			$clname=$did_clidname;
+		else
+			$clname = $agi->request['agi_calleridname'];
+		$params = array( clid => $agi->request['agi_callerid'], clname=> $clname,
 			 last => $last_prob);
 		$res = $dbhandle->Execute( "SELECT create_mail(?,?,?,?);",
 			array($tmpl,$row['email'],$row['locale'], arr2url($params)));
