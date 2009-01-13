@@ -176,8 +176,8 @@ for($num_try = 0;$num_try<getAGIconfig('number_try',1);$num_try++){
 		}elseif($dialstr ===true){
 			if (dialSpecial($dialnum,$route, $card,$card_money,$last_prob,$agi,$attempt))
 				break;
-			else if ($special_only)
-				break;
+			/*else if ($special_only)
+				break;*/
 			else
 				continue;
 		}
