@@ -35,8 +35,9 @@ define ("ACX_NUMPLAN",		0x10000);
 define ("ACX_SERVERS",		0x20000);
 define ("ACX_PRICING",		0x40000);
 define ("ACX_QUEUES",		0x80000);
+define ("ACX_NETMON",		0x100000);
 
-define("ACX_ROOT",		0xFFFFF);
+define("ACX_ROOT",		0x1FFFFF);
 
 header("Expires: Sat, Jan 01 2000 01:01:01 GMT");
 //echo "PHP_AUTH_USER : $PHP_AUTH_USER";
