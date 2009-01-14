@@ -350,7 +350,7 @@ if (0) {
 	public function SendMail(){
 		$to_hdr = $this->addr_append("",$this->to);
 		$headers= join("\r\n",$this->create_headers(false));
-		echo "\r\n";
+		//echo "\r\n";
 		if ( ! ($this->body instanceof Mailer_EmailBody))
 			throw new Exception("Invalid object as email body");
 		$msg = $this->body->create_body($this->printline);
