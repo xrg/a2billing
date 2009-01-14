@@ -44,6 +44,7 @@ $right_list[] = array( ACX_NUMPLAN, _("Numplans"));
 $right_list[] = array( ACX_SERVERS, _("Servers"));
 $right_list[] = array( ACX_PRICING, _("Pricing"));
 $right_list[] = array( ACX_QUEUES, _("Queues"));
+$right_list[] = array( ACX_NETMON, _("Net Mon"));
 
 
 $HD_Form->model[] = dontList( new ListBitField(_("Permissions"),'perms',$right_list));
