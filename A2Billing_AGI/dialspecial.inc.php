@@ -8,6 +8,7 @@ function dialSpecial($dialnum,$route, $card,$card_money,&$last_prob,$agi, $attem
 	global $a2b;
 	global $mode;
 	global $did_clidname;
+	global $new_clid;
 	$dbhandle =$a2b->DBHandle();
 	
 	if($route['stripdigits']>0)
@@ -57,7 +58,12 @@ function dialSpecial($dialnum,$route, $card,$card_money,&$last_prob,$agi, $attem
 			$clname=$did_clidname;
 		else
 			$clname = $agi->request['agi_calleridname'];
-		$params = array( clid => $agi->request['agi_callerid'], clname=> $clname,
+		if (!empty($new_clid))
+			$clid = $new_clid;
+		else
+			$clid = $agi->request['agi_callerid'];
+		$params = array( clid=> $clid, agiclid => $agi->request['agi_callerid'],
+				clname=> $clname, agiclname => $agi->request['agi_calleridname'],
 			 last => $last_prob);
 		$res = $dbhandle->Execute( "SELECT create_mail(?,?,?,?);",
 			array($tmpl,$row['email'],$row['locale'], arr2url($params)));
