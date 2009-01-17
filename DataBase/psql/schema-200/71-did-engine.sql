@@ -7,6 +7,7 @@ DROP TYPE IF EXISTS dideng_result;
 CREATE TYPE dideng_result  AS ( 
 	card cc_card_dv,
 	nplan  INTEGER, -- discovered numplan
+	alert_info TEXT,
 	     --- Per-call fields
 	dialstring TEXT,
 	tgid INTEGER,
@@ -28,7 +29,7 @@ DECLARE
 	p_res dideng_result;
 BEGIN
 	-- First, locate the did batch..
-	FOR p_dbatch IN SELECT cc_didgroup.id AS dgid, cc_didgroup.tgid, did_batch.*, 
+	FOR p_dbatch IN SELECT cc_didgroup.id AS dgid, cc_didgroup.alert_info, cc_didgroup.tgid, did_batch.*,
 			length(did_batch.dialhead) AS dhlen
 		FROM cc_didgroup, did_batch, did_group_batch
 		WHERE cc_didgroup.code = s_code AND cc_didgroup.id = did_group_batch.btid
@@ -37,7 +38,7 @@ BEGIN
 		  AND (did_batch.expiredate IS NULL OR did_batch.expiredate >= s_curtime)
 		  AND did_batch.dialhead = ANY (dial_exp_prefix(s_dialstring))
 	   LOOP
-	   RAISE NOTICE 'Found batch %', p_dbatch.name;
+	   --RAISE NOTICE 'Found batch %', p_dbatch.name;
 	   p_drem := substr(s_dialstring,p_dbatch.dhlen+1);
 	   
 	   IF p_dbatch.dmode = 1 THEN
@@ -63,7 +64,8 @@ BEGIN
 			
 			-- Automatically format the target string by appending dialfld2 and useralias
 	   		SELECT p_card AS card,
-	   			p_dbatch.nplan, p_dbatch.dialfld2 ||p_drem AS dialstring,
+	   			p_dbatch.nplan, p_dbatch.alert_info,
+	   			p_dbatch.dialfld2 ||p_drem AS dialstring,
 				p_dbatch.tgid, p_dbatch.dgid,
 				p_brid2 AS brid2, p_brate2 AS buyrate2, p_dbatch.metric
 	   		    INTO STRICT p_res;

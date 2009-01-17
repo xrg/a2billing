@@ -105,7 +105,7 @@ $agi->conlog('DID mode, ext: '.$did_extension .'@'.$did_code,4);
 $card=null;
 
 $QRY = str_dbparams($a2b->DBHandle(),'SELECT id(card) AS card_id, tgid, username(card), status(card) AS card_status, ' .
-		'nplan, useralias(card), features(card), dialstring, dgid, brid2, buyrate2, '.
+		'nplan, useralias(card), features(card), dialstring, dgid, brid2, buyrate2, alert_info, '.
 		' now() AS start_time '.
 		' FROM DIDEngine(%1, %2, now());',
 	array($did_extension,$did_code));
@@ -323,6 +323,14 @@ while ($didrow = $didres->fetchRow()){
 		$call_id = $res->fetchRow();
 		$agi->conlog('Start call '. $call_id['id'],4);
 		
+		if (!empty($didrow['alert_info'])){
+			$agi->conlog('Setting DID alert to :'. $didrow['alert_info']);
+			$agi->exec('SIPAddHeader','Alert-Info:'.$didrow['alert_info']);
+		}elseif (!empty($route['alert_info'])){
+			//$agi->conlog('Setting alert to :'. $route['alert_info']);
+			$agi->exec('SIPAddHeader','Alert-Info:'.$route['alert_info']);
+		}
+
 		$agi->conlog("Dial '". $route['destination']. "'@". $route['trunkcode'] . " : $dialstr",3);
 		$attempt++;
 		$call_res= $agi->exec('Dial',$dialstr);

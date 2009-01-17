@@ -243,6 +243,12 @@ for($num_try = 0;$num_try<getAGIconfig('number_try',1);$num_try++){
 			continue;
 		}
 		$call_id = $res->fetchRow();
+		
+		if (!empty($route['alert_info'])){
+			//$agi->conlog('Setting alert to :'. $route['alert_info']);
+			$agi->exec('SIPAddHeader','Alert-Info:'.$route['alert_info']);
+		}
+			
 		$agi->conlog('Start call '. $call_id['id'],4);
 		
 		$agi->conlog("Dial '". $route['destination']. "'@". $route['trunkcode'] . " : $dialstr",3);
