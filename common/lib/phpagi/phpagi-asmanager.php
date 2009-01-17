@@ -31,6 +31,9 @@
     require_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'phpagi.php');
   }
 
+class TimeOutException extends Exception{
+};
+
  /**
   * Asterisk Manager class
   *
@@ -39,6 +42,7 @@
   * @example examples/sip_show_peer.php Get information about a sip peer
   * @package phpAGI
   */
+ 
   class AGI_AsteriskManager
   {
    /**
@@ -88,6 +92,8 @@
     */
     var $event_handlers;
 
+	
+	public $debug=false;
    /**
     * Constructor
     *
@@ -113,6 +119,39 @@
       if(!isset($this->config['asmanager']['secret'])) $this->config['asmanager']['secret'] = 'phpagi';
     }
 
+   /** Get a line from the connected socket
+   	\return the line as string
+   	\throw Exception on I/O error
+   */
+   protected function fgetl($size=4096){
+   	$str = fgets($this->socket,$size);
+   	if ($str ===false){
+   		$a=stream_get_meta_data($this->socket);
+   		if ($a['timed_out'])
+   			throw new TimeOutException("fgetl");
+   		throw new Exception("Error in fgetl");
+   	}
+   	if ($this->debug)
+   		$this->log("Got: ".rtrim($str));
+   	return $str;
+   }
+   
+  /** Write some data tothe connected socket
+   	\throw Exception on I/O error
+   */
+   protected function fwritel($data){
+   	if ($this->debug)
+   		$this->log("Send: ".trim($data));
+   	$res = fwrite($this->socket,$data);
+   	if ($str ===false){
+   		$a=stream_get_meta_data($this->socket);
+   		if ($a['timed_out'])
+   			throw new TimeOutException("fwrite");
+   		throw new Exception("Error in fwritel");
+   	}
+   	return $str;
+   }
+
    /**
     * Send a request
     *
@@ -126,7 +165,7 @@
       foreach($parameters as $var=>$val)
         $req .= "$var: $val\r\n";
       $req .= "\r\n";
-      fwrite($this->socket, $req);
+      $this->fwritel($req);
       return $this->wait_response();
     }
 
@@ -147,40 +186,43 @@
         $type = NULL;
         $parameters = array();
 
-        $buffer = trim(fgets($this->socket, 4096));
-        while($buffer != '')
-        {
-          $a = strpos($buffer, ':');
-          if($a)
-          {
-            if(!count($parameters)) // first line in a response?
-            {
-              $type = strtolower(substr($buffer, 0, $a));
-              if(substr($buffer, $a + 2) == 'Follows')
-              {
-                // A follows response means there is a miltiline field that follows.
-                $parameters['data'] = '';
-                $buff = fgets($this->socket, 4096);
-                while(substr($buff, 0, 6) != '--END ')
-                {
-                  $parameters['data'] .= $buff;
-                  $buff = fgets($this->socket, 4096);
-                }
-              }
-            }
+	try{
+		$buffer=trim($this->fgetl());
+		while(!empty($buffer))
+		{
+			$a = strpos($buffer, ':');
+			if($a)
+			{
+				if(!count($parameters)) // first line in a response?
+				{
+					$type = strtolower(substr($buffer, 0, $a));
+					if(substr($buffer, $a + 2) == 'Follows')
+					{
+						// A follows response means there is a miltiline field that follows.
+						$parameters['data'] = '';
+						$buff = $this->fgetl();
+						while(substr($buff, 0, 6) != '--END ')
+						{
+							$parameters['data'] .= $buff;
+							$buff = $this->fgetl();
+						}
+					}
+				}
 
-            // store parameter in $parameters
-            $parameters[substr($buffer, 0, $a)] = substr($buffer, $a + 2);
-          }
-          $buffer = trim(fgets($this->socket, 4096));
-        }
+				// store parameter in $parameters
+				$parameters[substr($buffer, 0, $a)] = substr($buffer, $a + 2);
+			}
+			$buffer = trim($this->fgetl());
+		}
+	}catch (TimeOutException $ex){
+		$timeout=true;
+		if ($allow_timeout)
+			continue;
+	}
 
         // process response
         switch($type)
         {
-          case '': // timeout occured
-            $timeout = $allow_timeout;
-            break;
           case 'event':
             $this->process_event($parameters);
             break;
@@ -191,6 +233,9 @@
             break;
         }
       } while($type != 'response' && !$timeout);
+      
+      if ($this->debug)
+      	$this->log("Got response to $type:".implode(',',$parameters));
       return $parameters;
     }
 
@@ -234,26 +279,28 @@
       }
 
       // read the header
-      $str = fgets($this->socket);
-      if($str == false)
-      {
-        // a problem.
-        $this->log("Asterisk Manager header not received.");
-        return false;
+      try {
+      	$str = $this->fgetl();
+      	$this->log("Header: $str");
       }
-      else
-      {
-        // note: don't $this->log($str) until someone looks to see why it mangles the logging
+      catch(Exception $ex) {
+      	 $this->log("Asterisk Manager header not received.");
+      	 throw $ex;
       }
 
       // login
-      $res = $this->send_request('login', array('Username'=>$username, 'Secret'=>$secret));
-      if($res['Response'] != 'Success')
-      {
-        $this->log("Failed to login.");
-        $this->disconnect();
-        return false;
-      }
+      try{
+		$res = $this->send_request('login', array('Username'=>$username, 'Secret'=>$secret));
+		if($res['Response'] != 'Success')
+		{
+			$this->log("Failed to login.");
+			$this->disconnect();
+			return false;
+		}
+	}catch(Exception $ex){
+		$this->log("Got Exception on login:".$ex);
+		return false;
+	}
       return true;
     }
 
@@ -794,7 +841,7 @@
     {
       $ret = false;
       $e = strtolower($parameters['Event']);
-      $this->log("Got event.. $e");		
+      $this->log("Got event.. $e");
 
       $handler = '';
       if(isset($this->event_handlers[$e])) $handler = $this->event_handlers[$e];
