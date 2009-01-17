@@ -35,7 +35,7 @@ case "$1" in
         PIDFILE=/var/run/$DAEMON_NAME.pid
         touch $PIDFILE && chown apache $PIDFILE
         daemon --pidfile=$PIDFILE --user apache +6 \
-        	$send_emailsd --daemon -q \& echo \$! \> $PIDFILE
+        	$send_emailsd --daemon -q \> /dev/null \& echo \$! \> $PIDFILE
         echo
         ;;
   stop)
