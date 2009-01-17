@@ -180,6 +180,8 @@ install -d %{buildroot}%{_datadir}/a2billing/customer
 install -d %{buildroot}%{_datadir}/a2billing/agent
 install -d %{buildroot}%{_datadir}/a2billing/signup
 install -d %{buildroot}%{_datadir}/a2billing/Database
+install -D addons/a2billing-initd.sh %{buildroot}%{_sysconfdir}/init.d/a2billing-daemons
+
 
 install LICENSE FEATURES_LIST %{buildroot}%{_datadir}/a2billing
 cp -LR  A2Billing_UI/* %{buildroot}%{_datadir}/a2billing/admin
@@ -291,4 +293,5 @@ EOF
 %defattr(-,asterisk,root)
 %{_datadir}/a2billing/Database
 
+%{_sysconfdir}/init.d/a2billing-daemons
 # %verifyscript ... 
