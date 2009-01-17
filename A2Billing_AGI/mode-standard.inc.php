@@ -176,10 +176,14 @@ for($num_try = 0;$num_try<getAGIconfig('number_try',1);$num_try++){
 		}elseif($dialstr ===true){
 			if (dialSpecial($dialnum,$route, $card,$card_money,$last_prob,$agi,$attempt))
 				break;
+			/*else if ($special_only)
+				break;*/
 			else
 				continue;
 		}
 		
+		if ($special_only)
+			break;
 		// Callerid
 		if ($route['clidreplace']!== NULL){
 			$new_clid = str_alparams($route['clidreplace'],
