@@ -4,8 +4,8 @@
 %define git_head v200-rpm
 
 %define name a2billing
-%define version 2.0.0
-%define release pre1
+%define version %{git_get_ver}
+%define release %{git_get_rel}
 
 Name:		%{name}
 Version:	%{version}
@@ -141,6 +141,10 @@ Install this package into some machine that is client to the
 database. Then, the database for %{name} can be built from that
 host.
 Additionally, maintenance tasks can be performed from that host.
+
+Caveat: the post-install scripts of this package may fail if the
+database is not on the local server. In that case, please read
+the instructions and re-run the database scripts.
 
 %post dbadmin
 # the script must be run in the appropriate dir.
