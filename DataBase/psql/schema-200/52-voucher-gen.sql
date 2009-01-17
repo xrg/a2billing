@@ -80,7 +80,7 @@ CREATE OR REPLACE FUNCTION gen_servouchers(s_crdgrp int4, s_num int4, s_start in
   RETURNS SETOF text AS
 $BODY$
 	SELECT foo.ser
-		FROM ( SELECT lpad(generate_series($3,$3+$2-1),$4,'0') AS ser) AS foo
+		FROM ( SELECT lpad(generate_series($3,$3+$2-1)::TEXT,$4,'0') AS ser) AS foo
 		WHERE foo.ser NOT IN ( SELECT voucher FROM vouchers
 					WHERE vouchers.card_grp = $1 );
 $BODY$

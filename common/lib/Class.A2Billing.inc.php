@@ -157,7 +157,7 @@ class A2Billing {
 			if (defined("DEFAULT_A2BILLING_CONFIG"))
 				$fname = DEFAULT_A2BILLING_CONFIG;
 			else
-				$fname = '/etc/asterisk/a2billing.conf';
+				$fname = '/etc/a2billing.conf';
 		}
 		if (!file_exists($fname))
 			throw new Exception("Config file \"$fname\" doesn't exist");

@@ -3,8 +3,8 @@ $menu_section='menu_agents';
 include ("../lib/defines.php");
 include ("../lib/module.access.php");
 //include ("./frontoffice_data/CC_var_def_ratecard.inc");
-include ("../lib/Class.RateEngine.php");	
-
+// include ("../lib/Class.RateEngine.php");	
+// *-* broken!
 
 if ((! has_rights (ACX_RATECARD)) ||(! has_rights (ACX_AGENTS))) { 
 	   Header ("HTTP/1.0 401 Unauthorized");

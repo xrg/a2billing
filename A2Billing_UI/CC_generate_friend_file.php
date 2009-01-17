@@ -2,8 +2,8 @@
 include ("../lib/defines.php");
 include ("../lib/module.access.php");
 include ("../lib/regular_express.inc");
-include ("../lib/phpagi/phpagi-asmanager.php");
-
+// include ("../lib/phpagi/phpagi-asmanager.php");
+// *-* broken! 
 $FG_DEBUG =0;
 
 
