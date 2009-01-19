@@ -1,6 +1,20 @@
 <?php
-
 require_once("Class.FormViews.inc.php");
+require_once(DIR_COMMON."Class.DynConf.inc.php");
+
+/** Just output, inline, the messages */
+class HtmlOutElem{
+	public $level;
+	public function HtmlOutElem($level = LOG_ERR ){
+		$this->level = $level;
+	}
+	
+	public function out($level, $str){
+		if ($level <$this->level)
+			echo nl2br(htmlspecialchars($str))."\n";
+	}
+};
+
 
 /** Templated Upload View! This imports data using one of the provision
     classes (based on class ImportEngine).
@@ -36,7 +50,6 @@ function importValidate(tform){
 	
 		$impMsg= str_params(_("New %1 have to be imported from a file."),
 				array($form->model_name),1);
-		
 		
 		$formname = $form->prefix .'Imp' ;
 		?>
@@ -88,18 +101,28 @@ function importValidate(tform){
 };
 
 /** This class retrieves the file and analyzes it */
-class Import2AView extends FormView {
+class Import2View extends FormView {
 	protected $importEngine;
+	protected $impEngClass; ///< name of the class for the import engine
+	protected $impEngArgs;	///< Array to be passed to impEngine->Init();
 	protected $movedFile;
 	protected $fields;
 	
-	public function Import2AView(ImportEngine &$ie){
-		$this->importEngine = &$ie;
+	public function Import2View($iec,array $iea = array()){
+		$this->impEngClass = $iec;
+		$this->impEngArgs= $iea;
 	}
 	
 	public function PerformAction(&$form){
 		$dbg_elem = new DbgElem();
 		$dbhandle = $form->a2billing->DBHandle();
+		if (!isset($this->importEngine)){
+			$this->importEngine = new $this->impEngClass();
+			$this->importEngine->Init(array_merge(
+				$this->impEngArgs,
+				array('db'=> $dbhandle)));
+		}
+			
 		
 		if ($form->FG_DEBUG>0)
 			array_unshift($form->pre_elems,$dbg_elem);
@@ -154,7 +177,7 @@ class Import2AView extends FormView {
 			return;
 		}
 		
-		$allowed_mimetypes=$this->ie->getMimeTypes();
+		$allowed_mimetypes=$this->importEngine->getMimeTypes();
 		if (!in_array($fil['type'],$allowed_mimetypes)){
 			$form->pre_elems[] = new ErrorElem(str_params(_("Cannot accept file of type %1. Allowed types are: %2."),
 							array($fil['type'],implode(', ',$allowed_mimetypes)),1));
@@ -202,9 +225,48 @@ class Import2AView extends FormView {
 			<?php
 			return;
 		}
-		
-		// *-* 
+		?><div class="debug">
+		<?php
+		switch ($form->FG_DEBUG){
+		case 0:
+		default:
+			$dbg_level= LOG_CRIT;
+			break;
+		case 1:
+			$dbg_level= LOG_ERR;
+			break;
+		case 2:
+			$dbg_level= LOG_WARNING;
+			break;
+		case 3:
+			$dbg_level= LOG_INFO;
+			break;
+		case 4:
+			$dbg_level= LOG_DEBUG;
+			break;
+			
+		}
+		$this->importEngine->dbg_elem = new HtmlOutElem($dbg_level);
+		try {
+			$this->importEngine->parseContent($fp);
+		} catch (Exception $ex){
+		?></div>
+		<div class="error">
+		<?php
+			if ($form->FG_DEBUG)
+				echo "\nStopped with Exception: ";
+			echo nl2br(htmlspecialchars($ex->getMessage()));
+			echo "\n";
+		}
+		$this->importEngine->dbg_elem=null;
+		?>
+		</div>
+		<?php
 		fclose($fp);
+		unset($_SESSION[$form->prefix.'importFile']);
+		unset($_SESSION[$form->prefix.'importFields']);
+		unset($_SESSION[$form->prefix.'importRnd']);
+		@unlink($this->movedFile);
 	}
 	
 
