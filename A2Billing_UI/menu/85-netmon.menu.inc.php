@@ -7,6 +7,7 @@
 		<ul>
 			<li><a href="A2B_entity_nmsystem.php"><?= _("Systems");?></a></li>
 			<li><a href="A2B_entity_nm_node.php"><?= _("Nodes");?></a></li>
+			<li><a href="A2B_entity_nm_values.php"><?= _("Values");?></a></li>
 			<li><a href="netmon_stats.php"><?= _("Statistics");?></a></li>
 		</ul>
 </div>
