@@ -106,6 +106,7 @@ $sform->views['sums']->plots['line']= array('title' => _("Per day values"), /*'s
 	'type' => 'line', 'limit' => 2000,
 	ylegend => _('Value'),
 	x => 'tstamp', yr => array('value','value_min','value_max'),
+	'x_datemode' => True,
 	'fns' => array( 'tstamp' =>true, 'value' => 'AVG', 'value_min' => 'MIN', 'value_max' => 'MAX'),
 	'order' => 'date_trunc(%trunc,tstamp)');
 
