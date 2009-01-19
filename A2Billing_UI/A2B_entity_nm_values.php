@@ -7,7 +7,7 @@ require_once (DIR_COMMON."Form/Class.SqlRefField.inc.php");
 require_once (DIR_COMMON."Form/Class.TimeField.inc.php");
 
 require_once (DIR_COMMON."Form/Class.Import2View.inc.php");
-require_once (DIR_COMMON."Provi/Class.Import.inc.php");
+require_once (DIR_COMMON."Provi/Class.SysLogImport.inc.php");
 
 $menu_section='menu_netmon';
 
@@ -18,9 +18,8 @@ $HD_Form->checkRights(ACX_NETMON);
 $HD_Form->default_order='id';
 $HD_Form->default_sens='ASC';
 $HD_Form->init();
-
 $HD_Form->views['ask-import'] = new Ask2ImportView("Import some syslog data");
-
+$HD_Form->views['import'] = new Import2View('SensorsLogImport');
 $PAGE_ELEMS[] = &$HD_Form;
 // $PAGE_ELEMS[] = new AddNewButton($HD_Form);
 

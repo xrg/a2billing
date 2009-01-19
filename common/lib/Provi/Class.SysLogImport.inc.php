@@ -1,5 +1,5 @@
 <?php
-require_once("./Class.Import.inc.php");
+require_once("Class.Import.inc.php");
 
 class NoDataException extends Exception {
 };
@@ -12,7 +12,7 @@ class SyslogImport extends ImportEngine {
 	protected $last_date;
 	
 	public function getMimeTypes(){
-		return array('text/plain');
+		return array('text/plain','application/octet-stream');
 	}
 	
 	public function Init(array $args){
