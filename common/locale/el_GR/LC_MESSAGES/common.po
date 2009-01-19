@@ -1252,4 +1252,3 @@ msgstr "Η αναζήτηση στη βάση απέτυχε!"
 
 #~ msgid "Export XML"
 #~ msgstr "Εξαγωγή XML"
-
