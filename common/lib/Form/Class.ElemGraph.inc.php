@@ -30,6 +30,34 @@ abstract class DataObj{
 	
 };
 
+/** Store in array the diff of x, end(array), by date mode
+
+   This helps in date graphs, where we don't need to repeat the date
+   all the time (noisy).
+*/
+function putdiffX(array &$data, $new,$dateMode){
+
+	if ($dateMode)
+		$new = trim($new);
+
+	if ($dateMode && !empty($data)){
+		$lastdate = null;
+		for($i = count($data);$i>0; $i--)
+			if (($p = strpos($data[$i-1],' '))!==false){
+				$lastdate = substr($data[$i-1],0,$p);
+				break;
+			}
+		
+		if (!empty($lastdate)){
+			if (substr($new,0, strlen($lastdate)) == $lastdate)
+				$new= substr($new,strlen($lastdate)+1);
+		}
+		
+	}
+
+	$data[] = $new;
+}
+
 /** Intermediate class for data that only has 2 or 3 dimensions */
 abstract class DataObjXY extends DataObj{
 	protected $xkey;
@@ -164,6 +192,7 @@ class DataObjX2Yp extends DataObjX2Y {
 	public $xrdata=array();
 	public $yzdata=array();
 	public $x2data=array(); // assoc x2r ->x2 title
+	public $dateMode = False;
 		
 	public function NeedRaw() {
 		return true;
@@ -173,7 +202,7 @@ class DataObjX2Yp extends DataObjX2Y {
 		
 		if (empty($this->xrdata) || (end($this->xrdata) != $row[$this->xrkey])){
 			$this->xrdata[] = $row[$this->xrkey];
-			$this->xdata[] = $row[$this->xkey];
+			putdiffX($this->xdata,$row[$this->xkey],$this->dateMode);
 		}
 		if (!isset($this->yzdata[$row[$this->x2rkey]])){
 			$this->yzdata[$row[$this->x2rkey]]=array();
@@ -200,13 +229,14 @@ class DataObjXYmp extends DataObjXYm {
 	public $xrdata=array();
 	public $ydata=null;
 	public $yrdata=null;
+	public $dateMode = False;
 	
 	public function NeedRaw() {
 		return true;
 	}
 
 	public function PlotRow(array $row){
-		$this->xdata[]=$row[$this->xkey];
+		putdiffX($this->xdata,$row[$this->xkey],$this->dateMode);
 		$this->xrdata[]=$row[$this->xrkey];
 		
 		if ($this->ydata==null){
@@ -487,6 +517,8 @@ class Line2View extends GraphView {
 	
 	public function RenderGraph (&$form, &$robj){
 		$data = new DataObjXYmp($this->code);
+		if ($form->views[$this->view]->plots[$this->code]['x_datemode'])
+			$data->dateMode=True;
 		$form->views[$this->view]->RenderSpecial('get-data',$form,$data);
 		
 		$robj->xaxis->SetPos('auto');
