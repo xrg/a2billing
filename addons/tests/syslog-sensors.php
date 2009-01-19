@@ -5,7 +5,7 @@ error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
 
 require("lib/Misc.inc.php");
 require('lib/adodb/adodb.inc.php');
-require("logimport.php");
+require("lib/Provi/Class.SysLogImport.inc.php");
 
 function getDB(){
 	$dbhandle = NewADOConnection("pgsql://dbname=nmtest host=localhost");

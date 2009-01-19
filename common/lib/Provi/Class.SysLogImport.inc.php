@@ -1,5 +1,5 @@
 <?php
-require_once("lib/Provi/Class.Import.inc.php");
+require_once("./Class.Import.inc.php");
 
 class NoDataException extends Exception {
 };

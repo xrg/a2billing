@@ -1,5 +1,12 @@
 <?php
 
+/** Prototype for a class that knows how to output content..
+*/
+
+abstract class OutElem{
+	abstract function out($level, $str);
+};
+
 /** Base class for importing engines
 */
 abstract class ImportEngine {
@@ -14,6 +21,8 @@ abstract class ImportEngine {
 	protected function out($level,$str){
 		if(isset($this->dbg_elem) && ($this->dbg_elem instanceof StringElem)){
 			$this->dbg_elem->content.=$str."\n";
+		}elseif(isset($this->dbg_elem) && ($this->dbg_elem instanceof OutElem)){
+			$this->dbg_elem->out($level,$str);
 		}
 		else
 			fwrite(STDERR,$str."\n");
