@@ -63,7 +63,7 @@ CREATE TABLE cc_retailplan (
  */
 CREATE TABLE cc_sellrate(
     id serial NOT NULL PRIMARY KEY,
-    idrp INTEGER NOT NULL REFERENCES cc_retailplan(id),
+    idrp INTEGER NOT NULL REFERENCES cc_retailplan(id) ON DELETE CASCADE,
     destination text NOT NULL,
     rateinitial NUMERIC(12,4) DEFAULT 0 NOT NULL,
     initblock integer DEFAULT 0 NOT NULL,
@@ -96,7 +96,7 @@ CREATE TABLE cc_sellrate(
 
 CREATE TABLE cc_buyrate (
     id serial NOT NULL PRIMARY KEY,
-    idtp integer NOT NULL REFERENCES cc_tariffplan(id),
+    idtp integer NOT NULL REFERENCES cc_tariffplan(id) ON DELETE CASCADE,
 --     dialprefix VARCHAR(12) NOT NULL,
     destination text NOT NULL,
     buyrate NUMERIC(8,4) DEFAULT 0 NOT NULL,
