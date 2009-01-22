@@ -91,7 +91,7 @@ $HD_Form->views['ask-import']->optional = array('initblock','billingblock','conn
 $HD_Form->views['ask-import']->examples = array( array(_('Simple'), "importsamples.php?sample=RateCard_Simple"),
 					     array(_('Complex'),"importsamples.php?sample=RateCard_Complex"));
 
-$HD_Form->views['import-analyze']->allowed_mimetypes=array('text/csv');
+$HD_Form->views['import-analyze']->allowed_mimetypes=array('text/csv', 'text/x-csv');
 $HD_Form->views['ask-import']->multiple[] = 'prefx';
 $HD_Form->views['ask-import']->multi_sep = '|';
 
