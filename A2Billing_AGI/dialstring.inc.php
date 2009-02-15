@@ -43,8 +43,12 @@ function formatDialstring($dialn,&$route, &$card,$do_param = true){
 	if (isset($route['trunkprefix']) && strlen($route['trunkprefix']))
 		$dialnum = $route['trunkprefix'] . $dialnum;
 
-	if ($do_param)
-		$str .= getAGIconfig('dialcommand_param','|60|iL(%timeout)%param');
+	if ($do_param){
+		if ($agi->astmajor == "1.6")
+			$str .= getAGIconfig('dialcommand_param',',60,iL(%timeout)%param');
+		else
+			$str .= getAGIconfig('dialcommand_param','|60|iL(%timeout)%param');
+	}
 	
 	$str=str_alparams($str,array ('dialnum' => $dialnum, 'dialnumber' => $dialn, 'dialstring' => $route['dialstring'],
 		'destination' => $route['destination'], 'trunkprefix' => $route['trunkprefix'], 'tech' => $route['providertech'],
@@ -139,7 +143,10 @@ function formatDialstring_peer($dialn,&$route, &$card,$do_param = true){
 	
 	$str='';
 	if ($do_param){
-		$str = getAGIconfig('dialcommand_param','|60|iL(%timeout)%param');
+		if ($agi->astmajor == "1.6")
+			$str .= getAGIconfig('dialcommand_param',',60,iL(%timeout)%param');
+		else
+			$str .= getAGIconfig('dialcommand_param','|60|iL(%timeout)%param');
 		$str = str_alparams($str,array ('dialnum' => $dialnum, 'dialnumber' => $dialn, 'dialstring' => $route['dialstring'],
 		'destination' => $route['destination'], 'trunkprefix' => $route['trunkprefix'], 'tech' => $route['providertech'],
 		'providerip' => $route['providerip'], 'prefix' => $route['prefix'], param => $route['trunkparm'],

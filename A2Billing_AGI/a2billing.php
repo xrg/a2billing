@@ -121,6 +121,12 @@ if ($verbose_mode)
 
 $agi = new AGI($dynconf,'agiconf'.$idconfig);
 
+function getAGIconfig($var,$default){
+	global $dynconf;
+	global $idconfig;
+	return $dynconf->GetCfgVar('agiconf'.$idconfig,$var,$default);
+}
+
 if (!$agi->is_alive)
 	exit();
 
@@ -142,12 +148,6 @@ if ($argc > 2 && strlen($argv[2]) > 0 )
 
 // get the area code for the cid-callback & all-callback
 if ($argc > 3 && strlen($argv[3]) > 0) $caller_areacode = $argv[3];
-
-function getAGIconfig($var,$default){
-	global $dynconf;
-	global $idconfig;
-	return $dynconf->GetCfgVar('agiconf'.$idconfig,$var,$default);
-}
 
 /** Match and return string from prefix.
    \param $match_empty  Succeed if $prefix is empty or fail..

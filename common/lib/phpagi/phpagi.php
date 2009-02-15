@@ -147,6 +147,16 @@
      
      public $is_alive = false; ///< If input stream is still running.
 
+    /** asterisk version */
+    public $astversion = "1.4";
+    
+    /** asterisk major version */
+    public $astmajor = "1.4";
+    
+    /** Asterisk parameter separator.
+       In 1.6, "," should be used instead */
+    public $ast_sep ="|";
+    
    /**
     * Constructor
     *
@@ -227,6 +237,15 @@
 
       $this->conlog('AGI Request:',3);
       $this->conlog(print_r($this->request, true),3);
+      
+      if (!empty($this->request['agi_version']))
+           $this->astversion = $agi->request['agi_version'];
+
+      $this->astversion=$this->GetCfgVar(NULL,'ast_version',$agi_astversion);
+      $this->astmajor=$this->GetCfgVar(NULL,'ast_major',substr($agi_astversion ,0,3));
+      if ($this->astmajor == "1.6")
+           $this->ast_sep = ',';
+
 	  // DONT WANT TO READ THE INTERNAL CONFIG
       /* $this->conlog('PHPAGI internal configuration:');
       $this->conlog(print_r($this->config, true));*/
@@ -351,7 +370,7 @@
     */
     function exec($application, $options='')
     {
-      if(is_array($options)) $options = join('|', $options);
+      if(is_array($options)) $options = join($this->ast_sep, $options);
       return $this->evaluate("EXEC $application $options");
     }
  
@@ -728,7 +747,7 @@
       if ($this->is_answered)
         return $this->evaluate("STREAM FILE $filename \"$escape_digits\" $offset");
       else {
-	return $this->evaluate("EXEC Playback $filename|noanswer");
+	return $this->evaluate("EXEC Playback $filename".$this->ast_sep."noanswer");
       }
     }
 
@@ -904,7 +923,11 @@
     */
     function exec_dial($type, $identifier, $timeout=NULL, $options=NULL, $url=NULL)
     {
-      return $this->exec('Dial', trim("$type/$identifier|$timeout|$options|$url", '|'));
+    	$parms = array("$type/$identifier");
+    	if ($timeout) array_push($parms,$timeout);
+    	if ($options) array_push($parms,$options);
+    	if ($url) array_push($parms,$url);
+      return $this->exec('Dial', $parms);
     }
 
    /**
@@ -920,7 +943,11 @@
     */
     function exec_goto($a, $b=NULL, $c=NULL)
     {
-      return $this->exec('Goto', trim("$a|$b|$c", '|'));
+    	$parms = array("$a");
+    	if ($b) array_push($parms,$b);
+    	if ($c) array_push($parms,$c);
+    	
+      return $this->exec('Goto', $parms);
     }
 
 
