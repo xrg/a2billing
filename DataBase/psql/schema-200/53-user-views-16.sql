@@ -101,6 +101,25 @@ CREATE OR REPLACE RULE realtime16_sip_update_rd AS ON UPDATE TO realtime16_sip_r
 
 
 
+CREATE OR REPLACE VIEW realtime16_sip_regstates AS
+SELECT COALESCE(cc_ast_users.peernameb,cc_card.username, cc_booth.peername) AS name,
+	cc_ast_instance.srvid,
+	cc_ast_users.id AS realtime_id,
+	cc_ast_users.host,
+	ipaddr, port,
+	cc_ast_instance.username AS defaultuser,
+	regserver, useragent,
+	cc_ast_instance.sipiax,
+	cc_ast_instance.reg_state
+	
+	FROM cc_ast_users
+		LEFT JOIN cc_ast_instance ON (cc_ast_instance.userid = cc_ast_users.id 
+			AND (/*cc_ast_instance.sipiax = 1 OR*/ cc_ast_instance.sipiax = 5)
+			AND cc_ast_instance.dyn = true )
+		LEFT JOIN cc_card ON (cc_ast_users.card_id = cc_card.id AND cc_card.status <> 0)
+		LEFT JOIN cc_booth ON (cc_ast_users.booth_id = cc_booth.id)
+	WHERE cc_ast_users.has_sip = true ;
+
 
 GRANT all ON realtime16_sip_peers TO a2b_group ;
 GRANT all ON realtime16_sip_regs TO a2b_group ;

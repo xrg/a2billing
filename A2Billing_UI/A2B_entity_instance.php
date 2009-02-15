@@ -34,6 +34,7 @@ $HD_Form->model[] = new TextField(_("User Name"),'username');
 $sipiax_list = array();
 $sipiax_list[] = array('1','SIP');
 $sipiax_list[] = array('2','IAX');
+$sipiax_list[] = array('5','SIP register');
 $HD_Form->model[] = new RefField(_("Mode"), "sipiax", $sipiax_list);
 
 $HD_Form->model[] = new TextFieldN(_("IP"),'ipaddr');

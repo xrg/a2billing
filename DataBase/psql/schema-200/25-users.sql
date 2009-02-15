@@ -122,6 +122,14 @@ CREATE TABLE cc_ast_instance (
     PRIMARY KEY(userid,srvid,sipiax)
 );
 
+/** reg_state values:
+    0	n/a
+    1	idle
+    2	pruned (instance can be removed from db)
+    3	new (must be sent to asterisk)
+    5	to prune (prune command must be sent to asterisk)
+*/
+
 
 --     accountcode VARCHAR(20),    -- Card username!
 --     callerid VARCHAR(80),	-- Fwd the clid that will be picked by the algo...

@@ -298,7 +298,7 @@ class TimeOutException extends Exception{
 		if($res['Response'] != 'Success')
 		{
 			$this->log("Failed to login.");
-			$this->disconnect();
+		        fclose($this->socket);
 			return false;
 		}
 	}catch(Exception $ex){
