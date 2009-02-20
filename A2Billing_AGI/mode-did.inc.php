@@ -330,6 +330,8 @@ while ($didrow = $didres->fetchRow()){
 		if ($special_only && ($dialstr !==true))
 			continue;
 
+		$route['call_uniqueid']=$uniqueid;
+		
 		if ($dialstr === null){
 			$last_prob='unreachable';
 			continue;

@@ -28,8 +28,8 @@ function groupstr_analyze($gstr){
 	return $ret;
 }
 
-function groupDial($dialnum,$route, $card,$card_money,&$last_prob,$agi){
-	global $a2b;
+function groupDial($dialnum,$route, $card,$card_money,&$last_prob,$agi, $attempt){
+	global $a2b, $mode;
 	// First, parse *our* string, so that we can form the
 	// destinations.
 	$gstr = $route['providerip'];
@@ -160,15 +160,17 @@ function groupDial($dialnum,$route, $card,$card_money,&$last_prob,$agi){
 	$agi->conlog("Setting clid to : ".$agg_route['clid'],3);
 	$agi->set_variable('CALLERID(num)',$agg_route['clid']);
 		
-		// Construct a unique id with .. + trunkid.
-	$uniqueid=$agi->request['agi_uniqueid'].'-'.$route['trunkid'];
+	if (!empty($route['call_uniqueid']))
+		$uniqueid= $route['call_uniqueid'];
+	else // Construct a unique id with .. + trunkid.
+		$uniqueid=$agi->request['agi_uniqueid'].'-'.$route['trunkid'];
 			
 	$res = $a2b->DBHandle()->Execute('INSERT INTO cc_call (cardid, attempt, cmode, '.
 		'sessionid, uniqueid, nasipaddress, src, ' .
 		'calledstation, destination, '.
 		'srid, brid, tgid, trunk) '.
-		'VALUES( ?,1,?,?,?,?,?,?,?,?,?,?,?) RETURNING id;',
-		array($card['id'], 'standard',
+		'VALUES( ?,?,?,?,?,?,?,?,?,?,?,?,?) RETURNING id;',
+		array($card['id'], $attempt, $mode,
 			$agi->request['agi_channel'],$uniqueid,NULL,$card['username'],
 			$dialnum,$route['destination'],
 			$route['srid'],$route['brid'],$route['tgid'],$route['trunkid']));

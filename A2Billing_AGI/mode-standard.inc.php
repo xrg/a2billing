@@ -167,6 +167,12 @@ for($num_try = 0;$num_try<getAGIconfig('number_try',1);$num_try++){
 		if ($special_only && ($dialstr !==true))
 			continue;
 		
+		if ($num_try==0)
+			$uniqueid=$agi->request['agi_uniqueid'];
+		else
+			$uniqueid=$agi->request['agi_uniqueid'].'-'.$num_try;
+		$route['call_uniqueid']=$uniqueid;
+
 		if ($dialstr === null){
 			$last_prob='unreachable';
 			continue;
@@ -211,12 +217,7 @@ for($num_try = 0;$num_try<getAGIconfig('number_try',1);$num_try++){
 			// engine may have changed it.
 		$agi->conlog("Setting clid to : $new_clid",3);
 		$agi->set_variable('CALLERID(num)',$new_clid);
-		
-		if ($num_try==0)
-			$uniqueid=$agi->request['agi_uniqueid'];
-		else
-			$uniqueid=$agi->request['agi_uniqueid'].'-'.$num_try;
-			
+					
 		$res = $a2b->DBHandle()->Execute('INSERT INTO cc_call (cardid, attempt, cmode, '.
 			'sessionid, uniqueid, nasipaddress, src, ' .
 			'calledstation, destination, '.

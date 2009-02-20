@@ -20,7 +20,7 @@ function dialSpecial($dialnum,$route, $card,$card_money,&$last_prob,$agi, $attem
 	switch ($route['trunkfmt']){
 	case 9: // Group dial
 		require_once("groupdial.inc.php");
-		return groupDial($dialnum,$route, $card,$card_money,$last_prob,$agi);
+		return groupDial($dialnum,$route, $card,$card_money,$last_prob,$agi, $attempt);
 		break; // group 
 	case 10:
 		$dialn = array($card['numplan'],$dialnum);
