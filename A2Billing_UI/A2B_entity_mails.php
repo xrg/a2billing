@@ -5,6 +5,7 @@ require_once (DIR_COMMON."Form.inc.php");
 require_once (DIR_COMMON."Class.HelpElem.inc.php");
 require_once (DIR_COMMON."Form/Class.RefField.inc.php");
 require_once (DIR_COMMON."Form/Class.SqlRefField.inc.php");
+require_once (DIR_COMMON."Form/Class.TimeField.inc.php");
 
 $menu_section='menu_admin';
 HelpElem::DoHelp(_("Mails sent or queued."));
@@ -18,6 +19,8 @@ $PAGE_ELEMS[] = new AddNewButton($HD_Form);
 
 $HD_Form->model[] = new PKeyFieldEH(_("ID"),'id');
 $HD_Form->model[] = new TextFieldEH(_("To"),'tomail',_("Name and mail of recepient"));
+$HD_Form->model[] = new DateTimeField(_("Date"), "tstamp", _("Date and time the mail was posted."));
+
 $HD_Form->model[] = new SqlRefField(_("Type"),'tmail_id','cc_templatemail','id','mtype');
 	end($HD_Form->model)->combofield = "mtype || '/' ||lang";
 

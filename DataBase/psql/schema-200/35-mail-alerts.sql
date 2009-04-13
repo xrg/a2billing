@@ -30,6 +30,7 @@ CREATE TABLE cc_mailings (
     id BIGSERIAL PRIMARY KEY,
     tmail_id INTEGER NOT NULL REFERENCES cc_templatemail(id),
     state INTEGER NOT NULL DEFAULT 1,
+    tstamp TIMESTAMP NOT NULL DEFAULT now(),
     tomail TEXT NOT NULL,
     args  TEXT,
     icomments TEXT,

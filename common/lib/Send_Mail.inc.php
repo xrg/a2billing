@@ -28,8 +28,11 @@ function Send_Mails($dbg = 1,$dry = false){
 	if( $dbg>2)
 		echo "Mailer: start\n";
 	
+	$sqlTimeFmt= _("YYYY-MM-DD HH24:MI:SS TZ");
+	
 	// TODO: not only select, but lock mails in 'sending' state.
-	$qry = "SELECT cc_mailings.id AS id, mtype, fromname, fromemail, subject, message, defargs, tomail, args
+	$qry = "SELECT cc_mailings.id AS id, mtype, fromname, fromemail, subject, 
+		message, defargs, tomail, args, to_char(tstamp,'$sqlTimeFmt') AS mdate
 		FROM cc_templatemail, cc_mailings
 		WHERE cc_mailings.tmail_id = cc_templatemail.id
 		AND (state = 1 OR state = 5);";
