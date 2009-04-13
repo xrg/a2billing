@@ -65,6 +65,7 @@ function Send_Mails($dbg = 1,$dry = false){
 		// Format parameters
 		$defargs = array();
 		parse_str($row['defargs'],$defargs);
+		$defargs['mdate'] = $row['mdate'];
 		$toargs = array();
 		parse_str($row['args'],$toargs);
 		
