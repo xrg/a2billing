@@ -239,13 +239,13 @@
       $this->conlog(print_r($this->request, true),3);
       
       if (!empty($this->request['agi_version']))
-           $this->astversion = $agi->request['agi_version'];
+           $this->astversion = $this->request['agi_version'];
 
-      $this->astversion=$this->GetCfgVar(NULL,'ast_version',$agi_astversion);
-      $this->astmajor=$this->GetCfgVar(NULL,'ast_major',substr($agi_astversion ,0,3));
+      $this->astversion=$this->GetCfgVar(NULL,'ast_version',$this->astversion);
+      $this->astmajor=$this->GetCfgVar(NULL,'ast_major',substr($this->astversion ,0,3));
       if ($this->astmajor == "1.6")
            $this->ast_sep = ',';
-
+	   
 	  // DONT WANT TO READ THE INTERNAL CONFIG
       /* $this->conlog('PHPAGI internal configuration:');
       $this->conlog(print_r($this->config, true));*/
