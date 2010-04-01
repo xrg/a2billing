@@ -55,7 +55,8 @@ SELECT COALESCE(cc_ast_users.peernameb,cc_card.username, cc_booth.peername) AS n
 	ipaddr , port, regseconds,
 	cc_ast_instance.username AS defaultuser, COALESCE(fullcontact,'')::varchar(80) AS fullcontact, 
 	regserver, useragent,
-	(CASE WHEN cc_ast_instance.sipiax = 5 THEN 's' ELSE NULL END) AS callbackextension
+	(CASE WHEN cc_ast_instance.sipiax = 5 THEN 's' ELSE NULL END) AS callbackextension,
+	cc_ast_instance.lastms
 	
 	FROM cc_ast_users
 		LEFT JOIN cc_ast_instance ON (cc_ast_instance.userid = cc_ast_users.id 
@@ -76,16 +77,17 @@ CREATE OR REPLACE RULE realtime16_sip_update_ri AS ON UPDATE TO realtime16_sip_r
 	WHERE OLD.ipaddr IS NULL AND NULLIF(NEW.ipaddr,'') IS NOT NULL
 	DO INSTEAD
 	INSERT INTO cc_ast_instance(userid, srvid, dyn,sipiax,ipaddr,port, regseconds,
-			username, fullcontact, regserver, useragent)
+			username, fullcontact, regserver, useragent, lastms)
 		VALUES(NEW.realtime_id, ( SELECT id from cc_a2b_server WHERE db_username = current_user),
-			true,1,NEW.ipaddr,NEW.port,NEW.regseconds,NEW.defaultuser,NEW.fullcontact,NEW.regserver, NEW.useragent);
+			true,1,NEW.ipaddr,NEW.port,NEW.regseconds,NEW.defaultuser,NEW.fullcontact,NEW.regserver, 
+			NEW.useragent, NEW.lastms);
 
 CREATE OR REPLACE RULE realtime16_sip_update_r3 AS ON UPDATE TO realtime16_sip_regs
 	WHERE OLD.ipaddr IS NOT NULL AND NULLIF(NEW.ipaddr,'') IS NOT NULL
 	DO INSTEAD
 	UPDATE cc_ast_instance SET ipaddr = NEW.ipaddr, port = NEW.port, regseconds = NEW.regseconds,
 			username = NEW.defaultuser, fullcontact = NEW.fullcontact, regserver = NEW.regserver,
-			useragent = NEW.useragent
+			useragent = NEW.useragent, lastms = NEW.lastms
 		WHERE userid = OLD.realtime_id
 		  AND dyn = true
 		AND srvid = ( SELECT id from cc_a2b_server WHERE db_username = current_user);
