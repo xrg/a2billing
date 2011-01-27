@@ -1,13 +1,13 @@
 <?php
 require_once ("./lib/defines.php");
 require_once ("./lib/module.access.php");
-require_once (DIR_COMMON."Form.inc.php");
-require_once (DIR_COMMON."Form/Class.SqlActionForm.inc.php");
-require_once (DIR_COMMON."Class.HelpElem.inc.php");
-/*require_once (DIR_COMMON."Form/Class.RevRef.inc.php");*/
-require_once (DIR_COMMON."Form/Class.TimeField.inc.php");
-require_once (DIR_COMMON."Form/Class.SqlRefField.inc.php");
-require_once (DIR_COMMON."Class.JQuery.inc.php");
+require_once ("a2blib/Form.inc.php");
+require_once ("a2blib/Form/Class.SqlActionForm.inc.php");
+require_once ("a2blib/Class.HelpElem.inc.php");
+/*require_once ("a2blib/Form/Class.RevRef.inc.php");*/
+require_once ("a2blib/Form/Class.TimeField.inc.php");
+require_once ("a2blib/Form/Class.SqlRefField.inc.php");
+require_once ("a2blib/Class.JQuery.inc.php");
 
 $menu_section='menu_ratecard';
 

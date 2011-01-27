@@ -1,9 +1,9 @@
 <?php
 require_once ("./lib/defines.php");
 require_once ("./lib/module.access.php");
-require_once (DIR_COMMON."Form.inc.php");
-require_once (DIR_COMMON."Class.HelpElem.inc.php");
-require_once (DIR_COMMON."Form/Class.SqlRefField.inc.php");
+require_once ("a2blib/Form.inc.php");
+require_once ("a2blib/Class.HelpElem.inc.php");
+require_once ("a2blib/Form/Class.SqlRefField.inc.php");
 
 $menu_section='menu_config';
 HelpElem::DoHelp(_("Mail templates are preset messages to be sent on alerts etc."));
@@ -26,8 +26,8 @@ $HD_Form->model[] = dontList(new TextAreaField(_("Default args."),'defargs',_("D
 
 $HD_Form->model[] = new DelBtnField();
 
-require_once(DIR_COMMON."Form/Class.ImportView.inc.php");
-require_once(DIR_COMMON."Class.DynConf.inc.php");
+require_once("a2blib/Form/Class.ImportView.inc.php");
+require_once("a2blib/Class.DynConf.inc.php");
 
 $HD_Form->views['ask-import'] = new AskImportView();
 $HD_Form->views['import-analyze'] = new ImportMailAView($HD_Form->views['ask-import']);

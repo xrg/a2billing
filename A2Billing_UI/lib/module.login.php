@@ -1,8 +1,8 @@
 <?php
 
 $FG_DEBUG=0;
-require_once(DIR_COMMON."Class.A2Billing.inc.php");
-require_once(DIR_COMMON."Class.Logger.inc.php");
+require_once("./lib/Class.A2Billing.inc.php");
+require_once("./lib/Class.Logger.inc.php");
 
 if (!isset($_SERVER['HTTPS'])){
 	if ($FG_DEBUG==0)

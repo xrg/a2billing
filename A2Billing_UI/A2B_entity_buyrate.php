@@ -1,13 +1,13 @@
 <?php
 require_once ("./lib/defines.php");
 require_once ("./lib/module.access.php");
-require_once (DIR_COMMON."Form.inc.php");
-require_once (DIR_COMMON."Class.HelpElem.inc.php");
-require_once (DIR_COMMON."Form/Class.SqlRefField.inc.php");
-require_once (DIR_COMMON."Form/Class.RevRef.inc.php");
-require_once (DIR_COMMON."Form/Class.TextSearchField.inc.php");
-require_once (DIR_COMMON."Form/Class.ClauseField.inc.php");
-require_once (DIR_COMMON."Form/Class.SelectionForm.inc.php");
+require_once ("a2blib/Form.inc.php");
+require_once ("a2blib/Class.HelpElem.inc.php");
+require_once ("a2blib/Form/Class.SqlRefField.inc.php");
+require_once ("a2blib/Form/Class.RevRef.inc.php");
+require_once ("a2blib/Form/Class.TextSearchField.inc.php");
+require_once ("a2blib/Form/Class.ClauseField.inc.php");
+require_once ("a2blib/Form/Class.SelectionForm.inc.php");
 $menu_section='menu_ratecard';
 
 HelpElem::DoHelp(gettext("Buy rates are the prices paid to the provider for some destination."));
@@ -54,8 +54,8 @@ $HD_Form->model[] = new FloatField(_("Quality"),'quality',"");
 if ($HD_Form->getAction()!='tooltip')
 	$HD_Form->model[] = new DelBtnField();
 
-require_once(DIR_COMMON."Form/Class.ImportView.inc.php");
-require_once(DIR_COMMON."Class.DynConf.inc.php");
+require_once("a2blib/Form/Class.ImportView.inc.php");
+require_once("a2blib/Class.DynConf.inc.php");
 
 $HD_Form->views['ask-import'] = new AskImportView();
 $HD_Form->views['import-analyze'] = new ImportAView($HD_Form->views['ask-import']);

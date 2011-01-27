@@ -9,7 +9,7 @@ if (! has_rights (ACX_MISC)){
 	   die();
 
 }
-require_once(DIR_COMMON."Form/Class.FormHandler.inc.php");
+require_once("a2blib/Form/Class.FormHandler.inc.php");
 require_once("./form_data/FG_var_config_group.inc");
 
 

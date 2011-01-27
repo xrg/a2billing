@@ -38,6 +38,7 @@ define ("ACX_QUEUES",		0x80000);
 define ("ACX_NETMON",		0x100000);
 
 define("ACX_ROOT",		0x1FFFFF);
+define('DEFAULT_CONFIG', '/etc/a2billing.conf');
 
 header("Expires: Sat, Jan 01 2000 01:01:01 GMT");
 //echo "PHP_AUTH_USER : $PHP_AUTH_USER";
@@ -50,7 +51,7 @@ if (!isset($_SESSION)) {
 $URI = $_SERVER['REQUEST_URI'];
 $restircted_url = substr($URI,-16);
 if(($restircted_url != "PP_intro.php") && ($restircted_url != "signup/index.php")) {
-	require_once(DIR_COMMON."Class.Logger.inc.php");
+	require_once("./lib/Class.Logger.inc.php");
 	if (!isset($log))
 		$log= new Logger(); // TODO: instance
 	$log -> insertLog($_SESSION['pr_userid'], 1, "Page Visit", "User Visited the Page", '', $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'],'');
@@ -59,7 +60,7 @@ if(($restircted_url != "PP_intro.php") && ($restircted_url != "signup/index.php"
 
 
 if (isset($_GET["logout"]) && $_GET["logout"]=="true") {
-require_once(DIR_COMMON."Class.Logger.inc.php");
+	require_once("./lib/Class.Logger.inc.php");
 	if (!isset($log))
 		$log = new Logger(/*new Config()*/); //TODO..
 	$log -> insertLog($_SESSION['pr_userid'], 1, "USER LOGGED OUT", "User Logged out from website", '', $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI'],'');
@@ -99,7 +100,7 @@ if (isset($_GET['debug']) && is_numeric($_GET['debug']))
 elseif (isset($_SESSION['FG_DEBUG']))
 	$FG_DEBUG =$_SESSION['FG_DEBUG'];
 
-require_once(DIR_COMMON."languageSettings.inc.php");
+require_once("a2blib/LangUtils.inc.php");
 
 	// Note: we override only on GET requests! The one that comes
 	// from the login is a POST and should be discarded in favour

@@ -1,9 +1,9 @@
 <?php
 include ("./lib/defines.php");
 include ("./lib/module.access.php");
-include (DIR_COMMON."Form.inc.php");
-include (DIR_COMMON."Class.HelpElem.inc.php");
-include (DIR_COMMON."Form/Class.SqlRefField.inc.php");
+include ("a2blib/Form.inc.php");
+include ("a2blib/Class.HelpElem.inc.php");
+include ("a2blib/Form/Class.SqlRefField.inc.php");
 
 $menu_section='menu_servers';
 

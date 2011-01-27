@@ -1,16 +1,16 @@
 <?php
 require_once ("./lib/defines.php");
 require_once ("./lib/module.access.php");
-require_once (DIR_COMMON."Form.inc.php");
-// require_once (DIR_COMMON."Class.HelpElem.inc.php");
-require_once (DIR_COMMON."Form/Class.SqlRefField.inc.php");
-require_once (DIR_COMMON."Form/Class.TimeField.inc.php");
-require_once (DIR_COMMON."Form/Class.ClauseField.inc.php");
-require_once (DIR_COMMON."Form/Class.ListSumView.inc.php");
-require_once (DIR_COMMON."Form/Class.SumMultiView.inc.php");
-require_once (DIR_COMMON."Form/Class.RevRefForm.inc.php");
+require_once ("a2blib/Form.inc.php");
+// require_once ("a2blib/Class.HelpElem.inc.php");
+require_once ("a2blib/Form/Class.SqlRefField.inc.php");
+require_once ("a2blib/Form/Class.TimeField.inc.php");
+require_once ("a2blib/Form/Class.ClauseField.inc.php");
+require_once ("a2blib/Form/Class.ListSumView.inc.php");
+require_once ("a2blib/Form/Class.SumMultiView.inc.php");
+require_once ("a2blib/Form/Class.RevRefForm.inc.php");
 
-require_once (DIR_COMMON."Class.SqlActionElem.inc.php");
+require_once ("a2blib/Class.SqlActionElem.inc.php");
 
 $menu_section='menu_invoicing';
 

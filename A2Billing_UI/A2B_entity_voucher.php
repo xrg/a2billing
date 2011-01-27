@@ -1,16 +1,16 @@
 <?php
 require_once ("./lib/defines.php");
 require_once ("./lib/module.access.php");
-require_once (DIR_COMMON."Form.inc.php");
-require_once (DIR_COMMON."Class.HelpElem.inc.php");
-require_once (DIR_COMMON."Form/Class.SqlRefField.inc.php");
-require_once (DIR_COMMON."Form/Class.VolField.inc.php");
-require_once (DIR_COMMON."Form/Class.TimeField.inc.php");
-require_once (DIR_COMMON."Form/Class.ClauseField.inc.php");
-require_once (DIR_COMMON."Form/Class.TextSearchField.inc.php");
-require_once (DIR_COMMON."Form/Class.SelectionForm.inc.php");
-require_once (DIR_COMMON."Form/Class.ListTeXView.inc.php");
-require_once (DIR_COMMON."Form/Class.ListCsvView.inc.php");
+require_once ("a2blib/Form.inc.php");
+require_once ("a2blib/Class.HelpElem.inc.php");
+require_once ("a2blib/Form/Class.SqlRefField.inc.php");
+require_once ("a2blib/Form/Class.VolField.inc.php");
+require_once ("a2blib/Form/Class.TimeField.inc.php");
+require_once ("a2blib/Form/Class.ClauseField.inc.php");
+require_once ("a2blib/Form/Class.TextSearchField.inc.php");
+require_once ("a2blib/Form/Class.SelectionForm.inc.php");
+require_once ("a2blib/Form/Class.ListTeXView.inc.php");
+require_once ("a2blib/Form/Class.ListCsvView.inc.php");
 
 $menu_section='menu_billing';
 

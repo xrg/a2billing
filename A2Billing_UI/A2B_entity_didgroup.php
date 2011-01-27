@@ -1,10 +1,10 @@
 <?php
 require_once ("./lib/defines.php");
 require_once ("./lib/module.access.php");
-require_once (DIR_COMMON."Form.inc.php");
-require_once (DIR_COMMON."Class.HelpElem.inc.php");
-require_once (DIR_COMMON."Form/Class.RevRef2.inc.php");
-require_once (DIR_COMMON."Form/Class.SqlRefField.inc.php");
+require_once ("a2blib/Form.inc.php");
+require_once ("a2blib/Class.HelpElem.inc.php");
+require_once ("a2blib/Form/Class.RevRef2.inc.php");
+require_once ("a2blib/Form/Class.SqlRefField.inc.php");
 
 $menu_section='menu_did';
 
