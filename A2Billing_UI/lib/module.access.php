@@ -100,46 +100,5 @@ if (isset($_GET['debug']) && is_numeric($_GET['debug']))
 elseif (isset($_SESSION['FG_DEBUG']))
 	$FG_DEBUG =$_SESSION['FG_DEBUG'];
 
-require_once("a2blib/LangUtils.inc.php");
-
-	// Note: we override only on GET requests! The one that comes
-	// from the login is a POST and should be discarded in favour
-	// of the db value.
-
-    if (isset($_GET['language'])){ 
-    	if ($FG_DEBUG >0) echo "<!-- lang explicitly set to ".$_GET['language'] ."-->\n";
-      $_SESSION["language"] = $_GET['language'];
-    }
-    elseif(isset($_SESSION["lang_db"])){
-    		foreach($language_list as $lang)
-    		if ($lang['abbrev'] == $_SESSION["lang_db"])
-    			$_SESSION["language"] = $lang['cname'];
-    		if ($FG_DEBUG >0) trigger_error("Lang Selected by db: ". $_SESSION["language"], E_USER_NOTICE);
-    }
-    elseif (!isset($_SESSION["language"]))
-    {
-    	$_SESSION["language"]=negot_language('english');
-    }
-
-    define ("LANGUAGE",$_SESSION["language"]);
-	//include (FSROOT."lib/languages/".LANGUAGE.".php");
-	//define ("LANGUAGE_DIR",FSROOT."lib/languages/".LANGUAGE."/");
-
-    $lang_abbr=SetLocalLanguage($_SESSION["language"]);
-    if ($FG_DEBUG >5) trigger_error("lang abbr: $lang_abbr",E_USER_NOTICE);
-    
-//     if (isset($_SESSION['agent_id']) && ($_SESSION['cus_rights'] != 0) && isset($_SESSION["lang_db"]) && ($_SESSION["lang_db"]) != $lang_abbr) {
-//     	$DBconn_tmp=DbConnect();
-//     	$QUERY="UPDATE cc_agent SET language = ". $DBconn_tmp->Quote($lang_abbr) .
-//     		", locale = " . $DBconn_tmp->Quote(getenv("LANG")) .
-//     		" WHERE id = " . $DBconn_tmp->Quote($_SESSION['agent_id']) . ';' ;
-//     	$res = $DBconn_tmp -> query($QUERY);
-//     	$_SESSION["lang_db"]=$lang_abbr ;
-//     	//echo $QUERY;
-//     	if (!$res) {
-//     		trigger_error("Set language to db failed:" . $DBconn_tmp->ErrorMsg(),E_USER_WARNING);
-//     	}
-//     	//DbDisconnect($DBconn_tmp);
-//     }
-
+require_once("lang-settings.inc.php");
 ?>

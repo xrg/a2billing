@@ -1,6 +1,6 @@
 <?php
 require('./lib/defines.php');
-require_once("a2blib/LangUtils.inc.php");
+require_once("lang-settings.inc.php");
 
 if (isset($_GET['language']))
 	$tmp_language = $_GET['language'];

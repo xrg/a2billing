@@ -2,7 +2,7 @@
 require_once ("./lib/defines.php");
 require_once("a2blib/Class.ElemBase.inc.php");
 require_once ("./lib/module.access.php");
-include_once ("a2blib/LangUtils.inc.php");
+include_once ("lang-settings.inc.php");
 
 class IntroPage extends ElemBase{
 	function Render(){
