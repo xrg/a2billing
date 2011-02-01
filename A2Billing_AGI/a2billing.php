@@ -54,20 +54,15 @@ pcntl_signal(SIGINT, 'sig_handler');
 
 error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
 
-define(AGI_LIBDIR, dirname(__FILE__)."/libs_a2billing/");
-
-require_once(AGI_LIBDIR.'Class.Config.inc.php');
-require_once(AGI_LIBDIR."Class.A2Billing.inc.php");
-require_once(AGI_LIBDIR."Misc.inc.php");
-require_once(AGI_LIBDIR.'Class.DynConf.inc.php');
-require_once(AGI_LIBDIR."/phpagi/phpagi.php");
-// include (dirname(__FILE__)."/libs_a2billing/phpagi_2_14/phpagi-asmanager.php");
-// include (dirname(__FILE__)."/libs_a2billing/Misc.php");
+require_once('a2blib/Class.Config.inc.php');
+require_once('a2blib/Misc.inc.php');
+require_once('a2blib/Class.DynConf.inc.php');
+require_once('./phpagi/phpagi.php');
 
 $charge_callback=0;
 $G_startime = time();
-$agi_date = "Release : you'd wish";
-$agi_version = "Asterisk2Billing - Version v200/xrg - Alpha";
+$agi_date = "Release: lost";
+$agi_version = "Asterisk2Billing - Version v220/xrg - Alpha";
 $conf_file = NULL;
 
 if ($argc > 1 && ($argv[1] == '--version' || $argv[1] == '-V'))
@@ -87,10 +82,15 @@ if ($argc > 1 && ($argv[1] == '--verbose' || $argv[1] == '-v')){
 
 if ($argc > 1 && ($argv[1] == '--test')){
 	AGI::verbose_s("Testing mode!",0);
-	define('DEFAULT_A2BILLING_CONFIG', "../a2billing.conf");
+	define('DEFAULT_CONFIG', "../a2billing.conf");
 	array_shift($argv);
 	$argc--;
+} else {
+	define('DEFAULT_CONFIG', '/etc/a2billing.conf');
 }
+
+
+require_once('./Class.A2Billing.inc.php');
 
 // create the objects
 $a2b = A2Billing::instance();
