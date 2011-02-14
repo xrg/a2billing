@@ -1,6 +1,5 @@
 /* Realtime views for asterisk 1.6 */
 
-/*-* temp: */
 DROP VIEW IF EXISTS realtime16_sip_peers;
 DROP VIEW IF EXISTS realtime16_sip_regs;
 
@@ -61,7 +60,7 @@ SELECT COALESCE(cc_ast_users.peernameb,cc_card.username, cc_booth.peername) AS n
 	FROM cc_ast_users
 		LEFT JOIN cc_ast_instance ON (cc_ast_instance.userid = cc_ast_users.id 
 			AND (cc_ast_instance.sipiax = 1 OR cc_ast_instance.sipiax = 5)
-			AND cc_ast_instance.dyn = true
+			-- AND cc_ast_instance.dyn = true
 			AND cc_ast_instance.srvid = ( SELECT id from cc_a2b_server 
 				WHERE db_username = current_user))
 		LEFT JOIN cc_card ON (cc_ast_users.card_id = cc_card.id AND cc_card.status <> 0)
