@@ -1,24 +1,22 @@
 # Asterisk 2 Billing software
-%define git_repodir /home/panos/Δουλειά/MinMax/a2b/
-%define git_repo asterisk2billing
-%define git_head v200-nmmodule
-
-%define name a2billing
-%define version %{git_get_ver}nm
-%define release %{git_get_rel}
+%define git_repo a2billing
+%define git_head HEAD
+%define version %git_get_ver
 
 %undefine __find_provides
 %undefine __find_requires
 
-Name:		%{name}
+%define astvardir	/var/lib/asterisk
+
+Name:		a2billing
 Version:	%{version}
-Release:	%{release}
+Release:	%{git_get_rel}
 Summary:	Asterisk 2 Billing platform
 Group:		System/Servers
 BuildArch:	noarch
 Prefix:		%{_datadir}
 License:	GPL
-Source0:	a2billing-%{version}.tar.gz
+Source0:	%git_bs_source a2billing-%{version}.tar.gz
 URL: 		http://www.asterisk2billing.org
 
 BuildRequires:	gettext
@@ -263,32 +261,44 @@ cp -R  common/javascript/* %{buildroot}%{_datadir}/a2billing/common/javascript
 cp -R  common/lib/* %{buildroot}%{_datadir}/a2billing/common/lib
 cp -R  Cronjobs/* %{buildroot}%{_datadir}/a2billing/scripts
 
-install -d %{buildroot}%{_localstatedir}/asterisk/agi-bin
-install -d %{buildroot}%{_localstatedir}/asterisk/agi-bin/libs_a2billing
-install -d %{buildroot}%{_localstatedir}/asterisk/agi-bin/libs_a2billing/adodb
-install -d %{buildroot}%{_localstatedir}/asterisk/agi-bin/libs_a2billing/adodb/drivers
-install -d %{buildroot}%{_localstatedir}/asterisk/agi-bin/libs_a2billing/adodb/session
-install -d %{buildroot}%{_localstatedir}/asterisk/agi-bin/libs_a2billing/phpagi
-cp -R  A2Billing_AGI/*.php %{buildroot}%{_localstatedir}/asterisk/agi-bin/
+install -d %{buildroot}%{astvardir}/agi-bin
+install -d %{buildroot}%{astvardir}/agi-bin/libs_a2billing
+install -d %{buildroot}%{astvardir}/agi-bin/libs_a2billing/adodb
+install -d %{buildroot}%{astvardir}/agi-bin/libs_a2billing/adodb/drivers
+install -d %{buildroot}%{astvardir}/agi-bin/libs_a2billing/adodb/session
+install -d %{buildroot}%{astvardir}/agi-bin/libs_a2billing/phpagi
+cp -R  A2Billing_AGI/*.php %{buildroot}%{astvardir}/agi-bin/
 
-# selectively install only the required php classes:
-install A2Billing_AGI/libs_a2billing/Class.A2Billing.inc.php \
-	A2Billing_AGI/libs_a2billing/Class.Config.inc.php \
-	A2Billing_AGI/libs_a2billing/Class.DynConf.inc.php \
-	A2Billing_AGI/libs_a2billing/Misc.inc.php \
-	A2Billing_AGI/libs_a2billing/index.php \
-		%{buildroot}%{_localstatedir}/asterisk/agi-bin/libs_a2billing/
+cp -R A2Billing_AGI/ %{buildroot}%{astvardir}/agi-bin/
 
-cp -R  A2Billing_AGI/libs_a2billing/adodb/*.php %{buildroot}%{_localstatedir}/asterisk/agi-bin/libs_a2billing/adodb/
-cp -R  A2Billing_AGI/libs_a2billing/adodb/drivers/*.php %{buildroot}%{_localstatedir}/asterisk/agi-bin/libs_a2billing/adodb/drivers/
-cp -R  A2Billing_AGI/libs_a2billing/adodb/session/*.php %{buildroot}%{_localstatedir}/asterisk/agi-bin/libs_a2billing/adodb/session/
-cp -R  A2Billing_AGI/libs_a2billing/phpagi/*.php %{buildroot}%{_localstatedir}/asterisk/agi-bin/libs_a2billing/phpagi/
-install -d %{buildroot}%{_localstatedir}/asterisk/sounds
-cp -R  addons/sounds/* %{buildroot}%{_localstatedir}/asterisk/sounds
+install -d %{buildroot}%{astvardir}/sounds
+cp -R  addons/sounds/* %{buildroot}%{astvardir}/sounds
 
 cp -R  DataBase/psql/* %{buildroot}%{_datadir}/a2billing/Database
 
 install -d %{buildroot}%{_webappconfdir}
+
+cat '-' > %{buildroot}%{_webappconfdir}/09_a2bcommon.conf << EOF
+<Directory "%{_datadir}/a2billing/common/Images" >
+    Options Indexes MultiViews FollowSymlinks
+    Order deny,allow
+    Allow from all
+#    Allow from 127.0.0.1
+</Directory>
+<Directory "%{_datadir}/a2billing/common/javascript" >
+    Options Indexes MultiViews FollowSymlinks
+    Order deny,allow
+    Allow from all
+#    Allow from 127.0.0.1
+</Directory>
+<Directory "%{_datadir}/a2billing/common/css" >
+    Options Indexes MultiViews FollowSymlinks
+    Order deny,allow
+    Allow from all
+#    Allow from 127.0.0.1
+</Directory>
+EOF
+
 cat '-' > %{buildroot}%{_webappconfdir}/10_a2bagent.conf << EOF
 Alias /agent "%{_datadir}/a2billing/agent"
 <Directory "%{_datadir}/a2billing/agent" >
@@ -300,6 +310,7 @@ Alias /agent "%{_datadir}/a2billing/agent"
 EOF
 
 cat '-' > %{buildroot}%{_webappconfdir}/10_a2badmin.conf << EOF
+Alias /a2badmin/Images "%{_datadir}/a2billing/common/Images"
 Alias /a2badmin "%{_datadir}/a2billing/admin"
 <Directory "%{_datadir}/a2billing/admin" >
     Options Indexes MultiViews FollowSymlinks
@@ -353,6 +364,7 @@ EOF
 %doc %{_datadir}/a2billing/FEATURES_LIST
 #this is wrong: /etc/asterisk may not be o+x
 %attr(0640,asterisk,apache) %config(noreplace) %{_sysconfdir}/a2billing.conf
+%config(noreplace) %{_webappconfdir}/09_a2bcommon.conf
 %{_datadir}/a2billing/common
 
 %files admin
@@ -386,8 +398,8 @@ EOF
 
 %files AGI
 %defattr(-,asterisk,root)
-%attr(0750,root,asterisk) %{_localstatedir}/asterisk/agi-bin/
-%{_localstatedir}/asterisk/sounds/
+%attr(0750,root,asterisk) %{astvardir}/agi-bin/
+%{astvardir}/sounds/
 
 %files dbadmin
 %defattr(-,asterisk,root)
