@@ -100,7 +100,7 @@ for($num_try = 0;$num_try<getAGIconfig('number_try',1);$num_try++){
 	$agi->conlog("Dial number: ". $dialnum,4);
 	
 	// CHECK SPEEDDIAL
-	getSpeedDial ($card, &$dialnum);
+	getSpeedDial ($card, $dialnum);
 	
 	$QRY = str_dbparams($a2b->DBHandle(),'SELECT * FROM RateEngine3(%#1, %2, %#3, now(), %4);',
 		array($card['tgid'],$dialnum,$card['numplan'],$card_money['base']));
