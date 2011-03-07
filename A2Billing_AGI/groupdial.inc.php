@@ -103,7 +103,7 @@ function groupDial($dialnum,$route, $card,$card_money,&$last_prob,$agi, $attempt
 				// We cannot use other special trunks in group.
 				continue;
 			}
-			if ($aroute['clidreplace']!== NULL){
+			if ($aroute['clidreplace']!== NULL && $mode != 'did'){
 				$new_clid = str_alparams($aroute['clidreplace'],
 					array( 'useralias' =>$card['useralias'],
 						'nplan' => $card['numplan'],

@@ -62,9 +62,9 @@ function dialSpecial($dialnum,$route, $card,$card_money,&$last_prob,$agi, $attem
 			$clid = $new_clid;
 		else
 			$clid = $agi->request['agi_callerid'];
-		$params = array( clid=> $clid, agiclid => $agi->request['agi_callerid'],
-				clname=> $clname, agiclname => $agi->request['agi_calleridname'],
-			 last => $last_prob);
+		$params = array( 'clid'=> $clid, 'agiclid'=> $agi->request['agi_callerid'],
+				'clname'=> $clname, 'agiclname' => $agi->request['agi_calleridname'],
+				'last' => $last_prob);
 		$res = $dbhandle->Execute( "SELECT create_mail(?,?,?,?);",
 			array($tmpl,$row['email'],$row['locale'], arr2url($params)));
 		if (!$res){

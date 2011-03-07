@@ -339,7 +339,9 @@ while ($didrow = $didres->fetchRow()){
 			$last_prob='no-dialstring';
 			continue;
 		}elseif($dialstr ===true){
-			if (dialSpecial($dialnum,$route, $card,$card_money,$last_prob,$agi,$attempt))
+			if ($did_clidname != $agi->request['agi_calleridname'])
+				$agi->set_variable('CALLERID(name)',$did_clidname);
+			if (dialSpecial($didrow['dialstring'],$route, $card,$card_money,$last_prob,$agi,$attempt))
 				break;
 			else
 				continue;
