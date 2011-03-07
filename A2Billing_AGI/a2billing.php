@@ -57,7 +57,7 @@ error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
 require_once('a2blib/Class.Config.inc.php');
 require_once('a2blib/Misc.inc.php');
 require_once('a2blib/Class.DynConf.inc.php');
-require_once('./phpagi/phpagi.php');
+require_once('phpagi/phpagi.php');
 
 $charge_callback=0;
 $G_startime = time();
@@ -90,7 +90,7 @@ if ($argc > 1 && ($argv[1] == '--test')){
 }
 
 
-require_once('./Class.A2Billing.inc.php');
+require_once('Class.A2Billing.inc.php');
 
 // create the objects
 $a2b = A2Billing::instance();
