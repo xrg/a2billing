@@ -2,7 +2,8 @@
 require("./lib/defines.php");
 require("a2blib/Misc.inc.php");
 
-getpost_ifset(array('err_type','c'));
+$err_type = getpost_single('err_type');
+$c = getpost_single('c');
 
 if (!isset($err_type)) {
 	$err_type = 0;
