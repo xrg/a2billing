@@ -65,6 +65,7 @@ Requires:	%{name}-common
 Requires:	php-pgsql
 Requires:	php-gettext
 Requires:	php-gd
+Requires:	php-a2blib
 Requires:	apache-base >= 2.2.4
 Requires:	apache-mod_ssl
 Requires:	apache-mod_php >= 5.2.1
@@ -88,6 +89,7 @@ Group:		System/Servers
 Requires:	%{name}-common
 Requires:	php-pgsql
 Requires:	php-gettext
+Requires:	php-a2blib
 Requires:	apache-base >= 2.2.4
 Requires:	apache-mod_ssl
 Requires:	apache-mod_php >= 5.2.1
@@ -107,6 +109,7 @@ Group:		System/Servers
 Requires:	%{name}-common
 Requires:	php-pgsql
 Requires:	php-gettext
+Requires:	php-a2blib
 Requires:	apache-base >= 2.2.4
 Requires:	apache-mod_ssl
 Requires:	apache-mod_php >= 5.2.1
@@ -127,6 +130,7 @@ Group:		System/Servers
 Requires:	%{name}-common
 Requires:	php-pgsql
 Requires:	php-gettext
+Requires:	php-a2blib
 Requires:	apache-base >= 2.2.4
 Requires:	apache-mod_ssl
 Requires:	apache-mod_php >= 5.2.1
@@ -146,6 +150,7 @@ Group:		System/Servers
 Requires:	%{name}-common
 Requires:	php-pgsql
 Requires:	php-gettext
+Requires:	php-a2blib
 Requires:	apache-base >= 2.2.4
 Requires:	apache-mod_ssl
 Requires:	apache-mod_php >= 5.2.1
