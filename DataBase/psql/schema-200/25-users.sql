@@ -30,7 +30,7 @@ CREATE TABLE cc_ast_users_config(
     --NAT:
     nat VARCHAR(6) , -- May be null!
     canreinvite VARCHAR(6) DEFAULT 'nonat'::VARCHAR,
-    insecure VARCHAR(4),
+    insecure VARCHAR(14),
     --RTP:
     rtpkeepalive SMALLINT,
     rtpholdtimeout SMALLINT,
