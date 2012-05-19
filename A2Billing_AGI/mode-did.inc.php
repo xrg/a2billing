@@ -5,14 +5,14 @@
 
 /* Retrieve a card structure from the DID engine query row */
 function getDIDCard($didrow){
-	return array( id => $didrow['card_id'],tgid =>$didrow['tgid'],
-		username =>$didrow['username'], status=> $didrow['card_status'],
-		numplan => $didrow['nplan'], useralias => $didrow['useralias'],
-		features =>$didrow['features']);
+	return array( 'id' => $didrow['card_id'],'tgid' =>$didrow['tgid'],
+		'username' =>$didrow['username'], 'status'=> $didrow['card_status'],
+		'numplan' => $didrow['nplan'], 'useralias' => $didrow['useralias'],
+		'features' =>$didrow['features']);
 }
 
 /** Mark the 1st-leg call */
-function insertCall1($dbh, $card,$did_extension,array $didrow, $last_time,$uniqueid, $agi,$route){
+function insertCall1($dbh, $card,$did_extension,array $didrow, $last_time,$uniqueid, $agi, $route){
 	$res = $dbh->Execute('INSERT INTO cc_call (cardid, attempt, cmode, '.
 		'sessionid, uniqueid, nasipaddress, src, ' .
 		'calledstation, destination, '.
@@ -139,7 +139,7 @@ $last_call= null; //mark the time the last attempt ended
    because SETOF fns() cannot be fed into function arguments in SQL AFAIK */
 while ($didrow = $didres->fetchRow()){
 	$num_try++;
-	$agi->conlog(print_r($didrow['card'],true),4);
+	$agi->conlog(print_r($didrow['card_id'],true),4);
 	$card= getDIDCard($didrow);
 	$agi->conlog('Got card: ' . print_r($card,true),4);
 	if ($card === false)
@@ -163,7 +163,7 @@ while ($didrow = $didres->fetchRow()){
 	// At early answer the start time should be the AGI starttime.
 	$last_call=insertCall1($a2b->DBHandle(), $card,$did_extension, $didrow,
 		($last_call)? $last_call['stoptime']:$didrow['start_time'],
-		$uniqueid, $agi,$route);
+		$uniqueid, $agi,array('destination'=> $did_extension));
 	if ($last_call===false){
 		$last_prob='call-insert';
 		continue;
@@ -261,6 +261,7 @@ while ($didrow = $didres->fetchRow()){
 			$agi->conlog('CLID query:  '.print_r($did_clidreplace,true),3);
 		}
 	}
+	$did_clidname = $agi->request['agi_calleridname'];
 	if (empty($agi->request['agi_calleridname'])|| true || (preg_match('/\^+?[0-9]*$/',$agi->request['agi_calleridname'])>=1)) {
 		$QRY = str_dbparams($a2b->DBHandle(), 'SELECT did_pb_entry.name
 			FROM did_pb_entry, did_phonebook, cc_card
@@ -290,8 +291,8 @@ while ($didrow = $didres->fetchRow()){
 			$did_clidname = $cldrow['name'];
 			$agi->conlog('CLID query:  '.print_r($cldrow,true),3);
 		}
-	}else
-		$did_clidname = $agi->request['agi_calleridname'];
+	}
+		
 
 	try {
 		$attempt = 1;
