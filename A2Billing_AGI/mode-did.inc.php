@@ -163,7 +163,7 @@ while ($didrow = $didres->fetchRow()){
 	// At early answer the start time should be the AGI starttime.
 	$last_call=insertCall1($a2b->DBHandle(), $card,$did_extension, $didrow,
 		($last_call)? $last_call['stoptime']:$didrow['start_time'],
-		$uniqueid, $agi,array('destination'=> $did_extension));
+		$uniqueid, $agi,array('destination'=> ''));
 	if ($last_call===false){
 		$last_prob='call-insert';
 		continue;

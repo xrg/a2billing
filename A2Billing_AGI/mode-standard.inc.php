@@ -193,9 +193,9 @@ for($num_try = 0;$num_try<getAGIconfig('number_try',1);$num_try++){
 		// Callerid
 		if ($route['clidreplace']!== NULL){
 			$new_clid = str_alparams($route['clidreplace'],
-				array( useralias =>$card['useralias'],
-					nplan => $card['numplan'],
-					callernum => $agi->request['agi_callerid']));
+				array( 'useralias' =>$card['useralias'],
+					'nplan' => $card['numplan'],
+					'callernum' => $agi->request['agi_callerid']));
 		}else
 			$new_clid = $agi->request['agi_callerid'];
 			

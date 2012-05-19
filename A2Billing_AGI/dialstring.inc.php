@@ -149,7 +149,7 @@ function formatDialstring_peer($dialn,&$route, &$card,$do_param = true){
 			$str .= getAGIconfig('dialcommand_param','|60|iL(%timeout)%param');
 		$str = str_alparams($str,array ('dialnum' => $dialnum, 'dialnumber' => $dialn, 'dialstring' => $route['dialstring'],
 		'destination' => $route['destination'], 'trunkprefix' => $route['trunkprefix'], 'tech' => $route['providertech'],
-		'providerip' => $route['providerip'], 'prefix' => $route['prefix'], param => $route['trunkparm'],
+		'providerip' => $route['providerip'], 'prefix' => $route['prefix'], 'param' => $route['trunkparm'],
 		'cardnum' => $card['username'], 'stimeout' => $route['tmout'], 'timeout' => (1000*$route['tmout'])));
 
 	}
