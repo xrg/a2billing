@@ -14,7 +14,7 @@ SELECT COALESCE(cc_ast_users.peernameb,cc_card.username, cc_booth.peername) AS n
 		cc_booth.callerid, cc_booth.name) || '" < >' AS callerid,
 	cc_ast_users.id AS realtime_id,
 	"type", "context", videosupport, fromdomain, amaflags, dtmfmode,
-	defaultip, fromuser, host,
+	defaultip, fromuser, host, defport AS port,
 	progressinband, incominglimit, outgoinglimit,
 	nat, canreinvite, insecure,
 	rtpkeepalive, rtpholdtimeout, rtptimeout,
