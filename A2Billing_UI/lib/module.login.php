@@ -4,7 +4,8 @@ $FG_DEBUG=0;
 require_once("./lib/Class.A2Billing.inc.php");
 require_once("./lib/Class.Logger.inc.php");
 
-if (!isset($_SERVER['HTTPS'])){
+if ($_SERVER['SERVER_NAME'] != 'localhost' && $_SERVER['SERVER_ADDR'] != '127.0.0.1'
+	&& !isset($_SERVER['HTTPS'])){
 	if ($FG_DEBUG==0)
 		header ("HTTP/1.0 401 Unauthorized");
 	else

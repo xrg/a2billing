@@ -62,7 +62,11 @@ else
 <?php
 	$server= $_SERVER['SERVER_NAME'];
 	$self_uri=$_SERVER['PHP_SELF'];
-	$safe_url="https://".$server . dirname($self_uri)."/login.php";
+	if ($server == 'localhost' || $_SERVER['SERVER_ADDR'] == '127.0.0.1')
+		$safe_url="http://".$server.":".$_SERVER['SERVER_PORT']. dirname($self_uri)."/login.php";
+	else
+		$safe_url="https://".$server . dirname($self_uri)."/login.php";
+	
 ?>
 	<form name="form" method="POST" action="<?= $safe_url ?>" onsubmit="return test()">
 	<input type="hidden" name="done" value="submit_log">
