@@ -62,7 +62,9 @@ else
 <?php
 	$server= $_SERVER['SERVER_NAME'];
 	$self_uri=$_SERVER['PHP_SELF'];
-	if ($server == 'localhost' || $_SERVER['SERVER_ADDR'] == '127.0.0.1')
+	if (isset($_SERVER['HTTPS'])){
+		$safe_url = dirname($self_uri)."/login.php";
+	}elseif ($server == 'localhost' || $_SERVER['SERVER_ADDR'] == '127.0.0.1')
 		$safe_url="http://".$server.":".$_SERVER['SERVER_PORT']. dirname($self_uri)."/login.php";
 	else
 		$safe_url="https://".$server . dirname($self_uri)."/login.php";
@@ -71,6 +73,7 @@ else
 	<form name="form" method="POST" action="<?= $safe_url ?>" onsubmit="return test()">
 	<input type="hidden" name="done" value="submit_log">
 	<input type="hidden" name="language" value="<?= $tmp_language?>">
+	<input type="hidden" name="continue_ssl" value="<?= isset($_SERVER['HTTPS']) ?>" >
 
   	<?php if (isset($_GET["error"]) && $_GET["error"]==1) { ?>
 		<font face="Arial, Helvetica, Sans-serif" size="2" color="red">
