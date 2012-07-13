@@ -11,7 +11,7 @@ else
 
 {
 	// Taken from defines.php
-	define ("LIBDIR", dirname(__FILE__)."/lib/");
+	// define ("LIBDIR", dirname(__FILE__)."/lib/");
 	SetLocalLanguage($tmp_language);
 }
 
