@@ -36,20 +36,25 @@ CREATE OR REPLACE VIEW realtime_queue_members AS
 	*/
 	;
 
+CREATE OR REPLACE RULE queue_members_update_r AS ON 
+		UPDATE TO realtime_queue_members DO INSTEAD
+	UPDATE ast_queue_member SET paused = NEW.paused
+		WHERE ast_queue_member.id = OLD.uniqueid;
 
 CREATE OR REPLACE VIEW queue_log AS
-	SELECT EXTRACT(EPOCH FROM tstamp) AS "time", callid, queuename,
-		agent, event, 
-		COALESCE(parm1,'') ||'|' || COALESCE(parm2,'') ||'|' || COALESCE(parm3,'')  AS "data",
-		parm1,parm2,parm3
+	SELECT tstamp AS "time", callid, queuename,
+		"agent", event,
+		datas[1] AS data1, datas[2] AS data2, datas[3] AS data3,
+		datas[4] AS data4, datas[5] AS data5
 	   FROM ast_queue_log;
 
+
+
+
 CREATE OR REPLACE RULE queue_log_insert_r AS ON INSERT TO queue_log DO INSTEAD
-	INSERT INTO ast_queue_log(tstamp,callid, queuename,agent,event,parm1,parm2,parm3)
-		VALUES(to_timestamp(NEW."time"),NEW.callid,NEW.queuename,NEW.agent,NEW.event,
-			COALESCE(NEW.parm1,split_part(NEW.data,'|',1)),
-			COALESCE(NEW.parm2,split_part(NEW.data,'|',2)),
-			COALESCE(NEW.parm3,split_part(NEW.data,'|',3)));
+	INSERT INTO ast_queue_log(tstamp,callid, queuename,agent,event,datas)
+		VALUES(NEW."time", NEW.callid, NEW.queuename, NEW.agent, NEW.event,
+			ARRAY[NEW.data1, NEW.data2, NEW.data3, NEW.data4, NEW.data5] );
 
 -- Define a trigger that will parse a queue_log into the appropriate tables, notifications
 
@@ -61,7 +66,7 @@ BEGIN
 		-- that is a new caller in queue here..
 		INSERT INTO ast_queue_callers(queue,callerid,uniqueid,status,ts_join)
 			VALUES( (SELECT id FROM ast_queue WHERE name = NEW.queuename),
-				NEW.parm2,NEW.callid,'joined',now());
+				NEW.datas[2],NEW.callid,'joined',now());
 		IF NOT FOUND THEN
 			RAISE WARNING 'Cannot open new queue call';
 		END IF;
@@ -78,7 +83,7 @@ BEGIN
 
 	IF NEW.event = 'ABANDON' THEN
 		UPDATE ast_queue_callers SET ts_end = now(), status='abandon',
-			holdtime = CAST(NEW.parm3 AS INTEGER)
+			holdtime = CAST(NEW.datas[3] AS INTEGER)
 			WHERE id = qcall_id;
 	ELSIF NEW.event = 'AGENTDUMP' THEN
 		-- Should we keep another table with dumps, status changes?
@@ -87,18 +92,18 @@ BEGIN
 	
 	ELSIF NEW.event = 'CONNECT' THEN
 		UPDATE ast_queue_callers SET ts_connect = now(), status='connect',
-			holdtime = CAST(NEW.parm1 AS INTEGER), brchannel=NEW.parm2, agent=NEW.agent
+			holdtime = CAST(NEW.datas[1] AS INTEGER), brchannel=NEW.datas[2], agent=NEW.agent
 			WHERE id = qcall_id;
 
 	ELSIF NEW.event = 'COMPLETEAGENT' THEN
 		UPDATE ast_queue_callers SET ts_end = now(), status='agent end',
-			holdtime = CAST(NEW.parm1 AS INTEGER),
-			talktime= CAST(NEW.parm2 AS INTEGER) /* , origpos = NEW.parm3 */
+			holdtime = CAST(NEW.datas[1] AS INTEGER),
+			talktime= CAST(NEW.datas[2] AS INTEGER) /* , origpos = NEW.parm3 */
 			WHERE id = qcall_id;
 	ELSIF NEW.event = 'COMPLETECALLER' THEN
 		UPDATE ast_queue_callers SET ts_end = now(), status='caller end',
-			holdtime = CAST(NEW.parm1 AS INTEGER),
-			talktime=CAST(NEW.parm2 AS INTEGER) /* , origpos = NEW.parm3 */
+			holdtime = CAST(NEW.datas[1] AS INTEGER),
+			talktime=CAST(NEW.datas[2] AS INTEGER) /* , origpos = NEW.parm3 */
 			WHERE id = qcall_id;
 	ELSE
 		RAISE WARNING 'Event % cannot be handled!', NEW.event;

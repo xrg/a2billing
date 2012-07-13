@@ -45,13 +45,11 @@ CREATE TABLE ast_queue (
 CREATE TABLE ast_queue_log (
 	id BIGSERIAL PRIMARY KEY,
 	tstamp TIMESTAMP NOT NULL DEFAULT now(),
-	callid TEXT,
-	queuename TEXT,
-	agent TEXT,
-	event TEXT,
-	parm1 TEXT,
-	parm2 TEXT,
-	parm3 TEXT
+	callid VARCHAR(50),
+	queuename VARCHAR(50),
+	"agent" VARCHAR(50),
+	event VARCHAR(50),
+	datas VARCHAR(50)[5]
 );
 
 CREATE TABLE ast_queue_callers (
