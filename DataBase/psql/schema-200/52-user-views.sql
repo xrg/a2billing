@@ -153,15 +153,16 @@ SELECT COALESCE(cc_ast_users.peernameb,cc_card.username, cc_booth.peername) AS n
 	disallow, allow,
 	musiconhold AS mohsuggest, setvar,
 	ipaddr , COALESCE(port, defport) AS port, regseconds,
+	regserver, useragent,
 	cc_card.username AS mailbox,
 	COALESCE(cc_ast_users.callgroup, cc_ast_users_config.callgroup) AS callgroup,
 	COALESCE(cc_ast_users.pickupgroup, cc_ast_users_config.pickupgroup) AS pickupgroup,
 	COALESCE(cc_ast_instance.username,cc_ast_users.peernameb,cc_card.username, cc_booth.peername) AS username
 	
+	
 	FROM cc_ast_users_config, cc_ast_users
 		LEFT JOIN cc_ast_instance ON (cc_ast_instance.userid = cc_ast_users.id 
 			AND cc_ast_instance.sipiax = 2
-			AND cc_ast_instance.dyn = true
 			AND cc_ast_instance.srvid = ( SELECT id from cc_a2b_server 
 				WHERE db_username = current_user))
 		LEFT JOIN cc_card ON (cc_ast_users.card_id = cc_card.id AND cc_card.status <> 0)
